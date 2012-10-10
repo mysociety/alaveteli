@@ -112,9 +112,11 @@ class EximLog < ActiveRecord::Base
         result
     end
 
+    # Retuns nil if there is no queue id
     def EximLog.extract_postfix_queue_id_from_syslog_line(line)
         # Assume the log file was written using syslog and parse accordingly
-        SyslogProtocol.parse("<13>" + line).content.match(/^\S+: (\S+):/)[1]
+        m = SyslogProtocol.parse("<13>" + line).content.match(/^\S+: (\S+):/)
+        m[1] if m
     end
 
     def EximLog.email_addresses_on_line(line)

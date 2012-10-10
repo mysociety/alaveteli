@@ -113,5 +113,11 @@ describe EximLog do
                 }
             end
         end
+
+        describe ".extract_postfix_queue_id_from_syslog_line" do
+            it "returns nil if there is no queue id" do                
+                EximLog.extract_postfix_queue_id_from_syslog_line("Oct  7 07:16:48 kedumba postfix/smtp[14294]: connect to mail.neilcopp.com.au[110.142.151.66]:25: Connection refused").should be_nil
+            end
+        end
     end
 end
