@@ -10,7 +10,7 @@
 #  updated_at :datetime        not null
 #
 
-# Stores that a particular exim file has been loaded in, see exim_log.rb
+# Stores that a particular mail server log file has been loaded in, see mail_server_log.rb
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/

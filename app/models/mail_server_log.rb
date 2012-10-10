@@ -23,7 +23,7 @@ class MailServerLog < ActiveRecord::Base
     belongs_to :info_request
     belongs_to :mail_server_log_done
 
-    # Load in exim log file from disk, or update if we already have it
+    # Load in exim or postfix log file from disk, or update if we already have it
     # Assumes files are named with date, rather than cyclically.
     # Doesn't do anything if file hasn't been modified since it was last loaded.
     # Note: If you do use rotated log files (rather than files named by date), at some
@@ -161,11 +161,11 @@ class MailServerLog < ActiveRecord::Base
         ir.mail_server_logs.any? { |l| l.line.include?("dsn=2.0.0") }
     end
 
-    # Check that the last day of requests has been sent in Exim and we got the
+    # Check that the last day of requests has been sent in Exim or Postfix and we got the
     # lines. Writes any errors to STDERR. This check is really mainly to
     # check the envelope from is the request address, as Ruby is quite
     # flaky with regard to that, and it is important for anti-spam reasons.
-    # XXX does this really check that, as the exim log just wouldn't pick
+    # XXX does this really check that, as the log just wouldn't pick
     # up at all if the requests weren't sent that way as there would be
     # no request- email in it?
     #
@@ -174,7 +174,7 @@ class MailServerLog < ActiveRecord::Base
     #
     def MailServerLog.check_recent_requests_have_been_sent
         # Get all requests sent for from 2 to 10 days ago. The 2 day gap is
-        # because we load exim log lines via cron at best an hour after they
+        # because we load mail server log lines via cron at best an hour after they
         # are made)
         irs = InfoRequest.find(:all, :conditions => [ "created_at < ? and created_at > ? and user_id is not null", Time.now() - 2.day, Time.now() - 10.days ] )
 
