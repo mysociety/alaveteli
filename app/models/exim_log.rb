@@ -56,10 +56,8 @@ class EximLog < ActiveRecord::Base
             done.save!
 
             # scan the file
-            f = is_gz ? Zlib::GzipReader.open(file_name) : File.open(file_name, 'r')
-
             order = 0
-            for line in f
+            (is_gz ? Zlib::GzipReader.open(file_name) : File.open(file_name, 'r')).each do |line|
                 order = order + 1
                 email_domain = Configuration::incoming_email_domain
                 emails = line.scan(/request-[^\s]+@#{email_domain}/).sort.uniq
