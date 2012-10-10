@@ -27,6 +27,8 @@ class EximLog < ActiveRecord::Base
     # Load in exim log file from disk, or update if we already have it
     # Assumes files are named with date, rather than cyclically.
     # Doesn't do anything if file hasn't been modified since it was last loaded.
+    # Note: If you do use rotated log files (rather than files named by date), at some
+    # point old loaded log lines will get deleted in the database.
     def EximLog.load_file(file_name)
         is_gz = file_name.include?(".gz")
         file_name_db = is_gz ? file_name.gsub(".gz", "") : file_name
