@@ -80,7 +80,7 @@ class EximLog < ActiveRecord::Base
         f.rewind
         f.each do |line|
             order = order + 1
-            queue_id = extract_queue_id_from_syslog_line(line)
+            queue_id = extract_postfix_queue_id_from_syslog_line(line)
             if emails.has_key?(queue_id)
                 emails[queue_id].each do |email|
                     info_request = InfoRequest.find_by_incoming_email(email)
@@ -98,14 +98,14 @@ class EximLog < ActiveRecord::Base
         result = {}
         f.each do |line|
             emails = email_addresses_on_line(line)
-            queue_id = extract_queue_id_from_syslog_line(line)
+            queue_id = extract_postfix_queue_id_from_syslog_line(line)
             result[queue_id] = [] unless result.has_key?(queue_id)
             result[queue_id] = (result[queue_id] + emails).uniq
         end
         result
     end
 
-    def EximLog.extract_queue_id_from_syslog_line(line)
+    def EximLog.extract_postfix_queue_id_from_syslog_line(line)
         # Assume the log file was written using syslog and parse accordingly
         SyslogProtocol.parse("<13>" + line).content.match(/^\S+: (\S+):/)[1]
     end
