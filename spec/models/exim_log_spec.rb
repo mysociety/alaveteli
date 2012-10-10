@@ -23,5 +23,21 @@ describe EximLog do
             log.order.should == 2
             log.line.should == "This is the second line for the same foi+request-1234@example.com email address"
         end
+
+        it "doesn't load the log file twice if it's unchanged" do
+            File.stub_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 10))
+            File.should_receive(:open).with("/var/log/exim4/exim-mainlog-2012-10-10", "r").once.and_return([])
+
+            EximLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
+            EximLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
+        end
+
+        it "loads the log file again if it's changed" do
+            File.should_receive(:open).with("/var/log/exim4/exim-mainlog-2012-10-10", "r").twice.and_return([])
+            File.stub_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 10))
+            EximLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
+            File.stub_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 11))
+            EximLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
+        end
     end
 end
