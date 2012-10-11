@@ -341,7 +341,6 @@ msgstr "<strong><code>diminta dari:rumah_kantor</code></strong> untuk mencari pe
 msgid "<strong><code>status:</code></strong> to select based on the status or historical status of the request, see the <a href=\"{{statuses_url}}\">table of statuses</a> below."
 msgstr "<strong><code>status:</code></strong> untuk memilih berdasarkan status atau status historical dari permintaan, lihat <a href=\"{{statuses_url}}\">table status </a> di bawah."
 
-#, fuzzy
 msgid ""
 "<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"

@@ -320,7 +320,6 @@ msgstr "<strong><code>requested_from:consejo_europeo</code></strong> Europako Ko
 msgid "<strong><code>status:</code></strong> to select based on the status or historical status of the request, see the <a href=\"{{statuses_url}}\">table of statuses</a> below."
 msgstr "<strong><code>egoera:</code></strong> eskabidearen oraingo egoera edo egoera historikoaren arabera iragazteko, kontsulta ezazu ondoko <a href=\"{{statuses_url}}\">egoeren taula</a>."
 
-#, fuzzy
 msgid ""
 "<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
