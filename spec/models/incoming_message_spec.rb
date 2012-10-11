@@ -12,6 +12,14 @@ describe IncomingMessage, " when dealing with incoming mail" do
         ActionMailer::Base.deliveries.clear
     end
 
+    it 'should correctly parse multipart mails with a linebreak in the boundary marker' do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('space-boundary.email', ir.incoming_email)
+        message = ir.incoming_messages[1]
+        message.mail.parts.size.should == 2
+        message.mail.multipart?.should == true
+    end
+
     it "should return the mail Date header date for sent at" do
         @im.parse_raw_email!(true)
         @im.reload
