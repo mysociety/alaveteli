@@ -122,10 +122,14 @@ class MailServerLog < ActiveRecord::Base
 
     # We also check the email prefix so that we could, for instance, separately handle a staging and production
     # instance running on the same server with different email prefixes.
+    # We also allow an arbitrary subdomain on the incoming email domain. Why you may ask? Well, if for instance
+    # you're using a "cloud" email provider to handle emails for your domain but you only want to pass the
+    # Alaveteli emails to your own server you need to forward the Alaveteli emails to a different domain, in this
+    # case a subdomain. Then, you make the MX records for the subdomain point at your server.
     def MailServerLog.email_addresses_on_line(line)
         prefix = Regexp::quote(Configuration::incoming_email_prefix)
         domain = Regexp::quote(Configuration::incoming_email_domain)
-        line.scan(/#{prefix}request-[^\s]+@#{domain}/).sort.uniq
+        line.scan(/#{prefix}request-[^\s]+@\w*\.?#{domain}/).sort.uniq
     end
 
     def MailServerLog.request_sent?(ir)

@@ -89,6 +89,11 @@ describe MailServerLog do
         it "ignores an email where the . is substituted for something else" do
             MailServerLog.email_addresses_on_line("foi+request-14-e0e09f97@exampledcom").should be_empty
         end
+
+        it "accept emails with an arbitrary subdomain" do
+            MailServerLog.email_addresses_on_line("foi+request-14-e0e09f97@foo.example.com").should ==
+                ["foi+request-14-e0e09f97@foo.example.com"]        
+        end
     end
 
     context "Postfix" do
