@@ -344,7 +344,7 @@ class IncomingMessage < ActiveRecord::Base
         name = Regexp.escape(self.info_request.user_name)
 
         # To end of message sections
-        text.gsub!(/^#{name}[^\n]+\nSent by:[^\n]+\n.*/ims, "\n\n" + replacement)
+        text.gsub!(/^\s?#{name}[^\n]+\n([^\n]+\n)?\s?Sent by:[^\n]+\n.*/ims, "\n\n" + replacement)
 
         # Some other sort of forwarding quoting
         # http://www.whatdotheyknow.com/request/224/response/326
@@ -578,7 +578,8 @@ class IncomingMessage < ActiveRecord::Base
 
         # Remove existing quoted sections
         folded_quoted_text = self.remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
-        folded_quoted_text = IncomingMessage.remove_quoted_sections(text, "FOLDED_QUOTED_SECTION")
+        folded_quoted_text = IncomingMessage.remove_quoted_sections(folded_quoted_text, "FOLDED_QUOTED_SECTION")
+
         self.cached_main_body_text_unfolded = text
         self.cached_main_body_text_folded = folded_quoted_text
         self.save!
