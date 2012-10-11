@@ -120,8 +120,10 @@ class MailServerLog < ActiveRecord::Base
         m[1] if m
     end
 
+    # We also check the email prefix so that we could, for instance, separately handle a staging and production
+    # instance running on the same server with different email prefixes.
     def MailServerLog.email_addresses_on_line(line)
-        line.scan(/request-[^\s]+@#{Configuration::incoming_email_domain}/).sort.uniq
+        line.scan(/#{Regexp::quote(Configuration::incoming_email_prefix)}request-[^\s]+@#{Configuration::incoming_email_domain}/).sort.uniq
     end
 
     def MailServerLog.request_sent?(ir)

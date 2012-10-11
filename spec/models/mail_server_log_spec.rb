@@ -65,20 +65,25 @@ describe MailServerLog do
     describe ".email_addresses_on_line" do
         before :each do
             Configuration.stub!(:incoming_email_domain).and_return("example.com")
+            Configuration.stub!(:incoming_email_prefix).and_return("foi+")
         end
 
         it "recognises a single incoming email" do
             MailServerLog.email_addresses_on_line("a random log line foi+request-14-e0e09f97@example.com has an email").should ==
-                ["request-14-e0e09f97@example.com"]            
+                ["foi+request-14-e0e09f97@example.com"]            
         end
 
         it "recognises two email addresses on the same line" do
             MailServerLog.email_addresses_on_line("two email addresses here foi+request-10-1234@example.com and foi+request-14-e0e09f97@example.com").should ==
-                ["request-10-1234@example.com", "request-14-e0e09f97@example.com"]
+                ["foi+request-10-1234@example.com", "foi+request-14-e0e09f97@example.com"]
         end
 
         it "returns an empty array when there is an email address from a different domain" do
             MailServerLog.email_addresses_on_line("other foi+request-10-1234@foo.com").should be_empty
+        end
+
+        it "ignores an email with a different prefix" do
+            MailServerLog.email_addresses_on_line("foitest+request-14-e0e09f97@example.com").should be_empty            
         end
     end
 
