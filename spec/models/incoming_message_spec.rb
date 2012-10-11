@@ -60,7 +60,6 @@ describe IncomingMessage, " when dealing with incoming mail" do
         is not good utf-8' do
         ir = info_requests(:fancy_dog_request)
         receive_incoming_mail('no-part-charset-bad-utf8.email', ir.incoming_email)
-        puts ir.incoming_messages.inspect
         message = ir.incoming_messages[1]
         message.parse_raw_email!
         message.get_main_body_text_internal.should include("The above text was badly encoded")
