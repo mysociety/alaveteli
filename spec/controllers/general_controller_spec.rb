@@ -17,6 +17,22 @@ describe GeneralController, "when trying to show the blog" do
     end
 end
 
+describe GeneralController, 'when getting the blog feed' do
+
+    it 'should add a lang param correctly to a url with no querystring' do
+        Configuration.stub!(:blog_feed).and_return("http://blog.example.com")
+        get :blog
+        assigns[:feed_url].should == "http://blog.example.com?lang=en"
+    end
+
+    it 'should add a lang param correctly to a url with an existing querystring' do
+        Configuration.stub!(:blog_feed).and_return("http://blog.example.com?alt=rss")
+        get :blog
+        assigns[:feed_url].should == "http://blog.example.com?alt=rss&lang=en"
+    end
+
+end
+
 describe GeneralController, "when searching" do
     integrate_views
 
