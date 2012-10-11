@@ -75,8 +75,7 @@ class IncomingMessage < ActiveRecord::Base
     # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
     def mail(force = nil)
         if (!force.nil? || @mail.nil?) && !self.raw_email.nil?
-            # Hack round bug in TMail's MIME decoding. Example request which provokes it:
-            # http://www.whatdotheyknow.com/request/reviews_of_unduly_lenient_senten#incoming-4830
+            # Hack round bug in TMail's MIME decoding.
             # Report of TMail bug:
             # http://rubyforge.org/tracker/index.php?func=detail&aid=21810&group_id=4512&atid=17370
             copy_of_raw_data = self.raw_email.data.gsub(/; boundary=\s+"/ims,'; boundary="')
@@ -345,8 +344,7 @@ class IncomingMessage < ActiveRecord::Base
         name = Regexp.escape(self.info_request.user_name)
 
         # To end of message sections
-        # http://www.whatdotheyknow.com/request/university_investment_in_the_arm
-        text.gsub!(/^#{name}[^\n]+\nSent by:[^\n]+\n.*/ims, "\n\n" + replacement)
+        text.gsub!(/^\s?#{name}[^\n]+\n([^\n]+\n)?\s?Sent by:[^\n]+\n.*/ims, "\n\n" + replacement)
 
         # Some other sort of forwarding quoting
         # http://www.whatdotheyknow.com/request/224/response/326
@@ -580,7 +578,8 @@ class IncomingMessage < ActiveRecord::Base
 
         # Remove existing quoted sections
         folded_quoted_text = self.remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
-        folded_quoted_text = IncomingMessage.remove_quoted_sections(text, "FOLDED_QUOTED_SECTION")
+        folded_quoted_text = IncomingMessage.remove_quoted_sections(folded_quoted_text, "FOLDED_QUOTED_SECTION")
+
         self.cached_main_body_text_unfolded = text
         self.cached_main_body_text_folded = folded_quoted_text
         self.save!
