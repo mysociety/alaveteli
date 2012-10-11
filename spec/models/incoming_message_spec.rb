@@ -133,15 +133,8 @@ end
 describe IncomingMessage, " folding quoted parts of emails" do
 
     it "cope with [ in user names properly" do
-        @user = mock_model(User)
-        @user.stub!(:name).and_return("Sir [ Bobble")
-        @info_request = mock_model(InfoRequest)
-        @info_request.stub!(:user).and_return(@user)
-        @info_request.stub!(:user_name).and_return(@user.name)
-
         @incoming_message = IncomingMessage.new()
-        @incoming_message.info_request = @info_request
-
+        @incoming_message.stub_chain(:info_request, :user_name).and_return("Sir [ Bobble")
         # this gives a warning if [ is in the name
         text = @incoming_message.remove_lotus_quoting("Sir [ Bobble \nSent by: \n")
         text.should == "\n\nFOLDED_QUOTED_SECTION"
