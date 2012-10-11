@@ -45,7 +45,7 @@
 
 <div id="left_column">
   <h1><%=@title %></h1>
- 
+
   <div id="blog">
     <% for item in @blog_items: %>
       <div class="blog_post">
@@ -53,7 +53,9 @@
           <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", :date=>simple_date(Time.parse(item['pubDate'][0])), :author=>item['creator']) %></p>
           <div><%= item['encoded'] %></div>
           <p><em>
+            <% if item['comments'] %>
               <a href="<%=item['comments'][0]%>"><%= _("{{number_of_comments}} comments", :number_of_comments=>item['comments'][1]) %></a>
+            <% end %>
           </em>
           </p>
       </div>
