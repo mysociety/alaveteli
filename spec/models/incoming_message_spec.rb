@@ -132,6 +132,13 @@ end
 
 describe IncomingMessage, " folding quoted parts of emails" do
 
+    it 'should fold an example lotus notes quoted part converted from HTML correctly' do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('lotus-notes-quoting.email', ir.incoming_email)
+        message = ir.incoming_messages[1]
+        message.get_main_body_text_folded.should match(/FOLDED_QUOTED_SECTION/)
+    end
+
     it 'should fold a plain text lotus notes quoted part correctly' do
         text = "FOI Team\n\n\nInfo Requester <xxx@whatdotheyknow.com>=20\nSent by: Info Requester <request-bounce-xxxxx@whatdotheyknow.com>\n06/03/08 10:00\nPlease respond to\nInfo Requester <request-xxxx@whatdotheyknow.com>"
         @incoming_message = IncomingMessage.new()
