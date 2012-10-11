@@ -344,7 +344,6 @@ class IncomingMessage < ActiveRecord::Base
         name = Regexp.escape(self.info_request.user_name)
 
         # To end of message sections
-        # http://www.whatdotheyknow.com/request/university_investment_in_the_arm
         text.gsub!(/^#{name}[^\n]+\nSent by:[^\n]+\n.*/ims, "\n\n" + replacement)
 
         # Some other sort of forwarding quoting

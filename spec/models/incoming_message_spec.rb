@@ -132,6 +132,13 @@ end
 
 describe IncomingMessage, " folding quoted parts of emails" do
 
+    it 'should fold a plain text lotus notes quoted part correctly' do
+        text = "FOI Team\n\n\nInfo Requester <xxx@whatdotheyknow.com>=20\nSent by: Info Requester <request-bounce-xxxxx@whatdotheyknow.com>\n06/03/08 10:00\nPlease respond to\nInfo Requester <request-xxxx@whatdotheyknow.com>"
+        @incoming_message = IncomingMessage.new()
+        @incoming_message.stub_chain(:info_request, :user_name).and_return("Info Requester")
+        @incoming_message.remove_lotus_quoting(text).should match(/FOLDED_QUOTED_SECTION/)
+    end
+
     it "cope with [ in user names properly" do
         @incoming_message = IncomingMessage.new()
         @incoming_message.stub_chain(:info_request, :user_name).and_return("Sir [ Bobble")
