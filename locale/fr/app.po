@@ -364,7 +364,7 @@ msgid ""
 msgstr ""
 
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr "<strong><code>tag:charity</code></strong> pour trouvez tous les institutions publiques ou les sollicitudes avec la même étiquette. Vous pouvez inclure plusieurs étiquettes,\\n ou plusieurs étiquettes, ex. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags \\n can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
@@ -1056,7 +1056,7 @@ msgstr "Par des raisons que nous ne pouvons pas déterminer, il est impossible d
 msgid "Forgotten your password?"
 msgstr ""
 
-msgid "Found {{count}} public authorities {{description}}"
+msgid "Found {{count}} public bodies {{description}}"
 msgstr ""
 
 msgid "Freedom of Information"

@@ -372,7 +372,7 @@ msgid ""
 msgstr "<strong><code>situação:</code></strong> para selecionar com base na situação ou no histórico de situações do pedido, veja a <a href=\"{{statuses_url}}\">tabela de situações</a> abaixo."
 
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr "<strong><code>tag:saude</code></strong> para encontrar órgãos públicos ou pedidos com uma tag específica. Você pode incluir múltiplas tags ⏎\n    e valores, por exemplo <code>tag:saude E tag:transacao_financeira:335633</code>. Perceba que, por padrão, qualquer uma das tags⏎\n    pode estar presente em um resultado, e você deve colocar <code>E</code> para explicitar que deseja resultados com todas as tags presentes."
@@ -1064,7 +1064,7 @@ msgstr "Devido a um erro desconhecido, não foi possível realizar seu pedido pa
 msgid "Forgotten your password?"
 msgstr "Esqueceu a sua senha?"
 
-msgid "Found {{count}} public authorities {{description}}"
+msgid "Found {{count}} public bodies {{description}}"
 msgstr "{{count}} orgãos encontrados {{description}}"
 
 msgid "Freedom of Information"

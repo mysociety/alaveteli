@@ -3,31 +3,32 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Valon  <vbrestovci@gmail.com>, 2011.
+#   <andreicristianpetcu@gmail.com>, 2012.
+#   <copyratul@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2012-09-19 09:37+0100\n"
-"PO-Revision-Date: 2012-09-19 08:48+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2012-09-24 19:05+0000\n"
+"Last-Translator: andreicristianpetcu <andreicristianpetcu@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: aln\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ro_RO\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 msgid ""
 "\n"
 "\n"
 "[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
+msgstr "\n[ {{site_name}} notă: Codul de mai sus este encodat greșit și i-au fost scoase caracterele greșite. ]"
 
 msgid ""
 "  This will appear on your {{site_name}} profile, to make it\n"
 "            easier for others to get involved with what you're doing."
-msgstr ""
+msgstr " Aceasta o să apară pe profilul tău de pe situl {{site_name}} , pentru a fi mai ușor altora să se implice în ceea ce faci."
 
 msgid ""
 " (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation "
@@ -40,7 +41,7 @@ msgid ""
 msgstr ""
 
 msgid " (you)"
-msgstr ""
+msgstr "(tu)"
 
 msgid " - view and make Freedom of Information requests"
 msgstr ""
@@ -106,46 +107,49 @@ msgid " You are already being emailed updates about the request."
 msgstr ""
 
 msgid " You will also be emailed updates about the request."
-msgstr ""
+msgstr "Vei primi prin email informări cu noutăți cu privire la cererea ta."
 
 msgid " made by "
-msgstr ""
+msgstr "făcut de"
 
 msgid " or "
-msgstr ""
+msgstr "sau"
 
 msgid " when you send this message."
-msgstr ""
+msgstr "când trimiți acest mesaj."
 
 msgid "%d Freedom of Information request to %s"
 msgid_plural "%d Freedom of Information requests to %s"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "%d request"
 msgid_plural "%d requests"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "%d request made."
 msgid_plural "%d requests made."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "'Crime statistics by ward level for Wales'"
 
 msgid "'Pollution levels over time for the River Tyne'"
-msgstr ""
+msgstr "'Pollution levels over time for the River Tyne'"
 
 msgid "'{{link_to_authority}}', a public authority"
-msgstr ""
+msgstr "'{{link_to_authority}}', o autoritate publică"
 
 msgid "'{{link_to_request}}', a request"
-msgstr ""
+msgstr "'{{link_to_request}}', o cerere"
 
 msgid "'{{link_to_user}}', a person"
-msgstr ""
+msgstr "'{{link_to_user}}', o persoană"
 
 msgid ""
 ",\n"
@@ -155,56 +159,56 @@ msgid ""
 "Yours,\n"
 "\n"
 "{{user_name}}"
-msgstr ""
+msgstr " , Al dvs., {{user_name}}"
 
 msgid "- or -"
-msgstr ""
+msgstr "- sau -"
 
 msgid "1. Select an authority"
-msgstr ""
+msgstr "1. Selectează o autoritate"
 
 msgid "2. Ask for Information"
-msgstr ""
+msgstr "2. Cere o informație"
 
 msgid "3. Now check your request"
-msgstr ""
+msgstr "3. Verifică cererea făcută"
 
 msgid "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
-msgstr ""
+msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
 
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
-msgstr ""
+msgstr "<a href=\"%s\">Adaugă o notă</a> (pentru a ajuta petentul sau pe alții)"
 
 msgid "<a href=\"%s\">Are we missing a public authority?</a>."
-msgstr ""
+msgstr "<a href=\"%s\">Am omis o autoritate publică?</a>."
 
 msgid ""
 "<a href=\"%s\">Are you the owner of\n"
 "            any commercial copyright on this page?</a>"
-msgstr ""
+msgstr "<a href=\"%s\">Ai un drept de Proprietate Intelectuală asupra vreunei mărci de pe pagina aceasta?</a>"
 
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
-msgstr ""
+msgstr "<a href=\"%s\">Caută toate</a> sau <a href=\"%s\">cere-ne nouă să adăugăm una</a>."
 
 msgid "<a href=\"%s\">Can't find the one you want?</a>"
-msgstr ""
+msgstr "<a href=\"%s\">Nu găsești persoana căutată?</a>"
 
 msgid ""
 "<a href=\"%s\">Sign in</a> to change password, subscriptions and more "
 "({{user_name}} only)"
-msgstr ""
+msgstr "<a href=\"%s\">Loghează-te</a> pentru schimbarea parolei, abonării și altele ({{user_name}} only)"
 
 msgid "<a href=\"%s\">details</a>"
-msgstr ""
+msgstr "<a href=\"%s\">detalii</a>"
 
 msgid "<a href=\"%s\">what's that?</a>"
-msgstr ""
+msgstr "<a href=\"%s\">ce este aceasta?</a>"
 
 msgid ""
 "<p>All done! Thank you very much for your help.</p><p>There are <a "
 "href=\"{{helpus_url}}\">more things you can do</a> to help "
 "{{site_name}}.</p>"
-msgstr ""
+msgstr "<p>Gata! Mulțumesc pentru ajutorul tău.</p><p>Sunt aici <a href=\"{{helpus_url}}\">mai multe lucruri pe care le poți face</a> pentru a ajuta {{site_name}}.</p>"
 
 msgid ""
 "<p>Thank you! Here are some ideas on what to do next:</p>\n"
@@ -321,6 +325,7 @@ msgid_plural ""
 "<span id='follow_count'>%d</span> people are following this authority"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid ""
 "<strong> Can I request information about myself?</strong>\n"
@@ -1112,10 +1117,10 @@ msgid ""
 msgstr ""
 
 msgid "Hello, {{username}}!"
-msgstr "Tungjat, {{username}}!"
+msgstr ""
 
 msgid "Help"
-msgstr "Ndihmë"
+msgstr ""
 
 msgid ""
 "Here <strong>described</strong> means when a user selected a status for the request, and\n"
@@ -1149,7 +1154,7 @@ msgid "Home"
 msgstr ""
 
 msgid "Home page of authority"
-msgstr "ueb faqja e autoritetit"
+msgstr ""
 
 msgid ""
 "However, you have the right to request environmental\n"
@@ -1484,7 +1489,7 @@ msgid "More similar requests"
 msgstr ""
 
 msgid "More successful requests..."
-msgstr "Ma tepër kërkesa të suksesshme..."
+msgstr ""
 
 msgid "My profile"
 msgstr ""
@@ -1558,7 +1563,7 @@ msgid ""
 msgstr ""
 
 msgid "None found."
-msgstr "Asnji nuk u gjet."
+msgstr ""
 
 msgid "None made."
 msgstr ""
@@ -2132,7 +2137,7 @@ msgid "Save"
 msgstr ""
 
 msgid "Search"
-msgstr "Kërko"
+msgstr ""
 
 msgid "Search Freedom of Information requests, public authorities and users"
 msgstr ""
@@ -2162,6 +2167,7 @@ msgid "Search within the %d Freedom of Information requests to %s"
 msgid_plural "Search within the %d Freedom of Information requests made to %s"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "Search your contributions"
 msgstr ""
@@ -2327,7 +2333,7 @@ msgid "Tags:"
 msgstr ""
 
 msgid "Technical details"
-msgstr "Detalet teknike"
+msgstr ""
 
 msgid "Thank you for helping us keep the site tidy!"
 msgstr ""
@@ -2563,6 +2569,7 @@ msgid "There is %d person following this request"
 msgid_plural "There are %d people following this request"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid ""
 "There is <strong>more than one person</strong> who uses this site and has this name.\n"
@@ -2671,11 +2678,13 @@ msgid "This person's %d Freedom of Information request"
 msgid_plural "This person's %d Freedom of Information requests"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "This person's %d annotation"
 msgid_plural "This person's %d annotations"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "This person's annotations"
 msgstr ""
@@ -3146,7 +3155,7 @@ msgid "Withdrawn by the requester."
 msgstr ""
 
 msgid "Wk"
-msgstr "Java"
+msgstr ""
 
 msgid "Would you like to see a website like this in your country?"
 msgstr ""
@@ -3329,11 +3338,13 @@ msgid "Your %d Freedom of Information request"
 msgid_plural "Your %d Freedom of Information requests"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid "Your %d annotation"
 msgid_plural "Your %d annotations"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 msgid ""
 "Your <strong>name will appear publicly</strong> \n"
@@ -3710,7 +3721,7 @@ msgid "{{law_used}} requests at {{public_body}}"
 msgstr ""
 
 msgid "{{length_of_time}} ago"
-msgstr "{{length_of_time}} ma parë"
+msgstr ""
 
 msgid "{{list_of_things}} matching text '{{search_query}}'"
 msgstr ""

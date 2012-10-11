@@ -360,7 +360,7 @@ msgid ""
 msgstr "<strong><code>egoera:</code></strong> eskabidearen oraingo egoera edo egoera historikoaren arabera iragazteko, kontsulta ezazu ondoko <a href=\"{{statuses_url}}\">egoeren taula</a>."
 
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr "<strong><code>tag:osasuna</code></strong> etiketa hau daukaten erakunde publiko zein eskabide guztiak bilatzeko. Etiketa eta balio ugari sar ditzakezu, e.g. <code>tag:osasuna AND tag:financial_transaction:335633</code>. Edozein etiketa agertzearekin nahiko da, lehenetsita dago, etiketa guztiak dakartzaten emaitzak nahi baldin badituzu zehazki <code>AND</code> gehitu beharko duzu."
@@ -1052,7 +1052,7 @@ msgstr "Ez dakigun arrazoia dela eta, erakunde honi eskabidea egitea ezinezkoa d
 msgid "Forgotten your password?"
 msgstr "Zure pasahitza ahaztu al duzu?"
 
-msgid "Found {{count}} public authorities {{description}}"
+msgid "Found {{count}} public bodies {{description}}"
 msgstr "{{count}} erakunde publiko {{description}} aurkitu dira."
 
 msgid "Freedom of Information"

@@ -364,7 +364,7 @@ msgid ""
 msgstr "<strong><code>status:</code></strong>për të selektuar në bazë të statusit apo historisë së statusit të kërkesës, shih<a href=\"{{statuses_url}}\">tabelën e statuseve</a> më poshtë."
 
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr "<strong><code>etiketa:organizatë</code></strong> për të gjetur të gjitha institucionet apo kërkesat me etiketën e dhënë. Mund të përfshihen edhe disa etiketa, \n    dhe vlera të etiketave, psh. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Secila nga etiketat mund të jetë\n    prezente, duhet të shkruash <code>AND</code> në mënyrë eksplicite nëse do që vetëm ato te përfshihen."
@@ -1056,7 +1056,7 @@ msgstr "Për një arsye të panjohur, nuk është e mundur për të bërë një 
 msgid "Forgotten your password?"
 msgstr "Ke harru fjalëkalimin?"
 
-msgid "Found {{count}} public authorities {{description}}"
+msgid "Found {{count}} public bodies {{description}}"
 msgstr "U gjetën {{count}} autoritete publike - {{description}}"
 
 msgid "Freedom of Information"
