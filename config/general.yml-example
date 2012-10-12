@@ -172,3 +172,9 @@ GA_CODE: ''
 
 # Search path for external commandline utilities (such as pdftohtml, pdftk, unrtf)
 UTILITY_SEARCH_PATH: ["/usr/bin", "/usr/local/bin"]
+
+# Path to your exim or postfix log files that will get sucked up by script/load-mail-server-logs
+MTA_LOG_PATH: '/var/log/exim4/exim-mainlog-*'
+
+# Whether we are using "exim" or "postfix" for our MTA
+MTA_LOG_TYPE: "exim"

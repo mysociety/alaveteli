@@ -30,6 +30,7 @@ module Configuration
     :INCOMING_EMAIL_SECRET => 'dummysecret',
     :ISO_COUNTRY_CODE => 'GB',
     :MAX_REQUESTS_PER_USER_PER_DAY => nil,
+    :MTA_LOG_TYPE => 'exim',
     :NEW_RESPONSE_REMINDER_AFTER_DAYS => [3, 10, 24],
     :OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS => '',
     :RAW_EMAILS_LOCATION => 'files/raw_emails',

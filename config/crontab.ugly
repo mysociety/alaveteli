@@ -16,8 +16,8 @@ MAILTO=cron-!!(*= $site *)!!@mysociety.org
 # Once an hour
 09 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-comment-on-request.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/alert-comment-on-request || echo "stalled?"
 
-# Only root can read the exim log files
-31 * * * * root run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/load-exim-logs.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/load-exim-logs || echo "stalled?"
+# Only root can read the log files
+31 * * * * root run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/load-mail-server-logs.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/load-mail-server-logs || echo "stalled?"
 
 # Once a day, early morning
 23 4 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/delete-old-things.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/delete-old-things || echo "stalled?"
