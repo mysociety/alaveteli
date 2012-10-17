@@ -29,7 +29,7 @@ class GeneralController < ApplicationController
             PublicBody.with_locale(@locale) do
                 if body_short_names.empty?
                     # This is too slow
-                    @popular_bodies = PublicBody.find(:all,
+                    @popular_bodies = PublicBody.visible.find(:all,
                         :order => "info_requests_count desc",
                         :limit => 32,
                         :conditions => conditions,

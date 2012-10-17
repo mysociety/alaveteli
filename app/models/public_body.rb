@@ -42,6 +42,12 @@ class PublicBody < ActiveRecord::Base
     has_tag_string
     before_save :set_api_key, :set_default_publication_scheme
 
+    # Every public body except for the internal admin one is visible
+    named_scope :visible, lambda {
+        {
+            :conditions => "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
+        }
+    }
 
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
