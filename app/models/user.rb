@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20120919140404
 #
 # Table name: users
 #
@@ -21,13 +22,6 @@
 #  no_limit               :boolean         default(FALSE), not null
 #  receive_email_alerts   :boolean         default(TRUE), not null
 #
-# models/user.rb:
-# Model of people who use the site to file requests, make comments etc.
-#
-# Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: user.rb,v 1.106 2009-10-01 01:43:36 francis Exp $
 
 require 'digest/sha1'
 

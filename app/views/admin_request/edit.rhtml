@@ -28,6 +28,10 @@
    <br/>(don't forget to change 'awaiting description' when you set described state)<br/>
    </p>
 
+   <p><label for="info_request_comments_allowed"><strong>Are comments allowed?</strong></label>
+   <%= select('info_request', "comments_allowed", [["Yes – comments allowed", true], ["No – comments disabled", false]]) %>
+   </p>
+
    <p><label for="info_request_tag_string"><strong>Tags</strong> <small>(space separated, can use key:value)</small></label><br/>
    <%= text_field 'info_request', 'tag_string', :size => 60  %></p>
 
