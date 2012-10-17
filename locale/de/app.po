@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-09-19 09:37+0100\n"
-"PO-Revision-Date: 2012-09-19 08:48+0000\n"
+"POT-Creation-Date: 2012-10-11 10:18+0100\n"
+"PO-Revision-Date: 2012-10-11 09:52+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -178,8 +178,8 @@ msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"%s\">Kommentar hinzufügen</a> (um den Anfragensteller oder andere Nutzern zu unterstützen)"
 
-msgid "<a href=\"%s\">Are we missing a public authority?</a>."
-msgstr "<a href=\"%s\">Fehlt eine Behörde?</a>."
+msgid "<a href=\"%s\">Are we missing a public authority?</a>"
+msgstr ""
 
 msgid ""
 "<a href=\"%s\">Are you the owner of\n"
@@ -362,7 +362,7 @@ msgid ""
 msgstr "<strong><code>Status:</code></strong> um eine Auswahl nach Status oder historischem Status der Anfrage zu treffen, gehen Sie zur unten angezeigten<a href=\"{{statuses_url}}\">Statusübersicht</a> ."
 
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr "<strong><code>markieren Sie:Karitas</code></strong>, um alle Behörden oder Anfragen mit dieser Markierung zu finden. Sie können mehrere Markierungen, \n    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
@@ -406,6 +406,11 @@ msgid ""
 "    We will send an email to your new email address. Follow the\n"
 "    instructions in it to confirm changing your email."
 msgstr "<strong>Note:</strong>\n    Es wird eine Email an Ihre neue Emailadresse versendet. Folgen Sie den darin angegebenen Schritten, um die Änderung Ihrer Emailadresse zu bestätigen."
+
+msgid ""
+"<strong>Note:</strong> Because we're testing, requests are being sent to "
+"{{email}} rather than to the actual authority."
+msgstr ""
 
 msgid ""
 "<strong>Note:</strong> You're sending a message to yourself, presumably\n"
@@ -1054,8 +1059,10 @@ msgstr "Aus unbekannten Gründen ist es nicht möglich eine Anfrage a diese Beh�
 msgid "Forgotten your password?"
 msgstr "Passwort vergessen?"
 
-msgid "Found {{count}} public bodies {{description}}"
-msgstr " {{count}} Behörden {{description}} gefunden"
+msgid "Found %d public authority %s"
+msgid_plural "Found %d public authorities %s"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Freedom of Information"
 msgstr ""
@@ -1237,6 +1244,11 @@ msgid "If you are {{user_link}}, please"
 msgstr "Wenn Sie {{user_link}} sind, bitte"
 
 msgid ""
+"If you believe this request is not suitable, you can report it for attention"
+" by the site administrators"
+msgstr ""
+
+msgid ""
 "If you can't click on it in the email, you'll have to <strong>select and copy\n"
 "it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place\n"
 "you would type the address of any other webpage."
@@ -1262,6 +1274,11 @@ msgid ""
 "authority that you have withdrawn your request. Otherwise they will not know"
 " it has been withdrawn."
 msgstr "Falls noch nicht geschehen, senden Sie bitte eine Nachricht, um die Behörde zu informieren, dass Sie Ihre Anfrage zurückgezogen haben. Anderenfalls weiss diese nicht, dass dies geschehen ist. "
+
+msgid ""
+"If you reply to this message it will go directly to {{user_name}}, who will\n"
+"learn your email address. Only reply if that is okay."
+msgstr ""
 
 msgid ""
 "If you use web-based email or have \"junk mail\" filters, also check your\n"
@@ -1314,6 +1331,9 @@ msgstr "IncomingMessage|Subject"
 msgid "IncomingMessage|Valid to reply to"
 msgstr "IncomingMessage|Valid to reply to"
 
+msgid "Individual requests"
+msgstr ""
+
 msgid "Info request"
 msgstr ""
 
@@ -1346,6 +1366,9 @@ msgstr ""
 
 msgid "InfoRequest|Awaiting description"
 msgstr "InfoAnfrage | Beschreibung wird erwartet"
+
+msgid "InfoRequest|Comments allowed"
+msgstr ""
 
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Described state"
@@ -1471,6 +1494,9 @@ msgstr "Hier können Sie Anfragen an das Informationsgesetz (IFG)stellen und bes
 msgid "Make your own request"
 msgstr "Eigene Anfrage stellen"
 
+msgid "Many requests"
+msgstr ""
+
 msgid "Message"
 msgstr ""
 
@@ -1482,6 +1508,9 @@ msgstr "Folgende Kontaktdetails fehlen:"
 
 msgid "More about this authority"
 msgstr "Weitere Informationen zu dieser Behörde"
+
+msgid "More requests..."
+msgstr ""
 
 msgid "More similar requests"
 msgstr "Weitere ähnliche Anfragen"
@@ -1670,6 +1699,9 @@ msgstr "Passwort: (nochmal eingeben)"
 
 msgid "Paste this link into emails, tweets, and anywhere else:"
 msgstr "Nutzen Sie diesen Link in Emails, tweets und beliebigen weiteren Optionen:"
+
+msgid "People"
+msgstr ""
 
 msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Leute {{start_count}} bis {{end_count}} von {{total_count}}"
@@ -2155,6 +2187,9 @@ msgid ""
 "          <strong>{{number_of_authorities}} authorities</strong>"
 msgstr "Suchen Sie in mehr als<br/>\n          <strong>{{number_of_requests}} Anfragen</strong> <span>und</span><br/>\n          <strong>{{number_of_authorities}} Behörden</strong>"
 
+msgid "Search queries"
+msgstr ""
+
 msgid "Search results"
 msgstr ""
 
@@ -2249,6 +2284,9 @@ msgid ""
 msgstr "Nicht alle Anfragensteller haben uns über den Erfolg Ihrer Anfragen informiert. Wir sind auf <strong>Ihre</strong> Hilfe angewiesen. Wählen Sie eine dieser Anfragen, lesen Sie sie und teilen Sie uns mit, ob die gewünschte Information zur Verfügung gestellt wurde. Alle Nutzer wären Ihnen ausgesprochen dankbar. "
 
 msgid "Somebody added a note to your FOI request - "
+msgstr ""
+
+msgid "Someone has updated the status of your request"
 msgstr ""
 
 msgid ""
@@ -2943,6 +2981,9 @@ msgstr "Wir haben leider keine funktionierende Email-Adresse für {{info_request
 msgid "Unknown"
 msgstr "Unbekannt"
 
+msgid "Unsubscribe"
+msgstr ""
+
 msgid "Unusual response."
 msgstr "Ungewöhnliche Antwort."
 
@@ -2951,6 +2992,9 @@ msgstr "Status der Anfrage aktualisieren"
 
 msgid "Update the status of your request to "
 msgstr "Aktualisieren Sie den Status Ihrer Anfrage an"
+
+msgid "Upload FOI response"
+msgstr ""
 
 msgid ""
 "Use OR (in capital letters) where you don't mind which word,  e.g. "
@@ -3123,6 +3167,9 @@ msgstr "Was ist die beste Beschreibung für diese Anfrage?"
 
 msgid "What information has been released?"
 msgstr "Welche Informationen wurden veröffentlicht?"
+
+msgid "What information has been requested?"
+msgstr ""
 
 msgid ""
 "When you get there, please update the status to say if the response \n"
@@ -3350,9 +3397,8 @@ msgid "Your annotations"
 msgstr "Ihre Anmerkungen"
 
 msgid ""
-"Your details have not been given to anyone, unless you choose to reply to this\n"
-"message, which will then go directly to the person who wrote the message."
-msgstr "Ihre Details wurden nicht weitergegeben, ausser wenn Sie sich entschieden haben auf diese Nachricht zu antworten. Ihre Antwort geht dann direkt an die Person, welche die Nachricht geschrieben hat. "
+"Your details, including your email address, have not been given to anyone."
+msgstr ""
 
 msgid "Your e-mail:"
 msgstr "Ihre Email:"
@@ -3416,6 +3462,9 @@ msgstr "Ihre Anfrage hat den folgenden Titel: {{info_request}}. Bitte informiere
 
 msgid "Your request:"
 msgstr "Ihre Anfrage:"
+
+msgid "Your response to an FOI request was not delivered"
+msgstr ""
 
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "

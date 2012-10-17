@@ -59,7 +59,7 @@ class CreateHolidays < ActiveRecord::Migration
         '2010-12-28' => "Boxing Day"
     }
 
-    holidays.sort.each { |date, desc| 
+    holidays.sort.each { |date, desc|
       Holiday.create :day => date, :description => desc
     }
 

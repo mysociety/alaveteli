@@ -64,6 +64,12 @@
             <% else %>
                 <%= _('For an unknown reason, it is not possible to make a request to this authority.')%>
             <% end %>
+
+            <% if @public_body.override_request_email %>
+                <p>
+                    <%= _("<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority.", :email => @public_body.override_request_email) %>
+                </p>
+            <% end %>
         </div>
     </div>
 

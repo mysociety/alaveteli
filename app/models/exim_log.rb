@@ -17,8 +17,6 @@
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: exim_log.rb,v 1.14 2009-09-17 21:10:05 francis Exp $
 
 class EximLog < ActiveRecord::Base
     belongs_to :info_request
@@ -63,7 +61,7 @@ class EximLog < ActiveRecord::Base
             order = 0
             for line in f
                 order = order + 1
-                email_domain = MySociety::Config.get("INCOMING_EMAIL_DOMAIN", "localhost")
+                email_domain = Configuration::incoming_email_domain
                 emails = line.scan(/request-[^\s]+@#{email_domain}/).sort.uniq
                 for email in emails
                     info_request = InfoRequest.find_by_incoming_email(email)

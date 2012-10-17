@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: contact_mailer.rb,v 1.10 2009-02-09 10:37:12 francis Exp $
 
 class ContactMailer < ApplicationMailer
 
@@ -52,7 +50,7 @@ class ContactMailer < ApplicationMailer
             :from_user => @from,
             :recipient_user => recipient_user,
         }
-        bcc MySociety::Config::get("CONTACT_EMAIL")
+        bcc Configuration::contact_email
     end
 
 end

@@ -56,6 +56,15 @@ describe IncomingMessage, " when dealing with incoming mail" do
         message.subject.should == "Câmara Responde:  Banco de ideias"
     end
 
+    it 'should not error on display of a message which has no charset set on the body part and
+        is not good utf-8' do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('no-part-charset-bad-utf8.email', ir.incoming_email)
+        puts ir.incoming_messages.inspect
+        message = ir.incoming_messages[1]
+        message.parse_raw_email!
+        message.get_main_body_text_internal.should include("The above text was badly encoded")
+    end
 
     it "should fold multiline sections" do
       {
@@ -77,6 +86,7 @@ describe IncomingMessage, "when parsing HTML mail" do
         plain_text = IncomingMessage._get_attachment_text_internal_one_file('text/html', html)
         plain_text.should match(/është/)
     end
+
 end
 
 describe IncomingMessage, "when getting the attachment text" do
@@ -312,8 +322,7 @@ describe IncomingMessage, " when censoring data" do
     end
 
     it "should apply hard-coded privacy rules to HTML files" do
-        domain = MySociety::Config.get('DOMAIN')
-        data = "http://#{domain}/c/cheese"
+        data = "http://#{Configuration::domain}/c/cheese"
         @im.html_mask_stuff!(data)
         data.should == "[WDTK login link]"
     end

@@ -336,7 +336,7 @@ class PublicBody < ActiveRecord::Base
                 pb = PublicBody.new(
                  :name => 'Internal admin authority',
                  :short_name => "",
-                 :request_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'),
+                 :request_email => Configuration::contact_email,
                  :home_page => "",
                  :notes => "",
                  :publication_scheme => "",
@@ -507,6 +507,20 @@ class PublicBody < ActiveRecord::Base
     end
     def foi_officer_domain_required
         return self.request_email_domain
+    end
+
+    # Returns nil if configuration variable not set
+    def override_request_email
+        e = Configuration::override_all_public_body_request_emails
+        e if e != ""
+    end
+
+    def request_email
+        if override_request_email
+            override_request_email
+        else
+            read_attribute(:request_email)
+        end
     end
 
     # Domain name of the request email

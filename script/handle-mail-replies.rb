@@ -15,6 +15,8 @@
 $alaveteli_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 $:.push(File.join($alaveteli_dir, "commonlib", "rblib"))
 load "config.rb"
+$:.push(File.join($alaveteli_dir, "lib"))
+load "configuration.rb"
 MySociety::Config.set_file(File.join($alaveteli_dir, 'config', 'general'), true)
 MySociety::Config.load_default
 
@@ -30,7 +32,7 @@ def main(in_test_mode)
             forward_on(raw_message) unless in_test_mode
             return 0
         end
-        
+
         pfas = permanently_failed_addresses(message)
         if !pfas.empty?
             if in_test_mode
@@ -42,25 +44,25 @@ def main(in_test_mode)
             end
             return 1
         end
-        
+
         # If we are still here, there are no permanent failures,
         # so if the message is a multipart/report then it must be
         # reporting a temporary failure. In this case we discard it
         if message.content_type == "multipart/report"
           return 1
         end
-        
+
         # Another style of temporary failure message
         subject = message.header_string("Subject")
         if message.content_type == "multipart/mixed" && subject == "Delivery Status Notification (Delay)"
           return 1
         end
-        
+
         # Discard out-of-office messages
         if is_oof?(message)
             return 2 # Use a different return code, to distinguish OOFs from bounces
         end
-        
+
         # Otherwise forward the message on
         forward_on(raw_message) unless in_test_mode
         return 0
@@ -70,7 +72,7 @@ end
 def permanently_failed_addresses(message)
     if message.header_string("Return-Path") == "<>"
         # Some sort of auto-response
-    
+
         # Check for Exim’s X-Failed-Recipients header
         failed_recipients = message.header_string("X-Failed-Recipients")
         if !failed_recipients.nil?
@@ -81,7 +83,7 @@ def permanently_failed_addresses(message)
                 return failed_recipients.split(/,\s*/)
             end
         end
-        
+
         # Next, look for multipart/report
         if message.content_type == "multipart/report"
             permanently_failed_recipients = []
@@ -89,7 +91,7 @@ def permanently_failed_addresses(message)
                 if part.content_type == "message/delivery-status"
                     sections = part.body.split(/\r?\n\r?\n/)
                     # The first section is a generic header; subsequent sections
-                    # represent a particular recipient. Since we 
+                    # represent a particular recipient. Since we
                     sections[1..-1].each do |section|
                         if section !~ /^Status: (\d)/ || $1 != '5'
                             # Either we couldn’t find the Status field, or it was a transient failure
@@ -106,7 +108,7 @@ def permanently_failed_addresses(message)
             end
         end
     end
-    
+
     subject = message.header_string("Subject")
     # Then look for the style we’ve seen in WebShield bounces
     # (These do not have a return path of <> in the cases I have seen.)
@@ -121,11 +123,11 @@ end
 
 def is_oof?(message)
     # Check for out-of-office
-    
+
     if message.header_string("X-POST-MessageClass") == "9; Autoresponder"
         return true
     end
-    
+
     subject = message.header_string("Subject").downcase
     if message.header_string("Return-Path") == "<>"
         if subject.start_with? "out of office: "
@@ -135,13 +137,13 @@ def is_oof?(message)
             return true
         end
     end
-    
+
     if message.header_string("Auto-Submitted") == "auto-generated"
         if subject =~ /out of( the)? office/
             return true
         end
     end
-    
+
     if subject.start_with? "out of office autoreply:"
         return true
     end
@@ -158,8 +160,7 @@ def is_oof?(message)
 end
 
 def forward_on(raw_message)
-    forward_non_bounces_to = MySociety::Config.get("FORWARD_NONBOUNCE_RESPONSES_TO", "user-support@localhost")
-    IO.popen("/usr/sbin/sendmail -i #{forward_non_bounces_to}", "w") do |f|
+    IO.popen("/usr/sbin/sendmail -i #{Configuration::forward_nonbounce_responses_to}", "w") do |f|
         f.write(raw_message);
         f.close;
     end

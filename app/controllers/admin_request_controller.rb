@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: admin_request_controller.rb,v 1.42 2009-10-03 01:28:33 francis Exp $
 
 require 'ostruct'
 
@@ -42,9 +40,9 @@ class AdminRequestController < AdminController
         # XXX is this *really* the only way to render a template to a
         # variable, rather than to the response?
         vars = OpenStruct.new(:name_to => @info_request.user_name,
-                :name_from => MySociety::Config.get("CONTACT_NAME", 'Alaveteli'),
+                :name_from => Configuration::contact_name,
                 :info_request => @info_request, :reason => params[:reason],
-                :info_request_url => 'http://' + MySociety::Config.get('DOMAIN') + request_url(@info_request),
+                :info_request_url => 'http://' + Configuration::domain + request_url(@info_request),
                 :site_name => site_name)
         template = File.read(File.join(File.dirname(__FILE__), "..", "views", "admin_request", "hidden_user_explanation.rhtml"))
         @request_hidden_user_explanation = ERB.new(template).result(vars.instance_eval { binding })
@@ -95,7 +93,7 @@ class AdminRequestController < AdminController
                     :old_allow_new_responses_from => old_allow_new_responses_from, :allow_new_responses_from => @info_request.allow_new_responses_from,
                     :old_handle_rejected_responses => old_handle_rejected_responses, :handle_rejected_responses => @info_request.handle_rejected_responses,
                     :old_tag_string => old_tag_string, :tag_string => @info_request.tag_string,
-                    :old_comments_allowed => old_comments_allowed, :tag_string => @info_request.comments_allowed
+                    :old_comments_allowed => old_comments_allowed, :comments_allowed => @info_request.comments_allowed
                 })
             # expire cached files
             expire_for_request(@info_request)

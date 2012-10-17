@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-09-19 09:37+0100\n"
-"PO-Revision-Date: 2012-09-19 08:48+0000\n"
+"POT-Creation-Date: 2012-10-11 10:18+0100\n"
+"PO-Revision-Date: 2012-10-11 09:50+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -188,8 +188,8 @@ msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"%s\">Adicione um comentário</a> (para ajudar o solicitante ou outros)"
 
-msgid "<a href=\"%s\">Are we missing a public authority?</a>."
-msgstr "<a href=\"%s\">Está faltando algum órgão público?</a> ."
+msgid "<a href=\"%s\">Are we missing a public authority?</a>"
+msgstr ""
 
 msgid ""
 "<a href=\"%s\">Are you the owner of\n"
@@ -372,7 +372,7 @@ msgid ""
 msgstr "<strong><code>situação:</code></strong> para selecionar com base na situação ou no histórico de situações do pedido, veja a <a href=\"{{statuses_url}}\">tabela de situações</a> abaixo."
 
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr "<strong><code>tag:saude</code></strong> para encontrar órgãos públicos ou pedidos com uma tag específica. Você pode incluir múltiplas tags ⏎\n    e valores, por exemplo <code>tag:saude E tag:transacao_financeira:335633</code>. Perceba que, por padrão, qualquer uma das tags⏎\n    pode estar presente em um resultado, e você deve colocar <code>E</code> para explicitar que deseja resultados com todas as tags presentes."
@@ -416,6 +416,11 @@ msgid ""
 "    We will send an email to your new email address. Follow the\n"
 "    instructions in it to confirm changing your email."
 msgstr "<strong>Atenção:</strong> Vamos enviar um email para você. Siga as instruções para confirmar a alteração o seu e-mail."
+
+msgid ""
+"<strong>Note:</strong> Because we're testing, requests are being sent to "
+"{{email}} rather than to the actual authority."
+msgstr ""
 
 msgid ""
 "<strong>Note:</strong> You're sending a message to yourself, presumably\n"
@@ -1064,8 +1069,10 @@ msgstr "Devido a um erro desconhecido, não foi possível realizar seu pedido pa
 msgid "Forgotten your password?"
 msgstr "Esqueceu a sua senha?"
 
-msgid "Found {{count}} public bodies {{description}}"
-msgstr "{{count}} orgãos encontrados {{description}}"
+msgid "Found %d public authority %s"
+msgid_plural "Found %d public authorities %s"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Freedom of Information"
 msgstr "Liberdade de Informação"
@@ -1247,6 +1254,11 @@ msgid "If you are {{user_link}}, please"
 msgstr "Se você é {{user_link}}, por favor"
 
 msgid ""
+"If you believe this request is not suitable, you can report it for attention"
+" by the site administrators"
+msgstr ""
+
+msgid ""
 "If you can't click on it in the email, you'll have to <strong>select and copy\n"
 "it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place\n"
 "you would type the address of any other webpage."
@@ -1272,6 +1284,11 @@ msgid ""
 "authority that you have withdrawn your request. Otherwise they will not know"
 " it has been withdrawn."
 msgstr "Se você ainda não fez, por favor escreva uma mensagem explicando para o orgão que você esta removendo seu pedido. Do contrario eles não vão saber que o pedido foi removido."
+
+msgid ""
+"If you reply to this message it will go directly to {{user_name}}, who will\n"
+"learn your email address. Only reply if that is okay."
+msgstr ""
 
 msgid ""
 "If you use web-based email or have \"junk mail\" filters, also check your\n"
@@ -1324,6 +1341,9 @@ msgstr "IncomingMessage | Assunto"
 msgid "IncomingMessage|Valid to reply to"
 msgstr "IncomingMessage | Vale a pena responder para"
 
+msgid "Individual requests"
+msgstr ""
+
 msgid "Info request"
 msgstr ""
 
@@ -1356,6 +1376,9 @@ msgstr ""
 
 msgid "InfoRequest|Awaiting description"
 msgstr "InfoRequest | Aguardando descrição"
+
+msgid "InfoRequest|Comments allowed"
+msgstr ""
 
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest | estado descrito"
@@ -1481,6 +1504,9 @@ msgstr "Faça e busque pedidos de acesso à informação"
 msgid "Make your own request"
 msgstr "Faça seu próprio pedido"
 
+msgid "Many requests"
+msgstr ""
+
 msgid "Message"
 msgstr "Mensagem"
 
@@ -1492,6 +1518,9 @@ msgstr "Faltam dados de contato para '"
 
 msgid "More about this authority"
 msgstr "Mais informações sobre este órgão público"
+
+msgid "More requests..."
+msgstr ""
 
 msgid "More similar requests"
 msgstr "Outros pedidos semelhantes"
@@ -1680,6 +1709,9 @@ msgstr "Senha: (de novo)"
 
 msgid "Paste this link into emails, tweets, and anywhere else:"
 msgstr "Utilize este link para divulgar seu pedido por meio de e-mails, tweets etc:"
+
+msgid "People"
+msgstr ""
 
 msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Pessoas {{start_count}} para {{end_count}}  de {{total_count}}"
@@ -2165,6 +2197,9 @@ msgid ""
 "          <strong>{{number_of_authorities}} authorities</strong>"
 msgstr "Pesquisar <br/> <strong>{{number_of_requests}} pedidos</strong> <span>e</span> <br/> <strong>{{number_of_authorities}} órgãos públicos </strong>"
 
+msgid "Search queries"
+msgstr ""
+
 msgid "Search results"
 msgstr "Resultados da busca"
 
@@ -2260,6 +2295,9 @@ msgstr "Algumas pessoas que fizeram pedidos não comunicaram se eles foram bem s
 
 msgid "Somebody added a note to your FOI request - "
 msgstr "Alguém adicionou uma nota ao seu pedido de acesso à informação -"
+
+msgid "Someone has updated the status of your request"
+msgstr ""
 
 msgid ""
 "Someone, perhaps you, just tried to change their email address on\n"
@@ -2953,6 +2991,9 @@ msgstr "Infelizmente, nós não temos um email válido de "
 msgid "Unknown"
 msgstr "Desconhecido"
 
+msgid "Unsubscribe"
+msgstr ""
+
 msgid "Unusual response."
 msgstr "Outra resposta."
 
@@ -2961,6 +3002,9 @@ msgstr "Alterar a situação deste pedido"
 
 msgid "Update the status of your request to "
 msgstr "Atualize a situação de seu pedido para "
+
+msgid "Upload FOI response"
+msgstr ""
 
 msgid ""
 "Use OR (in capital letters) where you don't mind which word,  e.g. "
@@ -3133,6 +3177,9 @@ msgstr "Qual a situação do seu pedido agora?"
 
 msgid "What information has been released?"
 msgstr "Últimas respostas"
+
+msgid "What information has been requested?"
+msgstr ""
 
 msgid ""
 "When you get there, please update the status to say if the response \n"
@@ -3360,9 +3407,8 @@ msgid "Your annotations"
 msgstr "Seus comentários"
 
 msgid ""
-"Your details have not been given to anyone, unless you choose to reply to this\n"
-"message, which will then go directly to the person who wrote the message."
-msgstr "Suas informações não foram dadas para ninguém, a não ser que você decida responder essa mensagem, nesse caso as informações irão diretamente para quem escrever a mensagem."
+"Your details, including your email address, have not been given to anyone."
+msgstr ""
 
 msgid "Your e-mail:"
 msgstr "Seu e-mail:"
@@ -3426,6 +3472,9 @@ msgstr ""
 
 msgid "Your request:"
 msgstr "Seu pedido:"
+
+msgid "Your response to an FOI request was not delivered"
+msgstr ""
 
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "

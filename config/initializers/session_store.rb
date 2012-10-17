@@ -7,7 +7,7 @@
 
 ActionController::Base.session = {
   :key => '_wdtk_cookie_session',
-  :secret => MySociety::Config.get("COOKIE_STORE_SESSION_SECRET", 'this default is insecure as code is open source, please override for live sites in config/general; this will do for local development')
+  :secret => Configuration::cookie_store_session_secret
 }
 ActionController::Base.session_store = :cookie_store
 

@@ -27,8 +27,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: incoming_message.rb,v 1.228 2009-10-21 11:24:14 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -253,7 +251,7 @@ class IncomingMessage < ActiveRecord::Base
             text.gsub!(self.info_request.public_body.request_email, _("[{{public_body}} request email]", :public_body => self.info_request.public_body.short_or_long_name))
         end
         text.gsub!(self.info_request.incoming_email, _('[FOI #{{request}} email]', :request => self.info_request.id.to_s) )
-        text.gsub!(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), _("[{{site_name}} contact email]", :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli')) )
+        text.gsub!(Configuration::contact_email, _("[{{site_name}} contact email]", :site_name => Configuration::site_name) )
     end
 
     # Replaces all email addresses in (possibly binary data) with equal length alternative ones.
@@ -279,7 +277,7 @@ class IncomingMessage < ActiveRecord::Base
                 if censored_uncompressed_text != uncompressed_text
                     # then use the altered file (recompressed)
                     recompressed_text = nil
-                    if MySociety::Config.get('USE_GHOSTSCRIPT_COMPRESSION') == true
+                    if Configuration::use_ghostscript_compression == true
                         command = ["gs", "-sDEVICE=pdfwrite", "-dCompatibilityLevel=1.4", "-dPDFSETTINGS=/screen", "-dNOPAUSE", "-dQUIET", "-dBATCH", "-sOutputFile=-", "-"]
                     else
                         command = ["pdftk", "-", "output", "-", "compress"]
@@ -376,8 +374,7 @@ class IncomingMessage < ActiveRecord::Base
         text.gsub!(/(Mobile|Mob)([\s\/]*(Fax|Tel))*\s*:?[\s\d]*\d/, "[mobile number]")
 
         # Remove WhatDoTheyKnow signup links
-        domain = MySociety::Config.get('DOMAIN')
-        text.gsub!(/http:\/\/#{domain}\/c\/[^\s]+/, "[WDTK login link]")
+        text.gsub!(/http:\/\/#{Configuration::domain}\/c\/[^\s]+/, "[WDTK login link]")
 
         # Remove things from censor rules
         self.info_request.apply_censor_rules_to_text!(text)
@@ -647,9 +644,10 @@ class IncomingMessage < ActiveRecord::Base
             # Text looks like unlabelled nonsense,
             # strip out anything that isn't UTF-8
             begin
+                source_charset = 'utf-8' if source_charset.nil?
                 text = Iconv.conv('utf-8//IGNORE', source_charset, text) +
                     _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
-                      :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli'))
+                      :site_name => Configuration::site_name)
             rescue Iconv::InvalidEncoding, Iconv::IllegalSequence
                 if source_charset != "utf-8"
                     source_charset = "utf-8"

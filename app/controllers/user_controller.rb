@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: user_controller.rb,v 1.71 2009-09-17 07:51:47 francis Exp $
 
 require 'set'
 
@@ -138,7 +136,7 @@ class UserController < ApplicationController
     # Login form
     def signin
         work_out_post_redirect
-        @request_from_foreign_country = country_from_ip != MySociety::Config.get('ISO_COUNTRY_CODE', 'GB')
+        @request_from_foreign_country = country_from_ip != Configuration::iso_country_code
         # make sure we have cookies
         if session.instance_variable_get(:@dbman)
             if not session.instance_variable_get(:@dbman).instance_variable_get(:@original)
@@ -192,7 +190,7 @@ class UserController < ApplicationController
     # Create new account form
     def signup
         work_out_post_redirect
-        @request_from_foreign_country = country_from_ip != MySociety::Config.get('ISO_COUNTRY_CODE', 'GB')
+        @request_from_foreign_country = country_from_ip != Configuration::iso_country_code
         # Make the user and try to save it
         @user_signup = User.new(params[:user_signup])
         error = false

@@ -6,8 +6,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: application.rb,v 1.59 2009-09-17 13:01:56 francis Exp $
 
 require 'open-uri'
 
@@ -56,7 +54,7 @@ class ApplicationController < ActionController::Base
     end
 
     def set_gettext_locale
-        if MySociety::Config.get('USE_DEFAULT_BROWSER_LANGUAGE', true)
+        if Configuration::use_default_browser_language
             requested_locale = params[:locale] || session[:locale] || cookies[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'] || I18n.default_locale
         else
             requested_locale = params[:locale] || session[:locale] || cookies[:locale] || I18n.default_locale
@@ -89,7 +87,7 @@ class ApplicationController < ActionController::Base
     # egrep "CONSUME MEMORY: [0-9]{7} KB" production.log
     around_filter :record_memory
     def record_memory
-        record_memory = MySociety::Config.get('DEBUG_RECORD_MEMORY', false)
+        record_memory = Configuration::debug_record_memory
         if record_memory
             logger.info "Processing request for #{request.url} with Rails process #{Process.pid}"
             File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
@@ -333,11 +331,10 @@ class ApplicationController < ActionController::Base
 
     #
     def check_read_only
-        read_only = MySociety::Config.get('READ_ONLY', '')
-        if !read_only.empty?
+        if !Configuration::read_only.empty?
             flash[:notice] = _("<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>",
                 :site_name => site_name,
-                :read_only => read_only)
+                :read_only => Configuration::read_only)
             redirect_to frontpage_url
         end
 
@@ -557,13 +554,11 @@ class ApplicationController < ActionController::Base
     end
 
     def country_from_ip
-        gaze = MySociety::Config.get('GAZE_URL', '')
-        default = MySociety::Config.get('ISO_COUNTRY_CODE', '')
         country = ""
-        if !gaze.empty?
-            country = quietly_try_to_open("#{gaze}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
+        if !Configuration::gaze_url.empty?
+            country = quietly_try_to_open("#{Configuration::gaze_url}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
         end
-        country = default if country.empty?
+        country = Configuration::iso_country_code if country.empty?
         return country
     end
 

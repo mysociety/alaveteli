@@ -4,8 +4,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: public_body_controller.rb,v 1.8 2009-09-14 13:27:00 francis Exp $
 
 require 'fastercsv'
 

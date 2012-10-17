@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: admin_controller.rb,v 1.29 2009-09-17 10:24:35 francis Exp $
 
 require 'fileutils'
 
@@ -48,7 +46,7 @@ class AdminController < ApplicationController
     end
 
     def authenticate
-        if MySociety::Config.get('SKIP_ADMIN_AUTH', false)
+        if Configuration::skip_admin_auth
             session[:using_admin] = 1
             return
         else
@@ -70,10 +68,8 @@ class AdminController < ApplicationController
                         end
                     end
                 else
-                    config_username = MySociety::Config.get('ADMIN_USERNAME', '')
-                    config_password = MySociety::Config.get('ADMIN_PASSWORD', '')
                     authenticate_or_request_with_http_basic do |user_name, password|
-                        if user_name == config_username && password == config_password
+                        if user_name == Configuration::admin_username && password == Configuration::admin_password
                             session[:using_admin] = 1
                             request.env['REMOTE_USER'] = user_name
                         else

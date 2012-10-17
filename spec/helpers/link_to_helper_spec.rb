@@ -48,4 +48,29 @@ describe LinkToHelper do
 
     end
 
+    describe 'admin_url' do
+        context 'with no ADMIN_BASE_URL set' do
+            it 'should prepend the admin general index path to a simple string' do
+                admin_url('unclassified').should == 'http://test.host/en/admin/unclassified'
+            end
+
+            it 'should prepend the admin general index path to a deeper URL' do
+                admin_url('request/show/123').should == 'http://test.host/en/admin/request/show/123'
+            end
+        end
+
+        context 'with ADMIN_BASE_URL set' do
+            before(:each) do
+                Configuration::should_receive(:admin_base_url).and_return('https://www.example.com/secure/alaveteli-admin/')
+            end
+
+            it 'should prepend the admin base URL to a simple string' do
+                admin_url('unclassified').should == 'https://www.example.com/secure/alaveteli-admin/unclassified'
+            end
+
+            it 'should prepend the admin base URL to a deeper URL' do
+                admin_url('request/show/123').should == 'https://www.example.com/secure/alaveteli-admin/request/show/123'
+            end
+        end
+    end
 end

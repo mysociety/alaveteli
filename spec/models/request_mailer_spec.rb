@@ -33,7 +33,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.to.should == [ MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') ]
+        mail.to.should == [ Configuration::contact_email ]
         deliveries.clear
     end
 
@@ -53,7 +53,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.to.should == [ MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') ]
+        mail.to.should == [ Configuration::contact_email ]
         deliveries.clear
     end
 
@@ -73,7 +73,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.to.should == [ MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') ]
+        mail.to.should == [ Configuration::contact_email ]
         deliveries.clear
     end
 
@@ -97,10 +97,12 @@ describe RequestMailer, " when receiving incoming mail" do
         # check attached bounce is good copy of incoming-request-plain.email
         mail.multipart?.should == true
         mail.parts.size.should == 2
+        message_part = mail.parts[0].to_s
         bounced_mail = TMail::Mail.parse(mail.parts[1].body)
         bounced_mail.to.should == [ ir.incoming_email ]
         bounced_mail.from.should == [ 'geraldinequango@localhost' ]
-        bounced_mail.body.include?("That's so totally a rubbish question")
+        bounced_mail.body.include?("That's so totally a rubbish question").should be_true
+        message_part.include?("marked to no longer receive responses").should be_true
         deliveries.clear
     end
 
@@ -157,7 +159,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.to.should == [ MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') ]
+        mail.to.should == [ Configuration::contact_email ]
         deliveries.clear
     end
 
@@ -323,4 +325,35 @@ describe RequestMailer, 'when sending mail when someone has updated an old uncla
         @mail.body.should match(/request\/test_request/)
     end
 
+end
+
+describe RequestMailer, 'requires_admin' do
+    before(:each) do
+        user = mock_model(User, :name_and_email => 'Bruce Jones',
+                                :name => 'Bruce Jones')
+        @info_request = mock_model(InfoRequest, :user => user,
+                                                :described_state => 'error_message',
+                                                :title => 'Test request',
+                                                :url_title => 'test_request',
+                                                :law_used_short => 'FOI',
+                                                :id => 123)
+    end
+
+    it 'body should contain the full admin URL' do
+        mail = RequestMailer.deliver_requires_admin(@info_request)
+
+        mail.body.should include('http://test.host/en/admin/request/show/123')
+    end
+
+    context 'has an ADMIN_BASE_URL set' do
+        before(:each) do
+            Configuration::should_receive(:admin_base_url).and_return('http://our.proxy.server/admin/alaveteli/')
+        end
+
+        it 'body should contain the full admin URL' do
+            mail = RequestMailer.deliver_requires_admin(@info_request)
+
+            mail.body.should include('http://our.proxy.server/admin/alaveteli/request/show/123')
+        end
+    end
 end

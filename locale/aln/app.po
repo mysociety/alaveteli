@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-09-19 09:37+0100\n"
-"PO-Revision-Date: 2012-09-19 08:48+0000\n"
+"POT-Creation-Date: 2012-10-11 10:18+0100\n"
+"PO-Revision-Date: 2012-10-11 09:49+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -175,7 +175,7 @@ msgstr ""
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr ""
 
-msgid "<a href=\"%s\">Are we missing a public authority?</a>."
+msgid "<a href=\"%s\">Are we missing a public authority?</a>"
 msgstr ""
 
 msgid ""
@@ -359,7 +359,7 @@ msgid ""
 msgstr ""
 
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr ""
@@ -402,6 +402,11 @@ msgid ""
 "<strong>Note:</strong>\n"
 "    We will send an email to your new email address. Follow the\n"
 "    instructions in it to confirm changing your email."
+msgstr ""
+
+msgid ""
+"<strong>Note:</strong> Because we're testing, requests are being sent to "
+"{{email}} rather than to the actual authority."
 msgstr ""
 
 msgid ""
@@ -1051,8 +1056,10 @@ msgstr ""
 msgid "Forgotten your password?"
 msgstr ""
 
-msgid "Found {{count}} public bodies {{description}}"
-msgstr ""
+msgid "Found %d public authority %s"
+msgid_plural "Found %d public authorities %s"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Freedom of Information"
 msgstr ""
@@ -1234,6 +1241,11 @@ msgid "If you are {{user_link}}, please"
 msgstr ""
 
 msgid ""
+"If you believe this request is not suitable, you can report it for attention"
+" by the site administrators"
+msgstr ""
+
+msgid ""
 "If you can't click on it in the email, you'll have to <strong>select and copy\n"
 "it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place\n"
 "you would type the address of any other webpage."
@@ -1258,6 +1270,11 @@ msgid ""
 "If you have not done so already, please write a message below telling the "
 "authority that you have withdrawn your request. Otherwise they will not know"
 " it has been withdrawn."
+msgstr ""
+
+msgid ""
+"If you reply to this message it will go directly to {{user_name}}, who will\n"
+"learn your email address. Only reply if that is okay."
 msgstr ""
 
 msgid ""
@@ -1311,6 +1328,9 @@ msgstr ""
 msgid "IncomingMessage|Valid to reply to"
 msgstr ""
 
+msgid "Individual requests"
+msgstr ""
+
 msgid "Info request"
 msgstr ""
 
@@ -1342,6 +1362,9 @@ msgid "InfoRequest|Attention requested"
 msgstr ""
 
 msgid "InfoRequest|Awaiting description"
+msgstr ""
+
+msgid "InfoRequest|Comments allowed"
 msgstr ""
 
 msgid "InfoRequest|Described state"
@@ -1468,6 +1491,9 @@ msgstr ""
 msgid "Make your own request"
 msgstr ""
 
+msgid "Many requests"
+msgstr ""
+
 msgid "Message"
 msgstr ""
 
@@ -1478,6 +1504,9 @@ msgid "Missing contact details for '"
 msgstr ""
 
 msgid "More about this authority"
+msgstr ""
+
+msgid "More requests..."
 msgstr ""
 
 msgid "More similar requests"
@@ -1666,6 +1695,9 @@ msgid "Password: (again)"
 msgstr ""
 
 msgid "Paste this link into emails, tweets, and anywhere else:"
+msgstr ""
+
+msgid "People"
 msgstr ""
 
 msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
@@ -2152,6 +2184,9 @@ msgid ""
 "          <strong>{{number_of_authorities}} authorities</strong>"
 msgstr ""
 
+msgid "Search queries"
+msgstr ""
+
 msgid "Search results"
 msgstr ""
 
@@ -2246,6 +2281,9 @@ msgid ""
 msgstr ""
 
 msgid "Somebody added a note to your FOI request - "
+msgstr ""
+
+msgid "Someone has updated the status of your request"
 msgstr ""
 
 msgid ""
@@ -2940,6 +2978,9 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
+msgid "Unsubscribe"
+msgstr ""
+
 msgid "Unusual response."
 msgstr ""
 
@@ -2947,6 +2988,9 @@ msgid "Update the status of this request"
 msgstr ""
 
 msgid "Update the status of your request to "
+msgstr ""
+
+msgid "Upload FOI response"
 msgstr ""
 
 msgid ""
@@ -3119,6 +3163,9 @@ msgid "What best describes the status of this request now?"
 msgstr ""
 
 msgid "What information has been released?"
+msgstr ""
+
+msgid "What information has been requested?"
 msgstr ""
 
 msgid ""
@@ -3347,8 +3394,7 @@ msgid "Your annotations"
 msgstr ""
 
 msgid ""
-"Your details have not been given to anyone, unless you choose to reply to this\n"
-"message, which will then go directly to the person who wrote the message."
+"Your details, including your email address, have not been given to anyone."
 msgstr ""
 
 msgid "Your e-mail:"
@@ -3412,6 +3458,9 @@ msgid ""
 msgstr ""
 
 msgid "Your request:"
+msgstr ""
+
+msgid "Your response to an FOI request was not delivered"
 msgstr ""
 
 msgid ""

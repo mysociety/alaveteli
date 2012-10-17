@@ -11,8 +11,6 @@
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: raw_email.rb,v 1.12 2009-09-17 21:10:05 francis Exp $
 
 class RawEmail < ActiveRecord::Base
     # deliberately don't strip_attributes, so keeps raw email properly
@@ -28,8 +26,7 @@ class RawEmail < ActiveRecord::Base
         if ENV["RAILS_ENV"] == "test"
             return File.join(Rails.root, 'files/raw_email_test')
         else
-            return File.join(MySociety::Config.get('RAW_EMAILS_LOCATION',
-                                                   'files/raw_emails'),
+            return File.join(Configuration::raw_emails_location,
                              request_id[0..2], request_id)
         end
     end
