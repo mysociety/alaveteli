@@ -16,7 +16,7 @@ $alaveteli_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 $:.push(File.join($alaveteli_dir, "commonlib", "rblib"))
 load "config.rb"
 $:.push(File.join($alaveteli_dir, "lib"))
-load "configuration.rb"
+require "configuration"
 MySociety::Config.set_file(File.join($alaveteli_dir, 'config', 'general'), true)
 MySociety::Config.load_default
 
