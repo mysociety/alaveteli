@@ -15,7 +15,7 @@
           <%= _("Search over<br/>
           <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>
           <strong>{{number_of_authorities}} authorities</strong>",
-          :number_of_requests => InfoRequest.count, :number_of_authorities => PublicBody.count) %>
+          :number_of_requests => InfoRequest.count, :number_of_authorities => PublicBody.visible.count) %>
         </h2>
         <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
         <div>
@@ -36,7 +36,7 @@
       <div id="examples_0">
         <h3><%= _("Who can I request information from?") %></h3>
         <%= _("{{site_name}} covers requests to {{number_of_authorities}} authorities, including:",
-            :site_name => site_name, :number_of_authorities => PublicBody.count) %>
+            :site_name => site_name, :number_of_authorities => PublicBody.visible.count) %>
         <ul>
             <% for popular_body in @popular_bodies %>
                 <li><%=public_body_link(popular_body)%>
