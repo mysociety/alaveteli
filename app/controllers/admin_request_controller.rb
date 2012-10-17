@@ -93,7 +93,7 @@ class AdminRequestController < AdminController
                     :old_allow_new_responses_from => old_allow_new_responses_from, :allow_new_responses_from => @info_request.allow_new_responses_from,
                     :old_handle_rejected_responses => old_handle_rejected_responses, :handle_rejected_responses => @info_request.handle_rejected_responses,
                     :old_tag_string => old_tag_string, :tag_string => @info_request.tag_string,
-                    :old_comments_allowed => old_comments_allowed, :tag_string => @info_request.comments_allowed
+                    :old_comments_allowed => old_comments_allowed, :comments_allowed => @info_request.comments_allowed
                 })
             # expire cached files
             expire_for_request(@info_request)

@@ -36,7 +36,7 @@ require File.join(File.dirname(__FILE__), '../lib/old_rubygems_patch')
 require 'configuration'
 
 # Application version
-ALAVETELI_VERSION = '0.6.6'
+ALAVETELI_VERSION = '0.6.7'
 
 Rails::Initializer.run do |config|
   # Load intial mySociety config
