@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20120919140404
 #
 # Table name: info_requests
 #
@@ -19,6 +20,7 @@
 #  external_user_name        :string(255)
 #  external_url              :string(255)
 #  attention_requested       :boolean         default(FALSE)
+#  comments_allowed          :boolean         default(TRUE), not null
 #
 
 require 'digest/sha1'
@@ -687,21 +689,18 @@ public
     # last_event_forming_initial_request. There may be more obscure
     # things, e.g. fees, not properly covered.
     def date_response_required_by
-        days_later = MySociety::Config.get('REPLY_LATE_AFTER_DAYS', 20)
-        return Holiday.due_date_from(self.date_initial_request_last_sent_at, days_later)
+        Holiday.due_date_from(self.date_initial_request_last_sent_at, Configuration::reply_late_after_days, Configuration::working_or_calendar_days)
     end
     # This is a long stop - even with UK public interest test extensions, 40
     # days is a very long time.
     def date_very_overdue_after
         last_sent = last_event_forming_initial_request
-        very_late_days_later = MySociety::Config.get('REPLY_VERY_LATE_AFTER_DAYS', 40)
-        school_very_late_days_later = MySociety::Config.get('SPECIAL_REPLY_VERY_LATE_AFTER_DAYS', 60)
         if self.public_body.is_school?
             # schools have 60 working days maximum (even over a long holiday)
-            return Holiday.due_date_from(self.date_initial_request_last_sent_at, 60)
+            Holiday.due_date_from(self.date_initial_request_last_sent_at, Configuration::special_reply_very_late_after_days, Configuration::working_or_calendar_days)
         else
             # public interest test ICO guidance gives 40 working maximum
-            return Holiday.due_date_from(self.date_initial_request_last_sent_at, 40)
+            Holiday.due_date_from(self.date_initial_request_last_sent_at, Configuration::reply_very_late_after_days, Configuration::working_or_calendar_days)
         end
     end
 
@@ -901,10 +900,10 @@ public
     end
 
     def InfoRequest.magic_email_for_id(prefix_part, id)
-        magic_email = MySociety::Config.get("INCOMING_EMAIL_PREFIX", "")
+        magic_email = Configuration::incoming_email_prefix
         magic_email += prefix_part + id.to_s
         magic_email += "-" + InfoRequest.hash_from_id(id)
-        magic_email += "@" + MySociety::Config.get("INCOMING_EMAIL_DOMAIN", "localhost")
+        magic_email += "@" + Configuration::incoming_email_domain
         return magic_email
     end
 
@@ -915,7 +914,7 @@ public
     end
 
     def InfoRequest.hash_from_id(id)
-        return Digest::SHA1.hexdigest(id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET", 'dummysecret'))[0,8]
+        return Digest::SHA1.hexdigest(id.to_s + Configuration::incoming_email_secret)[0,8]
     end
 
     # Called by find_by_incoming_email - and used to be called by separate
@@ -1139,7 +1138,7 @@ public
 
     before_save :purge_in_cache
     def purge_in_cache
-        if !MySociety::Config.get('VARNISH_HOST').nil? && !self.id.nil?
+        if !Configuration::varnish_host.nil? && !self.id.nil?
             # we only do this for existing info_requests (new ones have a nil id)
             path = url_for(:controller => 'request', :action => 'show', :url_title => self.url_title, :only_path => true, :locale => :none)
             req = PurgeRequest.find_by_url(path)

@@ -1,7 +1,8 @@
 ---------------------------------------------------------------------
 <%= _('{{user_name}} has used {{site_name}} to send you the message below.', :user_name=>@from_user.name, :site_name=>site_name) %>
-<%= _('Your details have not been given to anyone, unless you choose to reply to this
-message, which will then go directly to the person who wrote the message.')%>
+<%= _('Your details, including your email address, have not been given to anyone.') %>
+<%= _('If you reply to this message it will go directly to {{user_name}}, who will
+learn your email address. Only reply if that is okay.', :user_name => @from_user.name) %>
 ---------------------------------------------------------------------
 
 <%= @message.strip %>

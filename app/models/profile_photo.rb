@@ -14,9 +14,6 @@
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: profile_photo.rb,v 1.2 2009-09-17 21:10:05 francis Exp $
-#
 
 class ProfilePhoto < ActiveRecord::Base
     WIDTH = 96

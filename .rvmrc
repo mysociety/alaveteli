@@ -29,7 +29,6 @@ then
     \. "${rvm_path:-$HOME/.rvm}/hooks/after_use" || true
   if [[ $- == *i* ]] # check for interactive shells
   then echo "Using: $(tput setaf 2)$GEM_HOME$(tput sgr0)" # show the user the ruby and gemset they are using in green
-  else echo "Using: $GEM_HOME" # don't use colors in non-interactive shells
   fi
 else
   # If the environment file has not yet been created, use the RVM CLI to select.

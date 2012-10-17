@@ -19,7 +19,8 @@ These are the general steps required to get your staging server up and running:
 * Run `cap deploy:update_code` so that we've got a copy of the example config on the server. This process will take a long time installing gems, etc. it will also fail on `rake:themes:install` but that's OK
 * SSH to the server, change to the `deploy_to` directory
 * `cp releases/[SOME_DATE]/config/general.yml-example shared/general.yml`
-* `cp releases/[SOME_DATE]/config/general.yml-example shared/general.yml`
+* `cp releases/[SOME_DATE]/config/database.yml-example shared/database.yml`
+* `cp releases/[SOME_DATE]/config/memcached.yml-example shared/memcached.yml`
 * Edit those files to match your required settings
 * Back on your machine run `cap deploy` and it should successfully deploy
 * Run the DB migrations `cap deploy:migrate`

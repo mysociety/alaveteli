@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: outgoing_mailer.rb,v 1.1 2009-10-04 21:53:54 francis Exp $
 
 # Note: The layout for this wraps messages by lines rather than (blank line
 # separated) paragraphs, as is the convention for all the other mailers. This
@@ -24,7 +22,7 @@ class OutgoingMailer < ApplicationMailer
         @subject    = info_request.email_subject_request
         @headers["message-id"] = OutgoingMailer.id_for_message(outgoing_message)
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
-            :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') }
+            :contact_email => Configuration::contact_email }
     end
 
     # Later message to public body regarding existing request
@@ -36,7 +34,7 @@ class OutgoingMailer < ApplicationMailer
         @headers["message-id"] = OutgoingMailer.id_for_message(outgoing_message)
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
             :incoming_message_followup => incoming_message_followup,
-            :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') }
+            :contact_email => Configuration::contact_email }
     end
 
     # XXX the condition checking valid_to_reply_to? also appears in views/request/_followup.rhtml,
@@ -91,7 +89,7 @@ class OutgoingMailer < ApplicationMailer
         message_id = "ogm-" + outgoing_message.id.to_s
         t = Time.now
         message_id += "+" + '%08x%05x-%04x' % [t.to_i, t.tv_usec, rand(0xffff)]
-        message_id += "@" + MySociety::Config.get("INCOMING_EMAIL_DOMAIN", "localhost")
+        message_id += "@" + Configuration::incoming_email_domain
         return "<" + message_id + ">"
     end
 

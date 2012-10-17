@@ -86,12 +86,7 @@
             </p>
             <div class="form_item_note">
                 (<%= _("a one line summary of the information you are requesting, \n\t\t\te.g.") %> 
-                  <% if @info_request.law_used == 'eir' %>
-                      <%= _("'Pollution levels over time for the River Tyne'") %>
-                  <% else %>
-                      <%= _("'Crime statistics by ward level for Wales'") %>
-                  <% end %>
-                  )
+                  <%= render :partial => "summary_suggestion" %>)
             </div>
         </div>
         
@@ -121,7 +116,7 @@
                 will be <strong>displayed publicly</strong> on
                 this website forever (<a href="%s">why?</a>).') % [help_privacy_path+"#public_request"] %>  
                 <%= _('If you are thinking of using a pseudonym,
-                please <a href="%s">read this first</a>.') % [help_privacy_path+"#public_request"] %>
+                please <a href="%s">read this first</a>.') % [help_privacy_path+"#real_name"] %>
             </p>
         <% else %>
             <p class="form_note">

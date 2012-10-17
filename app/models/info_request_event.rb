@@ -21,8 +21,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: info_request_event.rb,v 1.96 2009-10-19 22:06:55 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request

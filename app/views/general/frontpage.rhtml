@@ -40,7 +40,7 @@
         <ul>
             <% for popular_body in @popular_bodies %>
                 <li><%=public_body_link(popular_body)%>
-                 <%= n_('%d request', '%d requests', popular_body.info_requests.count) % popular_body.info_requests.count %>
+                 <%= n_('%d request', '%d requests', popular_body.info_requests_count) % popular_body.info_requests_count %>
                 </li>
             <% end%>
         </ul>
@@ -51,20 +51,32 @@
     <% end %>
 
     <div id="examples_1">
-      <h3><%= _("What information has been released?") %></h3>
-       <%= _("{{site_name}} users have made {{number_of_requests}} requests, including:", 
+      <h3>
+        <% if @request_events_all_successful %>
+          <%= _("What information has been released?") %>
+        <% else %>
+          <%= _("What information has been requested?") %>
+        <% end %>
+      </h3>
+       <%= _("{{site_name}} users have made {{number_of_requests}} requests, including:",
         :site_name => site_name, :number_of_requests => InfoRequest.count) %>
         <ul>
           <% for event in @request_events %>
             <li>
                <%= public_body_link(event.info_request.public_body) %> <%= _('answered a request about') %>
-               <%=link_to h(event.info_request.title), request_url(event.info_request)%> 
-               <%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(event.described_at)) %> 
+               <%=link_to h(event.info_request.title), request_url(event.info_request)%>
+               <%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(event.described_at)) %>
                <p class="excerpt" onclick="document.location.href='<%=request_url(event.info_request)%>'"><%= excerpt(event.search_text_main(true), "", 200) %></p>
               </li>
           <% end %>
         </ul>
-        <p><strong><%=link_to _('More successful requests...'), request_list_successful_url %></strong></p>
+        <p><strong>
+          <% if @request_events_all_successful %>
+            <%=link_to _('More successful requests...'), request_list_successful_url %>
+          <% else %>
+            <%=link_to _('More requests...'), request_list_all_url %>
+          <% end %>
+        </strong></p>
     </div>
 </div>
 

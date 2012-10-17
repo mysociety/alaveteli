@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: comment_controller.rb,v 1.9 2009-03-09 01:17:04 francis Exp $
 
 class CommentController < ApplicationController
     before_filter :check_read_only, :only => [ :new ]
@@ -23,6 +21,13 @@ class CommentController < ApplicationController
         else
             raise "Unknown type " + params[:type]
         end
+        
+        # Are comments disabled on this request?
+        #
+        # There is no “add comment” link when comments are disabled, so users should
+        # not usually hit this unless they are explicitly attempting to avoid the comment
+        # block, so we just raise an exception.
+        raise "Comments are not allowed on this request" if !@info_request.comments_allowed?
 
         # Banned from adding comments?
         if !authenticated_user.nil? && !authenticated_user.can_make_comments?

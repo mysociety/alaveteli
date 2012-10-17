@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-09-19 09:37+0100\n"
-"PO-Revision-Date: 2012-09-19 08:48+0000\n"
+"POT-Creation-Date: 2012-10-11 10:18+0100\n"
+"PO-Revision-Date: 2012-10-11 09:52+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -175,8 +175,8 @@ msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a> "
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"%s\">Kommentálhatja az igénylést</a> - amivel segítségére lehet az igénylőnek, valamint a téma iránt érdelődőknek."
 
-msgid "<a href=\"%s\">Are we missing a public authority?</a>."
-msgstr "<a href=\"%s\">Hiányzik valamely adatgazda?</a>. "
+msgid "<a href=\"%s\">Are we missing a public authority?</a>"
+msgstr ""
 
 msgid ""
 "<a href=\"%s\">Are you the owner of\n"
@@ -359,7 +359,7 @@ msgid ""
 msgstr "<strong><code>status:</code></strong> az igénylés állapota vagy korábbi állapota alapján történő kiválasztáshoz, lásd az alábbi <a href=\"{{statuses_url}}\">állapottáblázatot</a>. "
 
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr "<strong><code>tag:charity</code></strong> az összes adatgazda vagy igénylés kikereséséhez egy adott címkén belül. Több címkét \n    és címkeértéket is szerepeltethet, pl. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Ne feledje, hogy alapértelmezés szerint bármely címke\n    szerepelhet; világosan fel kell tüntetnie az <code>AND</code> kódot, ha az összes eredményt meg kívánja jeleníteni. "
@@ -403,6 +403,11 @@ msgid ""
 "    We will send an email to your new email address. Follow the\n"
 "    instructions in it to confirm changing your email."
 msgstr "<strong>Megjegyzés:</strong>\n    E-mailt küldünk új e-mail címére. Kövesse az\n    abban található utasításokat az e-mail cím módosításának megerősítéséhez!"
+
+msgid ""
+"<strong>Note:</strong> Because we're testing, requests are being sent to "
+"{{email}} rather than to the actual authority."
+msgstr ""
 
 msgid ""
 "<strong>Note:</strong> You're sending a message to yourself, presumably\n"
@@ -1051,8 +1056,10 @@ msgstr "Ismeretlen okból kifolyólag ennek a közintézménynek nem lehet igén
 msgid "Forgotten your password?"
 msgstr "Elfelejtette jelszavát? "
 
-msgid "Found {{count}} public bodies {{description}}"
-msgstr " {{description}} összesen {{count}} adatgazda található a rendszerünkben"
+msgid "Found %d public authority %s"
+msgid_plural "Found %d public authorities %s"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Freedom of Information"
 msgstr "Közérdekűadat"
@@ -1234,6 +1241,11 @@ msgid "If you are {{user_link}}, please"
 msgstr "Ha ön {{user_link}}, kérjük, "
 
 msgid ""
+"If you believe this request is not suitable, you can report it for attention"
+" by the site administrators"
+msgstr ""
+
+msgid ""
 "If you can't click on it in the email, you'll have to <strong>select and copy\n"
 "it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place\n"
 "you would type the address of any other webpage."
@@ -1259,6 +1271,11 @@ msgid ""
 "authority that you have withdrawn your request. Otherwise they will not know"
 " it has been withdrawn."
 msgstr "Ha még nem tette meg eddig, írjon alább üzenetet, amelyben tájékoztatja a közintézményt, hogy igénylését visszavonta. Máskülönben nem fogják tudni, hogy az igénylés vissza lett vonva. "
+
+msgid ""
+"If you reply to this message it will go directly to {{user_name}}, who will\n"
+"learn your email address. Only reply if that is okay."
+msgstr ""
 
 msgid ""
 "If you use web-based email or have \"junk mail\" filters, also check your\n"
@@ -1311,6 +1328,9 @@ msgstr "IncomingMessage|Subject"
 msgid "IncomingMessage|Valid to reply to"
 msgstr "IncomingMessage|Valid to reply to"
 
+msgid "Individual requests"
+msgstr ""
+
 msgid "Info request"
 msgstr ""
 
@@ -1343,6 +1363,9 @@ msgstr ""
 
 msgid "InfoRequest|Awaiting description"
 msgstr "InfoRequest|Awaiting description"
+
+msgid "InfoRequest|Comments allowed"
+msgstr ""
 
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Described state"
@@ -1468,6 +1491,9 @@ msgstr "Közérdekűadat-igénylések létrehozása és böngészése "
 msgid "Make your own request"
 msgstr "Adatigénylés létrehozása "
 
+msgid "Many requests"
+msgstr ""
+
 msgid "Message"
 msgstr ""
 
@@ -1479,6 +1505,9 @@ msgstr "Hiányzó kapcsolattartási adatok: "
 
 msgid "More about this authority"
 msgstr "További információ erről az adatgazdáról"
+
+msgid "More requests..."
+msgstr ""
 
 msgid "More similar requests"
 msgstr "Több hasonló igénylés "
@@ -1667,6 +1696,9 @@ msgstr "Jelszó: (újból) "
 
 msgid "Paste this link into emails, tweets, and anywhere else:"
 msgstr "Másolja be ezt a hivatkozást e-mailbe, tweetbe és máshova: "
+
+msgid "People"
+msgstr ""
 
 msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Személyek: {{start_count}} - {{end_count}}, összesen: {{total_count}} "
@@ -2152,6 +2184,9 @@ msgid ""
 "          <strong>{{number_of_authorities}} authorities</strong>"
 msgstr "<br/>\n          <strong>{{number_of_requests}} adatigénylés</strong> <span>és</span><br/>\n          <strong>{{number_of_authorities}} adatgazda</strong> között böngészhet pillanatnyilag a rendszerünkben."
 
+msgid "Search queries"
+msgstr ""
+
 msgid "Search results"
 msgstr "A keresés eredménye"
 
@@ -2247,6 +2282,9 @@ msgstr "Néhányan, akik adatigénylést nyújtottak be, nem tájékoztattak ben
 
 msgid "Somebody added a note to your FOI request - "
 msgstr "Közérdekűadat-igényléséhez valaki hozzászólt - "
+
+msgid "Someone has updated the status of your request"
+msgstr ""
 
 msgid ""
 "Someone, perhaps you, just tried to change their email address on\n"
@@ -2940,6 +2978,9 @@ msgstr "Sajnos nem ismerjük a következő adatgazda működő {{info_request_la
 msgid "Unknown"
 msgstr "Ismeretlen"
 
+msgid "Unsubscribe"
+msgstr ""
+
 msgid "Unusual response."
 msgstr "Szokatlan válasz"
 
@@ -2948,6 +2989,9 @@ msgstr "Az adatigénylés státuszának frissítése"
 
 msgid "Update the status of your request to "
 msgstr "Igénylése állapotának frissítése a következőre: "
+
+msgid "Upload FOI response"
+msgstr ""
 
 msgid ""
 "Use OR (in capital letters) where you don't mind which word,  e.g. "
@@ -3120,6 +3164,9 @@ msgstr "Mi áll a legközelebb ezen igénylés állapotához? "
 
 msgid "What information has been released?"
 msgstr "Mire voltak kíváncsiak mások? "
+
+msgid "What information has been requested?"
+msgstr ""
 
 msgid ""
 "When you get there, please update the status to say if the response \n"
@@ -3347,9 +3394,8 @@ msgid "Your annotations"
 msgstr "Hozzászólásaim"
 
 msgid ""
-"Your details have not been given to anyone, unless you choose to reply to this\n"
-"message, which will then go directly to the person who wrote the message."
-msgstr "Adatait senkinek nem adtuk ki - kivéve, ha ön úgy dönt, hogy erre az üzenetre\nválaszol, és akkor a választ közvetlenül az üzenet küldője kapja meg. "
+"Your details, including your email address, have not been given to anyone."
+msgstr ""
 
 msgid "Your e-mail:"
 msgstr "Az ön e-mail címe: "
@@ -3413,6 +3459,9 @@ msgstr "Igénylésének címe: {{info_request}}. Ha megkapta az információt, �
 
 msgid "Your request:"
 msgstr "Az ön igénylése: "
+
+msgid "Your response to an FOI request was not delivered"
+msgstr ""
 
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "

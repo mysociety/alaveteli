@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-09-19 09:37+0100\n"
-"PO-Revision-Date: 2012-09-19 08:48+0000\n"
+"POT-Creation-Date: 2012-10-11 10:18+0100\n"
+"PO-Revision-Date: 2012-10-11 09:51+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -180,8 +180,8 @@ msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"%s\">Shto një shënim</a> (për të ndihmuar kërkuesin ose përdoruesit e tjerë)"
 
-msgid "<a href=\"%s\">Are we missing a public authority?</a>."
-msgstr "<a href=\"%s\">A po mungon ndonjë autoritet publik?</a>"
+msgid "<a href=\"%s\">Are we missing a public authority?</a>"
+msgstr ""
 
 msgid ""
 "<a href=\"%s\">Are you the owner of\n"
@@ -364,7 +364,7 @@ msgid ""
 msgstr "<strong><code>status:</code></strong>për të selektuar në bazë të statusit apo historisë së statusit të kërkesës, shih<a href=\"{{statuses_url}}\">tabelën e statuseve</a> më poshtë."
 
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr "<strong><code>etiketa:organizatë</code></strong> për të gjetur të gjitha institucionet apo kërkesat me etiketën e dhënë. Mund të përfshihen edhe disa etiketa, \n    dhe vlera të etiketave, psh. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Secila nga etiketat mund të jetë\n    prezente, duhet të shkruash <code>AND</code> në mënyrë eksplicite nëse do që vetëm ato te përfshihen."
@@ -408,6 +408,11 @@ msgid ""
 "    We will send an email to your new email address. Follow the\n"
 "    instructions in it to confirm changing your email."
 msgstr "<strong>Shenim:</strong>\n    Do të dërgojmë email në adresën tënde të re. Përcjelli\n    udhëzimet për të konfirmuar ndërrimin e emailit."
+
+msgid ""
+"<strong>Note:</strong> Because we're testing, requests are being sent to "
+"{{email}} rather than to the actual authority."
+msgstr ""
 
 msgid ""
 "<strong>Note:</strong> You're sending a message to yourself, presumably\n"
@@ -1056,8 +1061,10 @@ msgstr "Për një arsye të panjohur, nuk është e mundur për të bërë një 
 msgid "Forgotten your password?"
 msgstr "Ke harru fjalëkalimin?"
 
-msgid "Found {{count}} public bodies {{description}}"
-msgstr "U gjetën {{count}} autoritete publike - {{description}}"
+msgid "Found %d public authority %s"
+msgid_plural "Found %d public authorities %s"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Freedom of Information"
 msgstr "Informata Zyrtare"
@@ -1239,6 +1246,11 @@ msgid "If you are {{user_link}}, please"
 msgstr "Nëse ti je {{user_link}}, të lutem"
 
 msgid ""
+"If you believe this request is not suitable, you can report it for attention"
+" by the site administrators"
+msgstr ""
+
+msgid ""
 "If you can't click on it in the email, you'll have to <strong>select and copy\n"
 "it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place\n"
 "you would type the address of any other webpage."
@@ -1264,6 +1276,11 @@ msgid ""
 "authority that you have withdrawn your request. Otherwise they will not know"
 " it has been withdrawn."
 msgstr "Nëse nuk e ke bërë këtë deri tani, të lutem shkruaj një mesazh më poshtë për ti treguar autoritetit që ti e ke tërheq kërkesën tënde. Përndryshe ata nuk do të dinë se është e tërhequr kërkesa."
+
+msgid ""
+"If you reply to this message it will go directly to {{user_name}}, who will\n"
+"learn your email address. Only reply if that is okay."
+msgstr ""
 
 msgid ""
 "If you use web-based email or have \"junk mail\" filters, also check your\n"
@@ -1316,6 +1333,9 @@ msgstr "IncomingMessage | Lënda"
 msgid "IncomingMessage|Valid to reply to"
 msgstr "IncomingMessage | Valide për t'iu përgjigjur te"
 
+msgid "Individual requests"
+msgstr ""
+
 msgid "Info request"
 msgstr ""
 
@@ -1348,6 +1368,9 @@ msgstr ""
 
 msgid "InfoRequest|Awaiting description"
 msgstr "InfoRequest|Awaiting description"
+
+msgid "InfoRequest|Comments allowed"
+msgstr ""
 
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Described state"
@@ -1473,6 +1496,9 @@ msgstr "Bëj dhe shfleto kërkesa për Informata Zyrtare"
 msgid "Make your own request"
 msgstr "Bëj kërkesën tënde"
 
+msgid "Many requests"
+msgstr ""
+
 msgid "Message"
 msgstr ""
 
@@ -1484,6 +1510,9 @@ msgstr "Mungojnë të dhënat për '"
 
 msgid "More about this authority"
 msgstr "Më shumë për këtë autoritet"
+
+msgid "More requests..."
+msgstr ""
 
 msgid "More similar requests"
 msgstr "Më shumë kërkesa të ngjashme"
@@ -1672,6 +1701,9 @@ msgstr "Fjalëkalimi: (përsërite)"
 
 msgid "Paste this link into emails, tweets, and anywhere else:"
 msgstr "Kopjo (paste) këtë vegzë në emaila, tweeta dhe kudo tjetër:"
+
+msgid "People"
+msgstr ""
 
 msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Personat {{start_count}} deri {{end_count}} prej {{total_count}}"
@@ -2157,6 +2189,9 @@ msgid ""
 "          <strong>{{number_of_authorities}} authorities</strong>"
 msgstr "Gjej mbi<br/>\n          <strong>{{number_of_requests}} kërkesa</strong> <span>dhe</span><br/>\n          <strong>{{number_of_authorities}} autoritete publike</strong>"
 
+msgid "Search queries"
+msgstr ""
+
 msgid "Search results"
 msgstr "Rezultatet e kërkimit"
 
@@ -2252,6 +2287,9 @@ msgstr "Disa individë që kanë bërë kërkesa nuk kanë treguar se a ishin at
 
 msgid "Somebody added a note to your FOI request - "
 msgstr "Dikush ka shtuar një shënim në kërkesën tënde -"
+
+msgid "Someone has updated the status of your request"
+msgstr ""
 
 msgid ""
 "Someone, perhaps you, just tried to change their email address on\n"
@@ -2945,6 +2983,9 @@ msgstr "Për fat të keq, ne nuk kemi një adresë funksionale {{info_request_la
 msgid "Unknown"
 msgstr "I/e panjohur"
 
+msgid "Unsubscribe"
+msgstr ""
+
 msgid "Unusual response."
 msgstr "përgjigje e pazakonshme."
 
@@ -2953,6 +2994,9 @@ msgstr "Aktualizo statusin e kësaj kërkese"
 
 msgid "Update the status of your request to "
 msgstr "Aktualizo statusin e kërkesës tënde për "
+
+msgid "Upload FOI response"
+msgstr ""
 
 msgid ""
 "Use OR (in capital letters) where you don't mind which word,  e.g. "
@@ -3125,6 +3169,9 @@ msgstr "Çfarë përshkruan më së miri statusin e kësaj kërkese tani?"
 
 msgid "What information has been released?"
 msgstr "Çfarë informata janë publikuar?"
+
+msgid "What information has been requested?"
+msgstr ""
 
 msgid ""
 "When you get there, please update the status to say if the response \n"
@@ -3352,9 +3399,8 @@ msgid "Your annotations"
 msgstr "Shënimet tua"
 
 msgid ""
-"Your details have not been given to anyone, unless you choose to reply to this\n"
-"message, which will then go directly to the person who wrote the message."
-msgstr "Të dhënat tuaja nuk iu kanë dhënë askujt, përveç nëse ju vendos të përgjigjesh në këtë\nmesazh, i cili pastaj do të shkon direkt tek personi i cili shkroi mesazhin."
+"Your details, including your email address, have not been given to anyone."
+msgstr ""
 
 msgid "Your e-mail:"
 msgstr "Emaili yt:"
@@ -3418,6 +3464,9 @@ msgstr "Kërkesa yte qe emëruar {{info_request}}. Nëse i lejoni të tjerër ta
 
 msgid "Your request:"
 msgstr "Kërkesa yte:"
+
+msgid "Your response to an FOI request was not delivered"
+msgstr ""
 
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "

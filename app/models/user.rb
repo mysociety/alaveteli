@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20120919140404
 #
 # Table name: users
 #
@@ -21,13 +22,6 @@
 #  no_limit               :boolean         default(FALSE), not null
 #  receive_email_alerts   :boolean         default(TRUE), not null
 #
-# models/user.rb:
-# Model of people who use the site to file requests, make comments etc.
-#
-# Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: user.rb,v 1.106 2009-10-01 01:43:36 francis Exp $
 
 require 'digest/sha1'
 
@@ -214,13 +208,12 @@ class User < ActiveRecord::Base
 
     # The "internal admin" is a special user for internal use.
     def User.internal_admin_user
-        contact_email = MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')
-        u = User.find_by_email(contact_email)
+        u = User.find_by_email(Configuration::contact_email)
         if u.nil?
             password = PostRedirect.generate_random_token
             u = User.new(
                 :name => 'Internal admin user',
-                :email => contact_email,
+                :email => Configuration::contact_email,
                 :password => password,
                 :password_confirmation => password
             )
@@ -288,18 +281,16 @@ class User < ActiveRecord::Base
         return false if self.no_limit
 
         # Has the user issued as many as MAX_REQUESTS_PER_USER_PER_DAY requests in the past 24 hours?
-        daily_limit = MySociety::Config.get("MAX_REQUESTS_PER_USER_PER_DAY")
-        return false if daily_limit.nil?
+        return false if Configuration::max_requests_per_user_per_day.nil?
         recent_requests = InfoRequest.count(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id])
 
-        return (recent_requests >= daily_limit)
+        return (recent_requests >= Configuration::max_requests_per_user_per_day)
     end
     def next_request_permitted_at
         return nil if self.no_limit
 
-        daily_limit = MySociety::Config.get("MAX_REQUESTS_PER_USER_PER_DAY")
-        n_most_recent_requests = InfoRequest.all(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id], :order => "created_at DESC", :limit => daily_limit)
-        return nil if n_most_recent_requests.size < daily_limit
+        n_most_recent_requests = InfoRequest.all(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id], :order => "created_at DESC", :limit => Configuration::max_requests_per_user_per_day)
+        return nil if n_most_recent_requests.size < Configuration::max_requests_per_user_per_day
 
         nth_most_recent_request = n_most_recent_requests[-1]
         return nth_most_recent_request.created_at + 1.day

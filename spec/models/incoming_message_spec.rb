@@ -322,8 +322,7 @@ describe IncomingMessage, " when censoring data" do
     end
 
     it "should apply hard-coded privacy rules to HTML files" do
-        domain = MySociety::Config.get('DOMAIN')
-        data = "http://#{domain}/c/cheese"
+        data = "http://#{Configuration::domain}/c/cheese"
         @im.html_mask_stuff!(data)
         data.should == "[WDTK login link]"
     end

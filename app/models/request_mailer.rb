@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: request_mailer.rb,v 1.89 2009-10-04 21:53:54 francis Exp $
 
 require 'alaveteli_file_types'
 
@@ -50,12 +48,12 @@ class RequestMailer < ApplicationMailer
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # we don't care about bounces, likely from spammers
                 'Auto-Submitted' => 'auto-replied' # http://tools.ietf.org/html/rfc3834
         @recipients = email.from_addrs[0].to_s
-        @subject = "Your response to an FOI request was not delivered"
+        @subject = _("Your response to an FOI request was not delivered")
         attachment :content_type => 'message/rfc822', :body => raw_email_data,
             :filename => "original.eml", :transfer_encoding => '7bit', :content_disposition => 'inline'
         @body = {
             :info_request => info_request,
-            :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')
+            :contact_email => Configuration::contact_email
         }
     end
 
@@ -154,7 +152,7 @@ class RequestMailer < ApplicationMailer
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
-        @subject = "Someone has updated the status of your request"
+        @subject = _("Someone has updated the status of your request")
         url = main_url(request_url(info_request))
         @body = {:info_request => info_request, :url => url}
     end
@@ -303,7 +301,7 @@ class RequestMailer < ApplicationMailer
     # Send email alerts for new responses which haven't been classified. By default,
     # it goes out 3 days after last update of event, then after 10, then after 24.
     def self.alert_new_response_reminders
-        MySociety::Config.get("NEW_RESPONSE_REMINDER_AFTER_DAYS", [3, 10, 24]).each_with_index do |days, i|
+        Configuration::new_response_reminder_after_days.each_with_index do |days, i|
             self.alert_new_response_reminders_internal(days, "new_response_reminder_#{i+1}")
         end
     end

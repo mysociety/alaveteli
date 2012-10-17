@@ -1,3 +1,20 @@
+# Version 0.6.7
+## Highlighted features
+* The ability to calculate due dates using calendar, not working days (Matthew Landauer)
+* A refactor and standardization of the configuation variables and defaults using a central module (Matthew Landauer)
+* The use of full URLs in admin attention emails, and associated modification of the admin_url helper to always return full urls (Henare Degan)
+* The ability to disable comments on a request (Robin Houston)
+* Some previously missed strings for translation, courtesy of the Czech translation team
+
+* [List of issues on github](https://github.com/mysociety/alaveteli/issues?milestone=23&state=closed)
+
+
+## Upgrade notes
+
+* Themes created for 0.6.6 and below should be updated to use the new Configuration module wherever they used Config.get directly previously.
+* Check out this version and run `rails-post-deploy` as usual. 
+
+
 # Version 0.6.6
 ## Highlighted features
 * Adds deployment via Capistrano - see DEPLOY.md for details

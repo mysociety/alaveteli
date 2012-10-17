@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 114
+# Schema version: 20120919140404
 #
 # Table name: censor_rules
 #
@@ -9,11 +9,11 @@
 #  public_body_id    :integer
 #  text              :text            not null
 #  replacement       :text            not null
-#  regexp            :boolean
 #  last_edit_editor  :string(255)     not null
 #  last_edit_comment :text            not null
 #  created_at        :datetime        not null
 #  updated_at        :datetime        not null
+#  regexp            :boolean
 #
 
 # models/censor_rule.rb:
@@ -21,8 +21,6 @@
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: censor_rule.rb,v 1.14 2009-09-17 21:10:04 francis Exp $
 
 class CensorRule < ActiveRecord::Base
     belongs_to :info_request

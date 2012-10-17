@@ -1,4 +1,4 @@
-<%= _('This is a plain-text version of the Freedom of Information request "{{request_title}}".  The latest, full version is available online at {{full_url}}', :request_title => @info_request.title, :full_url => "http://#{MySociety::Config.get('DOMAIN')}#{show_request_path(:url_title=>@info_request.url_title)}") %>.
+<%= _('This is a plain-text version of the Freedom of Information request "{{request_title}}".  The latest, full version is available online at {{full_url}}', :request_title => @info_request.title, :full_url => "http://#{Configuration::domain}#{show_request_path(:url_title=>@info_request.url_title)}") %>.
 
 <% for info_request_event in @info_request_events %>
 <%

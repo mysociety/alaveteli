@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-09-19 09:37+0100\n"
-"PO-Revision-Date: 2012-09-19 08:48+0000\n"
+"POT-Creation-Date: 2012-10-11 10:18+0100\n"
+"PO-Revision-Date: 2012-10-11 09:55+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -174,8 +174,8 @@ msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"%s\">Tambahkan anotasi</a> (untuk membantu peminta informasi atau yang lain)"
 
-msgid "<a href=\"%s\">Are we missing a public authority?</a>."
-msgstr "<a href=\"%s\">Apakah kami kehilangan sebuah otoritas publik?</a>."
+msgid "<a href=\"%s\">Are we missing a public authority?</a>"
+msgstr ""
 
 msgid ""
 "<a href=\"%s\">Are you the owner of\n"
@@ -357,7 +357,7 @@ msgid ""
 msgstr "<strong><code>status:</code></strong> untuk memilih berdasarkan status atau status historical dari permintaan, lihat <a href=\"{{statuses_url}}\">table status </a> di bawah."
 
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr "<strong><code>label:derma</code></strong> untuk mendapatkan semua badan publik atau permintaan-permintaan dengan label yang diberikan. Anda dapat menyertakan beberapa label sekaligus, \n    dan menambahkan nilai label, misalnya <code>label:openlylocal DAN label:transaksi_keuangan:335633</code>. Perhatikan bahwa secara default setiap label \n    dapat muncul, Anda harus menaruh <code>DAN</code> secara eksplisit jika Anda hanya ingin hasil yang mereka semua tampilkan."
@@ -401,6 +401,11 @@ msgid ""
 "    We will send an email to your new email address. Follow the\n"
 "    instructions in it to confirm changing your email."
 msgstr "<strong>Catatan:</strong>\n    Kami akan mengirimkan email ke alamat email Anda yang baru. Ikutilah\n    instruksi di dalamnya untuk mengkonfirmasi perubahan email Anda."
+
+msgid ""
+"<strong>Note:</strong> Because we're testing, requests are being sent to "
+"{{email}} rather than to the actual authority."
+msgstr ""
 
 msgid ""
 "<strong>Note:</strong> You're sending a message to yourself, presumably\n"
@@ -1049,8 +1054,9 @@ msgstr "Untuk alasan yang tidak diketahui, Anda tidak dapat mengajukan permintaa
 msgid "Forgotten your password?"
 msgstr "Lupa kode sandi Anda?"
 
-msgid "Found {{count}} public bodies {{description}}"
-msgstr "Ditemukan{{count}} badan publik{{description}}"
+msgid "Found %d public authority %s"
+msgid_plural "Found %d public authorities %s"
+msgstr[0] ""
 
 msgid "Freedom of Information"
 msgstr "Freedom of Information"
@@ -1232,6 +1238,11 @@ msgid "If you are {{user_link}}, please"
 msgstr "Jika Anda adalah {{user_link}}, silakan"
 
 msgid ""
+"If you believe this request is not suitable, you can report it for attention"
+" by the site administrators"
+msgstr ""
+
+msgid ""
 "If you can't click on it in the email, you'll have to <strong>select and copy\n"
 "it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place\n"
 "you would type the address of any other webpage."
@@ -1257,6 +1268,11 @@ msgid ""
 "authority that you have withdrawn your request. Otherwise they will not know"
 " it has been withdrawn."
 msgstr "Jika Anda belum melakukannya, silakan tulis pesan di bawah untuk member tahu otoritas bahwa Anda telah menarik permintaan Anda. Jika tidak, mereka tidak akan tahu bahwa permintaan tersebut telah ditarik."
+
+msgid ""
+"If you reply to this message it will go directly to {{user_name}}, who will\n"
+"learn your email address. Only reply if that is okay."
+msgstr ""
 
 msgid ""
 "If you use web-based email or have \"junk mail\" filters, also check your\n"
@@ -1309,6 +1325,9 @@ msgstr "IncomingMessage|Subject"
 msgid "IncomingMessage|Valid to reply to"
 msgstr "IncomingMessage|Valid to reply to"
 
+msgid "Individual requests"
+msgstr ""
+
 msgid "Info request"
 msgstr "Info permintaan"
 
@@ -1341,6 +1360,9 @@ msgstr "InfoRequest|Attention requested"
 
 msgid "InfoRequest|Awaiting description"
 msgstr "InfoRequest|Awaiting description"
+
+msgid "InfoRequest|Comments allowed"
+msgstr ""
 
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Described state"
@@ -1466,6 +1488,9 @@ msgstr "Buat dan melihat permintaan Freedom of Information (FOI)"
 msgid "Make your own request"
 msgstr "Buat permintaan Anda sendiri"
 
+msgid "Many requests"
+msgstr ""
+
 msgid "Message"
 msgstr ""
 
@@ -1477,6 +1502,9 @@ msgstr "Kehilangan rincian kontak untuk '"
 
 msgid "More about this authority"
 msgstr "Lebih jauh tentang otoritas ini"
+
+msgid "More requests..."
+msgstr ""
 
 msgid "More similar requests"
 msgstr "Lebih banyak permintaan serupa"
@@ -1665,6 +1693,9 @@ msgstr "Kode sandi: (ulangi)"
 
 msgid "Paste this link into emails, tweets, and anywhere else:"
 msgstr "Paste tautan ini ke email, tweets, dan tempat lain:"
+
+msgid "People"
+msgstr ""
 
 msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Orang{{start_count}} ke{{end_count}} dari{{total_count}}"
@@ -2150,6 +2181,9 @@ msgid ""
 "          <strong>{{number_of_authorities}} authorities</strong>"
 msgstr "Cari lagi<br/>\n          <strong>{{number_of_requests}} permintaan</strong> <span>dan</span><br/>\n          <strong>{{number_of_authorities}} otoritas</strong>"
 
+msgid "Search queries"
+msgstr ""
+
 msgid "Search results"
 msgstr "Hasil pencarian"
 
@@ -2244,6 +2278,9 @@ msgstr "Beberapa orang yang mengajukan peermintaan telah memberitahu kami apakah
 
 msgid "Somebody added a note to your FOI request - "
 msgstr "Seseorang menambahkan catatan kepada permintaan FOI Anda -"
+
+msgid "Someone has updated the status of your request"
+msgstr ""
 
 msgid ""
 "Someone, perhaps you, just tried to change their email address on\n"
@@ -2934,6 +2971,9 @@ msgstr "Sayangnya, kami tidak memiliki alamat {{info_request_law_used_full}}\nke
 msgid "Unknown"
 msgstr "Tidak diketahui"
 
+msgid "Unsubscribe"
+msgstr ""
+
 msgid "Unusual response."
 msgstr "Respon yang tidak biasa."
 
@@ -2942,6 +2982,9 @@ msgstr "Memperbarui status untuk permintaan ini"
 
 msgid "Update the status of your request to "
 msgstr "Memperbarui status permintaan Anda kepada"
+
+msgid "Upload FOI response"
+msgstr ""
 
 msgid ""
 "Use OR (in capital letters) where you don't mind which word,  e.g. "
@@ -3114,6 +3157,9 @@ msgstr "Apa yang paling tepat untuk menggambarkan status dari permintaan ini sek
 
 msgid "What information has been released?"
 msgstr "Informasi apa yang sudah dirilis?"
+
+msgid "What information has been requested?"
+msgstr ""
 
 msgid ""
 "When you get there, please update the status to say if the response \n"
@@ -3339,9 +3385,8 @@ msgid "Your annotations"
 msgstr "anotasi Anda"
 
 msgid ""
-"Your details have not been given to anyone, unless you choose to reply to this\n"
-"message, which will then go directly to the person who wrote the message."
-msgstr "Rincian tentang Anda belum diberikan kepada siapapun, kecuali Anda memilih untuk membalas \npesan ini, yang kemudian akan dikirimkan langsung kepada orang yang menulis pesan."
+"Your details, including your email address, have not been given to anyone."
+msgstr ""
 
 msgid "Your e-mail:"
 msgstr "Email Anda:"
@@ -3405,6 +3450,9 @@ msgstr "Permintaan Anda disebut {{info_request}}. Memberitahukan semua orang apa
 
 msgid "Your request:"
 msgstr "Permintaan Anda :"
+
+msgid "Your response to an FOI request was not delivered"
+msgstr ""
 
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "

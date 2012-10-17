@@ -24,19 +24,19 @@
         <% end %>
      <% else %>
       <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %></p>
-       <p><%= ('If you believe this request is not suitable, you can report it for attention by the site administrators') %></p>
+       <p><%= _('If you believe this request is not suitable, you can report it for attention by the site administrators') %></p>
        <%= link_to _("Report this request"), report_path, :class => "link_button_green", :method => "POST" %>
       <% end %>
     <% end %>
     <h2><%= _("Act on what you've learnt") %></h2>
 
     <div class="act_link">
-     <% tweet_link = "https://twitter.com/share?url=#{h(request.url)}&via=#{h(MySociety::Config.get('TWITTER_USERNAME', ''))}&text='#{h(@info_request.title)}'&related=#{_('alaveteli_foi:The software that runs {{site_name}}', :site_name => h(site_name))}" %>
-        <%= link_to '<img src="/images/twitter-16.png" alt="twitter icon">', tweet_link %> 
-        <%= link_to _("Tweet this request"), tweet_link %> 
+     <% tweet_link = "https://twitter.com/share?url=#{h(request.url)}&via=#{h(Configuration::twitter_username)}&text='#{h(@info_request.title)}'&related=#{_('alaveteli_foi:The software that runs {{site_name}}', :site_name => h(site_name))}" %>
+        <%= link_to '<img src="/images/twitter-16.png" alt="twitter icon">', tweet_link %>
+        <%= link_to _("Tweet this request"), tweet_link %>
     </div>
     <div class="act_link">
-        <%= link_to '<img src="/images/wordpress.png" alt="" class="rss">', "http://wordpress.com/"%> 
+        <%= link_to '<img src="/images/wordpress.png" alt="" class="rss">', "http://wordpress.com/"%>
         <%= link_to _("Start your own blog"), "http://wordpress.com/"%>
     </div>
 

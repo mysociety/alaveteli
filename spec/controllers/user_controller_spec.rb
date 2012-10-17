@@ -337,7 +337,7 @@ describe UserController, "when sending another user a message" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
         mail = deliveries[0]
-        mail.body.should include("Bob Smith has used #{MySociety::Config.get('SITE_NAME')} to send you the message below")
+        mail.body.should include("Bob Smith has used #{Configuration::site_name} to send you the message below")
         mail.body.should include("Just a test!")
         #mail.to_addrs.first.to_s.should == users(:silly_name_user).name_and_email # XXX fix some nastiness with quoting name_and_email
         mail.from_addrs.first.to_s.should == users(:bob_smith_user).name_and_email

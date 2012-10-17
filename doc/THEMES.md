@@ -123,7 +123,7 @@ do this in the `alavetelitheme`.
 
 To do add states, create two modules in your theme,
 `InfoRequestCustomStates` and `RequestControllerCustomStates`.  The
-former must have these two methods:
+former must have these methods:
 
 * `theme_calculate_status`: return a tag to identify the current state of the request
 * `theme_extra_states`: return a list of tags which identify the extra states you'd like to support

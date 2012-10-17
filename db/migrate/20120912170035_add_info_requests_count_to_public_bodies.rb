@@ -2,11 +2,10 @@ class AddInfoRequestsCountToPublicBodies < ActiveRecord::Migration
   def self.up
       add_column :public_bodies, :info_requests_count, :integer, :null => false, :default => 0
 
-      PublicBody.reset_column_information
+      PublicBody.connection.execute("UPDATE public_bodies
+                                     SET info_requests_count = (SELECT COUNT(*) FROM info_requests
+                                                                WHERE public_body_id = public_bodies.id);")
 
-      PublicBody.find_each do |public_body|
-          public_body.update_attribute :info_requests_count, public_body.info_requests.length
-      end
 
   end
 

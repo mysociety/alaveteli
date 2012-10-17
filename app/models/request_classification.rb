@@ -1,3 +1,15 @@
+# == Schema Information
+# Schema version: 20120919140404
+#
+# Table name: request_classifications
+#
+#  id                    :integer         not null, primary key
+#  user_id               :integer
+#  info_request_event_id :integer
+#  created_at            :datetime
+#  updated_at            :datetime
+#
+
 class RequestClassification < ActiveRecord::Base
     belongs_to :user
 

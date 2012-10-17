@@ -53,6 +53,17 @@ describe CommentController, "when commenting on a request" do
 
         response.should render_template('new')
     end
+    
+    it "should not allow comments if comments are not allowed" do
+      session[:user_id] = users(:silly_name_user).id
+
+      expect {
+        post :new, :url_title => info_requests(:spam_1_request).url_title,
+              :comment => { :body => "I demand to be heard!" },
+              :type => 'request', :submitted_comment => 1, :preview => 0
+      }.to raise_error("Comments are not allowed on this request")
+      
+    end
 
     describe 'when commenting on an external request' do
 

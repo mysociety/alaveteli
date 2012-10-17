@@ -25,6 +25,18 @@ master branch (which always contains the latest stable release):
 
     git checkout master
 
+# Package pinning
+
+You need to configure [apt-pinning](http://wiki.debian.org/AptPreferences#Pinning-1) preferences in order to prevent packages being pulled from the debian testing distribution in preference to the stable distribution once you have added the testing repository as described below. 
+
+In order to configure apt-pinning and to keep most packages coming from the Debian stable repository while installing the ones required from testing and the mySociety repository you need to run the following commands:
+
+      echo "Package: *" >> /tmp/preferences
+      echo "Pin: release a=testing">> /tmp/preferences
+      echo "Pin-Priority: 50" >> /tmp/preferences
+      sudo cp /tmp/preferences /etc/apt/
+      rm /tmp/preferences
+        
 # Install system dependencies
 
 These are packages that the software depends on: third-party software
@@ -39,7 +51,7 @@ If you are running Debian, add the following repositories to
     deb http://ftp.debian.org/debian/ testing main non-free contrib
 
 The repositories above allow us to install the packages
-`wkthmltopdf-static` and `bundler` using `apt`; so if you're running
+`wkhtmltopdf-static` and `bundler` using `apt`; so if you're running
 Ubuntu, you won't be able to use the above repositories, and you will
 need to comment out those two lines in `config/packages` before
 following the next step (and install bundler manually).
@@ -296,7 +308,7 @@ in the front end.
 It is possible completely to override the administrator authentication
 by setting `SKIP_ADMIN_AUTH` to `true` in `general.yml`.
 
-# Cron jobs
+# Cron jobs and init scripts
 
 `config/crontab.ugly` contains the cronjobs run on WhatDoTheyKnow.
 It's in a strange templating format they use in mySociety.  mySociety
@@ -311,6 +323,10 @@ like `!!(*= $this *)!!`.  The variables are:
   `/data/vhost/!!(*= $vhost *)!!` -- you should replace that whole
   port with a path to the directory where your Alaveteli software
   installation lives, e.g. `/var/www/`
+* `vhost_dir`: the entire path to the directory where the software is
+  served from. -- you should replace this with a path to the 
+  directory where your Alaveteli software installation lives,
+   e.g. `/var/www/`
 * `vcspath`: the name of the alaveteli checkout, e.g. `alaveteli`.
   Thus, `/data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!` might be
   replaced with `/var/www/alaveteli` in your cron tab
@@ -324,14 +340,22 @@ One of the cron jobs refers to a script at
 `/etc/init.d/foi-alert-tracks`.  This is an init script, a copy of
 which lives in `config/alert-tracks-debian.ugly`.  As with the cron
 jobs above, replace the variables (and/or bits near the variables)
-with paths to your software.  `config/purge-varnish-debian.ugly` is a
+with paths to your software. You can use the rake task `rake
+config_files:convert_init_script` to do this.
+`config/purge-varnish-debian.ugly` is a
 similar init script, which is optional and not required if you choose
-not to run your site behind Varnish (see below).
+not to run your site behind Varnish (see below). Either tweak the file
+permissions to make the scripts executable by your deploy user, or add the
+following line to your sudoers file to allow these to be run by your deploy
+user (named `deploy` in this case):
+
+    deploy  ALL = NOPASSWD: /etc/init.d/foi-alert-tracks, /etc/init.d/foi-purge-varnish
 
 The cron jobs refer to a program `run-with-lockfile`. See
 [this issue](https://github.com/mysociety/alaveteli/issues/112) for a
 discussion of where to find this program, and how you might replace
-it.
+it. This [one line script](https://gist.github.com/3741194) can install
+this program system-wide.
 
 # Set up production web server
 

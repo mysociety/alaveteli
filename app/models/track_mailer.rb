@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: track_mailer.rb,v 1.23 2009-10-03 02:50:11 francis Exp $
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)
@@ -27,9 +25,7 @@ class TrackMailer < ApplicationMailer
     end
 
     def contact_from_name_and_email
-        contact_name = MySociety::Config.get("TRACK_SENDER_NAME", 'Alaveteli')
-        contact_email = MySociety::Config.get("TRACK_SENDER_EMAIL", 'contact@localhost')
-        return "#{contact_name} <#{contact_email}>"
+        "#{Configuration::track_sender_name} <#{Configuration::track_sender_email}>"
     end
 
     # Send email alerts for tracked things.  Never more than one email

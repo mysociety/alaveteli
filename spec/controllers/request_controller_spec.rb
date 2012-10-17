@@ -238,6 +238,22 @@ describe RequestController, "when showing one request" do
         response.should have_tag('div#owner_actions')
     end
 
+    describe 'when the request does allow comments' do
+      it 'should have a comment link' do
+        get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
+                   { :user_id => users(:admin_user).id }
+        response.should have_tag('#anyone_actions', /Add an annotation/)
+      end
+    end
+    
+    describe 'when the request does not allow comments' do
+      it 'should not have a comment link' do
+        get :show, { :url_title => 'spam_1' },
+                   { :user_id => users(:admin_user).id }
+        response.should_not have_tag('#anyone_actions', /Add an annotation/)
+      end
+    end
+    
     describe 'when the request is being viewed by an admin' do
 
         describe 'if the request is awaiting description' do

@@ -25,15 +25,10 @@
     <% if not first_row %>
 	    </ul>
     <% end %>
-    <p>
-	<%= _('<a href="%s">Are we missing a public authority?</a>.') % [help_requesting_path + '#missing_body'] %>
-    </p>
-    <p>
-      <%= link_to _('List of all authorities (CSV)'), all_public_bodies_csv_url() %>
-    </p>
+    <%= render :partial => "list_sidebar_extra" %>
 </div>
 
-<% @title = _("Public authorities - {{description}}", :description => @description) %>
+<% @title = @description.empty? ? _("Public authorities") : _("Public authorities - {{description}}", :description => @description) %>
 <div id="left_column_flip">
 <h1><%= _('Public authorities') %></h1>
 
@@ -44,7 +39,7 @@
  </div>
 <% end %>
 
-<h2 class="publicbody_results"><%= _('Found {{count}} public bodies {{description}}', :count=>@public_bodies.total_entries, :description=>@description) %></h2>
+<h2 class="publicbody_results"><%= n_('Found %d public authority %s', 'Found %d public authorities %s', @public_bodies.total_entries) % [@public_bodies.total_entries, @description] %></h2>
 <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
 
   <%= will_paginate(@public_bodies) %><br/>

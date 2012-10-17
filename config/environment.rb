@@ -29,10 +29,10 @@ load "util.rb"
 # without effecting method behaviour
 # and adds fallback gem call removed in https://github.com/rails/rails/commit/4c3725723f15fab0a424cb1318b82b460714b72f
 require File.join(File.dirname(__FILE__), '../lib/old_rubygems_patch')
-
+require 'configuration'
 
 # Application version
-ALAVETELI_VERSION = '0.6.6'
+ALAVETELI_VERSION = '0.6.7'
 
 Rails::Initializer.run do |config|
   # Load intial mySociety config
@@ -78,8 +78,8 @@ Rails::Initializer.run do |config|
   end
 
   # See Rails::Configuration for more options
-  ENV['RECAPTCHA_PUBLIC_KEY'] = MySociety::Config::get("RECAPTCHA_PUBLIC_KEY", 'x');
-  ENV['RECAPTCHA_PRIVATE_KEY'] = MySociety::Config::get("RECAPTCHA_PRIVATE_KEY", 'x');
+  ENV['RECAPTCHA_PUBLIC_KEY'] = Configuration::recaptcha_public_key
+  ENV['RECAPTCHA_PRIVATE_KEY'] = Configuration::recaptcha_private_key
 end
 
 # Add new inflection rules using the following format
@@ -98,22 +98,22 @@ end
 # The Rails cache is set up by the Interlock plugin to use memcached
 
 # Domain for URLs (so can work for scripts, not just web pages)
-ActionMailer::Base.default_url_options[:host] = MySociety::Config.get("DOMAIN", 'localhost:3000')
+ActionMailer::Base.default_url_options[:host] = Configuration::domain
 
 # So that javascript assets use full URL, so proxied admin URLs read javascript OK
-if (MySociety::Config.get("DOMAIN", "") != "")
+if (Configuration::domain != "")
     ActionController::Base.asset_host = Proc.new { |source, request|
         if ENV["RAILS_ENV"] != "test" && request.fullpath.match(/^\/admin\//)
-            MySociety::Config.get("ADMIN_PUBLIC_URL", "")
+            Configuration::admin_public_url
         else
-            MySociety::Config.get("DOMAIN", 'localhost:3000')
+            Configuration::domain
         end
     }
 end
 
 # fallback locale and available locales
-available_locales = MySociety::Config.get('AVAILABLE_LOCALES', '').split(/ /)
-default_locale = MySociety::Config.get('DEFAULT_LOCALE', '')
+available_locales = Configuration::available_locales.split(/ /)
+default_locale = Configuration::default_locale
 
 FastGettext.default_available_locales = available_locales
 I18n.locale = default_locale
@@ -140,5 +140,5 @@ require 'world_foi_websites.rb'
 require 'alaveteli_external_command.rb'
 require 'quiet_opener.rb'
 
-ExceptionNotification::Notifier.sender_address = MySociety::Config::get('EXCEPTION_NOTIFICATIONS_FROM')
-ExceptionNotification::Notifier.exception_recipients = MySociety::Config::get('EXCEPTION_NOTIFICATIONS_TO')
+ExceptionNotification::Notifier.sender_address = Configuration::exception_notifications_from
+ExceptionNotification::Notifier.exception_recipients = Configuration::exception_notifications_to
