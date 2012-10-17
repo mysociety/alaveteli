@@ -15,7 +15,7 @@
           <%= _("Search over<br/>
           <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>
           <strong>{{number_of_authorities}} authorities</strong>",
-          :number_of_requests => InfoRequest.count, :number_of_authorities => PublicBody.visible.count) %>
+          :number_of_requests => InfoRequest.visible.count, :number_of_authorities => PublicBody.visible.count) %>
         </h2>
         <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
         <div>
@@ -59,7 +59,7 @@
         <% end %>
       </h3>
        <%= _("{{site_name}} users have made {{number_of_requests}} requests, including:",
-        :site_name => site_name, :number_of_requests => InfoRequest.count) %>
+        :site_name => site_name, :number_of_requests => InfoRequest.visible.count) %>
         <ul>
           <% for event in @request_events %>
             <li>
