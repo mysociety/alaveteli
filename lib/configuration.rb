@@ -44,6 +44,7 @@ module Configuration
     :SPECIAL_REPLY_VERY_LATE_AFTER_DAYS => 60,
     :THEME_URL => "",
     :THEME_URLS => [],
+    :TIME_ZONE => "UTC",
     :TRACK_SENDER_EMAIL => 'contact@localhost',
     :TRACK_SENDER_NAME => 'Alaveteli',
     :TWITTER_USERNAME => '',
