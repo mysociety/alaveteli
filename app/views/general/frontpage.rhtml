@@ -64,11 +64,7 @@
           <% for event in @request_events %>
             <li>
                 <%= public_body_link(event.info_request.public_body) %>
-                <% if @request_events_all_successful %>
-                  <%= _('answered a request about') %>
-                <% else %>
-                  <%= _('about') %>
-                <% end %>
+                <%= (@request_events_all_successful ? _('answered a request about') : _('about')) %>
                 <%=link_to h(event.info_request.title), request_url(event.info_request)%>
                 <%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(event.described_at)) %>
                 <p class="excerpt" onclick="document.location.href='<%=request_url(event.info_request)%>'"><%= excerpt(event.search_text_main(true), "", 200) %></p>
