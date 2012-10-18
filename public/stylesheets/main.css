@@ -670,6 +670,10 @@ margin-top:20px;
 width:auto;
 }
 
+#signup .errorExplanation, #signin .errorExplanation {
+  width: inherit;
+}
+
 #signup h2,#signin h2 {
 font-size:1.1em;
 }
@@ -685,7 +689,7 @@ margin-left:25%;
 #signup .form_item_note,#signin .form_note {
 font-size:0.9em;
 margin-left:11.5em;
-width:24em;
+width:inherit;
 }
 
 div.controller_help dt a,div.controller_help h1 a,div#help_unhappy h1 a.hover_a {
