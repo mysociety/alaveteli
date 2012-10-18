@@ -39,6 +39,7 @@ gem 'xml-simple'
 gem 'zip'
 gem 'capistrano'
 gem 'syslog_protocol'
+gem 'newrelic_rpm'
 
 group :test do
   gem 'fakeweb'
