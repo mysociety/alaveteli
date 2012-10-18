@@ -161,6 +161,15 @@ describe IncomingMessage, " folding quoted parts of emails" do
         message.get_main_body_text_folded.should match(/FOLDED_QUOTED_SECTION/)
     end
 
+    it 'should fold a further example of forward quoting' do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('forward-quoting-example-2.email', ir.incoming_email)
+        message = ir.incoming_messages[1]
+        body_text = message.get_main_body_text_folded
+        body_text.should match(/FOLDED_QUOTED_SECTION/)
+        # check that the quoted section incorporates both quoted messages
+        body_text.should_not match('Subject: RE: Freedom of Information request')
+    end
 
 end
 

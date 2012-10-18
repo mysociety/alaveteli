@@ -349,9 +349,8 @@ class IncomingMessage < ActiveRecord::Base
         # Some other sort of forwarding quoting
         text.gsub!(/^\s?#{name}\s+To\s+FOI requests at.*/ims, "\n\n" + replacement)
 
-        # http://www.whatdotheyknow.com/request/how_do_the_pct_deal_with_retirin_33#incoming-930
         # http://www.whatdotheyknow.com/request/229/response/809
-        text.gsub!(/^From: [^\n]+\nSent: [^\n]+\nTo:\s+['"?]#{name}['"]?\nSubject:.*/ims, "\n\n" + replacement)
+        text.gsub!(/^\s?From: [^\n]+\n\s?Sent: [^\n]+\n\s?To:\s+['"]?#{name}['"]?\n\s?Subject:.*/ims, "\n\n" + replacement)
 
         return text
 
