@@ -160,7 +160,7 @@ MAX_REQUESTS_PER_USER_PER_DAY: 6
 # unset if you aren't running behind varnish
 VARNISH_HOST: localhost
 
-# Adding a value here will enable Google Analytics on all non-admin pages.
+# Adding a value here will enable Google Analytics on all non-admin pages for non-admin users.
 GA_CODE: ''
 
 # If you want to override *all* the public body request emails with your own
