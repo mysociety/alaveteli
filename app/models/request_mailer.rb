@@ -273,7 +273,14 @@ class RequestMailer < ApplicationMailer
                 end
 
                 # For now, just to the user who created the request
-                sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = ? and user_id = ? and info_request_id = ? and info_request_event_id = ?", alert_type, info_request.user_id, info_request.id, alert_event_id])
+                sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = ?
+                                                                                       AND user_id = ?
+                                                                                       AND info_request_id = ?
+                                                                                       AND info_request_event_id = ?",
+                                                                                       alert_type,
+                                                                                       info_request.user_id,
+                                                                                       info_request.id,
+                                                                                       alert_event_id])
                 if sent_already.nil?
                     # Alert not yet sent for this user, so send it
                     store_sent = UserInfoRequestSentAlert.new
