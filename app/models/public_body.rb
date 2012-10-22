@@ -413,7 +413,7 @@ class PublicBody < ActiveRecord::Base
                         next
                     end
 
-                    field_list = ['name', 'short_name', 'request_email', 'notes', 'publication_scheme', 'home_page', 'tag_string']
+                    field_list = ['name', 'short_name', 'request_email', 'notes', 'publication_scheme', 'disclosure_log', 'home_page', 'tag_string']
 
                     if public_body = bodies_by_name[name]   # Existing public body
                         available_locales.each do |locale|
