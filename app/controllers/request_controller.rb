@@ -876,7 +876,7 @@ class RequestController < ApplicationController
                     Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) { |zipfile|
                         convert_command = Configuration::html_to_pdf_command
                         done = false
-                        if File.exists?(convert_command)
+                        if !convert_command.blank? && File.exists?(convert_command)
                             url = "http://#{Configuration::domain}#{request_url(info_request)}?print_stylesheet=1"
                             tempfile = Tempfile.new('foihtml2pdf')
                             output = AlaveteliExternalCommand.run(convert_command, url, tempfile.path)
