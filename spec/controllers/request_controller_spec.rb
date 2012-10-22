@@ -245,7 +245,7 @@ describe RequestController, "when showing one request" do
         response.should have_tag('#anyone_actions', /Add an annotation/)
       end
     end
-    
+
     describe 'when the request does not allow comments' do
       it 'should not have a comment link' do
         get :show, { :url_title => 'spam_1' },
@@ -253,7 +253,7 @@ describe RequestController, "when showing one request" do
         response.should_not have_tag('#anyone_actions', /Add an annotation/)
       end
     end
-    
+
     describe 'when the request is being viewed by an admin' do
 
         describe 'if the request is awaiting description' do
@@ -1746,6 +1746,17 @@ describe RequestController, "sending overdue request alerts" do
         assigns[:info_request].should == info_requests(:naughty_chicken_request)
     end
 
+    it "should not resend alerts to people who've already received them" do
+        chicken_request = info_requests(:naughty_chicken_request)
+        chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 60.days
+        chicken_request.outgoing_messages[0].save!
+        RequestMailer.alert_overdue_requests
+        chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
+        chicken_mails.size.should == 1
+        RequestMailer.alert_overdue_requests
+        chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
+        chicken_mails.size.should == 1
+    end
 end
 
 describe RequestController, "sending unclassified new response reminder alerts" do
