@@ -45,7 +45,11 @@ class WorldFOIWebsites
                               {:name => "Acceso Intelligente",
                                   :country_name => "Chile",
                                   :country_iso_code => "CL",
-                                  :url => "http://accesointeligente.org"}]
+                                  :url => "http://accesointeligente.org"},
+                              {:country_name => "Australia",
+                                  :country_iso_code => "AU",
+                                  # The Australian site is not yet live. So, not including name & url yet.
+                                  }]
         return world_foi_websites
     end
 
