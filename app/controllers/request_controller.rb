@@ -446,18 +446,19 @@ class RequestController < ApplicationController
             return
         end
 
+        calculated_status = @info_request.calculate_status
         # Display advice for requester on what to do next, as appropriate
-        if @info_request.calculate_status == 'waiting_response'
+        if calculated_status == 'waiting_response'
             flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>
 {{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(@info_request.date_response_required_by))
             redirect_to request_url(@info_request)
-        elsif @info_request.calculate_status == 'waiting_response_overdue'
+        elsif calculated_status == 'waiting_response_overdue'
             flash[:notice] = _("<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(@info_request.date_response_required_by))
             redirect_to request_url(@info_request)
-        elsif @info_request.calculate_status == 'waiting_response_very_overdue'
+        elsif calculated_status == 'waiting_response_very_overdue'
             flash[:notice] = _("<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>", :very_late_number_of_days => Configuration::reply_very_late_after_days, :late_number_of_days => Configuration::reply_late_after_days)
             redirect_to unhappy_url(@info_request)
-        elsif @info_request.calculate_status == 'not_held'
+        elsif calculated_status == 'not_held'
             flash[:notice] = _("<p>Thank you! Here are some ideas on what to do next:</p>
             <ul>
             <li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li>
@@ -472,37 +473,37 @@ class RequestController < ApplicationController
             :complain_url => CGI.escapeHTML(unhappy_url(@info_request)),
             :other_means_url => CGI.escapeHTML(unhappy_url(@info_request)) + "#other_means")
             redirect_to request_url(@info_request)
-        elsif @info_request.calculate_status == 'rejected'
+        elsif calculated_status == 'rejected'
             flash[:notice] = _("Oh no! Sorry to hear that your request was refused. Here is what to do now.")
             redirect_to unhappy_url(@info_request)
-        elsif @info_request.calculate_status == 'successful'
+        elsif calculated_status == 'successful'
             flash[:notice] = _("<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>", :site_name=>site_name, :donation_url => "http://www.mysociety.org/donate/")
             redirect_to request_url(@info_request)
-        elsif @info_request.calculate_status == 'partially_successful'
+        elsif calculated_status == 'partially_successful'
             flash[:notice] = _("<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>", :site_name=>site_name, :donation_url=>"http://www.mysociety.org/donate/")
             redirect_to unhappy_url(@info_request)
-        elsif @info_request.calculate_status == 'waiting_clarification'
+        elsif calculated_status == 'waiting_clarification'
             flash[:notice] = _("Please write your follow up message containing the necessary clarifications below.")
             redirect_to respond_to_last_url(@info_request)
-        elsif @info_request.calculate_status == 'gone_postal'
+        elsif calculated_status == 'gone_postal'
             redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
-        elsif @info_request.calculate_status == 'internal_review'
+        elsif calculated_status == 'internal_review'
             flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>",:late_number_of_days => Configuration.reply_late_after_days, :review_url => unhappy_url(@info_request) + "#internal_review")
             redirect_to request_url(@info_request)
-        elsif @info_request.calculate_status == 'error_message'
+        elsif calculated_status == 'error_message'
             flash[:notice] = _("<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below.</p>")
             redirect_to help_general_url(:action => 'contact')
-        elsif @info_request.calculate_status == 'requires_admin'
+        elsif calculated_status == 'requires_admin'
             flash[:notice] = _("Please use the form below to tell us more.")
             redirect_to help_general_url(:action => 'contact')
-        elsif @info_request.calculate_status == 'user_withdrawn'
+        elsif calculated_status == 'user_withdrawn'
             flash[:notice] = _("If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn.")
             redirect_to respond_to_last_url(@info_request)
         else
             if @@custom_states_loaded
                 return self.theme_describe_state(@info_request)
             else
-                raise "unknown calculate_status " + @info_request.calculate_status
+                raise "unknown calculate_status " + calculated_status
             end
         end
     end
