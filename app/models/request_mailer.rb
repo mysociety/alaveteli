@@ -265,10 +265,11 @@ class RequestMailer < ApplicationMailer
         for info_request in info_requests
             alert_event_id = info_request.last_event_forming_initial_request.id
             # Only overdue requests
-            if ['waiting_response_overdue', 'waiting_response_very_overdue'].include?(info_request.calculate_status)
-                if info_request.calculate_status == 'waiting_response_overdue'
+            calculated_status = info_request.calculate_status
+            if ['waiting_response_overdue', 'waiting_response_very_overdue'].include?(calculated_status)
+                if calculated_status == 'waiting_response_overdue'
                     alert_type = 'overdue_1'
-                elsif info_request.calculate_status == 'waiting_response_very_overdue'
+                elsif calculated_status == 'waiting_response_very_overdue'
                     alert_type = 'very_overdue_1'
                 else
                     raise "unknown request status"
@@ -293,9 +294,9 @@ class RequestMailer < ApplicationMailer
                     # Only send the alert if the user can act on it by making a followup
                     # (otherwise they are banned, and there is no point sending it)
                     if info_request.user.can_make_followup?
-                        if info_request.calculate_status == 'waiting_response_overdue'
+                        if calculated_status == 'waiting_response_overdue'
                             RequestMailer.deliver_overdue_alert(info_request, info_request.user)
-                        elsif info_request.calculate_status == 'waiting_response_very_overdue'
+                        elsif calculated_status == 'waiting_response_very_overdue'
                             RequestMailer.deliver_very_overdue_alert(info_request, info_request.user)
                         else
                             raise "unknown request status"
