@@ -267,15 +267,16 @@ class RequestMailer < ApplicationMailer
                       AND info_request_event_id = (SELECT max(id)
                                                    FROM info_request_events
                                                    WHERE event_type in ('sent',
-                                                                        'followup-sent',
+                                                                        'followup_sent',
                                                                         'resent',
-                                                                        'followup-resent')
+                                                                        'followup_resent')
                       AND info_request_id = info_requests.id)
                       ) IS NULL", false
             ],
             :include => [ :user ]
         )
         for info_request in info_requests
+            puts "looking to send #{info_request.id}"
             alert_event_id = info_request.last_event_forming_initial_request.id
             # Only overdue requests
             calculated_status = info_request.calculate_status
