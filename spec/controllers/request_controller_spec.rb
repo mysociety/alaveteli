@@ -1709,15 +1709,17 @@ describe RequestController, "sending overdue request alerts" do
         mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
     end
 
-    it "should send not actually send the overdue alert if the user is banned" do
+    it "should send not actually send the overdue alert if the user is banned but should
+        record it as sent" do
         user = info_requests(:naughty_chicken_request).user
         user.ban_text = 'Banned'
         user.save!
-
+        UserInfoRequestSentAlert.find_all_by_user_id(user.id).count.should == 0
         RequestMailer.alert_overdue_requests
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 0
+        UserInfoRequestSentAlert.find_all_by_user_id(user.id).count.should > 0
     end
 
     it "should send a very overdue alert mail to creators of very overdue requests" do
