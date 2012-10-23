@@ -500,9 +500,9 @@ class PublicBody < ActiveRecord::Base
         return [errors, notes]
     end
 
-    # Returns all public bodies as csv
+    # Returns all public bodies (except for the internal admin authority) as csv
     def self.export_csv
-        public_bodies = PublicBody.find(:all, :order => 'url_name',
+        public_bodies = PublicBody.visible.find(:all, :order => 'url_name',
                                               :include => [:translations, :tags])
         FasterCSV.generate() do |csv|
             csv << [
