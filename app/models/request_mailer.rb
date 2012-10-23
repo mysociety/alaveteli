@@ -258,7 +258,20 @@ class RequestMailer < ApplicationMailer
             :conditions => [
                 "described_state = 'waiting_response'
                  AND awaiting_description = ?
-                 AND user_id is not null", false
+                 AND user_id is not null
+                 AND (SELECT id
+                      FROM user_info_request_sent_alerts
+                      WHERE alert_type = 'very_overdue_1'
+                      AND info_request_id = info_requests.id
+                      AND user_id = info_requests.user_id
+                      AND info_request_event_id = (SELECT max(id)
+                                                   FROM info_request_events
+                                                   WHERE event_type in ('sent',
+                                                                        'followup-sent',
+                                                                        'resent',
+                                                                        'followup-resent')
+                      AND info_request_id = info_requests.id)
+                      ) IS NULL", false
             ],
             :include => [ :user ]
         )
