@@ -276,7 +276,6 @@ class RequestMailer < ApplicationMailer
             :include => [ :user ]
         )
         for info_request in info_requests
-            puts "looking to send #{info_request.id}"
             alert_event_id = info_request.last_event_forming_initial_request.id
             # Only overdue requests
             calculated_status = info_request.calculate_status
