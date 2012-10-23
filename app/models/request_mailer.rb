@@ -256,7 +256,9 @@ class RequestMailer < ApplicationMailer
     def self.alert_overdue_requests()
         info_requests = InfoRequest.find(:all,
             :conditions => [
-                "described_state = 'waiting_response' and awaiting_description = ? and user_id is not null", false
+                "described_state = 'waiting_response'
+                 AND awaiting_description = ?
+                 AND user_id is not null", false
             ],
             :include => [ :user ]
         )
