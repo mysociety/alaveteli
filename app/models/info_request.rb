@@ -584,12 +584,11 @@ public
     #   waiting_classification
     #   waiting_response_overdue
     #   waiting_response_very_overdue
-    def calculate_status
-        if @@custom_states_loaded
-            return self.theme_calculate_status
-        else
-            self.base_calculate_status
+    def calculate_status(cached_value_ok=false)
+        if cached_value_ok && @cached_calculated_status
+            return @cached_calculated_status
         end
+        @cached_calculated_status = @@custom_states_loaded ? self.theme_calculate_status : self.base_calculate_status
     end
 
     def base_calculate_status
@@ -871,8 +870,8 @@ public
         end
     end
 
-    def display_status
-        InfoRequest.get_status_description(self.calculate_status)
+    def display_status(cached_value_ok=false)
+        InfoRequest.get_status_description(self.calculate_status(cached_value_ok))
     end
 
     # Completely delete this request and all objects depending on it
