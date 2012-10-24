@@ -14,6 +14,9 @@
         <% if !@public_body.publication_scheme.empty? %>
             <%= link_to _('Publication scheme'), @public_body.publication_scheme %><br>
         <% end %>
+        <% unless @public_body.disclosure_log.empty? %>
+            <%= link_to _('Disclosure log'), @public_body.disclosure_log %><br>
+        <% end %>
         <% if @public_body.has_tag?("charity") %>
             <% for tag_value in @public_body.get_tag_values("charity") %>
                 <% if tag_value.match(/^SC/) %>

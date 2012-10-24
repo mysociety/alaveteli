@@ -38,6 +38,9 @@
         <p><label for="<%= form_tag_id(t.object_name, :publication_scheme, locale) %>">Publication scheme URL</label><br/>
         <%= t.text_field :publication_scheme, :size => 60, :id => form_tag_id(t.object_name, :publication_scheme, locale)  %></p>
 
+        <p><label for="<%= form_tag_id(t.object_name, :disclosure_log, locale) %>">Disclosure log URL</label><br/>
+        <%= t.text_field :disclosure_log, :size => 60, :id => form_tag_id(t.object_name, :disclosure_log, locale)  %></p>
+
         <p><label for="<%= form_tag_id(t.object_name, :notes, locale) %>">Public notes</label> <small>(HTML, for users to consider when making FOI requests to the authority)</small><br/>
         <%= t.text_area :notes, :rows => 3, :cols => 60, :id => form_tag_id(t.object_name, :notes, locale)  %></p>
     </div>
