@@ -500,6 +500,43 @@ class PublicBody < ActiveRecord::Base
         return [errors, notes]
     end
 
+    # Returns all public bodies (except for the internal admin authority) as csv
+    def self.export_csv
+        public_bodies = PublicBody.visible.find(:all, :order => 'url_name',
+                                              :include => [:translations, :tags])
+        FasterCSV.generate() do |csv|
+            csv << [
+                    'Name',
+                    'Short name',
+                    # deliberately not including 'Request email'
+                    'URL name',
+                    'Tags',
+                    'Home page',
+                    'Publication scheme',
+                    'Notes',
+                    'Created at',
+                    'Updated at',
+                    'Version',
+            ]
+            public_bodies.each do |public_body|
+                csv << [
+                    public_body.name,
+                    public_body.short_name,
+                    # DO NOT include request_email (we don't want to make it
+                    # easy to spam all authorities with requests)
+                    public_body.url_name,
+                    public_body.tag_string,
+                    public_body.calculated_home_page,
+                    public_body.publication_scheme,
+                    public_body.notes,
+                    public_body.created_at,
+                    public_body.updated_at,
+                    public_body.version,
+                ]
+            end
+        end
+    end
+
     # Does this user have the power of FOI officer for this body?
     def is_foi_officer?(user)
         user_domain = user.email_domain
