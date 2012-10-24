@@ -222,6 +222,12 @@ Interlock Rails plugin, to cache content using memcached.  You
 probably don't want this in your development profile; the example
 `memcached.yml` file disables this behaviour.
 
+Finally, copy `config/newrelic.yml-example` to `config/newrelic.yml`.
+This file contains configuration information for the New Relic
+performance management system. By default, monitoring is switched off
+by the `agent_enabled: false` setting. See https://github.com/newrelic/rpm
+for instructions on switching on local and remote performance analysis.
+
 # Deployment
 
 In the 'alaveteli' directory, run:
