@@ -20,7 +20,7 @@ GEM
     activesupport (2.3.14)
     annotate (2.4.0)
     archive-tar-minitar (0.5.2)
-    capistrano (2.13.3)
+    capistrano (2.13.4)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
