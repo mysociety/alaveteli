@@ -154,6 +154,23 @@ describe IncomingMessage, " folding quoted parts of emails" do
         text.should == "\n\nFOLDED_QUOTED_SECTION"
     end
 
+    it 'should fold an example of another kind of forward quoting' do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('forward-quoting-example.email', ir.incoming_email)
+        message = ir.incoming_messages[1]
+        message.get_main_body_text_folded.should match(/FOLDED_QUOTED_SECTION/)
+    end
+
+    it 'should fold a further example of forward quoting' do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('forward-quoting-example-2.email', ir.incoming_email)
+        message = ir.incoming_messages[1]
+        body_text = message.get_main_body_text_folded
+        body_text.should match(/FOLDED_QUOTED_SECTION/)
+        # check that the quoted section incorporates both quoted messages
+        body_text.should_not match('Subject: RE: Freedom of Information request')
+    end
+
 end
 
 describe IncomingMessage, " checking validity to reply to" do

@@ -1,0 +1,73 @@
+From foi@example.com Thu Apr 17 16:45:16 2008
+Return-path: <foi@example.com>
+Envelope-to: request-xxx-xxxxx@whatdotheyknow.com
+Delivery-date: Thu, 17 Apr 2008 16:45:16 +0100
+To: FOI Person <EMAIL_TO>
+Subject: Re: Freedom of Information request
+MIME-Version: 1.0
+From: FOI Officer <foi@example.com>
+Date: Thu, 17 Apr 2008 16:44:53 +0100
+Content-Type: multipart/alternative;
+    boundary="=_alternative 0056816D8025742E_="
+
+This is a multipart message in MIME format.
+
+--=_alternative 0056816D8025742E_=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+17/04/08
+
+Dear Mr Requester
+
+Some text.
+
+Bob Smith <request-xxx-xxxxx@whatdotheyknow.com>
+17/04/08 15:57
+
+To
+FOI requests <foi@example.com>
+cc
+
+Subject
+Freedom of Information request
+
+
+
+--=_alternative 0056816D8025742E_=
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+
+<br><font size=2 face="sans-serif">17/04/08</font>
+<br>
+<br><font size=2 face="sans-serif">Dear Mr Requester</font>
+<br>
+<br><font size=2 face="Arial"><b>Some text.</font>
+<br>
+<br>
+<br>
+<table width=100%>
+<tr valign=top>
+<td width=40%><font size=1 face="sans-serif"><b> Bob Smith &lt;request-xxx-xxxxx@whatdotheyknow.com&gt;</b>
+</font>
+<p><font size=1 face="sans-serif">17/04/08 15:57</font>
+<td width=59%>
+<table width=100%>
+<tr>
+<td>
+<div align=right><font size=1 face="sans-serif">To</font></div>
+<td valign=top><font size=1 face="sans-serif">FOI requests at  &lt;foi@example.com&gt;</font>
+<tr>
+<td>
+<div align=right><font size=1 face="sans-serif">cc</font></div>
+<td valign=top>
+<tr>
+<td>
+<div align=right><font size=1 face="sans-serif">Subject</font></div>
+<td valign=top><font size=1 face="sans-serif">Freedom of Information request</font></table>
+<br>
+
+
+--=_alternative 0056816D8025742E_=--
+
