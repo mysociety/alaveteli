@@ -44,7 +44,7 @@ class RequestController < ApplicationController
     end
 
     def show
-        if !Configuration::varnish_host.nil?
+        if !Configuration::varnish_host.blank?
             # If varnish is set up to accept PURGEs, then cache for a
             # long time
             long_cache
