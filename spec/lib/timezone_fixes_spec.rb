@@ -34,18 +34,18 @@ describe "when doing things with timezones" do
     end
   end
 
-  # XXX Couldn't get this test to work - but the other tests seem to detect presence of
-  # the monkey patch, so they will do for now.
-  #it "should preserve time objects with UTC time conversion to default timezone local" do
-  #  with_env_tz 'America/New_York' do
-  #    time = Time.utc(2000)
-  #    mail_server_log_done = MailServerLogDone.create('last_stat' => time, 'filename' => 'dummy')
-  #    saved_time = MailServerLogDone.find(mail_server_log_done.id).last_stat
-  #    assert_equal time, saved_time
-  #    assert_equal [0, 0, 0, 1, 1, 2000, 6, 1, false, "UTC"], time.to_a
-  #    assert_equal [0, 0, 19, 31, 12, 1999, 5, 365, false, "EST"], saved_time.to_a
-  #  end
-  #end
+  it "should preserve time objects with UTC time conversion to default timezone local" do
+   with_env_tz 'America/New_York' do
+     with_active_record_default_timezone :local do
+       time = Time.utc(2000)
+       mail_server_log_done = MailServerLogDone.create('last_stat' => time, 'filename' => 'dummy')
+       saved_time = MailServerLogDone.find(mail_server_log_done.id).last_stat
+       assert_equal time, saved_time
+       assert_equal [0, 0, 0, 1, 1, 2000, 6, 1, false, "UTC"], time.to_a
+       assert_equal [0, 0, 19, 31, 12, 1999, 5, 365, false, "EST"], saved_time.to_a
+     end
+   end
+  end
 
   it "should preserve time objects with time with zone conversion to default timezone local" do
     with_env_tz 'America/New_York' do
