@@ -49,7 +49,7 @@ module Configuration
     :TRACK_SENDER_NAME => 'Alaveteli',
     :TWITTER_USERNAME => '',
     :USE_DEFAULT_BROWSER_LANGUAGE => true,
-    :USE_GHOSTSCRIPT_COMPRESSION => '',
+    :USE_GHOSTSCRIPT_COMPRESSION => false,
     :UTILITY_SEARCH_PATH => ["/usr/bin", "/usr/local/bin"],
     :VARNISH_HOST => '',
     :WORKING_OR_CALENDAR_DAYS => 'working',
