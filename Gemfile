@@ -12,8 +12,8 @@ gem 'pg'
 
 gem 'fast_gettext', '>= 0.6.0'
 gem 'fastercsv', '>=1.5.5'
-gem 'gettext_i18n_rails', '>= 0.6.0', :git => "git://github.com/sebbacon/gettext_i18n_rails.git"
-gem 'gettext', '>= 1.9.3'
+gem 'gettext_i18n_rails', '>= 0.7.1'
+gem 'gettext', '~> 2.3.3'
 gem 'json', '~> 1.5.1'
 gem 'mahoro'
 gem 'memcache-client', :require => 'memcache'

@@ -1,10 +1,3 @@
-GIT
-  remote: git://github.com/sebbacon/gettext_i18n_rails.git
-  revision: 2616d7e76872942d6e2351974a7e3fa4c2f933e2
-  specs:
-    gettext_i18n_rails (0.6.2)
-      fast_gettext
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -30,8 +23,10 @@ GEM
     fakeweb (1.3.0)
     fast_gettext (0.6.8)
     fastercsv (1.5.5)
-    gettext (2.2.1)
+    gettext (2.3.3)
       locale
+    gettext_i18n_rails (0.7.1)
+      fast_gettext (>= 0.4.8)
     highline (1.6.13)
     hoe (3.0.8)
       rake (~> 0.8)
@@ -110,8 +105,8 @@ DEPENDENCIES
   fakeweb
   fast_gettext (>= 0.6.0)
   fastercsv (>= 1.5.5)
-  gettext (>= 1.9.3)
-  gettext_i18n_rails (>= 0.6.0)!
+  gettext (~> 2.3.3)
+  gettext_i18n_rails (>= 0.7.1)
   json (~> 1.5.1)
   locale (>= 2.0.5)
   mahoro
