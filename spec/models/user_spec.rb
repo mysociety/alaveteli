@@ -302,12 +302,3 @@ describe User, "when emails have bounced" do
         user.email_bounce_message.should == "The reason we think the email bounced (e.g. a bounce message)"
     end
 end
-
-describe User, 'when asked if the user has exceeded their request limit' do
-
-    it 'should return false if there is no max requests value set in the site configuration' do
-        user = User.new
-        lambda{ user.exceeded_limit? }.should_not raise_error
-    end
-
-end
