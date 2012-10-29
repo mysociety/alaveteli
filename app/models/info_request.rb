@@ -1139,7 +1139,7 @@ public
 
     before_save :purge_in_cache
     def purge_in_cache
-        if !Configuration::varnish_host.nil? && !self.id.nil?
+        if !Configuration::varnish_host.blank? && !self.id.nil?
             # we only do this for existing info_requests (new ones have a nil id)
             path = url_for(:controller => 'request', :action => 'show', :url_title => self.url_title, :only_path => true, :locale => :none)
             req = PurgeRequest.find_by_url(path)
