@@ -33,7 +33,7 @@ describe GeneralController, 'when getting the blog feed' do
 
 end
 
-describe GeneralController, "when searching" do
+describe GeneralController, "when showing the frontpage" do
     integrate_views
 
     before(:each) do
@@ -158,37 +158,39 @@ describe GeneralController, "when searching" do
         end
     end
 
-    describe 'when using xapian search' do
+end
 
-      # rebuild xapian index after fixtures loaded
-      before(:each) do
-          load_raw_emails_data
-          rebuild_xapian_index
-      end
+describe GeneralController, 'when using xapian search' do
 
-      it "should find info request when searching for '\"fancy dog\"'" do
-          get :search, :combined => ['"fancy dog"']
-          response.should render_template('search')
-          assigns[:xapian_requests].matches_estimated.should == 1
-          assigns[:xapian_requests].results.size.should == 1
-          assigns[:xapian_requests].results[0][:model].should == info_request_events(:useless_outgoing_message_event)
+    integrate_views
 
-          assigns[:xapian_requests].words_to_highlight == ["fancy", "dog"]
-      end
+    # rebuild xapian index after fixtures loaded
+    before(:each) do
+      load_raw_emails_data
+      rebuild_xapian_index
+    end
 
-      it "should find public body and incoming message when searching for 'geraldine quango'" do
-          get :search, :combined => ['geraldine quango']
-          response.should render_template('search')
+    it "should find info request when searching for '\"fancy dog\"'" do
+      get :search, :combined => ['"fancy dog"']
+      response.should render_template('search')
+      assigns[:xapian_requests].matches_estimated.should == 1
+      assigns[:xapian_requests].results.size.should == 1
+      assigns[:xapian_requests].results[0][:model].should == info_request_events(:useless_outgoing_message_event)
 
-          assigns[:xapian_requests].matches_estimated.should == 1
-          assigns[:xapian_requests].results.size.should == 1
-          assigns[:xapian_requests].results[0][:model].should == info_request_events(:useless_incoming_message_event)
+      assigns[:xapian_requests].words_to_highlight == ["fancy", "dog"]
+    end
 
-          assigns[:xapian_bodies].matches_estimated.should == 1
-          assigns[:xapian_bodies].results.size.should == 1
-          assigns[:xapian_bodies].results[0][:model].should == public_bodies(:geraldine_public_body)
-      end
+    it "should find public body and incoming message when searching for 'geraldine quango'" do
+      get :search, :combined => ['geraldine quango']
+      response.should render_template('search')
 
+      assigns[:xapian_requests].matches_estimated.should == 1
+      assigns[:xapian_requests].results.size.should == 1
+      assigns[:xapian_requests].results[0][:model].should == info_request_events(:useless_incoming_message_event)
+
+      assigns[:xapian_bodies].matches_estimated.should == 1
+      assigns[:xapian_bodies].results.size.should == 1
+      assigns[:xapian_bodies].results[0][:model].should == public_bodies(:geraldine_public_body)
     end
 
     it "should filter results based on end of URL being 'all'" do
