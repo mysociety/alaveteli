@@ -37,6 +37,20 @@ describe GeneralController, "when showing the frontpage" do
 
     integrate_views
 
+    before do
+      public_body = mock_model(PublicBody, :name => "Example Public Body",
+                                           :url_name => 'example_public_body')
+      info_request = mock_model(InfoRequest, :public_body => public_body,
+                                             :title => 'Example Request',
+                                             :url_title => 'example_request')
+      info_request_event = mock_model(InfoRequestEvent, :created_at => Time.now,
+                                                        :info_request => info_request,
+                                                        :described_at => Time.now,
+                                                        :search_text_main => 'example text')
+      xapian_result = mock('xapian result', :results => [{:model => info_request_event}])
+      controller.stub!(:perform_search).and_return(xapian_result)
+    end
+
     it "should render the front page successfully" do
         get :frontpage
         response.should be_success
@@ -124,6 +138,8 @@ describe GeneralController, "when showing the frontpage" do
             I18n.available_locales = old_i18n_available_locales
         end
     end
+end
+describe GeneralController, "when showing the front page with fixture data" do
 
     describe 'when constructing the list of recent requests' do
 
