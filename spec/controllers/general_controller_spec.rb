@@ -144,20 +144,36 @@ describe GeneralController, "when showing the front page with fixture data" do
     describe 'when constructing the list of recent requests' do
 
         before(:each) do
-          load_raw_emails_data
-          rebuild_xapian_index
+            load_raw_emails_data
+            rebuild_xapian_index
         end
 
-        it 'should list the newest successful request first' do
-            # Make sure the newest is listed first even if an older one
-            # has a newer comment or was reclassified more recently:
-            #   https://github.com/mysociety/alaveteli/issues/370
-            #
-            # This is a deliberate behaviour change, in that the
-            # previous behaviour (showing more-recently-reclassified
-            # requests first) was intentional.
-            get :frontpage
-            assigns[:request_events].first.info_request.should == info_requests(:another_boring_request)
+        describe 'when there are fewer than five successful requests' do
+
+            it 'should list the most recently sent and successful requests by the creation date of the
+                request event' do
+                # Make sure the newest response is listed first even if a request
+                # with an older response has a newer comment or was reclassified more recently:
+                # https://github.com/mysociety/alaveteli/issues/370
+                #
+                # This is a deliberate behaviour change, in that the
+                # previous behaviour (showing more-recently-reclassified
+                # requests first) was intentional.
+                get :frontpage
+
+                request_events = assigns[:request_events]
+                previous = nil
+                request_events.each do |event|
+                    if previous
+                        previous.created_at.should be >= event.created_at
+                    end
+                    ['sent', 'response'].include?(event.event_type).should be_true
+                    if event.event_type == 'response'
+                        ['successful', 'partially_successful'].include?(event.calculated_state).should be_true
+                    end
+                    previous = event
+                end
+            end
         end
 
         it 'should coalesce duplicate requests' do
