@@ -144,7 +144,6 @@ describe GeneralController, "when showing the front page with fixture data" do
     describe 'when constructing the list of recent requests' do
 
         before(:each) do
-            load_raw_emails_data
             rebuild_xapian_index
         end
 
