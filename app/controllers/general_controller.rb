@@ -58,6 +58,8 @@ class GeneralController < ApplicationController
                     xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', max_count-@request_events.count)
                     more_events = xapian_object.results.map { |r| r[:model] }
                     @request_events += more_events
+                    # Overall we still want the list sorted with the newest first
+                    @request_events.sort!{|e1,e2| e2.created_at <=> e1.created_at}
                 else
                     @request_events_all_successful = true
                 end
