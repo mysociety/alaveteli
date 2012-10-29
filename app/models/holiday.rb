@@ -23,11 +23,12 @@
 
 class Holiday < ActiveRecord::Base
 
-    def Holiday.weekend_or_holiday?(date)
-        # TODO only fetch holidays after the start_date
-        holidays = self.all.collect { |h| h.day }.to_set
+    def Holiday.holidays
+        @@holidays ||= self.all.collect { |h| h.day }.to_set
+    end
 
-        date.wday == 0 || date.wday == 6 || holidays.include?(date)
+    def Holiday.weekend_or_holiday?(date)
+        date.wday == 0 || date.wday == 6 || Holiday.holidays.include?(date)
     end
 
     def Holiday.due_date_from(start_date, days, type_of_days)
