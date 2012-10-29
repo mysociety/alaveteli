@@ -34,12 +34,8 @@ describe GeneralController, 'when getting the blog feed' do
 end
 
 describe GeneralController, "when showing the frontpage" do
-    integrate_views
 
-    before(:each) do
-        load_raw_emails_data
-        rebuild_xapian_index
-    end
+    integrate_views
 
     it "should render the front page successfully" do
         get :frontpage
@@ -87,11 +83,6 @@ describe GeneralController, "when showing the frontpage" do
         response.should be_success
     end
 
-    it "should redirect from search query URL to pretty URL" do
-        post :search_redirect, :query => "mouse" # query hidden in POST parameters
-        response.should redirect_to(:action => 'search', :combined => "mouse", :view => "all") # URL /search/:query/all
-    end
-
     describe "when using different locale settings" do
         home_link_regex = /href=".*\/en\//
         it "should generate URLs with a locale prepended when there's more than one locale set" do
@@ -135,6 +126,7 @@ describe GeneralController, "when showing the frontpage" do
     end
 
     describe 'when constructing the list of recent requests' do
+
         before(:each) do
           load_raw_emails_data
           rebuild_xapian_index
@@ -168,6 +160,11 @@ describe GeneralController, 'when using xapian search' do
     before(:each) do
       load_raw_emails_data
       rebuild_xapian_index
+    end
+
+    it "should redirect from search query URL to pretty URL" do
+        post :search_redirect, :query => "mouse" # query hidden in POST parameters
+        response.should redirect_to(:action => 'search', :combined => "mouse", :view => "all") # URL /search/:query/all
     end
 
     it "should find info request when searching for '\"fancy dog\"'" do
