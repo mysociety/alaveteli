@@ -150,5 +150,7 @@ require 'world_foi_websites.rb'
 require 'alaveteli_external_command.rb'
 require 'quiet_opener.rb'
 
-ExceptionNotification::Notifier.sender_address = Configuration::exception_notifications_from
-ExceptionNotification::Notifier.exception_recipients = Configuration::exception_notifications_to
+if !Configuration.exception_notifications_from.blank? && !Configuration.exception_notifications_to.blank?
+  ExceptionNotification::Notifier.sender_address = Configuration::exception_notifications_from
+  ExceptionNotification::Notifier.exception_recipients = Configuration::exception_notifications_to
+end

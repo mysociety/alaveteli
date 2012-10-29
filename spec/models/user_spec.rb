@@ -1,42 +1,42 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe User, "making up the URL name" do 
+describe User, "making up the URL name" do
     before do
         @user = User.new
     end
 
-    it 'should remove spaces, and make lower case' do 
+    it 'should remove spaces, and make lower case' do
         @user.name = 'Some Name'
         @user.url_name.should == 'some_name'
     end
 
-    it 'should not allow a numeric name' do 
+    it 'should not allow a numeric name' do
         @user.name = '1234'
         @user.url_name.should == 'user'
     end
 end
 
 
-describe User, "showing the name" do 
+describe User, "showing the name" do
     before do
         @user = User.new
         @user.name = 'Some Name '
     end
 
-    it 'should strip whitespace' do 
+    it 'should strip whitespace' do
         @user.name.should == 'Some Name'
     end
 
-    it 'should show if user has been banned' do 
+    it 'should show if user has been banned' do
         @user.ban_text = "Naughty user"
         @user.name.should == 'Some Name (Account suspended)'
     end
 
 end
- 
+
 describe User, " when authenticating" do
     before do
-        @empty_user = User.new 
+        @empty_user = User.new
 
         @full_user = User.new
         @full_user.name = "Sensible User"
@@ -71,7 +71,7 @@ end
 
 describe User, " when saving" do
     before do
-        @user = User.new 
+        @user = User.new
     end
 
     it "should not save without setting some parameters" do
@@ -80,7 +80,7 @@ describe User, " when saving" do
 
     it "should not save with misformatted email" do
         @user.name = "Mr. Silly"
-        @user.password = "insecurepassword"  
+        @user.password = "insecurepassword"
         @user.email = "mousefooble"
         @user.should have(1).error_on(:email)
     end
@@ -88,58 +88,58 @@ describe User, " when saving" do
     it "should not allow an email address as a name" do
         @user.name = "silly@example.com"
         @user.email = "silly@example.com"
-        @user.password = "insecurepassword"  
+        @user.password = "insecurepassword"
         @user.should have(1).error_on(:name)
     end
 
     it "should not save with no password" do
         @user.name = "Mr. Silly"
-        @user.password = ""  
+        @user.password = ""
         @user.email = "silly@localhost"
         @user.should have(1).error_on(:hashed_password)
     end
 
     it "should save with reasonable name, password and email" do
         @user.name = "Mr. Reasonable"
-        @user.password = "insecurepassword"  
+        @user.password = "insecurepassword"
         @user.email = "reasonable@localhost"
         @user.save!
     end
 
     it "should let you make two users with same name" do
         @user.name = "Mr. Flobble"
-        @user.password = "insecurepassword"  
+        @user.password = "insecurepassword"
         @user.email = "flobble@localhost"
         @user.save!
 
-        @user2 = User.new 
+        @user2 = User.new
         @user2.name = "Mr. Flobble"
-        @user2.password = "insecurepassword"  
+        @user2.password = "insecurepassword"
         @user2.email = "flobble2@localhost"
         @user2.save!
     end
-    
+
     it 'should mark the model for reindexing in xapian if the no_xapian_reindex flag is set to false' do
         @user.name = "Mr. First"
-        @user.password = "insecurepassword"  
+        @user.password = "insecurepassword"
         @user.email = "reasonable@localhost"
         @user.no_xapian_reindex = false
         @user.should_receive(:xapian_mark_needs_index)
         @user.save!
     end
-    
+
     it 'should mark the model for reindexing in xapian if the no_xapian_reindex flag is not set'  do
         @user.name = "Mr. Second"
-        @user.password = "insecurepassword"  
+        @user.password = "insecurepassword"
         @user.email = "reasonable@localhost"
         @user.no_xapian_reindex = nil
         @user.should_receive(:xapian_mark_needs_index)
         @user.save!
     end
-       
-    it 'should not mark the model for reindexing in xapian if the no_xapian_reindex flag is set' do 
+
+    it 'should not mark the model for reindexing in xapian if the no_xapian_reindex flag is set' do
         @user.name = "Mr. Third"
-        @user.password = "insecurepassword"  
+        @user.password = "insecurepassword"
         @user.email = "reasonable@localhost"
         @user.no_xapian_reindex = true
         @user.should_not_receive(:xapian_mark_needs_index)
@@ -149,47 +149,47 @@ describe User, " when saving" do
 end
 
 
-describe User, "when reindexing referencing models" do 
+describe User, "when reindexing referencing models" do
 
-    before do 
+    before do
         @request_event = safe_mock_model(InfoRequestEvent, :xapian_mark_needs_index => true)
         @request = safe_mock_model(InfoRequest, :info_request_events => [@request_event])
         @comment_event = safe_mock_model(InfoRequestEvent, :xapian_mark_needs_index => true)
         @comment = safe_mock_model(Comment, :info_request_events => [@comment_event])
         @user = User.new(:comments => [@comment], :info_requests => [@request])
     end
-    
-    it 'should reindex events associated with that user\'s comments when URL changes' do 
+
+    it 'should reindex events associated with that user\'s comments when URL changes' do
         @user.stub!(:changes).and_return({'url_name' => 1})
         @comment_event.should_receive(:xapian_mark_needs_index)
         @user.reindex_referencing_models
     end
-    
-    it 'should reindex events associated with that user\'s requests when URL changes' do 
+
+    it 'should reindex events associated with that user\'s requests when URL changes' do
         @user.stub!(:changes).and_return({'url_name' => 1})
         @request_event.should_receive(:xapian_mark_needs_index)
         @user.reindex_referencing_models
     end
-    
-    describe 'when no_xapian_reindex is set' do 
-        before do 
+
+    describe 'when no_xapian_reindex is set' do
+        before do
             @user.no_xapian_reindex = true
         end
-            
-        it 'should not reindex events associated with that user\'s comments when URL changes' do 
+
+        it 'should not reindex events associated with that user\'s comments when URL changes' do
             @user.stub!(:changes).and_return({'url_name' => 1})
             @comment_event.should_not_receive(:xapian_mark_needs_index)
             @user.reindex_referencing_models
         end
-        
-        it 'should not reindex events associated with that user\'s requests when URL changes' do 
+
+        it 'should not reindex events associated with that user\'s requests when URL changes' do
         @user.stub!(:changes).and_return({'url_name' => 1})
         @request_event.should_not_receive(:xapian_mark_needs_index)
             @user.reindex_referencing_models
         end
-    
+
     end
-    
+
 end
 
 describe User, "when checking abilities" do
@@ -208,26 +208,26 @@ describe User, "when checking abilities" do
 
 end
 
-describe User, 'when asked if a user owns every request' do 
-    
-    before do 
+describe User, 'when asked if a user owns every request' do
+
+    before do
         @mock_user = mock_model(User)
     end
-    
-    it 'should return false if no user is passed' do 
+
+    it 'should return false if no user is passed' do
         User.owns_every_request?(nil).should be_false
     end
-    
-    it 'should return true if the user has "requires admin" power' do 
+
+    it 'should return true if the user has "requires admin" power' do
         @mock_user.stub!(:owns_every_request?).and_return true
         User.owns_every_request?(@mock_user).should be_true
     end
-    
-    it 'should return false if the user does not have "requires admin" power' do 
+
+    it 'should return false if the user does not have "requires admin" power' do
         @mock_user.stub!(:owns_every_request?).and_return false
         User.owns_every_request?(@mock_user).should be_false
     end
-    
+
 end
 
 describe User, " when making name and email address" do
@@ -296,7 +296,7 @@ describe User, "when emails have bounced" do
 
     it "should record bounces" do
         User.record_bounce_for_email("bob@localhost", "The reason we think the email bounced (e.g. a bounce message)")
-        
+
         user = User.find_user_by_email("bob@localhost")
         user.email_bounced_at.should_not be_nil
         user.email_bounce_message.should == "The reason we think the email bounced (e.g. a bounce message)"

@@ -44,7 +44,7 @@ class RequestController < ApplicationController
     end
 
     def show
-        if !Configuration::varnish_host.nil?
+        if !Configuration::varnish_host.blank?
             # If varnish is set up to accept PURGEs, then cache for a
             # long time
             long_cache
@@ -876,7 +876,7 @@ class RequestController < ApplicationController
                     Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) { |zipfile|
                         convert_command = Configuration::html_to_pdf_command
                         done = false
-                        if File.exists?(convert_command)
+                        if !convert_command.blank? && File.exists?(convert_command)
                             url = "http://#{Configuration::domain}#{request_url(info_request)}?print_stylesheet=1"
                             tempfile = Tempfile.new('foihtml2pdf')
                             output = AlaveteliExternalCommand.run(convert_command, url, tempfile.path)
