@@ -166,6 +166,13 @@ describe AdminPublicBodyController, "when administering public bodies and paying
         config['SKIP_ADMIN_AUTH'] = true
     end
 
+    def setup_emergency_credentials(username, password)
+        config = MySociety::Config.load_default()
+        config['SKIP_ADMIN_AUTH'] = false
+        config['ADMIN_USERNAME'] = username
+        config['ADMIN_PASSWORD'] = password
+        @request.env["HTTP_AUTHORIZATION"] = ""
+    end
 
     it "disallows non-authenticated users to do anything" do
         @request.env["HTTP_AUTHORIZATION"] = ""
@@ -180,19 +187,14 @@ describe AdminPublicBodyController, "when administering public bodies and paying
         config = MySociety::Config.load_default()
         config['SKIP_ADMIN_AUTH'] = true
         @request.env["HTTP_AUTHORIZATION"] = ""
-
         n = PublicBody.count
         post :destroy, { :id => public_bodies(:forlorn_public_body).id }
         PublicBody.count.should == n - 1
         session[:using_admin].should == 1
     end
 
-    it "doesn't let people with bad credentials log in" do
-        config = MySociety::Config.load_default()
-        config['SKIP_ADMIN_AUTH'] = false
-        config['ADMIN_USERNAME'] = 'biz'
-        config['ADMIN_PASSWORD'] = 'fuz'
-        @request.env["HTTP_AUTHORIZATION"] = ""
+    it "doesn't let people with bad emergency account credentials log in" do
+        setup_emergency_credentials('biz', 'fuz')
         n = PublicBody.count
         basic_auth_login(@request, "baduser", "badpassword")
         post :destroy, { :id => public_bodies(:forlorn_public_body).id }
@@ -201,12 +203,8 @@ describe AdminPublicBodyController, "when administering public bodies and paying
         session[:using_admin].should == nil
     end
 
-    it "allows people with good credentials log in using HTTP Basic Auth" do
-        config = MySociety::Config.load_default()
-        config['SKIP_ADMIN_AUTH'] = false
-        config['ADMIN_USERNAME'] = 'biz'
-        config['ADMIN_PASSWORD'] = 'fuz'
-        @request.env["HTTP_AUTHORIZATION"] = ""
+    it "allows people with good emergency account credentials log in using HTTP Basic Auth" do
+        setup_emergency_credentials('biz', 'fuz')
         n = PublicBody.count
         basic_auth_login(@request, "biz", "fuz")
         post :show, { :id => public_bodies(:humpadink_public_body).id, :emergency => 1}
