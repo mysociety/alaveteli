@@ -45,12 +45,17 @@ class AdminController < ApplicationController
         end
     end
 
+    # For administration interface, return display name of authenticated user
+    def admin_http_auth_user
+        session[:admin_http_auth_user] || "*unknown*"
+    end
+
     def authenticate
         if Configuration::skip_admin_auth
             session[:using_admin] = 1
             return
         else
-            if session[:using_admin].nil?
+            if session[:using_admin].nil? || session[:admin_http_auth_user].nil?
                 if params[:emergency].nil?
                     if authenticated?(
                                       :web => _("To log into the administrative interface"),
@@ -59,11 +64,11 @@ class AdminController < ApplicationController
                                       :user_name => "a superuser")
                         if !@user.nil? && @user.admin_level == "super"
                             session[:using_admin] = 1
-                            request.env['REMOTE_USER'] = @user.url_name
+                            session[:admin_http_auth_user] = @user.url_name
                         else
-
                             session[:using_admin] = nil
                             session[:user_id] = nil
+                            session[:admin_http_auth_user] = nil
                             self.authenticate
                         end
                     end
@@ -71,7 +76,7 @@ class AdminController < ApplicationController
                     authenticate_or_request_with_http_basic do |user_name, password|
                         if user_name == Configuration::admin_username && password == Configuration::admin_password
                             session[:using_admin] = 1
-                            request.env['REMOTE_USER'] = user_name
+                            session[:admin_http_auth_user] = user_name
                         else
                             request_http_basic_authentication
                         end
