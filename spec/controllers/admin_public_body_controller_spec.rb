@@ -233,6 +233,33 @@ describe AdminPublicBodyController, "when administering public bodies and paying
         PublicBody.count.should == n
         session[:using_admin].should == nil
     end
+
+    describe 'when asked for the admin current user' do
+
+        it 'returns the emergency account name for someone who logged in with the emergency account' do
+            setup_emergency_credentials('biz', 'fuz')
+            basic_auth_login(@request, "biz", "fuz")
+            post :show, { :id => public_bodies(:humpadink_public_body).id, :emergency => 1 }
+            controller.send(:admin_current_user).should == 'biz'
+        end
+
+        it 'returns the current user url_name for a superuser' do
+            session[:user_id] = users(:admin_user).id
+            @request.env["HTTP_AUTHORIZATION"] = ""
+            post :show, { :id => public_bodies(:humpadink_public_body).id }
+            controller.send(:admin_current_user).should == users(:admin_user).url_name
+        end
+
+        it 'returns the REMOTE_USER value from the request environment when skipping admin auth' do
+            config = MySociety::Config.load_default()
+            config['SKIP_ADMIN_AUTH'] = true
+            @request.env["HTTP_AUTHORIZATION"] = ""
+            @request.env["REMOTE_USER"] = "i_am_admin"
+            post :show, { :id => public_bodies(:humpadink_public_body).id }
+            controller.send(:admin_current_user).should == "i_am_admin"
+        end
+
+    end
 end
 
 describe AdminPublicBodyController, "when administering public bodies with i18n" do
