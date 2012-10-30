@@ -88,7 +88,7 @@ class AdminPublicBodyController < AdminController
 
     def create
         PublicBody.with_locale(I18n.default_locale) do
-            params[:public_body][:last_edit_editor] = admin_http_auth_user()
+            params[:public_body][:last_edit_editor] = admin_current_user()
             @public_body = PublicBody.new(params[:public_body])
             if @public_body.save
                 flash[:notice] = 'PublicBody was successfully created.'
@@ -107,7 +107,7 @@ class AdminPublicBodyController < AdminController
 
     def update
         PublicBody.with_locale(I18n.default_locale) do
-            params[:public_body][:last_edit_editor] = admin_http_auth_user()
+            params[:public_body][:last_edit_editor] = admin_current_user()
             @public_body = PublicBody.find(params[:id])
             if @public_body.update_attributes(params[:public_body])
                 flash[:notice] = 'PublicBody was successfully updated.'
@@ -157,7 +157,7 @@ class AdminPublicBodyController < AdminController
                                                       params[:tag],
                                                       params[:tag_behaviour],
                                                       true,
-                                                      admin_http_auth_user(),
+                                                      admin_current_user(),
                                                       I18n.available_locales)
 
                 if errors.size == 0
@@ -171,7 +171,7 @@ class AdminPublicBodyController < AdminController
                                                               params[:tag],
                                                               params[:tag_behaviour],
                                                               false,
-                                                              admin_http_auth_user(),
+                                                              admin_current_user(),
                                                               I18n.available_locales)
                         if errors.size != 0
                             raise "dry run mismatched real run"

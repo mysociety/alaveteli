@@ -340,6 +340,10 @@ class ApplicationController < ActionController::Base
 
     end
 
+    def admin_current_user
+        admin_http_auth_user
+    end
+
     # For administration interface, return display name of authenticated user
     def admin_http_auth_user
         # This needs special magic in mongrel: http://www.ruby-forum.com/topic/83067
