@@ -340,11 +340,17 @@ class ApplicationController < ActionController::Base
 
     end
 
+    # For administration interface, return display name of authenticated user
     def admin_current_user
-        admin_http_auth_user
+        if Configuration::skip_admin_auth
+            admin_http_auth_user
+        else
+            session[:admin_name]
+        end
     end
 
-    # For administration interface, return display name of authenticated user
+    # If we're skipping Alaveteli admin authentication, assume that the environment
+    # will give us an authenticated user name
     def admin_http_auth_user
         # This needs special magic in mongrel: http://www.ruby-forum.com/topic/83067
         # Hence the second clause which reads X-Forwarded-User header if available.

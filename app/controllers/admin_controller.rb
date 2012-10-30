@@ -50,7 +50,7 @@ class AdminController < ApplicationController
             session[:using_admin] = 1
             return
         else
-            if session[:using_admin].nil?
+            if session[:using_admin].nil? || session[:admin_name].nil?
                 if params[:emergency].nil?
                     if authenticated?(
                                       :web => _("To log into the administrative interface"),
@@ -59,11 +59,12 @@ class AdminController < ApplicationController
                                       :user_name => "a superuser")
                         if !@user.nil? && @user.admin_level == "super"
                             session[:using_admin] = 1
-                            request.env['REMOTE_USER'] = @user.url_name
+                            session[:admin_name] = @user.url_name
                         else
 
                             session[:using_admin] = nil
                             session[:user_id] = nil
+                            session[:admin_name] = nil
                             self.authenticate
                         end
                     end
@@ -71,7 +72,7 @@ class AdminController < ApplicationController
                     authenticate_or_request_with_http_basic do |user_name, password|
                         if user_name == Configuration::admin_username && password == Configuration::admin_password
                             session[:using_admin] = 1
-                            request.env['REMOTE_USER'] = user_name
+                            session[:admin_name] = user_name
                         else
                             request_http_basic_authentication
                         end
