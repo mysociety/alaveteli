@@ -85,7 +85,7 @@ class AdminRequestController < AdminController
         if @info_request.valid?
             @info_request.save!
             @info_request.log_event("edit",
-                { :editor => admin_http_auth_user(),
+                { :editor => admin_current_user(),
                     :old_title => old_title, :title => @info_request.title,
                     :old_prominence => old_prominence, :prominence => @info_request.prominence,
                     :old_described_state => old_described_state, :described_state => @info_request.described_state,
@@ -128,7 +128,7 @@ class AdminRequestController < AdminController
 
         @outgoing_message.fully_destroy
         @outgoing_message.info_request.log_event("destroy_outgoing",
-            { :editor => admin_http_auth_user(), :deleted_outgoing_message_id => outgoing_message_id })
+            { :editor => admin_current_user(), :deleted_outgoing_message_id => outgoing_message_id })
 
         flash[:notice] = 'Outgoing message successfully destroyed.'
         redirect_to request_admin_url(@info_request)
@@ -141,7 +141,7 @@ class AdminRequestController < AdminController
 
         if @outgoing_message.update_attributes(params[:outgoing_message])
             @outgoing_message.info_request.log_event("edit_outgoing",
-                { :outgoing_message_id => @outgoing_message.id, :editor => admin_http_auth_user(),
+                { :outgoing_message_id => @outgoing_message.id, :editor => admin_current_user(),
                     :old_body => old_body, :body => @outgoing_message.body })
             flash[:notice] = 'Outgoing message successfully updated.'
             redirect_to request_admin_url(@outgoing_message.info_request)
@@ -163,7 +163,7 @@ class AdminRequestController < AdminController
 
         if @comment.update_attributes(params[:comment])
             @comment.info_request.log_event("edit_comment",
-                { :comment_id => @comment.id, :editor => admin_http_auth_user(),
+                { :comment_id => @comment.id, :editor => admin_current_user(),
                     :old_body => old_body, :body => @comment.body,
                     :old_visible => old_visible, :visible => @comment.visible,
                 })
@@ -182,7 +182,7 @@ class AdminRequestController < AdminController
 
         @incoming_message.fully_destroy
         @incoming_message.info_request.log_event("destroy_incoming",
-            { :editor => admin_http_auth_user(), :deleted_incoming_message_id => incoming_message_id })
+            { :editor => admin_current_user(), :deleted_incoming_message_id => incoming_message_id })
         # expire cached files
         expire_for_request(@info_request)
         flash[:notice] = 'Incoming message successfully destroyed.'
@@ -213,7 +213,7 @@ class AdminRequestController < AdminController
 
                 incoming_message_id = incoming_message.id
                 incoming_message.info_request.log_event("redeliver_incoming", {
-                                                            :editor => admin_http_auth_user(),
+                                                            :editor => admin_current_user(),
                                                             :destination_request => destination_request.id,
                                                             :deleted_incoming_message_id => incoming_message_id
                                                         })
@@ -239,7 +239,7 @@ class AdminRequestController < AdminController
                 info_request.user = destination_user
                 info_request.save!
                 info_request.log_event("move_request", {
-                        :editor => admin_http_auth_user(),
+                        :editor => admin_current_user(),
                         :old_user_url_name => old_user.url_name,
                         :user_url_name => destination_user.url_name
                 })
@@ -257,7 +257,7 @@ class AdminRequestController < AdminController
                 info_request.public_body = destination_public_body
                 info_request.save!
                 info_request.log_event("move_request", {
-                        :editor => admin_http_auth_user(),
+                        :editor => admin_current_user(),
                         :old_public_body_url_name => old_public_body.url_name,
                         :public_body_url_name => destination_public_body.url_name
                 })
@@ -367,7 +367,7 @@ class AdminRequestController < AdminController
             info_request.prominence = "requester_only"
 
             info_request.log_event("hide", {
-                    :editor => admin_http_auth_user(),
+                    :editor => admin_current_user(),
                     :reason => params[:reason],
                     :subject => subject,
                     :explanation => explanation
