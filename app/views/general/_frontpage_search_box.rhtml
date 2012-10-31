@@ -5,8 +5,8 @@
   :number_of_requests => InfoRequest.visible.count, :number_of_authorities => PublicBody.visible.count) %>
 </h2>
 <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
-<div>
-  <%= text_field_tag 'query', params[:query], { :size => 30 } %>
-  <%= submit_tag _('Search') %>
-</div>
+  <div>
+    <%= text_field_tag 'query', params[:query], { :size => 30 } %>
+    <%= submit_tag _('Search') %>
+  </div>
 <% end %>
