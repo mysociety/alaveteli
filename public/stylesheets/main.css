@@ -1186,6 +1186,15 @@ width:110px;
 h3.title {
 width:114px;
 margin-bottom:5px;
+vertical-align: middle;
+}
+
+.filter-request-types {
+  display: inline-block;
+  width: 455px;
+  vertical-align: middle;
+  margin-top: 3px;
+  line-height: 1.5em;
 }
 
 #requests-subfilters div {
