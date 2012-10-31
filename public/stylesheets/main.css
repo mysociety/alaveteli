@@ -222,13 +222,7 @@ padding:1em 0;
 }
 
 div#twitter {
-float:right;
-clear:none;
-width:18em;
-background-color:#EAEAEA;
-background:#FFF;
-margin:30px 0 1em 1em;
-padding:0.5em;
+margin-top: 30px;
 }
 
 img.twitter-icon {
