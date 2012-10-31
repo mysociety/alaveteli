@@ -24,7 +24,13 @@
       <div class="blog_post">
           <h2 id="<%= Time.parse(item['pubDate'][0]).to_i %>"><a href="<%=item['link']%>"><%=h item['title'] %></a></h2>
           <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", :date=>simple_date(Time.parse(item['pubDate'][0])), :author=>item['creator']) %></p>
-          <div><%= item['encoded'] %></div>
+          <div>
+            <% if item['encoded'] %>
+              <%= item['encoded'] %>
+            <% elsif item['description'] %>
+              <%= item['description'] %>
+            <% end %>
+          </div>
           <p><em>
             <% if item['comments'] %>
               <a href="<%=item['comments'][0]%>"><%= _("{{number_of_comments}} comments", :number_of_comments=>item['comments'][1]) %></a>
