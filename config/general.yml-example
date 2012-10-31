@@ -25,7 +25,7 @@ BLOG_FEED: 'http://www.mysociety.org/category/projects/whatdotheyknow/feed/'
 TWITTER_USERNAME: 'whatdotheyknow'
 # Set the widget_id to get the Twitter sidebar on the blog page.
 # To get one https://twitter.com/settings/widgets
-#TWITTER_WIDGET_ID: ''
+TWITTER_WIDGET_ID: ''
 
 # Locales we wish to support in this app, space-delimited
 AVAILABLE_LOCALES: 'en es'
