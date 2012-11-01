@@ -8,13 +8,14 @@
 # Jana Kneschke <>, 2012.
 #   <jana.kneschke@gmail.com>, 2012.
 #   <josef.pospisil@laststar.eu>, 2012.
+#   <louise@mysociety.org>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2012-10-11 10:18+0100\n"
-"PO-Revision-Date: 2012-10-16 10:02+0000\n"
-"Last-Translator: Hana Huntova <>\n"
+"PO-Revision-Date: 2012-11-01 09:46+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -462,7 +463,7 @@ msgid ""
 msgstr "<strong>Shrnutí</strong> odpovědi, kterou jste obdrželi poštou."
 
 msgid "A Freedom of Information request"
-msgstr "Vznesený dotaz podle zákona 106/1999 Sb."
+msgstr "Vznesený dotaz podle zákona 106/1999 Sb. o svobodném přístupu k informacím"
 
 msgid ""
 "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, "
@@ -819,7 +820,7 @@ msgid "Date:"
 msgstr "Datum:"
 
 msgid "Dear {{public_body_name}},"
-msgstr "Vážená paní, vážený pane\n{{public_body_name}},"
+msgstr "Povinný subjekt: {{public_body_name}}\n\nŽádost o informace podle zákona č. 106/1999 Sb. o svobodném přístupu k informacím.\n\nVážená paní, vážený pane,"
 
 msgid "Delayed response to your FOI request - "
 msgstr "Zpožděná odpověď na váš dotaz –"
@@ -1074,7 +1075,7 @@ msgid "Freedom of Information"
 msgstr "dotaz"
 
 msgid "Freedom of Information Act"
-msgstr "zákona č. 106/1999 Sb."
+msgstr "zákona č. 106/1999 Sb. o svobodném přístupu k informacím"
 
 msgid ""
 "Freedom of Information law does not apply to this authority, so you cannot make\n"
@@ -3221,7 +3222,7 @@ msgid "Write your FOI follow up message to "
 msgstr "Napište svou odpověď pro "
 
 msgid "Write your request in <strong>simple, precise language</strong>."
-msgstr "Napište svůj dotaz <strong>jednoduše a jasně</strong>."
+msgstr "Napište svůj dotaz <strong>jednoduše a jasně</strong>.\nSvůj dotaz formulujte v jasných bodech. \nPokud žádáte o více nesouvisejících informací, rozdělte je do více žádostí. "
 
 msgid "You"
 msgstr "Vy"
@@ -3765,7 +3766,7 @@ msgid "{{info_request_user_name}} only:"
 msgstr "Pouze {{info_request_user_name}}:"
 
 msgid "{{law_used_full}} request - {{title}}"
-msgstr "Dotaz podle {{law_used_full}} - {{title}}"
+msgstr "Žádost o informace podle {{law_used_full}} - {{title}}"
 
 msgid "{{law_used_full}} request GQ - {{title}}"
 msgstr "{{law_used_full}} žádejte GQ - {{title}} ??"
