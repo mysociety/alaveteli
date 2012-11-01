@@ -16,6 +16,10 @@ namespace :themes do
         success
     end
 
+    def checkout_remote_branch(branch)
+        system("git checkout origin/#{branch}")
+    end
+
     def usage_tag(version)
         "use-with-alaveteli-#{version}"
     end
@@ -26,8 +30,12 @@ namespace :themes do
             clone_command = "git clone #{uri} #{name}"
             if system(clone_command)
                 Dir.chdir install_path do
-                    # try to checkout a tag exactly matching ALAVETELI VERSION
-                    tag_checked_out = checkout_tag(ALAVETELI_VERSION)
+                    # First try to checkout a specific branch of the theme
+                    tag_checked_out = checkout_remote_branch(Configuration::theme_branch) if Configuration::theme_branch
+                    if !tag_checked_out
+                        # try to checkout a tag exactly matching ALAVETELI VERSION
+                        tag_checked_out = checkout_tag(ALAVETELI_VERSION)
+                    end
                     if ! tag_checked_out
                         # if we're on a hotfix release (four sequence elements or more),
                         # look for a usage tag matching the minor release (three sequence elements)
