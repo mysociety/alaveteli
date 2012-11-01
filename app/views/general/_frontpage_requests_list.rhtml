@@ -1,0 +1,35 @@
+<div id="examples_1">
+  <h3>
+    <% if @request_events_all_successful %>
+      <%= _("What information has been released?") %>
+    <% else %>
+      <%= _("What information has been requested?") %>
+    <% end %>
+  </h3>
+   <%= _("{{site_name}} users have made {{number_of_requests}} requests, including:",
+    :site_name => site_name, :number_of_requests => InfoRequest.visible.count) %>
+    <ul>
+      <% for event in @request_events %>
+        <li>
+          <% if @request_events_all_successful %>
+            <%= _("{{public_body_link}} answered a request about",
+                :public_body_link => public_body_link(event.info_request.public_body)) %>
+          <% else %>
+            <%= _("{{public_body_link}} was sent a request about",
+                :public_body_link => public_body_link(event.info_request.public_body)) %>
+          <% end %>
+
+           <%=link_to h(event.info_request.title), request_url(event.info_request)%>
+           <%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(event.described_at)) %>
+           <p class="excerpt" onclick="document.location.href='<%=request_url(event.info_request)%>'"><%= excerpt(event.search_text_main(true), "", 200) %></p>
+        </li>
+      <% end %>
+    </ul>
+    <p><strong>
+      <% if @request_events_all_successful %>
+        <%=link_to _('More successful requests...'), request_list_successful_url %>
+      <% else %>
+        <%=link_to _('More requests...'), request_list_all_url %>
+      <% end %>
+    </strong></p>
+</div>

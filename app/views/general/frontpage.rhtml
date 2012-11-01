@@ -1,28 +1,11 @@
 <% view_cache :ttl => 5.minutes.to_i, :tag => I18n.locale do %>
   <div id="frontpage_splash">
     <div id="left_column">
-      <h1>
-        <%= _("Make a new<br/>
-        <strong>Freedom <span>of</span><br/>
-        Information<br/>
-        request</strong>") %>
-      </h1>
-      <a class="link_button_green_large" href="/select_authority"><%= _("Start now &raquo;") %></a>
+      <%= render :partial => "frontpage_new_request" %>
     </div>
     <div id="right_column">
       <div id="frontpage_search_box">
-        <h2>
-          <%= _("Search over<br/>
-          <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>
-          <strong>{{number_of_authorities}} authorities</strong>",
-          :number_of_requests => InfoRequest.visible.count, :number_of_authorities => PublicBody.visible.count) %>
-        </h2>
-        <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
-        <div>
-          <%= text_field_tag 'query', params[:query], { :size => 30 } %>
-          <%= submit_tag _('Search') %>
-        </div>
-        <% end %>
+        <%= render :partial => "frontpage_search_box" %>
       </div>
       <div id="frontpage_right_to_know">
         <%= render :partial => 'frontpage_intro_sentence'  %>
@@ -30,62 +13,8 @@
     </div>
     <div style="clear:both"></div>
   </div>
-
-<div id="frontpage_examples">
-    <% if @popular_bodies.size > 0 %>
-      <div id="examples_0">
-        <h3><%= _("Who can I request information from?") %></h3>
-        <%= _("{{site_name}} covers requests to {{number_of_authorities}} authorities, including:",
-            :site_name => site_name, :number_of_authorities => PublicBody.visible.count) %>
-        <ul>
-            <% for popular_body in @popular_bodies %>
-                <li><%=public_body_link(popular_body)%>
-                 <%= n_('%d request', '%d requests', popular_body.info_requests_count) % popular_body.info_requests_count %>
-                </li>
-            <% end%>
-        </ul>
-        <p><strong>
-            <%= link_to _('Browse all authorities...'), list_public_bodies_default %>
-        </strong></p>
-      </div>
-    <% end %>
-
-    <div id="examples_1">
-      <h3>
-        <% if @request_events_all_successful %>
-          <%= _("What information has been released?") %>
-        <% else %>
-          <%= _("What information has been requested?") %>
-        <% end %>
-      </h3>
-       <%= _("{{site_name}} users have made {{number_of_requests}} requests, including:",
-        :site_name => site_name, :number_of_requests => InfoRequest.visible.count) %>
-        <ul>
-          <% for event in @request_events %>
-            <li>
-              <% if @request_events_all_successful %>
-                <%= _("{{public_body_link}} answered a request about",
-                    :public_body_link => public_body_link(event.info_request.public_body)) %>
-              <% else %>
-                <%= _("{{public_body_link}} was sent a request about",
-                    :public_body_link => public_body_link(event.info_request.public_body)) %>
-              <% end %>
-
-               <%=link_to h(event.info_request.title), request_url(event.info_request)%>
-               <%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(event.described_at)) %>
-               <p class="excerpt" onclick="document.location.href='<%=request_url(event.info_request)%>'"><%= excerpt(event.search_text_main(true), "", 200) %></p>
-            </li>
-          <% end %>
-        </ul>
-        <p><strong>
-          <% if @request_events_all_successful %>
-            <%=link_to _('More successful requests...'), request_list_successful_url %>
-          <% else %>
-            <%=link_to _('More requests...'), request_list_all_url %>
-          <% end %>
-        </strong></p>
-    </div>
-</div>
-
-
+  <div id="frontpage_examples">
+      <%= render :partial => "frontpage_bodies_list" %>
+      <%= render :partial => "frontpage_requests_list" %>
+  </div>
 <% end %>
