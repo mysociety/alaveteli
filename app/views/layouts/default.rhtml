@@ -41,7 +41,7 @@
 
         <%= render :partial => 'general/before_head_end' %>
     </head>
-    <body class="<%= 'admin' if is_admin? %> <%= 'front' if params[:action] == 'frontpage' %>">
+    <body class="<%= 'front' if params[:action] == 'frontpage' %>">
     <% if Configuration::force_registration_on_new_request && !@user %>
     <%= javascript_include_tag 'jquery.fancybox-1.3.4.pack' %>
     <script type="text/javascript">
