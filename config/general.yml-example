@@ -52,10 +52,11 @@ THEME_URLS:
  - 'git://github.com/mysociety/adminbootstraptheme.git'
  - 'git://github.com/mysociety/alavetelitheme.git'
 
-# When rails-post-deploy installs the themes it will try this branch first (but only if this
-# config is set). If the branch doesn't exist it will fall back to using a tagged version
-# specific to your installed alaveteli version. If that doesn't exist it will back to master.
-#THEME_BRANCH: production
+# When rails-post-deploy installs the themes it will try this branch first
+# (but only if this config is set). If the branch doesn't exist it will fall
+# back to using a tagged version specific to your installed alaveteli version.
+# If that doesn't exist it will back to master.
+THEME_BRANCH: false
 
 # Whether a user needs to sign in to start the New Request process
 FORCE_REGISTRATION_ON_NEW_REQUEST: false
