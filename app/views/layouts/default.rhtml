@@ -100,12 +100,12 @@
         <% end %>
 
         <div id="navigation_search">
-            <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "navigation_search_form"}) do %>
-               <p>
-                   <%= text_field_tag 'query', params[:query], { :size => 40, :id => "navigation_search_query" } %>
-                   <%= submit_tag 'search', :id => "navigation_search_button"  %>
-               </p>
-            <% end %>
+          <form id="navigation_search_form" method="post" action="/search">
+             <p>
+                 <%= text_field_tag 'query', params[:query], { :size => 40, :id => "navigation_search_query" } %>
+                 <input id="navigation_search_button" type="submit" value="search">
+             </p>
+           </form>
         </div>
 
         <%= render :partial => 'general/orglink' %>
