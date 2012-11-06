@@ -3812,7 +3812,7 @@ msgid "{{public_body_link}} answered a request about"
 msgstr "{{public_body_link}} zodpověděl dotaz týkající se"
 
 msgid "{{public_body_link}} was sent a request about"
-msgstr "Na {{public_body_link}} byla poslána žádost"
+msgstr "Na {{public_body_link}} byl odeslán dotaz"
 
 msgid "{{public_body_name}} only:"
 msgstr "Pouze {{public_body_name}}:"
