@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-06 16:42+0000\n"
+"POT-Creation-Date: 2012-11-06 16:35+0000\n"
 "PO-Revision-Date: 2012-11-01 09:46+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1272,7 +1272,6 @@ msgstr "Vzneste dotaz týkající se <strong>životního prostředí</strong> "
 msgid "Make a new <strong>Freedom of Information</strong> request to {{public_body}}"
 msgstr "Vzneste dotaz <strong>podle zákona o svobodném přístupu k informacím</strong> na instituci {{public_body}}"
 
-#, fuzzy
 msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
 msgstr ""
 "Vzneste nový <br/>\n"
@@ -1939,7 +1938,6 @@ msgstr "Vyhledat slova v "
 msgid "Search in"
 msgstr "Vyhledat v"
 
-#, fuzzy
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 msgstr ""
 "Prohledávejte více než<br/>\n"
@@ -2898,9 +2896,8 @@ msgstr "Pokud se cokoliv změní na vaší nástěnce, budete upozorněni e-mail
 msgid "You are following all new successful responses"
 msgstr "Budete upozorněni na všechny úspěšně zodpovězené dotazy."
 
-#, fuzzy
 msgid "You are no longer following {{track_description}}."
-msgstr "Již dále nesledujete {{track_description}}"
+msgstr "Již dále nesledujete {{track_description}}."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about {{track_description}}"
 msgstr "Od nynějška budete upozorněni na změny týkající se <a href=\"{{wall_url_user}}\">sledovaného</a> tématu {{track_description}}"

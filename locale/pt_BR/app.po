@@ -21,7 +21,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< Updated upstream
 "POT-Creation-Date: 2012-11-06 16:42+0000\n"
+=======
+"POT-Creation-Date: 2012-11-06 16:35+0000\n"
+>>>>>>> Stashed changes
 "PO-Revision-Date: 2012-10-11 09:50+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1872,7 +1876,10 @@ msgstr "Busca por palavras em:"
 msgid "Search in"
 msgstr "Procurar em"
 
+<<<<<<< Updated upstream
 #, fuzzy
+=======
+>>>>>>> Stashed changes
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 msgstr "Pesquisar <br/> <strong>{{number_of_requests}} pedidos</strong> <span>e</span> <br/> <strong>{{number_of_authorities}} órgãos públicos </strong>"
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-06 16:42+0000\n"
+"POT-Creation-Date: 2012-11-06 16:35+0000\n"
 "PO-Revision-Date: 2012-10-29 01:52+0000\n"
 "Last-Translator: hiiri <murahoid@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2848,7 +2848,6 @@ msgstr "Ви отримуєте сповіщення про нову актив�
 msgid "You are following all new successful responses"
 msgstr "Ви відслідковуєте усі нові успішні відповіді"
 
-#, fuzzy
 msgid "You are no longer following {{track_description}}."
 msgstr "Ви більше не відслідковуєте {{track_description}}"
 

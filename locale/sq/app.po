@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-06 16:42+0000\n"
+"POT-Creation-Date: 2012-11-06 16:35+0000\n"
 "PO-Revision-Date: 2012-10-28 16:10+0000\n"
 "Last-Translator: arianit <ardob11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1932,7 +1932,6 @@ msgstr "Kërko fjalë në:"
 msgid "Search in"
 msgstr "Kërko në"
 
-#, fuzzy
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 msgstr ""
 "Gjej mbi<br/>\n"
@@ -2855,7 +2854,6 @@ msgstr ""
 msgid "You are following all new successful responses"
 msgstr "Ti po ndjek çdo përgjigje të re të suksesshme"
 
-#, fuzzy
 msgid "You are no longer following {{track_description}}."
 msgstr "Nuk po ndiqni ndonjë gjë."
 

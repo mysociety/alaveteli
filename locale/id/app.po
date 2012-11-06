@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-06 16:42+0000\n"
+"POT-Creation-Date: 2012-11-06 16:35+0000\n"
 "PO-Revision-Date: 2012-10-11 09:55+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1979,7 +1979,6 @@ msgstr "Cari kata dalam:"
 msgid "Search in"
 msgstr "Cari di"
 
-#, fuzzy
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 msgstr ""
 "Cari lagi<br/>\n"
@@ -2945,9 +2944,8 @@ msgstr "Anda sekarang menerima notifikasi aktivitas baru di wall Anda melalui em
 msgid "You are following all new successful responses"
 msgstr "Anda mengikuti semua jawaban baru yang berhasil"
 
-#, fuzzy
 msgid "You are no longer following {{track_description}}."
-msgstr "Anda tidak lagi mengikuti {{track_description}}"
+msgstr "Anda tidak lagi mengikuti {{track_description}}."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about {{track_description}}"
 msgstr "Anda sekarang <a href=\"{{wall_url_user}}\">mengikuti</a> pembaruan tentang {{track_description}}"
