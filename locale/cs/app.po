@@ -1072,7 +1072,7 @@ msgid "If you use web-based email or have \"junk mail\" filters, also check your
 msgstr "Pokud používáte bzplatnou e-mailovou službu nebo máte filtr nevyžádané pošty, zkontrolujte také příslušné složky ve své poště. Někdy jsou zprávy ze stránek Informace pro všechny zařazeny jako spam. "
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
-msgstr "Pokud chcete, abychom tento zákaz zrušili, tak nás prosíme <a href=\"/help/contact\">kontaktujte</a> s vysvětlením.\n"
+msgstr "Pokud chcete, abychom tento zákaz zrušili, tak nás prosíme <a href=\"/help/contact\">kontaktujte</a> s vysvětlením.\\n"
 
 msgid "If you're new to {{site_name}}"
 msgstr "Pokud jste na stránkách {{site_name}} poprvé"
@@ -3115,10 +3115,7 @@ msgid "[{{site_name}} contact email]"
 msgstr "[{{site_name}} kontaktní e-mail]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-"\n"
-"\n"
-"[ {{site_name}} Poznámka: výše uvedený text byl špatně kódován a neznámé symboly byly odstraněny. ]"
+msgstr "\\n\\n[ {{site_name}} Poznámka: výše uvedený text byl špatně kódován a neznámé symboly byly odstraněny. ]"
 
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
 msgstr ""

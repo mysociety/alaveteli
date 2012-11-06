@@ -1032,7 +1032,7 @@ msgstr "Sollten Sie ein webbasiertes Emailkonto oder Spamfilter benutzen, überr
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr ""
 "Falls Sie möchten, dass wir diese Sperre aufheben, mögen Sie uns höflich\n"
-"<a href=\"/help/contact\">kontaktieren</a> und einen Grund angeben.\n"
+"<a href=\"/help/contact\">kontaktieren</a> und einen Grund angeben.\\n"
 
 msgid "If you're new to {{site_name}}"
 msgstr "Falls Sie neu auf {{site_name}} sind"
@@ -2993,10 +2993,7 @@ msgid "[{{site_name}} contact email]"
 msgstr ""
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-"\n"
-"\n"
-"[ {{site_name}} Anmerkung: Der obenstehende Text war schlecht kodiert und merkwürdige Zeichen wurden entfernt. ]"
+msgstr "\\n\\n[ {{site_name}} Anmerkung: Der obenstehende Text war schlecht kodiert und merkwürdige Zeichen wurden entfernt. ]"
 
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
 msgstr ""

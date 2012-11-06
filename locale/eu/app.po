@@ -1023,7 +1023,7 @@ msgid "If you use web-based email or have \"junk mail\" filters, also check your
 msgstr "Web posta erabiltzen baduzu edo \"spamaren kontrako\" iragazkiak badituzu, mesedez, ikus ezazu zure spam karpeta. Batzutan gure mezuak honela markatzen dira, erroreagatik."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
-msgstr "Blokeoa ezabatu nahi izanez gero, jar zaitez gurekin <a href=\"/help/contact\">harremanetan</a>, zure arrazoiak azalduz.\n"
+msgstr "Blokeoa ezabatu nahi izanez gero, jar zaitez gurekin <a href=\"/help/contact\">harremanetan</a>, zure arrazoiak azalduz.\\n"
 
 msgid "If you're new to {{site_name}}"
 msgstr " {{site_name}}-ean berria bazara"
@@ -2988,10 +2988,7 @@ msgid "[{{site_name}} contact email]"
 msgstr ""
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-"\n"
-"\n"
-"[ {{site_name}} Oharra: Aurreko testuak ez zeukan kode egokirik, horregatik hainbat karaktere arrotz ezabatu dira. ]"
+msgstr "\\n\\n[ {{site_name}} Oharra: Aurreko testuak ez zeukan kode egokirik, horregatik hainbat karaktere arrotz ezabatu dira. ]"
 
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
 msgstr "Eskatzen duzun informazioaren laburpena, lerro batean, adibidez"

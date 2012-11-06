@@ -2915,9 +2915,7 @@ msgid "[{{site_name}} contact email]"
 msgstr ""
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-"\n"
-"[ {{site_name}} notă: Codul de mai sus este encodat greșit și i-au fost scoase caracterele greșite. ]"
+msgstr "\\n\\n[ {{site_name}} notă: Codul de mai sus este encodat greșit și i-au fost scoase caracterele greșite. ]"
 
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
 msgstr ""

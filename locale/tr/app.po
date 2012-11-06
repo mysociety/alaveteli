@@ -2896,9 +2896,7 @@ msgid "[{{site_name}} contact email]"
 msgstr ""
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-"\n"
-"⏎ ⏎ [ {{site_name}} not: Yukarıdaki metindeki bazı hatalı kodlanmış karakterler çıkartıldı. ]"
+msgstr "\\n\\n⏎ ⏎ [ {{site_name}} not: Yukarıdaki metindeki bazı hatalı kodlanmış karakterler çıkartıldı. ]"
 
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
 msgstr ""

@@ -1073,7 +1073,7 @@ msgstr "Nëse ti përdor \"web-based\" email klient (p.sh. hotmail.com) ose ke \
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr ""
 "Nëse do që ne ta heqim këtë leçitje, atëherë të lutem\n"
-"<a href=\"/help/contact\">na kontakto</a> duke i dhënë arsyet.\n"
+"<a href=\"/help/contact\">na kontakto</a> duke i dhënë arsyet.\\n"
 
 msgid "If you're new to {{site_name}}"
 msgstr "Nëse je i ri në {{site_name}}"
@@ -3071,10 +3071,7 @@ msgid "[{{site_name}} contact email]"
 msgstr "[{{site_name}} emaili kontaktuese]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-"\n"
-"\n"
-"[{{site_name}} shënim: Teksti i lartshënuar është koduar keq, dhe i janë hequr karaktere të çuditshme.]"
+msgstr "\\n\\n[{{site_name}} shënim: Teksti i lartshënuar është koduar keq, dhe i janë hequr karaktere të çuditshme.]"
 
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
 msgstr ""

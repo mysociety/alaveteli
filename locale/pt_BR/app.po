@@ -21,11 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< Updated upstream
-"POT-Creation-Date: 2012-11-06 16:42+0000\n"
-=======
 "POT-Creation-Date: 2012-11-06 16:35+0000\n"
->>>>>>> Stashed changes
 "PO-Revision-Date: 2012-10-11 09:50+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1028,7 +1024,7 @@ msgid "If you use web-based email or have \"junk mail\" filters, also check your
 msgstr "Se você usar seu e-mail por algum site da web ou se tiver filtros para mensagens indesejadas, verifique também suas pastas de spam. Às vezes, nossas mensagens podem ser marcadas dessa forma pelo seu provedor."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
-msgstr "Se você gostaria de nos levantar esta proibição, você pode <a href=\"/help/contact\">entrar em contato conosco</a>, dando as razões.\n"
+msgstr "Se você gostaria de nos levantar esta proibição, você pode <a href=\"/help/contact\">entrar em contato conosco</a>, dando as razões.\\n"
 
 msgid "If you're new to {{site_name}}"
 msgstr "Se você for novo no {{site_name}}"
@@ -1876,10 +1872,6 @@ msgstr "Busca por palavras em:"
 msgid "Search in"
 msgstr "Procurar em"
 
-<<<<<<< Updated upstream
-#, fuzzy
-=======
->>>>>>> Stashed changes
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 msgstr "Pesquisar <br/> <strong>{{number_of_requests}} pedidos</strong> <span>e</span> <br/> <strong>{{number_of_authorities}} órgãos públicos </strong>"
 
@@ -2981,10 +2973,7 @@ msgid "[{{site_name}} contact email]"
 msgstr ""
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-"\n"
-"\n"
-"[ {{site_name}} nota: O texto acima estava mal codificado e teve caracteres estranhos removidos. ]"
+msgstr "\\n\\n[ {{site_name}} nota: O texto acima estava mal codificado e teve caracteres estranhos removidos. ]"
 
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
 msgstr "um resumo de uma linha sobre a informação que você esta pedindo, e.x."
