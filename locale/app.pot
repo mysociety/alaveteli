@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2012-10-11 10:18+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-06 16:42+0000\n"
 "PO-Revision-Date: 2011-10-09 01:10+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,9 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
-msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
 
 msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
 msgstr ""
@@ -86,6 +84,9 @@ msgid " or "
 msgstr ""
 
 msgid " when you send this message."
+msgstr ""
+
+msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
 msgstr ""
 
 msgid "%d Freedom of Information request to %s"
@@ -264,13 +265,13 @@ msgstr ""
 msgid "<strong>No response</strong> has been received\\n                <small>(maybe there's just an acknowledgement)</small>"
 msgstr ""
 
-msgid "<strong>Note:</strong>\\n    We will send an email to your new email address. Follow the\\n    instructions in it to confirm changing your email."
-msgstr ""
-
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr ""
 
 msgid "<strong>Note:</strong> You're sending a message to yourself, presumably\\n            to try out how it works."
+msgstr ""
+
+msgid "<strong>Note:</strong>\\n    We will send an email to your new email address. Follow the\\n    instructions in it to confirm changing your email."
 msgstr ""
 
 msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"%s\">click here</a>."
@@ -627,6 +628,9 @@ msgstr ""
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
 msgstr ""
 
+msgid "Disclosure log"
+msgstr ""
+
 msgid "Don't want to address your message to {{person_or_body}}?  You can also write to:"
 msgstr ""
 
@@ -694,24 +698,6 @@ msgid "Everything that you enter on this page \\n                will be <strong
 msgstr ""
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, \\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
-msgstr ""
-
-msgid "Exim log"
-msgstr ""
-
-msgid "Exim log done"
-msgstr ""
-
-msgid "EximLogDone|Filename"
-msgstr ""
-
-msgid "EximLogDone|Last stat"
-msgstr ""
-
-msgid "EximLog|Line"
-msgstr ""
-
-msgid "EximLog|Order"
 msgstr ""
 
 msgid "FOI"
@@ -1160,13 +1146,31 @@ msgstr ""
 msgid "Made between"
 msgstr ""
 
+msgid "Mail server log"
+msgstr ""
+
+msgid "Mail server log done"
+msgstr ""
+
+msgid "MailServerLogDone|Filename"
+msgstr ""
+
+msgid "MailServerLogDone|Last stat"
+msgstr ""
+
+msgid "MailServerLog|Line"
+msgstr ""
+
+msgid "MailServerLog|Order"
+msgstr ""
+
 msgid "Make a new <strong>Environmental Information</strong> request"
 msgstr ""
 
 msgid "Make a new <strong>Freedom of Information</strong> request to {{public_body}}"
 msgstr ""
 
-msgid "Make a new<br/>\\n        <strong>Freedom <span>of</span><br/>\\n        Information<br/>\\n        request</strong>"
+msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
 msgstr ""
 
 msgid "Make a request"
@@ -1610,6 +1614,9 @@ msgstr ""
 msgid "Public body/translation"
 msgstr ""
 
+msgid "PublicBody::Translation|Disclosure log"
+msgstr ""
+
 msgid "PublicBody::Translation|First letter"
 msgstr ""
 
@@ -1635,6 +1642,9 @@ msgid "PublicBody::Translation|Url name"
 msgstr ""
 
 msgid "PublicBody|Api key"
+msgstr ""
+
+msgid "PublicBody|Disclosure log"
 msgstr ""
 
 msgid "PublicBody|First letter"
@@ -1811,7 +1821,7 @@ msgstr ""
 msgid "Search in"
 msgstr ""
 
-msgid "Search over<br/>\\n          <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n          <strong>{{number_of_authorities}} authorities</strong>"
+msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 msgstr ""
 
 msgid "Search queries"
@@ -2599,10 +2609,10 @@ msgstr ""
 msgid "We don't know whether the most recent response to this request contains\\n    information or not\\n        &ndash;\\n\tif you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""
 
-msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
+msgid "We will not reveal your email address to anybody unless you or\\n        the law tell us to (<a href=\"%s\">details</a>). "
 msgstr ""
 
-msgid "We will not reveal your email address to anybody unless you or\\n        the law tell us to (<a href=\"%s\">details</a>). "
+msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr ""
 
 msgid "We will not reveal your email addresses to anybody unless you\\nor the law tell us to."
@@ -2698,7 +2708,7 @@ msgstr ""
 msgid "You are following all new successful responses"
 msgstr ""
 
-msgid "You are no longer following {{track_description}}"
+msgid "You are no longer following {{track_description}}."
 msgstr ""
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about {{track_description}}"
@@ -2780,6 +2790,9 @@ msgid "You will now be emailed updates about {{track_description}}. <a href=\"{{
 msgstr ""
 
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
+msgstr ""
+
+msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
 msgid "You're long overdue a response to your FOI request - "
@@ -2888,6 +2901,9 @@ msgstr ""
 msgid "[{{site_name}} contact email]"
 msgstr ""
 
+msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
+msgstr ""
+
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
 msgstr ""
 
@@ -2913,9 +2929,6 @@ msgid "and update the status."
 msgstr ""
 
 msgid "and we'll suggest <strong>what to do next</strong>"
-msgstr ""
-
-msgid "answered a request about"
 msgstr ""
 
 msgid "any <a href=\"/list\">new requests</a>"
@@ -3147,6 +3160,12 @@ msgid "{{list_of_things}} matching text '{{search_query}}'"
 msgstr ""
 
 msgid "{{number_of_comments}} comments"
+msgstr ""
+
+msgid "{{public_body_link}} answered a request about"
+msgstr ""
+
+msgid "{{public_body_link}} was sent a request about"
 msgstr ""
 
 msgid "{{public_body_name}} only:"
