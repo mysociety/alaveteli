@@ -49,7 +49,12 @@ class WorldFOIWebsites
                               {:country_name => "Australia",
                                   :country_iso_code => "AU",
                                   # The Australian site is not yet live. So, not including name & url yet.
-                                  }]
+                                  },
+                              {:name => "Informace pro Vsechny",
+                                  :country_name => "Česká republika",
+                                  :country_iso_code => "CZ",
+                                  :url => "http://www.infoprovsechny.cz"}
+                              ]
         return world_foi_websites
     end
 
@@ -58,4 +63,4 @@ class WorldFOIWebsites
         return result
     end
 end
-            
+
