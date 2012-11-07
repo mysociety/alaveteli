@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 #   <appukonrad@gmail.com>, 2012.
 # Hana Huntova <>, 2012.
@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2012-11-06 16:35+0000\n"
-"PO-Revision-Date: 2012-11-06 18:25+0000\n"
+"PO-Revision-Date: 2012-11-07 09:52+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -120,7 +120,7 @@ msgid ""
 "\"Hello! We have an  <a "
 "href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important"
 " message</a> for visitors outside {{country_name}}\""
-msgstr ""
+msgstr "\"Hello! We have an <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
 
 msgid "%d Freedom of Information request to %s"
 msgid_plural "%d Freedom of Information requests to %s"
@@ -309,7 +309,7 @@ msgid ""
 "<p>If you write about this request (for example in a forum or a blog) please"
 " link to this page, and add an\\n            annotation below telling people"
 " about your writing.</p>"
-msgstr "Odesláno!\ndalší text viz e-mail od Hany z 29/9"
+msgstr "<p><strong>Odesláno!</strong></p>\n<p><strong>Pošleme vám e-mail </strong> až vám instituce odpoví nebo po {{late_number_of_days}} dní po vypršení lhůty na odpověď.</p>\\n <p>Pokud o tomto dotazu budete dále psát (například na nějakém fóru či blogu) prosím přiložte odkaz k vašemu dotazu na těchto stránkách a přidejte k němu komentář.</p>"
 
 msgid ""
 "<p>{{site_name}} is currently in maintenance. You can only view existing "
