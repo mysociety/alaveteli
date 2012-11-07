@@ -49,7 +49,11 @@ class WorldFOIWebsites
                               {:name => "Right To Know",
                                   :country_name => "Australia",
                                   :country_iso_code => "AU",
-                                  :url => "http://www.righttoknow.org.au"}
+                                  :url => "http://www.righttoknow.org.au"},
+                              {:name => "Informace pro Vsechny",
+                                  :country_name => "Česká republika",
+                                  :country_iso_code => "CZ",
+                                  :url => "http://www.infoprovsechny.cz"}
                               ]
         return world_foi_websites
     end
@@ -59,4 +63,4 @@ class WorldFOIWebsites
         return result
     end
 end
-            
+
