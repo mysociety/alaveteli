@@ -31,7 +31,7 @@
 
   <div id="authority_selection">
     <% form_tag({:controller => "request", :action => "select_authority"}, {:id => "search_form", :method => "get"}) do %>
-       <p>
+       <div>
            <p>
            <%= _('First, type in the <strong>name of the UK public authority</strong> you\'d 
            like information from. <strong>By law, they have to respond</strong>
@@ -40,7 +40,7 @@
            <%= text_field_tag 'query', params[:query], { :size => 30 } %>
            <%= hidden_field_tag 'bodies', 1 %>
            <%= submit_tag _('Search') %>
-       </p>
+       </div>
     <% end %>
     <div id="typeahead_response">
  <% if !@xapian_requests.nil? %>
