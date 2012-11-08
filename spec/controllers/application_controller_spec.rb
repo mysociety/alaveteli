@@ -39,7 +39,14 @@ end
 describe ApplicationController, "when caching fragments" do
     it "should not fail with long filenames" do
         long_name = "blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah.txt"
-        path = self.controller.send(:foi_fragment_cache_path, long_name)
+        params = { :only_path => true,
+                   :file_name => [long_name],
+                   :controller => "request",
+                   :action => "get_attachment_as_html",
+                   :id => "132",
+                   :incoming_message_id => "44",
+                   :part => "2" }
+        path = self.controller.send(:foi_fragment_cache_path, params)
         self.controller.send(:foi_fragment_cache_write, path, "whassap")
     end
 
