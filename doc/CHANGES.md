@@ -1,3 +1,27 @@
+# Version 0.6.8
+## Highlighted features
+
+* Support for using Postfix as Alaveteli's MTA, instead of Exim (Matthew Landauer)
+* Some preparation for getting Alaveteli working with Ruby 1.9 (James McKinney) - more to come here in future releases!
+* Optional support for using New Relic for performance monitoring (Matthew Landauer)
+* Support for showing all dates and times in the local time zone (Matthew Landauer)
+* Display of authority disclosure logs where the URL is added (Matthew Landauer)
+* Better handling of nil/empty option config parameters (Henare Degan)
+* The option to specify a particular theme branch to use (Matthew Landauer)
+* Some performance improvements, particularly over 0.6.7 (Louise Crow)
+
+* [List of issues on github](https://github.com/mysociety/alaveteli/issues?milestone=24&state=closed)
+
+## Upgrade notes
+* Ensure you have values for new config variables (see `config/general.yml-example`):
+  * TIME_ZONE (if not set, defaults to UTC)
+  * TWITTER_WIDGET_ID (no Twitter widget is displayed if not set)
+  * THEME_BRANCH (defaults to tagged version specific to your version of alaveteli or, failing that, to master)
+  * MTA_LOG_PATH 
+  * MTA_LOG_TYPE (defaults to Exim)
+* Copy config/newrelic.yml-example to config/newrelic.yml - by default monitoring is switched off, see https://github.com/newrelic/rpm for instructions on switching on local and remote performance analysis.
+* Check out this version and run `rails-post-deploy` as usual. 
+
 # Version 0.6.7
 ## Highlighted features
 * The ability to calculate due dates using calendar, not working days (Matthew Landauer)
