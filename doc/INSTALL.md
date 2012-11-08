@@ -164,6 +164,10 @@ emails.  Full configuration for an MTA is beyond the scope of this
 document, though we describe an example configuration for Exim in
 `INSTALL-exim4.md`.
 
+Note that in development mode, mail is handled by default by mailcatcher 
+so that you can see the mails in a browser - see http://mailcatcher.me/ 
+for more details.
+
 ## Minimal
 
 If you just want to get the tests to pass, you will at a minimum need

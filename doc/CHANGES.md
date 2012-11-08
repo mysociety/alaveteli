@@ -21,7 +21,7 @@
   * MTA_LOG_TYPE (defaults to Exim)
 * Copy config/newrelic.yml-example to config/newrelic.yml - by default monitoring is switched off, see https://github.com/newrelic/rpm for instructions on switching on local and remote performance analysis.
 * Check out this version and run `rails-post-deploy` as usual. 
-
+* Note that mailcatcher is now used in development - see http://mailcatcher.me/ for details
 # Version 0.6.7
 ## Highlighted features
 * The ability to calculate due dates using calendar, not working days (Matthew Landauer)
