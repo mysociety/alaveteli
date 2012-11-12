@@ -43,7 +43,7 @@ module ApplicationHelper
           end
 
           content_tag(:div,
-              content_tag(:ul, error_messages),
+              content_tag(:ul, error_messages.join),
             html
           )
         else
@@ -108,7 +108,7 @@ module ApplicationHelper
     end
 
     def form_tag_id(object_name, method_name, locale=nil)
-	if locale.nil?
+    if locale.nil?
             return "#{sanitized_object_name(object_name.to_s)}_#{sanitized_method_name(method_name.to_s)}"
         else
             return "#{sanitized_object_name(object_name.to_s)}_#{sanitized_method_name(method_name.to_s)}__#{locale.to_s}"
@@ -129,10 +129,6 @@ module ApplicationHelper
         ago_text = _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(date))
         exact_date = I18n.l(date, :format => "%e %B %Y %H:%M:%S")
         return "#{exact_date} (#{ago_text})"
-    end
-
-    def is_admin?
-        return !session[:using_admin].nil? || (!@user.nil? && @user.admin_level == "super")
     end
 
 end

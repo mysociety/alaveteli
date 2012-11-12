@@ -1,0 +1,17 @@
+<% if @popular_bodies.size > 0 %>
+  <div id="examples_0">
+    <h3><%= _("Who can I request information from?") %></h3>
+    <%= _("{{site_name}} covers requests to {{number_of_authorities}} authorities, including:",
+        :site_name => site_name, :number_of_authorities => PublicBody.visible.count) %>
+    <ul>
+        <% for popular_body in @popular_bodies %>
+            <li><%=public_body_link(popular_body)%>
+             <%= n_('%d request', '%d requests', popular_body.info_requests_count) % popular_body.info_requests_count %>
+            </li>
+        <% end%>
+    </ul>
+    <p><strong>
+        <%= link_to _('Browse all authorities...'), list_public_bodies_default %>
+    </strong></p>
+  </div>
+<% end %>

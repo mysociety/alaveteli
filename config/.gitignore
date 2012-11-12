@@ -7,3 +7,4 @@ logrotate
 memcached.yml
 *.deployed
 deploy.yml
+newrelic.yml

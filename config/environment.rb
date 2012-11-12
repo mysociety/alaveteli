@@ -1,5 +1,9 @@
 # Be sure to restart your web server when you modify this file.
 
+# the default encoding for IO is utf-8, and we use utf-8 internally
+if RUBY_VERSION.to_f >= 1.9
+    Encoding.default_external = Encoding.default_internal = Encoding::UTF_8
+end
 
 # Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way
@@ -32,7 +36,7 @@ require File.join(File.dirname(__FILE__), '../lib/old_rubygems_patch')
 require 'configuration'
 
 # Application version
-ALAVETELI_VERSION = '0.6.7'
+ALAVETELI_VERSION = '0.6.8'
 
 Rails::Initializer.run do |config|
   # Load intial mySociety config
@@ -72,6 +76,12 @@ Rails::Initializer.run do |config|
 
   # Make Active Record use UTC-base instead of local time
   config.active_record.default_timezone = :utc
+
+  # This is the timezone that times and dates are displayed in
+  # Note that having set a zone, the Active Record
+  # time_zone_aware_attributes flag is on, so times from models
+  # will be in this time zone
+  config.time_zone = Configuration::time_zone
 
   config.after_initialize do
      require 'routing_filters.rb'
@@ -140,5 +150,7 @@ require 'world_foi_websites.rb'
 require 'alaveteli_external_command.rb'
 require 'quiet_opener.rb'
 
-ExceptionNotification::Notifier.sender_address = Configuration::exception_notifications_from
-ExceptionNotification::Notifier.exception_recipients = Configuration::exception_notifications_to
+if !Configuration.exception_notifications_from.blank? && !Configuration.exception_notifications_to.blank?
+  ExceptionNotification::Notifier.sender_address = Configuration::exception_notifications_from
+  ExceptionNotification::Notifier.exception_recipients = Configuration::exception_notifications_to
+end

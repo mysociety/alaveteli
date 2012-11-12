@@ -2,6 +2,10 @@
 
 LOC=`dirname "$0"`
 
+cd "$LOC"/..
+source commonlib/shlib/deployfns
+read_conf config/general
+
 # Specific file if specified
 if [ x$1 != x ]
 then
@@ -10,14 +14,14 @@ then
        *) f=$(pwd)/$1 ;;
     esac
     cd "$LOC"
-    bundle exec ./runner 'EximLog.load_file("'$f'")'
+    bundle exec ./runner 'MailServerLog.load_file("'$f'")'
     exit
 fi
 
 # Load in last three days worth of logs (if they've been modified)
 cd "$LOC"
-LATEST=$( ls /var/log/exim4/exim-mainlog-* 2>/dev/null | sort | tail -3 )
+LATEST=$( ls $OPTION_MTA_LOG_PATH 2>/dev/null | sort | tail -3 )
 for X in $LATEST
 do
-    bundle exec ./runner 'EximLog.load_file("'$X'")'
+    bundle exec ./runner 'MailServerLog.load_file("'$X'")'
 done

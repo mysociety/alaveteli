@@ -12,7 +12,7 @@
         <link rel="shortcut icon" href="/favicon.ico">
 
         <%= render :partial => 'general/stylesheet_includes' %>
-        <% if is_admin? %>
+        <% if session[:using_admin] %>
           <%= stylesheet_link_tag "/adminbootstraptheme/stylesheets/admin", :title => "Main", :rel => "stylesheet" %>
         <% end %>
 
@@ -41,7 +41,7 @@
 
         <%= render :partial => 'general/before_head_end' %>
     </head>
-    <body class="<%= 'admin' if is_admin? %> <%= 'front' if params[:action] == 'frontpage' %>">
+    <body class="<%= 'front' if params[:action] == 'frontpage' %>">
     <% if Configuration::force_registration_on_new_request && !@user %>
     <%= javascript_include_tag 'jquery.fancybox-1.3.4.pack' %>
     <script type="text/javascript">
@@ -100,12 +100,12 @@
         <% end %>
 
         <div id="navigation_search">
-            <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "navigation_search_form"}) do %>
-               <p>
-                   <%= text_field_tag 'query', params[:query], { :size => 40, :id => "navigation_search_query" } %>
-                   <%= submit_tag 'search', :id => "navigation_search_button"  %>
-               </p>
-            <% end %>
+          <form id="navigation_search_form" method="post" action="/search">
+             <p>
+                 <%= text_field_tag 'query', params[:query], { :size => 40, :id => "navigation_search_query" } %>
+                 <input id="navigation_search_button" type="submit" value="search">
+             </p>
+           </form>
         </div>
 
         <%= render :partial => 'general/orglink' %>
@@ -139,7 +139,7 @@
 <input type="text">
 </div>
     <%
-      unless Configuration::ga_code.empty? %>
+      unless Configuration::ga_code.empty? || (@user && @user.super?) %>
         <script>
           var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
           document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));

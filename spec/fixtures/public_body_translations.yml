@@ -9,6 +9,7 @@ geraldine_es_public_body_translation:
   locale: es
   notes: ""
   publication_scheme: ""
+  disclosure_log: ""
 
 geraldine_en_public_body_translation:
   name: Geraldine Quango
@@ -21,6 +22,7 @@ geraldine_en_public_body_translation:
   locale: en
   notes: ""
   publication_scheme: ""
+  disclosure_log: ""
 
 humpadink_es_public_body_translation:
   name: "El Department for Humpadinking"
@@ -33,6 +35,7 @@ humpadink_es_public_body_translation:
   locale: es
   notes: Baguette
   publication_scheme: ""
+  disclosure_log: ""
 
 humpadink_en_public_body_translation:
   name: "Department for Humpadinking"
@@ -45,6 +48,7 @@ humpadink_en_public_body_translation:
   locale: en
   notes: An albatross told me!!!
   publication_scheme: ""
+  disclosure_log: ""
 
 forlorn_en_public_body_translation:
   name: "Department of Loneliness"
@@ -57,6 +61,7 @@ forlorn_en_public_body_translation:
   locale: en
   notes: A very lonely public body that no one has corresponded with
   publication_scheme: ""
+  disclosure_log: ""
 
 silly_walks_en_public_body_translation:
   id: 6
@@ -69,6 +74,7 @@ silly_walks_en_public_body_translation:
   url_name: msw
   notes: You know the one.
   publication_scheme: ""
+  disclosure_log: ""
 
 sensible_walks_en_public_body_translation:
   id: 7
@@ -81,3 +87,4 @@ sensible_walks_en_public_body_translation:
   url_name: sensible_walks
   notes: I bet you’ve never heard of it.
   publication_scheme: ""
+  disclosure_log: ""

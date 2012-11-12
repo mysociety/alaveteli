@@ -15,7 +15,7 @@ class AdminCensorRuleController < AdminController
     end
 
     def create
-        params[:censor_rule][:last_edit_editor] = admin_http_auth_user()
+        params[:censor_rule][:last_edit_editor] = admin_current_user()
         @censor_rule = CensorRule.new(params[:censor_rule])
         if @censor_rule.save
             if !@censor_rule.info_request.nil?
@@ -42,7 +42,7 @@ class AdminCensorRuleController < AdminController
     end
 
     def update
-        params[:censor_rule][:last_edit_editor] = admin_http_auth_user()
+        params[:censor_rule][:last_edit_editor] = admin_current_user()
         @censor_rule = CensorRule.find(params[:id])
         if @censor_rule.update_attributes(params[:censor_rule])
             if !@censor_rule.info_request.nil?

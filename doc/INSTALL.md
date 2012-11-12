@@ -164,6 +164,10 @@ emails.  Full configuration for an MTA is beyond the scope of this
 document, though we describe an example configuration for Exim in
 `INSTALL-exim4.md`.
 
+Note that in development mode, mail is handled by default by mailcatcher 
+so that you can see the mails in a browser - see http://mailcatcher.me/ 
+for more details.
+
 ## Minimal
 
 If you just want to get the tests to pass, you will at a minimum need
@@ -221,6 +225,12 @@ You'll also want to copy `config/memcached.yml-example` to
 Interlock Rails plugin, to cache content using memcached.  You
 probably don't want this in your development profile; the example
 `memcached.yml` file disables this behaviour.
+
+Finally, copy `config/newrelic.yml-example` to `config/newrelic.yml`.
+This file contains configuration information for the New Relic
+performance management system. By default, monitoring is switched off
+by the `agent_enabled: false` setting. See https://github.com/newrelic/rpm
+for instructions on switching on local and remote performance analysis.
 
 # Deployment
 

@@ -16,9 +16,16 @@ DOMAIN: '127.0.0.1:3000'
 # (http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 ISO_COUNTRY_CODE: GB
 
+# This is the timezone that times and dates are displayed in
+# If not set defaults to UTC.
+TIME_ZONE: Australia/Sydney
+
 # These feeds are displayed accordingly on the Alaveteli "blog" page:
 BLOG_FEED: 'http://www.mysociety.org/category/projects/whatdotheyknow/feed/'
 TWITTER_USERNAME: 'whatdotheyknow'
+# Set the widget_id to get the Twitter sidebar on the blog page.
+# To get one https://twitter.com/settings/widgets
+TWITTER_WIDGET_ID: ''
 
 # Locales we wish to support in this app, space-delimited
 AVAILABLE_LOCALES: 'en es'
@@ -44,6 +51,12 @@ FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'
 THEME_URLS:
  - 'git://github.com/mysociety/adminbootstraptheme.git'
  - 'git://github.com/mysociety/alavetelitheme.git'
+
+# When rails-post-deploy installs the themes it will try this branch first
+# (but only if this config is set). If the branch doesn't exist it will fall
+# back to using a tagged version specific to your installed alaveteli version.
+# If that doesn't exist it will back to master.
+THEME_BRANCH: false
 
 # Whether a user needs to sign in to start the New Request process
 FORCE_REGISTRATION_ON_NEW_REQUEST: false
@@ -160,7 +173,7 @@ MAX_REQUESTS_PER_USER_PER_DAY: 6
 # unset if you aren't running behind varnish
 VARNISH_HOST: localhost
 
-# Adding a value here will enable Google Analytics on all non-admin pages.
+# Adding a value here will enable Google Analytics on all non-admin pages for non-admin users.
 GA_CODE: ''
 
 # We need to add the WDTK survey variables here, or else the deployment
@@ -178,3 +191,8 @@ SURVEY_URL: ''
 # Search path for external commandline utilities (such as pdftohtml, pdftk, unrtf)
 UTILITY_SEARCH_PATH: ["/usr/bin", "/usr/local/bin"]
 
+# Path to your exim or postfix log files that will get sucked up by script/load-mail-server-logs
+MTA_LOG_PATH: '/var/log/exim4/exim-mainlog-*'
+
+# Whether we are using "exim" or "postfix" for our MTA
+MTA_LOG_TYPE: "exim"

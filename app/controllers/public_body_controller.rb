@@ -146,38 +146,7 @@ class PublicBodyController < ApplicationController
     end
 
     def list_all_csv
-        public_bodies = PublicBody.find(:all, :order => 'url_name',
-                                              :include => [:translations, :tags])
-        report = FasterCSV.generate() do |csv|
-            csv << [
-                    'Name',
-                    'Short name',
-                    # deliberately not including 'Request email'
-                    'URL name',
-                    'Tags',
-                    'Home page',
-                    'Publication scheme',
-                    'Created at',
-                    'Updated at',
-                    'Version',
-            ]
-            public_bodies.each do |public_body|
-                csv << [
-                    public_body.name,
-                    public_body.short_name,
-                    # DO NOT include request_email (we don't want to make it
-                    # easy to spam all authorities with requests)
-                    public_body.url_name,
-                    public_body.tag_string,
-                    public_body.calculated_home_page,
-                    public_body.publication_scheme,
-                    public_body.created_at,
-                    public_body.updated_at,
-                    public_body.version,
-                ]
-            end
-        end
-        send_data(report, :type=> 'text/csv; charset=utf-8; header=present',
+        send_data(PublicBody.export_csv, :type=> 'text/csv; charset=utf-8; header=present',
                   :filename => 'all-authorities.csv',
                   :disposition =>'attachment', :encoding => 'utf8')
     end

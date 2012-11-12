@@ -1,0 +1,12 @@
+<h2>
+  <%= _("Search over<br/>
+  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>
+  <strong>{{number_of_authorities}} authorities</strong>",
+  :number_of_requests => InfoRequest.visible.count, :number_of_authorities => PublicBody.visible.count) %>
+</h2>
+<form id="search_form" method="post" action="/search">
+  <div>
+    <input id="query" type="text" size="30" name="query">
+    <input type="submit" value="<%= _('Search') %>">
+  </div>
+</form>
