@@ -36,3 +36,5 @@ rubygems
 rake
 build-essential
 bundler
+sqlite3
+libsqlite3-dev
