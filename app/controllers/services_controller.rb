@@ -9,13 +9,13 @@ class ServicesController < ApplicationController
         iso_country_code = Configuration::iso_country_code.downcase
         if country_from_ip.downcase != iso_country_code
             found_country = WorldFOIWebsites.by_code(country_from_ip)
-            found_country_name = !found_country.nil? && found_country[:country_name]
 
             old_fgt_locale = FastGettext.locale
             begin
               FastGettext.locale = FastGettext.best_locale_in(request.env['HTTP_ACCEPT_LANGUAGE'])
-              if found_country_name
-                  text = _("Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}", :country_name => found_country_name, :link_to_website => "<a href=\"#{found_country[:url]}\">#{found_country[:name]}</a>")
+              if found_country && found_country[:country_name] && found_country[:url] && found_country[:name]
+                  text = _("Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}",
+                    :country_name => found_country[:country_name], :link_to_website => "<a href=\"#{found_country[:url]}\">#{found_country[:name]}</a>")
               else
                   current_country = WorldFOIWebsites.by_code(iso_country_code)[:country_name]
                   text = _("Hello! We have an  <a href=\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\">important message</a> for visitors outside {{country_name}}", :country_name => current_country)

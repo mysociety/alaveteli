@@ -151,7 +151,7 @@ class OutgoingMessage < ActiveRecord::Base
                 raise "Message id #{self.id} has type '#{self.message_type}' which validate can't handle"
             end
         end
-        if self.body =~ /#{get_signoff}\s*\Z/ms
+        if self.body =~ /#{get_signoff}\s*\Z/m
             errors.add(:body, _("Please sign at the bottom with your name, or alter the \"%{signoff}\" signature" % { :signoff => get_signoff }))
         end
         if !MySociety::Validate.uses_mixed_capitals(self.body)

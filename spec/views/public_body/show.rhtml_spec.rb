@@ -11,6 +11,7 @@ describe "when viewing a body" do
                          :eir_only? => nil,
                          :info_requests => [1, 2, 3, 4], # out of sync with Xapian
                          :publication_scheme => '',
+                         :disclosure_log => '',
                          :calculated_home_page => '')
         @pb.stub!(:override_request_email).and_return(nil)
         @pb.stub!(:is_requestable?).and_return(true)

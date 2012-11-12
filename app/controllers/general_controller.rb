@@ -29,7 +29,7 @@ class GeneralController < ApplicationController
             PublicBody.with_locale(@locale) do
                 if body_short_names.empty?
                     # This is too slow
-                    @popular_bodies = PublicBody.find(:all,
+                    @popular_bodies = PublicBody.visible.find(:all,
                         :order => "info_requests_count desc",
                         :limit => 32,
                         :conditions => conditions,
@@ -58,6 +58,8 @@ class GeneralController < ApplicationController
                     xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', max_count-@request_events.count)
                     more_events = xapian_object.results.map { |r| r[:model] }
                     @request_events += more_events
+                    # Overall we still want the list sorted with the newest first
+                    @request_events.sort!{|e1,e2| e2.created_at <=> e1.created_at}
                 else
                     @request_events_all_successful = true
                 end
@@ -71,7 +73,9 @@ class GeneralController < ApplicationController
     def blog
         medium_cache
         @feed_autodetect = []
-        @feed_url = "#{Configuration::blog_feed}?lang=#{self.locale_from_params()}"
+        @feed_url = Configuration::blog_feed
+        separator = @feed_url.include?('?') ? '&' : '?'
+        @feed_url = "#{@feed_url}#{separator}lang=#{self.locale_from_params()}"
         @blog_items = []
         if not @feed_url.empty?
             content = quietly_try_to_open(@feed_url)

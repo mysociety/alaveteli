@@ -47,9 +47,11 @@ class InfoRequest < ActiveRecord::Base
     has_many :track_things, :order => 'created_at desc'
     has_many :comments, :order => 'created_at'
     has_many :censor_rules, :order => 'created_at desc'
-    has_many :exim_logs, :order => 'exim_log_done_id'
+    has_many :mail_server_logs, :order => 'mail_server_log_done_id'
 
     has_tag_string
+
+    named_scope :visible, :conditions => {:prominence => "normal"}
 
     # user described state (also update in info_request_event, admin_request/edit.rhtml)
     validate :must_be_valid_state
@@ -582,12 +584,11 @@ public
     #   waiting_classification
     #   waiting_response_overdue
     #   waiting_response_very_overdue
-    def calculate_status
-        if @@custom_states_loaded
-            return self.theme_calculate_status
-        else
-            self.base_calculate_status
+    def calculate_status(cached_value_ok=false)
+        if cached_value_ok && @cached_calculated_status
+            return @cached_calculated_status
         end
+        @cached_calculated_status = @@custom_states_loaded ? self.theme_calculate_status : self.base_calculate_status
     end
 
     def base_calculate_status
@@ -869,8 +870,8 @@ public
         end
     end
 
-    def display_status
-        InfoRequest.get_status_description(self.calculate_status)
+    def display_status(cached_value_ok=false)
+        InfoRequest.get_status_description(self.calculate_status(cached_value_ok))
     end
 
     # Completely delete this request and all objects depending on it
@@ -884,8 +885,8 @@ public
             info_request_event.track_things_sent_emails.each { |a| a.destroy }
             info_request_event.destroy
         end
-        self.exim_logs.each do |exim_log|
-            exim_log.destroy
+        self.mail_server_logs.each do |mail_server_log|
+            mail_server_log.destroy
         end
         self.outgoing_messages.each { |a| a.destroy }
         self.incoming_messages.each { |a| a.destroy }
@@ -1138,7 +1139,7 @@ public
 
     before_save :purge_in_cache
     def purge_in_cache
-        if !Configuration::varnish_host.nil? && !self.id.nil?
+        if !Configuration::varnish_host.blank? && !self.id.nil?
             # we only do this for existing info_requests (new ones have a nil id)
             path = url_for(:controller => 'request', :action => 'show', :url_title => self.url_title, :only_path => true, :locale => :none)
             req = PurgeRequest.find_by_url(path)

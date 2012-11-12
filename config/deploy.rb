@@ -50,8 +50,10 @@ namespace :deploy do
       "#{release_path}/config/general.yml" => "#{shared_path}/general.yml",
       "#{release_path}/config/memcached.yml" => "#{shared_path}/memcached.yml",
       "#{release_path}/config/rails_env.rb" => "#{shared_path}/rails_env.rb",
+      "#{release_path}/config/newrelic.yml" => "#{shared_path}/newrelic.yml",
       "#{release_path}/public/foi-live-creation.png" => "#{shared_path}/foi-live-creation.png",
       "#{release_path}/public/foi-user-use.png" => "#{shared_path}/foi-user-use.png",
+      "#{release_path}/public/favicon.ico" => "#{shared_path}/favicon.ico",
       "#{release_path}/files" => "#{shared_path}/files",
       "#{release_path}/cache" => "#{shared_path}/cache",
       "#{release_path}/vendor/plugins/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
@@ -71,3 +73,8 @@ end
 
 after 'deploy:update_code', 'deploy:symlink_configuration'
 after 'deploy:update_code', 'rake:themes:install'
+
+# Put up a maintenance notice if doing a migration which could take a while
+before 'deploy:migrate', 'deploy:web:disable'
+after 'deploy:migrate', 'deploy:web:enable'
+

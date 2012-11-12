@@ -17,7 +17,7 @@
 #  notes               :text            default(""), not null
 #  first_letter        :string(255)     not null
 #  publication_scheme  :text            default(""), not null
-#  api_key             :string(255)
+#  api_key             :string(255)     not null
 #  info_requests_count :integer         default(0), not null
 #
 
@@ -42,6 +42,12 @@ class PublicBody < ActiveRecord::Base
     has_tag_string
     before_save :set_api_key, :set_default_publication_scheme
 
+    # Every public body except for the internal admin one is visible
+    named_scope :visible, lambda {
+        {
+            :conditions => "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
+        }
+    }
 
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
@@ -407,7 +413,7 @@ class PublicBody < ActiveRecord::Base
                         next
                     end
 
-                    field_list = ['name', 'short_name', 'request_email', 'notes', 'publication_scheme', 'home_page', 'tag_string']
+                    field_list = ['name', 'short_name', 'request_email', 'notes', 'publication_scheme', 'disclosure_log', 'home_page', 'tag_string']
 
                     if public_body = bodies_by_name[name]   # Existing public body
                         available_locales.each do |locale|
@@ -492,6 +498,45 @@ class PublicBody < ActiveRecord::Base
         end
 
         return [errors, notes]
+    end
+
+    # Returns all public bodies (except for the internal admin authority) as csv
+    def self.export_csv
+        public_bodies = PublicBody.visible.find(:all, :order => 'url_name',
+                                              :include => [:translations, :tags])
+        FasterCSV.generate() do |csv|
+            csv << [
+                    'Name',
+                    'Short name',
+                    # deliberately not including 'Request email'
+                    'URL name',
+                    'Tags',
+                    'Home page',
+                    'Publication scheme',
+                    'Disclosure log',
+                    'Notes',
+                    'Created at',
+                    'Updated at',
+                    'Version',
+            ]
+            public_bodies.each do |public_body|
+                csv << [
+                    public_body.name,
+                    public_body.short_name,
+                    # DO NOT include request_email (we don't want to make it
+                    # easy to spam all authorities with requests)
+                    public_body.url_name,
+                    public_body.tag_string,
+                    public_body.calculated_home_page,
+                    public_body.publication_scheme,
+                    public_body.disclosure_log,
+                    public_body.notes,
+                    public_body.created_at,
+                    public_body.updated_at,
+                    public_body.version,
+                ]
+            end
+        end
     end
 
     # Does this user have the power of FOI officer for this body?

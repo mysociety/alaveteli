@@ -256,24 +256,47 @@ class RequestMailer < ApplicationMailer
     def self.alert_overdue_requests()
         info_requests = InfoRequest.find(:all,
             :conditions => [
-                "described_state = 'waiting_response' and awaiting_description = ? and user_id is not null", false
+                "described_state = 'waiting_response'
+                 AND awaiting_description = ?
+                 AND user_id is not null
+                 AND (SELECT id
+                      FROM user_info_request_sent_alerts
+                      WHERE alert_type = 'very_overdue_1'
+                      AND info_request_id = info_requests.id
+                      AND user_id = info_requests.user_id
+                      AND info_request_event_id = (SELECT max(id)
+                                                   FROM info_request_events
+                                                   WHERE event_type in ('sent',
+                                                                        'followup_sent',
+                                                                        'resent',
+                                                                        'followup_resent')
+                      AND info_request_id = info_requests.id)
+                      ) IS NULL", false
             ],
             :include => [ :user ]
         )
         for info_request in info_requests
             alert_event_id = info_request.last_event_forming_initial_request.id
             # Only overdue requests
-            if ['waiting_response_overdue', 'waiting_response_very_overdue'].include?(info_request.calculate_status)
-                if info_request.calculate_status == 'waiting_response_overdue'
+            calculated_status = info_request.calculate_status
+            if ['waiting_response_overdue', 'waiting_response_very_overdue'].include?(calculated_status)
+                if calculated_status == 'waiting_response_overdue'
                     alert_type = 'overdue_1'
-                elsif info_request.calculate_status == 'waiting_response_very_overdue'
+                elsif calculated_status == 'waiting_response_very_overdue'
                     alert_type = 'very_overdue_1'
                 else
                     raise "unknown request status"
                 end
 
                 # For now, just to the user who created the request
-                sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = ? and user_id = ? and info_request_id = ? and info_request_event_id = ?", alert_type, info_request.user_id, info_request.id, alert_event_id])
+                sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = ?
+                                                                                       AND user_id = ?
+                                                                                       AND info_request_id = ?
+                                                                                       AND info_request_event_id = ?",
+                                                                                       alert_type,
+                                                                                       info_request.user_id,
+                                                                                       info_request.id,
+                                                                                       alert_event_id])
                 if sent_already.nil?
                     # Alert not yet sent for this user, so send it
                     store_sent = UserInfoRequestSentAlert.new
@@ -284,9 +307,9 @@ class RequestMailer < ApplicationMailer
                     # Only send the alert if the user can act on it by making a followup
                     # (otherwise they are banned, and there is no point sending it)
                     if info_request.user.can_make_followup?
-                        if info_request.calculate_status == 'waiting_response_overdue'
+                        if calculated_status == 'waiting_response_overdue'
                             RequestMailer.deliver_overdue_alert(info_request, info_request.user)
-                        elsif info_request.calculate_status == 'waiting_response_very_overdue'
+                        elsif calculated_status == 'waiting_response_very_overdue'
                             RequestMailer.deliver_very_overdue_alert(info_request, info_request.user)
                         else
                             raise "unknown request status"

@@ -340,20 +340,6 @@ class ApplicationController < ActionController::Base
 
     end
 
-    # For administration interface, return display name of authenticated user
-    def admin_http_auth_user
-        # This needs special magic in mongrel: http://www.ruby-forum.com/topic/83067
-        # Hence the second clause which reads X-Forwarded-User header if available.
-        # See the rewrite rules in conf/httpd.conf which set X-Forwarded-User
-        if request.env["REMOTE_USER"]
-            return request.env["REMOTE_USER"]
-        elsif request.env["HTTP_X_FORWARDED_USER"]
-            return request.env["HTTP_X_FORWARDED_USER"]
-        else
-            return "*unknown*";
-        end
-    end
-
     # Convert URL name for sort by order, to Xapian query
     def order_to_sort_by(sortby)
         if sortby.nil?

@@ -246,6 +246,11 @@ class User < ActiveRecord::Base
     # Does the user magically gain powers as if they owned every request?
     # e.g. Can classify it
     def owns_every_request?
+        self.super?
+    end
+
+    # Does this user have extraordinary powers?
+    def super?
         self.admin_level == 'super'
     end
 
@@ -255,18 +260,18 @@ class User < ActiveRecord::Base
 
     # Can the user see every request, even hidden ones?
     def User.view_hidden_requests?(user)
-      !user.nil? && user.admin_level == 'super'
+      !user.nil? && user.super?
     end
 
     # Should the user be kept logged into their own account
     # if they follow a /c/ redirect link belonging to another user?
     def User.stay_logged_in_on_redirect?(user)
-      !user.nil? && user.admin_level == 'super'
+      !user.nil? && user.super?
     end
 
     # Does the user get "(admin)" links on each page on the main site?
     def admin_page_links?
-        self.admin_level == 'super'
+        self.super?
     end
     # Is it public that they are banned?
     def public_banned?
@@ -281,7 +286,7 @@ class User < ActiveRecord::Base
         return false if self.no_limit
 
         # Has the user issued as many as MAX_REQUESTS_PER_USER_PER_DAY requests in the past 24 hours?
-        return false if Configuration::max_requests_per_user_per_day.nil?
+        return false if Configuration::max_requests_per_user_per_day.blank?
         recent_requests = InfoRequest.count(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id])
 
         return (recent_requests >= Configuration::max_requests_per_user_per_day)

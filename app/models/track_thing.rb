@@ -107,7 +107,12 @@ class TrackThing < ActiveRecord::Base
         end
         descriptions = []
         if varieties.include? _("requests")
-            descriptions << _("requests which are {{list_of_statuses}}", :list_of_statuses => Array(statuses).sort.join(_(' or ')))
+            if statuses.empty?
+                # HACK: Relies on the 'descriptions.sort' below to luckily put this first
+                descriptions << _("all requests")
+            else
+                descriptions << _("requests which are {{list_of_statuses}}", :list_of_statuses => Array(statuses).sort.join(_(' or ')))
+            end
             varieties -= [_("requests")]
         end
         if descriptions.empty? and varieties.empty?

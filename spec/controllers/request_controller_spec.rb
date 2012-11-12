@@ -245,7 +245,7 @@ describe RequestController, "when showing one request" do
         response.should have_tag('#anyone_actions', /Add an annotation/)
       end
     end
-    
+
     describe 'when the request does not allow comments' do
       it 'should not have a comment link' do
         get :show, { :url_title => 'spam_1' },
@@ -253,7 +253,7 @@ describe RequestController, "when showing one request" do
         response.should_not have_tag('#anyone_actions', /Add an annotation/)
       end
     end
-    
+
     describe 'when the request is being viewed by an admin' do
 
         describe 'if the request is awaiting description' do
@@ -1709,15 +1709,17 @@ describe RequestController, "sending overdue request alerts" do
         mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
     end
 
-    it "should send not actually send the overdue alert if the user is banned" do
+    it "should send not actually send the overdue alert if the user is banned but should
+        record it as sent" do
         user = info_requests(:naughty_chicken_request).user
         user.ban_text = 'Banned'
         user.save!
-
+        UserInfoRequestSentAlert.find_all_by_user_id(user.id).count.should == 0
         RequestMailer.alert_overdue_requests
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 0
+        UserInfoRequestSentAlert.find_all_by_user_id(user.id).count.should > 0
     end
 
     it "should send a very overdue alert mail to creators of very overdue requests" do
@@ -1744,6 +1746,59 @@ describe RequestController, "sending overdue request alerts" do
 
         response.should render_template('show_response')
         assigns[:info_request].should == info_requests(:naughty_chicken_request)
+    end
+
+    it "should not resend alerts to people who've already received them" do
+        chicken_request = info_requests(:naughty_chicken_request)
+        chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 60.days
+        chicken_request.outgoing_messages[0].save!
+        RequestMailer.alert_overdue_requests
+        chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
+        chicken_mails.size.should == 1
+        RequestMailer.alert_overdue_requests
+        chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
+        chicken_mails.size.should == 1
+    end
+
+    it 'should send alerts for requests where the last event forming the initial request is a followup
+        being sent following a request for clarification' do
+        chicken_request = info_requests(:naughty_chicken_request)
+        chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 60.days
+        chicken_request.outgoing_messages[0].save!
+        RequestMailer.alert_overdue_requests
+        chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
+        chicken_mails.size.should == 1
+
+        # Request is waiting clarification
+        chicken_request.set_described_state('waiting_clarification')
+
+        # Followup message is sent
+        outgoing_message = OutgoingMessage.new(:status => 'ready',
+                                               :message_type => 'followup',
+                                               :info_request_id => chicken_request.id,
+                                               :body => 'Some text',
+                                               :what_doing => 'normal_sort')
+        outgoing_message.send_message
+        outgoing_message.save!
+
+        chicken_request = InfoRequest.find(chicken_request.id)
+
+        # Last event forming the request is now the followup
+        chicken_request.last_event_forming_initial_request.event_type.should == 'followup_sent'
+
+        # This isn't overdue, so no email
+        RequestMailer.alert_overdue_requests
+        chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
+        chicken_mails.size.should == 1
+
+        # Make the followup older
+        outgoing_message.last_sent_at = Time.now() - 60.days
+        outgoing_message.save!
+
+        # Now it should be alerted on
+        RequestMailer.alert_overdue_requests
+        chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
+        chicken_mails.size.should == 2
     end
 
 end

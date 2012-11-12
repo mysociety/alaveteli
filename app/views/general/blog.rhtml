@@ -7,53 +7,34 @@
     <img src="/images/twitter-16.png" alt="twitter icon"  class="twitter-icon"> <a href="https://twitter.com/<%= @twitter_user %>"><%= _("Follow us on twitter") %></a><br/><br/>
     <img src="/images/feed-16.png" alt="RSS icon" valign="middle"> <a href="<%= @feed_url %>"><%= _("Subscribe to blog") %></a>
   </div>
+  <% if Configuration::twitter_widget_id %>
   <div id="twitter">
-  <script src="http://widgets.twimg.com/j/2/widget.js"></script>
-  <script type="text/javascript">
-  new TWTR.Widget({
-    version: 2,
-    type: 'profile',
-    rpp: 15,
-    interval: 6000,
-    width: 'auto',
-    height: 500,
-    theme: {
-      shell: {
-        background: '#eaeaea',
-        color: '#000000'
-      },
-      tweets: {
-        background: '#ffffff',
-        color: '#000000',
-        links: '#0b004a'
-      }
-    },
-    features: {
-      scrollbar: false,
-      loop: false,
-      live: false,
-      hashtags: true,
-      timestamp: true,
-      avatars: true,
-      behavior: 'all'
-    }
-  }).render().setUser('<%=@twitter_user %>').start();
-  </script>
+    <a class="twitter-timeline" data-dnt=true href="https://twitter.com/<%= Configuration::twitter_username %>" data-widget-id="<%= Configuration::twitter_widget_id %>">Tweets by @<%= Configuration::twitter_username %></a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
   </div>
+  <% end %>
 </div>
 <% end %>
 
 <div id="left_column">
   <h1><%=@title %></h1>
- 
+
   <div id="blog">
     <% for item in @blog_items: %>
       <div class="blog_post">
           <h2 id="<%= Time.parse(item['pubDate'][0]).to_i %>"><a href="<%=item['link']%>"><%=h item['title'] %></a></h2>
           <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", :date=>simple_date(Time.parse(item['pubDate'][0])), :author=>item['creator']) %></p>
-          <div><%= item['encoded'] %></div>
+          <div>
+            <% if item['encoded'] %>
+              <%= item['encoded'] %>
+            <% elsif item['description'] %>
+              <%= item['description'] %>
+            <% end %>
+          </div>
           <p><em>
+            <% if item['comments'] %>
               <a href="<%=item['comments'][0]%>"><%= _("{{number_of_comments}} comments", :number_of_comments=>item['comments'][1]) %></a>
+            <% end %>
           </em>
           </p>
       </div>

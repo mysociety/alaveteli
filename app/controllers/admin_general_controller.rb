@@ -120,7 +120,7 @@ class AdminGeneralController < AdminController
     end
 
     def debug
-        @http_auth_user = admin_http_auth_user
+        @admin_current_user = admin_current_user
         @current_commit = `git log -1 --format="%H"`
         @current_branch = `git branch | perl -ne 'print $1 if /^\\* (.*)/'`
         @current_version = `git describe --always --tags`
