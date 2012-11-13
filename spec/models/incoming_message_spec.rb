@@ -441,6 +441,24 @@ end
 
 describe IncomingMessage, "when messages are attached to messages" do
 
+    it 'should expand an RFC822 attachment' do
+        mail_body = load_file_fixture('rfc822-attachment.email')
+        mail = MailHandler.mail_from_raw_email(mail_body)
+
+        im = incoming_messages(:useless_incoming_message)
+        im.stub!(:mail).and_return(mail)
+
+        attachments = im.get_attachments_for_display
+        attachments.size.should == 1
+        attachment = attachments.first
+
+        attachment.content_type.should == 'text/plain'
+        attachment.filename.should == "Freedom of Information request.txt"
+        attachment.charset.should == "utf-8"
+        attachment.within_rfc822_subject.should == "Freedom of Information request"
+        attachment.hexdigest.should == 'f10fe56e4f2287685a58b71329f09639'
+    end
+
     it "should flatten all the attachments out" do
         mail = get_fixture_mail('incoming-request-attach-attachments.email')
 
