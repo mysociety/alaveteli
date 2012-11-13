@@ -456,6 +456,19 @@ describe IncomingMessage, "when messages are attached to messages" do
             'hello.txt',
         ]
     end
+
+    it 'should add headers to attached plain text message bodies' do
+        mail_body = load_file_fixture('incoming-request-attachment-headers.email')
+        mail = MailParsing.mail_from_raw_email(mail_body)
+
+        im = incoming_messages(:useless_incoming_message)
+        im.stub!(:mail).and_return(mail)
+
+        attachments = im.get_attachments_for_display
+        attachments.size.should == 2
+        attachments[0].body.should match('Date: Fri, 23 May 2008')
+    end
+
 end
 
 describe IncomingMessage, "when Outlook messages are attached to messages" do

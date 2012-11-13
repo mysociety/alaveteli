@@ -1,0 +1,50 @@
+From foi@example.com Mon Oct 06 13:45:38 2008
+Return-path: <foi@example.com>
+Envelope-to: foi@sandwich.ukcod.org.uk
+Delivery-date: Mon, 06 Oct 2008 13:45:38 +0100
+Message-Id: <s8ea1156.098@example.com>
+X-Mailer: Novell GroupWise Internet Agent 6.5.4
+Date: Mon, 06 Oct 2008 13:23:00 +0100
+From: "Steve Knight" <foi@example.com>
+To: <request-xxxx-xxxxx@whatdotheyknow.com>
+Subject: FOI request
+Mime-Version: 1.0
+Content-Type: multipart/mixed; boundary="=__PartFDD45234.0__="
+X-Proofpoint-Virus-Version: vendor=nai engine=5.2.00 definitions=5398 signatures=473327
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 classifier= adjust=0 reason=limit engine=3.1.0-0805090000 definitions=main-0810060054
+
+This is a MIME message. If you are reading this text, you may want to
+consider changing to a mail reader or gateway that understands how to
+properly handle MIME multipart messages.
+--=__PartFDD45234.0__=
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
+Dear Mr Requester,
+
+Here is some information.
+
+--=__PartFDD45234.0__=
+Content-Type: message/rfc822
+
+Date: Fri, 23 May 2008 17:02:11 +0100
+From: "David Bishop" <foi2@example.com>
+To: "foi" <foi3@example.com>
+Subject: Foi request
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
+Extra info.
+
+--=__PartFDD45234.0__=
+Content-Type: image/jpeg; name="info.jpg"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="info.jpg"
+
+xxxx
+
+--=__PartFDD45234.0__=--
+
