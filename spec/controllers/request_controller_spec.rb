@@ -757,7 +757,7 @@ describe RequestController, "when showing one request" do
                 assigns[:url_path].should_not == old_path
                 response.location.should have_text(/#{assigns[:url_path]}/)
                 zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", assigns[:url_path])) { |zipfile|
-                    zipfile.count.should == 5 # the message, two hello.txt, the unknown attachment, and its empty message
+                    zipfile.count.should == 4 # the message, two hello.txt plus the unknown attachment
                 }
             end
 
