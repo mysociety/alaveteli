@@ -258,9 +258,8 @@ describe ApiController, "when using the API" do
         attachments = incoming_message.get_attachments_for_display
         attachments.size.should == 1
         attachment = attachments[0]
-
         attachment.filename.should == "tfl.pdf"
-        attachment.body.should == load_file_fixture("tfl.pdf")
+        attachment.body.should == load_file_fixture("tfl.pdf", as_binary=true)
     end
 
     it "should show information about a request" do
