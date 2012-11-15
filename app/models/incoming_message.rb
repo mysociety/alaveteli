@@ -192,9 +192,9 @@ class IncomingMessage < ActiveRecord::Base
 
     # Number the attachments in depth first tree order, for use in URLs.
     # XXX This fills in part.rfc822_attachment and part.url_part_number within
-    # all the parts of the email (see TMail monkeypatch above for how these
-    # attributes are added). ensure_parts_counted must be called before using
-    # the attributes.
+    # all the parts of the email (see monkeypatches in lib/mail_handler/tmail_extensions and
+    # lib/mail_handler/mail_extensions for how these attributes are added). ensure_parts_counted
+    # must be called before using the attributes.
     def ensure_parts_counted
         @count_parts_count = 0
         _count_parts_recursive(self.mail)
