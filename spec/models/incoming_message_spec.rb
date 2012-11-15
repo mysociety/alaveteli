@@ -399,12 +399,6 @@ end
 
 describe IncomingMessage, " when uudecoding bad messages" do
 
-    before(:each) do
-        load_raw_emails_data
-    end
-
-
-
     it "should be able to do it at all" do
         mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
         im = incoming_messages(:useless_incoming_message)
@@ -441,10 +435,6 @@ end
 
 describe IncomingMessage, "when messages are attached to messages" do
 
-    before(:each) do
-        load_raw_emails_data
-    end
-
     it "should flatten all the attachments out" do
         mail = get_fixture_mail('incoming-request-attach-attachments.email')
 
@@ -464,10 +454,6 @@ end
 
 describe IncomingMessage, "when Outlook messages are attached to messages" do
 
-    before(:each) do
-        load_raw_emails_data
-    end
-
     it "should flatten all the attachments out" do
         mail = get_fixture_mail('incoming-request-oft-attachments.email')
 
@@ -483,10 +469,6 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
 end
 
 describe IncomingMessage, "when TNEF attachments are attached to messages" do
-
-    before(:each) do
-        load_raw_emails_data
-    end
 
     it "should flatten all the attachments out" do
         mail = get_fixture_mail('incoming-request-tnef-attachments.email')
