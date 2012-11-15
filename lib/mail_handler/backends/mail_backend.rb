@@ -8,7 +8,8 @@ module MailHandler
                 'Mail'
             end
 
-            def mail_from_raw_email(data)
+            # Note that the decode flag is not yet used
+            def mail_from_raw_email(data, decode=true)
                 Mail.new(data)
             end
 

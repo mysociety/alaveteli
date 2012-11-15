@@ -212,12 +212,12 @@ class IncomingMessage < ActiveRecord::Base
                 if part.content_type == 'message/rfc822'
                     # An email attached as text
                     # e.g. http://www.whatdotheyknow.com/request/64/response/102
-                    part.rfc822_attachment = TMail::Mail.parse(part.body)
+                    part.rfc822_attachment = MailHandler.mail_from_raw_email(part.body, decode=false)
                 elsif part.content_type == 'application/vnd.ms-outlook' || part_filename && AlaveteliFileTypes.filename_to_mimetype(part_filename) == 'application/vnd.ms-outlook'
                     # An email attached as an Outlook file
                     # e.g. http://www.whatdotheyknow.com/request/chinese_names_for_british_politi
                     msg = Mapi::Msg.open(StringIO.new(part.body))
-                    part.rfc822_attachment = TMail::Mail.parse(msg.to_mime.to_s)
+                    part.rfc822_attachment = MailHandler.mail_from_raw_email(msg.to_mime.to_s, decode=false)
                 elsif part.content_type == 'application/ms-tnef'
                     # A set of attachments in a TNEF file
                     part.rfc822_attachment = TNEF.as_tmail(part.body)
