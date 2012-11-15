@@ -275,7 +275,7 @@ public
         return self.magic_email("request-")
     end
     def incoming_name_and_email
-        return TMail::Address.address_from_name_and_email(self.user_name, self.incoming_email).to_s
+        return MailHandler.address_from_name_and_email(self.user_name, self.incoming_email)
     end
 
     # Subject lines for emails about the request
@@ -707,11 +707,11 @@ public
         return self.public_body.is_followupable?
     end
     def recipient_name_and_email
-        return TMail::Address.address_from_name_and_email(
+        return MailHandler.address_from_name_and_email(
             _("{{law_used}} requests at {{public_body}}",
                 :law_used => self.law_used_short,
                 :public_body => self.public_body.short_or_long_name),
-            self.recipient_email).to_s
+            self.recipient_email)
     end
 
     # History of some things that have happened

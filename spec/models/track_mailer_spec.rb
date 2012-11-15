@@ -169,7 +169,7 @@ describe TrackMailer do
 
         it 'should deliver one email, with right headers' do
             @user = mock_model(User,
-                    :name_and_email => TMail::Address.address_from_name_and_email('Tippy Test', 'tippy@localhost'),
+                    :name_and_email => MailHandler.address_from_name_and_email('Tippy Test', 'tippy@localhost'),
                     :url_name => 'tippy_test'
             )
 

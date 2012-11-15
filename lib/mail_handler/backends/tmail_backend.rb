@@ -41,6 +41,17 @@ module MailHandler
                 return part_file_name
             end
 
+            def address_from_name_and_email(name, email)
+                if !MySociety::Validate.is_valid_email(email)
+                    raise "invalid email " + email + " passed to address_from_name_and_email"
+                end
+                if name.nil?
+                    return TMail::Address.parse(email)
+                end
+                # Botch an always quoted RFC address, then parse it
+                name = name.gsub(/(["\\])/, "\\\\\\1")
+                TMail::Address.parse('"' + name + '" <' + email + '>').to_s
+            end
         end
     end
 end

@@ -203,7 +203,7 @@ class User < ActiveRecord::Base
 
 # For use in to/from in email messages
     def name_and_email
-        return TMail::Address.address_from_name_and_email(self.name, self.email).to_s
+        return MailHandler.address_from_name_and_email(self.name, self.email)
     end
 
     # The "internal admin" is a special user for internal use.

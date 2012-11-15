@@ -29,6 +29,19 @@ module MailHandler
                 part_file_name.nil? ? nil : part_file_name.dup
             end
 
+            # Format
+            def address_from_name_and_email(name, email)
+                if !MySociety::Validate.is_valid_email(email)
+                    raise "invalid email " + email + " passed to address_from_name_and_email"
+                end
+                if name.nil?
+                    return Mail::Address.new(email)
+                end
+                address = Mail::Address.new
+                address.display_name = name
+                address.address = email
+                address.to_s
+            end
         end
     end
 end
