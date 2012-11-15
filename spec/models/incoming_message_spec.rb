@@ -403,9 +403,10 @@ describe IncomingMessage, " when uudecoding bad messages" do
         load_raw_emails_data
     end
 
+
+
     it "should be able to do it at all" do
-        mail_body = load_file_fixture('incoming-request-bad-uuencoding.email')
-        mail = MailHandler.mail_from_raw_email(mail_body)
+        mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
         im.extract_attachments!
@@ -417,8 +418,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
     end
 
     it "should apply censor rules" do
-        mail_body = load_file_fixture('incoming-request-bad-uuencoding.email')
-        mail = MailHandler.mail_from_raw_email(mail_body)
+        mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
 
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
@@ -446,8 +446,7 @@ describe IncomingMessage, "when messages are attached to messages" do
     end
 
     it "should flatten all the attachments out" do
-        mail_body = load_file_fixture('incoming-request-attach-attachments.email')
-        mail = MailHandler.mail_from_raw_email(mail_body)
+        mail = get_fixture_mail('incoming-request-attach-attachments.email')
 
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
@@ -470,8 +469,7 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
     end
 
     it "should flatten all the attachments out" do
-        mail_body = load_file_fixture('incoming-request-oft-attachments.email')
-        mail = MailHandler.mail_from_raw_email(mail_body)
+        mail = get_fixture_mail('incoming-request-oft-attachments.email')
 
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
@@ -491,8 +489,7 @@ describe IncomingMessage, "when TNEF attachments are attached to messages" do
     end
 
     it "should flatten all the attachments out" do
-        mail_body = load_file_fixture('incoming-request-tnef-attachments.email')
-        mail = MailHandler.mail_from_raw_email(mail_body)
+        mail = get_fixture_mail('incoming-request-tnef-attachments.email')
 
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
