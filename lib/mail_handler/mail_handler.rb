@@ -4,6 +4,7 @@ require 'tmpdir'
 module MailHandler
 
     if RUBY_VERSION.to_f >= 1.9
+        require 'backends/mail_extensions'
         require 'backends/mail_backend'
         include Backends::MailBackend
     else
