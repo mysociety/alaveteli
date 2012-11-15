@@ -42,6 +42,10 @@ module MailHandler
                 address.address = email
                 address.to_s
             end
+
+            def address_from_string(string)
+                Mail::Address.new(string).address
+            end
         end
     end
 end

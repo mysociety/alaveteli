@@ -52,6 +52,11 @@ module MailHandler
                 name = name.gsub(/(["\\])/, "\\\\\\1")
                 TMail::Address.parse('"' + name + '" <' + email + '>').to_s
             end
+
+            def address_from_string(string)
+                TMail::Address.parse(string).address
+            end
+
         end
     end
 end

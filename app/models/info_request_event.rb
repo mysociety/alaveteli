@@ -384,7 +384,7 @@ class InfoRequestEvent < ActiveRecord::Base
         if prev_addr.nil? || curr_addr.nil?
             return false
         end
-        return TMail::Address.parse(prev_addr).address == TMail::Address.parse(curr_addr).address
+        return MailHandler.address_from_string(prev_addr) == MailHandler.address_from_string(curr_addr)
     end
 
     def json_for_api(deep, snippet_highlight_proc = nil)
