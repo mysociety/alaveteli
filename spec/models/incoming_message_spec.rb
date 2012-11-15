@@ -405,8 +405,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
 
     it "should be able to do it at all" do
         mail_body = load_file_fixture('incoming-request-bad-uuencoding.email')
-        mail = TMail::Mail.parse(mail_body)
-        mail.base64_decode
+        mail = MailHandler.mail_from_raw_email(mail_body)
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
         im.extract_attachments!
@@ -419,8 +418,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
 
     it "should apply censor rules" do
         mail_body = load_file_fixture('incoming-request-bad-uuencoding.email')
-        mail = TMail::Mail.parse(mail_body)
-        mail.base64_decode
+        mail = MailHandler.mail_from_raw_email(mail_body)
 
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
@@ -449,8 +447,7 @@ describe IncomingMessage, "when messages are attached to messages" do
 
     it "should flatten all the attachments out" do
         mail_body = load_file_fixture('incoming-request-attach-attachments.email')
-        mail = TMail::Mail.parse(mail_body)
-        mail.base64_decode
+        mail = MailHandler.mail_from_raw_email(mail_body)
 
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
@@ -474,8 +471,7 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
 
     it "should flatten all the attachments out" do
         mail_body = load_file_fixture('incoming-request-oft-attachments.email')
-        mail = TMail::Mail.parse(mail_body)
-        mail.base64_decode
+        mail = MailHandler.mail_from_raw_email(mail_body)
 
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
@@ -496,8 +492,7 @@ describe IncomingMessage, "when TNEF attachments are attached to messages" do
 
     it "should flatten all the attachments out" do
         mail_body = load_file_fixture('incoming-request-tnef-attachments.email')
-        mail = TMail::Mail.parse(mail_body)
-        mail.base64_decode
+        mail = MailHandler.mail_from_raw_email(mail_body)
 
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
