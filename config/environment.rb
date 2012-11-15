@@ -92,6 +92,8 @@ Rails::Initializer.run do |config|
      require 'routing_filters.rb'
   end
 
+  config.autoload_paths << "#{RAILS_ROOT}/lib/mail_handler"
+
   # See Rails::Configuration for more options
   ENV['RECAPTCHA_PUBLIC_KEY'] = Configuration::recaptcha_public_key
   ENV['RECAPTCHA_PRIVATE_KEY'] = Configuration::recaptcha_private_key
@@ -154,6 +156,7 @@ require 'rack_quote_monkeypatch.rb'
 require 'world_foi_websites.rb'
 require 'alaveteli_external_command.rb'
 require 'quiet_opener.rb'
+require 'mail_handler'
 
 if !Configuration.exception_notifications_from.blank? && !Configuration.exception_notifications_to.blank?
   ExceptionNotification::Notifier.sender_address = Configuration::exception_notifications_from
