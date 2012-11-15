@@ -46,7 +46,7 @@ module MailHandler
                     raise "invalid email " + email + " passed to address_from_name_and_email"
                 end
                 if name.nil?
-                    return TMail::Address.parse(email)
+                    return TMail::Address.parse(email).to_s
                 end
                 # Botch an always quoted RFC address, then parse it
                 name = name.gsub(/(["\\])/, "\\\\\\1")
