@@ -207,7 +207,7 @@ class IncomingMessage < ActiveRecord::Base
                 _count_parts_recursive(p)
             end
         else
-            part_filename = TMail::Mail.get_part_file_name(part)
+            part_filename = MailHandler.get_part_file_name(part)
             begin
                 if part.content_type == 'message/rfc822'
                     # An email attached as text
@@ -458,16 +458,6 @@ class IncomingMessage < ActiveRecord::Base
         return text
     end
 
-    # Internal function
-    def _get_part_file_name(mail)
-        part_file_name = TMail::Mail.get_part_file_name(mail)
-        if part_file_name.nil?
-            return nil
-        end
-        part_file_name = part_file_name.dup
-        return part_file_name
-    end
-
     # (This risks losing info if the unchosen alternative is the only one to contain
     # useful info, but let's worry about that another time)
     def get_attachment_leaves
@@ -519,7 +509,7 @@ class IncomingMessage < ActiveRecord::Base
             end
             # PDFs often come with this mime type, fix it up for view code
             if curr_mail.content_type == 'application/octet-stream'
-                part_file_name = self._get_part_file_name(curr_mail)
+                part_file_name = MailHandler.get_part_file_name(curr_mail)
                 calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(part_file_name, curr_mail.body)
                 if calc_mime
                     curr_mail.content_type = calc_mime
@@ -799,7 +789,7 @@ class IncomingMessage < ActiveRecord::Base
             attachment = self.foi_attachments.find_or_create_by_hexdigest(:hexdigest => hexdigest)
             attachment.update_attributes(:url_part_number => leaf.url_part_number,
                                          :content_type => leaf.content_type,
-                                         :filename => _get_part_file_name(leaf),
+                                         :filename => MailHandler.get_part_file_name(leaf),
                                          :charset => leaf.charset,
                                          :within_rfc822_subject => within_rfc822_subject,
                                          :body => body)

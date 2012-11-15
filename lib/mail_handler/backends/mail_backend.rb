@@ -22,6 +22,13 @@ module MailHandler
                 main.ready_to_send!
                 main
             end
+
+            # Return a copy of the file name for the mail part
+            def get_part_file_name(mail_part)
+                part_file_name = mail_part.filename
+                part_file_name.nil? ? nil : part_file_name.dup
+            end
+
         end
     end
 end
