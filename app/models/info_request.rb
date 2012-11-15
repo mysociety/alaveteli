@@ -355,12 +355,7 @@ public
     def InfoRequest.guess_by_incoming_email(incoming_message)
         guesses = []
         # 1. Try to guess based on the email address(es)
-        addresses =
-            (incoming_message.mail.to || []) +
-            (incoming_message.mail.cc || []) +
-            (incoming_message.mail.envelope_to || [])
-        addresses.uniq!
-        for address in addresses
+        for address in incoming_message.addresses
             id, hash = InfoRequest._extract_id_hash_from_email(address)
             guesses.push(InfoRequest.find_by_id(id))
             guesses.push(InfoRequest.find_by_idhash(hash))
