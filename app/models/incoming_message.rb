@@ -62,17 +62,10 @@ class IncomingMessage < ActiveRecord::Base
         'application/zip' => 1,
     }
 
-    # Return the structured TMail::Mail object
-    # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
+    # Return a cached structured mail object
     def mail(force = nil)
         if (!force.nil? || @mail.nil?) && !self.raw_email.nil?
-            # Hack round bug in TMail's MIME decoding.
-            # Report of TMail bug:
-            # http://rubyforge.org/tracker/index.php?func=detail&aid=21810&group_id=4512&atid=17370
-            copy_of_raw_data = self.raw_email.data.gsub(/; boundary=\s+"/im,'; boundary="')
-
-            @mail = TMail::Mail.parse(copy_of_raw_data)
-            @mail.base64_decode
+            @mail = MailHandler.mail_from_raw_email(self.raw_email.data)
         end
         @mail
     end
