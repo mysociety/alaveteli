@@ -18,6 +18,19 @@ module MailHandler
                 mail
             end
 
+            # Extracts all attachments from the given TNEF file as a TMail::Mail object
+            def mail_from_tnef(content)
+                main = TMail::Mail.new
+                main.set_content_type 'multipart', 'mixed', { 'boundary' => TMail.new_boundary }
+                tnef_attachments(content).each do |attachment|
+                    tmail_attachment = TMail::Mail.new
+                    tmail_attachment['content-location'] = attachment[:filename]
+                    tmail_attachment.body = attachment[:content]
+                    main.parts << tmail_attachment
+                end
+                main
+            end
+
         end
     end
 end

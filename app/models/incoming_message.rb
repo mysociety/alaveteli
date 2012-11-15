@@ -220,7 +220,7 @@ class IncomingMessage < ActiveRecord::Base
                     part.rfc822_attachment = MailHandler.mail_from_raw_email(msg.to_mime.to_s, decode=false)
                 elsif part.content_type == 'application/ms-tnef'
                     # A set of attachments in a TNEF file
-                    part.rfc822_attachment = TNEF.as_tmail(part.body)
+                    part.rfc822_attachment = MailHandler.mail_from_tnef(part.body)
                 end
             rescue
                 # If attached mail doesn't parse, treat it as text part
