@@ -414,8 +414,7 @@ public
         end
 
         for im in self.incoming_messages
-            other_message_id = im.mail.message_id
-            if message_id == other_message_id
+            if message_id == im.message_id
                 return true
             end
         end

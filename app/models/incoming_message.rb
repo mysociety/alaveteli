@@ -103,6 +103,10 @@ class IncomingMessage < ActiveRecord::Base
         (self.mail.envelope_to || [])).uniq
     end
 
+    def message_id
+        self.mail.message_id
+    end
+
     # Returns the name of the person the incoming message is from, or nil if
     # there isn't one or if there is only an email address. XXX can probably
     # remove from_name_if_present (which is a monkey patch) by just calling
