@@ -16,17 +16,19 @@ $alaveteli_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 $:.push(File.join($alaveteli_dir, "commonlib", "rblib"))
 load "config.rb"
 $:.push(File.join($alaveteli_dir, "lib"))
+$:.push(File.join($alaveteli_dir, "lib", "mail_handler"))
 require "configuration"
 MySociety::Config.set_file(File.join($alaveteli_dir, 'config', 'general'), true)
 MySociety::Config.load_default
 
 require 'action_mailer'
+require 'mail_handler'
 
 def main(in_test_mode)
     Dir.chdir($alaveteli_dir) do
         raw_message = $stdin.read
         begin
-            message = TMail::Mail.parse(raw_message)
+            message = MailHandler.mail_from_raw_email(raw_message, decode=false)
         rescue
             # Error parsing message. Just pass it on, to be on the safe side.
             forward_on(raw_message) unless in_test_mode
