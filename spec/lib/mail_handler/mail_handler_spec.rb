@@ -9,4 +9,15 @@ describe 'when creating a mail object from raw data' do
         mail.multipart?.should == true
     end
 
+    it 'should parse multiple to addresses with unqoted display names' do
+        mail = get_fixture_mail('multiple-unquoted-display-names.email')
+        mail.to.should == ["request-66666-caa77777@whatdotheyknow.com", "foi@example.com"]
+    end
+
+    it 'should convert an iso8859 email to utf8' do
+        mail = get_fixture_mail('iso8859_2_raw_email.email')
+        mail.subject.should have_text(/gjatë/u)
+        mail.body.is_utf8?.should == true
+    end
+
 end

@@ -85,6 +85,26 @@ describe IncomingMessage, " when dealing with incoming mail" do
       end
     end
 
+
+    it "should load an email with funny MIME settings" do
+        ActionMailer::Base.deliveries.clear
+        # just send it to the holding pen
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 0
+        receive_incoming_mail("humberside-police-odd-mime-type.email", 'dummy')
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 1
+
+        # clear the notification of new message in holding pen
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        deliveries.clear
+
+        incoming_message = InfoRequest.holding_pen_request.incoming_messages[0]
+
+        # This will raise an error if the bug in TMail hasn't been fixed
+        incoming_message.get_body_for_html_display()
+    end
+
+
 end
 
 describe IncomingMessage, "when parsing HTML mail" do

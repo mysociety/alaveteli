@@ -15,6 +15,12 @@ require 'tmail/interface'
 # These mainly used in app/models/incoming_message.rb
 module TMail
     class Mail
+        # Monkeypatch! Adding some extra members to store extra info in.
+
+        attr_accessor :url_part_number
+        attr_accessor :rfc822_attachment # when a whole email message is attached as text
+        attr_accessor :within_rfc822_attachment # for parts within a message attached as text (for getting subject mainly)
+
         # Monkeypatch! (check to see if this becomes a standard function in
         # TMail::Mail, then use that, whatever it is called)
         def Mail.get_part_file_name(part)
