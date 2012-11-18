@@ -73,4 +73,12 @@ describe LinkToHelper do
             end
         end
     end
+
+    describe 'simple_date' do
+        it 'should respect time zones' do
+            Time.use_zone('Australia/Sydney') do
+                simple_date(Time.utc(2012, 11, 07, 21, 30, 26)).should == 'November 08, 2012'
+            end
+        end
+    end
 end

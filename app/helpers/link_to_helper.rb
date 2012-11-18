@@ -257,7 +257,7 @@ module LinkToHelper
     def simple_date(date)
         date_format = _("simple_date_format")
         date_format = :long if date_format == "simple_date_format"
-        return I18n.l(date.to_date, :format => date_format)
+        return I18n.l(date.in_time_zone.to_date, :format => date_format)
     end
 
     def simple_time(date)
