@@ -16,12 +16,19 @@ class FixPublicBodyTranslations < ActiveRecord::Migration
         ;
       SQL
       
+#      execute <<-SQL
+#        update public_body_translations
+#          set publication_scheme = public_bodies.publication_scheme
+#        from public_bodies
+#        where public_body_translations.public_body_id = public_bodies.id
+#          and public_body_translations.publication_scheme is null
+#        ;
+#      SQL
       execute <<-SQL
         update public_body_translations
-          set publication_scheme = public_bodies.publication_scheme
-        from public_bodies
-        where public_body_translations.public_body_id = public_bodies.id
-          and public_body_translations.publication_scheme is null
+          set publication_scheme = (SELECT public_bodies.publication_scheme FROM public_bodies WHERE 
+public_body_translations.public_body_id = public_bodies.id )
+        where public_body_translations.publication_scheme is null
         ;
       SQL
     end
