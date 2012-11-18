@@ -347,6 +347,7 @@ class RequestController < ApplicationController
                 :email => _("Then your FOI request to {{public_body_name}} will be sent.",:public_body_name=>@info_request.public_body.name),
                 :email_subject => _("Confirm your FOI request to ") + @info_request.public_body.name
             )
+            flash[:notice] = _("Please sign in or sign up to send your FOI request")
             # do nothing - as "authenticated?" has done the redirect to signin page for us
             return
         end
