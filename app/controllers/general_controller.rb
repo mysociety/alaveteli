@@ -226,12 +226,6 @@ class GeneralController < ApplicationController
         redirect_to request_url(info_request)
     end
 
-    # For debugging
-    def fai_test
-        sleep 10
-        render :text => "awake\n"
-    end
-
     def custom_css
         long_cache
         @locale = self.locale_from_params()
