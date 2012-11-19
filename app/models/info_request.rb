@@ -1124,7 +1124,11 @@ public
         }
 
         if deep
-            ret[:user] = self.user.json_for_api
+            if self.user
+              ret[:user] = self.user.json_for_api
+            else
+              ret[:user_name] = self.user_name
+            end
             ret[:public_body] = self.public_body.json_for_api
             ret[:info_request_events] = self.info_request_events.map { |e| e.json_for_api(false) }
         end
