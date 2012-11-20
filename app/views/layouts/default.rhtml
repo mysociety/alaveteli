@@ -12,7 +12,7 @@
         <link rel="shortcut icon" href="/favicon.ico">
 
         <%= render :partial => 'general/stylesheet_includes' %>
-        <% if session[:using_admin] %>
+        <% if is_admin? %>
           <%= stylesheet_link_tag "/adminbootstraptheme/stylesheets/admin", :title => "Main", :rel => "stylesheet" %>
         <% end %>
 
@@ -63,7 +63,7 @@
     </script>
     <% end %>
 
-<% if session[:using_admin] %>
+<% if is_admin? %>
   <%= render :partial => 'admin_general/admin_navbar' %>
 <% end %>
 
