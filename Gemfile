@@ -16,6 +16,7 @@ gem 'gettext_i18n_rails', '>= 0.7.1'
 gem 'gettext', '~> 2.3.3'
 gem 'json', '~> 1.5.1'
 gem 'mahoro'
+gem 'mail', :platforms => :ruby_19
 gem 'memcache-client', :require => 'memcache'
 gem 'locale', '>= 2.0.5'
 gem 'net-http-local'

@@ -85,6 +85,26 @@ describe IncomingMessage, " when dealing with incoming mail" do
       end
     end
 
+
+    it "should load an email with funny MIME settings" do
+        ActionMailer::Base.deliveries.clear
+        # just send it to the holding pen
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 0
+        receive_incoming_mail("humberside-police-odd-mime-type.email", 'dummy')
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 1
+
+        # clear the notification of new message in holding pen
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        deliveries.clear
+
+        incoming_message = InfoRequest.holding_pen_request.incoming_messages[0]
+
+        # This will raise an error if the bug in TMail hasn't been fixed
+        incoming_message.get_body_for_html_display()
+    end
+
+
 end
 
 describe IncomingMessage, "when parsing HTML mail" do
@@ -399,14 +419,8 @@ end
 
 describe IncomingMessage, " when uudecoding bad messages" do
 
-    before(:each) do
-        load_raw_emails_data
-    end
-
     it "should be able to do it at all" do
-        mail_body = load_file_fixture('incoming-request-bad-uuencoding.email')
-        mail = TMail::Mail.parse(mail_body)
-        mail.base64_decode
+        mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
         im.extract_attachments!
@@ -418,9 +432,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
     end
 
     it "should apply censor rules" do
-        mail_body = load_file_fixture('incoming-request-bad-uuencoding.email')
-        mail = TMail::Mail.parse(mail_body)
-        mail.base64_decode
+        mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
 
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
@@ -443,14 +455,8 @@ end
 
 describe IncomingMessage, "when messages are attached to messages" do
 
-    before(:each) do
-        load_raw_emails_data
-    end
-
     it "should flatten all the attachments out" do
-        mail_body = load_file_fixture('incoming-request-attach-attachments.email')
-        mail = TMail::Mail.parse(mail_body)
-        mail.base64_decode
+        mail = get_fixture_mail('incoming-request-attach-attachments.email')
 
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
@@ -468,14 +474,8 @@ end
 
 describe IncomingMessage, "when Outlook messages are attached to messages" do
 
-    before(:each) do
-        load_raw_emails_data
-    end
-
     it "should flatten all the attachments out" do
-        mail_body = load_file_fixture('incoming-request-oft-attachments.email')
-        mail = TMail::Mail.parse(mail_body)
-        mail.base64_decode
+        mail = get_fixture_mail('incoming-request-oft-attachments.email')
 
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
@@ -490,14 +490,8 @@ end
 
 describe IncomingMessage, "when TNEF attachments are attached to messages" do
 
-    before(:each) do
-        load_raw_emails_data
-    end
-
     it "should flatten all the attachments out" do
-        mail_body = load_file_fixture('incoming-request-tnef-attachments.email')
-        mail = TMail::Mail.parse(mail_body)
-        mail.base64_decode
+        mail = get_fixture_mail('incoming-request-tnef-attachments.email')
 
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)

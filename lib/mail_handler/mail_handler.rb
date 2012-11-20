@@ -1,13 +1,23 @@
+# Handles the parsing of email
 require 'tmpdir'
 
-class TNEF
+module MailHandler
 
-    # Extracts all attachments from the given TNEF file as a TMail::Mail object
-    # The TNEF file also contains the message body, but in general this is the
+    if RUBY_VERSION.to_f >= 1.9
+        require 'backends/mail_extensions'
+        require 'backends/mail_backend'
+        include Backends::MailBackend
+    else
+        require 'backends/tmail_extensions'
+        require 'backends/tmail_backend'
+        include Backends::TmailBackend
+    end
+
+    # Returns a set of attachments from the given TNEF contents
+    # The TNEF contents also contains the message body, but in general this is the
     # same as the message body in the message proper.
-    def self.as_tmail(content)
-        main = TMail::Mail.new
-        main.set_content_type 'multipart', 'mixed', { 'boundary' => TMail.new_boundary }
+    def tnef_attachments(content)
+        attachments = []
         Dir.mktmpdir do |dir|
             IO.popen("#{`which tnef`.chomp} -K -C #{dir}", "w") do |f|
                 f.write(content)
@@ -23,10 +33,8 @@ class TNEF
             Dir.new(dir).sort.each do |file| # sort for deterministic behaviour
                 if file != "." && file != ".."
                     file_content = File.open("#{dir}/#{file}", "r").read
-                    attachment = TMail::Mail.new
-                    attachment['content-location'] = file
-                    attachment.body = file_content
-                    main.parts << attachment
+                    attachments << { :content => file_content,
+                                     :filename => file }
                     found += 1
                 end
             end
@@ -34,7 +42,11 @@ class TNEF
                 raise IOError, "tnef produced no attachments"
             end
         end
-        main
+        attachments
     end
 
+    # Turn instance methods into class methods
+    extend self
+
 end
+

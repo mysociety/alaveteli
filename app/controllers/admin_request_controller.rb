@@ -207,8 +207,7 @@ class AdminRequestController < AdminController
                 end
 
                 raw_email_data = incoming_message.raw_email.data
-                mail = TMail::Mail.parse(raw_email_data)
-                mail.base64_decode
+                mail = MailHandler.mail_from_raw_email(raw_email_data)
                 destination_request.receive(mail, raw_email_data, true)
 
                 incoming_message_id = incoming_message.id

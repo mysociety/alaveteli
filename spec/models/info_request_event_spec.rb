@@ -54,36 +54,71 @@ describe InfoRequestEvent do
 
     end
 
-    describe "doing search/index stuff" do 
+    describe "doing search/index stuff" do
 
         before(:each) do
             load_raw_emails_data
             parse_all_incoming_messages
         end
 
-        it 'should get search text for outgoing messages' do 
+        it 'should get search text for outgoing messages' do
             event = info_request_events(:useless_outgoing_message_event)
             message = outgoing_messages(:useless_outgoing_message).body
             event.search_text_main.should == message + "\n\n"
         end
 
-        it 'should get search text for incoming messages' do 
+        it 'should get search text for incoming messages' do
             event = info_request_events(:useless_incoming_message_event)
             event.search_text_main.strip.should == "No way! I'm not going to tell you that in a month of Thursdays.\n\nThe Geraldine Quango"
         end
 
-        it 'should get clipped text for incoming messages, and cache it too' do 
+        it 'should get clipped text for incoming messages, and cache it too' do
             event = info_request_events(:useless_incoming_message_event)
-            
+
             event.incoming_message_selective_columns("cached_main_body_text_folded").cached_main_body_text_folded = nil
             event.search_text_main(true).strip.should == "No way! I'm not going to tell you that in a month of Thursdays.\n\nThe Geraldine Quango"
             event.incoming_message_selective_columns("cached_main_body_text_folded").cached_main_body_text_folded.should_not == nil
         end
 
-
     end
 
+    describe 'when asked if it has the same email as a previous send' do
 
+        before do
+            @info_request_event = InfoRequestEvent.new
+        end
+
+        it 'should return true if the email in its params and the previous email the request was sent to are both nil' do
+            @info_request_event.stub!(:params).and_return({})
+            @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return(nil)
+            @info_request_event.same_email_as_previous_send?.should be_true
+        end
+
+        it 'should return false if one email address exists and the other does not' do
+            @info_request_event.stub!(:params).and_return(:email => 'test@example.com')
+            @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return(nil)
+            @info_request_event.same_email_as_previous_send?.should be_false
+        end
+
+        it 'should return true if the addresses are identical' do
+            @info_request_event.stub!(:params).and_return(:email => 'test@example.com')
+            @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return('test@example.com')
+            @info_request_event.same_email_as_previous_send?.should be_true
+        end
+
+        it 'should return false if the addresses are different' do
+            @info_request_event.stub!(:params).and_return(:email => 'test@example.com')
+            @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return('different@example.com')
+            @info_request_event.same_email_as_previous_send?.should be_false
+        end
+
+        it 'should return true if the addresses have different formats' do
+            @info_request_event.stub!(:params).and_return(:email => 'A Test <test@example.com>')
+            @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return('test@example.com')
+            @info_request_event.same_email_as_previous_send?.should be_true
+        end
+
+    end
 
 end
 
