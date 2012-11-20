@@ -1,23 +1,30 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "When creating requests" do
+
+    def create_request_unregistered
+      params = { :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id,
+                                    :title => "Why is your quango called Geraldine?",
+                                    :tag_string => "" },
+                 :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+                 :submitted_new_request => 1,
+                 :preview => 0
+      }
+
+      # Initially we are not logged in. Try to create a new request.
+      post "/new", params
+      # We expect to be redirected to the login page
+      post_redirect = PostRedirect.get_last_post_redirect
+      response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+      follow_redirect!
+      response.should render_template("user/sign")
+      response.body.should match(/To send your FOI request, please sign in or make a new account./)
+    end
+
     it "should associate the request with the requestor, even if it is approved by an admin" do
         # This is a test for https://github.com/mysociety/alaveteli/issues/446
-
-        params = { :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id,
-            :title => "Why is your quango called Geraldine?", :tag_string => "" },
-            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-            :submitted_new_request => 1, :preview => 0
-        }
-
-        # Initially we are not logged in. Try to create a new request.
-        post "/new", params
-        # We expect to be redirected to the login page
+        create_request_unregistered
         post_redirect = PostRedirect.get_last_post_redirect
-        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
-        follow_redirect!
-        response.should render_template("user/sign")
-
         # Now log in as an unconfirmed user.
         post "/profile/sign_in", :user_signin => {:email => users(:unconfirmed_user).email, :password => "jonespassword"}, :token => post_redirect.token
         # This will trigger a confirmation mail. Get the PostRedirect for later.
