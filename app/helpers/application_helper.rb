@@ -77,25 +77,6 @@ module ApplicationHelper
         return LanguageNames::get_language_name(locale)
     end
 
-    # Use our own algorithm for finding path of cache
-    def foi_cache(name = {}, options = nil, &block)
-        if @controller.perform_caching
-            key = name.merge(:only_path => true)
-            key_path = @controller.foi_fragment_cache_path(key)
-
-            if @controller.foi_fragment_cache_exists?(key_path)
-                cached = @controller.foi_fragment_cache_read(key_path)
-                output_buffer.concat(cached)
-                return
-            end
-
-            pos = output_buffer.length
-            content = block.call
-            @controller.foi_fragment_cache_write(key_path, output_buffer[pos..-1])
-        else
-            block.call
-        end
-    end
     # (unfortunately) ugly way of getting id of generated form element
     # ids
     # see http://chrisblunt.com/2009/10/12/rails-getting-the-id-of-form-fields-inside-a-fields_for-block/

@@ -355,12 +355,7 @@ public
     def InfoRequest.guess_by_incoming_email(incoming_message)
         guesses = []
         # 1. Try to guess based on the email address(es)
-        addresses =
-            (incoming_message.mail.to || []) +
-            (incoming_message.mail.cc || []) +
-            (incoming_message.mail.envelope_to || [])
-        addresses.uniq!
-        for address in addresses
+        incoming_message.addresses.each do |address|
             id, hash = InfoRequest._extract_id_hash_from_email(address)
             guesses.push(InfoRequest.find_by_id(id))
             guesses.push(InfoRequest.find_by_idhash(hash))
@@ -419,8 +414,7 @@ public
         end
 
         for im in self.incoming_messages
-            other_message_id = im.mail.message_id
-            if message_id == other_message_id
+            if message_id == im.message_id
                 return true
             end
         end
@@ -1130,7 +1124,11 @@ public
         }
 
         if deep
-            ret[:user] = self.user.json_for_api
+            if self.user
+              ret[:user] = self.user.json_for_api
+            else
+              ret[:user_name] = self.user_name
+            end
             ret[:public_body] = self.public_body.json_for_api
             ret[:info_request_events] = self.info_request_events.map { |e| e.json_for_api(false) }
         end

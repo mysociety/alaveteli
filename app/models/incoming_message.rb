@@ -85,6 +85,28 @@ class IncomingMessage < ActiveRecord::Base
         @mail
     end
 
+    def from_address
+        self.mail.from_addrs[0].address
+    end
+
+    def empty_from_field?
+        self.mail.from_addrs.nil? || self.mail.from_addrs.size == 0
+    end
+
+    def from_email
+        self.mail.from_addrs[0].spec
+    end
+
+    def addresses
+        ((self.mail.to || []) +
+        (self.mail.cc || []) +
+        (self.mail.envelope_to || [])).uniq
+    end
+
+    def message_id
+        self.mail.message_id
+    end
+
     # Returns the name of the person the incoming message is from, or nil if
     # there isn't one or if there is only an email address. XXX can probably
     # remove from_name_if_present (which is a monkey patch) by just calling
@@ -93,10 +115,10 @@ class IncomingMessage < ActiveRecord::Base
     # Return false if for some reason this is a message that we shouldn't let them reply to
     def _calculate_valid_to_reply_to
         # check validity of email
-        if self.mail.from_addrs.nil? || self.mail.from_addrs.size == 0
+        if empty_from_field?
             return false
         end
-        email = self.mail.from_addrs[0].spec
+        email = self.from_email
         if !MySociety::Validate.is_valid_email(email)
             return false
         end
@@ -136,7 +158,7 @@ class IncomingMessage < ActiveRecord::Base
                 # instead?
                 self.mail_from = self.mail.from_name_if_present
                 begin
-                    self.mail_from_domain = PublicBody.extract_domain_from_email(self.mail.from_addrs[0].spec)
+                    self.mail_from_domain = PublicBody.extract_domain_from_email(self.from_email)
                 rescue NoMethodError
                     self.mail_from_domain = ""
                 end
@@ -1062,10 +1084,10 @@ class IncomingMessage < ActiveRecord::Base
     # Return false if for some reason this is a message that we shouldn't let them reply to
     def valid_to_reply_to?
         # check validity of email
-        if self.mail.from_addrs.nil? || self.mail.from_addrs.size == 0
+        if empty_from_field?
             return false
         end
-        email = self.mail.from_addrs[0].spec
+        email = self.from_email
         if !MySociety::Validate.is_valid_email(email)
             return false
         end

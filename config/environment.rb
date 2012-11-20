@@ -1,8 +1,14 @@
 # Be sure to restart your web server when you modify this file.
-
-# the default encoding for IO is utf-8, and we use utf-8 internally
 if RUBY_VERSION.to_f >= 1.9
+    # the default encoding for IO is utf-8, and we use utf-8 internally
     Encoding.default_external = Encoding.default_internal = Encoding::UTF_8
+    # Suppress warning messages and require inflector to avoid iconv deprecation message
+    # "iconv will be deprecated in the future, use String#encode instead." when loading
+    # it as part of rails
+    original_verbose, $VERBOSE = $VERBOSE, nil
+    require 'active_support/inflector'
+    # Activate warning messages again.
+    $VERBOSE = original_verbose
 end
 
 # Uncomment below to force Rails into production mode when
@@ -20,7 +26,6 @@ $:.push(File.join(File.dirname(__FILE__), '../commonlib/rblib'))
 # ... if these fail to include, you need the commonlib submodule from git
 # (type "git submodule update --init" in the whatdotheyknow directory)
 
-# ruby-ole and ruby-msg.  We use a custom ruby-msg to avoid a name conflict
 $:.unshift(File.join(File.dirname(__FILE__), '../vendor/plugins/globalize2/lib'))
 
 load "validate.rb"
