@@ -8,9 +8,9 @@ describe UserController, "when showing a user" do
     integrate_views
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
-   
+
     it "should be successful" do
         get :show, :url_name => "bob_smith"
         response.should be_success
@@ -45,7 +45,7 @@ describe UserController, "when showing a user" do
         get :show, :url_name => "bob_smith"
         assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(
             :conditions => "user_id = #{users(:bob_smith_user).id}")
-        
+
         get :show, :url_name => "bob_smith", :user_query => "money"
         assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ [
             info_requests(:naughty_chicken_request),
@@ -218,7 +218,7 @@ describe UserController, "when signing in" do
         # Get the confirmation URL, and check we’re still Joe
         get :confirm, :email_token => post_redirect.email_token
         session[:user_id].should == users(:admin_user).id
-        
+
         # And the redirect should still work, of course
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
 
@@ -232,21 +232,21 @@ describe UserController, "when signing up" do
 
     it "should be an error if you type the password differently each time" do
         post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
-            :password => 'sillypassword', :password_confirmation => 'sillypasswordtwo' } 
+            :password => 'sillypassword', :password_confirmation => 'sillypasswordtwo' }
         }
         assigns[:user_signup].errors[:password].should == 'Please enter the same password twice'
     end
 
     it "should be an error to sign up with a misformatted email" do
         post :signup, { :user_signup => { :email => 'malformed-email', :name => 'Mr Malformed',
-            :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
+            :password => 'sillypassword', :password_confirmation => 'sillypassword' }
         }
         assigns[:user_signup].errors[:email].should_not be_nil
     end
 
     it "should send confirmation mail if you fill in the form right" do
         post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
-            :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
+            :password => 'sillypassword', :password_confirmation => 'sillypassword' }
         }
         response.should render_template('confirm')
 
@@ -270,13 +270,13 @@ describe UserController, "when signing up" do
 
     it "should send special 'already signed up' mail if you fill the form in with existing registered email" do
         post :signup, { :user_signup => { :email => 'silly@localhost', :name => 'New Person',
-            :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
+            :password => 'sillypassword', :password_confirmation => 'sillypassword' }
         }
         response.should render_template('confirm')
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
-        
+
         # This text may span a line break, depending on the length of the SITE_NAME
         deliveries[0].body.should match(/when\s+you\s+already\s+have\s+an/)
     end
@@ -377,7 +377,7 @@ describe UserController, "when changing password" do
         get :signchangepassword
         response.should render_template('signchangepassword')
     end
- 
+
     it "should change the password, if you have right to do so" do
         session[:user_id] = users(:bob_smith_user).id
         session[:user_circumstance] = "change_password"
@@ -437,8 +437,8 @@ describe UserController, "when changing email address" do
     it "should be an error if the password is wrong, everything else right" do
         @user = users(:bob_smith_user)
         session[:user_id] = @user.id
-        
-        post :signchangeemail, { :signchangeemail => { :old_email => 'bob@localhost', 
+
+        post :signchangeemail, { :signchangeemail => { :old_email => 'bob@localhost',
                 :password => 'donotknowpassword', :new_email => 'newbob@localhost' },
             :submitted_signchangeemail_do => 1
         }
@@ -455,8 +455,8 @@ describe UserController, "when changing email address" do
     it "should be an error if old email is wrong, everything else right" do
         @user = users(:bob_smith_user)
         session[:user_id] = @user.id
-        
-        post :signchangeemail, { :signchangeemail => { :old_email => 'bob@moo', 
+
+        post :signchangeemail, { :signchangeemail => { :old_email => 'bob@moo',
                 :password => 'jonespassword', :new_email => 'newbob@localhost' },
             :submitted_signchangeemail_do => 1
         }
@@ -473,8 +473,8 @@ describe UserController, "when changing email address" do
     it "should work even if the old email had a case difference" do
         @user = users(:bob_smith_user)
         session[:user_id] = @user.id
-        
-        post :signchangeemail, { :signchangeemail => { :old_email => 'BOB@localhost', 
+
+        post :signchangeemail, { :signchangeemail => { :old_email => 'BOB@localhost',
                 :password => 'jonespassword', :new_email => 'newbob@localhost' },
             :submitted_signchangeemail_do => 1
         }
@@ -485,8 +485,8 @@ describe UserController, "when changing email address" do
     it "should send confirmation email if you get all the details right" do
         @user = users(:bob_smith_user)
         session[:user_id] = @user.id
-        
-        post :signchangeemail, { :signchangeemail => { :old_email => 'bob@localhost', 
+
+        post :signchangeemail, { :signchangeemail => { :old_email => 'bob@localhost',
                 :password => 'jonespassword', :new_email => 'newbob@localhost' },
             :submitted_signchangeemail_do => 1
         }
@@ -521,16 +521,16 @@ describe UserController, "when changing email address" do
         post_redirect = PostRedirect.find_by_email_token(mail_token)
         post_redirect.circumstance.should == 'change_email'
         post_redirect.user.should == users(:bob_smith_user)
-        post_redirect.post_params.should == {"submitted_signchangeemail_do"=>"1", 
-                "action"=>"signchangeemail", 
+        post_redirect.post_params.should == {"submitted_signchangeemail_do"=>"1",
+                "action"=>"signchangeemail",
                 "signchangeemail"=>{
-                    "old_email"=>"bob@localhost", 
-                    "new_email"=>"newbob@localhost"}, 
+                    "old_email"=>"bob@localhost",
+                    "new_email"=>"newbob@localhost"},
                 "controller"=>"user"}
         post :signchangeemail, post_redirect.post_params
 
         response.should redirect_to(:controller => 'user', :action => 'show', :url_name => 'bob_smith')
-        flash[:notice].should match(/You have now changed your email address/) 
+        flash[:notice].should match(/You have now changed your email address/)
         @user.reload
         @user.email.should == 'newbob@localhost'
         @user.email_confirmed.should == true
@@ -539,8 +539,8 @@ describe UserController, "when changing email address" do
     it "should send special 'already signed up' mail if you try to change your email to one already used" do
         @user = users(:bob_smith_user)
         session[:user_id] = @user.id
-        
-        post :signchangeemail, { :signchangeemail => { :old_email => 'bob@localhost', 
+
+        post :signchangeemail, { :signchangeemail => { :old_email => 'bob@localhost',
                 :password => 'jonespassword', :new_email => 'silly@localhost' },
             :submitted_signchangeemail_do => 1
         }
@@ -572,9 +572,9 @@ describe UserController, "when using profile photos" do
         @uploadedfile_2 = File.open(file_fixture_name("parrot.jpg"))
         @uploadedfile_2.stub!(:original_filename).and_return('parrot.jpg')
     end
-    
+
     it "should not let you change profile photo if you're not logged in as the user" do
-        post :set_profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_draft_profile_photo => 1, :automatically_crop => 1 } 
+        post :set_profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_draft_profile_photo => 1, :automatically_crop => 1 }
     end
 
     it "should return a 404 not a 500 when a profile photo has not been set" do
@@ -588,10 +588,10 @@ describe UserController, "when using profile photos" do
         @user.profile_photo.should be_nil
         session[:user_id] = @user.id
 
-        post :set_profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_draft_profile_photo => 1, :automatically_crop => 1 } 
+        post :set_profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_draft_profile_photo => 1, :automatically_crop => 1 }
 
         response.should redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
-        flash[:notice].should match(/Thank you for updating your profile photo/) 
+        flash[:notice].should match(/Thank you for updating your profile photo/)
 
         @user.reload
         @user.profile_photo.should_not be_nil
@@ -601,13 +601,13 @@ describe UserController, "when using profile photos" do
         @user.profile_photo.should be_nil
         session[:user_id] = @user.id
 
-        post :set_profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_draft_profile_photo => 1, :automatically_crop => 1 } 
+        post :set_profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_draft_profile_photo => 1, :automatically_crop => 1 }
         response.should redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
-        flash[:notice].should match(/Thank you for updating your profile photo/) 
+        flash[:notice].should match(/Thank you for updating your profile photo/)
 
-        post :set_profile_photo, { :id => @user.id, :file => @uploadedfile_2, :submitted_draft_profile_photo => 1, :automatically_crop => 1 } 
+        post :set_profile_photo, { :id => @user.id, :file => @uploadedfile_2, :submitted_draft_profile_photo => 1, :automatically_crop => 1 }
         response.should redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
-        flash[:notice].should match(/Thank you for updating your profile photo/) 
+        flash[:notice].should match(/Thank you for updating your profile photo/)
 
         @user.reload
         @user.profile_photo.should_not be_nil
@@ -617,7 +617,7 @@ describe UserController, "when using profile photos" do
 end
 
 describe UserController, "when showing JSON version for API" do
-  
+
     it "should be successful" do
         get :show, :url_name => "bob_smith", :format => "json"
 
@@ -634,7 +634,7 @@ describe UserController, "when viewing the wall" do
     integrate_views
 
     before(:each) do
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
 
     it "should show users stuff on their wall, most recent first" do

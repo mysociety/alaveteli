@@ -144,7 +144,7 @@ describe GeneralController, "when showing the front page with fixture data" do
     describe 'when constructing the list of recent requests' do
 
         before(:each) do
-            rebuild_xapian_index
+            get_fixtures_xapian_index
         end
 
         describe 'when there are fewer than five successful requests' do
@@ -189,8 +189,8 @@ describe GeneralController, 'when using xapian search' do
 
     # rebuild xapian index after fixtures loaded
     before(:each) do
-      load_raw_emails_data
-      rebuild_xapian_index
+        load_raw_emails_data
+        get_fixtures_xapian_index
     end
 
     it "should redirect from search query URL to pretty URL" do

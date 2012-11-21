@@ -4,7 +4,7 @@ describe "When searching" do
 
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
 
     it "should not strip quotes from quoted query" do
