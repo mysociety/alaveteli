@@ -204,15 +204,14 @@ class RequestMailer < ApplicationMailer
     #
     # That is because we want to be sure we properly record the actual message
     # received in its raw form - so any information won't be lost in a round
-    # trip via TMail, or by bugs in it, and so we can use something other than
-    # TMail at a later date. And so we can offer an option to download the
+    # trip via the mail handler, or by bugs in it, and so we can use something
+    # other than TMail at a later date. And so we can offer an option to download the
     # actual original mail sent by the authority in the admin interface (so
     # can check that attachment decoding failures are problems in the message,
     # not in our code). ]
     def self.receive(raw_email)
         logger.info "Received mail:\n #{raw_email}" unless logger.nil?
-        mail = TMail::Mail.parse(raw_email)
-        mail.base64_decode
+        mail = MailHandler.mail_from_raw_email(raw_email)
         new.receive(mail, raw_email)
     end
 

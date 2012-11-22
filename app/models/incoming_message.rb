@@ -38,14 +38,6 @@ require 'zip/zip'
 require 'mapi/msg'
 require 'mapi/convert'
 
-# Monkeypatch! Adding some extra members to store extra info in.
-module TMail
-    class Mail
-        attr_accessor :url_part_number
-        attr_accessor :rfc822_attachment # when a whole email message is attached as text
-        attr_accessor :within_rfc822_attachment # for parts within a message attached as text (for getting subject mainly)
-    end
-end
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -70,17 +62,10 @@ class IncomingMessage < ActiveRecord::Base
         'application/zip' => 1,
     }
 
-    # Return the structured TMail::Mail object
-    # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
+    # Return a cached structured mail object
     def mail(force = nil)
         if (!force.nil? || @mail.nil?) && !self.raw_email.nil?
-            # Hack round bug in TMail's MIME decoding.
-            # Report of TMail bug:
-            # http://rubyforge.org/tracker/index.php?func=detail&aid=21810&group_id=4512&atid=17370
-            copy_of_raw_data = self.raw_email.data.gsub(/; boundary=\s+"/im,'; boundary="')
-
-            @mail = TMail::Mail.parse(copy_of_raw_data)
-            @mail.base64_decode
+            @mail = MailHandler.mail_from_raw_email(self.raw_email.data)
         end
         @mail
     end
@@ -207,9 +192,9 @@ class IncomingMessage < ActiveRecord::Base
 
     # Number the attachments in depth first tree order, for use in URLs.
     # XXX This fills in part.rfc822_attachment and part.url_part_number within
-    # all the parts of the email (see TMail monkeypatch above for how these
-    # attributes are added). ensure_parts_counted must be called before using
-    # the attributes.
+    # all the parts of the email (see monkeypatches in lib/mail_handler/tmail_extensions and
+    # lib/mail_handler/mail_extensions for how these attributes are added). ensure_parts_counted
+    # must be called before using the attributes.
     def ensure_parts_counted
         @count_parts_count = 0
         _count_parts_recursive(self.mail)
@@ -222,20 +207,20 @@ class IncomingMessage < ActiveRecord::Base
                 _count_parts_recursive(p)
             end
         else
-            part_filename = TMail::Mail.get_part_file_name(part)
+            part_filename = MailHandler.get_part_file_name(part)
             begin
                 if part.content_type == 'message/rfc822'
                     # An email attached as text
                     # e.g. http://www.whatdotheyknow.com/request/64/response/102
-                    part.rfc822_attachment = TMail::Mail.parse(part.body)
+                    part.rfc822_attachment = MailHandler.mail_from_raw_email(part.body, decode=false)
                 elsif part.content_type == 'application/vnd.ms-outlook' || part_filename && AlaveteliFileTypes.filename_to_mimetype(part_filename) == 'application/vnd.ms-outlook'
                     # An email attached as an Outlook file
                     # e.g. http://www.whatdotheyknow.com/request/chinese_names_for_british_politi
                     msg = Mapi::Msg.open(StringIO.new(part.body))
-                    part.rfc822_attachment = TMail::Mail.parse(msg.to_mime.to_s)
+                    part.rfc822_attachment = MailHandler.mail_from_raw_email(msg.to_mime.to_s, decode=false)
                 elsif part.content_type == 'application/ms-tnef'
                     # A set of attachments in a TNEF file
-                    part.rfc822_attachment = TNEF.as_tmail(part.body)
+                    part.rfc822_attachment = MailHandler.mail_from_tnef(part.body)
                 end
             rescue
                 # If attached mail doesn't parse, treat it as text part
@@ -473,16 +458,6 @@ class IncomingMessage < ActiveRecord::Base
         return text
     end
 
-    # Internal function
-    def _get_part_file_name(mail)
-        part_file_name = TMail::Mail.get_part_file_name(mail)
-        if part_file_name.nil?
-            return nil
-        end
-        part_file_name = part_file_name.dup
-        return part_file_name
-    end
-
     # (This risks losing info if the unchosen alternative is the only one to contain
     # useful info, but let's worry about that another time)
     def get_attachment_leaves
@@ -534,7 +509,7 @@ class IncomingMessage < ActiveRecord::Base
             end
             # PDFs often come with this mime type, fix it up for view code
             if curr_mail.content_type == 'application/octet-stream'
-                part_file_name = self._get_part_file_name(curr_mail)
+                part_file_name = MailHandler.get_part_file_name(curr_mail)
                 calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(part_file_name, curr_mail.body)
                 if calc_mime
                     curr_mail.content_type = calc_mime
@@ -814,7 +789,7 @@ class IncomingMessage < ActiveRecord::Base
             attachment = self.foi_attachments.find_or_create_by_hexdigest(:hexdigest => hexdigest)
             attachment.update_attributes(:url_part_number => leaf.url_part_number,
                                          :content_type => leaf.content_type,
-                                         :filename => _get_part_file_name(leaf),
+                                         :filename => MailHandler.get_part_file_name(leaf),
                                          :charset => leaf.charset,
                                          :within_rfc822_subject => within_rfc822_subject,
                                          :body => body)

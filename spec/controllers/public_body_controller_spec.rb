@@ -6,7 +6,7 @@ describe PublicBodyController, "when showing a body" do
 
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
 
     it "should be successful" do
@@ -29,14 +29,14 @@ describe PublicBodyController, "when showing a body" do
         assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(
             :conditions => ["public_body_id = ?", public_bodies(:geraldine_public_body).id])
     end
-    
+
     it "should assign the requests (2)" do
         get :show, :url_name => "tgq", :view => 'successful'
         assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(
             :conditions => ["described_state = ? and public_body_id = ?",
                 "successful", public_bodies(:geraldine_public_body).id])
     end
-    
+
     it "should assign the requests (3)" do
         get :show, :url_name => "dfh", :view => 'all'
         assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(
@@ -66,7 +66,7 @@ describe PublicBodyController, "when showing a body" do
 
         ActionController::Routing::Routes.filters = old_filters
     end
- 
+
     it "should redirect to newest name if you use historic name of public body in URL" do
         get :show, :url_name => "hdink", :view => 'all'
         response.should redirect_to(:controller => 'public_body', :action => 'show', :url_name => "dfh")
@@ -148,7 +148,7 @@ describe PublicBodyController, "when listing bodies" do
         get :list, :tag => "other"
         response.should render_template('list')
         assigns[:public_bodies].should =~ PublicBody.all(:conditions => "id not in (#{public_bodies(:humpadink_public_body).id}, #{PublicBody.internal_admin_body.id})")
-        
+
         get :list
         response.should render_template('list')
         assigns[:public_bodies].should =~ PublicBody.all(:conditions => "id <> #{PublicBody.internal_admin_body.id}")
@@ -194,10 +194,10 @@ end
 describe PublicBodyController, "when doing type ahead searches" do
 
     integrate_views
-    
+
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
 
     it "should return nothing for the empty query string" do
@@ -205,7 +205,7 @@ describe PublicBodyController, "when doing type ahead searches" do
         response.should render_template('public_body/_search_ahead')
         assigns[:xapian_requests].should be_nil
     end
-    
+
     it "should return a body matching the given keyword, but not users with a matching description" do
         get :search_typeahead, :query => "Geraldine"
         response.should render_template('public_body/_search_ahead')
@@ -230,7 +230,7 @@ describe PublicBodyController, "when doing type ahead searches" do
     end
 
     it "should not return  matches for short words" do
-        get :search_typeahead, :query => "b" 
+        get :search_typeahead, :query => "b"
         response.should render_template('public_body/_search_ahead')
         assigns[:xapian_requests].should be_nil
     end

@@ -5,7 +5,7 @@ describe RequestController, "when listing recent requests" do
 
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
 
     it "should be successful" do

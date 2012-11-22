@@ -21,6 +21,7 @@ GEM
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
     chunky_png (1.2.6)
+    columnize (0.3.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -156,6 +157,7 @@ DEPENDENCIES
   json (~> 1.5.1)
   locale (>= 2.0.5)
   mahoro
+  mail
   mailcatcher
   memcache-client
   net-http-local

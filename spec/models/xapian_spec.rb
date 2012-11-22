@@ -4,9 +4,9 @@ describe User, " when indexing users with Xapian" do
 
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
-    
+
     it "should search by name" do
         # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
         xapian_object = InfoRequest.full_search([User], "Silly", 'created_at', true, nil, 100, 1)
@@ -21,7 +21,7 @@ describe User, " when indexing users with Xapian" do
         xapian_object = InfoRequest.full_search([User], "stuff", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == user
-        
+
         user.about_me = "I am really an aardvark, true story."
         user.save!
         update_xapian_index
@@ -38,7 +38,7 @@ end
 describe PublicBody, " when indexing public bodies with Xapian" do
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
 
     it "should search index the main name field" do
@@ -71,7 +71,7 @@ describe PublicBody, " when indexing requests by body they are to" do
 
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
 
     it "should find requests to the body" do
@@ -126,7 +126,7 @@ end
 describe User, " when indexing requests by user they are from" do
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
 
     it "should find requests from the user" do
@@ -204,7 +204,7 @@ end
 describe User, " when indexing comments by user they are by" do
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
 
     it "should find requests from the user" do
@@ -239,7 +239,7 @@ end
 describe InfoRequest, " when indexing requests by their title" do
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
 
     it "should find events for the request" do
@@ -268,7 +268,7 @@ end
 describe InfoRequest, " when indexing requests by tag" do
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
 
     it "should find request by tag, even when changes" do
@@ -289,7 +289,7 @@ end
 describe PublicBody, " when indexing authorities by tag" do
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
 
     it "should find request by tag, even when changes" do
@@ -313,7 +313,7 @@ end
 describe PublicBody, " when only indexing selected things on a rebuild" do
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
 
     it "should only index what we ask it to" do

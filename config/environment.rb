@@ -92,6 +92,8 @@ Rails::Initializer.run do |config|
      require 'routing_filters.rb'
   end
 
+  config.autoload_paths << "#{RAILS_ROOT}/lib/mail_handler"
+
   # See Rails::Configuration for more options
   ENV['RECAPTCHA_PUBLIC_KEY'] = Configuration::recaptcha_public_key
   ENV['RECAPTCHA_PRIVATE_KEY'] = Configuration::recaptcha_private_key
@@ -140,7 +142,6 @@ WillPaginate::ViewHelpers.pagination_options[:renderer] = 'WillPaginateExtension
 
 # Load monkey patches and other things from lib/
 require 'ruby19.rb'
-require 'tmail_extensions.rb'
 require 'activesupport_cache_extensions.rb'
 require 'timezone_fixes.rb'
 require 'use_spans_for_errors.rb'
@@ -148,12 +149,12 @@ require 'make_html_4_compliant.rb'
 require 'activerecord_errors_extensions.rb'
 require 'willpaginate_extension.rb'
 require 'sendmail_return_path.rb'
-require 'tnef.rb'
 require 'i18n_fixes.rb'
 require 'rack_quote_monkeypatch.rb'
 require 'world_foi_websites.rb'
 require 'alaveteli_external_command.rb'
 require 'quiet_opener.rb'
+require 'mail_handler'
 
 if !Configuration.exception_notifications_from.blank? && !Configuration.exception_notifications_to.blank?
   ExceptionNotification::Notifier.sender_address = Configuration::exception_notifications_from

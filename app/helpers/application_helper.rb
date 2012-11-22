@@ -112,5 +112,12 @@ module ApplicationHelper
         return "#{exact_date} (#{ago_text})"
     end
 
+    # Note that if the admin interface is proxied via another server, we can't
+    # rely on a sesssion being shared between the front end and admin interface,
+    # so need to check the status of the user.
+    def is_admin?
+      return !session[:using_admin].nil? || (!@user.nil? && @user.super?)
+    end
+
 end
 

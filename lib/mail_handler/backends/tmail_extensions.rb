@@ -15,6 +15,12 @@ require 'tmail/interface'
 # These mainly used in app/models/incoming_message.rb
 module TMail
     class Mail
+        # Monkeypatch! Adding some extra members to store extra info in.
+
+        attr_accessor :url_part_number
+        attr_accessor :rfc822_attachment # when a whole email message is attached as text
+        attr_accessor :within_rfc822_attachment # for parts within a message attached as text (for getting subject mainly)
+
         # Monkeypatch! (check to see if this becomes a standard function in
         # TMail::Mail, then use that, whatever it is called)
         def Mail.get_part_file_name(part)
@@ -68,22 +74,6 @@ module TMail
 
     end
 
-    class Address
-        # Monkeypatch! Constructor which makes a TMail::Address given
-        # a name and an email
-        def Address.address_from_name_and_email(name, email)
-            if !MySociety::Validate.is_valid_email(email)
-                raise "invalid email " + email + " passed to address_from_name_and_email"
-            end
-            if name.nil?
-                return TMail::Address.parse(email)
-            end
-            # Botch an always quoted RFC address, then parse it
-            name = name.gsub(/(["\\])/, "\\\\\\1")
-            return TMail::Address.parse('"' + name + '" <' + email + '>')
-        end
-    end
-
     module TextUtils
         # Monkeypatch! Much more aggressive list of characters to cause quoting
         # than in normal TMail. e.g. Have found real cases where @ needs quoting.
@@ -95,8 +85,8 @@ module TMail
     end
 end
 
-# Monkeypatch! TMail 1.2.7.1 will parse only one address out of a list of addresses with 
-# unquoted display parts https://github.com/mikel/tmail/issues#issue/9 - this monkeypatch 
+# Monkeypatch! TMail 1.2.7.1 will parse only one address out of a list of addresses with
+# unquoted display parts https://github.com/mikel/tmail/issues#issue/9 - this monkeypatch
 # fixes this issue.
 module TMail
 
