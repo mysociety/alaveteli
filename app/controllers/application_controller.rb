@@ -54,10 +54,15 @@ class ApplicationController < ActionController::Base
     end
 
     def set_gettext_locale
-        if Configuration::use_default_browser_language
-            requested_locale = params[:locale] || session[:locale] || cookies[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'] || I18n.default_locale
+        if Configuration::include_default_locale_in_urls == false
+            params_locale = params[:locale] ? params[:locale] : I18n.default_locale
         else
-            requested_locale = params[:locale] || session[:locale] || cookies[:locale] || I18n.default_locale
+            params_locale = params[:locale]
+        end
+        if Configuration::use_default_browser_language
+            requested_locale = params_locale || session[:locale] || cookies[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'] || I18n.default_locale
+        else
+            requested_locale = params_locale || session[:locale] || cookies[:locale] || I18n.default_locale
         end
         requested_locale = FastGettext.best_locale_in(requested_locale)
         session[:locale] = FastGettext.set_locale(requested_locale)
