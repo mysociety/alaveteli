@@ -25,6 +25,7 @@ module Configuration
     :GA_CODE => '',
     :GAZE_URL => '',
     :HTML_TO_PDF_COMMAND => '',
+    :INCLUDE_DEFAULT_LOCALE_IN_URLS => true,
     :INCOMING_EMAIL_DOMAIN => 'localhost',
     :INCOMING_EMAIL_PREFIX => '',
     :INCOMING_EMAIL_SECRET => 'dummysecret',
