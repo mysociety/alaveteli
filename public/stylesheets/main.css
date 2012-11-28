@@ -744,6 +744,10 @@ padding:4px;
 margin:0.5em 0;
 }
 
+#everypage .popup-close {
+  text-align: right;
+}
+
 #game_sidebar {
 float:right;
 clear:none;
