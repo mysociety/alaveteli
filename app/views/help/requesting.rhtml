@@ -20,7 +20,7 @@
   <li>Don't worry excessively about getting the right authority. If you get it
   wrong, they ought to advise you who to make the request to instead.
   </li>
-  <li>If you've got a thorny case, please <a href="/help/contact">contact us</a> for help.</li>
+  <li>If you've got a thorny case, please <a href="<%= help_contact_path %>">contact us</a> for help.</li>
   </ul>
 
   </dd>
@@ -30,7 +30,7 @@
   <dt id="missing_body">You're missing the public authority that I want to request from! <a href="#missing_body">#</a> </dt>
 
   <dd>
-  <p>Please <a href="/help/contact">contact us</a> with the name of the public authority and,
+  <p>Please <a href="<%= help_contact_path %>">contact us</a> with the name of the public authority and,
   if you can find it, their contact email address for Freedom of Information requests.
   </p>
   <p>If you'd like to help add a whole category of public authority to the site, we'd love
@@ -47,11 +47,11 @@
 
   <ul>
     <li> Those formally subject to the FOI Act</li>
-    <li> Those formally subject to the Environmental Regulations (a less well  
+    <li> Those formally subject to the Environmental Regulations (a less well
     defined group)</li>
     <li> Those which voluntarily comply with the FOI Act</li>
     <li> Those which aren't subject to the Act but we think should be, on grounds
-    such as them having significant public responsibilities. 
+    such as them having significant public responsibilities.
     </li>
   </ul>
 
@@ -132,7 +132,7 @@
   <p>Even if they are not prompt, in nearly all cases they must respond within
   20 working days. If you had to clarify your request, or they are a school,
   or one or two other cases, then they may have more time
-  (<a href="/help/officers#days">full details</a>).
+  (<a href="<%= help_officers_path(:anchor => 'days') %>">full details</a>).
 
   <p>WhatDoTheyKnow will email you if you don't get a timely response.  You can
   then send the public authority a message to remind them, and tell them if they
@@ -158,24 +158,24 @@
       checking that they received the request. It was sent to them by email.
       </li>
       <li>If they have not received it, the problem is most likely due to
-      "spam filters". Refer the authority to the measures in the answer 
-      '<a href="/help/officers#spam_problems">I can see a request on WhatDoTheyKnow, but we never got it by email!</a>' 
-      in the FOI officers section of this help. 
+      "spam filters". Refer the authority to the measures in the answer
+      '<a href="<%= help_officers_path(:anchor => 'spam_problems') %>">I can see a request on WhatDoTheyKnow, but we never got it by email!</a>'
+      in the FOI officers section of this help.
       </li>
       <li>If you're still having no luck, then you can ask for an internal review,
       and then complain to the Information Commissioner about the authority.
-      Read our page '<a href="/help/unhappy">Unhappy about the response you got?</a>'.
+      Read our page '<a href="<%= help_unhappy_path %>">Unhappy about the response you got?</a>'.
   </ul>
   </dd>
 
   <dt id="not_satifised">What if I'm not satisfied with the response? <a href="#not_satifised">#</a> </dt>
   <dd>If you didn't get the information you asked for, or you didn't get it in time,
-  then read our page '<a href="/help/unhappy">Unhappy about the response you got?</a>'.
+  then read our page '<a href="<%= help_unhappy_path %>">Unhappy about the response you got?</a>'.
   </dd>
 
   <dt id="reuse">It says I can't re-use the information I got!<a href="#reuse">#</a> </dt>
   <dd>
-  <p>Authorities often add legal boilerplate about the 
+  <p>Authorities often add legal boilerplate about the
   "<a href="http://www.opsi.gov.uk/si/si2005/20051515">Re-Use of Public Sector
   Information Regulations 2005</a>", which at first glance implies you may not
   be able do anything with the information.
@@ -184,7 +184,7 @@
   <p>You can, of course, write articles about the information or summarise it, or
   quote parts of it. We also think you should feel free to republish the
   information in full, just as we do, even though in theory you might not be
-  allowed to do so.  See <a href="/help/officers#copyright">our policy on copyright</a>.</p>
+  allowed to do so.  See <a href="<%= help_officers_path(:anchor => 'copyright') %>">our policy on copyright</a>.</p>
 
   </dd>
 
@@ -199,7 +199,7 @@
   the process is very similar. There are differences around time
   limits for compliance.
   See the <a href="http://www.itspublicknowledge.info/nmsruntime/saveasdialog.asp?lID=1858&amp;sID=321">Scottish
-  Information Commissioner's guidance</a> for details.</p> 
+  Information Commissioner's guidance</a> for details.</p>
   </dd>
 
   <dt id="data_protection">Can I request information about myself? <a href="#data_protection">#</a> </dt>
@@ -216,7 +216,7 @@
   website) explains how to do this.</p>
 
   <p>If you see that somebody has included personal information, perhaps
-  unwittingly, in a request, please <a href="/help/contact">contact us</a>
+  unwittingly, in a request, please <a href="<%= help_contact_path %>">contact us</a>
   immediately so we can remove it.</p>
   </dd>
 
@@ -228,7 +228,7 @@
   to read.  </p>
   <p>You should contact the public authority directly if you would like to
   make a request in private.  If you're interested in buying a system which helps
-  you manage FOI requests in secret, then <a href="/help/contact">contact us</a>.
+  you manage FOI requests in secret, then <a href="<%= help_contact_path %>">contact us</a>.
   </p>
   </dd>
 
@@ -237,7 +237,7 @@
   <dd>
   <p>Some public authorities, such as <a href="http://www.whatdotheyknow.com/body/south_east_water">South East Water</a>,
   don't come under the Freedom of Information Act, but do come under another law called
-  the Environmental Information Regulations (EIR). 
+  the Environmental Information Regulations (EIR).
   </p>
 
   <p>It's a very similar law, so you make a request
@@ -250,7 +250,7 @@
   <p>You can, of course, request environmental information from other
   authorities. Just make a Freedom of Information (FOI) request as normal. The
   authority has a duty to work out if the Environmental Information Regulations
-  (EIR) is the more appropriate legislation to reply under. 
+  (EIR) is the more appropriate legislation to reply under.
   </p>
   </dd>
 
@@ -275,7 +275,7 @@
 
   <dt id="moderation">How do you moderate request annotations? <a href="#moderation">#</a> </dt>
 
-  <dd> 
+  <dd>
   <p>Annotations on WhatDoTheyKnow are to help
   people get the information they want, or to give them pointers to places they
   can go to help them act on it. We reserve the right to remove anything else.
@@ -286,7 +286,7 @@
 
   </dl>
 
-  <p><strong>Next</strong>, read about <a href="/help/privacy">your privacy</a> --&gt;
+  <p><strong>Next</strong>, read about <a href="<%= help_privacy_path %>">your privacy</a> --&gt;
 
   <div id="hash_link_padding"></div>
 </div>
