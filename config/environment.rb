@@ -9,6 +9,8 @@ if RUBY_VERSION.to_f >= 1.9
     require 'active_support/inflector'
     # Activate warning messages again.
     $VERBOSE = original_verbose
+    require 'yaml'
+    YAML::ENGINE.yamler = "syck"
 end
 
 # Uncomment below to force Rails into production mode when
