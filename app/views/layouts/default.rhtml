@@ -100,7 +100,7 @@
         <% end %>
 
         <div id="navigation_search">
-          <form id="navigation_search_form" method="post" action="/search">
+          <form id="navigation_search_form" method="post" action="<%= search_redirect_path %>">
              <p>
                  <%= text_field_tag 'query', params[:query], { :size => 40, :id => "navigation_search_query" } %>
                  <input id="navigation_search_button" type="submit" value="search">
