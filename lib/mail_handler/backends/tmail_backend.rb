@@ -41,6 +41,10 @@ module MailHandler
                 return part_file_name
             end
 
+            def get_part_body(mail_part)
+                mail_part.body
+            end
+
             def address_from_name_and_email(name, email)
                 if !MySociety::Validate.is_valid_email(email)
                     raise "invalid email " + email + " passed to address_from_name_and_email"

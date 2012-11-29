@@ -510,7 +510,8 @@ class IncomingMessage < ActiveRecord::Base
             # PDFs often come with this mime type, fix it up for view code
             if curr_mail.content_type == 'application/octet-stream'
                 part_file_name = MailHandler.get_part_file_name(curr_mail)
-                calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(part_file_name, curr_mail.body)
+                part_body = MailHandler.get_part_body(curr_mail)
+                calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(part_file_name, part_body)
                 if calc_mime
                     curr_mail.content_type = calc_mime
                 end

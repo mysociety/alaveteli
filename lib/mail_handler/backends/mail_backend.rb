@@ -29,6 +29,10 @@ module MailHandler
                 part_file_name.nil? ? nil : part_file_name.dup
             end
 
+            def get_part_body(mail_part)
+                mail_part.body.decoded
+            end
+
             # Format
             def address_from_name_and_email(name, email)
                 if !MySociety::Validate.is_valid_email(email)
