@@ -38,7 +38,7 @@ class FoiAttachment < ActiveRecord::Base
     BODY_MAX_DELAY = 5
 
     def directory
-        rails_env = ENV['RAILS_ENV']
+        rails_env = Rails.env
         if rails_env.nil? || rails_env.empty?
             raise "$RAILS_ENV is not set"
         end
@@ -323,7 +323,7 @@ class FoiAttachment < ActiveRecord::Base
             elsif self.content_type == 'application/rtf'
                 html = AlaveteliExternalCommand.run("unrtf", "--html", tempfile.path, :timeout => 120)
             end
-            
+
             if html.nil?
                 if self.has_google_docs_viewer?
                     html = '' # force error and using Google docs viewer
