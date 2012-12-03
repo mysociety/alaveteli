@@ -79,7 +79,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     def from_email
-        self.mail.from_addrs[0].spec
+        MailHandler.get_from_address(self.mail)
     end
 
     def addresses
