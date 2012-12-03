@@ -14,7 +14,8 @@ move towards a world where governments approach transparency as the
 norm, rather than the exception.
 
 Please join our mailing list at
-https://groups.google.com/group/alaveteli-dev and introduce yourself.
+https://groups.google.com/group/alaveteli-dev and introduce yourself, or
+drop a line to hello@alaveteli.org to let us know that you're using Alaveteli.
 
 Some documentation can be found in the
 [`doc/` folder](https://github.com/mysociety/alaveteli/tree/master/doc).
