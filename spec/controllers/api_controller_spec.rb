@@ -14,21 +14,34 @@ Spec::Matchers.define :be_equal_modulo_whitespace_to do |expected|
 end
 
 describe ApiController, "when using the API" do
-    it "should check the API key" do
-        request_data = {
+
+    describe 'checking API keys' do
+      before do
+        @number_of_requests = InfoRequest.count
+        @request_data = {
             "title" => "Tell me about your chickens",
             "body" => "Dear Sir,\n\nI should like to know about your chickens.\n\nYours in faith,\nBob\n",
 
             "external_url" => "http://www.example.gov.uk/foi/chickens_23",
             "external_user_name" => "Bob Smith",
         }
+      end
 
-        number_of_requests = InfoRequest.count
+      it 'should check that an API key is given as a param' do
         expect {
-            post :create_request, :k => "This is not really an API key", :request_json => request_data.to_json
+            post :create_request, :request_json => @request_data.to_json
         }.to raise_error ApplicationController::PermissionDenied
+        InfoRequest.count.should == @number_of_requests
+      end
 
-        InfoRequest.count.should == number_of_requests
+      it "should check the API key" do
+          expect {
+              post :create_request,
+                   :k => "This is not really an API key",
+                   :request_json => @request_data.to_json
+          }.to raise_error ApplicationController::PermissionDenied
+          InfoRequest.count.should == @number_of_requests
+      end
     end
 
     it "should create a new request from a POST" do
