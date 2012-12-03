@@ -50,6 +50,7 @@ module MailHandler
                 first_from ? first_from.address : nil
             end
 
+            # Return the first from name if any
             def get_from_name(mail)
                 first_from = first_from(mail)
                 first_from ? first_from.name : nil

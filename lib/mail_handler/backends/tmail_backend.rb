@@ -46,6 +46,7 @@ module MailHandler
                 mail_part.body
             end
 
+            # Return the first from address if any
             def get_from_address(mail)
                 if mail.from_addrs.nil? || mail.from_addrs.size == 0
                     return nil
@@ -53,6 +54,7 @@ module MailHandler
                 mail.from_addrs[0].spec
             end
 
+            # Return the first from name if any
             def get_from_name(mail)
                 mail.from_name_if_present
             end
