@@ -41,8 +41,16 @@ module MailHandler
                 return part_file_name
             end
 
+            # Get the body of a mail part
             def get_part_body(mail_part)
                 mail_part.body
+            end
+
+            def get_from_address(mail)
+                if mail.from_addrs.nil? || mail.from_addrs.size == 0
+                    return nil
+                end
+                mail.from_addrs[0].spec
             end
 
             def address_from_name_and_email(name, email)

@@ -434,11 +434,11 @@ public
             elsif self.allow_new_responses_from == 'anybody'
                 allow = true
             elsif self.allow_new_responses_from == 'authority_only'
-                if email.from_addrs.nil? || email.from_addrs.size == 0
+                sender_email = MailHandler.get_from_address(email)
+                if sender_email.nil?
                     allow = false
                     reason = _('Only the authority can reply to this request, but there is no "From" address to check against')
                 else
-                    sender_email = email.from_addrs[0].spec
                     sender_domain = PublicBody.extract_domain_from_email(sender_email)
                     reason = _("Only the authority can reply to this request, and I don't recognise the address this reply was sent from")
                     allow = false

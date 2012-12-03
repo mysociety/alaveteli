@@ -29,8 +29,25 @@ module MailHandler
                 part_file_name.nil? ? nil : part_file_name.dup
             end
 
+            # Get the body of a mail part
             def get_part_body(mail_part)
                 mail_part.body.decoded
+            end
+
+            # Return the first from field if any
+            def first_from(mail)
+                if mail[:from] && mail[:from].addrs[0]
+                    mail[:from].decoded
+                    mail[:from].addrs[0]
+                else
+                    nil
+                end
+            end
+
+            # Return the first from address if any
+            def get_from_address(mail)
+                first_from = first_from(mail)
+                first_from ? first_from.address : nil
             end
 
             # Format
