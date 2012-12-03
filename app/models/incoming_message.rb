@@ -138,10 +138,7 @@ class IncomingMessage < ActiveRecord::Base
                 self.extract_attachments!
                 self.sent_at = self.mail.date || self.created_at
                 self.subject = self.mail.subject
-                # XXX can probably remove from_name_if_present (which is a
-                # monkey patch) by just calling .from_addrs[0].name here
-                # instead?
-                self.mail_from = self.mail.from_name_if_present
+                self.mail_from = MailHandler.get_from_name(self.mail)
                 begin
                     self.mail_from_domain = PublicBody.extract_domain_from_email(self.from_email)
                 rescue NoMethodError

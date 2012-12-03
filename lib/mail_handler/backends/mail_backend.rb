@@ -50,6 +50,11 @@ module MailHandler
                 first_from ? first_from.address : nil
             end
 
+            def get_from_name(mail)
+                first_from = first_from(mail)
+                first_from ? first_from.name : nil
+            end
+
             # Format
             def address_from_name_and_email(name, email)
                 if !MySociety::Validate.is_valid_email(email)
