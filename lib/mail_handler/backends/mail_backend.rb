@@ -36,9 +36,14 @@ module MailHandler
 
             # Return the first from field if any
             def first_from(mail)
-                if mail[:from] && mail[:from].addrs[0]
-                    mail[:from].decoded
-                    mail[:from].addrs[0]
+                if mail[:from]
+                    begin
+                        mail[:from].addrs[0]
+                        mail[:from].decoded
+                        return mail[:from].addrs[0]
+                    rescue
+                        return mail[:from].value
+                    end
                 else
                     nil
                 end
@@ -47,13 +52,29 @@ module MailHandler
             # Return the first from address if any
             def get_from_address(mail)
                 first_from = first_from(mail)
-                first_from ? first_from.address : nil
+                if first_from
+                    if first_from.is_a?(String)
+                        return nil
+                    else
+                        return first_from.address
+                    end
+                else
+                    return nil
+                end
             end
 
             # Return the first from name if any
             def get_from_name(mail)
                 first_from = first_from(mail)
-                first_from ? first_from.name : nil
+                if first_from
+                    if first_from.is_a?(String)
+                        return nil
+                    else
+                        return first_from.name
+                    end
+                else
+                    return nil
+                end
             end
 
             # Format
