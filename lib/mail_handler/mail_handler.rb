@@ -8,6 +8,7 @@ module MailHandler
         require 'backends/mail_backend'
         include Backends::MailBackend
     else
+        require 'action_mailer'
         require 'backends/tmail_extensions'
         require 'backends/tmail_backend'
         include Backends::TmailBackend
