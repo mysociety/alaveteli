@@ -277,7 +277,7 @@ class AdminRequestController < AdminController
 
         if params[:incoming_message_id]
             incoming_message = IncomingMessage.find(params[:incoming_message_id])
-            email = incoming_message.from_address
+            email = incoming_message.from_email
             name = incoming_message.safe_mail_from || info_request.public_body.name
         else
             email = info_request.public_body.request_email

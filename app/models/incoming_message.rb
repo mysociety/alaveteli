@@ -70,10 +70,6 @@ class IncomingMessage < ActiveRecord::Base
         @mail
     end
 
-    def from_address
-        self.mail.from_addrs[0].address
-    end
-
     def empty_from_field?
         self.mail.from_addrs.nil? || self.mail.from_addrs.size == 0
     end
