@@ -77,6 +77,13 @@ module MailHandler
                 end
             end
 
+            def get_all_addresses(mail)
+                envelope_to = mail['envelope-to'] ? [mail['envelope-to'].value] : []
+                ((mail.to || []) +
+                (mail.cc || []) +
+                (envelope_to || [])).uniq
+            end
+
             # Format
             def address_from_name_and_email(name, email)
                 if !MySociety::Validate.is_valid_email(email)

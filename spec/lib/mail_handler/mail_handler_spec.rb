@@ -77,3 +77,32 @@ describe 'when asked for the from address' do
         MailHandler.get_from_address(mail).should == 'public@authority.gov.uk'
     end
 end
+
+describe 'when asked for all the addresses a mail has been sent to' do
+
+    it 'should return an array containing the envelope-to address and the to address, and the cc address if there is one' do
+        mail_data = load_file_fixture('humberside-police-odd-mime-type.email')
+        mail_data.gsub!('Envelope-to: request-5335-xxxxxxxx@whatdotheyknow.com',
+                        'Envelope-to: request-5555-xxxxxxxx@whatdotheyknow.com')
+        mail_data.gsub!('Cc: request-5335-xxxxxxxx@whatdotheyknow.com',
+                        'Cc: request-3333-xxxxxxxx@whatdotheyknow.com')
+        mail = MailHandler.mail_from_raw_email(mail_data)
+        MailHandler.get_all_addresses(mail).should == ['request-5335-xxxxxxxx@whatdotheyknow.com',
+                                                       'request-3333-xxxxxxxx@whatdotheyknow.com',
+                                                       'request-5555-xxxxxxxx@whatdotheyknow.com']
+    end
+
+    it 'should only return unique values' do
+        # envelope-to and to fields are the same
+        mail = get_fixture_mail('humberside-police-odd-mime-type.email')
+        MailHandler.get_all_addresses(mail).should == ['request-5335-xxxxxxxx@whatdotheyknow.com']
+    end
+
+    it 'should handle the absence of an envelope-to or cc field' do
+        mail_data = load_file_fixture('autoresponse-header.email')
+        mail_data.gsub!('To: FOI Person <EMAIL_TO>',
+                        'To: FOI Person <request-5555-xxxxxxxx@whatdotheyknow.com>')
+        mail = MailHandler.mail_from_raw_email(mail_data)
+        MailHandler.get_all_addresses(mail).should == ["request-5555-xxxxxxxx@whatdotheyknow.com"]
+    end
+end

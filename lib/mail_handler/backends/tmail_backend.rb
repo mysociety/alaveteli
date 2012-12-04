@@ -59,6 +59,12 @@ module MailHandler
                 mail.from_name_if_present
             end
 
+            def get_all_addresses(mail)
+                ((mail.to || []) +
+                (mail.cc || []) +
+                (mail.envelope_to || [])).uniq
+            end
+
             def address_from_name_and_email(name, email)
                 if !MySociety::Validate.is_valid_email(email)
                     raise "invalid email " + email + " passed to address_from_name_and_email"

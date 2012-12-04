@@ -83,9 +83,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     def addresses
-        ((self.mail.to || []) +
-        (self.mail.cc || []) +
-        (self.mail.envelope_to || [])).uniq
+        MailHandler.get_all_addresses(self.mail)
     end
 
     def message_id
