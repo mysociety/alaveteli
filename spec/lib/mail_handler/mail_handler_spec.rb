@@ -1,6 +1,12 @@
 # coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '../../../spec_helper')
 
+def create_message_from(from_field)
+    mail_data = load_file_fixture('incoming-request-plain.email')
+    mail_data.gsub!('EMAIL_FROM', from_field)
+    mail = MailHandler.mail_from_raw_email(mail_data)
+end
+
 describe 'when creating a mail object from raw data' do
 
     it 'should correctly parse a multipart email with a linebreak in the boundary' do
@@ -25,9 +31,7 @@ end
 describe 'when asked for the from name' do
 
     it 'should return nil if there is a blank "From" field' do
-        mail_data = load_file_fixture('incoming-request-plain.email')
-        mail_data.gsub!('EMAIL_FROM', '')
-        mail = MailHandler.mail_from_raw_email(mail_data)
+        mail = create_message_from('')
         MailHandler.get_from_name(mail).should == nil
     end
 
@@ -51,9 +55,7 @@ end
 describe 'when asked for the from address' do
 
     it 'should return nil if there is a blank "From" field' do
-        mail_data = load_file_fixture('incoming-request-plain.email')
-        mail_data.gsub!('EMAIL_FROM', '')
-        mail = MailHandler.mail_from_raw_email(mail_data)
+        mail = create_message_from('')
         MailHandler.get_from_address(mail).should == nil
     end
 
