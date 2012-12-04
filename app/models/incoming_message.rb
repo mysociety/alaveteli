@@ -86,11 +86,6 @@ class IncomingMessage < ActiveRecord::Base
         self.mail.message_id
     end
 
-    # Returns the name of the person the incoming message is from, or nil if
-    # there isn't one or if there is only an email address. XXX can probably
-    # remove from_name_if_present (which is a monkey patch) by just calling
-    # .from_addrs[0].name here instead?
-
     # Return false if for some reason this is a message that we shouldn't let them reply to
     def _calculate_valid_to_reply_to
         # check validity of email
