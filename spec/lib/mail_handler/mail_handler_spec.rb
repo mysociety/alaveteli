@@ -106,3 +106,35 @@ describe 'when asked for all the addresses a mail has been sent to' do
         MailHandler.get_all_addresses(mail).should == ["request-5555-xxxxxxxx@whatdotheyknow.com"]
     end
 end
+
+describe 'when asked for auto_submitted' do
+
+    it 'should return a string value for an email with an auto-submitted header' do
+        mail = get_fixture_mail('autoresponse-header.email')
+        MailHandler.get_auto_submitted(mail).should == 'auto-replied'
+    end
+
+    it 'should return a nil value for an email with no auto-submitted header' do
+        mail = get_fixture_mail('incoming-request-plain.email')
+        MailHandler.get_auto_submitted(mail).should == nil
+    end
+
+end
+
+describe 'when asked if there is an empty return path' do
+
+    it 'should return true if there is an empty return-path specified' do
+        mail = get_fixture_mail('empty-return-path.email')
+        MailHandler.empty_return_path?(mail).should == true
+    end
+
+    it 'should return false if there is no return-path header' do
+        mail = get_fixture_mail('incoming-request-attach-attachments.email')
+        MailHandler.empty_return_path?(mail).should == false
+    end
+
+    it 'should return false if there is a return path address' do
+        mail = get_fixture_mail('autoresponse-header.email')
+        MailHandler.empty_return_path?(mail).should == false
+    end
+end

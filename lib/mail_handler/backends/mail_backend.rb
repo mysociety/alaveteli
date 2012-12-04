@@ -84,6 +84,16 @@ module MailHandler
                 (envelope_to || [])).uniq
             end
 
+            def empty_return_path?(mail)
+                return false if mail['return-path'].nil?
+                return true if mail['return-path'].value.blank?
+                return false
+            end
+
+            def get_auto_submitted(mail)
+                mail['auto-submitted'] ? mail['auto-submitted'].value : nil
+            end
+
             # Format
             def address_from_name_and_email(name, email)
                 if !MySociety::Validate.is_valid_email(email)
