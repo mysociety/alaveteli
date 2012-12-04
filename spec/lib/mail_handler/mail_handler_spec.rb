@@ -151,6 +151,13 @@ describe 'when deriving a name, email and formatted address from a message from 
         [name, email, address].should == expected_result
     end
 
+    it 'should correctly render a name with quoted commas' do
+        should_render_from_address('"Clare College, Cambridge" <test@test.test>',
+                                   ['Clare College, Cambridge',
+                                    'test@test.test',
+                                    '"Clare College, Cambridge" <test@test.test>'])
+    end
+
     it 'should correctly reproduce a simple name and email that does not need quotes' do
         should_render_from_address('"FOI Person" <foiperson@localhost>',
                                    ['FOI Person',
