@@ -194,6 +194,60 @@ describe 'when deriving a name, email and formatted address from a message from 
                                     '"FOI \" Person" <foiperson@localhost>'])
     end
 
+end
 
+describe 'when getting the content type of a mail part' do
+
+    def expect_content_type(fixture_file, content_type)
+        mail = get_fixture_mail(fixture_file)
+        MailHandler.get_content_type(mail).should == content_type
+    end
+
+    it 'should correctly return a type of "multipart/report"' do
+        expect_content_type('track-response-multipart-report.email', 'multipart/report')
+    end
+
+    it 'should correctly return a type of "text/plain"' do
+        expect_content_type('track-response-abcmail-oof.email', 'text/plain')
+    end
+
+    it 'should correctly return a type of "multipart/mixed"' do
+        expect_content_type('track-response-messageclass-oof.email', 'multipart/mixed')
+    end
+
+    it 'should correctly return the types in an example bounce report' do
+        mail = get_fixture_mail('track-response-ms-bounce.email')
+        report = mail.parts.detect{ |part| MailHandler.get_content_type(part) == 'multipart/report'}
+        MailHandler.get_content_type(report.parts[0]).should == 'text/plain'
+        MailHandler.get_content_type(report.parts[1]).should == 'message/delivery-status'
+        MailHandler.get_content_type(report.parts[2]).should == 'message/rfc822'
+    end
+
+end
+
+describe 'when getting header strings' do
+
+    def expect_header_string(fixture_file, header, header_string)
+        mail = get_fixture_mail(fixture_file)
+        MailHandler.get_header_string(header, mail).should == header_string
+    end
+
+    it 'should return the contents of a "Subject" header' do
+        expect_header_string('track-response-ms-bounce.email',
+                             'Subject',
+                             'Delivery Status Notification (Delay)')
+    end
+
+    it 'should return the contents of an "X-Failed-Recipients" header' do
+        expect_header_string('autoresponse-header.email',
+                             'X-Failed-Recipients',
+                             'enquiries@cheese.com')
+    end
+
+    it 'should return the contents of an example "" header' do
+        expect_header_string('track-response-messageclass-oof.email',
+                             'X-POST-MessageClass',
+                             '9; Autoresponder')
+    end
 
 end

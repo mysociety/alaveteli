@@ -75,6 +75,14 @@ module MailHandler
                 mail['auto-submitted'] ? mail['auto-submitted'].body : nil
             end
 
+            def get_content_type(part)
+                part.content_type
+            end
+
+            def get_header_string(header, mail)
+                mail.header_string(header)
+            end
+
             def address_from_name_and_email(name, email)
                 if !MySociety::Validate.is_valid_email(email)
                     raise "invalid email " + email + " passed to address_from_name_and_email"

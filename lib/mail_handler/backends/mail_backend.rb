@@ -94,6 +94,14 @@ module MailHandler
                 mail['auto-submitted'] ? mail['auto-submitted'].value : nil
             end
 
+            def get_content_type(part)
+                part.content_type ? part.content_type.split(';')[0] : nil
+            end
+
+            def get_header_string(header, mail)
+                mail.header[header] ? mail.header[header].to_s : nil
+            end
+
             # Format
             def address_from_name_and_email(name, email)
                 if !MySociety::Validate.is_valid_email(email)
