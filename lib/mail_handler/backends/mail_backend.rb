@@ -70,7 +70,7 @@ module MailHandler
                     if first_from.is_a?(String)
                         return nil
                     else
-                        return first_from.name
+                        return first_from.display_name ? eval(%Q{"#{first_from.display_name}"}) : nil
                     end
                 else
                     return nil

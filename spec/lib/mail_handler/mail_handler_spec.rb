@@ -140,3 +140,53 @@ describe 'when asked if there is an empty return path' do
         MailHandler.empty_return_path?(mail).should == false
     end
 end
+
+describe 'when deriving a name, email and formatted address from a message from a line' do
+
+    def should_render_from_address(from_line, expected_result)
+        mail = create_message_from(from_line)
+        name = MailHandler.get_from_name(mail)
+        email = MailHandler.get_from_address(mail)
+        address = MailHandler.address_from_name_and_email(name, email).to_s
+        [name, email, address].should == expected_result
+    end
+
+    it 'should correctly reproduce a simple name and email that does not need quotes' do
+        should_render_from_address('"FOI Person" <foiperson@localhost>',
+                                   ['FOI Person',
+                                    'foiperson@localhost',
+                                    'FOI Person <foiperson@localhost>'])
+    end
+
+    it 'should render an address with no name' do
+        should_render_from_address("foiperson@localhost",
+                                   [nil,
+                                    "foiperson@localhost",
+                                    "foiperson@localhost"])
+    end
+
+    it 'should quote a name with a square bracked in it' do
+        should_render_from_address('"FOI [ Person" <foiperson@localhost>',
+                                   ['FOI [ Person',
+                                    'foiperson@localhost',
+                                    '"FOI [ Person" <foiperson@localhost>'])
+    end
+
+    it 'should quote a name with an @ in it' do
+        should_render_from_address('"FOI @ Person" <foiperson@localhost>',
+                                   ['FOI @ Person',
+                                    'foiperson@localhost',
+                                    '"FOI @ Person" <foiperson@localhost>'])
+    end
+
+
+    it 'should quote a name with quotes in it' do
+        should_render_from_address('"FOI \" Person" <foiperson@localhost>',
+                                   ['FOI " Person',
+                                    'foiperson@localhost',
+                                    '"FOI \" Person" <foiperson@localhost>'])
+    end
+
+
+
+end
