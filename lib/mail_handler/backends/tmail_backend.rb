@@ -100,20 +100,20 @@ module MailHandler
                         _count_parts_recursive(p, mail)
                     end
                 else
-                    part_filename = MailHandler.get_part_file_name(part)
+                    part_filename = get_part_file_name(part)
                     begin
                         if part.content_type == 'message/rfc822'
                             # An email attached as text
                             # e.g. http://www.whatdotheyknow.com/request/64/response/102
-                            part.rfc822_attachment = MailHandler.mail_from_raw_email(part.body, decode=false)
+                            part.rfc822_attachment = mail_from_raw_email(part.body, decode=false)
                         elsif part.content_type == 'application/vnd.ms-outlook' || part_filename && AlaveteliFileTypes.filename_to_mimetype(part_filename) == 'application/vnd.ms-outlook'
                             # An email attached as an Outlook file
                             # e.g. http://www.whatdotheyknow.com/request/chinese_names_for_british_politi
                             msg = Mapi::Msg.open(StringIO.new(part.body))
-                            part.rfc822_attachment = MailHandler.mail_from_raw_email(msg.to_mime.to_s, decode=false)
+                            part.rfc822_attachment = mail_from_raw_email(msg.to_mime.to_s, decode=false)
                         elsif part.content_type == 'application/ms-tnef'
                             # A set of attachments in a TNEF file
-                            part.rfc822_attachment = MailHandler.mail_from_tnef(part.body)
+                            part.rfc822_attachment = mail_from_tnef(part.body)
                         end
                     rescue
                         # If attached mail doesn't parse, treat it as text part
@@ -170,7 +170,7 @@ module MailHandler
                     end
                 else
                     # XXX Yuck. this section alters various content_type's. That puts
-                    # it into conflict with MailHandler.ensure_parts_counted which it has to be
+                    # it into conflict with ensure_parts_counted which it has to be
                     # called both before and after.  It will fail with cases of
                     # attachments of attachments etc.
                     charset = curr_mail.charset # save this, because overwriting content_type also resets charset
@@ -180,8 +180,8 @@ module MailHandler
                     end
                     # PDFs often come with this mime type, fix it up for view code
                     if curr_mail.content_type == 'application/octet-stream'
-                        part_file_name = MailHandler.get_part_file_name(curr_mail)
-                        part_body = MailHandler.get_part_body(curr_mail)
+                        part_file_name = get_part_file_name(curr_mail)
+                        part_body = get_part_body(curr_mail)
                         calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(part_file_name, part_body)
                         if calc_mime
                             curr_mail.content_type = calc_mime
@@ -189,16 +189,16 @@ module MailHandler
                     end
 
                     # Use standard content types for Word documents etc.
-                    curr_mail.content_type = MailHandler.normalise_content_type(curr_mail.content_type)
+                    curr_mail.content_type = normalise_content_type(curr_mail.content_type)
                     if curr_mail.content_type == 'message/rfc822'
-                        MailHandler.ensure_parts_counted(parent_mail) # fills in rfc822_attachment variable
+                        ensure_parts_counted(parent_mail) # fills in rfc822_attachment variable
                         if curr_mail.rfc822_attachment.nil?
                             # Attached mail didn't parse, so treat as text
                             curr_mail.content_type = 'text/plain'
                         end
                     end
                     if curr_mail.content_type == 'application/vnd.ms-outlook' || curr_mail.content_type == 'application/ms-tnef'
-                        MailHandler.ensure_parts_counted(parent_mail) # fills in rfc822_attachment variable
+                        ensure_parts_counted(parent_mail) # fills in rfc822_attachment variable
                         if curr_mail.rfc822_attachment.nil?
                             # Attached mail didn't parse, so treat as binary
                             curr_mail.content_type = 'application/octet-stream'
@@ -206,7 +206,7 @@ module MailHandler
                     end
                     # If the part is an attachment of email
                     if curr_mail.content_type == 'message/rfc822' || curr_mail.content_type == 'application/vnd.ms-outlook' || curr_mail.content_type == 'application/ms-tnef'
-                        MailHandler.ensure_parts_counted(parent_mail) # fills in rfc822_attachment variable
+                        ensure_parts_counted(parent_mail) # fills in rfc822_attachment variable
                         leaves_found += _get_attachment_leaves_recursive(curr_mail.rfc822_attachment, parent_mail, curr_mail.rfc822_attachment)
                     else
                         # Store leaf
