@@ -178,16 +178,16 @@ class IncomingMessage < ActiveRecord::Base
     # all the parts of the email (see monkeypatches in lib/mail_handler/tmail_extensions and
     # lib/mail_handler/mail_extensions for how these attributes are added). ensure_parts_counted
     # must be called before using the attributes.
-    def ensure_parts_counted
-        self.mail.count_parts_count = 0
-        _count_parts_recursive(self.mail)
+    def ensure_parts_counted(mail)
+        mail.count_parts_count = 0
+        _count_parts_recursive(mail, mail)
         # we carry on using these numeric ids for attachments uudecoded from within text parts
-        self.mail.count_first_uudecode_count = self.mail.count_parts_count
+        mail.count_first_uudecode_count = mail.count_parts_count
     end
-    def _count_parts_recursive(part)
+    def _count_parts_recursive(part, mail)
         if part.multipart?
             part.parts.each do |p|
-                _count_parts_recursive(p)
+                _count_parts_recursive(p, mail)
             end
         else
             part_filename = MailHandler.get_part_file_name(part)
@@ -210,12 +210,12 @@ class IncomingMessage < ActiveRecord::Base
                 part.rfc822_attachment = nil
             else
                 unless part.rfc822_attachment.nil?
-                    _count_parts_recursive(part.rfc822_attachment)
+                    _count_parts_recursive(part.rfc822_attachment, mail)
                 end
             end
             if part.rfc822_attachment.nil?
-                self.mail.count_parts_count += 1
-                part.url_part_number = self.mail.count_parts_count
+                mail.count_parts_count += 1
+                part.url_part_number = mail.count_parts_count
             end
         end
     end
@@ -503,14 +503,14 @@ class IncomingMessage < ActiveRecord::Base
             # Use standard content types for Word documents etc.
             curr_mail.content_type = MailHandler.normalise_content_type(curr_mail.content_type)
             if curr_mail.content_type == 'message/rfc822'
-                ensure_parts_counted # fills in rfc822_attachment variable
+                ensure_parts_counted(self.mail) # fills in rfc822_attachment variable
                 if curr_mail.rfc822_attachment.nil?
                     # Attached mail didn't parse, so treat as text
                     curr_mail.content_type = 'text/plain'
                 end
             end
             if curr_mail.content_type == 'application/vnd.ms-outlook' || curr_mail.content_type == 'application/ms-tnef'
-                ensure_parts_counted # fills in rfc822_attachment variable
+                ensure_parts_counted(self.mail) # fills in rfc822_attachment variable
                 if curr_mail.rfc822_attachment.nil?
                     # Attached mail didn't parse, so treat as binary
                     curr_mail.content_type = 'application/octet-stream'
@@ -518,7 +518,7 @@ class IncomingMessage < ActiveRecord::Base
             end
             # If the part is an attachment of email
             if curr_mail.content_type == 'message/rfc822' || curr_mail.content_type == 'application/vnd.ms-outlook' || curr_mail.content_type == 'application/ms-tnef'
-                ensure_parts_counted # fills in rfc822_attachment variable
+                ensure_parts_counted(self.mail) # fills in rfc822_attachment variable
                 leaves_found += _get_attachment_leaves_recursive(curr_mail.rfc822_attachment, curr_mail.rfc822_attachment)
             else
                 # Store leaf
@@ -731,7 +731,7 @@ class IncomingMessage < ActiveRecord::Base
         leaves = get_attachment_leaves # XXX check where else this is called from
         # XXX we have to call ensure_parts_counted after get_attachment_leaves
         # which is really messy.
-        ensure_parts_counted
+        ensure_parts_counted(self.mail)
         attachments = []
         for leaf in leaves
             body = MailHandler.get_part_body(leaf)
