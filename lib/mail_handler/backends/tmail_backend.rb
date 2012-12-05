@@ -130,6 +130,14 @@ module MailHandler
                 end
             end
 
+            def get_attachment_attributes(mail)
+                leaves = get_attachment_leaves(mail)
+                # XXX we have to call ensure_parts_counted after get_attachment_leaves
+                # which is really messy.
+                ensure_parts_counted(mail)
+                leaves
+            end
+
             # (This risks losing info if the unchosen alternative is the only one to contain
             # useful info, but let's worry about that another time)
             def get_attachment_leaves(mail)

@@ -593,10 +593,7 @@ class IncomingMessage < ActiveRecord::Base
 
     def extract_attachments!
         force = true
-        leaves = MailHandler.get_attachment_leaves(self.mail(force)) # XXX check where else this is called from
-        # XXX we have to call MailHandler.ensure_parts_counted after get_attachment_leaves
-        # which is really messy.
-        MailHandler.ensure_parts_counted(self.mail)
+        leaves = MailHandler.get_attachment_attributes(self.mail(force))
         attachments = []
         for leaf in leaves
             body = MailHandler.get_part_body(leaf)
