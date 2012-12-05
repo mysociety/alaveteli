@@ -397,11 +397,10 @@ class IncomingMessage < ActiveRecord::Base
 
     # (This risks losing info if the unchosen alternative is the only one to contain
     # useful info, but let's worry about that another time)
-    def get_attachment_leaves
-        force = true
-        return _get_attachment_leaves_recursive(self.mail(force))
+    def get_attachment_leaves(mail)
+        return _get_attachment_leaves_recursive(mail, mail)
     end
-    def _get_attachment_leaves_recursive(curr_mail, within_rfc822_attachment = nil)
+    def _get_attachment_leaves_recursive(curr_mail, parent_mail, within_rfc822_attachment = nil)
         leaves_found = []
         if curr_mail.multipart?
             if curr_mail.parts.size == 0
@@ -427,11 +426,11 @@ class IncomingMessage < ActiveRecord::Base
                         best_part = m
                     end
                 end
-                leaves_found += _get_attachment_leaves_recursive(best_part, within_rfc822_attachment)
+                leaves_found += _get_attachment_leaves_recursive(best_part, parent_mail, within_rfc822_attachment)
             else
                 # Add all parts
                 curr_mail.parts.each do |m|
-                    leaves_found += _get_attachment_leaves_recursive(m, within_rfc822_attachment)
+                    leaves_found += _get_attachment_leaves_recursive(m, parent_mail, within_rfc822_attachment)
                 end
             end
         else
@@ -473,7 +472,7 @@ class IncomingMessage < ActiveRecord::Base
             # If the part is an attachment of email
             if curr_mail.content_type == 'message/rfc822' || curr_mail.content_type == 'application/vnd.ms-outlook' || curr_mail.content_type == 'application/ms-tnef'
                 MailHandler.ensure_parts_counted(parent_mail) # fills in rfc822_attachment variable
-                leaves_found += _get_attachment_leaves_recursive(curr_mail.rfc822_attachment, curr_mail.rfc822_attachment)
+                leaves_found += _get_attachment_leaves_recursive(curr_mail.rfc822_attachment, parent_mail, curr_mail.rfc822_attachment)
             else
                 # Store leaf
                 curr_mail.within_rfc822_attachment = within_rfc822_attachment
@@ -682,7 +681,8 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     def extract_attachments!
-        leaves = get_attachment_leaves # XXX check where else this is called from
+        force = true
+        leaves = get_attachment_leaves(self.mail(force)) # XXX check where else this is called from
         # XXX we have to call MailHandler.ensure_parts_counted after get_attachment_leaves
         # which is really messy.
         MailHandler.ensure_parts_counted(self.mail)
