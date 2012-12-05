@@ -711,6 +711,7 @@ class IncomingMessage < ActiveRecord::Base
             text += body + "\n\n"
         else
             tempfile = Tempfile.new('foiextract')
+            tempfile.binmode
             tempfile.print body
             tempfile.flush
             default_params = { :append_to => text, :binary_output => false }
