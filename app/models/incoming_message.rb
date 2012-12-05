@@ -595,6 +595,7 @@ class IncomingMessage < ActiveRecord::Base
         force = true
         leaves = MailHandler.get_attachment_attributes(self.mail(force))
         attachments = []
+        attachment_attributes = []
         for leaf in leaves
             body = MailHandler.get_part_body(leaf)
             # As leaf.body causes MIME decoding which uses lots of RAM, do garbage collection here
@@ -631,14 +632,17 @@ class IncomingMessage < ActiveRecord::Base
                     #attachment.body = leaf.within_rfc822_attachment.port.to_s
                 end
             end
-            hexdigest = Digest::MD5.hexdigest(body)
-            attachment = self.foi_attachments.find_or_create_by_hexdigest(:hexdigest => hexdigest)
-            attachment.update_attributes(:url_part_number => leaf.url_part_number,
-                                         :content_type => MailHandler.get_content_type(leaf),
-                                         :filename => MailHandler.get_part_file_name(leaf),
-                                         :charset => leaf.charset,
-                                         :within_rfc822_subject => within_rfc822_subject,
-                                         :body => body)
+            attachment_attributes << {:url_part_number => leaf.url_part_number,
+                                      :content_type => MailHandler.get_content_type(leaf),
+                                      :filename => MailHandler.get_part_file_name(leaf),
+                                      :charset => leaf.charset,
+                                      :within_rfc822_subject => within_rfc822_subject,
+                                      :body => body,
+                                      :hexdigest => Digest::MD5.hexdigest(body) }
+        end
+        attachment_attributes.each do |attrs|
+            attachment = self.foi_attachments.find_or_create_by_hexdigest(:hexdigest => attrs[:hexdigest])
+            attachment.update_attributes(attrs)
             attachment.save!
             attachments << attachment.id
         end
