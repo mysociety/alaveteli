@@ -67,7 +67,20 @@ class FoiAttachment < ActiveRecord::Base
             file.write d
         }
         update_display_size!
+        encode_cached_body!
         @cached_body = d
+    end
+
+    # If the original mail part had a charset, it's some kind of string, so assume that
+    # it should be handled as a string in the stated charset, not a bytearray, and then
+    # convert it our default encoding. For ruby 1.8 this is a noop.
+    def encode_cached_body!
+        if RUBY_VERSION.to_f >= 1.9
+            if charset
+                @cached_body.force_encoding(charset)
+                @cached_body = @cached_body.encode(Encoding.default_internal, charset)
+            end
+        end
     end
 
     def body
@@ -90,6 +103,7 @@ class FoiAttachment < ActiveRecord::Base
                 self.incoming_message.parse_raw_email!(force)
                 retry
             end
+            encode_cached_body!
         end
         return @cached_body
     end
