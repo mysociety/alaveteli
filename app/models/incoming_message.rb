@@ -772,7 +772,7 @@ class IncomingMessage < ActiveRecord::Base
             hexdigest = Digest::MD5.hexdigest(body)
             attachment = self.foi_attachments.find_or_create_by_hexdigest(:hexdigest => hexdigest)
             attachment.update_attributes(:url_part_number => leaf.url_part_number,
-                                         :content_type => leaf.content_type,
+                                         :content_type => MailHandler.get_content_type(leaf),
                                          :filename => MailHandler.get_part_file_name(leaf),
                                          :charset => leaf.charset,
                                          :within_rfc822_subject => within_rfc822_subject,
