@@ -889,40 +889,49 @@ class IncomingMessage < ActiveRecord::Base
             tempfile = Tempfile.new('foiextract')
             tempfile.print body
             tempfile.flush
+            default_params = { :append_to => text, :binary_output => false }
             if content_type == 'application/vnd.ms-word'
                 AlaveteliExternalCommand.run("wvText", tempfile.path, tempfile.path + ".txt")
                 # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
                 if not File.exists?(tempfile.path + ".txt")
-                    AlaveteliExternalCommand.run("catdoc", tempfile.path, :append_to => text)
+                    AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)
                 else
                     text += File.read(tempfile.path + ".txt") + "\n\n"
                     File.unlink(tempfile.path + ".txt")
                 end
             elsif content_type == 'application/rtf'
                 # catdoc on RTF prodcues less comments and extra bumf than --text option to unrtf
-                AlaveteliExternalCommand.run("catdoc", tempfile.path, :append_to => text)
+                AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)
             elsif content_type == 'text/html'
                 # lynx wordwraps links in its output, which then don't
                 # get formatted properly by Alaveteli. We use elinks
                 # instead, which doesn't do that.
-                AlaveteliExternalCommand.run("elinks", "-eval", "set document.codepage.assume = \"#{charset}\"", "-eval", "set document.codepage.force_assumed = 1", "-dump-charset", "utf-8", "-force-html", "-dump",
-                    tempfile.path, :append_to => text, :env => {"LANG" => "C"})
+                AlaveteliExternalCommand.run("elinks", "-eval", "set document.codepage.assume = \"#{charset}\"",
+                                                       "-eval", "set document.codepage.force_assumed = 1",
+                                                       "-dump-charset", "utf-8",
+                                                       "-force-html", "-dump",
+                                                       tempfile.path,
+                                                       default_params.merge(:env => {"LANG" => "C"}))
             elsif content_type == 'application/vnd.ms-excel'
                 # Bit crazy using /usr/bin/strings - but xls2csv, xlhtml and
                 # py_xls2txt only extract text from cells, not from floating
                 # notes. catdoc may be fooled by weird character sets, but will
                 # probably do for UK FOI requests.
-                AlaveteliExternalCommand.run("/usr/bin/strings", tempfile.path, :append_to => text)
+                AlaveteliExternalCommand.run("/usr/bin/strings", tempfile.path, default_params)
             elsif content_type == 'application/vnd.ms-powerpoint'
                 # ppthtml seems to catch more text, but only outputs HTML when
                 # we want text, so just use catppt for now
-                AlaveteliExternalCommand.run("catppt", tempfile.path, :append_to => text)
+                AlaveteliExternalCommand.run("catppt", tempfile.path, default_params)
             elsif content_type == 'application/pdf'
-                AlaveteliExternalCommand.run("pdftotext", tempfile.path, "-", :append_to => text)
+                AlaveteliExternalCommand.run("pdftotext", tempfile.path, "-", default_params)
             elsif content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
                 # This is Microsoft's XML office document format.
                 # Just pull out the main XML file, and strip it of text.
-                xml = AlaveteliExternalCommand.run("/usr/bin/unzip", "-qq", "-c", tempfile.path, "word/document.xml")
+                xml = AlaveteliExternalCommand.run("/usr/bin/unzip", "-qq",
+                                                                     "-c",
+                                                                     tempfile.path,
+                                                                     "word/document.xml",
+                                                                     {:binary_output => false})
                 if !xml.nil?
                     doc = REXML::Document.new(xml)
                     text += doc.each_element( './/text()' ){}.join(" ")
