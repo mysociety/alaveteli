@@ -137,7 +137,7 @@ module MailHandler
                 ensure_parts_counted(mail)
                 attachment_attributes = []
                 for leaf in leaves
-                    body = MailHandler.get_part_body(leaf)
+                    body = get_part_body(leaf)
                     # As leaf.body causes MIME decoding which uses lots of RAM, do garbage collection here
                     # to prevent excess memory use. XXX not really sure if this helps reduce
                     # peak RAM use overall. Anyway, maybe there is something better to do than this.
@@ -173,8 +173,8 @@ module MailHandler
                         end
                     end
                     attachment_attributes << {:url_part_number => leaf.url_part_number,
-                                              :content_type => MailHandler.get_content_type(leaf),
-                                              :filename => MailHandler.get_part_file_name(leaf),
+                                              :content_type => get_content_type(leaf),
+                                              :filename => get_part_file_name(leaf),
                                               :charset => leaf.charset,
                                               :within_rfc822_subject => within_rfc822_subject,
                                               :body => body,
