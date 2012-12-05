@@ -173,54 +173,8 @@ class IncomingMessage < ActiveRecord::Base
         super
     end
 
-    # Number the attachments in depth first tree order, for use in URLs.
-    # XXX This fills in part.rfc822_attachment and part.url_part_number within
-    # all the parts of the email (see monkeypatches in lib/mail_handler/tmail_extensions and
-    # lib/mail_handler/mail_extensions for how these attributes are added). ensure_parts_counted
-    # must be called before using the attributes.
-    def ensure_parts_counted(mail)
-        mail.count_parts_count = 0
-        _count_parts_recursive(mail, mail)
-        # we carry on using these numeric ids for attachments uudecoded from within text parts
-        mail.count_first_uudecode_count = mail.count_parts_count
-    end
-    def _count_parts_recursive(part, mail)
-        if part.multipart?
-            part.parts.each do |p|
-                _count_parts_recursive(p, mail)
-            end
-        else
-            part_filename = MailHandler.get_part_file_name(part)
-            begin
-                if part.content_type == 'message/rfc822'
-                    # An email attached as text
-                    # e.g. http://www.whatdotheyknow.com/request/64/response/102
-                    part.rfc822_attachment = MailHandler.mail_from_raw_email(part.body, decode=false)
-                elsif part.content_type == 'application/vnd.ms-outlook' || part_filename && AlaveteliFileTypes.filename_to_mimetype(part_filename) == 'application/vnd.ms-outlook'
-                    # An email attached as an Outlook file
-                    # e.g. http://www.whatdotheyknow.com/request/chinese_names_for_british_politi
-                    msg = Mapi::Msg.open(StringIO.new(part.body))
-                    part.rfc822_attachment = MailHandler.mail_from_raw_email(msg.to_mime.to_s, decode=false)
-                elsif part.content_type == 'application/ms-tnef'
-                    # A set of attachments in a TNEF file
-                    part.rfc822_attachment = MailHandler.mail_from_tnef(part.body)
-                end
-            rescue
-                # If attached mail doesn't parse, treat it as text part
-                part.rfc822_attachment = nil
-            else
-                unless part.rfc822_attachment.nil?
-                    _count_parts_recursive(part.rfc822_attachment, mail)
-                end
-            end
-            if part.rfc822_attachment.nil?
-                mail.count_parts_count += 1
-                part.url_part_number = mail.count_parts_count
-            end
-        end
-    end
     # And look up by URL part number to get an attachment
-    # XXX relies on extract_attachments calling ensure_parts_counted
+    # XXX relies on extract_attachments calling MailHandler.ensure_parts_counted
     def self.get_attachment_by_url_part_number(attachments, found_url_part_number)
         attachments.each do |a|
             if a.url_part_number == found_url_part_number
@@ -482,7 +436,7 @@ class IncomingMessage < ActiveRecord::Base
             end
         else
             # XXX Yuck. this section alters various content_type's. That puts
-            # it into conflict with ensure_parts_counted which it has to be
+            # it into conflict with MailHandler.ensure_parts_counted which it has to be
             # called both before and after.  It will fail with cases of
             # attachments of attachments etc.
             charset = curr_mail.charset # save this, because overwriting content_type also resets charset
@@ -503,14 +457,14 @@ class IncomingMessage < ActiveRecord::Base
             # Use standard content types for Word documents etc.
             curr_mail.content_type = MailHandler.normalise_content_type(curr_mail.content_type)
             if curr_mail.content_type == 'message/rfc822'
-                ensure_parts_counted(self.mail) # fills in rfc822_attachment variable
+                MailHandler.ensure_parts_counted(parent_mail) # fills in rfc822_attachment variable
                 if curr_mail.rfc822_attachment.nil?
                     # Attached mail didn't parse, so treat as text
                     curr_mail.content_type = 'text/plain'
                 end
             end
             if curr_mail.content_type == 'application/vnd.ms-outlook' || curr_mail.content_type == 'application/ms-tnef'
-                ensure_parts_counted(self.mail) # fills in rfc822_attachment variable
+                MailHandler.ensure_parts_counted(parent_mail) # fills in rfc822_attachment variable
                 if curr_mail.rfc822_attachment.nil?
                     # Attached mail didn't parse, so treat as binary
                     curr_mail.content_type = 'application/octet-stream'
@@ -518,7 +472,7 @@ class IncomingMessage < ActiveRecord::Base
             end
             # If the part is an attachment of email
             if curr_mail.content_type == 'message/rfc822' || curr_mail.content_type == 'application/vnd.ms-outlook' || curr_mail.content_type == 'application/ms-tnef'
-                ensure_parts_counted(self.mail) # fills in rfc822_attachment variable
+                MailHandler.ensure_parts_counted(parent_mail) # fills in rfc822_attachment variable
                 leaves_found += _get_attachment_leaves_recursive(curr_mail.rfc822_attachment, curr_mail.rfc822_attachment)
             else
                 # Store leaf
@@ -729,9 +683,9 @@ class IncomingMessage < ActiveRecord::Base
 
     def extract_attachments!
         leaves = get_attachment_leaves # XXX check where else this is called from
-        # XXX we have to call ensure_parts_counted after get_attachment_leaves
+        # XXX we have to call MailHandler.ensure_parts_counted after get_attachment_leaves
         # which is really messy.
-        ensure_parts_counted(self.mail)
+        MailHandler.ensure_parts_counted(self.mail)
         attachments = []
         for leaf in leaves
             body = MailHandler.get_part_body(leaf)

@@ -83,6 +83,54 @@ module MailHandler
                 mail.header_string(header)
             end
 
+            # Number the attachments in depth first tree order, for use in URLs.
+            # XXX This fills in part.rfc822_attachment and part.url_part_number within
+            # all the parts of the email (see monkeypatches in lib/mail_handler/tmail_extensions and
+            # lib/mail_handler/mail_extensions for how these attributes are added). ensure_parts_counted
+            # must be called before using the attributes.
+            def ensure_parts_counted(mail)
+                mail.count_parts_count = 0
+                _count_parts_recursive(mail, mail)
+                # we carry on using these numeric ids for attachments uudecoded from within text parts
+                mail.count_first_uudecode_count = mail.count_parts_count
+            end
+            def _count_parts_recursive(part, mail)
+                if part.multipart?
+                    part.parts.each do |p|
+                        _count_parts_recursive(p, mail)
+                    end
+                else
+                    part_filename = MailHandler.get_part_file_name(part)
+                    begin
+                        if part.content_type == 'message/rfc822'
+                            # An email attached as text
+                            # e.g. http://www.whatdotheyknow.com/request/64/response/102
+                            part.rfc822_attachment = MailHandler.mail_from_raw_email(part.body, decode=false)
+                        elsif part.content_type == 'application/vnd.ms-outlook' || part_filename && AlaveteliFileTypes.filename_to_mimetype(part_filename) == 'application/vnd.ms-outlook'
+                            # An email attached as an Outlook file
+                            # e.g. http://www.whatdotheyknow.com/request/chinese_names_for_british_politi
+                            msg = Mapi::Msg.open(StringIO.new(part.body))
+                            part.rfc822_attachment = MailHandler.mail_from_raw_email(msg.to_mime.to_s, decode=false)
+                        elsif part.content_type == 'application/ms-tnef'
+                            # A set of attachments in a TNEF file
+                            part.rfc822_attachment = MailHandler.mail_from_tnef(part.body)
+                        end
+                    rescue
+                        # If attached mail doesn't parse, treat it as text part
+                        part.rfc822_attachment = nil
+                    else
+                        unless part.rfc822_attachment.nil?
+                            _count_parts_recursive(part.rfc822_attachment, mail)
+                        end
+                    end
+                    if part.rfc822_attachment.nil?
+                        mail.count_parts_count += 1
+                        part.url_part_number = mail.count_parts_count
+                    end
+                end
+            end
+
+
             def address_from_name_and_email(name, email)
                 if !MySociety::Validate.is_valid_email(email)
                     raise "invalid email " + email + " passed to address_from_name_and_email"
