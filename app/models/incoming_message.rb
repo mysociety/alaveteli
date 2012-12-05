@@ -179,10 +179,10 @@ class IncomingMessage < ActiveRecord::Base
     # lib/mail_handler/mail_extensions for how these attributes are added). ensure_parts_counted
     # must be called before using the attributes.
     def ensure_parts_counted
-        @count_parts_count = 0
+        self.mail.count_parts_count = 0
         _count_parts_recursive(self.mail)
         # we carry on using these numeric ids for attachments uudecoded from within text parts
-        @count_first_uudecode_count = @count_parts_count
+        self.mail.count_first_uudecode_count = self.mail.count_parts_count
     end
     def _count_parts_recursive(part)
         if part.multipart?
@@ -214,8 +214,8 @@ class IncomingMessage < ActiveRecord::Base
                 end
             end
             if part.rfc822_attachment.nil?
-                @count_parts_count += 1
-                part.url_part_number = @count_parts_count
+                self.mail.count_parts_count += 1
+                part.url_part_number = self.mail.count_parts_count
             end
         end
     end
@@ -786,7 +786,7 @@ class IncomingMessage < ActiveRecord::Base
         # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
         if !main_part.nil?
             uudecoded_attachments = _uudecode_and_save_attachments(main_part.body)
-            c = @count_first_uudecode_count
+            c = self.mail.count_first_uudecode_count
             for uudecode_attachment in uudecoded_attachments
                 c += 1
                 uudecode_attachment.url_part_number = c
