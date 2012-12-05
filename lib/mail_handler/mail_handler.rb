@@ -20,7 +20,7 @@ module MailHandler
     def tnef_attachments(content)
         attachments = []
         Dir.mktmpdir do |dir|
-            IO.popen("#{`which tnef`.chomp} -K -C #{dir}", "w") do |f|
+            IO.popen("#{`which tnef`.chomp} -K -C #{dir}", "wb") do |f|
                 f.write(content)
                 f.close
                 if $?.signaled?
@@ -33,7 +33,7 @@ module MailHandler
             found = 0
             Dir.new(dir).sort.each do |file| # sort for deterministic behaviour
                 if file != "." && file != ".."
-                    file_content = File.open("#{dir}/#{file}", "r").read
+                    file_content = File.open("#{dir}/#{file}", "rb").read
                     attachments << { :content => file_content,
                                      :filename => file }
                     found += 1
