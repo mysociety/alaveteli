@@ -169,7 +169,7 @@ module MailHandler
                         end
                     end
                 else
-                    # XXX Yuck. this section alters various content_type's. That puts
+                    # XXX Yuck. this section alters various content_types. That puts
                     # it into conflict with ensure_parts_counted which it has to be
                     # called both before and after.  It will fail with cases of
                     # attachments of attachments etc.
