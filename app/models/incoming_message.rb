@@ -593,53 +593,8 @@ class IncomingMessage < ActiveRecord::Base
 
     def extract_attachments!
         force = true
-        leaves = MailHandler.get_attachment_attributes(self.mail(force))
+        attachment_attributes = MailHandler.get_attachment_attributes(self.mail(force))
         attachments = []
-        attachment_attributes = []
-        for leaf in leaves
-            body = MailHandler.get_part_body(leaf)
-            # As leaf.body causes MIME decoding which uses lots of RAM, do garbage collection here
-            # to prevent excess memory use. XXX not really sure if this helps reduce
-            # peak RAM use overall. Anyway, maybe there is something better to do than this.
-            GC.start
-            if leaf.within_rfc822_attachment
-                within_rfc822_subject = leaf.within_rfc822_attachment.subject
-                # Test to see if we are in the first part of the attached
-                # RFC822 message and it is text, if so add headers.
-                # XXX should probably use hunting algorithm to find main text part, rather than
-                # just expect it to be first. This will do for now though.
-                # Example request that needs this:
-                # http://www.whatdotheyknow.com/request/2923/response/7013/attach/2/Cycle%20Path%20Bank.txt
-                if leaf.within_rfc822_attachment == leaf && leaf.content_type == 'text/plain'
-                    headers = ""
-                    for header in [ 'Date', 'Subject', 'From', 'To', 'Cc' ]
-                        if leaf.within_rfc822_attachment.header.include?(header.downcase)
-                            header_value = leaf.within_rfc822_attachment.header[header.downcase]
-                            # Example message which has a blank Date header:
-                            # http://www.whatdotheyknow.com/request/30747/response/80253/attach/html/17/Common%20Purpose%20Advisory%20Group%20Meeting%20Tuesday%202nd%20March.txt.html
-                            if !header_value.blank?
-                                headers = headers + header + ": " + header_value.to_s + "\n"
-                            end
-                        end
-                    end
-                    # XXX call _convert_part_body_to_text here, but need to get charset somehow
-                    # e.g. http://www.whatdotheyknow.com/request/1593/response/3088/attach/4/Freedom%20of%20Information%20request%20-%20car%20oval%20sticker:%20Article%2020,%20Convention%20on%20Road%20Traffic%201949.txt
-                    body = headers + "\n" + body
-
-                    # This is quick way of getting all headers, but instead we only add some a) to
-                    # make it more usable, b) as at least one authority accidentally leaked security
-                    # information into a header.
-                    #attachment.body = leaf.within_rfc822_attachment.port.to_s
-                end
-            end
-            attachment_attributes << {:url_part_number => leaf.url_part_number,
-                                      :content_type => MailHandler.get_content_type(leaf),
-                                      :filename => MailHandler.get_part_file_name(leaf),
-                                      :charset => leaf.charset,
-                                      :within_rfc822_subject => within_rfc822_subject,
-                                      :body => body,
-                                      :hexdigest => Digest::MD5.hexdigest(body) }
-        end
         attachment_attributes.each do |attrs|
             attachment = self.foi_attachments.find_or_create_by_hexdigest(:hexdigest => attrs[:hexdigest])
             attachment.update_attributes(attrs)
