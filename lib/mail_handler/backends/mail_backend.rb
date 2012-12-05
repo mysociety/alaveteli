@@ -108,7 +108,7 @@ module MailHandler
                     raise "invalid email " + email + " passed to address_from_name_and_email"
                 end
                 if name.nil?
-                    return Mail::Address.new(email)
+                    return Mail::Address.new(email).to_s
                 end
                 address = Mail::Address.new
                 address.display_name = name
