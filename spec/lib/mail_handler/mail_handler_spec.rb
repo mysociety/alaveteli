@@ -280,4 +280,84 @@ describe 'when getting attachment attributes' do
         attributes = MailHandler.get_attachment_attributes(mail)
     end
 
+    it 'should produce a consistent set of url_part_numbers, content_types, within_rfc822_subjects
+        and filenames from an example mail with lots of attachments' do
+        mail = get_fixture_mail('many-attachments-date-header.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+
+        expected_attributes = [ { :content_type=>"text/plain",
+                                  :url_part_number=>1,
+                                  :within_rfc822_subject=>nil,
+                                  :filename=>nil},
+                                { :content_type=>"text/plain",
+                                  :url_part_number=>2,
+                                  :within_rfc822_subject=>"Re: xxx",
+                                  :filename=>nil},
+                                { :content_type=>"text/html",
+                                  :url_part_number=>4,
+                                  :within_rfc822_subject=>"example",
+                                  :filename=>nil},
+                                { :content_type=>"image/gif", :url_part_number=>5,
+                                  :within_rfc822_subject=>"example",
+                                  :filename=>"image001.gif"},
+                                { :content_type=>"application/vnd.ms-excel",
+                                  :url_part_number=>6,
+                                  :within_rfc822_subject=>"example",
+                                  :filename=>"particpant list.xls"},
+                                { :content_type=>"text/plain",
+                                  :url_part_number=>7,
+                                  :within_rfc822_subject=>"RE: example",
+                                  :filename=>nil},
+                                { :content_type=>"text/html",
+                                  :url_part_number=>9,
+                                  :within_rfc822_subject=>"As promised - Masterclass info (example)",
+                                  :filename=>nil},
+                                { :content_type=>"image/gif",
+                                  :url_part_number=>10,
+                                  :within_rfc822_subject=>"As promised - Masterclass info (example)",
+                                  :filename=>"image001.gif"},
+                                { :content_type=>"application/vnd.ms-word",
+                                  :url_part_number=>11,
+                                  :within_rfc822_subject=>"As promised - Masterclass info (example)",
+                                  :filename=>"Participant List.doc"},
+                                { :content_type=>"application/vnd.ms-word",
+                                  :url_part_number=>12,
+                                  :within_rfc822_subject=>"As promised - Masterclass info (example)",
+                                  :filename=>"Information & Booking Form.doc"},
+                                { :content_type=>"text/plain",
+                                  :url_part_number=>13,
+                                  :within_rfc822_subject=>"Re: As promised - info (example)",
+                                  :filename=>nil},
+                                { :content_type=>"text/html",
+                                  :url_part_number=>15,
+                                  :within_rfc822_subject=>"Thank you from example",
+                                  :filename=>nil},
+                                { :content_type=>"image/gif",
+                                  :url_part_number=>16,
+                                  :within_rfc822_subject=>"Thank you from example",
+                                  :filename=>"image001.gif"},
+                                { :content_type=>"text/plain",
+                                  :url_part_number=>17,
+                                  :within_rfc822_subject=>"example - Meeting - Tuesday 2nd March",
+                                  :filename=>nil},
+                                { :content_type=>"text/plain",
+                                  :url_part_number=>18,
+                                  :within_rfc822_subject=>"example - Help needed",
+                                  :filename=>nil},
+                                { :content_type=>"application/pdf",
+                                  :url_part_number=>19,
+                                  :within_rfc822_subject=>"example - Help needed",
+                                  :filename=>"Information Pack.pdf"},
+                                { :content_type=>"text/plain",
+                                  :url_part_number=>20,
+                                  :within_rfc822_subject=>"Re: As promised - info (example)",
+                                  :filename=>nil} ]
+
+        attributes.each_with_index do |attr, index|
+            attr.delete(:charset)
+            attr.delete(:body)
+            attr.delete(:hexdigest)
+            attr.should == expected_attributes[index]
+        end
+    end
 end
