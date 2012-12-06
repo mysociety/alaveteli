@@ -148,8 +148,6 @@ module MailHandler
                         # RFC822 message and it is text, if so add headers.
                         # XXX should probably use hunting algorithm to find main text part, rather than
                         # just expect it to be first. This will do for now though.
-                        # Example request that needs this:
-                        # http://www.whatdotheyknow.com/request/2923/response/7013/attach/2/Cycle%20Path%20Bank.txt
                         if leaf.within_rfc822_attachment == leaf && leaf.content_type == 'text/plain'
                             headers = ""
                             for header in [ 'Date', 'Subject', 'From', 'To', 'Cc' ]
