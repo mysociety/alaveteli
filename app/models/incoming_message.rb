@@ -471,35 +471,25 @@ class IncomingMessage < ActiveRecord::Base
                 # should instead tell elinks to respect the source
                 # charset
                 use_charset = "utf-8"
-                begin
-                    text = Iconv.conv('utf-8', 'utf-8', text)
-                rescue Iconv::IllegalSequence
-                    use_charset = source_charset
+                if RUBY_VERSION.to_f >= 1.9
+                    begin
+                        text.encode('utf-8')
+                    rescue Encoding::UndefinedConversionError, Encoding::InvalidByteSequenceError
+                        use_charset = source_charset
+                    end
+                else
+                    begin
+                        text = Iconv.conv('utf-8', 'utf-8', text)
+                    rescue Iconv::IllegalSequence
+                        use_charset = source_charset
+                    end
                 end
                 text = MailHandler.get_attachment_text_one_file(part.content_type, text, use_charset)
             end
         end
 
         # If text hasn't been converted, we sanitise it.
-        begin
-            # Test if it's good UTF-8
-            text = Iconv.conv('utf-8', 'utf-8', text)
-        rescue Iconv::IllegalSequence
-            # Text looks like unlabelled nonsense,
-            # strip out anything that isn't UTF-8
-            begin
-                source_charset = 'utf-8' if source_charset.nil?
-                text = Iconv.conv('utf-8//IGNORE', source_charset, text) +
-                    _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
-                      :site_name => Configuration::site_name)
-            rescue Iconv::InvalidEncoding, Iconv::IllegalSequence
-                if source_charset != "utf-8"
-                    source_charset = "utf-8"
-                    retry
-                end
-            end
-        end
-
+        text = _sanitize_text(text)
         # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
         text = text.gsub(/\r\n/, "\n")
 
@@ -509,6 +499,50 @@ class IncomingMessage < ActiveRecord::Base
         text = text.gsub(/ +/, " ")
 
         return text
+    end
+
+    def _sanitize_text(text)
+        if RUBY_VERSION.to_f >= 1.9
+            begin
+                # Test if it's good UTF-8
+                text.encode('utf-8')
+            rescue Encoding::UndefinedConversionError, Encoding::InvalidByteSequenceError
+                source_charset = 'utf-8' if source_charset.nil?
+                # strip out anything that isn't UTF-8
+                begin
+                    text = text.encode("utf-8", :invalid => :replace,
+                                                :undef => :replace,
+                                                :replace => "") +
+                        _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
+                          :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli'))
+                rescue Encoding::UndefinedConversionError, Encoding::InvalidByteSequenceError
+                    if source_charset != "utf-8"
+                        source_charset = "utf-8"
+                        retry
+                    end
+                end
+            end
+        else
+            begin
+                # Test if it's good UTF-8
+                text = Iconv.conv('utf-8', 'utf-8', text)
+            rescue Iconv::IllegalSequence
+                # Text looks like unlabelled nonsense,
+                # strip out anything that isn't UTF-8
+                begin
+                    source_charset = 'utf-8' if source_charset.nil?
+                    text = Iconv.conv('utf-8//IGNORE', source_charset, text) +
+                        _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
+                          :site_name => Configuration::site_name)
+                rescue Iconv::InvalidEncoding, Iconv::IllegalSequence
+                    if source_charset != "utf-8"
+                        source_charset = "utf-8"
+                        retry
+                    end
+                end
+            end
+        end
+        text
     end
 
     # Returns part which contains main body text, or nil if there isn't one
