@@ -475,7 +475,7 @@ class IncomingMessage < ActiveRecord::Base
                 rescue Iconv::IllegalSequence
                     use_charset = source_charset
                 end
-                text = self.class._get_attachment_text_internal_one_file(part.content_type, text, use_charset)
+                text = MailHandler._get_attachment_text_internal_one_file(part.content_type, text, use_charset)
             end
         end
 
@@ -702,111 +702,13 @@ class IncomingMessage < ActiveRecord::Base
 
         return self.cached_attachment_text_clipped
     end
-    def IncomingMessage._get_attachment_text_internal_one_file(content_type, body, charset = 'utf-8')
-        # note re. charset: TMail always tries to convert email bodies
-        # to UTF8 by default, so normally it should already be that.
-        text = ''
-        # XXX - tell all these command line tools to return utf-8
-        if content_type == 'text/plain'
-            text += body + "\n\n"
-        else
-            tempfile = Tempfile.new('foiextract')
-            tempfile.binmode
-            tempfile.print body
-            tempfile.flush
-            default_params = { :append_to => text, :binary_output => false }
-            if content_type == 'application/vnd.ms-word'
-                AlaveteliExternalCommand.run("wvText", tempfile.path, tempfile.path + ".txt")
-                # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
-                if not File.exists?(tempfile.path + ".txt")
-                    AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)
-                else
-                    text += File.read(tempfile.path + ".txt") + "\n\n"
-                    File.unlink(tempfile.path + ".txt")
-                end
-            elsif content_type == 'application/rtf'
-                # catdoc on RTF prodcues less comments and extra bumf than --text option to unrtf
-                AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)
-            elsif content_type == 'text/html'
-                # lynx wordwraps links in its output, which then don't
-                # get formatted properly by Alaveteli. We use elinks
-                # instead, which doesn't do that.
-                AlaveteliExternalCommand.run("elinks", "-eval", "set document.codepage.assume = \"#{charset}\"",
-                                                       "-eval", "set document.codepage.force_assumed = 1",
-                                                       "-dump-charset", "utf-8",
-                                                       "-force-html", "-dump",
-                                                       tempfile.path,
-                                                       default_params.merge(:env => {"LANG" => "C"}))
-            elsif content_type == 'application/vnd.ms-excel'
-                # Bit crazy using /usr/bin/strings - but xls2csv, xlhtml and
-                # py_xls2txt only extract text from cells, not from floating
-                # notes. catdoc may be fooled by weird character sets, but will
-                # probably do for UK FOI requests.
-                AlaveteliExternalCommand.run("/usr/bin/strings", tempfile.path, default_params)
-            elsif content_type == 'application/vnd.ms-powerpoint'
-                # ppthtml seems to catch more text, but only outputs HTML when
-                # we want text, so just use catppt for now
-                AlaveteliExternalCommand.run("catppt", tempfile.path, default_params)
-            elsif content_type == 'application/pdf'
-                AlaveteliExternalCommand.run("pdftotext", tempfile.path, "-", default_params)
-            elsif content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-                # This is Microsoft's XML office document format.
-                # Just pull out the main XML file, and strip it of text.
-                xml = AlaveteliExternalCommand.run("/usr/bin/unzip", "-qq",
-                                                                     "-c",
-                                                                     tempfile.path,
-                                                                     "word/document.xml",
-                                                                     {:binary_output => false})
-                if !xml.nil?
-                    doc = REXML::Document.new(xml)
-                    text += doc.each_element( './/text()' ){}.join(" ")
-                end
-            elsif content_type == 'application/zip'
-                # recurse into zip files
-                begin
-                    zip_file = Zip::ZipFile.open(tempfile.path)
-                    text += IncomingMessage._get_attachment_text_from_zip_file(zip_file)
-                    zip_file.close()
-                rescue
-                    $stderr.puts("Error processing zip file: #{$!.inspect}")
-                end
-            end
-            tempfile.close
-        end
 
-        return text
-    end
-    def IncomingMessage._get_attachment_text_from_zip_file(zip_file)
-        text = ""
-        for entry in zip_file
-            if entry.file?
-                filename = entry.to_s
-                begin
-                    body = entry.get_input_stream.read
-                rescue
-                    # move to next attachment silently if there were problems
-                    # XXX really should reduce this to specific exceptions?
-                    # e.g. password protected
-                    next
-                end
-                calc_mime = AlaveteliFileTypes.filename_to_mimetype(filename)
-                if calc_mime
-                    content_type = calc_mime
-                else
-                    content_type = 'application/octet-stream'
-                end
-
-                text += _get_attachment_text_internal_one_file(content_type, body)
-            end
-        end
-        return text
-    end
     def _get_attachment_text_internal
         # Extract text from each attachment
         text = ''
         attachments = self.get_attachments_for_display
         for attachment in attachments
-            text += IncomingMessage._get_attachment_text_internal_one_file(attachment.content_type, attachment.body, attachment.charset)
+            text += MailHandler._get_attachment_text_internal_one_file(attachment.content_type, attachment.body, attachment.charset)
         end
         # Remove any bad characters
         text = Iconv.conv('utf-8//IGNORE', 'utf-8', text)

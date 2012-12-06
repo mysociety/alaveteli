@@ -102,27 +102,6 @@ describe IncomingMessage, " when dealing with incoming mail" do
 
 end
 
-describe IncomingMessage, "when parsing HTML mail" do
-    it "should display UTF-8 characters in the plain text version correctly" do
-        html = "<html><b>foo</b> është"
-        plain_text = IncomingMessage._get_attachment_text_internal_one_file('text/html', html)
-        plain_text.should match(/është/)
-    end
-
-end
-
-describe IncomingMessage, "when getting the attachment text" do
-
-  it "should not raise an error if the expansion of a zip file raises an error" do
-    mock_entry = mock('ZipFile entry', :file? => true)
-    mock_entry.stub!(:get_input_stream).and_raise("invalid distance too far back")
-    Zip::ZipFile.stub!(:open).and_return([mock_entry])
-    IncomingMessage._get_attachment_text_internal_one_file('application/zip', "some string")
-  end
-
-end
-
-
 describe IncomingMessage, " display attachments" do
 
     it "should not show slashes in filenames" do
@@ -138,7 +117,7 @@ describe IncomingMessage, " display attachments" do
         # http://www.whatdotheyknow.com/request/post_commercial_manager_librarie#incoming-17233
         foi_attachment.within_rfc822_subject = "FOI/09/066 RESPONSE TO FOI REQUEST RECEIVED 21st JANUARY 2009"
         foi_attachment.content_type = 'text/plain'
-        foi_attachment.ensure_filename!
+            foi_attachment.ensure_filename!
         expected_display_filename = foi_attachment.within_rfc822_subject.gsub(/\//, " ") + ".txt"
         foi_attachment.display_filename.should == expected_display_filename
     end
@@ -326,12 +305,12 @@ describe IncomingMessage, " when censoring data" do
         orig_pdf = load_file_fixture('tfl.pdf')
         pdf = orig_pdf.dup
 
-        orig_text = IncomingMessage._get_attachment_text_internal_one_file('application/pdf', pdf)
+        orig_text = MailHandler._get_attachment_text_internal_one_file('application/pdf', pdf)
         orig_text.should match(/foi@tfl.gov.uk/)
 
         @im.binary_mask_stuff!(pdf, "application/pdf")
 
-        masked_text = IncomingMessage._get_attachment_text_internal_one_file('application/pdf', pdf)
+        masked_text = MailHandler._get_attachment_text_internal_one_file('application/pdf', pdf)
         masked_text.should_not match(/foi@tfl.gov.uk/)
         masked_text.should match(/xxx@xxx.xxx.xx/)
         config['USE_GHOSTSCRIPT_COMPRESSION'] = previous
