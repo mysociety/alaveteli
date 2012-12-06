@@ -132,7 +132,7 @@ module MailHandler
                 # recurse into zip files
                 begin
                     zip_file = Zip::ZipFile.open(tempfile.path)
-                    text += _get_attachment_text_from_zip_file(zip_file)
+                    text += get_attachment_text_from_zip_file(zip_file)
                     zip_file.close()
                 rescue
                     $stderr.puts("Error processing zip file: #{$!.inspect}")
@@ -143,7 +143,7 @@ module MailHandler
 
         return text
     end
-    def _get_attachment_text_from_zip_file(zip_file)
+    def get_attachment_text_from_zip_file(zip_file)
 
         text = ""
         for entry in zip_file
