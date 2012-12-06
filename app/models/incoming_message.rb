@@ -874,11 +874,11 @@ class IncomingMessage < ActiveRecord::Base
         return AlaveteliFileTypes.all_extensions.join(" ")
     end
 
-  def for_admin_column
-    self.class.content_columns.each do |column|
-      yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+    def for_admin_column
+        self.class.content_columns.each do |column|
+            yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+        end
     end
-  end
 
 end
 
