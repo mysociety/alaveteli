@@ -275,6 +275,26 @@ end
 
 describe 'when getting attachment attributes' do
 
+    it 'should get two attachment parts from a multipart mail with text and html alternatives
+    and an image' do
+        mail = get_fixture_mail('quoted-subject-iso8859-1.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+        attributes.size.should == 2
+    end
+
+    it 'should expand a mail attached as text' do
+        mail = get_fixture_mail('rfc822-attachment.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+        attributes.size.should == 2
+        rfc_attachment = attributes[1]
+        rfc_attachment[:within_rfc822_subject].should == 'Freedom of Information request'
+        headers = ['Date: Thu, 13 Mar 2008 16:57:33 +0000',
+                   'Subject: Freedom of Information request',
+                   'From: An FOI Officer <foi.officer@example.com>',
+                   'To: request-bounce-xx-xxxxx@whatdotheyno.com']
+        rfc_attachment[:body].should == "#{headers.join("\n")}\n\nsome example text"
+    end
+
     it 'should handle a mail which causes Tmail to generate a blank header value' do
         mail = get_fixture_mail('many-attachments-date-header.email')
         attributes = MailHandler.get_attachment_attributes(mail)
