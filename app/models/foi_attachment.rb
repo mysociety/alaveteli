@@ -67,7 +67,20 @@ class FoiAttachment < ActiveRecord::Base
             file.write d
         }
         update_display_size!
+        encode_cached_body!
         @cached_body = d
+    end
+
+    # If the original mail part had a charset, it's some kind of string, so assume that
+    # it should be handled as a string in the stated charset, not a bytearray, and then
+    # convert it our default encoding. For ruby 1.8 this is a noop.
+    def encode_cached_body!
+        if RUBY_VERSION.to_f >= 1.9
+            if charset
+                @cached_body.force_encoding(charset)
+                @cached_body = @cached_body.encode(Encoding.default_internal, charset)
+            end
+        end
     end
 
     def body
@@ -90,6 +103,7 @@ class FoiAttachment < ActiveRecord::Base
                 self.incoming_message.parse_raw_email!(force)
                 retry
             end
+            encode_cached_body!
         end
         return @cached_body
     end
@@ -310,31 +324,41 @@ class FoiAttachment < ActiveRecord::Base
         # the extractions will also produce image files, which go in the
         # current directory, so change to the directory the function caller
         # wants everything in
-        Dir.chdir(dir) do
-            tempfile = Tempfile.new('foiextract', '.')
-            tempfile.print self.body
-            tempfile.flush
 
-            html = nil
-            if self.content_type == 'application/pdf'
-                # We set a timeout here, because pdftohtml can spiral out of control
-                # on some PDF files and we don’t want to crash the whole server.
-                html = AlaveteliExternalCommand.run("pdftohtml", "-nodrm", "-zoom", "1.0", "-stdout", "-enc", "UTF-8", "-noframes", tempfile.path, :timeout => 30)
-            elsif self.content_type == 'application/rtf'
-                html = AlaveteliExternalCommand.run("unrtf", "--html", tempfile.path, :timeout => 120)
-            end
-
-            if html.nil?
-                if self.has_google_docs_viewer?
-                    html = '' # force error and using Google docs viewer
+        html = nil
+        if ['application/pdf', 'application/rtf'].include?(self.content_type)
+            text = self.body
+            Dir.chdir(dir) do
+                if RUBY_VERSION.to_f >= 1.9
+                    tempfile = Tempfile.new('foiextract', '.',  :encoding => text.encoding)
                 else
-                    raise "No HTML conversion available for type " + self.content_type
+                    tempfile = Tempfile.new('foiextract', '.')
                 end
-            end
+                tempfile.print text
+                tempfile.flush
 
-            tempfile.close
-            tempfile.delete
+
+                if self.content_type == 'application/pdf'
+                    # We set a timeout here, because pdftohtml can spiral out of control
+                    # on some PDF files and we don't want to crash the whole server.
+                    html = AlaveteliExternalCommand.run("pdftohtml", "-nodrm", "-zoom", "1.0", "-stdout", "-enc", "UTF-8", "-noframes", tempfile.path, :timeout => 30)
+                elsif self.content_type == 'application/rtf'
+                    html = AlaveteliExternalCommand.run("unrtf", "--html", tempfile.path, :timeout => 120)
+                end
+
+                tempfile.close
+                tempfile.delete
+            end
         end
+        if html.nil?
+            if self.has_google_docs_viewer?
+                html = '' # force error and using Google docs viewer
+            else
+                raise "No HTML conversion available for type " + self.content_type
+            end
+        end
+
+
 
         # We need to look at:
         # a) Any error code
