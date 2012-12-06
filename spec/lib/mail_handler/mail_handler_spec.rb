@@ -272,3 +272,12 @@ describe "when getting the attachment text" do
   end
 
 end
+
+describe 'when getting attachment attributes' do
+
+    it 'should handle a mail which causes Tmail to generate a blank header value' do
+        mail = get_fixture_mail('many-attachments-date-header.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+    end
+
+end
