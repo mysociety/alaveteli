@@ -68,6 +68,14 @@ describe IncomingMessage, " when dealing with incoming mail" do
         message.get_main_body_text_internal.should include("The above text was badly encoded")
     end
 
+    it 'should convert DOS-style linebreaks to Unix style' do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('dos-linebreaks.email', ir.incoming_email)
+        message = ir.incoming_messages[1]
+        message.parse_raw_email!
+        message.get_main_body_text_internal.should_not match(/\r\n/)
+    end
+
     it "should fold multiline sections" do
       {
         "foo\n--------\nconfidential"                                       => "foo\nFOLDED_QUOTED_SECTION\n", # basic test

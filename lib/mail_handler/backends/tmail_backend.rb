@@ -268,6 +268,7 @@ module MailHandler
                 return leaves_found
             end
 
+
             def address_from_name_and_email(name, email)
                 if !MySociety::Validate.is_valid_email(email)
                     raise "invalid email " + email + " passed to address_from_name_and_email"

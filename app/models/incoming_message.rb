@@ -501,7 +501,6 @@ class IncomingMessage < ActiveRecord::Base
         end
 
         # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
-        # Needed for e.g. http://www.whatdotheyknow.com/request/60/response/98
         text = text.gsub(/\r\n/, "\n")
 
         # Compress extra spaces down to save space, and to stop regular expressions
