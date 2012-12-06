@@ -457,7 +457,8 @@ class IncomingMessage < ActiveRecord::Base
             text = "[ Email has no body, please see attachments ]"
             source_charset = "utf-8"
         else
-            text = part.body # by default, TMail converts to UTF8 in this call
+            # by default, the body (coming from an foi_attachment) should have been converted to utf-8
+            text = part.body
             source_charset = part.charset
             if part.content_type == 'text/html'
                 # e.g. http://www.whatdotheyknow.com/request/35/response/177
@@ -465,7 +466,7 @@ class IncomingMessage < ActiveRecord::Base
                 # convert to text routine.  Could instead call a
                 # sanitize HTML one.
 
-                # If the text isn't UTF8, it means TMail had a problem
+                # If the text isn't UTF8, it means we had a problem
                 # converting it (invalid characters, etc), and we
                 # should instead tell elinks to respect the source
                 # charset
@@ -479,7 +480,7 @@ class IncomingMessage < ActiveRecord::Base
             end
         end
 
-        # If TMail can't convert text, it just returns it, so we sanitise it.
+        # If text hasn't been converted, we sanitise it.
         begin
             # Test if it's good UTF-8
             text = Iconv.conv('utf-8', 'utf-8', text)
