@@ -709,7 +709,9 @@ class IncomingMessage < ActiveRecord::Base
         text = ''
         attachments = self.get_attachments_for_display
         for attachment in attachments
-            text += MailHandler.get_attachment_text_one_file(attachment.content_type, attachment.body, attachment.charset)
+            text += MailHandler.get_attachment_text_one_file(attachment.content_type,
+                                                             attachment.body,
+                                                             attachment.charset)
         end
         # Remove any bad characters
         text = Iconv.conv('utf-8//IGNORE', 'utf-8', text)
