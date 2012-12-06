@@ -255,19 +255,18 @@ end
 describe "when parsing HTML mail" do
     it "should display UTF-8 characters in the plain text version correctly" do
         html = "<html><b>foo</b> është"
-        plain_text = MailHandler._get_attachment_text_internal_one_file('text/html', html)
+        plain_text = MailHandler.get_attachment_text_one_file('text/html', html)
         plain_text.should match(/është/)
     end
 
 end
 
 describe "when getting the attachment text" do
-
   it "should not raise an error if the expansion of a zip file raises an error" do
     mock_entry = mock('ZipFile entry', :file? => true)
     mock_entry.stub!(:get_input_stream).and_raise("invalid distance too far back")
     Zip::ZipFile.stub!(:open).and_return([mock_entry])
-    MailHandler._get_attachment_text_internal_one_file('application/zip', "some string")
+    MailHandler.get_attachment_text_one_file('application/zip', "some string")
   end
 
 end

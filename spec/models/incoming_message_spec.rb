@@ -305,12 +305,12 @@ describe IncomingMessage, " when censoring data" do
         orig_pdf = load_file_fixture('tfl.pdf')
         pdf = orig_pdf.dup
 
-        orig_text = MailHandler._get_attachment_text_internal_one_file('application/pdf', pdf)
+        orig_text = MailHandler.get_attachment_text_one_file('application/pdf', pdf)
         orig_text.should match(/foi@tfl.gov.uk/)
 
         @im.binary_mask_stuff!(pdf, "application/pdf")
 
-        masked_text = MailHandler._get_attachment_text_internal_one_file('application/pdf', pdf)
+        masked_text = MailHandler.get_attachment_text_one_file('application/pdf', pdf)
         masked_text.should_not match(/foi@tfl.gov.uk/)
         masked_text.should match(/xxx@xxx.xxx.xx/)
         config['USE_GHOSTSCRIPT_COMPRESSION'] = previous

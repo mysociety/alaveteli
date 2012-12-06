@@ -475,7 +475,7 @@ class IncomingMessage < ActiveRecord::Base
                 rescue Iconv::IllegalSequence
                     use_charset = source_charset
                 end
-                text = MailHandler._get_attachment_text_internal_one_file(part.content_type, text, use_charset)
+                text = MailHandler.get_attachment_text_one_file(part.content_type, text, use_charset)
             end
         end
 
@@ -510,6 +510,7 @@ class IncomingMessage < ActiveRecord::Base
 
         return text
     end
+
     # Returns part which contains main body text, or nil if there isn't one
     def get_main_body_text_part
         leaves = self.foi_attachments
@@ -708,7 +709,7 @@ class IncomingMessage < ActiveRecord::Base
         text = ''
         attachments = self.get_attachments_for_display
         for attachment in attachments
-            text += MailHandler._get_attachment_text_internal_one_file(attachment.content_type, attachment.body, attachment.charset)
+            text += MailHandler.get_attachment_text_one_file(attachment.content_type, attachment.body, attachment.charset)
         end
         # Remove any bad characters
         text = Iconv.conv('utf-8//IGNORE', 'utf-8', text)

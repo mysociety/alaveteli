@@ -69,7 +69,7 @@ module MailHandler
         return content_type
     end
 
-    def _get_attachment_text_internal_one_file(content_type, body, charset = 'utf-8')
+    def get_attachment_text_one_file(content_type, body, charset = 'utf-8')
         # note re. charset: TMail always tries to convert email bodies
         # to UTF8 by default, so normally it should already be that.
         text = ''
@@ -164,7 +164,7 @@ module MailHandler
                     content_type = 'application/octet-stream'
                 end
 
-                text += _get_attachment_text_internal_one_file(content_type, body)
+                text += get_attachment_text_one_file(content_type, body)
 
             end
         end
