@@ -31,7 +31,6 @@ gem 'rake', '~> 0.8.7'
 gem 'rspec', '~> 1.3.2'
 gem 'rspec-rails', '~> 1.3.4'
 gem 'ruby-msg', '~> 1.5.0'
-gem 'test-unit', '~> 1.2.3', :platforms => :ruby_19
 gem 'vpim'
 gem 'will_paginate', '~> 2.3.11'
 # when 1.2.9 is released by the maintainer, we can stop using this fork:
