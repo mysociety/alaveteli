@@ -40,6 +40,7 @@ gem 'zip'
 gem 'capistrano'
 gem 'syslog_protocol'
 gem 'newrelic_rpm'
+gem 'tmail'
 
 group :test do
   gem 'fakeweb'
