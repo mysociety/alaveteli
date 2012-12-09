@@ -64,5 +64,9 @@ module Alaveteli
     # See Rails::Configuration for more options
     ENV['RECAPTCHA_PUBLIC_KEY'] = ::Configuration::recaptcha_public_key
     ENV['RECAPTCHA_PRIVATE_KEY'] = ::Configuration::recaptcha_private_key
+
+    # Insert a bit of middleware code to prevent uneeded cookie setting.
+    require "#{Rails.root}/lib/whatdotheyknow/strip_empty_sessions"
+    config.middleware.insert_before ActionDispatch::Session::CookieStore, WhatDoTheyKnow::StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
   end
 end
