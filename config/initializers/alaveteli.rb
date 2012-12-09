@@ -80,6 +80,7 @@ require 'world_foi_websites.rb'
 require 'alaveteli_external_command.rb'
 require 'quiet_opener.rb'
 require 'mail_handler'
+require 'public_body_categories'
 
 if !Configuration.exception_notifications_from.blank? && !Configuration.exception_notifications_to.blank?
   ExceptionNotification::Notifier.sender_address = Configuration::exception_notifications_from
