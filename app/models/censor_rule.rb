@@ -33,9 +33,9 @@ class CensorRule < ActiveRecord::Base
     validate :require_valid_regexp, :if => proc{ |rule| rule.regexp? == true }
     validates_presence_of :text
 
-    named_scope :global, {:conditions => {:info_request_id => nil,
-                                          :user_id => nil,
-                                          :public_body_id => nil}}
+    scope :global, {:conditions => {:info_request_id => nil,
+                                    :user_id => nil,
+                                    :public_body_id => nil}}
 
     def require_user_request_or_public_body
         if self.info_request.nil? && self.user.nil? && self.public_body.nil?

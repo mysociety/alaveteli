@@ -43,7 +43,7 @@ class PublicBody < ActiveRecord::Base
     before_save :set_api_key, :set_default_publication_scheme
 
     # Every public body except for the internal admin one is visible
-    named_scope :visible, lambda {
+    scope :visible, lambda {
         {
             :conditions => "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
         }
