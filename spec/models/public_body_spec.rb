@@ -210,7 +210,7 @@ describe PublicBody, "when searching" do
     end
 
     it "should cope with same url_name across multiple locales" do
-        PublicBody.with_locales(:es) do
+        I18n.with_locale(:es) do
             # use the unique spanish name to retrieve and edit
             body = PublicBody.find_by_url_name_with_historic('etgq')
             body.short_name = 'tgq' # Same as english version
@@ -231,7 +231,7 @@ end
 describe PublicBody, " when dealing public body locales" do
     it "shouldn't fail if it internal_admin_body was created in a locale other than the default" do
         # first time, do it with the non-default locale
-        PublicBody.with_locales(:es) do
+        I18n.with_locale(:es) do
             PublicBody.internal_admin_body
         end
 
@@ -378,7 +378,7 @@ describe PublicBody, " when loading CSV files" do
 
         PublicBody.count.should == original_count + 3
 
-        # XXX Not sure why trying to do a PublicBody.with_locales fails here. Seems related to
+        # XXX Not sure why trying to do a PublicBody.with_locale fails here. Seems related to
         # the way categories are loaded every time from the PublicBody class. For now we just
         # test some translation was done.
         body = PublicBody.find_by_name('North West Fake Authority')

@@ -288,7 +288,7 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
     end
 
     it "saves edits to a public body" do
-        PublicBody.with_locales(:es) do
+        I18n.with_locale(:es) do
             pb = PublicBody.find(id=3)
             pb.name.should == "El Department for Humpadinking"
             post :update, {
@@ -308,10 +308,10 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
         end
 
         pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
-        PublicBody.with_locales(:es) do
+        I18n.with_locale(:es) do
            pb.name.should == "Renamed"
         end
-        PublicBody.with_locales(:en) do
+        I18n.with_locale(:en) do
            pb.name.should == "Department for Humpadinking"
         end
     end
@@ -357,12 +357,12 @@ describe AdminPublicBodyController, "when creating public bodies with i18n" do
 
         body = PublicBody.find_by_name("New Quango")
         body.translations.map {|t| t.locale.to_s}.sort.should == ["en", "es"]
-        PublicBody.with_locales(:en) do
+        I18n.with_locale(:en) do
             body.name.should == "New Quango"
             body.url_name.should == "new_quango"
             body.first_letter.should == "N"
         end
-        PublicBody.with_locales(:es) do
+        I18n.with_locale(:es) do
             body.name.should == "Mi Nuevo Quango"
             body.url_name.should == "mi_nuevo_quango"
             body.first_letter.should == "M"

@@ -44,14 +44,14 @@ describe PublicBodyController, "when showing a body" do
     end
 
     it "should assign the body using different locale from that used for url_name" do
-        PublicBody.with_locales(:es) do
+        I18n.with_locale(:es) do
             get :show, {:url_name => "dfh", :view => 'all'}
             assigns[:public_body].notes.should == "Baguette"
         end
     end
 
     it "should assign the body using same locale as that used in url_name" do
-        PublicBody.with_locales(:es) do
+        I18n.with_locale(:es) do
             get :show, {:url_name => "edfh", :view => 'all'}
             assigns[:public_body].notes.should == "Baguette"
         end
@@ -87,7 +87,7 @@ describe PublicBodyController, "when listing bodies" do
     end
 
     it "should list all bodies from default locale, even when there are no translations for selected locale" do
-        PublicBody.with_locales(:en) do
+        I18n.with_locale(:en) do
             @english_only = PublicBody.new(:name => 'English only',
                                           :short_name => 'EO',
                                           :request_email => 'english@flourish.org',
@@ -95,7 +95,7 @@ describe PublicBodyController, "when listing bodies" do
                                           :last_edit_comment => '')
             @english_only.save
         end
-        PublicBody.with_locales(:es) do
+        I18n.with_locale(:es) do
             get :list
             assigns[:public_bodies].include?(@english_only).should == true
         end
