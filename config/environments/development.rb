@@ -23,9 +23,11 @@ Alaveteli::Application.configure do
   config.action_mailer.delivery_method = :smtp # so is queued, rather than giving immediate errors
   config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
 
-
   # Writes useful log files to debug memory leaks, of the sort where have
   # unintentionally kept references to objects, especially strings.
   # require 'memory_profiler'
   # MemoryProfiler.start :string_debug => true, :delay => 10
+
+  # Print deprecation notices to the Rails logger
+  config.active_support.deprecation = :log
 end
