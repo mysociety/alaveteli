@@ -10,22 +10,12 @@ if RUBY_VERSION.to_f >= 1.9
     $VERBOSE = original_verbose
 end
 
-# Uncomment below to force Rails into production mode when
-# you don't control web/app server and can't set it the proper way
-# ENV['RAILS_ENV'] ||= 'production'
-
-# Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.14' unless defined? RAILS_GEM_VERSION
-
-# Bootstrap the Rails environment, frameworks, and default configuration
-require File.join(File.dirname(__FILE__), 'boot')
-
 # MySociety specific helper functions
-$:.push(File.join(File.dirname(__FILE__), '../commonlib/rblib'))
+$:.push(File.join(File.dirname(__FILE__), '../../commonlib/rblib'))
 # ... if these fail to include, you need the commonlib submodule from git
 # (type "git submodule update --init" in the whatdotheyknow directory)
 
-$:.unshift(File.join(File.dirname(__FILE__), '../vendor/plugins/globalize2/lib'))
+$:.unshift(File.join(File.dirname(__FILE__), '../../vendor/plugins/globalize2/lib'))
 
 load "validate.rb"
 load "config.rb"
@@ -36,7 +26,7 @@ load "util.rb"
 # Restores override removed in https://github.com/rails/rails/commit/c20a4d18e36a13b5eea3155beba36bb582c0cc87
 # without effecting method behaviour
 # and adds fallback gem call removed in https://github.com/rails/rails/commit/4c3725723f15fab0a424cb1318b82b460714b72f
-require File.join(File.dirname(__FILE__), '../lib/old_rubygems_patch')
+require File.join(File.dirname(__FILE__), '../../lib/old_rubygems_patch')
 require 'configuration'
 
 # Application version
