@@ -59,7 +59,7 @@ module Alaveteli
        require 'routing_filters.rb'
     end
 
-    config.autoload_paths << "#{RAILS_ROOT}/lib/mail_handler"
+    config.autoload_paths << "#{Rails.root.to_s}/lib/mail_handler"
 
     # See Rails::Configuration for more options
     ENV['RECAPTCHA_PUBLIC_KEY'] = ::Configuration::recaptcha_public_key
