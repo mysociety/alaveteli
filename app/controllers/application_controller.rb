@@ -151,19 +151,20 @@ class ApplicationController < ActionController::Base
         render :template => "general/exception_caught.rhtml", :status => @status
     end
 
-    # For development sites.
-    alias original_rescue_action_locally rescue_action_locally
-    def rescue_action_locally(exception)
-        # Make sure expiry time for session is set (before_filters are
-        # otherwise missed by this override)
-        session_remember_me
+    # FIXME: This was disabled during the Rails 3 upgrade as this is now handled by Rack
+    # # For development sites.
+    # alias original_rescue_action_locally rescue_action_locally
+    # def rescue_action_locally(exception)
+    #     # Make sure expiry time for session is set (before_filters are
+    #     # otherwise missed by this override)
+    #     session_remember_me
 
-        # Make sure the locale is set correctly too
-        set_gettext_locale
+    #     # Make sure the locale is set correctly too
+    #     set_gettext_locale
 
-        # Display default, detailed error for developers
-        original_rescue_action_locally(exception)
-    end
+    #     # Display default, detailed error for developers
+    #     original_rescue_action_locally(exception)
+    # end
 
     def local_request?
         false
