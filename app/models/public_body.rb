@@ -105,7 +105,7 @@ class PublicBody < ActiveRecord::Base
     # like find_by_url_name but also search historic url_name if none found
     def self.find_by_url_name_with_historic(name)
         locale = self.locale || I18n.locale
-        PublicBody.with_locale(locale) do
+        PublicBody.with_locales(locale) do
             found = PublicBody.find(:all,
                                     :conditions => ["public_body_translations.url_name=?", name],
                                     :joins => :translations,
@@ -336,7 +336,7 @@ class PublicBody < ActiveRecord::Base
 
     # The "internal admin" is a special body for internal use.
     def PublicBody.internal_admin_body
-        PublicBody.with_locale(I18n.default_locale) do
+        PublicBody.with_locales(I18n.default_locale) do
             pb = PublicBody.find_by_url_name("internal_admin_authority")
             if pb.nil?
                 pb = PublicBody.new(
@@ -374,7 +374,7 @@ class PublicBody < ActiveRecord::Base
                 # of updating them
                 bodies_by_name = {}
                 set_of_existing = Set.new()
-                PublicBody.with_locale(I18n.default_locale) do
+                PublicBody.with_locales(I18n.default_locale) do
                     bodies = (tag.nil? || tag.empty?) ? PublicBody.find(:all) : PublicBody.find_by_tag(tag)
                     for existing_body in bodies
                         # Hide InternalAdminBody from import notes
@@ -417,7 +417,7 @@ class PublicBody < ActiveRecord::Base
 
                     if public_body = bodies_by_name[name]   # Existing public body
                         available_locales.each do |locale|
-                            PublicBody.with_locale(locale) do
+                            PublicBody.with_locales(locale) do
                                 changed = ActiveSupport::OrderedHash.new
                                 field_list.each do |field_name|
                                     localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
@@ -452,7 +452,7 @@ class PublicBody < ActiveRecord::Base
                     else # New public body
                         public_body = PublicBody.new(:name=>"", :short_name=>"", :request_email=>"")
                         available_locales.each do |locale|
-                            PublicBody.with_locale(locale) do
+                            PublicBody.with_locales(locale) do
                                 changed = ActiveSupport::OrderedHash.new
                                 field_list.each do |field_name|
                                     localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"

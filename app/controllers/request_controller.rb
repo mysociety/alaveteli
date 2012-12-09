@@ -52,7 +52,7 @@ class RequestController < ApplicationController
             medium_cache
         end
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do
+        PublicBody.with_locales(@locale) do
 
             # Look up by old style numeric identifiers
             if params[:url_title].match(/^[0-9]+$/)
@@ -804,7 +804,7 @@ class RequestController < ApplicationController
     # FOI officers can upload a response
     def upload_response
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do
+        PublicBody.with_locales(@locale) do
             @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
             @reason_params = {
@@ -861,7 +861,7 @@ class RequestController < ApplicationController
 
     def download_entire_request
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do
+        PublicBody.with_locales(@locale) do
             info_request = InfoRequest.find_by_url_title!(params[:url_title])
             if authenticated?(
                               :web => _("To download the zip file"),
