@@ -1,3 +1,13 @@
+require File.dirname(__FILE__) + '/../commonlib/rblib/config'
+
+# Load intial mySociety config
+if ENV["RAILS_ENV"] == "test"
+    MySociety::Config.set_file(File.join(File.dirname(__FILE__), 'test'), true)
+else
+    MySociety::Config.set_file(File.join(File.dirname(__FILE__), 'general'), true)
+end
+MySociety::Config.load_default
+
 # Configuration values with defaults
 
 # TODO: Make this return different values depending on the current rails environment

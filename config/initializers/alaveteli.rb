@@ -22,66 +22,9 @@ load "config.rb"
 load "format.rb"
 load "debug_helpers.rb"
 load "util.rb"
-require 'configuration'
 
 # Application version
 ALAVETELI_VERSION = '0.6.8'
-
-Rails::Initializer.run do |config|
-  # Load intial mySociety config
-  if ENV["RAILS_ENV"] == "test"
-      MySociety::Config.set_file(File.join(config.root_path, 'config', 'test'), true)
-  else
-      MySociety::Config.set_file(File.join(config.root_path, 'config', 'general'), true)
-  end
-  MySociety::Config.load_default
-
-  # Settings in config/environments/* take precedence over those specified here
-
-  # Skip frameworks you're not going to use (only works if using vendor/rails)
-  # config.frameworks -= [ :action_web_service, :action_mailer ]
-
-  # Only load the plugins named here, by default all plugins in vendor/plugins are loaded
-  # config.plugins = %W( exception_notification ssl_requirement )
-
-  # Add additional load paths for your own custom dirs
-  # config.load_paths += %W( #{Rails.root}/extras )
-
-  # Force all environments to use the same logger level
-  # (by default production uses :info, the others :debug)
-  # TEMP: uncomment this to turn on logging in production environments
-  # config.log_level = :debug
-  #
-  # Specify gems that this application depends on and have them installed with rake gems:install
-  #GettextI18nRails.translations_are_html_safe = true
-
-  # Use SQL instead of Active Record's schema dumper when creating the test database.
-  # This is necessary if your schema can't be completely dumped by the schema dumper,
-  # like if you have constraints or database-specific column types
-  config.active_record.schema_format = :sql
-
-  # Activate observers that should always be running
-  # config.active_record.observers = :cacher, :garbage_collector
-
-  # Make Active Record use UTC-base instead of local time
-  config.active_record.default_timezone = :utc
-
-  # This is the timezone that times and dates are displayed in
-  # Note that having set a zone, the Active Record
-  # time_zone_aware_attributes flag is on, so times from models
-  # will be in this time zone
-  config.time_zone = Configuration::time_zone
-
-  config.after_initialize do
-     require 'routing_filters.rb'
-  end
-
-  config.autoload_paths << "#{RAILS_ROOT}/lib/mail_handler"
-
-  # See Rails::Configuration for more options
-  ENV['RECAPTCHA_PUBLIC_KEY'] = Configuration::recaptcha_public_key
-  ENV['RECAPTCHA_PRIVATE_KEY'] = Configuration::recaptcha_private_key
-end
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):

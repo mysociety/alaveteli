@@ -2,6 +2,8 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
+require File.dirname(__FILE__) + '/../lib/configuration'
+
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
@@ -38,5 +40,29 @@ module Alaveteli
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    # Use SQL instead of Active Record's schema dumper when creating the test database.
+    # This is necessary if your schema can't be completely dumped by the schema dumper,
+    # like if you have constraints or database-specific column types
+    config.active_record.schema_format = :sql
+
+    # Make Active Record use UTC-base instead of local time
+    config.active_record.default_timezone = :utc
+
+    # This is the timezone that times and dates are displayed in
+    # Note that having set a zone, the Active Record
+    # time_zone_aware_attributes flag is on, so times from models
+    # will be in this time zone
+    config.time_zone = ::Configuration::time_zone
+
+    config.after_initialize do
+       require 'routing_filters.rb'
+    end
+
+    config.autoload_paths << "#{RAILS_ROOT}/lib/mail_handler"
+
+    # See Rails::Configuration for more options
+    ENV['RECAPTCHA_PUBLIC_KEY'] = ::Configuration::recaptcha_public_key
+    ENV['RECAPTCHA_PRIVATE_KEY'] = ::Configuration::recaptcha_private_key
   end
 end
