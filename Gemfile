@@ -41,6 +41,7 @@ gem 'capistrano'
 gem 'syslog_protocol'
 gem 'newrelic_rpm'
 gem 'tmail'
+gem 'globalize3'
 
 group :test do
   gem 'fakeweb'
