@@ -32,7 +32,7 @@
             <% end %>
         <% end %>
         <% if @has_json %>
-            <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h main_url(request.request_uri, '.json') %>">
+            <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h main_url(request.fullpath, '.json') %>">
         <% end %>
 
         <% if @no_crawl %>
@@ -92,9 +92,9 @@
                 <% end %>
 
 
-              <%= link_to _("Sign out"), signout_url(:r => request.request_uri) %>
+              <%= link_to _("Sign out"), signout_url(:r => request.fullpath) %>
           <% else %>
-              <%= link_to _("Sign in or sign up"), signin_url(:r => request.request_uri) %>
+              <%= link_to _("Sign in or sign up"), signin_url(:r => request.fullpath) %>
           <% end %>
           </div>
         <% end %>

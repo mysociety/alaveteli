@@ -106,7 +106,7 @@
             <%= _('The request is <strong>waiting for clarification</strong>.') %>
             <% if !@info_request.is_external? %>
               <%= _('If you are {{user_link}}, please',:user_link=>user_link_for_request(@info_request)) %>
-              <%= link_to _("sign in"), signin_url(:r => request.request_uri) %> <%= _('to send a follow up message.') %>
+              <%= link_to _("sign in"), signin_url(:r => request.fullpath) %> <%= _('to send a follow up message.') %>
             <% end %>
         <% end %>
     <% elsif @status == 'gone_postal' %>

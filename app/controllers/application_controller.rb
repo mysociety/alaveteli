@@ -240,7 +240,7 @@ class ApplicationController < ActionController::Base
     # Check the user is logged in
     def authenticated?(reason_params)
         unless session[:user_id]
-            post_redirect = PostRedirect.new(:uri => request.request_uri, :post_params => params,
+            post_redirect = PostRedirect.new(:uri => request.fullpath, :post_params => params,
                 :reason_params => reason_params)
             post_redirect.save!
             # 'modal' controls whether the sign-in form will be displayed in the typical full-blown
