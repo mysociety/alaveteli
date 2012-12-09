@@ -81,6 +81,8 @@ class InfoRequest < ActiveRecord::Base
         'blackhole' # just dump them
     ]
 
+    after_initialize :set_defaults
+
     def self.enumerate_states
         states = [
         'waiting_response',
@@ -170,16 +172,6 @@ class InfoRequest < ActiveRecord::Base
     end
 
     OLD_AGE_IN_DAYS = 21.days
-
-    def after_initialize
-        if self.described_state.nil?
-            self.described_state = 'waiting_response'
-        end
-        # FOI or EIR?
-        if !self.public_body.nil? && self.public_body.eir_only?
-            self.law_used = 'eir'
-        end
-    end
 
     def visible_comments
         self.comments.find(:all, :conditions => 'visible')
@@ -1154,6 +1146,18 @@ public
       self.class.content_columns.map{|c| c unless %w(title url_title).include?(c.name) }.compact.each do |column|
         yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
       end
+    end
+
+    private
+
+    def set_defaults
+        if self.described_state.nil?
+            self.described_state = 'waiting_response'
+        end
+        # FOI or EIR?
+        if !self.public_body.nil? && self.public_body.eir_only?
+            self.law_used = 'eir'
+        end
     end
 end
 

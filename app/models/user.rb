@@ -56,6 +56,9 @@ class User < ActiveRecord::Base
         ],
         :terms => [ [ :variety, 'V', "variety" ] ],
         :if => :indexed_by_search?
+
+    after_initialize :set_defaults
+
     def created_at_numeric
         # format it here as no datetime support in Xapian's value ranges
         return self.created_at.strftime("%Y%m%d%H%M%S")
@@ -63,17 +66,6 @@ class User < ActiveRecord::Base
 
     def variety
         "user"
-    end
-
-    def after_initialize
-        if self.admin_level.nil?
-            self.admin_level = 'none'
-        end
-        if self.new_record?
-            # make alert emails go out at a random time for each new user, so
-            # overall they are spread out throughout the day.
-            self.last_daily_track_email = User.random_time_in_last_day
-        end
     end
 
     # requested_by: and commented_by: search queries also need updating after save
@@ -411,6 +403,17 @@ class User < ActiveRecord::Base
 
     def create_new_salt
         self.salt = self.object_id.to_s + rand.to_s
+    end
+
+    def set_defaults
+        if self.admin_level.nil?
+            self.admin_level = 'none'
+        end
+        if self.new_record?
+            # make alert emails go out at a random time for each new user, so
+            # overall they are spread out throughout the day.
+            self.last_daily_track_email = User.random_time_in_last_day
+        end
     end
 
     ## Class methods
