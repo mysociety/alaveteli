@@ -27,7 +27,7 @@ require 'digest/sha1'
 
 class InfoRequest < ActiveRecord::Base
     include ActionView::Helpers::UrlHelper
-    include ActionController::UrlWriter
+    include Rails.application.routes.url_helpers
 
     strip_attributes!
 
