@@ -27,9 +27,6 @@ class ApplicationController < ActionController::Base
     before_filter :set_vary_header
     before_filter :set_popup_banner
 
-    # scrub sensitive parameters from the logs
-    filter_parameter_logging :password
-
     def set_vary_header
         response.headers['Vary'] = 'Cookie'
     end
