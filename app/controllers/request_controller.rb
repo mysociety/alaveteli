@@ -99,15 +99,13 @@ class RequestController < ApplicationController
 
             # Sidebar stuff
             # ... requests that have similar imporant terms
-            behavior_cache :tag => ['similar', @info_request.id] do
-                begin
-                    limit = 10
-                    @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
-                      :limit => limit, :collapse_by_prefix => 'request_collapse')
-                    @xapian_similar_more = (@xapian_similar.matches_estimated > limit)
-                rescue
-                    @xapian_similar = nil
-                end
+            begin
+                limit = 10
+                @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
+                  :limit => limit, :collapse_by_prefix => 'request_collapse')
+                @xapian_similar_more = (@xapian_similar.matches_estimated > limit)
+            rescue
+                @xapian_similar = nil
             end
 
             # Track corresponding to this page
@@ -173,13 +171,10 @@ class RequestController < ApplicationController
         query = make_query_from_params
         @title = _("View and search requests")
         sortby = "newest"
-        @cache_tag = Digest::MD5.hexdigest(query + @page.to_s + I18n.locale.to_s)
-        behavior_cache :tag => [@cache_tag] do
-            xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
-            @list_results = xapian_object.results.map { |r| r[:model] }
-            @matches_estimated = xapian_object.matches_estimated
-            @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
-        end
+        xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
+        @list_results = xapian_object.results.map { |r| r[:model] }
+        @matches_estimated = xapian_object.matches_estimated
+        @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
 
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
         @track_thing = TrackThing.create_track_for_search_query(query)

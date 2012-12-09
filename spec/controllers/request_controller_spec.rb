@@ -59,19 +59,6 @@ describe RequestController, "when listing recent requests" do
             :conditions => "id in (select info_request_id from info_request_events where created_at between '2007-10-13'::date and '2007-11-01'::date)")
     end
 
-    it "should make a sane-sized cache tag" do
-        get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
-        assigns[:cache_tag].size.should <= 32
-    end
-
-    it "should vary the cache tag with locale" do
-        get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
-        en_tag = assigns[:cache_tag]
-        session[:locale] = :es
-        get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
-        assigns[:cache_tag].should_not == en_tag
-    end
-
     it "should list internal_review requests as unresolved ones" do
         get :list, :view => 'awaiting'
 
