@@ -71,9 +71,6 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    # scrub sensitive parameters from the logs
-    filter_parameter_logging :password
-
     helper_method :locale_from_params
 
     # Help work out which request causes RAM spike.
