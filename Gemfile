@@ -28,8 +28,6 @@ gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 gem 'rmagick', :require => 'RMagick'
 gem 'routing-filter', '~> 0.2.4'
 gem 'rake', '0.9.2.2'
-gem 'rspec', '~> 1.3.2'
-gem 'rspec-rails', '~> 1.3.4'
 gem 'ruby-msg', '~> 1.5.0'
 gem 'vpim'
 gem 'will_paginate', '~> 2.3.11'
@@ -45,7 +43,6 @@ gem 'globalize3'
 
 group :test do
   gem 'fakeweb'
-  gem 'rspec-rails', '~> 1.3.4'
   gem 'test-unit', '~> 1.2.3', :platforms => :ruby_19
 end
 
@@ -59,4 +56,8 @@ group :develop do
   gem 'bootstrap-sass'
   gem 'compass'
   gem 'annotate'
+end
+
+group :test, :development do
+  gem 'rspec-rails'
 end
