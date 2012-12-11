@@ -5,7 +5,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 # http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/ControllerExampleGroup.html
 
 describe UserController, "when showing a user" do
-    integrate_views
+    render_views
     before(:each) do
         load_raw_emails_data
         get_fixtures_xapian_index
@@ -64,7 +64,7 @@ describe UserController, "when showing a user" do
 end
 
 describe UserController, "when signing in" do
-    integrate_views
+    render_views
 
     def get_last_postredirect
         post_redirects = PostRedirect.find_by_sql("select * from post_redirects order by id desc limit 1")
@@ -228,7 +228,7 @@ describe UserController, "when signing in" do
 end
 
 describe UserController, "when signing up" do
-    integrate_views
+    render_views
 
     it "should be an error if you type the password differently each time" do
         post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
@@ -285,7 +285,7 @@ describe UserController, "when signing up" do
 end
 
 describe UserController, "when signing out" do
-    integrate_views
+    render_views
 
     it "should log you out and redirect to the home page" do
         session[:user_id] = users(:bob_smith_user).id
@@ -309,7 +309,7 @@ describe UserController, "when signing out" do
 end
 
 describe UserController, "when sending another user a message" do
-    integrate_views
+    render_views
 
     it "should redirect to signin page if you go to the contact form and aren't signed in" do
         get :contact, :id => users(:silly_name_user)
@@ -346,7 +346,7 @@ describe UserController, "when sending another user a message" do
 end
 
 describe UserController, "when changing password" do
-    integrate_views
+    render_views
 
     it "should show the email form when not logged in" do
         get :signchangepassword
@@ -416,7 +416,7 @@ describe UserController, "when changing password" do
 end
 
 describe UserController, "when changing email address" do
-    integrate_views
+    render_views
 
     it "should require login" do
         get :signchangeemail
@@ -561,7 +561,7 @@ describe UserController, "when changing email address" do
 end
 
 describe UserController, "when using profile photos" do
-    integrate_views
+    render_views
 
     before do
         @user = users(:bob_smith_user)
@@ -631,7 +631,7 @@ describe UserController, "when showing JSON version for API" do
 end
 
 describe UserController, "when viewing the wall" do
-    integrate_views
+    render_views
 
     before(:each) do
         get_fixtures_xapian_index

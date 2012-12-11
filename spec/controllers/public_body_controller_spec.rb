@@ -2,7 +2,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PublicBodyController, "when showing a body" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -79,7 +79,7 @@ describe PublicBodyController, "when showing a body" do
 end
 
 describe PublicBodyController, "when listing bodies" do
-    integrate_views
+    render_views
 
     it "should be successful" do
         get :list
@@ -193,7 +193,7 @@ end
 
 describe PublicBodyController, "when doing type ahead searches" do
 
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data

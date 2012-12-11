@@ -35,7 +35,7 @@ end
 
 describe GeneralController, "when showing the frontpage" do
 
-    integrate_views
+    render_views
 
     before do
       public_body = mock_model(PublicBody, :name => "Example Public Body",
@@ -235,7 +235,7 @@ end
 
 describe GeneralController, 'when using xapian search' do
 
-    integrate_views
+    render_views
 
     # rebuild xapian index after fixtures loaded
     before(:each) do

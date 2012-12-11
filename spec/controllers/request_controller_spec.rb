@@ -121,7 +121,7 @@ end
 
 describe RequestController, "when changing things that appear on the request page" do
 
-    integrate_views
+    render_views
 
     it "should purge the downstream cache when mail is received" do
         ir = info_requests(:fancy_dog_request)
@@ -187,7 +187,7 @@ describe RequestController, "when changing things that appear on the request pag
 end
 
 describe RequestController, "when showing one request" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -445,7 +445,7 @@ describe RequestController, "when showing one request" do
 
     describe 'when handling incoming mail' do
 
-        integrate_views
+        render_views
 
         it "should receive incoming messages, send email to creator, and show them" do
             ir = info_requests(:fancy_dog_request)
@@ -895,7 +895,7 @@ describe RequestController, "when searching for an authority" do
 end
 
 describe RequestController, "when creating a new request" do
-    integrate_views
+    render_views
 
     before do
         @user = users(:bob_smith_user)
@@ -1131,7 +1131,7 @@ describe RequestController, "when making a new request" do
 end
 
 describe RequestController, "when viewing an individual response for reply/followup" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -1564,7 +1564,7 @@ describe RequestController, "when classifying an information request" do
 end
 
 describe RequestController, "when sending a followup message" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -1646,7 +1646,7 @@ end
 # it can't check the URLs in the emails I don't think, ugh.
 
 describe RequestController, "sending overdue request alerts" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -1791,7 +1791,7 @@ describe RequestController, "sending overdue request alerts" do
 end
 
 describe RequestController, "sending unclassified new response reminder alerts" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -1821,7 +1821,7 @@ describe RequestController, "sending unclassified new response reminder alerts" 
 end
 
 describe RequestController, "clarification required alerts" do
-    integrate_views
+    render_views
     before(:each) do
         load_raw_emails_data
     end
@@ -1874,7 +1874,7 @@ describe RequestController, "clarification required alerts" do
 end
 
 describe RequestController, "comment alerts" do
-    integrate_views
+    render_views
     before(:each) do
         load_raw_emails_data
     end
@@ -1953,7 +1953,7 @@ describe RequestController, "comment alerts" do
 end
 
 describe RequestController, "when viewing comments" do
-    integrate_views
+    render_views
     before(:each) do
         load_raw_emails_data
     end
@@ -1976,7 +1976,7 @@ end
 
 
 describe RequestController, "authority uploads a response from the web interface" do
-    integrate_views
+    render_views
 
     before(:each) do
         # domain after the @ is used for authentication of FOI officers, so to test it
@@ -2086,7 +2086,7 @@ end
 
 describe RequestController, "when doing type ahead searches" do
 
-    integrate_views
+    render_views
 
     it "should return nothing for the empty query string" do
         get :search_typeahead, :q => ""
@@ -2144,7 +2144,7 @@ describe RequestController, "when doing type ahead searches" do
 end
 
 describe RequestController, "when showing similar requests" do
-    integrate_views
+    render_views
 
     it "should work" do
         get :similar, :url_title => info_requests(:badger_request).url_title
@@ -2178,7 +2178,7 @@ describe RequestController, "when reporting a request when not logged in" do
 end
 
 describe RequestController, "when reporting a request (logged in)" do
-    integrate_views
+    render_views
 
     before do
         @user = users(:robin_user)

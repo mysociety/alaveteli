@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ServicesController, "when using web services" do
 
-    integrate_views
+    render_views
 
     # store and restore the locale in the context of the test suite to isolate
     # changes made in these tests

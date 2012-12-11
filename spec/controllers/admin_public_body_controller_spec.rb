@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminPublicBodyController, "when administering public bodies" do
-    integrate_views
+    render_views
 
     before do
         @old_filters = ActionController::Routing::Routes.filters
@@ -154,7 +154,7 @@ end
 
 describe AdminPublicBodyController, "when administering public bodies and paying attention to authentication" do
 
-    integrate_views
+    render_views
 
     before do
         config = MySociety::Config.load_default()
@@ -263,7 +263,7 @@ describe AdminPublicBodyController, "when administering public bodies and paying
 end
 
 describe AdminPublicBodyController, "when administering public bodies with i18n" do
-    integrate_views
+    render_views
 
     it "shows the index page" do
         get :index
@@ -325,7 +325,7 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
 end
 
 describe AdminPublicBodyController, "when creating public bodies with i18n" do
-    integrate_views
+    render_views
 
     before do
         @old_filters = ActionController::Routing::Routes.filters

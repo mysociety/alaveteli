@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminRequestController, "when administering requests" do
-    integrate_views
+    render_views
     before { basic_auth_login @request }
 
     before(:each) do
@@ -82,7 +82,7 @@ describe AdminRequestController, "when administering requests" do
 end
 
 describe AdminRequestController, "when administering the holding pen" do
-    integrate_views
+    render_views
     before(:each) do
         basic_auth_login @request
         load_raw_emails_data

@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminCensorRuleController, "when making censor rules from the admin interface" do
-    integrate_views
+    render_views
     before { basic_auth_login @request }
   
     it "should create a censor rule and purge the corresponding request from varnish" do
