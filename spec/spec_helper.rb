@@ -20,6 +20,23 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
+  # The order (!) of this is important thanks to foreign keys
+  config.global_fixtures = :users,
+                           :public_bodies,
+                           :public_body_translations,
+                           :public_body_versions,
+                           :info_requests,
+                           :raw_emails,
+                           :incoming_messages,
+                           :outgoing_messages,
+                           :comments,
+                           :info_request_events,
+                           :track_things,
+                           :foi_attachments,
+                           :has_tag_string_tags,
+                           :holidays,
+                           :track_things_sent_emails
+
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
