@@ -23,12 +23,12 @@ describe "public_body/show" do
           { :model => mock_event }
         ])
 
-        assigns[:public_body] = @pb
-        assigns[:track_thing] = mock_model(TrackThing, 
-            :track_type => 'public_body_updates', :public_body => @pb, :params => {})
-        assigns[:xapian_requests] = @xap
-        assigns[:page] = 1
-        assigns[:per_page] = 10
+        assign(:public_body, @pb)
+        assign(:track_thing, mock_model(TrackThing,
+            :track_type => 'public_body_updates', :public_body => @pb, :params => {}))
+        assign(:xapian_requests, @xap)
+        assign(:page, 1)
+        assign(:per_page, 10)
     end
 
     it "should be successful" do
