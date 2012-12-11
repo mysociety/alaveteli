@@ -39,7 +39,9 @@ class CensorRule < ActiveRecord::Base
 
     def require_user_request_or_public_body
         if self.info_request.nil? && self.user.nil? && self.public_body.nil?
-            errors.add("Censor must apply to an info request a user or a body; ")
+            [:info_request, :user, :public_body].each do |a|
+                errors.add(a, "Rule must apply to an info request, a user or a body")
+            end
         end
     end
 
