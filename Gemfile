@@ -44,6 +44,7 @@ gem 'globalize3'
 group :test do
   gem 'fakeweb'
   gem 'test-unit', '~> 1.2.3', :platforms => :ruby_19
+  gem 'webrat'
 end
 
 group :development do

@@ -43,7 +43,7 @@ describe "public_body/show" do
 
     it "should show the body's name" do
         render
-        response.should have_tag("h1", "Test Quango")
+        response.should have_selector('h1', :content => "Test Quango")
     end
 
     it "should tell total number of requests" do
@@ -54,7 +54,7 @@ describe "public_body/show" do
     it "should cope with no results" do
         @pb.stub!(:info_requests).and_return([])
         render
-        response.should have_tag("p", /Nobody has made any Freedom of Information requests/m)
+        response.should have_selector('p', :content => "Nobody has made any Freedom of Information requests")
     end
 
     it "should cope with Xapian being down" do
