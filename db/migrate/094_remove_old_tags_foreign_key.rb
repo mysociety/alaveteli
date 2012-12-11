@@ -4,10 +4,11 @@ class RemoveOldTagsForeignKey < ActiveRecord::Migration
             execute "ALTER TABLE has_tag_string_tags DROP CONSTRAINT fk_public_body_tags_public_body"
         end
 
-        remove_index :public_body_tags, [:public_body_id, :name, :value]
-        remove_index :public_body_tags, :name
+        # This table was already removed in the previous migration
+        # remove_index :public_body_tags, [:public_body_id, :name, :value]
+        # remove_index :public_body_tags, :name
 
-        add_index :has_tag_string_tags, [:model, :model_id, :name, :value]
+        add_index :has_tag_string_tags, [:model, :model_id, :name, :value], :name => 'by_model_and_model_id_and_name_and_value'
         add_index :has_tag_string_tags, :name
     end
 
