@@ -13,7 +13,8 @@ module ActiveRecord
       
       def column(name, sql_type = nil, default = nil, null = true)
         columns << ActiveRecord::ConnectionAdapters::Column.new(name.to_s, default, sql_type.to_s, null)
-        reset_column_information
+        # FIXME: Disabled temporarily during Rails 3 upgrade
+        # reset_column_information
       end
       
       # Do not reset @columns

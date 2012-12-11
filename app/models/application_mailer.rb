@@ -67,7 +67,8 @@ class ApplicationMailer < ActionMailer::Base
             return nil
         end
 
-    if ActionMailer::VERSION::MAJOR == 2
+    # FIXME: This check was disabled temporarily during the Rails 3 upgrade
+    #if ActionMailer::VERSION::MAJOR == 2
 
         # This method is a customised version of ActionMailer::Base.create!
         # modified to allow templates to be selected correctly for multipart
@@ -142,9 +143,9 @@ class ApplicationMailer < ActionMailer::Base
           # build the mail object itself
           @mail = create_mail
         end
-    else
-        raise "ApplicationMailer.create! is obsolete - find another way to ensure that themes can override mail templates for multipart mails"
-    end
+    # else
+    #     raise "ApplicationMailer.create! is obsolete - find another way to ensure that themes can override mail templates for multipart mails"
+    # end
 
 end
 
