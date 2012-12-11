@@ -429,21 +429,25 @@ end
 describe IncomingMessage, "when messages are attached to messages" do
 
     it 'should expand an RFC822 attachment' do
-        mail_body = load_file_fixture('rfc822-attachment.email')
-        mail = MailHandler.mail_from_raw_email(mail_body)
+        # Note that this spec will only pass using Tmail in the timezone set as datetime headers
+        # are rendered out in the local time - using the Mail gem this is not necessary
+        with_env_tz('London') do
+            mail_body = load_file_fixture('rfc822-attachment.email')
+            mail = MailHandler.mail_from_raw_email(mail_body)
 
-        im = incoming_messages(:useless_incoming_message)
-        im.stub!(:mail).and_return(mail)
+            im = incoming_messages(:useless_incoming_message)
+            im.stub!(:mail).and_return(mail)
 
-        attachments = im.get_attachments_for_display
-        attachments.size.should == 1
-        attachment = attachments.first
+            attachments = im.get_attachments_for_display
+            attachments.size.should == 1
+            attachment = attachments.first
 
-        attachment.content_type.should == 'text/plain'
-        attachment.filename.should == "Freedom of Information request.txt"
-        attachment.charset.should == "utf-8"
-        attachment.within_rfc822_subject.should == "Freedom of Information request"
-        attachment.hexdigest.should == 'f10fe56e4f2287685a58b71329f09639'
+            attachment.content_type.should == 'text/plain'
+            attachment.filename.should == "Freedom of Information request.txt"
+            attachment.charset.should == "utf-8"
+            attachment.within_rfc822_subject.should == "Freedom of Information request"
+            attachment.hexdigest.should == 'f10fe56e4f2287685a58b71329f09639'
+        end
     end
 
     it "should flatten all the attachments out" do
@@ -463,15 +467,19 @@ describe IncomingMessage, "when messages are attached to messages" do
     end
 
     it 'should add headers to attached plain text message bodies' do
-        mail_body = load_file_fixture('incoming-request-attachment-headers.email')
-        mail = MailHandler.mail_from_raw_email(mail_body)
+        # Note that this spec will only pass using Tmail in the timezone set as datetime headers
+        # are rendered out in the local time - using the Mail gem this is not necessary
+        with_env_tz('London') do
+            mail_body = load_file_fixture('incoming-request-attachment-headers.email')
+            mail = MailHandler.mail_from_raw_email(mail_body)
 
-        im = incoming_messages(:useless_incoming_message)
-        im.stub!(:mail).and_return(mail)
+            im = incoming_messages(:useless_incoming_message)
+            im.stub!(:mail).and_return(mail)
 
-        attachments = im.get_attachments_for_display
-        attachments.size.should == 2
-        attachments[0].body.should match('Date: Fri, 23 May 2008')
+            attachments = im.get_attachments_for_display
+            attachments.size.should == 2
+            attachments[0].body.should match('Date: Fri, 23 May 2008')
+        end
     end
 
 end
