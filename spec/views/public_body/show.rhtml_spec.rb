@@ -48,7 +48,7 @@ describe "public_body/show" do
 
     it "should tell total number of requests" do
         render
-        response.should include_text("4 Freedom of Information requests")
+        response.should match "4 Freedom of Information requests"
     end
 
     it "should cope with no results" do
