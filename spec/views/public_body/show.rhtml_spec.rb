@@ -33,7 +33,7 @@ describe "public_body/show" do
 
     it "should be successful" do
         render
-        response.should be_success
+        controller.response.should be_success
     end
 
     it "should be valid HTML" do
