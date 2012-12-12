@@ -631,7 +631,7 @@ class IncomingMessage < ActiveRecord::Base
         attachment_attributes = MailHandler.get_attachment_attributes(self.mail(force))
         attachments = []
         attachment_attributes.each do |attrs|
-            attachment = self.foi_attachments.find_or_create_by_hexdigest(:hexdigest => attrs[:hexdigest])
+            attachment = self.foi_attachments.find_or_create_by_hexdigest(attrs[:hexdigest])
             body = attrs.delete(:body)
             attachment.update_attributes(attrs)
             # Set the body separately as its handling can depend on the value of charset
