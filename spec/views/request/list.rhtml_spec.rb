@@ -5,8 +5,6 @@ describe "when listing recent requests" do
     before do
         assign :page, 1
         assign :per_page, 10
-        # work round a bug in ActionController::TestRequest; allows request.query_string to work in the template
-        request.env["REQUEST_URI"] = ""
     end
       
     def make_mock_event 
