@@ -50,6 +50,8 @@ class User < ActiveRecord::Base
         'super',
     ], :message => N_('Admin level is not included in list')
 
+    validate :email_and_name_are_valid
+
     acts_as_xapian :texts => [ :name, :about_me ],
         :values => [
              [ :created_at_numeric, 1, "created_at", :number ] # for sorting
@@ -98,15 +100,6 @@ class User < ActiveRecord::Base
 
     def visible_comments
         self.comments.find(:all, :conditions => 'visible')
-    end
-
-    def validate
-        if self.email != "" && !MySociety::Validate.is_valid_email(self.email)
-            errors.add(:email, _("Please enter a valid email address"))
-        end
-        if MySociety::Validate.is_valid_email(self.name)
-            errors.add(:name, _("Please enter your name, not your email address, in the name field."))
-        end
     end
 
     # Don't display any leading/trailing spaces
@@ -413,6 +406,15 @@ class User < ActiveRecord::Base
             # make alert emails go out at a random time for each new user, so
             # overall they are spread out throughout the day.
             self.last_daily_track_email = User.random_time_in_last_day
+        end
+    end
+
+    def email_and_name_are_valid
+        if self.email != "" && !MySociety::Validate.is_valid_email(self.email)
+            errors.add(:email, _("Please enter a valid email address"))
+        end
+        if MySociety::Validate.is_valid_email(self.name)
+            errors.add(:name, _("Please enter your name, not your email address, in the name field."))
         end
     end
 
