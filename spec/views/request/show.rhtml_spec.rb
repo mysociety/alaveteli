@@ -26,17 +26,17 @@ describe 'when viewing an information request' do
         assign :info_request, @mock_request
         assign :info_request_events, []
         assign :status, @mock_request.calculate_status
-        template.stub!(:render_partial)
+        view.stub!(:render_partial)
         render 'request/show'
     end
     
     it 'should show the sidebar' do 
-        template.should_receive(:render_partial).with(:partial => 'sidebar', :locals => {})
+        view.should_receive(:render_partial).with(:partial => 'sidebar', :locals => {})
         request_page
     end
     
     it 'should show the actions people can take' do
-        template.should_receive(:render_partial).with(:partial => 'after_actions', :locals => {})
+        view.should_receive(:render_partial).with(:partial => 'after_actions', :locals => {})
         request_page
     end
     
