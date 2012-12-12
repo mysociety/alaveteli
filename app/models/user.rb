@@ -133,14 +133,14 @@ class User < ActiveRecord::Base
         if user
             # There is user with email, check password
             if !user.has_this_password?(params[:password])
-                user.errors.add_to_base(auth_fail_message)
+                user.errors.add(:base, auth_fail_message)
             end
         else
             # No user of same email, make one (that we don't save in the database)
             # for the forms code to use.
             user = User.new(params)
             # deliberately same message as above so as not to leak whether registered
-            user.errors.add_to_base(auth_fail_message)
+            user.errors.add(:base, auth_fail_message)
         end
         user
     end
