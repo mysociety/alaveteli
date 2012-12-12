@@ -24,13 +24,13 @@ describe 'when showing the form for describing the state of a request' do
             :user_name => @mock_user.name, 
             :is_external? => false
         )
-        assigns[:info_request] = @mock_request
+        assign :info_request, @mock_request
     end
     
     describe 'if the user is a regular user (not the request owner)' do
         
         before do 
-            assigns[:is_owning_user] = false
+            assign :is_owning_user, false
         end
         
         describe 'if the request is not old and unclassified' do 
@@ -50,7 +50,7 @@ describe 'when showing the form for describing the state of a request' do
         describe 'if the request is old and unclassified' do 
             
             before do
-                assigns[:old_unclassified] = true
+                assign :old_unclassified, true
             end
             
             it 'should not show the form' do 
@@ -74,7 +74,7 @@ describe 'when showing the form for describing the state of a request' do
     describe 'if showing the form to the user owning the request' do 
     
         before do 
-            assigns[:is_owning_user] = true
+            assign :is_owning_user, true
         end
     
         describe 'when the request is not in internal review' do 
@@ -100,7 +100,7 @@ describe 'when showing the form for describing the state of a request' do
         describe 'when the user has asked to update the status of the request' do 
             
             before do 
-                assigns[:update_status] = true
+                assign :update_status, true
             end
             
             it 'should show a radio button to set the status to "internal_review"' do 

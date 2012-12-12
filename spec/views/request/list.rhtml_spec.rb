@@ -3,8 +3,8 @@ require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 describe "when listing recent requests" do
   
     before do
-        assigns[:page] = 1
-        assigns[:per_page] = 10
+        assign :page, 1
+        assign :per_page, 10
         # work round a bug in ActionController::TestRequest; allows request.query_string to work in the template
         request.env["REQUEST_URI"] = ""
     end
@@ -30,18 +30,18 @@ describe "when listing recent requests" do
     end
 
     it "should be successful" do
-        assigns[:list_results] = [ make_mock_event, make_mock_event ]
-        assigns[:matches_estimated] = 2
-        assigns[:show_no_more_than] = 100
+        assign :list_results, [ make_mock_event, make_mock_event ]
+        assign :matches_estimated, 2
+        assign :show_no_more_than, 100
         render "request/list"
         response.should have_tag("div.request_listing")
         response.should_not have_tag("p", /No requests of this sort yet/m)
     end
 
     it "should cope with no results" do
-        assigns[:list_results] = [ ]
-        assigns[:matches_estimated] = 0
-        assigns[:show_no_more_than] = 0
+        assign :list_results, [ ]
+        assign :matches_estimated, 0
+        assign :show_no_more_than, 0
         render "request/list"
         response.should have_tag("p", /No requests of this sort yet/m)
         response.should_not have_tag("div.request_listing")

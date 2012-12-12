@@ -14,7 +14,7 @@ describe 'when displaying actions that can be taken with regard to a request' do
                                                 :public_body => @mock_body,
                                                 :comments_allowed? => true,
                                                 :url_title => 'test_request')
-        assigns[:info_request] = @mock_request
+        assign :info_request, @mock_request
     end
 
     def do_render
@@ -50,7 +50,7 @@ describe 'when displaying actions that can be taken with regard to a request' do
     describe 'if the request is old and unclassified' do
 
         before do
-            assigns[:old_unclassified] = true
+            assign :old_unclassified, true
         end
 
         it 'should not display a link for the request owner to update the status of the request' do
@@ -66,7 +66,7 @@ describe 'when displaying actions that can be taken with regard to a request' do
     describe 'if the request is not old and unclassified' do
 
         before do
-            assigns[:old_unclassified] = false
+            assign :old_unclassified, false
         end
 
         it 'should display a link for the request owner to update the status of the request' do

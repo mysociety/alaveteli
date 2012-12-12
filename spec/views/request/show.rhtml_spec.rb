@@ -23,9 +23,9 @@ describe 'when viewing an information request' do
     end
     
     def request_page
-        assigns[:info_request] = @mock_request
-        assigns[:info_request_events] = []
-        assigns[:status] = @mock_request.calculate_status
+        assign :info_request, @mock_request
+        assign :info_request_events, []
+        assign :status, @mock_request.calculate_status
         template.stub!(:render_partial)
         render 'request/show'
     end
@@ -43,7 +43,7 @@ describe 'when viewing an information request' do
     describe 'when a status update has been requested' do 
         
         before do 
-            assigns[:update_status] = true
+            assign :update_status, true
         end
         
         it 'should show the first form for describing the state of the request' do
@@ -74,7 +74,7 @@ describe 'when viewing an information request' do
     describe 'when the user is the request owner' do 
     
         before do 
-            assigns[:is_owning_user] = true
+            assign :is_owning_user, true
         end
         
         describe 'when the request status is "waiting clarification"' do 
