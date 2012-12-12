@@ -92,22 +92,6 @@ describe "when doing things with timezones" do
     end
   end
 
-
- protected
-
-    def with_env_tz(new_tz = 'US/Eastern')
-      old_tz, ENV['TZ'] = ENV['TZ'], new_tz
-      yield
-    ensure
-      old_tz ? ENV['TZ'] = old_tz : ENV.delete('TZ')
-    end
-
-    def with_active_record_default_timezone(zone)
-      old_zone, ActiveRecord::Base.default_timezone = ActiveRecord::Base.default_timezone, zone
-      yield
-    ensure
-      ActiveRecord::Base.default_timezone = old_zone
-    end
 end
 
 
