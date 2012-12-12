@@ -1,6 +1,6 @@
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
-describe "when listing recent requests" do
+describe "request/list" do
   
     before do
         assign :page, 1
@@ -27,22 +27,22 @@ describe "when listing recent requests" do
         )
     end
 
-    it "should be successful" do
+    it "should be successful", :focus => true do
         assign :list_results, [ make_mock_event, make_mock_event ]
         assign :matches_estimated, 2
         assign :show_no_more_than, 100
-        render "request/list"
-        response.should have_tag("div.request_listing")
-        response.should_not have_tag("p", /No requests of this sort yet/m)
+        render
+        response.should have_selector("div.request_listing")
+        response.should_not have_selector("p", :content => "No requests of this sort yet")
     end
 
     it "should cope with no results" do
         assign :list_results, [ ]
         assign :matches_estimated, 0
         assign :show_no_more_than, 0
-        render "request/list"
-        response.should have_tag("p", /No requests of this sort yet/m)
-        response.should_not have_tag("div.request_listing")
+        render
+        response.should have_selector("p", :content => "No requests of this sort yet")
+        response.should_not have_selector("div.request_listing")
     end
 
 end
