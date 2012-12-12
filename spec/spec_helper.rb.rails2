@@ -95,14 +95,6 @@ Spec::Runner.configure do |config|
 end
 
 # XXX No idea what namespace/class/module to put this in
-def receive_incoming_mail(email_name, email_to, email_from = 'geraldinequango@localhost')
-    email_name = file_fixture_name(email_name)
-    content = File.read(email_name)
-    content.gsub!('EMAIL_TO', email_to)
-    content.gsub!('EMAIL_FROM', email_from)
-    RequestMailer.receive(content)
-end
-
 def parse_all_incoming_messages
     IncomingMessage.find(:all).each{ |x| x.parse_raw_email! }
 end
@@ -162,10 +154,6 @@ def safe_mock_model(model, args = {})
   mock = mock_model(model, args)
   mock.should_receive(:to_ary).any_number_of_times
   mock
-end
-
-def get_fixture_mail(filename)
-    MailHandler.mail_from_raw_email(load_file_fixture(filename))
 end
 
 def load_test_categories
