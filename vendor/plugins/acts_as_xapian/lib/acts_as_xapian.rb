@@ -758,7 +758,7 @@ module ActsAsXapian
                 else
                     values = []
                     for locale in self.translations.map{|x| x.locale}
-                        self.class.with_locale(locale) do
+                        I18n.with_locale(locale) do
                             values << single_xapian_value(field, type=type)
                         end
                     end
