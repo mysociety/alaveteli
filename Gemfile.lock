@@ -171,6 +171,7 @@ DEPENDENCIES
   recaptcha (~> 0.3.1)
   rmagick
   routing-filter (~> 0.2.4)
+  rspec (~> 1.3.2)
   rspec-rails (~> 1.3.4)
   ruby-debug
   ruby-debug19
