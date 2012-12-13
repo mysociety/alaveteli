@@ -28,6 +28,10 @@ class AdminController < ApplicationController
         cache_subpath = foi_fragment_cache_all_for_request(info_request)
         FileUtils.rm_rf(cache_subpath)
 
+        # Remove any download zips
+        download_dir = request_download_zip_dir(info_request)
+        FileUtils.rm_rf(download_dir)
+
         # Remove the database caches of body / attachment text (the attachment text
         # one is after privacy rules are applied)
         info_request.clear_in_database_caches!
