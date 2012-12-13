@@ -849,14 +849,21 @@ describe RequestController, "when changing prominence of a request" do
         ir.save!
         receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
 
-        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :skip_cache => 1
+        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id,
+                             :id => ir.id,
+                             :part => 2,
+                             :skip_cache => 1
         response.content_type.should == "text/html"
         response.should_not have_text(/Second hello/)
         response.should render_template('request/hidden')
-        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3, :skip_cache => 1
+        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id,
+                             :id => ir.id,
+                             :part => 3,
+                             :skip_cache => 1
         response.content_type.should == "text/html"
         response.should_not have_text(/First hello/)
         response.should render_template('request/hidden')
+        response.code.should == '410'
     end
 
     it 'should not generate an HTML version of an attachment whose prominence is hidden/requester
