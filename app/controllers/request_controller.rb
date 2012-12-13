@@ -882,7 +882,10 @@ class RequestController < ApplicationController
                                            :info_request_title=>@info_request.title)
                               )
                 updated = Digest::SHA1.hexdigest(@info_request.get_last_event.created_at.to_i.to_s + @info_request.updated_at.to_i.to_s)
-                @url_path = "/download/#{updated[0..1]}/#{updated}/#{params[:url_title]}.zip"
+                @url_path = File.join("/download",
+                                       request_dirs(@info_request),
+                                       updated,
+                                       "#{params[:url_title]}.zip")
                 file_path = File.expand_path(File.join(download_zip_dir(), @url_path))
                 if !File.exists?(file_path)
                     FileUtils.mkdir_p(File.dirname(file_path))

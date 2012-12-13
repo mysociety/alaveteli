@@ -229,6 +229,11 @@ class ApplicationController < ActionController::Base
         end
     end
 
+    def request_dirs(info_request)
+        first_three_digits = info_request.id.to_s()[0..2]
+        File.join(first_three_digits.to_s, info_request.id.to_s)
+    end
+
     def download_zip_dir()
         File.join(Rails.root, '/cache/zips/')
     end
