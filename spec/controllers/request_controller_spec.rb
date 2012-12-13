@@ -859,6 +859,21 @@ describe RequestController, "when changing prominence of a request" do
         response.should render_template('request/hidden')
     end
 
+    it 'should not generate an HTML version of an attachment whose prominence is hidden/requester
+        only even for the requester or an admin but should return a 404' do
+        ir = info_requests(:fancy_dog_request)
+        ir.prominence = 'hidden'
+        ir.save!
+        receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+        session[:user_id] = users(:admin_user).id
+        lambda do
+            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id,
+                                      :id => ir.id,
+                                      :part => 2,
+                                      :file_name => ['hello.txt']
+        end.should raise_error(ActiveRecord::RecordNotFound)
+    end
+
 end
 
 # XXX do this for invalid ids

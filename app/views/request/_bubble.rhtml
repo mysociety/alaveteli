@@ -1,16 +1,16 @@
     <div class="correspondence_text">
         <%  if not attachments.nil? and attachments.size > 0 %>
-            <div class="attachments"> 
+            <div class="attachments">
                 <hr class="top">
                 <% attachments.each do |a| %>
                     <p class="attachment">
-                        <% 
+                        <%
                             attachment_url = get_attachment_url(:id => incoming_message.info_request_id,
-                                    :incoming_message_id => incoming_message.id, :part => a.url_part_number, 
-                                    :file_name => a.display_filename) 
+                                    :incoming_message_id => incoming_message.id, :part => a.url_part_number,
+                                    :file_name => a.display_filename)
                             attachment_as_html_url = get_attachment_as_html_url(:id => incoming_message.info_request_id,
-                                    :incoming_message_id => incoming_message.id, :part => a.url_part_number, 
-                                    :file_name => a.display_filename + '.html') 
+                                    :incoming_message_id => incoming_message.id, :part => a.url_part_number,
+                                    :file_name => a.display_filename + '.html')
                         %>
                         <% img_filename = "icon_" + a.content_type.sub('/', '_') + "_large.png"
                         full_filename = File.expand_path(File.join(File.dirname(__FILE__), "../../../public/images", img_filename))
@@ -23,9 +23,9 @@
                         <br>
                         <%= a.display_size %>
                         <%= link_to "Download", attachment_url %>
-                        <% if a.has_body_as_html? %>
+                        <% if a.has_body_as_html? && incoming_message.info_request.all_can_view? %>
                             <%= link_to "View as HTML", attachment_as_html_url %>
-                        <% end %> 
+                        <% end %>
                         <!-- (<%= a.content_type %>) -->
                         <%= a.extra_note %>
                     </p>
