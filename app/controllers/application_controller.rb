@@ -229,6 +229,10 @@ class ApplicationController < ActionController::Base
         end
     end
 
+    def download_zip_dir()
+        File.join(Rails.root, '/cache/zips/')
+    end
+
     # get the local locale
     def locale_from_params(*args)
       if params[:show_locale]
