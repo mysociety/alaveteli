@@ -743,6 +743,12 @@ class RequestController < ApplicationController
     end
 
     def get_attachment_as_html
+
+        # The conversion process can generate files in the cache directory that can be served up
+        # directly by the webserver according to httpd.conf, so don't allow it unless that's OK.
+        if @files_can_be_cached != true
+            raise ActiveRecord::RecordNotFound.new("Attachment HTML not found.")
+        end
         get_attachment_internal(true)
 
         # images made during conversion (e.g. images in PDF files) are put in the cache directory, so
