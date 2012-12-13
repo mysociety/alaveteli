@@ -727,6 +727,16 @@ describe RequestController, "when showing one request" do
 
         describe 'when making a zipfile available' do
 
+            it 'should return a 410 for a request that is hidden' do
+                title = 'why_do_you_have_such_a_fancy_dog'
+                ir = info_requests(:fancy_dog_request)
+                ir.prominence = 'hidden'
+                ir.save!
+                get :download_entire_request, {:url_title => title}, { :user_id => ir.user.id }
+                response.should render_template('request/hidden')
+                response.code.should == '410'
+            end
+
             it "should have a different zipfile URL when the request changes" do
                 title = 'why_do_you_have_such_a_fancy_dog'
                 ir = info_requests(:fancy_dog_request)
@@ -765,7 +775,7 @@ describe RequestController, "when showing one request" do
                 info_request = info_requests(:external_request)
                 get :download_entire_request, { :url_title => info_request.url_title },
                                               { :user_id => users(:bob_smith_user) }
-                response.location.should have_text(/#{assigns[:url_path]}/)
+                response.location.should have_text(/#{assigns[:url_path]}$/)
             end
         end
     end
