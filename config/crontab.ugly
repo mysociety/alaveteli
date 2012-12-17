@@ -35,7 +35,7 @@ MAILTO=cron-!!(*= $site *)!!@mysociety.org
 48 2 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/user-use-graph
 
 # Once a year :)
-0 0 15 11 * !!(*= $user *)!! /bin/echo "A year has passed, please update the bank holidays for the Freedom of Information site, thank you."
+0 0 1 11 * !!(*= $user *)!! /bin/echo "A year has passed, please update the bank holidays for the Freedom of Information site, thank you."
 
 
 
