@@ -2322,6 +2322,7 @@ describe RequestController, "when caching fragments" do
         incoming_message = mock(IncomingMessage, :info_request => info_request,
                                                  :parse_raw_email! => true,
                                                  :info_request_id => 132,
+                                                 :id => 44,
                                                  :get_attachments_for_display => nil,
                                                  :html_mask_stuff! => nil)
         attachment = mock(FoiAttachment, :display_filename => long_name,
