@@ -20,4 +20,4 @@
     <% end %>
 <% end %>
 
-<%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_object.matches_estimated) %>
+<%= will_paginate WillPaginate::Collection.new(@page, @per_page, @show_no_more_than) %>

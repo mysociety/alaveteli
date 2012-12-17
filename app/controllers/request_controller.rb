@@ -153,6 +153,8 @@ class RequestController < ApplicationController
         end
         @xapian_object = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
             :offset => (@page - 1) * @per_page, :limit => @per_page, :collapse_by_prefix => 'request_collapse')
+        @matches_estimated = @xapian_object.matches_estimated
+        @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
 
         if (@page > 1)
             @page_desc = " (page " + @page.to_s + ")"
