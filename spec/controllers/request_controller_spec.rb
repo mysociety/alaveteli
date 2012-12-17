@@ -2204,6 +2204,14 @@ describe RequestController, "when showing similar requests" do
         }.should raise_error(ActiveRecord::RecordNotFound)
     end
 
+
+    it "should return 404 for pages we don't want to serve up" do
+        badger_request = info_requests(:badger_request)
+        lambda {
+            get :similar, :url_title => badger_request.url_title, :page => 100
+        }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+
 end
 
 

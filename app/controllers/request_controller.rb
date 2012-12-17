@@ -139,6 +139,11 @@ class RequestController < ApplicationController
         short_cache
         @per_page = 25
         @page = (params[:page] || "1").to_i
+
+        # Later pages are very expensive to load
+        if @page > MAX_RESULTS / PER_PAGE
+            raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / PER_PAGE}.")
+        end
         @info_request = InfoRequest.find_by_url_title!(params[:url_title])
         raise ActiveRecord::RecordNotFound.new("Request not found") if @info_request.nil?
 
