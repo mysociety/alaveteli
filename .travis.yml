@@ -3,7 +3,6 @@ branches:
   only:
     - develop
     - master
-    - feature/fix-travis-ruby-19-errors
 rvm:
   - 1.8.7
   - 1.9.3
