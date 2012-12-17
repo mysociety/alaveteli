@@ -2313,4 +2313,31 @@ describe RequestController, "when reporting a request (logged in)" do
     end
 end
 
+describe RequestController, "when caching fragments" do
+
+    it "should not fail with long filenames" do
+        long_name = "blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah.txt"
+        info_request = mock(InfoRequest, :user_can_view? => true,
+                                         :all_can_view? => true)
+        incoming_message = mock(IncomingMessage, :info_request => info_request,
+                                                 :parse_raw_email! => true,
+                                                 :info_request_id => 132,
+                                                 :get_attachments_for_display => nil,
+                                                 :html_mask_stuff! => nil)
+        attachment = mock(FoiAttachment, :display_filename => long_name,
+                                         :body_as_html => ['some text', 'wrapper'])
+        IncomingMessage.stub!(:find).with("44").and_return(incoming_message)
+        IncomingMessage.stub!(:get_attachment_by_url_part_number).and_return(attachment)
+        InfoRequest.stub!(:find).with("132").and_return(info_request)
+        params = { :file_name => [long_name],
+                   :controller => "request",
+                   :action => "get_attachment_as_html",
+                   :id => "132",
+                   :incoming_message_id => "44",
+                   :part => "2" }
+        get :get_attachment_as_html, params
+    end
+
+end
+
 
