@@ -18,7 +18,7 @@ before_install:
   - sudo apt-get update
   - export DEBIAN_FRONTEND=noninteractive
   - sudo apt-get -y install exim4-daemon-light
-  - sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler)"`
+  - sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler|^ruby$|^ruby1.8$|^rubygems$|^rake)"`
   - RAILS_ENV=test ./script/rails-post-deploy
 before_script:
 notifications:
