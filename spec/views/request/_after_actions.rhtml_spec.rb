@@ -23,28 +23,28 @@ describe 'when displaying actions that can be taken with regard to a request' do
 
     def expect_owner_div
         do_render
-        response.should have_tag('div#owner_actions'){ yield }
+        response.should have_selector('div#owner_actions'){ yield }
     end
 
     def expect_anyone_div
         do_render
-        response.should have_tag('div#anyone_actions'){ yield }
+        response.should have_selector('div#anyone_actions'){ yield }
     end
 
     def expect_owner_link(text)
-        expect_owner_div{ with_tag('a', :text => text) }
+        expect_owner_div{ with_tag('a', :content => text) }
     end
 
     def expect_no_owner_link(text)
-        expect_owner_div{ without_tag('a', :text => text) }
+        expect_owner_div{ without_tag('a', :content => text) }
     end
 
     def expect_anyone_link(text)
-        expect_anyone_div{ with_tag('a', :text => text) }
+        expect_anyone_div{ with_tag('a', :content => text) }
     end
 
     def expect_no_anyone_link(text)
-        expect_anyone_div{ without_tag('a', :text => text) }
+        expect_anyone_div{ without_tag('a', :content => text) }
     end
 
     describe 'if the request is old and unclassified' do
