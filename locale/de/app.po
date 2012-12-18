@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-11-06 16:35+0000\n"
-"PO-Revision-Date: 2012-11-06 18:17+0000\n"
+"POT-Creation-Date: 2012-12-18 10:11+0000\n"
+"PO-Revision-Date: 2012-12-18 10:14+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1869,6 +1869,9 @@ msgstr "Bitte unterschreiben Sie unten mit Ihrem Namen oder ändern Sie Ihre \"%
 
 msgid "Please sign in as "
 msgstr "Anmelden als"
+
+msgid "Please sign in or make a new account."
+msgstr ""
 
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Bitte geben Sie eine Nachricht ein  und / oder wählen Sie eine Datei aus, welche Ihre Antwort enthält"
@@ -3810,6 +3813,9 @@ msgstr ""
 
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} hat eine Antwort an {{user_name}} gesendet"
+
+msgid "{{reason}}, please sign in or make a new account."
+msgstr ""
 
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} passen zu '{{query}}'"
