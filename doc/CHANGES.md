@@ -1,3 +1,21 @@
+# Version 0.6.9
+## Highlighted features
+* [Security] Fix for security issue where image files from HTML conversion on hidden/requester-only requests were accessible without authentication [issue #739](https://github.com/mysociety/alaveteli/issues/739).
+* [Security] Fix for issue where the zip file download function was available for logged-in users even on hidden/requester-only requests [issue #743](https://github.com/mysociety/alaveteli/issues/743)
+* Isolation of mail handling code in the MailHandler module in lib/mail_handler 
+* Tests run under Ruby 1.9.3 - *running the app under 1.9 not yet advised*. 
+* Routes without a locale part can be enabled for the default locale - see upgrade notes 
+* Fixes to support themed error pages, and allow responsive themes (Matthew Landauer, Brendan Molloy)
+* Migrations run under sqlite (Stefan Langenmaier)
+* Time zone fixes (Henare Degan)
+* Faster tests (Henare Degan)
+
+* [List of issues on github](https://github.com/mysociety/alaveteli/issues?milestone=25&state=closed)
+
+## Upgrade notes
+* Note the new config variable INCLUDE_DEFAULT_LOCALE_IN_URLS (if not set defaults to true, which should replicate existing behaviour)
+* Check out this version and run `rails-post-deploy` as usual. 
+
 # Version 0.6.8
 ## Highlighted features
 
