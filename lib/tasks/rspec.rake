@@ -55,8 +55,6 @@ end
 
 task :default => :spec
 task :stats => "spec:statsetup"
-# XXX commonlib tests are not Ruby 1.9 compatible
-#task :spec => ['spec:commonlib']
 task :test => ['spec']
 task :cruise => ['spec']
 

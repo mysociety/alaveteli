@@ -9,4 +9,3 @@ require 'rdoc/task'
 
 require 'tasks/rails'
 
-Dir[File.join(File.dirname(__FILE__),'commonlib','rblib','tests','*.rake')].each { |file| load(file) }
