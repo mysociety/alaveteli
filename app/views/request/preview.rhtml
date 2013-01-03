@@ -5,8 +5,8 @@
     <h1><%= _('3. Now check your request') %></h1>
     <ul>
     <li><%= _('Check you haven\'t included any <strong>personal information</strong>.') %></li>
-    <li><%= _('Your name, request and any responses will appear in <strong>search engines</strong>
-        (<a href="%s">details</a>).') % [help_privacy_path+"#public_request"] %> 
+    <li><%= raw(_('Your name, request and any responses will appear in <strong>search engines</strong>
+        (<a href="%s">details</a>).') % [help_privacy_path+"#public_request"]) %> 
     </li>
     </ul>
 
@@ -28,8 +28,8 @@
         </div>
     <% end %>
 
-    <p><%= _('<strong>Privacy note:</strong> If you want to request private information about
-    yourself then <a href="%s">click here</a>.') % [help_requesting_path+"#data_protection"] %>
+    <p><%= raw(_('<strong>Privacy note:</strong> If you want to request private information about
+    yourself then <a href="%s">click here</a>.') % [help_requesting_path+"#data_protection"]) %>
 
     <p>
     <%= f.hidden_field(:title) %>

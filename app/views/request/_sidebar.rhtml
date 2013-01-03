@@ -17,10 +17,10 @@
         <% elsif @info_request.prominence == 'requester_only' %>
           <%# The eccentric formatting of the following string is in order that it be identical
               to the corresponding string in request/show.rhtml %>
-          <p><%= _('This request is hidden, so that only you the requester can see it. Please
-    <a href="%s">contact us</a> if you are not sure why.') % [help_requesting_path] %></p>
+          <p><%= raw(_('This request is hidden, so that only you the requester can see it. Please
+    <a href="%s">contact us</a> if you are not sure why.') % [help_requesting_path]) %></p>
         <% else %>
-          <p><%= _('This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href="%s">contact us</a>.') % [help_requesting_path] %></p>
+          <p><%= raw(_('This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href="%s">contact us</a>.') % [help_requesting_path]) %></p>
         <% end %>
      <% else %>
       <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %></p>
@@ -32,11 +32,15 @@
 
     <div class="act_link">
      <% tweet_link = "https://twitter.com/share?url=#{h(request.url)}&via=#{h(Configuration::twitter_username)}&text='#{h(@info_request.title)}'&related=#{_('alaveteli_foi:The software that runs {{site_name}}', :site_name => h(site_name))}" %>
-        <%= link_to '<img src="/images/twitter-16.png" alt="twitter icon">', tweet_link %>
+        <% link_to tweet_link do %>
+          <%= image_tag "twitter-16.png", :alt => "twitter icon" %>
+        <% end %>
         <%= link_to _("Tweet this request"), tweet_link %>
     </div>
     <div class="act_link">
-        <%= link_to '<img src="/images/wordpress.png" alt="" class="rss">', "http://wordpress.com/"%>
+        <% link_to "http://wordpress.com/" do %>
+          <%= image_tag "wordpress.png", :class => "rss" %>
+        <% end %>
         <%= link_to _("Start your own blog"), "http://wordpress.com/"%>
     </div>
 
@@ -58,7 +62,7 @@
 
     <!-- this link with this wording is here for legal reasons, discuss with
     board and our lawyer before changing or removing it -->
-    <p><small><%= _('<a href="%s">Are you the owner of
-            any commercial copyright on this page?</a>') % [help_officers_path+"#copyright"] %></small></p>
+    <p><small><%= raw(_('<a href="%s">Are you the owner of
+            any commercial copyright on this page?</a>') % [help_officers_path+"#copyright"]) %></small></p>
 
 </div>
