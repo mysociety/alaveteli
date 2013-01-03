@@ -17,10 +17,10 @@
         <% elsif @info_request.prominence == 'requester_only' %>
           <%# The eccentric formatting of the following string is in order that it be identical
               to the corresponding string in request/show.rhtml %>
-          <p><%= _('This request is hidden, so that only you the requester can see it. Please
-    <a href="%s">contact us</a> if you are not sure why.') % [help_requesting_path] %></p>
+          <p><%= raw(_('This request is hidden, so that only you the requester can see it. Please
+    <a href="%s">contact us</a> if you are not sure why.') % [help_requesting_path]) %></p>
         <% else %>
-          <p><%= _('This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href="%s">contact us</a>.') % [help_requesting_path] %></p>
+          <p><%= raw(_('This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href="%s">contact us</a>.') % [help_requesting_path]) %></p>
         <% end %>
      <% else %>
       <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %></p>
@@ -59,7 +59,7 @@
 
     <!-- this link with this wording is here for legal reasons, discuss with
     board and our lawyer before changing or removing it -->
-    <p><small><%= _('<a href="%s">Are you the owner of
-            any commercial copyright on this page?</a>') % [help_officers_path+"#copyright"] %></small></p>
+    <p><small><%= raw(_('<a href="%s">Are you the owner of
+            any commercial copyright on this page?</a>') % [help_officers_path+"#copyright"]) %></small></p>
 
 </div>
