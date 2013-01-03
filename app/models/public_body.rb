@@ -301,7 +301,7 @@ class PublicBody < ActiveRecord::Base
                 ret = ret + " and "
             end
             ret = ret + types[-1]
-            return ret
+            return ret.html_safe
         else
             return _("A public authority")
         end
