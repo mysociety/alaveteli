@@ -50,6 +50,8 @@ class OutgoingMessage < ActiveRecord::Base
         end
     end
 
+    after_initialize :set_default_letter
+
     # How the default letter starts and ends
     def get_salutation
         ret = ""
@@ -127,13 +129,6 @@ class OutgoingMessage < ActiveRecord::Base
     end
     def contains_postcode?
         MySociety::Validate.contains_postcode?(self.body)
-    end
-
-    # Set default letter
-    def after_initialize
-        if self.body.nil?
-            self.body = get_default_message
-        end
     end
 
     # Check have edited letter
@@ -252,7 +247,7 @@ class OutgoingMessage < ActiveRecord::Base
         text = MySociety::Format.make_clickable(text, :contract => 1)
         text.gsub!(/\[(email address|mobile number)\]/, '[<a href="/help/officers#mobiles">\1</a>]')
         text = text.gsub(/\n/, '<br>')
-        return text
+        return text.html_safe
     end
 
     def fully_destroy
@@ -273,6 +268,14 @@ class OutgoingMessage < ActiveRecord::Base
     def for_admin_column
         self.class.content_columns.each do |column|
             yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+        end
+    end
+
+    private
+
+    def set_default_letter
+        if self.body.nil?
+            self.body = get_default_message
         end
     end
 end

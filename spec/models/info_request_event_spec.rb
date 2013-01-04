@@ -21,7 +21,7 @@ describe InfoRequestEvent do
                                          :event_type => 'sent',
                                          :params => {})
             event.should_receive(:xapian_mark_needs_index)
-            event.run_callbacks(:after_save)
+            event.run_callbacks(:save)
         end
 
     end

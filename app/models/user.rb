@@ -50,12 +50,17 @@ class User < ActiveRecord::Base
         'super',
     ], :message => N_('Admin level is not included in list')
 
+    validate :email_and_name_are_valid
+
     acts_as_xapian :texts => [ :name, :about_me ],
         :values => [
              [ :created_at_numeric, 1, "created_at", :number ] # for sorting
         ],
         :terms => [ [ :variety, 'V', "variety" ] ],
         :if => :indexed_by_search?
+
+    after_initialize :set_defaults
+
     def created_at_numeric
         # format it here as no datetime support in Xapian's value ranges
         return self.created_at.strftime("%Y%m%d%H%M%S")
@@ -63,17 +68,6 @@ class User < ActiveRecord::Base
 
     def variety
         "user"
-    end
-
-    def after_initialize
-        if self.admin_level.nil?
-            self.admin_level = 'none'
-        end
-        if self.new_record?
-            # make alert emails go out at a random time for each new user, so
-            # overall they are spread out throughout the day.
-            self.last_daily_track_email = User.random_time_in_last_day
-        end
     end
 
     # requested_by: and commented_by: search queries also need updating after save
@@ -108,15 +102,6 @@ class User < ActiveRecord::Base
         self.comments.find(:all, :conditions => 'visible')
     end
 
-    def validate
-        if self.email != "" && !MySociety::Validate.is_valid_email(self.email)
-            errors.add(:email, _("Please enter a valid email address"))
-        end
-        if MySociety::Validate.is_valid_email(self.name)
-            errors.add(:name, _("Please enter your name, not your email address, in the name field."))
-        end
-    end
-
     # Don't display any leading/trailing spaces
     # XXX we have strip_attributes! now, so perhaps this can be removed (might
     # be still needed for existing cases)
@@ -148,14 +133,14 @@ class User < ActiveRecord::Base
         if user
             # There is user with email, check password
             if !user.has_this_password?(params[:password])
-                user.errors.add_to_base(auth_fail_message)
+                user.errors.add(:base, auth_fail_message)
             end
         else
             # No user of same email, make one (that we don't save in the database)
             # for the forms code to use.
             user = User.new(params)
             # deliberately same message as above so as not to leak whether registered
-            user.errors.add_to_base(auth_fail_message)
+            user.errors.add(:base, auth_fail_message)
         end
         user
     end
@@ -411,6 +396,26 @@ class User < ActiveRecord::Base
 
     def create_new_salt
         self.salt = self.object_id.to_s + rand.to_s
+    end
+
+    def set_defaults
+        if self.admin_level.nil?
+            self.admin_level = 'none'
+        end
+        if self.new_record?
+            # make alert emails go out at a random time for each new user, so
+            # overall they are spread out throughout the day.
+            self.last_daily_track_email = User.random_time_in_last_day
+        end
+    end
+
+    def email_and_name_are_valid
+        if self.email != "" && !MySociety::Validate.is_valid_email(self.email)
+            errors.add(:email, _("Please enter a valid email address"))
+        end
+        if MySociety::Validate.is_valid_email(self.name)
+            errors.add(:name, _("Please enter your name, not your email address, in the name field."))
+        end
     end
 
     ## Class methods

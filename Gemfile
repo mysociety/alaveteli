@@ -7,7 +7,7 @@ if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.s
 end
 source :rubygems
 
-gem 'rails', '2.3.14'
+gem 'rails', '3.0.17'
 gem 'pg'
 
 gem 'fast_gettext', '>= 0.6.0'
@@ -21,8 +21,8 @@ gem 'memcache-client', :require => 'memcache'
 gem 'locale', '>= 2.0.5'
 gem 'net-http-local'
 gem 'net-purge'
-gem 'rack', '~> 1.1.0'
-gem 'rdoc', '~> 2.4.3'
+gem 'rack'
+gem 'rdoc'
 gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 # :require avoids "already initialized constant" warnings
 gem 'rmagick', :require => 'RMagick'
@@ -38,11 +38,14 @@ gem 'zip'
 gem 'capistrano'
 gem 'syslog_protocol'
 gem 'newrelic_rpm'
+gem 'tmail'
+gem 'globalize3'
+gem 'acts_as_versioned'
 
 group :test do
   gem 'fakeweb'
-  gem 'rspec-rails', '~> 1.3.4'
   gem 'test-unit', '~> 1.2.3', :platforms => :ruby_19
+  gem 'webrat'
 end
 
 group :development do
@@ -55,4 +58,8 @@ group :develop do
   gem 'bootstrap-sass'
   gem 'compass'
   gem 'annotate'
+end
+
+group :test, :development do
+  gem 'rspec-rails'
 end

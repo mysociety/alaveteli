@@ -2,7 +2,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PublicBodyController, "when showing a body" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -44,14 +44,14 @@ describe PublicBodyController, "when showing a body" do
     end
 
     it "should assign the body using different locale from that used for url_name" do
-        PublicBody.with_locale(:es) do
+        I18n.with_locale(:es) do
             get :show, {:url_name => "dfh", :view => 'all'}
             assigns[:public_body].notes.should == "Baguette"
         end
     end
 
     it "should assign the body using same locale as that used in url_name" do
-        PublicBody.with_locale(:es) do
+        I18n.with_locale(:es) do
             get :show, {:url_name => "edfh", :view => 'all'}
             assigns[:public_body].notes.should == "Baguette"
         end
@@ -79,7 +79,7 @@ describe PublicBodyController, "when showing a body" do
 end
 
 describe PublicBodyController, "when listing bodies" do
-    integrate_views
+    render_views
 
     it "should be successful" do
         get :list
@@ -87,7 +87,7 @@ describe PublicBodyController, "when listing bodies" do
     end
 
     it "should list all bodies from default locale, even when there are no translations for selected locale" do
-        PublicBody.with_locale(:en) do
+        I18n.with_locale(:en) do
             @english_only = PublicBody.new(:name => 'English only',
                                           :short_name => 'EO',
                                           :request_email => 'english@flourish.org',
@@ -95,7 +95,7 @@ describe PublicBodyController, "when listing bodies" do
                                           :last_edit_comment => '')
             @english_only.save
         end
-        PublicBody.with_locale(:es) do
+        I18n.with_locale(:es) do
             get :list
             assigns[:public_bodies].include?(@english_only).should == true
         end
@@ -193,7 +193,7 @@ end
 
 describe PublicBodyController, "when doing type ahead searches" do
 
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data

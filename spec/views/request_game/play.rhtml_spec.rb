@@ -22,10 +22,10 @@ describe 'when viewing the request game' do
                                                 :initial_request_text => 'hi there',
                                                 :display_status => 'Awaiting categorisation',
                                                 :created_at => Time.now)
-        assigns[:league_table_28_days] = []
-        assigns[:league_table_all_time] = []
-        assigns[:requests] = [@mock_request]
-        assigns[:play_urls] = true
+        assign :league_table_28_days, []
+        assign :league_table_all_time, []
+        assign :requests, [@mock_request]
+        assign :play_urls, true
     end
     
     it 'should show the correct url for a request' do

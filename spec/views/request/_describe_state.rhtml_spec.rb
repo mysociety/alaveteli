@@ -4,12 +4,12 @@ describe 'when showing the form for describing the state of a request' do
     
     def expect_radio_button(value)
         do_render
-        response.should have_tag("input[type=radio][value=#{value}]")
+        response.should have_selector('input', :type => 'radio', :value => value)
     end
     
     def expect_no_radio_button(value)
         do_render
-        response.should_not have_tag("input[type=radio][value=#{value}]")
+        response.should_not have_selector('input', :type => 'radio', :value => value)
     end
 
     def do_render
@@ -24,25 +24,25 @@ describe 'when showing the form for describing the state of a request' do
             :user_name => @mock_user.name, 
             :is_external? => false
         )
-        assigns[:info_request] = @mock_request
+        assign :info_request, @mock_request
     end
     
     describe 'if the user is a regular user (not the request owner)' do
         
         before do 
-            assigns[:is_owning_user] = false
+            assign :is_owning_user, false
         end
         
         describe 'if the request is not old and unclassified' do 
             
             it 'should not show the form' do 
                 do_render
-                response.should_not have_tag('h2', :text => 'What best describes the status of this request now?')
+                response.should_not have_selector('h2', :content => 'What best describes the status of this request now?')
             end
         
             it 'should give a link to login' do 
                 do_render
-                response.should have_tag('a', :text => 'sign in')
+                response.should have_selector('a', :content => 'sign in')
             end
             
         end
@@ -50,22 +50,22 @@ describe 'when showing the form for describing the state of a request' do
         describe 'if the request is old and unclassified' do 
             
             before do
-                assigns[:old_unclassified] = true
+                assign :old_unclassified, true
             end
             
             it 'should not show the form' do 
                 do_render
-                response.should_not have_tag('h2', :text => 'What best describes the status of this request now?')
+                response.should_not have_selector('h2', :content => 'What best describes the status of this request now?')
             end
             
             it 'should show the form for someone else to classify the request' do 
                 do_render
-                response.should have_tag('h2', :text => /We need your help/)
+                response.should have_selector('h2', :content => /We need your help/)
             end
             
             it 'should not give a link to login' do 
                 do_render
-                response.should_not have_tag('a', :text => 'sign in')
+                response.should_not have_selector('a', :content => 'sign in')
             end
         end
             
@@ -74,7 +74,7 @@ describe 'when showing the form for describing the state of a request' do
     describe 'if showing the form to the user owning the request' do 
     
         before do 
-            assigns[:is_owning_user] = true
+            assign :is_owning_user, true
         end
     
         describe 'when the request is not in internal review' do 
@@ -100,7 +100,7 @@ describe 'when showing the form for describing the state of a request' do
         describe 'when the user has asked to update the status of the request' do 
             
             before do 
-                assigns[:update_status] = true
+                assign :update_status, true
             end
             
             it 'should show a radio button to set the status to "internal_review"' do 
@@ -129,7 +129,7 @@ describe 'when showing the form for describing the state of a request' do
         
             it 'should show the text "The review has finished and overall:"' do 
                 do_render
-                response.should have_tag('p', :text => 'The review has finished and overall:')
+                response.should have_selector('p', :content => 'The review has finished and overall:')
             end
     
         end

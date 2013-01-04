@@ -27,7 +27,7 @@ require 'digest/sha1'
 
 class InfoRequest < ActiveRecord::Base
     include ActionView::Helpers::UrlHelper
-    include ActionController::UrlWriter
+    include Rails.application.routes.url_helpers
 
     strip_attributes!
 
@@ -51,7 +51,7 @@ class InfoRequest < ActiveRecord::Base
 
     has_tag_string
 
-    named_scope :visible, :conditions => {:prominence => "normal"}
+    scope :visible, :conditions => {:prominence => "normal"}
 
     # user described state (also update in info_request_event, admin_request/edit.rhtml)
     validate :must_be_valid_state
@@ -80,6 +80,11 @@ class InfoRequest < ActiveRecord::Base
         'holding_pen', # put them in the holding pen
         'blackhole' # just dump them
     ]
+
+    # only check on create, so existing models with mixed case are allowed
+    validate :title_formatting, :on => :create
+
+    after_initialize :set_defaults
 
     def self.enumerate_states
         states = [
@@ -156,30 +161,7 @@ class InfoRequest < ActiveRecord::Base
     rescue MissingSourceFile, NameError
     end
 
-    # only check on create, so existing models with mixed case are allowed
-    def validate_on_create
-        if !self.title.nil? && !MySociety::Validate.uses_mixed_capitals(self.title, 10)
-            errors.add(:title, _('Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.'))
-        end
-        if !self.title.nil? && title.size > 200
-            errors.add(:title, _('Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence.'))
-        end
-        if !self.title.nil? && self.title =~ /^(FOI|Freedom of Information)\s*requests?$/i
-            errors.add(:title, _('Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway.'))
-        end
-    end
-
     OLD_AGE_IN_DAYS = 21.days
-
-    def after_initialize
-        if self.described_state.nil?
-            self.described_state = 'waiting_response'
-        end
-        # FOI or EIR?
-        if !self.public_body.nil? && self.public_body.eir_only?
-            self.law_used = 'eir'
-        end
-    end
 
     def visible_comments
         self.comments.find(:all, :conditions => 'visible')
@@ -1154,6 +1136,30 @@ public
       self.class.content_columns.map{|c| c unless %w(title url_title).include?(c.name) }.compact.each do |column|
         yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
       end
+    end
+
+    private
+
+    def set_defaults
+        if self.described_state.nil?
+            self.described_state = 'waiting_response'
+        end
+        # FOI or EIR?
+        if !self.public_body.nil? && self.public_body.eir_only?
+            self.law_used = 'eir'
+        end
+    end
+
+    def title_formatting
+        if !self.title.nil? && !MySociety::Validate.uses_mixed_capitals(self.title, 10)
+            errors.add(:title, _('Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.'))
+        end
+        if !self.title.nil? && title.size > 200
+            errors.add(:title, _('Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence.'))
+        end
+        if !self.title.nil? && self.title =~ /^(FOI|Freedom of Information)\s*requests?$/i
+            errors.add(:title, _('Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway.'))
+        end
     end
 end
 

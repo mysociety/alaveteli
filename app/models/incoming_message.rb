@@ -604,7 +604,7 @@ class IncomingMessage < ActiveRecord::Base
                 content_type = 'application/octet-stream'
             end
             hexdigest = Digest::MD5.hexdigest(content)
-            attachment = self.foi_attachments.find_or_create_by_hexdigest(:hexdigest => hexdigest)
+            attachment = self.foi_attachments.find_or_create_by_hexdigest(hexdigest)
             attachment.update_attributes(:filename => filename,
                                          :content_type => content_type,
                                          :body => content,
@@ -631,7 +631,7 @@ class IncomingMessage < ActiveRecord::Base
         attachment_attributes = MailHandler.get_attachment_attributes(self.mail(force))
         attachments = []
         attachment_attributes.each do |attrs|
-            attachment = self.foi_attachments.find_or_create_by_hexdigest(:hexdigest => attrs[:hexdigest])
+            attachment = self.foi_attachments.find_or_create_by_hexdigest(attrs[:hexdigest])
             body = attrs.delete(:body)
             attachment.update_attributes(attrs)
             # Set the body separately as its handling can depend on the value of charset
@@ -694,7 +694,7 @@ class IncomingMessage < ActiveRecord::Base
 
         text = text.gsub(/\n/, '<br>')
         text = text.gsub(/(?:<br>\s*){2,}/, '<br><br>') # remove excess linebreaks that unnecessarily space it out
-        return text
+        return text.html_safe
     end
 
 

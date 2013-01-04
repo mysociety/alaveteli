@@ -59,19 +59,6 @@ describe RequestController, "when listing recent requests" do
             :conditions => "id in (select info_request_id from info_request_events where created_at between '2007-10-13'::date and '2007-11-01'::date)")
     end
 
-    it "should make a sane-sized cache tag" do
-        get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
-        assigns[:cache_tag].size.should <= 32
-    end
-
-    it "should vary the cache tag with locale" do
-        get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
-        en_tag = assigns[:cache_tag]
-        session[:locale] = :es
-        get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
-        assigns[:cache_tag].should_not == en_tag
-    end
-
     it "should list internal_review requests as unresolved ones" do
         get :list, :view => 'awaiting'
 
@@ -134,7 +121,7 @@ end
 
 describe RequestController, "when changing things that appear on the request page" do
 
-    integrate_views
+    render_views
 
     it "should purge the downstream cache when mail is received" do
         ir = info_requests(:fancy_dog_request)
@@ -200,7 +187,7 @@ describe RequestController, "when changing things that appear on the request pag
 end
 
 describe RequestController, "when showing one request" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -458,7 +445,7 @@ describe RequestController, "when showing one request" do
 
     describe 'when handling incoming mail' do
 
-        integrate_views
+        render_views
 
         it "should receive incoming messages, send email to creator, and show them" do
             ir = info_requests(:fancy_dog_request)
@@ -955,7 +942,7 @@ describe RequestController, "when searching for an authority" do
 end
 
 describe RequestController, "when creating a new request" do
-    integrate_views
+    render_views
 
     before do
         @user = users(:bob_smith_user)
@@ -1191,7 +1178,7 @@ describe RequestController, "when making a new request" do
 end
 
 describe RequestController, "when viewing an individual response for reply/followup" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -1624,7 +1611,7 @@ describe RequestController, "when classifying an information request" do
 end
 
 describe RequestController, "when sending a followup message" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -1706,7 +1693,7 @@ end
 # it can't check the URLs in the emails I don't think, ugh.
 
 describe RequestController, "sending overdue request alerts" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -1851,7 +1838,7 @@ describe RequestController, "sending overdue request alerts" do
 end
 
 describe RequestController, "sending unclassified new response reminder alerts" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -1881,7 +1868,7 @@ describe RequestController, "sending unclassified new response reminder alerts" 
 end
 
 describe RequestController, "clarification required alerts" do
-    integrate_views
+    render_views
     before(:each) do
         load_raw_emails_data
     end
@@ -1934,7 +1921,7 @@ describe RequestController, "clarification required alerts" do
 end
 
 describe RequestController, "comment alerts" do
-    integrate_views
+    render_views
     before(:each) do
         load_raw_emails_data
     end
@@ -2013,7 +2000,7 @@ describe RequestController, "comment alerts" do
 end
 
 describe RequestController, "when viewing comments" do
-    integrate_views
+    render_views
     before(:each) do
         load_raw_emails_data
     end
@@ -2036,7 +2023,7 @@ end
 
 
 describe RequestController, "authority uploads a response from the web interface" do
-    integrate_views
+    render_views
 
     before(:each) do
         # domain after the @ is used for authentication of FOI officers, so to test it
@@ -2146,24 +2133,24 @@ end
 
 describe RequestController, "when doing type ahead searches" do
 
-    integrate_views
+    render_views
 
     it "should return nothing for the empty query string" do
         get :search_typeahead, :q => ""
-        response.should render_template('request/_search_ahead.rhtml')
+        response.should render_template('request/_search_ahead')
         assigns[:xapian_requests].should be_nil
     end
 
     it "should return a request matching the given keyword, but not users with a matching description" do
         get :search_typeahead, :q => "chicken"
-        response.should render_template('request/_search_ahead.rhtml')
+        response.should render_template('request/_search_ahead')
         assigns[:xapian_requests].results.size.should == 1
         assigns[:xapian_requests].results[0][:model].title.should == info_requests(:naughty_chicken_request).title
     end
 
     it "should return all requests matching any of the given keywords" do
         get :search_typeahead, :q => "money dog"
-        response.should render_template('request/_search_ahead.rhtml')
+        response.should render_template('request/_search_ahead')
         assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ [
             info_requests(:fancy_dog_request),
             info_requests(:naughty_chicken_request),
@@ -2173,13 +2160,13 @@ describe RequestController, "when doing type ahead searches" do
 
     it "should not return matches for short words" do
         get :search_typeahead, :q => "a"
-        response.should render_template('request/_search_ahead.rhtml')
+        response.should render_template('request/_search_ahead')
         assigns[:xapian_requests].should be_nil
     end
 
     it "should do partial matches for longer words" do
         get :search_typeahead, :q => "chick"
-        response.should render_template('request/_search_ahead.rhtml')
+        response.should render_template('request/_search_ahead')
         assigns[:xapian_requests].results.size.should ==1
     end
 
@@ -2204,7 +2191,7 @@ describe RequestController, "when doing type ahead searches" do
 end
 
 describe RequestController, "when showing similar requests" do
-    integrate_views
+    render_views
 
     it "should work" do
         get :similar, :url_title => info_requests(:badger_request).url_title
@@ -2246,7 +2233,7 @@ describe RequestController, "when reporting a request when not logged in" do
 end
 
 describe RequestController, "when reporting a request (logged in)" do
-    integrate_views
+    render_views
 
     before do
         @user = users(:robin_user)

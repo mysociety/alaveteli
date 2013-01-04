@@ -1,6 +1,6 @@
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
-describe "when viewing a body" do
+describe "public_body/show" do
     before do
         @pb = mock_model(PublicBody, 
                          :name => 'Test Quango', 
@@ -17,64 +17,62 @@ describe "when viewing a body" do
         @pb.stub!(:is_requestable?).and_return(true)
         @pb.stub!(:has_notes?).and_return(false)
         @pb.stub!(:has_tag?).and_return(false)
-        @xap = mock_model(ActsAsXapian::Search, :matches_estimated => 2)
+        @xap = mock(ActsAsXapian::Search, :matches_estimated => 2)
         @xap.stub!(:results).and_return([
           { :model => mock_event },
           { :model => mock_event }
         ])
 
-        assigns[:public_body] = @pb
-        assigns[:track_thing] = mock_model(TrackThing, 
-            :track_type => 'public_body_updates', :public_body => @pb, :params => {})
-        assigns[:xapian_requests] = @xap
-        assigns[:page] = 1
-        assigns[:per_page] = 10
-        # work round a bug in ActionController::TestRequest; allows request.query_string to work in the template
-        request.env["REQUEST_URI"] = ""
+        assign(:public_body, @pb)
+        assign(:track_thing, mock_model(TrackThing,
+            :track_type => 'public_body_updates', :public_body => @pb, :params => {}))
+        assign(:xapian_requests, @xap)
+        assign(:page, 1)
+        assign(:per_page, 10)
     end
 
     it "should be successful" do
-        render "public_body/show"
-        response.should be_success
+        render
+        controller.response.should be_success
     end
 
     it "should be valid HTML" do
-        render "public_body/show"
+        render
         validate_as_body response.body 
     end
 
     it "should show the body's name" do
-        render "public_body/show"
-        response.should have_tag("h1", "Test Quango")
+        render
+        response.should have_selector('h1', :content => "Test Quango")
     end
 
     it "should tell total number of requests" do
-        render "public_body/show"
-        response.should include_text("4 Freedom of Information requests")
+        render
+        response.should match "4 Freedom of Information requests"
     end
 
     it "should cope with no results" do
         @pb.stub!(:info_requests).and_return([])
-        render "public_body/show"
-        response.should have_tag("p", /Nobody has made any Freedom of Information requests/m)
+        render
+        response.should have_selector('p', :content => "Nobody has made any Freedom of Information requests")
     end
 
     it "should cope with Xapian being down" do
-        assigns[:xapian_requests] = nil
-        render "public_body/show"
-        response.should have_tag("p", /The search index is currently offline/m)
+        assign(:xapian_requests, nil)
+        render
+        response.should match "The search index is currently offline"
     end
 
     it "should link to Charity Commission site if we have numbers to do so" do
         @pb.stub!(:has_tag?).and_return(true)
         @pb.stub!(:get_tag_values).and_return(['98765', '12345'])
 
-        render "public_body/show"
-        response.should have_tag("div#header_right") do
-            with_tag("a[href*=?]", /charity-commission.gov.uk.*RegisteredCharityNumber=98765$/)
+        render
+        response.should have_selector("div#header_right") do
+            have_selector "a", :href => /charity-commission.gov.uk.*RegisteredCharityNumber=98765$/
         end
-        response.should have_tag("div#header_right") do
-            with_tag("a[href*=?]", /charity-commission.gov.uk.*RegisteredCharityNumber=12345$/)
+        response.should have_selector("div#header_right") do
+            have_selector "a", :href => /www.charity-commission.gov.uk.*RegisteredCharityNumber=12345$/
         end
     end 
 
@@ -82,17 +80,17 @@ describe "when viewing a body" do
         @pb.stub!(:has_tag?).and_return(true)
         @pb.stub!(:get_tag_values).and_return(['SC1234'])
 
-        render "public_body/show"
-        response.should have_tag("div#header_right") do
-            with_tag("a[href*=?]", /www.oscr.org.uk.*id=SC1234$/)
+        render
+        response.should have_selector("div#header_right") do
+            have_selector "a", :href => /www.oscr.org.uk.*id=SC1234$/
         end
     end 
 
 
     it "should not link to Charity Commission site if we don't have number" do
-        render "public_body/show"
-        response.should have_tag("div#header_right") do
-            without_tag("a[href*=?]", /charity-commission.gov.uk/)
+        render
+        response.should have_selector("div#header_right") do
+            have_selector "a", :href => /charity-commission.gov.uk/
         end
     end 
 

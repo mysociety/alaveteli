@@ -1,16 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminPublicBodyController, "when administering public bodies" do
-    integrate_views
-
-    before do
-        @old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
-    end
-
-    after do
-        ActionController::Routing::Routes.filters = @old_filters
-    end
+    render_views
 
     it "shows the index page" do
         get :index
@@ -154,7 +145,7 @@ end
 
 describe AdminPublicBodyController, "when administering public bodies and paying attention to authentication" do
 
-    integrate_views
+    render_views
 
     before do
         config = MySociety::Config.load_default()
@@ -263,7 +254,7 @@ describe AdminPublicBodyController, "when administering public bodies and paying
 end
 
 describe AdminPublicBodyController, "when administering public bodies with i18n" do
-    integrate_views
+    render_views
 
     it "shows the index page" do
         get :index
@@ -288,7 +279,7 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
     end
 
     it "saves edits to a public body" do
-        PublicBody.with_locale(:es) do
+        I18n.with_locale(:es) do
             pb = PublicBody.find(id=3)
             pb.name.should == "El Department for Humpadinking"
             post :update, {
@@ -308,10 +299,10 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
         end
 
         pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
-        PublicBody.with_locale(:es) do
+        I18n.with_locale(:es) do
            pb.name.should == "Renamed"
         end
-        PublicBody.with_locale(:en) do
+        I18n.with_locale(:en) do
            pb.name.should == "Department for Humpadinking"
         end
     end
@@ -325,16 +316,7 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
 end
 
 describe AdminPublicBodyController, "when creating public bodies with i18n" do
-    integrate_views
-
-    before do
-        @old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
-    end
-
-    after do
-        ActionController::Routing::Routes.filters = @old_filters
-    end
+    render_views
 
     it "creates a new public body in one locale" do
         n = PublicBody.count
@@ -357,12 +339,12 @@ describe AdminPublicBodyController, "when creating public bodies with i18n" do
 
         body = PublicBody.find_by_name("New Quango")
         body.translations.map {|t| t.locale.to_s}.sort.should == ["en", "es"]
-        PublicBody.with_locale(:en) do
+        I18n.with_locale(:en) do
             body.name.should == "New Quango"
             body.url_name.should == "new_quango"
             body.first_letter.should == "N"
         end
-        PublicBody.with_locale(:es) do
+        I18n.with_locale(:es) do
             body.name.should == "Mi Nuevo Quango"
             body.url_name.should == "mi_nuevo_quango"
             body.first_letter.should == "M"

@@ -92,7 +92,7 @@ module ActsAsXapian
       raise "Set RAILS_ENV, so acts_as_xapian can find the right Xapian database" if not environment
 
       # check for a config file
-      config_file = RAILS_ROOT + "/config/xapian.yml"
+      config_file = Rails.root.to_s + "/config/xapian.yml"
       @@config = File.exists?(config_file) ? YAML.load_file(config_file)[environment] : {}
 
       # figure out where the DBs should go
@@ -758,7 +758,7 @@ module ActsAsXapian
                 else
                     values = []
                     for locale in self.translations.map{|x| x.locale}
-                        self.class.with_locale(locale) do
+                        I18n.with_locale(locale) do
                             values << single_xapian_value(field, type=type)
                         end
                     end

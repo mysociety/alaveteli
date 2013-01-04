@@ -56,7 +56,7 @@ describe TrackController, "when making a new track on a request" do
 end
 
 describe TrackController, "when sending alerts for a track" do
-    integrate_views
+    render_views
     include LinkToHelper # for main_url
 
     before(:each) do
@@ -134,7 +134,7 @@ describe TrackController, "when sending alerts for a track" do
 end
 
 describe TrackController, "when viewing RSS feed for a track" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -164,7 +164,7 @@ end
 
 describe TrackController, "when viewing JSON version of a track feed" do
 
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -206,7 +206,7 @@ end
 
 describe TrackController, "when tracking a public body" do
 
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data

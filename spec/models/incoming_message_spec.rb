@@ -27,7 +27,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
     end
 
     it "should correctly fold various types of footer" do
-        Dir.glob(File.join(Spec::Runner.configuration.fixture_path, "files", "email-folding-example-*.txt")).each do |file|
+        Dir.glob(File.join(RSpec.configuration.fixture_path, "files", "email-folding-example-*.txt")).each do |file|
             message = File.read(file)
             parsed = IncomingMessage.remove_quoted_sections(message)
             expected = File.read("#{file}.expected")

@@ -4,7 +4,7 @@ require 'fakeweb'
 
 describe ServicesController, "when returning a message for people in other countries" do
 
-    integrate_views
+    render_views
 
     # store and restore the locale in the context of the test suite to isolate
     # changes made in these tests

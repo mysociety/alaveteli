@@ -35,15 +35,15 @@ module ApplicationHelper
               end
           end
 
-          error_messages = []
+          error_messages = "".html_safe
           for object in objects
               object.errors.each do |attr, message|
-                  error_messages << content_tag(:li, message)
+                  error_messages << content_tag(:li, h(message))
               end
           end
 
           content_tag(:div,
-              content_tag(:ul, error_messages.join),
+              content_tag(:ul, error_messages),
             html
           )
         else

@@ -6,8 +6,12 @@
 # so that we can interpolate our translation strings nicely
 
 def _(key, options = {})
+  # HACK: We should be going via GettextI18nRails instead of FastGettext below
+  # so that #translations_are_html_safe is respected but calling it directly
+  # doesn't work for me. I'm just marking the resulting string as html_safe.
+  # This whole hacky file should be removed
   translation = FastGettext._(key) || key
-  gettext_interpolate(translation, options)
+  gettext_interpolate(translation, options).html_safe
 end
 
 INTERPOLATION_RESERVED_KEYS = %w(scope default)

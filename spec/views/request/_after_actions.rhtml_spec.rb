@@ -15,51 +15,27 @@ describe 'when displaying actions that can be taken with regard to a request' do
                                                 :comments_allowed? => true,
                                                 :url_title => 'test_request',
                                                 :all_can_view? => true)
-        assigns[:info_request] = @mock_request
-    end
-
-    def do_render
-        render :partial => 'request/after_actions'
-    end
-
-    def expect_owner_div
-        do_render
-        response.should have_tag('div#owner_actions'){ yield }
-    end
-
-    def expect_anyone_div
-        do_render
-        response.should have_tag('div#anyone_actions'){ yield }
-    end
-
-    def expect_owner_link(text)
-        expect_owner_div{ with_tag('a', :text => text) }
-    end
-
-    def expect_no_owner_link(text)
-        expect_owner_div{ without_tag('a', :text => text) }
-    end
-
-    def expect_anyone_link(text)
-        expect_anyone_div{ with_tag('a', :text => text) }
-    end
-
-    def expect_no_anyone_link(text)
-        expect_anyone_div{ without_tag('a', :text => text) }
+        assign :info_request, @mock_request
     end
 
     describe 'if the request is old and unclassified' do
 
         before do
-            assigns[:old_unclassified] = true
+            assign :old_unclassified, true
         end
 
         it 'should not display a link for the request owner to update the status of the request' do
-            expect_no_owner_link('Update the status of this request')
+            render :partial => 'request/after_actions'
+            response.should have_selector('div#owner_actions') do |div|
+                div.should_not have_selector('a', :content => 'Update the status of this request')
+            end
         end
 
         it 'should display a link for anyone to update the status of the request' do
-            expect_anyone_link('Update the status of this request')
+            render :partial => 'request/after_actions'
+            response.should have_selector('div#anyone_actions') do |div|
+                div.should have_selector('a', :content => 'Update the status of this request')
+            end
         end
 
     end
@@ -67,21 +43,30 @@ describe 'when displaying actions that can be taken with regard to a request' do
     describe 'if the request is not old and unclassified' do
 
         before do
-            assigns[:old_unclassified] = false
+            assign :old_unclassified, false
         end
 
         it 'should display a link for the request owner to update the status of the request' do
-            expect_owner_link('Update the status of this request')
+            render :partial => 'request/after_actions'
+            response.should have_selector('div#owner_actions') do |div|
+                div.should have_selector('a', :content => 'Update the status of this request')
+            end
         end
 
         it 'should not display a link for anyone to update the status of the request' do
-            expect_no_anyone_link('Update the status of this request')
+            render :partial => 'request/after_actions'
+            response.should have_selector('div#anyone_actions') do |div|
+                div.should_not have_selector('a', :content => 'Update the status of this request')
+            end
         end
 
     end
 
     it 'should display a link for the request owner to request a review' do
-        expect_owner_link('Request an internal review')
+        render :partial => 'request/after_actions'
+        response.should have_selector('div#owner_actions') do |div|
+            div.should have_selector('a', :content => 'Request an internal review')
+        end
     end
 
     describe 'if the request is viewable by all' do

@@ -23,29 +23,15 @@ class ProfilePhoto < ActiveRecord::Base
 
     belongs_to :user
 
+    validate :data_and_draft_checks
+
     # deliberately don't strip_attributes, so keeps raw photo properly
 
     attr_accessor :x, :y, :w, :h
 
-    # convert binary data blob into ImageMagick image when assigned
     attr_accessor :image
-    def after_initialize
-        if data.nil?
-            self.image = nil
-            return
-        end
 
-        image_list = Magick::ImageList.new
-        begin
-            image_list.from_blob(data)
-        rescue Magick::ImageMagickError
-            self.image = nil
-            return
-        end
-
-        self.image = image_list[0] # XXX perhaps take largest image or somesuch if there were multiple in the file?
-        self.convert_image
-    end
+    after_initialize :convert_data_to_image
 
     # make image valid format and size
     def convert_image
@@ -81,7 +67,9 @@ class ProfilePhoto < ActiveRecord::Base
         end
     end
 
-    def validate
+    private
+
+    def data_and_draft_checks
         if self.data.nil?
             errors.add(:data, N_("Please choose a file containing your photo."))
             return
@@ -107,6 +95,25 @@ class ProfilePhoto < ActiveRecord::Base
         if !self.draft && !self.user_id
             raise "Internal error, real pictures must have a user"
         end
+    end
+
+    # Convert binary data blob into ImageMagick image when assigned
+    def convert_data_to_image
+        if data.nil?
+            self.image = nil
+            return
+        end
+
+        image_list = Magick::ImageList.new
+        begin
+            image_list.from_blob(data)
+        rescue Magick::ImageMagickError
+            self.image = nil
+            return
+        end
+
+        self.image = image_list[0] # XXX perhaps take largest image or somesuch if there were multiple in the file?
+        self.convert_image
     end
 end
 

@@ -43,7 +43,7 @@ class PublicBody < ActiveRecord::Base
     before_save :set_api_key, :set_default_publication_scheme
 
     # Every public body except for the internal admin one is visible
-    named_scope :visible, lambda {
+    scope :visible, lambda {
         {
             :conditions => "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
         }
@@ -104,28 +104,25 @@ class PublicBody < ActiveRecord::Base
 
     # like find_by_url_name but also search historic url_name if none found
     def self.find_by_url_name_with_historic(name)
-        locale = self.locale || I18n.locale
-        PublicBody.with_locale(locale) do
-            found = PublicBody.find(:all,
-                                    :conditions => ["public_body_translations.url_name=?", name],
-                                    :joins => :translations,
-                                    :readonly => false)
-            # If many bodies are found (usually because the url_name is the same across
-            # locales) return any of them
-            return found.first if found.size >= 1
+        found = PublicBody.find(:all,
+                                :conditions => ["public_body_translations.url_name=?", name],
+                                :joins => :translations,
+                                :readonly => false)
+        # If many bodies are found (usually because the url_name is the same across
+        # locales) return any of them
+        return found.first if found.size >= 1
 
-            # If none found, then search the history of short names
-            old = PublicBody::Version.find_all_by_url_name(name)
-            # Find unique public bodies in it
-            old = old.map { |x| x.public_body_id }
-            old = old.uniq
-            # Maybe return the first one, so we show something relevant,
-            # rather than throwing an error?
-            raise "Two bodies with the same historical URL name: #{name}" if old.size > 1
-            return unless old.size == 1
-            # does acts_as_versioned provide a method that returns the current version?
-            return PublicBody.find(old.first)
-        end
+        # If none found, then search the history of short names
+        old = PublicBody::Version.find_all_by_url_name(name)
+        # Find unique public bodies in it
+        old = old.map { |x| x.public_body_id }
+        old = old.uniq
+        # Maybe return the first one, so we show something relevant,
+        # rather than throwing an error?
+        raise "Two bodies with the same historical URL name: #{name}" if old.size > 1
+        return unless old.size == 1
+        # does acts_as_versioned provide a method that returns the current version?
+        return PublicBody.find(old.first)
     end
 
     # Set the first letter, which is used for faster queries
@@ -250,13 +247,13 @@ class PublicBody < ActiveRecord::Base
 
     # When name or short name is changed, also change the url name
     def short_name=(short_name)
-        globalize.write(self.class.locale || I18n.locale, :short_name, short_name)
+        globalize.write(I18n.locale, :short_name, short_name)
         self[:short_name] = short_name
         self.update_url_name
     end
 
     def name=(name)
-        globalize.write(self.class.locale || I18n.locale, :name, name)
+        globalize.write(I18n.locale, :name, name)
         self[:name] = name
         self.update_url_name
     end
@@ -301,7 +298,7 @@ class PublicBody < ActiveRecord::Base
                 ret = ret + " and "
             end
             ret = ret + types[-1]
-            return ret
+            return ret.html_safe
         else
             return _("A public authority")
         end
@@ -336,7 +333,7 @@ class PublicBody < ActiveRecord::Base
 
     # The "internal admin" is a special body for internal use.
     def PublicBody.internal_admin_body
-        PublicBody.with_locale(I18n.default_locale) do
+        I18n.with_locale(I18n.default_locale) do
             pb = PublicBody.find_by_url_name("internal_admin_authority")
             if pb.nil?
                 pb = PublicBody.new(
@@ -374,7 +371,7 @@ class PublicBody < ActiveRecord::Base
                 # of updating them
                 bodies_by_name = {}
                 set_of_existing = Set.new()
-                PublicBody.with_locale(I18n.default_locale) do
+                I18n.with_locale(I18n.default_locale) do
                     bodies = (tag.nil? || tag.empty?) ? PublicBody.find(:all) : PublicBody.find_by_tag(tag)
                     for existing_body in bodies
                         # Hide InternalAdminBody from import notes
@@ -417,7 +414,7 @@ class PublicBody < ActiveRecord::Base
 
                     if public_body = bodies_by_name[name]   # Existing public body
                         available_locales.each do |locale|
-                            PublicBody.with_locale(locale) do
+                            I18n.with_locale(locale) do
                                 changed = ActiveSupport::OrderedHash.new
                                 field_list.each do |field_name|
                                     localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
@@ -452,7 +449,7 @@ class PublicBody < ActiveRecord::Base
                     else # New public body
                         public_body = PublicBody.new(:name=>"", :short_name=>"", :request_email=>"")
                         available_locales.each do |locale|
-                            PublicBody.with_locale(locale) do
+                            I18n.with_locale(locale) do
                                 changed = ActiveSupport::OrderedHash.new
                                 field_list.each do |field_name|
                                     localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"

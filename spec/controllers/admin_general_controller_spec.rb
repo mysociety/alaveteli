@@ -4,7 +4,7 @@ describe AdminGeneralController do
 
     describe "when viewing front page of admin interface" do
 
-        integrate_views
+        render_views
         before { basic_auth_login @request }
 
         it "should render the front page" do

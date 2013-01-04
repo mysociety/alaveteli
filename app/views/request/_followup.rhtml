@@ -44,9 +44,9 @@
     <% else %>
         <% if @internal_review %>
             <p>
-            <%= _('If you are dissatisfied by the response you got from
+            <%= raw(_('If you are dissatisfied by the response you got from
             the public authority, you have the right to
-            complain (<a href="%s">details</a>).') % "http://foiwiki.com/foiwiki/index.php/Internal_reviews" %>
+            complain (<a href="%s">details</a>).') % "http://foiwiki.com/foiwiki/index.php/Internal_reviews") %>
             </p>
         <% end %>
 
@@ -63,14 +63,14 @@
             <%= _('in term time') %> 
             <% end %>
             <%= _('by <strong>{{date}}</strong>',:date=>simple_date(@info_request.date_response_required_by)) %>
-            (<%= _('<a href="%s">details</a>') % ["#{help_requesting_path}#quickly_response"] %>).
+            (<%= raw(_('<a href="%s">details</a>') % ["#{help_requesting_path}#quickly_response"]) %>).
 			
             </p>
         <% elsif status == 'waiting_response_very_overdue' %>
             <p>
             <%= _('The response to your request is <strong>long overdue</strong>.   You can say that, by 
             law, under all circumstances, the authority should have responded
-            by now') %> (<%= _('<a href="%s">details</a>') % ["#{help_requesting_path}#quickly_response"] %>).
+            by now') %> (<%= raw(_('<a href="%s">details</a>') % ["#{help_requesting_path}#quickly_response"]) %>).
             </p>
         <% end %>
 
@@ -98,7 +98,7 @@
                     <div>
                         <%= radio_button "outgoing_message", "what_doing", "internal_review", :id => "internal_review" %>
                         <label for="internal_review"><%= _('I am requesting an <strong>internal review</strong>') %> 
-						<%= _('<a href="%s">what\'s that?</a>') % ["/help/unhappy"] %>
+						<%= raw(_('<a href="%s">what\'s that?</a>') % ["/help/unhappy"]) %>
                         </label>
                     </div>
                     <div>
