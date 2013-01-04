@@ -28,6 +28,8 @@ GEM
       activemodel (= 3.0.17)
       activesupport (= 3.0.17)
     activesupport (3.0.17)
+    acts_as_versioned (0.6.0)
+      activerecord (~> 3.0.0.beta4)
     annotate (2.5.0)
       rake
     archive-tar-minitar (0.5.2)
@@ -204,6 +206,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_versioned
   annotate
   bootstrap-sass
   capistrano

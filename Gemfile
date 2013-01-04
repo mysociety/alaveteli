@@ -40,6 +40,7 @@ gem 'syslog_protocol'
 gem 'newrelic_rpm'
 gem 'tmail'
 gem 'globalize3'
+gem 'acts_as_versioned'
 
 group :test do
   gem 'fakeweb'
