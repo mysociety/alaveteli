@@ -26,8 +26,9 @@ describe 'when viewing an information request' do
         assign :info_request, @mock_request
         assign :info_request_events, []
         assign :status, @mock_request.calculate_status
-        view.stub!(:render_partial)
-        render 'request/show'
+        # This is so icky!
+        view.stub!(:_render_partial)
+        render :template => 'request/show'
     end
     
     describe 'when a status update has been requested' do 
