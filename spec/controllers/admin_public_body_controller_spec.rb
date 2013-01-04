@@ -3,15 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminPublicBodyController, "when administering public bodies" do
     render_views
 
-    before do
-        @old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
-    end
-
-    after do
-        ActionController::Routing::Routes.filters = @old_filters
-    end
-
     it "shows the index page" do
         get :index
     end
@@ -326,15 +317,6 @@ end
 
 describe AdminPublicBodyController, "when creating public bodies with i18n" do
     render_views
-
-    before do
-        @old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
-    end
-
-    after do
-        ActionController::Routing::Routes.filters = @old_filters
-    end
 
     it "creates a new public body in one locale" do
         n = PublicBody.count

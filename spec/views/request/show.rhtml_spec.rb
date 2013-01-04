@@ -78,11 +78,6 @@ describe 'when viewing an information request' do
                 before do
                     @mock_response = mock_model(IncomingMessage)
                     @mock_request.stub!(:get_last_response).and_return(@mock_response)
-                    @old_filters = ActionController::Routing::Routes.filters
-                    ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
-                end
-                after do
-                    ActionController::Routing::Routes.filters = @old_filters
                 end
 
             
@@ -98,11 +93,6 @@ describe 'when viewing an information request' do
         
                 before do 
                     @mock_request.stub!(:get_last_response).and_return(nil)
-                    @old_filters = ActionController::Routing::Routes.filters
-                    ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
-                end
-                after do
-                    ActionController::Routing::Routes.filters = @old_filters
                 end
 
             
