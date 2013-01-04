@@ -30,9 +30,11 @@ class ApplicationMailer < ActionMailer::Base
     # will be initialized according to the named method. If not, the mailer will
     # remain uninitialized (useful when you only need to invoke the "receive"
     # method, for instance).
-    def initialize(method_name=nil, *parameters) #:nodoc:
-      create!(method_name, *parameters) if method_name
-    end
+    
+    # TEMPORARY: commented out method below while upgrading to Rails 3
+    #def initialize(method_name=nil, *parameters) #:nodoc:
+    #  create!(method_name, *parameters) if method_name
+    #end
 
     # For each multipart template (e.g. "the_template_file.text.html.erb") available,
         # add the one from the view path with the highest priority as a part to the mail
@@ -68,7 +70,7 @@ class ApplicationMailer < ActionMailer::Base
         end
 
     # FIXME: This check was disabled temporarily during the Rails 3 upgrade
-    #if ActionMailer::VERSION::MAJOR == 2
+    if ActionMailer::VERSION::MAJOR == 2
 
         # This method is a customised version of ActionMailer::Base.create!
         # modified to allow templates to be selected correctly for multipart
@@ -143,9 +145,9 @@ class ApplicationMailer < ActionMailer::Base
           # build the mail object itself
           @mail = create_mail
         end
-    # else
-    #     raise "ApplicationMailer.create! is obsolete - find another way to ensure that themes can override mail templates for multipart mails"
-    # end
+     else
+         #raise "ApplicationMailer.create! is obsolete - find another way to ensure that themes can override mail templates for multipart mails"
+     end
 
 end
 
