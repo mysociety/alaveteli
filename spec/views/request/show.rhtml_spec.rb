@@ -30,16 +30,6 @@ describe 'when viewing an information request' do
         render 'request/show'
     end
     
-    it 'should show the sidebar' do 
-        view.should_receive(:render_partial).with(:partial => 'sidebar', :locals => {})
-        request_page
-    end
-    
-    it 'should show the actions people can take' do
-        view.should_receive(:render_partial).with(:partial => 'after_actions', :locals => {})
-        request_page
-    end
-    
     describe 'when a status update has been requested' do 
         
         before do 
