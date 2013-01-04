@@ -286,7 +286,7 @@ describe ApiController, "when using the API" do
             :feed_type => "atom"
 
         response.should be_success
-        response.should render_template("api/request_events.atom")
+        response.should render_template("api/request_events")
         assigns[:events].size.should > 0
         assigns[:events].each do |event|
             event.info_request.public_body.should == public_bodies(:geraldine_public_body)
@@ -341,7 +341,7 @@ describe ApiController, "when using the API" do
             :feed_type => "atom"
 
         response.should be_success
-        response.should render_template("api/request_events.atom")
+        response.should render_template("api/request_events")
         assigns[:events].size.should > 0
         assigns[:events].each do |event|
             event.created_at.should >= Date.new(2010, 1, 1)

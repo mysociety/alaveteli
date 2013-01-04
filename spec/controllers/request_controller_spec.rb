@@ -2090,20 +2090,20 @@ describe RequestController, "when doing type ahead searches" do
 
     it "should return nothing for the empty query string" do
         get :search_typeahead, :q => ""
-        response.should render_template('request/_search_ahead.rhtml')
+        response.should render_template('request/_search_ahead')
         assigns[:xapian_requests].should be_nil
     end
 
     it "should return a request matching the given keyword, but not users with a matching description" do
         get :search_typeahead, :q => "chicken"
-        response.should render_template('request/_search_ahead.rhtml')
+        response.should render_template('request/_search_ahead')
         assigns[:xapian_requests].results.size.should == 1
         assigns[:xapian_requests].results[0][:model].title.should == info_requests(:naughty_chicken_request).title
     end
 
     it "should return all requests matching any of the given keywords" do
         get :search_typeahead, :q => "money dog"
-        response.should render_template('request/_search_ahead.rhtml')
+        response.should render_template('request/_search_ahead')
         assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ [
             info_requests(:fancy_dog_request),
             info_requests(:naughty_chicken_request),
@@ -2113,13 +2113,13 @@ describe RequestController, "when doing type ahead searches" do
 
     it "should not return matches for short words" do
         get :search_typeahead, :q => "a"
-        response.should render_template('request/_search_ahead.rhtml')
+        response.should render_template('request/_search_ahead')
         assigns[:xapian_requests].should be_nil
     end
 
     it "should do partial matches for longer words" do
         get :search_typeahead, :q => "chick"
-        response.should render_template('request/_search_ahead.rhtml')
+        response.should render_template('request/_search_ahead')
         assigns[:xapian_requests].results.size.should ==1
     end
 
