@@ -76,15 +76,17 @@ class RequestMailer < ApplicationMailer
     def new_response(info_request, incoming_message)
         # Don't use login link here, just send actual URL. This is
         # because people tend to forward these emails amongst themselves.
-        url = main_url(incoming_message_url(incoming_message))
+        @url = main_url(incoming_message_url(incoming_message))
+        @incoming_message, @info_request = incoming_message, info_request
 
-        @from = contact_from_name_and_email
-        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
+        headers 'Return-Path' => blackhole_email,
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
-        @recipients = info_request.user.name_and_email
-        @subject = _("New response to your FOI request - ") + info_request.title
-        @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
+        mail(:from => contact_from_name_and_email, :to => info_request.user.name_and_email,
+            :subject => _("New response to your FOI request - ") + info_request.title,
+            :charset => "UTF-8",
+            # not much we can do if the user's email is broken
+            :reply_to => contact_from_name_and_email)
     end
 
     # Tell the requester that the public body is late in replying
