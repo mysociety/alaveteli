@@ -12,7 +12,7 @@ describe GeneralController, "when trying to show the blog" do
     it "should fail silently if the blog is returning an error" do
         FakeWeb.register_uri(:get, %r|.*|, :body => "Error", :status => ["500", "Error"])
         get :blog
-        response.status.should == "200 OK"
+        response.status.should == 200
         assigns[:blog_items].count.should == 0
     end
 end
