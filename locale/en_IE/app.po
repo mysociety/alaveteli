@@ -4,12 +4,13 @@
 # 
 # Translators:
 #   <john@handelaar.org>, 2011.
+#   <mrjohncross@googlemail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-11-06 16:35+0000\n"
-"PO-Revision-Date: 2012-11-06 18:09+0000\n"
+"POT-Creation-Date: 2012-12-18 10:11+0000\n"
+"PO-Revision-Date: 2012-12-18 10:14+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +38,7 @@ msgid " (you)"
 msgstr ""
 
 msgid " - view and make Freedom of Information requests"
-msgstr ""
+msgstr "- view and make Freedom of Information requests"
 
 msgid " - wall"
 msgstr ""
@@ -1865,6 +1866,9 @@ msgid ""
 msgstr ""
 
 msgid "Please sign in as "
+msgstr ""
+
+msgid "Please sign in or make a new account."
 msgstr ""
 
 msgid "Please type a message and/or choose a file containing your response."
@@ -3806,6 +3810,9 @@ msgid ""
 msgstr ""
 
 msgid "{{public_body}} sent a response to {{user_name}}"
+msgstr ""
+
+msgid "{{reason}}, please sign in or make a new account."
 msgstr ""
 
 msgid "{{search_results}} matching '{{query}}'"

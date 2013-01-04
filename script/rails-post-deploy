@@ -77,6 +77,10 @@ then
     bundle_install_options="--without development:test --deployment"
 fi
 
+if [ "$TRAVIS" = "true" ]
+then
+   bundle_install_options="--without development develop --deployment"
+fi
 bundle install $bundle_install_options
 
 bundle exec rake themes:install

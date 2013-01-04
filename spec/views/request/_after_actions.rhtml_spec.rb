@@ -13,7 +13,8 @@ describe 'when displaying actions that can be taken with regard to a request' do
                                                 :is_external? => false,
                                                 :public_body => @mock_body,
                                                 :comments_allowed? => true,
-                                                :url_title => 'test_request')
+                                                :url_title => 'test_request',
+                                                :all_can_view? => true)
         assign :info_request, @mock_request
     end
 
@@ -65,6 +66,21 @@ describe 'when displaying actions that can be taken with regard to a request' do
         render :partial => 'request/after_actions'
         response.should have_selector('div#owner_actions') do |div|
             div.should have_selector('a', :content => 'Request an internal review')
+        end
+    end
+
+    describe 'if the request is viewable by all' do
+
+        it 'should display the link to download the entire request' do
+            expect_anyone_link('Download a zip file of all correspondence')
+        end
+    end
+
+    describe 'if the request is not viewable by all' do
+
+        it 'should not  display the link to download the entire request' do
+            @mock_request.stub!(:all_can_view?).and_return(false)
+            expect_no_anyone_link('Download a zip file of all correspondence')
         end
     end
 

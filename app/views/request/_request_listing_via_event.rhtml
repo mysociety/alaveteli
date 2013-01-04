@@ -25,7 +25,7 @@ end %>
             <%=event.display_status %>
             <%= _('by {{public_body_name}} to {{info_request_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>request_user_link_absolute(info_request),:date=>simple_date(event.created_at )) %>
         <% elsif event.event_type == 'comment' %>
-            <%= _('Request to {{public_body_name}} by {{info_request_user}}. Annotated by {{event_comment_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>user_link_absolute(info_request.user),:event_comment_user=>user_link_absolute(event.comment.user),:date=>simple_date(event.created_at)) %>
+            <%= _('Request to {{public_body_name}} by {{info_request_user}}. Annotated by {{event_comment_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>request_user_link_absolute(info_request),:event_comment_user=>user_link_absolute(event.comment.user),:date=>simple_date(event.created_at)) %>
         <% else %>
             <%# Events of other types will not be indexed: see InfoRequestEvent#indexed_by_search?
                 However, it can happen that we see other types of event transiently here in the period
