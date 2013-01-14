@@ -30,6 +30,17 @@ describe FoiAttachment, " when calculating due date" do
         main.delete_cached_file!
         main = im.get_main_body_text_part
         main.body.should == orig_body
-        
+
     end
+end
+
+describe FoiAttachment, "when ensuring a filename is present" do
+
+    it 'should create a filename for an instance with a blank filename' do
+        attachment = FoiAttachment.new
+        attachment.filename = ''
+        attachment.ensure_filename!
+        attachment.filename.should == 'attachment.bin'
+    end
+
 end

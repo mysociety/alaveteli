@@ -219,7 +219,7 @@ class FoiAttachment < ActiveRecord::Base
 
 
     def ensure_filename!
-        if self.filename.nil?
+        if self.filename.blank?
             calc_ext = AlaveteliFileTypes.mimetype_to_extension(self.content_type)
             if !calc_ext
                 calc_ext = "bin"
