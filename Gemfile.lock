@@ -1,10 +1,3 @@
-GIT
-  remote: git://github.com/henare/rails_xss.git
-  revision: 6c9b5dccc6050b993b174eba8d15e4bcf1a9120f
-  branch: alaveteli
-  specs:
-    rails_xss (0.3.1)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -92,6 +85,7 @@ GEM
       activeresource (= 2.3.14)
       activesupport (= 2.3.14)
       rake (>= 0.8.3)
+    rails_xss (0.3.1)
     rake (0.8.7)
     rbx-require-relative (0.0.9)
     rdoc (2.4.3)
@@ -175,7 +169,7 @@ DEPENDENCIES
   pg
   rack (~> 1.1.0)
   rails (= 2.3.14)
-  rails_xss!
+  rails_xss
   rake (~> 0.8.7)
   rdoc (~> 2.4.3)
   recaptcha (~> 0.3.1)
