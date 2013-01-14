@@ -6,9 +6,7 @@
 # so that we can interpolate our translation strings nicely
 
 def _(key, options = {})
-  # Assume the result of doing any translation is html_safe.
-  # In other words, we trust the translators.
-  translation = FastGettext._(key).html_safe || key
+  translation = FastGettext._(key) || key
   gettext_interpolate(translation, options)
 end
 
