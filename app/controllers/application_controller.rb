@@ -54,10 +54,15 @@ class ApplicationController < ActionController::Base
     end
 
     def set_gettext_locale
-        if Configuration::use_default_browser_language
-            requested_locale = params[:locale] || session[:locale] || cookies[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'] || I18n.default_locale
+        if Configuration::include_default_locale_in_urls == false
+            params_locale = params[:locale] ? params[:locale] : I18n.default_locale
         else
-            requested_locale = params[:locale] || session[:locale] || cookies[:locale] || I18n.default_locale
+            params_locale = params[:locale]
+        end
+        if Configuration::use_default_browser_language
+            requested_locale = params_locale || session[:locale] || cookies[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'] || I18n.default_locale
+        else
+            requested_locale = params_locale || session[:locale] || cookies[:locale] || I18n.default_locale
         end
         requested_locale = FastGettext.best_locale_in(requested_locale)
         session[:locale] = FastGettext.set_locale(requested_locale)
@@ -117,17 +122,14 @@ class ApplicationController < ActionController::Base
 
     # Override default error handler, for production sites.
     def rescue_action_in_public(exception)
-        # Call `set_view_paths` from the theme, if it exists.
+        # Looks for before_filters called something like `set_view_paths_{themename}`. These
+        # are set by the themes.
         # Normally, this is called by the theme itself in a
         # :before_filter, but when there's an error, this doesn't
         # happen.  By calling it here, we can ensure error pages are
         # still styled according to the theme.
-        begin
-            set_view_paths
-        rescue NameError => e
-            if !(e.message =~ /undefined local variable or method `set_view_paths'/)
-                raise
-            end
+        ActionController::Base.before_filters.select{|f| f.to_s =~ /set_view_paths/}.each do |f|
+            self.send(f)
         end
         # Make sure expiry time for session is set (before_filters are
         # otherwise missed by this override)

@@ -6,15 +6,15 @@
 #   <appukonrad@gmail.com>, 2012.
 # Hana Huntova <>, 2012.
 # Jana Kneschke <>, 2012.
-#   <jana.kneschke@gmail.com>, 2012.
+#   <jana.kneschke@gmail.com>, 2012-2013.
 #   <josef.pospisil@laststar.eu>, 2012.
 #   <louise@mysociety.org>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-11-06 16:35+0000\n"
-"PO-Revision-Date: 2012-11-29 14:58+0000\n"
+"POT-Creation-Date: 2012-12-18 10:11+0000\n"
+"PO-Revision-Date: 2013-01-07 14:50+0000\n"
 "Last-Translator: janakneschke <jana.kneschke@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -753,7 +753,7 @@ msgid "Comment|Visible"
 msgstr "Komentář | Viditelný"
 
 msgid "Confirm you want to follow all successful FOI requests"
-msgstr "Potvrďte, že chcete být informováni o všech úspěšně zodpovězených dotazech. ??"
+msgstr "Potvrďte, že chcete být informováni o všech úspěšně zodpovězených dotazech."
 
 msgid "Confirm you want to follow new requests"
 msgstr "Potvrďte, že chcete být informováni o nově vznesených dotazech."
@@ -1877,6 +1877,9 @@ msgstr "Podepište se na konci dopisu svým jménem, nebo změňte \"%{signoff}\
 msgid "Please sign in as "
 msgstr "Přihlašte se jako"
 
+msgid "Please sign in or make a new account."
+msgstr "Prosíme přihlašte se nebo se zaregistrujte."
+
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Napište zprávu a/nebo vyberte soubor, který obsahuje vaši odpověď."
 
@@ -2894,7 +2897,7 @@ msgstr "Abychom udržovali stránky přehledné, někdo jiný upravil status va�
 
 msgid ""
 "To let everyone know, follow this link and then select the appropriate box."
-msgstr "Sdílejte tento link a vyberte nejvhodnější variantu. ??"
+msgstr "Stav svého dotazu můžete sdílet s ostatními na internetu – stačí zkopírovat tento odkaz:"
 
 msgid "To log into the administrative interface"
 msgstr "Přihlásit se do administrace"
@@ -3823,6 +3826,9 @@ msgstr "Instituce {{public_body}} vás žádá o doplnění vzneseného dotazu."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "Instituce {{public_body}} zaslal odpověď pro uživatele {{user_name}}"
+
+msgid "{{reason}}, please sign in or make a new account."
+msgstr "{{reason}}, proto se přihlašte se nebo se zaregistrujte."
 
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} odpovídající '{{query}}'"

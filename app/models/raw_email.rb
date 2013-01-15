@@ -22,7 +22,7 @@ class RawEmail < ActiveRecord::Base
         if request_id.empty?
             raise "Failed to find the id number of the associated request: has it been saved?"
         end
-        
+
         if ENV["RAILS_ENV"] == "test"
             return File.join(Rails.root, 'files/raw_email_test')
         else
@@ -49,7 +49,7 @@ class RawEmail < ActiveRecord::Base
     end
 
     def data
-        File.open(self.filepath, "rb").read
+        File.open(self.filepath, "r").read
     end
 
     def destroy_file_representation!

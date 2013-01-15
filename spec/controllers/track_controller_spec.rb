@@ -38,7 +38,7 @@ describe TrackController, "when making a new track on a request" do
         get :track_request, :url_title => @ir.url_title, :feed => 'track'
         response.should redirect_to(:controller => 'request', :action => 'show', :url_title => @ir.url_title)
     end
-    
+
     it "should 404 for non-existent requests" do
       session[:user_id] = @user.id
       lambda {
@@ -61,9 +61,9 @@ describe TrackController, "when sending alerts for a track" do
 
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
-    
+
     it "should send alerts" do
         # Don't do clever locale-insertion-unto-URL stuff
         old_filters = ActionController::Routing::Routes.filters
@@ -138,7 +138,7 @@ describe TrackController, "when viewing RSS feed for a track" do
 
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
 
     it "should get the RSS feed" do
@@ -168,7 +168,7 @@ describe TrackController, "when viewing JSON version of a track feed" do
 
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
 
     it "should get the feed" do
@@ -210,9 +210,9 @@ describe TrackController, "when tracking a public body" do
 
     before(:each) do
         load_raw_emails_data
-        rebuild_xapian_index
+        get_fixtures_xapian_index
     end
-    
+
     it "should work" do
         geraldine = public_bodies(:geraldine_public_body)
         get :track_public_body, :feed => 'feed', :url_name => geraldine.url_name

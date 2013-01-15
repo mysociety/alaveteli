@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-06 16:35+0000\n"
+"POT-Creation-Date: 2012-12-18 10:11+0000\n"
 "PO-Revision-Date: 2011-10-09 01:10+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1509,6 +1509,9 @@ msgid "Please sign at the bottom with your name, or alter the \"%{signoff}\" sig
 msgstr ""
 
 msgid "Please sign in as "
+msgstr ""
+
+msgid "Please sign in or make a new account."
 msgstr ""
 
 msgid "Please type a message and/or choose a file containing your response."
@@ -3174,6 +3177,9 @@ msgid "{{public_body}} has asked you to explain part of your {{law_used}} reques
 msgstr ""
 
 msgid "{{public_body}} sent a response to {{user_name}}"
+msgstr ""
+
+msgid "{{reason}}, please sign in or make a new account."
 msgstr ""
 
 msgid "{{search_results}} matching '{{query}}'"

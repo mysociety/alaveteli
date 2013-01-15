@@ -12,7 +12,7 @@
         <link rel="shortcut icon" href="/favicon.ico">
 
         <%= render :partial => 'general/stylesheet_includes' %>
-        <% if session[:using_admin] %>
+        <% if is_admin? %>
           <%= stylesheet_link_tag "/adminbootstraptheme/stylesheets/admin", :title => "Main", :rel => "stylesheet" %>
         <% end %>
 
@@ -63,15 +63,15 @@
     </script>
     <% end %>
 
-<% if session[:using_admin] %>
+<% if is_admin? %>
   <%= render :partial => 'admin_general/admin_navbar' %>
 <% end %>
 
 <% if !@popup_banner.blank? %>
 <div id="everypage" class="jshide">
-  <p style="float:right"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;"><%= _('Close') %></a></p>
+  <p class="popup-close"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;"><%= _('Close') %></a></p>
   <%= @popup_banner %>
-  <p style="text-align: right"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;"><%= _('Close') %></a></p>
+  <p class="popup-close"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;"><%= _('Close') %></a></p>
 </div>
 <% end %>
 
@@ -100,7 +100,7 @@
         <% end %>
 
         <div id="navigation_search">
-          <form id="navigation_search_form" method="post" action="/search">
+          <form id="navigation_search_form" method="post" action="<%= search_redirect_path %>">
              <p>
                  <%= text_field_tag 'query', params[:query], { :size => 40, :id => "navigation_search_query" } %>
                  <input id="navigation_search_button" type="submit" value="search">
@@ -140,11 +140,11 @@
 </div>
     <%
       unless Configuration::ga_code.empty? || (@user && @user.super?) %>
-        <script>
+        <script type="text/javascript">
           var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
           document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
         </script>
-        <script>
+        <script type="text/javascript">
           var pageTracker = _gat._getTracker("<%= Configuration::ga_code %>");
           pageTracker._trackPageview();
         </script>

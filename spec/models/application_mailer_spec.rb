@@ -80,7 +80,8 @@ describe ApplicationMailer do
 
             it 'should raise an error if the template is in neither core nor theme' do
                 prepend_theme_views('theme_one')
-                lambda{ ApplicationMailer.create_neither() }.should raise_error('Missing template application_mailer/neither.erb in view path spec/fixtures/theme_views/theme_one:spec/fixtures/theme_views/core')
+                expected_error = 'Missing template application_mailer/neither.erb in view path'
+                lambda{ ApplicationMailer.create_neither() }.should raise_error(/#{expected_error}/)
             end
 
             it 'should render a multipart email using a theme template' do
@@ -125,7 +126,8 @@ describe ApplicationMailer do
 
             it 'should raise an error if the template is in neither core nor theme' do
                 append_theme_views('theme_one')
-                lambda{ ApplicationMailer.create_neither() }.should raise_error('Missing template application_mailer/neither.erb in view path spec/fixtures/theme_views/core:spec/fixtures/theme_views/theme_one')
+                expected_error = 'Missing template application_mailer/neither.erb in view path'
+                lambda{ ApplicationMailer.create_neither() }.should raise_error(/#{expected_error}/)
             end
 
             it 'should render a multipart email using a core template' do

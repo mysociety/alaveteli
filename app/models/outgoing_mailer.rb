@@ -47,7 +47,8 @@ class OutgoingMailer < ApplicationMailer
             return info_request.recipient_name_and_email
         else
             # calling safe_mail_from from so censor rules are run
-            return TMail::Address.address_from_name_and_email(incoming_message_followup.safe_mail_from, incoming_message_followup.mail.from_addrs[0].spec).to_s
+            return MailHandler.address_from_name_and_email(incoming_message_followup.safe_mail_from,
+                                                           incoming_message_followup.from_email)
         end
     end
     # Used in the preview of followup
@@ -64,7 +65,7 @@ class OutgoingMailer < ApplicationMailer
         if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
             return info_request.recipient_email
         else
-            return incoming_message_followup.mail.from_addrs[0].spec
+            return incoming_message_followup.from_email
         end
     end
     # Subject to use for followup

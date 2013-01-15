@@ -562,7 +562,7 @@ max-width:50em;
 text-align:left;
 background-color:#E7E7E7;
 border-bottom:1px solid #5f5f5f;
-height:6%;
+height:3em;
 padding:0.5em 1em;
 }
 
@@ -742,6 +742,10 @@ padding:4px;
 
 #everypage h2,#everypage h3 {
 margin:0.5em 0;
+}
+
+#everypage .popup-close {
+  text-align: right;
 }
 
 #game_sidebar {

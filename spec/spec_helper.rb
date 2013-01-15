@@ -23,7 +23,6 @@ FakeWeb.register_uri(:purge, %r|varnish.localdomain|, :body => "OK")
 # Use test-specific translations
 FastGettext.add_text_domain 'app', :path => File.join(File.dirname(__FILE__), 'fixtures', 'locale'), :type => :po
 FastGettext.default_text_domain = 'app'
-
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
@@ -46,6 +45,21 @@ Spec::Runner.configure do |config|
                            :has_tag_string_tags,
                            :holidays,
                            :track_things_sent_emails
+
+  # This section makes the garbage collector run less often to speed up tests
+  last_gc_run = Time.now
+
+  config.before(:each) do
+    GC.disable
+  end
+
+  config.after(:each) do
+    if Time.now - last_gc_run > 4
+      GC.enable
+      GC.start
+      last_gc_run = Time.now
+    end
+  end
 
   # == Fixtures
   #
@@ -93,12 +107,30 @@ def file_fixture_name(file_name)
     return File.join(Spec::Runner.configuration.fixture_path, "files", file_name)
 end
 
-def load_file_fixture(file_name)
+def load_file_fixture(file_name, as_binary=false)
     file_name = file_fixture_name(file_name)
-    content = File.read(file_name)
+    content = File.open(file_name, 'r') do |file|
+        if as_binary
+            file.set_encoding(Encoding::BINARY) if file.respond_to?(:set_encoding)
+        end
+        file.read
+    end
     return content
 end
 
+def parse_all_incoming_messages
+    IncomingMessage.find(:all).each{ |x| x.parse_raw_email! }
+end
+
+def load_raw_emails_data
+    raw_emails_yml = File.join(Spec::Runner.configuration.fixture_path, "raw_emails.yml")
+    for raw_email_id in YAML::load_file(raw_emails_yml).map{|k,v| v["id"]} do
+        raw_email = RawEmail.find(raw_email_id)
+        raw_email.data = load_file_fixture("raw_emails/%d.email" % [raw_email_id])
+    end
+end
+
+# Rebuild the current xapian index
 def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = true)
     if dropfirst
         begin
@@ -110,16 +142,35 @@ def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = 
         ActsAsXapian.writable_db.close
     end
     parse_all_incoming_messages
-    verbose = false
     # safe_rebuild=true, which involves forking to avoid memory leaks, doesn't work well with rspec.
     # unsafe is significantly faster, and we can afford possible memory leaks while testing.
-    safe_rebuild = false
-    ActsAsXapian.rebuild_index(["PublicBody", "User", "InfoRequestEvent"].map{|m| m.constantize}, verbose, terms, values, texts, safe_rebuild)
+    models = [PublicBody, User, InfoRequestEvent]
+    ActsAsXapian.rebuild_index(models, verbose=false, terms, values, texts, safe_rebuild=false)
+end
+
+# Create a clean xapian index based on the fixture files and the raw_email data.
+def create_fixtures_xapian_index
+    load_raw_emails_data
+    rebuild_xapian_index
 end
 
 def update_xapian_index
-    verbose = false
-    ActsAsXapian.update_index(flush_to_disk=false, verbose)
+    ActsAsXapian.update_index(flush_to_disk=false, verbose=false)
+end
+
+# Copy the xapian index created in create_fixtures_xapian_index to a temporary
+# copy at the same level and point xapian at the copy
+def get_fixtures_xapian_index()
+    # Create a base index for the fixtures if not already created
+    $existing_xapian_db ||= create_fixtures_xapian_index
+    # Store whatever the xapian db path is originally
+    $original_xapian_path ||= ActsAsXapian.db_path
+    path_array = $original_xapian_path.split(File::Separator)
+    path_array.pop
+    temp_path = File.join(path_array, 'test.temp')
+    FileUtils.remove_entry_secure(temp_path, force=true)
+    FileUtils.cp_r($original_xapian_path, temp_path)
+    ActsAsXapian.db_path = temp_path
 end
 
 # Validate an entire HTML page
@@ -200,16 +251,8 @@ def safe_mock_model(model, args = {})
   mock
 end
 
-def load_raw_emails_data
-    raw_emails_yml = File.join(Spec::Runner.configuration.fixture_path, "raw_emails.yml")
-    for raw_email_id in YAML::load_file(raw_emails_yml).map{|k,v| v["id"]} do
-        raw_email = RawEmail.find(raw_email_id)
-        raw_email.data = load_file_fixture("raw_emails/%d.email" % [raw_email_id])
-    end
-end
-
-def parse_all_incoming_messages
-    IncomingMessage.find(:all).each{|x| x.parse_raw_email!}
+def get_fixture_mail(filename)
+    MailHandler.mail_from_raw_email(load_file_fixture(filename))
 end
 
 def load_test_categories
@@ -231,4 +274,19 @@ class ApplicationController < ActionController::Base
     def set_popup_banner
         @popup_banner = nil
     end
+end
+
+
+def with_env_tz(new_tz = 'US/Eastern')
+  old_tz, ENV['TZ'] = ENV['TZ'], new_tz
+  yield
+ensure
+  old_tz ? ENV['TZ'] = old_tz : ENV.delete('TZ')
+end
+
+def with_active_record_default_timezone(zone)
+  old_zone, ActiveRecord::Base.default_timezone = ActiveRecord::Base.default_timezone, zone
+  yield
+ensure
+  ActiveRecord::Base.default_timezone = old_zone
 end

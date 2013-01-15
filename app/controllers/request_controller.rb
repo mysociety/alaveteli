@@ -139,6 +139,11 @@ class RequestController < ApplicationController
         short_cache
         @per_page = 25
         @page = (params[:page] || "1").to_i
+
+        # Later pages are very expensive to load
+        if @page > MAX_RESULTS / PER_PAGE
+            raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / PER_PAGE}.")
+        end
         @info_request = InfoRequest.find_by_url_title!(params[:url_title])
         raise ActiveRecord::RecordNotFound.new("Request not found") if @info_request.nil?
 
@@ -148,6 +153,8 @@ class RequestController < ApplicationController
         end
         @xapian_object = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
             :offset => (@page - 1) * @per_page, :limit => @per_page, :collapse_by_prefix => 'request_collapse')
+        @matches_estimated = @xapian_object.matches_estimated
+        @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
 
         if (@page > 1)
             @page_desc = " (page " + @page.to_s + ")"

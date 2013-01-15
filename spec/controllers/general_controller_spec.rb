@@ -97,8 +97,57 @@ describe GeneralController, "when showing the frontpage" do
         response.should be_success
     end
 
+    describe 'when there is more than one locale' do
+
+        describe 'when using the default locale' do
+
+            before do
+                @default_lang_home_link = /href=".*\/en\//
+                @other_lang_home_link = /href=".*\/es\//
+                @old_include_default_locale_in_urls = Configuration::include_default_locale_in_urls
+            end
+
+            def set_default_locale_in_urls(value)
+                Configuration.stub!(:include_default_locale_in_urls).and_return(value)
+                load Rails.root.join("config/initializers/fast_gettext.rb")
+            end
+
+            describe 'when the config value INCLUDE_DEFAULT_LOCALE_IN_URLS is false' do
+
+                before do
+                    set_default_locale_in_urls(false)
+                end
+
+                it 'should generate URLs without a locale prepended' do
+                    get :frontpage
+                    response.should_not have_text(@default_lang_home_link)
+                end
+
+                it 'should render the front page in the default language when no locale param
+                    is present and the session locale is not the default' do
+                    get(:frontpage, {}, {:locale => 'es'})
+                    response.should_not have_text(@other_lang_home_link)
+                end
+            end
+
+            it 'should generate URLs with a locale prepended when the config value
+                INCLUDE_DEFAULT_LOCALE_IN_URLS is true' do
+                set_default_locale_in_urls(true)
+                get :frontpage
+                response.should have_text(@default_lang_home_link)
+            end
+
+            after do
+                set_default_locale_in_urls(@old_include_default_locale_in_urls)
+            end
+
+        end
+    end
+
+
     describe "when using different locale settings" do
         home_link_regex = /href=".*\/en\//
+
         it "should generate URLs with a locale prepended when there's more than one locale set" do
             get :frontpage
             response.should have_text(home_link_regex)
@@ -137,6 +186,7 @@ describe GeneralController, "when showing the frontpage" do
             FastGettext.default_available_locales = old_fgt_available_locales
             I18n.available_locales = old_i18n_available_locales
         end
+
     end
 end
 describe GeneralController, "when showing the front page with fixture data" do
@@ -144,7 +194,7 @@ describe GeneralController, "when showing the front page with fixture data" do
     describe 'when constructing the list of recent requests' do
 
         before(:each) do
-            rebuild_xapian_index
+            get_fixtures_xapian_index
         end
 
         describe 'when there are fewer than five successful requests' do
@@ -189,8 +239,8 @@ describe GeneralController, 'when using xapian search' do
 
     # rebuild xapian index after fixtures loaded
     before(:each) do
-      load_raw_emails_data
-      rebuild_xapian_index
+        load_raw_emails_data
+        get_fixtures_xapian_index
     end
 
     it "should redirect from search query URL to pretty URL" do

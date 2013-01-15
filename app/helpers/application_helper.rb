@@ -77,25 +77,6 @@ module ApplicationHelper
         return LanguageNames::get_language_name(locale)
     end
 
-    # Use our own algorithm for finding path of cache
-    def foi_cache(name = {}, options = nil, &block)
-        if @controller.perform_caching
-            key = name.merge(:only_path => true)
-            key_path = @controller.foi_fragment_cache_path(key)
-
-            if @controller.foi_fragment_cache_exists?(key_path)
-                cached = @controller.foi_fragment_cache_read(key_path)
-                output_buffer.concat(cached)
-                return
-            end
-
-            pos = output_buffer.length
-            content = block.call
-            @controller.foi_fragment_cache_write(key_path, output_buffer[pos..-1])
-        else
-            block.call
-        end
-    end
     # (unfortunately) ugly way of getting id of generated form element
     # ids
     # see http://chrisblunt.com/2009/10/12/rails-getting-the-id-of-form-fields-inside-a-fields_for-block/
@@ -129,6 +110,13 @@ module ApplicationHelper
         ago_text = _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(date))
         exact_date = I18n.l(date, :format => "%e %B %Y %H:%M:%S")
         return "#{exact_date} (#{ago_text})"
+    end
+
+    # Note that if the admin interface is proxied via another server, we can't
+    # rely on a sesssion being shared between the front end and admin interface,
+    # so need to check the status of the user.
+    def is_admin?
+      return !session[:using_admin].nil? || (!@user.nil? && @user.super?)
     end
 
 end

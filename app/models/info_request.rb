@@ -138,7 +138,7 @@ class InfoRequest < ActiveRecord::Base
             if external_user_name.nil?
                 fake_slug = "anonymous"
             else
-                fake_slug = external_user_name.parameterize
+                fake_slug = MySociety::Format.simplify_url_part(external_user_name, 'external_user', 32)
             end
             (public_body.url_name || "") + "_" + fake_slug
         else
@@ -275,7 +275,7 @@ public
         return self.magic_email("request-")
     end
     def incoming_name_and_email
-        return TMail::Address.address_from_name_and_email(self.user_name, self.incoming_email).to_s
+        return MailHandler.address_from_name_and_email(self.user_name, self.incoming_email)
     end
 
     # Subject lines for emails about the request
@@ -355,12 +355,7 @@ public
     def InfoRequest.guess_by_incoming_email(incoming_message)
         guesses = []
         # 1. Try to guess based on the email address(es)
-        addresses =
-            (incoming_message.mail.to || []) +
-            (incoming_message.mail.cc || []) +
-            (incoming_message.mail.envelope_to || [])
-        addresses.uniq!
-        for address in addresses
+        incoming_message.addresses.each do |address|
             id, hash = InfoRequest._extract_id_hash_from_email(address)
             guesses.push(InfoRequest.find_by_id(id))
             guesses.push(InfoRequest.find_by_idhash(hash))
@@ -419,8 +414,7 @@ public
         end
 
         for im in self.incoming_messages
-            other_message_id = im.mail.message_id
-            if message_id == other_message_id
+            if message_id == im.message_id
                 return true
             end
         end
@@ -440,11 +434,11 @@ public
             elsif self.allow_new_responses_from == 'anybody'
                 allow = true
             elsif self.allow_new_responses_from == 'authority_only'
-                if email.from_addrs.nil? || email.from_addrs.size == 0
+                sender_email = MailHandler.get_from_address(email)
+                if sender_email.nil?
                     allow = false
                     reason = _('Only the authority can reply to this request, but there is no "From" address to check against')
                 else
-                    sender_email = email.from_addrs[0].spec
                     sender_domain = PublicBody.extract_domain_from_email(sender_email)
                     reason = _("Only the authority can reply to this request, and I don't recognise the address this reply was sent from")
                     allow = false
@@ -713,11 +707,11 @@ public
         return self.public_body.is_followupable?
     end
     def recipient_name_and_email
-        return TMail::Address.address_from_name_and_email(
+        return MailHandler.address_from_name_and_email(
             _("{{law_used}} requests at {{public_body}}",
                 :law_used => self.law_used_short,
                 :public_body => self.public_body.short_or_long_name),
-            self.recipient_email).to_s
+            self.recipient_email)
     end
 
     # History of some things that have happened
@@ -1130,7 +1124,11 @@ public
         }
 
         if deep
-            ret[:user] = self.user.json_for_api
+            if self.user
+              ret[:user] = self.user.json_for_api
+            else
+              ret[:user_name] = self.user_name
+            end
             ret[:public_body] = self.public_body.json_for_api
             ret[:info_request_events] = self.info_request_events.map { |e| e.json_for_api(false) }
         end

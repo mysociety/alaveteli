@@ -2,6 +2,12 @@ require 'external_command'
 
 module AlaveteliExternalCommand
     class << self
+        # Final argument can be a hash of options.
+        # Valid options are:
+        # :append_to - string to append the output of the process to
+        # :stdin_string - stdin string to pass to the process
+        # :binary_output - boolean flag for treating the output as binary or text (only significant
+        #                  ruby 1.9 and above)
         def run(program_name, *args)
             # Run an external program, and return its output.
             # Standard error is suppressed unless the program
@@ -10,7 +16,7 @@ module AlaveteliExternalCommand
             if !args.empty? && args[-1].is_a?(Hash)
                 opts = args.pop
             end
-            
+
             if program_name =~ %r(^/)
                 program_path = program_name
             else
@@ -24,12 +30,16 @@ module AlaveteliExternalCommand
                 end
                  raise "Could not find #{program_name} in any of #{Configuration::utility_search_path.join(', ')}" if !found
             end
-            
+
             xc = ExternalCommand.new(program_path, *args)
             if opts.has_key? :append_to
                 xc.out = opts[:append_to]
             end
+            if opts.has_key? :binary_output
+                xc.binary_mode = opts[:binary_output]
+            end
             xc.run(opts[:stdin_string] || "", opts[:env] || {})
+
             if xc.status != 0
                 # Error
                 $stderr.puts("Error from #{program_name} #{args.join(' ')}:")

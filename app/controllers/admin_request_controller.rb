@@ -207,8 +207,7 @@ class AdminRequestController < AdminController
                 end
 
                 raw_email_data = incoming_message.raw_email.data
-                mail = TMail::Mail.parse(raw_email_data)
-                mail.base64_decode
+                mail = MailHandler.mail_from_raw_email(raw_email_data)
                 destination_request.receive(mail, raw_email_data, true)
 
                 incoming_message_id = incoming_message.id
@@ -278,7 +277,7 @@ class AdminRequestController < AdminController
 
         if params[:incoming_message_id]
             incoming_message = IncomingMessage.find(params[:incoming_message_id])
-            email = incoming_message.mail.from_addrs[0].address
+            email = incoming_message.from_email
             name = incoming_message.safe_mail_from || info_request.public_body.name
         else
             email = info_request.public_body.request_email
@@ -313,12 +312,12 @@ class AdminRequestController < AdminController
         @raw_email = RawEmail.find(params[:id])
         # For the holding pen, try to guess where it should be ...
         @holding_pen = false
-        if (@raw_email.incoming_message.info_request == InfoRequest.holding_pen_request && !@raw_email.incoming_message.mail.from_addrs.nil? && @raw_email.incoming_message.mail.from_addrs.size > 0)
+        if (@raw_email.incoming_message.info_request == InfoRequest.holding_pen_request && !@raw_email.incoming_message.empty_from_field?)
             @holding_pen = true
 
             # 1. Use domain of email to try and guess which public body it
             # is associated with, so we can display that.
-            email = @raw_email.incoming_message.mail.from_addrs[0].spec
+            email = @raw_email.incoming_message.from_email
             domain = PublicBody.extract_domain_from_email(email)
 
             if domain.nil?
