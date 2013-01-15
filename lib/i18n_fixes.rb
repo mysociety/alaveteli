@@ -14,7 +14,6 @@ def _(key, options = {})
   gettext_interpolate(translation, options)
 end
 
-INTERPOLATION_RESERVED_KEYS = %w(scope default)
 MATCH = /\{\{([^\}]+)\}\}/
 
 def gettext_interpolate(string, values)
@@ -24,9 +23,7 @@ def gettext_interpolate(string, values)
   string = string.to_str.gsub(MATCH) do
     pattern, key = $1, $1.to_sym
     
-    if INTERPOLATION_RESERVED_KEYS.include?(pattern)
-      raise I18n::ReservedInterpolationKey.new(pattern, string)
-    elsif !values.include?(key)
+    if !values.include?(key)
       raise I18n::MissingInterpolationArgument.new(pattern, string)
     else
       v = values[key].to_s
