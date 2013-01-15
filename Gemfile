@@ -10,11 +10,6 @@ source :rubygems
 # A fork of rails that is kept up to date with security patches
 git "git://github.com/mysociety/rails.git", :branch => "2-3-stable" do
   gem 'rails'
-  gem 'actionmailer'
-  gem 'actionpack'
-  gem 'activerecord'
-  gem 'activeresource'
-  gem 'activesupport'
 end
 gem 'pg'
 

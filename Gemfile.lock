@@ -151,11 +151,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionmailer!
-  actionpack!
-  activerecord!
-  activeresource!
-  activesupport!
   annotate
   bootstrap-sass
   capistrano
