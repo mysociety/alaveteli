@@ -19,7 +19,7 @@ server configuration['server'], :app, :web, :db, :primary => true
 namespace :rake do
   namespace :themes do
     task :install do
-      run "cd #{release_path} && bundle exec rake themes:install RAILS_ENV=#{rails_env}"
+      run "cd #{latest_release} && bundle exec rake themes:install RAILS_ENV=#{rails_env}"
     end
   end
 end
