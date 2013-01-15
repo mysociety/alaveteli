@@ -15,7 +15,7 @@ def _(key, options = {})
 end
 
 INTERPOLATION_RESERVED_KEYS = %w(scope default)
-MATCH = /(\\\\)?\{\{([^\}]+)\}\}/
+MATCH = /\{\{([^\}]+)\}\}/
 
 def gettext_interpolate(string, values)
   return string unless string.is_a?(String)
@@ -23,11 +23,9 @@ def gettext_interpolate(string, values)
     # $1, $2 don't work with SafeBuffer so casting to string as workaround
     safe = string.html_safe?
     string = string.to_str.gsub(MATCH) do
-      escaped, pattern, key = $1, $2, $2.to_sym
+      pattern, key = $1, $1.to_sym
       
-      if escaped
-        pattern
-      elsif INTERPOLATION_RESERVED_KEYS.include?(pattern)
+      if INTERPOLATION_RESERVED_KEYS.include?(pattern)
         raise I18n::ReservedInterpolationKey.new(pattern, string)
       elsif !values.include?(key)
         raise I18n::MissingInterpolationArgument.new(pattern, string)
