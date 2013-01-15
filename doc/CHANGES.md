@@ -2,6 +2,7 @@
 ## Highlighted features
 * [Security] Fix for security issue where image files from HTML conversion on hidden/requester-only requests were accessible without authentication [issue #739](https://github.com/mysociety/alaveteli/issues/739).
 * [Security] Fix for issue where the zip file download function was available for logged-in users even on hidden/requester-only requests [issue #743](https://github.com/mysociety/alaveteli/issues/743)
+* [Security] Upgrades to Rails 2.3.15 to get fixes for Rails security flaws CVE-2012-5664 and CVE-2013-0156. In addition, switches to use Rails pulled from a clone in the mySociety github account, which has had the CVE-2013-0155 2.3 series patch applied to it.
 * Isolation of mail handling code in the MailHandler module in lib/mail_handler 
 * Tests run under Ruby 1.9.3 - *running the app under 1.9 not yet advised*. 
 * Routes without a locale part can be enabled for the default locale - see upgrade notes 
