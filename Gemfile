@@ -41,9 +41,7 @@ gem 'zip'
 gem 'capistrano'
 gem 'syslog_protocol'
 gem 'newrelic_rpm'
-# We won't need rails_xss once we've upgrade to Rails 3. It's baked in.
-gem 'rails_xss'
-# erubis is required by rails_xss
+# erubis is required by rails_xss. Both erubis and rails_xss can be removed after upgrading to Rails 3.
 gem 'erubis'
 
 group :test do
