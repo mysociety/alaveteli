@@ -10,7 +10,7 @@
 # convention.
 
 def _(key, options = {})
-  translation = FastGettext._(key) || key
+  translation = (FastGettext._(key) || key).html_safe
   gettext_interpolate(translation, options)
 end
 
@@ -20,7 +20,9 @@ MATCH = /(\\\\)?\{\{([^\}]+)\}\}/
 def gettext_interpolate(string, values)
   return string unless string.is_a?(String)
   if values.is_a?(Hash)
-    string.gsub(MATCH) do
+    # $1, $2 don't work with SafeBuffer so casting to string as workaround
+    safe = string.html_safe?
+    string = string.to_str.gsub(MATCH) do
       escaped, pattern, key = $1, $2, $2.to_sym
       
       if escaped
@@ -30,9 +32,15 @@ def gettext_interpolate(string, values)
       elsif !values.include?(key)
         raise I18n::MissingInterpolationArgument.new(pattern, string)
       else
-        values[key].to_s
+        v = values[key].to_s
+        if safe && !v.html_safe?
+          ERB::Util.h(v)
+        else
+          v
+        end
       end
     end
+    safe ? string.html_safe : string
   else
     reserved_keys = if defined?(I18n::RESERVED_KEYS) # rails 3+
                       I18n::RESERVED_KEYS
