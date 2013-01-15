@@ -54,10 +54,15 @@ class ApplicationController < ActionController::Base
     end
 
     def set_gettext_locale
-        if Configuration::use_default_browser_language
-            requested_locale = params[:locale] || session[:locale] || cookies[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'] || I18n.default_locale
+        if Configuration::include_default_locale_in_urls == false
+            params_locale = params[:locale] ? params[:locale] : I18n.default_locale
         else
-            requested_locale = params[:locale] || session[:locale] || cookies[:locale] || I18n.default_locale
+            params_locale = params[:locale]
+        end
+        if Configuration::use_default_browser_language
+            requested_locale = params_locale || session[:locale] || cookies[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'] || I18n.default_locale
+        else
+            requested_locale = params_locale || session[:locale] || cookies[:locale] || I18n.default_locale
         end
         requested_locale = FastGettext.best_locale_in(requested_locale)
         session[:locale] = FastGettext.set_locale(requested_locale)
@@ -224,6 +229,19 @@ class ApplicationController < ActionController::Base
         File.atomic_write(key_path) do |f|
             f.write(content)
         end
+    end
+
+    def request_dirs(info_request)
+        first_three_digits = info_request.id.to_s()[0..2]
+        File.join(first_three_digits.to_s, info_request.id.to_s)
+    end
+
+    def request_download_zip_dir(info_request)
+        File.join(download_zip_dir, "download", request_dirs(info_request))
+    end
+
+    def download_zip_dir()
+        File.join(Rails.root, '/cache/zips/')
     end
 
     # get the local locale

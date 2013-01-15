@@ -46,6 +46,20 @@ Spec::Runner.configure do |config|
                            :holidays,
                            :track_things_sent_emails
 
+  # This section makes the garbage collector run less often to speed up tests
+  last_gc_run = Time.now
+
+  config.before(:each) do
+    GC.disable
+  end
+
+  config.after(:each) do
+    if Time.now - last_gc_run > 4
+      GC.enable
+      GC.start
+      last_gc_run = Time.now
+    end
+  end
 
   # == Fixtures
   #
@@ -93,9 +107,14 @@ def file_fixture_name(file_name)
     return File.join(Spec::Runner.configuration.fixture_path, "files", file_name)
 end
 
-def load_file_fixture(file_name)
+def load_file_fixture(file_name, as_binary=false)
     file_name = file_fixture_name(file_name)
-    content = File.read(file_name)
+    content = File.open(file_name, 'r') do |file|
+        if as_binary
+            file.set_encoding(Encoding::BINARY) if file.respond_to?(:set_encoding)
+        end
+        file.read
+    end
     return content
 end
 
@@ -255,4 +274,19 @@ class ApplicationController < ActionController::Base
     def set_popup_banner
         @popup_banner = nil
     end
+end
+
+
+def with_env_tz(new_tz = 'US/Eastern')
+  old_tz, ENV['TZ'] = ENV['TZ'], new_tz
+  yield
+ensure
+  old_tz ? ENV['TZ'] = old_tz : ENV.delete('TZ')
+end
+
+def with_active_record_default_timezone(zone)
+  old_zone, ActiveRecord::Base.default_timezone = ActiveRecord::Base.default_timezone, zone
+  yield
+ensure
+  ActiveRecord::Base.default_timezone = old_zone
 end
