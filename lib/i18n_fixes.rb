@@ -19,35 +19,25 @@ MATCH = /\{\{([^\}]+)\}\}/
 
 def gettext_interpolate(string, values)
   return string unless string.is_a?(String)
-  if values.is_a?(Hash)
-    # $1, $2 don't work with SafeBuffer so casting to string as workaround
-    safe = string.html_safe?
-    string = string.to_str.gsub(MATCH) do
-      pattern, key = $1, $1.to_sym
-      
-      if INTERPOLATION_RESERVED_KEYS.include?(pattern)
-        raise I18n::ReservedInterpolationKey.new(pattern, string)
-      elsif !values.include?(key)
-        raise I18n::MissingInterpolationArgument.new(pattern, string)
+  # $1, $2 don't work with SafeBuffer so casting to string as workaround
+  safe = string.html_safe?
+  string = string.to_str.gsub(MATCH) do
+    pattern, key = $1, $1.to_sym
+    
+    if INTERPOLATION_RESERVED_KEYS.include?(pattern)
+      raise I18n::ReservedInterpolationKey.new(pattern, string)
+    elsif !values.include?(key)
+      raise I18n::MissingInterpolationArgument.new(pattern, string)
+    else
+      v = values[key].to_s
+      if safe && !v.html_safe?
+        ERB::Util.h(v)
       else
-        v = values[key].to_s
-        if safe && !v.html_safe?
-          ERB::Util.h(v)
-        else
-          v
-        end
+        v
       end
     end
-    safe ? string.html_safe : string
-  else
-    reserved_keys = if defined?(I18n::RESERVED_KEYS) # rails 3+
-                      I18n::RESERVED_KEYS
-                    else
-                      I18n::Backend::Base::RESERVED_KEYS
-                    end
-
-    string % values.except(*reserved_keys)
   end
+  safe ? string.html_safe : string
 end
 
 
