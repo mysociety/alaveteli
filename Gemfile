@@ -7,7 +7,10 @@ if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.s
 end
 source :rubygems
 
-gem 'rails', '2.3.15'
+# A fork of rails that is kept up to date with security patches
+git "git://github.com/mysociety/rails.git", :branch => "2-3-stable" do
+  gem 'rails'
+end
 gem 'pg'
 
 gem 'fast_gettext', '>= 0.6.0'
@@ -27,11 +30,9 @@ gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 # :require avoids "already initialized constant" warnings
 gem 'rmagick', :require => 'RMagick'
 gem 'routing-filter', '~> 0.2.4'
-gem 'rake', '~> 0.9.2.2'
+gem 'rake', '0.9.2.2'
 gem 'rspec', '~> 1.3.2'
-gem 'rspec-rails', '~> 1.3.4'
 gem 'ruby-msg', '~> 1.5.0'
-gem 'test-unit', '~> 1.2.3', :platforms => :ruby_19
 gem 'vpim'
 gem 'will_paginate', '~> 2.3.11'
 # when 1.2.9 is released by the maintainer, we can stop using this fork:
@@ -45,6 +46,7 @@ gem 'newrelic_rpm'
 group :test do
   gem 'fakeweb'
   gem 'rspec-rails', '~> 1.3.4'
+  gem 'test-unit', '~> 1.2.3', :platforms => :ruby_19
 end
 
 group :development do

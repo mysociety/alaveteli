@@ -72,7 +72,6 @@ cat >$GPSCRIPT <<END
 
     set xdata time
     set timefmt "%Y-%m-%d"
-    set xrange ["2007-12-01":]
     set format x "%d %b %Y"
     set xtics nomirror
     set xlabel "status of requests that were created on each calendar day"

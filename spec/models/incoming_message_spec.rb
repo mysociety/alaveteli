@@ -26,11 +26,6 @@ describe IncomingMessage, " when dealing with incoming mail" do
         @im.sent_at.should == @im.mail.date
     end
 
-    it "should be able to parse emails with quoted commas in" do
-        em = "\"Clare College, Cambridge\" <test@test.test>"
-        TMail::Address.parse(em)
-    end
-
     it "should correctly fold various types of footer" do
         Dir.glob(File.join(Spec::Runner.configuration.fixture_path, "files", "email-folding-example-*.txt")).each do |file|
             message = File.read(file)
@@ -73,6 +68,14 @@ describe IncomingMessage, " when dealing with incoming mail" do
         message.get_main_body_text_internal.should include("The above text was badly encoded")
     end
 
+    it 'should convert DOS-style linebreaks to Unix style' do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('dos-linebreaks.email', ir.incoming_email)
+        message = ir.incoming_messages[1]
+        message.parse_raw_email!
+        message.get_main_body_text_internal.should_not match(/\r\n/)
+    end
+
     it "should fold multiline sections" do
       {
         "foo\n--------\nconfidential"                                       => "foo\nFOLDED_QUOTED_SECTION\n", # basic test
@@ -107,27 +110,6 @@ describe IncomingMessage, " when dealing with incoming mail" do
 
 end
 
-describe IncomingMessage, "when parsing HTML mail" do
-    it "should display UTF-8 characters in the plain text version correctly" do
-        html = "<html><b>foo</b> është"
-        plain_text = IncomingMessage._get_attachment_text_internal_one_file('text/html', html)
-        plain_text.should match(/është/)
-    end
-
-end
-
-describe IncomingMessage, "when getting the attachment text" do
-
-  it "should not raise an error if the expansion of a zip file raises an error" do
-    mock_entry = mock('ZipFile entry', :file? => true)
-    mock_entry.stub!(:get_input_stream).and_raise("invalid distance too far back")
-    Zip::ZipFile.stub!(:open).and_return([mock_entry])
-    IncomingMessage._get_attachment_text_internal_one_file('application/zip', "some string")
-  end
-
-end
-
-
 describe IncomingMessage, " display attachments" do
 
     it "should not show slashes in filenames" do
@@ -143,7 +125,7 @@ describe IncomingMessage, " display attachments" do
         # http://www.whatdotheyknow.com/request/post_commercial_manager_librarie#incoming-17233
         foi_attachment.within_rfc822_subject = "FOI/09/066 RESPONSE TO FOI REQUEST RECEIVED 21st JANUARY 2009"
         foi_attachment.content_type = 'text/plain'
-        foi_attachment.ensure_filename!
+            foi_attachment.ensure_filename!
         expected_display_filename = foi_attachment.within_rfc822_subject.gsub(/\//, " ") + ".txt"
         foi_attachment.display_filename.should == expected_display_filename
     end
@@ -201,59 +183,50 @@ describe IncomingMessage, " folding quoted parts of emails" do
 end
 
 describe IncomingMessage, " checking validity to reply to" do
-    def test_email(result, email, return_path, autosubmitted = nil)
-        @address = mock(TMail::Address)
-        @address.stub!(:spec).and_return(email)
-
-        @return_path = mock(TMail::ReturnPathHeader)
-        @return_path.stub!(:addr).and_return(return_path)
-        if !autosubmitted.nil?
-            @autosubmitted = TMail::UnstructuredHeader.new("auto-submitted", autosubmitted)
-        end
-        @mail = mock(TMail::Mail)
-        @mail.stub!(:from_addrs).and_return( [ @address ] )
-        @mail.stub!(:[]).with("return-path").and_return(@return_path)
-        @mail.stub!(:[]).with("auto-submitted").and_return(@autosubmitted)
-
+    def test_email(result, email, empty_return_path, autosubmitted = nil)
+        @mail = mock('mail')
+        MailHandler.stub!(:get_from_address).and_return(email)
+        MailHandler.stub!(:empty_return_path?).with(@mail).and_return(empty_return_path)
+        MailHandler.stub!(:get_auto_submitted).with(@mail).and_return(autosubmitted)
         @incoming_message = IncomingMessage.new()
         @incoming_message.stub!(:mail).and_return(@mail)
         @incoming_message._calculate_valid_to_reply_to.should == result
     end
 
     it "says a valid email is fine" do
-        test_email(true, "team@mysociety.org", nil)
+        test_email(true, "team@mysociety.org", false)
     end
 
     it "says postmaster email is bad" do
-        test_email(false, "postmaster@mysociety.org", nil)
+        test_email(false, "postmaster@mysociety.org", false)
     end
 
     it "says Mailer-Daemon email is bad" do
-        test_email(false, "Mailer-Daemon@mysociety.org", nil)
+        test_email(false, "Mailer-Daemon@mysociety.org", false)
     end
 
     it "says case mangled MaIler-DaemOn email is bad" do
-        test_email(false, "MaIler-DaemOn@mysociety.org", nil)
+        test_email(false, "MaIler-DaemOn@mysociety.org", false)
     end
 
     it "says Auto_Reply email is bad" do
-        test_email(false, "Auto_Reply@mysociety.org", nil)
+        test_email(false, "Auto_Reply@mysociety.org", false)
     end
 
     it "says DoNotReply email is bad" do
-        test_email(false, "DoNotReply@tube.tfl.gov.uk", nil)
+        test_email(false, "DoNotReply@tube.tfl.gov.uk", false)
     end
 
     it "says a filled-out return-path is fine" do
-        test_email(true, "team@mysociety.org", "Return-path: <foo@baz.com>")
+        test_email(true, "team@mysociety.org", false)
     end
 
     it "says an empty return-path is bad" do
-        test_email(false, "team@mysociety.org", "<>")
+        test_email(false, "team@mysociety.org", true)
     end
 
     it "says an auto-submitted keyword is bad" do
-        test_email(false, "team@mysociety.org", nil, "auto-replied")
+        test_email(false, "team@mysociety.org", false, "auto-replied")
     end
 
 end
@@ -347,12 +320,12 @@ describe IncomingMessage, " when censoring data" do
         orig_pdf = load_file_fixture('tfl.pdf')
         pdf = orig_pdf.dup
 
-        orig_text = IncomingMessage._get_attachment_text_internal_one_file('application/pdf', pdf)
+        orig_text = MailHandler.get_attachment_text_one_file('application/pdf', pdf)
         orig_text.should match(/foi@tfl.gov.uk/)
 
         @im.binary_mask_stuff!(pdf, "application/pdf")
 
-        masked_text = IncomingMessage._get_attachment_text_internal_one_file('application/pdf', pdf)
+        masked_text = MailHandler.get_attachment_text_one_file('application/pdf', pdf)
         masked_text.should_not match(/foi@tfl.gov.uk/)
         masked_text.should match(/xxx@xxx.xxx.xx/)
         config['USE_GHOSTSCRIPT_COMPRESSION'] = previous
@@ -462,6 +435,28 @@ end
 
 describe IncomingMessage, "when messages are attached to messages" do
 
+    it 'should expand an RFC822 attachment' do
+        # Note that this spec will only pass using Tmail in the timezone set as datetime headers
+        # are rendered out in the local time - using the Mail gem this is not necessary
+        with_env_tz('London') do
+            mail_body = load_file_fixture('rfc822-attachment.email')
+            mail = MailHandler.mail_from_raw_email(mail_body)
+
+            im = incoming_messages(:useless_incoming_message)
+            im.stub!(:mail).and_return(mail)
+
+            attachments = im.get_attachments_for_display
+            attachments.size.should == 1
+            attachment = attachments.first
+
+            attachment.content_type.should == 'text/plain'
+            attachment.filename.should == "Freedom of Information request.txt"
+            attachment.charset.should == "utf-8"
+            attachment.within_rfc822_subject.should == "Freedom of Information request"
+            attachment.hexdigest.should == 'f10fe56e4f2287685a58b71329f09639'
+        end
+    end
+
     it "should flatten all the attachments out" do
         mail = get_fixture_mail('incoming-request-attach-attachments.email')
 
@@ -477,6 +472,23 @@ describe IncomingMessage, "when messages are attached to messages" do
             'hello.txt',
         ]
     end
+
+    it 'should add headers to attached plain text message bodies' do
+        # Note that this spec will only pass using Tmail in the timezone set as datetime headers
+        # are rendered out in the local time - using the Mail gem this is not necessary
+        with_env_tz('London') do
+            mail_body = load_file_fixture('incoming-request-attachment-headers.email')
+            mail = MailHandler.mail_from_raw_email(mail_body)
+
+            im = incoming_messages(:useless_incoming_message)
+            im.stub!(:mail).and_return(mail)
+
+            attachments = im.get_attachments_for_display
+            attachments.size.should == 2
+            attachments[0].body.should match('Date: Fri, 23 May 2008')
+        end
+    end
+
 end
 
 describe IncomingMessage, "when Outlook messages are attached to messages" do

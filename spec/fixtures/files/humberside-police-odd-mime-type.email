@@ -3,19 +3,20 @@ Return-path: <>
 Envelope-to: request-5335-xxxxxxxx@whatdotheyknow.com
 Delivery-date: Thu, 01 Jan 2009 15:56:20 +0000
 Received: from earth.karoo.kcom.com ([212.50.160.55]:62894)
-	by sandwich.ukcod.org.uk with esmtp (Exim 4.63)
-	id 1LIPuG-0004AJ-B3
-	for request-5335-xxxxxxxx@whatdotheyknow.com; Thu, 01 Jan 2009 15:56:20 +0000
+  by sandwich.ukcod.org.uk with esmtp (Exim 4.63)
+  id 1LIPuG-0004AJ-B3
+  for request-5335-xxxxxxxx@whatdotheyknow.com; Thu, 01 Jan 2009 15:56:20 +0000
 Received: from unknown (HELO smtp-in.karoo.kcom.com) ([10.102.8.11])
   by earth.karoo.kcom.com with ESMTP; 01 Jan 2009 15:44:42 +0000
 Received: from exim by smtp-in.karoo.kcom.comwith local (Exim 4.30)
-	id 1LIPu0-0004fg-G6 server-id smtp-in4
-	for request-5335-xxxxxxxx@whatdotheyknow.com; Thu, 01 Jan 2009 15:56:04 +0000
+  id 1LIPu0-0004fg-G6 server-id smtp-in4
+  for request-5335-xxxxxxxx@whatdotheyknow.com; Thu, 01 Jan 2009 15:56:04 +0000
 X-Failed-Recipients: clerk@humberside-pa.karoo.co.uk
 Reply-To: Postmaster <postmaster@karoo.kcom.com>
 Auto-Submitted: auto-generated
 From: Mail Delivery System <Mailer-Daemon@karoo.co.uk>
 To: request-5335-xxxxxxxx@whatdotheyknow.com
+Cc: request-5335-xxxxxxxx@whatdotheyknow.com
 Subject: Mail delivery failed : returning message to sender
 X-Mailer: Karoo Mailcore [version 2.0-IB]
 MIME-Version: 1.0
@@ -52,19 +53,19 @@ Content-Transfer-Encoding: 8bit
 
 Return-path: <request-5335-xxxxxxxx@whatdotheyknow.com>
 Received: from [212.50.160.60] (helo=venus.karoo.kcom.com)
-	by smtp-in.karoo.kcom.comwith esmtp (Exim 4.30)
-	id 1LIPu0-0004fc-FM server-id smtp-in4
-	for clerk@humberside-pa.karoo.co.uk; Thu, 01 Jan 2009 15:56:04 +0000
+  by smtp-in.karoo.kcom.comwith esmtp (Exim 4.30)
+  id 1LIPu0-0004fc-FM server-id smtp-in4
+  for clerk@humberside-pa.karoo.co.uk; Thu, 01 Jan 2009 15:56:04 +0000
 X-IronPort-Anti-Spam-Filtered: true
 X-IronPort-Anti-Spam-Result: AnECAF9nXElSb+bUmWdsb2JhbACMZQGHFQEBAQEBCAsKBxG2eIVy
-X-IronPort-AV: E=Sophos;i="4.36,313,1228089600"; 
+X-IronPort-AV: E=Sophos;i="4.36,313,1228089600";
    d="scan'208";a="465483300"
 Received: from sandwich.ukcod.org.uk ([82.111.230.212])
   by venus.karoo.kcom.com with ESMTP; 01 Jan 2009 15:46:44 +0000
 Received: from foi by sandwich.ukcod.org.uk with local (Exim 4.63)
-	(envelope-from <request-5335-xxxxxxxx@whatdotheyknow.com>)
-	id 1LIPtz-0004AG-OC
-	for clerk@humberside-pa.karoo.co.uk; Thu, 01 Jan 2009 15:56:03 +0000
+  (envelope-from <request-5335-xxxxxxxx@whatdotheyknow.com>)
+  id 1LIPtz-0004AG-OC
+  for clerk@humberside-pa.karoo.co.uk; Thu, 01 Jan 2009 15:56:03 +0000
 From: John Jarman <request-5335-xxxxxxxx@whatdotheyknow.com>
 To: FOI requests at Humberside Police Authority  <clerk@humberside-pa.karoo.co.uk>
 Subject: Freedom of Information request - Police Injury Award Pensions

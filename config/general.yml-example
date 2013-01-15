@@ -32,6 +32,10 @@ AVAILABLE_LOCALES: 'en es'
 DEFAULT_LOCALE: 'en'
 USE_DEFAULT_BROWSER_LANGUAGE: true
 
+# If you don't want the default locale to be included in URLs generated
+# by the application, set this to false
+INCLUDE_DEFAULT_LOCALE_IN_URLS: true
+
 # How many days should have passed before an answer to a request is officially late?
 REPLY_LATE_AFTER_DAYS: 20
 REPLY_VERY_LATE_AFTER_DAYS: 40

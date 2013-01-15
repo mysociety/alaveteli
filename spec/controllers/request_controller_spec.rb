@@ -767,7 +767,7 @@ describe RequestController, "when showing one request" do
                 assigns[:url_path].should_not == old_path
                 response.location.should have_text(/#{assigns[:url_path]}/)
                 zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", assigns[:url_path])) { |zipfile|
-                    zipfile.count.should == 5 # the message, two hello.txt, the unknown attachment, and its empty message
+                    zipfile.count.should == 4 # the message, two hello.txt plus the unknown attachment
                 }
             end
 
@@ -859,14 +859,36 @@ describe RequestController, "when changing prominence of a request" do
         ir.save!
         receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
 
-        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :skip_cache => 1
+        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id,
+                             :id => ir.id,
+                             :part => 2,
+                             :skip_cache => 1
         response.content_type.should == "text/html"
         response.should_not have_text(/Second hello/)
         response.should render_template('request/hidden')
-        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3, :skip_cache => 1
+        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id,
+                             :id => ir.id,
+                             :part => 3,
+                             :skip_cache => 1
         response.content_type.should == "text/html"
         response.should_not have_text(/First hello/)
         response.should render_template('request/hidden')
+        response.code.should == '410'
+    end
+
+    it 'should not generate an HTML version of an attachment whose prominence is hidden/requester
+        only even for the requester or an admin but should return a 404' do
+        ir = info_requests(:fancy_dog_request)
+        ir.prominence = 'hidden'
+        ir.save!
+        receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+        session[:user_id] = users(:admin_user).id
+        lambda do
+            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id,
+                                      :id => ir.id,
+                                      :part => 2,
+                                      :file_name => ['hello.txt']
+        end.should raise_error(ActiveRecord::RecordNotFound)
     end
 
     it 'should not generate an HTML version of an attachment whose prominence is hidden/requester
@@ -2297,6 +2319,34 @@ describe RequestController, "when reporting a request (logged in)" do
         mail.from.should include(@user.email)
         mail.body.should include(@user.name)
     end
+end
+
+describe RequestController, "when caching fragments" do
+
+    it "should not fail with long filenames" do
+        long_name = "blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah.txt"
+        info_request = mock(InfoRequest, :user_can_view? => true,
+                                         :all_can_view? => true)
+        incoming_message = mock(IncomingMessage, :info_request => info_request,
+                                                 :parse_raw_email! => true,
+                                                 :info_request_id => 132,
+                                                 :id => 44,
+                                                 :get_attachments_for_display => nil,
+                                                 :html_mask_stuff! => nil)
+        attachment = mock(FoiAttachment, :display_filename => long_name,
+                                         :body_as_html => ['some text', 'wrapper'])
+        IncomingMessage.stub!(:find).with("44").and_return(incoming_message)
+        IncomingMessage.stub!(:get_attachment_by_url_part_number).and_return(attachment)
+        InfoRequest.stub!(:find).with("132").and_return(info_request)
+        params = { :file_name => [long_name],
+                   :controller => "request",
+                   :action => "get_attachment_as_html",
+                   :id => "132",
+                   :incoming_message_id => "44",
+                   :part => "2" }
+        get :get_attachment_as_html, params
+    end
+
 end
 
 

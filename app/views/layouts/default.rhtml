@@ -69,9 +69,9 @@
 
 <% if !@popup_banner.blank? %>
 <div id="everypage" class="jshide">
-  <p style="float:right"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;"><%= _('Close') %></a></p>
+  <p class="popup-close"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;"><%= _('Close') %></a></p>
   <%= @popup_banner %>
-  <p style="text-align: right"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;"><%= _('Close') %></a></p>
+  <p class="popup-close"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;"><%= _('Close') %></a></p>
 </div>
 <% end %>
 
@@ -100,7 +100,7 @@
         <% end %>
 
         <div id="navigation_search">
-          <form id="navigation_search_form" method="post" action="/search">
+          <form id="navigation_search_form" method="post" action="<%= search_redirect_path %>">
              <p>
                  <%= text_field_tag 'query', params[:query], { :size => 40, :id => "navigation_search_query" } %>
                  <input id="navigation_search_button" type="submit" value="search">

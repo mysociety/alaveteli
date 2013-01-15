@@ -2,6 +2,22 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequest do
 
+    describe 'when generating a user name slug' do
+
+        before do
+            @public_body = mock_model(PublicBody, :url_name => 'example_body',
+                                                  :eir_only? => false)
+            @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
+                                            :external_user_name => 'Example User',
+                                            :public_body => @public_body)
+        end
+
+        it 'should generate a slug for an example user name' do
+            @info_request.user_name_slug.should == 'example_body_example_user'
+        end
+
+    end
+
     describe "guessing a request from an email" do
 
         before(:each) do

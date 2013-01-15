@@ -9,6 +9,8 @@ if RUBY_VERSION.to_f >= 1.9
     require 'active_support/inflector'
     # Activate warning messages again.
     $VERBOSE = original_verbose
+    require 'yaml'
+    YAML::ENGINE.yamler = "syck"
 end
 
 # Uncomment below to force Rails into production mode when
@@ -41,7 +43,7 @@ require File.join(File.dirname(__FILE__), '../lib/old_rubygems_patch')
 require 'configuration'
 
 # Application version
-ALAVETELI_VERSION = '0.6.8'
+ALAVETELI_VERSION = '0.6.9'
 
 Rails::Initializer.run do |config|
   # Load intial mySociety config
