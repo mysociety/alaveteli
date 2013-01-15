@@ -5,6 +5,10 @@
 # override behaviour in fast_gettext/translation.rb
 # so that we can interpolate our translation strings nicely
 
+# TODO: We could simplify a lot of this code (as in remove it) if we moved from using the {{value}}
+# convention in the translation strings for interpolation to %{value}. This is apparently the newer
+# convention.
+
 def _(key, options = {})
   translation = FastGettext._(key) || key
   gettext_interpolate(translation, options)
