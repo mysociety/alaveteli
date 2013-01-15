@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/mysociety/rails.git
-  revision: 9e452eaf296d3732f8058ad31cf18e0b659f27a6
+  revision: 541c061c13337b8235a1dcc2357b962f88868ff9
   branch: 2-3-stable
   specs:
     actionmailer (2.3.15)
@@ -89,7 +89,7 @@ GEM
     newrelic_rpm (3.5.4.34)
     pg (0.13.2)
     polyglot (0.3.3)
-    rack (1.1.4)
+    rack (1.1.5)
     rake (0.9.2.2)
     rbx-require-relative (0.0.9)
     rdoc (2.4.3)
