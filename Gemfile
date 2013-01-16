@@ -13,15 +13,11 @@ git "git://github.com/mysociety/rails.git", :tag => "v2.3.18.1" do
 end
 gem 'pg'
 
-gem 'fast_gettext', '>= 0.6.0'
 gem 'fastercsv', '>=1.5.5'
-gem 'gettext_i18n_rails', '>= 0.7.1'
-gem 'gettext', '~> 2.3.3'
 gem 'json'
 gem 'mahoro'
 gem 'mail', '~>2.4.4', :platforms => :ruby_19
 gem 'memcache-client', :require => 'memcache'
-gem 'locale', '>= 2.0.5'
 gem 'net-http-local'
 gem 'net-purge'
 gem 'rack', '~> 1.1.0'
@@ -29,7 +25,6 @@ gem 'rdoc'
 gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 # :require avoids "already initialized constant" warnings
 gem 'rmagick', :require => 'RMagick'
-gem 'routing-filter', '~> 0.2.4'
 gem 'rake', '0.9.2.2'
 gem 'ruby-msg', '~> 1.5.0'
 gem 'vpim'
@@ -45,6 +40,14 @@ gem 'newrelic_rpm'
 gem 'erubis'
 # rack-ssl won't be needed on upgrade to Rails 3.1 as something like it is baked in
 gem 'rack-ssl'
+
+# Gems related to internationalisation
+# Also in vendor/plugins there is globalize2
+gem 'fast_gettext', '>= 0.6.0'
+gem 'gettext_i18n_rails', '>= 0.7.1'
+gem 'gettext', '~> 2.3.3'
+gem 'locale', '>= 2.0.5'
+gem 'routing-filter', '~> 0.2.4'
 
 group :test do
   gem 'fakeweb'
