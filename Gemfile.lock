@@ -152,12 +152,12 @@ DEPENDENCIES
   capistrano
   compass
   fakeweb
-  fast_gettext (>= 0.6.0)
+  fast_gettext
   fastercsv (>= 1.5.5)
-  gettext (~> 2.3.3)
-  gettext_i18n_rails (>= 0.7.1)
+  gettext
+  gettext_i18n_rails
   json (~> 1.5.1)
-  locale (>= 2.0.5)
+  locale
   mahoro
   mail
   mailcatcher
@@ -172,7 +172,7 @@ DEPENDENCIES
   rdoc (~> 2.4.3)
   recaptcha (~> 0.3.1)
   rmagick
-  routing-filter (~> 0.2.4)
+  routing-filter
   rspec-rails (~> 1.3.4)
   ruby-debug
   ruby-debug19

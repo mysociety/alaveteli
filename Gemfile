@@ -36,11 +36,11 @@ gem 'newrelic_rpm'
 
 # Gems related to internationalisation
 # Also in vendor/plugins there is globalize2
-gem 'fast_gettext', '>= 0.6.0'
-gem 'gettext_i18n_rails', '>= 0.7.1'
-gem 'gettext', '~> 2.3.3'
-gem 'locale', '>= 2.0.5'
-gem 'routing-filter', '~> 0.2.4'
+gem 'fast_gettext'
+gem 'gettext_i18n_rails'
+gem 'gettext'
+gem 'locale'
+gem 'routing-filter'
 
 group :test do
   gem 'fakeweb'
