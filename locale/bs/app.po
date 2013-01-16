@@ -190,8 +190,8 @@ msgid ""
 "({{user_name}} only)"
 msgstr "<a href=\"%s\">Prijavite se</a> da biste promijenili password, pretplatu ili drugo ({{user_name}} only)"
 
-msgid "<a href=\"%s\">details</a>"
-msgstr "<a href=\"%s\">detalji</a>"
+msgid "details"
+msgstr "detalji"
 
 msgid "<a href=\"%s\">what's that?</a>"
 msgstr "<a href=\"%s\">šta je to?</a>"

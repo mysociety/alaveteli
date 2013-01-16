@@ -185,8 +185,8 @@ msgid ""
 "({{user_name}} only)"
 msgstr "<a href=\"%s\">Jelentkezzen be</a> a jelszó módosításához, a feliratkozáshoz stb. (csak {{user_name}}) "
 
-msgid "<a href=\"%s\">details</a>"
-msgstr "<a href=\"%s\">részletek</a> "
+msgid "details"
+msgstr "részletek"
 
 msgid "<a href=\"%s\">what's that?</a>"
 msgstr "<a href=\"%s\">mi ez?</a> "

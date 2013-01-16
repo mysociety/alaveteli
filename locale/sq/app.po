@@ -191,8 +191,8 @@ msgid ""
 "({{user_name}} only)"
 msgstr "<a href=\"%s\">Kyçu</a> për të ndryshuar fjalëkalimin, abonimet dhe të tjera (vetëm për {{user_name}})"
 
-msgid "<a href=\"%s\">details</a>"
-msgstr "<a href=\"%s\">detajet</a>"
+msgid "details"
+msgstr "detajet"
 
 msgid "<a href=\"%s\">what's that?</a>"
 msgstr "<a href=\"%s\">Çfarë është ajo?</a>"

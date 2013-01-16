@@ -185,7 +185,7 @@ msgid ""
 "({{user_name}} only)"
 msgstr ""
 
-msgid "<a href=\"%s\">details</a>"
+msgid "details"
 msgstr ""
 
 msgid "<a href=\"%s\">what's that?</a>"

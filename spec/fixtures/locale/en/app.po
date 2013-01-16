@@ -217,7 +217,7 @@ msgstr ""
 
 #: app/views/request/_followup.rhtml:66 app/views/request/_followup.rhtml:73
 #: app/views/request/show.rhtml:83 app/views/request/show.rhtml:87
-msgid "<a href=\"%s\">details</a>"
+msgid "details"
 msgstr ""
 
 #: app/views/request/_followup.rhtml:101

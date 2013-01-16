@@ -193,8 +193,8 @@ msgid ""
 "({{user_name}} only)"
 msgstr "<a href=\"%s\">Přihlašte se/a> pro změnu hesla, pro odběr zpráv atd., pouze ({{user_name}})"
 
-msgid "<a href=\"%s\">details</a>"
-msgstr "<a href=\"%s\">detaily</a>"
+msgid "details"
+msgstr "detaily"
 
 msgid "<a href=\"%s\">what's that?</a>"
 msgstr "<a href=\"%s\">co je to?</a>"
