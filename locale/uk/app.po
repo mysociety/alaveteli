@@ -183,8 +183,8 @@ msgstr "<a href=\"%s\">Вам належить авторське право\n �
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr "<a href=\"%s\">Переглянути всі</a> або <a href=\"%s\">попросити нас додати</a>."
 
-msgid "<a href=\"%s\">Can't find the one you want?</a>"
-msgstr "<a href=\"%s\">Не можете знайти?</a>"
+msgid "Can't find the one you want?"
+msgstr "Не можете знайти?"
 
 msgid ""
 "<a href=\"%s\">Sign in</a> to change password, subscriptions and more "

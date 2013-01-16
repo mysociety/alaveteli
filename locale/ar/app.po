@@ -191,7 +191,7 @@ msgstr ""
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr ""
 
-msgid "<a href=\"%s\">Can't find the one you want?</a>"
+msgid "Can't find the one you want?"
 msgstr ""
 
 msgid ""

@@ -183,8 +183,8 @@ msgstr "<a href=\"%s\">¿Posee el copyright\n            de alguna información 
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr "<a href=\"%s\">Ver todas</a> o <a href=\"%s\">pídanos que añadamos una</a>."
 
-msgid "<a href=\"%s\">Can't find the one you want?</a>"
-msgstr "<a href=\"%s\">¿No encuentra el que busca?</a>"
+msgid "Can't find the one you want?"
+msgstr "¿No encuentra el que busca?"
 
 msgid ""
 "<a href=\"%s\">Sign in</a> to change password, subscriptions and more "

@@ -182,8 +182,8 @@ msgstr "<a href=\"%s\">Halten Sie die Urheberrechte dieser Seite?</a>"
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr "<a href=\"%s\">Alle durchsuchen</a> or <a href=\"%s\">bitten Sie uns eine hinzuzufügen</a>."
 
-msgid "<a href=\"%s\">Can't find the one you want?</a>"
-msgstr "<a href=\"%s\">Gewünschte Behörde nicht gefunden?</a>"
+msgid "Can't find the one you want?"
+msgstr "Gewünschte Behörde nicht gefunden?"
 
 msgid ""
 "<a href=\"%s\">Sign in</a> to change password, subscriptions and more "

@@ -179,8 +179,8 @@ msgstr "<a href=\"%s\">Tulajdonosa az\n            oldalon található bármely 
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr "<a href=\"%s\">Böngésszen az összes között</a> vagy <a href=\"%s\">ha kéri, felvesszük a hiányzót</a>. "
 
-msgid "<a href=\"%s\">Can't find the one you want?</a>"
-msgstr "<a href=\"%s\">Nem találja, amit keresett?</a> "
+msgid "Can't find the one you want?"
+msgstr "Nem találja, amit keresett?"
 
 msgid ""
 "<a href=\"%s\">Sign in</a> to change password, subscriptions and more "
