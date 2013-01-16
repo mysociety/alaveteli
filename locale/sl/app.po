@@ -146,7 +146,7 @@ msgstr ""
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr ""
 
-msgid "<a href=\"%s\">Are we missing a public authority?</a>"
+msgid "Are we missing a public authority?"
 msgstr ""
 
 msgid "<a href=\"%s\">Are you the owner of\\n            any commercial copyright on this page?</a>"
