@@ -333,7 +333,7 @@ class PublicBody < ActiveRecord::Base
 
     # The "internal admin" is a special body for internal use.
     def PublicBody.internal_admin_body
-        PublicBody.with_locale(I18n.default_locale) do
+        I18n.with_locale(I18n.default_locale) do
             pb = PublicBody.find_by_url_name("internal_admin_authority")
             if pb.nil?
                 pb = PublicBody.new(
@@ -371,7 +371,7 @@ class PublicBody < ActiveRecord::Base
                 # of updating them
                 bodies_by_name = {}
                 set_of_existing = Set.new()
-                PublicBody.with_locale(I18n.default_locale) do
+                I18n.with_locale(I18n.default_locale) do
                     bodies = (tag.nil? || tag.empty?) ? PublicBody.find(:all) : PublicBody.find_by_tag(tag)
                     for existing_body in bodies
                         # Hide InternalAdminBody from import notes
@@ -414,7 +414,7 @@ class PublicBody < ActiveRecord::Base
 
                     if public_body = bodies_by_name[name]   # Existing public body
                         available_locales.each do |locale|
-                            PublicBody.with_locale(locale) do
+                            I18n.with_locale(locale) do
                                 changed = ActiveSupport::OrderedHash.new
                                 field_list.each do |field_name|
                                     localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
@@ -449,7 +449,7 @@ class PublicBody < ActiveRecord::Base
                     else # New public body
                         public_body = PublicBody.new(:name=>"", :short_name=>"", :request_email=>"")
                         available_locales.each do |locale|
-                            PublicBody.with_locale(locale) do
+                            I18n.with_locale(locale) do
                                 changed = ActiveSupport::OrderedHash.new
                                 field_list.each do |field_name|
                                     localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"

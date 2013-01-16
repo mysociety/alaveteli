@@ -26,7 +26,7 @@ class GeneralController < ApplicationController
             @locale = self.locale_from_params()
             locale_condition = 'public_body_translations.locale = ?'
             conditions = [locale_condition, @locale]
-            PublicBody.with_locale(@locale) do
+            I18n.with_locale(@locale) do
                 if body_short_names.empty?
                     # This is too slow
                     @popular_bodies = PublicBody.visible.find(:all,

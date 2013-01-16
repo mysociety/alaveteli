@@ -52,7 +52,7 @@ class RequestController < ApplicationController
             medium_cache
         end
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do
+        I18n.with_locale(@locale) do
 
             # Look up by old style numeric identifiers
             if params[:url_title].match(/^[0-9]+$/)
@@ -817,7 +817,7 @@ class RequestController < ApplicationController
     # FOI officers can upload a response
     def upload_response
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do
+        I18n.with_locale(@locale) do
             @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
             @reason_params = {
@@ -874,7 +874,7 @@ class RequestController < ApplicationController
 
     def download_entire_request
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do
+        I18n.with_locale(@locale) do
             @info_request = InfoRequest.find_by_url_title!(params[:url_title])
             # Test for whole request being hidden or requester-only
             if !@info_request.all_can_view?
