@@ -164,10 +164,8 @@ msgstr "<a href=\"%s\">Tambahkan anotasi</a> (untuk membantu peminta informasi a
 msgid "Are we missing a public authority?"
 msgstr "Adakah otoritas publik yang belum kami cantumkan?"
 
-msgid "<a href=\"%s\">Are you the owner of\\n            any commercial copyright on this page?</a>"
-msgstr ""
-"<a href=\"%s\">Apakah Anda pemilik dari \n"
-"            hak cipta komersial di halaman ini?</a>"
+msgid "Are you the owner of any commercial copyright on this page?"
+msgstr "Apakah Anda pemilik dari hak cipta komersial di halaman ini?"
 
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr "<a href=\"%s\">Lihat semua</a> atau <a href=\"%s\">minta kami untuk menambahkan</a>."
