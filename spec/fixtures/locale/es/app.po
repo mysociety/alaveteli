@@ -236,8 +236,8 @@ msgstr "<a href=\"%s\">Abre una sesión</a> para cambiar tu contraseña, suscrip
 
 #: app/views/request/_followup.rhtml:66 app/views/request/_followup.rhtml:73
 #: app/views/request/show.rhtml:83 app/views/request/show.rhtml:87
-msgid "<a href=\"%s\">details</a>"
-msgstr "<a href=\"%s\">detalles</a>"
+msgid "details"
+msgstr "detalles"
 
 #: app/views/request/_followup.rhtml:101
 msgid "<a href=\"%s\">what's that?</a>"
