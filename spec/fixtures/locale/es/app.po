@@ -213,8 +213,8 @@ msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"%s\">Añade un comentario</a> (para ayudar al solicitante o a otros)"
 
 #: app/views/public_body/list.rhtml:29
-msgid "<a href=\"%s\">Are we missing a public authority?</a>."
-msgstr "<a href=\"%s\">¿Nos falta algún organismo público?</a>."
+msgid "Are we missing a public authority?"
+msgstr "¿Nos falta algún organismo público?."
 
 #: app/views/request/_sidebar.rhtml:39
 msgid ""
