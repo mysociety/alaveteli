@@ -327,9 +327,9 @@ class RequestController < ApplicationController
             message = ""
             if @outgoing_message.contains_email?
                 if @user.nil?
-                    message += _("<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"%s\">details</a>).</p>") % [help_privacy_path+"#email_address"];
+                    message += (_("<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"%s\">details</a>).</p>") % [help_privacy_path+"#email_address"]).html_safe;
                 else
-                    message += _("<p>You do not need to include your email in the request in order to get a reply (<a href=\"%s\">details</a>).</p>") % [help_privacy_path+"#email_address"];
+                    message += (_("<p>You do not need to include your email in the request in order to get a reply (<a href=\"%s\">details</a>).</p>") % [help_privacy_path+"#email_address"]).html_safe;
                 end
                 message += _("<p>We recommend that you edit your request and remove the email address.
                 If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>")
@@ -630,7 +630,7 @@ class RequestController < ApplicationController
 
         if !params[:submitted_followup].nil? && !params[:reedit]
             if @info_request.allow_new_responses_from == 'nobody'
-                flash[:error] = _('Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="%s">contact us</a> if you really want to send a follow up message.') % [help_contact_path]
+                flash[:error] = (_('Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="%s">contact us</a> if you really want to send a follow up message.') % [help_contact_path]).html_safe
             else
                 if @info_request.find_existing_outgoing_message(params[:outgoing_message][:body])
                     flash[:error] = _('You previously submitted that exact follow up message for this request.')

@@ -40,6 +40,7 @@ GEM
       fssm (>= 0.2.7)
       sass (~> 3.1)
     daemons (1.1.9)
+    erubis (2.7.0)
     eventmachine (1.0.0)
     fakeweb (1.3.0)
     fast_gettext (0.6.8)
@@ -155,6 +156,7 @@ DEPENDENCIES
   bootstrap-sass
   capistrano
   compass
+  erubis
   fakeweb
   fast_gettext (>= 0.6.0)
   fastercsv (>= 1.5.5)

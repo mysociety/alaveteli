@@ -164,7 +164,7 @@
         <% if @spelling_correction %>
           <p id="did_you_mean"><%= _('Did you mean: {{correction}}', :correction => search_link(@spelling_correction, @postfix)) %></p>
         <% end %>
-        <p><%= _('<a href="%s">Browse all</a> or <a href="%s">ask us to add one</a>.') % [list_public_bodies_default, help_requesting_path + '#missing_body'] %></p>
+        <p><%= raw(_('<a href="%s">Browse all</a> or <a href="%s">ask us to add one</a>.') % [list_public_bodies_default, help_requesting_path + '#missing_body']) %></p>
       <% end %>
     </div>
 
