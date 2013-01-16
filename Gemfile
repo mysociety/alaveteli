@@ -41,6 +41,8 @@ gem 'zip'
 gem 'capistrano'
 gem 'syslog_protocol'
 gem 'newrelic_rpm'
+# erubis is required by rails_xss. Both erubis and rails_xss can be removed after upgrading to Rails 3.
+gem 'erubis'
 
 group :test do
   gem 'fakeweb'

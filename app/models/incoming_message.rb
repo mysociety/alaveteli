@@ -695,7 +695,7 @@ class IncomingMessage < ActiveRecord::Base
 
         text = text.gsub(/\n/, '<br>')
         text = text.gsub(/(?:<br>\s*){2,}/, '<br><br>') # remove excess linebreaks that unnecessarily space it out
-        return text
+        return text.html_safe
     end
 
 

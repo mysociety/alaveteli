@@ -252,7 +252,7 @@ class OutgoingMessage < ActiveRecord::Base
         text = MySociety::Format.make_clickable(text, :contract => 1)
         text.gsub!(/\[(email address|mobile number)\]/, '[<a href="/help/officers#mobiles">\1</a>]')
         text = text.gsub(/\n/, '<br>')
-        return text
+        return text.html_safe
     end
 
     def fully_destroy
