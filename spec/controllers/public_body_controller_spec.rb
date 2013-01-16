@@ -88,7 +88,7 @@ describe PublicBodyController, "when listing bodies" do
     end
 
     it "should list all bodies from default locale, even when there are no translations for selected locale" do
-        PublicBody.with_locale(:en) do
+        I18n.with_locale(:en) do
             @english_only = PublicBody.new(:name => 'English only',
                                           :short_name => 'EO',
                                           :request_email => 'english@flourish.org',
@@ -96,7 +96,7 @@ describe PublicBodyController, "when listing bodies" do
                                           :last_edit_comment => '')
             @english_only.save
         end
-        PublicBody.with_locale(:es) do
+        I18n.with_locale(:es) do
             get :list
             assigns[:public_bodies].include?(@english_only).should == true
         end
