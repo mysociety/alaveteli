@@ -172,7 +172,7 @@ msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"%s\">Dodaj napomenu</a> (da bi se pomoglo podnosiocu zahteva ili drugima)"
 
-msgid "<a href=\"%s\">Are we missing a public authority?</a>"
+msgid "Are we missing a public authority?"
 msgstr ""
 
 msgid ""
