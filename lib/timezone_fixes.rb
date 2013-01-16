@@ -4,7 +4,9 @@
 
 # Otherwise times get stored wrong during British Summer Time
 
-# Hopefully fixed in later Rails. There is a test in spec/libs/timezone_fixes.rb
+# Hopefully fixed in later Rails. There is a test in spec/lib/timezone_fixes_spec.rb
+
+# This fix is applied in Rails 3.x. So, should be possible to remove this then!
 
 # Monkeypatch!
 module ActiveRecord
