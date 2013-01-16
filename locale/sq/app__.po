@@ -236,8 +236,8 @@ msgstr "nuk mund të gjeni ate që dëshironi?"
 
 #: app/views/request/_followup.rhtml:42 app/views/request/_followup.rhtml:49
 #: app/views/request/show.rhtml:76 app/views/request/show.rhtml:80
-msgid "<a href=\"%s\">details</a>"
-msgstr "<a href=\"%s\">detajet</a>"
+msgid "details"
+msgstr "detajet"
 
 #: app/views/request/_followup.rhtml:77
 msgid "<a href=\"%s\">what's that?</a>"

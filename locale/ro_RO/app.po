@@ -192,8 +192,8 @@ msgid ""
 "({{user_name}} only)"
 msgstr "<a href=\"%s\">Loghează-te</a> pentru schimbarea parolei, abonării și altele ({{user_name}} only)"
 
-msgid "<a href=\"%s\">details</a>"
-msgstr "<a href=\"%s\">detalii</a>"
+msgid "details"
+msgstr "detalii"
 
 msgid "<a href=\"%s\">what's that?</a>"
 msgstr "<a href=\"%s\">ce este aceasta?</a>"

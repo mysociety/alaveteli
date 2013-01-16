@@ -187,8 +187,8 @@ msgid ""
 "({{user_name}} only)"
 msgstr "<a href=\"%s\">Abre una sesión</a> para cambiar tu contraseña, suscripciones... (sólo {{user_name}})"
 
-msgid "<a href=\"%s\">details</a>"
-msgstr "<a href=\"%s\">detalles</a>"
+msgid "details"
+msgstr "detalles"
 
 msgid "<a href=\"%s\">what's that?</a>"
 msgstr "<a href=\"%s\">¿Qué es eso?</a>"
