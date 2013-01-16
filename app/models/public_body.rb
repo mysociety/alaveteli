@@ -104,7 +104,7 @@ class PublicBody < ActiveRecord::Base
 
     # like find_by_url_name but also search historic url_name if none found
     def self.find_by_url_name_with_historic(name)
-        locale = self.locale || I18n.locale
+        locale = I18n.locale
         PublicBody.with_locale(locale) do
             found = PublicBody.find(:all,
                                     :conditions => ["public_body_translations.url_name=?", name],
