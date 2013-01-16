@@ -166,8 +166,8 @@ msgstr "Posseeix el copyright d'alguna informació d'aquesta pàgina?"
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr "<a href=\"%s\">Veure totes</a> o <a href=\"%s\">demana'ns que n'afegim una</a>."
 
-msgid "<a href=\"%s\">Can't find the one you want?</a>"
-msgstr "<a href=\"%s\">No troba el que busca?</a>"
+msgid "Can't find the one you want?"
+msgstr "No troba el que busca?"
 
 msgid "<a href=\"%s\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"%s\">Obre una sessió</a> per canviar la teva contrasenya, suscripcions... (només {{user_name}})"
