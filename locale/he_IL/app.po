@@ -149,8 +149,8 @@ msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"%s\">הוסיפו הסבר</a> (כדי לסייע למגיש הבקשה או לאחרים)"
 
-msgid "<a href=\"%s\">Are we missing a public authority?</a>"
-msgstr "<a href=\"%s\">האם חסר לנו גוף ציבורי?</a>"
+msgid "Are we missing a public authority?"
+msgstr "האם חסר לנו גוף ציבורי?"
 
 msgid "<a href=\"%s\">Are you the owner of\\n            any commercial copyright on this page?</a>"
 msgstr "<a href=\"%s\">האם אתם הבעלים של\\n            זכויות יוצרים מסחריות על עמוד זה?</a>"
