@@ -200,9 +200,7 @@ msgid "Are we missing a public authority?"
 msgstr ""
 
 #: app/views/request/_sidebar.rhtml:39
-msgid ""
-"<a href=\"%s\">Are you the owner of\n"
-"            any commercial copyright on this page?</a>"
+msgid "Are you the owner of any commercial copyright on this page?"
 msgstr ""
 
 #: app/views/general/search.rhtml:168
