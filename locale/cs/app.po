@@ -185,8 +185,8 @@ msgstr "Jste vlastníkem nějakých autorských práv na této stránce?"
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr "<a href=\"%s\">Prohlížet všel</a> nebo <a href=\"%s\">požádat o přidání kontaktu</a>."
 
-msgid "<a href=\"%s\">Can't find the one you want?</a>"
-msgstr "<a href=\"%s\">Nemůžete najít, co hledáte?</a>"
+msgid "Can't find the one you want?"
+msgstr "Nemůžete najít, co hledáte?"
 
 msgid ""
 "<a href=\"%s\">Sign in</a> to change password, subscriptions and more "
