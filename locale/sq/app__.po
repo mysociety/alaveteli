@@ -3602,12 +3602,8 @@ msgstr ""
 "Google).</strong>"
 
 #: app/views/request/preview.rhtml:8
-msgid ""
-"Your name, request and any responses will appear in <strong>search engines</strong>\n"
-"        (<a href=\"%s\">details</a>)."
-msgstr ""
-"Emrin yt, kërkesa dhe çdo përgjegje do të shfaqen në <strong>kërkuesit e "
-"internetit (p.sh. Google)</strong> ( <a href=\"%s\">detaje</a> )."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong>"
+msgstr "Emrin yt, kërkesa dhe çdo përgjegje do të shfaqen në <strong>kërkuesit e internetit (p.sh. Google)</strong>"
 
 #: app/views/user/_signup.rhtml:18
 msgid "Your name:"

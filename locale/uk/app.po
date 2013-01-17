@@ -3468,10 +3468,8 @@ msgid ""
 "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Ваше ім’я та коментарі з’являться у <strong>пошукових системах</strong>."
 
-msgid ""
-"Your name, request and any responses will appear in <strong>search "
-"engines</strong>\\n        (<a href=\"%s\">details</a>)."
-msgstr "Ваше ім’я, запит та будь-які відповіді з’являться в пошукових системах\n        (<a href=\"%s\">деталі</a>)."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong>"
+msgstr "Ваше ім’я, запит та будь-які відповіді з’являться в пошукових системах"
 
 msgid "Your name:"
 msgstr "Ваше ім’я:"

@@ -3457,10 +3457,8 @@ msgid ""
 "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Zure izena eta iruzkina <strong>bilatzaileetan</strong> agertuko dira."
 
-msgid ""
-"Your name, request and any responses will appear in <strong>search "
-"engines</strong>\\n        (<a href=\"%s\">details</a>)."
-msgstr "Zure izena, eskabidea eta edozein erantzun <strong>bilatzaileetan </strong> agertuko dira\n        (<a href=\"%s\">xehetasunak</a>)."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong>"
+msgstr "Zure izena, eskabidea eta edozein erantzun <strong>bilatzaileetan </strong> agertuko dira"
 
 msgid "Your name:"
 msgstr "Zure izena:"

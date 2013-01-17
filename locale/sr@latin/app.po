@@ -3468,10 +3468,8 @@ msgid ""
 "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Vaše ime i napomena će se pojaviti u <strong>pretraživačima</strong>."
 
-msgid ""
-"Your name, request and any responses will appear in <strong>search "
-"engines</strong>\\n        (<a href=\"%s\">details</a>)."
-msgstr "Vaše ime, zahtev i sve poruke će se pojaviti u <strong>pretraživačima</strong>\n        (<a href=\"%s\">Više informacija</a>)."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong>"
+msgstr "Vaše ime, zahtev i sve poruke će se pojaviti u <strong>pretraživačima</strong>"
 
 msgid "Your name:"
 msgstr "Vaše ime:"

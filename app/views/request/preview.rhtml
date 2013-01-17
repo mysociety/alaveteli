@@ -5,8 +5,7 @@
     <h1><%= _('3. Now check your request') %></h1>
     <ul>
     <li><%= _('Check you haven\'t included any <strong>personal information</strong>.') %></li>
-    <li><%= raw(_('Your name, request and any responses will appear in <strong>search engines</strong>
-        (<a href="%s">details</a>).') % [help_privacy_path+"#public_request"]) %> 
+    <li><%= raw _('Your name, request and any responses will appear in <strong>search engines</strong>') %> (<%= link_to _("details"), help_privacy_path+"#public_request" %>).
     </li>
     </ul>
 

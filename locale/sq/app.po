@@ -3462,10 +3462,8 @@ msgid ""
 "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Emri yt dhe shënimi do të shfaqen në <strong>kërkuesit e internetit (p.sh. Google).</strong>"
 
-msgid ""
-"Your name, request and any responses will appear in <strong>search "
-"engines</strong>\\n        (<a href=\"%s\">details</a>)."
-msgstr "Emri yt, kërkesa dhe çdo përgjigje që do të mirret, do të shfaqen në\n<strong>kërkuesit e internetit (p.sh. Google)</strong> (<a href=\"%s\">detajet</a>)."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong>"
+msgstr "Emri yt, kërkesa dhe çdo përgjigje që do të mirret, do të shfaqen në\n<strong>kërkuesit e internetit (p.sh. Google)</strong>"
 
 msgid "Your name:"
 msgstr "Emri yt:"
