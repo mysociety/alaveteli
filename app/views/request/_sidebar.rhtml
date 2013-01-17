@@ -46,8 +46,8 @@
 
     <%= render :partial => 'request/next_actions' %>
 
-    <% view_cache :ttl => 1.day.to_i, :tag => ['similar', @info_request.id, I18n.locale] do %>
-     <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
+    <% # TODO: Cache for 1 day %>
+      <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
         <h2><%= _('Similar requests')%></h2>
         <% for result in @xapian_similar.results %>
             <%= render :partial => 'request/request_listing_short_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
@@ -56,8 +56,7 @@
             <p><%= link_to _("More similar requests"), request_similar_url(@info_request) %></p>
         <% end %>
         <!-- Important terms: <%= @xapian_similar.important_terms.join(" ") %>  -->
-     <% end %>
-    <% end %>
+      <% end %>
 
     <p><%= link_to _('Event history details'), request_details_url(@info_request) %></p>
 
