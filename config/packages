@@ -23,7 +23,6 @@ unzip
 wdg-html-validator
 mutt
 tnef (>= 1.4.5)
-memcached
 gettext
 python-yaml
 wkhtmltopdf-static
