@@ -3145,10 +3145,8 @@ msgid ""
 " <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Nem tudjuk, hogy az adatgazda válasza tartalmazza-e\na kért információt\n        &ndash;\n\tamennyiben ön {{user_link}}, kérjük, <a href=\"{{url}}\">jelentkezzen be</a>, és értékelje a megkapott adatokat."
 
-msgid ""
-"We will not reveal your email address to anybody unless you or\\n        the"
-" law tell us to (<a href=\"%s\">details</a>). "
-msgstr "E-mail címét senkinek sem adjuk ki - kivéve, ha azt ön kéri\n       vagy jogszabály előírja (<a href=\"%s\">részletek</a>). "
+msgid "We will not reveal your email address to anybody unless you or the law tell us to"
+msgstr "E-mail címét senkinek sem adjuk ki - kivéve, ha azt ön kéri vagy jogszabály előírja"
 
 msgid ""
 "We will not reveal your email address to anybody unless you\\nor the law "

@@ -3377,9 +3377,7 @@ msgid ""
 msgstr ""
 
 #: app/views/user/_signup.rhtml:13
-msgid ""
-"We will not reveal your email address to anybody unless you or\n"
-"        the law tell us to (<a href=\"%s\">details</a>). "
+msgid "We will not reveal your email address to anybody unless you or the law tell us to"
 msgstr ""
 
 #: app/views/user_mailer/changeemail_confirm.rhtml:10

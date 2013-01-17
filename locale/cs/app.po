@@ -3159,10 +3159,8 @@ msgid ""
 " <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Nevíme, zda nejnovější odpovědi na tento dotaz obsahují\n    kompletní a požadované informace\n        &ndash;\n\tpokud jste {{user_link}} prosíme <a href=\"{{url}}\">přihlašte se</a> a upravte stav dotazu."
 
-msgid ""
-"We will not reveal your email address to anybody unless you or\\n        the"
-" law tell us to (<a href=\"%s\">details</a>). "
-msgstr "Vaši e-mailovou adresu nikomu nepředáme, pokud o to nebudeme\nze zákonem daných důvodů požádáni. (<a href=\"%s\">podrobnosti</a>). "
+msgid "We will not reveal your email address to anybody unless you or the law tell us to"
+msgstr "Vaši e-mailovou adresu nikomu nepředáme, pokud o to nebudeme\nze zákonem daných důvodů požádáni"
 
 msgid ""
 "We will not reveal your email address to anybody unless you\\nor the law "
