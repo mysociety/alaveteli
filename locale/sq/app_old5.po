@@ -3599,20 +3599,8 @@ msgid ""
 msgstr ""
 
 #: app/views/user_mailer/confirm_login.rhtml:8
-msgid ""
-"We will not reveal your email address to anybody unless you\n"
-"or the law tell us to."
-msgstr ""
-"Ne nuk do ta zbulojmë adresën e emailit tënd askujt, përveç nëse ju e lejoni"
-" këtë."
-
-#: app/views/user_mailer/changeemail_confirm.rhtml:10
-msgid ""
-"We will not reveal your email addresses to anybody unless you\n"
-"or the law tell us to."
-msgstr ""
-"Ne nuk do ta zbulojmë adresën e emailit tënd askujt, përveç nëse ju e lejoni"
-" këtë."
+msgid "We will not reveal your email address to anybody unless you or the law tell us to"
+msgstr "Ne nuk do ta zbulojmë adresën e emailit tënd askujt, përveç nëse ju e lejoni këtë"
 
 #: app/views/request/show.rhtml:61
 msgid "We're waiting for"

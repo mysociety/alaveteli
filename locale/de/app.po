@@ -3151,16 +3151,6 @@ msgstr "Wir sind nicht sicher, ob die letzte Antwort auf diese Anfrage Informati
 msgid "We will not reveal your email address to anybody unless you or the law tell us to"
 msgstr "Ohne Ihre Zustimmung oder gesetzliche Vorschrift werden wir Ihre Email-Adresse zu keinem Zeitpunkt veröffentlichen"
 
-msgid ""
-"We will not reveal your email address to anybody unless you\\nor the law "
-"tell us to."
-msgstr "Wir werden Ihre Emailadresse nicht veröffentlichen, sofern nicht von Ihnen freigegeben oder gesetzlich vorgeschrieben. "
-
-msgid ""
-"We will not reveal your email addresses to anybody unless you\\nor the law "
-"tell us to."
-msgstr "Ohne Ihre Zustimmung oder gesetzliche Vorschrift werden wir Ihre Email-Adresse zu keinem Zeitpunkt veröffentlichen."
-
 msgid "We're waiting for"
 msgstr "Wir erwarten"
 

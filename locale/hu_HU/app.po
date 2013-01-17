@@ -3148,16 +3148,6 @@ msgstr "Nem tudjuk, hogy az adatgazda válasza tartalmazza-e\na kért informáci
 msgid "We will not reveal your email address to anybody unless you or the law tell us to"
 msgstr "E-mail címét senkinek sem adjuk ki - kivéve, ha azt ön kéri vagy jogszabály előírja"
 
-msgid ""
-"We will not reveal your email address to anybody unless you\\nor the law "
-"tell us to."
-msgstr "E-mail címét senkinek sem adjuk ki - kivéve, ha azt ön kéri\nvagy jogszabály előírja. "
-
-msgid ""
-"We will not reveal your email addresses to anybody unless you\\nor the law "
-"tell us to."
-msgstr "E-mail címeit senkinek sem adjuk ki - kivéve, ha azt ön kéri\nvagy jogszabály előírja. "
-
 msgid "We're waiting for"
 msgstr "Várakozunk, hogy "
 

@@ -3160,17 +3160,7 @@ msgid ""
 msgstr "Nevíme, zda nejnovější odpovědi na tento dotaz obsahují\n    kompletní a požadované informace\n        &ndash;\n\tpokud jste {{user_link}} prosíme <a href=\"{{url}}\">přihlašte se</a> a upravte stav dotazu."
 
 msgid "We will not reveal your email address to anybody unless you or the law tell us to"
-msgstr "Vaši e-mailovou adresu nikomu nepředáme, pokud o to nebudeme\nze zákonem daných důvodů požádáni"
-
-msgid ""
-"We will not reveal your email address to anybody unless you\\nor the law "
-"tell us to."
-msgstr "Vaši e-mailovou adresu nikomu nepředáme, pokud o to nebudeme\nze zákonem daných důvodů požádáni."
-
-msgid ""
-"We will not reveal your email addresses to anybody unless you\\nor the law "
-"tell us to."
-msgstr "Vaši e-mailovou adresu nikomu nepředáme, pokud o to nebudeme\nze zákonem daných důvodů požádáni."
+msgstr "Vaši e-mailovou adresu nikomu nepředáme, pokud o to nebudeme ze zákonem daných důvodů požádáni"
 
 msgid "We're waiting for"
 msgstr "Čekáme na"

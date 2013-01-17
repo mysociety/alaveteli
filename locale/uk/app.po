@@ -3156,17 +3156,7 @@ msgid ""
 msgstr ""
 
 msgid "We will not reveal your email address to anybody unless you or the law tell us to"
-msgstr "Ми не передамо вашу адресу нікому, якщо нас до цього не спонукаєте\nви або законодавство"
-
-msgid ""
-"We will not reveal your email address to anybody unless you\\nor the law "
-"tell us to."
-msgstr "Ми не передамо вашу адресу нікому, якщо нас до цього не спонукаєте\nви або законодавство."
-
-msgid ""
-"We will not reveal your email addresses to anybody unless you\\nor the law "
-"tell us to."
-msgstr "Ми не передамо вашу адресу нікому, якщо нас до цього не спонукаєте\nви або законодавство."
+msgstr "Ми не передамо вашу адресу нікому, якщо нас до цього не спонукаєте ви або законодавство"
 
 msgid "We're waiting for"
 msgstr "Ми очікуємо на"

@@ -3146,17 +3146,7 @@ msgid ""
 msgstr "No sabemos si la última respuesta a esta solicitud contiene\n    información o no\n        &ndash;\n\tsi es {{user_link}} por favor <a href=\"{{url}}\">abra una sesión</a> y háganoslo saber."
 
 msgid "We will not reveal your email address to anybody unless you or the law tell us to"
-msgstr "No revelaremos tu dirección de correo a nadie salvo que tú nos lo digas o la ley nos obligue"
-
-msgid ""
-"We will not reveal your email address to anybody unless you\\nor the law "
-"tell us to."
-msgstr "No revelaremos tu dirección de correo a nadie salvo que tú\nnos lo digas, o la ley nos obligue."
-
-msgid ""
-"We will not reveal your email addresses to anybody unless you\\nor the law "
-"tell us to."
-msgstr "No revelaremos tu dirección de correo a nadie salvo que tú\nnos lo digas, o la ley nos obligue."
+msgstr "No revelaremos tu dirección de correo a nadie salvo que tú nos lo digas, o la ley nos obligue"
 
 msgid "We're waiting for"
 msgstr "Estamos esperando a"

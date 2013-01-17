@@ -3164,16 +3164,6 @@ msgstr "Nós ainda não sabemos se esta última resposta contém ou não a infor
 msgid "We will not reveal your email address to anybody unless you or the law tell us to"
 msgstr "Nós não vamos revelar o seu endereço de e-mail para ninguém, ao menos que você ou a Justiça nos mandem fazer isso"
 
-msgid ""
-"We will not reveal your email address to anybody unless you\\nor the law "
-"tell us to."
-msgstr "Nós não iremos revelar o seu endereço de email para ninguém a menos que a lei nos obrigue."
-
-msgid ""
-"We will not reveal your email addresses to anybody unless you\\nor the law "
-"tell us to."
-msgstr "Nós não iremos revelar o seu endereço de email para ninguém a menos que a lei nos obrigue."
-
 msgid "We're waiting for"
 msgstr "Estamos aguardando por"
 
