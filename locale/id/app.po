@@ -1210,9 +1210,8 @@ msgstr "Jika ini tidak benar, atau Anda ingin mengirimkan respon terlambat kepad
 
 msgid ""
 "If you are dissatisfied by the response you got from\\n            the "
-"public authority, you have the right to\\n            complain (<a "
-"href=\"%s\">details</a>)."
-msgstr "Jika Anda tidak puas dengan respon yang Anda peroleh dari\n            otoritas publik tersebut, Anda berhak untuk\n            mengajukan keberatan (<a href=\"%s\">rincian</a>)."
+"public authority, you have the right to\\n            complain"
+msgstr "Jika Anda tidak puas dengan respon yang Anda peroleh dari\n            otoritas publik tersebut, Anda berhak untuk\n            mengajukan keberatan"
 
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
 msgstr "Jika Anda masih mengalami kesulitan, silakan <a href=\"%s\">hubungi kami</a>."

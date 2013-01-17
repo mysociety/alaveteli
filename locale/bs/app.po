@@ -1220,9 +1220,8 @@ msgstr "Ako je ovo pogrešno, ili biste da pošaljete novi odgovor na zahtjev\ni
 
 msgid ""
 "If you are dissatisfied by the response you got from\\n            the "
-"public authority, you have the right to\\n            complain (<a "
-"href=\"%s\">details</a>)."
-msgstr "Ako niste zadovoljni odgovorom koji ste dobili od\n            javne ustanove, imate pravo na\n            žalbu (<a href=\"%s\">Više informacija</a>)."
+"public authority, you have the right to\\n            complain"
+msgstr "Ako niste zadovoljni odgovorom koji ste dobili od\n            javne ustanove, imate pravo na\n            žalbu"
 
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
 msgstr "Ako i dalje imate problema, molimo <a href=\"%s\">kontaktirajte nas</a>."

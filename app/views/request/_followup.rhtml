@@ -44,9 +44,9 @@
     <% else %>
         <% if @internal_review %>
             <p>
-            <%= raw(_('If you are dissatisfied by the response you got from
+            <%= _('If you are dissatisfied by the response you got from
             the public authority, you have the right to
-            complain (<a href="%s">details</a>).') % "http://foiwiki.com/foiwiki/index.php/Internal_reviews") %>
+            complain') %> (<%= link_to _("details"), "http://foiwiki.com/foiwiki/index.php/Internal_reviews" %>.)
             </p>
         <% end %>
 

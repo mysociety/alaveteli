@@ -1220,8 +1220,7 @@ msgstr ""
 
 msgid ""
 "If you are dissatisfied by the response you got from\\n            the "
-"public authority, you have the right to\\n            complain (<a "
-"href=\"%s\">details</a>)."
+"public authority, you have the right to\\n            complain"
 msgstr ""
 
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."

@@ -1314,11 +1314,11 @@ msgstr ""
 msgid ""
 "If you are dissatisfied by the response you got from\n"
 "            the public authority, you have the right to\n"
-"            complain (<a href=\"%s\">details</a>)."
+"            complain"
 msgstr ""
 "Nëse je i pakënaqur me përgjegjen nga\n"
 "            institucioni publik, ke të drejtën të\n"
-"            ankohesh (<a href=\"%s\">detajet</a>)."
+"            ankohesh"
 
 #: app/views/user/no_cookies.rhtml:20
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."

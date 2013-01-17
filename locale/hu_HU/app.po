@@ -1213,9 +1213,8 @@ msgstr "Ha ez hibás, vagy az igénylésre késedelmesen választ szeretne küld
 
 msgid ""
 "If you are dissatisfied by the response you got from\\n            the "
-"public authority, you have the right to\\n            complain (<a "
-"href=\"%s\">details</a>)."
-msgstr "Ha nem elégedett az \n            adatgazda válaszával, joga van\n            panaszt tenni (<a href=\"%s\">részletek</a>). "
+"public authority, you have the right to\\n            complain"
+msgstr "Ha nem elégedett az \n            adatgazda válaszával, joga van\n            panaszt tenni"
 
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
 msgstr "Ha továbbra is fennáll a probléma, <a href=\"%s\">lépjen velünk kapcsolatba</a>. "
