@@ -162,9 +162,6 @@ msgstr "2. Az adatigénylés összeállítása"
 msgid "3. Now check your request"
 msgstr "3. Az adatigénylés ellenőrzése"
 
-msgid "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
-msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a> "
-
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"%s\">Kommentálhatja az igénylést</a> - amivel segítségére lehet az igénylőnek, valamint a téma iránt érdelődőknek."
 

@@ -187,10 +187,6 @@ msgstr ""
 msgid "3. Now check your request"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:56
-msgid "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
-msgstr ""
-
 #: app/views/request/_after_actions.rhtml:9
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr ""

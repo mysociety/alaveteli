@@ -163,9 +163,6 @@ msgstr "2. Eskatu informazioa"
 msgid "3. Now check your request"
 msgstr "3. Berrikusi zure eskabidea"
 
-msgid "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
-msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
-
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"%s\">Gehitu azalpenen bat</a> (eskatzaileari edo besteei laguntzearren)"
 
