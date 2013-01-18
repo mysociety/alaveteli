@@ -291,11 +291,11 @@ msgid "<p>We're glad you got some of the information that you wanted. If you fou
 msgstr ""
 
 #: app/controllers/request_controller.rb:318
-msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"%s\">details</a>).</p>"
+msgid "You do not need to include your email in the request in order to get a reply"
 msgstr ""
 
 #: app/controllers/request_controller.rb:316
-msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"%s\">details</a>).</p>"
+msgid "You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen"
 msgstr ""
 
 #: app/controllers/request_controller.rb:324
