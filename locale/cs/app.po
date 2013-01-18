@@ -2209,11 +2209,8 @@ msgstr "Výsledky vyhledávání"
 msgid "Search the site to find what you were looking for."
 msgstr "Najděte, co hledáte"
 
-msgid "Search within the %d Freedom of Information requests to %s"
-msgid_plural "Search within the %d Freedom of Information requests made to %s"
-msgstr[0] "Prohlížet %d dotaz vznesený na %s"
-msgstr[1] "Prohlížet %d dotazy vznesené na %s"
-msgstr[2] "Prohlížet %d dotazů vznesené na %s"
+msgid "Search within the {{count}} Freedom of Information requests made to {{public_body}}"
+msgstr "Prohlížet {{count}} dotazů vznesené na {{public_body}}"
 
 msgid "Search your contributions"
 msgstr "Prohledávat vlastní příspěvky"

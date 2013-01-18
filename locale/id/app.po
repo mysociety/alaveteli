@@ -2196,9 +2196,8 @@ msgstr "Hasil pencarian"
 msgid "Search the site to find what you were looking for."
 msgstr "Cari situs ini untuk menemukan apa yang Anda cari."
 
-msgid "Search within the %d Freedom of Information requests to %s"
-msgid_plural "Search within the %d Freedom of Information requests made to %s"
-msgstr[0] "Cari di dalam  %d permintaan Freedom of Information yang dibuat kepada %s"
+msgid "Search within the {{count}} Freedom of Information requests made to {{public_body}}"
+msgstr "Cari di dalam  {{count}} permintaan Freedom of Information yang dibuat kepada {{public_body}}"
 
 msgid "Search your contributions"
 msgstr "Cari kontribusi Anda"

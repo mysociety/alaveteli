@@ -96,7 +96,9 @@
                     <%= pluralize(@public_body.info_requests.size, "Environmental Information Regulations request made using this site") %>
                 <% else %>
                <% if  @public_body.info_requests.size > 4 %>
-                <%= n_('Search within the %d Freedom of Information requests to %s', 'Search within the %d Freedom of Information requests made to %s', @public_body.info_requests.size) % [@public_body.info_requests.size, @public_body.name] %>
+                <%= _('Search within the {{count}} Freedom of Information requests made to {{public_body}}',
+                    :count => @public_body.info_requests.size,
+                    :public_body => @public_body.name) %>
                    <% else %>
                   <%= n_('{{count}} Freedom of Information request to {{public_body_name}}',
                         '{{count}} Freedom of Information requests to {{public_body_name}}',

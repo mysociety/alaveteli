@@ -2200,10 +2200,8 @@ msgstr "Bilaketaren emaitzak"
 msgid "Search the site to find what you were looking for."
 msgstr "Bilatu web honetan bilatzen ari zarena aurkitzeko."
 
-msgid "Search within the %d Freedom of Information requests to %s"
-msgid_plural "Search within the %d Freedom of Information requests made to %s"
-msgstr[0] "Bilatu ______-ri egindako %d informazio eskabidean %s"
-msgstr[1] "Bilatu ______-ri egindako %d informazio eskabideetan %s"
+msgid "Search within the {{count}} Freedom of Information requests made to {{public_body}}"
+msgstr "Bilatu ______-ri egindako {{count}} informazio eskabideetan {{public_body}}"
 
 msgid "Search your contributions"
 msgstr "Bilatu zure ekarpenak"

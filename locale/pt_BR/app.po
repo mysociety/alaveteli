@@ -2215,10 +2215,8 @@ msgstr "Resultados da busca"
 msgid "Search the site to find what you were looking for."
 msgstr "Pesquise no site para encontrar o que você está procurando."
 
-msgid "Search within the %d Freedom of Information requests to %s"
-msgid_plural "Search within the %d Freedom of Information requests made to %s"
-msgstr[0] "Pesquisar %d Pedidos de Acesso à Informação para %s"
-msgstr[1] "Pesquisar %d Pedidos de Acesso à Informação feitos a %s"
+msgid "Search within the {{count}} Freedom of Information requests made to {{public_body}}"
+msgstr "Pesquisar {{count}} Pedidos de Acesso à Informação feitos a {{public_body}}"
 
 msgid "Search your contributions"
 msgstr "Buscar suas contribuições"
