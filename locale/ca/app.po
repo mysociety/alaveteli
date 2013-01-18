@@ -164,9 +164,6 @@ msgstr "2. Sol·liciti informació"
 msgid "3. Now check your request"
 msgstr "3. Revisa la teva sol·licitud"
 
-msgid "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
-msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
-
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"%s\">Afegeixi un comentari</a> (per ajudar al peticionari o a altres)"
 

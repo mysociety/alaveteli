@@ -204,10 +204,6 @@ msgstr "2. Solicite información"
 msgid "3. Now check your request"
 msgstr "3. Revisa tu solicitud"
 
-#: app/views/public_body/show.rhtml:56
-msgid "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
-msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
-
 #: app/views/request/_after_actions.rhtml:9
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"%s\">Añade un comentario</a> (para ayudar al solicitante o a otros)"

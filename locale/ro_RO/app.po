@@ -167,9 +167,6 @@ msgstr "2. Cere o informație"
 msgid "3. Now check your request"
 msgstr "3. Verifică cererea făcută"
 
-msgid "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
-msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
-
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"%s\">Adaugă o notă</a> (pentru a ajuta petentul sau pe alții)"
 
