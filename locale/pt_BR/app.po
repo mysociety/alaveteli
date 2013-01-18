@@ -244,10 +244,10 @@ msgstr "<p>{{site_name}} está em manutenção. Você pode apenas visualizar ped
 msgid "<small>If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way.</small>\\n</p>"
 msgstr "<small>Se você acessa seu e-mail por algum site da web, ou se tiver filtros para conteúdo indesejado, verifique também suas caixas de spam. Às vezes, nossas mensagens podem ser marcadas dessa forma pelo seu provedor.</small> </p>"
 
-msgid "<span id='follow_count'>%d</span> person is following this authority"
-msgid_plural "<span id='follow_count'>%d</span> people are following this authority"
-msgstr[0] "<span id='follow_count'>%d</span> pessoa está acompanhando esta autoridade"
-msgstr[1] "<span id='follow_count'>%d</span> pessoas estão acompanhando esta autoridade"
+msgid "{{count}} person is following this authority"
+msgid_plural "{{count}} people are following this authority"
+msgstr[0] "{{count}} pessoa está acompanhando esta autoridade"
+msgstr[1] "{{count}} pessoas estão acompanhando esta autoridade"
 
 msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"%s\">No! (Click here for details)</a>"
 msgstr "<strong>Posso pedir informações sobre mim?</strong> <span class=\"whitespace other\" title=\"Aba\">»» »</span> <a href=\"%s\">Não! (Clique aqui para mais detalhes)</a>"
