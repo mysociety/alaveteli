@@ -63,10 +63,10 @@ msgid ""
 msgstr " Ideje za <strong>zahteve drugih dokumenata</strong> koje ustanova može posjedovati. "
 
 msgid ""
-" If you know the address to use, then please <a href=\"%s\">send it to "
+" If you know the address to use, then please <a href=\"{{url}}\">send it to "
 "us</a>.\\n        You may be able to find the address on their website, or "
 "by phoning them up and asking."
-msgstr " Ako znate koju adresu treba koristiti, molimo Vas <a href=\"%s\">pošaljite je nama</a>.\n        Moguće je da možete naći adresu na njihovoj web stranici, ili putem telefona."
+msgstr " Ako znate koju adresu treba koristiti, molimo Vas <a href=\"{{url}}\">pošaljite je nama</a>.\n        Moguće je da možete naći adresu na njihovoj web stranici, ili putem telefona."
 
 msgid ""
 " Include relevant links, such as to a campaign page, your blog or a\\n"

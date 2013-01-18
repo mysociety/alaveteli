@@ -62,7 +62,7 @@ msgid ""
 msgstr "أفكار حول ما يجب طلب وثائق أخرى على <strong> </STRONG> التي قد تعقد السلطة."
 
 msgid ""
-" If you know the address to use, then please <a href=\"%s\">send it to "
+" If you know the address to use, then please <a href=\"{{url}}\">send it to "
 "us</a>.\\n        You may be able to find the address on their website, or "
 "by phoning them up and asking."
 msgstr ""

@@ -78,10 +78,10 @@ msgid ""
 msgstr "Ideias de <strong>outras informações ou documentos</strong> a serem solicitados para esse órgão público."
 
 msgid ""
-" If you know the address to use, then please <a href=\"%s\">send it to "
+" If you know the address to use, then please <a href=\"{{url}}\">send it to "
 "us</a>.\\n        You may be able to find the address on their website, or "
 "by phoning them up and asking."
-msgstr "Se você souber o endereço de e-mail do órgão público que deve receber esse pedido, <a href=\"%s\">envie-o para nós</a>. Você pode encontrar o endereço de e-mail no site do órgão ou pelo telefone."
+msgstr "Se você souber o endereço de e-mail do órgão público que deve receber esse pedido, <a href=\"{{url}}\">envie-o para nós</a>. Você pode encontrar o endereço de e-mail no site do órgão ou pelo telefone."
 
 msgid ""
 " Include relevant links, such as to a campaign page, your blog or a\\n"

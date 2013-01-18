@@ -64,10 +64,10 @@ msgid ""
 msgstr "Gagasan tentang <strong>dokumen lain untuk diminta</strong> yang mungkin dimiliki oleh pihak berwenang."
 
 msgid ""
-" If you know the address to use, then please <a href=\"%s\">send it to "
+" If you know the address to use, then please <a href=\"{{url}}\">send it to "
 "us</a>.\\n        You may be able to find the address on their website, or "
 "by phoning them up and asking."
-msgstr "  Jika Anda mengetahui alamat yang digunakan, maka silakan<a href=\"%s\">mengirimkannya kepada kami</a>.\n        Anda mungkin dapat menemukan alamatnya di website mereka, atau dengan menelepon dan menanyakannya kepada mereka."
+msgstr "  Jika Anda mengetahui alamat yang digunakan, maka silakan<a href=\"{{url}}\">mengirimkannya kepada kami</a>.\n        Anda mungkin dapat menemukan alamatnya di website mereka, atau dengan menelepon dan menanyakannya kepada mereka."
 
 msgid ""
 " Include relevant links, such as to a campaign page, your blog or a\\n"
