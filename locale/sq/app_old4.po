@@ -1127,9 +1127,7 @@ msgid "Failed to convert image to a PNG"
 msgstr "Konvertimi i imazhit në PNG dështoi"
 
 #: app/models/profile_photo.rb:105
-msgid ""
-"Failed to convert image to the correct size: at %{cols}x%{rows}, need "
-"%{width}x%{height}"
+msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
 msgstr "Kyçu ose krijo llogari "
 
 #: app/views/request/new.rhtml:21

@@ -935,10 +935,8 @@ msgstr ""
 msgid "Failed to convert image to a PNG"
 msgstr "Nem sikerült a kép PNG formátumba való átalakítása "
 
-msgid ""
-"Failed to convert image to the correct size: at %{cols}x%{rows}, need "
-"%{width}x%{height}"
-msgstr "Nem sikerült a képet a megfelelő méretre alakítani: %{cols}x%{rows} esetén: %{width}x%{height} "
+msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
+msgstr "Nem sikerült a képet a megfelelő méretre alakítani: {{cols}}x{{rows}} esetén: {{width}}x{{height}} "
 
 msgid "Filter"
 msgstr "Szűrő"
