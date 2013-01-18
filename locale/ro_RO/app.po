@@ -26,9 +26,9 @@ msgid ""
 msgstr " Aceasta o să apară pe profilul tău de pe situl {{site_name}} , pentru a fi mai ușor altora să se implice în ceea ce faci."
 
 msgid ""
-" (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation "
+" (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation "
 "policy</a>)"
-msgstr " (<strong> fara politici de garantare </strong>  cititi politica noastra de <a href=\"%s\">moderare</a>)"
+msgstr " (<strong> fara politici de garantare </strong>  cititi politica noastra de <a href=\"{{url}}\">moderare</a>)"
 
 msgid ""
 " (<strong>patience</strong>, especially for large files, it may take a "

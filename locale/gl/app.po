@@ -24,9 +24,9 @@ msgid ""
 msgstr "  Esto aparecerá en tu perfil de {{site_name}}, para facilitar\n            que otras personas entiendan y participen en tus solicitudes."
 
 msgid ""
-" (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation "
+" (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation "
 "policy</a>)"
-msgstr " (<strong>sin ataques políticos</strong>, lea nuestra <a href=\"%s\">política de moderación</a>)"
+msgstr " (<strong>sin ataques políticos</strong>, lea nuestra <a href=\"{{url}}\">política de moderación</a>)"
 
 msgid ""
 " (<strong>patience</strong>, especially for large files, it may take a "
