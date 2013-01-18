@@ -55,10 +55,11 @@ msgstr " Consell sobre com <strong>aclarir el millor possible</strong> la sol•
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr " Idees sobre <strong>quins altres documents demanar </strong> que l'organisme públic pot tenir."
 
-msgid " If you know the address to use, then please <a href=\"%s\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
+msgid " If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
 msgstr ""
-" Si coneixes la direcció a utilitzar, si us plau <a href=\"%s\">envia'ns-la</a>.\n"
+" Si coneixes la direcció a utilitzar, si us plau <a href=\"{{url}}\">envia'ns-la</a>.\n"
 "        Pot ser que la trobis a la seva pàgina web, o trucant-los per telèfon i preguntant."
+
 
 msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
 msgstr ""

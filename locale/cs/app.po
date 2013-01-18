@@ -58,9 +58,9 @@ msgstr " Poraďte, <strong>jak co nejlépe upřesnit</strong> tento dotaz."
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr "Návrhy <strong>na vyžádání potřebných dokumentů</strong>, které může mít daná instituce k dispozici."
 
-msgid " If you know the address to use, then please <a href=\"%s\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
+msgid " If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
 msgstr ""
-"Pokud víte, jakou adresu použít <a href=\"%s\">pošlete nám ji</a>.\n"
+"Pokud víte, jakou adresu použít <a href=\"{{url}}\">pošlete nám ji</a>.\n"
 "       Adresu můžete najít na stránkách instituce, nebo můžete zavolat do podatelny a zjistit ji. "
 
 msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."

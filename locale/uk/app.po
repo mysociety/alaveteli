@@ -52,9 +52,9 @@ msgstr " Порадьте, як зробити запит <strong>більш з�
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr "Ідеї щодо того, які ще документи можна вимагати у розпорядника інформації."
 
-msgid " If you know the address to use, then please <a href=\"%s\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
+msgid " If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
 msgstr ""
-"Якщо вам відома адреса, яку можна використати, <a href=\"%s\">надішліть її нам</a>.\n"
+"Якщо вам відома адреса, яку можна використати, <a href=\"{{url}}\">надішліть її нам</a>.\n"
 " Ви можете знайти адресу на їхньому вебсайті або ж подзвонити і запитати."
 
 msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
