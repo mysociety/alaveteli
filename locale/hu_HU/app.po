@@ -1034,8 +1034,8 @@ msgstr "Ismeretlen okból kifolyólag ennek a közintézménynek nem lehet igén
 msgid "Forgotten your password?"
 msgstr "Elfelejtette jelszavát? "
 
-msgid "Found %d public authority %s"
-msgid_plural "Found %d public authorities %s"
+msgid "Found {{count}} public authority {{description}}"
+msgid_plural "Found {{count}} public authorities {{description}}"
 msgstr[0] ""
 msgstr[1] ""
 

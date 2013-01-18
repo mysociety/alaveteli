@@ -1032,8 +1032,8 @@ msgstr "Untuk alasan yang tidak diketahui, Anda tidak dapat mengajukan permintaa
 msgid "Forgotten your password?"
 msgstr "Lupa kode sandi Anda?"
 
-msgid "Found %d public authority %s"
-msgid_plural "Found %d public authorities %s"
+msgid "Found {{count}} public authority {{description}}"
+msgid_plural "Found {{count}} public authorities {{description}}"
 msgstr[0] ""
 
 msgid "Freedom of Information"

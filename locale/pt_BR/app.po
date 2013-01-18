@@ -1050,10 +1050,10 @@ msgstr "Devido a um erro desconhecido, não foi possível realizar seu pedido pa
 msgid "Forgotten your password?"
 msgstr "Esqueceu a sua senha?"
 
-msgid "Found %d public authority %s"
-msgid_plural "Found %d public authorities %s"
-msgstr[0] "%d órgão público encontrado %s"
-msgstr[1] "%d órgãos públicos encontrados %s"
+msgid "Found {{count}} public authority {{description}}"
+msgid_plural "Found {{count}} public authorities {{description}}"
+msgstr[0] "{{count}} órgão público encontrado {{description}}"
+msgstr[1] "{{count}} órgãos públicos encontrados {{description}}"
 
 msgid "Freedom of Information"
 msgstr "Liberdade de Informação"
