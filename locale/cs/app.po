@@ -105,11 +105,11 @@ msgstr[0] "{{count}} dotaz vznesený podle zákona 106/1999 Sb. na instituci {{p
 msgstr[1] "{{count}} dotazy vznesené podle zákona 106/1999 Sb. na instituci  {{public_body_name}}"
 msgstr[2] "{{count}} dotazů vznesených podle zákona 106/1999 Sb. na instituci  {{public_body_name}}"
 
-msgid "%d request"
-msgid_plural "%d requests"
-msgstr[0] "%d dotaz"
-msgstr[1] "%d dotazy"
-msgstr[2] "%d dotazů"
+msgid "{{count}} request"
+msgid_plural "{{count}} requests"
+msgstr[0] "{{count}} dotaz"
+msgstr[1] "{{count}} dotazy"
+msgstr[2] "{{count}} dotazů"
 
 msgid "{{count}} request made."
 msgid_plural "{{count}} requests made."

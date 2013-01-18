@@ -96,8 +96,8 @@ msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "%d request"
-msgid_plural "%d requests"
+msgid "{{count}} request"
+msgid_plural "{{count}} requests"
 msgstr[0] ""
 msgstr[1] ""
 
