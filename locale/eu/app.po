@@ -311,9 +311,8 @@ msgid ""
 "way.</small>\\n</p>"
 msgstr "<small>Web posta erabiltzen baduzu eta \"anti spam\" iragazkiak baldin badizutu, mesedez begira ezazu zure spam zorroan. Batzuetan, gure mezuak honela markatzen dira, akatsez.</small>\n</p>"
 
-msgid "<span id='follow_count'>%d</span> person is following this authority"
-msgid_plural ""
-"<span id='follow_count'>%d</span> people are following this authority"
+msgid "{{count}} person is following this authority"
+msgid_plural "{{count}} people are following this authority"
 msgstr[0] ""
 msgstr[1] ""
 
