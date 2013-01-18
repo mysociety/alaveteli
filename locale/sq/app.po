@@ -29,8 +29,8 @@ msgstr ""
 "Kjo do të shfaqet në profilin tënd në {{site_name}}, për ta bërë më të\n"
 "lehtë për të tjerët që të involvohen me çfarë jeni duke bërë."
 
-msgid " (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation policy</a>)"
-msgstr " (pa politikë <strong>llafazane</strong>, lexo <a href=\"%s\">politikat e moderimit</a>)"
+msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
+msgstr " (pa politikë <strong>llafazane</strong>, lexo <a href=\"{{url}}\">politikat e moderimit</a>)"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
 msgstr "<strong>(Durim,</strong> sidomos për fotografi të mëdha,  mund të marrë më shum kohë!)"

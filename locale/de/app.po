@@ -24,8 +24,8 @@ msgstr ""
 msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
 msgstr " Diese Information wird auf Ihrem {{site_name}} -profil angezeigt werden, um andere Nutzer über Ihre Aktivitäten zu informieren.  "
 
-msgid " (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation policy</a>)"
-msgstr "<a href=\"%s\">Moderationsregeln</a>)"
+msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
+msgstr "<a href=\"{{url}}\">Moderationsregeln</a>)"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
 msgstr " (<strong>Geduld</strong>, speziell für größere Dateien kann es einen Moment dauern!)"

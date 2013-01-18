@@ -25,7 +25,7 @@ msgstr ""
 "  Ovo će se pojaviti na vašem {{site_name}} profilu, da bi\n"
 "            olakšali drugima da se uključe u to šta radite."
 
-msgid " (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation policy</a>)"
+msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
 msgstr ""
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"

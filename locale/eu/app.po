@@ -22,8 +22,8 @@ msgstr ""
 msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
 msgstr "  Hau zure {{site_name}} profilean agertuko da, beste pertsonek zure eskabideak ulertu eta parte har dezaten."
 
-msgid " (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation policy</a>)"
-msgstr " (<strong>eraso politikorik gabe</strong>, irakur ezazu gure <a href=\"%s\">moderazio politika</a>)"
+msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
+msgstr " (<strong>eraso politikorik gabe</strong>, irakur ezazu gure <a href=\"{{url}}\">moderazio politika</a>)"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
 msgstr " (<strong>pazientzia</strong>, batez ere fitxategi handiekin, hainbat minutu behar dezakete eta!)"
