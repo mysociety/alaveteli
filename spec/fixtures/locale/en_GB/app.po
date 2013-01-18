@@ -123,8 +123,8 @@ msgid " when you send this message."
 msgstr ""
 
 #: app/views/public_body/show.rhtml:87
-msgid "%d Freedom of Information request to %s"
-msgid_plural "%d Freedom of Information requests to %s"
+msgid "{{count}} Freedom of Information request to {{public_body_name}}"
+msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
 msgstr[0] ""
 msgstr[1] ""
 
