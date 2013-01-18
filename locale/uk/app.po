@@ -148,9 +148,6 @@ msgstr "2. Зробіть інформаційний запит"
 msgid "3. Now check your request"
 msgstr "3. Перевірте ваш запит"
 
-msgid "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
-msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
-
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"%s\">Додайте коментар</a> (щоб допомогти авторам цього та інших запитів)"
 

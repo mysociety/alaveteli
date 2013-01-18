@@ -142,9 +142,6 @@ msgstr "2. Gofyn am wybodaeth"
 msgid "3. Now check your request"
 msgstr ""
 
-msgid "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
-msgstr ""
-
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr ""
 
