@@ -110,9 +110,9 @@ msgid "%d request"
 msgid_plural "%d requests"
 msgstr[0] "%d permintaan-permintaan"
 
-msgid "%d request made."
-msgid_plural "%d requests made."
-msgstr[0] "%d permintaan-permintaan yang diajukan."
+msgid "{{count}} request made."
+msgid_plural "{{count}} requests made."
+msgstr[0] "{{count}} permintaan-permintaan yang diajukan."
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Statistik Kriminal berdasarkan tingkat penjara untuk Wales'"

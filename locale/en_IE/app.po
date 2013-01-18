@@ -101,8 +101,8 @@ msgid_plural "%d requests"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "%d request made."
-msgid_plural "%d requests made."
+msgid "{{count}} request made."
+msgid_plural "{{count}} requests made."
 msgstr[0] ""
 msgstr[1] ""
 

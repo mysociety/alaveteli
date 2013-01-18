@@ -98,8 +98,8 @@ msgid "%d request"
 msgid_plural "%d requests"
 msgstr[0] ""
 
-msgid "%d request made."
-msgid_plural "%d requests made."
+msgid "{{count}} request made."
+msgid_plural "{{count}} requests made."
 msgstr[0] ""
 
 msgid "'Crime statistics by ward level for Wales'"
