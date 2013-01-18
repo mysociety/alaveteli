@@ -950,10 +950,8 @@ msgstr "Odpověď vyžaduje zásah administrátora -  ({{reason}}) - {{title}}"
 msgid "Failed to convert image to a PNG"
 msgstr "Nepodařilo se konvertovat obrázek do PNG. "
 
-msgid ""
-"Failed to convert image to the correct size: at %{cols}x%{rows}, need "
-"%{width}x%{height}"
-msgstr "Nepodařilo se konvertovat obrázek do správné velikosti: at %{cols}x%{rows}, need %{width}x%{height}"
+msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
+msgstr "Nepodařilo se konvertovat obrázek do správné velikosti: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
 
 msgid "Filter"
 msgstr "Filtr"

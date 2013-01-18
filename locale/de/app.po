@@ -944,10 +944,8 @@ msgstr ""
 msgid "Failed to convert image to a PNG"
 msgstr "Konnte Bild nicht in ein PNG konvertieren"
 
-msgid ""
-"Failed to convert image to the correct size: at %{cols}x%{rows}, need "
-"%{width}x%{height}"
-msgstr "Konnte Bild nicht in die richtige Größe umwandeln: %{cols} x %{rows}, brauche %{width} x %{height}"
+msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
+msgstr "Konnte Bild nicht in die richtige Größe umwandeln: {{cols}} x {{rows}}, brauche {{width}} x {{height}}"
 
 msgid "Filter"
 msgstr ""
