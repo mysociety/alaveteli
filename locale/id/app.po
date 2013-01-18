@@ -303,10 +303,9 @@ msgid ""
 "way.</small>\\n</p>"
 msgstr "<small>Jika Anda menggunakan email berbasis web atau memiliki filter \"junk mail\", juga periksalah folder surat\nbulk/spam Anda. Terkadang, pesan-pesan kami ditandai seperti demikian.</small>\n</p>"
 
-msgid "<span id='follow_count'>%d</span> person is following this authority"
-msgid_plural ""
-"<span id='follow_count'>%d</span> people are following this authority"
-msgstr[0] "<span id='follow_count'>%d</span> orang mengikuti otoritas ini"
+msgid "{{count}} person is following this authority"
+msgid_plural "{{count}} people are following this authority"
+msgstr[0] "{{count}} orang mengikuti otoritas ini"
 
 msgid ""
 "<strong> Can I request information about myself?</strong>\\n\t\t\t<a "

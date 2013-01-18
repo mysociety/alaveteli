@@ -208,8 +208,8 @@ msgstr ""
 msgid "<small>If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way.</small>\\n</p>"
 msgstr ""
 
-msgid "<span id='follow_count'>%d</span> person is following this authority"
-msgid_plural "<span id='follow_count'>%d</span> people are following this authority"
+msgid "{{count}} person is following this authority"
+msgid_plural "{{count}} people are following this authority"
 msgstr[0] ""
 msgstr[1] ""
 

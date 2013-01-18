@@ -304,9 +304,8 @@ msgid ""
 "way.</small>\\n</p>"
 msgstr "<small>Amennyiben webes levelező rendszert használ, vagy spamszűrő van beállítva, ellenőrizze a \nlevélszemetet tartalmazó mappákat is. Előfordulhat, hogy üzeneteink ide kerülnek.</small>\n</p> "
 
-msgid "<span id='follow_count'>%d</span> person is following this authority"
-msgid_plural ""
-"<span id='follow_count'>%d</span> people are following this authority"
+msgid "{{count}} person is following this authority"
+msgid_plural "{{count}} people are following this authority"
 msgstr[0] ""
 msgstr[1] ""
 
