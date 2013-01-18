@@ -67,10 +67,10 @@ msgid ""
 msgstr "Idées d'<strong>autres documents à demander</strong> que cette administration pourrait détenir."
 
 msgid ""
-" If you know the address to use, then please <a href=\"%s\">send it to "
+" If you know the address to use, then please <a href=\"{{url}}\">send it to "
 "us</a>.\\n        You may be able to find the address on their website, or "
 "by phoning them up and asking."
-msgstr " Si vous savez quelle adresse utiliser, merci de <a href=\"%s\">nous la communiquer</a>.\n        Vous êtes susceptible de trouver l'adresse sur leur site Internet ou en la leur demandant par téléphone."
+msgstr " Si vous savez quelle adresse utiliser, merci de <a href=\"{{url}}\">nous la communiquer</a>.\n        Vous êtes susceptible de trouver l'adresse sur leur site Internet ou en la leur demandant par téléphone."
 
 msgid ""
 " Include relevant links, such as to a campaign page, your blog or a\\n"

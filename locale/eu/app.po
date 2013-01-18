@@ -63,10 +63,10 @@ msgid ""
 msgstr " Erakunde publikoak izan ditzaketen <strong> beste agiriak eskatzeko </strong> ideiak. "
 
 msgid ""
-" If you know the address to use, then please <a href=\"%s\">send it to "
+" If you know the address to use, then please <a href=\"{{url}}\">send it to "
 "us</a>.\\n        You may be able to find the address on their website, or "
 "by phoning them up and asking."
-msgstr " Erabili behar den helbidea baldin badakizu, orduan mesedez  <a href=\"%s\">bidal iezaguzu</a>.\n        Agian haien weg orrialdean aurki dezakezu, edo telefonoz deitu eta galdetzen badiezu."
+msgstr " Erabili behar den helbidea baldin badakizu, orduan mesedez  <a href=\"{{url}}\">bidal iezaguzu</a>.\n        Agian haien weg orrialdean aurki dezakezu, edo telefonoz deitu eta galdetzen badiezu."
 
 msgid ""
 " Include relevant links, such as to a campaign page, your blog or a\\n"

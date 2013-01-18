@@ -71,7 +71,7 @@ msgstr ""
 
 #: app/views/public_body/view_email.rhtml:30
 msgid ""
-" If you know the address to use, then please <a href=\"%s\">send it to us</a>.\n"
+" If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>.\n"
 "        You may be able to find the address on their website, or by phoning them up and asking."
 msgstr ""
 

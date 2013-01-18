@@ -80,9 +80,9 @@ msgstr " Ideas sobre <strong>qué otra información pedir</strong> que el organi
 
 #: app/views/public_body/view_email.rhtml:30
 msgid ""
-" If you know the address to use, then please <a href=\"%s\">send it to us</a>.\n"
+" If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>.\n"
 "        You may be able to find the address on their website, or by phoning them up and asking."
-msgstr " Si conoces la dirección a utilizar, entonces por favor <a href=\"%s\">envíanosla</a>.\n        Puede que la encuentres en su página web, o llamándoles por teléfono y preguntando."
+msgstr " Si conoces la dirección a utilizar, entonces por favor <a href=\"{{url}}\">envíanosla</a>.\n        Puede que la encuentres en su página web, o llamándoles por teléfono y preguntando."
 
 #: app/views/user/set_profile_about_me.rhtml:26
 msgid ""

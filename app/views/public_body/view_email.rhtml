@@ -27,8 +27,8 @@
     <% if @public_body.is_requestable? || @public_body.not_requestable_reason != 'bad_contact' %>
         <%= _('If the address is wrong, or you know a better address, please <a href="%s">contact us</a>.')% [help_contact_path]%>
     <% else %>
-       <%= _(' If you know the address to use, then please <a href="%s">send it to us</a>.
-        You may be able to find the address on their website, or by phoning them up and asking.')% [help_contact_path] %>
+       <%= _(' If you know the address to use, then please <a href="{{url}}">send it to us</a>.
+        You may be able to find the address on their website, or by phoning them up and asking.', :url =>help_contact_path.html_safe) %>
     <% end %>
 </p>
 
