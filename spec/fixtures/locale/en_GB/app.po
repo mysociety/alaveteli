@@ -1001,7 +1001,7 @@ msgid "Failed to convert image to a PNG"
 msgstr ""
 
 #: app/models/profile_photo.rb:105
-msgid "Failed to convert image to the correct size: at %{cols}x%{rows}, need %{width}x%{height}"
+msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
 msgstr ""
 
 #: app/views/general/search.rhtml:117

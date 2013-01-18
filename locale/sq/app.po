@@ -779,8 +779,8 @@ msgstr ""
 msgid "Failed to convert image to a PNG"
 msgstr "Konvertimi i imazhit në PNG dështoi"
 
-msgid "Failed to convert image to the correct size: at %{cols}x%{rows}, need %{width}x%{height}"
-msgstr "Konvertimi i imazhit në madhësinë adekuate dështoi: në %{cols}x%{rows}, duhet %{width}x%{height}"
+msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
+msgstr "Konvertimi i imazhit në madhësinë adekuate dështoi: në {{cols}}x{{rows}}, duhet {{width}}x{{height}}"
 
 msgid "Filter"
 msgstr "Filtro"

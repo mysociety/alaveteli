@@ -752,8 +752,8 @@ msgstr ""
 msgid "Failed to convert image to a PNG"
 msgstr "Irudia PNG formatura bihurtzean huts egin da"
 
-msgid "Failed to convert image to the correct size: at %{cols}x%{rows}, need %{width}x%{height}"
-msgstr "Irudia behar bezalako tamainera bihurtzean huts egin da:: %{cols}x%{rows} da, %{width}x%{height} izan beharko luke."
+msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
+msgstr "Irudia behar bezalako tamainera bihurtzean huts egin da:: {{cols}}x{{rows}} da, {{width}}x{{height}} izan beharko luke."
 
 msgid "Filter"
 msgstr "Iragazi"

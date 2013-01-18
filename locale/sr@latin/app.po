@@ -774,8 +774,8 @@ msgstr ""
 msgid "Failed to convert image to a PNG"
 msgstr "Nismo uspeli konvertovati sliku u PNG format"
 
-msgid "Failed to convert image to the correct size: at %{cols}x%{rows}, need %{width}x%{height}"
-msgstr "Nismo uspeli konvertovati sliku u odgovarajuću veličinu:  %{cols}x%{rows}, potrebno %{width}x%{height}"
+msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
+msgstr "Nismo uspeli konvertovati sliku u odgovarajuću veličinu:  {{cols}}x{{rows}}, potrebno {{width}}x{{height}}"
 
 msgid "Filter"
 msgstr "Filtriraj"

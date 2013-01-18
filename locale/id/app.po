@@ -802,8 +802,8 @@ msgstr "Jawaban permintaan membutuhkan {{{reason}}} - {{title}}"
 msgid "Failed to convert image to a PNG"
 msgstr "Failed to convert image to a PNG"
 
-msgid "Failed to convert image to the correct size: at %{cols}x%{rows}, need %{width}x%{height}"
-msgstr "Tidak berhasil mengubah gambar ke ukuran yang tepat: pada %{cols}x%{rows}, need %{width}x%{height}"
+msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
+msgstr "Tidak berhasil mengubah gambar ke ukuran yang tepat: pada {{cols}}x{{rows}}, need {{width}}x{{height}}"
 
 msgid "Filter"
 msgstr "Filter"
