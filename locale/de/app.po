@@ -190,9 +190,6 @@ msgstr "<a href=\"%s\">Melden Sie sich an,</a> um Ihr Passwort und weitere Einst
 msgid "details"
 msgstr "Details"
 
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">Was ist das?</a>"
-
 msgid ""
 "<p>All done! Thank you very much for your help.</p><p>There are <a "
 "href=\"{{helpus_url}}\">more things you can do</a> to help "

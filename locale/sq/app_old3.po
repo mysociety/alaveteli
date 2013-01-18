@@ -246,10 +246,6 @@ msgstr "nuk mund të gjeni ate që dëshironi?"
 msgid "details"
 msgstr "detajet"
 
-#: app/views/request/_followup.rhtml:74
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">Çfarë është ajo?</a>"
-
 #: app/views/public_body/show.rhtml:50
 #, fuzzy
 msgid ""

@@ -216,10 +216,6 @@ msgstr ""
 msgid "details"
 msgstr ""
 
-#: app/views/request/_followup.rhtml:101
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr ""
-
 #: app/controllers/request_game_controller.rb:23
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr ""

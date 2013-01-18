@@ -239,10 +239,6 @@ msgstr "nuk mund të gjeni ate që dëshironi?"
 msgid "details"
 msgstr "detajet"
 
-#: app/views/request/_followup.rhtml:77
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">Çfarë është ajo?</a>"
-
 #: app/controllers/request_game_controller.rb:23
 msgid ""
 "<p>All done! Thank you very much for your help.</p><p>There are <a "
