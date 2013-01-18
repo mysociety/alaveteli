@@ -289,13 +289,6 @@ msgid ""
 "{{date_response_required_by}}</strong>.</p>"
 msgstr ""
 
-#: app/controllers/request_controller.rb:428
-msgid ""
-"<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a "
-"response within 20 days, or be told if it will take longer (<a "
-"href=\"{{review_url}}\">details</a>).</p>"
-msgstr ""
-
 #: app/controllers/request_controller.rb:431
 msgid ""
 "<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If "

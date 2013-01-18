@@ -273,16 +273,6 @@ msgid ""
 "{{date_response_required_by}}</strong>.</p>"
 msgstr ""
 
-#: app/controllers/request_controller.rb:421
-msgid ""
-"<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a "
-"response within 20 days, or be told if it will take longer (<a "
-"href=\"%s\">details</a>).</p>"
-msgstr ""
-"<p> Faleminderit! Shpresojmë që pritja yte nuk do të jetë shumë e gjatë. "
-"</p><p> Ti duhet të merr përgjegje brenda 7 ditë pune, ose të njoftohesh se "
-"do të marrë më gjatë ( <a href=\"%s\">details</a> ). </p>"
-
 #: app/controllers/request_controller.rb:424
 msgid ""
 "<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If "
