@@ -1045,8 +1045,8 @@ msgstr "З невідомих причин, зробити запит до ць�
 msgid "Forgotten your password?"
 msgstr "Забули пароль?"
 
-msgid "Found %d public authority %s"
-msgid_plural "Found %d public authorities %s"
+msgid "Found {{count}} public authority {{description}}"
+msgid_plural "Found {{count}} public authorities {{description}}"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""

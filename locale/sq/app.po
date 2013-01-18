@@ -1046,10 +1046,10 @@ msgstr "Për një arsye të panjohur, nuk është e mundur për të bërë një 
 msgid "Forgotten your password?"
 msgstr "Ke harru fjalëkalimin?"
 
-msgid "Found %d public authority %s"
-msgid_plural "Found %d public authorities %s"
-msgstr[0] "Gjeti %d autoritet publik %s"
-msgstr[1] "Gjeti %d autoriteti publike %s"
+msgid "Found {{count}} public authority {{description}}"
+msgid_plural "Found {{count}} public authorities {{description}}"
+msgstr[0] "Gjeti {{count}} autoritet publik {{description}}"
+msgstr[1] "Gjeti {{count}} autoriteti publike {{description}}"
 
 msgid "Freedom of Information"
 msgstr "Informata Zyrtare"

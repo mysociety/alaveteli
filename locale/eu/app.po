@@ -1041,8 +1041,8 @@ msgstr "Ez dakigun arrazoia dela eta, erakunde honi eskabidea egitea ezinezkoa d
 msgid "Forgotten your password?"
 msgstr "Zure pasahitza ahaztu al duzu?"
 
-msgid "Found %d public authority %s"
-msgid_plural "Found %d public authorities %s"
+msgid "Found {{count}} public authority {{description}}"
+msgid_plural "Found {{count}} public authorities {{description}}"
 msgstr[0] ""
 msgstr[1] ""
 
