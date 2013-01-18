@@ -124,11 +124,11 @@ msgstr[0] "{{count}} інформаційний запит до {{public_body_na
 msgstr[1] "{{count}} інформаційні запити до {{public_body_name}}"
 msgstr[2] "{{count}} інформаційних запитів до {{public_body_name}}"
 
-msgid "%d request"
-msgid_plural "%d requests"
-msgstr[0] "%d запит"
-msgstr[1] "%d запити"
-msgstr[2] "%d запитів"
+msgid "{{count}} request"
+msgid_plural "{{count}} requests"
+msgstr[0] "{{count}} запит"
+msgstr[1] "{{count}} запити"
+msgstr[2] "{{count}} запитів"
 
 msgid "{{count}} request made."
 msgid_plural "{{count}} requests made."

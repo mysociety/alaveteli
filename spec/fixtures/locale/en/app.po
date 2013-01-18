@@ -129,8 +129,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: app/views/general/frontpage.rhtml:43
-msgid "%d request"
-msgid_plural "%d requests"
+msgid "{{count}} request"
+msgid_plural "{{count}} requests"
 msgstr[0] ""
 msgstr[1] ""
 

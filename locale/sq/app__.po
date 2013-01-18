@@ -171,10 +171,10 @@ msgstr[0] "%d Freedom of Information requests"
 msgstr[1] "%d Freedom of Information requests"
 
 #: app/views/general/frontpage.rhtml:36
-msgid "%d request"
-msgid_plural "%d requests"
-msgstr[0] "%d kërkesë"
-msgstr[1] "%d kërkesa"
+msgid "{{count}} request"
+msgid_plural "{{count}} requests"
+msgstr[0] "{{count}} kërkesë"
+msgstr[1] "{{count}} kërkesa"
 
 #: app/views/request/new.rhtml:102
 msgid "'Crime statistics by ward level for Wales'"

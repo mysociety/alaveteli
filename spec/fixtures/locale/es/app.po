@@ -146,10 +146,10 @@ msgstr[0] "{{count}} solicitud de información a {{public_body_name}}"
 msgstr[1] "{{count}} solicitudes de información a {{public_body_name}}"
 
 #: app/views/general/frontpage.rhtml:43
-msgid "%d request"
-msgid_plural "%d requests"
-msgstr[0] "%d solicitud"
-msgstr[1] "%d solicitudes"
+msgid "{{count}} request"
+msgid_plural "{{count}} requests"
+msgstr[0] "{{count}} solicitud"
+msgstr[1] "{{count}} solicitudes"
 
 #: app/views/public_body/_body_listing_single.rhtml:21
 msgid "{{count}} request made."
