@@ -182,10 +182,10 @@ msgstr[0] "%d Kërkesë për informata zyrtare të bërë duke përdorur këtë 
 msgstr[1] "%d Kërkesa për informata zyrtare të bëra duke përdorur këtë ueb faqe"
 
 #: app/views/general/frontpage.rhtml:36
-msgid "%d request"
-msgid_plural "%d requests"
-msgstr[0] "%d kërkesë"
-msgstr[1] "%d kërkesa"
+msgid "{{count}} request"
+msgid_plural "{{count}} requests"
+msgstr[0] "{{count}} kërkesë"
+msgstr[1] "{{count}} kërkesa"
 
 #: app/views/public_body/_body_listing_single.rhtml:21
 msgid "{{count}} request made."
