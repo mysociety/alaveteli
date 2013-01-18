@@ -2799,8 +2799,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: app/views/request/_sidebar.rhtml:5
-msgid "There is %d person following this request"
-msgid_plural "There are %d people following this request"
+msgid "There is {{count}} person following this request"
+msgid_plural "There are {{count}} people following this request"
 msgstr[0] ""
 msgstr[1] ""
 

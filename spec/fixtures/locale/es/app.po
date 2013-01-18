@@ -3004,10 +3004,10 @@ msgstr[0] "Hay %d persona siguiendo a este organismo."
 msgstr[1] "Hay %d personas siguiendo a este organismo."
 
 #: app/views/request/_sidebar.rhtml:5
-msgid "There is %d person following this request"
-msgid_plural "There are %d people following this request"
-msgstr[0] "Hay %d persona siguiendo esta solicitud."
-msgstr[1] "Hay %d personas siguiendo esta solicitud."
+msgid "There is {{count}} person following this request"
+msgid_plural "There are {{count}} people following this request"
+msgstr[0] "Hay {{count}} persona siguiendo esta solicitud."
+msgstr[1] "Hay {{count}} personas siguiendo esta solicitud."
 
 #: app/views/user/show.rhtml:8
 msgid ""

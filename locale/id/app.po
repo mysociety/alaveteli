@@ -2598,9 +2598,9 @@ msgid ""
 " this link to see what they wrote."
 msgstr "Ada {{count}} anotasi baru pada permintaan {{info_request}} Anda. Ikuti tautan ini untuk melihat apa yang mereka tulis."
 
-msgid "There is %d person following this request"
-msgid_plural "There are %d people following this request"
-msgstr[0] "Ada %d orang mengikuti permintaan ini"
+msgid "There is {{count}} person following this request"
+msgid_plural "There are {{count}} people following this request"
+msgstr[0] "Ada {{count}} orang mengikuti permintaan ini"
 
 msgid ""
 "There is <strong>more than one person</strong> who uses this site and has "
