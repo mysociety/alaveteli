@@ -24,9 +24,9 @@ msgid ""
 msgstr ""
 
 msgid ""
-" (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation "
+" (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation "
 "policy</a>)"
-msgstr "(<strong>ağız kalabalığı</strong> politikaya yer yok, <a href=\"%s\">moderasyon kurallarımızı</a> okuyun.)"
+msgstr "(<strong>ağız kalabalığı</strong> politikaya yer yok, <a href=\"{{url}}\">moderasyon kurallarımızı</a> okuyun.)"
 
 msgid ""
 " (<strong>patience</strong>, especially for large files, it may take a "

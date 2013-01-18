@@ -40,10 +40,10 @@ msgstr ""
 
 #: app/views/comment/_comment_form.rhtml:16
 msgid ""
-" (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation "
+" (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation "
 "policy</a>)"
 msgstr ""
-"AA (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation "
+"AA (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation "
 "policy</a>)"
 
 #: app/views/request/upload_response.rhtml:40

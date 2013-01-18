@@ -25,9 +25,9 @@ msgid ""
 msgstr "Це з’явиться у вашому профілі для ознайомлення інших людей."
 
 msgid ""
-" (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation "
+" (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation "
 "policy</a>)"
-msgstr "(Тут не місце для політичних сварок, ознайомтесь, будь ласка, з <a href=\"%s\">правилами ведення дискусій</a>)"
+msgstr "(Тут не місце для політичних сварок, ознайомтесь, будь ласка, з <a href=\"{{url}}\">правилами ведення дискусій</a>)"
 
 msgid ""
 " (<strong>patience</strong>, especially for large files, it may take a "

@@ -24,9 +24,9 @@ msgid ""
 msgstr "Ez a bemutatkozás megjelenik az ön {{site_name}} profiljában, így mások is láthatják, hogy ön milyen témakörrel foglalkozik. "
 
 msgid ""
-" (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation "
+" (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation "
 "policy</a>)"
-msgstr "(<strong>NE</strong> politizáljon!!! Kérjük olvassa el <a href=\"%s\">moderálási alapelveinket</a>)!"
+msgstr "(<strong>NE</strong> politizáljon!!! Kérjük olvassa el <a href=\"{{url}}\">moderálási alapelveinket</a>)!"
 
 msgid ""
 " (<strong>patience</strong>, especially for large files, it may take a "

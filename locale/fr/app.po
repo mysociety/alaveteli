@@ -29,7 +29,7 @@ msgid ""
 msgstr ""
 
 msgid ""
-" (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation "
+" (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation "
 "policy</a>)"
 msgstr ""
 

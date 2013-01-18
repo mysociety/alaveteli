@@ -29,9 +29,9 @@ msgid ""
 msgstr " Toto se objeví na vašem profilu na stránkách {{site_name}}, abyste mohli svůj dotaz snadno sdílet s ostaními."
 
 msgid ""
-" (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation "
+" (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation "
 "policy</a>)"
-msgstr " (<strong>Tento prostor neslouží politickým debatám,</strong> přečtěte si <a href=\"%s\">Pravidla diskuze</a>.)"
+msgstr " (<strong>Tento prostor neslouží politickým debatám,</strong> přečtěte si <a href=\"{{url}}\">Pravidla diskuze</a>.)"
 
 msgid ""
 " (<strong>patience</strong>, especially for large files, it may take a "

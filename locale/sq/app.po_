@@ -36,10 +36,10 @@ msgstr ""
 
 #: app/views/comment/_comment_form.rhtml:16
 msgid ""
-" (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation "
+" (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation "
 "policy</a>)"
 msgstr ""
-" (pa politikë <strong>llafazane</strong>, lexo <a href=\"%s\">politikat e "
+" (pa politikë <strong>llafazane</strong>, lexo <a href=\"{{url}}\">politikat e "
 "moderimit</a>)"
 
 #: app/views/request/upload_response.rhtml:40

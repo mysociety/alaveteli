@@ -35,9 +35,9 @@ msgstr "  Esto aparecerá en tu perfil de {{site_name}}, para facilitar\n       
 
 #: app/views/comment/_comment_form.rhtml:16
 msgid ""
-" (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation "
+" (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation "
 "policy</a>)"
-msgstr " (<strong>sin ataques políticos</strong>, lea nuestra <a href=\"%s\">política de moderación</a>)"
+msgstr " (<strong>sin ataques políticos</strong>, lea nuestra <a href=\"{{url}}\">política de moderación</a>)"
 
 #: app/views/request/upload_response.rhtml:40
 msgid ""
