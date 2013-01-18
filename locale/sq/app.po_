@@ -182,8 +182,8 @@ msgstr[0] "%d kërkesë"
 msgstr[1] "%d kërkesa"
 
 #: app/views/public_body/_body_listing_single.rhtml:21
-msgid "%d request made."
-msgid_plural "%d requests made."
+msgid "{{count}} request made."
+msgid_plural "{{count}} requests made."
 msgstr[0] ""
 msgstr[1] ""
 

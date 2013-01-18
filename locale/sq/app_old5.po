@@ -188,10 +188,10 @@ msgstr[0] "%d kërkesë"
 msgstr[1] "%d kërkesa"
 
 #: app/views/public_body/_body_listing_single.rhtml:21
-msgid "%d request made."
-msgid_plural "%d requests made."
-msgstr[0] "%d e kërkesës së bërë."
-msgstr[1] "%d e kërkesave të bëra."
+msgid "{{count}} request made."
+msgid_plural "{{count}} requests made."
+msgstr[0] "{{count}} e kërkesës së bërë."
+msgstr[1] "{{count}} e kërkesave të bëra."
 
 #: app/views/request/new.rhtml:102
 msgid "'Crime statistics by ward level for Wales'"

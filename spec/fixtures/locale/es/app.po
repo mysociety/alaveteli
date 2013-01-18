@@ -152,10 +152,10 @@ msgstr[0] "%d solicitud"
 msgstr[1] "%d solicitudes"
 
 #: app/views/public_body/_body_listing_single.rhtml:21
-msgid "%d request made."
-msgid_plural "%d requests made."
-msgstr[0] "%d solicitud enviada."
-msgstr[1] "%d solicitudes enviadas."
+msgid "{{count}} request made."
+msgid_plural "{{count}} requests made."
+msgstr[0] "{{count}} solicitud enviada."
+msgstr[1] "{{count}} solicitudes enviadas."
 
 #: app/views/request/new.rhtml:92
 msgid "'Crime statistics by ward level for Wales'"
