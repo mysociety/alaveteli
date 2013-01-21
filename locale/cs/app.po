@@ -284,14 +284,14 @@ msgstr "<p>Jsme rádi, že jste obdrželi alespoň částečnou odpověď na vzn
 
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
-"reply (<a href=\"%s\">details</a>).</p>"
-msgstr "<p>Nemusíte uvádět svou e-mailovou adresu. (<a href=\"%s\">více</a>).</p>"
+"reply (<a href=\"{{url}}\">details</a>).</p>"
+msgstr "<p>Nemusíte uvádět svou e-mailovou adresu. (<a href=\"{{url}}\">více</a>).</p>"
 
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
 "reply, as we will ask for it on the next screen (<a "
-"href=\"%s\">details</a>).</p>"
-msgstr "<p>Nemusíte uvádět svou e-mailovou adresu teď, budeme ji vyžadovat v dalším kroku. (<a href=\"%s\">více</a>).</p>"
+"href=\"{{url}}\">details</a>).</p>"
+msgstr "<p>Nemusíte uvádět svou e-mailovou adresu teď, budeme ji vyžadovat v dalším kroku. (<a href=\"{{url}}\">více</a>).</p>"
 
 msgid ""
 "<p>Your request contains a <strong>postcode</strong>. Unless it directly "

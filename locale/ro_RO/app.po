@@ -281,14 +281,14 @@ msgstr "<p>Ne bucuram ca ati obtinut informatiile pe care le doreati.  Daca ati 
 
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
-"reply (<a href=\"%s\">details</a>).</p>"
-msgstr "<p>Nu e nevoie sa includeti emailul dvs. in cerere pentru a obtine un raspuns (<a href=\"%s\">details</a>).</p>"
+"reply (<a href=\"{{url}}\">details</a>).</p>"
+msgstr "<p>Nu e nevoie sa includeti emailul dvs. in cerere pentru a obtine un raspuns (<a href=\"{{url}}\">details</a>).</p>"
 
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
 "reply, as we will ask for it on the next screen (<a "
-"href=\"%s\">details</a>).</p>"
-msgstr "<p>Nu e nevoie sa includeti emailul dvs. in cerere pentru a obtine un raspuns, deoarece vi-l solicitaim in pagina urmatoare (<a href=\"%s\">details</a>).</p>"
+"href=\"{{url}}\">details</a>).</p>"
+msgstr "<p>Nu e nevoie sa includeti emailul dvs. in cerere pentru a obtine un raspuns, deoarece vi-l solicitaim in pagina urmatoare (<a href=\"{{url}}\">details</a>).</p>"
 
 msgid ""
 "<p>Your request contains a <strong>postcode</strong>. Unless it directly "

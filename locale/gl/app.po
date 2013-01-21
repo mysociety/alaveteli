@@ -276,14 +276,14 @@ msgstr "<p>Nos alegra saber que has obtenido parte de la información que solici
 
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
-"reply (<a href=\"%s\">details</a>).</p>"
-msgstr "<p>No necesitas incluir tu dirección de correo en la solicitud para recibir una respuesta (<a href=\"%s\">más detalles</a>).</p>"
+"reply (<a href=\"{{url}}\">details</a>).</p>"
+msgstr "<p>No necesitas incluir tu dirección de correo en la solicitud para recibir una respuesta (<a href=\"{{url}}\">más detalles</a>).</p>"
 
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
 "reply, as we will ask for it on the next screen (<a "
-"href=\"%s\">details</a>).</p>"
-msgstr "<p>No necesitas incluir tu dirección de correo en la solicitud para recibir una respuesta, te la pediremos en el siguiente paso (<a href=\"%s\">más detalles</a>).</p>"
+"href=\"{{url}}\">details</a>).</p>"
+msgstr "<p>No necesitas incluir tu dirección de correo en la solicitud para recibir una respuesta, te la pediremos en el siguiente paso (<a href=\"{{url}}\">más detalles</a>).</p>"
 
 msgid ""
 "<p>Your request contains a <strong>postcode</strong>. Unless it directly "

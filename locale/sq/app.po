@@ -282,14 +282,14 @@ msgstr "<p>Na vjen mirë që keni marrë disa prej informatave të kërkuara. N�
 
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
-"reply (<a href=\"%s\">details</a>).</p>"
-msgstr "<p> Ti nuk duhet të inkludosh adresën e emailit tënd në këtë kërkesë qe të marrësh përgjigje (<a href=\"%s\">detaje</a> ). </p>"
+"reply (<a href=\"{{url}}\">details</a>).</p>"
+msgstr "<p> Ti nuk duhet të inkludosh adresën e emailit tënd në këtë kërkesë qe të marrësh përgjigje (<a href=\"{{url}}\">detaje</a> ). </p>"
 
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
 "reply, as we will ask for it on the next screen (<a "
-"href=\"%s\">details</a>).</p>"
-msgstr "<p> Ti nuk duhet të inkludosh adresën e emailit tënd në këtë kërkesë qe të marrësh përgjigje, sepse ne do ta kërkojme atë ne faqen vijuese (<a href=\"%s\">detaje</a> )."
+"href=\"{{url}}\">details</a>).</p>"
+msgstr "<p> Ti nuk duhet të inkludosh adresën e emailit tënd në këtë kërkesë qe të marrësh përgjigje, sepse ne do ta kërkojme atë ne faqen vijuese (<a href=\"{{url}}\">detaje</a> )."
 
 msgid ""
 "<p>Your request contains a <strong>postcode</strong>. Unless it directly "
