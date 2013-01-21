@@ -2486,11 +2486,8 @@ msgstr "Die Anfrage war <strong>erfolgreich</strong>."
 msgid "The request was refused by the public authority"
 msgstr "Die Anfrage wurde von der Behörde abgelehnt"
 
-msgid ""
-"The request you have tried to view has been removed. There are\\nvarious "
-"reasons why we might have done this, sorry we can't be more specific here. "
-"Please <a\\n    href=\"%s\">contact us</a> if you have any questions."
-msgstr "Die von Ihnen ausgewählte Anfrage wurde verweigert. Dies kann unterschiedliche Ursachen haben, welche an dieser Stelle leider nicht näher erläutert werden können. Bitte<a\n    href=\"%s\">kontaktieren Sie uns</a> für weitere Fragen. "
+msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"{{url}}\">contact us</a> if you have any questions."
+msgstr "Die von Ihnen ausgewählte Anfrage wurde verweigert. Dies kann unterschiedliche Ursachen haben, welche an dieser Stelle leider nicht näher erläutert werden können. Bitte<a\n    href=\"{{url}}\">kontaktieren Sie uns</a> für weitere Fragen. "
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Der Anfragensteller hat die Anfrage aus unbekannten Gründen zurückgezogen. "
