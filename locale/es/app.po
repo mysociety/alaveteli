@@ -237,11 +237,11 @@ msgstr "<p>Nos alegra saber que has obtenido toda la información que solicitast
 msgid "<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
 msgstr "<p>Nos alegra saber que has obtenido parte de la información que solicitaste. Si escribes sobre ella, o la utilizas, por favor vuelve y añade un comentario a continuación explicando lo que has hecho.</p><p>Si {{site_name}} te ha resultado útil, <a href=\"{{donation_url}}\">puedes donar</a> a la ONG responsable.</p>"
 
-msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"%s\">details</a>).</p>"
-msgstr "<p>No necesitas incluir tu dirección de correo en la solicitud para recibir una respuesta (<a href=\"%s\">más detalles</a>).</p>"
+msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
+msgstr "<p>No necesitas incluir tu dirección de correo en la solicitud para recibir una respuesta (<a href=\"{{url}}\">más detalles</a>).</p>"
 
-msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"%s\">details</a>).</p>"
-msgstr "<p>No necesitas incluir tu dirección de correo en la solicitud para recibir una respuesta, te la pediremos en el siguiente paso (<a href=\"%s\">más detalles</a>).</p>"
+msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>"
+msgstr "<p>No necesitas incluir tu dirección de correo en la solicitud para recibir una respuesta, te la pediremos en el siguiente paso (<a href=\"{{url}}\">más detalles</a>).</p>"
 
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
 msgstr "<p>Tu solicitud incluye un <strong>código postal</strong>. Salvo que esté directamente relacionado con su solicitud, por favor elimina cualquier dirección, ya que <strong>estará disponible públicamente en Internet</strong>.</p>"

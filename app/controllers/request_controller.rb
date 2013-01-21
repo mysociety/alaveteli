@@ -322,9 +322,9 @@ class RequestController < ApplicationController
             message = ""
             if @outgoing_message.contains_email?
                 if @user.nil?
-                    message += (_("<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"%s\">details</a>).</p>") % [help_privacy_path+"#email_address"]).html_safe;
+                    message += _("<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>", :url => (help_privacy_path+"#email_address").html_safe);
                 else
-                    message += (_("<p>You do not need to include your email in the request in order to get a reply (<a href=\"%s\">details</a>).</p>") % [help_privacy_path+"#email_address"]).html_safe;
+                    message += _("<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>", :url => (help_privacy_path+"#email_address").html_safe);
                 end
                 message += _("<p>We recommend that you edit your request and remove the email address.
                 If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>")
@@ -333,7 +333,7 @@ class RequestController < ApplicationController
                 message += _("<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>");
             end
             if not message.empty?
-                flash.now[:error] = message
+                flash.now[:error] = message.html_safe
             end
             render :action => 'preview'
             return

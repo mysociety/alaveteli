@@ -219,11 +219,11 @@ msgstr "<p>Drago nam je da ste dobili sve željene informacije. Ako ih budete ko
 msgid "<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
 msgstr "<p>Drago nam je da ste dobili dio željenih informacija. Ako mislite da je {{site_name}} bio koristan, <a href=\"{{donation_url}}\">donirajte</a> nevladinoj organizaciji koja ga vodi.</p>"
 
-msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"%s\">details</a>).</p>"
-msgstr "<p>Nije potrebno da uključite Vašu e-mail adresu u zahtev da biste dobili odgovor (<a href=\"%s\">Više informacija</a>).</p>"
+msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
+msgstr "<p>Nije potrebno da uključite Vašu e-mail adresu u zahtev da biste dobili odgovor (<a href=\"{{url}}\">Više informacija</a>).</p>"
 
-msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"%s\">details</a>).</p>"
-msgstr "<p>Nije potrebno da uključite Vašu e-mail adresu u zahtev da biste dobili odgovor, pitati ćemo vas u vezi toga u sledećem koraku (<a href=\"%s\">Više informacija</a>).</p>"
+msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>"
+msgstr "<p>Nije potrebno da uključite Vašu e-mail adresu u zahtev da biste dobili odgovor, pitati ćemo vas u vezi toga u sledećem koraku (<a href=\"{{url}}\">Više informacija</a>).</p>"
 
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
 msgstr ""
