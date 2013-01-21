@@ -3371,10 +3371,10 @@ msgstr ""
 msgid "You've now cleared your profile photo"
 msgstr "Eltávolította profilképét "
 
-msgid "Your %d Freedom of Information request"
-msgid_plural "Your %d Freedom of Information requests"
+msgid "Your {{count}} Freedom of Information request"
+msgid_plural "Your {{count}} Freedom of Information requests"
 msgstr[0] "Ön még nem készített adatigénylést"
-msgstr[1] "Az ön %d adatigénylése"
+msgstr[1] "Az ön {{count}} adatigénylése"
 
 msgid "Your %d annotation"
 msgid_plural "Your %d annotations"

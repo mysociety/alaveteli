@@ -3616,8 +3616,8 @@ msgid "You've now cleared your profile photo"
 msgstr ""
 
 #: app/views/user/show.rhtml:149
-msgid "Your %d Freedom of Information request"
-msgid_plural "Your %d Freedom of Information requests"
+msgid "Your {{count}} Freedom of Information request"
+msgid_plural "Your {{count}} Freedom of Information requests"
 msgstr[0] ""
 msgstr[1] ""
 
