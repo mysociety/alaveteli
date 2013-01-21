@@ -168,8 +168,8 @@ msgstr "<a href=\"%s\">Ireki saioa</a> zure pasahitza aldatzeko, inskribatzeko..
 msgid "details"
 msgstr "xehetasunak"
 
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">Zer da hau?</a>"
+msgid "what's that?"
+msgstr "Zer da hau?"
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Eginda dago! Eskerrik asko zure laguntzagatik.</p> {{site_name}} laguntzeko<p>badaude<a href=\"{{helpus_url}}\">egin ditzakezun gauza gehiago</a>.</p>"

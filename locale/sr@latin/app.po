@@ -175,8 +175,8 @@ msgstr "<a href=\"%s\">Prijavite se</a> da biste promijenili password, pretplatu
 msgid "details"
 msgstr "detalji"
 
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">šta je to?</a>"
+msgid "what's that?"
+msgstr "šta je to?"
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Završeno! Hvala Vam na pomoći.</p><p>Postoji <a href=\"{{helpus_url}}\">više stvari koje možete uradite</a> da biste pomogli {{site_name}}.</p>"

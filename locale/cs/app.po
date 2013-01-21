@@ -175,8 +175,8 @@ msgstr "<a href=\"%s\">Přihlašte se/a> pro změnu hesla, pro odběr zpráv atd
 msgid "details"
 msgstr "detaily"
 
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">co je to?</a>"
+msgid "what's that?"
+msgstr "co je to?"
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Hotovo! Děkujeme za vaši pomoc.</p><p>Můžete nám <a href=\"{{helpus_url}}\"> také pomoci se stránkami</a>  {{site_name}}</p>"

@@ -154,7 +154,7 @@ msgstr ""
 msgid "details"
 msgstr ""
 
-msgid "<a href=\"%s\">what's that?</a>"
+msgid "what's that?"
 msgstr ""
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"

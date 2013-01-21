@@ -169,8 +169,8 @@ msgstr "<a href=\"%s\">Jelentkezzen be</a> a jelszó módosításához, a felira
 msgid "details"
 msgstr "részletek"
 
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">mi ez?</a> "
+msgid "what's that?"
+msgstr "mi ez? "
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Kész! Köszönjük segítségét.</p><p>Különféle <a href=\"{{helpus_url}}\">módokon tud</a> segítséget nyújtani a {{site_name}} számára.</p> "

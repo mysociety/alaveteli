@@ -172,8 +172,8 @@ msgstr "<a href=\"%s\">Obre una sessió</a> per canviar la teva contrasenya, sus
 msgid "details"
 msgstr "detalls"
 
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">Què és això?</a>"
+msgid "what's that?"
+msgstr "Què és això?"
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p> Ja està! Moltes gràcies per la teva ajuda.</p><p>Hi ha <a href=\"{{helpus_url}}\">més coses que pots fer</a> per ajudar a {{site_name}}.</p>"

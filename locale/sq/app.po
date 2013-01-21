@@ -179,8 +179,8 @@ msgstr "<a href=\"%s\">Kyçu</a> për të ndryshuar fjalëkalimin, abonimet dhe 
 msgid "details"
 msgstr "detajet"
 
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">Çfarë është ajo?</a>"
+msgid "what's that?"
+msgstr "Çfarë është ajo?"
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Të gjitha u bënë! Shumë faleminderit  për ndihmën tënde. </p><p>Ka <a href=\"{{helpus_url}}\">shumë gjëra që ti mund të bësh</a> për të ndihmuar {{site_name}}. </p>"

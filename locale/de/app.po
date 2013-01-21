@@ -168,8 +168,8 @@ msgstr "<a href=\"%s\">Melden Sie sich an,</a> um Ihr Passwort und weitere Einst
 msgid "details"
 msgstr "Details"
 
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">Was ist das?</a>"
+msgid "what's that?"
+msgstr "Was ist das?"
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Fertig! Ganz herzlichen Dank für Ihre Hilfe.</p><p>Es gibt <a href=\"{{helpus_url}}\">noch mehr womit Sie uns helfen können</a>{{site_name}}.</p>"
