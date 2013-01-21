@@ -625,7 +625,7 @@ class RequestController < ApplicationController
 
         if !params[:submitted_followup].nil? && !params[:reedit]
             if @info_request.allow_new_responses_from == 'nobody'
-                flash[:error] = (_('Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="%s">contact us</a> if you really want to send a follow up message.') % [help_contact_path]).html_safe
+                flash[:error] = _('Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="{{url}}">contact us</a> if you really want to send a follow up message.', :url => help_contact_path.html_safe)
             else
                 if @info_request.find_existing_outgoing_message(params[:outgoing_message][:body])
                     flash[:error] = _('You previously submitted that exact follow up message for this request.')

@@ -2601,13 +2601,7 @@ msgstr ""
 msgid "We don't know whether the most recent response to this request contains\\n    information or not\\n        &ndash;\\n\tif you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""
 
-<<<<<<< HEAD
-msgid "We will not reveal your email address to anybody unless you or\\n        the law tell us to (<a href=\"%s\">details</a>). "
-=======
-msgid ""
-"We will not reveal your email address to anybody unless you or\\n        the"
-" law tell us to (<a href=\"{{url}}\">details</a>). "
->>>>>>> 93505b4... Use {{}} instead of %s in url string interpolation.
+msgid "We will not reveal your email address to anybody unless you or\\n        the law tell us to (<a href=\"{{url}}\">details</a>). "
 msgstr ""
 
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
@@ -2822,7 +2816,14 @@ msgstr ""
 msgid "Your e-mail:"
 msgstr ""
 
+<<<<<<< HEAD
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"%s\">contact us</a> if you really want to send a follow up message."
+=======
+msgid ""
+"Your follow up has not been sent because this request has been stopped to "
+"prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to "
+"send a follow up message."
+>>>>>>> 18f6443... Use {{}} not %s in translation.
 msgstr ""
 
 msgid "Your follow up message has been sent on its way."
