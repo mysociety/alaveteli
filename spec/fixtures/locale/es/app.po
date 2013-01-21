@@ -3146,10 +3146,10 @@ msgid ""
 msgstr "Esta persona no ha realizado solicitudes de información usando esta web."
 
 #: app/views/user/show.rhtml:149
-msgid "This person's %d Freedom of Information request"
-msgid_plural "This person's %d Freedom of Information requests"
-msgstr[0] "Tu %d solicitud de información"
-msgstr[1] "Tus %d solicitudes de información"
+msgid "This person's {{count}} Freedom of Information request"
+msgid_plural "This person's {{count}} Freedom of Information requests"
+msgstr[0] "Tu {{count}} solicitud de información"
+msgstr[1] "Tus {{count}} solicitudes de información"
 
 #: app/views/user/show.rhtml:179
 msgid "This person's %d annotation"
