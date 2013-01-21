@@ -1215,8 +1215,8 @@ msgstr "Falls dies falsch ist oder Sie eine späte Antwort auf diese Anfrage ode
 msgid ""
 "If you are dissatisfied by the response you got from\\n            the "
 "public authority, you have the right to\\n            complain (<a "
-"href=\"%s\">details</a>)."
-msgstr "Sollten Sie mit den erhaltenen Informationen nicht zufrieden sein, haben Sie das Recht eine Beschwerde einzureichen (<a href=\"%s\">Details</a>)."
+"href=\"{{url}}\">details</a>)."
+msgstr "Sollten Sie mit den erhaltenen Informationen nicht zufrieden sein, haben Sie das Recht eine Beschwerde einzureichen (<a href=\"{{url}}\">Details</a>)."
 
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
 msgstr "Sollten weiterhin Probleme bestehen, bitte <a href=\"%s\">kontaktieren Sie uns</a>."
