@@ -2501,11 +2501,8 @@ msgstr "Dotaz byl <strong>úspěšný</strong>."
 msgid "The request was refused by the public authority"
 msgstr "Dotaz byl institucí zamítnut"
 
-msgid ""
-"The request you have tried to view has been removed. There are\\nvarious "
-"reasons why we might have done this, sorry we can't be more specific here. "
-"Please <a\\n    href=\"%s\">contact us</a> if you have any questions."
-msgstr "Dotaz, který jste si chtěli přečíst, byl odstraněn. Existují\nrůzné důvody, proč se tak stalo a omlouváme se, že je zde \nnemůžeme vysvětlit. \nProsíme <a⏎\n    href=\"%s\">kontaktujte nás,</a> pokud máte nějaké otázky."
+msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"{{url}}\">contact us</a> if you have any questions."
+msgstr "Dotaz, který jste si chtěli přečíst, byl odstraněn. Existují\nrůzné důvody, proč se tak stalo a omlouváme se, že je zde \nnemůžeme vysvětlit. \nProsíme <a⏎\n    href=\"{{url}}\">kontaktujte nás,</a> pokud máte nějaké otázky."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Tazatel z nějakého důvodu tento dotaz opustil ??"

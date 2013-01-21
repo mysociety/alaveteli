@@ -2867,10 +2867,7 @@ msgid "The request was refused by the public authority"
 msgstr "Kërkesa u refuzua nga autoriteti publik"
 
 #: app/views/request/hidden.rhtml:9
-msgid ""
-"The request you have tried to view has been removed. There are\n"
-"various reasons why we might have done this, sorry we can't be more specific here. Please <a\n"
-"    href=\"%s\">contact us</a> if you have any questions."
+msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"{{url}}\">contact us</a> if you have any questions."
 msgstr ""
 "Kërkesa që ti je përpjek për të parë është hequr (larguar). Ka arsye të "
 "ndryshme pse ne kemi mund për të bërë këtë, na vie keq që nuk mund të jemi "

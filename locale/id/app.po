@@ -2486,11 +2486,8 @@ msgstr "Permintaan <strong>berhasil</strong>."
 msgid "The request was refused by the public authority"
 msgstr "Permintaan ditolak oleh otoritas publik"
 
-msgid ""
-"The request you have tried to view has been removed. There are\\nvarious "
-"reasons why we might have done this, sorry we can't be more specific here. "
-"Please <a\\n    href=\"%s\">contact us</a> if you have any questions."
-msgstr "Permintaan yang Anda coba untuk tampilkan telah dihapus. Ada\nberbagai alasan mengapa kami mungkin melakukan hal ini, maaf kami tidak dapat lebih spesifik lagi di sini. Silakan <a\n    href=\"%s\">hubungi kami</a> jika Anda memiliki pertanyaan apapun."
+msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"{{url}}\">contact us</a> if you have any questions."
+msgstr "Permintaan yang Anda coba untuk tampilkan telah dihapus. Ada\nberbagai alasan mengapa kami mungkin melakukan hal ini, maaf kami tidak dapat lebih spesifik lagi di sini. Silakan <a\n    href=\"{{url}}\">hubungi kami</a> jika Anda memiliki pertanyaan apapun."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Pemohon telah mengabaikan permintaan ini karena beberapa alasan"

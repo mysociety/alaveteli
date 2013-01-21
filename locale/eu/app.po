@@ -2491,11 +2491,8 @@ msgstr "Eskabidea <strong>arrakastatsua</strong> izan da."
 msgid "The request was refused by the public authority"
 msgstr "_____ erakundeak ez du eskabidea onartu."
 
-msgid ""
-"The request you have tried to view has been removed. There are\\nvarious "
-"reasons why we might have done this, sorry we can't be more specific here. "
-"Please <a\\n    href=\"%s\">contact us</a> if you have any questions."
-msgstr "Ikusi nahi izan duzun eskabidea ezabatuta dago. Honetarako hainbat arrazoi daude, baina hemen izan gaitezke zehatzagoak. Mesedez, galderarik egin nahi baduzu jar zaitez gurekin <a href=\"%s\">harremanetan</a>."
+msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"{{url}}\">contact us</a> if you have any questions."
+msgstr "Ikusi nahi izan duzun eskabidea ezabatuta dago. Honetarako hainbat arrazoi daude, baina hemen izan gaitezke zehatzagoak. Mesedez, galderarik egin nahi baduzu jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a>."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Eskabide honetako sortzaileak zerbait dela eta ezabatu du"

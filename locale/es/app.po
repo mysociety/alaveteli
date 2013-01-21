@@ -2494,11 +2494,8 @@ msgstr "La solicitud fue <strong>exitosa</strong>."
 msgid "The request was refused by the public authority"
 msgstr "La solicitud ha sido rechazada por el organismo"
 
-msgid ""
-"The request you have tried to view has been removed. There are\\nvarious "
-"reasons why we might have done this, sorry we can't be more specific here. "
-"Please <a\\n    href=\"%s\">contact us</a> if you have any questions."
-msgstr "La solicitud que has intentado ver ha sido eliminada. Hay\nvarios posibles motivos para esto, pero no podemos ser más específicos aquí. Por favor <a\n    href=\"%s\">contáctanos</a> si tiene cualquier pregunta."
+msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"{{url}}\">contact us</a> if you have any questions."
+msgstr "La solicitud que has intentado ver ha sido eliminada. Hay\nvarios posibles motivos para esto, pero no podemos ser más específicos aquí. Por favor <a\n    href=\"{{url}}\">contáctanos</a> si tiene cualquier pregunta."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "El creador de la solicitud la ha cancelado por algún motivo"
