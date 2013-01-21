@@ -2795,12 +2795,6 @@ msgstr ""
 msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
 msgstr ""
 
-#: app/views/public_body/show.rhtml:7
-msgid "There is %d person following this authority"
-msgid_plural "There are %d people following this authority"
-msgstr[0] ""
-msgstr[1] ""
-
 #: app/views/request/_sidebar.rhtml:5
 msgid "There is {{count}} person following this request"
 msgid_plural "There are {{count}} people following this request"
