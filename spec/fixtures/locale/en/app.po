@@ -3643,8 +3643,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: app/views/user/show.rhtml:179
-msgid "Your %d annotation"
-msgid_plural "Your %d annotations"
+msgid "Your {{count}} annotation"
+msgid_plural "Your {{count}} annotations"
 msgstr[0] ""
 msgstr[1] ""
 

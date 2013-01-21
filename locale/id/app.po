@@ -3389,9 +3389,9 @@ msgid "Your {{count}} Freedom of Information request"
 msgid_plural "Your {{count}} Freedom of Information requests"
 msgstr[0] "Permintaan Freedom of Information {{count}} Anda"
 
-msgid "Your %d annotation"
-msgid_plural "Your %d annotations"
-msgstr[0] "Anotasi %d Anda"
+msgid "Your {{count}} annotation"
+msgid_plural "Your {{count}} annotations"
+msgstr[0] "Anotasi {{count}} Anda"
 
 msgid ""
 "Your <strong>name will appear publicly</strong> \\n        (<a "

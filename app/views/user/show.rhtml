@@ -158,7 +158,7 @@
             <% end %>
         <% else %>
             <h2 id="annotations">
-                <%= @is_you ? n_('Your %d annotation', 'Your %d annotations', @display_user.visible_comments.size) % @display_user.visible_comments.size : n_("This person's {{count}} annotation", "This person's {{count}} annotations", @display_user.visible_comments.size, :count => @display_user.visible_comments.size) %>
+                <%= @is_you ? n_('Your {{count}} annotation', 'Your {{count}} annotations', @display_user.visible_comments.size, :count => @display_user.visible_comments.size) : n_("This person's {{count}} annotation", "This person's {{count}} annotations", @display_user.visible_comments.size, :count => @display_user.visible_comments.size) %>
                   <!-- matches_estimated <%=@xapian_comments.matches_estimated%> -->
                 <%= @page_desc %>
             </h2>
