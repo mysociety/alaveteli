@@ -3087,10 +3087,10 @@ msgstr "Tu mensaje aparecerá en <strong>los motores de búsqueda</strong>"
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Tu nombre y su comentario aparecerán en los <strong>motores de búsqueda</strong>."
 
-msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"%s\">details</a>)."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Tu nombre, tu solicitud y cualquier respuesta aparecerán en los <strong>motoros de búsqueda</strong>\n"
-"        (<a href=\"%s\">detalles</a>)."
+"        (<a href=\"{{url}}\">detalles</a>)."
 
 msgid "Your name:"
 msgstr "Tu nombre:"

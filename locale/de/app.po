@@ -2937,10 +2937,10 @@ msgstr "Ihre Nachricht wird in <strong>Suchmaschinen</strong> angezeigt werden"
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Ihr Name und Ihr Kommentar wird in <strong>Suchmaschinen</strong>.angezeigt werden. "
 
-msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"%s\">details</a>)."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Ihr Name, Ihre Anfrage und alle Antworten werden in <strong>Suchmaschinen</strong> angezeigt werden\n"
-"        (<a href=\"%s\">Details</a>)."
+"        (<a href=\"{{url}}\">Details</a>)."
 
 msgid "Your name:"
 msgstr "Ihr Name:"

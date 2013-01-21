@@ -3083,10 +3083,10 @@ msgstr "Üzenete megjelenik a <strong>keresőmotorokban</strong> "
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Az ön neve és hozzászólásai megjelennek a <strong>keresőmotorokban</strong>. "
 
-msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"%s\">details</a>)."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Az ön neve, az igénylés és a válaszok megjelennek a <strong>keresőmotorokban</strong>. \n"
-"       <a href=\"%s\">Részletek itt.</a>"
+"       <a href=\"{{url}}\">Részletek itt.</a>"
 
 msgid "Your name:"
 msgstr "Neve: "

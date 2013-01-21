@@ -3101,10 +3101,10 @@ msgstr "Pesan Anda akan tampak di <strong>mesin pencari</strong>"
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Nama dan anotasi Anda akan tampak di <strong>mesin pencari</strong>."
 
-msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"%s\">details</a>)."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Nama Anda, permintaan dan setiap permintaan akan tampak di <strong>mesin pencari</strong>\n"
-"        (<a href=\"%s\">rincian</a>)."
+"        (<a href=\"{{url}}\">rincian</a>)."
 
 msgid "Your name:"
 msgstr "Nama Anda:"
