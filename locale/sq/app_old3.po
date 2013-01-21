@@ -3466,7 +3466,7 @@ msgid ""
 "Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
 "Për fat të keq ne nuk e dimë adresën emailit për kërkesa zyrtare për këtë "
-"autoritet, kështu që ne nuk mund ta vërtetojmë këtë. Të lutem të <a href=\"%s"
+"autoritet, kështu që ne nuk mund ta vërtetojmë këtë. Të lutem të <a href=\"{{url}}"
 "\">na kontakton</a> për ta rregulluar atë."
 
 #: app/views/request/new_bad_contact.rhtml:5
@@ -4046,10 +4046,10 @@ msgstr "Kërkesa yte:"
 
 #: app/views/request/upload_response.rhtml:8
 msgid ""
-"Your response will <strong>appear on the Internet</strong>, <a href=\"%s"
+"Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}"
 "\">read why</a> and answers to other questions."
 msgstr ""
-"Përgjegja yte do të <strong>shfaqet në internet,</strong> <a href=\"%s"
+"Përgjegja yte do të <strong>shfaqet në internet,</strong> <a href=\"{{url}}"
 "\">lexoni pse</a> dhe përgjegjet për pyetje të tjera."
 
 #: app/views/comment/new.rhtml:62
