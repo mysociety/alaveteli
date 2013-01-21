@@ -1615,8 +1615,8 @@ msgstr ""
 "Molimo odaberite svaki od ovih zahtjeva naizmjenice, i <strong>obavijestite sviju</strong>\n"
 "da li su bili uspješni ili ne."
 
-msgid "Please sign at the bottom with your name, or alter the \"%{signoff}\" signature"
-msgstr "Molimo da se na dnu potpišete, ili izmijenite  \"%{signoff}\" potpis"
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
+msgstr "Molimo da se na dnu potpišete, ili izmijenite  \"{{signoff}}\" potpis"
 
 msgid "Please sign in as "
 msgstr "Molimo prijavite se kao "

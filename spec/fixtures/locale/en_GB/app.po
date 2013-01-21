@@ -1984,7 +1984,7 @@ msgid ""
 msgstr ""
 
 #: app/models/outgoing_message.rb:157
-msgid "Please sign at the bottom with your name, or alter the \"%{signoff}\" signature"
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr ""
 
 #: app/views/user/sign.rhtml:8

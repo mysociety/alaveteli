@@ -1648,9 +1648,9 @@ msgstr ""
 "Silakan pilih masing-masing permintaan ini bergantian, dan <strong>biarkan semua orang tahu </strong>\n"
 "apakah mereka sudah berhasil atau belum."
 
-msgid "Please sign at the bottom with your name, or alter the \"%{signoff}\" signature"
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr ""
-"Mohon tandatangani bagian bawah dengan nama Anda, atau ubah \"%{signoff}\" tanda tangan\n"
+"Mohon tandatangani bagian bawah dengan nama Anda, atau ubah \"{{signoff}}\" tanda tangan\n"
 "Silakan masuk sebagai "
 
 msgid "Please sign in as "

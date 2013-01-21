@@ -1605,8 +1605,8 @@ msgstr ""
 "Të lutem selektoi të gjitha kërkesat një pas një, dhe <strong>bëje të njohur për të gjithë</strong>\n"
 "nëse kanë qenë të suksesshme deri tash apo jo."
 
-msgid "Please sign at the bottom with your name, or alter the \"%{signoff}\" signature"
-msgstr "Te lutem nënshkruaj në fund me emrin tënd, ose ndrysho \"% {signoff}\" nënshkrimin"
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
+msgstr "Te lutem nënshkruaj në fund me emrin tënd, ose ndrysho \"{{signoff}}\" nënshkrimin"
 
 msgid "Please sign in as "
 msgstr "Të lutem kyçu si "

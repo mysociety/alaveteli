@@ -1631,8 +1631,8 @@ msgstr ""
 "Por favor elije estas solicitudes una a una, y <strong>haz que se sepa</strong>\n"
 "si han tenido éxito o no."
 
-msgid "Please sign at the bottom with your name, or alter the \"%{signoff}\" signature"
-msgstr "Por favor, firma con tu nombre en la parte inferior, o cambia la firma \"%{signoff}\""
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
+msgstr "Por favor, firma con tu nombre en la parte inferior, o cambia la firma \"{{signoff}}\""
 
 msgid "Please sign in as "
 msgstr "Por favor abre una sesión como "

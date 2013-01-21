@@ -1502,7 +1502,7 @@ msgstr ""
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong>\\nif they are successful yet or not."
 msgstr ""
 
-msgid "Please sign at the bottom with your name, or alter the \"%{signoff}\" signature"
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr ""
 
 msgid "Please sign in as "
