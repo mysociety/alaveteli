@@ -2808,8 +2808,8 @@ msgid_plural "Your {{count}} Freedom of Information requests"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Your %d annotation"
-msgid_plural "Your %d annotations"
+msgid "Your {{count}} annotation"
+msgid_plural "Your {{count}} annotations"
 msgstr[0] ""
 msgstr[1] ""
 
