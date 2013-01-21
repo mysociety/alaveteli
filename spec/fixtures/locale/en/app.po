@@ -2913,8 +2913,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: app/views/user/show.rhtml:179
-msgid "This person's %d annotation"
-msgid_plural "This person's %d annotations"
+msgid "This person's {{count}} annotation"
+msgid_plural "This person's {{count}} annotations"
 msgstr[0] ""
 msgstr[1] ""
 

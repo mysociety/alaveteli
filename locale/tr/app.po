@@ -2709,8 +2709,8 @@ msgid "This person's {{count}} Freedom of Information request"
 msgid_plural "This person's {{count}} Freedom of Information requests"
 msgstr[0] ""
 
-msgid "This person's %d annotation"
-msgid_plural "This person's %d annotations"
+msgid "This person's {{count}} annotation"
+msgid_plural "This person's {{count}} annotations"
 msgstr[0] ""
 
 msgid "This person's annotations"
