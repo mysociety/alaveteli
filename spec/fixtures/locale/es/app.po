@@ -2137,10 +2137,8 @@ msgid ""
 msgstr "Por favor elije estas solicitudes una a una, y <strong>haz que se sepa</strong>\nsi han tenido éxito o no."
 
 #: app/models/outgoing_message.rb:157
-msgid ""
-"Please sign at the bottom with your name, or alter the \"%{signoff}\" "
-"signature"
-msgstr "Por favor, firma con tu nombre en la parte inferior, o cambia la firma \"%{signoff}\""
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
+msgstr "Por favor, firma con tu nombre en la parte inferior, o cambia la firma \"{{signoff}}\""
 
 #: app/views/user/sign.rhtml:8
 msgid "Please sign in as "

@@ -1860,10 +1860,8 @@ msgid ""
 "know</strong>\\nif they are successful yet or not."
 msgstr "Por favor, selecione uma solicitação por vez e <strong>deixe todo mundo saber</strong> se elas já são bem sucedidas ou não."
 
-msgid ""
-"Please sign at the bottom with your name, or alter the \"%{signoff}\" "
-"signature"
-msgstr "Por favor, assine com seu nome ao fim da mensagem, ou altere a sua \"%{signoff}\" assinatura"
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
+msgstr "Por favor, assine com seu nome ao fim da mensagem, ou altere a sua \"{{signoff}}\" assinatura"
 
 msgid "Please sign in as "
 msgstr "Faça o login como "

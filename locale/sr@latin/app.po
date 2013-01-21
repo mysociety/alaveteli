@@ -1850,10 +1850,8 @@ msgid ""
 "know</strong>\\nif they are successful yet or not."
 msgstr "Molimo odaberite svaki od ovih zahteva naizmjenice, i <strong>obavestite sve</strong>\nda li su bili uspešni ili ne."
 
-msgid ""
-"Please sign at the bottom with your name, or alter the \"%{signoff}\" "
-"signature"
-msgstr "Molimo da se na dnu potpišete, ili izmijenite  \"%{signoff}\" potpis"
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
+msgstr "Molimo da se na dnu potpišete, ili izmijenite  \"{{signoff}}\" potpis"
 
 msgid "Please sign in as "
 msgstr "Molimo prijavite se kao "

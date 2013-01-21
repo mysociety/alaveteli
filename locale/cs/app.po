@@ -1854,10 +1854,8 @@ msgid ""
 "know</strong>\\nif they are successful yet or not."
 msgstr "Vyberte každý dotaz jednotlivě, a <strong>dejte ostatním vědět</strong>\njestli byl úspěšně zodpovězen, nebo ne."
 
-msgid ""
-"Please sign at the bottom with your name, or alter the \"%{signoff}\" "
-"signature"
-msgstr "Podepište se na konci dopisu svým jménem, nebo změňte \"%{signoff}\" podpis. "
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
+msgstr "Podepište se na konci dopisu svým jménem, nebo změňte \"{{signoff}}\" podpis. "
 
 msgid "Please sign in as "
 msgstr "Přihlašte se jako"
