@@ -157,10 +157,8 @@ msgstr "<a href=\"%s\">Додайте коментар</a> (щоб допомо�
 msgid "Are we missing a public authority?"
 msgstr ""
 
-msgid "<a href=\"%s\">Are you the owner of\\n            any commercial copyright on this page?</a>"
-msgstr ""
-"<a href=\"%s\">Вам належить авторське право\n"
-" на будь-що на цій сторінці?</a>"
+msgid "Are you the owner of any commercial copyright on this page?"
+msgstr "Вам належить авторське право на будь-що на цій сторінці?"
 
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr "<a href=\"%s\">Переглянути всі</a> або <a href=\"%s\">попросити нас додати</a>."
