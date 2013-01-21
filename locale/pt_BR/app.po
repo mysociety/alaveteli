@@ -2673,7 +2673,7 @@ msgid "We don't know whether the most recent response to this request contains\\
 msgstr "Nós ainda não sabemos se esta última resposta contém ou não a informação que foi pedida. Se você for {{user_link}} por favor <a href=\"{{url}}\">acesse</a> e deixe todos saberem."
 
 msgid "We will not reveal your email address to anybody unless you or\\n        the law tell us to (<a href=\"%s\">details</a>). "
-msgstr "Nós não vamos revelar o seu endereço de e-mail para ninguém, ao menos que você ou a Justiça nos mandem fazer isso ( <a href=\"%s\">detalhes</a> )."
+msgstr "Nós não vamos revelar o seu endereço de e-mail para ninguém, ao menos que você ou a Justiça nos mandem fazer isso ( <a href=\"{{url}}\">detalhes</a> )."
 
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr "Nós não iremos revelar o seu endereço de email para ninguém a menos que a lei nos obrigue."

@@ -10,8 +10,8 @@
         <%= text_field 'user_signup', 'email', { :size => 20, :tabindex => 60 } %>
     </p>
     <div class="form_item_note">
-        <%= raw(_('We will not reveal your email address to anybody unless you or
-        the law tell us to (<a href="%s">details</a>). ') %[help_privacy_path]) %>
+        <%= _('We will not reveal your email address to anybody unless you or
+        the law tell us to (<a href="{{url}}">details</a>). ', :url => help_privacy_path) %>
     </div>
 
     <p>
@@ -19,10 +19,10 @@
         <%= text_field 'user_signup', 'name', { :size => 20, :tabindex => 70 } %>
     </p>
     <div class="form_item_note">
-         <%= raw(_('Your <strong>name will appear publicly</strong> 
+         <%= raw(_('Your <strong>name will appear publicly</strong>
         (<a href="%s">why?</a>)
         on this website and in search engines. If you
-        are thinking of using a pseudonym, please 
+        are thinking of using a pseudonym, please
         <a href="%s">read this first</a>.') % [help_privacy_path+"#public_request", help_privacy_path+"#real_name"]) %>
     </div>
 

@@ -2604,7 +2604,13 @@ msgstr ""
 msgid "We don't know whether the most recent response to this request contains\\n    information or not\\n        &ndash;\\n\tif you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""
 
+<<<<<<< HEAD
 msgid "We will not reveal your email address to anybody unless you or\\n        the law tell us to (<a href=\"%s\">details</a>). "
+=======
+msgid ""
+"We will not reveal your email address to anybody unless you or\\n        the"
+" law tell us to (<a href=\"{{url}}\">details</a>). "
+>>>>>>> 93505b4... Use {{}} instead of %s in url string interpolation.
 msgstr ""
 
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
