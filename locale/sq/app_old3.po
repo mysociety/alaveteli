@@ -211,9 +211,9 @@ msgid ""
 msgstr ""
 
 #: app/views/request/_after_actions.rhtml:9
-msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
+msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
 msgstr ""
-"<a href=\"%s\">Shto një shënim</a> (për të ndihmuar kërkuesit ose të tjerët)"
+"<a href=\"{{url}}\">Shto një shënim</a> (për të ndihmuar kërkuesit ose të tjerët)"
 
 #: app/views/public_body/list.rhtml:29
 msgid "Are we missing a public authority?"
@@ -221,21 +221,21 @@ msgstr "A po mungon ndonjë autoritet publik?"
 
 #: app/views/request/_sidebar.rhtml:45
 msgid ""
-"<a href=\"%s\">Are you the owner of\n"
+"<a href=\"{{url}}\">Are you the owner of\n"
 "            any commercial copyright on this page?</a>"
 msgstr ""
-"<a href=\"%s\">Are you the owner of any commercial copyright on this page?</"
+"<a href=\"{{url}}\">Are you the owner of any commercial copyright on this page?</"
 "a>"
 
 #: app/views/general/search.rhtml:53
-msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
+msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr ""
-"<a href=\"%s\">Kërkoni të gjitha</a> ose <a href=\"%s\">të na pyetni ne që "
+"<a href=\"{{browse_url}}\">Kërkoni të gjitha</a> ose <a href=\"{{add_url}}\">të na pyetni ne që "
 "të shtoni një</a> ."
 
 #: app/views/general/exception_caught.rhtml:13
-msgid "<a href=\"%s\">Contact us</a> to tell us about the problem</li>"
-msgstr "<a href=\"%s\">Na kontakto</a> për të na tregu për problemin</li>"
+msgid "<a href=\"{{url}}\">Contact us</a> to tell us about the problem</li>"
+msgstr "<a href=\"{{url}}\">Na kontakto</a> për të na tregu për problemin</li>"
 
 #: app/views/public_body/list.rhtml:43
 msgid "Can't find the one you want?"
@@ -252,7 +252,7 @@ msgid ""
 "<a href=\"{{url}}\">Make a new Freedom of Information request</a> to "
 "{{public_body_name}}"
 msgstr ""
-"<a href=\"%s\">Bëj një kërkesë të re për Inforamata Zyrtare</a> te "
+"<a href=\"{{url}}\">Bëj një kërkesë të re për Inforamata Zyrtare</a> te "
 "{{public_body_name}}"
 
 #: app/controllers/request_game_controller.rb:23
@@ -392,7 +392,7 @@ msgstr ""
 #: app/views/request/new.rhtml:131
 msgid ""
 "<strong> Can I request information about myself?</strong>\n"
-"\t\t\t<a href=\"%s\">No! (Click here for details)</a>"
+"\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
 msgstr ""
 "AA <strong> Can I request information about myself?</strong>><a href=\"%s"
 "\">No! (Click here for details)</a>"
@@ -446,7 +446,7 @@ msgid ""
 "of statuses</a> below."
 msgstr ""
 "<strong><code>statusi:</code></strong> për të kërkuar në bazë të statusit të "
-"kërkesës apo historisë së statusit, shih <a href=\"%s\">tabelën e statuseve</"
+"kërkesës apo historisë së statusit, shih <a href=\"{{url}}\">tabelën e statuseve</"
 "a> më poshtë."
 
 #: app/views/general/search.rhtml:134
@@ -473,7 +473,7 @@ msgid ""
 "for, see the <a href=\"{{varieties_url}}\">table of varieties</a> below."
 msgstr ""
 "<strong><code>variantet:</code></strong> për të zgjedhur tipin e asaj që do "
-"të kërkosh, shih <a href=\"%s\">tabelën e varianteve</a> më poshtë."
+"të kërkosh, shih <a href=\"{{url}}\">tabelën e varianteve</a> më poshtë."
 
 #: app/views/comment/new.rhtml:56
 msgid ""
@@ -512,7 +512,7 @@ msgstr ""
 "the\n"
 "way authorities use it. Plus you'll need to be an elite statistician.  "
 "Please\n"
-"<a href=\"%s\">contact us</a> with questions."
+"<a href=\"{{url}}\">contact us</a> with questions."
 
 #: app/views/request/_other_describe_state.rhtml:28
 msgid "<strong>Clarification</strong> has been requested"
@@ -546,11 +546,11 @@ msgstr ""
 msgid ""
 "<strong>Privacy note:</strong> If you want to request private information "
 "about\n"
-"    yourself then <a href=\"%s\">click here</a>."
+"    yourself then <a href=\"{{url}}\">click here</a>."
 msgstr ""
 "AA <strong>Privacy note:</strong> If you want to request private information "
 "about\n"
-"    yourself then <a href=\"%s\">click here</a>."
+"    yourself then <a href=\"{{url}}\">click here</a>."
 
 #: app/views/user/set_crop_profile_photo.rhtml:35
 #, fuzzy
@@ -585,10 +585,10 @@ msgstr "AA <strong>Thank</strong> the public authority or "
 
 #: app/views/request/new.rhtml:23
 msgid ""
-"<strong>browse</strong> the authority's <a href=\"%s\">publication scheme</"
+"<strong>browse</strong> the authority's <a href=\"{{url}}\">publication scheme</"
 "a> or <strong>search</strong> their web site ..."
 msgstr ""
-"AA <strong>browse</strong> the authority's <a href=\"%s\">publication "
+"AA <strong>browse</strong> the authority's <a href=\"{{url}}\">publication "
 "scheme</a> or <strong>search</strong> their web site ..."
 
 #: app/views/request/show.rhtml:91
@@ -747,10 +747,10 @@ msgstr ""
 msgid ""
 "At the bottom of this page, write a reply to them trying to persuade them to "
 "scan it in\n"
-"            (<a href=\"%s\">more details</a>)."
+"            (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
 "AA At the bottom of this page, write a reply to them trying to persuade them "
-"to scan it in(<a href=\"%s\">more details</a>)."
+"to scan it in(<a href=\"{{url}}\">more details</a>)."
 
 #: app/views/request/upload_response.rhtml:33
 msgid "Attachment (optional):"
@@ -770,10 +770,10 @@ msgstr "Në pritje të përgjegjes."
 
 #: app/views/request/new.rhtml:43
 msgid ""
-"Browse  <a href=\"%s\">other requests</a> for examples of how to word your "
+"Browse  <a href=\"{{url}}\">other requests</a> for examples of how to word your "
 "request."
 msgstr ""
-"AA Browse  <a href=\"%s\">other requests</a> for examples of how to word "
+"AA Browse  <a href=\"{{url}}\">other requests</a> for examples of how to word "
 "your request."
 
 #: app/views/request/new.rhtml:41
@@ -800,14 +800,6 @@ msgid ""
 msgstr ""
 "AA By law, {{public_body_link}} should normally have responded "
 "<strong>promptly</strong> and"
-
-#: app/views/general/search.rhtml:17
-msgid ""
-"Can't find it? <a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add "
-"it</a>."
-msgstr ""
-"Nuk u gjet? <a href=\"%s\">Shfleto të gjtiha</a> apo <a href=\"%s\">kërko që "
-"të shtohet</a>."
 
 #: app/controllers/track_controller.rb:145
 msgid "Cancel a {{site_name}} alert"
@@ -1109,10 +1101,10 @@ msgstr ""
 #: app/views/request/upload_response.rhtml:23
 msgid ""
 "Enter your response below. You may attach one file (use email, or \n"
-"<a href=\"%s\">contact us</a> if you need more)."
+"<a href=\"{{url}}\">contact us</a> if you need more)."
 msgstr ""
 "Shkruaj përgjegjen tënde më poshtë. Ti mund të bashkëangjitësh një fajll "
-"(përdor e-mail, ose <a href=\"%s\">na kontakto</a> nëse ke nevojë për më "
+"(përdor e-mail, ose <a href=\"{{url}}\">na kontakto</a> nëse ke nevojë për më "
 "shumë)."
 
 #: app/views/public_body/show.rhtml:96
@@ -1137,23 +1129,23 @@ msgstr "Detajet e historikut të ngjarjeve"
 msgid ""
 "Everything that you enter on this page \n"
 "                will be <strong>displayed publicly</strong> on\n"
-"                this website forever (<a href=\"%s\">why?</a>)."
+"                this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "AA Everything that you enter on this page \n"
 "              will be <strong>displayed publicly</strong> on\n"
-"                this website forever (<a href=\"%s\">why?</a>)."
+"                this website forever (<a href=\"{{url}}\">why?</a>)."
 
 #: app/views/request/new.rhtml:116
 msgid ""
 "Everything that you enter on this page, including <strong>your name</"
 "strong>, \n"
 "                will be <strong>displayed publicly</strong> on\n"
-"                this website forever (<a href=\"%s\">why?</a>)."
+"                this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "AA Everything that you enter on this page, including <strong>your name</"
 "strong>, \n"
 "                will be <strong>displayed publicly</strong> on\n"
-"                this website forever (<a href=\"%s\">why?</a>)."
+"                this website forever (<a href=\"{{url}}\">why?</a>)."
 
 #: locale/model_attributes.rb:58
 msgid "EximLogDone|Filename"
@@ -1202,11 +1194,11 @@ msgid ""
 "First, type in the <strong>name of the UK public authority</strong> you'd \n"
 "           <br>like information from. <strong>By law, they have to respond</"
 "strong>\n"
-"           (<a href=\"%s\">why?</a>)."
+"           (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "Së pari, shkruani <strong>emrin e autoritetit publik </strong> <br> prej të "
 "cilit kërkoni informata. <strong>Sipas ligjit, ata duhet të përgjegjen</"
-"strong> ( <a href=\"%s\">pse?</a> )."
+"strong> ( <a href=\"{{url}}\">pse?</a> )."
 
 #: app/views/request_mailer/old_unclassified_updated.rhtml:4
 msgid "Follow this link to see the request:"
@@ -1234,7 +1226,7 @@ msgid ""
 msgstr ""
 "AA Follow ups and new responses to this request have been stopped to prevent "
 "spam. Please\n"
-"        <a href=\"%s\">contact us</a> if you are {{user_link}} and need to "
+"        <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to "
 "send a follow up."
 
 #: app/views/public_body/show.rhtml:61
@@ -1291,13 +1283,13 @@ msgid ""
 "From the request page, try replying to a particular message, rather than "
 "sending\n"
 "    a general followup. If you need to make a general followup, and know\n"
-"    an email which will go to the right place, please <a href=\"%s\">send it "
+"    an email which will go to the right place, please <a href=\"{{url}}\">send it "
 "to us</a>."
 msgstr ""
 "AA From the request page, try replying to a particular message, rather than "
 "sending\n"
 "    a general followup. If you need to make a general followup, and know\n"
-"    an email which will go to the right place, please <a href=\"%s\">send it "
+"    an email which will go to the right place, please <a href=\"{{url}}\">send it "
 "to us</a>."
 
 #: app/models/outgoing_message.rb:73
@@ -1305,8 +1297,8 @@ msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "JEPI DETAJET PËR ANKESËN TËNDE KËTU"
 
 #: app/views/general/exception_caught.rhtml:14
-msgid "Go to our <a href=\"%s\">front page</a></li>"
-msgstr "Shko te <a href=\"%s\">ballina</a> </li>"
+msgid "Go to our <a href=\"{{url}}\">front page</a></li>"
+msgstr "Shko te <a href=\"{{url}}\">ballina</a> </li>"
 
 #: app/models/info_request_event.rb:297
 msgid "Handled by post"
@@ -1344,7 +1336,7 @@ msgstr ""
 "the most recent event had its status updated to that value. "
 "<strong>calculated</strong> is then inferred by\n"
 "WhatDoTheyKnow for intermediate events, which weren't given an explicit\n"
-"description by a user. See the <a href=\"%s\">search tips</a> for "
+"description by a user. See the <a href=\"{{url}}\">search tips</a> for "
 "description of the states."
 
 #: app/views/request/_other_describe_state.rhtml:4
@@ -1462,25 +1454,25 @@ msgstr ""
 "            complain"
 
 #: app/views/user/no_cookies.rhtml:20
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr ""
-"AA If you are still having trouble, please <a href=\"%s\">contact us</a>."
+"AA If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 
 #: app/views/request/hidden.rhtml:15
 msgid ""
-"If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
+"If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view "
 "the request."
 msgstr ""
-"AA If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
+"AA If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view "
 "the request."
 
 #: app/views/request/new.rhtml:119
 msgid ""
 "If you are thinking of using a pseudonym,\n"
-"                please <a href=\"%s\">read this first</a>."
+"                please <a href=\"{{url}}\">read this first</a>."
 msgstr ""
 "AA If you are thinking of using a pseudonym,\n"
-"                please <a href=\"%s\">read this first</a>."
+"                please <a href=\"{{url}}\">read this first</a>."
 
 #: app/views/request/show.rhtml:105
 msgid "If you are {{user_link}}, please"
@@ -1698,10 +1690,10 @@ msgstr "Kontakt {{site_name}}"
 #: app/views/request/new.rhtml:48
 msgid ""
 "Keep it <strong>focused</strong>, you'll be more likely to get what you want "
-"(<a href=\"%s\">why?</a>)."
+"(<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "AA Keep it <strong>focused</strong>, you'll be more likely to get what you "
-"want (<a href=\"%s\">why?</a>)."
+"want (<a href=\"{{url}}\">why?</a>)."
 
 #: app/views/contact_mailer/message.rhtml:10
 msgid "Last authority viewed: "
@@ -2004,8 +1996,8 @@ msgid "Please"
 msgstr "Të lutem"
 
 #: app/views/user/no_cookies.rhtml:15
-msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
-msgstr "Të lutem <a href=\"%s\">na kontakto</a> që neve ta rregullojme ate."
+msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
+msgstr "Të lutem <a href=\"{{url}}\">na kontakto</a> që neve ta rregullojme ate."
 
 #: app/views/request/show.rhtml:52
 msgid ""
@@ -2033,7 +2025,7 @@ msgstr ""
 "title=\"Tab\">»</span>request {{request_link}}. If you would like to ask for "
 "information\n"
 "<span class=\"whitespace other\" title=\"Tab\">»</span>that was not in your "
-"original request, then <a href=\"%s\">file a new request</a>."
+"original request, then <a href=\"{{url}}\">file a new request</a>."
 
 #: app/views/request/new.rhtml:60
 msgid "Please ask for environmental information only"
@@ -2403,7 +2395,7 @@ msgid ""
 "Read about <a href=\"{{advanced_search_url}}\">advanced search operators</"
 "a>, such as proximity and wildcards."
 msgstr ""
-"Lexo rreth <a href=\"%s\">kërkimit të avansuar të operatorëve</a> , të tilla "
+"Lexo rreth <a href=\"{{url}}\">kërkimit të avansuar të operatorëve</a> , të tilla "
 "si afërsia dhe gjithëpërfshirëse."
 
 #: app/views/layouts/default.rhtml:93
@@ -2840,13 +2832,13 @@ msgstr ""
 #: app/views/request/show_response.rhtml:22
 msgid ""
 "The law, the Ministry of Justice and the Information Commissioner\n"
-"            all say that an email is sufficient (<a href=\"%s\">more "
+"            all say that an email is sufficient (<a href=\"{{url}}\">more "
 "details</a>).\n"
 "            At the bottom of this page, write a reply to the authority "
 "explaining this to them."
 msgstr ""
 "AA The law, the Ministry of Justice and the Information Commissioner\n"
-"            all say that an email is sufficient (<a href=\"%s\">more "
+"            all say that an email is sufficient (<a href=\"{{url}}\">more "
 "details</a>).\n"
 "            At the bottom of this page, write a reply to the authority "
 "explaining this to them."
@@ -2915,7 +2907,7 @@ msgid ""
 msgstr ""
 "Kërkesa që ti je përpjek për të parë është hequr (larguar). Ka arsye të "
 "ndryshme pse ne kemi mund për të bërë këtë, na vie keq që nuk mund të jemi "
-"më specifik. Të lutem të <a href=\"%s\">na kontakton</a> nëse ke ndonjë "
+"më specifik. Të lutem të <a href=\"{{url}}\">na kontakton</a> nëse ke ndonjë "
 "pyetje."
 
 #: app/views/general/search.rhtml:152
@@ -3126,7 +3118,7 @@ msgid ""
 "s\">sign in</a> to view the response."
 msgstr ""
 "Ky koment është fshehur. Shih shënimet për të gjetur pse. Nëse ti je "
-"kërkuesi, atëherë ti mund të <a href=\"%s\">kyçesh </a> për të parë "
+"kërkuesi, atëherë ti mund të <a href=\"{{url}}\">kyçesh </a> për të parë "
 "përgjegjen."
 
 #: app/views/request/new.rhtml:65
@@ -3223,20 +3215,20 @@ msgstr ""
 #: app/views/request/show.rhtml:11
 msgid ""
 "This request is hidden, so that only you the requester can see it. Please\n"
-"    <a href=\"%s\">contact us</a> if you are not sure why."
+"    <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr ""
 "Kjo kërkesë është e fshehur, kështu që vetëm ti -  kërkuesi mund ta shoh "
-"ate. Të lutem <a href=\"%s\">na kontakto</a> nëse nuk je i sigurt pse kjo po "
+"ate. Të lutem <a href=\"{{url}}\">na kontakto</a> nëse nuk je i sigurt pse kjo po "
 "ndodhë."
 
 #: app/views/request/_hidden_correspondence.rhtml:10
 msgid ""
 "This response has been hidden. See annotations to find out why.\n"
-"            If you are the requester, then you may <a href=\"%s\">sign in</"
+"            If you are the requester, then you may <a href=\"{{url}}\">sign in</"
 "a> to view the response."
 msgstr ""
 "Kjo përgjegje është fshehur. Shih shënimet për të gjetur pse. Nëse ti je "
-"kërkuesi, atëherë ti mund të <a href=\"%s\">kyçesh</a> për të parë "
+"kërkuesi, atëherë ti mund të <a href=\"{{url}}\">kyçesh</a> për të parë "
 "përgjegjen."
 
 #: app/views/request/new.rhtml:49
@@ -3485,7 +3477,7 @@ msgstr "AA Unexpected search result type "
 msgid ""
 "Unfortunately we don't know the FOI\n"
 "email address for that authority, so we can't validate this.\n"
-"Please <a href=\"%s\">contact us</a> to sort it out."
+"Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
 "Për fat të keq ne nuk e dimë adresën emailit për kërkesa zyrtare për këtë "
 "autoritet, kështu që ne nuk mund ta vërtetojmë këtë. Të lutem të <a href=\"%s"
@@ -3659,7 +3651,7 @@ msgstr ""
 "    information or not\n"
 "        &ndash;\n"
 "<span class=\"whitespace other\" title=\"Tab\">»</span>if you are "
-"{{user_link}} please <a href=\"%s\">sign in</a> and let everyone know."
+"{{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 
 #: app/views/user_mailer/confirm_login.rhtml:8
 msgid "We will not reveal your email address to anybody unless you or the law tell us to"
@@ -3725,10 +3717,10 @@ msgstr ""
 
 #: app/views/request/new_please_describe.rhtml:16
 msgid ""
-"When you're done, <strong>come back here</strong>, <a href=\"%s\">reload "
+"When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload "
 "this page</a> and file your new request."
 msgstr ""
-"AA When you're done, <strong>come back here</strong>, <a href=\"%s\">reload "
+"AA When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload "
 "this page</a> and file your new request."
 
 #: app/views/request/show_response.rhtml:13
@@ -3805,7 +3797,7 @@ msgid ""
 msgstr ""
 "AA You can get this page in computer-readable format as part of the main "
 "JSON\n"
-"page for the request.  See the <a href=\"%s\">API documentation</a>."
+"page for the request.  See the <a href=\"{{url}}\">API documentation</a>."
 
 #: app/views/public_body/show.rhtml:40
 msgid ""
@@ -3863,21 +3855,21 @@ msgstr ""
 msgid ""
 "You may be able to find\n"
 "    one on their website, or by phoning them up and asking. If you manage\n"
-"    to find one, then please <a href=\"%s\">send it to us</a>."
+"    to find one, then please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
 "AA You may be able to find\n"
 "    one on their website, or by phoning them up and asking. If you manage\n"
-"    to find one, then please <a href=\"%s\">send it to us</a>."
+"    to find one, then please <a href=\"{{url}}\">send it to us</a>."
 
 #: app/views/request/new_bad_contact.rhtml:6
 msgid ""
 "You may be able to find\n"
 "one on their website, or by phoning them up and asking. If you manage\n"
-"to find one, then please <a href=\"%s\">send it to us</a>."
+"to find one, then please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
 "AA You may be able to find\n"
 "one on their website, or by phoning them up and asking. If you manage\n"
-"to find one, then please <a href=\"%s\">send it to us</a>."
+"to find one, then please <a href=\"{{url}}\">send it to us</a>."
 
 #: app/controllers/user_controller.rb:470
 msgid "You need to be logged in to change the text about you on your profile."
@@ -3960,18 +3952,13 @@ msgid "Your "
 msgstr "AA Your "
 
 #: app/views/user/_signup.rhtml:22
-msgid ""
-"Your <strong>name will appear publicly</strong> \n"
-"        (<a href=\"%s\">why?</a>)\n"
-"        on this website and in search engines. If you\n"
-"        are thinking of using a pseudonym, please \n"
-"        <a href=\"%s\">read this first</a>."
+msgid "Your <strong>name will appear publicly</strong> \\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please \\n        <a href=\"{{help_url}}\">read this first</a>."
 msgstr ""
 "AA Your <strong>name will appear publicly</strong> \n"
-"        (<a href=\"%s\">why?</a>)\n"
+"        (<a href=\"{{why_url}}\">why?</a>)\n"
 "        on this website and in search engines. If you\n"
 "        are thinking of using a pseudonym, please \n"
-"        <a href=\"%s\">read this first</a>."
+"        <a href=\"{{help_url}}\">read this first</a>."
 
 #: app/views/contact_mailer/user_message.rhtml:3
 msgid ""
@@ -3995,7 +3982,7 @@ msgstr "Email abonimet e tua"
 #: app/controllers/request_controller.rb:556
 msgid ""
 "Your follow up has not been sent because this request has been stopped to "
-"prevent spam. Please <a href=\"%s\">contact us</a> if you really want to "
+"prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to "
 "send a follow up message."
 msgstr ""
 
@@ -4144,7 +4131,7 @@ msgstr "shënimet"
 #: app/models/track_thing.rb:138
 #, fuzzy
 msgid "any <a href=\"/list\">new requests</a>"
-msgstr "<a href=\"%s\">detajet</a>"
+msgstr "<a href=\"{{url}}\">detajet</a>"
 
 #: app/models/track_thing.rb:154
 msgid "any <a href=\"/list/successful\">successful requests</a>"
@@ -4288,14 +4275,14 @@ msgid ""
 "    From the request page, try replying to a particular message, rather than "
 "sending\n"
 "    a general followup. If you need to make a general followup, and know\n"
-"    an email which will go to the right place, please <a href=\"%s\">send it "
+"    an email which will go to the right place, please <a href=\"{{url}}\">send it "
 "to us</a>."
 msgstr ""
 "AA no longer exists. If you are trying to make\n"
 "    From the request page, try replying to a particular message, rather than "
 "sending\n"
 "    a general followup. If you need to make a general followup, and know\n"
-"    an email which will go to the right place, please <a href=\"%s\">send it "
+"    an email which will go to the right place, please <a href=\"{{url}}\">send it "
 "to us</a>."
 
 #: app/views/request/show.rhtml:72

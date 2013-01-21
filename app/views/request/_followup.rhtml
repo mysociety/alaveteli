@@ -98,7 +98,7 @@
                     <div>
                         <%= radio_button "outgoing_message", "what_doing", "internal_review", :id => "internal_review" %>
                         <label for="internal_review"><%= _('I am requesting an <strong>internal review</strong>') %> 
-						<%= raw(_('<a href="%s">what\'s that?</a>') % ["/help/unhappy"]) %>
+						<%= _('<a href="{{url}}">what\'s that?</a>', :url => "/help/unhappy".html_safe) %>
                         </label>
                     </div>
                     <div>

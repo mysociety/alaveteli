@@ -12,7 +12,7 @@
   <h1><%= _('Respond to the FOI request')%> '<%=request_link(@info_request)%>'<% _(' made by ')%><%=user_link(@info_request.user) %></h1>
 
   <p>
-      <%= _('Your response will <strong>appear on the Internet</strong>, <a href="%s">read why</a> and answers to other questions.')% [help_officers_path] %>
+      <%= _('Your response will <strong>appear on the Internet</strong>, <a href="{{url}}">read why</a> and answers to other questions.', :url => help_officers_path.html_safe) %>
   </p>
 
   <h2><%= _('Respond by email')%></h2>
@@ -28,7 +28,7 @@
   <h2><%= _('Respond using the web')%></h2>
 
   <p><%= _('Enter your response below. You may attach one file (use email, or
-  <a href="%s">contact us</a> if you need more).')% [help_contact_path] %></p>
+  <a href="{{url}}">contact us</a> if you need more).', :url => help_contact_path.html_safe) %></p>
 
   <% form_tag '', :id => 'upload_response_form', :multipart => true do %>
       <p>

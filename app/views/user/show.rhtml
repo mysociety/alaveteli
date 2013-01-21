@@ -97,7 +97,7 @@
 
     <% if not @is_you %>
         <p id="user_not_logged_in">
-           <%= raw(_('<a href="%s">Sign in</a> to change password, subscriptions and more ({{user_name}} only)',:user_name=>h(@display_user.name)) % [signin_url(:r => request.request_uri)]) %>
+           <%= _('<a href="{{url}}">Sign in</a> to change password, subscriptions and more ({{user_name}} only)',:user_name=>h(@display_user.name), :url => signin_url(:r => request.request_uri).html_safe) %>
         </p>
     <% end %>
   </div>
