@@ -4492,11 +4492,6 @@ msgstr ""
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} bëri këtë {{law_used_full}} kërkesë"
 
-#~ msgid "%d Freedom of Information request"
-#~ msgid_plural "%d Freedom of Information requests"
-#~ msgstr[0] "%d Freedom of Information requests"
-#~ msgstr[1] "%d Freedom of Information requests"
-
 #~ msgid ""
 #~ "Authority has replied but the response <strong>does not correspond to the "
 #~ "request</strong>"
