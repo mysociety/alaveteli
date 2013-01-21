@@ -173,8 +173,8 @@ msgstr ""
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Posseeix el copyright d'alguna informació d'aquesta pàgina?"
 
-msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
-msgstr "<a href=\"%s\">Veure totes</a> o <a href=\"%s\">demana'ns que n'afegim una</a>."
+msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
+msgstr "<a href=\"{{browse_url}}\">Veure totes</a> o <a href=\"{{add_url}}\">demana'ns que n'afegim una</a>."
 
 msgid "Can't find the one you want?"
 msgstr "No troba el que busca?"

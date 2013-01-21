@@ -172,8 +172,8 @@ msgstr ""
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Orrialde honetako infomazioaren eskubideak dituzu zuk?"
 
-msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
-msgstr "<a href=\"%s\">Guztiak ikusi</a> o <a href=\"%s\">eskatu beste bat gehitzeko</a>."
+msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
+msgstr "<a href=\"{{browse_url}}\">Guztiak ikusi</a> o <a href=\"{{add_url}}\">eskatu beste bat gehitzeko</a>."
 
 msgid "Can't find the one you want?"
 msgstr "Ez duzu bilatzen ari zaren hori aurkitzen?"

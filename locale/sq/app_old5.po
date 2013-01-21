@@ -233,7 +233,7 @@ msgid "Are you the owner of any commercial copyright on this page?"
 msgstr ""
 
 #: app/views/general/search.rhtml:53
-msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
+msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr ""
 "<a href=\"%s\">Shfletoni të gjitha</a> ose <a href=\"%s\">kërkoni nga ne që "
 "të shtojmë një</a> ."

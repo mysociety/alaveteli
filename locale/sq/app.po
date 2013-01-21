@@ -177,8 +177,8 @@ msgstr ""
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "A je pronar i ndonjë të drejte autoriale komerciale në këtë faqe?"
 
-msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
-msgstr "<a href=\"%s\">Shfletoni të gjitha</a> ose <a href=\"%s\">kërkoni nga ne që të shtojmë një</a>."
+msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
+msgstr "<a href=\"{{browse_url}}\">Shfletoni të gjitha</a> ose <a href=\"{{add_url}}\">kërkoni nga ne që të shtojmë një</a>."
 
 msgid "Can't find the one you want?"
 msgstr "Nuk mund të gjen autoritetin që dëshiron?"

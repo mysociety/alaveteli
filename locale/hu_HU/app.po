@@ -171,8 +171,8 @@ msgstr ""
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "Tulajdonosa az oldalon található bármely kereskedelmi célú szerzői jognak?"
 
-msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
-msgstr "<a href=\"%s\">Böngésszen az összes között</a> vagy <a href=\"%s\">ha kéri, felvesszük a hiányzót</a>. "
+msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
+msgstr "<a href=\"{{browse_url}}\">Böngésszen az összes között</a> vagy <a href=\"{{add_url}}\">ha kéri, felvesszük a hiányzót</a>. "
 
 msgid "Can't find the one you want?"
 msgstr "Nem találja, amit keresett?"
