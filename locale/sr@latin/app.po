@@ -780,7 +780,7 @@ msgstr "Nismo uspeli konvertovati sliku u odgovarajuću veličinu:  {{cols}}x{{r
 msgid "Filter"
 msgstr "Filtriraj"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"%s#%s\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 
 msgid "Foi attachment"

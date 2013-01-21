@@ -1012,7 +1012,7 @@ msgstr ""
 msgid ""
 "First, type in the <strong>name of the UK public authority</strong> you'd \n"
 "           like information from. <strong>By law, they have to respond</strong>\n"
-"           (<a href=\"%s#%s\">why?</a>)."
+"           (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 
 #: locale/model_attributes.rb:88

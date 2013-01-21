@@ -758,8 +758,8 @@ msgstr "Irudia behar bezalako tamainera bihurtzean huts egin da:: {{cols}}x{{row
 msgid "Filter"
 msgstr "Iragazi"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"%s#%s\">why?</a>)."
-msgstr "Lehenbizi, idatz ezazu informazioa eskatu nahi diozun <strong>erakundearen izena</strong>. <strong>Erantzuna eman behar dute</strong> (<a href=\"%s#%s\">zergatik?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgstr "Lehenbizi, idatz ezazu informazioa eskatu nahi diozun <strong>erakundearen izena</strong>. <strong>Erantzuna eman behar dute</strong> (<a href=\"{{url}}\">zergatik?</a>)."
 
 msgid "Foi attachment"
 msgstr ""

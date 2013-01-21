@@ -796,8 +796,8 @@ msgstr "Error al convertir la imagen al tamaño adecuado: es {{cols}}x{{rows}}, 
 msgid "Filter"
 msgstr "Filtrar"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"%s#%s\">why?</a>)."
-msgstr "Primero, escribe el <strong>nombre de la institución</strong> a la que quieres pedir información. <strong>Están obligados a responder</strong> (<a href=\"%s#%s\">¿por qué?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgstr "Primero, escribe el <strong>nombre de la institución</strong> a la que quieres pedir información. <strong>Están obligados a responder</strong> (<a href=\"{{url}}\">¿por qué?</a>)."
 
 msgid "Foi attachment"
 msgstr ""

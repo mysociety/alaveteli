@@ -785,11 +785,11 @@ msgstr "Konvertimi i imazhit në madhësinë adekuate dështoi: në {{cols}}x{{r
 msgid "Filter"
 msgstr "Filtro"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"%s#%s\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "Së pari, shkruaj <strong>emrin e autoritetit publik</strong> prej të\n"
 "           <br>cilit kërkon informata. <strong>Sipas ligjit, ata duhet të\"\n"
-"           përgjigjen</strong> (<a href=\"%s#%s\">pse?</a>)."
+"           përgjigjen</strong> (<a href=\"{{url}}\">pse?</a>)."
 
 msgid "Foi attachment"
 msgstr "Shtojca QDP"

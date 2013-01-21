@@ -734,7 +734,7 @@ msgstr "Nous n'avons pas pu changer les dimensions de l'image: at {{cols}}x{{row
 msgid "Filter"
 msgstr ""
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"%s#%s\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 
 msgid "Foi attachment"

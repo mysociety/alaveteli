@@ -795,10 +795,10 @@ msgstr "Nepodařilo se konvertovat obrázek do správné velikosti: at {{cols}}x
 msgid "Filter"
 msgstr "Filtr"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"%s#%s\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "Nejdříve napište <strong>název instituce</strong>, od které chcete získat informace. <strong>Podle zákona vám musí odpovědět</strong>\n"
-"           (<a href=\"%s#%s\">proč?</a>)."
+"           (<a href=\"{{url}}\">proč?</a>)."
 
 msgid "Foi attachment"
 msgstr "Příloha k dotazu"

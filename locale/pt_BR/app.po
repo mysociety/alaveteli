@@ -761,10 +761,10 @@ msgstr "Erro ao tentar converter a imagem para o tamanho correto: no {{cols}}x{{
 msgid "Filter"
 msgstr "Filtro"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"%s#%s\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "Primeiro, insira o <strong>nome da autoridade pública brasileira</strong> da qual você gostaria de receber informação. <strong>Por lei, eles são obrigados a responder</strong>\n"
-"           (<a href=\"%s#%s\">por quê?</a>)."
+"           (<a href=\"{{url}}\">por quê?</a>)."
 
 msgid "Foi attachment"
 msgstr "Anexo do pedido"

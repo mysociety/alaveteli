@@ -785,11 +785,11 @@ msgstr "Nem sikerült a képet a megfelelő méretre alakítani: {{cols}}x{{rows
 msgid "Filter"
 msgstr "Szűrő"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"%s#%s\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "Először is keresse ki a KiMitTud adatbázisából azt az <strong>adatgazdát</strong>, amelyiktől \n"
 "           információt szeretne kérni. <strong>A vonatkozó jogszabály értelmében az adatgazdának kötelező válaszolnia.</strong>\n"
-"          <a href=\"%s#%s\">... Miért?</a><br/>Írja be a keresett adatgazda nevét, vagy nevének (ismert) részletét az alábbi mezőbe!"
+"          <a href=\"{{url}}\">... Miért?</a><br/>Írja be a keresett adatgazda nevét, vagy nevének (ismert) részletét az alábbi mezőbe!"
 
 msgid "Foi attachment"
 msgstr ""

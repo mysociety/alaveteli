@@ -796,11 +796,11 @@ msgstr ""
 msgid "Filter"
 msgstr "Фільтр"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"%s#%s\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "Для початку, ввдеіть <strong>назву розпорядника інформації</strong>, від якого \n"
 "ви хотіли б щось дізнатись. <strong>Відповідно до законодавства, вони зобов’язані вам відповісти</strong>\n"
-"(<a href=\"%s#%s\">чому?</a>)."
+"(<a href=\"{{url}}\">чому?</a>)."
 
 msgid "Foi attachment"
 msgstr ""
