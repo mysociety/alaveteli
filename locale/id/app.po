@@ -2707,9 +2707,9 @@ msgid ""
 "This person has made no Freedom of Information requests using this site."
 msgstr "Orang ini belum membuat permintaan Freedom of Information apapun menggunakan situs ini."
 
-msgid "This person's %d Freedom of Information request"
-msgid_plural "This person's %d Freedom of Information requests"
-msgstr[0] "Orang ini %d permintaan Freedom of Information"
+msgid "This person's {{count}} Freedom of Information request"
+msgid_plural "This person's {{count}} Freedom of Information requests"
+msgstr[0] "Orang ini {{count}} permintaan Freedom of Information"
 
 msgid "This person's %d annotation"
 msgid_plural "This person's %d annotations"

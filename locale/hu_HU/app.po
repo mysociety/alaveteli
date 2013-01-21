@@ -2711,10 +2711,10 @@ msgid ""
 "This person has made no Freedom of Information requests using this site."
 msgstr "Ez a személy még nem igényelt közérdekű adatokat a KiMitTud weboldal segítségével. "
 
-msgid "This person's %d Freedom of Information request"
-msgid_plural "This person's %d Freedom of Information requests"
+msgid "This person's {{count}} Freedom of Information request"
+msgid_plural "This person's {{count}} Freedom of Information requests"
 msgstr[0] "Ez a felhasználó még nem kísér figyelemmel semmilyen adatigénylést figyel."
-msgstr[1] "Ez a felhazsnáló az alábbi %d adatigénylést kíséri figyelemmel."
+msgstr[1] "Ez a felhazsnáló az alábbi {{count}} adatigénylést kíséri figyelemmel."
 
 msgid "This person's %d annotation"
 msgid_plural "This person's %d annotations"
