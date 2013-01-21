@@ -246,8 +246,8 @@ msgid "details"
 msgstr "detajet"
 
 #: app/views/request/_followup.rhtml:74
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">Çfarë është ajo?</a>"
+msgid "what's that?"
+msgstr "Çfarë është ajo?"
 
 #: app/views/public_body/show.rhtml:50
 msgid ""

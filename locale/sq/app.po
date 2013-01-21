@@ -191,8 +191,8 @@ msgstr "<a href=\"%s\">Kyçu</a> për të ndryshuar fjalëkalimin, abonimet dhe 
 msgid "details"
 msgstr "detajet"
 
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">Çfarë është ajo?</a>"
+msgid "what's that?"
+msgstr "Çfarë është ajo?"
 
 msgid ""
 "<p>All done! Thank you very much for your help.</p><p>There are <a "

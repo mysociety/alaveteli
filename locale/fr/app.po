@@ -190,7 +190,7 @@ msgstr ""
 msgid "details"
 msgstr ""
 
-msgid "<a href=\"%s\">what's that?</a>"
+msgid "what's that?"
 msgstr ""
 
 msgid ""

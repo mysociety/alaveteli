@@ -236,8 +236,8 @@ msgid "details"
 msgstr "detajet"
 
 #: app/views/request/_followup.rhtml:77
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">Çfarë është ajo?</a>"
+msgid "what's that?"
+msgstr "Çfarë është ajo?"
 
 #: app/controllers/request_game_controller.rb:23
 msgid ""

@@ -193,8 +193,8 @@ msgstr "<a href=\"%s\">Přihlašte se/a> pro změnu hesla, pro odběr zpráv atd
 msgid "details"
 msgstr "detaily"
 
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">co je to?</a>"
+msgid "what's that?"
+msgstr "co je to?"
 
 msgid ""
 "<p>All done! Thank you very much for your help.</p><p>There are <a "

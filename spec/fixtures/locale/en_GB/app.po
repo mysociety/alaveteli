@@ -217,7 +217,7 @@ msgid "details"
 msgstr ""
 
 #: app/views/request/_followup.rhtml:101
-msgid "<a href=\"%s\">what's that?</a>"
+msgid "what's that?"
 msgstr ""
 
 #: app/controllers/request_game_controller.rb:23

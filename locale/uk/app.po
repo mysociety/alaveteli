@@ -189,8 +189,8 @@ msgstr "<a href=\"%s\">Увійдіть</a>, щоб змінити пароль,
 msgid "details"
 msgstr "деталі"
 
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">що це?</a>"
+msgid "what's that?"
+msgstr "що це?"
 
 msgid ""
 "<p>All done! Thank you very much for your help.</p><p>There are <a "

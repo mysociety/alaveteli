@@ -184,8 +184,8 @@ msgstr "<a href=\"%s\">Daftar</a> untuk mengubah kode sandi, langganan dan lain-
 msgid "details"
 msgstr "rincian"
 
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">Apa itu?</a>"
+msgid "what's that?"
+msgstr "Apa itu?"
 
 msgid ""
 "<p>All done! Thank you very much for your help.</p><p>There are <a "
