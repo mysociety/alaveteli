@@ -4,7 +4,12 @@
       <h2><%= _('Follow this authority')%></h2>
 
       <% follower_count = TrackThing.count(:all, :conditions => ["public_body_id = ?", @public_body.id]) %>
-      <p><%= raw(n_("<span id='follow_count'>%d</span> person is following this authority", "<span id='follow_count'>%d</span> people are following this authority", follower_count) % follower_count) %></p>
+      <p>
+        <%= n_("{{count}} person is following this authority",
+                "{{count}} people are following this authority",
+                follower_count,
+                :count => content_tag(:span, follower_count, :id => "follow_count")) %>
+      </p>
 
         <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
         <h2><%= _('More about this authority')%></h2>
@@ -56,7 +61,7 @@
                 <% else %>
                     <%= _('Make a new <strong>Freedom of Information</strong> request to {{public_body}}', :public_body => h(@public_body.name))%>
                 <% end %>
-                &nbsp;<%= _('<a class="link_button_green" href="{{url}}">{{text}}</a>', :url=>new_request_to_body_url(:url_name => @public_body.url_name), :text=>_("Start"))%>
+                &nbsp;<%= link_to _("Start"), new_request_to_body_url(:url_name => @public_body.url_name), :class => "link_button_green" %>
             <% elsif @public_body.has_notes? %>
                 <%= @public_body.notes_as_html %>
             <% elsif @public_body.not_requestable_reason == 'not_apply' %>
@@ -91,9 +96,15 @@
                     <%= pluralize(@public_body.info_requests.size, "Environmental Information Regulations request made using this site") %>
                 <% else %>
                <% if  @public_body.info_requests.size > 4 %>
-                <%= n_('Search within the %d Freedom of Information requests to %s', 'Search within the %d Freedom of Information requests made to %s', @public_body.info_requests.size) % [@public_body.info_requests.size, @public_body.name] %>
+                <%= _('Search within the {{count}} Freedom of Information requests made to {{public_body}}',
+                    :count => @public_body.info_requests.size,
+                    :public_body => @public_body.name) %>
                    <% else %>
-                  <%= n_('%d Freedom of Information request to %s', '%d Freedom of Information requests to %s', @public_body.info_requests.size) % [@public_body.info_requests.size, @public_body.name] %>
+                  <%= n_('{{count}} Freedom of Information request to {{public_body_name}}',
+                        '{{count}} Freedom of Information requests to {{public_body_name}}',
+                        @public_body.info_requests.size,
+                        :count => @public_body.info_requests.size,
+                        :public_body_name => @public_body.name) %>
                <% end %>
                 <% end %>
                 <%= @page_desc %>
