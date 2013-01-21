@@ -2719,9 +2719,9 @@ msgid "This person's {{count}} Freedom of Information request"
 msgid_plural "This person's {{count}} Freedom of Information requests"
 msgstr[0] "Orang ini {{count}} permintaan Freedom of Information"
 
-msgid "This person's %d annotation"
-msgid_plural "This person's %d annotations"
-msgstr[0] "Orang ini %d anotasi"
+msgid "This person's {{count}} annotation"
+msgid_plural "This person's {{count}} annotations"
+msgstr[0] "Orang ini {{count}} anotasi"
 
 msgid "This person's annotations"
 msgstr "Anotasi orang ini"
