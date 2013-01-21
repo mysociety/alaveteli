@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 #   <bresta@gmail.com>, 2011.
 # driton <dritoni.h@gmail.com>, 2011.
 #   <vbrestovci@gmail.com>, 2011.
@@ -205,12 +205,8 @@ msgid "Are we missing a public authority?"
 msgstr "A po mungon ndonjë autoritet publik?"
 
 #: app/views/request/_sidebar.rhtml:45
-msgid ""
-"<a href=\"%s\">Are you the owner of\n"
-"            any commercial copyright on this page?</a>"
-msgstr ""
-"<a href=\"%s\">Are you the owner of any commercial copyright on this "
-"page?</a>"
+msgid "Are you the owner of any commercial copyright on this page?"
+msgstr "Are you the owner of any commercial copyright on this page?"
 
 #: app/views/general/search.rhtml:53
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."

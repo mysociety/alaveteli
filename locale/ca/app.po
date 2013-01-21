@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # David Cabo <david.cabo@gmail.com>, 2012.
 #   <ecapfri@yahoo.es>, 2012.
@@ -173,10 +173,8 @@ msgstr "<a href=\"%s\">Afegeixi un comentari</a> (per ajudar al peticionari o a 
 msgid "Are we missing a public authority?"
 msgstr ""
 
-msgid ""
-"<a href=\"%s\">Are you the owner of\\n            any commercial copyright "
-"on this page?</a>"
-msgstr "<a href=\"%s\">Posseeix el copyright\n            d'alguna informació d'aquesta pàgina?</a>"
+msgid "Are you the owner of any commercial copyright on this page?"
+msgstr "Posseeix el copyright d'alguna informació d'aquesta pàgina?"
 
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr "<a href=\"%s\">Veure totes</a> o <a href=\"%s\">demana'ns que n'afegim una</a>."

@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <alaveteli@atlatszo.hu>, 2012.
 msgid ""
@@ -171,10 +171,8 @@ msgstr "<a href=\"%s\">Kommentálhatja az igénylést</a> - amivel segítségér
 msgid "Are we missing a public authority?"
 msgstr ""
 
-msgid ""
-"<a href=\"%s\">Are you the owner of\\n            any commercial copyright "
-"on this page?</a>"
-msgstr "<a href=\"%s\">Tulajdonosa az\n            oldalon található bármely kereskedelmi célú szerzői jognak?</a> "
+msgid "Are you the owner of any commercial copyright on this page?"
+msgstr "Tulajdonosa az oldalon található bármely kereskedelmi célú szerzői jognak?"
 
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr "<a href=\"%s\">Böngésszen az összes között</a> vagy <a href=\"%s\">ha kéri, felvesszük a hiányzót</a>. "
