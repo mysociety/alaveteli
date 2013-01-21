@@ -1846,10 +1846,8 @@ msgid ""
 "know</strong>\\nif they are successful yet or not."
 msgstr "Silakan pilih masing-masing permintaan ini bergantian, dan <strong>biarkan semua orang tahu </strong>\napakah mereka sudah berhasil atau belum."
 
-msgid ""
-"Please sign at the bottom with your name, or alter the \"%{signoff}\" "
-"signature"
-msgstr "Mohon tandatangani bagian bawah dengan nama Anda, atau ubah \"%{signoff}\" tanda tangan\nSilakan masuk sebagai "
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
+msgstr "Mohon tandatangani bagian bawah dengan nama Anda, atau ubah \"{{signoff}}\" tanda tangan\nSilakan masuk sebagai "
 
 msgid "Please sign in as "
 msgstr "Silakan masuk sebagai"

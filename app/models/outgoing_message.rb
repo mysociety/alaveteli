@@ -152,7 +152,7 @@ class OutgoingMessage < ActiveRecord::Base
             end
         end
         if self.body =~ /#{get_signoff}\s*\Z/m
-            errors.add(:body, _("Please sign at the bottom with your name, or alter the \"%{signoff}\" signature" % { :signoff => get_signoff }))
+            errors.add(:body, _("Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature", :signoff => get_signoff))
         end
         if !MySociety::Validate.uses_mixed_capitals(self.body)
             errors.add(:body, _('Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read.'))

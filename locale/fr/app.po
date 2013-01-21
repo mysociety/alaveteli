@@ -1853,10 +1853,8 @@ msgid ""
 "know</strong>\\nif they are successful yet or not."
 msgstr ""
 
-msgid ""
-"Please sign at the bottom with your name, or alter the \"%{signoff}\" "
-"signature"
-msgstr "S'il vous plait signer à la fin avec votre nom, ou changez la \"%{signoff}\" signature"
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
+msgstr "S'il vous plait signer à la fin avec votre nom, ou changez la \"{{signoff}}\" signature"
 
 msgid "Please sign in as "
 msgstr ""

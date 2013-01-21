@@ -2204,11 +2204,9 @@ msgstr ""
 "if they are successful yet or not."
 
 #: app/models/outgoing_message.rb:156
-msgid ""
-"Please sign at the bottom with your name, or alter the \"%{signoff}\" "
-"signature"
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
 msgstr ""
-"Te lutem nënshkruaj në fund me emrin tënd, ose ndrysho \"% {signoff}\" "
+"Te lutem nënshkruaj në fund me emrin tënd, ose ndrysho \"{{signoff}}\" "
 "nënshkrimin"
 
 #: app/views/user/sign.rhtml:8

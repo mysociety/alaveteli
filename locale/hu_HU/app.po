@@ -1849,10 +1849,8 @@ msgid ""
 "know</strong>\\nif they are successful yet or not."
 msgstr "Sorban jelölje ki az egyes igényléseket, és <strong>jelezze mindannyiunk számára,</strong>\nhogy ezek sikeresen lezárultak-e vagy sem. "
 
-msgid ""
-"Please sign at the bottom with your name, or alter the \"%{signoff}\" "
-"signature"
-msgstr "Kérjük, írja alá nevét a lap alján vagy módosítsa a \"%{signoff}\" aláírást "
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
+msgstr "Kérjük, írja alá nevét a lap alján vagy módosítsa a \"{{signoff}}\" aláírást "
 
 msgid "Please sign in as "
 msgstr "Jelentkezzen be mint "
