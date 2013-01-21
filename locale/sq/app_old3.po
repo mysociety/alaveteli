@@ -4062,10 +4062,10 @@ msgstr ""
 msgid ""
 "Your name, request and any responses will appear in <strong>search engines</"
 "strong>\n"
-"        (<a href=\"%s\">details</a>)."
+"        (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Emrin yt, kërkesa dhe çdo përgjegje do të shfaqen në <strong>kërkuesit e "
-"internetit (p.sh. Google)</strong> ( <a href=\"%s\">detaje</a> )."
+"internetit (p.sh. Google)</strong> ( <a href=\"{{url}}\">detaje</a> )."
 
 #: app/views/user/_signup.rhtml:18
 msgid "Your name:"

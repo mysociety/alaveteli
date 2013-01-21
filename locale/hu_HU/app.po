@@ -3457,8 +3457,8 @@ msgstr "Az ön neve és hozzászólásai megjelennek a <strong>keresőmotorokban
 
 msgid ""
 "Your name, request and any responses will appear in <strong>search "
-"engines</strong>\\n        (<a href=\"%s\">details</a>)."
-msgstr "Az ön neve, az igénylés és a válaszok megjelennek a <strong>keresőmotorokban</strong>. \n       <a href=\"%s\">Részletek itt.</a>"
+"engines</strong>\\n        (<a href=\"{{url}}\">details</a>)."
+msgstr "Az ön neve, az igénylés és a válaszok megjelennek a <strong>keresőmotorokban</strong>. \n       <a href=\"{{url}}\">Részletek itt.</a>"
 
 msgid "Your name:"
 msgstr "Neve: "

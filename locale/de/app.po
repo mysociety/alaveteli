@@ -3460,8 +3460,8 @@ msgstr "Ihr Name und Ihr Kommentar wird in <strong>Suchmaschinen</strong>.angeze
 
 msgid ""
 "Your name, request and any responses will appear in <strong>search "
-"engines</strong>\\n        (<a href=\"%s\">details</a>)."
-msgstr "Ihr Name, Ihre Anfrage und alle Antworten werden in <strong>Suchmaschinen</strong> angezeigt werden\n        (<a href=\"%s\">Details</a>)."
+"engines</strong>\\n        (<a href=\"{{url}}\">details</a>)."
+msgstr "Ihr Name, Ihre Anfrage und alle Antworten werden in <strong>Suchmaschinen</strong> angezeigt werden\n        (<a href=\"{{url}}\">Details</a>)."
 
 msgid "Your name:"
 msgstr "Ihr Name:"

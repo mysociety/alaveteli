@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 #   <bresta@gmail.com>, 2011.
 # driton <dritoni.h@gmail.com>, 2011.
 #   <vbrestovci@gmail.com>, 2011.
@@ -1383,11 +1383,11 @@ msgstr ""
 msgid ""
 "If you are dissatisfied by the response you got from\n"
 "            the public authority, you have the right to\n"
-"            complain (<a href=\"%s\">details</a>)."
+"            complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Nëse je i pakënaqur me përgjegjen nga\n"
 "            institucioni publik, ke të drejtën të\n"
-"            ankohesh (<a href=\"%s\">detajet</a>)."
+"            ankohesh (<a href=\"{{url}}\">detajet</a>)."
 
 #: app/views/user/no_cookies.rhtml:20
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
@@ -3839,10 +3839,10 @@ msgstr ""
 #: app/views/request/preview.rhtml:8
 msgid ""
 "Your name, request and any responses will appear in <strong>search engines</strong>\n"
-"        (<a href=\"%s\">details</a>)."
+"        (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Emrin yt, kërkesa dhe çdo përgjegje do të shfaqen në <strong>kërkuesit e "
-"internetit (p.sh. Google)</strong> ( <a href=\"%s\">detaje</a> )."
+"internetit (p.sh. Google)</strong> ( <a href=\"{{url}}\">detaje</a> )."
 
 #: app/views/user/_signup.rhtml:18
 msgid "Your name:"

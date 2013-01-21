@@ -3457,7 +3457,7 @@ msgstr ""
 
 msgid ""
 "Your name, request and any responses will appear in <strong>search "
-"engines</strong>\\n        (<a href=\"%s\">details</a>)."
+"engines</strong>\\n        (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 
 msgid "Your name:"

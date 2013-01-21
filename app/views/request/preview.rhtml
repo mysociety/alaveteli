@@ -1,12 +1,12 @@
 <% @title = "Preview new " + h(@info_request.law_used_short) + " request to '" + h(@info_request.public_body.name) + "'" %>
 
 <% form_for(:info_request, @info_request, :html => { :id => 'preview_form' }  ) do |f| %>
-    
+
     <h1><%= _('3. Now check your request') %></h1>
     <ul>
     <li><%= _('Check you haven\'t included any <strong>personal information</strong>.') %></li>
     <li><%= raw(_('Your name, request and any responses will appear in <strong>search engines</strong>
-        (<a href="%s">details</a>).') % [help_privacy_path+"#public_request"]) %> 
+        (<a href="{{url}}">details</a>).', :url => (help_privacy_path+"#public_request").html_safe)) %>
     </li>
     </ul>
 
@@ -23,7 +23,7 @@
                 <%= o.hidden_field(:body) %>
             </div>
 
-            <p class="event_actions"> 
+            <p class="event_actions">
             </p>
         </div>
     <% end %>
@@ -38,7 +38,7 @@
     <%= hidden_field_tag(:submitted_new_request, 1) %>
     <%= hidden_field_tag(:preview, 0 ) %>
     <%= submit_tag _("Edit this request"), :name => 'reedit', :id => 'reedit_button' %>
-    <%= submit_tag _("Send request"), :name => 'submit', :id => 'submit_button' %>    
+    <%= submit_tag _("Send request"), :name => 'submit', :id => 'submit_button' %>
     </p>
 
     <% if !@info_request.tag_string.empty? %>
