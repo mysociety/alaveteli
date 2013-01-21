@@ -890,7 +890,7 @@ msgstr "Slova, která chcete najít, musí být oddělena mezerou, například <
 
 msgid ""
 "Enter your response below. You may attach one file (use email, or\\n  <a "
-"href=\"%s\">contact us</a> if you need more)."
+"href=\"{{url}}\">contact us</a> if you need more)."
 msgstr "Níže můžete vložit svou odpověď. Pokud je to nutné, přiložte jeden dokument, (s použitím e-mailu, nebo⏎ <a href=\"{{url}}\">nás kontaktujte</a> pokud potřebujete přiložit více dokumentů)."
 
 msgid "Environmental Information Regulations"
@@ -918,7 +918,7 @@ msgid ""
 "Everything that you enter on this page, including <strong>your "
 "name</strong>, \\n                will be <strong>displayed "
 "publicly</strong> on\\n                this website forever (<a "
-"href=\"%s\">why?</a>)."
+"href=\"{{url}}\">why?</a>)."
 msgstr "Veškeré informace, které vložíte na tuto stránku, včetně <strong>vašeho jména</strong>, \n              budou<strong>uveřejněny</strong> na tomto webu(<a href=\"{{url}}\">proč?</a>)."
 
 msgid "FOI"
@@ -1086,7 +1086,7 @@ msgid ""
 "From the request page, try replying to a particular message, rather than "
 "sending\\n    a general followup. If you need to make a general followup, "
 "and know\\n    an email which will go to the right place, please <a "
-"href=\"%s\">send it to us</a>."
+"href=\"{{url}}\">send it to us</a>."
 msgstr "Spíše než vložení obecné odpovědi zkuste odpovědět na vybranou zprávu ze stránky pro vznesení dotazu. Pokud potřebujete vložit obecnou odpověď a znáte správnou e-mailovou adresu, prosíme <a href=\"{{url}}\">pošlete nám ji</a>"
 
 msgid "From:"
@@ -1196,7 +1196,7 @@ msgstr "Obdržel jsem <strong>chybovou zprávu</strong>"
 
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
-"href=\"%s\">contact us</a>."
+"href=\"{{url}}\">contact us</a>."
 msgstr "Pokud je adresa nesprávná, nebo víte o lepší adrese, prosíme <a href=\"{{url}}\">kontaktujte nás</a>."
 
 msgid ""
@@ -1220,7 +1220,7 @@ msgstr "Pokud jste tazatel, můžete se <a href=\"{{url}}\">přihlásit</a> a po
 
 msgid ""
 "If you are thinking of using a pseudonym,\\n                please <a "
-"href=\"%s\">read this first</a>."
+"href=\"{{url}}\">read this first</a>."
 msgstr "Pokud chcete používat přezdívku\nplease <a href=\"{{url}}\">nejdříve si přečtěte toto</a>."
 
 msgid "If you are {{user_link}}, please"
@@ -2764,7 +2764,7 @@ msgstr "Dotaz byl <strong>stažen</strong> tazatelem. \nBližší vysvětlení m
 msgid ""
 "This request has been marked for review by the site administrators, who have"
 " not hidden it at this time. If you believe it should be hidden, please <a "
-"href=\"%s\">contact us</a>."
+"href=\"{{url}}\">contact us</a>."
 msgstr "Tento dotaz byl označen administrátory ke kontrole. Pokud si myslíte, že by měl být skryt, <a href=\"{{url}}\">kontaktujte nás</a>."
 
 msgid "This request has been reported for administrator attention"
@@ -3465,7 +3465,7 @@ msgstr "Vaše odpověď na dotaz nebyla doručena"
 
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "
-"href=\"%s\">read why</a> and answers to other questions."
+"href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr "Vaše odpověď <strong>bude uveřejněna na internetu</strong>, <a href=\"{{url}}\">čtěte proč</a> spolu s historií konverzace."
 
 msgid ""

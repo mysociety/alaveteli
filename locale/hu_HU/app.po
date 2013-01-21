@@ -881,7 +881,7 @@ msgstr "Írja be azokat a szavakat, amelyeket szóközzel elválasztva kíván m
 
 msgid ""
 "Enter your response below. You may attach one file (use email, or\\n  <a "
-"href=\"%s\">contact us</a> if you need more)."
+"href=\"{{url}}\">contact us</a> if you need more)."
 msgstr ""
 
 msgid "Environmental Information Regulations"
@@ -909,7 +909,7 @@ msgid ""
 "Everything that you enter on this page, including <strong>your "
 "name</strong>, \\n                will be <strong>displayed "
 "publicly</strong> on\\n                this website forever (<a "
-"href=\"%s\">why?</a>)."
+"href=\"{{url}}\">why?</a>)."
 msgstr "Az <strong>ön neve</strong>, valamint minden, amit itt beír,\n                örökre <strong>látható marad</strong> ezen\n                a weboldalon. ( <a href=\"{{url}}\">... Miért?</a> )<br/>"
 
 msgid "FOI"
@@ -1076,7 +1076,7 @@ msgid ""
 "From the request page, try replying to a particular message, rather than "
 "sending\\n    a general followup. If you need to make a general followup, "
 "and know\\n    an email which will go to the right place, please <a "
-"href=\"%s\">send it to us</a>."
+"href=\"{{url}}\">send it to us</a>."
 msgstr "Az igénylési oldalról próbáljon választ adni egy adott üzenetre ahelyett, hogy\n    általános nyomon követést küldene. Ha általános nyomon követést kíván küldeni, és ismer olyan\n    e-mail címet, amely a megfelelő helyre kerül, <a href=\"{{url}}\">küldje el nekünk is</a>. "
 
 msgid "From:"
@@ -1186,7 +1186,7 @@ msgstr "<strong>Hibaüzenetet</strong> kaptam "
 
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
-"href=\"%s\">contact us</a>."
+"href=\"{{url}}\">contact us</a>."
 msgstr "Ha hibás a cím, vagy ismer egy jobb címet, <a href=\"{{url}}\">lépjen velünk kapcsolatba</a>. "
 
 msgid ""
@@ -1210,7 +1210,7 @@ msgstr "Ha ön az igénylő, az igénylés megtekintéséhez <a href=\"{{url}}\"
 
 msgid ""
 "If you are thinking of using a pseudonym,\\n                please <a "
-"href=\"%s\">read this first</a>."
+"href=\"{{url}}\">read this first</a>."
 msgstr "Amenniyben álnevet kíván használni,\nkérjük olvassa el előbb az ezzel kapcsolatos <a href=\"{{url}}\">tudnivalókat</a>!"
 
 msgid "If you are {{user_link}}, please"
@@ -2751,7 +2751,7 @@ msgstr "Ezt az igénylést <strong>visszavonta</strong> az azt benyújtó szemé
 msgid ""
 "This request has been marked for review by the site administrators, who have"
 " not hidden it at this time. If you believe it should be hidden, please <a "
-"href=\"%s\">contact us</a>."
+"href=\"{{url}}\">contact us</a>."
 msgstr ""
 
 msgid "This request has been reported for administrator attention"
@@ -3450,7 +3450,7 @@ msgstr ""
 
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "
-"href=\"%s\">read why</a> and answers to other questions."
+"href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr "Válasza <strong>megjelenik az interneten</strong>, <a href=\"{{url}}\">olvassa el, miért</a> az egyéb kérdésekre adott válaszokhoz hasonlóan. "
 
 msgid ""

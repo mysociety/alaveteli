@@ -782,7 +782,7 @@ msgid ""
 "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for "
 "examples of how to word your request."
 msgstr ""
-"Shfleto <a href='%s'>kërkesa të tjera</a> për '{{public_body_name}}' për "
+"Shfleto <a href=\"{{url}}\">kërkesa të tjera</a> për '{{public_body_name}}' për "
 "shembuj se si të formulosh kërkesën tënde."
 
 #: app/views/request/show.rhtml:86

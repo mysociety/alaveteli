@@ -897,7 +897,7 @@ msgstr "Informe palavras que você deseja procurar separadas por espaços, por e
 
 msgid ""
 "Enter your response below. You may attach one file (use email, or\\n  <a "
-"href=\"%s\">contact us</a> if you need more)."
+"href=\"{{url}}\">contact us</a> if you need more)."
 msgstr ""
 
 msgid "Environmental Information Regulations"
@@ -925,7 +925,7 @@ msgid ""
 "Everything that you enter on this page, including <strong>your "
 "name</strong>, \\n                will be <strong>displayed "
 "publicly</strong> on\\n                this website forever (<a "
-"href=\"%s\">why?</a>)."
+"href=\"{{url}}\">why?</a>)."
 msgstr "Tudo o que você publicar nesta página, incluindo <strong>seu nome</strong>, será <strong>exibido publicamente</strong> neste site para sempre ( <a href=\"{{url}}\">por quê?</a> )."
 
 msgid "FOI"
@@ -1092,7 +1092,7 @@ msgid ""
 "From the request page, try replying to a particular message, rather than "
 "sending\\n    a general followup. If you need to make a general followup, "
 "and know\\n    an email which will go to the right place, please <a "
-"href=\"%s\">send it to us</a>."
+"href=\"{{url}}\">send it to us</a>."
 msgstr "A partir da página de solicitação, tente responder a uma mensagem específica, em vez de enviar um pedido de acompanhamento geral. Se você precisa fazer um acompanhamento geral, e sabe um endereço de e-mail para que ele chegue ao lugar certo, por favor, <a href=\"{{url}}\">envie para nós</a> ."
 
 msgid "From:"
@@ -1202,7 +1202,7 @@ msgstr "Recebi uma <strong>mensagem de erro</strong>"
 
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
-"href=\"%s\">contact us</a>."
+"href=\"{{url}}\">contact us</a>."
 msgstr "Se o endereço de email estiver errado, ou se você sabe de um outro melhor, <a href=\"{{url}}\">entre em contato conosco</a> ."
 
 msgid ""
@@ -1226,7 +1226,7 @@ msgstr "Se você for o solicitante, então pode <a href=\"{{url}}\">entrar</a> p
 
 msgid ""
 "If you are thinking of using a pseudonym,\\n                please <a "
-"href=\"%s\">read this first</a>."
+"href=\"{{url}}\">read this first</a>."
 msgstr "Se você está pensando em usar um pseudônimo, por favor, <a href=\"{{url}}\">leia isso primeiro</a> ."
 
 msgid "If you are {{user_link}}, please"
@@ -2767,7 +2767,7 @@ msgstr "Este pedido foi <strong>removido</strong> pela pessoa que o fez. Pode se
 msgid ""
 "This request has been marked for review by the site administrators, who have"
 " not hidden it at this time. If you believe it should be hidden, please <a "
-"href=\"%s\">contact us</a>."
+"href=\"{{url}}\">contact us</a>."
 msgstr "Esse pedido foi marcado para revisão pelos administradores, que ainda não esconderam-no. Se você acha que ele deveria ser escondido, por favor <a href=\"{{url}}\">entre em contato</a>."
 
 msgid "This request has been reported for administrator attention"
@@ -3466,7 +3466,7 @@ msgstr ""
 
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "
-"href=\"%s\">read why</a> and answers to other questions."
+"href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr "Sua resposta irá <strong>aparecer na Internet</strong>, <a href=\"{{url}}\">leia por que</a> e respostas para outras perguntas."
 
 msgid ""

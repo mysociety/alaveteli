@@ -1392,7 +1392,7 @@ msgstr "He recibido un <strong>mensaje de error</strong>"
 #: app/views/public_body/view_email.rhtml:28
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
-"href=\"%s\">contact us</a>."
+"href=\"{{url}}\">contact us</a>."
 msgstr "Si la dirección es incorrecta, o conoce una más actualizada, por favor <a href=\"{{url}}\">contáctenos</a>."
 
 #: app/views/request_mailer/stopped_responses.rhtml:10
@@ -3983,7 +3983,7 @@ msgstr "Tu solicitud:"
 #: app/views/request/upload_response.rhtml:8
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "
-"href=\"%s\">read why</a> and answers to other questions."
+"href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr "Tu respuesta <strong>aparecerá en Internet</strong>, <a href=\"{{url}}\">lee por qué</a> y respuestas a otras preguntas."
 
 #: app/views/comment/new.rhtml:63

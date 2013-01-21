@@ -242,7 +242,7 @@ msgstr "detajet"
 #: app/controllers/request_game_controller.rb:23
 msgid ""
 "<p>All done! Thank you very much for your help.</p><p>There are <a "
-"href=\"%s\">more things you can do</a> to help WhatDoTheyKnow.</p>"
+"href=\"{{url}}\">more things you can do</a> to help WhatDoTheyKnow.</p>"
 msgstr ""
 
 #: app/controllers/request_controller.rb:394
@@ -310,7 +310,7 @@ msgid ""
 "<p>We're glad you got all the information that you wanted. If you write "
 "about or make use of the information, please come back and add an annotation"
 " below saying what you did.</p><p>If you found WhatDoTheyKnow useful, <a "
-"href=\"%s\">make a donation</a> to the charity which runs it.</p>"
+"href=\"{{url}}\">make a donation</a> to the charity which runs it.</p>"
 msgstr ""
 
 #: app/controllers/request_controller.rb:413
@@ -685,10 +685,10 @@ msgstr ""
 
 #: app/views/request/new.rhtml:41
 msgid ""
-"Browse <a href='%s'>other requests</a> to '{{public_body_name}}' for "
+"Browse <a href=\"{{url}}\">other requests</a> to '{{public_body_name}}' for "
 "examples of how to word your request."
 msgstr ""
-"Shfleto <a href='%s'>kërkesa të tjera</a> për '{{public_body_name}}' për "
+"Shfleto <a href=\"{{url}}\">kërkesa të tjera</a> për '{{public_body_name}}' për "
 "shembuj se si të formulosh kërkesën tënde."
 
 #: app/views/request/show.rhtml:79
@@ -1264,10 +1264,10 @@ msgstr "Kam marrë një <strong>mesazh gabimi</strong>"
 #: app/views/public_body/view_email.rhtml:28
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
-"href=\"%s\">contact us</a>."
+"href=\"{{url}}\">contact us</a>."
 msgstr ""
 "Nëse adresa është e gabuar, ose ti e din një adresë më të mirë, të lutem <a "
-"href=\"%s\">na kontakto</a> ."
+"href=\"{{url}}\">na kontakto</a> ."
 
 #: app/views/request_mailer/stopped_responses.rhtml:10
 msgid ""
@@ -2488,7 +2488,7 @@ msgstr ""
 #: app/controllers/request_controller.rb:373
 msgid ""
 "Thank you for updating the status of the request '<a "
-"href=\"%s\">{{info_request_title}}</a>'. There are some more requests below "
+"href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below "
 "for you to classify."
 msgstr ""
 
@@ -3088,7 +3088,7 @@ msgid ""
 msgstr ""
 "Për fat të keq ne nuk e dimë adresën emailit për kërkesa zyrtare për këtë "
 "autoritet, kështu që ne nuk mund ta vërtetojmë këtë. Të lutem të <a "
-"href=\"%s\">na kontakton</a> për ta rregulluar atë."
+"href=\"{{url}}\">na kontakton</a> për ta rregulluar atë."
 
 #: app/views/request/new_bad_contact.rhtml:5
 msgid ""
@@ -3589,10 +3589,10 @@ msgstr "Kërkesa yte:"
 #: app/views/request/upload_response.rhtml:8
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "
-"href=\"%s\">read why</a> and answers to other questions."
+"href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr ""
 "Përgjegja yte do të <strong>shfaqet në internet,</strong> <a "
-"href=\"%s\">lexoni pse</a> dhe përgjegjet për pyetje të tjera."
+"href=\"{{url}}\">lexoni pse</a> dhe përgjegjet për pyetje të tjera."
 
 #: app/views/comment/new.rhtml:62
 msgid ""

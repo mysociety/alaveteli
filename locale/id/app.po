@@ -879,7 +879,7 @@ msgstr "Masukkan kata-kata yang ingin Anda cari dipisahkan dengan spasi, contoh 
 
 msgid ""
 "Enter your response below. You may attach one file (use email, or\\n  <a "
-"href=\"%s\">contact us</a> if you need more)."
+"href=\"{{url}}\">contact us</a> if you need more)."
 msgstr ""
 
 msgid "Environmental Information Regulations"
@@ -907,7 +907,7 @@ msgid ""
 "Everything that you enter on this page, including <strong>your "
 "name</strong>, \\n                will be <strong>displayed "
 "publicly</strong> on\\n                this website forever (<a "
-"href=\"%s\">why?</a>)."
+"href=\"{{url}}\">why?</a>)."
 msgstr "Semua yang Anda masukkan di halaman ini, termasuk<strong>nama Anda</strong>, \n                akan<strong>ditampilkan secara terbuka </strong> di\n                website ini selamanya (<a href=\"{{url}}\">kenapa?</a>)."
 
 msgid "FOI"
@@ -1073,7 +1073,7 @@ msgid ""
 "From the request page, try replying to a particular message, rather than "
 "sending\\n    a general followup. If you need to make a general followup, "
 "and know\\n    an email which will go to the right place, please <a "
-"href=\"%s\">send it to us</a>."
+"href=\"{{url}}\">send it to us</a>."
 msgstr "Dari halaman permintaan, cobalah untuk membalas ke pesan tertentu, daripada mengirimkan\n    tindak lanjut umum. Jika Anda perlu membuat tindak lanjut umum, dan tahu\n    email yang akan dikirimkan ke tempat yang benar, silakan <a href=\"{{url}}\">kirimkan kepada kami</a>."
 
 msgid "From:"
@@ -1183,7 +1183,7 @@ msgstr "Saya sudah menerima <strong>pesan error</strong>"
 
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
-"href=\"%s\">contact us</a>."
+"href=\"{{url}}\">contact us</a>."
 msgstr "Jika alamatnya salah, atau Anda tahu alamat yang lebih baik, silakan <a href=\"{{url}}\">hubungi kami</a>."
 
 msgid ""
@@ -1207,7 +1207,7 @@ msgstr "Jika Anda adalah sang pemohon, maka Anda dapat <a href=\"{{url}}\">menda
 
 msgid ""
 "If you are thinking of using a pseudonym,\\n                please <a "
-"href=\"%s\">read this first</a>."
+"href=\"{{url}}\">read this first</a>."
 msgstr "Jika Anda mempertimbangkan untuk menggunakan nama samaran,\n                silakan <a href=\"{{url}}\">baca ini terlebih dahulu</a>."
 
 msgid "If you are {{user_link}}, please"
@@ -2745,7 +2745,7 @@ msgstr "Permintaan ini telah <strong>ditarik</strong> oleh orang yang membuatnya
 msgid ""
 "This request has been marked for review by the site administrators, who have"
 " not hidden it at this time. If you believe it should be hidden, please <a "
-"href=\"%s\">contact us</a>."
+"href=\"{{url}}\">contact us</a>."
 msgstr "Permintaan ini telah ditandai untuk di review oleh administrator, tetapi tidak disembunyikan pada saat ini. Jika Anda yakin akan disembunyikan, silakan <a href=\"{{url}}\">kontak kami</a>."
 
 msgid "This request has been reported for administrator attention"
@@ -3442,7 +3442,7 @@ msgstr ""
 
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "
-"href=\"%s\">read why</a> and answers to other questions."
+"href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr "Respon Anda akan <strong>tampil di Internet</strong>, <a href=\"{{url}}\">baca mengapa</a> dan jawaban-jawaban atas pertanyaan-pertanyaan lain."
 
 msgid ""
