@@ -3424,9 +3424,9 @@ msgstr "Ihre Email:"
 
 msgid ""
 "Your follow up has not been sent because this request has been stopped to "
-"prevent spam. Please <a href=\"%s\">contact us</a> if you really want to "
+"prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to "
 "send a follow up message."
-msgstr "Ihre Nachfrage wurde nicht gesendet, da Sie durch unseren Spamfilter gestoppt wurde. Bitte <a href=\"%s\">kontaktieren Sie uns</a> wenn Sie wirklich eine Nachfrage senden möchten. "
+msgstr "Ihre Nachfrage wurde nicht gesendet, da Sie durch unseren Spamfilter gestoppt wurde. Bitte <a href=\"{{url}}\">kontaktieren Sie uns</a> wenn Sie wirklich eine Nachfrage senden möchten. "
 
 msgid "Your follow up message has been sent on its way."
 msgstr "Ihre Follow-up Nachricht wurde gesendet."

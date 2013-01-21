@@ -3422,9 +3422,9 @@ msgstr "Zure helbide elektronikoa:"
 
 msgid ""
 "Your follow up has not been sent because this request has been stopped to "
-"prevent spam. Please <a href=\"%s\">contact us</a> if you really want to "
+"prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to "
 "send a follow up message."
-msgstr "Zure erantzuna ez da bidali, eskabide hau blokeatuta dagoelako, spama ekidetzearren. Benetan erantzuna bidali nahi baldin baduzu, mesedez, jar zaitez gurekin <a href=\"%s\">harremanetan</a>."
+msgstr "Zure erantzuna ez da bidali, eskabide hau blokeatuta dagoelako, spama ekidetzearren. Benetan erantzuna bidali nahi baldin baduzu, mesedez, jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a>."
 
 msgid "Your follow up message has been sent on its way."
 msgstr "Zure mezua bidean dago."

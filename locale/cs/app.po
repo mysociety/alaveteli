@@ -3437,9 +3437,9 @@ msgstr "Váš e-mail:"
 
 msgid ""
 "Your follow up has not been sent because this request has been stopped to "
-"prevent spam. Please <a href=\"%s\">contact us</a> if you really want to "
+"prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to "
 "send a follow up message."
-msgstr "Vaše odpověď nebyla odeslána, protože tento dotaz byl identifikován jako nevyžádaná zpráva. Prosíme <a href=\"%s\">kontaktujte nás</a> pokud svou zprávu chcete odeslat. "
+msgstr "Vaše odpověď nebyla odeslána, protože tento dotaz byl identifikován jako nevyžádaná zpráva. Prosíme <a href=\"{{url}}\">kontaktujte nás</a> pokud svou zprávu chcete odeslat. "
 
 msgid "Your follow up message has been sent on its way."
 msgstr "Zpráva s vaší odpovědí byla odeslána. "

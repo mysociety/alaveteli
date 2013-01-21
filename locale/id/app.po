@@ -3412,9 +3412,9 @@ msgstr "Email Anda:"
 
 msgid ""
 "Your follow up has not been sent because this request has been stopped to "
-"prevent spam. Please <a href=\"%s\">contact us</a> if you really want to "
+"prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to "
 "send a follow up message."
-msgstr "Tindak lanjut Anda belum dikirimkan karena permintaan ini telah dihentikan untuk mencegah spam. Silakan <a href=\"%s\">hubungi kami</a> jika Anda benar-benar ingin mengirimkan pesan tindak lanjut."
+msgstr "Tindak lanjut Anda belum dikirimkan karena permintaan ini telah dihentikan untuk mencegah spam. Silakan <a href=\"{{url}}\">hubungi kami</a> jika Anda benar-benar ingin mengirimkan pesan tindak lanjut."
 
 msgid "Your follow up message has been sent on its way."
 msgstr "Pesan tindak lanjut Anda sedang dalam pengiriman."
