@@ -6,9 +6,9 @@
 <%=@details%>
 </p>
 
-<p><%= raw(_('The request you have tried to view has been removed. There are
+<p><%= _('The request you have tried to view has been removed. There are
 various reasons why we might have done this, sorry we can\'t be more specific here. Please <a
-    href="%s">contact us</a> if you have any questions.') % [help_contact_path]) %>
+    href="{{url}}">contact us</a> if you have any questions.', :url => help_contact_path.html_safe) %>
 </p>
 <% if @info_request.prominence == 'requester_only' %>
     <p>

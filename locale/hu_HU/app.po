@@ -2235,11 +2235,11 @@ msgstr "Az igénylés <strong>sikeres volt</strong>. "
 msgid "The request was refused by the public authority"
 msgstr "Az adatgazda az igénylést elutasította"
 
-msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"%s\">contact us</a> if you have any questions."
+msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"{{url}}\">contact us</a> if you have any questions."
 msgstr ""
 "A megtekinteni kívánt igénylés el lett távolítva. Ennek\n"
 "különböző okai lehetnek, de erről bővebb információval itt nem szolgálhatunk. Amennyiben kérdése van, <a\n"
-"    href=\"%s\">lépjen velünk kapcsolatba</a>. "
+"    href=\"{{url}}\">lépjen velünk kapcsolatba</a>. "
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Az igénylő valami miatt felhagyott igénylésével"

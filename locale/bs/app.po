@@ -2215,11 +2215,11 @@ msgstr "Zahtjev je <strong>uspješan</strong>."
 msgid "The request was refused by the public authority"
 msgstr "Zahtjev je odbijen od strane javne ustanove"
 
-msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"%s\">contact us</a> if you have any questions."
+msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"{{url}}\">contact us</a> if you have any questions."
 msgstr ""
 "Zahtjev koji ste pokušali pregledati je uklonjen. Postoje\n"
 "razni razlozi radi kojih smo to mogli uraditi, žao nam je ali ne možemo biti precizniji po tom pitanju. Molimo <a\n"
-"    href=\"%s\">kontaktirajte nas</a> ako imate pitanja."
+"    href=\"{{url}}\">kontaktirajte nas</a> ako imate pitanja."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Podnosioc je odustao od ovog zahtjeva iz nekog razloga"
