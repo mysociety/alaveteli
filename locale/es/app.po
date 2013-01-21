@@ -313,9 +313,7 @@ msgid_plural "{{count}} people are following this authority"
 msgstr[0] "{{count}} persona esta siguiendo este organismo"
 msgstr[1] "{{count}} personas estan siguiendo este organismo"
 
-msgid ""
-"<strong> Can I request information about myself?</strong>\\n\t\t\t<a "
-"href=\"%s\">No! (Click here for details)</a>"
+msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
 msgstr "<strong> ¿Puedo pedir información sobre mí?</strong>\n\t\t\t<a href=\"{{url}}\">¡No! (Pulse aquí para más detalles)</a>"
 
 msgid ""

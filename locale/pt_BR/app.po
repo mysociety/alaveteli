@@ -325,9 +325,7 @@ msgid_plural "{{count}} people are following this authority"
 msgstr[0] "{{count}} pessoa está acompanhando esta autoridade"
 msgstr[1] "{{count}} pessoas estão acompanhando esta autoridade"
 
-msgid ""
-"<strong> Can I request information about myself?</strong>\\n\t\t\t<a "
-"href=\"%s\">No! (Click here for details)</a>"
+msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
 msgstr "<strong>Posso pedir informações sobre mim?</strong> <span class=\"whitespace other\" title=\"Aba\">»» »</span> <a href=\"{{url}}\">Não! (Clique aqui para mais detalhes)</a>"
 
 msgid ""

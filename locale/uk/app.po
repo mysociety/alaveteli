@@ -314,9 +314,7 @@ msgstr[0] "{{count}} осіб відслідковує цього розпоря
 msgstr[1] "{{count}} особа відслідковує цього розпорядника"
 msgstr[2] "{{count}} особи (осіб) відслідковують цього розпорядника"
 
-msgid ""
-"<strong> Can I request information about myself?</strong>\\n\t\t\t<a "
-"href=\"%s\">No! (Click here for details)</a>"
+msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
 msgstr "<strong> Чи можу я запитати інформацію про себе?</strong>\n\t\t\t<a href=\"{{url}}\">Ні! (Деталі тут)</a>"
 
 msgid ""

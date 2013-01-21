@@ -394,7 +394,7 @@ msgid ""
 "<strong> Can I request information about myself?</strong>\n"
 "\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
 msgstr ""
-"AA <strong> Can I request information about myself?</strong>><a href=\"%s"
+"AA <strong> Can I request information about myself?</strong>><a href=\"{{url}}"
 "\">No! (Click here for details)</a>"
 
 #: app/views/general/search.rhtml:130
