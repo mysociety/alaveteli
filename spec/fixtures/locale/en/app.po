@@ -2331,8 +2331,9 @@ msgid "Search the site to find what you were looking for."
 msgstr ""
 
 #: app/views/public_body/show.rhtml:85
-msgid "Search within the %d Freedom of Information requests to %s"
-msgid_plural "Search within the %d Freedom of Information requests made to %s"
+msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
+msgid_plural "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
+
 msgstr[0] ""
 msgstr[1] ""
 
