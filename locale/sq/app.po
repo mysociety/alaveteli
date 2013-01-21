@@ -1024,11 +1024,11 @@ msgstr ""
 "apo një email me një temë tjetër te {{user}}, atëherë \n"
 "dërgo email në {{contact_email}} për ndihmë."
 
-msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"%s\">details</a>)."
+msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Nëse je i pakënaqur me përgjigjen nga\n"
 "            institucioni publik, ke të drejtën të\n"
-"            ankohesh (<a href=\"%s\">detajet</a>)."
+"            ankohesh (<a href=\"{{url}}\">detajet</a>)."
 
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
 msgstr "Nëse ende po ka probleme, të lutem <a href=\"%s\">na kontakto</a> ."

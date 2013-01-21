@@ -983,8 +983,8 @@ msgstr ""
 "Zuzena ez bada, edo  {{user}}-ri eskabideari edo beste gaiari buruzko erantzuna bidali nahi izango bazenio, orduan idatz ezazu, mesedez, \n"
 "{{contact_email}}-ra, laguntza eskatuz."
 
-msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"%s\">details</a>)."
-msgstr "Erakunde publikotik jaso duzun erantzunarekin pozik ez bazaude, apelatzeko eskubidea daukazu (<a href=\"%s\">xehetasunak</a>)."
+msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"{{url}}\">details</a>)."
+msgstr "Erakunde publikotik jaso duzun erantzunarekin pozik ez bazaude, apelatzeko eskubidea daukazu (<a href=\"{{url}}\">xehetasunak</a>)."
 
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
 msgstr "Oraindik arazoak baldin badituzu, mesedez, jar zaitez gurekin <a href=\"%s\">harremanetan</a>."

@@ -1047,11 +1047,11 @@ msgstr ""
 "atau sebuah email tentang subyek lainnya kepada {{user}}, maka silakan\n"
 "email {{contact_email}} untuk bantuan."
 
-msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"%s\">details</a>)."
+msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Jika Anda tidak puas dengan respon yang Anda peroleh dari\n"
 "            otoritas publik tersebut, Anda berhak untuk\n"
-"            mengajukan keberatan (<a href=\"%s\">rincian</a>)."
+"            mengajukan keberatan (<a href=\"{{url}}\">rincian</a>)."
 
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
 msgstr "Jika Anda masih mengalami kesulitan, silakan <a href=\"%s\">hubungi kami</a>."

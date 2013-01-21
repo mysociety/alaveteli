@@ -1050,11 +1050,11 @@ msgstr ""
 "o un correo sobre otro tema a {{user}}, entonces por favor\n"
 "escribe a {{contact_email}} solicitando ayuda."
 
-msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"%s\">details</a>)."
+msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Si no estás satisfecho con la respuesta que has recibido del\n"
 "            organismo público, tienes derecho a\n"
-"            apelar (<a href=\"%s\">detalles</a>)."
+"            apelar (<a href=\"{{url}}\">detalles</a>)."
 
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
 msgstr "Si aún tienes problemas, por favor <a href=\"%s\">contáctanos</a>."

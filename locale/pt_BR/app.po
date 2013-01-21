@@ -987,8 +987,8 @@ msgstr "Se o endereço de email estiver errado, ou se você sabe de um outro mel
 msgid "If this is incorrect, or you would like to send a late response to the request\\nor an email on another subject to {{user}}, then please\\nemail {{contact_email}} for help."
 msgstr "Se isso estiver errado, ou se você gostaria de enviar uma resposta final para o pedido, ou um e-mail sobre algum outro assunto para {{user}}, então escreva para {{contact_email}} para obter ajuda."
 
-msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"%s\">details</a>)."
-msgstr "Se você estiver insatisfeito com a resposta que recebeu do órgão público, você tem o direito de reclamar ( <a href=\"%s\">detalhes</a> )."
+msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"{{url}}\">details</a>)."
+msgstr "Se você estiver insatisfeito com a resposta que recebeu do órgão público, você tem o direito de reclamar ( <a href=\"{{url}}\">detalhes</a> )."
 
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
 msgstr "Se você continua com problemas, <a href=\"%s\">entre em contato conosco</a>."

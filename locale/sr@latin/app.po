@@ -1010,11 +1010,11 @@ msgstr ""
 "ili e-mail o nečemu drugome {{user}}, onda molimo\n"
 "pošaljite nam e-mail {{contact_email}} za pomoć."
 
-msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"%s\">details</a>)."
+msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Ako niste zadovoljni odgovorom koji ste dobili od\n"
 "            javne ustanove, imate pravo na\n"
-"            žalbu (<a href=\"%s\">Više informacija</a>)."
+"            žalbu (<a href=\"{{url}}\">Više informacija</a>)."
 
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
 msgstr "Ako i dalje imate problema, molimo <a href=\"%s\">kontaktirajte nas</a>."

@@ -1029,11 +1029,11 @@ msgstr ""
 "або повідомлення з іншою темою користувачу {{user}}, зверніться за допомогою\n"
 "за адресою {{contact_email}}."
 
-msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"%s\">details</a>)."
+msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Якщо ви не задоволені відповіддю, отриману від\n"
 " розпорядника інформації, ви маєте право на \n"
-"скаргу (<a href=\"%s\">деталі</a>)."
+"скаргу (<a href=\"{{url}}\">деталі</a>)."
 
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
 msgstr "Якщо у вас все ще виникають проблеми, <a href=\"%s\">зверніться до нас</a>."

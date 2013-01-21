@@ -1026,11 +1026,11 @@ msgstr ""
 "vagy {{user}} részére más tárgy miatt e-mailt kíván küldeni, küldjön \n"
 "e-mail üzenetet a(z) {{contact_email}} részére, hogy segítséget kapjon. "
 
-msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"%s\">details</a>)."
+msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Ha nem elégedett az \n"
 "            adatgazda válaszával, joga van\n"
-"            panaszt tenni (<a href=\"%s\">részletek</a>). "
+"            panaszt tenni (<a href=\"{{url}}\">részletek</a>). "
 
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
 msgstr "Ha továbbra is fennáll a probléma, <a href=\"%s\">lépjen velünk kapcsolatba</a>. "
