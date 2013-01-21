@@ -3165,8 +3165,8 @@ msgstr ""
 
 msgid ""
 "We will not reveal your email address to anybody unless you or\\n        the"
-" law tell us to (<a href=\"%s\">details</a>). "
-msgstr "Ni fyddwn yn datgelu eich cyfeiriad e-bost i neb oni bai eich bod chi neu'r gyfraith yn dweud wrthym i wneud (<a href=\"%s\">manylion</a>)."
+" law tell us to (<a href=\"{{url}}\">details</a>). "
+msgstr "Ni fyddwn yn datgelu eich cyfeiriad e-bost i neb oni bai eich bod chi neu'r gyfraith yn dweud wrthym i wneud (<a href=\"{{url}}\">manylion</a>)."
 
 msgid ""
 "We will not reveal your email address to anybody unless you\\nor the law "

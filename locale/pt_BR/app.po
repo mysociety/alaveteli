@@ -3162,8 +3162,8 @@ msgstr "Nós ainda não sabemos se esta última resposta contém ou não a infor
 
 msgid ""
 "We will not reveal your email address to anybody unless you or\\n        the"
-" law tell us to (<a href=\"%s\">details</a>). "
-msgstr "Nós não vamos revelar o seu endereço de e-mail para ninguém, ao menos que você ou a Justiça nos mandem fazer isso ( <a href=\"%s\">detalhes</a> )."
+" law tell us to (<a href=\"{{url}}\">details</a>). "
+msgstr "Nós não vamos revelar o seu endereço de e-mail para ninguém, ao menos que você ou a Justiça nos mandem fazer isso ( <a href=\"{{url}}\">detalhes</a> )."
 
 msgid ""
 "We will not reveal your email address to anybody unless you\\nor the law "

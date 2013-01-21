@@ -3146,8 +3146,8 @@ msgstr "Nem tudjuk, hogy az adatgazda válasza tartalmazza-e\na kért informáci
 
 msgid ""
 "We will not reveal your email address to anybody unless you or\\n        the"
-" law tell us to (<a href=\"%s\">details</a>). "
-msgstr "E-mail címét senkinek sem adjuk ki - kivéve, ha azt ön kéri\n       vagy jogszabály előírja (<a href=\"%s\">részletek</a>). "
+" law tell us to (<a href=\"{{url}}\">details</a>). "
+msgstr "E-mail címét senkinek sem adjuk ki - kivéve, ha azt ön kéri\n       vagy jogszabály előírja (<a href=\"{{url}}\">részletek</a>). "
 
 msgid ""
 "We will not reveal your email address to anybody unless you\\nor the law "

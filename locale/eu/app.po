@@ -3147,8 +3147,8 @@ msgstr "Ez dakigu eskabide honen azken erantzunak informaziorik dakarren ala ez\
 
 msgid ""
 "We will not reveal your email address to anybody unless you or\\n        the"
-" law tell us to (<a href=\"%s\">details</a>). "
-msgstr "Ez diogu inori emango zure posta helbidea, zeuk esan edo legeak behartzen bagaitu izan ezik (<a href=\"%s\">informazio gehiago</a>). "
+" law tell us to (<a href=\"{{url}}\">details</a>). "
+msgstr "Ez diogu inori emango zure posta helbidea, zeuk esan edo legeak behartzen bagaitu izan ezik (<a href=\"{{url}}\">informazio gehiago</a>). "
 
 msgid ""
 "We will not reveal your email address to anybody unless you\\nor the law "
