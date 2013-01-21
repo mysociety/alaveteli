@@ -3385,9 +3385,9 @@ msgstr "Anda tidak mengikuti apapun."
 msgid "You've now cleared your profile photo"
 msgstr "Anda sekarang telah menghapus foto profil Anda"
 
-msgid "Your %d Freedom of Information request"
-msgid_plural "Your %d Freedom of Information requests"
-msgstr[0] "Permintaan Freedom of Information %d Anda"
+msgid "Your {{count}} Freedom of Information request"
+msgid_plural "Your {{count}} Freedom of Information requests"
+msgstr[0] "Permintaan Freedom of Information {{count}} Anda"
 
 msgid "Your %d annotation"
 msgid_plural "Your %d annotations"
