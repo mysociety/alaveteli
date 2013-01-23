@@ -3478,8 +3478,8 @@ msgstr ""
 
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "
-"href=\"%s\">read why</a> and answers to other questions."
-msgstr "Tu respuesta <strong>aparecerá en Internet</strong>, <a href=\"%s\">lee por qué</a> y respuestas a otras preguntas."
+"href=\"{{url}}\">read why</a> and answers to other questions."
+msgstr "Tu respuesta <strong>aparecerá en Internet</strong>, <a href=\"{{url}}\">lee por qué</a> y respuestas a otras preguntas."
 
 msgid ""
 "Your thoughts on what the {{site_name}} <strong>administrators</strong> "

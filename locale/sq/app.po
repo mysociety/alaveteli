@@ -3484,8 +3484,8 @@ msgstr "Përgjigja juaj në kërkesën për QDP nuk është dorëzuar"
 
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "
-"href=\"%s\">read why</a> and answers to other questions."
-msgstr "Përgjigja yte do të <strong>shfaqet në internet,</strong> <a href=\"%s\">lexoni pse</a> dhe përgjigjet për pyetje të tjera."
+"href=\"{{url}}\">read why</a> and answers to other questions."
+msgstr "Përgjigja yte do të <strong>shfaqet në internet,</strong> <a href=\"{{url}}\">lexoni pse</a> dhe përgjigjet për pyetje të tjera."
 
 msgid ""
 "Your thoughts on what the {{site_name}} <strong>administrators</strong> "

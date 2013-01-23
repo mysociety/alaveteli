@@ -3736,7 +3736,7 @@ msgid "Your request:"
 msgstr ""
 
 #: app/views/request/upload_response.rhtml:8
-msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"%s\">read why</a> and answers to other questions."
+msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr ""
 
 #: app/views/comment/new.rhtml:63

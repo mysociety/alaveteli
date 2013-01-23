@@ -3490,8 +3490,8 @@ msgstr ""
 
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "
-"href=\"%s\">read why</a> and answers to other questions."
-msgstr "Ваша відповідь <strong>з’явиться в інтернеті</strong> <a href=\"%s\">(чому?)</a>"
+"href=\"{{url}}\">read why</a> and answers to other questions."
+msgstr "Ваша відповідь <strong>з’явиться в інтернеті</strong> <a href=\"{{url}}\">(чому?)</a>"
 
 msgid ""
 "Your thoughts on what the {{site_name}} <strong>administrators</strong> "

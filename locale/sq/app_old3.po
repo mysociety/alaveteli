@@ -4092,10 +4092,10 @@ msgstr "Kërkesa yte:"
 
 #: app/views/request/upload_response.rhtml:8
 msgid ""
-"Your response will <strong>appear on the Internet</strong>, <a href=\"%s"
+"Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}"
 "\">read why</a> and answers to other questions."
 msgstr ""
-"Përgjegja yte do të <strong>shfaqet në internet,</strong> <a href=\"%s"
+"Përgjegja yte do të <strong>shfaqet në internet,</strong> <a href=\"{{url}}"
 "\">lexoni pse</a> dhe përgjegjet për pyetje të tjera."
 
 #: app/views/comment/new.rhtml:62

@@ -3867,10 +3867,10 @@ msgstr "Kërkesa yte:"
 #: app/views/request/upload_response.rhtml:8
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "
-"href=\"%s\">read why</a> and answers to other questions."
+"href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr ""
 "Përgjegja yte do të <strong>shfaqet në internet,</strong> <a "
-"href=\"%s\">lexoni pse</a> dhe përgjigjet për pyetje të tjera."
+"href=\"{{url}}\">lexoni pse</a> dhe përgjigjet për pyetje të tjera."
 
 #: app/views/comment/new.rhtml:62
 msgid ""

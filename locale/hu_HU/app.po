@@ -3478,8 +3478,8 @@ msgstr ""
 
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "
-"href=\"%s\">read why</a> and answers to other questions."
-msgstr "Válasza <strong>megjelenik az interneten</strong>, <a href=\"%s\">olvassa el, miért</a> az egyéb kérdésekre adott válaszokhoz hasonlóan. "
+"href=\"{{url}}\">read why</a> and answers to other questions."
+msgstr "Válasza <strong>megjelenik az interneten</strong>, <a href=\"{{url}}\">olvassa el, miért</a> az egyéb kérdésekre adott válaszokhoz hasonlóan. "
 
 msgid ""
 "Your thoughts on what the {{site_name}} <strong>administrators</strong> "
