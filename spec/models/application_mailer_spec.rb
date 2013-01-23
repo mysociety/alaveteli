@@ -8,8 +8,7 @@ describe ApplicationMailer do
         def set_base_views
             ApplicationMailer.class_eval do
                 @previous_view_paths = self.view_paths.dup
-                self.view_paths.clear
-                self.view_paths << File.join(Rails.root, 'spec', 'fixtures', 'theme_views', 'core')
+                self.view_paths = [File.join(Rails.root, 'spec', 'fixtures', 'theme_views', 'core')]
             end
         end
 
@@ -27,13 +26,13 @@ describe ApplicationMailer do
 
         def prepend_theme_views(theme_name)
             ApplicationMailer.class_eval do
-                view_paths.unshift File.join(Rails.root, 'spec', 'fixtures', 'theme_views', theme_name)
+                prepend_view_path File.join(Rails.root, 'spec', 'fixtures', 'theme_views', theme_name)
             end
         end
 
         def append_theme_views(theme_name)
             ApplicationMailer.class_eval do
-                view_paths << File.join(Rails.root, 'spec', 'fixtures', 'theme_views', theme_name)
+                append_view_path File.join(Rails.root, 'spec', 'fixtures', 'theme_views', theme_name)
             end
         end
 
@@ -45,11 +44,8 @@ describe ApplicationMailer do
 
         def create_multipart_method(method_name)
             ApplicationMailer.send(:define_method, method_name) do
-                attachment :content_type => 'message/rfc822',
-                           :body => 'xxx',
-                           :filename => "original.eml",
-                           :transfer_encoding => '7bit',
-                           :content_disposition => 'inline'
+                attachments['original.eml'] = 'xxx'
+                mail
             end
         end
 
@@ -78,10 +74,10 @@ describe ApplicationMailer do
                 @mail.body.should match('Core only')
             end
 
-            it 'should raise an error if the template is in neither core nor theme' do
+            it 'should render an empty body if the template is in neither core nor theme' do
                 prepend_theme_views('theme_one')
-                expected_error = 'Missing template application_mailer/neither.erb in view path'
-                lambda{ ApplicationMailer.create_neither() }.should raise_error(/#{expected_error}/)
+                @mail = ApplicationMailer.create_neither()
+                @mail.body.should be_empty
             end
 
             it 'should render a multipart email using a theme template' do
@@ -124,10 +120,10 @@ describe ApplicationMailer do
                 @mail.body.should match('Core only')
             end
 
-            it 'should raise an error if the template is in neither core nor theme' do
+            it 'should render an empty body if the template is in neither core nor theme' do
                 append_theme_views('theme_one')
-                expected_error = 'Missing template application_mailer/neither.erb in view path'
-                lambda{ ApplicationMailer.create_neither() }.should raise_error(/#{expected_error}/)
+                @mail = ApplicationMailer.create_neither()
+                @mail.body.should be_empty
             end
 
             it 'should render a multipart email using a core template' do
