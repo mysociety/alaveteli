@@ -225,7 +225,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"%s\">No! (Click here for details)</a>"
+msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
 msgstr ""
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."

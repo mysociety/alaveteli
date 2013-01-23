@@ -242,10 +242,10 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"%s\">No! (Click here for details)</a>"
+msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
 msgstr ""
 "<strong> Da li mogu zahtijevati informacije o sebi?</strong>\n"
-"<span class=\"whitespace other\" title=\"Tab\">»</span><span class=\"whitespace other\" title=\"Tab\">»</span><span class=\"whitespace other\" title=\"Tab\">»</span><a href=\"%s\">Ne! (Kliknite za detalje)</a>"
+"<span class=\"whitespace other\" title=\"Tab\">»</span><span class=\"whitespace other\" title=\"Tab\">»</span><span class=\"whitespace other\" title=\"Tab\">»</span><a href=\"{{url}}\">Ne! (Kliknite za detalje)</a>"
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>komentar_od:tony_bowden</code></strong> da pretražujete komentare Tony Bowden-a, ime unesite kao u URL-u."

@@ -321,7 +321,7 @@ msgstr ""
 #: app/views/request/new.rhtml:135
 msgid ""
 "<strong> Can I request information about myself?</strong>\n"
-"\t\t\t<a href=\"%s\">No! (Click here for details)</a>"
+"\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
 msgstr ""
 
 #: app/views/general/_advanced_search_tips.rhtml:12

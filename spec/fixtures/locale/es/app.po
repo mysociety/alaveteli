@@ -376,8 +376,8 @@ msgstr "<small>Si usas correo web o tiene filtros \"anti spam\", por favor compr
 #: app/views/request/new.rhtml:135
 msgid ""
 "<strong> Can I request information about myself?</strong>\n"
-"\t\t\t<a href=\"%s\">No! (Click here for details)</a>"
-msgstr "<strong> ¿Puedo pedir información sobre mí?</strong>\n\t\t\t<a href=\"%s\">¡No! (Pulse aquí para más detalles)</a>"
+"\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
+msgstr "<strong> ¿Puedo pedir información sobre mí?</strong>\n\t\t\t<a href=\"{{url}}\">¡No! (Pulse aquí para más detalles)</a>"
 
 #: app/views/general/_advanced_search_tips.rhtml:12
 msgid ""

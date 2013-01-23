@@ -127,8 +127,8 @@
         <% end %>
     
         <p class="form_note">
-            <%= raw(_("<strong> Can I request information about myself?</strong>\n" +
-            "\t\t\t<a href=\"%s\">No! (Click here for details)</a>") % [help_requesting_path+"#data_protection"]) %>   
+            <%= _("<strong> Can I request information about myself?</strong>\n" +
+            "\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>", :url => (help_requesting_path+"#data_protection").html_safe) %>   
         </p>
     
         <div class="form_button">

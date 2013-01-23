@@ -250,10 +250,10 @@ msgstr[0] "{{count}} člověk sleduje tuto instituci"
 msgstr[1] "{{count}} lidí sledují tuto instituci"
 msgstr[2] "{{count}} lidí sleduje tuto instituci"
 
-msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"%s\">No! (Click here for details)</a>"
+msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
 msgstr ""
 "<strong> Mohu požádat o informace o sobě samém?</strong>\n"
-"\t\t\t<a href=\"%s\">Ne (zde najdete více informací).</a>"
+"\t\t\t<a href=\"{{url}}\">Ne (zde najdete více informací).</a>"
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>okomentoval/a:tony_bowden</code></strong> pokud chcete vidět více poznámek od uživatele Tonyho Bowdena, napište jeho jméno jako URL."
