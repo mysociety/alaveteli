@@ -19,11 +19,11 @@
         <%= text_field 'user_signup', 'name', { :size => 20, :tabindex => 70 } %>
     </p>
     <div class="form_item_note">
-         <%= raw(_('Your <strong>name will appear publicly</strong>
-        (<a href="%s">why?</a>)
+         <%= _('Your <strong>name will appear publicly</strong>
+        (<a href="{{why_url}}">why?</a>)
         on this website and in search engines. If you
         are thinking of using a pseudonym, please
-        <a href="%s">read this first</a>.') % [help_privacy_path+"#public_request", help_privacy_path+"#real_name"]) %>
+        <a href="{{help_url}}">read this first</a>.', :why_url => (help_privacy_path+"#public_request").html_safe, :help_url => (help_privacy_path+"#real_name").html_safe) %>
     </div>
 
     <p>

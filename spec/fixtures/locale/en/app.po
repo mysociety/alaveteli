@@ -3649,12 +3649,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: app/views/user/_signup.rhtml:22
-msgid ""
-"Your <strong>name will appear publicly</strong> \n"
-"        (<a href=\"%s\">why?</a>)\n"
-"        on this website and in search engines. If you\n"
-"        are thinking of using a pseudonym, please \n"
-"        <a href=\"%s\">read this first</a>."
+msgid "Your <strong>name will appear publicly</strong> \\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please \\n        <a href=\"{{help_url}}\">read this first</a>."
 msgstr ""
 
 #: app/views/user/show.rhtml:172

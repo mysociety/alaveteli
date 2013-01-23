@@ -3979,18 +3979,13 @@ msgid "Your "
 msgstr "AA Your "
 
 #: app/views/user/_signup.rhtml:22
-msgid ""
-"Your <strong>name will appear publicly</strong> \n"
-"        (<a href=\"%s\">why?</a>)\n"
-"        on this website and in search engines. If you\n"
-"        are thinking of using a pseudonym, please \n"
-"        <a href=\"%s\">read this first</a>."
+msgid "Your <strong>name will appear publicly</strong> \\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please \\n        <a href=\"{{help_url}}\">read this first</a>."
 msgstr ""
 "AA Your <strong>name will appear publicly</strong> \n"
-"        (<a href=\"%s\">why?</a>)\n"
+"        (<a href=\"{{why_url}}\">why?</a>)\n"
 "        on this website and in search engines. If you\n"
 "        are thinking of using a pseudonym, please \n"
-"        <a href=\"%s\">read this first</a>."
+"        <a href=\"{{help_url}}\">read this first</a>."
 
 #: app/views/contact_mailer/user_message.rhtml:3
 msgid ""

@@ -3887,18 +3887,13 @@ msgid "Your "
 msgstr "I juaji "
 
 #: app/views/user/_signup.rhtml:22
-msgid ""
-"Your <strong>name will appear publicly</strong> \n"
-"        (<a href=\"%s\">why?</a>)\n"
-"        on this website and in search engines. If you\n"
-"        are thinking of using a pseudonym, please \n"
-"        <a href=\"%s\">read this first</a>."
+msgid "Your <strong>name will appear publicly</strong> \\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please \\n        <a href=\"{{help_url}}\">read this first</a>."
 msgstr ""
 "<strong>Emri yt do të shfaqet publikisht </strong>\n"
-"        (<a href=\"%s\">pse?</a>)\n"
+"        (<a href=\"{{why_url}}\">pse?</a>)\n"
 "        në këtë ueb faqe dhe në këruesit e internetit (p.sh. Google). \n"
 "        Nëse mendon ta përdorësh një pseudonim, të lutem\n"
-"        <a href=\"%s\">së pari lexoje këtë</a>."
+"        <a href=\"{{help_url}}\">së pari lexoje këtë</a>."
 
 #: app/views/contact_mailer/user_message.rhtml:3
 msgid ""
