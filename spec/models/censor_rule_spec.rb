@@ -73,7 +73,7 @@ end
 
 describe 'when validating rules' do
 
-    describe 'should be invalid without text' do
+    it 'should be invalid without text' do
         censor_rule = CensorRule.new
         censor_rule.valid?.should == false
         censor_rule.errors.on(:text).should == "can't be blank"
