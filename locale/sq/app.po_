@@ -1355,10 +1355,10 @@ msgstr "Kam marrë një <strong>mesazh gabimi</strong>"
 #: app/views/public_body/view_email.rhtml:28
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
-"href=\"%s\">contact us</a>."
+"href=\"{{url}}\">contact us</a>."
 msgstr ""
 "Nëse adresa është e gabuar, ose ti e din një adresë më të mirë, të lutem <a "
-"href=\"%s\">na kontakto</a> ."
+"href=\"{{url}}\">na kontakto</a> ."
 
 #: app/views/request_mailer/stopped_responses.rhtml:10
 msgid ""

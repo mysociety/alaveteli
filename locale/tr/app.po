@@ -1189,7 +1189,7 @@ msgstr ""
 
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
-"href=\"%s\">contact us</a>."
+"href=\"{{url}}\">contact us</a>."
 msgstr ""
 
 msgid ""

@@ -1200,8 +1200,8 @@ msgstr "Я отримав/отримала <strong>повідомлення пр
 
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
-"href=\"%s\">contact us</a>."
-msgstr "Якщо адреса неправиильна або якщо ви знаєте кращу, будь ласка, <a href=\"%s\">повідомте нам про це</a>."
+"href=\"{{url}}\">contact us</a>."
+msgstr "Якщо адреса неправиильна або якщо ви знаєте кращу, будь ласка, <a href=\"{{url}}\">повідомте нам про це</a>."
 
 msgid ""
 "If this is incorrect, or you would like to send a late response to the "

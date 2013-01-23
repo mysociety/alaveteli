@@ -1191,8 +1191,8 @@ msgstr "Saya sudah menerima <strong>pesan error</strong>"
 
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
-"href=\"%s\">contact us</a>."
-msgstr "Jika alamatnya salah, atau Anda tahu alamat yang lebih baik, silakan <a href=\"%s\">hubungi kami</a>."
+"href=\"{{url}}\">contact us</a>."
+msgstr "Jika alamatnya salah, atau Anda tahu alamat yang lebih baik, silakan <a href=\"{{url}}\">hubungi kami</a>."
 
 msgid ""
 "If this is incorrect, or you would like to send a late response to the "

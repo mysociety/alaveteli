@@ -1204,8 +1204,8 @@ msgstr "Obdržel jsem <strong>chybovou zprávu</strong>"
 
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
-"href=\"%s\">contact us</a>."
-msgstr "Pokud je adresa nesprávná, nebo víte o lepší adrese, prosíme <a href=\"%s\">kontaktujte nás</a>."
+"href=\"{{url}}\">contact us</a>."
+msgstr "Pokud je adresa nesprávná, nebo víte o lepší adrese, prosíme <a href=\"{{url}}\">kontaktujte nás</a>."
 
 msgid ""
 "If this is incorrect, or you would like to send a late response to the "
