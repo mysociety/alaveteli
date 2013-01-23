@@ -1982,8 +1982,8 @@ msgid "Please"
 msgstr "Por favor"
 
 #: app/views/user/no_cookies.rhtml:15
-msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
-msgstr "Por favor <a href=\"%s\">contacta</a> con nosotros para que podamos arreglarlo."
+msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
+msgstr "Por favor <a href=\"{{url}}\">contacta</a> con nosotros para que podamos arreglarlo."
 
 #: app/views/request/show.rhtml:52
 msgid ""

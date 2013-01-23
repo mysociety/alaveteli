@@ -1509,8 +1509,8 @@ msgstr ""
 msgid "Please"
 msgstr "Будь ласка"
 
-msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
-msgstr "Будь ласа, <a href=\"%s\">дайте нам знати</a>, щоб ми могли це виправити."
+msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
+msgstr "Будь ласа, <a href=\"{{url}}\">дайте нам знати</a>, щоб ми могли це виправити."
 
 msgid "Please <strong>answer the question above</strong> so we know whether the "
 msgstr "Будь ласка, <strong>дайте відповідь на питання вгорі</strong>, щоб ми знали, чи "

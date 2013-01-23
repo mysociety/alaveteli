@@ -1452,8 +1452,8 @@ msgstr "Helfen Sie uns ausstehende Anfragen zu kategorisieren!"
 msgid "Please"
 msgstr "Bitte"
 
-msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
-msgstr "Bitte<a href=\"%s\">nehmen Sie Kontakt mit uns auf</a>, damit wir das Problem beheben können. "
+msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
+msgstr "Bitte<a href=\"{{url}}\">nehmen Sie Kontakt mit uns auf</a>, damit wir das Problem beheben können. "
 
 msgid "Please <strong>answer the question above</strong> so we know whether the "
 msgstr "Bitte <strong>beantworten Sie die oben angezeigte Frage</strong>, damit wir wissen ob"
