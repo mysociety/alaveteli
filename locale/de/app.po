@@ -2374,10 +2374,10 @@ msgstr "Diese Anfrage erhielt eine ungewöhnliche Antwort und müsste einmal dur
 msgid "This request has prominence 'hidden'. You can only see it because you are logged\\n    in as a super user."
 msgstr "Diese Anfrage ist verborgen. Sie können sie nur sehen weil Sie als Supernutzer eingeloggt sind. "
 
-msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"%s\">contact us</a> if you are not sure why."
+msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr ""
 "Diese Anfrage ist verborgen, so dass ausschliesslich Sie als Nutzer sie sehen können. \n"
-"Bitte⏎ <a href=\"%s\">kontaktieren Sie us</a> falls Sie nicht wissen warum."
+"Bitte⏎ <a href=\"{{url}}\">kontaktieren Sie us</a> falls Sie nicht wissen warum."
 
 msgid "This request is still in progress:"
 msgstr "Diese Anfrage ist noch in Bearbeitung"

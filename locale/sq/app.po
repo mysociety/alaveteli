@@ -2426,8 +2426,8 @@ msgstr ""
 msgid "This request has prominence 'hidden'. You can only see it because you are logged\\n    in as a super user."
 msgstr "Kjo kërkesë ka klasifikim 'fshehur'. Ti mund të shohësh atë, vetëm sepse je kyçur 'super user'."
 
-msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"%s\">contact us</a> if you are not sure why."
-msgstr "Kjo kërkesë është e fshehur, kështu që vetëm ti -  kërkuesi mund ta shoh ate. Të lutem <a href=\"%s\">na kontakto</a> nëse nuk je i sigurt pse kjo po ndodhë."
+msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgstr "Kjo kërkesë është e fshehur, kështu që vetëm ti -  kërkuesi mund ta shoh ate. Të lutem <a href=\"{{url}}\">na kontakto</a> nëse nuk je i sigurt pse kjo po ndodhë."
 
 msgid "This request is still in progress:"
 msgstr "Kjo kërkesë është ende në përpunim:"

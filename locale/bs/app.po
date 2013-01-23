@@ -2454,10 +2454,10 @@ msgstr ""
 "Ovaj zahtjev je inače skriven. Možete ga vidjeti jer ste prijavljeni \n"
 "    kao super korisnik."
 
-msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"%s\">contact us</a> if you are not sure why."
+msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr ""
 "Ovaj zahtjev je skriven tako da ga samo Vi podnosioc možete vidjeti. Molimo\n"
-"    <a href=\"%s\">kontaktirajte nas</a> ako niste sigurni zašto."
+"    <a href=\"{{url}}\">kontaktirajte nas</a> ako niste sigurni zašto."
 
 msgid "This request is still in progress:"
 msgstr "Ovaj zahtjev je još u toku:"

@@ -2959,7 +2959,7 @@ msgstr ""
 #: app/views/request/show.rhtml:11
 msgid ""
 "This request is hidden, so that only you the requester can see it. Please\n"
-"    <a href=\"%s\">contact us</a> if you are not sure why."
+"    <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr ""
 
 #: app/views/request/_describe_state.rhtml:7

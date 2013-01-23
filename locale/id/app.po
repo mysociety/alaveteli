@@ -2493,10 +2493,10 @@ msgstr ""
 "Permintaan ini memiliki keulungan 'tersembunyi'. Anda hanya dapat melihatnya karena Anda masuk\n"
 "    sebagai pengguna super."
 
-msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"%s\">contact us</a> if you are not sure why."
+msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr ""
 "Permintaan ini disembunyikan, sehingga hanya Anda sang pemhon yang dapat melihatnya. Silakan\n"
-"    <a href=\"%s\">hubungi kami</a> jika Anda tidak yakin mengapa."
+"    <a href=\"{{url}}\">hubungi kami</a> jika Anda tidak yakin mengapa."
 
 msgid "This request is still in progress:"
 msgstr "Permintaan ini masih dalam proses:"

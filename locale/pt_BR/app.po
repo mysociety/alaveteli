@@ -2357,8 +2357,8 @@ msgstr "Esta requisição teve uma resposta atípica, e <strong>requer atenção
 msgid "This request has prominence 'hidden'. You can only see it because you are logged\\n    in as a super user."
 msgstr "Esse pedido esta marcado como 'escondido'. Você só pode vê-lo porque esta conectado como um administrador."
 
-msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"%s\">contact us</a> if you are not sure why."
-msgstr "Esse pedido esta escondido, apenas quem pediu pode ver. Por favor <a href=\"%s\">contate-nos</a> se você não tem certeza de porque."
+msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgstr "Esse pedido esta escondido, apenas quem pediu pode ver. Por favor <a href=\"{{url}}\">contate-nos</a> se você não tem certeza de porque."
 
 msgid "This request is still in progress:"
 msgstr "Esse pedido ainda não acabou:"

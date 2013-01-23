@@ -2370,8 +2370,8 @@ msgstr "Eskabide honek erantzun ez-ohikoa jaso du eta {{site_name}}-ko taldearen
 msgid "This request has prominence 'hidden'. You can only see it because you are logged\\n    in as a super user."
 msgstr "Eskabide honen ikusgarritasuna 'ezkutua' da. Zuk ikus dezakezu super-erabiltzaile bezala identifikatu zarelako."
 
-msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"%s\">contact us</a> if you are not sure why."
-msgstr "Eskabide hau ezkututa dago, beraz zuk zeuk, sortzaile zaren heinean, ikus dezakezu. Mesedez, zergatik gertatzen den seguru ez bazaude, jar zaitez gurekin <a href=\"%s\">harremanetan</a>."
+msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgstr "Eskabide hau ezkututa dago, beraz zuk zeuk, sortzaile zaren heinean, ikus dezakezu. Mesedez, zergatik gertatzen den seguru ez bazaude, jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a>."
 
 msgid "This request is still in progress:"
 msgstr "Eskabide hau oraindik prozesatzen ari da:"
