@@ -194,9 +194,9 @@ msgid "Can't find the one you want?"
 msgstr "Não conseguiu encontrar o que procurava?"
 
 msgid ""
-"<a href=\"%s\">Sign in</a> to change password, subscriptions and more "
+"<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more "
 "({{user_name}} only)"
-msgstr "<a href=\"%s\">Acesse aqui</a> para alterar sua senha, acompanhamento de pedidos e mais (apenas para {{user_name}})"
+msgstr "<a href=\"{{url}}\">Acesse aqui</a> para alterar sua senha, acompanhamento de pedidos e mais (apenas para {{user_name}})"
 
 msgid "details"
 msgstr "detalhes"

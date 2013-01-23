@@ -208,7 +208,7 @@ msgid "Can't find the one you want?"
 msgstr ""
 
 #: app/views/user/show.rhtml:118
-msgid "<a href=\"%s\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
+msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr ""
 
 #: app/views/request/_followup.rhtml:66 app/views/request/_followup.rhtml:73

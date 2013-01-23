@@ -180,9 +180,9 @@ msgid "Can't find the one you want?"
 msgstr "No troba el que busca?"
 
 msgid ""
-"<a href=\"%s\">Sign in</a> to change password, subscriptions and more "
+"<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more "
 "({{user_name}} only)"
-msgstr "<a href=\"%s\">Obre una sessió</a> per canviar la teva contrasenya, suscripcions... (només {{user_name}})"
+msgstr "<a href=\"{{url}}\">Obre una sessió</a> per canviar la teva contrasenya, suscripcions... (només {{user_name}})"
 
 msgid "details"
 msgstr "detalls"

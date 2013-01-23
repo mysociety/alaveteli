@@ -182,9 +182,9 @@ msgid "Can't find the one you want?"
 msgstr "Ne možete naći onaj koji želite?"
 
 msgid ""
-"<a href=\"%s\">Sign in</a> to change password, subscriptions and more "
+"<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more "
 "({{user_name}} only)"
-msgstr "<a href=\"%s\">Prijavite se</a> da biste promijenili password, pretplatu ili drugo ({{user_name}} only)"
+msgstr "<a href=\"{{url}}\">Prijavite se</a> da biste promijenili password, pretplatu ili drugo ({{user_name}} only)"
 
 msgid "details"
 msgstr "detalji"

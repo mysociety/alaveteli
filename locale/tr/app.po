@@ -168,14 +168,14 @@ msgstr ""
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr ""
 
-msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
+msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr ""
 
 msgid "Can't find the one you want?"
 msgstr ""
 
 msgid ""
-"<a href=\"%s\">Sign in</a> to change password, subscriptions and more "
+"<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more "
 "({{user_name}} only)"
 msgstr ""
 

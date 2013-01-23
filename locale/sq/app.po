@@ -184,9 +184,9 @@ msgid "Can't find the one you want?"
 msgstr "Nuk mund të gjen autoritetin që dëshiron?"
 
 msgid ""
-"<a href=\"%s\">Sign in</a> to change password, subscriptions and more "
+"<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more "
 "({{user_name}} only)"
-msgstr "<a href=\"%s\">Kyçu</a> për të ndryshuar fjalëkalimin, abonimet dhe të tjera (vetëm për {{user_name}})"
+msgstr "<a href=\"{{url}}\">Kyçu</a> për të ndryshuar fjalëkalimin, abonimet dhe të tjera (vetëm për {{user_name}})"
 
 msgid "details"
 msgstr "detajet"
