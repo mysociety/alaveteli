@@ -586,8 +586,8 @@ msgstr "Eska itzatzu agiriak edo informazio  <strong>zehatza</strong>, web orria
 
 msgid ""
 "At the bottom of this page, write a reply to them trying to persuade them to"
-" scan it in\\n            (<a href=\"%s\">more details</a>)."
-msgstr "Orrialde honen amaieran, idatz ezazu erantzuna, eskanea dezaten konbentzitzeko (<a href=\"%s\">xehetasun gehiago</a>)."
+" scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
+msgstr "Orrialde honen amaieran, idatz ezazu erantzuna, eskanea dezaten konbentzitzeko (<a href=\"{{url}}\">xehetasun gehiago</a>)."
 
 msgid "Attachment (optional):"
 msgstr "Gehigarriak (aukerakoa):"

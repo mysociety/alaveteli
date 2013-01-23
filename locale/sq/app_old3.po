@@ -754,10 +754,10 @@ msgstr ""
 msgid ""
 "At the bottom of this page, write a reply to them trying to persuade them to "
 "scan it in\n"
-"            (<a href=\"%s\">more details</a>)."
+"            (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
 "AA At the bottom of this page, write a reply to them trying to persuade them "
-"to scan it in(<a href=\"%s\">more details</a>)."
+"to scan it in(<a href=\"{{url}}\">more details</a>)."
 
 #: app/views/request/upload_response.rhtml:33
 msgid "Attachment (optional):"

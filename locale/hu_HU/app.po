@@ -585,8 +585,8 @@ msgstr "Kérése irányulhat <strong>konkrét</strong> dokumentumokra vagy infor
 
 msgid ""
 "At the bottom of this page, write a reply to them trying to persuade them to"
-" scan it in\\n            (<a href=\"%s\">more details</a>)."
-msgstr "Az oldal alsó részén írjon választ, amiben kéri a dokumentum szkennelését\n            (<a href=\"%s\">további részletek</a>). "
+" scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
+msgstr "Az oldal alsó részén írjon választ, amiben kéri a dokumentum szkennelését\n            (<a href=\"{{url}}\">további részletek</a>). "
 
 msgid "Attachment (optional):"
 msgstr "Melléklet (opcionális): "

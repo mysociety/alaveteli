@@ -583,8 +583,8 @@ msgstr "Meminta <strong>dokumen atau informasi</strong> spesifik, situs ini tida
 
 msgid ""
 "At the bottom of this page, write a reply to them trying to persuade them to"
-" scan it in\\n            (<a href=\"%s\">more details</a>)."
-msgstr "Di bagian bawah halaman ini, tulislah balasan kepada mereka berusaha membujuk mereka untuk memindainya \n            (<a href=\"%s\">lebih banyak rincian</a>)."
+" scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
+msgstr "Di bagian bawah halaman ini, tulislah balasan kepada mereka berusaha membujuk mereka untuk memindainya \n            (<a href=\"{{url}}\">lebih banyak rincian</a>)."
 
 msgid "Attachment (optional):"
 msgstr "Lampiran (opsional):"

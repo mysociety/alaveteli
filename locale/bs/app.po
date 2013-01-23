@@ -591,8 +591,8 @@ msgstr "Tražite <strong>konkretne</strong> dokumente ili informacije, ova stran
 
 msgid ""
 "At the bottom of this page, write a reply to them trying to persuade them to"
-" scan it in\\n            (<a href=\"%s\">more details</a>)."
-msgstr "Na dnu ove stranice, napišite im odgovor pokušavajući da ih ubjedite da ga pregledaju\n            (<a href=\"%s\">Više informacija</a>)."
+" scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
+msgstr "Na dnu ove stranice, napišite im odgovor pokušavajući da ih ubjedite da ga pregledaju\n            (<a href=\"{{url}}\">Više informacija</a>)."
 
 msgid "Attachment (optional):"
 msgstr "Prilog (neobavezno):"

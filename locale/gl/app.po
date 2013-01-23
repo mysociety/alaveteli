@@ -585,8 +585,8 @@ msgstr "Pide documentos o información <strong>específica</strong>, esta web no
 
 msgid ""
 "At the bottom of this page, write a reply to them trying to persuade them to"
-" scan it in\\n            (<a href=\"%s\">more details</a>)."
-msgstr "Al final de esta página, escribe una respuesta intentando convencerles de que lo escaneen\n            (<a href=\"%s\">más detalles</a>)."
+" scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
+msgstr "Al final de esta página, escribe una respuesta intentando convencerles de que lo escaneen\n            (<a href=\"{{url}}\">más detalles</a>)."
 
 msgid "Attachment (optional):"
 msgstr "Adjuntos (opcional):"

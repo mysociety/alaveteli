@@ -594,8 +594,8 @@ msgstr "Požádejte o <strong>konkrétní</strong> dokumenty nebo informace, tyt
 
 msgid ""
 "At the bottom of this page, write a reply to them trying to persuade them to"
-" scan it in\\n            (<a href=\"%s\">more details</a>)."
-msgstr "Ve spodní části této stránky jim napište odpověď a požádejte je, aby požadované informace oskenovali\n            (<a href=\"%s\">více detailů</a>)."
+" scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
+msgstr "Ve spodní části této stránky jim napište odpověď a požádejte je, aby požadované informace oskenovali\n            (<a href=\"{{url}}\">více detailů</a>)."
 
 msgid "Attachment (optional):"
 msgstr "Příloha (nepovinná):"
