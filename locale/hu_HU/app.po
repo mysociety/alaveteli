@@ -2983,9 +2983,9 @@ msgstr "Váratlan keresésieredmény-típus "
 
 msgid ""
 "Unfortunately we don't know the FOI\\nemail address for that authority, so "
-"we can't validate this.\\nPlease <a href=\"%s\">contact us</a> to sort it "
+"we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it "
 "out."
-msgstr "Sajnos nem ismerjük az adatgazda\nközérdekű adatigényléshez használt e-mail címét, így ezt nem tudjuk hitelesíteni.\nKérjük, <a href=\"%s\">lépjen velünk kapcsolatba</a>, hogy megoldjuk a problémát. "
+msgstr "Sajnos nem ismerjük az adatgazda\nközérdekű adatigényléshez használt e-mail címét, így ezt nem tudjuk hitelesíteni.\nKérjük, <a href=\"{{url}}\">lépjen velünk kapcsolatba</a>, hogy megoldjuk a problémát. "
 
 msgid ""
 "Unfortunately, we do not have a working "

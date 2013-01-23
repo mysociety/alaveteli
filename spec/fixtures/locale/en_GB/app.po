@@ -3196,7 +3196,7 @@ msgstr ""
 msgid ""
 "Unfortunately we don't know the FOI\n"
 "email address for that authority, so we can't validate this.\n"
-"Please <a href=\"%s\">contact us</a> to sort it out."
+"Please <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
 
 #: app/views/request/new_bad_contact.rhtml:5

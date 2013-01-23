@@ -2987,7 +2987,7 @@ msgstr ""
 
 msgid ""
 "Unfortunately we don't know the FOI\\nemail address for that authority, so "
-"we can't validate this.\\nPlease <a href=\"%s\">contact us</a> to sort it "
+"we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it "
 "out."
 msgstr ""
 

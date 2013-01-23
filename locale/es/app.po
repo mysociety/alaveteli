@@ -2987,9 +2987,9 @@ msgstr "Se encontró un tipo de resultado inesperado "
 
 msgid ""
 "Unfortunately we don't know the FOI\\nemail address for that authority, so "
-"we can't validate this.\\nPlease <a href=\"%s\">contact us</a> to sort it "
+"we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it "
 "out."
-msgstr "Desgraciadamente no tenemos la dirección\nde correo para este organismo, así que no podemos validarlo.\nPor favor <a href=\"%s\">contáctenos</a> para arreglarlo."
+msgstr "Desgraciadamente no tenemos la dirección\nde correo para este organismo, así que no podemos validarlo.\nPor favor <a href=\"{{url}}\">contáctenos</a> para arreglarlo."
 
 msgid ""
 "Unfortunately, we do not have a working "

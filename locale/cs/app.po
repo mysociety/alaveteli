@@ -2997,9 +2997,9 @@ msgstr "Neočekávané výsledky vyhledávání "
 
 msgid ""
 "Unfortunately we don't know the FOI\\nemail address for that authority, so "
-"we can't validate this.\\nPlease <a href=\"%s\">contact us</a> to sort it "
+"we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it "
 "out."
-msgstr "Bohužel nemáme e-mailovou adresu této instituce\npro vznášení dotazů, proto tento údaj nemůžeme ověřit.\nProsíme <a href=\"%s\">kontaktujte nás</a> abychom to vyřešili."
+msgstr "Bohužel nemáme e-mailovou adresu této instituce\npro vznášení dotazů, proto tento údaj nemůžeme ověřit.\nProsíme <a href=\"{{url}}\">kontaktujte nás</a> abychom to vyřešili."
 
 msgid ""
 "Unfortunately, we do not have a working "

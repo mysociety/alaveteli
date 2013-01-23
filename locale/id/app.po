@@ -2976,9 +2976,9 @@ msgstr "Jenis hasil pencarian yang tidak terduga "
 
 msgid ""
 "Unfortunately we don't know the FOI\\nemail address for that authority, so "
-"we can't validate this.\\nPlease <a href=\"%s\">contact us</a> to sort it "
+"we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it "
 "out."
-msgstr "Sayangnya kami tidak mengetahui FOI \nalamat email untuk otoritas tersebut, sehingga kami tidak dapat memvalidasi ini.\nSilakan <a href=\"%s\">hubungi kami</a> untuk mengatasinya."
+msgstr "Sayangnya kami tidak mengetahui FOI \nalamat email untuk otoritas tersebut, sehingga kami tidak dapat memvalidasi ini.\nSilakan <a href=\"{{url}}\">hubungi kami</a> untuk mengatasinya."
 
 msgid ""
 "Unfortunately, we do not have a working "

@@ -3442,8 +3442,8 @@ msgstr "Se encontró un tipo de resultado inesperado "
 msgid ""
 "Unfortunately we don't know the FOI\n"
 "email address for that authority, so we can't validate this.\n"
-"Please <a href=\"%s\">contact us</a> to sort it out."
-msgstr "Desgraciadamente no tenemos la dirección\nde correo para este organismo, así que no podemos validarlo.\nPor favor <a href=\"%s\">contáctenos</a> para arreglarlo."
+"Please <a href=\"{{url}}\">contact us</a> to sort it out."
+msgstr "Desgraciadamente no tenemos la dirección\nde correo para este organismo, así que no podemos validarlo.\nPor favor <a href=\"{{url}}\">contáctenos</a> para arreglarlo."
 
 #: app/views/request/new_bad_contact.rhtml:5
 msgid ""
