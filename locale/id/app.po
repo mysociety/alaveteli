@@ -3127,8 +3127,8 @@ msgstr "Permintaan Anda :"
 msgid "Your response to an FOI request was not delivered"
 msgstr ""
 
-msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"%s\">read why</a> and answers to other questions."
-msgstr "Respon Anda akan <strong>tampil di Internet</strong>, <a href=\"%s\">baca mengapa</a> dan jawaban-jawaban atas pertanyaan-pertanyaan lain."
+msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
+msgstr "Respon Anda akan <strong>tampil di Internet</strong>, <a href=\"{{url}}\">baca mengapa</a> dan jawaban-jawaban atas pertanyaan-pertanyaan lain."
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Pendapat Anda tentang apa yang{{site_name}} <strong>administrator</strong> harus lakukan tentang permintaan ini."

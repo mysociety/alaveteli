@@ -2963,8 +2963,8 @@ msgstr "Ihre Anfrage:"
 msgid "Your response to an FOI request was not delivered"
 msgstr ""
 
-msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"%s\">read why</a> and answers to other questions."
-msgstr "Ihre Antwort, sowie Antworten auf andere Anfragen wierden <strong>im Internet erscheinen</strong>, <a href=\"%s\">Lesen Sie warum</a>"
+msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
+msgstr "Ihre Antwort, sowie Antworten auf andere Anfragen wierden <strong>im Internet erscheinen</strong>, <a href=\"{{url}}\">Lesen Sie warum</a>"
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Ihre Meinung zu empfehlenswerten Schritte von {{site_name}} durch die <strong>Administratoren</strong> bzgl. der Anfrage."

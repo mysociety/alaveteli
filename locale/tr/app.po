@@ -2816,14 +2816,7 @@ msgstr ""
 msgid "Your e-mail:"
 msgstr ""
 
-<<<<<<< HEAD
-msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"%s\">contact us</a> if you really want to send a follow up message."
-=======
-msgid ""
-"Your follow up has not been sent because this request has been stopped to "
-"prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to "
-"send a follow up message."
->>>>>>> 18f6443... Use {{}} not %s in translation.
+msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr ""
 
 msgid "Your follow up message has been sent on its way."
@@ -2874,7 +2867,7 @@ msgstr ""
 msgid "Your response to an FOI request was not delivered"
 msgstr ""
 
-msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"%s\">read why</a> and answers to other questions."
+msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr ""
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."

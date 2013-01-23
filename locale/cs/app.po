@@ -3082,8 +3082,8 @@ msgstr "Váš dotaz:"
 msgid "Your response to an FOI request was not delivered"
 msgstr "Vaše odpověď na dotaz nebyla doručena"
 
-msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"%s\">read why</a> and answers to other questions."
-msgstr "Vaše odpověď <strong>bude uveřejněna na internetu</strong>, <a href=\"%s\">čtěte proč</a> spolu s historií konverzace."
+msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
+msgstr "Vaše odpověď <strong>bude uveřejněna na internetu</strong>, <a href=\"{{url}}\">čtěte proč</a> spolu s historií konverzace."
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Vaše doporučení co by <strong>administrátor</strong> stránek {{site_name}} měl udělat s tímto dotazem."

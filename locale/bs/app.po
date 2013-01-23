@@ -3068,8 +3068,8 @@ msgstr "Vaš zahtjev:"
 msgid "Your response to an FOI request was not delivered"
 msgstr ""
 
-msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"%s\">read why</a> and answers to other questions."
-msgstr "Vaš odgovor će se <strong>pojaviti na Internetu</strong>, <a href=\"%s\">pročitajte zašto</a> i odgovore na druga pitanja."
+msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
+msgstr "Vaš odgovor će se <strong>pojaviti na Internetu</strong>, <a href=\"{{url}}\">pročitajte zašto</a> i odgovore na druga pitanja."
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Vaše mišljenje o tome šta administratori {{site_name}} trebaju da rade po pitanju zahtjeva."
