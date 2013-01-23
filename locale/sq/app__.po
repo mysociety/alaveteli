@@ -502,10 +502,10 @@ msgstr ""
 #: app/views/request/preview.rhtml:31
 msgid ""
 "<strong>Privacy note:</strong> If you want to request private information about\n"
-"    yourself then <a href=\"%s\">click here</a>."
+"    yourself then <a href=\"{{url}}\">click here</a>."
 msgstr ""
 "<strong>Shenim privacie:</strong> Nëse do të kërkosh informatë private për\n"
-"    veten tënde <a href=\"%s\">kliko këtu</a>."
+"    veten tënde <a href=\"{{url}}\">kliko këtu</a>."
 
 #: app/views/user/set_crop_profile_photo.rhtml:35
 msgid ""

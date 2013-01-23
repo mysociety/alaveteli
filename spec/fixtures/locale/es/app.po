@@ -480,8 +480,8 @@ msgstr "<strong>Nota:</strong> Te estás enviando un mensaje a ti mismo, suponem
 #: app/views/request/preview.rhtml:31
 msgid ""
 "<strong>Privacy note:</strong> If you want to request private information about\n"
-"    yourself then <a href=\"%s\">click here</a>."
-msgstr "<strong>Nota sobre privacidad:</strong> Si quiere solicitar información privada\n    sobre sí mismo entonces <a href=\"%s\">siga este enlace</a>."
+"    yourself then <a href=\"{{url}}\">click here</a>."
+msgstr "<strong>Nota sobre privacidad:</strong> Si quiere solicitar información privada\n    sobre sí mismo entonces <a href=\"{{url}}\">siga este enlace</a>."
 
 #: app/views/user/set_crop_profile_photo.rhtml:35
 msgid ""

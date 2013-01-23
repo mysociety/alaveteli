@@ -412,8 +412,8 @@ msgstr "<strong>Nota:</strong>\n    Enviarem un correu a la nova direcció de co
 
 msgid ""
 "<strong>Privacy note:</strong> If you want to request private information "
-"about\\n    yourself then <a href=\"%s\">click here</a>."
-msgstr "<strong>Nota sobre privacitat:</strong> Si vols sol·licitar informació privada\n    sobre tu mateix <a href=\"%s\">segueix aquest enllaç</a>."
+"about\\n    yourself then <a href=\"{{url}}\">click here</a>."
+msgstr "<strong>Nota sobre privacitat:</strong> Si vols sol·licitar informació privada\n    sobre tu mateix <a href=\"{{url}}\">segueix aquest enllaç</a>."
 
 msgid ""
 "<strong>Privacy note:</strong> Your photo will be shown in public on the "

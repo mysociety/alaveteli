@@ -408,8 +408,8 @@ msgstr "<strong>Catatan:</strong>\n    Kami akan mengirimkan email ke alamat ema
 
 msgid ""
 "<strong>Privacy note:</strong> If you want to request private information "
-"about\\n    yourself then <a href=\"%s\">click here</a>."
-msgstr "<strong>Catatan privasi:</strong> Jika Anda ingin meminta informasi privat tentang\n    Anda sendiri maka <a href=\"%s\">click here</a>."
+"about\\n    yourself then <a href=\"{{url}}\">click here</a>."
+msgstr "<strong>Catatan privasi:</strong> Jika Anda ingin meminta informasi privat tentang\n    Anda sendiri maka <a href=\"{{url}}\">click here</a>."
 
 msgid ""
 "<strong>Privacy note:</strong> Your photo will be shown in public on the "

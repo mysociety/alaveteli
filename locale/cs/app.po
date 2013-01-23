@@ -419,8 +419,8 @@ msgstr "<strong>Poznámka:</strong>\n    Pošleme vám zprávu na vaši e-mailov
 
 msgid ""
 "<strong>Privacy note:</strong> If you want to request private information "
-"about\\n    yourself then <a href=\"%s\">click here</a>."
-msgstr "<strong>Ochrana soukromí:</strong> Pokud chcete vznést dotaz týkající se vaší osoby,\n     <a href=\"%s\">klikněte sem</a>."
+"about\\n    yourself then <a href=\"{{url}}\">click here</a>."
+msgstr "<strong>Ochrana soukromí:</strong> Pokud chcete vznést dotaz týkající se vaší osoby,\n     <a href=\"{{url}}\">klikněte sem</a>."
 
 msgid ""
 "<strong>Privacy note:</strong> Your photo will be shown in public on the "

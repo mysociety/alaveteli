@@ -410,8 +410,8 @@ msgstr "<strong>Megjegyzés:</strong>\n    E-mailt küldünk új e-mail címére
 
 msgid ""
 "<strong>Privacy note:</strong> If you want to request private information "
-"about\\n    yourself then <a href=\"%s\">click here</a>."
-msgstr "<strong>Adatvédelmi nyilatkozat:</strong> Amennyiben önmagáról kíván személyes\n    jellegű információt igényelni, <a href=\"%s\">kattintson ide</a>. "
+"about\\n    yourself then <a href=\"{{url}}\">click here</a>."
+msgstr "<strong>Adatvédelmi nyilatkozat:</strong> Amennyiben önmagáról kíván személyes\n    jellegű információt igényelni, <a href=\"{{url}}\">kattintson ide</a>. "
 
 msgid ""
 "<strong>Privacy note:</strong> Your photo will be shown in public on the "

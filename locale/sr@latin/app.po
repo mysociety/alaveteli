@@ -415,8 +415,8 @@ msgstr "<strong>Napomena:</strong>\n    Poslati ćemo e-mail na Vašu novu adres
 
 msgid ""
 "<strong>Privacy note:</strong> If you want to request private information "
-"about\\n    yourself then <a href=\"%s\">click here</a>."
-msgstr "<strong>Napomena o privatnosti:</strong> Ako želite da zahtevate privatne informacije o\n    Vama onda <a href=\"%s\">kliknite ovde</a>."
+"about\\n    yourself then <a href=\"{{url}}\">click here</a>."
+msgstr "<strong>Napomena o privatnosti:</strong> Ako želite da zahtevate privatne informacije o\n    Vama onda <a href=\"{{url}}\">kliknite ovde</a>."
 
 msgid ""
 "<strong>Privacy note:</strong> Your photo will be shown in public on the "

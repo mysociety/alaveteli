@@ -426,8 +426,8 @@ msgstr "<strong>Atenção:</strong> Vamos enviar um email para você. Siga as in
 
 msgid ""
 "<strong>Privacy note:</strong> If you want to request private information "
-"about\\n    yourself then <a href=\"%s\">click here</a>."
-msgstr "<strong>Observação sobre privacidade:</strong> Se você deseja solicitar informações privadas sobre si mesmo, <a href=\"%s\">clique aqui</a> ."
+"about\\n    yourself then <a href=\"{{url}}\">click here</a>."
+msgstr "<strong>Observação sobre privacidade:</strong> Se você deseja solicitar informações privadas sobre si mesmo, <a href=\"{{url}}\">clique aqui</a> ."
 
 msgid ""
 "<strong>Privacy note:</strong> Your photo will be shown in public on the "
