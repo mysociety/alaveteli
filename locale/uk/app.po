@@ -2414,7 +2414,7 @@ msgstr ""
 "Людина, що зробила цей запит, відмовилась від нього.\n"
 "               У переписці нижче може бути пояснення цьому."
 
-msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"%s\">contact us</a>."
+msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
 msgstr ""
 
 msgid "This request has been reported for administrator attention"

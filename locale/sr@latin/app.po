@@ -2436,7 +2436,7 @@ msgstr ""
 "Ovaj zahtev je <strong>povučen</strong> od strane osobe koja ga je napravila. \n"
 "        <span class=\"whitespace other\" title=\"Tab\">»</span>   Obijašnjenje može biti u dopisima ispod."
 
-msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"%s\">contact us</a>."
+msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
 msgstr ""
 
 msgid "This request has been reported for administrator attention"

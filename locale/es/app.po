@@ -2491,8 +2491,8 @@ msgstr ""
 "Esta solicitud ha sido <strong>retirada</strong> por la persona que la realizó. \n"
 "        \t   Puede que haya una explicación en los mensajes a continuación."
 
-msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"%s\">contact us</a>."
-msgstr "Esta solicitud va a ser revisada por los administradores de la web, que no la han ocultado de momento. Si crees que debe ser ocultada, por favor <a href=\"%s\">contáctanos</a>."
+msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Esta solicitud va a ser revisada por los administradores de la web, que no la han ocultado de momento. Si crees que debe ser ocultada, por favor <a href=\"{{url}}\">contáctanos</a>."
 
 msgid "This request has been reported for administrator attention"
 msgstr "Este pedido ha sido reportado al administrador del sitio."

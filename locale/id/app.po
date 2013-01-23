@@ -2476,8 +2476,8 @@ msgstr ""
 "Permintaan ini telah <strong>ditarik</strong> oleh orang yang membuatnya. \n"
 "        \t   Mungkin ada penjelasan dalam korespondensi di bawah."
 
-msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"%s\">contact us</a>."
-msgstr "Permintaan ini telah ditandai untuk di review oleh administrator, tetapi tidak disembunyikan pada saat ini. Jika Anda yakin akan disembunyikan, silakan <a href=\"%s\">kontak kami</a>."
+msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Permintaan ini telah ditandai untuk di review oleh administrator, tetapi tidak disembunyikan pada saat ini. Jika Anda yakin akan disembunyikan, silakan <a href=\"{{url}}\">kontak kami</a>."
 
 msgid "This request has been reported for administrator attention"
 msgstr "Permintaan ini telah dilaporkan untuk perhatian administrator"

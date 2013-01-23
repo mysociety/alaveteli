@@ -2460,7 +2460,7 @@ msgstr ""
 "Ezt az igénylést <strong>visszavonta</strong> az azt benyújtó személy. \n"
 "        \t   Előfordulhat, hogy az alábbi levelezésben megtalálja ennek magyarázatát."
 
-msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"%s\">contact us</a>."
+msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
 msgstr ""
 
 msgid "This request has been reported for administrator attention"
