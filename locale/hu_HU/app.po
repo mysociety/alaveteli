@@ -2788,8 +2788,8 @@ msgstr "Ennek az igénylésnek a népszerűsége el van 'rejtve'. Csak azért l�
 
 msgid ""
 "This request is hidden, so that only you the requester can see it. Please\\n"
-"    <a href=\"%s\">contact us</a> if you are not sure why."
-msgstr "Ez az igénylés el van rejtve, és azt kizárólag az igénylő láthatja. Ha nem tudja ennek okát,\n   <a href=\"%s\">lépjen velünk kapcsolatba</a>"
+"    <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgstr "Ez az igénylés el van rejtve, és azt kizárólag az igénylő láthatja. Ha nem tudja ennek okát,\n   <a href=\"{{url}}\">lépjen velünk kapcsolatba</a>"
 
 msgid "This request is still in progress:"
 msgstr "Ez az igénylés még mindig folyamatban van: "

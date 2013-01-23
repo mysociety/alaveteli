@@ -2792,8 +2792,8 @@ msgstr "Esta solicitud tiene visibilidad 'oculta'. Puedes verla sólo porque est
 
 msgid ""
 "This request is hidden, so that only you the requester can see it. Please\\n"
-"    <a href=\"%s\">contact us</a> if you are not sure why."
-msgstr "Esta solicitud está oculta, por lo que sólo tú como creador puedes verla. Por favor\n    <a href=\"%s\">contáctanos</a> si no estás seguro de por qué."
+"    <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgstr "Esta solicitud está oculta, por lo que sólo tú como creador puedes verla. Por favor\n    <a href=\"{{url}}\">contáctanos</a> si no estás seguro de por qué."
 
 msgid "This request is still in progress:"
 msgstr "Esta solicitud está todavía en proceso:"

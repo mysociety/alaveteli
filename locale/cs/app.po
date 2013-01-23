@@ -2802,8 +2802,8 @@ msgstr "Tento dotaz má status \"skrytý\". Můžete jej vidět jenom proto, že
 
 msgid ""
 "This request is hidden, so that only you the requester can see it. Please\\n"
-"    <a href=\"%s\">contact us</a> if you are not sure why."
-msgstr "Tento dotaz je nyní skrytý, a může jej vidět pouze tazatel. Prosíme\n<a href=\"%s\">kontaktujte nás,</a> pokud si nejste jisti proč ji nevidíte."
+"    <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgstr "Tento dotaz je nyní skrytý, a může jej vidět pouze tazatel. Prosíme\n<a href=\"{{url}}\">kontaktujte nás,</a> pokud si nejste jisti proč ji nevidíte."
 
 msgid "This request is still in progress:"
 msgstr "Tento dotaz je stále aktivní:"

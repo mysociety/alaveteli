@@ -2787,7 +2787,7 @@ msgid ""
 msgstr ""
 "Kërkesa që ti je përpjek për të parë është hequr (larguar). Ka arsye të "
 "ndryshme pse ne kemi mund për të bërë këtë, na vie keq që nuk mund të jemi "
-"më specifik. Të lutem të <a href=\"%s\">na kontakton</a> nëse ke ndonjë "
+"më specifik. Të lutem të <a href=\"{{url}}\">na kontakton</a> nëse ke ndonjë "
 "pyetje."
 
 #: app/views/general/search.rhtml:152

@@ -3180,10 +3180,10 @@ msgstr ""
 #: app/views/request/show.rhtml:11
 msgid ""
 "This request is hidden, so that only you the requester can see it. Please\n"
-"    <a href=\"%s\">contact us</a> if you are not sure why."
+"    <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr ""
 "Kjo kërkesë është e fshehur, kështu që vetëm ti -  kërkuesi mund ta shoh "
-"ate. Të lutem <a href=\"%s\">na kontakto</a> nëse nuk je i sigurt pse kjo po"
+"ate. Të lutem <a href=\"{{url}}\">na kontakto</a> nëse nuk je i sigurt pse kjo po"
 " ndodhë."
 
 #: app/views/request/_hidden_correspondence.rhtml:10

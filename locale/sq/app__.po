@@ -2896,19 +2896,19 @@ msgstr ""
 #: app/views/request/show.rhtml:11
 msgid ""
 "This request is hidden, so that only you the requester can see it. Please\n"
-"    <a href=\"%s\">contact us</a> if you are not sure why."
+"    <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr ""
 "Kjo kërkesë është e fshehur, kështu që vetëm ti -  kërkuesi mund ta shoh "
-"ate. Të lutem <a href=\"%s\">na kontakto</a> nëse nuk je i sigurt pse kjo po"
+"ate. Të lutem <a href=\"{{url}}\">na kontakto</a> nëse nuk je i sigurt pse kjo po"
 " ndodhë."
 
 #: app/views/request/_hidden_correspondence.rhtml:10
 msgid ""
 "This response has been hidden. See annotations to find out why.\n"
-"            If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
+"            If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
 msgstr ""
 "Kjo përgjegje është fshehur. Shih shënimet për të gjetur pse. Nëse ti je "
-"kërkuesi, atëherë ti mund të <a href=\"%s\">kyçesh</a> për të parë "
+"kërkuesi, atëherë ti mund të <a href=\"{{url}}\">kyçesh</a> për të parë "
 "përgjegjen."
 
 #: app/views/request/new.rhtml:49
