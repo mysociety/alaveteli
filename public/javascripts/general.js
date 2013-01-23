@@ -33,8 +33,9 @@ $(document).ready(function() {
 		  at: "left bottom",
 		  of:  this,
 		  collision: "fit" });
-
+	  return false;
 	 });
+	 
      $('.close-button').click(function() { $(this).parent().hide() });
      $('div#variety-filter a').each(function() {
 	     $(this).click(function() {
