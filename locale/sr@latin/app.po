@@ -1725,8 +1725,8 @@ msgstr "Igrajte igru kategorizacije zahteva!"
 msgid "Please"
 msgstr "Molimo"
 
-msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
-msgstr "Molimo <a href=\"%s\">kontaktirajte</a> nas kako bi to mogli popraviti."
+msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
+msgstr "Molimo <a href=\"{{url}}\">kontaktirajte</a> nas kako bi to mogli popraviti."
 
 msgid ""
 "Please <strong>answer the question above</strong> so we know whether the "

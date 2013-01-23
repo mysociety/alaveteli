@@ -1719,8 +1719,8 @@ msgstr "Kérjük, hajtsa végre az igénylések besorolását. "
 msgid "Please"
 msgstr "Kérjük, "
 
-msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
-msgstr "Kérjük, <a href=\"%s\">lépjen velünk kapcsolatba</a>, hogy kijavítsuk a hibát. "
+msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
+msgstr "Kérjük, <a href=\"{{url}}\">lépjen velünk kapcsolatba</a>, hogy kijavítsuk a hibát. "
 
 msgid ""
 "Please <strong>answer the question above</strong> so we know whether the "

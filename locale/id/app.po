@@ -1716,8 +1716,8 @@ msgstr "Mainkan permainan kategorisasi permintaan!"
 msgid "Please"
 msgstr "Silakan"
 
-msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
-msgstr "Silakan<a href=\"%s\">berhubungan</a> dengan kami sehingga kami dapat memperbaikinya."
+msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
+msgstr "Silakan<a href=\"{{url}}\">berhubungan</a> dengan kami sehingga kami dapat memperbaikinya."
 
 msgid ""
 "Please <strong>answer the question above</strong> so we know whether the "

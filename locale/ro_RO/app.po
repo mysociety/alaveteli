@@ -1726,7 +1726,7 @@ msgstr ""
 msgid "Please"
 msgstr ""
 
-msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
+msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr ""
 
 msgid ""

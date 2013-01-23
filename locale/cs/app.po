@@ -1729,8 +1729,8 @@ msgstr "Hrajte hru na kategorizaci dotazů!"
 msgid "Please"
 msgstr "Prosíme"
 
-msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
-msgstr "Prosíme <a href=\"%s\">kontaktujte nás</a> abychom to mohli upravit."
+msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
+msgstr "Prosíme <a href=\"{{url}}\">kontaktujte nás</a> abychom to mohli upravit."
 
 msgid ""
 "Please <strong>answer the question above</strong> so we know whether the "

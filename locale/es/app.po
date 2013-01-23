@@ -1723,8 +1723,8 @@ msgstr "Juega al juego de clasificación de solicitudes!"
 msgid "Please"
 msgstr "Por favor"
 
-msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
-msgstr "Por favor <a href=\"%s\">contacta</a> con nosotros para que podamos arreglarlo."
+msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
+msgstr "Por favor <a href=\"{{url}}\">contacta</a> con nosotros para que podamos arreglarlo."
 
 msgid ""
 "Please <strong>answer the question above</strong> so we know whether the "

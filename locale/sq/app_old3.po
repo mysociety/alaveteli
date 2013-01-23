@@ -2011,8 +2011,8 @@ msgid "Please"
 msgstr "Të lutem"
 
 #: app/views/user/no_cookies.rhtml:15
-msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
-msgstr "Të lutem <a href=\"%s\">na kontakto</a> që neve ta rregullojme ate."
+msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
+msgstr "Të lutem <a href=\"{{url}}\">na kontakto</a> që neve ta rregullojme ate."
 
 #: app/views/request/show.rhtml:52
 msgid ""
