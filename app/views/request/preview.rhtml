@@ -28,8 +28,8 @@
         </div>
     <% end %>
 
-    <p><%= raw(_('<strong>Privacy note:</strong> If you want to request private information about
-    yourself then <a href="%s">click here</a>.') % [help_requesting_path+"#data_protection"]) %>
+    <p><%= _('<strong>Privacy note:</strong> If you want to request private information about
+    yourself then <a href="{{url}}">click here</a>.', :url => (help_requesting_path+"#data_protection").html_safe) %>
 
     <p>
     <%= f.hidden_field(:title) %>

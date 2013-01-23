@@ -300,8 +300,8 @@ msgstr ""
 "<strong>Oharra:</strong>\n"
 "    Posta bat bidaliko dugu posta helbide berrira. Jarraitu argibideei helbide berria egiaztatzeko."
 
-msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"%s\">click here</a>."
-msgstr "<strong>Pribatutasun oharra:</strong> Zeure buruaz informazio pribatua eskatu nahi izanez gero, orduan <a href=\"%s\">jarraitu esteka honi</a>."
+msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"{{url}}\">click here</a>."
+msgstr "<strong>Pribatutasun oharra:</strong> Zeure buruaz informazio pribatua eskatu nahi izanez gero, orduan <a href=\"{{url}}\">jarraitu esteka honi</a>."
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
 msgstr ""

@@ -316,10 +316,10 @@ msgstr ""
 "    Pošleme vám zprávu na vaši e-mailovou adresu. Pro změnu\n"
 "    vaší e-mailové adresy postupujte podle instrukcí."
 
-msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"%s\">click here</a>."
+msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"{{url}}\">click here</a>."
 msgstr ""
 "<strong>Ochrana soukromí:</strong> Pokud chcete vznést dotaz týkající se vaší osoby,\n"
-"     <a href=\"%s\">klikněte sem</a>."
+"     <a href=\"{{url}}\">klikněte sem</a>."
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
 msgstr "<strong>Důležité upozornění:</strong> Vaše fotografie bude zveřejněna na stránkách Informace pro všechny pokaždé, kdy vznesete dotaz nebo přidáte komentář."

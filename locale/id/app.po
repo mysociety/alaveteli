@@ -329,10 +329,10 @@ msgstr ""
 "    Kami akan mengirimkan email ke alamat email Anda yang baru. Ikutilah\n"
 "    instruksi di dalamnya untuk mengkonfirmasi perubahan email Anda."
 
-msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"%s\">click here</a>."
+msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"{{url}}\">click here</a>."
 msgstr ""
 "<strong>Catatan privasi:</strong> Jika Anda ingin meminta informasi privat tentang\n"
-"    Anda sendiri maka <a href=\"%s\">click here</a>."
+"    Anda sendiri maka <a href=\"{{url}}\">click here</a>."
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
 msgstr ""

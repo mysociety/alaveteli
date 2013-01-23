@@ -317,10 +317,10 @@ msgstr ""
 "    Enviaremos un correo a la nueva dirección de correo. Sigue\n"
 "    sus instrucciones para confirmar la nueva dirección."
 
-msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"%s\">click here</a>."
+msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"{{url}}\">click here</a>."
 msgstr ""
 "<strong>Nota sobre privacidad:</strong> Si quiere solicitar información privada\n"
-"    sobre sí mismo entonces <a href=\"%s\">siga este enlace</a>."
+"    sobre sí mismo entonces <a href=\"{{url}}\">siga este enlace</a>."
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
 msgstr ""

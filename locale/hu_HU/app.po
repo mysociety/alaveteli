@@ -310,10 +310,10 @@ msgstr ""
 "    E-mailt küldünk új e-mail címére. Kövesse az\n"
 "    abban található utasításokat az e-mail cím módosításának megerősítéséhez!"
 
-msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"%s\">click here</a>."
+msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"{{url}}\">click here</a>."
 msgstr ""
 "<strong>Adatvédelmi nyilatkozat:</strong> Amennyiben önmagáról kíván személyes\n"
-"    jellegű információt igényelni, <a href=\"%s\">kattintson ide</a>. "
+"    jellegű információt igényelni, <a href=\"{{url}}\">kattintson ide</a>. "
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
 msgstr ""

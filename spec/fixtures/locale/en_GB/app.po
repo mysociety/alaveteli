@@ -407,7 +407,7 @@ msgstr ""
 #: app/views/request/preview.rhtml:31
 msgid ""
 "<strong>Privacy note:</strong> If you want to request private information about\n"
-"    yourself then <a href=\"%s\">click here</a>."
+"    yourself then <a href=\"{{url}}\">click here</a>."
 msgstr ""
 
 #: app/views/user/set_crop_profile_photo.rhtml:35

@@ -312,10 +312,10 @@ msgstr ""
 "    Do të dërgojmë email në adresën tënde të re. Përcjelli\n"
 "    udhëzimet për të konfirmuar ndërrimin e emailit."
 
-msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"%s\">click here</a>."
+msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"{{url}}\">click here</a>."
 msgstr ""
 "<strong>Shënim privatësie:</strong> Nëse do të kërkosh informatë private për\n"
-"    vetën tënde <a href=\"%s\">kliko këtu</a>."
+"    vetën tënde <a href=\"{{url}}\">kliko këtu</a>."
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
 msgstr ""

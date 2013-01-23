@@ -301,8 +301,8 @@ msgstr ""
 "<strong>Note:</strong>\n"
 "    Es wird eine Email an Ihre neue Emailadresse versendet. Folgen Sie den darin angegebenen Schritten, um die Änderung Ihrer Emailadresse zu bestätigen."
 
-msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"%s\">click here</a>."
-msgstr "<strong>Privacy note:</strong> Falls Sie Informationen zu Ihrer eingenen Person erfragen wollen <a href=\"%s\">Klicken Sie hier</a>."
+msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"{{url}}\">click here</a>."
+msgstr "<strong>Privacy note:</strong> Falls Sie Informationen zu Ihrer eingenen Person erfragen wollen <a href=\"{{url}}\">Klicken Sie hier</a>."
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
 msgstr ""
