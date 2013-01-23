@@ -134,15 +134,21 @@ describe 'when validating rules' do
 
         it 'should not allow a global text censor rule (without user_id, request_id or public_body_id)' do
             @censor_rule.valid?.should == false
-            @expected_error = 'Censor must apply to an info request a user or a body;  is invalid'
-            @censor_rule.errors.full_messages.should == [@expected_error]
+
+            expected_error = ["Rule must apply to an info request, a user or a body"]
+            @censor_rule.errors[:user].should == expected_error
+            @censor_rule.errors[:info_request].should == expected_error
+            @censor_rule.errors[:public_body].should == expected_error
         end
 
         it 'should not allow a global regex censor rule (without user_id, request_id or public_body_id)' do
             @censor_rule.regexp = true
             @censor_rule.valid?.should == false
-            @expected_error = 'Censor must apply to an info request a user or a body;  is invalid'
-            @censor_rule.errors.full_messages.should == [@expected_error]
+
+            expected_error = ["Rule must apply to an info request, a user or a body"]
+            @censor_rule.errors[:user].should == expected_error
+            @censor_rule.errors[:info_request].should == expected_error
+            @censor_rule.errors[:public_body].should == expected_error
         end
 
     end
