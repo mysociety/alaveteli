@@ -704,7 +704,7 @@ msgstr "Eskabide honen gaurkotzeak emailez jaso nahi ditut"
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Sartu nahi dituzun hitzak, espazio batez bananduta, hau da <strong>parlamentua gastua</strong>"
 
-msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"%s\">contact us</a> if you need more)."
+msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"{{url}}\">contact us</a> if you need more)."
 msgstr ""
 
 msgid "Environmental Information Regulations"

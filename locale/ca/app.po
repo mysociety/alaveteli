@@ -738,7 +738,7 @@ msgstr "Quiero recibir emails con las actulizaciones de esta solicitud"
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Introduzca las palabras que desee separadas por espacio, es decir <strong>parlamento gasto</strong>"
 
-msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"%s\">contact us</a> if you need more)."
+msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"{{url}}\">contact us</a> if you need more)."
 msgstr ""
 
 msgid "Environmental Information Regulations"

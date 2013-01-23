@@ -28,7 +28,7 @@
   <h2><%= _('Respond using the web')%></h2>
 
   <p><%= _('Enter your response below. You may attach one file (use email, or
-  <a href="%s">contact us</a> if you need more).')% [help_contact_path] %></p>
+  <a href="{{url}}">contact us</a> if you need more).', :url => help_contact_path.html_safe) %></p>
 
   <% form_tag '', :id => 'upload_response_form', :multipart => true do %>
       <p>

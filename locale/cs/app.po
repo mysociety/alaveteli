@@ -739,8 +739,8 @@ msgstr "Pošlete mi budoucí aktualizace tohoto dotazu. "
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Slova, která chcete najít, musí být oddělena mezerou, například <strong>přechod pro chodce</strong>"
 
-msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"%s\">contact us</a> if you need more)."
-msgstr "Níže můžete vložit svou odpověď. Pokud je to nutné, přiložte jeden dokument, (s použitím e-mailu, nebo⏎ <a href=\"%s\">nás kontaktujte</a> pokud potřebujete přiložit více dokumentů)."
+msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"{{url}}\">contact us</a> if you need more)."
+msgstr "Níže můžete vložit svou odpověď. Pokud je to nutné, přiložte jeden dokument, (s použitím e-mailu, nebo⏎ <a href=\"{{url}}\">nás kontaktujte</a> pokud potřebujete přiložit více dokumentů)."
 
 msgid "Environmental Information Regulations"
 msgstr "Informace o životním prostředí"

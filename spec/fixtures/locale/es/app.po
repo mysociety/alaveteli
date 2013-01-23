@@ -1031,8 +1031,8 @@ msgstr "Introduzca las palabras que desee separadas por espacio, es decir <stron
 #: app/views/request/upload_response.rhtml:23
 msgid ""
 "Enter your response below. You may attach one file (use email, or \n"
-"<a href=\"%s\">contact us</a> if you need more)."
-msgstr "Escribe tu solicitud a continuación. Puedes adjuntar un fichero (manda un correo,\n o <a href=\"%s\">contáctanos</a>, si necesita más)."
+"<a href=\"{{url}}\">contact us</a> if you need more)."
+msgstr "Escribe tu solicitud a continuación. Puedes adjuntar un fichero (manda un correo,\n o <a href=\"{{url}}\">contáctanos</a>, si necesita más)."
 
 #: app/models/info_request.rb:259 app/models/info_request.rb:277
 msgid "Environmental Information Regulations"

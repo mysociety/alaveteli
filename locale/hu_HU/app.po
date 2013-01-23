@@ -728,7 +728,7 @@ msgstr "E-mailben kérek értesítést az igényléssel kapcsolatos jövőbeli f
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Írja be azokat a szavakat, amelyeket szóközzel elválasztva kíván megjeleníteni, pl. <strong>kapaszkodó sáv</strong> "
 
-msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"%s\">contact us</a> if you need more)."
+msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"{{url}}\">contact us</a> if you need more)."
 msgstr ""
 
 msgid "Environmental Information Regulations"

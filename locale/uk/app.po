@@ -737,7 +737,7 @@ msgstr "Надішліть мені майбутні оновлення щодо
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr ""
 
-msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"%s\">contact us</a> if you need more)."
+msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"{{url}}\">contact us</a> if you need more)."
 msgstr ""
 "Введіть вашу відповідь нижче. Ви можете приєднати один файл (скористайтеся\n"
 "електронною поштою, якщо вам треба прикріпити більше файлів)."
