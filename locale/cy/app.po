@@ -413,7 +413,7 @@ msgstr ""
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Gofynnwch am ddogfennau neu wybodaeth <strong>benodol</strong>. Nid yw'r wefan hon yn addas ar gyfer ymholiadau cyffredinol."
 
-msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"%s\">more details</a>)."
+msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
 
 msgid "Attachment (optional):"

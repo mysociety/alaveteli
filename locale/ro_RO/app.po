@@ -409,7 +409,7 @@ msgstr "Oricine:"
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Cereti documente sau informatii  <strong> precise </strong>, acest site nu este potrivit pentru cereri generale."
 
-msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"%s\">more details</a>)."
+msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
 
 msgid "Attachment (optional):"

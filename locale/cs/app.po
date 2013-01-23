@@ -458,10 +458,10 @@ msgstr "Kdokoli:"
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Požádejte o <strong>konkrétní</strong> dokumenty nebo informace, tyto stránky nejsou určeny pro obecné dotazy."
 
-msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"%s\">more details</a>)."
+msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
 "Ve spodní části této stránky jim napište odpověď a požádejte je, aby požadované informace oskenovali\n"
-"            (<a href=\"%s\">více detailů</a>)."
+"            (<a href=\"{{url}}\">více detailů</a>)."
 
 msgid "Attachment (optional):"
 msgstr "Příloha (nepovinná):"

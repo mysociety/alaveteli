@@ -454,10 +454,10 @@ msgstr "Çdokush:"
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Kërko dokumente apo informata <strong>specifike</strong>, kjo faqe nuk është e përshtatshme për pyetje të përgjithshme."
 
-msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"%s\">more details</a>)."
+msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
 "Në fund të kësaj faqeje, shkruaji atyre për të kërkuar nga ata që t'i scannojnë\n"
-"            (<a href=\"%s\">më shumë detaje</a>)."
+"            (<a href=\"{{url}}\">më shumë detaje</a>)."
 
 msgid "Attachment (optional):"
 msgstr "Shtojca - attachment (opcionale):"

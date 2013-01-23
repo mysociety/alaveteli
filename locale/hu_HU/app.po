@@ -450,10 +450,10 @@ msgstr "Bárki:"
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Kérése irányulhat <strong>konkrét</strong> dokumentumokra vagy információkra, de az oldal általános tudakozódásra nem alkalmas. "
 
-msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"%s\">more details</a>)."
+msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
 "Az oldal alsó részén írjon választ, amiben kéri a dokumentum szkennelését\n"
-"            (<a href=\"%s\">további részletek</a>). "
+"            (<a href=\"{{url}}\">további részletek</a>). "
 
 msgid "Attachment (optional):"
 msgstr "Melléklet (opcionális): "

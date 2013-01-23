@@ -570,7 +570,7 @@ msgstr ""
 #: app/views/request/show_response.rhtml:29
 msgid ""
 "At the bottom of this page, write a reply to them trying to persuade them to scan it in\n"
-"            (<a href=\"%s\">more details</a>)."
+"            (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
 
 #: app/views/request/upload_response.rhtml:33

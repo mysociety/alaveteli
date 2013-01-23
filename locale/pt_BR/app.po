@@ -440,8 +440,8 @@ msgstr "Qualquer um:"
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Solicite apenas documentos ou informações <strong>específicas,</strong>, este site não é adequado para requisições gerais ao governo."
 
-msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"%s\">more details</a>)."
-msgstr "Na parte inferior da página, escrever uma resposta, tentando persuadir o órgão a escanear o documento ( <a href=\"%s\">mais detalhes</a> )."
+msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
+msgstr "Na parte inferior da página, escrever uma resposta, tentando persuadir o órgão a escanear o documento ( <a href=\"{{url}}\">mais detalhes</a> )."
 
 msgid "Attachment (optional):"
 msgstr "Anexo (opcional):"
