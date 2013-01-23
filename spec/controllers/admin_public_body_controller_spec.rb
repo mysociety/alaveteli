@@ -273,7 +273,7 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
         get :edit, {:id => 3, :locale => :en}
 
         # When editing a body, the controller returns all available translations
-        assigns[:public_body].translation("es").name.should == 'El Department for Humpadinking'
+        assigns[:public_body].find_translation_by_locale("es").name.should == 'El Department for Humpadinking'
         assigns[:public_body].name.should == 'Department for Humpadinking'
         response.should render_template('edit')
     end

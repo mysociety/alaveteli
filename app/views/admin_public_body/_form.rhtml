@@ -18,7 +18,7 @@
             prefix = "public_body[translated_versions][]"
             object = @public_body.new_record? ? 
                         PublicBody::Translation.new : 
-                        @public_body.translation(locale.to_s) || PublicBody::Translation.new
+                        @public_body.find_translation_by_locale(locale.to_s) || PublicBody::Translation.new
         end
 
         fields_for prefix, object do |t|

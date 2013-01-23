@@ -52,7 +52,7 @@ class PublicBody < ActiveRecord::Base
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
     # Convenience methods for creating/editing translations via forms
-    def translation(locale)
+    def find_translation_by_locale(locale)
         self.translations.find_by_locale(locale)
     end
 
