@@ -915,7 +915,7 @@ msgstr ""
 #: app/views/request/upload_response.rhtml:23
 msgid ""
 "Enter your response below. You may attach one file (use email, or \n"
-"<a href=\"%s\">contact us</a> if you need more)."
+"<a href=\"{{url}}\">contact us</a> if you need more)."
 msgstr ""
 
 #: app/models/info_request.rb:259 app/models/info_request.rb:277

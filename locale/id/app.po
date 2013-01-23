@@ -885,7 +885,7 @@ msgstr "Masukkan kata-kata yang ingin Anda cari dipisahkan dengan spasi, contoh 
 
 msgid ""
 "Enter your response below. You may attach one file (use email, or\\n  <a "
-"href=\"%s\">contact us</a> if you need more)."
+"href=\"{{url}}\">contact us</a> if you need more)."
 msgstr ""
 
 msgid "Environmental Information Regulations"

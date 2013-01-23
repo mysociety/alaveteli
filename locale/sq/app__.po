@@ -990,10 +990,10 @@ msgstr ""
 #: app/views/request/upload_response.rhtml:23
 msgid ""
 "Enter your response below. You may attach one file (use email, or \n"
-"<a href=\"%s\">contact us</a> if you need more)."
+"<a href=\"{{url}}\">contact us</a> if you need more)."
 msgstr ""
 "Shkruaj përgjegjen tënde më poshtë. Ti mund të bashkëangjitësh një fajll "
-"(përdor e-mail, ose <a href=\"%s\">na kontakto</a> nëse ke nevojë për më "
+"(përdor e-mail, ose <a href=\"{{url}}\">na kontakto</a> nëse ke nevojë për më "
 "shumë)."
 
 #: app/views/public_body/show.rhtml:96

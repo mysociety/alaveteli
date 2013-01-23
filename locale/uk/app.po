@@ -892,7 +892,7 @@ msgstr ""
 
 msgid ""
 "Enter your response below. You may attach one file (use email, or\\n  <a "
-"href=\"%s\">contact us</a> if you need more)."
+"href=\"{{url}}\">contact us</a> if you need more)."
 msgstr "Введіть вашу відповідь нижче. Ви можете приєднати один файл (скористайтеся\nелектронною поштою, якщо вам треба прикріпити більше файлів)."
 
 msgid "Environmental Information Regulations"
