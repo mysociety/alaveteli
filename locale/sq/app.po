@@ -1027,8 +1027,8 @@ msgstr ""
 "            institucioni publik, ke të drejtën të\n"
 "            ankohesh (<a href=\"{{url}}\">detajet</a>)."
 
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr "Nëse ende po ka probleme, të lutem <a href=\"%s\">na kontakto</a> ."
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Nëse ende po ka probleme, të lutem <a href=\"{{url}}\">na kontakto</a> ."
 
 msgid "If you are the requester, then you may <a href=\"%s\">sign in</a> to view the request."
 msgstr "Nëse ti je kërkuesi, atëherë ti mund të <a href=\"%s\">kyçesh</a> për të parë kërkesën."

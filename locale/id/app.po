@@ -1050,8 +1050,8 @@ msgstr ""
 "            otoritas publik tersebut, Anda berhak untuk\n"
 "            mengajukan keberatan (<a href=\"{{url}}\">rincian</a>)."
 
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr "Jika Anda masih mengalami kesulitan, silakan <a href=\"%s\">hubungi kami</a>."
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Jika Anda masih mengalami kesulitan, silakan <a href=\"{{url}}\">hubungi kami</a>."
 
 msgid "If you are the requester, then you may <a href=\"%s\">sign in</a> to view the request."
 msgstr "Jika Anda adalah sang pemohon, maka Anda dapat <a href=\"%s\">mendaftar</a> untuk menampilkan permintaan tersebut."

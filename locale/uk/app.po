@@ -1032,8 +1032,8 @@ msgstr ""
 " розпорядника інформації, ви маєте право на \n"
 "скаргу (<a href=\"{{url}}\">деталі</a>)."
 
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr "Якщо у вас все ще виникають проблеми, <a href=\"%s\">зверніться до нас</a>."
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Якщо у вас все ще виникають проблеми, <a href=\"{{url}}\">зверніться до нас</a>."
 
 msgid "If you are the requester, then you may <a href=\"%s\">sign in</a> to view the request."
 msgstr "Якщо ви автор запиту, ви можете <a href=\"%s\">увійти</a>, щоб його переглянути."

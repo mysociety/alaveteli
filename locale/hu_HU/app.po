@@ -1029,8 +1029,8 @@ msgstr ""
 "            adatgazda válaszával, joga van\n"
 "            panaszt tenni (<a href=\"{{url}}\">részletek</a>). "
 
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr "Ha továbbra is fennáll a probléma, <a href=\"%s\">lépjen velünk kapcsolatba</a>. "
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Ha továbbra is fennáll a probléma, <a href=\"{{url}}\">lépjen velünk kapcsolatba</a>. "
 
 msgid "If you are the requester, then you may <a href=\"%s\">sign in</a> to view the request."
 msgstr "Ha ön az igénylő, az igénylés megtekintéséhez <a href=\"%s\">bejelentkezhet</a>. "
