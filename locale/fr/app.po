@@ -167,7 +167,7 @@ msgstr ""
 msgid "3. Now check your request"
 msgstr ""
 
-msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
+msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
 msgstr ""
 
 msgid "Are we missing a public authority?"

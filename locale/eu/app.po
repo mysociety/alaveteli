@@ -163,8 +163,8 @@ msgstr "2. Eskatu informazioa"
 msgid "3. Now check your request"
 msgstr "3. Berrikusi zure eskabidea"
 
-msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
-msgstr "<a href=\"%s\">Gehitu azalpenen bat</a> (eskatzaileari edo besteei laguntzearren)"
+msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
+msgstr "<a href=\"{{url}}\">Gehitu azalpenen bat</a> (eskatzaileari edo besteei laguntzearren)"
 
 msgid "Are we missing a public authority?"
 msgstr ""

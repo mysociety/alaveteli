@@ -167,8 +167,8 @@ msgstr "2. Cere o informație"
 msgid "3. Now check your request"
 msgstr "3. Verifică cererea făcută"
 
-msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
-msgstr "<a href=\"%s\">Adaugă o notă</a> (pentru a ajuta petentul sau pe alții)"
+msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
+msgstr "<a href=\"{{url}}\">Adaugă o notă</a> (pentru a ajuta petentul sau pe alții)"
 
 msgid "Are we missing a public authority?"
 msgstr ""

@@ -167,8 +167,8 @@ msgstr "2. Tražite informacije"
 msgid "3. Now check your request"
 msgstr "3. Sada provjerite Vaš zahtjev"
 
-msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
-msgstr "<a href=\"%s\">Dodaj napomenu</a> (da bi se pomoglo podnosiocu zahtjeva ili drugima)"
+msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
+msgstr "<a href=\"{{url}}\">Dodaj napomenu</a> (da bi se pomoglo podnosiocu zahtjeva ili drugima)"
 
 msgid "Are we missing a public authority?"
 msgstr ""
