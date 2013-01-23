@@ -2779,8 +2779,8 @@ msgstr "Dotaz byl <strong>stažen</strong> tazatelem. \nBližší vysvětlení m
 msgid ""
 "This request has been marked for review by the site administrators, who have"
 " not hidden it at this time. If you believe it should be hidden, please <a "
-"href=\"%s\">contact us</a>."
-msgstr "Tento dotaz byl označen administrátory ke kontrole. Pokud si myslíte, že by měl být skryt, <a href=\"%s\">kontaktujte nás</a>."
+"href=\"{{url}}\">contact us</a>."
+msgstr "Tento dotaz byl označen administrátory ke kontrole. Pokud si myslíte, že by měl být skryt, <a href=\"{{url}}\">kontaktujte nás</a>."
 
 msgid "This request has been reported for administrator attention"
 msgstr "Odesláno administrátorovi"

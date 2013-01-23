@@ -2767,7 +2767,7 @@ msgstr "Esta solicitud ha sido <strong>retirada</strong> por la persona que la r
 msgid ""
 "This request has been marked for review by the site administrators, who have"
 " not hidden it at this time. If you believe it should be hidden, please <a "
-"href=\"%s\">contact us</a>."
+"href=\"{{url}}\">contact us</a>."
 msgstr ""
 
 msgid "This request has been reported for administrator attention"
