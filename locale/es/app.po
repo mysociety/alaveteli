@@ -1038,8 +1038,8 @@ msgstr "He recibido <strong>parte de la información</strong>"
 msgid "I've received an <strong>error message</strong>"
 msgstr "He recibido un <strong>mensaje de error</strong>"
 
-msgid "If the address is wrong, or you know a better address, please <a href=\"%s\">contact us</a>."
-msgstr "Si la dirección es incorrecta, o conoce una más actualizada, por favor <a href=\"%s\">contáctenos</a>."
+msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Si la dirección es incorrecta, o conoce una más actualizada, por favor <a href=\"{{url}}\">contáctenos</a>."
 
 msgid "If this is incorrect, or you would like to send a late response to the request\\nor an email on another subject to {{user}}, then please\\nemail {{contact_email}} for help."
 msgstr ""

@@ -1017,8 +1017,8 @@ msgstr "Я отримав/отримала <strong>деяку інформаці
 msgid "I've received an <strong>error message</strong>"
 msgstr "Я отримав/отримала <strong>повідомлення про помилку</strong>"
 
-msgid "If the address is wrong, or you know a better address, please <a href=\"%s\">contact us</a>."
-msgstr "Якщо адреса неправиильна або якщо ви знаєте кращу, будь ласка, <a href=\"%s\">повідомте нам про це</a>."
+msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Якщо адреса неправиильна або якщо ви знаєте кращу, будь ласка, <a href=\"{{url}}\">повідомте нам про це</a>."
 
 msgid "If this is incorrect, or you would like to send a late response to the request\\nor an email on another subject to {{user}}, then please\\nemail {{contact_email}} for help."
 msgstr ""

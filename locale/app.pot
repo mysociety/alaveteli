@@ -932,7 +932,7 @@ msgstr ""
 msgid "I've received an <strong>error message</strong>"
 msgstr ""
 
-msgid "If the address is wrong, or you know a better address, please <a href=\"%s\">contact us</a>."
+msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
 msgstr ""
 
 msgid "If this is incorrect, or you would like to send a late response to the request\\nor an email on another subject to {{user}}, then please\\nemail {{contact_email}} for help."

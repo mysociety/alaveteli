@@ -1012,8 +1012,8 @@ msgstr "Kam marrë <strong>disa prej informatave</strong>"
 msgid "I've received an <strong>error message</strong>"
 msgstr "Kam marrë një <strong>mesazh gabimi</strong>"
 
-msgid "If the address is wrong, or you know a better address, please <a href=\"%s\">contact us</a>."
-msgstr "Nëse adresa është e gabuar, ose ti e din një adresë më të mirë, të lutem <a href=\"%s\">na kontakto</a> ."
+msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Nëse adresa është e gabuar, ose ti e din një adresë më të mirë, të lutem <a href=\"{{url}}\">na kontakto</a> ."
 
 msgid "If this is incorrect, or you would like to send a late response to the request\\nor an email on another subject to {{user}}, then please\\nemail {{contact_email}} for help."
 msgstr ""
