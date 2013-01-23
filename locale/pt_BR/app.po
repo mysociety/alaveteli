@@ -2529,10 +2529,10 @@ msgstr "Tipo inesperado de resultado da busca"
 msgid "Unexpected search result type "
 msgstr "Tipo inesperado de resultado da busca "
 
-msgid "Unfortunately we don't know the FOI\\nemail address for that authority, so we can't validate this.\\nPlease <a href=\"%s\">contact us</a> to sort it out."
+msgid "Unfortunately we don't know the FOI\\nemail address for that authority, so we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
 "Infelizmente nós não sabemos o email de contato para esse orgão, então não podemos validar isso.\n"
-"Por favor <a href=\"%s\">entre em contato</a> para corrigirmos isso."
+"Por favor <a href=\"{{url}}\">entre em contato</a> para corrigirmos isso."
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr "Infelizmente, nós não temos um email válido de "

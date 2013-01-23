@@ -2661,11 +2661,11 @@ msgstr "Se encontró un tipo de resultado inesperado"
 msgid "Unexpected search result type "
 msgstr "Se encontró un tipo de resultado inesperado "
 
-msgid "Unfortunately we don't know the FOI\\nemail address for that authority, so we can't validate this.\\nPlease <a href=\"%s\">contact us</a> to sort it out."
+msgid "Unfortunately we don't know the FOI\\nemail address for that authority, so we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
 "Desgraciadamente no tenemos la dirección\n"
 "de correo para este organismo, así que no podemos validarlo.\n"
-"Por favor <a href=\"%s\">contáctenos</a> para arreglarlo."
+"Por favor <a href=\"{{url}}\">contáctenos</a> para arreglarlo."
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr "Desgraciadamente, no tenemos una dirección de correo válida para"
