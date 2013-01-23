@@ -39,6 +39,21 @@ The release manager will also give you a **translation deadline**.  After
 this date, you can continue to contribute new translations, but they
 won't make it into the release.
 
+## General notes on translation in Transifex
+
+Some bits of text will have comments attached to them from the Alaveteli
+application developers about the context in which the text appears in the
+application - these comments will appear under the 'Details' tab for the
+text in Transifex.
+
+Some bits of text are in the form of two bits of text separated by a `|`
+character e.g. `IncomingMessage|Subject`. These represent attribute names, so
+`IncomingMessage|Subject` is the subject attribute of an incoming message on
+the site. You should not prioritise these types of text when translating -
+they do not appear on the site anywhere at the moment, and when they do,
+they will only be used in the admin interface. If you do translate them, only
+translate the text after the `|`.
+
 # Translation process: release manager's view
 
 Before the Alaveteli release manager cuts a new release branch, they
