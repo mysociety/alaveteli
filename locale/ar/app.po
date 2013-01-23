@@ -2859,7 +2859,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-msgid "Your <strong>name will appear publicly</strong> \\n        (<a href=\"%s\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please \\n        <a href=\"%s\">read this first</a>."
+msgid "Your <strong>name will appear publicly</strong> \\n        (<a href=\"{{url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please \\n        <a href=\"{{url}}\">read this first</a>."
 msgstr ""
 
 msgid "Your annotations"
