@@ -1208,8 +1208,8 @@ msgid ""
 "href=\"{{url}}\">details</a>)."
 msgstr "Erakunde publikotik jaso duzun erantzunarekin pozik ez bazaude, apelatzeko eskubidea daukazu (<a href=\"{{url}}\">xehetasunak</a>)."
 
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr "Oraindik arazoak baldin badituzu, mesedez, jar zaitez gurekin <a href=\"%s\">harremanetan</a>."
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Oraindik arazoak baldin badituzu, mesedez, jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a>."
 
 msgid ""
 "If you are the requester, then you may <a href=\"%s\">sign in</a> to view "

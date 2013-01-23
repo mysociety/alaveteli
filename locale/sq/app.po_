@@ -1381,8 +1381,8 @@ msgstr ""
 "            ankohesh (<a href=\"{{url}}\">detajet</a>)."
 
 #: app/views/user/no_cookies.rhtml:20
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr "Nëse ende po ka probleme, të lutem <a href=\"%s\">na kontakto</a> ."
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Nëse ende po ka probleme, të lutem <a href=\"{{url}}\">na kontakto</a> ."
 
 #: app/views/request/hidden.rhtml:15
 msgid ""

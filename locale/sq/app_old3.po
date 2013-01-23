@@ -1469,7 +1469,7 @@ msgstr ""
 "            complain (<a href=\"{{url}}\">details</a>)."
 
 #: app/views/user/no_cookies.rhtml:20
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr ""
 "AA If you are still having trouble, please <a href=\"%s\">contact us</a>."
 

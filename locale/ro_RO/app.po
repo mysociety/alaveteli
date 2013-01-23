@@ -1214,7 +1214,7 @@ msgid ""
 "href=\"{{url}}\">details</a>)."
 msgstr ""
 
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr ""
 
 msgid ""

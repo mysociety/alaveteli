@@ -1209,8 +1209,8 @@ msgid ""
 "href=\"{{url}}\">details</a>)."
 msgstr "Si no está satisfecho con la respuesta que ha recibido del\n            organismo público, tiene derecho a\n            apelar (<a href=\"{{url}}\">detalles</a>)."
 
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr "Si aún tiene problemas, por favor <a href=\"%s\">contáctenos</a>."
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Si aún tiene problemas, por favor <a href=\"{{url}}\">contáctenos</a>."
 
 msgid ""
 "If you are the requester, then you may <a href=\"%s\">sign in</a> to view "

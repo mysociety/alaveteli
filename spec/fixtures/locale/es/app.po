@@ -1419,8 +1419,8 @@ msgid ""
 msgstr "Si no estás satisfecho con la respuesta que has recibido del\n            organismo público, tienes derecho a\n            apelar (<a href=\"{{url}}\">detalles</a>)."
 
 #: app/views/user/no_cookies.rhtml:20
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr "Si aún tienes problemas, por favor <a href=\"%s\">contáctanos</a>."
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Si aún tienes problemas, por favor <a href=\"{{url}}\">contáctanos</a>."
 
 #: app/views/request/hidden.rhtml:15
 msgid ""

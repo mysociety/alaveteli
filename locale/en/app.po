@@ -942,7 +942,7 @@ msgstr ""
 msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr ""
 
 msgid "If you are the requester, then you may <a href=\"%s\">sign in</a> to view the request."

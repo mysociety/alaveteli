@@ -1207,8 +1207,8 @@ msgid ""
 "href=\"{{url}}\">details</a>)."
 msgstr "Ha nem elégedett az \n            adatgazda válaszával, joga van\n            panaszt tenni (<a href=\"{{url}}\">részletek</a>). "
 
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr "Ha továbbra is fennáll a probléma, <a href=\"%s\">lépjen velünk kapcsolatba</a>. "
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Ha továbbra is fennáll a probléma, <a href=\"{{url}}\">lépjen velünk kapcsolatba</a>. "
 
 msgid ""
 "If you are the requester, then you may <a href=\"%s\">sign in</a> to view "

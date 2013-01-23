@@ -1217,8 +1217,8 @@ msgid ""
 "href=\"{{url}}\">details</a>)."
 msgstr "Pokud nejste spokojeni s odpovědí, kterou jste obdrželi od instituce, máte právo podat stížnost (<a href=\"{{url}}\">detaily</a>)."
 
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr "Pokud máte stále problémy <a href=\"%s\">kontaktujte nás</a>."
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Pokud máte stále problémy <a href=\"{{url}}\">kontaktujte nás</a>."
 
 msgid ""
 "If you are the requester, then you may <a href=\"%s\">sign in</a> to view "

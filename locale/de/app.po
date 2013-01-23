@@ -1210,8 +1210,8 @@ msgid ""
 "href=\"{{url}}\">details</a>)."
 msgstr "Sollten Sie mit den erhaltenen Informationen nicht zufrieden sein, haben Sie das Recht eine Beschwerde einzureichen (<a href=\"{{url}}\">Details</a>)."
 
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr "Sollten weiterhin Probleme bestehen, bitte <a href=\"%s\">kontaktieren Sie uns</a>."
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Sollten weiterhin Probleme bestehen, bitte <a href=\"{{url}}\">kontaktieren Sie uns</a>."
 
 msgid ""
 "If you are the requester, then you may <a href=\"%s\">sign in</a> to view "

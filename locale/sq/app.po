@@ -1213,8 +1213,8 @@ msgid ""
 "href=\"{{url}}\">details</a>)."
 msgstr "Nëse je i pakënaqur me përgjigjen nga\n            institucioni publik, ke të drejtën të\n            ankohesh (<a href=\"{{url}}\">detajet</a>)."
 
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr "Nëse ende po ka probleme, të lutem <a href=\"%s\">na kontakto</a> ."
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Nëse ende po ka probleme, të lutem <a href=\"{{url}}\">na kontakto</a> ."
 
 msgid ""
 "If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
