@@ -39,7 +39,8 @@ gem 'capistrano'
 gem 'syslog_protocol'
 gem 'newrelic_rpm'
 gem 'tmail'
-gem 'globalize3'
+# Use until this PR is merged: https://github.com/svenfuchs/globalize3/pull/191
+gem 'globalize3', :git => 'git://github.com/henare/globalize3.git', :branch => 'not-null-empty-attributes'
 gem 'acts_as_versioned'
 
 group :test do

@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/henare/globalize3.git
+  revision: 2931f559cbed8843ab7d16278d70ce99a0239132
+  branch: not-null-empty-attributes
+  specs:
+    globalize3 (0.3.0)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      paper_trail (~> 2)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -62,10 +72,6 @@ GEM
       locale
     gettext_i18n_rails (0.8.0)
       fast_gettext (>= 0.4.8)
-    globalize3 (0.3.0)
-      activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
-      paper_trail (~> 2)
     haml (3.1.7)
     highline (1.6.15)
     hoe (3.3.1)
@@ -216,7 +222,7 @@ DEPENDENCIES
   fastercsv (>= 1.5.5)
   gettext (~> 2.3.3)
   gettext_i18n_rails (>= 0.7.1)
-  globalize3
+  globalize3!
   json (~> 1.5.1)
   locale (>= 2.0.5)
   mahoro
