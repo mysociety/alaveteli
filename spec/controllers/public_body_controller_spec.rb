@@ -58,13 +58,12 @@ describe PublicBodyController, "when showing a body" do
     end
 
     it "should redirect use to the relevant locale even when url_name is for a different locale" do
-        old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        RoutingFilter.active = false
 
         get :show, {:url_name => "edfh", :view => 'all'}
         response.should redirect_to "http://test.host/body/dfh"
 
-        ActionController::Routing::Routes.filters = old_filters
+        RoutingFilter.active = true
     end
 
     it "should redirect to newest name if you use historic name of public body in URL" do

@@ -100,8 +100,7 @@ describe UserController, "when signing in" do
     end
 
     it "should log in when you give right email/password, and redirect to where you were" do
-        old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        RoutingFilter.active = false
 
         get :signin, :r => "/list"
         response.should render_template('sign')
@@ -114,12 +113,11 @@ describe UserController, "when signing in" do
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
         response.should_not send_email
 
-        ActionController::Routing::Routes.filters = old_filters
+        RoutingFilter.active = true
     end
 
     it "should not log you in if you use an invalid PostRedirect token, and shouldn't give 500 error either" do
-        old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        RoutingFilter.active = false
 
         post_redirect = "something invalid"
         lambda {
@@ -132,7 +130,7 @@ describe UserController, "when signing in" do
         response.should render_template('sign')
         assigns[:post_redirect].should == nil
 
-        ActionController::Routing::Routes.filters = old_filters
+        RoutingFilter.active = true
     end
 
 # No idea how to test this in the test framework :(
@@ -156,8 +154,7 @@ describe UserController, "when signing in" do
     end
 
     it "should confirm your email, log you in and redirect you to where you were after you click an email link" do
-        old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        RoutingFilter.active = false
 
         get :signin, :r => "/list"
         post_redirect = get_last_postredirect
@@ -185,12 +182,11 @@ describe UserController, "when signing in" do
         session[:user_id].should == users(:unconfirmed_user).id
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
 
-        ActionController::Routing::Routes.filters = old_filters
+        RoutingFilter.active = true
     end
 
     it "should keep you logged in if you click a confirmation link and are already logged in as an admin" do
-        old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        RoutingFilter.active = false
 
         get :signin, :r => "/list"
         post_redirect = get_last_postredirect
@@ -222,7 +218,7 @@ describe UserController, "when signing in" do
         # And the redirect should still work, of course
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
 
-        ActionController::Routing::Routes.filters = old_filters
+        RoutingFilter.active = true
     end
 
 end
@@ -295,15 +291,14 @@ describe UserController, "when signing out" do
     end
 
     it "should log you out and redirect you to where you were" do
-        old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        RoutingFilter.active = false
 
         session[:user_id] = users(:bob_smith_user).id
         get :signout, :r => '/list'
         session[:user_id].should be_nil
         response.should redirect_to(:controller => 'request', :action => 'list')
 
-        ActionController::Routing::Routes.filters = old_filters
+        RoutingFilter.active = true
     end
 
 end

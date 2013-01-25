@@ -1513,11 +1513,10 @@ describe RequestController, "when classifying an information request" do
                 @dog_request = info_requests(:fancy_dog_request)
                 @dog_request.stub!(:each).and_return([@dog_request])
                 InfoRequest.stub!(:find).and_return(@dog_request)
-                @old_filters = ActionController::Routing::Routes.filters
-                ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+                RoutingFilter.active = false
             end
             after do
-                ActionController::Routing::Routes.filters = @old_filters
+                RoutingFilter.active = true
             end
 
             def request_url
