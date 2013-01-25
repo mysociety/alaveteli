@@ -284,6 +284,7 @@ class IncomingMessage < ActiveRecord::Base
     # Lotus notes quoting yeuch!
     def remove_lotus_quoting(text, replacement = "FOLDED_QUOTED_SECTION")
         text = text.dup
+        return text if self.info_request.user_name.nil?
         name = Regexp.escape(self.info_request.user_name)
 
         # To end of message sections

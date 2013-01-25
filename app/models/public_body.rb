@@ -517,6 +517,8 @@ class PublicBody < ActiveRecord::Base
                     'Version',
             ]
             public_bodies.each do |public_body|
+                # Skip bodies we use only for site admin
+                next if public_body.has_tag?('site_administration')
                 csv << [
                     public_body.name,
                     public_body.short_name,

@@ -5,43 +5,36 @@
 # override behaviour in fast_gettext/translation.rb
 # so that we can interpolate our translation strings nicely
 
+# TODO: We could simplify a lot of this code (as in remove it) if we moved from using the {{value}}
+# convention in the translation strings for interpolation to %{value}. This is apparently the newer
+# convention.
+
 def _(key, options = {})
-  # HACK: We should be going via GettextI18nRails instead of FastGettext below
-  # so that #translations_are_html_safe is respected but calling it directly
-  # doesn't work for me. I'm just marking the resulting string as html_safe.
-  # This whole hacky file should be removed
-  translation = FastGettext._(key) || key
-  gettext_interpolate(translation, options).html_safe
+  translation = (FastGettext._(key) || key).html_safe
+  gettext_interpolate(translation, options)
 end
 
-INTERPOLATION_RESERVED_KEYS = %w(scope default)
-MATCH = /(\\\\)?\{\{([^\}]+)\}\}/
+MATCH = /\{\{([^\}]+)\}\}/
 
 def gettext_interpolate(string, values)
   return string unless string.is_a?(String)
-  if values.is_a?(Hash)
-    string.gsub(MATCH) do
-      escaped, pattern, key = $1, $2, $2.to_sym
-      
-      if escaped
-        pattern
-      elsif INTERPOLATION_RESERVED_KEYS.include?(pattern)
-        raise I18n::ReservedInterpolationKey.new(pattern, string)
-      elsif !values.include?(key)
-        raise I18n::MissingInterpolationArgument.new(pattern, string)
+  # $1, $2 don't work with SafeBuffer so casting to string as workaround
+  safe = string.html_safe?
+  string = string.to_str.gsub(MATCH) do
+    pattern, key = $1, $1.to_sym
+    
+    if !values.include?(key)
+      raise I18n::MissingInterpolationArgument.new(pattern, string)
+    else
+      v = values[key].to_s
+      if safe && !v.html_safe?
+        ERB::Util.h(v)
       else
-        values[key].to_s
+        v
       end
     end
-  else
-    reserved_keys = if defined?(I18n::RESERVED_KEYS) # rails 3+
-                      I18n::RESERVED_KEYS
-                    else
-                      I18n::Backend::Base::RESERVED_KEYS
-                    end
-
-    string % values.except(*reserved_keys)
   end
+  safe ? string.html_safe : string
 end
 
 

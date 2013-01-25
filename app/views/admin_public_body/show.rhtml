@@ -66,7 +66,7 @@
         end
         # Highlight entries which have changed since previous version
         changed = (!['version', 'last_edit_editor', 'last_edit_comment'].include?(column.name)) && ((historic_public_body.send(column.name) != @public_body.sorted_versions[historic_public_body.version - 2].send(column.name)) || (historic_public_body.version == 1)) %>
-      <td <%= changed ? ' class="entry_changed" ': '' %> >
+      <td <%= changed ? ' class="entry_changed" '.html_safe: '' %> >
       <%=value%>
       </td>
     <% end %>
