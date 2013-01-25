@@ -27,6 +27,7 @@ class Comment < ActiveRecord::Base
     #validates_presence_of :user # breaks during construction of new ones :(
 
     validates_inclusion_of :comment_type, :in => [ 'request' ]
+    validate :body_of_comment
     belongs_to :info_request
 
     has_many :info_request_events # in practice only ever has one
@@ -49,16 +50,6 @@ class Comment < ActiveRecord::Base
     def event_xapian_update
         for event in self.info_request_events
             event.xapian_mark_needs_index
-        end
-    end
-
-    # Check have edited comment
-    def validate
-        if self.body.empty? || self.body =~ /^\s+$/
-            errors.add(:body, _("Please enter your annotation"))
-        end
-        if !MySociety::Validate.uses_mixed_capitals(self.body)
-            errors.add(:body, _('Please write your annotation using a mixture of capital and lower case letters. This makes it easier for others to read.'))
         end
     end
 
@@ -87,4 +78,15 @@ class Comment < ActiveRecord::Base
       yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
     end
   end
+
+  private
+
+    def body_of_comment
+        if self.body.empty? || self.body =~ /^\s+$/
+            errors.add(:body, _("Please enter your annotation"))
+        end
+        if !MySociety::Validate.uses_mixed_capitals(self.body)
+            errors.add(:body, _('Please write your annotation using a mixture of capital and lower case letters. This makes it easier for others to read.'))
+        end
+    end
 end
