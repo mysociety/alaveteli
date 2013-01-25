@@ -50,7 +50,7 @@ class HelpController < ApplicationController
             end
             @contact = ContactValidator.new(params[:contact])
             if @contact.valid? && !params[:remove]
-                ContactMailer.deliver_message(
+                ContactMailer.deliver_to_admin_message(
                     params[:contact][:name],
                     params[:contact][:email],
                     params[:contact][:subject],

@@ -49,7 +49,7 @@ namespace :translation do
         write_email(followup_email, 'Follow up', output_file)
 
         # contact mailer
-        contact_email = ContactMailer.create_message(info_request.user_name,
+        contact_email = ContactMailer.create_to_admin_message(info_request.user_name,
                                                      info_request.user.email,
                                                      'A test message',
                                                      'Hello!',
