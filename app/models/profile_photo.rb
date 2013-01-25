@@ -23,6 +23,8 @@ class ProfilePhoto < ActiveRecord::Base
 
     belongs_to :user
 
+    validate :data_and_draft_checks
+
     # deliberately don't strip_attributes, so keeps raw photo properly
 
     attr_accessor :x, :y, :w, :h
@@ -81,7 +83,9 @@ class ProfilePhoto < ActiveRecord::Base
         end
     end
 
-    def validate
+    private
+
+    def data_and_draft_checks
         if self.data.nil?
             errors.add(:data, N_("Please choose a file containing your photo."))
             return
