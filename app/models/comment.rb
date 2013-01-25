@@ -24,13 +24,12 @@ class Comment < ActiveRecord::Base
     strip_attributes!
 
     belongs_to :user
-    #validates_presence_of :user # breaks during construction of new ones :(
+    belongs_to :info_request
+    has_many :info_request_events # in practice only ever has one
 
+    #validates_presence_of :user # breaks during construction of new ones :(
     validates_inclusion_of :comment_type, :in => [ 'request' ]
     validate :body_of_comment
-    belongs_to :info_request
-
-    has_many :info_request_events # in practice only ever has one
 
     def body
         ret = read_attribute(:body)
