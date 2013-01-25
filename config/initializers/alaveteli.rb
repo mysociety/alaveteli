@@ -68,7 +68,6 @@ WillPaginate::ViewHelpers.pagination_options[:renderer] = 'WillPaginateExtension
 # Load monkey patches and other things from lib/
 require 'ruby19.rb'
 require 'activesupport_cache_extensions.rb'
-require 'timezone_fixes.rb'
 require 'use_spans_for_errors.rb'
 require 'make_html_4_compliant.rb'
 require 'activerecord_errors_extensions.rb'
