@@ -90,3 +90,11 @@ ensure
   ActiveRecord::Base.default_timezone = old_zone
 end
 
+def load_test_categories
+    PublicBodyCategories.add(:en, [
+        "Local and regional",
+            [ "local_council", "Local councils", "a local council" ],
+        "Miscellaneous",
+            [ "other", "Miscellaneous", "miscellaneous" ],])
+end
+
