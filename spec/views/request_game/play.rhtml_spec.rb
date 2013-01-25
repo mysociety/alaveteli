@@ -1,6 +1,6 @@
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
-describe 'when viewing the request game' do 
+describe 'request_game/play' do 
     
     before do 
         @mock_body = mock_model(PublicBody, :name => 'test body',
@@ -29,8 +29,8 @@ describe 'when viewing the request game' do
     end
     
     it 'should show the correct url for a request' do
-        render "request_game/play"
-        response.should include_text("/categorise/request/a_test_request")
+        render
+        response.should include("/categorise/request/a_test_request")
     end
 
 
