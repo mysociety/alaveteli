@@ -82,7 +82,9 @@ require 'quiet_opener.rb'
 require 'mail_handler'
 require 'public_body_categories'
 
-if !Configuration.exception_notifications_from.blank? && !Configuration.exception_notifications_to.blank?
-  ExceptionNotification::Notifier.sender_address = Configuration::exception_notifications_from
-  ExceptionNotification::Notifier.exception_recipients = Configuration::exception_notifications_to
-end
+# Temporarily commented out the lines below on the Rails 3 spike.
+# TODO: Reinstate this properly!
+#if !Configuration.exception_notifications_from.blank? && !Configuration.exception_notifications_to.blank?
+#  ExceptionNotification::Notifier.sender_address = Configuration::exception_notifications_from
+#  ExceptionNotification::Notifier.exception_recipients = Configuration::exception_notifications_to
+#end
