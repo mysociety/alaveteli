@@ -48,12 +48,12 @@ if $tempfilecount.nil?
                         return if @response.body.empty?
                         # And then if HTML, not a redirect (302, 301)
                         if @response.content_type == "text/html" && ! [301,302,401].include?(@response.response_code)
-                        if !is_fragment
-                            validate_html(@response.body)
-                        else
-                            # it's a partial
-                            validate_as_body(@response.body)
-                        end
+                            if !is_fragment
+                                validate_html(@response.body)
+                            else
+                                # it's a partial
+                                validate_as_body(@response.body)
+                            end
                         end
                     end
                 end
