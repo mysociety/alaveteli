@@ -35,7 +35,7 @@
       <% end %>
     </div>
   <% else %>
-    <% form_tag(request.url, {:method => "get", :id => "search_form"}) do %>
+    <% form_tag(search_redirect_path, {:method => "get", :id => "search_form"}) do %>
       <p>
         <%= text_field_tag 'query', params[:query], { :size => 40 } %>
         <%= hidden_field_tag 'sortby', @inputted_sortby %>
