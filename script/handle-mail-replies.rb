@@ -30,7 +30,7 @@ def main(in_test_mode)
     Dir.chdir($alaveteli_dir) do
         raw_message = $stdin.read
         begin
-            message = MailHandler.mail_from_raw_email(raw_message, decode=false)
+            message = MailHandler.mail_from_raw_email(raw_message)
         rescue
             # Error parsing message. Just pass it on, to be on the safe side.
             forward_on(raw_message) unless in_test_mode
