@@ -45,7 +45,7 @@ if $tempfilecount.nil?
                         # don't validate auto-generated HTML
                         return if @request.query_parameters["action"] == "get_attachment_as_html"
                         # XXX Is there a better way to check this than calling a private method?
-                        return unless @response.template.controller.instance_eval { render_views? }
+                        return if @response.body.empty?
                         # And then if HTML, not a redirect (302, 301)
                         if @response.content_type == "text/html" && ! [301,302,401].include?(@response.response_code)
                         if !is_fragment
