@@ -1631,8 +1631,8 @@ msgstr "Registrado en {{site_name}} el"
 #: app/views/request/new.rhtml:106
 msgid ""
 "Keep it <strong>focused</strong>, you'll be more likely to get what you want"
-" (<a href=\"%s\">why?</a>)."
-msgstr "Sea <strong>específico</strong>, tendrá más probabilidades de conseguir lo que quiere (<a href=\"%s\">¿por qué?</a>)."
+" (<a href=\"{{url}}\">why?</a>)."
+msgstr "Sea <strong>específico</strong>, tendrá más probabilidades de conseguir lo que quiere (<a href=\"{{url}}\">¿por qué?</a>)."
 
 #: app/views/request/_request_filter_form.rhtml:6
 msgid "Keywords"

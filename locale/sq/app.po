@@ -1199,8 +1199,8 @@ msgstr "Bashkangjitur më"
 msgid "Joined {{site_name}} in"
 msgstr "Bashkangjitur {{site_name}} më"
 
-msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"%s\">why?</a>)."
-msgstr "Mbaje <strong>të fokusuar</strong>, gjasat janë më të mëdha që të marrësh përgjigjen e dëshiruar (<a href=\"%s\">pse?</a>)."
+msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"{{url}}\">why?</a>)."
+msgstr "Mbaje <strong>të fokusuar</strong>, gjasat janë më të mëdha që të marrësh përgjigjen e dëshiruar (<a href=\"{{url}}\">pse?</a>)."
 
 msgid "Keywords"
 msgstr "Fjalët kyçe"

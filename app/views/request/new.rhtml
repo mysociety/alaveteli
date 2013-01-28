@@ -98,7 +98,7 @@
         <ul>
         <li><%= _('Write your request in <strong>simple, precise language</strong>.') %></li>
         <li><%= _('Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries.') %></li>
-        <li><%= raw(_('Keep it <strong>focused</strong>, you\'ll be more likely to get what you want (<a href="%s">why?</a>).') % [help_requesting_path + '#focused']) %></li>
+        <li><%= _('Keep it <strong>focused</strong>, you\'ll be more likely to get what you want (<a href="{{url}}">why?</a>).', :url => (help_requesting_path + '#focused').html_safe) %></li>
         </ul>
     </div>
 

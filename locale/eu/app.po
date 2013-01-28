@@ -1151,8 +1151,8 @@ msgstr "_____-ean erregistratua"
 msgid "Joined {{site_name}} in"
 msgstr "{{site_name}}-ean erregistratua"
 
-msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"%s\">why?</a>)."
-msgstr "Izan zaitez <strong>konkretua</strong>, nahi duzuna lortzeko aukera gehiago izango duzu (<a href=\"%s\">zergatik?</a>)."
+msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"{{url}}\">why?</a>)."
+msgstr "Izan zaitez <strong>konkretua</strong>, nahi duzuna lortzeko aukera gehiago izango duzu (<a href=\"{{url}}\">zergatik?</a>)."
 
 msgid "Keywords"
 msgstr "Hitz gakoak"

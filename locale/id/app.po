@@ -1238,8 +1238,8 @@ msgstr "Bergabung di"
 msgid "Joined {{site_name}} in"
 msgstr "Bergabung {{site_name}} di"
 
-msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"%s\">why?</a>)."
-msgstr "Tetap <strong>fokus</strong>, Anda akan lebih mungkin untuk mendapatkan apa yang Anda inginkan (<a href=\"%s\">mengapa?</a>)."
+msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"{{url}}\">why?</a>)."
+msgstr "Tetap <strong>fokus</strong>, Anda akan lebih mungkin untuk mendapatkan apa yang Anda inginkan (<a href=\"{{url}}\">mengapa?</a>)."
 
 msgid "Keywords"
 msgstr "Katakunci"

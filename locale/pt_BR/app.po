@@ -1155,8 +1155,8 @@ msgstr "No site desde "
 msgid "Joined {{site_name}} in"
 msgstr "Entrou no {{site_name}} em"
 
-msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"%s\">why?</a>)."
-msgstr "Mantenha seu pedido <strong>focado,</strong> você terá mais chances de conseguir o que quer ( <a href=\"%s\">por quê?</a> )."
+msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"{{url}}\">why?</a>)."
+msgstr "Mantenha seu pedido <strong>focado,</strong> você terá mais chances de conseguir o que quer ( <a href=\"{{url}}\">por quê?</a> )."
 
 msgid "Keywords"
 msgstr "Palavras-chave"

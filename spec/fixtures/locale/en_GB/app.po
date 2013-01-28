@@ -1491,7 +1491,7 @@ msgid "Joined {{site_name}} in"
 msgstr ""
 
 #: app/views/request/new.rhtml:106
-msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"%s\">why?</a>)."
+msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 
 #: app/views/request/_request_filter_form.rhtml:6
