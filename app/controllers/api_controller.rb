@@ -83,7 +83,7 @@ class ApiController < ApplicationController
 
         direction = json["direction"]
         body = json["body"]
-        sent_at_str = json["sent_at"]
+        sent_at = json["sent_at"]
 
         errors = []
 
@@ -105,12 +105,6 @@ class ApiController < ApplicationController
             errors << "The 'body' is missing"
         elsif body.empty?
             errors << "The 'body' is empty"
-        end
-
-        begin
-            sent_at = Time.iso8601(sent_at_str)
-        rescue ArgumentError
-            errors << "Failed to parse 'sent_at' field as ISO8601 time: #{sent_at_str}"
         end
 
         if direction == "request" && !attachments.nil?
