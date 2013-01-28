@@ -2898,11 +2898,11 @@ msgstr "Ti e di se çfarë e shkaktoi gabim, dhe mund të <strong>sugjerosh një
 msgid "You may <strong>include attachments</strong>. If you would like to attach a\\n  file too large for email, use the form below."
 msgstr ""
 
-msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"%s\">send it to us</a>."
+msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
 "Ti ke mundësi të gjejsh atë\n"
 "    në ueb sajtin e tyre, ose duke iu telefonuar. Nëse keni arritur të gjeni adresën,\n"
-"    atëherë të lutem <a href=\"%s\">na e dërgo të njejtën</a>."
+"    atëherë të lutem <a href=\"{{url}}\">na e dërgo të njejtën</a>."
 
 msgid "You may be able to find\\none on their website, or by phoning them up and asking. If you manage\\nto find one, then please <a href=\"{{help_url}}\">send it to us</a>."
 msgstr ""

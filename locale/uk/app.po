@@ -2898,7 +2898,7 @@ msgstr ""
 "Ви можете прикріпити до листа файл. Якщо він надто великий для електронної пошти,\n"
 "  скористайтеся формою нижче."
 
-msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"%s\">send it to us</a>."
+msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
 
 msgid "You may be able to find\\none on their website, or by phoning them up and asking. If you manage\\nto find one, then please <a href=\"{{help_url}}\">send it to us</a>."

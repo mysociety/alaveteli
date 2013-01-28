@@ -2987,11 +2987,11 @@ msgstr "Anda tahu apa yang menyebabkan kesalahan tersebut, dan dapat <strong>men
 msgid "You may <strong>include attachments</strong>. If you would like to attach a\\n  file too large for email, use the form below."
 msgstr ""
 
-msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"%s\">send it to us</a>."
+msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
 "Anda mungkin dapat menemukan\n"
 "    satu di website mereka, atau dengan menelepon mereka dan bertanya. Jika Anda berhasil\n"
-"    menemukannya, maka mohon <a href=\"%s\">kirimkan kepada kami</a>."
+"    menemukannya, maka mohon <a href=\"{{url}}\">kirimkan kepada kami</a>."
 
 msgid "You may be able to find\\none on their website, or by phoning them up and asking. If you manage\\nto find one, then please <a href=\"{{help_url}}\">send it to us</a>."
 msgstr ""

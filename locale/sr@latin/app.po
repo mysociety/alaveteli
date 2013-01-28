@@ -1016,15 +1016,8 @@ msgstr ""
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Ako i dalje imate problema, molimo <a href=\"{{url}}\">kontaktirajte nas</a>."
 
-<<<<<<< HEAD
-msgid "If you are the requester, then you may <a href=\"%s\">sign in</a> to view the request."
-msgstr "Ako ste podnosioc zahteva, možete se <a href=\"%s\">prijaviti</a> da biste pogledali zahtev."
-=======
-msgid ""
-"If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view "
-"the request."
+msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
 msgstr "Ako ste podnosioc zahteva, možete se <a href=\"{{url}}\">prijaviti</a> da biste pogledali zahtev."
->>>>>>> 46e9f2b... Change %s to {{}} in translation "If you are the requester,..."
 
 msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"%s\">read this first</a>."
 msgstr ""
@@ -2940,11 +2933,11 @@ msgstr "Znate šta je uzrok greške i možete <strong>predložiti rešenje</stro
 msgid "You may <strong>include attachments</strong>. If you would like to attach a\\n  file too large for email, use the form below."
 msgstr ""
 
-msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"%s\">send it to us</a>."
+msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
 "Moguće je da je nađete\n"
 "    na njihovoj web stranici, ili putem telefonskog poziva. Ako uspete\n"
-"    da je nađete, onda molimo <a href=\"%s\">da nam je pošaljete</a>."
+"    da je nađete, onda molimo <a href=\"{{url}}\">da nam je pošaljete</a>."
 
 msgid "You may be able to find\\none on their website, or by phoning them up and asking. If you manage\\nto find one, then please <a href=\"{{help_url}}\">send it to us</a>."
 msgstr ""
