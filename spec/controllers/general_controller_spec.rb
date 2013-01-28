@@ -120,13 +120,13 @@ describe GeneralController, "when showing the frontpage" do
 
                 it 'should generate URLs without a locale prepended' do
                     get :frontpage
-                    response.should_not have_text(@default_lang_home_link)
+                    response.should_not contain @default_lang_home_link
                 end
 
                 it 'should render the front page in the default language when no locale param
                     is present and the session locale is not the default' do
                     get(:frontpage, {}, {:locale => 'es'})
-                    response.should_not have_text(@other_lang_home_link)
+                    response.should_not contain @other_lang_home_link
                 end
             end
 
@@ -134,7 +134,7 @@ describe GeneralController, "when showing the frontpage" do
                 INCLUDE_DEFAULT_LOCALE_IN_URLS is true' do
                 set_default_locale_in_urls(true)
                 get :frontpage
-                response.should have_text(@default_lang_home_link)
+                response.body.should match /#{@default_lang_home_link}/
             end
 
             after do
@@ -150,28 +150,28 @@ describe GeneralController, "when showing the frontpage" do
 
         it "should generate URLs with a locale prepended when there's more than one locale set" do
             get :frontpage
-            response.should have_text(home_link_regex)
+            response.body.should match home_link_regex
         end
 
         it "should use our test PO files rather than the application one" do
             I18n.default_locale = :es
             get :frontpage
-            response.should have_text(/XOXO/)
+            response.body.should match /XOXO/
             I18n.default_locale = :en
         end
 
         it "should generate URLs that include the locale when using one that includes an underscore" do
             I18n.default_locale = :"en_GB"
             get :frontpage
-            response.should have_text(/href="\/en_GB\//)
+            response.body.should match /href="\/en_GB\//
             I18n.default_locale = :en
         end
 
         it "should fall back to the language if the territory is unknown" do
             I18n.default_locale = :"en_US"
             get :frontpage
-            response.should have_text(/href="\/en\//)
-            response.should_not have_text(/href="\/en_US\//)
+            response.body.should match /href="\/en\//
+            response.body.should_not match /href="\/en_US\//
             I18n.default_locale = :en
         end
 
@@ -181,7 +181,7 @@ describe GeneralController, "when showing the frontpage" do
             FastGettext.default_available_locales = I18n.available_locales = ['en']
 
             get :frontpage
-            response.should_not have_text(home_link_regex)
+            response.should_not contain home_link_regex
 
             FastGettext.default_available_locales = old_fgt_available_locales
             I18n.available_locales = old_i18n_available_locales

@@ -481,11 +481,11 @@ describe RequestController, "when showing one request" do
 
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt'], :skip_cache => 1
             response.content_type.should == "text/plain"
-            response.should have_text(/Second hello/)
+            response.should contain "Second hello"
 
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3, :file_name => ['hello.txt'], :skip_cache => 1
             response.content_type.should == "text/plain"
-            response.should have_text(/First hello/)
+            response.should contain "First hello"
         end
 
         it 'should cache an attachment on a request with normal prominence' do
@@ -504,7 +504,7 @@ describe RequestController, "when showing one request" do
             ir = info_requests(:fancy_dog_request)
             receive_incoming_mail('iso8859_2_raw_email.email', ir.incoming_email)
             get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-            response.should have_text(/tënde/u)
+            response.should contain "tënde"
         end
 
         it "should generate valid HTML verson of plain text attachments" do
@@ -513,7 +513,7 @@ describe RequestController, "when showing one request" do
             ir.reload
             get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
             response.content_type.should == "text/html"
-            response.should have_text(/Second hello/)
+            response.should contain "Second hello"
         end
 
         # This is a regression test for a bug where URLs of this form were causing 500 errors
@@ -578,7 +578,7 @@ describe RequestController, "when showing one request" do
             ir.reload
             get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['fs_50379341.pdf.html'], :skip_cache => 1
             response.content_type.should == "text/html"
-            response.should have_text(/Walberswick Parish Council/)
+            response.should contain "Walberswick Parish Council"
         end
 
         it "should not cause a reparsing of the raw email, even when the result would be a 404" do
@@ -586,7 +586,7 @@ describe RequestController, "when showing one request" do
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
             ir.reload
             attachment = IncomingMessage.get_attachment_by_url_part_number(ir.incoming_messages[1].get_attachments_for_display, 2)
-            attachment.body.should have_text(/Second hello/)
+            attachment.body.should contain "Second hello"
 
             # change the raw_email associated with the message; this only be reparsed when explicitly asked for
             ir.incoming_messages[1].raw_email.data = ir.incoming_messages[1].raw_email.data.sub("Second", "Third")
@@ -598,19 +598,19 @@ describe RequestController, "when showing one request" do
             }.should raise_error(ActiveRecord::RecordNotFound)
 
             attachment = IncomingMessage.get_attachment_by_url_part_number(ir.incoming_messages[1].get_attachments_for_display, 2)
-            attachment.body.should have_text(/Second hello/)
+            attachment.body.should contain "Second hello"
 
             # ...nor should asking for it by its correct filename...
             get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
-            response.should_not have_text(/Third hello/)
+            response.should_not contain "Third hello"
 
             # ...but if we explicitly ask for attachments to be extracted, then they should be
             force = true
             ir.incoming_messages[1].parse_raw_email!(force)
             attachment = IncomingMessage.get_attachment_by_url_part_number(ir.incoming_messages[1].get_attachments_for_display, 2)
-            attachment.body.should have_text(/Second hello/)
+            attachment.body.should contain "Second hello"
             get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
-            response.should have_text(/Third hello/)
+            response.should contain "Third hello"
         end
 
         it "should treat attachments with unknown extensions as binary" do
@@ -620,7 +620,7 @@ describe RequestController, "when showing one request" do
 
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.qwglhm'], :skip_cache => 1
             response.content_type.should == "application/octet-stream"
-            response.should have_text(/an unusual sort of file/)
+            response.should contain "an unusual sort of file"
         end
 
         it "should not download attachments with wrong file name" do
@@ -648,7 +648,7 @@ describe RequestController, "when showing one request" do
 
                 get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt'], :skip_cache => 1
                 response.content_type.should == "text/plain"
-                response.should have_text(/xxxxxx hello/)
+                response.should contain "xxxxxx hello"
             ensure
                 ir.censor_rules.clear
             end
@@ -670,7 +670,7 @@ describe RequestController, "when showing one request" do
 
                 get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt'], :skip_cache => 1
                 response.content_type.should == "text/plain"
-                response.should have_text(/xxxxxx hello/)
+                response.should contain "xxxxxx hello"
             ensure
                 ir.user.censor_rules.clear
             end
@@ -733,17 +733,17 @@ describe RequestController, "when showing one request" do
                 ir = info_requests(:fancy_dog_request)
                 session[:user_id] = ir.user.id # bob_smith_user
                 get :download_entire_request, :url_title => title
-                assigns[:url_path].should have_text(/#{title}.zip$/)
+                assigns[:url_path].should contain /#{title}.zip$/
                 old_path = assigns[:url_path]
-                response.location.should have_text(/#{assigns[:url_path]}$/)
+                response.location.should contain /#{assigns[:url_path]}$/
                 zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", old_path)) { |zipfile|
                     zipfile.count.should == 1 # just the message
                 }
                 receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
                 get :download_entire_request, :url_title => title
-                assigns[:url_path].should have_text(/#{title}.zip$/)
+                assigns[:url_path].should contain /#{title}.zip$/
                 old_path = assigns[:url_path]
-                response.location.should have_text(/#{assigns[:url_path]}$/)
+                response.location.should contain /#{assigns[:url_path]}$/
                 zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", old_path)) { |zipfile|
                     zipfile.count.should == 3 # the message plus two "hello.txt" files
                 }
@@ -754,9 +754,9 @@ describe RequestController, "when showing one request" do
                 sleep 1
                 receive_incoming_mail('incoming-request-attachment-unknown-extension.email', ir.incoming_email)
                 get :download_entire_request, :url_title => title
-                assigns[:url_path].should have_text(/#{title}.zip$/)
+                assigns[:url_path].should contain /#{title}.zip$/
                 assigns[:url_path].should_not == old_path
-                response.location.should have_text(/#{assigns[:url_path]}/)
+                response.location.should contain assigns[:url_path]
                 zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", assigns[:url_path])) { |zipfile|
                     zipfile.count.should == 4 # the message, two hello.txt plus the unknown attachment
                 }
@@ -766,7 +766,7 @@ describe RequestController, "when showing one request" do
                 info_request = info_requests(:external_request)
                 get :download_entire_request, { :url_title => info_request.url_title },
                                               { :user_id => users(:bob_smith_user) }
-                response.location.should have_text(/#{assigns[:url_path]}$/)
+                response.location.should contain /#{assigns[:url_path]}$/
             end
         end
     end
@@ -855,14 +855,14 @@ describe RequestController, "when changing prominence of a request" do
                              :part => 2,
                              :skip_cache => 1
         response.content_type.should == "text/html"
-        response.should_not have_text(/Second hello/)
+        response.should_not contain "Second hello"
         response.should render_template('request/hidden')
         get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id,
                              :id => ir.id,
                              :part => 3,
                              :skip_cache => 1
         response.content_type.should == "text/html"
-        response.should_not have_text(/First hello/)
+        response.should_not contain "First hello"
         response.should render_template('request/hidden')
         response.code.should == '410'
     end

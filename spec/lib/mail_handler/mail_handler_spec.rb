@@ -22,7 +22,7 @@ describe 'when creating a mail object from raw data' do
 
     it 'should convert an iso8859 email to utf8' do
         mail = get_fixture_mail('iso8859_2_raw_email.email')
-        mail.subject.should have_text(/gjatë/u)
+        mail.subject.should match /gjatë/u
         MailHandler.get_part_body(mail).is_utf8?.should == true
     end
 

@@ -90,7 +90,7 @@ describe AdminRequestController, "when administering the holding pen" do
         ir.save!
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "frob@nowhere.com")
         get :show_raw_email, :id => InfoRequest.holding_pen_request.get_last_response.raw_email.id
-        response.should have_text(/Only the authority can reply to this request/)
+        response.should contain "Only the authority can reply to this request"
     end
 
     it "allows redelivery even to a closed request" do
@@ -154,7 +154,7 @@ describe AdminRequestController, "when administering the holding pen" do
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "")
         InfoRequest.holding_pen_request.incoming_messages.length.should == 2
         get :show_raw_email, :id => interesting_email
-        response.should have_text(/Could not identify the request/)
+        response.should contain "Could not identify the request"
         assigns[:info_requests][0].should == ir
     end
 
