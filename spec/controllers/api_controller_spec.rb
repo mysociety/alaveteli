@@ -213,7 +213,7 @@ describe ApiController, "when using the API" do
                     "body" => "Are you joking, or are you serious?"
                 }.to_json,
             :attachments => [
-                fixture_file_upload("files/tfl.pdf")
+                fixture_file_upload("/files/tfl.pdf")
             ]
 
 
@@ -242,7 +242,7 @@ describe ApiController, "when using the API" do
                     "body" => response_body
                 }.to_json,
             :attachments => [
-                fixture_file_upload("files/tfl.pdf")
+                fixture_file_upload("/files/tfl.pdf")
             ]
 
         # And make sure it worked
