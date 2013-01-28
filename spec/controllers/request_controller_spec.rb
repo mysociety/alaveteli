@@ -222,14 +222,14 @@ describe RequestController, "when showing one request" do
 
     it 'should show actions the request owner can take' do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should have_tag('div#owner_actions')
+        response.should have_selector('div#owner_actions')
     end
 
     describe 'when the request does allow comments' do
       it 'should have a comment link' do
         get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
                    { :user_id => users(:admin_user).id }
-        response.should have_tag('#anyone_actions', /Add an annotation/)
+        response.should have_selector('#anyone_actions', :content => "Add an annotation")
       end
     end
 
@@ -237,7 +237,7 @@ describe RequestController, "when showing one request" do
       it 'should not have a comment link' do
         get :show, { :url_title => 'spam_1' },
                    { :user_id => users(:admin_user).id }
-        response.should_not have_tag('#anyone_actions', /Add an annotation/)
+        response.should_not have_selector('#anyone_actions', :content => "Add an annotation")
       end
     end
 
@@ -254,13 +254,13 @@ describe RequestController, "when showing one request" do
             it 'should show the describe state form' do
                 get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
                            { :user_id => users(:admin_user).id }
-                response.should have_tag('div.describe_state_form')
+                response.should have_selector('div.describe_state_form')
             end
 
             it 'should ask the user to use the describe state from' do
                 get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
                            { :user_id => users(:admin_user).id }
-                response.should have_tag('p#request_status', :text => /answer the question above/)
+                response.should have_selector('p#request_status', :text => /answer the question above/)
             end
 
         end
@@ -278,7 +278,7 @@ describe RequestController, "when showing one request" do
             it 'should give a link to requesting an internal review' do
                 get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
                            { :user_id => users(:admin_user).id }
-                response.should have_tag('p#request_status', :text =>/requesting an internal review/)
+                response.should have_selector('p#request_status', :text =>/requesting an internal review/)
             end
 
         end
@@ -296,7 +296,7 @@ describe RequestController, "when showing one request" do
             it 'should give a link to make a followup' do
                 get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
                            { :user_id => users(:admin_user).id }
-                response.should have_tag('p#request_status a', :text =>/send a follow up message/)
+                response.should have_selector('p#request_status a', :text =>/send a follow up message/)
             end
         end
 
@@ -313,7 +313,7 @@ describe RequestController, "when showing one request" do
 
             it 'should not display actions the request owner can take' do
                 get :show, :url_title => 'balalas'
-                response.should_not have_tag('div#owner_actions')
+                response.should_not have_selector('div#owner_actions')
             end
 
         end
@@ -339,12 +339,12 @@ describe RequestController, "when showing one request" do
 
                 it 'should not show the describe state form' do
                     make_request
-                    response.should_not have_tag('div.describe_state_form')
+                    response.should_not have_selector('div.describe_state_form')
                 end
 
                 it 'should not ask the user to use the describe state form' do
                     make_request
-                    response.should_not have_tag('p#request_status', :text => /answer the question above/)
+                    response.should_not have_selector('p#request_status', :content => "answer the question above")
                 end
 
             end
@@ -361,7 +361,7 @@ describe RequestController, "when showing one request" do
 
                 it 'should not give a link to requesting an internal review' do
                     make_request
-                    response.should_not have_tag('p#request_status', :text =>/requesting an internal review/)
+                    response.should_not have_selector('p#request_status', :content => "requesting an internal review")
                 end
             end
 
@@ -377,12 +377,12 @@ describe RequestController, "when showing one request" do
 
                 it 'should not give a link to make a followup' do
                     make_request
-                    response.should_not have_tag('p#request_status a', :text =>/send a follow up message/)
+                    response.should_not have_selector('p#request_status a', :content => "send a follow up message")
                 end
 
                 it 'should not give a link to sign in (in the request status paragraph)' do
                     make_request
-                    response.should_not have_tag('p#request_status a', :text => /sign in/)
+                    response.should_not have_selector('p#request_status a', :content => "sign in")
                 end
 
             end
@@ -696,7 +696,7 @@ describe RequestController, "when showing one request" do
 
             # so at this point, assigns[:info_request].incoming_messages[1].get_attachments_for_display is returning stuff, but the equivalent thing in the template isn't.
             # but something odd is that the above is return a whole load of attachments which aren't there in the controller
-            response.body.should have_tag("p.attachment strong", /hello.txt/m)
+            response.body.should have_selector("p.attachment strong", :content => "hello.txt")
 
             censor_rule = CensorRule.new()
             censor_rule.text = "hello.txt"
@@ -706,7 +706,7 @@ describe RequestController, "when showing one request" do
             ir.censor_rules << censor_rule
             begin
                 get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-                response.body.should have_tag("p.attachment strong", /goodbye.txt/m)
+                response.body.should have_selector("p.attachment strong", :content => "goodbye.txt")
             ensure
                 ir.censor_rules.clear
             end
@@ -1199,7 +1199,7 @@ describe RequestController, "when viewing an individual response for reply/follo
     it "should offer the opportunity to reply to the main address" do
         session[:user_id] = users(:bob_smith_user).id
         get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-        response.body.should have_tag("div#other_recipients ul li", /the main FOI contact address for/)
+        response.body.should have_selector("div#other_recipients ul li", :content => "the main FOI contact address for")
     end
 
     it "should offer an opportunity to reply to another address" do
@@ -1209,7 +1209,7 @@ describe RequestController, "when viewing an individual response for reply/follo
         ir.save!
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "Frob <frob@bonce.com>")
         get :show_response, :id => ir.id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-        response.body.should have_tag("div#other_recipients ul li", /Frob/)
+        response.body.should have_selector("div#other_recipients ul li", :content => "Frob")
     end
 
     it "should not show individual responses if request hidden, even if request owner" do
@@ -2007,15 +2007,15 @@ describe RequestController, "when viewing comments" do
     it "should link to the user who submitted it" do
         session[:user_id] = users(:bob_smith_user).id
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.body.should have_tag("div#comment-1 h2", /Silly.*left an annotation/m)
-        response.body.should_not have_tag("div#comment-1 h2", /You.*left an annotation/m)
+        response.body.should have_selector("div#comment-1 h2", :content => "Silly.*left an annotation")
+        response.body.should_not have_selector("div#comment-1 h2", :content => "You.*left an annotation")
     end
 
     it "should link to the user who submitted to it, even if it is you" do
         session[:user_id] = users(:silly_name_user).id
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.body.should have_tag("div#comment-1 h2", /Silly.*left an annotation/m)
-        response.body.should_not have_tag("div#comment-1 h2", /You.*left an annotation/m)
+        response.body.should have_selector("div#comment-1 h2", :content => "Silly.*left an annotation")
+        response.body.should_not have_selector("div#comment-1 h2", :content => "You.*left an annotation")
     end
 
 end

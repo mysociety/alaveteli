@@ -58,14 +58,14 @@ describe GeneralController, "when showing the frontpage" do
 
     it "should render the front page with default language" do
         get :frontpage
-        response.should have_tag('html[lang="en"]')
+        response.should have_selector('html[lang="en"]')
     end
 
     it "should render the front page with default language" do
         old_default_locale = I18n.default_locale
         I18n.default_locale = "es"
         get :frontpage
-        response.should have_tag('html[lang="es"]')
+        response.should have_selector('html[lang="es"]')
         I18n.default_locale = old_default_locale
     end
 
@@ -77,7 +77,7 @@ describe GeneralController, "when showing the frontpage" do
         old_default_locale = I18n.default_locale
         I18n.default_locale = "es"
         get :frontpage
-        response.should have_tag('html[lang="es"]')
+        response.should have_selector('html[lang="es"]')
         I18n.default_locale = old_default_locale
     end
 
@@ -87,7 +87,7 @@ describe GeneralController, "when showing the frontpage" do
         accept_language = "es-ES,en-GB,en-US;q=0.8,en;q=0.6"
         request.env['HTTP_ACCEPT_LANGUAGE'] = accept_language
         get :frontpage
-        response.should have_tag('html[lang="es"]')
+        response.should have_selector('html[lang="es"]')
         request.env['HTTP_ACCEPT_LANGUAGE'] = nil
     end
 
