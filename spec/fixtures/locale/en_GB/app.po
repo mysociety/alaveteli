@@ -1294,7 +1294,7 @@ msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a
 msgstr ""
 
 #: app/views/request/hidden.rhtml:15
-msgid "If you are the requester, then you may <a href=\"%s\">sign in</a> to view the request."
+msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
 msgstr ""
 
 #: app/views/request/new.rhtml:123

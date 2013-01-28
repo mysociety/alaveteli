@@ -1217,9 +1217,9 @@ msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a
 msgstr "Якщо у вас все ще виникають проблеми, <a href=\"{{url}}\">зверніться до нас</a>."
 
 msgid ""
-"If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
+"If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view "
 "the request."
-msgstr "Якщо ви автор запиту, ви можете <a href=\"%s\">увійти</a>, щоб його переглянути."
+msgstr "Якщо ви автор запиту, ви можете <a href=\"{{url}}\">увійти</a>, щоб його переглянути."
 
 msgid ""
 "If you are thinking of using a pseudonym,\\n                please <a "

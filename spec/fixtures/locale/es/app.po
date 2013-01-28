@@ -1424,9 +1424,9 @@ msgstr "Si aún tienes problemas, por favor <a href=\"{{url}}\">contáctanos</a>
 
 #: app/views/request/hidden.rhtml:15
 msgid ""
-"If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
+"If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view "
 "the request."
-msgstr "Si la solicitud es tuya, puedes <a href=\"%s\">abrir una sesión</a> para verla."
+msgstr "Si la solicitud es tuya, puedes <a href=\"{{url}}\">abrir una sesión</a> para verla."
 
 #: app/views/request/new.rhtml:123
 msgid ""

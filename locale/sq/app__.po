@@ -1310,10 +1310,10 @@ msgstr "Nëse ende po ka probleme, të lutem <a href=\"{{url}}\">na kontakto</a>
 
 #: app/views/request/hidden.rhtml:15
 msgid ""
-"If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
+"If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view "
 "the request."
 msgstr ""
-"Nëse ti je kërkuesi, atëherë ti mund të <a href=\"%s\">kyçesh</a> për të "
+"Nëse ti je kërkuesi, atëherë ti mund të <a href=\"{{url}}\">kyçesh</a> për të "
 "parë kërkesën."
 
 #: app/views/request/new.rhtml:119
