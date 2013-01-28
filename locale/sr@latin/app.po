@@ -1016,8 +1016,15 @@ msgstr ""
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Ako i dalje imate problema, molimo <a href=\"{{url}}\">kontaktirajte nas</a>."
 
+<<<<<<< HEAD
 msgid "If you are the requester, then you may <a href=\"%s\">sign in</a> to view the request."
 msgstr "Ako ste podnosioc zahteva, možete se <a href=\"%s\">prijaviti</a> da biste pogledali zahtev."
+=======
+msgid ""
+"If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view "
+"the request."
+msgstr "Ako ste podnosioc zahteva, možete se <a href=\"{{url}}\">prijaviti</a> da biste pogledali zahtev."
+>>>>>>> 46e9f2b... Change %s to {{}} in translation "If you are the requester,..."
 
 msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"%s\">read this first</a>."
 msgstr ""

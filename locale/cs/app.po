@@ -1029,8 +1029,8 @@ msgstr "Pokud nejste spokojeni s odpovědí, kterou jste obdrželi od instituce,
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Pokud máte stále problémy <a href=\"{{url}}\">kontaktujte nás</a>."
 
-msgid "If you are the requester, then you may <a href=\"%s\">sign in</a> to view the request."
-msgstr "Pokud jste tazatel, můžete se <a href=\"%s\">přihlásit</a> a podívat se na svůj dotaz."
+msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
+msgstr "Pokud jste tazatel, můžete se <a href=\"{{url}}\">přihlásit</a> a podívat se na svůj dotaz."
 
 msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"%s\">read this first</a>."
 msgstr ""

@@ -12,7 +12,7 @@ various reasons why we might have done this, sorry we can\'t be more specific he
 </p>
 <% if @info_request.prominence == 'requester_only' %>
     <p>
-		<%= raw(_('If you are the requester, then you may <a href="%s">sign in</a> to view the request.') % [signin_url(:r => request.request_uri)]) %>
+		<%= _('If you are the requester, then you may <a href="{{url}}">sign in</a> to view the request.', :url => signin_url(:r => request.request_uri).html_safe) %>
     </p>
 <% end %>
 

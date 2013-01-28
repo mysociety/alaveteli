@@ -990,8 +990,8 @@ msgstr "Se você estiver insatisfeito com a resposta que recebeu do órgão púb
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Se você continua com problemas, <a href=\"{{url}}\">entre em contato conosco</a>."
 
-msgid "If you are the requester, then you may <a href=\"%s\">sign in</a> to view the request."
-msgstr "Se você for o solicitante, então pode <a href=\"%s\">entrar</a> para visualizar o pedido."
+msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
+msgstr "Se você for o solicitante, então pode <a href=\"{{url}}\">entrar</a> para visualizar o pedido."
 
 msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"%s\">read this first</a>."
 msgstr "Se você está pensando em usar um pseudônimo, por favor, <a href=\"%s\">leia isso primeiro</a> ."
