@@ -1035,10 +1035,10 @@ msgstr "Ha továbbra is fennáll a probléma, <a href=\"{{url}}\">lépjen velün
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
 msgstr "Ha ön az igénylő, az igénylés megtekintéséhez <a href=\"{{url}}\">bejelentkezhet</a>. "
 
-msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"%s\">read this first</a>."
+msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"{{url}}\">read this first</a>."
 msgstr ""
 "Amenniyben álnevet kíván használni,\n"
-"kérjük olvassa el előbb az ezzel kapcsolatos <a href=\"%s\">tudnivalókat</a>!"
+"kérjük olvassa el előbb az ezzel kapcsolatos <a href=\"{{url}}\">tudnivalókat</a>!"
 
 msgid "If you are {{user_link}}, please"
 msgstr "Ha ön {{user_link}}, kérjük, "

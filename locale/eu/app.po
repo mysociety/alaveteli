@@ -989,8 +989,8 @@ msgstr "Oraindik arazoak baldin badituzu, mesedez, jar zaitez gurekin <a href=\"
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
 msgstr "Eskabidea zurea baldin bada, <a href=\"{{url}}\">saio bat zabaldu</a> ahal duzu ikusteko."
 
-msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"%s\">read this first</a>."
-msgstr "Goitizena erabili nahi izanez gero, mesedez <a href=\"%s\">lehenago irakur ezazu hau</a>."
+msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"{{url}}\">read this first</a>."
+msgstr "Goitizena erabili nahi izanez gero, mesedez <a href=\"{{url}}\">lehenago irakur ezazu hau</a>."
 
 msgid "If you are {{user_link}}, please"
 msgstr "Zu {{user_link}} baldin bazara, mesedez"

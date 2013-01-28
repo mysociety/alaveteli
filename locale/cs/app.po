@@ -1032,10 +1032,10 @@ msgstr "Pokud máte stále problémy <a href=\"{{url}}\">kontaktujte nás</a>."
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
 msgstr "Pokud jste tazatel, můžete se <a href=\"{{url}}\">přihlásit</a> a podívat se na svůj dotaz."
 
-msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"%s\">read this first</a>."
+msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"{{url}}\">read this first</a>."
 msgstr ""
 "Pokud chcete používat přezdívku\n"
-"please <a href=\"%s\">nejdříve si přečtěte toto</a>."
+"please <a href=\"{{url}}\">nejdříve si přečtěte toto</a>."
 
 msgid "If you are {{user_link}}, please"
 msgstr "Pokud jste {{user_link}}, prosíme"

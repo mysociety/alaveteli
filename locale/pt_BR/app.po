@@ -993,8 +993,8 @@ msgstr "Se você continua com problemas, <a href=\"{{url}}\">entre em contato co
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
 msgstr "Se você for o solicitante, então pode <a href=\"{{url}}\">entrar</a> para visualizar o pedido."
 
-msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"%s\">read this first</a>."
-msgstr "Se você está pensando em usar um pseudônimo, por favor, <a href=\"%s\">leia isso primeiro</a> ."
+msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"{{url}}\">read this first</a>."
+msgstr "Se você está pensando em usar um pseudônimo, por favor, <a href=\"{{url}}\">leia isso primeiro</a> ."
 
 msgid "If you are {{user_link}}, please"
 msgstr "Se você é {{user_link}}, por favor"

@@ -1038,10 +1038,10 @@ msgstr "Якщо у вас все ще виникають проблеми, <a h
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
 msgstr "Якщо ви автор запиту, ви можете <a href=\"{{url}}\">увійти</a>, щоб його переглянути."
 
-msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"%s\">read this first</a>."
+msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"{{url}}\">read this first</a>."
 msgstr ""
 "Якщо ви збираєтесь використати псевдонім,\n"
-"                <a href=\"%s\">прочитайте спершу це</a>."
+"                <a href=\"{{url}}\">прочитайте спершу це</a>."
 
 msgid "If you are {{user_link}}, please"
 msgstr "Якщо ви {{user_link}}, будь ласка"
