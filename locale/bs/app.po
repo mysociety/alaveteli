@@ -1421,8 +1421,8 @@ msgstr "Pridružio se na {{site_name}} u"
 
 msgid ""
 "Keep it <strong>focused</strong>, you'll be more likely to get what you want"
-" (<a href=\"%s\">why?</a>)."
-msgstr "Držite se <strong>suštine</strong>, lakše ćete dobiti ono što tražite(<a href=\"%s\">Više informacija</a>)."
+" (<a href=\"{{url}}\">why?</a>)."
+msgstr "Držite se <strong>suštine</strong>, lakše ćete dobiti ono što tražite(<a href=\"{{url}}\">Više informacija</a>)."
 
 msgid "Keywords"
 msgstr "Ključne riječi"

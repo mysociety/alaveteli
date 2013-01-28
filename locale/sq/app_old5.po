@@ -1667,10 +1667,10 @@ msgstr "Bashkangjitur {{site_name}} më"
 #: app/views/request/new.rhtml:48
 msgid ""
 "Keep it <strong>focused</strong>, you'll be more likely to get what you want"
-" (<a href=\"%s\">why?</a>)."
+" (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "Mbaje <strong>të fokusuar</strong>, gjasat janë më të mëdha që të marrësh "
-"përgjigjen e dëshiruar (<a href=\"%s\">pse?</a>)."
+"përgjigjen e dëshiruar (<a href=\"{{url}}\">pse?</a>)."
 
 #: app/views/contact_mailer/message.rhtml:10
 msgid "Last authority viewed: "

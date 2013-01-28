@@ -1420,8 +1420,8 @@ msgstr "Користувач долучився до {{site_name}} у"
 
 msgid ""
 "Keep it <strong>focused</strong>, you'll be more likely to get what you want"
-" (<a href=\"%s\">why?</a>)."
-msgstr "Конкретизуйте ваш запит, так ви маєте більше шансів отримати потрібну інформацію (<a href=\"%s\">чому?</a>)."
+" (<a href=\"{{url}}\">why?</a>)."
+msgstr "Конкретизуйте ваш запит, так ви маєте більше шансів отримати потрібну інформацію (<a href=\"{{url}}\">чому?</a>)."
 
 msgid "Keywords"
 msgstr "Ключові слова"

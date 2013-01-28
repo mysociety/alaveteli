@@ -1416,8 +1416,8 @@ msgstr "Registrado en {{site_name}} el"
 
 msgid ""
 "Keep it <strong>focused</strong>, you'll be more likely to get what you want"
-" (<a href=\"%s\">why?</a>)."
-msgstr "Sea <strong>específico</strong>, tendrá más probabilidades de conseguir lo que quiere (<a href=\"%s\">¿por qué?</a>)."
+" (<a href=\"{{url}}\">why?</a>)."
+msgstr "Sea <strong>específico</strong>, tendrá más probabilidades de conseguir lo que quiere (<a href=\"{{url}}\">¿por qué?</a>)."
 
 msgid "Keywords"
 msgstr "Términos"

@@ -1417,8 +1417,8 @@ msgstr "{{site_name}} beigetreten am"
 
 msgid ""
 "Keep it <strong>focused</strong>, you'll be more likely to get what you want"
-" (<a href=\"%s\">why?</a>)."
-msgstr "Machen Sie es <strong>kurz und bündig</strong>, die Wahrscheinlichkeit die gewünschten Informationen zu erhalten ist somit größer(<a href=\"%s\">Warum?</a>)."
+" (<a href=\"{{url}}\">why?</a>)."
+msgstr "Machen Sie es <strong>kurz und bündig</strong>, die Wahrscheinlichkeit die gewünschten Informationen zu erhalten ist somit größer(<a href=\"{{url}}\">Warum?</a>)."
 
 msgid "Keywords"
 msgstr "Stichwörter"

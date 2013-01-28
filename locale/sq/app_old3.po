@@ -1705,10 +1705,10 @@ msgstr "Kontakt {{site_name}}"
 #: app/views/request/new.rhtml:48
 msgid ""
 "Keep it <strong>focused</strong>, you'll be more likely to get what you want "
-"(<a href=\"%s\">why?</a>)."
+"(<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "AA Keep it <strong>focused</strong>, you'll be more likely to get what you "
-"want (<a href=\"%s\">why?</a>)."
+"want (<a href=\"{{url}}\">why?</a>)."
 
 #: app/views/contact_mailer/message.rhtml:10
 msgid "Last authority viewed: "
