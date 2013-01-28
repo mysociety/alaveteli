@@ -112,17 +112,17 @@
 
         <% if !@user %>
             <p class="form_note">
-                <%= raw(_('Everything that you enter on this page, including <strong>your name</strong>,
+                <%= _('Everything that you enter on this page, including <strong>your name</strong>,
                 will be <strong>displayed publicly</strong> on
-                this website forever (<a href="%s">why?</a>).') % [help_privacy_path+"#public_request"]) %>
+                this website forever (<a href="{{url}}">why?</a>).', :url => (help_privacy_path+"#public_request").html_safe) %>
                 <%= _('If you are thinking of using a pseudonym,
                 please <a href="{{url}}">read this first</a>.', :url => (help_privacy_path+"#real_name").html_safe) %>
             </p>
         <% else %>
             <p class="form_note">
-                <%= raw(_('Everything that you enter on this page
+                <%= _('Everything that you enter on this page
                 will be <strong>displayed publicly</strong> on
-                this website forever (<a href="%s">why?</a>).') % [help_privacy_path+"#public_request"]) %>
+                this website forever (<a href="{{url}}">why?</a>).', :url => (help_privacy_path+"#public_request").html_safe) %>
             </p>
         <% end %>
 
