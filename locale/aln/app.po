@@ -3195,7 +3195,7 @@ msgid ""
 msgstr ""
 
 msgid ""
-"When you're done, <strong>come back here</strong>, <a href=\"%s\">reload "
+"When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload "
 "this page</a> and file your new request."
 msgstr ""
 

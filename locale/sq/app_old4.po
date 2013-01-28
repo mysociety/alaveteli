@@ -3553,10 +3553,10 @@ msgstr ""
 
 #: app/views/request/new_please_describe.rhtml:16
 msgid ""
-"When you're done, <strong>come back here</strong>, <a href=\"%s\">reload "
+"When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload "
 "this page</a> and file your new request."
 msgstr ""
-"Kur të kesh mbaruar, <strong>kthehu këtu,</strong> <a href=\"%s\">rifresko "
+"Kur të kesh mbaruar, <strong>kthehu këtu,</strong> <a href=\"{{url}}\">rifresko "
 "këtë faqe</a> dhe bëj kërkesën tënde të re."
 
 #: app/views/request/show_response.rhtml:13

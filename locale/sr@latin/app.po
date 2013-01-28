@@ -3205,9 +3205,9 @@ msgid ""
 msgstr "Kada dobijete printanu kopiju, molimo pomozite\n            drugima da saznaju njen sadržaj:"
 
 msgid ""
-"When you're done, <strong>come back here</strong>, <a href=\"%s\">reload "
+"When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload "
 "this page</a> and file your new request."
-msgstr "Kada završite, <strong>vratite se ovde</strong>, <a href=\"%s\">učitajte ponovo ovu stranicu</a> i spremite Vaš novi zahtev."
+msgstr "Kada završite, <strong>vratite se ovde</strong>, <a href=\"{{url}}\">učitajte ponovo ovu stranicu</a> i spremite Vaš novi zahtev."
 
 msgid "Which of these is happening?"
 msgstr "Šta se od ovoga događa?"

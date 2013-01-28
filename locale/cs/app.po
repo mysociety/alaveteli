@@ -3209,9 +3209,9 @@ msgid ""
 msgstr "Pokud obdržíte písemnou odpověď, prosíme shrňte\n            pro ostatní, co se v odpovědi říká:"
 
 msgid ""
-"When you're done, <strong>come back here</strong>, <a href=\"%s\">reload "
+"When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload "
 "this page</a> and file your new request."
-msgstr "Až budete hotovi, <strong>vraťte se sem</strong>, <a href=\"%s\">obnovte stránku</a> a vzneste nový dotaz."
+msgstr "Až budete hotovi, <strong>vraťte se sem</strong>, <a href=\"{{url}}\">obnovte stránku</a> a vzneste nový dotaz."
 
 msgid "Which of these is happening?"
 msgstr "Vyberte nejvhodnější popis z následujících možností."

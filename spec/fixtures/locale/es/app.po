@@ -3691,9 +3691,9 @@ msgstr "Cuando reciba la respuesta en papel, por favor ayude\n            a que 
 
 #: app/views/request/new_please_describe.rhtml:16
 msgid ""
-"When you're done, <strong>come back here</strong>, <a href=\"%s\">reload "
+"When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload "
 "this page</a> and file your new request."
-msgstr "Cuando esté listo, <strong>vuelva aquí</strong>, <a href=\"%s\">recargue esta página</a> y cree una nueva solicitud."
+msgstr "Cuando esté listo, <strong>vuelva aquí</strong>, <a href=\"{{url}}\">recargue esta página</a> y cree una nueva solicitud."
 
 #: app/views/request/show_response.rhtml:13
 msgid "Which of these is happening?"

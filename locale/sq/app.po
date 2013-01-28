@@ -3201,9 +3201,9 @@ msgid ""
 msgstr "Kur të marrësh përgjigjen në letër, të lutem i ndihmoni të tjerët të gjejnë se çfarë thotë në te:"
 
 msgid ""
-"When you're done, <strong>come back here</strong>, <a href=\"%s\">reload "
+"When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload "
 "this page</a> and file your new request."
-msgstr "Kur të kesh mbaruar, <strong>kthehu këtu,</strong> <a href=\"%s\">rifresko këtë faqe</a> dhe bëj kërkesën tënde të re."
+msgstr "Kur të kesh mbaruar, <strong>kthehu këtu,</strong> <a href=\"{{url}}\">rifresko këtë faqe</a> dhe bëj kërkesën tënde të re."
 
 msgid "Which of these is happening?"
 msgstr "Cila nga këto po ndodh?"

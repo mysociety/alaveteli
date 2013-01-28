@@ -3433,7 +3433,7 @@ msgid ""
 msgstr ""
 
 #: app/views/request/new_please_describe.rhtml:16
-msgid "When you're done, <strong>come back here</strong>, <a href=\"%s\">reload this page</a> and file your new request."
+msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
 msgstr ""
 
 #: app/views/request/show_response.rhtml:13

@@ -3198,9 +3198,9 @@ msgid ""
 msgstr "Wenn Sie die gedruckte Antwort erhalten, machen Sie den Inhalt bitte für andere Nutzer zugänglich"
 
 msgid ""
-"When you're done, <strong>come back here</strong>, <a href=\"%s\">reload "
+"When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload "
 "this page</a> and file your new request."
-msgstr "Wenn Sie fertig sind, <strong>kommen Sie hierher zurück</strong>, <a href=\"%s\">laden Sie die Seite erneut</a> und stellen Sie Ihre neue Anfrage."
+msgstr "Wenn Sie fertig sind, <strong>kommen Sie hierher zurück</strong>, <a href=\"{{url}}\">laden Sie die Seite erneut</a> und stellen Sie Ihre neue Anfrage."
 
 msgid "Which of these is happening?"
 msgstr "Welcher dieser Aspekte ist zutreffend?"

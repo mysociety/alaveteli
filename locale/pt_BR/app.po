@@ -3211,9 +3211,9 @@ msgid ""
 msgstr "Quando receber a resposta em papel, por favor contribua para que outros saibam o que ela diz:"
 
 msgid ""
-"When you're done, <strong>come back here</strong>, <a href=\"%s\">reload "
+"When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload "
 "this page</a> and file your new request."
-msgstr "Quando tiver concluído, <strong>retorne aqui</strong>, <a href=\"%s\">recarregue esta página</a> e registre sua nova requisição."
+msgstr "Quando tiver concluído, <strong>retorne aqui</strong>, <a href=\"{{url}}\">recarregue esta página</a> e registre sua nova requisição."
 
 msgid "Which of these is happening?"
 msgstr "Qual desses está ocorrendo?"
