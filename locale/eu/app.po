@@ -3323,9 +3323,9 @@ msgstr ""
 
 msgid ""
 "You may be able to find\\n    one on their website, or by phoning them up "
-"and asking. If you manage\\n    to find one, then please <a href=\"%s\">send"
+"and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send"
 " it to us</a>."
-msgstr "Agian aurkitu ahal duzu haien web orrialdean edo telefonoz galdetzen. Lortuz gero, mesedez <a href=\"%s\">bidal iezaguzu</a>."
+msgstr "Agian aurkitu ahal duzu haien web orrialdean edo telefonoz galdetzen. Lortuz gero, mesedez <a href=\"{{url}}\">bidal iezaguzu</a>."
 
 msgid ""
 "You may be able to find\\none on their website, or by phoning them up and "

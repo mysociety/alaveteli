@@ -235,12 +235,12 @@ msgstr ""
 #: app/views/general/search.rhtml:53
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr ""
-"<a href=\"%s\">Shfletoni të gjitha</a> ose <a href=\"%s\">kërkoni nga ne që "
+"<a href=\"{{browse_url}}\">Shfletoni të gjitha</a> ose <a href=\"{{add_url}}\">kërkoni nga ne që "
 "të shtojmë një</a> ."
 
 #: app/views/general/exception_caught.rhtml:13
-msgid "<a href=\"%s\">Contact us</a> to tell us about the problem</li>"
-msgstr "<a href=\"%s\">Na kontakto</a> për të na tregu për problemin</li>"
+msgid "<a href=\"{{url}}\">Contact us</a> to tell us about the problem</li>"
+msgstr "<a href=\"{{url}}\">Na kontakto</a> për të na tregu për problemin</li>"
 
 #: app/views/public_body/list.rhtml:43
 msgid "Can't find the one you want?"
@@ -3796,21 +3796,21 @@ msgstr ""
 msgid ""
 "You may be able to find\n"
 "    one on their website, or by phoning them up and asking. If you manage\n"
-"    to find one, then please <a href=\"%s\">send it to us</a>."
+"    to find one, then please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
 "Ti ke mundësi të gjejsh atë\n"
 "    në ueb sajtin e tyre, ose duke iu telefonuar. Nëse keni arritur të gjeni adresën,\n"
-"    atëherë të lutem <a href=\"%s\">na e dërgo të njejtën</a>."
+"    atëherë të lutem <a href=\"{{url}}\">na e dërgo të njejtën</a>."
 
 #: app/views/request/new_bad_contact.rhtml:6
 msgid ""
 "You may be able to find\n"
 "one on their website, or by phoning them up and asking. If you manage\n"
-"to find one, then please <a href=\"%s\">send it to us</a>."
+"to find one, then please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
 "Ti ke mundësi të gjejsh atë\n"
 "në ueb sajtin e tyre, ose duke iu telefonuar. Nëse keni arritur të gjeni adresën,\n"
-"atëherë të lutem <a href=\"%s\">na e dërgo të njejtën</a>."
+"atëherë të lutem <a href=\"{{url}}\">na e dërgo të njejtën</a>."
 
 #: app/controllers/user_controller.rb:470
 msgid "You need to be logged in to change the text about you on your profile."

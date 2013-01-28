@@ -3332,9 +3332,9 @@ msgstr ""
 
 msgid ""
 "You may be able to find\\n    one on their website, or by phoning them up "
-"and asking. If you manage\\n    to find one, then please <a href=\"%s\">send"
+"and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send"
 " it to us</a>."
-msgstr "Moguće je da je nađete\n    na njihovoj web stranici, ili putem telefonskog poziva. Ako uspete\n    da je nađete, onda molimo <a href=\"%s\">da nam je pošaljete</a>."
+msgstr "Moguće je da je nađete\n    na njihovoj web stranici, ili putem telefonskog poziva. Ako uspete\n    da je nađete, onda molimo <a href=\"{{url}}\">da nam je pošaljete</a>."
 
 msgid ""
 "You may be able to find\\none on their website, or by phoning them up and "
