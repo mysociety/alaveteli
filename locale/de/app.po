@@ -885,8 +885,8 @@ msgstr "IFG-Anfrage an"
 msgid "From"
 msgstr ""
 
-msgid "From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
-msgstr "Von der Anfragen-Seite, versuchen Sie direkt auf spezifische Nachrichten zu reagieren anstall eine generelle Nachfrage zu senden. Falls Sie eine generelle Nachfrage stellen müssen und eine Emailadresse kennen, welche an die richtige Stelle geht, sind Sie so freundlich uns <a href=\"%s\">diese zu senden. "
+msgid "From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgstr "Von der Anfragen-Seite, versuchen Sie direkt auf spezifische Nachrichten zu reagieren anstall eine generelle Nachfrage zu senden. Falls Sie eine generelle Nachfrage stellen müssen und eine Emailadresse kennen, welche an die richtige Stelle geht, sind Sie so freundlich uns <a href=\"{{url}}\">diese zu senden. "
 
 msgid "From:"
 msgstr "Von:"
@@ -3129,10 +3129,19 @@ msgstr "Nachrichten von Nutzern"
 msgid "no later than"
 msgstr "nicht später als"
 
+<<<<<<< HEAD
 msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
 msgstr ""
 "besteht nicht mehr. Falls Sie versuchen \n"
 "   Von der Anfragen-Seite, versuchen Sie auf spezifische Nachrichten zu Antworten anstatt generelle Nachfragen zu versenden. Wenn Sie eine gnerelle Nachfrage stellen müssen und eine Email-Adresse kennen, die an die richtige Stelle geht, <a href=\"%s\">senden Sie uns diese</a> bitte zu."
+=======
+msgid ""
+"no longer exists. If you are trying to make\\n    From the request page, try"
+" replying to a particular message, rather than sending\\n    a general "
+"followup. If you need to make a general followup, and know\\n    an email "
+"which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgstr "besteht nicht mehr. Falls Sie versuchen \n   Von der Anfragen-Seite, versuchen Sie auf spezifische Nachrichten zu Antworten anstatt generelle Nachfragen zu versenden. Wenn Sie eine gnerelle Nachfrage stellen müssen und eine Email-Adresse kennen, die an die richtige Stelle geht, <a href=\"{{url}}\">senden Sie uns diese</a> bitte zu."
+>>>>>>> 543eb94... Replacing %s with {{}} in translations "From the request page, try replying to a particular message.."
 
 msgid "normally"
 msgstr "normalerweise"

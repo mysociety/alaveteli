@@ -1264,8 +1264,8 @@ msgstr "Solicitudes de información a"
 msgid ""
 "From the request page, try replying to a particular message, rather than sending\n"
 "    a general followup. If you need to make a general followup, and know\n"
-"    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
-msgstr "Desde la página de la solicitud, intenta responder a un mensaje en concreto, en vez de\n    responder a la solicitud en general. Si necesitas hacerlo y tienes una dirección de\n    correo válida, por favor <a href=\"%s\">mándanosla</a>."
+"    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgstr "Desde la página de la solicitud, intenta responder a un mensaje en concreto, en vez de\n    responder a la solicitud en general. Si necesitas hacerlo y tienes una dirección de\n    correo válida, por favor <a href=\"{{url}}\">mándanosla</a>."
 
 #: app/views/request/_correspondence.rhtml:12
 #: app/views/request/_correspondence.rhtml:36
@@ -4263,8 +4263,8 @@ msgid ""
 "no longer exists. If you are trying to make\n"
 "    From the request page, try replying to a particular message, rather than sending\n"
 "    a general followup. If you need to make a general followup, and know\n"
-"    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
-msgstr "ya no existe. \nDesde la página de la solicitud, intenta responder a un mensaje en concreto, en vez de\n    responder a la solicitud en general. Si necesitas hacerlo y tienes una dirección de\n    correo válida, por favor <a href=\"%s\">mándanosla</a>."
+"    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgstr "ya no existe. \nDesde la página de la solicitud, intenta responder a un mensaje en concreto, en vez de\n    responder a la solicitud en general. Si necesitas hacerlo y tienes una dirección de\n    correo válida, por favor <a href=\"{{url}}\">mándanosla</a>."
 
 #: app/views/request/show.rhtml:72
 msgid "normally"

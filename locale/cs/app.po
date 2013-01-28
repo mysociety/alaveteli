@@ -919,8 +919,8 @@ msgstr "Dotaz vznesený na"
 msgid "From"
 msgstr "Od"
 
-msgid "From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
-msgstr "Spíše než vložení obecné odpovědi zkuste odpovědět na vybranou zprávu ze stránky pro vznesení dotazu. Pokud potřebujete vložit obecnou odpověď a znáte správnou e-mailovou adresu, prosíme <a href=\"%s\">pošlete nám ji</a>"
+msgid "From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgstr "Spíše než vložení obecné odpovědi zkuste odpovědět na vybranou zprávu ze stránky pro vznesení dotazu. Pokud potřebujete vložit obecnou odpověď a znáte správnou e-mailovou adresu, prosíme <a href=\"{{url}}\">pošlete nám ji</a>"
 
 msgid "From:"
 msgstr "Od:"
@@ -3248,10 +3248,19 @@ msgstr "zprávy od uživatelů"
 msgid "no later than"
 msgstr "nejpozději do"
 
+<<<<<<< HEAD
 msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
 msgstr ""
 "již neexistuje. Pokud se pokoušíte\n"
 "    Ze stránky pro vznesení dotazu, pokuste se odpovědět na vybranou zprávu místo podávání obecné odpovědi. Pokud potřebujete poslat obecnou zprávu a znáte správný e-mail, na který to poslat, prosíme <a href=\"%s\">pošlete nám jej</a>."
+=======
+msgid ""
+"no longer exists. If you are trying to make\\n    From the request page, try"
+" replying to a particular message, rather than sending\\n    a general "
+"followup. If you need to make a general followup, and know\\n    an email "
+"which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgstr "již neexistuje. Pokud se pokoušíte\n    Ze stránky pro vznesení dotazu, pokuste se odpovědět na vybranou zprávu místo podávání obecné odpovědi. Pokud potřebujete poslat obecnou zprávu a znáte správný e-mail, na který to poslat, prosíme <a href=\"{{url}}\">pošlete nám jej</a>."
+>>>>>>> 543eb94... Replacing %s with {{}} in translations "From the request page, try replying to a particular message.."
 
 msgid "normally"
 msgstr "to"
