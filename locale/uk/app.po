@@ -2344,7 +2344,7 @@ msgstr "Відслідковуване вами"
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Цього органу більше не існує, тож ви не можете зробити запит."
 
-msgid "This comment has been hidden. See annotations to\\n            find out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
+msgid "This comment has been hidden. See annotations to\\n            find out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
 msgstr ""
 
 msgid "This covers a very wide spectrum of information about the state of\\n            the <strong>natural and built environment</strong>, such as:"

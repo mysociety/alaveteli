@@ -2289,8 +2289,8 @@ msgstr ""
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Erakunde hau jadanik ez da existitzen, ezin da informazio eskabiderik egin."
 
-msgid "This comment has been hidden. See annotations to\\n            find out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
-msgstr "Erantzun hau ezkutatuta dago. Ikus itzazu iruzkinak jakiteko zergatik. Zure eskabidea baldin bada, <a href=\"%s\">ireki saioa</a> erantzuna ikusteko."
+msgid "This comment has been hidden. See annotations to\\n            find out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
+msgstr "Erantzun hau ezkutatuta dago. Ikus itzazu iruzkinak jakiteko zergatik. Zure eskabidea baldin bada, <a href=\"{{url}}\">ireki saioa</a> erantzuna ikusteko."
 
 msgid "This covers a very wide spectrum of information about the state of\\n            the <strong>natural and built environment</strong>, such as:"
 msgstr "Honek <strong>ingurune naturala eta hiritartuaren</strong> egoerari buruzko informazio zabala dakar, esaterako:"
