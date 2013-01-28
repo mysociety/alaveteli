@@ -2435,8 +2435,8 @@ msgstr "Kjo kërkesë është ende në përpunim:"
 msgid "This request was not made via {{site_name}}"
 msgstr "Kjo kërkesë nuk është bërë nëpërmjet {{site_name}}"
 
-msgid "This response has been hidden. See annotations to find out why.\\n            If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
-msgstr "Kjo përgjigje është fshehur. Shih shënimet për të kuptuar pse. Nëse ti je kërkuesi, atëherë ti mund të <a href=\"%s\">kyçesh</a> për të parë përgjigjen."
+msgid "This response has been hidden. See annotations to find out why.\\n            If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
+msgstr "Kjo përgjigje është fshehur. Shih shënimet për të kuptuar pse. Nëse ti je kërkuesi, atëherë ti mund të <a href=\"{{url}}\">kyçesh</a> për të parë përgjigjen."
 
 msgid "This table shows the technical details of the internal events that happened\\nto this request on {{site_name}}. This could be used to generate information about\\nthe speed with which authorities respond to requests, the number of requests\\nwhich require a postal response and much more."
 msgstr ""

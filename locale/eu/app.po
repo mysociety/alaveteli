@@ -2379,8 +2379,8 @@ msgstr "Eskabide hau oraindik prozesatzen ari da:"
 msgid "This request was not made via {{site_name}}"
 msgstr ""
 
-msgid "This response has been hidden. See annotations to find out why.\\n            If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
-msgstr "Erantzun hau ezkututa dago. Ikus itzazu iruzkinak jakiteko zergatik. Zeure eskabidea baldin bada, <a href=\"%s\">ireki saioa</a> erantzuna ikusteko."
+msgid "This response has been hidden. See annotations to find out why.\\n            If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
+msgstr "Erantzun hau ezkututa dago. Ikus itzazu iruzkinak jakiteko zergatik. Zeure eskabidea baldin bada, <a href=\"{{url}}\">ireki saioa</a> erantzuna ikusteko."
 
 msgid "This table shows the technical details of the internal events that happened\\nto this request on {{site_name}}. This could be used to generate information about\\nthe speed with which authorities respond to requests, the number of requests\\nwhich require a postal response and much more."
 msgstr "Ondoko taulak {{site_name}} eskabidearekin zerikusia duten barne gertaeren datu teknikoak erakusten ditu. Datu hauek erabil daitezke estatistikak sortzeko, esaterako erakundeen erantzun abiadura edo posta arrunta erabiltzeko eskatzen duten eskabide kopurua."

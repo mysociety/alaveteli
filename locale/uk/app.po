@@ -2438,10 +2438,10 @@ msgstr "Переписка з розпорядником інформації т
 msgid "This request was not made via {{site_name}}"
 msgstr "Цей запит не було зроблено через сайт {{site_name}}"
 
-msgid "This response has been hidden. See annotations to find out why.\\n            If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
+msgid "This response has been hidden. See annotations to find out why.\\n            If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
 msgstr ""
 "Цю відповідь було приховано. Ознайомтесь з коментарями, щоб з’ясувати, чому це сталось.\n"
-"            Якщо ви автор запиту, <a href=\"%s\">увійдіть в систему</a>, щоб переглянути відповідь."
+"            Якщо ви автор запиту, <a href=\"{{url}}\">увійдіть в систему</a>, щоб переглянути відповідь."
 
 msgid "This table shows the technical details of the internal events that happened\\nto this request on {{site_name}}. This could be used to generate information about\\nthe speed with which authorities respond to requests, the number of requests\\nwhich require a postal response and much more."
 msgstr ""

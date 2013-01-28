@@ -2488,10 +2488,10 @@ msgstr "Ez az igénylés még mindig folyamatban van: "
 msgid "This request was not made via {{site_name}}"
 msgstr ""
 
-msgid "This response has been hidden. See annotations to find out why.\\n            If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
+msgid "This response has been hidden. See annotations to find out why.\\n            If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
 msgstr ""
 "Ez a válasz el lett rejtve. A megjegyzésekből megtudhatja ennek okát.\n"
-"            Ha ön az igénylő, a válasz megtekintéséhez <a href=\"%s\">bejelentkezhet</a>. "
+"            Ha ön az igénylő, a válasz megtekintéséhez <a href=\"{{url}}\">bejelentkezhet</a>. "
 
 msgid "This table shows the technical details of the internal events that happened\\nto this request on {{site_name}}. This could be used to generate information about\\nthe speed with which authorities respond to requests, the number of requests\\nwhich require a postal response and much more."
 msgstr ""
