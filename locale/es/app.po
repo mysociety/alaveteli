@@ -2676,9 +2676,9 @@ msgstr "Este organismo ya no existe, no pueden realizarse solicitudes de informa
 
 msgid ""
 "This comment has been hidden. See annotations to\\n            find out why."
-"  If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
+"  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view "
 "the response."
-msgstr "Este respuesta está oculta. Revisa los comentarios\n            para descubrir por qué. Si es tu solicitud, <a href=\"%s\">abre una sesión</a> para ver la respuesta."
+msgstr "Este respuesta está oculta. Revisa los comentarios\n            para descubrir por qué. Si es tu solicitud, <a href=\"{{url}}\">abre una sesión</a> para ver la respuesta."
 
 msgid ""
 "This covers a very wide spectrum of information about the state of\\n"

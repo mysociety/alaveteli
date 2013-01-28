@@ -2667,9 +2667,9 @@ msgstr "Otoritas ini tidak lagi ada, sehingga Anda tidak dapat membuat permintaa
 
 msgid ""
 "This comment has been hidden. See annotations to\\n            find out why."
-"  If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
+"  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view "
 "the response."
-msgstr "Komentar ini sudah disembunyikan. Lihat anotasi untuk\n            mengetahui kenapa.  Jika Anda adalah sang pemohon, maka Anda dapat  <a href=\"%s\">masuk</a> untuk menampilkan respon tersebut."
+msgstr "Komentar ini sudah disembunyikan. Lihat anotasi untuk\n            mengetahui kenapa.  Jika Anda adalah sang pemohon, maka Anda dapat  <a href=\"{{url}}\">masuk</a> untuk menampilkan respon tersebut."
 
 msgid ""
 "This covers a very wide spectrum of information about the state of\\n"

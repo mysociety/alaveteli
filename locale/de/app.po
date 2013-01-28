@@ -2675,9 +2675,9 @@ msgstr "Diese Behörde existiert nichtmehr. Es ist folglich nicht möglich eine 
 
 msgid ""
 "This comment has been hidden. See annotations to\\n            find out why."
-"  If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
+"  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view "
 "the response."
-msgstr "Dieser Kommentar wurde verborgen. Sehen Sie die Anmerkungen, um den Grund zu erfahren. Falls Sie diese Anfrage gestellt haben können Sie sich <a href=\"%s\">einloggen</a> um die Antwort zu lesen."
+msgstr "Dieser Kommentar wurde verborgen. Sehen Sie die Anmerkungen, um den Grund zu erfahren. Falls Sie diese Anfrage gestellt haben können Sie sich <a href=\"{{url}}\">einloggen</a> um die Antwort zu lesen."
 
 msgid ""
 "This covers a very wide spectrum of information about the state of\\n"

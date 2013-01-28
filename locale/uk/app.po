@@ -2680,7 +2680,7 @@ msgstr "Цього органу більше не існує, тож ви не �
 
 msgid ""
 "This comment has been hidden. See annotations to\\n            find out why."
-"  If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
+"  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view "
 "the response."
 msgstr ""
 

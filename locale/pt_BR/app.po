@@ -2688,9 +2688,9 @@ msgstr "Este órgão de governo não existe, portanto você não pode criar um p
 
 msgid ""
 "This comment has been hidden. See annotations to\\n            find out why."
-"  If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
+"  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view "
 "the response."
-msgstr "Este comentário foi ocultado. Veja as anotações para descobrir o motivo. Se você é o solicitante, então pode <a href=\"%s\">entrar</a> para visualizar a resposta."
+msgstr "Este comentário foi ocultado. Veja as anotações para descobrir o motivo. Se você é o solicitante, então pode <a href=\"{{url}}\">entrar</a> para visualizar a resposta."
 
 msgid ""
 "This covers a very wide spectrum of information about the state of\\n"

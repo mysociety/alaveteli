@@ -2678,9 +2678,9 @@ msgstr "Ky autoritet nuk ekziston më, kështu që ju nuk mund të bëni një k�
 
 msgid ""
 "This comment has been hidden. See annotations to\\n            find out why."
-"  If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
+"  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view "
 "the response."
-msgstr "Ky koment është fshehur. Shih shënimet për të gjetur pse. Nëse ti je kërkuesi, atëherë ti mund të <a href=\"%s\">kyçesh </a> për të parë përgjigjen."
+msgstr "Ky koment është fshehur. Shih shënimet për të gjetur pse. Nëse ti je kërkuesi, atëherë ti mund të <a href=\"{{url}}\">kyçesh </a> për të parë përgjigjen."
 
 msgid ""
 "This covers a very wide spectrum of information about the state of\\n"

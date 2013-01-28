@@ -2673,9 +2673,9 @@ msgstr "Erakunde hau jadanik ez da existitzen, ezin da informazio eskabiderik eg
 
 msgid ""
 "This comment has been hidden. See annotations to\\n            find out why."
-"  If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
+"  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view "
 "the response."
-msgstr "Erantzun hau ezkutatuta dago. Ikus itzazu iruzkinak jakiteko zergatik. Zure eskabidea baldin bada, <a href=\"%s\">ireki saioa</a> erantzuna ikusteko."
+msgstr "Erantzun hau ezkutatuta dago. Ikus itzazu iruzkinak jakiteko zergatik. Zure eskabidea baldin bada, <a href=\"{{url}}\">ireki saioa</a> erantzuna ikusteko."
 
 msgid ""
 "This covers a very wide spectrum of information about the state of\\n"
