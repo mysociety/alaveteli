@@ -1214,8 +1214,8 @@ msgstr "Jika Anda adalah sang pemohon, maka Anda dapat <a href=\"{{url}}\">menda
 
 msgid ""
 "If you are thinking of using a pseudonym,\\n                please <a "
-"href=\"%s\">read this first</a>."
-msgstr "Jika Anda mempertimbangkan untuk menggunakan nama samaran,\n                silakan <a href=\"%s\">baca ini terlebih dahulu</a>."
+"href=\"{{url}}\">read this first</a>."
+msgstr "Jika Anda mempertimbangkan untuk menggunakan nama samaran,\n                silakan <a href=\"{{url}}\">baca ini terlebih dahulu</a>."
 
 msgid "If you are {{user_link}}, please"
 msgstr "Jika Anda adalah {{user_link}}, silakan"

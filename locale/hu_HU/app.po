@@ -1217,8 +1217,8 @@ msgstr "Ha ön az igénylő, az igénylés megtekintéséhez <a href=\"{{url}}\"
 
 msgid ""
 "If you are thinking of using a pseudonym,\\n                please <a "
-"href=\"%s\">read this first</a>."
-msgstr "Amenniyben álnevet kíván használni,\nkérjük olvassa el előbb az ezzel kapcsolatos <a href=\"%s\">tudnivalókat</a>!"
+"href=\"{{url}}\">read this first</a>."
+msgstr "Amenniyben álnevet kíván használni,\nkérjük olvassa el előbb az ezzel kapcsolatos <a href=\"{{url}}\">tudnivalókat</a>!"
 
 msgid "If you are {{user_link}}, please"
 msgstr "Ha ön {{user_link}}, kérjük, "

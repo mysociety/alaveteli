@@ -1300,7 +1300,7 @@ msgstr ""
 #: app/views/request/new.rhtml:123
 msgid ""
 "If you are thinking of using a pseudonym,\n"
-"                please <a href=\"%s\">read this first</a>."
+"                please <a href=\"{{url}}\">read this first</a>."
 msgstr ""
 
 #: app/views/request/show.rhtml:105

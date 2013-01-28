@@ -1228,8 +1228,8 @@ msgstr ""
 
 msgid ""
 "If you are thinking of using a pseudonym,\\n                please <a "
-"href=\"%s\">read this first</a>."
-msgstr "Os ydych yn ystyried defnyddio ffugenw, <a href=\"%s\">darllenwch hwn yn gyntaf</a> os gwelwch yn dda."
+"href=\"{{url}}\">read this first</a>."
+msgstr "Os ydych yn ystyried defnyddio ffugenw, <a href=\"{{url}}\">darllenwch hwn yn gyntaf</a> os gwelwch yn dda."
 
 msgid "If you are {{user_link}}, please"
 msgstr ""

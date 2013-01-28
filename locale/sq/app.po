@@ -1223,8 +1223,8 @@ msgstr "Nëse ti je kërkuesi, atëherë ti mund të <a href=\"{{url}}\">kyçesh
 
 msgid ""
 "If you are thinking of using a pseudonym,\\n                please <a "
-"href=\"%s\">read this first</a>."
-msgstr "Nëse je duke mendu me përdor pseudonim, të lutem <a href=\"%s\">lexo këtë së pari</a>."
+"href=\"{{url}}\">read this first</a>."
+msgstr "Nëse je duke mendu me përdor pseudonim, të lutem <a href=\"{{url}}\">lexo këtë së pari</a>."
 
 msgid "If you are {{user_link}}, please"
 msgstr "Nëse ti je {{user_link}}, të lutem"

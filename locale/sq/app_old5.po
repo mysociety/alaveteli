@@ -1458,9 +1458,9 @@ msgstr ""
 #: app/views/request/new.rhtml:119
 msgid ""
 "If you are thinking of using a pseudonym,\n"
-"                please <a href=\"%s\">read this first</a>."
+"                please <a href=\"{{url}}\">read this first</a>."
 msgstr ""
-"Nëse je duke mendu me përdor pseudonim, të lutem <a href=\"%s\">lexo këtë së"
+"Nëse je duke mendu me përdor pseudonim, të lutem <a href=\"{{url}}\">lexo këtë së"
 " pari</a> ."
 
 #: app/views/request/show.rhtml:105

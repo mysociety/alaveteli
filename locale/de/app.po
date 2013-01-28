@@ -1220,8 +1220,8 @@ msgstr "Falls Sie der Antragsteller sind, <a href=\"{{url}}\">loggen Sie sich ei
 
 msgid ""
 "If you are thinking of using a pseudonym,\\n                please <a "
-"href=\"%s\">read this first</a>."
-msgstr "Wenn Sie ein Pseudonym als Benutzername verwenden möchten,\n                bitte <a href=\"%s\">lesen Sie hier</a>."
+"href=\"{{url}}\">read this first</a>."
+msgstr "Wenn Sie ein Pseudonym als Benutzername verwenden möchten,\n                bitte <a href=\"{{url}}\">lesen Sie hier</a>."
 
 msgid "If you are {{user_link}}, please"
 msgstr "Wenn Sie {{user_link}} sind, bitte"

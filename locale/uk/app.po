@@ -1223,8 +1223,8 @@ msgstr "Якщо ви автор запиту, ви можете <a href=\"{{url
 
 msgid ""
 "If you are thinking of using a pseudonym,\\n                please <a "
-"href=\"%s\">read this first</a>."
-msgstr "Якщо ви збираєтесь використати псевдонім,\n                <a href=\"%s\">прочитайте спершу це</a>."
+"href=\"{{url}}\">read this first</a>."
+msgstr "Якщо ви збираєтесь використати псевдонім,\n                <a href=\"{{url}}\">прочитайте спершу це</a>."
 
 msgid "If you are {{user_link}}, please"
 msgstr "Якщо ви {{user_link}}, будь ласка"

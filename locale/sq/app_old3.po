@@ -1484,10 +1484,10 @@ msgstr ""
 #: app/views/request/new.rhtml:119
 msgid ""
 "If you are thinking of using a pseudonym,\n"
-"                please <a href=\"%s\">read this first</a>."
+"                please <a href=\"{{url}}\">read this first</a>."
 msgstr ""
 "AA If you are thinking of using a pseudonym,\n"
-"                please <a href=\"%s\">read this first</a>."
+"                please <a href=\"{{url}}\">read this first</a>."
 
 #: app/views/request/show.rhtml:105
 msgid "If you are {{user_link}}, please"

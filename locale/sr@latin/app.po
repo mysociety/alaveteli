@@ -1223,8 +1223,8 @@ msgstr "Ako ste podnosioc zahteva, možete se <a href=\"{{url}}\">prijaviti</a> 
 
 msgid ""
 "If you are thinking of using a pseudonym,\\n                please <a "
-"href=\"%s\">read this first</a>."
-msgstr "Ako razmišljate o korištenju pseudonima,\n                molimo da<a href=\"%s\">pročitajte prvo ovo</a>."
+"href=\"{{url}}\">read this first</a>."
+msgstr "Ako razmišljate o korištenju pseudonima,\n                molimo da<a href=\"{{url}}\">pročitajte prvo ovo</a>."
 
 msgid "If you are {{user_link}}, please"
 msgstr "Ako ste {{user_link}}, molimo"

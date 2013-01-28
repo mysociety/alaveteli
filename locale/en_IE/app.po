@@ -1218,7 +1218,7 @@ msgstr ""
 
 msgid ""
 "If you are thinking of using a pseudonym,\\n                please <a "
-"href=\"%s\">read this first</a>."
+"href=\"{{url}}\">read this first</a>."
 msgstr ""
 
 msgid "If you are {{user_link}}, please"

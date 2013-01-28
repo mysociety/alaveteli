@@ -1227,8 +1227,8 @@ msgstr "Pokud jste tazatel, můžete se <a href=\"{{url}}\">přihlásit</a> a po
 
 msgid ""
 "If you are thinking of using a pseudonym,\\n                please <a "
-"href=\"%s\">read this first</a>."
-msgstr "Pokud chcete používat přezdívku\nplease <a href=\"%s\">nejdříve si přečtěte toto</a>."
+"href=\"{{url}}\">read this first</a>."
+msgstr "Pokud chcete používat přezdívku\nplease <a href=\"{{url}}\">nejdříve si přečtěte toto</a>."
 
 msgid "If you are {{user_link}}, please"
 msgstr "Pokud jste {{user_link}}, prosíme"
