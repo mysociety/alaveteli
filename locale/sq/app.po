@@ -2364,10 +2364,10 @@ msgstr "Kjo është për shkak se {{title}} është një kërkesë e vjetër që
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Kjo është kërkesa yte, kështu që ti do të merr email automatikisht kur përgjigjet e reja arrijnë."
 
-msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
+msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
 msgstr ""
 "Mesazhi në largim është fshehur. Shih shënimet në \n"
-"        »» »» »» për të kuptuar arsyen.  Nëse ti je kërkuesi, atëherë ti mund të <a href=\"%s\">kyçesh</a> për të parë përgjigjen."
+"        »» »» »» për të kuptuar arsyen.  Nëse ti je kërkuesi, atëherë ti mund të <a href=\"{{url}}\">kyçesh</a> për të parë përgjigjen."
 
 msgid "This particular request is finished:"
 msgstr "Kjo kërkesë është përmbyllur:"

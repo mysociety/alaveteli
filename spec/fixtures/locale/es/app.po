@@ -3132,8 +3132,8 @@ msgstr "Esta es tu solicitud, por lo que recibirás correos automáticamente cua
 #: app/views/request/_hidden_correspondence.rhtml:17
 msgid ""
 "This outgoing message has been hidden. See annotations to\n"
-"\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
-msgstr "Este mensaje está oculto. Lee los comentarios\n\t\t\t\t\t\tpara descubrir por qué.  Si es tu solicitud, <a href=\"%s\">abra una sesión</a> para ver la respuesta."
+"\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
+msgstr "Este mensaje está oculto. Lee los comentarios\n\t\t\t\t\t\tpara descubrir por qué.  Si es tu solicitud, <a href=\"{{url}}\">abra una sesión</a> para ver la respuesta."
 
 #: app/views/request/_describe_state.rhtml:44
 #: app/views/request/_other_describe_state.rhtml:40

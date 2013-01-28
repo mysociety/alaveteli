@@ -2299,7 +2299,7 @@ msgstr "Isso porque {{title}} é um pedido antigo que foi marcado para não rece
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Esse é o seu próprio pedido, então você vai receber um email automaticamente quando uma nova resposta chegar."
 
-msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
+msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
 msgstr ""
 
 msgid "This particular request is finished:"

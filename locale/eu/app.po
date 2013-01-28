@@ -2310,8 +2310,8 @@ msgstr "Hau gertatzen da {{title}} eskabide zaharra delako, erantzun gehiago jas
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Hauxe da zure eskabidea, horregatik erantzun berriak heltzen direnean automatikoki emailak jasoko dituzu."
 
-msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
-msgstr "Mezu hau ezkutatuta dago. Irakur itzazu iruzkinak jakiteko zergatik. Zure eskabidea baldin bada, <a href=\"%s\">ireki ezazu saioa</a> erantzuna ikusteko."
+msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
+msgstr "Mezu hau ezkutatuta dago. Irakur itzazu iruzkinak jakiteko zergatik. Zure eskabidea baldin bada, <a href=\"{{url}}\">ireki ezazu saioa</a> erantzuna ikusteko."
 
 msgid "This particular request is finished:"
 msgstr "Eskabide hau itxita dago:"

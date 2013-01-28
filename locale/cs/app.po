@@ -2390,10 +2390,10 @@ msgstr "Důvodem je, že dotaz s názvem {{title}} je staršího data a byl uzav
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Toto je váš vlastní dotaz, proto budete odpovědi dostávat e-mailem automaticky."
 
-msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
+msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
 msgstr ""
 "Tato odchozí zpráva byla skryta. Podívejte se na vysvětlení.\n"
-"Pokud jste tazatel, můžete se <a href=\"%s\">přihlásit</a> k prohlížení odpovědi."
+"Pokud jste tazatel, můžete se <a href=\"{{url}}\">přihlásit</a> k prohlížení odpovědi."
 
 msgid "This particular request is finished:"
 msgstr "Tento dotaz je ukončen:"

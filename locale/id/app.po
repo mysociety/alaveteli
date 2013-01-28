@@ -2431,10 +2431,10 @@ msgstr ""
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Ini adalah permintaan Anda sendiri, sehingga Anda akan secara otomatis dikirimi email ketika respon baru diterima."
 
-msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
+msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
 msgstr ""
 "Pesan keluar ini telah disembunyikan. Lihat anotasi untuk\n"
-"\t\t\t\t\t\tmengetahui kenapa.  Jika Anda adalah sang pemohon, maka Anda dapat <a href=\"%s\">masuk</a> untuk menampilkan respon tersebut."
+"\t\t\t\t\t\tmengetahui kenapa.  Jika Anda adalah sang pemohon, maka Anda dapat <a href=\"{{url}}\">masuk</a> untuk menampilkan respon tersebut."
 
 msgid "This particular request is finished:"
 msgstr "Peemintaan khusus ini telah selesai:"
