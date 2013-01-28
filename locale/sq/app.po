@@ -2713,9 +2713,9 @@ msgstr "Kjo është kërkesa yte, kështu që ti do të merr email automatikisht
 
 msgid ""
 "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind"
-" out why.  If you are the requester, then you may <a href=\"%s\">sign in</a>"
+" out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a>"
 " to view the response."
-msgstr "Mesazhi në largim është fshehur. Shih shënimet në \n        »» »» »» për të kuptuar arsyen.  Nëse ti je kërkuesi, atëherë ti mund të <a href=\"%s\">kyçesh</a> për të parë përgjigjen."
+msgstr "Mesazhi në largim është fshehur. Shih shënimet në \n        »» »» »» për të kuptuar arsyen.  Nëse ti je kërkuesi, atëherë ti mund të <a href=\"{{url}}\">kyçesh</a> për të parë përgjigjen."
 
 msgid "This particular request is finished:"
 msgstr "Kjo kërkesë është përmbyllur:"

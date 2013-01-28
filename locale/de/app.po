@@ -2710,9 +2710,9 @@ msgstr "Dies ist Ihre eigene Anfrage. Sie erhalten eine automatische Emailbenach
 
 msgid ""
 "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind"
-" out why.  If you are the requester, then you may <a href=\"%s\">sign in</a>"
+" out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a>"
 " to view the response."
-msgstr "Dieser Kommentar wurde verborgen. Sehen Sie die Anmerkungen, um den Grund zu erfahren. Falls Sie diese Anfrage gestellt haben können Sie sich <a href=\"%s\">einloggen</a> um die Antwort zu lesen."
+msgstr "Dieser Kommentar wurde verborgen. Sehen Sie die Anmerkungen, um den Grund zu erfahren. Falls Sie diese Anfrage gestellt haben können Sie sich <a href=\"{{url}}\">einloggen</a> um die Antwort zu lesen."
 
 msgid "This particular request is finished:"
 msgstr "Diese Anfrage wurde abgeschlossen:"

@@ -2708,9 +2708,9 @@ msgstr "Hauxe da zure eskabidea, horregatik erantzun berriak heltzen direnean au
 
 msgid ""
 "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind"
-" out why.  If you are the requester, then you may <a href=\"%s\">sign in</a>"
+" out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a>"
 " to view the response."
-msgstr "Mezu hau ezkutatuta dago. Irakur itzazu iruzkinak jakiteko zergatik. Zure eskabidea baldin bada, <a href=\"%s\">ireki ezazu saioa</a> erantzuna ikusteko."
+msgstr "Mezu hau ezkutatuta dago. Irakur itzazu iruzkinak jakiteko zergatik. Zure eskabidea baldin bada, <a href=\"{{url}}\">ireki ezazu saioa</a> erantzuna ikusteko."
 
 msgid "This particular request is finished:"
 msgstr "Eskabide hau itxita dago:"

@@ -2715,7 +2715,7 @@ msgstr "Це ваш власний запит, тому вас буде авто
 
 msgid ""
 "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind"
-" out why.  If you are the requester, then you may <a href=\"%s\">sign in</a>"
+" out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a>"
 " to view the response."
 msgstr ""
 

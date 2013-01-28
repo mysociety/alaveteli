@@ -2719,9 +2719,9 @@ msgstr "Toto je váš vlastní dotaz, proto budete odpovědi dostávat e-mailem 
 
 msgid ""
 "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind"
-" out why.  If you are the requester, then you may <a href=\"%s\">sign in</a>"
+" out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a>"
 " to view the response."
-msgstr "Tato odchozí zpráva byla skryta. Podívejte se na vysvětlení.\nPokud jste tazatel, můžete se <a href=\"%s\">přihlásit</a> k prohlížení odpovědi."
+msgstr "Tato odchozí zpráva byla skryta. Podívejte se na vysvětlení.\nPokud jste tazatel, můžete se <a href=\"{{url}}\">přihlásit</a> k prohlížení odpovědi."
 
 msgid "This particular request is finished:"
 msgstr "Tento dotaz je ukončen:"
