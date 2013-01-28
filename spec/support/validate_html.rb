@@ -38,7 +38,7 @@ if $tempfilecount.nil?
                     alias :original_process :process
                     def is_fragment
                         # XXX there must be a better way of doing this!
-                        return @request.query_parameters["action"] == "search_typeahead"
+                        return @request.path_parameters["action"] == "search_typeahead"
                     end
                     def process(action, parameters = nil, session = nil, flash = nil, http_method = 'GET')
                         self.original_process(action, parameters, session, flash, http_method)
