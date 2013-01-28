@@ -260,7 +260,7 @@ describe RequestController, "when showing one request" do
             it 'should ask the user to use the describe state from' do
                 get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
                            { :user_id => users(:admin_user).id }
-                response.should have_selector('p#request_status', :text => /answer the question above/)
+                response.should have_selector('p#request_status', :content => "answer the question above")
             end
 
         end
@@ -278,7 +278,7 @@ describe RequestController, "when showing one request" do
             it 'should give a link to requesting an internal review' do
                 get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
                            { :user_id => users(:admin_user).id }
-                response.should have_selector('p#request_status', :text =>/requesting an internal review/)
+                response.should have_selector('p#request_status', :content => "requesting an internal review")
             end
 
         end
@@ -296,7 +296,7 @@ describe RequestController, "when showing one request" do
             it 'should give a link to make a followup' do
                 get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
                            { :user_id => users(:admin_user).id }
-                response.should have_selector('p#request_status a', :text =>/send a follow up message/)
+                response.should have_selector('p#request_status a', :content => "send a follow up message")
             end
         end
 
@@ -696,7 +696,9 @@ describe RequestController, "when showing one request" do
 
             # so at this point, assigns[:info_request].incoming_messages[1].get_attachments_for_display is returning stuff, but the equivalent thing in the template isn't.
             # but something odd is that the above is return a whole load of attachments which aren't there in the controller
-            response.body.should have_selector("p.attachment strong", :content => "hello.txt")
+            response.body.should have_selector("p.attachment strong") do |s|
+                s.should contain /hello.txt/m
+            end
 
             censor_rule = CensorRule.new()
             censor_rule.text = "hello.txt"
@@ -706,7 +708,9 @@ describe RequestController, "when showing one request" do
             ir.censor_rules << censor_rule
             begin
                 get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-                response.body.should have_selector("p.attachment strong", :content => "goodbye.txt")
+                response.body.should have_selector("p.attachment strong") do |s|
+                    s.should contain /goodbye.txt/m
+                end
             ensure
                 ir.censor_rules.clear
             end
@@ -2007,15 +2011,19 @@ describe RequestController, "when viewing comments" do
     it "should link to the user who submitted it" do
         session[:user_id] = users(:bob_smith_user).id
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.body.should have_selector("div#comment-1 h2", :content => "Silly.*left an annotation")
-        response.body.should_not have_selector("div#comment-1 h2", :content => "You.*left an annotation")
+        response.body.should have_selector("div#comment-1 h2") do |s|
+            s.should contain /Silly.*left an annotation/m
+            s.should_not contain /You.*left an annotation/m
+        end
     end
 
     it "should link to the user who submitted to it, even if it is you" do
         session[:user_id] = users(:silly_name_user).id
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.body.should have_selector("div#comment-1 h2", :content => "Silly.*left an annotation")
-        response.body.should_not have_selector("div#comment-1 h2", :content => "You.*left an annotation")
+        response.body.should have_selector("div#comment-1 h2") do |s|
+            s.should contain /Silly.*left an annotation/m
+            s.should_not contain /You.*left an annotation/m
+        end
     end
 
 end
