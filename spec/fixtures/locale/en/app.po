@@ -946,14 +946,14 @@ msgstr ""
 msgid ""
 "Everything that you enter on this page \n"
 "                will be <strong>displayed publicly</strong> on\n"
-"                this website forever (<a href=\"%s\">why?</a>)."
+"                this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 
 #: app/views/request/new.rhtml:120
 msgid ""
 "Everything that you enter on this page, including <strong>your name</strong>, \n"
 "                will be <strong>displayed publicly</strong> on\n"
-"                this website forever (<a href=\"%s\">why?</a>)."
+"                this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 
 #: locale/model_attributes.rb:68
