@@ -2671,7 +2671,7 @@ msgstr ""
 msgid "When you receive the paper response, please help\\n            others find out what it says:"
 msgstr ""
 
-msgid "When you're done, <strong>come back here</strong>, <a href=\"%s\">reload this page</a> and file your new request."
+msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
 msgstr ""
 
 msgid "Which of these is happening?"

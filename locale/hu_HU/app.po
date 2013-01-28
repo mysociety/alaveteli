@@ -2860,8 +2860,8 @@ msgstr ""
 "Ha papíron megkapja a választ, tájékoztasson másokat is\n"
 "           annak tartalmáról: "
 
-msgid "When you're done, <strong>come back here</strong>, <a href=\"%s\">reload this page</a> and file your new request."
-msgstr "Ha elkészült, <strong>térjen ide vissza</strong>, <a href=\"%s\">újból töltse be az oldalt</a> és nyújtsa be új igénylését. "
+msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
+msgstr "Ha elkészült, <strong>térjen ide vissza</strong>, <a href=\"{{url}}\">újból töltse be az oldalt</a> és nyújtsa be új igénylését. "
 
 msgid "Which of these is happening?"
 msgstr "Az alábbiak közül mi történik most? "

@@ -2711,8 +2711,8 @@ msgstr "Quando você chegar lá, favor atualizar a situação se a resposta tive
 msgid "When you receive the paper response, please help\\n            others find out what it says:"
 msgstr "Quando receber a resposta em papel, por favor contribua para que outros saibam o que ela diz:"
 
-msgid "When you're done, <strong>come back here</strong>, <a href=\"%s\">reload this page</a> and file your new request."
-msgstr "Quando tiver concluído, <strong>retorne aqui</strong>, <a href=\"%s\">recarregue esta página</a> e registre sua nova requisição."
+msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
+msgstr "Quando tiver concluído, <strong>retorne aqui</strong>, <a href=\"{{url}}\">recarregue esta página</a> e registre sua nova requisição."
 
 msgid "Which of these is happening?"
 msgstr "Qual desses está ocorrendo?"

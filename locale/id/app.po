@@ -2878,8 +2878,8 @@ msgstr ""
 "Ketika Anda menerima respon tertulis, mohon bantu\n"
 "            yang lainnya untuk mengetahui apa yang dikatakannya:"
 
-msgid "When you're done, <strong>come back here</strong>, <a href=\"%s\">reload this page</a> and file your new request."
-msgstr "Ketika Anda selesai, <strong>kembali ke sini</strong>, <a href=\"%s\">muat ulang halaman ini</a> dan ajukan permintaan baru Anda."
+msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
+msgstr "Ketika Anda selesai, <strong>kembali ke sini</strong>, <a href=\"{{url}}\">muat ulang halaman ini</a> dan ajukan permintaan baru Anda."
 
 msgid "Which of these is happening?"
 msgstr "Yang mana di antara hal-hal ini yang terjadi?"
