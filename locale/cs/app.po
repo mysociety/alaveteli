@@ -2813,9 +2813,9 @@ msgstr "Tento dotaz nebyl vznesen pomocí stránek {{site_name}}"
 
 msgid ""
 "This response has been hidden. See annotations to find out why.\\n"
-"            If you are the requester, then you may <a href=\"%s\">sign "
+"            If you are the requester, then you may <a href=\"{{url}}\">sign "
 "in</a> to view the response."
-msgstr "Tato odpověď byla skryta. Podívejte se na vysvětlení. \nPokud jste tazatel, můžete se <a href=\"%s\">přihlásit</a> k prohlížení odpovědi."
+msgstr "Tato odpověď byla skryta. Podívejte se na vysvětlení. \nPokud jste tazatel, můžete se <a href=\"{{url}}\">přihlásit</a> k prohlížení odpovědi."
 
 msgid ""
 "This table shows the technical details of the internal events that "

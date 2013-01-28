@@ -3085,10 +3085,10 @@ msgstr ""
 #: app/views/request/_hidden_correspondence.rhtml:10
 msgid ""
 "This response has been hidden. See annotations to find out why.\n"
-"            If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
+"            If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
 msgstr ""
 "Kjo përgjigje është fshehur. Shih shënimet për të kuptuar pse. Nëse ti je "
-"kërkuesi, atëherë ti mund të <a href=\"%s\">kyçesh</a> për të parë "
+"kërkuesi, atëherë ti mund të <a href=\"{{url}}\">kyçesh</a> për të parë "
 "përgjigjen."
 
 #: app/views/request/new.rhtml:49

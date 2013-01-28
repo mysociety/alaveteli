@@ -3207,8 +3207,8 @@ msgstr "Esta solicitud está todavía en proceso:"
 #: app/views/request/_hidden_correspondence.rhtml:10
 msgid ""
 "This response has been hidden. See annotations to find out why.\n"
-"            If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
-msgstr "Este respuesta está oculta. Revisa los comentarios\n            para descubrir por qué. Si es tu solicitud, <a href=\"%s\">abre una sesión</a> para ver la respuesta."
+"            If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
+msgstr "Este respuesta está oculta. Revisa los comentarios\n            para descubrir por qué. Si es tu solicitud, <a href=\"{{url}}\">abre una sesión</a> para ver la respuesta."
 
 #: app/views/request/details.rhtml:6
 msgid ""

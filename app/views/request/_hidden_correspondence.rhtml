@@ -7,8 +7,8 @@
         %>
         <div class="correspondence" id="incoming-<%=incoming_message.id.to_s%>">
             <p>
-	    <%= raw(_('This response has been hidden. See annotations to find out why.
-            If you are the requester, then you may <a href="%s">sign in</a> to view the response.') % [signin_url(:r => request.request_uri)]) %>
+	    <%= _('This response has been hidden. See annotations to find out why.
+            If you are the requester, then you may <a href="{{url}}">sign in</a> to view the response.', :url => signin_url(:r => request.request_uri).html_safe) %>
             </p>
         </div>
     <% elsif [ 'sent', 'followup_sent', 'resent', 'followup_resent' ].include?(info_request_event.event_type) %>

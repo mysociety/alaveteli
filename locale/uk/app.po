@@ -2809,9 +2809,9 @@ msgstr "Цей запит не було зроблено через сайт {{s
 
 msgid ""
 "This response has been hidden. See annotations to find out why.\\n"
-"            If you are the requester, then you may <a href=\"%s\">sign "
+"            If you are the requester, then you may <a href=\"{{url}}\">sign "
 "in</a> to view the response."
-msgstr "Цю відповідь було приховано. Ознайомтесь з коментарями, щоб з’ясувати, чому це сталось.\n            Якщо ви автор запиту, <a href=\"%s\">увійдіть в систему</a>, щоб переглянути відповідь."
+msgstr "Цю відповідь було приховано. Ознайомтесь з коментарями, щоб з’ясувати, чому це сталось.\n            Якщо ви автор запиту, <a href=\"{{url}}\">увійдіть в систему</a>, щоб переглянути відповідь."
 
 msgid ""
 "This table shows the technical details of the internal events that "

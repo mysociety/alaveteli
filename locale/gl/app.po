@@ -2799,9 +2799,9 @@ msgstr ""
 
 msgid ""
 "This response has been hidden. See annotations to find out why.\\n"
-"            If you are the requester, then you may <a href=\"%s\">sign "
+"            If you are the requester, then you may <a href=\"{{url}}\">sign "
 "in</a> to view the response."
-msgstr "Este respuesta está oculta. Revisa los comentarios\n            para descubrir por qué. Si es tu solicitud, <a href=\"%s\">abre una sesión</a> para ver la respuesta."
+msgstr "Este respuesta está oculta. Revisa los comentarios\n            para descubrir por qué. Si es tu solicitud, <a href=\"{{url}}\">abre una sesión</a> para ver la respuesta."
 
 msgid ""
 "This table shows the technical details of the internal events that "
