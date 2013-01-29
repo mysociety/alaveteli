@@ -15,15 +15,13 @@ class AdminRequestController < AdminController
     def list
         @query = params[:query]
         if @query
-            @info_requests = InfoRequest.paginate :order => "created_at desc",
-                                                  :page => params[:page],
-                                                  :per_page => 100,
-                :conditions =>  ["lower(title) like lower('%'||?||'%')", @query]
+            info_requests = InfoRequest.where(["lower(title) like lower('%'||?||'%')", @query])
         else
-            @info_requests = InfoRequest.all.paginate :order => "created_at desc",
-                                                  :page => params[:page],
-                                                  :per_page => 100
+            info_requests = InfoRequest.all
         end
+        @info_requests = info_requests.paginate :order => "created_at desc",
+                                              :page => params[:page],
+                                              :per_page => 100
     end
 
     def list_old_unclassified
