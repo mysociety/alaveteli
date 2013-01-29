@@ -8,7 +8,7 @@ end
 source :rubygems
 
 # A fork of rails that is kept up to date with security patches
-git "git://github.com/mysociety/rails.git", :branch => "2-3-stable" do
+git "git://github.com/mysociety/rails.git", :tag => "v2.3.16.1" do
   gem 'rails'
 end
 gem 'pg'
