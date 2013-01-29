@@ -14,8 +14,7 @@ describe AdminGeneralController do
 
         it "should redirect to include trailing slash" do
             get :index
-            response.should redirect_to(:controller => 'admin_general',
-                                        :action => 'index')
+            response.should redirect_to admin_general_index_url(:trailing_slash => true)
         end
 
     end
