@@ -226,7 +226,7 @@ describe AdminRequestController, "when administering the holding pen" do
                                                         :user => nil,
                                                         :user_name => 'External User',
                                                         :is_external? => true)
-                InfoRequest.stub!(:find).with(@info_request.id.to_s).and_return(@info_request)
+                InfoRequest.stub!(:find).with(@info_request.id).and_return(@info_request)
                 @default_params = { :id => @info_request.id,
                                     :explanation => 'Foo',
                                     :reason => 'vexatious' }
