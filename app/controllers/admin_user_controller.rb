@@ -12,9 +12,13 @@ class AdminUserController < AdminController
 
     def list
         @query = params[:query]
-        @admin_users = User.paginate :order => "name", :page => params[:page], :per_page => 100,
-            :conditions =>  @query.nil? ? nil : ["lower(name) like lower('%'||?||'%') or
-                             lower(email) like lower('%'||?||'%')", @query, @query]
+        if @query
+            users = User.where(["lower(name) like lower('%'||?||'%') or
+                                 lower(email) like lower('%'||?||'%')", @query, @query])
+        else
+            users = User.all
+        end
+        @admin_users = users.paginate :order => "name", :page => params[:page], :per_page => 100
     end
 
     def list_banned
