@@ -174,7 +174,7 @@ describe UserController, "when signing in" do
 
         # check is right confirmation URL
         mail_token.should == post_redirect.email_token
-        params_from(:get, mail_path).should == { :controller => 'user', :action => 'confirm', :email_token => mail_token }
+        Rails.application.routes.recognize_path(mail_path).should == { :controller => 'user', :action => 'confirm', :email_token => mail_token }
 
         # check confirmation URL works
         session[:user_id].should be_nil
@@ -206,7 +206,7 @@ describe UserController, "when signing in" do
 
         # check is right confirmation URL
         mail_token.should == post_redirect.email_token
-        params_from(:get, mail_path).should == { :controller => 'user', :action => 'confirm', :email_token => mail_token }
+        Rails.application.routes.recognize_path(mail_path).should == { :controller => 'user', :action => 'confirm', :email_token => mail_token }
 
         # Log in as an admin
         session[:user_id] = users(:admin_user).id
