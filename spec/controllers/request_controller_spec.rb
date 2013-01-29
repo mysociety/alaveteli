@@ -1731,7 +1731,7 @@ describe RequestController, "sending overdue request alerts" do
         mail.body.should =~ /promptly, as normally/
         mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.email
 
-        mail.body =~ /(http:\/\/.*\/c\/(.*))/
+        mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
         mail_token = $2
 
@@ -1788,7 +1788,7 @@ describe RequestController, "sending overdue request alerts" do
         mail.body.should =~ /required by law/
         mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.email
 
-        mail.body =~ /(http:\/\/.*\/c\/(.*))/
+        mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
         mail_token = $2
 
@@ -1871,7 +1871,7 @@ describe RequestController, "sending unclassified new response reminder alerts" 
         mail = deliveries[0]
         mail.body.should =~ /To let everyone know/
         mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.email
-        mail.body =~ /(http:\/\/.*\/c\/(.*))/
+        mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
         mail_token = $2
 
@@ -1908,7 +1908,7 @@ describe RequestController, "clarification required alerts" do
         mail = deliveries[0]
         mail.body.should =~ /asked you to explain/
         mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.email
-        mail.body =~ /(http:\/\/.*\/c\/(.*))/
+        mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
         mail_token = $2
 
@@ -1962,7 +1962,7 @@ describe RequestController, "comment alerts" do
         mail = deliveries[0]
         mail.body.should =~ /has annotated your/
         mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.email
-        mail.body =~ /(http:\/\/.*)/
+        mail.body.to_s =~ /(http:\/\/.*)/
         mail_url = $1
         mail_url.should match("/request/why_do_you_have_such_a_fancy_dog#comment-#{new_comment.id}")
 
@@ -2012,7 +2012,7 @@ describe RequestController, "comment alerts" do
         mail = deliveries[0]
         mail.body.should =~ /There are 2 new annotations/
         mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.email
-        mail.body =~ /(http:\/\/.*)/
+        mail.body.to_s =~ /(http:\/\/.*)/
         mail_url = $1
         mail_url.should match("/request/why_do_you_have_such_a_fancy_dog#comment-#{comments(:silly_comment).id}")
 
