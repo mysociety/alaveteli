@@ -219,7 +219,7 @@ describe RequestController, "when showing one request" do
     end
 
     it "should redirect from a numeric URL to pretty one" do
-        get :show, :url_title => info_requests(:naughty_chicken_request).id
+        get :show, :url_title => info_requests(:naughty_chicken_request).id.to_s
         response.should redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
     end
 
