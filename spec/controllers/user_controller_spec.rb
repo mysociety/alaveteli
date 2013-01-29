@@ -111,7 +111,7 @@ describe UserController, "when signing in" do
         session[:user_id].should == users(:bob_smith_user).id
         # response doesn't contain /en/ but redirect_to does...
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
-        response.should_not send_email
+        ActionMailer::Base.deliveries.should be_empty
 
         RoutingFilter.active = true
     end
@@ -150,7 +150,7 @@ describe UserController, "when signing in" do
             :token => post_redirect.token
         }
         response.should render_template('confirm')
-        response.should send_email
+        ActionMailer::Base.deliveries.should_not be_empty
     end
 
     it "should confirm your email, log you in and redirect you to where you were after you click an email link" do
@@ -162,7 +162,7 @@ describe UserController, "when signing in" do
         post :signin, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
             :token => post_redirect.token
         }
-        response.should send_email
+        ActionMailer::Base.deliveries.should_not be_empty
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
@@ -194,7 +194,7 @@ describe UserController, "when signing in" do
         post :signin, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
             :token => post_redirect.token
         }
-        response.should send_email
+        ActionMailer::Base.deliveries.should_not be_empty
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
