@@ -1031,7 +1031,7 @@ describe RequestController, "when creating a new request" do
         mail = deliveries[0]
         mail.body.should =~ /This is a silly letter. It is too short to be interesting./
 
-        response.should redirect_to(:action => 'show', :url_title => ir.url_title)
+        response.should redirect_to show_new_request_url(:url_title => ir.url_title)
         # This test uses an explicit path because it's relied in
         # Google Analytics goals:
         response.redirected_to.should =~ /request\/why_is_your_quango_called_gerald\/new$/
@@ -1069,7 +1069,7 @@ describe RequestController, "when creating a new request" do
 
         ir.url_title.should_not == ir2.url_title
 
-        response.should redirect_to(:action => 'show', :url_title => ir2.url_title)
+        response.should redirect_to show_new_request_url(:url_title => ir2.url_title)
     end
 
     it 'should respect the rate limit' do
@@ -1081,14 +1081,14 @@ describe RequestController, "when creating a new request" do
             :title => "What is the answer to the ultimate question?", :tag_string => "" },
             :outgoing_message => { :body => "Please supply the answer from your files." },
             :submitted_new_request => 1, :preview => 0
-        response.should redirect_to(:action => 'show', :url_title => 'what_is_the_answer_to_the_ultima')
+        response.should redirect_to show_new_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
 
 
         post :new, :info_request => { :public_body_id => @body.id,
             :title => "Why did the chicken cross the road?", :tag_string => "" },
             :outgoing_message => { :body => "Please send me all the relevant documents you hold." },
             :submitted_new_request => 1, :preview => 0
-        response.should redirect_to(:action => 'show', :url_title => 'why_did_the_chicken_cross_the_ro')
+        response.should redirect_to show_new_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
 
         post :new, :info_request => { :public_body_id => @body.id,
             :title => "What's black and white and red all over?", :tag_string => "" },
@@ -1108,20 +1108,20 @@ describe RequestController, "when creating a new request" do
             :title => "What is the answer to the ultimate question?", :tag_string => "" },
             :outgoing_message => { :body => "Please supply the answer from your files." },
             :submitted_new_request => 1, :preview => 0
-        response.should redirect_to(:action => 'show', :url_title => 'what_is_the_answer_to_the_ultima')
+        response.should redirect_to show_new_request_url(:url_title => 'what_is_the_answer_to_the_ultima')
 
 
         post :new, :info_request => { :public_body_id => @body.id,
             :title => "Why did the chicken cross the road?", :tag_string => "" },
             :outgoing_message => { :body => "Please send me all the relevant documents you hold." },
             :submitted_new_request => 1, :preview => 0
-        response.should redirect_to(:action => 'show', :url_title => 'why_did_the_chicken_cross_the_ro')
+        response.should redirect_to show_new_request_url(:url_title => 'why_did_the_chicken_cross_the_ro')
 
         post :new, :info_request => { :public_body_id => @body.id,
             :title => "What's black and white and red all over?", :tag_string => "" },
             :outgoing_message => { :body => "Please send all minutes of meetings and email records that address this question." },
             :submitted_new_request => 1, :preview => 0
-        response.should redirect_to(:action => 'show', :url_title => 'whats_black_and_white_and_red_al')
+        response.should redirect_to show_new_request_url(:url_title => 'whats_black_and_white_and_red_al')
     end
 
 end
