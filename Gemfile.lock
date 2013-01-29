@@ -61,6 +61,7 @@ GEM
       sass (~> 3.1)
     daemons (1.1.9)
     diff-lcs (1.1.3)
+    dynamic_form (1.1.4)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     eventmachine (1.0.0)
@@ -217,6 +218,7 @@ DEPENDENCIES
   bootstrap-sass
   capistrano
   compass
+  dynamic_form
   fakeweb
   fast_gettext (>= 0.6.0)
   fastercsv (>= 1.5.5)

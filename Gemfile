@@ -42,6 +42,7 @@ gem 'tmail'
 # Use until this PR is merged: https://github.com/svenfuchs/globalize3/pull/191
 gem 'globalize3', :git => 'git://github.com/henare/globalize3.git', :branch => 'not-null-empty-attributes'
 gem 'acts_as_versioned'
+gem 'dynamic_form'
 
 group :test do
   gem 'fakeweb'
