@@ -122,7 +122,7 @@
       <div style="display:none;"><%= simple_format( outgoing_message.body ) %></div>
     </td>
     <% else %>
-      <td><%= simple_format( outgoing_message.send(column) ) %></td>
+      <td><%= simple_format( outgoing_message.send(column).to_s ) %></td>
     <% end %>
 
   <% end %>
@@ -162,7 +162,7 @@
       <div style="display:none;"><%= simple_format( incoming_message.send(column) ) %></div>
     </td>
     <% else %>
-      <td><%= simple_format( incoming_message.send(column) ) %></td>
+      <td><%= simple_format( incoming_message.send(column).to_s ) %></td>
     <% end %>
   <% end %>
   <td>
