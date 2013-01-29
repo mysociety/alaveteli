@@ -1496,7 +1496,7 @@ describe RequestController, "when classifying an information request" do
                 deliveries.size.should == 1
                 mail = deliveries[0]
                 mail.body.should =~ /as needing admin/
-                mail.from_addrs.first.to_s.should == @request_owner.name_and_email
+                mail.from_addrs.first.to_s.should == @request_owner.email
             end
 
             it 'should say it is showing advice as to what to do next' do
@@ -1681,7 +1681,7 @@ describe RequestController, "when sending a followup message" do
         deliveries.size.should == 1
         mail = deliveries[0]
         mail.body.should =~ /What a useless response! You suck./
-        mail.to_addrs.first.to_s.should == "FOI Person <foiperson@localhost>"
+        mail.to_addrs.first.to_s.should == "foiperson@localhost"
 
         response.should redirect_to(:action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
 
@@ -1729,7 +1729,7 @@ describe RequestController, "sending overdue request alerts" do
         mail = chicken_mails[0]
 
         mail.body.should =~ /promptly, as normally/
-        mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
+        mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.email
 
         mail.body =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
@@ -1758,7 +1758,7 @@ describe RequestController, "sending overdue request alerts" do
         mail = chicken_mails[0]
 
         mail.body.should =~ /promptly, as normally/
-        mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
+        mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.email
     end
 
     it "should send not actually send the overdue alert if the user is banned but should
@@ -1786,7 +1786,7 @@ describe RequestController, "sending overdue request alerts" do
         mail = chicken_mails[0]
 
         mail.body.should =~ /required by law/
-        mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
+        mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.email
 
         mail.body =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
@@ -1870,7 +1870,7 @@ describe RequestController, "sending unclassified new response reminder alerts" 
         deliveries.size.should == 3 # sufficiently late it sends reminders too
         mail = deliveries[0]
         mail.body.should =~ /To let everyone know/
-        mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.name_and_email
+        mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.email
         mail.body =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
         mail_token = $2
@@ -1907,7 +1907,7 @@ describe RequestController, "clarification required alerts" do
         deliveries.size.should == 1
         mail = deliveries[0]
         mail.body.should =~ /asked you to explain/
-        mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.name_and_email
+        mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.email
         mail.body =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
         mail_token = $2
@@ -1961,7 +1961,7 @@ describe RequestController, "comment alerts" do
         deliveries = ActionMailer::Base.deliveries
         mail = deliveries[0]
         mail.body.should =~ /has annotated your/
-        mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.name_and_email
+        mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.email
         mail.body =~ /(http:\/\/.*)/
         mail_url = $1
         mail_url.should match("/request/why_do_you_have_such_a_fancy_dog#comment-#{new_comment.id}")
@@ -2011,7 +2011,7 @@ describe RequestController, "comment alerts" do
         deliveries.size.should == 1
         mail = deliveries[0]
         mail.body.should =~ /There are 2 new annotations/
-        mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.name_and_email
+        mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.email
         mail.body =~ /(http:\/\/.*)/
         mail_url = $1
         mail_url.should match("/request/why_do_you_have_such_a_fancy_dog#comment-#{comments(:silly_comment).id}")
