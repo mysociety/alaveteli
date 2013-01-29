@@ -91,7 +91,7 @@ describe RequestController, "when listing recent requests" do
     end
 
     it "should assign the first page of results" do
-        xap_results = mock_model(ActsAsXapian::Search,
+        xap_results = mock(ActsAsXapian::Search,
                    :results => (1..25).to_a.map { |m| { :model => m } },
                    :matches_estimated => 1000000)
 
@@ -104,7 +104,7 @@ describe RequestController, "when listing recent requests" do
     end
 
     it "should return 404 for pages we don't want to serve up" do
-        xap_results = mock_model(ActsAsXapian::Search,
+        xap_results = mock(ActsAsXapian::Search,
                    :results => (1..25).to_a.map { |m| { :model => m } },
                    :matches_estimated => 1000000)
         lambda {
