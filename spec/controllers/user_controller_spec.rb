@@ -167,7 +167,7 @@ describe UserController, "when signing in" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
         mail = deliveries[0]
-        mail.body =~ /(http:\/\/.*(\/c\/(.*)))/
+        mail.body.to_s =~ /(http:\/\/.*(\/c\/(.*)))/
         mail_url = $1
         mail_path = $2
         mail_token = $3
@@ -199,7 +199,7 @@ describe UserController, "when signing in" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
         mail = deliveries[0]
-        mail.body =~ /(http:\/\/.*(\/c\/(.*)))/
+        mail.body.to_s =~ /(http:\/\/.*(\/c\/(.*)))/
         mail_url = $1
         mail_path = $2
         mail_token = $3
@@ -498,7 +498,7 @@ describe UserController, "when changing email address" do
         mail.body.should include("confirm that you want to change")
         mail.to.should == [ 'newbob@localhost' ]
 
-        mail.body =~ /(http:\/\/.*(\/c\/(.*)))/
+        mail.body.to_s =~ /(http:\/\/.*(\/c\/(.*)))/
         mail_url = $1
         mail_path = $2
         mail_token = $3
