@@ -2,8 +2,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe RequestController, "when listing recent requests" do
-    before { ActionMailer::Base.deliveries = [] }
-
     before(:each) do
         load_raw_emails_data
         get_fixtures_xapian_index
@@ -121,8 +119,6 @@ describe RequestController, "when listing recent requests" do
 end
 
 describe RequestController, "when changing things that appear on the request page" do
-    before { ActionMailer::Base.deliveries = [] }
-
     render_views
 
     it "should purge the downstream cache when mail is received" do
@@ -189,7 +185,6 @@ describe RequestController, "when changing things that appear on the request pag
 end
 
 describe RequestController, "when showing one request" do
-    before { ActionMailer::Base.deliveries = [] }
     render_views
 
     before(:each) do
@@ -447,8 +442,6 @@ describe RequestController, "when showing one request" do
     end
 
     describe 'when handling incoming mail' do
-
-        before { ActionMailer::Base.deliveries = [] }
 
         render_views
 
@@ -778,8 +771,6 @@ describe RequestController, "when showing one request" do
 end
 
 describe RequestController, "when changing prominence of a request" do
-    before { ActionMailer::Base.deliveries = [] }
-
     before(:each) do
         load_raw_emails_data
     end
@@ -912,8 +903,6 @@ end
 #  end
 
 describe RequestController, "when searching for an authority" do
-    before { ActionMailer::Base.deliveries = [] }
-
     # Whether or not sign-in is required for this step is configurable,
     # so we make sure we're logged in, just in case
     before do
@@ -953,8 +942,6 @@ describe RequestController, "when searching for an authority" do
 end
 
 describe RequestController, "when creating a new request" do
-
-    before { ActionMailer::Base.deliveries = [] }
     render_views
 
     before do
@@ -1142,7 +1129,6 @@ end
 # These go with the previous set, but use mocks instead of fixtures.
 # TODO harmonise these
 describe RequestController, "when making a new request" do
-    before { ActionMailer::Base.deliveries = [] }
 
     before do
         @user = mock_model(User, :id => 3481, :name => 'Testy')
@@ -1192,7 +1178,6 @@ describe RequestController, "when making a new request" do
 end
 
 describe RequestController, "when viewing an individual response for reply/followup" do
-    before { ActionMailer::Base.deliveries = [] }
     render_views
 
     before(:each) do
@@ -1255,8 +1240,6 @@ describe RequestController, "when viewing an individual response for reply/follo
 end
 
 describe RequestController, "when classifying an information request" do
-    
-    before { ActionMailer::Base.deliveries = [] }
 
     describe 'if the request is external' do
 
@@ -1627,7 +1610,6 @@ describe RequestController, "when classifying an information request" do
 end
 
 describe RequestController, "when sending a followup message" do
-    before { ActionMailer::Base.deliveries = [] }
     render_views
 
     before(:each) do
@@ -1714,7 +1696,6 @@ describe RequestController, "sending overdue request alerts" do
 
     before(:each) do
         load_raw_emails_data
-        ActionMailer::Base.deliveries = []
     end
 
     it "should send an overdue alert mail to creators of overdue requests" do
@@ -1856,7 +1837,6 @@ describe RequestController, "sending overdue request alerts" do
 end
 
 describe RequestController, "sending unclassified new response reminder alerts" do
-    before { ActionMailer::Base.deliveries = [] }
     render_views
 
     before(:each) do
@@ -1887,7 +1867,6 @@ describe RequestController, "sending unclassified new response reminder alerts" 
 end
 
 describe RequestController, "clarification required alerts" do
-    before { ActionMailer::Base.deliveries = [] }
     render_views
     before(:each) do
         load_raw_emails_data
@@ -1941,7 +1920,6 @@ describe RequestController, "clarification required alerts" do
 end
 
 describe RequestController, "comment alerts" do
-    before { ActionMailer::Base.deliveries = [] }
     render_views
     before(:each) do
         load_raw_emails_data
@@ -2021,7 +1999,6 @@ describe RequestController, "comment alerts" do
 end
 
 describe RequestController, "when viewing comments" do
-    before { ActionMailer::Base.deliveries = [] }
     render_views
     before(:each) do
         load_raw_emails_data
@@ -2049,7 +2026,6 @@ end
 
 
 describe RequestController, "authority uploads a response from the web interface" do
-    before { ActionMailer::Base.deliveries = [] }
     render_views
 
     before(:each) do
@@ -2140,8 +2116,6 @@ describe RequestController, "authority uploads a response from the web interface
 end
 
 describe RequestController, "when showing JSON version for API" do
-    before { ActionMailer::Base.deliveries = [] }
-
     before(:each) do
         load_raw_emails_data
     end
@@ -2160,8 +2134,6 @@ describe RequestController, "when showing JSON version for API" do
 end
 
 describe RequestController, "when doing type ahead searches" do
-    before { ActionMailer::Base.deliveries = [] }
-
     render_views
 
     it "should return nothing for the empty query string" do
@@ -2220,7 +2192,6 @@ describe RequestController, "when doing type ahead searches" do
 end
 
 describe RequestController, "when showing similar requests" do
-    before { ActionMailer::Base.deliveries = [] }
     render_views
 
     it "should work" do
@@ -2255,7 +2226,6 @@ end
 
 
 describe RequestController, "when reporting a request when not logged in" do
-    before { ActionMailer::Base.deliveries = [] }
     it "should only allow logged-in users to report requests" do
         get :report_request, :url_title => info_requests(:badger_request).url_title
         post_redirect = PostRedirect.get_last_post_redirect
@@ -2264,7 +2234,6 @@ describe RequestController, "when reporting a request when not logged in" do
 end
 
 describe RequestController, "when reporting a request (logged in)" do
-    before { ActionMailer::Base.deliveries = [] }
     render_views
 
     before do
@@ -2341,8 +2310,6 @@ describe RequestController, "when reporting a request (logged in)" do
 end
 
 describe RequestController, "when caching fragments" do
-    before { ActionMailer::Base.deliveries = [] }
-
     it "should not fail with long filenames" do
         long_name = "blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah.txt"
         info_request = mock(InfoRequest, :user_can_view? => true,

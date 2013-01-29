@@ -52,6 +52,13 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   #config.order = "random"
+
+  # This is a workaround for a strange thing where ActionMailer::Base.deliveries isn't being
+  # cleared out correctly in controller specs. So, do it here for everything.
+  config.before(:each) do
+    ActionMailer::Base.deliveries = []
+  end
+
 end
 
 # XXX No idea what namespace/class/module to put this in
