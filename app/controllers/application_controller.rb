@@ -170,6 +170,7 @@ class ApplicationController < ActionController::Base
     # Called from test code, is a mimic of UserController.confirm, for use in following email
     # links when in controller tests (though we also have full integration tests that
     # can work over multiple controllers)
+    # TODO: Move this to the tests. It shouldn't be here
     def test_code_redirect_by_email_token(token, controller_example_group)
         post_redirect = PostRedirect.find_by_email_token(token)
         if post_redirect.nil?
@@ -177,7 +178,7 @@ class ApplicationController < ActionController::Base
         end
         session[:user_id] = post_redirect.user.id
         session[:user_circumstance] = post_redirect.circumstance
-        params = controller_example_group.params_from(:get, post_redirect.local_part_uri)
+        params = Rails.application.routes.recognize_path(post_redirect.local_part_uri)
         params.merge(post_redirect.post_params)
         controller_example_group.get params[:action], params
     end
