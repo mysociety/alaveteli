@@ -58,7 +58,7 @@ ActionController::Routing::Routes.draw do |map|
         request.show_response_no_followup    '/request/:id/response', :action => 'show_response'
         request.show_response    '/request/:id/response/:incoming_message_id', :action => 'show_response'
         request.get_attachment_as_html   '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name', :action => 'get_attachment_as_html'
-        request.get_attachment   '/request/:id/response/:incoming_message_id/attach/:part/*file_name', :action => 'get_attachment'
+        request.get_attachment  '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)', :action => 'get_attachment'
 
         request.info_request_event '/request_event/:info_request_event_id', :action => 'show_request_event'
 
