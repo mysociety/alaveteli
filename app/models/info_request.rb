@@ -1140,8 +1140,13 @@ public
     private
 
     def set_defaults
-        if self.described_state.nil?
-            self.described_state = 'waiting_response'
+        begin
+            if self.described_state.nil?
+                self.described_state = 'waiting_response'
+            end            
+        rescue ActiveModel::MissingAttributeError
+            # this should only happen on Model.exists?() call. It can be safely ignored.
+            # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/       
         end
         # FOI or EIR?
         if !self.public_body.nil? && self.public_body.eir_only?
