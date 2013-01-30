@@ -91,10 +91,9 @@ class TrackMailer < ApplicationMailer
             if email_about_things.size > 0
                 # Send the email
 
-                previous_locale = I18n.locale
-                I18n.locale = user.get_locale
-                TrackMailer.deliver_event_digest(user, email_about_things)
-                I18n.locale = previous_locale
+                I18n.with_locale(user.get_locale) do
+                    TrackMailer.deliver_event_digest(user, email_about_things)
+                end
             end
 
             # Record that we've now sent those alerts to that user

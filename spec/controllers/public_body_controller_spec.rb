@@ -43,18 +43,14 @@ describe PublicBodyController, "when showing a body" do
             :conditions => ["public_body_id = ?", public_bodies(:humpadink_public_body).id])
     end
 
-    it "should assign the body using different locale from that used for url_name" do
-        I18n.with_locale(:es) do
-            get :show, {:url_name => "dfh", :view => 'all'}
-            assigns[:public_body].notes.should == "Baguette"
-        end
+    it "should redirect to the canonical name in the chosen locale" do
+        get :show, {:url_name => "dfh", :view => 'all', :show_locale => "es"}
+        response.should redirect_to "http://test.host/es/body/edfh"
     end
 
     it "should assign the body using same locale as that used in url_name" do
-        I18n.with_locale(:es) do
-            get :show, {:url_name => "edfh", :view => 'all'}
-            assigns[:public_body].notes.should == "Baguette"
-        end
+        get :show, {:url_name => "edfh", :view => 'all', :show_locale => "es"}
+        response.should contain("Baguette")
     end
 
     it "should redirect use to the relevant locale even when url_name is for a different locale" do

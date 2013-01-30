@@ -378,7 +378,7 @@ describe PublicBody, " when loading CSV files" do
 
         PublicBody.count.should == original_count + 3
 
-        # XXX Not sure why trying to do a PublicBody.with_locale fails here. Seems related to
+        # XXX Not sure why trying to do a I18n.with_locale fails here. Seems related to
         # the way categories are loaded every time from the PublicBody class. For now we just
         # test some translation was done.
         body = PublicBody.find_by_name('North West Fake Authority')
