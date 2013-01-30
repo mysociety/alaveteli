@@ -130,8 +130,8 @@ class PublicBodyController < ApplicationController
             end
         end
         I18n.with_locale(@locale) do
-            @public_bodies = PublicBody.where(conditions).joins(:translations).paginate(
-              :order => "public_body_translations.name", :page => params[:page], :per_page => 100
+            @public_bodies = PublicBody.where(conditions).joins(:translations).order("public_body_translations.name").paginate(
+              :page => params[:page], :per_page => 100
             )
             render :template => "public_body/list"
         end
