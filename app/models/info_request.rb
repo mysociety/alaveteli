@@ -405,6 +405,14 @@ public
 
     # A new incoming email to this request
     def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = "")
+        # Just adding a bit of extra error checking just to save a lot of deep chasing of
+        # strangeness.
+        # TODO: Remove this when we don't use the TMail backend anymore for anything
+        if (MailHandler.backend == "TMail" && !email.kind_of?(TMail::Mail)) ||
+            (MailHandler.backend == "Mail" && !email.kind_of?(Mail::Mail))
+            raise "Wrong kind of mail object passed in receive"
+        end
+
         if !override_stop_new_responses
             allow = nil
             reason = nil
