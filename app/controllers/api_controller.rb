@@ -148,8 +148,28 @@ class ApiController < ApplicationController
                     :filename => filename
                 )
             end
-
-            mail = RequestMailer.create_external_response(request, body, sent_at, attachment_hashes)
+            if MailHandler.backend == "TMail"
+                # Directly construct Tmail object using attachment_hashes
+                mail = TMail::Mail.new
+                mail.body = body
+                blackhole_email = Configuration::blackhole_prefix+"@"+Configuration::incoming_email_domain
+                mail.from = blackhole_email
+                mail.to = request.incoming_name_and_email
+                mail.date = sent_at.dup.localtime
+                b = TMail::Mail.new
+                b.body = body
+                mail.parts << b
+                attachment_hashes.each do |attachment_hash|
+                    attachment = TMail::Mail.new
+                    attachment.body = Base64.encode64(attachment_hash[:body])
+                    attachment.transfer_encoding = "Base64"
+                    attachment.set_content_type(attachment_hash[:content_type])
+                    attachment['Content-Disposition'] = "attachment; filename=#{attachment_hash[:filename]}"
+                    mail.parts << attachment
+                end
+            else
+                mail = RequestMailer.create_external_response(request, body, sent_at, attachment_hashes)
+            end
             request.receive(mail, mail.encoded, true)
         end
         render :json => {
