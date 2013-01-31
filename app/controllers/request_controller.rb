@@ -709,9 +709,13 @@ class RequestController < ApplicationController
             key_path = foi_fragment_cache_path(key)
             if foi_fragment_cache_exists?(key_path)
                 logger.info("Reading cache for #{key_path}")
-                raise PermissionDenied.new("Directory listing not allowed") if File.directory?(key_path)
-                render :text => foi_fragment_cache_read(key_path),
-                    :content_type => (AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream')
+
+                if File.directory?(key_path)
+                    render :text => "Directory listing not allowed", :status => 403 
+                else
+                    render :text => foi_fragment_cache_read(key_path),
+                        :content_type => (AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream')
+                end
                 return
             end
 

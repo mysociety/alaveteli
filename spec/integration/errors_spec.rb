@@ -4,26 +4,18 @@ describe "When rendering errors" do
 
     before(:each) do
         load_raw_emails_data
-        ActionController::Base.consider_all_requests_local = false
-    end
-
-    after(:each) do
-         ActionController::Base.consider_all_requests_local = true
     end
 
     it "should render a 404 for unrouteable URLs" do
         get("/frobsnasm")
-        response.body.should include("The page doesn't exist")
         response.code.should == "404"
     end
     it "should render a 404 for users that don't exist" do
         get("/user/wobsnasm")
-        response.body.should include("The page doesn't exist")
         response.code.should == "404"
     end
     it "should render a 404 for bodies that don't exist" do
         get("/body/wobsnasm")
-        response.body.should include("The page doesn't exist")
         response.code.should == "404"
     end
     it "should render a 500 for general errors" do
@@ -46,7 +38,6 @@ describe "When rendering errors" do
     end
     it "should render a 404 for non-existent 'details' pages for requests" do
         get("/details/request/wobble" )
-        response.body.should include("The page doesn't exist")
         response.code.should == "404"
     end
 end
