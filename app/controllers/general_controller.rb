@@ -19,28 +19,26 @@ class GeneralController < ApplicationController
     # New, improved front page!
     def frontpage
         medium_cache
-        behavior_cache :tag => [session[:user_id], request.url] do
-            # get some example searches and public bodies to display
-            # either from config, or based on a (slow!) query if not set
-            body_short_names = Configuration::frontpage_publicbody_examples.split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")
-            @locale = self.locale_from_params()
-            locale_condition = 'public_body_translations.locale = ?'
-            conditions = [locale_condition, @locale]
-            I18n.with_locale(@locale) do
-                if body_short_names.empty?
-                    # This is too slow
-                    @popular_bodies = PublicBody.visible.find(:all,
-                        :order => "info_requests_count desc",
-                        :limit => 32,
-                        :conditions => conditions,
-                        :joins => :translations
-                    )
-                else
-                    conditions[0] += " and public_bodies.url_name in (" + body_short_names + ")"
-                    @popular_bodies = PublicBody.find(:all,
-                         :conditions => conditions,
-                         :joins => :translations)
-                end
+        # get some example searches and public bodies to display
+        # either from config, or based on a (slow!) query if not set
+        body_short_names = Configuration::frontpage_publicbody_examples.split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")
+        @locale = self.locale_from_params()
+        locale_condition = 'public_body_translations.locale = ?'
+        conditions = [locale_condition, @locale]
+        I18n.with_locale(@locale) do
+            if body_short_names.empty?
+                # This is too slow
+                @popular_bodies = PublicBody.visible.find(:all,
+                    :order => "info_requests_count desc",
+                    :limit => 32,
+                    :conditions => conditions,
+                    :joins => :translations
+                )
+            else
+                conditions[0] += " and public_bodies.url_name in (" + body_short_names + ")"
+                @popular_bodies = PublicBody.find(:all,
+                     :conditions => conditions,
+                     :joins => :translations)
             end
         end
         # Get some successful requests
