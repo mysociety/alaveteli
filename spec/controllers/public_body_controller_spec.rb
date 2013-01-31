@@ -102,9 +102,11 @@ describe PublicBodyController, "when listing bodies" do
 
         response.should render_template('list')
 
-        assigns[:public_bodies].should == PublicBody.all(
-            :conditions => "id <> #{PublicBody.internal_admin_body.id}",
-            :order => "(select name from public_body_translations where public_body_id=public_bodies.id and locale='en')")
+        assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body),
+            public_bodies(:forlorn_public_body),
+            public_bodies(:geraldine_public_body),
+            public_bodies(:sensible_walks_public_body),
+            public_bodies(:silly_walks_public_body) ]
         assigns[:tag].should == "all"
         assigns[:description].should == ""
     end
@@ -142,11 +144,18 @@ describe PublicBodyController, "when listing bodies" do
 
         get :list, :tag => "other"
         response.should render_template('list')
-        assigns[:public_bodies].should =~ PublicBody.all(:conditions => "id not in (#{public_bodies(:humpadink_public_body).id}, #{PublicBody.internal_admin_body.id})")
+        assigns[:public_bodies].should == [ public_bodies(:forlorn_public_body),
+            public_bodies(:geraldine_public_body),
+            public_bodies(:sensible_walks_public_body),
+            public_bodies(:silly_walks_public_body) ]
 
         get :list
         response.should render_template('list')
-        assigns[:public_bodies].should =~ PublicBody.all(:conditions => "id <> #{PublicBody.internal_admin_body.id}")
+        assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body),
+            public_bodies(:forlorn_public_body),
+            public_bodies(:geraldine_public_body),
+            public_bodies(:sensible_walks_public_body),
+            public_bodies(:silly_walks_public_body) ]
     end
 
     it "should list a machine tagged thing, should get it in both ways" do
