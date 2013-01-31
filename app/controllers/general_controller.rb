@@ -109,7 +109,7 @@ class GeneralController < ApplicationController
     def search
         # XXX Why is this so complicated with arrays and stuff? Look at the route
         # in config/routes.rb for comments.
-        combined = params[:combined]
+        combined = params[:combined].split("/")
         @sortby = nil
         @bodies = @requests = @users = true
         if combined.size > 0 && (['advanced'].include?(combined[-1]))
