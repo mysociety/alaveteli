@@ -157,10 +157,10 @@ class TrackController < ApplicationController
     def atom_feed_internal
         @xapian_object = perform_search([InfoRequestEvent], @track_thing.track_query, @track_thing.params[:feed_sortby], nil, 25, 1)
         respond_to do |format|
-            format.atom { render :template => 'track/atom_feed' }
             format.json { render :json => @xapian_object.results.map { |r| r[:model].json_for_api(true,
                     lambda { |t| @template.highlight_and_excerpt(t, @xapian_object.words_to_highlight, 150) }
                 ) } }
+            format.any { render :template => 'track/atom_feed.atom', :layout => false, :content_type => :atom }
         end
     end
 
