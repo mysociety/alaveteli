@@ -7,7 +7,7 @@
 class ContactMailer < ApplicationMailer
 
     # Send message to administrator
-    def message(name, email, subject, message, logged_in_user, last_request, last_body)
+    def to_admin_message(name, email, subject, message, logged_in_user, last_request, last_body)
         @from = name + " <" + email + ">"
         @recipients = contact_from_name_and_email
         @subject = subject
