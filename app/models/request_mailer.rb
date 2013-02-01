@@ -44,17 +44,17 @@ class RequestMailer < ApplicationMailer
 
     # Incoming message arrived for a request, but new responses have been stopped.
     def stopped_responses(info_request, email, raw_email_data)
-        @from = contact_from_name_and_email
-        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # we don't care about bounces, likely from spammers
+        headers 'Return-Path' => blackhole_email, # we don't care about bounces, likely from spammers
                 'Auto-Submitted' => 'auto-replied' # http://tools.ietf.org/html/rfc3834
-        @recipients = email.from_addrs[0].to_s
-        @subject = _("Your response to an FOI request was not delivered")
-        attachment :content_type => 'message/rfc822', :body => raw_email_data,
-            :filename => "original.eml", :transfer_encoding => '7bit', :content_disposition => 'inline'
-        @body = {
-            :info_request => info_request,
-            :contact_email => Configuration::contact_email
-        }
+
+        attachments.inline["original.eml"] = raw_email_data
+
+        @info_request = info_request
+        @contact_email = Configuration::contact_email
+
+        mail(:from => contact_from_name_and_email, :to => email.from_addrs[0].to_s,
+            :reply_to => contact_from_name_and_email,
+            :subject => _("Your response to an FOI request was not delivered"))
     end
 
     # An FOI response is outside the scope of the system, and needs admin attention

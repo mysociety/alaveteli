@@ -98,7 +98,7 @@ describe RequestMailer, " when receiving incoming mail" do
         mail.multipart?.should == true
         mail.parts.size.should == 2
         message_part = mail.parts[0].to_s
-        bounced_mail = MailHandler.mail_from_raw_email(mail.parts[1].body)
+        bounced_mail = MailHandler.mail_from_raw_email(mail.parts[1].body.to_s)
         bounced_mail.to.should == [ ir.incoming_email ]
         bounced_mail.from.should == [ 'geraldinequango@localhost' ]
         bounced_mail.body.include?("That's so totally a rubbish question").should be_true
