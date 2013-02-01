@@ -110,6 +110,7 @@ class GeneralController < ApplicationController
         # XXX Why is this so complicated with arrays and stuff? Look at the route
         # in config/routes.rb for comments.
         combined = params[:combined].split("/")
+        p params[:combined]
         @sortby = nil
         @bodies = @requests = @users = true
         if combined.size > 0 && (['advanced'].include?(combined[-1]))

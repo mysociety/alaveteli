@@ -249,7 +249,7 @@ describe GeneralController, 'when using xapian search' do
     end
 
     it "should find info request when searching for '\"fancy dog\"'" do
-      get :search, :combined => ['"fancy dog"']
+      get :search, :combined => '"fancy dog"'
       response.should render_template('search')
       assigns[:xapian_requests].matches_estimated.should == 1
       assigns[:xapian_requests].results.size.should == 1
@@ -259,7 +259,7 @@ describe GeneralController, 'when using xapian search' do
     end
 
     it "should find public body and incoming message when searching for 'geraldine quango'" do
-      get :search, :combined => ['geraldine quango']
+      get :search, :combined => 'geraldine quango'
       response.should render_template('search')
 
       assigns[:xapian_requests].matches_estimated.should == 1
@@ -272,7 +272,7 @@ describe GeneralController, 'when using xapian search' do
     end
 
     it "should filter results based on end of URL being 'all'" do
-        get :search, :combined => ['"bob"', "all"]
+        get :search, :combined => "bob/all"
         assigns[:xapian_requests].results.map{|x| x[:model]}.should =~ [
             info_request_events(:useless_outgoing_message_event),
             info_request_events(:silly_outgoing_message_event),
@@ -284,14 +284,14 @@ describe GeneralController, 'when using xapian search' do
     end
 
     it "should filter results based on end of URL being 'users'" do
-        get :search, :combined => ['"bob"', "users"]
+        get :search, :combined => "bob/users"
         assigns[:xapian_requests].should == nil
         assigns[:xapian_users].results.map{|x| x[:model]}.should == [users(:bob_smith_user)]
         assigns[:xapian_bodies].should == nil
     end
 
     it "should filter results based on end of URL being 'requests'" do
-        get :search, :combined => ['"bob"', "requests"]
+        get :search, :combined => "bob/requests"
         assigns[:xapian_requests].results.map{|x|x[:model]}.should =~ [
             info_request_events(:useless_outgoing_message_event),
             info_request_events(:silly_outgoing_message_event),
@@ -303,7 +303,7 @@ describe GeneralController, 'when using xapian search' do
     end
 
     it "should filter results based on end of URL being 'bodies'" do
-        get :search, :combined => ['"quango"', "bodies"]
+        get :search, :combined => "quango/bodies"
         assigns[:xapian_requests].should == nil
         assigns[:xapian_users].should == nil
         assigns[:xapian_bodies].results.map{|x|x[:model]}.should == [public_bodies(:geraldine_public_body)]
@@ -317,7 +317,7 @@ describe GeneralController, 'when using xapian search' do
     end
 
     it "should not show unconfirmed users" do
-        get :search, :combined => ["unconfirmed", "users"]
+        get :search, :combined => "unconfirmed/users"
         response.should render_template('search')
         assigns[:xapian_users].results.map{|x|x[:model]}.should == []
     end
@@ -328,13 +328,13 @@ describe GeneralController, 'when using xapian search' do
         u.save!
         update_xapian_index
 
-        get :search, :combined => ["unconfirmed", "users"]
+        get :search, :combined => "unconfirmed/users"
         response.should render_template('search')
         assigns[:xapian_users].results.map{|x|x[:model]}.should == [u]
     end
 
     it "should show tracking links for requests-only searches" do
-        get :search, :combined => ['"bob"', "requests"]
+        get :search, :combined => "bob/requests"
         response.body.should include('Track this search')
     end
 
