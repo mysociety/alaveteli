@@ -17,10 +17,14 @@ class AboutMeValidator < ActiveRecord::BaseWithoutTable
 
     column :about_me, :text, "I...", false
 
-    def validate
+    # TODO: Switch to built in validations
+    validate :length_of_about_me
+
+    private
+
+    def length_of_about_me
         if !self.about_me.blank? && self.about_me.size > 500
             errors.add(:about_me, _("Please keep it shorter than 500 characters"))
         end
     end
-
 end
