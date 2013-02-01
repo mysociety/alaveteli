@@ -853,7 +853,33 @@ class RequestController < ApplicationController
                 return
             end
 
-            mail = RequestMailer.create_fake_response(@info_request, @user, body, file_name, file_content)
+            # There is duplication of the email creation code in api_controller.rb
+            # TODO: Remove duplication
+            if MailHandler.backend == "TMail"
+                # Directly construct Tmail object using attachment_hashes
+                mail = TMail::Mail.new
+                mail.from = @user.name_and_email
+                mail.to = @info_request.incoming_name_and_email
+
+                b = TMail::Mail.new
+                b.body = body
+                b.set_content_type("text/plain")
+                b['Content-Disposition'] = "inline"
+                mail.parts << b
+
+                if !file_name.nil? && !file_content.nil?
+                    content_type = AlaveteliFileTypes.filename_to_mimetype(file_name) || 'application/octet-stream'
+
+                    attachment = TMail::Mail.new
+                    attachment.body = Base64.encode64(file_content)
+                    attachment.transfer_encoding = "base64"
+                    attachment['Content-Type'] = "#{content_type}; name=\"#{file_name}\""
+                    attachment['Content-Disposition'] = "attachment; filename=#{file_name}"
+                    mail.parts << attachment
+                end
+            else
+                mail = RequestMailer.create_fake_response(@info_request, @user, body, file_name, file_content)
+            end
             @info_request.receive(mail, mail.encoded, true)
             flash[:notice] = _("Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to ") + CGI.escapeHTML(@info_request.user.name) + "."
             redirect_to request_url(@info_request)
