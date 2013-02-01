@@ -35,6 +35,8 @@ class PublicBody < ActiveRecord::Base
     validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :if => Proc.new { |pb| pb.short_name != "" }
     validates_uniqueness_of :name, :message => N_("Name is already taken")
 
+    validate :request_email_if_requestable
+
     has_many :info_requests, :order => 'created_at desc'
     has_many :track_things, :order => 'created_at desc'
     has_many :censor_rules, :order => 'created_at desc'
@@ -133,15 +135,6 @@ class PublicBody < ActiveRecord::Base
     def set_first_letter
         # we use a regex to ensure it works with utf-8/multi-byte
         self.first_letter = self.name.scan(/./mu)[0].upcase
-    end
-
-    def validate
-        # Request_email can be blank, meaning we don't have details
-        if self.is_requestable?
-            unless MySociety::Validate.is_valid_email(self.request_email)
-                errors.add(:request_email, "Request email doesn't look like a valid email address")
-            end
-        end
     end
 
     # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
@@ -642,4 +635,12 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
+    def request_email_if_requestable
+        # Request_email can be blank, meaning we don't have details
+        if self.is_requestable?
+            unless MySociety::Validate.is_valid_email(self.request_email)
+                errors.add(:request_email, "Request email doesn't look like a valid email address")
+            end
+        end
+    end
 end
