@@ -19,7 +19,6 @@ class HelpController < ApplicationController
 
     def contact
         @contact_email = Configuration::contact_email
-        @contact_email = @contact_email.gsub(/@/, "&#64;")
 
         # if they clicked remove for link to request/body, remove it
         if params[:remove]
