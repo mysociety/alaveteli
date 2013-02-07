@@ -79,7 +79,7 @@ class PublicBody < ActiveRecord::Base
         if translation_attrs.respond_to? :each_value    # Hash => updating
             translation_attrs.each_value do |attrs|
                 next if skip?(attrs)
-                t = translation(attrs[:locale]) || PublicBody::Translation.new
+                t = translation_for(attrs[:locale]) || PublicBody::Translation.new
                 t.attributes = attrs
                 calculate_cached_fields(t)
                 t.save!
