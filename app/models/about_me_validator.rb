@@ -13,8 +13,6 @@
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 
 class AboutMeValidator < ActiveRecord::BaseWithoutTable
-    strip_attributes!
-
     column :about_me, :text, "I...", false
 
     # TODO: Switch to built in validations

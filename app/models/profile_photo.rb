@@ -25,8 +25,6 @@ class ProfilePhoto < ActiveRecord::Base
 
     validate :data_and_draft_checks
 
-    # deliberately don't strip_attributes, so keeps raw photo properly
-
     attr_accessor :x, :y, :w, :h
 
     # convert binary data blob into ImageMagick image when assigned

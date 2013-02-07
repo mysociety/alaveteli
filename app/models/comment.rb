@@ -21,8 +21,6 @@
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 
 class Comment < ActiveRecord::Base
-    strip_attributes!
-
     belongs_to :user
     belongs_to :info_request
     has_many :info_request_events # in practice only ever has one

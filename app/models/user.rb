@@ -26,8 +26,6 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-    strip_attributes!
-
     validates_presence_of :email, :message => _("Please enter your email address")
 
     validates_presence_of :name, :message => _("Please enter your name")
@@ -111,8 +109,6 @@ class User < ActiveRecord::Base
     end
 
     # Don't display any leading/trailing spaces
-    # XXX we have strip_attributes! now, so perhaps this can be removed (might
-    # be still needed for existing cases)
     def name
         name = read_attribute(:name)
         if not name.nil?

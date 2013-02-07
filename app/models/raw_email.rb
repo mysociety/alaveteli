@@ -13,8 +13,6 @@
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 
 class RawEmail < ActiveRecord::Base
-    # deliberately don't strip_attributes, so keeps raw email properly
-
     has_one :incoming_message
 
     def directory
