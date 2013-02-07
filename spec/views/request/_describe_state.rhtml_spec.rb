@@ -60,7 +60,7 @@ describe 'when showing the form for describing the state of a request' do
             
             it 'should show the form for someone else to classify the request' do 
                 do_render
-                response.should have_selector('h2', :content => /We need your help/)
+                response.should have_selector('h2', :content => 'We need your help')
             end
             
             it 'should not give a link to login' do 
