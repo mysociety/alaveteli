@@ -516,7 +516,7 @@ describe UserController, "when changing email address" do
         post_redirect = PostRedirect.find_by_email_token(mail_token)
         post_redirect.circumstance.should == 'change_email'
         post_redirect.user.should == users(:bob_smith_user)
-        post_redirect.post_params.should == {"submitted_signchangeemail_do"=>"1",
+        post_redirect.post_params.should == {"submitted_signchangeemail_do"=>1,
                 "action"=>"signchangeemail",
                 "signchangeemail"=>{
                     "old_email"=>"bob@localhost",
