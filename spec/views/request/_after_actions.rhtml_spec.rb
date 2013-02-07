@@ -72,7 +72,10 @@ describe 'when displaying actions that can be taken with regard to a request' do
     describe 'if the request is viewable by all' do
 
         it 'should display the link to download the entire request' do
-            expect_anyone_link('Download a zip file of all correspondence')
+            render :partial => 'request/after_actions'
+            response.should have_selector('div#anyone_actions') do |div|
+                div.should have_selector('a', :content => 'Download a zip file of all correspondence')
+            end
         end
     end
 
@@ -80,7 +83,10 @@ describe 'when displaying actions that can be taken with regard to a request' do
 
         it 'should not  display the link to download the entire request' do
             @mock_request.stub!(:all_can_view?).and_return(false)
-            expect_no_anyone_link('Download a zip file of all correspondence')
+            render :partial => 'request/after_actions'
+            response.should have_selector('div#anyone_actions') do |div|
+                div.should_not have_selector('a', :content => 'Download a zip file of all correspondence')
+            end
         end
     end
 
