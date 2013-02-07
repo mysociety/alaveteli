@@ -102,7 +102,7 @@
         </p>
     <% end %>
 <% elsif @old_unclassified %>
-    <%= render :partial => 'other_describe_state', :locals => {:id_suffix => id_suffix } %>
+    <%= render :partial => 'request/other_describe_state', :locals => {:id_suffix => id_suffix } %>
 <% else %>
   <% if !@info_request.is_external? %>
     <%=  _('We don\'t know whether the most recent response to this request contains
