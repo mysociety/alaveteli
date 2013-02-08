@@ -61,7 +61,7 @@
 
         <% status = @info_request.calculate_status %>
         <% if status == 'waiting_response_overdue' %>
-            <p><%= _('The response to your request has been <strong>delayed</strong>.  You can say that,
+            <p><%= _('The response to your request has been <strong>delayed</strong>.  You can say that, 
             by law, the authority should normally have responded
             <strong>promptly</strong> and') %>
             <% if @info_request.public_body.is_school? %>
@@ -73,7 +73,7 @@
             </p>
         <% elsif status == 'waiting_response_very_overdue' %>
             <p>
-            <%= _('The response to your request is <strong>long overdue</strong>.   You can say that, by
+            <%= _('The response to your request is <strong>long overdue</strong>.   You can say that, by 
             law, under all circumstances, the authority should have responded
             by now') %> (<%= raw(_('<a href="%s">details</a>') % ["#{help_requesting_path}#quickly_response"]) %>).
             </p>
