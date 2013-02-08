@@ -333,7 +333,7 @@ class RequestController < ApplicationController
                 message += _("<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>");
             end
             if not message.empty?
-                flash.now[:error] = message
+                flash.now[:error] = message.html_safe
             end
             render :action => 'preview'
             return
