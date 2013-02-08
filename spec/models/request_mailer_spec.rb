@@ -243,7 +243,7 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
             query_params[:conditions].should == expected_conditions
             query_params[:include].should == [ :user ]
             query_params[:order].should == 'info_requests.id'
-        end
+        end.and_return [@mock_request]
 
         send_alerts
     end
