@@ -37,7 +37,7 @@
            like information from. <strong>By law, they have to respond</strong>
            (<a href="%s#%s">why?</a>).') % [help_about_url, "whybother_them"]) %>
            </p>
-           <%= text_field_tag 'query', params[:query], { :size => 30 } %>
+           <%= text_field_tag 'query', params[:query], { :size => 30, :title => "type your search term here" } %>
            <%= hidden_field_tag 'bodies', 1 %>
            <%= submit_tag _('Search') %>
        </div>
