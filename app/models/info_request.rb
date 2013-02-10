@@ -409,7 +409,7 @@ public
         # strangeness.
         # TODO: Remove this when we don't use the TMail backend anymore for anything
         if (MailHandler.backend == "TMail" && !email.kind_of?(TMail::Mail)) ||
-            (MailHandler.backend == "Mail" && !email.kind_of?(Mail::Mail))
+            (MailHandler.backend == "Mail" && !email.kind_of?(Mail::Message))
             raise "Wrong kind of mail object passed in receive"
         end
 
