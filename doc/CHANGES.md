@@ -4,7 +4,7 @@
 * Adds rails_xss gem to make HTML escaping the default behaviour in views.
 * Allows cap rake:themes:install to be run standalone and in the context of a deploy.
 * Gem bundle is always installed in the vendor directory, even in development mode.
-* Interlock plugin removed
+* Interlock plugin removed.
 * Models have named validation methods, and don't overwrite validate anymore.
 
 ## Upgrade notes
