@@ -8,7 +8,7 @@ end
 source :rubygems
 
 # A fork of rails that is kept up to date with security patches
-git "git://github.com/mysociety/rails.git", :tag => "v2.3.16.1" do
+git "git://github.com/mysociety/rails.git", :tag => "v2.3.17.1" do
   gem 'rails'
 end
 gem 'pg'
@@ -17,7 +17,7 @@ gem 'fast_gettext', '>= 0.6.0'
 gem 'fastercsv', '>=1.5.5'
 gem 'gettext_i18n_rails', '>= 0.7.1'
 gem 'gettext', '~> 2.3.3'
-gem 'json', '~> 1.5.1'
+gem 'json', '~> 1.5.5'
 gem 'mahoro'
 gem 'mail', :platforms => :ruby_19
 gem 'memcache-client', :require => 'memcache'
