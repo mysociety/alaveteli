@@ -1,24 +1,24 @@
 GIT
   remote: git://github.com/mysociety/rails.git
-  revision: be86a2fd6264637a22e1a1aeb8a8ec979f53ec1e
-  tag: v2.3.16.1
+  revision: 893560c501f2c3eda044938840108431dcf6ab91
+  tag: v2.3.17.1
   specs:
-    actionmailer (2.3.16)
-      actionpack (= 2.3.16)
-    actionpack (2.3.16)
-      activesupport (= 2.3.16)
+    actionmailer (2.3.17)
+      actionpack (= 2.3.17)
+    actionpack (2.3.17)
+      activesupport (= 2.3.17)
       rack (~> 1.1.0)
-    activerecord (2.3.16)
-      activesupport (= 2.3.16)
-    activeresource (2.3.16)
-      activesupport (= 2.3.16)
-    activesupport (2.3.16)
-    rails (2.3.16)
-      actionmailer (= 2.3.16)
-      actionpack (= 2.3.16)
-      activerecord (= 2.3.16)
-      activeresource (= 2.3.16)
-      activesupport (= 2.3.16)
+    activerecord (2.3.17)
+      activesupport (= 2.3.17)
+    activeresource (2.3.17)
+      activesupport (= 2.3.17)
+    activesupport (2.3.17)
+    rails (2.3.17)
+      actionmailer (= 2.3.17)
+      actionpack (= 2.3.17)
+      activerecord (= 2.3.17)
+      activeresource (= 2.3.17)
+      activesupport (= 2.3.17)
       rake (>= 0.8.3)
 
 GEM
