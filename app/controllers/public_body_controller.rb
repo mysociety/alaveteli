@@ -18,52 +18,51 @@ class PublicBodyController < ApplicationController
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do
             @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-            raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
-            if @public_body.url_name.nil?
-                redirect_to :back
-                return
+        end
+        raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
+        if @public_body.url_name.nil?
+            redirect_to :back
+            return
+        end
+        # If found by historic name, or alternate locale name, redirect to new name
+        if  @public_body.url_name != params[:url_name]
+            redirect_to show_public_body_url(:url_name => @public_body.url_name)
+            return
+        end
+
+        set_last_body(@public_body)
+
+        top_url = main_url("/")
+        @searched_to_send_request = false
+        referrer = request.env['HTTP_REFERER']
+        if !referrer.nil? && referrer.match(%r{^#{top_url}search/.*/bodies$})
+            @searched_to_send_request = true
+        end
+        @view = params[:view]
+        params[:latest_status] = @view
+
+        query = make_query_from_params
+        query += " requested_from:#{@public_body.url_name}"
+        # Use search query for this so can collapse and paginate easily
+        # XXX really should just use SQL query here rather than Xapian.
+        sortby = "described"
+        begin
+            @xapian_requests = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
+            if (@page > 1)
+                @page_desc = " (page " + @page.to_s + ")"
+            else
+                @page_desc = ""
             end
-            # If found by historic name, or alternate locale name, redirect to new name
-            if  @public_body.url_name != params[:url_name]
-                redirect_to show_public_body_url(:url_name => @public_body.url_name)
-                return
-            end
+        rescue
+            @xapian_requests = nil
+        end
 
-            set_last_body(@public_body)
+        @track_thing = TrackThing.create_track_for_public_body(@public_body)
+        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
-            top_url = main_url("/")
-            @searched_to_send_request = false
-            referrer = request.env['HTTP_REFERER']
-            if !referrer.nil? && referrer.match(%r{^#{top_url}search/.*/bodies$})
-                @searched_to_send_request = true
-            end
-            @view = params[:view]
-            params[:latest_status] = @view
-
-            query = make_query_from_params
-            query += " requested_from:#{@public_body.url_name}"
-            # Use search query for this so can collapse and paginate easily
-            # XXX really should just use SQL query here rather than Xapian.
-            sortby = "described"
-            begin
-                @xapian_requests = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
-                if (@page > 1)
-                    @page_desc = " (page " + @page.to_s + ")"
-                else
-                    @page_desc = ""
-                end
-            rescue
-                @xapian_requests = nil
-            end
-
-            @track_thing = TrackThing.create_track_for_public_body(@public_body)
-            @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
-
-            respond_to do |format|
-                format.html { @has_json = true; render :template => "public_body/show"}
-                format.json { render :json => @public_body.json_for_api }
-            end
-
+        respond_to do |format|
+            format.html { @has_json = true; render :template => "public_body/show"}
+            format.json { render :json => @public_body.json_for_api }
         end
     end
 
