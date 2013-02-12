@@ -457,7 +457,7 @@ class ApplicationController < ActionController::Base
     end
 
     def param_exists(item)
-        return params[item] && !params[item].empty?
+        params.has_key?(item)
     end
 
     def get_request_variety_from_params
