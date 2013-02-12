@@ -175,7 +175,7 @@ class RequestController < ApplicationController
         end
 
         params[:latest_status] = @view
-        query = make_query_from_params
+        query = make_query_from_params(params)
         @title = _("View and search requests")
         sortby = "newest"
         xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')

@@ -456,7 +456,7 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    def get_request_variety_from_params
+    def get_request_variety_from_params(params)
         query = ""
         sortby = "newest"
         varieties = []
@@ -478,7 +478,7 @@ class ApplicationController < ActionController::Base
         return query
     end
 
-    def get_status_from_params
+    def get_status_from_params(params)
         query = ""
         if params[:latest_status]
             statuses = []
@@ -513,7 +513,7 @@ class ApplicationController < ActionController::Base
         return query
     end
 
-    def get_date_range_from_params
+    def get_date_range_from_params(params)
         query = ""
         if params.has_key?(:request_date_after) && !params.has_key?(:request_date_before)
             params[:request_date_before] = Time.now.strftime("%d/%m/%Y")
@@ -527,7 +527,7 @@ class ApplicationController < ActionController::Base
         return query
     end
 
-    def get_tags_from_params
+    def get_tags_from_params(params)
         query = ""
         tags = []
         if params.has_key?(:tags)
@@ -541,12 +541,12 @@ class ApplicationController < ActionController::Base
         return query
     end
 
-    def make_query_from_params
+    def make_query_from_params(params)
         query = params[:query] || "" if query.nil?
-        query += get_date_range_from_params
-        query += get_request_variety_from_params
-        query += get_status_from_params
-        query += get_tags_from_params
+        query += get_date_range_from_params(params)
+        query += get_request_variety_from_params(params)
+        query += get_status_from_params(params)
+        query += get_tags_from_params(params)
         return query
     end
 
