@@ -7,10 +7,7 @@ if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.s
 end
 source :rubygems
 
-# A fork of rails that is kept up to date with security patches
-git "git://github.com/mysociety/rails.git", :tag => "v2.3.16.1" do
-  gem 'rails'
-end
+gem 'rails', '= 2.3.17'
 gem 'pg'
 
 gem 'fast_gettext', '>= 0.6.0'
