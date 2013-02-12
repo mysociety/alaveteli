@@ -5,7 +5,7 @@
       <% if possible_locale == I18n.locale.to_s %>
         <a href="#" class="btn disabled"><%= locale_name(possible_locale) %></a>
       <% else %>
-        <a href="<%= locale_switcher(possible_locale, params) %>" class="btn"><%= locale_name(possible_locale) %></a>
+        <a href="<%= url_for params.merge(:locale => possible_locale) %>" class="btn"><%= locale_name(possible_locale) %></a>
       <% end %>
        <% end %>
      </div>
