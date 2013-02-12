@@ -25,7 +25,7 @@ class PublicBodyController < ApplicationController
             end
             # If found by historic name, or alternate locale name, redirect to new name
             if  @public_body.url_name != params[:url_name]
-                redirect_to show_public_body_url(:url_name => @public_body.url_name)
+                redirect_to :url_name => @public_body.url_name
                 return
             end
 
