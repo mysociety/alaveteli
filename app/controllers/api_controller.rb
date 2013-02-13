@@ -228,7 +228,7 @@ class ApiController < ApplicationController
                     :user_name => request.user_name,
                 }
                 if request.user
-                    this_event[:user_url] = main_url(user_url(request.user))
+                    this_event[:user_url] = main_url(user_path(request.user))
                 end
 
                 @event_data.push(this_event)

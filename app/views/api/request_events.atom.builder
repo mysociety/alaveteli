@@ -16,7 +16,7 @@ atom_feed("xmlns:alaveteli" => "http://www.alaveteli.org/API/v2/RequestEvents/At
             entry.author do |author|
                 author.name(request.user_name)
                 if !request.user.nil?
-                    author.uri(main_url(user_url(request.user)))
+                    author.uri(main_url(user_path(request.user)))
                 end
                 author.email(request.incoming_email)
             end

@@ -108,12 +108,12 @@ module LinkToHelper
     end
 
     # Users
-    def user_url(user)
+    def user_path(user)
         return show_user_url(:url_name => user.url_name, :only_path => true)
     end
 
     def user_link(user, cls=nil)
-        link_to h(user.name), user_url(user), :class => cls
+        link_to h(user.name), user_path(user), :class => cls
     end
 
     def user_link_for_request(request, cls=nil)
@@ -125,7 +125,7 @@ module LinkToHelper
                 user_name
             end
         else
-            link_to h(request.user.name), user_url(request.user), :class => cls
+            link_to h(request.user.name), user_path(request.user), :class => cls
         end
     end
 
@@ -139,7 +139,7 @@ module LinkToHelper
     end
 
     def user_link_absolute(user)
-        link_to h(user.name), main_url(user_url(user))
+        link_to h(user.name), main_url(user_path(user))
     end
 
     def request_user_link_absolute(request)
@@ -152,9 +152,9 @@ module LinkToHelper
 
     def user_or_you_link(user)
         if @user && user == @user
-            link_to h("you"), user_url(user)
+            link_to h("you"), user_path(user)
         else
-            link_to h(user.name), user_url(user)
+            link_to h(user.name), user_path(user)
         end
     end
 
@@ -167,7 +167,7 @@ module LinkToHelper
     end
 
     def user_or_you_capital_link(user)
-        link_to user_or_you_capital(user), user_url(user)
+        link_to user_or_you_capital(user), user_path(user)
     end
 
     def user_admin_url(user)
@@ -179,7 +179,7 @@ module LinkToHelper
     end
 
     def user_both_links(user)
-        link_to(h(user.name), main_url(user_url(user))) + " (" + link_to("admin", user_admin_url(user)) + ")"
+        link_to(h(user.name), main_url(user_path(user))) + " (" + link_to("admin", user_admin_url(user)) + ")"
     end
 
     # Tracks. feed can be 'track' or 'feed'

@@ -74,7 +74,7 @@ class TrackController < ApplicationController
         return atom_feed_internal if params[:feed] == 'feed'
 
         if self.track_set
-            redirect_to user_url(@track_user)
+            redirect_to user_path(@track_user)
         end
     end
 
@@ -188,7 +188,7 @@ class TrackController < ApplicationController
         #    track_thing.created_at = Time.now() # as created_at is used to limit the alerts to start with
         #    track_thing.save!
         #    flash[:notice] = "You are now tracking " + track_thing.params[:list_description] + " by email daily"
-        #    redirect_to user_url(track_thing.tracking_user)
+        #    redirect_to user_path(track_thing.tracking_user)
         else
             raise "new medium not handled " + new_medium
         end

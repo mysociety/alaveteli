@@ -313,7 +313,7 @@ class UserController < ApplicationController
                         post_redirect = PostRedirect.find_by_token(params[:pretoken])
                         do_post_redirect post_redirect
                     else
-                        redirect_to user_url(@user)
+                        redirect_to user_path(@user)
                     end
                 end
             else
@@ -388,7 +388,7 @@ class UserController < ApplicationController
         # Now clear the circumstance
         session[:user_circumstance] = nil
         flash[:notice] = _("You have now changed your email address used on {{site_name}}",:site_name=>site_name)
-        redirect_to user_url(@user)
+        redirect_to user_path(@user)
     end
 
     # Send a message to another user
@@ -422,12 +422,12 @@ class UserController < ApplicationController
                 ContactMailer.deliver_user_message(
                     @user,
                     @recipient_user,
-                    main_url(user_url(@user)),
+                    main_url(user_path(@user)),
                     params[:contact][:subject],
                     params[:contact][:message]
                 )
                 flash[:notice] = _("Your message to {{recipient_user_name}} has been sent!",:recipient_user_name=>CGI.escapeHTML(@recipient_user.name))
-                redirect_to user_url(@recipient_user)
+                redirect_to user_path(@recipient_user)
                 return
             end
         else
@@ -476,7 +476,7 @@ class UserController < ApplicationController
                 @user.set_profile_photo(@profile_photo)
                 @draft_profile_photo.destroy
                 flash[:notice] = _("Thank you for updating your profile photo")
-                redirect_to user_url(@user)
+                redirect_to user_path(@user)
                 return
             end
 
@@ -492,7 +492,7 @@ class UserController < ApplicationController
 
             if !@user.get_about_me_for_html_display.empty?
                 flash[:notice] = _("Thank you for updating your profile photo")
-                redirect_to user_url(@user)
+                redirect_to user_path(@user)
             else
                 flash[:notice] = _("<p>Thanks for updating your profile photo.</p>
                 <p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>")
@@ -520,7 +520,7 @@ class UserController < ApplicationController
         end
 
         flash[:notice] = _("You've now cleared your profile photo")
-        redirect_to user_url(@user)
+        redirect_to user_path(@user)
     end
 
     # before they've cropped it
@@ -571,7 +571,7 @@ class UserController < ApplicationController
         @user.save!
         if @user.profile_photo
             flash[:notice] = _("You have now changed the text about you on your profile.")
-            redirect_to user_url(@user)
+            redirect_to user_path(@user)
         else
             flash[:notice] = _("<p>Thanks for changing the text about you on your profile.</p>
             <p><strong>Next...</strong> You can upload a profile photograph too.</p>")
