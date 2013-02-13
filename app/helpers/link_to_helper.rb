@@ -164,22 +164,26 @@ module LinkToHelper
     end
 
     # Tracks. feed can be 'track' or 'feed'
-    def do_track_url(track_thing, feed = 'track')
+    def do_track_url(track_thing, feed = 'track', options = {})
         if track_thing.track_type == 'request_updates'
-            track_request_url(:url_title => track_thing.info_request.url_title, :feed => feed)
+            track_request_url(options.merge(:url_title => track_thing.info_request.url_title, :feed => feed))
         elsif track_thing.track_type == 'all_new_requests'
-            track_list_url(:view => 'recent', :feed => feed)
+            track_list_url(options.merge(:view => 'recent', :feed => feed))
         elsif track_thing.track_type == 'all_successful_requests'
-            track_list_url(:view => 'successful', :feed => feed)
+            track_list_url(options.merge(:view => 'successful', :feed => feed))
         elsif track_thing.track_type == 'public_body_updates'
-            track_public_body_url(:url_name => track_thing.public_body.url_name, :feed => feed)
+            track_public_body_url(options.merge(:url_name => track_thing.public_body.url_name, :feed => feed))
         elsif track_thing.track_type == 'user_updates'
-            track_user_url(:url_name => track_thing.tracked_user.url_name, :feed => feed)
+            track_user_url(options.merge(:url_name => track_thing.tracked_user.url_name, :feed => feed))
         elsif track_thing.track_type == 'search_query'
-            track_search_url(:query_array => track_thing.track_query, :feed => feed)
+            track_search_url(options.merge(:query_array => track_thing.track_query, :feed => feed))
         else
             raise "unknown tracking type " + track_thing.track_type
         end
+    end
+
+    def do_track_path(track_thing, feed = 'track')
+        do_track_url(track_thing, feed, :only_path => true)
     end
 
     # General pages.
