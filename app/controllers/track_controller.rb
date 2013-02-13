@@ -61,7 +61,7 @@ class TrackController < ApplicationController
         return atom_feed_internal if params[:feed] == 'feed'
 
         if self.track_set
-            redirect_to public_body_url(@public_body)
+            redirect_to public_body_path(@public_body)
         end
     end
 

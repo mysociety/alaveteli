@@ -7,5 +7,5 @@
 <%= _('Last request viewed: ')%><%= main_url(request_url(@last_request)) %>
 <% end %> <% if !@last_body.nil? %>
 
-<%= _('Last authority viewed: ')%><%= main_url(public_body_url(@last_body)) %>
+<%= _('Last authority viewed: ')%><%= main_url(public_body_path(@last_body)) %>
 <% end %>---------------------------------------------------------------------

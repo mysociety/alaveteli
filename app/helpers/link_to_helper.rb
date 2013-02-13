@@ -79,20 +79,20 @@ module LinkToHelper
     end
 
     # Public bodies
-    def public_body_url(public_body)
+    def public_body_path(public_body)
         public_body.url_name.nil? ? '' : show_public_body_url(:url_name => public_body.url_name, :only_path => true)
     end
 
     def public_body_link_short(public_body)
-        link_to h(public_body.short_or_long_name), public_body_url(public_body)
+        link_to h(public_body.short_or_long_name), public_body_path(public_body)
     end
 
     def public_body_link(public_body, cls=nil)
-        link_to h(public_body.name), public_body_url(public_body), :class => cls
+        link_to h(public_body.name), public_body_path(public_body), :class => cls
     end
 
     def public_body_link_absolute(public_body) # e.g. for in RSS
-        link_to h(public_body.name), main_url(public_body_url(public_body))
+        link_to h(public_body.name), main_url(public_body_path(public_body))
     end
 
     def public_body_admin_url(public_body)
@@ -100,7 +100,7 @@ module LinkToHelper
     end
 
     def public_body_both_links(public_body)
-        link_to(h(public_body.name), main_url(public_body_url(public_body))) + " (" + link_to("admin", public_body_admin_url(public_body)) + ")"
+        link_to(h(public_body.name), main_url(public_body_path(public_body))) + " (" + link_to("admin", public_body_admin_url(public_body)) + ")"
     end
 
     # Users

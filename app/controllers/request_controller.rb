@@ -279,7 +279,7 @@ class RequestController < ApplicationController
                 else
                     # if not requestable because defunct or not_apply, redirect to main page
                     # (which doesn't link to the /new/ URL)
-                    redirect_to public_body_url(@info_request.public_body)
+                    redirect_to public_body_path(@info_request.public_body)
                 end
             end
             return
