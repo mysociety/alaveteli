@@ -92,9 +92,9 @@
                 <% end %>
 
 
-              <%= link_to _("Sign out"), signout_url(:r => request.request_uri) %>
+              <%= link_to _("Sign out"), signout_path(:r => request.request_uri) %>
           <% else %>
-              <%= link_to _("Sign in or sign up"), signin_url(:r => request.request_uri) %>
+              <%= link_to _("Sign in or sign up"), signin_path(:r => request.request_uri) %>
           <% end %>
           </div>
         <% end %>
