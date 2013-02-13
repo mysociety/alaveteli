@@ -79,8 +79,12 @@ module LinkToHelper
     end
 
     # Public bodies
+    def public_body_url(public_body, options = {})
+        public_body.url_name.nil? ? '' : show_public_body_url(options.merge(:url_name => public_body.url_name))
+    end
+
     def public_body_path(public_body)
-        public_body.url_name.nil? ? '' : show_public_body_url(:url_name => public_body.url_name, :only_path => true)
+        public_body_url(public_body, :only_path => true)
     end
 
     def public_body_link_short(public_body)
