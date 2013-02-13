@@ -87,7 +87,7 @@
         (<%= raw(_('<a href="%s">details</a>') % [help_requesting_path + '#quickly_response']) %>).
         <% if !@info_request.is_external? %>
           <%= _('You can <strong>complain</strong> by') %>
-          <%= link_to _("requesting an internal review"), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>.
+          <%= link_to _("requesting an internal review"), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>.
         <% end %>
     <% elsif @status == 'not_held' %>
         <%= public_body_link(@info_request.public_body) %> <%= _('<strong>did not have</strong> the information requested.') %>
@@ -106,7 +106,7 @@
             <%= _('The request is <strong>waiting for clarification</strong>.') %>
             <% if !@info_request.is_external? %>
               <%= _('If you are {{user_link}}, please',:user_link=>user_link_for_request(@info_request)) %>
-              <%= link_to _("sign in"), signin_url(:r => request.request_uri) %> <%= _('to send a follow up message.') %>
+              <%= link_to _("sign in"), signin_path(:r => request.request_uri) %> <%= _('to send a follow up message.') %>
             <% end %>
         <% end %>
     <% elsif @status == 'gone_postal' %>

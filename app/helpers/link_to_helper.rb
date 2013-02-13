@@ -44,12 +44,24 @@ module LinkToHelper
         return request_url(incoming_message.info_request, options.merge(:anchor => "incoming-#{incoming_message.id}"))
     end
 
+    def incoming_message_path(incoming_message)
+        incoming_message_url(incoming_message, :only_path => true)
+    end
+
     def outgoing_message_url(outgoing_message, options = {})
         return request_url(outgoing_message.info_request, options.merge(:anchor => "outgoing-#{outgoing_message.id}"))
     end
 
+    def outgoing_message_path(outgoing_message)
+        outgoing_message_url(outgoing_message, :only_path => true)
+    end
+
     def comment_url(comment, options = {})
         return request_url(comment.info_request, options.merge(:anchor => "comment-#{comment.id}"))
+    end
+
+    def comment_path(comment)
+        comment_url(comment, :only_path => true)
     end
 
     # Respond to request

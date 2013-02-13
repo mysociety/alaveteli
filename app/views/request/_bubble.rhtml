@@ -5,26 +5,26 @@
                 <% attachments.each do |a| %>
                     <p class="attachment">
                         <%
-                            attachment_url = get_attachment_url(:id => incoming_message.info_request_id,
+                            attachment_path = get_attachment_path(:id => incoming_message.info_request_id,
                                     :incoming_message_id => incoming_message.id, :part => a.url_part_number,
                                     :file_name => a.display_filename)
-                            attachment_as_html_url = get_attachment_as_html_url(:id => incoming_message.info_request_id,
+                            attachment_as_html_path = get_attachment_as_html_path(:id => incoming_message.info_request_id,
                                     :incoming_message_id => incoming_message.id, :part => a.url_part_number,
                                     :file_name => a.display_filename + '.html')
                         %>
                         <% img_filename = "icon_" + a.content_type.sub('/', '_') + "_large.png"
                         full_filename = File.expand_path(File.join(File.dirname(__FILE__), "../../../public/images", img_filename))
                         if File.exist?(full_filename) %>
-                            <a href="<%=attachment_url%>"><img class="attachment_image" alt="Attachment" src="/images/<%=img_filename%>"></a>
+                            <a href="<%=attachment_path%>"><img class="attachment_image" alt="Attachment" src="/images/<%=img_filename%>"></a>
                         <% else %>
-                            <a href="<%=attachment_url%>"><img class="attachment_image" alt="Attachment" src="/images/icon_unknown.png"></a>
+                            <a href="<%=attachment_path%>"><img class="attachment_image" alt="Attachment" src="/images/icon_unknown.png"></a>
                         <% end %>
                         <strong><%= h a.display_filename %></strong>
                         <br>
                         <%= a.display_size %>
-                        <%= link_to "Download", attachment_url %>
+                        <%= link_to "Download", attachment_path %>
                         <% if a.has_body_as_html? && incoming_message.info_request.all_can_view? %>
-                            <%= link_to "View as HTML", attachment_as_html_url %>
+                            <%= link_to "View as HTML", attachment_as_html_path %>
                         <% end %>
                         <!-- (<%= a.content_type %>) -->
                         <%= a.extra_note %>
