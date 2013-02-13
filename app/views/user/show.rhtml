@@ -55,7 +55,7 @@
         <% else %>
             <% if @is_you %>
                 <span id="set_photo">
-                    <%= link_to _('Set your profile photo'), set_profile_photo_url() %>
+                    <%= link_to _('Set your profile photo'), set_profile_photo_path %>
                 </span>
             <% end %>
         <% end %>
@@ -71,7 +71,7 @@
     </p>
 
     <p>
-        <%= link_to _('Send message to ') + h(@display_user.name), contact_user_url(:id => @display_user.id) %>
+        <%= link_to _('Send message to ') + h(@display_user.name), contact_user_path(:id => @display_user.id) %>
         <% if @is_you %>
             (<%= _('just to see how it works')%>)
         <% end %>

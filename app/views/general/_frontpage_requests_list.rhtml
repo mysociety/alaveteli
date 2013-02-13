@@ -19,7 +19,7 @@
                 :public_body_link => public_body_link(event.info_request.public_body)) %>
           <% end %>
 
-           <%=link_to h(event.info_request.title), request_url(event.info_request)%>
+           <%=link_to h(event.info_request.title), request_path(event.info_request)%>
            <%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(event.described_at)) %>
            <p class="excerpt" onclick="document.location.href='<%=request_url(event.info_request)%>'"><%= excerpt(event.search_text_main(true), "", 200) %></p>
         </li>

@@ -4,7 +4,7 @@
             <img class="comment_quote" src="/images/quote-marks.png" alt="">
             <%= @display_user.get_about_me_for_html_display %>
             <% if @is_you %>
-                (<%= link_to _("edit text about you"), set_profile_about_me_url() %>)
+                (<%= link_to _("edit text about you"), set_profile_about_me_path %>)
             <% end %>
         </div>
     <% end %>
@@ -12,9 +12,9 @@
     <% if @is_you %>
         <p id="user_change_password_email">
             <% if @display_user.profile_photo %>
-                <%= link_to _('Change profile photo'), set_profile_photo_url() %> |
+                <%= link_to _('Change profile photo'), set_profile_photo_path %> |
             <% end %>
-            <%= link_to _('Change your password'), signchangepassword_url() %> |
-            <%= link_to _('Change your email'), signchangeemail_url() %>
+            <%= link_to _('Change your password'), signchangepassword_path %> |
+            <%= link_to _('Change your email'), signchangeemail_path %>
         </p>
     <% end %>
