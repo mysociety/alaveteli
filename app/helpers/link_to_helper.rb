@@ -40,16 +40,16 @@ module LinkToHelper
     end
 
     # Incoming / outgoing messages
-    def incoming_message_url(incoming_message)
-        return request_url(incoming_message.info_request)+"#incoming-"+incoming_message.id.to_s
+    def incoming_message_url(incoming_message, options = {})
+        return request_url(incoming_message.info_request, options.merge(:anchor => "incoming-#{incoming_message.id}"))
     end
 
-    def outgoing_message_url(outgoing_message)
-        return request_url(outgoing_message.info_request)+"#outgoing-"+outgoing_message.id.to_s
+    def outgoing_message_url(outgoing_message, options = {})
+        return request_url(outgoing_message.info_request, options.merge(:anchor => "outgoing-#{outgoing_message.id}"))
     end
 
-    def comment_url(comment)
-        return request_url(comment.info_request)+"#comment-"+comment.id.to_s
+    def comment_url(comment, options = {})
+        return request_url(comment.info_request, options.merge(:anchor => "comment-#{comment.id}"))
     end
 
     # Respond to request
