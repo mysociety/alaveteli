@@ -35,7 +35,7 @@ module LinkToHelper
         return similar_request_url(:url_title => info_request.url_title, :only_path => true)
     end
 
-    def request_details_url(info_request)
+    def request_details_path(info_request)
         return details_request_url(:url_title => info_request.url_title, :only_path => true)
     end
 
