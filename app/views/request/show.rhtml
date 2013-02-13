@@ -101,7 +101,7 @@
         <% if @is_owning_user && !@info_request.is_external? %>
             <%=h @info_request.public_body.name %> <%= _('is <strong>waiting for your clarification</strong>.') %>
             <%= _('Please') %>
-              <%= link_to _("send a follow up message"), respond_to_last_url(@info_request) + '#followup' %>.
+              <%= link_to _("send a follow up message"), respond_to_last_path(@info_request) + '#followup' %>.
         <% else %>
             <%= _('The request is <strong>waiting for clarification</strong>.') %>
             <% if !@info_request.is_external? %>

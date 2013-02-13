@@ -53,14 +53,17 @@ module LinkToHelper
     end
 
     # Respond to request
-    def respond_to_last_url(info_request)
+    def respond_to_last_url(info_request, options = {})
         last_response = info_request.get_last_response
         if last_response.nil?
-            respond_url = show_response_no_followup_url(:id => info_request.id)
+            show_response_no_followup_url(options.merge(:id => info_request.id))
         else
-            respond_url = show_response_url(:id => info_request.id, :incoming_message_id => last_response.id)
+            show_response_url(options.merge(:id => info_request.id, :incoming_message_id => last_response.id))
         end
-        return respond_url
+    end
+
+    def respond_to_last_path(info_request)
+        respond_to_last_url(info_request, :only_path => true)
     end
 
     # Public bodies
