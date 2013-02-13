@@ -108,8 +108,12 @@ module LinkToHelper
     end
 
     # Users
+    def user_url(user, options = {})
+        show_user_url(options.merge(:url_name => user.url_name))
+    end
+
     def user_path(user)
-        return show_user_url(:url_name => user.url_name, :only_path => true)
+        user_url(user, :only_path => true)
     end
 
     def user_link(user, cls=nil)
