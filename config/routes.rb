@@ -161,9 +161,9 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     map.with_options :controller => 'request_game' do |game|
-        game.play '/categorise/play', :action => 'play'
-        game.request '/categorise/request/:url_title', :action => 'show'
-        game.stop '/categorise/stop', :action => 'stop'
+        game.categorise_play '/categorise/play', :action => 'play'
+        game.categorise_request '/categorise/request/:url_title', :action => 'show'
+        game.categorise_stop '/categorise/stop', :action => 'stop'
     end
 
     map.with_options :controller => 'admin_public_body' do |body|
