@@ -57,7 +57,7 @@ class RequestController < ApplicationController
             # Look up by old style numeric identifiers
             if params[:url_title].match(/^[0-9]+$/)
                 @info_request = InfoRequest.find(params[:url_title].to_i)
-                redirect_to request_path(@info_request, :format => params[:format])
+                redirect_to request_url(@info_request, :format => params[:format])
                 return
             end
 
@@ -380,14 +380,14 @@ class RequestController < ApplicationController
 
         # If this isn't a form submit, go to the request page
         if params[:submitted_describe_state].nil?
-            redirect_to request_path(@info_request)
+            redirect_to request_url(@info_request)
             return
         end
 
         # If this is an external request, go to the request page - we don't allow
         # state change from the front end interface.
         if @info_request.is_external?
-            redirect_to request_path(@info_request)
+            redirect_to request_url(@info_request)
             return
         end
 
@@ -408,13 +408,13 @@ class RequestController < ApplicationController
 
         if !params[:incoming_message]
             flash[:error] = _("Please choose whether or not you got some of the information that you wanted.")
-            redirect_to request_path(@info_request)
+            redirect_to request_url(@info_request)
             return
         end
 
         if params[:last_info_request_event_id].to_i != @last_info_request_event_id
             flash[:error] = _("The request has been updated since you originally loaded this page. Please check for any new incoming messages below, and try again.")
-            redirect_to request_path(@info_request)
+            redirect_to request_url(@info_request)
             return
         end
 
@@ -443,7 +443,7 @@ class RequestController < ApplicationController
                 redirect_to play_url
             else
                 flash[:notice] = _('Thank you for updating this request!')
-                redirect_to request_path(@info_request)
+                redirect_to request_url(@info_request)
             end
             return
         end
@@ -453,10 +453,10 @@ class RequestController < ApplicationController
         if calculated_status == 'waiting_response'
             flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>
 {{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(@info_request.date_response_required_by))
-            redirect_to request_path(@info_request)
+            redirect_to request_url(@info_request)
         elsif calculated_status == 'waiting_response_overdue'
             flash[:notice] = _("<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(@info_request.date_response_required_by))
-            redirect_to request_path(@info_request)
+            redirect_to request_url(@info_request)
         elsif calculated_status == 'waiting_response_very_overdue'
             flash[:notice] = _("<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>", :very_late_number_of_days => Configuration::reply_very_late_after_days, :late_number_of_days => Configuration::reply_late_after_days)
             redirect_to unhappy_url(@info_request)
@@ -474,13 +474,13 @@ class RequestController < ApplicationController
             :find_authority_url => "/new",
             :complain_url => CGI.escapeHTML(unhappy_url(@info_request)),
             :other_means_url => CGI.escapeHTML(unhappy_url(@info_request)) + "#other_means")
-            redirect_to request_path(@info_request)
+            redirect_to request_url(@info_request)
         elsif calculated_status == 'rejected'
             flash[:notice] = _("Oh no! Sorry to hear that your request was refused. Here is what to do now.")
             redirect_to unhappy_url(@info_request)
         elsif calculated_status == 'successful'
             flash[:notice] = _("<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>", :site_name=>site_name, :donation_url => "http://www.mysociety.org/donate/")
-            redirect_to request_path(@info_request)
+            redirect_to request_url(@info_request)
         elsif calculated_status == 'partially_successful'
             flash[:notice] = _("<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>", :site_name=>site_name, :donation_url=>"http://www.mysociety.org/donate/")
             redirect_to unhappy_url(@info_request)
@@ -491,7 +491,7 @@ class RequestController < ApplicationController
             redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
         elsif calculated_status == 'internal_review'
             flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>",:late_number_of_days => Configuration.reply_late_after_days, :review_url => unhappy_url(@info_request) + "#internal_review")
-            redirect_to request_path(@info_request)
+            redirect_to request_url(@info_request)
         elsif calculated_status == 'error_message'
             flash[:notice] = _("<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below.</p>")
             redirect_to help_general_url(:action => 'contact')
@@ -520,7 +520,7 @@ class RequestController < ApplicationController
             redirect_to outgoing_message_url(@info_request_event.outgoing_message), :status => :moved_permanently
         else
             # XXX maybe there are better URLs for some events than this
-            redirect_to request_path(@info_request_event.info_request), :status => :moved_permanently
+            redirect_to request_url(@info_request_event.info_request), :status => :moved_permanently
         end
     end
 
@@ -655,7 +655,7 @@ class RequestController < ApplicationController
                 else
                     flash[:notice] = _("Your follow up message has been sent on its way.")
                 end
-                redirect_to request_path(@info_request)
+                redirect_to request_url(@info_request)
             end
         else
             # render default show_response template
@@ -696,7 +696,7 @@ class RequestController < ApplicationController
         else
             flash[:notice] = _("This request has already been reported for administrator attention")
         end
-        redirect_to request_path(info_request)
+        redirect_to request_url(info_request)
     end
 
     # special caching code so mime types are handled right
@@ -853,7 +853,7 @@ class RequestController < ApplicationController
             mail = RequestMailer.create_fake_response(@info_request, @user, body, file_name, file_content)
             @info_request.receive(mail, mail.encoded, true)
             flash[:notice] = _("Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to ") + CGI.escapeHTML(@info_request.user.name) + "."
-            redirect_to request_path(@info_request)
+            redirect_to request_url(@info_request)
             return
         end
     end

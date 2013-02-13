@@ -10,9 +10,12 @@ module LinkToHelper
     # Links to various models
 
     # Requests
-    def request_path(info_request, extra_params={})
-        params = {:url_title => info_request.url_title, :only_path => true}
-        return show_request_url(params.merge(extra_params))
+    def request_url(info_request, options = {})
+        show_request_url({:url_title => info_request.url_title}.merge(options))
+    end
+
+    def request_path(info_request, options = {})
+        request_url(info_request, {:only_path => true}.merge(options))
     end
 
     def request_link(info_request, cls=nil )

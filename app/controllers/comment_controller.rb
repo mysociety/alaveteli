@@ -86,7 +86,7 @@ class CommentController < ApplicationController
             @info_request.save!
 
             # we don't use comment_url here, as then you don't see the flash at top of page
-            redirect_to request_path(@info_request)
+            redirect_to request_url(@info_request)
         else
             # do nothing - as "authenticated?" has done the redirect to signin page for us
         end

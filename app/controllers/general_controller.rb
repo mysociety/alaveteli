@@ -221,7 +221,7 @@ class GeneralController < ApplicationController
     # Jump to a random request
     def random_request
         info_request = InfoRequest.random
-        redirect_to request_path(info_request)
+        redirect_to request_url(info_request)
     end
 
     def custom_css
