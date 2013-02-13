@@ -26,7 +26,7 @@
       <li>
        <%= _('{{existing_request_user}} already
       created the same request on {{date}}. You can either view the <a href="{{existing_request}}">existing request</a>,
-      or edit the details below to make a new but similar request.',:existing_request_user=>user_or_you_capital_link(@existing_request.user), :date=>simple_date(@existing_request.created_at), :existing_request=>request_url(@existing_request)) %> 
+      or edit the details below to make a new but similar request.',:existing_request_user=>user_or_you_capital_link(@existing_request.user), :date=>simple_date(@existing_request.created_at), :existing_request=>request_path(@existing_request)) %> 
       </li>
       </ul></div>
     <% end %>

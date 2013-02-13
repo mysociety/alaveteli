@@ -67,7 +67,7 @@ class RequestMailer < ApplicationMailer
         @from = user.name_and_email
         @recipients = contact_from_name_and_email
         @subject = _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title)
-        url = main_url(request_url(info_request))
+        url = main_url(request_path(info_request))
         admin_url = request_admin_url(info_request)
         @body = {:reported_by => user, :info_request => info_request, :url => url, :admin_url => admin_url }
     end
@@ -131,7 +131,7 @@ class RequestMailer < ApplicationMailer
         # Make a link going to the form to describe state, and which logs the
         # user in.
         post_redirect = PostRedirect.new(
-            :uri => main_url(request_url(info_request)) + "#describe_state_form_1",
+            :uri => main_url(request_path(info_request)) + "#describe_state_form_1",
             :user_id => info_request.user.id)
         post_redirect.save!
         url = confirm_url(:email_token => post_redirect.email_token)
@@ -153,7 +153,7 @@ class RequestMailer < ApplicationMailer
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
         @subject = _("Someone has updated the status of your request")
-        url = main_url(request_url(info_request))
+        url = main_url(request_path(info_request))
         @body = {:info_request => info_request, :url => url}
     end
 

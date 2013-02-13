@@ -220,7 +220,7 @@ class ApiController < ApplicationController
                     :event_id => event.id,
                     :created_at => event.created_at.iso8601,
                     :event_type => event.event_type,
-                    :request_url =>  main_url(request_url(request)),
+                    :request_url =>  main_url(request_path(request)),
                     :request_email => request.incoming_email,
                     :title => request.title,
                     :body => event.outgoing_message.body,

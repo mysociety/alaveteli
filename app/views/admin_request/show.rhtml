@@ -54,7 +54,7 @@
 <% end %>
 
 <p>
-    <%= link_to 'Public page', main_url(request_url(@info_request)) %>
+    <%= link_to 'Public page', main_url(request_path(@info_request)) %>
     | <%= link_to 'Edit', '../edit/' + @info_request.id.to_s %>
     | <%= link_to 'FOI officer upload URL', '../generate_upload_url/' + @info_request.id.to_s %> (see also links on incoming messages below)
 </p>

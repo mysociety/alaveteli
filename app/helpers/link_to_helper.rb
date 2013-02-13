@@ -10,13 +10,13 @@ module LinkToHelper
     # Links to various models
 
     # Requests
-    def request_url(info_request, extra_params={})
+    def request_path(info_request, extra_params={})
         params = {:url_title => info_request.url_title, :only_path => true}
         return show_request_url(params.merge(extra_params))
     end
 
     def request_link(info_request, cls=nil )
-        link_to h(info_request.title), request_url(info_request), :class => cls
+        link_to h(info_request.title), request_path(info_request), :class => cls
     end
 
     def request_admin_url(info_request)
@@ -28,7 +28,7 @@ module LinkToHelper
     end
 
     def request_both_links(info_request)
-        link_to(h(info_request.title), main_url(request_url(info_request))) + " (" + link_to("admin", request_admin_url(info_request)) + ")"
+        link_to(h(info_request.title), main_url(request_path(info_request))) + " (" + link_to("admin", request_admin_url(info_request)) + ")"
     end
 
     def request_similar_url(info_request)
@@ -41,7 +41,7 @@ module LinkToHelper
 
     # Incoming / outgoing messages
     def incoming_message_url(incoming_message, options = {})
-        return request_url(incoming_message.info_request, options.merge(:anchor => "incoming-#{incoming_message.id}"))
+        return request_path(incoming_message.info_request, options.merge(:anchor => "incoming-#{incoming_message.id}"))
     end
 
     def incoming_message_path(incoming_message)
@@ -49,7 +49,7 @@ module LinkToHelper
     end
 
     def outgoing_message_url(outgoing_message, options = {})
-        return request_url(outgoing_message.info_request, options.merge(:anchor => "outgoing-#{outgoing_message.id}"))
+        return request_path(outgoing_message.info_request, options.merge(:anchor => "outgoing-#{outgoing_message.id}"))
     end
 
     def outgoing_message_path(outgoing_message)
@@ -57,7 +57,7 @@ module LinkToHelper
     end
 
     def comment_url(comment, options = {})
-        return request_url(comment.info_request, options.merge(:anchor => "comment-#{comment.id}"))
+        return request_path(comment.info_request, options.merge(:anchor => "comment-#{comment.id}"))
     end
 
     def comment_path(comment)

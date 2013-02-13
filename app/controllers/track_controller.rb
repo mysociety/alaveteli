@@ -19,7 +19,7 @@ class TrackController < ApplicationController
         return atom_feed_internal if params[:feed] == 'feed'
 
         if self.track_set
-            redirect_to request_url(@info_request)
+            redirect_to request_path(@info_request)
         end
     end
 

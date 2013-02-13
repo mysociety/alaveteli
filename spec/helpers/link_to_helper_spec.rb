@@ -17,11 +17,11 @@ describe LinkToHelper do
 
 
         it 'should return a path like /request/test_title' do
-            request_url(@mock_request).should == '/request/test_title'
+            request_path(@mock_request).should == '/request/test_title'
         end
 
         it 'should return a path including any extra parameters passed' do
-            request_url(@mock_request, {:update_status => 1}).should == '/request/test_title?update_status=1'
+            request_path(@mock_request, {:update_status => 1}).should == '/request/test_title?update_status=1'
         end
 
     end
