@@ -17,7 +17,7 @@ gem 'fast_gettext', '>= 0.6.0'
 gem 'fastercsv', '>=1.5.5'
 gem 'gettext_i18n_rails', '>= 0.7.1'
 gem 'gettext', '~> 2.3.3'
-gem 'json', '~> 1.5.5'
+gem 'json'
 gem 'mahoro'
 gem 'mail', :platforms => :ruby_19
 gem 'memcache-client', :require => 'memcache'
