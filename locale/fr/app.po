@@ -4,6 +4,7 @@
 # 
 # Translators:
 #   <alex@alexskene.com>, 2011.
+# Benoît Simard <contact@bsimard.com>, 2013.
 #   <borisjf@post.harvard.edu>, 2011.
 #   <seb.bacon@gmail.com>, 2012.
 # skenaja <alex@alexskene.com>, 2011.
@@ -14,8 +15,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2012-12-18 10:11+0000\n"
-"PO-Revision-Date: 2012-12-18 10:14+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2013-02-04 22:03+0000\n"
+"Last-Translator: sim51 <contact@bsimard.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +40,7 @@ msgid ""
 msgstr ""
 
 msgid " (you)"
-msgstr ""
+msgstr "(vous)"
 
 msgid " - view and make Freedom of Information requests"
 msgstr ""
@@ -108,13 +109,13 @@ msgid " You will also be emailed updates about the request."
 msgstr ""
 
 msgid " made by "
-msgstr ""
+msgstr "Réalisé par"
 
 msgid " or "
 msgstr "ou"
 
 msgid " when you send this message."
-msgstr ""
+msgstr "quand vous envoyé ce message."
 
 msgid ""
 "\"Hello! We have an  <a "
@@ -162,10 +163,10 @@ msgid "1. Select an authority"
 msgstr ""
 
 msgid "2. Ask for Information"
-msgstr ""
+msgstr "2. Posez une question"
 
 msgid "3. Now check your request"
-msgstr ""
+msgstr "3. Maintenant, vérifier vos demandes"
 
 msgid "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
 msgstr ""
@@ -284,7 +285,7 @@ msgstr ""
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
 "reply (<a href=\"%s\">details</a>).</p>"
-msgstr ""
+msgstr "<p>Vous n'avez pas besoin d'inclure votre adresse mail à votre demande pour obtenir une réponse(<a href=\"%s\">details</a>).</p>"
 
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
@@ -382,7 +383,7 @@ msgid ""
 msgstr ""
 
 msgid "<strong>All the information</strong> has been sent"
-msgstr ""
+msgstr "<strong>Toutes les informations</strong> ont été envoyées"
 
 msgid ""
 "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
@@ -600,10 +601,10 @@ msgid ""
 msgstr ""
 
 msgid "Attachment (optional):"
-msgstr ""
+msgstr "Pièce jointe (optionnel):"
 
 msgid "Attachment:"
-msgstr ""
+msgstr "Pièce jointe"
 
 msgid "Awaiting classification."
 msgstr ""
@@ -680,16 +681,16 @@ msgid "Change the text about you on your profile at {{site_name}}"
 msgstr ""
 
 msgid "Change your email"
-msgstr ""
+msgstr "Modifier votre adresse mail"
 
 msgid "Change your email address used on {{site_name}}"
-msgstr ""
+msgstr "Modifier votre adresse mail utilisée sur le site {{site_name}}"
 
 msgid "Change your password"
-msgstr ""
+msgstr "Modifier votre mot de pass"
 
 msgid "Change your password on {{site_name}}"
-msgstr ""
+msgstr "Modifier votre mot de pass pour le site {{site_name}}"
 
 msgid "Change your password {{site_name}}"
 msgstr ""

@@ -4,13 +4,14 @@
 # 
 # Translators:
 #   <alex@alexskene.com>, 2011-2012.
+#  <graham.craig@gmail.com>, 2013.
 #   <graham.craig@gmail.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2012-12-18 10:11+0000\n"
-"PO-Revision-Date: 2013-01-13 07:34+0000\n"
+"PO-Revision-Date: 2013-01-21 16:14+0000\n"
 "Last-Translator: baragouiner <graham.craig@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -473,7 +474,7 @@ msgid ""
 msgstr ""
 
 msgid "A public authority"
-msgstr ""
+msgstr "Awdurdod cyhoeddus"
 
 msgid "A response will be sent <strong>by post</strong>"
 msgstr ""
@@ -550,7 +551,7 @@ msgid "Also send me alerts by email"
 msgstr ""
 
 msgid "Alter your subscription"
-msgstr ""
+msgstr "Newid eich tanysgrifiad"
 
 msgid ""
 "Although all responses are automatically published, we depend on\\nyou, the "
@@ -591,7 +592,7 @@ msgid "Anonymous user"
 msgstr ""
 
 msgid "Anyone:"
-msgstr ""
+msgstr "Unrhywun:"
 
 msgid ""
 "Ask for <strong>specific</strong> documents or information, this site is not"
@@ -607,7 +608,7 @@ msgid "Attachment (optional):"
 msgstr ""
 
 msgid "Attachment:"
-msgstr ""
+msgstr "Atodiad:"
 
 msgid "Awaiting classification."
 msgstr ""
@@ -619,7 +620,7 @@ msgid "Awaiting response."
 msgstr ""
 
 msgid "Beginning with"
-msgstr ""
+msgstr "Yn dechrau gyda"
 
 msgid ""
 "Browse <a href='{{url}}'>other requests</a> for examples of how to word your"
@@ -672,7 +673,7 @@ msgid "CensorRule|Text"
 msgstr ""
 
 msgid "Change email on {{site_name}}"
-msgstr ""
+msgstr "Newid cyfeiriad ebost ar {{site_name}}"
 
 msgid "Change password on {{site_name}}"
 msgstr "Newid cyfrinair ar {{site_name}}"
@@ -684,7 +685,7 @@ msgid "Change the text about you on your profile at {{site_name}}"
 msgstr ""
 
 msgid "Change your email"
-msgstr ""
+msgstr "Newid eich cyfeiriad ebost"
 
 msgid "Change your email address used on {{site_name}}"
 msgstr ""
@@ -864,7 +865,7 @@ msgid "Download a zip file of all correspondence"
 msgstr ""
 
 msgid "Download original attachment"
-msgstr ""
+msgstr "Lawrlwytho'r atodiad gwreiddiol"
 
 msgid "EIR"
 msgstr "Rheoliadau Gwybodaeth Amgylcheddol"
@@ -881,7 +882,7 @@ msgid "Edit text about you"
 msgstr ""
 
 msgid "Edit this request"
-msgstr ""
+msgstr "Golygu'r cais hwn"
 
 msgid "Either the email or password was not recognised, please try again."
 msgstr ""
@@ -892,7 +893,7 @@ msgid ""
 msgstr ""
 
 msgid "Email doesn't look like a valid address"
-msgstr ""
+msgstr "Dydy'r cyfeiriad ebost ddim yn edrych yn ddilys"
 
 msgid "Email me future updates to this request"
 msgstr ""
@@ -917,10 +918,10 @@ msgid "Environmental Information Regulations requests made using this site"
 msgstr ""
 
 msgid "Event history"
-msgstr ""
+msgstr "Hanes y digwyddiad"
 
 msgid "Event history details"
-msgstr ""
+msgstr "Hanes y digwyddiad: Manylion"
 
 msgid ""
 "Everything that you enter on this page \\n                will be "
@@ -942,13 +943,13 @@ msgid "FOI email address for {{public_body}}"
 msgstr ""
 
 msgid "FOI requests"
-msgstr ""
+msgstr "Ceisiadau Rhyddid Gwybodaeth"
 
 msgid "FOI requests by '{{user_name}}'"
-msgstr ""
+msgstr "Ceisiadau Rhyddid Gwybodaeth gan '{{user_name}}'"
 
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
-msgstr ""
+msgstr "Ceisiadau Rhyddid Gwybodaeth {{start_count}} i {{end_count}} o{{total_count}}"
 
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr ""
@@ -1016,7 +1017,7 @@ msgid "Follow this authority"
 msgstr ""
 
 msgid "Follow this link to see the request:"
-msgstr ""
+msgstr "Dilynwch y ddolen hon i weld y cais:"
 
 msgid "Follow this person"
 msgstr ""
@@ -1107,10 +1108,10 @@ msgid ""
 msgstr ""
 
 msgid "From:"
-msgstr ""
+msgstr "Oddi wrth:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
-msgstr ""
+msgstr "RHOWCH MANYLION EICH CWYN YMA"
 
 msgid "Handled by post."
 msgstr ""
@@ -1118,7 +1119,7 @@ msgstr ""
 msgid ""
 "Hello! You can make Freedom of Information requests within {{country_name}} "
 "at {{link_to_website}}"
-msgstr ""
+msgstr "Shwmae! Rydych chi'n gallu gwneud ceisiadau Rhyddid Gwybodaeth yn {{country_name}} yma:{{link_to_website}}"
 
 msgid "Hello, {{username}}!"
 msgstr "Helo, {{username}}!"
@@ -1157,10 +1158,10 @@ msgid "Holiday|Description"
 msgstr "Gwyliau | Disgrifiad"
 
 msgid "Home"
-msgstr ""
+msgstr "Hafan"
 
 msgid "Home page of authority"
-msgstr ""
+msgstr "Tudalen hafan yr awdurdod"
 
 msgid ""
 "However, you have the right to request environmental\\n            "
@@ -1171,7 +1172,7 @@ msgid "Human health and safety"
 msgstr ""
 
 msgid "I am asking for <strong>new information</strong>"
-msgstr ""
+msgstr "Rydw i'n gofyn am <strong>gwybodaeth newydd</strong>"
 
 msgid "I am requesting an <strong>internal review</strong>"
 msgstr ""
@@ -1186,7 +1187,7 @@ msgid "I like this request"
 msgstr ""
 
 msgid "I would like to <strong>withdraw this request</strong>"
-msgstr ""
+msgstr "Hoffwn i atal y cais hwn"
 
 msgid ""
 "I'm still <strong>waiting</strong> for my information\\n                "
@@ -1194,7 +1195,7 @@ msgid ""
 msgstr ""
 
 msgid "I'm still <strong>waiting</strong> for the internal review"
-msgstr ""
+msgstr "Rydw i dal yn <strong>aros</strong> am yr adolygiad mewnol"
 
 msgid "I'm waiting for an <strong>internal review</strong> response"
 msgstr ""
@@ -1209,7 +1210,7 @@ msgid "I've received <strong>some of the information</strong>"
 msgstr ""
 
 msgid "I've received an <strong>error message</strong>"
-msgstr ""
+msgstr "Rydw i wedi cael <strong>neges gwall</strong>"
 
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
@@ -1439,7 +1440,7 @@ msgid ""
 msgstr "Cadwch at <strong>y prif bwynt</strong>. Byddwch yn fwy tebygol o gael beth rydych yn chwilio amdano (<a href=\"%s\">pam?</a>)."
 
 msgid "Keywords"
-msgstr ""
+msgstr "Allweddeiriau"
 
 msgid "Last authority viewed: "
 msgstr ""
@@ -1502,13 +1503,13 @@ msgid ""
 msgstr ""
 
 msgid "Make a request"
-msgstr ""
+msgstr "Gwneud cais"
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr ""
 
 msgid "Make and browse Freedom of Information (FOI) requests"
-msgstr ""
+msgstr "Gwneud a phori ceisiadau Rhyddid Gwybodaeth"
 
 msgid "Make your own request"
 msgstr ""
@@ -1526,7 +1527,7 @@ msgid "Missing contact details for '"
 msgstr ""
 
 msgid "More about this authority"
-msgstr ""
+msgstr "Rhagor am yr awdurdod hwn"
 
 msgid "More requests..."
 msgstr ""
@@ -1538,13 +1539,13 @@ msgid "More successful requests..."
 msgstr "Mwy o geisiadau llwyddiannus..."
 
 msgid "My profile"
-msgstr ""
+msgstr "Fy mhroffil fi"
 
 msgid "My request has been <strong>refused</strong>"
-msgstr ""
+msgstr "Mae fy nghais i wedi <strong>cael ei wrthod</strong>"
 
 msgid "My requests"
-msgstr ""
+msgstr "Fy ngheisiadau"
 
 msgid "My wall"
 msgstr ""
@@ -1556,19 +1557,19 @@ msgid "Name is already taken"
 msgstr ""
 
 msgid "New Freedom of Information requests"
-msgstr ""
+msgstr "Ceisiadau Rhyddid Gwybodaeth newydd"
 
 msgid "New e-mail:"
-msgstr ""
+msgstr "Cyfeiriad ebost newydd:"
 
 msgid "New email doesn't look like a valid address"
-msgstr ""
+msgstr "Dydy'r cyfeiriad ebost newydd ddim yn edrych yn ddilys"
 
 msgid "New password:"
-msgstr ""
+msgstr "Cyfrinair newydd:"
 
 msgid "New password: (again)"
-msgstr ""
+msgstr "Cyfrinair newydd: (eto)"
 
 msgid "New response to '{{title}}'"
 msgstr ""
@@ -1589,7 +1590,7 @@ msgid "Newest results first"
 msgstr ""
 
 msgid "Next"
-msgstr ""
+msgstr "Nesaf"
 
 msgid "Next, crop your photo &gt;&gt;"
 msgstr ""

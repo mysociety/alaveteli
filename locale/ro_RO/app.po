@@ -5,13 +5,14 @@
 # Translators:
 #   <andreicristianpetcu@gmail.com>, 2012.
 #   <copyratul@gmail.com>, 2012.
+# Rodica Ardelean <rodxy@yahoo.com>, 2013.
 #   <rodxy@yahoo.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2012-12-18 10:11+0000\n"
-"PO-Revision-Date: 2013-01-08 10:58+0000\n"
+"PO-Revision-Date: 2013-01-22 22:02+0000\n"
 "Last-Translator: rodicaa <rodxy@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -945,7 +946,7 @@ msgid "FOI requests by '{{user_name}}'"
 msgstr "Cerere FOI de catre '{{user_name}}'"
 
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
-msgstr ""
+msgstr "Cererile FOI de la  {{start_count}} la {{end_count}} din {{total_count}}"
 
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr ""
@@ -956,7 +957,7 @@ msgstr "Eroare la convertirea imaginii in PNG"
 msgid ""
 "Failed to convert image to the correct size: at %{cols}x%{rows}, need "
 "%{width}x%{height}"
-msgstr ""
+msgstr "Eroare la conversia imaginii la marimea corectă: la %{cols}x%{rows}, trebuie %{width}x%{height}"
 
 msgid "Filter"
 msgstr "Filtrare"
@@ -971,25 +972,25 @@ msgid "Foi attachment"
 msgstr ""
 
 msgid "FoiAttachment|Charset"
-msgstr ""
+msgstr "Ataşament FOI|Setul de caractere"
 
 msgid "FoiAttachment|Content type"
-msgstr ""
+msgstr "Ataşament FOI|Conţinut"
 
 msgid "FoiAttachment|Display size"
-msgstr ""
+msgstr "Ataşament FOI|Mărime afişare"
 
 msgid "FoiAttachment|Filename"
-msgstr ""
+msgstr "Ataşament FOI|Nume fişier"
 
 msgid "FoiAttachment|Hexdigest"
-msgstr ""
+msgstr "Ataşament FOI|Hexdigest"
 
 msgid "FoiAttachment|Url part number"
-msgstr ""
+msgstr "Ataşament FOI|Url part number"
 
 msgid "FoiAttachment|Within rfc822 subject"
-msgstr ""
+msgstr "Ataşament FOI|In cadrul rfc822 "
 
 msgid "Follow"
 msgstr ""
@@ -1004,40 +1005,40 @@ msgid "Follow requests to {{public_body_name}}"
 msgstr ""
 
 msgid "Follow these requests"
-msgstr ""
+msgstr "Urmăriţ aceste cereri"
 
 msgid "Follow things matching this search"
 msgstr ""
 
 msgid "Follow this authority"
-msgstr ""
+msgstr "Urmăriţi această autoritate"
 
 msgid "Follow this link to see the request:"
-msgstr ""
+msgstr "Urmăriţi acest link pentru a vedea cererea:"
 
 msgid "Follow this person"
 msgstr ""
 
 msgid "Follow this request"
-msgstr ""
+msgstr "Urmăriţi această cerere"
 
 msgid "Follow up"
-msgstr ""
+msgstr "Urmăriţi"
 
 msgid "Follow up message sent by requester"
-msgstr ""
+msgstr "Urmăriţi mesajul trimis de solicitant"
 
 msgid "Follow up messages to existing requests are sent to "
-msgstr ""
+msgstr "Urmăriţi mesajele  trimis de solicitant"
 
 msgid ""
 "Follow ups and new responses to this request have been stopped to prevent "
 "spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and"
 " need to send a follow up."
-msgstr ""
+msgstr "Urmăririle si noile răspunsuri la aceasta cerere au fost stopate pentru a preveni spam-ul. Va rugam <a href=\"{{url}}\"> să ne contactaţi</a> dacă sunteţi {{user_link}} şi aveţi nevoie să trimiteţi o urmărire."
 
 msgid "Follow us on twitter"
-msgstr ""
+msgstr "Urmăriţi-ne pe Twitter"
 
 msgid ""
 "Followups cannot be sent for this request, as it was made externally, and "
@@ -1047,10 +1048,10 @@ msgstr ""
 msgid ""
 "For an unknown reason, it is not possible to make a request to this "
 "authority."
-msgstr ""
+msgstr "Pentru motive neconoscute, nu este posibil să facem c cerere către această autoritate."
 
 msgid "Forgotten your password?"
-msgstr ""
+msgstr "Aţi uitat parola ?"
 
 msgid "Found %d public authority %s"
 msgid_plural "Found %d public authorities %s"
@@ -1059,10 +1060,10 @@ msgstr[1] ""
 msgstr[2] ""
 
 msgid "Freedom of Information"
-msgstr ""
+msgstr "Libertatea de Informare"
 
 msgid "Freedom of Information Act"
-msgstr ""
+msgstr "Actul \"Libertatea de Informare\""
 
 msgid ""
 "Freedom of Information law does not apply to this authority, so you cannot "
@@ -1070,27 +1071,27 @@ msgid ""
 msgstr ""
 
 msgid "Freedom of Information law no longer applies to"
-msgstr ""
+msgstr "Legislaţia Libertăţii de Informare nu se mai  aplică la "
 
 msgid ""
 "Freedom of Information law no longer applies to this authority.Follow up "
 "messages to existing requests are sent to "
-msgstr ""
+msgstr "Legislaţia Libertăţii de Informare nu se mai  aplică la aceasta autoritate. Urmăririle aferente mesajelor existente sunt trimise către"
 
 msgid "Freedom of Information requests made"
-msgstr ""
+msgstr "Cereri \"Libertatea de informare\" făcute"
 
 msgid "Freedom of Information requests made by this person"
-msgstr ""
+msgstr "Cereri \"Libertatea de informare\" făcute de această persoană"
 
 msgid "Freedom of Information requests made by you"
-msgstr ""
+msgstr "Cereri \"Libertatea de informare\" făcute de dvs."
 
 msgid "Freedom of Information requests made using this site"
-msgstr ""
+msgstr "Cereri \"Libertatea de informare\" făcute utilizănd acest site"
 
 msgid "Freedom of information requests to"
-msgstr ""
+msgstr "Cereri \"Libertatea de informare\" făcute  către"
 
 msgid "From"
 msgstr ""
@@ -1103,24 +1104,24 @@ msgid ""
 msgstr ""
 
 msgid "From:"
-msgstr ""
+msgstr "De la:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
-msgstr ""
+msgstr "DATI DETALII DESPRE PLÂNGEREA DVS. AICI"
 
 msgid "Handled by post."
-msgstr ""
+msgstr "Înmânat prin poştă"
 
 msgid ""
 "Hello! You can make Freedom of Information requests within {{country_name}} "
 "at {{link_to_website}}"
-msgstr ""
+msgstr "Hello! Puteşi face cereri  \"Libertatea de informare\" in  {{country_name}} la {{link_to_website}}"
 
 msgid "Hello, {{username}}!"
-msgstr ""
+msgstr "Hello, {{username}}!"
 
 msgid "Help"
-msgstr ""
+msgstr "Ajutor"
 
 msgid ""
 "Here <strong>described</strong> means when a user selected a status for the "
@@ -1134,7 +1135,7 @@ msgstr ""
 msgid ""
 "Here is the message you wrote, in case you would like to copy the text and "
 "save it for later."
-msgstr ""
+msgstr "Aici este mesajul pe care l-aţi scris, pentru cazul în care vreţi să copiaţi textul şi să îl salvaţi pentru mai târziu."
 
 msgid ""
 "Hi! We need your help. The person who made the following request\\n    "
@@ -1147,16 +1148,16 @@ msgid "Holiday"
 msgstr ""
 
 msgid "Holiday|Day"
-msgstr ""
+msgstr "Sărbătoare|Zi"
 
 msgid "Holiday|Description"
-msgstr ""
+msgstr "Sărbătoare|Descriere"
 
 msgid "Home"
-msgstr ""
+msgstr "Acasă"
 
 msgid "Home page of authority"
-msgstr ""
+msgstr "Pagina de bază a autorităţii"
 
 msgid ""
 "However, you have the right to request environmental\\n            "
@@ -1164,25 +1165,25 @@ msgid ""
 msgstr ""
 
 msgid "Human health and safety"
-msgstr ""
+msgstr "Sănătate şi asigurări"
 
 msgid "I am asking for <strong>new information</strong>"
-msgstr ""
+msgstr "Solicit  <strong>noi informaţii</strong>"
 
 msgid "I am requesting an <strong>internal review</strong>"
-msgstr ""
+msgstr "Soliciti  <strong> o verificare internă</strong>"
 
 msgid "I don't like these ones &mdash; give me some more!"
-msgstr ""
+msgstr "Nu îmi plac acestea &mdash;  daţi-mi mai multe!"
 
 msgid "I don't want to do any more tidying now!"
-msgstr ""
+msgstr "Nu vreau să mai fac curăţenie acum!"
 
 msgid "I like this request"
 msgstr ""
 
 msgid "I would like to <strong>withdraw this request</strong>"
-msgstr ""
+msgstr "Aş dori să  <strong>retrag această cerere</strong>"
 
 msgid ""
 "I'm still <strong>waiting</strong> for my information\\n                "
@@ -1190,27 +1191,27 @@ msgid ""
 msgstr ""
 
 msgid "I'm still <strong>waiting</strong> for the internal review"
-msgstr ""
+msgstr "Încă <strong> aştept  </strong> verificarea internă"
 
 msgid "I'm waiting for an <strong>internal review</strong> response"
-msgstr ""
+msgstr "Aştept  un răspuns la  <strong>  verificarea internă </strong> "
 
 msgid "I've been asked to <strong>clarify</strong> my request"
-msgstr ""
+msgstr "Am fost rugat să <strong> clarific </strong> cererea mea."
 
 msgid "I've received <strong>all the information"
-msgstr ""
+msgstr "Am primit <strong> toate informaţiile"
 
 msgid "I've received <strong>some of the information</strong>"
-msgstr ""
+msgstr "Am primit  <strong>câteva dintre informaţii</strong>"
 
 msgid "I've received an <strong>error message</strong>"
-msgstr ""
+msgstr "Am primit  <strong>un mesaj de eroare</strong>"
 
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
 "href=\"%s\">contact us</a>."
-msgstr ""
+msgstr "Dacă adresa este greşită, sau dacă cunoaşteţi o altă adresă, vă rugăm <a href=\"%s\">să ne contactaţi</a>."
 
 msgid ""
 "If this is incorrect, or you would like to send a late response to the "
@@ -1225,12 +1226,12 @@ msgid ""
 msgstr ""
 
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr ""
+msgstr "Dacă aveţi în continuare probleme vă rugăm <a href=\"%s\"> să ne contactaţi</a>."
 
 msgid ""
 "If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
 "the request."
-msgstr ""
+msgstr "Dacă sunteţi solicitantul, atunci trebuie să <a href=\"%s\">vă logaţi</a> pentru a vedea cererea."
 
 msgid ""
 "If you are thinking of using a pseudonym,\\n                please <a "
@@ -1238,7 +1239,7 @@ msgid ""
 msgstr ""
 
 msgid "If you are {{user_link}}, please"
-msgstr ""
+msgstr "Dacă sunteţi{{user_link}}, vă rugăm"
 
 msgid ""
 "If you believe this request is not suitable, you can report it for attention"
