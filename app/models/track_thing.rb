@@ -199,11 +199,12 @@ class TrackThing < ActiveRecord::Base
             if self.track_type == 'request_updates'
                 @params = {
                     # Website
-                    :list_description => _("'{{link_to_request}}', a request", :link_to_request => "<a href=\"/request/" + CGI.escapeHTML(self.info_request.url_title) + "\">" + CGI.escapeHTML(self.info_request.title) + "</a>"), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
+                    :list_description => _("'{{link_to_request}}', a request",
+                                        :link_to_request => ("<a href=\"/request/" + CGI.escapeHTML(self.info_request.url_title) + "\">" + CGI.escapeHTML(self.info_request.title) + "</a>").html_safe), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
                     :verb_on_page => _("Follow this request"),
                     :verb_on_page_already => _("You are already following this request"),
                     # Email
-                    :title_in_email => _("New updates for the request '{{request_title}}'", :request_title => self.info_request.title),
+                    :title_in_email => _("New updates for the request '{{request_title}}'", :request_title => self.info_request.title.html_safe),
                                          :title_in_rss => _("New updates for the request '{{request_title}}'", :request_title => self.info_request.title),
                     # Authentication
                     :web => _("To follow the request '{{request_title}}'", :request_title => CGI.escapeHTML(self.info_request.title)),
@@ -250,7 +251,7 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'public_body_updates'
                 @params = {
                     # Website
-                    :list_description => _("'{{link_to_authority}}', a public authority", :link_to_authority => "<a href=\"/body/" + CGI.escapeHTML(self.public_body.url_name) + "\">" + CGI.escapeHTML(self.public_body.name) + "</a>"), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
+                    :list_description => _("'{{link_to_authority}}', a public authority", :link_to_authority => ("<a href=\"/body/" + CGI.escapeHTML(self.public_body.url_name) + "\">" + CGI.escapeHTML(self.public_body.name) + "</a>").html_safe), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
                     :verb_on_page => _("Follow requests to {{public_body_name}}",:public_body_name=>CGI.escapeHTML(self.public_body.name)),
                     :verb_on_page_already => _("You are already following requests to {{public_body_name}}", :public_body_name=>CGI.escapeHTML(self.public_body.name)),
                     # Email
@@ -266,11 +267,11 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'user_updates'
                 @params = {
                     # Website
-                    :list_description => _("'{{link_to_user}}', a person", :link_to_user => "<a href=\"/user/" + CGI.escapeHTML(self.tracked_user.url_name) + "\">" + CGI.escapeHTML(self.tracked_user.name) + "</a>"), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
+                    :list_description => _("'{{link_to_user}}', a person", :link_to_user => ("<a href=\"/user/" + CGI.escapeHTML(self.tracked_user.url_name) + "\">" + CGI.escapeHTML(self.tracked_user.name) + "</a>").html_safe), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
                     :verb_on_page => _("Follow this person"),
                     :verb_on_page_already => _("You are already following this person"),
                     # Email
-                    :title_in_email => _("FOI requests by '{{user_name}}'", :user_name=>self.tracked_user.name),
+                    :title_in_email => _("FOI requests by '{{user_name}}'", :user_name=>self.tracked_user.name.html_safe),
                     :title_in_rss => _("FOI requests by '{{user_name}}'", :user_name=>self.tracked_user.name),
                     # Authentication
                     :web => _("To follow requests by '{{user_name}}'", :user_name=>CGI.escapeHTML(self.tracked_user.name)),
@@ -282,7 +283,7 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'search_query'
                 @params = {
                     # Website
-                    :list_description => "<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest/advanced\">" + self.track_query_description + "</a>", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
+                    :list_description => ("<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest/advanced\">" + CGI.escapeHTML(self.track_query_description) + "</a>").html_safe, # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
                     :verb_on_page => _("Follow things matching this search"),
                     :verb_on_page_already => _("You are already following things matching this search"),
                     # Email

@@ -7,8 +7,6 @@ describe "when listing recent requests" do
         assigns[:per_page] = 10
         # work round a bug in ActionController::TestRequest; allows request.query_string to work in the template
         request.env["REQUEST_URI"] = ""
-        # we're not testing the interlock plugin's cache
-        template.stub!(:view_cache).and_yield
     end
       
     def make_mock_event 

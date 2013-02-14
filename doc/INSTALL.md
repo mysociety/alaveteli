@@ -220,12 +220,6 @@ The default theme is the "Alaveteli" theme.  When you run
 `rails-post-deploy` (see below), that theme gets installed
 automatically.
 
-You'll also want to copy `config/memcached.yml-example` to
-`config/memcached.yml`. The application is configured, via the
-Interlock Rails plugin, to cache content using memcached.  You
-probably don't want this in your development profile; the example
-`memcached.yml` file disables this behaviour.
-
 Finally, copy `config/newrelic.yml-example` to `config/newrelic.yml`.
 This file contains configuration information for the New Relic
 performance management system. By default, monitoring is switched off

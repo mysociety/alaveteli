@@ -33,5 +33,5 @@
 
 <p><%= link_to "Download", "../download_raw_email/" + @raw_email.id.to_s %></p>
 
-<pre><%=h(@raw_email.data).gsub(/\n/, '<br>') %></pre>
+<pre><%= h(@raw_email.data).gsub(/\n/, '<br>').html_safe %></pre>
 

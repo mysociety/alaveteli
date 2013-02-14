@@ -17,33 +17,37 @@
         <% elsif @info_request.prominence == 'requester_only' %>
           <%# The eccentric formatting of the following string is in order that it be identical
               to the corresponding string in request/show.rhtml %>
-          <p><%= _('This request is hidden, so that only you the requester can see it. Please
-    <a href="%s">contact us</a> if you are not sure why.') % [help_requesting_path] %></p>
+          <p><%= raw(_('This request is hidden, so that only you the requester can see it. Please
+    <a href="%s">contact us</a> if you are not sure why.') % [help_requesting_path]) %></p>
         <% else %>
-          <p><%= _('This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href="%s">contact us</a>.') % [help_requesting_path] %></p>
+          <p><%= raw(_('This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href="%s">contact us</a>.') % [help_requesting_path]) %></p>
         <% end %>
      <% else %>
       <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %></p>
        <p><%= _('If you believe this request is not suitable, you can report it for attention by the site administrators') %></p>
-       <%= link_to _("Report this request"), report_path, :class => "link_button_green", :method => "POST" %>
+       <%= button_to _("Report this request"), report_path, :class => "link_button_green" %>
       <% end %>
     <% end %>
     <h2><%= _("Act on what you've learnt") %></h2>
 
     <div class="act_link">
      <% tweet_link = "https://twitter.com/share?url=#{h(request.url)}&via=#{h(Configuration::twitter_username)}&text='#{h(@info_request.title)}'&related=#{_('alaveteli_foi:The software that runs {{site_name}}', :site_name => h(site_name))}" %>
-        <%= link_to '<img src="/images/twitter-16.png" alt="twitter icon">', tweet_link %>
+        <% link_to tweet_link do %>
+          <%= image_tag "twitter-16.png", :alt => "twitter icon" %>
+        <% end %>
         <%= link_to _("Tweet this request"), tweet_link %>
     </div>
     <div class="act_link">
-        <%= link_to '<img src="/images/wordpress.png" alt="" class="rss">', "http://wordpress.com/"%>
+        <% link_to "http://wordpress.com/" do %>
+          <%= image_tag "wordpress.png", :class => "rss" %>
+        <% end %>
         <%= link_to _("Start your own blog"), "http://wordpress.com/"%>
     </div>
 
     <%= render :partial => 'request/next_actions' %>
 
-    <% view_cache :ttl => 1.day.to_i, :tag => ['similar', @info_request.id, I18n.locale] do %>
-     <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
+    <% # TODO: Cache for 1 day %>
+      <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
         <h2><%= _('Similar requests')%></h2>
         <% for result in @xapian_similar.results %>
             <%= render :partial => 'request/request_listing_short_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
@@ -52,14 +56,13 @@
             <p><%= link_to _("More similar requests"), request_similar_url(@info_request) %></p>
         <% end %>
         <!-- Important terms: <%= @xapian_similar.important_terms.join(" ") %>  -->
-     <% end %>
-    <% end %>
+      <% end %>
 
     <p><%= link_to _('Event history details'), request_details_url(@info_request) %></p>
 
     <!-- this link with this wording is here for legal reasons, discuss with
     board and our lawyer before changing or removing it -->
-    <p><small><%= _('<a href="%s">Are you the owner of
-            any commercial copyright on this page?</a>') % [help_officers_path+"#copyright"] %></small></p>
+    <p><small><%= raw(_('<a href="%s">Are you the owner of
+            any commercial copyright on this page?</a>') % [help_officers_path+"#copyright"]) %></small></p>
 
 </div>

@@ -50,6 +50,8 @@ class User < ActiveRecord::Base
         'super',
     ], :message => N_('Admin level is not included in list')
 
+    validate :email_and_name_are_valid
+
     acts_as_xapian :texts => [ :name, :about_me ],
         :values => [
              [ :created_at_numeric, 1, "created_at", :number ] # for sorting
@@ -106,15 +108,6 @@ class User < ActiveRecord::Base
 
     def visible_comments
         self.comments.find(:all, :conditions => 'visible')
-    end
-
-    def validate
-        if self.email != "" && !MySociety::Validate.is_valid_email(self.email)
-            errors.add(:email, _("Please enter a valid email address"))
-        end
-        if MySociety::Validate.is_valid_email(self.name)
-            errors.add(:name, _("Please enter your name, not your email address, in the name field."))
-        end
     end
 
     # Don't display any leading/trailing spaces
@@ -361,12 +354,13 @@ class User < ActiveRecord::Base
     end
 
     # Return about me text for display as HTML
+    # TODO: Move this to a view helper
     def get_about_me_for_html_display
         text = self.about_me.strip
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
         text = text.gsub(/\n/, '<br>')
-        return text
+        return text.html_safe
     end
 
     def json_for_api
@@ -411,6 +405,15 @@ class User < ActiveRecord::Base
 
     def create_new_salt
         self.salt = self.object_id.to_s + rand.to_s
+    end
+
+    def email_and_name_are_valid
+        if self.email != "" && !MySociety::Validate.is_valid_email(self.email)
+            errors.add(:email, _("Please enter a valid email address"))
+        end
+        if MySociety::Validate.is_valid_email(self.name)
+            errors.add(:name, _("Please enter your name, not your email address, in the name field."))
+        end
     end
 
     ## Class methods

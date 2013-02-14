@@ -284,6 +284,7 @@ class IncomingMessage < ActiveRecord::Base
     # Lotus notes quoting yeuch!
     def remove_lotus_quoting(text, replacement = "FOLDED_QUOTED_SECTION")
         text = text.dup
+        return text if self.info_request.user_name.nil?
         name = Regexp.escape(self.info_request.user_name)
 
         # To end of message sections
@@ -534,7 +535,7 @@ class IncomingMessage < ActiveRecord::Base
                     text = Iconv.conv('utf-8//IGNORE', source_charset, text) +
                         _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
                           :site_name => Configuration::site_name)
-                rescue Iconv::InvalidEncoding, Iconv::IllegalSequence
+                rescue Iconv::InvalidEncoding, Iconv::IllegalSequence, Iconv::InvalidCharacter
                     if source_charset != "utf-8"
                         source_charset = "utf-8"
                         retry
@@ -694,7 +695,7 @@ class IncomingMessage < ActiveRecord::Base
 
         text = text.gsub(/\n/, '<br>')
         text = text.gsub(/(?:<br>\s*){2,}/, '<br><br>') # remove excess linebreaks that unnecessarily space it out
-        return text
+        return text.html_safe
     end
 
 

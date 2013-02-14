@@ -31,7 +31,6 @@ gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 gem 'rmagick', :require => 'RMagick'
 gem 'routing-filter', '~> 0.2.4'
 gem 'rake', '0.9.2.2'
-gem 'rspec', '~> 1.3.2'
 gem 'ruby-msg', '~> 1.5.0'
 gem 'vpim'
 gem 'will_paginate', '~> 2.3.11'
@@ -42,6 +41,8 @@ gem 'zip'
 gem 'capistrano'
 gem 'syslog_protocol'
 gem 'newrelic_rpm'
+# erubis is required by rails_xss. Both erubis and rails_xss can be removed after upgrading to Rails 3.
+gem 'erubis'
 
 group :test do
   gem 'fakeweb'

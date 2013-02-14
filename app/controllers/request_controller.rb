@@ -99,15 +99,13 @@ class RequestController < ApplicationController
 
             # Sidebar stuff
             # ... requests that have similar imporant terms
-            behavior_cache :tag => ['similar', @info_request.id] do
-                begin
-                    limit = 10
-                    @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
-                      :limit => limit, :collapse_by_prefix => 'request_collapse')
-                    @xapian_similar_more = (@xapian_similar.matches_estimated > limit)
-                rescue
-                    @xapian_similar = nil
-                end
+            begin
+                limit = 10
+                @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
+                  :limit => limit, :collapse_by_prefix => 'request_collapse')
+                @xapian_similar_more = (@xapian_similar.matches_estimated > limit)
+            rescue
+                @xapian_similar = nil
             end
 
             # Track corresponding to this page
@@ -180,13 +178,10 @@ class RequestController < ApplicationController
         query = make_query_from_params
         @title = _("View and search requests")
         sortby = "newest"
-        @cache_tag = Digest::MD5.hexdigest(query + @page.to_s + I18n.locale.to_s)
-        behavior_cache :tag => [@cache_tag] do
-            xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
-            @list_results = xapian_object.results.map { |r| r[:model] }
-            @matches_estimated = xapian_object.matches_estimated
-            @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
-        end
+        xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
+        @list_results = xapian_object.results.map { |r| r[:model] }
+        @matches_estimated = xapian_object.matches_estimated
+        @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
 
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
         @track_thing = TrackThing.create_track_for_search_query(query)
@@ -327,9 +322,9 @@ class RequestController < ApplicationController
             message = ""
             if @outgoing_message.contains_email?
                 if @user.nil?
-                    message += _("<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"%s\">details</a>).</p>") % [help_privacy_path+"#email_address"];
+                    message += (_("<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"%s\">details</a>).</p>") % [help_privacy_path+"#email_address"]).html_safe;
                 else
-                    message += _("<p>You do not need to include your email in the request in order to get a reply (<a href=\"%s\">details</a>).</p>") % [help_privacy_path+"#email_address"];
+                    message += (_("<p>You do not need to include your email in the request in order to get a reply (<a href=\"%s\">details</a>).</p>") % [help_privacy_path+"#email_address"]).html_safe;
                 end
                 message += _("<p>We recommend that you edit your request and remove the email address.
                 If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>")
@@ -338,7 +333,7 @@ class RequestController < ApplicationController
                 message += _("<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>");
             end
             if not message.empty?
-                flash.now[:error] = message
+                flash.now[:error] = message.html_safe
             end
             render :action => 'preview'
             return
@@ -630,7 +625,7 @@ class RequestController < ApplicationController
 
         if !params[:submitted_followup].nil? && !params[:reedit]
             if @info_request.allow_new_responses_from == 'nobody'
-                flash[:error] = _('Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="%s">contact us</a> if you really want to send a follow up message.') % [help_contact_path]
+                flash[:error] = (_('Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="%s">contact us</a> if you really want to send a follow up message.') % [help_contact_path]).html_safe
             else
                 if @info_request.find_existing_outgoing_message(params[:outgoing_message][:body])
                     flash[:error] = _('You previously submitted that exact follow up message for this request.')

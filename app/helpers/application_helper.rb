@@ -35,15 +35,15 @@ module ApplicationHelper
               end
           end
 
-          error_messages = []
+          error_messages = "".html_safe
           for object in objects
               object.errors.each do |attr, message|
-                  error_messages << content_tag(:li, message)
+                  error_messages << content_tag(:li, h(message))
               end
           end
 
           content_tag(:div,
-              content_tag(:ul, error_messages.join),
+              content_tag(:ul, error_messages),
             html
           )
         else
@@ -54,15 +54,12 @@ module ApplicationHelper
     # Highlight words, also escapes HTML (other than spans that we add)
     def highlight_words(t, words, html = true)
         if html
-            t = h(t)
-        end
-        if html
-            t = highlight(t, words, '<span class="highlight">\1</span>')
+            highlight(h(t), words, '<span class="highlight">\1</span>').html_safe
         else
-            t = highlight(t, words, '*\1*')
+            highlight(t, words, '*\1*')
         end
-        return t
     end
+
     def highlight_and_excerpt(t, words, excount, html = true)
         newt = excerpt(t, words[0], excount)
         if not newt

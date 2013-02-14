@@ -23,6 +23,9 @@ rescue MissingSourceFile
   module Spec
     module Rake
       class SpecTask
+          if defined?(::Rake::DSL)
+              include ::Rake::DSL
+          end
         def initialize(name)
           task name do
             # if rspec-rails is a configured gem, this will output helpful material and exit ...
@@ -52,8 +55,6 @@ end
 
 task :default => :spec
 task :stats => "spec:statsetup"
-# XXX commonlib tests are not Ruby 1.9 compatible
-#task :spec => ['spec:commonlib']
 task :test => ['spec']
 task :cruise => ['spec']
 

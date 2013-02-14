@@ -564,7 +564,7 @@ class ApplicationController < ActionController::Base
     end
 
     def set_popup_banner
-        @popup_banner = render_to_string(:partial => "general/popup_banner").strip
+        @popup_banner = render_to_string(:partial => "general/popup_banner").strip.html_safe
     end
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into

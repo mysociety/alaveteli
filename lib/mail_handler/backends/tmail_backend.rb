@@ -8,14 +8,12 @@ module MailHandler
 
             # Turn raw data into a structured TMail::Mail object
             # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
-            def mail_from_raw_email(data, decode=true)
+            def mail_from_raw_email(data)
                 # Hack round bug in TMail's MIME decoding.
                 # Report of TMail bug:
                 # http://rubyforge.org/tracker/index.php?func=detail&aid=21810&group_id=4512&atid=17370
                 copy_of_raw_data = data.gsub(/; boundary=\s+"/im,'; boundary="')
-                mail = TMail::Mail.parse(copy_of_raw_data)
-                mail.base64_decode if decode
-                mail
+                TMail::Mail.parse(copy_of_raw_data)
             end
 
             # Extracts all attachments from the given TNEF file as a TMail::Mail object
@@ -105,12 +103,12 @@ module MailHandler
                         if part.content_type == 'message/rfc822'
                             # An email attached as text
                             # e.g. http://www.whatdotheyknow.com/request/64/response/102
-                            part.rfc822_attachment = mail_from_raw_email(part.body, decode=false)
+                            part.rfc822_attachment = mail_from_raw_email(part.body)
                         elsif part.content_type == 'application/vnd.ms-outlook' || part_filename && AlaveteliFileTypes.filename_to_mimetype(part_filename) == 'application/vnd.ms-outlook'
                             # An email attached as an Outlook file
                             # e.g. http://www.whatdotheyknow.com/request/chinese_names_for_british_politi
                             msg = Mapi::Msg.open(StringIO.new(part.body))
-                            part.rfc822_attachment = mail_from_raw_email(msg.to_mime.to_s, decode=false)
+                            part.rfc822_attachment = mail_from_raw_email(msg.to_mime.to_s)
                         elsif part.content_type == 'application/ms-tnef'
                             # A set of attachments in a TNEF file
                             part.rfc822_attachment = mail_from_tnef(part.body)
