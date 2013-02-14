@@ -1,11 +1,24 @@
+# Version 0.7
+## Highlighted features
+* [Security] Upgrades the Rails version from 2.3.15 to 2.3.16 to get fix for a critical security flaw in Rails (CVE-2013-0333).
+* Adds rails_xss gem to make HTML escaping the default behaviour in views.
+* Allows cap rake:themes:install to be run standalone and in the context of a deploy.
+* Gem bundle is always installed in the vendor directory, even in development mode.
+* Interlock plugin removed.
+* Models have named validation methods, and don't overwrite validate anymore.
+
+## Upgrade notes
+* Check out this version and run `rails-post-deploy` as usual.
+* Check your themes for any strings that are now being escaped but shouldn't be and either use raw or .html_safe to resolve them. Don't do this with strings from user input!
+
 # Version 0.6.9
 ## Highlighted features
 * [Security] Fix for security issue where image files from HTML conversion on hidden/requester-only requests were accessible without authentication [issue #739](https://github.com/mysociety/alaveteli/issues/739).
 * [Security] Fix for issue where the zip file download function was available for logged-in users even on hidden/requester-only requests [issue #743](https://github.com/mysociety/alaveteli/issues/743)
 * [Security] Upgrades to Rails 2.3.15 to get fixes for Rails security flaws CVE-2012-5664 and CVE-2013-0156. In addition, switches to use Rails pulled from a clone in the mySociety github account, which has had the CVE-2013-0155 2.3 series patch applied to it.
-* Isolation of mail handling code in the MailHandler module in lib/mail_handler 
-* Tests run under Ruby 1.9.3 - *running the app under 1.9 not yet advised*. 
-* Routes without a locale part can be enabled for the default locale - see upgrade notes 
+* Isolation of mail handling code in the MailHandler module in lib/mail_handler
+* Tests run under Ruby 1.9.3 - *running the app under 1.9 not yet advised*.
+* Routes without a locale part can be enabled for the default locale - see upgrade notes
 * Fixes to support themed error pages, and allow responsive themes (Matthew Landauer, Brendan Molloy)
 * Migrations run under sqlite (Stefan Langenmaier)
 * Time zone fixes (Henare Degan)
@@ -15,7 +28,7 @@
 
 ## Upgrade notes
 * Note the new config variable INCLUDE_DEFAULT_LOCALE_IN_URLS (if not set defaults to true, which should replicate existing behaviour)
-* Check out this version and run `rails-post-deploy` as usual. 
+* Check out this version and run `rails-post-deploy` as usual.
 
 # Version 0.6.8
 ## Highlighted features
@@ -36,10 +49,10 @@
   * TIME_ZONE (if not set, defaults to UTC)
   * TWITTER_WIDGET_ID (no Twitter widget is displayed if not set)
   * THEME_BRANCH (defaults to tagged version specific to your version of alaveteli or, failing that, to master)
-  * MTA_LOG_PATH 
+  * MTA_LOG_PATH
   * MTA_LOG_TYPE (defaults to Exim)
 * IMPORTANT - Copy config/newrelic.yml-example to config/newrelic.yml - by default monitoring is switched off, see https://github.com/newrelic/rpm for instructions on switching on local and remote performance analysis.
-* Check out this version and run `rails-post-deploy` as usual. 
+* Check out this version and run `rails-post-deploy` as usual.
 * Note that mailcatcher is now used in development - see http://mailcatcher.me/ for details
 
 # Version 0.6.7
@@ -56,7 +69,7 @@
 ## Upgrade notes
 
 * Themes created for 0.6.6 and below should be updated to use the new Configuration module wherever they used Config.get directly previously.
-* Check out this version and run `rails-post-deploy` as usual. 
+* Check out this version and run `rails-post-deploy` as usual.
 
 
 # Version 0.6.6
@@ -68,13 +81,13 @@
 
 ## Upgrade notes
 
-* Check out this version and run `rails-post-deploy` as usual. 
-* Run `rake temp:populate_request_classifications` to populate the new request_classifications table which is used in generating the request categorisation game league tables and progress widget.  
+* Check out this version and run `rails-post-deploy` as usual.
+* Run `rake temp:populate_request_classifications` to populate the new request_classifications table which is used in generating the request categorisation game league tables and progress widget.
 
 # Version 0.6.5
-* This is a minor release, to update all documentation and example files to reflect the move of the official repository to http://github.com/mysociety/alaveteli and the alavetelitheme and adminbootstraptheme themes to http://github.com/mysociety/alavetelitheme and http://github.com/mysociety/adminbootstraptheme respectively. 
-* Some basic versioning has been added for themes. An ALAVETELI_VERSION constant has been added in config/environment.rb. When loading themes, `rails-post-deploy` now looks for a tag on the theme repository in the form 'use-with-alaveteli-0.6.5' that matches the ALAVETELI_VERSION being deployed - if it finds such a tag, the theme will be checked out from that tag, rather than from the HEAD of the theme repository. If no such tag is found, HEAD is used, as before [issue #573](https://github.com/mysociety/alaveteli/issues/573). 
-* Apache has been configured to serve cached HTML versions of attached files (and associated images) directly from the file cache, as well as the original versions [issue #580](https://github.com/mysociety/alaveteli/issues/580). 
+* This is a minor release, to update all documentation and example files to reflect the move of the official repository to http://github.com/mysociety/alaveteli and the alavetelitheme and adminbootstraptheme themes to http://github.com/mysociety/alavetelitheme and http://github.com/mysociety/adminbootstraptheme respectively.
+* Some basic versioning has been added for themes. An ALAVETELI_VERSION constant has been added in config/environment.rb. When loading themes, `rails-post-deploy` now looks for a tag on the theme repository in the form 'use-with-alaveteli-0.6.5' that matches the ALAVETELI_VERSION being deployed - if it finds such a tag, the theme will be checked out from that tag, rather than from the HEAD of the theme repository. If no such tag is found, HEAD is used, as before [issue #573](https://github.com/mysociety/alaveteli/issues/573).
+* Apache has been configured to serve cached HTML versions of attached files (and associated images) directly from the file cache, as well as the original versions [issue #580](https://github.com/mysociety/alaveteli/issues/580).
 * PublicBodyCategories have a couple of new methods for more easily working with headings [issue #575](https://github.com/mysociety/alaveteli/issues/575).
 
 * [List of issues on github](https://github.com/mysociety/alaveteli/issues?milestone=21&state=closed)
@@ -84,10 +97,10 @@
 * Please update your `THEME_URLS` to point to http://github.com/mysociety/alavetelitheme and http://github.com/mysociety/adminbootstraptheme if you are using the alavetelitheme or adminbootstraptheme themes.
 
 * Check out this version and run `rails-post-deploy` as usual.
-  
+
 # Version 0.6.4
 ## Highlighted features
-* This is a minor bugfix release, mainly to fix bugs related to external request handling. 
+* This is a minor bugfix release, mainly to fix bugs related to external request handling.
 * [List of issues on github](https://github.com/mysociety/alaveteli/issues?milestone=18&state=closed)
 * [List of commits since last release](https://github.com/mysociety/alaveteli/compare/master...release/0.6.4)
 
@@ -152,7 +165,7 @@
 * Support for invalidating accelerator cache -- this makes it much
   less likely, when using Varnish, that users will be presented with
   stale content.  Fixes
-  
+
 * Adding a `GA_CODE` to `general.yml` will cause the relevant Google
   Analytics code to be added to your rendered pages
 * It is now possible to have more than one theme installed.  The
@@ -184,7 +197,7 @@
   should be installed has changed.  On Debian, you can run:
 
       sudo apt-get install `cut -d " " -f 1 config/packages | grep -v "^#"`
-      
+
   [This gist](https://gist.github.com/2584766) shows the changes to
   `config/packages` since the previous release.
 
@@ -217,7 +230,7 @@
   `general.yml`) is now known as the "emergency user".  Deployments
   that previously bypassed admin authentication should set the new
   `SKIP_ADMIN_AUTH` config variable to `true`.
-  
+
 * If you want to try out the new administrator theme, copy the sample
   `THEME_URLS` config from `general.yml-example` and run
   `./script/rails-post-deploy`.  If you don't like it, turn it off
@@ -225,7 +238,7 @@
   (`adminbootstraptheme`) -- but email the mailing list first,
   explaining why!  The intention is to merge this theme into the
   Alaveteli core in a future release.
-  
+
 * If you are already using Google Analytics, you are probably
   including the tracking code manually in your theme.  If you'd like
   to use Alaveteli's support for Google Analytics, set the `GA_CODE`
@@ -254,7 +267,7 @@ in 0.5, which was causing deployment problems:
   production environments
 * It should now be safe to run `rake spec` on a production server
 
-There is one minor new feature in this release: 
+There is one minor new feature in this release:
 
 * Administrators can follow the auto-login URLs forwarded in emails
   from users who want support, and they will remain logged in as
@@ -275,9 +288,9 @@ As usual, there is a [full list of changes on github](https://github.com/mysocie
 # Version 0.5
 
 ## Highlighted features
-* It should now be possible to develop the software on OSX 
+* It should now be possible to develop the software on OSX
 * Base design refactored: CSS simplified and reduced, base design colours removed, now provided in example Alaveteli theme override
-* It is now possible to rebuild the xapian index for specific terms, rather than having to drop and rebuild the entire database every time (as previously).  See rake xapian:rebuild_index for more info. 
+* It is now possible to rebuild the xapian index for specific terms, rather than having to drop and rebuild the entire database every time (as previously).  See rake xapian:rebuild_index for more info.
 * When listing authorities, show all authorities in default locale, rather than only those in the currently selected locale.
 * Ensure incoming emails are only ever parsed once (should give a performance boost)
 * Added a simple rate-limiting feature: restrict the number of requests users can make per day, except if explicitly unrestricted in the admin interface

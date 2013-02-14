@@ -1,4 +1,10 @@
-require 'erubis/helpers/rails_helper'
+# stop erubis from printing it's version number all the time
+old_stdout = $stdout
+File.open("/dev/null", "w") do |f|
+  $stdout = f
+  require 'erubis/helpers/rails_helper'
+  $stdout = old_stdout
+end
 
 module RailsXss
   class Erubis < ::Erubis::Eruby
