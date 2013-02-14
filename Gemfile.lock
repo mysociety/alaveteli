@@ -93,7 +93,8 @@ GEM
     rack (1.1.5)
     rake (0.9.2.2)
     rbx-require-relative (0.0.9)
-    rdoc (2.4.3)
+    rdoc (3.12.1)
+      json (~> 1.4)
     recaptcha (0.3.4)
     rmagick (2.13.1)
     routing-filter (0.2.4)
@@ -175,7 +176,7 @@ DEPENDENCIES
   rack (~> 1.1.0)
   rails!
   rake (= 0.9.2.2)
-  rdoc (~> 2.4.3)
+  rdoc
   recaptcha (~> 0.3.1)
   rmagick
   routing-filter (~> 0.2.4)

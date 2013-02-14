@@ -25,7 +25,7 @@ gem 'locale', '>= 2.0.5'
 gem 'net-http-local'
 gem 'net-purge'
 gem 'rack', '~> 1.1.0'
-gem 'rdoc', '~> 2.4.3'
+gem 'rdoc'
 gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 # :require avoids "already initialized constant" warnings
 gem 'rmagick', :require => 'RMagick'
