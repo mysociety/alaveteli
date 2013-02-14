@@ -25,7 +25,7 @@ class PublicBodyController < ApplicationController
             end
             # If found by historic name, or alternate locale name, redirect to new name
             if  @public_body.url_name != params[:url_name]
-                redirect_to show_public_body_url(:url_name => @public_body.url_name)
+                redirect_to :url_name => @public_body.url_name
                 return
             end
 
@@ -38,9 +38,7 @@ class PublicBodyController < ApplicationController
                 @searched_to_send_request = true
             end
             @view = params[:view]
-            params[:latest_status] = @view
-
-            query = make_query_from_params
+            query = make_query_from_params(params.merge(:latest_status => @view))
             query += " requested_from:#{@public_body.url_name}"
             # Use search query for this so can collapse and paginate easily
             # XXX really should just use SQL query here rather than Xapian.

@@ -269,13 +269,5 @@ module LinkToHelper
     def year_from_date(date)
         return date.strftime("%Y").strip
     end
-
-    #I18n locale switcher
-
-    def locale_switcher(locale, params)
-        params['locale'] = locale
-        return url_for(params)
-    end
-
 end
 

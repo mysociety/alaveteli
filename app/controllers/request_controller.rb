@@ -174,8 +174,7 @@ class RequestController < ApplicationController
             raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / PER_PAGE}.")
         end
 
-        params[:latest_status] = @view
-        query = make_query_from_params
+        query = make_query_from_params(params.merge(:latest_status => @view))
         @title = _("View and search requests")
         sortby = "newest"
         xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
