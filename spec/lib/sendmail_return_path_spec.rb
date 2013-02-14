@@ -28,7 +28,7 @@ describe "when sending email with an altered return path" do
         Net::SMTP.stub!(:new).and_return(mock_smtp)
 
         with_delivery_method :smtp do
-            ContactMailer.deliver_message(
+            ContactMailer.deliver_to_admin_message(
                 "Mr. Test", "test@localhost", "Test script spec/lib/sendmail_return_path_spec.rb",
                 "This is just a test for a test script", nil, nil, nil
             )
@@ -42,7 +42,7 @@ describe "when sending email with an altered return path" do
         with_stub_popen do
             IO.should_receive(:popen).once.with('/usr/sbin/sendmail -i -t -f "test@localhost"', "w+")
             with_delivery_method :sendmail do
-                ContactMailer.deliver_message(
+                ContactMailer.deliver_to_admin_message(
                     "Mr. Test", "test@localhost", "Test script spec/lib/sendmail_return_path_spec.rb",
                     "This is just a test for a test script", nil, nil, nil
                 )

@@ -1,5 +1,5 @@
 <p>
-  <%= _('<a href="%s">Are we missing a public authority?</a>') % [help_requesting_path + '#missing_body'] %>
+  <%= raw(_('<a href="%s">Are we missing a public authority?</a>') % [help_requesting_path + '#missing_body']) %>
 </p>
 <p>
   <%= link_to _('List of all authorities (CSV)'), all_public_bodies_csv_url() %>

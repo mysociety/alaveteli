@@ -43,7 +43,7 @@ require File.join(File.dirname(__FILE__), '../lib/old_rubygems_patch')
 require 'configuration'
 
 # Application version
-ALAVETELI_VERSION = '0.6.9'
+ALAVETELI_VERSION = '0.7'
 
 Rails::Initializer.run do |config|
   # Load intial mySociety config
@@ -113,8 +113,6 @@ end
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register "application/x-mobile", :mobile
-
-# The Rails cache is set up by the Interlock plugin to use memcached
 
 # Domain for URLs (so can work for scripts, not just web pages)
 ActionMailer::Base.default_url_options[:host] = Configuration::domain

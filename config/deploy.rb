@@ -19,7 +19,7 @@ server configuration['server'], :app, :web, :db, :primary => true
 namespace :rake do
   namespace :themes do
     task :install do
-      run "cd #{release_path} && bundle exec rake themes:install RAILS_ENV=#{rails_env}"
+      run "cd #{latest_release} && bundle exec rake themes:install RAILS_ENV=#{rails_env}"
     end
   end
 end
@@ -48,7 +48,6 @@ namespace :deploy do
     links = {
       "#{release_path}/config/database.yml" => "#{shared_path}/database.yml",
       "#{release_path}/config/general.yml" => "#{shared_path}/general.yml",
-      "#{release_path}/config/memcached.yml" => "#{shared_path}/memcached.yml",
       "#{release_path}/config/rails_env.rb" => "#{shared_path}/rails_env.rb",
       "#{release_path}/config/newrelic.yml" => "#{shared_path}/newrelic.yml",
       "#{release_path}/config/aliases" => "#{shared_path}/aliases",

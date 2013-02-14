@@ -98,7 +98,7 @@
         <ul>
         <li><%= _('Write your request in <strong>simple, precise language</strong>.') %></li>
         <li><%= _('Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries.') %></li>
-        <li><%= _('Keep it <strong>focused</strong>, you\'ll be more likely to get what you want (<a href="%s">why?</a>).') % [help_requesting_path + '#focused'] %></li>
+        <li><%= raw(_('Keep it <strong>focused</strong>, you\'ll be more likely to get what you want (<a href="%s">why?</a>).') % [help_requesting_path + '#focused']) %></li>
         </ul>
     </div>
 
@@ -112,23 +112,23 @@
     
         <% if !@user %>
             <p class="form_note">
-                <%= _('Everything that you enter on this page, including <strong>your name</strong>, 
+                <%= raw(_('Everything that you enter on this page, including <strong>your name</strong>, 
                 will be <strong>displayed publicly</strong> on
-                this website forever (<a href="%s">why?</a>).') % [help_privacy_path+"#public_request"] %>  
-                <%= _('If you are thinking of using a pseudonym,
-                please <a href="%s">read this first</a>.') % [help_privacy_path+"#real_name"] %>
+                this website forever (<a href="%s">why?</a>).') % [help_privacy_path+"#public_request"]) %>  
+                <%= raw(_('If you are thinking of using a pseudonym,
+                please <a href="%s">read this first</a>.') % [help_privacy_path+"#real_name"]) %>
             </p>
         <% else %>
             <p class="form_note">
-                <%= _('Everything that you enter on this page 
+                <%= raw(_('Everything that you enter on this page 
                 will be <strong>displayed publicly</strong> on
-                this website forever (<a href="%s">why?</a>).') % [help_privacy_path+"#public_request"] %>  
+                this website forever (<a href="%s">why?</a>).') % [help_privacy_path+"#public_request"]) %>  
             </p>
         <% end %>
     
         <p class="form_note">
-            <%= _("<strong> Can I request information about myself?</strong>\n" +
-            "\t\t\t<a href=\"%s\">No! (Click here for details)</a>") % [help_requesting_path+"#data_protection"] %>   
+            <%= raw(_("<strong> Can I request information about myself?</strong>\n" +
+            "\t\t\t<a href=\"%s\">No! (Click here for details)</a>") % [help_requesting_path+"#data_protection"]) %>   
         </p>
     
         <div class="form_button">

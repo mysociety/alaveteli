@@ -76,7 +76,10 @@ if [ "$OPTION_STAGING_SITE" = "0" ]
 then
     bundle_install_options="--without development:test --deployment"
 fi
-
+if [ "$OPTION_STAGING_SITE" = "1" ]
+then
+    bundle_install_options="--path vendor/bundle"
+fi
 if [ "$TRAVIS" = "true" ]
 then
    bundle_install_options="--without development develop --deployment"

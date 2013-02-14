@@ -19,7 +19,6 @@ class HelpController < ApplicationController
 
     def contact
         @contact_email = Configuration::contact_email
-        @contact_email = @contact_email.gsub(/@/, "&#64;")
 
         # if they clicked remove for link to request/body, remove it
         if params[:remove]
@@ -50,7 +49,7 @@ class HelpController < ApplicationController
             end
             @contact = ContactValidator.new(params[:contact])
             if @contact.valid? && !params[:remove]
-                ContactMailer.deliver_message(
+                ContactMailer.deliver_to_admin_message(
                     params[:contact][:name],
                     params[:contact][:email],
                     params[:contact][:subject],
