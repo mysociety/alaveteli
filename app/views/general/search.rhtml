@@ -37,7 +37,7 @@
   <% else %>
     <% form_tag(request.url, {:method => "get", :id => "search_form"}) do %>
       <p>
-        <%= text_field_tag 'query', params[:query], { :size => 40 } %>
+        <%= text_field_tag 'query', params[:query], { :size => 40, :title => "type your search term here" } %>
         <%= hidden_field_tag 'sortby', @inputted_sortby %>
         <% if @bodies %>
           <%= hidden_field_tag 'bodies', 1 %>

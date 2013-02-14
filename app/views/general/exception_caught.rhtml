@@ -7,8 +7,8 @@
   <ul>
   <li><%= _("Check for mistakes if you typed or copied the address.")%></li>
   <li><%= _("Search the site to find what you were looking for.")%>
-      <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "search_form"}) do %>
-             <%= text_field_tag 'query', params[:query], { :size => 30 } %>
+      <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "search_form" }) do %>
+             <%= text_field_tag 'query', params[:query], { :size => 30, :title => "type your search term here" } %>
              <%= submit_tag _("Search") %>
       <% end %>
   </li>
