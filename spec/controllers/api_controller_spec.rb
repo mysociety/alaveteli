@@ -7,7 +7,7 @@ def normalise_whitespace(s)
     return s
 end
 
-Spec::Matchers.define :be_equal_modulo_whitespace_to do |expected|
+RSpec::Matchers.define :be_equal_modulo_whitespace_to do |expected|
   match do |actual|
     normalise_whitespace(actual) == normalise_whitespace(expected)
   end
