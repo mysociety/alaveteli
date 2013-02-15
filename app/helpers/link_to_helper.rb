@@ -22,16 +22,12 @@ module LinkToHelper
         link_to h(info_request.title), request_path(info_request), :class => cls
     end
 
-    def request_admin_url(info_request)
-        admin_request_show_url(info_request)
-    end
-
     def request_admin_link(info_request, name="admin", cls=nil)
-      link_to name, request_admin_url(info_request), :class => cls
+      link_to name, admin_request_show_url(info_request), :class => cls
     end
 
     def request_both_links(info_request)
-        link_to(h(info_request.title), request_url(info_request)) + " (" + link_to("admin", request_admin_url(info_request)) + ")"
+        link_to(h(info_request.title), request_url(info_request)) + " (" + link_to("admin", admin_request_show_url(info_request)) + ")"
     end
 
     def request_similar_url(info_request)
