@@ -72,9 +72,9 @@ class AdminUserController < AdminController
     def login_as
         @admin_user = User.find(params[:id]) # check user does exist
 
-        post_redirect = PostRedirect.new( :uri => main_url(user_path(@admin_user)), :user_id => @admin_user.id, :circumstance => "login_as" )
+        post_redirect = PostRedirect.new( :uri => user_url(@admin_user), :user_id => @admin_user.id, :circumstance => "login_as" )
         post_redirect.save!
-        url = main_url(confirm_url(:email_token => post_redirect.email_token, :only_path => true))
+        url = confirm_url(:email_token => post_redirect.email_token)
 
         redirect_to url
     end

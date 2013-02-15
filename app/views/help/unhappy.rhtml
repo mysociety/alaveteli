@@ -62,7 +62,7 @@ to the Scottish Information Commissioner</a>.
 Information Commissioner, either
 <% if !@info_request.nil? %>
     include a link to your request
-    <strong><%=h main_url(request_path(@info_request)) %></strong>
+    <strong><%=h request_url(@info_request) %></strong>
 <% else %>
     include a link to your request on <%= site_name %>
 <% end %>

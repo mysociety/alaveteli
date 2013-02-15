@@ -57,7 +57,6 @@ end
 
 describe TrackController, "when sending alerts for a track" do
     integrate_views
-    include LinkToHelper # for main_url
 
     before(:each) do
         load_raw_emails_data
@@ -105,7 +104,7 @@ describe TrackController, "when sending alerts for a track" do
 
         # Given we can't click the link, check the token is right instead
         post_redirect = PostRedirect.find_by_email_token(mail_token)
-        expected_url = main_url("/user/" + users(:silly_name_user).url_name + "#email_subscriptions") # XXX can't call URL making functions here, what is correct way to do this?
+        expected_url = show_user_url(:url_name => users(:silly_name_user).url_name, :anchor => "email_subscriptions")
         post_redirect.uri.should == expected_url
 
         # Check nothing more is delivered if we try again

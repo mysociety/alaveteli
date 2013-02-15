@@ -31,7 +31,7 @@ module LinkToHelper
     end
 
     def request_both_links(info_request)
-        link_to(h(info_request.title), main_url(request_path(info_request))) + " (" + link_to("admin", request_admin_url(info_request)) + ")"
+        link_to(h(info_request.title), request_url(info_request)) + " (" + link_to("admin", request_admin_url(info_request)) + ")"
     end
 
     def request_similar_url(info_request)
@@ -60,7 +60,7 @@ module LinkToHelper
     end
 
     def comment_url(comment, options = {})
-        return request_path(comment.info_request, options.merge(:anchor => "comment-#{comment.id}"))
+        request_url(comment.info_request, options.merge(:anchor => "comment-#{comment.id}"))
     end
 
     def comment_path(comment)
@@ -99,7 +99,7 @@ module LinkToHelper
     end
 
     def public_body_link_absolute(public_body) # e.g. for in RSS
-        link_to h(public_body.name), main_url(public_body_path(public_body))
+        link_to h(public_body.name), public_body_url(public_body)
     end
 
     def public_body_admin_url(public_body)
@@ -107,7 +107,7 @@ module LinkToHelper
     end
 
     def public_body_both_links(public_body)
-        link_to(h(public_body.name), main_url(public_body_path(public_body))) + " (" + link_to("admin", public_body_admin_url(public_body)) + ")"
+        link_to(h(public_body.name), public_body_url(public_body)) + " (" + link_to("admin", public_body_admin_url(public_body)) + ")"
     end
 
     # Users
@@ -146,7 +146,7 @@ module LinkToHelper
     end
 
     def user_link_absolute(user)
-        link_to h(user.name), main_url(user_path(user))
+        link_to h(user.name), user_url(user)
     end
 
     def user_link(user)
@@ -198,7 +198,7 @@ module LinkToHelper
     end
 
     def user_both_links(user)
-        link_to(h(user.name), main_url(user_path(user))) + " (" + link_to("admin", user_admin_url(user)) + ")"
+        link_to(h(user.name), user_url(user)) + " (" + link_to("admin", user_admin_url(user)) + ")"
     end
 
     # Tracks. feed can be 'track' or 'feed'
@@ -277,23 +277,6 @@ module LinkToHelper
         else
             return help_unhappy_url(:url_title => info_request.url_title)
         end
-    end
-
-
-    def main_url(relative_path, append = nil)
-        url_prefix = "http://" + Configuration::domain
-        url = url_prefix + relative_path
-        if !append.nil?
-            begin
-                env = Rack::MockRequest.env_for(url)
-                req = Rack::Request.new(env)
-                req.path_info += append
-                url = req.url
-            rescue URI::InvalidURIError
-                # don't append to it
-            end
-        end
-        return url
     end
 
     # Basic date format

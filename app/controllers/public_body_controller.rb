@@ -31,7 +31,7 @@ class PublicBodyController < ApplicationController
 
             set_last_body(@public_body)
 
-            top_url = main_url("/")
+            top_url = frontpage_url
             @searched_to_send_request = false
             referrer = request.env['HTTP_REFERER']
             if !referrer.nil? && referrer.match(%r{^#{top_url}search/.*/bodies$})
