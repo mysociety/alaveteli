@@ -1,5 +1,10 @@
 <div id="followup">
   <% if (incoming_message.nil? || !incoming_message.valid_to_reply_to?)
+        # TRANSLATORS: This phrase completes the following sentences:
+        # Request an internal review from...
+        # Send a public follow up message to...
+        # Send a public reply to...
+        # Don't want to address your message to... ?
         name_for_followup = _("the main FOI contact at {{public_body}}", :public_body => h(OutgoingMailer.name_for_followup(@info_request, nil)))
      else
         name_for_followup = h(OutgoingMailer.name_for_followup(@info_request, incoming_message))
@@ -8,16 +13,16 @@
         <h1><%= _('Request an internal review from {{person_or_body}}', :person_or_body => name_for_followup) %>
         </h1>
     <% elsif incoming_message.nil? || !incoming_message.valid_to_reply_to? %>
-        <h2><%= _('Send a public follow up message to {{person_or_body}}', :person_or_body => name_for_followup) %> 
+        <h2><%= _('Send a public follow up message to {{person_or_body}}', :person_or_body => name_for_followup) %>
         </h2>
     <% else %>
-        <h2><%= _('Send a public reply to {{person_or_body}}', :person_or_body => name_for_followup) %> 
+        <h2><%= _('Send a public reply to {{person_or_body}}', :person_or_body => name_for_followup) %>
         </h2>
     <% end %>
 <% if @info_request.who_can_followup_to(incoming_message).count > 0 %>
 <div id="other_recipients">
-	<%= _("Don't want to address your message to {{person_or_body}}?  You can also write to:", :person_or_body => name_for_followup) %>
-	<ul>
+  <%= _("Don't want to address your message to {{person_or_body}}?  You can also write to:", :person_or_body => name_for_followup) %>
+  <ul>
 <% @info_request.who_can_followup_to(incoming_message).each do |name, email, id|  %>
    <% if id.nil? && !incoming_message.nil? && incoming_message.valid_to_reply_to? %>
      <li><%= link_to(_("the main FOI contact address for {{public_body}}", :public_body => name), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil)) %></li>
@@ -51,7 +56,7 @@
         <% end %>
 
         <p>
-		<%= _('Please <strong>only</strong> write messages directly relating to your request {{request_link}}. If you would like to ask for information that was not in your original request, then <a href="{{new_request_link}}">file a new request</a>.', :request_link=>request_link(@info_request), :new_request_link => new_request_to_body_url(:url_name => @info_request.public_body.url_name)) %>
+    <%= _('Please <strong>only</strong> write messages directly relating to your request {{request_link}}. If you would like to ask for information that was not in your original request, then <a href="{{new_request_link}}">file a new request</a>.', :request_link=>request_link(@info_request), :new_request_link => new_request_to_body_url(:url_name => @info_request.public_body.url_name)) %>
         </p>
 
         <% status = @info_request.calculate_status %>
@@ -60,11 +65,11 @@
             by law, the authority should normally have responded
             <strong>promptly</strong> and') %>
             <% if @info_request.public_body.is_school? %>
-            <%= _('in term time') %> 
+            <%= _('in term time') %>
             <% end %>
             <%= _('by <strong>{{date}}</strong>',:date=>simple_date(@info_request.date_response_required_by)) %>
             (<%= raw(_('<a href="%s">details</a>') % ["#{help_requesting_path}#quickly_response"]) %>).
-			
+
             </p>
         <% elsif status == 'waiting_response_very_overdue' %>
             <p>
@@ -97,8 +102,8 @@
                     -->
                     <div>
                         <%= radio_button "outgoing_message", "what_doing", "internal_review", :id => "internal_review" %>
-                        <label for="internal_review"><%= _('I am requesting an <strong>internal review</strong>') %> 
-						<%= raw(_('<a href="%s">what\'s that?</a>') % ["/help/unhappy"]) %>
+                        <label for="internal_review"><%= _('I am requesting an <strong>internal review</strong>') %>
+            <%= raw(_('<a href="%s">what\'s that?</a>') % ["/help/unhappy"]) %>
                         </label>
                     </div>
                     <div>

@@ -28,12 +28,15 @@ class ChangeEmailValidator < ActiveRecord::BaseWithoutTable
     validates_presence_of :old_email, :message => N_("Please enter your old email address")
     validates_presence_of :new_email, :message => N_("Please enter your new email address")
     validates_presence_of :password, :message => N_("Please enter your password"), :unless => :changing_email
+    validate :password_and_format_of_email
 
     def changing_email()
       self.user_circumstance == 'change_email'
     end
 
-    def validate
+    private
+
+    def password_and_format_of_email
         if !self.old_email.blank? && !MySociety::Validate.is_valid_email(self.old_email)
             errors.add(:old_email, _("Old email doesn't look like a valid address"))
         end

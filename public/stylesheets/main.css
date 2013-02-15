@@ -1292,9 +1292,23 @@ font-size:1.1em !important;
 margin:0 !important;
 }
 
+/* Remove button padding in FF */
+button::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner {
+    border:0;
+    padding:0;
+}
+
 form input[type=submit],a.link_button_green,a.link_button_green_large {
-background:url(/images/button-gradient.png);
 color:#FFF;
+background-color: #8cc63f; /* fallback color if gradients are not supported */
+background-image: url(/images/button-gradient.png);
+background-image: -webkit-linear-gradient(top, #8cc63f, #6b9731); /* For Chrome and Safari */
+background-image:    -moz-linear-gradient(top, #8cc63f, #6b9731); /* For old Fx (3.6 to 15) */
+background-image:     -ms-linear-gradient(top, #8cc63f, #6b9731); /* For pre-releases of IE 10*/
+background-image:      -o-linear-gradient(top, #8cc63f, #6b9731); /* For old Opera (11.1 to 12.0) */
+background-image:         linear-gradient(to bottom, #8cc63f, #6b9731); /* Standard syntax; must be last */
 text-decoration:none;
 display:inline-block;
 line-height:18px;
@@ -1311,7 +1325,12 @@ padding:5px 6px;
  color:white;
 }
 a.link_button_green_large {
-background:url(/images/button-gradient-large.png);
+background-image: url(/images/button-gradient-large.png);
+background-image: -webkit-linear-gradient(top, #8cc63f, #6b9731); /* For Chrome and Safari */
+background-image:    -moz-linear-gradient(top, #8cc63f, #6b9731); /* For old Fx (3.6 to 15) */
+background-image:     -ms-linear-gradient(top, #8cc63f, #6b9731); /* For pre-releases of IE 10*/
+background-image:      -o-linear-gradient(top, #8cc63f, #6b9731); /* For old Opera (11.1 to 12.0) */
+background-image:         linear-gradient(to bottom, #8cc63f, #6b9731); /* Standard syntax; must be last */
 font-size:2em;
 line-height:22px;
 padding-bottom:7px;

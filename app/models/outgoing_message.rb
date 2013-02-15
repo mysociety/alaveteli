@@ -30,6 +30,7 @@ class OutgoingMessage < ActiveRecord::Base
 
     validates_inclusion_of :status, :in => ['ready', 'sent', 'failed']
     validates_inclusion_of :message_type, :in => ['initial_request', 'followup' ] #, 'complaint']
+    validate :format_of_body
 
     belongs_to :incoming_message_followup, :foreign_key => 'incoming_message_followup_id', :class_name => 'IncomingMessage'
 
@@ -129,32 +130,6 @@ class OutgoingMessage < ActiveRecord::Base
     end
     def contains_postcode?
         MySociety::Validate.contains_postcode?(self.body)
-    end
-
-    # Check have edited letter
-    def validate
-        if self.body.empty? || self.body =~ /\A#{get_salutation}\s+#{get_signoff}/ || self.body =~ /#{get_internal_review_insert_here_note}/
-            if self.message_type == 'followup'
-                if self.what_doing == 'internal_review'
-                    errors.add(:body, _("Please give details explaining why you want a review"))
-                else
-                    errors.add(:body, _("Please enter your follow up message"))
-                end
-            elsif
-                errors.add(:body, _("Please enter your letter requesting information"))
-            else
-                raise "Message id #{self.id} has type '#{self.message_type}' which validate can't handle"
-            end
-        end
-        if self.body =~ /#{get_signoff}\s*\Z/m
-            errors.add(:body, _("Please sign at the bottom with your name, or alter the \"%{signoff}\" signature" % { :signoff => get_signoff }))
-        end
-        if !MySociety::Validate.uses_mixed_capitals(self.body)
-            errors.add(:body, _('Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read.'))
-        end
-        if self.what_doing.nil? || !['new_information', 'internal_review', 'normal_sort'].include?(self.what_doing)
-            errors.add(:what_doing_dummy, _('Please choose what sort of reply you are making.'))
-        end
     end
 
     # Deliver outgoing message
@@ -276,6 +251,31 @@ class OutgoingMessage < ActiveRecord::Base
     def set_default_letter
         if self.body.nil?
             self.body = get_default_message
+        end
+    end
+
+    def format_of_body
+        if self.body.empty? || self.body =~ /\A#{get_salutation}\s+#{get_signoff}/ || self.body =~ /#{get_internal_review_insert_here_note}/
+            if self.message_type == 'followup'
+                if self.what_doing == 'internal_review'
+                    errors.add(:body, _("Please give details explaining why you want a review"))
+                else
+                    errors.add(:body, _("Please enter your follow up message"))
+                end
+            elsif
+                errors.add(:body, _("Please enter your letter requesting information"))
+            else
+                raise "Message id #{self.id} has type '#{self.message_type}' which validate can't handle"
+            end
+        end
+        if self.body =~ /#{get_signoff}\s*\Z/m
+            errors.add(:body, _("Please sign at the bottom with your name, or alter the \"%{signoff}\" signature" % { :signoff => get_signoff }))
+        end
+        if !MySociety::Validate.uses_mixed_capitals(self.body)
+            errors.add(:body, _('Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read.'))
+        end
+        if self.what_doing.nil? || !['new_information', 'internal_review', 'normal_sort'].include?(self.what_doing)
+            errors.add(:what_doing_dummy, _('Please choose what sort of reply you are making.'))
         end
     end
 end

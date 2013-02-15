@@ -120,7 +120,7 @@ GEM
       railties (~> 3.0)
     pg (0.14.1)
     polyglot (0.3.3)
-    rack (1.2.7)
+    rack (1.2.8)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
     rack-test (0.5.7)
@@ -222,13 +222,13 @@ DEPENDENCIES
   compass
   dynamic_form
   fakeweb
-  fast_gettext
+  fast_gettext (>= 0.6.0)
   fastercsv (>= 1.5.5)
-  gettext
-  gettext_i18n_rails
+  gettext (~> 2.3.3)
+  gettext_i18n_rails (>= 0.7.1)
   globalize3!
   json (~> 1.5.1)
-  locale
+  locale (>= 2.0.5)
   mahoro
   mail
   mailcatcher
@@ -243,7 +243,7 @@ DEPENDENCIES
   rdoc
   recaptcha (~> 0.3.1)
   rmagick
-  routing-filter
+  routing-filter (~> 0.2.4)
   rspec-rails
   ruby-debug
   ruby-debug19

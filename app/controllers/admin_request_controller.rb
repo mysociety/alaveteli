@@ -308,7 +308,7 @@ class AdminRequestController < AdminController
         post_redirect.save!
         url = main_url(confirm_url(:email_token => post_redirect.email_token, :only_path => true))
 
-        flash[:notice] = 'Send "' + name + '" &lt;<a href="mailto:' + email + '">' + email + '</a>&gt; this URL: <a href="' + url + '">' + url + "</a> - it will log them in and let them upload a response to this request."
+        flash[:notice] = 'Send "' + name + '" &lt;<a href="mailto:' + email + '">' + email + '</a>&gt; this URL: <a href="' + url + '">' + url + "</a> - it will log them in and let them upload a response to this request.".html_safe
         redirect_to request_admin_url(info_request)
     end
 

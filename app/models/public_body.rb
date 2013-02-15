@@ -35,7 +35,7 @@ class PublicBody < ActiveRecord::Base
     validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :if => Proc.new { |pb| pb.short_name != "" }
     validates_uniqueness_of :name, :message => N_("Name is already taken")
 
-    validate :validate_request_email_if_requestable
+    validate :request_email_if_requestable
 
     has_many :info_requests, :order => 'created_at desc'
     has_many :track_things, :order => 'created_at desc'
@@ -634,7 +634,7 @@ class PublicBody < ActiveRecord::Base
 
     private
 
-    def validate_request_email_if_requestable
+    def request_email_if_requestable
         # Request_email can be blank, meaning we don't have details
         if self.is_requestable?
             unless MySociety::Validate.is_valid_email(self.request_email)

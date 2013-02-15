@@ -27,7 +27,7 @@ describe "request/list" do
         )
     end
 
-    it "should be successful", :focus => true do
+    it "should be successful" do
         assign :list_results, [ make_mock_event, make_mock_event ]
         assign :matches_estimated, 2
         assign :show_no_more_than, 100

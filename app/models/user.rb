@@ -341,12 +341,13 @@ class User < ActiveRecord::Base
     end
 
     # Return about me text for display as HTML
+    # TODO: Move this to a view helper
     def get_about_me_for_html_display
         text = self.about_me.strip
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
         text = text.gsub(/\n/, '<br>')
-        return text
+        return text.html_safe
     end
 
     def json_for_api
