@@ -31,11 +31,11 @@ module LinkToHelper
     end
 
     def request_similar_url(info_request)
-        return similar_request_url(:url_title => info_request.url_title, :only_path => true)
+        similar_request_path(:url_title => info_request.url_title)
     end
 
     def request_details_path(info_request)
-        return details_request_url(:url_title => info_request.url_title, :only_path => true)
+        details_request_path(:url_title => info_request.url_title)
     end
 
     # Incoming / outgoing messages
