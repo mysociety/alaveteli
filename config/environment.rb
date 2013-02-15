@@ -117,17 +117,6 @@ end
 # Domain for URLs (so can work for scripts, not just web pages)
 ActionMailer::Base.default_url_options[:host] = Configuration::domain
 
-# So that javascript assets use full URL, so proxied admin URLs read javascript OK
-if (Configuration::domain != "")
-    ActionController::Base.asset_host = Proc.new { |source, request|
-        if ENV["RAILS_ENV"] != "test" && request.fullpath.match(/^\/admin\//)
-            Configuration::admin_public_url
-        else
-            Configuration::domain
-        end
-    }
-end
-
 # fallback locale and available locales
 available_locales = Configuration::available_locales.split(/ /)
 default_locale = Configuration::default_locale
