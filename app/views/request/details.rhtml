@@ -36,10 +36,10 @@ way authorities use it. Plus you\'ll need to be an elite statistician.  Please
   <% end %>
   <td>
   <% if info_request_event.outgoing_message %>
-    <%= link_to "outgoing", outgoing_message_url(info_request_event.outgoing_message) %>
+    <%= link_to "outgoing", outgoing_message_path(info_request_event.outgoing_message) %>
   <% end %>
   <% if info_request_event.incoming_message %>
-    <%= link_to "incoming", incoming_message_url(info_request_event.incoming_message) %>
+    <%= link_to "incoming", incoming_message_path(info_request_event.incoming_message) %>
   <% end %>
   </td>
   </tr>

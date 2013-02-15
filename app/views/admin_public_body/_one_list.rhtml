@@ -17,7 +17,7 @@
 <% end %>
 </table>
 
-<% form_tag(admin_url("body/mass_tag_add"), :method => "post", :class => "forms_on_one_line" ) do %>
+<% form_tag(admin_body_mass_tag_add_url, :method => "post", :class => "forms_on_one_line" ) do %>
     <p>
        <%= text_field_tag 'new_tag', params[:new_tag], { :size => 15, :id => "mass_add_tag_new_tag_" + table_name } %>
        <%= hidden_field_tag(:query, params[:query], { :id => "mass_add_tag_query_" + table_name } ) %>

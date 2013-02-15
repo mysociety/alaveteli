@@ -98,7 +98,7 @@ describe 'when viewing an information request' do
             
                 it 'should show a link to follow up the last response with clarification' do 
                     request_page
-                    expected_url = "http://test.host/request/#{@mock_request.id}/response/#{@mock_response.id}#followup"
+                    expected_url = "/request/#{@mock_request.id}/response/#{@mock_response.id}#followup"
                     response.should have_tag("a[href=#{expected_url}]", :text => 'send a follow up message')
                 end
             
@@ -118,7 +118,7 @@ describe 'when viewing an information request' do
             
                 it 'should show a link to follow up the request without reference to a specific response' do 
                     request_page
-                    expected_url = "http://test.host/request/#{@mock_request.id}/response#followup"
+                    expected_url = "/request/#{@mock_request.id}/response#followup"
                     response.should have_tag("a[href=#{expected_url}]", :text => 'send a follow up message')
                 end
             end

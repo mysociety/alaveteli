@@ -8,7 +8,7 @@ atom_feed("xmlns:alaveteli" => "http://www.alaveteli.org/API/v2/RequestEvents/At
             
             entry.updated(event.created_at.utc.iso8601)
             entry.tag!("alaveteli:event_type", event.event_type)
-            entry.tag!("alaveteli:request_url", main_url(request_url(request)))
+            entry.tag!("alaveteli:request_url", request_url(request))
             entry.title(request.title)
             
             entry.content(event.outgoing_message.body, :type => 'text')
@@ -16,7 +16,7 @@ atom_feed("xmlns:alaveteli" => "http://www.alaveteli.org/API/v2/RequestEvents/At
             entry.author do |author|
                 author.name(request.user_name)
                 if !request.user.nil?
-                    author.uri(main_url(user_url(request.user)))
+                    author.uri(user_url(request.user))
                 end
                 author.email(request.incoming_email)
             end

@@ -38,7 +38,7 @@ class ServicesController < ApplicationController
                :locals => {:name_to => info_request.user_name,
                           :name_from => Configuration::contact_name,
                           :info_request => info_request, :reason => params[:reason],
-                          :info_request_url => 'http://' + Configuration::domain + request_url(info_request),
+                          :info_request_url => 'http://' + Configuration::domain + request_path(info_request),
                           :site_name => site_name}
     end
 

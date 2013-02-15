@@ -97,8 +97,8 @@
     <% end %>
     </ul>
     
-    <p>(<%= link_to "Full list", admin_url("unclassified") %>, or play public
-    <%= link_to "Categorisation game", main_url(play_url(:only_path => true)) %>)
+    <p>(<%= link_to "Full list", admin_request_list_old_unclassified_path %>, or play public
+    <%= link_to "Categorisation game", categorise_play_path %>)
     </p>
 <% end %>
 

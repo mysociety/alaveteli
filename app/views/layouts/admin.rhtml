@@ -12,16 +12,16 @@
     <body class="admin">
 
     <p>
-    <strong><%= link_to 'Alaveteli', main_url('/') %> admin:</strong> 
-    <%= link_to 'Summary', admin_url("") %>
-    | <%= link_to 'Timeline', admin_url("timeline") %>
-    | <%= link_to 'Stats', admin_url("stats") %>
-    | <%= link_to 'Debug', admin_url("debug") %>
+    <strong><%= link_to 'Alaveteli', frontpage_path %> admin:</strong> 
+    <%= link_to 'Summary', admin_general_index_path %>
+    | <%= link_to 'Timeline', admin_timeline_path %>
+    | <%= link_to 'Stats', admin_stats_path %>
+    | <%= link_to 'Debug', admin_debug_path %>
     <strong>View:</strong>
-    <%= link_to 'Authorities', admin_url("body/list") %>
-    | <%= link_to 'Requests', admin_url("request/list") %>
-    | <%= link_to 'Users', admin_url("user/list") %>
-    | <%= link_to 'Tracks', admin_url("track/list") %>
+    <%= link_to 'Authorities', admin_body_list_path %>
+    | <%= link_to 'Requests', admin_request_list_path %>
+    | <%= link_to 'Users', admin_user_list_path %>
+    | <%= link_to 'Tracks', admin_track_list_path %>
     </p>
     <%= render :partial => 'general/locale_switcher' %>
 

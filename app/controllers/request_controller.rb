@@ -166,7 +166,7 @@ class RequestController < ApplicationController
         @view = params[:view]
         @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
         if @view == "recent"
-            return redirect_to request_list_all_path(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
+            return redirect_to request_list_all_url(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
         end
 
         # Later pages are very expensive to load
@@ -369,7 +369,7 @@ class RequestController < ApplicationController
             <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an
             annotation below telling people about your writing.</p>",:law_used_full=>@info_request.law_used_full,
             :late_number_of_days => Configuration::reply_late_after_days)
-        redirect_to show_new_request_path(:url_title => @info_request.url_title)
+        redirect_to show_new_request_url(:url_title => @info_request.url_title)
     end
 
     # Submitted to the describing state of messages form
@@ -438,8 +438,8 @@ class RequestController < ApplicationController
             # Don't give advice on what to do next, as it isn't their request
             RequestMailer.deliver_old_unclassified_updated(@info_request) if !@info_request.is_external?
             if session[:request_game]
-                flash[:notice] = _('Thank you for updating the status of the request \'<a href="{{url}}">{{info_request_title}}</a>\'. There are some more requests below for you to classify.',:info_request_title=>CGI.escapeHTML(@info_request.title), :url=>CGI.escapeHTML(request_url(@info_request)))
-                redirect_to play_url
+                flash[:notice] = _('Thank you for updating the status of the request \'<a href="{{url}}">{{info_request_title}}</a>\'. There are some more requests below for you to classify.',:info_request_title=>CGI.escapeHTML(@info_request.title), :url=>CGI.escapeHTML(request_path(@info_request)))
+                redirect_to categorise_play_url
             else
                 flash[:notice] = _('Thank you for updating this request!')
                 redirect_to request_url(@info_request)
@@ -894,7 +894,7 @@ class RequestController < ApplicationController
                         convert_command = Configuration::html_to_pdf_command
                         done = false
                         if !convert_command.blank? && File.exists?(convert_command)
-                            url = "http://#{Configuration::domain}#{request_url(@info_request)}?print_stylesheet=1"
+                            url = "http://#{Configuration::domain}#{request_path(@info_request)}?print_stylesheet=1"
                             tempfile = Tempfile.new('foihtml2pdf')
                             output = AlaveteliExternalCommand.run(convert_command, url, tempfile.path)
                             if !output.nil?

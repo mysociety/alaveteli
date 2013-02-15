@@ -21,9 +21,9 @@ if not incoming_message.nil?
 
         <p class="event_actions">
             <% if !@user.nil? && @user.admin_page_links? %>
-                <%= link_to "Admin", admin_url("request/show_raw_email/" + incoming_message.raw_email_id.to_s) %> |
+                <%= link_to "Admin", admin_request_show_raw_email_path(incoming_message.raw_email_id) %> |
             <% end %>
-            <%= link_to _("Link to this"), incoming_message_url(incoming_message), :class => "link_to_this" %>
+            <%= link_to _("Link to this"), incoming_message_path(incoming_message), :class => "link_to_this" %>
         </p>
     </div>
 <%
@@ -51,7 +51,7 @@ elsif [ 'sent', 'followup_sent' ].include?(info_request_event.event_type)
             <% end %>
             -->
 
-            <%= link_to _("Link to this"), outgoing_message_url(outgoing_message), :class => "link_to_this" %>
+            <%= link_to _("Link to this"), outgoing_message_path(outgoing_message), :class => "link_to_this" %>
         </p>
     </div>
 <% elsif [ 'resent', 'followup_resent' ].include?(info_request_event.event_type) %>
