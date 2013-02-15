@@ -150,8 +150,8 @@ class ApplicationMailer < ActionMailer::Base
           # already set.
           @mime_version ||= "1.0" if !@parts.empty?
 
-          # *** Convert the subject (which might be a SafeBuffer) into a string
-          @subject = @subject.to_str
+          # *** Convert into a string
+          @subject = @subject.to_str if @subject
 
           # build the mail object itself
           @mail = create_mail
