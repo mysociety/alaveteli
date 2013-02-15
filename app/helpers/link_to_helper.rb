@@ -98,12 +98,8 @@ module LinkToHelper
         link_to h(public_body.name), public_body_url(public_body)
     end
 
-    def public_body_admin_url(public_body)
-        admin_body_show_url(public_body)
-    end
-
     def public_body_both_links(public_body)
-        link_to(h(public_body.name), public_body_url(public_body)) + " (" + link_to("admin", public_body_admin_url(public_body)) + ")"
+        link_to(h(public_body.name), public_body_url(public_body)) + " (" + link_to("admin", admin_body_show_url(public_body)) + ")"
     end
 
     # Users
