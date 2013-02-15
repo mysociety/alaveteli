@@ -19,7 +19,7 @@
         <% if !comment.id.nil? %>
             <%= link_to "Link to this", comment_path(comment), :class => "link_to_this" %>
             <% if !@user.nil? && @user.admin_page_links? %>
-                | <%= link_to "Admin", admin_request_edit_comment_url(comment) %>
+                | <%= link_to "Admin", admin_request_edit_comment_path(comment) %>
             <% end %>
             <!-- | <%= link_to _('Report abuse'), comment_path(comment) %> -->
         <% end %>

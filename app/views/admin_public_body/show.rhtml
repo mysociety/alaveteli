@@ -35,7 +35,7 @@
     <%=
         # url_name can be missing if the name hasn't been set for this locale
         if !@public_body.url_name.nil?
-            link_to 'Public page', public_body_url(@public_body)
+            link_to 'Public page', public_body_path(@public_body)
         else
             'Public page not available'
         end

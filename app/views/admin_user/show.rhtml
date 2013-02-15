@@ -34,7 +34,7 @@
 </div>
 
 <p>
-    <%= link_to 'Public page', user_url(@admin_user) %>
+    <%= link_to 'Public page', user_path(@admin_user) %>
     | <%= link_to 'Edit', '../edit/' + @admin_user.id.to_s %>
     | <%= link_to 'Log in as this user', '../login_as/' + @admin_user.id.to_s %> (also confirms their email)
 </p>
@@ -57,7 +57,7 @@
   <td><%=h post_redirect.id %></td>
   <% for column in PostRedirect.content_columns.map { |c| c.name } %>
     <% if column == 'email_token' %>
-     <td><%=link_to post_redirect.send(column), confirm_url(:email_token => post_redirect.send(column)) %></td>
+     <td><%=link_to post_redirect.send(column), confirm_path(:email_token => post_redirect.send(column)) %></td>
     <% else %>
     <td><%=h post_redirect.send(column) %></td>
     <% end %>
