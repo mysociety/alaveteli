@@ -166,7 +166,7 @@ class RequestController < ApplicationController
         @view = params[:view]
         @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
         if @view == "recent"
-            return redirect_to request_list_all_path(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
+            return redirect_to request_list_all_url(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
         end
 
         # Later pages are very expensive to load
@@ -370,7 +370,7 @@ class RequestController < ApplicationController
             <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an
             annotation below telling people about your writing.</p>",:law_used_full=>@info_request.law_used_full,
             :late_number_of_days => Configuration::reply_late_after_days)
-        redirect_to show_new_request_path(:url_title => @info_request.url_title)
+        redirect_to show_new_request_url(:url_title => @info_request.url_title)
     end
 
     # Submitted to the describing state of messages form
