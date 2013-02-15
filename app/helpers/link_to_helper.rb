@@ -23,7 +23,7 @@ module LinkToHelper
     end
 
     def request_admin_url(info_request)
-        return admin_url('request/show/' + info_request.id.to_s)
+        admin_request_show_url(info_request)
     end
 
     def request_admin_link(info_request, name="admin", cls=nil)
@@ -103,7 +103,7 @@ module LinkToHelper
     end
 
     def public_body_admin_url(public_body)
-        return admin_url('body/show/' + public_body.id.to_s)
+        admin_body_show_url(public_body)
     end
 
     def public_body_both_links(public_body)
@@ -190,7 +190,7 @@ module LinkToHelper
     end
 
     def user_admin_url(user)
-        return admin_url('user/show/' + user.id.to_s)
+        admin_user_show_url(user)
     end
 
     def user_admin_link(user, name="admin", cls=nil)
@@ -258,12 +258,6 @@ module LinkToHelper
 
     def search_link(query, variety_postfix = nil, sort_postfix = nil, advanced = nil)
         link_to h(query), search_url(query)
-    end
-
-    # Admin pages
-    def admin_url(relative_path)
-        admin_url_prefix = Configuration::admin_base_url
-        (admin_url_prefix.empty? ? admin_general_index_url + '/' : admin_url_prefix) + relative_path
     end
 
     # About page URLs

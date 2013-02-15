@@ -114,7 +114,7 @@ class AdminRequestController < AdminController
         # expire cached files
         expire_for_request(@info_request)
         flash[:notice] = "Request #{url_title} has been completely destroyed. Email of user who made request: " + user.email
-        redirect_to admin_url('request/list')
+        redirect_to admin_request_list_url
     end
 
     def edit_outgoing
