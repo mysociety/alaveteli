@@ -30,10 +30,6 @@ module LinkToHelper
         link_to(h(info_request.title), request_url(info_request)) + " (" + link_to("admin", admin_request_show_url(info_request)) + ")"
     end
 
-    def request_similar_url(info_request)
-        similar_request_path(:url_title => info_request.url_title)
-    end
-
     def request_details_path(info_request)
         details_request_path(:url_title => info_request.url_title)
     end
