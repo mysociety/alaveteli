@@ -36,7 +36,7 @@ module LinkToHelper
 
     # Incoming / outgoing messages
     def incoming_message_url(incoming_message, options = {})
-        return request_path(incoming_message.info_request, options.merge(:anchor => "incoming-#{incoming_message.id}"))
+        return request_url(incoming_message.info_request, options.merge(:anchor => "incoming-#{incoming_message.id}"))
     end
 
     def incoming_message_path(incoming_message)

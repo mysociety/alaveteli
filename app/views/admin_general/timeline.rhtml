@@ -72,7 +72,7 @@
          <% elsif event.event_type == 'response' %>
             <% incoming_message = event.incoming_message %>
             received
-            <%= link_to 'a response', incoming_message_url(incoming_message) %>
+            <%= link_to 'a response', incoming_message_path(incoming_message) %>
             from <%=h event.info_request.public_body.name %>.
         <% elsif event.event_type == 'sent' %>
             was initially sent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
