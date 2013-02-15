@@ -77,6 +77,17 @@ class ApplicationMailer < ActionMailer::Base
         # and via template_path, which is created from it) in the create! method when
         # looking for templates. Our modified version looks for templates in the view_paths
         # in order.
+
+        # It also has a line converting the mail subject to a string. This is because we
+        # use translated strings in the subject lines, sometimes in conjunction with
+        # user input, like request titles. The _() function used for translation
+        # returns an instance of SafeBuffer, which doesn't handle gsub calls in the block form
+        # with $ variables - https://github.com/rails/rails/issues/1555.
+        # Unfortunately ActionMailer uses that form in quoted_printable(), which will be
+        # called if any part of the subject requires quoting. So we convert the subject
+        # back to a string via to_str() before passing in to create_mail. There is a test
+        # for this in spec/models/request_mailer_spec.rb
+
         # Changed lines marked with ***
 
         # Initialize the mailer via the given +method_name+. The body will be
@@ -138,6 +149,9 @@ class ApplicationMailer < ActionMailer::Base
           # If this is a multipart e-mail add the mime_version if it is not
           # already set.
           @mime_version ||= "1.0" if !@parts.empty?
+
+          # *** Convert into a string
+          @subject = @subject.to_str if @subject
 
           # build the mail object itself
           @mail = create_mail

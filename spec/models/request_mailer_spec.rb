@@ -327,6 +327,27 @@ describe RequestMailer, 'when sending mail when someone has updated an old uncla
 
 end
 
+
+describe RequestMailer, 'when sending a new response email' do
+
+  before do
+      @user = mock_model(User, :name_and_email => 'test name and email')
+      @public_body = mock_model(PublicBody, :name => 'Test public body')
+      @info_request = mock_model(InfoRequest, :user => @user,
+                                              :law_used_full => 'Freedom of Information',
+                                              :title => 'Here is a character that needs quoting …',
+                                              :public_body => @public_body,
+                                              :display_status => 'Refused.',
+                                              :url_title => 'test_request')
+      @incoming_message = mock_model(IncomingMessage, :info_request => @info_request)
+  end
+
+  it 'should not error when sending mails requests with characters requiring quoting in the subject' do
+    @mail = RequestMailer.create_new_response(@info_request, @incoming_message)
+  end
+
+end
+
 describe RequestMailer, 'requires_admin' do
     before(:each) do
         user = mock_model(User, :name_and_email => 'Bruce Jones',
