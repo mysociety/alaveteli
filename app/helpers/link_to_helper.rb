@@ -240,7 +240,7 @@ module LinkToHelper
         search_url(query, options.merge(:only_path => true))
     end
 
-    def search_link(query, variety_postfix = nil, sort_postfix = nil, advanced = nil)
+    def search_link(query)
         link_to h(query), search_url(query)
     end
 
