@@ -20,6 +20,7 @@ module Configuration
     :EXCEPTION_NOTIFICATIONS_FROM => '',
     :EXCEPTION_NOTIFICATIONS_TO => '',
     :FORCE_REGISTRATION_ON_NEW_REQUEST => false,
+    :FORCE_SSL => true,
     :FORWARD_NONBOUNCE_RESPONSES_TO => 'user-support@localhost',
     :FRONTPAGE_PUBLICBODY_EXAMPLES => '',
     :GA_CODE => '',

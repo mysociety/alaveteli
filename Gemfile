@@ -43,6 +43,8 @@ gem 'syslog_protocol'
 gem 'newrelic_rpm'
 # erubis is required by rails_xss. Both erubis and rails_xss can be removed after upgrading to Rails 3.
 gem 'erubis'
+# rack-ssl won't be needed on upgrade to Rails 3.1 as something like it is baked in
+gem 'rack-ssl'
 
 group :test do
   gem 'fakeweb'

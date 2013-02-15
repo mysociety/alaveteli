@@ -27,3 +27,5 @@ config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
 # unintentionally kept references to objects, especially strings.
 # require 'memory_profiler'
 # MemoryProfiler.start :string_debug => true, :delay => 10
+
+config.middleware.insert_after ActionController::Failsafe, "Rack::SSL" if ::Configuration::force_ssl
