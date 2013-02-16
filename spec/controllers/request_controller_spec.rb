@@ -121,7 +121,6 @@ end
 
 describe RequestController, "when changing things that appear on the request page" do
 
-    integrate_views
     before do
       PurgeRequest.destroy_all
     end
