@@ -4,7 +4,11 @@ require "external_command"
 def mailin_test(email_filename)
     Dir.chdir Rails.root do
         xc = ExternalCommand.new("script/mailin")
-        xc.run(load_file_fixture(email_filename))
+        mail = load_file_fixture(email_filename)
+        ir = info_requests(:boring_request)
+        mail.gsub!('EMAIL_TO', ir.incoming_email)
+        mail.gsub!('EMAIL_FROM', 'geraldinequango@localhost')
+        xc.run(mail)
         xc.err.should == ""
         return xc
     end
