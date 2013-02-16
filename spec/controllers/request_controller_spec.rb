@@ -122,6 +122,9 @@ end
 describe RequestController, "when changing things that appear on the request page" do
 
     integrate_views
+    before do
+      PurgeRequest.destroy_all
+    end
 
     it "should purge the downstream cache when mail is received" do
         ir = info_requests(:fancy_dog_request)
