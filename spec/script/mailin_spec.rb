@@ -17,7 +17,7 @@ end
 describe "When importing mail into the application" do
 
     it "should not produce any output and should return a 0 code on importing a plain email" do
-        r = mailin_test("incoming-request-plain.email")
+        r = mailin_test("incoming-request-empty.email")
         r.status.should == 0
         r.out.should == ""
     end
