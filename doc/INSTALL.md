@@ -391,7 +391,7 @@ would look something like this:
     ProxyPreserveHost On
     ProxyPass           /       http://localhost:80/
     ProxyPassReverse    /       http://localhost:80/
-    RequestHeader set X_FORWARDED_PROTO 'https'
+    RequestHeader set X-Forwarded-Proto 'https'
 
     SSLEngine on
     SSLProtocol all -SSLv2
