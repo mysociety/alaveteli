@@ -1,26 +1,45 @@
-<% form_tag '../redeliver_incoming' do %>
-  <div>
-      id or url_title of request (or a list of requests, comma-separated):
+<formset class="form-horizontal">
+ <legend>Actions</legend>
+ <% form_tag '../redeliver_incoming', :class => "form form-inline" do %>
+ <div class="control-group">
+  <label class="control-label" for="url_title">Redeliver message to one or more other requests</label>
+  <div class="controls">
       <% if @info_requests && @info_requests.size == 1 %>
         <%= text_field_tag 'url_title', @info_requests[0].url_title, { :size => 20 } %>
       <% else %>
         <%= text_field_tag 'url_title', "", { :size => 20 } %>
       <% end %>
       <%= hidden_field_tag 'redeliver_incoming_message_id', incoming_message.id %>
-      <%= submit_tag "Redeliver to another request" %>
+      <%= submit_tag "Redeliver to another request", :class => "btn" %>
+      <p class="help-block"><code>id</code> or <code>url_title</code>; you can supply more than one, separated by commas</p>
   </div>
-<% end %>
-
-<p>
-<%= link_to 'FOI officer upload URL', '../generate_upload_url/' + incoming_message.info_request.id.to_s + "?incoming_message_id=" + incoming_message.id.to_s %>
-</p>
-
-<% form_tag '../destroy_incoming' do %>
-  <div>
-      <%= hidden_field_tag 'incoming_message_id', incoming_message.id %>
-      Warning, this is permanent! ---&gt; 
-      <%= submit_tag "Destroy message" %>
+ </div>
+ <% end %>
+ <div class="control-group">
+  <label class="control-label" for="generate_upload_url">Generate FOI officer upload URL</label>
+  <div class="controls">
+   <%= link_to 'Generate and take me there', "../generate_upload_url/#{incoming_message.info_request.id}?incoming_message_id=#{incoming_message.id}", :class => "btn", :id => "generate_upload_url" %>
   </div>
-<% end %>
+ </div>
 
+ <% form_tag '../destroy_incoming', :class => "form form-inline" do %>
+  <div class="control-group">
+   <label class="control-label" for="generate_upload_url">Destroy message</label>
+   <div class="controls">
+    <%= hidden_field_tag 'incoming_message_id', incoming_message.id %>
+    <%= submit_tag "Destroy message", :class => "btn btn-danger", :confirm => "This is permanent! Are you sure?" %>
+   </div>
+  </div>
+ <% end %>
 
+ <% if @raw_email.nil? %>
+  <%# we're not on the raw_email page itself %>
+  <div class="control-group">
+   <label class="control-label" for="show_rail_email">Inspect email</label>
+   <div class="controls">
+     <%= link_to "View raw email", "../show_raw_email/#{incoming_message.raw_email_id}", :class => "btn", :id => "show_raw_email" %>
+   </div>
+  </div>
+ <% end %>
+
+</formset>

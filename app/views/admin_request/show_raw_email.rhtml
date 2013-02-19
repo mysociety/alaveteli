@@ -23,8 +23,6 @@
     <% end %>
 </p>
 
-<h2>Actions</h2>
-
 <div>
     <%= render :partial => 'incoming_message_actions', :locals => { :incoming_message => @raw_email.incoming_message } %>
 </div>
@@ -33,5 +31,5 @@
 
 <p><%= link_to "Download", "../download_raw_email/" + @raw_email.id.to_s %></p>
 
-<pre><%= h(@raw_email.data).gsub(/\n/, '<br>').html_safe %></pre>
+<pre><%=h(@raw_email.data).gsub(/\n/, '<br>').html_safe %></pre>
 

@@ -230,6 +230,10 @@ class GeneralController < ApplicationController
         render(:layout => false, :content_type => 'text/css')
     end
 
-
+    # For merged adminbootstraptheme
+    # TODO: Remove this ugly hack
+    def admin_js
+      render :layout => false, :content_type => "application/javascript"
+    end
 end
 
