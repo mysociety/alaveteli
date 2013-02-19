@@ -53,7 +53,6 @@ FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'
 # script). Earlier in the list means the templates have a higher
 # priority.
 THEME_URLS:
- - 'git://github.com/mysociety/adminbootstraptheme.git'
  - 'git://github.com/mysociety/alavetelitheme.git'
 
 # When rails-post-deploy installs the themes it will try this branch first
