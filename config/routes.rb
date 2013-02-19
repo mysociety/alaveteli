@@ -32,9 +32,6 @@ ActionController::Routing::Routes.draw do |map|
         general.advanced_search '/advancedsearch', :action => 'search_redirect', :advanced => true
 
         general.random_request '/random', :action => 'random_request'
-
-        # Add a route for admin.js to the general controller
-        general.admin_js '/admin/javascripts/admin.js', :action => 'admin_js'
     end
 
     map.with_options :controller => 'request' do |request|
@@ -188,6 +185,7 @@ ActionController::Routing::Routes.draw do |map|
         admin.admin_timeline '/admin/timeline', :action => 'timeline'
         admin.admin_debug '/admin/debug', :action => 'debug'
         admin.admin_stats '/admin/stats', :action => 'stats'
+        admin.admin_js '/admin/javascripts/admin.js', :action => 'admin_js'
     end
 
     map.with_options :controller => 'admin_request' do |admin|
