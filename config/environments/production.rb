@@ -19,4 +19,8 @@ config.action_controller.perform_caching             = true
 config.action_mailer.delivery_method = :sendmail # so is queued, rather than giving immediate errors
 
 require 'rack/ssl'
-config.middleware.insert_after ActionController::Failsafe, ::Rack::SSL if ::Configuration::force_ssl
+if ::Configuration::force_ssl
+  config.middleware.insert_after ActionController::Failsafe, ::Rack::SSL
+  # For Rails 3.x this will need to change to
+  #config.middleware.insert_before ActionDispatch::Cookies, ::Rack::SSL
+end
