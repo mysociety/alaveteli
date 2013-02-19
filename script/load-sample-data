@@ -7,7 +7,13 @@
 export LOC=`dirname "$0"`
 
 bundle exec rails runner /dev/stdin <<END
-require "spec/spec_helper.rb"
+require 'rspec/rails'
+require 'spec/support/load_file_fixtures.rb'
+require 'spec/support/email_helpers.rb'
+
+RSpec.configure do |config|
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+end
 
 # HACK: Normally to load fixtures you'd run `rake db:fixtures:load` but since we
 # have .csv files in the fixtures folder Rails tries to load those too. Therefore
@@ -22,4 +28,4 @@ end
 load_raw_emails_data
 END
 
-echo "Loaded fixtures.  You may now wish to run $LOC/update-xapian-index"
+echo "Loaded fixtures. You may now wish to run $LOC/update-xapian-index"
