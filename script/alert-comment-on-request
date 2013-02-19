@@ -1,7 +1,3 @@
 #!/bin/bash
 
-cd "`dirname "$0"`"
-
-bundle exec ./runner 'RequestMailer.alert_comment_on_request'
-
-
+bundle exec rails runner 'RequestMailer.alert_comment_on_request'
