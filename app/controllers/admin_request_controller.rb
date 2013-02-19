@@ -379,7 +379,7 @@ class AdminRequestController < AdminController
                 ContactMailer.deliver_from_admin_message(
                         info_request.user,
                         subject,
-                        params[:explanation]
+                        params[:explanation].strip.html_safe
                     )
                 flash[:notice] = _("Your message to {{recipient_user_name}} has been sent",:recipient_user_name=>CGI.escapeHTML(info_request.user.name))
             else

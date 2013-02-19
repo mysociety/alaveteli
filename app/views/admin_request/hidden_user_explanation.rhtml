@@ -1,9 +1,10 @@
 Dear <%= name_to %>,
 
-Your request '<%= info_request.title %>' at <%= info_request_url %> has been reviewed by moderators.  
+Your request '<%= info_request.title.html_safe %>' at <%= info_request_url %> has been reviewed by moderators.
 
 We consider it <% if reason == 'not_foi' %>is not a valid FOI request<% else %>to be vexatious<% end%>, and have therefore hidden it from other users. You will still be able to view it while logged in to the site. Please reply to this email if you would like to discuss this decision further.
 
 Yours,
 
 The <%= site_name %> team.
+
