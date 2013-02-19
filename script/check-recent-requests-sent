@@ -1,8 +1,3 @@
 #!/bin/bash
 
-cd "`dirname "$0"`"
-
-bundle exec ./runner 'MailServerLog.check_recent_requests_have_been_sent'
-
-
-
+bundle exec rails runner 'MailServerLog.check_recent_requests_have_been_sent'
