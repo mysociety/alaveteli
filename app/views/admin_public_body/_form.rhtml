@@ -3,63 +3,97 @@
 <!--[form:public_body]-->
 
 <div id="div-locales">
-    <ul>
-    <% for locale in I18n.available_locales do %>
-        <li><a href="#div-locale-<%=locale.to_s%>"><%=locale_name(locale.to_s)%></a></li>
-    <% end %>
-    </ul>
-
-<% 
+  <ul class="locales nav nav-tabs">
+  <% I18n.available_locales.each_with_index do |locale, i| %>
+    <li><a href="#div-locale-<%=locale.to_s%>" data-toggle="tab" ><%=locale_name(locale.to_s) || _("Default locale")%></a></li>
+  <% end %>
+  </ul>
+  <div class="tab-content">
+<%
     for locale in I18n.available_locales do
         if locale==I18n.default_locale  # The default locale is submitted as part of the bigger object...
             prefix = 'public_body'
             object = @public_body
         else                            # ...but additional locales go "on the side"
             prefix = "public_body[translated_versions][]"
-            object = @public_body.new_record? ? 
-                        PublicBody::Translation.new : 
+            object = @public_body.new_record? ?
+                        PublicBody::Translation.new :
                         @public_body.translation(locale.to_s) || PublicBody::Translation.new
         end
 
         fields_for prefix, object do |t|
 %>
-    <div id="div-locale-<%=locale.to_s%>">
+    <div class="tab-pane" id="div-locale-<%=locale.to_s%>">
+      <div class="control-group">
         <%= t.hidden_field :locale, :value => locale.to_s %>
-
-        <p><label for="<%= form_tag_id(t.object_name, :name, locale) %>">Name</label><br/>
-        <%= t.text_field :name, :size => 60, :id => form_tag_id(t.object_name, :name, locale)  %></p>
-
-        <p><label for="<%= form_tag_id(t.object_name, :short_name, locale) %>">Short name <small>(only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL - don't worry about breaking URLs through renaming, as the history is used to redirect)</small></label><br/>
-        <%= t.text_field :short_name, :size => 60, :id => form_tag_id(t.object_name, :short_name, locale)  %></p>
-
-        <p><label for="<%= form_tag_id(t.object_name, :request_email, locale) %>">Request email <small>(set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA)</small></label><br/>
-        <%= t.text_field :request_email, :size => 40, :id => form_tag_id(t.object_name, :request_email, locale)  %></p>
-
-        <p><label for="<%= form_tag_id(t.object_name, :publication_scheme, locale) %>">Publication scheme URL</label><br/>
-        <%= t.text_field :publication_scheme, :size => 60, :id => form_tag_id(t.object_name, :publication_scheme, locale)  %></p>
-
-        <p><label for="<%= form_tag_id(t.object_name, :disclosure_log, locale) %>">Disclosure log URL</label><br/>
-        <%= t.text_field :disclosure_log, :size => 60, :id => form_tag_id(t.object_name, :disclosure_log, locale)  %></p>
-
-        <p><label for="<%= form_tag_id(t.object_name, :notes, locale) %>">Public notes</label> <small>(HTML, for users to consider when making FOI requests to the authority)</small><br/>
-        <%= t.text_area :notes, :rows => 3, :cols => 60, :id => form_tag_id(t.object_name, :notes, locale)  %></p>
+        <label for="<%= form_tag_id(t.object_name, :name, locale) %>" class="control-label">Name</label>
+        <div class="controls">
+          <%= t.text_field :name, :id => form_tag_id(t.object_name, :name, locale), :class => "span4" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="<%= form_tag_id(t.object_name, :short_name, locale) %>", class="control-label"><%=_("Short name")%></label>
+        <div class="controls">
+          <%= t.text_field :short_name, :id => form_tag_id(t.object_name, :short_name, locale), :class => "span2"  %>
+          <p class="help-block"><%=_("Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect")%></p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="<%= form_tag_id(t.object_name, :request_email, locale) %>" class="control-label"><%=_("Request email")%></label>
+        <div class="controls">
+          <%= t.text_field :request_email, :id => form_tag_id(t.object_name, :request_email, locale), :class => "span3" %>
+          <p class="help-block"><%=_("set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA")%></p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="<%= form_tag_id(t.object_name, :publication_scheme, locale) %>" class="control-label"><%=_("Publication scheme URL")%></label>
+        <div class="controls">
+          <%= t.text_field :publication_scheme, :size => 60, :id => form_tag_id(t.object_name, :publication_scheme, locale), :class => "span3" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="<%= form_tag_id(t.object_name, :disclosure_log, locale) %>" class="control-label"><%=_("Disclosure log URL")%></label>
+        <div class="controls">
+          <%= t.text_field :disclosure_log, :size => 60, :id => form_tag_id(t.object_name, :disclosure_log, locale), :class => "span3" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="<%= form_tag_id(t.object_name, :notes, locale) %>" class="control-label"><%=_("Public notes")%></label>
+        <div class="controls">
+          <%= t.text_area :notes, :rows => 3, :id => form_tag_id(t.object_name, :notes, locale), :class => "span6" %>
+          <p class="help-block">
+            HTML, for users to consider when making FOI requests to the authority
+          </p>
+        </div>
+      </div>
     </div>
-<% 
+<%
         end
-    end 
+    end
 %>
+  </div>
 </div>
 
 <h3>Common Fields</h3>
-
-<p><label for="public_body_tag_string">Tags <small>(space separated; see list of tags on the right; also <strong>not_apply</strong> if FOI and EIR no longer apply to authority, <strong>eir_only</strong> if EIR but not FOI applies to authority, <strong>defunct</strong> if the authority no longer exists; charity:NUMBER if a registered charity)</small></label><br/>
-
-<%= text_field :public_body, :tag_string, :size => 60, :id => 'public_body_tag_string'  %></p>
-
-<p><label for="public_body_home_page">Home page <small>(of whole authority, not just their FOI page; set to <strong>blank</strong> (empty string) to guess it from the email)</small></label><br/>
-<%= text_field :public_body, :home_page, :size => 60, :id => 'public_body_home_page'  %></p>
-
-<p><label for="public_body_last_edit_comment"><strong>Comment</strong> for this edit</label> <small>(put URL or other source of new info)</small><br/>
-<%= text_area :public_body, :last_edit_comment, :rows => 3, :cols => 60, :id => 'public_body_last_edit_comment'  %></p>
-
+<div class="control-group">
+  <label for="public_body_tag_string" class="control-label"><%=_("Tags")%></label>
+  <div class="controls">
+    <%= f.text_field :tag_string, :class => "span4" %>
+    <p class="help-block">space separated; see list of tags on the right; also <strong>not_apply</strong> if FOI and EIR no longer apply to authority, <strong>eir_only</strong> if EIR but not FOI applies to authority, <strong>defunct</strong> if the authority no longer exists; charity:NUMBER if a registered charity</p>
+  </div>
+</div>
+<div class="control-group">
+  <label for="public_body_home_page"><%=_("Home page")%></label>
+  <div class="controls">
+    <%= f.text_field :home_page, :class => "span4"  %>
+    <p class="help-block">(of whole authority, not just their FOI page; set to <strong>blank</strong> (empty string) to guess it from the email)</p>
+  </div>
+</div>
+<div class="control-group">
+  <label for="public_body_last_edit_comment" class="control-label"><strong>Comment</strong> for this edit</label>
+  <div class="controls">
+    <%= f.text_area :last_edit_comment, :rows => 3, :class => "span6"  %></p>
+    <p class="help-block">put URL or other source of new info</p>
+  </div>
+</div>
 <!--[eoform:public_body]-->
