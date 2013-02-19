@@ -11,7 +11,7 @@
         <tr>
             <td> <%= c += 1 %>. <td>
             <td> <%= user_link(classifications.user) %> </td>
-            <td> <%=pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;")%> </td>
+            <td> <%=pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;").html_safe %> </td>
         </tr>
     <% end %>
     </table>
@@ -22,7 +22,7 @@
         <tr>
             <td> <%= c += 1 %>. <td>
             <td> <%= user_link(classifications.user) %> </td>
-            <td> <%= pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;")%> </td>
+            <td> <%= pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;").html_safe %> </td>
         </tr>
     <% end %>
     </table>
