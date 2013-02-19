@@ -1,11 +1,7 @@
 #!/usr/bin/env ruby
 
 daemon_mode = !ARGV.empty? && ARGV[0] == "--daemon"
-if Rails.env == 'test'
-    # Avoid spec/script/mailin_spec.rb running script/runner as a test suite
-    # http://stackoverflow.com/questions/1899009/why-are-tests-running-in-production-mode-and-causing-my-script-runners-to-fail
-    Test::Unit.run = true
-end
+
 script_dir = File.dirname(__FILE__)
 alaveteli_dir = File.expand_path(File.join(script_dir, ".."))
 

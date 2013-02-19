@@ -5,7 +5,11 @@
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'alaveteli_file_types'
-
+if Rails.env == 'test' && RUBY_VERSION.to_f >= 1.9
+    # Avoid spec/script/mailin_spec.rb running script/runner as a test suite
+    # http://stackoverflow.com/questions/1899009/why-are-tests-running-in-production-mode-and-causing-my-script-runners-to-fail
+    Test::Unit.run = true
+end
 class RequestMailer < ApplicationMailer
 
 
