@@ -4,12 +4,12 @@ require 'bootstrap-sass'
 
 # Set this to the root of your project when deployed:
 http_path = "/adminbootstraptheme/"
-css_dir = "public/stylesheets"
+css_dir = "public/adminbootstraptheme/stylesheets"
 http_css_dir = "stylesheets"
-sass_dir = "sass"
-images_dir = "public/images"
+sass_dir = "app/sass"
+images_dir = "public/adminbootstraptheme/images"
 http_images_dir = "images"
-javascripts_dir = "javascripts"
+javascripts_dir = "public/adminbootstraptheme/javascripts"
 
 output_style = :compact
 #output_style = :compressed
