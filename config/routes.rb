@@ -34,7 +34,7 @@ ActionController::Routing::Routes.draw do |map|
         general.random_request '/random', :action => 'random_request'
 
         # Add a route for admin.js to the general controller
-        general.admin_js '/adminbootstraptheme/javascripts/admin.js', :action => 'admin_js'
+        general.admin_js '/admin/javascripts/admin.js', :action => 'admin_js'
     end
 
     map.with_options :controller => 'request' do |request|
