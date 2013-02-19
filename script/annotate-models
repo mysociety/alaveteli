@@ -2,4 +2,4 @@
 #
 # annotates the models in app/ with schema information
 
-bundle exec annotate -m -p before --exclude tests,fixtures
+bundle exec annotate --show-migration --position before --exclude tests,fixtures
