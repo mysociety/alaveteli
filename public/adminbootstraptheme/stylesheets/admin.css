@@ -1,3 +1,5 @@
+/* $iconSpritePath: image-url('glyphicons-halflings.png');
+$iconWhiteSpritePath: image-url('glyphicons-halflings-white.png'); */
 /* As we're namespacing bootstrap to class admin, which is applied to the body element in the admin interface (no id or class allowed on the HTML element in HTML 4.01) and to the navbar also, so it can be styled with bootstrap when showing for admin users on the front end, re-apply the bootstrap html and body styles here.
 */
 html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
@@ -380,8 +382,8 @@ body.admin { margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-se
 .admin .table-hover tbody tr.error:hover td { background-color: #ebcccc; }
 .admin .table-hover tbody tr.warning:hover td { background-color: #faf2cc; }
 .admin .table-hover tbody tr.info:hover td { background-color: #c4e3f3; }
-.admin [class^="icon-"], .admin [class*=" icon-"] { display: inline-block; width: 14px; height: 14px; *margin-right: .3em; line-height: 14px; vertical-align: text-top; background-image: url(url('../images/glyphicons-halflings.png?1349911855')); background-position: 14px 14px; background-repeat: no-repeat; margin-top: 1px; }
-.admin .icon-white, .admin .nav-pills > .active > a > [class^="icon-"], .admin .nav-pills > .active > a > [class*=" icon-"], .admin .nav-list > .active > a > [class^="icon-"], .admin .nav-list > .active > a > [class*=" icon-"], .admin .navbar-inverse .nav > .active > a > [class^="icon-"], .admin .navbar-inverse .nav > .active > a > [class*=" icon-"], .admin .dropdown-menu > li > a:hover > [class^="icon-"], .admin .dropdown-menu > li > a:hover > [class*=" icon-"], .admin .dropdown-menu > .active > a > [class^="icon-"], .admin .dropdown-menu > .active > a > [class*=" icon-"], .admin .dropdown-submenu:hover > a > [class^="icon-"], .admin .dropdown-submenu:hover > a > [class*=" icon-"] { background-image: url(url('../images/glyphicons-halflings-white.png?1349911855')); }
+.admin [class^="icon-"], .admin [class*=" icon-"] { display: inline-block; width: 14px; height: 14px; *margin-right: .3em; line-height: 14px; vertical-align: text-top; background-image: url(../images/glyphicons-halflings.png?1361243119); background-position: 14px 14px; background-repeat: no-repeat; margin-top: 1px; }
+.admin .icon-white, .admin .nav-pills > .active > a > [class^="icon-"], .admin .nav-pills > .active > a > [class*=" icon-"], .admin .nav-list > .active > a > [class^="icon-"], .admin .nav-list > .active > a > [class*=" icon-"], .admin .navbar-inverse .nav > .active > a > [class^="icon-"], .admin .navbar-inverse .nav > .active > a > [class*=" icon-"], .admin .dropdown-menu > li > a:hover > [class^="icon-"], .admin .dropdown-menu > li > a:hover > [class*=" icon-"], .admin .dropdown-menu > .active > a > [class^="icon-"], .admin .dropdown-menu > .active > a > [class*=" icon-"], .admin .dropdown-submenu:hover > a > [class^="icon-"], .admin .dropdown-submenu:hover > a > [class*=" icon-"] { background-image: url(../images/glyphicons-halflings-white.png?1361243119); }
 .admin .icon-glass { background-position: 0 0; }
 .admin .icon-music { background-position: -24px 0; }
 .admin .icon-search { background-position: -48px 0; }

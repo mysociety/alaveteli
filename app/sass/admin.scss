@@ -1,7 +1,3 @@
-$iconSpritePath: image-url('glyphicons-halflings.png');
-$iconWhiteSpritePath: image-url('glyphicons-halflings-white.png');
-
-
 /* As we're namespacing bootstrap to class admin, which is applied to the body
    element in the admin interface (no id or class allowed on the HTML element
    in HTML 4.01) and to the navbar also, so it can be styled with bootstrap
