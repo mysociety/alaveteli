@@ -4,8 +4,8 @@ LOC=`dirname $0`
 
 if [ "$1" == "--loop" ]
 then
-  "$LOC/runner" 'PurgeRequest.purge_all_loop'
+  rails runner 'PurgeRequest.purge_all_loop'
 else
-  "$LOC/runner" 'PurgeRequest.purge_all'
+  rails runner 'PurgeRequest.purge_all'
 fi
 
