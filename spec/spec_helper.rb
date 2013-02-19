@@ -73,6 +73,20 @@ Spork.prefork do
       ActionMailer::Base.deliveries = []
     end
 
+    # This section makes the garbage collector run less often to speed up tests
+    last_gc_run = Time.now
+
+    config.before(:each) do
+      GC.disable
+    end
+
+    config.after(:each) do
+      if Time.now - last_gc_run > 4
+        GC.enable
+        GC.start
+        last_gc_run = Time.now
+      end
+    end
   end
 
   # XXX No idea what namespace/class/module to put this in

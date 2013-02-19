@@ -43,21 +43,6 @@ Spec::Runner.configure do |config|
                            :holidays,
                            :track_things_sent_emails
 
-  # This section makes the garbage collector run less often to speed up tests
-  last_gc_run = Time.now
-
-  config.before(:each) do
-    GC.disable
-  end
-
-  config.after(:each) do
-    if Time.now - last_gc_run > 4
-      GC.enable
-      GC.start
-      last_gc_run = Time.now
-    end
-  end
-
   # == Fixtures
   #
   # You can declare fixtures for each example_group like this:
