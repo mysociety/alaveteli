@@ -14,7 +14,7 @@
     | <%= link_to 'Import from CSV file', 'import_csv' %>
 </p>
 
-<% form_tag("", :method => "get") do %>
+<%= form_tag("", :method => "get") do %>
    <p>
        <%= text_field_tag 'query', params[:query], { :size => 30 } %>
        <%= submit_tag "Search" %> (substring search in names and emails; exact match of tags)

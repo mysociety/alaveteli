@@ -2,7 +2,7 @@
 
 <div id="followup">
 
-<% form_for(:outgoing_message, @outgoing_message, :html => { :id => 'preview_form' }, :url => (@incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => @incoming_message.id)) + "#followup" ) do |o| %>
+<%= form_for(@outgoing_message, :html => { :id => 'preview_form' }, :url => (@incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => @incoming_message.id)) + "#followup" ) do |o| %>
     
     <% if @internal_review %>
         <h1><%= _('Now preview your message asking for an internal review') %></h1>
@@ -15,7 +15,7 @@
     <li><%= _('Your message will appear in <strong>search engines</strong>') %></li>
     </ul>
 
-    <% fields_for :outgoing_message do |o| %>
+    <%= fields_for :outgoing_message do |o| %>
 
         <div class="correspondence" id="outgoing-0">
             <p class="preview_subject">

@@ -32,7 +32,7 @@
 <div id="left_column_flip">
 <h1><%= _('Public authorities') %></h1>
 
-<% form_tag(list_public_bodies_default_url, :method => "get", :id=>"search_form") do %>
+<%= form_tag(list_public_bodies_default_url, :method => "get", :id=>"search_form") do %>
  <div>
   <%= text_field_tag(:public_body_query, params[:public_body_query]) %> 
   <%= submit_tag(_("Search")) %>

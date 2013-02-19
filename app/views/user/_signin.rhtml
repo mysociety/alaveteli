@@ -1,6 +1,6 @@
 <div id="signin">
 
-<% form_tag({:action => "signin"}, {:id => "signin_form"}) do %>
+<%= form_tag({:action => "signin"}, {:id => "signin_form"}) do %>
     <%= foi_error_messages_for :user_signin %>
 
     <!--<% if not sign_in_as_existing_user %>

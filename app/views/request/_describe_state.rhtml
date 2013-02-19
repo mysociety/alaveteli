@@ -1,6 +1,6 @@
 <% if @is_owning_user %>
 
-    <% form_for(:incoming_message, @info_request, :url => describe_state_url(:id => @info_request.id)) do |f| %>
+    <%= form_for(:incoming_message, @info_request, :url => describe_state_url(:id => @info_request.id)) do |f| %>
         <h2><%= _('What best describes the status of this request now?') %></h2>
 
         <hr> <!------------------------------------------------>

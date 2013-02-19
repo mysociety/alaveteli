@@ -2,7 +2,7 @@
 
 <h1><%=@title%></h1>
 
-<% form_tag("", :method => "get") do %>
+<%= form_tag("", :method => "get") do %>
    <p>
        <%= text_field_tag 'query', params[:query], { :size => 30 } %>
        <%= submit_tag "Search" %> (substring search the query - so use url_names_for_a_particular_request_or_authority_or_person)

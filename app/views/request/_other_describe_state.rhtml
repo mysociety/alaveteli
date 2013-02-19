@@ -1,6 +1,6 @@
 
 
-<% form_for(:incoming_message, @info_request, :url => describe_state_url(:id => @info_request.id)) do |f| %>
+<%= form_for(:incoming_message, @info_request, :url => describe_state_url(:id => @info_request.id)) do |f| %>
     <h2><%= _('Hi! We need your help. The person who made the following request
     hasn\'t told us whether or not it was successful. Would you mind taking
     a moment to read it and help us keep the place tidy for everyone?

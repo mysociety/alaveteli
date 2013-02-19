@@ -8,7 +8,7 @@
 
 <div id="set_draft_profile_photo">
 
-<% form_tag 'set_photo', :id => 'set_draft_profile_photo_form', :multipart => true do %>
+<%= form_tag 'set_photo', :id => 'set_draft_profile_photo_form', :multipart => true do %>
     <p>
 	    <label class="form_label" for="file_1"><%= _('Photo of you:')%></label>
         <%= file_field_tag :file, :size => 35, :id => 'file_1' %>
@@ -45,7 +45,7 @@
 
     <h2><%= _('OR remove the existing photo')%></h2>
 
-    <% form_tag 'clear_photo', :id => 'clear_profile_photo_form', :multipart => true do %>
+    <%= form_tag 'clear_photo', :id => 'clear_profile_photo_form', :multipart => true do %>
         <%= submit_tag _("Clear photo") %>
     <% end %>
 

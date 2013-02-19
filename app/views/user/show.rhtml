@@ -107,7 +107,7 @@
 
 <% if @show_requests %>
 <div id="user_profile_search">
-    <% form_tag(show_user_url, :method => "get", :id=>"search_form") do %>
+    <%= form_tag(show_user_url, :method => "get", :id=>"search_form") do %>
     <div>
         <%= text_field_tag(:user_query, params[:user_query]) %>
         <% if @is_you %>
@@ -181,7 +181,7 @@
         <p><%= _("You're not following anything.")%></p>
     <% else %>
         <% if @track_things_grouped.size == 1 %>
-            <% form_tag({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
+            <%= form_tag({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
                 <h3>
                     <%=TrackThing.track_type_description(@track_things[0].track_type)%>
                     <%= hidden_field_tag 'track_type', @track_things[0].track_type %>
@@ -195,7 +195,7 @@
         <% end %>
         <% for track_type, track_things in @track_things_grouped %>
             <% if @track_things_grouped.size > 1 %>
-                <% form_tag({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
+                <%= form_tag({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
                     <h3>
                         <%=TrackThing.track_type_description(track_type)%>
                         <%= hidden_field_tag 'track_type', track_type %>
@@ -211,7 +211,7 @@
             <ul>
             <% for track_thing in track_things %>
                 <li>
-                    <% form_tag({:controller => 'track', :action => 'update', :track_id => track_thing.id}, :class => "feed_form") do %>
+                    <%= form_tag({:controller => 'track', :action => 'update', :track_id => track_thing.id}, :class => "feed_form") do %>
                         <div>
                             <%= track_thing.params[:list_description] %>
                             <%= hidden_field_tag 'track_medium', "delete", { :id => 'track_medium_' + track_thing.id.to_s } %>

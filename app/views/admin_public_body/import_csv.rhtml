@@ -9,7 +9,7 @@
 <pre id="error"><%=@errors %></pre>
 <% end %>
 
-<% form_tag 'import_csv', :multipart => true do %>
+<%= form_tag 'import_csv', :multipart => true do %>
     <p>
     <% if @original_csv_file && @temporary_csv_file %>
         CSV file:

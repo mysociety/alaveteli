@@ -1,7 +1,7 @@
 <%= render :partial => 'general/localised_datepicker'  %>
 
 <div id="list-filter">
-  <% form_tag(request.path, :method => "get", :id=>"filter_requests_form") do %>
+  <%= form_tag(request.path, :method => "get", :id=>"filter_requests_form") do %>
  <div class="list-filter-item">
   <%= label_tag(:query, _("Keywords"), :class=>"form_label title") %>
   <%= text_field_tag(:query, params[:query]) %> 

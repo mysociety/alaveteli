@@ -1,6 +1,6 @@
 <% @title = "Preview new " + h(@info_request.law_used_short) + " request to '" + h(@info_request.public_body.name) + "'" %>
 
-<% form_for(:info_request, @info_request, :html => { :id => 'preview_form' }  ) do |f| %>
+<%= form_for(:info_request, @info_request, :html => { :id => 'preview_form' }  ) do |f| %>
     
     <h1><%= _('3. Now check your request') %></h1>
     <ul>
@@ -10,7 +10,7 @@
     </li>
     </ul>
 
-    <% fields_for :outgoing_message do |o| %>
+    <%= fields_for :outgoing_message do |o| %>
 
         <div class="correspondence" id="outgoing-0">
             <p class="preview_subject">

@@ -32,13 +32,13 @@
 
     <div class="act_link">
      <% tweet_link = "https://twitter.com/share?url=#{h(request.url)}&via=#{h(Configuration::twitter_username)}&text='#{h(@info_request.title)}'&related=#{_('alaveteli_foi:The software that runs {{site_name}}', :site_name => h(site_name))}" %>
-        <% link_to tweet_link do %>
+        <%= link_to tweet_link do %>
           <%= image_tag "twitter-16.png", :alt => "twitter icon" %>
         <% end %>
         <%= link_to _("Tweet this request"), tweet_link %>
     </div>
     <div class="act_link">
-        <% link_to "http://wordpress.com/" do %>
+        <%= link_to "http://wordpress.com/" do %>
           <%= image_tag "wordpress.png", :class => "rss" %>
         <% end %>
         <%= link_to _("Start your own blog"), "http://wordpress.com/"%>

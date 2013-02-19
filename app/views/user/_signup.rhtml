@@ -1,6 +1,6 @@
 <div id="signup">
 
-<% form_tag({:action => "signup"}, {:id => "signup_form"}) do %>
+<%= form_tag({:action => "signup"}, {:id => "signup_form"}) do %>
     <%= foi_error_messages_for :user_signup %>
 
     <!--<h2><%= _('If you\'re new to {{site_name}}', :site_name=>site_name)%></h2>-->

@@ -33,7 +33,7 @@
 
     <%= foi_error_messages_for :info_request, :outgoing_message %>
 
-    <% form_for(:info_request, @info_request, :html => { :id => 'write_form' }  ) do |f| %>
+    <%= form_for(:info_request, @info_request, :html => { :id => 'write_form' }  ) do |f| %>
 
     <div id="request_header">
         <div id="request_header_body">
@@ -103,7 +103,7 @@
     </div>
 
     <div id="request_form"> 
-        <% fields_for :outgoing_message do |o| %>
+        <%= fields_for :outgoing_message do |o| %>
         <p>
             <label class="form_label" for="outgoing_message_body"><%= _('Your request:') %></label> 
             <%= o.text_area :body, :rows => 20, :cols => 60 %>

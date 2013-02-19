@@ -22,7 +22,7 @@
   <% if @advanced %>
     <div id="advanced-search">
       <p><%= _('To use the advanced search, combine phrases and labels as described in the search tips below.') %></p>
-      <% form_tag(advanced_search_url, :method => "get") do %>
+      <%= form_tag(advanced_search_url, :method => "get") do %>
          <p>
            <%= text_field_tag :query, @query, { :size => 60 } %>
            <%= hidden_field_tag 'sortby', @inputted_sortby %>
@@ -35,7 +35,7 @@
       <% end %>
     </div>
   <% else %>
-    <% form_tag(request.url, {:method => "get", :id => "search_form"}) do %>
+    <%= form_tag(request.url, {:method => "get", :id => "search_form"}) do %>
       <p>
         <%= text_field_tag 'query', params[:query], { :size => 40 } %>
         <%= hidden_field_tag 'sortby', @inputted_sortby %>

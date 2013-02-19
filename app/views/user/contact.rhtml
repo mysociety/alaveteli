@@ -6,7 +6,7 @@
 
 <%= foi_error_messages_for :contact %>
 
-<% form_for :contact do |f| %>
+<%= form_for :contact do |f| %>
 
     <div class="form_note">
       <h1><%= _("Contact {{recipient}}", :recipient => h(@recipient_user.name)) %></h1>
