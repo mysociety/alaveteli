@@ -6,7 +6,6 @@ script_dir = File.dirname(__FILE__)
 alaveteli_dir = File.expand_path(File.join(script_dir, ".."))
 
 Dir.chdir(alaveteli_dir) do
-    require File.join(alaveteli_dir, 'config', 'boot')
     if daemon_mode
         # Run in daemon mode.
 
@@ -20,7 +19,7 @@ Dir.chdir(alaveteli_dir) do
 
         # Load the runner in a subprocess
         pid = fork do
-            require 'commands/runner'
+            `bundle exec rails runner #{ARGV[1]}`
             exit 0
         end
 
@@ -35,6 +34,6 @@ Dir.chdir(alaveteli_dir) do
         Process.detach(pid)
     else
         # Not daemon mode
-        require 'commands/runner'
+        `bundle exec rails runner #{ARGV[1]}`
     end
 end
