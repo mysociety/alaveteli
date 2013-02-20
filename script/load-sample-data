@@ -8,8 +8,8 @@ export LOC=`dirname "$0"`
 
 bundle exec rails runner /dev/stdin <<END
 require 'rspec/rails'
-require 'spec/support/load_file_fixtures.rb'
-require 'spec/support/email_helpers.rb'
+require "#{ENV['LOC']}/../spec/support/load_file_fixtures.rb"
+require "#{ENV['LOC']}/../spec/support/email_helpers.rb"
 
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
