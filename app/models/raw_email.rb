@@ -23,7 +23,7 @@ class RawEmail < ActiveRecord::Base
             raise "Failed to find the id number of the associated request: has it been saved?"
         end
 
-        if ENV["RAILS_ENV"] == "test"
+        if Rails.env.test?
             return File.join(Rails.root, 'files/raw_email_test')
         else
             return File.join(Configuration::raw_emails_location,

@@ -152,7 +152,7 @@ class InfoRequest < ActiveRecord::Base
 
     @@custom_states_loaded = false
     begin
-        if ENV["RAILS_ENV"] != "test"
+        if !Rails.env.test?
             require 'customstates'
             include InfoRequestCustomStates
             @@custom_states_loaded = true

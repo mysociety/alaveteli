@@ -17,7 +17,7 @@ class RequestController < ApplicationController
 
     @@custom_states_loaded = false
     begin
-        if ENV["RAILS_ENV"] != "test"
+        if !Rails.env.test?
             require 'customstates'
             include RequestControllerCustomStates
             @@custom_states_loaded = true
