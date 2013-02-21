@@ -42,7 +42,6 @@ GEM
       activerecord (~> 3.0.0.beta4)
     annotate (2.5.0)
       rake
-    archive-tar-minitar (0.5.2)
     arel (2.0.10)
     bootstrap-sass (2.2.1.1)
       sass (~> 3.2)
@@ -60,6 +59,13 @@ GEM
       fssm (>= 0.2.7)
       sass (~> 3.1)
     daemons (1.1.9)
+    debugger (1.3.1)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.1.1)
+      debugger-ruby_core_source (~> 1.1.8)
+    debugger-linecache (1.1.2)
+      debugger-ruby_core_source (>= 1.1.1)
+    debugger-ruby_core_source (1.1.8)
     diff-lcs (1.1.3)
     dynamic_form (1.1.4)
     erubis (2.6.6)
@@ -83,8 +89,6 @@ GEM
     levenshtein (0.2.2)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
-    linecache19 (0.5.12)
-      ruby_core_source (>= 0.1.4)
     locale (2.0.8)
     mahoro (0.3)
     mail (2.2.19)
@@ -163,20 +167,10 @@ GEM
       ruby-debug-base (~> 0.10.4.0)
     ruby-debug-base (0.10.4)
       linecache (>= 0.3)
-    ruby-debug-base19 (0.11.25)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      ruby_core_source (>= 0.1.4)
-    ruby-debug19 (0.11.6)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      ruby-debug-base19 (>= 0.11.19)
     ruby-msg (1.5.1)
       ruby-ole (>= 1.2.8)
       vpim (>= 0.360)
     ruby-ole (1.2.11.6)
-    ruby_core_source (0.1.5)
-      archive-tar-minitar (>= 0.5.2)
     sass (3.2.3)
     sinatra (1.2.8)
       rack (~> 1.1)
@@ -224,6 +218,7 @@ DEPENDENCIES
   bootstrap-sass
   capistrano
   compass
+  debugger
   dynamic_form
   fakeweb
   fast_gettext (>= 0.6.0)
@@ -250,7 +245,6 @@ DEPENDENCIES
   routing-filter (~> 0.2.4)
   rspec-rails
   ruby-debug
-  ruby-debug19
   ruby-msg (~> 1.5.0)
   spork-rails
   syslog_protocol
