@@ -381,7 +381,7 @@ describe UserController, "when changing password" do
         post :signchangepassword, { :user => { :password => 'ooo', :password_confirmation => 'ooo' },
             :submitted_signchangepassword_do => 1
         }
-        users(:bob_smith_user).hashed_password.should != old_hash
+        users(:bob_smith_user).reload.hashed_password.should_not == old_hash
 
         response.should redirect_to(:controller => 'user', :action => 'show', :url_name => users(:bob_smith_user).url_name)
     end
