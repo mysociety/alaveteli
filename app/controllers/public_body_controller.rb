@@ -16,7 +16,7 @@ class PublicBodyController < ApplicationController
             return
         end
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do
+        I18n.with_locale(@locale) do
             @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
             raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
             if @public_body.url_name.nil?
