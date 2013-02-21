@@ -473,7 +473,7 @@ public
             self.awaiting_description = true
             params = { :incoming_message_id => incoming_message.id }
             if !rejected_reason.empty?
-                params[:rejected_reason] = rejected_reason
+                params[:rejected_reason] = rejected_reason.to_str
             end
             self.log_event("response", params)
             self.save!
