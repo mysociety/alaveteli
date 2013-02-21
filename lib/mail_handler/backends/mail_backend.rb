@@ -85,7 +85,7 @@ module MailHandler
             end
 
             def get_all_addresses(mail)
-                envelope_to = mail['envelope-to'] ? [mail['envelope-to'].value] : []
+                envelope_to = mail['envelope-to'] ? [mail['envelope-to'].value.to_s] : []
                 ((mail.to || []) +
                 (mail.cc || []) +
                 (envelope_to || [])).uniq
