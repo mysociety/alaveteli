@@ -78,7 +78,7 @@ Alaveteli::Application.routes.draw do
     match '/country_message' => 'services#other_country_message', :as => :other_country_message
     match '/hidden_user_explanation' => 'services#hidden_user_explanation', :as => :hidden_user_explanation
     match '/:feed/request/:url_title.:format' => 'track#track_request', :as => :track_request, :feed => /(track|feed)/
-    match '/:feed/list/:view.:format' => 'track#track_list', :as => :track_list, :view => , :feed => /(track|feed)/
+    match '/:feed/list/:view.:format' => 'track#track_list', :as => :track_list, :view => nil, :feed => /(track|feed)/
     match '/:feed/body/:url_name.:format' => 'track#track_public_body', :as => :track_public_body, :feed => /(track|feed)/
     match '/:feed/user/:url_name.:format' => 'track#track_user', :as => :track_user, :feed => /(track|feed)/
     match '/:feed/search/*query_array.:format' => 'track#track_search_query', :as => :track_search, :feed => /(track|feed)/
@@ -156,5 +156,5 @@ Alaveteli::Application.routes.draw do
     match '/api/v2/request/:id.json' => 'api#show_request', :as => :api_show_request, :via => :get
     match '/api/v2/request/:id.json' => 'api#add_correspondence', :as => :api_add_correspondence, :via => :post
     match '/api/v2/body/:id/request_events.:feed_type' => 'api#body_request_events', :as => :api_body_request_events, :feed_type => '^(json|atom)$'
-    match 'conditionallyprependlocale' => '#index', :as => :filter
+    # match 'conditionallyprependlocale' => '#index', :as => :filter
 end
