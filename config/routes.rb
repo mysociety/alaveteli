@@ -9,246 +9,152 @@ $alaveteli_route_extensions.each do |f|
     load File.join('config', f)
 end
 
-ActionController::Routing::Routes.draw do |map|
-    
-    # The priority is based upon order of creation: first created -> highest priority.
-
-    # Sample of regular route:
-    # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-    # Keep in mind you can assign values other than :controller and :action
-
-    map.with_options :controller => 'general' do |general|
-        general.frontpage           '/',            :action => 'frontpage'
-        general.blog '/blog', :action => 'blog'
-        general.custom_css '/stylesheets/custom.css', :action => 'custom_css'
-        general.search_redirect '/search',      :action => 'search_redirect'
-        general.search_redirect '/search/all',      :action => 'search_redirect'
-        # XXX combined is the search query, and then if sorted a "/newest" at the end.
-        # Couldn't find a way to do this in routes which also picked up multiple other slashes
-        # and dots and other characters that can appear in search query. So we sort it all
-        # out in the controller.
-        general.search_general '/search/*combined/all', :action => 'search', :view => 'all'
-        general.search_general '/search(/*combined)', :action => 'search'
-        general.advanced_search '/advancedsearch', :action => 'search_redirect', :advanced => true
-
-        general.random_request '/random', :action => 'random_request'
-    end
-
-    map.with_options :controller => 'request' do |request|
-        request.request_list_recent   '/list/recent',        :action => 'list', :view => 'recent'
-        request.request_list_all   '/list/all',        :action => 'list', :view => 'all'
-        request.request_list_successful   '/list/successful',        :action => 'list', :view => 'successful'
-        request.request_list_unsuccessful   '/list/unsuccessful',        :action => 'list', :view => 'unsuccessful'
-        request.request_list_awaiting   '/list/awaiting',        :action => 'list', :view => 'awaiting'
-        request.request_list   '/list',        :action => 'list'
-
-        request.select_authority     '/select_authority',     :action => 'select_authority'
-        
-        request.new_request    '/new',         :action => 'new'
-        request.new_request_to_body    '/new/:url_name',         :action => 'new'
-
-        request.search_ahead '/request/search_ahead',      :action => 'search_typeahead'
-
-        request.show_request     '/request/:url_title.:format', :action => 'show'
-        request.show_new_request     '/request/:url_title/new', :action => 'show'
-        request.details_request     '/details/request/:url_title', :action => 'details'
-        request.similar_request     '/similar/request/:url_title', :action => 'similar'
-
-        request.describe_state   '/request/:id/describe', :action => 'describe_state'
-        request.show_response_no_followup    '/request/:id/response', :action => 'show_response'
-        request.show_response    '/request/:id/response/:incoming_message_id', :action => 'show_response'
-        request.get_attachment_as_html   '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name', :action => 'get_attachment_as_html'
-        request.get_attachment  '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)', :action => 'get_attachment'
-
-        request.info_request_event '/request_event/:info_request_event_id', :action => 'show_request_event'
-
-        request.upload_response "/upload/request/:url_title", :action => 'upload_response'
-        request.download_entire_request '/request/:url_title/download',      :action => 'download_entire_request'
-        
-        # It would be nice to add :conditions => { :method => :post } to this next one,
-        # because it ought not really to be available as a GET request since it changes
-        # the server state. Unfortunately this doesn’t play well with the PostRedirect
-        # mechanism, which assumes all post-login actions are available via GET, so we
-        # refrain.
-        request.report '/request/:url_title/report', :action => 'report_request'
-
-    end
-
-    # Use /profile for things to do with the currently signed in user.
-    # Use /user/XXXX for things that anyone can see about that user.
-    # Note that /profile isn't indexed by search (see robots.txt)
-    map.with_options :controller => 'user' do |user|
-        user.signin '/profile/sign_in',        :action => 'signin'
-        user.signup '/profile/sign_up',        :action => 'signup'
-        user.signout '/profile/sign_out',      :action => 'signout'
-
-        user.confirm '/c/:email_token', :action => 'confirm'
-        user.show_user '/user/:url_name.:format', :action => 'show'
-        user.show_user_profile '/user/:url_name/profile.:format', :action => 'show', :view => 'profile'
-        user.show_user_requests '/user/:url_name/requests.:format', :action => 'show', :view => 'requests'
-        user.show_user_wall '/user/:url_name/wall.:format', :action => 'wall'
-        user.contact_user '/user/contact/:id', :action => 'contact'
-
-        user.signchangepassword '/profile/change_password',      :action => 'signchangepassword'
-        user.signchangeemail '/profile/change_email',      :action => 'signchangeemail'
-
-        user.set_profile_photo '/profile/set_photo', :action => 'set_profile_photo'
-        user.clear_profile_photo '/profile/clear_photo', :action => 'clear_profile_photo'
-        user.get_profile_photo '/user/:url_name/photo.png', :action => 'get_profile_photo'
-        user.get_draft_profile_photo '/profile/draft_photo/:id.png', :action => 'get_draft_profile_photo'
-        user.set_profile_about_me '/profile/set_about_me', :action => 'set_profile_about_me'
-        user.set_receive_email_alerts '/profile/set_receive_alerts', :action => 'set_receive_email_alerts'
-        user.river '/profile/river', :action => 'river'
-    end
-
-    map.with_options :controller => 'public_body' do |body|
-        body.search_ahead_bodies '/body/search_ahead',      :action => 'search_typeahead'
-        body.list_public_bodies "/body", :action => 'list'
-        body.list_public_bodies_default "/body/list/all", :action => 'list'
-        body.list_public_bodies "/body/list/:tag", :action => 'list'
-        body.list_public_bodies_redirect "/local/:tag", :action => 'list_redirect'
-        body.all_public_bodies_csv "/body/all-authorities.csv", :action => 'list_all_csv'
-        body.show_public_body "/body/:url_name.:format", :action => 'show', :view => 'all'
-        body.show_public_body_all "/body/:url_name/all", :action => 'show', :view => 'all'
-        body.show_public_body_successful "/body/:url_name/successful", :action => 'show', :view => "successful"
-        body.show_public_body_unsuccessful "/body/:url_name/unsuccessful", :action => 'show', :view => "unsuccessful"
-        body.show_public_body_awaiting "/body/:url_name/awaiting", :action => 'show', :view => "awaiting"
-        body.view_public_body_email "/body/:url_name/view_email", :action => 'view_email'
-        body.show_public_body_tag "/body/:url_name/:tag", :action => 'show'
-        body.show_public_body_tag_view "/body/:url_name/:tag/:view", :action => 'show'
-    end
-
-    map.with_options :controller => 'comment' do |comment|
-        comment.new_comment "/annotate/request/:url_title", :action => 'new', :type => 'request'
-    end
-
-    map.with_options :controller => 'services' do |service|
-        service.other_country_message "/country_message", :action => 'other_country_message'
-        service.hidden_user_explanation "/hidden_user_explanation", :action => 'hidden_user_explanation'
-    end
-
-    map.with_options :controller => 'track' do |track|
-        # /track/ is for setting up an email alert for the item
-        # /feed/ is a direct RSS feed of the item
-        track.track_request '/:feed/request/:url_title.:format', :action => 'track_request', :feed => /(track|feed)/
-        track.track_list '/:feed/list/:view.:format', :action => 'track_list', :view => nil, :feed => /(track|feed)/
-        track.track_public_body "/:feed/body/:url_name.:format", :action => 'track_public_body', :feed => /(track|feed)/
-        track.track_user "/:feed/user/:url_name.:format", :action => 'track_user', :feed => /(track|feed)/
-        # XXX must be better way of getting dots and slashes in search queries to work than this *query_array
-        # Also, the :format doesn't work. See hacky code in the controller that makes up for this.
-        track.track_search "/:feed/search/*query_array.:format", :action => 'track_search_query' , :feed => /(track|feed)/
-
-        track.update '/track/update/:track_id', :action => 'update'
-        track.delete_all_type '/track/delete_all_type', :action => 'delete_all_type'
-        track.atom_feed '/track/feed/:track_id', :action => 'atom_feed'
-    end
-
-    map.with_options :controller => 'help' do |help|
-      help.help_unhappy '/help/unhappy/:url_title', :action => 'unhappy'
-      help.help_about '/help/about', :action => 'about'
-      help.help_alaveteli '/help/alaveteli', :action => 'alaveteli'
-      help.help_contact '/help/contact', :action => 'contact'
-      help.help_officers '/help/officers', :action => 'officers'
-      help.help_requesting '/help/requesting', :action => 'requesting'
-      help.help_privacy '/help/privacy', :action => 'privacy'
-      help.help_api '/help/api', :action => 'api'
-      help.help_credits '/help/credits', :action => 'credits'
-      help.help_general '/help/:action', :action => :action
-    end
-
-    map.with_options :controller => 'holiday' do |holiday|
-        holiday.due_date "/due_date/:holiday", :action => 'due_date'
-    end
-
-    map.with_options :controller => 'request_game' do |game|
-        game.play '/categorise/play', :action => 'play'
-        game.request '/categorise/request/:url_title', :action => 'show'
-        game.stop '/categorise/stop', :action => 'stop'
-    end
-
-    map.with_options :controller => 'admin_public_body' do |body|
-        body.admin_body_missing '/admin/missing_scheme', :action => 'missing_scheme'
-        body.admin_body_index '/admin/body', :action => 'index'
-        body.admin_body_list '/admin/body/list', :action => 'list'
-        body.admin_body_show '/admin/body/show/:id', :action => 'show'
-        body.admin_body_new '/admin/body/new/:id', :action => 'new'
-        body.admin_body_edit '/admin/body/edit/:id', :action => 'edit'
-        body.admin_body_update '/admin/body/update/:id', :action => 'update'
-        body.admin_body_create '/admin/body/create/:id', :action => 'create'
-        body.admin_body_destroy '/admin/body/destroy/:id', :action => 'destroy'
-        body.admin_body_import_csv '/admin/body/import_csv', :action => 'import_csv'
-        body.admin_body_mass_tag_add '/admin/body/mass_tag_add', :action => 'mass_tag_add'
-    end
-
-    map.with_options :controller => 'admin_general' do |admin|
-        admin.admin_general_index '/admin', :action => 'index'
-        admin.admin_timeline '/admin/timeline', :action => 'timeline'
-        admin.admin_debug '/admin/debug', :action => 'debug'
-        admin.admin_stats '/admin/stats', :action => 'stats'
-    end
-
-    map.with_options :controller => 'admin_request' do |admin|
-        admin.admin_request_list_old_unclassified '/admin/unclassified', :action => 'list_old_unclassified'
-        admin.admin_request_index '/admin/request', :action => 'index'
-        admin.admin_request_list '/admin/request/list', :action => 'list'
-        admin.admin_request_show '/admin/request/show/:id', :action => 'show'
-        admin.admin_request_resend '/admin/request/resend', :action => 'resend'
-        admin.admin_request_edit '/admin/request/edit/:id', :action => 'edit'
-        admin.admin_request_update '/admin/request/update/:id', :action => 'update'
-        admin.admin_request_destroy '/admin/request/destroy/:id', :action => 'fully_destroy'
-        admin.admin_request_edit_outgoing '/admin/request/edit_outgoing/:id', :action => 'edit_outgoing'
-        admin.admin_request_destroy_outgoing '/admin/request/destroy_outgoing/:id', :action => 'destroy_outgoing'
-        admin.admin_request_update_outgoing '/admin/request/update_outgoing/:id', :action => 'update_outgoing'
-        admin.admin_request_edit_comment '/admin/request/edit_comment/:id', :action => 'edit_comment'
-        admin.admin_request_update_comment '/admin/request/update_comment/:id', :action => 'update_comment'
-        admin.admin_request_destroy_incoming '/admin/request/destroy_incoming/:id', :action => 'destroy_incoming'
-        admin.admin_request_redeliver_incoming '/admin/request/redeliver_incoming', :action => 'redeliver_incoming'
-        admin.admin_request_move_request '/admin/request/move_request', :action => 'move_request'
-        admin.admin_request_generate_upload_url '/admin/request/generate_upload_url/:id', :action => 'generate_upload_url'
-        admin.admin_request_show_raw_email '/admin/request/show_raw_email/:id', :action => 'show_raw_email'
-        admin.admin_request_download_raw_email '/admin/request/download_raw_email/:id', :action => 'download_raw_email'
-        admin.admin_request_clarification '/admin/request/mark_event_as_clarification', :action => 'mark_event_as_clarification'
-        admin.admin_request_hide '/admin/request/hide/:id', :action => 'hide_request'
-    end
-
-    map.with_options :controller => 'admin_user' do |user|
-        user.admin_user_index '/admin/user', :action => 'index'
-        user.admin_user_list '/admin/user/list', :action => 'list'
-        user.admin_user_list_banned '/admin/user/banned', :action => 'list_banned'
-        user.admin_user_show '/admin/user/show/:id', :action => 'show'
-        user.admin_user_edit '/admin/user/edit/:id', :action => 'edit'
-        user.admin_user_show '/admin/user/show_bounce_message/:id', :action => 'show_bounce_message'
-        user.admin_user_update '/admin/user/update/:id', :action => 'update'
-        user.admin_user_clear_bounce '/admin/user/clear_bounce/:id', :action => 'clear_bounce'
-        user.admin_user_destroy_track '/admin/user/destroy_track', :action => 'destroy_track'
-        user.admin_user_login_as '/admin/user/login_as/:id', :action => 'login_as'
-        user.admin_clear_profile_photo '/admin/user/clear_profile_photo/:id', :action => 'clear_profile_photo'
-    end
-
-    map.with_options :controller => 'admin_track' do |track|
-        track.admin_track_list '/admin/track/list', :action => 'list'
-    end
-
-    map.with_options :controller => 'admin_censor_rule' do |rule|
-        rule.admin_rule_new '/admin/censor/new', :action => 'new'
-        rule.admin_rule_create '/admin/censor/create', :action => 'create'
-        rule.admin_rule_edit '/admin/censor/edit/:id', :action => 'edit'
-        rule.admin_rule_update '/admin/censor/update/:id', :action => 'update'
-        rule.admin_rule_destroy '/admin/censor/destroy/:censor_rule_id', :action => 'destroy'
-    end
-    
-    map.with_options :controller => 'api' do |api|
-        api.api_create_request '/api/v2/request.json', :action => 'create_request', :conditions => { :method => :post }
-        
-        api.api_show_request '/api/v2/request/:id.json', :action => 'show_request', :conditions => { :method => :get }
-        api.api_add_correspondence '/api/v2/request/:id.json', :action => 'add_correspondence', :conditions => { :method => :post }
-        
-        api.api_body_request_events '/api/v2/body/:id/request_events.:feed_type', :action => 'body_request_events', :feed_type => '^(json|atom)$'
-    end
-    
-    map.filter('conditionallyprependlocale')
-
-    # Allow downloading Web Service WSDL as a file with an extension
-    # instead of a file named 'wsdl'
-    # map.connect ':controller/service.wsdl', :action => 'wsdl'
+Alaveteli::Application.routes.draw do
+    match '/' => 'general#frontpage', :as => :frontpage
+    match '/blog' => 'general#blog', :as => :blog
+    match '/stylesheets/custom.css' => 'general#custom_css', :as => :custom_css
+    match '/search' => 'general#search_redirect', :as => :search_redirect
+    match '/search/all' => 'general#search_redirect', :as => :search_redirect
+    match '/search/*combined/all' => 'general#search', :as => :search_general, :view => 'all'
+    match '/search(/*combined)' => 'general#search', :as => :search_general
+    match '/advancedsearch' => 'general#search_redirect', :as => :advanced_search, :advanced => true
+    match '/random' => 'general#random_request', :as => :random_request
+    match '/list/recent' => 'request#list', :as => :request_list_recent, :view => 'recent'
+    match '/list/all' => 'request#list', :as => :request_list_all, :view => 'all'
+    match '/list/successful' => 'request#list', :as => :request_list_successful, :view => 'successful'
+    match '/list/unsuccessful' => 'request#list', :as => :request_list_unsuccessful, :view => 'unsuccessful'
+    match '/list/awaiting' => 'request#list', :as => :request_list_awaiting, :view => 'awaiting'
+    match '/list' => 'request#list', :as => :request_list
+    match '/select_authority' => 'request#select_authority', :as => :select_authority
+    match '/new' => 'request#new', :as => :new_request
+    match '/new/:url_name' => 'request#new', :as => :new_request_to_body
+    match '/request/search_ahead' => 'request#search_typeahead', :as => :search_ahead
+    match '/request/:url_title.:format' => 'request#show', :as => :show_request
+    match '/request/:url_title/new' => 'request#show', :as => :show_new_request
+    match '/details/request/:url_title' => 'request#details', :as => :details_request
+    match '/similar/request/:url_title' => 'request#similar', :as => :similar_request
+    match '/request/:id/describe' => 'request#describe_state', :as => :describe_state
+    match '/request/:id/response' => 'request#show_response', :as => :show_response_no_followup
+    match '/request/:id/response/:incoming_message_id' => 'request#show_response', :as => :show_response
+    match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'request#get_attachment_as_html', :as => :get_attachment_as_html
+    match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'request#get_attachment', :as => :get_attachment
+    match '/request_event/:info_request_event_id' => 'request#show_request_event', :as => :info_request_event
+    match '/upload/request/:url_title' => 'request#upload_response', :as => :upload_response
+    match '/request/:url_title/download' => 'request#download_entire_request', :as => :download_entire_request
+    match '/request/:url_title/report' => 'request#report_request', :as => :report
+    match '/profile/sign_in' => 'user#signin', :as => :signin
+    match '/profile/sign_up' => 'user#signup', :as => :signup
+    match '/profile/sign_out' => 'user#signout', :as => :signout
+    match '/c/:email_token' => 'user#confirm', :as => :confirm
+    match '/user/:url_name.:format' => 'user#show', :as => :show_user
+    match '/user/:url_name/profile.:format' => 'user#show', :as => :show_user_profile, :view => 'profile'
+    match '/user/:url_name/requests.:format' => 'user#show', :as => :show_user_requests, :view => 'requests'
+    match '/user/:url_name/wall.:format' => 'user#wall', :as => :show_user_wall
+    match '/user/contact/:id' => 'user#contact', :as => :contact_user
+    match '/profile/change_password' => 'user#signchangepassword', :as => :signchangepassword
+    match '/profile/change_email' => 'user#signchangeemail', :as => :signchangeemail
+    match '/profile/set_photo' => 'user#set_profile_photo', :as => :set_profile_photo
+    match '/profile/clear_photo' => 'user#clear_profile_photo', :as => :clear_profile_photo
+    match '/user/:url_name/photo.png' => 'user#get_profile_photo', :as => :get_profile_photo
+    match '/profile/draft_photo/:id.png' => 'user#get_draft_profile_photo', :as => :get_draft_profile_photo
+    match '/profile/set_about_me' => 'user#set_profile_about_me', :as => :set_profile_about_me
+    match '/profile/set_receive_alerts' => 'user#set_receive_email_alerts', :as => :set_receive_email_alerts
+    match '/profile/river' => 'user#river', :as => :river
+    match '/body/search_ahead' => 'public_body#search_typeahead', :as => :search_ahead_bodies
+    match '/body' => 'public_body#list', :as => :list_public_bodies
+    match '/body/list/all' => 'public_body#list', :as => :list_public_bodies_default
+    match '/body/list/:tag' => 'public_body#list', :as => :list_public_bodies
+    match '/local/:tag' => 'public_body#list_redirect', :as => :list_public_bodies_redirect
+    match '/body/all-authorities.csv' => 'public_body#list_all_csv', :as => :all_public_bodies_csv
+    match '/body/:url_name.:format' => 'public_body#show', :as => :show_public_body, :view => 'all'
+    match '/body/:url_name/all' => 'public_body#show', :as => :show_public_body_all, :view => 'all'
+    match '/body/:url_name/successful' => 'public_body#show', :as => :show_public_body_successful, :view => 'successful'
+    match '/body/:url_name/unsuccessful' => 'public_body#show', :as => :show_public_body_unsuccessful, :view => 'unsuccessful'
+    match '/body/:url_name/awaiting' => 'public_body#show', :as => :show_public_body_awaiting, :view => 'awaiting'
+    match '/body/:url_name/view_email' => 'public_body#view_email', :as => :view_public_body_email
+    match '/body/:url_name/:tag' => 'public_body#show', :as => :show_public_body_tag
+    match '/body/:url_name/:tag/:view' => 'public_body#show', :as => :show_public_body_tag_view
+    match '/annotate/request/:url_title' => 'comment#new', :as => :new_comment, :type => 'request'
+    match '/country_message' => 'services#other_country_message', :as => :other_country_message
+    match '/hidden_user_explanation' => 'services#hidden_user_explanation', :as => :hidden_user_explanation
+    match '/:feed/request/:url_title.:format' => 'track#track_request', :as => :track_request, :feed => /(track|feed)/
+    match '/:feed/list/:view.:format' => 'track#track_list', :as => :track_list, :view => , :feed => /(track|feed)/
+    match '/:feed/body/:url_name.:format' => 'track#track_public_body', :as => :track_public_body, :feed => /(track|feed)/
+    match '/:feed/user/:url_name.:format' => 'track#track_user', :as => :track_user, :feed => /(track|feed)/
+    match '/:feed/search/*query_array.:format' => 'track#track_search_query', :as => :track_search, :feed => /(track|feed)/
+    match '/track/update/:track_id' => 'track#update', :as => :update
+    match '/track/delete_all_type' => 'track#delete_all_type', :as => :delete_all_type
+    match '/track/feed/:track_id' => 'track#atom_feed', :as => :atom_feed
+    match '/help/unhappy/:url_title' => 'help#unhappy', :as => :help_unhappy
+    match '/help/about' => 'help#about', :as => :help_about
+    match '/help/alaveteli' => 'help#alaveteli', :as => :help_alaveteli
+    match '/help/contact' => 'help#contact', :as => :help_contact
+    match '/help/officers' => 'help#officers', :as => :help_officers
+    match '/help/requesting' => 'help#requesting', :as => :help_requesting
+    match '/help/privacy' => 'help#privacy', :as => :help_privacy
+    match '/help/api' => 'help#api', :as => :help_api
+    match '/help/credits' => 'help#credits', :as => :help_credits
+    match '/help/:action' => 'help#action', :as => :help_general
+    match '/due_date/:holiday' => 'holiday#due_date', :as => :due_date
+    match '/categorise/play' => 'request_game#play', :as => :play
+    match '/categorise/request/:url_title' => 'request_game#show', :as => :request
+    match '/categorise/stop' => 'request_game#stop', :as => :stop
+    match '/admin/missing_scheme' => 'admin_public_body#missing_scheme', :as => :admin_body_missing
+    match '/admin/body' => 'admin_public_body#index', :as => :admin_body_index
+    match '/admin/body/list' => 'admin_public_body#list', :as => :admin_body_list
+    match '/admin/body/show/:id' => 'admin_public_body#show', :as => :admin_body_show
+    match '/admin/body/new/:id' => 'admin_public_body#new', :as => :admin_body_new
+    match '/admin/body/edit/:id' => 'admin_public_body#edit', :as => :admin_body_edit
+    match '/admin/body/update/:id' => 'admin_public_body#update', :as => :admin_body_update
+    match '/admin/body/create/:id' => 'admin_public_body#create', :as => :admin_body_create
+    match '/admin/body/destroy/:id' => 'admin_public_body#destroy', :as => :admin_body_destroy
+    match '/admin/body/import_csv' => 'admin_public_body#import_csv', :as => :admin_body_import_csv
+    match '/admin/body/mass_tag_add' => 'admin_public_body#mass_tag_add', :as => :admin_body_mass_tag_add
+    match '/admin' => 'admin_general#index', :as => :admin_general_index
+    match '/admin/timeline' => 'admin_general#timeline', :as => :admin_timeline
+    match '/admin/debug' => 'admin_general#debug', :as => :admin_debug
+    match '/admin/stats' => 'admin_general#stats', :as => :admin_stats
+    match '/admin/unclassified' => 'admin_request#list_old_unclassified', :as => :admin_request_list_old_unclassified
+    match '/admin/request' => 'admin_request#index', :as => :admin_request_index
+    match '/admin/request/list' => 'admin_request#list', :as => :admin_request_list
+    match '/admin/request/show/:id' => 'admin_request#show', :as => :admin_request_show
+    match '/admin/request/resend' => 'admin_request#resend', :as => :admin_request_resend
+    match '/admin/request/edit/:id' => 'admin_request#edit', :as => :admin_request_edit
+    match '/admin/request/update/:id' => 'admin_request#update', :as => :admin_request_update
+    match '/admin/request/destroy/:id' => 'admin_request#fully_destroy', :as => :admin_request_destroy
+    match '/admin/request/edit_outgoing/:id' => 'admin_request#edit_outgoing', :as => :admin_request_edit_outgoing
+    match '/admin/request/destroy_outgoing/:id' => 'admin_request#destroy_outgoing', :as => :admin_request_destroy_outgoing
+    match '/admin/request/update_outgoing/:id' => 'admin_request#update_outgoing', :as => :admin_request_update_outgoing
+    match '/admin/request/edit_comment/:id' => 'admin_request#edit_comment', :as => :admin_request_edit_comment
+    match '/admin/request/update_comment/:id' => 'admin_request#update_comment', :as => :admin_request_update_comment
+    match '/admin/request/destroy_incoming/:id' => 'admin_request#destroy_incoming', :as => :admin_request_destroy_incoming
+    match '/admin/request/redeliver_incoming' => 'admin_request#redeliver_incoming', :as => :admin_request_redeliver_incoming
+    match '/admin/request/move_request' => 'admin_request#move_request', :as => :admin_request_move_request
+    match '/admin/request/generate_upload_url/:id' => 'admin_request#generate_upload_url', :as => :admin_request_generate_upload_url
+    match '/admin/request/show_raw_email/:id' => 'admin_request#show_raw_email', :as => :admin_request_show_raw_email
+    match '/admin/request/download_raw_email/:id' => 'admin_request#download_raw_email', :as => :admin_request_download_raw_email
+    match '/admin/request/mark_event_as_clarification' => 'admin_request#mark_event_as_clarification', :as => :admin_request_clarification
+    match '/admin/request/hide/:id' => 'admin_request#hide_request', :as => :admin_request_hide
+    match '/admin/user' => 'admin_user#index', :as => :admin_user_index
+    match '/admin/user/list' => 'admin_user#list', :as => :admin_user_list
+    match '/admin/user/banned' => 'admin_user#list_banned', :as => :admin_user_list_banned
+    match '/admin/user/show/:id' => 'admin_user#show', :as => :admin_user_show
+    match '/admin/user/edit/:id' => 'admin_user#edit', :as => :admin_user_edit
+    match '/admin/user/show_bounce_message/:id' => 'admin_user#show_bounce_message', :as => :admin_user_show
+    match '/admin/user/update/:id' => 'admin_user#update', :as => :admin_user_update
+    match '/admin/user/clear_bounce/:id' => 'admin_user#clear_bounce', :as => :admin_user_clear_bounce
+    match '/admin/user/destroy_track' => 'admin_user#destroy_track', :as => :admin_user_destroy_track
+    match '/admin/user/login_as/:id' => 'admin_user#login_as', :as => :admin_user_login_as
+    match '/admin/user/clear_profile_photo/:id' => 'admin_user#clear_profile_photo', :as => :admin_clear_profile_photo
+    match '/admin/track/list' => 'admin_track#list', :as => :admin_track_list
+    match '/admin/censor/new' => 'admin_censor_rule#new', :as => :admin_rule_new
+    match '/admin/censor/create' => 'admin_censor_rule#create', :as => :admin_rule_create
+    match '/admin/censor/edit/:id' => 'admin_censor_rule#edit', :as => :admin_rule_edit
+    match '/admin/censor/update/:id' => 'admin_censor_rule#update', :as => :admin_rule_update
+    match '/admin/censor/destroy/:censor_rule_id' => 'admin_censor_rule#destroy', :as => :admin_rule_destroy
+    match '/api/v2/request.json' => 'api#create_request', :as => :api_create_request, :via => :post
+    match '/api/v2/request/:id.json' => 'api#show_request', :as => :api_show_request, :via => :get
+    match '/api/v2/request/:id.json' => 'api#add_correspondence', :as => :api_add_correspondence, :via => :post
+    match '/api/v2/body/:id/request_events.:feed_type' => 'api#body_request_events', :as => :api_body_request_events, :feed_type => '^(json|atom)$'
+    match 'conditionallyprependlocale' => '#index', :as => :filter
 end
