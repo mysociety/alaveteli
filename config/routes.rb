@@ -29,7 +29,7 @@ Alaveteli::Application.routes.draw do
     match '/new' => 'request#new', :as => :new_request
     match '/new/:url_name' => 'request#new', :as => :new_request_to_body
     match '/request/search_ahead' => 'request#search_typeahead', :as => :search_ahead
-    match '/request/:url_title.:format' => 'request#show', :as => :show_request
+    match '/request/:url_title' => 'request#show', :as => :show_request
     match '/request/:url_title/new' => 'request#show', :as => :show_new_request
     match '/details/request/:url_title' => 'request#details', :as => :details_request
     match '/similar/request/:url_title' => 'request#similar', :as => :similar_request
@@ -46,7 +46,7 @@ Alaveteli::Application.routes.draw do
     match '/profile/sign_up' => 'user#signup', :as => :signup
     match '/profile/sign_out' => 'user#signout', :as => :signout
     match '/c/:email_token' => 'user#confirm', :as => :confirm
-    match '/user/:url_name.:format' => 'user#show', :as => :show_user
+    match '/user/:url_name' => 'user#show', :as => :show_user
     match '/user/:url_name/profile.:format' => 'user#show', :as => :show_user_profile, :view => 'profile'
     match '/user/:url_name/requests.:format' => 'user#show', :as => :show_user_requests, :view => 'requests'
     match '/user/:url_name/wall.:format' => 'user#wall', :as => :show_user_wall
@@ -66,7 +66,7 @@ Alaveteli::Application.routes.draw do
     match '/body/list/:tag' => 'public_body#list', :as => :list_public_bodies
     match '/local/:tag' => 'public_body#list_redirect', :as => :list_public_bodies_redirect
     match '/body/all-authorities.csv' => 'public_body#list_all_csv', :as => :all_public_bodies_csv
-    match '/body/:url_name.:format' => 'public_body#show', :as => :show_public_body, :view => 'all'
+    match '/body/:url_name' => 'public_body#show', :as => :show_public_body, :view => 'all'
     match '/body/:url_name/all' => 'public_body#show', :as => :show_public_body_all, :view => 'all'
     match '/body/:url_name/successful' => 'public_body#show', :as => :show_public_body_successful, :view => 'successful'
     match '/body/:url_name/unsuccessful' => 'public_body#show', :as => :show_public_body_unsuccessful, :view => 'unsuccessful'
@@ -77,10 +77,10 @@ Alaveteli::Application.routes.draw do
     match '/annotate/request/:url_title' => 'comment#new', :as => :new_comment, :type => 'request'
     match '/country_message' => 'services#other_country_message', :as => :other_country_message
     match '/hidden_user_explanation' => 'services#hidden_user_explanation', :as => :hidden_user_explanation
-    match '/:feed/request/:url_title.:format' => 'track#track_request', :as => :track_request, :feed => /(track|feed)/
-    match '/:feed/list/:view.:format' => 'track#track_list', :as => :track_list, :view => nil, :feed => /(track|feed)/
-    match '/:feed/body/:url_name.:format' => 'track#track_public_body', :as => :track_public_body, :feed => /(track|feed)/
-    match '/:feed/user/:url_name.:format' => 'track#track_user', :as => :track_user, :feed => /(track|feed)/
+    match '/:feed/request/:url_title' => 'track#track_request', :as => :track_request, :feed => /(track|feed)/
+    match '/:feed/list/:view' => 'track#track_list', :as => :track_list, :view => nil, :feed => /(track|feed)/
+    match '/:feed/body/:url_name' => 'track#track_public_body', :as => :track_public_body, :feed => /(track|feed)/
+    match '/:feed/user/:url_name' => 'track#track_user', :as => :track_user, :feed => /(track|feed)/
     match '/:feed/search/*query_array.:format' => 'track#track_search_query', :as => :track_search, :feed => /(track|feed)/
     match '/track/update/:track_id' => 'track#update', :as => :update
     match '/track/delete_all_type' => 'track#delete_all_type', :as => :delete_all_type
