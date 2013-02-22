@@ -128,7 +128,7 @@ Alaveteli::Application.routes.draw do
     match '/admin/request/update_outgoing/:id' => 'admin_request#update_outgoing', :as => :admin_request_update_outgoing
     match '/admin/request/edit_comment/:id' => 'admin_request#edit_comment', :as => :admin_request_edit_comment
     match '/admin/request/update_comment/:id' => 'admin_request#update_comment', :as => :admin_request_update_comment
-    match '/admin/request/destroy_incoming/:id' => 'admin_request#destroy_incoming', :as => :admin_request_destroy_incoming
+    match '/admin/request/destroy_incoming' => 'admin_request#destroy_incoming', :as => :admin_request_destroy_incoming
     match '/admin/request/redeliver_incoming' => 'admin_request#redeliver_incoming', :as => :admin_request_redeliver_incoming
     match '/admin/request/move_request' => 'admin_request#move_request', :as => :admin_request_move_request
     match '/admin/request/generate_upload_url/:id' => 'admin_request#generate_upload_url', :as => :admin_request_generate_upload_url
