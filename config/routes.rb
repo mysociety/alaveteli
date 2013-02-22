@@ -166,8 +166,7 @@ Alaveteli::Application.routes.draw do
     match '/admin/body/new/:id' => 'admin_public_body#new', :as => :admin_body_new
     match '/admin/body/edit/:id' => 'admin_public_body#edit', :as => :admin_body_edit
     match '/admin/body/update/:id' => 'admin_public_body#update', :as => :admin_body_update
-    # TODO: Remove optional id. Not sure why you'd specify id here but it was in the Rails 2.x routes
-    match '/admin/body/create(/:id)' => 'admin_public_body#create', :as => :admin_body_create
+    match '/admin/body/create' => 'admin_public_body#create', :as => :admin_body_create
     match '/admin/body/destroy/:id' => 'admin_public_body#destroy', :as => :admin_body_destroy
     match '/admin/body/import_csv' => 'admin_public_body#import_csv', :as => :admin_body_import_csv
     match '/admin/body/mass_tag_add' => 'admin_public_body#mass_tag_add', :as => :admin_body_mass_tag_add
