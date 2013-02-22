@@ -47,9 +47,9 @@ Alaveteli::Application.routes.draw do
     match '/profile/sign_out' => 'user#signout', :as => :signout
     match '/c/:email_token' => 'user#confirm', :as => :confirm
     match '/user/:url_name' => 'user#show', :as => :show_user
-    match '/user/:url_name/profile.:format' => 'user#show', :as => :show_user_profile, :view => 'profile'
-    match '/user/:url_name/requests.:format' => 'user#show', :as => :show_user_requests, :view => 'requests'
-    match '/user/:url_name/wall.:format' => 'user#wall', :as => :show_user_wall
+    match '/user/:url_name/profile' => 'user#show', :as => :show_user_profile, :view => 'profile'
+    match '/user/:url_name/requests' => 'user#show', :as => :show_user_requests, :view => 'requests'
+    match '/user/:url_name/wall' => 'user#wall', :as => :show_user_wall
     match '/user/contact/:id' => 'user#contact', :as => :contact_user
     match '/profile/change_password' => 'user#signchangepassword', :as => :signchangepassword
     match '/profile/change_email' => 'user#signchangeemail', :as => :signchangeemail
@@ -81,7 +81,7 @@ Alaveteli::Application.routes.draw do
     match '/:feed/list/:view' => 'track#track_list', :as => :track_list, :view => nil, :feed => /(track|feed)/
     match '/:feed/body/:url_name' => 'track#track_public_body', :as => :track_public_body, :feed => /(track|feed)/
     match '/:feed/user/:url_name' => 'track#track_user', :as => :track_user, :feed => /(track|feed)/
-    match '/:feed/search/*query_array.:format' => 'track#track_search_query', :as => :track_search, :feed => /(track|feed)/
+    match '/:feed/search/*query_array' => 'track#track_search_query', :as => :track_search, :feed => /(track|feed)/
     match '/track/update/:track_id' => 'track#update', :as => :update
     match '/track/delete_all_type' => 'track#delete_all_type', :as => :delete_all_type
     match '/track/feed/:track_id' => 'track#atom_feed', :as => :atom_feed
