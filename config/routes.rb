@@ -32,6 +32,7 @@ ActionController::Routing::Routes.draw do |map|
         general.advanced_search '/advancedsearch', :action => 'search_redirect', :advanced => true
 
         general.random_request '/random', :action => 'random_request'
+        general.version '/version.:format', :action => 'version'
     end
 
     map.with_options :controller => 'request' do |request|

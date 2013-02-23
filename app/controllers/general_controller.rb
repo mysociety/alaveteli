@@ -230,6 +230,14 @@ class GeneralController < ApplicationController
         render(:layout => false, :content_type => 'text/css')
     end
 
-
+    def version
+        respond_to do |format|
+            format.json { render :json => {
+                :alaveteli_git_commit => alaveteli_git_commit,
+                :alaveteli_version => ALAVETELI_VERSION,
+                :ruby_version => RUBY_VERSION
+            }}
+        end
+    end
 end
 
