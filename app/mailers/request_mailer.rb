@@ -350,7 +350,7 @@ class RequestMailer < ApplicationMailer
                 store_sent.alert_type = type_code
                 store_sent.info_request_event_id = alert_event_id
                 # XXX uses same template for reminder 1 and reminder 2 right now.
-                RequestMailer.deliver_new_response_reminder_alert(info_request, last_response_message)
+                RequestMailer.new_response_reminder_alert(info_request, last_response_message).deliver
                 store_sent.save!
             end
         end

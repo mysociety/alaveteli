@@ -1297,7 +1297,9 @@ describe RequestController, "when classifying an information request" do
 
             before do
                 @dog_request.stub!(:is_old_unclassified?).and_return(true)
-                RequestMailer.stub!(:deliver_old_unclassified_updated)
+                mail_mock = mock("mail")
+                mail_mock.stub(:deliver)
+                RequestMailer.stub!(:old_unclassified_updated).and_return(mail_mock)
             end
 
             describe 'when the user is not logged in' do
@@ -1334,7 +1336,7 @@ describe RequestController, "when classifying an information request" do
                 end
 
                 it 'should send an email to the requester letting them know someone has updated the status of their request' do
-                    RequestMailer.should_receive(:deliver_old_unclassified_updated)
+                    RequestMailer.should_receive(:old_unclassified_updated)
                     post_status('rejected')
                 end
 
@@ -1385,7 +1387,9 @@ describe RequestController, "when classifying an information request" do
             end
 
             it 'should send an email to the requester letting them know someone has updated the status of their request' do
-                RequestMailer.should_receive(:deliver_old_unclassified_updated)
+                mail_mock = mock("mail")
+                mail_mock.stub :deliver
+                RequestMailer.should_receive(:old_unclassified_updated).and_return(mail_mock)
                 post_status('rejected')
             end
 
@@ -1424,7 +1428,7 @@ describe RequestController, "when classifying an information request" do
             end
 
             it 'should not send an email to the requester letting them know someone has updated the status of their request' do
-                RequestMailer.should_not_receive(:deliver_old_unclassified_updated)
+                RequestMailer.should_not_receive(:old_unclassified_updated)
                 post_status('rejected')
             end
 
@@ -1465,7 +1469,7 @@ describe RequestController, "when classifying an information request" do
             end
 
             it 'should not send an email to the requester letting them know someone has updated the status of their request' do
-                RequestMailer.should_not_receive(:deliver_old_unclassified_updated)
+                RequestMailer.should_not_receive(:old_unclassified_updated)
                 post_status('rejected')
             end
 

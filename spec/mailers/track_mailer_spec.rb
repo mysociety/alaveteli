@@ -5,7 +5,9 @@ describe TrackMailer do
     describe 'when sending email alerts for tracked things' do
 
         before do
-            TrackMailer.stub!(:deliver_event_digest)
+            mail_mock = mock("mail")
+            mail_mock.stub(:deliver)
+            TrackMailer.stub!(:event_digest).and_return(mail_mock)
             Time.stub!(:now).and_return(Time.utc(2007, 11, 12, 23, 59))
         end
 
@@ -79,21 +81,21 @@ describe TrackMailer do
                     sent_email = mock_model(TrackThingsSentEmail, :info_request_event_id => @found_event.id)
                     @track_things_sent_emails_array.stub!(:find).and_return([sent_email]) # this is for the date range find (created in last 14 days)
                     @xapian_search.stub!(:results).and_return([@search_result])
-                    TrackMailer.should_not_receive(:deliver_event_digest)
+                    TrackMailer.should_not_receive(:event_digest)
                     TrackMailer.alert_tracks
                 end
 
                 it 'should not include in the email any events not sent in a previous tracking email that were described before the track was set up' do
                     @found_event.stub!(:described_at).and_return(@track_thing.created_at - 1.day)
                     @xapian_search.stub!(:results).and_return([@search_result])
-                    TrackMailer.should_not_receive(:deliver_event_digest)
+                    TrackMailer.should_not_receive(:event_digest)
                     TrackMailer.alert_tracks
                 end
 
                 it 'should include in the email any events that the user has not been sent a tracking email on that have been described since the track was set up' do
                     @found_event.stub!(:described_at).and_return(@track_thing.created_at + 1.day)
                     @xapian_search.stub!(:results).and_return([@search_result])
-                    TrackMailer.should_receive(:deliver_event_digest)
+                    TrackMailer.should_receive(:event_digest)
                     TrackMailer.alert_tracks
                 end
 
@@ -173,7 +175,7 @@ describe TrackMailer do
                     :url_name => 'tippy_test'
             )
 
-            TrackMailer.deliver_event_digest(@user, []) # no items in it email for minimal test
+            TrackMailer.event_digest(@user, []).deliver # no items in it email for minimal test
             deliveries = ActionMailer::Base.deliveries
             if deliveries.size > 1 # debugging if there is an error
                 deliveries.each do |d|

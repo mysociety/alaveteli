@@ -437,7 +437,7 @@ class RequestController < ApplicationController
                                           :info_request_event_id => event.id)
 
             # Don't give advice on what to do next, as it isn't their request
-            RequestMailer.deliver_old_unclassified_updated(@info_request) if !@info_request.is_external?
+            RequestMailer.old_unclassified_updated(@info_request).deliver if !@info_request.is_external?
             if session[:request_game]
                 flash[:notice] = _('Thank you for updating the status of the request \'<a href="{{url}}">{{info_request_title}}</a>\'. There are some more requests below for you to classify.',:info_request_title=>CGI.escapeHTML(@info_request.title), :url=>CGI.escapeHTML(request_url(@info_request)))
                 redirect_to play_url

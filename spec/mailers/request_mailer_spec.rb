@@ -211,7 +211,9 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
                                                 :url_title => 'test_title',
                                                 :user => @mock_user)
         InfoRequest.stub!(:find).and_return([@mock_request])
-        RequestMailer.stub!(:deliver_new_response_reminder_alert)
+        mail_mock = mock("mail")
+        mail_mock.stub(:deliver)
+        RequestMailer.stub(:new_response_reminder_alert).and_return(mail_mock)
         @sent_alert = mock_model(UserInfoRequestSentAlert, :user= =>nil,
                                                            :info_request= => nil,
                                                            :alert_type= => nil,
@@ -268,7 +270,7 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
         end
 
         it 'should not send the reminder' do
-            RequestMailer.should_not_receive(:deliver_new_response_reminder_alert)
+            RequestMailer.should_not_receive(:new_response_reminder_alert)
             send_alerts
         end
 
@@ -292,7 +294,7 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
         end
 
         it 'should send the reminder' do
-            RequestMailer.should_receive(:deliver_new_response_reminder_alert)
+            RequestMailer.should_receive(:new_response_reminder_alert)
             send_alerts
         end
     end
