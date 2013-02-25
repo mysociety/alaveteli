@@ -34,7 +34,7 @@ describe AdminRequestController, "when administering requests" do
                                            :awaiting_description => false,
                                            :allow_new_responses_from => 'anybody',
                                            :handle_rejected_responses => 'bounce' } }
-        response.flash[:notice].should include('successful')
+        request.flash[:notice].should include('successful')
         ir = InfoRequest.find(info_requests(:fancy_dog_request).id)
         ir.title.should == "Renamed"
     end
@@ -59,7 +59,7 @@ describe AdminRequestController, "when administering requests" do
     it "saves edits to an outgoing_message" do
         outgoing_messages(:useless_outgoing_message).body.should include("fancy dog")
         post :update_outgoing, { :id => outgoing_messages(:useless_outgoing_message), :outgoing_message => { :body => "Why do you have such a delicious cat?" } }
-        response.flash[:notice].should include('successful')
+        request.flash[:notice].should include('successful')
         ir = OutgoingMessage.find(outgoing_messages(:useless_outgoing_message).id)
         ir.body.should include("delicious cat")
     end
@@ -256,7 +256,7 @@ describe AdminRequestController, "when administering the holding pen" do
 
             it 'should add a notice to the flash saying that the request has been hidden' do
                 make_request
-                response.flash[:notice].should == "This external request has been hidden"
+                request.flash[:notice].should == "This external request has been hidden"
             end
 
             it 'should expire the file cache for the request' do

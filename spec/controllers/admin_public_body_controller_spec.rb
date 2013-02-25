@@ -29,7 +29,7 @@ describe AdminPublicBodyController, "when administering public bodies" do
     it "saves edits to a public body" do
         public_bodies(:humpadink_public_body).name.should == "Department for Humpadinking"
         post :update, { :id => 3, :public_body => { :name => "Renamed", :short_name => "", :tag_string => "some tags", :request_email => 'edited@localhost', :last_edit_comment => 'From test code' } }
-        response.flash[:notice].should include('successful')
+        request.flash[:notice].should include('successful')
         pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
         pb.name.should == "Renamed"
     end
@@ -57,7 +57,7 @@ describe AdminPublicBodyController, "when administering public bodies" do
     it "mass assigns tags" do
         n = PublicBody.count
         post :mass_tag_add, { :new_tag => "department", :table_name => "substring" }
-        response.flash[:notice].should == "Added tag to table of bodies."
+        request.flash[:notice].should == "Added tag to table of bodies."
         response.should redirect_to(:action=>'list')
         PublicBody.find_by_tag("department").count.should == n
     end
@@ -295,7 +295,7 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
                         }
                     }
                 }
-            response.flash[:notice].should include('successful')
+            request.flash[:notice].should include('successful')
         end
 
         pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
