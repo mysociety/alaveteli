@@ -340,7 +340,7 @@ describe RequestMailer, 'requires_admin' do
     end
 
     it 'body should contain the full admin URL' do
-        mail = RequestMailer.deliver_requires_admin(@info_request)
+        mail = RequestMailer.requires_admin(@info_request).deliver
 
         mail.body.should include('http://test.host/en/admin/request/show/123')
     end
@@ -351,7 +351,7 @@ describe RequestMailer, 'requires_admin' do
         end
 
         it 'body should contain the full admin URL' do
-            mail = RequestMailer.deliver_requires_admin(@info_request)
+            mail = RequestMailer.requires_admin(@info_request).deliver
 
             mail.body.should include('http://our.proxy.server/admin/alaveteli/request/show/123')
         end

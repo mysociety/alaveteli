@@ -250,7 +250,7 @@ describe AdminRequestController, "when administering the holding pen" do
             end
 
             it 'should not send a notification email' do
-                ContactMailer.should_not_receive(:deliver_from_admin_message)
+                ContactMailer.should_not_receive(:from_admin_message)
                 make_request
             end
 

@@ -309,9 +309,9 @@ class RequestMailer < ApplicationMailer
                     # (otherwise they are banned, and there is no point sending it)
                     if info_request.user.can_make_followup?
                         if calculated_status == 'waiting_response_overdue'
-                            RequestMailer.deliver_overdue_alert(info_request, info_request.user)
+                            RequestMailer.overdue_alert(info_request, info_request.user).deliver
                         elsif calculated_status == 'waiting_response_very_overdue'
-                            RequestMailer.deliver_very_overdue_alert(info_request, info_request.user)
+                            RequestMailer.very_overdue_alert(info_request, info_request.user).deliver
                         else
                             raise "unknown request status"
                         end
@@ -378,7 +378,7 @@ class RequestMailer < ApplicationMailer
                 # Only send the alert if the user can act on it by making a followup
                 # (otherwise they are banned, and there is no point sending it)
                 if info_request.user.can_make_followup?
-                    RequestMailer.deliver_not_clarified_alert(info_request, last_response_message)
+                    RequestMailer.not_clarified_alert(info_request, last_response_message).deliver
                 end
                 store_sent.save!
             end
@@ -442,9 +442,9 @@ class RequestMailer < ApplicationMailer
                 store_sent.alert_type = 'comment_1'
                 store_sent.info_request_event_id = last_comment_event.id
                 if count > 1
-                    RequestMailer.deliver_comment_on_alert_plural(info_request, count, earliest_unalerted_comment_event.comment)
+                    RequestMailer.comment_on_alert_plural(info_request, count, earliest_unalerted_comment_event.comment).deliver
                 elsif count == 1
-                    RequestMailer.deliver_comment_on_alert(info_request, last_comment_event.comment)
+                    RequestMailer.comment_on_alert(info_request, last_comment_event.comment).deliver
                 else
                     raise "internal error"
                 end

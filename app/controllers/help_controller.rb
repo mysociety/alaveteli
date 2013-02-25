@@ -49,14 +49,14 @@ class HelpController < ApplicationController
             end
             @contact = ContactValidator.new(params[:contact])
             if @contact.valid? && !params[:remove]
-                ContactMailer.deliver_to_admin_message(
+                ContactMailer.to_admin_message(
                     params[:contact][:name],
                     params[:contact][:email],
                     params[:contact][:subject],
                     params[:contact][:message],
                     @user,
                     @last_request, @last_body
-                )
+                ).deliver
                 flash[:notice] = _("Your message has been sent. Thank you for getting in touch! We'll get back to you soon.")
                 redirect_to frontpage_url
                 return

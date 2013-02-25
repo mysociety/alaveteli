@@ -288,7 +288,7 @@ class UserController < ApplicationController
                 post_redirect.user = user_signchangepassword
                 post_redirect.save!
                 url = confirm_url(:email_token => post_redirect.email_token)
-                UserMailer.deliver_confirm_login(user_signchangepassword, post_redirect.reason_params, url)
+                UserMailer.confirm_login(user_signchangepassword, post_redirect.reason_params, url).deliver
             else
                 # User not found, but still show confirm page to not leak fact user exists
             end
@@ -352,7 +352,7 @@ class UserController < ApplicationController
         # if new email already in use, send email there saying what happened
         user_alreadyexists = User.find_user_by_email(@signchangeemail.new_email)
         if user_alreadyexists
-            UserMailer.deliver_changeemail_already_used(@user.email, @signchangeemail.new_email)
+            UserMailer.changeemail_already_used(@user.email, @signchangeemail.new_email).deliver
             # it is important this screen looks the same as the one below, so
             # you can't change to someone's email in order to tell if they are
             # registered with that email on the site
@@ -373,7 +373,7 @@ class UserController < ApplicationController
             post_redirect.save!
 
             url = confirm_url(:email_token => post_redirect.email_token)
-            UserMailer.deliver_changeemail_confirm(@user, @signchangeemail.new_email, url)
+            UserMailer.changeemail_confirm(@user, @signchangeemail.new_email, url).deliver
             # it is important this screen looks the same as the one above, so
             # you can't change to someone's email in order to tell if they are
             # registered with that email on the site
@@ -419,13 +419,13 @@ class UserController < ApplicationController
             params[:contact][:email] = @user.email
             @contact = ContactValidator.new(params[:contact])
             if @contact.valid?
-                ContactMailer.deliver_user_message(
+                ContactMailer.user_message(
                     @user,
                     @recipient_user,
                     main_url(user_url(@user)),
                     params[:contact][:subject],
                     params[:contact][:message]
-                )
+                ).deliver
                 flash[:notice] = _("Your message to {{recipient_user_name}} has been sent!",:recipient_user_name=>CGI.escapeHTML(@recipient_user.name))
                 redirect_to user_url(@recipient_user)
                 return
@@ -631,7 +631,7 @@ class UserController < ApplicationController
         post_redirect.save!
 
         url = confirm_url(:email_token => post_redirect.email_token)
-        UserMailer.deliver_confirm_login(user, post_redirect.reason_params, url)
+        UserMailer.confirm_login(user, post_redirect.reason_params, url).deliver
         render :action => 'confirm'
     end
 
@@ -642,7 +642,7 @@ class UserController < ApplicationController
         post_redirect.save!
 
         url = confirm_url(:email_token => post_redirect.email_token)
-        UserMailer.deliver_already_registered(user, post_redirect.reason_params, url)
+        UserMailer.already_registered(user, post_redirect.reason_params, url).deliver
         render :action => 'confirm' # must be same as for send_confirmation_mail above to avoid leak of presence of email in db
     end
 

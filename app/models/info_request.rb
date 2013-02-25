@@ -445,7 +445,7 @@ public
 
             if !allow
                 if self.handle_rejected_responses == 'bounce'
-                    RequestMailer.deliver_stopped_responses(self, email, raw_email_data) if !is_external?
+                    RequestMailer.stopped_responses(self, email, raw_email_data).deliver if !is_external?
                 elsif self.handle_rejected_responses == 'holding_pen'
                     InfoRequest.holding_pen_request.receive(email, raw_email_data, false, reason)
                 elsif self.handle_rejected_responses == 'blackhole'
@@ -557,7 +557,7 @@ public
         if self.requires_admin?
             # Check there is someone to send the message "from"
             if !set_by.nil? || !self.user.nil?
-                RequestMailer.deliver_requires_admin(self, set_by)
+                RequestMailer.requires_admin(self, set_by).deliver
             end
         end
     end

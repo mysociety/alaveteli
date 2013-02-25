@@ -142,7 +142,7 @@ class OutgoingMessage < ActiveRecord::Base
                 self.status = 'sent'
                 self.save!
 
-                mail_message = OutgoingMailer.deliver_initial_request(self.info_request, self)
+                mail_message = OutgoingMailer.initial_request(self.info_request, self).deliver
                 self.info_request.log_event(log_event_type, {
                     :email => mail_message.to_addrs.join(", "),
                     :outgoing_message_id => self.id,
@@ -154,7 +154,7 @@ class OutgoingMessage < ActiveRecord::Base
                 self.status = 'sent'
                 self.save!
 
-                mail_message = OutgoingMailer.deliver_followup(self.info_request, self, self.incoming_message_followup)
+                mail_message = OutgoingMailer.followup(self.info_request, self, self.incoming_message_followup).deliver
                 self.info_request.log_event('followup_' + log_event_type, {
                     :email => mail_message.to_addrs.join(", "),
                     :outgoing_message_id => self.id,

@@ -380,11 +380,11 @@ class AdminRequestController < AdminController
             info_request.save!
 
             if ! info_request.is_external?
-                ContactMailer.deliver_from_admin_message(
+                ContactMailer.from_admin_message(
                         info_request.user,
                         subject,
                         params[:explanation]
-                    )
+                    ).deliver
                 flash[:notice] = _("Your message to {{recipient_user_name}} has been sent",:recipient_user_name=>CGI.escapeHTML(info_request.user.name))
             else
                 flash[:notice] = _("This external request has been hidden")
