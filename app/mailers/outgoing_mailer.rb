@@ -13,28 +13,26 @@
 # throughout the application.
 
 class OutgoingMailer < ApplicationMailer
-
     # Email to public body requesting info
     def initial_request(info_request, outgoing_message)
+        @info_request, @outgoing_message, @contact_email = info_request, outgoing_message, Configuration::contact_email
         @wrap_lines_as_paragraphs = true
-        @from = info_request.incoming_name_and_email
-        @recipients = info_request.recipient_name_and_email
-        @subject    = info_request.email_subject_request
-        @headers["message-id"] = OutgoingMailer.id_for_message(outgoing_message)
-        @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
-            :contact_email => Configuration::contact_email }
+        headers["message-id"] = OutgoingMailer.id_for_message(outgoing_message)
+
+        mail(:from => info_request.incoming_name_and_email,
+             :to => info_request.recipient_name_and_email,
+             :subject => info_request.email_subject_request)
     end
 
     # Later message to public body regarding existing request
     def followup(info_request, outgoing_message, incoming_message_followup)
+        @info_request, @outgoing_message, @incoming_message_followup, @contact_email = info_request, outgoing_message, incoming_message_followup, Configuration::contact_email
         @wrap_lines_as_paragraphs = true
-        @from = info_request.incoming_name_and_email
-        @recipients = OutgoingMailer.name_and_email_for_followup(info_request, incoming_message_followup)
-        @subject    = OutgoingMailer.subject_for_followup(info_request, outgoing_message)
-        @headers["message-id"] = OutgoingMailer.id_for_message(outgoing_message)
-        @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
-            :incoming_message_followup => incoming_message_followup,
-            :contact_email => Configuration::contact_email }
+        headers["message-id"] = OutgoingMailer.id_for_message(outgoing_message)
+
+        mail(:from => info_request.incoming_name_and_email,
+             :to => OutgoingMailer.name_and_email_for_followup(info_request, incoming_message_followup),
+             :subject => OutgoingMailer.subject_for_followup(info_request, outgoing_message))
     end
 
     # XXX the condition checking valid_to_reply_to? also appears in views/request/_followup.rhtml,
