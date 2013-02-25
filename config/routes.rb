@@ -185,6 +185,7 @@ ActionController::Routing::Routes.draw do |map|
         admin.admin_timeline '/admin/timeline', :action => 'timeline'
         admin.admin_debug '/admin/debug', :action => 'debug'
         admin.admin_stats '/admin/stats', :action => 'stats'
+        admin.admin_js '/admin/javascripts/admin.js', :action => 'admin_js'
     end
 
     map.with_options :controller => 'admin_request' do |admin|

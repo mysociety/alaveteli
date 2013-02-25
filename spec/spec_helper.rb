@@ -222,6 +222,9 @@ if $tempfilecount.nil?
                 end
                 def process(action, parameters = nil, session = nil, flash = nil, http_method = 'GET')
                     self.original_process(action, parameters, session, flash, http_method)
+                    # Don't try validating the admin interface.
+                    # TODO: Make the admin interface valid html5
+                    return if @request.parameters["controller"] =~ /admin_/
                     # don't validate auto-generated HTML
                     return if @request.query_parameters["action"] == "get_attachment_as_html"
                     # XXX Is there a better way to check this than calling a private method?
