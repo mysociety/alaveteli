@@ -479,7 +479,7 @@ public
             self.save!
         end
         self.info_request_events.each { |event| event.xapian_mark_needs_index } # for the "waiting_classification" index
-        RequestMailer.deliver_new_response(self, incoming_message) if !is_external?
+        RequestMailer.new_response(self, incoming_message).deliver if !is_external?
     end
 
 
