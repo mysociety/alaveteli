@@ -168,7 +168,7 @@ class ApiController < ApplicationController
                     mail.parts << attachment
                 end
             else
-                mail = RequestMailer.create_external_response(request, body, sent_at, attachment_hashes)
+                mail = RequestMailer.external_response(request, body, sent_at, attachment_hashes)
             end
             request.receive(mail, mail.encoded, true)
         end
