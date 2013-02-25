@@ -129,7 +129,7 @@ describe TrackMailer do
 
             it 'should not ask for any daily track things for the user' do
                 expected_conditions = [ "tracking_user_id = ? and track_medium = ?", @user.id, 'email_daily' ]
-                TrackThing.should_not_receive(:find).with(:all, :conditions => expected_conditions).and_return([])
+                TrackThing.should_not_receive(:find).with(:all, :conditions => expected_conditions)
                 TrackMailer.alert_tracks
             end
 
@@ -137,7 +137,7 @@ describe TrackMailer do
                 @user.stub(:should_be_emailed?).and_return(true)
                 @user.stub(:receive_email_alerts).and_return(false)
                 expected_conditions = [ "tracking_user_id = ? and track_medium = ?", @user.id, 'email_daily' ]
-                TrackThing.should_not_receive(:find).with(:all, :conditions => expected_conditions).and_return([])
+                TrackThing.should_not_receive(:find).with(:all, :conditions => expected_conditions)
                 TrackMailer.alert_tracks
             end
 
