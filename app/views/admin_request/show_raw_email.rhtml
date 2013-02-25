@@ -38,6 +38,10 @@
                                         <%= link_to(info_request.public_body.name, public_body_admin_url(info_request.public_body)) %>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td><strong>url_title:</strong></td>
+                                    <td><%= info_request.url_title %></td>
+                                </tr>
                             </table>
                             <p>
                                 This request was guessed because it has an incoming email address of <strong><%= info_request.incoming_email %></strong> and this incoming message was sent to <strong><%= @raw_email.incoming_message.mail.to %></strong>.
