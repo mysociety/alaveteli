@@ -7,39 +7,35 @@
 require 'alaveteli_file_types'
 
 class RequestMailer < ApplicationMailer
-
-
     # Used when an FOI officer uploads a response from their web browser - this is
     # the "fake" email used to store in the same format in the database as if they
     # had emailed it.
-    def fake_response(info_request, from_user, body, attachment_name, attachment_content)
-        @from = from_user.name_and_email
-        @recipients = info_request.incoming_name_and_email
-        @body = {
-            :body => body
-        }
+    def fake_response(info_request, from_user, message_body, attachment_name, attachment_content)
+        @message_body = message_body
+
         if !attachment_name.nil? && !attachment_content.nil?
             content_type = AlaveteliFileTypes.filename_to_mimetype(attachment_name) || 'application/octet-stream'
 
-            attachment :content_type => content_type,
-                :body => attachment_content,
-                :filename => attachment_name
+            attachments[attachment_name] = {:content => attachment_content,
+                                            :content_type => content_type}
         end
+
+        mail(:from => from_user.name_and_email,
+             :to => info_request.incoming_name_and_email)
     end
 
     # Used when a response is uploaded using the API
-    def external_response(info_request, body, sent_at, attachments)
-        @from = blackhole_email
-        @recipients = info_request.incoming_name_and_email
-        @body = { :body => body }
+    def external_response(info_request, message_body, sent_at, attachment_hashes)
+        @message_body = message_body
 
-        # ActionMailer only works properly when the time is in the local timezone:
-        # see https://rails.lighthouseapp.com/projects/8994/tickets/3113-actionmailer-only-works-correctly-with-sent_on-times-that-are-in-the-local-time-zone
-        @sent_on = sent_at.dup.localtime
-
-        attachments.each do |attachment_hash|
-            attachment attachment_hash
+        attachment_hashes.each do |attachment_hash|
+            attachments[attachment_hash[:filename]] = {:content => attachment_hash[:body],
+                                                        :content_type => attachment_hash[:content_type]}
         end
+
+        mail(:from => blackhole_email,
+             :to => info_request.incoming_name_and_email,
+             :date => sent_at)
     end
 
     # Incoming message arrived for a request, but new responses have been stopped.
