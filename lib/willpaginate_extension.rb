@@ -1,6 +1,6 @@
 # this extension is loaded in environment.rb
 module WillPaginateExtension
-    class LinkRenderer < WillPaginate::LinkRenderer
+    class LinkRenderer < WillPaginate::ActionView::LinkRenderer
         def page_link(page, text, attributes = {})
             # Hack for admin pages, when proxied via https on mySociety servers, they
             # need a relative URL.
