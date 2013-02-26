@@ -6,22 +6,23 @@
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)
+        @user, @email_about_things = user, email_about_things
+
         post_redirect = PostRedirect.new(
             :uri => main_url(user_url(user)) + "#email_subscriptions",
             :user_id => user.id)
         post_redirect.save!
-        unsubscribe_url = confirm_url(:email_token => post_redirect.email_token)
+        @unsubscribe_url = confirm_url(:email_token => post_redirect.email_token)
 
-        @from = contact_from_name_and_email
-        headers 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'Precedence' => 'bulk' # http://www.vbulletin.com/forum/project.php?issueid=27687 (Exchange hack)
+        headers('Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
+                'Precedence' => 'bulk')# http://www.vbulletin.com/forum/project.php?issueid=27687 (Exchange hack)
         # 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces for tracks
         # (We let it return bounces for now, so we can manually kill the tracks that bounce so Yahoo
         # etc. don't decide we are spammers.)
 
-        @recipients = user.name_and_email
-        @subject = _("Your {{site_name}} email alert", :site_name => site_name)
-        @body = { :user => user, :email_about_things => email_about_things, :unsubscribe_url => unsubscribe_url }
+        mail(:from => contact_from_name_and_email,
+             :to => user.name_and_email,
+             :subject => _("Your {{site_name}} email alert", :site_name => site_name))
     end
 
     def contact_from_name_and_email
