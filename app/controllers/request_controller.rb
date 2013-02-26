@@ -714,7 +714,7 @@ class RequestController < ApplicationController
                     render :text => "Directory listing not allowed", :status => 403 
                 else
                     render :text => foi_fragment_cache_read(key_path),
-                        :content_type => (AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream')
+                        :content_type => (AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) || 'application/octet-stream')
                 end
                 return
             end
@@ -742,7 +742,7 @@ class RequestController < ApplicationController
         @incoming_message.binary_mask_stuff!(@attachment.body, @attachment.content_type)
 
         # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
-        response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
+        response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) || 'application/octet-stream'
 
         render :text => @attachment.body
     end
@@ -792,7 +792,7 @@ class RequestController < ApplicationController
             raise ActiveRecord::RecordNotFound.new(message)
         end
         @part_number = params[:part].to_i
-        @filename = params[:file_name].join("/")
+        @filename = params[:file_name]
         if html_conversion
             @original_filename = @filename.gsub(/\.html$/, "")
         else
