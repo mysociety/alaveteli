@@ -6,43 +6,39 @@
 
 class UserMailer < ApplicationMailer
     def confirm_login(user, reasons, url)
-        @from = contact_from_name_and_email
-        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces when people are fiddling with their account
-        @recipients = user.name_and_email
-        @subject    = reasons[:email_subject]
-        @body[:reasons] = reasons
-        @body[:name] = user.name
-        @body[:url] = url
+        @reasons, @name, @url = reasons, user.name, url
+        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email) # we don't care about bounces when people are fiddling with their account
+
+        mail(:from => contact_from_name_and_email,
+             :to => user.name_and_email,
+             :subject => reasons[:email_subject])
     end
 
     def already_registered(user, reasons, url)
-        @from = contact_from_name_and_email
-        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces when people are fiddling with their account
-        @recipients = user.name_and_email
-        @subject    = reasons[:email_subject]
-        @body[:reasons] = reasons
-        @body[:name] = user.name
-        @body[:url] = url
+        @reasons, @name, @url = reasons, user.name, url
+        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email) # we don't care about bounces when people are fiddling with their account
+
+        mail(:from => contact_from_name_and_email,
+             :to => user.name_and_email,
+             :subject => reasons[:email_subject])
     end
 
     def changeemail_confirm(user, new_email, url)
-        @from = contact_from_name_and_email
-        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces when people are fiddling with their account
-        @recipients = new_email
-        @subject    = _("Confirm your new email address on {{site_name}}", :site_name=>site_name)
-        @body[:name] = user.name
-        @body[:url] = url
-        @body[:old_email] = user.email
-        @body[:new_email] = new_email
+        @name, @url, @old_email, @new_email = user.name, url, user.email, new_email
+        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email) # we don't care about bounces when people are fiddling with their account
+
+        mail(:from => contact_from_name_and_email,
+             :to => new_email,
+             :subject => _("Confirm your new email address on {{site_name}}", :site_name => site_name))
     end
 
     def changeemail_already_used(old_email, new_email)
-        @from = contact_from_name_and_email
-        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces when people are fiddling with their account
-        @recipients = new_email
-        @subject    = _("Unable to change email address on {{site_name}}", :site_name=>site_name)
-        @body[:old_email] = old_email
-        @body[:new_email] = new_email
+        @old_email, @new_email = old_email, new_email
+        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email) # we don't care about bounces when people are fiddling with their account
+
+        mail(:from => contact_from_name_and_email,
+             :to => new_email,
+             :subject => _("Unable to change email address on {{site_name}}", :site_name=>site_name))
     end
 end
 
