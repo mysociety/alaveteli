@@ -39,7 +39,8 @@ gem 'syslog_protocol'
 gem 'newrelic_rpm'
 # Use until this PR is merged: https://github.com/svenfuchs/globalize3/pull/191
 gem 'globalize3', :git => 'git://github.com/henare/globalize3.git', :branch => 'not-null-empty-attributes'
-gem 'acts_as_versioned'
+# New gem releases aren't being done. master is newer and supports Rails > 3.0
+gem 'acts_as_versioned', :git => 'git://github.com/technoweenie/acts_as_versioned.git'
 gem 'dynamic_form'
 
 group :test do

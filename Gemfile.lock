@@ -8,6 +8,13 @@ GIT
       activerecord (>= 3.0.0)
       paper_trail (~> 2)
 
+GIT
+  remote: git://github.com/technoweenie/acts_as_versioned.git
+  revision: 63b1fc8529d028fae632fe80ec0cb25df56cd76b
+  specs:
+    acts_as_versioned (0.6.0)
+      activerecord (>= 3.0.9)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -38,8 +45,6 @@ GEM
       activemodel (= 3.0.17)
       activesupport (= 3.0.17)
     activesupport (3.0.17)
-    acts_as_versioned (0.6.0)
-      activerecord (~> 3.0.0.beta4)
     annotate (2.5.0)
       rake
     arel (2.0.10)
@@ -212,7 +217,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts_as_versioned
+  acts_as_versioned!
   annotate
   bootstrap-sass
   capistrano
