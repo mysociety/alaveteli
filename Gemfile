@@ -7,7 +7,7 @@ if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.s
 end
 source :rubygems
 
-gem 'rails', '3.0.17'
+gem 'rails', '3.1.11'
 gem 'pg'
 
 gem 'fast_gettext', '>= 0.6.0'
@@ -29,7 +29,7 @@ gem 'routing-filter', '~> 0.2.4'
 gem 'rake', '0.9.2.2'
 gem 'ruby-msg', '~> 1.5.0'
 gem 'vpim'
-gem 'will_paginate', '~> 2.3.11'
+gem 'will_paginate'
 # when 1.2.9 is released by the maintainer, we can stop using this fork:
 gem 'xapian-full-alaveteli', '~> 1.2.9.5'
 gem 'xml-simple'
