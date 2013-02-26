@@ -26,7 +26,7 @@ class ContactMailer < ApplicationMailer
 
         # Do not set envelope from address to the from_user, so they can't get
         # someone's email addresses from transitory bounce messages.
-        headers('Return-Path' => blackhole_email, 'Reply-To' => @from)
+        headers('Return-Path' => blackhole_email, 'Reply-To' => from_user.name_and_email)
 
         mail(:from => from_user.name_and_email,
              :to => recipient_user.name_and_email,
@@ -35,7 +35,7 @@ class ContactMailer < ApplicationMailer
 
     # Send message to a user from the administrator
     def from_admin_message(recipient_user, subject, message)
-        @message, @from_user, @recipient_user = message, @from, recipient_user
+        @message, @from_user, @recipient_user = message, contact_from_name_and_email, recipient_user
 
         mail(:from => contact_from_name_and_email,
              :to => recipient_user.name_and_email,
