@@ -1,6 +1,6 @@
 <%= _('You have a new response to the {{law_used_full}} request ',:law_used_full=>@info_request.law_used_full)%>
-'<%= @info_request.title %>' <%=_('that you made to')%> 
-<%= @info_request.public_body.name %>. 
+'<%= raw @info_request.title %>' <%=_('that you made to')%> 
+<%= raw @info_request.public_body.name %>. 
 
 <%= _('To view the response, click on the link below.')%>
 
