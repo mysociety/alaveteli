@@ -1,6 +1,6 @@
-<%= @outgoing_message.body.strip %>
+<%= raw @outgoing_message.body.strip %>
 
-<%= @outgoing_message.quoted_part_to_append_to_email.strip %>
+<%= raw @outgoing_message.quoted_part_to_append_to_email.strip %>
 
 -------------------------------------------------------------------
 <%= _('Please use this email address for all replies to this request:')%>
