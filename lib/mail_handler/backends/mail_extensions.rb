@@ -72,7 +72,8 @@ module Mail
 
     # A patched version of the parameter hash that handles nil values without throwing
     # an error.
-    class ParameterHash < HashWithIndifferentAccess
+    class ParameterHash < IndifferentHash
+
         def encoded
           map.sort { |a,b| a.first.to_s <=> b.first.to_s }.map do |key_name, value|
             # The replacement of this commented out line is the change
