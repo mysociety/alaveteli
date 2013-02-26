@@ -1,4 +1,4 @@
-<%= @info_request.public_body.name %> <%= _('are long overdue.')%>
+<%= raw @info_request.public_body.name %> <%= _('are long overdue.')%>
 
 <%= _('They have not replied to your {{law_used_short}} request {{title}}, 
 as required by law',:law_used_short=>@info_request.law_used_short,:title=>@info_request.title)%><% if @info_request.public_body.is_school? %> <%= _('even during holidays')%><% end %>.

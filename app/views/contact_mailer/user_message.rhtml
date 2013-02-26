@@ -5,7 +5,7 @@
 learn your email address. Only reply if that is okay.', :user_name => @from_user.name) %>
 ---------------------------------------------------------------------
 
-<%= @message.strip %>
+<%= raw @message.strip %>
 
 ---------------------------------------------------------------------
 <%= _('View Freedom of Information requests made by {{user_name}}:', :user_name=>@from_user.name)%> 
