@@ -893,7 +893,7 @@ class RequestController < ApplicationController
         # by making the last work a wildcard, which is quite the same
         query = params[:q]
         @xapian_requests = perform_search_typeahead(query, InfoRequestEvent)
-        render :partial => "request/search_ahead.rhtml"
+        render :partial => "request/search_ahead"
     end
 
     def download_entire_request
@@ -941,7 +941,7 @@ class RequestController < ApplicationController
                         end
                         if !done
                             @info_request_events = @info_request.info_request_events
-                            template = File.read(File.join(File.dirname(__FILE__), "..", "views", "request", "simple_correspondence.rhtml"))
+                            template = File.read(File.join(File.dirname(__FILE__), "..", "views", "request", "simple_correspondence.html.erb"))
                             output = ERB.new(template).result(binding)
                             zipfile.get_output_stream("correspondence.txt") { |f|
                                 f.puts(output)

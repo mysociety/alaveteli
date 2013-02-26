@@ -222,7 +222,7 @@ class UserController < ApplicationController
         post_redirect = PostRedirect.find_by_email_token(params[:email_token])
 
         if post_redirect.nil?
-            render :template => 'user/bad_token.rhtml'
+            render :template => 'user/bad_token'
             return
         end
 
@@ -465,7 +465,7 @@ class UserController < ApplicationController
             @draft_profile_photo = ProfilePhoto.new(:data => file_content, :draft => true)
             if !@draft_profile_photo.valid?
                 # error page (uses @profile_photo's error fields in view to show errors)
-                render :template => 'user/set_draft_profile_photo.rhtml'
+                render :template => 'user/set_draft_profile_photo'
                 return
             end
             @draft_profile_photo.save
@@ -480,7 +480,7 @@ class UserController < ApplicationController
                 return
             end
 
-            render :template => 'user/set_crop_profile_photo.rhtml'
+            render :template => 'user/set_crop_profile_photo'
             return
         elsif !params[:submitted_crop_profile_photo].nil?
             # crop the draft photo according to jquery parameters and set it as the users photo
@@ -499,7 +499,7 @@ class UserController < ApplicationController
                 redirect_to set_profile_about_me_url()
             end
         else
-            render :template => 'user/set_draft_profile_photo.rhtml'
+            render :template => 'user/set_draft_profile_photo'
         end
     end
 

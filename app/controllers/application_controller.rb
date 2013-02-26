@@ -145,7 +145,7 @@ class ApplicationController < ActionController::Base
         @exception_backtrace = exception.backtrace.join("\n")
         @exception_class = exception.class.to_s
         @exception_message = exception.message
-        render :template => "general/exception_caught.rhtml", :status => @status
+        render :template => "general/exception_caught", :status => @status
     end
 
     # FIXME: This was disabled during the Rails 3 upgrade as this is now handled by Rack

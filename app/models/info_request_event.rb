@@ -401,7 +401,7 @@ class InfoRequestEvent < ActiveRecord::Base
             :comment_id => self.comment_id,
 
             # XXX would be nice to add links here, but alas the
-            # code to make them is in views only. See views/request/details.rhtml
+            # code to make them is in views only. See views/request/details.html.erb
             # perhaps can call with @template somehow
         }
 

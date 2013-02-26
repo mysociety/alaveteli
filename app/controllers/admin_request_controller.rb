@@ -48,7 +48,7 @@ class AdminRequestController < AdminController
                 :info_request => @info_request, :reason => params[:reason],
                 :info_request_url => 'http://' + Configuration::domain + request_url(@info_request),
                 :site_name => site_name)
-        template = File.read(File.join(File.dirname(__FILE__), "..", "views", "admin_request", "hidden_user_explanation.rhtml"))
+        template = File.read(File.join(File.dirname(__FILE__), "..", "views", "admin_request", "hidden_user_explanation.html.erb"))
         @request_hidden_user_explanation = ERB.new(template).result(vars.instance_eval { binding })
     end
 

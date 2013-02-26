@@ -11,12 +11,12 @@
       <% if @info_request.attention_requested %>
         <% if @info_request.prominence == 'hidden' %>
           <%# The eccentric formatting of the following string is in order that it be identical
-              to the corresponding string in request/show.rhtml %>
+              to the corresponding string in request/show.html.erb %>
           <p><%= _('This request has prominence \'hidden\'. You can only see it because you are logged
     in as a super user.') %></p>
         <% elsif @info_request.prominence == 'requester_only' %>
           <%# The eccentric formatting of the following string is in order that it be identical
-              to the corresponding string in request/show.rhtml %>
+              to the corresponding string in request/show.html.erb %>
           <p><%= raw(_('This request is hidden, so that only you the requester can see it. Please
     <a href="%s">contact us</a> if you are not sure why.') % [help_requesting_path]) %></p>
         <% else %>

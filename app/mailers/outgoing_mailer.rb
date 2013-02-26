@@ -35,7 +35,7 @@ class OutgoingMailer < ApplicationMailer
              :subject => OutgoingMailer.subject_for_followup(info_request, outgoing_message))
     end
 
-    # XXX the condition checking valid_to_reply_to? also appears in views/request/_followup.rhtml,
+    # XXX the condition checking valid_to_reply_to? also appears in views/request/_followup.html.erb,
     # it shouldn't really, should call something here.
     # XXX also OutgoingMessage.get_salutation
     # XXX these look like they should be members of IncomingMessage, but logically they
