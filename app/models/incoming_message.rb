@@ -633,10 +633,7 @@ class IncomingMessage < ActiveRecord::Base
         attachments = []
         attachment_attributes.each do |attrs|
             attachment = self.foi_attachments.find_or_create_by_hexdigest(attrs[:hexdigest])
-            body = attrs.delete(:body)
             attachment.update_attributes(attrs)
-            # Set the body separately as its handling can depend on the value of charset
-            attachment.body = body
             attachment.save!
             attachments << attachment.id
         end
