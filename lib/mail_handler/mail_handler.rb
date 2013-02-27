@@ -3,17 +3,10 @@ require 'tmpdir'
 
 module MailHandler
 
-    if RUBY_VERSION.to_f >= 1.9
-        require 'mail'
-        require 'backends/mail_extensions'
-        require 'backends/mail_backend'
-        include Backends::MailBackend
-    else
-        require 'action_mailer'
-        require 'backends/tmail_extensions'
-        require 'backends/tmail_backend'
-        include Backends::TmailBackend
-    end
+    require 'mail'
+    require 'backends/mail_extensions'
+    require 'backends/mail_backend'
+    include Backends::MailBackend
 
     # Returns a set of attachments from the given TNEF contents
     # The TNEF contents also contains the message body, but in general this is the
