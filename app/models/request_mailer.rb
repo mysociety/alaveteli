@@ -63,11 +63,7 @@ class RequestMailer < ApplicationMailer
 
     # An FOI response is outside the scope of the system, and needs admin attention
     def requires_admin(info_request, set_by = nil)
-        if !set_by.nil?
-            user = set_by
-        else
-            user = info_request.user
-        end
+        user = set_by || info_request.user
         @from = user.name_and_email
         @recipients = contact_from_name_and_email
         @subject = _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title)
