@@ -37,7 +37,7 @@ require 'rexml/document'
 require 'zip/zip'
 require 'mapi/msg'
 require 'mapi/convert'
-
+require 'iconv'
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
