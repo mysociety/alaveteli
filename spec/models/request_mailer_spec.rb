@@ -367,6 +367,11 @@ describe RequestMailer, 'requires_admin' do
         mail.body.should include('http://test.host/en/admin/request/show/123')
     end
 
+    it "body should contain the message from the user" do
+        mail = RequestMailer.deliver_requires_admin(@info_request, nil, "Something has gone wrong")
+        mail.body.should include 'Something has gone wrong'
+    end
+
     context 'has an ADMIN_BASE_URL set' do
         before(:each) do
             Configuration::should_receive(:admin_base_url).and_return('http://our.proxy.server/admin/alaveteli/')
