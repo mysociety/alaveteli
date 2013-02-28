@@ -548,7 +548,7 @@ public
     end
 
     # change status, including for last event for later historical purposes
-    def set_described_state(new_state, set_by = nil)
+    def set_described_state(new_state, set_by = nil, message = "")
         ActiveRecord::Base.transaction do
             self.awaiting_description = false
             last_event = self.info_request_events.last
@@ -563,7 +563,7 @@ public
         if self.requires_admin?
             # Check there is someone to send the message "from"
             if !set_by.nil? || !self.user.nil?
-                RequestMailer.deliver_requires_admin(self, set_by)
+                RequestMailer.deliver_requires_admin(self, set_by, message)
             end
         end
     end
