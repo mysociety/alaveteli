@@ -504,6 +504,11 @@ class RequestController < ApplicationController
         end
     end
 
+    def describe_state_requires_admin
+        @info_request = InfoRequest.find(params[:id])
+        @info_request.set_described_state("requires_admin", nil, params[:message])
+    end
+
     # Used for links from polymorphic URLs e.g. in Atom feeds - just redirect to
     # proper URL for the message the event refers to
     def show_request_event

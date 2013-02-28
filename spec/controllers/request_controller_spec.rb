@@ -1509,6 +1509,22 @@ describe RequestController, "when classifying an information request" do
                 mail.from_addrs.first.to_s.should == @request_owner.name_and_email
             end
 
+            it "should send an email with a message when classified as requires_admin" do
+                post :describe_state_requires_admin, :message => "Something weird happened", :id => @dog_request.id
+
+                @dog_request.reload
+                @dog_request.awaiting_description.should == false
+                @dog_request.described_state.should == 'requires_admin'
+                @dog_request.get_last_response_event.calculated_state.should == 'requires_admin'
+
+                deliveries = ActionMailer::Base.deliveries
+                deliveries.size.should == 1
+                mail = deliveries[0]
+                mail.body.should =~ /as needing admin/
+                mail.body.should =~ /Something weird happened/
+                mail.from_addrs.first.to_s.should == @request_owner.name_and_email
+            end
+
             it 'should say it is showing advice as to what to do next' do
                 post_status('rejected')
                 flash[:notice].should match(/Here is what to do now/)
