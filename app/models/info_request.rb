@@ -543,13 +543,8 @@ public
 
     # states which require administrator action (hence email administrators
     # when they are entered, and offer state change dialog to them)
-    def InfoRequest.requires_admin_states
-        return ['requires_admin', 'error_message', 'attention_requested']
-    end
-
     def requires_admin?
-        return true if InfoRequest.requires_admin_states.include?(described_state)
-        return false
+        ['requires_admin', 'error_message', 'attention_requested'].include?(described_state)
     end
 
     # change status, including for last event for later historical purposes
