@@ -715,7 +715,7 @@ public
     end
 
     def response_events
-        self.info_request_events.select{|e| e.event_type == 'response'}
+        self.info_request_events.select{|e| e.response?}
     end
 
     # The last response is the default one people might want to reply to
@@ -730,7 +730,7 @@ public
     end
 
     def outgoing_events
-        info_request_events.select{|e| [ 'sent', 'followup_sent' ].include?(e.event_type) }
+        info_request_events.select{|e| e.outgoing? }
     end
 
     # The last outgoing message

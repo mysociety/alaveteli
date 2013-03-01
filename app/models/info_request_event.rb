@@ -370,6 +370,14 @@ class InfoRequestEvent < ActiveRecord::Base
         ['followup_sent', 'followup_resent'].include?(event_type)
     end
 
+    def outgoing?
+        ['sent', 'followup_sent'].include?(event_type)
+    end
+
+    def response?
+        event_type == 'response'
+    end
+
     def same_email_as_previous_send?
         prev_addr = self.info_request.get_previous_email_sent_to(self)
         curr_addr = self.params[:email]
