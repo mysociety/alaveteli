@@ -363,16 +363,11 @@ class InfoRequestEvent < ActiveRecord::Base
     end
 
     def is_sent_sort?
-        if [ 'sent', 'resent'].include?(self.event_type)
-            return true
-        end
-        return false
+        ['sent', 'resent'].include?(event_type)
     end
+
     def is_followup_sort?
-        if [ 'followup_sent', 'followup_resent'].include?(self.event_type)
-            return true
-        end
-        return false
+        ['followup_sent', 'followup_resent'].include?(event_type)
     end
 
     def same_email_as_previous_send?
