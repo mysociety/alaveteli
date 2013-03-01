@@ -729,14 +729,13 @@ public
         get_last_response_event.incoming_message if get_last_response_event
     end
 
+    def outgoing_events
+        info_request_events.select{|e| [ 'sent', 'followup_sent' ].include?(e.event_type) }
+    end
+
     # The last outgoing message
     def get_last_outgoing_event
-        for e in self.info_request_events.reverse
-            if [ 'sent', 'followup_sent' ].include?(e.event_type)
-                return e
-            end
-        end
-        return nil
+        outgoing_events.last
     end
 
     # Text from the the initial request, for use in summary display
