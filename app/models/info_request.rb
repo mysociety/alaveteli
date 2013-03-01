@@ -714,31 +714,19 @@ public
         self.info_request_events.create!(:event_type => type, :params => params)
     end
 
+    def response_events
+        self.info_request_events.select{|e| e.event_type == 'response'}
+    end
+
     # The last response is the default one people might want to reply to
     def get_last_response_event_id
-        for e in self.info_request_events.reverse
-            if e.event_type == 'response'
-                return e.id
-            end
-        end
-        return nil
-
+        get_last_response_event.id if get_last_response_event
     end
     def get_last_response_event
-        for e in self.info_request_events.reverse
-            if e.event_type == 'response'
-                return e
-            end
-        end
-        return nil
+        response_events.last
     end
     def get_last_response
-        last_response_event = self.get_last_response_event
-        if last_response_event.nil?
-            return nil
-        else
-            return last_response_event.incoming_message
-        end
+        get_last_response_event.incoming_message if get_last_response_event
     end
 
     # The last outgoing message
