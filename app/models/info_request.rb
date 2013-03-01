@@ -551,7 +551,7 @@ public
     def set_described_state(new_state, set_by = nil)
         ActiveRecord::Base.transaction do
             self.awaiting_description = false
-            last_event = self.get_last_event
+            last_event = self.info_request_events.last
             last_event.described_state = new_state
             self.described_state = new_state
             last_event.save!
@@ -786,16 +786,6 @@ public
             return events
         else
             return events[i + 1, events.size]
-        end
-    end
-
-    # Returns last event
-    def get_last_event
-        events = self.info_request_events
-        if events.size == 0
-            return nil
-        else
-            return events[-1]
         end
     end
 

@@ -40,7 +40,7 @@
     <% for @request in @error_message_requests %>
         <li>
             <%= request_both_links(@request)%>
-            &ndash; <%=simple_date(@request.get_last_event.created_at)%>
+            &ndash; <%=simple_date(@request.info_request_events.last.created_at)%>
         </li>
     <% end %>
     </ul>
@@ -53,7 +53,7 @@
     <% for @request in @attention_requests %>
         <li>
             <%= request_both_links(@request)%>
-            &ndash; <%=simple_date(@request.get_last_event.created_at)%>
+            &ndash; <%=simple_date(@request.info_request_events.last.created_at)%>
         </li>
     <% end %>
     </ul>
@@ -67,7 +67,7 @@
     <% for @request in @requires_admin_requests %>
         <li>
             <%= request_both_links(@request)%>
-            &ndash; <%=simple_date(@request.get_last_event.created_at)%>
+            &ndash; <%=simple_date(@request.info_request_events.last.created_at)%>
         </li>
     <% end %>
     </ul>
