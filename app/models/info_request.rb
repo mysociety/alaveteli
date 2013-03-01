@@ -793,46 +793,31 @@ public
 
     # Display version of status
     def InfoRequest.get_status_description(status)
-        if status == 'waiting_classification'
-            _("Awaiting classification.")
-        elsif status == 'waiting_response'
-            _("Awaiting response.")
-        elsif status == 'waiting_response_overdue'
-            _("Delayed.")
-        elsif status == 'waiting_response_very_overdue'
-            _("Long overdue.")
-        elsif status == 'not_held'
-            _("Information not held.")
-        elsif status == 'rejected'
-            _("Refused.")
-        elsif status == 'partially_successful'
-            _("Partially successful.")
-        elsif status == 'successful'
-            _("Successful.")
-        elsif status == 'waiting_clarification'
-            _("Waiting clarification.")
-        elsif status == 'gone_postal'
-            _("Handled by post.")
-        elsif status == 'internal_review'
-            _("Awaiting internal review.")
-        elsif status == 'error_message'
-            _("Delivery error")
-        elsif status == 'requires_admin'
-            _("Unusual response.")
-        elsif status == 'attention_requested'
-            _("Reported for administrator attention.")
-        elsif status == 'user_withdrawn'
-            _("Withdrawn by the requester.")
-        elsif status == 'vexatious'
-            _("Considered by administrators as vexatious and hidden from site.")
-        elsif status == 'not_foi'
-            _("Considered by administrators as not an FOI request and hidden from site.")
+        descriptions = {
+            'waiting_classification'        => _("Awaiting classification."),
+            'waiting_response'              => _("Awaiting response."),
+            'waiting_response_overdue'      => _("Delayed."),
+            'waiting_response_very_overdue' => _("Long overdue."),
+            'not_held'                      => _("Information not held."),
+            'rejected'                      => _("Refused."),
+            'partially_successful'          => _("Partially successful."),
+            'successful'                    => _("Successful."),
+            'waiting_clarification'         => _("Waiting clarification."),
+            'gone_postal'                   => _("Handled by post."),
+            'internal_review'               => _("Awaiting internal review."),
+            'error_message'                 => _("Delivery error"),
+            'requires_admin'                => _("Unusual response."),
+            'attention_requested'           => _("Reported for administrator attention."),
+            'user_withdrawn'                => _("Withdrawn by the requester."),
+            'vexatious'                     => _("Considered by administrators as vexatious and hidden from site."),
+            'not_foi'                       => _("Considered by administrators as not an FOI request and hidden from site."),
+        }
+        if descriptions[status]
+            descriptions[status]
+        elsif respond_to?(:theme_display_status)
+            theme_display_status(status)
         else
-            begin
-                return self.theme_display_status(status)
-            rescue NoMethodError
-                raise _("unknown status ") + status
-            end
+            raise _("unknown status ") + status
         end
     end
 
