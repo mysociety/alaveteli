@@ -972,13 +972,8 @@ public
     end
 
     def is_old_unclassified?
-        return false if is_external?
-        return false if !awaiting_description
-        return false if url_title == 'holding_pen'
-        last_response_event = get_last_response_event
-        return false unless last_response_event
-        return false if last_response_event.created_at >= Time.now - OLD_AGE_IN_DAYS
-        return true
+        !is_external? && awaiting_description && url_title != 'holding_pen' && get_last_response_event &&
+            Time.now > get_last_response_event.created_at + OLD_AGE_IN_DAYS
     end
 
     # List of incoming messages to followup, by unique email
