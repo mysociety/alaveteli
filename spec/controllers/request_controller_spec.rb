@@ -1448,6 +1448,14 @@ describe RequestController, "when classifying an information request" do
                 @dog_request.stub!(:each).and_return([@dog_request])
             end
 
+            it "should let you know when you forget to select a status" do
+                post :describe_state, :id => @dog_request.id,
+                                      :last_info_request_event_id => @dog_request.last_event_id_needing_description,
+                                      :submitted_describe_state => 1
+                response.should redirect_to request_url(@dog_request)
+                flash[:error].should == _("Please choose whether or not you got some of the information that you wanted.")
+            end
+
             it "should successfully classify response if logged in as user controlling request" do
                 post_status('rejected')
                 response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
