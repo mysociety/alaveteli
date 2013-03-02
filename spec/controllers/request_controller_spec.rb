@@ -1254,6 +1254,20 @@ describe RequestController, "describe_state_requires_admin" do
         end
     end
 
+    context "logged in but not owner of request" do
+        it "should not allow you to change the state" do
+            info_request = info_requests(:fancy_dog_request)
+            session[:user_id] = users(:silly_name_user).id
+            info_request.user_id.should_not == users(:silly_name_user).id
+
+            InfoRequest.should_receive(:find_by_url_title!).with("info_request").and_return(info_request)
+            info_request.should_not_receive(:set_described_state)
+
+            post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
+            response.should render_template('user/wrong_user')
+        end
+    end
+
     context "logged out" do
         it "should redirect to the login page" do
             info_request = info_requests(:fancy_dog_request)
