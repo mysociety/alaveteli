@@ -1250,8 +1250,7 @@ describe RequestController, "when classifying an information request" do
         end
 
         it 'should redirect to the request page' do
-            post :describe_state, :id => @external_request.id,
-                                  :submitted_describe_state => 1
+            post :describe_state, :id => @external_request.id
             response.should redirect_to(:action => 'show',
                                         :controller => 'request',
                                         :url_title => @external_request.url_title)
@@ -1271,8 +1270,7 @@ describe RequestController, "when classifying an information request" do
         def post_status(status)
             post :describe_state, :incoming_message => { :described_state => status },
                                   :id => @dog_request.id,
-                                  :last_info_request_event_id => @dog_request.last_event_id_needing_description,
-                                  :submitted_describe_state => 1
+                                  :last_info_request_event_id => @dog_request.last_event_id_needing_description
         end
 
         it "should require login" do
@@ -1461,8 +1459,7 @@ describe RequestController, "when classifying an information request" do
 
             it "should let you know when you forget to select a status" do
                 post :describe_state, :id => @dog_request.id,
-                                      :last_info_request_event_id => @dog_request.last_event_id_needing_description,
-                                      :submitted_describe_state => 1
+                                      :last_info_request_event_id => @dog_request.last_event_id_needing_description
                 response.should redirect_to request_url(@dog_request)
                 flash[:error].should == _("Please choose whether or not you got some of the information that you wanted.")
             end
@@ -1471,8 +1468,7 @@ describe RequestController, "when classifying an information request" do
                 @dog_request.stub!(:last_event_id_needing_description).and_return(2)
 
                 post :describe_state, :incoming_message => { :described_state => "rejected" },
-                    :id => @dog_request.id, :last_info_request_event_id => 1,
-                    :submitted_describe_state => 1
+                    :id => @dog_request.id, :last_info_request_event_id => 1
                 response.should redirect_to request_url(@dog_request)
                 flash[:error].should =~ /The request has been updated since you originally loaded this page/
             end
@@ -1498,7 +1494,7 @@ describe RequestController, "when classifying an information request" do
             end
 
             it "should send email when classified as requires_admin" do
-                post :describe_state, :incoming_message => { :described_state => "requires_admin" }, :id => @dog_request.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => @dog_request.last_event_id_needing_description, :submitted_describe_state => 1
+                post :describe_state, :incoming_message => { :described_state => "requires_admin" }, :id => @dog_request.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => @dog_request.last_event_id_needing_description
                 response.should redirect_to(:controller => 'help', :action => 'contact')
 
                 @dog_request.reload

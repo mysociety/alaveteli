@@ -377,12 +377,6 @@ class RequestController < ApplicationController
         @info_request = InfoRequest.find(params[:id].to_i)
         set_last_request(@info_request)
 
-        # If this isn't a form submit, go to the request page
-        if params[:submitted_describe_state].nil?
-            redirect_to request_url(@info_request)
-            return
-        end
-
         # If this is an external request, go to the request page - we don't allow
         # state change from the front end interface.
         if @info_request.is_external?
