@@ -1456,6 +1456,16 @@ describe RequestController, "when classifying an information request" do
                 flash[:error].should == _("Please choose whether or not you got some of the information that you wanted.")
             end
 
+            it "should not change the status if the request has changed while viewing it" do
+                @dog_request.stub!(:last_event_id_needing_description).and_return(2)
+
+                post :describe_state, :incoming_message => { :described_state => "rejected" },
+                    :id => @dog_request.id, :last_info_request_event_id => 1,
+                    :submitted_describe_state => 1
+                response.should redirect_to request_url(@dog_request)
+                flash[:error].should =~ /The request has been updated since you originally loaded this page/
+            end
+
             it "should successfully classify response if logged in as user controlling request" do
                 post_status('rejected')
                 response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
