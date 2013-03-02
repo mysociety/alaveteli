@@ -505,7 +505,7 @@ class RequestController < ApplicationController
     end
 
     def describe_state_requires_admin
-        @info_request = InfoRequest.find(params[:id])
+        @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
         # Check authenticated. We check is_owning_user
         # to get admin overrides (see is_owning_user? above)

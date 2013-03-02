@@ -1510,7 +1510,7 @@ describe RequestController, "when classifying an information request" do
             end
 
             it "should send an email with a message when classified as requires_admin" do
-                post :describe_state_requires_admin, :message => "Something weird happened", :id => @dog_request.id
+                post :describe_state_requires_admin, :message => "Something weird happened", :url_title => @dog_request.url_title
 
                 @dog_request.reload
                 @dog_request.awaiting_description.should == false
