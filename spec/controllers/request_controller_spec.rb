@@ -1347,6 +1347,17 @@ describe RequestController, "when classifying an information request" do
                     flash[:notice].should == 'Thank you for updating this request!'
                 end
 
+                context "playing the classification game" do
+                    before :each do
+                        session[:request_game] = true
+                    end
+
+                    it "should continue the game after classifying a request" do
+                        post_status("rejected")
+                        flash[:notice].should =~ /There are some more requests below for you to classify/
+                        response.should redirect_to play_url
+                    end
+                end
             end
         end
 
