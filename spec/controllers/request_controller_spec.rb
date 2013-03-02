@@ -1242,12 +1242,26 @@ describe RequestController, "when viewing an individual response for reply/follo
 end
 
 describe RequestController, "describe_state_requires_admin" do
-    context "logged in as owner of request" do
-        it "should set the state when classified as requires_admin" do
-            info_request = info_requests(:fancy_dog_request)
-            session[:user_id] = info_request.user_id
+    let (:info_request) { info_requests(:fancy_dog_request) }
 
-            InfoRequest.should_receive(:find_by_url_title!).with("info_request").and_return(info_request)
+    before :each do
+        InfoRequest.should_receive(:find_by_url_title!).with("info_request").and_return(info_request)
+    end
+
+    context "logged out" do
+        it "should redirect to the login page" do
+            post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
+
+            # Ugh.
+            post_redirect = PostRedirect.get_last_post_redirect
+            response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+        end
+    end
+
+    context "logged in as owner of request" do
+        before (:each) { session[:user_id] = info_request.user_id }
+
+        it "should set the state when classified as requires_admin" do
             info_request.should_receive(:set_described_state).with("requires_admin", nil, "Something weird happened")
 
             post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
@@ -1255,28 +1269,16 @@ describe RequestController, "describe_state_requires_admin" do
     end
 
     context "logged in but not owner of request" do
-        it "should not allow you to change the state" do
-            info_request = info_requests(:fancy_dog_request)
+        before :each do
             session[:user_id] = users(:silly_name_user).id
             info_request.user_id.should_not == users(:silly_name_user).id
+        end
 
-            InfoRequest.should_receive(:find_by_url_title!).with("info_request").and_return(info_request)
+        it "should not allow you to change the state" do
             info_request.should_not_receive(:set_described_state)
 
             post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
             response.should render_template('user/wrong_user')
-        end
-    end
-
-    context "logged out" do
-        it "should redirect to the login page" do
-            info_request = info_requests(:fancy_dog_request)
-            InfoRequest.should_receive(:find_by_url_title!).with("info_request").and_return(info_request)
-            post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
-
-            # Ugh.
-            post_redirect = PostRedirect.get_last_post_redirect
-            response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
         end
     end
 end
