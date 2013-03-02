@@ -1241,6 +1241,32 @@ describe RequestController, "when viewing an individual response for reply/follo
 
 end
 
+describe RequestController, "describe_state_requires_admin" do
+    context "logged in as owner of request" do
+        it "should set the state when classified as requires_admin" do
+            info_request = info_requests(:fancy_dog_request)
+            session[:user_id] = info_request.user_id
+
+            InfoRequest.should_receive(:find_by_url_title!).with("info_request").and_return(info_request)
+            info_request.should_receive(:set_described_state).with("requires_admin", nil, "Something weird happened")
+
+            post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
+        end
+    end
+
+    context "logged out" do
+        it "should redirect to the login page" do
+            info_request = info_requests(:fancy_dog_request)
+            InfoRequest.should_receive(:find_by_url_title!).with("info_request").and_return(info_request)
+            post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
+
+            # Ugh.
+            post_redirect = PostRedirect.get_last_post_redirect
+            response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+        end
+    end
+end
+
 describe RequestController, "when classifying an information request" do
 
     describe 'if the request is external' do
@@ -1506,22 +1532,6 @@ describe RequestController, "when classifying an information request" do
                 deliveries.size.should == 1
                 mail = deliveries[0]
                 mail.body.should =~ /as needing admin/
-                mail.from_addrs.first.to_s.should == @request_owner.name_and_email
-            end
-
-            it "should send an email with a message when classified as requires_admin" do
-                post :describe_state_requires_admin, :message => "Something weird happened", :url_title => @dog_request.url_title
-
-                @dog_request.reload
-                @dog_request.awaiting_description.should == false
-                @dog_request.described_state.should == 'requires_admin'
-                @dog_request.get_last_response_event.calculated_state.should == 'requires_admin'
-
-                deliveries = ActionMailer::Base.deliveries
-                deliveries.size.should == 1
-                mail = deliveries[0]
-                mail.body.should =~ /as needing admin/
-                mail.body.should =~ /Something weird happened/
                 mail.from_addrs.first.to_s.should == @request_owner.name_and_email
             end
 

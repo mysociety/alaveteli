@@ -507,15 +507,10 @@ class RequestController < ApplicationController
     def describe_state_requires_admin
         @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
-        # Check authenticated. We check is_owning_user
-        # to get admin overrides (see is_owning_user? above)
-        if !@info_request.is_owning_user?(authenticated_user) &&
-            !authenticated_as_user?(@info_request.user,
-                :web => _("To classify the response to this FOI request"),
-                :email => _("Then you can classify the FOI response you have got from ") + @info_request.public_body.name + ".",
-                :email_subject => _("Classify an FOI response from ") + @info_request.public_body.name
-            )
-            # do nothing - as "authenticated?" has done the redirect to signin page for us
+        if !authenticated?(
+            :web => _("To classify the response to this FOI request"),
+            :email => _("Then you can classify the FOI response you have got from ") + @info_request.public_body.name + ".",
+            :email_subject => _("Classify an FOI response from ") + @info_request.public_body.name)
             return
         end
 
