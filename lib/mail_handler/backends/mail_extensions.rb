@@ -46,6 +46,28 @@ module Mail
 
             self
         end
+
+        # HACK: Backported from Mail 2.5 for Ruby 1.8 support
+        # Can be removed when we no longer support Ruby 1.8
+        def to_yaml(opts = {})
+          hash = {}
+          hash['headers'] = {}
+          header.fields.each do |field|
+            hash['headers'][field.name] = field.value
+          end
+          hash['delivery_handler'] = delivery_handler.to_s if delivery_handler
+          hash['transport_encoding'] = transport_encoding.to_s
+          special_variables = [:@header, :@delivery_handler, :@transport_encoding]
+          if multipart?
+            hash['multipart_body'] = []
+            body.parts.map { |part| hash['multipart_body'] << part.to_yaml }
+            special_variables.push(:@body, :@text_part, :@html_part)
+          end
+          (instance_variables.map(&:to_sym) - special_variables).each do |var|
+            hash[var.to_s] = instance_variable_get(var)
+          end
+          hash.to_yaml(opts)
+        end
     end
 
     # A patched version of the parameter hash that handles nil values without throwing
