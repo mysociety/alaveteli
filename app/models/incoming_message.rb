@@ -637,6 +637,9 @@ class IncomingMessage < ActiveRecord::Base
             attachment.save!
             attachments << attachment.id
         end
+        # Reload to refresh newly created foi_attachments
+        self.reload
+
         main_part = get_main_body_text_part
         # we don't use get_main_body_text_internal, as we want to avoid charset
         # conversions, since /usr/bin/uudecode needs to deal with those.
