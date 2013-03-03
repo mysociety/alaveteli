@@ -46,10 +46,8 @@ Spork.prefork do
                              :comments,
                              :info_request_events,
                              :track_things,
-                             :foi_attachments,
                              :has_tag_string_tags,
-                             :holidays,
-                             :track_things_sent_emails
+                             :holidays
 
     # If you're not using ActiveRecord, or you'd prefer not to run each of your
     # examples within a transaction, remove the following line or assign false
