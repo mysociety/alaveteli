@@ -1,6 +1,6 @@
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
-describe 'when viewing an information request' do 
+describe 'request/show' do
     
     before do 
         @mock_body = mock_model(PublicBody, :name => 'test body',
@@ -19,16 +19,17 @@ describe 'when viewing an information request' do
                                                 :is_external? => false,
                                                 :calculate_status => 'waiting_response', 
                                                 :date_response_required_by => Date.today,
-                                                :prominence => 'normal')
+                                                :prominence => 'normal',
+                                                :comments_allowed? => true,
+                                                :all_can_view? => true,
+                                                :url_title => 'test_request')
     end
     
     def request_page
         assign :info_request, @mock_request
         assign :info_request_events, []
         assign :status, @mock_request.calculate_status
-        # This is so icky!
-        view.stub!(:_render_partial)
-        render :template => 'request/show'
+        render
     end
     
     describe 'when a status update has been requested' do 
