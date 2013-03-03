@@ -1366,7 +1366,7 @@ describe RequestController, "when classifying an information request" do
 
                 it 'should classify the request' do
                     @dog_request.stub!(:calculate_status).and_return('rejected')
-                    @dog_request.should_receive(:set_described_state).with('rejected')
+                    @dog_request.should_receive(:set_described_state).with('rejected', users(:silly_name_user))
                     post_status('rejected')
                 end
 
@@ -1405,6 +1405,15 @@ describe RequestController, "when classifying an information request" do
                         response.should redirect_to play_url
                     end
                 end
+
+                it "should send a mail from the user who changed the state to requires_admin" do
+                    post :describe_state, :incoming_message => { :described_state => "requires_admin" }, :id => @dog_request.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => @dog_request.last_event_id_needing_description
+
+                    deliveries = ActionMailer::Base.deliveries
+                    deliveries.size.should == 1
+                    mail = deliveries[0]
+                    mail.from_addrs.first.to_s.should == users(:silly_name_user).name_and_email
+                end
             end
         end
 
@@ -1420,7 +1429,7 @@ describe RequestController, "when classifying an information request" do
 
             it 'should update the status of the request' do
                 @dog_request.stub!(:calculate_status).and_return('rejected')
-                @dog_request.should_receive(:set_described_state).with('rejected')
+                @dog_request.should_receive(:set_described_state).with('rejected', @admin_user)
                 post_status('rejected')
             end
 
@@ -1471,7 +1480,7 @@ describe RequestController, "when classifying an information request" do
 
             it 'should update the status of the request' do
                 @dog_request.stub!(:calculate_status).and_return('rejected')
-                @dog_request.should_receive(:set_described_state).with('rejected')
+                @dog_request.should_receive(:set_described_state).with('rejected', @admin_user)
                 post_status('rejected')
             end
 
