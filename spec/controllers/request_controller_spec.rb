@@ -1036,7 +1036,7 @@ describe RequestController, "when creating a new request" do
         response.should redirect_to show_new_request_url(:url_title => ir.url_title)
         # This test uses an explicit path because it's relied in
         # Google Analytics goals:
-        response.redirected_to.should =~ /request\/why_is_your_quango_called_gerald\/new$/
+        response.redirect_url.should =~ /request\/why_is_your_quango_called_gerald\/new$/
     end
 
     it "should give an error if the same request is submitted twice" do
