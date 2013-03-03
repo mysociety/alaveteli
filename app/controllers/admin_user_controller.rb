@@ -16,7 +16,7 @@ class AdminUserController < AdminController
             users = User.where(["lower(name) like lower('%'||?||'%') or
                                  lower(email) like lower('%'||?||'%')", @query, @query])
         else
-            users = User.all
+            users = User
         end
         @admin_users = users.paginate :order => "name", :page => params[:page], :per_page => 100
     end

@@ -10,7 +10,7 @@ class AdminTrackController < AdminController
         if @query
           track_things = TrackThing.where(["lower(track_query) like lower('%'||?||'%')", @query])
         else
-          track_things = TrackThing.all
+          track_things = TrackThing
         end
         @admin_tracks = track_things.paginate :order => "created_at desc", :page => params[:page], :per_page => 100
     end

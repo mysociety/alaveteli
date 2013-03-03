@@ -17,7 +17,7 @@ class AdminRequestController < AdminController
         if @query
             info_requests = InfoRequest.where(["lower(title) like lower('%'||?||'%')", @query])
         else
-            info_requests = InfoRequest.all
+            info_requests = InfoRequest
         end
         @info_requests = info_requests.paginate :order => "created_at desc",
                                               :page => params[:page],
