@@ -1269,9 +1269,11 @@ describe RequestController, "describe_state_requires_admin" do
     end
 
     context "logged in but not owner of request" do
+        let(:user) { users(:silly_name_user) }
+
         before :each do
-            session[:user_id] = users(:silly_name_user).id
-            info_request.user_id.should_not == users(:silly_name_user).id
+            session[:user_id] = user.id
+            info_request.user_id.should_not == user.id
         end
 
         it "should not allow you to change the state" do
@@ -1279,6 +1281,18 @@ describe RequestController, "describe_state_requires_admin" do
 
             post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
             response.should render_template('user/wrong_user')
+        end
+
+        context "and has admin powers" do
+            before :each do 
+                user.update_attribute(:admin_level, "super")
+            end
+
+            it "should set the state" do
+                info_request.should_receive(:set_described_state).with("requires_admin", nil, "Something weird happened")
+
+                post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
+            end
         end
     end
 end
