@@ -374,26 +374,26 @@ class RequestController < ApplicationController
 
     # Submitted to the describing state of messages form
     def describe_state
-        @info_request = InfoRequest.find(params[:id].to_i)
-        set_last_request(@info_request)
+        info_request = InfoRequest.find(params[:id].to_i)
+        set_last_request(info_request)
 
         # If this is an external request, go to the request page - we don't allow
         # state change from the front end interface.
-        if @info_request.is_external?
-            redirect_to request_url(@info_request)
+        if info_request.is_external?
+            redirect_to request_url(info_request)
             return
         end
 
-        @is_owning_user = @info_request.is_owning_user?(authenticated_user)
-        @last_info_request_event_id = @info_request.last_event_id_needing_description
-        @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
+        is_owning_user = info_request.is_owning_user?(authenticated_user)
+        last_info_request_event_id = info_request.last_event_id_needing_description
+        old_unclassified = info_request.is_old_unclassified? && !authenticated_user.nil?
 
         # Check authenticated, and parameters set. We check is_owning_user
         # to get admin overrides (see is_owning_user? above)
-        if !@old_unclassified && !@is_owning_user && !authenticated_as_user?(@info_request.user,
+        if !old_unclassified && !is_owning_user && !authenticated_as_user?(info_request.user,
                 :web => _("To classify the response to this FOI request"),
-                :email => _("Then you can classify the FOI response you have got from ") + @info_request.public_body.name + ".",
-                :email_subject => _("Classify an FOI response from ") + @info_request.public_body.name
+                :email => _("Then you can classify the FOI response you have got from ") + info_request.public_body.name + ".",
+                :email_subject => _("Classify an FOI response from ") + info_request.public_body.name
             )
             # do nothing - as "authenticated?" has done the redirect to signin page for us
             return
@@ -401,53 +401,53 @@ class RequestController < ApplicationController
 
         if !params[:incoming_message]
             flash[:error] = _("Please choose whether or not you got some of the information that you wanted.")
-            redirect_to request_url(@info_request)
+            redirect_to request_url(info_request)
             return
         end
 
-        if params[:last_info_request_event_id].to_i != @last_info_request_event_id
+        if params[:last_info_request_event_id].to_i != last_info_request_event_id
             flash[:error] = _("The request has been updated since you originally loaded this page. Please check for any new incoming messages below, and try again.")
-            redirect_to request_url(@info_request)
+            redirect_to request_url(info_request)
             return
         end
 
         # Make the state change
-        old_described_state = @info_request.described_state
-        @info_request.set_described_state(params[:incoming_message][:described_state])
+        old_described_state = info_request.described_state
+        info_request.set_described_state(params[:incoming_message][:described_state])
 
         # If you're not the *actual* requester. e.g. you are playing the
         # classification game, or you're doing this just because you are an
         # admin user (not because you also own the request).
-        if !@info_request.is_actual_owning_user?(authenticated_user)
+        if !info_request.is_actual_owning_user?(authenticated_user)
             # Log the status change by someone other than the requester
-            event = @info_request.log_event("status_update",
+            event = info_request.log_event("status_update",
                 { :user_id => authenticated_user.id,
                   :old_described_state => old_described_state,
-                  :described_state => @info_request.described_state,
+                  :described_state => info_request.described_state,
                 })
             # Create a classification event for league tables
             RequestClassification.create!(:user_id => authenticated_user.id,
                                           :info_request_event_id => event.id)
 
             # Don't give advice on what to do next, as it isn't their request
-            RequestMailer.deliver_old_unclassified_updated(@info_request) if !@info_request.is_external?
+            RequestMailer.deliver_old_unclassified_updated(info_request) if !info_request.is_external?
             if session[:request_game]
-                flash[:notice] = _('Thank you for updating the status of the request \'<a href="{{url}}">{{info_request_title}}</a>\'. There are some more requests below for you to classify.',:info_request_title=>CGI.escapeHTML(@info_request.title), :url=>CGI.escapeHTML(request_url(@info_request)))
+                flash[:notice] = _('Thank you for updating the status of the request \'<a href="{{url}}">{{info_request_title}}</a>\'. There are some more requests below for you to classify.',:info_request_title=>CGI.escapeHTML(info_request.title), :url=>CGI.escapeHTML(request_url(info_request)))
                 redirect_to play_url
             else
                 flash[:notice] = _('Thank you for updating this request!')
-                redirect_to request_url(@info_request)
+                redirect_to request_url(info_request)
             end
             return
         end
 
         # Display advice for requester on what to do next, as appropriate
-        flash[:notice] = case @info_request.calculate_status
+        flash[:notice] = case info_request.calculate_status
         when 'waiting_response'
             _("<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>
-{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(@info_request.date_response_required_by))
+{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(info_request.date_response_required_by))
         when 'waiting_response_overdue'
-            _("<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(@info_request.date_response_required_by))
+            _("<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(info_request.date_response_required_by))
         when 'waiting_response_very_overdue'
             _("<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>", :very_late_number_of_days => Configuration::reply_very_late_after_days, :late_number_of_days => Configuration::reply_late_after_days)
         when 'not_held'
@@ -462,8 +462,8 @@ class RequestController < ApplicationController
             </li>
             </ul>",
             :find_authority_url => "/new",
-            :complain_url => CGI.escapeHTML(unhappy_url(@info_request)),
-            :other_means_url => CGI.escapeHTML(unhappy_url(@info_request)) + "#other_means")
+            :complain_url => CGI.escapeHTML(unhappy_url(info_request)),
+            :other_means_url => CGI.escapeHTML(unhappy_url(info_request)) + "#other_means")
         when 'rejected'
             _("Oh no! Sorry to hear that your request was refused. Here is what to do now.")
         when 'successful'
@@ -475,7 +475,7 @@ class RequestController < ApplicationController
         when 'gone_postal'
             nil
         when 'internal_review'
-            _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>",:late_number_of_days => Configuration.reply_late_after_days, :review_url => unhappy_url(@info_request) + "#internal_review")
+            _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>",:late_number_of_days => Configuration.reply_late_after_days, :review_url => unhappy_url(info_request) + "#internal_review")
         when 'error_message'
             _("<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below.</p>")
         when 'requires_admin'
@@ -484,22 +484,22 @@ class RequestController < ApplicationController
             _("If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn.")
         end
 
-        case @info_request.calculate_status
+        case info_request.calculate_status
         when 'waiting_response', 'waiting_response_overdue', 'not_held', 'successful', 'internal_review'
-            redirect_to request_url(@info_request)
+            redirect_to request_url(info_request)
         when 'waiting_response_very_overdue', 'rejected', 'partially_successful'
-            redirect_to unhappy_url(@info_request)
+            redirect_to unhappy_url(info_request)
         when 'waiting_clarification', 'user_withdrawn'
-            redirect_to respond_to_last_url(@info_request)
+            redirect_to respond_to_last_url(info_request)
         when 'gone_postal'
-            redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
+            redirect_to respond_to_last_url(info_request) + "?gone_postal=1"
         when 'error_message', 'requires_admin'
             redirect_to help_general_url(:action => 'contact')
         else
             if @@custom_states_loaded
-                return self.theme_describe_state(@info_request)
+                return self.theme_describe_state(info_request)
             else
-                raise "unknown calculate_status #{@info_request.calculate_status}"
+                raise "unknown calculate_status #{info_request.calculate_status}"
             end
         end
     end
