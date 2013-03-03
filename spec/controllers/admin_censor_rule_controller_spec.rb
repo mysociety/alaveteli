@@ -10,7 +10,7 @@ describe AdminCensorRuleController, "when making censor rules from the admin int
                          :text => "meat",
                          :replacement => "tofu",
                          :last_edit_comment => "none",
-                         :info_request => ir
+                         :info_request_id => ir
         }
         PurgeRequest.all().first.model_id.should == ir.id
     end
