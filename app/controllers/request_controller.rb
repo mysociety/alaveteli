@@ -384,13 +384,12 @@ class RequestController < ApplicationController
             return
         end
 
-        # Check authenticated, and parameters set. We check is_owning_user
-        # to get admin overrides (see is_owning_user? above)
-        if !(authenticated_user && info_request.is_old_unclassified?) && !info_request.is_owning_user?(authenticated_user) && !authenticated_as_user?(info_request.user,
+        # Check authenticated, and parameters set.
+        unless Ability::can_update_request_state?(authenticated_user, info_request)
+            authenticated_as_user?(info_request.user,
                 :web => _("To classify the response to this FOI request"),
                 :email => _("Then you can classify the FOI response you have got from ") + info_request.public_body.name + ".",
-                :email_subject => _("Classify an FOI response from ") + info_request.public_body.name
-            )
+                :email_subject => _("Classify an FOI response from ") + info_request.public_body.name)
             # do nothing - as "authenticated?" has done the redirect to signin page for us
             return
         end
