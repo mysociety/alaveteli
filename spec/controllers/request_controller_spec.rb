@@ -1245,6 +1245,7 @@ describe RequestController, "describe_state_requires_admin" do
     let (:info_request) { info_requests(:fancy_dog_request) }
 
     before :each do
+        info_request.stub!(:is_old_unclassified?).and_return(false)
         InfoRequest.should_receive(:find_by_url_title!).with("info_request").and_return(info_request)
     end
 
@@ -1256,6 +1257,19 @@ describe RequestController, "describe_state_requires_admin" do
             post_redirect = PostRedirect.get_last_post_redirect
             response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
         end
+
+        context "request is old and unclassified" do
+            before (:each) { info_request.stub!(:is_old_unclassified?).and_return(true) }
+
+            it "should redirect to the login page" do
+                post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
+
+                # Ugh.
+                post_redirect = PostRedirect.get_last_post_redirect
+                response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+            end
+        end
+
     end
 
     context "logged in as owner of request" do
@@ -1281,6 +1295,16 @@ describe RequestController, "describe_state_requires_admin" do
 
             post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
             response.should render_template('user/wrong_user')
+        end
+
+        context "request is old and unclassified" do
+            before (:each) { info_request.stub!(:is_old_unclassified?).and_return(true) }
+
+            it "should set the state" do
+                info_request.should_receive(:set_described_state).with("requires_admin", nil, "Something weird happened")
+
+                post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
+            end
         end
 
         context "and has admin powers" do
