@@ -77,8 +77,7 @@ describe AdminPublicBodyController, "when administering public bodies" do
 
             before do
                 PublicBody.stub!(:import_csv).and_return([[],[]])
-                @file_object = mock("a file upload", :read => 'some contents',
-                                                     :original_filename => 'contents.txt')
+                @file_object = fixture_file_upload('/files/fake-authority-type.csv')
             end
 
             it 'should handle a nil csv file param' do
@@ -97,7 +96,7 @@ describe AdminPublicBodyController, "when administering public bodies" do
                 it 'should assign the original filename to the view' do
                     post :import_csv, { :csv_file => @file_object,
                                         :commit => 'Dry run'}
-                    assigns[:original_csv_file].should == 'contents.txt'
+                    assigns[:original_csv_file].should == 'fake-authority-type.csv'
                 end
 
             end
