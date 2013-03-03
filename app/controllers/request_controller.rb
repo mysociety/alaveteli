@@ -384,13 +384,9 @@ class RequestController < ApplicationController
             return
         end
 
-        is_owning_user = info_request.is_owning_user?(authenticated_user)
-        last_info_request_event_id = info_request.last_event_id_needing_description
-        old_unclassified = info_request.is_old_unclassified? && !authenticated_user.nil?
-
         # Check authenticated, and parameters set. We check is_owning_user
         # to get admin overrides (see is_owning_user? above)
-        if !old_unclassified && !is_owning_user && !authenticated_as_user?(info_request.user,
+        if !(authenticated_user && info_request.is_old_unclassified?) && !info_request.is_owning_user?(authenticated_user) && !authenticated_as_user?(info_request.user,
                 :web => _("To classify the response to this FOI request"),
                 :email => _("Then you can classify the FOI response you have got from ") + info_request.public_body.name + ".",
                 :email_subject => _("Classify an FOI response from ") + info_request.public_body.name
@@ -405,7 +401,7 @@ class RequestController < ApplicationController
             return
         end
 
-        if params[:last_info_request_event_id].to_i != last_info_request_event_id
+        if params[:last_info_request_event_id].to_i != info_request.last_event_id_needing_description
             flash[:error] = _("The request has been updated since you originally loaded this page. Please check for any new incoming messages below, and try again.")
             redirect_to request_url(info_request)
             return

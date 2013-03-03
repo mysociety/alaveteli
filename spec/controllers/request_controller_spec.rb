@@ -1328,6 +1328,7 @@ describe RequestController, "when classifying an information request" do
         end
 
         it 'should ask whether the request is old and unclassified' do
+            session[:user_id] = users(:silly_name_user).id
             @dog_request.should_receive(:is_old_unclassified?)
             post_status('rejected')
         end
