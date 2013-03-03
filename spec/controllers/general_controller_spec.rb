@@ -20,13 +20,13 @@ end
 describe GeneralController, 'when getting the blog feed' do
 
     it 'should add a lang param correctly to a url with no querystring' do
-        Configuration.stub!(:blog_feed).and_return("http://blog.example.com")
+        AlaveteliConfiguration.stub!(:blog_feed).and_return("http://blog.example.com")
         get :blog
         assigns[:feed_url].should == "http://blog.example.com?lang=en"
     end
 
     it 'should add a lang param correctly to a url with an existing querystring' do
-        Configuration.stub!(:blog_feed).and_return("http://blog.example.com?alt=rss")
+        AlaveteliConfiguration.stub!(:blog_feed).and_return("http://blog.example.com?alt=rss")
         get :blog
         assigns[:feed_url].should == "http://blog.example.com?alt=rss&lang=en"
     end
@@ -104,11 +104,11 @@ describe GeneralController, "when showing the frontpage" do
             before do
                 @default_lang_home_link = /href=".*\/en\//
                 @other_lang_home_link = /href=".*\/es\//
-                @old_include_default_locale_in_urls = Configuration::include_default_locale_in_urls
+                @old_include_default_locale_in_urls = AlaveteliConfiguration::include_default_locale_in_urls
             end
 
             def set_default_locale_in_urls(value)
-                Configuration.stub!(:include_default_locale_in_urls).and_return(value)
+                AlaveteliConfiguration.stub!(:include_default_locale_in_urls).and_return(value)
                 load Rails.root.join("config/initializers/fast_gettext.rb")
             end
 

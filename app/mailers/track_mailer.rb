@@ -26,7 +26,7 @@ class TrackMailer < ApplicationMailer
     end
 
     def contact_from_name_and_email
-        "#{Configuration::track_sender_name} <#{Configuration::track_sender_email}>"
+        "#{AlaveteliConfiguration::track_sender_name} <#{AlaveteliConfiguration::track_sender_email}>"
     end
 
     # Send email alerts for tracked things.  Never more than one email

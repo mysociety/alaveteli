@@ -12,7 +12,7 @@ class HolidayController < ApplicationController
     def due_date
         if params[:holiday]
             @request_date = Date.strptime(params[:holiday]) or raise "Invalid date"
-            @due_date = Holiday.due_date_from(@request_date, Configuration::reply_late_after_days, Configuration::working_or_calendar_days)
+            @due_date = Holiday.due_date_from(@request_date, AlaveteliConfiguration::reply_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
             @skipped = Holiday.all(
                 :conditions => [ 'day >= ? AND day <= ?',
                     @request_date.strftime("%F"), @due_date.strftime("%F")

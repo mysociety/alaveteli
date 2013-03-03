@@ -21,14 +21,14 @@ module AlaveteliExternalCommand
                 program_path = program_name
             else
                 found = false
-                Configuration::utility_search_path.each do |d|
+                AlaveteliConfiguration::utility_search_path.each do |d|
                     program_path = File.join(d, program_name)
                     if File.file? program_path and File.executable? program_path
                         found = true
                         break
                     end
                 end
-                 raise "Could not find #{program_name} in any of #{Configuration::utility_search_path.join(', ')}" if !found
+                 raise "Could not find #{program_name} in any of #{AlaveteliConfiguration::utility_search_path.join(', ')}" if !found
             end
 
             xc = ExternalCommand.new(program_path, *args)

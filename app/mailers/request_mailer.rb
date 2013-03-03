@@ -46,7 +46,7 @@ class RequestMailer < ApplicationMailer
         attachments.inline["original.eml"] = raw_email_data
 
         @info_request = info_request
-        @contact_email = Configuration::contact_email
+        @contact_email = AlaveteliConfiguration::contact_email
 
         mail(:to => email.from_addrs[0].to_s,
              :from => contact_from_name_and_email,
@@ -337,7 +337,7 @@ class RequestMailer < ApplicationMailer
     # Send email alerts for new responses which haven't been classified. By default,
     # it goes out 3 days after last update of event, then after 10, then after 24.
     def self.alert_new_response_reminders
-        Configuration::new_response_reminder_after_days.each_with_index do |days, i|
+        AlaveteliConfiguration::new_response_reminder_after_days.each_with_index do |days, i|
             self.alert_new_response_reminders_internal(days, "new_response_reminder_#{i+1}")
         end
     end

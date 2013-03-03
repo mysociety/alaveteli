@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Alaveteli::Application.config.secret_token = Configuration::cookie_store_session_secret
+Alaveteli::Application.config.secret_token = AlaveteliConfiguration::cookie_store_session_secret

@@ -15,7 +15,7 @@
 class OutgoingMailer < ApplicationMailer
     # Email to public body requesting info
     def initial_request(info_request, outgoing_message)
-        @info_request, @outgoing_message, @contact_email = info_request, outgoing_message, Configuration::contact_email
+        @info_request, @outgoing_message, @contact_email = info_request, outgoing_message, AlaveteliConfiguration::contact_email
         @wrap_lines_as_paragraphs = true
         headers["message-id"] = OutgoingMailer.id_for_message(outgoing_message)
 
@@ -26,7 +26,7 @@ class OutgoingMailer < ApplicationMailer
 
     # Later message to public body regarding existing request
     def followup(info_request, outgoing_message, incoming_message_followup)
-        @info_request, @outgoing_message, @incoming_message_followup, @contact_email = info_request, outgoing_message, incoming_message_followup, Configuration::contact_email
+        @info_request, @outgoing_message, @incoming_message_followup, @contact_email = info_request, outgoing_message, incoming_message_followup, AlaveteliConfiguration::contact_email
         @wrap_lines_as_paragraphs = true
         headers["message-id"] = OutgoingMailer.id_for_message(outgoing_message)
 
@@ -88,7 +88,7 @@ class OutgoingMailer < ApplicationMailer
         message_id = "ogm-" + outgoing_message.id.to_s
         t = Time.now
         message_id += "+" + '%08x%05x-%04x' % [t.to_i, t.tv_usec, rand(0xffff)]
-        message_id += "@" + Configuration::incoming_email_domain
+        message_id += "@" + AlaveteliConfiguration::incoming_email_domain
         return "<" + message_id + ">"
     end
 

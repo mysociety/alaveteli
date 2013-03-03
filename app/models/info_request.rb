@@ -665,7 +665,7 @@ public
     # last_event_forming_initial_request. There may be more obscure
     # things, e.g. fees, not properly covered.
     def date_response_required_by
-        Holiday.due_date_from(self.date_initial_request_last_sent_at, Configuration::reply_late_after_days, Configuration::working_or_calendar_days)
+        Holiday.due_date_from(self.date_initial_request_last_sent_at, AlaveteliConfiguration::reply_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
     end
     # This is a long stop - even with UK public interest test extensions, 40
     # days is a very long time.
@@ -673,10 +673,10 @@ public
         last_sent = last_event_forming_initial_request
         if self.public_body.is_school?
             # schools have 60 working days maximum (even over a long holiday)
-            Holiday.due_date_from(self.date_initial_request_last_sent_at, Configuration::special_reply_very_late_after_days, Configuration::working_or_calendar_days)
+            Holiday.due_date_from(self.date_initial_request_last_sent_at, AlaveteliConfiguration::special_reply_very_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
         else
             # public interest test ICO guidance gives 40 working maximum
-            Holiday.due_date_from(self.date_initial_request_last_sent_at, Configuration::reply_very_late_after_days, Configuration::working_or_calendar_days)
+            Holiday.due_date_from(self.date_initial_request_last_sent_at, AlaveteliConfiguration::reply_very_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
         end
     end
 
@@ -876,10 +876,10 @@ public
     end
 
     def InfoRequest.magic_email_for_id(prefix_part, id)
-        magic_email = Configuration::incoming_email_prefix
+        magic_email = AlaveteliConfiguration::incoming_email_prefix
         magic_email += prefix_part + id.to_s
         magic_email += "-" + InfoRequest.hash_from_id(id)
-        magic_email += "@" + Configuration::incoming_email_domain
+        magic_email += "@" + AlaveteliConfiguration::incoming_email_domain
         return magic_email
     end
 
@@ -890,7 +890,7 @@ public
     end
 
     def InfoRequest.hash_from_id(id)
-        return Digest::SHA1.hexdigest(id.to_s + Configuration::incoming_email_secret)[0,8]
+        return Digest::SHA1.hexdigest(id.to_s + AlaveteliConfiguration::incoming_email_secret)[0,8]
     end
 
     # Called by find_by_incoming_email - and used to be called by separate
@@ -1118,7 +1118,7 @@ public
 
     before_save :purge_in_cache
     def purge_in_cache
-        if !Configuration::varnish_host.blank? && !self.id.nil?
+        if !AlaveteliConfiguration::varnish_host.blank? && !self.id.nil?
             # we only do this for existing info_requests (new ones have a nil id)
             path = url_for(:controller => 'request', :action => 'show', :url_title => self.url_title, :only_path => true, :locale => :none)
             req = PurgeRequest.find_by_url(path)

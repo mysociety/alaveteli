@@ -3,7 +3,7 @@
 $alaveteli_route_extensions = []
 
 if ENV["RAILS_ENV"] != "test" # Don't let the themes interfere with Alaveteli specs
-    for url in Configuration::theme_urls.reverse
+    for url in AlaveteliConfiguration::theme_urls.reverse
         theme_name = url.sub(/.*\/(.*).git/, "\\1")
         theme_main_include = File.expand_path "../../../vendor/plugins/#{theme_name}/lib/alavetelitheme.rb", __FILE__
         if File.exists? theme_main_include

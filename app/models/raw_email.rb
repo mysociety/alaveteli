@@ -26,7 +26,7 @@ class RawEmail < ActiveRecord::Base
         if Rails.env.test?
             return File.join(Rails.root, 'files/raw_email_test')
         else
-            return File.join(Configuration::raw_emails_location,
+            return File.join(AlaveteliConfiguration::raw_emails_location,
                              request_id[0..2], request_id)
         end
     end

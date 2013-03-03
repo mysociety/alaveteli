@@ -134,8 +134,8 @@ Spork.prefork do
   end
 
   def basic_auth_login(request, username = nil, password = nil)
-      username = Configuration::admin_username if username.nil?
-      password = Configuration::admin_password if password.nil?
+      username = AlaveteliConfiguration::admin_username if username.nil?
+      password = AlaveteliConfiguration::admin_password if password.nil?
       request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
   end
 end

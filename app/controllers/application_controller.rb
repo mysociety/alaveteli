@@ -51,12 +51,12 @@ class ApplicationController < ActionController::Base
     end
 
     def set_gettext_locale
-        if Configuration::include_default_locale_in_urls == false
+        if AlaveteliConfiguration::include_default_locale_in_urls == false
             params_locale = params[:locale] ? params[:locale] : I18n.default_locale
         else
             params_locale = params[:locale]
         end
-        if Configuration::use_default_browser_language
+        if AlaveteliConfiguration::use_default_browser_language
             requested_locale = params_locale || session[:locale] || cookies[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'] || I18n.default_locale
         else
             requested_locale = params_locale || session[:locale] || cookies[:locale] || I18n.default_locale
@@ -86,7 +86,7 @@ class ApplicationController < ActionController::Base
     # egrep "CONSUME MEMORY: [0-9]{7} KB" production.log
     around_filter :record_memory
     def record_memory
-        record_memory = Configuration::debug_record_memory
+        record_memory = AlaveteliConfiguration::debug_record_memory
         if record_memory
             logger.info "Processing request for #{request.url} with Rails process #{Process.pid}"
             File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
@@ -342,10 +342,10 @@ class ApplicationController < ActionController::Base
 
     #
     def check_read_only
-        if !Configuration::read_only.empty?
+        if !AlaveteliConfiguration::read_only.empty?
             flash[:notice] = _("<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>",
                 :site_name => site_name,
-                :read_only => Configuration::read_only)
+                :read_only => AlaveteliConfiguration::read_only)
             redirect_to frontpage_url
         end
 
@@ -552,10 +552,10 @@ class ApplicationController < ActionController::Base
 
     def country_from_ip
         country = ""
-        if !Configuration::gaze_url.empty?
-            country = quietly_try_to_open("#{Configuration::gaze_url}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
+        if !AlaveteliConfiguration::gaze_url.empty?
+            country = quietly_try_to_open("#{AlaveteliConfiguration::gaze_url}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
         end
-        country = Configuration::iso_country_code if country.empty?
+        country = AlaveteliConfiguration::iso_country_code if country.empty?
         return country
     end
 

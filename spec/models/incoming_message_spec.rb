@@ -353,7 +353,7 @@ describe IncomingMessage, " when censoring data" do
     end
 
     it "should apply hard-coded privacy rules to HTML files" do
-        data = "http://#{Configuration::domain}/c/cheese"
+        data = "http://#{AlaveteliConfiguration::domain}/c/cheese"
         @im.html_mask_stuff!(data)
         data.should == "[WDTK login link]"
     end

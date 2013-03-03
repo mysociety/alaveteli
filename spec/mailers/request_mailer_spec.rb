@@ -33,7 +33,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.to.should == [ Configuration::contact_email ]
+        mail.to.should == [ AlaveteliConfiguration::contact_email ]
         deliveries.clear
     end
 
@@ -53,7 +53,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.to.should == [ Configuration::contact_email ]
+        mail.to.should == [ AlaveteliConfiguration::contact_email ]
         deliveries.clear
     end
 
@@ -73,7 +73,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.to.should == [ Configuration::contact_email ]
+        mail.to.should == [ AlaveteliConfiguration::contact_email ]
         deliveries.clear
     end
 
@@ -159,7 +159,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.to.should == [ Configuration::contact_email ]
+        mail.to.should == [ AlaveteliConfiguration::contact_email ]
         deliveries.clear
     end
 
@@ -349,7 +349,7 @@ describe RequestMailer, 'requires_admin' do
 
     context 'has an ADMIN_BASE_URL set' do
         before(:each) do
-            Configuration::should_receive(:admin_base_url).and_return('http://our.proxy.server/admin/alaveteli/')
+            AlaveteliConfiguration::should_receive(:admin_base_url).and_return('http://our.proxy.server/admin/alaveteli/')
         end
 
         it 'body should contain the full admin URL' do

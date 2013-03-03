@@ -332,7 +332,7 @@ class PublicBody < ActiveRecord::Base
                 pb = PublicBody.new(
                  :name => 'Internal admin authority',
                  :short_name => "",
-                 :request_email => Configuration::contact_email,
+                 :request_email => AlaveteliConfiguration::contact_email,
                  :home_page => "",
                  :notes => "",
                  :publication_scheme => "",
@@ -548,7 +548,7 @@ class PublicBody < ActiveRecord::Base
 
     # Returns nil if configuration variable not set
     def override_request_email
-        e = Configuration::override_all_public_body_request_emails
+        e = AlaveteliConfiguration::override_all_public_body_request_emails
         e if e != ""
     end
 

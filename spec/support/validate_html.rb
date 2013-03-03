@@ -20,7 +20,7 @@ end
 
 # Monkeypatch! Validate HTML in tests.
 $html_validation_script_found = false
-Configuration::utility_search_path.each do |d|
+AlaveteliConfiguration::utility_search_path.each do |d|
     $html_validation_script = File.join(d, "validate")
     $html_validation_script_options = ["--charset=utf-8"]
     if File.file? $html_validation_script and File.executable? $html_validation_script

@@ -15,7 +15,7 @@ class ApplicationMailer < ActionMailer::Base
     self.raise_delivery_errors = true
 
     def blackhole_email
-        Configuration::blackhole_prefix+"@"+Configuration::incoming_email_domain
+        AlaveteliConfiguration::blackhole_prefix+"@"+AlaveteliConfiguration::incoming_email_domain
     end
 
     # URL generating functions are needed by all controllers (for redirects),

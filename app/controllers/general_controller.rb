@@ -21,7 +21,7 @@ class GeneralController < ApplicationController
         medium_cache
         # get some example searches and public bodies to display
         # either from config, or based on a (slow!) query if not set
-        body_short_names = Configuration::frontpage_publicbody_examples.split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")
+        body_short_names = AlaveteliConfiguration::frontpage_publicbody_examples.split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")
         @locale = self.locale_from_params()
         locale_condition = 'public_body_translations.locale = ?'
         conditions = [locale_condition, @locale]
@@ -71,7 +71,7 @@ class GeneralController < ApplicationController
     def blog
         medium_cache
         @feed_autodetect = []
-        @feed_url = Configuration::blog_feed
+        @feed_url = AlaveteliConfiguration::blog_feed
         separator = @feed_url.include?('?') ? '&' : '?'
         @feed_url = "#{@feed_url}#{separator}lang=#{self.locale_from_params()}"
         @blog_items = []
@@ -84,7 +84,7 @@ class GeneralController < ApplicationController
                 @feed_autodetect = [{:url => @feed_url, :title => "#{site_name} blog"}]
             end
         end
-        @twitter_user = Configuration::twitter_username
+        @twitter_user = AlaveteliConfiguration::twitter_username
     end
 
     # Just does a redirect from ?query= search to /query

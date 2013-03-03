@@ -40,22 +40,22 @@ ALAVETELI_VERSION = '0.6.8'
 # The Rails cache is set up by the Interlock plugin to use memcached
 
 # Domain for URLs (so can work for scripts, not just web pages)
-ActionMailer::Base.default_url_options[:host] = Configuration::domain
+ActionMailer::Base.default_url_options[:host] = AlaveteliConfiguration::domain
 
 # So that javascript assets use full URL, so proxied admin URLs read javascript OK
-if (Configuration::domain != "")
+if (AlaveteliConfiguration::domain != "")
     ActionController::Base.asset_host = Proc.new { |source, request|
         if ENV["RAILS_ENV"] != "test" && request.fullpath.match(/^\/admin\//)
-            Configuration::admin_public_url
+            AlaveteliConfiguration::admin_public_url
         else
-            Configuration::domain
+            AlaveteliConfiguration::domain
         end
     }
 end
 
 # fallback locale and available locales
-available_locales = Configuration::available_locales.split(/ /)
-default_locale = Configuration::default_locale
+available_locales = AlaveteliConfiguration::available_locales.split(/ /)
+default_locale = AlaveteliConfiguration::default_locale
 
 FastGettext.default_available_locales = available_locales
 I18n.locale = default_locale
@@ -81,7 +81,7 @@ require 'public_body_categories'
 
 # Temporarily commented out the lines below on the Rails 3 spike.
 # TODO: Reinstate this properly!
-#if !Configuration.exception_notifications_from.blank? && !Configuration.exception_notifications_to.blank?
-#  ExceptionNotification::Notifier.sender_address = Configuration::exception_notifications_from
-#  ExceptionNotification::Notifier.exception_recipients = Configuration::exception_notifications_to
+#if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+#  ExceptionNotification::Notifier.sender_address = AlaveteliConfiguration::exception_notifications_from
+#  ExceptionNotification::Notifier.exception_recipients = AlaveteliConfiguration::exception_notifications_to
 #end

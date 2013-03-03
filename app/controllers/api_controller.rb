@@ -243,6 +243,6 @@ class ApiController < ApplicationController
 
     private
     def make_url(*args)
-        "http://" + Configuration::domain + "/" + args.join("/")
+        "http://" + AlaveteliConfiguration::domain + "/" + args.join("/")
     end
 end

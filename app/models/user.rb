@@ -188,12 +188,12 @@ class User < ActiveRecord::Base
 
     # The "internal admin" is a special user for internal use.
     def User.internal_admin_user
-        u = User.find_by_email(Configuration::contact_email)
+        u = User.find_by_email(AlaveteliConfiguration::contact_email)
         if u.nil?
             password = PostRedirect.generate_random_token
             u = User.new(
                 :name => 'Internal admin user',
-                :email => Configuration::contact_email,
+                :email => AlaveteliConfiguration::contact_email,
                 :password => password,
                 :password_confirmation => password
             )
@@ -266,16 +266,16 @@ class User < ActiveRecord::Base
         return false if self.no_limit
 
         # Has the user issued as many as MAX_REQUESTS_PER_USER_PER_DAY requests in the past 24 hours?
-        return false if Configuration::max_requests_per_user_per_day.blank?
+        return false if AlaveteliConfiguration::max_requests_per_user_per_day.blank?
         recent_requests = InfoRequest.count(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id])
 
-        return (recent_requests >= Configuration::max_requests_per_user_per_day)
+        return (recent_requests >= AlaveteliConfiguration::max_requests_per_user_per_day)
     end
     def next_request_permitted_at
         return nil if self.no_limit
 
-        n_most_recent_requests = InfoRequest.all(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id], :order => "created_at DESC", :limit => Configuration::max_requests_per_user_per_day)
-        return nil if n_most_recent_requests.size < Configuration::max_requests_per_user_per_day
+        n_most_recent_requests = InfoRequest.all(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id], :order => "created_at DESC", :limit => AlaveteliConfiguration::max_requests_per_user_per_day)
+        return nil if n_most_recent_requests.size < AlaveteliConfiguration::max_requests_per_user_per_day
 
         nth_most_recent_request = n_most_recent_requests[-1]
         return nth_most_recent_request.created_at + 1.day

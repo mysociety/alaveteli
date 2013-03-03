@@ -53,7 +53,7 @@ class MailServerLog < ActiveRecord::Base
             done.save!
 
             f = is_gz ? Zlib::GzipReader.open(file_name) : File.open(file_name, 'r')
-            case(Configuration::mta_log_type.to_sym)
+            case(AlaveteliConfiguration::mta_log_type.to_sym)
             when :exim
                 load_exim_log_data(f, done)
             when :postfix
@@ -123,13 +123,13 @@ class MailServerLog < ActiveRecord::Base
     # We also check the email prefix so that we could, for instance, separately handle a staging and production
     # instance running on the same server with different email prefixes.
     def MailServerLog.email_addresses_on_line(line)
-        prefix = Regexp::quote(Configuration::incoming_email_prefix)
-        domain = Regexp::quote(Configuration::incoming_email_domain)
+        prefix = Regexp::quote(AlaveteliConfiguration::incoming_email_prefix)
+        domain = Regexp::quote(AlaveteliConfiguration::incoming_email_domain)
         line.scan(/#{prefix}request-[^\s]+@#{domain}/).sort.uniq
     end
 
     def MailServerLog.request_sent?(ir)
-        case(Configuration::mta_log_type.to_sym)
+        case(AlaveteliConfiguration::mta_log_type.to_sym)
         when :exim
             request_exim_sent?(ir)
         when :postfix

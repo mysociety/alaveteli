@@ -44,9 +44,9 @@ class AdminRequestController < AdminController
         # XXX is this *really* the only way to render a template to a
         # variable, rather than to the response?
         vars = OpenStruct.new(:name_to => @info_request.user_name,
-                :name_from => Configuration::contact_name,
+                :name_from => AlaveteliConfiguration::contact_name,
                 :info_request => @info_request, :reason => params[:reason],
-                :info_request_url => 'http://' + Configuration::domain + request_url(@info_request),
+                :info_request_url => 'http://' + AlaveteliConfiguration::domain + request_url(@info_request),
                 :site_name => site_name)
         template = File.read(File.join(File.dirname(__FILE__), "..", "views", "admin_request", "hidden_user_explanation.html.erb"))
         @request_hidden_user_explanation = ERB.new(template).result(vars.instance_eval { binding })

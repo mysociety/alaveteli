@@ -1,7 +1,7 @@
 # test.yml
 # Test values for the "general" config file.
 #
-# Configuration parameters, in YAML syntax.
+# AlaveteliConfiguration parameters, in YAML syntax.
 #
 # These may be values expected by the test suite; changing them may
 # break tests.

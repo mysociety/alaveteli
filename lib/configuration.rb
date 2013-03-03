@@ -12,7 +12,7 @@ MySociety::Config.load_default
 
 # TODO: Make this return different values depending on the current rails environment
 
-module Configuration
+module AlaveteliConfiguration
   DEFAULTS = {
     :ADMIN_BASE_URL => '',
     :ADMIN_PASSWORD => '',
@@ -68,7 +68,7 @@ module Configuration
     :WORKING_OR_CALENDAR_DAYS => 'working',
   }
 
-  def Configuration.method_missing(name)
+  def AlaveteliConfiguration.method_missing(name)
     key = name.to_s.upcase
     if DEFAULTS.has_key?(key.to_sym)
       MySociety::Config.get(key, DEFAULTS[key.to_sym])

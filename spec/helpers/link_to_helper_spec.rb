@@ -60,7 +60,7 @@ describe LinkToHelper do
 
         context 'with ADMIN_BASE_URL set' do
             before(:each) do
-                Configuration::should_receive(:admin_base_url).and_return('https://www.example.com/secure/alaveteli-admin/')
+                AlaveteliConfiguration::should_receive(:admin_base_url).and_return('https://www.example.com/secure/alaveteli-admin/')
             end
 
             it 'should prepend the admin base URL to a simple string' do

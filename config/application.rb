@@ -53,7 +53,7 @@ module Alaveteli
     # Note that having set a zone, the Active Record
     # time_zone_aware_attributes flag is on, so times from models
     # will be in this time zone
-    config.time_zone = ::Configuration::time_zone
+    config.time_zone = ::AlaveteliConfiguration::time_zone
 
     config.after_initialize do
        require 'routing_filters.rb'
@@ -62,8 +62,8 @@ module Alaveteli
     config.autoload_paths << "#{Rails.root.to_s}/lib/mail_handler"
 
     # See Rails::Configuration for more options
-    ENV['RECAPTCHA_PUBLIC_KEY'] = ::Configuration::recaptcha_public_key
-    ENV['RECAPTCHA_PRIVATE_KEY'] = ::Configuration::recaptcha_private_key
+    ENV['RECAPTCHA_PUBLIC_KEY'] = ::AlaveteliConfiguration::recaptcha_public_key
+    ENV['RECAPTCHA_PRIVATE_KEY'] = ::AlaveteliConfiguration::recaptcha_private_key
 
     # Insert a bit of middleware code to prevent uneeded cookie setting.
     require "#{Rails.root}/lib/whatdotheyknow/strip_empty_sessions"

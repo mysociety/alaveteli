@@ -18,7 +18,7 @@ class HelpController < ApplicationController
     end
 
     def contact
-        @contact_email = Configuration::contact_email
+        @contact_email = AlaveteliConfiguration::contact_email
 
         # if they clicked remove for link to request/body, remove it
         if params[:remove]

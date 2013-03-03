@@ -39,7 +39,7 @@ class ContactMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => recipient_user.name_and_email,
-             :bcc => Configuration::contact_email,
+             :bcc => AlaveteliConfiguration::contact_email,
              :subject => subject)
     end
 end

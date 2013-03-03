@@ -28,7 +28,7 @@ class RequestController < ApplicationController
     def select_authority
         # Check whether we force the user to sign in right at the start, or we allow her
         # to start filling the request anonymously
-        if Configuration::force_registration_on_new_request && !authenticated?(
+        if AlaveteliConfiguration::force_registration_on_new_request && !authenticated?(
                 :web => _("To send your FOI request"),
                 :email => _("Then you'll be allowed to send FOI requests."),
                 :email_subject => _("Confirm your email address")
@@ -44,7 +44,7 @@ class RequestController < ApplicationController
     end
 
     def show
-        if !Configuration::varnish_host.blank?
+        if !AlaveteliConfiguration::varnish_host.blank?
             # If varnish is set up to accept PURGEs, then cache for a
             # long time
             long_cache
@@ -369,7 +369,7 @@ class RequestController < ApplicationController
             replied by then.</p>
             <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an
             annotation below telling people about your writing.</p>",:law_used_full=>@info_request.law_used_full,
-            :late_number_of_days => Configuration::reply_late_after_days)
+            :late_number_of_days => AlaveteliConfiguration::reply_late_after_days)
         redirect_to show_new_request_path(:url_title => @info_request.url_title)
     end
 
@@ -458,7 +458,7 @@ class RequestController < ApplicationController
             flash[:notice] = _("<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(@info_request.date_response_required_by))
             redirect_to request_url(@info_request)
         elsif calculated_status == 'waiting_response_very_overdue'
-            flash[:notice] = _("<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>", :very_late_number_of_days => Configuration::reply_very_late_after_days, :late_number_of_days => Configuration::reply_late_after_days)
+            flash[:notice] = _("<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>", :very_late_number_of_days => AlaveteliConfiguration::reply_very_late_after_days, :late_number_of_days => AlaveteliConfiguration::reply_late_after_days)
             redirect_to unhappy_url(@info_request)
         elsif calculated_status == 'not_held'
             flash[:notice] = _("<p>Thank you! Here are some ideas on what to do next:</p>
@@ -490,7 +490,7 @@ class RequestController < ApplicationController
         elsif calculated_status == 'gone_postal'
             redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
         elsif calculated_status == 'internal_review'
-            flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>",:late_number_of_days => Configuration.reply_late_after_days, :review_url => unhappy_url(@info_request) + "#internal_review")
+            flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>",:late_number_of_days => AlaveteliConfiguration.reply_late_after_days, :review_url => unhappy_url(@info_request) + "#internal_review")
             redirect_to request_url(@info_request)
         elsif calculated_status == 'error_message'
             flash[:notice] = _("<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below.</p>")
@@ -896,10 +896,10 @@ class RequestController < ApplicationController
                 if !File.exists?(file_path)
                     FileUtils.mkdir_p(File.dirname(file_path))
                     Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) { |zipfile|
-                        convert_command = Configuration::html_to_pdf_command
+                        convert_command = AlaveteliConfiguration::html_to_pdf_command
                         done = false
                         if !convert_command.blank? && File.exists?(convert_command)
-                            url = "http://#{Configuration::domain}#{request_url(@info_request)}?print_stylesheet=1"
+                            url = "http://#{AlaveteliConfiguration::domain}#{request_url(@info_request)}?print_stylesheet=1"
                             tempfile = Tempfile.new('foihtml2pdf')
                             output = AlaveteliExternalCommand.run(convert_command, url, tempfile.path)
                             if !output.nil?

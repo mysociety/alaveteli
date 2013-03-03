@@ -51,7 +51,7 @@ class AdminController < ApplicationController
 
     # For administration interface, return display name of authenticated user
     def admin_current_user
-        if Configuration::skip_admin_auth
+        if AlaveteliConfiguration::skip_admin_auth
             admin_http_auth_user
         else
             session[:admin_name]
@@ -74,7 +74,7 @@ class AdminController < ApplicationController
     end
 
     def authenticate
-        if Configuration::skip_admin_auth
+        if AlaveteliConfiguration::skip_admin_auth
             session[:using_admin] = 1
             return
         else
@@ -98,7 +98,7 @@ class AdminController < ApplicationController
                     end
                 else
                     authenticate_or_request_with_http_basic do |user_name, password|
-                        if user_name == Configuration::admin_username && password == Configuration::admin_password
+                        if user_name == AlaveteliConfiguration::admin_username && password == AlaveteliConfiguration::admin_password
                             session[:using_admin] = 1
                             session[:admin_name] = user_name
                         else

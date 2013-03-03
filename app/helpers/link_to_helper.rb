@@ -219,7 +219,7 @@ module LinkToHelper
 
     # Admin pages
     def admin_url(relative_path)
-        admin_url_prefix = Configuration::admin_base_url
+        admin_url_prefix = AlaveteliConfiguration::admin_base_url
         (admin_url_prefix.empty? ? admin_general_index_url + '/' : admin_url_prefix) + relative_path
     end
 
@@ -238,7 +238,7 @@ module LinkToHelper
 
 
     def main_url(relative_path, append = nil)
-        url_prefix = "http://" + Configuration::domain
+        url_prefix = "http://" + AlaveteliConfiguration::domain
         url = url_prefix + relative_path
         if !append.nil?
             begin
