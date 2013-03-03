@@ -96,21 +96,6 @@ Spork.prefork do
       rebuild_xapian_index
   end
 
-  # Copy the xapian index created in create_fixtures_xapian_index to a temporary
-  # copy at the same level and point xapian at the copy
-  def get_fixtures_xapian_index()
-      # Create a base index for the fixtures if not already created
-      $existing_xapian_db ||= create_fixtures_xapian_index
-      # Store whatever the xapian db path is originally
-      $original_xapian_path ||= ActsAsXapian.db_path
-      path_array = $original_xapian_path.split(File::Separator)
-      path_array.pop
-      temp_path = File.join(path_array, 'test.temp')
-      FileUtils.remove_entry_secure(temp_path, force=true)
-      FileUtils.cp_r($original_xapian_path, temp_path)
-      ActsAsXapian.db_path = temp_path
-  end
-
   def with_env_tz(new_tz = 'US/Eastern')
     old_tz, ENV['TZ'] = ENV['TZ'], new_tz
     yield
