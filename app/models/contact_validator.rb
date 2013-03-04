@@ -1,14 +1,3 @@
-# == Schema Information
-# Schema version: 114
-#
-# Table name: contact_validators
-#
-#  name    :string
-#  email   :string
-#  subject :text
-#  message :text
-#
-
 # models/contact_validator.rb:
 # Validates contact form submissions.
 #

@@ -1,14 +1,3 @@
-# == Schema Information
-# Schema version: 114
-#
-# Table name: change_email_validators
-#
-#  old_email         :string
-#  new_email         :string
-#  password          :string
-#  user_circumstance :string
-#
-
 # models/changeemail_validator.rb:
 # Validates email change form submissions.
 #
