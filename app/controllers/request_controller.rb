@@ -499,7 +499,7 @@ class RequestController < ApplicationController
             return
         end
 
-        @info_request.set_described_state("requires_admin", nil, params[:message])
+        @info_request.set_described_state("requires_admin", authenticated_user, params[:message])
     end
 
     # Used for links from polymorphic URLs e.g. in Atom feeds - just redirect to

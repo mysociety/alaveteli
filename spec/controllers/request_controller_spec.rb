@@ -1268,7 +1268,7 @@ describe RequestController, "describe_state_requires_admin" do
             end
 
             it "should set the state when classified as requires_admin" do
-                info_request.should_receive(:set_described_state).with("requires_admin", nil, "Something weird happened")
+                info_request.should_receive(:set_described_state).with("requires_admin", user, "Something weird happened")
 
                 post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
             end
