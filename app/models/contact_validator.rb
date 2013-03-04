@@ -15,19 +15,22 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 
-class ContactValidator < ActiveRecord::BaseWithoutTable
-    strip_attributes!
+class ContactValidator
+    include ActiveModel::Validations
 
-    column :name, :string
-    column :email, :string
-    column :subject, :text
-    column :message, :text
+    attr_accessor :name, :email, :subject, :message
 
     validates_presence_of :name, :message => N_("Please enter your name")
     validates_presence_of :email, :message => N_("Please enter your email address")
     validates_presence_of :subject, :message => N_("Please enter a subject")
     validates_presence_of :message, :message => N_("Please enter the message you want to send")
     validate :email_format
+
+    def initialize(attributes = {})
+        attributes.each do |name, value|
+            send("#{name}=", value)
+        end
+    end
 
     private
 

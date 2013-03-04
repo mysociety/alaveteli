@@ -15,22 +15,24 @@
 # Copyright (c) 2010 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 
-class ChangeEmailValidator < ActiveRecord::BaseWithoutTable
-    strip_attributes!
+class ChangeEmailValidator
+    include ActiveModel::Validations
 
-    column :old_email, :string
-    column :new_email, :string
-    column :password, :string
-    column :user_circumstance, :string
-
-    attr_accessor :logged_in_user
+    attr_accessor :old_email, :new_email, :password, :user_circumstance, :logged_in_user
 
     validates_presence_of :old_email, :message => N_("Please enter your old email address")
     validates_presence_of :new_email, :message => N_("Please enter your new email address")
     validates_presence_of :password, :message => N_("Please enter your password"), :unless => :changing_email
     validate :password_and_format_of_email
 
-    def changing_email()
+    def initialize(attributes = {})
+        attributes.each do |name, value|
+            send("#{name}=", value)
+        end
+    end
+
+
+    def changing_email
       self.user_circumstance == 'change_email'
     end
 
@@ -55,5 +57,4 @@ class ChangeEmailValidator < ActiveRecord::BaseWithoutTable
             errors.add(:new_email, _("New email doesn't look like a valid address"))
         end
     end
-
 end
