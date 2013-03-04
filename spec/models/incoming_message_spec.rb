@@ -405,6 +405,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
         im.stub!(:mail).and_return(mail)
         im.extract_attachments!
 
+        im.reload
         attachments = im.foi_attachments
         attachments.size.should == 2
         attachments[1].filename.should == 'moo.txt'
