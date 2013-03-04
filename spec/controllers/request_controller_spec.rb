@@ -609,7 +609,7 @@ describe RequestController, "when showing one request" do
             ir.incoming_messages[1].parse_raw_email!(force)
             ir.reload
             attachment = IncomingMessage.get_attachment_by_url_part_number(ir.incoming_messages[1].get_attachments_for_display, 2)
-            attachment.body.should contain "Second hello"
+            attachment.body.should contain "Third hello"
             get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello.txt.html', :skip_cache => 1
             response.should contain "Third hello"
         end
