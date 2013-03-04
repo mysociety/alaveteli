@@ -561,11 +561,8 @@ describe UserController, "when using profile photos" do
     before do
         @user = users(:bob_smith_user)
 
-        @uploadedfile = File.open(file_fixture_name("parrot.png"))
-        @uploadedfile.stub!(:original_filename).and_return('parrot.png')
-
-        @uploadedfile_2 = File.open(file_fixture_name("parrot.jpg"))
-        @uploadedfile_2.stub!(:original_filename).and_return('parrot.jpg')
+        @uploadedfile = fixture_file_upload("/files/parrot.png")
+        @uploadedfile_2 = fixture_file_upload("/files/parrot.jpg")
     end
 
     it "should not let you change profile photo if you're not logged in as the user" do
