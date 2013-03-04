@@ -251,6 +251,9 @@ class RequestController < ApplicationController
                 end
             elsif params[:public_body_id]
                 params[:info_request][:public_body] = PublicBody.find(params[:public_body_id])
+            # Explicitly load the association as this isn't done automatically in newer Rails versions
+            elsif params[:info_request][:public_body_id]
+                params[:info_request][:public_body] = PublicBody.find(params[:info_request][:public_body_id])
             end
             if !params[:info_request][:public_body]
                 # compulsory to have a body by here, or go to front page which is start of process
