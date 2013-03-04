@@ -243,16 +243,16 @@ class RequestController < ApplicationController
             # Read parameters in - first the public body (by URL name or id)
             if params[:url_name]
                 if params[:url_name].match(/^[0-9]+$/)
-                    params[:info_request][:public_body_id] = params[:url_name]
+                    params[:info_request][:public_body] = PublicBody.find(params[:url_name])
                 else
                     public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
                     raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # XXX proper 404
-                    params[:info_request][:public_body_id] = public_body.id
+                    params[:info_request][:public_body] = public_body
                 end
             elsif params[:public_body_id]
-                params[:info_request][:public_body_id] = params[:public_body_id]
+                params[:info_request][:public_body] = PublicBody.find(params[:public_body_id])
             end
-            if !params[:info_request][:public_body_id]
+            if !params[:info_request][:public_body]
                 # compulsory to have a body by here, or go to front page which is start of process
                 redirect_to frontpage_url
                 return
