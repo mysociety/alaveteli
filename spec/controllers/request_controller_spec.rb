@@ -1256,6 +1256,20 @@ describe RequestController, "describe_state_requires_admin" do
             post_redirect = PostRedirect.get_last_post_redirect
             response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
         end
+
+        context "external request" do
+            before (:each) { info_request.should_receive(:is_external?).and_return(true) }
+
+            it "should not set the state" do
+                info_request.should_not_receive(:set_described_state)
+                post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
+            end
+
+            it "should redirect to the request page" do
+                post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
+                response.should redirect_to request_url(info_request)
+            end
+        end
     end
 
     context "logged in" do

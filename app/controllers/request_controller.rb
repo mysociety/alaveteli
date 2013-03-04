@@ -490,6 +490,13 @@ class RequestController < ApplicationController
     def describe_state_requires_admin
         @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
+        # If this is an external request, go to the request page - we don't allow
+        # state change from the front end interface.
+        if @info_request.is_external?
+            redirect_to request_url(@info_request)
+            return
+        end
+
         unless Ability::can_update_request_state?(authenticated_user, @info_request)
             # If we got here this is always going to be false
             authenticated_as_user?(@info_request.user,
