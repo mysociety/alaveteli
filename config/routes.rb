@@ -126,9 +126,11 @@ Alaveteli::Application.routes.draw do
     match '/:feed/list/:view' => 'track#track_list', :as => :track_list, :view => nil, :feed => /(track|feed)/
     match '/:feed/body/:url_name' => 'track#track_public_body', :as => :track_public_body, :feed => /(track|feed)/
     match '/:feed/user/:url_name' => 'track#track_user', :as => :track_user, :feed => /(track|feed)/
-    # XXX must be better way of getting dots and slashes in search queries to work than this *query_array
-    # Also, the :format doesn't work. See hacky code in the controller that makes up for this.
-    match '/:feed/search/*query_array' => 'track#track_search_query', :as => :track_search, :feed => /(track|feed)/
+    # XXX :format doesn't work. See hacky code in the controller that makes up for this.
+    match '/:feed/search/:query_array' => 'track#track_search_query',
+          :as => :track_search,
+          :feed => /(track|feed)/,
+          :constraints => { :query_array => /.*/ }
 
     match '/track/update/:track_id' => 'track#update', :as => :update
     match '/track/delete_all_type' => 'track#delete_all_type', :as => :delete_all_type

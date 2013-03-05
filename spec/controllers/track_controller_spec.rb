@@ -49,7 +49,7 @@ describe TrackController, "when making a new track on a request" do
     it "should save a search track and redirect to the right place" do
         session[:user_id] = @user.id
         @track_thing.should_receive(:save!)
-        get :track_search_query, :query_array => ["bob variety:sent"], :feed => 'track'
+        get :track_search_query, :query_array => "bob variety:sent", :feed => 'track'
         response.should redirect_to(:controller => 'general', :action => 'search', :combined => ["bob", "requests"])
     end
 

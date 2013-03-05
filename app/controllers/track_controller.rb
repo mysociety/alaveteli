@@ -80,10 +80,7 @@ class TrackController < ApplicationController
 
     # Track a search term
     def track_search_query
-        # XXX should be better thing in rails routes than having to do this
-        # join just to get / and . to work in a query.
-        query_array = params[:query_array]
-        @query = query_array.join("/")
+        @query = params[:query_array]
 
         # XXX more hackery to make alternate formats still work with query_array
         if /^(.*)\.json$/.match(@query)
