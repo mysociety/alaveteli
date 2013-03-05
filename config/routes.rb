@@ -55,7 +55,6 @@ ActionController::Routing::Routes.draw do |map|
         request.similar_request     '/similar/request/:url_title', :action => 'similar'
 
         request.describe_state   '/request/:id/describe', :action => 'describe_state', :conditions => {:method => :post}
-        request.describe_state_requires_admin   '/request/:url_title/describe/requires_admin', :action => 'describe_state_requires_admin', :conditions => { :method => :post }
         request.show_response_no_followup    '/request/:id/response', :action => 'show_response'
         request.show_response    '/request/:id/response/:incoming_message_id', :action => 'show_response'
         request.get_attachment_as_html   '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name', :action => 'get_attachment_as_html'

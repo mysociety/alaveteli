@@ -487,28 +487,6 @@ class RequestController < ApplicationController
         end
     end
 
-    def describe_state_requires_admin
-        @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-
-        # If this is an external request, go to the request page - we don't allow
-        # state change from the front end interface.
-        if @info_request.is_external?
-            redirect_to request_url(@info_request)
-            return
-        end
-
-        unless Ability::can_update_request_state?(authenticated_user, @info_request)
-            # If we got here this is always going to be false
-            authenticated_as_user?(@info_request.user,
-                :web => _("To classify the response to this FOI request"),
-                :email => _("Then you can classify the FOI response you have got from ") + @info_request.public_body.name + ".",
-                :email_subject => _("Classify an FOI response from ") + @info_request.public_body.name)
-            return
-        end
-
-        @info_request.set_described_state("requires_admin", authenticated_user, params[:message])
-    end
-
     # Used for links from polymorphic URLs e.g. in Atom feeds - just redirect to
     # proper URL for the message the event refers to
     def show_request_event

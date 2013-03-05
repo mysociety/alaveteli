@@ -1241,68 +1241,6 @@ describe RequestController, "when viewing an individual response for reply/follo
 
 end
 
-describe RequestController, "describe_state_requires_admin" do
-    let (:info_request) { info_requests(:fancy_dog_request) }
-
-    before :each do
-        InfoRequest.should_receive(:find_by_url_title!).with("info_request").and_return(info_request)
-    end
-
-    context "logged out" do
-        it "should redirect to the login page" do
-            post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
-
-            # Ugh.
-            post_redirect = PostRedirect.get_last_post_redirect
-            response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
-        end
-
-        context "external request" do
-            before (:each) { info_request.should_receive(:is_external?).and_return(true) }
-
-            it "should not set the state" do
-                info_request.should_not_receive(:set_described_state)
-                post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
-            end
-
-            it "should redirect to the request page" do
-                post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
-                response.should redirect_to request_url(info_request)
-            end
-        end
-    end
-
-    context "logged in" do
-        let(:user) { users(:silly_name_user) }
-        before (:each) { session[:user_id] = user.id }
-
-        context "with permission to change the state" do
-            before (:each) do                
-                Ability.should_receive(:can_update_request_state?).with(user, info_request).and_return(true)
-            end
-
-            it "should set the state when classified as requires_admin" do
-                info_request.should_receive(:set_described_state).with("requires_admin", user, "Something weird happened")
-
-                post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
-            end
-        end
-
-        context "without permission to change the state" do
-            before :each do
-                Ability.should_receive(:can_update_request_state?).with(user, info_request).and_return(false)
-            end
-
-            it "should not allow you to change the state" do
-                info_request.should_not_receive(:set_described_state)
-
-                post :describe_state_requires_admin, :message => "Something weird happened", :url_title => "info_request"
-                response.should render_template('user/wrong_user')
-            end
-        end
-    end
-end
-
 describe RequestController, "when classifying an information request" do
 
     describe 'if the request is external' do
