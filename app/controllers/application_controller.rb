@@ -16,9 +16,6 @@ class ApplicationController < ActionController::Base
     layout "default"
     include FastGettext::Translation # make functions like _, n_, N_ etc available)
 
-    # Send notification email on exceptions
-    include ExceptionNotification::Notifiable
-
     # Note: a filter stops the chain if it redirects or renders something
     before_filter :authentication_check
     before_filter :set_gettext_locale
