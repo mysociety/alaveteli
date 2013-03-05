@@ -717,8 +717,16 @@ module ActsAsXapian
                     if not $?.success?
                         raise "batch fork child failed, exiting also"
                     end
-                    # database connection doesn't survive a fork, rebuild it
-                    ActiveRecord::Base.connection.reconnect!
+
+                    # FIXME: Under Rails 3.1 we get "SSL error: decryption failed or bad record mac", this works around it
+                    retry_count = 0
+                    begin
+                        # database connection doesn't survive a fork, rebuild it
+                        ActiveRecord::Base.connection.reconnect!
+                    rescue
+                        retry_count += 1
+                        retry_count > 3 ? raise : retry
+                    end
               else
 
                     # fully reopen the database each time (with a new object)
