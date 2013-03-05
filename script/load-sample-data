@@ -18,11 +18,11 @@ end
 # HACK: Normally to load fixtures you'd run `rake db:fixtures:load` but since we
 # have .csv files in the fixtures folder Rails tries to load those too. Therefore
 # we've pinched some code to load the fixtures:
-# https://github.com/rails/rails/blob/5ecd14c5f16533d09c01007bf5d70f70a59c30e3/activerecord/lib/active_record/railties/databases.rake#L319
+# https://github.com/rails/rails/blob/v3.1.11/activerecord/lib/active_record/railties/databases.rake#L311
 fixtures_dir = "#{ENV['LOC']}/../spec/fixtures"
 
 Dir["#{fixtures_dir}/**/*.yml"].each do |fixture_file|
-  Fixtures.create_fixtures(fixtures_dir, fixture_file[(fixtures_dir.size + 1)..-5])
+  ActiveRecord::Fixtures.create_fixtures(fixtures_dir, fixture_file[(fixtures_dir.size + 1)..-5])
 end
 
 load_raw_emails_data
