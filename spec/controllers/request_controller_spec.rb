@@ -1318,7 +1318,7 @@ describe RequestController, "when classifying an information request" do
 
                 it 'should classify the request' do
                     @dog_request.stub!(:calculate_status).and_return('rejected')
-                    @dog_request.should_receive(:set_described_state).with('rejected', users(:silly_name_user))
+                    @dog_request.should_receive(:set_described_state).with('rejected', users(:silly_name_user), nil)
                     post_status('rejected')
                 end
 
@@ -1381,7 +1381,7 @@ describe RequestController, "when classifying an information request" do
 
             it 'should update the status of the request' do
                 @dog_request.stub!(:calculate_status).and_return('rejected')
-                @dog_request.should_receive(:set_described_state).with('rejected', @admin_user)
+                @dog_request.should_receive(:set_described_state).with('rejected', @admin_user, nil)
                 post_status('rejected')
             end
 
@@ -1432,7 +1432,7 @@ describe RequestController, "when classifying an information request" do
 
             it 'should update the status of the request' do
                 @dog_request.stub!(:calculate_status).and_return('rejected')
-                @dog_request.should_receive(:set_described_state).with('rejected', @admin_user)
+                @dog_request.should_receive(:set_described_state).with('rejected', @admin_user, nil)
                 post_status('rejected')
             end
 
@@ -1518,6 +1518,24 @@ describe RequestController, "when classifying an information request" do
                 mail.body.should =~ /as needing admin/
                 mail.from_addrs.first.to_s.should == @request_owner.name_and_email
             end
+
+            context "message is included when classifying as requires_admin" do
+                it "should send an email including the message" do
+                    post :describe_state,
+                        :incoming_message => {
+                            :described_state => "requires_admin",
+                            :message => "Something weird happened" },
+                        :id => @dog_request.id,
+                        :last_info_request_event_id => @dog_request.last_event_id_needing_description
+
+                    deliveries = ActionMailer::Base.deliveries
+                    deliveries.size.should == 1
+                    mail = deliveries[0]
+                    mail.body.should =~ /as needing admin/
+                    mail.body.should =~ /Something weird happened/
+                end
+            end
+
 
             it 'should say it is showing advice as to what to do next' do
                 post_status('rejected')

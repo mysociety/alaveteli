@@ -407,7 +407,8 @@ class RequestController < ApplicationController
         end
 
         # Make the state change
-        info_request.set_described_state(params[:incoming_message][:described_state], authenticated_user)
+        info_request.set_described_state(params[:incoming_message][:described_state], authenticated_user,
+            params[:incoming_message][:message])
 
         # If you're not the *actual* requester. e.g. you are playing the
         # classification game, or you're doing this just because you are an
