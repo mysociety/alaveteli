@@ -20,7 +20,7 @@
   <h1><%=@title %></h1>
 
   <div id="blog">
-    <% for item in @blog_items: %>
+    <% @blog_items.each do |item| %>
       <div class="blog_post">
           <h2 id="<%= Time.parse(item['pubDate'][0]).to_i %>"><a href="<%=item['link']%>"><%=h item['title'] %></a></h2>
           <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", :date=>simple_date(Time.parse(item['pubDate'][0])), :author=>item['creator']) %></p>
