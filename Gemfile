@@ -42,6 +42,7 @@ gem 'globalize3', :git => 'git://github.com/henare/globalize3.git', :branch => '
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', :git => 'git://github.com/technoweenie/acts_as_versioned.git'
 gem 'dynamic_form'
+gem 'exception_notification'
 
 group :test do
   gem 'fakeweb'

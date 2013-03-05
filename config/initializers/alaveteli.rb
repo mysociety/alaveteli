@@ -78,10 +78,3 @@ require 'alaveteli_external_command.rb'
 require 'quiet_opener.rb'
 require 'mail_handler'
 require 'public_body_categories'
-
-# Temporarily commented out the lines below on the Rails 3 spike.
-# TODO: Reinstate this properly!
-#if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
-#  ExceptionNotification::Notifier.sender_address = AlaveteliConfiguration::exception_notifications_from
-#  ExceptionNotification::Notifier.exception_recipients = AlaveteliConfiguration::exception_notifications_to
-#end

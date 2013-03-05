@@ -20,4 +20,10 @@ Alaveteli::Application.configure do
   config.action_mailer.delivery_method = :sendmail # so is queued, rather than giving immediate errors
 
   config.active_support.deprecation = :notify
+
+  if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+    middleware.use ExceptionNotifier,
+      :sender_address => AlaveteliConfiguration::exception_notifications_from,
+      :exception_recipients => AlaveteliConfiguration::exception_notifications_to
+  end
 end
