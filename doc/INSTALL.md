@@ -67,15 +67,7 @@ Some of the files also have a version number listed in config/packages
 
 # Install Ruby dependencies
 
-Install rubygems 1.6.2 (we're not using the Debian package because we
-need an older version; see "Troubleshooting" below for an
-explanation):
-
-    wget http://rubyforge.org/frs/download.php/74445/rubygems-1.6.2.tgz -O /tmp/rubygems-1.6.2.tgz
-    tar zxvf /tmp/rubygems-1.6.2.tgz -C /tmp/
-    sudo ruby1.8 /tmp/rubygems-1.6.2/setup.rb
- 
-To install Alaveteli's Ruby dependencies, we also need to install
+To install Alaveteli's Ruby dependencies, we need to install
 bundler.  In Debian, this is provided as a package (installed as part
 of the package install process above).  You could also install it as a
 gem:
@@ -480,19 +472,6 @@ various other things that can be automated for deployment.
     You should also check that your locale is set up correctly.  See 
     [https://github.com/mysociety/alaveteli/issues/128#issuecomment-1814845](this issue followup)
     for further discussion.
-    
-*   **I'm getting lots of `SourceIndex.new(hash) is deprecated` errors when running the tests**
-
-    The latest versions of rubygems contain a large number of noisy
-    deprecation warnings that you can't turn off individually.  Rails
-    2.x isn't under active development so isn't going to get fixed (in
-    the sense of using a non-deprecated API).  So the only vaguely
-    sensible way to avoid this noisy output is to downgrade rubygems.
-    
-    For example, you might do this by uninstalling your
-    system-packaged rubygems, and then installing the latest rubygems
-    from source, and finally executing `sudo gem update --system
-    1.6.2`.
 
 *   **I'm seeing `rake: command not found` when running the post install script
 
