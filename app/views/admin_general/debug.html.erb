@@ -22,9 +22,8 @@ Xapian::version_string <%=h Xapian::version_string%>
 
 <h2>Configuration</h2>
 
-<p>environment: <%=h Rails::configuration.environment %>
-<br>environment_path: <%=h Rails::configuration.environment_path %>
-<br>framework_paths: <%=h Rails::configuration.framework_paths.to_yaml %>
+<p>Rails env: <%=h Rails.env %>
+<br>Rails root: <%=h Rails.root %>
 </p>
 
 <h2>Environment variables</h2>
