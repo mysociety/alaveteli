@@ -562,6 +562,11 @@ class ApplicationController < ActionController::Base
     def set_popup_banner
         @popup_banner = render_to_string(:partial => "general/popup_banner").strip.html_safe
     end
+
+    def alaveteli_git_commit
+      `git log -1 --format="%H"`.strip
+    end
+
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.
