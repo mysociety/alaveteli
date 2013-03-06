@@ -1,0 +1,112 @@
+/* As we're namespacing bootstrap to class admin, which is applied to the body
+   element in the admin interface (no id or class allowed on the HTML element
+   in HTML 4.01) and to the navbar also, so it can be styled with bootstrap
+   when showing for admin users on the front end, re-apply the bootstrap html
+   and body styles here.
+*/
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body.admin {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background-color: white;
+}
+
+/* When the admin stylesheet is loaded (and so the user is seeing the admin  navbar), pad the banner of the front end interface so that it isn't hidden, and move any special notice down too.
+*/
+
+.entirebody, #banner {
+  padding-top: 50px;
+}
+
+#special-notice {
+  margin-top: 50px;
+}
+
+.admin {
+
+  @import "compass/css3";
+  @import "bootstrap";
+
+  #main {
+    padding-top: 50px;
+
+  }
+
+  .form-inline {
+    display: inline;
+  }
+
+  table .form {
+    display: inline-block;
+    margin: 0;
+  }
+
+  .accordion-group {
+   border: none;
+  }
+  .accordion-heading {
+    .btn {
+      float: left;
+      margin: 6px 15px;
+    }
+    .accordion-toggle {
+      padding: 2px;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  div.item-detail {
+    div:nth-child(odd) span {
+      background-color: #eee;
+    }
+  }
+
+  span.label.tag {
+   margin-right: 2px;
+   a {
+    color: white;
+   }
+  }
+
+  body.admin blockquote p {
+   font-size: 13px;
+   display: inline;
+  }
+
+  div#user_locale_switcher {
+    div.btn-group:before,
+    div.btn-group:after {
+      display: inline;
+    }
+  }
+
+  #request_hidden_user_subject_field {
+    width: 440px;
+  }
+  #request_hidden_user_explanation_field {
+   width: 100%;
+   height: 15em;
+  }
+  #request_hidden_user_subject,
+  #request_hide_button,
+  #request_hidden_user_explanation {
+   display: none;
+  }
+
+  #outgoing_message_body,
+  #comment_body {
+    width: 750px;
+  }
+
+}
+
