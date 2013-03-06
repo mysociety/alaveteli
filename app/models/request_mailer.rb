@@ -87,7 +87,7 @@ class RequestMailer < ApplicationMailer
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
-        @subject = _("New response to your FOI request - ") + info_request.title
+        @subject = (_("New response to your FOI request - ") + info_request.title).html_safe
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
     end
 
@@ -106,7 +106,7 @@ class RequestMailer < ApplicationMailer
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = user.name_and_email
-        @subject = _("Delayed response to your FOI request - ") + info_request.title
+        @subject = (_("Delayed response to your FOI request - ") + info_request.title).html_safe
         @body = { :info_request => info_request, :url => url }
     end
 
@@ -125,7 +125,7 @@ class RequestMailer < ApplicationMailer
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = user.name_and_email
-        @subject = _("You're long overdue a response to your FOI request - ") + info_request.title
+        @subject = (_("You're long overdue a response to your FOI request - ") + info_request.title).html_safe
         @body = { :info_request => info_request, :url => url }
     end
 
@@ -177,7 +177,7 @@ class RequestMailer < ApplicationMailer
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
-        @subject = _("Clarify your FOI request - ") + info_request.title
+        @subject = (_("Clarify your FOI request - ") + info_request.title).html_safe
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
     end
 
@@ -188,7 +188,7 @@ class RequestMailer < ApplicationMailer
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
-        @subject = _("Somebody added a note to your FOI request - ") + info_request.title
+        @subject = (_("Somebody added a note to your FOI request - ") + info_request.title).html_safe
         @body = { :comment => comment, :info_request => info_request, :url => main_url(comment_url(comment)) }
     end
     def comment_on_alert_plural(info_request, count, earliest_unalerted_comment)
@@ -197,7 +197,7 @@ class RequestMailer < ApplicationMailer
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
-        @subject = _("Some notes have been added to your FOI request - ") + info_request.title
+        @subject = (_("Some notes have been added to your FOI request - ") + info_request.title).html_safe
         @body = { :count => count, :info_request => info_request, :url => main_url(comment_url(earliest_unalerted_comment)) }
     end
 
