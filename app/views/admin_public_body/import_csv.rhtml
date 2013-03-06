@@ -11,16 +11,16 @@
 
 <% form_tag 'import_csv', :multipart => true do %>
     <p>
-    <% if @original_csv_file && @temporary_csv_file %>
-        CSV file:
-        <%= @original_csv_file %>
-        <%= hidden_field_tag :original_csv_file, @original_csv_file %>
-        <%= hidden_field_tag :temporary_csv_file, @temporary_csv_file %>
-        <%= link_to 'Clear current file', 'import_csv', :class => "btn btn-warning" %>
-    <% else %>
-        <label for="csv_file">CSV file:</label>
-        <%= file_field_tag :csv_file, :size => 40 %>
-    <% end %>
+        <% if @original_csv_file && @temporary_csv_file %>
+            CSV file:
+            <%= @original_csv_file %>
+            <%= hidden_field_tag :original_csv_file, @original_csv_file %>
+            <%= hidden_field_tag :temporary_csv_file, @temporary_csv_file %>
+            <%= link_to 'Clear current file', 'import_csv', :class => "btn btn-warning" %>
+        <% else %>
+            <label for="csv_file">CSV file:</label>
+            <%= file_field_tag :csv_file, :size => 40 %>
+        <% end %>
     </p>
 
     <p>
@@ -32,14 +32,15 @@
     <label for="tag_behaviour">What to do with existing tags?</label>
     <%= select_tag 'tag_behaviour',
         "<option value='add' selected>Add new tags to existing ones</option>
-         <option value='replace'>Replace existing tags with new ones</option>".html_safe
+         <option value='replace'>Replace existing tags with new ones</option>"
     %>
     </p>
 
-    <p><strong>CSV file format:</strong> A first row with the list of fields,
-    starting with '#', is optional but highly recommended. The fields 'name'
-    and 'request_email' are required; additionally, translated values are supported by
-    adding the locale name to the field name, e.g. 'name.es', 'name.de'... Example:
+    <p><strong>CSV file format:</strong>The first row should be a list
+    of fields, starting with '#'. The fields 'name' and
+    'request_email' are required; additionally, translated values are
+    supported by adding the locale name to the field name,
+    e.g. 'name.es', 'name.de'... Example:
     </p>
 
     <blockquote>
@@ -57,7 +58,7 @@
     actually altering the database. Choose <strong>upload</strong> to actually
     make the changes. In either case, you will be shown any errors, or details
     of the changes.  When uploading, any changes since last import will be
-    overwritten - e.g.  email addresses changed back.
+    overwritten – e.g.  email addresses changed back.
     </p>
 
     <p><strong>Note:</strong> The import tag will also be added to the imported bodies

@@ -1,16 +1,14 @@
-
-
 <h1><%=@title%></h1>
 
-<% form_tag '../update/' + @admin_user.id.to_s do %>
+<% form_tag "../update/#{@admin_user.id}", :class => "form form-horizontal" do %>
   <%= render :partial => 'form' %>
-  <p><%= submit_tag 'Save', :accesskey => 's' %></p>
+  <div class="form-actions">
+    <%= submit_tag 'Save', :accesskey => 's', :class => "btn btn-primary" %>
+  </div>
 <% end %>
 
-<p>
-<%= link_to 'Show', '../show/' + @admin_user.id.to_s %> |
-<%= link_to 'List all', '../list' %>
-</p>
+<%= link_to 'Show', "../show/#{@admin_user.id}", :class => "btn" %>
+<%= link_to 'List all', '../list', :class => "btn" %>
 
 <% if false #@admin_user.info_requests.size == 0 %>
     <% form_tag('../destroy/' + @admin_user.id.to_s) do %>

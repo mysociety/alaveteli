@@ -1,1 +1,22 @@
-
+<div class="admin">
+  <div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container">
+        <%= link_to 'Alaveteli', main_url('/'), :class => "brand" %>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li><%= link_to 'Summary', admin_url("") %></li>
+            <li><%= link_to 'Timeline', admin_url("timeline") %></li>
+            <li><%= link_to 'Stats', admin_url("stats") %></li>
+            <li><%= link_to 'Debug', admin_url("debug") %></li>
+            <li><%= link_to 'Authorities', admin_url("body/list") %></li>
+            <li><%= link_to 'Requests', admin_url("request/list") %></li>
+            <li><%= link_to 'Users', admin_url("user/list") %></li>
+            <li><%= link_to 'Tracks', admin_url("track/list") %></li>
+            <li><%= link_to 'Log out', signout_path %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

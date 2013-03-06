@@ -229,7 +229,5 @@ class GeneralController < ApplicationController
         @locale = self.locale_from_params()
         render(:layout => false, :content_type => 'text/css')
     end
-
-
 end
 

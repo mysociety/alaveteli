@@ -1,14 +1,19 @@
 <% @title = "Timeline" %>
-
-<h1><%=h @events_title%></h1>
-
-<p>
-<a href="?hour=1">Hour</a>
-| <a href="?day=1">Day</a>
-| <a href="?">2 days</a>
-| <a href="?week=1">Week</a>
-| <a href="?month=1">Month</a>
-| <a href="?all=1">All time</a></p>
+<div class="btn-toolbar">
+  <div class="btn-group">
+    <a class="btn" href="?hour=1">Hour</a>
+    <a class="btn" href="?day=1">Day</a>
+    <a class="btn" href="?">2 days</a>
+    <a class="btn" href="?week=1">Week</a>
+    <a class="btn" href="?month=1">Month</a>
+    <a class="btn" href="?all=1">All time</a>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <h1><%=h @events_title%></h1>
+  </div>
+</div>
 
 <% last_date = nil %>
 <% for event, event_at in @events %>
@@ -26,7 +31,9 @@
     <%= simple_time(event_at) %>
 
     <% if event.is_a? InfoRequestEvent %>
-        <%= request_both_links(event.info_request) %>
+        <%= link_to('<i class="icon-tags"></i>'.html_safe, request_admin_url(event.info_request), :title => "view full details")%>
+        <%= link_to(event.info_request.title, main_url(request_url(event.info_request)), :title => "view request on public website")%>
+
         <% if event.event_type == 'edit' %>
             was edited by administrator <strong><%=h event.params[:editor] %></strong>.
             <% for p in ['title', 'prominence', 'described_state', 'awaiting_description']
@@ -88,12 +95,12 @@
             had '<%=event.event_type%>' done to it, parameters <%=h event.params_yaml%>.
         <% end %>
     <% else %>
-        <%= public_body_both_links(event.public_body) %>
+        <%= link_to('<i class="icon-tags"></i>'.html_safe, public_body_admin_url(event.public_body), :title => "view full details")%>
+        <%= link_to(event.public_body.name, main_url(public_body_url(event.public_body)), :title => "view authority on public website")%>
         was created/updated by administrator <strong><%=h event.last_edit_editor %></strong>
     <% end %>
 <% end %>
+<%= will_paginate(@events, :class => 'paginator') %>
 <% if not @events.empty? %>
 </p>
 <% end %>
-<%= will_paginate(@events) %>
-
