@@ -406,9 +406,18 @@ class RequestController < ApplicationController
             return
         end
 
+        described_state = params[:incoming_message][:described_state]
+        message = params[:incoming_message][:message]
+        # For requires_admin and error_message states we ask for an extra message to send to
+        # the administrators.
+        # If this message hasn't been included then ask for it
+        if ["error_message", "requires_admin"].include?(described_state) && message.nil?
+            redirect_to describe_state_message_url(:url_title => info_request.url_title, :described_state => described_state)
+            return
+        end
+
         # Make the state change
-        info_request.set_described_state(params[:incoming_message][:described_state], authenticated_user,
-            params[:incoming_message][:message])
+        info_request.set_described_state(described_state, authenticated_user, message)
 
         # If you're not the *actual* requester. e.g. you are playing the
         # classification game, or you're doing this just because you are an
@@ -460,16 +469,15 @@ class RequestController < ApplicationController
             nil
         when 'internal_review'
             _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>",:late_number_of_days => Configuration.reply_late_after_days, :review_url => unhappy_url(info_request) + "#internal_review")
-        when 'error_message'
-            _("<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below.</p>")
-        when 'requires_admin'
-            _("Please use the form below to tell us more.")
+        when 'error_message', 'requires_admin'
+            _("Thank you! We'll look into what happened and try and fix it up.")
         when 'user_withdrawn'
             _("If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn.")
         end
 
         case info_request.calculate_status
-        when 'waiting_response', 'waiting_response_overdue', 'not_held', 'successful', 'internal_review'
+        when 'waiting_response', 'waiting_response_overdue', 'not_held', 'successful',
+            'internal_review', 'error_message', 'requires_admin'
             redirect_to request_url(info_request)
         when 'waiting_response_very_overdue', 'rejected', 'partially_successful'
             redirect_to unhappy_url(info_request)
@@ -477,14 +485,27 @@ class RequestController < ApplicationController
             redirect_to respond_to_last_url(info_request)
         when 'gone_postal'
             redirect_to respond_to_last_url(info_request) + "?gone_postal=1"
-        when 'error_message', 'requires_admin'
-            redirect_to help_general_url(:action => 'contact')
         else
             if @@custom_states_loaded
                 return self.theme_describe_state(info_request)
             else
                 raise "unknown calculate_status #{info_request.calculate_status}"
             end
+        end
+    end
+
+    # Collect a message to include with the change of state
+    def describe_state_message
+        @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+        @described_state = params[:described_state]
+        @last_info_request_event_id = @info_request.last_event_id_needing_description
+        @title = case @described_state
+        when "error_message"
+            _("I've received an error message")
+        when "requires_admin"
+            _("This request requires administrator attention")
+        else 
+            raise "Unsupported state"
         end
     end
 
