@@ -9,8 +9,8 @@ require 'zip/zip'
 require 'open-uri'
 
 class RequestController < ApplicationController
-    before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :describe_state_requires_admin, :upload_response ]
-    protect_from_forgery :only => [ :new, :show_response, :describe_state, :describe_state_requires_admin, :upload_response ] # See ActionController::RequestForgeryProtection for details
+    before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
+    protect_from_forgery :only => [ :new, :show_response, :describe_state, :upload_response ] # See ActionController::RequestForgeryProtection for details
 
     MAX_RESULTS = 500
     PER_PAGE = 25
