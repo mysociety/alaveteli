@@ -426,8 +426,8 @@ describe InfoRequest do
 
         before do
             Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
-            @mock_comment_event = safe_mock_model(InfoRequestEvent, :created_at => Time.now - 23.days, :event_type => 'comment')
-            @mock_response_event = safe_mock_model(InfoRequestEvent, :created_at => Time.now - 22.days, :event_type => 'response')
+            @mock_comment_event = safe_mock_model(InfoRequestEvent, :created_at => Time.now - 23.days, :event_type => 'comment', :response? => false)
+            @mock_response_event = safe_mock_model(InfoRequestEvent, :created_at => Time.now - 22.days, :event_type => 'response', :response? => true)
             @info_request = InfoRequest.new(:prominence => 'normal',
                                             :awaiting_description => true,
                                             :info_request_events => [@mock_response_event, @mock_comment_event])

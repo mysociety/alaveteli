@@ -1,3 +1,16 @@
+require 'simplecov'
+require 'coveralls'
+
+# Generate coverage locally in html as well as in coveralls.io
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
+SimpleCov.start('rails') do
+  add_filter  'commonlib'
+  add_filter  'vendor/plugins'
+end
+
 # This file is copied to ~/spec when you run 'ruby script/generate rspec'
 # from the project root directory.
 ENV["RAILS_ENV"] = 'test'
@@ -17,8 +30,9 @@ config['REPLY_LATE_AFTER_DAYS'] = 20
 require 'fakeweb'
 FakeWeb.register_uri(:purge, %r|varnish.localdomain|, :body => "OK")
 
-# Uncomment the next line to use webrat's matchers
-#require 'webrat/integrations/rspec-rails'
+Webrat.configure do |config|
+    config.mode = :rails
+end
 
 # Use test-specific translations
 FastGettext.add_text_domain 'app', :path => File.join(File.dirname(__FILE__), 'fixtures', 'locale'), :type => :po

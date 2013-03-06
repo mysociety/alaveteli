@@ -22,3 +22,4 @@ TAGS
 bin/
 config/aliases
 .sass-cache
+alaveteli.sublime*

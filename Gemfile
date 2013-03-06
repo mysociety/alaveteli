@@ -48,6 +48,9 @@ group :test do
   gem 'fakeweb'
   gem 'rspec-rails', '~> 1.3.4'
   gem 'test-unit', '~> 1.2.3', :platforms => :ruby_19
+  gem 'coveralls', :require => false
+  # Using webrat because the preferred (capybara) doesn't work out of the box with rspec 1
+  gem 'webrat'
 end
 
 group :development do
