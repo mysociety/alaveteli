@@ -31,7 +31,11 @@
     <h2><%= _("Act on what you've learnt") %></h2>
 
     <div class="act_link">
-     <% tweet_link = "https://twitter.com/share?url=#{h(request.url)}&via=#{h(Configuration::twitter_username)}&text='#{h(@info_request.title)}'&related=#{_('alaveteli_foi:The software that runs {{site_name}}', :site_name => h(site_name))}" %>
+        <%
+          # Cast "related" to normal string because html safe string (from rails_xss gem) and CGI::escape
+          # interact badly with ':' character. Go figure! Might go away in rails 3
+        %>
+        <% tweet_link = "https://twitter.com/share?" + {:url => request.url, :via => Configuration::twitter_username, :text => @info_request.title, :related => _('alaveteli_foi:The software that runs {{site_name}}', :site_name => site_name).to_str}.to_query %>
         <% link_to tweet_link do %>
           <%= image_tag "twitter-16.png", :alt => "twitter icon" %>
         <% end %>
