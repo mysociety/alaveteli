@@ -39,10 +39,10 @@
                   <% end %>
                   <% if column_name == 'described_state' %>
                     <ul>
-                      <li><strong>Initial request last sent at:</strong> <%= @info_request.calculate_status %>
-                      <li><strong>Initial request last sent at:</strong> <%=@info_request.date_initial_request_last_sent_at.to_date %>
-                      <li><strong>Date response required by:</strong> <%= @info_request.date_response_required_by %>
-                      <li><strong>Very overdue after:</strong> <%= @info_request.date_very_overdue_after %>
+                      <li><strong>Initial request last sent at:</strong> <%= @info_request.calculate_status %></li>
+                      <li><strong>Initial request last sent at:</strong> <%=@info_request.date_initial_request_last_sent_at.to_date %></li>
+                      <li><strong>Date response required by:</strong> <%= @info_request.date_response_required_by %></li>
+                      <li><strong>Very overdue after:</strong> <%= @info_request.date_very_overdue_after %></li>
                     </ul>
                   <% end %>
                 </td>
@@ -112,7 +112,7 @@
     </div>
   </div>
 <% end %>
-<formset class="form-horizontal">
+<fieldset class="form-horizontal">
   <legend>Actions</legend>
   <div class="control-group">
     <label class="control-label">
@@ -123,7 +123,7 @@
       <p class="help-block">(see also option to general URLs for individual incoming messages below)</p>
     </div>
   </div>
-  <% form_tag '../hide/' + @info_request.id.to_s, :class => "form form-inline", :info_request_id => @info_request.id.to_s, :id => "hide_request_form" do %>
+  <% form_tag '../hide/' + @info_request.id.to_s, :class => "form form-inline", :id => "hide_request_form" do %>
     <div class="control-group">
       <% if  @info_request.is_external? %>
         <label class="control-label">Hide the request:</label>
@@ -168,7 +168,7 @@
       </div>
     <% end %>
   <% end %>
-</formset>
+</fieldset>
 
 <hr>
 <h2>Events</h2>

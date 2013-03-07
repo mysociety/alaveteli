@@ -37,7 +37,7 @@
 
     <div id="request_header">
         <div id="request_header_body">
-            <label class="form_label" for="info_request_public_body_id"><%= _('To:') %></label>
+            <label class="form_label"><%= _('To:') %></label>
             <span id="to_public_body"><%=h(@info_request.public_body.name)%></span>
             <div class="form_item_note">
                 <% if @info_request.public_body.info_requests.size > 0 %>
