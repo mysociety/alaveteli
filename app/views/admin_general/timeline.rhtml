@@ -31,7 +31,7 @@
     <%= simple_time(event_at) %>
 
     <% if event.is_a? InfoRequestEvent %>
-        <%= link_to('<i class="icon-tags"></i>'.html_safe, admin_request_show_url(event.info_request), :title => "view full details")%>
+        <%= link_to('<i class="icon-tags"></i>'.html_safe, admin_request_show_path(event.info_request), :title => "view full details")%>
         <%= link_to(event.info_request.title, request_path(event.info_request), :title => "view request on public website")%>
 
         <% if event.event_type == 'edit' %>
