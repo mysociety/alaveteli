@@ -57,7 +57,7 @@
                 <%= link_to("<i class='icon-eye-open'></i>".html_safe, @info_request.external_url, :title => "view URL of original request on external website") %>
                 <%= @info_request.public_body.name %> on behalf of <%= (@info_request.user_name || _('an anonymous user'))%> (using API)
           <% else %>
-                <%= link_to("<i class='icon-eye-open'></i>".html_safe, user_url(@info_request.user), :title => "view user's page on public website") %>
+                <%= link_to("<i class='icon-eye-open'></i>".html_safe, user_path(@info_request.user), :title => "view user's page on public website") %>
                 <%= user_admin_link_for_request(@info_request) %>
                 <%= link_to _("move..."), "#", :class => "btn btn-mini btn-warning toggle-hidden" %>
                 <div style="display:none;">
@@ -344,9 +344,9 @@
             <tbody>
               <tr>
                 <td colspan="2">
-                 By <%= link_to("<i class='icon-eye-open'></i>".html_safe, user_url(comment.user), :title => "view user's page on public website") %>
+                 By <%= link_to("<i class='icon-eye-open'></i>".html_safe, user_path(comment.user), :title => "view user's page on public website") %>
 
-                  <%= link_to(h(comment.user.name), admin_user_show_url(comment.user)) %>
+                  <%= link_to(h(comment.user.name), admin_user_show_path(comment.user)) %>
                 </td>
               </tr>
               <% comment.for_admin_column do |name, value, type, column_name |%>
