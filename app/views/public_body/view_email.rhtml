@@ -35,9 +35,9 @@
 <div id="stepwise_make_request_view_email">
     <strong>
         <% if @public_body.eir_only? %>
-        <%= link_to "Make a new EIR request", new_request_to_body_url(:url_name => @public_body.url_name)%>
+        <%= link_to "Make a new EIR request", new_request_to_body_path(:url_name => @public_body.url_name)%>
         <% else %>
-        <%= link_to "Make a new FOI request", new_request_to_body_url(:url_name => @public_body.url_name)%>
+        <%= link_to "Make a new FOI request", new_request_to_body_path(:url_name => @public_body.url_name)%>
         <% end %>
         to <%= h(@public_body.name) %>
     </strong>

@@ -4,9 +4,7 @@
 
 module Configuration
   DEFAULTS = {
-    :ADMIN_BASE_URL => '',
     :ADMIN_PASSWORD => '',
-    :ADMIN_PUBLIC_URL => '',
     :ADMIN_USERNAME => '',
     :AVAILABLE_LOCALES => '',
     :BLACKHOLE_PREFIX => 'do-not-reply-to-this-address',

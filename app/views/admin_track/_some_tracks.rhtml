@@ -13,17 +13,17 @@
           <a href="#track_<%=track_thing.id%>" data-toggle="collapse" data-parent="requests"><i class="icon-chevron-right"></i></a>
           <%=track_thing.id%>:
           <% if track_thing.public_body_id %>
-            <%= link_to "<code>#{h track_thing.track_query}</code>".html_safe, main_url(public_body_url(track_thing.public_body)) %>
+            <%= link_to "<code>#{h track_thing.track_query}</code>".html_safe, public_body_path(track_thing.public_body) %>
           <% elsif track_thing.info_request_id %>
-            <%= link_to "<code>#{h track_thing.track_query}</code>".html_safe, main_url(request_url(track_thing.info_request)) %>
+            <%= link_to "<code>#{h track_thing.track_query}</code>".html_safe, request_path(track_thing.info_request) %>
           <% elsif track_thing.tracked_user_id %>
-            <%= link_to "<code>#{h track_thing.track_query}</code>".html_safe, main_url(user_url(track_thing.tracked_user)) %>
+            <%= link_to "<code>#{h track_thing.track_query}</code>".html_safe, user_path(track_thing.tracked_user) %>
           <% else %>
             <code><%=h track_thing.track_query%></code>
           <% end %>
           <% if @admin_user.nil? %>
             <%# Do not show this on the list of tracks on the user page, because it’s rather repetitive there %>
-            tracked by <%=link_to '<i class="icon-eye-open"></i>'.html_safe, user_admin_url(track_thing.tracking_user) %> <%=link_to h(track_thing.tracking_user.name), main_url(user_url(track_thing.tracking_user)) %>
+            tracked by <%=link_to '<i class="icon-eye-open"></i>'.html_safe, admin_user_show_url(track_thing.tracking_user) %> <%=link_to h(track_thing.tracking_user.name), user_path(track_thing.tracking_user) %>
           <% end %>
         </div>
         <div id="track_<%=track_thing.id%>" class="accordion-body collapse">

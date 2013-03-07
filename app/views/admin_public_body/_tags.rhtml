@@ -1,11 +1,10 @@
 <% for t in body.tags %>
   <span class="label label-info tag">
     <% if t.value %>
-      <a href="<%= admin_url('body/list') %>?query=<%= h(t.name)%>"><%= h(t.name) %></a>:<a href="<%=main_url(list_public_bodies_url(:tag => t.name_and_value, :only_path => true))%>"><%= h(t.value) %></a>
+        <%= link_to(h(t.name), list_public_bodies_path(:tag => t.name)) %>:<%= link_to(h(t.value), list_public_bodies_path(:tag => t.name_and_value)) %>
     <% else %>
-        <a href="<%= admin_url('body/list') %>?query=<%= h(t.name)%>"><%= h(t.name) %></a>
+        <%= link_to(h(t.name), list_public_bodies_path(:tag => t.name)) %>
     <% end %>
-  </span>
 <% end %>
 
 

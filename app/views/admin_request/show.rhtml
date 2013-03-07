@@ -23,7 +23,7 @@
         <tbody>
           <tr>
         <th>Public page:</th>
-        <td><%= link_to main_url(request_url(@info_request)), main_url(request_url(@info_request)) %></td>
+        <td><%= link_to request_url(@info_request), request_path(@info_request) %></td>
       </tr>
           <% @info_request.for_admin_column do |name, value, type, column_name|%>
             <tr>
@@ -74,8 +74,8 @@
               <b>Public authority:</b>
             </td>
             <td>
-              <%= link_to("<i class='icon-eye-open'></i>".html_safe, main_url(public_body_url(@info_request.public_body)), :title => "view authority on public website") %>
-              <%= link_to(@info_request.public_body.name, public_body_admin_url(@info_request.public_body)) %>
+              <%= link_to("<i class='icon-eye-open'></i>".html_safe, public_body_path(@info_request.public_body), :title => "view authority on public website") %>
+              <%= link_to(@info_request.public_body.name, admin_body_show_path(@info_request.public_body)) %>
               <%= link_to "move...", "#", :class => "btn btn-mini btn-warning toggle-hidden" %>
               <div style="display:none;">
                 <strong>url_name of new authority:</strong>
@@ -346,7 +346,7 @@
                 <td colspan="2">
                  By <%= link_to("<i class='icon-eye-open'></i>".html_safe, user_url(comment.user), :title => "view user's page on public website") %>
 
-                  <%= link_to(h(comment.user.name), user_admin_url(comment.user)) %>
+                  <%= link_to(h(comment.user.name), admin_user_show_url(comment.user)) %>
                 </td>
               </tr>
               <% comment.for_admin_column do |name, value, type, column_name |%>

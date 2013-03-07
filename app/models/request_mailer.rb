@@ -71,8 +71,8 @@ class RequestMailer < ApplicationMailer
         @from = user.name_and_email
         @recipients = contact_from_name_and_email
         @subject = _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title)
-        url = main_url(request_url(info_request))
-        admin_url = request_admin_url(info_request)
+        url = request_url(info_request)
+        admin_url = admin_request_show_url(info_request)
         @body = {:reported_by => user, :info_request => info_request, :url => url, :admin_url => admin_url }
     end
 
@@ -80,7 +80,7 @@ class RequestMailer < ApplicationMailer
     def new_response(info_request, incoming_message)
         # Don't use login link here, just send actual URL. This is
         # because people tend to forward these emails amongst themselves.
-        url = main_url(incoming_message_url(incoming_message))
+        url = incoming_message_url(incoming_message)
 
         @from = contact_from_name_and_email
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
@@ -135,7 +135,7 @@ class RequestMailer < ApplicationMailer
         # Make a link going to the form to describe state, and which logs the
         # user in.
         post_redirect = PostRedirect.new(
-            :uri => main_url(request_url(info_request)) + "#describe_state_form_1",
+            :uri => request_url(info_request) + "#describe_state_form_1",
             :user_id => info_request.user.id)
         post_redirect.save!
         url = confirm_url(:email_token => post_redirect.email_token)
@@ -157,7 +157,7 @@ class RequestMailer < ApplicationMailer
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
         @subject = _("Someone has updated the status of your request")
-        url = main_url(request_url(info_request))
+        url = request_url(info_request)
         @body = {:info_request => info_request, :url => url}
     end
 
@@ -189,7 +189,7 @@ class RequestMailer < ApplicationMailer
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
         @subject = (_("Somebody added a note to your FOI request - ") + info_request.title).html_safe
-        @body = { :comment => comment, :info_request => info_request, :url => main_url(comment_url(comment)) }
+        @body = { :comment => comment, :info_request => info_request, :url => comment_url(comment) }
     end
     def comment_on_alert_plural(info_request, count, earliest_unalerted_comment)
         @from = contact_from_name_and_email
@@ -198,7 +198,7 @@ class RequestMailer < ApplicationMailer
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
         @subject = (_("Some notes have been added to your FOI request - ") + info_request.title).html_safe
-        @body = { :count => count, :info_request => info_request, :url => main_url(comment_url(earliest_unalerted_comment)) }
+        @body = { :count => count, :info_request => info_request, :url => comment_url(earliest_unalerted_comment) }
     end
 
     # Class function, called by script/mailin with all incoming responses.

@@ -16,7 +16,6 @@
   </div>
 </div>
 
-<hr>
 
 <div class="row">
   <div class="span12">
@@ -64,8 +63,8 @@
             <% for @request in @error_message_requests %>
               <tr>
                 <td class="link">
-                  <%= link_to('<i class="icon-tags"></i>'.html_safe, request_admin_url(@request))%>
-                  <%= link_to(@request.title, main_url(request_url(@request))) %>
+                  <%= link_to('<i class="icon-tags"></i>'.html_safe, admin_request_show_url(@request))%>
+                  <%= link_to(@request.title, request_path(@request)) %>
                 </td>
                 <td class="span2">
                   <%=simple_date(@request.get_last_event.created_at)%>
@@ -90,8 +89,8 @@
             <% for @request in @attention_requests %>
               <tr>
                 <td class="link">
-                  <%= link_to('<i class="icon-tags"></i>'.html_safe, request_admin_url(@request))%>
-                  <%= link_to(@request.title, main_url(request_url(@request))) %>
+                  <%= link_to('<i class="icon-tags"></i>'.html_safe, admin_request_show_url(@request))%>
+                  <%= link_to(@request.title, request_path(@request)) %>
                 </td>
                 <td class="span2">
                   <%=simple_date(@request.get_last_event.created_at)%>
@@ -115,8 +114,8 @@
             <% for @request in @requires_admin_requests %>
               <tr>
                 <td class="link">
-                  <%= link_to('<i class="icon-tags"></i>'.html_safe, request_admin_url(@request))%>
-                  <%= link_to(@request.title, main_url(request_url(@request))) %>
+                  <%= link_to('<i class="icon-tags"></i>'.html_safe, admin_request_show_url(@request))%>
+                  <%= link_to(@request.title, request_path(@request)) %>
                 </td>
                 <td class="span2">
                   <%=simple_date(@request.get_last_event.created_at)%>
@@ -140,8 +139,8 @@
             <% for @blank_contact in @blank_contacts %>
               <tr>
                 <td class="link">
-                  <%= link_to('<i class="icon-tags"></i>'.html_safe, public_body_admin_url(@blank_contact))%>
-                  <%= link_to h(@blank_contact.name), main_url(public_body_url(@blank_contact)) %>
+                  <%= link_to('<i class="icon-tags"></i>'.html_safe, admin_body_show_path(@blank_contact))%>
+                  <%= link_to h(@blank_contact.name), public_body_url(@blank_contact) %>
                 </td>
                 <td class="span2">
                   <%=simple_date(@blank_contact.updated_at)%>
@@ -165,8 +164,8 @@
             <% for @request in @old_unclassified %>
                 <tr>
                   <td class="link">
-                    <%= link_to("<i class='icon-tags'></i>".html_safe, request_admin_url(@request)) %>
-                    <%= link_to(@request.title, main_url(request_link(@request))) %>
+                    <%= link_to("<i class='icon-tags'></i>".html_safe, admin_request_show_url(@request)) %>
+                    <%= link_to(@request.title, request_link(@request)) %>
                   </td>
                   <td class="span2">
                     <%=simple_date(@request.get_last_response_event.created_at)%>
