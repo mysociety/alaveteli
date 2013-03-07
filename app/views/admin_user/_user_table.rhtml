@@ -4,14 +4,14 @@
       <div class="accordion-heading accordion-toggle">
        <span class="item-title">
         <a href="#user_<%=user.id%>" data-toggle="collapse" data-parent="requests"><i class="icon-chevron-right"></i></a>
-	    <% if user.admin_level == "super" %>
+      <% if user.admin_level == "super" %>
           <span class="label">superuser</span>
-	    <% end %>
-        <%= link_to("#{h(user.name)}", user_admin_url(user))%>
+      <% end %>
+        <%= link_to("#{h(user.name)}", admin_user_show_path(user))%>
         <%= link_to("(#{h(user.email)})", "mailto:#{h(user.email)}")%>
        </span>
        <span class="item-metadata">
-	 updated <%=I18n.l(user.updated_at, :format => "%e %B %Y %H:%M:%S")%>
+   updated <%=I18n.l(user.updated_at, :format => "%e %B %Y %H:%M:%S")%>
        </span>
       </div>
       <div id="user_<%=user.id%>" class="accordion-body collapse">
