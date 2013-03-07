@@ -22,15 +22,6 @@ module LinkToHelper
         link_to h(info_request.title), request_path(info_request), :class => cls
     end
 
-    def request_admin_link(info_request, name="admin", cls=nil)
-      link_to name, admin_request_show_url(info_request), :class => cls
-    end
-
-    def request_both_links(info_request)
-        link_to('<i class="icon-eye-open"></i>'.html_safe, request_path(info_request)) + " " +
-            link_to(info_request.title, admin_request_show_url(info_request))
-    end
-
     def request_details_path(info_request)
         details_request_path(:url_title => info_request.url_title)
     end
@@ -93,11 +84,6 @@ module LinkToHelper
 
     def public_body_link_absolute(public_body) # e.g. for in RSS
         link_to h(public_body.name), public_body_url(public_body)
-    end
-
-    def public_body_both_links(public_body)
-        link_to('<i class="icon-eye-open"></i>'.html_safe, public_body_url(public_body)) + " " +
-            link_to(h(public_body.name), admin_body_show_path(public_body))
     end
 
     # Users
@@ -181,10 +167,6 @@ module LinkToHelper
 
     def user_admin_link(user, name="admin", cls=nil)
       link_to name, admin_user_show_url(user), :class => cls
-    end
-
-    def user_both_links(user)
-        link_to(h(user.name), user_url(user)) + " (" + link_to("admin", admin_user_show_url(user)) + ")"
     end
 
     # Tracks. feed can be 'track' or 'feed'
