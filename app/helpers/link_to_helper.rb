@@ -96,8 +96,8 @@ module LinkToHelper
     end
 
     def public_body_both_links(public_body)
-        link_to('<i class="icon-eye-open"></i>'.html_safe, public_body_url(@blank_contact)) + " " +
-            link_to(h(@blank_contact.name), admin_body_show_path(@blank_contact))
+        link_to('<i class="icon-eye-open"></i>'.html_safe, public_body_url(public_body)) + " " +
+            link_to(h(public_body.name), admin_body_show_path(public_body))
     end
 
     # Users
