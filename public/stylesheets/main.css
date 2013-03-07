@@ -1743,3 +1743,7 @@ text-decoration:underline;
 .request_listing a,.body_listing a,.user_listing a,.request_short_listing a,h2 a,.feed_link a {
 text-decoration:none;
 }
+
+.big {
+  font-size: larger;
+}
