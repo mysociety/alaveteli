@@ -63,8 +63,8 @@
             <% for @request in @error_message_requests %>
               <tr>
                 <td class="link">
-                  <%= link_to('<i class="icon-tags"></i>'.html_safe, admin_request_show_url(@request))%>
-                  <%= link_to(@request.title, request_path(@request)) %>
+                  <%= link_to('<i class="icon-eye-open"></i>'.html_safe, request_path(@request)) %>
+                  <%= link_to(@request.title, admin_request_show_url(@request))%>
                 </td>
                 <td class="span2">
                   <%=simple_date(@request.get_last_event.created_at)%>
