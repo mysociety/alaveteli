@@ -1,6 +1,6 @@
 <formset class="form-horizontal">
  <legend>Actions</legend>
- <% form_tag '../redeliver_incoming', :class => "form form-inline" do %>
+ <% form_tag admin_request_redeliver_incoming_path, :class => "form form-inline" do %>
  <div class="control-group">
   <label class="control-label" for="url_title">Redeliver message to one or more other requests</label>
   <div class="controls">
@@ -18,11 +18,11 @@
  <div class="control-group">
   <label class="control-label" for="generate_upload_url">Generate FOI officer upload URL</label>
   <div class="controls">
-   <%= link_to 'Generate and take me there', "../generate_upload_url/#{incoming_message.info_request.id}?incoming_message_id=#{incoming_message.id}", :class => "btn", :id => "generate_upload_url" %>
+   <%= link_to 'Generate and take me there', admin_request_generate_upload_url_path(incoming_message.info_request, :incoming_message_id => incoming_message.id), :class => "btn", :id => "generate_upload_url" %>
   </div>
  </div>
 
- <% form_tag '../destroy_incoming', :class => "form form-inline" do %>
+ <% form_tag admin_request_destroy_incoming_path, :class => "form form-inline" do %>
   <div class="control-group">
    <label class="control-label" for="generate_upload_url">Destroy message</label>
    <div class="controls">
@@ -37,7 +37,7 @@
   <div class="control-group">
    <label class="control-label" for="show_rail_email">Inspect email</label>
    <div class="controls">
-     <%= link_to "View raw email", "../show_raw_email/#{incoming_message.raw_email_id}", :class => "btn", :id => "show_raw_email" %>
+     <%= link_to "View raw email", admin_request_show_raw_email_path(incoming_message.raw_email_id), :class => "btn", :id => "show_raw_email" %>
    </div>
   </div>
  <% end %>

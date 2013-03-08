@@ -2,15 +2,17 @@
 
 <h1><%=@title%></h1>
 
-<% form_tag '../update/' + @censor_rule.id.to_s do %>
+<% form_tag admin_rule_update_path(@censor_rule), :class => "form form-horizontal" do %>
    <%= render :partial => 'form', :locals => { :info_request => @censor_rule.info_request, :user => @censor_rule.user } %>
-  <p><%= submit_tag 'Save', :accesskey => 's' %></p>
+  <div class="form-actions">
+    <%= submit_tag 'Save', :accesskey => 's', :class => "btn btn-primary" %>
+  </div>
 <% end %>
 
-<% form_tag('../destroy/' + @censor_rule.id.to_s) do %>
-   <p>
-   <%= hidden_field_tag(:censor_rule_id, @censor_rule.id) %>
-   Permanent! --&gt; <%= submit_tag "Destroy rule" %>
-   </p>
+<% form_tag admin_rule_destroy_path(@censor_rule), :class => "form form-horizontal" do %>
+  <%= hidden_field_tag(:censor_rule_id, @censor_rule.id) %>
+  <div class="form-actions">
+    Permanent! --&gt; <%= submit_tag "Destroy rule", :class => "btn btn-primary" %>
+ </div>
 <% end %>
 

@@ -2,7 +2,7 @@
 
 <h1><%=@title%></h1>
 
-<% form_tag '../move_request', { :class => "form form-horizontal" } do %>
+<% form_tag admin_request_move_request_path, { :class => "form form-horizontal" } do %>
   <%= hidden_field_tag 'info_request_id', @info_request.id %>
 <div class="accordion" id="info_request">
   <div class="accordion-group">
@@ -16,7 +16,7 @@
     <thead>
       <tr>
         <td colspan="2">
-          <%= link_to 'Edit metadata', '../edit/' + @info_request.id.to_s, :class => "btn" %>
+          <%= link_to 'Edit metadata', admin_request_edit_path(@info_request), :class => "btn" %>
         </td>
       </tr>
     </thead>
@@ -104,7 +104,7 @@
     <tfoot>
       <tr>
         <td colspan="2">
-          <%= link_to 'Edit metadata', '../edit/' + @info_request.id.to_s, :class => "btn" %>
+          <%= link_to 'Edit metadata', admin_request_edit_path(@info_request), :class => "btn" %>
         </td>
       </tr>
     </tfoot>
@@ -120,11 +120,11 @@
       FOI officer upload URL
     </label>
     <div class="controls">
-      <%= link_to 'Generate URL', '../generate_upload_url/' + @info_request.id.to_s, :class => "btn" %>
+      <%= link_to 'Generate URL', admin_request_generate_upload_url_path(@info_request), :class => "btn" %>
       <p class="help-block">(see also option to general URLs for individual incoming messages below)</p>
     </div>
   </div>
-  <% form_tag '../hide/' + @info_request.id.to_s, :class => "form form-inline", :info_request_id => @info_request.id.to_s, :id => "hide_request_form" do %>
+  <% form_tag admin_request_hide_path(@info_request), :class => "form form-inline", :info_request_id => @info_request.id.to_s, :id => "hide_request_form" do %>
     <div class="control-group">
         <% if  @info_request.is_external? %>
           <label class="control-label">Hide the request:</label>
@@ -194,7 +194,7 @@
             <tr>
               <td>
                 <% if info_request_event.described_state != 'waiting_clarification' and info_request_event.event_type == 'response' %>
-                  <% form_tag '../mark_event_as_clarification', :class => "form form-inline admin-table-form admin-inline-form" do %>
+                  <% form_tag admin_request_clarification_path, :class => "form form-inline admin-table-form admin-inline-form" do %>
                     <%= hidden_field_tag 'info_request_event_id', info_request_event.id %>
                     <%= submit_tag "Was clarification request", :class => "btn btn-mini btn-primary" %>
                   <% end %>
@@ -236,9 +236,9 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#outgoing_<%=outgoing_message.id%>" data-toggle="collapse" data-parent="#outgoing_messages"><i class="icon-chevron-right"></i></a>
-        <a href="../edit_outgoing/<%= outgoing_message.id %>">
+        <% link_to admin_request_edit_outgoing_path(outgoing_message) do %>
           #<%= outgoing_message.id %> -- <%= outgoing_message.status.humanize %> <%= outgoing_message.message_type.humanize %>
-        </a>
+        <% end %>
         <blockquote>
           <%= truncate(outgoing_message.body, :length => 400) %>
         </blockquote>
@@ -248,7 +248,7 @@
           <tbody>
             <tr>
               <td colspan="2">
-                <% form_tag '../resend', :class => "admin-table-form" do %>
+                <% form_tag admin_request_resend_path, :class => "admin-table-form" do %>
                   <%= hidden_field_tag 'outgoing_message_id', outgoing_message.id %>
                   <%= submit_tag "Resend", :class => "btn" %>
                 <% end %>
@@ -329,12 +329,12 @@
       <div class="accordion-group">
         <div class="accordion-heading">
          <a href="#comment_<%=comment.id%>" data-toggle="collapse" data-parent="#comments"><i class="icon-chevron-right"></i></a>
-          <a href="../edit_comment/<%= comment.id %>">
+          <% link_to admin_request_edit_comment_path(comment) do %>
             #<%=comment.id%>
             --
             <%=h(comment.user.name)%>
             <%=admin_value(comment.created_at)%>
-          </a>
+            <% end %>
           <blockquote class="incoming-message">
             <%= truncate(comment.body, :length => 400) %>
           </blockquote>

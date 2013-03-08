@@ -1,12 +1,12 @@
 <% @title = "Timeline" %>
 <div class="btn-toolbar">
   <div class="btn-group">
-    <a class="btn" href="?hour=1">Hour</a>
-    <a class="btn" href="?day=1">Day</a>
-    <a class="btn" href="?">2 days</a>
-    <a class="btn" href="?week=1">Week</a>
-    <a class="btn" href="?month=1">Month</a>
-    <a class="btn" href="?all=1">All time</a>
+    <%= link_to "Hour", admin_timeline_path(:hour => 1), :class => "btn" %>
+    <%= link_to "Day", admin_timeline_path(:day => 1), :class => "btn" %>
+    <%= link_to "2 days", admin_timeline_path, :class => "btn" %>
+    <%= link_to "Week", admin_timeline_path(:week => 1), :class => "btn" %>
+    <%= link_to "Month", admin_timeline_path(:month => 1), :class => "btn" %>
+    <%= link_to "All time", admin_timeline_path(:all => 1), :class => "btn" %>
   </div>
 </div>
 <div class="row">
