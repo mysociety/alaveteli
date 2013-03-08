@@ -18,7 +18,8 @@ module AdminHelper
   end
 
   def user_both_links(user)
-      link_to(h(user.name), user_url(user)) + " (" + link_to("admin", admin_user_show_url(user)) + ")"
+      link_to(eye_icon, user_url(user), :title => "view user's page on public website") + " " +
+        link_to(h(user.name), admin_user_show_url(user), :title => "view full details")
   end
 
   def request_admin_link(info_request, name="admin", cls=nil)
