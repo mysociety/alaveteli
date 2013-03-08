@@ -1,3 +1,16 @@
+require 'simplecov'
+require 'coveralls'
+
+# Generate coverage locally in html as well as in coveralls.io
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
+SimpleCov.start('rails') do
+  add_filter  'commonlib'
+  add_filter  'vendor/plugins'
+end
+
 # This file is copied to ~/spec when you run 'ruby script/generate rspec'
 # from the project root directory.
 ENV["RAILS_ENV"] = 'test'
