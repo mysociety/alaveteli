@@ -32,7 +32,7 @@
               <% if include_destroy %>
                 <tr>
                   <td colspan="2">
-                    <% form_tag '../../user/destroy_track', :class => "form form-inline admin-table-form" do %>
+                    <% form_tag admin_user_destroy_track_path, :class => "form form-inline admin-table-form" do %>
                       <div>
                         <%= hidden_field_tag 'track_id', track_thing.id %>
                         <%= submit_tag "Destroy track", :class => "btn btn-warning" %>
