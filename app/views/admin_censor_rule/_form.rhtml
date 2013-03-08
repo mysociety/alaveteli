@@ -4,7 +4,7 @@
   <%=_("Applies to")%>
   <% unless info_request.nil? %>
     <%= request_link(info_request)%>
-    <%= request_admin_link(info_request, "(admin)", "btn btn-info")%>
+    <%= link_to "(admin)", admin_request_show_url(info_request), :class => "btn btn-info" %>
     <%= hidden_field 'censor_rule', 'info_request_id', { :value => info_request.id } %>
   <% end %>
   <% unless user.nil? %>
