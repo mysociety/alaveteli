@@ -17,7 +17,7 @@
       info_request_id = $('#hide_request_form').attr('info_request_id');
       reason = $(this).val();
       $('#request_hidden_user_explanation_field').attr("value", "[loading default text...]");
-      return $.ajax("<%= Configuration::admin_public_url %>/hidden_user_explanation?reason=" + reason + "&info_request_id=" + info_request_id, {
+      return $.ajax("/hidden_user_explanation?reason=" + reason + "&info_request_id=" + info_request_id, {
         type: "GET",
         dataType: "text",
         error: function(data, textStatus, jqXHR) {
