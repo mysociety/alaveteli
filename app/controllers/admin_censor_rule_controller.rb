@@ -10,7 +10,7 @@ class AdminCensorRuleController < AdminController
             @info_request = InfoRequest.find(params[:info_request_id])
         end
         if params[:user_id]
-            @user = User.find(params[:user_id])
+            @censor_user = User.find(params[:user_id])
         end
     end
 
