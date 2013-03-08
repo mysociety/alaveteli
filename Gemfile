@@ -48,6 +48,7 @@ group :test do
   gem 'fakeweb'
   gem 'rspec-rails', '~> 1.3.4'
   gem 'test-unit', '~> 1.2.3', :platforms => :ruby_19
+  gem 'coveralls', :require => false
 end
 
 group :development do
