@@ -8,13 +8,13 @@ module AdminHelper
   end
 
   def request_both_links(info_request)
-      link_to(eye_icon, request_path(info_request)) + " " +
-          link_to(info_request.title, admin_request_show_url(info_request))
+      link_to(eye_icon, request_path(info_request), :title => "view request on public website") + " " +
+          link_to(info_request.title, admin_request_show_url(info_request), :title => "view full details")
   end
 
   def public_body_both_links(public_body)
-      link_to(eye_icon, public_body_url(public_body)) + " " +
-          link_to(h(public_body.name), admin_body_show_path(public_body))
+      link_to(eye_icon, public_body_url(public_body), :title => "view authority on public website") + " " +
+          link_to(h(public_body.name), admin_body_show_path(public_body), :title => "view full details")
   end
 
   def user_both_links(user)
