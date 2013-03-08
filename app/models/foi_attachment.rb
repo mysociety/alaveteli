@@ -317,8 +317,7 @@ class FoiAttachment < ActiveRecord::Base
             text = CGI.escapeHTML(text)
             text = MySociety::Format.make_clickable(text)
             html = text.gsub(/\n/, '<br>')
-            return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd"><html><head><title></title></head><body>' + html + "</body></html>", wrapper_id
+            return '<!DOCTYPE html><html><head><title></title></head><body>' + html + "</body></html>", wrapper_id
         end
 
         # the extractions will also produce image files, which go in the

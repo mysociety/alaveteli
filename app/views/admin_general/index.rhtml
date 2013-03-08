@@ -166,7 +166,7 @@
                 <tr>
                   <td class="link">
                     <%= link_to("<i class='icon-tags'></i>".html_safe, admin_request_show_path(@request)) %>
-                    <%= link_to(@request.title, request_link(@request)) %>
+                    <%= link_to(@request.title, request_path(@request)) %>
                   </td>
                   <td class="span2">
                     <%=simple_date(@request.get_last_response_event.created_at)%>
