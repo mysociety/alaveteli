@@ -7,15 +7,5 @@
   </div>
 <% end %>
 
-
-<% if false #@admin_user.info_requests.size == 0 %>
-    <% form_tag('../destroy/' + @admin_user.id.to_s) do %>
-       <p>
-       <%= hidden_field_tag(:admin_user_id, { :value => @admin_user.id } ) %>
-       <%= submit_tag "Destroy " + @admin_user.name %> (this is permanent!)
-       </p>
-    <% end %>
-<% end %>
-
 <%= link_to 'Show', admin_user_show_path(@admin_user), :class => "btn" %>
 <%= link_to 'List all', admin_user_list_path, :class => "btn" %>
