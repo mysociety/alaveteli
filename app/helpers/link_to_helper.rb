@@ -114,10 +114,9 @@ module LinkToHelper
 
     def user_admin_link_for_request(request, external_text=nil, internal_text=nil)
         if request.is_external?
-            text = external_text ? external_text : (request.external_user_name || _("Anonymous user")) + " (external)"
+            external_text || (request.external_user_name || _("Anonymous user")) + " (external)"
         else
-            text = internal_text ? internal_text : request.user.name
-            link_to(h(text), admin_user_show_url(request.user))
+            link_to(h(internal_text || request.user.name), admin_user_show_url(request.user))
         end
     end
 
