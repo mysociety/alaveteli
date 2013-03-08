@@ -10,7 +10,7 @@
     <% for track_thing in track_things %>
       <div class="accordion-group">
         <div class="accordion-heading">
-          <a href="#track_<%=track_thing.id%>" data-toggle="collapse" data-parent="requests"><i class="icon-chevron-right"></i></a>
+          <a href="#track_<%=track_thing.id%>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
           <%=track_thing.id%>:
           <% if track_thing.public_body_id %>
             <%= link_to "<code>#{h track_thing.track_query}</code>".html_safe, public_body_path(track_thing.public_body) %>
@@ -23,7 +23,7 @@
           <% end %>
           <% if @admin_user.nil? %>
             <%# Do not show this on the list of tracks on the user page, because it’s rather repetitive there %>
-            tracked by <%=link_to '<i class="icon-eye-open"></i>'.html_safe, admin_user_show_url(track_thing.tracking_user) %> <%=link_to h(track_thing.tracking_user.name), user_path(track_thing.tracking_user) %>
+            tracked by <%=link_to eye, admin_user_show_url(track_thing.tracking_user) %> <%=link_to h(track_thing.tracking_user.name), user_path(track_thing.tracking_user) %>
           <% end %>
         </div>
         <div id="track_<%=track_thing.id%>" class="accordion-body collapse">

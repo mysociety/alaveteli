@@ -8,7 +8,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <span class="item-title">
-          <a href="#metadata_<%=@info_request.id%>" data-toggle="collapse" data-parent="#info_request"><i class="icon-chevron-down"></i></a>Request metadata
+          <a href="#metadata_<%=@info_request.id%>" data-toggle="collapse" data-parent="#info_request"><%= chevron_down %></a>Request metadata
         </span>
       </div>
       <div id="metadata_<%=@info_request.id%>" class="accordion-body collapse in">
@@ -54,7 +54,7 @@
               </td>
               <td>
                 <% if @info_request.is_external? %>
-                  <%= link_to("<i class='icon-eye-open'></i>".html_safe, @info_request.external_url, :title => "view URL of original request on external website") %>
+                  <%= link_to(eye, @info_request.external_url, :title => "view URL of original request on external website") %>
                   <%= @info_request.public_body.name %> on behalf of <%= (@info_request.user_name || _('an anonymous user'))%> (using API)
                 <% else %>
                   <%= user_both_links(@info_request.user) %>
@@ -72,7 +72,7 @@
                 <b>Public authority:</b>
               </td>
               <td>
-                <%= link_to("<i class='icon-eye-open'></i>".html_safe, public_body_path(@info_request.public_body), :title => "view authority on public website") %>
+                <%= link_to(eye, public_body_path(@info_request.public_body), :title => "view authority on public website") %>
                 <%= link_to(@info_request.public_body.name, admin_body_show_path(@info_request.public_body)) %>
                 <%= link_to "move...", "#", :class => "btn btn-mini btn-warning toggle-hidden" %>
                 <div style="display:none;">
@@ -176,7 +176,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <span class="item-title">
-        <a href="#event_<%=info_request_event.id%>" data-toggle="collapse" data-parent="#events"><i class="icon-chevron-right"></i></a>
+        <a href="#event_<%=info_request_event.id%>" data-toggle="collapse" data-parent="#events"><%= chevron_right %></a>
           <%= _("Event {{id}}", :id => info_request_event.id) %>:
           <strong>
             <%=h info_request_event.event_type.humanize %><% if !info_request_event.calculated_state.nil? %>; state: <%= info_request_event.calculated_state %><% end %>
@@ -233,7 +233,7 @@
   <% for outgoing_message in @info_request.outgoing_messages.find(:all, :order => 'created_at') %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a href="#outgoing_<%=outgoing_message.id%>" data-toggle="collapse" data-parent="#outgoing_messages"><i class="icon-chevron-right"></i></a>
+        <a href="#outgoing_<%=outgoing_message.id%>" data-toggle="collapse" data-parent="#outgoing_messages"><%= chevron_right %></a>
         <a href="../edit_outgoing/<%= outgoing_message.id %>">
           #<%= outgoing_message.id %> -- <%= outgoing_message.status.humanize %> <%= outgoing_message.message_type.humanize %>
         </a>
@@ -279,7 +279,7 @@
   <% for incoming_message in @info_request.incoming_messages.find(:all, :order => 'created_at') %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a href="#incoming_<%=incoming_message.id%>" data-toggle="collapse" data-parent="#incoming_messages"><i class="icon-chevron-right"></i></a>
+        <a href="#incoming_<%=incoming_message.id%>" data-toggle="collapse" data-parent="#incoming_messages"><%= chevron_right %></a>
         <%=incoming_message.id%> -- <%= h(incoming_message.mail_from) %> <%=_("at")%> <%=admin_value(incoming_message.sent_at)%>
         <blockquote class="incoming-message">
           <% if !incoming_message.cached_main_body_text_folded.nil? %>
@@ -326,7 +326,7 @@
     <% for comment in @info_request.comments %>
       <div class="accordion-group">
         <div class="accordion-heading">
-         <a href="#comment_<%=comment.id%>" data-toggle="collapse" data-parent="#comments"><i class="icon-chevron-right"></i></a>
+         <a href="#comment_<%=comment.id%>" data-toggle="collapse" data-parent="#comments"><%= chevron_right %></a>
           <a href="../edit_comment/<%= comment.id %>">
             #<%=comment.id%>
             --
@@ -342,7 +342,7 @@
             <tbody>
               <tr>
                 <td colspan="2">
-                 By <%= link_to("<i class='icon-eye-open'></i>".html_safe, user_url(comment.user), :title => "view user's page on public website") %>
+                 By <%= link_to(eye, user_url(comment.user), :title => "view user's page on public website") %>
 
                   <%= link_to(h(comment.user.name), admin_user_show_url(comment.user)) %>
                 </td>

@@ -27,7 +27,7 @@
   <% if @holding_pen_messages.size > 0 %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" href="#holding-pen" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@holding_pen_messages.size%></span><i class='icon-chevron-right'></i> Put misdelivered responses with the right request</a>
+        <a class="accordion-toggle" href="#holding-pen" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@holding_pen_messages.size%></span><%= chevron_right %> Put misdelivered responses with the right request</a>
       </div>
       <div id="holding-pen" class="accordion-body collapse">
         <table class="table table-striped table-condensed">
@@ -55,7 +55,7 @@
   <% if @error_message_requests.size > 0 %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" href="#error-messages" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@error_message_requests.size%></span> <i class='icon-chevron-right'></i>Fix these delivery and other errors</a>
+        <a class="accordion-toggle" href="#error-messages" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@error_message_requests.size%></span> <%= chevron_right %>Fix these delivery and other errors</a>
       </div>
       <div id="error-messages" class="accordion-body collapse">
         <table class="table table-striped table-condensed">
@@ -79,7 +79,7 @@
   <% if @attention_requests.size > 0 %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" href="#attention-messages" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@attention_requests.size%></span><i class='icon-chevron-right'></i> Review requests marked by users as requiring your attention
+        <a class="accordion-toggle" href="#attention-messages" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@attention_requests.size%></span><%= chevron_right %> Review requests marked by users as requiring your attention
 </a>
       </div>
       <div id="attention-messages" class="accordion-body collapse">
@@ -104,7 +104,7 @@
   <% if @requires_admin_requests.size > 0 %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" href="#requires-admin" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@requires_admin_requests.size%></span><i class='icon-chevron-right'></i> These require administrator attention</a>
+        <a class="accordion-toggle" href="#requires-admin" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@requires_admin_requests.size%></span><%= chevron_right %> These require administrator attention</a>
       </div>
       <div id="requires-admin" class="accordion-body collapse">
         <table class="table table-striped table-condensed">
@@ -128,7 +128,7 @@
   <% if @blank_contacts.size > 0 %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" href="#blank-contacts" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@blank_contacts.size%></span><i class='icon-chevron-right'></i> Find missing FOI email for these public authorities (try phoning!)</a>
+        <a class="accordion-toggle" href="#blank-contacts" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@blank_contacts.size%></span><%= chevron_right %> Find missing FOI email for these public authorities (try phoning!)</a>
       </div>
       <div id="blank-contacts" class="accordion-body collapse">
         <table class="table table-striped table-condensed">
@@ -152,7 +152,7 @@
   <% if @old_unclassified.size > 0 %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" href="#unclassified" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@old_unclassified.size%></span><i class='icon-chevron-right'></i> Classify responses that are still unclassified <%=InfoRequest::OLD_AGE_IN_DAYS.inspect %> after response</a>
+        <a class="accordion-toggle" href="#unclassified" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@old_unclassified.size%></span><%= chevron_right %> Classify responses that are still unclassified <%=InfoRequest::OLD_AGE_IN_DAYS.inspect %> after response</a>
       </div>
       <div id="unclassified" class="accordion-body collapse">
         <table class="table table-striped table-condensed">
