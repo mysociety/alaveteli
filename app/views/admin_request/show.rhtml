@@ -329,12 +329,12 @@
       <div class="accordion-group">
         <div class="accordion-heading">
          <a href="#comment_<%=comment.id%>" data-toggle="collapse" data-parent="#comments"><i class="icon-chevron-right"></i></a>
-          <a href="<%= admin_request_edit_comment_path(comment) %>">
+          <% link_to admin_request_edit_comment_path(comment) do %>
             #<%=comment.id%>
             --
             <%=h(comment.user.name)%>
             <%=admin_value(comment.created_at)%>
-          </a>
+            <% end %>
           <blockquote class="incoming-message">
             <%= truncate(comment.body, :length => 400) %>
           </blockquote>
