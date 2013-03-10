@@ -46,4 +46,18 @@ namespace :config_files do
             puts line
         end
     end
+
+    desc 'Convert .ugly crontab to a form suitable for installing in /etc/cron.d'
+    task :convert_crontab => :environment do
+        example = 'rake config_files:convert_crontab DEPLOY_USER=deploy DEPLOY_DIR=/data/vhost/alaveteli MAILTO=cron-alaveteli@mysociety.org'
+        check_for_env_vars(['DEPLOY_USER', 'DEPLOY_DIR', 'MAILTO'], example)
+
+        converted = convert_ugly("config/crontab.ugly",
+            :dir => ENV["DEPLOY_DIR"],
+            :mailto => ENV["MAILTO"],
+            :user => ENV["DEPLOY_USER"])
+        converted.each do |line|
+            puts line
+        end
+    end
 end
