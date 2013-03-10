@@ -7,6 +7,11 @@
 PATH=/usr/local/bin:/usr/bin:/bin
 MAILTO=!!(*= $mailto *)!!
 
+# The deploy user "!!(*= $user *)!!" needs to have permission to
+# 1. read log files (in script/load-mail-server-logs) and
+# 2. restart Passenger (in script/compact-xapian-database)
+# This can be easily done by adding the user to the adm group (on Ubuntu or Debian)
+
 # Every 5 minutes
 */5 * * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $dir *)!!/tmp/change-xapian-database.lock "!!(*= $dir *)!!/script/update-xapian-index verbose=true" >> !!(*= $dir *)!!/log/update-xapian-index.log || echo "stalled?"
 # Every 10 minutes
@@ -15,9 +20,7 @@ MAILTO=!!(*= $mailto *)!!
 
 # Once an hour
 09 * * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $dir *)!!/tmp/alert-comment-on-request.lock !!(*= $dir *)!!/script/alert-comment-on-request || echo "stalled?"
-
-# Only root can read the log files
-31 * * * * root run-with-lockfile -n !!(*= $dir *)!!/tmp/load-mail-server-logs.lock !!(*= $dir *)!!/script/load-mail-server-logs || echo "stalled?"
+31 * * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $dir *)!!/tmp/load-mail-server-logs.lock !!(*= $dir *)!!/script/load-mail-server-logs || echo "stalled?"
 
 # Once a day, early morning
 23 4 * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $dir *)!!/tmp/delete-old-things.lock !!(*= $dir *)!!/script/delete-old-things || echo "stalled?"
@@ -26,9 +29,7 @@ MAILTO=!!(*= $mailto *)!!
 0 8 * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $dir *)!!/tmp/alert-not-clarified-request.lock !!(*= $dir *)!!/script/alert-not-clarified-request || echo "stalled?"
 2 4 * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $dir *)!!/tmp/check-recent-requests-sent.lock !!(*= $dir *)!!/script/check-recent-requests-sent || echo "stalled?"
 45 3 * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $dir *)!!/tmp/stop-new-responses-on-old-requests.lock !!(*= $dir *)!!/script/stop-new-responses-on-old-requests || echo "stalled?"
-# Only root can restart apache
-31 1 * * * root run-with-lockfile -n !!(*= $dir *)!!/tmp/change-xapian-database.lock "!!(*= $dir *)!!/script/compact-xapian-database production" || echo "stalled?"
-
+31 1 * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $dir *)!!/tmp/change-xapian-database.lock "!!(*= $dir *)!!/script/compact-xapian-database production" || echo "stalled?"
 
 # Once a day on all servers
 43 2 * * * !!(*= $user *)!! !!(*= $dir *)!!/script/request-creation-graph
@@ -36,7 +37,5 @@ MAILTO=!!(*= $mailto *)!!
 
 # Once a year :)
 0 0 1 11 * !!(*= $user *)!! /bin/echo "A year has passed, please update the bank holidays for the Freedom of Information site, thank you."
-
-
 
 
