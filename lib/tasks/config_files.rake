@@ -30,16 +30,11 @@ namespace :config_files do
         example = 'rake config_files:convert_init_script DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli SCRIPT_FILE=config/alert-tracks-debian.ugly '
         check_for_env_vars(['DEPLOY_USER', 'VHOST_DIR', 'SCRIPT_FILE'], example)
 
-        deploy_user = ENV['DEPLOY_USER']
-        vhost_dir = ENV['VHOST_DIR']
-        script_file = ENV['SCRIPT_FILE']
+        converted = convert_ugly(script_file,
+            :user => ENV['DEPLOY_USER'],
+            :vhost_dir => ENV['VHOST_DIR'],
+            :daemon_name => "foi-#{File.basename(ENV['SCRIPT_FILE'], '-debian.ugly')}")
 
-        replacements = { :user => deploy_user,
-                         :vhost_dir => vhost_dir }
-
-        daemon_name = File.basename(script_file, '-debian.ugly')
-        replacements.update(:daemon_name => "foi-#{daemon_name}")
-        converted = convert_ugly(script_file, replacements)
         rails_env_file = File.expand_path(File.join(Rails.root, 'config', 'rails_env.rb'))
         if !File.exists?(rails_env_file)
             converted.each do |line|
@@ -51,6 +46,4 @@ namespace :config_files do
             puts line
         end
     end
-
-
 end
