@@ -319,26 +319,16 @@ It's in a strange templating format they use in mySociety.  mySociety
 render the "ugly" file to reference absolute paths, and then drop it
 in `/etc/cron.d/` on the server.
 
-The `ugly` format uses simple variable substitution.  A variable looks
-like `!!(*= $this *)!!`.  The variables are:
+To output a crontab that you can directly use, do something like
 
-* `vhost`: part of the path to the directory where the software is
-  served from.  In the mySociety files, it usually comes as
-  `/data/vhost/!!(*= $vhost *)!!` -- you should replace that whole
-  port with a path to the directory where your Alaveteli software
-  installation lives, e.g. `/var/www/`
-* `vhost_dir`: the entire path to the directory where the software is
-  served from. -- you should replace this with a path to the 
-  directory where your Alaveteli software installation lives,
-   e.g. `/var/www/`
-* `vcspath`: the name of the alaveteli checkout, e.g. `alaveteli`.
-  Thus, `/data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!` might be
-  replaced with `/var/www/alaveteli` in your cron tab
-* `user`: the user that the software runs as
-* `site`: a string to identify your alaveteli instance
+bundle exec rake config_files:convert_crontab DEPLOY_USER=deploy DEPLOY_DIR=/data/vhost/alaveteli MAILTO=cron-alaveteli@mysociety.org
 
-There is a dumb python script at `script/make-crontab` which you can
-edit and run to do some basic substitution for you.
+For DEPLOY_USER, DEPLOY_DIR and MAILTO substitute values that are correct for you.
+
+Note that
+* DEPLOY_USER is the user that the software runs as. It needs to have special permissions (documented in the outputted crontab) which includes the ability to read some log files and restart Passenger. 
+* DEPLOY_DIR is the absolute path on the server to the root of the Alavateli install
+* MAILTO is the email address of the recipient of the cron emails
 
 One of the cron jobs refers to a script at
 `/etc/init.d/foi-alert-tracks`.  This is an init script, a copy of
