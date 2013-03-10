@@ -11,11 +11,7 @@ namespace :config_files do
                 var = $1.to_sym
                 replacement = replacements[var]
                 if replacement == nil
-                    if ! (skip[var] == true)
-                        raise "Unhandled variable in .ugly file: $#{var}"
-                    else
-                        match
-                    end
+                    raise "Unhandled variable in .ugly file: $#{var}"
                 else
                     replacements[var]
                 end
