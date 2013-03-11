@@ -51,12 +51,7 @@
 
         <div id="stepwise_make_request">
             <% if @public_body.is_requestable? || @public_body.not_requestable_reason == 'bad_contact' %>
-                <% if @public_body.eir_only? %>
-                    <%= _('Make a new <strong>Environmental Information</strong> request')%>
-                <% else %>
-                    <%= _('Make a new <strong>Freedom of Information</strong> request to {{public_body}}', :public_body => h(@public_body.name))%>
-                <% end %>
-                &nbsp;<%= _('<a class="link_button_green" href="{{url}}">{{text}}</a>', :url=>new_request_to_body_url(:url_name => @public_body.url_name), :text=>_("Start"))%>
+                <%= link_to _("Make a request to this authority"), new_request_to_body_path(:url_name => @public_body.url_name), :class => "link_button_green" %>
             <% elsif @public_body.has_notes? %>
                 <%= @public_body.notes_as_html.html_safe %>
             <% elsif @public_body.not_requestable_reason == 'not_apply' %>
