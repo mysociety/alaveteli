@@ -171,3 +171,14 @@ anonymous_external_outgoing_message_event:
   created_at: 2009-01-03 02:23:45.6789100
   described_state: waiting_response
   calculated_state: waiting_response
+
+other_request_outgoing_message_event:
+  id: 916
+  params_yaml: "--- \n\
+    :outgoing_message_id: 10\n"
+  outgoing_message_id: 10
+  info_request_id: 111
+  event_type: sent
+  created_at: <%= Time.now %>
+  described_state: waiting_response
+  calculated_state: waiting_response
