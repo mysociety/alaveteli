@@ -3,7 +3,7 @@
     <div class="accordion-group">
       <div class="accordion-heading accordion-toggle">
        <span class="item-title">
-        <a href="#user_<%=user.id%>" data-toggle="collapse" data-parent="requests"><i class="icon-chevron-right"></i></a>
+        <a href="#user_<%=user.id%>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
       <% if user.admin_level == "super" %>
           <span class="label">superuser</span>
       <% end %>

@@ -22,14 +22,6 @@ module LinkToHelper
         link_to h(info_request.title), request_path(info_request), :class => cls
     end
 
-    def request_admin_link(info_request, name="admin", cls=nil)
-      link_to name, admin_request_show_url(info_request), :class => cls
-    end
-
-    def request_both_links(info_request)
-        link_to(h(info_request.title), request_url(info_request)) + " (" + link_to("admin", admin_request_show_url(info_request)) + ")"
-    end
-
     def request_details_path(info_request)
         details_request_path(:url_title => info_request.url_title)
     end
@@ -94,10 +86,6 @@ module LinkToHelper
         link_to h(public_body.name), public_body_url(public_body)
     end
 
-    def public_body_both_links(public_body)
-        link_to(h(public_body.name), public_body_url(public_body)) + " (" + link_to("admin", admin_body_show_url(public_body)) + ")"
-    end
-
     # Users
     def user_url(user, options = {})
         show_user_url(options.merge(:url_name => user.url_name))
@@ -126,10 +114,9 @@ module LinkToHelper
 
     def user_admin_link_for_request(request, external_text=nil, internal_text=nil)
         if request.is_external?
-            text = external_text ? external_text : (request.external_user_name || _("Anonymous user")) + " (external)"
+            external_text || (request.external_user_name || _("Anonymous user")) + " (external)"
         else
-            text = internal_text ? internal_text : request.user.name
-            link_to(h(text), admin_user_show_url(request.user))
+            link_to(h(internal_text || request.user.name), admin_user_show_url(request.user))
         end
     end
 
@@ -179,10 +166,6 @@ module LinkToHelper
 
     def user_admin_link(user, name="admin", cls=nil)
       link_to name, admin_user_show_url(user), :class => cls
-    end
-
-    def user_both_links(user)
-        link_to(h(user.name), user_url(user)) + " (" + link_to("admin", admin_user_show_url(user)) + ")"
     end
 
     # Tracks. feed can be 'track' or 'feed'
