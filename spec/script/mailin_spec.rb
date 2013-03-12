@@ -16,10 +16,22 @@ end
 
 describe "When importing mail into the application" do
 
+    # Turn off transactional fixtures for this suite - incoming message is imported
+    # outside the transaction via ExternalCommand, so needs to be destroyed outside the
+    # transaction
+    self.use_transactional_fixtures = false
+
     it "should not produce any output and should return a 0 code on importing a plain email" do
         r = mailin_test("incoming-request-empty.email")
         r.status.should == 0
         r.out.should == ""
+    end
+
+    # Destroy the incoming message so that it doesn't affect other tests
+    after do
+        ir = info_requests(:other_request)
+        incoming_message = ir.incoming_messages[0]
+        incoming_message.fully_destroy
     end
 
 end
