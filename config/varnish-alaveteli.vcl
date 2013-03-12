@@ -115,3 +115,43 @@ sub vcl_fetch {
     }
 }
 
+# We need to separately cache requests originating via http and via https
+# since we are serving very slightly different content in each case
+
+# Varnish 2.x version of vcl_hash
+#sub vcl_hash {
+#    set req.hash += req.url;
+#    if (req.http.host) {
+#        set req.hash += req.http.host;
+#    } else {
+#        set req.hash += server.ip;
+#    }
+#
+#    # Include the X-Forward-Proto header, since we want to treat HTTPS
+#    # requests differently, and make sure this header is always passed
+#    # properly to the backend server.
+#    if (req.http.X-Forwarded-Proto) {
+#        set req.hash += req.http.X-Forwarded-Proto;
+#    }
+#
+#    return (hash);
+#}
+
+# Varnish 3 version of vcl_hash
+sub vcl_hash {
+    hash_data(req.url);
+    if (req.http.host) {
+        hash_data(req.http.host);
+    } else {
+        hash_data(server.ip);
+    }
+
+    # Include the X-Forward-Proto header, since we want to treat HTTPS
+    # requests differently, and make sure this header is always passed
+    # properly to the backend server.
+    if (req.http.X-Forwarded-Proto) {
+        hash_data(req.http.X-Forwarded-Proto);
+    }
+
+    return (hash);
+}
