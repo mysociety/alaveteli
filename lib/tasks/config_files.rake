@@ -11,11 +11,7 @@ namespace :config_files do
                 var = $1.to_sym
                 replacement = replacements[var]
                 if replacement == nil
-                    if ! (skip[var] == true)
-                        raise "Unhandled variable in .ugly file: $#{var}"
-                    else
-                        match
-                    end
+                    raise "Unhandled variable in .ugly file: $#{var}"
                 else
                     replacements[var]
                 end
@@ -30,16 +26,11 @@ namespace :config_files do
         example = 'rake config_files:convert_init_script DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli SCRIPT_FILE=config/alert-tracks-debian.ugly '
         check_for_env_vars(['DEPLOY_USER', 'VHOST_DIR', 'SCRIPT_FILE'], example)
 
-        deploy_user = ENV['DEPLOY_USER']
-        vhost_dir = ENV['VHOST_DIR']
-        script_file = ENV['SCRIPT_FILE']
+        converted = convert_ugly(script_file,
+            :user => ENV['DEPLOY_USER'],
+            :vhost_dir => ENV['VHOST_DIR'],
+            :daemon_name => "foi-#{File.basename(ENV['SCRIPT_FILE'], '-debian.ugly')}")
 
-        replacements = { :user => deploy_user,
-                         :vhost_dir => vhost_dir }
-
-        daemon_name = File.basename(script_file, '-debian.ugly')
-        replacements.update(:daemon_name => "foi-#{daemon_name}")
-        converted = convert_ugly(script_file, replacements)
         rails_env_file = File.expand_path(File.join(Rails.root, 'config', 'rails_env.rb'))
         if !File.exists?(rails_env_file)
             converted.each do |line|
@@ -52,5 +43,17 @@ namespace :config_files do
         end
     end
 
+    desc 'Convert .ugly crontab to a form suitable for installing in /etc/cron.d'
+    task :convert_crontab => :environment do
+        example = 'rake config_files:convert_crontab DEPLOY_USER=deploy DEPLOY_DIR=/data/vhost/alaveteli MAILTO=cron-alaveteli@mysociety.org'
+        check_for_env_vars(['DEPLOY_USER', 'DEPLOY_DIR', 'MAILTO'], example)
 
+        converted = convert_ugly("config/crontab.ugly",
+            :dir => ENV["DEPLOY_DIR"],
+            :mailto => ENV["MAILTO"],
+            :user => ENV["DEPLOY_USER"])
+        converted.each do |line|
+            puts line
+        end
+    end
 end

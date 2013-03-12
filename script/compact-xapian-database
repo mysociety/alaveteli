@@ -17,7 +17,8 @@ SU
 	mv "$XAPIAN_DB_DIR/$RAILS_ENV" "$XAPIAN_DB_DIR/$RAILS_ENV.tmp"
 	mv "$XAPIAN_DB_DIR/$RAILS_ENV.new" "$XAPIAN_DB_DIR/$RAILS_ENV"
 	rm -rf "$XAPIAN_DB_DIR/$RAILS_ENV.tmp"
-	/etc/init.d/apache2 restart
+  # Restart this app (assume we're using Passenger)
+  touch ../tmp/restart.txt
     fi
 else
     echo >&2 "Could not find xapian-compact script; have you installed xapian-tools?"
