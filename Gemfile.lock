@@ -74,7 +74,7 @@ GEM
       ruby_core_source (>= 0.1.4)
     locale (2.0.8)
     mahoro (0.3)
-    mail (2.5.3)
+    mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -196,7 +196,7 @@ DEPENDENCIES
   json
   locale (>= 2.0.5)
   mahoro
-  mail
+  mail (~> 2.4.4)
   mailcatcher
   memcache-client
   net-http-local
