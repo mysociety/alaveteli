@@ -1354,7 +1354,7 @@ describe RequestController, "when classifying an information request" do
                     it "should continue the game after classifying a request" do
                         post_status("rejected")
                         flash[:notice].should =~ /There are some more requests below for you to classify/
-                        response.should redirect_to play_url
+                        response.should redirect_to categorise_play_url
                     end
                 end
 
@@ -1470,7 +1470,7 @@ describe RequestController, "when classifying an information request" do
             it "should let you know when you forget to select a status" do
                 post :describe_state, :id => @dog_request.id,
                                       :last_info_request_event_id => @dog_request.last_event_id_needing_description
-                response.should redirect_to request_url(@dog_request)
+                response.should redirect_to show_request_url(:url_title => @dog_request.url_title)
                 flash[:error].should == _("Please choose whether or not you got some of the information that you wanted.")
             end
 
@@ -1479,7 +1479,7 @@ describe RequestController, "when classifying an information request" do
 
                 post :describe_state, :incoming_message => { :described_state => "rejected" },
                     :id => @dog_request.id, :last_info_request_event_id => 1
-                response.should redirect_to request_url(@dog_request)
+                response.should redirect_to show_request_url(:url_title => @dog_request.url_title)
                 flash[:error].should =~ /The request has been updated since you originally loaded this page/
             end
 
