@@ -28,7 +28,7 @@ describe RequestMailer, " when receiving incoming mail" do
         receive_incoming_mail('incoming-request-plain.email', 'dummy@localhost')
         ir.incoming_messages.size.should == 1
         InfoRequest.holding_pen_request.incoming_messages.size.should == 1
-        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.get_last_event
+        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
         last_event.params[:rejected_reason].should == "Could not identify the request from the email address"
 
         deliveries = ActionMailer::Base.deliveries
@@ -48,7 +48,7 @@ describe RequestMailer, " when receiving incoming mail" do
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "")
         ir.incoming_messages.size.should == 1
         InfoRequest.holding_pen_request.incoming_messages.size.should == 1
-        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.get_last_event
+        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
         last_event.params[:rejected_reason].should =~ /there is no "From" address/
 
         deliveries = ActionMailer::Base.deliveries
@@ -68,7 +68,7 @@ describe RequestMailer, " when receiving incoming mail" do
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "frob@nowhere.com")
         ir.incoming_messages.size.should == 1
         InfoRequest.holding_pen_request.incoming_messages.size.should == 1
-        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.get_last_event
+        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
         last_event.params[:rejected_reason].should =~ /Only the authority can reply/
 
         deliveries = ActionMailer::Base.deliveries
@@ -153,7 +153,7 @@ describe RequestMailer, " when receiving incoming mail" do
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
         ir.incoming_messages.size.should == 1
         InfoRequest.holding_pen_request.incoming_messages.size.should == 1 # arrives in holding pen
-        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.get_last_event
+        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
         last_event.params[:rejected_reason].should =~ /allow new responses from nobody/
 
         # should be a message to admin regarding holding pen
@@ -366,4 +366,10 @@ describe RequestMailer, 'requires_admin' do
 
         mail.body.should include('http://test.host/en/admin/request/show/123')
     end
+
+    it "body should contain the message from the user" do
+        mail = RequestMailer.deliver_requires_admin(@info_request, nil, "Something has gone wrong")
+        mail.body.should include 'Something has gone wrong'
+    end
+
 end
