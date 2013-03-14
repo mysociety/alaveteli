@@ -705,10 +705,10 @@ msgstr "Istoric evenimente"
 msgid "Event history details"
 msgstr "Istoric evenimente detaliat"
 
-msgid "Everything that you enter on this page \\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
+msgid "Everything that you enter on this page\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
 msgstr "Tot ceea ce postezi pe această pagină  \\n va fi <strong>făcut public</strong> pe\\n acest website permanent (<a href=\"%s\">de ce?</a>)."
 
-msgid "Everything that you enter on this page, including <strong>your name</strong>, \\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
+msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
 msgstr "Tot ce introduci pe această pagină, inclusiv  <strong>numele tău</strong>, \\n va fi <strong>făcut public</strong> pe\\n acest website permanent (<a href=\"%s\">de ce?</a>)."
 
 msgid "FOI"

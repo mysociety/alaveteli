@@ -696,10 +696,10 @@ msgstr ""
 msgid "Event history details"
 msgstr ""
 
-msgid "Everything that you enter on this page \\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
+msgid "Everything that you enter on this page\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
 msgstr ""
 
-msgid "Everything that you enter on this page, including <strong>your name</strong>, \\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
+msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
 msgstr ""
 
 msgid "FOI"

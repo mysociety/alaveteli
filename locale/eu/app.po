@@ -725,10 +725,10 @@ msgstr "Gertaera historia"
 msgid "Event history details"
 msgstr "Gertaera historia"
 
-msgid "Everything that you enter on this page \\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
+msgid "Everything that you enter on this page\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
 msgstr "Orrialde honetan idatziko duzun guztia <strong>irakurleen eskuragarri</strong> egongo da betiko (<a href=\"%s\">¿por qué?</a>)."
 
-msgid "Everything that you enter on this page, including <strong>your name</strong>, \\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
+msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
 msgstr ""
 "Orrialde honetan idatziko duzun guztia, <strong>zure izena</strong> barne, \n"
 "                <strong>irakurleen eskuragarri</strong> egongo da betiko\n"
