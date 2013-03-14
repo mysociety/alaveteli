@@ -53,6 +53,7 @@ group :test do
   gem 'coveralls', :require => false
   # Using webrat because the preferred (capybara) doesn't work out of the box with rspec 1
   gem 'webrat'
+  gem 'launchy'
 end
 
 group :development do
