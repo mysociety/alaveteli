@@ -14,7 +14,7 @@ with all these steps configured.  It is *not* production-ready.
 To start with, you may need to install git, e.g. with `sudo apt-get
 install git-core`
 
-Next, get hold of the Alaveteli source code from github: 
+Next, get hold of the Alaveteli source code from github:
 
     git clone https://github.com/mysociety/alaveteli.git
     cd alaveteli
@@ -27,7 +27,7 @@ master branch (which always contains the latest stable release):
 
 # Package pinning
 
-You need to configure [apt-pinning](http://wiki.debian.org/AptPreferences#Pinning-1) preferences in order to prevent packages being pulled from the debian testing distribution in preference to the stable distribution once you have added the testing repository as described below. 
+You need to configure [apt-pinning](http://wiki.debian.org/AptPreferences#Pinning-1) preferences in order to prevent packages being pulled from the debian testing distribution in preference to the stable distribution once you have added the testing repository as described below.
 
 In order to configure apt-pinning and to keep most packages coming from the Debian stable repository while installing the ones required from testing and the mySociety repository you need to run the following commands:
 
@@ -36,7 +36,7 @@ In order to configure apt-pinning and to keep most packages coming from the Debi
       echo "Pin-Priority: 50" >> /tmp/preferences
       sudo cp /tmp/preferences /etc/apt/
       rm /tmp/preferences
-        
+
 # Install system dependencies
 
 These are packages that the software depends on: third-party software
@@ -74,14 +74,14 @@ explanation):
     wget http://rubyforge.org/frs/download.php/74445/rubygems-1.6.2.tgz -O /tmp/rubygems-1.6.2.tgz
     tar zxvf /tmp/rubygems-1.6.2.tgz -C /tmp/
     sudo ruby1.8 /tmp/rubygems-1.6.2/setup.rb
- 
+
 To install Alaveteli's Ruby dependencies, we also need to install
 bundler.  In Debian, this is provided as a package (installed as part
 of the package install process above).  You could also install it as a
 gem:
 
     sudo gem1.8 install bundler
-    
+
 # Install mySociety libraries
 
 You will also want to install mySociety's common ruby libraries and the Rails
@@ -118,7 +118,7 @@ use the Debian package compiled by mySociety (see link in
 [issue 305](https://github.com/mysociety/alaveteli/issues/305))
 
 
-# Configure Database 
+# Configure Database
 
 There has been a little work done in trying to make the code work with
 other databases (e.g. SQLite), but the currently supported database is
@@ -139,12 +139,12 @@ Make sure that the user specified in database.yml exists, and has full
 permissions on these databases. As they need the ability to turn off
 constraints whilst running the tests they also need to be a superuser.
 (See http://dev.rubyonrails.org/ticket/9981)
-  
+
 You can create a `foi` user from the command line, thus:
 
     # su - postgres
     $ createuser -s -P foi
-    
+
 And you can create a database thus:
 
     $ createdb -T template0 -E SQL_ASCII -O foi foi_production
@@ -157,15 +157,15 @@ data that may not be valid UTF (for example, data originating from
 various broken email clients that's not 8-bit clean), it's safer to be
 able to store *anything*, than reject data at runtime.
 
-# Configure email 
+# Configure email
 
 You will need to set up an email server (MTA) to send and receive
 emails.  Full configuration for an MTA is beyond the scope of this
 document, though we describe an example configuration for Exim in
 `INSTALL-exim4.md`.
 
-Note that in development mode, mail is handled by default by mailcatcher 
-so that you can see the mails in a browser - see http://mailcatcher.me/ 
+Note that in development mode, mail is handled by default by mailcatcher
+so that you can see the mails in a browser - see http://mailcatcher.me/
 for more details.
 
 ## Minimal
@@ -230,7 +230,7 @@ for instructions on switching on local and remote performance analysis.
 
 In the 'alaveteli' directory, run:
 
-    ./script/rails-post-deploy 
+    ./script/rails-post-deploy
 
 (This will need execute privs so `chmod 755` if necessary.) This sets
 up directory structures, creates logs, installs/updates themes, runs
@@ -328,7 +328,7 @@ like `!!(*= $this *)!!`.  The variables are:
   port with a path to the directory where your Alaveteli software
   installation lives, e.g. `/var/www/`
 * `vhost_dir`: the entire path to the directory where the software is
-  served from. -- you should replace this with a path to the 
+  served from. -- you should replace this with a path to the
   directory where your Alaveteli software installation lives,
    e.g. `/var/www/`
 * `vcspath`: the name of the alaveteli checkout, e.g. `alaveteli`.
@@ -404,7 +404,7 @@ would look something like this:
     SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
 </VirtualHost>
 
-Notice the line "RequestHeader" that sets the X_FORWARDED_PROTO header. This is important. This ultimately tells Rails that it's serving a page over https and so it knows to include that in any absolute urls it serves.
+Notice the line "RequestHeader" that sets the X-Forwarded-Proto header. This is important. This ultimately tells Rails that it's serving a page over https and so it knows to include that in any absolute urls it serves.
 
 Some
 [production server best practice notes](https://github.com/mysociety/alaveteli/wiki/Production-Server-Best-Practices)
@@ -441,14 +441,14 @@ various other things that can be automated for deployment.
 # Troubleshooting
 
 *   **Incoming emails aren't appearing in my Alaveteli install**
-    
+
     First, you need to check that your MTA is delivering relevant
     incoming emails to the `script/mailin` command.  There are various
     ways of setting your MTA up to do this; we have documented one way
     of doing it in Exim at `doc/INSTALL-exim4.conf`, including a
     command you can use to check that the email routing is set up
     correctly.
-    
+
     Second, you need to test that the mailin script itself is working
     correctly, by running it from the command line, First, find a
     valid "To" address for a request in your system.  You can do this
@@ -459,7 +459,7 @@ various other things that can be automated for deployment.
         Loading development environment (Rails 2.3.14)
         >> InfoRequest.find_by_url_title("why_do_you_have_such_a_fancy_dog").incoming_email
         => "request-101-50929748@localhost"
-            
+
     Now take the source of a valid email (there are some sample emails in
     `spec/fixtures/files/`); edit the `To:` header to match this address;
     and then pipe it through the mailin script.  A non-zero exit code
@@ -475,7 +475,7 @@ various other things that can be automated for deployment.
     `CONTACT_EMAIL` (from your `general.yml` file).  A common problem is
     for the user that the MTA runs as not to have write access to
     `files/raw_emails/`.
-        
+
 *   **Various tests fail with "*Your PostgreSQL connection does not support
     unescape_bytea. Try upgrading to pg 0.9.0 or later.*"**
 
@@ -498,17 +498,17 @@ various other things that can be automated for deployment.
     Normally, the encoding should just work, but under some
     circumstances it appears that `elinks` ignores the parameters
     passed to it from Alaveteli.
-    
+
     To force `elinks` always to treat input as UTF8, add the following
     to `/etc/elinks/elinks.conf`:
-    
+
         set document.codepage.assume = "utf-8"
         set document.codepage.force_assumed = 1
 
-    You should also check that your locale is set up correctly.  See 
+    You should also check that your locale is set up correctly.  See
     [https://github.com/mysociety/alaveteli/issues/128#issuecomment-1814845](this issue followup)
     for further discussion.
-    
+
 *   **I'm getting lots of `SourceIndex.new(hash) is deprecated` errors when running the tests**
 
     The latest versions of rubygems contain a large number of noisy
@@ -516,7 +516,7 @@ various other things that can be automated for deployment.
     2.x isn't under active development so isn't going to get fixed (in
     the sense of using a non-deprecated API).  So the only vaguely
     sensible way to avoid this noisy output is to downgrade rubygems.
-    
+
     For example, you might do this by uninstalling your
     system-packaged rubygems, and then installing the latest rubygems
     from source, and finally executing `sudo gem update --system
