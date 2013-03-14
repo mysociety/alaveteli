@@ -59,11 +59,18 @@ GEM
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
     chunky_png (1.2.6)
+    colorize (0.5.8)
     columnize (0.3.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
+    coveralls (0.6.2)
+      colorize
+      multi_json (~> 1.3)
+      rest-client
+      simplecov (>= 0.7)
+      thor
     daemons (1.1.9)
     debugger (1.3.1)
       columnize (>= 0.3.1)
@@ -161,6 +168,8 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     recaptcha (0.3.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rmagick (2.13.1)
     routing-filter (0.2.4)
       actionpack
@@ -185,6 +194,10 @@ GEM
       vpim (>= 0.360)
     ruby-ole (1.2.11.6)
     sass (3.2.3)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
     sinatra (1.2.8)
       rack (~> 1.1)
       tilt (>= 1.2.2, < 2.0)
@@ -234,6 +247,7 @@ DEPENDENCIES
   bootstrap-sass
   capistrano
   compass
+  coveralls
   debugger
   dynamic_form
   exception_notification
@@ -243,7 +257,7 @@ DEPENDENCIES
   gettext (~> 2.3.3)
   gettext_i18n_rails (>= 0.7.1)
   globalize3!
-  json (~> 1.5.1)
+  json
   locale (>= 2.0.5)
   mahoro
   mail
