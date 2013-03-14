@@ -67,7 +67,7 @@
                   <%= request_both_links(@request) %>
                 </td>
                 <td class="span2">
-                  <%=simple_date(@request.get_last_event.created_at)%>
+                  <%=simple_date(@request.info_request_events.last.created_at)%>
                 </td>
               </tr>
             <% end %>
@@ -92,7 +92,7 @@
                   <%= request_both_links(@request) %>
                 </td>
                 <td class="span2">
-                  <%=simple_date(@request.get_last_event.created_at)%>
+                  <%=simple_date(@request.info_request_events.last.created_at)%>
                 </td>
               </tr>
             <% end %>
@@ -116,7 +116,7 @@
                   <%= request_both_links(@request) %>
                 </td>
                 <td class="span2">
-                  <%=simple_date(@request.get_last_event.created_at)%>
+                  <%=simple_date(@request.info_request_events.last.created_at)%>
                 </td>
               </tr>
             <% end %>
