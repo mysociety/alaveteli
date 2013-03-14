@@ -1,3 +1,20 @@
+# Version 0.8
+## Highlighted features
+* Support for running the site over SSL/TLS only and corresponding removal of support for a proxied admin interface, including the deprecation of the main_url and admin_url helpers.
+* Merging of the adminbootstrap theme into core Alaveteli, replacing the existing admin theme. (Matthew Landauer)
+* Move to HTML 5 (Matthew Landauer)
+* More consistent UI for links in the admin interface
+* [Security] Upgrades the Rails version to 2.3.17 to get fixes for CVE-2013-0277, CVE-2013-0276 (Although core Alaveteli does not use serialize or attr_protected), upgrade JSON gem to get fix for CVE-2013-0269.
+* A bugfix for Chrome's autofilling of signup fields (Vaughan Rouesnel)
+* Improvements to the accessibility of the search boxes (Nathan Jenkins)
+* Only one email sent when asking for admin attention to a request  [issue #789](https://github.com/mysociety/alaveteli/pull/864) (Matthew Landauer)
+* A number of XSS escaping fixes for Version 0.7 (Matthew Landauer)
+
+## Upgrade notes
+* Check out this version and run `rails-post-deploy` as usual.
+* Remove adminbootstrap from the THEME_URLS or THEME_URL config variable, and remove vendor/plugins/adminbootstraptheme, and the softlink public/adminbootstraptheme.
+* There is a new config variable FORCE_SSL, which defaults to true, meaning that Alaveteli will redirect all "http" requests to "https", set the Strict-Transport-Security header and flag all cookies as "secure". For more information about running your install over SSL/TLS, see the [install guide](https://github.com/mysociety/alaveteli/blob/develop/doc/INSTALL.md#set-up-production-web-server). If you don't want to run over SSL/TLS, add the config variable FORCE_SSL to your config/general.yml and set it to false.
+
 # Version 0.7
 ## Highlighted features
 * [Security] Upgrades the Rails version from 2.3.15 to 2.3.16 to get fix for a critical security flaw in Rails (CVE-2013-0333).
