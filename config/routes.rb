@@ -165,7 +165,7 @@ Alaveteli::Application.routes.draw do
     match '/admin/body' => 'admin_public_body#index', :as => :admin_body_index
     match '/admin/body/list' => 'admin_public_body#list', :as => :admin_body_list
     match '/admin/body/show/:id' => 'admin_public_body#show', :as => :admin_body_show
-    match '/admin/body/new/:id' => 'admin_public_body#new', :as => :admin_body_new
+    match '/admin/body/new' => 'admin_public_body#new', :as => :admin_body_new
     match '/admin/body/edit/:id' => 'admin_public_body#edit', :as => :admin_body_edit
     match '/admin/body/update/:id' => 'admin_public_body#update', :as => :admin_body_update
     match '/admin/body/create' => 'admin_public_body#create', :as => :admin_body_create
