@@ -36,11 +36,6 @@ describe "public_body/show" do
         controller.response.should be_success
     end
 
-    it "should be valid HTML" do
-        render
-        validate_as_body response.body 
-    end
-
     it "should show the body's name" do
         render
         response.should have_selector('h1', :content => "Test Quango")
