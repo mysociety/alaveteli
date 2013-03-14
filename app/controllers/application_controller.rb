@@ -449,11 +449,7 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    def param_exists(item)
-        return params[item] && !params[item].empty?
-    end
-
-    def get_request_variety_from_params
+    def get_request_variety_from_params(params)
         query = ""
         sortby = "newest"
         varieties = []
@@ -475,7 +471,7 @@ class ApplicationController < ActionController::Base
         return query
     end
 
-    def get_status_from_params
+    def get_status_from_params(params)
         query = ""
         if params[:latest_status]
             statuses = []
@@ -510,24 +506,24 @@ class ApplicationController < ActionController::Base
         return query
     end
 
-    def get_date_range_from_params
+    def get_date_range_from_params(params)
         query = ""
-        if param_exists(:request_date_after) && !param_exists(:request_date_before)
+        if params.has_key?(:request_date_after) && !params.has_key?(:request_date_before)
             params[:request_date_before] = Time.now.strftime("%d/%m/%Y")
             query += " #{params[:request_date_after]}..#{params[:request_date_before]}"
-        elsif !param_exists(:request_date_after) && param_exists(:request_date_before)
+        elsif !params.has_key?(:request_date_after) && params.has_key?(:request_date_before)
             params[:request_date_after] = "01/01/2001"
         end
-        if param_exists(:request_date_after)
+        if params.has_key?(:request_date_after)
             query = " #{params[:request_date_after]}..#{params[:request_date_before]}"
         end
         return query
     end
 
-    def get_tags_from_params
+    def get_tags_from_params(params)
         query = ""
         tags = []
-        if param_exists(:tags)
+        if params.has_key?(:tags)
             params[:tags].split().each do |tag|
                 tags << "tag:#{tag}"
             end
@@ -538,12 +534,12 @@ class ApplicationController < ActionController::Base
         return query
     end
 
-    def make_query_from_params
+    def make_query_from_params(params)
         query = params[:query] || "" if query.nil?
-        query += get_date_range_from_params
-        query += get_request_variety_from_params
-        query += get_status_from_params
-        query += get_tags_from_params
+        query += get_date_range_from_params(params)
+        query += get_request_variety_from_params(params)
+        query += get_status_from_params(params)
+        query += get_tags_from_params(params)
         return query
     end
 

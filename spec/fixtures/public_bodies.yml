@@ -72,3 +72,18 @@ sensible_walks_public_body:
   created_at: 2008-10-25 10:51:01.161639
   api_key: 5
   info_requests_count: 1
+other_public_body:
+  id: 7
+  version: 1
+  name: 'Another Public Body'
+  first_letter: A
+  request_email: other@localhost
+  short_name: Another Public Body
+  url_name: another_public_body
+  notes: More notes
+  updated_at: 2008-10-25 10:51:01.161639
+  last_edit_comment: Another edit
+  last_edit_editor: louise
+  created_at: 2008-10-25 10:51:01.161639
+  api_key: 6
+  info_requests_count: 0

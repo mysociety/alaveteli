@@ -246,6 +246,7 @@ DEPENDENCIES
   json (~> 1.5.1)
   locale (>= 2.0.5)
   mahoro
+  mail
   mailcatcher
   memcache-client
   net-http-local

@@ -2,26 +2,65 @@
 
 <!--[form:admin_user]-->
 
-<p><label for="admin_user_name">Name</label> (will change URL name and break URLs; unlike authorities, there is no history; you will need to rebuild the search index afterwards)<br/>
-<%= text_field 'admin_user', 'name', :size => 60  %></p>
+<div class="control-group">
+  <label for="admin_user_name" class="control-label">Name</label>
+  <div class="controls">
+    <%= text_field 'admin_user', 'name', :class => "span3" %>
+    <div class="help-block">
+     will change URL name and break URLs; unlike authorities, there is no history; you will need to rebuild the search index afterwards
+    </div>
+  </div>
+</div>
 
-<p><label for="admin_user_email">Email</label> (<strong>you must</strong> first validate this)<br/>
-<%= text_field 'admin_user', 'email', :size => 60  %></p>
+<div class="control-group">
+  <label for="admin_user_email" class="control-label">Email</label>
+  <div class="controls">
+    <%= text_field 'admin_user', 'email', :class => "span3"  %>
+    <div class="help-block">
+      <strong>you must</strong> first validate this
+    </div>
+  </div>
+</div>
 
-<p><label for="admin_user_admin_level">Admin level</label> (<strong>none</strong> or <strong>super</strong>; this is for admin features and links which are in the site proper)<br/>
-<%= text_field 'admin_user', 'admin_level', :size => 60  %></p>
+<div class="control-group">
+  <label for="admin_level" class="control-label">Admin level</label>
+  <div class="controls">
+    <%= text_field 'admin_user', 'admin_level', :class => "span3" %>
+    <div class="help-block">
+      <strong>none</strong> or <strong>super</strong>; this is for admin features and links which are in the site proper
+    </div>
+  </div>
+</div>
 
-<p><label for="admin_user_ban_text">Ban text</label> <small>(if not blank will stop the
-    user from filing new requests, making annotations or messaging other users;
-    the text is shown in public on the user's page and when they try to do a
-    forbidden action; write in the second person (you); see
-    <%= link_to 'banned users', '../banned' %> for examples</small>)<br/>
+<div class="control-group">
+  <label for="ban_text" class="control-label">Ban text</label>
+  <div class="controls">
+    <%= text_area 'admin_user', 'ban_text', :class => "span6", :rows => 3  %>
+    <div class="help-block">
+      if not blank will stop the
+      user from filing new requests, making annotations or messaging other users;
+      the text is shown in public on the user's page and when they try to do a
+      forbidden action; write in the second person (you); see
+      <%= link_to 'banned users', admin_user_list_banned_path %> for examples</small>
+    </div>
+  </div>
+</div>
 
-<%= text_area 'admin_user', 'ban_text', :cols => 60, :rows => 3  %></p>
-
-<p><label for="admin_user_about_me">About me</label> (user's own text on their profile, format like comments):<br/>
-<%= text_area 'admin_user', 'about_me', :cols => 60, :rows => 3  %></p>
-
-<p><%= check_box 'admin_user', 'no_limit' %>
-<label for="admin_user_no_limit">No rate limit</label> (disable the limit on daily requests)</p>
-
+<div class="control-group">
+  <label for="about_me" class="control-label">About me</label>
+  <div class="controls">
+    <%= text_area 'admin_user', 'about_me', :class => "span6", :rows => 3  %>
+    <div class="help-block">
+      user's own text on their profile, format like comments
+    </div>
+  </div>
+</div>
+<div class="control-group">
+  <label for="admin_user_no_limit" class="control-label">No rate limit</label>
+  <div class="controls">
+    <%= check_box 'admin_user', 'no_limit' %>
+    <div class="help-block">
+      disable the limit on daily requests
+    </div>
+  </div>
+</div>

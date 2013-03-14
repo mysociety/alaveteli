@@ -9,7 +9,7 @@ class TrackMailer < ApplicationMailer
         @user, @email_about_things = user, email_about_things
 
         post_redirect = PostRedirect.new(
-            :uri => main_url(user_url(user)) + "#email_subscriptions",
+            :uri => user_url(user) + "#email_subscriptions",
             :user_id => user.id)
         post_redirect.save!
         @unsubscribe_url = confirm_url(:email_token => post_redirect.email_token)

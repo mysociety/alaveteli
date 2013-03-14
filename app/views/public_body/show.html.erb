@@ -26,23 +26,23 @@
                 <% end %>
             <% end %>
         <% end %>
-        <%= link_to _('View FOI email address'), view_public_body_email_url(@public_body.url_name) %><br>
-    </div> 
+        <%= link_to _('View FOI email address'), view_public_body_email_path(@public_body.url_name) %><br>
+    </div>
 
     <div id="header_left">
         <p class="public-body-name-prefix"><%= _("Freedom of information requests to") %></p>
         <h1><%=h(@public_body.name)%></h1>
 
         <p class="subtitle">
-        <%=@public_body.type_of_authority(true)%><% if not @public_body.short_name.empty? %>, 
+        <%=@public_body.type_of_authority(true)%><% if not @public_body.short_name.empty? %>,
         <%= _('also called {{public_body_short_name}}', :public_body_short_name =>  h(@public_body.short_name))%><% end %>
         <% if !@user.nil? && @user.admin_page_links? %>
-        (<%= link_to _("admin"), public_body_admin_url(@public_body) %>)
+        (<%= link_to _("admin"), admin_body_show_path(@public_body) %>)
         <% end %>
         </p>
 
         <% if @public_body.has_notes? && (@public_body.is_requestable? || @public_body.not_requestable_reason == 'bad_contact') %>
-            <p><%= @public_body.notes_as_html %></p>
+            <p><%= @public_body.notes_as_html.html_safe %></p>
         <% end %>
 
         <% if @public_body.eir_only? %>
@@ -58,7 +58,7 @@
                 <% end %>
                 &nbsp;<%= _('<a class="link_button_green" href="{{url}}">{{text}}</a>', :url=>new_request_to_body_url(:url_name => @public_body.url_name), :text=>_("Start"))%>
             <% elsif @public_body.has_notes? %>
-                <%= @public_body.notes_as_html %>
+                <%= @public_body.notes_as_html.html_safe %>
             <% elsif @public_body.not_requestable_reason == 'not_apply' %>
                 <%= _('Freedom of Information law does not apply to this authority, so you cannot make
                 a request to it.')%>
@@ -99,7 +99,7 @@
                 <%= @page_desc %>
             </h2>
             <a name="results"></a>
-    
+
             <% if  @public_body.info_requests.size > 4 %>
                 <%= render :partial => 'request/request_filter_form' %>
             <% end %>
@@ -120,7 +120,7 @@
                   <p> <%= _('Only requests made using {{site_name}} are shown.', :site_name => site_name) %></p>
             <% end %>
 
-        <% else %> 
+        <% else %>
             <% if @public_body.eir_only? %>
                 <h2><%= _('Environmental Information Regulations requests made') %></h2>
             <% else %>

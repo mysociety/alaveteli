@@ -88,3 +88,16 @@ sensible_walks_en_public_body_translation:
   notes: I bet you’ve never heard of it.
   publication_scheme: ""
   disclosure_log: ""
+
+other_public_body_translation:
+  id: 8
+  public_body_id: 7
+  locale: en
+  name: "Another Public Body"
+  first_letter: A
+  request_email: other@localhost
+  short_name: Another Public Body
+  url_name: another_public_body
+  notes: More notes
+  publication_scheme: ""
+  disclosure_log: ""

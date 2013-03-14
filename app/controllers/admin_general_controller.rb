@@ -5,6 +5,8 @@
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminGeneralController < AdminController
+    skip_before_filter :authenticate, :only => :admin_js
+
     def index
         # ensure we have a trailing slash
         current_uri = request.env['REQUEST_URI']
@@ -115,6 +117,17 @@ class AdminGeneralController < AdminController
     end
 
     def stats
+        # Overview counts of things
+        @public_body_count = PublicBody.count
+
+        @info_request_count = InfoRequest.count
+        @outgoing_message_count = OutgoingMessage.count
+        @incoming_message_count = IncomingMessage.count
+
+        @user_count = User.count
+        @track_thing_count = TrackThing.count
+
+        @comment_count = Comment.count
         @request_by_state = InfoRequest.count(:group => 'described_state')
         @tracks_by_type = TrackThing.count(:group => 'track_type')
     end
@@ -127,6 +140,11 @@ class AdminGeneralController < AdminController
         repo = `git remote show origin -n | perl -ne 'print $1 if m{Fetch URL: .*github\\.com[:/](.*)\\.git}'`
         @github_origin = "https://github.com/#{repo}/tree/"
         @request_env = request.env
+    end
+
+    # TODO: Remove this when support for proxy admin interface is removed
+    def admin_js
+      render :layout => false, :content_type => "application/javascript"
     end
 end
 

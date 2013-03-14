@@ -370,6 +370,34 @@ Under all but light loads, it is strongly recommended to run the
 server behind an http accelerator like Varnish.  A sample varnish VCL
 is supplied in `../conf/varnish-alaveteli.vcl`.
 
+It's strongly recommended that you run the site over SSL. (Set FORCE_SSL to true in
+config/general.yml). For this you will need an SSL certificate for your domain and you will
+need to configure an SSL terminator to sit in front of Varnish. If you're already using Apache
+as a web server you could simply use Apache as the SSL terminator. A minimal configuration
+would look something like this:
+
+<VirtualHost *:443>
+    ServerName www.yourdomain
+
+    ProxyRequests       Off
+    ProxyPreserveHost On
+    ProxyPass           /       http://localhost:80/
+    ProxyPassReverse    /       http://localhost:80/
+    RequestHeader set X-Forwarded-Proto 'https'
+
+    SSLEngine on
+    SSLProtocol all -SSLv2
+    SSLCipherSuite ALL:!ADH:!EXPORT:!SSLv2:RC4+RSA:+HIGH:+MEDIUM
+
+    SSLCertificateFile /etc/apache2/ssl/ssl.crt
+    SSLCertificateKeyFile /etc/apache2/ssl/ssl.key
+    SSLCertificateChainFile /etc/apache2/ssl/sub.class2.server.ca.pem
+    SSLCACertificateFile /etc/apache2/ssl/ca.pem
+    SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
+</VirtualHost>
+
+Notice the line "RequestHeader" that sets the X_FORWARDED_PROTO header. This is important. This ultimately tells Rails that it's serving a page over https and so it knows to include that in any absolute urls it serves.
+
 Some
 [production server best practice notes](https://github.com/mysociety/alaveteli/wiki/Production-Server-Best-Practices)
 are evolving on the wiki.

@@ -77,17 +77,18 @@ class InfoRequestEvent < ActiveRecord::Base
     end
 
     def user_can_view?(user)
-        if !self.info_request.user_can_view?(user)
+        unless info_request.user_can_view?(user)
             raise "internal error, called user_can_view? on event when there is not permission to view entire request"
         end
 
-        if self.prominence == 'hidden'
-            return User.view_hidden_requests?(user)
+        case prominence
+        when 'hidden'
+            User.view_hidden_requests?(user)
+        when 'requester_only'
+            info_request.is_owning_user?(user)
+        else
+            true
         end
-        if self.prominence == 'requester_only'
-            return self.info_request.is_owning_user?(user)
-        end
-        return true
     end
 
 
@@ -363,16 +364,19 @@ class InfoRequestEvent < ActiveRecord::Base
     end
 
     def is_sent_sort?
-        if [ 'sent', 'resent'].include?(self.event_type)
-            return true
-        end
-        return false
+        ['sent', 'resent'].include?(event_type)
     end
+
     def is_followup_sort?
-        if [ 'followup_sent', 'followup_resent'].include?(self.event_type)
-            return true
-        end
-        return false
+        ['followup_sent', 'followup_resent'].include?(event_type)
+    end
+
+    def outgoing?
+        ['sent', 'followup_sent'].include?(event_type)
+    end
+
+    def response?
+        event_type == 'response'
     end
 
     def same_email_as_previous_send?

@@ -71,15 +71,6 @@ CONTACT_NAME: 'Alaveteli Webmaster'
 # this up!
 RAW_EMAILS_LOCATION: 'files/raw_emails'
 
-# The base URL for admin pages.  You probably don't want to change this.
-ADMIN_BASE_URL: ''
-
-# Where /stylesheets sits under for admin pages. See asset_host in
-# config/environment.rb. Can be full domain or relative path (not an
-# absolute path beginning with /).  Again, unlikely to want to change
-# this.
-ADMIN_PUBLIC_URL: ''
-
 # Secret key for signing cookie_store sessions
 COOKIE_STORE_SESSION_SECRET: 'your secret key here, make it long and random'
 

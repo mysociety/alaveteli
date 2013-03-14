@@ -26,4 +26,9 @@ Alaveteli::Application.configure do
       :sender_address => AlaveteliConfiguration::exception_notifications_from,
       :exception_recipients => AlaveteliConfiguration::exception_notifications_to
   end
+
+  require 'rack/ssl'
+  if AlaveteliConfiguration::force_ssl
+    config.middleware.insert_before ActionDispatch::Cookies, ::Rack::SSL
+  end
 end

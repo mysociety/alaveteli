@@ -14,8 +14,9 @@ gem 'fast_gettext', '>= 0.6.0'
 gem 'fastercsv', '>=1.5.5'
 gem 'gettext_i18n_rails', '>= 0.7.1'
 gem 'gettext', '~> 2.3.3'
-gem 'json', '~> 1.5.1'
+gem 'json'
 gem 'mahoro'
+gem 'mail', :platforms => :ruby_19
 gem 'memcache-client', :require => 'memcache'
 gem 'locale', '>= 2.0.5'
 gem 'net-http-local'
@@ -47,6 +48,7 @@ gem 'exception_notification'
 group :test do
   gem 'fakeweb'
   gem 'test-unit', '~> 1.2.3', :platforms => :ruby_19
+  gem 'coveralls', :require => false
   gem 'webrat'
 end
 

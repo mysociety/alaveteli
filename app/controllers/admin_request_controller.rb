@@ -56,7 +56,7 @@ class AdminRequestController < AdminController
         @outgoing_message = OutgoingMessage.find(params[:outgoing_message_id])
         @outgoing_message.resend_message
         flash[:notice] = "Outgoing message resent"
-        redirect_to request_admin_url(@outgoing_message.info_request)
+        redirect_to admin_request_show_url(@outgoing_message.info_request)
     end
 
     def edit
@@ -102,7 +102,7 @@ class AdminRequestController < AdminController
             # expire cached files
             expire_for_request(@info_request)
             flash[:notice] = 'Request successfully updated.'
-            redirect_to request_admin_url(@info_request)
+            redirect_to admin_request_show_url(@info_request)
         else
             render :action => 'edit'
         end
@@ -118,7 +118,7 @@ class AdminRequestController < AdminController
         # expire cached files
         expire_for_request(@info_request)
         flash[:notice] = "Request #{url_title} has been completely destroyed. Email of user who made request: " + user.email
-        redirect_to admin_url('request/list')
+        redirect_to admin_request_list_url
     end
 
     def edit_outgoing
@@ -135,7 +135,7 @@ class AdminRequestController < AdminController
             { :editor => admin_current_user(), :deleted_outgoing_message_id => outgoing_message_id })
 
         flash[:notice] = 'Outgoing message successfully destroyed.'
-        redirect_to request_admin_url(@info_request)
+        redirect_to admin_request_show_url(@info_request)
     end
 
     def update_outgoing
@@ -148,7 +148,7 @@ class AdminRequestController < AdminController
                 { :outgoing_message_id => @outgoing_message.id, :editor => admin_current_user(),
                     :old_body => old_body, :body => @outgoing_message.body })
             flash[:notice] = 'Outgoing message successfully updated.'
-            redirect_to request_admin_url(@outgoing_message.info_request)
+            redirect_to admin_request_show_url(@outgoing_message.info_request)
         else
             render :action => 'edit_outgoing'
         end
@@ -172,7 +172,7 @@ class AdminRequestController < AdminController
                     :old_visible => old_visible, :visible => @comment.visible,
                 })
             flash[:notice] = 'Comment successfully updated.'
-            redirect_to request_admin_url(@comment.info_request)
+            redirect_to admin_request_show_url(@comment.info_request)
         else
             render :action => 'edit_comment'
         end
@@ -190,7 +190,7 @@ class AdminRequestController < AdminController
         # expire cached files
         expire_for_request(@info_request)
         flash[:notice] = 'Incoming message successfully destroyed.'
-        redirect_to request_admin_url(@info_request)
+        redirect_to admin_request_show_url(@info_request)
     end
 
     def redeliver_incoming
@@ -207,7 +207,7 @@ class AdminRequestController < AdminController
                 end
                 if destination_request.nil?
                     flash[:error] = "Failed to find destination request '" + m + "'"
-                    return redirect_to request_admin_url(previous_request)
+                    return redirect_to admin_request_show_url(previous_request)
                 end
 
                 raw_email_data = incoming_message.raw_email.data
@@ -227,7 +227,7 @@ class AdminRequestController < AdminController
             expire_for_request(previous_request)
             incoming_message.fully_destroy
         end
-        redirect_to request_admin_url(destination_request)
+        redirect_to admin_request_show_url(destination_request)
     end
 
     # change user or public body of a request magically
@@ -250,7 +250,7 @@ class AdminRequestController < AdminController
                 info_request.reindex_request_events
                 flash[:notice] = "Message has been moved to new user"
             end
-            redirect_to request_admin_url(info_request)
+            redirect_to admin_request_show_url(info_request)
         elsif params[:commit] == 'Move request to authority' && !params[:public_body_url_name].blank?
             old_public_body = info_request.public_body
             destination_public_body = PublicBody.find_by_url_name(params[:public_body_url_name])
@@ -269,10 +269,10 @@ class AdminRequestController < AdminController
                 flash[:notice] = "Request has been moved to new body"
             end
 
-            redirect_to request_admin_url(info_request)
+            redirect_to admin_request_show_url(info_request)
         else
             flash[:error] = "Please enter the user or authority to move the request to"
-            redirect_to request_admin_url(info_request)
+            redirect_to admin_request_show_url(info_request)
         end
     end
 
@@ -296,20 +296,20 @@ class AdminRequestController < AdminController
 
         if !info_request.public_body.is_foi_officer?(user)
             flash[:notice] = user.email + " is not an email at the domain @" + info_request.public_body.foi_officer_domain_required + ", so won't be able to upload."
-            redirect_to request_admin_url(info_request)
+            redirect_to admin_request_show_url(info_request)
             return
         end
 
         # Bejeeps, look, sometimes a URL is something that belongs in a controller, jesus.
-        # XXX hammer this square peg into the round MVC hole - should be calling main_url(upload_response_url())
+        # XXX hammer this square peg into the round MVC hole
         post_redirect = PostRedirect.new(
-            :uri => main_url(upload_response_url(:url_title => info_request.url_title, :only_path => true)),
+            :uri => upload_response_url(:url_title => info_request.url_title),
             :user_id => user.id)
         post_redirect.save!
-        url = main_url(confirm_url(:email_token => post_redirect.email_token, :only_path => true))
+        url = confirm_url(:email_token => post_redirect.email_token)
 
-        flash[:notice] = 'Send "' + name + '" &lt;<a href="mailto:' + email + '">' + email + '</a>&gt; this URL: <a href="' + url + '">' + url + "</a> - it will log them in and let them upload a response to this request.".html_safe
-        redirect_to request_admin_url(info_request)
+        flash[:notice] = ("Send \"#{name}\" &lt;<a href=\"mailto:#{email}\">#{email}</a>&gt; this URL: <a href=\"#{url}\">#{url}</a> - it will log them in and let them upload a response to this request.").html_safe
+        redirect_to admin_request_show_url(info_request)
     end
 
     def show_raw_email
@@ -359,7 +359,7 @@ class AdminRequestController < AdminController
         info_request_event.save!
 
         flash[:notice] = "Old response marked as having been a clarification"
-        redirect_to request_admin_url(info_request_event.info_request)
+        redirect_to admin_request_show_url(info_request_event.info_request)
     end
 
     def hide_request
@@ -383,7 +383,7 @@ class AdminRequestController < AdminController
                 ContactMailer.from_admin_message(
                         info_request.user,
                         subject,
-                        params[:explanation]
+                        params[:explanation].strip.html_safe
                     ).deliver
                 flash[:notice] = _("Your message to {{recipient_user_name}} has been sent",:recipient_user_name=>CGI.escapeHTML(info_request.user.name))
             else
@@ -391,7 +391,7 @@ class AdminRequestController < AdminController
             end
             # expire cached files
             expire_for_request(info_request)
-            redirect_to request_admin_url(info_request)
+            redirect_to admin_request_show_url(info_request)
         end
     end
 

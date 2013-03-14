@@ -1,6 +1,6 @@
 
 <% if censor_rules.size > 0 %>
-  <table>
+  <table class="table table-condensed">
     <tr>
       <th>Id</th>
       <% for column in CensorRule.content_columns %>
@@ -16,7 +16,7 @@
         <td><%=h censor_rule.send(column) %></td>
       <% end %>
       <td>
-        <%= link_to "Edit", '../../censor/edit/' + censor_rule.id.to_s %>
+        <%= link_to "Edit", admin_rule_edit_path(censor_rule) %>
       </td>
     </tr>
   <% end %>
@@ -26,14 +26,10 @@
 <% end %>
 
 <% if defined? info_request %>
-    <p>
-        <%= link_to "New censor rule", '../../censor/new?info_request_id=' + info_request.id.to_s %> (for this request only)
-    </p>
+  <%= link_to "New censor rule (for this request only)", admin_rule_new_path(:info_request_id => info_request.id), :class => "btn btn-info" %> 
 <% end %>
 
 <% if defined? user %>
-    <p>
-        <%= link_to "New censor rule", '../../censor/new?user_id=' + user.id.to_s %> (for all requests by this user)
-    </p>
+  <%= link_to "New censor rule", admin_rule_new_path(:user_id => user.id), :class => "btn btn-info" %> <span class="label label-info">for all requests by this user</span>
 <% end %>
 

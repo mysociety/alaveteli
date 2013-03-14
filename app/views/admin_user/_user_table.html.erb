@@ -1,22 +1,47 @@
-<table>
-  <tr>
-    <th>Id</th>
-  <% for column in ['Name', 'Email', 'Created at', 'Updated at', 'Email confirmed', 'Admin'] + (banned_column ? ['Ban text'] : []) %>
-    <th><%= column %></th>
+<div class="accordion" id="users">
+  <% for user in users %>
+    <div class="accordion-group">
+      <div class="accordion-heading accordion-toggle">
+       <span class="item-title">
+        <a href="#user_<%=user.id%>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
+      <% if user.admin_level == "super" %>
+          <span class="label">superuser</span>
+      <% end %>
+        <%= link_to("#{h(user.name)}", admin_user_show_path(user))%>
+        <%= link_to("(#{h(user.email)})", "mailto:#{h(user.email)}")%>
+       </span>
+       <span class="item-metadata">
+   updated <%=I18n.l(user.updated_at, :format => "%e %B %Y %H:%M:%S")%>
+       </span>
+      </div>
+      <div id="user_<%=user.id%>" class="accordion-body collapse">
+        <table class="table table-striped table-condensed">
+          <tbody>
+            <% if banned_column %>
+              <tr>
+                <td><b>Ban text</b></td>
+                <td><%= h user.ban_text %></td>
+              </tr>
+            <% end %>
+            <% user.for_admin_column do |name, value, type|%>
+              <tr>
+                <td><b><%=h name%></b></td>
+                <td>
+                  <% if type == 'datetime' %>
+                    <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
+                    (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
+                  <% else %>
+                    <%= h value %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   <% end %>
-  </tr>
-  
-<% for user in users %>
-  <tr class="<%= cycle('odd', 'even') %>">
-    <td><%= user.id.to_s %></td>
-    <td><%= user_both_links(user) %></td>
-    <td><a href="mailto:<%=h user.email %>"><%=h user.email%></a></td>
-  <% for column in ['created_at', 'updated_at', 'email_confirmed', 'admin_level'] + (banned_column ? ['ban_text'] : []) %>
-    <td><%=h user.send(column) %></td>
-  <% end %>
-  </tr>
-<% end %>
-</table>
+</div>
 
-<%= will_paginate(users) %>
+<%= will_paginate(users, :class => "paginator") %>
 

@@ -56,14 +56,10 @@ class RequestMailer < ApplicationMailer
 
     # An FOI response is outside the scope of the system, and needs admin attention
     def requires_admin(info_request, set_by = nil)
-        if !set_by.nil?
-            user = set_by
-        else
-            user = info_request.user
-        end
+        user = set_by || info_request.user
         @reported_by = user
-        @url = main_url(request_url(info_request))
-        @admin_url = request_admin_url(info_request)
+        @url = request_url(info_request)
+        @admin_url = admin_request_show_url(info_request)
         @info_request = info_request
 
         mail(:from => user.name_and_email,
@@ -75,7 +71,7 @@ class RequestMailer < ApplicationMailer
     def new_response(info_request, incoming_message)
         # Don't use login link here, just send actual URL. This is
         # because people tend to forward these emails amongst themselves.
-        @url = main_url(incoming_message_url(incoming_message))
+        @url = incoming_message_url(incoming_message)
         @incoming_message, @info_request = incoming_message, info_request
 
         headers('Return-Path' => blackhole_email,
@@ -92,10 +88,13 @@ class RequestMailer < ApplicationMailer
 
     # Tell the requester that the public body is late in replying
     def overdue_alert(info_request, user)
+        respond_url = respond_to_last_url(info_request) + "#followup"
+
         post_redirect = PostRedirect.new(
             :uri => respond_to_last_url(info_request) + "#followup",
             :user_id => user.id)
         post_redirect.save!
+        url = confirm_url(:email_token => post_redirect.email_token)
 
         @url = confirm_url(:email_token => post_redirect.email_token)
         @info_request = info_request
@@ -106,11 +105,13 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => user.name_and_email,
-             :subject => _("Delayed response to your FOI request - ") + info_request.title)
+             :subject => _("Delayed response to your FOI request - ") + info_request.title).html_safe
     end
 
     # Tell the requester that the public body is very late in replying
     def very_overdue_alert(info_request, user)
+        respond_url = respond_to_last_url(info_request) + "#followup"
+
         post_redirect = PostRedirect.new(
             :uri => respond_to_last_url(info_request) + "#followup",
             :user_id => user.id)
@@ -124,7 +125,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => user.name_and_email,
-             :subject => _("You're long overdue a response to your FOI request - ") + info_request.title)
+             :subject => _("You're long overdue a response to your FOI request - ") + info_request.title).html_safe
     end
 
     # Tell the requester that they need to say if the new response
@@ -133,7 +134,7 @@ class RequestMailer < ApplicationMailer
         # Make a link going to the form to describe state, and which logs the
         # user in.
         post_redirect = PostRedirect.new(
-            :uri => main_url(request_url(info_request)) + "#describe_state_form_1",
+            :uri => request_url(info_request) + "#describe_state_form_1",
             :user_id => info_request.user.id)
         post_redirect.save!
         @url = confirm_url(:email_token => post_redirect.email_token)
@@ -151,7 +152,7 @@ class RequestMailer < ApplicationMailer
 
     # Tell the requester that someone updated their old unclassified request
     def old_unclassified_updated(info_request)
-        @url = main_url(request_url(info_request))
+        @url = request_url(info_request)
         @info_request = info_request
 
         headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
@@ -188,7 +189,7 @@ class RequestMailer < ApplicationMailer
     # Tell requester that somebody add an annotation to their request
     def comment_on_alert(info_request, comment)
         @comment, @info_request = comment, info_request
-        @url = main_url(comment_url(comment))
+        @url = comment_url(comment)
 
         headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
@@ -196,7 +197,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
-             :subject => _("Somebody added a note to your FOI request - ") + info_request.title)
+             :subject => _("Somebody added a note to your FOI request - ") + info_request.title).html_safe
     end
     def comment_on_alert_plural(info_request, count, earliest_unalerted_comment)
         @count, @info_request = count, info_request
@@ -208,7 +209,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
-             :subject => _("Some notes have been added to your FOI request - ") + info_request.title)
+             :subject => _("Some notes have been added to your FOI request - ") + info_request.title).html_safe
     end
 
     # Class function, called by script/mailin with all incoming responses.

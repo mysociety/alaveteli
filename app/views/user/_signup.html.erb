@@ -16,7 +16,7 @@
 
     <p>
         <label class="form_label" for="user_signup_name"> <%= _('Your name:')%></label>
-        <%= text_field 'user_signup', 'name', { :size => 20, :tabindex => 70 } %>
+        <%= text_field 'user_signup', 'name', { :size => 20, :tabindex => 70, :autocomplete => "off" } %>
     </p>
     <div class="form_item_note">
          <%= raw(_('Your <strong>name will appear publicly</strong> 
@@ -28,12 +28,12 @@
 
     <p>
         <label class="form_label" for="user_signup_password"> <%= _('Password:')%></label>
-        <%= password_field 'user_signup', 'password', { :size => 15, :tabindex => 80 } %>
+        <%= password_field 'user_signup', 'password', { :size => 15, :tabindex => 80, :autocomplete => "off" } %>
     </p>
 
     <p>
         <label class="form_label" for="user_signup_password_confirmation"> <%= _('Password: (again)')%></label>
-        <%= password_field 'user_signup', 'password_confirmation', { :size => 15, :tabindex => 90 } %>
+        <%= password_field 'user_signup', 'password_confirmation', { :size => 15, :tabindex => 90, :autocomplete => "off" } %>
     </p>
 
     <% if @request_from_foreign_country %>
