@@ -52,8 +52,8 @@ group :test do
   gem 'test-unit', '~> 1.2.3', :platforms => :ruby_19
   gem 'coveralls', :require => false
   # Using webrat because the preferred (capybara) doesn't work out of the box with rspec 1
-  gem 'webrat'
-  gem 'launchy', '~> 0.4'
+  gem 'webrat', :git => 'https://github.com/brynary/webrat'
+  gem 'launchy'
 end
 
 group :development do
