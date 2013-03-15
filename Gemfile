@@ -5,7 +5,7 @@ if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.s
         DL::dlopen('/lib/libuuid.so.1')
     end
 end
-source :rubygems
+source 'https://rubygems.org'
 
 # A fork of rails that is kept up to date with security patches
 git "git://github.com/mysociety/rails.git", :tag => "v2.3.17.1" do

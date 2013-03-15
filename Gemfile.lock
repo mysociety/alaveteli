@@ -32,7 +32,7 @@ GIT
       rack-test (>= 0.5.3)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     addressable (2.3.3)
     annotate (2.5.0)
