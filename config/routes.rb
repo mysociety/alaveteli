@@ -155,9 +155,9 @@ Alaveteli::Application.routes.draw do
     ####
 
     #### RequestGame controller
-    match '/categorise/play' => 'request_game#play', :as => :play
-    match '/categorise/request/:url_title' => 'request_game#show', :as => :request
-    match '/categorise/stop' => 'request_game#stop', :as => :stop
+    match '/categorise/play' => 'request_game#play', :as => :categorise_play
+    match '/categorise/request/:url_title' => 'request_game#show', :as => :categorise_request
+    match '/categorise/stop' => 'request_game#stop', :as => :categorise_stop
     ####
 
     #### AdminPublicBody controller
