@@ -337,12 +337,12 @@ describe RequestController, "when showing one request" do
 
                 it 'should not show the describe state form' do
                     make_request
-                    response.should_not have_tag('div.describe_state_form')
+                    response.should_not have_selector('div.describe_state_form')
                 end
 
                 it 'should not ask the user to use the describe state form' do
                     make_request
-                    response.should_not have_tag('p#request_status', :text => /answer the question above/)
+                    response.should_not have_selector('p#request_status', :content => "answer the question above")
                 end
 
             end
