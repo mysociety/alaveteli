@@ -5,7 +5,7 @@ if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.s
         DL::dlopen('/lib/libuuid.so.1')
     end
 end
-source :rubygems
+source 'https://rubygems.org'
 
 # A fork of rails that is kept up to date with security patches
 git "git://github.com/mysociety/rails.git", :tag => "v2.3.17.1" do
@@ -52,7 +52,7 @@ group :test do
   gem 'test-unit', '~> 1.2.3', :platforms => :ruby_19
   gem 'coveralls', :require => false
   # Using webrat because the preferred (capybara) doesn't work out of the box with rspec 1
-  gem 'webrat'
+  gem 'webrat', :git => 'https://github.com/brynary/webrat', :ref => 'bea5b313783eaaf17e38a05a4eaa8c45c1eedd2a'
   gem 'launchy'
 end
 

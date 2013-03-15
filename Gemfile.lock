@@ -21,8 +21,18 @@ GIT
       activesupport (= 2.3.17)
       rake (>= 0.8.3)
 
+GIT
+  remote: https://github.com/brynary/webrat
+  revision: bea5b313783eaaf17e38a05a4eaa8c45c1eedd2a
+  ref: bea5b313783eaaf17e38a05a4eaa8c45c1eedd2a
+  specs:
+    webrat (0.7.3)
+      nokogiri (>= 1.2.0)
+      rack (>= 1.0)
+      rack-test (>= 0.5.3)
+
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     addressable (2.3.3)
     annotate (2.5.0)
@@ -172,10 +182,6 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     vpim (0.695)
-    webrat (0.7.3)
-      nokogiri (>= 1.2.0)
-      rack (>= 1.0)
-      rack-test (>= 0.5.3)
     will_paginate (2.3.16)
     xapian-full-alaveteli (1.2.9.5)
     xml-simple (1.1.2)
@@ -222,7 +228,7 @@ DEPENDENCIES
   syslog_protocol
   test-unit (~> 1.2.3)
   vpim
-  webrat
+  webrat!
   will_paginate (~> 2.3.11)
   xapian-full-alaveteli (~> 1.2.9.5)
   xml-simple
