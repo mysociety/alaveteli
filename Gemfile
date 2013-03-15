@@ -52,7 +52,7 @@ group :test do
   gem 'test-unit', '~> 1.2.3', :platforms => :ruby_19
   gem 'coveralls', :require => false
   # Using webrat because the preferred (capybara) doesn't work out of the box with rspec 1
-  gem 'webrat', :git => 'https://github.com/brynary/webrat'
+  gem 'webrat', :git => 'https://github.com/brynary/webrat', :ref => 'bea5b313783eaaf17e38a05a4eaa8c45c1eedd2a'
   gem 'launchy'
 end
 

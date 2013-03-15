@@ -23,9 +23,10 @@ GIT
 
 GIT
   remote: https://github.com/brynary/webrat
-  revision: e0d924ac8a4f015a5b509552928429d9e84f8105
+  revision: bea5b313783eaaf17e38a05a4eaa8c45c1eedd2a
+  ref: bea5b313783eaaf17e38a05a4eaa8c45c1eedd2a
   specs:
-    webrat (0.7.5)
+    webrat (0.7.3)
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
