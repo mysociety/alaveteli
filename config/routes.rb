@@ -212,7 +212,7 @@ Alaveteli::Application.routes.draw do
     match '/admin/user/banned' => 'admin_user#list_banned', :as => :admin_user_list_banned
     match '/admin/user/show/:id' => 'admin_user#show', :as => :admin_user_show
     match '/admin/user/edit/:id' => 'admin_user#edit', :as => :admin_user_edit
-    match '/admin/user/show_bounce_message/:id' => 'admin_user#show_bounce_message', :as => :admin_user_show
+    match '/admin/user/show_bounce_message/:id' => 'admin_user#show_bounce_message', :as => :admin_user_show_bounce
     match '/admin/user/update/:id' => 'admin_user#update', :as => :admin_user_update
     match '/admin/user/clear_bounce/:id' => 'admin_user#clear_bounce', :as => :admin_user_clear_bounce
     match '/admin/user/destroy_track' => 'admin_user#destroy_track', :as => :admin_user_destroy_track
