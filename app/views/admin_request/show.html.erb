@@ -306,7 +306,7 @@
                     <%= simple_format( truncate(value, :length => 400, :omission => link_to("...", "#", :class => "toggle-hidden"))) %>
                     <div style="display:none;"><%= simple_format(value) %></div>
                   <% else %>
-                    <%= simple_format(value) %>
+                    <%= simple_format(value.to_s) %>
                   <% end %>
                 </td>
               </tr>
