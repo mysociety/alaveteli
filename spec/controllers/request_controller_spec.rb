@@ -1367,7 +1367,7 @@ describe RequestController, "when classifying an information request" do
                     deliveries = ActionMailer::Base.deliveries
                     deliveries.size.should == 1
                     mail = deliveries[0]
-                    mail.from_addrs.first.to_s.should == users(:silly_name_user).name_and_email
+                    mail.from_addrs.first.to_s.should == users(:silly_name_user).email
                 end
             end
         end
