@@ -201,7 +201,7 @@ class RequestMailer < ApplicationMailer
     end
     def comment_on_alert_plural(info_request, count, earliest_unalerted_comment)
         @count, @info_request = count, info_request
-        @url = main_url(comment_url(earliest_unalerted_comment))
+        @url = comment_url(earliest_unalerted_comment)
 
         headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
