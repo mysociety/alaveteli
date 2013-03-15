@@ -437,7 +437,7 @@ class RequestController < ApplicationController
             return
         end
 
-        calculated_status = @info_request.calculate_status
+        calculated_status = info_request.calculate_status
         # Display advice for requester on what to do next, as appropriate
         flash[:notice] = case info_request.calculate_status
         when 'waiting_response'
