@@ -587,7 +587,7 @@ public
             RequestClassification.create!(:user_id => set_by.id,
                                           :info_request_event_id => event.id)
 
-            RequestMailer.deliver_old_unclassified_updated(self) if !is_external?
+            RequestMailer.old_unclassified_updated(self).deliver if !is_external?
         end
     end
 

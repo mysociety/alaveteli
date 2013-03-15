@@ -427,7 +427,6 @@ class RequestController < ApplicationController
         # admin user (not because you also own the request).
         if !info_request.is_actual_owning_user?(authenticated_user)
             # Don't give advice on what to do next, as it isn't their request
-            RequestMailer.deliver_old_unclassified_updated(@info_request) if !@info_request.is_external?
             if session[:request_game]
                 flash[:notice] = _('Thank you for updating the status of the request \'<a href="{{url}}">{{info_request_title}}</a>\'. There are some more requests below for you to classify.',:info_request_title=>CGI.escapeHTML(info_request.title), :url=>CGI.escapeHTML(request_path(info_request)))
                 redirect_to categorise_play_url
