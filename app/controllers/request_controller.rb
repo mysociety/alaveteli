@@ -446,7 +446,7 @@ class RequestController < ApplicationController
         when 'waiting_response_overdue'
             _("<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(info_request.date_response_required_by))
         when 'waiting_response_very_overdue'
-            _("<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>", :very_late_number_of_days => Configuration::reply_very_late_after_days, :late_number_of_days => Configuration::reply_late_after_days)
+            _("<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>", :very_late_number_of_days => AlaveteliConfiguration::reply_very_late_after_days, :late_number_of_days => AlaveteliConfiguration::reply_late_after_days)
         when 'not_held'
             _("<p>Thank you! Here are some ideas on what to do next:</p>
             <ul>
@@ -472,7 +472,7 @@ class RequestController < ApplicationController
         when 'gone_postal'
             nil
         when 'internal_review'
-            _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>",:late_number_of_days => Configuration.reply_late_after_days, :review_url => unhappy_url(info_request) + "#internal_review")
+            _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>",:late_number_of_days => AlaveteliConfiguration.reply_late_after_days, :review_url => unhappy_url(info_request) + "#internal_review")
         when 'error_message', 'requires_admin'
             _("Thank you! We'll look into what happened and try and fix it up.")
         when 'user_withdrawn'
