@@ -48,6 +48,7 @@ Alaveteli::Application.routes.draw do
     match '/similar/request/:url_title' => 'request#similar', :as => :similar_request
 
     match '/request/:id/describe' => 'request#describe_state', :as => :describe_state, :via => :post
+    match '/request/:url_title/describe/:described_state' => 'request#describe_state_message', :as => :describe_state_message
     match '/request/:id/response' => 'request#show_response', :as => :show_response_no_followup
     match '/request/:id/response/:incoming_message_id' => 'request#show_response', :as => :show_response
     match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'request#get_attachment_as_html', :as => :get_attachment_as_html
