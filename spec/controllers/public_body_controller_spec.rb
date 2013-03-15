@@ -64,7 +64,7 @@ describe PublicBodyController, "when showing a body" do
 
     it "should remember the filter (view) setting on redirecting" do
         get :show, :show_locale => "es", :url_name => "tgq", :view => 'successful'
-        response.should redirect_to show_public_body_successful_url(:url_name => "etgq")
+        response.should redirect_to 'http://test.host/es/body/etgq/successful'
     end
 
     it "should redirect to newest name if you use historic name of public body in URL" do
