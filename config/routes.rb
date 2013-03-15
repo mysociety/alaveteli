@@ -183,7 +183,6 @@ Alaveteli::Application.routes.draw do
     ####
 
     #### AdminRequest controller
-    match '/admin/unclassified' => 'admin_request#list_old_unclassified', :as => :admin_request_list_old_unclassified
     match '/admin/request' => 'admin_request#index', :as => :admin_request_index
     match '/admin/request/list' => 'admin_request#list', :as => :admin_request_list
     match '/admin/request/show/:id' => 'admin_request#show', :as => :admin_request_show
