@@ -107,7 +107,8 @@ describe PublicBodyController, "when listing bodies" do
 
         response.should render_template('list')
 
-        assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body),
+        assigns[:public_bodies].should == [ public_bodies(:other_public_body),
+            public_bodies(:humpadink_public_body),
             public_bodies(:forlorn_public_body),
             public_bodies(:geraldine_public_body),
             public_bodies(:sensible_walks_public_body),
@@ -149,14 +150,16 @@ describe PublicBodyController, "when listing bodies" do
 
         get :list, :tag => "other"
         response.should render_template('list')
-        assigns[:public_bodies].should == [ public_bodies(:forlorn_public_body),
+        assigns[:public_bodies].should == [ public_bodies(:other_public_body),
+            public_bodies(:forlorn_public_body),
             public_bodies(:geraldine_public_body),
             public_bodies(:sensible_walks_public_body),
             public_bodies(:silly_walks_public_body) ]
 
         get :list
         response.should render_template('list')
-        assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body),
+        assigns[:public_bodies].should == [ public_bodies(:other_public_body),
+            public_bodies(:humpadink_public_body),
             public_bodies(:forlorn_public_body),
             public_bodies(:geraldine_public_body),
             public_bodies(:sensible_walks_public_body),
