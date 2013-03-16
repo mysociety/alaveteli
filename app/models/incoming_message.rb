@@ -37,7 +37,7 @@ require 'rexml/document'
 require 'zip/zip'
 require 'mapi/msg'
 require 'mapi/convert'
-require 'iconv'
+require 'iconv' unless RUBY_VERSION >= '1.9'
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -258,11 +258,21 @@ class IncomingMessage < ActiveRecord::Base
         # equivalents to the UCS-2
         ascii_chars = text.gsub(/\0/, "")
         emails = ascii_chars.scan(MySociety::Validate.email_find_regexp)
+
         # Convert back to UCS-2, making a mask at the same time
-        emails.map! {|email| [
-                Iconv.conv('ucs-2le', 'ascii', email[0]),
-                Iconv.conv('ucs-2le', 'ascii', email[0].gsub(/[^@.]/, 'x'))
-        ] }
+        if RUBY_VERSION >= '1.9'
+            emails.map! do |email|
+                # We want the ASCII representation of UCS-2
+                [email[0].encode('UTF-16LE').force_encoding('US-ASCII'),
+                 email[0].gsub(/[^@.]/, 'x').encode('UTF-16LE').force_encoding('US-ASCII')]
+            end
+        else
+            emails.map! {|email| [
+                    Iconv.conv('ucs-2le', 'ascii', email[0]),
+                    Iconv.conv('ucs-2le', 'ascii', email[0].gsub(/[^@.]/, 'x'))
+            ] }
+        end
+
         # Now search and replace the UCS-2 email with the UCS-2 mask
         for email, mask in emails
             text.gsub!(email, mask)
@@ -748,9 +758,15 @@ class IncomingMessage < ActiveRecord::Base
                                                              attachment.body,
                                                              attachment.charset)
         end
+
         # Remove any bad characters
-        text = Iconv.conv('utf-8//IGNORE', 'utf-8', text)
-        return text
+        if RUBY_VERSION >= '1.9'
+            text.encode("utf-8", :invalid => :replace,
+                                 :undef => :replace,
+                                 :replace => "")
+        else
+            Iconv.conv('utf-8//IGNORE', 'utf-8', text)
+        end
     end
 
 
