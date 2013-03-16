@@ -1,13 +1,6 @@
 if RUBY_VERSION.to_f >= 1.9
     # the default encoding for IO is utf-8, and we use utf-8 internally
     Encoding.default_external = Encoding.default_internal = Encoding::UTF_8
-    # Suppress warning messages and require inflector to avoid iconv deprecation message
-    # "iconv will be deprecated in the future, use String#encode instead." when loading
-    # it as part of rails
-    original_verbose, $VERBOSE = $VERBOSE, nil
-    require 'active_support/inflector'
-    # Activate warning messages again.
-    $VERBOSE = original_verbose
 end
 
 # MySociety specific helper functions
