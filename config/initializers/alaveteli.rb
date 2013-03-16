@@ -1,8 +1,3 @@
-if RUBY_VERSION.to_f >= 1.9
-    # the default encoding for IO is utf-8, and we use utf-8 internally
-    Encoding.default_external = Encoding.default_internal = Encoding::UTF_8
-end
-
 # MySociety specific helper functions
 $:.push(File.join(File.dirname(__FILE__), '../../commonlib/rblib'))
 # ... if these fail to include, you need the commonlib submodule from git
