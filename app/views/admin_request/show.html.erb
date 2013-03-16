@@ -326,7 +326,7 @@
       <div class="accordion-group">
         <div class="accordion-heading">
          <a href="#comment_<%=comment.id%>" data-toggle="collapse" data-parent="#comments"><%= chevron_right %></a>
-         <% link_to admin_request_edit_comment_path(comment) do %>
+         <%= link_to admin_request_edit_comment_path(comment) do %>
             #<%=comment.id%>
             --
             <%=h(comment.user.name)%>
