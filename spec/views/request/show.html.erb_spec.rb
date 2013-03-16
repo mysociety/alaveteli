@@ -85,7 +85,7 @@ describe 'request/show' do
             
                 it 'should show a link to follow up the last response with clarification' do 
                     request_page
-                    expected_url = "/request/#{@mock_request.id}/response/#{@mock_response.id}#followup"
+                    expected_url = "/en/request/#{@mock_request.id}/response/#{@mock_response.id}#followup"
                     response.should have_selector("a", :href => expected_url, :content => 'send a follow up message')
                 end
             
@@ -100,7 +100,7 @@ describe 'request/show' do
             
                 it 'should show a link to follow up the request without reference to a specific response' do 
                     request_page
-                    expected_url = "/request/#{@mock_request.id}/response#followup"
+                    expected_url = "/en/request/#{@mock_request.id}/response#followup"
                     response.should have_selector("a", :href => expected_url, :content => 'send a follow up message')
                 end
             end
