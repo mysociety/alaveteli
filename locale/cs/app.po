@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-12-18 10:11+0000\n"
-"PO-Revision-Date: 2013-02-06 18:51+0000\n"
-"Last-Translator: janakneschke <jana.kneschke@gmail.com>\n"
+"POT-Creation-Date: 2013-03-14 14:02-0700\n"
+"PO-Revision-Date: 2013-03-14 21:10+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -133,6 +133,9 @@ msgstr "'{{link_to_request}}', dotaz"
 msgid "'{{link_to_user}}', a person"
 msgstr "od uživatele '{{link_to_user}}'."
 
+msgid "*unknown*"
+msgstr ""
+
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ""
 ",\n"
@@ -198,9 +201,6 @@ msgstr ""
 
 msgid "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>"
 msgstr "<p>Děkujeme! Doufáme, že na odpověď nebudete příliš dlouho čekat.</p><p>Měli byste ji obdržet během {{late_number_of_days}} dní, nebo byste měli být informováni, že zodpovězení dotazu bude trvat déle (<a href=\"{{review_url}}\">podrobnosti</a>).</p>"
-
-msgid "<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below.</p>"
-msgstr "<p>Děkujeme! Podíváme se, co se stalo a pokusíme se to opravit.</p><p>Pokud se chyba týkala nedoručitelnosti dotazu, a sami najdete správnou adresu pro danou instituci, prosíme sdělte nám to v níže uvedeném formuláři.</p>"
 
 msgid "<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>"
 msgstr "<p>Děkujeme! Zodpovězení vašeho dotazu trvá déle, než stanoví zákonná lhůta, tedy konkrétně o {{very_late_number_of_days}} pracovních dní. Obvykle mají být dotazy zodpovězeny do {{late_number_of_days}} pracovních dnů. Pokud chcete podat stížnost, podívejte se níže a přesný postup.</p>"
@@ -366,6 +366,9 @@ msgstr "Odpověď bude zaslána <strong>poštou</strong>"
 msgid "A strange reponse, required attention by the {{site_name}} team"
 msgstr "Neobvyklá reakce, která vyžaduje pozornost týmu stránek {{site_name}}."
 
+msgid "A vexatious request"
+msgstr ""
+
 msgid "A {{site_name}} user"
 msgstr "Uživatel stránek {{site_name}} "
 
@@ -459,6 +462,9 @@ msgstr "Nezaregistrovaný uživatel"
 msgid "Anyone:"
 msgstr "Kdokoli:"
 
+msgid "Applies to"
+msgstr ""
+
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Požádejte o <strong>konkrétní</strong> dokumenty nebo informace, tyto stránky nejsou určeny pro obecné dotazy."
 
@@ -499,6 +505,9 @@ msgstr "Podle zákona by instituce {{public_body_link}} měla v každém přípa
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr "Podle zákona, by měla instituce {{public_body_link}} odpovědět okamžitě a "
+
+msgid "Calculated home page"
+msgstr ""
 
 msgid "Cancel a {{site_name}} alert"
 msgstr "Zrušte tato upozornění stránek {{site_name}}"
@@ -675,6 +684,9 @@ msgstr ""
 "\n"
 "Vážená paní, vážený pane,"
 
+msgid "Default locale"
+msgstr ""
+
 msgid "Delayed response to your FOI request - "
 msgstr "Zpožděná odpověď na váš dotaz –"
 
@@ -683,6 +695,9 @@ msgstr "Zpoždění."
 
 msgid "Delivery error"
 msgstr "Chyba při doručení"
+
+msgid "Destroy {{name}}"
+msgstr ""
 
 msgid "Details of request '"
 msgstr "Podrobnosti dotazu"
@@ -695,6 +710,9 @@ msgstr "Vyloučení odpovědnosti: Tato zpráva a jakékoliv odpovědi na ni bud
 
 msgid "Disclosure log"
 msgstr "Disclosure log"
+
+msgid "Disclosure log URL"
+msgstr ""
 
 msgid "Don't want to address your message to {{person_or_body}}?  You can also write to:"
 msgstr "Nechcete svou zprávu adresovat na {{person_or_body}}? Můžete také napsat:"
@@ -714,13 +732,13 @@ msgstr "Stáhnout původní přílohu"
 msgid "EIR"
 msgstr "Informace o životním prostředí"
 
+msgid "Edit"
+msgstr ""
+
 msgid "Edit and add <strong>more details</strong> to the message above,\\n                explaining why you are dissatisfied with their response."
 msgstr ""
 "Upravte a přidejte <strong>více informací</strong> do této zprávy\n"
 "                s vysvětlením, proč není odpověď uspokojující."
-
-msgid "Edit language version:"
-msgstr "Upravit jazykovou verzi:"
 
 msgid "Edit text about you"
 msgstr "Upravit text o sobě"
@@ -761,22 +779,28 @@ msgstr "Historie případu"
 msgid "Event history details"
 msgstr "Historie případu, detaily"
 
-msgid "Everything that you enter on this page \\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
+msgid "Event {{id}}"
+msgstr ""
+
+msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
+msgstr ""
+"Veškeré informace, které vložíte na tuto stránku, včetně <strong>vašeho jména</strong>, \n"
+"              budou<strong>uveřejněny</strong> na tomto webu(<a href=\"%s\">proč?</a>)."
+
+msgid "Everything that you enter on this page\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
 msgstr ""
 "Vše, co jste vyplnili na této stránce, \n"
 "                bude <strong>veřejně dostupné</strong> na tomto\n"
 "                webu (<a href=\"%s\">proč?</a>)."
-
-msgid "Everything that you enter on this page, including <strong>your name</strong>, \\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
-msgstr ""
-"Veškeré informace, které vložíte na tuto stránku, včetně <strong>vašeho jména</strong>, \n"
-"              budou<strong>uveřejněny</strong> na tomto webu(<a href=\"%s\">proč?</a>)."
 
 msgid "FOI"
 msgstr "dotaz"
 
 msgid "FOI email address for {{public_body}}"
 msgstr "E-mailová adresa podatelny pro instituci {{public_body}}"
+
+msgid "FOI request – {{title}}"
+msgstr ""
 
 msgid "FOI requests"
 msgstr "Dotazy"
@@ -956,6 +980,9 @@ msgstr "Zde je zpráva, kterou jste napsali, pokud si chcete uložit kopii. "
 msgid "Hi! We need your help. The person who made the following request\\n    hasn't told us whether or not it was successful. Would you mind taking\\n    a moment to read it and help us keep the place tidy for everyone?\\n    Thanks."
 msgstr "Haló! Potřebujeme vaši pomoc. Osoba, která vznesla tento dotaz nám nesdělila, jestli byla zodpovězena úspěšně. Můžete si dotaz i odpověď přečíst a pomoci nám tak udržovat stránky přehledné? Děkujeme."
 
+msgid "Hide request"
+msgstr ""
+
 msgid "Holiday"
 msgstr "Státní svátek"
 
@@ -967,6 +994,9 @@ msgstr "Svátek | Popis"
 
 msgid "Home"
 msgstr "Domů"
+
+msgid "Home page"
+msgstr ""
 
 msgid "Home page of authority"
 msgstr "Domovská stránka instituce"
@@ -1018,8 +1048,17 @@ msgstr "Obdržel jsem <strong>nějaké informace</strong>"
 msgid "I've received an <strong>error message</strong>"
 msgstr "Obdržel jsem <strong>chybovou zprávu</strong>"
 
+msgid "I've received an error message"
+msgstr ""
+
+msgid "Id"
+msgstr ""
+
 msgid "If the address is wrong, or you know a better address, please <a href=\"%s\">contact us</a>."
 msgstr "Pokud je adresa nesprávná, nebo víte o lepší adrese, prosíme <a href=\"%s\">kontaktujte nás</a>."
+
+msgid "If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below."
+msgstr ""
 
 msgid "If this is incorrect, or you would like to send a late response to the request\\nor an email on another subject to {{user}}, then please\\nemail {{contact_email}} for help."
 msgstr ""
@@ -1085,6 +1124,9 @@ msgid "If your browser is set to accept cookies and you are seeing this message,
 msgstr ""
 "Pokud váš prohlížeč akceptuje cookies a vy vidíte tuto zprávu,\n"
 "pravděpodobně je nějaký problém s naším serverem."
+
+msgid "Incoming email address"
+msgstr ""
 
 msgid "Incoming message"
 msgstr "Příchozí zpráva"
@@ -1203,11 +1245,17 @@ msgstr ""
 msgid "Items matching the following conditions are currently displayed on your wall."
 msgstr "Témata týkající se následujících kritérií jsou zobrazeny na vaší nástěnce."
 
+msgid "Items sent in last month"
+msgstr ""
+
 msgid "Joined in"
 msgstr "Zapojen v"
 
 msgid "Joined {{site_name}} in"
 msgstr "Registrován/a na stránkách {{site_name}} od"
+
+msgid "Just one more thing"
+msgstr ""
 
 msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"%s\">why?</a>)."
 msgstr "Snažte se svůj dotaz vyjádřit <strong>jasně a jednoduše</strong>, zvýší se tak vaše šance, že se dozvíte, co potřebujete (<a href=\"%s\">proč?</a>)."
@@ -1229,8 +1277,26 @@ msgstr ""
 msgid "Link to this"
 msgstr "Odkaz"
 
+msgid "List all"
+msgstr ""
+
 msgid "List of all authorities (CSV)"
 msgstr "Vytvořit seznam všech institucí (CSV)"
+
+msgid "Listing FOI requests"
+msgstr ""
+
+msgid "Listing public authorities"
+msgstr ""
+
+msgid "Listing public authorities matching '{{query}}'"
+msgstr ""
+
+msgid "Listing tracks"
+msgstr ""
+
+msgid "Listing users"
+msgstr ""
 
 msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr "Přihlaste se ke stažení komprimovaného souboru {{info_request_title}}"
@@ -1332,6 +1398,9 @@ msgstr "Jméno je již obsazeno"
 msgid "New Freedom of Information requests"
 msgstr "Nové dotazy "
 
+msgid "New censor rule"
+msgstr ""
+
 msgid "New e-mail:"
 msgstr "Nový e-mail:"
 
@@ -1377,6 +1446,9 @@ msgstr "Nic jsme nenašli"
 msgid "No similar requests found."
 msgstr "Žádné podobné dotazy nebyly nalezeny. "
 
+msgid "No tracked things found."
+msgstr ""
+
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
 msgstr "Ještě nikdo na {{public_body_name}} dotaz v rámci stránek Informace pro všechny nevznesl. "
 
@@ -1385,6 +1457,9 @@ msgstr "Nic nebylo nalezeno."
 
 msgid "None made."
 msgstr "Nic tu není"
+
+msgid "Not a valid FOI request"
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Rádi bychom vás upozornili, že tazatel nebude o vašem komentáři informován, jelikož tento dotaz byl zveřejněn na žádost instituce {{public_body_name}}."
@@ -1430,6 +1505,9 @@ msgstr "Nalezena jedna osoba"
 
 msgid "One public authority found"
 msgstr "Nalezena jedna instituce"
+
+msgid "Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect"
+msgstr ""
 
 msgid "Only requests made using {{site_name}} are shown."
 msgstr "Zobrazí se pouze dotazy vznesené prostřednictvím stránek {{site_name}}"
@@ -1627,9 +1705,6 @@ msgstr "Prosíme přihlašte se nebo se zaregistrujte."
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Napište zprávu a/nebo vyberte soubor, který obsahuje vaši odpověď."
 
-msgid "Please use the form below to tell us more."
-msgstr "Vysvětlete detailněji v tomto formuláři. "
-
 msgid "Please use this email address for all replies to this request:"
 msgstr "Prosíme používejte tuto e-mailovou adresu pro všechny odpovědi na tento dotaz:"
 
@@ -1720,11 +1795,23 @@ msgstr "Veřejná instituce - {{description}}"
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Instituce od {{start_count}} do {{end_count}} z {{total_count}}"
 
+msgid "Public authority – {{name}}"
+msgstr ""
+
 msgid "Public body"
 msgstr "Instituce"
 
 msgid "Public body/translation"
 msgstr "PublicBody | Verze ??"
+
+msgid "Public notes"
+msgstr ""
+
+msgid "Public page"
+msgstr ""
+
+msgid "Public page not available"
+msgstr ""
 
 msgid "PublicBody::Translation|Disclosure log"
 msgstr "PublicBody::Translation|Disclosure log"
@@ -1798,6 +1885,9 @@ msgstr "PublicBody | Verze"
 msgid "Publication scheme"
 msgstr "Systém publikování"
 
+msgid "Publication scheme URL"
+msgstr ""
+
 msgid "Purge request"
 msgstr "Vyčistit formulář dotazu"
 
@@ -1856,6 +1946,9 @@ msgstr "Požádat o doplnění dotazu"
 
 msgid "Request an internal review from {{person_or_body}}"
 msgstr "Požádat o doplnění dotazu od instituce či jmenovitě jejím pracovníkem {{person_or_body}}"
+
+msgid "Request email"
+msgstr ""
 
 msgid "Request has been removed"
 msgstr "Dotaz byl odstraněn"
@@ -1959,6 +2052,9 @@ msgstr[2] "Prohlížet %d dotazů vznesené na %s"
 msgid "Search your contributions"
 msgstr "Prohledávat vlastní příspěvky"
 
+msgid "See bounce message"
+msgstr ""
+
 msgid "Select one to see more information about the authority."
 msgstr "Vyberte jednu instituci pro zobrazení podrobnějších informací"
 
@@ -1991,6 +2087,9 @@ msgstr "Vznést dotaz"
 
 msgid "Set your profile photo"
 msgstr "Nastavte své profilové foto"
+
+msgid "Short name"
+msgstr ""
 
 msgid "Short name is already taken"
 msgstr "Krátké jméno je již obsazeno."
@@ -2090,6 +2189,9 @@ msgstr "Odeslat"
 msgid "Submit status"
 msgstr "Odešlete status"
 
+msgid "Submit status and send message"
+msgstr ""
+
 msgid "Subscribe to blog"
 msgstr "Sledujte náš blog"
 
@@ -2110,6 +2212,9 @@ msgstr "Tabulka stavů"
 
 msgid "Table of varieties"
 msgstr "Tabulka možností"
+
+msgid "Tags"
+msgstr ""
 
 msgid "Tags (separated by a space):"
 msgstr "Tagy (oddělené mezerou):"
@@ -2137,6 +2242,9 @@ msgstr "Děkujeme vám za aktualizaci tohoto dotazu!"
 
 msgid "Thank you for updating your profile photo"
 msgstr "Děkujeme vám za aktualizaci svého profilového fota"
+
+msgid "Thank you! We'll look into what happened and try and fix it up."
+msgstr ""
 
 msgid "Thanks for helping - your work will make it easier for everyone to find successful\\nresponses, and maybe even let us make league tables..."
 msgstr ""
@@ -2391,6 +2499,9 @@ msgstr "Toto je HTML verze přílohy k vznesenému dotazu. "
 msgid "This is because {{title}} is an old request that has been\\nmarked to no longer receive responses."
 msgstr "Důvodem je, že dotaz s názvem {{title}} je staršího data a byl uzavřen, tudíž, na něj již nelze odpovědět."
 
+msgid "This is the first version."
+msgstr ""
+
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Toto je váš vlastní dotaz, proto budete odpovědi dostávat e-mailem automaticky."
 
@@ -2465,6 +2576,9 @@ msgstr ""
 
 msgid "This request is still in progress:"
 msgstr "Tento dotaz je stále aktivní:"
+
+msgid "This request requires administrator attention"
+msgstr ""
 
 msgid "This request was not made via {{site_name}}"
 msgstr "Tento dotaz nebyl vznesen pomocí stránek {{site_name}}"
@@ -2673,6 +2787,9 @@ msgstr "Uživatel"
 msgid "User info request sent alert"
 msgstr "User info request sent alert ??"
 
+msgid "User – {{name}}"
+msgstr ""
+
 msgid "UserInfoRequestSentAlert|Alert type"
 msgstr "UserInfoRequestSentAlert| Typ upozornění"
 
@@ -2726,6 +2843,9 @@ msgstr "User | Salt ??"
 
 msgid "User|Url name"
 msgstr "User | Název URL"
+
+msgid "Version {{version}}"
+msgstr ""
 
 msgid "View FOI email address"
 msgstr "Zobrazit e-mailovou adresu Informace pro všechny (????)"
@@ -3121,6 +3241,9 @@ msgstr ""
 msgid "admin"
 msgstr "admin"
 
+msgid "alaveteli_foi:The software that runs {{site_name}}"
+msgstr ""
+
 msgid "all requests"
 msgstr "všechny dotazy"
 
@@ -3154,6 +3277,9 @@ msgstr "vše"
 msgid "are long overdue."
 msgstr "– tato instituce výrazně překročila zákonem daný termín."
 
+msgid "at"
+msgstr ""
+
 msgid "authorities"
 msgstr "instituce"
 
@@ -3165,6 +3291,9 @@ msgstr "Začínající na ‘{{first_letter}}’"
 
 msgid "between two dates"
 msgstr "mezi dvěma daty"
+
+msgid "but followupable"
+msgstr ""
 
 msgid "by"
 msgstr "od"
@@ -3249,6 +3378,9 @@ msgstr "zprávy od institucí"
 msgid "messages from users"
 msgstr "zprávy od uživatelů"
 
+msgid "move..."
+msgstr ""
+
 msgid "no later than"
 msgstr "nejpozději do"
 
@@ -3259,6 +3391,9 @@ msgstr ""
 
 msgid "normally"
 msgstr "to"
+
+msgid "not requestable due to: {{reason}}"
+msgstr ""
 
 msgid "please sign in as "
 msgstr "prosíme přihlašte se jako"
@@ -3281,6 +3416,9 @@ msgstr "poslat odpověď"
 msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "posláno instituci {{public_body_name}} uživatelem {{info_request_user}} dne {{date}}."
 
+msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
+msgstr ""
+
 msgid "show quoted sections"
 msgstr "ukázat citované pasáže"
 
@@ -3302,6 +3440,11 @@ msgstr "kterou jste vznesli na"
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "hlavní kontaktní adresa instituce {{public_body}} pro poskytování informací "
 
+#. This phrase completes the following sentences:
+#. Request an internal review from...
+#. Send a public follow up message to...
+#. Send a public reply to...
+#. Don't want to address your message to... ?
 msgid "the main FOI contact at {{public_body}}"
 msgstr "hlavní kontakt pro vznesení dotazu na instituci {{public_body}}"
 
@@ -3412,6 +3555,9 @@ msgstr "Pomocí stránek {{site_name}} vznesete nové dotazy na <strong>{{reques
 
 msgid "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr "Na stránkách {{site_name}} tazatelé podali {{number_of_requests}} dotazů, včetně:"
+
+msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
+msgstr ""
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - dotaz vznesený podle zákona 106/1999 Sb., o svobodném přístupu k informacím na instituci {{public_body}}"
