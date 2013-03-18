@@ -6,10 +6,6 @@ describe "When rendering errors" do
         load_raw_emails_data
     end
 
-    it "should render a 404 for unrouteable URLs" do
-        get("/frobsnasm")
-        response.code.should == "404"
-    end
     it "should render a 404 for users that don't exist" do
         get("/user/wobsnasm")
         response.code.should == "404"
