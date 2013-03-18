@@ -564,10 +564,7 @@ class RequestController < ApplicationController
         end
 
 
-        params_outgoing_message = params[:outgoing_message]
-        if params_outgoing_message.nil?
-            params_outgoing_message = {}
-        end
+        params_outgoing_message = params[:outgoing_message] ? params[:outgoing_message].clone : {}
         params_outgoing_message.merge!({
             :status => 'ready',
             :message_type => 'followup',
