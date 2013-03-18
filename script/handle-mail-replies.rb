@@ -14,12 +14,8 @@
 # config file ourselves.
 $alaveteli_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 $:.push(File.join($alaveteli_dir, "commonlib", "rblib"))
-load "config.rb"
 $:.push(File.join($alaveteli_dir, "lib"))
 $:.push(File.join($alaveteli_dir, "lib", "mail_handler"))
-require "configuration"
-MySociety::Config.set_file(File.join($alaveteli_dir, 'config', 'general'), true)
-MySociety::Config.load_default
 require 'mail_handler'
 if RUBY_VERSION.to_f >= 1.9
     # the default encoding for IO is utf-8, and we use utf-8 internally
