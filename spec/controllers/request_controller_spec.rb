@@ -918,6 +918,8 @@ describe RequestController, "when searching for an authority" do
     end
 
     it "should return matching bodies" do
+        get_fixtures_xapian_index
+
         session[:user_id] = @user.id
         get :select_authority, :query => "Quango"
 
