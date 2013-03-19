@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2013-03-14 14:02-0700\n"
-"PO-Revision-Date: 2013-03-14 21:07+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2013-03-18 19:01+0000\n"
+"Last-Translator: yauzi <yair.uziel@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgid " Ideas on what <strong>other documents to request</strong> which the auth
 msgstr "רעיונות ל<strong>מסמכים נוספים</strong> שיש בידי הרשויות, <strong>שניתן לבקשם</strong>."
 
 msgid " If you know the address to use, then please <a href=\"%s\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
-msgstr ""
+msgstr "אם אתם יודעים את הכתובת, נא <a href=\"%s\">שלחו לנו</a>.\\n        הכתובת נמצאת באתר האינטרנט שלהם, או שתבררו אותה בשיחת טלפון."
 
 msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
 msgstr "הוסיפו קישורים מתאימים כמו למשל לדף הקמפיין, לבלוג שלכם או לטוויטר. יהיה ניתן להקליק עליהם n\\. למשל"
@@ -93,7 +93,7 @@ msgid " when you send this message."
 msgstr "כאשר אתם שולחים הודעה זו."
 
 msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
-msgstr ""
+msgstr "\"שלום! יש לנו  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">הודעה חשובה</a> למבקרים מחוץ ל-  {{country_name}}\""
 
 msgid "%d Freedom of Information request to %s"
 msgid_plural "%d Freedom of Information requests to %s"
@@ -129,7 +129,7 @@ msgid "*unknown*"
 msgstr ""
 
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
-msgstr ""
+msgstr ",\\n\\n\\n\\nשלכם,\\n\\n{{user_name}}"
 
 msgid "- or -"
 msgstr "- או -"
@@ -153,7 +153,7 @@ msgid "<a href=\"%s\">Are we missing a public authority?</a>"
 msgstr "<a href=\"%s\">האם חסר לנו גוף ציבורי?</a>"
 
 msgid "<a href=\"%s\">Are you the owner of\\n            any commercial copyright on this page?</a>"
-msgstr ""
+msgstr "<a href=\"%s\">האם אתם הבעלים של\\n            זכויות יוצרים מסחריות על עמוד זה?</a>"
 
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr "<a href=\"%s\">צפו בכולם</a> או <a href=\"%s\">בקשו מאיתנו להוסיף אחת</a>."
@@ -195,7 +195,7 @@ msgid "<p>Thanks for updating your profile photo.</p>\\n                <p><stro
 msgstr "<p>תודה על עדכון התמונה.</p><p><strong>ועכשיו...</strong> תוכלו להוסיף גם פרטים נוספים עליכם לדף הפרופיל.</p>"
 
 msgid "<p>We recommend that you edit your request and remove the email address.\\n                If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
-msgstr ""
+msgstr "<p>אנו ממליצים שתסירו את כתובת הדוא\"ל מהבקשה שלכם.\\n                אם לא תסירו אותה, הכתובת תשלח לרשות, אבל לא תוצג באתר.</p>"
 
 msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>"
 msgstr "<p>אנו שמחים שקיבלתם את המידע שביקשתם. אם אתם כותבים על המידע או משתמשים בו, נא חזרו לדף זה והוסיפו למטה הערה על מה שעשיתם. </p><p>אם מצאתם את  {{site_name}}שימושי, <a href=\"{{donation_url}}\">הרימו תרומה</a> לגוף שמפעיל אותו.</p>"
@@ -219,7 +219,7 @@ msgid "<p>{{site_name}} is currently in maintenance. You can only view existing 
 msgstr "<p>{{site_name}} נמצא כעת בתחזוקה. ניתן לצפות בבקשות בלבד. לא ניתן להגיש בקשות חדשות, לעקוב, להוסיף הערות, או לעשות כל שינוי במידע שבאתר.</p> <p>{{read_only}}</p>"
 
 msgid "<small>If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way.</small>\\n</p>"
-msgstr ""
+msgstr "<small>אם אתם משתמשים בשירות דואר מבוסס רשת, בדקו את תיבת דואר הזבל שלכם.\\nbulk/spam ייתכן וההודעה שלנו סומנה ככזו בטעות.</small>\\n</p>"
 
 msgid "<span id='follow_count'>%d</span> person is following this authority"
 msgid_plural "<span id='follow_count'>%d</span> people are following this authority"
@@ -280,16 +280,16 @@ msgid "<strong>Note:</strong> You're sending a message to yourself, presumably\\
 msgstr "<strong>הערה:</strong> אתם שולחים בקשה לעצמכם, כנראה כדי לנסות לראות איך זה עובד."
 
 msgid "<strong>Note:</strong>\\n    We will send an email to your new email address. Follow the\\n    instructions in it to confirm changing your email."
-msgstr ""
+msgstr "<strong>הערה:</strong>\\n    אנו נשלח הודעת אימות לכתובת הדוא\"ל החדשה שלך. עקבו אחר \\n    ההוראות כדי לאשר את שינוי הכתובת."
 
 msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"%s\">click here</a>."
-msgstr ""
+msgstr "<strong>הערת פרטיות:</strong>אם תרצו לבקש מידע פרטי על\\n    עצמכם, <a href=\"%s\">הקליקו כאן</a>."
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
-msgstr ""
+msgstr "<strong>הערת פרטיות:</strong> התמונה שלכם תוצג באופן פומבי באינטרנט,\\n    בכל פעם שתעשו משהו באתר {{site_name}}."
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response\\n        to it, will be displayed publicly on this website."
-msgstr ""
+msgstr "<strong>אזהרת פרטיות:</strong> <strong>אזהרת פרטיות:</strong> ההודעה שלכם והתגובה שלי\\n        יוצגו באופן פומבי באתר זה."
 
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "<strong>חלק מהמידע</strong> נשלח "
@@ -340,7 +340,7 @@ msgid "Add an annotation"
 msgstr "הוסיפו הערה"
 
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
-msgstr ""
+msgstr "הוסיפו הערה לבקשה שלכם במרכאות, או \\n                 <strong>סיכום התגובה</strong>."
 
 msgid "Added on {{date}}"
 msgstr "התווסף בתאריך {{date}}"
@@ -361,7 +361,7 @@ msgid "Advise on whether the <strong>refusal is legal</strong>, and how to compl
 msgstr "מידע באשר <strong>לחוקיות הסירוב</strong>, וכיצד להתלונן אם הסירוב אינו חוקי."
 
 msgid "Air, water, soil, land, flora and fauna (including how these effect\\n            human beings)"
-msgstr ""
+msgstr "אויר, מים, אדמה, צמחים ובעלי חיים (כולל כיצד הם משפיעים\\n           על בני האדם)"
 
 msgid "All of the information requested has been received"
 msgstr "התקבל המידע הנדרש"
@@ -382,7 +382,7 @@ msgid "Alter your subscription"
 msgstr "לאחר ההרשמה שלכם"
 
 msgid "Although all responses are automatically published, we depend on\\nyou, the original requester, to evaluate them."
-msgstr ""
+msgstr "למרות שכל התגובות מפורסמות באופן אוטומטי, אנו תלויים\\nyou, בבדיקתן על-ידי המגיש המקורי שלהן."
 
 msgid "An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> was made by {{event_comment_user}} on {{date}}"
 msgstr "<a href=\"{{request_url}}\">הבהרה</a> לבקשה <em>{{request_title}}</em>  נעשתה ע\"י {{event_comment_user}} בתאריך {{date}}"
@@ -406,7 +406,7 @@ msgid "Annotations are so anyone, including you, can help the requester with the
 msgstr "הסברים מיועדים לכך שכל אחד, כולל אתם, יוכל לעזור למגיש הבקשה עם הבקשה. לדוגמה:"
 
 msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
+msgstr "הערות יפורסמו כאן \\n        <strong>ולא</strong> יישלחו ל- {{public_body_name}}."
 
 msgid "Anonymous user"
 msgstr "משתמש אנונימי"
@@ -616,7 +616,7 @@ msgid "Crop your profile photo"
 msgstr "חתכו את תמונת הפרופיל שלכם"
 
 msgid "Cultural sites and built structures (as they may be affected by the\\n            environmental factors listed above)"
-msgstr ""
+msgstr "אתרי תרבות ומבנים (אלה עלולים להיות מושפעים\\n           מגורמים סביבתיים המופיעים למעלה)"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
 msgstr "ממתין <strong>לתגובה</strong>מ-  {{public_body_link}}, הם חייבים להגיב מייד ו-  promptly and"
@@ -652,7 +652,7 @@ msgid "Disclaimer: This message and any reply that you make will be published on
 msgstr "כתב ויתור: הודעה זו וכל הודעה הקשורה אליה שתשלחו, תפורסם באינטרנט. מדיניות הפרטיות והגנת הזכויות שלנו:"
 
 msgid "Disclosure log"
-msgstr ""
+msgstr "יומן גילוי נאות"
 
 msgid "Disclosure log URL"
 msgstr ""
@@ -679,7 +679,7 @@ msgid "Edit"
 msgstr ""
 
 msgid "Edit and add <strong>more details</strong> to the message above,\\n                explaining why you are dissatisfied with their response."
-msgstr ""
+msgstr "ערכו והוסיפו <strong>פרטים נוספים</strong> להודעה למעלה, /n המסבירים מדוע אתם לא מרוצים מהתגובה שלהם"
 
 msgid "Edit text about you"
 msgstr "ערכו את הטקסט אודותיכם"
@@ -703,7 +703,7 @@ msgid "Enter words that you want to find separated by spaces, e.g. <strong>climb
 msgstr "הכניסו את מילות החיפוש עם רווח ביניהן. לדוגמה, e.g. <strong>נתיב עליה</strong>"
 
 msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"%s\">contact us</a> if you need more)."
-msgstr ""
+msgstr "הכניסו את תגובתכם כאן. אתם יכולים לצרף קובץ אחד (פנו באימייל או r\\n <a hצרו קשרref=\"%s\"></a> אם יש צורך ביותר מאחד)."
 
 msgid "Environmental Information Regulations"
 msgstr "מידע תקנות סביבתיות"
@@ -760,7 +760,7 @@ msgid "Filter"
 msgstr "סינון"
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"%s#%s\">why?</a>)."
-msgstr ""
+msgstr "ראשית, הקלידו את <strong>שם הגוף</strong> שממנו ברצונכם לקבל מידע.  <strong>לפי חוק, עליהם להגיב</strong>\\n (<a href=\"%s#%s\">למה?</a>)."
 
 msgid "Foi attachment"
 msgstr "מסמף מצורף עבור חוק חופש המידע"
@@ -879,7 +879,7 @@ msgid "From"
 msgstr "מאת"
 
 msgid "From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
-msgstr ""
+msgstr "מעמוד הבקשה, נסו להגיב להודעה מסוימת, ולא לשלוח תגובה כללית. /n אם ברצונכם להגיב כללית, ולקבל כתובת ישירה שתגיע למקום הנכון, /n אנא <a href=\"%s\">שלחו אותה אלינו</a>."
 
 msgid "From:"
 msgstr "מאת:"
@@ -930,7 +930,7 @@ msgid "Home page of authority"
 msgstr "עמוד הבית של הרשות"
 
 msgid "However, you have the right to request environmental\\n            information under a different law"
-msgstr ""
+msgstr "לעומת זאת, יש לכם את הזכות לבקש מידע סביבתי /n תחת חוק אחר"
 
 msgid "Human health and safety"
 msgstr "בריאות ובטחון הציבור"
@@ -954,7 +954,7 @@ msgid "I would like to <strong>withdraw this request</strong>"
 msgstr " אני מעוניין <strong>למשוך את הבקשה</strong>"
 
 msgid "I'm still <strong>waiting</strong> for my information\\n                <small>(maybe you got an acknowledgement)</small>"
-msgstr ""
+msgstr "אנו עדיין <strong>ממתינים</strong> למידע שלנו /n <small>(אולי קיבלת התייחסות)</small>"
 
 msgid "I'm still <strong>waiting</strong> for the internal review"
 msgstr "אנו עדיין <strong>ממתינים</strong> לבדיקה הפנימית"
@@ -987,10 +987,10 @@ msgid "If the error was a delivery failure, and you can find an up to date FOI e
 msgstr ""
 
 msgid "If this is incorrect, or you would like to send a late response to the request\\nor an email on another subject to {{user}}, then please\\nemail {{contact_email}} for help."
-msgstr ""
+msgstr "אם המידע אינו נכון, או אם ברצונכם לשלוח תגובה מאוחרת למבקש /n או אימייל בנושא אחר אל {{user}}, אנא צרו קשר עם  {{contact_email}}  עבור עזרה."
 
 msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"%s\">details</a>)."
-msgstr ""
+msgstr "אם אתם לא מרוצים מהתגובה שקיבלתם מהגוף הציבורי, /n יש לכם את הזכות להתלונן  (<a href=\"%s\">לפרטים</a>)."
 
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
 msgstr "אם עדיין נתקלתם בבעיה אנא <a href=\"%s\">צרו איתנו קשר</a>."
@@ -999,7 +999,7 @@ msgid "If you are the requester, then you may <a href=\"%s\">sign in</a> to view
 msgstr "אם אתם מגישי הבקשה, תרצו אולי <a href=\"%s\">להתחבר</a> כדי לצפות בבקשה."
 
 msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"%s\">read this first</a>."
-msgstr ""
+msgstr "אם אתם שוקלים שימוש בזהות בדויה, /n אנא <a href=\"%s\">קיראו זאת קודם</a>."
 
 msgid "If you are {{user_link}}, please"
 msgstr "אם אתה המשתמש {{user_link}}, בבקשה"
@@ -1008,28 +1008,28 @@ msgid "If you believe this request is not suitable, you can report it for attent
 msgstr "אם הנכם סבורים שיש להסתיר בקשה זו או להסיר אותה , תוכלו לדווח למנהלי האתר"
 
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy\\nit</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place\\nyou would type the address of any other webpage."
-msgstr ""
+msgstr "אם אתם לא מצליחים להקליק על זה בגוף ההודעה, עליכם  <strong>לבחור ולהעתיק \\nאת הלינק</strong> מתוך ההודעה. לאחר מכן <strong>הדביקו אותו בשורת הכתובת של הדפדפן</strong> /n כמו כל כתובת אחרת."
 
 msgid "If you can, scan in or photograph the response, and <strong>send us\\n                    a copy to upload</strong>."
-msgstr ""
+msgstr "אם אתם יכולים, סירקו או צלמו את הבקשה, <strong>ושילחו לנו עותק שנוכל להעלות</strong>."
 
 msgid "If you find this service useful as an FOI officer, please ask your web manager to link to us from your organisation's FOI page."
 msgstr "אם אתם מוצאים שירות זה כמתאים להגשת בקשות על-פי חוק חופש המידע, בקשו ממנהל הרשת שלכם לשים קישור בדף הגשת הבקשות באתר שלכם."
 
 msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any\\nmore. Please try doing what you were doing from the beginning."
-msgstr ""
+msgstr "אם קילתם את ההודעה במייל <strong>לפני יותר משישה חודשים</strong>, אז הקישור הזה לא יעבוד יותר. /n נסו לעשות את התהליך מההתחלה."
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "אם טרם עשיתם זאת, נא רשמו למטה פניה לרשות המתאימה ובה הסבר על ביטול הבקשה שלכם, אחרת לא ידעו שהבקשה בוטלה."
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
-msgstr ""
+msgstr "תגובה על ההודעה הזו תגיע ישירות אל {{user_name}}, אשר ידע בעקבות זאת את כתובתכם. השיבו רק אם זה בסדר."
 
 msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr ""
+msgstr "אם אתם משתמשים באימייל מבוסס רשת, או שיש לכם מסנני ספאם, אנא בדקו את תיקיית הספאם. ההודעות שלנו לפעמים מגיעות לשם."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
-msgstr ""
+msgstr "אם תרצו שנסיר את המגבלה הזו, אתם יכולים <a href=\"/help/contact\">ליצור איתנו קשר</a> ולספק סיבות. \\n"
 
 msgid "If you're new to {{site_name}}"
 msgstr "אם אתם חדשים באתר {{site_name}}"
@@ -1038,7 +1038,7 @@ msgid "If you've used {{site_name}} before"
 msgstr "אם השתמשתם באתר  {{site_name}} before לפני"
 
 msgid "If your browser is set to accept cookies and you are seeing this message,\\nthen there is probably a fault with our server."
-msgstr ""
+msgstr "אם הדפדפן שלכם מקבל עוגיות ואתם רואים הודעה זו, \\n אז כנראה שיש תקלה בשרת שלנו."
 
 msgid "Incoming email address"
 msgstr ""
@@ -1227,16 +1227,16 @@ msgid "Mail server log done"
 msgstr "התבצע רישום אירועים של שרת הדואר"
 
 msgid "MailServerLogDone|Filename"
-msgstr ""
+msgstr "MailServerLogDone|Filename"
 
 msgid "MailServerLogDone|Last stat"
-msgstr ""
+msgstr "MailServerLogDone|Last stat"
 
 msgid "MailServerLog|Line"
-msgstr ""
+msgstr "MailServerLog|Line"
 
 msgid "MailServerLog|Order"
-msgstr ""
+msgstr "MailServerLog|Order"
 
 msgid "Make a new <strong>Environmental Information</strong> request"
 msgstr "יצירת בקשת  <strong>מידע סביבתי</strong> חדשה"
@@ -1713,7 +1713,7 @@ msgid "Public page not available"
 msgstr ""
 
 msgid "PublicBody::Translation|Disclosure log"
-msgstr ""
+msgstr "PublicBody::Translation|Disclosure log"
 
 msgid "PublicBody::Translation|First letter"
 msgstr "PublicBody::Translation|מכתב ראשון"
@@ -1743,7 +1743,7 @@ msgid "PublicBody|Api key"
 msgstr "PublicBody|Api key"
 
 msgid "PublicBody|Disclosure log"
-msgstr ""
+msgstr "PublicBody|Disclosure log"
 
 msgid "PublicBody|First letter"
 msgstr "PublicBody|First מכתב"
