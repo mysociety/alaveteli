@@ -1,6 +1,6 @@
 # Welcome to Alaveteli!
 
-[![Build Status](https://secure.travis-ci.org/mysociety/alaveteli.png)](http://travis-ci.org/mysociety/alaveteli) [![Dependency Status](https://gemnasium.com/mysociety/alaveteli.png)](https://gemnasium.com/mysociety/alaveteli)
+[![Build Status](https://secure.travis-ci.org/mysociety/alaveteli.png)](http://travis-ci.org/mysociety/alaveteli) [![Dependency Status](https://gemnasium.com/mysociety/alaveteli.png)](https://gemnasium.com/mysociety/alaveteli) [![Coverage Status](https://coveralls.io/repos/mysociety/alaveteli/badge.png?branch=master)](https://coveralls.io/r/mysociety/alaveteli) [![Code Climate](https://codeclimate.com/github/mysociety/alaveteli.png)](https://codeclimate.com/github/mysociety/alaveteli)
 
 This is an open source project to create a standard, internationalised
 platform for making Freedom of Information (FOI) requests in different

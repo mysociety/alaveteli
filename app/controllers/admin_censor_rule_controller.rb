@@ -10,7 +10,7 @@ class AdminCensorRuleController < AdminController
             @info_request = InfoRequest.find(params[:info_request_id])
         end
         if params[:user_id]
-            @user = User.find(params[:user_id])
+            @censor_user = User.find(params[:user_id])
         end
     end
 
@@ -26,9 +26,9 @@ class AdminCensorRuleController < AdminController
             end
             flash[:notice] = 'CensorRule was successfully created.'
             if !@censor_rule.info_request.nil?
-                redirect_to admin_url('request/show/' + @censor_rule.info_request.id.to_s)
+                redirect_to admin_request_show_url(@censor_rule.info_request)
             elsif !@censor_rule.user.nil?
-                redirect_to admin_url('user/show/' + @censor_rule.user.id.to_s)
+                redirect_to admin_user_show_url(@censor_rule.user)
             else
                 raise "internal error"
             end
@@ -53,9 +53,9 @@ class AdminCensorRuleController < AdminController
             end
             flash[:notice] = 'CensorRule was successfully updated.'
             if !@censor_rule.info_request.nil?
-                redirect_to admin_url('request/show/' + @censor_rule.info_request.id.to_s)
+                redirect_to admin_request_show_url(@censor_rule.info_request)
             elsif !@censor_rule.user.nil?
-                redirect_to admin_url('user/show/' + @censor_rule.user.id.to_s)
+                redirect_to admin_user_show_url(@censor_rule.user)
             else
                 raise "internal error"
             end
@@ -79,9 +79,9 @@ class AdminCensorRuleController < AdminController
 
         flash[:notice] = "CensorRule was successfully destroyed."
         if !info_request.nil?
-            redirect_to admin_url('request/show/' + info_request.id.to_s)
+            redirect_to admin_request_show_url(info_request)
         elsif !user.nil?
-            redirect_to admin_url('user/show/' + user.id.to_s)
+            redirect_to admin_user_show_url(user)
         else
             raise "internal error"
         end

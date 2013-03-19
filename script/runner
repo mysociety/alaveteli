@@ -31,7 +31,7 @@ Dir.chdir(alaveteli_dir) do
                 fh.puts pid
             end
         end
-        
+
         Process.detach(pid)
     else
         # Not daemon mode

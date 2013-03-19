@@ -543,20 +543,16 @@ public
 
     # states which require administrator action (hence email administrators
     # when they are entered, and offer state change dialog to them)
-    def InfoRequest.requires_admin_states
-        return ['requires_admin', 'error_message', 'attention_requested']
-    end
-
     def requires_admin?
-        return true if InfoRequest.requires_admin_states.include?(described_state)
-        return false
+        ['requires_admin', 'error_message', 'attention_requested'].include?(described_state)
     end
 
     # change status, including for last event for later historical purposes
-    def set_described_state(new_state, set_by = nil)
+    def set_described_state(new_state, set_by = nil, message = "")
+        old_described_state = described_state
         ActiveRecord::Base.transaction do
             self.awaiting_description = false
-            last_event = self.get_last_event
+            last_event = self.info_request_events.last
             last_event.described_state = new_state
             self.described_state = new_state
             last_event.save!
@@ -568,8 +564,22 @@ public
         if self.requires_admin?
             # Check there is someone to send the message "from"
             if !set_by.nil? || !self.user.nil?
-                RequestMailer.deliver_requires_admin(self, set_by)
+                RequestMailer.deliver_requires_admin(self, set_by, message)
             end
+        end
+
+        unless set_by.nil? || is_actual_owning_user?(set_by) || described_state == 'attention_requested'
+            # Log the status change by someone other than the requester
+            event = log_event("status_update",
+                { :user_id => set_by.id,
+                  :old_described_state => old_described_state,
+                  :described_state => described_state,
+                })
+            # Create a classification event for league tables
+            RequestClassification.create!(:user_id => set_by.id,
+                                          :info_request_event_id => event.id)
+
+            RequestMailer.deliver_old_unclassified_updated(self) if !is_external?
         end
     end
 
@@ -719,41 +729,28 @@ public
         self.info_request_events.create!(:event_type => type, :params => params)
     end
 
+    def response_events
+        self.info_request_events.select{|e| e.response?}
+    end
+
     # The last response is the default one people might want to reply to
     def get_last_response_event_id
-        for e in self.info_request_events.reverse
-            if e.event_type == 'response'
-                return e.id
-            end
-        end
-        return nil
-
+        get_last_response_event.id if get_last_response_event
     end
     def get_last_response_event
-        for e in self.info_request_events.reverse
-            if e.event_type == 'response'
-                return e
-            end
-        end
-        return nil
+        response_events.last
     end
     def get_last_response
-        last_response_event = self.get_last_response_event
-        if last_response_event.nil?
-            return nil
-        else
-            return last_response_event.incoming_message
-        end
+        get_last_response_event.incoming_message if get_last_response_event
+    end
+
+    def outgoing_events
+        info_request_events.select{|e| e.outgoing? }
     end
 
     # The last outgoing message
     def get_last_outgoing_event
-        for e in self.info_request_events.reverse
-            if [ 'sent', 'followup_sent' ].include?(e.event_type)
-                return e
-            end
-        end
-        return nil
+        outgoing_events.last
     end
 
     # Text from the the initial request, for use in summary display
@@ -794,16 +791,6 @@ public
         end
     end
 
-    # Returns last event
-    def get_last_event
-        events = self.info_request_events
-        if events.size == 0
-            return nil
-        else
-            return events[-1]
-        end
-    end
-
     # Get previous email sent to
     def get_previous_email_sent_to(info_request_event)
         last_email = nil
@@ -821,46 +808,31 @@ public
 
     # Display version of status
     def InfoRequest.get_status_description(status)
-        if status == 'waiting_classification'
-            _("Awaiting classification.")
-        elsif status == 'waiting_response'
-            _("Awaiting response.")
-        elsif status == 'waiting_response_overdue'
-            _("Delayed.")
-        elsif status == 'waiting_response_very_overdue'
-            _("Long overdue.")
-        elsif status == 'not_held'
-            _("Information not held.")
-        elsif status == 'rejected'
-            _("Refused.")
-        elsif status == 'partially_successful'
-            _("Partially successful.")
-        elsif status == 'successful'
-            _("Successful.")
-        elsif status == 'waiting_clarification'
-            _("Waiting clarification.")
-        elsif status == 'gone_postal'
-            _("Handled by post.")
-        elsif status == 'internal_review'
-            _("Awaiting internal review.")
-        elsif status == 'error_message'
-            _("Delivery error")
-        elsif status == 'requires_admin'
-            _("Unusual response.")
-        elsif status == 'attention_requested'
-            _("Reported for administrator attention.")
-        elsif status == 'user_withdrawn'
-            _("Withdrawn by the requester.")
-        elsif status == 'vexatious'
-            _("Considered by administrators as vexatious and hidden from site.")
-        elsif status == 'not_foi'
-            _("Considered by administrators as not an FOI request and hidden from site.")
+        descriptions = {
+            'waiting_classification'        => _("Awaiting classification."),
+            'waiting_response'              => _("Awaiting response."),
+            'waiting_response_overdue'      => _("Delayed."),
+            'waiting_response_very_overdue' => _("Long overdue."),
+            'not_held'                      => _("Information not held."),
+            'rejected'                      => _("Refused."),
+            'partially_successful'          => _("Partially successful."),
+            'successful'                    => _("Successful."),
+            'waiting_clarification'         => _("Waiting clarification."),
+            'gone_postal'                   => _("Handled by post."),
+            'internal_review'               => _("Awaiting internal review."),
+            'error_message'                 => _("Delivery error"),
+            'requires_admin'                => _("Unusual response."),
+            'attention_requested'           => _("Reported for administrator attention."),
+            'user_withdrawn'                => _("Withdrawn by the requester."),
+            'vexatious'                     => _("Considered by administrators as vexatious and hidden from site."),
+            'not_foi'                       => _("Considered by administrators as not an FOI request and hidden from site."),
+        }
+        if descriptions[status]
+            descriptions[status]
+        elsif respond_to?(:theme_display_status)
+            theme_display_status(status)
         else
-            begin
-                return self.theme_display_status(status)
-            rescue NoMethodError
-                raise _("unknown status ") + status
-            end
+            raise _("unknown status ") + status
         end
     end
 
@@ -987,13 +959,8 @@ public
     end
 
     def is_old_unclassified?
-        return false if is_external?
-        return false if !awaiting_description
-        return false if url_title == 'holding_pen'
-        last_response_event = get_last_response_event
-        return false unless last_response_event
-        return false if last_response_event.created_at >= Time.now - OLD_AGE_IN_DAYS
-        return true
+        !is_external? && awaiting_description && url_title != 'holding_pen' && get_last_response_event &&
+            Time.now > get_last_response_event.created_at + OLD_AGE_IN_DAYS
     end
 
     # List of incoming messages to followup, by unique email

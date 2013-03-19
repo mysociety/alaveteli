@@ -29,7 +29,7 @@ to your request '<%=request_link(@info_request) %>'?
 
 <p>
 <% if !@info_request.nil? %>
-    <%= link_to "Request an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup", :class => 'link_button_green' %> and then write a message asking the authority to review your request.
+    <%= link_to "Request an internal review", show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup", :class => 'link_button_green' %> and then write a message asking the authority to review your request.
 <% else %>
     At the bottom of the relevant request page on <%= site_name %> choose
     "request an internal review". Then write a message asking for an internal
@@ -62,7 +62,7 @@ to the Scottish Information Commissioner</a>.
 Information Commissioner, either
 <% if !@info_request.nil? %>
     include a link to your request
-    <strong><%=h main_url(request_url(@info_request)) %></strong>
+    <strong><%=h request_url(@info_request) %></strong>
 <% else %>
     include a link to your request on <%= site_name %>
 <% end %>

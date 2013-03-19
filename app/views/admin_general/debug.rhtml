@@ -2,14 +2,18 @@
 
 <h1><%=@title%></h1>
 
-<p>You are <%= h @admin_current_user %></p>
+<p>You are <%= h @http_auth_user %></p>
 
 <h2>Version numbers</h2>
 
 <p>
 Alaveteli version: <%= link_to @current_version, @github_origin + @current_version %>
 <br>
-Alaveteli branch: <%= link_to @current_branch, @github_origin + @current_branch %>
+<% if @current_branch == "(no branch)" %>
+  Alaveteli branch: (no branch)
+<% else %>
+  Alaveteli branch: <%= link_to @current_branch, @github_origin + @current_branch %>
+<% end %>
 <br>
 Alaveteli commit: <%= link_to @current_commit, @github_origin + @current_commit %>
 <br>
@@ -20,8 +24,6 @@ Rails::VERSION::STRING <%=h Rails::VERSION::STRING%>
 TMail::VERSION::STRING <%=h TMail::VERSION::STRING%>
 <br>
 Xapian::version_string <%=h Xapian::version_string%>
-<br>
-Spec::VERSION::STRING <%=h Spec::VERSION::STRING%>
 </p>
 
 <h2>Configuration</h2>

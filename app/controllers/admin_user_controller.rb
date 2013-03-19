@@ -48,7 +48,7 @@ class AdminUserController < AdminController
         if @admin_user.valid?
             @admin_user.save!
             flash[:notice] = 'User successfully updated.'
-            redirect_to user_admin_url(@admin_user)
+            redirect_to admin_user_show_url(@admin_user)
         else
             render :action => 'edit'
         end
@@ -58,7 +58,7 @@ class AdminUserController < AdminController
         track_thing = TrackThing.find(params[:track_id].to_i)
         track_thing.destroy
         flash[:notice] = 'Track destroyed'
-        redirect_to user_admin_url(track_thing.tracking_user)
+        redirect_to admin_user_show_url(track_thing.tracking_user)
     end
 
     def clear_bounce
@@ -66,15 +66,15 @@ class AdminUserController < AdminController
         user.email_bounced_at = nil
         user.email_bounce_message = ""
         user.save!
-        redirect_to user_admin_url(user)
+        redirect_to admin_user_show_url(user)
     end
 
     def login_as
         @admin_user = User.find(params[:id]) # check user does exist
 
-        post_redirect = PostRedirect.new( :uri => main_url(user_url(@admin_user)), :user_id => @admin_user.id, :circumstance => "login_as" )
+        post_redirect = PostRedirect.new( :uri => user_url(@admin_user), :user_id => @admin_user.id, :circumstance => "login_as" )
         post_redirect.save!
-        url = main_url(confirm_url(:email_token => post_redirect.email_token, :only_path => true))
+        url = confirm_url(:email_token => post_redirect.email_token)
 
         redirect_to url
     end
@@ -91,7 +91,7 @@ class AdminUserController < AdminController
         end
 
         flash[:notice] = "Profile photo cleared"
-        redirect_to user_admin_url(@admin_user)
+        redirect_to admin_user_show_url(@admin_user)
     end
 
     private

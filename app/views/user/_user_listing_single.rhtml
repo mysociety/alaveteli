@@ -5,14 +5,14 @@ end %>
 <div class="user_listing">
     <% if display_user.profile_photo %>
         <div class="user_photo_on_search">
-            <a href="<%=user_url(display_user)%>">
+            <a href="<%=user_path(display_user)%>">
             <img src="<%= get_profile_photo_url(:url_name => display_user.url_name) %>" alt="">
             </a>
         </div>
     <% end %>
 
     <span class="head <% if display_user.profile_photo %>no_icon<% end %>">
-        <%= link_to highlight_words(display_user.name, @highlight_words), user_url(display_user) %>
+        <%= link_to highlight_words(display_user.name, @highlight_words), user_path(display_user) %>
     </span>
 
     <span class="bottomline">

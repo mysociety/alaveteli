@@ -92,7 +92,7 @@ class AdminPublicBodyController < AdminController
             @public_body = PublicBody.new(params[:public_body])
             if @public_body.save
                 flash[:notice] = 'PublicBody was successfully created.'
-                redirect_to admin_url('body/show/' + @public_body.id.to_s)
+                redirect_to admin_body_show_url(@public_body)
             else
                 render :action => 'new'
             end
@@ -111,7 +111,7 @@ class AdminPublicBodyController < AdminController
             @public_body = PublicBody.find(params[:id])
             if @public_body.update_attributes(params[:public_body])
                 flash[:notice] = 'PublicBody was successfully updated.'
-                redirect_to admin_url('body/show/' + @public_body.id.to_s)
+                redirect_to admin_body_show_url(@public_body)
             else
                 render :action => 'edit'
             end

@@ -1,38 +1,60 @@
 <% @title = "Statistics" %>
+<div class="hero-unit">
+  <h2><%=@public_body_count%> public authorities</h2>
+  <h2><%=@info_request_count%> requests, <%=@outgoing_message_count%> outgoing messages, <%=@incoming_message_count%> incoming messages</h2>
+  <h2><%=@user_count%> users, <%=@track_thing_count%> tracked things</h2>
+  <h2><%=@comment_count%> annotations</h2>
+</div>
 
-<h1>Statistics</h1>
-
-<h2>Chart of requests (excluding backpaged)</h2>
-
-<p>
-    <img src="<%= main_url("/foi-live-creation.png")%>">
-</p>
-
-<h2>State of requests (includes backpaged)</h2>
-
-<table>
-<% for state, count in @request_by_state %>
-<tr> <td><%=state %></td><td><%= count %></td> </tr>
-<% end %>
-</table>
-
-<h2>Chart of users</h2>
-
-<p>
-    <img src="<%= main_url("/foi-user-use.png")%>">
-</p>
-
-<h2>Tracks by type</h2>
-
-<table>
-<% for state, count in @tracks_by_type %>
-<tr> <td><%=state %></td><td><%= count %></td> </tr>
-<% end %>
-</table>
-
-<h2>Web analytics</h2>
-
-
-</p>
-
-
+<div class="row">
+  <div class="span12">
+    <h1>Statistics</h1>
+    <h2>Chart of requests (excluding backpaged)</h2>
+    <img src="/foi-live-creation.png" alt="Chart of requests">
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <h2>State of requests (includes backpaged)</h2>
+    <div class="container">
+      <% for state, count in @request_by_state %>
+        <div class="row">
+          <div class="span1">
+            <span class="label label-info"><%=count%></span>
+          </div>
+          <div class="span4">
+            <%=state%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <h2>Chart of users</h2>
+    <img src="/foi-user-use.png" alt="Chart of users">
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <h2>Tracks by type</h2>
+    <div class="container">
+      <% for state, count in @tracks_by_type %>
+        <div class="row">
+          <div class="span1">
+            <span class="label label-info"><%=count%></span>
+          </div>
+          <div class="span4">
+            <%=state%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <h2>Web analytics</h2>
+  </div>
+</div>

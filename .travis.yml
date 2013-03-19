@@ -13,6 +13,8 @@ before_install:
   - git submodule update --init --recursive
   - psql -c "create database foi_test template template0 encoding 'SQL_ASCII';" -U postgres
   - cp config/database.yml-test config/database.yml
+  - cp config/general.yml-example config/general.yml
+  - cp config/newrelic.yml-example config/newrelic.yml
   - sudo apt-get update
   - export DEBIAN_FRONTEND=noninteractive
   - sudo apt-get -y install exim4-daemon-light

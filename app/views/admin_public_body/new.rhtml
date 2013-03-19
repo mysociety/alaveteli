@@ -1,22 +1,23 @@
 <% @title = 'New public authority' %>
 
 <h1><%=@title%></h1>
-
-<script type="text/javascript">
-    $(function() {
-        $("#div-locales").tabs();
-    });
-</script>
-
-<%= render :partial => 'tag_help' %>
-
-<div id="public_body_form">
-    <% form_tag './create/' + @public_body.id.to_s do %>
-      <%= render :partial => 'form' %>
-      <p><%= submit_tag "Create" %></p>
-    <% end %>
-
-    <p>
-    <%= link_to 'List all', 'list' %>
-    </p>
+<div class="row">
+  <div class="span8">
+    <div id="public_body_form">
+      <% form_for :public_body, @public_body, :url => admin_body_create_path, :html => {:class => "form form-horizontal"} do |f| %>
+          <%= render :partial => 'form', :locals => {:f => f} %>
+          <div class="form-actions">
+            <%= f.submit "Create", :class => "btn btn-primary"  %>
+          </div>
+        <% end %>
+        <div class="row">
+          <div class="span8 well">
+              <%= link_to _('List all'), 'list' %>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="span4">
+    <%= render :partial => 'tag_help' %>
+  </div>
 </div>

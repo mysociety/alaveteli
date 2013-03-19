@@ -1,31 +1,32 @@
-<table>
-  <tr>
-  <th>Title</th>
-  <th>Authority</th>
-  <th>User</th>
-  <% for column in InfoRequest.content_columns.map { |c| c.human_name } - [ "Url title", "Title" ] %>
-    <th><%= column %></th>
+<div class="accordion" id="requests">
+  <% for info_request in info_requests %>
+    <div class="accordion-group">
+      <div class="accordion-heading accordion-toggle row">
+        <span class="item-title span6">
+          <a href="#request_<%=info_request.id%>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
+          <%= link_to(info_request.title, admin_request_show_path(info_request), :title => "view full details") %>
+        </span>
+        <span class="item-metadata span6">
+          <%= user_admin_link_for_request(info_request) %> <%= arrow_right %> <%= link_to("#{info_request.public_body.name}", admin_body_show_path(info_request.public_body)) %>, <%= time_ago_in_words(info_request.updated_at) %> ago
+        </span>
+      </div>
+      <div id="request_<%=info_request.id%>" class="item-detail accordion-body collapse row">
+        <% info_request.for_admin_column do | name, value, type | %>
+          <div>
+            <span class="span6">
+              <%= h name %>
+            </span>
+            <span class="span6">
+              <% if type == 'datetime' %>
+                <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
+                (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
+              <% else %>
+                <%=h value %>
+              <% end %>
+            </span>
+          </div>
+        <% end %>
+      </div>
+    </div>
   <% end %>
-  </tr>
-  
-<% for info_request in info_requests %>
-  <tr class="<%= cycle('odd', 'even') %>">
-    <td><%= request_both_links(info_request) %></td>
-    <td><%= public_body_both_links(info_request.public_body) %></td>
-    <% if info_request.is_external? %>
-      <% if info_request.external_user_name.nil? %>
-        <td><i><%= _("Anonymous user") %></i></td>
-      <% else %>
-        <td><%= h(info_request.external_user_name) %></td>
-      <% end %>
-    <% else %>
-      <td><%= user_both_links(info_request.user) %></td>
-    <% end %>
-  <% for column in InfoRequest.content_columns.map { |c| c.name } - [ "title", "url_title" ] %>
-    <td><%=h info_request.send(column) %></td>
-  <% end %>
-  </tr>
-<% end %>
-</table>
-
-
+</div>

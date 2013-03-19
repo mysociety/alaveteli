@@ -1,14 +1,19 @@
 <% @title = "Timeline" %>
-
-<h1><%=h @events_title%></h1>
-
-<p>
-<a href="?hour=1">Hour</a>
-| <a href="?day=1">Day</a>
-| <a href="?">2 days</a>
-| <a href="?week=1">Week</a>
-| <a href="?month=1">Month</a>
-| <a href="?all=1">All time</a></p>
+<div class="btn-toolbar">
+  <div class="btn-group">
+    <%= link_to "Hour", admin_timeline_path(:hour => 1), :class => "btn" %>
+    <%= link_to "Day", admin_timeline_path(:day => 1), :class => "btn" %>
+    <%= link_to "2 days", admin_timeline_path, :class => "btn" %>
+    <%= link_to "Week", admin_timeline_path(:week => 1), :class => "btn" %>
+    <%= link_to "Month", admin_timeline_path(:month => 1), :class => "btn" %>
+    <%= link_to "All time", admin_timeline_path(:all => 1), :class => "btn" %>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <h1><%=h @events_title%></h1>
+  </div>
+</div>
 
 <% last_date = nil %>
 <% for event, event_at in @events %>
@@ -72,7 +77,7 @@
          <% elsif event.event_type == 'response' %>
             <% incoming_message = event.incoming_message %>
             received
-            <%= link_to 'a response', main_url(incoming_message_url(incoming_message)) %>
+            <%= link_to 'a response', incoming_message_path(incoming_message) %>
             from <%=h event.info_request.public_body.name %>.
         <% elsif event.event_type == 'sent' %>
             was initially sent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
@@ -92,8 +97,7 @@
         was created/updated by administrator <strong><%=h event.last_edit_editor %></strong>
     <% end %>
 <% end %>
+<%= will_paginate(@events, :class => 'paginator') %>
 <% if not @events.empty? %>
 </p>
 <% end %>
-<%= will_paginate(@events) %>
-

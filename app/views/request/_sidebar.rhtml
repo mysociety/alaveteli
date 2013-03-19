@@ -4,7 +4,7 @@
 
     <% follower_count = TrackThing.count(:all, :conditions => ["info_request_id = ?", @info_request.id]) + 1 %>
     <p><%= n_("There is %d person following this request", "There are %d people following this request", follower_count) % follower_count %></p>
-     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user == @user, :location => 'sidebar' } %>
+     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user && @info_request.user == @user, :location => 'sidebar' } %>
    </div>
     <% if @info_request.described_state != "attention_requested" %>
     <h2><%= _('Offensive? Unsuitable?') %></h2>
@@ -31,17 +31,20 @@
     <h2><%= _("Act on what you've learnt") %></h2>
 
     <div class="act_link">
-     <% tweet_link = "https://twitter.com/share?url=#{h(request.url)}&via=#{h(Configuration::twitter_username)}&text='#{h(@info_request.title)}'&related=#{_('alaveteli_foi:The software that runs {{site_name}}', :site_name => h(site_name))}" %>
-        <% link_to tweet_link do %>
+        <%
+          # Cast "related" to normal string because html safe string (from rails_xss gem) and CGI::escape
+          # interact badly with ':' character. Go figure! Might go away in rails 3
+        %>
+        <% link_to "https://twitter.com/share?" + {:url => request.url, :via => Configuration::twitter_username, :text => @info_request.title, :related => _('alaveteli_foi:The software that runs {{site_name}}', :site_name => site_name).to_str}.to_query do %>
           <%= image_tag "twitter-16.png", :alt => "twitter icon" %>
+          <%= _("Tweet this request") %>
         <% end %>
-        <%= link_to _("Tweet this request"), tweet_link %>
     </div>
     <div class="act_link">
         <% link_to "http://wordpress.com/" do %>
           <%= image_tag "wordpress.png", :class => "rss" %>
+          <%= _("Start your own blog") %>
         <% end %>
-        <%= link_to _("Start your own blog"), "http://wordpress.com/"%>
     </div>
 
     <%= render :partial => 'request/next_actions' %>
@@ -53,12 +56,12 @@
             <%= render :partial => 'request/request_listing_short_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
         <% end %>
         <% if @xapian_similar_more %>
-            <p><%= link_to _("More similar requests"), request_similar_url(@info_request) %></p>
+            <p><%= link_to _("More similar requests"), similar_request_path(@info_request) %></p>
         <% end %>
         <!-- Important terms: <%= @xapian_similar.important_terms.join(" ") %>  -->
       <% end %>
 
-    <p><%= link_to _('Event history details'), request_details_url(@info_request) %></p>
+    <p><%= link_to _('Event history details'), request_details_path(@info_request) %></p>
 
     <!-- this link with this wording is here for legal reasons, discuss with
     board and our lawyer before changing or removing it -->
