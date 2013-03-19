@@ -46,28 +46,6 @@ module Mail
 
             self
         end
-
-        # HACK: Backported from Mail 2.5 for Ruby 1.8 support
-        # Can be removed when we no longer support Ruby 1.8
-        def to_yaml(opts = {})
-          hash = {}
-          hash['headers'] = {}
-          header.fields.each do |field|
-            hash['headers'][field.name] = field.value
-          end
-          hash['delivery_handler'] = delivery_handler.to_s if delivery_handler
-          hash['transport_encoding'] = transport_encoding.to_s
-          special_variables = [:@header, :@delivery_handler, :@transport_encoding]
-          if multipart?
-            hash['multipart_body'] = []
-            body.parts.map { |part| hash['multipart_body'] << part.to_yaml }
-            special_variables.push(:@body, :@text_part, :@html_part)
-          end
-          (instance_variables.map(&:to_sym) - special_variables).each do |var|
-            hash[var.to_s] = instance_variable_get(var)
-          end
-          hash.to_yaml(opts)
-        end
     end
 
     # A patched version of the parameter hash that handles nil values without throwing
@@ -121,51 +99,6 @@ module Mail
                 'UTF-8'
             else
                 encoding
-            end
-        end
-    end
-
-    # HACK: Backport encoding fixes for Ruby 1.9 from Mail 2.5
-    # Can be removed when Rails relies on Mail > 2.5
-    class Ruby19
-        def Ruby19.b_value_decode(str)
-            match = str.match(/\=\?(.+)?\?[Bb]\?(.+)?\?\=/m)
-            if match
-                encoding = match[1]
-                str = Ruby19.decode_base64(match[2])
-                str.force_encoding(fix_encoding(encoding))
-            end
-            decoded = str.encode("utf-8", :invalid => :replace, :replace => "")
-            decoded.valid_encoding? ? decoded : decoded.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
-        end
-
-        def Ruby19.q_value_decode(str)
-            match = str.match(/\=\?(.+)?\?[Qq]\?(.+)?\?\=/m)
-            if match
-                encoding = match[1]
-                str = Encodings::QuotedPrintable.decode(match[2])
-                str.force_encoding(fix_encoding(encoding))
-            end
-            decoded = str.encode("utf-8", :invalid => :replace, :replace => "")
-            decoded.valid_encoding? ? decoded : decoded.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
-        end
-
-        # mails somtimes includes invalid encodings like iso885915 or utf8 so we transform them to iso885915 or utf8
-        # TODO: add this as a test somewhere
-        # Encoding.list.map{|e| [e.to_s.upcase==fix_encoding(e.to_s.downcase.gsub("-", "")), e.to_s] }.select {|a,b| !b}
-        #  Encoding.list.map{|e| [e.to_s==fix_encoding(e.to_s), e.to_s] }.select {|a,b| !b}
-        def Ruby19.fix_encoding(encoding)
-            case encoding
-                # ISO-8859-15, ISO-2022-JP and alike
-                when /iso-?(\d{4})-?(\w{1,2})/i then return "ISO-#{$1}-#{$2}"
-                # "ISO-2022-JP-KDDI"  and alike
-                when /iso-?(\d{4})-?(\w{1,2})-?(\w*)/i then return "ISO-#{$1}-#{$2}-#{$3}"
-                # UTF-8, UTF-32BE and alike
-                when /utf-?(\d{1,2})?(\w{1,2})/i then return "UTF-#{$1}#{$2}"
-                # Windows-1252 and alike
-                when /Windows-?(.*)/i then return "Windows-#{$1}"
-                #more aliases to be added if needed
-                else return encoding
             end
         end
     end
