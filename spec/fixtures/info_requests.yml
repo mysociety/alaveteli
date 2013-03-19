@@ -107,3 +107,15 @@ anonymous_external_request:
     awaiting_description: false
     comments_allowed: true
     idhash: 7654321a
+other_request:
+    id: 111
+    title: Another request
+    url_title: another_request
+    created_at: 2010-01-01 02:23:45.6789100
+    updated_at: 2010-01-01 02:23:45.6789100
+    public_body_id: 7
+    user_id: 6
+    described_state: waiting_response
+    awaiting_description: false
+    comments_allowed: true
+    idhash: b234567

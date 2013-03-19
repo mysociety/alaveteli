@@ -215,6 +215,19 @@ describe AdminPublicBodyController, "when administering public bodies and paying
         PublicBody.count.should == n - 1
     end
 
+    it "doesn't let people with good emergency account credentials log in if the emergency user is disabled" do
+        setup_emergency_credentials('biz', 'fuz')
+        Configuration.stub!(:disable_emergency_user).and_return(true)
+        n = PublicBody.count
+        basic_auth_login(@request, "biz", "fuz")
+        post :show, { :id => public_bodies(:humpadink_public_body).id, :emergency => 1}
+        session[:using_admin].should == nil
+        n = PublicBody.count
+        post :destroy, { :id => public_bodies(:forlorn_public_body).id }
+        session[:using_admin].should == nil
+        PublicBody.count.should == n
+    end
+
     it "allows superusers to do stuff" do
         session[:user_id] = users(:admin_user).id
         @request.env["HTTP_AUTHORIZATION"] = ""

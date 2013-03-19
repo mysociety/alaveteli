@@ -1,63 +1,81 @@
-<% @title = "User - " + h(@admin_user.name) %>
+<% @title = _("User – {{name}}", :name => h(@admin_user.name)) %>
 
 <h1><%=@title%></h1>
 
 <% if @admin_user.profile_photo %>
-    <div class="user_photo_on_admin">
-        <% form_tag '../clear_profile_photo/' + @admin_user.id.to_s, :multipart => true do %>
-            <img src="<%= main_url(get_profile_photo_url(:url_name => @admin_user.url_name, :only_path => true)) %>">
-            <br>
-            <%= submit_tag "Clear photo" %>
-        <% end %>
-    </div>
+  <div class="user_photo_on_admin">
+    <% form_tag admin_clear_profile_photo_path(@admin_user), :multipart => true, :class => "form" do %>
+      <img src="<%= get_profile_photo_url(:url_name => @admin_user.url_name) %>">
+      <br>
+      <%= submit_tag "Clear photo", :class => "btn btn-info" %>
+    <% end %>
+  </div>
 <% end %>
 
-
-<div>
-<strong>Id:</strong> <%= @admin_user.id%> <br>
-<% for column in User.content_columns %>
-    <strong><%= column.human_name %>:</strong> 
-    <% if column.name == 'email' %>
-        <a href="mailto:<%=h @admin_user.email %>"><%=h @admin_user.email%></a>
-    <% elsif column.name == 'email_bounce_message' %>
-      <% if !@admin_user.email_bounce_message.empty? %>
-          <a href="../show_bounce_message/<%= @admin_user.id.to_s %>">See bounce message</a>
-      <% end %>
-    <% else %>
-        <%=h @admin_user.send(column.name) %>
+<table class="table table-striped table-condensed">
+  <tbody>
+    <tr>
+      <td>
+        <b><%=_("Id")%></b>
+      </td>
+      <td>
+        <%=@admin_user.id%>
+      </td>
+    </tr>
+    <% @admin_user.for_admin_column(:complete => true) do |name, value, type, column_name| %>
+      <tr>
+        <td>
+          <b><%=_(name)%></b>
+        </td>
+        <td>
+          <% if column_name == 'email' %>
+            <%=link_to @admin_user.email, "mailto:#{h @admin_user.email}"%>
+          <% elsif column_name == 'email_bounce_message' %>
+            <% unless @admin_user.email_bounce_message.empty? %>
+              <%= link_to _("See bounce message"), admin_user_show_bounce(@admin_user.id) %>
+            <% end %>
+          <% else %>
+            <%=h admin_value(value)%>
+          <% end %>
+          <% if column_name == 'email_bounced_at' && !@admin_user.email_bounced_at.nil? %>
+            <% form_tag admin_user_clear_bounce_path(@admin_user), :class => "form form-inline" do %>
+              <input type="submit" name="action" value="Clear bounce" class="btn btn-info">
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
     <% end %>
-    <% if column.name == 'email_bounced_at' && !@admin_user.email_bounced_at.nil? %>
-      <form action="../clear_bounce/<%= @admin_user.id.to_s %>" style="display: inline;"><input type="submit" name="action" value="Clear bounce"></form>
-    <% end %>
-    <br>
-<% end %>
-</div>
+  </tbody>
+</table>
 
-<p>
-    <%= link_to 'Public page', main_url(user_url(@admin_user)) %>
-    | <%= link_to 'Edit', '../edit/' + @admin_user.id.to_s %>
-    | <%= link_to 'Log in as this user', '../login_as/' + @admin_user.id.to_s %> (also confirms their email)
-</p>
+
+<%= link_to 'Edit', admin_user_edit_path(@admin_user), :class => "btn btn-primary" %>
+<%= link_to 'Public page', user_path(@admin_user), :class => "btn" %>
+<%= link_to "Log in as #{@admin_user.name} (also confirms their email)", admin_user_login_as_path(@admin_user), :class => "btn btn-info" %>
+
+<hr>
 
 <h2>Track things</h2>
-<%= render :partial => 'admin_track/some_tracks', :locals => { :track_things => @admin_user.track_things } %>
+<%= render :partial => 'admin_track/some_tracks', :locals => { :track_things => @admin_user.track_things, :include_destroy => true } %>
+
+<hr>
 
 <h2>Post redirects</h2>
 
-<table>
+<table class="table table-condensed table-striped">
   <tr>
   <th>Id</th>
   <% for column in PostRedirect.content_columns %>
     <th><%= column.human_name %></th>
   <% end %>
   </tr>
-  
+
 <% for post_redirect in @admin_user.post_redirects.find(:all, :order => 'created_at desc') %>
   <tr class="<%= cycle('odd', 'even') %>">
   <td><%=h post_redirect.id %></td>
   <% for column in PostRedirect.content_columns.map { |c| c.name } %>
     <% if column == 'email_token' %>
-     <td><%=link_to post_redirect.send(column), main_url(confirm_url(:email_token => post_redirect.send(column), :only_path => true)) %></td>
+     <td><%=link_to post_redirect.send(column), confirm_path(:email_token => post_redirect.send(column)) %></td>
     <% else %>
     <td><%=h post_redirect.send(column) %></td>
     <% end %>
@@ -66,8 +84,12 @@
 <% end %>
 </table>
 
+<hr>
+
 <h2>Requests</h2>
 <%= render :partial => 'admin_request/some_requests', :locals => { :info_requests => @admin_user.info_requests } %>
+
+<hr>
 
 <h2>Censor rules</h2>
 <%= render :partial => 'admin_censor_rule/show', :locals => { :censor_rules => @admin_user.censor_rules, :user => @admin_user } %>

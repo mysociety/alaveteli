@@ -17,3 +17,10 @@ config.action_controller.perform_caching             = true
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
 config.action_mailer.delivery_method = :sendmail # so is queued, rather than giving immediate errors
+
+require 'rack/ssl'
+if ::Configuration::force_ssl
+  config.middleware.insert_after ActionController::Failsafe, ::Rack::SSL
+  # For Rails 3.x this will need to change to
+  #config.middleware.insert_before ActionDispatch::Cookies, ::Rack::SSL
+end

@@ -4,7 +4,7 @@
 
 <div class="body_listing">
 	<span class="head">
-    <%= link_to highlight_words(public_body.name, @highlight_words), public_body_url(public_body) %>
+    <%= link_to highlight_words(public_body.name, @highlight_words), public_body_path(public_body) %>
    	</span>
     <span class="desc">
     <% if !public_body.short_name.empty? || !public_body.notes_without_html.empty? %>
@@ -20,7 +20,7 @@
     <span class="bottomline">
         <%= n_('%d request made.', '%d requests made.', public_body.info_requests.size) % public_body.info_requests.size %>
         <% if !@include_request_link_in_authority_listing.nil? %>
-        <%= link_to _("Make your own request"), public_body_url(public_body) %>.
+        <%= link_to _("Make your own request"), public_body_path(public_body) %>.
         <% end %>
         <br>
         <span class="date_added">

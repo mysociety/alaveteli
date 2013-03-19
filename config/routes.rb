@@ -10,7 +10,7 @@ $alaveteli_route_extensions.each do |f|
 end
 
 ActionController::Routing::Routes.draw do |map|
-    
+
     # The priority is based upon order of creation: first created -> highest priority.
 
     # Sample of regular route:
@@ -43,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
         request.request_list   '/list',        :action => 'list'
 
         request.select_authority     '/select_authority',     :action => 'select_authority'
-        
+
         request.new_request    '/new',         :action => 'new'
         request.new_request_to_body    '/new/:url_name',         :action => 'new'
 
@@ -54,7 +54,8 @@ ActionController::Routing::Routes.draw do |map|
         request.details_request     '/details/request/:url_title', :action => 'details'
         request.similar_request     '/similar/request/:url_title', :action => 'similar'
 
-        request.describe_state   '/request/:id/describe', :action => 'describe_state'
+        request.describe_state   '/request/:id/describe', :action => 'describe_state', :conditions => {:method => :post}
+        request.describe_state_message   '/request/:url_title/describe/:described_state', :action => 'describe_state_message'
         request.show_response_no_followup    '/request/:id/response', :action => 'show_response'
         request.show_response    '/request/:id/response/:incoming_message_id', :action => 'show_response'
         request.get_attachment_as_html   '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name', :action => 'get_attachment_as_html'
@@ -64,7 +65,7 @@ ActionController::Routing::Routes.draw do |map|
 
         request.upload_response "/upload/request/:url_title", :action => 'upload_response'
         request.download_entire_request '/request/:url_title/download',      :action => 'download_entire_request'
-        
+
         # It would be nice to add :conditions => { :method => :post } to this next one,
         # because it ought not really to be available as a GET request since it changes
         # the server state. Unfortunately this doesn’t play well with the PostRedirect
@@ -161,9 +162,9 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     map.with_options :controller => 'request_game' do |game|
-        game.play '/categorise/play', :action => 'play'
-        game.request '/categorise/request/:url_title', :action => 'show'
-        game.stop '/categorise/stop', :action => 'stop'
+        game.categorise_play '/categorise/play', :action => 'play'
+        game.categorise_request '/categorise/request/:url_title', :action => 'show'
+        game.categorise_stop '/categorise/stop', :action => 'stop'
     end
 
     map.with_options :controller => 'admin_public_body' do |body|
@@ -171,10 +172,10 @@ ActionController::Routing::Routes.draw do |map|
         body.admin_body_index '/admin/body', :action => 'index'
         body.admin_body_list '/admin/body/list', :action => 'list'
         body.admin_body_show '/admin/body/show/:id', :action => 'show'
-        body.admin_body_new '/admin/body/new/:id', :action => 'new'
+        body.admin_body_new '/admin/body/new', :action => 'new'
         body.admin_body_edit '/admin/body/edit/:id', :action => 'edit'
         body.admin_body_update '/admin/body/update/:id', :action => 'update'
-        body.admin_body_create '/admin/body/create/:id', :action => 'create'
+        body.admin_body_create '/admin/body/create', :action => 'create'
         body.admin_body_destroy '/admin/body/destroy/:id', :action => 'destroy'
         body.admin_body_import_csv '/admin/body/import_csv', :action => 'import_csv'
         body.admin_body_mass_tag_add '/admin/body/mass_tag_add', :action => 'mass_tag_add'
@@ -185,10 +186,10 @@ ActionController::Routing::Routes.draw do |map|
         admin.admin_timeline '/admin/timeline', :action => 'timeline'
         admin.admin_debug '/admin/debug', :action => 'debug'
         admin.admin_stats '/admin/stats', :action => 'stats'
+        admin.admin_js '/admin/javascripts/admin.js', :action => 'admin_js'
     end
 
     map.with_options :controller => 'admin_request' do |admin|
-        admin.admin_request_list_old_unclassified '/admin/unclassified', :action => 'list_old_unclassified'
         admin.admin_request_index '/admin/request', :action => 'index'
         admin.admin_request_list '/admin/request/list', :action => 'list'
         admin.admin_request_show '/admin/request/show/:id', :action => 'show'
@@ -197,11 +198,11 @@ ActionController::Routing::Routes.draw do |map|
         admin.admin_request_update '/admin/request/update/:id', :action => 'update'
         admin.admin_request_destroy '/admin/request/destroy/:id', :action => 'fully_destroy'
         admin.admin_request_edit_outgoing '/admin/request/edit_outgoing/:id', :action => 'edit_outgoing'
-        admin.admin_request_destroy_outgoing '/admin/request/destroy_outgoing/:id', :action => 'destroy_outgoing'
+        admin.admin_request_destroy_outgoing '/admin/request/destroy_outgoing', :action => 'destroy_outgoing'
         admin.admin_request_update_outgoing '/admin/request/update_outgoing/:id', :action => 'update_outgoing'
         admin.admin_request_edit_comment '/admin/request/edit_comment/:id', :action => 'edit_comment'
         admin.admin_request_update_comment '/admin/request/update_comment/:id', :action => 'update_comment'
-        admin.admin_request_destroy_incoming '/admin/request/destroy_incoming/:id', :action => 'destroy_incoming'
+        admin.admin_request_destroy_incoming '/admin/request/destroy_incoming', :action => 'destroy_incoming'
         admin.admin_request_redeliver_incoming '/admin/request/redeliver_incoming', :action => 'redeliver_incoming'
         admin.admin_request_move_request '/admin/request/move_request', :action => 'move_request'
         admin.admin_request_generate_upload_url '/admin/request/generate_upload_url/:id', :action => 'generate_upload_url'
@@ -217,7 +218,7 @@ ActionController::Routing::Routes.draw do |map|
         user.admin_user_list_banned '/admin/user/banned', :action => 'list_banned'
         user.admin_user_show '/admin/user/show/:id', :action => 'show'
         user.admin_user_edit '/admin/user/edit/:id', :action => 'edit'
-        user.admin_user_show '/admin/user/show_bounce_message/:id', :action => 'show_bounce_message'
+        user.admin_user_show_bounce '/admin/user/show_bounce_message/:id', :action => 'show_bounce_message'
         user.admin_user_update '/admin/user/update/:id', :action => 'update'
         user.admin_user_clear_bounce '/admin/user/clear_bounce/:id', :action => 'clear_bounce'
         user.admin_user_destroy_track '/admin/user/destroy_track', :action => 'destroy_track'
@@ -236,16 +237,16 @@ ActionController::Routing::Routes.draw do |map|
         rule.admin_rule_update '/admin/censor/update/:id', :action => 'update'
         rule.admin_rule_destroy '/admin/censor/destroy/:censor_rule_id', :action => 'destroy'
     end
-    
+
     map.with_options :controller => 'api' do |api|
         api.api_create_request '/api/v2/request.json', :action => 'create_request', :conditions => { :method => :post }
-        
+
         api.api_show_request '/api/v2/request/:id.json', :action => 'show_request', :conditions => { :method => :get }
         api.api_add_correspondence '/api/v2/request/:id.json', :action => 'add_correspondence', :conditions => { :method => :post }
-        
+
         api.api_body_request_events '/api/v2/body/:id/request_events.:feed_type', :action => 'body_request_events', :feed_type => '^(json|atom)$'
     end
-    
+
     map.filter('conditionallyprependlocale')
 
     # Allow downloading Web Service WSDL as a file with an extension

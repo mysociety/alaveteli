@@ -1,83 +1,89 @@
-<% @title = "Public authority - " + h(@public_body.name) %>
+<% @title = _("Public authority – {{name}}", :name => h(@public_body.name)) %>
 
 <h1><%=@title%></h1>
 
-<p>
-<% 
-   columns = PublicBody.content_columns + [] # force dup
-   columns.delete_if {|c| ['last_edit_comment'].include?(c.name)}
-
-   for column in columns %>
-  <b><%= column.human_name %>:</b> 
-  <% if ['home_page', 'publication_scheme', 'disclosure_log'].include? column.name %>
-    <%= link_to(h(@public_body.send(column.name)), @public_body.send(column.name))  %>
-  <% elsif column.name == 'request_email' %>
-    <%= link_to(h(@public_body.send(column.name)), "mailto:#{@public_body.send(column.name)}")  %>
-      <% if !@public_body.is_requestable? %>
-          (not requestable due to: <%=h @public_body.not_requestable_reason %><% if @public_body.is_followupable? %>; but followupable<% end %>)
-      <% end %>
-  <% else %>
-      <%=h @public_body.send(column.name) %>
-  <% end %>
-  <br/>
-<% end %>
-<b>Calculated home page:</b> 
-<% if !@public_body.calculated_home_page.nil? %>
-    <%= link_to(h(@public_body.calculated_home_page), @public_body.calculated_home_page) %>
-<% else %>
-    *unknown*
-<% end %>
-<br/><b>Tags:</b> <%= render :partial => 'tags', :locals => { :body => @public_body} %>
-<br/>
-</p>
-
-<p>
-    <%=
-        # url_name can be missing if the name hasn't been set for this locale
-        if !@public_body.url_name.nil?
-            link_to 'Public page', main_url(public_body_url(@public_body))
-        else
-            'Public page not available'
-        end
-    %>
-    | <%= link_to 'Edit', '../edit/' + @public_body.id.to_s %>
-</p>
-
-<h2>History</h2>
-<table border="1">
-<tr>
-<th>Updated at</th>
-<% 
-    history_columns = PublicBody.content_columns + [] # force dup
-    history_columns.delete_if {|c| ['created_at', 'updated_at', 'first_letter', 'api_key'].include?(c.name)}
-    for column in history_columns %>
-  <th><%= column.human_name %></th>
-<% end %>
-</tr>
-<%# There may be an option to versions() to specify order, but I can't find it. TB 2009-03-09 %>
-<% for historic_public_body in @public_body.reverse_sorted_versions %>
-      <tr class="<%= cycle('odd', 'even') %>">
-      <td><%=h historic_public_body.updated_at %></td>
-    <% for column in history_columns %>
-      <% 
-        value = h(historic_public_body.send(column.name))
-        if column.name == 'last_edit_comment'
-            value = historic_public_body.last_edit_comment_for_html_display
-        end
-        # Highlight entries which have changed since previous version
-        changed = (!['version', 'last_edit_editor', 'last_edit_comment'].include?(column.name)) && ((historic_public_body.send(column.name) != @public_body.sorted_versions[historic_public_body.version - 2].send(column.name)) || (historic_public_body.version == 1)) %>
-      <td <%= changed ? ' class="entry_changed" '.html_safe: '' %> >
-      <%=value%>
-      </td>
+<table class="table table-striped table-condensed">
+  <tbody>
+    <% @public_body.for_admin_column do |name, value, type, column_name| %>
+      <tr>
+        <td>
+          <b><%=name%></b>
+        </td>
+        <td>
+          <% if ['home_page', 'publication_scheme', 'disclosure_log'].include? column_name %>
+            <%= link_to(h(value), value)  %>
+          <% elsif column_name == 'request_email' %>
+            <%= link_to(h(value), "mailto:#{value}")  %>
+              <% unless @public_body.is_requestable? %>
+                <%=_("not requestable due to: {{reason}}", :reason => h(@public_body.not_requestable_reason))%><% if @public_body.is_followupable? %>; <%=_("but followupable")%><% end %>
+              <% end %>
+          <% else %>
+              <%=h value %>
+          <% end %>
+        </td>
+      </tr>
     <% end %>
+    <tr>
+      <td>
+        <b><%=_("Calculated home page")%></b>
+      </td>
+      <td>
+        <% unless @public_body.calculated_home_page.nil? %>
+          <%= link_to(h(@public_body.calculated_home_page), @public_body.calculated_home_page) %>
+        <% else %>
+          <%=_("*unknown*")%>
+        <% end %>
+      </td>
     </tr>
-<% end %>
+    <tr>
+      <td>
+        <b><%=_("Tags")%></b>
+      </td>
+      <td>
+        <%= render :partial => 'tags', :locals => { :body => @public_body} %>
+      </td>
+    </tr>
+  </tbody>
 </table>
-
+<%= link_to _("Edit"), admin_body_edit_path(@public_body), :class => "btn btn-primary" %>
+<% unless @public_body.url_name.nil? %>
+  <%=link_to _("Public page"), public_body_path(@public_body), :class => "btn" %>
+<% else %>
+  <%=_("Public page not available")%>
+<% end %>
+<hr>
+<h2>History</h2>
+<%# There may be an option to versions() to specify order, but I can't find it. TB 2009-03-09 %>
+<% versions = @public_body.reverse_sorted_versions; versions.each_with_index do |historic_public_body, i| %>
+  <div class="row">
+    <div class="span2">
+      <b>
+        <%= _("Version {{version}}", :version => historic_public_body.version)%>
+      </b>
+    </div>
+    <div class="span4">
+      <%= I18n.l(historic_public_body.updated_at, :format => "%e %B %Y %H:%M:%S") %>
+      (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(historic_public_body.updated_at)) %>)
+    </div>
+    <% if i == versions.length - 1 %>
+      <div class="span6">
+        <%=_("This is the first version.")%>
+      </div>
+    <% else %>
+      <div class="span6">
+        <p>“<%= h(historic_public_body.last_edit_comment) %>”</p>
+        <ul>
+          <% historic_public_body.compare(versions[i+1]) do |change| %>
+            <li><%= _("{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>", :thing_changed => change[:name], :from_value => (change[:from] or "-"), :to_value => (change[:to] or "-")) %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+<hr>
 <h2>Requests</h2>
 <%= render :partial => 'admin_request/some_requests', :locals => { :info_requests => @public_body.info_requests } %>
-
+<hr>
 <h2>Track things</h2>
-<%= render :partial => 'admin_track/some_tracks', :locals => { :track_things => @public_body.track_things } %>
-
-
+<%= render :partial => 'admin_track/some_tracks', :locals => { :track_things => @public_body.track_things, :include_destroy => true } %>

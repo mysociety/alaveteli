@@ -19,17 +19,17 @@
                 :public_body_link => public_body_link(event.info_request.public_body)) %>
           <% end %>
 
-           <%=link_to h(event.info_request.title), request_url(event.info_request)%>
+           <%=link_to h(event.info_request.title), request_path(event.info_request)%>
            <%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(event.described_at)) %>
-           <p class="excerpt" onclick="document.location.href='<%=request_url(event.info_request)%>'"><%= excerpt(event.search_text_main(true), "", 200) %></p>
+           <p class="excerpt" onclick="document.location.href='<%=request_path(event.info_request)%>'"><%= excerpt(event.search_text_main(true), "", 200) %></p>
         </li>
       <% end %>
     </ul>
     <p><strong>
       <% if @request_events_all_successful %>
-        <%=link_to _('More successful requests...'), request_list_successful_url %>
+        <%=link_to _('More successful requests...'), request_list_successful_path %>
       <% else %>
-        <%=link_to _('More requests...'), request_list_all_url %>
+        <%=link_to _('More requests...'), request_list_all_path %>
       <% end %>
     </strong></p>
 </div>

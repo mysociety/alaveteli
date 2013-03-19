@@ -1,40 +1,75 @@
 <%= error_messages_for 'censor_rule' %>
 
-<p>Applies to:
-    <% if !info_request.nil? %>
-            <%=request_both_links(info_request)%> request
-            <%= hidden_field 'censor_rule', 'info_request_id', { :value => info_request.id } %>
-    <% end %>
-    <% if !user.nil? %>
-        <%=user_both_links(user)%> user
-       <%= hidden_field 'censor_rule', 'user_id', { :value => user.id } %>
-    <% end %>
-</p>
+<div class="well">
+  <%=_("Applies to")%>
+  <% unless info_request.nil? %>
+    <%= request_both_links(info_request) %>
+    <%= hidden_field 'censor_rule', 'info_request_id', { :value => info_request.id } %>
+  <% end %>
+  <% unless user.nil? %>
+    <%= user_both_links(user) %>
+    <%= hidden_field 'censor_rule', 'user_id', { :value => user.id } %>
+<% end %>
+</div>
 
-<p><label for="censor_rule_regexp">Is it regexp replacement?</label> (Leave unchecked if you are not sure about this)<br/>
-<%= check_box 'censor_rule', 'regexp' %></p>
+<div class="control-group">
+  <label for="censor_rule_regexp" class="control-label">Is it regexp replacement?</label>
+  <div class="controls">
+    <%= check_box 'censor_rule', 'regexp' %>
+    <div class="help-block">
+      Leave unchecked if you are not sure about this
+    </div>
+  </div>
+</div>
 
-<p><label for="censor_rule_text">Text</label> (that you want to remove, case sensitive)<br/>
-<%= text_field 'censor_rule', 'text', :size => 60  %></p>
+<div class="control-group">
+  <label for="censor_rule_text" class="control-label">Text</label>
+  <div class="controls">
+    <%= text_field 'censor_rule', 'text', :class => "span3" %>
+    <div class="help-block">
+      that you want to remove, case sensitive
+    </div>
+  </div>
+</div>
 
-<p><label for="censor_rule_replacement">Replacement</label> (put it in <strong>[square brackets]</strong>, e.g. [personal information removed]. applies to text in emails and HTML conversions of binaries; binaries themselves must stay the same length and the replacement is just a bunch of 'x's)<br/>
-<%= text_field 'censor_rule', 'replacement', :size => 60  %></p>
+<div class="control-group">
+  <label for="censor_rule_replacement" class="control-label">Replacement</label>
+  <div class="controls">
+    <%= text_field 'censor_rule', 'replacement', :class => "span3"  %>
+    <div class="help-block">
+      put it in <strong>[square brackets]</strong>, e.g. [personal information removed]. applies to text in emails and HTML conversions of binaries; binaries themselves must stay the same length and the replacement is just a bunch of 'x's
+    </div>
+  </div>
+</div>
 
-<p><label for="censor_rule_last_edit_comment">Comment for this edit</label> (put purpose of the rule, and why the change)<br/>
-<%= text_area 'censor_rule', 'last_edit_comment', :rows => 2, :cols => 60  %></p>
+<div class="control-group">
+  <label for="censor_rule_last_edit_comment" class="control-label">Comment for this edit</label>
+  <div class="controls">
+    <%= text_area 'censor_rule', 'last_edit_comment', :rows => 2, :class => "span6"  %>
+    <div class="help-block">
+      put purpose of the rule, and why the change
+    </div>
+  </div>
+</div>
 
-<p><strong>Warning and notes:</strong> This does replace text in binary files, but for
-most formats only in a naive way. It works well on surprisingly many Word documents. Notably
-it doesn't even do UCS-2 (unicode sometimes used in Word). There is also special code
-which works on some PDFs. Please <strong>carefully check</strong> all attachments have
-changed in the way you expect, and haven't become corrupted.
-</p>
-
-<p>You may need to manually rebuild the search index afterwards. You can redact
-things by individual request or by user by adding the censor rule from the
-appropriate page.  If you need to redact across a whole
-authority, it will be easy enough to make code changes to add it, so do ask.
-</p>
-<p><strong>Regexp rules that are hard to process will really slow down request display.</strong> Please only use regexps if you really need to.
-</p>
-
+<div class="row">
+  <div class="span10 offset2">
+    <div class="alert alert-info">
+      <h3>Warning and notes:</h3>
+      <p> This does replace text in binary files, but for
+      most formats only in a naive way. It works well on surprisingly many Word documents. Notably
+      it doesn't even do UCS-2 (unicode sometimes used in Word). There is also special code
+      which works on some PDFs. Please <strong>carefully check</strong> all attachments have
+      changed in the way you expect, and haven't become corrupted.
+      </p>
+      <p>You may need to manually rebuild the search index afterwards. You can redact
+      things by individual request or by user by adding the censor rule from the
+      appropriate page.  If you need to redact across a whole
+      authority, it will be easy enough to make code changes to add it, so do ask.
+      </p>
+      <p>
+         <strong>Regexp rules that are hard to process will really slow down request display.</strong> Please only use regexps if you really need to.
+      </p>
+    </div>
+  </div>
+</div>

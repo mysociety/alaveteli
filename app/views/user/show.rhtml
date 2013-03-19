@@ -55,7 +55,7 @@
         <% else %>
             <% if @is_you %>
                 <span id="set_photo">
-                    <%= link_to _('Set your profile photo'), set_profile_photo_url() %>
+                    <%= link_to _('Set your profile photo'), set_profile_photo_path %>
                 </span>
             <% end %>
         <% end %>
@@ -66,12 +66,12 @@
     <p class="subtitle">
        <%= _('Joined {{site_name}} in', :site_name=>site_name) %> <%= year_from_date(@display_user.created_at) %>
         <% if !@user.nil? && @user.admin_page_links? %>
-        (<%= link_to "admin", user_admin_url(@display_user) %>)
+        (<%= link_to "admin", admin_user_show_path(@display_user) %>)
         <% end %>
     </p>
 
     <p>
-        <%= link_to _('Send message to ') + h(@display_user.name), contact_user_url(:id => @display_user.id) %>
+        <%= link_to _('Send message to ') + h(@display_user.name), contact_user_path(:id => @display_user.id) %>
         <% if @is_you %>
             (<%= _('just to see how it works')%>)
         <% end %>
@@ -109,7 +109,7 @@
 <div id="user_profile_search">
     <% form_tag(show_user_url, :method => "get", :id=>"search_form") do %>
     <div>
-        <%= text_field_tag(:user_query, params[:user_query]) %>
+        <%= text_field_tag(:user_query, params[:user_query], {:title => "type your search term here" }) %>
         <% if @is_you %>
             <%= submit_tag(_("Search your contributions")) %>
         <% else %>

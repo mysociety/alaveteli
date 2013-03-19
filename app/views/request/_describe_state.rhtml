@@ -3,7 +3,7 @@
     <% form_for(:incoming_message, @info_request, :url => describe_state_url(:id => @info_request.id)) do |f| %>
         <h2><%= _('What best describes the status of this request now?') %></h2>
 
-        <hr> <!------------------------------------------------>
+        <hr>
 	<h3><%= _('This request is still in progress:') %></h3>
         <% if @info_request.described_state != 'internal_review' %>
             <div>
@@ -40,7 +40,7 @@
 
         <%= render :partial => 'general/custom_state_transitions_pending', :locals => {:id_suffix => id_suffix } %>
 
-        <hr> <!------------------------------------------------>
+        <hr>
 	<h3><%= _('This particular request is finished:') %></h3>
 
         <% if @info_request.described_state == 'internal_review' %>
@@ -67,7 +67,7 @@
         <%= render :partial => 'general/custom_state_transitions_complete', :locals => {:id_suffix => id_suffix } %>
 
 
-        <hr> <!------------------------------------------------>
+        <hr>
 	<h3><%= _('Other:') %></h3>
 
         <div>
@@ -97,7 +97,6 @@
 
         <p>
         <%= hidden_field_tag 'last_info_request_event_id', @last_info_request_event_id, :id => 'last_info_request_event_id' + id_suffix %>
-        <%= hidden_field_tag 'submitted_describe_state', 1, :id => 'submitted_describe_state' + id_suffix %>
         <%= submit_tag _("Submit status") %> (<%= _('and we\'ll suggest <strong>what to do next</strong>') %>)
         </p>
     <% end %>

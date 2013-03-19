@@ -11,7 +11,7 @@
         <tr>
             <td> <%= c += 1 %>. <td>
             <td> <%= user_link(classifications.user) %> </td>
-            <td> <%=pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;")%> </td>
+            <td> <%=pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;").html_safe %> </td>
         </tr>
     <% end %>
     </table>
@@ -22,7 +22,7 @@
         <tr>
             <td> <%= c += 1 %>. <td>
             <td> <%= user_link(classifications.user) %> </td>
-            <td> <%= pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;")%> </td>
+            <td> <%= pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;").html_safe %> </td>
         </tr>
     <% end %>
     </table>
@@ -36,8 +36,8 @@ information has been provided. Everyone'll be exceedingly grateful.")%></p>
     <%= render :partial => 'request/request_listing_single', :locals => { :info_request => info_request } %>
 <% end %>
 <p id="game_buttons">
-<%= button_to _('I don\'t like these ones &mdash; give me some more!'), play_url %>
-<%= button_to _('I don\'t want to do any more tidying now!'), stop_url %>
+<%= button_to _('I don\'t like these ones &mdash; give me some more!'), categorise_play_url %>
+<%= button_to _('I don\'t want to do any more tidying now!'), categorise_stop_url %>
 </p>
 <p><%= _('Thanks for helping - your work will make it easier for everyone to find successful
 responses, and maybe even let us make league tables...')%></p>

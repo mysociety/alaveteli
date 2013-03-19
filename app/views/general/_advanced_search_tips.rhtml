@@ -23,27 +23,27 @@
     <p><%= _("All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held.") %></p>
 
     <table class="status_table">
-        <tr><td><strong><%=search_link('status:waiting_response', nil, nil, true)%></strong></td><td><%= _('Waiting for the public authority to reply') %></td></tr>
-        <tr><td><strong><%=search_link('status:not_held', nil, nil, true)%></strong></td><td><%= _('The public authority does not have the information requested') %></td></tr>
-        <tr><td><strong><%=search_link('status:rejected', nil, nil, true)%></strong></td><td><%= _('The request was refused by the public authority') %></td></tr>
-        <tr><td><strong><%=search_link('status:partially_successful', nil, nil, true)%></strong></td><td><%= _('Some of the information requested has been received') %></td></tr>
-        <tr><td><strong><%=search_link('status:successful', nil, nil, true)%></strong></td><td><%= _('All of the information requested has been received') %></td></tr>
-        <tr><td><strong><%=search_link('status:waiting_clarification', nil, nil, true)%></strong></td><td><%= _('The public authority would like part of the request explained') %></td></tr>
-        <tr><td><strong><%=search_link('status:gone_postal', nil, nil, true)%></strong></td><td><%= _('The public authority would like to / has responded by post') %></td></tr>
-        <tr><td><strong><%=search_link('status:internal_review', nil, nil, true)%></strong></td><td><%= _('Waiting for the public authority to complete an internal review of their handling of the request') %></td></tr>
-        <tr><td><strong><%=search_link('status:error_message', nil, nil, true)%></strong></td><td><%= _('Received an error message, such as delivery failure.') %></td></tr>
-        <tr><td><strong><%=search_link('status:requires_admin', nil, nil, true)%></strong></td><td><%= _('A strange reponse, required attention by the {{site_name}} team', :site_name=>site_name) %></td></tr>
-        <tr><td><strong><%=search_link('status:user_withdrawn', nil, nil, true)%></strong></td><td><%= _('The requester has abandoned this request for some reason') %></td></tr>
+        <tr><td><strong><%=search_link('status:waiting_response')%></strong></td><td><%= _('Waiting for the public authority to reply') %></td></tr>
+        <tr><td><strong><%=search_link('status:not_held')%></strong></td><td><%= _('The public authority does not have the information requested') %></td></tr>
+        <tr><td><strong><%=search_link('status:rejected')%></strong></td><td><%= _('The request was refused by the public authority') %></td></tr>
+        <tr><td><strong><%=search_link('status:partially_successful')%></strong></td><td><%= _('Some of the information requested has been received') %></td></tr>
+        <tr><td><strong><%=search_link('status:successful')%></strong></td><td><%= _('All of the information requested has been received') %></td></tr>
+        <tr><td><strong><%=search_link('status:waiting_clarification')%></strong></td><td><%= _('The public authority would like part of the request explained') %></td></tr>
+        <tr><td><strong><%=search_link('status:gone_postal')%></strong></td><td><%= _('The public authority would like to / has responded by post') %></td></tr>
+        <tr><td><strong><%=search_link('status:internal_review')%></strong></td><td><%= _('Waiting for the public authority to complete an internal review of their handling of the request') %></td></tr>
+        <tr><td><strong><%=search_link('status:error_message')%></strong></td><td><%= _('Received an error message, such as delivery failure.') %></td></tr>
+        <tr><td><strong><%=search_link('status:requires_admin')%></strong></td><td><%= _('A strange reponse, required attention by the {{site_name}} team', :site_name=>site_name) %></td></tr>
+        <tr><td><strong><%=search_link('status:user_withdrawn')%></strong></td><td><%= _('The requester has abandoned this request for some reason') %></td></tr>
     </table>
 
     <h2 id="varieties"><%= _('Table of varieties') %></h2>
     <p><%= _("All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent.") %></p>
     <table class="status_table">
-        <tr><td><strong><%=search_link('variety:sent', nil, nil, true)%></strong></td><td><%= _('Original request sent') %></td></tr>
-        <tr><td><strong><%=search_link('variety:followup_sent', nil, nil, true)%></strong></td><td><%= _('Follow up message sent by requester') %></td></tr>
-        <tr><td><strong><%=search_link('variety:response', nil, nil, true)%></strong></td><td><%= _('Response from a public authority') %></td></tr>
-        <tr><td><strong><%=search_link('variety:comment', nil, nil, true)%></strong></td><td><%= _('Annotation added to request') %></td></tr>
-        <tr><td><strong><%=search_link('variety:authority', nil, nil, true)%></strong></td><td><%= _('A public authority') %></td></tr>
-        <tr><td><strong><%=search_link('variety:user', nil, nil, true)%></strong></td><td><%= _('A {{site_name}} user', :site_name=>site_name) %></td></tr>
+        <tr><td><strong><%=search_link('variety:sent')%></strong></td><td><%= _('Original request sent') %></td></tr>
+        <tr><td><strong><%=search_link('variety:followup_sent')%></strong></td><td><%= _('Follow up message sent by requester') %></td></tr>
+        <tr><td><strong><%=search_link('variety:response')%></strong></td><td><%= _('Response from a public authority') %></td></tr>
+        <tr><td><strong><%=search_link('variety:comment')%></strong></td><td><%= _('Annotation added to request') %></td></tr>
+        <tr><td><strong><%=search_link('variety:authority')%></strong></td><td><%= _('A public authority') %></td></tr>
+        <tr><td><strong><%=search_link('variety:user')%></strong></td><td><%= _('A {{site_name}} user', :site_name=>site_name) %></td></tr>
     </table>
 </div>

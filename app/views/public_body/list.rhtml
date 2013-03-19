@@ -10,7 +10,7 @@
     <% for row in PublicBodyCategories::get().with_headings() %>
         <% if row.instance_of?(Array) %>
             <li>
-            <%= link_to_unless (@tag == row[0]), row[1], list_public_bodies_url(:tag => row[0]) %> 
+            <%= link_to_unless (@tag == row[0]), row[1], list_public_bodies_path(:tag => row[0]) %> 
             </li>
         <% else %>
             <% if not first_row %>
@@ -34,7 +34,7 @@
 
 <% form_tag(list_public_bodies_default_url, :method => "get", :id=>"search_form") do %>
  <div>
-  <%= text_field_tag(:public_body_query, params[:public_body_query]) %> 
+  <%= text_field_tag(:public_body_query, params[:public_body_query], { :title => "type your search term here" } ) %> 
   <%= submit_tag(_("Search")) %>
  </div>
 <% end %>

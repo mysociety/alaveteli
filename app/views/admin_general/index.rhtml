@@ -1,109 +1,185 @@
 <% @title = "Summary" %>
 
-<h1><%=@title%></h1>
+<div class="row">
+  <div class="span12">
+    <h1><%=@title%></h1>
 
-<ul>
-<li><%=@public_body_count%> public authorities</li>
-<li><%=@info_request_count%> requests, <%=@outgoing_message_count%> outgoing messages, 
-    <%=@incoming_message_count%> incoming messages
-</li>
-<li><%=@user_count%> users, <%=@track_thing_count%> tracked things</li>
-<li><%=@comment_count%> annotations</li>
-</ul>
+    <ul>
+      <li><%=@public_body_count%> public authorities</li>
+      <li>
+        <%=@info_request_count%> requests, <%=@outgoing_message_count%> outgoing messages,
+        <%=@incoming_message_count%> incoming messages
+      </li>
+      <li><%=@user_count%> users, <%=@track_thing_count%> tracked things</li>
+      <li><%=@comment_count%> annotations</li>
+    </ul>
+  </div>
+</div>
 
 <hr>
 
-<h1>Things to do</h1>
+<div class="row">
+  <div class="span12">
+    <h1>Things to do</h1>
+  </div>
+</div>
 
-<% if @holding_pen_messages.size > 0 %>
-    <h3>Put misdelivered responses with the right request (<%=@holding_pen_messages.size%> total)</h3>
-
-    <ul>
-    <% for message in @holding_pen_messages %>
-        <li>
-            <% if message.get_body_for_quoting.strip.size == 0 %>
-                <%= link_to "(no body)", "request/show_raw_email/" + message.raw_email_id.to_s %>
-            <% else %>
-                <%= link_to excerpt(message.get_body_for_quoting, "", 60), "request/show_raw_email/" + message.raw_email_id.to_s %>
+<div class="accordion" id="things-to-do">
+  <% if @holding_pen_messages.size > 0 %>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" href="#holding-pen" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@holding_pen_messages.size%></span><%= chevron_right %> Put misdelivered responses with the right request</a>
+      </div>
+      <div id="holding-pen" class="accordion-body collapse">
+        <table class="table table-striped table-condensed">
+          <tbody>
+            <% for message in @holding_pen_messages %>
+              <tr>
+                <td>
+                  <% if message.get_body_for_quoting.strip.size == 0 %>
+                      <%= link_to "(no body)", admin_request_show_raw_email_path(message.raw_email_id) %>
+                  <% else %>
+                      <%= link_to excerpt(message.get_body_for_quoting, "", 60), admin_request_show_raw_email_path(message.raw_email_id) %>
+                  <% end %>
+                </td>
+                <td class="span2">
+                  <%=simple_date(message.sent_at)%>
+                </td>
+              </tr>
             <% end %>
-            (<%=simple_date(message.sent_at)%>)
-        </li>
-    <% end %>
-    </ul>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
 
+  <% if @error_message_requests.size > 0 %>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" href="#error-messages" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@error_message_requests.size%></span> <%= chevron_right %>Fix these delivery and other errors</a>
+      </div>
+      <div id="error-messages" class="accordion-body collapse">
+        <table class="table table-striped table-condensed">
+          <tbody>
+            <% for @request in @error_message_requests %>
+              <tr>
+                <td class="link">
+                  <%= request_both_links(@request) %>
+                </td>
+                <td class="span2">
+                  <%=simple_date(@request.info_request_events.last.created_at)%>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @attention_requests.size > 0 %>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" href="#attention-messages" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@attention_requests.size%></span><%= chevron_right %> Review requests marked by users as requiring your attention
+</a>
+      </div>
+      <div id="attention-messages" class="accordion-body collapse">
+        <table class="table table-striped table-condensed">
+          <tbody>
+            <% for @request in @attention_requests %>
+              <tr>
+                <td class="link">
+                  <%= request_both_links(@request) %>
+                </td>
+                <td class="span2">
+                  <%=simple_date(@request.info_request_events.last.created_at)%>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @requires_admin_requests.size > 0 %>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" href="#requires-admin" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@requires_admin_requests.size%></span><%= chevron_right %> These require administrator attention</a>
+      </div>
+      <div id="requires-admin" class="accordion-body collapse">
+        <table class="table table-striped table-condensed">
+          <tbody>
+            <% for @request in @requires_admin_requests %>
+              <tr>
+                <td class="link">
+                  <%= request_both_links(@request) %>
+                </td>
+                <td class="span2">
+                  <%=simple_date(@request.info_request_events.last.created_at)%>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @blank_contacts.size > 0 %>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" href="#blank-contacts" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@blank_contacts.size%></span><%= chevron_right %> Find missing FOI email for these public authorities (try phoning!)</a>
+      </div>
+      <div id="blank-contacts" class="accordion-body collapse">
+        <table class="table table-striped table-condensed">
+          <tbody>
+            <% for @blank_contact in @blank_contacts %>
+              <tr>
+                <td class="link">
+                  <%= public_body_both_links(@blank_contact) %>
+                </td>
+                <td class="span2">
+                  <%=simple_date(@blank_contact.updated_at)%>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @old_unclassified.size > 0 %>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" href="#unclassified" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@old_unclassified.size%></span><%= chevron_right %> Classify responses that are still unclassified <%=InfoRequest::OLD_AGE_IN_DAYS.inspect %> after response</a>
+      </div>
+      <div id="unclassified" class="accordion-body collapse">
+        <table class="table table-striped table-condensed">
+          <tbody>
+            <% for @request in @old_unclassified %>
+                <tr>
+                  <td class="link">
+                    <%= request_both_links(@request) %>
+                  </td>
+                  <td class="span2">
+                    <%=simple_date(@request.get_last_response_event.created_at)%>
+                  </td>
+                </tr>
+            <% end %>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @holding_pen_messages.size == 0 && @old_unclassified.size == 0 && @requires_admin_requests.size == 0 && @blank_contacts.size == 0 && @attention_requests.size == 0 %>
+  <div class="row">
+    <div class="span12 alert alert-success">
+      No pending administration required.
+    </div>
+  </div>
 <% end %>
-
-<% if @error_message_requests.size > 0 %>
-    <h3>Fix these delivery and other errors (<%=@error_message_requests.size%> total)</h3>
-
-    <ul>
-    <% for @request in @error_message_requests %>
-        <li>
-            <%= request_both_links(@request)%>
-            &ndash; <%=simple_date(@request.get_last_event.created_at)%>
-        </li>
-    <% end %>
-    </ul>
-<% end %>
-
-<% if @attention_requests.size > 0 %>
-    <h3>Review requests which have been marked as requiring your attention by users (<%=@error_message_requests.size%> total)</h3>
-
-    <ul>
-    <% for @request in @attention_requests %>
-        <li>
-            <%= request_both_links(@request)%>
-            &ndash; <%=simple_date(@request.get_last_event.created_at)%>
-        </li>
-    <% end %>
-    </ul>
-<% end %>
-
-
-<% if @requires_admin_requests.size > 0 %>
-    <h3>These require administrator attention (<%=@requires_admin_requests.size%> total)</h3>
-
-    <ul>
-    <% for @request in @requires_admin_requests %>
-        <li>
-            <%= request_both_links(@request)%>
-            &ndash; <%=simple_date(@request.get_last_event.created_at)%>
-        </li>
-    <% end %>
-    </ul>
-<% end %>
-
-<% if @blank_contacts.size > 0 %>
-    <h3>Find missing FOI email for these public authorities (try phoning!) (<%=@blank_contacts.size%> total)</h3>
-    <ul>
-    <% for @blank_contact in @blank_contacts %>
-        <li>
-            <%= public_body_both_links(@blank_contact)%>
-            &ndash; <%=simple_date(@blank_contact.updated_at)%>
-        </li>
-    <% end %>
-    </ul>
-<% end %>
-
-<% if @old_unclassified.size > 0 %>
-    <h3>Classify responses that are still unclassified <%=InfoRequest::OLD_AGE_IN_DAYS.inspect %> after response</h3>
-
-    <ul>
-    <% for @request in @old_unclassified %>
-        <li>
-            <%= request_both_links(@request) %> 
-            &ndash; <%=simple_date(@request.get_last_response_event.created_at)%>
-        </li>
-    <% end %>
-    </ul>
-    
-    <p>(<%= link_to "Full list", admin_url("unclassified") %>, or play public
-    <%= link_to "Categorisation game", main_url(play_url(:only_path => true)) %>)
-    </p>
-<% end %>
-
-<% if @holding_pen_messages.size == 0 && @old_unclassified.size == 0 && @requires_admin_requests.size == 0 && @blank_contacts.size == 0 %>
-    <p>No pending administration required.</p>
-<% end %>
-
-

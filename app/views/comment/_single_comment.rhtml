@@ -17,11 +17,11 @@
     </div>
     <p class="event_actions">
         <% if !comment.id.nil? %>
-            <%= link_to "Link to this", comment_url(comment), :class => "link_to_this" %>
+            <%= link_to "Link to this", comment_path(comment), :class => "link_to_this" %>
             <% if !@user.nil? && @user.admin_page_links? %>
-                | <%= link_to "Admin", admin_url("request/edit_comment/" + comment.id.to_s) %>
+                | <%= link_to "Admin", admin_request_edit_comment_path(comment) %>
             <% end %>
-            <!-- | <%= link_to _('Report abuse'), comment_url(comment) %> -->
+            <!-- | <%= link_to _('Report abuse'), comment_path(comment) %> -->
         <% end %>
     </p>
 </div>

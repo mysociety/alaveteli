@@ -15,7 +15,7 @@ class ServicesController < ApplicationController
               FastGettext.locale = FastGettext.best_locale_in(request.env['HTTP_ACCEPT_LANGUAGE'])
               if found_country && found_country[:country_name] && found_country[:url] && found_country[:name]
                   text = _("Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}",
-                    :country_name => found_country[:country_name], :link_to_website => "<a href=\"#{found_country[:url]}\">#{found_country[:name]}</a>")
+                    :country_name => found_country[:country_name], :link_to_website => "<a href=\"#{found_country[:url]}\">#{found_country[:name]}</a>".html_safe)
               else
                   current_country = WorldFOIWebsites.by_code(iso_country_code)[:country_name]
                   text = _("Hello! We have an  <a href=\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\">important message</a> for visitors outside {{country_name}}", :country_name => current_country)
@@ -38,7 +38,7 @@ class ServicesController < ApplicationController
                :locals => {:name_to => info_request.user_name,
                           :name_from => Configuration::contact_name,
                           :info_request => info_request, :reason => params[:reason],
-                          :info_request_url => 'http://' + Configuration::domain + request_url(info_request),
+                          :info_request_url => 'http://' + Configuration::domain + request_path(info_request),
                           :site_name => site_name}
     end
 

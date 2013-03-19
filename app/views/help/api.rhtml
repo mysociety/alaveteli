@@ -19,7 +19,7 @@
     <dt>Linking to new requests</dt>
     <dd>
       <p>To encourage your users to make links to a particular public authority, use URLs of the form
-      <%= link_to new_request_to_body_url(:url_name => "liverpool_city_council") , new_request_to_body_url(:url_name => "liverpool_city_council") %>.
+      <%= link_to new_request_to_body_path(:url_name => "liverpool_city_council") , new_request_to_body_path(:url_name => "liverpool_city_council") %>.
       These are the parameters you can add to those URLs, either in the URL or from a form.
 
       <ul>
@@ -30,15 +30,15 @@
       </ul>
     </dd>
 
-    <dt>RSS (actually, Atom) feeds</h2>
+    <dt>RSS (actually, Atom) feeds</dt>
     <dd>
       <p>There are Atom feeds on most pages which list FOI requests, which you can
       use to get updates and links in XML format. Find the URL of the Atom feed in
       one of these ways:
       <ul>
           <li>Look for the <img src="/images/feed-16.png" alt=""> RSS feed links.</li>
-          <li>Examine the <tt>&lt;link rel="alternate" type="application/atom+xml"&gt;</tt> tag in the head of the HTML. </li>
-          <li>Add <tt>/feed</tt> to the start of another URL.
+          <li>Examine the <code>&lt;link rel="alternate" type="application/atom+xml"&gt;</code> tag in the head of the HTML. </li>
+          <li>Add <code>/feed</code> to the start of another URL.
       </ul>
 
       <p>In particular, even complicated search queries have Atom feeds.
@@ -53,8 +53,8 @@
       objects in a structured form. Find them by:
       </p>
       <ul>
-          <li>Adding <tt>.json</tt> to the end of the URL. </li>
-          <li>Look for the <tt>&lt;link rel="alternate" type="application/json"&gt;</tt> tag in the head of the HTML. </li>
+          <li>Adding <code>.json</code> to the end of the URL. </li>
+          <li>Look for the <code>&lt;link rel="alternate" type="application/json"&gt;</code> tag in the head of the HTML. </li>
       </ul>
 
       <p>Requests, users and authorities all have JSON versions containing basic
@@ -67,7 +67,7 @@
     <dd>
       <p>
       A spreadsheet file listing every body in WhatDoTheyKnow is available:
-      <%= link_to "all-authorities.csv", all_public_bodies_csv_url() %>
+      <%= link_to "all-authorities.csv", all_public_bodies_csv_path %>
       </p>
 
     </dd>

@@ -422,7 +422,7 @@ class UserController < ApplicationController
                 ContactMailer.deliver_user_message(
                     @user,
                     @recipient_user,
-                    main_url(user_url(@user)),
+                    user_url(@user),
                     params[:contact][:subject],
                     params[:contact][:message]
                 )

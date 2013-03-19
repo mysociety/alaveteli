@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # David Cabo <david.cabo@gmail.com>, 2011, 2012.
 # skenaja <alex@alexskene.com>, 2011.
@@ -1066,14 +1066,14 @@ msgstr "Historial de eventos"
 
 #: app/views/request/new.rhtml:128
 msgid ""
-"Everything that you enter on this page \n"
+"Everything that you enter on this page\n"
 "                will be <strong>displayed publicly</strong> on\n"
 "                this website forever (<a href=\"%s\">why?</a>)."
 msgstr "Todo lo que escriba en esta página \n                estará <strong>disponible públicamente</strong> en\n                está web para siempre (<a href=\"%s\">¿por qué?</a>)."
 
 #: app/views/request/new.rhtml:120
 msgid ""
-"Everything that you enter on this page, including <strong>your name</strong>, \n"
+"Everything that you enter on this page, including <strong>your name</strong>,\n"
 "                will be <strong>displayed publicly</strong> on\n"
 "                this website forever (<a href=\"%s\">why?</a>)."
 msgstr "Todo lo que escribas en esta página, incluyendo <strong>tu nombre</strong>, \n                estará <strong>disponible públicamente</strong> en\n                está web para siempre (<a href=\"%s\">¿por qué?</a>)."

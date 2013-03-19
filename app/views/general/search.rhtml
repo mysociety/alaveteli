@@ -37,13 +37,13 @@
   <% else %>
     <% form_tag(request.url, {:method => "get", :id => "search_form"}) do %>
       <p>
-        <%= text_field_tag 'query', params[:query], { :size => 40 } %>
+        <%= text_field_tag 'query', params[:query], { :size => 40, :title => "type your search term here" } %>
         <%= hidden_field_tag 'sortby', @inputted_sortby %>
         <% if @bodies %>
           <%= hidden_field_tag 'bodies', 1 %>
         <% end %>
         <%= submit_tag _("Search") %>
-        <%= link_to(_("Advanced search"), advanced_search_url) %>
+        <%= link_to(_("Advanced search"), advanced_search_path) %>
       </p>
 
       <div id="common-subfilters">
@@ -56,7 +56,7 @@
             ["all", _("everything")]]%>
           <% for variety, label in labels %>
             <% if @variety_postfix != variety %>
-	      <%=  link_to label, search_url([params[:query], variety, @sort_postfix]) %>
+	      <%=  link_to label, search_path([params[:query], variety, @sort_postfix]) %>
             <% else %>
               <%= label %>
             <% end %>
@@ -122,9 +122,9 @@
 
   <% if !@query.nil? %>
     <p id="search_controls">
-      <%=link_to_unless @sortby == 'relevant', _("Show most relevant results first"), search_url([params[:query], @variety_postfix, 'relevant'], params) %>
+      <%=link_to_unless @sortby == 'relevant', _("Show most relevant results first"), search_path([params[:query], @variety_postfix, 'relevant'], params) %>
       |
-      <%=link_to_unless @sortby == 'newest', _("Newest results first"), search_url([params[:query], @variety_postfix, 'newest'], params) %>
+      <%=link_to_unless @sortby == 'newest', _("Newest results first"), search_path([params[:query], @variety_postfix, 'newest'], params) %>
       <% if @sortby == 'described' %>
       | <%= _('Recently described results first') %>
       <% end %>
@@ -162,9 +162,9 @@
         <%= will_paginate WillPaginate::Collection.new(@page, @bodies_per_page, @xapian_bodies.matches_estimated) %>
       <% elsif @bodies && !@query.nil? && @xapian_bodies.results.size == 0 && @page == 1 %>
         <% if @spelling_correction %>
-          <p id="did_you_mean"><%= _('Did you mean: {{correction}}', :correction => search_link(@spelling_correction, @postfix)) %></p>
+          <p id="did_you_mean"><%= _('Did you mean: {{correction}}', :correction => search_link(@spelling_correction)) %></p>
         <% end %>
-        <p><%= raw(_('<a href="%s">Browse all</a> or <a href="%s">ask us to add one</a>.') % [list_public_bodies_default, help_requesting_path + '#missing_body']) %></p>
+        <p><%= raw(_('<a href="%s">Browse all</a> or <a href="%s">ask us to add one</a>.') % [list_public_bodies_default_url, help_requesting_path + '#missing_body']) %></p>
       <% end %>
     </div>
 

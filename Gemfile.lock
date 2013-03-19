@@ -21,46 +21,71 @@ GIT
       activesupport (= 2.3.18)
       rake (>= 0.8.3)
 
-GEM
-  remote: http://rubygems.org/
+GIT
+  remote: https://github.com/brynary/webrat
+  revision: bea5b313783eaaf17e38a05a4eaa8c45c1eedd2a
+  ref: bea5b313783eaaf17e38a05a4eaa8c45c1eedd2a
   specs:
-    annotate (2.4.0)
+    webrat (0.7.3)
+      nokogiri (>= 1.2.0)
+      rack (>= 1.0)
+      rack-test (>= 0.5.3)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.3.3)
+    annotate (2.5.0)
+      rake
     archive-tar-minitar (0.5.2)
-    bootstrap-sass (2.1.1.0)
-    capistrano (2.13.4)
+    bootstrap-sass (2.3.0.1)
+      sass (~> 3.2)
+    capistrano (2.14.2)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
-    chunky_png (1.2.6)
+    chunky_png (1.2.7)
+    colorize (0.5.8)
     columnize (0.3.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
+    coveralls (0.6.2)
+      colorize
+      multi_json (~> 1.3)
+      rest-client
+      simplecov (>= 0.7)
+      thor
     daemons (1.1.9)
     erubis (2.7.0)
-    eventmachine (1.0.0)
+    eventmachine (1.0.3)
     fakeweb (1.3.0)
-    fast_gettext (0.6.8)
+    fast_gettext (0.7.0)
     fastercsv (1.5.5)
-    fssm (0.2.9)
-    gettext (2.3.3)
+    fssm (0.2.10)
+    gettext (2.3.7)
+      levenshtein
       locale
-    gettext_i18n_rails (0.7.1)
+    gettext_i18n_rails (0.9.2)
       fast_gettext (>= 0.4.8)
-    haml (3.1.7)
-    highline (1.6.13)
-    hoe (3.0.8)
-      rake (~> 0.8)
-    i18n (0.6.1)
-    json (1.5.5)
+    haml (4.0.0)
+      tilt
+    highline (1.6.15)
+    hoe (3.5.1)
+      rake (>= 0.8, < 11.0)
+    i18n (0.6.4)
+    json (1.7.7)
+    launchy (2.2.0)
+      addressable (~> 2.3)
+    levenshtein (0.2.2)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
-    locale (2.0.5)
+    locale (2.0.8)
     mahoro (0.3)
     mail (2.4.4)
       i18n (>= 0.4.0)
@@ -77,25 +102,34 @@ GEM
       sqlite3-ruby
       thin
     memcache-client (1.8.5)
-    mime-types (1.19)
+    mime-types (1.21)
+    multi_json (1.6.1)
     net-http-local (0.1.2)
     net-purge (0.1.0)
-    net-scp (1.0.4)
-      net-ssh (>= 1.99.1)
-    net-sftp (2.0.5)
-      net-ssh (>= 2.0.9)
-    net-ssh (2.5.2)
-    net-ssh-gateway (1.1.0)
-      net-ssh (>= 1.99.1)
-    newrelic_rpm (3.5.4.34)
-    pg (0.13.2)
+    net-scp (1.1.0)
+      net-ssh (>= 2.6.5)
+    net-sftp (2.1.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.6.6)
+    net-ssh-gateway (1.2.0)
+      net-ssh (>= 2.6.5)
+    newrelic_rpm (3.5.8.72)
+    nokogiri (1.5.6)
+    pg (0.14.1)
     polyglot (0.3.3)
     rack (1.1.6)
+    rack-ssl (1.3.3)
+      rack
+    rack-test (0.6.2)
+      rack (>= 1.0)
     rake (0.9.2.2)
     rbx-require-relative (0.0.9)
-    rdoc (2.4.3)
-    recaptcha (0.3.4)
-    rmagick (2.13.1)
+    rdoc (4.0.0)
+      json (~> 1.4)
+    recaptcha (0.3.5)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
+    rmagick (2.13.2)
     routing-filter (0.2.4)
       actionpack
     rspec (1.3.2)
@@ -115,20 +149,24 @@ GEM
       columnize (>= 0.3.1)
       linecache19 (>= 0.5.11)
       ruby-debug-base19 (>= 0.11.19)
-    ruby-msg (1.5.0)
+    ruby-msg (1.5.1)
       ruby-ole (>= 1.2.8)
       vpim (>= 0.360)
-    ruby-ole (1.2.11.3)
+    ruby-ole (1.2.11.6)
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
-    sass (3.2.1)
+    sass (3.2.7)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
     sinatra (1.2.8)
       rack (~> 1.1)
       tilt (>= 1.2.2, < 2.0)
     skinny (0.2.3)
       eventmachine (~> 1.0.0)
       thin (~> 1.5.0)
-    sqlite3 (1.3.6)
+    sqlite3 (1.3.7)
     sqlite3-ruby (1.3.3)
       sqlite3 (>= 1.3.3)
     syslog_protocol (0.9.2)
@@ -138,14 +176,15 @@ GEM
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
-    tilt (1.3.3)
-    treetop (1.4.11)
+    thor (0.17.0)
+    tilt (1.3.5)
+    treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
     vpim (0.695)
     will_paginate (2.3.16)
     xapian-full-alaveteli (1.2.9.5)
-    xml-simple (1.1.1)
+    xml-simple (1.1.2)
     zip (2.0.2)
 
 PLATFORMS
@@ -156,16 +195,18 @@ DEPENDENCIES
   bootstrap-sass
   capistrano
   compass
+  coveralls
   erubis
   fakeweb
   fast_gettext (>= 0.6.0)
   fastercsv (>= 1.5.5)
   gettext (~> 2.3.3)
   gettext_i18n_rails (>= 0.7.1)
-  json (~> 1.5.5)
+  json
+  launchy
   locale (>= 2.0.5)
   mahoro
-  mail
+  mail (~> 2.4.4)
   mailcatcher
   memcache-client
   net-http-local
@@ -173,9 +214,10 @@ DEPENDENCIES
   newrelic_rpm
   pg
   rack (~> 1.1.0)
+  rack-ssl
   rails!
   rake (= 0.9.2.2)
-  rdoc (~> 2.4.3)
+  rdoc
   recaptcha (~> 0.3.1)
   rmagick
   routing-filter (~> 0.2.4)
@@ -186,6 +228,7 @@ DEPENDENCIES
   syslog_protocol
   test-unit (~> 1.2.3)
   vpim
+  webrat!
   will_paginate (~> 2.3.11)
   xapian-full-alaveteli (~> 1.2.9.5)
   xml-simple

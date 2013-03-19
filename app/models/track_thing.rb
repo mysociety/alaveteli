@@ -23,6 +23,8 @@
 
 require 'set'
 
+# TODO: TrackThing looks like a good candidate for single table inheritance
+
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
     validates_presence_of :track_query

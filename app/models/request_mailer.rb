@@ -5,7 +5,11 @@
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'alaveteli_file_types'
-
+if Rails.env == 'test' && RUBY_VERSION.to_f >= 1.9
+    # Avoid spec/script/mailin_spec.rb running script/runner as a test suite
+    # http://stackoverflow.com/questions/1899009/why-are-tests-running-in-production-mode-and-causing-my-script-runners-to-fail
+    Test::Unit.run = true
+end
 class RequestMailer < ApplicationMailer
 
 
@@ -58,32 +62,28 @@ class RequestMailer < ApplicationMailer
     end
 
     # An FOI response is outside the scope of the system, and needs admin attention
-    def requires_admin(info_request, set_by = nil)
-        if !set_by.nil?
-            user = set_by
-        else
-            user = info_request.user
-        end
+    def requires_admin(info_request, set_by = nil, message = "")
+        user = set_by || info_request.user
         @from = user.name_and_email
         @recipients = contact_from_name_and_email
         @subject = _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title)
-        url = main_url(request_url(info_request))
-        admin_url = request_admin_url(info_request)
-        @body = {:reported_by => user, :info_request => info_request, :url => url, :admin_url => admin_url }
+        url = request_url(info_request)
+        admin_url = admin_request_show_url(info_request)
+        @body = {:reported_by => user, :message => message, :info_request => info_request, :url => url, :admin_url => admin_url }
     end
 
     # Tell the requester that a new response has arrived
     def new_response(info_request, incoming_message)
         # Don't use login link here, just send actual URL. This is
         # because people tend to forward these emails amongst themselves.
-        url = main_url(incoming_message_url(incoming_message))
+        url = incoming_message_url(incoming_message)
 
         @from = contact_from_name_and_email
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
-        @subject = _("New response to your FOI request - ") + info_request.title
+        @subject = (_("New response to your FOI request - ") + info_request.title).html_safe
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
     end
 
@@ -102,7 +102,7 @@ class RequestMailer < ApplicationMailer
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = user.name_and_email
-        @subject = _("Delayed response to your FOI request - ") + info_request.title
+        @subject = (_("Delayed response to your FOI request - ") + info_request.title).html_safe
         @body = { :info_request => info_request, :url => url }
     end
 
@@ -121,7 +121,7 @@ class RequestMailer < ApplicationMailer
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = user.name_and_email
-        @subject = _("You're long overdue a response to your FOI request - ") + info_request.title
+        @subject = (_("You're long overdue a response to your FOI request - ") + info_request.title).html_safe
         @body = { :info_request => info_request, :url => url }
     end
 
@@ -131,7 +131,7 @@ class RequestMailer < ApplicationMailer
         # Make a link going to the form to describe state, and which logs the
         # user in.
         post_redirect = PostRedirect.new(
-            :uri => main_url(request_url(info_request)) + "#describe_state_form_1",
+            :uri => request_url(info_request) + "#describe_state_form_1",
             :user_id => info_request.user.id)
         post_redirect.save!
         url = confirm_url(:email_token => post_redirect.email_token)
@@ -153,7 +153,7 @@ class RequestMailer < ApplicationMailer
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
         @subject = _("Someone has updated the status of your request")
-        url = main_url(request_url(info_request))
+        url = request_url(info_request)
         @body = {:info_request => info_request, :url => url}
     end
 
@@ -173,7 +173,7 @@ class RequestMailer < ApplicationMailer
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
-        @subject = _("Clarify your FOI request - ") + info_request.title
+        @subject = (_("Clarify your FOI request - ") + info_request.title).html_safe
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
     end
 
@@ -184,8 +184,8 @@ class RequestMailer < ApplicationMailer
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
-        @subject = _("Somebody added a note to your FOI request - ") + info_request.title
-        @body = { :comment => comment, :info_request => info_request, :url => main_url(comment_url(comment)) }
+        @subject = (_("Somebody added a note to your FOI request - ") + info_request.title).html_safe
+        @body = { :comment => comment, :info_request => info_request, :url => comment_url(comment) }
     end
     def comment_on_alert_plural(info_request, count, earliest_unalerted_comment)
         @from = contact_from_name_and_email
@@ -193,8 +193,8 @@ class RequestMailer < ApplicationMailer
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
-        @subject = _("Some notes have been added to your FOI request - ") + info_request.title
-        @body = { :count => count, :info_request => info_request, :url => main_url(comment_url(earliest_unalerted_comment)) }
+        @subject = (_("Some notes have been added to your FOI request - ") + info_request.title).html_safe
+        @body = { :count => count, :info_request => info_request, :url => comment_url(earliest_unalerted_comment) }
     end
 
     # Class function, called by script/mailin with all incoming responses.

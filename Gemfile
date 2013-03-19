@@ -5,7 +5,7 @@ if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.s
         DL::dlopen('/lib/libuuid.so.1')
     end
 end
-source :rubygems
+source 'https://rubygems.org'
 
 # A fork of rails that is kept up to date with security patches
 git "git://github.com/mysociety/rails.git", :tag => "v2.3.18.1" do
@@ -17,15 +17,15 @@ gem 'fast_gettext', '>= 0.6.0'
 gem 'fastercsv', '>=1.5.5'
 gem 'gettext_i18n_rails', '>= 0.7.1'
 gem 'gettext', '~> 2.3.3'
-gem 'json', '~> 1.5.5'
+gem 'json'
 gem 'mahoro'
-gem 'mail', :platforms => :ruby_19
+gem 'mail', '~>2.4.4', :platforms => :ruby_19
 gem 'memcache-client', :require => 'memcache'
 gem 'locale', '>= 2.0.5'
 gem 'net-http-local'
 gem 'net-purge'
 gem 'rack', '~> 1.1.0'
-gem 'rdoc', '~> 2.4.3'
+gem 'rdoc'
 gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 # :require avoids "already initialized constant" warnings
 gem 'rmagick', :require => 'RMagick'
@@ -43,11 +43,17 @@ gem 'syslog_protocol'
 gem 'newrelic_rpm'
 # erubis is required by rails_xss. Both erubis and rails_xss can be removed after upgrading to Rails 3.
 gem 'erubis'
+# rack-ssl won't be needed on upgrade to Rails 3.1 as something like it is baked in
+gem 'rack-ssl'
 
 group :test do
   gem 'fakeweb'
   gem 'rspec-rails', '~> 1.3.4'
   gem 'test-unit', '~> 1.2.3', :platforms => :ruby_19
+  gem 'coveralls', :require => false
+  # Using webrat because the preferred (capybara) doesn't work out of the box with rspec 1
+  gem 'webrat', :git => 'https://github.com/brynary/webrat', :ref => 'bea5b313783eaaf17e38a05a4eaa8c45c1eedd2a'
+  gem 'launchy'
 end
 
 group :development do

@@ -9,7 +9,6 @@
 ._*
 .DS_Store
 .autotest
-/db/test_structure.sql
 *#*#
 TAGS
 /vendor/plugins/*theme
@@ -17,8 +16,10 @@ TAGS
 /files/
 /public/download
 /public/*theme
+!/public/adminbootstraptheme
 /vendor/bundle
 .bundle
 bin/
 config/aliases
 .sass-cache
+alaveteli.sublime*

@@ -220,7 +220,7 @@ class ApiController < ApplicationController
                     :event_id => event.id,
                     :created_at => event.created_at.iso8601,
                     :event_type => event.event_type,
-                    :request_url =>  main_url(request_url(request)),
+                    :request_url =>  request_url(request),
                     :request_email => request.incoming_email,
                     :title => request.title,
                     :body => event.outgoing_message.body,
@@ -228,7 +228,7 @@ class ApiController < ApplicationController
                     :user_name => request.user_name,
                 }
                 if request.user
-                    this_event[:user_url] = main_url(user_url(request.user))
+                    this_event[:user_url] = user_url(request.user)
                 end
 
                 @event_data.push(this_event)
