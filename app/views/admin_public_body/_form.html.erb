@@ -20,9 +20,8 @@
                         PublicBody::Translation.new :
                         @public_body.find_translation_by_locale(locale.to_s) || PublicBody::Translation.new
         end
-
-        fields_for prefix, object do |t|
 %>
+    <%= fields_for prefix, object do |t| %>
     <div class="tab-pane" id="div-locale-<%=locale.to_s%>">
       <div class="control-group">
         <%= t.hidden_field :locale, :value => locale.to_s %>
