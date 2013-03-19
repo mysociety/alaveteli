@@ -14,7 +14,7 @@
     return $('#request_hidden_user_explanation_reasons input').live('click', function() {
       var info_request_id, reason;
       $('#request_hidden_user_subject, #request_hidden_user_explanation, #request_hide_button').show();
-      info_request_id = $('#hide_request_form').attr('info_request_id');
+      info_request_id = $('#hide_request_form').attr('data-info-request-id');
       reason = $(this).val();
       $('#request_hidden_user_explanation_field').attr("value", "[loading default text...]");
       return $.ajax("/hidden_user_explanation?reason=" + reason + "&info_request_id=" + info_request_id, {
