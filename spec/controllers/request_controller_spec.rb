@@ -2199,6 +2199,10 @@ end
 describe RequestController, "when doing type ahead searches" do
     render_views
 
+    before :each do
+        get_fixtures_xapian_index
+    end
+
     it "should return nothing for the empty query string" do
         get :search_typeahead, :q => ""
         response.should render_template('request/_search_ahead')
