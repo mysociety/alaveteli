@@ -6,6 +6,7 @@ module Configuration
   DEFAULTS = {
     :ADMIN_PASSWORD => '',
     :ADMIN_USERNAME => '',
+    :DISABLE_EMERGENCY_USER => false,
     :AVAILABLE_LOCALES => '',
     :BLACKHOLE_PREFIX => 'do-not-reply-to-this-address',
     :BLOG_FEED => '',
