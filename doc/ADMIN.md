@@ -16,6 +16,6 @@ The javascript is included in a funky way
 To change it, edit the coffeescript at
 `lib/view/general/admin.coffee`, and then do something like:
 
-    $ coffee -o /tmp/ -c lib/views/general/admin.coffee
-    $ mv /tmp/admin.js lib/views/general/admin_js.erb
+    $ coffee -o /tmp/ -c app/views/admin_general/admin.coffee
+    $ mv /tmp/admin.js app/views/admin_general/admin_js.erb
 

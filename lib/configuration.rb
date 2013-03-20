@@ -24,6 +24,7 @@ module AlaveteliConfiguration
     :COOKIE_STORE_SESSION_SECRET => 'this default is insecure as code is open source, please override for live sites in config/general; this will do for local development',
     :DEBUG_RECORD_MEMORY => false,
     :DEFAULT_LOCALE => '',
+    :DISABLE_EMERGENCY_USER => false,
     :DOMAIN => 'localhost:3000',
     :EXCEPTION_NOTIFICATIONS_FROM => '',
     :EXCEPTION_NOTIFICATIONS_TO => '',

@@ -79,7 +79,7 @@ class AdminController < ApplicationController
             return
         else
             if session[:using_admin].nil? || session[:admin_name].nil?
-                if params[:emergency].nil?
+                if params[:emergency].nil? || Configuration::disable_emergency_user
                     if authenticated?(
                                       :web => _("To log into the administrative interface"),
                                       :email => _("Then you can log into the administrative interface"),
@@ -89,7 +89,6 @@ class AdminController < ApplicationController
                             session[:using_admin] = 1
                             session[:admin_name] = @user.url_name
                         else
-
                             session[:using_admin] = nil
                             session[:user_id] = nil
                             session[:admin_name] = nil

@@ -293,7 +293,7 @@ There is an emergency user account which can be accessed via
 `/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
 `ADMIN_PASSWORD`, which are set in `general.yml`.  To bootstrap the
 first `super` level accounts, you will need to log in as the emergency
-user.
+user. You can disable the emergency user account by setting `DISABLE_EMERGENCY_USER` to `true` in `general.yml`.
 
 Users with the superuser role also have extra privileges in the
 website frontend, such as being able to categorise any request, being

@@ -88,6 +88,7 @@ BLACKHOLE_PREFIX: 'do-not-reply-to-this-address'
 # The emergency user
 ADMIN_USERNAME: 'adminxxxx'
 ADMIN_PASSWORD: 'passwordx'
+DISABLE_EMERGENCY_USER: false
 
 # Set this to true, and the admin interface will be available to anonymous users
 SKIP_ADMIN_AUTH: false

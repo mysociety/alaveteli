@@ -121,7 +121,7 @@
       <p class="help-block">(see also option to general URLs for individual incoming messages below)</p>
     </div>
   </div>
-  <%= form_tag admin_request_hide_path(@info_request), :class => "form form-inline", :info_request_id => @info_request.id.to_s, :id => "hide_request_form" do %>
+  <% form_tag admin_request_hide_path(@info_request), :class => "form form-inline", :id => "hide_request_form", 'data-info-request-id' => @info_request.id.to_s do %>
     <div class="control-group">
       <% if  @info_request.is_external? %>
         <label class="control-label">Hide the request:</label>
