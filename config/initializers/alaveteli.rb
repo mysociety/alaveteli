@@ -30,17 +30,6 @@ ALAVETELI_VERSION = '0.6.8'
 # Domain for URLs (so can work for scripts, not just web pages)
 ActionMailer::Base.default_url_options[:host] = AlaveteliConfiguration::domain
 
-# So that javascript assets use full URL, so proxied admin URLs read javascript OK
-if (AlaveteliConfiguration::domain != "")
-    ActionController::Base.asset_host = Proc.new { |source, request|
-        if ENV["RAILS_ENV"] != "test" && request.fullpath.match(/^\/admin\//)
-            AlaveteliConfiguration::admin_public_url
-        else
-            AlaveteliConfiguration::domain
-        end
-    }
-end
-
 # fallback locale and available locales
 available_locales = AlaveteliConfiguration::available_locales.split(/ /)
 default_locale = AlaveteliConfiguration::default_locale
