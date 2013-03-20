@@ -207,7 +207,7 @@ describe AdminPublicBodyController, "when administering public bodies and paying
 
     it "doesn't let people with good emergency account credentials log in if the emergency user is disabled" do
         setup_emergency_credentials('biz', 'fuz')
-        Configuration.stub!(:disable_emergency_user).and_return(true)
+        AlaveteliConfiguration.stub!(:disable_emergency_user).and_return(true)
         n = PublicBody.count
         basic_auth_login(@request, "biz", "fuz")
         post :show, { :id => public_bodies(:humpadink_public_body).id, :emergency => 1}

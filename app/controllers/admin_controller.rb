@@ -79,7 +79,7 @@ class AdminController < ApplicationController
             return
         else
             if session[:using_admin].nil? || session[:admin_name].nil?
-                if params[:emergency].nil? || Configuration::disable_emergency_user
+                if params[:emergency].nil? || AlaveteliConfiguration::disable_emergency_user
                     if authenticated?(
                                       :web => _("To log into the administrative interface"),
                                       :email => _("Then you can log into the administrative interface"),
