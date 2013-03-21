@@ -1070,25 +1070,6 @@ public
         InfoRequest.update_all "allow_new_responses_from = 'nobody' where updated_at < (now() - interval '1 year') and allow_new_responses_from in ('anybody', 'authority_only') and url_title <> 'holding_pen'"
     end
 
-    # Returns a random FOI request
-    def InfoRequest.random
-        max_id = InfoRequest.connection.select_value('select max(id) as a from info_requests').to_i
-        info_request = nil
-        count = 0
-        while info_request.nil?
-            if count > 100
-                return nil
-            end
-            id = rand(max_id) + 1
-            begin
-                count += 1
-                info_request = find(id, :conditions => ["prominence = 'normal'"])
-            rescue ActiveRecord::RecordNotFound
-            end
-        end
-        return info_request
-    end
-
     def json_for_api(deep)
         ret = {
             :id => self.id,

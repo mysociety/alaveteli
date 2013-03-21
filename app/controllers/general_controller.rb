@@ -218,12 +218,6 @@ class GeneralController < ApplicationController
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
     end
 
-    # Jump to a random request
-    def random_request
-        info_request = InfoRequest.random
-        redirect_to request_url(info_request)
-    end
-
     def custom_css
         long_cache
         @locale = self.locale_from_params()

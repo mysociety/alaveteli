@@ -23,8 +23,6 @@ Alaveteli::Application.routes.draw do
     match '/search/*combined/all' => 'general#search', :as => :search_general, :view => 'all'
     match '/search(/*combined)' => 'general#search', :as => :search_general
     match '/advancedsearch' => 'general#search_redirect', :as => :advanced_search, :advanced => true
-
-    match '/random' => 'general#random_request', :as => :random_request
     #####
 
     ##### Request controller
