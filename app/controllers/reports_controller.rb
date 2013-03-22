@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-    def report_request
+    def create
         info_request = InfoRequest.find_by_url_title!(params[:url_title])
         if !authenticated_user
             flash[:notice] = _("You need to be logged in to report a request for administrator attention")
@@ -12,7 +12,7 @@ class ReportsController < ApplicationController
         redirect_to request_url(info_request)
     end
 
-    def new_report_request
+    def new
         @info_request = InfoRequest.find_by_url_title!(params[:url_title])
         if authenticated?(
             :web => _("To report this request"),
