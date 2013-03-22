@@ -59,14 +59,8 @@ Alaveteli::Application.routes.draw do
     match '/upload/request/:url_title' => 'request#upload_response', :as => :upload_response
     match '/request/:url_title/download' => 'request#download_entire_request', :as => :download_entire_request
 
-    # It would be nice to add :conditions => { :method => :post } to this next one,
-    # because it ought not really to be available as a GET request since it changes
-    # the server state. Unfortunately this doesn’t play well with the PostRedirect
-    # mechanism, which assumes all post-login actions are available via GET, so we
-    # refrain.
-    match '/request/:url_title/report' => 'request#report_request', :as => :report
+    match '/request/:url_title/report' => 'request#report_request', :as => :report, :via => :post
     match '/request/:url_title/report/new' => 'request#new_report_request', :as => :new_report_request
-
     ####
 
     #### User controller

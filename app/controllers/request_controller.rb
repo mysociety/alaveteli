@@ -682,19 +682,15 @@ class RequestController < ApplicationController
 
     def report_request
         info_request = InfoRequest.find_by_url_title!(params[:url_title])
-        return if !authenticated?(
-                :web => _("To report this FOI request"),
-                :email => _("Then you can report the request '{{title}}'", :title => info_request.title),
-                :email_subject => _("Report an offensive or unsuitable request")
-            )
-
-        if !info_request.attention_requested
+        if !authenticated_user
+            flash[:notice] = _("You need to be logged in to report a request for administrator attention")
+        elsif info_request.attention_requested
+            flash[:notice] = _("This request has already been reported for administrator attention")
+        else
             info_request.set_described_state('attention_requested', @user, "Reason: #{params[:reason]}\n\n#{params[:message]}")
             info_request.attention_requested = true # tells us if attention has ever been requested
             info_request.save!
             flash[:notice] = _("This request has been reported for administrator attention")
-        else
-            flash[:notice] = _("This request has already been reported for administrator attention")
         end
         redirect_to request_url(info_request)
     end

@@ -2294,9 +2294,10 @@ end
 
 describe RequestController, "when reporting a request when not logged in" do
     it "should only allow logged-in users to report requests" do
-        get :report_request, :url_title => info_requests(:badger_request).url_title
-        post_redirect = PostRedirect.get_last_post_redirect
-        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+        post :report_request, :url_title => info_requests(:badger_request).url_title
+
+        flash[:notice].should =~ /You need to be logged in/
+        response.should redirect_to show_request_path(:url_title => info_requests(:badger_request).url_title)
     end
 end
 
