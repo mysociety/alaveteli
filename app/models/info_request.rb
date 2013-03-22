@@ -555,6 +555,13 @@ public
         ['requires_admin', 'error_message', 'attention_requested'].include?(described_state)
     end
 
+    # Report this request for administrator attention
+    def report!(reason, message, user)
+        set_described_state('attention_requested', user, "Reason: #{reason}\n\n#{message}")
+        self.attention_requested = true # tells us if attention has ever been requested
+        save!
+    end
+
     # change status, including for last event for later historical purposes
     def set_described_state(new_state, set_by = nil, message = "")
         old_described_state = described_state
