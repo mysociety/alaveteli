@@ -59,8 +59,8 @@ Alaveteli::Application.routes.draw do
     match '/upload/request/:url_title' => 'request#upload_response', :as => :upload_response
     match '/request/:url_title/download' => 'request#download_entire_request', :as => :download_entire_request
 
-    match '/request/:url_title/report' => 'request#report_request', :as => :report, :via => :post
-    match '/request/:url_title/report/new' => 'request#new_report_request', :as => :new_report_request
+    match '/request/:url_title/report' => 'request#report_request', :as => :request_report, :via => :post
+    match '/request/:url_title/report/new' => 'request#new_report_request', :as => :new_request_report
     ####
 
     #### User controller

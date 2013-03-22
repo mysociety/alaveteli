@@ -8,7 +8,7 @@
   </p>
   <p>Why specifically do you consider this request unsuitable?</p>
 
-  <%= form_tag report_path(:url_title => @info_request.url_title) do %>
+  <%= form_tag request_report_path(:url_title => @info_request.url_title) do %>
     <p>
       <label class="form_label" for="reason">Reason:</label>
       <%= select_tag :reason, options_for_select(["Contains defamatory material", "Not a valid request", "Request for personal information", "Contains personal information", "Vexatious", "Other"]), :prompt => "Choose a reason" %>
