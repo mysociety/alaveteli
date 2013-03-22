@@ -699,6 +699,10 @@ class RequestController < ApplicationController
         redirect_to request_url(info_request)
     end
 
+    def new_report_request
+        @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+    end
+
     # special caching code so mime types are handled right
     around_filter :cache_attachments, :only => [ :get_attachment, :get_attachment_as_html ]
     def cache_attachments

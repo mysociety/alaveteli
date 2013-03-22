@@ -65,6 +65,8 @@ Alaveteli::Application.routes.draw do
     # mechanism, which assumes all post-login actions are available via GET, so we
     # refrain.
     match '/request/:url_title/report' => 'request#report_request', :as => :report
+    match '/request/:url_title/report/new' => 'request#new_report_request', :as => :new_report_request
+
     ####
 
     #### User controller
