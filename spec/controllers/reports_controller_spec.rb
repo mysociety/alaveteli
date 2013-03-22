@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ReportsController, "when reporting a request when not logged in" do
     it "should only allow logged-in users to report requests" do
-        post :create, :request_id => info_requests(:badger_request).url_title
+        post :create, :request_id => info_requests(:badger_request).url_title, :reason => "my reason"
 
         flash[:notice].should =~ /You need to be logged in/
         response.should redirect_to show_request_path(:url_title => info_requests(:badger_request).url_title)
@@ -28,7 +28,7 @@ describe ReportsController, "when reporting a request (logged in)" do
         title = ir.url_title
         ir.attention_requested.should == false
 
-        post :create, :request_id => title
+        post :create, :request_id => title, :reason => "my reason"
         response.should redirect_to show_request_path(:url_title => title)
 
         ir.reload
@@ -46,10 +46,10 @@ describe ReportsController, "when reporting a request (logged in)" do
     it "should not allow a request to be reported twice" do
         title = info_requests(:badger_request).url_title
 
-        post :create, :request_id => title
+        post :create, :request_id => title, :reason => "my reason"
         response.should redirect_to show_request_url(:url_title => title)
 
-        post :create, :request_id => title
+        post :create, :request_id => title, :reason => "my reason"
         response.should redirect_to show_request_url(:url_title => title)
         flash[:notice].should =~ /has already been reported/
     end
@@ -57,13 +57,23 @@ describe ReportsController, "when reporting a request (logged in)" do
     it "should send an email from the reporter to admins" do
         ir = info_requests(:badger_request)
         title = ir.url_title
-        post :create, :request_id => title
+        post :create, :request_id => title, :reason => "my reason"
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
         mail.subject.should =~ /attention_requested/
         mail.from.should include(@user.email)
         mail.body.should include(@user.name)
+    end
+
+    it "should force the user to pick a reason" do
+        info_request = mock_model(InfoRequest, :report! => nil, :url_title => "foo",
+            :report_reasons => ["Not FOIish enough"])
+        InfoRequest.should_receive(:find_by_url_title!).with("foo").and_return(info_request)
+
+        post :create, :request_id => "foo", :reason => ""
+        response.should render_template("new")
+        flash[:error].should == "Please choose a reason"
     end
 end
 
