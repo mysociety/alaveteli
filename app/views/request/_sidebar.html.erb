@@ -25,7 +25,7 @@
      <% else %>
       <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %></p>
        <p><%= _('If you believe this request is not suitable, you can report it for attention by the site administrators') %></p>
-       <%= link_to _("Report this request"), new_request_report_path(:url_title => @info_request.url_title) %>
+       <%= link_to _("Report this request"), new_request_report_path(:request_id => @info_request.url_title) %>
       <% end %>
     <% end %>
     <h2><%= _("Act on what you've learnt") %></h2>

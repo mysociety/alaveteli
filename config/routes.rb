@@ -60,8 +60,8 @@ Alaveteli::Application.routes.draw do
     match '/request/:url_title/download' => 'request#download_entire_request', :as => :download_entire_request
     ####
 
-    match '/request/:url_title/report' => 'reports#create', :as => :request_report, :via => :post
-    match '/request/:url_title/report/new' => 'reports#new', :as => :new_request_report
+    match '/request/:request_id/report' => 'reports#create', :as => :request_report, :via => :post
+    match '/request/:request_id/report/new' => 'reports#new', :as => :new_request_report
 
     #### User controller
     # Use /profile for things to do with the currently signed in user.
