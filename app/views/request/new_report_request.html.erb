@@ -1,22 +1,26 @@
 <h1>Report request: <%= @info_request.title %></h1>
 
-<p>
-  Reporting a request notifies the site administrators. They will respond as soon as possible.
-</p>
-<p>Why specifically do you consider this request unsuitable?</p>
-
-<%= form_tag report_path(:url_title => @info_request.url_title) do %>
+<% if @info_request.attention_requested %>
+  <p><%= _("This request has already been reported for administrator attention") %></p>
+<% else %>
   <p>
-    <label class="form_label" for="reason">Reason:</label>
-    <%= select_tag :reason, options_for_select(["Contains defamatory material", "Not a valid request", "Request for personal information", "Contains personal information", "Vexatious", "Other"]), :prompt => "Choose a reason" %>
+    Reporting a request notifies the site administrators. They will respond as soon as possible.
   </p>
-  <p>
-    <label class="form_label" for="message">Please tell us more:</label>
-    <%= text_area_tag :message, "", :rows => 10, :cols => 60 %>
-  </p>
+  <p>Why specifically do you consider this request unsuitable?</p>
 
-  <div class="form_button">
-      <%= submit_tag _("Report request") %>
-  </div>
+  <%= form_tag report_path(:url_title => @info_request.url_title) do %>
+    <p>
+      <label class="form_label" for="reason">Reason:</label>
+      <%= select_tag :reason, options_for_select(["Contains defamatory material", "Not a valid request", "Request for personal information", "Contains personal information", "Vexatious", "Other"]), :prompt => "Choose a reason" %>
+    </p>
+    <p>
+      <label class="form_label" for="message">Please tell us more:</label>
+      <%= text_area_tag :message, "", :rows => 10, :cols => 60 %>
+    </p>
 
+    <div class="form_button">
+        <%= submit_tag _("Report request") %>
+    </div>
+
+  <% end %>
 <% end %>
