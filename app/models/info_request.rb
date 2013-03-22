@@ -557,9 +557,11 @@ public
 
     # Report this request for administrator attention
     def report!(reason, message, user)
-        set_described_state('attention_requested', user, "Reason: #{reason}\n\n#{message}")
-        self.attention_requested = true # tells us if attention has ever been requested
-        save!
+        ActiveRecord::Base.transaction do
+            set_described_state('attention_requested', user, "Reason: #{reason}\n\n#{message}")
+            self.attention_requested = true # tells us if attention has ever been requested
+            save!
+        end
     end
 
     # change status, including for last event for later historical purposes
