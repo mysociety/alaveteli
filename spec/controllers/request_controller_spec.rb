@@ -2403,4 +2403,28 @@ describe RequestController, "when caching fragments" do
 
 end
 
+describe RequestController, "#new_report_request" do
+    let(:info_request) { mock_model(InfoRequest, :url_title => "foo") }
+    before :each do
+        InfoRequest.should_receive(:find_by_url_title!).with("foo").and_return(info_request)
+    end
+
+    context "not logged in" do
+        it "should require the user to be logged in" do
+            get :new_report_request, :url_title => "foo"
+            response.should_not render_template("new_report_request")
+        end
+    end
+
+    context "logged in" do
+        before :each do
+            session[:user_id] = users(:bob_smith_user).id
+        end
+        it "should show the form" do
+            get :new_report_request, :url_title => "foo"
+            response.should render_template("new_report_request")
+        end
+    end
+end
+
 
