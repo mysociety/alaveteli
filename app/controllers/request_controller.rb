@@ -689,7 +689,7 @@ class RequestController < ApplicationController
             )
 
         if !info_request.attention_requested
-            info_request.set_described_state('attention_requested', @user)
+            info_request.set_described_state('attention_requested', @user, "Reason: #{params[:reason]}\n\n#{params[:message]}")
             info_request.attention_requested = true # tells us if attention has ever been requested
             info_request.save!
             flash[:notice] = _("This request has been reported for administrator attention")

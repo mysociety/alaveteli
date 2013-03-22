@@ -2329,6 +2329,13 @@ describe RequestController, "when reporting a request (logged in)" do
         assigns[:info_request].described_state.should == "attention_requested"
     end
 
+    it "should pass on the reason and message" do
+        info_request = mock_model(InfoRequest, :url_title => "foo", :attention_requested= => nil, :save! => nil)
+        InfoRequest.should_receive(:find_by_url_title!).with("foo").and_return(info_request)
+        info_request.should_receive(:set_described_state).with("attention_requested", @user, "Reason: Not valid request\n\nIt's just not")
+        post :report_request, :url_title => "foo", :reason => "Not valid request", :message => "It's just not"
+    end
+
     it "should not allow a request to be reported twice" do
         title = info_requests(:badger_request).url_title
 
