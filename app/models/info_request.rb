@@ -565,26 +565,28 @@ public
 
         self.calculate_event_states
 
-        if self.requires_admin?
-            # Check there is someone to send the message "from"
-            if !set_by.nil? || !self.user.nil?
-                user = set_by || self.user
+        # This is the person who is actually making the change
+        user = set_by || self.user
+
+        # If there is no user making the change, don't do any of the following
+        if user
+            if self.requires_admin?
                 RequestMailer.requires_admin(self, user, message).deliver
             end
-        end
 
-        unless set_by.nil? || is_actual_owning_user?(set_by) || described_state == 'attention_requested'
-            # Log the status change by someone other than the requester
-            event = log_event("status_update",
-                { :user_id => set_by.id,
-                  :old_described_state => old_described_state,
-                  :described_state => described_state,
-                })
-            # Create a classification event for league tables
-            RequestClassification.create!(:user_id => set_by.id,
-                                          :info_request_event_id => event.id)
+            unless is_actual_owning_user?(user) || described_state == 'attention_requested'
+                # Log the status change by someone other than the requester
+                event = log_event("status_update",
+                    { :user_id => user.id,
+                      :old_described_state => old_described_state,
+                      :described_state => described_state,
+                    })
+                # Create a classification event for league tables
+                RequestClassification.create!(:user_id => user.id,
+                                              :info_request_event_id => event.id)
 
-            RequestMailer.old_unclassified_updated(self).deliver if !is_external?
+                RequestMailer.old_unclassified_updated(self).deliver if !is_external?
+            end
         end
     end
 
