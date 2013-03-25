@@ -20,7 +20,7 @@
 # An attachment to an email (IncomingMessage)
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 # This is the type which is used to send data about attachments to the view
 
 require 'digest'

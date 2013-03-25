@@ -2,7 +2,7 @@
 # Mapping URLs to controllers for FOIFA.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 # Allow easy extension from themes. Note these will have the highest priority.
 $alaveteli_route_extensions.each do |f|

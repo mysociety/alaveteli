@@ -2,7 +2,7 @@
 # Emails which go to public bodies on behalf of users.
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 # Note: The layout for this wraps messages by lines rather than (blank line
 # separated) paragraphs, as is the convention for all the other mailers. This
