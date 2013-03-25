@@ -101,7 +101,7 @@ class RequestController < ApplicationController
             # ... requests that have similar imporant terms
             begin
                 limit = 10
-                @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
+                @xapian_similar = ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
                   :limit => limit, :collapse_by_prefix => 'request_collapse')
                 @xapian_similar_more = (@xapian_similar.matches_estimated > limit)
             rescue
@@ -149,7 +149,7 @@ class RequestController < ApplicationController
             render :template => 'request/hidden', :status => 410 # gone
             return
         end
-        @xapian_object = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
+        @xapian_object = ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
             :offset => (@page - 1) * @per_page, :limit => @per_page, :collapse_by_prefix => 'request_collapse')
         @matches_estimated = @xapian_object.matches_estimated
         @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated

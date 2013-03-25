@@ -160,7 +160,7 @@ class GeneralController < ApplicationController
             # structured query which should show newest first, rather than a free text search
             # where we want most relevant as default.
             begin
-                dummy_query = ::ActsAsXapian::Search.new([InfoRequestEvent], @query, :limit => 1)
+                dummy_query = ActsAsXapian::Search.new([InfoRequestEvent], @query, :limit => 1)
             rescue => e
                 flash[:error] = "Your query was not quite right. " + CGI.escapeHTML(e.to_str)
                 redirect_to search_url("")
