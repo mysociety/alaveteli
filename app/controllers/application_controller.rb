@@ -373,11 +373,8 @@ class ApplicationController < ActionController::Base
 
         # Peform the search
         @per_page = per_page
-        if this_page.nil?
-            @page = get_search_page_from_params
-        else
-            @page = this_page
-        end
+        @page = this_page || get_search_page_from_params
+
         result = ActsAsXapian::Search.new(models, @query,
             :offset => (@page - 1) * @per_page,
             :limit => @per_page,
