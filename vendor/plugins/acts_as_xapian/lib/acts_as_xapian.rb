@@ -1,3 +1,4 @@
+# encoding: utf-8
 # acts_as_xapian/lib/acts_as_xapian.rb:
 # Xapian full text search in Ruby on Rails.
 #
@@ -472,7 +473,9 @@ module ActsAsXapian
         # date ranges or similar. Use this for cheap highlighting with
         # TextHelper::highlight, and excerpt.
         def words_to_highlight
-            query_nopunc = self.query_string.gsub(/[^a-z0-9:\.\/_]/i, " ")
+            # TODO: In Ruby 1.9 we can do matching of any unicode letter with \p{L}
+            # But we still need to support ruby 1.8 for the time being so...
+            query_nopunc = self.query_string.gsub(/[^ёЁа-яА-Яa-zA-Zà-üÀ-Ü0-9:\.\/_]/iu, " ")
             query_nopunc = query_nopunc.gsub(/\s+/, " ")
             words = query_nopunc.split(" ")
             # Remove anything with a :, . or / in it
