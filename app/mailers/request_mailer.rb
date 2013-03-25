@@ -55,8 +55,7 @@ class RequestMailer < ApplicationMailer
     end
 
     # An FOI response is outside the scope of the system, and needs admin attention
-    def requires_admin(info_request, set_by = nil, message = "")
-        user = set_by || info_request.user
+    def requires_admin(info_request, user, message = "")
         @reported_by = user
         @url = request_url(info_request)
         @admin_url = admin_request_show_url(info_request)

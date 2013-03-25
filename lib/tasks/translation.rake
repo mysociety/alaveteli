@@ -96,7 +96,7 @@ namespace :translation do
                     'Bounce if someone sends email to a request that has had responses stopped',
                     output_file)
 
-        requires_admin_email = RequestMailer.requires_admin(info_request)
+        requires_admin_email = RequestMailer.requires_admin(info_request, info_request.user)
         write_email(requires_admin_email, 'Drawing admin attention to a response', output_file)
 
 

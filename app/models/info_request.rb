@@ -568,7 +568,8 @@ public
         if self.requires_admin?
             # Check there is someone to send the message "from"
             if !set_by.nil? || !self.user.nil?
-                RequestMailer.requires_admin(self, set_by, message).deliver
+                user = set_by || self.user
+                RequestMailer.requires_admin(self, user, message).deliver
             end
         end
 
