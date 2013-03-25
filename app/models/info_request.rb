@@ -217,17 +217,6 @@ class InfoRequest < ActiveRecord::Base
         end
     end
 
-    # For debugging
-    def InfoRequest.profile_search(query)
-        t = Time.now.usec
-        for i in (1..10)
-            t = Time.now.usec - t
-            secs = t / 1000000.0
-            STDOUT.write secs.to_s + " query " + i.to_s + "\n"
-            results = InfoRequest.full_search([InfoRequestEvent], query, "created_at", true, nil, 25, 1).results
-        end
-    end
-
 public
     # When name is changed, also change the url name
     def title=(title)
