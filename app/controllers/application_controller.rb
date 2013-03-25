@@ -378,7 +378,13 @@ class ApplicationController < ActionController::Base
         else
             @page = this_page
         end
-        result = InfoRequest.full_search(models, @query, order, ascending, collapse, @per_page, @page)
+        result = ActsAsXapian::Search.new(models, @query,
+            :offset => (@page - 1) * @per_page,
+            :limit => @per_page,
+            :sort_by_prefix => order,
+            :sort_by_ascending => ascending,
+            :collapse_by_prefix => collapse
+        )
         result.results # Touch the results to load them, otherwise accessing them from the view
                        # might fail later if the database has subsequently been reopened.
         return result

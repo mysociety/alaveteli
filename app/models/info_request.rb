@@ -189,21 +189,6 @@ class InfoRequest < ActiveRecord::Base
         self.comments.find(:all, :conditions => 'visible')
     end
 
-    # Central function to do all searches
-    # (Not really the right place to put it, but everything can get it here, and it
-    # does *mainly* find info requests, via their events, so hey)
-    def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
-        offset = (page - 1) * per_page
-
-        return ::ActsAsXapian::Search.new(
-            models, query,
-            :offset => offset, :limit => per_page,
-            :sort_by_prefix => order,
-            :sort_by_ascending => ascending,
-            :collapse_by_prefix => collapse
-        )
-    end
-
     # If the URL name has changed, then all request: queries will break unless
     # we update index for every event. Also reindex if prominence changes.
     after_update :reindex_some_request_events
