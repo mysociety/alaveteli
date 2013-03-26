@@ -574,13 +574,13 @@ public
                 RequestMailer.requires_admin(self, user, message).deliver
             end
 
+            event = log_event("status_update",
+                { :user_id => user.id,
+                  :old_described_state => old_described_state,
+                  :described_state => described_state,
+                })
+
             unless is_actual_owning_user?(user) || described_state == 'attention_requested'
-                # Log the status change by someone other than the requester
-                event = log_event("status_update",
-                    { :user_id => user.id,
-                      :old_described_state => old_described_state,
-                      :described_state => described_state,
-                    })
                 # Create a classification event for league tables
                 RequestClassification.create!(:user_id => user.id,
                                               :info_request_event_id => event.id)
