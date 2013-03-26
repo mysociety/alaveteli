@@ -2268,6 +2268,8 @@ describe RequestController, "when showing similar requests" do
     end
 
     it "should show similar requests" do
+        get_fixtures_xapian_index
+
         badger_request = info_requests(:badger_request)
         get :similar, :url_title => badger_request.url_title
 
