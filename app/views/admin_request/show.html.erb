@@ -149,7 +149,7 @@
         <div class="control-group" id="request_hidden_user_subject">
           <label for="request_hidden_user_subject_field" class="control-label">Subject of email:</label>
           <div class="controls">
-            <%= text_field_tag "subject", "Your request on #{site_name} hidden", {:id => "request_hidden_user_subject_field", :cols => 100} %>
+            <%= text_field_tag "subject", _("Your request on {{site_name}} hidden", :site_name => site_name), {:id => "request_hidden_user_subject_field", :cols => 100} %>
           </div>
         </div>
 
