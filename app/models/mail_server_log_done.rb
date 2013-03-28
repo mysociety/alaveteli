@@ -13,7 +13,7 @@
 # Stores that a particular mail server log file has been loaded in, see mail_server_log.rb
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class MailServerLogDone < ActiveRecord::Base
     has_many :mail_server_logs

@@ -2,7 +2,7 @@
 # Extensions / fixes to ActiveSupport::Cache
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 # Monkeypatch! ./activesupport/lib/active_support/cache/file_store.rb
 

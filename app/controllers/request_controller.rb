@@ -2,7 +2,7 @@
 # Show information about one particular request.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'alaveteli_file_types'
 require 'zip/zip'

@@ -2,7 +2,7 @@
 # Emails relating to user accounts. e.g. Confirming a new account
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class UserMailer < ApplicationMailer
     def confirm_login(user, reasons, url)

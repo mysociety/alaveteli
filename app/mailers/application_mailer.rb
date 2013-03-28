@@ -2,7 +2,7 @@
 # Shared code between different mailers.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'action_mailer/version'
 class ApplicationMailer < ActionMailer::Base

@@ -25,7 +25,7 @@
 # response from the public body.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel

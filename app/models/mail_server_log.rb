@@ -15,9 +15,7 @@
 # We load log file lines for requests in here, for display in the admin interface.
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: exim_log.rb,v 1.14 2009-09-17 21:10:05 francis Exp $
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class MailServerLog < ActiveRecord::Base
     belongs_to :info_request

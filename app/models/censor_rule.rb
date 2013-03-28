@@ -20,7 +20,7 @@
 # Stores alterations to remove specific data from requests.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class CensorRule < ActiveRecord::Base
     belongs_to :info_request
