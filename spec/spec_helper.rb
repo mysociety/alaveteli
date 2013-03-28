@@ -71,6 +71,19 @@ Spork.prefork do
       ActionMailer::Base.deliveries = []
     end
 
+    # Any test that messes with the locale needs to restore the state afterwards so that it
+    # doesn't interfere with any subsequent tests. This is made more complicated by the
+    # ApplicationController#set_gettext_locale which sets the locale and so you may be setting
+    # the locale in your tests and not even realising it. So, let's make things easier for
+    # ourselves and just always restore the locale for all tests.
+    config.before(:each) do
+      @save_i18n_locale = I18n.locale
+    end
+
+    config.after(:each) do
+      I18n.locale = @save_i18n_locale
+    end
+
     # This section makes the garbage collector run less often to speed up tests
     last_gc_run = Time.now
 
