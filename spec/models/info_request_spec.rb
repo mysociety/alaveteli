@@ -239,6 +239,99 @@ describe InfoRequest do
 
     end
 
+    describe ".set_described_state" do
+        let(:ir) { info_requests(:fancy_dog_request) }
+        it "should purge the downstream cache when the request is categorised" do
+            ir.set_described_state('waiting_clarification')
+            PurgeRequest.all().first.model_id.should == ir.id
+        end
+
+        context "the user is the requester" do
+            it "should log a status update event" do
+                event = mock_model(InfoRequestEvent)
+                ir.should_receive(:log_event).with("status_update",
+                    :user_id => ir.user.id,
+                    :old_described_state => 'waiting_response',
+                    :described_state => 'rejected').and_return(event)
+                ir.set_described_state('rejected')
+            end
+
+            it 'should not send an email to the requester letting them know someone has updated the status of their request' do
+                RequestMailer.should_not_receive(:old_unclassified_updated)
+                ir.set_described_state('rejected')
+            end
+
+            it "should successfully classify response" do
+                ir.set_described_state("rejected")
+
+                ir.reload
+                ir.awaiting_description.should == false
+                ir.described_state.should == 'rejected'
+                ir.get_last_response_event.should == info_request_events(:useless_incoming_message_event)
+                ir.get_last_response_event.calculated_state.should == 'rejected'
+            end
+        end
+
+        context "the user is NOT the requester" do
+            let(:user) { users(:silly_name_user) }
+
+            it "should send a mail from the user who changed the state to requires_admin" do
+                mail = mock(Mail)
+                mail.should_receive(:deliver)
+                RequestMailer.should_receive(:requires_admin).with(ir, user, "a message").and_return(mail)
+
+                ir.set_described_state("requires_admin", user, "a message")
+            end
+
+            it 'should send an email to the requester letting them know someone has updated the status of their request' do
+                mail = mock(Mail)
+                mail.should_receive(:deliver)
+                RequestMailer.should_receive(:old_unclassified_updated).and_return(mail)
+
+                ir.set_described_state("rejected", user)
+            end
+        end
+
+
+        context "the user is an admin and NOT the requester" do
+            let(:user) { users(:admin_user) }
+
+            it 'should record a classification' do
+                event = mock_model(InfoRequestEvent)
+                ir.stub!(:log_event).with("status_update", anything()).and_return(event)
+                RequestClassification.should_receive(:create!).with(:user_id => user.id,
+                                                                    :info_request_event_id => event.id)
+                ir.set_described_state("rejected", user)
+            end
+
+            it 'should send an email to the requester letting them know someone has updated the status of their request' do
+                mail = mock("mail")
+                mail.should_receive :deliver
+                RequestMailer.should_receive(:old_unclassified_updated).and_return(mail)
+
+                ir.set_described_state("rejected", user)
+            end
+        end
+
+        context "the user is an admin and the requester" do
+            let(:user) { users(:admin_user) }
+
+            before :each do
+                ir.user = user
+                ir.save!
+            end
+
+            it 'should still log a status update event' do
+                ir.should_receive(:log_event)
+                ir.set_described_state("rejected", user)
+            end            
+
+            it 'should not send an email to the requester letting them know someone has updated the status of their request' do
+                RequestMailer.should_not_receive(:old_unclassified_updated)
+                ir.set_described_state("rejected", user)
+            end
+        end
+    end
 
     describe "when calculating the status for a school" do
 
