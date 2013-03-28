@@ -12,7 +12,7 @@
         <% end %>
   </p>
         <% if @post_redirect.post_params["controller"] == "admin_general" %>
-          <% unless Configuration::disable_emergency_user %>
+          <% unless AlaveteliConfiguration::disable_emergency_user %>
            <p id="superuser_message">Don't have a superuser account yet?  <%= link_to "Sign in as the emergency user", @post_redirect.uri + "?emergency=1" %></p>
           <% end %>
         <% end %>
