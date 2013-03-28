@@ -121,7 +121,7 @@
       <p class="help-block">(see also option to general URLs for individual incoming messages below)</p>
     </div>
   </div>
-  <% form_tag admin_request_hide_path(@info_request), :class => "form form-inline", :id => "hide_request_form", 'data-info-request-id' => @info_request.id.to_s do %>
+  <%= form_tag admin_request_hide_path(@info_request), :class => "form form-inline", :id => "hide_request_form", 'data-info-request-id' => @info_request.id.to_s do %>
     <div class="control-group">
       <% if  @info_request.is_external? %>
         <label class="control-label">Hide the request:</label>
@@ -149,7 +149,7 @@
         <div class="control-group" id="request_hidden_user_subject">
           <label for="request_hidden_user_subject_field" class="control-label">Subject of email:</label>
           <div class="controls">
-            <%= text_field_tag "subject", "Your request on WhatDoTheyKnow.com hidden", {:id => "request_hidden_user_subject_field", :cols => 100} %>
+            <%= text_field_tag "subject", _("Your request on {{site_name}} hidden", :site_name => site_name), {:id => "request_hidden_user_subject_field", :cols => 100} %>
           </div>
         </div>
 
@@ -207,7 +207,7 @@
                 </td>
                 <td>
                   <% if column_name == 'params_yaml' %>
-                    <%= info_request_event.params_yaml_as_html %>
+                    <%= info_request_event.params_yaml_as_html.html_safe %>
                   <% elsif value.nil? %>
                     nil
                   <% elsif %w(text string).include?(type) %>
