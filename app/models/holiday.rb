@@ -19,7 +19,7 @@
 #    -- Freedom of Information Act 2000 section 10
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class Holiday < ActiveRecord::Base
 

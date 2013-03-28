@@ -2,7 +2,7 @@
 # Sends contact form mails.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class ContactMailer < ApplicationMailer
     # Send message to administrator

@@ -4,7 +4,7 @@
 # followed by a colon - e.g. url:http://www.flourish.org
 #
 # Copyright (c) 2010 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 module HasTagString
     # Represents one tag of one model.

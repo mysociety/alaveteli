@@ -3,7 +3,7 @@
 # Plot graph of user use of site.
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org. WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org. WWW: http://www.mysociety.org/
 
 GPLOT_OUTPUT="set terminal png font 'Vera.ttf' 9 size 1200,400"
 EXTENSION=".png"

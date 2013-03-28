@@ -19,7 +19,7 @@
 # When somebody is getting alerts for something.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'set'
 

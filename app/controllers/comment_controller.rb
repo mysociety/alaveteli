@@ -2,7 +2,7 @@
 # Show annotations upon a request or other object.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class CommentController < ApplicationController
     before_filter :check_read_only, :only => [ :new ]

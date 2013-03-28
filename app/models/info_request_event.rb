@@ -20,7 +20,7 @@
 # models/info_request_event.rb:
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
