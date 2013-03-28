@@ -1431,18 +1431,16 @@ describe RequestController, "when classifying an information request" do
 
             context "message is included when classifying as requires_admin" do
                 it "should send an email including the message" do
+                    @dog_request.stub!(:calculate_status).and_return('requires_admin')
+                    @dog_request.should_receive(:set_described_state).with("requires_admin",
+                        @request_owner, "Something weird happened")
+
                     post :describe_state,
                         :incoming_message => {
                             :described_state => "requires_admin",
                             :message => "Something weird happened" },
                         :id => @dog_request.id,
                         :last_info_request_event_id => @dog_request.last_event_id_needing_description
-
-                    deliveries = ActionMailer::Base.deliveries
-                    deliveries.size.should == 1
-                    mail = deliveries[0]
-                    mail.body.should =~ /as needing admin/
-                    mail.body.should =~ /Something weird happened/
                 end
             end
 
