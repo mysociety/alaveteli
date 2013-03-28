@@ -568,17 +568,17 @@ public
         # This is the person who is actually making the change
         user = set_by || self.user
 
+        event = log_event("status_update",
+            { :user_id => (user.id if user),
+              :old_described_state => old_described_state,
+              :described_state => described_state,
+            })
+
         # If there is no user making the change, don't do any of the following
         if user
             if self.requires_admin?
                 RequestMailer.requires_admin(self, user, message).deliver
             end
-
-            event = log_event("status_update",
-                { :user_id => user.id,
-                  :old_described_state => old_described_state,
-                  :described_state => described_state,
-                })
 
             unless is_actual_owning_user?(user) || described_state == 'attention_requested'
                 # Create a classification event for league tables
