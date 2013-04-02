@@ -2972,9 +2972,6 @@ msgstr ""
 msgid "containing your postal address, and asking them to reply to this request.\\n            Or you could phone them."
 msgstr ""
 
-msgid "details"
-msgstr ""
-
 msgid "display_status only works for incoming and outgoing messages right now"
 msgstr ""
 
