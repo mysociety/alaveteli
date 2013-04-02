@@ -29,6 +29,10 @@ ALAVETELI_VERSION = '0.8'
 
 # Domain for URLs (so can work for scripts, not just web pages)
 ActionMailer::Base.default_url_options[:host] = AlaveteliConfiguration::domain
+# https links in emails if forcing SSL
+if AlaveteliConfiguration::force_ssl
+  ActionMailer::Base.default_url_options[:protocol] = "https"
+end
 
 # fallback locale and available locales
 available_locales = AlaveteliConfiguration::available_locales.split(/ /)

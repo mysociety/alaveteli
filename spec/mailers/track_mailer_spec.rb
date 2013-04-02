@@ -162,20 +162,19 @@ describe TrackMailer do
 
     describe 'delivering the email' do
 
-        before do
+        before :each do
           @post_redirect = mock_model(PostRedirect, :save! => true,
                                                     :email_token => "token")
           PostRedirect.stub!(:new).and_return(@post_redirect)
           ActionMailer::Base.deliveries = []
+          @user = mock_model(User,
+            :name_and_email => MailHandler.address_from_name_and_email('Tippy Test', 'tippy@localhost'),
+            :url_name => 'tippy_test'
+          )
+          TrackMailer.event_digest(@user, []).deliver # no items in it email for minimal test
         end
 
         it 'should deliver one email, with right headers' do
-            @user = mock_model(User,
-                    :name_and_email => MailHandler.address_from_name_and_email('Tippy Test', 'tippy@localhost'),
-                    :url_name => 'tippy_test'
-            )
-
-            TrackMailer.event_digest(@user, []).deliver # no items in it email for minimal test
             deliveries = ActionMailer::Base.deliveries
             if deliveries.size > 1 # debugging if there is an error
                 deliveries.each do |d|
@@ -191,6 +190,22 @@ describe TrackMailer do
             mail['Precedence'].to_s.should == 'bulk'
 
             deliveries.clear
+        end
+
+        context "force ssl is off" do
+            # Force SSL is off in the tests. Since the code that selectively switches the protocols
+            # is in the initialiser for Rails it's hard to test. Hmmm...
+            # We could Configuration.stub!(:force_ssl).and_return(true) but the config/environment.rb
+            # wouldn't get reloaded
+
+            it "should have http links in the email" do
+                deliveries = ActionMailer::Base.deliveries
+                deliveries.size.should == 1
+                mail = deliveries[0]
+
+                mail.body.should include("http://")
+                mail.body.should_not include("https://")
+            end
         end
     end
 
