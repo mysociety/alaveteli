@@ -29,8 +29,6 @@ class InfoRequest < ActiveRecord::Base
     include ActionView::Helpers::UrlHelper
     include ActionController::UrlWriter
 
-    strip_attributes!
-
     validates_presence_of :title, :message => N_("Please enter a summary of your request")
     validates_format_of :title, :with => /[a-zA-Z]/, :message => N_("Please write a summary with some text in it"), :if => Proc.new { |info_request| !info_request.title.nil? && !info_request.title.empty? }
 
@@ -259,7 +257,6 @@ public
         write_attribute(:url_title, unique_url_title)
     end
     # Remove spaces from ends (for when used in emails etc.)
-    # Needed for legacy reasons, even though we call strip_attributes now
     def title
         title = read_attribute(:title)
         if title
