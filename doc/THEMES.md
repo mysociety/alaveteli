@@ -42,8 +42,8 @@ explanation.
 
 You can also install the sample theme by hand, by running:
 
-    ./script/plugin install git://github.com/mysociety/alavetelitheme.git
-    
+    bundle exec rails plugin install git://github.com/mysociety/alavetelitheme.git -r rails-3
+
 The sample theme contains examples for nearly everything you might 
 want to customise.  You should probably make a copy, rename it, and
 use that as the basis for your own theme.
