@@ -1643,7 +1643,7 @@ describe RequestController, "when sending a followup message" do
         # and that the status changed
         info_requests(:fancy_dog_request).reload
         info_requests(:fancy_dog_request).described_state.should == 'waiting_response'
-        info_requests(:fancy_dog_request).get_last_response_event.calculated_state.should == 'waiting_clarification'
+        info_requests(:fancy_dog_request).get_last_response_event.calculated_state.should == 'waiting_response'
     end
 
     it "should give an error if the same followup is submitted twice" do

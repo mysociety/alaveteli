@@ -248,7 +248,7 @@ describe InfoRequest do
 
         context "the user is the requester" do
             it "should log a status update event" do
-                event = mock_model(InfoRequestEvent)
+                event = mock_model(InfoRequestEvent, :described_state= => nil, :calculated_state= => nil, :save! => nil)
                 ir.should_receive(:log_event).with("status_update",
                     :user_id => ir.user.id,
                     :old_described_state => 'waiting_response',
@@ -269,6 +269,22 @@ describe InfoRequest do
                 ir.described_state.should == 'rejected'
                 ir.get_last_response_event.should == info_request_events(:useless_incoming_message_event)
                 ir.get_last_response_event.calculated_state.should == 'rejected'
+            end
+
+            # TODO: Check what happens when we update the state to say "we're still waiting"
+            it "should leave the event states in a sensible configuration" do
+                #puts "Before set_described_state:"
+                #puts ir.info_request_events.all.map{|e| e.attributes}.to_yaml
+                ir.set_described_state("rejected")
+                ir.reload
+                #puts "After set_described_state:"
+                #puts ir.info_request_events.all.map{|e| e.attributes}.to_yaml 
+                ir.info_request_events.last.described_state.should == "rejected"
+                ir.info_request_events.last.calculated_state.should == "rejected"
+                # TODO: It should set the last_described_at too
+                # And the one before should be in what the previous state was
+                ir.info_request_events[-2].described_state.should == "waiting_response"
+                ir.info_request_events[-2].calculated_state.should == "waiting_response"
             end
         end
 
@@ -297,7 +313,7 @@ describe InfoRequest do
             let(:user) { users(:admin_user) }
 
             it 'should record a classification' do
-                event = mock_model(InfoRequestEvent)
+                event = mock_model(InfoRequestEvent, :described_state= => nil, :calculated_state= => nil, :save! => nil)
                 ir.stub!(:log_event).with("status_update", anything()).and_return(event)
                 RequestClassification.should_receive(:create!).with(:user_id => user.id,
                                                                     :info_request_event_id => event.id)
@@ -322,7 +338,8 @@ describe InfoRequest do
             end
 
             it 'should still log a status update event' do
-                ir.should_receive(:log_event)
+                event = mock_model(InfoRequestEvent, :described_state= => nil, :calculated_state= => nil, :save! => nil)
+                ir.should_receive(:log_event).and_return(event)
                 ir.set_described_state("rejected", user)
             end            
 

@@ -557,13 +557,16 @@ public
         ActiveRecord::Base.transaction do
             self.awaiting_description = false
             last_event = self.info_request_events.last
-            last_event.described_state = new_state
+            # I think this is wrong
+            if last_event.described_state != old_described_state
+                last_event.described_state = old_described_state
+                last_event.calculated_state = old_described_state
+                last_event.last_described_at = Time.now()
+                last_event.save!
+            end
             self.described_state = new_state
-            last_event.save!
             self.save!
         end
-
-        self.calculate_event_states
 
         # This is the person who is actually making the change
         user = set_by || self.user
@@ -573,6 +576,11 @@ public
               :old_described_state => old_described_state,
               :described_state => described_state,
             })
+        event.described_state = new_state
+        event.calculated_state = new_state
+        event.save!
+
+        self.calculate_event_states
 
         # If there is no user making the change, don't do any of the following
         if user
@@ -622,12 +630,12 @@ public
         for event in self.info_request_events.reverse
             event.xapian_mark_needs_index  # we need to reindex all events in order to update their latest_* terms
             if curr_state.nil?
-                if !event.described_state.nil?
+                if event.described_state
                     curr_state = event.described_state
                 end
             end
 
-            if !curr_state.nil? && event.event_type == 'response'
+            if curr_state && event.event_type == 'response'
                 if event.calculated_state != curr_state
                     event.calculated_state = curr_state
                     event.last_described_at = Time.now()
@@ -638,7 +646,7 @@ public
                     event.save!
                 end
                 curr_state = nil
-            elsif !curr_state.nil? && (event.event_type == 'followup_sent' || event.event_type == 'sent') && !event.described_state.nil? && (event.described_state == 'waiting_response' || event.described_state == 'internal_review')
+            elsif curr_state && (event.event_type == 'followup_sent' || event.event_type == 'sent') && event.described_state && (event.described_state == 'waiting_response' || event.described_state == 'internal_review')
                 # Followups can set the status to waiting response / internal
                 # review. Initial requests ('sent') set the status to waiting response.
 
