@@ -50,7 +50,12 @@ RewriteRule ^/request/((\d{1,3})\d*)/(response/\d+/attach/(html/)?\d+/.+) /views
  PassengerResolveSymlinksInDocumentRoot on
  # Recommend setting this to 3 or less on servers with 512MB RAM
  PassengerMaxPoolSize 6
+ # The RackEnv variable applies to Rails 3 applications, while
+ # the RailsEnv variable applies to applicatoins for earlier
+ # versions of Rails.  There doesn't seem to be any harm in
+ # setting both, however.
  RailsEnv production
+ RackEnv production
 </IfModule>
 
 # Gzip font resources
