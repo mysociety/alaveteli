@@ -217,7 +217,7 @@ msgstr ""
 
 #: app/views/request/_followup.rhtml:66 app/views/request/_followup.rhtml:73
 #: app/views/request/show.rhtml:83 app/views/request/show.rhtml:87
-msgid "<a href=\"%s\">details</a>"
+msgid "details"
 msgstr ""
 
 #: app/views/request/_followup.rhtml:101
@@ -2690,14 +2690,14 @@ msgstr ""
 
 #: app/views/request/_followup.rhtml:59
 msgid ""
-"The response to your request has been <strong>delayed</strong>.  You can say that, \n"
+"The response to your request has been <strong>delayed</strong>.  You can say that,\n"
 "            by law, the authority should normally have responded\n"
 "            <strong>promptly</strong> and"
 msgstr ""
 
 #: app/views/request/_followup.rhtml:71
 msgid ""
-"The response to your request is <strong>long overdue</strong>.   You can say that, by \n"
+"The response to your request is <strong>long overdue</strong>.   You can say that, by\n"
 "            law, under all circumstances, the authority should have responded\n"
 "            by now"
 msgstr ""

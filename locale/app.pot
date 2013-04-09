@@ -157,7 +157,7 @@ msgstr ""
 msgid "<a href=\"%s\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr ""
 
-msgid "<a href=\"%s\">details</a>"
+msgid "details"
 msgstr ""
 
 msgid "<a href=\"%s\">what's that?</a>"
@@ -2200,10 +2200,10 @@ msgstr ""
 msgid "The requester has abandoned this request for some reason"
 msgstr ""
 
-msgid "The response to your request has been <strong>delayed</strong>.  You can say that, \\n            by law, the authority should normally have responded\\n            <strong>promptly</strong> and"
+msgid "The response to your request has been <strong>delayed</strong>.  You can say that,\\n            by law, the authority should normally have responded\\n            <strong>promptly</strong> and"
 msgstr ""
 
-msgid "The response to your request is <strong>long overdue</strong>.   You can say that, by \\n            law, under all circumstances, the authority should have responded\\n            by now"
+msgid "The response to your request is <strong>long overdue</strong>.   You can say that, by\\n            law, under all circumstances, the authority should have responded\\n            by now"
 msgstr ""
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests that have been made to this authority."

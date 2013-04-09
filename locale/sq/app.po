@@ -182,8 +182,8 @@ msgstr "Nuk mund të gjen autoritetin që dëshiron?"
 msgid "<a href=\"%s\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"%s\">Kyçu</a> për të ndryshuar fjalëkalimin, abonimet dhe të tjera (vetëm për {{user_name}})"
 
-msgid "<a href=\"%s\">details</a>"
-msgstr "<a href=\"%s\">detajet</a>"
+msgid "details"
+msgstr "detajet"
 
 msgid "<a href=\"%s\">what's that?</a>"
 msgstr "<a href=\"%s\">Çfarë është ajo?</a>"
@@ -2314,13 +2314,13 @@ msgstr "Kërkesa që ti je përpjek për të parë është hequr (larguar). Ka a
 msgid "The requester has abandoned this request for some reason"
 msgstr "Për ndonjë arsye, përdoruesi e ka braktisur kërkesën"
 
-msgid "The response to your request has been <strong>delayed</strong>.  You can say that, \\n            by law, the authority should normally have responded\\n            <strong>promptly</strong> and"
+msgid "The response to your request has been <strong>delayed</strong>.  You can say that,\\n            by law, the authority should normally have responded\\n            <strong>promptly</strong> and"
 msgstr ""
 "Përgjigja në kërkesën tënde është e <strong>vonuar</strong>.  Mund të thuhet që,\n"
 "sipas ligjit, autoriteti ishte dashtë të përgjigjet në \n"
 "<strong>afat</strong> të paraparë dhe "
 
-msgid "The response to your request is <strong>long overdue</strong>.   You can say that, by \\n            law, under all circumstances, the authority should have responded\\n            by now"
+msgid "The response to your request is <strong>long overdue</strong>.   You can say that, by\\n            law, under all circumstances, the authority should have responded\\n            by now"
 msgstr ""
 "Përgjigja në kërkesën tënde është <strong>vonuar për së tepërmi</strong>.   Mund të thuhet që,\n"
 "sipas ligjit, duke i patur parasyesh të gjitha rrethanat, autoriteti ishte dashtë të përgjigjet \n"

@@ -171,8 +171,8 @@ msgstr "Gewünschte Behörde nicht gefunden?"
 msgid "<a href=\"%s\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"%s\">Melden Sie sich an,</a> um Ihr Passwort und weitere Einstellungen zu ändern (auschließlich {{user_name}})"
 
-msgid "<a href=\"%s\">details</a>"
-msgstr "<a href=\"%s\">Details</a>"
+msgid "details"
+msgstr "Details"
 
 msgid "<a href=\"%s\">what's that?</a>"
 msgstr "<a href=\"%s\">Was ist das?</a>"
@@ -2268,10 +2268,10 @@ msgstr ""
 msgid "The requester has abandoned this request for some reason"
 msgstr "Der Anfragensteller hat die Anfrage aus unbekannten Gründen zurückgezogen. "
 
-msgid "The response to your request has been <strong>delayed</strong>.  You can say that, \\n            by law, the authority should normally have responded\\n            <strong>promptly</strong> and"
+msgid "The response to your request has been <strong>delayed</strong>.  You can say that,\\n            by law, the authority should normally have responded\\n            <strong>promptly</strong> and"
 msgstr "Die Beantwortung auf Ihre Anfrage ist verspätet. Nach gesetzlicher Vorschrift sollte die Behörde unverzüglich geantwortet haben und"
 
-msgid "The response to your request is <strong>long overdue</strong>.   You can say that, by \\n            law, under all circumstances, the authority should have responded\\n            by now"
+msgid "The response to your request is <strong>long overdue</strong>.   You can say that, by\\n            law, under all circumstances, the authority should have responded\\n            by now"
 msgstr "The response to your request is <strong>long overdue</strong>. Nach gesetzlicher Vorschrift sollte {{public_body_link}} Ihnen inzwischen unter allen Umständen geantwortet haben.   "
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests that have been made to this authority."

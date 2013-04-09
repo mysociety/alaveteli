@@ -236,8 +236,8 @@ msgstr "<a href=\"%s\">Abre una sesión</a> para cambiar tu contraseña, suscrip
 
 #: app/views/request/_followup.rhtml:66 app/views/request/_followup.rhtml:73
 #: app/views/request/show.rhtml:83 app/views/request/show.rhtml:87
-msgid "<a href=\"%s\">details</a>"
-msgstr "<a href=\"%s\">detalles</a>"
+msgid "details"
+msgstr "detalles"
 
 #: app/views/request/_followup.rhtml:101
 msgid "<a href=\"%s\">what's that?</a>"
@@ -2888,14 +2888,14 @@ msgstr "El creador de la solicitud la ha cancelado por algún motivo"
 
 #: app/views/request/_followup.rhtml:59
 msgid ""
-"The response to your request has been <strong>delayed</strong>.  You can say that, \n"
+"The response to your request has been <strong>delayed</strong>.  You can say that,\n"
 "            by law, the authority should normally have responded\n"
 "            <strong>promptly</strong> and"
 msgstr "La respuesta a tu solicitud ha sido <strong>retrasada</strong>.\n            Por ley, el organismo debería normalmente haber respondido\n            <strong>rápidamente</strong> y"
 
 #: app/views/request/_followup.rhtml:71
 msgid ""
-"The response to your request is <strong>long overdue</strong>.   You can say that, by \n"
+"The response to your request is <strong>long overdue</strong>.   You can say that, by\n"
 "            law, under all circumstances, the authority should have responded\n"
 "            by now"
 msgstr "La respuesta a tu solicitud ha sido <strong>muy retrasada</strong>.\n            Por ley, bajo cualquier circunstancia, el organismo ya debería\n            haber respondido"
