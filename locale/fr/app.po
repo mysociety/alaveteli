@@ -165,8 +165,8 @@ msgstr ""
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr "<a href=\"%s\">Voir tout</a> ou <a href=\"%s\"> demandez nous d'ajouter une</a>."
 
-msgid "<a href=\"%s\">Can't find the one you want?</a>"
-msgstr "<a href=\"%s\">Vous ne trouvez pas celui que vous voulez ?"
+msgid "Can't find the one you want?"
+msgstr "Vous ne trouvez pas celui que vous voulez ?"
 
 msgid "<a href=\"%s\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"%s\">Connectez-vous</a> pour changer le mot de passe, les abonnements et plus encore ({{user_name}} only)"
