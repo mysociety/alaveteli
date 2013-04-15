@@ -3040,15 +3040,7 @@ msgstr ""
 msgid "no later than"
 msgstr ""
 
-<<<<<<< HEAD
-msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
-=======
-msgid ""
-"no longer exists. If you are trying to make\\n    From the request page, try"
-" replying to a particular message, rather than sending\\n    a general "
-"followup. If you need to make a general followup, and know\\n    an email "
-"which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
->>>>>>> 543eb94... Replacing %s with {{}} in translations "From the request page, try replying to a particular message.."
+msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
 
 msgid "normally"

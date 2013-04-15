@@ -3205,19 +3205,10 @@ msgstr "mesazhe nga përdoruesit"
 msgid "no later than"
 msgstr "jo më vonë se"
 
-<<<<<<< HEAD
-msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
+msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
 "nuk ekziston më. Nëse je duke u përpjekur për të bërë\n"
-"    Prej faqes së kërkesës, provo ti përgjigjesh një mesazhi të veçant, në vend se të dërgosh një mesazh vazhdues. Nëse keni nevojë të bëni një mesazh prëcjellës të përgjithshëm dhe e di një adresë të emailit që do të shkon ne vendin e duhur, të lutem <a href=\"%s\">na e dërgo</a>."
-=======
-msgid ""
-"no longer exists. If you are trying to make\\n    From the request page, try"
-" replying to a particular message, rather than sending\\n    a general "
-"followup. If you need to make a general followup, and know\\n    an email "
-"which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-msgstr "nuk ekziston më. Nëse je duke u përpjekur për të bërë\n    Prej faqes së kërkesës, provo ti përgjigjesh një mesazhi të veçant, në vend se të dërgosh një mesazh vazhdues. Nëse keni nevojë të bëni një mesazh prëcjellës të përgjithshëm dhe e di një adresë të emailit që do të shkon ne vendin e duhur, të lutem <a href=\"{{url}}\">na e dërgo</a>."
->>>>>>> 543eb94... Replacing %s with {{}} in translations "From the request page, try replying to a particular message.."
+"    Prej faqes së kërkesës, provo ti përgjigjesh një mesazhi të veçant, në vend se të dërgosh një mesazh vazhdues. Nëse keni nevojë të bëni një mesazh prëcjellës të përgjithshëm dhe e di një adresë të emailit që do të shkon ne vendin e duhur, të lutem <a href=\"{{url}}\">na e dërgo</a>."
 
 msgid "normally"
 msgstr "normalisht"

@@ -3122,19 +3122,10 @@ msgstr "erabiltzaileen mezuak"
 msgid "no later than"
 msgstr "______ baino beranduago ez"
 
-<<<<<<< HEAD
-msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
+msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
 "ez da existitzen. \n"
-"Eskabidearen orrialdetik saia zaitez mezu zehatz bati erantzuten, eskabide osoari orokorrean erantzun baino. Hala egin behar izanez gero eta helbide elektroniko baliagarria baldin baduzu, mesedez <a href=\"%s\">bidal iezaguzu</a>."
-=======
-msgid ""
-"no longer exists. If you are trying to make\\n    From the request page, try"
-" replying to a particular message, rather than sending\\n    a general "
-"followup. If you need to make a general followup, and know\\n    an email "
-"which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-msgstr "ez da existitzen. \nEskabidearen orrialdetik saia zaitez mezu zehatz bati erantzuten, eskabide osoari orokorrean erantzun baino. Hala egin behar izanez gero eta helbide elektroniko baliagarria baldin baduzu, mesedez <a href=\"{{url}}\">bidal iezaguzu</a>."
->>>>>>> 543eb94... Replacing %s with {{}} in translations "From the request page, try replying to a particular message.."
+"Eskabidearen orrialdetik saia zaitez mezu zehatz bati erantzuten, eskabide osoari orokorrean erantzun baino. Hala egin behar izanez gero eta helbide elektroniko baliagarria baldin baduzu, mesedez <a href=\"{{url}}\">bidal iezaguzu</a>."
 
 msgid "normally"
 msgstr "normalean"
