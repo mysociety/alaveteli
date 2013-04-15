@@ -596,8 +596,10 @@ describe InfoRequest do
 
                 request.info_request_events.count.should == 2
                 event1, event2 = request.info_request_events
+                event1.event_type.should == "sent"
                 event1.described_state.should == "waiting_response"
                 event1.calculated_state.should == "waiting_response"
+                event2.event_type.should == "response"
                 event2.described_state.should be_nil
                 # TODO: Should calculated_status in this situation be "waiting_classification"?
                 # This would allow searches like "latest_status: waiting_classification" to be
@@ -618,8 +620,10 @@ describe InfoRequest do
 
                 request.info_request_events.count.should == 2
                 event1, event2 = request.info_request_events
+                event1.event_type.should == "sent"
                 event1.described_state.should == "waiting_response"
                 event1.calculated_state.should == "waiting_response"
+                event2.event_type.should == "response"
                 event2.described_state.should == "waiting_response"
                 event2.calculated_state.should == "waiting_response"
             end
@@ -640,10 +644,13 @@ describe InfoRequest do
 
                 request.info_request_events.count.should == 3
                 event1, event2, event3 = request.info_request_events
+                event1.event_type.should == "sent"
                 event1.described_state.should == "waiting_response"
                 event1.calculated_state.should == "waiting_response"
+                event2.event_type.should == "response"
                 event2.described_state.should == "waiting_response"
                 event2.calculated_state.should == "waiting_response"
+                event3.event_type.should == "followup_sent"
                 event3.described_state.should == "waiting_response"
                 event3.calculated_state.should == "waiting_response"
             end
