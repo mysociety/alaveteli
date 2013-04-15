@@ -10,8 +10,8 @@
 <% end %>
 <% if @info_request.prominence == 'requester_only' %>
     <p id="hidden_request">
-    <%= raw(_('This request is hidden, so that only you the requester can see it. Please
-    <a href="%s">contact us</a> if you are not sure why.') % [help_requesting_path]) %>
+    <%= _('This request is hidden, so that only you the requester can see it. Please
+    <a href="{{url}}">contact us</a> if you are not sure why.', :url => help_requesting_path.html_safe) %>
     </p>
 <% end %>
 

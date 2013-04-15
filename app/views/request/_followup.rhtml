@@ -49,9 +49,9 @@
     <% else %>
         <% if @internal_review %>
             <p>
-            <%= raw(_('If you are dissatisfied by the response you got from
+            <%= _('If you are dissatisfied by the response you got from
             the public authority, you have the right to
-            complain (<a href="%s">details</a>).') % "http://foiwiki.com/foiwiki/index.php/Internal_reviews") %>
+            complain (<a href="{{url}}">details</a>).', :url => "http://foiwiki.com/foiwiki/index.php/Internal_reviews".html_safe) %>
             </p>
         <% end %>
 
@@ -102,7 +102,7 @@
                     <div>
                         <%= radio_button "outgoing_message", "what_doing", "internal_review", :id => "internal_review" %>
                         <label for="internal_review"><%= _('I am requesting an <strong>internal review</strong>') %>
-            <%= raw(_('<a href="%s">what\'s that?</a>') % ["/help/unhappy"]) %>
+            <%= link_to _("what's that?"), "/help/unhappy" %>
                         </label>
                     </div>
                     <div>
