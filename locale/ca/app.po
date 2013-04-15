@@ -316,7 +316,7 @@ msgstr ""
 "    Enviarem un correu a la nova direcció de correu. Segueix\n"
 "    les seves instruccions per confirmar la nova direcció."
 
-msgid "<strong>Privacy note:</strong> If you want to request private {{url}}\">click here</a>."
+msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"{{url}}\">click here</a>."
 msgstr ""
 "<strong>Nota sobre privacitat:</strong> Si vols sol·licitar informació privada\n"
 "    sobre tu mateix <a href=\"{{url}}\">segueix aquest enllaç</a>."
