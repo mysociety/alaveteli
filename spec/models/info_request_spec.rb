@@ -600,6 +600,8 @@ describe InfoRequest do
                 event1.calculated_state.should == "waiting_response"
                 event2.described_state.should be_nil
                 # TODO: Should calculated_status in this situation be "waiting_classification"?
+                # This would allow searches like "latest_status: waiting_classification" to be
+                # available to the user in "Advanced search"
                 event2.calculated_state.should be_nil
             end
 
