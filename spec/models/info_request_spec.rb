@@ -654,6 +654,34 @@ describe InfoRequest do
                 event3.described_state.should == "waiting_response"
                 event3.calculated_state.should == "waiting_response"
             end
+
+            it "should have sensible events after a user classifies the request after a follow up" do
+                # An initial request is sent
+                request.log_event('sent', {})
+                request.set_described_state('waiting_response')
+                # A response is received
+                request.awaiting_description = true
+                request.log_event("response", {})
+                # The request is classified by the requesting user
+                request.set_described_state("waiting_response")
+                # A normal follow up is sent
+                request.log_event('followup_sent', {})
+                request.set_described_state('waiting_response')
+                # The request is classified by the requesting user
+                request.set_described_state("waiting_response")
+
+                request.info_request_events.count.should == 3
+                event1, event2, event3 = request.info_request_events
+                event1.event_type.should == "sent"
+                event1.described_state.should == "waiting_response"
+                event1.calculated_state.should == "waiting_response"
+                event2.event_type.should == "response"
+                event2.described_state.should == "waiting_response"
+                event2.calculated_state.should == "waiting_response"
+                event3.event_type.should == "followup_sent"
+                event3.described_state.should == "waiting_response"
+                event3.calculated_state.should == "waiting_response"
+            end
         end
     end
 end
