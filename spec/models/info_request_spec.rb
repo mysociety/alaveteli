@@ -572,6 +572,7 @@ describe InfoRequest do
                     :user => users(:bob_smith_user)) }
 
             it "should have sensible events after the initial request has been made" do
+                # An initial request is sent
                 # The logic that changes the status when a message is sent is mixed up
                 # in OutgoingMessage#send_message. So, rather than extract it (or call it)
                 # let's just duplicate what it does here for the time being.
@@ -585,17 +586,14 @@ describe InfoRequest do
             end
 
             it "should have sensible events after a response is received to a request" do
-                # The logic that changes the status when a message is sent is mixed up
-                # in OutgoingMessage#send_message. So, rather than extract it (or call it)
-                # let's just duplicate what it does here for the time being.
+                # An initial request is sent
                 request.log_event('sent', {})
                 request.set_described_state('waiting_response')
-
+                # A response is received
                 # This is normally done in InfoRequest#receive
                 request.awaiting_description = true
                 request.log_event("response", {})
 
-                p request.info_request_events
                 request.info_request_events.count.should == 2
                 event1, event2 = request.info_request_events
                 event1.described_state.should == "waiting_response"
@@ -603,6 +601,25 @@ describe InfoRequest do
                 event2.described_state.should be_nil
                 # TODO: Should calculated_status in this situation be "waiting_classification"?
                 event2.calculated_state.should be_nil
+            end
+
+            it "should have sensible events after a request is classified by the requesting user" do
+                # An initial request is sent
+                request.log_event('sent', {})
+                request.set_described_state('waiting_response')
+                # A response is received
+                request.awaiting_description = true
+                request.log_event("response", {})
+                # The request is classified by the requesting user
+                # This is normally done in RequestController#describe_state
+                request.set_described_state("waiting_response")
+
+                request.info_request_events.count.should == 2
+                event1, event2 = request.info_request_events
+                event1.described_state.should == "waiting_response"
+                event1.calculated_state.should == "waiting_response"
+                event2.described_state.should == "waiting_response"
+                event2.calculated_state.should == "waiting_response"
             end
         end
     end
