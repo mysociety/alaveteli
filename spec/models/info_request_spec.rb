@@ -565,18 +565,45 @@ describe InfoRequest do
 
     end
 
-    describe "#set_described_state" do
-        it "should have sensible events after the initial request has been made" do
-            request = InfoRequest.create!(:title => "my request",
-                :public_body => public_bodies(:geraldine_public_body),
-                :user => users(:bob_smith_user))
-            request.log_event('sent', {})
-            request.set_described_state('waiting_response')
+    describe "#set_described_state and #log_event" do
+        context "a request" do
+            let(:request) { InfoRequest.create!(:title => "my request",
+                    :public_body => public_bodies(:geraldine_public_body),
+                    :user => users(:bob_smith_user)) }
 
-            request.info_request_events.count.should == 1
-            event = request.info_request_events.first
-            event.described_state.should == "waiting_response"
-            event.calculated_state.should == "waiting_response"
+            it "should have sensible events after the initial request has been made" do
+                # The logic that changes the status when a message is sent is mixed up
+                # in OutgoingMessage#send_message. So, rather than extract it (or call it)
+                # let's just duplicate what it does here for the time being.
+                request.log_event('sent', {})
+                request.set_described_state('waiting_response')
+
+                request.info_request_events.count.should == 1
+                event = request.info_request_events.first
+                event.described_state.should == "waiting_response"
+                event.calculated_state.should == "waiting_response"
+            end
+
+            it "should have sensible events after a response is received to a request" do
+                # The logic that changes the status when a message is sent is mixed up
+                # in OutgoingMessage#send_message. So, rather than extract it (or call it)
+                # let's just duplicate what it does here for the time being.
+                request.log_event('sent', {})
+                request.set_described_state('waiting_response')
+
+                # This is normally done in InfoRequest#receive
+                request.awaiting_description = true
+                request.log_event("response", {})
+
+                p request.info_request_events
+                request.info_request_events.count.should == 2
+                event1, event2 = request.info_request_events
+                event1.described_state.should == "waiting_response"
+                event1.calculated_state.should == "waiting_response"
+                event2.described_state.should be_nil
+                # TODO: Should calculated_status in this situation be "waiting_classification"?
+                event2.calculated_state.should be_nil
+            end
         end
     end
 end
