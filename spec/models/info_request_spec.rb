@@ -565,4 +565,18 @@ describe InfoRequest do
 
     end
 
+    describe "#set_described_state" do
+        it "should have sensible events after the initial request has been made" do
+            request = InfoRequest.create!(:title => "my request",
+                :public_body => public_bodies(:geraldine_public_body),
+                :user => users(:bob_smith_user))
+            request.log_event('sent', {})
+            request.set_described_state('waiting_response')
+
+            request.info_request_events.count.should == 1
+            event = request.info_request_events.first
+            event.described_state.should == "waiting_response"
+            event.calculated_state.should == "waiting_response"
+        end
+    end
 end
