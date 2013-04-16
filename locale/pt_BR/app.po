@@ -169,9 +169,6 @@ msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or other
 msgstr "<a href=\"{{url}}\">Adicione um comentário</a> (para ajudar o solicitante ou outros)"
 
 msgid "Are we missing a public authority?"
-msgstr "Estamos esquecendo de uma autoridade pública?"
-
-msgid "Are we missing a public authority?"
 msgstr "Estamos esquecendo de um órgão público?"
 
 msgid "Are you the owner of any commercial copyright on this page?"
