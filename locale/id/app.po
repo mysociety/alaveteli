@@ -920,7 +920,7 @@ msgstr "Lupa kode sandi Anda?"
 
 msgid "Found {{count}} public authority {{description}}"
 msgid_plural "Found {{count}} public authorities {{description}}"
-msgstr[0] "Menemukan {{count}} otoritas publik {{description}}""
+msgstr[0] "Menemukan {{count}} otoritas publik {{description}}"
 
 msgid "Freedom of Information"
 msgstr "Freedom of Information"
