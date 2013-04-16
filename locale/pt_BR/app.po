@@ -487,9 +487,6 @@ msgstr "De acordo com a lei, {{public_body_link}} deveria ter respondido <strong
 msgid "Calculated home page"
 msgstr ""
 
-msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
-msgstr "De acordo com a lei, {{public_body_link}} deveria ter respondido seu pedido "
-
 msgid "Cancel a {{site_name}} alert"
 msgstr "Cancele um alerta do {{site_name}}"
 
