@@ -2960,7 +2960,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-msgid "Your <strong>name will appear publicly</strong> \\n        (<a href=\"{{url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please \\n        <a href=\"{{url}}\">read this first</a>."
+msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please\\n        <a href=\"{{url}}\">read this first</a>."
 msgstr ""
 "Bydd <strong>eich enw yn ymddangos yn gyhoeddus</strong> ( <a href=\"{{url}}\">pam?</a>) ar y wefan hon ac mewn peiriannau chwilio.\n"
 "Os ydych yn ystyried defnyddio ffugenw, os gwelwch yn dda <a href=\"{{url}}\">darllenwch hwn yn gyntaf</a>."

@@ -2954,7 +2954,7 @@ msgstr[0] "A {{count}}  -a adnotare a dvs."
 msgstr[1] "A {{count}}  -a adnotare a dvs."
 msgstr[2] "A {{count}}  -a adnotare a dvs."
 
-msgid "Your <strong>name will appear publicly</strong> \\n        (<a href=\"{{url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please \\n        <a href=\"{{url}}\">read this first</a>."
+msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please\\n        <a href=\"{{url}}\">read this first</a>."
 msgstr "Numele tău <strong>va apărea public</strong> \\n (<a href=\"{{url}}\">de ce?</a>)\\n pe acest website și în motoarele de căutare. Dacă te\\n gândești să utilizezi un pseudonim, te rugăm \\n <a href=\"{{url}}\">să citești aceasta înainte</a>."
 
 msgid "Your annotations"

@@ -3163,7 +3163,7 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] "Tu {{count}} comentario"
 msgstr[1] "Tus {{count}} comentarios"
 
-msgid "Your <strong>name will appear publicly</strong> \\n        (<a href=\"{{url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please \\n        <a href=\"{{url}}\">read this first</a>."
+msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please\\n        <a href=\"{{url}}\">read this first</a>."
 msgstr ""
 "<strong>Tu nombre aparecerá públicamente</strong> \n"
 "        (<a href=\"{{url}}\">¿por qué?</a>)\n"

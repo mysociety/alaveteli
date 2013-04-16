@@ -3133,7 +3133,7 @@ msgstr[0] "Váš {{count}} poznámka"
 msgstr[1] "Vaše {{count}} poznámky"
 msgstr[2] "Vašich {{count}} poznámek"
 
-msgid "Your <strong>name will appear publicly</strong> \\n        (<a href=\"{{url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please \\n        <a href=\"{{url}}\">read this first</a>."
+msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please\\n        <a href=\"{{url}}\">read this first</a>."
 msgstr ""
 "Vaše<strong> jméno bude uveřejněno</strong> \n"
 "        (<a href=\"{{url}}\">proč?</a>)\n"
