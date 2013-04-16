@@ -165,9 +165,6 @@ msgstr "Nu găsești persoana căutată?"
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Autentifică-te</a> pentru a-ţi schimba parola şi alte setări, inclusiv cele legate de abonare ({{user_name}} only)"
 
-msgid "details"
-msgstr "detalii"
-
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Gata! Mulţumim de ajutor.</p><p>Apropo, sunt <a href=\"{{helpus_url}}\">o sumedenie de alte lucruri pe care le poţi face</a> pentru a ajuta {{site_name}}.</p>"
 

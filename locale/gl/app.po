@@ -173,9 +173,6 @@ msgstr "¿No encuentra el que busca?"
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Abre una sesión</a> para cambiar tu contraseña, suscripciones... (sólo {{user_name}})"
 
-msgid "details"
-msgstr "detalles"
-
 msgid "what's that?"
 msgstr "¿Qué es eso?"
 
@@ -3346,7 +3343,7 @@ msgstr ""
 "            O prueba a llamarles por teléfono."
 
 msgid "details"
-msgstr ""
+msgstr "detalles"
 
 msgid "display_status only works for incoming and outgoing messages right now"
 msgstr "display_status sólo funciona para mensajes de entrada y salida ahora mismo"

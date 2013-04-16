@@ -168,9 +168,6 @@ msgstr "Ez duzu bilatzen ari zaren hori aurkitzen?"
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Ireki saioa</a> zure pasahitza aldatzeko, inskribatzeko... ({{user_name}} bakarrik)"
 
-msgid "details"
-msgstr "xehetasunak"
-
 msgid "what's that?"
 msgstr "Zer da hau?"
 
@@ -3189,7 +3186,7 @@ msgstr ""
 "            Edo froga ezazu telefonoz deitzen."
 
 msgid "details"
-msgstr ""
+msgstr "xehetasunak"
 
 msgid "display_status only works for incoming and outgoing messages right now"
 msgstr "display_status-ek orain sarrerako eta irteerako mezuekin bakarrik funtzionatzen du"

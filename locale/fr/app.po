@@ -168,9 +168,6 @@ msgstr ""
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Connectez-vous</a> pour changer le mot de passe, les abonnements et plus encore ({{user_name}} only)"
 
-msgid "details"
-msgstr "détails"
-
 msgid "what's that?"
 msgstr "C'est quoi ça ?"
 
@@ -3121,7 +3118,7 @@ msgid "containing your postal address, and asking them to reply to this request.
 msgstr ""
 
 msgid "details"
-msgstr ""
+msgstr "détails"
 
 msgid "display_status only works for incoming and outgoing messages right now"
 msgstr ""

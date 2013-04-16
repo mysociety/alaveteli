@@ -165,9 +165,6 @@ msgstr ""
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr ""
 
-msgid "details"
-msgstr "manylion"
-
 msgid "what's that?"
 msgstr ""
 
@@ -3136,7 +3133,7 @@ msgid "containing your postal address, and asking them to reply to this request.
 msgstr ""
 
 msgid "details"
-msgstr ""
+msgstr "manylion"
 
 msgid "display_status only works for incoming and outgoing messages right now"
 msgstr ""

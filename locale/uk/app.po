@@ -169,9 +169,6 @@ msgstr "Не можете знайти?"
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Увійдіть</a>, щоб змінити пароль, підписку тощо (це стосується тільки користувача {{user_name}})"
 
-msgid "details"
-msgstr "деталі"
-
 msgid "what's that?"
 msgstr "що це?"
 

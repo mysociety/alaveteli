@@ -169,9 +169,6 @@ msgstr "Nem találja, amit keresett?"
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Jelentkezzen be</a> a jelszó módosításához, a feliratkozáshoz stb. (csak {{user_name}}) "
 
-msgid "details"
-msgstr "részletek"
-
 msgid "what's that?"
 msgstr "mi ez? "
 
@@ -3337,7 +3334,7 @@ msgstr ""
 "           Telefonon is kapcsolatba léphet velük. "
 
 msgid "details"
-msgstr ""
+msgstr "részletek"
 
 msgid "display_status only works for incoming and outgoing messages right now"
 msgstr "display_status csak az éppen most beérkező és kimenő üzenetek esetében működik "
