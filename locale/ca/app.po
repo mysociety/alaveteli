@@ -220,7 +220,7 @@ msgstr "<p>Ens plau saber que has obtingut tota la informació que vas demanar. 
 msgid "<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
 msgstr "<p>Ens plau saber que has obtingut part de la informació que vas demanar. Si escrius sbore ella, o la utilitzes, si us plau tornar i afegeix un comentari a continuació explicant el que has fet.</p><p>Si {{site_name}} t'ha resultat útil, <a href=\"{{donation_url}}\">pots donar</a> a la ONG responsable.</p>"
 
-msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}">details</a>).</p>"
+msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
 msgstr "<p>No necessites incloure la teva adreça de correu a la sol•licitud per rebre una resposta (<a href=\"{{url}}\">més detalls</a>).</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>"
