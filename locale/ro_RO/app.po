@@ -12,9 +12,9 @@
 #   <rodxy@yahoo.com>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
-"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-03-14 14:02-0700\n"
+"Project-Id-Version: version 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-16 14:50+0100\n"
 "PO-Revision-Date: 2013-03-14 21:11+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,24 +96,6 @@ msgstr "când trimiți acest mesaj."
 msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
 msgstr "\"Salut! Avem un <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">mesaj important</a> pentru vizitatorii din afara {{country_name}}\""
 
-msgid "{{count}} Freedom of Information request to {{public_body_name}}"
-msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
-msgstr[0] "{{count}} cereri FOI până la {{public_body_name}}"
-msgstr[1] "{{count}} cereri FOI până  {{public_body_name}}"
-msgstr[2] "{{count}} solicitări de acces la informaţie până la  {{public_body_name}} "
-
-msgid "{{count}} request"
-msgid_plural "{{count}} requests"
-msgstr[0] "{{count}}  cerere"
-msgstr[1] "{{count}} cereri"
-msgstr[2] "{{count}} solicitări"
-
-msgid "{{count}} request made."
-msgid_plural "{{count}} requests made."
-msgstr[0] "{{count}} cerere făcută."
-msgstr[1] "{{count}} cereri făcute."
-msgstr[2] "{{count}} cereri făcute."
-
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Crime statistics by ward level for Wales'"
 
@@ -147,20 +129,11 @@ msgstr "2. Solicită o informație"
 msgid "3. Now check your request"
 msgstr "3. Verifică solicitarea făcută"
 
+msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
+msgstr "<a href=\"{{browse_url}}\">Caută în toată arhiva</a> sau <a href=\"{{add_url}}\">cere-ne nouă să adăugăm una</a>."
+
 msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"{{url}}\">Adaugă o notă</a> (pentru a ajuta petentul sau pe alții)"
-
-msgid "Are we missing a public authority?"
-msgstr "Ne lipseşte o autoritate publică?"
-
-msgid "Are you the owner of any commercial copyright on this page?"
-msgstr "Ai un drept de Proprietate Intelectuală asupra vreunei mărci de pe pagina aceasta?"
-
-msgid "<a href=\"{{url}}\">Browse all</a> or <a href=\"{{url}}\">ask us to add one</a>."
-msgstr "<a href=\"{{url}}\">Caută în toată arhiva</a> sau <a href=\"{{url}}\">cere-ne nouă să adăugăm una</a>."
-
-msgid "Can't find the one you want?"
-msgstr "Nu găsești persoana căutată?"
 
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Autentifică-te</a> pentru a-ţi schimba parola şi alte setări, inclusiv cele legate de abonare ({{user_name}} only)"
@@ -216,12 +189,6 @@ msgstr "<p>{{site_name}} este momentan în mentenanţă. Poţi vedea numai solic
 msgid "<small>If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way.</small>\\n</p>"
 msgstr "<small>Dacă utilizaţi un serviciu email  de tip web sau dacă aveţi filtre pentru poşta nedorită, verificaţi deasemenea şi folderele  \\nbulk/spam de email . Uneori mesajele noastre sunt marcate astfel.</small>\\n</p>"
 
-msgid "{{count}} person is following this authority"
-msgid_plural "{{count}} people are following this authority"
-msgstr[0] "{{count}} persoană  urmăreşte această autoritate"
-msgstr[1] "{{count}} persoane  urmăresc această autoritate"
-msgstr[2] "{{count}} persoane  urmăresc această autoritate"
-
 msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
 msgstr "<strong> Pot să solicit informaţii despre mine însumi?</strong>\\n\t\t\t<a href=\"{{url}}\">Nu! (Click aici pentur detalii)</a>"
 
@@ -251,12 +218,6 @@ msgstr "<strong><code>variety:</code></strong> pentru a selecta  tipul obiectulu
 
 msgid "<strong>Advice</strong> on how to get a response that will satisfy the requester. </li>"
 msgstr "<strong>Sfat </strong> despre cum să primiţi un răspuns care să satisfacă cererea. </li>"
-
-msgid "what's that?"
-msgstr "ce este aceasta?"
-
-msgid "<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below.</p>"
-msgstr "<p>Va mulţumim!  Vom verifica ce s-a intamplat si vom increca sa o rezolvam.</p><p> Daca eroarea era referitoare la livrare, si ne puteti oferi o alta adreasa actualiyata pentru FOI pentru acesta autoritatem ve rugan sa comunicati utilizand formularul de mai jos.</p>"
 
 msgid "<strong>All the information</strong> has been sent"
 msgstr "<strong>Toate informaţiile</strong> au fost trimise"
@@ -417,6 +378,12 @@ msgstr "Oricine:"
 msgid "Applies to"
 msgstr ""
 
+msgid "Are we missing a public authority?"
+msgstr "Ne lipseşte o autoritate publică?"
+
+msgid "Are you the owner of any commercial copyright on this page?"
+msgstr "Ai un drept de Proprietate Intelectuală asupra vreunei mărci de pe pagina aceasta?"
+
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Cereţi documente sau informaţii  <strong> precise </strong>, acest site nu este potrivit pentru cereri generale."
 
@@ -458,6 +425,9 @@ msgstr "Conform legii {{public_body_link}} ar fi trebuit să vă răspundă <str
 
 msgid "Calculated home page"
 msgstr ""
+
+msgid "Can't find the one you want?"
+msgstr "Nu găsești persoana căutată?"
 
 msgid "Cancel a {{site_name}} alert"
 msgstr "Anulaţi o alerta {{site_name}} "
@@ -759,7 +729,7 @@ msgstr "Eroare la conversia imaginii la mărimea corectă: la {{cols}}x{{rows}},
 msgid "Filter"
 msgstr "Filtrare"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
 msgstr "Mai întâi, introdu <strong>numele autorității publice</strong> de la care ai \\n avea nevoie de informații. <strong>Potrivit legii, trebuie să îți răspundă</strong>\\n (<a href=\"{{url}}\">de ce?</a>)."
 
 msgid "Foi attachment"
@@ -1941,7 +1911,7 @@ msgid "Search the site to find what you were looking for."
 msgstr "Caută în site pentru a găsi informaţia dorită"
 
 msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
-msgid_plural "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
+msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
 msgstr[0] "Caută printre cele {{count}} până la  {{public_body_name}} cereri FOI"
 msgstr[1] "Caută printre cele {{count}} până la  {{public_body_name}} cereri FOI făcute"
 msgstr[2] "Caută printre cele {{count}} cereri FOI {{public_body_name}} "
@@ -2300,17 +2270,17 @@ msgstr "Apoi adnotarea dvs. către {{info_request_title}} va fi postată."
 msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
 msgstr "Sunt {{count}} adnotări noi la cererea dvs. {{info_request}}. Urmaţi acest link pentru a vedea ce au scris."
 
-msgid "There is {{count}} person following this request"
-msgid_plural "There are {{count}} people following this request"
-msgstr[0] "Sunt  {{count}} persoane care urmăresc această cerere."
-msgstr[1] "Sunt  {{count}} persoane care urmăresc această cerere."
-msgstr[2] "Sunt  {{count}} persoane care urmăresc această cerere."
-
 msgid "There is <strong>more than one person</strong> who uses this site and has this name.\\n    One of them is shown below, you may mean a different one:"
 msgstr "Există <strong>mai mult de o persoană</strong> care utilizează acest site şi are acest nume.\\n Una dintre ele este afişată mai jos, în cazul în care cauţi pe altcineva:"
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Există o limită a numărului de cereri pe care le puteţi face într-o zi, deoarece nu dorim ca autorităţile publice să fie bombardate cu un mare număr de cereri inadecvate. Dacă consideraţi că aveţi un motiv întemeiat pentru a cere mărirea acestei limite, vă rugăm  <a href='{{help_contact_path}}'>contactaţi</a>."
+
+msgid "There is {{count}} person following this request"
+msgid_plural "There are {{count}} people following this request"
+msgstr[0] "Sunt  {{count}} persoane care urmăresc această cerere."
+msgstr[1] "Sunt  {{count}} persoane care urmăresc această cerere."
+msgstr[2] "Sunt  {{count}} persoane care urmăresc această cerere."
 
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "A apărut o  <strong>eroare de transmitere</strong> sau similară ce va trebui să fie rezolvată de către echipa {{site_name}}."
@@ -2381,6 +2351,9 @@ msgstr "Acesată cerere anume este finalizată:"
 msgid "This person has made no Freedom of Information requests using this site."
 msgstr "Acestă persoană nu a făcut nici o cerere FOI utilizând acest site"
 
+msgid "This person's annotations"
+msgstr "Adnotările acestei persoane"
+
 msgid "This person's {{count}} Freedom of Information request"
 msgid_plural "This person's {{count}} Freedom of Information requests"
 msgstr[0] "A {{count}} -a cerere FOI a acestei persoane"
@@ -2392,9 +2365,6 @@ msgid_plural "This person's {{count}} annotations"
 msgstr[0] "A {{count}} -a adnotare a acestei persoane"
 msgstr[1] "A {{count}} -a adnotare a acestei persoane"
 msgstr[2] "A {{count}} -a adnotare a acestei persoane"
-
-msgid "This person's annotations"
-msgstr "Adnotările acestei persoane"
 
 msgid "This request <strong>requires administrator attention</strong>"
 msgstr "Acestă cerere <strong>necesită atenţia administratorului</strong>"
@@ -2942,20 +2912,8 @@ msgstr "Nu urmărești nimic."
 msgid "You've now cleared your profile photo"
 msgstr "Acum aţi şters poza dvs. de profil"
 
-msgid "Your {{count}} Freedom of Information request"
-msgid_plural "Your {{count}} Freedom of Information requests"
-msgstr[0] "A {{count}}  -a cerere FOI a dvs."
-msgstr[1] "A {{count}}  -a cerere FOI a dvs."
-msgstr[2] "A {{count}}  -a cerere FOI a dvs."
-
-msgid "Your {{count}} annotation"
-msgid_plural "Your {{count}} annotations"
-msgstr[0] "A {{count}}  -a adnotare a dvs."
-msgstr[1] "A {{count}}  -a adnotare a dvs."
-msgstr[2] "A {{count}}  -a adnotare a dvs."
-
-msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please\\n        <a href=\"{{url}}\">read this first</a>."
-msgstr "Numele tău <strong>va apărea public</strong> \\n (<a href=\"{{url}}\">de ce?</a>)\\n pe acest website și în motoarele de căutare. Dacă te\\n gândești să utilizezi un pseudonim, te rugăm \\n <a href=\"{{url}}\">să citești aceasta înainte</a>."
+msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please\\n        <a href=\"{{help_url}}\">read this first</a>."
+msgstr "Numele tău <strong>va apărea public</strong> \\n (<a href=\"{{why_url}}\">de ce?</a>)\\n pe acest website și în motoarele de căutare. Dacă te\\n gândești să utilizezi un pseudonim, te rugăm \\n <a href=\"{{help_url}}\">să citești aceasta înainte</a>."
 
 msgid "Your annotations"
 msgstr "Adnotările dvs."
@@ -3022,6 +2980,18 @@ msgstr "Răspunsul dvs. <strong>va apărea pe Internet</strong>, <a href=\"{{url
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Consideraţiile dvs. cu privire la ceea ce <strong>administratorii</strong>   {{site_name}} ar trebui să facă în legătură cu cererea."
+
+msgid "Your {{count}} Freedom of Information request"
+msgid_plural "Your {{count}} Freedom of Information requests"
+msgstr[0] "A {{count}}  -a cerere FOI a dvs."
+msgstr[1] "A {{count}}  -a cerere FOI a dvs."
+msgstr[2] "A {{count}}  -a cerere FOI a dvs."
+
+msgid "Your {{count}} annotation"
+msgid_plural "Your {{count}} annotations"
+msgstr[0] "A {{count}}  -a adnotare a dvs."
+msgstr[1] "A {{count}}  -a adnotare a dvs."
+msgstr[2] "A {{count}}  -a adnotare a dvs."
 
 msgid "Your {{site_name}} email alert"
 msgstr "Alerta dvs. prin email {{site_name}}"
@@ -3298,8 +3268,35 @@ msgstr "informaţii utile"
 msgid "users"
 msgstr "utilizatori"
 
+msgid "what's that?"
+msgstr "ce este aceasta?"
+
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} cereri FOI găsite"
+
+msgid "{{count}} Freedom of Information request to {{public_body_name}}"
+msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
+msgstr[0] "{{count}} cereri FOI până la {{public_body_name}}"
+msgstr[1] "{{count}} cereri FOI până  {{public_body_name}}"
+msgstr[2] "{{count}} solicitări de acces la informaţie până la  {{public_body_name}} "
+
+msgid "{{count}} person is following this authority"
+msgid_plural "{{count}} people are following this authority"
+msgstr[0] "{{count}} persoană  urmăreşte această autoritate"
+msgstr[1] "{{count}} persoane  urmăresc această autoritate"
+msgstr[2] "{{count}} persoane  urmăresc această autoritate"
+
+msgid "{{count}} request"
+msgid_plural "{{count}} requests"
+msgstr[0] "{{count}}  cerere"
+msgstr[1] "{{count}} cereri"
+msgstr[2] "{{count}} solicitări"
+
+msgid "{{count}} request made."
+msgid_plural "{{count}} requests made."
+msgstr[0] "{{count}} cerere făcută."
+msgstr[1] "{{count}} cereri făcute."
+msgstr[2] "{{count}} cereri făcute."
 
 msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
 msgstr "{{existing_request_user}}a creat\\n deja aceeași solicitare pe {{date}}.  Poți fie vizualiza <a href=\"{{existing_request}}\"> solicitarea existentă </a>,\\n fie edita detaliile de mai jos pentru a face o solicitare nouă, dar similară."

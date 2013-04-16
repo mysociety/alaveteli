@@ -11,9 +11,9 @@
 #  <zdevir@gmail.com>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
-"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-03-14 14:02-0700\n"
+"Project-Id-Version: version 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-16 14:50+0100\n"
 "PO-Revision-Date: 2013-03-18 19:01+0000\n"
 "Last-Translator: yauzi <yair.uziel@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,21 +95,6 @@ msgstr "כאשר אתם שולחים הודעה זו."
 msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
 msgstr "\"שלום! יש לנו  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">הודעה חשובה</a> למבקרים מחוץ ל-  {{country_name}}\""
 
-msgid "{{count}} Freedom of Information request to {{public_body_name}}"
-msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
-msgstr[0] "{{count}} בקשת תחת חוק חופש המידע עבור {{public_body_name}}"
-msgstr[1] "{{count}} בקשות תחת חוק חופש המידע עבור {{public_body_name}}"
-
-msgid "{{count}} request"
-msgid_plural "{{count}} requests"
-msgstr[0] "{{count}} בקשה"
-msgstr[1] "{{count}} בקשות"
-
-msgid "{{count}} request made."
-msgid_plural "{{count}} requests made."
-msgstr[0] "{{count}} הבקשה נמסרה."
-msgstr[1] "{{count}} הבקשות נמסרו."
-
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'סטטיסטיקות פשע מפורטות בדרום תל-אביב'"
 
@@ -143,26 +128,14 @@ msgstr "2. בקשו מידע"
 msgid "3. Now check your request"
 msgstr "3. עתה בדקו את בקשתכם"
 
-msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
-msgstr "<a href=\"{{url}}\">הוסיפו הסבר</a> (כדי לסייע למגיש הבקשה או לאחרים)"
-
-msgid "Are we missing a public authority?"
-msgstr "האם חסר לנו גוף ציבורי?"
-
-msgid "Are you the owner of any commercial copyright on this page?"
-msgstr "האם אתם הבעלים של\\n זכויות יוצרים מסחריות על עמוד זה?"
-
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">צפו בכולם</a> או <a href=\"{{add_url}}\">בקשו מאיתנו להוסיף אחת</a>."
 
-msgid "Can't find the one you want?"
-msgstr "לא מוצאים את מה שאתם מחפשים?"
+msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
+msgstr "<a href=\"{{url}}\">הוסיפו הסבר</a> (כדי לסייע למגיש הבקשה או לאחרים)"
 
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">היכנסו</a> כדי לשנות סיסמה, מנויים וכדומה. (רק {{user_name}})"
-
-msgid "what's that?"
-msgstr "מה זה?"
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>זה הכל! תודה על עזרתכם.</p><p>ישנם <a href=\"{{helpus_url}}\">כמה דברים נוספים</a> שתוכלו לעשות כדי לעזור ל-{{site_name}}.</p>"
@@ -214,11 +187,6 @@ msgstr "<p>{{site_name}} נמצא כעת בתחזוקה. ניתן לצפות ב�
 
 msgid "<small>If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way.</small>\\n</p>"
 msgstr "<small>אם אתם משתמשים בשירות דואר מבוסס רשת, בדקו את תיבת דואר הזבל שלכם.\\nbulk/spam ייתכן וההודעה שלנו סומנה ככזו בטעות.</small>\\n</p>"
-
-msgid "<span id='follow_count'>%d</span> person is following this authority"
-msgid_plural "<span id='follow_count'>%d</span> people are following this authority"
-msgstr[0] "<span id='follow_count'>%d</span> אנשים עוקבים אחר רשות זו"
-msgstr[1] "<span id='follow_count'>%d</span> אנשים עוקבים אחר רשות זו"
 
 msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
 msgstr ""
@@ -411,6 +379,12 @@ msgstr "כל אחד:"
 msgid "Applies to"
 msgstr ""
 
+msgid "Are we missing a public authority?"
+msgstr "האם חסר לנו גוף ציבורי?"
+
+msgid "Are you the owner of any commercial copyright on this page?"
+msgstr "האם אתם הבעלים של\\n זכויות יוצרים מסחריות על עמוד זה?"
+
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "בקשו מסמכים או מידע <strong>מסויימים</strong>. אתר זה אינו מיועד לבקשות כלליות."
 
@@ -452,6 +426,9 @@ msgstr "על-פי החוק, {{קישור_גוף_ציבורי}} היה/היתה �
 
 msgid "Calculated home page"
 msgstr ""
+
+msgid "Can't find the one you want?"
+msgstr "לא מוצאים את מה שאתם מחפשים?"
 
 msgid "Cancel a {{site_name}} alert"
 msgstr "ביטול התראה מאתר {{site_name}}"
@@ -747,13 +724,13 @@ msgstr "תגובה לפי חוק חופש המידע דורשת  ({{reason}}) - 
 msgid "Failed to convert image to a PNG"
 msgstr "המרת הקובץ לפורמט PNG נכשלה"
 
-msgid "Failed to convert image to the correct size: at %{cols}x%{rows}, need %{width}x%{height}"
-msgstr "המרת התמונה לגודל המתאים נכשלה: ל-  %{עמודות}x%{שורות}, נדרש %{רוחב}x%{גובה}"
+msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
+msgstr "המרת התמונה לגודל המתאים נכשלה: ל-  {{עמודות}}x{{שורות}}, נדרש {{רוחב}}x{{גובה}}"
 
 msgid "Filter"
 msgstr "סינון"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
 msgstr "ראשית, הקלידו את <strong>שם הגוף</strong> שממנו ברצונכם לקבל מידע.  <strong>לפי חוק, עליהם להגיב</strong>\\n (<a href=\"{{url}}\">למה?</a>)."
 
 msgid "Foi attachment"
@@ -1586,8 +1563,8 @@ msgstr ""
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong>\\nif they are successful yet or not."
 msgstr "אנא בחר כל אחת מהבקשות הבאות, <strong>וספר לכולם</strong>\\n האם הן הצליחו כבר או עדיין לא."
 
-msgid "Please sign at the bottom with your name, or alter the \"%{signoff}\" signature"
-msgstr "חתמו למטה בשמכם, או שנו את \"%{signoff}\" החתימה"
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
+msgstr "חתמו למטה בשמכם, או שנו את \"{{signoff}}\" החתימה"
 
 msgid "Please sign in as "
 msgstr "בבקשה התחברו כ"
@@ -2290,16 +2267,16 @@ msgstr "אז תפורסם ההערה שלכם ל-  {{info_request_title}} ."
 msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
 msgstr "ישנן {{count}} הערות חדשות על בקשת ה- {{info_request}} שלכם. הקליקו על קישור זה לראות אותן."
 
-msgid "There is %d person following this request"
-msgid_plural "There are %d people following this request"
-msgstr[0] "עוקבים אחר הבקשה הזו %d אנשים"
-msgstr[1] "עוקבים אחר הבקשה הזו %d אנשים"
-
 msgid "There is <strong>more than one person</strong> who uses this site and has this name.\\n    One of them is shown below, you may mean a different one:"
 msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "מספר הבקשות שניתן להגיש ביום מוגבל, כי אנו לא רוצים להציף את הרשויות הציבוריות בבקשות שווא. אם אתם רוצים להגדיל את המספר המותר, <a href='{{help_contact_path}}'>צרו קשר</a>."
+
+msgid "There is {{count}} person following this request"
+msgid_plural "There are {{count}} people following this request"
+msgstr[0] "עוקבים אחר הבקשה הזו {{count}} אנשים"
+msgstr[1] "עוקבים אחר הבקשה הזו {{count}} אנשים"
 
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "היתה <strong>תקלה במסירה</strong> שדורשת טיפול על-ידי אנשי {{site_name}}."
@@ -2370,18 +2347,18 @@ msgstr "הטיפול בבקשה זו הסתיים"
 msgid "This person has made no Freedom of Information requests using this site."
 msgstr "אדם זה טרם הגיש בקשות מידע באמצעות אתר זה"
 
-msgid "This person's %d Freedom of Information request"
-msgid_plural "This person's %d Freedom of Information requests"
-msgstr[0] "בקשת מידע מס' %d של אדם זה"
-msgstr[1] "%d בקשות מידע של אדם זה"
-
-msgid "This person's %d annotation"
-msgid_plural "This person's %d annotations"
-msgstr[0] "הערה מס' %d של אדם זה"
-msgstr[1] "%d בקשות מידע של אדם זה"
-
 msgid "This person's annotations"
 msgstr "הערות של אדם זה"
+
+msgid "This person's {{count}} Freedom of Information request"
+msgid_plural "This person's {{count}} Freedom of Information requests"
+msgstr[0] "בקשת מידע מס' {{count}} של אדם זה"
+msgstr[1] "{{count}} בקשות מידע של אדם זה"
+
+msgid "This person's {{count}} annotation"
+msgid_plural "This person's {{count}} annotations"
+msgstr[0] "הערה מס' {{count}} של אדם זה"
+msgstr[1] "{{count}} בקשות מידע של אדם זה"
 
 msgid "This request <strong>requires administrator attention</strong>"
 msgstr "בקשה זו <strong>מצריכה טיפול מנהל</strong>"
@@ -2929,16 +2906,6 @@ msgstr "אתם לא עוקבים אחר דבר."
 msgid "You've now cleared your profile photo"
 msgstr "תמונת הפרופיל שלכם הוסרה בהצלחה"
 
-msgid "Your %d Freedom of Information request"
-msgid_plural "Your %d Freedom of Information requests"
-msgstr[0] "בקשת המידע מס' %d שלכם"
-msgstr[1] " %d בקשות המידע שלכם"
-
-msgid "Your %d annotation"
-msgid_plural "Your %d annotations"
-msgstr[0] "הערה מס' %d שלכם"
-msgstr[1] "%d ההערות שלכם"
-
 msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please\\n        <a href=\"{{help_url}}\">read this first</a>."
 msgstr ""
 
@@ -3007,6 +2974,16 @@ msgstr "תגובתכם <strong>תופיע באינטרנט</strong>, <a href=\"{
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "דעתכם על מה {{site_name}} <strong>שמנהלי האתר</strong> צרכים לעשות בקשר לבקשה."
+
+msgid "Your {{count}} Freedom of Information request"
+msgid_plural "Your {{count}} Freedom of Information requests"
+msgstr[0] "בקשת המידע מס' {{count}} שלכם"
+msgstr[1] " {{count}} בקשות המידע שלכם"
+
+msgid "Your {{count}} annotation"
+msgid_plural "Your {{count}} annotations"
+msgstr[0] "הערה מס' {{count}} שלכם"
+msgstr[1] "{{count}} ההערות שלכם"
 
 msgid "Your {{site_name}} email alert"
 msgstr "התרעת הדוא\"ל שלכם מאתר {{site_name}} "
@@ -3283,8 +3260,31 @@ msgstr "מידע שימושי."
 msgid "users"
 msgstr "משתמשים"
 
+msgid "what's that?"
+msgstr "מה זה?"
+
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} בקשות מידע נמצאו"
+
+msgid "{{count}} Freedom of Information request to {{public_body_name}}"
+msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
+msgstr[0] "{{count}} בקשת תחת חוק חופש המידע עבור {{public_body_name}}"
+msgstr[1] "{{count}} בקשות תחת חוק חופש המידע עבור {{public_body_name}}"
+
+msgid "{{count}} person is following this authority"
+msgid_plural "{{count}} people are following this authority"
+msgstr[0] "{{count}} אנשים עוקבים אחר רשות זו"
+msgstr[1] "{{count}} אנשים עוקבים אחר רשות זו"
+
+msgid "{{count}} request"
+msgid_plural "{{count}} requests"
+msgstr[0] "{{count}} בקשה"
+msgstr[1] "{{count}} בקשות"
+
+msgid "{{count}} request made."
+msgid_plural "{{count}} requests made."
+msgstr[0] "{{count}} הבקשה נמסרה."
+msgstr[1] "{{count}} הבקשות נמסרו."
 
 msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
 msgstr ""
