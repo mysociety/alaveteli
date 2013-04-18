@@ -703,6 +703,26 @@ describe InfoRequest do
                     events[1].described_state.should == "internal_review"
                     events[1].calculated_state.should == "internal_review"
                 end
+
+                it "should have sensible event states" do
+                    # An initial request is sent
+                    request.log_event('sent', {})
+                    request.set_described_state('waiting_response')
+                    # An internal review is requested
+                    request.log_event('followup_sent', {})
+                    request.set_described_state('internal_review')
+                    # The user marks the request as rejected
+                    request.set_described_state("rejected")
+
+                    events = request.info_request_events
+                    events.count.should == 2
+                    events[0].event_type.should == "sent"
+                    events[0].described_state.should == "waiting_response"
+                    events[0].calculated_state.should == "waiting_response"
+                    events[1].event_type.should == "followup_sent"
+                    events[1].described_state.should == "rejected"
+                    events[1].calculated_state.should == "rejected"
+                end
             end            
         end
     end
