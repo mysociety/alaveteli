@@ -571,117 +571,139 @@ describe InfoRequest do
                     :public_body => public_bodies(:geraldine_public_body),
                     :user => users(:bob_smith_user)) }
 
-            it "should have sensible events after the initial request has been made" do
-                # An initial request is sent
-                # The logic that changes the status when a message is sent is mixed up
-                # in OutgoingMessage#send_message. So, rather than extract it (or call it)
-                # let's just duplicate what it does here for the time being.
-                request.log_event('sent', {})
-                request.set_described_state('waiting_response')
+            context "a series of events on a request" do
+                it "should have sensible events after the initial request has been made" do
+                    # An initial request is sent
+                    # The logic that changes the status when a message is sent is mixed up
+                    # in OutgoingMessage#send_message. So, rather than extract it (or call it)
+                    # let's just duplicate what it does here for the time being.
+                    request.log_event('sent', {})
+                    request.set_described_state('waiting_response')
 
-                request.info_request_events.count.should == 1
-                event = request.info_request_events.first
-                event.described_state.should == "waiting_response"
-                event.calculated_state.should == "waiting_response"
+                    request.info_request_events.count.should == 1
+                    event = request.info_request_events.first
+                    event.described_state.should == "waiting_response"
+                    event.calculated_state.should == "waiting_response"
+                end
+
+                it "should have sensible events after a response is received to a request" do
+                    # An initial request is sent
+                    request.log_event('sent', {})
+                    request.set_described_state('waiting_response')
+                    # A response is received
+                    # This is normally done in InfoRequest#receive
+                    request.awaiting_description = true
+                    request.log_event("response", {})
+
+                    request.info_request_events.count.should == 2
+                    event1, event2 = request.info_request_events
+                    event1.event_type.should == "sent"
+                    event1.described_state.should == "waiting_response"
+                    event1.calculated_state.should == "waiting_response"
+                    event2.event_type.should == "response"
+                    event2.described_state.should be_nil
+                    # TODO: Should calculated_status in this situation be "waiting_classification"?
+                    # This would allow searches like "latest_status: waiting_classification" to be
+                    # available to the user in "Advanced search"
+                    event2.calculated_state.should be_nil
+                end
+
+                it "should have sensible events after a request is classified by the requesting user" do
+                    # An initial request is sent
+                    request.log_event('sent', {})
+                    request.set_described_state('waiting_response')
+                    # A response is received
+                    request.awaiting_description = true
+                    request.log_event("response", {})
+                    # The request is classified by the requesting user
+                    # This is normally done in RequestController#describe_state
+                    request.set_described_state("waiting_response")
+
+                    request.info_request_events.count.should == 2
+                    event1, event2 = request.info_request_events
+                    event1.event_type.should == "sent"
+                    event1.described_state.should == "waiting_response"
+                    event1.calculated_state.should == "waiting_response"
+                    event2.event_type.should == "response"
+                    event2.described_state.should == "waiting_response"
+                    event2.calculated_state.should == "waiting_response"
+                end
+
+                it "should have sensible events after a normal followup is sent" do
+                    # An initial request is sent
+                    request.log_event('sent', {})
+                    request.set_described_state('waiting_response')
+                    # A response is received
+                    request.awaiting_description = true
+                    request.log_event("response", {})
+                    # The request is classified by the requesting user
+                    request.set_described_state("waiting_response")
+                    # A normal follow up is sent
+                    # This is normally done in OutgoingMessage#send_message
+                    request.log_event('followup_sent', {})
+                    request.set_described_state('waiting_response')
+
+                    request.info_request_events.count.should == 3
+                    event1, event2, event3 = request.info_request_events
+                    event1.event_type.should == "sent"
+                    event1.described_state.should == "waiting_response"
+                    event1.calculated_state.should == "waiting_response"
+                    event2.event_type.should == "response"
+                    event2.described_state.should == "waiting_response"
+                    event2.calculated_state.should == "waiting_response"
+                    event3.event_type.should == "followup_sent"
+                    event3.described_state.should == "waiting_response"
+                    event3.calculated_state.should == "waiting_response"
+                end
+
+                it "should have sensible events after a user classifies the request after a follow up" do
+                    # An initial request is sent
+                    request.log_event('sent', {})
+                    request.set_described_state('waiting_response')
+                    # A response is received
+                    request.awaiting_description = true
+                    request.log_event("response", {})
+                    # The request is classified by the requesting user
+                    request.set_described_state("waiting_response")
+                    # A normal follow up is sent
+                    request.log_event('followup_sent', {})
+                    request.set_described_state('waiting_response')
+                    # The request is classified by the requesting user
+                    request.set_described_state("waiting_response")
+
+                    request.info_request_events.count.should == 3
+                    event1, event2, event3 = request.info_request_events
+                    event1.event_type.should == "sent"
+                    event1.described_state.should == "waiting_response"
+                    event1.calculated_state.should == "waiting_response"
+                    event2.event_type.should == "response"
+                    event2.described_state.should == "waiting_response"
+                    event2.calculated_state.should == "waiting_response"
+                    event3.event_type.should == "followup_sent"
+                    event3.described_state.should == "waiting_response"
+                    event3.calculated_state.should == "waiting_response"
+                end
             end
 
-            it "should have sensible events after a response is received to a request" do
-                # An initial request is sent
-                request.log_event('sent', {})
-                request.set_described_state('waiting_response')
-                # A response is received
-                # This is normally done in InfoRequest#receive
-                request.awaiting_description = true
-                request.log_event("response", {})
+            context "another series of events on a request" do
+                it "should have sensible event states" do
+                    # An initial request is sent
+                    request.log_event('sent', {})
+                    request.set_described_state('waiting_response')
+                    # An internal review is requested
+                    request.log_event('followup_sent', {})
+                    request.set_described_state('internal_review')
 
-                request.info_request_events.count.should == 2
-                event1, event2 = request.info_request_events
-                event1.event_type.should == "sent"
-                event1.described_state.should == "waiting_response"
-                event1.calculated_state.should == "waiting_response"
-                event2.event_type.should == "response"
-                event2.described_state.should be_nil
-                # TODO: Should calculated_status in this situation be "waiting_classification"?
-                # This would allow searches like "latest_status: waiting_classification" to be
-                # available to the user in "Advanced search"
-                event2.calculated_state.should be_nil
-            end
-
-            it "should have sensible events after a request is classified by the requesting user" do
-                # An initial request is sent
-                request.log_event('sent', {})
-                request.set_described_state('waiting_response')
-                # A response is received
-                request.awaiting_description = true
-                request.log_event("response", {})
-                # The request is classified by the requesting user
-                # This is normally done in RequestController#describe_state
-                request.set_described_state("waiting_response")
-
-                request.info_request_events.count.should == 2
-                event1, event2 = request.info_request_events
-                event1.event_type.should == "sent"
-                event1.described_state.should == "waiting_response"
-                event1.calculated_state.should == "waiting_response"
-                event2.event_type.should == "response"
-                event2.described_state.should == "waiting_response"
-                event2.calculated_state.should == "waiting_response"
-            end
-
-            it "should have sensible events after a normal followup is sent" do
-                # An initial request is sent
-                request.log_event('sent', {})
-                request.set_described_state('waiting_response')
-                # A response is received
-                request.awaiting_description = true
-                request.log_event("response", {})
-                # The request is classified by the requesting user
-                request.set_described_state("waiting_response")
-                # A normal follow up is sent
-                # This is normally done in OutgoingMessage#send_message
-                request.log_event('followup_sent', {})
-                request.set_described_state('waiting_response')
-
-                request.info_request_events.count.should == 3
-                event1, event2, event3 = request.info_request_events
-                event1.event_type.should == "sent"
-                event1.described_state.should == "waiting_response"
-                event1.calculated_state.should == "waiting_response"
-                event2.event_type.should == "response"
-                event2.described_state.should == "waiting_response"
-                event2.calculated_state.should == "waiting_response"
-                event3.event_type.should == "followup_sent"
-                event3.described_state.should == "waiting_response"
-                event3.calculated_state.should == "waiting_response"
-            end
-
-            it "should have sensible events after a user classifies the request after a follow up" do
-                # An initial request is sent
-                request.log_event('sent', {})
-                request.set_described_state('waiting_response')
-                # A response is received
-                request.awaiting_description = true
-                request.log_event("response", {})
-                # The request is classified by the requesting user
-                request.set_described_state("waiting_response")
-                # A normal follow up is sent
-                request.log_event('followup_sent', {})
-                request.set_described_state('waiting_response')
-                # The request is classified by the requesting user
-                request.set_described_state("waiting_response")
-
-                request.info_request_events.count.should == 3
-                event1, event2, event3 = request.info_request_events
-                event1.event_type.should == "sent"
-                event1.described_state.should == "waiting_response"
-                event1.calculated_state.should == "waiting_response"
-                event2.event_type.should == "response"
-                event2.described_state.should == "waiting_response"
-                event2.calculated_state.should == "waiting_response"
-                event3.event_type.should == "followup_sent"
-                event3.described_state.should == "waiting_response"
-                event3.calculated_state.should == "waiting_response"
-            end
+                    events = request.info_request_events
+                    events.count.should == 2
+                    events[0].event_type.should == "sent"
+                    events[0].described_state.should == "waiting_response"
+                    events[0].calculated_state.should == "waiting_response"
+                    events[1].event_type.should == "followup_sent"
+                    events[1].described_state.should == "internal_review"
+                    events[1].calculated_state.should == "internal_review"
+                end
+            end            
         end
     end
 end
