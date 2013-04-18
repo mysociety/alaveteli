@@ -639,7 +639,7 @@ public
                     event.save!
                 end
                 curr_state = nil
-            elsif !curr_state.nil? && (event.event_type == 'followup_sent' || event.event_type == 'sent') && !event.described_state.nil? && (event.described_state == 'waiting_response' || event.described_state == 'internal_review')
+            elsif !curr_state.nil? && (event.event_type == 'followup_sent' || event.event_type == 'sent')
                 # Followups can set the status to waiting response / internal
                 # review. Initial requests ('sent') set the status to waiting response.
 
