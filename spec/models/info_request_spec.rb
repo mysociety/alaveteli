@@ -723,7 +723,24 @@ describe InfoRequest do
                     events[1].described_state.should == "rejected"
                     events[1].calculated_state.should == "rejected"
                 end
-            end            
+            end
+
+            context "another series of events on a request" do
+                it "should have sensible event states" do
+                    # An initial request is sent
+                    request.log_event('sent', {})
+                    request.set_described_state('waiting_response')
+                    # The user marks the request as successful (I know silly but someone did
+                    # this in https://www.whatdotheyknow.com/request/family_support_worker_redundanci)
+                    request.set_described_state("successful")
+
+                    events = request.info_request_events
+                    events.count.should == 1
+                    events[0].event_type.should == "sent"
+                    events[0].described_state.should == "successful"
+                    events[0].calculated_state.should == "successful"
+                end
+            end         
         end
     end
 end
