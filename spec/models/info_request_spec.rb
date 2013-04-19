@@ -618,16 +618,20 @@ describe InfoRequest do
                     request.log_event("response", {})
                     # The request is classified by the requesting user
                     # This is normally done in RequestController#describe_state
+                    request.log_event("status_update", {})
                     request.set_described_state("waiting_response")
 
                     events = request.info_request_events
-                    events.count.should == 2
+                    events.count.should == 3
                     events[0].event_type.should == "sent"
                     events[0].described_state.should == "waiting_response"
                     events[0].calculated_state.should == "waiting_response"
                     events[1].event_type.should == "response"
-                    events[1].described_state.should == "waiting_response"
-                    events[1].calculated_state.should == "waiting_response"
+                    events[1].described_state.should be_nil
+                    events[1].calculated_state.should be_nil
+                    events[2].event_type.should == "status_update"
+                    events[2].described_state.should == "waiting_response"
+                    events[2].calculated_state.should == "waiting_response"
                 end
 
                 it "should have sensible events after a normal followup is sent" do
@@ -638,6 +642,7 @@ describe InfoRequest do
                     request.awaiting_description = true
                     request.log_event("response", {})
                     # The request is classified by the requesting user
+                    request.log_event("status_update", {})
                     request.set_described_state("waiting_response")
                     # A normal follow up is sent
                     # This is normally done in OutgoingMessage#send_message
@@ -645,16 +650,19 @@ describe InfoRequest do
                     request.set_described_state('waiting_response')
 
                     events = request.info_request_events
-                    events.count.should == 3
+                    events.count.should == 4
                     events[0].event_type.should == "sent"
                     events[0].described_state.should == "waiting_response"
                     events[0].calculated_state.should == "waiting_response"
                     events[1].event_type.should == "response"
-                    events[1].described_state.should == "waiting_response"
-                    events[1].calculated_state.should == "waiting_response"
-                    events[2].event_type.should == "followup_sent"
+                    events[1].described_state.should be_nil
+                    events[1].calculated_state.should be_nil
+                    events[2].event_type.should == "status_update"
                     events[2].described_state.should == "waiting_response"
                     events[2].calculated_state.should == "waiting_response"
+                    events[3].event_type.should == "followup_sent"
+                    events[3].described_state.should == "waiting_response"
+                    events[3].calculated_state.should == "waiting_response"
                 end
 
                 it "should have sensible events after a user classifies the request after a follow up" do
@@ -665,24 +673,32 @@ describe InfoRequest do
                     request.awaiting_description = true
                     request.log_event("response", {})
                     # The request is classified by the requesting user
+                    request.log_event("status_update", {})
                     request.set_described_state("waiting_response")
                     # A normal follow up is sent
                     request.log_event('followup_sent', {})
                     request.set_described_state('waiting_response')
                     # The request is classified by the requesting user
+                    request.log_event("status_update", {})
                     request.set_described_state("waiting_response")
 
                     events = request.info_request_events
-                    events.count.should == 3
+                    events.count.should == 5
                     events[0].event_type.should == "sent"
                     events[0].described_state.should == "waiting_response"
                     events[0].calculated_state.should == "waiting_response"
                     events[1].event_type.should == "response"
-                    events[1].described_state.should == "waiting_response"
-                    events[1].calculated_state.should == "waiting_response"
-                    events[2].event_type.should == "followup_sent"
+                    events[1].described_state.should be_nil
+                    events[1].calculated_state.should be_nil
+                    events[2].event_type.should == "status_update"
                     events[2].described_state.should == "waiting_response"
                     events[2].calculated_state.should == "waiting_response"
+                    events[3].event_type.should == "followup_sent"
+                    events[3].described_state.should == "waiting_response"
+                    events[3].calculated_state.should == "waiting_response"
+                    events[4].event_type.should == "status_update"
+                    events[4].described_state.should == "waiting_response"
+                    events[4].calculated_state.should == "waiting_response"
                 end
             end
 
@@ -713,16 +729,20 @@ describe InfoRequest do
                     request.log_event('followup_sent', {})
                     request.set_described_state('internal_review')
                     # The user marks the request as rejected
+                    request.log_event("status_update", {})
                     request.set_described_state("rejected")
 
                     events = request.info_request_events
-                    events.count.should == 2
+                    events.count.should == 3
                     events[0].event_type.should == "sent"
                     events[0].described_state.should == "waiting_response"
                     events[0].calculated_state.should == "waiting_response"
                     events[1].event_type.should == "followup_sent"
-                    events[1].described_state.should == "rejected"
-                    events[1].calculated_state.should == "rejected"
+                    events[1].described_state.should == "internal_review"
+                    events[1].calculated_state.should == "internal_review"
+                    events[2].event_type.should == "status_update"
+                    events[2].described_state.should == "rejected"
+                    events[2].calculated_state.should == "rejected"
                 end
             end
 
@@ -733,13 +753,17 @@ describe InfoRequest do
                     request.set_described_state('waiting_response')
                     # The user marks the request as successful (I know silly but someone did
                     # this in https://www.whatdotheyknow.com/request/family_support_worker_redundanci)
+                    request.log_event("status_update", {})
                     request.set_described_state("successful")
 
                     events = request.info_request_events
-                    events.count.should == 1
+                    events.count.should == 2
                     events[0].event_type.should == "sent"
-                    events[0].described_state.should == "successful"
-                    events[0].calculated_state.should == "successful"
+                    events[0].described_state.should == "waiting_response"
+                    events[0].calculated_state.should == "waiting_response"
+                    events[1].event_type.should == "status_update"
+                    events[1].described_state.should == "successful"
+                    events[1].calculated_state.should == "successful"
                 end
             end         
         end
