@@ -580,10 +580,11 @@ describe InfoRequest do
                     request.log_event('sent', {})
                     request.set_described_state('waiting_response')
 
-                    request.info_request_events.count.should == 1
-                    event = request.info_request_events.first
-                    event.described_state.should == "waiting_response"
-                    event.calculated_state.should == "waiting_response"
+                    events = request.info_request_events
+                    events.count.should == 1
+                    events[0].event_type.should == "sent"
+                    events[0].described_state.should == "waiting_response"
+                    events[0].calculated_state.should == "waiting_response"
                 end
 
                 it "should have sensible events after a response is received to a request" do
@@ -595,17 +596,17 @@ describe InfoRequest do
                     request.awaiting_description = true
                     request.log_event("response", {})
 
-                    request.info_request_events.count.should == 2
-                    event1, event2 = request.info_request_events
-                    event1.event_type.should == "sent"
-                    event1.described_state.should == "waiting_response"
-                    event1.calculated_state.should == "waiting_response"
-                    event2.event_type.should == "response"
-                    event2.described_state.should be_nil
+                    events = request.info_request_events
+                    events.count.should == 2
+                    events[0].event_type.should == "sent"
+                    events[0].described_state.should == "waiting_response"
+                    events[0].calculated_state.should == "waiting_response"
+                    events[1].event_type.should == "response"
+                    events[1].described_state.should be_nil
                     # TODO: Should calculated_status in this situation be "waiting_classification"?
                     # This would allow searches like "latest_status: waiting_classification" to be
                     # available to the user in "Advanced search"
-                    event2.calculated_state.should be_nil
+                    events[1].calculated_state.should be_nil
                 end
 
                 it "should have sensible events after a request is classified by the requesting user" do
@@ -619,14 +620,14 @@ describe InfoRequest do
                     # This is normally done in RequestController#describe_state
                     request.set_described_state("waiting_response")
 
-                    request.info_request_events.count.should == 2
-                    event1, event2 = request.info_request_events
-                    event1.event_type.should == "sent"
-                    event1.described_state.should == "waiting_response"
-                    event1.calculated_state.should == "waiting_response"
-                    event2.event_type.should == "response"
-                    event2.described_state.should == "waiting_response"
-                    event2.calculated_state.should == "waiting_response"
+                    events = request.info_request_events
+                    events.count.should == 2
+                    events[0].event_type.should == "sent"
+                    events[0].described_state.should == "waiting_response"
+                    events[0].calculated_state.should == "waiting_response"
+                    events[1].event_type.should == "response"
+                    events[1].described_state.should == "waiting_response"
+                    events[1].calculated_state.should == "waiting_response"
                 end
 
                 it "should have sensible events after a normal followup is sent" do
@@ -643,17 +644,17 @@ describe InfoRequest do
                     request.log_event('followup_sent', {})
                     request.set_described_state('waiting_response')
 
-                    request.info_request_events.count.should == 3
-                    event1, event2, event3 = request.info_request_events
-                    event1.event_type.should == "sent"
-                    event1.described_state.should == "waiting_response"
-                    event1.calculated_state.should == "waiting_response"
-                    event2.event_type.should == "response"
-                    event2.described_state.should == "waiting_response"
-                    event2.calculated_state.should == "waiting_response"
-                    event3.event_type.should == "followup_sent"
-                    event3.described_state.should == "waiting_response"
-                    event3.calculated_state.should == "waiting_response"
+                    events = request.info_request_events
+                    events.count.should == 3
+                    events[0].event_type.should == "sent"
+                    events[0].described_state.should == "waiting_response"
+                    events[0].calculated_state.should == "waiting_response"
+                    events[1].event_type.should == "response"
+                    events[1].described_state.should == "waiting_response"
+                    events[1].calculated_state.should == "waiting_response"
+                    events[2].event_type.should == "followup_sent"
+                    events[2].described_state.should == "waiting_response"
+                    events[2].calculated_state.should == "waiting_response"
                 end
 
                 it "should have sensible events after a user classifies the request after a follow up" do
@@ -671,17 +672,17 @@ describe InfoRequest do
                     # The request is classified by the requesting user
                     request.set_described_state("waiting_response")
 
-                    request.info_request_events.count.should == 3
-                    event1, event2, event3 = request.info_request_events
-                    event1.event_type.should == "sent"
-                    event1.described_state.should == "waiting_response"
-                    event1.calculated_state.should == "waiting_response"
-                    event2.event_type.should == "response"
-                    event2.described_state.should == "waiting_response"
-                    event2.calculated_state.should == "waiting_response"
-                    event3.event_type.should == "followup_sent"
-                    event3.described_state.should == "waiting_response"
-                    event3.calculated_state.should == "waiting_response"
+                    events = request.info_request_events
+                    events.count.should == 3
+                    events[0].event_type.should == "sent"
+                    events[0].described_state.should == "waiting_response"
+                    events[0].calculated_state.should == "waiting_response"
+                    events[1].event_type.should == "response"
+                    events[1].described_state.should == "waiting_response"
+                    events[1].calculated_state.should == "waiting_response"
+                    events[2].event_type.should == "followup_sent"
+                    events[2].described_state.should == "waiting_response"
+                    events[2].calculated_state.should == "waiting_response"
                 end
             end
 
