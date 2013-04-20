@@ -420,12 +420,22 @@ class RequestController < ApplicationController
         end
 
         # Make the state change
+        event = info_request.log_event("status_update",
+                { :user_id => authenticated_user.id,
+                  :old_described_state => info_request.described_state,
+                  :described_state => described_state,
+                })
+
         info_request.set_described_state(described_state, authenticated_user, message)
 
         # If you're not the *actual* requester. e.g. you are playing the
         # classification game, or you're doing this just because you are an
         # admin user (not because you also own the request).
         if !info_request.is_actual_owning_user?(authenticated_user)
+            # Create a classification event for league tables
+            RequestClassification.create!(:user_id => authenticated_user.id,
+                                          :info_request_event_id => event.id)
+
             # Don't give advice on what to do next, as it isn't their request
             if session[:request_game]
                 flash[:notice] = _('Thank you for updating the status of the request \'<a href="{{url}}">{{info_request_title}}</a>\'. There are some more requests below for you to classify.',:info_request_title=>CGI.escapeHTML(info_request.title), :url=>CGI.escapeHTML(request_path(info_request)))

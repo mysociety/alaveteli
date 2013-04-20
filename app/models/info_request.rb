@@ -577,16 +577,6 @@ public
         end
 
         unless set_by.nil? || is_actual_owning_user?(set_by) || described_state == 'attention_requested'
-            # Log the status change by someone other than the requester
-            event = log_event("status_update",
-                { :user_id => set_by.id,
-                  :old_described_state => old_described_state,
-                  :described_state => described_state,
-                })
-            # Create a classification event for league tables
-            RequestClassification.create!(:user_id => set_by.id,
-                                          :info_request_event_id => event.id)
-
             RequestMailer.old_unclassified_updated(self).deliver if !is_external?
         end
     end
