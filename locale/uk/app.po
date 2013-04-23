@@ -5,13 +5,14 @@
 # Translators:
 # hiiri <murahoid@gmail.com>, 2012
 # hiiri <murahoid@gmail.com>, 2012
+# hiiri <murahoid@gmail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: alaveteli\n"
+"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2013-04-23 16:34+0100\n"
-"PO-Revision-Date: 2013-04-03 17:22+0000\n"
-"Last-Translator: hiiri <murahoid@gmail.com>\n"
+"PO-Revision-Date: 2013-04-23 16:10+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"

@@ -4,19 +4,25 @@
 #
 # Translators:
 # nirshman <nirshman99@gmail.com>, 2013
+# nirshman <nirshman99@gmail.com>, 2013
 # Ram Ezrach <ram.ezrach@gmail.com>, 2013
 # rshlo <r@roishlomi.com>, 2013
+# rshlo <r@roishlomi.com>, 2013
+# yauzi <yair.uziel@gmail.com>, 2013
 # yauzi <yair.uziel@gmail.com>, 2013
 # yehuda <yehudab@gmail.com>, 2013
+# yehuda <yehudab@gmail.com>, 2013
 # Yoni Yalovitsky <yoni@yalovitsky.com>, 2013
+# Yoni Yalovitsky <yoni@yalovitsky.com>, 2013
+# Z.D <zdevir@gmail.com>, 2013
 # Z.D <zdevir@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: alaveteli\n"
+"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2013-04-23 16:34+0100\n"
-"PO-Revision-Date: 2013-04-22 16:11+0000\n"
-"Last-Translator: nirshman <nirshman99@gmail.com>\n"
+"PO-Revision-Date: 2013-04-23 15:56+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -3007,10 +3013,7 @@ msgid "[{{site_name}} contact email]"
 msgstr "[{{site_name}} דוא\"ל ליצירת קשר]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-"\\n"
-"\\n"
-"[ הערת {{site_name}}: הטקסט המופיע למעלה קודד בצורה שגויה. התווים הלא מזוהים נמחקו ]"
+msgstr "\\n\\n[ הערת {{site_name}}: הטקסט המופיע למעלה קודד בצורה שגויה. התווים הלא מזוהים נמחקו ]"
 
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
 msgstr "משפט קצר אחד לגבי המידע שאתם מבקשים, \\n»»»e.g."

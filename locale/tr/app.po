@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <baran@ozgul.net>, 2012.
+# baranozgul <baran@ozgul.net>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: alaveteli\n"
+"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2013-04-23 16:34+0100\n"
-"PO-Revision-Date: 2013-03-14 21:07+0000\n"
+"PO-Revision-Date: 2013-04-23 16:09+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: tr\n"
