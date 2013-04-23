@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <alex@alexskene.com>, 2011.
-#  <andreas@access-info.org>, 2013.
-# Benoît Simard <contact@bsimard.com>, 2013.
-#   <borisjf@post.harvard.edu>, 2011.
-#  <rrobertpolson@gmail.com>, 2013.
-#   <seb.bacon@gmail.com>, 2012.
-# skenaja <alex@alexskene.com>, 2011.
-#   <tanguim@gmail.com>, 2011.
-#   <victoria@access-info.org>, 2011.
+# skenaja <alex@alexskene.com>, 2011
+# andreas.pavlou <andreas@access-info.org>, 2013
+# sim51 <contact@bsimard.com>, 2013
+# Bbear <borisjf@post.harvard.edu>, 2011
+# rrobert <rrobertpolson@gmail.com>, 2013
+# sebbacon <seb.bacon@gmail.com>, 2012
+# skenaja <alex@alexskene.com>, 2011
+# teymour <tanguim@gmail.com>, 2011
+# vickyanderica <victoria@access-info.org>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"

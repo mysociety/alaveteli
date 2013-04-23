@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <baran@ozgul.net>, 2012.
+# baranozgul <baran@ozgul.net>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"

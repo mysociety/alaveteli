@@ -3,10 +3,10 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <alex@alexskene.com>, 2011-2012.
-#  <graham.craig@gmail.com>, 2013.
-#   <graham.craig@gmail.com>, 2013.
-#  <wyeboy@gmail.com>, 2013.
+# skenaja <alex@alexskene.com>, 2011-2012
+# baragouiner <graham.craig@gmail.com>, 2013
+# baragouiner <graham.craig@gmail.com>, 2013
+# PerryX <wyeboy@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
