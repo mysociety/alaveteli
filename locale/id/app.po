@@ -1706,7 +1706,7 @@ msgstr ""
 "apakah mereka sudah berhasil atau belum."
 
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
-msgstr "Mohon tandatangani bagian bawah dengan nama Anda, atau ubah \"{{signoff}}\" tanda tangan\n"
+msgstr "Mohon tandatangani bagian bawah dengan nama Anda, atau ubah \"{{signoff}}\" tanda tangan"
 
 msgid "Please sign in as "
 msgstr "Silakan masuk sebagai"

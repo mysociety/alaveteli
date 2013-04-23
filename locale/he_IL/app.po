@@ -3008,8 +3008,8 @@ msgstr "[{{site_name}} דוא\"ל ליצירת קשר]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
 msgstr ""
-"\n"
-"\n"
+"\\n"
+"\\n"
 "[ הערת {{site_name}}: הטקסט המופיע למעלה קודד בצורה שגויה. התווים הלא מזוהים נמחקו ]"
 
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
