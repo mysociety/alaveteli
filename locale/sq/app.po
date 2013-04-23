@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <ardob11@gmail.com>, 2012.
-#   <bresta@gmail.com>, 2011.
-# driton <dritoni.h@gmail.com>, 2011.
-# Hana Huntova <>, 2012.
-# Valon  <vbrestovci@gmail.com>, 2011-2012.
-#   <vbrestovci@gmail.com>, 2011.
-# vbrestovci <vbrestovci@gmail.com>, 2011.
+# arianit <ardob11@gmail.com>, 2012
+# bresta <bresta@gmail.com>, 2011
+# driton <dritoni.h@gmail.com>, 2011
+# Hana Huntova <>, 2012
+# Valon <vbrestovci@gmail.com>, 2011-2012
+# Valon <vbrestovci@gmail.com>, 2011
+# Valon <vbrestovci@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"

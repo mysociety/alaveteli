@@ -3,8 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <john@handelaar.org>, 2011.
-#   <mrjohncross@googlemail.com>, 2012.
+# handelaar <john@handelaar.org>, 2011
+# confirmordeny <mrjohncross@googlemail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"

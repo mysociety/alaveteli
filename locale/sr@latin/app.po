@@ -3,9 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Srdjan Krstic <krledmno1@gmail.com>, 2013.
-# Valon  <vbrestovci@gmail.com>, 2012.
-# vbrestovci <vbrestovci@gmail.com>, 2011.
+# krledmno1 <krledmno1@gmail.com>, 2013
+# Valon <vbrestovci@gmail.com>, 2012
+# Valon <vbrestovci@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"

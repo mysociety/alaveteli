@@ -3,8 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# David Cabo <david.cabo@gmail.com>, 2012.
-#   <ertoba@yahoo.es>, 2012.
+# David Cabo <david.cabo@gmail.com>, 2012
+# sroberto <ertoba@yahoo.es>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"

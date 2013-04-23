@@ -3,11 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# David Cabo <david.cabo@gmail.com>, 2011-2012.
-#   <fabrizio.scrollini@gmail.com>, 2012.
-#   <gabelula@gmail.com>, 2012.
-# skenaja <alex@alexskene.com>, 2011.
-#   <victoria@access-info.org>, 2011.
+# David Cabo <david.cabo@gmail.com>, 2011-2012
+# fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
+# gaba <gabelula@gmail.com>, 2012
+# skenaja <alex@alexskene.com>, 2011
+# vickyanderica <victoria@access-info.org>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"

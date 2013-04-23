@@ -3,10 +3,10 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# David Cabo <david.cabo@gmail.com>, 2012.
-# FOI Monkey <>, 2012.
-#   <kersti@access-info.org>, 2011.
-# stefanw <stefanwehrmeyer@gmail.com>, 2011.
+# David Cabo <david.cabo@gmail.com>, 2012
+# FOI Monkey <>, 2012
+# KerstiRu <kersti@access-info.org>, 2011
+# stefanw <stefanwehrmeyer@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"

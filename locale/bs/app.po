@@ -3,9 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <armin@pasalic.com.ba>, 2011.
-#   <brkanboris@gmail.com>, 2011.
-#   <vedadtrbonja@hotmail.com>, 2011.
+# Krule <armin@pasalic.com.ba>, 2011
+# BORIS <brkanboris@gmail.com>, 2011
+# vedad <vedadtrbonja@hotmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
