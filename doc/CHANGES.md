@@ -1,3 +1,13 @@
+# Version 0.9
+## Highlighted features
+* Consistent and more informative variable interpolation syntax in translated phrases. All of these phrases will now appear in the form "There are {{count}} people following this request", where some were previously in the form "There are %s people following this request". (Matthew Landauer)
+* Replaces deprecated calls to with_locale on ActiveRecord classes in preparation for upgrade to Globalize3 (Matthew Landauer)
+* Fixes a database deadlock bug caused by near-simultaneous incoming emails for the same info request (Mark Longair)
+
+## Upgrade notes
+* Check out this version and run `rails-post-deploy` as usual.
+
+
 # Version 0.8
 ## Highlighted features
 * Support for running the site over SSL/TLS only and corresponding removal of support for a proxied admin interface, including the deprecation of the main_url and admin_url helpers.
