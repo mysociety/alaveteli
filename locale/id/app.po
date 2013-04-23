@@ -9,9 +9,9 @@
 # bobo7e836b32124642a5 <bobo@airputih.org>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
-"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-03-14 14:02-0700\n"
+"Project-Id-Version: version 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-23 16:34+0100\n"
 "PO-Revision-Date: 2013-03-15 04:39+0000\n"
 "Last-Translator: njung <agung@airputih.or.id>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3637,4 +3637,3 @@ msgstr "{{user}} ({{user_admin_link}}) membuat {{law_used_full}} permintaan (<a 
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} membuat {{law_used_full}} permintaan ini"
-
