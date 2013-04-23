@@ -6,6 +6,7 @@ describe RequestController, "when classifying an information request" do
     describe 'when the request is internal' do
 
         before(:each) do
+            load_raw_emails_data
             @dog_request = info_requests(:fancy_dog_request)
             # This should happen automatically before each test but doesn't with these integration
             # tests for some reason.
