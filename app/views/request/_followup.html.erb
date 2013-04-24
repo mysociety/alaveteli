@@ -49,9 +49,9 @@
     <% else %>
         <% if @internal_review %>
             <p>
-            <%= raw(_('If you are dissatisfied by the response you got from
+            <%= _('If you are dissatisfied by the response you got from
             the public authority, you have the right to
-            complain (<a href="%s">details</a>).') % "http://foiwiki.com/foiwiki/index.php/Internal_reviews") %>
+            complain (<a href="{{url}}">details</a>).', :url => "http://foiwiki.com/foiwiki/index.php/Internal_reviews".html_safe) %>
             </p>
         <% end %>
 
@@ -61,21 +61,20 @@
 
         <% status = @info_request.calculate_status %>
         <% if status == 'waiting_response_overdue' %>
-            <p><%= _('The response to your request has been <strong>delayed</strong>.  You can say that, 
+            <p><%= _('The response to your request has been <strong>delayed</strong>.  You can say that,
             by law, the authority should normally have responded
             <strong>promptly</strong> and') %>
             <% if @info_request.public_body.is_school? %>
             <%= _('in term time') %>
             <% end %>
             <%= _('by <strong>{{date}}</strong>',:date=>simple_date(@info_request.date_response_required_by)) %>
-            (<%= raw(_('<a href="%s">details</a>') % ["#{help_requesting_path}#quickly_response"]) %>).
-
+            (<%= link_to _('details'), "#{help_requesting_path}#quickly_response" %>).
             </p>
         <% elsif status == 'waiting_response_very_overdue' %>
             <p>
-            <%= _('The response to your request is <strong>long overdue</strong>.   You can say that, by 
+            <%= _('The response to your request is <strong>long overdue</strong>.   You can say that, by
             law, under all circumstances, the authority should have responded
-            by now') %> (<%= raw(_('<a href="%s">details</a>') % ["#{help_requesting_path}#quickly_response"]) %>).
+            by now') %> (<%= link_to _('details'), "#{help_requesting_path}#quickly_response" %>).
             </p>
         <% end %>
 
@@ -103,7 +102,7 @@
                     <div>
                         <%= radio_button "outgoing_message", "what_doing", "internal_review", :id => "internal_review" %>
                         <label for="internal_review"><%= _('I am requesting an <strong>internal review</strong>') %>
-            <%= raw(_('<a href="%s">what\'s that?</a>') % ["/help/unhappy"]) %>
+            <%= link_to _("what's that?"), "/help/unhappy" %>
                         </label>
                     </div>
                     <div>

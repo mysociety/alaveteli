@@ -7,7 +7,7 @@
         <ul>
         <% if @info_request.comments_allowed? %>
           <li>
-            <%= raw(_('<a href="%s">Add an annotation</a> (to help the requester or others)') % [new_comment_path(:url_title => @info_request.url_title)]) %>
+            <%= raw(_('<a href="{{url}}">Add an annotation</a> (to help the requester or others)', :url => new_comment_url(:url_title => @info_request.url_title).html_safe)) %>
           </li>
         <% end %>
         <% if @old_unclassified %>

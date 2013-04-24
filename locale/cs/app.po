@@ -3,19 +3,24 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <appukonrad@gmail.com>, 2012.
-# Hana Huntova <>, 2012.
-# Jana Kneschke <>, 2012.
-#  <jana.kneschke@gmail.com>, 2013.
-#   <jana.kneschke@gmail.com>, 2012-2013.
-#   <josef.pospisil@laststar.eu>, 2012.
-#   <louise@mysociety.org>, 2012.
+# jui <appukonrad@gmail.com>, 2012
+# Hana Huntova <>, 2012
+# Jana Kneschke <>, 2012
+# janakneschke <jana.kneschke@gmail.com>, 2013
+# janakneschke <jana.kneschke@gmail.com>, 2012-2013
+# janakneschke <jana.kneschke@gmail.com>, 2013
+# josefpospisil <josef.pospisil@laststar.eu>, 2012
+# josefpospisil <josef.pospisil@laststar.eu>, 2012
+# jui <appukonrad@gmail.com>, 2012
+# louisecrow <louise@mysociety.org>, 2012-2013
+# louisecrow <louise@mysociety.org>, 2013
+# louisecrow <louise@mysociety.org>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-03-14 14:02-0700\n"
-"PO-Revision-Date: 2013-03-14 21:10+0000\n"
+"POT-Creation-Date: 2013-04-23 16:34+0100\n"
+"PO-Revision-Date: 2013-04-23 15:42+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: cs\n"
@@ -27,8 +32,8 @@ msgstr ""
 msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
 msgstr " Toto se objeví na vašem profilu na stránkách {{site_name}}, abyste mohli svůj dotaz snadno sdílet s ostaními."
 
-msgid " (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation policy</a>)"
-msgstr " (<strong>Tento prostor neslouží politickým debatám,</strong> přečtěte si <a href=\"%s\">Pravidla diskuze</a>.)"
+msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
+msgstr " (<strong>Tento prostor neslouží politickým debatám,</strong> přečtěte si <a href=\"{{url}}\">Pravidla diskuze</a>.)"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
 msgstr " (<strong>Prosíme o trpělivost</strong>, nahrávání větších souborů může trvat déle!)"
@@ -59,9 +64,9 @@ msgstr " Poraďte, <strong>jak co nejlépe upřesnit</strong> tento dotaz."
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr "Návrhy <strong>na vyžádání potřebných dokumentů</strong>, které může mít daná instituce k dispozici."
 
-msgid " If you know the address to use, then please <a href=\"%s\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
+msgid " If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
 msgstr ""
-"Pokud víte, jakou adresu použít <a href=\"%s\">pošlete nám ji</a>.\n"
+"Pokud víte, jakou adresu použít <a href=\"{{url}}\">pošlete nám ji</a>.\n"
 "       Adresu můžete najít na stránkách instituce, nebo můžete zavolat do podatelny a zjistit ji. "
 
 msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
@@ -99,24 +104,6 @@ msgstr " když tuto zprávu pošlete."
 
 msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
 msgstr "\"Hello! We have an <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
-
-msgid "%d Freedom of Information request to %s"
-msgid_plural "%d Freedom of Information requests to %s"
-msgstr[0] "%d dotaz vznesený podle zákona 106/1999 Sb. na instituci %s"
-msgstr[1] "%d dotazy vznesené podle zákona 106/1999 Sb. na instituci  %s"
-msgstr[2] "%d dotazů vznesených podle zákona 106/1999 Sb. na instituci  %s"
-
-msgid "%d request"
-msgid_plural "%d requests"
-msgstr[0] "%d dotaz"
-msgstr[1] "%d dotazy"
-msgstr[2] "%d dotazů"
-
-msgid "%d request made."
-msgid_plural "%d requests made."
-msgstr[0] "%d dotaz byl vznesen."
-msgstr[1] "%d dotazy byly vzneseny."
-msgstr[2] "%d dotazů bylo vzneseno."
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "\"Statistiky kriminality pro Liberecký kraj.\""
@@ -158,32 +145,14 @@ msgstr "2. Vzneste dotaz"
 msgid "3. Now check your request"
 msgstr "3. Nyní dotaz zkontrolujte"
 
-msgid "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
-msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
+msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
+msgstr "<a href=\"{{browse_url}}\">Prohlížet všel</a> nebo <a href=\"{{add_url}}\">požádat o přidání kontaktu</a>."
 
-msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
-msgstr "<a href=\"%s\">Přidat poznámku</a> (pomůžete tím dalšímu tázajícímu)"
+msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
+msgstr "<a href=\"{{url}}\">Přidat poznámku</a> (pomůžete tím dalšímu tázajícímu)"
 
-msgid "<a href=\"%s\">Are we missing a public authority?</a>"
-msgstr "<a href=\"%s\">Chybí nám nějaká instituce?</a>"
-
-msgid "<a href=\"%s\">Are you the owner of\\n            any commercial copyright on this page?</a>"
-msgstr "<a href=\"%s\">Jste vlastníkem nějakých autorských práv na této stránce?</a>"
-
-msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
-msgstr "<a href=\"%s\">Prohlížet všel</a> nebo <a href=\"%s\">požádat o přidání kontaktu</a>."
-
-msgid "<a href=\"%s\">Can't find the one you want?</a>"
-msgstr "<a href=\"%s\">Nemůžete najít, co hledáte?</a>"
-
-msgid "<a href=\"%s\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
-msgstr "<a href=\"%s\">Přihlašte se/a> pro změnu hesla, pro odběr zpráv atd., pouze ({{user_name}})"
-
-msgid "<a href=\"%s\">details</a>"
-msgstr "<a href=\"%s\">detaily</a>"
-
-msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">co je to?</a>"
+msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
+msgstr "<a href=\"{{url}}\">Přihlašte se/a> pro změnu hesla, pro odběr zpráv atd., pouze ({{user_name}})"
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Hotovo! Děkujeme za vaši pomoc.</p><p>Můžete nám <a href=\"{{helpus_url}}\"> také pomoci se stránkami</a>  {{site_name}}</p>"
@@ -226,11 +195,11 @@ msgstr "<p>Jsme rádi, že jste obdrželi informace, které jste potřebovali. P
 msgid "<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
 msgstr "<p>Jsme rádi, že jste obdrželi alespoň částečnou odpověď na vznesený dotaz. Pokud považujete stránky {{site_name}} za užitečné, <a href=\"{{donation_url}}\">podpořte nás</a>.</p><p>Pokud chcete získat doplňující informace, zde je návod.</p>"
 
-msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"%s\">details</a>).</p>"
-msgstr "<p>Nemusíte uvádět svou e-mailovou adresu. (<a href=\"%s\">více</a>).</p>"
+msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
+msgstr "<p>Nemusíte uvádět svou e-mailovou adresu. (<a href=\"{{url}}\">více</a>).</p>"
 
-msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"%s\">details</a>).</p>"
-msgstr "<p>Nemusíte uvádět svou e-mailovou adresu teď, budeme ji vyžadovat v dalším kroku. (<a href=\"%s\">více</a>).</p>"
+msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>"
+msgstr "<p>Nemusíte uvádět svou e-mailovou adresu teď, budeme ji vyžadovat v dalším kroku. (<a href=\"{{url}}\">více</a>).</p>"
 
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
 msgstr "<p>Váš dotaz obsahuje <strong>PSČ</strong>. Pokud to není údaj nutný k zodpovězení dotazu, prosíme odstraňte adresu či jiný identifikátor. Váš dotaz bude v celém znění a bez osobních údajů<strong>uveřejněn na internetu</strong>.</p>"
@@ -248,16 +217,10 @@ msgstr ""
 "<small>Pokud používáte prohlížeč ke čtení a posílání e-mailů nebo máte nastavený filtr pro nevyžádanou poštu, zkontrolujte také tuto složku. Může se stát, že váš filtr označil zprávu ze stránek Informace pro všechny za nevyžádanou.</small>\n"
 "</p>"
 
-msgid "<span id='follow_count'>%d</span> person is following this authority"
-msgid_plural "<span id='follow_count'>%d</span> people are following this authority"
-msgstr[0] "<span id='follow_count'>%d</span> člověk sleduje tuto instituci"
-msgstr[1] "<span id='follow_count'>%d</span> lidí sledují tuto instituci"
-msgstr[2] "<span id='follow_count'>%d</span> lidí sleduje tuto instituci"
-
-msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"%s\">No! (Click here for details)</a>"
+msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
 msgstr ""
 "<strong> Mohu požádat o informace o sobě samém?</strong>\n"
-"\t\t\t<a href=\"%s\">Ne (zde najdete více informací).</a>"
+"\t\t\t<a href=\"{{url}}\">Ne (zde najdete více informací).</a>"
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>okomentoval/a:tony_bowden</code></strong> pokud chcete vidět více poznámek od uživatele Tonyho Bowdena, napište jeho jméno jako URL."
@@ -320,10 +283,10 @@ msgstr ""
 "    Pošleme vám zprávu na vaši e-mailovou adresu. Pro změnu\n"
 "    vaší e-mailové adresy postupujte podle instrukcí."
 
-msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"%s\">click here</a>."
+msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"{{url}}\">click here</a>."
 msgstr ""
 "<strong>Ochrana soukromí:</strong> Pokud chcete vznést dotaz týkající se vaší osoby,\n"
-"     <a href=\"%s\">klikněte sem</a>."
+"     <a href=\"{{url}}\">klikněte sem</a>."
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
 msgstr "<strong>Důležité upozornění:</strong> Vaše fotografie bude zveřejněna na stránkách Informace pro všechny pokaždé, kdy vznesete dotaz nebo přidáte komentář."
@@ -465,13 +428,19 @@ msgstr "Kdokoli:"
 msgid "Applies to"
 msgstr ""
 
+msgid "Are we missing a public authority?"
+msgstr "Chybí nám nějaká instituce?"
+
+msgid "Are you the owner of any commercial copyright on this page?"
+msgstr "Jste vlastníkem nějakých autorských práv na této stránce?"
+
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Požádejte o <strong>konkrétní</strong> dokumenty nebo informace, tyto stránky nejsou určeny pro obecné dotazy."
 
-msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"%s\">more details</a>)."
+msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
 "Ve spodní části této stránky jim napište odpověď a požádejte je, aby požadované informace oskenovali\n"
-"            (<a href=\"%s\">více detailů</a>)."
+"            (<a href=\"{{url}}\">více detailů</a>)."
 
 msgid "Attachment (optional):"
 msgstr "Příloha (nepovinná):"
@@ -508,6 +477,9 @@ msgstr "Podle zákona, by měla instituce {{public_body_link}} odpovědět okam�
 
 msgid "Calculated home page"
 msgstr ""
+
+msgid "Can't find the one you want?"
+msgstr "Nemůžete najít, co hledáte?"
 
 msgid "Cancel a {{site_name}} alert"
 msgstr "Zrušte tato upozornění stránek {{site_name}}"
@@ -761,8 +733,8 @@ msgstr "Pošlete mi budoucí aktualizace tohoto dotazu. "
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Slova, která chcete najít, musí být oddělena mezerou, například <strong>přechod pro chodce</strong>"
 
-msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"%s\">contact us</a> if you need more)."
-msgstr "Níže můžete vložit svou odpověď. Pokud je to nutné, přiložte jeden dokument, (s použitím e-mailu, nebo⏎ <a href=\"%s\">nás kontaktujte</a> pokud potřebujete přiložit více dokumentů)."
+msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"{{url}}\">contact us</a> if you need more)."
+msgstr "Níže můžete vložit svou odpověď. Pokud je to nutné, přiložte jeden dokument, (s použitím e-mailu, nebo⏎ <a href=\"{{url}}\">nás kontaktujte</a> pokud potřebujete přiložit více dokumentů)."
 
 msgid "Environmental Information Regulations"
 msgstr "Informace o životním prostředí"
@@ -782,16 +754,16 @@ msgstr "Historie případu, detaily"
 msgid "Event {{id}}"
 msgstr ""
 
-msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
+msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "Veškeré informace, které vložíte na tuto stránku, včetně <strong>vašeho jména</strong>, \n"
-"              budou<strong>uveřejněny</strong> na tomto webu(<a href=\"%s\">proč?</a>)."
+"              budou<strong>uveřejněny</strong> na tomto webu(<a href=\"{{url}}\">proč?</a>)."
 
-msgid "Everything that you enter on this page\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"%s\">why?</a>)."
+msgid "Everything that you enter on this page\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "Vše, co jste vyplnili na této stránce, \n"
 "                bude <strong>veřejně dostupné</strong> na tomto\n"
-"                webu (<a href=\"%s\">proč?</a>)."
+"                webu (<a href=\"{{url}}\">proč?</a>)."
 
 msgid "FOI"
 msgstr "dotaz"
@@ -817,16 +789,16 @@ msgstr "Odpověď vyžaduje zásah administrátora -  ({{reason}}) - {{title}}"
 msgid "Failed to convert image to a PNG"
 msgstr "Nepodařilo se konvertovat obrázek do PNG. "
 
-msgid "Failed to convert image to the correct size: at %{cols}x%{rows}, need %{width}x%{height}"
-msgstr "Nepodařilo se konvertovat obrázek do správné velikosti: at %{cols}x%{rows}, need %{width}x%{height}"
+msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
+msgstr "Nepodařilo se konvertovat obrázek do správné velikosti: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
 
 msgid "Filter"
 msgstr "Filtr"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd \\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"%s#%s\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "Nejdříve napište <strong>název instituce</strong>, od které chcete získat informace. <strong>Podle zákona vám musí odpovědět</strong>\n"
-"           (<a href=\"%s#%s\">proč?</a>)."
+"           (<a href=\"{{url}}\">proč?</a>)."
 
 msgid "Foi attachment"
 msgstr "Příloha k dotazu"
@@ -906,11 +878,11 @@ msgstr "Z neznámého důvodu není možné vznést dotaz na tuto instituci. "
 msgid "Forgotten your password?"
 msgstr "Zapomněli jste heslo?"
 
-msgid "Found %d public authority %s"
-msgid_plural "Found %d public authorities %s"
-msgstr[0] "Nalezena  %d instituce %s"
-msgstr[1] "Nalezeny %d instituce %s"
-msgstr[2] "Nalezeno %d institucí %s"
+msgid "Found {{count}} public authority {{description}}"
+msgid_plural "Found {{count}} public authorities {{description}}"
+msgstr[0] "Nalezena  {{count}} instituce {{description}}"
+msgstr[1] "Nalezeny {{count}} instituce {{description}}"
+msgstr[2] "Nalezeno {{count}} institucí {{description}}"
 
 msgid "Freedom of Information"
 msgstr "dotaz"
@@ -947,8 +919,8 @@ msgstr "Dotaz vznesený na"
 msgid "From"
 msgstr "Od"
 
-msgid "From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
-msgstr "Spíše než vložení obecné odpovědi zkuste odpovědět na vybranou zprávu ze stránky pro vznesení dotazu. Pokud potřebujete vložit obecnou odpověď a znáte správnou e-mailovou adresu, prosíme <a href=\"%s\">pošlete nám ji</a>"
+msgid "From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgstr "Spíše než vložení obecné odpovědi zkuste odpovědět na vybranou zprávu ze stránky pro vznesení dotazu. Pokud potřebujete vložit obecnou odpověď a znáte správnou e-mailovou adresu, prosíme <a href=\"{{url}}\">pošlete nám ji</a>"
 
 msgid "From:"
 msgstr "Od:"
@@ -1054,8 +1026,8 @@ msgstr ""
 msgid "Id"
 msgstr ""
 
-msgid "If the address is wrong, or you know a better address, please <a href=\"%s\">contact us</a>."
-msgstr "Pokud je adresa nesprávná, nebo víte o lepší adrese, prosíme <a href=\"%s\">kontaktujte nás</a>."
+msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Pokud je adresa nesprávná, nebo víte o lepší adrese, prosíme <a href=\"{{url}}\">kontaktujte nás</a>."
 
 msgid "If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below."
 msgstr ""
@@ -1066,19 +1038,19 @@ msgstr ""
 "na tento dotaz, nebo napsat uživateli {{user}} něco jiného, prosíme\n"
 "využijte adresu {{contact_email}}."
 
-msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"%s\">details</a>)."
-msgstr "Pokud nejste spokojeni s odpovědí, kterou jste obdrželi od instituce, máte právo podat stížnost (<a href=\"%s\">detaily</a>)."
+msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"{{url}}\">details</a>)."
+msgstr "Pokud nejste spokojeni s odpovědí, kterou jste obdrželi od instituce, máte právo podat stížnost (<a href=\"{{url}}\">detaily</a>)."
 
-msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr "Pokud máte stále problémy <a href=\"%s\">kontaktujte nás</a>."
+msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Pokud máte stále problémy <a href=\"{{url}}\">kontaktujte nás</a>."
 
-msgid "If you are the requester, then you may <a href=\"%s\">sign in</a> to view the request."
-msgstr "Pokud jste tazatel, můžete se <a href=\"%s\">přihlásit</a> a podívat se na svůj dotaz."
+msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
+msgstr "Pokud jste tazatel, můžete se <a href=\"{{url}}\">přihlásit</a> a podívat se na svůj dotaz."
 
-msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"%s\">read this first</a>."
+msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"{{url}}\">read this first</a>."
 msgstr ""
 "Pokud chcete používat přezdívku\n"
-"please <a href=\"%s\">nejdříve si přečtěte toto</a>."
+"please <a href=\"{{url}}\">nejdříve si přečtěte toto</a>."
 
 msgid "If you are {{user_link}}, please"
 msgstr "Pokud jste {{user_link}}, prosíme"
@@ -1257,8 +1229,8 @@ msgstr "Registrován/a na stránkách {{site_name}} od"
 msgid "Just one more thing"
 msgstr ""
 
-msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"%s\">why?</a>)."
-msgstr "Snažte se svůj dotaz vyjádřit <strong>jasně a jednoduše</strong>, zvýší se tak vaše šance, že se dozvíte, co potřebujete (<a href=\"%s\">proč?</a>)."
+msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"{{url}}\">why?</a>)."
+msgstr "Snažte se svůj dotaz vyjádřit <strong>jasně a jednoduše</strong>, zvýší se tak vaše šance, že se dozvíte, co potřebujete (<a href=\"{{url}}\">proč?</a>)."
 
 msgid "Keywords"
 msgstr "Klíčová slova"
@@ -1581,8 +1553,8 @@ msgstr "Hrajte hru na kategorizaci dotazů!"
 msgid "Please"
 msgstr "Prosíme"
 
-msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
-msgstr "Prosíme <a href=\"%s\">kontaktujte nás</a> abychom to mohli upravit."
+msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
+msgstr "Prosíme <a href=\"{{url}}\">kontaktujte nás</a> abychom to mohli upravit."
 
 msgid "Please <strong>answer the question above</strong> so we know whether the "
 msgstr "<strong>Zodpovězte výše položenou otázku</strong> abychom věděli, zda"
@@ -1693,8 +1665,8 @@ msgstr ""
 "Vyberte každý dotaz jednotlivě, a <strong>dejte ostatním vědět</strong>\n"
 "jestli byl úspěšně zodpovězen, nebo ne."
 
-msgid "Please sign at the bottom with your name, or alter the \"%{signoff}\" signature"
-msgstr "Podepište se na konci dopisu svým jménem, nebo změňte \"%{signoff}\" podpis. "
+msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
+msgstr "Podepište se na konci dopisu svým jménem, nebo změňte \"{{signoff}}\" podpis. "
 
 msgid "Please sign in as "
 msgstr "Přihlašte se jako"
@@ -2043,11 +2015,11 @@ msgstr "Výsledky vyhledávání"
 msgid "Search the site to find what you were looking for."
 msgstr "Najděte, co hledáte"
 
-msgid "Search within the %d Freedom of Information requests to %s"
-msgid_plural "Search within the %d Freedom of Information requests made to %s"
-msgstr[0] "Prohlížet %d dotaz vznesený na %s"
-msgstr[1] "Prohlížet %d dotazy vznesené na %s"
-msgstr[2] "Prohlížet %d dotazů vznesené na %s"
+msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
+msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
+msgstr[0] "Prohlížet {{count}} dotaz vznesený na {{public_body_name}}"
+msgstr[1] "Prohlížet {{count}} dotazy vznesené na {{public_body_name}}"
+msgstr[2] "Prohlížet {{count}} dotazů vznesené na {{public_body_name}}"
 
 msgid "Search your contributions"
 msgstr "Prohledávat vlastní příspěvky"
@@ -2327,23 +2299,23 @@ msgstr "Dotaz byl <strong>úspěšný</strong>."
 msgid "The request was refused by the public authority"
 msgstr "Dotaz byl institucí zamítnut"
 
-msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"%s\">contact us</a> if you have any questions."
+msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"{{url}}\">contact us</a> if you have any questions."
 msgstr ""
 "Dotaz, který jste si chtěli přečíst, byl odstraněn. Existují\n"
 "různé důvody, proč se tak stalo a omlouváme se, že je zde \n"
 "nemůžeme vysvětlit. \n"
 "Prosíme <a⏎\n"
-"    href=\"%s\">kontaktujte nás,</a> pokud máte nějaké otázky."
+"    href=\"{{url}}\">kontaktujte nás,</a> pokud máte nějaké otázky."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Tazatel z nějakého důvodu tento dotaz opustil ??"
 
-msgid "The response to your request has been <strong>delayed</strong>.  You can say that, \\n            by law, the authority should normally have responded\\n            <strong>promptly</strong> and"
+msgid "The response to your request has been <strong>delayed</strong>.  You can say that,\\n            by law, the authority should normally have responded\\n            <strong>promptly</strong> and"
 msgstr ""
 "Odpověď na váš dotaz má <strong>zpoždění</strong>. Můžete napsat, že podle zákona by instituce měla odpovědět nejpozději\n"
 "            <strong>do 15 dnů</strong> a "
 
-msgid "The response to your request is <strong>long overdue</strong>.   You can say that, by \\n            law, under all circumstances, the authority should have responded\\n            by now"
+msgid "The response to your request is <strong>long overdue</strong>.   You can say that, by\\n            law, under all circumstances, the authority should have responded\\n            by now"
 msgstr "Odpověď na váš dotaz<strong>má velké zpoždění</strong>.                           Můžete napsat, že podle zákona by měl být bez výhrad již dávno zodpovězen,"
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests that have been made to this authority."
@@ -2427,17 +2399,17 @@ msgstr "Vaše anotace pro {{info_request_title}} bude odeslána."
 msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
 msgstr "Jsou tu {{count}} nové anotace, vztahující se ka vašemu dotazu. Pro jejich přečtení použijte tento odkaz."
 
-msgid "There is %d person following this request"
-msgid_plural "There are %d people following this request"
-msgstr[0] " %d člověk sleduje tento dotaz"
-msgstr[1] " %d lidé sledují tento dotaz"
-msgstr[2] "%d lidí sleduje tento dotaz"
-
 msgid "There is <strong>more than one person</strong> who uses this site and has this name.\\n    One of them is shown below, you may mean a different one:"
 msgstr "Již existuje <strong>více než jedna další osoba</strong> která se zaregistrovala na těchto stránkách pod stejným jménem.⏎ Zvolte tedy prosím jiné uživatelské jméno než je:"
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Počet dotazů za jeden den je limitován. Nechceme, aby byly instituce bombardovány velkým množstvím nerelevantních dotazů. Pokud máte dobrý důvod, proč by měl být váš limit navýšen, prosíme<a href='{{help_contact_path}}'>kontaktujte nás</a>."
+
+msgid "There is {{count}} person following this request"
+msgid_plural "There are {{count}} people following this request"
+msgstr[0] " {{count}} člověk sleduje tento dotaz"
+msgstr[1] " {{count}} lidé sledují tento dotaz"
+msgstr[2] "{{count}} lidí sleduje tento dotaz"
 
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr "Vyskytla se <strong>chyba při doručení</strong> nebo něco podobného, co potřebuje pozornost týmu stránek {{site_name}}."
@@ -2477,10 +2449,10 @@ msgstr "Sledujete:"
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Tato instituce již neexistuje, nelze na ni proto vznést dotaz. "
 
-msgid "This comment has been hidden. See annotations to\\n            find out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
+msgid "This comment has been hidden. See annotations to\\n            find out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
 msgstr ""
 "Tento komentář byl skryt. Podívejte se na vysvětlení.\n"
-"Pokud jste tazatel, můžete se <a href=\"%s\">přihlásit</a> k prohlížení odpovědi."
+"Pokud jste tazatel, můžete se <a href=\"{{url}}\">přihlásit</a> k prohlížení odpovědi."
 
 msgid "This covers a very wide spectrum of information about the state of\\n            the <strong>natural and built environment</strong>, such as:"
 msgstr ""
@@ -2505,10 +2477,10 @@ msgstr ""
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Toto je váš vlastní dotaz, proto budete odpovědi dostávat e-mailem automaticky."
 
-msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
+msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
 msgstr ""
 "Tato odchozí zpráva byla skryta. Podívejte se na vysvětlení.\n"
-"Pokud jste tazatel, můžete se <a href=\"%s\">přihlásit</a> k prohlížení odpovědi."
+"Pokud jste tazatel, můžete se <a href=\"{{url}}\">přihlásit</a> k prohlížení odpovědi."
 
 msgid "This particular request is finished:"
 msgstr "Tento dotaz je ukončen:"
@@ -2516,20 +2488,20 @@ msgstr "Tento dotaz je ukončen:"
 msgid "This person has made no Freedom of Information requests using this site."
 msgstr "Tento uživatel na těchto stránkách vznesl dotaz podle zákona o svobodném přístupu k informacím."
 
-msgid "This person's %d Freedom of Information request"
-msgid_plural "This person's %d Freedom of Information requests"
-msgstr[0] " %d dotaz od tohoto uživatele"
-msgstr[1] "%d dotazy od tohoto uživatele"
-msgstr[2] "%d dotazů od tohoto uživatele"
-
-msgid "This person's %d annotation"
-msgid_plural "This person's %d annotations"
-msgstr[0] "Poznámka %d uživatele"
-msgstr[1] "Poznámka %d uživatele"
-msgstr[2] "Poznámka %d uživatele"
-
 msgid "This person's annotations"
 msgstr "Poznámka této osoby"
+
+msgid "This person's {{count}} Freedom of Information request"
+msgid_plural "This person's {{count}} Freedom of Information requests"
+msgstr[0] " {{count}} dotaz od tohoto uživatele"
+msgstr[1] "{{count}} dotazy od tohoto uživatele"
+msgstr[2] "{{count}} dotazů od tohoto uživatele"
+
+msgid "This person's {{count}} annotation"
+msgid_plural "This person's {{count}} annotations"
+msgstr[0] "Poznámka {{count}} uživatele"
+msgstr[1] "Poznámka {{count}} uživatele"
+msgstr[2] "Poznámka {{count}} uživatele"
 
 msgid "This request <strong>requires administrator attention</strong>"
 msgstr "Tento dotaz <strong>vyžaduje pozornost administrátora</strong>"
@@ -2554,8 +2526,8 @@ msgstr ""
 "Dotaz byl <strong>stažen</strong> tazatelem. \n"
 "Bližší vysvětlení můžete najít v níže uvedené korespondenci."
 
-msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"%s\">contact us</a>."
-msgstr "Tento dotaz byl označen administrátory ke kontrole. Pokud si myslíte, že by měl být skryt, <a href=\"%s\">kontaktujte nás</a>."
+msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
+msgstr "Tento dotaz byl označen administrátory ke kontrole. Pokud si myslíte, že by měl být skryt, <a href=\"{{url}}\">kontaktujte nás</a>."
 
 msgid "This request has been reported for administrator attention"
 msgstr "Odesláno administrátorovi"
@@ -2569,10 +2541,10 @@ msgstr "S dotazem byla provedena neznámá operace, která <strong>vyžaduje poz
 msgid "This request has prominence 'hidden'. You can only see it because you are logged\\n    in as a super user."
 msgstr "Tento dotaz má status \"skrytý\". Můžete jej vidět jenom proto, že jste zalogován/a jako \"super user\". "
 
-msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"%s\">contact us</a> if you are not sure why."
+msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr ""
 "Tento dotaz je nyní skrytý, a může jej vidět pouze tazatel. Prosíme\n"
-"<a href=\"%s\">kontaktujte nás,</a> pokud si nejste jisti proč ji nevidíte."
+"<a href=\"{{url}}\">kontaktujte nás,</a> pokud si nejste jisti proč ji nevidíte."
 
 msgid "This request is still in progress:"
 msgstr "Tento dotaz je stále aktivní:"
@@ -2583,10 +2555,10 @@ msgstr ""
 msgid "This request was not made via {{site_name}}"
 msgstr "Tento dotaz nebyl vznesen pomocí stránek {{site_name}}"
 
-msgid "This response has been hidden. See annotations to find out why.\\n            If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
+msgid "This response has been hidden. See annotations to find out why.\\n            If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
 msgstr ""
 "Tato odpověď byla skryta. Podívejte se na vysvětlení. \n"
-"Pokud jste tazatel, můžete se <a href=\"%s\">přihlásit</a> k prohlížení odpovědi."
+"Pokud jste tazatel, můžete se <a href=\"{{url}}\">přihlásit</a> k prohlížení odpovědi."
 
 msgid "This table shows the technical details of the internal events that happened\\nto this request on {{site_name}}. This could be used to generate information about\\nthe speed with which authorities respond to requests, the number of requests\\nwhich require a postal response and much more."
 msgstr "Tato tabulka ukazuje technické detaily související s tímto dotazem vzneseným na stránkách {{site_name}}. Tento přehled lze použít k analýze rychlosti, s jakou instituce odpovídají na dotazy, počtu dotazů, které byly zodpovězeny poštou atd. "
@@ -2748,11 +2720,11 @@ msgstr "Neočekávané výsledky vyhledávání"
 msgid "Unexpected search result type "
 msgstr "Neočekávané výsledky vyhledávání "
 
-msgid "Unfortunately we don't know the FOI\\nemail address for that authority, so we can't validate this.\\nPlease <a href=\"%s\">contact us</a> to sort it out."
+msgid "Unfortunately we don't know the FOI\\nemail address for that authority, so we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
 "Bohužel nemáme e-mailovou adresu této instituce\n"
 "pro vznášení dotazů, proto tento údaj nemůžeme ověřit.\n"
-"Prosíme <a href=\"%s\">kontaktujte nás</a> abychom to vyřešili."
+"Prosíme <a href=\"{{url}}\">kontaktujte nás</a> abychom to vyřešili."
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr "Bohužel nemáme funkční adresu pro zaslání {{info_request_law_used_full}}"
@@ -2875,7 +2847,7 @@ msgid "Waiting clarification."
 msgstr "Čeká se na vysvětlení. "
 
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
-msgstr "Stále <strong>čekám</strong> na doplnění dotazu institucí či jmenovitě jejím pracovníkem {{person_or_body}}."
+msgstr "Stále <strong>čekám</strong> na doplnění dotazu institucí či jmenovitě jejím pracovníkem {{public_body_link}}."
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "Čekám, až instituce doplní požadované informace k mému dotazu"
@@ -2899,10 +2871,10 @@ msgstr ""
 "        &ndash;\n"
 "\tpokud jste {{user_link}} prosíme <a href=\"{{url}}\">přihlašte se</a> a upravte stav dotazu."
 
-msgid "We will not reveal your email address to anybody unless you or\\n        the law tell us to (<a href=\"%s\">details</a>). "
+msgid "We will not reveal your email address to anybody unless you or\\n        the law tell us to (<a href=\"{{url}}\">details</a>). "
 msgstr ""
 "Vaši e-mailovou adresu nikomu nepředáme, pokud o to nebudeme\n"
-"ze zákonem daných důvodů požádáni. (<a href=\"%s\">podrobnosti</a>). "
+"ze zákonem daných důvodů požádáni. (<a href=\"{{url}}\">podrobnosti</a>). "
 
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr ""
@@ -2952,8 +2924,8 @@ msgstr ""
 "Pokud obdržíte písemnou odpověď, prosíme shrňte\n"
 "            pro ostatní, co se v odpovědi říká:"
 
-msgid "When you're done, <strong>come back here</strong>, <a href=\"%s\">reload this page</a> and file your new request."
-msgstr "Až budete hotovi, <strong>vraťte se sem</strong>, <a href=\"%s\">obnovte stránku</a> a vzneste nový dotaz."
+msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
+msgstr "Až budete hotovi, <strong>vraťte se sem</strong>, <a href=\"{{url}}\">obnovte stránku</a> a vzneste nový dotaz."
 
 msgid "Which of these is happening?"
 msgstr "Vyberte nejvhodnější popis z následujících možností."
@@ -3062,11 +3034,11 @@ msgstr "Víte, co způsobilo chybu a můžete <strong>navrhnout řešení</stron
 msgid "You may <strong>include attachments</strong>. If you would like to attach a\\n  file too large for email, use the form below."
 msgstr "Můžete <strong>přiložit dokumenty</strong>. POkud je vaše příloha⏎ příliš velká pro poslání e-mailem, použíjte formulář níže."
 
-msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"%s\">send it to us</a>."
+msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
 "Možná se vám podaří\n"
 "    najít adresu na jejich stránkách, nebo jim zavolejte a zeptejte se. Pokud uspějete,\n"
-"    prosíme <a href=\"%s\">pošlete nám ji</a>."
+"    prosíme <a href=\"{{url}}\">pošlete nám ji</a>."
 
 msgid "You may be able to find\\none on their website, or by phoning them up and asking. If you manage\\nto find one, then please <a href=\"{{help_url}}\">send it to us</a>."
 msgstr ""
@@ -3124,25 +3096,13 @@ msgstr "Nesledujete žádný vznesený dotaz."
 msgid "You've now cleared your profile photo"
 msgstr "Vaše profilové foto bylo vymazáno. "
 
-msgid "Your %d Freedom of Information request"
-msgid_plural "Your %d Freedom of Information requests"
-msgstr[0] "Váš %d dotaz"
-msgstr[1] "Vaše %d dotazy"
-msgstr[2] "Vašich %d dotazů"
-
-msgid "Your %d annotation"
-msgid_plural "Your %d annotations"
-msgstr[0] "Váš %d poznámka"
-msgstr[1] "Vaše %d poznámky"
-msgstr[2] "Vašich %d poznámek"
-
-msgid "Your <strong>name will appear publicly</strong> \\n        (<a href=\"%s\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please \\n        <a href=\"%s\">read this first</a>."
+msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please\\n        <a href=\"{{help_url}}\">read this first</a>."
 msgstr ""
 "Vaše<strong> jméno bude uveřejněno</strong> \n"
-"        (<a href=\"%s\">proč?</a>)\n"
+"        (<a href=\"{{why_url}}\">proč?</a>)\n"
 "        na těchto stránkách a ve vyhledávačích. Pokud\n"
 "        chcete použít přezdívku, prosíme,  \n"
-"        <a href=\"%s\">přečtěte si nejdříve toto</a>."
+"        <a href=\"{{help_url}}\">přečtěte si nejdříve toto</a>."
 
 msgid "Your annotations"
 msgstr "Vaše poznámky"
@@ -3153,8 +3113,8 @@ msgstr "Nikomu jsme nepředali vaše osobní údaje, včetně vaší emailové a
 msgid "Your e-mail:"
 msgstr "Váš e-mail:"
 
-msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"%s\">contact us</a> if you really want to send a follow up message."
-msgstr "Vaše odpověď nebyla odeslána, protože tento dotaz byl identifikován jako nevyžádaná zpráva. Prosíme <a href=\"%s\">kontaktujte nás</a> pokud svou zprávu chcete odeslat. "
+msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
+msgstr "Vaše odpověď nebyla odeslána, protože tento dotaz byl identifikován jako nevyžádaná zpráva. Prosíme <a href=\"{{url}}\">kontaktujte nás</a> pokud svou zprávu chcete odeslat. "
 
 msgid "Your follow up message has been sent on its way."
 msgstr "Zpráva s vaší odpovědí byla odeslána. "
@@ -3177,10 +3137,10 @@ msgstr "Vaše zpráva se objeví <strong>ve vyhledávačích</strong>"
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Vaše jméno a komentář se objeví <strong>ve vyhledávačích</strong>."
 
-msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"%s\">details</a>)."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Vaše jméno, dotaz a všechny odpovědi budou zveřejněny \n"
-"        ve <strong>vyhledávačích</strong>(<a         href=\"%s\">podrobnosti</a>)."
+"        ve <strong>vyhledávačích</strong>(<a         href=\"{{url}}\">podrobnosti</a>)."
 
 msgid "Your name:"
 msgstr "Vaše jméno:"
@@ -3206,11 +3166,23 @@ msgstr "Váš dotaz:"
 msgid "Your response to an FOI request was not delivered"
 msgstr "Vaše odpověď na dotaz nebyla doručena"
 
-msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"%s\">read why</a> and answers to other questions."
-msgstr "Vaše odpověď <strong>bude uveřejněna na internetu</strong>, <a href=\"%s\">čtěte proč</a> spolu s historií konverzace."
+msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
+msgstr "Vaše odpověď <strong>bude uveřejněna na internetu</strong>, <a href=\"{{url}}\">čtěte proč</a> spolu s historií konverzace."
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Vaše doporučení co by <strong>administrátor</strong> stránek {{site_name}} měl udělat s tímto dotazem."
+
+msgid "Your {{count}} Freedom of Information request"
+msgid_plural "Your {{count}} Freedom of Information requests"
+msgstr[0] "Váš {{count}} dotaz"
+msgstr[1] "Vaše {{count}} dotazy"
+msgstr[2] "Vašich {{count}} dotazů"
+
+msgid "Your {{count}} annotation"
+msgid_plural "Your {{count}} annotations"
+msgstr[0] "Váš {{count}} poznámka"
+msgstr[1] "Vaše {{count}} poznámky"
+msgstr[2] "Vašich {{count}} poznámek"
 
 msgid "Your {{site_name}} email alert"
 msgstr "Upozornění ze stránek {{site_name}}"
@@ -3384,10 +3356,10 @@ msgstr ""
 msgid "no later than"
 msgstr "nejpozději do"
 
-msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
+msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
 "již neexistuje. Pokud se pokoušíte\n"
-"    Ze stránky pro vznesení dotazu, pokuste se odpovědět na vybranou zprávu místo podávání obecné odpovědi. Pokud potřebujete poslat obecnou zprávu a znáte správný e-mail, na který to poslat, prosíme <a href=\"%s\">pošlete nám jej</a>."
+"    Ze stránky pro vznesení dotazu, pokuste se odpovědět na vybranou zprávu místo podávání obecné odpovědi. Pokud potřebujete poslat obecnou zprávu a znáte správný e-mail, na který to poslat, prosíme <a href=\"{{url}}\">pošlete nám jej</a>."
 
 msgid "normally"
 msgstr "to"
@@ -3493,8 +3465,35 @@ msgstr "užitečná informace"
 msgid "users"
 msgstr "uživatelé"
 
+msgid "what's that?"
+msgstr "co je to?"
+
 msgid "{{count}} FOI requests found"
 msgstr "nalezeno {{count}} dotazy / dotazů "
+
+msgid "{{count}} Freedom of Information request to {{public_body_name}}"
+msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
+msgstr[0] "{{count}} dotaz vznesený podle zákona 106/1999 Sb. na instituci {{public_body_name}}"
+msgstr[1] "{{count}} dotazy vznesené podle zákona 106/1999 Sb. na instituci  {{public_body_name}}"
+msgstr[2] "{{count}} dotazů vznesených podle zákona 106/1999 Sb. na instituci  {{public_body_name}}"
+
+msgid "{{count}} person is following this authority"
+msgid_plural "{{count}} people are following this authority"
+msgstr[0] "{{count}} člověk sleduje tuto instituci"
+msgstr[1] "{{count}} lidí sledují tuto instituci"
+msgstr[2] "{{count}} lidí sleduje tuto instituci"
+
+msgid "{{count}} request"
+msgid_plural "{{count}} requests"
+msgstr[0] "{{count}} dotaz"
+msgstr[1] "{{count}} dotazy"
+msgstr[2] "{{count}} dotazů"
+
+msgid "{{count}} request made."
+msgid_plural "{{count}} requests made."
+msgstr[0] "{{count}} dotaz byl vznesen."
+msgstr[1] "{{count}} dotazy byly vzneseny."
+msgstr[2] "{{count}} dotazů bylo vzneseno."
 
 msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
 msgstr ""

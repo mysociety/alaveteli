@@ -13,7 +13,7 @@ if they are successful yet or not.') %>
 </ul>
 
 <p>
-   <%= raw(_('When you\'re done, <strong>come back here</strong>, <a href="%s">reload this page</a> and file your new request.') % [request.fullpath]) %>
+   <%= _('When you\'re done, <strong>come back here</strong>, <a href="{{url}}">reload this page</a> and file your new request.', :url => request.fullpath.html_safe) %>
 </p>
 
 <p>

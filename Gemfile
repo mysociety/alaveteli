@@ -10,14 +10,10 @@ source 'https://rubygems.org'
 gem 'rails', '3.1.12'
 gem 'pg'
 
-gem 'fast_gettext', '>= 0.6.0'
 gem 'fastercsv', '>=1.5.5'
-gem 'gettext_i18n_rails', '>= 0.7.1'
-gem 'gettext', '~> 2.3.3'
 gem 'json'
 gem 'mahoro'
 gem 'memcache-client', :require => 'memcache'
-gem 'locale', '>= 2.0.5'
 gem 'net-http-local'
 gem 'net-purge'
 gem 'rack'
@@ -25,7 +21,6 @@ gem 'rdoc'
 gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 # :require avoids "already initialized constant" warnings
 gem 'rmagick', :require => 'RMagick'
-gem 'routing-filter', '~> 0.2.4'
 gem 'rake', '0.9.2.2'
 gem 'ruby-msg', '~> 1.5.0'
 gem 'vpim'
@@ -43,6 +38,14 @@ gem 'globalize3', :git => 'git://github.com/henare/globalize3.git', :branch => '
 gem 'acts_as_versioned', :git => 'git://github.com/technoweenie/acts_as_versioned.git'
 gem 'dynamic_form'
 gem 'exception_notification'
+
+# Gems related to internationalisation
+# Also in vendor/plugins there is globalize2
+gem 'fast_gettext'
+gem 'gettext_i18n_rails'
+gem 'gettext'
+gem 'locale'
+gem 'routing-filter'
 
 group :test do
   gem 'fakeweb'

@@ -168,7 +168,7 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rmagick (2.13.2)
-    routing-filter (0.2.4)
+    routing-filter (0.3.1)
       actionpack
     rspec-core (2.12.1)
     rspec-expectations (2.12.0)
@@ -247,13 +247,14 @@ DEPENDENCIES
   dynamic_form
   exception_notification
   fakeweb
-  fast_gettext (>= 0.6.0)
+  fast_gettext
   fastercsv (>= 1.5.5)
-  gettext (~> 2.3.3)
-  gettext_i18n_rails (>= 0.7.1)
   globalize3!
+  gettext
+  gettext_i18n_rails
   json
-  locale (>= 2.0.5)
+  launchy
+  locale
   mahoro
   mailcatcher
   memcache-client
@@ -267,8 +268,8 @@ DEPENDENCIES
   rdoc
   recaptcha (~> 0.3.1)
   rmagick
-  routing-filter (~> 0.2.4)
   rspec-rails
+  routing-filter
   ruby-debug
   ruby-msg (~> 1.5.0)
   spork-rails

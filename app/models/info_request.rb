@@ -478,6 +478,17 @@ public
         incoming_message = IncomingMessage.new
 
         ActiveRecord::Base.transaction do
+
+            # To avoid a deadlock when simultaneously dealing with two
+            # incoming emails that refer to the same InfoRequest, we
+            # lock the row for update.  In Rails 3.2.0 and later this
+            # can be done with info_request.with_lock or
+            # info_request.lock!, but upgrading to that version of
+            # Rails creates many other problems at the moment.  In the
+            # interim, just use raw SQL to do the SELECT ... FOR UPDATE
+            raw_sql = "SELECT * FROM info_requests WHERE id = #{self.id} LIMIT 1 FOR UPDATE"
+            ActiveRecord::Base.connection.execute(raw_sql)
+
             raw_email = RawEmail.new
             incoming_message.raw_email = raw_email
             incoming_message.info_request = self
