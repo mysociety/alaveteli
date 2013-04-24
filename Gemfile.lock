@@ -249,11 +249,10 @@ DEPENDENCIES
   fakeweb
   fast_gettext
   fastercsv (>= 1.5.5)
-  globalize3!
   gettext
   gettext_i18n_rails
+  globalize3!
   json
-  launchy
   locale
   mahoro
   mailcatcher
@@ -268,8 +267,8 @@ DEPENDENCIES
   rdoc
   recaptcha (~> 0.3.1)
   rmagick
-  rspec-rails
   routing-filter
+  rspec-rails
   ruby-debug
   ruby-msg (~> 1.5.0)
   spork-rails
