@@ -2881,7 +2881,7 @@ msgid "When you receive the paper response, please help\\n            others fin
 msgstr ""
 
 msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
-msgstr "Коли ви закінчите, <strong>поверніться сюди</strong>, <a href=\"%s\">перезавантажте сторінку</a> та зробіть новий запит."
+msgstr "Коли ви закінчите, <strong>поверніться сюди</strong>, <a href=\"{{url}}\">перезавантажте сторінку</a> та зробіть новий запит."
 
 msgid "Which of these is happening?"
 msgstr "Що відбувається?"
