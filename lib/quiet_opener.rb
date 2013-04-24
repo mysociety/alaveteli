@@ -3,7 +3,7 @@ require 'net-purge'
 require 'net/http/local'
 
 def quietly_try_to_open(url)
-    begin 
+    begin
         result = open(url).read.strip
     rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ECONNRESET
         Rails.logger.warn("Unable to open third-party URL #{url}")
@@ -11,12 +11,12 @@ def quietly_try_to_open(url)
     end
     return result
 end
-    
+
 def quietly_try_to_purge(host, url)
-    begin 
+    begin
         result = ""
         result_body = ""
-        Net::HTTP.bind '127.0.0.1' do 
+        Net::HTTP.bind '127.0.0.1' do
             Net::HTTP.start(host) {|http|
                 request = Net::HTTP::Purge.new(url)
                 response = http.request(request)
@@ -24,7 +24,7 @@ def quietly_try_to_purge(host, url)
                 result_body = response.body
             }
         end
-    rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ECONNRESET
+    rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ECONNRESET, Errno::ENETUNREACH
         Rails.logger.warn("PURGE: Unable to reach host #{host}")
     end
     if result == "200"
@@ -34,4 +34,4 @@ def quietly_try_to_purge(host, url)
     end
     return result
 end
-    
+

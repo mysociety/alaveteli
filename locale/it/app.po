@@ -1,35 +1,38 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# marcogiustini <info@marcogiustini.info>, 2013
+# marcogiustini <info@marcogiustini.info>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: alaveteli\n"
+"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2013-04-23 16:34+0100\n"
-"PO-Revision-Date: 2011-10-09 01:10+0200\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2013-04-23 15:40+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
 msgstr ""
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
-msgstr ""
+msgstr "(<strong>no invettive</strong> politiche, leggi il nostro <a href=\"{{url}}\">regolamento di moderazione</a>)"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
-msgstr ""
+msgstr " (<strong>pazienza</strong>, specialmente per caricare i file grandi, ci vuole un pò!)"
 
 msgid " (you)"
-msgstr ""
+msgstr " (tu)"
 
 msgid " - view and make Freedom of Information requests"
-msgstr ""
+msgstr " - vedi e crea richieste FOI"
 
 msgid " - wall"
 msgstr ""
@@ -38,10 +41,10 @@ msgid " <strong>Note:</strong>\\n    We will send you an email. Follow the instr
 msgstr ""
 
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
-msgstr ""
+msgstr " <strong>Nota Privacy:</strong> Il tuo indirizzo di email sarà dato a"
 
 msgid " <strong>Summarise</strong> the content of any information returned. "
-msgstr ""
+msgstr " <strong>Sommarizza</strong> il contenuto di ogni informazione di risposta. "
 
 msgid " Advise on how to <strong>best clarify</strong> the request."
 msgstr ""
@@ -2343,8 +2346,8 @@ msgstr ""
 
 msgid "This person's {{count}} Freedom of Information request"
 msgid_plural "This person's {{count}} Freedom of Information requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " - vedi e crea richieste FOI"
+msgstr[1] " - vedi e crea richieste FOI"
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
@@ -2968,8 +2971,8 @@ msgstr ""
 
 msgid "Your {{count}} Freedom of Information request"
 msgid_plural "Your {{count}} Freedom of Information requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " - vedi e crea richieste FOI"
+msgstr[1] " - vedi e crea richieste FOI"
 
 msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"

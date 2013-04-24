@@ -10,8 +10,8 @@
 <% end %>
 <% if @info_request.prominence == 'requester_only' %>
     <p id="hidden_request">
-    <%= raw(_('This request is hidden, so that only you the requester can see it. Please
-    <a href="%s">contact us</a> if you are not sure why.') % [help_requesting_path]) %>
+    <%= _('This request is hidden, so that only you the requester can see it. Please
+    <a href="{{url}}">contact us</a> if you are not sure why.', :url => help_requesting_path.html_safe) %>
     </p>
 <% end %>
 
@@ -81,11 +81,11 @@
             <%= _('in term time') %>
             <% end %>
             <%= _('by') %> <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
-        (<%= raw(_('<a href="%s">details</a>') % [help_requesting_path + '#quickly_response']) %>)
+        (<%= link_to _('details'), help_requesting_path + '#quickly_response' %>)
     <% elsif @status == 'waiting_response_very_overdue' %>
         <%= _('Response to this request is <strong>long overdue</strong>.') %>
         <%= _('By law, under all circumstances, {{public_body_link}} should have responded by now',:public_body_link => public_body_link(@info_request.public_body)) %>
-        (<%= raw(_('<a href="%s">details</a>') % [help_requesting_path + '#quickly_response']) %>).
+        (<%= link_to _('details'), help_requesting_path + '#quickly_response' %>).
         <% if !@info_request.is_external? %>
           <%= _('You can <strong>complain</strong> by') %>
           <%= link_to _("requesting an internal review"), show_response_no_followup_path(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>.

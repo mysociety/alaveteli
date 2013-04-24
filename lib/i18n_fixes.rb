@@ -14,6 +14,17 @@ def _(key, options = {})
   gettext_interpolate(translation, options)
 end
 
+def n_(*keys)
+  # The last parameter should be the values to do the interpolation with
+  if keys.count > 3
+    options = keys.pop 
+  else
+    options = {}
+  end
+  translation = FastGettext.n_(*keys).html_safe
+  gettext_interpolate(translation, options)
+end
+
 MATCH = /\{\{([^\}]+)\}\}/
 
 def gettext_interpolate(string, values)

@@ -43,18 +43,14 @@ describe PublicBodyController, "when showing a body" do
             :conditions => ["public_body_id = ?", public_bodies(:humpadink_public_body).id])
     end
 
-    it "should assign the body using different locale from that used for url_name" do
-        PublicBody.with_locale(:es) do
-            get :show, {:url_name => "dfh", :view => 'all'}
-            assigns[:public_body].notes.should == "Baguette"
-        end
+    it "should redirect to the canonical name in the chosen locale" do
+        get :show, {:url_name => "dfh", :view => 'all', :show_locale => "es"}
+        response.should redirect_to "http://test.host/es/body/edfh"
     end
 
     it "should assign the body using same locale as that used in url_name" do
-        PublicBody.with_locale(:es) do
-            get :show, {:url_name => "edfh", :view => 'all'}
-            assigns[:public_body].notes.should == "Baguette"
-        end
+        get :show, {:url_name => "edfh", :view => 'all', :show_locale => "es"}
+        response.should include_text("Baguette")
     end
 
     it "should redirect use to the relevant locale even when url_name is for a different locale" do
@@ -69,7 +65,7 @@ describe PublicBodyController, "when showing a body" do
 
     it "should remember the filter (view) setting on redirecting" do
         get :show, :show_locale => "es", :url_name => "tgq", :view => 'successful'
-        response.should redirect_to show_public_body_successful_url(:url_name => "etgq")
+        response.should redirect_to 'http://test.host/es/body/etgq/successful'
     end
 
     it "should redirect to newest name if you use historic name of public body in URL" do
@@ -92,7 +88,7 @@ describe PublicBodyController, "when listing bodies" do
     end
 
     it "should list all bodies from default locale, even when there are no translations for selected locale" do
-        PublicBody.with_locale(:en) do
+        I18n.with_locale(:en) do
             @english_only = PublicBody.new(:name => 'English only',
                                           :short_name => 'EO',
                                           :request_email => 'english@flourish.org',
@@ -100,7 +96,7 @@ describe PublicBodyController, "when listing bodies" do
                                           :last_edit_comment => '')
             @english_only.save
         end
-        PublicBody.with_locale(:es) do
+        I18n.with_locale(:es) do
             get :list
             assigns[:public_bodies].include?(@english_only).should == true
         end
