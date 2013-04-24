@@ -1,7 +1,7 @@
                    mySociety.org Software Licensing
 
-Most of the software in this directory is Copyright (c) 2004-2008 UK
-Citizens Online Democracy. 
+Most of the software in this directory is Copyright (c) 2004-2013 UK
+Citizens Online Democracy.
 
 Unless otherwise stated in particular files or directories, this
 software is free software; you can redistribute it and/or modify it
@@ -9,7 +9,7 @@ under the terms of the GNU Affero General Public License as published
 by the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-Note in particular, 
+Note in particular,
 - acts_as_xapian in vendor/plugins/ is licensed with an MIT license.
 
 Can you explain briefly what the GNU Affero GPL is? We offer the
@@ -28,13 +28,13 @@ WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 Affero General Public License for more details.
 
-Information about the GNU Affero GPL: 
+Information about the GNU Affero GPL:
 http://www.fsf.org/licensing/licenses/agpl-3.0.html
 
-A copy of the GNU Affero General Public License follows. 
+A copy of the GNU Affero General Public License follows.
 
 -----------------------------------------------------------------------
-   
+
                     GNU AFFERO GENERAL PUBLIC LICENSE
                        Version 3, 19 November 2007
 
