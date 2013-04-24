@@ -8,6 +8,10 @@
 
 # This fix is applied in Rails 3.x. So, should be possible to remove this then!
 
+if Rails.version.to_i == 3
+    raise "Please remove lib/timezone_fixes.rb - it should no longer be required"
+end
+
 # Monkeypatch!
 module ActiveRecord
   module ConnectionAdapters # :nodoc:
