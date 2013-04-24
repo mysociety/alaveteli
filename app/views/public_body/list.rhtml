@@ -10,7 +10,7 @@
     <% for row in PublicBodyCategories::get().with_headings() %>
         <% if row.instance_of?(Array) %>
             <li>
-            <%= link_to_unless (@tag == row[0]), row[1], list_public_bodies_path(:tag => row[0]) %> 
+            <%= link_to_unless (@tag == row[0]), row[1], list_public_bodies_path(:tag => row[0]) %>
             </li>
         <% else %>
             <% if not first_row %>
@@ -23,7 +23,7 @@
         <% end %>
     <% end %>
     <% if not first_row %>
-	    </ul>
+      </ul>
     <% end %>
     <%= render :partial => "list_sidebar_extra" %>
 </div>
@@ -34,14 +34,20 @@
 
 <% form_tag(list_public_bodies_default_url, :method => "get", :id=>"search_form") do %>
  <div>
-  <%= text_field_tag(:public_body_query, params[:public_body_query], { :title => "type your search term here" } ) %> 
+  <%= text_field_tag(:public_body_query, params[:public_body_query], { :title => "type your search term here" } ) %>
   <%= submit_tag(_("Search")) %>
  </div>
 <% end %>
 
-<h2 class="publicbody_results"><%= n_('Found %d public authority %s', 'Found %d public authorities %s', @public_bodies.total_entries) % [@public_bodies.total_entries, @description] %></h2>
+<h2 class="publicbody_results">
+  <%= n_('Found {{count}} public authority {{description}}',
+        'Found {{count}} public authorities {{description}}',
+        @public_bodies.total_entries,
+        :count => @public_bodies.total_entries,
+        :description => @description) %>
+</h2>
 <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
 
   <%= will_paginate(@public_bodies) %><br/>
-  <%= raw _('<a href="%s">Can\'t find the one you want?</a>') % [help_requesting_path + '#missing_body'] %>
+  <%= link_to _("Can't find the one you want?"), help_requesting_path + '#missing_body' %>
 </div>

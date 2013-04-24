@@ -26,8 +26,8 @@
             <%= _('The authority only has a <strong>paper copy</strong> of the information.') %>
         </dt>
         <dd>
-            <%= raw(_('At the bottom of this page, write a reply to them trying to persuade them to scan it in
-            (<a href="%s">more details</a>).') % [help_privacy_path + '#postal_answer']) %>
+            <%= _('At the bottom of this page, write a reply to them trying to persuade them to scan it in
+            (<a href="{{url}}">more details</a>).', :url => (help_privacy_path + '#postal_answer').html_safe) %>
         </dd>
 
         <dt>

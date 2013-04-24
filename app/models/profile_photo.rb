@@ -101,7 +101,7 @@ class ProfilePhoto < ActiveRecord::Base
         end
 
         if !self.draft && (self.image.columns != WIDTH || self.image.rows != HEIGHT)
-            errors.add(:data, N_("Failed to convert image to the correct size: at %{cols}x%{rows}, need %{width}x%{height}" % { :cols => self.image.columns, :rows => self.image.rows, :width => WIDTH, :height => HEIGHT }))
+            errors.add(:data, N_("Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}", :cols => self.image.columns, :rows => self.image.rows, :width => WIDTH, :height => HEIGHT))
         end
 
         if self.draft && self.user_id

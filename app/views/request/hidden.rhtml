@@ -6,13 +6,13 @@
 <%=@details%>
 </p>
 
-<p><%= raw(_('The request you have tried to view has been removed. There are
+<p><%= _('The request you have tried to view has been removed. There are
 various reasons why we might have done this, sorry we can\'t be more specific here. Please <a
-    href="%s">contact us</a> if you have any questions.') % [help_contact_path]) %>
+    href="{{url}}">contact us</a> if you have any questions.', :url => help_contact_path.html_safe) %>
 </p>
 <% if @info_request.prominence == 'requester_only' %>
     <p>
-		<%= raw(_('If you are the requester, then you may <a href="%s">sign in</a> to view the request.') % [signin_url(:r => request.request_uri)]) %>
+		<%= _('If you are the requester, then you may <a href="{{url}}">sign in</a> to view the request.', :url => signin_url(:r => request.request_uri).html_safe) %>
     </p>
 <% end %>
 
