@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # config/routes.rb:
 # Mapping URLs to controllers for FOIFA.
 #
@@ -51,8 +52,8 @@ Alaveteli::Application.routes.draw do
     match '/request/:url_title/describe/:described_state' => 'request#describe_state_message', :as => :describe_state_message
     match '/request/:id/response' => 'request#show_response', :as => :show_response_no_followup
     match '/request/:id/response/:incoming_message_id' => 'request#show_response', :as => :show_response
-    match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'request#get_attachment_as_html', :as => :get_attachment_as_html
-    match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'request#get_attachment', :as => :get_attachment
+    match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'request#get_attachment_as_html', :format => false, :as => :get_attachment_as_html
+    match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'request#get_attachment', :format => false, :as => :get_attachment
 
     match '/request_event/:info_request_event_id' => 'request#show_request_event', :as => :info_request_event
 

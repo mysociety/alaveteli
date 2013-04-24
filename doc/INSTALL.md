@@ -359,8 +359,8 @@ It is not recommended to run the website using the default Rails web
 server.  There are various recommendations here:
 http://rubyonrails.org/deploy
 
-We usually use Passenger / mod_rails.  The file at `conf/httpd.conf`
-contains the WhatDoTheyKnow settings.  At a minimum, you should
+We usually use Passenger / mod_rails.  The file at `conf/httpd.conf-example`
+gives you an example config file for WhatDoTheyKnow.  At a minimum, you should
 include the following in an Apache configuration file:
 
     PassengerResolveSymlinksInDocumentRoot on
