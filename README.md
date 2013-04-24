@@ -24,5 +24,6 @@ There's background information and a more documentation on
 of useful information (including a blog) on
 [the project website](http://alaveteli.org)
 
-Looking for the latest stable release? It's on the 
+Looking for the latest stable release? It's on the
 [master branch](https://github.com/mysociety/alaveteli/tree/master).
+
