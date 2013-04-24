@@ -3,17 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#  <agung@airputih.or.id>, 2013.
-#   <agus.triwanto@gmail.com>, 2012.
-#   <ariadi01@gmail.com>, 2012.
-#   <bobo@airputih.org>, 2012.
+# njung <agung@airputih.or.id>, 2013
+# Agus Triwanto <agus.triwanto@gmail.com>, 2012
+# Agus Triwanto <agus.triwanto@gmail.com>, 2012
+#   <ariadi01@gmail.com>, 2012
+# bobo7e836b32124642a5 <bobo@airputih.org>, 2012
+# bobo7e836b32124642a5 <bobo@airputih.org>, 2012
+# njung <agung@airputih.or.id>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-16 14:50+0100\n"
-"PO-Revision-Date: 2013-03-15 04:39+0000\n"
-"Last-Translator: njung <agung@airputih.or.id>\n"
+"Project-Id-Version: alaveteli\n"
+"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
+"POT-Creation-Date: 2013-04-23 16:34+0100\n"
+"PO-Revision-Date: 2013-04-23 15:50+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -1706,7 +1709,7 @@ msgstr ""
 "apakah mereka sudah berhasil atau belum."
 
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
-msgstr "Mohon tandatangani bagian bawah dengan nama Anda, atau ubah \"{{signoff}}\" tanda tangan\n"
+msgstr "Mohon tandatangani bagian bawah dengan nama Anda, atau ubah \"{{signoff}}\" tanda tangan"
 
 msgid "Please sign in as "
 msgstr "Silakan masuk sebagai"
@@ -3637,4 +3640,3 @@ msgstr "{{user}} ({{user_admin_link}}) membuat {{law_used_full}} permintaan (<a 
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} membuat {{law_used_full}} permintaan ini"
-

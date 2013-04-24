@@ -3,32 +3,32 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <3laste2000@gmail.com>, 2012.
-#   <a.serramassuda@gmail.com>, 2012.
-# Bruno  <bgx@bol.com.br>, 2012.
-#   <brunomelnic@gmail.com>, 2012-2013.
-# Carlos Vieira <edu.carlos.vieira@gmail.com>, 2011.
-#   <danielabsilva@gmail.com>, 2011.
-#   <everton137@gmail.com>, 2011.
-#   <gabileitao@gmail.com>, 2012.
-#   <jcmarkun@gmail.com>, 2011.
-#   <kerick.quimica@gmail.com>, 2012.
-#  <leandrosalvador@gmail.com>, 2013.
-#   <leandrosalvador@gmail.com>, 2013.
-#   <lianelira@gmail.com>, 2011.
-#   <luis.leao@gmail.com>, 2011.
-#   <Nitaibezerra@gmail.com>, 2012.
-#   <patriciacornils@gmail.com>, 2011.
-#   <pedro@esfera.mobi>, 2011-2012.
-#   <rafael.moretti@gmail.com>, 2012.
-# Vítor Márcio Paiva de Sousa Baptista <vitor@vitorbaptista.com>, 2013.
-#   <vitor@vitorbaptista.com>, 2013.
+# elaste <3laste2000@gmail.com>, 2012
+# serramassuda <a.serramassuda@gmail.com>, 2012
+# Bruno <bgx@bol.com.br>, 2012
+# brunomelnic <brunomelnic@gmail.com>, 2012-2013
+# Carlos Vieira <edu.carlos.vieira@gmail.com>, 2011
+# danielabsilva <danielabsilva@gmail.com>, 2011
+#   <everton137@gmail.com>, 2011
+# gabinardy <gabileitao@gmail.com>, 2012
+# jcmarkun <jcmarkun@gmail.com>, 2011
+# Kerick <kerick.quimica@gmail.com>, 2012
+# leandrosalvador <leandrosalvador@gmail.com>, 2013
+# leandrosalvador <leandrosalvador@gmail.com>, 2013
+# lianelira <lianelira@gmail.com>, 2011
+# luisleao <luis.leao@gmail.com>, 2011
+# Nitai <Nitaibezerra@gmail.com>, 2012
+# patriciacornils <patriciacornils@gmail.com>, 2011
+# markun <pedro@esfera.mobi>, 2011-2012
+# Rafael Moretti <rafael.moretti@gmail.com>, 2012
+# vitorbaptista <vitor@vitorbaptista.com>, 2013
+# vitorbaptista <vitor@vitorbaptista.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-16 14:50+0100\n"
-"PO-Revision-Date: 2013-03-14 21:07+0000\n"
+"Project-Id-Version: alaveteli\n"
+"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
+"POT-Creation-Date: 2013-04-23 16:34+0100\n"
+"PO-Revision-Date: 2013-04-23 15:40+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pt_BR\n"
@@ -3444,4 +3444,3 @@ msgstr "{{user}} ({{user_admin_link}}) fez esse pedido (<a href=\"{{request_admi
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} fez esse pedido de {{law_used_full}}"
-

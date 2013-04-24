@@ -3,19 +3,24 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <appukonrad@gmail.com>, 2012.
-# Hana Huntova <>, 2012.
-# Jana Kneschke <>, 2012.
-#  <jana.kneschke@gmail.com>, 2013.
-#   <jana.kneschke@gmail.com>, 2012-2013.
-#   <josef.pospisil@laststar.eu>, 2012.
-#   <louise@mysociety.org>, 2012.
+# jui <appukonrad@gmail.com>, 2012
+# Hana Huntova <>, 2012
+# Jana Kneschke <>, 2012
+# janakneschke <jana.kneschke@gmail.com>, 2013
+# janakneschke <jana.kneschke@gmail.com>, 2012-2013
+# janakneschke <jana.kneschke@gmail.com>, 2013
+# josefpospisil <josef.pospisil@laststar.eu>, 2012
+# josefpospisil <josef.pospisil@laststar.eu>, 2012
+# jui <appukonrad@gmail.com>, 2012
+# louisecrow <louise@mysociety.org>, 2012-2013
+# louisecrow <louise@mysociety.org>, 2013
+# louisecrow <louise@mysociety.org>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-16 14:50+0100\n"
-"PO-Revision-Date: 2013-03-14 21:10+0000\n"
+"Project-Id-Version: alaveteli\n"
+"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
+"POT-Creation-Date: 2013-04-23 16:34+0100\n"
+"PO-Revision-Date: 2013-04-23 15:42+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: cs\n"
@@ -2842,7 +2847,7 @@ msgid "Waiting clarification."
 msgstr "Čeká se na vysvětlení. "
 
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
-msgstr "Stále <strong>čekám</strong> na doplnění dotazu institucí či jmenovitě jejím pracovníkem {{person_or_body}}."
+msgstr "Stále <strong>čekám</strong> na doplnění dotazu institucí či jmenovitě jejím pracovníkem {{public_body_link}}."
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "Čekám, až instituce doplní požadované informace k mému dotazu"
@@ -3590,4 +3595,3 @@ msgstr "{{user}} ({{user_admin_link}}) vznesl tento {{law_used_full}} dotaz (<a 
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} vložil tuto {{law_used_full}} "
-
