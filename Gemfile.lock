@@ -117,7 +117,6 @@ GEM
       skinny (>= 0.1.2)
       sqlite3-ruby
       thin
-    memcache-client (1.8.5)
     mime-types (1.21)
     multi_json (1.7.1)
     net-http-local (0.1.2)
@@ -256,7 +255,6 @@ DEPENDENCIES
   locale
   mahoro
   mailcatcher
-  memcache-client
   net-http-local
   net-purge
   newrelic_rpm
