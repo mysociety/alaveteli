@@ -16,6 +16,7 @@ gem 'mahoro'
 gem 'net-http-local'
 gem 'net-purge'
 gem 'rack'
+gem 'rails-i18n'
 gem 'rdoc'
 gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 # :require avoids "already initialized constant" warnings

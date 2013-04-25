@@ -1,8 +1,4 @@
 [submodule "commonlib"]
-	path = commonlib
-	url = git://git.mysociety.org/commonlib
+    path = commonlib
+    url = git://git.mysociety.org/commonlib
 # config/locales is a symbolic link to vendor/rails-locales/rails/locale
-# In Rails 3, this should be removed and the gem rails-i18n installed instead
-[submodule "vendor/rails-locales"]
-	path = vendor/rails-locales
-	url = git://github.com/svenfuchs/rails-i18n.git
