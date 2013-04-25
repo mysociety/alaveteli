@@ -306,7 +306,7 @@ class User < ActiveRecord::Base
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
         text = text.gsub(/\n/, '<br>')
-        return text
+        return text.html_safe
     end
 
     # Returns domain part of user's email address
