@@ -304,6 +304,30 @@ describe 'when getting attachment attributes' do
         attributes = MailHandler.get_attachment_attributes(mail)
     end
 
+    it 'should ignore truncated TNEF attachment' do
+        mail = get_fixture_mail('tnef-attachment-truncated.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+        attributes.length.should == 2
+    end
+
+    it 'should ignore a TNEF attachment with no usable contents' do
+        # FIXME: "no usable contents" is slightly misleading.  The
+        # attachment in this example email does have usable content in
+        # the body of the TNEF attachment, but the invocation of tnef
+        # historically used to unpack these attachments doesn't add
+        # the --save-body parameter, so that they have been ignored so
+        # far.  We probably should include the body from such
+        # attachments, but, at the moment, with the pending upgrade to
+        # Rails 3, we just want to check that the behaviour is the
+        # same as before.
+        mail = get_fixture_mail('tnef-attachment-empty.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+        attributes.length.should == 2
+        # This is the size of the TNEF-encoded attachment; currently,
+        # we expect the code just to return this without decoding:
+        attributes[1][:body].length.should == 7769
+    end
+
     it 'should produce a consistent set of url_part_numbers, content_types, within_rfc822_subjects
         and filenames from an example mail with lots of attachments' do
         mail = get_fixture_mail('many-attachments-date-header.email')
