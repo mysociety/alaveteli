@@ -1,0 +1,110 @@
+From someone@example.org Mon May 15 13:10:29 2012
+Return-path: <someone@example.org>
+Envelope-to: foi@example.org
+Delivery-date: Mon, 15 May 2012 13:10:29 +0100
+Message-Id: <abcde@baz.local>
+Date: Mon, 15 May 2012 09:48:48 +0100
+From: "Example Person" <someone@example.org>
+To: <request@example.org>
+Subject: some FOI request or other
+Mime-Version: 1.0
+Content-Type: multipart/mixed; boundary="=__outer__="
+
+This is a MIME message. If you are reading this text, you may want to
+consider changing to a mail reader or gateway that understands how to
+properly handle MIME multipart messages.
+
+--=__outer__=
+Content-Type: multipart/alternative; boundary="=__inner__="
+
+--=__inner__=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-MIME-Autoconverted: from 8bit to quoted-printable by something
+
+Hello
+=20
+Please find some information attached.
+=20
+
+--=__inner__=
+Content-Description: HTML
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+  <head>
+    <title>some title text</title>
+  </head>
+  <body>
+    <p>blah blah blah</p>
+  </body>
+</html>
+
+--=__inner__=--
+
+--=__outer__=
+Content-Type: message/rfc822
+
+Return-path: <foo@bar>
+Date: Mon, 7 May 2012 12:47:06 +0100
+From: someone-else@example.org
+To: foi@example.org
+Message-Id: <56789@quux.local>
+Subject: a freedom of information requests
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+     Dear Whoever,
+
+     Please could you let me know, um, whatever ...
+
+     Yours faithfully,
+
+     Whoever I Am
+
+--=__outer__=
+Content-Type: text/plain; charset=US-ASCII
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+     Dear Whowever,
+    =20
+     Please could you let me know, um, whatever ...
+    =20
+     Yours faithfully,
+    =20
+     Whoever I Am
+    =20
+
+--=__outer__=--
+
+--=__outer__=
+Content-Type: application/png; name="maroon-square.png"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="maroon-square.png"
+
+iVBORw0KGgoAAAANSUhEUgAAAEEAAABCCAYAAAAIY7vrAAAABmJLR0QA/wD/AP+g
+vaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QQeDSEx8qultwAAABl0
+RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAMzSURBVHja7VtL2psw
+DNS4rPv1Gj1Kt71Az9ZT9F7dN9MFGGThB/YfKDX2Kp8DRBpLowcKvn/5ShERiAgl
+srh8aT93tJzWdae8XR0CEICwUx59K54H4QFKp0Eg5alrAwEYIDx5DRAGCAOEAcIA
+QaUFfDoIHJawpEbOPd0dRPjJDWIUiEwt933+8es2Ovz++a3dCkREXmwD4ZbsVln6
+cLkef14duAMqAGCkY0A+jBNgXGFZU/eKa3fhZjlQqLhHKF9oFbpulE2Z/oFrXTd+
+nlOWkn1dMHXrAiWguq0iG9uk/REjBggPtgQOED781my4wwBhgDBAmPmUAwR0X0UO
+dxggnA8CO5xocU8HoAoEDwA6nOyCH+ZMKQ4zy+QbNBoUirquMPBJcgPyJkOi+c7S
+ohhn6ZctzDIrcFalIspYILG1et9WABUtt6WztLq+/0Amp9sCnsCBUhfvK4FLiRCA
+QwC7JABGTngrIIPnIjf6R5We0uxz3j+FbCvdy2nlY/IgcfrMRQuFHIC9Sap3AW8n
+2gZ+cZYCVn4LzBxxnykNgJpWN8lt7yw+QCMxan2s8lQXcNlDlpAW7YmIXMszTgoH
+rU91+8OFYXN9ikz/LyLgExSCDlaO+cdGsIEQkyUAIgFMKRTEn3vDjFFHwWSIzEQC
+cmN4IHVNGG2PQXhhsuRl3jihwQyB6H1274gV1BhKLKNt4ZEpkygeeoC+xytdK1cr
+oX0EACphnTZXbbLMmL/YBGo9lSU1OmBONMnTlQUqTa4y1VgAddg0hdTR04lyT0Xq
+8RYAyHVyBX6ET/9wTBD6TWVCMH5Qo3yhXju3bNY/BBMdsoLYBMmnzQdOP56O36s5
+40r1D7UWYV5dNT2nbxVBAHb43Y36CdbXfTii6isU/U7ZXLQ4w/V/wotFoilVF2kl
+w7YCDrIPkj4/G9fao7q0rYSSJdgeSqmQrCU+r/j8rOv/gpuKPm5Lffen5eN+ljeo
+rcfW0Om2Enm9KwDZAgrG98txX9cMe6X2E5SGU29VTE17lFAUkMybsXclndu31BGX
+hcgWv8oxonYtkf/jhc10WPGgm2IZncKlu+sg8vLm7hDSwk3f2/wFEzN3v6aAXQ0A
+AAAASUVORK5CYII=
+
+--=__outer__=--
+

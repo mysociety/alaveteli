@@ -310,6 +310,17 @@ describe 'when getting attachment attributes' do
         attributes.length.should == 2
     end
 
+    it 'should ignore anything beyond the final MIME boundary' do
+        # This example raw email has a premature closing boundary for
+        # the outer multipart/mixed - my reading of RFC 1521 is that
+        # the "epilogue" beyond that should be ignored.
+        # See https://github.com/mysociety/alaveteli/issues/922 for
+        # more discussion.
+        mail = get_fixture_mail('nested-attachments-premature-end.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+        attributes.length.should == 3
+    end
+
     it 'should ignore a TNEF attachment with no usable contents' do
         # FIXME: "no usable contents" is slightly misleading.  The
         # attachment in this example email does have usable content in
