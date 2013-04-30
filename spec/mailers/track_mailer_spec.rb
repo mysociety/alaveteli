@@ -195,7 +195,7 @@ describe TrackMailer do
         context "force ssl is off" do
             # Force SSL is off in the tests. Since the code that selectively switches the protocols
             # is in the initialiser for Rails it's hard to test. Hmmm...
-            # We could Configuration.stub!(:force_ssl).and_return(true) but the config/environment.rb
+            # We could AlaveteliConfiguration.stub!(:force_ssl).and_return(true) but the config/environment.rb
             # wouldn't get reloaded
 
             it "should have http links in the email" do
