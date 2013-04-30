@@ -501,19 +501,6 @@ various other things that can be automated for deployment.
     [https://github.com/mysociety/alaveteli/issues/128#issuecomment-1814845](this issue followup)
     for further discussion.
 
-*   **I'm getting lots of `SourceIndex.new(hash) is deprecated` errors when running the tests**
-
-    The latest versions of rubygems contain a large number of noisy
-    deprecation warnings that you can't turn off individually.  Rails
-    2.x isn't under active development so isn't going to get fixed (in
-    the sense of using a non-deprecated API).  So the only vaguely
-    sensible way to avoid this noisy output is to downgrade rubygems.
-
-    For example, you might do this by uninstalling your
-    system-packaged rubygems, and then installing the latest rubygems
-    from source, and finally executing `sudo gem update --system
-    1.6.2`.
-
 *   **I'm seeing `rake: command not found` when running the post install script
 
     The script uses `rake`.
