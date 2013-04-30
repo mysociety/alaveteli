@@ -27,7 +27,7 @@ gem 'vpim'
 gem 'will_paginate'
 # when 1.2.9 is released by the maintainer, we can stop using this fork:
 gem 'xapian-full-alaveteli', '~> 1.2.9.5'
-gem 'xml-simple'
+gem 'xml-simple', :require => 'xmlsimple'
 gem 'zip'
 gem 'capistrano'
 gem 'syslog_protocol'

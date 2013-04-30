@@ -19,8 +19,11 @@ end
 
 describe GeneralController, 'when getting the blog feed' do
 
-    it 'should add a lang param correctly to a url with no querystring' do
+    before do
         AlaveteliConfiguration.stub!(:blog_feed).and_return("http://blog.example.com")
+    end
+
+    it 'should add a lang param correctly to a url with no querystring' do
         get :blog
         assigns[:feed_url].should == "http://blog.example.com?lang=en"
     end
@@ -29,6 +32,12 @@ describe GeneralController, 'when getting the blog feed' do
         AlaveteliConfiguration.stub!(:blog_feed).and_return("http://blog.example.com?alt=rss")
         get :blog
         assigns[:feed_url].should == "http://blog.example.com?alt=rss&lang=en"
+    end
+
+    it 'should parse an item from an example feed' do
+        controller.stub!(:quietly_try_to_open).and_return(load_file_fixture("blog_feed.atom"))
+        get :blog
+        assigns[:blog_items].count.should == 1
     end
 
 end

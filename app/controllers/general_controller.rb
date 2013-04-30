@@ -5,13 +5,6 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-begin
-  require 'xmlsimple'
-rescue LoadError
-  # Debian maintainers put their xmlsimple in a different location :(
-  require 'lib/xmlsimple'
-end
-
 require 'open-uri'
 
 class GeneralController < ApplicationController

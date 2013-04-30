@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+    xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+    >
+
+<channel>
+    <title>A Blog Feed</title>
+    <atom:link href="http://example.com/feed/" rel="self" type="application/rss+xml" />
+    <link>http://www.example.com</link>
+    <description>Stuff</description>
+    <lastBuildDate>Tue, 30 Apr 2013 14:34:15 +0000</lastBuildDate>
+    <language>en</language>
+    <sy:updatePeriod>hourly</sy:updatePeriod>
+    <sy:updateFrequency>1</sy:updateFrequency>
+    <generator>http://wordpress.org/?v=3.3.2</generator>
+        <item>
+        <title>Example Post</title>
+        <link>http://www.example.com/example-post</link>
+        <comments>http://www.example.com/example-post#comments</comments>
+        <pubDate>Mon, 01 Apr 2013 19:26:08 +0000</pubDate>
+        <dc:creator>Example Blogger</dc:creator>
+                <category><![CDATA[FOI]]></category>
+
+        <guid isPermaLink="false">http://www.example.com/?id=333</guid>
+        <description><![CDATA[An example post [...]]]></description>
+            <content:encoded><![CDATA[<h3>A blog post</h3>
+<p>Example post</p>
+]]></content:encoded>
+            <wfw:commentRss>http://www.example.com/feed/</wfw:commentRss>
+        <slash:comments>2</slash:comments>
+        </item>
+
+    </channel>
+</rss>
