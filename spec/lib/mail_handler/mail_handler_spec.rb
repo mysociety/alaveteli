@@ -321,6 +321,15 @@ describe 'when getting attachment attributes' do
         attributes.length.should == 3
     end
 
+    it 'should cope with a missing final MIME boundary' do
+        mail = get_fixture_mail('multipart-no-final-boundary.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+        attributes.length.should == 1
+        attributes[0][:body].should match(/This is an acknowledgement of your email/)
+        attributes[0][:content_type].should == "text/html"
+        attributes[0][:url_part_number].should == 1
+    end
+
     it 'should ignore a TNEF attachment with no usable contents' do
         # FIXME: "no usable contents" is slightly misleading.  The
         # attachment in this example email does have usable content in
