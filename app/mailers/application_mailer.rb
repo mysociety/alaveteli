@@ -26,37 +26,5 @@ class ApplicationMailer < ActionMailer::Base
     # Site-wide access to configuration settings
     include ConfigHelper
 
-    # For each multipart template (e.g. "the_template_file.text.html.erb") available,
-    # add the one from the view path with the highest priority as a part to the mail
-    def render_multipart_templates
-        added_content_types = {}
-        self.view_paths.each do |view_path|
-            Dir.glob("#{view_path}/#{mailer_name}/#{@template}.*").each do |path|
-              template = view_path["#{mailer_name}/#{File.basename(path)}"]
-
-              # Skip unless template has a multipart format
-              next unless template && template.multipart?
-              next if added_content_types[template.content_type] == true
-              @parts << Part.new(
-                :content_type => template.content_type,
-                :disposition => "inline",
-                :charset => charset,
-                :body => render_message(template, @body)
-              )
-              added_content_types[template.content_type] = true
-            end
-        end
-    end
-
-    # Look for the current template in each element of view_paths in order,
-    # return the first
-    def find_template
-        self.view_paths.each do |view_path|
-            if template = view_path["#{mailer_name}/#{@template}"]
-                return template
-            end
-        end
-        return nil
-    end
 end
 
