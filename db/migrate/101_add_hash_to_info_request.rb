@@ -6,7 +6,7 @@ class AddHashToInfoRequest < ActiveRecord::Migration
 
         # Create the missing events for requests already sent
         InfoRequest.all.each do |info_request|
-            info_request.idhash = Digest::SHA1.hexdigest(info_request.id.to_s + Configuration::incoming_email_secret)[0,8]
+            info_request.idhash = Digest::SHA1.hexdigest(info_request.id.to_s + AlaveteliConfiguration::incoming_email_secret)[0,8]
             info_request.save!
         end
         change_column :info_requests, :idhash, :string, :null => false
