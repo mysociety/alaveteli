@@ -121,6 +121,14 @@ class ApplicationController < ActionController::Base
         @exception_class = exception.class.to_s
         @exception_message = exception.message
         status_code = case exception
+        when ActiveRecord::RecordNotFound,
+             ActionController::UnknownAction
+            404
+        when PermissionDenied
+            403
+        else
+            500
+        end
         render :template => "general/exception_caught", :status => status_code
     end
 
