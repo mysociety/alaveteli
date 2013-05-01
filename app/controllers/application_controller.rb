@@ -12,6 +12,11 @@ require 'open-uri'
 class ApplicationController < ActionController::Base
     class PermissionDenied < StandardError
     end
+    # assign our own handler method for non-local exceptions
+    if ! Rails.application.config.consider_all_requests_local
+        rescue_from Exception, :with => :render_exception
+    end
+
     # Standard headers, footers and navigation for whole site
     layout "default"
     include FastGettext::Translation # make functions like _, n_, N_ etc available)
@@ -109,6 +114,14 @@ class ApplicationController < ActionController::Base
               request.env['rack.session.options'][:expire_after] = nil
           end
         end
+    end
+
+    def render_exception(exception)
+        @exception_backtrace = exception.backtrace.join("\n")
+        @exception_class = exception.class.to_s
+        @exception_message = exception.message
+        status_code = case exception
+        render :template => "general/exception_caught", :status => status_code
     end
 
     # Override default error handler, for production sites.
