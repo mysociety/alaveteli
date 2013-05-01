@@ -2261,6 +2261,10 @@ end
 describe RequestController, "when showing similar requests" do
     render_views
 
+    before do
+        get_fixtures_xapian_index
+    end
+
     it "should work" do
         get :similar, :url_title => info_requests(:badger_request).url_title
         response.should render_template("request/similar")
@@ -2268,8 +2272,6 @@ describe RequestController, "when showing similar requests" do
     end
 
     it "should show similar requests" do
-        get_fixtures_xapian_index
-
         badger_request = info_requests(:badger_request)
         get :similar, :url_title => badger_request.url_title
 
