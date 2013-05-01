@@ -26,6 +26,21 @@ describe 'when creating a mail object from raw data' do
         MailHandler.get_part_body(mail).is_utf8?.should == true
     end
 
+    it 'should convert a Windows-1252 body mislabelled as ISO-8859-1 to UTF-8' do
+        mail = get_fixture_mail('mislabelled-as-iso-8859-1.email')
+        body = MailHandler.get_part_body(mail)
+        body.is_utf8?.should == true
+        # This email is broken in at least these two ways:
+        #  1. It contains a top bit set character (0x96) despite the
+        #     "Content-Transfer-Encoding: 7bit"
+        #  2. The charset in the Content-Type header is "iso-8859-1"
+        #     but 0x96 is actually a Windows-1252 en dash, which would
+        #     be Unicode codepoint 2013.  It should be possible to
+        #     spot the mislabelling, since 0x96 isn't a valid
+        #     ISO-8859-1 character.
+        body.should match / \xe2\x80\x93 /
+    end
+
 end
 
 describe 'when asked for the from name' do
