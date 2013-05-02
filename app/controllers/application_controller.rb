@@ -141,56 +141,6 @@ class ApplicationController < ActionController::Base
         render :template => "general/exception_caught", :status => @status
     end
 
-    # Override default error handler, for production sites.
-    def rescue_action_in_public(exception)
-        # Looks for before_filters called something like `set_view_paths_{themename}`. These
-        # are set by the themes.
-        # Normally, this is called by the theme itself in a
-        # :before_filter, but when there's an error, this doesn't
-        # happen.  By calling it here, we can ensure error pages are
-        # still styled according to the theme.
-        ActionController::Base.before_filters.select{|f| f.to_s =~ /set_view_paths/}.each do |f|
-            self.send(f)
-        end
-        # Make sure expiry time for session is set (before_filters are
-        # otherwise missed by this override)
-        session_remember_me
-
-        # Make sure the locale is set correctly too
-        set_gettext_locale
-
-        case exception
-        when ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::RoutingError
-            @status = 404
-        when PermissionDenied
-            @status = 403
-        else
-            @status = 500
-            notify_about_exception exception
-        end
-        # Display user appropriate error message
-        @exception_backtrace = exception.backtrace.join("\n")
-        @exception_class = exception.class.to_s
-        @exception_message = exception.message
-        render :template => "general/exception_caught", :status => @status
-    end
-
-
-    # FIXME: This was disabled during the Rails 3 upgrade as this is now handled by Rack
-    # # For development sites.
-    # alias original_rescue_action_locally rescue_action_locally
-    # def rescue_action_locally(exception)
-    #     # Make sure expiry time for session is set (before_filters are
-    #     # otherwise missed by this override)
-    #     session_remember_me
-
-    #     # Make sure the locale is set correctly too
-    #     set_gettext_locale
-
-    #     # Display default, detailed error for developers
-    #     original_rescue_action_locally(exception)
-    # end
-
     def local_request?
         false
     end
