@@ -907,6 +907,7 @@ describe RequestController, "when searching for an authority" do
     # so we make sure we're logged in, just in case
     before do
         @user = users(:bob_smith_user)
+        get_fixtures_xapian_index
     end
 
     it "should return nothing for the empty query string" do
@@ -918,7 +919,6 @@ describe RequestController, "when searching for an authority" do
     end
 
     it "should return matching bodies" do
-        get_fixtures_xapian_index
 
         session[:user_id] = @user.id
         get :select_authority, :query => "Quango"
