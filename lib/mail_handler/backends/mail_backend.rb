@@ -141,9 +141,14 @@ module MailHandler
                     end
                 elsif get_content_type(part) == 'application/ms-tnef'
                     # A set of attachments in a TNEF file
-                    part.rfc822_attachment = mail_from_tnef(part.body.decoded)
-                    if part.rfc822_attachment.nil?
-                        # Attached mail didn't parse, so treat as binary
+                    begin
+                        part.rfc822_attachment = mail_from_tnef(part.body.decoded)
+                        if part.rfc822_attachment.nil?
+                            # Attached mail didn't parse, so treat as binary
+                            part.content_type = 'application/octet-stream'
+                        end
+                    rescue TNEFParsingError
+                        part.rfc822_attachment = nil
                         part.content_type = 'application/octet-stream'
                     end
                 end
