@@ -222,5 +222,11 @@ class GeneralController < ApplicationController
         @locale = self.locale_from_params()
         render(:layout => false, :content_type => 'text/css')
     end
+
+    # Handle requests for non-existent URLs - will be handled by ApplicationController::render_exception
+    def not_found
+        raise RouteNotFound
+    end
+
 end
 

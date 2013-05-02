@@ -12,6 +12,8 @@ require 'open-uri'
 class ApplicationController < ActionController::Base
     class PermissionDenied < StandardError
     end
+    class RouteNotFound < StandardError
+    end
     # assign our own handler method for non-local exceptions
     rescue_from Exception, :with => :render_exception
 
@@ -128,7 +130,7 @@ class ApplicationController < ActionController::Base
         @exception_class = exception.class.to_s
         @exception_message = exception.message
         case exception
-        when ActiveRecord::RecordNotFound
+        when ActiveRecord::RecordNotFound, RouteNotFound
             @status = 404
         when PermissionDenied
             @status = 403
@@ -172,6 +174,7 @@ class ApplicationController < ActionController::Base
         @exception_message = exception.message
         render :template => "general/exception_caught", :status => @status
     end
+
 
     # FIXME: This was disabled during the Rails 3 upgrade as this is now handled by Rack
     # # For development sites.
