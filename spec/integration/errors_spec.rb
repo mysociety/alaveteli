@@ -3,15 +3,12 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe "When errors occur" do
 
     def set_consider_all_requests_local(value)
-        # Reload application controller so it picks up new config value
         @requests_local = Rails.application.config.consider_all_requests_local
         Rails.application.config.consider_all_requests_local = value
-        load 'application_controller.rb'
     end
 
     def restore_consider_all_requests_local
         Rails.application.config.consider_all_requests_local = @requests_local
-        load "application_controller.rb"
     end
 
     before(:each) do
@@ -56,6 +53,7 @@ describe "When errors occur" do
             end
         end
 
+
         it "should render a 500 for general errors using the general/exception_caught template" do
             InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
             get("/request/example")
@@ -94,12 +92,16 @@ describe "When errors occur" do
         end
 
         context "in the admin interface" do
+
             it 'should show a full trace for general errors' do
                 InfoRequest.stub!(:find).and_raise("An example error")
                 get("/admin/request/show/333")
                 response.body.should have_selector('div[id=traces]')
                 response.body.should match('An example error')
             end
+
         end
+
     end
+
 end

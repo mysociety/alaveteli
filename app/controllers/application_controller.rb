@@ -13,9 +13,7 @@ class ApplicationController < ActionController::Base
     class PermissionDenied < StandardError
     end
     # assign our own handler method for non-local exceptions
-    if ! Rails.application.config.consider_all_requests_local
-        rescue_from Exception, :with => :render_exception
-    end
+    rescue_from Exception, :with => :render_exception
 
     # Standard headers, footers and navigation for whole site
     layout "default"
@@ -117,19 +115,28 @@ class ApplicationController < ActionController::Base
     end
 
     def render_exception(exception)
+
+        # In development, or the admin interface, or for a local request, let Rails handle the exception
+        # with its stack trace templates. Local requests in testing are a special case so that we can
+        # test this method - there we use consider_all_requests_local to control behaviour.
+        if Rails.application.config.consider_all_requests_local || local_request? ||
+        (request.local? && !Rails.env.test?)
+            raise exception
+        end
+
         @exception_backtrace = exception.backtrace.join("\n")
         @exception_class = exception.class.to_s
         @exception_message = exception.message
-        status_code = case exception
-        when ActiveRecord::RecordNotFound,
-             ActionController::UnknownAction
-            404
+        case exception
+        when ActiveRecord::RecordNotFound
+            @status = 404
         when PermissionDenied
-            403
+            @status = 403
         else
-            500
+            ExceptionNotifier::Notifier.exception_notification(request.env, exception).deliver
+            @status = 500
         end
-        render :template => "general/exception_caught", :status => status_code
+        render :template => "general/exception_caught", :status => @status
     end
 
     # Override default error handler, for production sites.
