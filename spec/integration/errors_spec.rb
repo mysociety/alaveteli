@@ -53,7 +53,6 @@ describe "When errors occur" do
             end
         end
 
-
         it "should render a 500 for general errors using the general/exception_caught template" do
             InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
             get("/request/example")
@@ -69,6 +68,12 @@ describe "When errors occur" do
             deliveries.size.should == 1
             mail = deliveries[0]
             mail.body.should =~ /An example error/
+        end
+
+        it 'should log a general error' do
+            Rails.logger.should_receive(:fatal)
+            InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+            get("/request/example")
         end
 
         it 'should assign the locale for the general/exception_caught template' do

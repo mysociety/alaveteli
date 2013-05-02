@@ -135,6 +135,10 @@ class ApplicationController < ActionController::Base
         when PermissionDenied
             @status = 403
         else
+            message = "\n#{@exception_class} (#{@exception_message}):\n"
+            backtrace = Rails.backtrace_cleaner.clean(exception.backtrace, :silent)
+            message << "  " << backtrace.join("\n  ")
+            Rails.logger.fatal("#{message}\n\n")
             ExceptionNotifier::Notifier.exception_notification(request.env, exception).deliver
             @status = 500
         end
