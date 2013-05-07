@@ -16,7 +16,7 @@ describe OutgoingMessage, " when making an outgoing message" do
     it "should not index the email addresses" do
         # also used for track emails
         @outgoing_message.get_text_for_indexing.should_not include("foo@bar.com")
-    end 
+    end
 
     it "should not display email addresses on page" do
         @outgoing_message.get_body_for_html_display.should_not include("foo@bar.com")
@@ -33,6 +33,23 @@ describe OutgoingMessage, " when making an outgoing message" do
     it "should work out a salutation" do
         @om.get_salutation.should == "Dear Geraldine Quango,"
     end
+
+    it 'should produce the expected text for an internal review request' do
+        public_body = mock_model(PublicBody, :name => 'A test public body')
+        info_request = mock_model(InfoRequest, :public_body => public_body,
+                                               :url_title => 'a_test_title',
+                                               :title => 'A test title',
+                                               :apply_censor_rules_to_text! => nil)
+        outgoing_message = OutgoingMessage.new({
+            :status => 'ready',
+            :message_type => 'followup',
+            :what_doing => 'internal_review',
+            :info_request => info_request
+        })
+        expected_text = "I am writing to request an internal review of A test public body's handling of my FOI request 'A test title'."
+        outgoing_message.body.should include(expected_text)
+    end
+
 end
 
 
