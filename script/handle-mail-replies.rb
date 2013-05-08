@@ -14,8 +14,12 @@
 # config file ourselves.
 $alaveteli_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 $:.push(File.join($alaveteli_dir, "commonlib", "rblib"))
+load 'config.rb'
 $:.push(File.join($alaveteli_dir, "lib"))
 $:.push(File.join($alaveteli_dir, "lib", "mail_handler"))
+load 'configuration.rb'
+MySociety::Config.set_file(File.join($alaveteli_dir, 'config', 'general'), true)
+MySociety::Config.load_default
 require 'mail_handler'
 
 def main(in_test_mode)
