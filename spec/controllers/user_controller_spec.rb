@@ -626,6 +626,7 @@ describe UserController, "when viewing the wall" do
     render_views
 
     before(:each) do
+        load_raw_emails_data
         get_fixtures_xapian_index
     end
 
