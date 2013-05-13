@@ -73,3 +73,14 @@ def convert_string_to_utf8_or_binary(s, suggested_character_encoding=nil)
     end
     result
 end
+
+def log_text_details(message, text)
+    if RUBY_VERSION.to_f >= 1.9
+        STDERR.puts "#{message}, we have text: #{text}, of class #{text.class} and encoding #{text.encoding}"
+    else
+        STDERR.puts "#{message}, we have text: #{text}, of class #{text.class}"
+    end
+    filename = "/var/tmp/#{Digest::MD5.hexdigest(text)}.txt"
+    File.open(filename, "wb") { |f| f.write text }
+    STDERR.puts "#{message}, the filename is: #{filename}"
+end
