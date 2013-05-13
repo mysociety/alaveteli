@@ -38,7 +38,7 @@ describe 'when creating a mail object from raw data' do
         #     be Unicode codepoint 2013.  It should be possible to
         #     spot the mislabelling, since 0x96 isn't a valid
         #     ISO-8859-1 character.
-        body.should match / \xe2\x80\x93 /
+        body.should match(/ \xe2\x80\x93 /)
     end
 
 end
