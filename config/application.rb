@@ -55,8 +55,11 @@ module Alaveteli
     # will be in this time zone
     config.time_zone = ::AlaveteliConfiguration::time_zone
 
-    config.after_initialize do
+    config.after_initialize do |app|
        require 'routing_filters.rb'
+       # Add a catch-all route to force routing errors to be handled by the application,
+       # rather than by middleware.
+       app.routes.append{ match '*path', :to => 'general#not_found' }
     end
 
     config.autoload_paths << "#{Rails.root.to_s}/lib/mail_handler"
