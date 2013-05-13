@@ -59,10 +59,17 @@ describe IncomingMessage, " when dealing with incoming mail" do
         message.subject.should == "Câmara Responde:  Banco de ideias"
     end
 
-    it 'should not error on display of a message which has no charset set on the body part and
-        is not good utf-8' do
+    it 'should deal with GB18030 text even if the charset is missing' do
         ir = info_requests(:fancy_dog_request)
         receive_incoming_mail('no-part-charset-bad-utf8.email', ir.incoming_email)
+        message = ir.incoming_messages[1]
+        message.parse_raw_email!
+        message.get_main_body_text_internal.should include("贵公司负责人")
+    end
+
+    it 'should not error on display of a message which has no charset set on the body part and is not good UTF-8' do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('no-part-charset-random-data.email', ir.incoming_email)
         message = ir.incoming_messages[1]
         message.parse_raw_email!
         message.get_main_body_text_internal.should include("The above text was badly encoded")
