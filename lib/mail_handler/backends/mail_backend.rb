@@ -38,7 +38,11 @@ module MailHandler
 
             # Get the body of a mail part
             def get_part_body(part)
-                part.body.decoded
+                decoded = part.body.decoded
+                if part.content_type =~ /^text\//
+                    decoded = convert_string_to_utf8_or_binary decoded, part.charset
+                end
+                decoded
             end
 
             # Return the first from field if any
