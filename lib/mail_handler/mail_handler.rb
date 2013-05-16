@@ -84,7 +84,8 @@ module MailHandler
             tempfile.flush
             default_params = { :append_to => text, :binary_output => false }
             if content_type == 'application/vnd.ms-word'
-                AlaveteliExternalCommand.run("wvText", tempfile.path, tempfile.path + ".txt")
+                AlaveteliExternalCommand.run("wvText", tempfile.path, tempfile.path + ".txt",
+                                             { :memory_limit => 536870912 } )
                 # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
                 if not File.exists?(tempfile.path + ".txt")
                     AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)
