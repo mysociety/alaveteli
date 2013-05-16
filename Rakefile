@@ -3,9 +3,12 @@
 
 require(File.join(File.dirname(__FILE__), 'config', 'boot'))
 
+
 require 'rake'
 require 'rake/testtask'
 require 'rdoc/task'
 
 require 'tasks/rails'
 
+
+Dir[File.join(File.dirname(__FILE__),'commonlib','rblib','tests','*.rake')].each { |file| load(file) }
