@@ -31,7 +31,6 @@
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
 # general not specific to IncomingMessage.
 
-require 'alaveteli_file_types'
 require 'htmlentities'
 require 'rexml/document'
 require 'zip/zip'
