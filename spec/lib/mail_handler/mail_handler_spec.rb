@@ -290,6 +290,12 @@ end
 
 describe 'when getting attachment attributes' do
 
+    it 'should handle a mail with a non-multipart part with no charset in the Content-Type header' do
+        mail = get_fixture_mail('part-without-charset-in-content-type.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+        attributes.size.should == 2
+    end
+
     it 'should get two attachment parts from a multipart mail with text and html alternatives
     and an image' do
         mail = get_fixture_mail('quoted-subject-iso8859-1.email')
