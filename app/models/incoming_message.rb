@@ -131,6 +131,7 @@ class IncomingMessage < ActiveRecord::Base
                 end
                 self.valid_to_reply_to = self._calculate_valid_to_reply_to
                 self.last_parsed = Time.now
+                self.foi_attachments reload=true
                 self.save!
             end
         end

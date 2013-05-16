@@ -1,0 +1,27 @@
+From foo@bar Mon Jun 01 17:14:44 2009
+Return-path: <foo@bar>
+Envelope-to: foi@quux
+Delivery-date: Mon, 01 Jun 2009 17:14:44 +0100
+From: <foo@bar>
+To: <request-whatever@quux>
+Subject: something or other
+Date: Mon, 1 Jun 2009 17:14:37 +0100
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.3790.181
+Message-ID: <baz@xyzzy>
+
+Thanks for your email - here's a truncated attachment
+for you:
+
+**********************************************************************
+
+begin 666 ResponseT7363 9.doc
+MT,\1X*&Q&N$`````````````````````/@`#`/[_"0`&```````````````"
+M````) ``````````$ ``+@````$```#^____`````",```!L````________
+M````````````````````````````````````````````````````````````
+M````````````````````````````````````````````````````````````
+#````
+`
+end
+
+The original of this email was scanned for viruses or something
+like that.

@@ -419,6 +419,17 @@ describe IncomingMessage, " when uudecoding bad messages" do
         im.get_attachments_for_display.size.should == 1
     end
 
+    it "should still work when parsed from the raw email" do
+        raw_email = load_file_fixture 'inline-uuencode.email'
+        mail = MailHandler.mail_from_raw_email(raw_email)
+        im = incoming_messages :useless_incoming_message
+        im.stub!(:raw_email).and_return(raw_email)
+        im.stub!(:mail).and_return(mail)
+        im.parse_raw_email!
+        attachments = im.foi_attachments
+        attachments.size.should == 2
+    end
+
     it "should apply censor rules" do
         mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
 
