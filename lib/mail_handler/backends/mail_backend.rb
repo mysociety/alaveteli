@@ -242,8 +242,15 @@ module MailHandler
             def _get_attachment_leaves_recursive(part, within_rfc822_attachment, parent_mail)
                 leaves_found = []
                 if part.multipart?
-                    raise "no parts on multipart mail" if part.parts.size == 0
-                    if part.sub_type == 'alternative'
+                    if part.parts.size == 0
+                        # This is typically caused by a missing final
+                        # MIME boundary, in which case the text of the
+                        # message (including the opening MIME
+                        # boundary) is in part.body, so just add this
+                        # part as a leaf and treat it as text/plain:
+                        part.content_type = "text/plain"
+                        leaves_found += [part]
+                    elsif part.sub_type == 'alternative'
                         best_part = choose_best_alternative(part)
                         leaves_found += _get_attachment_leaves_recursive(best_part,
                                                                          within_rfc822_attachment,
