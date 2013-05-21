@@ -20,6 +20,12 @@ describe 'when creating a mail object from raw data' do
         mail.to.should == ["request-66666-caa77777@whatdotheyknow.com", "foi@example.com"]
     end
 
+    it 'should return nil for malformed To: and Cc: lines' do
+        mail = get_fixture_mail('malformed-to-and-cc.email')
+        mail.to.should == nil
+        mail.cc.should == nil
+    end
+
     it 'should convert an iso8859 email to utf8' do
         mail = get_fixture_mail('iso8859_2_raw_email.email')
         mail.subject.should match /gjatë/u

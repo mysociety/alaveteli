@@ -1,5 +1,34 @@
 require 'mail'
 
+module Mail
+    class Message
+
+        # The behaviour of the 'to' and 'cc' methods have changed
+        # between TMail and Mail; this monkey-patching restores the
+        # TMail behaviour.  The key difference is that when there's an
+        # invalid address, e.g. '<foo@example.org', Mail returns the
+        # string as an ActiveSupport::Multibyte::Chars, whereas
+        # previously TMail would return nil.
+
+        alias_method :old_to, :to
+        alias_method :old_cc, :cc
+
+        def clean_addresses(old_method, val)
+            old_result = self.send(old_method, val)
+            old_result.class == Mail::AddressContainer ? old_result : nil
+        end
+
+        def to(val = nil)
+            self.clean_addresses :old_to, val
+        end
+
+        def cc(val = nil)
+            self.clean_addresses :old_cc, val
+        end
+
+    end
+end
+
 module MailHandler
     module Backends
         module MailBackend
