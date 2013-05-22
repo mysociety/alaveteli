@@ -34,8 +34,6 @@
 require 'htmlentities'
 require 'rexml/document'
 require 'zip/zip'
-require 'mapi/msg'
-require 'mapi/convert'
 require 'iconv' unless RUBY_VERSION >= '1.9'
 
 class IncomingMessage < ActiveRecord::Base

@@ -1,4 +1,6 @@
 require 'mail'
+require 'mapi/msg'
+require 'mapi/convert'
 
 module Mail
     class Message
