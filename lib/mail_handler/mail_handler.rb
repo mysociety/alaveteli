@@ -17,7 +17,7 @@ module MailHandler
     def tnef_attachments(content)
         attachments = []
         Dir.mktmpdir do |dir|
-            IO.popen("tnef -K -C #{dir}", "wb") do |f|
+            IO.popen("tnef -K -C #{dir} 2> /dev/null", "wb") do |f|
                 f.write(content)
                 f.close
                 if $?.signaled?
