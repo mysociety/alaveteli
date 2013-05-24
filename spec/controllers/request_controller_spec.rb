@@ -573,7 +573,7 @@ describe RequestController, "when showing one request" do
             ir = info_requests(:fancy_dog_request)
             receive_incoming_mail('incoming-request-pdf-attachment.email', ir.incoming_email)
             ir.reload
-            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'fs_50379341.pdf.html', :skip_cache => 1
+            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'fs 50379341.pdf.html', :skip_cache => 1
             response.content_type.should == "text/html"
             response.should contain "Walberswick Parish Council"
         end
