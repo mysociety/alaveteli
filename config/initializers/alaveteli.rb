@@ -59,3 +59,8 @@ require 'quiet_opener.rb'
 require 'mail_handler'
 require 'public_body_categories'
 require 'ability'
+
+# Allow tests to be run under a non-superuser database account if required
+if Rails.env == 'test' and ActiveRecord::Base.configurations['test']['constraint_disabling'] == false
+  require 'no_constraint_disabling'
+end
