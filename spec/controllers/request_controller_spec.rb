@@ -719,6 +719,8 @@ describe RequestController, "when showing one request" do
             end
 
             censor_rule = CensorRule.new()
+            # Note that the censor rule applies to the original filename,
+            # not the display_filename:
             censor_rule.text = "hello-world.txt"
             censor_rule.replacement = "goodbye.txt"
             censor_rule.last_edit_editor = "unknown"
