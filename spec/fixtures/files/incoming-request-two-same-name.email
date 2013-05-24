@@ -13,13 +13,13 @@ Content-Disposition: inline
 
 --Q68bSM7Ycu6FN28Q
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="hello.txt"
+Content-Disposition: attachment; filename="hello-world.txt"
 
 Second hello
 
 --Q68bSM7Ycu6FN28Q
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="hello.txt"
+Content-Disposition: attachment; filename="hello-world.txt"
 
 First hello
 

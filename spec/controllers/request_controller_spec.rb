@@ -477,11 +477,11 @@ describe RequestController, "when showing one request" do
             (assigns[:info_request_events].size - size_before).should == 1
             ir.reload
 
-            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello.txt', :skip_cache => 1
+            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
             response.content_type.should == "text/plain"
             response.should contain "Second hello"
 
-            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3, :file_name => 'hello.txt', :skip_cache => 1
+            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3, :file_name => 'hello world.txt', :skip_cache => 1
             response.content_type.should == "text/plain"
             response.should contain "First hello"
         end
@@ -494,7 +494,7 @@ describe RequestController, "when showing one request" do
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id,
                                  :id => ir.id,
                                  :part => 2,
-                                 :file_name => 'hello.txt'
+                                 :file_name => 'hello world.txt'
         end
 
         it "should convert message body to UTF8" do
@@ -508,7 +508,7 @@ describe RequestController, "when showing one request" do
             ir = info_requests(:fancy_dog_request)
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
             ir.reload
-            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello.txt.html', :skip_cache => 1
+            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
             response.content_type.should == "text/html"
             response.should contain "Second hello"
         end
@@ -529,11 +529,11 @@ describe RequestController, "when showing one request" do
             ir.reload
             ugly_id = "55195"
             lambda {
-                get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello.txt.html', :skip_cache => 1
+                get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
             }.should raise_error(ActiveRecord::RecordNotFound)
 
             lambda {
-                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello.txt', :skip_cache => 1
+                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
             }.should raise_error(ActiveRecord::RecordNotFound)
         end
         it "should return 404 when incoming message and request ids don't match" do
@@ -542,7 +542,7 @@ describe RequestController, "when showing one request" do
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
             ir.reload
             lambda {
-                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => wrong_id, :part => 2, :file_name => 'hello.txt.html', :skip_cache => 1
+                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => wrong_id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
             }.should raise_error(ActiveRecord::RecordNotFound)
         end
         it "should return 404 for ugly URLs contain a request id that isn't an integer, even if the integer prefix refers to an actual request" do
@@ -552,11 +552,11 @@ describe RequestController, "when showing one request" do
             ugly_id = "%d95" % [info_requests(:naughty_chicken_request).id]
 
             lambda {
-                get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello.txt.html', :skip_cache => 1
+                get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
             }.should raise_error(ActiveRecord::RecordNotFound)
 
             lambda {
-                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello.txt', :skip_cache => 1
+                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
             }.should raise_error(ActiveRecord::RecordNotFound)
         end
         it "should return 404 when incoming message and request ids don't match" do
@@ -565,7 +565,7 @@ describe RequestController, "when showing one request" do
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
             ir.reload
             lambda {
-                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => wrong_id, :part => 2, :file_name => 'hello.txt.html', :skip_cache => 1
+                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => wrong_id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
             }.should raise_error(ActiveRecord::RecordNotFound)
         end
 
@@ -582,30 +582,30 @@ describe RequestController, "when showing one request" do
             ir = info_requests(:fancy_dog_request)
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
             ir.reload
-            attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello.txt')
+            attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello world.txt')
             attachment.body.should contain "Second hello"
 
             # change the raw_email associated with the message; this only be reparsed when explicitly asked for
             ir.incoming_messages[1].raw_email.data = ir.incoming_messages[1].raw_email.data.sub("Second", "Third")
             # asking for an attachment by the wrong filename should result in redirecting
             # back to the incoming message, but shouldn't cause a reparse:
-            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello.txt.baz.html', :skip_cache => 1
+            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.baz.html', :skip_cache => 1
             response.status.should == 303
 
-            attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello.txt')
+            attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello world.txt')
             attachment.body.should contain "Second hello"
 
             # ...nor should asking for it by its correct filename...
-            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello.txt.html', :skip_cache => 1
+            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
             response.should_not contain "Third hello"
 
             # ...but if we explicitly ask for attachments to be extracted, then they should be
             force = true
             ir.incoming_messages[1].parse_raw_email!(force)
             ir.reload
-            attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello.txt')
+            attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello world.txt')
             attachment.body.should contain "Third hello"
-            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello.txt.html', :skip_cache => 1
+            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
             response.should contain "Third hello"
         end
 
@@ -664,7 +664,7 @@ describe RequestController, "when showing one request" do
             begin
                 receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
 
-                get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello.txt', :skip_cache => 1
+                get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
                 response.content_type.should == "text/plain"
                 response.should contain "xxxxxx hello"
             ensure
@@ -686,7 +686,7 @@ describe RequestController, "when showing one request" do
                 receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
                 ir.reload
 
-                get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello.txt', :skip_cache => 1
+                get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
                 response.content_type.should == "text/plain"
                 response.should contain "xxxxxx hello"
             ensure
@@ -715,11 +715,11 @@ describe RequestController, "when showing one request" do
             # so at this point, assigns[:info_request].incoming_messages[1].get_attachments_for_display is returning stuff, but the equivalent thing in the template isn't.
             # but something odd is that the above is return a whole load of attachments which aren't there in the controller
             response.body.should have_selector("p.attachment strong") do |s|
-                s.should contain /hello.txt/m
+                s.should contain /hello world.txt/m
             end
 
             censor_rule = CensorRule.new()
-            censor_rule.text = "hello.txt"
+            censor_rule.text = "hello-world.txt"
             censor_rule.replacement = "goodbye.txt"
             censor_rule.last_edit_editor = "unknown"
             censor_rule.last_edit_comment = "none"
@@ -763,7 +763,7 @@ describe RequestController, "when showing one request" do
                 old_path = assigns[:url_path]
                 response.location.should contain /#{assigns[:url_path]}$/
                 zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", old_path)) { |zipfile|
-                    zipfile.count.should == 3 # the message plus two "hello.txt" files
+                    zipfile.count.should == 3 # the message plus two "hello-world.txt" files
                 }
 
                 # The path of the zip file is based on the hash of the timestamp of the last request
@@ -776,7 +776,7 @@ describe RequestController, "when showing one request" do
                 assigns[:url_path].should_not == old_path
                 response.location.should contain assigns[:url_path]
                 zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", assigns[:url_path])) { |zipfile|
-                    zipfile.count.should == 4 # the message, two hello.txt plus the unknown attachment
+                    zipfile.count.should == 4 # the message, two hello-world.txt plus the unknown attachment
                 }
             end
 
@@ -895,7 +895,7 @@ describe RequestController, "when changing prominence of a request" do
             get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id,
                                       :id => ir.id,
                                       :part => 2,
-                                      :file_name => 'hello.txt'
+                                      :file_name => 'hello world.txt'
         end.should raise_error(ActiveRecord::RecordNotFound)
     end
 
@@ -910,7 +910,7 @@ describe RequestController, "when changing prominence of a request" do
             get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id,
                                       :id => ir.id,
                                       :part => 2,
-                                      :file_name => 'hello.txt'
+                                      :file_name => 'hello world.txt'
         end.should raise_error(ActiveRecord::RecordNotFound)
     end
 
