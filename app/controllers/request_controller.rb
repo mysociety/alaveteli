@@ -736,6 +736,7 @@ class RequestController < ApplicationController
 
     def get_attachment
         get_attachment_internal(false)
+        return unless @attachment
 
         # Prevent spam to magic request address. Note that the binary
         # subsitution method used depends on the content type
@@ -755,6 +756,7 @@ class RequestController < ApplicationController
             raise ActiveRecord::RecordNotFound.new("Attachment HTML not found.")
         end
         get_attachment_internal(true)
+        return unless @attachment
 
         # images made during conversion (e.g. images in PDF files) are put in the cache directory, so
         # the same cache code in cache_attachments above will display them.
@@ -801,8 +803,11 @@ class RequestController < ApplicationController
 
         # check permissions
         raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
-        @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
-        raise ActiveRecord::RecordNotFound.new("attachment not found part number " + @part_number.to_s + " incoming_message " + @incoming_message.id.to_s) if @attachment.nil?
+        @attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(@incoming_message.get_attachments_for_display, @part_number, @original_filename)
+        # If we can't find the right attachment, redirect to the incoming message:
+        unless @attachment
+            return redirect_to incoming_message_url(@incoming_message), :status => 303
+        end
 
         # check filename in URL matches that in database (use a censor rule if you want to change a filename)
         raise ActiveRecord::RecordNotFound.new("please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'") if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
