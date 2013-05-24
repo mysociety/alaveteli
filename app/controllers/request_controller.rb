@@ -721,7 +721,7 @@ class RequestController < ApplicationController
 
             yield
 
-            if params[:skip_cache].nil?
+            if params[:skip_cache].nil? && response.status == 200
                 # write it to the fileystem ourselves, so is just a plain file. (The
                 # various fragment cache functions using Ruby Marshall to write the file
                 # which adds a header, so isnt compatible with images that have been
