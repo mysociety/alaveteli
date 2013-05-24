@@ -1,8 +1,24 @@
-# In order to work around the problem of foreign key constraints when loading
-# fixtures, we redefine the ActiveRecord::Fixtures.create_fixtures method to
-# make it use TRUNCATE...CASCADE instead of DELETE FROM since DELETE FROM may
-# cause foreign key constraint errors
+# In order to work around the problem of the database use not having
+# the permission to disable referential integrity when loading fixtures,
+# we edefine disable_referential_integrity so that it doesn't try to
+# disable foreign key constraints, and redefine the
+# ActiveRecord::Fixtures.create_fixtures method to make it use
+# TRUNCATE...CASCADE instead of DELETE FROM since DELETE FROM may
+# cause foreign key constraint errors.
 require 'active_record/fixtures'
+require 'active_record/connection_adapters/postgresql_adapter'
+module ActiveRecord
+  module ConnectionAdapters
+    class PostgreSQLAdapter < AbstractAdapter
+      def disable_referential_integrity(&block)
+       transaction {
+       yield
+        }
+      end
+    end
+  end
+end
+
 module ActiveRecord
   class Fixtures
 
@@ -36,8 +52,8 @@ module ActiveRecord
           all_loaded_fixtures.update(fixtures_map)
 
           connection.transaction(:requires_new => true) do
+             # The patch lines
             quoted_tables = fixture_files.map(&:table_rows).flatten.map(&:keys).flatten.map{ |t| connection.quote_table_name(t) }
-            # The patch line
             connection.delete "TRUNCATE #{quoted_tables.join(', ')} CASCADE"
 
             fixture_files.each do |ff|
