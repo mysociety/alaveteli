@@ -578,23 +578,21 @@ describe RequestController, "when showing one request" do
             response.should contain "Walberswick Parish Council"
         end
 
-        it "should not cause a reparsing of the raw email, even when the result would be a 404" do
+        it "should not cause a reparsing of the raw email, even when the attachment can't be found" do
             ir = info_requests(:fancy_dog_request)
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
             ir.reload
-            attachment = IncomingMessage.get_attachment_by_url_part_number(ir.incoming_messages[1].get_attachments_for_display, 2)
+            attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello.txt')
             attachment.body.should contain "Second hello"
 
             # change the raw_email associated with the message; this only be reparsed when explicitly asked for
             ir.incoming_messages[1].raw_email.data = ir.incoming_messages[1].raw_email.data.sub("Second", "Third")
-            # asking for an attachment by the wrong filename results
-            # in a 404 for browsing users.  This shouldn't cause a
-            # re-parse...
-            lambda {
-                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello.txt.baz.html', :skip_cache => 1
-            }.should raise_error(ActiveRecord::RecordNotFound)
+            # asking for an attachment by the wrong filename should result in redirecting
+            # back to the incoming message, but shouldn't cause a reparse:
+            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello.txt.baz.html', :skip_cache => 1
+            response.status.should == 303
 
-            attachment = IncomingMessage.get_attachment_by_url_part_number(ir.incoming_messages[1].get_attachments_for_display, 2)
+            attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello.txt')
             attachment.body.should contain "Second hello"
 
             # ...nor should asking for it by its correct filename...
@@ -605,10 +603,34 @@ describe RequestController, "when showing one request" do
             force = true
             ir.incoming_messages[1].parse_raw_email!(force)
             ir.reload
-            attachment = IncomingMessage.get_attachment_by_url_part_number(ir.incoming_messages[1].get_attachments_for_display, 2)
+            attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(ir.incoming_messages[1].get_attachments_for_display, 2, 'hello.txt')
             attachment.body.should contain "Third hello"
             get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello.txt.html', :skip_cache => 1
             response.should contain "Third hello"
+        end
+
+        it "should redirect to the incoming message if there's a wrong part number and an ambiguous filename" do
+            ir = info_requests(:fancy_dog_request)
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            ir.reload
+
+            im = ir.incoming_messages[1]
+
+            attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(im.get_attachments_for_display, 5, 'hello world.txt')
+            attachment.should be_nil
+
+            get :get_attachment_as_html, :incoming_message_id => im.id, :id => ir.id, :part => 5, :file_name => 'hello world.txt', :skip_cache => 1
+            response.status.should == 303
+            new_location = response.header['Location']
+            new_location.should match(/request\/#{ir.url_title}#incoming-#{im.id}/)
+        end
+
+        it "should find a uniquely named filename even if the URL part number was wrong" do
+            ir = info_requests(:fancy_dog_request)
+            receive_incoming_mail('incoming-request-pdf-attachment.email', ir.incoming_email)
+            ir.reload
+            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 5, :file_name => 'fs 50379341.pdf', :skip_cache => 1
+            response.content_type.should == "application/pdf"
         end
 
         it "should treat attachments with unknown extensions as binary" do
@@ -625,10 +647,8 @@ describe RequestController, "when showing one request" do
             ir = info_requests(:fancy_dog_request)
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
 
-            lambda {
-                get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2,
-                    :file_name => 'http://trying.to.hack'
-            }.should raise_error(ActiveRecord::RecordNotFound)
+            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'http://trying.to.hack'
+            response.status.should == 303
         end
 
         it "should censor attachments downloaded as binary" do
@@ -2394,7 +2414,7 @@ describe RequestController, "when caching fragments" do
         attachment = mock(FoiAttachment, :display_filename => long_name,
                                          :body_as_html => ['some text', 'wrapper'])
         IncomingMessage.stub!(:find).with("44").and_return(incoming_message)
-        IncomingMessage.stub!(:get_attachment_by_url_part_number).and_return(attachment)
+        IncomingMessage.stub!(:get_attachment_by_url_part_number_and_filename).and_return(attachment)
         InfoRequest.stub!(:find).with("132").and_return(info_request)
         params = { :file_name => long_name,
                    :controller => "request",
