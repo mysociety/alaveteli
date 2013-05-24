@@ -174,12 +174,7 @@ class IncomingMessage < ActiveRecord::Base
     # And look up by URL part number to get an attachment
     # XXX relies on extract_attachments calling MailHandler.ensure_parts_counted
     def self.get_attachment_by_url_part_number(attachments, found_url_part_number)
-        attachments.each do |a|
-            if a.url_part_number == found_url_part_number
-                return a
-            end
-        end
-        return nil
+        attachments.detect { |a| a.url_part_number == found_url_part_number }
     end
 
     # Converts email addresses we know about into textual descriptions of them
