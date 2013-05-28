@@ -527,7 +527,7 @@ class UserController < ApplicationController
     def get_draft_profile_photo
         profile_photo = ProfilePhoto.find(params[:id])
         response.content_type = "image/png"
-        render_for_text(profile_photo.data)
+        render :text => profile_photo.data
     end
 
     # actual profile photo of a user
@@ -542,7 +542,7 @@ class UserController < ApplicationController
         end
 
         response.content_type = "image/png"
-        render_for_text(@display_user.profile_photo.data)
+        render :text => @display_user.profile_photo.data
     end
 
     # Change about me text on your profile page
