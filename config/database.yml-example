@@ -19,6 +19,8 @@ test:
   password: <password>
   host: localhost
   port: 5432
+# Uncomment the following if the user is not a postgres superuser
+# constraint_disabling: false
 
 production:
   adapter: postgresql

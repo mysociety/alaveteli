@@ -130,7 +130,8 @@ username and password of your postgres database.
 Make sure that the user specified in database.yml exists, and has full
 permissions on these databases. As they need the ability to turn off
 constraints whilst running the tests they also need to be a superuser.
-(See http://dev.rubyonrails.org/ticket/9981)
+If you don't want your database user to be a superuser, you can add a line
+`disable_constraints: false` to the test config in database.yml, as seen in database.yml-example
 
 You can create a `foi` user from the command line, thus:
 
