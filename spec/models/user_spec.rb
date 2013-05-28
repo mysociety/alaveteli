@@ -38,7 +38,7 @@ describe User, "showing the name" do
         end
 
         it 'should return a string when the user has been banned, not a SafeBuffer' do
-            @user.name.type.should == String
+            @user.name.class.should == String
         end
     end
 
