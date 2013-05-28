@@ -20,7 +20,7 @@
 # models/info_request_event.rb:
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -405,7 +405,7 @@ class InfoRequestEvent < ActiveRecord::Base
             :comment_id => self.comment_id,
 
             # XXX would be nice to add links here, but alas the
-            # code to make them is in views only. See views/request/details.rhtml
+            # code to make them is in views only. See views/request/details.html.erb
             # perhaps can call with @template somehow
         }
 

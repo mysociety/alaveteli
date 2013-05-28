@@ -24,13 +24,15 @@
 # fakes the redirect to include POST parameters in request later.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'openssl' # for random bytes function
 
 class PostRedirect < ActiveRecord::Base
     # Optional, does a login confirm before redirect for use in email links.
     belongs_to :user
+
+    after_initialize :generate_token
 
     # We store YAML version of POST parameters in the database
     def post_params=(params)
@@ -62,18 +64,6 @@ class PostRedirect < ActiveRecord::Base
         MySociety::Util.generate_token
     end
 
-    # Make the token
-    def after_initialize
-        # The token is used to return you to what you are doing after the login form.
-        if not self.token
-            self.token = PostRedirect.generate_random_token
-        end
-        # There is a separate token to use in the URL if we send a confirmation email.
-        if not self.email_token
-            self.email_token = PostRedirect.generate_random_token
-        end
-    end
-
     # Used by (rspec) test code only
     def self.get_last_post_redirect
         # XXX yeuch - no other easy way of getting the token so we can check
@@ -89,6 +79,18 @@ class PostRedirect < ActiveRecord::Base
         PostRedirect.delete_all "updated_at < (now() - interval '2 months')"
     end
 
+    private
+
+    def generate_token
+        # The token is used to return you to what you are doing after the login form.
+        if not self.token
+            self.token = PostRedirect.generate_random_token
+        end
+        # There is a separate token to use in the URL if we send a confirmation email.
+        if not self.email_token
+            self.email_token = PostRedirect.generate_random_token
+        end
+    end
 end
 
 

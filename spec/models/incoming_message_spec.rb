@@ -27,7 +27,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
     end
 
     it "should correctly fold various types of footer" do
-        Dir.glob(File.join(Spec::Runner.configuration.fixture_path, "files", "email-folding-example-*.txt")).each do |file|
+        Dir.glob(File.join(RSpec.configuration.fixture_path, "files", "email-folding-example-*.txt")).each do |file|
             message = File.read(file)
             parsed = IncomingMessage.remove_quoted_sections(message)
             expected = File.read("#{file}.expected")
@@ -59,10 +59,17 @@ describe IncomingMessage, " when dealing with incoming mail" do
         message.subject.should == "Câmara Responde:  Banco de ideias"
     end
 
-    it 'should not error on display of a message which has no charset set on the body part and
-        is not good utf-8' do
+    it 'should deal with GB18030 text even if the charset is missing' do
         ir = info_requests(:fancy_dog_request)
         receive_incoming_mail('no-part-charset-bad-utf8.email', ir.incoming_email)
+        message = ir.incoming_messages[1]
+        message.parse_raw_email!
+        message.get_main_body_text_internal.should include("贵公司负责人")
+    end
+
+    it 'should not error on display of a message which has no charset set on the body part and is not good UTF-8' do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('no-part-charset-random-data.email', ir.incoming_email)
         message = ir.incoming_messages[1]
         message.parse_raw_email!
         message.get_main_body_text_internal.should include("The above text was badly encoded")
@@ -353,7 +360,7 @@ describe IncomingMessage, " when censoring data" do
     end
 
     it "should apply hard-coded privacy rules to HTML files" do
-        data = "http://#{Configuration::domain}/c/cheese"
+        data = "http://#{AlaveteliConfiguration::domain}/c/cheese"
         @im.html_mask_stuff!(data)
         data.should == "[WDTK login link]"
     end
@@ -405,10 +412,22 @@ describe IncomingMessage, " when uudecoding bad messages" do
         im.stub!(:mail).and_return(mail)
         im.extract_attachments!
 
+        im.reload
         attachments = im.foi_attachments
         attachments.size.should == 2
         attachments[1].filename.should == 'moo.txt'
         im.get_attachments_for_display.size.should == 1
+    end
+
+    it "should still work when parsed from the raw email" do
+        raw_email = load_file_fixture 'inline-uuencode.email'
+        mail = MailHandler.mail_from_raw_email(raw_email)
+        im = incoming_messages :useless_incoming_message
+        im.stub!(:raw_email).and_return(raw_email)
+        im.stub!(:mail).and_return(mail)
+        im.parse_raw_email!
+        attachments = im.foi_attachments
+        attachments.size.should == 2
     end
 
     it "should apply censor rules" do

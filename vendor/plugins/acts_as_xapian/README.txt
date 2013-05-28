@@ -14,7 +14,7 @@ copied from the README.txt file.
 Contents
 ========
 
-* a. Introduction to acts_as_xapian 
+* a. Introduction to acts_as_xapian
 * b. Installation
 * c. Comparison to acts_as_solr (as on 24 April 2008)
 * d. Documentation - indexing
@@ -33,14 +33,14 @@ alternative to acts_as_solr, acts_as_ferret, Ultrasphinx, acts_as_indexed,
 acts_as_searchable or acts_as_tsearch.
 
 acts_as_xapian is deployed in production on these websites.
-* "WhatDoTheyKnow":http://www.whatdotheyknow.com 
+* "WhatDoTheyKnow":http://www.whatdotheyknow.com
 * "MindBites":http://www.mindbites.com
 
-The section "c. Comparison to acts_as_solr" below will give you an idea of 
+The section "c. Comparison to acts_as_solr" below will give you an idea of
 acts_as_xapian's features.
 
 acts_as_xapian was started by Francis Irving in May 2008 for search and email
-alerts in WhatDoTheyKnow, and so was supported by "mySociety":http://www.mysociety.org 
+alerts in WhatDoTheyKnow, and so was supported by "mySociety":http://www.mysociety.org
 and initially paid for by the "JRSST Charitable Trust":http://www.jrrt.org.uk/jrsstct.htm
 
 
@@ -52,11 +52,11 @@ this command within your Rails app.
 
     git clone git://github.com/frabcus/acts_as_xapian.git vendor/plugins/acts_as_xapian
 
-Xapian 1.0.5 and associated Ruby bindings are also required. 
+Xapian 1.0.5 and associated Ruby bindings are also required.
 
-Debian or Ubuntu - install the packages libxapian15 and libxapian-ruby1.8. 
+Debian or Ubuntu - install the packages libxapian15 and libxapian-ruby1.8.
 
-Mac OSX - follow the instructions for installing from source on 
+Mac OSX - follow the instructions for installing from source on
 the "Installing Xapian":http://xapian.org/docs/install.html page - you need the
 Xapian library and bindings (you don't need Omega).
 
@@ -102,7 +102,7 @@ Solr getting in the way whenever you want to use a new feature from Lucene.
 * No Java - an advantage if you're more used to working in the rest of the
 open source world. acts_as_xapian, it's pure Ruby and C++.
 
-* Xapian's awesome email list - the kids over at 
+* Xapian's awesome email list - the kids over at
 "xapian-discuss":http://lists.xapian.org/mailman/listinfo/xapian-discuss
 are super helpful. Useful if you need to extend and improve acts_as_xapian. The
 Ruby bindings are mature and well maintained as part of Xapian.
@@ -131,11 +131,11 @@ Here's how to add indexing to your Rails app:
 
 Options must include:
 
-* :texts, an array of fields for indexing with full text search. 
+* :texts, an array of fields for indexing with full text search.
 e.g. :texts => [ :title, :body ]
 
-* :values, things which have a range of values for sorting, or for collapsing. 
-Specify an array quadruple of [ field, identifier, prefix, type ] where 
+* :values, things which have a range of values for sorting, or for collapsing.
+Specify an array quadruple of [ field, identifier, prefix, type ] where
 ** identifier is an arbitary numeric identifier for use in the Xapian database
 ** prefix is the part to use in search queries that goes before the :
 ** type can be any of :string, :number or :date
@@ -143,8 +143,8 @@ Specify an array quadruple of [ field, identifier, prefix, type ] where
 e.g. :values => [ [ :created_at, 0, "created_at", :date ],
 [ :size, 1, "size", :string ] ]
 
-* :terms, things which come with a prefix (before a :) in search queries. 
-Specify an array triple of [ field, char, prefix ] where 
+* :terms, things which come with a prefix (before a :) in search queries.
+Specify an array triple of [ field, char, prefix ] where
 ** char is an arbitary single upper case char used in the Xapian database, just
 pick any single uppercase character, but use a different one for each prefix.
 ** prefix is the part to use in search queries that goes before the :
@@ -152,7 +152,7 @@ For example, if you were making Google and indexing to be able to later do a
 query like "site:www.whatdotheyknow.com", then the prefix would be "site".
 
 e.g. :terms => [ [ :variety, 'V', "variety" ] ]
-        
+
 A 'field' is a symbol referring to either an attribute or a function which
 returns the text, date or number to index. Both 'identifier' and 'char' must be
 the same for the same prefix in different models.
@@ -170,7 +170,7 @@ object isn't indexed
 
 3. Call 'rake xapian:rebuild_index models="ModelName1 ModelName2"' to build the index
 the first time (you must specify all your indexed models). It's put in a
-development/test/production dir in acts_as_xapian/xapiandbs. See f. Configuration 
+development/test/production dir in acts_as_xapian/xapiandbs. See f. Configuration
 below if you want to change this.
 
 4. Then from a cron job or a daemon, or by hand regularly!, call 'rake xapian:update_index'
@@ -201,10 +201,10 @@ And then a hash of options:
 * :sort_by_ascending - Default true (documents with higher values better/earlier), set to false for descending sort
 * :collapse_by_prefix - Optionally, prefix of value to collapse by (i.e. only return most relevant result from group)
 
-Google like query syntax is as described in 
+Google like query syntax is as described in
     "Xapian::QueryParser Syntax":http://www.xapian.org/docs/queryparser.html
 Queries can include prefix:value parts, according to what you indexed in the
-acts_as_xapian part above. You can also say things like model:InfoRequestEvent 
+acts_as_xapian part above. You can also say things like model:InfoRequestEvent
 to constrain by model in more complex ways than the :model parameter, or
 modelid:InfoRequestEvent-100 to only find one specific object.
 
@@ -236,12 +236,12 @@ f. Configuration
 ================
 
 If you want to customise the configuration of acts_as_xapian, it will look for
-a file called 'xapian.yml' under RAILS_ROOT/config. As is familiar from the
+a file called 'xapian.yml' under Rails.root/config. As is familiar from the
 format of the database.yml file, separate :development, :test and :production
 sections are expected.
 
 The following options are available:
-* base_db_path - specifies the directory, relative to RAILS_ROOT, in which 
+* base_db_path - specifies the directory, relative to Rails.root, in which
 acts_as_xapian stores its search index databases. Default is the directory
 xapiandbs within the acts_as_xapian directory.
 
@@ -264,7 +264,7 @@ temporarily add this to the end of your config/environment.rb
 h. Support
 ==========
 
-Please ask any questions on the 
+Please ask any questions on the
 "acts_as_xapian Google Group":http://groups.google.com/group/acts_as_xapian
 
 The official home page and repository for acts_as_xapian are the

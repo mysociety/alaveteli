@@ -8,6 +8,7 @@ module AlaveteliExternalCommand
         # :stdin_string - stdin string to pass to the process
         # :binary_output - boolean flag for treating the output as binary or text (only significant
         #                  ruby 1.9 and above)
+        # :memory_limit - maximum amount of memory (in bytes) available to the process
         def run(program_name, *args)
             # Run an external program, and return its output.
             # Standard error is suppressed unless the program
@@ -21,14 +22,14 @@ module AlaveteliExternalCommand
                 program_path = program_name
             else
                 found = false
-                Configuration::utility_search_path.each do |d|
+                AlaveteliConfiguration::utility_search_path.each do |d|
                     program_path = File.join(d, program_name)
                     if File.file? program_path and File.executable? program_path
                         found = true
                         break
                     end
                 end
-                 raise "Could not find #{program_name} in any of #{Configuration::utility_search_path.join(', ')}" if !found
+                 raise "Could not find #{program_name} in any of #{AlaveteliConfiguration::utility_search_path.join(', ')}" if !found
             end
 
             xc = ExternalCommand.new(program_path, *args)
@@ -37,6 +38,9 @@ module AlaveteliExternalCommand
             end
             if opts.has_key? :binary_output
                 xc.binary_mode = opts[:binary_output]
+            end
+            if opts.has_key? :memory_limit
+                xc.memory_limit = opts[:memory_limit]
             end
             xc.run(opts[:stdin_string] || "", opts[:env] || {})
 

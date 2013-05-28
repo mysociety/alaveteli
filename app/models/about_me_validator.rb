@@ -1,24 +1,22 @@
-# == Schema Information
-# Schema version: 114
-#
-# Table name: about_me_validators
-#
-#  about_me :text            default("I..."), not null
-#
-
 # models/about_me_validator.rb:
 # Validates editing about me text on user profile pages.
 #
 # Copyright (c) 2010 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class AboutMeValidator < ActiveRecord::BaseWithoutTable
-    strip_attributes!
+class AboutMeValidator
+    include ActiveModel::Validations
 
-    column :about_me, :text, "I...", false
+    attr_accessor :about_me
 
     # TODO: Switch to built in validations
     validate :length_of_about_me
+
+    def initialize(attributes = {})
+        attributes.each do |name, value|
+            send("#{name}=", value)
+        end
+    end
 
     private
 

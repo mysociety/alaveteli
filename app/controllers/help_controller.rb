@@ -2,7 +2,7 @@
 # Show information about one particular request.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class HelpController < ApplicationController
 
@@ -18,7 +18,7 @@ class HelpController < ApplicationController
     end
 
     def contact
-        @contact_email = Configuration::contact_email
+        @contact_email = AlaveteliConfiguration::contact_email
 
         # if they clicked remove for link to request/body, remove it
         if params[:remove]
@@ -49,14 +49,14 @@ class HelpController < ApplicationController
             end
             @contact = ContactValidator.new(params[:contact])
             if @contact.valid? && !params[:remove]
-                ContactMailer.deliver_to_admin_message(
+                ContactMailer.to_admin_message(
                     params[:contact][:name],
                     params[:contact][:email],
                     params[:contact][:subject],
                     params[:contact][:message],
                     @user,
                     @last_request, @last_body
-                )
+                ).deliver
                 flash[:notice] = _("Your message has been sent. Thank you for getting in touch! We'll get back to you soon.")
                 redirect_to frontpage_url
                 return

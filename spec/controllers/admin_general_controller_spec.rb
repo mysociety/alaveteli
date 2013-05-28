@@ -4,7 +4,7 @@ describe AdminGeneralController do
 
     describe "when viewing front page of admin interface" do
 
-        integrate_views
+        render_views
         before { basic_auth_login @request }
 
         it "should render the front page" do
@@ -14,8 +14,7 @@ describe AdminGeneralController do
 
         it "should redirect to include trailing slash" do
             get :index
-            response.should redirect_to(:controller => 'admin_general',
-                                        :action => 'index')
+            response.should redirect_to admin_general_index_url(:trailing_slash => true)
         end
 
     end

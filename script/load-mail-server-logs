@@ -14,7 +14,7 @@ then
        *) f=$(pwd)/$1 ;;
     esac
     cd "$LOC"
-    bundle exec ./runner 'MailServerLog.load_file("'$f'")'
+    bundle exec rails runner 'MailServerLog.load_file("'$f'")'
     exit
 fi
 
@@ -23,5 +23,5 @@ cd "$LOC"
 LATEST=$( ls $OPTION_MTA_LOG_PATH 2>/dev/null | sort | tail -3 )
 for X in $LATEST
 do
-    bundle exec ./runner 'MailServerLog.load_file("'$X'")'
+    bundle exec rails runner 'MailServerLog.load_file("'$X'")'
 done

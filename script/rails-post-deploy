@@ -6,15 +6,20 @@
 # recent version.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 set -e
 #set -x # debug
 
-APP_DIR=`pwd`
+APP_DIR="$(readlink -f $(dirname "$BASH_SOURCE")/..)"
+cd "$APP_DIR"
 
 # make sure that there is an app directory, so are in a rails app tree
-cd app/..
+if ! [ -d app ]
+then
+    echo "Error: the 'app' directory didn't exist"
+    exit 1
+fi
 
 # read config file in for later (STAGING_SITE)
 if [ -e "config/general" ] || [ -e "config/general.yml" ]

@@ -1,16 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminPublicBodyController, "when administering public bodies" do
-    integrate_views
-
-    before do
-        @old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
-    end
-
-    after do
-        ActionController::Routing::Routes.filters = @old_filters
-    end
+    render_views
 
     it "shows the index page" do
         get :index
@@ -38,7 +29,7 @@ describe AdminPublicBodyController, "when administering public bodies" do
     it "saves edits to a public body" do
         public_bodies(:humpadink_public_body).name.should == "Department for Humpadinking"
         post :update, { :id => 3, :public_body => { :name => "Renamed", :short_name => "", :tag_string => "some tags", :request_email => 'edited@localhost', :last_edit_comment => 'From test code' } }
-        response.flash[:notice].should include('successful')
+        request.flash[:notice].should include('successful')
         pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
         pb.name.should == "Renamed"
     end
@@ -66,7 +57,7 @@ describe AdminPublicBodyController, "when administering public bodies" do
     it "mass assigns tags" do
         n = PublicBody.count
         post :mass_tag_add, { :new_tag => "department", :table_name => "substring" }
-        response.flash[:notice].should == "Added tag to table of bodies."
+        request.flash[:notice].should == "Added tag to table of bodies."
         response.should redirect_to(:action=>'list')
         PublicBody.find_by_tag("department").count.should == n
     end
@@ -86,8 +77,7 @@ describe AdminPublicBodyController, "when administering public bodies" do
 
             before do
                 PublicBody.stub!(:import_csv).and_return([[],[]])
-                @file_object = mock("a file upload", :read => 'some contents',
-                                                     :original_filename => 'contents.txt')
+                @file_object = fixture_file_upload('/files/fake-authority-type.csv')
             end
 
             it 'should handle a nil csv file param' do
@@ -106,7 +96,7 @@ describe AdminPublicBodyController, "when administering public bodies" do
                 it 'should assign the original filename to the view' do
                     post :import_csv, { :csv_file => @file_object,
                                         :commit => 'Dry run'}
-                    assigns[:original_csv_file].should == 'contents.txt'
+                    assigns[:original_csv_file].should == 'fake-authority-type.csv'
                 end
 
             end
@@ -154,7 +144,7 @@ end
 
 describe AdminPublicBodyController, "when administering public bodies and paying attention to authentication" do
 
-    integrate_views
+    render_views
 
     before do
         config = MySociety::Config.load_default()
@@ -217,7 +207,7 @@ describe AdminPublicBodyController, "when administering public bodies and paying
 
     it "doesn't let people with good emergency account credentials log in if the emergency user is disabled" do
         setup_emergency_credentials('biz', 'fuz')
-        Configuration.stub!(:disable_emergency_user).and_return(true)
+        AlaveteliConfiguration.stub!(:disable_emergency_user).and_return(true)
         n = PublicBody.count
         basic_auth_login(@request, "biz", "fuz")
         post :show, { :id => public_bodies(:humpadink_public_body).id, :emergency => 1}
@@ -276,7 +266,7 @@ describe AdminPublicBodyController, "when administering public bodies and paying
 end
 
 describe AdminPublicBodyController, "when administering public bodies with i18n" do
-    integrate_views
+    render_views
 
     it "shows the index page" do
         get :index
@@ -295,7 +285,7 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
         get :edit, {:id => 3, :locale => :en}
 
         # When editing a body, the controller returns all available translations
-        assigns[:public_body].translation("es").name.should == 'El Department for Humpadinking'
+        assigns[:public_body].find_translation_by_locale("es").name.should == 'El Department for Humpadinking'
         assigns[:public_body].name.should == 'Department for Humpadinking'
         response.should render_template('edit')
     end
@@ -317,7 +307,7 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
                         }
                     }
                 }
-            response.flash[:notice].should include('successful')
+            request.flash[:notice].should include('successful')
         end
 
         pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
@@ -338,16 +328,7 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
 end
 
 describe AdminPublicBodyController, "when creating public bodies with i18n" do
-    integrate_views
-
-    before do
-        @old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
-    end
-
-    after do
-        ActionController::Routing::Routes.filters = @old_filters
-    end
+    render_views
 
     it "creates a new public body in one locale" do
         n = PublicBody.count

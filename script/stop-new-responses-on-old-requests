@@ -1,7 +1,3 @@
 #!/bin/bash
 
-cd "`dirname "$0"`"
-
-bundle exec ./runner 'InfoRequest.stop_new_responses_on_old_requests()'
-
-
+bundle exec rails runner 'InfoRequest.stop_new_responses_on_old_requests'

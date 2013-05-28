@@ -1,0 +1,34 @@
+From hello@blah.local Fri Feb 21 16:23:14 2013
+Return-path: <bar@example.org>
+Envelope-to: foo@example.org
+Delivery-date: Fri, 21 Feb 2013 16:23:14 +0000
+Content-Type: multipart/mixed;
+    boundary="_000_553468B23EE29B4F8836CBD0E1B2A15A275C3AA855POLNIEXMBV2po_"
+From: <bar@example.org>
+To: <foo@example.org>
+Sender: <hello@blah.local>
+Date: Fri, 21 Feb 2013 16:23:04 +0000
+Subject: here's a useless email
+Message-ID: <12345@blah.local>
+Accept-Language: en-US, en-GB
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator: <12345@blah.local>
+acceptlanguage: en-US, en-GB
+MIME-Version: 1.0
+
+--_000_553468B23EE29B4F8836CBD0E1B2A15A275C3AA855POLNIEXMBV2po_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Some introductory text here, before the malformed TNEF attachment.
+
+--_000_553468B23EE29B4F8836CBD0E1B2A15A275C3AA855POLNIEXMBV2po_
+Content-Disposition: attachment; filename="winmail.dat"
+Content-Transfer-Encoding: base64
+Content-Type: application/ms-tnef; name="winmail.dat"
+
+eJ8+IkV9AQaQCAAEAAAAAAABAAEAAQeQBgAIAAAA5AQAAAAAAADoAAEJgAEAIQAAAEMyRUUzRUYx
+
+--_000_553468B23EE29B4F8836CBD0E1B2A15A275C3AA855POLNIEXMBV2po_--
+

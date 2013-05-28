@@ -1,12 +1,12 @@
 # Site-specific deployment configuration lives in this file
 production:
-  repository: git://github.com:mysociety/alaveteli.git
+  repository: git://github.com/mysociety/alaveteli.git
   branch: master
   server: www.example.com
   user: deploy
   deploy_to: /srv/www/alaveteli_production
 staging:
-  repository: git://github.com:mysociety/alaveteli.git
+  repository: git://github.com/mysociety/alaveteli.git
   branch: develop
   server: test.example.com
   user: deploy

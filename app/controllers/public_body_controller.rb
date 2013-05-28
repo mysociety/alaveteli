@@ -3,7 +3,7 @@
 # Show information about a public body.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'fastercsv'
 
@@ -128,10 +128,8 @@ class PublicBodyController < ApplicationController
             end
         end
         I18n.with_locale(@locale) do
-            @public_bodies = PublicBody.paginate(
-              :order => "public_body_translations.name", :page => params[:page], :per_page => 100,
-              :conditions => conditions,
-              :joins => :translations
+            @public_bodies = PublicBody.where(conditions).joins(:translations).order("public_body_translations.name").paginate(
+              :page => params[:page], :per_page => 100
             )
             render :template => "public_body/list"
         end

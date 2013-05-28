@@ -20,7 +20,7 @@
 # else. e.g. An initial request for information, or a complaint.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class OutgoingMessage < ActiveRecord::Base
     strip_attributes!
@@ -50,6 +50,8 @@ class OutgoingMessage < ActiveRecord::Base
             end
         end
     end
+
+    after_initialize :set_default_letter
 
     # How the default letter starts and ends
     def get_salutation
@@ -86,7 +88,7 @@ class OutgoingMessage < ActiveRecord::Base
             "'" + self.info_request.title + "'." +
             "\n\n\n\n [ " + self.get_internal_review_insert_here_note + " ] \n\n\n\n" +
             "A full history of my FOI request and all correspondence is available on the Internet at this address:\n" +
-            "http://" + Configuration::domain + "/request/" + self.info_request.url_title
+            "http://" + AlaveteliConfiguration::domain + "/request/" + self.info_request.url_title
         else
             ""
         end
@@ -130,13 +132,6 @@ class OutgoingMessage < ActiveRecord::Base
         MySociety::Validate.contains_postcode?(self.body)
     end
 
-    # Set default letter
-    def after_initialize
-        if self.body.nil?
-            self.body = get_default_message
-        end
-    end
-
     # Deliver outgoing message
     # Note: You can test this from script/console with, say:
     # InfoRequest.find(1).outgoing_messages[0].send_message
@@ -147,7 +142,7 @@ class OutgoingMessage < ActiveRecord::Base
                 self.status = 'sent'
                 self.save!
 
-                mail_message = OutgoingMailer.deliver_initial_request(self.info_request, self)
+                mail_message = OutgoingMailer.initial_request(self.info_request, self).deliver
                 self.info_request.log_event(log_event_type, {
                     :email => mail_message.to_addrs.join(", "),
                     :outgoing_message_id => self.id,
@@ -159,7 +154,7 @@ class OutgoingMessage < ActiveRecord::Base
                 self.status = 'sent'
                 self.save!
 
-                mail_message = OutgoingMailer.deliver_followup(self.info_request, self, self.incoming_message_followup)
+                mail_message = OutgoingMailer.followup(self.info_request, self, self.incoming_message_followup).deliver
                 self.info_request.log_event('followup_' + log_event_type, {
                     :email => mail_message.to_addrs.join(", "),
                     :outgoing_message_id => self.id,
@@ -252,6 +247,12 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     private
+
+    def set_default_letter
+        if self.body.nil?
+            self.body = get_default_message
+        end
+    end
 
     def format_of_body
         if self.body.empty? || self.body =~ /\A#{get_salutation}\s+#{get_signoff}/ || self.body =~ /#{get_internal_review_insert_here_note}/

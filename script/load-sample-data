@@ -4,16 +4,28 @@
 # the fact that the fixtures aren't aware of the fact that RawEmails
 # have a filesystem representation of their contents
 
-LOC=`dirname "$0"`
+export LOC=`dirname "$0"`
 
-bundle exec rake --silent spec:db:fixtures:load
+bundle exec rails runner /dev/stdin <<END
+require 'rspec/rails'
+require "#{ENV['LOC']}/../spec/support/load_file_fixtures.rb"
+require "#{ENV['LOC']}/../spec/support/email_helpers.rb"
 
-"$LOC/runner" /dev/stdin <<END
-env = ENV["RAILS_ENV"]
-require "spec/spec_helper.rb" # this sets RAILS_ENV to 'test'
-ENV["RAILS_ENV"] = env        # so restore to what it was before
+RSpec.configure do |config|
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+end
+
+# HACK: Normally to load fixtures you'd run `rake db:fixtures:load` but since we
+# have .csv files in the fixtures folder Rails tries to load those too. Therefore
+# we've pinched some code to load the fixtures:
+# https://github.com/rails/rails/blob/v3.1.11/activerecord/lib/active_record/railties/databases.rake#L311
+fixtures_dir = "#{ENV['LOC']}/../spec/fixtures"
+
+Dir["#{fixtures_dir}/**/*.yml"].each do |fixture_file|
+  ActiveRecord::Fixtures.create_fixtures(fixtures_dir, fixture_file[(fixtures_dir.size + 1)..-5])
+end
 
 load_raw_emails_data
 END
 
-echo "Loaded fixtures.  You may now wish to run $LOC/update-xapian-index"
+echo "Loaded fixtures. You may now wish to run $LOC/update-xapian-index"

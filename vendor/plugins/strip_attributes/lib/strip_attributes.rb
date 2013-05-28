@@ -3,10 +3,12 @@ module StripAttributes
   # XXX this differs from official StripAttributes, as it doesn't make blank cells null.
   def strip_attributes!(options = nil)
     before_validation do |record|
-      attributes = StripAttributes.narrow(record.attributes, options)
-      attributes.each do |attr, value|
+      attribute_names = StripAttributes.narrow(record.attribute_names, options)
+
+      attribute_names.each do |attribute_name|
+        value = record[attribute_name]
         if value.respond_to?(:strip)
-          record[attr] = (value.nil?) ? nil : value.strip
+          record[attribute_name] = (value.nil?) ? nil : value.strip
         end
       end
     end
@@ -14,16 +16,16 @@ module StripAttributes
   
   # Necessary because Rails has removed the narrowing of attributes using :only
   # and :except on Base#attributes
-  def self.narrow(attributes, options)
+  def self.narrow(attribute_names, options)
     if options.nil?
-      attributes
+      attribute_names
     else
       if except = options[:except]
         except = Array(except).collect { |attribute| attribute.to_s }
-        attributes.except(*except)
+        attribute_names - except
       elsif only = options[:only]
         only = Array(only).collect { |attribute| attribute.to_s }
-        attributes.slice(*only)
+        attribute_names & only
       else
         raise ArgumentError, "Options does not specify :except or :only (#{options.keys.inspect})"
       end    

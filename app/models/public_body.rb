@@ -45,7 +45,7 @@ class PublicBody < ActiveRecord::Base
     before_save :set_api_key, :set_default_publication_scheme
 
     # Every public body except for the internal admin one is visible
-    named_scope :visible, lambda {
+    scope :visible, lambda {
         {
             :conditions => "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
         }
@@ -54,7 +54,7 @@ class PublicBody < ActiveRecord::Base
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
     # Convenience methods for creating/editing translations via forms
-    def translation(locale)
+    def find_translation_by_locale(locale)
         self.translations.find_by_locale(locale)
     end
 
@@ -79,7 +79,7 @@ class PublicBody < ActiveRecord::Base
         if translation_attrs.respond_to? :each_value    # Hash => updating
             translation_attrs.each_value do |attrs|
                 next if skip?(attrs)
-                t = translation(attrs[:locale]) || PublicBody::Translation.new
+                t = translation_for(attrs[:locale]) || PublicBody::Translation.new
                 t.attributes = attrs
                 calculate_cached_fields(t)
                 t.save!
@@ -332,7 +332,7 @@ class PublicBody < ActiveRecord::Base
                 pb = PublicBody.new(
                  :name => 'Internal admin authority',
                  :short_name => "",
-                 :request_email => Configuration::contact_email,
+                 :request_email => AlaveteliConfiguration::contact_email,
                  :home_page => "",
                  :notes => "",
                  :publication_scheme => "",
@@ -548,7 +548,7 @@ class PublicBody < ActiveRecord::Base
 
     # Returns nil if configuration variable not set
     def override_request_email
-        e = Configuration::override_all_public_body_request_emails
+        e = AlaveteliConfiguration::override_all_public_body_request_emails
         e if e != ""
     end
 
@@ -631,6 +631,8 @@ class PublicBody < ActiveRecord::Base
             yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
         end
     end
+
+    private
 
     def request_email_if_requestable
         # Request_email can be blank, meaning we don't have details

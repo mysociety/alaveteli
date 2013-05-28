@@ -1,5 +1,10 @@
 # This is a test of the monkey patches in sendmail_return_path.rb
 
+# In Rails 3 the monkeypatches are not needed anymore because sendmail now has the "-f" flag
+# set correctly. So, strictly these tests are testing the Rails internals. So, that means we really
+# should delete them. Let's do that later when things have settled down. For the time being leave
+# them in
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "when sending email with an altered return path" do
@@ -28,10 +33,10 @@ describe "when sending email with an altered return path" do
         Net::SMTP.stub!(:new).and_return(mock_smtp)
 
         with_delivery_method :smtp do
-            ContactMailer.deliver_to_admin_message(
+            ContactMailer.to_admin_message(
                 "Mr. Test", "test@localhost", "Test script spec/lib/sendmail_return_path_spec.rb",
                 "This is just a test for a test script", nil, nil, nil
-            )
+            ).deliver
         end
 
         deliveries = ActionMailer::Base.deliveries
@@ -40,12 +45,12 @@ describe "when sending email with an altered return path" do
 
     it "should set the return path when sending email using sendmail" do
         with_stub_popen do
-            IO.should_receive(:popen).once.with('/usr/sbin/sendmail -i -t -f "test@localhost"', "w+")
+            IO.should_receive(:popen).once.with('/usr/sbin/sendmail -i -t -f "test@localhost" postmaster@localhost', "w+")
             with_delivery_method :sendmail do
-                ContactMailer.deliver_to_admin_message(
+                ContactMailer.to_admin_message(
                     "Mr. Test", "test@localhost", "Test script spec/lib/sendmail_return_path_spec.rb",
                     "This is just a test for a test script", nil, nil, nil
-                )
+                ).deliver
             end
         end
 

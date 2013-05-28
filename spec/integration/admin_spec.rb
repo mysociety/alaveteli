@@ -13,7 +13,7 @@ describe "When administering the site" do
         
         # Now fetch the "log in as" link to log in as Bob
         get_via_redirect "/admin/user/login_as/#{users(:bob_smith_user).id}", nil, {
-          "Authorization" => "Basic " + Base64.encode64("#{Configuration::admin_username}:#{Configuration::admin_password}").strip
+          "Authorization" => "Basic " + Base64.encode64("#{AlaveteliConfiguration::admin_username}:#{AlaveteliConfiguration::admin_password}").strip
         }
         response.should be_success
         session[:user_id].should == users(:bob_smith_user).id

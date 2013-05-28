@@ -1,0 +1,36 @@
+<div id="signin">
+
+<%= form_tag({:action => "signin"}, {:id => "signin_form"}) do %>
+    <%= foi_error_messages_for :user_signin %>
+
+    <!--<% if not sign_in_as_existing_user %>
+    <h2><%= _('If you\'ve used {{site_name}} before', :site_name=>site_name)%></h2>
+    <% end %>-->
+
+    <p>
+    <label class="form_label" for="user_signin_email"><%= _('Your e-mail:')%></label>
+    <%= text_field 'user_signin', 'email', { :size => 20, :tabindex => 10 } %>
+    </p>
+
+    <p>
+    <label class="form_label" for="user_signin_password"><%= _('Password:')%></label>
+    <%= password_field 'user_signin', 'password', { :size => 15, :tabindex => 20 } %>
+    </p>
+
+    <p class="form_note">
+    <%= link_to _('Forgotten your password?'), signchangepassword_path + "?pretoken=" + h(params[:token]), :tabindex => 30 %>
+    </p>
+
+    <p class="form_checkbox">
+    <%= check_box_tag 'remember_me', "1", false, :tabindex => 40 %>
+    <label for="remember_me"><%= _('Remember me</label> (keeps you signed in longer;
+    do not use on a public computer) ')%></p>
+
+    <div class="form_button">
+    <%= hidden_field_tag 'token', params[:token], {:id => 'signin_token' } %>
+    <%= hidden_field_tag :modal, params[:modal], {:id => 'signin_modal' } %>
+    <%= submit_tag _('Sign in'), :tabindex => 50 %>
+    </div>
+<% end %>
+
+</div>
