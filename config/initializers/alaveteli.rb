@@ -59,6 +59,8 @@ require 'quiet_opener.rb'
 require 'mail_handler'
 require 'public_body_categories'
 require 'ability'
+require 'normalize_string'
+require 'alaveteli_file_types'
 
 # Allow tests to be run under a non-superuser database account if required
 if Rails.env == 'test' and ActiveRecord::Base.configurations['test']['constraint_disabling'] == false

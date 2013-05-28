@@ -1,0 +1,11 @@
+From foo@bar Wed Mar 12 14:58:26 2008
+Return-path: <foo@bar>
+Subject: example email
+To: <bar@example.org
+Cc: baz@example.org>
+From: quux@example.org
+Date: Mon, 7 May 2012 12:47:06 +0100
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+A very basic email, but with malformed To: and Cc: lines

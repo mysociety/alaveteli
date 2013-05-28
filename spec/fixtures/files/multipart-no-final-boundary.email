@@ -1,0 +1,21 @@
+From foo@bar Thu Sep 13 10:34:44 2012
+Return-path: <foo@bar>
+Envelope-to: foi@example.org
+Delivery-date: Thu, 13 Sep 2012 10:34:44 +0100
+From: foo@bar
+To: foi@example.org
+Subject: an acknowledgement email
+Date: Thu, 13 Sep 2012 10:08:03 +0100
+Message-ID: <987654@foo.local>
+Content-Type: multipart/mixed; boundary="-----7D81B75CCC90D2974F7A1CBD"
+
+This is a multi-part message in MIME format.
+-------7D81B75CCC90D2974F7A1CBD
+Content-Type: text/html
+
+<div>
+  <p>
+    This is an acknowledgement of your email, that irritatingly
+    leaves out the final MIME boundary.
+  </p>
+<div>

@@ -10,6 +10,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.1.12'
 gem 'pg'
 
+gem 'charlock_holmes'
 gem 'fastercsv', '>=1.5.5'
 gem 'json'
 gem 'mahoro'
