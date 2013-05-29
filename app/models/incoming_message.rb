@@ -568,9 +568,11 @@ class IncomingMessage < ActiveRecord::Base
         text
     end
 
-    # Returns part which contains main body text, or nil if there isn't one
-    def get_main_body_text_part
-        leaves = self.foi_attachments
+    # Returns part which contains main body text, or nil if there isn't one,
+    # from a set of foi_attachments. If the leaves parameter is empty or not
+    # supplied, uses its own foi_attachments.
+    def get_main_body_text_part(leaves=[])
+        leaves = self.foi_attachments if leaves.empty?
 
         # Find first part which is text/plain or text/html
         # (We have to include HTML, as increasingly there are mail clients that
@@ -604,6 +606,7 @@ class IncomingMessage < ActiveRecord::Base
         # nil in this case)
         return p
     end
+
     # Returns attachments that are uuencoded in main body part
     def _uudecode_and_save_attachments(text)
         # Find any uudecoded things buried in it, yeuchly
@@ -657,12 +660,16 @@ class IncomingMessage < ActiveRecord::Base
             attachment = self.foi_attachments.find_or_create_by_hexdigest(attrs[:hexdigest])
             attachment.update_attributes(attrs)
             attachment.save!
-            attachments << attachment.id
+            attachments << attachment
         end
+
         # Reload to refresh newly created foi_attachments
         self.reload
 
-        main_part = get_main_body_text_part
+        # get the main body part from the set of attachments we just created,
+        # not from the self.foi_attachments association - some of the total set of
+        # self.foi_attachments may now be obsolete
+        main_part = get_main_body_text_part(attachments)
         # we don't use get_main_body_text_internal, as we want to avoid charset
         # conversions, since /usr/bin/uudecode needs to deal with those.
         # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
@@ -673,12 +680,14 @@ class IncomingMessage < ActiveRecord::Base
                 c += 1
                 uudecode_attachment.url_part_number = c
                 uudecode_attachment.save!
-                attachments << uudecode_attachment.id
+                attachments << uudecode_attachment
             end
         end
 
+        attachment_ids = attachments.map{ |attachment| attachment.id }
         # now get rid of any attachments we no longer have
-        FoiAttachment.destroy_all("id NOT IN (#{attachments.join(',')}) AND incoming_message_id = #{self.id}")
+        FoiAttachment.destroy_all(["id NOT IN (?) AND incoming_message_id = ?",
+                                    attachment_ids, self.id])
    end
 
     # Returns body text as HTML with quotes flattened, and emails removed.
