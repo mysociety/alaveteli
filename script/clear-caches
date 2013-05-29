@@ -1,12 +1,11 @@
 #!/bin/bash
-
+TOP_DIR="$(dirname "$BASH_SOURCE")/.."
+cd "$TOP_DIR"
 # Clear the cache of attachment and body text.
-
-LOC="`dirname "$0"`"
 
 bundle exec rails runner "ActiveRecord::Base.connection.execute(\"update incoming_messages set cached_attachment_text_clipped = null, cached_main_body_text_unfolded = null, cached_main_body_text_folded = null, sent_at = null, subject = null, mail_from = null, mail_from_domain = null, valid_to_reply_to = null, last_parsed = null\")"
 
 # Remove page cache (do it in two stages so live site gets cache cleared faster)
-rm -fr $LOC/../old-cache
-mv $LOC/../cache $LOC/../old-cache
-rm -fr $LOC/../old-cache
+rm -fr $TOP_DIR/old-cache
+mv $TOP_DIR/cache $TOP_DIR/old-cache
+rm -fr $TOP_DIR/old-cache
