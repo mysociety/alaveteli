@@ -1,4 +1,5 @@
 #!/bin/bash
-
+TOP_DIR="$(dirname "$BASH_SOURCE")/.."
+cd "$TOP_DIR"
 bundle exec rails runner 'PostRedirect.delete_old_post_redirects'
 bundle exec rails runner 'TrackThingsSentEmail.delete_old_track_things_sent_email'

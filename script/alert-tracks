@@ -1,5 +1,6 @@
 #!/bin/bash
-
+TOP_DIR="$(dirname "$BASH_SOURCE")/.."
+cd "$TOP_DIR"
 if [ "$1" == "--loop" ]
 then
   bundle exec rails runner 'TrackMailer.alert_tracks_loop'

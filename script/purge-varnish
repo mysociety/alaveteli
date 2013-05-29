@@ -1,11 +1,12 @@
 #!/bin/bash
 
-LOC=`dirname $0`
+TOP_DIR="$(dirname "$BASH_SOURCE")/.."
+cd "$TOP_DIR"
 
 if [ "$1" == "--loop" ]
 then
-  rails runner 'PurgeRequest.purge_all_loop'
+  bundle exec rails runner 'PurgeRequest.purge_all_loop'
 else
-  rails runner 'PurgeRequest.purge_all'
+  bundle exec rails runner 'PurgeRequest.purge_all'
 fi
 
