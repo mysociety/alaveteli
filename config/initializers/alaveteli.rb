@@ -43,15 +43,11 @@ I18n.locale = default_locale
 I18n.available_locales = available_locales.map {|locale_name| locale_name.to_sym}
 I18n.default_locale = default_locale
 
-# Customise will_paginate URL generation
-WillPaginate::ViewHelpers.pagination_options[:renderer] = 'WillPaginateExtension::LinkRenderer'
-
 # Load monkey patches and other things from lib/
 require 'ruby19.rb'
 require 'activesupport_cache_extensions.rb'
 require 'use_spans_for_errors.rb'
 require 'activerecord_errors_extensions.rb'
-require 'willpaginate_extension.rb'
 require 'i18n_fixes.rb'
 require 'world_foi_websites.rb'
 require 'alaveteli_external_command.rb'
