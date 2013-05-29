@@ -157,7 +157,7 @@ class TrackController < ApplicationController
             format.json { render :json => @xapian_object.results.map { |r| r[:model].json_for_api(true,
                     lambda { |t| view_context.highlight_and_excerpt(t, @xapian_object.words_to_highlight, 150) }
                 ) } }
-            format.any { render :template => 'track/atom_feed.atom', :layout => false, :content_type => :atom }
+            format.any { render :template => 'track/atom_feed.atom', :layout => false, :content_type => 'application/atom+xml' }
         end
     end
 
