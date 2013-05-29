@@ -542,3 +542,46 @@ describe IncomingMessage, "when TNEF attachments are attached to messages" do
     end
 end
 
+describe IncomingMessage, "when extracting attachments" do
+
+    it 'handles the case where reparsing changes the body of the main part
+        and the cached attachment has been deleted' do
+        # original set of attachment attributes
+        attachment_attributes = { :url_part_number => 1,
+                                  :within_rfc822_subject => nil,
+                                  :content_type => "text/plain",
+                                  :charset => nil,
+                                  :body => "No way!\n",
+                                  :hexdigest => "0c8b1b0f5cb9c94ed15a180e73b5c7d1",
+                                  :filename => nil }
+
+        # Make a small change in the body returned for the attachment
+        new_attachment_attributes = attachment_attributes.merge(:body => "No way!",
+                                                                :hexdigest => "74d2c0a41e074f9cebe49324d5b47414")
+
+
+        # Simulate parsing with the original attachments
+        MailHandler.stub!(:get_attachment_attributes).and_return([attachment_attributes])
+        incoming_message = incoming_messages(:useless_incoming_message)
+
+        # Extract the attachments
+        incoming_message.extract_attachments!
+
+        # delete the cached file for the main body part
+        main = incoming_message.get_main_body_text_part
+        main.delete_cached_file!
+
+        # Simulate reparsing with the slightly changed body
+        MailHandler.stub!(:get_attachment_attributes).and_return([new_attachment_attributes])
+
+        # Re-extract the attachments
+        incoming_message.extract_attachments!
+
+        attachments = incoming_message.foi_attachments
+        attachments.size.should == 1
+        attachments.first.hexdigest.should == "74d2c0a41e074f9cebe49324d5b47414"
+        attachments.first.body.should == 'No way!'
+    end
+
+end
+
