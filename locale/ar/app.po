@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-04-23 16:34+0100\n"
-"PO-Revision-Date: 2013-05-11 02:42+0000\n"
-"Last-Translator: radproject <radhouanef@gmail.com>\n"
+"POT-Creation-Date: 2013-05-30 09:46+0100\n"
+"PO-Revision-Date: 2013-05-30 08:54+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/alaveteli/language/ar/)\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -294,6 +294,15 @@ msgstr "معلومات عنك:"
 
 msgid "Act on what you've learnt"
 msgstr "العمل على ما تعلمته"
+
+msgid "Acts as xapian/acts as xapian job"
+msgstr ""
+
+msgid "ActsAsXapian::ActsAsXapianJob|Action"
+msgstr ""
+
+msgid "ActsAsXapian::ActsAsXapianJob|Model"
+msgstr ""
 
 msgid "Add an annotation"
 msgstr "إضافة تعليق توضيحي"
@@ -592,6 +601,9 @@ msgstr "بصدد <strong>انتظار اجابة</strong> من {{public_body_lin
 msgid "Date:"
 msgstr "التاريخ:"
 
+msgid "Dear {{name}},"
+msgstr ""
+
 msgid "Dear {{public_body_name}},"
 msgstr "عزيزي {{public_body_name}},"
 
@@ -861,6 +873,18 @@ msgstr "قوموا بإعطاء تفاصيل عن شكواكم هنا"
 
 msgid "Handled by post."
 msgstr "تسلم بالبريد"
+
+msgid "Has tag string/has tag string tag"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Model"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Name"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Value"
+msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "مرحباً! بإمكانكم تقديم مطالب حق النفاذ إلى المعلومة من داخل {{country_name}} على هذا الموقع {{link_to_website}}"
@@ -1672,9 +1696,6 @@ msgstr ""
 msgid "Public body"
 msgstr "الهيكل العامّ"
 
-msgid "Public body/translation"
-msgstr "الهيكل العامّ/ترجمة"
-
 msgid "Public notes"
 msgstr ""
 
@@ -1683,33 +1704,6 @@ msgstr ""
 
 msgid "Public page not available"
 msgstr ""
-
-msgid "PublicBody::Translation|Disclosure log"
-msgstr "الهيئة العامة :: الترجمة | سجل الإفصاح"
-
-msgid "PublicBody::Translation|First letter"
-msgstr "الهيكل العامّ::ترجمة|أول حرف"
-
-msgid "PublicBody::Translation|Locale"
-msgstr "الهيكل العامّ::ترجمة|موقع"
-
-msgid "PublicBody::Translation|Name"
-msgstr "الهيكل العامّ::ترجمة|اسم"
-
-msgid "PublicBody::Translation|Notes"
-msgstr "الهيكل العامّ::ترجمة|ملاحظات"
-
-msgid "PublicBody::Translation|Publication scheme"
-msgstr "الهيكل العامّ::ترجمة|مخطط مايقع نشره"
-
-msgid "PublicBody::Translation|Request email"
-msgstr "الهيكل العامّ::ترجمة|طلب البريد الالكتروني"
-
-msgid "PublicBody::Translation|Short name"
-msgstr "الهيكل العامّ::ترجمة|اسم مختصر"
-
-msgid "PublicBody::Translation|Url name"
-msgstr "الهيكل العامّ::ترجمة|اسم الموقع"
 
 msgid "PublicBody|Api key"
 msgstr "الهيكل العام|مفتاح واجهة مبرمج التطبيقات"
@@ -2196,6 +2190,9 @@ msgstr "مؤشر البحث خارج الخدمة حاليا,لذلك لا يم�
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
 msgstr "مؤشر البحث خارج الخدمة حاليا, لذلك ليس بامكاننا اظهار طلبات حرية النفاذ الى المعلومة التي قدمها هذا الشخص."
+
+msgid "The {{site_name}} team."
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "تستطيع بعد ذلك الغاء التنبيه"
@@ -2719,6 +2716,12 @@ msgstr "انتظار رد السلطة العامة"
 msgid "Was the response you got to your FOI request any good?"
 msgstr "هل كان الرد الذي تحصلت عليه بخصوص طلب حرية النفاذ للمعلومة جيدا؟"
 
+msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
+msgstr ""
+
+msgid "We consider it to be vexatious, and have therefore hidden it from other users."
+msgstr ""
+
 msgid "We do not have a working request email address for this authority."
 msgstr "لا نملك طلب عنوان بريد الكتروني صالح لهذه السلطة"
 
@@ -2911,6 +2914,9 @@ msgstr "ستبدأ في استقبال رسائل الكترونية عن الت
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
 msgstr "لن تصلك اجابة عن طلبك الا اذا تابعت \\nمع التوضيح"
 
+msgid "You will still be able to view it while logged in to the site. Please reply to this email if you would like to discuss this decision further."
+msgstr ""
+
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "انت في. <a href=\"#\" id=\"ارسل-طلب\">واصل ارسال طلبك</a>"
 
@@ -2977,6 +2983,12 @@ msgstr "كلمة السر:"
 msgid "Your photo will be shown in public <strong>on the Internet</strong>,\\n    wherever you do something on {{site_name}}."
 msgstr "ستظهر صورتك للعموم <strong>على الانترنات</strong>,\\n    كلما تفاعلت على {{site_name}}."
 
+msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
+msgstr ""
+
+msgid "Your request on {{site_name}} hidden"
+msgstr ""
+
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "تمت تسمية طلبك {{info_request}}. اعلام الجميع عما اذا تحصلت على المعلومات سيساعدنا في التبويب"
 
@@ -3018,6 +3030,9 @@ msgstr "تحياتي"
 
 msgid "Yours sincerely,"
 msgstr "تحياتي"
+
+msgid "Yours,"
+msgstr ""
 
 msgid "[FOI #{{request}} email]"
 msgstr "[حرية النفاذ للمعلومة #{{request}}البريد الالكتروني]"

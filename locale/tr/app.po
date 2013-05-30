@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-04-23 16:34+0100\n"
-"PO-Revision-Date: 2013-04-23 16:09+0000\n"
+"POT-Creation-Date: 2013-05-30 09:46+0100\n"
+"PO-Revision-Date: 2013-05-30 08:54+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/alaveteli/language/tr/)\n"
 "Language: tr\n"
@@ -289,6 +289,15 @@ msgid "About you:"
 msgstr ""
 
 msgid "Act on what you've learnt"
+msgstr ""
+
+msgid "Acts as xapian/acts as xapian job"
+msgstr ""
+
+msgid "ActsAsXapian::ActsAsXapianJob|Action"
+msgstr ""
+
+msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr ""
 
 msgid "Add an annotation"
@@ -588,6 +597,9 @@ msgstr ""
 msgid "Date:"
 msgstr ""
 
+msgid "Dear {{name}},"
+msgstr ""
+
 msgid "Dear {{public_body_name}},"
 msgstr ""
 
@@ -852,6 +864,18 @@ msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr ""
 
 msgid "Handled by post."
+msgstr ""
+
+msgid "Has tag string/has tag string tag"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Model"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Name"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Value"
 msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
@@ -1664,9 +1688,6 @@ msgstr ""
 msgid "Public body"
 msgstr ""
 
-msgid "Public body/translation"
-msgstr ""
-
 msgid "Public notes"
 msgstr ""
 
@@ -1674,33 +1695,6 @@ msgid "Public page"
 msgstr ""
 
 msgid "Public page not available"
-msgstr ""
-
-msgid "PublicBody::Translation|Disclosure log"
-msgstr ""
-
-msgid "PublicBody::Translation|First letter"
-msgstr ""
-
-msgid "PublicBody::Translation|Locale"
-msgstr ""
-
-msgid "PublicBody::Translation|Name"
-msgstr ""
-
-msgid "PublicBody::Translation|Notes"
-msgstr ""
-
-msgid "PublicBody::Translation|Publication scheme"
-msgstr ""
-
-msgid "PublicBody::Translation|Request email"
-msgstr ""
-
-msgid "PublicBody::Translation|Short name"
-msgstr ""
-
-msgid "PublicBody::Translation|Url name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2183,6 +2177,9 @@ msgid "The search index is currently offline, so we can't show the Freedom of In
 msgstr ""
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
+msgstr ""
+
+msgid "The {{site_name}} team."
 msgstr ""
 
 msgid "Then you can cancel the alert."
@@ -2695,6 +2692,12 @@ msgstr ""
 msgid "Was the response you got to your FOI request any good?"
 msgstr ""
 
+msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
+msgstr ""
+
+msgid "We consider it to be vexatious, and have therefore hidden it from other users."
+msgstr ""
+
 msgid "We do not have a working request email address for this authority."
 msgstr ""
 
@@ -2887,6 +2890,9 @@ msgstr ""
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
 msgstr ""
 
+msgid "You will still be able to view it while logged in to the site. Please reply to this email if you would like to discuss this decision further."
+msgstr ""
+
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
@@ -2953,6 +2959,12 @@ msgstr ""
 msgid "Your photo will be shown in public <strong>on the Internet</strong>,\\n    wherever you do something on {{site_name}}."
 msgstr ""
 
+msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
+msgstr ""
+
+msgid "Your request on {{site_name}} hidden"
+msgstr ""
+
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr ""
 
@@ -2985,6 +2997,9 @@ msgid "Yours faithfully,"
 msgstr ""
 
 msgid "Yours sincerely,"
+msgstr ""
+
+msgid "Yours,"
 msgstr ""
 
 msgid "[FOI #{{request}} email]"

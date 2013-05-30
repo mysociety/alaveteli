@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-04-23 16:34+0100\n"
-"PO-Revision-Date: 2013-04-23 16:09+0000\n"
+"POT-Creation-Date: 2013-05-30 09:46+0100\n"
+"PO-Revision-Date: 2013-05-30 08:54+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/projects/p/alaveteli/language/sq/)\n"
 "Language: sq\n"
@@ -335,6 +335,15 @@ msgstr "Për ty:"
 msgid "Act on what you've learnt"
 msgstr "Vepro sipas asaj që ke marrë vesh"
 
+msgid "Acts as xapian/acts as xapian job"
+msgstr ""
+
+msgid "ActsAsXapian::ActsAsXapianJob|Action"
+msgstr ""
+
+msgid "ActsAsXapian::ActsAsXapianJob|Model"
+msgstr ""
+
 msgid "Add an annotation"
 msgstr "Shto një shënim"
 
@@ -640,6 +649,9 @@ msgstr "Momentalisht <strong>duke pritur përgjigje</strong> nga {{public_body_l
 msgid "Date:"
 msgstr "Data:"
 
+msgid "Dear {{name}},"
+msgstr ""
+
 msgid "Dear {{public_body_name}},"
 msgstr "Të nderuar {{public_body_name}},"
 
@@ -921,6 +933,18 @@ msgstr "JEPI DETAJET PËR ANKESËN TËNDE KËTU"
 
 msgid "Handled by post."
 msgstr "Do të trajtohet me postë."
+
+msgid "Has tag string/has tag string tag"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Model"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Name"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Value"
+msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Përshëndetje! Ti mund të bën kërkesa për informata zyrtare për autoritetet e  {{country_name}} në {{link_to_website}}"
@@ -1765,9 +1789,6 @@ msgstr ""
 msgid "Public body"
 msgstr "Institucion publik"
 
-msgid "Public body/translation"
-msgstr ""
-
 msgid "Public notes"
 msgstr ""
 
@@ -1775,33 +1796,6 @@ msgid "Public page"
 msgstr ""
 
 msgid "Public page not available"
-msgstr ""
-
-msgid "PublicBody::Translation|Disclosure log"
-msgstr ""
-
-msgid "PublicBody::Translation|First letter"
-msgstr ""
-
-msgid "PublicBody::Translation|Locale"
-msgstr ""
-
-msgid "PublicBody::Translation|Name"
-msgstr ""
-
-msgid "PublicBody::Translation|Notes"
-msgstr ""
-
-msgid "PublicBody::Translation|Publication scheme"
-msgstr ""
-
-msgid "PublicBody::Translation|Request email"
-msgstr ""
-
-msgid "PublicBody::Translation|Short name"
-msgstr ""
-
-msgid "PublicBody::Translation|Url name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2302,6 +2296,9 @@ msgstr "Indeksi i kërkimit aktualisht është i shkëputur, kështu që nuk mun
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
 msgstr "Indeksi i kërkimit është jashtë funksioni, kështu që ne nuk mund t'i tregojmë kërkesat për informata zyrtare që ky person ka bërë."
+
+msgid "The {{site_name}} team."
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "Pastaj ti mund të anulon njoftimin."
@@ -2825,6 +2822,12 @@ msgstr "Duke pritur që autoriteti publik të përgjigjet"
 msgid "Was the response you got to your FOI request any good?"
 msgstr "A ishte kërkesa e juaj për QDP e mirë?"
 
+msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
+msgstr ""
+
+msgid "We consider it to be vexatious, and have therefore hidden it from other users."
+msgstr ""
+
 msgid "We do not have a working request email address for this authority."
 msgstr "Për fat të keq, ne nuk kemi një email adresë funksionale për këtë autoritet"
 
@@ -3039,6 +3042,9 @@ msgstr ""
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
 msgstr "Ti do të merr përgjigje në kërkesën tënde vetëm në qoftë se e sqaroni atë."
 
+msgid "You will still be able to view it while logged in to the site. Please reply to this email if you would like to discuss this decision further."
+msgstr ""
+
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
@@ -3112,6 +3118,12 @@ msgstr "Fjalëkalimi yt:"
 msgid "Your photo will be shown in public <strong>on the Internet</strong>,\\n    wherever you do something on {{site_name}}."
 msgstr ""
 
+msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
+msgstr ""
+
+msgid "Your request on {{site_name}} hidden"
+msgstr ""
+
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Kërkesa yte qe emëruar {{info_request}}. Nëse i lejoni të tjerër ta dijnë a i keni marrë informatat në pergjigje, do të na mundësoni ta mbikqyrim "
 
@@ -3147,6 +3159,9 @@ msgstr "Me nderime,"
 
 msgid "Yours sincerely,"
 msgstr "Sinqerisht,"
+
+msgid "Yours,"
+msgstr ""
 
 msgid "[FOI #{{request}} email]"
 msgstr ""
