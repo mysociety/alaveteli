@@ -15,7 +15,7 @@
         <div class="correspondence" id="outgoing-<%=outgoing_message.id.to_s%>">
             <p>
       <%= _('This outgoing message has been hidden. See annotations to
-            find out why.  If you are the requester, then you may <a href="{{url}}">sign in</a> to view the response.', :url => signin_url(:r => request.fullpath).html_safe) %>
+						find out why.  If you are the requester, then you may <a href="{{url}}">sign in</a> to view the response.', :url => signin_url(:r => request.fullpath).html_safe) %>
             </p>
         </div>
     <% elsif info_request_event.event_type == 'comment' %>
