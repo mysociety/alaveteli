@@ -1,3 +1,11 @@
+# Version 0.11
+## Highlighted features
+* Upgrade of the Rails framework to version 3.1.12 (Henare Degan, Matthew Landauer, Mark Longair, Louise Crow)
+
+## Upgrade notes
+* Manually remove vendor/rails-locales
+* Themes created for 0.9 and below should be updated to work with Rails 3. See `THEMES-UPGRADE.md` for notes on upgrading your theme. You will need to manually remove your old theme directory before running `rails-post-deploy`.
+
 # Version 0.9
 ## Highlighted features
 * Consistent and more informative variable interpolation syntax in translated phrases. All of these phrases will now appear in the form "There are {{count}} people following this request", where some were previously in the form "There are %s people following this request". (Matthew Landauer)
