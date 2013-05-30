@@ -1,7 +1,6 @@
 language: ruby
 branches:
   only:
-    - develop
     - master
     - rails-3-develop
 rvm:
