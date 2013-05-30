@@ -24,6 +24,21 @@ There's background information and a more documentation on
 of useful information (including a blog) on
 [the project website](http://alaveteli.org)
 
+## How to contribute
+
+If you find what looks like a bug:
+
+* Check the [GitHub issue tracker](http://github.com/mysociety/alaveteli/issues/)
+  to see if anyone else has reported issue.
+* If you don't see anything, create an issue with information on how to reproduce it.
+
+If you want to contribute an enhancement or a fix:
+
+* Fork the project on GitHub.
+* Make your changes with tests.
+* Commit the changes without making changes to any files that aren't related to your enhancement or fix.
+* Send a pull request.
+
 Looking for the latest stable release? It's on the
 [master branch](https://github.com/mysociety/alaveteli/tree/master).
 
