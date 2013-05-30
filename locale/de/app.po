@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-04-23 16:34+0100\n"
-"PO-Revision-Date: 2013-04-23 15:40+0000\n"
+"POT-Creation-Date: 2013-05-30 09:46+0100\n"
+"PO-Revision-Date: 2013-05-30 08:54+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/alaveteli/language/de/)\n"
 "Language: de\n"
@@ -320,6 +320,15 @@ msgstr "Zu Ihrer Person:"
 msgid "Act on what you've learnt"
 msgstr "Handel aus Deinen Erfahrungen"
 
+msgid "Acts as xapian/acts as xapian job"
+msgstr ""
+
+msgid "ActsAsXapian::ActsAsXapianJob|Action"
+msgstr ""
+
+msgid "ActsAsXapian::ActsAsXapianJob|Model"
+msgstr ""
+
 msgid "Add an annotation"
 msgstr "Fügen Sie einee Anmerkung bei"
 
@@ -621,6 +630,9 @@ msgstr "<strong>Antwort</strong> von {{public_body_link}} wird erwartet. Sie sol
 msgid "Date:"
 msgstr "Datum:"
 
+msgid "Dear {{name}},"
+msgstr ""
+
 msgid "Dear {{public_body_name}},"
 msgstr "Sehr geehrte / Sehr geehrter {{public_body_name}},"
 
@@ -894,6 +906,18 @@ msgstr "HINTELASSEN SIE HIER DETAILS ZU IHRER BESCHWERDE"
 
 msgid "Handled by post."
 msgstr "Postalisch bearbeitet."
+
+msgid "Has tag string/has tag string tag"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Model"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Name"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Value"
+msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Hallo! IFG-Anfragen innerhalb von {{country_name}} können Sie hier stellen: {{link_to_website}} "
@@ -1720,9 +1744,6 @@ msgstr ""
 msgid "Public body"
 msgstr ""
 
-msgid "Public body/translation"
-msgstr ""
-
 msgid "Public notes"
 msgstr ""
 
@@ -1730,33 +1751,6 @@ msgid "Public page"
 msgstr ""
 
 msgid "Public page not available"
-msgstr ""
-
-msgid "PublicBody::Translation|Disclosure log"
-msgstr ""
-
-msgid "PublicBody::Translation|First letter"
-msgstr ""
-
-msgid "PublicBody::Translation|Locale"
-msgstr ""
-
-msgid "PublicBody::Translation|Name"
-msgstr ""
-
-msgid "PublicBody::Translation|Notes"
-msgstr ""
-
-msgid "PublicBody::Translation|Publication scheme"
-msgstr ""
-
-msgid "PublicBody::Translation|Request email"
-msgstr ""
-
-msgid "PublicBody::Translation|Short name"
-msgstr ""
-
-msgid "PublicBody::Translation|Url name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2250,6 +2244,9 @@ msgstr "Da die Suchanzeige momentan offline ist, können wir die an diese Behör
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
 msgstr "Da die Suchanzeige momentan offline ist, können wir durch diese Person gestellten Informationsfreiheitsanfragen gerade leider nicht anzeigen. "
+
+msgid "The {{site_name}} team."
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "Dann können Sie die Statusnachricht abmelden "
@@ -2769,6 +2766,12 @@ msgstr "Antwort der Behörde wird erwartet"
 msgid "Was the response you got to your FOI request any good?"
 msgstr ""
 
+msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
+msgstr ""
+
+msgid "We consider it to be vexatious, and have therefore hidden it from other users."
+msgstr ""
+
 msgid "We do not have a working request email address for this authority."
 msgstr "Für diese Behörde ist keine funktionierende Emailadresse zur Anfragenstellung verfügbar. "
 
@@ -2966,6 +2969,9 @@ msgstr ""
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
 msgstr "Sie können nur eine Antwort auf Ihre Anfrage erhalten wenn Sie mti der Aufklärung fortfahren. "
 
+msgid "You will still be able to view it while logged in to the site. Please reply to this email if you would like to discuss this decision further."
+msgstr ""
+
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr ""
 
@@ -3038,6 +3044,12 @@ msgstr "Ihr Passwort:"
 msgid "Your photo will be shown in public <strong>on the Internet</strong>,\\n    wherever you do something on {{site_name}}."
 msgstr ""
 
+msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
+msgstr ""
+
+msgid "Your request on {{site_name}} hidden"
+msgstr ""
+
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Ihre Anfrage hat den folgenden Titel: {{info_request}}. Bitte informieren Sie uns, ob Sie die gewünschte Information erhalten. Dies hilft uns die Seite aktuell zu halten."
 
@@ -3071,6 +3083,9 @@ msgstr "Mit freundlichem Gruß, "
 
 msgid "Yours sincerely,"
 msgstr "Mit freundlichem Gruß, "
+
+msgid "Yours,"
+msgstr ""
 
 msgid "[FOI #{{request}} email]"
 msgstr ""

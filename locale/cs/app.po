@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-04-23 16:34+0100\n"
-"PO-Revision-Date: 2013-05-03 12:02+0000\n"
-"Last-Translator: Hana Huntova <>\n"
+"POT-Creation-Date: 2013-05-30 09:46+0100\n"
+"PO-Revision-Date: 2013-05-30 08:54+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -341,6 +341,15 @@ msgstr "O vás:"
 msgid "Act on what you've learnt"
 msgstr "Jednejte na základě toho, co jste se dozvěděli"
 
+msgid "Acts as xapian/acts as xapian job"
+msgstr ""
+
+msgid "ActsAsXapian::ActsAsXapianJob|Action"
+msgstr ""
+
+msgid "ActsAsXapian::ActsAsXapianJob|Model"
+msgstr ""
+
 msgid "Add an annotation"
 msgstr "Přidat poznámku"
 
@@ -648,6 +657,9 @@ msgstr "V současnosti <strong> se čeká na odpověď</strong> od instituce {{p
 msgid "Date:"
 msgstr "Datum:"
 
+msgid "Dear {{name}},"
+msgstr ""
+
 msgid "Dear {{public_body_name}},"
 msgstr ""
 "Povinný subjekt: {{public_body_name}}\n"
@@ -930,6 +942,18 @@ msgstr "ZDE UPŘESNĚTE DETAILY VAŠÍ STÍŽNOSTI"
 
 msgid "Handled by post."
 msgstr "Vyřizováno poštou."
+
+msgid "Has tag string/has tag string tag"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Model"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Name"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Value"
+msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Dobrý den, můžete vznést dotaz v zemi {{country_name}} na stránkách {{link_to_website}}"
@@ -1773,9 +1797,6 @@ msgstr "Veřejná instituce – {{name}}"
 msgid "Public body"
 msgstr "Instituce"
 
-msgid "Public body/translation"
-msgstr "PublicBody | Verze ??"
-
 msgid "Public notes"
 msgstr "Poznámka (viditelná pro všechny)"
 
@@ -1784,33 +1805,6 @@ msgstr "Stránka (viditelná pro všechny)"
 
 msgid "Public page not available"
 msgstr "Stránku nelze načíst"
-
-msgid "PublicBody::Translation|Disclosure log"
-msgstr "PublicBody::Translation|Disclosure log"
-
-msgid "PublicBody::Translation|First letter"
-msgstr "PublicBody | Začáteční písmeno"
-
-msgid "PublicBody::Translation|Locale"
-msgstr "PublicBody | Lokální ??"
-
-msgid "PublicBody::Translation|Name"
-msgstr "PublicBody | Název"
-
-msgid "PublicBody::Translation|Notes"
-msgstr "PublicBody | Poznámka"
-
-msgid "PublicBody::Translation|Publication scheme"
-msgstr "PublicBody | Publikační schéma ??"
-
-msgid "PublicBody::Translation|Request email"
-msgstr "PublicBody::Translation|Zadejte e-mail ??"
-
-msgid "PublicBody::Translation|Short name"
-msgstr "PublicBody::Translation|Krátké jméno ??"
-
-msgid "PublicBody::Translation|Url name"
-msgstr "PublicBody::Translation|Název URL"
 
 msgid "PublicBody|Api key"
 msgstr "PublicBody | Název ??"
@@ -2323,6 +2317,9 @@ msgstr "Vyhledávací rejstřík je nyní mimo provoz, nemůžeme vám proto uk�
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
 msgstr "Došlo ke krátkému výpadku vyhledávání, nemůžeme proto zobrazit dotazy, které tato osoba vznesla. Omlouváme se."
+
+msgid "The {{site_name}} team."
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "Pak můžete upozornění zrušit."
@@ -2858,6 +2855,12 @@ msgstr "Čeká se na odpověď instituce"
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Byla odpověď na váš dotaz kompletní a v pořádku?"
 
+msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
+msgstr ""
+
+msgid "We consider it to be vexatious, and have therefore hidden it from other users."
+msgstr ""
+
 msgid "We do not have a working request email address for this authority."
 msgstr "Nemáme funkční e-mailovou adresu pro tuto instituci."
 
@@ -3084,6 +3087,9 @@ msgstr ""
 "Odpověď na váš dotaz obdržíte, pouze pokud odpovíte \n"
 "bližším vysvětlením."
 
+msgid "You will still be able to view it while logged in to the site. Please reply to this email if you would like to discuss this decision further."
+msgstr ""
+
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Odesláno. <a href=\"#\" id=\"send-request\"> Můžete vznést další dotaz.</a>"
 
@@ -3157,6 +3163,12 @@ msgstr "Vaše heslo:"
 msgid "Your photo will be shown in public <strong>on the Internet</strong>,\\n    wherever you do something on {{site_name}}."
 msgstr "<strong>Důležité upozornění:</strong> Vaše fotografie bude zveřejněna na stránkách Informace pro všechny pokaždé, kdy vznesete dotaz nebo přidáte komentář."
 
+msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
+msgstr ""
+
+msgid "Your request on {{site_name}} hidden"
+msgstr ""
+
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Informace se týká vašeho dotazu {{info_request}}. Můžete všechny informovat, zda jste požadovanou informaci obdrželi a bude tak přehled o odpovědích této instituce"
 
@@ -3192,6 +3204,9 @@ msgstr "S přátelským pozdravem,"
 
 msgid "Yours sincerely,"
 msgstr "S pozdravem,"
+
+msgid "Yours,"
+msgstr ""
 
 msgid "[FOI #{{request}} email]"
 msgstr "[FOI #{{request}} e-mail] ??"

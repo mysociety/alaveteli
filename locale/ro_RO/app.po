@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-04-23 16:34+0100\n"
-"PO-Revision-Date: 2013-04-23 16:07+0000\n"
+"POT-Creation-Date: 2013-05-30 09:46+0100\n"
+"PO-Revision-Date: 2013-05-30 08:54+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -303,6 +303,15 @@ msgstr "Despre dvs:"
 
 msgid "Act on what you've learnt"
 msgstr "Actţonează conform a ceea ce ai învăţat."
+
+msgid "Acts as xapian/acts as xapian job"
+msgstr ""
+
+msgid "ActsAsXapian::ActsAsXapianJob|Action"
+msgstr ""
+
+msgid "ActsAsXapian::ActsAsXapianJob|Model"
+msgstr ""
 
 msgid "Add an annotation"
 msgstr "Adaugă o adnotare."
@@ -601,6 +610,9 @@ msgstr "În acest moment <strong>asteptăm un răspuns</strong> de la {{public_b
 msgid "Date:"
 msgstr "Data:"
 
+msgid "Dear {{name}},"
+msgstr ""
+
 msgid "Dear {{public_body_name}},"
 msgstr "Stimate {{public_body_name}},"
 
@@ -867,6 +879,18 @@ msgstr "DAŢI DETALII DESPRE PLÂNGEREA DVS. AICI"
 
 msgid "Handled by post."
 msgstr "Înmânat prin poştă"
+
+msgid "Has tag string/has tag string tag"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Model"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Name"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Value"
+msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Hello! Puteţi face cereri  \"Libertatea de informare\" în  {{country_name}} la {{link_to_website}}"
@@ -1680,9 +1704,6 @@ msgstr "Autoritatea publică – {{name}}"
 msgid "Public body"
 msgstr "Autoritate publică"
 
-msgid "Public body/translation"
-msgstr "Autoritate publică/traducere"
-
 msgid "Public notes"
 msgstr "Note publice"
 
@@ -1691,33 +1712,6 @@ msgstr "Pagina publică"
 
 msgid "Public page not available"
 msgstr "Pagină publica indisponibilă"
-
-msgid "PublicBody::Translation|Disclosure log"
-msgstr "PublicBody::Translation|Disclosure log"
-
-msgid "PublicBody::Translation|First letter"
-msgstr "AutoritatePublică::Traducere|Prima literă"
-
-msgid "PublicBody::Translation|Locale"
-msgstr "AutoritatePublică::Traducere|Local"
-
-msgid "PublicBody::Translation|Name"
-msgstr "AutoritatePublică::Traducere|Nume"
-
-msgid "PublicBody::Translation|Notes"
-msgstr "AutoritatePublică::Traducere|Note"
-
-msgid "PublicBody::Translation|Publication scheme"
-msgstr "AutoritatePublică::Traducere|Schema publicaţiei"
-
-msgid "PublicBody::Translation|Request email"
-msgstr "AutoritatePublică::Traducere|Cerere email"
-
-msgid "PublicBody::Translation|Short name"
-msgstr "AutoritatePublică::Traducere|Nume scurt"
-
-msgid "PublicBody::Translation|Url name"
-msgstr "AutoritatePublică::Traducere| Nume URL"
 
 msgid "PublicBody|Api key"
 msgstr "InstituţiePublică|Api key"
@@ -2201,6 +2195,9 @@ msgstr "Acest index de căutare este în acest moment off-line, aşa ca nu putem
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
 msgstr "Acest index de căutare este în acest moment off-line, aşa ca nu putem afişa cererile FOI pe care această persoană le-a făcut."
+
+msgid "The {{site_name}} team."
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "Apoi puteţi anula alerta."
@@ -2715,6 +2712,12 @@ msgstr "Aşteaptă răspunsul autorităţii publice"
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Răspunsul pe care l-aţi primit la cererea dvs. FOI vi-a fost de folos?"
 
+msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
+msgstr ""
+
+msgid "We consider it to be vexatious, and have therefore hidden it from other users."
+msgstr ""
+
 msgid "We do not have a working request email address for this authority."
 msgstr "Nu avem o adresă de email valabilă pentru cererile adresate acestei autoritate."
 
@@ -2907,6 +2910,9 @@ msgstr "Acum veţi fi primi prin email actualizări referitoare la {{track_descr
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
 msgstr "Vei primi un răspuns la solicitarea ta numai dacă revii\\ncu clarificări."
 
+msgid "You will still be able to view it while logged in to the site. Please reply to this email if you would like to discuss this decision further."
+msgstr ""
+
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Ești autentificat.<a href=\"#\" id=\"send-request\">Continuă pentru transmiterea solicitării tale</a>"
 
@@ -2973,6 +2979,12 @@ msgstr "Parola dvs.:"
 msgid "Your photo will be shown in public <strong>on the Internet</strong>,\\n    wherever you do something on {{site_name}}."
 msgstr "Fotografia ta va fi făcută publică <strong>pe Internet</strong>,\\n oriunde faci ceva pe {{site_name}}."
 
+msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
+msgstr ""
+
+msgid "Your request on {{site_name}} hidden"
+msgstr ""
+
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Cererea dvs. a fost numită {{info_request}}. Permiţând tuturor să afle dacă aţi obţinut informaţiile, ne ajutaţi să menţinem o evidenţă"
 
@@ -3008,6 +3020,9 @@ msgstr "Cu respect,"
 
 msgid "Yours sincerely,"
 msgstr "Cu stimă,"
+
+msgid "Yours,"
+msgstr ""
 
 msgid "[FOI #{{request}} email]"
 msgstr "[FOI #{{request}} email]"

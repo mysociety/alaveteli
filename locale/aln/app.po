@@ -4,12 +4,13 @@
 #
 # Translators:
 # Valon <vbrestovci@gmail.com>, 2011
+# Valon <vbrestovci@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-30 09:37+0100\n"
-"PO-Revision-Date: 2013-04-23 15:39+0000\n"
+"Project-Id-Version: alaveteli\n"
+"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
+"POT-Creation-Date: 2013-05-30 09:46+0100\n"
+"PO-Revision-Date: 2013-05-30 08:54+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Albanian Gheg (http://www.transifex.com/projects/p/alaveteli/language/aln/)\n"
 "Language: aln\n"
@@ -2328,7 +2329,7 @@ msgstr ""
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr ""
 
-msgid "This outgoing message has been hidden. See annotations to\\n            find out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
+msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
 msgstr ""
 
 msgid "This particular request is finished:"

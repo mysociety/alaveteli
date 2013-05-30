@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-04-23 16:34+0100\n"
-"PO-Revision-Date: 2013-05-08 16:11+0000\n"
-"Last-Translator: Ebatta <orsibatta@gmail.com>\n"
+"POT-Creation-Date: 2013-05-30 09:46+0100\n"
+"PO-Revision-Date: 2013-05-30 08:54+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/alaveteli/language/hu_HU/)\n"
 "Language: hu_HU\n"
 "MIME-Version: 1.0\n"
@@ -334,6 +334,15 @@ msgstr "Magamról: "
 msgid "Act on what you've learnt"
 msgstr "Tegyen lépéseket a megismert tények alapján "
 
+msgid "Acts as xapian/acts as xapian job"
+msgstr ""
+
+msgid "ActsAsXapian::ActsAsXapianJob|Action"
+msgstr ""
+
+msgid "ActsAsXapian::ActsAsXapianJob|Model"
+msgstr ""
+
 msgid "Add an annotation"
 msgstr "Hozzászólás"
 
@@ -641,6 +650,9 @@ msgstr "Jelenleg a(z) {{public_body_link}} <strong>válaszát</strong> várjuk. 
 msgid "Date:"
 msgstr "Dátum: "
 
+msgid "Dear {{name}},"
+msgstr ""
+
 msgid "Dear {{public_body_name}},"
 msgstr "Tisztelt {{public_body_name}}! "
 
@@ -922,6 +934,18 @@ msgstr "ITT ÍRJA LE PANASZÁNAK RÉSZLETEIT "
 
 msgid "Handled by post."
 msgstr "Postai úton kézbesítve"
+
+msgid "Has tag string/has tag string tag"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Model"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Name"
+msgstr ""
+
+msgid "HasTagString::HasTagStringTag|Value"
+msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Üdvözöljük. {{country_name}} területén illetékes adatgazdáktól a {{link_to_website}} weboldalon igényelhet közérdekű adatokat. "
@@ -1791,9 +1815,6 @@ msgstr ""
 msgid "Public body"
 msgstr "Adatgazda"
 
-msgid "Public body/translation"
-msgstr "Adatgazda/fordítás"
-
 msgid "Public notes"
 msgstr ""
 
@@ -1802,33 +1823,6 @@ msgstr ""
 
 msgid "Public page not available"
 msgstr ""
-
-msgid "PublicBody::Translation|Disclosure log"
-msgstr "PublicBody::Translation|Disclosure log"
-
-msgid "PublicBody::Translation|First letter"
-msgstr "PublicBody::Translation|First letter"
-
-msgid "PublicBody::Translation|Locale"
-msgstr "PublicBody::Translation|Locale"
-
-msgid "PublicBody::Translation|Name"
-msgstr "PublicBody::Translation|Name"
-
-msgid "PublicBody::Translation|Notes"
-msgstr "PublicBody::Translation|Notes"
-
-msgid "PublicBody::Translation|Publication scheme"
-msgstr "PublicBody::Translation|Publication scheme"
-
-msgid "PublicBody::Translation|Request email"
-msgstr "PublicBody::Translation|Request email"
-
-msgid "PublicBody::Translation|Short name"
-msgstr "PublicBody::Translation|Short name"
-
-msgid "PublicBody::Translation|Url name"
-msgstr "PublicBody::Translation|Url name"
 
 msgid "PublicBody|Api key"
 msgstr "PublicBody|Api key"
@@ -2344,6 +2338,9 @@ msgstr "A kereső jelenleg nem működik, így nem tudjuk megjeleníteni azokat 
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
 msgstr "A kereső jelenleg nem működik, így nem tudjuk megjeleníteni azokat a közérdekűadat-igényléseket, amelyeket ez a személy nyújtott be. "
+
+msgid "The {{site_name}} team."
+msgstr ""
 
 msgid "Then you can cancel the alert."
 msgstr "Ezután törölheti az értesítőt. "
@@ -2888,6 +2885,12 @@ msgstr "Az adatgazda válaszára várakozik "
 msgid "Was the response you got to your FOI request any good?"
 msgstr "A közérdekűadat-igénylésére kielégítő választ kapott? "
 
+msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
+msgstr ""
+
+msgid "We consider it to be vexatious, and have therefore hidden it from other users."
+msgstr ""
+
 msgid "We do not have a working request email address for this authority."
 msgstr "Nem rendelkezünk az adatgazda működő e-mail címével. "
 
@@ -3115,6 +3118,9 @@ msgstr ""
 "Igénylésére csak akkor fog választ kapni, ha végrehajtja a\n"
 "pontosítást."
 
+msgid "You will still be able to view it while logged in to the site. Please reply to this email if you would like to discuss this decision further."
+msgstr ""
+
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
 msgstr "Bejelentkezett. <a href=\"#\" id=\"send-request\">Igénylés elküldésének folytatása</a>"
 
@@ -3185,6 +3191,12 @@ msgstr "Az ön jelszava: "
 msgid "Your photo will be shown in public <strong>on the Internet</strong>,\\n    wherever you do something on {{site_name}}."
 msgstr "Profilképe az <strong>interneten</strong> nyilvánosan megjelenik, ha a {{site_name}} weboldalon valamilyen műveletet hajt végre."
 
+msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
+msgstr ""
+
+msgid "Your request on {{site_name}} hidden"
+msgstr ""
+
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Igénylésének címe: {{info_request}}. Ha megkapta az információt, és ezt közzéteszi, azzal segít nekünk is, hogy követni tudjuk az eseményeket "
 
@@ -3218,6 +3230,9 @@ msgstr "Üdvözlettel: "
 
 msgid "Yours sincerely,"
 msgstr "Üdvözlettel: "
+
+msgid "Yours,"
+msgstr ""
 
 msgid "[FOI #{{request}} email]"
 msgstr ""
