@@ -1,0 +1,30 @@
+<h1><%= @title %></h1>
+
+
+<p>
+  <% if @described_state == "error_message" %>
+    <%= _("If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below.") %>
+  <% else %>
+    <%= _("Just one more thing") %>
+  <% end %>
+</p>
+
+<%= form_for :incoming_message, :url => describe_state_url(:id => @info_request.id) do |f| %>
+
+    <p>
+        <label class="form_label" for="incoming_message_message">Please tell us more:</label>
+        <%= f.text_area :message, :rows => 10, :cols => 60 %>
+    </p>
+
+    <div>
+      <%= hidden_field_tag "incoming_message[described_state]", @described_state %>
+      <%= hidden_field_tag :last_info_request_event_id, @last_info_request_event_id %>
+    </div>
+
+    <div class="form_button">
+        <%= submit_tag _("Submit status and send message") %>
+    </div>
+
+<% end %>
+
+

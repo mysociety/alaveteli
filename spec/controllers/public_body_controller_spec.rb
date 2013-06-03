@@ -2,7 +2,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PublicBodyController, "when showing a body" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -50,17 +50,16 @@ describe PublicBodyController, "when showing a body" do
 
     it "should assign the body using same locale as that used in url_name" do
         get :show, {:url_name => "edfh", :view => 'all', :show_locale => "es"}
-        response.should include_text("Baguette")
+        response.should contain("Baguette")
     end
 
     it "should redirect use to the relevant locale even when url_name is for a different locale" do
-        old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        RoutingFilter.active = false
 
         get :show, {:url_name => "edfh", :view => 'all'}
         response.should redirect_to "http://test.host/body/dfh"
 
-        ActionController::Routing::Routes.filters = old_filters
+        RoutingFilter.active = true
     end
 
     it "should remember the filter (view) setting on redirecting" do
@@ -80,7 +79,7 @@ describe PublicBodyController, "when showing a body" do
 end
 
 describe PublicBodyController, "when listing bodies" do
-    integrate_views
+    render_views
 
     it "should be successful" do
         get :list
@@ -108,9 +107,12 @@ describe PublicBodyController, "when listing bodies" do
 
         response.should render_template('list')
 
-        assigns[:public_bodies].should == PublicBody.all(
-            :conditions => "id <> #{PublicBody.internal_admin_body.id}",
-            :order => "(select name from public_body_translations where public_body_id=public_bodies.id and locale='en')")
+        assigns[:public_bodies].should == [ public_bodies(:other_public_body),
+            public_bodies(:humpadink_public_body),
+            public_bodies(:forlorn_public_body),
+            public_bodies(:geraldine_public_body),
+            public_bodies(:sensible_walks_public_body),
+            public_bodies(:silly_walks_public_body) ]
         assigns[:tag].should == "all"
         assigns[:description].should == ""
     end
@@ -148,11 +150,20 @@ describe PublicBodyController, "when listing bodies" do
 
         get :list, :tag => "other"
         response.should render_template('list')
-        assigns[:public_bodies].should =~ PublicBody.all(:conditions => "id not in (#{public_bodies(:humpadink_public_body).id}, #{PublicBody.internal_admin_body.id})")
+        assigns[:public_bodies].should == [ public_bodies(:other_public_body),
+            public_bodies(:forlorn_public_body),
+            public_bodies(:geraldine_public_body),
+            public_bodies(:sensible_walks_public_body),
+            public_bodies(:silly_walks_public_body) ]
 
         get :list
         response.should render_template('list')
-        assigns[:public_bodies].should =~ PublicBody.all(:conditions => "id <> #{PublicBody.internal_admin_body.id}")
+        assigns[:public_bodies].should == [ public_bodies(:other_public_body),
+            public_bodies(:humpadink_public_body),
+            public_bodies(:forlorn_public_body),
+            public_bodies(:geraldine_public_body),
+            public_bodies(:sensible_walks_public_body),
+            public_bodies(:silly_walks_public_body) ]
     end
 
     it "should list a machine tagged thing, should get it in both ways" do
@@ -194,7 +205,7 @@ end
 
 describe PublicBodyController, "when doing type ahead searches" do
 
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data

@@ -16,7 +16,7 @@
 # Record that alert has arrived.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackThingsSentEmail < ActiveRecord::Base
     belongs_to :info_request_event

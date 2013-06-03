@@ -169,6 +169,14 @@ describe PublicBody, " when saving" do
         @public_body.save!
         @public_body.first_letter.should == 'T'
     end
+
+    it "should save the name when renaming an existing public body" do
+        public_body = public_bodies(:geraldine_public_body)
+        public_body.name = "Mark's Public Body"
+        public_body.save!
+
+        public_body.name.should == "Mark's Public Body"
+    end
 end
 
 describe PublicBody, "when searching" do

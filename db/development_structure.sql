@@ -908,168 +908,168 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY acts_as_xapian_jobs ALTER COLUMN id SET DEFAULT nextval('acts_as_xapian_jobs_id_seq'::regclass);
+ALTER TABLE acts_as_xapian_jobs ALTER COLUMN id SET DEFAULT nextval('acts_as_xapian_jobs_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY censor_rules ALTER COLUMN id SET DEFAULT nextval('censor_rules_id_seq'::regclass);
+ALTER TABLE censor_rules ALTER COLUMN id SET DEFAULT nextval('censor_rules_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
+ALTER TABLE comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY foi_attachments ALTER COLUMN id SET DEFAULT nextval('foi_attachments_id_seq'::regclass);
+ALTER TABLE foi_attachments ALTER COLUMN id SET DEFAULT nextval('foi_attachments_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY has_tag_string_tags ALTER COLUMN id SET DEFAULT nextval('public_body_tags_id_seq'::regclass);
+ALTER TABLE has_tag_string_tags ALTER COLUMN id SET DEFAULT nextval('public_body_tags_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY holidays ALTER COLUMN id SET DEFAULT nextval('holidays_id_seq'::regclass);
+ALTER TABLE holidays ALTER COLUMN id SET DEFAULT nextval('holidays_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY incoming_messages ALTER COLUMN id SET DEFAULT nextval('incoming_messages_id_seq'::regclass);
+ALTER TABLE incoming_messages ALTER COLUMN id SET DEFAULT nextval('incoming_messages_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY info_request_events ALTER COLUMN id SET DEFAULT nextval('info_request_events_id_seq'::regclass);
+ALTER TABLE info_request_events ALTER COLUMN id SET DEFAULT nextval('info_request_events_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY info_requests ALTER COLUMN id SET DEFAULT nextval('info_requests_id_seq'::regclass);
+ALTER TABLE info_requests ALTER COLUMN id SET DEFAULT nextval('info_requests_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY mail_server_log_dones ALTER COLUMN id SET DEFAULT nextval('exim_log_dones_id_seq'::regclass);
+ALTER TABLE mail_server_log_dones ALTER COLUMN id SET DEFAULT nextval('exim_log_dones_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY mail_server_logs ALTER COLUMN id SET DEFAULT nextval('exim_logs_id_seq'::regclass);
+ALTER TABLE mail_server_logs ALTER COLUMN id SET DEFAULT nextval('exim_logs_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY outgoing_messages ALTER COLUMN id SET DEFAULT nextval('outgoing_messages_id_seq'::regclass);
+ALTER TABLE outgoing_messages ALTER COLUMN id SET DEFAULT nextval('outgoing_messages_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY post_redirects ALTER COLUMN id SET DEFAULT nextval('post_redirects_id_seq'::regclass);
+ALTER TABLE post_redirects ALTER COLUMN id SET DEFAULT nextval('post_redirects_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY profile_photos ALTER COLUMN id SET DEFAULT nextval('profile_photos_id_seq'::regclass);
+ALTER TABLE profile_photos ALTER COLUMN id SET DEFAULT nextval('profile_photos_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public_bodies ALTER COLUMN id SET DEFAULT nextval('public_bodies_id_seq'::regclass);
+ALTER TABLE public_bodies ALTER COLUMN id SET DEFAULT nextval('public_bodies_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public_body_translations ALTER COLUMN id SET DEFAULT nextval('public_body_translations_id_seq'::regclass);
+ALTER TABLE public_body_translations ALTER COLUMN id SET DEFAULT nextval('public_body_translations_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public_body_versions ALTER COLUMN id SET DEFAULT nextval('public_body_versions_id_seq'::regclass);
+ALTER TABLE public_body_versions ALTER COLUMN id SET DEFAULT nextval('public_body_versions_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY purge_requests ALTER COLUMN id SET DEFAULT nextval('purge_requests_id_seq'::regclass);
+ALTER TABLE purge_requests ALTER COLUMN id SET DEFAULT nextval('purge_requests_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY raw_emails ALTER COLUMN id SET DEFAULT nextval('raw_emails_id_seq'::regclass);
+ALTER TABLE raw_emails ALTER COLUMN id SET DEFAULT nextval('raw_emails_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY request_classifications ALTER COLUMN id SET DEFAULT nextval('request_classifications_id_seq'::regclass);
+ALTER TABLE request_classifications ALTER COLUMN id SET DEFAULT nextval('request_classifications_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY track_things ALTER COLUMN id SET DEFAULT nextval('track_things_id_seq'::regclass);
+ALTER TABLE track_things ALTER COLUMN id SET DEFAULT nextval('track_things_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY track_things_sent_emails ALTER COLUMN id SET DEFAULT nextval('track_things_sent_emails_id_seq'::regclass);
+ALTER TABLE track_things_sent_emails ALTER COLUMN id SET DEFAULT nextval('track_things_sent_emails_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY user_info_request_sent_alerts ALTER COLUMN id SET DEFAULT nextval('user_info_request_sent_alerts_id_seq'::regclass);
+ALTER TABLE user_info_request_sent_alerts ALTER COLUMN id SET DEFAULT nextval('user_info_request_sent_alerts_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+ALTER TABLE users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --

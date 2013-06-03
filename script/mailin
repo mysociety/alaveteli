@@ -13,7 +13,7 @@ source commonlib/shlib/deployfns
 
 read_conf config/general
 
-script/runner 'RequestMailer.receive(STDIN.read)' <"$INPUT" >"$OUTPUT" 2>&1
+bundle exec rails runner 'RequestMailer.receive(STDIN.read)' <"$INPUT" >"$OUTPUT" 2>&1
 ERROR_CODE=$?
 if [ ! "$ERROR_CODE" = "0" ]
 then

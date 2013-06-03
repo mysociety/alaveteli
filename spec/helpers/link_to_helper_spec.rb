@@ -8,11 +8,10 @@ describe LinkToHelper do
 
         before do
             @mock_request = mock_model(InfoRequest, :url_title => 'test_title')
-            @old_filters = ActionController::Routing::Routes.filters
-            ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+            RoutingFilter.active = false
         end
         after do
-            ActionController::Routing::Routes.filters = @old_filters
+            RoutingFilter.active = true
         end
 
 

@@ -1,16 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminRequestController, "when administering requests" do
-    integrate_views
+    render_views
     before { basic_auth_login @request }
 
     before(:each) do
         load_raw_emails_data
-        @old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
-    end
-    after do
-        ActionController::Routing::Routes.filters = @old_filters
     end
 
     it "shows the index/list page" do
@@ -39,7 +34,7 @@ describe AdminRequestController, "when administering requests" do
                                            :awaiting_description => false,
                                            :allow_new_responses_from => 'anybody',
                                            :handle_rejected_responses => 'bounce' } }
-        response.flash[:notice].should include('successful')
+        request.flash[:notice].should include('successful')
         ir = InfoRequest.find(info_requests(:fancy_dog_request).id)
         ir.title.should == "Renamed"
     end
@@ -64,7 +59,7 @@ describe AdminRequestController, "when administering requests" do
     it "saves edits to an outgoing_message" do
         outgoing_messages(:useless_outgoing_message).body.should include("fancy dog")
         post :update_outgoing, { :id => outgoing_messages(:useless_outgoing_message), :outgoing_message => { :body => "Why do you have such a delicious cat?" } }
-        response.flash[:notice].should include('successful')
+        request.flash[:notice].should include('successful')
         ir = OutgoingMessage.find(outgoing_messages(:useless_outgoing_message).id)
         ir.body.should include("delicious cat")
     end
@@ -82,15 +77,10 @@ describe AdminRequestController, "when administering requests" do
 end
 
 describe AdminRequestController, "when administering the holding pen" do
-    integrate_views
+    render_views
     before(:each) do
         basic_auth_login @request
         load_raw_emails_data
-        @old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
-    end
-    after do
-        ActionController::Routing::Routes.filters = @old_filters
     end
 
     it "shows a rejection reason for an incoming message from an invalid address" do
@@ -100,7 +90,7 @@ describe AdminRequestController, "when administering the holding pen" do
         ir.save!
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "frob@nowhere.com")
         get :show_raw_email, :id => InfoRequest.holding_pen_request.get_last_response.raw_email.id
-        response.should have_text(/Only the authority can reply to this request/)
+        response.should contain "Only the authority can reply to this request"
     end
 
     it "allows redelivery even to a closed request" do
@@ -164,7 +154,7 @@ describe AdminRequestController, "when administering the holding pen" do
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "")
         InfoRequest.holding_pen_request.incoming_messages.length.should == 2
         get :show_raw_email, :id => interesting_email
-        response.should have_text(/Could not identify the request/)
+        response.should contain "Could not identify the request"
         assigns[:info_requests][0].should == ir
     end
 
@@ -260,13 +250,13 @@ describe AdminRequestController, "when administering the holding pen" do
             end
 
             it 'should not send a notification email' do
-                ContactMailer.should_not_receive(:deliver_from_admin_message)
+                ContactMailer.should_not_receive(:from_admin_message)
                 make_request
             end
 
             it 'should add a notice to the flash saying that the request has been hidden' do
                 make_request
-                response.flash[:notice].should == "This external request has been hidden"
+                request.flash[:notice].should == "This external request has been hidden"
             end
 
             it 'should expire the file cache for the request' do

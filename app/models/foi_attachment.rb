@@ -20,7 +20,7 @@
 # An attachment to an email (IncomingMessage)
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 # This is the type which is used to send data about attachments to the view
 
 require 'digest'
@@ -38,11 +38,7 @@ class FoiAttachment < ActiveRecord::Base
     BODY_MAX_DELAY = 5
 
     def directory
-        rails_env = Rails.env
-        if rails_env.nil? || rails_env.empty?
-            raise "$RAILS_ENV is not set"
-        end
-        base_dir = File.expand_path(File.join(File.dirname(__FILE__), "../../cache", "attachments_#{rails_env}"))
+        base_dir = File.expand_path(File.join(File.dirname(__FILE__), "../../cache", "attachments_#{Rails.env}"))
         return File.join(base_dir, self.hexdigest[0..2])
     end
 
@@ -67,20 +63,7 @@ class FoiAttachment < ActiveRecord::Base
             file.write d
         }
         update_display_size!
-        encode_cached_body!
         @cached_body = d
-    end
-
-    # If the original mail part had a charset, it's some kind of string, so assume that
-    # it should be handled as a string in the stated charset, not a bytearray, and then
-    # convert it our default encoding. For ruby 1.8 this is a noop.
-    def encode_cached_body!
-        if RUBY_VERSION.to_f >= 1.9
-            if charset
-                @cached_body.force_encoding(charset)
-                @cached_body = @cached_body.encode(Encoding.default_internal, charset)
-            end
-        end
     end
 
     def body
@@ -88,7 +71,12 @@ class FoiAttachment < ActiveRecord::Base
             tries = 0
             delay = 1
             begin
-                @cached_body = File.open(self.filepath, "rb" ).read
+                binary_data = File.open(self.filepath, "rb" ).read
+                if self.content_type =~ /^text/
+                    @cached_body = convert_string_to_utf8_or_binary(binary_data, 'UTF-8')
+                else
+                    @cached_body = binary_data
+                end
             rescue Errno::ENOENT
                 # we've lost our cached attachments for some reason.  Reparse them.
                 if tries > BODY_MAX_TRIES
@@ -103,7 +91,6 @@ class FoiAttachment < ActiveRecord::Base
                 self.incoming_message.parse_raw_email!(force)
                 retry
             end
-            encode_cached_body!
         end
         return @cached_body
     end

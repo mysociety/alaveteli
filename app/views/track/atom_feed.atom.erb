@@ -9,7 +9,7 @@
     # Get the HTML content from the same partial template as website search does
     content = ''
     if result[:model].class.to_s == 'InfoRequestEvent'
-      content += render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request }
+      content += render :partial => 'request/request_listing_via_event.html', :locals => { :event => result[:model], :info_request => result[:model].info_request }
     else
       content = "<p><strong>Unknown search result type " + result[:model].class.to_s + "</strong></p>"
     end

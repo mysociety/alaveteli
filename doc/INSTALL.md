@@ -67,15 +67,7 @@ Some of the files also have a version number listed in config/packages
 
 # Install Ruby dependencies
 
-Install rubygems 1.6.2 (we're not using the Debian package because we
-need an older version; see "Troubleshooting" below for an
-explanation):
-
-    wget http://rubyforge.org/frs/download.php/74445/rubygems-1.6.2.tgz -O /tmp/rubygems-1.6.2.tgz
-    tar zxvf /tmp/rubygems-1.6.2.tgz -C /tmp/
-    sudo ruby1.8 /tmp/rubygems-1.6.2/setup.rb
-
-To install Alaveteli's Ruby dependencies, we also need to install
+To install Alaveteli's Ruby dependencies, we need to install
 bundler.  In Debian, this is provided as a package (installed as part
 of the package install process above).  You could also install it as a
 gem:
@@ -138,7 +130,8 @@ username and password of your postgres database.
 Make sure that the user specified in database.yml exists, and has full
 permissions on these databases. As they need the ability to turn off
 constraints whilst running the tests they also need to be a superuser.
-(See http://dev.rubyonrails.org/ticket/9981)
+If you don't want your database user to be a superuser, you can add a line
+`disable_constraints: false` to the test config in database.yml, as seen in database.yml-example
 
 You can create a `foi` user from the command line, thus:
 
@@ -230,7 +223,7 @@ for instructions on switching on local and remote performance analysis.
 
 In the 'alaveteli' directory, run:
 
-    ./script/rails-post-deploy
+    script/rails-post-deploy
 
 (This will need execute privs so `chmod 755` if necessary.) This sets
 up directory structures, creates logs, installs/updates themes, runs
@@ -245,11 +238,11 @@ If you want some dummy data to play with, you can try loading the
 fixtures that the test suite uses into your development database.  You
 can do this with:
 
-    ./script/load-sample-data
+    script/load-sample-data
 
 Next we need to create the index for the search engine (Xapian):
 
-    ./script/rebuild-xapian-index
+    script/rebuild-xapian-index
 
 If this fails, the site should still mostly run, but it's a core
 component so you should really try to get this working.
@@ -281,7 +274,7 @@ tests to pass by setting `export LD_PRELOAD=/lib/libuuid.so.1`.
 
 Run the following to get the server running:
 
-    ./script/server  --environment=development
+    script/server  --environment=development
 
 By default the server listens on all interfaces. You can restrict it to the
 localhost interface by adding ` --binding=127.0.0.1`
@@ -367,8 +360,8 @@ It is not recommended to run the website using the default Rails web
 server.  There are various recommendations here:
 http://rubyonrails.org/deploy
 
-We usually use Passenger / mod_rails.  The file at `conf/httpd.conf`
-contains the WhatDoTheyKnow settings.  At a minimum, you should
+We usually use Passenger / mod_rails.  The file at `conf/httpd.conf-example`
+gives you an example config file for WhatDoTheyKnow.  At a minimum, you should
 include the following in an Apache configuration file:
 
     PassengerResolveSymlinksInDocumentRoot on
@@ -508,19 +501,6 @@ various other things that can be automated for deployment.
     You should also check that your locale is set up correctly.  See
     [https://github.com/mysociety/alaveteli/issues/128#issuecomment-1814845](this issue followup)
     for further discussion.
-
-*   **I'm getting lots of `SourceIndex.new(hash) is deprecated` errors when running the tests**
-
-    The latest versions of rubygems contain a large number of noisy
-    deprecation warnings that you can't turn off individually.  Rails
-    2.x isn't under active development so isn't going to get fixed (in
-    the sense of using a non-deprecated API).  So the only vaguely
-    sensible way to avoid this noisy output is to downgrade rubygems.
-
-    For example, you might do this by uninstalling your
-    system-packaged rubygems, and then installing the latest rubygems
-    from source, and finally executing `sudo gem update --system
-    1.6.2`.
 
 *   **I'm seeing `rake: command not found` when running the post install script
 

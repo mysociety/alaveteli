@@ -10,7 +10,7 @@
 # The fat part of models/incoming_message.rb
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class RawEmail < ActiveRecord::Base
     # deliberately don't strip_attributes, so keeps raw email properly
@@ -23,10 +23,10 @@ class RawEmail < ActiveRecord::Base
             raise "Failed to find the id number of the associated request: has it been saved?"
         end
 
-        if ENV["RAILS_ENV"] == "test"
+        if Rails.env.test?
             return File.join(Rails.root, 'files/raw_email_test')
         else
-            return File.join(Configuration::raw_emails_location,
+            return File.join(AlaveteliConfiguration::raw_emails_location,
                              request_id[0..2], request_id)
         end
     end

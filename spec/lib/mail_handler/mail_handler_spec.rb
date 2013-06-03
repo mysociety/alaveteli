@@ -20,10 +20,31 @@ describe 'when creating a mail object from raw data' do
         mail.to.should == ["request-66666-caa77777@whatdotheyknow.com", "foi@example.com"]
     end
 
+    it 'should return nil for malformed To: and Cc: lines' do
+        mail = get_fixture_mail('malformed-to-and-cc.email')
+        mail.to.should == nil
+        mail.cc.should == nil
+    end
+
     it 'should convert an iso8859 email to utf8' do
         mail = get_fixture_mail('iso8859_2_raw_email.email')
-        mail.subject.should have_text(/gjatë/u)
+        mail.subject.should match /gjatë/u
         MailHandler.get_part_body(mail).is_utf8?.should == true
+    end
+
+    it 'should convert a Windows-1252 body mislabelled as ISO-8859-1 to UTF-8' do
+        mail = get_fixture_mail('mislabelled-as-iso-8859-1.email')
+        body = MailHandler.get_part_body(mail)
+        body.is_utf8?.should == true
+        # This email is broken in at least these two ways:
+        #  1. It contains a top bit set character (0x96) despite the
+        #     "Content-Transfer-Encoding: 7bit"
+        #  2. The charset in the Content-Type header is "iso-8859-1"
+        #     but 0x96 is actually a Windows-1252 en dash, which would
+        #     be Unicode codepoint 2013.  It should be possible to
+        #     spot the mislabelling, since 0x96 isn't a valid
+        #     ISO-8859-1 character.
+        body.should match(/ \xe2\x80\x93 /)
     end
 
 end
@@ -275,11 +296,24 @@ end
 
 describe 'when getting attachment attributes' do
 
+    it 'should handle a mail with a non-multipart part with no charset in the Content-Type header' do
+        mail = get_fixture_mail('part-without-charset-in-content-type.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+        attributes.size.should == 2
+    end
+
     it 'should get two attachment parts from a multipart mail with text and html alternatives
     and an image' do
         mail = get_fixture_mail('quoted-subject-iso8859-1.email')
         attributes = MailHandler.get_attachment_attributes(mail)
         attributes.size.should == 2
+    end
+
+    it 'should get one attachment from a multipart mail with text and HTML alternatives, which should be UTF-8' do
+        mail = get_fixture_mail('iso8859_2_raw_email.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+        attributes.length.should == 1
+        attributes[0][:body].is_utf8?.should == true
     end
 
     it 'should expand a mail attached as text' do
@@ -302,6 +336,52 @@ describe 'when getting attachment attributes' do
     it 'should handle a mail which causes Tmail to generate a blank header value' do
         mail = get_fixture_mail('many-attachments-date-header.email')
         attributes = MailHandler.get_attachment_attributes(mail)
+    end
+
+    it 'should ignore truncated TNEF attachment' do
+        mail = get_fixture_mail('tnef-attachment-truncated.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+        attributes.length.should == 2
+    end
+
+    it 'should ignore anything beyond the final MIME boundary' do
+        pending do
+            # This example raw email has a premature closing boundary for
+            # the outer multipart/mixed - my reading of RFC 1521 is that
+            # the "epilogue" beyond that should be ignored.
+            # See https://github.com/mysociety/alaveteli/issues/922 for
+            # more discussion.
+            mail = get_fixture_mail('nested-attachments-premature-end.email')
+            attributes = MailHandler.get_attachment_attributes(mail)
+            attributes.length.should == 3
+        end
+    end
+
+    it 'should cope with a missing final MIME boundary' do
+        mail = get_fixture_mail('multipart-no-final-boundary.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+        attributes.length.should == 1
+        attributes[0][:body].should match(/This is an acknowledgement of your email/)
+        attributes[0][:content_type].should == "text/plain"
+        attributes[0][:url_part_number].should == 1
+    end
+
+    it 'should ignore a TNEF attachment with no usable contents' do
+        # FIXME: "no usable contents" is slightly misleading.  The
+        # attachment in this example email does have usable content in
+        # the body of the TNEF attachment, but the invocation of tnef
+        # historically used to unpack these attachments doesn't add
+        # the --save-body parameter, so that they have been ignored so
+        # far.  We probably should include the body from such
+        # attachments, but, at the moment, with the pending upgrade to
+        # Rails 3, we just want to check that the behaviour is the
+        # same as before.
+        mail = get_fixture_mail('tnef-attachment-empty.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+        attributes.length.should == 2
+        # This is the size of the TNEF-encoded attachment; currently,
+        # we expect the code just to return this without decoding:
+        attributes[1][:body].length.should == 7769
     end
 
     it 'should produce a consistent set of url_part_numbers, content_types, within_rfc822_subjects

@@ -64,4 +64,42 @@ module Mail
           end.join(";\r\n\s")
         end
     end
+
+    # HACK: Backport encoding fixes for Ruby 1.8 from Mail 2.5
+    # Can be removed when we no longer support Ruby 1.8
+    class Ruby18
+        def Ruby18.b_value_decode(str)
+            match = str.match(/\=\?(.+)?\?[Bb]\?(.+)?\?\=/m)
+            if match
+                encoding = match[1]
+                str = Ruby18.decode_base64(match[2])
+                str = Iconv.conv('UTF-8//IGNORE', fix_encoding(encoding), str)
+            end
+            str
+        end
+
+        def Ruby18.q_value_decode(str)
+          match = str.match(/\=\?(.+)?\?[Qq]\?(.+)?\?\=/m)
+          if match
+              encoding = match[1]
+              string = match[2].gsub(/_/, '=20')
+              # Remove trailing = if it exists in a Q encoding
+              string = string.sub(/\=$/, '')
+              str = Encodings::QuotedPrintable.decode(string)
+              str = Iconv.conv('UTF-8//IGNORE', fix_encoding(encoding), str)
+          end
+          str
+        end
+
+        private
+
+        def Ruby18.fix_encoding(encoding)
+            case encoding.upcase
+            when 'UTF8'
+                'UTF-8'
+            else
+                encoding
+            end
+        end
+    end
 end

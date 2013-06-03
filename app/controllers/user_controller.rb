@@ -2,7 +2,7 @@
 # Show information about a user.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'set'
 
@@ -136,7 +136,7 @@ class UserController < ApplicationController
     # Login form
     def signin
         work_out_post_redirect
-        @request_from_foreign_country = country_from_ip != Configuration::iso_country_code
+        @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
         # make sure we have cookies
         if session.instance_variable_get(:@dbman)
             if not session.instance_variable_get(:@dbman).instance_variable_get(:@original)
@@ -190,7 +190,7 @@ class UserController < ApplicationController
     # Create new account form
     def signup
         work_out_post_redirect
-        @request_from_foreign_country = country_from_ip != Configuration::iso_country_code
+        @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
         # Make the user and try to save it
         @user_signup = User.new(params[:user_signup])
         error = false
@@ -222,7 +222,7 @@ class UserController < ApplicationController
         post_redirect = PostRedirect.find_by_email_token(params[:email_token])
 
         if post_redirect.nil?
-            render :template => 'user/bad_token.rhtml'
+            render :template => 'user/bad_token'
             return
         end
 
@@ -288,7 +288,7 @@ class UserController < ApplicationController
                 post_redirect.user = user_signchangepassword
                 post_redirect.save!
                 url = confirm_url(:email_token => post_redirect.email_token)
-                UserMailer.deliver_confirm_login(user_signchangepassword, post_redirect.reason_params, url)
+                UserMailer.confirm_login(user_signchangepassword, post_redirect.reason_params, url).deliver
             else
                 # User not found, but still show confirm page to not leak fact user exists
             end
@@ -352,7 +352,7 @@ class UserController < ApplicationController
         # if new email already in use, send email there saying what happened
         user_alreadyexists = User.find_user_by_email(@signchangeemail.new_email)
         if user_alreadyexists
-            UserMailer.deliver_changeemail_already_used(@user.email, @signchangeemail.new_email)
+            UserMailer.changeemail_already_used(@user.email, @signchangeemail.new_email).deliver
             # it is important this screen looks the same as the one below, so
             # you can't change to someone's email in order to tell if they are
             # registered with that email on the site
@@ -373,7 +373,7 @@ class UserController < ApplicationController
             post_redirect.save!
 
             url = confirm_url(:email_token => post_redirect.email_token)
-            UserMailer.deliver_changeemail_confirm(@user, @signchangeemail.new_email, url)
+            UserMailer.changeemail_confirm(@user, @signchangeemail.new_email, url).deliver
             # it is important this screen looks the same as the one above, so
             # you can't change to someone's email in order to tell if they are
             # registered with that email on the site
@@ -419,13 +419,13 @@ class UserController < ApplicationController
             params[:contact][:email] = @user.email
             @contact = ContactValidator.new(params[:contact])
             if @contact.valid?
-                ContactMailer.deliver_user_message(
+                ContactMailer.user_message(
                     @user,
                     @recipient_user,
                     user_url(@user),
                     params[:contact][:subject],
                     params[:contact][:message]
-                )
+                ).deliver
                 flash[:notice] = _("Your message to {{recipient_user_name}} has been sent!",:recipient_user_name=>CGI.escapeHTML(@recipient_user.name))
                 redirect_to user_url(@recipient_user)
                 return
@@ -465,7 +465,7 @@ class UserController < ApplicationController
             @draft_profile_photo = ProfilePhoto.new(:data => file_content, :draft => true)
             if !@draft_profile_photo.valid?
                 # error page (uses @profile_photo's error fields in view to show errors)
-                render :template => 'user/set_draft_profile_photo.rhtml'
+                render :template => 'user/set_draft_profile_photo'
                 return
             end
             @draft_profile_photo.save
@@ -480,7 +480,7 @@ class UserController < ApplicationController
                 return
             end
 
-            render :template => 'user/set_crop_profile_photo.rhtml'
+            render :template => 'user/set_crop_profile_photo'
             return
         elsif !params[:submitted_crop_profile_photo].nil?
             # crop the draft photo according to jquery parameters and set it as the users photo
@@ -499,7 +499,7 @@ class UserController < ApplicationController
                 redirect_to set_profile_about_me_url()
             end
         else
-            render :template => 'user/set_draft_profile_photo.rhtml'
+            render :template => 'user/set_draft_profile_photo'
         end
     end
 
@@ -527,7 +527,7 @@ class UserController < ApplicationController
     def get_draft_profile_photo
         profile_photo = ProfilePhoto.find(params[:id])
         response.content_type = "image/png"
-        render_for_text(profile_photo.data)
+        render :text => profile_photo.data
     end
 
     # actual profile photo of a user
@@ -542,7 +542,7 @@ class UserController < ApplicationController
         end
 
         response.content_type = "image/png"
-        render_for_text(@display_user.profile_photo.data)
+        render :text => @display_user.profile_photo.data
     end
 
     # Change about me text on your profile page
@@ -631,7 +631,7 @@ class UserController < ApplicationController
         post_redirect.save!
 
         url = confirm_url(:email_token => post_redirect.email_token)
-        UserMailer.deliver_confirm_login(user, post_redirect.reason_params, url)
+        UserMailer.confirm_login(user, post_redirect.reason_params, url).deliver
         render :action => 'confirm'
     end
 
@@ -642,7 +642,7 @@ class UserController < ApplicationController
         post_redirect.save!
 
         url = confirm_url(:email_token => post_redirect.email_token)
-        UserMailer.deliver_already_registered(user, post_redirect.reason_params, url)
+        UserMailer.already_registered(user, post_redirect.reason_params, url).deliver
         render :action => 'confirm' # must be same as for send_confirmation_mail above to avoid leak of presence of email in db
     end
 

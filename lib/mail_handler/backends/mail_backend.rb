@@ -1,4 +1,35 @@
 require 'mail'
+require 'mapi/msg'
+require 'mapi/convert'
+
+module Mail
+    class Message
+
+        # The behaviour of the 'to' and 'cc' methods have changed
+        # between TMail and Mail; this monkey-patching restores the
+        # TMail behaviour.  The key difference is that when there's an
+        # invalid address, e.g. '<foo@example.org', Mail returns the
+        # string as an ActiveSupport::Multibyte::Chars, whereas
+        # previously TMail would return nil.
+
+        alias_method :old_to, :to
+        alias_method :old_cc, :cc
+
+        def clean_addresses(old_method, val)
+            old_result = self.send(old_method, val)
+            old_result.class == Mail::AddressContainer ? old_result : nil
+        end
+
+        def to(val = nil)
+            self.clean_addresses :old_to, val
+        end
+
+        def cc(val = nil)
+            self.clean_addresses :old_cc, val
+        end
+
+    end
+end
 
 module MailHandler
     module Backends
@@ -38,7 +69,11 @@ module MailHandler
 
             # Get the body of a mail part
             def get_part_body(part)
-                part.body.decoded
+                decoded = part.body.decoded
+                if part.content_type =~ /^text\//
+                    decoded = convert_string_to_utf8_or_binary decoded, part.charset
+                end
+                decoded
             end
 
             # Return the first from field if any
@@ -60,7 +95,7 @@ module MailHandler
             def get_from_address(mail)
                 first_from = first_from(mail)
                 if first_from
-                    if first_from.is_a?(String)
+                    if first_from.is_a?(ActiveSupport::Multibyte::Chars)
                         return nil
                     else
                         return first_from.address
@@ -74,7 +109,7 @@ module MailHandler
             def get_from_name(mail)
                 first_from = first_from(mail)
                 if first_from
-                    if first_from.is_a?(String)
+                    if first_from.is_a?(ActiveSupport::Multibyte::Chars)
                         return nil
                     else
                         return first_from.display_name ? eval(%Q{"#{first_from.display_name}"}) : nil
@@ -85,7 +120,7 @@ module MailHandler
             end
 
             def get_all_addresses(mail)
-                envelope_to = mail['envelope-to'] ? [mail['envelope-to'].value] : []
+                envelope_to = mail['envelope-to'] ? [mail['envelope-to'].value.to_s] : []
                 ((mail.to || []) +
                 (mail.cc || []) +
                 (envelope_to || [])).uniq
@@ -141,9 +176,14 @@ module MailHandler
                     end
                 elsif get_content_type(part) == 'application/ms-tnef'
                     # A set of attachments in a TNEF file
-                    part.rfc822_attachment = mail_from_tnef(part.body.decoded)
-                    if part.rfc822_attachment.nil?
-                        # Attached mail didn't parse, so treat as binary
+                    begin
+                        part.rfc822_attachment = mail_from_tnef(part.body.decoded)
+                        if part.rfc822_attachment.nil?
+                            # Attached mail didn't parse, so treat as binary
+                            part.content_type = 'application/octet-stream'
+                        end
+                    rescue TNEFParsingError
+                        part.rfc822_attachment = nil
                         part.content_type = 'application/octet-stream'
                     end
                 end
@@ -160,8 +200,11 @@ module MailHandler
                   part.parts.each{ |sub_part| expand_and_normalize_parts(sub_part, parent_mail) }
                 else
                   part_filename = get_part_file_name(part)
-                  charset = part.charset # save this, because overwriting content_type also resets charset
-
+                  if part.has_charset?
+                      original_charset = part.charset # save this, because overwriting content_type also resets charset
+                  else
+                      original_charset = nil
+                  end
                   # Don't allow nil content_types
                   if get_content_type(part).nil?
                       part.content_type = 'application/octet-stream'
@@ -180,7 +223,9 @@ module MailHandler
                   # Use standard content types for Word documents etc.
                   part.content_type = normalise_content_type(get_content_type(part))
                   decode_attached_part(part, parent_mail)
-                  part.charset = charset
+                  if original_charset
+                      part.charset = original_charset
+                  end
                 end
             end
 
@@ -228,8 +273,15 @@ module MailHandler
             def _get_attachment_leaves_recursive(part, within_rfc822_attachment, parent_mail)
                 leaves_found = []
                 if part.multipart?
-                    raise "no parts on multipart mail" if part.parts.size == 0
-                    if part.sub_type == 'alternative'
+                    if part.parts.size == 0
+                        # This is typically caused by a missing final
+                        # MIME boundary, in which case the text of the
+                        # message (including the opening MIME
+                        # boundary) is in part.body, so just add this
+                        # part as a leaf and treat it as text/plain:
+                        part.content_type = "text/plain"
+                        leaves_found += [part]
+                    elsif part.sub_type == 'alternative'
                         best_part = choose_best_alternative(part)
                         leaves_found += _get_attachment_leaves_recursive(best_part,
                                                                          within_rfc822_attachment,

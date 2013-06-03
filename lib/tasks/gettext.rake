@@ -1,7 +1,3 @@
-# Rails won't automatically load rakefiles from gems - see
-# http://stackoverflow.com/questions/1878640/including-rake-tasks-in-gems
-Dir["#{Gem.searcher.find('gettext_i18n_rails').full_gem_path}/lib/tasks/**/*.rake"].each { |ext| load ext }
-
 namespace :gettext do
 
   desc 'Rewrite .po files into a consistent msgmerge format'

@@ -2,7 +2,7 @@
 # Controller for viewing FOI requests from the admin interface.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'ostruct'
 
@@ -14,10 +14,14 @@ class AdminRequestController < AdminController
 
     def list
         @query = params[:query]
-        @info_requests = InfoRequest.paginate :order => "created_at desc",
+        if @query
+            info_requests = InfoRequest.where(["lower(title) like lower('%'||?||'%')", @query])
+        else
+            info_requests = InfoRequest
+        end
+        @info_requests = info_requests.paginate :order => "created_at desc",
                                               :page => params[:page],
-                                              :per_page => 100,
-            :conditions =>  @query.nil? ? nil : ["lower(title) like lower('%'||?||'%')", @query]
+                                              :per_page => 100
     end
 
     def show
@@ -25,11 +29,11 @@ class AdminRequestController < AdminController
         # XXX is this *really* the only way to render a template to a
         # variable, rather than to the response?
         vars = OpenStruct.new(:name_to => @info_request.user_name,
-                :name_from => Configuration::contact_name,
+                :name_from => AlaveteliConfiguration::contact_name,
                 :info_request => @info_request, :reason => params[:reason],
-                :info_request_url => 'http://' + Configuration::domain + request_path(@info_request),
+                :info_request_url => 'http://' + AlaveteliConfiguration::domain + request_url(@info_request),
                 :site_name => site_name)
-        template = File.read(File.join(File.dirname(__FILE__), "..", "views", "admin_request", "hidden_user_explanation.rhtml"))
+        template = File.read(File.join(File.dirname(__FILE__), "..", "views", "admin_request", "hidden_user_explanation.html.erb"))
         @request_hidden_user_explanation = ERB.new(template).result(vars.instance_eval { binding })
     end
 
@@ -361,11 +365,11 @@ class AdminRequestController < AdminController
             info_request.save!
 
             if ! info_request.is_external?
-                ContactMailer.deliver_from_admin_message(
+                ContactMailer.from_admin_message(
                         info_request.user,
                         subject,
                         params[:explanation].strip.html_safe
-                    )
+                    ).deliver
                 flash[:notice] = _("Your message to {{recipient_user_name}} has been sent",:recipient_user_name=>CGI.escapeHTML(info_request.user.name))
             else
                 flash[:notice] = _("This external request has been hidden")

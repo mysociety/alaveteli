@@ -2,7 +2,7 @@
 # Xapian full text search in Ruby on Rails.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 #
 # Documentation
 # =============
@@ -88,16 +88,16 @@ module ActsAsXapian
       return unless @@db_path.nil?
 
       # barf if we can't figure out the environment
-      environment = (ENV['RAILS_ENV'] or RAILS_ENV)
+      environment = (ENV['RAILS_ENV'] or Rails.env)
       raise "Set RAILS_ENV, so acts_as_xapian can find the right Xapian database" if not environment
 
       # check for a config file
-      config_file = RAILS_ROOT + "/config/xapian.yml"
+      config_file = Rails.root.join("config","xapian.yml")
       @@config = File.exists?(config_file) ? YAML.load_file(config_file)[environment] : {}
 
       # figure out where the DBs should go
       if config['base_db_path']
-        db_parent_path = RAILS_ROOT + "/" + config['base_db_path']
+        db_parent_path = Rails.root.join(config['base_db_path'])
       else
         db_parent_path = File.join(File.dirname(__FILE__), '../xapiandbs/')
       end
@@ -711,6 +711,9 @@ module ActsAsXapian
               # We fork here, so each batch is run in a different process. This is
               # because otherwise we get a memory "leak" and you can't rebuild very
               # large databases (however long you have!)
+
+              ActiveRecord::Base.connection.disconnect!
+
               pid = Process.fork # XXX this will only work on Unix, tough
               if pid
                     Process.waitpid(pid)
@@ -718,11 +721,10 @@ module ActsAsXapian
                         raise "batch fork child failed, exiting also"
                     end
                     # database connection doesn't survive a fork, rebuild it
-                    ActiveRecord::Base.connection.reconnect!
               else
-
                     # fully reopen the database each time (with a new object)
                     # (so doc ids and so on aren't preserved across the fork)
+                    ActiveRecord::Base.establish_connection
                     @@db_path = ActsAsXapian.db_path + ".new"
                     ActsAsXapian.writable_init
                     STDOUT.puts("ActsAsXapian.rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
@@ -737,6 +739,8 @@ module ActsAsXapian
                     # brutal exit, so other shutdown code not run (for speed and safety)
                     Kernel.exit! 0
               end
+
+              ActiveRecord::Base.establish_connection
 
             end
         end

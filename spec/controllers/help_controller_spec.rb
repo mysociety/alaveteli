@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe HelpController, "when using help" do
-    integrate_views
+    render_views
   
     it "shows the about page" do
         get :about
