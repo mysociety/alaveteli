@@ -3,7 +3,7 @@
 <div class="row">
   <div class="span8">
     <div id="public_body_form">
-      <% form_for @public_body, :url => admin_body_update_path(@public_body), :html => { :class => "form form-horizontal" } do |f| %>
+      <%= form_for @public_body, :url => admin_body_update_path(@public_body), :html => { :class => "form form-horizontal" } do |f| %>
           <%= render :partial => 'form', :locals => {:f => f} %>
           <div class="form-actions">
             <%= f.submit 'Save', :accesskey => 's', :class => "btn btn-success" %></p>
