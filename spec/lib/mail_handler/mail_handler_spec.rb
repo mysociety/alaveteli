@@ -32,6 +32,19 @@ describe 'when creating a mail object from raw data' do
         MailHandler.get_part_body(mail).is_utf8?.should == true
     end
 
+    it 'should not be confused by subject lines with malformed UTF-8 at the end' do
+        # The base64 subject line was generated with:
+        #   printf "hello\360" | base64
+        # ... and wrapping the result in '=?UTF-8?B?' and '?='
+        mail = get_fixture_mail('subject-bad-utf-8-trailing-base64.email')
+        mail.subject.should == 'hello'
+        # The quoted printable subject line was generated with:
+        #   printf "hello\360" | qprint -b -e
+        # ... and wrapping the result in '=?UTF-8?Q?' and '?='
+        mail = get_fixture_mail('subject-bad-utf-8-trailing-quoted-printable.email')
+        mail.subject.should == 'hello'
+    end
+
     it 'should convert a Windows-1252 body mislabelled as ISO-8859-1 to UTF-8' do
         mail = get_fixture_mail('mislabelled-as-iso-8859-1.email')
         body = MailHandler.get_part_body(mail)
