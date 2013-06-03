@@ -816,6 +816,16 @@ describe RequestController, "when changing prominence of a request" do
         response.should render_template('hidden')
     end
 
+    it 'should not show hidden requests if requested using json' do
+        ir = info_requests(:fancy_dog_request)
+        ir.prominence = 'hidden'
+        ir.save!
+
+        session[:user_id] = ir.user.id # bob_smith_user
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :format => 'json'
+        response.code.should == '410'
+    end
+
     it "should show hidden requests if logged in as super user" do
         ir = info_requests(:fancy_dog_request)
         ir.prominence = 'hidden'
@@ -1236,14 +1246,29 @@ describe RequestController, "when viewing an individual response for reply/follo
         response.body.should have_selector("div#other_recipients ul li", :content => "Frob")
     end
 
-    it "should not show individual responses if request hidden, even if request owner" do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
+    context 'when a request is hidden' do
 
-        session[:user_id] = users(:bob_smith_user).id
-        get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
-        response.should render_template('request/hidden')
+        before do
+            ir = info_requests(:fancy_dog_request)
+            ir.prominence = 'hidden'
+            ir.save!
+
+            session[:user_id] = users(:bob_smith_user).id
+        end
+
+        it "should not show individual responses, even if request owner" do
+            get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
+            response.should render_template('request/hidden')
+        end
+
+        it 'should respond to a json request for a hidden request with a 410 code and no body' do
+            get :show_response, :id => info_requests(:fancy_dog_request).id,
+                                :incoming_message_id => incoming_messages(:useless_incoming_message),
+                                :format => 'json'
+
+            response.code.should == '410'
+        end
+
     end
 
     describe 'when viewing a response for an external request' do
