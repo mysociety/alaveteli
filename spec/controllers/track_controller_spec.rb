@@ -144,6 +144,7 @@ describe TrackController, "when viewing RSS feed for a track" do
 
         get :track_request, :feed => 'feed', :url_title => track_thing.info_request.url_title
         response.should render_template('track/atom_feed')
+        response.content_type.should == 'application/atom+xml'
         # XXX should check it is an atom.builder type being rendered, not sure how to
 
         assigns[:xapian_object].matches_estimated.should == 3
