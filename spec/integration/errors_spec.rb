@@ -62,6 +62,17 @@ describe "When errors occur" do
             response.code.should == "500"
         end
 
+        it 'should render a 500 for json errors' do
+            InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+            get("/request/example.json")
+            response.code.should == '500'
+        end
+
+        it 'should render a 404 for a non-found xml request' do
+            get("/frobsnasm.xml")
+            response.code.should == '404'
+        end
+
         it 'should notify of a general error' do
             InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
             get("/request/example")
@@ -95,6 +106,12 @@ describe "When errors occur" do
             get("/request/101/response/1/attach/html" )
             response.body.should include("Directory listing not allowed")
             response.code.should == "403"
+        end
+
+        it "return a 403 for a JSON PermissionDenied error" do
+            InfoRequest.stub!(:find_by_url_title!).and_raise(ApplicationController::PermissionDenied)
+            get("/request/example.json")
+            response.code.should == '403'
         end
 
         context "in the admin interface" do
