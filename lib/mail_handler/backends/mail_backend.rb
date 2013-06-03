@@ -367,7 +367,9 @@ module MailHandler
             end
 
             def address_from_string(string)
-                Mail::Address.new(string).address
+                mail = Mail.new
+                mail.from = string
+                mail.from[0]
             end
         end
     end
