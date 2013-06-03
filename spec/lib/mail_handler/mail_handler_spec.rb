@@ -478,3 +478,11 @@ describe 'when getting attachment attributes' do
         end
     end
 end
+
+describe 'when getting the address part from an address string' do
+
+    it 'should handle non-ascii characters in the name input' do
+        address = "\"Someone’s name\" <test@example.com>"
+        MailHandler.address_from_string(address).should == 'test@example.com'
+    end
+end
