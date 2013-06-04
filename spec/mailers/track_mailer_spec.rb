@@ -69,11 +69,15 @@ describe TrackMailer do
                     @xapian_search = mock('xapian search', :results => [])
                     @found_event = mock_model(InfoRequestEvent, :described_at => @track_thing.created_at + 1.day)
                     @search_result = {:model => @found_event}
-                    InfoRequest.stub!(:full_search).and_return(@xapian_search)
+                    ActsAsXapian::Search.stub!(:new).and_return(@xapian_search)
                 end
 
                 it 'should ask for the events returned by the tracking query' do
-                    InfoRequest.should_receive(:full_search).with([InfoRequestEvent], 'test query', 'described_at', true, nil, 100, 1).and_return(@xapian_search)
+                    ActsAsXapian::Search.should_receive(:new).with([InfoRequestEvent], 'test query',
+                        :sort_by_prefix => 'described_at',
+                        :sort_by_ascending => true,
+                        :collapse_by_prefix => nil,
+                        :limit => 100).and_return(@xapian_search)
                     TrackMailer.alert_tracks
                 end
 
