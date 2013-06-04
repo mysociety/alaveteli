@@ -108,6 +108,12 @@ class InfoRequest < ActiveRecord::Base
         states
     end
 
+    # Possible reasons that a request could be reported for administrator attention
+    def report_reasons
+        ["Contains defamatory material", "Not a valid request", "Request for personal information",
+            "Contains personal information", "Vexatious", "Other"]
+    end
+
     def must_be_valid_state
         errors.add(:described_state, "is not a valid state") if
             !InfoRequest.enumerate_states.include? described_state
@@ -567,6 +573,15 @@ public
 
     def requires_admin?
         ['requires_admin', 'error_message', 'attention_requested'].include?(described_state)
+    end
+
+    # Report this request for administrator attention
+    def report!(reason, message, user)
+        ActiveRecord::Base.transaction do
+            set_described_state('attention_requested', user, "Reason: #{reason}\n\n#{message}")
+            self.attention_requested = true # tells us if attention has ever been requested
+            save!
+        end
     end
 
     # change status, including for last event for later historical purposes

@@ -680,25 +680,6 @@ class RequestController < ApplicationController
         end
     end
 
-    def report_request
-        info_request = InfoRequest.find_by_url_title!(params[:url_title])
-        return if !authenticated?(
-                :web => _("To report this FOI request"),
-                :email => _("Then you can report the request '{{title}}'", :title => info_request.title),
-                :email_subject => _("Report an offensive or unsuitable request")
-            )
-
-        if !info_request.attention_requested
-            info_request.set_described_state('attention_requested', @user)
-            info_request.attention_requested = true # tells us if attention has ever been requested
-            info_request.save!
-            flash[:notice] = _("This request has been reported for administrator attention")
-        else
-            flash[:notice] = _("This request has already been reported for administrator attention")
-        end
-        redirect_to request_url(info_request)
-    end
-
     # special caching code so mime types are handled right
     around_filter :cache_attachments, :only => [ :get_attachment, :get_attachment_as_html ]
     def cache_attachments
