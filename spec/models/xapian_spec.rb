@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe User, " when indexing users with Xapian" do
@@ -368,3 +369,28 @@ describe PublicBody, " when only indexing selected things on a rebuild" do
     end
 end
 
+# I would expect ActsAsXapian to have some tests under vendor/plugins/acts_as_xapian, but
+# it looks like this is not the case. Putting a test here instead.
+describe ActsAsXapian::Search, "#words_to_highlight" do
+    it "should return a list of words used in the search" do
+        s = ActsAsXapian::Search.new([PublicBody], "albatross words", :limit => 100)
+        s.words_to_highlight.should == ["albatross", "words"]
+    end
+
+    it "should remove any operators" do
+        s = ActsAsXapian::Search.new([PublicBody], "albatross words tag:mice", :limit => 100)
+        s.words_to_highlight.should == ["albatross", "words"]
+    end
+
+    # This is the current behaviour but it seems a little simplistic to me
+    it "should separate punctuation" do
+        s = ActsAsXapian::Search.new([PublicBody], "The doctor's patient", :limit => 100)
+        s.words_to_highlight.should == ["The", "doctor", "s", "patient"] 
+    end
+
+    it "should handle non-ascii characters" do
+        s = ActsAsXapian::Search.new([PublicBody], "adatigénylés words tag:mice", :limit => 100)
+        s.words_to_highlight.should == ["adatigénylés", "words"]
+    end
+
+end
