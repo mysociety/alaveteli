@@ -6,15 +6,16 @@ In `/etc/exim4/conf.d/main/04_alaveteli_options`:
     ALAVETELI_HOME=/path/to/alaveteli/software
     ALAVETELI_USER=www-data
     log_file_path=/var/log/exim4/exim-%slog-%D
-    MAIN_LOG_SELECTOR==+all -retry_defer 
+    MAIN_LOG_SELECTOR==+all -retry_defer
+    extract_addresses_remove_arguments=false
 
 (The user ALAVETELI_USER should have write permissions on ALAVETELI_HOME).
 
-Note that the name and location of the log files created by Exim must match 
+Note that the name and location of the log files created by Exim must match
 what the `load-mail-server-logs` script expects, hence the need for the extra
 `log_file_path` setting. And the `check-recent-requests-sent` scripts expects
-the logs to contain the `from=<...>` envelope information, so we make the 
-logs more verbose with `log_selector`. 
+the logs to contain the `from=<...>` envelope information, so we make the
+logs more verbose with `log_selector`.
 
 In `/etc/exim4/conf.d/router/04_alaveteli`:
 
@@ -33,7 +34,7 @@ In `/etc/exim4/conf.d/transport/04_alaveteli`:
        home_directory = ALAVETELI_HOME
        user = ALAVETELI_USER
        group = ALAVETELI_USER
-    
+
 And, assuming you set `INCOMING_EMAIL_PREFIX` in your config at
 `config/general` to "foi+", create `config/aliases` with the following
 content:
