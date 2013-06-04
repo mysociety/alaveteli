@@ -6,4 +6,4 @@
 #
 # To install, paste this list after `sudo apt-get install` and run.
 
-postgresql sharutils pdftk elinks php5-cli tnef python-yaml wdg-html-validator
+postgresql sharutils pdftk elinks php5-cli tnef python-yaml
