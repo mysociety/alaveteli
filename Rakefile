@@ -4,4 +4,6 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 Alaveteli::Application.load_tasks
-Dir[File.join(File.dirname(__FILE__),'commonlib','rblib','tests','*.rake')].each { |file| load(file) }
+if Rails.env == 'test'
+    Dir[File.join(File.dirname(__FILE__),'commonlib','rblib','tests','*.rake')].each { |file| load(file) }
+end

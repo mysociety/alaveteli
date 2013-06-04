@@ -1,4 +1,4 @@
-# Apache configuracreated_attion for FOI site.
+# Apache configuration for FOI site.
 #
 # For development ignore this, you can just run ./scripts/server as for any
 # Ruby on Rails application.

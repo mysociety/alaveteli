@@ -142,7 +142,10 @@ class ApplicationController < ActionController::Base
             ExceptionNotifier::Notifier.exception_notification(request.env, exception).deliver
             @status = 500
         end
-        render :template => "general/exception_caught", :status => @status
+        respond_to do |format|
+            format.html{ render :template => "general/exception_caught", :status => @status }
+            format.any{ render :nothing => true, :status => @status }
+        end
     end
 
     def local_request?
