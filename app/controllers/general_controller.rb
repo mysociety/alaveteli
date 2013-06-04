@@ -153,7 +153,7 @@ class GeneralController < ApplicationController
             # structured query which should show newest first, rather than a free text search
             # where we want most relevant as default.
             begin
-                dummy_query = ::ActsAsXapian::Search.new([InfoRequestEvent], @query, :limit => 1)
+                dummy_query = ActsAsXapian::Search.new([InfoRequestEvent], @query, :limit => 1)
             rescue => e
                 flash[:error] = "Your query was not quite right. " + CGI.escapeHTML(e.to_str)
                 redirect_to search_url("")
@@ -169,10 +169,8 @@ class GeneralController < ApplicationController
         # Query each type separately for separate display (XXX we are calling
         # perform_search multiple times and it clobbers per_page for each one,
         # so set as separate var)
-        requests_per_page = 25
-        if params[:requests_per_page]
-            requests_per_page = params[:requests_per_page].to_i
-        end
+        requests_per_page = params[:requests_per_page] ? params[:requests_per_page].to_i : 25
+
         @this_page_hits = @total_hits = @xapian_requests_hits = @xapian_bodies_hits = @xapian_users_hits = 0
         if @requests
             @xapian_requests = perform_search([InfoRequestEvent], @query, @sortby, 'request_collapse', requests_per_page)

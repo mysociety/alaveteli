@@ -93,8 +93,10 @@ describe RequestController, "when listing recent requests" do
                    :results => (1..25).to_a.map { |m| { :model => m } },
                    :matches_estimated => 1000000)
 
-        InfoRequest.should_receive(:full_search).
-          with([InfoRequestEvent]," (variety:sent OR variety:followup_sent OR variety:response OR variety:comment)", "created_at", anything, anything, anything, anything).
+        ActsAsXapian::Search.should_receive(:new).
+          with([InfoRequestEvent]," (variety:sent OR variety:followup_sent OR variety:response OR variety:comment)",
+            :sort_by_prefix => "created_at", :offset => 0, :limit => 25, :sort_by_ascending => true,
+            :collapse_by_prefix => "request_collapse").
           and_return(xap_results)
         get :list, :view => 'all'
         assigns[:list_results].size.should == 25

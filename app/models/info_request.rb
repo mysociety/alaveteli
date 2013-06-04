@@ -189,21 +189,6 @@ class InfoRequest < ActiveRecord::Base
         self.comments.find(:all, :conditions => 'visible')
     end
 
-    # Central function to do all searches
-    # (Not really the right place to put it, but everything can get it here, and it
-    # does *mainly* find info requests, via their events, so hey)
-    def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
-        offset = (page - 1) * per_page
-
-        return ::ActsAsXapian::Search.new(
-            models, query,
-            :offset => offset, :limit => per_page,
-            :sort_by_prefix => order,
-            :sort_by_ascending => ascending,
-            :collapse_by_prefix => collapse
-        )
-    end
-
     # If the URL name has changed, then all request: queries will break unless
     # we update index for every event. Also reindex if prominence changes.
     after_update :reindex_some_request_events
@@ -229,17 +214,6 @@ class InfoRequest < ActiveRecord::Base
     def clear_in_database_caches!
         for incoming_message in self.incoming_messages
             incoming_message.clear_in_database_caches!
-        end
-    end
-
-    # For debugging
-    def InfoRequest.profile_search(query)
-        t = Time.now.usec
-        for i in (1..10)
-            t = Time.now.usec - t
-            secs = t / 1000000.0
-            STDOUT.write secs.to_s + " query " + i.to_s + "\n"
-            results = InfoRequest.full_search([InfoRequestEvent], query, "created_at", true, nil, 25, 1).results
         end
     end
 
