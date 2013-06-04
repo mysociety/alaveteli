@@ -7,20 +7,17 @@ if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.s
 end
 source 'https://rubygems.org'
 
-# A fork of rails that is kept up to date with security patches
-git "git://github.com/mysociety/rails.git", :tag => "v2.3.18.1" do
-  gem 'rails'
-end
+gem 'rails', '3.1.12'
 gem 'pg'
 
+gem 'charlock_holmes'
 gem 'fastercsv', '>=1.5.5'
 gem 'json'
 gem 'mahoro'
-gem 'mail', '~>2.4.4', :platforms => :ruby_19
-gem 'memcache-client', :require => 'memcache'
 gem 'net-http-local'
 gem 'net-purge'
-gem 'rack', '~> 1.1.0'
+gem 'rack'
+gem 'rails-i18n'
 gem 'rdoc'
 gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 # :require avoids "already initialized constant" warnings
@@ -28,18 +25,20 @@ gem 'rmagick', :require => 'RMagick'
 gem 'rake', '0.9.2.2'
 gem 'ruby-msg', '~> 1.5.0'
 gem 'vpim'
-gem 'will_paginate', '~> 2.3.11'
+gem 'will_paginate'
 # when 1.2.9 is released by the maintainer, we can stop using this fork:
 gem 'xapian-full-alaveteli', '~> 1.2.9.5'
-gem 'xml-simple'
+gem 'xml-simple', :require => 'xmlsimple'
 gem 'zip'
 gem 'capistrano'
 gem 'syslog_protocol'
 gem 'newrelic_rpm'
-# erubis is required by rails_xss. Both erubis and rails_xss can be removed after upgrading to Rails 3.
-gem 'erubis'
-# rack-ssl won't be needed on upgrade to Rails 3.1 as something like it is baked in
-gem 'rack-ssl'
+# Use until this PR is merged: https://github.com/svenfuchs/globalize3/pull/191
+gem 'globalize3', :git => 'git://github.com/henare/globalize3.git', :branch => 'not-null-empty-attributes'
+# New gem releases aren't being done. master is newer and supports Rails > 3.0
+gem 'acts_as_versioned', :git => 'git://github.com/technoweenie/acts_as_versioned.git'
+gem 'dynamic_form'
+gem 'exception_notification'
 
 # Gems related to internationalisation
 # Also in vendor/plugins there is globalize2
@@ -51,12 +50,8 @@ gem 'routing-filter'
 
 group :test do
   gem 'fakeweb'
-  gem 'rspec-rails', '~> 1.3.4'
-  gem 'test-unit', '~> 1.2.3', :platforms => :ruby_19
   gem 'coveralls', :require => false
-  # Using webrat because the preferred (capybara) doesn't work out of the box with rspec 1
-  gem 'webrat', :git => 'https://github.com/brynary/webrat', :ref => 'bea5b313783eaaf17e38a05a4eaa8c45c1eedd2a'
-  gem 'launchy'
+  gem 'webrat'
 end
 
 group :development do
@@ -65,8 +60,13 @@ end
 
 group :develop do
   gem 'ruby-debug', :platforms => :ruby_18
-  gem 'ruby-debug19', :platforms => :ruby_19
+  gem 'debugger', :platforms => :ruby_19
   gem 'bootstrap-sass'
   gem 'compass'
   gem 'annotate'
+end
+
+group :test, :development do
+  gem 'rspec-rails'
+  gem 'spork-rails'
 end

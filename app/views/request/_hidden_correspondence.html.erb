@@ -1,0 +1,33 @@
+<% if info_request_event.prominence == 'requester_only' %>
+    <%
+    if !info_request_event.nil? && info_request_event.event_type == 'response'
+        incoming_message = info_request_event.incoming_message
+    end
+    if not incoming_message.nil?
+        %>
+        <div class="correspondence" id="incoming-<%=incoming_message.id.to_s%>">
+            <p>
+      <%= _('This response has been hidden. See annotations to find out why.
+            If you are the requester, then you may <a href="{{url}}">sign in</a> to view the response.', :url => signin_url(:r => request.fullpath).html_safe) %>
+            </p>
+        </div>
+    <% elsif [ 'sent', 'followup_sent', 'resent', 'followup_resent' ].include?(info_request_event.event_type) %>
+        <div class="correspondence" id="outgoing-<%=outgoing_message.id.to_s%>">
+            <p>
+      <%= _('This outgoing message has been hidden. See annotations to
+						find out why.  If you are the requester, then you may <a href="{{url}}">sign in</a> to view the response.', :url => signin_url(:r => request.fullpath).html_safe) %>
+            </p>
+        </div>
+    <% elsif info_request_event.event_type == 'comment' %>
+        <div class="comment_in_request" id="comment-<%=comment.id.to_s%>">
+            <p><%= _('This comment has been hidden. See annotations to
+            find out why.  If you are the requester, then you may <a href="{{url}}">sign in</a> to view the response.', :url => signin_url(:r => request.fullpath).html_safe) %>
+            </p>
+        </div>
+    <% end %>
+
+<% elsif info_request_event.prominence == 'hidden' %>
+    <% # show nothing when hidden %>
+<% else %>
+    <% raise _("unexpected prominence on request event") %>
+<% end %>

@@ -1,8 +1,4 @@
 #!/bin/bash
-
-cd "`dirname "$0"`"
-
-bundle exec ./runner 'MailServerLog.check_recent_requests_have_been_sent'
-
-
-
+TOP_DIR="$(dirname "$BASH_SOURCE")/.."
+cd "$TOP_DIR"
+bundle exec rails runner 'MailServerLog.check_recent_requests_have_been_sent'

@@ -1,5 +1,4 @@
 #!/bin/bash
-
-cd "`dirname "$0"`"
-
-bundle exec ./runner 'RequestMailer.alert_overdue_requests()'
+TOP_DIR="$(dirname "$BASH_SOURCE")/.."
+cd "$TOP_DIR"
+bundle exec rails runner 'RequestMailer.alert_overdue_requests'

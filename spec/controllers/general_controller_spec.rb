@@ -12,30 +12,39 @@ describe GeneralController, "when trying to show the blog" do
     it "should fail silently if the blog is returning an error" do
         FakeWeb.register_uri(:get, %r|.*|, :body => "Error", :status => ["500", "Error"])
         get :blog
-        response.status.should == "200 OK"
+        response.status.should == 200
         assigns[:blog_items].count.should == 0
     end
 end
 
 describe GeneralController, 'when getting the blog feed' do
 
+    before do
+        AlaveteliConfiguration.stub!(:blog_feed).and_return("http://blog.example.com")
+    end
+
     it 'should add a lang param correctly to a url with no querystring' do
-        Configuration.stub!(:blog_feed).and_return("http://blog.example.com")
         get :blog
         assigns[:feed_url].should == "http://blog.example.com?lang=en"
     end
 
     it 'should add a lang param correctly to a url with an existing querystring' do
-        Configuration.stub!(:blog_feed).and_return("http://blog.example.com?alt=rss")
+        AlaveteliConfiguration.stub!(:blog_feed).and_return("http://blog.example.com?alt=rss")
         get :blog
         assigns[:feed_url].should == "http://blog.example.com?alt=rss&lang=en"
+    end
+
+    it 'should parse an item from an example feed' do
+        controller.stub!(:quietly_try_to_open).and_return(load_file_fixture("blog_feed.atom"))
+        get :blog
+        assigns[:blog_items].count.should == 1
     end
 
 end
 
 describe GeneralController, "when showing the frontpage" do
 
-    integrate_views
+    render_views
 
     before do
       public_body = mock_model(PublicBody, :name => "Example Public Body",
@@ -58,14 +67,14 @@ describe GeneralController, "when showing the frontpage" do
 
     it "should render the front page with default language" do
         get :frontpage
-        response.should have_tag('html[lang="en"]')
+        response.should have_selector('html[lang="en"]')
     end
 
     it "should render the front page with default language" do
         old_default_locale = I18n.default_locale
         I18n.default_locale = "es"
         get :frontpage
-        response.should have_tag('html[lang="es"]')
+        response.should have_selector('html[lang="es"]')
         I18n.default_locale = old_default_locale
     end
 
@@ -77,7 +86,7 @@ describe GeneralController, "when showing the frontpage" do
         old_default_locale = I18n.default_locale
         I18n.default_locale = "es"
         get :frontpage
-        response.should have_tag('html[lang="es"]')
+        response.should have_selector('html[lang="es"]')
         I18n.default_locale = old_default_locale
     end
 
@@ -87,7 +96,7 @@ describe GeneralController, "when showing the frontpage" do
         accept_language = "es-ES,en-GB,en-US;q=0.8,en;q=0.6"
         request.env['HTTP_ACCEPT_LANGUAGE'] = accept_language
         get :frontpage
-        response.should have_tag('html[lang="es"]')
+        response.should have_selector('html[lang="es"]')
         request.env['HTTP_ACCEPT_LANGUAGE'] = nil
     end
 
@@ -104,11 +113,11 @@ describe GeneralController, "when showing the frontpage" do
             before do
                 @default_lang_home_link = /href=".*\/en\//
                 @other_lang_home_link = /href=".*\/es\//
-                @old_include_default_locale_in_urls = Configuration::include_default_locale_in_urls
+                @old_include_default_locale_in_urls = AlaveteliConfiguration::include_default_locale_in_urls
             end
 
             def set_default_locale_in_urls(value)
-                Configuration.stub!(:include_default_locale_in_urls).and_return(value)
+                AlaveteliConfiguration.stub!(:include_default_locale_in_urls).and_return(value)
                 load Rails.root.join("config/initializers/fast_gettext.rb")
             end
 
@@ -120,13 +129,13 @@ describe GeneralController, "when showing the frontpage" do
 
                 it 'should generate URLs without a locale prepended' do
                     get :frontpage
-                    response.should_not have_text(@default_lang_home_link)
+                    response.should_not contain @default_lang_home_link
                 end
 
                 it 'should render the front page in the default language when no locale param
                     is present and the session locale is not the default' do
                     get(:frontpage, {}, {:locale => 'es'})
-                    response.should_not have_text(@other_lang_home_link)
+                    response.should_not contain @other_lang_home_link
                 end
             end
 
@@ -134,7 +143,7 @@ describe GeneralController, "when showing the frontpage" do
                 INCLUDE_DEFAULT_LOCALE_IN_URLS is true' do
                 set_default_locale_in_urls(true)
                 get :frontpage
-                response.should have_text(@default_lang_home_link)
+                response.body.should match /#{@default_lang_home_link}/
             end
 
             after do
@@ -150,28 +159,28 @@ describe GeneralController, "when showing the frontpage" do
 
         it "should generate URLs with a locale prepended when there's more than one locale set" do
             get :frontpage
-            response.should have_text(home_link_regex)
+            response.body.should match home_link_regex
         end
 
         it "should use our test PO files rather than the application one" do
             I18n.default_locale = :es
             get :frontpage
-            response.should have_text(/XOXO/)
+            response.body.should match /XOXO/
             I18n.default_locale = :en
         end
 
         it "should generate URLs that include the locale when using one that includes an underscore" do
             I18n.default_locale = :"en_GB"
             get :frontpage
-            response.should have_text(/href="\/en_GB\//)
+            response.body.should match /href="\/en_GB\//
             I18n.default_locale = :en
         end
 
         it "should fall back to the language if the territory is unknown" do
             I18n.default_locale = :"en_US"
             get :frontpage
-            response.should have_text(/href="\/en\//)
-            response.should_not have_text(/href="\/en_US\//)
+            response.body.should match /href="\/en\//
+            response.body.should_not match /href="\/en_US\//
             I18n.default_locale = :en
         end
 
@@ -181,7 +190,7 @@ describe GeneralController, "when showing the frontpage" do
             FastGettext.default_available_locales = I18n.available_locales = ['en']
 
             get :frontpage
-            response.should_not have_text(home_link_regex)
+            response.should_not contain home_link_regex
 
             FastGettext.default_available_locales = old_fgt_available_locales
             I18n.available_locales = old_i18n_available_locales
@@ -235,7 +244,7 @@ end
 
 describe GeneralController, 'when using xapian search' do
 
-    integrate_views
+    render_views
 
     # rebuild xapian index after fixtures loaded
     before(:each) do
@@ -249,7 +258,7 @@ describe GeneralController, 'when using xapian search' do
     end
 
     it "should find info request when searching for '\"fancy dog\"'" do
-      get :search, :combined => ['"fancy dog"']
+      get :search, :combined => '"fancy dog"'
       response.should render_template('search')
       assigns[:xapian_requests].matches_estimated.should == 1
       assigns[:xapian_requests].results.size.should == 1
@@ -259,7 +268,7 @@ describe GeneralController, 'when using xapian search' do
     end
 
     it "should find public body and incoming message when searching for 'geraldine quango'" do
-      get :search, :combined => ['geraldine quango']
+      get :search, :combined => 'geraldine quango'
       response.should render_template('search')
 
       assigns[:xapian_requests].matches_estimated.should == 1
@@ -272,7 +281,7 @@ describe GeneralController, 'when using xapian search' do
     end
 
     it "should filter results based on end of URL being 'all'" do
-        get :search, :combined => ['"bob"', "all"]
+        get :search, :combined => "bob/all"
         assigns[:xapian_requests].results.map{|x| x[:model]}.should =~ [
             info_request_events(:useless_outgoing_message_event),
             info_request_events(:silly_outgoing_message_event),
@@ -284,14 +293,14 @@ describe GeneralController, 'when using xapian search' do
     end
 
     it "should filter results based on end of URL being 'users'" do
-        get :search, :combined => ['"bob"', "users"]
+        get :search, :combined => "bob/users"
         assigns[:xapian_requests].should == nil
         assigns[:xapian_users].results.map{|x| x[:model]}.should == [users(:bob_smith_user)]
         assigns[:xapian_bodies].should == nil
     end
 
     it "should filter results based on end of URL being 'requests'" do
-        get :search, :combined => ['"bob"', "requests"]
+        get :search, :combined => "bob/requests"
         assigns[:xapian_requests].results.map{|x|x[:model]}.should =~ [
             info_request_events(:useless_outgoing_message_event),
             info_request_events(:silly_outgoing_message_event),
@@ -303,7 +312,7 @@ describe GeneralController, 'when using xapian search' do
     end
 
     it "should filter results based on end of URL being 'bodies'" do
-        get :search, :combined => ['"quango"', "bodies"]
+        get :search, :combined => "quango/bodies"
         assigns[:xapian_requests].should == nil
         assigns[:xapian_users].should == nil
         assigns[:xapian_bodies].results.map{|x|x[:model]}.should == [public_bodies(:geraldine_public_body)]
@@ -317,7 +326,7 @@ describe GeneralController, 'when using xapian search' do
     end
 
     it "should not show unconfirmed users" do
-        get :search, :combined => ["unconfirmed", "users"]
+        get :search, :combined => "unconfirmed/users"
         response.should render_template('search')
         assigns[:xapian_users].results.map{|x|x[:model]}.should == []
     end
@@ -328,13 +337,13 @@ describe GeneralController, 'when using xapian search' do
         u.save!
         update_xapian_index
 
-        get :search, :combined => ["unconfirmed", "users"]
+        get :search, :combined => "unconfirmed/users"
         response.should render_template('search')
         assigns[:xapian_users].results.map{|x|x[:model]}.should == [u]
     end
 
     it "should show tracking links for requests-only searches" do
-        get :search, :combined => ['"bob"', "requests"]
+        get :search, :combined => "bob/requests"
         response.body.should include('Track this search')
     end
 

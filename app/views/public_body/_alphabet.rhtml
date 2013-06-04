@@ -1,3 +1,0 @@
-<% "A".upto("Z") do |l| -%>       
-    <%= link_to_unless (@tag == l), l, list_public_bodies_path(:tag => l.downcase) %>
-<% end %>

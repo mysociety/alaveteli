@@ -1,10 +1,10 @@
+# encoding: UTF-8
 # app/controllers/request_controller.rb:
 # Show information about one particular request.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-require 'alaveteli_file_types'
 require 'zip/zip'
 require 'open-uri'
 
@@ -17,7 +17,7 @@ class RequestController < ApplicationController
 
     @@custom_states_loaded = false
     begin
-        if ENV["RAILS_ENV"] != "test"
+        if !Rails.env.test?
             require 'customstates'
             include RequestControllerCustomStates
             @@custom_states_loaded = true
@@ -28,7 +28,7 @@ class RequestController < ApplicationController
     def select_authority
         # Check whether we force the user to sign in right at the start, or we allow her
         # to start filling the request anonymously
-        if Configuration::force_registration_on_new_request && !authenticated?(
+        if AlaveteliConfiguration::force_registration_on_new_request && !authenticated?(
                 :web => _("To send your FOI request"),
                 :email => _("Then you'll be allowed to send FOI requests."),
                 :email_subject => _("Confirm your email address")
@@ -44,7 +44,7 @@ class RequestController < ApplicationController
     end
 
     def show
-        if !Configuration::varnish_host.blank?
+        if !AlaveteliConfiguration::varnish_host.blank?
             # If varnish is set up to accept PURGEs, then cache for a
             # long time
             long_cache
@@ -67,8 +67,7 @@ class RequestController < ApplicationController
 
             # Test for whole request being hidden
             if !@info_request.user_can_view?(authenticated_user)
-                render :template => 'request/hidden', :status => 410 # gone
-                return
+                return render_hidden
             end
 
             # Other parameters
@@ -126,8 +125,7 @@ class RequestController < ApplicationController
         long_cache
         @info_request = InfoRequest.find_by_url_title!(params[:url_title])
         if !@info_request.user_can_view?(authenticated_user)
-            render :template => 'request/hidden', :status => 410 # gone
-            return
+            return render_hidden
         end
         @columns = ['id', 'event_type', 'created_at', 'described_state', 'last_described_at', 'calculated_state' ]
     end
@@ -146,8 +144,7 @@ class RequestController < ApplicationController
         raise ActiveRecord::RecordNotFound.new("Request not found") if @info_request.nil?
 
         if !@info_request.user_can_view?(authenticated_user)
-            render :template => 'request/hidden', :status => 410 # gone
-            return
+            return render_hidden
         end
         @xapian_object = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
             :offset => (@page - 1) * @per_page, :limit => @per_page, :collapse_by_prefix => 'request_collapse')
@@ -242,16 +239,19 @@ class RequestController < ApplicationController
             # Read parameters in - first the public body (by URL name or id)
             if params[:url_name]
                 if params[:url_name].match(/^[0-9]+$/)
-                    params[:info_request][:public_body_id] = params[:url_name]
+                    params[:info_request][:public_body] = PublicBody.find(params[:url_name])
                 else
                     public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
                     raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # XXX proper 404
-                    params[:info_request][:public_body_id] = public_body.id
+                    params[:info_request][:public_body] = public_body
                 end
             elsif params[:public_body_id]
-                params[:info_request][:public_body_id] = params[:public_body_id]
+                params[:info_request][:public_body] = PublicBody.find(params[:public_body_id])
+            # Explicitly load the association as this isn't done automatically in newer Rails versions
+            elsif params[:info_request][:public_body_id]
+                params[:info_request][:public_body] = PublicBody.find(params[:info_request][:public_body_id])
             end
-            if !params[:info_request][:public_body_id]
+            if !params[:info_request][:public_body]
                 # compulsory to have a body by here, or go to front page which is start of process
                 redirect_to frontpage_url
                 return
@@ -344,7 +344,7 @@ class RequestController < ApplicationController
         end
 
         if !authenticated?(
-                :web => _("To send your FOI request"),
+                :web => _("To send your FOI request").to_str,
                 :email => _("Then your FOI request to {{public_body_name}} will be sent.",:public_body_name=>@info_request.public_body.name),
                 :email_subject => _("Confirm your FOI request to ") + @info_request.public_body.name
             )
@@ -368,8 +368,8 @@ class RequestController < ApplicationController
             replied by then.</p>
             <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an
             annotation below telling people about your writing.</p>",:law_used_full=>@info_request.law_used_full,
-            :late_number_of_days => Configuration::reply_late_after_days)
-        redirect_to show_new_request_url(:url_title => @info_request.url_title)
+            :late_number_of_days => AlaveteliConfiguration::reply_late_after_days)
+        redirect_to show_new_request_path(:url_title => @info_request.url_title)
     end
 
     # Submitted to the describing state of messages form
@@ -434,6 +434,7 @@ class RequestController < ApplicationController
             return
         end
 
+        calculated_status = info_request.calculate_status
         # Display advice for requester on what to do next, as appropriate
         flash[:notice] = case info_request.calculate_status
         when 'waiting_response'
@@ -442,7 +443,7 @@ class RequestController < ApplicationController
         when 'waiting_response_overdue'
             _("<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(info_request.date_response_required_by))
         when 'waiting_response_very_overdue'
-            _("<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>", :very_late_number_of_days => Configuration::reply_very_late_after_days, :late_number_of_days => Configuration::reply_late_after_days)
+            _("<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>", :very_late_number_of_days => AlaveteliConfiguration::reply_very_late_after_days, :late_number_of_days => AlaveteliConfiguration::reply_late_after_days)
         when 'not_held'
             _("<p>Thank you! Here are some ideas on what to do next:</p>
             <ul>
@@ -468,7 +469,7 @@ class RequestController < ApplicationController
         when 'gone_postal'
             nil
         when 'internal_review'
-            _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>",:late_number_of_days => Configuration.reply_late_after_days, :review_url => unhappy_url(info_request) + "#internal_review")
+            _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>",:late_number_of_days => AlaveteliConfiguration.reply_late_after_days, :review_url => unhappy_url(info_request) + "#internal_review")
         when 'error_message', 'requires_admin'
             _("Thank you! We'll look into what happened and try and fix it up.")
         when 'user_withdrawn'
@@ -560,10 +561,7 @@ class RequestController < ApplicationController
         end
 
 
-        params_outgoing_message = params[:outgoing_message]
-        if params_outgoing_message.nil?
-            params_outgoing_message = {}
-        end
+        params_outgoing_message = params[:outgoing_message] ? params[:outgoing_message].clone : {}
         params_outgoing_message.merge!({
             :status => 'ready',
             :message_type => 'followup',
@@ -586,8 +584,7 @@ class RequestController < ApplicationController
 
         # Test for hidden requests
         if !authenticated_user.nil? && !@info_request.user_can_view?(authenticated_user)
-            render :template => 'request/hidden', :status => 410 # gone
-            return
+            return render_hidden
         end
 
         # Check address is good
@@ -670,7 +667,7 @@ class RequestController < ApplicationController
         raise ActiveRecord::RecordNotFound.new("Message not found") if incoming_message.nil?
         if !incoming_message.info_request.user_can_view?(authenticated_user)
             @info_request = incoming_message.info_request # used by view
-            render :template => 'request/hidden', :status => 410 # gone
+            return render_hidden
         end
         # Is this a completely public request that we can cache attachments for
         # to be served up without authentication?
@@ -708,16 +705,19 @@ class RequestController < ApplicationController
             key_path = foi_fragment_cache_path(key)
             if foi_fragment_cache_exists?(key_path)
                 logger.info("Reading cache for #{key_path}")
-                raise PermissionDenied.new("Directory listing not allowed") if File.directory?(key_path)
-                cached = foi_fragment_cache_read(key_path)
-                response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
-                render_for_text(cached)
+
+                if File.directory?(key_path)
+                    render :text => "Directory listing not allowed", :status => 403
+                else
+                    render :text => foi_fragment_cache_read(key_path),
+                        :content_type => (AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) || 'application/octet-stream')
+                end
                 return
             end
 
             yield
 
-            if params[:skip_cache].nil?
+            if params[:skip_cache].nil? && response.status == 200
                 # write it to the fileystem ourselves, so is just a plain file. (The
                 # various fragment cache functions using Ruby Marshall to write the file
                 # which adds a header, so isnt compatible with images that have been
@@ -732,13 +732,14 @@ class RequestController < ApplicationController
 
     def get_attachment
         get_attachment_internal(false)
+        return unless @attachment
 
         # Prevent spam to magic request address. Note that the binary
         # subsitution method used depends on the content type
         @incoming_message.binary_mask_stuff!(@attachment.body, @attachment.content_type)
 
         # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
-        response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
+        response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) || 'application/octet-stream'
 
         render :text => @attachment.body
     end
@@ -751,6 +752,7 @@ class RequestController < ApplicationController
             raise ActiveRecord::RecordNotFound.new("Attachment HTML not found.")
         end
         get_attachment_internal(true)
+        return unless @attachment
 
         # images made during conversion (e.g. images in PDF files) are put in the cache directory, so
         # the same cache code in cache_attachments above will display them.
@@ -788,7 +790,7 @@ class RequestController < ApplicationController
             raise ActiveRecord::RecordNotFound.new(message)
         end
         @part_number = params[:part].to_i
-        @filename = params[:file_name].join("/")
+        @filename = params[:file_name]
         if html_conversion
             @original_filename = @filename.gsub(/\.html$/, "")
         else
@@ -797,8 +799,11 @@ class RequestController < ApplicationController
 
         # check permissions
         raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
-        @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
-        raise ActiveRecord::RecordNotFound.new("attachment not found part number " + @part_number.to_s + " incoming_message " + @incoming_message.id.to_s) if @attachment.nil?
+        @attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(@incoming_message.get_attachments_for_display, @part_number, @original_filename)
+        # If we can't find the right attachment, redirect to the incoming message:
+        unless @attachment
+            return redirect_to incoming_message_url(@incoming_message), :status => 303
+        end
 
         # check filename in URL matches that in database (use a censor rule if you want to change a filename)
         raise ActiveRecord::RecordNotFound.new("please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'") if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
@@ -849,7 +854,8 @@ class RequestController < ApplicationController
                 return
             end
 
-            mail = RequestMailer.create_fake_response(@info_request, @user, body, file_name, file_content)
+            mail = RequestMailer.fake_response(@info_request, @user, body, file_name, file_content)
+
             @info_request.receive(mail, mail.encoded, true)
             flash[:notice] = _("Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to ") + CGI.escapeHTML(@info_request.user.name) + "."
             redirect_to request_url(@info_request)
@@ -863,7 +869,7 @@ class RequestController < ApplicationController
         # by making the last work a wildcard, which is quite the same
         query = params[:q]
         @xapian_requests = perform_search_typeahead(query, InfoRequestEvent)
-        render :partial => "request/search_ahead.rhtml"
+        render :partial => "request/search_ahead"
     end
 
     def download_entire_request
@@ -872,8 +878,7 @@ class RequestController < ApplicationController
             @info_request = InfoRequest.find_by_url_title!(params[:url_title])
             # Test for whole request being hidden or requester-only
             if !@info_request.all_can_view?
-                render :template => 'request/hidden', :status => 410 # gone
-                return
+                return render_hidden
             end
             if authenticated?(
                               :web => _("To download the zip file"),
@@ -891,10 +896,10 @@ class RequestController < ApplicationController
                 if !File.exists?(file_path)
                     FileUtils.mkdir_p(File.dirname(file_path))
                     Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) { |zipfile|
-                        convert_command = Configuration::html_to_pdf_command
+                        convert_command = AlaveteliConfiguration::html_to_pdf_command
                         done = false
                         if !convert_command.blank? && File.exists?(convert_command)
-                            url = "http://#{Configuration::domain}#{request_path(@info_request)}?print_stylesheet=1"
+                            url = "http://#{AlaveteliConfiguration::domain}#{request_path(@info_request)}?print_stylesheet=1"
                             tempfile = Tempfile.new('foihtml2pdf')
                             output = AlaveteliExternalCommand.run(convert_command, url, tempfile.path)
                             if !output.nil?
@@ -911,7 +916,7 @@ class RequestController < ApplicationController
                         end
                         if !done
                             @info_request_events = @info_request.info_request_events
-                            template = File.read(File.join(File.dirname(__FILE__), "..", "views", "request", "simple_correspondence.rhtml"))
+                            template = File.read(File.join(File.dirname(__FILE__), "..", "views", "request", "simple_correspondence.html.erb"))
                             output = ERB.new(template).result(binding)
                             zipfile.get_output_stream("correspondence.txt") { |f|
                                 f.puts(output)
@@ -933,5 +938,17 @@ class RequestController < ApplicationController
             end
         end
     end
+
+    private
+
+    def render_hidden
+        respond_to do |format|
+            response_code = 410 # gone
+            format.html{ render :template => 'request/hidden', :status => response_code }
+            format.any{ render :nothing => true, :status => response_code }
+        end
+        false
+    end
+
 end
 

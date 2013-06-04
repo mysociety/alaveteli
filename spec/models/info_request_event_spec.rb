@@ -1,3 +1,4 @@
+# coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequestEvent do
@@ -21,7 +22,7 @@ describe InfoRequestEvent do
                                          :event_type => 'sent',
                                          :params => {})
             event.should_receive(:xapian_mark_needs_index)
-            event.run_callbacks(:after_save)
+            event.run_callbacks(:save)
         end
 
     end
@@ -115,6 +116,13 @@ describe InfoRequestEvent do
         it 'should return true if the addresses have different formats' do
             @info_request_event.stub!(:params).and_return(:email => 'A Test <test@example.com>')
             @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return('test@example.com')
+            @info_request_event.same_email_as_previous_send?.should be_true
+        end
+
+        it 'should handle non-ascii characters in the name input' do
+            address = "\"Someone’s name\" <test@example.com>"
+            @info_request_event.stub!(:params).and_return(:email => address)
+            @info_request_event.stub_chain(:info_request, :get_previous_email_sent_to).and_return(address)
             @info_request_event.same_email_as_previous_send?.should be_true
         end
 

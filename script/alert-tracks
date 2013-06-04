@@ -1,11 +1,9 @@
 #!/bin/bash
-
-LOC=`dirname $0`
-
+TOP_DIR="$(dirname "$BASH_SOURCE")/.."
+cd "$TOP_DIR"
 if [ "$1" == "--loop" ]
 then
-  "$LOC/runner" 'TrackMailer.alert_tracks_loop'
+  bundle exec rails runner 'TrackMailer.alert_tracks_loop'
 else
-  "$LOC/runner" 'TrackMailer.alert_tracks'
+  bundle exec rails runner 'TrackMailer.alert_tracks'
 fi
-

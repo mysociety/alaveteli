@@ -3,6 +3,11 @@
 # We use MailServerLogDone here just as a totally random model that has a datetime type.
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+# In Rails 3 the monkeypatch that these tests are testing is not necessary. So,
+# since these tests are testing the Rails internals you could argue that they shouldn't
+# be here. Well, you're right. But let's leave them in for the time being until the upgrade is finished.
+# Then, we should probably delete this whole file
+
 describe "when doing things with timezones" do
 
   it "should preserve time objects with local time conversion to default timezone UTC

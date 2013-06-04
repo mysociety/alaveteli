@@ -3,14 +3,7 @@
 # particular model.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-
-begin
-  require 'xmlsimple'
-rescue LoadError
-  # Debian maintainers put their xmlsimple in a different location :(
-  require 'lib/xmlsimple'
-end
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'open-uri'
 
@@ -21,7 +14,7 @@ class GeneralController < ApplicationController
         medium_cache
         # get some example searches and public bodies to display
         # either from config, or based on a (slow!) query if not set
-        body_short_names = Configuration::frontpage_publicbody_examples.split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")
+        body_short_names = AlaveteliConfiguration::frontpage_publicbody_examples.split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")
         @locale = self.locale_from_params()
         locale_condition = 'public_body_translations.locale = ?'
         conditions = [locale_condition, @locale]
@@ -71,7 +64,7 @@ class GeneralController < ApplicationController
     def blog
         medium_cache
         @feed_autodetect = []
-        @feed_url = Configuration::blog_feed
+        @feed_url = AlaveteliConfiguration::blog_feed
         separator = @feed_url.include?('?') ? '&' : '?'
         @feed_url = "#{@feed_url}#{separator}lang=#{self.locale_from_params()}"
         @blog_items = []
@@ -84,7 +77,7 @@ class GeneralController < ApplicationController
                 @feed_autodetect = [{:url => @feed_url, :title => "#{site_name} blog"}]
             end
         end
-        @twitter_user = Configuration::twitter_username
+        @twitter_user = AlaveteliConfiguration::twitter_username
     end
 
     # Just does a redirect from ?query= search to /query
@@ -109,7 +102,7 @@ class GeneralController < ApplicationController
     def search
         # XXX Why is this so complicated with arrays and stuff? Look at the route
         # in config/routes.rb for comments.
-        combined = params[:combined]
+        combined = params[:combined].split("/")
         @sortby = nil
         @bodies = @requests = @users = true
         if combined.size > 0 && (['advanced'].include?(combined[-1]))
@@ -229,5 +222,11 @@ class GeneralController < ApplicationController
         @locale = self.locale_from_params()
         render(:layout => false, :content_type => 'text/css')
     end
+
+    # Handle requests for non-existent URLs - will be handled by ApplicationController::render_exception
+    def not_found
+        raise RouteNotFound
+    end
+
 end
 

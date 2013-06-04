@@ -49,14 +49,14 @@ describe TrackController, "when making a new track on a request" do
     it "should save a search track and redirect to the right place" do
         session[:user_id] = @user.id
         @track_thing.should_receive(:save!)
-        get :track_search_query, :query_array => ["bob variety:sent"], :feed => 'track'
+        get :track_search_query, :query_array => "bob variety:sent", :feed => 'track'
         response.should redirect_to(:controller => 'general', :action => 'search', :combined => ["bob", "requests"])
     end
 
 end
 
 describe TrackController, "when sending alerts for a track" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -65,8 +65,7 @@ describe TrackController, "when sending alerts for a track" do
 
     it "should send alerts" do
         # Don't do clever locale-insertion-unto-URL stuff
-        old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        RoutingFilter.active = false
 
         # set the time the comment event happened at to within the last week
         ire = info_request_events(:silly_comment_event)
@@ -80,7 +79,7 @@ describe TrackController, "when sending alerts for a track" do
         mail = deliveries[0]
         mail.body.should =~ /Alter your subscription/
         mail.to_addrs.first.to_s.should include(users(:silly_name_user).email)
-        mail.body =~ /(http:\/\/.*\/c\/(.*))/
+        mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
         mail_token = $2
 
@@ -114,7 +113,7 @@ describe TrackController, "when sending alerts for a track" do
         deliveries.size.should == 0
 
         # Restore the routing filters
-        ActionController::Routing::Routes.filters = old_filters
+        RoutingFilter.active = true
     end
 
     it "should send localised alerts" do
@@ -133,7 +132,7 @@ describe TrackController, "when sending alerts for a track" do
 end
 
 describe TrackController, "when viewing RSS feed for a track" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -145,6 +144,7 @@ describe TrackController, "when viewing RSS feed for a track" do
 
         get :track_request, :feed => 'feed', :url_title => track_thing.info_request.url_title
         response.should render_template('track/atom_feed')
+        response.content_type.should == 'application/atom+xml'
         # XXX should check it is an atom.builder type being rendered, not sure how to
 
         assigns[:xapian_object].matches_estimated.should == 3
@@ -163,7 +163,7 @@ end
 
 describe TrackController, "when viewing JSON version of a track feed" do
 
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -205,7 +205,7 @@ end
 
 describe TrackController, "when tracking a public body" do
 
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data

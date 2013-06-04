@@ -7,7 +7,7 @@ def normalise_whitespace(s)
     return s
 end
 
-Spec::Matchers.define :be_equal_modulo_whitespace_to do |expected|
+RSpec::Matchers.define :be_equal_modulo_whitespace_to do |expected|
   match do |actual|
     normalise_whitespace(actual) == normalise_whitespace(expected)
   end
@@ -173,7 +173,7 @@ describe ApiController, "when using the API" do
                 "body" => "xxx"
             }.to_json
 
-        response.status.should == "500 Internal Server Error"
+        response.status.should == 500
         ActiveSupport::JSON.decode(response.body)["errors"].should == [
           "Request #{request_id} cannot be updated using the API"]
 
@@ -195,7 +195,7 @@ describe ApiController, "when using the API" do
                 "body" => "xxx"
             }.to_json
 
-        response.status.should == "500 Internal Server Error"
+        response.status.should == 500
         ActiveSupport::JSON.decode(response.body)["errors"].should == [
           "You do not own request #{request_id}"]
 
@@ -213,12 +213,12 @@ describe ApiController, "when using the API" do
                     "body" => "Are you joking, or are you serious?"
                 }.to_json,
             :attachments => [
-                fixture_file_upload("files/tfl.pdf")
+                fixture_file_upload("/files/tfl.pdf")
             ]
 
 
         # Make sure it worked
-        response.status.to_i.should == 500
+        response.status.should == 500
         errors = ActiveSupport::JSON.decode(response.body)["errors"]
         errors.should == ["You cannot attach files to messages in the 'request' direction"]
     end
@@ -242,7 +242,7 @@ describe ApiController, "when using the API" do
                     "body" => response_body
                 }.to_json,
             :attachments => [
-                fixture_file_upload("files/tfl.pdf")
+                fixture_file_upload("/files/tfl.pdf")
             ]
 
         # And make sure it worked
@@ -259,7 +259,7 @@ describe ApiController, "when using the API" do
         attachments.size.should == 1
         attachment = attachments[0]
         attachment.filename.should == "tfl.pdf"
-        attachment.body.should == load_file_fixture("tfl.pdf", as_binary=true)
+        attachment.body.should == load_file_fixture("tfl.pdf")
     end
 
     it "should show information about a request" do
@@ -286,7 +286,7 @@ describe ApiController, "when using the API" do
             :feed_type => "atom"
 
         response.should be_success
-        response.should render_template("api/request_events.atom")
+        response.should render_template("api/request_events")
         assigns[:events].size.should > 0
         assigns[:events].each do |event|
             event.info_request.public_body.should == public_bodies(:geraldine_public_body)
@@ -341,7 +341,7 @@ describe ApiController, "when using the API" do
             :feed_type => "atom"
 
         response.should be_success
-        response.should render_template("api/request_events.atom")
+        response.should render_template("api/request_events")
         assigns[:events].size.should > 0
         assigns[:events].each do |event|
             event.created_at.should >= Date.new(2010, 1, 1)
@@ -360,7 +360,7 @@ describe ApiController, "when using the API" do
                 "sent_at" => sent_at,
                 "body" => response_body
             }.to_json
-        response.status.should == "404 Not Found"
+        response.status.should == 404
         ActiveSupport::JSON.decode(response.body)["errors"].should == ["Could not find request 123459876"]
     end
 
@@ -376,7 +376,7 @@ describe ApiController, "when using the API" do
                 "sent_at" => sent_at,
                 "body" => response_body
             }.to_json
-        response.status.should == "500 Internal Server Error"
+        response.status.should == 500
         ActiveSupport::JSON.decode(response.body)["errors"].should == ["Request #{request_id} cannot be updated using the API"]
     end
 end

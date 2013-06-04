@@ -13,7 +13,7 @@
 # Image of user that goes on their profile.
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class ProfilePhoto < ActiveRecord::Base
     WIDTH = 96
@@ -29,25 +29,9 @@ class ProfilePhoto < ActiveRecord::Base
 
     attr_accessor :x, :y, :w, :h
 
-    # convert binary data blob into ImageMagick image when assigned
     attr_accessor :image
-    def after_initialize
-        if data.nil?
-            self.image = nil
-            return
-        end
 
-        image_list = Magick::ImageList.new
-        begin
-            image_list.from_blob(data)
-        rescue Magick::ImageMagickError
-            self.image = nil
-            return
-        end
-
-        self.image = image_list[0] # XXX perhaps take largest image or somesuch if there were multiple in the file?
-        self.convert_image
-    end
+    after_initialize :convert_data_to_image
 
     # make image valid format and size
     def convert_image
@@ -111,6 +95,25 @@ class ProfilePhoto < ActiveRecord::Base
         if !self.draft && !self.user_id
             raise "Internal error, real pictures must have a user"
         end
+    end
+
+    # Convert binary data blob into ImageMagick image when assigned
+    def convert_data_to_image
+        if data.nil?
+            self.image = nil
+            return
+        end
+
+        image_list = Magick::ImageList.new
+        begin
+            image_list.from_blob(data)
+        rescue Magick::ImageMagickError
+            self.image = nil
+            return
+        end
+
+        self.image = image_list[0] # XXX perhaps take largest image or somesuch if there were multiple in the file?
+        self.convert_image
     end
 end
 

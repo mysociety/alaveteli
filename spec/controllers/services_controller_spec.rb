@@ -4,7 +4,7 @@ require 'fakeweb'
 
 describe ServicesController, "when returning a message for people in other countries" do
 
-    integrate_views
+    render_views
 
     # store and restore the locale in the context of the test suite to isolate
     # changes made in these tests
@@ -54,27 +54,27 @@ describe ServicesController, "when returning a message for people in other count
         it "should return the 'another country' message if the service responds OK" do
             config = MySociety::Config.load_default()
             config['ISO_COUNTRY_CODE'] = "DE"
-            Configuration.stub!(:gaze_url).and_return('http://denmark.com')
+            AlaveteliConfiguration.stub!(:gaze_url).and_return('http://denmark.com')
             FakeWeb.register_uri(:get, %r|denmark.com|, :body => "DK")
             get :other_country_message
             response.should be_success
             response.body.should == 'Hello! We have an  <a href="/help/alaveteli?country_name=Deutschland">important message</a> for visitors outside Deutschland <span class="close-button">X</span>'
         end
         it "should default to no message if the country_from_ip domain doesn't exist" do
-            Configuration.stub!(:gaze_url).and_return('http://12123sdf14qsd.com')
+            AlaveteliConfiguration.stub!(:gaze_url).and_return('http://12123sdf14qsd.com')
             get :other_country_message
             response.should be_success
             response.body.should == ''
         end
         it "should default to no message if the country_from_ip service doesn't exist" do
-            Configuration.stub!(:gaze_url).and_return('http://www.google.com')
+            AlaveteliConfiguration.stub!(:gaze_url).and_return('http://www.google.com')
             get :other_country_message
             response.should be_success
             response.body.should == ''
         end
         it "should default to no message if the country_from_ip service returns an error" do
             FakeWeb.register_uri(:get, %r|500.com|, :body => "Error", :status => ["500", "Error"])
-            Configuration.stub!(:gaze_url).and_return('http://500.com')
+            AlaveteliConfiguration.stub!(:gaze_url).and_return('http://500.com')
             get :other_country_message
             response.should be_success
             response.body.should == ''

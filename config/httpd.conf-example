@@ -1,0 +1,71 @@
+# Apache configuration for FOI site.
+#
+# For development ignore this, you can just run ./scripts/server as for any
+# Ruby on Rails application.
+#
+# Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org
+
+# This is needed for the PHP spell checker
+<Location /fcgi>
+    Options +ExecCGI
+    SetHandler fastcgi-script
+</Location>
+
+RewriteEngine On
+#RewriteLog /var/log/apache2/rewrite.log
+#RewriteLogLevel 9
+
+# XXX do we need this now we use Passenger?
+# Pass through the HTTP basic authentication to mongrel. See also
+# admin_http_auth_user in app/controllers/application.rb
+# Note: Apache 2 only. Doesn't work in Apache 1.3, you'll need to live without
+# it.
+RewriteCond %{LA-U:REMOTE_USER} (.+)
+RewriteRule . - [E=RU:%1]
+RequestHeader add X-Forwarded-User %{RU}e
+
+# Old /files URL to new subdomain (as can't use Alias with passenger,
+# so we do it on its own domain). This is for custom admin upload
+# files for archiving.
+RewriteRule /files/(.+) http://files.whatdotheyknow.com/$1
+
+# Serve attachments directly from the cache, if possible.
+#
+# The file names are URL-encoded on disk, and sharded by the first
+# three digits of the request id, which is why this is as complicated
+# as it is. The RewriteMap directive makes the URL-escaping function
+# available to use in the other directives.
+#
+# The condition means that the rule will fire only if the cached
+# file exists.
+RewriteMap escape int:escape
+RewriteCond %{DOCUMENT_ROOT}/views_cache/request/$2/$1/${escape:$3} -f
+RewriteRule ^/request/((\d{1,3})\d*)/(response/\d+/attach/(html/)?\d+/.+) /views_cache/request/$2/$1/${escape:$3} [L]
+
+
+<IfModule mod_passenger.c>
+ # Set this to something like 100 if you have memory leak issues
+ PassengerMaxRequests 500
+ PassengerResolveSymlinksInDocumentRoot on
+ # Recommend setting this to 3 or less on servers with 512MB RAM
+ PassengerMaxPoolSize 6
+ # The RackEnv variable applies to Rails 3 applications, while
+ # the RailsEnv variable applies to applications for earlier
+ # versions of Rails.  There doesn't seem to be any harm in
+ # setting both, however.
+ RailsEnv production
+ RackEnv production
+</IfModule>
+
+# Gzip font resources
+<IfModule mod_deflate.c>
+    <IfModule mod_mime.c>
+        Addtype font/opentype .otf
+        Addtype font/opentype .woff
+        Addtype font/eot .eot
+        Addtype font/truetype .ttf
+    </IfModule>
+    AddOutputFilterByType DEFLATE font/opentype font/truetype font/eot
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IFModule>

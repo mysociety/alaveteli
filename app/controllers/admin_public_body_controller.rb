@@ -2,7 +2,7 @@
 # Controller for editing public bodies from the admin interface.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require "public_body_categories"
 
@@ -23,12 +23,10 @@ class AdminPublicBodyController < AdminController
             if @page == ""
                 @page = nil
             end
-            @public_bodies = PublicBody.paginate :order => "public_body_translations.name", :page => @page, :per_page => 100,
-                :conditions =>  @query.nil? ? "public_body_translations.locale = '#{@locale}'" :
+            @public_bodies = PublicBody.joins(:translations).where(@query.nil? ? "public_body_translations.locale = '#{@locale}'" :
                                 ["(lower(public_body_translations.name) like lower('%'||?||'%') or
                                  lower(public_body_translations.short_name) like lower('%'||?||'%') or
-                                 lower(public_body_translations.request_email) like lower('%'||?||'%' )) AND (public_body_translations.locale = '#{@locale}')", @query, @query, @query],
-              :joins => :translations
+                                 lower(public_body_translations.request_email) like lower('%'||?||'%' )) AND (public_body_translations.locale = '#{@locale}')", @query, @query, @query]).paginate :order => "public_body_translations.name", :page => @page, :per_page => 100
         end
         @public_bodies_by_tag = PublicBody.find_by_tag(@query)
     end

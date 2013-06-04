@@ -426,8 +426,8 @@ describe InfoRequest do
 
         before do
             Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
-            @mock_comment_event = safe_mock_model(InfoRequestEvent, :created_at => Time.now - 23.days, :event_type => 'comment', :response? => false)
-            @mock_response_event = safe_mock_model(InfoRequestEvent, :created_at => Time.now - 22.days, :event_type => 'response', :response? => true)
+            @mock_comment_event = mock_model(InfoRequestEvent, :created_at => Time.now - 23.days, :event_type => 'comment', :response? => false)
+            @mock_response_event = mock_model(InfoRequestEvent, :created_at => Time.now - 22.days, :event_type => 'response', :response? => true)
             @info_request = InfoRequest.new(:prominence => 'normal',
                                             :awaiting_description => true,
                                             :info_request_events => [@mock_response_event, @mock_comment_event])
@@ -457,16 +457,16 @@ describe InfoRequest do
     describe 'when applying censor rules' do
 
         before do
-            @global_rule = safe_mock_model(CensorRule, :apply_to_text! => nil,
+            @global_rule = mock_model(CensorRule, :apply_to_text! => nil,
                                                   :apply_to_binary! => nil)
-            @user_rule = safe_mock_model(CensorRule, :apply_to_text! => nil,
+            @user_rule = mock_model(CensorRule, :apply_to_text! => nil,
                                                 :apply_to_binary! => nil)
-            @request_rule = safe_mock_model(CensorRule, :apply_to_text! => nil,
+            @request_rule = mock_model(CensorRule, :apply_to_text! => nil,
                                                    :apply_to_binary! => nil)
-            @body_rule = safe_mock_model(CensorRule, :apply_to_text! => nil,
+            @body_rule = mock_model(CensorRule, :apply_to_text! => nil,
                                                 :apply_to_binary! => nil)
-            @user = safe_mock_model(User, :censor_rules => [@user_rule])
-            @body = safe_mock_model(PublicBody, :censor_rules => [@body_rule])
+            @user = mock_model(User, :censor_rules => [@user_rule])
+            @body = mock_model(PublicBody, :censor_rules => [@body_rule])
             @info_request = InfoRequest.new(:prominence => 'normal',
                                             :awaiting_description => true,
                                             :title => 'title')

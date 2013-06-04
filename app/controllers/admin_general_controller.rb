@@ -2,7 +2,7 @@
 # Controller for main admin pages.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminGeneralController < AdminController
     skip_before_filter :authenticate, :only => :admin_js

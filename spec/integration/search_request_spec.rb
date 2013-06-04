@@ -13,10 +13,8 @@ describe "When searching" do
     end
 
     it "should redirect requests with search in query string to URL-based page" do
-        url = '/search/all?query=bob'
-        request_via_redirect("post", url)
-        response.request.url.should_not include(url)
-        response.request.url.should include("/search/bob/all")
+        post '/search/all?query=bob'
+        response.should redirect_to "/en/search/bob/all"
     end
 
     it "should correctly execute simple search" do

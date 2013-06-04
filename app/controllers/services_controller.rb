@@ -6,7 +6,7 @@ class ServicesController < ApplicationController
 
     def other_country_message
         text = ""
-        iso_country_code = Configuration::iso_country_code.downcase
+        iso_country_code = AlaveteliConfiguration::iso_country_code.downcase
         if country_from_ip.downcase != iso_country_code
             found_country = WorldFOIWebsites.by_code(country_from_ip)
 
@@ -36,9 +36,9 @@ class ServicesController < ApplicationController
                :content_type => "text/plain",
                :layout => false,
                :locals => {:name_to => info_request.user_name,
-                          :name_from => Configuration::contact_name,
+                          :name_from => AlaveteliConfiguration::contact_name,
                           :info_request => info_request, :reason => params[:reason],
-                          :info_request_url => 'http://' + Configuration::domain + request_path(info_request),
+                          :info_request_url => 'http://' + AlaveteliConfiguration::domain + request_path(info_request),
                           :site_name => site_name}
     end
 

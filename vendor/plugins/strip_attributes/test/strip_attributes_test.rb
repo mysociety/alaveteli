@@ -49,7 +49,7 @@ class StripAttributesTest < Test::Unit::TestCase
     assert_equal "foo", record.foo
     assert_equal "bar", record.bar
     assert_equal "biz", record.biz
-    assert_nil record.baz
+    assert_equal "",    record.baz
   end
 
   def test_should_strip_only_one_field
@@ -76,7 +76,7 @@ class StripAttributesTest < Test::Unit::TestCase
     assert_equal "\tfoo", record.foo
     assert_equal "bar",   record.bar
     assert_equal "biz",   record.biz
-    assert_nil record.baz
+    assert_equal "",      record.baz
   end
 
   def test_should_strip_all_except_three_fields
@@ -85,6 +85,6 @@ class StripAttributesTest < Test::Unit::TestCase
     assert_equal "\tfoo",   record.foo
     assert_equal "bar \t ", record.bar
     assert_equal "\tbiz ",  record.biz
-    assert_nil record.baz
+    assert_equal "",        record.baz
   end
 end

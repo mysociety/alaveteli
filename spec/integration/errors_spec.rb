@@ -1,53 +1,130 @@
+# -*- coding: utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe "When rendering errors" do
+describe "When errors occur" do
+
+    def set_consider_all_requests_local(value)
+        @requests_local = Rails.application.config.consider_all_requests_local
+        Rails.application.config.consider_all_requests_local = value
+    end
+
+    def restore_consider_all_requests_local
+        Rails.application.config.consider_all_requests_local = @requests_local
+    end
 
     before(:each) do
-        load_raw_emails_data
-        ActionController::Base.consider_all_requests_local = false
+        # This should happen automatically before each test but doesn't with these integration
+        # tests for some reason.
+        ActionMailer::Base.deliveries = []
     end
 
     after(:each) do
-         ActionController::Base.consider_all_requests_local = true
+        restore_consider_all_requests_local
     end
 
-    it "should render a 404 for unrouteable URLs" do
-        get("/frobsnasm")
-        response.body.should include("The page doesn't exist")
-        response.code.should == "404"
+    context 'when considering all requests local (by default all in development)' do
+
+        before(:each) { set_consider_all_requests_local(true) }
+
+        it 'should show a full trace for general errors' do
+            InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+            get("/request/example")
+            response.body.should have_selector('div[id=traces]')
+            response.body.should match('An example error')
+        end
+
     end
-    it "should render a 404 for users that don't exist" do
-        get("/user/wobsnasm")
-        response.body.should include("The page doesn't exist")
-        response.code.should == "404"
+
+    context 'when not considering all requests local' do
+
+        before(:each) { set_consider_all_requests_local(false) }
+
+        it "should render a 404 for unrouteable URLs using the general/exception_caught template" do
+            get("/frobsnasm")
+            response.should render_template('general/exception_caught')
+            response.code.should == "404"
+        end
+
+        it "should render a 404 for users or bodies that don't exist using the general/exception_caught
+            template" do
+            ['/user/wobsnasm', '/body/wobsnasm'].each do |non_existent_url|
+                get(non_existent_url)
+                response.should render_template('general/exception_caught')
+                response.code.should == "404"
+            end
+        end
+
+        it "should render a 500 for general errors using the general/exception_caught template" do
+            InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+            get("/request/example")
+            response.should render_template('general/exception_caught')
+            response.body.should match('An example error')
+            response.code.should == "500"
+        end
+
+        it 'should render a 500 for json errors' do
+            InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+            get("/request/example.json")
+            response.code.should == '500'
+        end
+
+        it 'should render a 404 for a non-found xml request' do
+            get("/frobsnasm.xml")
+            response.code.should == '404'
+        end
+
+        it 'should notify of a general error' do
+            InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+            get("/request/example")
+            deliveries = ActionMailer::Base.deliveries
+            deliveries.size.should == 1
+            mail = deliveries[0]
+            mail.body.should =~ /An example error/
+        end
+
+        it 'should log a general error' do
+            Rails.logger.should_receive(:fatal)
+            InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+            get("/request/example")
+        end
+
+        it 'should assign the locale for the general/exception_caught template' do
+            InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
+            get("/es/request/example")
+            response.should render_template('general/exception_caught')
+            response.body.should match('Lo sentimos, hubo un problema procesando esta página')
+            response.body.should match('An example error')
+        end
+
+        it "should render a 403 with text body for attempts at directory listing for attachments" do
+            # make a fake cache
+            foi_cache_path = File.expand_path(File.join(File.dirname(__FILE__), '../../cache'))
+            FileUtils.mkdir_p(File.join(foi_cache_path, "views/en/request/101/101/response/1/attach/html/1"))
+            get("/request/101/response/1/attach/html/1/" )
+            response.body.should include("Directory listing not allowed")
+            response.code.should == "403"
+            get("/request/101/response/1/attach/html" )
+            response.body.should include("Directory listing not allowed")
+            response.code.should == "403"
+        end
+
+        it "return a 403 for a JSON PermissionDenied error" do
+            InfoRequest.stub!(:find_by_url_title!).and_raise(ApplicationController::PermissionDenied)
+            get("/request/example.json")
+            response.code.should == '403'
+        end
+
+        context "in the admin interface" do
+
+            it 'should show a full trace for general errors' do
+                InfoRequest.stub!(:find).and_raise("An example error")
+                get("/admin/request/show/333")
+                response.body.should have_selector('div[id=traces]')
+                response.body.should match('An example error')
+            end
+
+        end
+
     end
-    it "should render a 404 for bodies that don't exist" do
-        get("/body/wobsnasm")
-        response.body.should include("The page doesn't exist")
-        response.code.should == "404"
-    end
-    it "should render a 500 for general errors" do
-        ir = info_requests(:naughty_chicken_request)
-        # Set an invalid state for the request. Note that update_attribute doesn't run the validations
-        ir.update_attribute(:described_state, "crotchety")
-        get("/request/#{ir.url_title}")
-        response.code.should == "500"
-    end
-    it "should render a 403 for attempts at directory listing for attachments" do
-        # make a fake cache
-        foi_cache_path = File.expand_path(File.join(File.dirname(__FILE__), '../../cache'))
-        FileUtils.mkdir_p(File.join(foi_cache_path, "views/en/request/101/101/response/1/attach/html/1"))
-        get("/request/101/response/1/attach/html/1/" )
-        response.body.should include("Directory listing not allowed")
-        response.code.should == "403"
-        get("/request/101/response/1/attach/html" )
-        response.body.should include("Directory listing not allowed")
-        response.code.should == "403"
-    end
-    it "should render a 404 for non-existent 'details' pages for requests" do
-        get("/details/request/wobble" )
-        response.body.should include("The page doesn't exist")
-        response.code.should == "404"
-    end
+
 end
-

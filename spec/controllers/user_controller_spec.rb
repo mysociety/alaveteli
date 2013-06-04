@@ -5,7 +5,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 # http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/ControllerExampleGroup.html
 
 describe UserController, "when showing a user" do
-    integrate_views
+    render_views
     before(:each) do
         load_raw_emails_data
         get_fixtures_xapian_index
@@ -64,7 +64,7 @@ describe UserController, "when showing a user" do
 end
 
 describe UserController, "when signing in" do
-    integrate_views
+    render_views
 
     def get_last_postredirect
         post_redirects = PostRedirect.find_by_sql("select * from post_redirects order by id desc limit 1")
@@ -74,7 +74,7 @@ describe UserController, "when signing in" do
 
     it "should show sign in / sign up page" do
         get :signin
-        response.should have_tag("input#signin_token")
+        response.should have_selector("input#signin_token")
     end
 
     it "should create post redirect to / when you just go to /signin" do
@@ -100,8 +100,7 @@ describe UserController, "when signing in" do
     end
 
     it "should log in when you give right email/password, and redirect to where you were" do
-        old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        RoutingFilter.active = false
 
         get :signin, :r => "/list"
         response.should render_template('sign')
@@ -112,14 +111,13 @@ describe UserController, "when signing in" do
         session[:user_id].should == users(:bob_smith_user).id
         # response doesn't contain /en/ but redirect_to does...
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
-        response.should_not send_email
+        ActionMailer::Base.deliveries.should be_empty
 
-        ActionController::Routing::Routes.filters = old_filters
+        RoutingFilter.active = true
     end
 
     it "should not log you in if you use an invalid PostRedirect token, and shouldn't give 500 error either" do
-        old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        RoutingFilter.active = false
 
         post_redirect = "something invalid"
         lambda {
@@ -132,7 +130,7 @@ describe UserController, "when signing in" do
         response.should render_template('sign')
         assigns[:post_redirect].should == nil
 
-        ActionController::Routing::Routes.filters = old_filters
+        RoutingFilter.active = true
     end
 
 # No idea how to test this in the test framework :(
@@ -152,12 +150,11 @@ describe UserController, "when signing in" do
             :token => post_redirect.token
         }
         response.should render_template('confirm')
-        response.should send_email
+        ActionMailer::Base.deliveries.should_not be_empty
     end
 
     it "should confirm your email, log you in and redirect you to where you were after you click an email link" do
-        old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        RoutingFilter.active = false
 
         get :signin, :r => "/list"
         post_redirect = get_last_postredirect
@@ -165,19 +162,19 @@ describe UserController, "when signing in" do
         post :signin, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
             :token => post_redirect.token
         }
-        response.should send_email
+        ActionMailer::Base.deliveries.should_not be_empty
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
         mail = deliveries[0]
-        mail.body =~ /(http:\/\/.*(\/c\/(.*)))/
+        mail.body.to_s =~ /(http:\/\/.*(\/c\/(.*)))/
         mail_url = $1
         mail_path = $2
         mail_token = $3
 
         # check is right confirmation URL
         mail_token.should == post_redirect.email_token
-        params_from(:get, mail_path).should == { :controller => 'user', :action => 'confirm', :email_token => mail_token }
+        Rails.application.routes.recognize_path(mail_path).should == { :controller => 'user', :action => 'confirm', :email_token => mail_token }
 
         # check confirmation URL works
         session[:user_id].should be_nil
@@ -185,12 +182,11 @@ describe UserController, "when signing in" do
         session[:user_id].should == users(:unconfirmed_user).id
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
 
-        ActionController::Routing::Routes.filters = old_filters
+        RoutingFilter.active = true
     end
 
     it "should keep you logged in if you click a confirmation link and are already logged in as an admin" do
-        old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        RoutingFilter.active = false
 
         get :signin, :r => "/list"
         post_redirect = get_last_postredirect
@@ -198,19 +194,19 @@ describe UserController, "when signing in" do
         post :signin, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
             :token => post_redirect.token
         }
-        response.should send_email
+        ActionMailer::Base.deliveries.should_not be_empty
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
         mail = deliveries[0]
-        mail.body =~ /(http:\/\/.*(\/c\/(.*)))/
+        mail.body.to_s =~ /(http:\/\/.*(\/c\/(.*)))/
         mail_url = $1
         mail_path = $2
         mail_token = $3
 
         # check is right confirmation URL
         mail_token.should == post_redirect.email_token
-        params_from(:get, mail_path).should == { :controller => 'user', :action => 'confirm', :email_token => mail_token }
+        Rails.application.routes.recognize_path(mail_path).should == { :controller => 'user', :action => 'confirm', :email_token => mail_token }
 
         # Log in as an admin
         session[:user_id] = users(:admin_user).id
@@ -222,19 +218,19 @@ describe UserController, "when signing in" do
         # And the redirect should still work, of course
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
 
-        ActionController::Routing::Routes.filters = old_filters
+        RoutingFilter.active = true
     end
 
 end
 
 describe UserController, "when signing up" do
-    integrate_views
+    render_views
 
     it "should be an error if you type the password differently each time" do
         post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
             :password => 'sillypassword', :password_confirmation => 'sillypasswordtwo' }
         }
-        assigns[:user_signup].errors[:password].should == 'Please enter the same password twice'
+        assigns[:user_signup].errors[:password].should == ['Please enter the same password twice']
     end
 
     it "should be an error to sign up with a misformatted email" do
@@ -285,7 +281,7 @@ describe UserController, "when signing up" do
 end
 
 describe UserController, "when signing out" do
-    integrate_views
+    render_views
 
     it "should log you out and redirect to the home page" do
         session[:user_id] = users(:bob_smith_user).id
@@ -295,21 +291,20 @@ describe UserController, "when signing out" do
     end
 
     it "should log you out and redirect you to where you were" do
-        old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        RoutingFilter.active = false
 
         session[:user_id] = users(:bob_smith_user).id
         get :signout, :r => '/list'
         session[:user_id].should be_nil
         response.should redirect_to(:controller => 'request', :action => 'list')
 
-        ActionController::Routing::Routes.filters = old_filters
+        RoutingFilter.active = true
     end
 
 end
 
 describe UserController, "when sending another user a message" do
-    integrate_views
+    render_views
 
     it "should redirect to signin page if you go to the contact form and aren't signed in" do
         get :contact, :id => users(:silly_name_user)
@@ -337,16 +332,16 @@ describe UserController, "when sending another user a message" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
         mail = deliveries[0]
-        mail.body.should include("Bob Smith has used #{Configuration::site_name} to send you the message below")
+        mail.body.should include("Bob Smith has used #{AlaveteliConfiguration::site_name} to send you the message below")
         mail.body.should include("Just a test!")
         #mail.to_addrs.first.to_s.should == users(:silly_name_user).name_and_email # XXX fix some nastiness with quoting name_and_email
-        mail.from_addrs.first.to_s.should == users(:bob_smith_user).name_and_email
+        mail.from_addrs.first.to_s.should == users(:bob_smith_user).email
     end
 
 end
 
 describe UserController, "when changing password" do
-    integrate_views
+    render_views
 
     it "should show the email form when not logged in" do
         get :signchangepassword
@@ -386,7 +381,7 @@ describe UserController, "when changing password" do
         post :signchangepassword, { :user => { :password => 'ooo', :password_confirmation => 'ooo' },
             :submitted_signchangepassword_do => 1
         }
-        users(:bob_smith_user).hashed_password.should != old_hash
+        users(:bob_smith_user).reload.hashed_password.should_not == old_hash
 
         response.should redirect_to(:controller => 'user', :action => 'show', :url_name => users(:bob_smith_user).url_name)
     end
@@ -416,7 +411,7 @@ describe UserController, "when changing password" do
 end
 
 describe UserController, "when changing email address" do
-    integrate_views
+    render_views
 
     it "should require login" do
         get :signchangeemail
@@ -500,10 +495,10 @@ describe UserController, "when changing email address" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
         mail = deliveries[0]
-        mail.body.should include("confirm that you want to change")
+        mail.body.should include("confirm that you want to \nchange")
         mail.to.should == [ 'newbob@localhost' ]
 
-        mail.body =~ /(http:\/\/.*(\/c\/(.*)))/
+        mail.body.to_s =~ /(http:\/\/.*(\/c\/(.*)))/
         mail_url = $1
         mail_path = $2
         mail_token = $3
@@ -561,16 +556,13 @@ describe UserController, "when changing email address" do
 end
 
 describe UserController, "when using profile photos" do
-    integrate_views
+    render_views
 
     before do
         @user = users(:bob_smith_user)
 
-        @uploadedfile = File.open(file_fixture_name("parrot.png"))
-        @uploadedfile.stub!(:original_filename).and_return('parrot.png')
-
-        @uploadedfile_2 = File.open(file_fixture_name("parrot.jpg"))
-        @uploadedfile_2.stub!(:original_filename).and_return('parrot.jpg')
+        @uploadedfile = fixture_file_upload("/files/parrot.png")
+        @uploadedfile_2 = fixture_file_upload("/files/parrot.jpg")
     end
 
     it "should not let you change profile photo if you're not logged in as the user" do
@@ -631,9 +623,10 @@ describe UserController, "when showing JSON version for API" do
 end
 
 describe UserController, "when viewing the wall" do
-    integrate_views
+    render_views
 
     before(:each) do
+        load_raw_emails_data
         get_fixtures_xapian_index
     end
 

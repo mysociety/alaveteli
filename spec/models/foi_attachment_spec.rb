@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe FoiAttachment, " when calculating due date" do
+describe FoiAttachment do
 
     before(:each) do
         load_raw_emails_data

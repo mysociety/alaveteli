@@ -2,7 +2,7 @@
 # Controller for viewing user accounts from the admin interface.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminUserController < AdminController
     def index
@@ -12,9 +12,13 @@ class AdminUserController < AdminController
 
     def list
         @query = params[:query]
-        @admin_users = User.paginate :order => "name", :page => params[:page], :per_page => 100,
-            :conditions =>  @query.nil? ? nil : ["lower(name) like lower('%'||?||'%') or
-                             lower(email) like lower('%'||?||'%')", @query, @query]
+        if @query
+            users = User.where(["lower(name) like lower('%'||?||'%') or
+                                 lower(email) like lower('%'||?||'%')", @query, @query])
+        else
+            users = User
+        end
+        @admin_users = users.paginate :order => "name", :page => params[:page], :per_page => 100
     end
 
     def list_banned
