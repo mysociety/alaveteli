@@ -48,6 +48,8 @@ class IncomingMessage < ActiveRecord::Base
 
     belongs_to :raw_email
 
+    include RetryAfterDeletedAttachment
+
     # See binary_mask_stuff function below. It just test for inclusion
     # in this hash, not the value of the right hand side.
     DoNotBinaryMask = {
@@ -469,9 +471,12 @@ class IncomingMessage < ActiveRecord::Base
     end
     # Returns body text from main text part of email, converted to UTF-8
     def get_main_body_text_internal
-        parse_raw_email!
-        main_part = get_main_body_text_part
-        return _convert_part_body_to_text(main_part)
+        cope_with_attachment_deleted_after_reparse {
+            parse_raw_email!
+            self.foi_attachments reload=true
+            main_part = get_main_body_text_part
+            return _convert_part_body_to_text(main_part)
+        }
     end
 
     # Given a main text part, converts it to text

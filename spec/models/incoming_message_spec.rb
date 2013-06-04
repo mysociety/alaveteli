@@ -542,6 +542,32 @@ describe IncomingMessage, "when TNEF attachments are attached to messages" do
     end
 end
 
+describe IncomingMessage, "when cached version of the main part is deleted, and it's different after reparse" do
+
+    it 'still returns the main body part' do
+        im = incoming_messages(:useless_incoming_message)
+        im.parse_raw_email! true
+
+        old_raw_email_data = im.raw_email.data
+        attachment_to_change = im.foi_attachments[0]
+
+        raw_email = mock_model(RawEmail)
+        raw_email.stub!(:data).and_return(old_raw_email_data.gsub /No way/, 'No way, good sir')
+        IncomingMessage.any_instance.stub(:raw_email).and_return(raw_email)
+
+        attachment_to_change.delete_cached_file!
+
+        returned_body = nil
+        lambda {
+            returned_body = im.get_main_body_text_internal
+        }.should_not raise_error(AttachmentDeletedByReparse)
+
+        returned_body.should match('No way, good sir!')
+    end
+
+end
+
+
 describe IncomingMessage, "when extracting attachments" do
 
     it 'handles the case where reparsing changes the body of the main part

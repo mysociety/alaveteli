@@ -518,6 +518,29 @@ describe RequestController, "when showing one request" do
             response.should contain "First hello"
         end
 
+        it "should download an attachment even if the cached version was deleted and its hexdigest changed" do
+            ir = info_requests(:fancy_dog_request)
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            ir.incoming_messages.each { |x| x.parse_raw_email!(true) }
+            ir.reload
+
+            im = ir.incoming_messages[1]
+            attachment_to_change = im.foi_attachments[2]
+
+            old_raw_email_data = im.raw_email.data
+
+            attachment_to_change.delete_cached_file!
+            raw_email = mock_model(RawEmail)
+            raw_email.stub!(:data).and_return(old_raw_email_data.gsub /First hello/, 'First goodbye')
+            IncomingMessage.any_instance.stub(:raw_email).and_return(raw_email)
+
+            lambda {
+                get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3, :file_name => 'hello world.txt', :skip_cache => 1
+            }.should_not raise_error(AttachmentDeletedByReparse)
+            response.content_type.should == "text/plain"
+            response.should contain "First goodbye"
+        end
+
         it 'should cache an attachment on a request with normal prominence' do
             ir = info_requests(:fancy_dog_request)
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
@@ -543,6 +566,29 @@ describe RequestController, "when showing one request" do
             get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
             response.content_type.should == "text/html"
             response.should contain "Second hello"
+        end
+
+        it "should generate valid HTML verson of plain text attachments even if the cached version was deleted and its hexdigest changed" do
+            ir = info_requests(:fancy_dog_request)
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            ir.incoming_messages.each { |x| x.parse_raw_email!(true) }
+            ir.reload
+
+            im = ir.incoming_messages[1]
+            attachment_to_change = im.foi_attachments[1]
+
+            old_raw_email_data = im.raw_email.data
+
+            attachment_to_change.delete_cached_file!
+            raw_email = mock_model(RawEmail)
+            raw_email.stub!(:data).and_return(old_raw_email_data.gsub /Second hello/, 'Second goodbye')
+            IncomingMessage.any_instance.stub(:raw_email).and_return(raw_email)
+
+            lambda {
+                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt.html', :skip_cache => 1
+            }.should_not raise_error(AttachmentDeletedByReparse)
+            response.content_type.should == "text/html"
+            response.should contain "Second goodbye"
         end
 
         # This is a regression test for a bug where URLs of this form were causing 500 errors
@@ -820,6 +866,32 @@ describe RequestController, "when showing one request" do
                                               { :user_id => users(:bob_smith_user) }
                 response.location.should contain /#{assigns[:url_path]}$/
             end
+
+            it 'should successfully make a zipfile even if the cached version of an attachment was deleted and its hexdigest changed' do
+
+                ir = info_requests(:fancy_dog_request)
+                session[:user_id] = ir.user.id # bob_smith_user
+                receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+                ir.incoming_messages.each { |x| x.parse_raw_email!(true) }
+                ir.reload
+
+                im = ir.incoming_messages[1]
+                attachment_to_change = im.foi_attachments[2]
+
+                old_raw_email_data = im.raw_email.data
+
+                attachment_to_change.delete_cached_file!
+                raw_email = mock_model(RawEmail)
+                raw_email.stub!(:data).and_return(old_raw_email_data.gsub /First hello/, 'First goodbye')
+                IncomingMessage.any_instance.stub(:raw_email).and_return(raw_email)
+
+                lambda {
+                    get :download_entire_request, { :url_title => ir.url_title }
+                }.should_not raise_error(AttachmentDeletedByReparse)
+
+                response.location.should contain /#{assigns[:url_path]}$/
+            end
+
         end
     end
 end

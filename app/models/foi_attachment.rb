@@ -25,6 +25,9 @@
 
 require 'digest'
 
+class AttachmentDeletedByReparse < StandardError
+end
+
 class FoiAttachment < ActiveRecord::Base
     belongs_to :incoming_message
     validates_presence_of :content_type
@@ -89,6 +92,11 @@ class FoiAttachment < ActiveRecord::Base
                 delay = BODY_MAX_DELAY if delay > BODY_MAX_DELAY
                 force = true
                 self.incoming_message.parse_raw_email!(force)
+                begin
+                    self.reload
+                rescue ActiveRecord::RecordNotFound
+                    raise AttachmentDeletedByReparse
+                end
                 retry
             end
         end

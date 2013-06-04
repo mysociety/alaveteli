@@ -30,7 +30,21 @@ describe FoiAttachment do
         main.delete_cached_file!
         main = im.get_main_body_text_part
         main.body.should == orig_body
-
+    end
+    it "reparses the body if it disappears, throwing an exception if the hexdigest changed" do
+        im = incoming_messages(:useless_incoming_message)
+        im.extract_attachments!
+        main = im.get_main_body_text_part
+        changed_raw_email_data = im.raw_email.data.gsub /No way/, 'No way, I say'
+        main.delete_cached_file!
+        raw_email = mock_model(RawEmail)
+        raw_email.stub!(:data).and_return(changed_raw_email_data)
+        im.stub!(:raw_email).and_return(raw_email)
+        main.stub!(:incoming_message).and_return(im)
+        main = im.get_main_body_text_part
+        lambda {
+            main.body
+        }.should raise_error(AttachmentDeletedByReparse)
     end
 end
 
