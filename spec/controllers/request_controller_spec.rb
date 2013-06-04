@@ -241,6 +241,36 @@ describe RequestController, "when showing one request" do
       end
     end
 
+    context "when the request has not yet been reported" do
+        it "should allow the user to report" do
+            title = info_requests(:badger_request).url_title
+            get :show, :url_title => title
+            response.should_not contain("This request has been reported")
+            response.should contain("Offensive?")
+        end
+    end
+
+    context "when the request has been reported for admin attention" do
+        before :each do
+            info_requests(:fancy_dog_request).report!("", "", nil)
+        end
+        it "should inform the user" do
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+            response.should contain("This request has been reported")
+            response.should_not contain("Offensive?")
+        end
+
+        context "and then deemed okay and left to complete" do
+            before :each do
+                info_requests(:fancy_dog_request).set_described_state("successful")
+            end
+            it "should let the user know that the administrators have not hidden this request" do
+                get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+                response.body.should =~ (/the site administrators.*have not hidden it/)
+            end
+        end
+    end
+
     describe 'when the request is being viewed by an admin' do
 
         describe 'if the request is awaiting description' do
@@ -2319,91 +2349,6 @@ describe RequestController, "when showing similar requests" do
 
 end
 
-
-describe RequestController, "when reporting a request when not logged in" do
-    it "should only allow logged-in users to report requests" do
-        get :report_request, :url_title => info_requests(:badger_request).url_title
-        post_redirect = PostRedirect.get_last_post_redirect
-        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
-    end
-end
-
-describe RequestController, "when reporting a request (logged in)" do
-    render_views
-
-    before do
-        @user = users(:robin_user)
-        session[:user_id] = @user.id
-    end
-
-    it "should 404 for non-existent requests" do
-      lambda {
-        post :report_request, :url_title => "hjksfdhjk_louytu_qqxxx"
-      }.should raise_error(ActiveRecord::RecordNotFound)
-    end
-
-    it "should mark a request as having been reported" do
-        ir = info_requests(:badger_request)
-        title = ir.url_title
-        get :show, :url_title => title
-        assigns[:info_request].attention_requested.should == false
-
-        post :report_request, :url_title => title
-        response.should redirect_to(:action => :show, :url_title => title)
-
-        get :show, :url_title => title
-        response.should be_success
-        assigns[:info_request].attention_requested.should == true
-        assigns[:info_request].described_state.should == "attention_requested"
-    end
-
-    it "should not allow a request to be reported twice" do
-        title = info_requests(:badger_request).url_title
-
-        post :report_request, :url_title => title
-        response.should redirect_to(:action => :show, :url_title => title)
-        get :show, :url_title => title
-        response.should be_success
-        response.body.should include("has been reported")
-
-        post :report_request, :url_title => title
-        response.should redirect_to(:action => :show, :url_title => title)
-        get :show, :url_title => title
-        response.should be_success
-        response.body.should include("has already been reported")
-    end
-
-    it "should let users know a request has been reported" do
-        title = info_requests(:badger_request).url_title
-        get :show, :url_title => title
-        response.body.should include("Offensive?")
-
-        post :report_request, :url_title => title
-        response.should redirect_to(:action => :show, :url_title => title)
-
-        get :show, :url_title => title
-        response.body.should_not include("Offensive?")
-        response.body.should include("This request has been reported")
-
-        info_requests(:badger_request).set_described_state("successful")
-        get :show, :url_title => title
-        response.body.should_not include("This request has been reported")
-        response.body.should =~ (/the site administrators.*have not hidden it/)
-    end
-
-    it "should send an email from the reporter to admins" do
-        ir = info_requests(:badger_request)
-        title = ir.url_title
-        post :report_request, :url_title => title
-        deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 1
-        mail = deliveries[0]
-        mail.subject.should =~ /attention_requested/
-        mail.from.should include(@user.email)
-        mail.body.should include(@user.name)
-    end
-end
-
 describe RequestController, "when caching fragments" do
     it "should not fail with long filenames" do
         long_name = "blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah.txt"
@@ -2430,5 +2375,4 @@ describe RequestController, "when caching fragments" do
     end
 
 end
-
 
