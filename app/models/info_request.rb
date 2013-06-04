@@ -351,7 +351,10 @@ public
     # copying an email, and that doesn't matter)
     def InfoRequest.find_by_incoming_email(incoming_email)
         id, hash = InfoRequest._extract_id_hash_from_email(incoming_email)
-        return self.find_by_magic_email(id, hash)
+        if hash_from_id(id) == hash
+            # Not using find(id) because we don't exception raised if nothing found
+            find_by_id(id)
+        end
     end
 
     # Return list of info requests which *might* be right given email address
@@ -911,24 +914,6 @@ public
 
     def InfoRequest.hash_from_id(id)
         return Digest::SHA1.hexdigest(id.to_s + AlaveteliConfiguration::incoming_email_secret)[0,8]
-    end
-
-    # Called by find_by_incoming_email - and used to be called by separate
-    # function for envelope from address, until we abandoned it.
-    def InfoRequest.find_by_magic_email(id, hash)
-        expected_hash = InfoRequest.hash_from_id(id)
-        #print "expected: " + expected_hash + "\nhash: " + hash + "\n"
-        if hash != expected_hash
-            return nil
-        else
-            begin
-                return self.find(id)
-            rescue ActiveRecord::RecordNotFound
-                # so error email is sent to admin, rather than the exception sending weird
-                # error to the public body.
-                return nil
-            end
-        end
     end
 
     # Used to find when event last changed
