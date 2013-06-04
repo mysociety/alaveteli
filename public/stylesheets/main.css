@@ -183,16 +183,11 @@ margin:18px 0 36px;
 }
 
 #stepwise_make_request {
-background-color:#BBB;
-border:1px solid #222;
-border-radius:5px;
--moz-border-radius:5px;
 color:#222;
 font-size:1.1em;
 text-align:left;
 width:412px;
 margin:0 14em 40px 0;
-padding:10px 12px;
 }
 
 #stepwise_make_request_view_email {
