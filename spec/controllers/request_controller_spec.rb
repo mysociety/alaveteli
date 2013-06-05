@@ -139,11 +139,6 @@ describe RequestController, "when changing things that appear on the request pag
         post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => ir.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
         PurgeRequest.all().first.model_id.should == ir.id
     end
-    it "should purge the downstream cache when the request is categorised" do
-        ir = info_requests(:fancy_dog_request)
-        ir.set_described_state('waiting_clarification')
-        PurgeRequest.all().first.model_id.should == ir.id
-    end
     it "should purge the downstream cache when the authority data is changed" do
         ir = info_requests(:fancy_dog_request)
         ir.public_body.name = "Something new"
@@ -1374,9 +1369,6 @@ describe RequestController, "when classifying an information request" do
 
             before do
                 @dog_request.stub!(:is_old_unclassified?).and_return(true)
-                mail_mock = mock("mail")
-                mail_mock.stub(:deliver)
-                RequestMailer.stub!(:old_unclassified_updated).and_return(mail_mock)
             end
 
             describe 'when the user is not logged in' do
@@ -1403,20 +1395,6 @@ describe RequestController, "when classifying an information request" do
                     post_status('rejected')
                 end
 
-                it 'should log a status update event' do
-                    expected_params = {:user_id => users(:silly_name_user).id,
-                                       :old_described_state => 'waiting_response',
-                                       :described_state => 'rejected'}
-                    event = mock_model(InfoRequestEvent)
-                    @dog_request.should_receive(:log_event).with("status_update", expected_params).and_return(event)
-                    post_status('rejected')
-                end
-
-                it 'should send an email to the requester letting them know someone has updated the status of their request' do
-                    RequestMailer.should_receive(:old_unclassified_updated)
-                    post_status('rejected')
-                end
-
                 it 'should redirect to the request page' do
                     post_status('rejected')
                     response.should redirect_to(:action => 'show', :controller => 'request', :url_title => @dog_request.url_title)
@@ -1438,15 +1416,6 @@ describe RequestController, "when classifying an information request" do
                         response.should redirect_to categorise_play_url
                     end
                 end
-
-                it "should send a mail from the user who changed the state to requires_admin" do
-                    post :describe_state, :incoming_message => { :described_state => "requires_admin", :message => "a message" }, :id => @dog_request.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => @dog_request.last_event_id_needing_description
-
-                    deliveries = ActionMailer::Base.deliveries
-                    deliveries.size.should == 1
-                    mail = deliveries[0]
-                    mail.from_addrs.first.to_s.should == users(:silly_name_user).email
-                end
             end
         end
 
@@ -1463,30 +1432,6 @@ describe RequestController, "when classifying an information request" do
             it 'should update the status of the request' do
                 @dog_request.stub!(:calculate_status).and_return('rejected')
                 @dog_request.should_receive(:set_described_state).with('rejected', @admin_user, nil)
-                post_status('rejected')
-            end
-
-            it 'should log a status update event' do
-                event = mock_model(InfoRequestEvent)
-                expected_params = {:user_id => @admin_user.id,
-                                   :old_described_state => 'waiting_response',
-                                   :described_state => 'rejected'}
-                @dog_request.should_receive(:log_event).with("status_update", expected_params).and_return(event)
-                post_status('rejected')
-            end
-
-            it 'should record a classification' do
-                event = mock_model(InfoRequestEvent)
-                @dog_request.stub!(:log_event).with("status_update", anything()).and_return(event)
-                RequestClassification.should_receive(:create!).with(:user_id => @admin_user.id,
-                                                                    :info_request_event_id => event.id)
-                post_status('rejected')
-            end
-
-            it 'should send an email to the requester letting them know someone has updated the status of their request' do
-                mail_mock = mock("mail")
-                mail_mock.stub :deliver
-                RequestMailer.should_receive(:old_unclassified_updated).and_return(mail_mock)
                 post_status('rejected')
             end
 
@@ -1516,16 +1461,6 @@ describe RequestController, "when classifying an information request" do
             it 'should update the status of the request' do
                 @dog_request.stub!(:calculate_status).and_return('rejected')
                 @dog_request.should_receive(:set_described_state).with('rejected', @admin_user, nil)
-                post_status('rejected')
-            end
-
-            it 'should not log a status update event' do
-                @dog_request.should_not_receive(:log_event)
-                post_status('rejected')
-            end
-
-            it 'should not send an email to the requester letting them know someone has updated the status of their request' do
-                RequestMailer.should_not_receive(:old_unclassified_updated)
                 post_status('rejected')
             end
 
@@ -1566,50 +1501,25 @@ describe RequestController, "when classifying an information request" do
                 flash[:error].should =~ /The request has been updated since you originally loaded this page/
             end
 
-            it "should successfully classify response if logged in as user controlling request" do
-                post_status('rejected')
-                response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
-                @dog_request.reload
-                @dog_request.awaiting_description.should == false
-                @dog_request.described_state.should == 'rejected'
-                @dog_request.get_last_response_event.should == info_request_events(:useless_incoming_message_event)
-                @dog_request.get_last_response_event.calculated_state.should == 'rejected'
-            end
-
-            it 'should not log a status update event' do
-                @dog_request.should_not_receive(:log_event)
-                post_status('rejected')
-            end
-
-            it 'should not send an email to the requester letting them know someone has updated the status of their request' do
-                RequestMailer.should_not_receive(:old_unclassified_updated)
-                post_status('rejected')
-            end
-
             it "should go to the page asking for more information when classified as requires_admin" do
                 post :describe_state, :incoming_message => { :described_state => "requires_admin" }, :id => @dog_request.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => @dog_request.last_event_id_needing_description
                 response.should redirect_to describe_state_message_url(:url_title => @dog_request.url_title, :described_state => "requires_admin")
 
-                @dog_request.reload
-                @dog_request.described_state.should_not == 'requires_admin'
-
-                ActionMailer::Base.deliveries.should be_empty
+                @dog_request.should_not_receive(:set_described_state)
             end
 
             context "message is included when classifying as requires_admin" do
                 it "should send an email including the message" do
+                    @dog_request.stub!(:calculate_status).and_return('requires_admin')
+                    @dog_request.should_receive(:set_described_state).with("requires_admin",
+                        @request_owner, "Something weird happened")
+
                     post :describe_state,
                         :incoming_message => {
                             :described_state => "requires_admin",
                             :message => "Something weird happened" },
                         :id => @dog_request.id,
                         :last_info_request_event_id => @dog_request.last_event_id_needing_description
-
-                    deliveries = ActionMailer::Base.deliveries
-                    deliveries.size.should == 1
-                    mail = deliveries[0]
-                    mail.body.should =~ /as needing admin/
-                    mail.body.should =~ /Something weird happened/
                 end
             end
 
@@ -1812,7 +1722,7 @@ describe RequestController, "when sending a followup message" do
         # and that the status changed
         info_requests(:fancy_dog_request).reload
         info_requests(:fancy_dog_request).described_state.should == 'waiting_response'
-        info_requests(:fancy_dog_request).get_last_response_event.calculated_state.should == 'waiting_clarification'
+        info_requests(:fancy_dog_request).get_last_response_event.calculated_state.should == 'waiting_response'
     end
 
     it "should give an error if the same followup is submitted twice" do

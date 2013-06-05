@@ -364,13 +364,13 @@ describe RequestMailer, 'requires_admin' do
     end
 
     it 'body should contain the full admin URL' do
-        mail = RequestMailer.requires_admin(@info_request).deliver
+        mail = RequestMailer.requires_admin(@info_request, @info_request.user).deliver
 
         mail.body.should include('http://test.host/en/admin/request/show/123')
     end
 
     it "body should contain the message from the user" do
-        mail = RequestMailer.requires_admin(@info_request, nil, "Something has gone wrong").deliver
+        mail = RequestMailer.requires_admin(@info_request, @info_request.user, "Something has gone wrong").deliver
         mail.body.should include 'Something has gone wrong'
     end
 
