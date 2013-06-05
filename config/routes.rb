@@ -14,7 +14,6 @@ Alaveteli::Application.routes.draw do
     #### General contoller
     match '/' => 'general#frontpage', :as => :frontpage
     match '/blog' => 'general#blog', :as => :blog
-    match '/stylesheets/custom.css' => 'general#custom_css', :as => :custom_css
     match '/search' => 'general#search_redirect', :as => :search_redirect
     match '/search/all' => 'general#search_redirect', :as => :search_redirect
     # XXX combined is the search query, and then if sorted a "/newest" at the end.

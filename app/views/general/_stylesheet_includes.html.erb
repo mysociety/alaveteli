@@ -8,14 +8,9 @@
         <!--[if LT IE 7]>
         <style type="text/css">@import url("/stylesheets/ie6.css");</style>
         <![endif]-->
-        <!--[if LT IE 7]>
-        <style type="text/css">@import url("/stylesheets/ie6-custom.css");</style>
-        <![endif]-->
         <!--[if LT IE 8]>
         <style type="text/css">@import url("/stylesheets/ie7.css");</style>
         <![endif]-->
-        <!-- the following method for customising CSS is deprecated; see `doc/THEMES.md` for detail -->
-        <%= stylesheet_link_tag 'custom', :title => "Main", :rel => "stylesheet"  %>
         <% if AlaveteliConfiguration::force_registration_on_new_request %>
         <%= stylesheet_link_tag 'jquery.fancybox-1.3.4', :rel => "stylesheet"  %>
         <% end %>

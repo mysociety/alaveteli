@@ -348,4 +348,3 @@ describe GeneralController, 'when using xapian search' do
     end
 
 end
-

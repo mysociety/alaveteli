@@ -209,12 +209,6 @@ class GeneralController < ApplicationController
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
     end
 
-    def custom_css
-        long_cache
-        @locale = self.locale_from_params()
-        render(:layout => false, :content_type => 'text/css')
-    end
-
     # Handle requests for non-existent URLs - will be handled by ApplicationController::render_exception
     def not_found
         raise RouteNotFound
