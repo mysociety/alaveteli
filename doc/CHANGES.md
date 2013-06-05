@@ -6,6 +6,7 @@
 * Manually remove vendor/rails-locales
 * Themes created for 0.9 and below should be updated to work with Rails 3. See `THEMES-UPGRADE.md` for notes on upgrading your theme. You will need to manually remove your old theme directory before running `rails-post-deploy`.
 * The `config/httpd.conf` has moved to `config/httpd.conf`, as it may need customization before deploying. It also has a new line setting RackEnv to production - copy this to your config/httpd.conf file.
+* Alaveteli now uses the [mail gem](https://github.com/mikel/mail) rather than [tmail](https://github.com/mikel/tmail) to handle mail. If you're using Exim as your MTA, you'll need to use the setting `extract_addresses_remove_arguments = false` in your Exim conf (see INSTALL-exim4.md for details). This means it won't remove addresses specified with -t on command line from the mail recipient list.
 
 # Version 0.9
 ## Highlighted features

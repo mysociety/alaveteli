@@ -112,4 +112,20 @@ module Mail
             end
         end
     end
+    class Ruby19
+
+        def Ruby19.q_value_decode(str)
+            match = str.match(/\=\?(.+)?\?[Qq]\?(.+)?\?\=/m)
+            if match
+                encoding = match[1]
+                str = Encodings::QuotedPrintable.decode(match[2].gsub(/_/, '=20'))
+                # Backport line from mail 2.5 to strip a trailing = character
+                # Remove trailing = if it exists in a Q encoding
+                str = str.sub(/\=$/, '')
+                str.force_encoding(fix_encoding(encoding))
+            end
+            decoded = str.encode("utf-8", :invalid => :replace, :replace => "")
+            decoded.valid_encoding? ? decoded : decoded.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
+        end
+    end
 end

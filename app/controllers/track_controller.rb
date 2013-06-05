@@ -153,6 +153,9 @@ class TrackController < ApplicationController
 
     def atom_feed_internal
         @xapian_object = perform_search([InfoRequestEvent], @track_thing.track_query, @track_thing.params[:feed_sortby], nil, 25, 1)
+        # We're assuming that a request to a feed url with no format suffix wants atom/xml
+        # so set that as the default, regardless of content negotiation
+        request.format = 'xml' unless params[:format]
         respond_to do |format|
             format.json { render :json => @xapian_object.results.map { |r| r[:model].json_for_api(true,
                     lambda { |t| view_context.highlight_and_excerpt(t, @xapian_object.words_to_highlight, 150) }
