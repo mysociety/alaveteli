@@ -159,6 +159,18 @@ describe TrackController, "when viewing RSS feed for a track" do
             get :track_user, :feed => 'feed', :url_name => "there_is_no_such_user"
         }.should raise_error(ActiveRecord::RecordNotFound)
     end
+
+    it 'should return atom/xml for a feed url without format specified, even if the
+        requester prefers json' do
+
+        request.env['HTTP_ACCEPT'] = 'application/json,text/xml'
+        track_thing = track_things(:track_fancy_dog_request)
+
+        get :track_request, :feed => 'feed', :url_title => track_thing.info_request.url_title
+        response.should render_template('track/atom_feed')
+        response.content_type.should == 'application/atom+xml'
+    end
+
 end
 
 describe TrackController, "when viewing JSON version of a track feed" do
