@@ -9,15 +9,17 @@ namespace :themes do
         File.join(plugin_dir, theme_name)
     end
 
+    def checkout(commitish)
+        puts "Checking out #{commitish}" if verbose
+        system "git checkout #{commitish}"
+    end
+
     def checkout_tag(version)
-        checkout_command = "git checkout #{usage_tag(version)}"
-        success = system(checkout_command)
-        puts "Using tag #{usage_tag(version)}" if verbose && success
-        success
+        checkout usage_tag(version)
     end
 
     def checkout_remote_branch(branch)
-        system("git checkout origin/#{branch}")
+        checkout "origin/#{branch}"
     end
 
     def usage_tag(version)
