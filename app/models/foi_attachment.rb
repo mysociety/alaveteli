@@ -57,6 +57,17 @@ class FoiAttachment < ActiveRecord::Base
         end
     end
 
+    def ensure_extracted_file_exists
+        unless File.exists? self.filepath
+            self.incoming_message.parse_raw_email! true
+            begin
+                self.reload
+            rescue ActiveRecord::RecordNotFound
+                raise AttachmentDeletedByReparse
+            end
+        end
+    end
+
     def body=(d)
         self.hexdigest = Digest::MD5.hexdigest(d)
         if !File.exists?(self.directory)
@@ -90,13 +101,7 @@ class FoiAttachment < ActiveRecord::Base
                 tries += 1
                 delay *= 2
                 delay = BODY_MAX_DELAY if delay > BODY_MAX_DELAY
-                force = true
-                self.incoming_message.parse_raw_email!(force)
-                begin
-                    self.reload
-                rescue ActiveRecord::RecordNotFound
-                    raise AttachmentDeletedByReparse
-                end
+                ensure_extracted_file_exists
                 retry
             end
         end

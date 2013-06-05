@@ -714,89 +714,88 @@ class RequestController < ApplicationController
     end
 
     def get_attachment
-        cope_with_attachment_deleted_after_reparse {
-            get_attachment_internal(false)
-            return unless @attachment
+        get_attachment_internal(false)
+        return unless @attachment
 
-            # Prevent spam to magic request address. Note that the binary
-            # subsitution method used depends on the content type
-            @incoming_message.binary_mask_stuff!(@attachment.body, @attachment.content_type)
+        # Prevent spam to magic request address. Note that the binary
+        # subsitution method used depends on the content type
+        @incoming_message.binary_mask_stuff!(@attachment.body, @attachment.content_type)
 
-            # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
-            response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) || 'application/octet-stream'
+        # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
+        response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) || 'application/octet-stream'
 
-            render :text => @attachment.body
-        }
+        render :text => @attachment.body
     end
 
     def get_attachment_as_html
-        cope_with_attachment_deleted_after_reparse {
-            # The conversion process can generate files in the cache directory that can be served up
-            # directly by the webserver according to httpd.conf, so don't allow it unless that's OK.
-            if @files_can_be_cached != true
-                raise ActiveRecord::RecordNotFound.new("Attachment HTML not found.")
-            end
-            get_attachment_internal(true)
-            return unless @attachment
+        # The conversion process can generate files in the cache directory that can be served up
+        # directly by the webserver according to httpd.conf, so don't allow it unless that's OK.
+        if @files_can_be_cached != true
+            raise ActiveRecord::RecordNotFound.new("Attachment HTML not found.")
+        end
+        get_attachment_internal(true)
+        return unless @attachment
 
-            # images made during conversion (e.g. images in PDF files) are put in the cache directory, so
-            # the same cache code in cache_attachments above will display them.
-            key = params.merge(:only_path => true)
-            key_path = foi_fragment_cache_path(key)
-            image_dir = File.dirname(key_path)
-            FileUtils.mkdir_p(image_dir)
-            html, wrapper_id = @attachment.body_as_html(image_dir)
+        # images made during conversion (e.g. images in PDF files) are put in the cache directory, so
+        # the same cache code in cache_attachments above will display them.
+        key = params.merge(:only_path => true)
+        key_path = foi_fragment_cache_path(key)
+        image_dir = File.dirname(key_path)
+        FileUtils.mkdir_p(image_dir)
+        html, wrapper_id = @attachment.body_as_html(image_dir)
 
-            view_html_stylesheet = render_to_string :partial => "request/view_html_stylesheet"
-            html.sub!(/<head>/i, "<head>" + view_html_stylesheet)
-            html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="' + wrapper_id + '"><div id="view-html-content">')
-            html.sub!(/<\/body[^>]*>/i, '</div></div></body>')
+        view_html_stylesheet = render_to_string :partial => "request/view_html_stylesheet"
+        html.sub!(/<head>/i, "<head>" + view_html_stylesheet)
+        html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="' + wrapper_id + '"><div id="view-html-content">')
+        html.sub!(/<\/body[^>]*>/i, '</div></div></body>')
 
-            view_html_prefix = render_to_string :partial => "request/view_html_prefix"
-            html.sub!("<prefix-here>", view_html_prefix)
-            html.sub!("<attachment-url-here>", CGI.escape(@attachment_url))
+        view_html_prefix = render_to_string :partial => "request/view_html_prefix"
+        html.sub!("<prefix-here>", view_html_prefix)
+        html.sub!("<attachment-url-here>", CGI.escape(@attachment_url))
 
-            @incoming_message.html_mask_stuff!(html)
-            response.content_type = 'text/html'
-            render :text => html
-        }
+        @incoming_message.html_mask_stuff!(html)
+        response.content_type = 'text/html'
+        render :text => html
     end
 
     # Internal function
     def get_attachment_internal(html_conversion)
-        @incoming_message = IncomingMessage.find(params[:incoming_message_id])
-        @requested_request = InfoRequest.find(params[:id])
-        @incoming_message.parse_raw_email!
-        @info_request = @incoming_message.info_request
-        if @incoming_message.info_request_id != params[:id].to_i
-            # Note that params[:id] might not be an integer, though
-            # if we’ve got this far then it must begin with an integer
-            # and that integer must be the id number of an actual request.
-            message = "Incoming message %d does not belong to request '%s'" % [@incoming_message.info_request_id, params[:id]]
-            raise ActiveRecord::RecordNotFound.new(message)
-        end
-        @part_number = params[:part].to_i
-        @filename = params[:file_name]
-        if html_conversion
-            @original_filename = @filename.gsub(/\.html$/, "")
-        else
-            @original_filename = @filename
-        end
+        cope_with_attachment_deleted_after_reparse {
+            @incoming_message = IncomingMessage.find(params[:incoming_message_id])
+            @requested_request = InfoRequest.find(params[:id])
+            @incoming_message.parse_raw_email!
+            @info_request = @incoming_message.info_request
+            if @incoming_message.info_request_id != params[:id].to_i
+                # Note that params[:id] might not be an integer, though
+                # if we’ve got this far then it must begin with an integer
+                # and that integer must be the id number of an actual request.
+                message = "Incoming message %d does not belong to request '%s'" % [@incoming_message.info_request_id, params[:id]]
+                raise ActiveRecord::RecordNotFound.new(message)
+            end
+            @part_number = params[:part].to_i
+            @filename = params[:file_name]
+            if html_conversion
+                @original_filename = @filename.gsub(/\.html$/, "")
+            else
+                @original_filename = @filename
+            end
 
-        # check permissions
-        raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
-        @attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(@incoming_message.get_attachments_for_display, @part_number, @original_filename)
-        # If we can't find the right attachment, redirect to the incoming message:
-        unless @attachment
-            return redirect_to incoming_message_url(@incoming_message), :status => 303
-        end
+            # check permissions
+            raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
+            @attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(@incoming_message.get_attachments_for_display, @part_number, @original_filename)
+            # If we can't find the right attachment, redirect to the incoming message:
+            unless @attachment
+                return redirect_to incoming_message_url(@incoming_message), :status => 303
+            end
+            @attachment.ensure_extracted_file_exists
 
-        # check filename in URL matches that in database (use a censor rule if you want to change a filename)
-        raise ActiveRecord::RecordNotFound.new("please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'") if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
+            # check filename in URL matches that in database (use a censor rule if you want to change a filename)
+            raise ActiveRecord::RecordNotFound.new("please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'") if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
 
-        @attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,
-                :incoming_message_id => @incoming_message.id, :part => @part_number,
-                :file_name => @original_filename )
+            @attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,
+                                                 :incoming_message_id => @incoming_message.id, :part => @part_number,
+                                                 :file_name => @original_filename )
+        }
     end
 
     # FOI officers can upload a response
