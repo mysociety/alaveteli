@@ -564,5 +564,17 @@ describe InfoRequest do
 
     end
 
+    describe 'when working out a subject for a followup emails' do
+
+        it "should not be confused by an nil subject in the incoming message" do
+            ir = info_requests(:fancy_dog_request)
+            im = mock_model(IncomingMessage,
+                            :subject => nil,
+                            :valid_to_reply_to? => true)
+            subject = ir.email_subject_followup im
+            subject.should match(/^Re: Freedom of Information request.*fancy dog/)
+        end
+
+    end
 
 end
