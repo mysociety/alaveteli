@@ -1708,6 +1708,20 @@ describe RequestController, "when classifying an information request" do
                     expect_redirect('successful', request_url)
                 end
 
+                it 'should show a message including the donation url if there is one' do
+                    AlaveteliConfiguration.stub!(:donation_url).and_return('http://donations.example.com')
+                    post_status('successful')
+                    flash[:notice].should match('make a donation')
+                    flash[:notice].should match('http://donations.example.com')
+                end
+
+                it 'should show a message without reference to donations if there is no
+                    donation url' do
+                    AlaveteliConfiguration.stub!(:donation_url).and_return('')
+                    post_status('successful')
+                    flash[:notice].should_not match('make a donation')
+                end
+
             end
 
             context 'when status is updated to "waiting clarification"' do
@@ -1738,6 +1752,20 @@ describe RequestController, "when classifying an information request" do
 
                 it 'should redirect to the "unhappy url"' do
                     expect_redirect('partially_successful', "help/unhappy/#{@dog_request.url_title}")
+                end
+
+                it 'should show a message including the donation url if there is one' do
+                    AlaveteliConfiguration.stub!(:donation_url).and_return('http://donations.example.com')
+                    post_status('successful')
+                    flash[:notice].should match('make a donation')
+                    flash[:notice].should match('http://donations.example.com')
+                end
+
+                it 'should show a message without reference to donations if there is no
+                    donation url' do
+                    AlaveteliConfiguration.stub!(:donation_url).and_return('')
+                    post_status('successful')
+                    flash[:notice].should_not match('make a donation')
                 end
 
             end

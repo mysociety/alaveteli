@@ -28,6 +28,7 @@ module AlaveteliConfiguration
             :DEFAULT_LOCALE => '',
             :DISABLE_EMERGENCY_USER => false,
             :DOMAIN => 'localhost:3000',
+            :DONATION_URL => '',
             :EXCEPTION_NOTIFICATIONS_FROM => '',
             :EXCEPTION_NOTIFICATIONS_TO => '',
             :FORCE_REGISTRATION_ON_NEW_REQUEST => false,

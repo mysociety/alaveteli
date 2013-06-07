@@ -461,9 +461,19 @@ class RequestController < ApplicationController
         when 'rejected'
             _("Oh no! Sorry to hear that your request was refused. Here is what to do now.")
         when 'successful'
-            _("<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>", :site_name=>site_name, :donation_url => "http://www.mysociety.org/donate/")
+            if AlaveteliConfiguration::donation_url.blank?
+                _("<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p>")
+            else
+                _("<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>",
+                    :site_name => site_name, :donation_url => AlaveteliConfiguration::donation_url)
+            end
         when 'partially_successful'
-            _("<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>", :site_name=>site_name, :donation_url=>"http://www.mysociety.org/donate/")
+            if AlaveteliConfiguration::donation_url.blank?
+                _("<p>We're glad you got some of the information that you wanted.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>")
+            else
+                _("<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>",
+                    :site_name => site_name, :donation_url => AlaveteliConfiguration::donation_url)
+            end
         when 'waiting_clarification'
             _("Please write your follow up message containing the necessary clarifications below.")
         when 'gone_postal'
