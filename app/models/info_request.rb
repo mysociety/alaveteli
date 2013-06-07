@@ -156,6 +156,10 @@ class InfoRequest < ActiveRecord::Base
         end
     end
 
+    def user_json_for_api
+        is_external? ? { :name => user_name || _("Anonymous user") } : user.json_for_api
+    end
+
     @@custom_states_loaded = false
     begin
         if !Rails.env.test?
