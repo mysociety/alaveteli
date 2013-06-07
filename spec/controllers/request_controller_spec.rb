@@ -136,7 +136,7 @@ describe RequestController, "when changing things that appear on the request pag
     it "should purge the downstream cache when a followup is made" do
         session[:user_id] = users(:bob_smith_user).id
         ir = info_requests(:fancy_dog_request)
-        post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => ir.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+        post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => ir.id, :submitted_followup => 1
         PurgeRequest.all().first.model_id.should == ir.id
     end
     it "should purge the downstream cache when the request is categorised" do
