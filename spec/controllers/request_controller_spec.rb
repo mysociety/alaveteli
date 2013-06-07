@@ -1637,7 +1637,7 @@ describe RequestController, "when classifying an information request" do
             end
         end
 
-        describe 'when redirecting after a successful status update by the request owner' do
+        describe 'after a successful status update by the request owner' do
 
             before do
                 @request_owner = users(:bob_smith_user)
@@ -1664,87 +1664,133 @@ describe RequestController, "when classifying an information request" do
                 response.should redirect_to("http://test.host/#{redirect_path}")
             end
 
-            it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is not overdue' do
-                @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date+1)
-                @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
+            context 'when status is updated to "waiting_response"' do
 
-                expect_redirect("waiting_response", "request/#{@dog_request.url_title}")
-                flash[:notice].should match(/should get a response/)
+                it 'should redirect to the "request url" with a message in the right tense when
+                    the response is not overdue' do
+                    @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date+1)
+                    @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
+
+                    expect_redirect("waiting_response", "request/#{@dog_request.url_title}")
+                    flash[:notice].should match(/should get a response/)
+                end
+
+                it 'should redirect to the "request url" with a message in the right tense when
+                    the response is overdue' do
+                    @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-1)
+                    @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
+                    expect_redirect('waiting_response', request_url)
+                    flash[:notice].should match(/should have got a response/)
+                end
+
+                it 'should redirect to the "request url" with a message in the right tense when
+                    the response is overdue' do
+                    @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-2)
+                    @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date-1)
+                    expect_redirect('waiting_response', unhappy_url)
+                    flash[:notice].should match(/is long overdue/)
+                    flash[:notice].should match(/by more than 40 working days/)
+                    flash[:notice].should match(/within 20 working days/)
+                end
             end
 
-            it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is overdue' do
-                @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-1)
-                @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
-                expect_redirect('waiting_response', request_url)
-                flash[:notice].should match(/should have got a response/)
+            context 'when status is updated to "not held"' do
+
+                it 'should redirect to the "request url"' do
+                    expect_redirect('not_held', request_url)
+                end
+
             end
 
-            it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is overdue' do
-                @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-2)
-                @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date-1)
-                expect_redirect('waiting_response', unhappy_url)
-                flash[:notice].should match(/is long overdue/)
-                flash[:notice].should match(/by more than 40 working days/)
-                flash[:notice].should match(/within 20 working days/)
+            context 'when status is updated to "successful"' do
+
+                it 'should redirect to the "request url"' do
+                    expect_redirect('successful', request_url)
+                end
+
             end
 
-            it 'should redirect to the "request url" when status is updated to "not held"' do
-                expect_redirect('not_held', request_url)
+            context 'when status is updated to "waiting clarification"' do
+
+                it 'should redirect to the "response url" when there is a last response' do
+                    incoming_message = mock_model(IncomingMessage)
+                    @dog_request.stub!(:get_last_response).and_return(incoming_message)
+                    expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response/#{incoming_message.id}")
+                end
+
+                it 'should redirect to the "response no followup url" when there are no events
+                    needing description' do
+                    @dog_request.stub!(:get_last_response).and_return(nil)
+                    expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response")
+                end
+
             end
 
-            it 'should redirect to the "request url" when status is updated to "successful"' do
-                expect_redirect('successful', request_url)
+            context 'when status is updated to "rejected"' do
+
+                it 'should redirect to the "unhappy url"' do
+                    expect_redirect('rejected', "help/unhappy/#{@dog_request.url_title}")
+                end
+
             end
 
-            it 'should redirect to the "unhappy url" when status is updated to "rejected"' do
-                expect_redirect('rejected', "help/unhappy/#{@dog_request.url_title}")
+            context 'when status is updated to "partially successful"' do
+
+                it 'should redirect to the "unhappy url"' do
+                    expect_redirect('partially_successful', "help/unhappy/#{@dog_request.url_title}")
+                end
+
             end
 
-            it 'should redirect to the "unhappy url" when status is updated to "partially successful"' do
-                expect_redirect('partially_successful', "help/unhappy/#{@dog_request.url_title}")
+            context 'when status is updated to "gone postal"' do
+
+                it 'should redirect to the "respond to last url"' do
+                    expect_redirect('gone_postal', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}?gone_postal=1")
+                end
+
             end
 
-            it 'should redirect to the "response url" when status is updated to "waiting clarification" and there is a last response' do
-                incoming_message = mock_model(IncomingMessage)
-                @dog_request.stub!(:get_last_response).and_return(incoming_message)
-                expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response/#{incoming_message.id}")
+            context 'when status updated to "internal review"' do
+
+                it 'should redirect to the "request url"' do
+                    expect_redirect('internal_review', request_url)
+                end
+
             end
 
-            it 'should redirect to the "response no followup url" when status is updated to "waiting clarification" and there are no events needing description' do
-                @dog_request.stub!(:get_last_response).and_return(nil)
-                expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response")
+            context 'when status is updated to "requires admin"' do
+
+                it 'should redirect to the "request url"' do
+                    post :describe_state, :incoming_message => {
+                                              :described_state => 'requires_admin',
+                                              :message => "A message" },
+                                          :id => @dog_request.id,
+                                          :last_info_request_event_id => @dog_request.last_event_id_needing_description
+                    response.should redirect_to show_request_url(:url_title => @dog_request.url_title)
+                end
+
             end
 
-            it 'should redirect to the "respond to last url" when status is updated to "gone postal"' do
-                expect_redirect('gone_postal', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}?gone_postal=1")
+            context 'when status is updated to "error message"' do
+
+                it 'should redirect to the "request url"' do
+                    post :describe_state, :incoming_message => {
+                                              :described_state => 'error_message',
+                                              :message => "A message" },
+                                          :id => @dog_request.id,
+                                          :last_info_request_event_id => @dog_request.last_event_id_needing_description
+                    response.should redirect_to show_request_url(:url_title => @dog_request.url_title)
+                end
+
             end
 
-            it 'should redirect to the "request url" when status is updated to "internal review"' do
-                expect_redirect('internal_review', request_url)
-            end
+            context 'when status is updated to "user_withdrawn"' do
 
-            it 'should redirect to the "request url" when status is updated to "requires admin"' do
-                post :describe_state, :incoming_message => {
-                                          :described_state => 'requires_admin',
-                                          :message => "A message" },
-                                      :id => @dog_request.id,
-                                      :last_info_request_event_id => @dog_request.last_event_id_needing_description
-                response.should redirect_to show_request_url(:url_title => @dog_request.url_title)
-            end
+                it 'should redirect to the "respond to last url url" ' do
+                    expect_redirect('user_withdrawn', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}")
+                end
 
-            it 'should redirect to the "request url" when status is updated to "error message"' do
-                post :describe_state, :incoming_message => {
-                                          :described_state => 'error_message',
-                                          :message => "A message" },
-                                      :id => @dog_request.id,
-                                      :last_info_request_event_id => @dog_request.last_event_id_needing_description
-                response.should redirect_to show_request_url(:url_title => @dog_request.url_title)
             end
-
-            it 'should redirect to the "respond to last url url" when status is updated to "user_withdrawn"' do
-                expect_redirect('user_withdrawn', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}")
-            end
-
         end
 
     end
