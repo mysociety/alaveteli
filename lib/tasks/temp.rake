@@ -1,50 +1,79 @@
 namespace :temp do
 
-    desc 'Populate the request_classifications table from info_request_events'
-    task :populate_request_classifications => :environment do
-        InfoRequestEvent.find_each(:conditions => ["event_type = 'status_update'"]) do |classification|
-            RequestClassification.create!(:created_at => classification.created_at,
-                                          :user_id => classification.params[:user_id],
-                                          :info_request_event_id => classification.id)
-        end
+    def disable_duplicate_account(user, count, dryrun)
+        dupe_email = "duplicateemail#{count}@example.com"
+        puts "Updating #{user.email} to #{dupe_email} for user #{user.id}"
+        user.email = dupe_email
+        user.save! unless dryrun
     end
 
-    desc "Remove plaintext passwords from post_redirect params"
-    task :remove_post_redirect_passwords => :environment do
-        PostRedirect.find_each(:conditions => ['post_params_yaml is not null']) do |post_redirect|
-              if post_redirect.post_params && post_redirect.post_params[:signchangeemail] && post_redirect.post_params[:signchangeemail][:password]
-                params = post_redirect.post_params
-                params[:signchangeemail].delete(:password)
-                post_redirect.post_params = params
-                post_redirect.save!
-              end
-        end
-    end
-
-    desc 'Remove file caches for requests that are not publicly visible or have been destroyed'
-    task :remove_obsolete_info_request_caches => :environment do
+    desc 'Cleanup accounts with a space in the email address'
+    task :clean_up_emails_with_spaces => :environment do
         dryrun = ENV['DRYRUN'] == '0' ? false : true
-        verbose = ENV['VERBOSE'] == '0' ? false : true
         if dryrun
-            puts "Running in dryrun mode"
+            puts "This is a dryrun"
         end
-        request_cache_path = File.join(Rails.root, 'cache', 'views', 'request', '*', '*')
-        Dir.glob(request_cache_path) do |request_subdir|
-            info_request_id = File.basename(request_subdir)
-            puts "Looking for InfoRequest with id #{info_request_id}" if verbose
-            begin
-                info_request = InfoRequest.find(info_request_id)
-                puts "Got InfoRequest #{info_request_id}" if verbose
-                if ! info_request.all_can_view?
-                    puts "Deleting cache at #{request_subdir} for hidden/requester_only InfoRequest #{info_request_id}"
-                    if ! dryrun
-                        FileUtils.rm_rf(request_subdir)
+        count = 0
+        User.find_each do |user|
+            if / /.match(user.email)
+
+                email_without_spaces = user.email.gsub(' ', '')
+                existing = User.find_user_by_email(email_without_spaces)
+                # Another account exists with the canonical address
+                if existing
+                    if user.info_requests.count == 0 and user.comments.count == 0 and user.track_things.count == 0
+                        count += 1
+                        disable_duplicate_account(user, count, dryrun)
+                    elsif existing.info_requests.count == 0 and existing.comments.count == 0 and existing.track_things.count == 0
+                        count += 1
+                        disable_duplicate_account(existing, count, dryrun)
+                        user.email = email_without_spaces
+                        user.save! unless dryrun
+                    else
+                        user.info_requests.each do |info_request|
+                            info_request.user = existing
+                            info_request.save! unless dryrun
+                            puts "Moved request #{info_request.id} from user #{user.id} to #{existing.id}"
+                        end
+
+                        user.comments.each do |comment|
+                            comment.user = existing
+                            comment.save! unless dryrun
+                            puts "Moved comment #{comment.id} from user #{user.id} to #{existing.id}"
+                        end
+
+                        user.track_things.each do |track_thing|
+                            track_thing.tracking_user = existing
+                            track_thing.save! unless dryrun
+                            puts "Moved track thing #{track_thing.id} from user #{user.id} to #{existing.id}"
+                        end
+
+                        TrackThingsSentEmail.find_each(:conditions => ['user_id = ?', user]) do |sent_email|
+                            sent_email.user = existing
+                            sent_email.save! unless dryrun
+                            puts "Moved track thing sent email #{sent_email.id} from user #{user.id} to #{existing.id}"
+
+                        end
+
+                        user.censor_rules.each do |censor_rule|
+                            censor_rule.user = existing
+                            censor_rule.save! unless dryrun
+                            puts "Moved censor rule #{censor_rule.id} from user #{user.id} to #{existing.id}"
+                        end
+
+                        user.user_info_request_sent_alerts.each do |sent_alert|
+                            sent_alert.user = existing
+                            sent_alert.save! unless dryrun
+                            puts "Moved sent alert #{sent_alert.id} from user #{user.id} to #{existing.id}"
+                        end
+
+                        count += 1
+                        disable_duplicate_account(user, count, dryrun)
                     end
-                end
-            rescue ActiveRecord::RecordNotFound
-                puts "Deleting cache at #{request_subdir} for deleted InfoRequest #{info_request_id}"
-                if ! dryrun
-                    FileUtils.rm_rf(request_subdir)
+                else
+                    puts "Updating #{user.email} to #{email_without_spaces} for user #{user.id}"
+                    user.email = email_without_spaces
+                    user.save! unless dryrun
                 end
             end
         end
