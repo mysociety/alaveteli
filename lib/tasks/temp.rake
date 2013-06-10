@@ -13,48 +13,62 @@ namespace :temp do
         if dryrun
             puts "This is a dryrun"
         end
+        count = 0
         User.find_each do |user|
             if / /.match(user.email)
-                count = 0
+
                 email_without_spaces = user.email.gsub(' ', '')
-                existing = User.find_by_email(email_without_spaces)
+                existing = User.find_user_by_email(email_without_spaces)
                 # Another account exists with the canonical address
                 if existing
                     if user.info_requests.count == 0 and user.comments.count == 0 and user.track_things.count == 0
                         count += 1
-                        disable_duplicate_account(user)
+                        disable_duplicate_account(user, count, dryrun)
                     elsif existing.info_requests.count == 0 and existing.comments.count == 0 and existing.track_things.count == 0
                         count += 1
-                        disable_duplicate_account(existing)
+                        disable_duplicate_account(existing, count, dryrun)
                         user.email = email_without_spaces
                         user.save! unless dryrun
                     else
                         user.info_requests.each do |info_request|
                             info_request.user = existing
                             info_request.save! unless dryrun
+                            puts "Moved request #{info_request.id} from user #{user.id} to #{existing.id}"
                         end
+
                         user.comments.each do |comment|
                             comment.user = existing
                             comment.save! unless dryrun
+                            puts "Moved comment #{comment.id} from user #{user.id} to #{existing.id}"
                         end
+
                         user.track_things.each do |track_thing|
-                            track_thing.user = existing
+                            track_thing.tracking_user = existing
                             track_thing.save! unless dryrun
+                            puts "Moved track thing #{track_thing.id} from user #{user.id} to #{existing.id}"
                         end
-                        user.track_thing_sent_email.each do |sent_email|
+
+                        TrackThingsSentEmail.find_each(:conditions => ['user_id = ?', user]) do |sent_email|
                             sent_email.user = existing
                             sent_email.save! unless dryrun
+                            puts "Moved track thing sent email #{sent_email.id} from user #{user.id} to #{existing.id}"
+
                         end
+
                         user.censor_rules.each do |censor_rule|
                             censor_rule.user = existing
                             censor_rule.save! unless dryrun
+                            puts "Moved censor rule #{censor_rule.id} from user #{user.id} to #{existing.id}"
                         end
-                        user.info_request_sent_alert.each do |sent_alert|
+
+                        user.user_info_request_sent_alerts.each do |sent_alert|
                             sent_alert.user = existing
                             sent_alert.save! unless dryrun
+                            puts "Moved sent alert #{sent_alert.id} from user #{user.id} to #{existing.id}"
                         end
+
                         count += 1
-                        disable_duplicate_account(user)
+                        disable_duplicate_account(user, count, dryrun)
                     end
                 else
                     puts "Updating #{user.email} to #{email_without_spaces} for user #{user.id}"
