@@ -28,6 +28,7 @@ namespace :temp do
                         count += 1
                         disable_duplicate_account(existing, count, dryrun)
                         user.email = email_without_spaces
+                        puts "Updating #{user.email} to #{email_without_spaces} for user #{user.id}"
                         user.save! unless dryrun
                     else
                         user.info_requests.each do |info_request|
