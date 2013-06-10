@@ -27,10 +27,21 @@ describe User, "showing the name" do
         @user.name.should == 'Some Name'
     end
 
-    it 'should show if user has been banned' do
-        @user.ban_text = "Naughty user"
-        @user.name.should == 'Some Name (Account suspended)'
+    describe  'if user has been banned' do
+
+        before do
+            @user.ban_text = "Naughty user"
+        end
+
+        it 'should show an "Account suspended" suffix' do
+            @user.name.should == 'Some Name (Account suspended)'
+        end
+
+        it 'should return a string when the user has been banned, not a SafeBuffer' do
+            @user.name.class.should == String
+        end
     end
+
 
 end
 
