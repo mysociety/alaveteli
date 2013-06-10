@@ -278,7 +278,7 @@ public
         end
     end
     def email_subject_followup(incoming_message = nil)
-        if incoming_message.nil? || !incoming_message.valid_to_reply_to?
+        if incoming_message.nil? || !incoming_message.valid_to_reply_to? || !incoming_message.subject
             'Re: ' + self.email_subject_request
         else
             if incoming_message.subject.match(/^Re:/i)

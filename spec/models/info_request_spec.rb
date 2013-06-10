@@ -563,35 +563,47 @@ describe InfoRequest do
             @info_request.all_can_view?.should == false
         end
     end
-end
 
-describe InfoRequest, 'when generating json for the api' do
+    describe  'when generating json for the api' do
 
-    before do
-        @user = mock_model(User, :json_for_api => { :id => 20,
-                                                    :url_name => 'alaveteli_user',
-                                                    :name => 'Alaveteli User',
-                                                    :ban_text => '',
-                                                    :about_me => 'Hi' })
+        before do
+            @user = mock_model(User, :json_for_api => { :id => 20,
+                                                        :url_name => 'alaveteli_user',
+                                                        :name => 'Alaveteli User',
+                                                        :ban_text => '',
+                                                        :about_me => 'Hi' })
+        end
+
+        it 'should return full user info for an internal request' do
+            @info_request = InfoRequest.new(:user => @user)
+            @info_request.user_json_for_api.should == { :id => 20,
+                                                        :url_name => 'alaveteli_user',
+                                                        :name => 'Alaveteli User',
+                                                        :ban_text => '',
+                                                        :about_me => 'Hi' }
+        end
     end
 
-    it 'should return full user info for an internal request' do
-        @info_request = InfoRequest.new(:user => @user)
-        @info_request.user_json_for_api.should == { :id => 20,
-                                                    :url_name => 'alaveteli_user',
-                                                    :name => 'Alaveteli User',
-                                                    :ban_text => '',
-                                                    :about_me => 'Hi' }
-    end
+    describe 'when working out a subject for a followup emails' do
 
-    it "should return a hash with the user's name for an external request" do
-        @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
-                                        :external_user_name => 'External User')
-        @info_request.user_json_for_api.should == {:name => 'External User'}
-    end
+        it "should not be confused by an nil subject in the incoming message" do
+            ir = info_requests(:fancy_dog_request)
+            im = mock_model(IncomingMessage,
+                            :subject => nil,
+                            :valid_to_reply_to? => true)
+            subject = ir.email_subject_followup im
+            subject.should match(/^Re: Freedom of Information request.*fancy dog/)
+        end
 
-    it 'should return "Anonymous user" for an anonymous external user' do
-        @info_request = InfoRequest.new(:external_url => 'http://www.example.com')
-        @info_request.user_json_for_api.should == {:name => 'Anonymous user'}
+        it "should return a hash with the user's name for an external request" do
+            @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
+                                            :external_user_name => 'External User')
+            @info_request.user_json_for_api.should == {:name => 'External User'}
+        end
+
+        it 'should return "Anonymous user" for an anonymous external user' do
+            @info_request = InfoRequest.new(:external_url => 'http://www.example.com')
+            @info_request.user_json_for_api.should == {:name => 'Anonymous user'}
+        end
     end
 end
