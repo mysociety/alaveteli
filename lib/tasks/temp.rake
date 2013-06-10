@@ -1,5 +1,70 @@
 namespace :temp do
 
+    def disable_duplicate_account(user, count, dryrun)
+        dupe_email = "duplicateemail#{count}@example.com"
+        puts "Updating #{user.email} to #{dupe_email} for user #{user.id}"
+        user.email = dupe_email
+        user.save! unless dryrun
+    end
+
+    desc 'Cleanup accounts with a space in the email address'
+    task :clean_up_emails_with_spaces => :environment do
+        dryrun = ENV['DRYRUN'] == '0' ? false : true
+        if dryrun
+            puts "This is a dryrun"
+        end
+        User.find_each do |user|
+            if / /.match(user.email)
+                count = 0
+                email_without_spaces = user.email.gsub(' ', '')
+                existing = User.find_by_email(email_without_spaces)
+                # Another account exists with the canonical address
+                if existing
+                    if user.info_requests.count == 0 and user.comments.count == 0 and user.track_things.count == 0
+                        count += 1
+                        disable_duplicate_account(user)
+                    elsif existing.info_requests.count == 0 and existing.comments.count == 0 and existing.track_things.count == 0
+                        count += 1
+                        disable_duplicate_account(existing)
+                        user.email = email_without_spaces
+                        user.save! unless dryrun
+                    else
+                        user.info_requests.each do |info_request|
+                            info_request.user = existing
+                            info_request.save! unless dryrun
+                        end
+                        user.comments.each do |comment|
+                            comment.user = existing
+                            comment.save! unless dryrun
+                        end
+                        user.track_things.each do |track_thing|
+                            track_thing.user = existing
+                            track_thing.save! unless dryrun
+                        end
+                        user.track_thing_sent_email.each do |sent_email|
+                            sent_email.user = existing
+                            sent_email.save! unless dryrun
+                        end
+                        user.censor_rules.each do |censor_rule|
+                            censor_rule.user = existing
+                            censor_rule.save! unless dryrun
+                        end
+                        user.info_request_sent_alert.each do |sent_alert|
+                            sent_alert.user = existing
+                            sent_alert.save! unless dryrun
+                        end
+                        count += 1
+                        disable_duplicate_account(user)
+                    end
+                else
+                    puts "Updating #{user.email} to #{email_without_spaces} for user #{user.id}"
+                    user.email = email_without_spaces
+                    user.save! unless dryrun
+                end
+            end
+        end
+    end
+
     desc 'Create a CSV file of a random selection of raw emails, for comparing hexdigests'
     task :random_attachments_hexdigests => :environment do
 
