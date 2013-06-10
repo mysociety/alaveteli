@@ -591,6 +591,7 @@ describe InfoRequest do
         end
     end
 
+
     describe 'when working out a subject for a followup emails' do
 
         it "should not be confused by an nil subject in the incoming message" do
