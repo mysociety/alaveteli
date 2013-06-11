@@ -532,6 +532,7 @@ class UserController < ApplicationController
 
     # actual profile photo of a user
     def get_profile_photo
+        long_cache
         @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
         if !@display_user
             raise ActiveRecord::RecordNotFound.new("user not found, url_name=" + params[:url_name])

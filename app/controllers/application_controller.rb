@@ -27,7 +27,6 @@ class ApplicationController < ActionController::Base
     before_filter :check_in_post_redirect
     before_filter :session_remember_me
     before_filter :set_vary_header
-    before_filter :set_popup_banner
 
     def set_vary_header
         response.headers['Vary'] = 'Cookie'
@@ -540,9 +539,6 @@ class ApplicationController < ActionController::Base
         return country
     end
 
-    def set_popup_banner
-        @popup_banner = render_to_string(:partial => "general/popup_banner").strip.html_safe
-    end
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.
