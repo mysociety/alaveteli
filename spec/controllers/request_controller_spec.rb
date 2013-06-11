@@ -2416,6 +2416,7 @@ describe RequestController, "when showing similar requests" do
 
     before do
         get_fixtures_xapian_index
+        load_raw_emails_data
     end
 
     it "should work" do
