@@ -39,11 +39,8 @@ class TrackMailer < ApplicationMailer
     def self.alert_tracks
         done_something = false
         now = Time.now()
-        users = User.find(:all, :conditions => [ "last_daily_track_email < ?", now - 1.day ])
-        if users.empty?
-            return done_something
-        end
-        for user in users
+        User.find_each(:conditions => [ "last_daily_track_email < ?",
+                                         now - 1.day ]) do |user|
             next if !user.should_be_emailed? || !user.receive_email_alerts
 
             email_about_things = []
