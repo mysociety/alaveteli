@@ -13,7 +13,7 @@ describe TrackMailer do
 
         it 'should ask for all the users whose last daily track email was sent more than a day ago' do
             expected_conditions = [ "last_daily_track_email < ?", Time.utc(2007, 11, 11, 23, 59)]
-            User.should_receive(:find).with(:all, :conditions => expected_conditions).and_return([])
+            User.should_receive(:find_each).with(:conditions => expected_conditions)
             TrackMailer.alert_tracks
         end
 
@@ -26,7 +26,7 @@ describe TrackMailer do
                                          :url_name => 'test-name',
                                          :get_locale => 'en',
                                          :should_be_emailed? => true)
-                User.stub!(:find).and_return([@user])
+                User.stub!(:find_each).and_yield(@user)
                 @user.stub!(:receive_email_alerts).and_return(true)
                 @user.stub!(:no_xapian_reindex=)
             end
@@ -124,7 +124,7 @@ describe TrackMailer do
                                          :save! => true,
                                          :url_name => 'test-name',
                                          :should_be_emailed? => false)
-                User.stub!(:find).and_return([@user])
+                User.stub!(:find_each).and_yield(@user)
                 @user.stub!(:receive_email_alerts).and_return(true)
                 @user.stub!(:no_xapian_reindex=)
             end

@@ -39,11 +39,9 @@ class TrackMailer < ApplicationMailer
     def self.alert_tracks
         done_something = false
         now = Time.now()
-        users = User.find(:all, :conditions => [ "last_daily_track_email < ?", now - 1.day ])
-        if users.empty?
-            return done_something
-        end
-        for user in users
+        one_week_ago = now - 7.days
+        User.find_each(:conditions => [ "last_daily_track_email < ?",
+                                         now - 1.day ]) do |user|
             next if !user.should_be_emailed? || !user.receive_email_alerts
 
             email_about_things = []
@@ -76,7 +74,7 @@ class TrackMailer < ApplicationMailer
                     end
 
                     next if track_thing.created_at >= result[:model].described_at # made before the track was created
-                    next if result[:model].described_at < now - 7.days # older than 1 week (see 14 days / 7 days in comment above)
+                    next if result[:model].described_at < one_week_ago # older than 1 week (see 14 days / 7 days in comment above)
                     next if done_info_request_events.include?(result[:model].id) # definitely already done
 
                     # OK alert this one
