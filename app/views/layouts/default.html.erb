@@ -67,11 +67,11 @@
 <% if is_admin? %>
   <%= render :partial => 'admin_general/admin_navbar' %>
 <% end %>
-
-<% if !@popup_banner.blank? %>
+<% popup_banner = render(:partial => "general/popup_banner").strip %>
+<% if popup_banner.present? %>
 <div id="everypage" class="jshide">
   <p class="popup-close"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;"><%= _('Close') %></a></p>
-  <%= @popup_banner %>
+  <%= raw popup_banner %>
   <p class="popup-close"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;"><%= _('Close') %></a></p>
 </div>
 <% end %>
