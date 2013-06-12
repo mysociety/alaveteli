@@ -307,9 +307,9 @@ by setting `SKIP_ADMIN_AUTH` to `true` in `general.yml`.
 
 # Cron jobs and init scripts
 
-`config/crontab.ugly` contains the cronjobs run on WhatDoTheyKnow.
+`config/crontab-example` contains the cronjobs run on WhatDoTheyKnow.
 It's in a strange templating format they use in mySociety.  mySociety
-render the "ugly" file to reference absolute paths, and then drop it
+render the example file to reference absolute paths, and then drop it
 in `/etc/cron.d/` on the server.
 
 The `ugly` format uses simple variable substitution.  A variable looks
