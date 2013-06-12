@@ -50,7 +50,7 @@ fi
 if [ ! -e "$TOP_DIR/public/download" ]
 then
 	mkdir -p "$TOP_DIR/cache/zips/download"
-	ln -s "$TOP_DIR/cache/zips/download" "$TOP_DIR/public/"
+	ln -s "../cache/zips/download" "$TOP_DIR/public/"
 fi
 
 cd log
