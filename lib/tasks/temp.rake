@@ -7,6 +7,28 @@ namespace :temp do
         user.save! unless dryrun
     end
 
+    desc "Re-extract any missing cached attachments"
+    task :reextract_missing_attachments, [:commit] => :environment do |t, args|
+        dry_run = args.commit.nil? || args.commit.empty?
+        total_messages = 0
+        messages_to_reparse = 0
+        IncomingMessage.find_each :include => :foi_attachments do |im|
+            reparse = im.foi_attachments.any? { |fa| ! File.exists? fa.filepath }
+            total_messages += 1
+            messages_to_reparse += 1 if reparse
+            if total_messages % 1000 == 0
+                puts "Considered #{total_messages} received emails."
+            end
+            unless dry_run
+                im.parse_raw_email! true if reparse
+                sleep 2
+            end
+        end
+        message = dry_run ? "Would reparse" : "Reparsed"
+        message += " #{messages_to_reparse} out of #{total_messages} received emails."
+        puts message
+    end
+
     desc 'Cleanup accounts with a space in the email address'
     task :clean_up_emails_with_spaces => :environment do
         dryrun = ENV['DRYRUN'] == '0' ? false : true
