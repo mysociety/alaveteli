@@ -23,7 +23,7 @@
     <% @blog_items.each do |item| %>
       <div class="blog_post">
           <h2 id="<%= Time.parse(item['pubDate'][0]).to_i %>"><a href="<%=item['link'][0]%>"><%=h item['title'][0] %></a></h2>
-          <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", :date=>simple_date(Time.parse(item['pubDate'][0])), :author=>item['creator'][0]) %></p>
+          <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", :date=>simple_date(Time.parse(item['pubDate'][0])), :author=> item['creator'] ? item['creator'][0] : item['author'][0]) %></p>
           <div>
             <% if item['encoded'] %>
               <%= raw item['encoded'][0] %>
