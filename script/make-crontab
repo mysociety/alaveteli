@@ -5,7 +5,7 @@ mailto = "recipient-of-any-errors@localhost"
 user = "user-to-run-as"
 location = "/path/to/alaveteli"
 
-template = open("config/crontab.ugly").read()
+template = open("config/crontab-example").read()
 template = re.sub(r"MAILTO=.*", "MAILTO=%s" % mailto, template)
 template = template.replace("!!(*= $user *)!!", user)
 template = re.sub(r"/data/vhost/.*/script", location + "/script", template)
