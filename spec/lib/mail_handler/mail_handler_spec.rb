@@ -223,7 +223,7 @@ describe 'when deriving a name, email and formatted address from a message from 
 
     it 'should quote a name with quotes in it' do
         should_render_from_address('"FOI \" Person" <foiperson@localhost>',
-                                   ['FOI " Person',
+                                   ['FOI \" Person',
                                     'foiperson@localhost',
                                     '"FOI \" Person" <foiperson@localhost>'])
     end
