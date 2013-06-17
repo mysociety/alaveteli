@@ -53,7 +53,7 @@ describe OutgoingMailer, " when working out follow up addresses" do
 
         # check the basic entry in the fixture is fine
         OutgoingMailer.name_and_email_for_followup(ir, im).should == "\"FOI \\\" Person\" <foiperson@localhost>"
-        OutgoingMailer.name_for_followup(ir, im).should == "FOI \" Person"
+        OutgoingMailer.name_for_followup(ir, im).should == "FOI \\\" Person"
         OutgoingMailer.email_for_followup(ir, im).should == "foiperson@localhost"
     end
 
