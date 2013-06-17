@@ -51,6 +51,9 @@ class ApplicationController < ActionController::Base
         anonymous_cache(24.hours)
     end
 
+    # This is an override of the method provided by gettext_i18n_rails - note the explicit
+    # setting of I18n.locale, required due to the I18nProxy used in Rails 3 to trigger the
+    # lookup_context and expire the template cache
     def set_gettext_locale
         if AlaveteliConfiguration::include_default_locale_in_urls == false
             params_locale = params[:locale] ? params[:locale] : I18n.default_locale
@@ -63,7 +66,7 @@ class ApplicationController < ActionController::Base
             requested_locale = params_locale || session[:locale] || cookies[:locale] || I18n.default_locale
         end
         requested_locale = FastGettext.best_locale_in(requested_locale)
-        session[:locale] = FastGettext.set_locale(requested_locale)
+        session[:locale] = I18n.locale = FastGettext.set_locale(requested_locale)
         if !@user.nil?
             if @user.locale != requested_locale
                 @user.locale = session[:locale]
