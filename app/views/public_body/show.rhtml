@@ -58,7 +58,7 @@
                 <% end %>
                 &nbsp;<%= _('<a class="link_button_green" href="{{url}}">{{text}}</a>', :url=>new_request_to_body_url(:url_name => @public_body.url_name), :text=>_("Start"))%>
             <% elsif @public_body.has_notes? %>
-                <%= @public_body.notes_as_html %>
+                <%= @public_body.notes_as_html.html_safe %>
             <% elsif @public_body.not_requestable_reason == 'not_apply' %>
                 <%= _('Freedom of Information law does not apply to this authority, so you cannot make
                 a request to it.')%>
