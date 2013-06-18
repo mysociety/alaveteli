@@ -545,6 +545,10 @@ class ApplicationController < ActionController::Base
         return country
     end
 
+    def alaveteli_git_commit
+      `git log -1 --format="%H"`.strip
+    end
+
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.
