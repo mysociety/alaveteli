@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 ### BEGIN INIT INFO
-# Provides: purge-varnish
+# Provides: !!(*= $daemon_name *)!!
 # Required-Start: $local_fs $syslog
 # Required-Stop: $local_fs $syslog
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
-# Short-Description: purge-varnish is a daemon purging the Alaveteli varnish cache
-# Description: purge-varnish purge the Alaveteli varnish cache
+# Short-Description: !!(*= $daemon_name *)!! is a daemon purging the Alaveteli varnish cache
+# Description: !!(*= $daemon_name *)!! purges the Alaveteli varnish cache
 ### END INIT INFO
 #
 # !!(*= $daemon_name *)!! Start the Alaveteli email purge-varnish daemon
