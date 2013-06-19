@@ -115,6 +115,16 @@ describe IncomingMessage, " when dealing with incoming mail" do
     end
 
 
+    it 'should handle a main body part that is just quoted content in an email that has
+        no subject' do
+        i = IncomingMessage.new
+        i.stub!(:get_main_body_text_unfolded).and_return("some quoting")
+        i.stub!(:get_main_body_text_folded).and_return("FOLDED_QUOTED_SECTION")
+        i.stub!(:subject).and_return(nil)
+        i.get_body_for_html_display
+    end
+
+
 end
 
 describe IncomingMessage, " display attachments" do
