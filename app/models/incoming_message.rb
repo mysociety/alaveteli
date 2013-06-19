@@ -713,7 +713,7 @@ class IncomingMessage < ActiveRecord::Base
             text.strip!
             # if there is nothing but quoted stuff, then show the subject
             if text == "FOLDED_QUOTED_SECTION"
-                text = "[Subject only] " + CGI.escapeHTML(self.subject) + text
+                text = "[Subject only] " + CGI.escapeHTML(self.subject || '') + text
             end
             # and display link for quoted stuff
             text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+self.id.to_s+'">'+_("show quoted sections")+'</a></span>' + "\n\n")
