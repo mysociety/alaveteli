@@ -183,8 +183,11 @@ describe PublicBodyController, "when listing bodies" do
         response.should render_template('list')
         assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
         assigns[:tag].should == "eats_cheese:stilton"
+    end
 
-
+    it 'should return a "406 Not Acceptable" code if asked for a json version of a list' do
+        get :list, :format => 'json'
+        response.code.should == '406'
     end
 
 end

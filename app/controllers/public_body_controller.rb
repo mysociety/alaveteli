@@ -131,7 +131,9 @@ class PublicBodyController < ApplicationController
             @public_bodies = PublicBody.where(conditions).joins(:translations).order("public_body_translations.name").paginate(
               :page => params[:page], :per_page => 100
             )
-            render :template => "public_body/list"
+            respond_to do |format|
+                format.html { render :template => "public_body/list" }
+            end
         end
     end
 
