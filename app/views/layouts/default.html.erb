@@ -33,7 +33,7 @@
             <% end %>
         <% end %>
         <% if @has_json %>
-            <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h url_for(request.query_parameters.merge(:format => 'json')) %>">
+            <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h url_for(request.params.merge(:format => 'json')) %>">
         <% end %>
 
         <% if @no_crawl %>
