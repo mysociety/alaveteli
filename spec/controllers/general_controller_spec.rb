@@ -347,4 +347,10 @@ describe GeneralController, 'when using xapian search' do
         response.body.should include('Track this search')
     end
 
+    it 'should ignore an odd ACCEPTS header' do
+        request.env['HTTP_ACCEPT'] = '*/*;q=0.01'
+        get :search, :combined => '"fancy dog"'
+        response.should be_success
+    end
+
 end
