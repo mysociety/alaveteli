@@ -75,6 +75,9 @@ class AdminPublicBodyController < AdminController
         @locale = self.locale_from_params()
         I18n.with_locale(@locale) do
             @public_body = PublicBody.find(params[:id])
+            @info_requests = @public_body.info_requests.paginate :order => "created_at desc",
+                                                                 :page => params[:page],
+                                                                 :per_page => 100
             render
         end
     end
