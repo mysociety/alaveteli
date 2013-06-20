@@ -66,6 +66,11 @@ end
 describe UserController, "when signing in" do
     render_views
 
+    before do
+        # Don't call out to external url during tests
+        controller.stub!(:country_from_ip).and_return('gb')
+    end
+
     def get_last_postredirect
         post_redirects = PostRedirect.find_by_sql("select * from post_redirects order by id desc limit 1")
         post_redirects.size.should == 1
@@ -225,6 +230,11 @@ end
 
 describe UserController, "when signing up" do
     render_views
+
+    before do
+        # Don't call out to external url during tests
+        controller.stub!(:country_from_ip).and_return('gb')
+    end
 
     it "should be an error if you type the password differently each time" do
         post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
