@@ -78,7 +78,10 @@ module Mail
                 # invalid character at the end of the string, even
                 # with UTF-8//IGNORE:
                 # http://po-ru.com/diary/fixing-invalid-utf-8-in-ruby-revisited/
-                str = Iconv.conv('UTF-8//IGNORE', fix_encoding(encoding), str + "    ")[0...-4]
+                begin
+                    str = Iconv.conv('UTF-8//IGNORE', fix_encoding(encoding), str + "    ")[0...-4]
+                rescue Iconv::InvalidEncoding
+                end
             end
             str
         end
