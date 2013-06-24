@@ -2,7 +2,7 @@
 ## Highlighted features
 *  Remove support for theme stylesheet inclusion via template (deprecated in version 0.5)
 * Addition of a simple JSON API for querying the Ruby and Alaveteli version of an Alaveteli instance - made available at /version.json (Matthew Landauer)
-* Users can now give more information when reporting a request for admin attention (Matthew Landauer)
+* Users can now give more information when reporting a request as unsuitable (Matthew Landauer)
 * The donation url presented to users when they report their request as successful or partially successful is now option and the url itself can be configured using the config param DONATION_URL
 * Internal review request text is now translatable
 * ACCEPT headers are ignored in the specification of formats, only formats supplied in URLs are considered
