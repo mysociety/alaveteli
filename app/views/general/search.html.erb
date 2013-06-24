@@ -63,18 +63,6 @@
             <%= "|" unless variety == labels.last[0]%>
           <% end %>
         </div>
-
-        <% if false %>
-          <%-# Commented out for now as tags are of limited use when users can't see them.  This will change in the future! -%>
-          <% if @variety_postfix != "users" %>
-            <div>
-              <%= label_tag(:query, _("Tags (separated by a space):")) %><%= text_field_tag(:tags, params[:tags], { :size => 20 }) %>
-              <% for tag in InfoRequest.get_tags %>
-                <%= tag.name_and_value %>
-              <% end %>
-            </div>
-          <% end %>
-        <% end %>
       </div>
 
       <% if @variety_postfix == "requests" %>
