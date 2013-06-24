@@ -107,8 +107,11 @@ class User < ActiveRecord::Base
         end
         if self.public_banned?
             # Use interpolation to return a string rather than a SafeBuffer so that
-            # gsub can be called on it until we upgrade to Rails 3.2
-            name = "#{_("{{user_name}} (Account suspended)", :user_name=> name)}"
+            # gsub can be called on it until we upgrade to Rails 3.2. The name returned
+            # is not marked as HTML safe so will be escaped automatically in views. We
+            # do this in two steps so the string still gets picked up for translation
+            name = _("{{user_name}} (Account suspended)", :user_name=> name.html_safe)
+            name = "#{name}"
         end
         name
     end
