@@ -117,6 +117,21 @@ module Mail
     end
     class Ruby19
 
+        def Ruby19.b_value_decode(str)
+          match = str.match(/\=\?(.+)?\?[Bb]\?(.+)?\?\=/m)
+          if match
+            encoding = match[1]
+            str = Ruby19.decode_base64(match[2])
+            # Rescue an ArgumentError arising from an unknown encoding.
+            begin
+                str.force_encoding(fix_encoding(encoding))
+            rescue ArgumentError
+            end
+          end
+          decoded = str.encode("utf-8", :invalid => :replace, :replace => "")
+          decoded.valid_encoding? ? decoded : decoded.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
+        end
+
         def Ruby19.q_value_decode(str)
             match = str.match(/\=\?(.+)?\?[Qq]\?(.+)?\?\=/m)
             if match
