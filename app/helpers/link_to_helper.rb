@@ -218,9 +218,6 @@ module LinkToHelper
 
         return url
     end
-    def search_link(query, variety_postfix = nil, sort_postfix = nil, advanced = nil)
-        link_to h(query), search_url(query)
-    end
 
     def search_path(query, options = {})
         search_url(query, options.merge(:only_path => true))

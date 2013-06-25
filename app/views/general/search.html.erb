@@ -35,15 +35,23 @@
       <% end %>
     </div>
   <% else %>
-    <%= form_tag(request.url, {:method => "get", :id => "search_form"}) do %>
+
+
+    <%= form_tag(search_redirect_path, {:method => "get", :id => "search_form"}) do %>
       <p>
         <%= text_field_tag 'query', params[:query], { :size => 40, :title => "type your search term here" } %>
+
+        <%= submit_tag _("Search") %>
+        <%= link_to(_("Advanced search"), advanced_search_path) %>
+      </p>
+    <% end %>
+    <%= form_tag(request.url, {:method => "get", :id => "filter_form"}) do %>
+      <p>
         <%= hidden_field_tag 'sortby', @inputted_sortby %>
         <% if @bodies %>
           <%= hidden_field_tag 'bodies', 1 %>
         <% end %>
-        <%= submit_tag _("Search") %>
-        <%= link_to(_("Advanced search"), advanced_search_path) %>
+
       </p>
 
       <div id="common-subfilters">
@@ -63,18 +71,6 @@
             <%= "|" unless variety == labels.last[0]%>
           <% end %>
         </div>
-
-        <% if false %>
-          <%-# Commented out for now as tags are of limited use when users can't see them.  This will change in the future! -%>
-          <% if @variety_postfix != "users" %>
-            <div>
-              <%= label_tag(:query, _("Tags (separated by a space):")) %><%= text_field_tag(:tags, params[:tags], { :size => 20 }) %>
-              <% for tag in InfoRequest.get_tags %>
-                <%= tag.name_and_value %>
-              <% end %>
-            </div>
-          <% end %>
-        <% end %>
       </div>
 
       <% if @variety_postfix == "requests" %>
@@ -139,7 +135,6 @@
 <% end %>
 
 <div style="clear:both;"></div>
-
 <% if @total_hits == 0 %>
     <h2><%=@title %></h2>
 <% end %>
