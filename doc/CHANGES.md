@@ -5,7 +5,6 @@
 * Users can now give more information when reporting a request as unsuitable (Matthew Landauer)
 * The donation url presented to users when they report their request as successful or partially successful is now option and the url itself can be configured using the config param DONATION_URL
 * Internal review request text is now translatable
-* ACCEPT headers are ignored in the specification of formats, only formats supplied in URLs are considered
 * config/crontab.ugly is now config/crontab-example
 * Search query highlighting should now work with non-ascii characters [issue #505](https://github.com/mysociety/alaveteli/issues/505) (Matthew Landauer)
 * A bug that allowed people to sign up with email addresses with spaces in them has been fixed [issue #980](https://github.com/mysociety/alaveteli/issues/980)
