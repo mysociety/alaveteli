@@ -554,6 +554,10 @@ end
 
 describe IncomingMessage, "when extracting attachments" do
 
+    before do
+        load_raw_emails_data
+    end
+
     it 'handles the case where reparsing changes the body of the main part
         and the cached attachment has been deleted' do
         # original set of attachment attributes

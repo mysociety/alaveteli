@@ -50,6 +50,7 @@ namespace :deploy do
       "#{release_path}/config/general.yml" => "#{shared_path}/general.yml",
       "#{release_path}/config/rails_env.rb" => "#{shared_path}/rails_env.rb",
       "#{release_path}/config/newrelic.yml" => "#{shared_path}/newrelic.yml",
+      "#{release_path}/config/httpd.conf" => "#{shared_path}/httpd.conf",
       "#{release_path}/config/aliases" => "#{shared_path}/aliases",
       "#{release_path}/public/foi-live-creation.png" => "#{shared_path}/foi-live-creation.png",
       "#{release_path}/public/foi-user-use.png" => "#{shared_path}/foi-user-use.png",

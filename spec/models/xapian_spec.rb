@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe User, " when indexing users with Xapian" do
@@ -8,8 +9,7 @@ describe User, " when indexing users with Xapian" do
     end
 
     it "should search by name" do
-        # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
-        xapian_object = InfoRequest.full_search([User], "Silly", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([User], "Silly", :limit => 100)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == users(:silly_name_user)
     end
@@ -17,8 +17,7 @@ describe User, " when indexing users with Xapian" do
     it "should search by 'about me' text" do
         user = users(:bob_smith_user)
 
-        # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
-        xapian_object = InfoRequest.full_search([User], "stuff", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([User], "stuff", :limit => 100)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == user
 
@@ -26,10 +25,10 @@ describe User, " when indexing users with Xapian" do
         user.save!
         update_xapian_index
 
-        xapian_object = InfoRequest.full_search([User], "stuff", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([User], "stuff", :limit => 100)
         xapian_object.results.size.should == 0
 
-        xapian_object = InfoRequest.full_search([User], "aardvark", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([User], "aardvark", :limit => 100)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == user
     end
@@ -42,26 +41,26 @@ describe PublicBody, " when indexing public bodies with Xapian" do
     end
 
     it "should search index the main name field" do
-        xapian_object = InfoRequest.full_search([PublicBody], "humpadinking", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "humpadinking", :limit => 100)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
     end
 
     it "should search index the notes field" do
-        xapian_object = InfoRequest.full_search([PublicBody], "albatross", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "albatross", :limit => 100)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
     end
 
     it "should delete public bodies from the index when they are destroyed" do
-        xapian_object = InfoRequest.full_search([PublicBody], "albatross", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "albatross", :limit => 100)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
 
         public_bodies(:forlorn_public_body).destroy
 
         update_xapian_index
-        xapian_object = InfoRequest.full_search([PublicBody], "lonely", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "lonely", :limit => 100)
         xapian_object.results.should == []
     end
 
@@ -75,13 +74,13 @@ describe PublicBody, " when indexing requests by body they are to" do
     end
 
     it "should find requests to the body" do
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:tgq", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:tgq", :limit => 100)
         xapian_object.results.size.should == PublicBody.find_by_url_name("tgq").info_requests.map(&:info_request_events).flatten.size
     end
 
     it "should update index correctly when URL name of body changes" do
         # initial search
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:tgq", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:tgq", :limit => 100)
         xapian_object.results.size.should == PublicBody.find_by_url_name("tgq").info_requests.map(&:info_request_events).flatten.size
         models_found_before = xapian_object.results.map { |x| x[:model] }
 
@@ -93,9 +92,9 @@ describe PublicBody, " when indexing requests by body they are to" do
         update_xapian_index
 
         # check we get results expected
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:tgq", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:tgq", :limit => 100)
         xapian_object.results.size.should == 0
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:gq", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:gq", :limit => 100)
         xapian_object.results.size.should == PublicBody.find_by_url_name("gq").info_requests.map(&:info_request_events).flatten.size
         models_found_after = xapian_object.results.map { |x| x[:model] }
 
@@ -113,11 +112,11 @@ describe PublicBody, " when indexing requests by body they are to" do
         update_xapian_index
 
         # check we get results expected
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:tgq", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:tgq", :limit => 100)
         xapian_object.results.size.should == 0
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:gq", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:gq", :limit => 100)
         xapian_object.results.size.should == 0
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:" + body.url_name, 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:#{body.url_name}", :limit => 100)
         xapian_object.results.size.should == public_bodies(:geraldine_public_body).info_requests.map(&:info_request_events).flatten.size
         models_found_after = xapian_object.results.map { |x| x[:model] }
     end
@@ -130,13 +129,14 @@ describe User, " when indexing requests by user they are from" do
     end
 
     it "should find requests from the user" do
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:bob_smith",
+            :sort_by_prefix => 'created_at', :sort_by_ascending => true, :limit => 100)
         xapian_object.results.map{|x|x[:model]}.should =~ InfoRequestEvent.all(:conditions => "info_request_id in (select id from info_requests where user_id = #{users(:bob_smith_user).id})")
     end
 
     it "should find just the sent message events from a particular user" do
-          # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith variety:sent", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:bob_smith variety:sent",
+            :sort_by_prefix => 'created_at', :sort_by_ascending => true, :limit => 100)
         xapian_object.results.map{|x|x[:model]}.should =~ InfoRequestEvent.all(:conditions => "info_request_id in (select id from info_requests where user_id = #{users(:bob_smith_user).id}) and event_type = 'sent'")
         xapian_object.results[2][:model].should == info_request_events(:useless_outgoing_message_event)
         xapian_object.results[1][:model].should == info_request_events(:silly_outgoing_message_event)
@@ -150,8 +150,9 @@ describe User, " when indexing requests by user they are from" do
 
         update_xapian_index
 
-          # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, 'request_collapse', 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:bob_smith",
+            :sort_by_prefix => 'created_at', :sort_by_ascending => true,
+            :collapse_by_prefix => 'request_collapse', :limit => 100)
         xapian_object.results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(:conditions => "user_id = #{users(:bob_smith_user).id}")
     end
 
@@ -172,8 +173,7 @@ describe User, " when indexing requests by user they are from" do
 
         update_xapian_index
 
-          # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:john_k", 'created_at', true, 'request_collapse', 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:john_k", :limit => 100)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == info_request_events(:silly_outgoing_message_event)
     end
@@ -181,7 +181,8 @@ describe User, " when indexing requests by user they are from" do
 
     it "should update index correctly when URL name of user changes" do
         # initial search
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:bob_smith",
+            :sort_by_prefix => 'created_at', :sort_by_ascending => true, :limit => 100)
         xapian_object.results.map{|x|x[:model]}.should =~ InfoRequestEvent.all(:conditions => "info_request_id in (select id from info_requests where user_id = #{users(:bob_smith_user).id})")
         models_found_before = xapian_object.results.map { |x| x[:model] }
 
@@ -193,9 +194,10 @@ describe User, " when indexing requests by user they are from" do
         update_xapian_index
 
         # check we get results expected
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:bob_smith", :limit => 100)
         xapian_object.results.size.should == 0
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:robert_smith", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:robert_smith",
+            :sort_by_prefix => 'created_at', :sort_by_ascending => true, :limit => 100)
         models_found_after = xapian_object.results.map { |x| x[:model] }
         models_found_before.should == models_found_after
     end
@@ -208,13 +210,13 @@ describe User, " when indexing comments by user they are by" do
     end
 
     it "should find requests from the user" do
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "commented_by:silly_emnameem", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_emnameem", :limit => 100)
         xapian_object.results.size.should == 1
     end
 
     it "should update index correctly when URL name of user changes" do
         # initial search
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "commented_by:silly_emnameem", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_emnameem", :limit => 100)
         xapian_object.results.size.should == 1
         models_found_before = xapian_object.results.map { |x| x[:model] }
 
@@ -226,9 +228,9 @@ describe User, " when indexing comments by user they are by" do
         update_xapian_index
 
         # check we get results expected
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "commented_by:silly_emnameem", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_emnameem", :limit => 100)
         xapian_object.results.size.should == 0
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "commented_by:silly_name", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_name", :limit => 100)
         xapian_object.results.size.should == 1
         models_found_after = xapian_object.results.map { |x| x[:model] }
 
@@ -243,7 +245,7 @@ describe InfoRequest, " when indexing requests by their title" do
     end
 
     it "should find events for the request" do
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "request:how_much_public_money_is_wasted_o", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "request:how_much_public_money_is_wasted_o", :limit => 100)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model] == info_request_events(:silly_outgoing_message_event)
     end
@@ -257,9 +259,9 @@ describe InfoRequest, " when indexing requests by their title" do
         update_xapian_index
 
         # check we get results expected
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "request:how_much_public_money_is_wasted_o", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "request:how_much_public_money_is_wasted_o", :limit => 100)
         xapian_object.results.size.should == 0
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "request:really_naughty", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "request:really_naughty", :limit => 100)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model] == info_request_events(:silly_outgoing_message_event)
     end
@@ -277,11 +279,11 @@ describe InfoRequest, " when indexing requests by tag" do
         ir.save!
         update_xapian_index
 
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "tag:bunnyrabbit", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "tag:bunnyrabbit", :limit => 100)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model] == info_request_events(:silly_outgoing_message_event)
 
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "tag:orangeaardvark", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "tag:orangeaardvark", :limit => 100)
         xapian_object.results.size.should == 0
     end
 end
@@ -298,14 +300,14 @@ describe PublicBody, " when indexing authorities by tag" do
         body.save!
         update_xapian_index
 
-        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", :limit => 100)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model] == public_bodies(:geraldine_public_body)
-        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice:3", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice:3", :limit => 100)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model] == public_bodies(:geraldine_public_body)
 
-        xapian_object = InfoRequest.full_search([PublicBody], "tag:orangeaardvark", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:orangeaardvark", :limit => 100)
         xapian_object.results.size.should == 0
     end
 end
@@ -327,11 +329,11 @@ describe PublicBody, " when only indexing selected things on a rebuild" do
         values = false
         texts = false
         rebuild_xapian_index(terms, values, texts, dropfirst)
-        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", :limit => 100)
         xapian_object.results.size.should == 0
-        xapian_object = InfoRequest.full_search([PublicBody], "frobzn", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", :limit => 100)
         xapian_object.results.size.should == 0
-        xapian_object = InfoRequest.full_search([PublicBody], "variety:authority", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "variety:authority", :limit => 100)
         xapian_object.results.map{|x|x[:model]}.should =~ PublicBody.all
         # only reindex 'tag' and text
         dropfirst = true
@@ -339,32 +341,57 @@ describe PublicBody, " when only indexing selected things on a rebuild" do
         values = false
         texts = true
         rebuild_xapian_index(terms, values, texts, dropfirst)
-        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", :limit => 100)
         xapian_object.results.size.should == 1
-        xapian_object = InfoRequest.full_search([PublicBody], "frobzn", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", :limit => 100)
         xapian_object.results.size.should == 1
-        xapian_object = InfoRequest.full_search([PublicBody], "variety:authority", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "variety:authority", :limit => 100)
         xapian_object.results.size.should == 0
         # only reindex 'variety' term, but keeping the existing data in-place
         dropfirst = false
         terms = "V"
         texts = false
         rebuild_xapian_index(terms, values, texts, dropfirst)
-        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", :limit => 100)
         xapian_object.results.size.should == 1
-        xapian_object = InfoRequest.full_search([PublicBody], "frobzn", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", :limit => 100)
         xapian_object.results.size.should == 1
-        xapian_object = InfoRequest.full_search([PublicBody], "variety:authority", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "variety:authority", :limit => 100)
         xapian_object.results.map{|x|x[:model]}.should =~ PublicBody.all
         # only reindex 'variety' term, blowing away existing data
         dropfirst = true
         rebuild_xapian_index(terms, values, texts, dropfirst)
-        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", :limit => 100)
         xapian_object.results.size.should == 0
-        xapian_object = InfoRequest.full_search([PublicBody], "frobzn", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", :limit => 100)
         xapian_object.results.size.should == 0
-        xapian_object = InfoRequest.full_search([PublicBody], "variety:authority", 'created_at', true, nil, 100, 1)
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "variety:authority", :limit => 100)
         xapian_object.results.map{|x|x[:model]}.should =~ PublicBody.all
     end
 end
 
+# I would expect ActsAsXapian to have some tests under vendor/plugins/acts_as_xapian, but
+# it looks like this is not the case. Putting a test here instead.
+describe ActsAsXapian::Search, "#words_to_highlight" do
+    it "should return a list of words used in the search" do
+        s = ActsAsXapian::Search.new([PublicBody], "albatross words", :limit => 100)
+        s.words_to_highlight.should == ["albatross", "words"]
+    end
+
+    it "should remove any operators" do
+        s = ActsAsXapian::Search.new([PublicBody], "albatross words tag:mice", :limit => 100)
+        s.words_to_highlight.should == ["albatross", "words"]
+    end
+
+    # This is the current behaviour but it seems a little simplistic to me
+    it "should separate punctuation" do
+        s = ActsAsXapian::Search.new([PublicBody], "The doctor's patient", :limit => 100)
+        s.words_to_highlight.should == ["The", "doctor", "s", "patient"] 
+    end
+
+    it "should handle non-ascii characters" do
+        s = ActsAsXapian::Search.new([PublicBody], "adatigénylés words tag:mice", :limit => 100)
+        s.words_to_highlight.should == ["adatigénylés", "words"]
+    end
+
+end

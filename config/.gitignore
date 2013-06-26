@@ -8,3 +8,4 @@ memcached.yml
 *.deployed
 deploy.yml
 newrelic.yml
+crontab

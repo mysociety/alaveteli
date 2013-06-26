@@ -119,7 +119,11 @@ class UserController < ApplicationController
             @track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc')
             for track_thing in @track_things
                 # XXX factor out of track_mailer.rb
-                xapian_object = InfoRequest.full_search([InfoRequestEvent], track_thing.track_query, 'described_at', true, nil, 20, 1)
+                xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], track_thing.track_query,
+                    :sort_by_prefix => 'described_at',
+                    :sort_by_ascending => true,
+                    :collapse_by_prefix => nil,
+                    :limit => 20)
                 feed_results += xapian_object.results.map {|x| x[:model]}
             end
         end

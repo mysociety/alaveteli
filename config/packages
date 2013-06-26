@@ -20,7 +20,6 @@ gnuplot-nox
 php5-cli
 sharutils
 unzip
-wdg-html-validator
 mutt
 tnef (>= 1.4.5)
 gettext

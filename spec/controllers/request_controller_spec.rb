@@ -93,8 +93,10 @@ describe RequestController, "when listing recent requests" do
                    :results => (1..25).to_a.map { |m| { :model => m } },
                    :matches_estimated => 1000000)
 
-        InfoRequest.should_receive(:full_search).
-          with([InfoRequestEvent]," (variety:sent OR variety:followup_sent OR variety:response OR variety:comment)", "created_at", anything, anything, anything, anything).
+        ActsAsXapian::Search.should_receive(:new).
+          with([InfoRequestEvent]," (variety:sent OR variety:followup_sent OR variety:response OR variety:comment)",
+            :sort_by_prefix => "created_at", :offset => 0, :limit => 25, :sort_by_ascending => true,
+            :collapse_by_prefix => "request_collapse").
           and_return(xap_results)
         get :list, :view => 'all'
         assigns[:list_results].size.should == 25
@@ -134,7 +136,7 @@ describe RequestController, "when changing things that appear on the request pag
     it "should purge the downstream cache when a followup is made" do
         session[:user_id] = users(:bob_smith_user).id
         ir = info_requests(:fancy_dog_request)
-        post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => ir.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+        post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => ir.id, :submitted_followup => 1
         PurgeRequest.all().first.model_id.should == ir.id
     end
     it "should purge the downstream cache when the request is categorised" do
@@ -237,6 +239,36 @@ describe RequestController, "when showing one request" do
                    { :user_id => users(:admin_user).id }
         response.should_not have_selector('#anyone_actions', :content => "Add an annotation")
       end
+    end
+
+    context "when the request has not yet been reported" do
+        it "should allow the user to report" do
+            title = info_requests(:badger_request).url_title
+            get :show, :url_title => title
+            response.should_not contain("This request has been reported")
+            response.should contain("Offensive?")
+        end
+    end
+
+    context "when the request has been reported for admin attention" do
+        before :each do
+            info_requests(:fancy_dog_request).report!("", "", nil)
+        end
+        it "should inform the user" do
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+            response.should contain("This request has been reported")
+            response.should_not contain("Offensive?")
+        end
+
+        context "and then deemed okay and left to complete" do
+            before :each do
+                info_requests(:fancy_dog_request).set_described_state("successful")
+            end
+            it "should let the user know that the administrators have not hidden this request" do
+                get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+                response.body.should =~ (/the site administrators.*have not hidden it/)
+            end
+        end
     end
 
     describe 'when the request is being viewed by an admin' do
@@ -1605,7 +1637,7 @@ describe RequestController, "when classifying an information request" do
             end
         end
 
-        describe 'when redirecting after a successful status update by the request owner' do
+        describe 'after a successful status update by the request owner' do
 
             before do
                 @request_owner = users(:bob_smith_user)
@@ -1632,87 +1664,161 @@ describe RequestController, "when classifying an information request" do
                 response.should redirect_to("http://test.host/#{redirect_path}")
             end
 
-            it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is not overdue' do
-                @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date+1)
-                @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
+            context 'when status is updated to "waiting_response"' do
 
-                expect_redirect("waiting_response", "request/#{@dog_request.url_title}")
-                flash[:notice].should match(/should get a response/)
+                it 'should redirect to the "request url" with a message in the right tense when
+                    the response is not overdue' do
+                    @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date+1)
+                    @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
+
+                    expect_redirect("waiting_response", "request/#{@dog_request.url_title}")
+                    flash[:notice].should match(/should get a response/)
+                end
+
+                it 'should redirect to the "request url" with a message in the right tense when
+                    the response is overdue' do
+                    @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-1)
+                    @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
+                    expect_redirect('waiting_response', request_url)
+                    flash[:notice].should match(/should have got a response/)
+                end
+
+                it 'should redirect to the "request url" with a message in the right tense when
+                    the response is overdue' do
+                    @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-2)
+                    @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date-1)
+                    expect_redirect('waiting_response', unhappy_url)
+                    flash[:notice].should match(/is long overdue/)
+                    flash[:notice].should match(/by more than 40 working days/)
+                    flash[:notice].should match(/within 20 working days/)
+                end
             end
 
-            it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is overdue' do
-                @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-1)
-                @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
-                expect_redirect('waiting_response', request_url)
-                flash[:notice].should match(/should have got a response/)
+            context 'when status is updated to "not held"' do
+
+                it 'should redirect to the "request url"' do
+                    expect_redirect('not_held', request_url)
+                end
+
             end
 
-            it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is overdue' do
-                @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-2)
-                @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date-1)
-                expect_redirect('waiting_response', unhappy_url)
-                flash[:notice].should match(/is long overdue/)
-                flash[:notice].should match(/by more than 40 working days/)
-                flash[:notice].should match(/within 20 working days/)
+            context 'when status is updated to "successful"' do
+
+                it 'should redirect to the "request url"' do
+                    expect_redirect('successful', request_url)
+                end
+
+                it 'should show a message including the donation url if there is one' do
+                    AlaveteliConfiguration.stub!(:donation_url).and_return('http://donations.example.com')
+                    post_status('successful')
+                    flash[:notice].should match('make a donation')
+                    flash[:notice].should match('http://donations.example.com')
+                end
+
+                it 'should show a message without reference to donations if there is no
+                    donation url' do
+                    AlaveteliConfiguration.stub!(:donation_url).and_return('')
+                    post_status('successful')
+                    flash[:notice].should_not match('make a donation')
+                end
+
             end
 
-            it 'should redirect to the "request url" when status is updated to "not held"' do
-                expect_redirect('not_held', request_url)
+            context 'when status is updated to "waiting clarification"' do
+
+                it 'should redirect to the "response url" when there is a last response' do
+                    incoming_message = mock_model(IncomingMessage)
+                    @dog_request.stub!(:get_last_response).and_return(incoming_message)
+                    expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response/#{incoming_message.id}")
+                end
+
+                it 'should redirect to the "response no followup url" when there are no events
+                    needing description' do
+                    @dog_request.stub!(:get_last_response).and_return(nil)
+                    expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response")
+                end
+
             end
 
-            it 'should redirect to the "request url" when status is updated to "successful"' do
-                expect_redirect('successful', request_url)
+            context 'when status is updated to "rejected"' do
+
+                it 'should redirect to the "unhappy url"' do
+                    expect_redirect('rejected', "help/unhappy/#{@dog_request.url_title}")
+                end
+
             end
 
-            it 'should redirect to the "unhappy url" when status is updated to "rejected"' do
-                expect_redirect('rejected', "help/unhappy/#{@dog_request.url_title}")
+            context 'when status is updated to "partially successful"' do
+
+                it 'should redirect to the "unhappy url"' do
+                    expect_redirect('partially_successful', "help/unhappy/#{@dog_request.url_title}")
+                end
+
+                it 'should show a message including the donation url if there is one' do
+                    AlaveteliConfiguration.stub!(:donation_url).and_return('http://donations.example.com')
+                    post_status('successful')
+                    flash[:notice].should match('make a donation')
+                    flash[:notice].should match('http://donations.example.com')
+                end
+
+                it 'should show a message without reference to donations if there is no
+                    donation url' do
+                    AlaveteliConfiguration.stub!(:donation_url).and_return('')
+                    post_status('successful')
+                    flash[:notice].should_not match('make a donation')
+                end
+
             end
 
-            it 'should redirect to the "unhappy url" when status is updated to "partially successful"' do
-                expect_redirect('partially_successful', "help/unhappy/#{@dog_request.url_title}")
+            context 'when status is updated to "gone postal"' do
+
+                it 'should redirect to the "respond to last url"' do
+                    expect_redirect('gone_postal', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}?gone_postal=1")
+                end
+
             end
 
-            it 'should redirect to the "response url" when status is updated to "waiting clarification" and there is a last response' do
-                incoming_message = mock_model(IncomingMessage)
-                @dog_request.stub!(:get_last_response).and_return(incoming_message)
-                expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response/#{incoming_message.id}")
+            context 'when status updated to "internal review"' do
+
+                it 'should redirect to the "request url"' do
+                    expect_redirect('internal_review', request_url)
+                end
+
             end
 
-            it 'should redirect to the "response no followup url" when status is updated to "waiting clarification" and there are no events needing description' do
-                @dog_request.stub!(:get_last_response).and_return(nil)
-                expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response")
+            context 'when status is updated to "requires admin"' do
+
+                it 'should redirect to the "request url"' do
+                    post :describe_state, :incoming_message => {
+                                              :described_state => 'requires_admin',
+                                              :message => "A message" },
+                                          :id => @dog_request.id,
+                                          :last_info_request_event_id => @dog_request.last_event_id_needing_description
+                    response.should redirect_to show_request_url(:url_title => @dog_request.url_title)
+                end
+
             end
 
-            it 'should redirect to the "respond to last url" when status is updated to "gone postal"' do
-                expect_redirect('gone_postal', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}?gone_postal=1")
+            context 'when status is updated to "error message"' do
+
+                it 'should redirect to the "request url"' do
+                    post :describe_state, :incoming_message => {
+                                              :described_state => 'error_message',
+                                              :message => "A message" },
+                                          :id => @dog_request.id,
+                                          :last_info_request_event_id => @dog_request.last_event_id_needing_description
+                    response.should redirect_to show_request_url(:url_title => @dog_request.url_title)
+                end
+
             end
 
-            it 'should redirect to the "request url" when status is updated to "internal review"' do
-                expect_redirect('internal_review', request_url)
-            end
+            context 'when status is updated to "user_withdrawn"' do
 
-            it 'should redirect to the "request url" when status is updated to "requires admin"' do
-                post :describe_state, :incoming_message => {
-                                          :described_state => 'requires_admin',
-                                          :message => "A message" },
-                                      :id => @dog_request.id,
-                                      :last_info_request_event_id => @dog_request.last_event_id_needing_description
-                response.should redirect_to show_request_url(:url_title => @dog_request.url_title)
-            end
+                it 'should redirect to the "respond to last url url" ' do
+                    expect_redirect('user_withdrawn', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}")
+                end
 
-            it 'should redirect to the "request url" when status is updated to "error message"' do
-                post :describe_state, :incoming_message => {
-                                          :described_state => 'error_message',
-                                          :message => "A message" },
-                                      :id => @dog_request.id,
-                                      :last_info_request_event_id => @dog_request.last_event_id_needing_description
-                response.should redirect_to show_request_url(:url_title => @dog_request.url_title)
             end
-
-            it 'should redirect to the "respond to last url url" when status is updated to "user_withdrawn"' do
-                expect_redirect('user_withdrawn', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}")
-            end
-
         end
 
     end
@@ -2310,6 +2416,7 @@ describe RequestController, "when showing similar requests" do
 
     before do
         get_fixtures_xapian_index
+        load_raw_emails_data
     end
 
     it "should work" do
@@ -2342,91 +2449,6 @@ describe RequestController, "when showing similar requests" do
 
 end
 
-
-describe RequestController, "when reporting a request when not logged in" do
-    it "should only allow logged-in users to report requests" do
-        get :report_request, :url_title => info_requests(:badger_request).url_title
-        post_redirect = PostRedirect.get_last_post_redirect
-        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
-    end
-end
-
-describe RequestController, "when reporting a request (logged in)" do
-    render_views
-
-    before do
-        @user = users(:robin_user)
-        session[:user_id] = @user.id
-    end
-
-    it "should 404 for non-existent requests" do
-      lambda {
-        post :report_request, :url_title => "hjksfdhjk_louytu_qqxxx"
-      }.should raise_error(ActiveRecord::RecordNotFound)
-    end
-
-    it "should mark a request as having been reported" do
-        ir = info_requests(:badger_request)
-        title = ir.url_title
-        get :show, :url_title => title
-        assigns[:info_request].attention_requested.should == false
-
-        post :report_request, :url_title => title
-        response.should redirect_to(:action => :show, :url_title => title)
-
-        get :show, :url_title => title
-        response.should be_success
-        assigns[:info_request].attention_requested.should == true
-        assigns[:info_request].described_state.should == "attention_requested"
-    end
-
-    it "should not allow a request to be reported twice" do
-        title = info_requests(:badger_request).url_title
-
-        post :report_request, :url_title => title
-        response.should redirect_to(:action => :show, :url_title => title)
-        get :show, :url_title => title
-        response.should be_success
-        response.body.should include("has been reported")
-
-        post :report_request, :url_title => title
-        response.should redirect_to(:action => :show, :url_title => title)
-        get :show, :url_title => title
-        response.should be_success
-        response.body.should include("has already been reported")
-    end
-
-    it "should let users know a request has been reported" do
-        title = info_requests(:badger_request).url_title
-        get :show, :url_title => title
-        response.body.should include("Offensive?")
-
-        post :report_request, :url_title => title
-        response.should redirect_to(:action => :show, :url_title => title)
-
-        get :show, :url_title => title
-        response.body.should_not include("Offensive?")
-        response.body.should include("This request has been reported")
-
-        info_requests(:badger_request).set_described_state("successful")
-        get :show, :url_title => title
-        response.body.should_not include("This request has been reported")
-        response.body.should =~ (/the site administrators.*have not hidden it/)
-    end
-
-    it "should send an email from the reporter to admins" do
-        ir = info_requests(:badger_request)
-        title = ir.url_title
-        post :report_request, :url_title => title
-        deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 1
-        mail = deliveries[0]
-        mail.subject.should =~ /attention_requested/
-        mail.from.should include(@user.email)
-        mail.body.should include(@user.name)
-    end
-end
-
 describe RequestController, "when caching fragments" do
     it "should not fail with long filenames" do
         long_name = "blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah.txt"
@@ -2453,5 +2475,4 @@ describe RequestController, "when caching fragments" do
     end
 
 end
-
 

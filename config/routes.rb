@@ -14,7 +14,6 @@ Alaveteli::Application.routes.draw do
     #### General contoller
     match '/' => 'general#frontpage', :as => :frontpage
     match '/blog' => 'general#blog', :as => :blog
-    match '/stylesheets/custom.css' => 'general#custom_css', :as => :custom_css
     match '/search' => 'general#search_redirect', :as => :search_redirect
     match '/search/all' => 'general#search_redirect', :as => :search_redirect
     # XXX combined is the search query, and then if sorted a "/newest" at the end.
@@ -24,8 +23,7 @@ Alaveteli::Application.routes.draw do
     match '/search/*combined/all' => 'general#search', :as => :search_general, :view => 'all'
     match '/search(/*combined)' => 'general#search', :as => :search_general
     match '/advancedsearch' => 'general#search_redirect', :as => :advanced_search, :advanced => true
-
-    match '/random' => 'general#random_request', :as => :random_request
+    match '/version.:format' => 'general#version', :as => :version
     #####
 
     ##### Request controller
@@ -59,14 +57,11 @@ Alaveteli::Application.routes.draw do
 
     match '/upload/request/:url_title' => 'request#upload_response', :as => :upload_response
     match '/request/:url_title/download' => 'request#download_entire_request', :as => :download_entire_request
-
-    # It would be nice to add :conditions => { :method => :post } to this next one,
-    # because it ought not really to be available as a GET request since it changes
-    # the server state. Unfortunately this doesn’t play well with the PostRedirect
-    # mechanism, which assumes all post-login actions are available via GET, so we
-    # refrain.
-    match '/request/:url_title/report' => 'request#report_request', :as => :report
     ####
+
+    resources :request, :only => [] do
+        resource :report, :only => [:new, :create]
+    end
 
     #### User controller
     # Use /profile for things to do with the currently signed in user.

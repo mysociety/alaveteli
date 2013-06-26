@@ -21,6 +21,8 @@ describe GeneralController, 'when getting the blog feed' do
 
     before do
         AlaveteliConfiguration.stub!(:blog_feed).and_return("http://blog.example.com")
+        # Don't call out to external url during tests
+        controller.stub!(:quietly_try_to_open).and_return('')
     end
 
     it 'should add a lang param correctly to a url with no querystring' do
@@ -347,5 +349,10 @@ describe GeneralController, 'when using xapian search' do
         response.body.should include('Track this search')
     end
 
-end
+    it 'should ignore an odd ACCEPTS header' do
+        request.env['HTTP_ACCEPT'] = '*/*;q=0.01'
+        get :search, :combined => '"fancy dog"'
+        response.should be_success
+    end
 
+end

@@ -142,13 +142,11 @@ namespace :translation do
                     output_file)
 
         # track mailer
-        xapian_object = InfoRequest.full_search([InfoRequestEvent],
-                                                track_thing.track_query,
-                                                'described_at',
-                                                true,
-                                                nil,
-                                                100,
-                                                1)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], track_thing.track_query,
+              :sort_by_prefix => 'described_at',
+              :sort_by_ascending => true,
+              :collapse_by_prefix => nil,
+              :limit => 100)
         event_digest_email = TrackMailer.event_digest(info_request.user,
                                                             [[track_thing,
                                                               xapian_object.results,

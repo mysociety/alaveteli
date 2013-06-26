@@ -363,12 +363,15 @@ class ApplicationController < ActionController::Base
 
         # Peform the search
         @per_page = per_page
-        if this_page.nil?
-            @page = get_search_page_from_params
-        else
-            @page = this_page
-        end
-        result = InfoRequest.full_search(models, @query, order, ascending, collapse, @per_page, @page)
+        @page = this_page || get_search_page_from_params
+
+        result = ActsAsXapian::Search.new(models, @query,
+            :offset => (@page - 1) * @per_page,
+            :limit => @per_page,
+            :sort_by_prefix => order,
+            :sort_by_ascending => ascending,
+            :collapse_by_prefix => collapse
+        )
         result.results # Touch the results to load them, otherwise accessing them from the view
                        # might fail later if the database has subsequently been reopened.
         return result
@@ -540,6 +543,10 @@ class ApplicationController < ActionController::Base
         end
         country = AlaveteliConfiguration::iso_country_code if country.empty?
         return country
+    end
+
+    def alaveteli_git_commit
+      `git log -1 --format="%H"`.strip
     end
 
     # URL generating functions are needed by all controllers (for redirects),

@@ -108,6 +108,12 @@ class InfoRequest < ActiveRecord::Base
         states
     end
 
+    # Possible reasons that a request could be reported for administrator attention
+    def report_reasons
+        ["Contains defamatory material", "Not a valid request", "Request for personal information",
+            "Contains personal information", "Vexatious", "Other"]
+    end
+
     def must_be_valid_state
         errors.add(:described_state, "is not a valid state") if
             !InfoRequest.enumerate_states.include? described_state
@@ -150,6 +156,10 @@ class InfoRequest < ActiveRecord::Base
         end
     end
 
+    def user_json_for_api
+        is_external? ? { :name => user_name || _("Anonymous user") } : user.json_for_api
+    end
+
     @@custom_states_loaded = false
     begin
         if !Rails.env.test?
@@ -189,21 +199,6 @@ class InfoRequest < ActiveRecord::Base
         self.comments.find(:all, :conditions => 'visible')
     end
 
-    # Central function to do all searches
-    # (Not really the right place to put it, but everything can get it here, and it
-    # does *mainly* find info requests, via their events, so hey)
-    def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
-        offset = (page - 1) * per_page
-
-        return ::ActsAsXapian::Search.new(
-            models, query,
-            :offset => offset, :limit => per_page,
-            :sort_by_prefix => order,
-            :sort_by_ascending => ascending,
-            :collapse_by_prefix => collapse
-        )
-    end
-
     # If the URL name has changed, then all request: queries will break unless
     # we update index for every event. Also reindex if prominence changes.
     after_update :reindex_some_request_events
@@ -229,17 +224,6 @@ class InfoRequest < ActiveRecord::Base
     def clear_in_database_caches!
         for incoming_message in self.incoming_messages
             incoming_message.clear_in_database_caches!
-        end
-    end
-
-    # For debugging
-    def InfoRequest.profile_search(query)
-        t = Time.now.usec
-        for i in (1..10)
-            t = Time.now.usec - t
-            secs = t / 1000000.0
-            STDOUT.write secs.to_s + " query " + i.to_s + "\n"
-            results = InfoRequest.full_search([InfoRequestEvent], query, "created_at", true, nil, 25, 1).results
         end
     end
 
@@ -351,7 +335,10 @@ public
     # copying an email, and that doesn't matter)
     def InfoRequest.find_by_incoming_email(incoming_email)
         id, hash = InfoRequest._extract_id_hash_from_email(incoming_email)
-        return self.find_by_magic_email(id, hash)
+        if hash_from_id(id) == hash
+            # Not using find(id) because we don't exception raised if nothing found
+            find_by_id(id)
+        end
     end
 
     # Return list of info requests which *might* be right given email address
@@ -564,6 +551,15 @@ public
 
     def requires_admin?
         ['requires_admin', 'error_message', 'attention_requested'].include?(described_state)
+    end
+
+    # Report this request for administrator attention
+    def report!(reason, message, user)
+        ActiveRecord::Base.transaction do
+            set_described_state('attention_requested', user, "Reason: #{reason}\n\n#{message}")
+            self.attention_requested = true # tells us if attention has ever been requested
+            save!
+        end
     end
 
     # change status, including for last event for later historical purposes
@@ -913,24 +909,6 @@ public
         return Digest::SHA1.hexdigest(id.to_s + AlaveteliConfiguration::incoming_email_secret)[0,8]
     end
 
-    # Called by find_by_incoming_email - and used to be called by separate
-    # function for envelope from address, until we abandoned it.
-    def InfoRequest.find_by_magic_email(id, hash)
-        expected_hash = InfoRequest.hash_from_id(id)
-        #print "expected: " + expected_hash + "\nhash: " + hash + "\n"
-        if hash != expected_hash
-            return nil
-        else
-            begin
-                return self.find(id)
-            rescue ActiveRecord::RecordNotFound
-                # so error email is sent to admin, rather than the exception sending weird
-                # error to the public body.
-                return nil
-            end
-        end
-    end
-
     # Used to find when event last changed
     def InfoRequest.last_event_time_clause(event_type=nil)
         event_type_clause = ''
@@ -1079,25 +1057,6 @@ public
         InfoRequest.update_all "allow_new_responses_from = 'authority_only' where updated_at < (now() - interval '6 months') and allow_new_responses_from = 'anybody' and url_title <> 'holding_pen'"
         # 1 year since last change requests, don't allow any new incoming messages
         InfoRequest.update_all "allow_new_responses_from = 'nobody' where updated_at < (now() - interval '1 year') and allow_new_responses_from in ('anybody', 'authority_only') and url_title <> 'holding_pen'"
-    end
-
-    # Returns a random FOI request
-    def InfoRequest.random
-        max_id = InfoRequest.connection.select_value('select max(id) as a from info_requests').to_i
-        info_request = nil
-        count = 0
-        while info_request.nil?
-            if count > 100
-                return nil
-            end
-            id = rand(max_id) + 1
-            begin
-                count += 1
-                info_request = find(id, :conditions => ["prominence = 'normal'"])
-            rescue ActiveRecord::RecordNotFound
-            end
-        end
-        return info_request
     end
 
     def json_for_api(deep)

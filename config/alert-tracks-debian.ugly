@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 ### BEGIN INIT INFO
-# Provides: alert-tracks
+# Provides: !!(*= $daemon_name *)!!
 # Required-Start: $local_fs $syslog
 # Required-Stop: $local_fs $syslog
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
-# Short-Description: alert-tracks is a daemon running the Alaveteli email alerts
-# Description: alert-tracks send Alaveteli email alerts as required
+# Short-Description: !!(*= $daemon_name *)!! is a daemon running the Alaveteli email alerts
+# Description: !!(*= $daemon_name *)!! sends Alaveteli email alerts as required
 ### END INIT INFO
 #
 # !!(*= $daemon_name *)!! Start the Alaveteli email alert daemon
