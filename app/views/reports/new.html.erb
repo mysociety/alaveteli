@@ -1,0 +1,26 @@
+<h1>Report request: <%= @info_request.title %></h1>
+
+<% if @info_request.attention_requested %>
+  <p><%= _("This request has already been reported for administrator attention") %></p>
+<% else %>
+  <p>
+    Reporting a request notifies the site administrators. They will respond as soon as possible.
+  </p>
+  <p>Why specifically do you consider this request unsuitable?</p>
+
+  <%= form_tag request_report_path(:request_id => @info_request.url_title) do %>
+    <p>
+      <label class="form_label" for="reason">Reason:</label>
+      <%= select_tag :reason, options_for_select(@info_request.report_reasons, @reason), :prompt => "Choose a reason" %>
+    </p>
+    <p>
+      <label class="form_label" for="message">Please tell us more:</label>
+      <%= text_area_tag :message, @message, :rows => 10, :cols => 60 %>
+    </p>
+
+    <div class="form_button">
+        <%= submit_tag _("Report request") %>
+    </div>
+
+  <% end %>
+<% end %>

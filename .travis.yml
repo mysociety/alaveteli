@@ -1,15 +1,12 @@
 language: ruby
 branches:
   only:
-    - develop
     - master
     - rails-3-develop
 rvm:
   - 1.8.7
   - 1.9.3
 before_install:
-  - gem update --system 1.8.5
-  - gem update --system 1.6.2
   - gem install rake --version=0.9.2.2
   - git submodule update --init --recursive
   - psql -c "create database foi_test template template0 encoding 'SQL_ASCII';" -U postgres

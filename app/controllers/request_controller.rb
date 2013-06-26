@@ -100,7 +100,7 @@ class RequestController < ApplicationController
             # ... requests that have similar imporant terms
             begin
                 limit = 10
-                @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
+                @xapian_similar = ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
                   :limit => limit, :collapse_by_prefix => 'request_collapse')
                 @xapian_similar_more = (@xapian_similar.matches_estimated > limit)
             rescue
@@ -146,7 +146,7 @@ class RequestController < ApplicationController
         if !@info_request.user_can_view?(authenticated_user)
             return render_hidden
         end
-        @xapian_object = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
+        @xapian_object = ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
             :offset => (@page - 1) * @per_page, :limit => @per_page, :collapse_by_prefix => 'request_collapse')
         @matches_estimated = @xapian_object.matches_estimated
         @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
@@ -461,9 +461,19 @@ class RequestController < ApplicationController
         when 'rejected'
             _("Oh no! Sorry to hear that your request was refused. Here is what to do now.")
         when 'successful'
-            _("<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>", :site_name=>site_name, :donation_url => "http://www.mysociety.org/donate/")
+            if AlaveteliConfiguration::donation_url.blank?
+                _("<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p>")
+            else
+                _("<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>",
+                    :site_name => site_name, :donation_url => AlaveteliConfiguration::donation_url)
+            end
         when 'partially_successful'
-            _("<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>", :site_name=>site_name, :donation_url=>"http://www.mysociety.org/donate/")
+            if AlaveteliConfiguration::donation_url.blank?
+                _("<p>We're glad you got some of the information that you wanted.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>")
+            else
+                _("<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>",
+                    :site_name => site_name, :donation_url => AlaveteliConfiguration::donation_url)
+            end
         when 'waiting_clarification'
             _("Please write your follow up message containing the necessary clarifications below.")
         when 'gone_postal'
@@ -674,25 +684,6 @@ class RequestController < ApplicationController
         if incoming_message.info_request.all_can_view?
             @files_can_be_cached = true
         end
-    end
-
-    def report_request
-        info_request = InfoRequest.find_by_url_title!(params[:url_title])
-        return if !authenticated?(
-                :web => _("To report this FOI request"),
-                :email => _("Then you can report the request '{{title}}'", :title => info_request.title),
-                :email_subject => _("Report an offensive or unsuitable request")
-            )
-
-        if !info_request.attention_requested
-            info_request.set_described_state('attention_requested', @user)
-            info_request.attention_requested = true # tells us if attention has ever been requested
-            info_request.save!
-            flash[:notice] = _("This request has been reported for administrator attention")
-        else
-            flash[:notice] = _("This request has already been reported for administrator attention")
-        end
-        redirect_to request_url(info_request)
     end
 
     # special caching code so mime types are handled right

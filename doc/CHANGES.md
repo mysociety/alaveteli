@@ -1,3 +1,20 @@
+# Version 0.12
+## Highlighted features
+*  Remove support for theme stylesheet inclusion via template (deprecated in version 0.5)
+* Addition of a simple JSON API for querying the Ruby and Alaveteli version of an Alaveteli instance - made available at /version.json (Matthew Landauer)
+* Users can now give more information when reporting a request as unsuitable (Matthew Landauer)
+* The donation url presented to users when they report their request as successful or partially successful is now option and the url itself can be configured using the config param DONATION_URL
+* Internal review request text is now translatable
+* config/crontab.ugly is now config/crontab-example
+* Search query highlighting should now work with non-ascii characters [issue #505](https://github.com/mysociety/alaveteli/issues/505) (Matthew Landauer)
+* A bug that allowed people to sign up with email addresses with spaces in them has been fixed [issue #980](https://github.com/mysociety/alaveteli/issues/980)
+
+* [List of issues on github](https://github.com/mysociety/alaveteli/issues?milestone=30&state=closed)
+
+## Upgrade notes
+* Check out this version and run `rails-post-deploy` as usual.
+* Add a DONATION_URL to your config/general.yml file if you want to use your own donation URL.
+
 # Version 0.11
 ## Highlighted features
 * Upgrade of the Rails framework to version 3.1.12 (Henare Degan, Matthew Landauer, Mark Longair, Louise Crow)
@@ -5,7 +22,7 @@
 ## Upgrade notes
 * Manually remove vendor/rails-locales
 * Themes created for 0.9 and below should be updated to work with Rails 3. See `THEMES-UPGRADE.md` for notes on upgrading your theme. You will need to manually remove your old theme directory before running `rails-post-deploy`.
-* The `config/httpd.conf` has moved to `config/httpd.conf`, as it may need customization before deploying. It also has a new line setting RackEnv to production - copy this to your config/httpd.conf file.
+* The `config/httpd.conf` has moved to `config/httpd.conf-example`, as it may need customization before deploying. It also has a new line setting RackEnv to production - copy this to your config/httpd.conf file.
 * Alaveteli now uses the [mail gem](https://github.com/mikel/mail) rather than [tmail](https://github.com/mikel/tmail) to handle mail. If you're using Exim as your MTA, you'll need to use the setting `extract_addresses_remove_arguments = false` in your Exim conf (see INSTALL-exim4.md for details). This means it won't remove addresses specified with -t on command line from the mail recipient list.
 
 # Version 0.9

@@ -15,7 +15,9 @@ Note that the name and location of the log files created by Exim must match
 what the `load-mail-server-logs` script expects, hence the need for the extra
 `log_file_path` setting. And the `check-recent-requests-sent` scripts expects
 the logs to contain the `from=<...>` envelope information, so we make the
-logs more verbose with `log_selector`.
+logs more verbose with `log_selector`. The ALAVETELI_USER may need to also
+need to be added to the `trusted_users` list in your Exim config in order to
+set the return path on outgoing mail, depending on your setup.
 
 In `/etc/exim4/conf.d/router/04_alaveteli`:
 

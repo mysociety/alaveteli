@@ -420,7 +420,7 @@ class InfoRequestEvent < ActiveRecord::Base
         if deep
             ret[:info_request] = self.info_request.json_for_api(false)
             ret[:public_body] = self.info_request.public_body.json_for_api
-            ret[:user] = self.info_request.user.json_for_api
+            ret[:user] = self.info_request.user_json_for_api
         end
 
         return ret

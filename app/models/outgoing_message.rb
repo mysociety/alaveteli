@@ -23,6 +23,14 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class OutgoingMessage < ActiveRecord::Base
+    include Rails.application.routes.url_helpers
+    include LinkToHelper
+    self.default_url_options[:host] = AlaveteliConfiguration::domain
+    # https links in emails if forcing SSL
+    if AlaveteliConfiguration::force_ssl
+      self.default_url_options[:protocol] = "https"
+    end
+
     strip_attributes!
 
     belongs_to :info_request
@@ -80,15 +88,15 @@ class OutgoingMessage < ActiveRecord::Base
         end
 
         if self.what_doing == 'internal_review'
-            "Please pass this on to the person who conducts Freedom of Information reviews." +
+            _("Please pass this on to the person who conducts Freedom of Information reviews.") +
             "\n\n" +
-            "I am writing to request an internal review of " +
-            self.info_request.public_body.name +
-            "'s handling of my FOI request " +
-            "'" + self.info_request.title + "'." +
+            _("I am writing to request an internal review of {{public_body_name}}'s handling of my FOI request '{{info_request_title}}'.",
+              :public_body_name => self.info_request.public_body.name,
+              :info_request_title => self.info_request.title) +
             "\n\n\n\n [ " + self.get_internal_review_insert_here_note + " ] \n\n\n\n" +
-            "A full history of my FOI request and all correspondence is available on the Internet at this address:\n" +
-            "http://" + AlaveteliConfiguration::domain + "/request/" + self.info_request.url_title
+            _("A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}",
+            :url => request_url(self.info_request)) +
+            "\n"
         else
             ""
         end

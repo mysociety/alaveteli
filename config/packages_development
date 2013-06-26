@@ -1,0 +1,9 @@
+# This is a list of packages needed on a fresh Ubuntu installation for
+# development.
+#
+# It assumes you're using RVM or a similar Ruby manager and have already
+# run `bundle install`.
+#
+# To install, paste this list after `sudo apt-get install` and run.
+
+postgresql sharutils pdftk elinks php5-cli tnef python-yaml

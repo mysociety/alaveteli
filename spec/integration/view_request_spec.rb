@@ -13,5 +13,12 @@ describe "When viewing requests" do
         response.body.should include("dog.json?unfold=1")
     end
 
+    it 'should not raise a routing error when making a json link for a request with an
+       "action" querystring param' do
+       @dog_request = info_requests(:fancy_dog_request)
+       get "request/#{@dog_request.url_title}?action=add"
+       response.should be_success
+    end
+
 end
 

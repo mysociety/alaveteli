@@ -42,26 +42,9 @@
            <%= submit_tag _('Search') %>
        </div>
     <% end %>
+
     <div id="typeahead_response">
- <% if !@xapian_requests.nil? %>
-  <% if  @xapian_requests.results.size > 0 %>
-    <h3><%= _('Top search results:') %></h3>
-    <p>
-      <%= _('Select one to see more information about the authority.')%>
-    </p>
-  <% else %>
-    <h3><%= _('No results found.') %></h3>
-  <% end %>
-  <div id="authority_search_ahead_results">
-    <% for result in @xapian_requests.results %>
-      <%= render :partial => 'public_body/body_listing_single', :locals => { :public_body => result[:model] } %>
-    <% end %>
-  </div>
-
- <% end %>
-
-
-
+      <%= render :partial => 'public_body/search_ahead' %>
     </div>
   </div>
 

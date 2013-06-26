@@ -12,19 +12,16 @@
 
         <script type="text/javascript" src="/javascripts/jquery.js"></script>
 
-    	<%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet" %>
-    	<%= stylesheet_link_tag 'fonts', :rel => "stylesheet" %>
-    	<%= stylesheet_link_tag 'theme', :rel => "stylesheet" %>
-        <!--[if LT IE 7]> 
-        <style type="text/css">@import url("/stylesheets/ie6.css");</style> 
-        <![endif]-->
-        <!--[if LT IE 7]> 
-        <style type="text/css">@import url("/stylesheets/ie6-custom.css");</style> 
+        <%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet" %>
+        <%= stylesheet_link_tag 'fonts', :rel => "stylesheet" %>
+        <%= stylesheet_link_tag 'theme', :rel => "stylesheet" %>
+        <!--[if LT IE 7]>
+        <style type="text/css">@import url("/stylesheets/ie6.css");</style>
         <![endif]-->
         <%= stylesheet_link_tag 'custom', :title => "Main", :rel => "stylesheet"  %>
     </head>
     <body>
-        <div class="entirebody">            
+        <div class="entirebody">
             <div id="content">
                 <% if flash[:notice] %>
                     <div id="notice"><%= flash[:notice] %></div>

@@ -41,7 +41,6 @@ gem 'dynamic_form'
 gem 'exception_notification'
 
 # Gems related to internationalisation
-# Also in vendor/plugins there is globalize2
 gem 'fast_gettext'
 gem 'gettext_i18n_rails'
 gem 'gettext'
