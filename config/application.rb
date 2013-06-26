@@ -71,10 +71,5 @@ module Alaveteli
     # Insert a bit of middleware code to prevent uneeded cookie setting.
     require "#{Rails.root}/lib/whatdotheyknow/strip_empty_sessions"
     config.middleware.insert_before ActionDispatch::Session::CookieStore, WhatDoTheyKnow::StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
-
-    # Ignore ACCEPT headers as a specification of format, only pay attention to
-    # formats specified in URLs
-    config.action_dispatch.ignore_accept_header = true
-
   end
 end
