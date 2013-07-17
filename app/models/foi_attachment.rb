@@ -25,6 +25,9 @@
 
 require 'digest'
 
+class AttachmentDeletedByReparse < StandardError
+end
+
 class FoiAttachment < ActiveRecord::Base
     belongs_to :incoming_message
     validates_presence_of :content_type
@@ -51,6 +54,17 @@ class FoiAttachment < ActiveRecord::Base
             @cached_body = nil
             File.delete(self.filepath)
         rescue
+        end
+    end
+
+    def ensure_extracted_file_exists
+        unless File.exists? self.filepath
+            self.incoming_message.parse_raw_email! true
+            begin
+                self.reload
+            rescue ActiveRecord::RecordNotFound
+                raise AttachmentDeletedByReparse
+            end
         end
     end
 
@@ -87,8 +101,7 @@ class FoiAttachment < ActiveRecord::Base
                 tries += 1
                 delay *= 2
                 delay = BODY_MAX_DELAY if delay > BODY_MAX_DELAY
-                force = true
-                self.incoming_message.parse_raw_email!(force)
+                ensure_extracted_file_exists
                 retry
             end
         end

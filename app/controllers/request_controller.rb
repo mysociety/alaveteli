@@ -686,6 +686,8 @@ class RequestController < ApplicationController
         end
     end
 
+    include RetryAfterDeletedAttachment
+
     # special caching code so mime types are handled right
     around_filter :cache_attachments, :only => [ :get_attachment, :get_attachment_as_html ]
     def cache_attachments
@@ -736,7 +738,6 @@ class RequestController < ApplicationController
     end
 
     def get_attachment_as_html
-
         # The conversion process can generate files in the cache directory that can be served up
         # directly by the webserver according to httpd.conf, so don't allow it unless that's OK.
         if @files_can_be_cached != true
@@ -769,39 +770,42 @@ class RequestController < ApplicationController
 
     # Internal function
     def get_attachment_internal(html_conversion)
-        @incoming_message = IncomingMessage.find(params[:incoming_message_id])
-        @requested_request = InfoRequest.find(params[:id])
-        @incoming_message.parse_raw_email!
-        @info_request = @incoming_message.info_request
-        if @incoming_message.info_request_id != params[:id].to_i
-            # Note that params[:id] might not be an integer, though
-            # if we’ve got this far then it must begin with an integer
-            # and that integer must be the id number of an actual request.
-            message = "Incoming message %d does not belong to request '%s'" % [@incoming_message.info_request_id, params[:id]]
-            raise ActiveRecord::RecordNotFound.new(message)
-        end
-        @part_number = params[:part].to_i
-        @filename = params[:file_name]
-        if html_conversion
-            @original_filename = @filename.gsub(/\.html$/, "")
-        else
-            @original_filename = @filename
-        end
+        cope_with_attachment_deleted_after_reparse {
+            @incoming_message = IncomingMessage.find(params[:incoming_message_id])
+            @requested_request = InfoRequest.find(params[:id])
+            @incoming_message.parse_raw_email!
+            @info_request = @incoming_message.info_request
+            if @incoming_message.info_request_id != params[:id].to_i
+                # Note that params[:id] might not be an integer, though
+                # if we’ve got this far then it must begin with an integer
+                # and that integer must be the id number of an actual request.
+                message = "Incoming message %d does not belong to request '%s'" % [@incoming_message.info_request_id, params[:id]]
+                raise ActiveRecord::RecordNotFound.new(message)
+            end
+            @part_number = params[:part].to_i
+            @filename = params[:file_name]
+            if html_conversion
+                @original_filename = @filename.gsub(/\.html$/, "")
+            else
+                @original_filename = @filename
+            end
 
-        # check permissions
-        raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
-        @attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(@incoming_message.get_attachments_for_display, @part_number, @original_filename)
-        # If we can't find the right attachment, redirect to the incoming message:
-        unless @attachment
-            return redirect_to incoming_message_url(@incoming_message), :status => 303
-        end
+            # check permissions
+            raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
+            @attachment = IncomingMessage.get_attachment_by_url_part_number_and_filename(@incoming_message.get_attachments_for_display, @part_number, @original_filename)
+            # If we can't find the right attachment, redirect to the incoming message:
+            unless @attachment
+                return redirect_to incoming_message_url(@incoming_message), :status => 303
+            end
+            @attachment.ensure_extracted_file_exists
 
-        # check filename in URL matches that in database (use a censor rule if you want to change a filename)
-        raise ActiveRecord::RecordNotFound.new("please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'") if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
+            # check filename in URL matches that in database (use a censor rule if you want to change a filename)
+            raise ActiveRecord::RecordNotFound.new("please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'") if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
 
-        @attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,
-                :incoming_message_id => @incoming_message.id, :part => @part_number,
-                :file_name => @original_filename )
+            @attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,
+                                                 :incoming_message_id => @incoming_message.id, :part => @part_number,
+                                                 :file_name => @original_filename )
+        }
     end
 
     # FOI officers can upload a response
@@ -864,70 +868,72 @@ class RequestController < ApplicationController
     end
 
     def download_entire_request
-        @locale = self.locale_from_params()
-        I18n.with_locale(@locale) do
-            @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-            # Test for whole request being hidden or requester-only
-            if !@info_request.all_can_view?
-                return render_hidden
-            end
-            if authenticated?(
-                              :web => _("To download the zip file"),
-                              :email => _("Then you can download a zip file of {{info_request_title}}.",
-                                           :info_request_title=>@info_request.title),
-                              :email_subject => _("Log in to download a zip file of {{info_request_title}}",
-                                           :info_request_title=>@info_request.title)
-                              )
-                updated = Digest::SHA1.hexdigest(@info_request.info_request_events.last.created_at.to_i.to_s + @info_request.updated_at.to_i.to_s)
-                @url_path = File.join("/download",
-                                       request_dirs(@info_request),
-                                       updated,
-                                       "#{params[:url_title]}.zip")
-                file_path = File.expand_path(File.join(download_zip_dir(), @url_path))
-                if !File.exists?(file_path)
-                    FileUtils.mkdir_p(File.dirname(file_path))
-                    Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) { |zipfile|
-                        convert_command = AlaveteliConfiguration::html_to_pdf_command
-                        done = false
-                        if !convert_command.blank? && File.exists?(convert_command)
-                            url = "http://#{AlaveteliConfiguration::domain}#{request_path(@info_request)}?print_stylesheet=1"
-                            tempfile = Tempfile.new('foihtml2pdf')
-                            output = AlaveteliExternalCommand.run(convert_command, url, tempfile.path)
-                            if !output.nil?
-                                zipfile.get_output_stream("correspondence.pdf") { |f|
-                                    f.puts(File.open(tempfile.path).read)
-                                }
-                                done = true
-                            else
-                                logger.error("Could not convert info request #{@info_request.id} to PDF with command '#{convert_command} #{url} #{tempfile.path}'")
-                            end
-                            tempfile.close
-                        else
-                            logger.warn("No HTML -> PDF converter found at #{convert_command}")
-                        end
-                        if !done
-                            @info_request_events = @info_request.info_request_events
-                            template = File.read(File.join(File.dirname(__FILE__), "..", "views", "request", "simple_correspondence.html.erb"))
-                            output = ERB.new(template).result(binding)
-                            zipfile.get_output_stream("correspondence.txt") { |f|
-                                f.puts(output)
-                            }
-                        end
-                        for message in @info_request.incoming_messages
-                            attachments = message.get_attachments_for_display
-                            for attachment in attachments
-                                filename = "#{attachment.url_part_number}_#{attachment.display_filename}"
-                                zipfile.get_output_stream(filename) { |f|
-                                    f.puts(attachment.body)
-                                }
-                            end
-                        end
-                    }
-                    File.chmod(0644, file_path)
+        cope_with_attachment_deleted_after_reparse {
+            @locale = self.locale_from_params()
+            I18n.with_locale(@locale) do
+                @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+                # Test for whole request being hidden or requester-only
+                if !@info_request.all_can_view?
+                    return render_hidden
                 end
-                redirect_to @url_path
+                if authenticated?(
+                                  :web => _("To download the zip file"),
+                                  :email => _("Then you can download a zip file of {{info_request_title}}.",
+                                               :info_request_title=>@info_request.title),
+                                  :email_subject => _("Log in to download a zip file of {{info_request_title}}",
+                                               :info_request_title=>@info_request.title)
+                                  )
+                    updated = Digest::SHA1.hexdigest(@info_request.info_request_events.last.created_at.to_i.to_s + @info_request.updated_at.to_i.to_s)
+                    @url_path = File.join("/download",
+                                           request_dirs(@info_request),
+                                           updated,
+                                           "#{params[:url_title]}.zip")
+                    file_path = File.expand_path(File.join(download_zip_dir(), @url_path))
+                    if !File.exists?(file_path)
+                        FileUtils.mkdir_p(File.dirname(file_path))
+                        Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) { |zipfile|
+                            convert_command = AlaveteliConfiguration::html_to_pdf_command
+                            done = false
+                            if !convert_command.blank? && File.exists?(convert_command)
+                                url = "http://#{AlaveteliConfiguration::domain}#{request_path(@info_request)}?print_stylesheet=1"
+                                tempfile = Tempfile.new('foihtml2pdf')
+                                output = AlaveteliExternalCommand.run(convert_command, url, tempfile.path)
+                                if !output.nil?
+                                    zipfile.get_output_stream("correspondence.pdf") { |f|
+                                        f.puts(File.open(tempfile.path).read)
+                                    }
+                                    done = true
+                                else
+                                    logger.error("Could not convert info request #{@info_request.id} to PDF with command '#{convert_command} #{url} #{tempfile.path}'")
+                                end
+                                tempfile.close
+                            else
+                                logger.warn("No HTML -> PDF converter found at #{convert_command}")
+                            end
+                            if !done
+                                @info_request_events = @info_request.info_request_events
+                                template = File.read(File.join(File.dirname(__FILE__), "..", "views", "request", "simple_correspondence.html.erb"))
+                                output = ERB.new(template).result(binding)
+                                zipfile.get_output_stream("correspondence.txt") { |f|
+                                    f.puts(output)
+                                }
+                            end
+                                for message in @info_request.incoming_messages
+                                    attachments = message.get_attachments_for_display
+                                    for attachment in attachments
+                                        filename = "#{attachment.url_part_number}_#{attachment.display_filename}"
+                                        zipfile.get_output_stream(filename) { |f|
+                                            f.puts(attachment.body)
+                                    }
+                                end
+                            end
+                        }
+                        File.chmod(0644, file_path)
+                    end
+                    redirect_to @url_path
+                end
             end
-        end
+        }
     end
 
     private
