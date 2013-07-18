@@ -96,6 +96,16 @@ Spork.prefork do
       I18n.locale = @save_i18n_locale
     end
 
+    # Turn routing-filter off in functional and unit tests as per
+    # https://github.com/svenfuchs/routing-filter/blob/master/README.markdown#testing
+    config.before(:each) do
+      RoutingFilter.active = false if [:controller, :helper, :model].include? example.metadata[:type]
+    end
+
+    config.after(:each) do
+      RoutingFilter.active = true if [:controller, :helper, :model].include? example.metadata[:type]
+    end
+
     # This section makes the garbage collector run less often to speed up tests
     last_gc_run = Time.now
 

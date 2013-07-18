@@ -43,28 +43,14 @@ describe PublicBodyController, "when showing a body" do
             :conditions => ["public_body_id = ?", public_bodies(:humpadink_public_body).id])
     end
 
-    it "should redirect to the canonical name in the chosen locale" do
-        get :show, {:url_name => "dfh", :view => 'all', :show_locale => "es"}
-        response.should redirect_to "http://test.host/es/body/edfh"
-    end
-
-    it "should assign the body using same locale as that used in url_name" do
-        get :show, {:url_name => "edfh", :view => 'all', :show_locale => "es"}
+    it "should display the body using same locale as that used in url_name" do
+        get :show, {:url_name => "edfh", :view => 'all', :locale => "es"}
         response.should contain("Baguette")
     end
 
     it "should redirect use to the relevant locale even when url_name is for a different locale" do
-        RoutingFilter.active = false
-
         get :show, {:url_name => "edfh", :view => 'all'}
         response.should redirect_to "http://test.host/body/dfh"
-
-        RoutingFilter.active = true
-    end
-
-    it "should remember the filter (view) setting on redirecting" do
-        get :show, :show_locale => "es", :url_name => "tgq", :view => 'successful'
-        response.should redirect_to 'http://test.host/es/body/etgq/successful'
     end
 
     it "should redirect to newest name if you use historic name of public body in URL" do
@@ -95,10 +81,8 @@ describe PublicBodyController, "when listing bodies" do
                                           :last_edit_comment => '')
             @english_only.save
         end
-        I18n.with_locale(:es) do
-            get :list
-            assigns[:public_bodies].include?(@english_only).should == true
-        end
+        get :list, {:locale => 'es'}
+        assigns[:public_bodies].include?(@english_only).should == true
     end
 
     it "should list bodies in alphabetical order" do
