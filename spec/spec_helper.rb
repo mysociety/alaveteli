@@ -88,12 +88,9 @@ Spork.prefork do
     # ApplicationController#set_gettext_locale which sets the locale and so you may be setting
     # the locale in your tests and not even realising it. So, let's make things easier for
     # ourselves and just always restore the locale for all tests.
-    config.before(:each) do
-      @save_i18n_locale = I18n.locale
-    end
-
     config.after(:each) do
-      I18n.locale = @save_i18n_locale
+      AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
+                                        AlaveteliConfiguration::default_locale)
     end
 
     # Turn routing-filter off in functional and unit tests as per

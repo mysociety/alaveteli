@@ -7,21 +7,19 @@ describe "when generating urls" do
     end
 
     it "should generate URLs that include the locale when using one that includes an underscore" do
-        AlaveteliConfiguration.stub!(:available_locales).and_return('en_GB')
         get('/en_GB')
         response.body.should match /href="\/en_GB\//
     end
 
     it "should fall back to the language if the territory is unknown" do
-        AlaveteliConfiguration.stub!(:available_locales).and_return('es en')
-        AlaveteliConfiguration.stub!(:default_locale).and_return('es')
+        AlaveteliLocalization.set_locales(available_locales='es en', default_locale='en')
         get('/', {}, {'HTTP_ACCEPT_LANGUAGE' => 'en_US'})
         response.body.should match /href="\/en\//
         response.body.should_not match /href="\/en_US\//
     end
 
     it "should generate URLs without a locale prepended when there's only one locale set" do
-        AlaveteliConfiguration.stub!(:available_locales).and_return('en')
+        AlaveteliLocalization.set_locales(available_locales='en', default_locale='en')
         get('/')
         response.should_not contain @home_link_regex
     end
@@ -39,8 +37,7 @@ describe "when generating urls" do
     describe 'when there is more than one locale' do
 
         before do
-            AlaveteliConfiguration.stub!(:available_locales).and_return('en es')
-            AlaveteliConfiguration.stub!(:default_locale).and_return('en')
+            AlaveteliLocalization.set_locales(available_locales='es en', default_locale='en')
         end
 
         it "should generate URLs with a locale prepended when there's more than one locale set" do
