@@ -20,8 +20,14 @@
     <span class="bottomline">
         <%= n_('{{count}} request made.', '{{count}} requests made.', public_body.info_requests.size,
         :count => public_body.info_requests.size) %>
-        <% if !@include_request_link_in_authority_listing.nil? %>
-        <%= link_to _("Make your own request"), public_body_path(public_body) %>.
+        <% if !public_body.is_requestable? && public_body.not_requestable_reason != 'bad_contact' %>
+            <% if public_body.not_requestable_reason == 'defunct' %>
+                <%= _('Defunct.') %>
+            <% end %>
+        <% else %>
+            <% if !@include_request_link_in_authority_listing.nil? %>
+            <%= link_to _("Make your own request"), public_body_path(public_body) %>.
+            <% end %>
         <% end %>
         <br>
         <span class="date_added">
