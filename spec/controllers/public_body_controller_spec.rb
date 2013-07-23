@@ -48,6 +48,12 @@ describe PublicBodyController, "when showing a body" do
         response.should contain("Baguette")
     end
 
+    it 'should show public body names in the selected locale language if present for a locale with underscores' do
+        AlaveteliLocalization.set_locales('he_IL en', 'en')
+        get :show, {:url_name => 'dfh', :view => 'all', :locale => 'he_IL'}
+        response.should contain('Hebrew Humpadinking')
+    end
+
     it "should redirect use to the relevant locale even when url_name is for a different locale" do
         get :show, {:url_name => "edfh", :view => 'all'}
         response.should redirect_to "http://test.host/body/dfh"
@@ -84,6 +90,18 @@ describe PublicBodyController, "when listing bodies" do
         get :list, {:locale => 'es'}
         assigns[:public_bodies].include?(@english_only).should == true
     end
+
+    it 'should show public body names in the selected locale language if present' do
+        get :list, {:locale => 'es'}
+        response.should contain('El Department for Humpadinking')
+    end
+
+    it 'should show public body names in the selected locale language if present for a locale with underscores' do
+        AlaveteliLocalization.set_locales('he_IL en', 'en')
+        get :list, {:locale => 'he_IL'}
+        response.should contain('Hebrew Humpadinking')
+    end
+
 
     it "should list bodies in alphabetical order" do
         # Note that they are alphabetised by localised name
