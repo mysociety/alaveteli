@@ -156,6 +156,7 @@ describe InfoRequest do
         end
 
         it "should cope with indexing after item is deleted" do
+            load_raw_emails_data
             IncomingMessage.find(:all).each{|x| x.parse_raw_email!}
             rebuild_xapian_index
             # delete event from underneath indexing; shouldn't cause error
