@@ -464,7 +464,7 @@ end
 
 describe PublicBody, " when override all public body request emails set" do
     it "should return the overridden request email" do
-        MySociety::Config.should_receive(:get).with("OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS", "").twice.and_return("catch_all_test_email@foo.com")
+        AlaveteliConfiguration.should_receive(:override_all_public_body_request_emails).twice.and_return("catch_all_test_email@foo.com")
         @geraldine = public_bodies(:geraldine_public_body)
         @geraldine.request_email.should == "catch_all_test_email@foo.com"
     end
