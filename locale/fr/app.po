@@ -9,6 +9,7 @@
 # Bbear <borisjf@post.harvard.edu>, 2011
 # sim51 <contact@bsimard.com>, 2013
 # Bbear <borisjf@post.harvard.edu>, 2011
+# David Cabo <david.cabo@gmail.com>, 2013
 # pchrzanowski <pierre.chrzanowski@gmail.com>, 2013
 # radproject <radhouanef@gmail.com>, 2013
 # radproject <radhouanef@gmail.com>, 2013
@@ -27,8 +28,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2013-06-24 09:40-0700\n"
-"PO-Revision-Date: 2013-06-26 16:07+0000\n"
-"Last-Translator: pchrzanowski <pierre.chrzanowski@gmail.com>\n"
+"PO-Revision-Date: 2013-07-22 22:28+0000\n"
+"Last-Translator: David Cabo <david.cabo@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/alaveteli/language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +50,7 @@ msgid " (you)"
 msgstr "(vous)"
 
 msgid " - view and make Freedom of Information requests"
-msgstr "- Voir et faire des demandes d'accès a l'information "
+msgstr "- voir et demander des informations "
 
 msgid " - wall"
 msgstr "-mur"
@@ -119,13 +120,13 @@ msgid "'Pollution levels over time for the River Tyne'"
 msgstr "« Évolution dans le temps des niveaux de pollution de la rivière Tyne »"
 
 msgid "'{{link_to_authority}}', a public authority"
-msgstr "'{{lien_vers_administration}}', une administration publique"
+msgstr "'{{link_to_authority}}', une administration publique"
 
 msgid "'{{link_to_request}}', a request"
 msgstr "'{{link_to_request}}', une demande"
 
 msgid "'{{link_to_user}}', a person"
-msgstr "{{lien_vers_utilisateur}}', une personne"
+msgstr "{{link_to_user}}', une personne"
 
 msgid "*unknown*"
 msgstr "*unknown*"
@@ -1267,10 +1268,10 @@ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<
 msgstr "Faire une<br/>\\n  <strong>Nouvelle  <span>demande</span><br/>\\n  d'accès<br/>\\n  à l'information</strong>"
 
 msgid "Make a request"
-msgstr "Faire une demande"
+msgstr "Demander une information"
 
 msgid "Make a request to this authority"
-msgstr ""
+msgstr "Faire une demande d'information à cette institution"
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Faire une {{law_used_short}} demande à  '{{public_body_name}}'"
@@ -2709,7 +2710,7 @@ msgid "View and search requests"
 msgstr "Visualiser et parcourir les demandes d'information"
 
 msgid "View authorities"
-msgstr "Voir institutions publiques"
+msgstr "Les institutions publiques"
 
 msgid "View email"
 msgstr "Voir mail :"
@@ -2892,7 +2893,7 @@ msgid "You may <strong>include attachments</strong>. If you would like to attach
 msgstr "Vous pouvez <strong> inclure des pièces jointes </ strong>. Si vous souhaitez joindre un fichier \\n trop volumineux  pour le courrier électronique, utiliser le formulaire ci-dessous."
 
 msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send it to us</a>."
-msgstr "Vous pourrez peut-être trouver \\n un sur leur site Web ou en leur téléphonant et demander. Si vous parvenez \\n en trouver un, alors s'il vous plaît <a href=\"{{help_url}}\">contactez nous </a>."
+msgstr "Vous pourrez peut-être trouver \\n un sur leur site Web ou en leur téléphonant et demander. Si vous parvenez \\n en trouver un, alors s'il vous plaît <a href=\"{{url}}\">contactez nous </a>."
 
 msgid "You may be able to find\\none on their website, or by phoning them up and asking. If you manage\\nto find one, then please <a href=\"{{help_url}}\">send it to us</a>."
 msgstr "Vous pourrez peut-être trouver \\n un sur leur site Web ou en leur téléphonant et demander. Si vous parvenez \\n en trouver un, alors s'il vous plaît  <a href=\"{{help_url}}\">contactez nous </a>."
