@@ -26,7 +26,7 @@ GPSCRIPT=/tmp/foi-creation-rate-graph-script-$RANDOM$RANDOM
 #    where status in ('draft') 
 
 function grab_data {
-    echo "$1;" | PGPASSWORD=foi psql --host $OPTION_FOI_DB_HOST --port $OPTION_FOI_DB_PORT -A -F " " $OPTION_FOI_DB_NAME $OPTION_FOI_DB_USER | egrep -v "date|rows" >$2
+    echo "$1;" | PGPASSWORD=$OPTION_FOI_DB_PASSWORD psql --host $OPTION_FOI_DB_HOST --port $OPTION_FOI_DB_PORT -A -F " " $OPTION_FOI_DB_NAME $OPTION_FOI_DB_USER | egrep -v "date|rows" >$2
 }
 
 # rather nastily, work out the cumulative heights in reverse, so can plot impulses on top of each other
