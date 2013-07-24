@@ -13,15 +13,21 @@ namespace :temp do
         total_messages = 0
         messages_to_reparse = 0
         IncomingMessage.find_each :include => :foi_attachments do |im|
-            reparse = im.foi_attachments.any? { |fa| ! File.exists? fa.filepath }
-            total_messages += 1
-            messages_to_reparse += 1 if reparse
-            if total_messages % 1000 == 0
-                puts "Considered #{total_messages} received emails."
-            end
-            unless dry_run
-                im.parse_raw_email! true if reparse
-                sleep 2
+            begin
+                reparse = im.foi_attachments.any? { |fa| ! File.exists? fa.filepath }
+                total_messages += 1
+                messages_to_reparse += 1 if reparse
+                if total_messages % 1000 == 0
+                    puts "Considered #{total_messages} received emails."
+                end
+                unless dry_run
+                    im.parse_raw_email! true if reparse
+                    sleep 2
+                end
+            rescue StandardError => e
+                puts "There was a #{e.class} exception reparsing IncomingMessage with ID #{im.id}"
+                puts e.backtrace
+                puts e.message
             end
         end
         message = dry_run ? "Would reparse" : "Reparsed"
