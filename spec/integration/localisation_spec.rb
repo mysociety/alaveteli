@@ -53,15 +53,10 @@ describe "when generating urls" do
                 @old_include_default_locale_in_urls = AlaveteliConfiguration::include_default_locale_in_urls
             end
 
-            def set_default_locale_in_urls(value)
-                AlaveteliConfiguration.stub!(:include_default_locale_in_urls).and_return(value)
-                load Rails.root.join("config/initializers/fast_gettext.rb")
-            end
-
             describe 'when the config value INCLUDE_DEFAULT_LOCALE_IN_URLS is false' do
 
                 before do
-                    set_default_locale_in_urls(false)
+                    AlaveteliLocalization.set_default_locale_urls(false)
                 end
 
                 it 'should generate URLs without a locale prepended' do
@@ -78,13 +73,13 @@ describe "when generating urls" do
 
             it 'should generate URLs with a locale prepended when the config value
                 INCLUDE_DEFAULT_LOCALE_IN_URLS is true' do
-                set_default_locale_in_urls(true)
+                AlaveteliLocalization.set_default_locale_urls(true)
                 get '/'
                 response.body.should match /#{@default_lang_home_link}/
             end
 
             after do
-                set_default_locale_in_urls(@old_include_default_locale_in_urls)
+                AlaveteliLocalization.set_default_locale_urls(@old_include_default_locale_in_urls)
             end
 
         end

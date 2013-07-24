@@ -31,8 +31,7 @@ Spork.prefork do
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
   # Use test-specific translations
-  FastGettext.add_text_domain 'app', :path => File.join(File.dirname(__FILE__), 'fixtures', 'locale'), :type => :po
-  FastGettext.default_text_domain = 'app'
+  AlaveteliLocalization.set_default_text_domain('app', File.join(File.dirname(__FILE__), 'fixtures', 'locale'))
 
   RSpec.configure do |config|
     # ## Mock Framework

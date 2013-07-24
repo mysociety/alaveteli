@@ -9,5 +9,13 @@ class AlaveteliLocalization
             I18n.default_locale = default_locale
         end
 
+        def set_default_text_domain(name, path)
+            FastGettext.add_text_domain name, :path => path, :type => :po
+            FastGettext.default_text_domain = name
+        end
+
+        def set_default_locale_urls(include_default_locale_in_urls)
+            RoutingFilter::Locale.include_default_locale = include_default_locale_in_urls
+        end
     end
 end
