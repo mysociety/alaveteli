@@ -9,6 +9,13 @@ end
 
 describe 'when creating a mail object from raw data' do
 
+    it "should be able to parse a large email without raising an exception", :focus => true do
+        m = Mail.new
+        m.add_file(:filename => "attachment.data", :content => "a" * (8 * 1024 * 1024))
+        raw_email = "From jamis_buck@byu.edu Mon May  2 16:07:05 2005\r\n#{m.to_s}"
+        lambda { Mail::Message.new(raw_email) }.should_not raise_error
+    end
+
     it 'should correctly parse a multipart email with a linebreak in the boundary' do
         mail = get_fixture_mail('space-boundary.email')
         mail.parts.size.should == 2
