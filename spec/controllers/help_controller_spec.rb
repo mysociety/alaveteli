@@ -31,15 +31,9 @@ describe HelpController, "when using help" do
     describe 'when requesting a page in a supported locale ' do
 
         before do
-            # Allow us to supply the locale manually
-            RoutingFilter.active = false
             # Prepend our fixture templates
             fixture_theme_path = File.join(Rails.root, 'spec', 'fixtures', 'theme_views', 'theme_one')
             controller.prepend_view_path fixture_theme_path
-        end
-
-        after do
-            RoutingFilter.active = true
         end
 
         it 'should render the locale-specific template if available' do
