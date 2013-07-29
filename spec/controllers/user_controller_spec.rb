@@ -3,6 +3,31 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 # XXX Use route_for or params_from to check /c/ links better
 # http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/ControllerExampleGroup.html
+describe UserController, "when redirecting a show request to a canonical url" do
+
+    it "should redirect to lower case name if given one with capital letters" do
+        get :show, :url_name => "Bob_Smith"
+        response.should redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
+    end
+
+    it 'should redirect a long non-canonical name that has a numerical suffix,
+    retaining the suffix' do
+        get :show, :url_name => 'Bob_SmithBob_SmithBob_SmithBob_S_2'
+        response.should redirect_to(:controller => 'user',
+                                    :action => 'show',
+                                    :url_name => 'bob_smithbob_smithbob_smithbob_s_2')
+    end
+
+    it 'should not redirect a long canonical name that has a numerical suffix' do
+        User.stub!(:find).with(:first, anything()).and_return(mock_model(User,
+                                        :url_name => 'bob_smithbob_smithbob_smithbob_s_2',
+                                        :name => 'Bob Smith Bob Smith Bob Smith Bob Smith'))
+        User.stub!(:find).with(:all, anything()).and_return([])
+        get :show, :url_name => 'bob_smithbob_smithbob_smithbob_s_2'
+        response.should be_success
+    end
+
+end
 
 describe UserController, "when showing a user" do
     render_views
@@ -14,11 +39,6 @@ describe UserController, "when showing a user" do
     it "should be successful" do
         get :show, :url_name => "bob_smith"
         response.should be_success
-    end
-
-    it "should redirect to lower case name if given one with capital letters" do
-        get :show, :url_name => "Bob_Smith"
-        response.should redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
     end
 
     it "should render with 'show' template" do
