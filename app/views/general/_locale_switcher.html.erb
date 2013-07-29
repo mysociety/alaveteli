@@ -2,7 +2,7 @@
    <div id="user_locale_switcher">
      <div class="btn-group">
      <% for possible_locale in FastGettext.default_available_locales %>
-      <% if possible_locale == I18n.locale.to_s %>
+      <% if possible_locale == FastGettext.locale %>
         <a href="#" class="btn disabled"><%= locale_name(possible_locale) %></a>
       <% else %>
         <a href="<%= url_for params.merge(:locale => possible_locale) %>" class="btn"><%= locale_name(possible_locale) %></a>

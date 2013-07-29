@@ -373,6 +373,11 @@ end
 # I would expect ActsAsXapian to have some tests under vendor/plugins/acts_as_xapian, but
 # it looks like this is not the case. Putting a test here instead.
 describe ActsAsXapian::Search, "#words_to_highlight" do
+    before(:each) do
+         load_raw_emails_data
+         get_fixtures_xapian_index
+     end
+
     it "should return a list of words used in the search" do
         s = ActsAsXapian::Search.new([PublicBody], "albatross words", :limit => 100)
         s.words_to_highlight.should == ["albatross", "words"]
