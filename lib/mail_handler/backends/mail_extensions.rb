@@ -46,6 +46,15 @@ module Mail
 
             self
         end
+
+        def set_envelope_header
+            raw_string = raw_source.to_s
+            if match_data = raw_source.to_s.match(/\AFrom\s(#{TEXT}+)#{CRLF}/m)
+               set_envelope(match_data[1])
+               self.raw_source = raw_string.sub(match_data[0], "")
+            end
+        end
+
     end
 
     # A patched version of the parameter hash that handles nil values without throwing
