@@ -7,8 +7,7 @@
 * Internal review request text is now translatable
 * config/crontab.ugly is now config/crontab-example
 * Search query highlighting should now work with non-ascii characters [issue #505](https://github.com/mysociety/alaveteli/issues/505) (Matthew Landauer)
-* A bug that allowed people to sign up with email addresses with spaces in them has been fixed [issue #980](https://github.com/mysociety/alaveteli/issues/980)
-
+* A bug that allowed people to sign up with email addresses with spaces in them has been fixed [issue #980](https://github.com/mysociety/alaveteli/issues/980). Any existing email addresses with spaces in them will cause problems e.g. when the cron scripts encounter them. You can fix them manually, or by running `rake temp:clean_up_emails_with_spaces` from `lib/tasks/temp.rake`
 * [List of issues on github](https://github.com/mysociety/alaveteli/issues?milestone=30&state=closed)
 
 ## Upgrade notes
