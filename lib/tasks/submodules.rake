@@ -5,7 +5,7 @@ namespace :submodules do
     task :check => :environment do
         commit_info = `git submodule status`
         sha, repo, branch = commit_info.split(' ')
-        case sha[0]
+        case sha[0,1]
         when '+'
             $stderr.puts "Warning: Currently checked out submodule commit for #{repo}"
             $stderr.puts "does not match the commit expected by this version of Alaveteli."
