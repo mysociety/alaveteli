@@ -159,7 +159,8 @@ document, though we describe an example configuration for Exim in
 
 Note that in development mode, mail is handled by default by mailcatcher
 so that you can see the mails in a browser - see http://mailcatcher.me/
-for more details.
+for more details. Start mailcatcher by running `bundle exec mailcatcher`
+in your application directory.
 
 ## Minimal
 
