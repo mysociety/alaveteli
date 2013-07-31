@@ -244,8 +244,8 @@ class User < ActiveRecord::Base
       !user.nil? && user.owns_every_request?
     end
 
-    # Can the user see every request, even hidden ones?
-    def User.view_hidden_requests?(user)
+    # Can the user see every request, response, and outgoing message, even hidden ones?
+    def User.view_hidden?(user)
       !user.nil? && user.super?
     end
 
