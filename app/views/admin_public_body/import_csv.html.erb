@@ -31,8 +31,8 @@
     <p>
     <label for="tag_behaviour">What to do with existing tags?</label>
     <%= select_tag 'tag_behaviour',
-        "<option value='add' selected>Add new tags to existing ones</option>
-         <option value='replace'>Replace existing tags with new ones</option>"
+        raw("<option value='add' selected>Add new tags to existing ones</option>
+         <option value='replace'>Replace existing tags with new ones</option>")
     %>
     </p>
 
