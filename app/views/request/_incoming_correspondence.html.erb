@@ -1,0 +1,21 @@
+<div class="incoming correspondence" id="incoming-<%=incoming_message.id.to_s%>">
+  <h2>
+    <% if incoming_message.safe_mail_from && incoming_message.safe_mail_from.strip != @info_request.public_body.name.strip %>
+      <%= _("From:") %> <%= incoming_message.safe_mail_from %><br>
+    <% end %>
+    <% if incoming_message.safe_mail_from.nil? || (incoming_message.mail_from_domain == @info_request.public_body.request_email_domain) %>
+      <%= @info_request.public_body.name %><br>
+    <% end %>
+    <br><%= simple_date(incoming_message.sent_at) %>
+  </h2>
+
+  <%= render :partial => 'bubble', :locals => { :incoming_message => incoming_message, :body => incoming_message.get_body_for_html_display(@collapse_quotes), :attachments => incoming_message.get_attachments_for_display }  %>
+
+  <p class="event_actions">
+    <% if !@user.nil? && @user.admin_page_links? %>
+      <%= link_to "Admin", admin_request_show_raw_email_path(incoming_message.raw_email_id) %> |
+    <% end %>
+    <%= link_to _("Link to this"), incoming_message_path(incoming_message), :class => "link_to_this" %>
+  </p>
+</div>
+
