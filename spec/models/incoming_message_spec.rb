@@ -54,7 +54,7 @@ describe IncomingMessage, 'when getting a response event' do
 
 end
 
-describe IncomingMessage, 'when asked if a user can view it', :focus => true do
+describe IncomingMessage, 'when asked if a user can view it' do
 
     before do
         @user = mock_model(User)

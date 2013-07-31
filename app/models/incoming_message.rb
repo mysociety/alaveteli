@@ -72,13 +72,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     def user_can_view?(user)
-        if self.prominence == 'hidden'
-            return User.view_hidden?(user)
-        end
-        if self.prominence == 'requester_only'
-            return self.info_request.is_owning_user?(user)
-        end
-        return true
+        Ability.can_view_with_prominence?(self.prominence, self.info_request, user)
     end
 
     # Return a cached structured mail object

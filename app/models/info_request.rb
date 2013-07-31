@@ -1018,13 +1018,7 @@ public
     end
 
     def user_can_view?(user)
-        if self.prominence == 'hidden'
-            return User.view_hidden?(user)
-        end
-        if self.prominence == 'requester_only'
-            return self.is_owning_user?(user)
-        end
-        return true
+        Ability.can_view_with_prominence?(self.prominence, self, user)
     end
 
     # Is this request visible to everyone?
