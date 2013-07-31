@@ -432,7 +432,7 @@ release.  Failure to do so means that any new words added to the
 Alaveteli source code will appear in your website in English by
 default.  If your translations didn't make it to the latest release,
 you will need to download the updated `app.po` for your locale from
-Transifex and save it in the `locales/` folder.
+Transifex and save it in the `locale/` folder.
 
 You should always run the script `scripts/rails-post-deploy` after
 each deployment.  This runs any database migrations for you, plus
