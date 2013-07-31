@@ -71,6 +71,16 @@ class IncomingMessage < ActiveRecord::Base
         self.info_request_events.detect{ |e| e.event_type == 'response' }
     end
 
+    def user_can_view?(user)
+        if self.prominence == 'hidden'
+            return User.view_hidden?(user)
+        end
+        if self.prominence == 'requester_only'
+            return self.info_request.is_owning_user?(user)
+        end
+        return true
+    end
+
     # Return a cached structured mail object
     def mail(force = nil)
         if (!force.nil? || @mail.nil?) && !self.raw_email.nil?

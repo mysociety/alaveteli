@@ -54,6 +54,63 @@ describe IncomingMessage, 'when getting a response event' do
 
 end
 
+describe IncomingMessage, 'when asked if a user can view it', :focus => true do
+
+    before do
+        @user = mock_model(User)
+        @info_request = mock_model(InfoRequest)
+        @incoming_message = IncomingMessage.new(:info_request => @info_request)
+    end
+
+    context 'if the prominence is hidden' do
+
+        before do
+            @incoming_message.prominence = 'hidden'
+        end
+
+        it 'should return true if the user can view hidden things' do
+            User.stub!(:view_hidden?).with(@user).and_return(true)
+            @incoming_message.user_can_view?(@user).should be_true
+        end
+
+        it 'should return false if the user cannot view hidden things' do
+            User.stub!(:view_hidden?).with(@user).and_return(false)
+            @incoming_message.user_can_view?(@user).should be_false
+        end
+
+    end
+
+    context 'if the prominence is requester_only' do
+
+        before do
+            @incoming_message.prominence = 'requester_only'
+        end
+
+        it 'should return true if the user owns the associated request' do
+            @info_request.stub!(:is_owning_user?).with(@user).and_return(true)
+            @incoming_message.user_can_view?(@user).should be_true
+        end
+
+        it 'should return false if the user does not own the associated request' do
+            @info_request.stub!(:is_owning_user?).with(@user).and_return(false)
+            @incoming_message.user_can_view?(@user).should be_false
+        end
+    end
+
+    context 'if the prominence is normal' do
+
+        before do
+            @incoming_message.prominence = 'normal'
+        end
+
+        it 'should return true' do
+            @incoming_message.user_can_view?(@user).should be_true
+        end
+
+    end
+
+end
+
 describe IncomingMessage, " when dealing with incoming mail" do
 
     before(:each) do
