@@ -42,6 +42,18 @@ describe IncomingMessage, 'when validating' do
 
 end
 
+describe IncomingMessage, 'when getting a response event' do
+
+    it 'should return an event with event_type "response"' do
+        incoming_message = IncomingMessage.new
+        ['comment', 'response'].each do |event_type|
+            incoming_message.info_request_events << InfoRequestEvent.new(:event_type => event_type)
+        end
+        incoming_message.response_event.event_type.should == 'response'
+    end
+
+end
+
 describe IncomingMessage, " when dealing with incoming mail" do
 
     before(:each) do

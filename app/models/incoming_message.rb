@@ -65,6 +65,12 @@ class IncomingMessage < ActiveRecord::Base
         'application/zip' => 1,
     }
 
+    # Given that there are in theory many info request events, a convenience method for
+    # getting the response event
+    def response_event
+        self.info_request_events.detect{ |e| e.event_type == 'response' }
+    end
+
     # Return a cached structured mail object
     def mail(force = nil)
         if (!force.nil? || @mail.nil?) && !self.raw_email.nil?
