@@ -17,6 +17,7 @@
 #  last_parsed                    :datetime
 #  mail_from                      :text
 #  sent_at                        :datetime
+#  prominence                     :string(255)      default("normal"), not null
 #
 
 # models/incoming_message.rb:
@@ -46,6 +47,12 @@ class IncomingMessage < ActiveRecord::Base
     has_many :info_request_events # never really has many, but could in theory
 
     belongs_to :raw_email
+
+    validates_inclusion_of :prominence, :in => [
+        'normal',
+        'hidden',
+        'requester_only'
+    ]
 
     # See binary_mask_stuff function below. It just test for inclusion
     # in this hash, not the value of the right hand side.
