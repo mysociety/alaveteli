@@ -34,7 +34,7 @@
         <%= request_both_links(event.info_request) %>
         <% if event.event_type == 'edit' %>
             was edited by administrator <strong><%=h event.params[:editor] %></strong>.
-            <% for p in ['title', 'prominence', 'described_state', 'awaiting_description']
+            <% for p in ['title', 'described_state', 'awaiting_description']
                     if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
                         %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
                     end
