@@ -1,18 +1,17 @@
 # == Schema Information
-# Schema version: 114
 #
 # Table name: outgoing_messages
 #
-#  id                           :integer         not null, primary key
-#  info_request_id              :integer         not null
-#  body                         :text            not null
-#  status                       :string(255)     not null
-#  message_type                 :string(255)     not null
-#  created_at                   :datetime        not null
-#  updated_at                   :datetime        not null
+#  id                           :integer          not null, primary key
+#  info_request_id              :integer          not null
+#  body                         :text             not null
+#  status                       :string(255)      not null
+#  message_type                 :string(255)      not null
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
 #  last_sent_at                 :datetime
 #  incoming_message_followup_id :integer
-#  what_doing                   :string(255)     not null
+#  what_doing                   :string(255)      not null
 #
 
 # models/outgoing_message.rb:

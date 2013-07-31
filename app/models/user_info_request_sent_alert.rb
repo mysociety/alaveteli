@@ -1,12 +1,11 @@
 # == Schema Information
-# Schema version: 114
 #
 # Table name: user_info_request_sent_alerts
 #
-#  id                    :integer         not null, primary key
-#  user_id               :integer         not null
-#  info_request_id       :integer         not null
-#  alert_type            :string(255)     not null
+#  id                    :integer          not null, primary key
+#  user_id               :integer          not null
+#  info_request_id       :integer          not null
+#  alert_type            :string(255)      not null
 #  info_request_event_id :integer
 #
 

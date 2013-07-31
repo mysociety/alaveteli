@@ -1,3 +1,10 @@
+# == Schema Information
+#
+# Table name: raw_emails
+#
+#  id :integer          not null, primary key
+#
+
 # The actual email messages are in fixtures/files/raw_emails
 #
 # Note that the words "money" and "bob" are used in some tests

@@ -1,10 +1,9 @@
 # == Schema Information
-# Schema version: 114
 #
 # Table name: track_things_sent_emails
 #
-#  id                    :integer         not null, primary key
-#  track_thing_id        :integer         not null
+#  id                    :integer          not null, primary key
+#  track_thing_id        :integer          not null
 #  info_request_event_id :integer
 #  user_id               :integer
 #  public_body_id        :integer

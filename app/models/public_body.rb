@@ -1,27 +1,27 @@
+# -*- coding: utf-8 -*-
 # == Schema Information
-# Schema version: 20120919140404
 #
 # Table name: public_bodies
 #
-#  id                  :integer         not null, primary key
-#  name                :text            not null
-#  short_name          :text            not null
-#  request_email       :text            not null
-#  version             :integer         not null
-#  last_edit_editor    :string(255)     not null
-#  last_edit_comment   :text            not null
-#  created_at          :datetime        not null
-#  updated_at          :datetime        not null
-#  url_name            :text            not null
-#  home_page           :text            default(""), not null
-#  notes               :text            default(""), not null
-#  first_letter        :string(255)     not null
-#  publication_scheme  :text            default(""), not null
-#  api_key             :string(255)     not null
-#  info_requests_count :integer         default(0), not null
+#  id                  :integer          not null, primary key
+#  name                :text             not null
+#  short_name          :text             not null
+#  request_email       :text             not null
+#  version             :integer          not null
+#  last_edit_editor    :string(255)      not null
+#  last_edit_comment   :text             not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  url_name            :text             not null
+#  home_page           :text             default(""), not null
+#  notes               :text             default(""), not null
+#  first_letter        :string(255)      not null
+#  publication_scheme  :text             default(""), not null
+#  api_key             :string(255)      not null
+#  info_requests_count :integer          default(0), not null
+#  disclosure_log      :text             default(""), not null
 #
 
-# -*- coding: utf-8 -*-
 require 'csv'
 require 'securerandom'
 require 'set'
