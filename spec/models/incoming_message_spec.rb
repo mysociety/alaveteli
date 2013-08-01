@@ -112,6 +112,29 @@ describe IncomingMessage, 'when asked if a user can view it' do
 
 end
 
+describe 'when asked if it is indexed by search' do
+
+    before do
+        @incoming_message = IncomingMessage.new
+    end
+
+    it 'should return false if it has prominence "hidden"' do
+        @incoming_message.prominence = 'hidden'
+        @incoming_message.indexed_by_search?.should be_false
+    end
+
+    it 'should return false if it has prominence "requester_only"' do
+        @incoming_message.prominence = 'requester_only'
+        @incoming_message.indexed_by_search?.should be_false
+    end
+
+    it 'should return true if it has prominence "normal"' do
+        @incoming_message.prominence = 'normal'
+        @incoming_message.indexed_by_search?.should be_true
+    end
+
+end
+
 describe IncomingMessage, " when dealing with incoming mail" do
 
     before(:each) do

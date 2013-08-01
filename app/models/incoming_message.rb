@@ -76,6 +76,10 @@ class IncomingMessage < ActiveRecord::Base
         Ability.can_view_with_prominence?(self.prominence, self.info_request, user)
     end
 
+    def indexed_by_search?
+        self.prominence == 'normal'
+    end
+
     # Return a cached structured mail object
     def mail(force = nil)
         if (!force.nil? || @mail.nil?) && !self.raw_email.nil?

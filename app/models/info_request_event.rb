@@ -235,6 +235,9 @@ class InfoRequestEvent < ActiveRecord::Base
             if !self.info_request.indexed_by_search?
                 return false
             end
+            if self.event_type == 'response' && !self.incoming_message.indexed_by_search?
+                return false
+            end
             if self.event_type == 'comment' && !self.comment.visible
                 return false
             end
@@ -243,6 +246,7 @@ class InfoRequestEvent < ActiveRecord::Base
             return false
         end
     end
+
     def variety
         self.event_type
     end

@@ -32,6 +32,47 @@ describe InfoRequestEvent do
 
     end
 
+    describe 'when deciding if it is indexed by search' do
+
+        before do
+            @comment = mock_model(Comment)
+            @incoming_message = mock_model(IncomingMessage)
+            @info_request = mock_model(InfoRequest, :indexed_by_search? => true)
+        end
+
+        it 'should return false for a comment that is not visible' do
+            @comment.stub!(:visible).and_return(false)
+            @info_request_event = InfoRequestEvent.new(:event_type => 'comment',
+                                                       :comment => @comment,
+                                                       :info_request => @info_request)
+            @info_request_event.indexed_by_search?.should be_false
+        end
+
+        it 'should return true for a comment that is visible' do
+            @comment.stub!(:visible).and_return(true)
+            @info_request_event = InfoRequestEvent.new(:event_type => 'comment',
+                                                       :comment => @comment,
+                                                       :info_request => @info_request)
+            @info_request_event.indexed_by_search?.should be_true
+        end
+
+        it 'should return false for an incoming message that is not indexed by search' do
+            @incoming_message.stub!(:indexed_by_search?).and_return false
+            @info_request_event = InfoRequestEvent.new(:event_type => 'response',
+                                                       :incoming_message => @incoming_message,
+                                                       :info_request => @info_request)
+            @info_request_event.indexed_by_search?.should be_false
+        end
+
+        it 'should return true for an incoming message with prominence "normal"' do
+            @incoming_message.stub!(:indexed_by_search?).and_return true
+            @info_request_event = InfoRequestEvent.new(:event_type => 'response',
+                                                       :incoming_message => @incoming_message,
+                                                       :info_request => @info_request)
+            @info_request_event.indexed_by_search?.should be_true
+        end
+    end
+
     describe 'after saving' do
 
         it 'should mark the model for reindexing in xapian if there is no no_xapian_reindex flag on the object' do
