@@ -187,9 +187,6 @@ Alaveteli::Application.routes.draw do
     match '/admin/request/edit/:id' => 'admin_request#edit', :as => :admin_request_edit
     match '/admin/request/update/:id' => 'admin_request#update', :as => :admin_request_update
     match '/admin/request/destroy/:id' => 'admin_request#fully_destroy', :as => :admin_request_destroy
-    match '/admin/request/edit_outgoing/:id' => 'admin_request#edit_outgoing', :as => :admin_request_edit_outgoing
-    match '/admin/request/destroy_outgoing/:id' => 'admin_request#destroy_outgoing', :as => :admin_request_destroy_outgoing
-    match '/admin/request/update_outgoing/:id' => 'admin_request#update_outgoing', :as => :admin_request_update_outgoing
     match '/admin/request/edit_comment/:id' => 'admin_request#edit_comment', :as => :admin_request_edit_comment
     match '/admin/request/update_comment/:id' => 'admin_request#update_comment', :as => :admin_request_update_comment
     match '/admin/request/destroy_incoming' => 'admin_request#destroy_incoming', :as => :admin_request_destroy_incoming
@@ -200,6 +197,12 @@ Alaveteli::Application.routes.draw do
     match '/admin/request/download_raw_email/:id' => 'admin_request#download_raw_email', :as => :admin_request_download_raw_email
     match '/admin/request/mark_event_as_clarification' => 'admin_request#mark_event_as_clarification', :as => :admin_request_clarification
     match '/admin/request/hide/:id' => 'admin_request#hide_request', :as => :admin_request_hide
+    ####
+
+    #### AdminOutgoingMessage controller
+    match '/admin/request/edit_outgoing/:id' => 'admin_outgoing_message#edit', :as => :admin_request_edit_outgoing
+    match '/admin/request/destroy_outgoing/:id' => 'admin_outgoing_message#destroy', :as => :admin_request_destroy_outgoing
+    match '/admin/request/update_outgoing/:id' => 'admin_outgoing_message#update', :as => :admin_request_update_outgoing
     ####
 
     #### AdminUser controller

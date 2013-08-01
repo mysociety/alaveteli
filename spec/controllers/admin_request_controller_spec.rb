@@ -52,18 +52,6 @@ describe AdminRequestController, "when administering requests" do
 
     end
 
-    it "edits an outgoing message" do
-        get :edit_outgoing, :id => outgoing_messages(:useless_outgoing_message)
-    end
-
-    it "saves edits to an outgoing_message" do
-        outgoing_messages(:useless_outgoing_message).body.should include("fancy dog")
-        post :update_outgoing, { :id => outgoing_messages(:useless_outgoing_message), :outgoing_message => { :body => "Why do you have such a delicious cat?" } }
-        request.flash[:notice].should include('successful')
-        ir = OutgoingMessage.find(outgoing_messages(:useless_outgoing_message).id)
-        ir.body.should include("delicious cat")
-    end
-
     describe 'when fully destroying a request' do
 
         it 'expires the file cache for that request' do
