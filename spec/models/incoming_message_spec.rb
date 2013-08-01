@@ -18,6 +18,7 @@
 #  mail_from                      :text
 #  sent_at                        :datetime
 #  prominence                     :string(255)      default("normal"), not null
+#  prominence_reason              :text
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
