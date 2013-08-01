@@ -146,12 +146,12 @@ class AdminPublicBodyController < AdminController
             if params[:csv_file]
                 csv_contents = params[:csv_file].read
                 @original_csv_file = params[:csv_file].original_filename
+                csv_contents = normalize_string_to_utf8(csv_contents)
             # or from previous dry-run temporary file
             elsif params[:temporary_csv_file] && params[:original_csv_file]
                 csv_contents = retrieve_csv_data(params[:temporary_csv_file])
                 @original_csv_file = params[:original_csv_file]
             end
-
             if !csv_contents.nil?
                 # Try with dry run first
                 errors, notes = PublicBody.import_csv(csv_contents,
