@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-06-24 09:40-0700\n"
-"PO-Revision-Date: 2013-07-28 10:58+0000\n"
-"Last-Translator: Edwin Bosveld <edwin@inwy.nl>\n"
+"POT-Creation-Date: 2013-08-05 17:01+0100\n"
+"PO-Revision-Date: 2013-08-05 16:04+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/alaveteli/language/nl/)\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -613,6 +613,9 @@ msgid "Dear {{public_body_name}},"
 msgstr ""
 
 msgid "Default locale"
+msgstr ""
+
+msgid "Defunct."
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
@@ -1845,6 +1848,12 @@ msgid "Requests for personal information and vexatious requests are not consider
 msgstr ""
 
 msgid "Requests or responses matching your saved search"
+msgstr ""
+
+msgid "Requests similar to '{{request_title}}'"
+msgstr ""
+
+msgid "Requests similar to '{{request_title}}' (page {{page}})"
 msgstr ""
 
 msgid "Respond by email"

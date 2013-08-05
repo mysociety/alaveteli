@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-06-24 09:40-0700\n"
-"PO-Revision-Date: 2013-07-20 11:58+0000\n"
-"Last-Translator: yauzi <yair.uziel@gmail.com>\n"
+"POT-Creation-Date: 2013-08-05 17:01+0100\n"
+"PO-Revision-Date: 2013-08-05 16:04+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -628,6 +628,9 @@ msgstr "{{public_body_name}} נכבד, "
 
 msgid "Default locale"
 msgstr "ברירת מחדל של הגדרות מקומיות"
+
+msgid "Defunct."
+msgstr ""
 
 msgid "Delayed response to your FOI request - "
 msgstr "עיכוב בתגובה לבקשה"
@@ -1860,6 +1863,12 @@ msgstr "בקשות למידע אישי ובקשות מטרידות אינן קב
 
 msgid "Requests or responses matching your saved search"
 msgstr "בקשות או תגובות המתאימות לחיפוש השמור שלך."
+
+msgid "Requests similar to '{{request_title}}'"
+msgstr ""
+
+msgid "Requests similar to '{{request_title}}' (page {{page}})"
+msgstr ""
 
 msgid "Respond by email"
 msgstr "הגיבו בדוא\"ל"
