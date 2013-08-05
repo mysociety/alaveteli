@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# elaste <3laste2000@gmail.com>, 2012
+# Daniela Mattern <3laste2000@gmail.com>, 2012
 # serramassuda <a.serramassuda@gmail.com>, 2012
 # Bruno <bgx@bol.com.br>, 2012
 # Bruno <bgx@bol.com.br>, 2012
@@ -11,7 +11,7 @@
 # Carlos Vieira <edu.carlos.vieira@gmail.com>, 2011
 # danielabsilva <danielabsilva@gmail.com>, 2011
 # danielabsilva <danielabsilva@gmail.com>, 2011
-# elaste <3laste2000@gmail.com>, 2012
+# Daniela Mattern <3laste2000@gmail.com>, 2012
 #   <everton137@gmail.com>, 2011
 # gabinardy <gabileitao@gmail.com>, 2012
 # gabinardy <gabileitao@gmail.com>, 2012
