@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2013-06-24 09:40-0700\n"
-"PO-Revision-Date: 2013-07-14 20:51+0000\n"
+"PO-Revision-Date: 2013-08-03 09:03+0000\n"
 "Last-Translator: gorm <gormer@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -779,10 +779,10 @@ msgid "Follow"
 msgstr "Følg"
 
 msgid "Follow all new requests"
-msgstr ""
+msgstr "Følg alle nye henvendelser"
 
 msgid "Follow new successful responses"
-msgstr ""
+msgstr "Følg ny vellykkede henvendelser"
 
 msgid "Follow requests to {{public_body_name}}"
 msgstr ""
@@ -928,7 +928,7 @@ msgid "Home page"
 msgstr "Hjemmeside"
 
 msgid "Home page of authority"
-msgstr ""
+msgstr "Hjemmesida til myndigheten"
 
 msgid "However, you have the right to request environmental\\n            information under a different law"
 msgstr ""
@@ -1222,7 +1222,7 @@ msgid "Long overdue."
 msgstr ""
 
 msgid "Made between"
-msgstr "Laget mellom"
+msgstr "Opprettet mellom"
 
 msgid "Mail server log"
 msgstr ""
@@ -1345,7 +1345,7 @@ msgid "Next, crop your photo &gt;&gt;"
 msgstr "Neste, beskjær bildet ditt &gt;&gt;"
 
 msgid "No requests of this sort yet."
-msgstr "Ingen slike henvendelser enda."
+msgstr "Ingen henvendelser av denne typen enda."
 
 msgid "No results found."
 msgstr "Ingen resultater."
@@ -1801,7 +1801,7 @@ msgid "Refused."
 msgstr "Avslått"
 
 msgid "Remember me</label> (keeps you signed in longer;\\n    do not use on a public computer) "
-msgstr "Husk meg</label> (hodler deg innlogget lenger;\\n    ikke bruk på offentlige datamaskiner) "
+msgstr "Husk meg</label> (holder deg innlogget lenger;\\n    må ikke brukes på offentlige datamaskiner) "
 
 msgid "Report abuse"
 msgstr "Meld misbruk"
@@ -2823,7 +2823,7 @@ msgid "You are currently receiving notification of new activity on your wall by 
 msgstr "Du mottar e-post varsel om ny aktivitet på veggen din."
 
 msgid "You are following all new successful responses"
-msgstr "Du følger all nye vellykede svar"
+msgstr "Du følger all nye vellykkede svar"
 
 msgid "You are no longer following {{track_description}}."
 msgstr "Du følger ikke lenger {{track_description}}."
@@ -3031,10 +3031,10 @@ msgid "[{{public_body}} request email]"
 msgstr ""
 
 msgid "[{{site_name}} contact email]"
-msgstr ""
+msgstr "[{{site_name}} kontakt e-post]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
+msgstr "\\n\\n[ {{site_name}} NB: Teksten over var feil enkodet, og har fått rare tegn fjernet. ]"
 
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
 msgstr "en linjes oppsummering av informasjonen du spør om, \\n\t\t\tf.eks.."
@@ -3043,49 +3043,49 @@ msgid "admin"
 msgstr ""
 
 msgid "alaveteli_foi:The software that runs {{site_name}}"
-msgstr ""
+msgstr "alaveteli_foi:Programvaren som kjører {{site_name}}"
 
 msgid "all requests"
 msgstr "alle henvendelser"
 
 msgid "also called {{public_body_short_name}}"
-msgstr ""
+msgstr "også kalt {{public_body_short_name}}"
 
 msgid "an anonymous user"
-msgstr ""
+msgstr "en anonym bruker"
 
 msgid "and"
 msgstr "og"
 
 msgid "and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
-msgstr ""
+msgstr "og oppdater status tilsvarende. Kanskje <strong>du</strong> vil like å hjelpe til med det?"
 
 msgid "and update the status."
-msgstr ""
+msgstr "og oppdater statusen"
 
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "og vi skal foreslår hva du <strong>nå må gjøre</strong>"
 
 msgid "any <a href=\"/list\">new requests</a>"
-msgstr ""
+msgstr "noen <a href=\"/list\">nye henvendelser</a>"
 
 msgid "any <a href=\"/list/successful\">successful requests</a>"
-msgstr ""
+msgstr "noen <a href=\"/list/successful\">vellykkede henvendelser</a>"
 
 msgid "anything"
-msgstr ""
+msgstr "noe"
 
 msgid "are long overdue."
-msgstr ""
+msgstr "er forfalt med mye."
 
 msgid "at"
 msgstr ""
 
 msgid "authorities"
-msgstr ""
+msgstr "myndigheter"
 
 msgid "awaiting a response"
-msgstr ""
+msgstr "venter på et svar"
 
 msgid "beginning with ‘{{first_letter}}’"
 msgstr "som begynner med '{{first_letter}}'"
@@ -3097,7 +3097,7 @@ msgid "but followupable"
 msgstr "men oppfølgbar"
 
 msgid "by"
-msgstr ""
+msgstr "av"
 
 msgid "by <strong>{{date}}</strong>"
 msgstr "før <strong>{{date}}</strong>"
@@ -3106,19 +3106,19 @@ msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
 msgstr "av{{public_body_name}} til {{info_request_user}} den {{date}}."
 
 msgid "by {{user_link_absolute}}"
-msgstr ""
+msgstr "av {{user_link_absolute}}"
 
 msgid "comments"
 msgstr "kommentarer"
 
 msgid "containing your postal address, and asking them to reply to this request.\\n            Or you could phone them."
-msgstr ""
+msgstr "inneholder din post-adresse, og spør de om å svare på denne henvendelsen.\\n            Eller du kan ringe de."
 
 msgid "details"
 msgstr "detaljer"
 
 msgid "display_status only works for incoming and outgoing messages right now"
-msgstr ""
+msgstr "vis status virker foreløpig kun for innkommende og utgående meldinger"
 
 msgid "during term time"
 msgstr ""
@@ -3127,37 +3127,37 @@ msgid "edit text about you"
 msgstr "rediger tekst om deg"
 
 msgid "even during holidays"
-msgstr ""
+msgstr "t.o.m. under helligdager"
 
 msgid "everything"
-msgstr ""
+msgstr "alt"
 
 msgid "external"
-msgstr ""
+msgstr "ekstern"
 
 msgid "has reported an"
-msgstr ""
+msgstr "har rapportert en"
 
 msgid "have delayed."
-msgstr ""
+msgstr "har forsinket."
 
 msgid "hide quoted sections"
-msgstr ""
+msgstr "fjern sitert seksjon"
 
 msgid "in term time"
 msgstr ""
 
 msgid "in the category ‘{{category_name}}’"
-msgstr ""
+msgstr "i kategorien '{{category_name}}'"
 
 msgid "internal error"
-msgstr ""
+msgstr "intern feil"
 
 msgid "internal reviews"
-msgstr ""
+msgstr "klager"
 
 msgid "is <strong>waiting for your clarification</strong>."
-msgstr ""
+msgstr "<strong>venter på dine avklaringer</strong>"
 
 msgid "just to see how it works"
 msgstr "bare for å se hvordan det fungerer"
@@ -3166,10 +3166,10 @@ msgid "left an annotation"
 msgstr "la igjen en kommentar"
 
 msgid "made."
-msgstr ""
+msgstr "laget."
 
 msgid "matching the tag ‘{{tag_name}}’"
-msgstr ""
+msgstr "treffer taggen '{{tag_name}}'"
 
 msgid "messages from authorities"
 msgstr "meldinger fra myndigheter"
@@ -3178,7 +3178,7 @@ msgid "messages from users"
 msgstr "meldinger fra brukere"
 
 msgid "move..."
-msgstr ""
+msgstr "flytt..."
 
 msgid "no later than"
 msgstr "ikke senere enn"
@@ -3190,25 +3190,25 @@ msgid "normally"
 msgstr "vanligvis"
 
 msgid "not requestable due to: {{reason}}"
-msgstr ""
+msgstr "kan ikke be om fordi: {{reason}}"
 
 msgid "please sign in as "
 msgstr "logg deg inn som "
 
 msgid "requesting an internal review"
-msgstr ""
+msgstr "klager"
 
 msgid "requests"
-msgstr ""
+msgstr "henvendelser"
 
 msgid "requests which are {{list_of_statuses}}"
-msgstr ""
+msgstr "henvendelser som er {{list_of_statuses}}"
 
 msgid "response as needing administrator attention. Take a look, and reply to this\\nemail to let them know what you are going to do about it."
 msgstr ""
 
 msgid "send a follow up message"
-msgstr ""
+msgstr "send en oppfølgningsmelding"
 
 msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "sent til {{public_body_name}} av {{info_request_user}} den {{date}}."
@@ -3217,7 +3217,7 @@ msgid "set to <strong>blank</strong> (empty string) if can't find an address; th
 msgstr ""
 
 msgid "show quoted sections"
-msgstr ""
+msgstr "vis sitert seksjon"
 
 msgid "sign in"
 msgstr "logg inn"
@@ -3232,7 +3232,7 @@ msgid "successful requests"
 msgstr "vellykkede henvendelser"
 
 msgid "that you made to"
-msgstr ""
+msgstr "som du laget til"
 
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "postmottaket hos {{public_body}}"
@@ -3246,13 +3246,13 @@ msgid "the main FOI contact at {{public_body}}"
 msgstr "postmottaket hos {{public_body}}"
 
 msgid "the requester"
-msgstr ""
+msgstr "henvenderen"
 
 msgid "the {{site_name}} team"
-msgstr ""
+msgstr "{{site_name}} teamet"
 
 msgid "to read"
-msgstr ""
+msgstr "å lese"
 
 msgid "to send a follow up message."
 msgstr "for å sende en oppfølgningsmelding."
@@ -3261,7 +3261,7 @@ msgid "to {{public_body}}"
 msgstr "til {{public_body}}"
 
 msgid "unexpected prominence on request event"
-msgstr ""
+msgstr "uventet primærfaktor på forespørselhendelse"
 
 msgid "unknown reason "
 msgstr "ukjent grunn "
@@ -3273,10 +3273,10 @@ msgid "unresolved requests"
 msgstr "uavklarte henvendelser"
 
 msgid "unsubscribe"
-msgstr "avmeld"
+msgstr "av-meld"
 
 msgid "unsubscribe all"
-msgstr "avmeld alle"
+msgstr "av-meld alle"
 
 msgid "unsuccessful"
 msgstr "ikke vellykket"
@@ -3298,8 +3298,8 @@ msgstr "{{count}} innsynsbegjæringer funnet"
 
 msgid "{{count}} Freedom of Information request to {{public_body_name}}"
 msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} innsynshenvendelse til {{public_body_name}}"
+msgstr[1] "{{count}} innsynshenvendelser til {{public_body_name}}"
 
 msgid "{{count}} person is following this authority"
 msgid_plural "{{count}} people are following this authority"
@@ -3308,8 +3308,8 @@ msgstr[1] "{{count}} personer følger denne myndigheten"
 
 msgid "{{count}} request"
 msgid_plural "{{count}} requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} henvendelse"
+msgstr[1] "{{count}} henvendelser"
 
 msgid "{{count}} request made."
 msgid_plural "{{count}} requests made."
@@ -3323,37 +3323,37 @@ msgid "{{info_request_user_name}} only:"
 msgstr "Bare {{info_request_user_name}} (henvender):"
 
 msgid "{{law_used_full}} request - {{title}}"
-msgstr ""
+msgstr "{{law_used_full}} henvendelse - {{title}}"
 
 msgid "{{law_used_full}} request GQ - {{title}}"
-msgstr ""
+msgstr "{{law_used_full}} henvendelse GQ - {{title}}"
 
 msgid "{{law_used}} requests at {{public_body}}"
-msgstr ""
+msgstr "{{law_used}} henvendelse til {{public_body}}"
 
 msgid "{{length_of_time}} ago"
-msgstr ""
+msgstr "{{length_of_time}} siden"
 
 msgid "{{list_of_things}} matching text '{{search_query}}'"
-msgstr ""
+msgstr "{{list_of_things}} treffer søketeksten '{{search_query}}'"
 
 msgid "{{number_of_comments}} comments"
-msgstr ""
+msgstr "{{number_of_comments}} kommentarer"
 
 msgid "{{public_body_link}} answered a request about"
-msgstr ""
+msgstr "{{public_body_link}} svarte på en henvendelse om"
 
 msgid "{{public_body_link}} was sent a request about"
-msgstr ""
+msgstr "{{public_body_link}} fikk tilsendt en henvendelse om"
 
 msgid "{{public_body_name}} only:"
 msgstr "Bare {{public_body_name}} (myndighet):"
 
 msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr ""
+msgstr "{{public_body}} has spurt deg om å forklare deler av {{law_used}} henvendelsen"
 
 msgid "{{public_body}} sent a response to {{user_name}}"
-msgstr ""
+msgstr "{{public_body}} sendte et svar til {{user_name}}"
 
 msgid "{{reason}}, please sign in or make a new account."
 msgstr "{{reason}}, vennligst logg inn eller lag en ny konto."
@@ -3362,22 +3362,22 @@ msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} traff '{{query}}"
 
 msgid "{{site_name}} blog and tweets"
-msgstr ""
+msgstr "{{site_name}} blogg og tveets"
 
 msgid "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
-msgstr ""
+msgstr "{{site_name}} dekker henvendelser til {{number_of_authorities}} myndigheter, inkludert:"
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
-msgstr ""
+msgstr "{site_name}} sender nye henvendelser til <strong>{{request_email}}</strong> for denne myndigheten."
 
 msgid "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr "{{site_name}} brukere har skrevet {{number_of_requests}} henvendelser, inkludert:"
 
 msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
-msgstr ""
+msgstr "{{thing_changed}} ble forandret fra <code>{{from_value}}</code> til <code>{{to_value}}</code>"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
-msgstr ""
+msgstr "{{title}} - en innsynsbegjæring etter Offentleglova til {{public_body}}"
 
 msgid "{{user_name}} (Account suspended)"
 msgstr "{{user_name}} (Konto er stengt)"
