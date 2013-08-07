@@ -834,6 +834,27 @@ describe InfoRequest do
                     events[2].calculated_state.should == "successful"
                 end
             end
+
+            context "another series of events on a request", :focus => true do
+                it "should have sensible event states" do
+                    # An initial request is sent
+                    request.log_event('sent', {})
+                    request.set_described_state('waiting_response')
+                    # An admin sets the status of the request to 'gone postal' using
+                    # the admin interface
+                    request.log_event("edit", {})
+                    request.set_described_state("gone_postal")
+
+                    events = request.info_request_events
+                    events.count.should == 2
+                    events[0].event_type.should == "sent"
+                    events[0].described_state.should == "waiting_response"
+                    events[0].calculated_state.should == "waiting_response"
+                    events[1].event_type.should == "edit"
+                    events[1].described_state.should == "gone_postal"
+                    events[1].calculated_state.should == "gone_postal"
+                end
+            end
         end
     end
 end

@@ -653,11 +653,12 @@ public
                 # as that might already be set to waiting_clarification / a
                 # success status, which we want to know about.
                 curr_state = nil
-            elsif !curr_state.nil? && (event.event_type == 'status_update')
-                # A status update event should get the same calculated state as described state
+            elsif !curr_state.nil? && (['edit', 'status_update'].include? event.event_type)
+                # A status update or edit event should get the same calculated state as described state
                 # so that the described state is always indexed (and will be the latest_status
                 # for the request immediately after it has been described, regardless of what
-                # other request events precede it). It allows the described state to propagate in
+                # other request events precede it). This means that request should be correctly included
+                # in status searches for that status. These events allow the described state to propagate in
                 # case there is a preceding response that the described state should be applied to.
                 if event.calculated_state != event.described_state
                     event.calculated_state = event.described_state
