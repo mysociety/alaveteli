@@ -275,7 +275,7 @@ tests to pass by setting `export LD_PRELOAD=/lib/libuuid.so.1`.
 
 Run the following to get the server running:
 
-    script/server  --environment=development
+    bundle exec rails server  --environment=development
 
 By default the server listens on all interfaces. You can restrict it to the
 localhost interface by adding ` --binding=127.0.0.1`
