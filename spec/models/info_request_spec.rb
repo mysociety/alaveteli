@@ -670,7 +670,7 @@ describe InfoRequest do
                     events[0].calculated_state.should == "waiting_response"
                     events[1].event_type.should == "response"
                     events[1].described_state.should be_nil
-                    events[1].calculated_state.should be_nil
+                    events[1].calculated_state.should == 'waiting_response'
                     events[2].event_type.should == "status_update"
                     events[2].described_state.should == "waiting_response"
                     events[2].calculated_state.should == "waiting_response"
@@ -698,7 +698,7 @@ describe InfoRequest do
                     events[0].calculated_state.should == "waiting_response"
                     events[1].event_type.should == "response"
                     events[1].described_state.should be_nil
-                    events[1].calculated_state.should be_nil
+                    events[1].calculated_state.should == 'waiting_response'
                     events[2].event_type.should == "status_update"
                     events[2].described_state.should == "waiting_response"
                     events[2].calculated_state.should == "waiting_response"
@@ -731,7 +731,7 @@ describe InfoRequest do
                     events[0].calculated_state.should == "waiting_response"
                     events[1].event_type.should == "response"
                     events[1].described_state.should be_nil
-                    events[1].calculated_state.should be_nil
+                    events[1].calculated_state.should == 'waiting_response'
                     events[2].event_type.should == "status_update"
                     events[2].described_state.should == "waiting_response"
                     events[2].calculated_state.should == "waiting_response"
@@ -806,6 +806,32 @@ describe InfoRequest do
                     events[1].event_type.should == "status_update"
                     events[1].described_state.should == "successful"
                     events[1].calculated_state.should == "successful"
+                end
+
+                it "should have sensible event states" do
+                    # An initial request is sent
+                    request.log_event('sent', {})
+                    request.set_described_state('waiting_response')
+
+                    # A response is received
+                    request.awaiting_description = true
+                    request.log_event("response", {})
+
+                    # The user marks the request as successful
+                    request.log_event("status_update", {})
+                    request.set_described_state("successful")
+
+                    events = request.info_request_events
+                    events.count.should == 3
+                    events[0].event_type.should == "sent"
+                    events[0].described_state.should == "waiting_response"
+                    events[0].calculated_state.should == "waiting_response"
+                    events[1].event_type.should == "response"
+                    events[1].described_state.should be_nil
+                    events[1].calculated_state.should == "successful"
+                    events[2].event_type.should == "status_update"
+                    events[2].described_state.should == "successful"
+                    events[2].calculated_state.should == "successful"
                 end
             end
         end

@@ -569,6 +569,7 @@ public
             self.awaiting_description = false
             last_event = self.info_request_events.last
             last_event.described_state = new_state
+
             self.described_state = new_state
             last_event.save!
             self.save!
@@ -636,7 +637,7 @@ public
                     event.save!
                 end
                 curr_state = nil
-            elsif !curr_state.nil? && (event.event_type == 'followup_sent' || event.event_type == 'sent' || event.event_type == "status_update")
+            elsif !curr_state.nil? && (event.event_type == 'followup_sent' || event.event_type == 'sent') && !event.described_state.nil? && (event.described_state == 'waiting_response' || event.described_state == 'internal_review')
                 # Followups can set the status to waiting response / internal
                 # review. Initial requests ('sent') set the status to waiting response.
 
@@ -648,10 +649,21 @@ public
                     event.save!
                 end
 
-                # And we don't want to propogate it to the response itself,
+                # And we don't want to propagate it to the response itself,
                 # as that might already be set to waiting_clarification / a
                 # success status, which we want to know about.
                 curr_state = nil
+            elsif !curr_state.nil? && (event.event_type == 'status_update')
+                # A status update event should get the same calculated state as described state
+                # so that the described state is always indexed (and will be the latest_status
+                # for the request immediately after it has been described, regardless of what
+                # other request events precede it). It allows the described state to propagate in
+                # case there is a preceding response that the described state should be applied to.
+                if event.calculated_state != event.described_state
+                    event.calculated_state = event.described_state
+                    event.last_described_at = Time.now()
+                    event.save!
+                end
             end
         end
     end
@@ -1107,10 +1119,10 @@ public
         begin
             if self.described_state.nil?
                 self.described_state = 'waiting_response'
-            end            
+            end
         rescue ActiveModel::MissingAttributeError
             # this should only happen on Model.exists?() call. It can be safely ignored.
-            # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/       
+            # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/
         end
         # FOI or EIR?
         if !self.public_body.nil? && self.public_body.eir_only?
