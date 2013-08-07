@@ -282,6 +282,11 @@ localhost interface by adding ` --binding=127.0.0.1`
 The server should have told you the URL to access in your browser to see
 the site in action.
 
+If you're running in development mode and using the default mailcatcher to
+handle email, also run:
+
+    bundle exec mailcatcher
+
 # Administrator privileges
 
 The administrative interface is at the URL `/admin`.
