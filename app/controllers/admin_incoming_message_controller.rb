@@ -1,6 +1,6 @@
 class AdminIncomingMessageController < AdminController
 
-    def destroy_incoming
+    def destroy
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
         @info_request = @incoming_message.info_request
         incoming_message_id = @incoming_message.id
@@ -14,7 +14,7 @@ class AdminIncomingMessageController < AdminController
         redirect_to admin_request_show_url(@info_request)
     end
 
-    def redeliver_incoming
+    def redeliver
         incoming_message = IncomingMessage.find(params[:redeliver_incoming_message_id])
         message_ids = params[:url_title].split(",").each {|x| x.strip}
         previous_request = incoming_message.info_request
