@@ -81,55 +81,6 @@ describe AdminRequestController, "when administering the holding pen" do
         response.should contain "Only the authority can reply to this request"
     end
 
-    it "allows redelivery even to a closed request" do
-        ir = info_requests(:fancy_dog_request)
-        ir.allow_new_responses_from = 'nobody'
-        ir.handle_rejected_responses = 'holding_pen'
-        ir.save!
-        InfoRequest.holding_pen_request.incoming_messages.length.should == 0
-        ir.incoming_messages.length.should == 1
-        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "frob@nowhere.com")
-        InfoRequest.holding_pen_request.incoming_messages.length.should == 1
-        new_im = InfoRequest.holding_pen_request.incoming_messages[0]
-        ir.incoming_messages.length.should == 1
-        post :redeliver_incoming, :redeliver_incoming_message_id => new_im.id, :url_title => ir.url_title
-        ir = InfoRequest.find_by_url_title(ir.url_title)
-        ir.incoming_messages.length.should == 2
-        response.should redirect_to(:controller=>'admin_request', :action=>'show', :id=>101)
-        InfoRequest.holding_pen_request.incoming_messages.length.should == 0
-    end
-
-    it "allows redelivery to more than one request" do
-        ir1 = info_requests(:fancy_dog_request)
-        ir1.allow_new_responses_from = 'nobody'
-        ir1.handle_rejected_responses = 'holding_pen'
-        ir1.save!
-        ir1.incoming_messages.length.should == 1
-        ir2 = info_requests(:another_boring_request)
-        ir2.incoming_messages.length.should == 1
-
-        receive_incoming_mail('incoming-request-plain.email', ir1.incoming_email, "frob@nowhere.com")
-        InfoRequest.holding_pen_request.incoming_messages.length.should == 1
-
-        new_im = InfoRequest.holding_pen_request.incoming_messages[0]
-        post :redeliver_incoming, :redeliver_incoming_message_id => new_im.id, :url_title => "#{ir1.url_title},#{ir2.url_title}"
-        ir1.reload
-        ir1.incoming_messages.length.should == 2
-        ir2.reload
-        ir2.incoming_messages.length.should == 2
-        response.should redirect_to(:controller=>'admin_request', :action=>'show', :id=>ir2.id)
-        InfoRequest.holding_pen_request.incoming_messages.length.should == 0
-    end
-
-    it 'expires the file cache for the previous request' do
-        current_info_request = info_requests(:fancy_dog_request)
-        destination_info_request = info_requests(:naughty_chicken_request)
-        incoming_message = incoming_messages(:useless_incoming_message)
-        @controller.should_receive(:expire_for_request).with(current_info_request)
-        post :redeliver_incoming, :redeliver_incoming_message_id => incoming_message.id,
-                                  :url_title => destination_info_request.url_title
-    end
-
     it "guesses a misdirected request" do
         ir = info_requests(:fancy_dog_request)
         ir.handle_rejected_responses = 'holding_pen'
@@ -146,32 +97,7 @@ describe AdminRequestController, "when administering the holding pen" do
         assigns[:info_requests][0].should == ir
     end
 
-    describe 'when destroying an incoming message' do
 
-        before do
-            @im = incoming_messages(:useless_incoming_message)
-            @controller.stub!(:expire_for_request)
-        end
-
-        it "destroys the raw email file" do
-            raw_email = @im.raw_email.filepath
-            assert_equal File.exists?(raw_email), true
-            post :destroy_incoming, :incoming_message_id => @im.id
-            assert_equal File.exists?(raw_email), false
-        end
-
-        it 'asks the incoming message to fully destroy itself' do
-            IncomingMessage.stub!(:find).and_return(@im)
-            @im.should_receive(:fully_destroy)
-            post :destroy_incoming, :incoming_message_id => @im.id
-        end
-
-        it 'expires the file cache for the associated info_request' do
-            @controller.should_receive(:expire_for_request).with(@im.info_request)
-            post :destroy_incoming, :incoming_message_id => @im.id
-        end
-
-    end
 
     it "shows a suitable default 'your email has been hidden' message" do
         ir = info_requests(:fancy_dog_request)

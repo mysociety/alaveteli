@@ -49,3 +49,9 @@ def confirm(user)
     u.email_confirmed = true
     u.save!
 end
+
+def close_request(request)
+    request.allow_new_responses_from = 'nobody'
+    request.handle_rejected_responses = 'holding_pen'
+    request.save!
+end

@@ -189,14 +189,17 @@ Alaveteli::Application.routes.draw do
     match '/admin/request/destroy/:id' => 'admin_request#fully_destroy', :as => :admin_request_destroy
     match '/admin/request/edit_comment/:id' => 'admin_request#edit_comment', :as => :admin_request_edit_comment
     match '/admin/request/update_comment/:id' => 'admin_request#update_comment', :as => :admin_request_update_comment
-    match '/admin/request/destroy_incoming' => 'admin_request#destroy_incoming', :as => :admin_request_destroy_incoming
-    match '/admin/request/redeliver_incoming' => 'admin_request#redeliver_incoming', :as => :admin_request_redeliver_incoming
     match '/admin/request/move_request' => 'admin_request#move_request', :as => :admin_request_move_request
     match '/admin/request/generate_upload_url/:id' => 'admin_request#generate_upload_url', :as => :admin_request_generate_upload_url
     match '/admin/request/show_raw_email/:id' => 'admin_request#show_raw_email', :as => :admin_request_show_raw_email
     match '/admin/request/download_raw_email/:id' => 'admin_request#download_raw_email', :as => :admin_request_download_raw_email
     match '/admin/request/mark_event_as_clarification' => 'admin_request#mark_event_as_clarification', :as => :admin_request_clarification
     match '/admin/request/hide/:id' => 'admin_request#hide_request', :as => :admin_request_hide
+    ####
+
+    #### AdminIncomingMessage controller
+    match '/admin/request/destroy_incoming' => 'admin_incoming_message#destroy_incoming', :as => :admin_request_destroy_incoming
+    match '/admin/request/redeliver_incoming' => 'admin_incoming_message#redeliver_incoming', :as => :admin_request_redeliver_incoming
     ####
 
     #### AdminOutgoingMessage controller
