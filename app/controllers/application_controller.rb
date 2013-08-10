@@ -119,12 +119,9 @@ class ApplicationController < ActionController::Base
     end
 
     def render_exception(exception)
-
-        # In development, or the admin interface, or for a local request, let Rails handle the exception
-        # with its stack trace templates. Local requests in testing are a special case so that we can
-        # test this method - there we use consider_all_requests_local to control behaviour.
-        if Rails.application.config.consider_all_requests_local || local_request? ||
-        (request.local? && !Rails.env.test?)
+        # In development or the admin interface let Rails handle the exception
+        # with its stack trace templates
+        if Rails.application.config.consider_all_requests_local || local_request?
             raise exception
         end
 
