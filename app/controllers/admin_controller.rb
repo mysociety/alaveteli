@@ -17,7 +17,7 @@ class AdminController < ApplicationController
     end
 
     # Always give full stack trace for admin interface
-    def local_request?
+    def show_rails_exceptions?
         true
     end
 

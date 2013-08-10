@@ -121,7 +121,7 @@ class ApplicationController < ActionController::Base
     def render_exception(exception)
         # In development or the admin interface let Rails handle the exception
         # with its stack trace templates
-        if Rails.application.config.consider_all_requests_local || local_request?
+        if Rails.application.config.consider_all_requests_local || show_rails_exceptions?
             raise exception
         end
 
@@ -147,7 +147,7 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    def local_request?
+    def show_rails_exceptions?
         false
     end
 
