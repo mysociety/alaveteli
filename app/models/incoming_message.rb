@@ -49,11 +49,8 @@ class IncomingMessage < ActiveRecord::Base
 
     belongs_to :raw_email
 
-    validates_inclusion_of :prominence, :in => [
-        'normal',
-        'hidden',
-        'requester_only'
-    ]
+    PROMINENCE_STATES = ['normal', 'hidden','requester_only']
+    validates_inclusion_of :prominence, :in => PROMINENCE_STATES
 
     # See binary_mask_stuff function below. It just test for inclusion
     # in this hash, not the value of the right hand side.
