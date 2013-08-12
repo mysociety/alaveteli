@@ -5,22 +5,20 @@
 # have a filesystem representation of their contents
 
 export LOC=`dirname "$0"`
-
 bundle exec rails runner /dev/stdin <<END
 require 'rspec/rails'
-require "#{ENV['LOC']}/../spec/support/load_file_fixtures.rb"
-require "#{ENV['LOC']}/../spec/support/email_helpers.rb"
+require Rails.root.join("spec", "support", "load_file_fixtures")
+require Rails.root.join("spec", "support", "email_helpers")
 
 RSpec.configure do |config|
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.fixture_path = Rails.root.join("spec","fixtures")
 end
 
 # HACK: Normally to load fixtures you'd run `rake db:fixtures:load` but since we
 # have .csv files in the fixtures folder Rails tries to load those too. Therefore
 # we've pinched some code to load the fixtures:
 # https://github.com/rails/rails/blob/v3.1.11/activerecord/lib/active_record/railties/databases.rake#L311
-fixtures_dir = "#{ENV['LOC']}/../spec/fixtures"
-
+fixtures_dir = Rails.root.join("spec","fixtures").to_s
 Dir["#{fixtures_dir}/**/*.yml"].each do |fixture_file|
   ActiveRecord::Fixtures.create_fixtures(fixtures_dir, fixture_file[(fixtures_dir.size + 1)..-5])
 end
