@@ -1,5 +1,8 @@
 class AdminIncomingMessageController < AdminController
 
+    def update
+    end
+
     def destroy
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
         @info_request = @incoming_message.info_request
