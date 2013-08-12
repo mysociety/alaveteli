@@ -233,7 +233,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#outgoing_<%=outgoing_message.id%>" data-toggle="collapse" data-parent="#outgoing_messages"><%= chevron_right %></a>
-        <%= link_to admin_request_edit_outgoing_path(outgoing_message) do %>
+        <%= link_to admin_outgoing_edit_path(outgoing_message) do %>
           #<%= outgoing_message.id %> -- <%= outgoing_message.status.humanize %> <%= outgoing_message.message_type.humanize %>
         <% end %>
         <blockquote>

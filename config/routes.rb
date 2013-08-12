@@ -198,15 +198,15 @@ Alaveteli::Application.routes.draw do
     ####
 
     #### AdminIncomingMessage controller
-    match '/admin/request/destroy_incoming' => 'admin_incoming_message#destroy', :as => :admin_request_destroy_incoming
-    match '/admin/request/redeliver_incoming' => 'admin_incoming_message#redeliver', :as => :admin_request_redeliver_incoming
-    match '/admin/request/update_incoming/:id' => 'admin_incoming_message#update', :as => :admin_request_update_incoming
+    match '/admin/incoming/destroy' => 'admin_incoming_message#destroy', :as => :admin_incoming_destroy
+    match '/admin/incoming/redeliver' => 'admin_incoming_message#redeliver', :as => :admin_incoming_redeliver
+    match '/admin/incoming/update/:id' => 'admin_incoming_message#update', :as => :admin_incoming_update
     ####
 
     #### AdminOutgoingMessage controller
-    match '/admin/request/edit_outgoing/:id' => 'admin_outgoing_message#edit', :as => :admin_request_edit_outgoing
-    match '/admin/request/destroy_outgoing/:id' => 'admin_outgoing_message#destroy', :as => :admin_request_destroy_outgoing
-    match '/admin/request/update_outgoing/:id' => 'admin_outgoing_message#update', :as => :admin_request_update_outgoing
+    match '/admin/outgoing/edit/:id' => 'admin_outgoing_message#edit', :as => :admin_outgoing_edit
+    match '/admin/outgoing/destroy/:id' => 'admin_outgoing_message#destroy', :as => :admin_outgoing_destroy
+    match '/admin/outgoing/update/:id' => 'admin_outgoing_message#update', :as => :admin_outgoing_update
     ####
 
     #### AdminUser controller
