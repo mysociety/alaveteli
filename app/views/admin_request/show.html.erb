@@ -279,7 +279,12 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#incoming_<%=incoming_message.id%>" data-toggle="collapse" data-parent="#incoming_messages"><%= chevron_right %></a>
-        <%=incoming_message.id%> -- <%= h(incoming_message.mail_from) %> <%=_("at")%> <%=admin_value(incoming_message.sent_at)%>
+        <%= link_to admin_incoming_edit_path(incoming_message) do %>
+          <%=incoming_message.id%>
+          --
+          <%= h(incoming_message.mail_from) %>
+          <%=_("at")%> <%=admin_value(incoming_message.sent_at)%>
+        <% end %>
         <blockquote class="incoming-message">
           <% if !incoming_message.cached_main_body_text_folded.nil? %>
             <%= truncate(incoming_message.cached_main_body_text_folded.gsub('FOLDED_QUOTED_SECTION', ''), :length => 400) %>
