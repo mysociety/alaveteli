@@ -275,7 +275,7 @@
 <hr>
 <h2>Incoming messages</h2>
 <div class="accordion" id="incoming_messages">
-  <% for incoming_message in @info_request.incoming_messages.find(:all, :order => 'created_at') %>
+  <% for incoming_message in @info_request.incoming_messages %>
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#incoming_<%=incoming_message.id%>" data-toggle="collapse" data-parent="#incoming_messages"><%= chevron_right %></a>
