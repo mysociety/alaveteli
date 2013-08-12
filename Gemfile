@@ -24,6 +24,7 @@ gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 gem 'rmagick', :require => 'RMagick'
 gem 'rake', '0.9.2.2'
 gem 'ruby-msg', '~> 1.5.0'
+gem "statistics2", "~> 0.54"
 gem 'vpim'
 gem 'will_paginate'
 # when 1.2.9 is released by the maintainer, we can stop using this fork:
