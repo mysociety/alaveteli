@@ -71,4 +71,74 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
 
     end
 
+    describe 'when updating an incoming message' do
+
+        before do
+            @incoming = FactoryGirl.create(:incoming_message, prominence: 'normal')
+            @default_params = {:id => @incoming.id,
+                               :incoming_message => {:prominence => 'hidden',
+                                                     :prominence_reason => 'dull'} }
+        end
+
+        def make_request(params=@default_params)
+            post :update, params
+        end
+
+        it 'should save the prominence of the request' do
+            make_request
+            @incoming.reload
+            @incoming.prominence.should == 'hidden'
+        end
+
+        it 'should save a prominence reason for the request' do
+            make_request
+            @incoming.reload
+            @incoming.prominence_reason.should == 'dull'
+        end
+
+        it 'should log an "edit_incoming" event on the info_request' do
+            @controller.stub!(:admin_current_user).and_return("Admin user")
+            make_request
+            @incoming.reload
+            last_event = @incoming.info_request_events.last
+            last_event.event_type.should == 'edit_incoming'
+            last_event.params.should == { :incoming_message_id => @incoming.id,
+                                          :editor => "Admin user",
+                                          :old_prominence => "normal",
+                                          :prominence => "hidden",
+                                          :old_prominence_reason => nil,
+                                          :prominence_reason => "dull" }
+        end
+
+        it 'should expire the file cache for the info request' do
+            @controller.should_receive(:expire_for_request).with(@incoming.info_request)
+            make_request
+        end
+
+        context 'if the incoming message saves correctly' do
+
+            it 'should redirect to the admin info request view' do
+                make_request
+                response.should redirect_to admin_request_show_url(@incoming.info_request)
+            end
+
+            it 'should show a message that the incoming message has been updated' do
+                make_request
+                flash[:notice].should == 'Incoming message successfully updated.'
+            end
+
+        end
+
+        context 'if the incoming message is not valid' do
+
+            it 'should render the edit template' do
+                make_request({:id => @incoming.id,
+                              :incoming_message => {:prominence => 'fantastic',
+                                                    :prominence_reason => 'dull'}})
+                response.should render_template("edit")
+            end
+
+        end
+    end
+
 end
