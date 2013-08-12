@@ -2,12 +2,12 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminIncomingMessageController, "when administering incoming messages" do
 
-    before(:each) do
-        basic_auth_login @request
-        load_raw_emails_data
-    end
-
     describe 'when destroying an incoming message' do
+
+        before(:each) do
+            basic_auth_login @request
+            load_raw_emails_data
+        end
 
         before do
             @im = incoming_messages(:useless_incoming_message)
@@ -36,6 +36,11 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
 
     describe 'when redelivering an incoming message' do
 
+        before(:each) do
+            basic_auth_login @request
+            load_raw_emails_data
+        end
+
         it 'expires the file cache for the previous request' do
             current_info_request = info_requests(:fancy_dog_request)
             destination_info_request = info_requests(:naughty_chicken_request)
@@ -45,6 +50,24 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
                              :url_title => destination_info_request.url_title
         end
 
+
+    end
+
+    describe 'when editing an incoming message' do
+
+        before do
+            @incoming = FactoryGirl.create(:incoming_message)
+        end
+
+        it 'should be successful' do
+            get :edit, :id => @incoming.id
+            response.should be_success
+        end
+
+        it 'should assign the incoming message to the view' do
+            get :edit, :id => @incoming.id
+            assigns[:incoming_message].should == @incoming
+        end
 
     end
 

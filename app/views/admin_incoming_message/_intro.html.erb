@@ -1,0 +1,3 @@
+<% @title = "Incoming message #{incoming_message.id} of FOI request '#{incoming_message.info_request.title}'" %>
+<h1>Incoming message <%= incoming_message.id %></h1>
+<p>FOI request: <%= request_both_links(incoming_message.info_request) %></p>

@@ -1,5 +1,9 @@
 class AdminIncomingMessageController < AdminController
 
+    def edit
+        @incoming_message = IncomingMessage.find(params[:id])
+    end
+
     def update
     end
 
