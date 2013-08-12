@@ -12,6 +12,7 @@ gem 'pg'
 
 gem 'charlock_holmes'
 gem 'fastercsv', '>=1.5.5'
+gem 'jquery-rails', '~> 2.1'
 gem 'json'
 gem 'mahoro'
 gem 'net-http-local'
