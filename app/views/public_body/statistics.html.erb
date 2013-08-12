@@ -1,0 +1,32 @@
+<% @title = _("Public Body Statistics") %>
+<div id="main_content">
+  <h1>Public Body Statistics</h1>
+
+  <% @graph_list.each do |graph_data| %>
+    <h3 class="public-body-ranking-title"><%= graph_data['title']%></h3>
+    <div class="public-body-ranking" id="<%= graph_data['id'] %>">
+      <table border=0>
+        <thead>
+          <tr>
+            <th>Public Body</th>
+            <th><%= graph_data['y_axis'] %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% graph_data['x_ticks'].each_with_index do |pb_and_index, i| %>
+            <tr>
+              <td><%= pb_and_index[1] %></td>
+              <td class="statistic"><%= graph_data['y_values'][i].round %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+
+<script type="text/javascript">
+  var graphs_data = <%= @graph_list.to_json.html_safe %>;
+</script>
+<%= javascript_include_tag 'jquery.flot.min.js', 'jquery.flot.errorbars.min.js', 'jquery.flot.axislabels.js', 'stats-graphs.js' %>
+
+</div>

@@ -91,4 +91,40 @@ namespace :stats do
     end
   end
 
+  desc 'Update statistics in the public_bodies table'
+  task :update_public_bodies_stats => :environment do
+    PublicBody.all.each do |public_body|
+      puts "Finding statistics for #{public_body.name}"
+      [["info_requests_count=", nil],
+       ["info_requests_successful_count=", ['successful', 'partially_successful']],
+       ["info_requests_not_held_count=", ['not_held']]].each do |column, states|
+        puts "  Aggregating data for column #{column}"
+        where_clause = 'public_body_id = :pb'
+        parameters = {:pb => public_body.id}
+        if states
+          where_clause += " AND described_state in (:states)"
+          parameters[:states] = states
+        end
+        public_body.send(column,
+                         InfoRequest.where(where_clause,
+                                           parameters).count.to_s)
+      end
+      # Now looking for values of 'waiting_response_overdue' and
+      # 'waiting_response_very_overdue' which aren't directly in the
+      # described_state column, and instead need to
+      puts "  Counting overdue requests"
+      overdue_count = 0
+      very_overdue_count = 0
+      InfoRequest.find_each(:conditions => {:public_body_id => public_body.id}) do |ir|
+        case ir.calculate_status
+        when 'waiting_response_very_overdue'
+          very_overdue_count += 1
+        when 'waiting_response_overdue'
+          overdue_count += 1
+        end
+      end
+      public_body.info_requests_overdue_count = overdue_count + very_overdue_count
+      public_body.save!
+    end
+  end
 end
