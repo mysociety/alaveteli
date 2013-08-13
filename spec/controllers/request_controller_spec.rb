@@ -824,138 +824,96 @@ describe RequestController, "when showing one request" do
     end
 end
 
-describe RequestController, "when changing prominence of a request" do
-    before(:each) do
-        load_raw_emails_data
+describe RequestController, "when handling prominence" do
+
+    context 'when the request is hidden' do
+
+        before(:each) do
+            @info_request = FactoryGirl.create(:info_request_with_attachments,
+                                               prominence: 'hidden')
+        end
+
+        it "should not show request if you're not logged in" do
+            get :show, :url_title => @info_request.url_title
+            response.should render_template('hidden')
+        end
+
+        it "should not show request even if logged in as their owner" do
+            session[:user_id] = @info_request.user.id
+            get :show, :url_title => @info_request.url_title
+            response.should render_template('hidden')
+        end
+
+        it 'should not show request if requested using json' do
+            session[:user_id] = @info_request.user.id
+            get :show, :url_title => @info_request.url_title, :format => 'json'
+            response.code.should == '410'
+        end
+
+        it "should show request if logged in as super user" do
+            session[:user_id] = FactoryGirl.create(:admin_user)
+            get :show, :url_title => @info_request.url_title
+            response.should render_template('show')
+        end
+
+        it "should not download attachments" do
+            incoming_message = @info_request.incoming_messages.first
+            get :get_attachment, :incoming_message_id => incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf',
+                                 :skip_cache => 1
+            response.content_type.should == "text/html"
+            response.should_not contain "thisisthebody"
+            response.should render_template('request/hidden')
+            response.code.should == '410'
+        end
+
+        it 'should not generate an HTML version of an attachment for a request whose prominence
+            is hidden even for an admin but should return a 404' do
+            session[:user_id] = FactoryGirl.create(:admin_user)
+            incoming_message = @info_request.incoming_messages.first
+            lambda do
+                get :get_attachment_as_html, :incoming_message_id => incoming_message.id,
+                                          :id => @info_request.id,
+                                          :part => 2,
+                                          :file_name => 'interesting.pdf'
+            end.should raise_error(ActiveRecord::RecordNotFound)
+        end
+
     end
 
-    it "should not show hidden requests" do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
+    context 'when the request is requester_only' do
 
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should render_template('hidden')
-    end
+        before(:each) do
+            @info_request = FactoryGirl.create(:info_request_with_attachments,
+                                               prominence: 'requester_only')
+        end
 
-    it "should not show hidden requests even if logged in as their owner" do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
+        it "should not show request if you're not logged in" do
+             get :show, :url_title => @info_request.url_title
+             response.should render_template('hidden')
+         end
 
-        session[:user_id] = ir.user.id # bob_smith_user
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should render_template('hidden')
-    end
+         it "should show request to requester and admin if logged in" do
+             session[:user_id] = FactoryGirl.create(:user).id
+             get :show, :url_title => @info_request.url_title
+             response.should render_template('hidden')
 
-    it 'should not show hidden requests if requested using json' do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
+             session[:user_id] = @info_request.user.id
+             get :show, :url_title => @info_request.url_title
+             response.should render_template('show')
 
-        session[:user_id] = ir.user.id # bob_smith_user
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :format => 'json'
-        response.code.should == '410'
-    end
+             session[:user_id] = FactoryGirl.create(:admin_user).id
+             get :show, :url_title => @info_request.url_title
+             response.should render_template('show')
+         end
 
-    it "should show hidden requests if logged in as super user" do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
-
-        session[:user_id] = users(:admin_user)
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should render_template('show')
-    end
-
-    it "should not show requester_only requests if you're not logged in" do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'requester_only'
-        ir.save!
-
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should render_template('hidden')
-    end
-
-    it "should show requester_only requests to requester and admin if logged in" do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'requester_only'
-        ir.save!
-
-        session[:user_id] = users(:silly_name_user).id
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should render_template('hidden')
-
-        session[:user_id] = ir.user.id # bob_smith_user
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should render_template('show')
-
-        session[:user_id] = users(:admin_user).id
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should render_template('show')
-    end
-
-    it 'should not cache an attachment on a request whose prominence is requester_only when showing
-        the request to the requester or admin' do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'requester_only'
-        ir.save!
-        session[:user_id] = ir.user.id # bob_smith_user
-        @controller.should_not_receive(:foi_fragment_cache_write)
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    end
-
-    it "should not download attachments if the request is hidden" do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
-        receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-
-        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id,
-                             :id => ir.id,
-                             :part => 2,
-                             :skip_cache => 1
-        response.content_type.should == "text/html"
-        response.should_not contain "Second hello"
-        response.should render_template('request/hidden')
-        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id,
-                             :id => ir.id,
-                             :part => 3,
-                             :skip_cache => 1
-        response.content_type.should == "text/html"
-        response.should_not contain "First hello"
-        response.should render_template('request/hidden')
-        response.code.should == '410'
-    end
-
-    it 'should not generate an HTML version of an attachment for a request whose prominence
-        is hidden/requester_only even for the requester or an admin but should return a 404' do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
-        receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-        session[:user_id] = users(:admin_user).id
-        lambda do
-            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id,
-                                      :id => ir.id,
-                                      :part => 2,
-                                      :file_name => 'hello world.txt'
-        end.should raise_error(ActiveRecord::RecordNotFound)
-    end
-
-    it 'should not generate an HTML version of an attachment for a request whose prominence
-        is hidden/requester only even for the requester or an admin but should return a 404' do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
-        receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-        session[:user_id] = users(:admin_user).id
-        lambda do
-            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id,
-                                      :id => ir.id,
-                                      :part => 2,
-                                      :file_name => 'hello world.txt'
-        end.should raise_error(ActiveRecord::RecordNotFound)
+         it 'should not cache an attachment when showing the request to the requester or admin' do
+             session[:user_id] = @info_request.user.id
+             @controller.should_not_receive(:foi_fragment_cache_write)
+             get :show, :url_title => @info_request.url_title
+         end
     end
 
 end
