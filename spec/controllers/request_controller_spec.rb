@@ -905,7 +905,7 @@ describe RequestController, "when changing prominence of a request" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
     end
 
-    it "should not download attachments if hidden" do
+    it "should not download attachments if the request is hidden" do
         ir = info_requests(:fancy_dog_request)
         ir.prominence = 'hidden'
         ir.save!
@@ -928,8 +928,8 @@ describe RequestController, "when changing prominence of a request" do
         response.code.should == '410'
     end
 
-    it 'should not generate an HTML version of an attachment whose prominence is hidden/requester
-        only even for the requester or an admin but should return a 404' do
+    it 'should not generate an HTML version of an attachment for a request whose prominence
+        is hidden/requester_only even for the requester or an admin but should return a 404' do
         ir = info_requests(:fancy_dog_request)
         ir.prominence = 'hidden'
         ir.save!
@@ -943,8 +943,8 @@ describe RequestController, "when changing prominence of a request" do
         end.should raise_error(ActiveRecord::RecordNotFound)
     end
 
-    it 'should not generate an HTML version of an attachment whose prominence is hidden/requester
-        only even for the requester or an admin but should return a 404' do
+    it 'should not generate an HTML version of an attachment for a request whose prominence
+        is hidden/requester only even for the requester or an admin but should return a 404' do
         ir = info_requests(:fancy_dog_request)
         ir.prominence = 'hidden'
         ir.save!
