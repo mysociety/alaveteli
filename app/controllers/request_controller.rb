@@ -683,9 +683,13 @@ class RequestController < ApplicationController
             @info_request = incoming_message.info_request # used by view
             return render_hidden
         end
+        if !incoming_message.user_can_view?(authenticated_user)
+            @incoming_message = incoming_message # used by view
+            return render_hidden_message
+        end
         # Is this a completely public request that we can cache attachments for
         # to be served up without authentication?
-        if incoming_message.info_request.all_can_view?
+        if incoming_message.info_request.all_can_view? && incoming_message.all_can_view?
             @files_can_be_cached = true
         end
     end
@@ -940,6 +944,15 @@ class RequestController < ApplicationController
         respond_to do |format|
             response_code = 410 # gone
             format.html{ render :template => 'request/hidden', :status => response_code }
+            format.any{ render :nothing => true, :status => response_code }
+        end
+        false
+    end
+
+    def render_hidden_message
+        respond_to do |format|
+            response_code = 410 # gone
+            format.html{ render :template => 'request/hidden_correspondence', :status => response_code }
             format.any{ render :nothing => true, :status => response_code }
         end
         false

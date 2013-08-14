@@ -918,6 +918,109 @@ describe RequestController, "when handling prominence" do
          end
     end
 
+    context 'when the incoming message has prominence hidden' do
+
+        before(:each) do
+            @incoming_message = FactoryGirl.create(:incoming_message_with_attachments, prominence: 'hidden')
+            @info_request = @incoming_message.info_request
+        end
+
+        it "should not download attachments for a non-logged in user" do
+            get :get_attachment, :incoming_message_id => @incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf',
+                                 :skip_cache => 1
+            expect_hidden_attachment('request/hidden_correspondence')
+        end
+
+        it 'should not download attachments for the request owner' do
+            session[:user_id] = @info_request.user.id
+            get :get_attachment, :incoming_message_id => @incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf',
+                                 :skip_cache => 1
+            expect_hidden_attachment('request/hidden_correspondence')
+        end
+
+        it 'should download attachments for an admin user', :focus => true do
+            session[:user_id] = FactoryGirl.create(:admin_user).id
+            get :get_attachment, :incoming_message_id => @incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf',
+                                 :skip_cache => 1
+            response.content_type.should == 'application/pdf'
+            response.should be_success
+        end
+
+        it 'should not generate an HTML version of an attachment for a request whose prominence
+            is hidden even for an admin but should return a 404' do
+            session[:user_id] = FactoryGirl.create(:admin_user).id
+            lambda do
+                get :get_attachment_as_html, :incoming_message_id => @incoming_message.id,
+                                          :id => @info_request.id,
+                                          :part => 2,
+                                          :file_name => 'interesting.pdf',
+                                          :skip_cache => 1
+            end.should raise_error(ActiveRecord::RecordNotFound)
+        end
+    end
+
+    context 'when the incoming message has prominence requester_only' do
+
+        before(:each) do
+            @incoming_message = FactoryGirl.create(:incoming_message_with_attachments,
+                                                    prominence: 'requester_only')
+            @info_request = @incoming_message.info_request
+        end
+
+        it "should not download attachments for a non-logged in user" do
+            get :get_attachment, :incoming_message_id => @incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf',
+                                 :skip_cache => 1
+            expect_hidden_attachment('request/hidden_correspondence')
+        end
+
+        it 'should download attachments for the request owner' do
+            session[:user_id] = @info_request.user.id
+            get :get_attachment, :incoming_message_id => @incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf',
+                                 :skip_cache => 1
+            response.content_type.should == 'application/pdf'
+            response.should be_success
+        end
+
+        it 'should download attachments for an admin user', :focus => true do
+            session[:user_id] = FactoryGirl.create(:admin_user).id
+            get :get_attachment, :incoming_message_id => @incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf',
+                                 :skip_cache => 1
+            response.content_type.should == 'application/pdf'
+            response.should be_success
+        end
+
+        it 'should not generate an HTML version of an attachment for a request whose prominence
+            is hidden even for an admin but should return a 404' do
+            session[:user_id] = FactoryGirl.create(:admin_user)
+            lambda do
+                get :get_attachment_as_html, :incoming_message_id => @incoming_message.id,
+                                          :id => @info_request.id,
+                                          :part => 2,
+                                          :file_name => 'interesting.pdf',
+                                          :skip_cache => 1
+            end.should raise_error(ActiveRecord::RecordNotFound)
+        end
+
+    end
+
 end
 
 # XXX do this for invalid ids
@@ -2416,7 +2519,9 @@ describe RequestController, "when caching fragments" do
                                                  :info_request_id => 132,
                                                  :id => 44,
                                                  :get_attachments_for_display => nil,
-                                                 :html_mask_stuff! => nil)
+                                                 :html_mask_stuff! => nil,
+                                                 :user_can_view? => true,
+                                                 :all_can_view? => true)
         attachment = mock(FoiAttachment, :display_filename => long_name,
                                          :body_as_html => ['some text', 'wrapper'])
         IncomingMessage.stub!(:find).with("44").and_return(incoming_message)

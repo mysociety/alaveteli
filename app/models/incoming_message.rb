@@ -73,6 +73,10 @@ class IncomingMessage < ActiveRecord::Base
         Ability.can_view_with_prominence?(self.prominence, self.info_request, user)
     end
 
+    def all_can_view?
+        self.prominence == 'normal'
+    end
+
     def indexed_by_search?
         self.prominence == 'normal'
     end
