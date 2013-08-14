@@ -911,10 +911,14 @@ describe RequestController, "when handling prominence" do
              response.should render_template('show')
          end
 
-         it 'should not cache an attachment when showing the request to the requester or admin' do
+         it 'should not cache an attachment when showing an attachment to the requester or admin' do
              session[:user_id] = @info_request.user.id
+             incoming_message = @info_request.incoming_messages.first
              @controller.should_not_receive(:foi_fragment_cache_write)
-             get :show, :url_title => @info_request.url_title
+             get :get_attachment, :incoming_message_id => incoming_message.id,
+                                  :id => @info_request.id,
+                                  :part => 2,
+                                  :file_name => 'interesting.pdf'
          end
     end
 
@@ -965,6 +969,15 @@ describe RequestController, "when handling prominence" do
                                           :file_name => 'interesting.pdf',
                                           :skip_cache => 1
             end.should raise_error(ActiveRecord::RecordNotFound)
+        end
+
+        it 'should not cache an attachment when showing an attachment to the requester or admin' do
+            session[:user_id] = @info_request.user.id
+            @controller.should_not_receive(:foi_fragment_cache_write)
+            get :get_attachment, :incoming_message_id => @incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf'
         end
     end
 
