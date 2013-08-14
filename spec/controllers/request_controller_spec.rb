@@ -826,6 +826,12 @@ end
 
 describe RequestController, "when handling prominence" do
 
+    def expect_hidden_attachment(hidden_template)
+        response.content_type.should == "text/html"
+        response.should render_template(hidden_template)
+        response.code.should == '410'
+    end
+
     context 'when the request is hidden' do
 
         before(:each) do
@@ -863,10 +869,7 @@ describe RequestController, "when handling prominence" do
                                  :part => 2,
                                  :file_name => 'interesting.pdf',
                                  :skip_cache => 1
-            response.content_type.should == "text/html"
-            response.should_not contain "thisisthebody"
-            response.should render_template('request/hidden')
-            response.code.should == '410'
+            expect_hidden_attachment('request/hidden')
         end
 
         it 'should not generate an HTML version of an attachment for a request whose prominence
@@ -886,8 +889,7 @@ describe RequestController, "when handling prominence" do
     context 'when the request is requester_only' do
 
         before(:each) do
-            @info_request = FactoryGirl.create(:info_request_with_attachments,
-                                               prominence: 'requester_only')
+            @info_request = FactoryGirl.create(:info_request_with_attachments, prominence: 'requester_only')
         end
 
         it "should not show request if you're not logged in" do
