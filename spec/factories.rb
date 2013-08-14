@@ -3,9 +3,9 @@ FactoryGirl.define do
     sequence(:email) { |n| "person#{n}@example.com" }
 
     factory :foi_attachment do
-        content_type 'text/pdf'
+        content_type 'application/pdf'
         filename 'interesting.pdf'
-        body 'thisisthebody'
+        body { load_file_fixture('interesting.pdf') }
     end
 
     factory :incoming_message do
