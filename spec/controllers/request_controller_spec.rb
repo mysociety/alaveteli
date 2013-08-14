@@ -826,7 +826,7 @@ end
 
 describe RequestController, "when handling prominence" do
 
-    def expect_hidden_attachment(hidden_template)
+    def expect_hidden(hidden_template)
         response.content_type.should == "text/html"
         response.should render_template(hidden_template)
         response.code.should == '410'
@@ -841,13 +841,13 @@ describe RequestController, "when handling prominence" do
 
         it "should not show request if you're not logged in" do
             get :show, :url_title => @info_request.url_title
-            response.should render_template('hidden')
+            expect_hidden('hidden')
         end
 
         it "should not show request even if logged in as their owner" do
             session[:user_id] = @info_request.user.id
             get :show, :url_title => @info_request.url_title
-            response.should render_template('hidden')
+            expect_hidden('hidden')
         end
 
         it 'should not show request if requested using json' do
@@ -869,7 +869,7 @@ describe RequestController, "when handling prominence" do
                                  :part => 2,
                                  :file_name => 'interesting.pdf',
                                  :skip_cache => 1
-            expect_hidden_attachment('request/hidden')
+            expect_hidden('request/hidden')
         end
 
         it 'should not generate an HTML version of an attachment for a request whose prominence
@@ -894,13 +894,13 @@ describe RequestController, "when handling prominence" do
 
         it "should not show request if you're not logged in" do
              get :show, :url_title => @info_request.url_title
-             response.should render_template('hidden')
+             expect_hidden('hidden')
          end
 
          it "should show request to requester and admin if logged in" do
              session[:user_id] = FactoryGirl.create(:user).id
              get :show, :url_title => @info_request.url_title
-             response.should render_template('hidden')
+             expect_hidden('hidden')
 
              session[:user_id] = @info_request.user.id
              get :show, :url_title => @info_request.url_title
@@ -935,7 +935,7 @@ describe RequestController, "when handling prominence" do
                                  :part => 2,
                                  :file_name => 'interesting.pdf',
                                  :skip_cache => 1
-            expect_hidden_attachment('request/hidden_correspondence')
+            expect_hidden('request/hidden_correspondence')
         end
 
         it 'should not download attachments for the request owner' do
@@ -945,7 +945,7 @@ describe RequestController, "when handling prominence" do
                                  :part => 2,
                                  :file_name => 'interesting.pdf',
                                  :skip_cache => 1
-            expect_hidden_attachment('request/hidden_correspondence')
+            expect_hidden('request/hidden_correspondence')
         end
 
         it 'should download attachments for an admin user', :focus => true do
@@ -995,7 +995,7 @@ describe RequestController, "when handling prominence" do
                                  :part => 2,
                                  :file_name => 'interesting.pdf',
                                  :skip_cache => 1
-            expect_hidden_attachment('request/hidden_correspondence')
+            expect_hidden('request/hidden_correspondence')
         end
 
         it 'should download attachments for the request owner' do
