@@ -563,6 +563,8 @@ public
     end
 
     # change status, including for last event for later historical purposes
+    # described_state should always indicate the current state of the request, as described
+    # by the request owner (or, in some other cases an admin or other user)
     def set_described_state(new_state, set_by = nil, message = "")
         old_described_state = described_state
         ActiveRecord::Base.transaction do
@@ -589,11 +591,14 @@ public
         end
     end
 
-    # Work out what the situation of the request is. In addition to values of
-    # self.described_state, can take these two values:
+    # Work out what state to display for the request on the site. In addition to values of
+    # self.described_state, can take these values:
     #   waiting_classification
     #   waiting_response_overdue
     #   waiting_response_very_overdue
+    # (this method adds an assessment of overdueness with respect to the current time to 'waiting_response'
+    # states, and will return 'waiting_classification' instead of the described_state if the
+    # awaiting_description flag is set on the request).
     def calculate_status(cached_value_ok=false)
         if cached_value_ok && @cached_calculated_status
             return @cached_calculated_status
@@ -612,10 +617,22 @@ public
         return 'waiting_response'
     end
 
+
+    # 'described_state' can be populated on any info_request_event but is only
+    # ever used in the process populating calculated_state on the
+    # info_request_event (if it represents a response, outgoing message, edit
+    # or status update), or previous response or outgoing message events for
+    # the same request.
+
     # Fill in any missing event states for first response before a description
     # was made. i.e. We take the last described state in between two responses
     # (inclusive of earlier), and set it as calculated value for the earlier
-    # response.
+    # response. Also set the calculated state for any initial outgoing message,
+    # follow up, edit or status_update to the described state of that event.
+
+    # Note that the calculated state of the latest info_request_event will
+    # be used in latest_status based searches and should match the described_state
+    # of the info_request.
     def calculate_event_states
         curr_state = nil
         for event in self.info_request_events.reverse
