@@ -57,11 +57,22 @@ FactoryGirl.define do
             FactoryGirl.create(:initial_request, info_request: info_request)
         end
 
-        factory :info_request_with_attachments do
+        factory :info_request_with_incoming do
+            after(:create) do |info_request, evaluator|
+                FactoryGirl.create(:incoming_message, info_request: info_request)
+            end
+        end
+
+        factory :info_request_with_incoming_attachments do
             after(:create) do |info_request, evaluator|
                 FactoryGirl.create(:incoming_message_with_attachments, info_request: info_request)
             end
+        end
 
+        factory :external_request do
+            user nil
+            external_user_name 'External User'
+            external_url 'http://www.example.org/request/external'
         end
 
     end
@@ -71,7 +82,7 @@ FactoryGirl.define do
         email
         salt "-6116981980.392287733335677"
         hashed_password '6b7cd45a5f35fd83febc0452a799530398bfb6e8' # jonespassword
-
+        email_confirmed true
         factory :admin_user do
             name 'Admin User'
             admin_level 'super'
