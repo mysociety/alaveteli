@@ -29,7 +29,11 @@ end
 def login(user)
   open_session do |sess|
     sess.extend(AlaveteliDsl)
-    u = users(user)
+    if user.is_a? User
+        u = user
+    else
+        u = users(user)
+    end
     sess.visit signin_path
     sess.fill_in "Your e-mail:", :with => u.email
     sess.fill_in "Password:", :with => "jonespassword"
