@@ -593,7 +593,7 @@ class RequestController < ApplicationController
         @outgoing_message.set_signature_name(@user.name) if !@user.nil?
 
         if (not @incoming_message.nil?) and @info_request != @incoming_message.info_request
-            raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, @info_request.id)
+            raise ActiveRecord::RecordNotFound.new("Incoming message #{@incoming_message.id} does not belong to request #{@info_request.id}")
         end
 
         # Test for hidden requests

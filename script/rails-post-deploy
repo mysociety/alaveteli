@@ -91,11 +91,9 @@ then
 fi
 bundle install $bundle_install_options
 
-bundle exec rake themes:install
-
 bundle exec rake submodules:check
 
 # upgrade database
 bundle exec rake db:migrate #--trace
 
-
+bundle exec rake themes:install

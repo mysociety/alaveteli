@@ -63,6 +63,8 @@ class ApiController < ApplicationController
             :smtp_message_id => nil
         )
 
+        request.set_described_state('waiting_response')
+
         # Return the URL and ID number.
         render :json => {
             'url' => make_url("request", request.url_title),
