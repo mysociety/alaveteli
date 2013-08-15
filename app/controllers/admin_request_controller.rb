@@ -62,9 +62,6 @@ class AdminRequestController < AdminController
 
         @info_request.title = params[:info_request][:title]
         @info_request.prominence = params[:info_request][:prominence]
-        if @info_request.described_state != params[:info_request][:described_state]
-            @info_request.set_described_state(params[:info_request][:described_state])
-        end
         @info_request.awaiting_description = params[:info_request][:awaiting_description] == "true" ? true : false
         @info_request.allow_new_responses_from = params[:info_request][:allow_new_responses_from]
         @info_request.handle_rejected_responses = params[:info_request][:handle_rejected_responses]
@@ -77,13 +74,16 @@ class AdminRequestController < AdminController
                 { :editor => admin_current_user(),
                     :old_title => old_title, :title => @info_request.title,
                     :old_prominence => old_prominence, :prominence => @info_request.prominence,
-                    :old_described_state => old_described_state, :described_state => @info_request.described_state,
+                    :old_described_state => old_described_state, :described_state => params[:info_request][:described_state],
                     :old_awaiting_description => old_awaiting_description, :awaiting_description => @info_request.awaiting_description,
                     :old_allow_new_responses_from => old_allow_new_responses_from, :allow_new_responses_from => @info_request.allow_new_responses_from,
                     :old_handle_rejected_responses => old_handle_rejected_responses, :handle_rejected_responses => @info_request.handle_rejected_responses,
                     :old_tag_string => old_tag_string, :tag_string => @info_request.tag_string,
                     :old_comments_allowed => old_comments_allowed, :comments_allowed => @info_request.comments_allowed
                 })
+            if @info_request.described_state != params[:info_request][:described_state]
+                @info_request.set_described_state(params[:info_request][:described_state])
+            end
             # expire cached files
             expire_for_request(@info_request)
             flash[:notice] = 'Request successfully updated.'
