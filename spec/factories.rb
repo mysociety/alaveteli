@@ -3,31 +3,41 @@ FactoryGirl.define do
     sequence(:email) { |n| "person#{n}@example.com" }
 
     factory :foi_attachment do
-        content_type 'application/pdf'
-        filename 'interesting.pdf'
-        body { load_file_fixture('interesting.pdf') }
+        factory :body_text do
+            content_type 'text/plain'
+            body { 'hereisthetext' }
+        end
+        factory :pdf_attachment do
+            content_type 'application/pdf'
+            filename 'interesting.pdf'
+            body { load_file_fixture('interesting.pdf') }
+        end
     end
 
     factory :incoming_message do
         info_request
         raw_email
         last_parsed { 1.week.ago }
-
+        sent_at { 1.week.ago }
+        mail_from 'A Public Body'
         factory :incoming_message_with_attachments do
             # foi_attachments_count is declared as an ignored attribute and available in
             # attributes on the factory, as well as the callback via the evaluator
             ignore do
-                foi_attachments_count 5
+                foi_attachments_count 2
             end
 
             # the after(:create) yields two values; the incoming_message instance itself and the
             # evaluator, which stores all values from the factory, including ignored
             # attributes;
             after(:create) do |incoming_message, evaluator|
+                FactoryGirl.create(:body_text,
+                                   incoming_message: incoming_message,
+                                   url_part_number: 1)
                 evaluator.foi_attachments_count.times do |count|
-                    FactoryGirl.create(:foi_attachment,
+                    FactoryGirl.create(:pdf_attachment,
                                        incoming_message: incoming_message,
-                                       url_part_number: count+1)
+                                       url_part_number: count+2)
                 end
             end
         end
@@ -59,13 +69,15 @@ FactoryGirl.define do
 
         factory :info_request_with_incoming do
             after(:create) do |info_request, evaluator|
-                FactoryGirl.create(:incoming_message, info_request: info_request)
+                incoming_message = FactoryGirl.create(:incoming_message, info_request: info_request)
+                info_request.log_event("response", {:incoming_message_id => incoming_message.id})
             end
         end
 
         factory :info_request_with_incoming_attachments do
             after(:create) do |info_request, evaluator|
-                FactoryGirl.create(:incoming_message_with_attachments, info_request: info_request)
+                incoming_message = FactoryGirl.create(:incoming_message_with_attachments, info_request: info_request)
+                info_request.log_event("response", {:incoming_message_id => incoming_message.id})
             end
         end
 
