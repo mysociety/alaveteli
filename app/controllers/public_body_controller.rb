@@ -152,7 +152,9 @@ class PublicBodyController < ApplicationController
 
     def statistics
         per_graph = 10
-        minimum_requests = 1
+        minimum_requests = AlaveteliConfiguration::minimum_requests_for_statistics
+        # Make sure minimum_requests is > 0 to avoid division-by-zero
+        minimum_requests = [minimum_requests, 1].max
         total_column = 'info_requests_count'
         graphs =
             [[total_column,
