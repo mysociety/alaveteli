@@ -83,6 +83,9 @@ describe ApiController, "when using the API" do
         new_request.last_event_forming_initial_request.outgoing_message.body.should == request_data["body"].strip
 
         new_request.public_body_id.should == public_bodies(:geraldine_public_body).id
+        new_request.info_request_events.size.should == 1
+        new_request.info_request_events[0].event_type.should == 'sent'
+        new_request.info_request_events[0].calculated_state.should == 'waiting_response'
     end
 
     def _create_request

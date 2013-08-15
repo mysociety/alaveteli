@@ -563,12 +563,15 @@ public
     end
 
     # change status, including for last event for later historical purposes
+    # described_state should always indicate the current state of the request, as described
+    # by the request owner (or, in some other cases an admin or other user)
     def set_described_state(new_state, set_by = nil, message = "")
         old_described_state = described_state
         ActiveRecord::Base.transaction do
             self.awaiting_description = false
             last_event = self.info_request_events.last
             last_event.described_state = new_state
+
             self.described_state = new_state
             last_event.save!
             self.save!
@@ -588,11 +591,14 @@ public
         end
     end
 
-    # Work out what the situation of the request is. In addition to values of
-    # self.described_state, can take these two values:
+    # Work out what state to display for the request on the site. In addition to values of
+    # self.described_state, can take these values:
     #   waiting_classification
     #   waiting_response_overdue
     #   waiting_response_very_overdue
+    # (this method adds an assessment of overdueness with respect to the current time to 'waiting_response'
+    # states, and will return 'waiting_classification' instead of the described_state if the
+    # awaiting_description flag is set on the request).
     def calculate_status(cached_value_ok=false)
         if cached_value_ok && @cached_calculated_status
             return @cached_calculated_status
@@ -611,10 +617,22 @@ public
         return 'waiting_response'
     end
 
+
+    # 'described_state' can be populated on any info_request_event but is only
+    # ever used in the process populating calculated_state on the
+    # info_request_event (if it represents a response, outgoing message, edit
+    # or status update), or previous response or outgoing message events for
+    # the same request.
+
     # Fill in any missing event states for first response before a description
     # was made. i.e. We take the last described state in between two responses
     # (inclusive of earlier), and set it as calculated value for the earlier
-    # response.
+    # response. Also set the calculated state for any initial outgoing message,
+    # follow up, edit or status_update to the described state of that event.
+
+    # Note that the calculated state of the latest info_request_event will
+    # be used in latest_status based searches and should match the described_state
+    # of the info_request.
     def calculate_event_states
         curr_state = nil
         for event in self.info_request_events.reverse
@@ -636,7 +654,7 @@ public
                     event.save!
                 end
                 curr_state = nil
-            elsif !curr_state.nil? && (event.event_type == 'followup_sent' || event.event_type == 'sent' || event.event_type == "status_update")
+            elsif !curr_state.nil? && (event.event_type == 'followup_sent' || event.event_type == 'sent') && !event.described_state.nil? && (event.described_state == 'waiting_response' || event.described_state == 'internal_review')
                 # Followups can set the status to waiting response / internal
                 # review. Initial requests ('sent') set the status to waiting response.
 
@@ -648,10 +666,22 @@ public
                     event.save!
                 end
 
-                # And we don't want to propogate it to the response itself,
+                # And we don't want to propagate it to the response itself,
                 # as that might already be set to waiting_clarification / a
                 # success status, which we want to know about.
                 curr_state = nil
+            elsif !curr_state.nil? && (['edit', 'status_update'].include? event.event_type)
+                # A status update or edit event should get the same calculated state as described state
+                # so that the described state is always indexed (and will be the latest_status
+                # for the request immediately after it has been described, regardless of what
+                # other request events precede it). This means that request should be correctly included
+                # in status searches for that status. These events allow the described state to propagate in
+                # case there is a preceding response that the described state should be applied to.
+                if event.calculated_state != event.described_state
+                    event.calculated_state = event.described_state
+                    event.last_described_at = Time.now()
+                    event.save!
+                end
             end
         end
     end
@@ -1107,10 +1137,10 @@ public
         begin
             if self.described_state.nil?
                 self.described_state = 'waiting_response'
-            end            
+            end
         rescue ActiveModel::MissingAttributeError
             # this should only happen on Model.exists?() call. It can be safely ignored.
-            # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/       
+            # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/
         end
         # FOI or EIR?
         if !self.public_body.nil? && self.public_body.eir_only?
