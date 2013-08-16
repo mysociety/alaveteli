@@ -208,6 +208,40 @@ describe PublicBodyController, "when showing JSON version for API" do
 
 end
 
+describe PublicBodyController, "when showing public body statistics" do
+
+  it "should render the right template with the right data" do
+    config = MySociety::Config.load_default()
+    config['MINIMUM_REQUESTS_FOR_STATISTICS'] = 1
+    get :statistics
+    response.should render_template('public_body/statistics')
+    # There are 5 different graphs we're creating at the moment.
+    assigns[:graph_list].length.should == 5
+    # The first is the only one with raw values, the rest are
+    # percentages with error bars:
+    assigns[:graph_list].each_with_index do |graph, index|
+      if index == 0
+        graph['errorbars'].should be_false
+        graph['x_values'].length.should == 4
+        graph['x_values'].should == [0, 1, 2, 3]
+        graph['y_values'].should == [1, 2, 2, 4]
+      else
+        graph['errorbars'].should be_true
+        # Just check the first one:
+        if index == 1
+          graph['x_values'].should == [0, 1, 2, 3]
+          graph['y_values'].should == [0, 50, 100, 100]
+        end
+        # Check that at least every confidence interval value is
+        # numeric:
+        graph['cis_below'].each { |v| v.should be_instance_of(Float) }
+        graph['cis_above'].each { |v| v.should be_instance_of(Float) }
+      end
+    end
+  end
+
+end
+
 describe PublicBodyController, "when doing type ahead searches" do
 
     render_views
