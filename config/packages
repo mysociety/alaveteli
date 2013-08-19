@@ -28,6 +28,8 @@ wkhtmltopdf-static
 libmagic-dev
 libmagickwand-dev
 libpq-dev
+libxml2-dev
+libxslt-dev
 uuid-dev
 ruby1.8-dev
 rubygems
