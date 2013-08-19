@@ -63,26 +63,32 @@ class RequestController < ApplicationController
 
             # Look up by new style text names
             @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-            set_last_request(@info_request)
 
             # Test for whole request being hidden
             if !@info_request.user_can_view?(authenticated_user)
                 return render_hidden
             end
 
-            # Other parameters
-            @info_request_events = @info_request.info_request_events
-            @status = @info_request.calculate_status
-            @collapse_quotes = params[:unfold] ? false : true
+            set_last_request(@info_request)
 
+            # assign variables from request parameters
+            @collapse_quotes = params[:unfold] ? false : true
             # Don't allow status update on external requests, otherwise accept param
             if @info_request.is_external?
                 @update_status = false
             else
                 @update_status = params[:update_status] ? true : false
             end
+
+            # Other parameters
+            @info_request_events = @info_request.info_request_events
+            @status = @info_request.calculate_status
             @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
             @is_owning_user = @info_request.is_owning_user?(authenticated_user)
+            @last_info_request_event_id = @info_request.last_event_id_needing_description
+            @new_responses_count = @info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
+            # For send followup link at bottom
+            @last_response = @info_request.get_last_response
 
             if @update_status
                 return if !@is_owning_user && !authenticated_as_user?(@info_request.user,
@@ -91,10 +97,6 @@ class RequestController < ApplicationController
                         :email_subject => _("Update the status of your request to ") + @info_request.public_body.name
                     )
             end
-
-
-            @last_info_request_event_id = @info_request.last_event_id_needing_description
-            @new_responses_count = @info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
 
             # Sidebar stuff
             # ... requests that have similar imporant terms
@@ -106,13 +108,11 @@ class RequestController < ApplicationController
             rescue
                 @xapian_similar = nil
             end
-
             # Track corresponding to this page
             @track_thing = TrackThing.create_track_for_request(@info_request)
             @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
-            # For send followup link at bottom
-            @last_response = @info_request.get_last_response
+
             respond_to do |format|
                 format.html { @has_json = true; render :template => 'request/show'}
                 format.json { render :json => @info_request.json_for_api(true) }
