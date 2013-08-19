@@ -879,10 +879,9 @@ class RequestController < ApplicationController
                               :email_subject => _("Log in to download a zip file of {{info_request_title}}",
                                            :info_request_title=>@info_request.title)
                               )
-                updated = Digest::SHA1.hexdigest(@info_request.info_request_events.last.created_at.to_i.to_s + @info_request.updated_at.to_i.to_s)
                 @url_path = File.join("/download",
                                        request_dirs(@info_request),
-                                       updated,
+                                       @info_request.last_update_hash,
                                        "#{params[:url_title]}.zip")
                 file_path = File.expand_path(File.join(download_zip_dir(), @url_path))
                 if !File.exists?(file_path)

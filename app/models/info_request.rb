@@ -805,6 +805,10 @@ public
         end
     end
 
+    def last_update_hash
+        Digest::SHA1.hexdigest(info_request_events.last.created_at.to_i.to_s + updated_at.to_i.to_s)
+    end
+
     # Get previous email sent to
     def get_previous_email_sent_to(info_request_event)
         last_email = nil
