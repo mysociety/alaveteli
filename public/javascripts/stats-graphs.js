@@ -7,7 +7,7 @@ function zip(arrays) {
 
 $(document).ready(function() {
     $.each(graphs_data, function(index, graph_data) {
-        var graph_id = graph_data['id'],
+        var graph_id = graph_data.id,
             dataset,
             plot,
             graph_data,
@@ -23,12 +23,12 @@ $(document).ready(function() {
                  'barWidth': 0.5,
                  'align': 'center'
              },
-             'data': zip([graph_data['x_values'],
-                          graph_data['y_values']])
+             'data': zip([graph_data.x_values,
+                          graph_data.y_values])
             }
         ]
 
-        if (graph_data['errorbars']) {
+        if (graph_data.errorbars) {
             dataset.push({
                 'color': 'orange',
                 'points': {
@@ -43,28 +43,28 @@ $(document).ready(function() {
                         'radius': 5
                     }
                 },
-                'data': zip([graph_data['x_values'],
-                             graph_data['y_values'],
-                             graph_data['cis_below'],
-                             graph_data['cis_above']])
+                'data': zip([graph_data.x_values,
+                             graph_data.y_values,
+                             graph_data.cis_below,
+                             graph_data.cis_above])
             });
         }
 
         options = {
             'xaxis': {
-                'ticks': graph_data['x_ticks'],
+                'ticks': graph_data.x_ticks,
             },
             'yaxis': {
                 'min': 0,
-                'max': graph_data['y_max']
+                'max': graph_data.y_max
             },
             'xaxes': [{
-                'axisLabel': graph_data['x_axis'],
+                'axisLabel': graph_data.x_axis,
                 'axisLabelPadding': 20,
                 'axisLabelColour': 'black'
             }],
             'yaxes': [{
-                'axisLabel': graph_data['y_axis'],
+                'axisLabel': graph_data.y_axis,
                 'axisLabelPadding': 20,
                 'axisLabelColour': 'black'
             }],
