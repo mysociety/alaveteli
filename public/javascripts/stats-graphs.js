@@ -19,7 +19,7 @@ $(document).ready(function() {
         }
 
         graph_div.css('width', '700px');
-        graph_div.css('height', '400px');
+        graph_div.css('height', '600px');
 
         dataset = [
             {'color': 'orange',
@@ -58,6 +58,7 @@ $(document).ready(function() {
         options = {
             'xaxis': {
                 'ticks': graph_data.x_ticks,
+                'rotateTicks': 90
             },
             'yaxis': {
                 'min': 0,
