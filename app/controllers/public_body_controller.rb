@@ -156,94 +156,65 @@ class PublicBodyController < ApplicationController
         # Make sure minimum_requests is > 0 to avoid division-by-zero
         minimum_requests = [minimum_requests, 1].max
         total_column = 'info_requests_count'
-        graphs =
-            [[total_column,
-              [{
-                   :title => 'Public bodies with the most requests',
-                   :y_axis => 'Number of requests',
-                   :highest => true}]],
-             ['info_requests_successful_count',
-              [{
-                   :title => 'Public bodies with the most successful requests',
-                   :y_axis => 'Percentage of total requests',
-                   :highest => true},
-               {
-                   :title => 'Public bodies with the fewest successful requests',
-                   :y_axis => 'Percentage of total requests',
-                   :highest => false}]],
-             ['info_requests_overdue_count',
-              [{
-                   :title => 'Public bodies with most overdue requests',
-                   :y_axis => 'Percentage of requests that are overdue',
-                   :highest => true}]],
-             ['info_requests_not_held_count',
-              [{
-                   :title => 'Public bodies that most frequently replied with "Not Held"',
-                   :y_axis => 'Percentage of total requests',
-                   :highest => true}]]]
 
         @graph_list = []
 
-        graphs.each do |column, graphs_properties|
+        [[total_column,
+          [{
+               :title => 'Public bodies with the most requests',
+               :y_axis => 'Number of requests',
+               :highest => true}]],
+         ['info_requests_successful_count',
+          [{
+               :title => 'Public bodies with the most successful requests',
+               :y_axis => 'Percentage of total requests',
+               :highest => true},
+           {
+               :title => 'Public bodies with the fewest successful requests',
+               :y_axis => 'Percentage of total requests',
+               :highest => false}]],
+         ['info_requests_overdue_count',
+          [{
+               :title => 'Public bodies with most overdue requests',
+               :y_axis => 'Percentage of requests that are overdue',
+               :highest => true}]],
+         ['info_requests_not_held_count',
+          [{
+               :title => 'Public bodies that most frequently replied with "Not Held"',
+               :y_axis => 'Percentage of total requests',
+               :highest => true}]]].each do |column, graphs_properties|
+
             graphs_properties.each do |graph_properties|
-                ordering = "y_value"
-                reverse = false
+
                 percentages = (column != total_column)
-                if graph_properties[:highest]
-                    ordering = "y_value DESC"
-                    reverse = true
-                end
-                y_value_column = total_column
+                highest = graph_properties[:highest]
+
+                data = nil
                 if percentages
-                    y_value_column = "(cast(#{column} as float) / #{total_column})"
-                end
-                where_clause = "#{total_column} >= #{minimum_requests}"
-                public_bodies = PublicBody.select("*, #{y_value_column} AS y_value").order(ordering).where(where_clause).limit(per_graph)
-                public_bodies.reverse! if reverse
-
-                x_values = public_bodies.each_with_index.map { |public_body, index| index }
-                y_values = public_bodies.map { |pb| pb.y_value.to_f }
-                cis_below = nil
-                cis_above = nil
-
-                if percentages
-                    original_values = public_bodies.map { |pb| pb.send(column) }
-                    original_totals = public_bodies.map { |pb| pb.send(total_column) }
-                    # Calculate confidence intervals:
-                    cis_below = []
-                    cis_above = []
-                    original_totals.each_with_index.map { |total, i|
-                        lower_ci, higher_ci = ci_bounds original_values[i], total, 0.05
-                        cis_below.push(y_values[i] - lower_ci)
-                        cis_above.push(higher_ci - y_values[i])
-                    }
-                    # Turn the y values and confidence interval into
-                    # percentages:
-                    [y_values, cis_below, cis_above].each { |l|
-                        l.map! { |v| 100 * v }
-                    }
+                    data = PublicBody.get_request_percentages(column,
+                                                              per_graph,
+                                                              highest,
+                                                              minimum_requests)
+                else
+                    data = PublicBody.get_request_totals(per_graph,
+                                                         highest,
+                                                         minimum_requests)
                 end
 
-                y_max = y_values.max
-                if percentages
-                    y_max = 100
-                end
-
-                graph_id = "#{column}-"
-                graph_id += graph_properties[:highest] ? 'highest' : 'lowest'
-
-                @graph_list.push({
-                    'id' => graph_id,
-                    'errorbars' => percentages,
-                    'title' => graph_properties[:title],
-                    'x_values' => x_values,
-                    'y_values' => y_values,
-                    'cis_below' => cis_below,
-                    'cis_above' => cis_above,
+                data_to_draw = {
+                    'id' => "#{column}-#{highest ? 'highest' : 'lowest'}",
                     'x_axis' => 'Public Bodies',
-                    'x_ticks' => public_bodies.each_with_index.map { |pb, i| [i, pb.name] },
                     'y_axis' => graph_properties[:y_axis],
-                    'y_max' => y_max})
+                    'errorbars' => percentages,
+                    'title' => graph_properties[:title]}
+
+                if data
+                    data_to_draw.update(data)
+                    data_to_draw['x_values'] = data['public_bodies'].each_with_index.map { |pb, i| i }
+                    data_to_draw['x_ticks'] = data['public_bodies'].each_with_index.map { |pb, i| [i, pb.name] }
+                end
+
+                @graph_list.push data_to_draw
             end
         end
 

@@ -13,6 +13,11 @@ $(document).ready(function() {
             graph_data,
             graph_div = $('#' + graph_id);
 
+        if (!graph_data.x_values) {
+            /* Then there's no data for this graph */
+            return true;
+        }
+
         graph_div.css('width', '700px');
         graph_div.css('height', '400px');
 
