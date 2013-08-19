@@ -233,7 +233,7 @@ describe PublicBodyController, "when showing public body statistics" do
           graph['y_values'].should == [0, 50, 100, 100]
         end
         # Check that at least every confidence interval value is
-        # numeric:
+        # a Float (rather than NilClass, say):
         graph['cis_below'].each { |v| v.should be_instance_of(Float) }
         graph['cis_above'].each { |v| v.should be_instance_of(Float) }
       end
