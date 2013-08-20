@@ -658,7 +658,7 @@ class PublicBody < ActiveRecord::Base
         ordering = "y_value"
         ordering += " DESC" if highest
         y_value_column = "(cast(#{column} as float) / #{total_column})"
-        where_clause = "#{total_column} >= #{minimum_requests}"
+        where_clause = "#{total_column} >= #{minimum_requests} AND #{column} IS NOT NULL"
         public_bodies = PublicBody.select("*, #{y_value_column} AS y_value").order(ordering).where(where_clause).limit(n)
         public_bodies.reverse! if highest
         y_values = public_bodies.map { |pb| pb.y_value.to_f }
