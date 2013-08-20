@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-24 09:40-0700\n"
+"POT-Creation-Date: 2013-08-05 17:01+0100\n"
 "PO-Revision-Date: 2011-02-24 07:11-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -612,6 +612,9 @@ msgid "Dear {{public_body_name}},"
 msgstr ""
 
 msgid "Default locale"
+msgstr ""
+
+msgid "Defunct."
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
@@ -1844,6 +1847,12 @@ msgid "Requests for personal information and vexatious requests are not consider
 msgstr ""
 
 msgid "Requests or responses matching your saved search"
+msgstr ""
+
+msgid "Requests similar to '{{request_title}}'"
+msgstr ""
+
+msgid "Requests similar to '{{request_title}}' (page {{page}})"
 msgstr ""
 
 msgid "Respond by email"

@@ -1519,8 +1519,8 @@ describe RequestController, "when classifying an information request" do
                 post_status('rejected')
             end
 
-            it 'should not log a status update event' do
-                @dog_request.should_not_receive(:log_event)
+            it 'should log a status update event' do
+                @dog_request.should_receive(:log_event)
                 post_status('rejected')
             end
 
@@ -1573,11 +1573,12 @@ describe RequestController, "when classifying an information request" do
                 @dog_request.awaiting_description.should == false
                 @dog_request.described_state.should == 'rejected'
                 @dog_request.get_last_response_event.should == info_request_events(:useless_incoming_message_event)
-                @dog_request.get_last_response_event.calculated_state.should == 'rejected'
+                @dog_request.info_request_events.last.event_type.should == "status_update"
+                @dog_request.info_request_events.last.calculated_state.should == 'rejected'
             end
 
-            it 'should not log a status update event' do
-                @dog_request.should_not_receive(:log_event)
+            it 'should log a status update event' do
+                @dog_request.should_receive(:log_event)
                 post_status('rejected')
             end
 
@@ -1645,10 +1646,6 @@ describe RequestController, "when classifying an information request" do
                 @dog_request = info_requests(:fancy_dog_request)
                 @dog_request.stub!(:each).and_return([@dog_request])
                 InfoRequest.stub!(:find).and_return(@dog_request)
-                RoutingFilter.active = false
-            end
-            after do
-                RoutingFilter.active = true
             end
 
             def request_url

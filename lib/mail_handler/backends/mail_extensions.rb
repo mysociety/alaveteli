@@ -46,6 +46,15 @@ module Mail
 
             self
         end
+
+        def set_envelope_header
+            raw_string = raw_source.to_s
+            if match_data = raw_source.to_s.match(/\AFrom\s(#{TEXT}+)#{CRLF}/m)
+               set_envelope(match_data[1])
+               self.raw_source = raw_string.sub(match_data[0], "")
+            end
+        end
+
     end
 
     # A patched version of the parameter hash that handles nil values without throwing
@@ -116,6 +125,21 @@ module Mail
         end
     end
     class Ruby19
+
+        def Ruby19.b_value_decode(str)
+          match = str.match(/\=\?(.+)?\?[Bb]\?(.+)?\?\=/m)
+          if match
+            encoding = match[1]
+            str = Ruby19.decode_base64(match[2])
+            # Rescue an ArgumentError arising from an unknown encoding.
+            begin
+                str.force_encoding(fix_encoding(encoding))
+            rescue ArgumentError
+            end
+          end
+          decoded = str.encode("utf-8", :invalid => :replace, :replace => "")
+          decoded.valid_encoding? ? decoded : decoded.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
+        end
 
         def Ruby19.q_value_decode(str)
             match = str.match(/\=\?(.+)?\?[Qq]\?(.+)?\?\=/m)

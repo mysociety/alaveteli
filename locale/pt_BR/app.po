@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# elaste <3laste2000@gmail.com>, 2012
+# Daniela Mattern <3laste2000@gmail.com>, 2012
 # serramassuda <a.serramassuda@gmail.com>, 2012
 # Bruno <bgx@bol.com.br>, 2012
 # Bruno <bgx@bol.com.br>, 2012
@@ -11,7 +11,8 @@
 # Carlos Vieira <edu.carlos.vieira@gmail.com>, 2011
 # danielabsilva <danielabsilva@gmail.com>, 2011
 # danielabsilva <danielabsilva@gmail.com>, 2011
-# elaste <3laste2000@gmail.com>, 2012
+# Daniela Mattern <3laste2000@gmail.com>, 2012
+# Daniela Mattern <3laste2000@gmail.com>, 2012
 #   <everton137@gmail.com>, 2011
 # gabinardy <gabileitao@gmail.com>, 2012
 # gabinardy <gabileitao@gmail.com>, 2012
@@ -41,8 +42,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-06-24 09:40-0700\n"
-"PO-Revision-Date: 2013-06-24 16:52+0000\n"
+"POT-Creation-Date: 2013-08-05 17:01+0100\n"
+"PO-Revision-Date: 2013-08-05 16:04+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/alaveteli/language/pt_BR/)\n"
 "Language: pt_BR\n"
@@ -664,6 +665,9 @@ msgid "Dear {{public_body_name}},"
 msgstr "Prezado(a) {{public_body_name}},"
 
 msgid "Default locale"
+msgstr ""
+
+msgid "Defunct."
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
@@ -1908,6 +1912,12 @@ msgstr "Pedidos de informação pessoal ou constrangedora não são considerados
 
 msgid "Requests or responses matching your saved search"
 msgstr "Pedidos ou respostas que correspondem a sua pesquisa"
+
+msgid "Requests similar to '{{request_title}}'"
+msgstr ""
+
+msgid "Requests similar to '{{request_title}}' (page {{page}})"
+msgstr ""
 
 msgid "Respond by email"
 msgstr "Resposta por e-mail"

@@ -1,5 +1,16 @@
-<% @title = "Requests similar to '" + h(@info_request.title) + "'" + @page_desc %>
-<h1><%="Requests similar to '" + request_link(@info_request) + "'" + @page_desc %></h1>
+<%- if @page > 1 %>
+  <%- @title = _("Requests similar to '{{request_title}}' (page {{page}})", {:page => @page, :request_title => @info_request.title}) %>
+<%- else %>
+<%- @title = _("Requests similar to '{{request_title}}'", {:request_title => @info_request.title}) %>
+<%- end %>
+
+<h1>
+  <%- if @page > 1 %>
+    <%= _("Requests similar to '{{request_title}}' (page {{page}})", {:page => @page, :request_title => request_link(@info_request)}) %>
+  <%- else %>
+  <%= _("Requests similar to '{{request_title}}'", {:request_title => request_link(@info_request)}) %>
+  <%- end %>
+</h1>
 
 <!-- Important terms: <%= @xapian_object.important_terms.join(" ") %>  -->
 

@@ -4,8 +4,8 @@
 ruby1.8
 ruby
 libopenssl-ruby1.8 # needed for Ubuntu 10.04 TLS; included in libruby1.8 in Squeeze
-rdoc
-irb
+rdoc | rdoc1.8
+irb | irb1.8
 wv
 poppler-utils
 pdftk (>> 1.41+dfsg-1) | pdftk (<< 1.41+dfsg-1) # that version has a non-functionining uncompress option

@@ -64,8 +64,6 @@ describe TrackController, "when sending alerts for a track" do
     end
 
     it "should send alerts" do
-        # Don't do clever locale-insertion-unto-URL stuff
-        RoutingFilter.active = false
 
         # set the time the comment event happened at to within the last week
         ire = info_request_events(:silly_comment_event)
@@ -111,9 +109,6 @@ describe TrackController, "when sending alerts for a track" do
         TrackMailer.alert_tracks
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 0
-
-        # Restore the routing filters
-        RoutingFilter.active = true
     end
 
     it "should send localised alerts" do

@@ -1,3 +1,19 @@
+# Version 0.13
+## Highlighted features
+
+* Fix for bug that resulted in some incorrect results when using search by request status [issue #460](https://github.com/mysociety/alaveteli/issues/460). You can view and fix requests with inconsistent state history using `rake temp:fix_bad_request_states`
+* All status updates (whether by the request owner or another user) are now logged in the event history, for better audit) (Matthew Landauer)
+* Fix for bug that dropped accented characters from URLs [issue #282](https://github.com/mysociety/alaveteli/issues/282) (zejn)
+* A fix for a bug that produced binary mask errors when handling multibyte characters in responses [issue #991](https://github.com/mysociety/alaveteli/issues/991)
+* Some locale fixes for locales with a dash in them [issue #998](https://github.com/mysociety/alaveteli/issues/998) and [issue #999](https://github.com/mysociety/alaveteli/issues/999).
+* Some improvements in the labelling of defunct authorities (Matthew Somerville)
+* The addition of a check on the status of the commonlib submodule to the rails-post-deploy script.
+
+## Upgrade notes
+* Check out this version and run `rails-post-deploy` as usual.
+* This release includes an update to the commonlib submodule - you should now be warned about this on running `rails-post-deploy`. You can update to the nw version with `git submodule update`.
+* After deploying, run `rake temp:fix_bad_request_states` to find and list requests that have an inconsistent history - run `rake temp:fix_bad_request_states DRYRUN=0` to fix them.
+
 # Version 0.12
 ## Highlighted features
 *  Remove support for theme stylesheet inclusion via template (deprecated in version 0.5)
@@ -5,11 +21,9 @@
 * Users can now give more information when reporting a request as unsuitable (Matthew Landauer)
 * The donation url presented to users when they report their request as successful or partially successful is now option and the url itself can be configured using the config param DONATION_URL
 * Internal review request text is now translatable
-* ACCEPT headers are ignored in the specification of formats, only formats supplied in URLs are considered
 * config/crontab.ugly is now config/crontab-example
 * Search query highlighting should now work with non-ascii characters [issue #505](https://github.com/mysociety/alaveteli/issues/505) (Matthew Landauer)
-* A bug that allowed people to sign up with email addresses with spaces in them has been fixed [issue #980](https://github.com/mysociety/alaveteli/issues/980)
-
+* A bug that allowed people to sign up with email addresses with spaces in them has been fixed [issue #980](https://github.com/mysociety/alaveteli/issues/980). Any existing email addresses with spaces in them will cause problems e.g. when the cron scripts encounter them. You can fix them manually, or by running `rake temp:clean_up_emails_with_spaces` from `lib/tasks/temp.rake`
 * [List of issues on github](https://github.com/mysociety/alaveteli/issues?milestone=30&state=closed)
 
 ## Upgrade notes

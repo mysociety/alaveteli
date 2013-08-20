@@ -31,8 +31,7 @@ Spork.prefork do
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
   # Use test-specific translations
-  FastGettext.add_text_domain 'app', :path => File.join(File.dirname(__FILE__), 'fixtures', 'locale'), :type => :po
-  FastGettext.default_text_domain = 'app'
+  AlaveteliLocalization.set_default_text_domain('app', File.join(File.dirname(__FILE__), 'fixtures', 'locale'))
 
   RSpec.configure do |config|
     # ## Mock Framework
@@ -88,12 +87,19 @@ Spork.prefork do
     # ApplicationController#set_gettext_locale which sets the locale and so you may be setting
     # the locale in your tests and not even realising it. So, let's make things easier for
     # ourselves and just always restore the locale for all tests.
+    config.after(:each) do
+      AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
+                                        AlaveteliConfiguration::default_locale)
+    end
+
+    # Turn routing-filter off in functional and unit tests as per
+    # https://github.com/svenfuchs/routing-filter/blob/master/README.markdown#testing
     config.before(:each) do
-      @save_i18n_locale = I18n.locale
+      RoutingFilter.active = false if [:controller, :helper, :model].include? example.metadata[:type]
     end
 
     config.after(:each) do
-      I18n.locale = @save_i18n_locale
+      RoutingFilter.active = true if [:controller, :helper, :model].include? example.metadata[:type]
     end
 
     # This section makes the garbage collector run less often to speed up tests

@@ -19,8 +19,8 @@ class UserController < ApplicationController
     # Show page about a user
     def show
         long_cache
-        if MySociety::Format.simplify_url_part(params[:url_name], 'user', 32) != params[:url_name]
-            redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'user', 32), :status => :moved_permanently
+        if MySociety::Format.simplify_url_part(params[:url_name], 'user') != params[:url_name]
+            redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'user'), :status => :moved_permanently
             return
         end
         if params[:view].nil?

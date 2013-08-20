@@ -46,6 +46,8 @@ gem 'gettext_i18n_rails'
 gem 'gettext'
 gem 'locale'
 gem 'routing-filter'
+gem 'unicode'
+gem 'unidecode'
 
 group :test do
   gem 'fakeweb'

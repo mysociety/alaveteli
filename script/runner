@@ -35,6 +35,6 @@ Dir.chdir(alaveteli_dir) do
         Process.detach(pid)
     else
         # Not daemon mode
-        exec("bundle exec rails runner #{ARGV[1]}")
+        exec("bundle exec rails runner #{ARGV[0]}")
     end
 end
