@@ -1,5 +1,36 @@
 namespace :temp do
 
+    desc "Fix the history of requests where the described state doesn't match the latest status value
+          used by search, by adding an edit event that will correct the latest status"
+    task :fix_bad_request_states => :environment do
+        dryrun = ENV['DRYRUN'] != '0'
+        if dryrun
+            puts "This is a dryrun"
+        end
+
+        InfoRequest.find_each() do |info_request|
+            next if info_request.url_title == 'holding_pen'
+            last_info_request_event = info_request.info_request_events[-1]
+            if last_info_request_event.latest_status != info_request.described_state
+                puts "#{info_request.id} #{info_request.url_title} #{last_info_request_event.latest_status} #{info_request.described_state}"
+                params = { :script => 'rake temp:fix_bad_request_states',
+                           :user_id => nil,
+                           :old_described_state => info_request.described_state,
+                           :described_state => info_request.described_state
+                          }
+                if ! dryrun
+                    info_request.info_request_events.create!(:last_described_at => last_info_request_event.described_at + 1.second,
+                                                             :event_type => 'status_update',
+                                                             :described_state => info_request.described_state,
+                                                             :calculated_state => info_request.described_state,
+                                                             :params => params)
+                    info_request.info_request_events.each{ |event| event.mark_needs_xapian_index }
+                end
+            end
+
+        end
+    end
+
     def disable_duplicate_account(user, count, dryrun)
         dupe_email = "duplicateemail#{count}@example.com"
         puts "Updating #{user.email} to #{dupe_email} for user #{user.id}"
@@ -13,15 +44,21 @@ namespace :temp do
         total_messages = 0
         messages_to_reparse = 0
         IncomingMessage.find_each :include => :foi_attachments do |im|
-            reparse = im.foi_attachments.any? { |fa| ! File.exists? fa.filepath }
-            total_messages += 1
-            messages_to_reparse += 1 if reparse
-            if total_messages % 1000 == 0
-                puts "Considered #{total_messages} received emails."
-            end
-            unless dry_run
-                im.parse_raw_email! true if reparse
-                sleep 2
+            begin
+                reparse = im.foi_attachments.any? { |fa| ! File.exists? fa.filepath }
+                total_messages += 1
+                messages_to_reparse += 1 if reparse
+                if total_messages % 1000 == 0
+                    puts "Considered #{total_messages} received emails."
+                end
+                unless dry_run
+                    im.parse_raw_email! true if reparse
+                    sleep 2
+                end
+            rescue StandardError => e
+                puts "There was a #{e.class} exception reparsing IncomingMessage with ID #{im.id}"
+                puts e.backtrace
+                puts e.message
             end
         end
         message = dry_run ? "Would reparse" : "Reparsed"

@@ -67,6 +67,11 @@ describe 'when creating a mail object from raw data' do
         body.should match(/ \xe2\x80\x93 /)
     end
 
+    it 'should not error on a subject line with an encoding encoding not recognized by iconv' do
+        mail = get_fixture_mail('unrecognized-encoding-mail.email')
+        lambda{ mail.subject }.should_not raise_error
+    end
+
 end
 
 describe 'when asked for the from name' do

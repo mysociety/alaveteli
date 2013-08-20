@@ -101,3 +101,17 @@ other_public_body_translation:
   notes: More notes
   publication_scheme: ""
   disclosure_log: ""
+
+humpadink_he_IL_public_body_translation:
+  name: "Hebrew Humpadinking"
+  first_letter: D
+  request_email: humpadink-requests@localhost
+  id: 9
+  public_body_id: 3
+  short_name: DfH
+  url_name: dfh
+  locale: he_IL
+  notes: An albatross told me!!!
+  publication_scheme: ""
+  disclosure_log: ""
+

@@ -147,7 +147,6 @@ class GeneralController < ApplicationController
             @query, _ = make_query_from_params(params)
         end
         @inputted_sortby = @sortby
-        @common_query = get_tags_from_params(params)
         if @sortby.nil?
             # Parse query, so can work out if it has prefix terms only - if so then it is a
             # structured query which should show newest first, rather than a free text search

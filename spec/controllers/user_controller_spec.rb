@@ -3,6 +3,31 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 # XXX Use route_for or params_from to check /c/ links better
 # http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/ControllerExampleGroup.html
+describe UserController, "when redirecting a show request to a canonical url" do
+
+    it "should redirect to lower case name if given one with capital letters" do
+        get :show, :url_name => "Bob_Smith"
+        response.should redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
+    end
+
+    it 'should redirect a long non-canonical name that has a numerical suffix,
+    retaining the suffix' do
+        get :show, :url_name => 'Bob_SmithBob_SmithBob_SmithBob_S_2'
+        response.should redirect_to(:controller => 'user',
+                                    :action => 'show',
+                                    :url_name => 'bob_smithbob_smithbob_smithbob_s_2')
+    end
+
+    it 'should not redirect a long canonical name that has a numerical suffix' do
+        User.stub!(:find).with(:first, anything()).and_return(mock_model(User,
+                                        :url_name => 'bob_smithbob_smithbob_smithbob_s_2',
+                                        :name => 'Bob Smith Bob Smith Bob Smith Bob Smith'))
+        User.stub!(:find).with(:all, anything()).and_return([])
+        get :show, :url_name => 'bob_smithbob_smithbob_smithbob_s_2'
+        response.should be_success
+    end
+
+end
 
 describe UserController, "when showing a user" do
     render_views
@@ -14,11 +39,6 @@ describe UserController, "when showing a user" do
     it "should be successful" do
         get :show, :url_name => "bob_smith"
         response.should be_success
-    end
-
-    it "should redirect to lower case name if given one with capital letters" do
-        get :show, :url_name => "Bob_Smith"
-        response.should redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
     end
 
     it "should render with 'show' template" do
@@ -105,8 +125,6 @@ describe UserController, "when signing in" do
     end
 
     it "should log in when you give right email/password, and redirect to where you were" do
-        RoutingFilter.active = false
-
         get :signin, :r => "/list"
         response.should render_template('sign')
         post_redirect = get_last_postredirect
@@ -117,13 +135,9 @@ describe UserController, "when signing in" do
         # response doesn't contain /en/ but redirect_to does...
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
         ActionMailer::Base.deliveries.should be_empty
-
-        RoutingFilter.active = true
     end
 
     it "should not log you in if you use an invalid PostRedirect token, and shouldn't give 500 error either" do
-        RoutingFilter.active = false
-
         post_redirect = "something invalid"
         lambda {
             post :signin, { :user_signin => { :email => 'bob@localhost', :password => 'jonespassword' },
@@ -134,8 +148,6 @@ describe UserController, "when signing in" do
             :token => post_redirect }
         response.should render_template('sign')
         assigns[:post_redirect].should == nil
-
-        RoutingFilter.active = true
     end
 
 # No idea how to test this in the test framework :(
@@ -159,8 +171,6 @@ describe UserController, "when signing in" do
     end
 
     it "should confirm your email, log you in and redirect you to where you were after you click an email link" do
-        RoutingFilter.active = false
-
         get :signin, :r => "/list"
         post_redirect = get_last_postredirect
 
@@ -186,13 +196,9 @@ describe UserController, "when signing in" do
         get :confirm, :email_token => post_redirect.email_token
         session[:user_id].should == users(:unconfirmed_user).id
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
-
-        RoutingFilter.active = true
     end
 
     it "should keep you logged in if you click a confirmation link and are already logged in as an admin" do
-        RoutingFilter.active = false
-
         get :signin, :r => "/list"
         post_redirect = get_last_postredirect
 
@@ -223,7 +229,6 @@ describe UserController, "when signing in" do
         # And the redirect should still work, of course
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
 
-        RoutingFilter.active = true
     end
 
 end
@@ -301,14 +306,10 @@ describe UserController, "when signing out" do
     end
 
     it "should log you out and redirect you to where you were" do
-        RoutingFilter.active = false
-
         session[:user_id] = users(:bob_smith_user).id
         get :signout, :r => '/list'
         session[:user_id].should be_nil
         response.should redirect_to(:controller => 'request', :action => 'list')
-
-        RoutingFilter.active = true
     end
 
 end

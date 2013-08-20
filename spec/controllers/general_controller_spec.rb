@@ -108,97 +108,15 @@ describe GeneralController, "when showing the frontpage" do
         response.should be_success
     end
 
-    describe 'when there is more than one locale' do
-
-        describe 'when using the default locale' do
-
-            before do
-                @default_lang_home_link = /href=".*\/en\//
-                @other_lang_home_link = /href=".*\/es\//
-                @old_include_default_locale_in_urls = AlaveteliConfiguration::include_default_locale_in_urls
-            end
-
-            def set_default_locale_in_urls(value)
-                AlaveteliConfiguration.stub!(:include_default_locale_in_urls).and_return(value)
-                load Rails.root.join("config/initializers/fast_gettext.rb")
-            end
-
-            describe 'when the config value INCLUDE_DEFAULT_LOCALE_IN_URLS is false' do
-
-                before do
-                    set_default_locale_in_urls(false)
-                end
-
-                it 'should generate URLs without a locale prepended' do
-                    get :frontpage
-                    response.should_not contain @default_lang_home_link
-                end
-
-                it 'should render the front page in the default language when no locale param
-                    is present and the session locale is not the default' do
-                    get(:frontpage, {}, {:locale => 'es'})
-                    response.should_not contain @other_lang_home_link
-                end
-            end
-
-            it 'should generate URLs with a locale prepended when the config value
-                INCLUDE_DEFAULT_LOCALE_IN_URLS is true' do
-                set_default_locale_in_urls(true)
-                get :frontpage
-                response.body.should match /#{@default_lang_home_link}/
-            end
-
-            after do
-                set_default_locale_in_urls(@old_include_default_locale_in_urls)
-            end
-
-        end
-    end
-
-
-    describe "when using different locale settings" do
-        home_link_regex = /href=".*\/en\//
-
-        it "should generate URLs with a locale prepended when there's more than one locale set" do
-            get :frontpage
-            response.body.should match home_link_regex
-        end
+    describe 'when using locales' do
 
         it "should use our test PO files rather than the application one" do
-            I18n.default_locale = :es
-            get :frontpage
+            get :frontpage, :locale => 'es'
             response.body.should match /XOXO/
-            I18n.default_locale = :en
-        end
-
-        it "should generate URLs that include the locale when using one that includes an underscore" do
-            I18n.default_locale = :"en_GB"
-            get :frontpage
-            response.body.should match /href="\/en_GB\//
-            I18n.default_locale = :en
-        end
-
-        it "should fall back to the language if the territory is unknown" do
-            I18n.default_locale = :"en_US"
-            get :frontpage
-            response.body.should match /href="\/en\//
-            response.body.should_not match /href="\/en_US\//
-            I18n.default_locale = :en
-        end
-
-        it "should generate URLs without a locale prepended when there's only one locale set" do
-            old_fgt_available_locales =  FastGettext.default_available_locales
-            old_i18n_available_locales =  I18n.available_locales
-            FastGettext.default_available_locales = I18n.available_locales = ['en']
-
-            get :frontpage
-            response.should_not contain home_link_regex
-
-            FastGettext.default_available_locales = old_fgt_available_locales
-            I18n.available_locales = old_i18n_available_locales
         end
 
     end
+
 end
 describe GeneralController, "when showing the front page with fixture data" do
 

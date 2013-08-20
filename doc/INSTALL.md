@@ -159,7 +159,8 @@ document, though we describe an example configuration for Exim in
 
 Note that in development mode, mail is handled by default by mailcatcher
 so that you can see the mails in a browser - see http://mailcatcher.me/
-for more details.
+for more details. Start mailcatcher by running `bundle exec mailcatcher`
+in your application directory.
 
 ## Minimal
 
@@ -274,7 +275,7 @@ tests to pass by setting `export LD_PRELOAD=/lib/libuuid.so.1`.
 
 Run the following to get the server running:
 
-    script/server  --environment=development
+    bundle exec rails server  --environment=development
 
 By default the server listens on all interfaces. You can restrict it to the
 localhost interface by adding ` --binding=127.0.0.1`
@@ -425,7 +426,7 @@ release.  Failure to do so means that any new words added to the
 Alaveteli source code will appear in your website in English by
 default.  If your translations didn't make it to the latest release,
 you will need to download the updated `app.po` for your locale from
-Transifex and save it in the `locales/` folder.
+Transifex and save it in the `locale/` folder.
 
 You should always run the script `scripts/rails-post-deploy` after
 each deployment.  This runs any database migrations for you, plus

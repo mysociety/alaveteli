@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-06-24 09:40-0700\n"
-"PO-Revision-Date: 2013-08-03 09:03+0000\n"
-"Last-Translator: gorm <gormer@gmail.com>\n"
+"POT-Creation-Date: 2013-08-05 17:01+0100\n"
+"PO-Revision-Date: 2013-08-05 16:04+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
@@ -614,6 +614,9 @@ msgid "Dear {{public_body_name}},"
 msgstr "Kjære {{public_body_name}},"
 
 msgid "Default locale"
+msgstr ""
+
+msgid "Defunct."
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
@@ -1846,6 +1849,12 @@ msgid "Requests for personal information and vexatious requests are not consider
 msgstr "Henvendelser om personlig informasjon og sjikanøse henvendelser er ikke tillatt (<a href=\"/help/about\">les mer</a>)."
 
 msgid "Requests or responses matching your saved search"
+msgstr ""
+
+msgid "Requests similar to '{{request_title}}'"
+msgstr ""
+
+msgid "Requests similar to '{{request_title}}' (page {{page}})"
 msgstr ""
 
 msgid "Respond by email"

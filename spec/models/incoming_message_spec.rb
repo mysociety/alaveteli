@@ -328,7 +328,18 @@ describe IncomingMessage, " when censoring data" do
         data.should == "His email was x\000x\000x\000@\000x\000x\000x\000.\000x\000x\000x\000, indeed"
     end
 
-
+    it 'should handle multibyte characters correctly', :focus => true do
+        orig_data = 'á'
+        data = orig_data.dup
+        @regex_censor_rule = CensorRule.new()
+        @regex_censor_rule.text = 'á'
+        @regex_censor_rule.regexp = true
+        @regex_censor_rule.replacement = 'cat'
+        @regex_censor_rule.last_edit_editor = 'unknown'
+        @regex_censor_rule.last_edit_comment = 'none'
+        @im.info_request.censor_rules << @regex_censor_rule
+        lambda{ @im.binary_mask_stuff!(data, "text/plain") }.should_not raise_error
+    end
 
     def pdf_replacement_test(use_ghostscript_compression)
         config = MySociety::Config.load_default()

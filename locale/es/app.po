@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-06-24 09:40-0700\n"
-"PO-Revision-Date: 2013-07-26 22:11+0000\n"
-"Last-Translator: David Cabo <david.cabo@gmail.com>\n"
+"POT-Creation-Date: 2013-08-05 17:01+0100\n"
+"PO-Revision-Date: 2013-08-05 16:04+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/alaveteli/language/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -699,6 +699,9 @@ msgstr "Estimado {{public_body_name}},"
 
 msgid "Default locale"
 msgstr "Locale por defecto"
+
+msgid "Defunct."
+msgstr ""
 
 msgid "Delayed response to your FOI request - "
 msgstr "Respuesta retrasada a tu solicitud de acceso a información - "
@@ -1998,6 +2001,12 @@ msgstr "Solicitudes de informacion personal y solicitudes inapropiadas o espurea
 
 msgid "Requests or responses matching your saved search"
 msgstr "Solicitudes o respuestas para tu búsqueda"
+
+msgid "Requests similar to '{{request_title}}'"
+msgstr ""
+
+msgid "Requests similar to '{{request_title}}' (page {{page}})"
+msgstr ""
 
 msgid "Respond by email"
 msgstr "Contestar por correo"

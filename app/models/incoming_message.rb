@@ -258,7 +258,7 @@ class IncomingMessage < ActiveRecord::Base
     # Used by binary_mask_stuff - replace text in place
     def _binary_mask_stuff_internal!(text)
         # Keep original size, so can check haven't resized it
-        orig_size = text.size
+        orig_size = text.mb_chars.size
 
         # Replace ASCII email addresses...
         text.gsub!(MySociety::Validate.email_find_regexp) do |email|
@@ -293,7 +293,7 @@ class IncomingMessage < ActiveRecord::Base
         # Replace censor items
         self.info_request.apply_censor_rules_to_binary!(text)
 
-        raise "internal error in binary_mask_stuff" if text.size != orig_size
+        raise "internal error in binary_mask_stuff" if text.mb_chars.size != orig_size
         return text
     end
 

@@ -17,7 +17,7 @@ end
 def n_(*keys)
   # The last parameter should be the values to do the interpolation with
   if keys.count > 3
-    options = keys.pop 
+    options = keys.pop
   else
     options = {}
   end
@@ -33,7 +33,7 @@ def gettext_interpolate(string, values)
   safe = string.html_safe?
   string = string.to_str.gsub(MATCH) do
     pattern, key = $1, $1.to_sym
-    
+
     if !values.include?(key)
       raise I18n::MissingInterpolationArgument.new(pattern, string)
     else
@@ -50,7 +50,7 @@ end
 
 
 module I18n
-  # used by Globalize plugin.  
+  # used by Globalize plugin.
   # XXX much of this stuff should (might?) be in newer versions of Rails
   @@fallbacks = nil
   class << self
@@ -120,7 +120,7 @@ module I18n
         @defaults = defaults.map { |default| compute(default, false) }.flatten
       end
       attr_reader :defaults
-      
+
       def [](locale)
         raise InvalidLocale.new(locale) if locale.nil?
         locale = locale.to_sym
@@ -138,7 +138,7 @@ module I18n
       end
 
       protected
-    
+
       def compute(tags, include_defaults = true)
         result = Array(tags).collect do |tag|
           tags = I18n::Locale::Tag::Simple.tag(tag).self_and_parents.map! { |t| t.to_sym }
@@ -161,7 +161,18 @@ module GettextI18nRails
   class Backend
       def available_locales
           FastGettext.available_locales.map{|l| l.to_sym} || []
-      end 
+      end
   end
+end
+
+# Monkeypatch Globalize to compensate for the way gettext_i18n_rails patches
+# I18n.locale= so that it changes underscores in locale names (as used in the gettext world)
+# to the dashes that I18n prefers
+module Globalize
+    class << self
+       def locale
+           read_locale || I18n.locale.to_s.gsub('-', '_').to_sym
+       end
+    end
 end
 

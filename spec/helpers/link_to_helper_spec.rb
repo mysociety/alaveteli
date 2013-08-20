@@ -8,12 +8,7 @@ describe LinkToHelper do
 
         before do
             @mock_request = mock_model(InfoRequest, :url_title => 'test_title')
-            RoutingFilter.active = false
         end
-        after do
-            RoutingFilter.active = true
-        end
-
 
         it 'should return a path like /request/test_title' do
             request_path(@mock_request).should == '/request/test_title'

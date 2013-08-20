@@ -4,13 +4,14 @@
 #
 # Translators:
 # zejn <zejn@kiberpipa.org>, 2013
+# zejn <zejn@kiberpipa.org>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-06-24 09:40-0700\n"
-"PO-Revision-Date: 2013-07-11 11:02+0000\n"
-"Last-Translator: zejn <zejn@kiberpipa.org>\n"
+"POT-Creation-Date: 2013-08-05 17:01+0100\n"
+"PO-Revision-Date: 2013-08-05 16:09+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/alaveteli/language/sl/)\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -614,6 +615,9 @@ msgstr "Dragi {{public_body_name}},"
 
 msgid "Default locale"
 msgstr "Privzete jezikovne nastavitve"
+
+msgid "Defunct."
+msgstr ""
 
 msgid "Delayed response to your FOI request - "
 msgstr "Pozen odgovor na vaš zahtevek - "
@@ -1849,6 +1853,12 @@ msgstr "Zahtevki za osebne podatke in provokativni zahtevki se ne smatrajo za ve
 msgid "Requests or responses matching your saved search"
 msgstr "Zahtevki in odgovori, ki ustrezajo vašemu shranjenemu iskanju"
 
+msgid "Requests similar to '{{request_title}}'"
+msgstr ""
+
+msgid "Requests similar to '{{request_title}}' (page {{page}})"
+msgstr ""
+
 msgid "Respond by email"
 msgstr "Odgovorite prek e-pošte"
 
@@ -3047,10 +3057,7 @@ msgid "[{{site_name}} contact email]"
 msgstr "[{{site_name}} kontaktna epošta]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-"\n"
-"\n"
-"[ {{site_name}} note: Zgornje besedilo je bilo zapisano v napačnem kodnem zapisu, zato so bili okvarjeni znaki odstranjeni. ]"
+msgstr "\\n\\n[ {{site_name}} note: Zgornje besedilo je bilo zapisano v napačnem kodnem zapisu, zato so bili okvarjeni znaki odstranjeni. ]"
 
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
 msgstr "povzetek informacij, ki jih zahtevate, v eni vrstici, \\n npr."
