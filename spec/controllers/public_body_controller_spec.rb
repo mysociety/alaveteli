@@ -213,6 +213,7 @@ describe PublicBodyController, "when showing public body statistics" do
   it "should render the right template with the right data" do
     config = MySociety::Config.load_default()
     config['MINIMUM_REQUESTS_FOR_STATISTICS'] = 1
+    config['PUBLIC_BODY_STATISTICS_PAGE'] = true
     get :statistics
     response.should render_template('public_body/statistics')
     # There are 5 different graphs we're creating at the moment.
