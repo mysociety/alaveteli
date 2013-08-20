@@ -155,7 +155,7 @@ class PublicBodyController < ApplicationController
             raise ActiveRecord::RecordNotFound.new("Page not enabled")
         end
 
-        per_graph = 10
+        per_graph = 8
         minimum_requests = AlaveteliConfiguration::minimum_requests_for_statistics
         # Make sure minimum_requests is > 0 to avoid division-by-zero
         minimum_requests = [minimum_requests, 1].max
