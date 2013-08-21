@@ -50,6 +50,40 @@ describe 'when making a zipfile available' do
         end
     end
 
+    context 'when an incoming message is made "requester_only"' do
+        it 'should not include the incoming message or attachments in a download of the entire request
+            by a non-request owner', :focus => true do
+
+            # Non-owner can download zip with incoming and attachments
+            non_owner = login(FactoryGirl.create(:user))
+            info_request = FactoryGirl.create(:info_request_with_incoming_attachments)
+            inspect_zip_download(non_owner, info_request) do |zip|
+                zip.count.should == 3
+                zip.read('correspondence.txt').should match('hereisthetext')
+            end
+
+            # Admin makes the incoming message requester only
+            admin = login(FactoryGirl.create(:admin_user))
+            post_data = {:incoming_message => {:prominence => 'requester_only',
+                                               :prominence_reason => 'boring'}}
+            admin.post_via_redirect "/en/admin/incoming/update/#{info_request.incoming_messages.first.id}", post_data
+            admin.response.should be_success
+
+            inspect_zip_download(non_owner, info_request) do |zip|
+                zip.count.should == 1
+                correspondence_text = zip.read('correspondence.txt')
+                correspondence_text.should_not match('hereisthetext')
+                expected_text = 'This message has been hidden. boring'
+                correspondence_text.should match(expected_text)
+            end
+
+        end
+
+        it 'should include the incoming message and attachments in a download of the entire request
+            by the owner'
+
+    end
+
 
     it 'should successfully make a zipfile for an external request' do
         info_request = info_requests(:external_request)

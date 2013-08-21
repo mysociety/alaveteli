@@ -1,0 +1,17 @@
+<%= _('This is a plain-text version of the Freedom of Information request "{{request_title}}".  The latest, full version is available online at {{full_url}}', :request_title => @info_request.title, :full_url => "http://#{AlaveteliConfiguration::domain}#{show_request_path(:url_title=>@info_request.url_title)}") %>.
+
+<% @info_request_events.each do |info_request_event| %>
+  <% if info_request_event.visible %>
+    <% case info_request_event.event_type %>
+    <% when 'response' %>
+      <%= render :partial => 'request/incoming_correspondence.text', :locals => { :incoming_message => info_request_event.incoming_message } %>
+    <% when 'sent', 'followup_sent' %>
+      <%= render :partial => 'request/outgoing_correspondence.text', :locals => { :outgoing_message => info_request_event.outgoing_message, :info_request_event => info_request_event }%>
+    <% when 'resent', 'followup_resent' %>
+      <%= render :partial => 'request/resent_outgoing_correspondence.text', :locals => { outgoing_message => info_request_event.outgoing_message, :info_request_event => info_request_event }%>
+  <% when 'comment' %>
+    <%= render :partial => 'comment/single_comment.text', :locals => { :comment => info_request_event.comment } %>
+    <% end %>
+-------------------------------
+  <% end %>
+<% end %>

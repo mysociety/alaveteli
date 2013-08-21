@@ -892,6 +892,7 @@ class RequestController < ApplicationController
                         zipfile.get_output_stream(file_info[:filename]) { |f| f.puts(file_info[:data]) }
 
                         for message in @info_request.incoming_messages
+                            next unless message.user_can_view?(authenticated_user)
                             attachments = message.get_attachments_for_display
                             for attachment in attachments
                                 filename = "#{attachment.url_part_number}_#{attachment.display_filename}"
@@ -967,7 +968,7 @@ class RequestController < ApplicationController
         end
         if !done
             file_info = { :filename => 'correspondence.txt',
-                          :data => render_to_string(:template => 'request/simple_correspondence.html.erb',
+                          :data => render_to_string(:template => 'request/show.text.erb',
                                                     :layout => false) }
         end
         file_info

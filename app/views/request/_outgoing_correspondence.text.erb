@@ -1,0 +1,6 @@
+<%= _('From:') %> <% if @info_request.user_name %><%= @info_request.user_name %><% else %><%= "[#{_('An anonymous user')}]"%><% end %>
+<%= _('To:') %> <%= @info_request.public_body.name %>
+<%= _('Date:') %> <%= simple_date(info_request_event.created_at) %>
+<%- text = outgoing_message.body.strip
+    outgoing_message.remove_privacy_sensitive_things!(text) %>
+<%= text %>
