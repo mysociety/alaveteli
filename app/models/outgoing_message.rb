@@ -208,11 +208,11 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     # Returns text for indexing / text display
-    def get_text_for_indexing
+    def get_text_for_indexing(strip_salutation=true)
         text = self.body.strip
 
         # Remove salutation
-        text.sub!(/Dear .+,/, "")
+        text.sub!(/Dear .+,/, "") if strip_salutation
 
         # Remove email addresses from display/index etc.
         self.remove_privacy_sensitive_things!(text)
@@ -231,6 +231,12 @@ class OutgoingMessage < ActiveRecord::Base
         text = text.gsub(/\n/, '<br>')
         return text.html_safe
     end
+
+    # Return body for display as text
+    def get_body_for_text_display
+         get_text_for_indexing(strip_salutation=false)
+    end
+
 
     def fully_destroy
         ActiveRecord::Base.transaction do
