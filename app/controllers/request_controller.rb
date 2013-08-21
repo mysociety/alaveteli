@@ -915,7 +915,7 @@ class RequestController < ApplicationController
     end
 
     def assign_variables_for_show_template(info_request)
-        # Other parameters
+        @info_request = info_request
         @info_request_events = info_request.info_request_events
         @status = info_request.calculate_status
         @old_unclassified = info_request.is_old_unclassified? && !authenticated_user.nil?
@@ -957,7 +957,7 @@ class RequestController < ApplicationController
                               :data => File.open(tmp_output.path).read }
                 done = true
             else
-                logger.error("Could not convert info request #{@info_request.id} to PDF with command '#{convert_command} #{tmp_input.path} #{tmp_output.path}'")
+                logger.error("Could not convert info request #{info_request.id} to PDF with command '#{convert_command} #{tmp_input.path} #{tmp_output.path}'")
             end
             tmp_output.close
             tmp_input.delete
