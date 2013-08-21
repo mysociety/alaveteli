@@ -888,32 +888,10 @@ class RequestController < ApplicationController
                 if !File.exists?(file_path)
                     FileUtils.mkdir_p(File.dirname(file_path))
                     Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) { |zipfile|
-                        convert_command = AlaveteliConfiguration::html_to_pdf_command
-                        done = false
-                        if !convert_command.blank? && File.exists?(convert_command)
-                            url = "http://#{AlaveteliConfiguration::domain}#{request_path(@info_request)}?print_stylesheet=1"
-                            tempfile = Tempfile.new('foihtml2pdf')
-                            output = AlaveteliExternalCommand.run(convert_command, url, tempfile.path)
-                            if !output.nil?
-                                zipfile.get_output_stream("correspondence.pdf") { |f|
-                                    f.puts(File.open(tempfile.path).read)
-                                }
-                                done = true
-                            else
-                                logger.error("Could not convert info request #{@info_request.id} to PDF with command '#{convert_command} #{url} #{tempfile.path}'")
-                            end
-                            tempfile.close
-                        else
-                            logger.warn("No HTML -> PDF converter found at #{convert_command}")
-                        end
-                        if !done
-                            @info_request_events = @info_request.info_request_events
-                            template = File.read(File.join(File.dirname(__FILE__), "..", "views", "request", "simple_correspondence.html.erb"))
-                            output = ERB.new(template).result(binding)
-                            zipfile.get_output_stream("correspondence.txt") { |f|
-                                f.puts(output)
-                            }
-                        end
+
+                        file_info = make_request_summary_file(@info_request)
+                        zipfile.get_output_stream(file_info[:filename]) { |f| f.puts(file_info[:data]) }
+
                         for message in @info_request.incoming_messages
                             attachments = message.get_attachments_for_display
                             for attachment in attachments
@@ -963,6 +941,38 @@ class RequestController < ApplicationController
         @last_response = info_request.get_last_response
     end
 
+    def make_request_summary_file(info_request)
+        done = false
+        convert_command = AlaveteliConfiguration::html_to_pdf_command
+        assign_variables_for_show_template(info_request)
+        if !convert_command.blank? && File.exists?(convert_command)
+            @render_to_file = true
+            html_output = render_to_string(:template => 'request/show')
+            tmp_input = Tempfile.new(['foihtml2pdf-input', '.html'])
+            tmp_input.write(html_output)
+            tmp_input.close
+            tmp_output = Tempfile.new('foihtml2pdf-output')
+            output = AlaveteliExternalCommand.run(convert_command, tmp_input.path, tmp_output.path)
+            if !output.nil?
+                file_info = { :filename => 'correspondence.pdf',
+                              :data => File.open(tmp_output.path).read }
+                done = true
+            else
+                logger.error("Could not convert info request #{@info_request.id} to PDF with command '#{convert_command} #{tmp_input.path} #{tmp_output.path}'")
+            end
+            tmp_output.close
+            tmp_input.delete
+            tmp_output.delete
+        else
+            logger.warn("No HTML -> PDF converter found at #{convert_command}")
+        end
+        if !done
+            file_info = { :filename => 'correspondence.txt',
+                          :data => render_to_string(:template => 'request/simple_correspondence.html.erb',
+                                                    :layout => false) }
+        end
+        file_info
+    end
 
 end
 
