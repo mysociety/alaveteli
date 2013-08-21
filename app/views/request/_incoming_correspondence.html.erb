@@ -21,10 +21,10 @@
         </p>
     <% end %>
     <h2>
-      <% if incoming_message.safe_mail_from && incoming_message.safe_mail_from.strip != @info_request.public_body.name.strip %>
+      <% if incoming_message.specific_from_name? %>
         <%= _("From:") %> <%= incoming_message.safe_mail_from %><br>
       <% end %>
-      <% if incoming_message.safe_mail_from.nil? || (incoming_message.mail_from_domain == @info_request.public_body.request_email_domain) %>
+      <% if incoming_message.from_public_body? %>
         <%= @info_request.public_body.name %><br>
       <% end %>
       <br><%= simple_date(incoming_message.sent_at) %>

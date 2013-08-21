@@ -191,6 +191,15 @@ class IncomingMessage < ActiveRecord::Base
             return mail_from
         end
     end
+
+    def specific_from_name?
+        !safe_mail_from.nil? && safe_mail_from.strip != info_request.public_body.name.strip
+    end
+
+    def from_public_body?
+        safe_mail_from.nil? || (mail_from_domain == info_request.public_body.request_email_domain)
+    end
+
     def mail_from_domain
         parse_raw_email!
         super
