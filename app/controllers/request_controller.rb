@@ -886,22 +886,7 @@ class RequestController < ApplicationController
                 file_path = File.expand_path(File.join(download_zip_dir(), @url_path))
                 if !File.exists?(file_path)
                     FileUtils.mkdir_p(File.dirname(file_path))
-                    Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) { |zipfile|
-
-                        file_info = make_request_summary_file(@info_request)
-                        zipfile.get_output_stream(file_info[:filename]) { |f| f.puts(file_info[:data]) }
-
-                        for message in @info_request.incoming_messages
-                            next unless message.user_can_view?(authenticated_user)
-                            attachments = message.get_attachments_for_display
-                            for attachment in attachments
-                                filename = "#{attachment.url_part_number}_#{attachment.display_filename}"
-                                zipfile.get_output_stream(filename) { |f|
-                                    f.puts(attachment.body)
-                                }
-                            end
-                        end
-                    }
+                    make_request_zip(info_request, file_path)
                     File.chmod(0644, file_path)
                 end
                 redirect_to @url_path
@@ -939,6 +924,20 @@ class RequestController < ApplicationController
         @new_responses_count = info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
         # For send followup link at bottom
         @last_response = info_request.get_last_response
+    end
+
+    def make_request_zip(info_request, file_path)
+        Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) do |zipfile|
+            file_info = make_request_summary_file(info_request)
+            zipfile.get_output_stream(file_info[:filename]) { |f| f.puts(file_info[:data]) }
+            info_request.incoming_messages.each do |message|
+                next unless message.user_can_view?(authenticated_user)
+                message.get_attachments_for_display.each do |attachment|
+                    filename = "#{attachment.url_part_number}_#{attachment.display_filename}"
+                    zipfile.get_output_stream(filename) { |f| f.puts(attachment.body) }
+                end
+            end
+        end
     end
 
     def make_request_summary_file(info_request)
