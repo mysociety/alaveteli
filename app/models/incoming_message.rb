@@ -173,14 +173,17 @@ class IncomingMessage < ActiveRecord::Base
         parse_raw_email!
         super
     end
+
     def subject
         parse_raw_email!
         super
     end
+
     def mail_from
         parse_raw_email!
         super
     end
+
     def safe_mail_from
         if !self.mail_from.nil?
             mail_from = self.mail_from.dup
