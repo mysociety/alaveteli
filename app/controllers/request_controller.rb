@@ -80,15 +80,7 @@ class RequestController < ApplicationController
                 @update_status = params[:update_status] ? true : false
             end
 
-            # Other parameters
-            @info_request_events = @info_request.info_request_events
-            @status = @info_request.calculate_status
-            @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
-            @is_owning_user = @info_request.is_owning_user?(authenticated_user)
-            @last_info_request_event_id = @info_request.last_event_id_needing_description
-            @new_responses_count = @info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
-            # For send followup link at bottom
-            @last_response = @info_request.get_last_response
+            assign_variables_for_show_template(@info_request)
 
             if @update_status
                 return if !@is_owning_user && !authenticated_as_user?(@info_request.user,
@@ -99,6 +91,7 @@ class RequestController < ApplicationController
             end
 
             # Sidebar stuff
+            @sidebar = true
             # ... requests that have similar imporant terms
             begin
                 limit = 10
@@ -957,6 +950,19 @@ class RequestController < ApplicationController
         end
         false
     end
+
+    def assign_variables_for_show_template(info_request)
+        # Other parameters
+        @info_request_events = info_request.info_request_events
+        @status = info_request.calculate_status
+        @old_unclassified = info_request.is_old_unclassified? && !authenticated_user.nil?
+        @is_owning_user = info_request.is_owning_user?(authenticated_user)
+        @last_info_request_event_id = info_request.last_event_id_needing_description
+        @new_responses_count = info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
+        # For send followup link at bottom
+        @last_response = info_request.get_last_response
+    end
+
 
 end
 

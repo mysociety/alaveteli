@@ -146,4 +146,4 @@
     <%= render :partial => 'after_actions' %>
 </div>
 
-<%= render :partial => 'sidebar' %>
+<%- if @sidebar %><%= render :partial => 'sidebar' %><% end %>
