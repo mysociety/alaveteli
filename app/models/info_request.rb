@@ -958,6 +958,36 @@ public
         find(:all, params)
     end
 
+    def InfoRequest.download_zip_dir()
+        File.join(Rails.root, "cache", "zips", "#{Rails.env}")
+    end
+
+    def request_dirs
+        first_three_digits = id.to_s()[0..2]
+        File.join(first_three_digits.to_s, id.to_s)
+    end
+
+    def download_zip_dir
+        File.join(InfoRequest.download_zip_dir, "download", request_dirs)
+    end
+
+    def make_zip_cache_path(user)
+        cache_file_dir = File.join(InfoRequest.download_zip_dir(),
+                                   "download",
+                                   request_dirs,
+                                   last_update_hash)
+        cache_file_suffix = if all_can_view_all_correspondence?
+                ""
+            elsif Ability.can_view_with_prominence?('hidden', self, user)
+                "_hidden"
+            elsif Ability.can_view_with_prominence?('requester_only', self, user)
+                "_requester_only"
+            else
+                ""
+            end
+        File.join(cache_file_dir, "#{url_title}#{cache_file_suffix}.zip")
+    end
+
     def is_old_unclassified?
         !is_external? && awaiting_description && url_title != 'holding_pen' && get_last_response_event &&
             Time.now > get_last_response_event.created_at + OLD_AGE_IN_DAYS
@@ -1029,6 +1059,10 @@ public
     def all_can_view?
         return true if ['normal', 'backpage'].include?(self.prominence)
         return false
+    end
+
+    def all_can_view_all_correspondence?
+        all_can_view? && incoming_messages.all?{ |message| message.all_can_view? }
     end
 
     def indexed_by_search?

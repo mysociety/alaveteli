@@ -879,17 +879,13 @@ class RequestController < ApplicationController
                 if !@info_request.user_can_view?(@user)
                     return render_hidden
                 end
-                @url_path = File.join("/download",
-                                       request_dirs(@info_request),
-                                       @info_request.last_update_hash,
-                                       "#{params[:url_title]}.zip")
-                file_path = File.expand_path(File.join(download_zip_dir(), @url_path))
-                if !File.exists?(file_path)
-                    FileUtils.mkdir_p(File.dirname(file_path))
-                    make_request_zip(info_request, file_path)
-                    File.chmod(0644, file_path)
+                cache_file_path = @info_request.make_zip_cache_path(@user)
+                if !File.exists?(cache_file_path)
+                    FileUtils.mkdir_p(File.dirname(cache_file_path))
+                    make_request_zip(@info_request, cache_file_path)
+                    File.chmod(0644, cache_file_path)
                 end
-                redirect_to @url_path
+                send_file(cache_file_path, :filename => "#{@info_request.url_title}.zip")
             end
         end
     end
