@@ -26,3 +26,4 @@ config/httpd.conf
 alaveteli.sublime*
 webrat.log
 /.rbenv-version
+/db/development_structure.sql
