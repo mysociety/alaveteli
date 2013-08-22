@@ -85,10 +85,11 @@ describe 'when making a zipfile available' do
     end
 
 
-    it 'should successfully make a zipfile for an external request' do
-        info_request = info_requests(:external_request)
-        get_via_redirect "request/#{info_request.url_title}/download"
-        response.should be_success
+        it 'should successfully make a zipfile for an external request', :focus => true do
+            external_request = FactoryGirl.create(:external_request)
+            user = login(FactoryGirl.create(:user))
+            inspect_zip_download(user, external_request){ |zip|  zip.count.should == 1 }
+        end
     end
 
 end
