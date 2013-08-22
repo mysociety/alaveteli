@@ -868,10 +868,6 @@ class RequestController < ApplicationController
         @locale = self.locale_from_params()
         I18n.with_locale(@locale) do
             @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-            # Test for whole request being hidden or requester-only
-            if !@info_request.all_can_view?
-                return render_hidden
-            end
             if authenticated?(
                               :web => _("To download the zip file"),
                               :email => _("Then you can download a zip file of {{info_request_title}}.",
@@ -879,6 +875,10 @@ class RequestController < ApplicationController
                               :email_subject => _("Log in to download a zip file of {{info_request_title}}",
                                            :info_request_title=>@info_request.title)
                               )
+                # Test for whole request being hidden or requester-only
+                if !@info_request.user_can_view?(@user)
+                    return render_hidden
+                end
                 @url_path = File.join("/download",
                                        request_dirs(@info_request),
                                        @info_request.last_update_hash,

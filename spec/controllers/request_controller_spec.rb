@@ -858,12 +858,6 @@ describe RequestController, "when handling prominence" do
              response.should render_template('show')
          end
 
-         it 'should not allow download of the entire request by admin user (or anyone)' do
-             session[:user_id] = FactoryGirl.create(:admin_user).id
-             get :download_entire_request, :url_title => @info_request.url_title
-             expect_hidden('hidden')
-         end
-
          it 'should not cache an attachment when showing an attachment to the requester or admin' do
              session[:user_id] = @info_request.user.id
              incoming_message = @info_request.incoming_messages.first

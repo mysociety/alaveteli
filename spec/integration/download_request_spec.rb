@@ -56,7 +56,60 @@ describe 'when making a zipfile available' do
             end
         end
 
+        context 'when a request is "requester_only"' do
+
+            before do
+                @non_owner = login(FactoryGirl.create(:user))
+                @info_request = FactoryGirl.create(:info_request_with_incoming,
+                                                   :prominence => 'requester_only')
+                @request_owner = login(@info_request.user)
+                @admin = login(FactoryGirl.create(:admin_user))
+            end
+
+
+            it 'should allow a download of the request by the request owner and admin only' do
+                # Requester can access the zip
+                inspect_zip_download(@request_owner, @info_request) do |zip|
+                    zip.count.should == 1
+                    zip.read('correspondence.txt').should match('hereisthetext')
+                end
+                # Non-owner can't
+                @non_owner.get_via_redirect "request/#{@info_request.url_title}/download"
+                @non_owner.response.code.should == '410'
+                # Admin can
+                inspect_zip_download(@admin, @info_request) do |zip|
+                    zip.count.should == 1
+                    zip.read('correspondence.txt').should match('hereisthetext')
+                end
+            end
+        end
+
+        context 'when a request is made "hidden"' do
+
+            it 'should not allow a download of the request by an admin only' do
+                @non_owner = login(FactoryGirl.create(:user))
+                @info_request = FactoryGirl.create(:info_request_with_incoming,
+                                                   :prominence => 'hidden')
+                @request_owner = login(@info_request.user)
+                @admin = login(FactoryGirl.create(:admin_user))
+
+                # Requester can't access the zip
+                @request_owner.get_via_redirect "request/#{@info_request.url_title}/download"
+                @request_owner.response.code.should == '410'
+                # Non-owner can't
+                @non_owner.get_via_redirect "request/#{@info_request.url_title}/download"
+                @non_owner.response.code.should == '410'
+                # Admin can
+                inspect_zip_download(@admin, @info_request) do |zip|
+                    zip.count.should == 1
+                    zip.read('correspondence.txt').should match('hereisthetext')
+                end
+            end
+
+        end
+
         context 'when an incoming message is made "requester_only"' do
+
             it 'should not include the incoming message or attachments in a download of the entire request
                 by a non-request owner' do
 
@@ -90,7 +143,7 @@ describe 'when making a zipfile available' do
 
         end
 
-        it 'should successfully make a zipfile for an external request', :focus => true do
+        it 'should successfully make a zipfile for an external request' do
             external_request = FactoryGirl.create(:external_request)
             user = login(FactoryGirl.create(:user))
             inspect_zip_download(user, external_request){ |zip|  zip.count.should == 1 }
