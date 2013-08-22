@@ -3,6 +3,10 @@ require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
 describe 'when making a zipfile available' do
 
+    after do
+        FileUtils.rm_rf(InfoRequest.download_zip_dir)
+    end
+
     def inspect_zip_download(session, info_request)
         session.get_via_redirect "request/#{info_request.url_title}/download"
         session.response.should be_success
