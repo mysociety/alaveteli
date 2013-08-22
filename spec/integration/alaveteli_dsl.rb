@@ -28,7 +28,11 @@ end
 
 def login(user)
   open_session do |sess|
+    # Make sure we get a fresh empty session - there seems to be some
+    # problem with session leakage otherwise
+    sess.reset!
     sess.extend(AlaveteliDsl)
+
     if user.is_a? User
         u = user
     else
@@ -59,3 +63,6 @@ def close_request(request)
     request.handle_rejected_responses = 'holding_pen'
     request.save!
 end
+
+
+
