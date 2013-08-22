@@ -20,6 +20,11 @@ FactoryGirl.define do
         last_parsed { 1.week.ago }
         sent_at { 1.week.ago }
         mail_from 'A Public Body'
+        after(:create) do |incoming_message, evaluator|
+            FactoryGirl.create(:body_text,
+                               incoming_message: incoming_message,
+                               url_part_number: 1)
+        end
         factory :incoming_message_with_attachments do
             # foi_attachments_count is declared as an ignored attribute and available in
             # attributes on the factory, as well as the callback via the evaluator
@@ -31,9 +36,6 @@ FactoryGirl.define do
             # evaluator, which stores all values from the factory, including ignored
             # attributes;
             after(:create) do |incoming_message, evaluator|
-                FactoryGirl.create(:body_text,
-                                   incoming_message: incoming_message,
-                                   url_part_number: 1)
                 evaluator.foi_attachments_count.times do |count|
                     FactoryGirl.create(:pdf_attachment,
                                        incoming_message: incoming_message,
