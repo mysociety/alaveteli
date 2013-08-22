@@ -28,6 +28,65 @@ describe 'when making a zipfile available' do
         receive_incoming_mail(name, info_request.incoming_email)
     end
 
+    context 'when an html to pdf converter is supplied' do
+
+        before do
+            # We want to test the contents of the pdf, and we don't know whether a particular
+            # instance will have a working html_to_pdf tool, so just copy the HTML rendered
+            # to the PDF file for the purposes of checking it doesn't contain anything that
+            # shouldn't be there.
+            AlaveteliConfiguration.stub!(:html_to_pdf_command).and_return('/bin/cp')
+        end
+
+        context 'when an incoming message is made "requester_only"' do
+
+            it 'should not include the incoming message or attachments in a download of the entire request
+                by a non-request owner but should retain them for owner and admin' do
+
+                # Non-owner can download zip with incoming and attachments
+                non_owner = login(FactoryGirl.create(:user))
+                info_request = FactoryGirl.create(:info_request_with_incoming_attachments)
+
+                inspect_zip_download(non_owner, info_request) do |zip|
+                    zip.count.should == 3
+                    zip.read('correspondence.pdf').should match('hereisthetext')
+                end
+
+                # Admin makes the incoming message requester only
+                admin = login(FactoryGirl.create(:admin_user))
+                post_data = {:incoming_message => {:prominence => 'requester_only',
+                                                   :prominence_reason => 'boring'}}
+                admin.post_via_redirect "/en/admin/incoming/update/#{info_request.incoming_messages.first.id}", post_data
+                admin.response.should be_success
+
+                # Admin retains the requester only things
+                inspect_zip_download(admin, info_request) do |zip|
+                    zip.count.should == 3
+                    zip.read('correspondence.pdf').should match('hereisthetext')
+                end
+
+                # Zip for non owner is now without requester_only things
+                inspect_zip_download(non_owner, info_request) do |zip|
+                    zip.count.should == 1
+                    correspondence_text = zip.read('correspondence.pdf')
+                    correspondence_text.should_not match('hereisthetext')
+                    expected_text = "This message has been hidden.\n    boring"
+                    correspondence_text.should match(expected_text)
+                end
+
+                # Requester retains the requester only things
+                owner = login(info_request.user)
+                inspect_zip_download(owner, info_request) do |zip|
+                    zip.count.should == 3
+                    zip.read('correspondence.pdf').should match('hereisthetext')
+                end
+
+            end
+
+        end
+
+    end
+
     context 'when no html to pdf converter is supplied' do
 
         before do
