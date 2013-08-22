@@ -25,8 +25,7 @@
 <%= form_tag admin_request_destroy_outgoing_path do %>
   <div>
       <%= hidden_field_tag 'outgoing_message_id', @outgoing_message.id %>
-      Warning, this is permanent! ---&gt; 
-      <%= submit_tag "Destroy outgoing message" %>
+      <%= submit_tag "Destroy outgoing message", :class => "btn btn-danger", :confirm => "This is permanent! Are you sure?" %>
   </div>
 <% end %>
 
