@@ -84,7 +84,7 @@ describe 'when making a zipfile available' do
             end
         end
 
-        context 'when a request is made "hidden"' do
+        context 'when a request is "hidden"' do
 
             it 'should not allow a download of the request by an admin only' do
                 @non_owner = login(FactoryGirl.create(:user))
@@ -111,11 +111,12 @@ describe 'when making a zipfile available' do
         context 'when an incoming message is made "requester_only"' do
 
             it 'should not include the incoming message or attachments in a download of the entire request
-                by a non-request owner' do
+                by a non-request owner but should retain them for owner and admin' do
 
                 # Non-owner can download zip with incoming and attachments
                 non_owner = login(FactoryGirl.create(:user))
                 info_request = FactoryGirl.create(:info_request_with_incoming_attachments)
+
                 inspect_zip_download(non_owner, info_request) do |zip|
                     zip.count.should == 3
                     zip.read('correspondence.txt').should match('hereisthetext')
@@ -128,6 +129,13 @@ describe 'when making a zipfile available' do
                 admin.post_via_redirect "/en/admin/incoming/update/#{info_request.incoming_messages.first.id}", post_data
                 admin.response.should be_success
 
+                # Admin retains the requester only things
+                inspect_zip_download(admin, info_request) do |zip|
+                    zip.count.should == 3
+                    zip.read('correspondence.txt').should match('hereisthetext')
+                end
+
+                # Zip for non owner is now without requester_only things
                 inspect_zip_download(non_owner, info_request) do |zip|
                     zip.count.should == 1
                     correspondence_text = zip.read('correspondence.txt')
@@ -136,10 +144,14 @@ describe 'when making a zipfile available' do
                     correspondence_text.should match(expected_text)
                 end
 
-            end
+                # Requester retains the requester only things
+                owner = login(info_request.user)
+                inspect_zip_download(owner, info_request) do |zip|
+                    zip.count.should == 3
+                    zip.read('correspondence.txt').should match('hereisthetext')
+                end
 
-            it 'should include the incoming message and attachments in a download of the entire request
-                by the owner'
+            end
 
         end
 
