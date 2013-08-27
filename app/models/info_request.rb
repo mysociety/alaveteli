@@ -1005,6 +1005,8 @@ public
             end
             incoming_message.safe_mail_from
 
+            next if ! incoming_message.all_can_view?
+
             email = OutgoingMailer.email_for_followup(self, incoming_message)
             name = OutgoingMailer.name_for_followup(self, incoming_message)
 

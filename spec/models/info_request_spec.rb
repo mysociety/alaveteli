@@ -648,6 +648,43 @@ describe InfoRequest do
 
     end
 
+    describe 'when asked who can be sent a followup' do
+
+        before do
+            @info_request = FactoryGirl.create(:info_request_with_plain_incoming)
+            @incoming_message = @info_request.incoming_messages.first
+            @public_body = @info_request.public_body
+        end
+
+        it 'should not include details from a hidden prominence response' do
+            @incoming_message.prominence = 'hidden'
+            @incoming_message.save!
+            @info_request.who_can_followup_to.should == [[@public_body.name,
+                                                          @public_body.request_email,
+                                                          nil]]
+        end
+
+        it 'should not include details from a requester_only prominence response' do
+            @incoming_message.prominence = 'requester_only'
+            @incoming_message.save!
+            @info_request.who_can_followup_to.should == [[@public_body.name,
+                                                          @public_body.request_email,
+                                                          nil]]
+        end
+
+        it 'should include details from a normal prominence response' do
+            @incoming_message.prominence = 'normal'
+            @incoming_message.save!
+            @info_request.who_can_followup_to.should == [[@public_body.name,
+                                                          @public_body.request_email,
+                                                          nil],
+                                                         ['Bob Responder',
+                                                          "bob@example.com",
+                                                          @incoming_message.id]]
+        end
+
+    end
+
     describe  'when generating json for the api' do
 
         before do

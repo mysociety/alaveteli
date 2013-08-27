@@ -21,12 +21,24 @@ FactoryGirl.define do
         raw_email
         last_parsed { 1.week.ago }
         sent_at { 1.week.ago }
-        mail_from 'A Public Body'
+
         after(:create) do |incoming_message, evaluator|
             FactoryGirl.create(:body_text,
                                incoming_message: incoming_message,
                                url_part_number: 1)
         end
+
+        factory :plain_incoming_message do
+            last_parsed { nil }
+            sent_at { nil }
+            after(:create) do |incoming_message, evaluator|
+                data = load_file_fixture('incoming-request-plain.email')
+                data.gsub!('EMAIL_FROM', 'Bob Responder <bob@example.com>')
+                incoming_message.raw_email.data = data
+                incoming_message.raw_email.save!
+            end
+        end
+
         factory :incoming_message_with_attachments do
             # foi_attachments_count is declared as an ignored attribute and available in
             # attributes on the factory, as well as the callback via the evaluator
@@ -74,6 +86,13 @@ FactoryGirl.define do
         factory :info_request_with_incoming do
             after(:create) do |info_request, evaluator|
                 incoming_message = FactoryGirl.create(:incoming_message, info_request: info_request)
+                info_request.log_event("response", {:incoming_message_id => incoming_message.id})
+            end
+        end
+
+        factory :info_request_with_plain_incoming do
+            after(:create) do |info_request, evaluator|
+                incoming_message = FactoryGirl.create(:plain_incoming_message, info_request: info_request)
                 info_request.log_event("response", {:incoming_message_id => incoming_message.id})
             end
         end
