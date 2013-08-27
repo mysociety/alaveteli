@@ -84,13 +84,13 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
             post :update, params
         end
 
-        it 'should save the prominence of the request' do
+        it 'should save the prominence of the message' do
             make_request
             @incoming.reload
             @incoming.prominence.should == 'hidden'
         end
 
-        it 'should save a prominence reason for the request' do
+        it 'should save a prominence reason for the message' do
             make_request
             @incoming.reload
             @incoming.prominence_reason.should == 'dull'
