@@ -37,6 +37,7 @@ describe InfoRequestEvent do
         before do
             @comment = mock_model(Comment)
             @incoming_message = mock_model(IncomingMessage)
+            @outgoing_message = mock_model(OutgoingMessage)
             @info_request = mock_model(InfoRequest, :indexed_by_search? => true)
         end
 
@@ -64,10 +65,26 @@ describe InfoRequestEvent do
             @info_request_event.indexed_by_search?.should be_false
         end
 
-        it 'should return true for an incoming message with prominence "normal"' do
+        it 'should return true for an incoming message that is indexed by search' do
             @incoming_message.stub!(:indexed_by_search?).and_return true
             @info_request_event = InfoRequestEvent.new(:event_type => 'response',
                                                        :incoming_message => @incoming_message,
+                                                       :info_request => @info_request)
+            @info_request_event.indexed_by_search?.should be_true
+        end
+
+        it 'should return false for an outgoing message that is not indexed by search' do
+            @outgoing_message.stub!(:indexed_by_search?).and_return false
+            @info_request_event = InfoRequestEvent.new(:event_type => 'followup_sent',
+                                                       :outgoing_message => @outgoing_message,
+                                                       :info_request => @info_request)
+            @info_request_event.indexed_by_search?.should be_false
+        end
+
+        it 'should return true for an outgoing message that is indexed by search' do
+            @outgoing_message.stub!(:indexed_by_search?).and_return true
+            @info_request_event = InfoRequestEvent.new(:event_type => 'followup_sent',
+                                                       :outgoing_message => @outgoing_message,
                                                        :info_request => @info_request)
             @info_request_event.indexed_by_search?.should be_true
         end

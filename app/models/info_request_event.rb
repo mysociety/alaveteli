@@ -238,6 +238,9 @@ class InfoRequestEvent < ActiveRecord::Base
             if self.event_type == 'response' && !self.incoming_message.indexed_by_search?
                 return false
             end
+            if ['sent', 'followup_sent'].include?(self.event_type) && !self.outgoing_message.indexed_by_search?
+                return false
+            end
             if self.event_type == 'comment' && !self.comment.visible
                 return false
             end
