@@ -963,7 +963,7 @@ class RequestController < ApplicationController
         end
         if !done
             file_info = { :filename => 'correspondence.txt',
-                          :data => render_to_string(:template => 'request/show.text.erb',
+                          :data => render_to_string(:template => 'request/show.text',
                                                     :layout => false) }
         end
         file_info
