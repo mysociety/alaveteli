@@ -1062,7 +1062,9 @@ public
     end
 
     def all_can_view_all_correspondence?
-        all_can_view? && incoming_messages.all?{ |message| message.all_can_view? }
+        all_can_view? &&
+            incoming_messages.all?{ |message| message.all_can_view? } &&
+            outgoing_messages.all?{ |message| message.all_can_view? }
     end
 
     def indexed_by_search?

@@ -69,10 +69,6 @@ class IncomingMessage < ActiveRecord::Base
         self.info_request_events.detect{ |e| e.event_type == 'response' }
     end
 
-    def all_can_view?
-        self.prominence == 'normal'
-    end
-
     # Return a cached structured mail object
     def mail(force = nil)
         if (!force.nil? || @mail.nil?) && !self.raw_email.nil?

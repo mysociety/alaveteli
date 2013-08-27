@@ -17,6 +17,10 @@ module MessageProminence
             self.prominence == 'normal'
         end
 
+        def all_can_view?
+            self.prominence == 'normal'
+        end
+
     end
 end
 
