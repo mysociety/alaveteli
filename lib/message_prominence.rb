@@ -13,6 +13,10 @@ module MessageProminence
             Ability.can_view_with_prominence?(self.prominence, self.info_request, user)
         end
 
+        def indexed_by_search?
+            self.prominence == 'normal'
+        end
+
     end
 end
 

@@ -118,6 +118,29 @@ describe OutgoingMessage, " when making an outgoing message" do
 
     end
 
+    describe 'when asked if it is indexed by search' do
+
+        before do
+            @info_request = FactoryGirl.create(:info_request)
+            @outgoing_message = @info_request.outgoing_messages.first
+        end
+
+        it 'should return false if it has prominence "hidden"' do
+            @outgoing_message.prominence = 'hidden'
+            @outgoing_message.indexed_by_search?.should be_false
+        end
+
+        it 'should return false if it has prominence "requester_only"' do
+            @outgoing_message.prominence = 'requester_only'
+            @outgoing_message.indexed_by_search?.should be_false
+        end
+
+        it 'should return true if it has prominence "normal"' do
+            @outgoing_message.prominence = 'normal'
+            @outgoing_message.indexed_by_search?.should be_true
+        end
+
+    end
 end
 
 
@@ -140,5 +163,3 @@ describe IncomingMessage, " when censoring data" do
         @om.body.should match(/fancy cat/)
     end
 end
-
-
