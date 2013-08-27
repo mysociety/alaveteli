@@ -919,7 +919,7 @@ class RequestController < ApplicationController
         @last_info_request_event_id = info_request.last_event_id_needing_description
         @new_responses_count = info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
         # For send followup link at bottom
-        @last_response = info_request.get_last_response
+        @last_response = info_request.get_last_public_response
     end
 
     def make_request_zip(info_request, file_path)

@@ -347,8 +347,8 @@ class RequestMailer < ApplicationMailer
                                                           :age_in_days => days_since)
 
         for info_request in info_requests
-            alert_event_id = info_request.get_last_response_event_id
-            last_response_message = info_request.get_last_response
+            alert_event_id = info_request.get_last_public_response_event_id
+            last_response_message = info_request.get_last_public_response
             if alert_event_id.nil?
                 raise "internal error, no last response while making alert new response reminder, request id " + info_request.id.to_s
             end
@@ -373,8 +373,8 @@ class RequestMailer < ApplicationMailer
     def self.alert_not_clarified_request()
         info_requests = InfoRequest.find(:all, :conditions => [ "awaiting_description = ? and described_state = 'waiting_clarification' and info_requests.updated_at < ?", false, Time.now() - 3.days ], :include => [ :user ], :order => "info_requests.id" )
         for info_request in info_requests
-            alert_event_id = info_request.get_last_response_event_id
-            last_response_message = info_request.get_last_response
+            alert_event_id = info_request.get_last_public_response_event_id
+            last_response_message = info_request.get_last_public_response
             if alert_event_id.nil?
                 raise "internal error, no last response while making alert not clarified reminder, request id " + info_request.id.to_s
             end

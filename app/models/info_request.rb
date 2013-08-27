@@ -733,28 +733,30 @@ public
         self.info_request_events.create!(:event_type => type, :params => params)
     end
 
-    def response_events
-        self.info_request_events.select{|e| e.response?}
+    def public_response_events
+        self.info_request_events.select{|e| e.response? && e.incoming_message.all_can_view? }
     end
 
-    # The last response is the default one people might want to reply to
-    def get_last_response_event_id
-        get_last_response_event.id if get_last_response_event
-    end
-    def get_last_response_event
-        response_events.last
-    end
-    def get_last_response
-        get_last_response_event.incoming_message if get_last_response_event
+    # The last public response is the default one people might want to reply to
+    def get_last_public_response_event_id
+        get_last_public_response_event.id if get_last_public_response_event
     end
 
-    def outgoing_events
-        info_request_events.select{|e| e.outgoing? }
+    def get_last_public_response_event
+        public_response_events.last
     end
 
-    # The last outgoing message
-    def get_last_outgoing_event
-        outgoing_events.last
+    def get_last_public_response
+        get_last_public_response_event.incoming_message if get_last_public_response_event
+    end
+
+    def public_outgoing_events
+        info_request_events.select{|e| e.outgoing? && e.outgoing_message.all_can_view? }
+    end
+
+    # The last public outgoing message
+    def get_last_public_outgoing_event
+        public_outgoing_events.last
     end
 
     # Text from the the initial request, for use in summary display
@@ -989,8 +991,8 @@ public
     end
 
     def is_old_unclassified?
-        !is_external? && awaiting_description && url_title != 'holding_pen' && get_last_response_event &&
-            Time.now > get_last_response_event.created_at + OLD_AGE_IN_DAYS
+        !is_external? && awaiting_description && url_title != 'holding_pen' && get_last_public_response_event &&
+            Time.now > get_last_public_response_event.created_at + OLD_AGE_IN_DAYS
     end
 
     # List of incoming messages to followup, by unique email

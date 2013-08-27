@@ -1596,7 +1596,7 @@ describe RequestController, "when classifying an information request" do
                 @dog_request.reload
                 @dog_request.awaiting_description.should == false
                 @dog_request.described_state.should == 'rejected'
-                @dog_request.get_last_response_event.should == info_request_events(:useless_incoming_message_event)
+                @dog_request.get_last_public_response_event.should == info_request_events(:useless_incoming_message_event)
                 @dog_request.info_request_events.last.event_type.should == "status_update"
                 @dog_request.info_request_events.last.calculated_state.should == 'rejected'
             end
@@ -1749,13 +1749,13 @@ describe RequestController, "when classifying an information request" do
 
                 it 'should redirect to the "response url" when there is a last response' do
                     incoming_message = mock_model(IncomingMessage)
-                    @dog_request.stub!(:get_last_response).and_return(incoming_message)
+                    @dog_request.stub!(:get_last_public_response).and_return(incoming_message)
                     expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response/#{incoming_message.id}")
                 end
 
                 it 'should redirect to the "response no followup url" when there are no events
                     needing description' do
-                    @dog_request.stub!(:get_last_response).and_return(nil)
+                    @dog_request.stub!(:get_last_public_response).and_return(nil)
                     expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response")
                 end
 
@@ -1794,7 +1794,7 @@ describe RequestController, "when classifying an information request" do
             context 'when status is updated to "gone postal"' do
 
                 it 'should redirect to the "respond to last url"' do
-                    expect_redirect('gone_postal', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}?gone_postal=1")
+                    expect_redirect('gone_postal', "request/#{@dog_request.id}/response/#{@dog_request.get_last_public_response.id}?gone_postal=1")
                 end
 
             end
@@ -1836,7 +1836,7 @@ describe RequestController, "when classifying an information request" do
             context 'when status is updated to "user_withdrawn"' do
 
                 it 'should redirect to the "respond to last url url" ' do
-                    expect_redirect('user_withdrawn', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}")
+                    expect_redirect('user_withdrawn', "request/#{@dog_request.id}/response/#{@dog_request.get_last_public_response.id}")
                 end
 
             end
@@ -1889,7 +1889,7 @@ describe RequestController, "when sending a followup message" do
         # fake that this is a clarification
         info_requests(:fancy_dog_request).set_described_state('waiting_clarification')
         info_requests(:fancy_dog_request).described_state.should == 'waiting_clarification'
-        info_requests(:fancy_dog_request).get_last_response_event.calculated_state.should == 'waiting_clarification'
+        info_requests(:fancy_dog_request).get_last_public_response_event.calculated_state.should == 'waiting_clarification'
 
         # make the followup
         session[:user_id] = users(:bob_smith_user).id
@@ -1907,7 +1907,7 @@ describe RequestController, "when sending a followup message" do
         # and that the status changed
         info_requests(:fancy_dog_request).reload
         info_requests(:fancy_dog_request).described_state.should == 'waiting_response'
-        info_requests(:fancy_dog_request).get_last_response_event.calculated_state.should == 'waiting_clarification'
+        info_requests(:fancy_dog_request).get_last_public_response_event.calculated_state.should == 'waiting_clarification'
     end
 
     it "should give an error if the same followup is submitted twice" do

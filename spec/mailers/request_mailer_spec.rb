@@ -204,10 +204,10 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
     before do
         Time.stub!(:now).and_return(Time.utc(2007, 11, 12, 23, 59))
         @mock_event = mock_model(InfoRequestEvent)
-        @mock_response = mock_model(IncomingMessage)
+        @mock_response = mock_model(IncomingMessage, :user_can_view? => true)
         @mock_user = mock_model(User)
-        @mock_request = mock_model(InfoRequest, :get_last_response_event_id => @mock_event.id,
-                                                :get_last_response => @mock_response,
+        @mock_request = mock_model(InfoRequest, :get_last_public_response_event_id => @mock_event.id,
+                                                :get_last_public_response => @mock_response,
                                                 :user_id => 2,
                                                 :url_title => 'test_title',
                                                 :user => @mock_user)
@@ -252,7 +252,7 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
     end
 
     it 'should raise an error if a request does not have a last response event id' do
-        @mock_request.stub!(:get_last_response_event_id).and_return(nil)
+        @mock_request.stub!(:get_last_public_response_event_id).and_return(nil)
         expected_message = "internal error, no last response while making alert new response reminder, request id #{@mock_request.id}"
         lambda{ send_alerts }.should raise_error(expected_message)
     end
@@ -289,7 +289,7 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
             mock_sent_alert.should_receive(:info_request=).with(@mock_request)
             mock_sent_alert.should_receive(:user=).with(@mock_user)
             mock_sent_alert.should_receive(:alert_type=).with('new_response_reminder_1')
-            mock_sent_alert.should_receive(:info_request_event_id=).with(@mock_request.get_last_response_event_id)
+            mock_sent_alert.should_receive(:info_request_event_id=).with(@mock_request.get_last_public_response_event_id)
             mock_sent_alert.should_receive(:save!)
             send_alerts
         end

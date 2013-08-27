@@ -77,7 +77,7 @@ describe AdminRequestController, "when administering the holding pen" do
         ir.handle_rejected_responses = 'holding_pen'
         ir.save!
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "frob@nowhere.com")
-        get :show_raw_email, :id => InfoRequest.holding_pen_request.get_last_response.raw_email.id
+        get :show_raw_email, :id => InfoRequest.holding_pen_request.get_last_public_response.raw_email.id
         response.should contain "Only the authority can reply to this request"
     end
 
@@ -88,7 +88,8 @@ describe AdminRequestController, "when administering the holding pen" do
         ir.save!
         mail_to = "request-#{ir.id}-asdfg@example.com"
         receive_incoming_mail('incoming-request-plain.email', mail_to)
-        interesting_email = InfoRequest.holding_pen_request.get_last_response.raw_email.id
+        interesting_email = InfoRequest.holding_pen_request.get_last_public_response
+.raw_email.id
         # now we add another message to the queue, which we're not interested in
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "")
         InfoRequest.holding_pen_request.incoming_messages.length.should == 2

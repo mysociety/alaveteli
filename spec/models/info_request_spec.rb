@@ -451,8 +451,14 @@ describe InfoRequest do
 
         before do
             Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
-            @mock_comment_event = mock_model(InfoRequestEvent, :created_at => Time.now - 23.days, :event_type => 'comment', :response? => false)
-            @mock_response_event = mock_model(InfoRequestEvent, :created_at => Time.now - 22.days, :event_type => 'response', :response? => true)
+            @mock_comment_event = mock_model(InfoRequestEvent, :created_at => Time.now - 23.days,
+                                                               :event_type => 'comment',
+                                                               :response? => false)
+            mock_incoming_message = mock_model(IncomingMessage, :all_can_view? => true)
+            @mock_response_event = mock_model(InfoRequestEvent, :created_at => Time.now - 22.days,
+                                                                :event_type => 'response',
+                                                                :response? => true,
+                                                                :incoming_message => mock_incoming_message)
             @info_request = InfoRequest.new(:prominence => 'normal',
                                             :awaiting_description => true,
                                             :info_request_events => [@mock_response_event, @mock_comment_event])
@@ -587,6 +593,59 @@ describe InfoRequest do
             @info_request.prominence = 'requester_only'
             @info_request.all_can_view?.should == false
         end
+    end
+
+    describe 'when asked for the last public response event' do
+
+        before do
+            @info_request = FactoryGirl.create(:info_request_with_incoming)
+            @incoming_message = @info_request.incoming_messages.first
+        end
+
+        it 'should not return an event with a hidden prominence message' do
+            @incoming_message.prominence = 'hidden'
+            @incoming_message.save!
+            @info_request.get_last_public_response_event.should == nil
+        end
+
+        it 'should not return an event with a requester_only prominence message' do
+            @incoming_message.prominence = 'requester_only'
+            @incoming_message.save!
+            @info_request.get_last_public_response_event.should == nil
+        end
+
+        it 'should return an event with a normal prominence message' do
+            @incoming_message.prominence = 'normal'
+            @incoming_message.save!
+            @info_request.get_last_public_response_event.should == @incoming_message.response_event
+        end
+    end
+
+    describe 'when asked for the last public outgoing event' do
+
+        before do
+            @info_request = FactoryGirl.create(:info_request)
+            @outgoing_message = @info_request.outgoing_messages.first
+        end
+
+        it 'should not return an event with a hidden prominence message' do
+            @outgoing_message.prominence = 'hidden'
+            @outgoing_message.save!
+            @info_request.get_last_public_outgoing_event.should == nil
+        end
+
+        it 'should not return an event with a requester_only prominence message' do
+            @outgoing_message.prominence = 'requester_only'
+            @outgoing_message.save!
+            @info_request.get_last_public_outgoing_event.should == nil
+        end
+
+        it 'should return an event with a normal prominence message' do
+            @outgoing_message.prominence = 'normal'
+            @outgoing_message.save!
+            @info_request.get_last_public_outgoing_event.should == @outgoing_message.info_request_events.first
+        end
+
     end
 
     describe  'when generating json for the api' do
