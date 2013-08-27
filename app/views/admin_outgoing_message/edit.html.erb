@@ -3,9 +3,25 @@
 <%= error_messages_for 'outgoing_message' %>
 
 <%= form_tag admin_outgoing_update_path(@outgoing_message) do %>
+  <div class="control-group">
+    <label class="control-label" for="outgoing_message_prominence"> Prominence</label>
+    <div class="controls">
+    <%= select('outgoing_message', "prominence", OutgoingMessage.prominence_states) %>
+    </div>
+  </div>
 
-   <p><label for="outgoing_message_body">Body of message</label><br/>
-   <%= text_area 'outgoing_message', 'body', :rows => 10, :cols => 60  %></p>
+  <div class="control-group">
+    <label class="control-label" for="outgoing_message_prominence_reason">Reason for prominence</label>
+    <div class="controls">
+      <%= text_area "outgoing_message", "prominence_reason", :rows => 5, :class => "span6" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="outgoing_message_body">Body of message</label>
+     <div class="controls">
+      <%= text_area 'outgoing_message', 'body', :rows => 10, :cols => 60  %>
+     </div>
 
   <p><strong>Note:</strong> This is mainly to be used to excise information
   that users inadvertently put in their messages, not realising it would be
@@ -14,7 +30,9 @@
   this site. You could also use this to edit a message before resending it, but
   only the edited version will be shown on the public page if you do that.</p>
 
-  <p><%= submit_tag 'Save', :accesskey => 's' %></p>
+<div class="form-actions" >
+<%= submit_tag 'Save', :accesskey => 's', :class => 'btn' %>
+</div>
 <% end %>
 
 <p>
