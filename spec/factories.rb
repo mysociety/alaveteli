@@ -1,6 +1,8 @@
 FactoryGirl.define do
 
     sequence(:email) { |n| "person#{n}@example.com" }
+    sequence(:name) { |n| "Example Public Body #{n}" }
+    sequence(:short_name) { |n| "Example Body #{n}" }
 
     factory :foi_attachment do
         factory :body_text do
@@ -104,8 +106,8 @@ FactoryGirl.define do
     end
 
     factory :public_body do
-        name 'Example Public Body'
-        short_name 'Example Public Body'
+        name
+        short_name
         request_email 'request@example.com'
         last_edit_editor "admin user"
         last_edit_comment "Making an edit"
