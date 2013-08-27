@@ -38,6 +38,7 @@ require 'zip/zip'
 require 'iconv' unless RUBY_VERSION >= '1.9'
 
 class IncomingMessage < ActiveRecord::Base
+    extend MessageProminence
     belongs_to :info_request
     validates_presence_of :info_request
 
@@ -49,8 +50,7 @@ class IncomingMessage < ActiveRecord::Base
 
     belongs_to :raw_email
 
-    PROMINENCE_STATES = ['normal', 'hidden','requester_only']
-    validates_inclusion_of :prominence, :in => PROMINENCE_STATES
+    has_prominence(prominence_states = ['normal', 'hidden','requester_only'])
 
     # See binary_mask_stuff function below. It just test for inclusion
     # in this hash, not the value of the right hand side.
@@ -67,10 +67,6 @@ class IncomingMessage < ActiveRecord::Base
     # getting the response event
     def response_event
         self.info_request_events.detect{ |e| e.event_type == 'response' }
-    end
-
-    def user_can_view?(user)
-        Ability.can_view_with_prominence?(self.prominence, self.info_request, user)
     end
 
     def all_can_view?
