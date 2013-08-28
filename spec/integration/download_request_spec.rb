@@ -14,7 +14,7 @@ describe 'when making a zipfile available' do
             f.binmode
             f.write(session.response.body)
             f.flush
-            Zip::ZipFile::open(f) do |zip|
+            Zip::ZipFile::open(f.path) do |zip|
                yield zip
             end
         end
