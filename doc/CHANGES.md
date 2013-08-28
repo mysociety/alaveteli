@@ -1,3 +1,16 @@
+#rails-3-develop
+
+## Highlighted features
+* Individual incoming and outgoing messages can be made hidden, or requester_only from the admin interface.
+* Zip downloads now can be run in single-threaded instances, and use send_file rather than a redirect to serve up cached zip files.
+
+## Upgrade notes
+* By default, Alaveteli will now serve up request zip files itself, which will occupy a Rails process until the file has been received. To pass these files off to Apache, and free up the Rails process, install the libapache2-mod-xsendfile package, and update your httpd.conf file with the new Sendfile clause at the end of config/httpd.conf-example).
+* In your production install, from the Alaveteli directory (as the Alaveteli deploy user), run the following commands to remove the zip download directory from direct access by your webserver, and preserve any cached zip files:
+`mkdir cache/zips/production/`
+`mv cache/zips/download cache/zips/production/download`
+`rm public/download`
+
 # Version 0.12
 ## Highlighted features
 *  Remove support for theme stylesheet inclusion via template (deprecated in version 0.5)

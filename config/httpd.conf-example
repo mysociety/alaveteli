@@ -69,3 +69,13 @@ RewriteRule ^/request/((\d{1,3})\d*)/(response/\d+/attach/(html/)?\d+/.+) /views
     AddOutputFilterByType DEFLATE font/opentype font/truetype font/eot
     AddOutputFilterByType DEFLATE image/svg+xml
 </IFModule>
+
+# Set the Sendfile header and switch sendfile on - Apache will
+# now handle send_file calls from Alaveteli
+<Location />
+    <IfModule mod_xsendfile.c>
+    RequestHeader Set X-Sendfile-Type X-Sendfile
+    XSendFile On
+    XSendFileAllowAbove On
+    </IfModule>
+</Location>
