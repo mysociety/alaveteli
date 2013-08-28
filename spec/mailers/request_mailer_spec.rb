@@ -230,10 +230,12 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
     it 'should ask for all requests that are awaiting description and whose latest response is older
         than the number of days given and that are not the holding pen' do
         expected_conditions = [ "awaiting_description = ?
-                                 AND (SELECT created_at
-                                      FROM info_request_events
-                                      WHERE info_request_events.info_request_id = info_requests.id
-                                      AND info_request_events.event_type = 'response'
+                                 AND (SELECT info_request_events.created_at
+                                      FROM info_request_events, incoming_messages
+                                       WHERE info_request_events.info_request_id = info_requests.id
+                                       AND info_request_events.event_type = 'response'
+                                       AND incoming_messages.id = info_request_events.incoming_message_id
+                                       AND incoming_messages.prominence = 'normal'
                                       ORDER BY created_at desc LIMIT 1) < ?
                                  AND url_title != 'holding_pen'
                                  AND user_id IS NOT NULL".split(' ').join(' '),

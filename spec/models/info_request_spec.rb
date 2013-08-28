@@ -400,10 +400,12 @@ describe InfoRequest do
 
         it 'should add extra conditions if supplied' do
             expected_conditions = ["awaiting_description = ?
-                                    AND (SELECT created_at
-                                         FROM info_request_events
+                                    AND (SELECT info_request_events.created_at
+                                         FROM info_request_events, incoming_messages
                                          WHERE info_request_events.info_request_id = info_requests.id
                                          AND info_request_events.event_type = 'response'
+                                         AND incoming_messages.id = info_request_events.incoming_message_id
+                                         AND incoming_messages.prominence = 'normal'
                                          ORDER BY created_at desc LIMIT 1) < ?
                                     AND url_title != 'holding_pen'
                                     AND user_id IS NOT NULL
@@ -418,21 +420,25 @@ describe InfoRequest do
             InfoRequest.find_old_unclassified({:conditions => ["prominence != 'backpage'"]})
         end
 
-        it 'should ask the database for requests that are awaiting description, have a last response older
+        it 'should ask the database for requests that are awaiting description, have a last public response older
         than 21 days old, have a user, are not the holding pen and are not backpaged' do
             expected_conditions = ["awaiting_description = ?
-                                    AND (SELECT created_at
-                                         FROM info_request_events
+                                    AND (SELECT info_request_events.created_at
+                                         FROM info_request_events, incoming_messages
                                          WHERE info_request_events.info_request_id = info_requests.id
                                          AND info_request_events.event_type = 'response'
+                                         AND incoming_messages.id = info_request_events.incoming_message_id
+                                         AND incoming_messages.prominence = 'normal'
                                          ORDER BY created_at desc LIMIT 1) < ?
                                     AND url_title != 'holding_pen'
                                     AND user_id IS NOT NULL".split(' ').join(' '),
                                     true, Time.now - 21.days]
-            expected_select = "*, (SELECT created_at
-                                   FROM info_request_events
+            expected_select = "*, (SELECT info_request_events.created_at
+                                   FROM info_request_events, incoming_messages
                                    WHERE info_request_events.info_request_id = info_requests.id
                                    AND info_request_events.event_type = 'response'
+                                   AND incoming_messages.id = info_request_events.incoming_message_id
+                                   AND incoming_messages.prominence = 'normal'
                                    ORDER BY created_at desc LIMIT 1)
                                    AS last_response_time".split(' ').join(' ')
             InfoRequest.should_receive(:find) do |all, query_params|

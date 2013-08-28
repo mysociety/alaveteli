@@ -905,19 +905,29 @@ public
     end
 
     # Used to find when event last changed
-    def InfoRequest.last_event_time_clause(event_type=nil)
+    def InfoRequest.last_event_time_clause(event_type=nil, join_table=nil, join_clause=nil)
         event_type_clause = ''
         event_type_clause = " AND info_request_events.event_type = '#{event_type}'" if event_type
-        "(SELECT created_at
-          FROM info_request_events
+        tables = ['info_request_events']
+        tables << join_table if join_table
+        join_clause = "AND #{join_clause}" if join_clause
+        "(SELECT info_request_events.created_at
+          FROM #{tables.join(', ')}
           WHERE info_request_events.info_request_id = info_requests.id
           #{event_type_clause}
+          #{join_clause}
           ORDER BY created_at desc
           LIMIT 1)"
     end
 
+    def InfoRequest.last_public_response_clause()
+        join_clause = "incoming_messages.id = info_request_events.incoming_message_id
+                       AND incoming_messages.prominence = 'normal'"
+        last_event_time_clause('response', 'incoming_messages', join_clause)
+    end
+
     def InfoRequest.old_unclassified_params(extra_params, include_last_response_time=false)
-        last_response_created_at = last_event_time_clause('response')
+        last_response_created_at = last_public_response_clause()
         age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
         params = { :conditions => ["awaiting_description = ?
                                     AND #{last_response_created_at} < ?
