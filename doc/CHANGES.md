@@ -11,7 +11,7 @@
 
 ## Upgrade notes
 * Check out this version and run `rails-post-deploy` as usual.
-* This release includes an update to the commonlib submodule - you should now be warned about this on running `rails-post-deploy`. You can update to the nw version with `git submodule update`.
+* This release includes an update to the commonlib submodule - you should now be warned about this on running `rails-post-deploy`. You can update to the new version with `git submodule update`.
 * After deploying, run `rake temp:fix_bad_request_states` to find and list requests that have an inconsistent history - run `rake temp:fix_bad_request_states DRYRUN=0` to fix them.
 
 # Version 0.12
