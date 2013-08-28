@@ -176,7 +176,6 @@ Alaveteli::Application.routes.draw do
     match '/admin/timeline' => 'admin_general#timeline', :as => :admin_timeline
     match '/admin/debug' => 'admin_general#debug', :as => :admin_debug
     match '/admin/stats' => 'admin_general#stats', :as => :admin_stats
-    match '/admin/javascripts/admin.js' => 'admin_general#admin_js', :as => :admin_js
     ####
 
     #### AdminRequest controller
