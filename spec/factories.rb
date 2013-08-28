@@ -22,16 +22,16 @@ FactoryGirl.define do
         last_parsed { 1.week.ago }
         sent_at { 1.week.ago }
 
-        after(:create) do |incoming_message, evaluator|
+        after_create do |incoming_message, evaluator|
             FactoryGirl.create(:body_text,
-                               incoming_message: incoming_message,
-                               url_part_number: 1)
+                               :incoming_message => incoming_message,
+                               :url_part_number => 1)
         end
 
         factory :plain_incoming_message do
             last_parsed { nil }
             sent_at { nil }
-            after(:create) do |incoming_message, evaluator|
+            after_create do |incoming_message, evaluator|
                 data = load_file_fixture('incoming-request-plain.email')
                 data.gsub!('EMAIL_FROM', 'Bob Responder <bob@example.com>')
                 incoming_message.raw_email.data = data
@@ -49,11 +49,11 @@ FactoryGirl.define do
             # the after(:create) yields two values; the incoming_message instance itself and the
             # evaluator, which stores all values from the factory, including ignored
             # attributes;
-            after(:create) do |incoming_message, evaluator|
+            after_create do |incoming_message, evaluator|
                 evaluator.foi_attachments_count.times do |count|
                     FactoryGirl.create(:pdf_attachment,
-                                       incoming_message: incoming_message,
-                                       url_part_number: count+2)
+                                       :incoming_message => incoming_message,
+                                       :url_part_number => count+2)
                 end
             end
         end
@@ -63,12 +63,17 @@ FactoryGirl.define do
 
     factory :outgoing_message do
         factory :initial_request do
-            status 'ready'
-            message_type 'initial_request'
-            body 'Some information please'
-            what_doing 'normal_sort'
-            initialize_with { new(attributes) }
-            after(:create) do |outgoing_message|
+            ignore do
+                status 'ready'
+                message_type 'initial_request'
+                body 'Some information please'
+                what_doing 'normal_sort'
+            end
+            initialize_with { OutgoingMessage.new({ :status => status,
+                                                    :message_type => message_type,
+                                                    :body => body,
+                                                    :what_doing => what_doing }) }
+            after_create do |outgoing_message|
                 outgoing_message.send_message
             end
         end
@@ -79,27 +84,27 @@ FactoryGirl.define do
         public_body
         user
 
-        after(:create) do |info_request, evaluator|
-            FactoryGirl.create(:initial_request, info_request: info_request)
+        after_create do |info_request, evaluator|
+            FactoryGirl.create(:initial_request, :info_request => info_request)
         end
 
         factory :info_request_with_incoming do
-            after(:create) do |info_request, evaluator|
-                incoming_message = FactoryGirl.create(:incoming_message, info_request: info_request)
+            after_create do |info_request, evaluator|
+                incoming_message = FactoryGirl.create(:incoming_message, :info_request => info_request)
                 info_request.log_event("response", {:incoming_message_id => incoming_message.id})
             end
         end
 
         factory :info_request_with_plain_incoming do
-            after(:create) do |info_request, evaluator|
-                incoming_message = FactoryGirl.create(:plain_incoming_message, info_request: info_request)
+            after_create do |info_request, evaluator|
+                incoming_message = FactoryGirl.create(:plain_incoming_message, :info_request => info_request)
                 info_request.log_event("response", {:incoming_message_id => incoming_message.id})
             end
         end
 
         factory :info_request_with_incoming_attachments do
-            after(:create) do |info_request, evaluator|
-                incoming_message = FactoryGirl.create(:incoming_message_with_attachments, info_request: info_request)
+            after_create do |info_request, evaluator|
+                incoming_message = FactoryGirl.create(:incoming_message_with_attachments, :info_request => info_request)
                 info_request.log_event("response", {:incoming_message_id => incoming_message.id})
             end
         end

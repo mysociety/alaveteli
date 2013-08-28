@@ -783,7 +783,7 @@ describe RequestController, "when handling prominence" do
 
         before(:each) do
             @info_request = FactoryGirl.create(:info_request_with_incoming_attachments,
-                                               prominence: 'hidden')
+                                               :prominence => 'hidden')
         end
 
         it "should not show request if you're not logged in" do
@@ -836,7 +836,8 @@ describe RequestController, "when handling prominence" do
     context 'when the request is requester_only' do
 
         before(:each) do
-            @info_request = FactoryGirl.create(:info_request_with_incoming_attachments, prominence: 'requester_only')
+            @info_request = FactoryGirl.create(:info_request_with_incoming_attachments,
+                                               :prominence => 'requester_only')
         end
 
         it "should not show request if you're not logged in" do
@@ -872,7 +873,8 @@ describe RequestController, "when handling prominence" do
     context 'when the incoming message has prominence hidden' do
 
         before(:each) do
-            @incoming_message = FactoryGirl.create(:incoming_message_with_attachments, prominence: 'hidden')
+            @incoming_message = FactoryGirl.create(:incoming_message_with_attachments,
+                                                   :prominence => 'hidden')
             @info_request = @incoming_message.info_request
         end
 
@@ -933,7 +935,7 @@ describe RequestController, "when handling prominence" do
 
         before(:each) do
             @incoming_message = FactoryGirl.create(:incoming_message_with_attachments,
-                                                    prominence: 'requester_only')
+                                                   :prominence => 'requester_only')
             @info_request = @incoming_message.info_request
         end
 

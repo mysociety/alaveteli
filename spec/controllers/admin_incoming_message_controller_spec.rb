@@ -74,7 +74,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
     describe 'when updating an incoming message' do
 
         before do
-            @incoming = FactoryGirl.create(:incoming_message, prominence: 'normal')
+            @incoming = FactoryGirl.create(:incoming_message, :prominence => 'normal')
             @default_params = {:id => @incoming.id,
                                :incoming_message => {:prominence => 'hidden',
                                                      :prominence_reason => 'dull'} }
