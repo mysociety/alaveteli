@@ -926,10 +926,12 @@ class RequestController < ApplicationController
         Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) do |zipfile|
             file_info = make_request_summary_file(info_request)
             zipfile.get_output_stream(file_info[:filename]) { |f| f.puts(file_info[:data]) }
+            message_index = 0
             info_request.incoming_messages.each do |message|
                 next unless message.user_can_view?(authenticated_user)
+                message_index += 1
                 message.get_attachments_for_display.each do |attachment|
-                    filename = "#{attachment.url_part_number}_#{attachment.display_filename}"
+                    filename = "#{message_index}_#{attachment.url_part_number}_#{attachment.display_filename}"
                     zipfile.get_output_stream(filename) { |f| f.puts(attachment.body) }
                 end
             end

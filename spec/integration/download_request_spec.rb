@@ -155,15 +155,15 @@ describe 'when making a zipfile available' do
 
             inspect_zip_download(request_owner, info_request) do |zip|
                 zip.count.should == 3 # the message plus two "hello-world.txt" files
-                zip.read('2_hello world.txt').should match('Second hello')
-                zip.read('3_hello world.txt').should match('First hello')
+                zip.read('2_2_hello world.txt').should match('Second hello')
+                zip.read('2_3_hello world.txt').should match('First hello')
             end
 
             sleep_and_receive_mail('incoming-request-attachment-unknown-extension.email', info_request)
 
             inspect_zip_download(request_owner, info_request) do |zip|
                 zip.count.should == 4  # the message plus two "hello-world.txt" files, and the new attachment
-                zip.read('2_hello.qwglhm').should match('This is an unusual')
+                zip.read('3_2_hello.qwglhm').should match('This is an unusual')
             end
         end
 
