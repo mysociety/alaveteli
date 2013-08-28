@@ -68,7 +68,7 @@ group :develop do
 end
 
 group :test, :development do
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', '~> 1.7'
   gem 'rspec-rails'
   gem 'spork-rails'
 end
