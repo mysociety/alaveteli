@@ -89,30 +89,30 @@ class PublicBodyController < ApplicationController
         @tag = params[:tag]
         @locale = self.locale_from_params()
         default_locale = I18n.default_locale.to_s
-        locale_condition = "(upper(public_body_translations.name) LIKE upper(?)
-                            OR upper(public_body_translations.notes) LIKE upper (?))
-                            AND public_body_translations.locale = ?
-                            AND public_bodies.id <> #{PublicBody.internal_admin_body.id}"
+        locale_condition = "(upper(public_body_translations.name) LIKE upper(?)" \
+            " OR upper(public_body_translations.notes) LIKE upper (?))" \
+            " AND public_body_translations.locale = ?" \
+            " AND public_bodies.id <> #{PublicBody.internal_admin_body.id}"
         if @tag.nil? or @tag == "all"
             @tag = "all"
             conditions = [locale_condition, @query, @query, default_locale]
         elsif @tag == 'other'
             category_list = PublicBodyCategories::get().tags().map{|c| "'"+c+"'"}.join(",")
-            conditions = [locale_condition + ' AND (select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
-                and has_tag_string_tags.model = \'PublicBody\'
-                and has_tag_string_tags.name in (' + category_list + ')) = 0', @query, @query, default_locale]
+            conditions = [locale_condition + " AND (SELECT count(*) FROM has_tag_string_tags WHERE has_tag_string_tags.model_id = public_bodies.id" \
+                " AND has_tag_string_tags.model = 'PublicBody'" \
+                " AND has_tag_string_tags.name IN (#{category_list})) = 0", @query, @query, default_locale]
         elsif @tag.size == 1
             @tag.upcase!
-            conditions = [locale_condition + ' AND public_body_translations.first_letter = ?', @query, @query, default_locale, @tag]
+            conditions = [locale_condition + " AND public_body_translations.first_letter = ?", @query, @query, default_locale, @tag]
         elsif @tag.include?(":")
             name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(@tag)
-            conditions = [locale_condition + ' AND (select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
-                and has_tag_string_tags.model = \'PublicBody\'
-                and has_tag_string_tags.name = ? and has_tag_string_tags.value = ?) > 0', @query, @query, default_locale, name, value]
+            conditions = [locale_condition + " AND (SELECT count(*) FROM has_tag_string_tags WHERE has_tag_string_tags.model_id = public_bodies.id" \
+                " AND has_tag_string_tags.model = 'PublicBody'" \
+                " AND has_tag_string_tags.name = ? AND has_tag_string_tags.value = ?) > 0", @query, @query, default_locale, name, value]
         else
-            conditions = [locale_condition + ' AND (select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
-                and has_tag_string_tags.model = \'PublicBody\'
-                and has_tag_string_tags.name = ?) > 0', @query, @query, default_locale, @tag]
+            conditions = [locale_condition + " AND (SELECT count(*) FROM has_tag_string_tags WHERE has_tag_string_tags.model_id = public_bodies.id" \
+                " AND has_tag_string_tags.model = 'PublicBody'" \
+                " AND has_tag_string_tags.name = ?) > 0", @query, @query, default_locale, @tag]
         end
 
         if @tag == "all"
