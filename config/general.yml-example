@@ -192,3 +192,8 @@ MTA_LOG_TYPE: "exim"
 # this will be included in the message people see when their request is
 # successful.
 DONATION_URL: "http://www.mysociety.org/donate/"
+
+# If only some of the public bodies have been translated into every
+# available locale, you can allow a fallback to the default locale for
+# listing of public bodies.
+PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE: false

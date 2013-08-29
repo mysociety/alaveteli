@@ -78,7 +78,8 @@ describe PublicBodyController, "when listing bodies" do
         response.should be_success
     end
 
-    it "should list all bodies from default locale, even when there are no translations for selected locale" do
+    it "if fallback is requested, should list all bodies from default locale, even when there are no translations for selected locale" do
+        AlaveteliConfiguration.stub!(:public_body_list_fallback_to_default_locale).and_return(true)
         I18n.with_locale(:en) do
             @english_only = PublicBody.new(:name => 'English only',
                                           :short_name => 'EO',
@@ -94,6 +95,12 @@ describe PublicBodyController, "when listing bodies" do
     it 'should show public body names in the selected locale language if present' do
         get :list, {:locale => 'es'}
         response.should contain('El Department for Humpadinking')
+    end
+
+    it 'should not show the internal admin authority' do
+        PublicBody.internal_admin_body
+        get :list, {:locale => 'en'}
+        response.should_not contain('Internal admin authority')
     end
 
     it 'should show public body names in the selected locale language if present for a locale with underscores' do
