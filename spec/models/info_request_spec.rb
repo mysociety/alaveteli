@@ -857,4 +857,70 @@ describe InfoRequest do
             end
         end
     end
+
+    describe 'when saving an info_request' do
+
+        before do
+            @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
+                                            :external_user_name => 'Example User',
+                                            :title => 'Some request or other',
+                                            :public_body => public_bodies(:geraldine_public_body))
+        end
+
+        it "should call purge_in_cache and update_counter_cache" do
+            @info_request.should_receive(:purge_in_cache)
+            # Twice - once for save, once for destroy:
+            @info_request.should_receive(:update_counter_cache).twice
+            @info_request.save!
+            @info_request.destroy
+        end
+
+    end
+
+    describe 'when destroying an info_request' do
+
+        before do
+            @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
+                                            :external_user_name => 'Example User',
+                                            :title => 'Some request or other',
+                                            :public_body => public_bodies(:geraldine_public_body))
+        end
+
+        it "should call update_counter_cache" do
+            @info_request.save!
+            @info_request.should_receive(:update_counter_cache)
+            @info_request.destroy
+        end
+
+    end
+
+    describe 'when changing a described_state' do
+
+        it "should change the counts on its PublicBody" do
+            pb = public_bodies(:geraldine_public_body)
+            old_successful_count = pb.info_requests_successful_count
+            old_not_held_count = pb.info_requests_not_held_count
+            ir = InfoRequest.new(:external_url => 'http://www.example.com',
+                                 :external_user_name => 'Example User',
+                                 :title => 'Some request or other',
+                                 :described_state => 'partially_successful',
+                                 :public_body => pb)
+            ir.save!
+            pb.info_requests_successful_count.should == (old_successful_count + 1)
+            ir.described_state = 'not_held'
+            ir.save!
+            pb.info_requests_successful_count.should == old_successful_count
+            pb.info_requests_not_held_count.should == (old_not_held_count + 1)
+            ir.described_state = 'successful'
+            ir.save!
+            pb.info_requests_successful_count.should == (old_successful_count + 1)
+            pb.info_requests_not_held_count.should == old_not_held_count
+            ir.destroy
+            pb.info_requests_successful_count.should == old_successful_count
+            pb.info_requests_successful_count.should == old_not_held_count
+        end
+
+    end
+
+
 end

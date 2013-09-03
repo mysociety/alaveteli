@@ -632,6 +632,65 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
+    # Return data for the 'n' public bodies with the highest (or
+    # lowest) number of requests, but only returning data for those
+    # with at least 'minimum_requests' requests.
+    def self.get_request_totals(n, highest, minimum_requests)
+        ordering = "info_requests_count"
+        ordering += " DESC" if highest
+        where_clause = "info_requests_count >= #{minimum_requests}"
+        public_bodies = PublicBody.order(ordering).where(where_clause).limit(n)
+        public_bodies.reverse! if highest
+        y_values = public_bodies.map { |pb| pb.info_requests_count }
+        return {
+            'public_bodies' => public_bodies,
+            'y_values' => y_values,
+            'y_max' => y_values.max}
+    end
+
+    # Return data for the 'n' public bodies with the highest (or
+    # lowest) score according to the metric of the value in 'column'
+    # divided by the total number of requests, expressed as a
+    # percentage.  This only returns data for those public bodies with
+    # at least 'minimum_requests' requests.
+    def self.get_request_percentages(column, n, highest, minimum_requests)
+        total_column = "info_requests_count"
+        ordering = "y_value"
+        ordering += " DESC" if highest
+        y_value_column = "(cast(#{column} as float) / #{total_column})"
+        where_clause = "#{total_column} >= #{minimum_requests} AND #{column} IS NOT NULL"
+        public_bodies = PublicBody.select("*, #{y_value_column} AS y_value").order(ordering).where(where_clause).limit(n)
+        public_bodies.reverse! if highest
+        y_values = public_bodies.map { |pb| pb.y_value.to_f }
+
+        original_values = public_bodies.map { |pb| pb.send(column) }
+        # If these are all nil, then probably the values have never
+        # been set; some have to be set by a rake task.  In that case,
+        # just return nil:
+        return nil unless original_values.any? { |ov| !ov.nil? }
+
+        original_totals = public_bodies.map { |pb| pb.send(total_column) }
+        # Calculate confidence intervals, as offsets from the proportion:
+        cis_below = []
+        cis_above = []
+        original_totals.each_with_index.map { |total, i|
+            lower_ci, higher_ci = ci_bounds original_values[i], total, 0.05
+            cis_below.push(y_values[i] - lower_ci)
+            cis_above.push(higher_ci - y_values[i])
+        }
+        # Turn the y values and confidence interval offsets into
+        # percentages:
+        [y_values, cis_below, cis_above].each { |l|
+            l.map! { |v| 100 * v }
+        }
+        return {
+            'public_bodies' => public_bodies,
+            'y_values' => y_values,
+            'cis_below' => cis_below,
+            'cis_above' => cis_above,
+            'y_max' => 100}
+    end
+
     private
 
     def request_email_if_requestable

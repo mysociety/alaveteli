@@ -1,0 +1,75 @@
+<% @title = _("Public Body Statistics") %>
+<div id="main_content">
+  <h1>Public Body Statistics</h1>
+
+  <p><%= _("This page of public body statistics is currently \
+experimental, so there are some caveats that should be borne \
+in mind:") %></p>
+
+  <ul>
+
+    <li><%= _("The percentages are calculated with respect to \
+the total number of requests, which includes invalid \
+requests; this is a known problem that will be fixed in a \
+later release.") %></li>
+
+    <li><%= _("The classification of requests (e.g. to say \
+whether they were successful or not) is done manually by users \
+and administrators of the site, which means that they are \
+subject to error.") %></li>
+
+    <li><%= _("Requests are considered successful if they were \
+classified as either 'Successful' or 'Partially Successful'.") %></li>
+
+    <li><%= _("Requests are considered overdue if they are in \
+the 'Overdue' or 'Very Overdue' states.") %></li>
+
+    <li><%= _("The error bars shown are 95% confidence intervals \
+for the hypothesized underlying proportion (i.e. that which \
+you would obtain by making an infinite number of requests \
+through this site to that authority). In other words, the \
+population being sampled is all the current and future \
+requests to the authority through this site, rather than, \
+say, all requests that have been made to the public body by \
+any means.") %></li>
+
+  </ul>
+
+  <p><%= _("These graphs were partly inspired by \
+<a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some \
+statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks \
+are due to him.") %></p>
+
+  <% @graph_list.each do |graph_data| %>
+    <h3 class="public-body-ranking-title"><%= graph_data['title']%></h3>
+    <div class="public-body-ranking" id="<%= graph_data['id'] %>">
+      <% if graph_data['x_values'] %>
+        <table border=0>
+          <thead>
+            <tr>
+              <th>Public Body</th>
+              <th><%= graph_data['y_axis'] %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% graph_data['x_ticks'].each_with_index do |pb_and_index, i| %>
+              <tr>
+                <td><%= pb_and_index[1] %></td>
+                <td class="statistic"><%= graph_data['y_values'][i].round %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+          <%= _("There was no data calculated for this graph yet.") %>
+      <% end %>
+    </div>
+  <% end %>
+
+<script type="text/javascript">
+  var graphs_data = <%= @graph_list.to_json.html_safe %>;
+</script>
+<!--[if lte IE 8]><%= javascript_include_tag 'excanvas.min.js' %><![endif]-->
+<%= javascript_include_tag 'jquery.flot.min.js', 'jquery.flot.errorbars.min.js', 'jquery.flot.axislabels.js', 'stats-graphs.js' %>
+
+</div>
