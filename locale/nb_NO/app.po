@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# pere <pere-transifex@hungry.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2013-08-05 17:01+0100\n"
-"PO-Revision-Date: 2013-08-05 16:04+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2013-09-03 06:12+0000\n"
+"Last-Translator: pere <pere-transifex@hungry.com>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +43,7 @@ msgid " <strong>Privacy note:</strong> Your email address will be given to"
 msgstr "<strong>Personvern Obs:</strong>Epost adressen din vil bli gitt til"
 
 msgid " <strong>Summarise</strong> the content of any information returned. "
-msgstr ""
+msgstr "<stong>Oppsummer</strong> innholdet av informasjon som ble returnert."
 
 msgid " Advise on how to <strong>best clarify</strong> the request."
 msgstr ""
@@ -74,10 +75,10 @@ msgid " What are you investigating using Freedom of Information? "
 msgstr " Hva er det du undersøker med innsynsbegjæringene dine? "
 
 msgid " You are already being emailed updates about the request."
-msgstr ""
+msgstr "Du mottar allerede oppdateringer om denne forespørselen på e-post."
 
 msgid " You will also be emailed updates about the request."
-msgstr ""
+msgstr "Vi vil også motta oppdateringer om denne forespørselen på e-post."
 
 msgid " made by "
 msgstr " laget av "
@@ -179,10 +180,13 @@ msgid "<p>You do not need to include your email in the request in order to get a
 msgstr ""
 
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
-msgstr ""
+msgstr "<p>Din henvendelse inneholder et <strong>postnummer</strong>.  Med mindre det er direkte relevant for temaet i din henvendelse, vær så snill å fjern enhver adresse da den vil <strong>være offentlig tilgjengelig på Internettet</strong>.</p>"
 
 msgid "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
 msgstr ""
+"<p>Din {{law_used_full}}-forespørsel har blitt <strong>sendt avgårde</strong>!</p>\\n\n"
+"<p><strong>Vi vil sende deg en epost</strong> når det kommer et svar, eller etter {{late_number_of_days}} arbeidsdager, hvis øvrigheten ikke har svart innen da.</p>\\n\n"
+"<p>Hvis du skriver om denne forespørselen (for eksempel i et forum eller en blogg), så er det fint om du lenker til denne siden og eller til en kommentar under som forteller folk om det du har skrevet."
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr ""
@@ -395,7 +399,7 @@ msgid "Are we missing a public authority?"
 msgstr "Skal vi legge til flere myndigheter?"
 
 msgid "Are you the owner of any commercial copyright on this page?"
-msgstr "Er du eier av komersielle åndsverksrettigheter på denne siden?"
+msgstr "Er du eier av kommersielle åndsverksrettigheter på denne siden?"
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Spør om <strong>spesifikke</strong> dokumenter, informasjon eller veiledning om noe som angår deg."
@@ -563,7 +567,7 @@ msgid "Confirm you want to follow the request '{{request_title}}'"
 msgstr ""
 
 msgid "Confirm your FOI request to "
-msgstr ""
+msgstr "Bekreft din innsynsforespørsel til"
 
 msgid "Confirm your account on {{site_name}}"
 msgstr ""
@@ -584,10 +588,10 @@ msgid "Considered by administrators as vexatious and hidden from site."
 msgstr ""
 
 msgid "Contact {{recipient}}"
-msgstr ""
+msgstr "Kontakt "
 
 msgid "Contact {{site_name}}"
-msgstr ""
+msgstr "Kontakt "
 
 msgid "Could not identify the request from the email address"
 msgstr ""
@@ -725,10 +729,10 @@ msgid "FOI email address for {{public_body}}"
 msgstr ""
 
 msgid "FOI request – {{title}}"
-msgstr ""
+msgstr "Innsynsforespørsel "
 
 msgid "FOI requests"
-msgstr ""
+msgstr "Innsynsforespørsel"
 
 msgid "FOI requests by '{{user_name}}'"
 msgstr ""
@@ -976,7 +980,7 @@ msgid "I've received <strong>all the information"
 msgstr "Jeg har fått <strong>alt av informasjonen"
 
 msgid "I've received <strong>some of the information</strong>"
-msgstr "Jeg har mottatt <strong>litt av informasjonen</strong>"
+msgstr "Jeg har mottatt <strong>en del av informasjonen</strong>"
 
 msgid "I've received an <strong>error message</strong>"
 msgstr "Jeg har fått en <strong>feilmelding</strong>"
@@ -988,7 +992,7 @@ msgid "Id"
 msgstr ""
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
-msgstr ""
+msgstr "Hvis adressen er feil, eller du vet om en bedre adresse, vær så snill å <a href=\"{{url}}\">kontakt oss</a>."
 
 msgid "If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below."
 msgstr ""
@@ -1000,7 +1004,7 @@ msgid "If you are dissatisfied by the response you got from\\n            the pu
 msgstr "Du har rett til å klage, om du ikke er fornøyd med svaret du fikk fra\\n            den offentlige myndigheten (<a href=\"{{url}}\">detaljer</a>)."
 
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
-msgstr ""
+msgstr "Hvis du fortsatt ar problemer, vær så snill å <a href=\"{{url}}\">kontakt oss</a>."
 
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
 msgstr ""
@@ -1027,7 +1031,7 @@ msgid "If you got the email <strong>more than six months ago</strong>, then this
 msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
-msgstr ""
+msgstr "Hvis du ikke allerede har gjort det, vær så snill å skriv en melding under som forteller øvrigheten at du har trukket tilbake din forespørsel.  Ellers vil de ikke vite at den er trukket tilbake."
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr ""
@@ -1156,7 +1160,7 @@ msgid "Internal review request"
 msgstr "Klage"
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr ""
+msgstr "Er  {{email_address}} feil adresse for forespørsler om {{type_of_request}} til {{public_body_name}}? I så fall, vær så snill å ta kontakt med oss ved å bruke dette skjemaet:"
 
 msgid "It may be that your browser is not set to accept a thing called \"cookies\",\\nor cannot do so.  If you can, please enable cookies, or try using a different\\nbrowser.  Then press refresh to have another go."
 msgstr ""
@@ -1201,7 +1205,7 @@ msgid "List of all authorities (CSV)"
 msgstr "Liste over alle registrerte myndigheter (CSV)"
 
 msgid "Listing FOI requests"
-msgstr ""
+msgstr "Lister innsynsforespørsler"
 
 msgid "Listing public authorities"
 msgstr ""
@@ -1246,7 +1250,7 @@ msgid "MailServerLog|Order"
 msgstr ""
 
 msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "Lag en ny<br/>\\n  <strong>Forespørsel <span>om</span><br/>\\n  Innsyn</strong>"
+msgstr "Lag en ny<br/>\\n  <strong>Forespørsel <span>om</span><br/>\\n  innsyn</strong>"
 
 msgid "Make a request"
 msgstr "Lag henvendelse"
@@ -1270,10 +1274,10 @@ msgid "Message"
 msgstr ""
 
 msgid "Message sent using {{site_name}} contact form, "
-msgstr ""
+msgstr "Melding sendt ved hjelp av kontaktskjema for {{site_name}},"
 
 msgid "Missing contact details for '"
-msgstr ""
+msgstr "Mangler kontaktdetaljer for '"
 
 msgid "More about this authority"
 msgstr "Mer om denne myndigheten"
@@ -1666,7 +1670,7 @@ msgid "Posted on {{date}} by {{author}}"
 msgstr ""
 
 msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
-msgstr ""
+msgstr "Motoren er <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 
 msgid "Prev"
 msgstr ""
@@ -1777,7 +1781,7 @@ msgid "PurgeRequest|Url"
 msgstr ""
 
 msgid "RSS feed"
-msgstr "RSS strøm"
+msgstr "RSS-strøm"
 
 msgid "RSS feed of updates"
 msgstr "RSS srøm med oppdateringene"
@@ -2010,7 +2014,7 @@ msgid "Some notes have been added to your FOI request - "
 msgstr "Nen merknader har blitt lagt til innsynshenvendelsen din - "
 
 msgid "Some of the information requested has been received"
-msgstr "Noe av informasjonen er motatt"
+msgstr "Noe av den forespurte informasjonen er mottatt"
 
 msgid "Some people who've made requests haven't let us know whether they were\\nsuccessful or not.  We need <strong>your</strong> help &ndash;\\nchoose one of these requests, read it, and let everyone know whether or not the\\ninformation has been provided. Everyone'll be exceedingly grateful."
 msgstr ""
@@ -2354,7 +2358,7 @@ msgid "This is the first version."
 msgstr ""
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
-msgstr ""
+msgstr "Dette er din egen forespørsel, så du vil automatisk få epost når nye svar ankommer."
 
 msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
 msgstr ""
@@ -2385,7 +2389,7 @@ msgid "This request has already been reported for administrator attention"
 msgstr ""
 
 msgid "This request has an <strong>unknown status</strong>."
-msgstr ""
+msgstr "Denne forespørselen har en <strong>ukjent status</strong>."
 
 msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request"
 msgstr ""
@@ -2484,7 +2488,7 @@ msgid "To help us keep the site tidy, someone else has updated the status of the
 msgstr ""
 
 msgid "To let everyone know, follow this link and then select the appropriate box."
-msgstr "For å lage alle vite, følg denne linken og velg den aktuelle boksen."
+msgstr "For å orientere alle, følg denne linken og velg den aktuelle boksen."
 
 msgid "To log into the administrative interface"
 msgstr "For å logge deg på admin grensesnittet"
@@ -2733,7 +2737,10 @@ msgid "We do not have a working {{law_used_full}} address for {{public_body_name
 msgstr ""
 
 msgid "We don't know whether the most recent response to this request contains\\n    information or not\\n        &ndash;\\n\tif you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
-msgstr "Vi vet ikke om sist motatt svar på denne henvendelsen inneholder\\n    informasjon/dokumenter eller ikke\\n&ndash;\\n\tom du er {{user_link}, vennligst <a href=\"{{url}}\">logg inn</a> og la alle vite."
+msgstr ""
+"Vi vet ikke om sist mottatte svar på denne henvendelsen inneholder\\n\n"
+"informasjon/dokumenter eller ikke\\n &ndash;\\n\n"
+"om du er {{user_link}}, vennligst <a href=\"{{url}}\">logg inn</a> og gi alle beskjed."
 
 msgid "We will not reveal your email address to anybody unless you or\\n        the law tell us to (<a href=\"{{url}}\">details</a>). "
 msgstr "Vi vil aldri gi ut e-post adressen din til noen uten at du eller\\n        retten ber oss om det (<a href=\"{{url}}\">detaljer</a>). "
@@ -2856,7 +2863,7 @@ msgid "You have a new response to the {{law_used_full}} request "
 msgstr "Du har et nytt svar til {{law_used_full}} request "
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
-msgstr "Du har funnet en feil.  Vennligst <a href=\"{{contact_url}}\">kontat oss</a> for å fortelle oss om problemet"
+msgstr "Du har funnet en feil.  Vennligst <a href=\"{{contact_url}}\">kontakt oss</a> for å fortelle oss om problemet"
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Du har truffet grensen for antall nye henvendelser. Brukere er ordinært begrenset til {{max_requests_per_user_per_day}} henvendelser i en 24-timers periode. Du kan gjøre en ny henvendelse {{can_make_another_request}}."
@@ -3040,7 +3047,7 @@ msgid "[{{public_body}} request email]"
 msgstr ""
 
 msgid "[{{site_name}} contact email]"
-msgstr "[{{site_name}} kontakt e-post]"
+msgstr "[{{site_name}} e-post-kontakt]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
 msgstr "\\n\\n[ {{site_name}} NB: Teksten over var feil enkodet, og har fått rare tegn fjernet. ]"
