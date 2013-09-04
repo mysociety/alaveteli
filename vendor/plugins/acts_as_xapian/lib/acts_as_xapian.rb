@@ -913,16 +913,11 @@ module ActsAsXapian
 
         # Used to mark changes needed by batch indexer
         def xapian_mark_needs_index
-            model = self.class.base_class.to_s
-            model_id = self.id
-            ActiveRecord::Base.transaction do
-                found = ActsAsXapianJob.delete_all([ "model = ? and model_id = ?", model, model_id])
-                job = ActsAsXapianJob.new
-                job.model = model
-                job.model_id = model_id
-                job.action = 'update'
-                job.save!
-            end
+            xapian_create_job('update', self.class.base_class.to_s, self.id)
+        end
+
+        def xapian_mark_needs_destroy
+            xapian_create_job('destroy', self.class.base_class.to_s, self.id)
         end
 
         # Allow reindexing to be skipped if a flag is set
@@ -931,16 +926,12 @@ module ActsAsXapian
             xapian_mark_needs_index
         end
 
-        def xapian_mark_needs_destroy
-            model = self.class.base_class.to_s
-            model_id = self.id
+        def xapian_create_job(action, model, model_id)
             ActiveRecord::Base.transaction do
-                found = ActsAsXapianJob.delete_all([ "model = ? and model_id = ?", model, model_id])
-                job = ActsAsXapianJob.new
-                job.model = model
-                job.model_id = model_id
-                job.action = 'destroy'
-                job.save!
+                ActsAsXapianJob.delete_all([ "model = ? and model_id = ?", model, model_id])
+                ActsAsXapianJob.create!(:model => model,
+                                        :model_id => model_id,
+                                        :action => action)
             end
         end
      end
