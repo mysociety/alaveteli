@@ -24,6 +24,7 @@ namespace :temp do
                                                              :described_state => info_request.described_state,
                                                              :calculated_state => info_request.described_state,
                                                              :params => params)
+                    info_request.info_request_events.each{ |event| event.xapian_mark_needs_index }
                 end
             end
 
