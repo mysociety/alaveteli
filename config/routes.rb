@@ -105,6 +105,7 @@ Alaveteli::Application.routes.draw do
     match '/body/:url_name/view_email' => 'public_body#view_email', :as => :view_public_body_email
     match '/body/:url_name/:tag' => 'public_body#show', :as => :show_public_body_tag
     match '/body/:url_name/:tag/:view' => 'public_body#show', :as => :show_public_body_tag_view
+    match '/body_statistics' => 'public_body#statistics', :as => :public_bodies_statistics
     ####
 
     #### Comment controller

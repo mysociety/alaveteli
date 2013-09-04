@@ -6,6 +6,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'fastercsv'
+require 'confidence_intervals'
 
 class PublicBodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -149,6 +150,84 @@ class PublicBodyController < ApplicationController
                   :disposition =>'attachment', :encoding => 'utf8')
     end
 
+    def statistics
+        unless AlaveteliConfiguration::public_body_statistics_page
+            raise ActiveRecord::RecordNotFound.new("Page not enabled")
+        end
+
+        per_graph = 8
+        minimum_requests = AlaveteliConfiguration::minimum_requests_for_statistics
+        # Make sure minimum_requests is > 0 to avoid division-by-zero
+        minimum_requests = [minimum_requests, 1].max
+        total_column = 'info_requests_count'
+
+        @graph_list = []
+
+        [[total_column,
+          [{
+               :title => 'Public bodies with the most requests',
+               :y_axis => 'Number of requests',
+               :highest => true}]],
+         ['info_requests_successful_count',
+          [{
+               :title => 'Public bodies with the most successful requests',
+               :y_axis => 'Percentage of total requests',
+               :highest => true},
+           {
+               :title => 'Public bodies with the fewest successful requests',
+               :y_axis => 'Percentage of total requests',
+               :highest => false}]],
+         ['info_requests_overdue_count',
+          [{
+               :title => 'Public bodies with most overdue requests',
+               :y_axis => 'Percentage of requests that are overdue',
+               :highest => true}]],
+         ['info_requests_not_held_count',
+          [{
+               :title => 'Public bodies that most frequently replied with "Not Held"',
+               :y_axis => 'Percentage of total requests',
+               :highest => true}]]].each do |column, graphs_properties|
+
+            graphs_properties.each do |graph_properties|
+
+                percentages = (column != total_column)
+                highest = graph_properties[:highest]
+
+                data = nil
+                if percentages
+                    data = PublicBody.get_request_percentages(column,
+                                                              per_graph,
+                                                              highest,
+                                                              minimum_requests)
+                else
+                    data = PublicBody.get_request_totals(per_graph,
+                                                         highest,
+                                                         minimum_requests)
+                end
+
+                data_to_draw = {
+                    'id' => "#{column}-#{highest ? 'highest' : 'lowest'}",
+                    'x_axis' => 'Public Bodies',
+                    'y_axis' => graph_properties[:y_axis],
+                    'errorbars' => percentages,
+                    'title' => graph_properties[:title]}
+
+                if data
+                    data_to_draw.update(data)
+                    data_to_draw['x_values'] = data['public_bodies'].each_with_index.map { |pb, i| i }
+                    data_to_draw['x_ticks'] = data['public_bodies'].each_with_index.map { |pb, i| [i, pb.name] }
+                end
+
+                @graph_list.push data_to_draw
+            end
+        end
+
+        respond_to do |format|
+            format.html { render :template => "public_body/statistics" }
+            format.json { render :json => @graph_list }
+        end
+    end
+
     # Type ahead search
     def search_typeahead
         # Since acts_as_xapian doesn't support the Partial match flag, we work around it
@@ -158,4 +237,3 @@ class PublicBodyController < ApplicationController
         render :partial => "public_body/search_ahead"
     end
 end
-
