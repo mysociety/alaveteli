@@ -93,8 +93,10 @@ namespace :stats do
 
   desc 'Update statistics in the public_bodies table'
   task :update_public_bodies_stats => :environment do
+    verbose = ENV['VERBOSE'] == '1'
     PublicBody.all.each do |public_body|
-      puts "Counting overdue requests for #{public_body.name}"
+      puts "Counting overdue requests for #{public_body.name}" if verbose
+
       # Look for values of 'waiting_response_overdue' and
       # 'waiting_response_very_overdue' which aren't directly in the
       # described_state column, and instead need to be calculated:
