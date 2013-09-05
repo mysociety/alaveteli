@@ -1128,12 +1128,18 @@ public
     after_save :update_counter_cache
     after_destroy :update_counter_cache
     def update_counter_cache
+        PublicBody.skip_callback(:save, :after, :purge_in_cache)
         self.public_body.info_requests_not_held_count = InfoRequest.where(
             :public_body_id => self.public_body.id,
             :described_state => 'not_held').count
         self.public_body.info_requests_successful_count = InfoRequest.where(
             :public_body_id => self.public_body.id,
             :described_state => ['successful', 'partially_successful']).count
+        self.public_body.without_revision do
+            public_body.no_xapian_reindex = true
+            public_body.save
+        end
+        PublicBody.set_callback(:save, :after, :purge_in_cache)
     end
 
     def for_admin_column

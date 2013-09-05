@@ -111,7 +111,10 @@ namespace :stats do
         end
       end
       public_body.info_requests_overdue_count = overdue_count + very_overdue_count
-      public_body.save!
+      public_body.no_xapian_reindex = true
+      public_body.without_revision do
+          public_body.save!
+      end
     end
   end
 end
