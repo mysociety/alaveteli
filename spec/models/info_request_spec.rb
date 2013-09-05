@@ -896,8 +896,9 @@ describe InfoRequest do
 
     describe 'when changing a described_state' do
 
-        it "should change the counts on its PublicBody" do
+        it "should change the counts on its PublicBody without saving a new version" do
             pb = public_bodies(:geraldine_public_body)
+            old_version_count = pb.versions.count
             old_successful_count = pb.info_requests_successful_count
             old_not_held_count = pb.info_requests_not_held_count
             ir = InfoRequest.new(:external_url => 'http://www.example.com',
@@ -909,15 +910,19 @@ describe InfoRequest do
             pb.info_requests_successful_count.should == (old_successful_count + 1)
             ir.described_state = 'not_held'
             ir.save!
+            pb.reload
             pb.info_requests_successful_count.should == old_successful_count
             pb.info_requests_not_held_count.should == (old_not_held_count + 1)
             ir.described_state = 'successful'
             ir.save!
+            pb.reload
             pb.info_requests_successful_count.should == (old_successful_count + 1)
             pb.info_requests_not_held_count.should == old_not_held_count
             ir.destroy
+            pb.reload
             pb.info_requests_successful_count.should == old_successful_count
             pb.info_requests_successful_count.should == old_not_held_count
+            pb.versions.count.should == old_version_count
         end
 
     end

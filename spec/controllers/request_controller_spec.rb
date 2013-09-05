@@ -174,7 +174,7 @@ describe RequestController, "when changing things that appear on the request pag
         ir.save!
         PurgeRequest.all().first.model_id.should == ir.id
     end
-    it "should not create more than one entry for any given resourcce" do
+    it "should not create more than one entry for any given resource" do
         ir = info_requests(:fancy_dog_request)
         ir.prominence = 'hidden'
         ir.save!
