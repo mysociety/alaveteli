@@ -25,7 +25,6 @@ ALAVETELI_VERSION = '0.13'
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register "application/x-mobile", :mobile
 
-# The Rails cache is set up by the Interlock plugin to use memcached
 
 # Domain for URLs (so can work for scripts, not just web pages)
 ActionMailer::Base.default_url_options[:host] = AlaveteliConfiguration::domain
