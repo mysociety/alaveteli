@@ -61,10 +61,21 @@ class PublicBody < ActiveRecord::Base
 
     # XXX - Don't like repeating this!
     def calculate_cached_fields(t)
-        t.first_letter = t.name.scan(/^./mu)[0].upcase unless t.name.nil? or t.name.empty?
+        PublicBody.set_first_letter(t)
         short_long_name = t.name
         short_long_name = t.short_name if t.short_name and !t.short_name.empty?
         t.url_name = MySociety::Format.simplify_url_part(short_long_name, 'body')
+    end
+
+    # Set the first letter on a public body or translation
+    def PublicBody.set_first_letter(instance)
+        unless instance.name.nil? or instance.name.empty?
+            # we use a regex to ensure it works with utf-8/multi-byte
+            first_letter = instance.name.scan(/^./mu)[0].upcase
+            if first_letter != instance.first_letter
+                instance.first_letter = first_letter
+            end
+        end
     end
 
     def translated_versions
@@ -131,8 +142,7 @@ class PublicBody < ActiveRecord::Base
     # Set the first letter, which is used for faster queries
     before_save(:set_first_letter)
     def set_first_letter
-        # we use a regex to ensure it works with utf-8/multi-byte
-        self.first_letter = self.name.scan(/./mu)[0].upcase
+        PublicBody.set_first_letter(self)
     end
 
     # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
@@ -236,6 +246,7 @@ class PublicBody < ActiveRecord::Base
     def reindex_requested_from
         if self.changes.include?('url_name')
             for info_request in self.info_requests
+
                 for info_request_event in info_request.info_request_events
                     info_request_event.xapian_mark_needs_index
                 end
