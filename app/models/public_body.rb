@@ -40,6 +40,7 @@ class PublicBody < ActiveRecord::Base
     has_many :info_requests, :order => 'created_at desc'
     has_many :track_things, :order => 'created_at desc'
     has_many :censor_rules, :order => 'created_at desc'
+    attr_accessor :no_xapian_reindex
 
     has_tag_string
     before_save :set_api_key, :set_default_publication_scheme
