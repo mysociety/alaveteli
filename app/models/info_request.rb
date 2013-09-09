@@ -1,3 +1,4 @@
+# encoding: utf-8
 # == Schema Information
 # Schema version: 20120919140404
 #
@@ -31,7 +32,10 @@ class InfoRequest < ActiveRecord::Base
     strip_attributes!
 
     validates_presence_of :title, :message => N_("Please enter a summary of your request")
-    validates_format_of :title, :with => /[a-zA-Z]/, :message => N_("Please write a summary with some text in it"), :if => Proc.new { |info_request| !info_request.title.nil? && !info_request.title.empty? }
+    # TODO: When we no longer support Ruby 1.8, this can be done with /[[:alpha:]]/
+    validates_format_of :title, :with => /[ёЁа-яА-Яa-zA-Zà-üÀ-Ü]/iu,
+                                :message => N_("Please write a summary with some text in it"),
+                                :if => Proc.new { |info_request| !info_request.title.nil? && !info_request.title.empty? }
 
     belongs_to :user
     validate :must_be_internal_or_external
