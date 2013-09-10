@@ -85,44 +85,45 @@ class PublicBodyController < ApplicationController
     def list
         long_cache
         # XXX move some of these tag SQL queries into has_tag_string.rb
-        @query = "%#{params[:public_body_query].nil? ? "" : params[:public_body_query]}%"
+
+        like_query = params[:public_body_query]
+        like_query = "" if like_query.nil?
+        like_query = "%#{like_query}%"
+
         @tag = params[:tag]
+
         @locale = self.locale_from_params
         underscore_locale = @locale.gsub '-', '_'
         underscore_default_locale = I18n.default_locale.to_s.gsub '-', '_'
-        locale_condition = "(upper(public_body_translations.name) LIKE upper(?)" \
-                           " OR upper(public_body_translations.notes) LIKE upper (?))" \
-                           " AND public_bodies.id <> #{PublicBody.internal_admin_body.id}"
-        condition_parameters = [@query, @query]
-        if AlaveteliConfiguration::public_body_list_fallback_to_default_locale
-            locale_condition += " AND (public_body_translations.locale = ? OR public_body_translations.locale = ?)"
-            condition_parameters.concat [underscore_locale, underscore_default_locale]
-        else
-            locale_condition += " AND public_body_translations.locale = ?"
-            condition_parameters.concat [underscore_locale]
-        end
+
+        where_condition = "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
+        where_parameters = []
+
+        first_letter = false
+
+        base_tag_condition = " AND (SELECT count(*) FROM has_tag_string_tags" \
+            " WHERE has_tag_string_tags.model_id = public_bodies.id" \
+            " AND has_tag_string_tags.model = 'PublicBody'"
+
+        # Restrict the public bodies shown according to the tag
+        # parameter supplied in the URL:
         if @tag.nil? or @tag == "all"
             @tag = "all"
         elsif @tag == 'other'
             category_list = PublicBodyCategories::get().tags().map{|c| "'"+c+"'"}.join(",")
-            locale_condition += " AND (SELECT count(*) FROM has_tag_string_tags WHERE has_tag_string_tags.model_id = public_bodies.id" \
-                " AND has_tag_string_tags.model = 'PublicBody'" \
-                " AND has_tag_string_tags.name in (#{category_list})) = 0"
+            where_condition += base_tag_condition + " AND has_tag_string_tags.name in (#{category_list})) = 0"
         elsif @tag.size == 1
             @tag.upcase!
-            locale_condition += " AND public_body_translations.first_letter = ?"
-            condition_parameters.concat [@tag]
+            # The first letter queries have to be done on
+            # translations, so just indicate to add that later:
+            first_letter = true
         elsif @tag.include?(":")
             name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(@tag)
-            locale_condition += " AND (SELECT count(*) FROM has_tag_string_tags WHERE has_tag_string_tags.model_id = public_bodies.id" \
-                " AND has_tag_string_tags.model = 'PublicBody'" \
-                " AND has_tag_string_tags.name = ? AND has_tag_string_tags.value = ?) > 0"
-            condition_parameters.concat [name, value]
+            where_condition += base_tag_condition + " AND has_tag_string_tags.name = ? AND has_tag_string_tags.value = ?) > 0"
+            where_parameters.concat [name, value]
         else
-            locale_condition += " AND (SELECT count(*) FROM has_tag_string_tags WHERE has_tag_string_tags.model_id = public_bodies.id" \
-                " AND has_tag_string_tags.model = 'PublicBody'" \
-                " AND has_tag_string_tags.name = ?) > 0"
-            condition_parameters.concat [@tag]
+            where_condition += base_tag_condition + " AND has_tag_string_tags.name = ?) > 0"
+            where_parameters.concat [@tag]
         end
 
         if @tag == "all"
@@ -137,11 +138,45 @@ class PublicBodyController < ApplicationController
                 @description = _("in the category ‘{{category_name}}’", :category_name=>category_name)
             end
         end
-        conditions = [locale_condition] + condition_parameters
+
         I18n.with_locale(@locale) do
-            @public_bodies = PublicBody.where(conditions).joins(:translations).order("public_body_translations.name").paginate(
-              :page => params[:page], :per_page => 100
-            )
+
+            if AlaveteliConfiguration::public_body_list_fallback_to_default_locale
+                # Unfortunately, when we might fall back to the
+                # default locale, this is a rather complex query:
+                query =  %Q{
+                    SELECT public_bodies.*, COALESCE(current_locale.name, default_locale.name) AS display_name
+                    FROM public_bodies
+                    LEFT OUTER JOIN public_body_translations as current_locale
+                        ON (public_bodies.id = current_locale.public_body_id
+                            AND current_locale.locale = ? AND #{get_public_body_list_translated_condition 'current_locale', first_letter})
+                    LEFT OUTER JOIN public_body_translations as default_locale
+                        ON (public_bodies.id = default_locale.public_body_id
+                            AND default_locale.locale = ? AND #{get_public_body_list_translated_condition 'default_locale', first_letter})
+                    WHERE #{where_condition} AND COALESCE(current_locale.name, default_locale.name) IS NOT NULL
+                    ORDER BY display_name}
+                sql = [query, underscore_locale, like_query, like_query]
+                sql.push @tag if first_letter
+                sql += [underscore_default_locale, like_query, like_query]
+                sql.push @tag if first_letter
+                sql += where_parameters
+                @public_bodies = PublicBody.paginate_by_sql(
+                    sql,
+                    :page => params[:page],
+                    :per_page => 100)
+            else
+                # The simpler case where we're just searching in the current locale:
+                where_condition = get_public_body_list_translated_condition('public_body_translations', first_letter, true) +
+                    ' AND ' + where_condition
+                where_sql = [where_condition, like_query, like_query]
+                where_sql.push @tag if first_letter
+                where_sql += [underscore_locale] + where_parameters
+                @public_bodies = PublicBody.where(where_sql) \
+                    .joins(:translations) \
+                    .order("public_body_translations.name") \
+                    .paginate(:page => params[:page], :per_page => 100)
+            end
+
             respond_to do |format|
                 format.html { render :template => "public_body/list" }
             end
@@ -168,5 +203,18 @@ class PublicBodyController < ApplicationController
         @xapian_requests = perform_search_typeahead(query, PublicBody)
         render :partial => "public_body/search_ahead"
     end
-end
 
+    private
+    def get_public_body_list_translated_condition(table, first_letter=false, locale=nil)
+        result = "(upper(#{table}.name) LIKE upper(?)" \
+            " OR upper(#{table}.notes) LIKE upper (?))"
+        if first_letter
+            result += " AND #{table}.first_letter = ?"
+        end
+        if locale
+            result += " AND #{table}.locale = ?"
+        end
+        result
+    end
+
+end
