@@ -78,30 +78,37 @@ describe PublicBodyController, "when listing bodies" do
         response.should be_success
     end
 
+    def make_single_language_example(locale)
+        result = nil
+        I18n.with_locale(locale) do
+            case locale
+            when :en
+                result = PublicBody.new(:name => 'English only',
+                                        :short_name => 'EO')
+            when :es
+                result = PublicBody.new(:name => 'Español Solamente',
+                                        :short_name => 'ES')
+            else
+                raise StandardError.new "Unknown locale #{locale}"
+            end
+            result.request_email = "#{locale}@example.org"
+            result.last_edit_editor = 'test'
+            result.last_edit_comment = ''
+            result.save
+        end
+        result
+    end
+
     it "if fallback is requested, should list all bodies from default locale, even when there are no translations for selected locale" do
         AlaveteliConfiguration.stub!(:public_body_list_fallback_to_default_locale).and_return(true)
-        I18n.with_locale(:en) do
-            @english_only = PublicBody.new(:name => 'English only',
-                                          :short_name => 'EO',
-                                          :request_email => 'english@flourish.org',
-                                          :last_edit_editor => 'test',
-                                          :last_edit_comment => '')
-            @english_only.save
-        end
+        @english_only = make_single_language_example :en
         get :list, {:locale => 'es'}
         assigns[:public_bodies].include?(@english_only).should == true
     end
 
     it 'if fallback is requested, should still list public bodies only with translations in the current locale' do
         AlaveteliConfiguration.stub!(:public_body_list_fallback_to_default_locale).and_return(true)
-        I18n.with_locale(:es) do
-            @spanish_only = PublicBody.new(:name => 'Español Solamente',
-                                           :short_name => 'ES',
-                                           :request_email => 'spanish@flourish.org',
-                                           :last_edit_editor => 'test',
-                                           :last_edit_comment => '')
-            @spanish_only.save
-        end
+        @spanish_only = make_single_language_example :es
         get :list, {:locale => 'es'}
         assigns[:public_bodies].include?(@spanish_only).should == true
     end
