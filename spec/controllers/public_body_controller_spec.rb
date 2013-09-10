@@ -92,6 +92,20 @@ describe PublicBodyController, "when listing bodies" do
         assigns[:public_bodies].include?(@english_only).should == true
     end
 
+    it 'if fallback is requested, should still list public bodies only with translations in the current locale' do
+        AlaveteliConfiguration.stub!(:public_body_list_fallback_to_default_locale).and_return(true)
+        I18n.with_locale(:es) do
+            @spanish_only = PublicBody.new(:name => 'Español Solamente',
+                                           :short_name => 'ES',
+                                           :request_email => 'spanish@flourish.org',
+                                           :last_edit_editor => 'test',
+                                           :last_edit_comment => '')
+            @spanish_only.save
+        end
+        get :list, {:locale => 'es'}
+        assigns[:public_bodies].include?(@spanish_only).should == true
+    end
+
     it 'should show public body names in the selected locale language if present' do
         get :list, {:locale => 'es'}
         response.should contain('El Department for Humpadinking')
