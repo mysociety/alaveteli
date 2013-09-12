@@ -55,6 +55,7 @@ group :test do
   gem 'fakeweb'
   gem 'coveralls', :require => false
   gem 'webrat'
+  gem 'nokogiri'
 end
 
 group :development do

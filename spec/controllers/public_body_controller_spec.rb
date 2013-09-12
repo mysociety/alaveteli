@@ -1,6 +1,8 @@
 # coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+require 'nokogiri'
+
 describe PublicBodyController, "when showing a body" do
     render_views
 
@@ -78,22 +80,78 @@ describe PublicBodyController, "when listing bodies" do
         response.should be_success
     end
 
-    it "should list all bodies from default locale, even when there are no translations for selected locale" do
-        I18n.with_locale(:en) do
-            @english_only = PublicBody.new(:name => 'English only',
-                                          :short_name => 'EO',
-                                          :request_email => 'english@flourish.org',
-                                          :last_edit_editor => 'test',
-                                          :last_edit_comment => '')
-            @english_only.save
+    def make_single_language_example(locale)
+        result = nil
+        I18n.with_locale(locale) do
+            case locale
+            when :en
+                result = PublicBody.new(:name => 'English only',
+                                        :short_name => 'EO')
+            when :es
+                result = PublicBody.new(:name => 'Español Solamente',
+                                        :short_name => 'ES')
+            else
+                raise StandardError.new "Unknown locale #{locale}"
+            end
+            result.request_email = "#{locale}@example.org"
+            result.last_edit_editor = 'test'
+            result.last_edit_comment = ''
+            result.save
         end
+        result
+    end
+
+    it "with no fallback, should only return bodies from the current locale" do
+        @english_only = make_single_language_example :en
+        @spanish_only = make_single_language_example :es
+        get :list, {:locale => 'es'}
+        assigns[:public_bodies].include?(@english_only).should == false
+        assigns[:public_bodies].include?(@spanish_only).should == true
+    end
+
+    it "if fallback is requested, should list all bodies from default locale, even when there are no translations for selected locale" do
+        AlaveteliConfiguration.stub!(:public_body_list_fallback_to_default_locale).and_return(true)
+        @english_only = make_single_language_example :en
         get :list, {:locale => 'es'}
         assigns[:public_bodies].include?(@english_only).should == true
+    end
+
+    it 'if fallback is requested, should still list public bodies only with translations in the current locale' do
+        AlaveteliConfiguration.stub!(:public_body_list_fallback_to_default_locale).and_return(true)
+        @spanish_only = make_single_language_example :es
+        get :list, {:locale => 'es'}
+        assigns[:public_bodies].include?(@spanish_only).should == true
+    end
+
+    it "if fallback is requested, make sure that there are no duplicates listed" do
+        AlaveteliConfiguration.stub!(:public_body_list_fallback_to_default_locale).and_return(true)
+        get :list, {:locale => 'es'}
+        pb_ids = assigns[:public_bodies].map { |pb| pb.id }
+        unique_pb_ids = pb_ids.uniq
+        pb_ids.sort.should === unique_pb_ids.sort
     end
 
     it 'should show public body names in the selected locale language if present' do
         get :list, {:locale => 'es'}
         response.should contain('El Department for Humpadinking')
+    end
+
+    it 'should not show the internal admin authority' do
+        PublicBody.internal_admin_body
+        get :list, {:locale => 'en'}
+        response.should_not contain('Internal admin authority')
+    end
+
+    it 'should order on the translated name, even with the fallback' do
+      # The names of each public body is in:
+      #    <span class="head"><a>Public Body Name</a></span>
+      # ... eo extract all of those, and check that they are ordered:
+      AlaveteliConfiguration.stub!(:public_body_list_fallback_to_default_locale).and_return(true)
+      get :list, {:locale => 'es'}
+      parsed = Nokogiri::HTML(response.body)
+      public_body_names = parsed.xpath '//span[@class="head"]/a/text()'
+      public_body_names = public_body_names.map { |pb| pb.to_s }
+      public_body_names.should == public_body_names.sort
     end
 
     it 'should show public body names in the selected locale language if present for a locale with underscores' do

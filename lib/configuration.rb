@@ -49,6 +49,7 @@ module AlaveteliConfiguration
             :NEW_RESPONSE_REMINDER_AFTER_DAYS => [3, 10, 24],
             :OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS => '',
             :PUBLIC_BODY_STATISTICS_PAGE => false,
+            :PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE => false,
             :RAW_EMAILS_LOCATION => 'files/raw_emails',
             :READ_ONLY => '',
             :RECAPTCHA_PRIVATE_KEY => 'x',
