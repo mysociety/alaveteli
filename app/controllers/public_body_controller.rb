@@ -211,27 +211,27 @@ class PublicBodyController < ApplicationController
 
         [[total_column,
           [{
-               :title => 'Public bodies with the most requests',
-               :y_axis => 'Number of requests',
+               :title => _('Public bodies with the most requests'),
+               :y_axis => _('Number of requests'),
                :highest => true}]],
          ['info_requests_successful_count',
           [{
-               :title => 'Public bodies with the most successful requests',
-               :y_axis => 'Percentage of total requests',
+               :title => _('Public bodies with the most successful requests'),
+               :y_axis => _('Percentage of total requests'),
                :highest => true},
            {
-               :title => 'Public bodies with the fewest successful requests',
-               :y_axis => 'Percentage of total requests',
+               :title => _('Public bodies with the fewest successful requests'),
+               :y_axis => _('Percentage of total requests'),
                :highest => false}]],
          ['info_requests_overdue_count',
           [{
-               :title => 'Public bodies with most overdue requests',
-               :y_axis => 'Percentage of requests that are overdue',
+               :title => _('Public bodies with most overdue requests'),
+               :y_axis => _('Percentage of requests that are overdue'),
                :highest => true}]],
          ['info_requests_not_held_count',
           [{
-               :title => 'Public bodies that most frequently replied with "Not Held"',
-               :y_axis => 'Percentage of total requests',
+               :title => _('Public bodies that most frequently replied with "Not Held"'),
+               :y_axis => _('Percentage of total requests'),
                :highest => true}]]].each do |column, graphs_properties|
 
             graphs_properties.each do |graph_properties|
@@ -253,7 +253,7 @@ class PublicBodyController < ApplicationController
 
                 data_to_draw = {
                     'id' => "#{column}-#{highest ? 'highest' : 'lowest'}",
-                    'x_axis' => 'Public Bodies',
+                    'x_axis' => _('Public Bodies'),
                     'y_axis' => graph_properties[:y_axis],
                     'errorbars' => percentages,
                     'title' => graph_properties[:title]}
