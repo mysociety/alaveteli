@@ -11,7 +11,7 @@
 `mv cache/zips/download cache/zips/production/download`
 `rm public/download`
 * This release upgrades the assumed version of Ubuntu from lucid (10.04) to precise (12.04)
-* This release upgrades rubygems in config/packages - version 1.8.15 is available from squeeze-backports on Debian or by default in Ubuntu precise.
+* This release upgrades rubygems in config/packages - version 1.8.15 is available from squeeze-backports on Debian or by default in Ubuntu precise. This upgrade may result in "invalid date format in specification:" errors - these should be fixable by manually deleting the gems specs that are being referenced in the error and re-running rails-post-deploy
 
 # Version 0.12
 ## Highlighted features
