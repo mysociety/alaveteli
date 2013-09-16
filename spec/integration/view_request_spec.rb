@@ -3,51 +3,47 @@ require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
 describe "When viewing requests" do
 
-    before(:each) do
-        load_raw_emails_data
+    before do
+        @info_request = FactoryGirl.create(:info_request)
+        @unregistered = without_login
     end
 
     it "should not make endlessly recursive JSON <link>s" do
-        unregistered = without_login
-        unregistered.browses_request('why_do_you_have_such_a_fancy_dog?unfold=1')
-        unregistered.response.body.should_not include("dog?unfold=1.json")
-        unregistered.response.body.should include("dog.json?unfold=1")
+        @unregistered.browses_request("#{@info_request.url_title}?unfold=1")
+        @unregistered.response.body.should_not include("#{@info_request.url_title}?unfold=1.json")
+        @unregistered.response.body.should include("#{@info_request.url_title}.json?unfold=1")
     end
 
     it 'should not raise a routing error when making a json link for a request with an
        "action" querystring param' do
-       unregistered = without_login
-       unregistered.browses_request('why_do_you_have_such_a_fancy_dog?action=add')
+       @unregistered.browses_request("#{@info_request.url_title}?action=add")
     end
 
     context 'when a response has prominence "normal"' do
 
         before do
-            useless_message = incoming_messages(:useless_incoming_message)
-            useless_message.prominence = 'normal'
-            useless_message.save!
+            @info_request = FactoryGirl.create(:info_request_with_incoming)
         end
 
         it 'should show the message itself to any user' do
 
             # unregistered
             unregistered = without_login
-            unregistered.browses_request('why_do_you_have_such_a_fancy_dog')
-            unregistered.response.body.should include("No way!")
+            unregistered.browses_request(@info_request.url_title)
+            unregistered.response.body.should include("hereisthetext")
             unregistered.response.body.should_not include("This message has been hidden.")
             unregistered.response.body.should_not include("sign in</a> to view the message.")
 
             # requester
-            bob = login(:bob_smith_user)
-            bob.browses_request('why_do_you_have_such_a_fancy_dog')
-            bob.response.body.should include("No way!")
-            bob.response.body.should_not include("This message has been hidden.")
+            owner = login(@info_request.user)
+            owner.browses_request(@info_request.url_title)
+            owner.response.body.should include("hereisthetext")
+            owner.response.body.should_not include("This message has been hidden.")
 
             # admin
-            confirm(:admin_user)
-            admin_user = login(:admin_user)
-            admin_user.browses_request('why_do_you_have_such_a_fancy_dog')
-            admin_user.response.body.should include('No way!')
+            admin_user = login(FactoryGirl.create(:admin_user))
+            admin_user.browses_request(@info_request.url_title)
+            admin_user.response.body.should include("hereisthetext")
             admin_user.response.body.should_not include("This message has prominence \'hidden\'.")
 
         end
@@ -57,10 +53,11 @@ describe "When viewing requests" do
     context 'when a response has prominence "hidden"' do
 
         before do
-            useless_message = incoming_messages(:useless_incoming_message)
-            useless_message.prominence = 'hidden'
-            useless_message.prominence_reason = 'It is too irritating.'
-            useless_message.save!
+            @info_request = FactoryGirl.create(:info_request_with_incoming)
+            message = @info_request.incoming_messages.first
+            message.prominence = 'hidden'
+            message.prominence_reason = 'It is too irritating.'
+            message.save!
         end
 
         it 'should show a hidden notice, not the message, to an unregistered user or the requester and
@@ -68,24 +65,23 @@ describe "When viewing requests" do
 
             # unregistered
             unregistered = without_login
-            unregistered.browses_request('why_do_you_have_such_a_fancy_dog')
+            unregistered.browses_request(@info_request.url_title)
             unregistered.response.body.should include("This message has been hidden.")
             unregistered.response.body.should include("It is too irritating.")
             unregistered.response.body.should_not include("sign in</a> to view the message.")
-            unregistered.response.body.should_not include("No way!")
+            unregistered.response.body.should_not include("hereisthetext")
 
             # requester
-            bob = login(:bob_smith_user)
-            bob.browses_request('why_do_you_have_such_a_fancy_dog')
-            bob.response.body.should include("This message has been hidden.")
-            bob.response.body.should include("It is too irritating")
-            bob.response.body.should_not include("No way!")
+            owner = login(@info_request.user)
+            owner.browses_request(@info_request.url_title)
+            owner.response.body.should include("This message has been hidden.")
+            owner.response.body.should include("It is too irritating")
+            owner.response.body.should_not include("hereisthetext")
 
             # admin
-            confirm(:admin_user)
-            admin_user = login(:admin_user)
-            admin_user.browses_request('why_do_you_have_such_a_fancy_dog')
-            admin_user.response.body.should include('No way!')
+            admin_user = login(FactoryGirl.create(:admin_user))
+            admin_user.browses_request(@info_request.url_title)
+            admin_user.response.body.should include('hereisthetext')
             admin_user.response.body.should include("This message has prominence \'hidden\'.")
             admin_user.response.body.should include("It is too irritating.")
             admin_user.response.body.should include("You can only see it because you are logged in as a super user.")
@@ -94,13 +90,14 @@ describe "When viewing requests" do
 
     end
 
-    context 'when as response has prominence "requester_only"' do
+    context 'when a response has prominence "requester_only"' do
 
         before do
-            useless_message = incoming_messages(:useless_incoming_message)
-            useless_message.prominence = 'requester_only'
-            useless_message.prominence_reason = 'It is too irritating.'
-            useless_message.save!
+            @info_request = FactoryGirl.create(:info_request_with_incoming)
+            message = @info_request.incoming_messages.first
+            message.prominence = 'requester_only'
+            message.prominence_reason = 'It is too irritating.'
+            message.save!
         end
 
         it 'should show a hidden notice with login link to an unregistered user, and the message itself
@@ -108,24 +105,23 @@ describe "When viewing requests" do
 
             # unregistered
             unregistered = without_login
-            unregistered.browses_request('why_do_you_have_such_a_fancy_dog')
+            unregistered.browses_request(@info_request.url_title)
             unregistered.response.body.should include("This message has been hidden.")
             unregistered.response.body.should include("It is too irritating")
             unregistered.response.body.should include("sign in</a> to view the message.")
-            unregistered.response.body.should_not include("No way!")
+            unregistered.response.body.should_not include("hereisthetext")
 
             # requester
-            bob = login(:bob_smith_user)
-            bob.browses_request('why_do_you_have_such_a_fancy_dog')
-            bob.response.body.should include("No way!")
-            bob.response.body.should include("This message is hidden, so that only you, the requester, can see it.")
-            bob.response.body.should include("It is too irritating.")
+            owner = login(@info_request.user)
+            owner.browses_request(@info_request.url_title)
+            owner.response.body.should include("hereisthetext")
+            owner.response.body.should include("This message is hidden, so that only you, the requester, can see it.")
+            owner.response.body.should include("It is too irritating.")
 
             # admin
-            confirm(:admin_user)
-            admin_user = login(:admin_user)
-            admin_user.browses_request('why_do_you_have_such_a_fancy_dog')
-            admin_user.response.body.should include('No way!')
+            admin_user = login(FactoryGirl.create(:admin_user))
+            admin_user.browses_request(@info_request.url_title)
+            admin_user.response.body.should include('hereisthetext')
             admin_user.response.body.should_not include("This message has been hidden.")
             admin_user.response.body.should include("This message is hidden, so that only you, the requester, can see it.")
         end
