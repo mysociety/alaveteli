@@ -30,7 +30,7 @@ libmagickwand-dev
 libpq-dev
 uuid-dev
 ruby1.8-dev
-rubygems
+rubygems (>= 1.8.15)
 rake (>= 0.9.2.2)
 build-essential
 bundler
