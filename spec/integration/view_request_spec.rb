@@ -128,5 +128,43 @@ describe "When viewing requests" do
 
     end
 
+    context 'when an outgoing message has prominence "requester_only"' do
+
+        before do
+            @info_request = FactoryGirl.create(:info_request)
+            message = @info_request.outgoing_messages.first
+            message.prominence = 'requester_only'
+            message.prominence_reason = 'It is too irritating.'
+            message.save!
+        end
+
+        it 'should show a hidden notice with login link to an unregistered user, and the message itself
+            with a hidden note to the requester or an admin' do
+
+            # unregistered
+            unregistered = without_login
+            unregistered.browses_request(@info_request.url_title)
+            unregistered.response.body.should include("This message has been hidden.")
+            unregistered.response.body.should include("It is too irritating")
+            unregistered.response.body.should include("sign in</a> to view the message.")
+            unregistered.response.body.should_not include("Some information please")
+
+            # requester
+            owner = login(@info_request.user)
+            owner.browses_request(@info_request.url_title)
+            owner.response.body.should include("Some information please")
+            owner.response.body.should include("This message is hidden, so that only you, the requester, can see it.")
+            owner.response.body.should include("It is too irritating.")
+
+            # admin
+            admin_user = login(FactoryGirl.create(:admin_user))
+            admin_user.browses_request(@info_request.url_title)
+            admin_user.response.body.should include('Some information please')
+            admin_user.response.body.should_not include("This message has been hidden.")
+            admin_user.response.body.should include("This message is hidden, so that only you, the requester, can see it.")
+        end
+
+    end
+
 end
 

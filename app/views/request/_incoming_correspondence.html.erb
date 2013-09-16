@@ -2,24 +2,7 @@
   <%- if not incoming_message.user_can_view?(@user) %>
     <%= render :partial => 'request/hidden_correspondence', :locals => { :message => incoming_message }%>
   <%- else %>
-    <% if incoming_message.prominence == 'hidden' %>
-        <p id="hidden_message">
-          <%- if !incoming_message.prominence_reason.blank? %>
-            <%= _('This message has prominence \'hidden\'. {{reason}} You can only see it because you are logged in as a super user.', :reason => incoming_message.prominence_reason) %>
-          <%- else %>
-            <%= _('This message has prominence \'hidden\'. You can only see it because you are logged in as a super user.') %>
-          <%- end %>
-        </p>
-    <% end %>
-    <% if incoming_message.prominence == 'requester_only' %>
-        <p id="hidden_message">
-          <%- if !incoming_message.prominence_reason.blank? %>
-          <%= _('This message is hidden, so that only you, the requester, can see it. {{reason}}', :reason => incoming_message.prominence_reason) %>
-          <%- else %>
-            <%= _('This message is hidden, so that only you, the requester, can see it. Please <a href="{{url}}">contact us</a> if you are not sure why.', :url => help_requesting_path.html_safe) %>
-          <%- end %>
-        </p>
-    <% end %>
+    <%= render :partial => 'request/restricted_correspondence', :locals => {:message => incoming_message } %>
     <h2>
       <% if incoming_message.specific_from_name? %>
         <%= _("From:") %> <%= incoming_message.safe_mail_from %><br>

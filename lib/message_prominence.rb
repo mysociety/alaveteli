@@ -1,9 +1,9 @@
 module MessageProminence
 
-    def has_prominence(prominence_states)
+    def has_prominence
         send :include, InstanceMethods
         cattr_accessor :prominence_states
-        self.prominence_states = prominence_states
+        self.prominence_states = ['normal', 'hidden','requester_only']
         validates_inclusion_of :prominence, :in => self.prominence_states
     end
 

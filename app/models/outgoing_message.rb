@@ -22,6 +22,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class OutgoingMessage < ActiveRecord::Base
+    extend MessageProminence
     include Rails.application.routes.url_helpers
     include LinkToHelper
     self.default_url_options[:host] = AlaveteliConfiguration::domain
@@ -31,6 +32,8 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     strip_attributes!
+
+    has_prominence
 
     belongs_to :info_request
     validates_presence_of :info_request
