@@ -1,4 +1,4 @@
-These instructions assume Debian Squeeze or Ubuntu 10.04 LTS.
+These instructions assume Debian Squeeze (64-bit) or Ubuntu 12.04 LTS (precise).
 [Install instructions for OS X](https://github.com/mysociety/alaveteli/wiki/OS-X-Quickstart)
 are under development.  Debian Squeeze is the best supported
 deployment platform.

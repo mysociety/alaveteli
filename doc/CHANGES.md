@@ -10,6 +10,8 @@
 `mkdir cache/zips/production/`
 `mv cache/zips/download cache/zips/production/download`
 `rm public/download`
+* This release upgrades the assumed version of Ubuntu from lucid (10.04) to precise (12.04)
+* This release upgrades rubygems in config/packages - version 1.8.15 is available from squeeze-backports on Debian or by default in Ubuntu precise.
 
 # Version 0.12
 ## Highlighted features

@@ -3,7 +3,6 @@
 # alavateli mailing list if you want to change it
 ruby1.8
 ruby
-libopenssl-ruby1.8 # needed for Ubuntu 10.04 TLS; included in libruby1.8 in Squeeze
 rdoc
 irb
 wv
