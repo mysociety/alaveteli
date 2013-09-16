@@ -1,8 +1,11 @@
 <div class="incoming correspondence <%= incoming_message.prominence %>" id="incoming-<%=incoming_message.id.to_s%>">
   <%- if not incoming_message.user_can_view?(@user) %>
       <p id="hidden_message">
-        <%= _('This message has been hidden. There are various reasons why we might have done this, sorry we can\'t be more specific here. Please <a href="{{url}}">contact us</a> if you have any questions.', :url => help_contact_path.html_safe) %>
-
+        <%- if incoming_message.prominence_reason %>
+          <%= _('This message has been hidden. {{reason}} Please <a href="{{url}}">contact us</a> if you have any questions.', :url => help_contact_path.html_safe, :reason => incoming_message.prominence_reason) %>
+        <%- else %>
+          <%= _('This message has been hidden. There are various reasons why we might have done this, sorry we can\'t be more specific here. Please <a href="{{url}}">contact us</a> if you have any questions.', :url => help_contact_path.html_safe) %>
+        <%- end %>
         <% if incoming_message.prominence == 'requester_only' %>
           <%= _('If you are the requester, then you may <a href="{{url}}">sign in</a> to view the message.', :url => signin_url(:r => request.fullpath).html_safe) %>
         <% end %>
@@ -10,12 +13,20 @@
   <%- else %>
     <% if incoming_message.prominence == 'hidden' %>
         <p id="hidden_message">
-        <%= _('This message has prominence \'hidden\'. You can only see it because you are logged in as a super user.') %>
+          <%- if incoming_message.prominence_reason %>
+            <%= _('This message has prominence \'hidden\'. {{reason}} You can only see it because you are logged in as a super user.', :reason => incoming_message.prominence_reason) %>
+          <%- else %>
+            <%= _('This message has prominence \'hidden\'. You can only see it because you are logged in as a super user.') %>
+          <%- end %>
         </p>
     <% end %>
     <% if incoming_message.prominence == 'requester_only' %>
         <p id="hidden_message">
-        <%= _('This message is hidden, so that only you, the requester, can see it. Please <a href="{{url}}">contact us</a> if you are not sure why.', :url => help_requesting_path.html_safe) %>
+          <%- if incoming_message.prominence_reason %>
+          <%= _('This message is hidden, so that only you, the requester, can see it. {{reason}}', :url => help_requesting_path.html_safe, :reason => incoming_message.prominence_reason) %>
+          <%- else %>
+            <%= _('This message is hidden, so that only you, the requester, can see it. Please <a href="{{url}}">contact us</a> if you are not sure why.', :url => help_requesting_path.html_safe) %>
+          <%- end %>
         </p>
     <% end %>
     <h2>
