@@ -186,7 +186,7 @@ describe 'when making a zipfile available' do
                 end
                 # Non-owner can't
                 @non_owner.get_via_redirect "request/#{@info_request.url_title}/download"
-                @non_owner.response.code.should == '410'
+                @non_owner.response.code.should == '403'
                 # Admin can
                 inspect_zip_download(@admin, @info_request) do |zip|
                     zip.count.should == 1
@@ -206,10 +206,10 @@ describe 'when making a zipfile available' do
 
                 # Requester can't access the zip
                 @request_owner.get_via_redirect "request/#{@info_request.url_title}/download"
-                @request_owner.response.code.should == '410'
+                @request_owner.response.code.should == '403'
                 # Non-owner can't
                 @non_owner.get_via_redirect "request/#{@info_request.url_title}/download"
-                @non_owner.response.code.should == '410'
+                @non_owner.response.code.should == '403'
                 # Admin can
                 inspect_zip_download(@admin, @info_request) do |zip|
                     zip.count.should == 1

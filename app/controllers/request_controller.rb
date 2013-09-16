@@ -893,7 +893,7 @@ class RequestController < ApplicationController
 
     def render_hidden
         respond_to do |format|
-            response_code = 410 # gone
+            response_code = 403 # forbidden
             format.html{ render :template => 'request/hidden', :status => response_code }
             format.any{ render :nothing => true, :status => response_code }
         end
@@ -902,7 +902,7 @@ class RequestController < ApplicationController
 
     def render_hidden_message
         respond_to do |format|
-            response_code = 410 # gone
+            response_code = 403 # forbidden
             format.html{ render :template => 'request/hidden_correspondence', :status => response_code }
             format.any{ render :nothing => true, :status => response_code }
         end

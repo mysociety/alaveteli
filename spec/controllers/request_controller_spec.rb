@@ -776,7 +776,7 @@ describe RequestController, "when handling prominence" do
     def expect_hidden(hidden_template)
         response.content_type.should == "text/html"
         response.should render_template(hidden_template)
-        response.code.should == '410'
+        response.code.should == '403'
     end
 
     context 'when the request is hidden' do
@@ -800,7 +800,7 @@ describe RequestController, "when handling prominence" do
         it 'should not show request if requested using json' do
             session[:user_id] = @info_request.user.id
             get :show, :url_title => @info_request.url_title, :format => 'json'
-            response.code.should == '410'
+            response.code.should == '403'
         end
 
         it "should show request if logged in as super user" do
@@ -1319,12 +1319,12 @@ describe RequestController, "when viewing an individual response for reply/follo
             response.should render_template('request/hidden')
         end
 
-        it 'should respond to a json request for a hidden request with a 410 code and no body' do
+        it 'should respond to a json request for a hidden request with a 403 code and no body' do
             get :show_response, :id => info_requests(:fancy_dog_request).id,
                                 :incoming_message_id => incoming_messages(:useless_incoming_message),
                                 :format => 'json'
 
-            response.code.should == '410'
+            response.code.should == '403'
         end
 
     end
