@@ -69,14 +69,16 @@ describe "When viewing requests" do
             # unregistered
             unregistered = without_login
             unregistered.browses_request('why_do_you_have_such_a_fancy_dog')
-            unregistered.response.body.should include("This message has been hidden. It is too irritating.")
+            unregistered.response.body.should include("This message has been hidden.")
+            unregistered.response.body.should include("It is too irritating.")
             unregistered.response.body.should_not include("sign in</a> to view the message.")
             unregistered.response.body.should_not include("No way!")
 
             # requester
             bob = login(:bob_smith_user)
             bob.browses_request('why_do_you_have_such_a_fancy_dog')
-            bob.response.body.should include("This message has been hidden. It is too irritating")
+            bob.response.body.should include("This message has been hidden.")
+            bob.response.body.should include("It is too irritating")
             bob.response.body.should_not include("No way!")
 
             # admin
@@ -84,7 +86,9 @@ describe "When viewing requests" do
             admin_user = login(:admin_user)
             admin_user.browses_request('why_do_you_have_such_a_fancy_dog')
             admin_user.response.body.should include('No way!')
-            admin_user.response.body.should include("This message has prominence \'hidden\'. It is too irritating. You can only see it because you are logged in as a super user.")
+            admin_user.response.body.should include("This message has prominence \'hidden\'.")
+            admin_user.response.body.should include("It is too irritating.")
+            admin_user.response.body.should include("You can only see it because you are logged in as a super user.")
 
         end
 
@@ -105,7 +109,8 @@ describe "When viewing requests" do
             # unregistered
             unregistered = without_login
             unregistered.browses_request('why_do_you_have_such_a_fancy_dog')
-            unregistered.response.body.should include("This message has been hidden. It is too irritating")
+            unregistered.response.body.should include("This message has been hidden.")
+            unregistered.response.body.should include("It is too irritating")
             unregistered.response.body.should include("sign in</a> to view the message.")
             unregistered.response.body.should_not include("No way!")
 
@@ -113,7 +118,8 @@ describe "When viewing requests" do
             bob = login(:bob_smith_user)
             bob.browses_request('why_do_you_have_such_a_fancy_dog')
             bob.response.body.should include("No way!")
-            bob.response.body.should include("This message is hidden, so that only you, the requester, can see it. It is too irritating.")
+            bob.response.body.should include("This message is hidden, so that only you, the requester, can see it.")
+            bob.response.body.should include("It is too irritating.")
 
             # admin
             confirm(:admin_user)
