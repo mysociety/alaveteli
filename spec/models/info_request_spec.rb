@@ -1,6 +1,28 @@
+# encoding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequest do
+
+    describe 'when validating', :focus => true do
+
+        it 'should accept a summary with ascii characters' do
+            info_request = InfoRequest.new(:title => 'abcde')
+            info_request.valid?
+            info_request.errors[:title].should be_empty
+        end
+
+        it 'should accept a summary with unicode characters' do
+            info_request = InfoRequest.new(:title => 'кажете')
+            info_request.valid?
+            info_request.errors[:title].should be_empty
+        end
+
+        it 'should not accept a summary with no ascii or unicode characters' do
+            info_request = InfoRequest.new(:title => '55555')
+            info_request.valid?
+            info_request.errors[:title].should_not be_empty
+        end
+    end
 
     describe 'when generating a user name slug' do
 
