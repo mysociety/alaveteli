@@ -927,12 +927,18 @@ module ActsAsXapian
         end
 
         def xapian_create_job(action, model, model_id)
-            ActiveRecord::Base.transaction do
-                ActsAsXapianJob.delete_all([ "model = ? and model_id = ?", model, model_id])
-                xapian_before_create_job_hook(action, model, model_id)
-                ActsAsXapianJob.create!(:model => model,
-                                        :model_id => model_id,
-                                        :action => action)
+            begin
+                ActiveRecord::Base.transaction do
+                    ActsAsXapianJob.delete_all([ "model = ? and model_id = ?", model, model_id])
+                    xapian_before_create_job_hook(action, model, model_id)
+                    ActsAsXapianJob.create!(:model => model,
+                                            :model_id => model_id,
+                                            :action => action)
+                end
+            rescue ActiveRecord::RecordNotUnique => e
+                # Given the error handling in ActsAsXapian::update_index, we can just fail silently if
+                # another process has inserted an acts_as_xapian_jobs record for this model.
+                raise unless (e.message =~ /duplicate key value violates unique constraint "index_acts_as_xapian_jobs_on_model_and_model_id"/)
             end
         end
 
