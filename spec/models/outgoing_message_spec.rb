@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: outgoing_messages
+#
+#  id                           :integer          not null, primary key
+#  info_request_id              :integer          not null
+#  body                         :text             not null
+#  status                       :string(255)      not null
+#  message_type                 :string(255)      not null
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#  last_sent_at                 :datetime
+#  incoming_message_followup_id :integer
+#  what_doing                   :string(255)      not null
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe OutgoingMessage, " when making an outgoing message" do
@@ -50,6 +66,81 @@ describe OutgoingMessage, " when making an outgoing message" do
         outgoing_message.body.should include(expected_text)
     end
 
+    describe 'when asked if a user can view it' do
+
+        before do
+            @info_request = FactoryGirl.create(:info_request)
+            @outgoing_message = @info_request.outgoing_messages.first
+        end
+
+        context 'if the prominence is hidden' do
+
+            before do
+                @outgoing_message.prominence = 'hidden'
+            end
+
+            it 'should return true for an admin user' do
+                @outgoing_message.user_can_view?(FactoryGirl.create(:admin_user)).should be_true
+            end
+
+            it 'should return false for a non-admin user' do
+                @outgoing_message.user_can_view?(FactoryGirl.create(:user)).should be_false
+            end
+
+        end
+
+        context 'if the prominence is requester_only' do
+
+            before do
+                @outgoing_message.prominence = 'requester_only'
+            end
+
+            it 'should return true if the user owns the associated request' do
+                @outgoing_message.user_can_view?(@info_request.user).should be_true
+            end
+
+            it 'should return false if the user does not own the associated request' do
+                @outgoing_message.user_can_view?(FactoryGirl.create(:user)).should be_false
+            end
+        end
+
+        context 'if the prominence is normal' do
+
+            before do
+                @outgoing_message.prominence = 'normal'
+            end
+
+            it 'should return true for a non-admin user' do
+                @outgoing_message.user_can_view?(FactoryGirl.create(:user)).should be_true
+            end
+
+        end
+
+    end
+
+    describe 'when asked if it is indexed by search' do
+
+        before do
+            @info_request = FactoryGirl.create(:info_request)
+            @outgoing_message = @info_request.outgoing_messages.first
+        end
+
+        it 'should return false if it has prominence "hidden"' do
+            @outgoing_message.prominence = 'hidden'
+            @outgoing_message.indexed_by_search?.should be_false
+        end
+
+        it 'should return false if it has prominence "requester_only"' do
+            @outgoing_message.prominence = 'requester_only'
+            @outgoing_message.indexed_by_search?.should be_false
+        end
+
+        it 'should return true if it has prominence "normal"' do
+            @outgoing_message.prominence = 'normal'
+            @outgoing_message.indexed_by_search?.should be_true
+        end
+
+    end
 end
 
 
@@ -72,5 +163,3 @@ describe IncomingMessage, " when censoring data" do
         @om.body.should match(/fancy cat/)
     end
 end
-
-

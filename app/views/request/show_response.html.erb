@@ -36,7 +36,7 @@
         <dd>
            <%= _('To do that please send a private email to ') %><%=h(@postal_email_name)%>
             &lt;<%=link_to h(@postal_email), "mailto:" + @postal_email%>&gt;
-		  <%= _('containing your postal address, and asking them to reply to this request.
+      <%= _('containing your postal address, and asking them to reply to this request.
             Or you could phone them.') %>
 
             <%= _('When you receive the paper response, please help
@@ -63,16 +63,16 @@
             <% end %>
         <% else %>
             <% if @incoming_message.recently_arrived %>
-		<h2><%= _('New response to {{law_used_short}} request',:law_used_short => h(@info_request.law_used_short))%> '<%= request_link @info_request %>'</h2>
+    <h2><%= _('New response to {{law_used_short}} request',:law_used_short => h(@info_request.law_used_short))%> '<%= request_link @info_request %>'</h2>
             <% else %>
                 <h2>Response to <%=h(@info_request.law_used_short)%> request '<%= request_link @info_request %>'</h2>
             <% end %>
         <% end %>
 
         <% if @incoming_message.nil? %>
-            <%= render :partial => 'correspondence', :locals => { :info_request_event => @info_request.get_last_outgoing_event, :incoming_message => nil } %>
+            <%= render :partial => 'correspondence', :locals => { :info_request_event => @info_request.get_last_outgoing_event } %>
         <% else %>
-            <%= render :partial => 'correspondence', :locals => { :info_request_event => nil, :incoming_message => @incoming_message } %>
+            <%= render :partial => 'correspondence', :locals => { :info_request_event => @incoming_message.response_event } %>
         <% end %>
     <% end %>
 

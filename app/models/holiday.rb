@@ -1,9 +1,8 @@
 # == Schema Information
-# Schema version: 114
 #
 # Table name: holidays
 #
-#  id          :integer         not null, primary key
+#  id          :integer          not null, primary key
 #  day         :date
 #  description :text
 #

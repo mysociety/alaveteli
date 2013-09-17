@@ -1,5 +1,139 @@
 # coding: utf-8
+# == Schema Information
+#
+# Table name: incoming_messages
+#
+#  id                             :integer          not null, primary key
+#  info_request_id                :integer          not null
+#  created_at                     :datetime         not null
+#  updated_at                     :datetime         not null
+#  raw_email_id                   :integer          not null
+#  cached_attachment_text_clipped :text
+#  cached_main_body_text_folded   :text
+#  cached_main_body_text_unfolded :text
+#  subject                        :text
+#  mail_from_domain               :text
+#  valid_to_reply_to              :boolean
+#  last_parsed                    :datetime
+#  mail_from                      :text
+#  sent_at                        :datetime
+#  prominence                     :string(255)      default("normal"), not null
+#  prominence_reason              :text
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+
+describe IncomingMessage, 'when validating' do
+
+    it 'should be valid with valid prominence values' do
+        ['hidden', 'requester_only', 'normal'].each do |prominence|
+            incoming_message = IncomingMessage.new(:raw_email => RawEmail.new,
+                                                   :info_request => InfoRequest.new,
+                                                   :prominence => prominence)
+            incoming_message.valid?.should be_true
+        end
+    end
+
+    it 'should not be valid with an invalid prominence value' do
+        incoming_message = IncomingMessage.new(:raw_email => RawEmail.new,
+                                               :info_request => InfoRequest.new,
+                                               :prominence => 'norman')
+        incoming_message.valid?.should be_false
+    end
+
+end
+
+describe IncomingMessage, 'when getting a response event' do
+
+    it 'should return an event with event_type "response"' do
+        incoming_message = IncomingMessage.new
+        ['comment', 'response'].each do |event_type|
+            incoming_message.info_request_events << InfoRequestEvent.new(:event_type => event_type)
+        end
+        incoming_message.response_event.event_type.should == 'response'
+    end
+
+end
+
+describe IncomingMessage, 'when asked if a user can view it' do
+
+    before do
+        @user = mock_model(User)
+        @info_request = mock_model(InfoRequest)
+        @incoming_message = IncomingMessage.new(:info_request => @info_request)
+    end
+
+    context 'if the prominence is hidden' do
+
+        before do
+            @incoming_message.prominence = 'hidden'
+        end
+
+        it 'should return true if the user can view hidden things' do
+            User.stub!(:view_hidden?).with(@user).and_return(true)
+            @incoming_message.user_can_view?(@user).should be_true
+        end
+
+        it 'should return false if the user cannot view hidden things' do
+            User.stub!(:view_hidden?).with(@user).and_return(false)
+            @incoming_message.user_can_view?(@user).should be_false
+        end
+
+    end
+
+    context 'if the prominence is requester_only' do
+
+        before do
+            @incoming_message.prominence = 'requester_only'
+        end
+
+        it 'should return true if the user owns the associated request' do
+            @info_request.stub!(:is_owning_user?).with(@user).and_return(true)
+            @incoming_message.user_can_view?(@user).should be_true
+        end
+
+        it 'should return false if the user does not own the associated request' do
+            @info_request.stub!(:is_owning_user?).with(@user).and_return(false)
+            @incoming_message.user_can_view?(@user).should be_false
+        end
+    end
+
+    context 'if the prominence is normal' do
+
+        before do
+            @incoming_message.prominence = 'normal'
+        end
+
+        it 'should return true' do
+            @incoming_message.user_can_view?(@user).should be_true
+        end
+
+    end
+
+end
+
+describe 'when asked if it is indexed by search' do
+
+    before do
+        @incoming_message = IncomingMessage.new
+    end
+
+    it 'should return false if it has prominence "hidden"' do
+        @incoming_message.prominence = 'hidden'
+        @incoming_message.indexed_by_search?.should be_false
+    end
+
+    it 'should return false if it has prominence "requester_only"' do
+        @incoming_message.prominence = 'requester_only'
+        @incoming_message.indexed_by_search?.should be_false
+    end
+
+    it 'should return true if it has prominence "normal"' do
+        @incoming_message.prominence = 'normal'
+        @incoming_message.indexed_by_search?.should be_true
+    end
+
+end
 
 describe IncomingMessage, " when dealing with incoming mail" do
 

@@ -1,0 +1,4 @@
+<% @title = _("Message has been removed") %>
+
+<h1><%=@title%></h1>
+<%= render :partial => 'request/hidden_correspondence', :locals => { :message => @incoming_message } %>

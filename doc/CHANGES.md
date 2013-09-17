@@ -1,3 +1,18 @@
+#rails-3-develop
+
+## Highlighted features
+* Individual incoming and outgoing messages can be made hidden, or requester_only from the admin interface.
+* Zip downloads now can be run in single-threaded instances, and use send_file rather than a redirect to serve up cached zip files.
+
+## Upgrade notes
+* By default, Alaveteli will now serve up request zip files itself, which will occupy a Rails process until the file has been received. To pass these files off to Apache, and free up the Rails process, install the libapache2-mod-xsendfile package, and update your httpd.conf file with the new Sendfile clause at the end of config/httpd.conf-example).
+* In your production install, from the Alaveteli directory (as the Alaveteli deploy user), run the following commands to remove the zip download directory from direct access by your webserver, and preserve any cached zip files:
+`mkdir cache/zips/production/`
+`mv cache/zips/download cache/zips/production/download`
+`rm public/download`
+* This release upgrades the assumed version of Ubuntu from lucid (10.04) to precise (12.04)
+* This release upgrades rubygems in config/packages - version 1.8.15 is available from squeeze-backports on Debian or by default in Ubuntu precise. This upgrade may result in "invalid date format in specification:" errors - these should be fixable by manually deleting the gems specs that are being referenced in the error and re-running rails-post-deploy
+
 # Version 0.13
 ## Highlighted features
 

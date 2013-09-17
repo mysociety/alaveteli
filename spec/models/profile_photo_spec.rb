@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: profile_photos
+#
+#  id      :integer          not null, primary key
+#  data    :binary           not null
+#  user_id :integer
+#  draft   :boolean          default(FALSE), not null
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ProfilePhoto, "when constructing a new photo" do 

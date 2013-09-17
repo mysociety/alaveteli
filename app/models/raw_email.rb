@@ -1,9 +1,8 @@
 # == Schema Information
-# Schema version: 114
 #
 # Table name: raw_emails
 #
-#  id :integer         not null, primary key
+#  id :integer          not null, primary key
 #
 
 # models/raw_email.rb:

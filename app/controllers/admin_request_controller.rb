@@ -106,39 +106,6 @@ class AdminRequestController < AdminController
         redirect_to admin_request_list_url
     end
 
-    def edit_outgoing
-        @outgoing_message = OutgoingMessage.find(params[:id])
-    end
-
-    def destroy_outgoing
-        @outgoing_message = OutgoingMessage.find(params[:outgoing_message_id])
-        @info_request = @outgoing_message.info_request
-        outgoing_message_id = @outgoing_message.id
-
-        @outgoing_message.fully_destroy
-        @outgoing_message.info_request.log_event("destroy_outgoing",
-            { :editor => admin_current_user(), :deleted_outgoing_message_id => outgoing_message_id })
-
-        flash[:notice] = 'Outgoing message successfully destroyed.'
-        redirect_to admin_request_show_url(@info_request)
-    end
-
-    def update_outgoing
-        @outgoing_message = OutgoingMessage.find(params[:id])
-
-        old_body = @outgoing_message.body
-
-        if @outgoing_message.update_attributes(params[:outgoing_message])
-            @outgoing_message.info_request.log_event("edit_outgoing",
-                { :outgoing_message_id => @outgoing_message.id, :editor => admin_current_user(),
-                    :old_body => old_body, :body => @outgoing_message.body })
-            flash[:notice] = 'Outgoing message successfully updated.'
-            redirect_to admin_request_show_url(@outgoing_message.info_request)
-        else
-            render :action => 'edit_outgoing'
-        end
-    end
-
     def edit_comment
         @comment = Comment.find(params[:id])
     end
@@ -161,58 +128,6 @@ class AdminRequestController < AdminController
         else
             render :action => 'edit_comment'
         end
-    end
-
-
-    def destroy_incoming
-        @incoming_message = IncomingMessage.find(params[:incoming_message_id])
-        @info_request = @incoming_message.info_request
-        incoming_message_id = @incoming_message.id
-
-        @incoming_message.fully_destroy
-        @incoming_message.info_request.log_event("destroy_incoming",
-            { :editor => admin_current_user(), :deleted_incoming_message_id => incoming_message_id })
-        # expire cached files
-        expire_for_request(@info_request)
-        flash[:notice] = 'Incoming message successfully destroyed.'
-        redirect_to admin_request_show_url(@info_request)
-    end
-
-    def redeliver_incoming
-        incoming_message = IncomingMessage.find(params[:redeliver_incoming_message_id])
-        message_ids = params[:url_title].split(",").each {|x| x.strip}
-        previous_request = incoming_message.info_request
-        destination_request = nil
-        ActiveRecord::Base.transaction do
-            for m in message_ids
-                if m.match(/^[0-9]+$/)
-                    destination_request = InfoRequest.find_by_id(m.to_i)
-                else
-                    destination_request = InfoRequest.find_by_url_title!(m)
-                end
-                if destination_request.nil?
-                    flash[:error] = "Failed to find destination request '" + m + "'"
-                    return redirect_to admin_request_show_url(previous_request)
-                end
-
-                raw_email_data = incoming_message.raw_email.data
-                mail = MailHandler.mail_from_raw_email(raw_email_data)
-                destination_request.receive(mail, raw_email_data, true)
-
-                incoming_message_id = incoming_message.id
-                incoming_message.info_request.log_event("redeliver_incoming", {
-                                                            :editor => admin_current_user(),
-                                                            :destination_request => destination_request.id,
-                                                            :deleted_incoming_message_id => incoming_message_id
-                                                        })
-
-                flash[:notice] = "Message has been moved to request(s). Showing the last one:"
-            end
-            # expire cached files
-            expire_for_request(previous_request)
-            incoming_message.fully_destroy
-        end
-        redirect_to admin_request_show_url(destination_request)
     end
 
     # change user or public body of a request magically

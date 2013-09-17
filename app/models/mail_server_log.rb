@@ -1,15 +1,14 @@
 # == Schema Information
-# Schema version: 20121010214348
 #
 # Table name: mail_server_logs
 #
-#  id                      :integer         not null, primary key
+#  id                      :integer          not null, primary key
 #  mail_server_log_done_id :integer
 #  info_request_id         :integer
-#  order                   :integer         not null
-#  line                    :text            not null
-#  created_at              :datetime        not null
-#  updated_at              :datetime        not null
+#  order                   :integer          not null
+#  line                    :text             not null
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
 #
 
 # We load log file lines for requests in here, for display in the admin interface.

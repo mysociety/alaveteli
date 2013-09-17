@@ -49,6 +49,7 @@ require 'ability'
 require 'normalize_string'
 require 'alaveteli_file_types'
 require 'alaveteli_localization'
+require 'message_prominence'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)

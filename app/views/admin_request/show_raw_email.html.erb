@@ -1,9 +1,5 @@
-<% @title = "Incoming message #{@raw_email.incoming_message.id} of FOI request '#{@raw_email.incoming_message.info_request.title}'" %>
+<%= render :partial => 'admin_incoming_message/intro', :locals => { :incoming_message => @raw_email.incoming_message } %>
 
-<h1>Incoming message <%=@raw_email.incoming_message.id %></h1>
-
-<p>
-    FOI request: <%= request_both_links(@raw_email.incoming_message.info_request) %>
     <% if @holding_pen %>
         <br>This is in the holding pen because: <strong><%= @rejected_reason %></strong>
         <% if @public_bodies.size > 0 %>
