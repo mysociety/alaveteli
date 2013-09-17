@@ -929,11 +929,17 @@ module ActsAsXapian
         def xapian_create_job(action, model, model_id)
             ActiveRecord::Base.transaction do
                 ActsAsXapianJob.delete_all([ "model = ? and model_id = ?", model, model_id])
+                xapian_before_create_job_hook(action, model, model_id)
                 ActsAsXapianJob.create!(:model => model,
                                         :model_id => model_id,
                                         :action => action)
             end
         end
+
+        # A hook method that can be used in tests to simulate e.g. an external process inserting a record
+        def xapian_before_create_job_hook(action, model, model_id)
+        end
+
      end
 
     ######################################################################
