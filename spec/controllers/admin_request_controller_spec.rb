@@ -88,8 +88,7 @@ describe AdminRequestController, "when administering the holding pen" do
         ir.save!
         mail_to = "request-#{ir.id}-asdfg@example.com"
         receive_incoming_mail('incoming-request-plain.email', mail_to)
-        interesting_email = InfoRequest.holding_pen_request.get_last_public_response
-.raw_email.id
+        interesting_email = InfoRequest.holding_pen_request.get_last_public_response.raw_email.id
         # now we add another message to the queue, which we're not interested in
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "")
         InfoRequest.holding_pen_request.incoming_messages.length.should == 2
