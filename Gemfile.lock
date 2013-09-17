@@ -292,6 +292,7 @@ DEPENDENCIES
   spork-rails
   statistics2 (~> 0.54)
   syslog_protocol
+  thin
   unicode
   unidecode
   vpim
