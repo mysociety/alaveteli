@@ -977,11 +977,21 @@ public
 
     def InfoRequest.count_old_unclassified(extra_params={})
         params = old_unclassified_params(extra_params)
+        if extra_params[:conditions]
+            condition_string = extra_params[:conditions].shift
+            params[:conditions][0] += " AND #{condition_string}"
+            params[:conditions] += extra_params[:conditions]
+        end
         count(:all, params)
     end
 
-    def InfoRequest.get_random_old_unclassified(limit)
+    def InfoRequest.get_random_old_unclassified(limit, extra_params)
         params = old_unclassified_params({})
+        if extra_params[:conditions]
+            condition_string = extra_params[:conditions].shift
+            params[:conditions][0] += " AND #{condition_string}"
+            params[:conditions] += extra_params[:conditions]
+        end
         params[:limit] = limit
         params[:order] = "random()"
         find(:all, params)
