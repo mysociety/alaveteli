@@ -1065,6 +1065,14 @@ describe RequestController, "when creating a new request" do
         response.should render_template('new')
     end
 
+    it 'should display one meaningful error message when no message body is added' do
+        post :new, :info_request => { :public_body_id => @body.id },
+            :outgoing_message => { :body => "" },
+            :submitted_new_request => 1, :preview => 1
+        assigns[:info_request].errors.full_messages.should_not include('Outgoing messages is invalid')
+        assigns[:outgoing_message].errors.full_messages.should include('Body Please enter your letter requesting information')
+    end
+
     it "should give an error and render 'new' template when a summary isn't given" do
         post :new, :info_request => { :public_body_id => @body.id },
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },

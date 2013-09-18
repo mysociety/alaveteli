@@ -297,7 +297,7 @@ class RequestController < ApplicationController
             # We don't want the error "Outgoing messages is invalid", as in this
             # case the list of errors will also contain a more specific error
             # describing the reason it is invalid.
-            @info_request.errors.delete("outgoing_messages")
+            @info_request.errors.delete(:outgoing_messages)
 
             render :action => 'new'
             return
