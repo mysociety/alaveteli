@@ -423,6 +423,43 @@ describe InfoRequest do
 
     end
 
+    describe 'when asked for random old unclassified requests with normal prominence' do
+
+        it "should not return requests that don't have normal prominence" do
+            dog_request = info_requests(:fancy_dog_request)
+            old_unclassified = InfoRequest.get_random_old_unclassified(1, :conditions => ["prominence = 'normal'"])
+            old_unclassified.length.should == 1
+            old_unclassified.first.should == dog_request
+            dog_request.prominence = 'requester_only'
+            dog_request.save!
+            old_unclassified = InfoRequest.get_random_old_unclassified(1, :conditions => ["prominence = 'normal'"])
+            old_unclassified.length.should == 0
+            dog_request.prominence = 'hidden'
+            dog_request.save!
+            old_unclassified = InfoRequest.get_random_old_unclassified(1, :conditions => ["prominence = 'normal'"])
+            old_unclassified.length.should == 0
+        end
+
+    end
+
+    describe 'when asked to count old unclassified requests with normal prominence' do
+
+        it "should not return requests that don't have normal prominence" do
+            dog_request = info_requests(:fancy_dog_request)
+            old_unclassified = InfoRequest.count_old_unclassified(:conditions => ["prominence = 'normal'"])
+            old_unclassified.should == 1
+            dog_request.prominence = 'requester_only'
+            dog_request.save!
+            old_unclassified = InfoRequest.count_old_unclassified(:conditions => ["prominence = 'normal'"])
+            old_unclassified.should == 0
+            dog_request.prominence = 'hidden'
+            dog_request.save!
+            old_unclassified = InfoRequest.count_old_unclassified(:conditions => ["prominence = 'normal'"])
+            old_unclassified.should == 0
+        end
+
+    end
+
     describe 'when an instance is asked if it is old and unclassified' do
 
         before do
