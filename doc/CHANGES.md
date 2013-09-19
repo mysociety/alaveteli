@@ -1,9 +1,14 @@
 # Version 0.14
 
 ## Highlighted features
-* There is now an option to display a public body statistics page (currently not linked to from anywhere) showing bodies with the most requests, most successful requests, fewest successful requests, most overdue requests, and bodies that reply most frequently with "Not Held" - see Upgrade notes for how to turn this option on.
+* There is now an option to display a public body statistics page (currently not linked to from anywhere) showing bodies with the most requests, most successful requests, fewest successful requests, most overdue requests, and bodies that reply most frequently with "Not Held" - see Upgrade notes for how to turn this option on. (Mark Longair)
 * Individual incoming and outgoing messages can be made hidden, or requester_only from the admin interface.
 * Zip downloads now can be run in single-threaded instances, and use send_file rather than a redirect to serve up cached zip files.
+* Starting to use factory_girl to generate model instances for use in specs - hopefully in the long term removing dependencies between specs, and allowing them to run faster once we can remove the loading of fixtures each time.
+* Fix to allow public body list page to use current, not default locale, with optional fallback to default [issue #1000](https://github.com/mysociety/alaveteli/issues/1000) - see Upgrade notes for fallback option (Mark Longair)
+* Fix to allow request titles composed of only unicode characters [issue #902](https://github.com/mysociety/alaveteli/issues/902)
+* Fix for occasional errors caused by race conditions in xapian updates [issue #555](https://github.com/mysociety/alaveteli/issues/555)
+* Diagnostic errors are now not shown for local requests, so that the user-facing error pages will be shown when running Alaveteli behind a proxy in production (Henare Degan)
 
 ## Upgrade notes
 * By default, Alaveteli will now serve up request zip files itself, which will occupy a Rails process until the file has been received. To pass these files off to Apache, and free up the Rails process, install the libapache2-mod-xsendfile package, and update your httpd.conf file with the new Sendfile clause at the end of config/httpd.conf-example).
@@ -14,6 +19,7 @@
 * This release upgrades the assumed version of Ubuntu from lucid (10.04) to precise (12.04)
 * This release upgrades rubygems in config/packages - version 1.8.15 is available from squeeze-backports on Debian or by default in Ubuntu precise. This upgrade may result in "invalid date format in specification:" errors - these should be fixable by manually deleting the gems specs that are being referenced in the error and re-running rails-post-deploy
 * If you would like to have a public body statistics page (this will be publicly available), set the `PUBLIC_BODY_STATISTICS_PAGE` param in general.yml to `true`. You should also add a new cron job based on the one in config/crontab-example `https://github.com/mysociety/alaveteli/blob/rails-3-develop/config/crontab-example#L29` to update the public body stats each day.
+* If you would like the public body list page to include bodies that have no translation in the current locale, but do have a translation in the default locale, add a `PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE` param set to `true` to your config/general.yml file.
 
 
 # Version 0.13
