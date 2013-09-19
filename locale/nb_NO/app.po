@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2013-08-05 17:01+0100\n"
-"PO-Revision-Date: 2013-09-03 06:12+0000\n"
+"PO-Revision-Date: 2013-09-04 11:52+0000\n"
 "Last-Translator: pere <pere-transifex@hungry.com>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -46,10 +46,10 @@ msgid " <strong>Summarise</strong> the content of any information returned. "
 msgstr "<stong>Oppsummer</strong> innholdet av informasjon som ble returnert."
 
 msgid " Advise on how to <strong>best clarify</strong> the request."
-msgstr ""
+msgstr "Råd om hvordan <strong>best klargjøre</strong> forespørselen."
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
-msgstr ""
+msgstr "Ideer om hvilke <strong>andre dokumenter å be om</strong> som etaten kan ha."
 
 msgid " If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
 msgstr ""
@@ -63,13 +63,13 @@ msgid " Link to the information requested, if it is <strong>already available</s
 msgstr " Lenke til informasjonen som det ble spurt om, om den <strong>alle var tilgjengelig</strong> på Internettet."
 
 msgid " Offer better ways of <strong>wording the request</strong> to get the information. "
-msgstr ""
+msgstr "Tilby bedre måter å <strong>ordlegge forespørselen</strong> for å få informasjonen."
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
 msgstr ""
 
 msgid " Suggest <strong>where else</strong> the requester might find the information. "
-msgstr ""
+msgstr "Foreslå <strong>hvor ellers</strong> innsenderen kan finne informasjonen."
 
 msgid " What are you investigating using Freedom of Information? "
 msgstr " Hva er det du undersøker med innsynsbegjæringene dine? "
@@ -129,7 +129,7 @@ msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask 
 msgstr ""
 
 msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
-msgstr "<a href=\"{{url}}\">Legg til merknad</a> (for å hjelpe henvender eller andre)"
+msgstr "<a href=\"{{url}}\">Legg til merknad</a> (for å hjelpe innsender eller andre)"
 
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr ""
@@ -225,7 +225,7 @@ msgid "<strong>Advice</strong> on how to get a response that will satisfy the re
 msgstr ""
 
 msgid "<strong>All the information</strong> has been sent"
-msgstr ""
+msgstr "<strong>All informasjonen</strong> har blitt sendt"
 
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr ""
@@ -234,7 +234,7 @@ msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, yo
 msgstr ""
 
 msgid "<strong>Clarification</strong> has been requested"
-msgstr ""
+msgstr "<strong>Klargjøring</strong> har blitt forespurt"
 
 msgid "<strong>No response</strong> has been received\\n                <small>(maybe there's just an acknowledgement)</small>"
 msgstr ""
@@ -315,7 +315,7 @@ msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr ""
 
 msgid "Add an annotation"
-msgstr ""
+msgstr "Legg til en merknad"
 
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr ""
@@ -324,16 +324,16 @@ msgid "Added on {{date}}"
 msgstr "Lagt til {{date}}"
 
 msgid "Admin level is not included in list"
-msgstr ""
+msgstr "Administrasjonsnivå er ikke med i listen"
 
 msgid "Administration URL:"
 msgstr ""
 
 msgid "Advanced search"
-msgstr ""
+msgstr "Avansert søk"
 
 msgid "Advanced search tips"
-msgstr ""
+msgstr "Avansert søketips"
 
 msgid "Advise on whether the <strong>refusal is legal</strong>, and how to complain about it if not."
 msgstr ""
@@ -375,16 +375,16 @@ msgid "An anonymous user"
 msgstr ""
 
 msgid "Annotation added to request"
-msgstr ""
+msgstr "Merknad lagt til forespørselen"
 
 msgid "Annotations"
-msgstr ""
+msgstr "Merknader"
 
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
-msgstr ""
+msgstr "Merknader gjør at enhver, også du, kan hjelpe innsender med deres forespørsel.  For eksempel:"
 
 msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
+msgstr "Merknader gjøres offentlig tilgjengelig her og er <strong>ikke</strong> sendt til {{public_body_name}}."
 
 msgid "Anonymous user"
 msgstr ""
@@ -408,19 +408,19 @@ msgid "At the bottom of this page, write a reply to them trying to persuade them
 msgstr ""
 
 msgid "Attachment (optional):"
-msgstr ""
+msgstr "Vedlegg (valgfritt):"
 
 msgid "Attachment:"
-msgstr ""
+msgstr "Vedlegg:"
 
 msgid "Awaiting classification."
-msgstr ""
+msgstr "Venter på kategorisering."
 
 msgid "Awaiting internal review."
 msgstr "Vemter på behandling av klage."
 
 msgid "Awaiting response."
-msgstr "Venter på svar"
+msgstr "Venter på svar."
 
 msgid "Beginning with"
 msgstr "Begynner med"
@@ -513,7 +513,7 @@ msgid "Choose your profile photo"
 msgstr "Velg ditt profil-bilde"
 
 msgid "Clarification"
-msgstr ""
+msgstr "Klargjøring"
 
 msgid "Clarify your FOI request - "
 msgstr ""
@@ -570,13 +570,13 @@ msgid "Confirm your FOI request to "
 msgstr "Bekreft din innsynsforespørsel til"
 
 msgid "Confirm your account on {{site_name}}"
-msgstr ""
+msgstr "Bekreft din konto på {{site_name}}"
 
 msgid "Confirm your annotation to {{info_request_title}}"
-msgstr ""
+msgstr "Bekreft din merknad til {{info_request_title}}"
 
 msgid "Confirm your email address"
-msgstr ""
+msgstr "Bekreft din epostadresse"
 
 msgid "Confirm your new email address on {{site_name}}"
 msgstr ""
@@ -627,10 +627,10 @@ msgid "Delayed response to your FOI request - "
 msgstr ""
 
 msgid "Delayed."
-msgstr ""
+msgstr "Forsinket."
 
 msgid "Delivery error"
-msgstr ""
+msgstr "Leveringsfeil"
 
 msgid "Destroy {{name}}"
 msgstr ""
@@ -639,7 +639,7 @@ msgid "Details of request '"
 msgstr ""
 
 msgid "Did you mean: {{correction}}"
-msgstr ""
+msgstr "Mente du: "
 
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
 msgstr "Ansvarsfraskrivelse: Denne meldingen og alle dine svar vil automatisk bli publisert offentlig på Internettet. Våre personvern og åndsverksregler: "
@@ -654,13 +654,13 @@ msgid "Don't want to address your message to {{person_or_body}}?  You can also w
 msgstr "Om du vil sette mottaker til en annen person enn {{person_or_body}}, kan du også skrive til:"
 
 msgid "Done"
-msgstr ""
+msgstr "Ferdig"
 
 msgid "Done &gt;&gt;"
 msgstr ""
 
 msgid "Download a zip file of all correspondence"
-msgstr "Last ned en zip fil med all korrespondanse"
+msgstr "Last ned en zip-fil med all korrespondanse"
 
 msgid "Download original attachment"
 msgstr "Last ned orginalt vedlegg"
@@ -750,7 +750,7 @@ msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {
 msgstr ""
 
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 msgid "First, did your other requests succeed?"
 msgstr ""
@@ -804,7 +804,7 @@ msgid "Follow this authority"
 msgstr "Følg myndighet"
 
 msgid "Follow this link to see the request:"
-msgstr ""
+msgstr "Følg denne lenken for å se forespørselen:"
 
 msgid "Follow this person"
 msgstr ""
@@ -813,7 +813,7 @@ msgid "Follow this request"
 msgstr "Følg denne henvendelsen"
 
 msgid "Follow up"
-msgstr ""
+msgstr "Følg opp"
 
 msgid "Follow up message sent by requester"
 msgstr ""
@@ -944,7 +944,7 @@ msgid "Human health and safety"
 msgstr ""
 
 msgid "I am asking for <strong>new information</strong>"
-msgstr ""
+msgstr "Jeg spør om <strong>ny informasjon</strong>"
 
 msgid "I am requesting an <strong>internal review</strong>"
 msgstr ""
@@ -953,7 +953,7 @@ msgid "I am writing to request an internal review of {{public_body_name}}'s hand
 msgstr ""
 
 msgid "I don't like these ones &mdash; give me some more!"
-msgstr ""
+msgstr "Jeg liker ikke disse &mdash; gi meg flere!"
 
 msgid "I don't want to do any more tidying now!"
 msgstr ""
@@ -1043,10 +1043,10 @@ msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"
 msgstr ""
 
 msgid "If you're new to {{site_name}}"
-msgstr ""
+msgstr "Hvis du er ny på "
 
 msgid "If you've used {{site_name}} before"
-msgstr ""
+msgstr "Hvis du har brukt {{site_name}} tidligere"
 
 msgid "If your browser is set to accept cookies and you are seeing this message,\\nthen there is probably a fault with our server."
 msgstr ""
@@ -1265,7 +1265,7 @@ msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr ""
 
 msgid "Make your own request"
-msgstr ""
+msgstr "Lag din egen forespørsel"
 
 msgid "Many requests"
 msgstr ""
@@ -1343,10 +1343,10 @@ msgid "New updates for the request '{{request_title}}'"
 msgstr ""
 
 msgid "Newest results first"
-msgstr ""
+msgstr "Nyeste resultater først"
 
 msgid "Next"
-msgstr ""
+msgstr "Neste"
 
 msgid "Next, crop your photo &gt;&gt;"
 msgstr "Neste, beskjær bildet ditt &gt;&gt;"
@@ -1382,7 +1382,7 @@ msgid "Now check your email!"
 msgstr "Sjekk eposten din nå!"
 
 msgid "Now preview your annotation"
-msgstr ""
+msgstr "Se nå igjennom din merknad"
 
 msgid "Now preview your follow up"
 msgstr ""
@@ -1439,7 +1439,7 @@ msgid "Original request sent"
 msgstr ""
 
 msgid "Other:"
-msgstr ""
+msgstr "Andre:"
 
 msgid "Outgoing message"
 msgstr "Utgående melding"
@@ -1472,7 +1472,7 @@ msgid "Password: (again)"
 msgstr "Passord: (igjen)"
 
 msgid "Paste this link into emails, tweets, and anywhere else:"
-msgstr ""
+msgstr "Lim denne lenken inn i eposter, tweets og andre steder:"
 
 msgid "People"
 msgstr ""
@@ -1628,7 +1628,7 @@ msgid "Please write the summary using a mixture of capital and lower case letter
 msgstr ""
 
 msgid "Please write your annotation using a mixture of capital and lower case letters. This makes it easier for others to read."
-msgstr ""
+msgstr "Vær så snill å skriv din merknad ved å bruke en blanding av store og små bokstaver.  Dette gjør det enklere for andre å lese den."
 
 msgid "Please write your follow up message containing the necessary clarifications below."
 msgstr ""
@@ -1643,7 +1643,7 @@ msgid "Possibly related requests:"
 msgstr "Mulig relatert henvendelse:"
 
 msgid "Post annotation"
-msgstr ""
+msgstr "Send inn merknad"
 
 msgid "Post redirect"
 msgstr ""
@@ -1679,10 +1679,10 @@ msgid "Preview follow up to '"
 msgstr ""
 
 msgid "Preview new annotation on '{{info_request_title}}'"
-msgstr ""
+msgstr "Forhåndsvis ny merknad om '{{info_request_title}}'"
 
 msgid "Preview your annotation"
-msgstr ""
+msgstr "Forhåndsvis din merknad"
 
 msgid "Preview your message"
 msgstr "Forhåndsvis meldingen"
@@ -1787,7 +1787,7 @@ msgid "RSS feed of updates"
 msgstr "RSS srøm med oppdateringene"
 
 msgid "Re-edit this annotation"
-msgstr "Re-editer denne merknaden"
+msgstr "Skriv om igjen denne merknaden"
 
 msgid "Re-edit this message"
 msgstr "Re-editer denne meldingen"
@@ -2107,7 +2107,7 @@ msgid "Thank you for helping us keep the site tidy!"
 msgstr "Takk for at du hjelper oss med å holde tjenesten ryddig!"
 
 msgid "Thank you for making an annotation!"
-msgstr "Takk for kommentaren din!"
+msgstr "Takk for at du laget en merknad!"
 
 msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to "
 msgstr ""
@@ -2230,7 +2230,7 @@ msgid "Then you can classify the FOI response you have got from "
 msgstr "Så kan du klassifisere svaret på innsynsbegjæringen som du fikk fra "
 
 msgid "Then you can download a zip file of {{info_request_title}}."
-msgstr "Så kan du laste ned en zip fil med {{info_request_title}}."
+msgstr "Deretter kan du laste ned en zip-fil med {{info_request_title}}."
 
 msgid "Then you can log into the administrative interface"
 msgstr "Så kan du logge deg på det admininstrative grensesnittet"
@@ -2977,7 +2977,7 @@ msgid "Your message will appear in <strong>search engines</strong>"
 msgstr "Meldingen din vil vises i <strong>søkemotorer</strong> som f.eks. Google."
 
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
-msgstr ""
+msgstr "Ditt navn og merknad vil dukke opp i <strong>søkemotorer</strong>."
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"{{url}}\">details</a>)."
 msgstr "Ditt navn, henvendelse og alle svar vil vises i <strong>søkemotorer</stronG>\\n        (<a href=\"{{url}}\">detaljer</a>)."
@@ -3179,7 +3179,7 @@ msgid "just to see how it works"
 msgstr "bare for å se hvordan det fungerer"
 
 msgid "left an annotation"
-msgstr "la igjen en kommentar"
+msgstr "la igjen en merknad"
 
 msgid "made."
 msgstr "laget."

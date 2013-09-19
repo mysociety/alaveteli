@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2013-08-05 17:01+0100\n"
-"PO-Revision-Date: 2013-08-05 16:04+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2013-09-16 17:55+0000\n"
+"Last-Translator: yehuda <yehudab@gmail.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -528,7 +528,7 @@ msgid "Clarify your FOI request - "
 msgstr "הבהירו את בקשת המידע - "
 
 msgid "Classify an FOI response from "
-msgstr "קטלג בקשה nאת"
+msgstr "קטלג בקשה מאת"
 
 msgid "Clear photo"
 msgstr "הסר צילום"
@@ -630,7 +630,7 @@ msgid "Default locale"
 msgstr "ברירת מחדל של הגדרות מקומיות"
 
 msgid "Defunct."
-msgstr ""
+msgstr "מבוטל."
 
 msgid "Delayed response to your FOI request - "
 msgstr "עיכוב בתגובה לבקשה"
@@ -762,13 +762,13 @@ msgid "Filter"
 msgstr "סינון"
 
 msgid "First, did your other requests succeed?"
-msgstr "קודם כך, האם שאר הבקשות שהגשתם הצליחו?"
+msgstr "קודם כל, האם שאר הבקשות שהגשתם הצליחו?"
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
 msgstr "ראשית, הקלידו את <strong>שם הגוף הממשלתי </strong>, ממנו ברצונכם לקבל מידע.\\n  <strong>לפי החלטת הממשלה, עליהם למסור תגובה</strong> (<a href=\"{{url}}\">מדוע?</a>)."
 
 msgid "Foi attachment"
-msgstr "מסמף מצורף"
+msgstr "מסמך מצורף"
 
 msgid "FoiAttachment|Charset"
 msgstr "בקשהמצורפת|סוג קידוד"
@@ -851,7 +851,7 @@ msgstr[0] "נמצאה רשות ציבורית אחת {{description}}"
 msgstr[1] "נמצאו {{count}} רשויות ציבוריות {{description}}"
 
 msgid "Freedom of Information"
-msgstr "חופש המידע"
+msgstr "המידע"
 
 msgid "Freedom of Information Act"
 msgstr "חוק חופש המידע "
@@ -1865,10 +1865,10 @@ msgid "Requests or responses matching your saved search"
 msgstr "בקשות או תגובות המתאימות לחיפוש השמור שלך."
 
 msgid "Requests similar to '{{request_title}}'"
-msgstr ""
+msgstr "בקשות דומות ל - '{{request_title}}'"
 
 msgid "Requests similar to '{{request_title}}' (page {{page}})"
-msgstr ""
+msgstr "בקשות דומות ל - '{{request_title}}' (עמוד {{page}})"
 
 msgid "Respond by email"
 msgstr "הגיבו בדוא\"ל"

@@ -5,13 +5,14 @@
 # Translators:
 # ppanhh <ppanhh@gmail.com>, 2013
 # ppanhh <ppanhh@gmail.com>, 2013
+# ppanhh <ppanhh@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2013-08-05 17:01+0100\n"
-"PO-Revision-Date: 2013-08-05 16:04+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2013-09-18 05:43+0000\n"
+"Last-Translator: ppanhh <ppanhh@gmail.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/projects/p/alaveteli/language/vi/)\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
@@ -281,25 +282,25 @@ msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>
 msgstr ""
 
 msgid "A public authority"
-msgstr ""
+msgstr "Một cơ quan công cộng"
 
 msgid "A response will be sent <strong>by post</strong>"
-msgstr ""
+msgstr "Một phản hồi sẽ được gửi <strong>bằng bài đăng</strong>"
 
 msgid "A strange reponse, required attention by the {{site_name}} team"
-msgstr ""
+msgstr "Đây là một phản hồi lạ, cần sự chú ý từ  nhóm {{site_name}} "
 
 msgid "A vexatious request"
-msgstr ""
+msgstr "Đây là yêu cầu khó"
 
 msgid "A {{site_name}} user"
-msgstr ""
+msgstr "Người dùng {{site_name}}"
 
 msgid "About you:"
-msgstr ""
+msgstr "Thông tin về bạn:"
 
 msgid "Act on what you've learnt"
-msgstr ""
+msgstr "Thao tác dựa trên những gì bạn đã được học"
 
 msgid "Acts as xapian/acts as xapian job"
 msgstr ""
