@@ -35,6 +35,7 @@ Alaveteli::Application.routes.draw do
     match '/list' => 'request#list', :as => :request_list
 
     match '/select_authority' => 'request#select_authority', :as => :select_authority
+    match '/select_authorities' => 'request#select_authorities', :as => :select_authorities
 
     match '/new' => 'request#new', :as => :new_request
     match '/new/:url_name' => 'request#new', :as => :new_request_to_body

@@ -43,6 +43,9 @@ class RequestController < ApplicationController
         medium_cache
     end
 
+    def select_authorities
+    end
+
     def show
         if !AlaveteliConfiguration::varnish_host.blank?
             # If varnish is set up to accept PURGEs, then cache for a

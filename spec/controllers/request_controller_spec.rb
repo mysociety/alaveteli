@@ -2509,3 +2509,12 @@ describe RequestController, "when caching fragments" do
 
 end
 
+describe RequestController, "#select_authorities" do
+
+    it 'should be succesful' do
+        get :select_authorities
+        response.should be_success
+    end
+
+end
+
