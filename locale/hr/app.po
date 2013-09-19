@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2013-08-05 17:01+0100\n"
-"PO-Revision-Date: 2013-08-05 16:04+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2013-08-21 15:45+0000\n"
+"Last-Translator: BojanOpacak <bojan@rationalinternational.net>\n"
 "Language-Team: Croatian (http://www.transifex.com/projects/p/alaveteli/language/hr/)\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -71,16 +71,16 @@ msgstr ""
 "            npr."
 
 msgid " Link to the information requested, if it is <strong>already available</strong> on the Internet. "
-msgstr ""
+msgstr "Link na tražene informacije, ukoliko <strong>već postoji</strong> na internetu."
 
 msgid " Offer better ways of <strong>wording the request</strong> to get the information. "
-msgstr ""
+msgstr "Ponudi bolji način za <strong>sročiti zahtjev</strong> za informacijama."
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
 msgstr " Recite nam kako ste<strong>iskoristili informaciju</strong>, sa linkovima ako je moguće."
 
 msgid " Suggest <strong>where else</strong> the requester might find the information. "
-msgstr ""
+msgstr "Predložite <strong>druga mjesta</strong> na kojima se informacije mogu naći."
 
 msgid " What are you investigating using Freedom of Information? "
 msgstr " Šta istražujete koristeći Zakon o slobodnom pristupu informacijama ? "
@@ -159,7 +159,7 @@ msgid "<p>Thank you! Here are some ideas on what to do next:</p>\\n            <
 msgstr ""
 
 msgid "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>"
-msgstr ""
+msgstr "<p>Hvala! Nadamo se da nećete još dugo čekati.</p> <p>Po zakonu, trebali biste ubrzo dobiti odgovor, do <strong>{{date_response_required_by}}</strong>.</p>"
 
 msgid "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>\\n{{date_response_required_by}}</strong>.</p>"
 msgstr ""
@@ -168,7 +168,7 @@ msgid "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a 
 msgstr "<p>Hvala! Nadamo se da nećete čekati predugo.</p><p>Trebali biste dobiti odgovor za {{late_number_of_days}} dana, ili obaviješteni da će trajati duže. (<a href=\"{{review_url}}\">Više informacija</a>)</p>"
 
 msgid "<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>"
-msgstr ""
+msgstr "<p>Hvala! Vaš zahtjev je odavno istekao, prije {{very_late_number_of_days}} radnih dana. Većina zahjeva mora biti odgovorena unutar {{late_number_of_days}} radnih dana. Imate pravo na žalbu. Više informacija o žalbama, pogledajte ispod.</p>"
 
 msgid "<p>Thanks for changing the text about you on your profile.</p>\\n            <p><strong>Next...</strong> You can upload a profile photograph too.</p>"
 msgstr ""
@@ -200,7 +200,7 @@ msgid "<p>You do not need to include your email in the request in order to get a
 msgstr "<p>Nije potrebno da uključite Vašu e-mail adresu u zahtjev da biste dobili odgovor, pitati ćemo vas u vezi toga u slijedećem koraku (<a href=\"{{url}}\">Više informacija</a>).</p>"
 
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
-msgstr ""
+msgstr "<p>Vaš zahtjev sadrži <strong>poštanski broj</strong>. Ako poštanski broj nije direktno vezan uz temu vašeg zahtjeva, molimo da ga izbrišete, jer će <strong>biti javno objavljen</strong>.</p>"
 
 msgid "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
 msgstr ""

@@ -3,22 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# ppanhh <ppanhh@gmail.com>, 2013
-# ppanhh <ppanhh@gmail.com>, 2013
-# ppanhh <ppanhh@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2013-08-05 17:01+0100\n"
-"PO-Revision-Date: 2013-09-18 05:43+0000\n"
-"Last-Translator: ppanhh <ppanhh@gmail.com>\n"
-"Language-Team: Vietnamese (http://www.transifex.com/projects/p/alaveteli/language/vi/)\n"
-"Language: vi\n"
+"PO-Revision-Date: 2013-08-07 18:41+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/alaveteli/language/sv/)\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
 msgstr ""
@@ -27,13 +24,13 @@ msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">modera
 msgstr ""
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
-msgstr " (<strong>kiên nhẫn</strong>, đặc biệt đối với các tập tin lớn, sẽ tốn kha khá thời gian!)"
+msgstr ""
 
 msgid " (you)"
-msgstr " (bạn)"
+msgstr ""
 
 msgid " - view and make Freedom of Information requests"
-msgstr " - xem và tạo các yêu cầu về Tự Do Thông Tin"
+msgstr ""
 
 msgid " - wall"
 msgstr ""
@@ -42,13 +39,13 @@ msgid " <strong>Note:</strong>\\n    We will send you an email. Follow the instr
 msgstr ""
 
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
-msgstr " <strong>Ghi chú về quyền riêng tư:</strong> Địa chỉ email của bạn phải được chuyển đến"
+msgstr ""
 
 msgid " <strong>Summarise</strong> the content of any information returned. "
-msgstr " <strong>Tóm tắt</strong> nội dung của bất kỳ thông tin nào được trả về. "
+msgstr ""
 
 msgid " Advise on how to <strong>best clarify</strong> the request."
-msgstr " Quảng cáo về cách <strong>xác định rõ ràng nhất</strong> đối với yêu cầu."
+msgstr ""
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr ""
@@ -81,13 +78,13 @@ msgid " You will also be emailed updates about the request."
 msgstr ""
 
 msgid " made by "
-msgstr "được tạo bởi"
+msgstr ""
 
 msgid " or "
-msgstr "hoặc"
+msgstr ""
 
 msgid " when you send this message."
-msgstr "khi bạn gửi đi tin nhắn này"
+msgstr ""
 
 msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
 msgstr ""
@@ -282,25 +279,25 @@ msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>
 msgstr ""
 
 msgid "A public authority"
-msgstr "Một cơ quan công cộng"
+msgstr ""
 
 msgid "A response will be sent <strong>by post</strong>"
-msgstr "Một phản hồi sẽ được gửi <strong>bằng bài đăng</strong>"
+msgstr ""
 
 msgid "A strange reponse, required attention by the {{site_name}} team"
-msgstr "Đây là một phản hồi lạ, cần sự chú ý từ  nhóm {{site_name}} "
+msgstr ""
 
 msgid "A vexatious request"
-msgstr "Đây là yêu cầu khó"
+msgstr ""
 
 msgid "A {{site_name}} user"
-msgstr "Người dùng {{site_name}}"
+msgstr ""
 
 msgid "About you:"
-msgstr "Thông tin về bạn:"
+msgstr ""
 
 msgid "Act on what you've learnt"
-msgstr "Thao tác dựa trên những gì bạn đã được học"
+msgstr ""
 
 msgid "Acts as xapian/acts as xapian job"
 msgstr ""
@@ -836,6 +833,7 @@ msgstr ""
 msgid "Found {{count}} public authority {{description}}"
 msgid_plural "Found {{count}} public authorities {{description}}"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "Freedom of Information"
 msgstr ""
@@ -1929,6 +1927,7 @@ msgstr ""
 msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
 msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "Search your contributions"
 msgstr ""
@@ -2293,6 +2292,7 @@ msgstr ""
 msgid "There is {{count}} person following this request"
 msgid_plural "There are {{count}} people following this request"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
 msgstr ""
@@ -2369,10 +2369,12 @@ msgstr ""
 msgid "This person's {{count}} Freedom of Information request"
 msgid_plural "This person's {{count}} Freedom of Information requests"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "This request <strong>requires administrator attention</strong>"
 msgstr ""
@@ -3010,10 +3012,12 @@ msgstr ""
 msgid "Your {{count}} Freedom of Information request"
 msgid_plural "Your {{count}} Freedom of Information requests"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{site_name}} email alert"
 msgstr ""
@@ -3302,18 +3306,22 @@ msgstr ""
 msgid "{{count}} Freedom of Information request to {{public_body_name}}"
 msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} person is following this authority"
 msgid_plural "{{count}} people are following this authority"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} request"
 msgid_plural "{{count}} requests"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} request made."
 msgid_plural "{{count}} requests made."
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
 msgstr ""
