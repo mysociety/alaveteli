@@ -35,8 +35,13 @@ fi
 if [ -e $TOP_DIR/../logs ]
 then
     # mySociety servers have logs dir in level above
-    rm -f log
-    ln -s $TOP_DIR/../logs log
+    if ! [ -h log ] && [ -d log ]
+    then
+        # If log is a directory rather than a symlink, move that
+        # directory out of the way:
+        mv log log.original
+    fi
+    ln -sfn $TOP_DIR/../logs log
 else
     # otherwise just make the directory
     if [ -h log ]
