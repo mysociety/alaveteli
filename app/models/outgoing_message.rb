@@ -271,7 +271,7 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     def format_of_body
-        if self.body.empty? || self.body =~ /\A#{get_salutation}\s+#{get_signoff}/ || self.body =~ /#{get_internal_review_insert_here_note}/
+        if self.body.empty? || self.body =~ /\A#{Regexp.escape(get_salutation)}\s+#{Regexp.escape(get_signoff)}/ || self.body =~ /#{Regexp.escape(get_internal_review_insert_here_note)}/
             if self.message_type == 'followup'
                 if self.what_doing == 'internal_review'
                     errors.add(:body, _("Please give details explaining why you want a review"))
