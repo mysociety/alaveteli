@@ -144,7 +144,7 @@ describe OutgoingMessage, " when making an outgoing message" do
 end
 
 
-describe IncomingMessage, " when censoring data" do
+describe OutgoingMessage, " when censoring data" do
 
     before do
         @om = outgoing_messages(:useless_outgoing_message)
