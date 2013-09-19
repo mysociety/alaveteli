@@ -1,6 +1,7 @@
-#rails-3-develop
+# Version 0.14
 
 ## Highlighted features
+* There is now an option to display a public body statistics page (currently not linked to from anywhere) showing bodies with the most requests, most successful requests, fewest successful requests, most overdue requests, and bodies that reply most frequently with "Not Held" - see Upgrade notes for how to turn this option on.
 * Individual incoming and outgoing messages can be made hidden, or requester_only from the admin interface.
 * Zip downloads now can be run in single-threaded instances, and use send_file rather than a redirect to serve up cached zip files.
 
@@ -12,6 +13,8 @@
 `rm public/download`
 * This release upgrades the assumed version of Ubuntu from lucid (10.04) to precise (12.04)
 * This release upgrades rubygems in config/packages - version 1.8.15 is available from squeeze-backports on Debian or by default in Ubuntu precise. This upgrade may result in "invalid date format in specification:" errors - these should be fixable by manually deleting the gems specs that are being referenced in the error and re-running rails-post-deploy
+* If you would like to have a public body statistics page (this will be publicly available), set the `PUBLIC_BODY_STATISTICS_PAGE` param in general.yml to `true`. You should also add a new cron job based on the one in config/crontab-example `https://github.com/mysociety/alaveteli/blob/rails-3-develop/config/crontab-example#L29` to update the public body stats each day.
+
 
 # Version 0.13
 ## Highlighted features
