@@ -2511,9 +2511,61 @@ end
 
 describe RequestController, "#select_authorities" do
 
-    it 'should be succesful' do
-        get :select_authorities
-        response.should be_success
+    context "when batch requests is enabled" do
+
+        before do
+            AlaveteliConfiguration.stub!(:allow_batch_requests).and_return(true)
+        end
+
+        context "when the current user can make batch requests" do
+
+            before do
+                @user = FactoryGirl.create(:user, :can_make_batch_requests => true)
+            end
+
+            it 'should be successful' do
+                get :select_authorities, {}, {:user_id => @user.id}
+                response.should be_success
+            end
+
+        end
+
+        context "when the current user can't make batch requests" do
+
+            render_views
+
+            before do
+                @user = FactoryGirl.create(:user)
+            end
+
+            it 'should return a 403 with an appropriate message' do
+                get :select_authorities, {}, {:user_id => @user.id}
+                response.code.should == '403'
+                response.body.should match("Users cannot usually make batch requests to multiple authorities at once")
+            end
+
+        end
+
+        context 'when there is no logged-in user' do
+
+            it 'should return a redirect to the login page' do
+                get :select_authorities
+                post_redirect = PostRedirect.get_last_post_redirect
+                response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+            end
+        end
+
+
+    end
+
+    context "when batch requests is not enabled" do
+
+        it 'should return a 404' do
+            Rails.application.config.stub!(:consider_all_requests_local).and_return(false)
+            get :select_authorities
+            response.code.should == '404'
+        end
+
     end
 
 end

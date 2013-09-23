@@ -44,6 +44,20 @@ class RequestController < ApplicationController
     end
 
     def select_authorities
+        if !AlaveteliConfiguration::allow_batch_requests
+            raise RouteNotFound.new("Page not enabled")
+        end
+        if !authenticated?(
+                          :web => _("To make a batch request"),
+                          :email => _("Then you can make a batch request"),
+                          :email_subject => _("Make a batch request"),
+                          :user_name => "a user who has been authorised to make batch requests")
+            # do nothing - as "authenticated?" has done the redirect to signin page for us
+            return
+        end
+        if !@user.can_make_batch_requests?
+             return render_hidden('request/batch_not_allowed')
+        end
     end
 
     def show
@@ -674,7 +688,7 @@ class RequestController < ApplicationController
         end
         if !incoming_message.user_can_view?(authenticated_user)
             @incoming_message = incoming_message # used by view
-            return render_hidden_message
+            return render_hidden('request/hidden_correspondence')
         end
         # Is this a completely public request that we can cache attachments for
         # to be served up without authentication?
@@ -888,19 +902,10 @@ class RequestController < ApplicationController
 
     private
 
-    def render_hidden
+    def render_hidden(template='request/hidden')
         respond_to do |format|
             response_code = 403 # forbidden
-            format.html{ render :template => 'request/hidden', :status => response_code }
-            format.any{ render :nothing => true, :status => response_code }
-        end
-        false
-    end
-
-    def render_hidden_message
-        respond_to do |format|
-            response_code = 403 # forbidden
-            format.html{ render :template => 'request/hidden_correspondence', :status => response_code }
+            format.html{ render :template => template, :status => response_code }
             format.any{ render :nothing => true, :status => response_code }
         end
         false
