@@ -1,0 +1,50 @@
+<h1>Edit outgoing message</h1>
+
+<%= error_messages_for 'outgoing_message' %>
+
+<%= form_tag admin_outgoing_update_path(@outgoing_message) do %>
+  <div class="control-group">
+    <label class="control-label" for="outgoing_message_prominence"> Prominence</label>
+    <div class="controls">
+    <%= select('outgoing_message', "prominence", OutgoingMessage.prominence_states) %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="outgoing_message_prominence_reason">Reason for prominence</label>
+    <div class="controls">
+      <%= text_area "outgoing_message", "prominence_reason", :rows => 5, :class => "span6" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="outgoing_message_body">Body of message</label>
+     <div class="controls">
+      <%= text_area 'outgoing_message', 'body', :rows => 10, :cols => 60  %>
+     </div>
+
+  <p><strong>Note:</strong> This is mainly to be used to excise information
+  that users inadvertently put in their messages, not realising it would be
+  public. It will already have been sent to the public authority, and their
+  reply may also include that information and be automatically published on
+  this site. You could also use this to edit a message before resending it, but
+  only the edited version will be shown on the public page if you do that.</p>
+
+<div class="form-actions" >
+<%= submit_tag 'Save', :accesskey => 's', :class => 'btn' %>
+</div>
+<% end %>
+
+<p>
+<%= link_to 'Show', admin_request_show_path(@outgoing_message.info_request) %> |
+<%= link_to 'List all', admin_request_list_path %>
+</p>
+
+<%= form_tag admin_outgoing_destroy_path do %>
+  <div>
+      <%= hidden_field_tag 'outgoing_message_id', @outgoing_message.id %>
+      <%= submit_tag "Destroy outgoing message", :class => "btn btn-danger", :confirm => "This is permanent! Are you sure?" %>
+  </div>
+<% end %>
+
+

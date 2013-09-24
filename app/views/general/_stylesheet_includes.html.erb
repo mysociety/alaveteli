@@ -1,16 +1,23 @@
-        <%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet", :media => "all" %>
-        <%= stylesheet_link_tag 'fonts', :rel => "stylesheet", :media => "all"  %>
-        <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "print"  %>
-        <% if !params[:print_stylesheet].nil? %>
-         <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "all"  %>
-        <% end %>
-        <%= stylesheet_link_tag 'admin-theme/jquery-ui-1.8.15.custom.css', :rel => 'stylesheet'%>
-        <!--[if LT IE 7]>
-        <style type="text/css">@import url("/stylesheets/ie6.css");</style>
-        <![endif]-->
-        <!--[if LT IE 8]>
-        <style type="text/css">@import url("/stylesheets/ie7.css");</style>
-        <![endif]-->
-        <% if AlaveteliConfiguration::force_registration_on_new_request %>
-        <%= stylesheet_link_tag 'jquery.fancybox-1.3.4', :rel => "stylesheet"  %>
-        <% end %>
+<%- if @render_to_file %>
+  <style>
+  <%= raw File.read(Rails.root.join('public', 'stylesheets', 'main.css')) %>
+  <%= raw File.read(Rails.root.join('public', 'stylesheets', 'print.css')) %>
+  </style>
+<%- else %>
+  <%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet", :media => "all" %>
+  <%= stylesheet_link_tag 'fonts', :rel => "stylesheet", :media => "all"  %>
+  <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "print"  %>
+  <% if !params[:print_stylesheet].nil? %>
+  <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "all"  %>
+  <% end %>
+  <%= stylesheet_link_tag 'admin-theme/jquery-ui-1.8.15.custom.css', :rel => 'stylesheet'%>
+  <!--[if LT IE 7]>
+  <style type="text/css">@import url("/stylesheets/ie6.css");</style>
+  <![endif]-->
+  <!--[if LT IE 8]>
+  <style type="text/css">@import url("/stylesheets/ie7.css");</style>
+  <![endif]-->
+  <% if AlaveteliConfiguration::force_registration_on_new_request %>
+  <%= stylesheet_link_tag 'jquery.fancybox-1.3.4', :rel => "stylesheet"  %>
+  <% end %>
+<% end %>

@@ -1,6 +1,6 @@
 <fieldset class="form-horizontal">
  <legend>Actions</legend>
- <%= form_tag admin_request_redeliver_incoming_path, :class => "form form-inline" do %>
+ <%= form_tag admin_incoming_redeliver_path, :class => "form form-inline" do %>
  <div class="control-group">
   <label class="control-label" for="url_title_<%= incoming_message.id %>">Redeliver message to one or more other requests</label>
   <div class="controls">
@@ -22,7 +22,7 @@
   </div>
  </div>
 
- <%= form_tag admin_request_destroy_incoming_path, :class => "form form-inline" do %>
+ <%= form_tag admin_incoming_destroy_path, :class => "form form-inline" do %>
   <div class="control-group">
    <label class="control-label" for="destroy_message_<%= incoming_message.id %>">Destroy message</label>
    <div class="controls">

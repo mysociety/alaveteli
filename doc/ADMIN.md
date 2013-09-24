@@ -11,11 +11,9 @@ If you want to work on the CSS, you'll want to use
     $ gem install compass
     $ compass compile --config .compass/config.rb
 
-The javascript is included in a funky way
-[for reasons explained in this commit](https://github.com/sebbacon/adminbootstraptheme/commit/45a73d53fc9e8f0b728933ff58764bd8d0612dab).
-To change it, edit the coffeescript at
-`lib/view/general/admin.coffee`, and then do something like:
+To change the JavaScript, edit `public/admin/javascripts/admin.coffee`
+and then run:
 
-    $ coffee -o /tmp/ -c app/views/admin_general/admin.coffee
-    $ mv /tmp/admin.js app/views/admin_general/admin_js.erb
+    $ coffee -c public/admin/javascripts/admin.coffee
 
+That will update `public/admin/javascripts/admin.js`.

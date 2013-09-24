@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: post_redirects
+#
+#  id                 :integer          not null, primary key
+#  token              :text             not null
+#  uri                :text             not null
+#  post_params_yaml   :text
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  email_token        :text             not null
+#  reason_params_yaml :text
+#  user_id            :integer
+#  circumstance       :text             default("normal"), not null
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PostRedirect, " when constructing" do

@@ -1,27 +1,27 @@
+# -*- coding: utf-8 -*-
 # == Schema Information
-# Schema version: 20120919140404
 #
 # Table name: public_bodies
 #
-#  id                  :integer         not null, primary key
-#  name                :text            not null
-#  short_name          :text            not null
-#  request_email       :text            not null
-#  version             :integer         not null
-#  last_edit_editor    :string(255)     not null
-#  last_edit_comment   :text            not null
-#  created_at          :datetime        not null
-#  updated_at          :datetime        not null
-#  url_name            :text            not null
-#  home_page           :text            default(""), not null
-#  notes               :text            default(""), not null
-#  first_letter        :string(255)     not null
-#  publication_scheme  :text            default(""), not null
-#  api_key             :string(255)     not null
-#  info_requests_count :integer         default(0), not null
+#  id                  :integer          not null, primary key
+#  name                :text             not null
+#  short_name          :text             not null
+#  request_email       :text             not null
+#  version             :integer          not null
+#  last_edit_editor    :string(255)      not null
+#  last_edit_comment   :text             not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  url_name            :text             not null
+#  home_page           :text             default(""), not null
+#  notes               :text             default(""), not null
+#  first_letter        :string(255)      not null
+#  publication_scheme  :text             default(""), not null
+#  api_key             :string(255)      not null
+#  info_requests_count :integer          default(0), not null
+#  disclosure_log      :text             default(""), not null
 #
 
-# -*- coding: utf-8 -*-
 require 'csv'
 require 'securerandom'
 require 'set'
@@ -40,6 +40,7 @@ class PublicBody < ActiveRecord::Base
     has_many :info_requests, :order => 'created_at desc'
     has_many :track_things, :order => 'created_at desc'
     has_many :censor_rules, :order => 'created_at desc'
+    attr_accessor :no_xapian_reindex
 
     has_tag_string
     before_save :set_api_key, :set_default_publication_scheme
@@ -60,10 +61,21 @@ class PublicBody < ActiveRecord::Base
 
     # XXX - Don't like repeating this!
     def calculate_cached_fields(t)
-        t.first_letter = t.name.scan(/^./mu)[0].upcase unless t.name.nil? or t.name.empty?
+        PublicBody.set_first_letter(t)
         short_long_name = t.name
         short_long_name = t.short_name if t.short_name and !t.short_name.empty?
         t.url_name = MySociety::Format.simplify_url_part(short_long_name, 'body')
+    end
+
+    # Set the first letter on a public body or translation
+    def PublicBody.set_first_letter(instance)
+        unless instance.name.nil? or instance.name.empty?
+            # we use a regex to ensure it works with utf-8/multi-byte
+            first_letter = instance.name.scan(/^./mu)[0].upcase
+            if first_letter != instance.first_letter
+                instance.first_letter = first_letter
+            end
+        end
     end
 
     def translated_versions
@@ -130,8 +142,7 @@ class PublicBody < ActiveRecord::Base
     # Set the first letter, which is used for faster queries
     before_save(:set_first_letter)
     def set_first_letter
-        # we use a regex to ensure it works with utf-8/multi-byte
-        self.first_letter = self.name.scan(/./mu)[0].upcase
+        PublicBody.set_first_letter(self)
     end
 
     # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
@@ -177,7 +188,11 @@ class PublicBody < ActiveRecord::Base
     end
 
     acts_as_versioned
-    self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key' << 'info_requests_count'
+    self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
+    self.non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
+    self.non_versioned_columns << 'info_requests_not_held_count' << 'info_requests_overdue'
+    self.non_versioned_columns << 'info_requests_overdue_count'
+
     class Version
         attr_accessor :created_at
 
@@ -231,6 +246,7 @@ class PublicBody < ActiveRecord::Base
     def reindex_requested_from
         if self.changes.include?('url_name')
             for info_request in self.info_requests
+
                 for info_request_event in info_request.info_request_events
                     info_request_event.xapian_mark_needs_index
                 end
@@ -630,6 +646,65 @@ class PublicBody < ActiveRecord::Base
         self.class.content_columns.map{|c| c unless %w(name last_edit_comment).include?(c.name)}.compact.each do |column|
             yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
         end
+    end
+
+    # Return data for the 'n' public bodies with the highest (or
+    # lowest) number of requests, but only returning data for those
+    # with at least 'minimum_requests' requests.
+    def self.get_request_totals(n, highest, minimum_requests)
+        ordering = "info_requests_count"
+        ordering += " DESC" if highest
+        where_clause = "info_requests_count >= #{minimum_requests}"
+        public_bodies = PublicBody.order(ordering).where(where_clause).limit(n)
+        public_bodies.reverse! if highest
+        y_values = public_bodies.map { |pb| pb.info_requests_count }
+        return {
+            'public_bodies' => public_bodies,
+            'y_values' => y_values,
+            'y_max' => y_values.max}
+    end
+
+    # Return data for the 'n' public bodies with the highest (or
+    # lowest) score according to the metric of the value in 'column'
+    # divided by the total number of requests, expressed as a
+    # percentage.  This only returns data for those public bodies with
+    # at least 'minimum_requests' requests.
+    def self.get_request_percentages(column, n, highest, minimum_requests)
+        total_column = "info_requests_count"
+        ordering = "y_value"
+        ordering += " DESC" if highest
+        y_value_column = "(cast(#{column} as float) / #{total_column})"
+        where_clause = "#{total_column} >= #{minimum_requests} AND #{column} IS NOT NULL"
+        public_bodies = PublicBody.select("*, #{y_value_column} AS y_value").order(ordering).where(where_clause).limit(n)
+        public_bodies.reverse! if highest
+        y_values = public_bodies.map { |pb| pb.y_value.to_f }
+
+        original_values = public_bodies.map { |pb| pb.send(column) }
+        # If these are all nil, then probably the values have never
+        # been set; some have to be set by a rake task.  In that case,
+        # just return nil:
+        return nil unless original_values.any? { |ov| !ov.nil? }
+
+        original_totals = public_bodies.map { |pb| pb.send(total_column) }
+        # Calculate confidence intervals, as offsets from the proportion:
+        cis_below = []
+        cis_above = []
+        original_totals.each_with_index.map { |total, i|
+            lower_ci, higher_ci = ci_bounds original_values[i], total, 0.05
+            cis_below.push(y_values[i] - lower_ci)
+            cis_above.push(higher_ci - y_values[i])
+        }
+        # Turn the y values and confidence interval offsets into
+        # percentages:
+        [y_values, cis_below, cis_above].each { |l|
+            l.map! { |v| 100 * v }
+        }
+        return {
+            'public_bodies' => public_bodies,
+            'y_values' => y_values,
+            'cis_below' => cis_below,
+            'cis_above' => cis_above,
+            'y_max' => 100}
     end
 
     private

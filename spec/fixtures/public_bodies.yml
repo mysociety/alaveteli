@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: public_bodies
+#
+#  id                  :integer          not null, primary key
+#  name                :text             not null
+#  short_name          :text             not null
+#  request_email       :text             not null
+#  version             :integer          not null
+#  last_edit_editor    :string(255)      not null
+#  last_edit_comment   :text             not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  url_name            :text             not null
+#  home_page           :text             default(""), not null
+#  notes               :text             default(""), not null
+#  first_letter        :string(255)      not null
+#  publication_scheme  :text             default(""), not null
+#  api_key             :string(255)      not null
+#  info_requests_count :integer          default(0), not null
+#  disclosure_log      :text             default(""), not null
+#
+
 geraldine_public_body:
   name: The Geraldine Quango
   first_letter: T
@@ -12,6 +35,9 @@ geraldine_public_body:
   created_at: 2007-10-24 10:51:01.161639
   api_key: 1
   info_requests_count: 4
+  info_requests_successful_count: 0
+  info_requests_not_held_count: 0
+  info_requests_overdue_count: 3
 humpadink_public_body:
   name: "Department for Humpadinking"
   first_letter: D
@@ -27,6 +53,9 @@ humpadink_public_body:
   notes: An albatross told me!!!
   api_key: 2
   info_requests_count: 2
+  info_requests_successful_count: 1
+  info_requests_not_held_count: 0
+  info_requests_overdue_count: 1
 forlorn_public_body:
   name: "Department of Loneliness"
   first_letter: D
@@ -42,6 +71,9 @@ forlorn_public_body:
   notes: A very lonely public body that no one has corresponded with
   api_key: 3
   info_requests_count: 0
+  info_requests_successful_count: 0
+  info_requests_not_held_count: 0
+  info_requests_overdue_count: 0
 silly_walks_public_body:
   id: 5
   version: 1
@@ -57,6 +89,9 @@ silly_walks_public_body:
   notes: You know the one.
   api_key: 4
   info_requests_count: 2
+  info_requests_successful_count: 2
+  info_requests_not_held_count: 0
+  info_requests_overdue_count: 0
 sensible_walks_public_body:
   id: 6
   version: 1
@@ -72,6 +107,9 @@ sensible_walks_public_body:
   created_at: 2008-10-25 10:51:01.161639
   api_key: 5
   info_requests_count: 1
+  info_requests_successful_count: 1
+  info_requests_not_held_count: 0
+  info_requests_overdue_count: 0
 other_public_body:
   id: 7
   version: 1
@@ -87,3 +125,6 @@ other_public_body:
   created_at: 2008-10-25 10:51:01.161639
   api_key: 6
   info_requests_count: 0
+  info_requests_successful_count: 0
+  info_requests_not_held_count: 0
+  info_requests_overdue_count: 0

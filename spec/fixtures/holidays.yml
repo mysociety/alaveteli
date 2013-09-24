@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: holidays
+#
+#  id          :integer          not null, primary key
+#  day         :date
+#  description :text
+#
+
 date20071130:
   id: '1'
   day: '2007-11-30'

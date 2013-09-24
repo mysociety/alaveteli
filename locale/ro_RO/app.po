@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-08-05 17:01+0100\n"
-"PO-Revision-Date: 2013-08-05 16:04+0000\n"
+"POT-Creation-Date: 2013-09-19 10:47+0100\n"
+"PO-Revision-Date: 2013-09-19 09:50+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -1017,6 +1017,9 @@ msgstr "Dacă ești nemulțumit de răspunsul primit de la\\n instituția public
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Dacă aveţi în continuare probleme, vă rugăm <a href=\"{{url}}\"> să ne contactaţi</a>."
 
+msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
+msgstr ""
+
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
 msgstr "Dacă sunteţi solicitantul, atunci trebuie să <a href=\"{{url}}\">vă logaţi</a> pentru a vedea cererea."
 
@@ -1086,6 +1089,12 @@ msgstr "Mesaj primit |Mail de la "
 msgid "IncomingMessage|Mail from domain"
 msgstr "Mesaj primit |Mail de la domeniul "
 
+msgid "IncomingMessage|Prominence"
+msgstr ""
+
+msgid "IncomingMessage|Prominence reason"
+msgstr ""
+
 msgid "IncomingMessage|Sent at"
 msgstr "Mesaj primit | Trimis la"
 
@@ -1118,9 +1127,6 @@ msgstr "EvenimentCerereInfo | Ultima descriere la"
 
 msgid "InfoRequestEvent|Params yaml"
 msgstr "EvenimentCerereInfo | Parametri yaml"
-
-msgid "InfoRequestEvent|Prominence"
-msgstr "EvenimentCerereInfo | Proeminenţă"
 
 msgid "InfoRequest|Allow new responses from"
 msgstr "CerereInfo | Permite noi răspunsuri de la"
@@ -1284,6 +1290,9 @@ msgstr "Multe cereri"
 msgid "Message"
 msgstr "Mesaj"
 
+msgid "Message has been removed"
+msgstr ""
+
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Mesaj trimis utilizând formularul de contact al  {{site_name}} "
 
@@ -1401,6 +1410,9 @@ msgstr "Acum previzualizează follow up-ul tău"
 msgid "Now preview your message asking for an internal review"
 msgstr "Acum previzualizează mesajul tău cerând o revizuire internă."
 
+msgid "Number of requests"
+msgstr ""
+
 msgid "OR remove the existing photo"
 msgstr "SAU înlocuiţi poza existentă"
 
@@ -1464,6 +1476,12 @@ msgstr "MesajTrimis|Ultimul trimis la"
 msgid "OutgoingMessage|Message type"
 msgstr "MesajTrimis|Tip mesaj"
 
+msgid "OutgoingMessage|Prominence"
+msgstr ""
+
+msgid "OutgoingMessage|Prominence reason"
+msgstr ""
+
 msgid "OutgoingMessage|Status"
 msgstr "MesajTrimis|Status"
 
@@ -1491,6 +1509,12 @@ msgstr "Persoane"
 msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Oameni  de la {{start_count}} la  {{end_count}} din  {{total_count}}"
 
+msgid "Percentage of requests that are overdue"
+msgstr ""
+
+msgid "Percentage of total requests"
+msgstr ""
+
 msgid "Photo of you:"
 msgstr "Poza ta:"
 
@@ -1505,6 +1529,9 @@ msgstr "Jucaţi categorisirea cerută!"
 
 msgid "Please"
 msgstr "Vă rugăm"
+
+msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
+msgstr ""
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Vă rugăm <a href=\"{{url}}\"> staţi în legătură</a>  cu noi, ca să o rezolvăm."
@@ -1710,6 +1737,12 @@ msgstr "Poza de profil|Data"
 msgid "ProfilePhoto|Draft"
 msgstr "Poza de profil|Ciornă"
 
+msgid "Public Bodies"
+msgstr ""
+
+msgid "Public Body Statistics"
+msgstr ""
+
 msgid "Public authorities"
 msgstr "Instituții publice"
 
@@ -1721,6 +1754,21 @@ msgstr "Instituții publice de la {{start_count}} la {{end_count}} din {{total_c
 
 msgid "Public authority – {{name}}"
 msgstr "Autoritatea publică – {{name}}"
+
+msgid "Public bodies that most frequently replied with \"Not Held\""
+msgstr ""
+
+msgid "Public bodies with most overdue requests"
+msgstr ""
+
+msgid "Public bodies with the fewest successful requests"
+msgstr ""
+
+msgid "Public bodies with the most requests"
+msgstr ""
+
+msgid "Public bodies with the most successful requests"
+msgstr ""
 
 msgid "Public body"
 msgstr "Autoritate publică"
@@ -1748,6 +1796,15 @@ msgstr "Instituţie publică|Pagina principală"
 
 msgid "PublicBody|Info requests count"
 msgstr "InstituţiePublică|Info număr de cereri "
+
+msgid "PublicBody|Info requests not held count"
+msgstr ""
+
+msgid "PublicBody|Info requests overdue count"
+msgstr ""
+
+msgid "PublicBody|Info requests successful count"
+msgstr ""
 
 msgid "PublicBody|Last edit comment"
 msgstr "Instituţie publică| Ultimul comentariu editat"
@@ -1859,6 +1916,12 @@ msgstr "Cerere de la {{public_body_name}} de către {{info_request_user}} la {{d
 
 msgid "Requested on {{date}}"
 msgstr "Cerere la data {{date}}"
+
+msgid "Requests are considered overdue if they are in the 'Overdue' or 'Very Overdue' states."
+msgstr ""
+
+msgid "Requests are considered successful if they were classified as either 'Successful' or 'Partially Successful'."
+msgstr ""
 
 msgid "Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
 msgstr "Solicitările de informații personale și solicitările ofensatoare nu sunt considerate valide pentru scopurile solicitărilor de acces la informații (<a href=\"/help/about\">citește mai multe</a>)."
@@ -2169,11 +2232,20 @@ msgstr "Instituția <strong>solicită o adresă\\n poștală</strong>, pe lâng�
 msgid "The authority would like to / has <strong>responded by post</strong> to this request."
 msgstr "Autoritatea ar  <strong>vrea să răspundă / a răspuns prin postarea</strong> la această cerere."
 
+msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
+msgstr ""
+
 msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to reply to an {{law_used_short}}\\nrequest has not been delivered."
 msgstr "Email-ul trimis din partea {{public_body}}, către\\n{{user}} ca răspuns la {{law_used_short}}\\nsolicitare nu a fost transmis."
 
+msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
+msgstr ""
+
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Pagina nu există. Ceea ce puteţi încerca acum:"
+
+msgid "The percentages are calculated with respect to the total number of requests, which includes invalid requests; this is a known problem that will be fixed in a later release."
+msgstr ""
 
 msgid "The public authority does not have the information requested"
 msgstr "Autritatea publică nu deţine informaţiile solicitate"
@@ -2319,11 +2391,17 @@ msgstr "A apărut o  <strong>eroare de transmitere</strong> sau similară ce va 
 msgid "There was an error with the words you entered, please try again."
 msgstr "Există o eroare printre cuvintele pe care le-aţi introdus, vă rugăm încercaţi din nou."
 
+msgid "There was no data calculated for this graph yet."
+msgstr ""
+
 msgid "There were no requests matching your query."
 msgstr "Nu sunt cereri care se potrivesc cu interogarea ta."
 
 msgid "There were no results matching your query."
 msgstr "Nu sunt rezultate care satisfac interogarea ta."
+
+msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
+msgstr ""
 
 msgid "They are going to reply <strong>by post</strong>"
 msgstr "Ei vor răspunde  <strong>prin postarea </strong>"
@@ -2349,9 +2427,6 @@ msgstr "Lucruri pe care le urmăriţi"
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Această autoritate nu mai există, deci nu puteţi face o cerere către aceasta."
 
-msgid "This comment has been hidden. See annotations to\\n            find out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
-msgstr "Acest comentariu a fost ascuns. Vezi adnotaţiile pentru\\n a afla de ce. Dacă eşti solicitantul, atunci te poţi  <a href=\"{{url}}\">autentifica</a> pentru a vedea răspunsul."
-
 msgid "This covers a very wide spectrum of information about the state of\\n            the <strong>natural and built environment</strong>, such as:"
 msgstr "Aceasta acoperă un spectru foarte larg de informaţii despre stadiul\\n  <strong>mediului natural şi construit</strong>, precum:"
 
@@ -2373,8 +2448,26 @@ msgstr "Aceasta este prima versiune."
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Aceasta este solicitarea proprie, aşa că ți se va comunica automat prin email când va sosi un răspuns."
 
-msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
-msgstr "Acest mesaj în curs de expediere a fost ascuns. Vezi adnotaţiile pentru\\n»»»»»»a afla de ce. Dacă eşti solicitantul, atunci te poţi <a href=\"{{url}}\">autentifica</a> pentru a vedea răspunsul."
+msgid "This message has been hidden."
+msgstr ""
+
+msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
+msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgstr ""
+
+msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
+
+msgid "This page of public body statistics is currently experimental, so there are some caveats that should be borne in mind:"
+msgstr ""
 
 msgid "This particular request is finished:"
 msgstr "Acesată cerere anume este finalizată:"
@@ -2444,9 +2537,6 @@ msgstr "Această solicitare are nevoie de intervenția administratorului"
 
 msgid "This request was not made via {{site_name}}"
 msgstr "Cererea nu a fost făcută prin {{site_name}}"
-
-msgid "This response has been hidden. See annotations to find out why.\\n            If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
-msgstr "Acest răspuns a fost ascuns. Vezi adnotările pentru a afla de ce.\\n Dacă eşti solicitantul, atunci te poţi <a href=\"{{url}}\">autentifica</a> pentru a vedea răspunsul."
 
 msgid "This table shows the technical details of the internal events that happened\\nto this request on {{site_name}}. This could be used to generate information about\\nthe speed with which authorities respond to requests, the number of requests\\nwhich require a postal response and much more."
 msgstr "Acest tabel arată detaliile tehnice ale evenimentelor interne care au avut loc\\n cu această solicitare pe {{site_name}}. Acesta poate fi utilizat pentru a genera informaţii cu privire la\\nviteza cu care autorităţile răspund la solicitări, la numărul de solicitări\\ncare au nevoie de un răspuns scris şi multe altele."
@@ -3289,9 +3379,6 @@ msgstr "a transmite un mesaj de urmărire"
 
 msgid "to {{public_body}}"
 msgstr "către {{public_body}}"
-
-msgid "unexpected prominence on request event"
-msgstr "proeminenţă neaşteptată la un eveniment cerere"
 
 msgid "unknown reason "
 msgstr "motiv necunoscut"

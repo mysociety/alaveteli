@@ -18,9 +18,11 @@ p.event_actions,
 div#after_actions,
 #right_column,
 #banner,
+.admin .navbar,
 #header_right,
 #describe_state_form_1,
-#describe_state_form_2 input[type=submit],
+#describe_state_form_2,
+.attachment_image,
 #footer {
  display: none;
 }

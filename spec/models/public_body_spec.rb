@@ -1,4 +1,27 @@
 # encoding: UTF-8
+# == Schema Information
+#
+# Table name: public_bodies
+#
+#  id                  :integer          not null, primary key
+#  name                :text             not null
+#  short_name          :text             not null
+#  request_email       :text             not null
+#  version             :integer          not null
+#  last_edit_editor    :string(255)      not null
+#  last_edit_comment   :text             not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  url_name            :text             not null
+#  home_page           :text             default(""), not null
+#  notes               :text             default(""), not null
+#  first_letter        :string(255)      not null
+#  publication_scheme  :text             default(""), not null
+#  api_key             :string(255)      not null
+#  info_requests_count :integer          default(0), not null
+#  disclosure_log      :text             default(""), not null
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PublicBody, " using tags" do
@@ -136,36 +159,32 @@ describe PublicBody, " when saving" do
         @public_body = PublicBody.new
     end
 
+    def set_default_attributes(public_body)
+        public_body.name = "Testing Public Body"
+        public_body.short_name = "TPB"
+        public_body.request_email = "request@localhost"
+        public_body.last_edit_editor = "*test*"
+        public_body.last_edit_comment = "This is a test"
+    end
+
     it "should not be valid without setting some parameters" do
         @public_body.should_not be_valid
     end
 
     it "should not be valid with misformatted request email" do
-        @public_body.name = "Testing Public Body"
-        @public_body.short_name = "TPB"
+        set_default_attributes(@public_body)
         @public_body.request_email = "requestBOOlocalhost"
-        @public_body.last_edit_editor = "*test*"
-        @public_body.last_edit_comment = "This is a test"
         @public_body.should_not be_valid
         @public_body.should have(1).errors_on(:request_email)
     end
 
     it "should save" do
-        @public_body.name = "Testing Public Body"
-        @public_body.short_name = "TPB"
-        @public_body.request_email = "request@localhost"
-        @public_body.last_edit_editor = "*test*"
-        @public_body.last_edit_comment = "This is a test"
+        set_default_attributes(@public_body)
         @public_body.save!
     end
 
     it "should update first_letter" do
-        @public_body.name = "Testing Public Body"
-        @public_body.short_name = "TPB"
-        @public_body.request_email = "request@localhost"
-        @public_body.last_edit_editor = "*test*"
-        @public_body.last_edit_comment = "This is a test"
-
+        set_default_attributes(@public_body)
         @public_body.first_letter.should be_nil
         @public_body.save!
         @public_body.first_letter.should == 'T'
@@ -178,6 +197,26 @@ describe PublicBody, " when saving" do
 
         public_body.name.should == "Mark's Public Body"
     end
+
+    it 'should not create a new version when nothing has changed' do
+        @public_body.versions.size.should == 0
+        set_default_attributes(@public_body)
+        @public_body.save!
+        @public_body.versions.size.should == 1
+        @public_body.save!
+        @public_body.versions.size.should == 1
+    end
+
+    it 'should create a new version if something has changed' do
+        @public_body.versions.size.should == 0
+        set_default_attributes(@public_body)
+        @public_body.save!
+        @public_body.versions.size.should == 1
+        @public_body.name = 'Test'
+        @public_body.save!
+        @public_body.versions.size.should == 2
+    end
+
 end
 
 describe PublicBody, "when searching" do

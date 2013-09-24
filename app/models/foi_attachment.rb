@@ -1,11 +1,9 @@
 # encoding: UTF-8
-
 # == Schema Information
-# Schema version: 114
 #
 # Table name: foi_attachments
 #
-#  id                    :integer         not null, primary key
+#  id                    :integer          not null, primary key
 #  content_type          :text
 #  filename              :text
 #  charset               :text

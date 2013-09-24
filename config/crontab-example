@@ -26,6 +26,8 @@ MAILTO=cron-!!(*= $site *)!!@mysociety.org
 0 8 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-not-clarified-request.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/alert-not-clarified-request || echo "stalled?"
 2 4 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/check-recent-requests-sent.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/check-recent-requests-sent || echo "stalled?"
 45 3 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/stop-new-responses-on-old-requests.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/stop-new-responses-on-old-requests || echo "stalled?"
+55 4 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/update-public-body-stats.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/update-public-body-stats || echo "stalled?"
+
 # Only root can restart apache
 31 1 * * * root run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/change-xapian-database.lock "/data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/compact-xapian-database production" || echo "stalled?"
 

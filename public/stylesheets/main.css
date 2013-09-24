@@ -1742,3 +1742,38 @@ text-decoration:none;
 .big {
   font-size: larger;
 }
+
+.public-body-ranking {
+  margin-bottom: 40px;
+}
+
+.public-body-ranking-title {
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.public-body-ranking table {
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.public-body-ranking td, th {
+    border: 0px;
+    padding: 5px;
+    padding-right: 20px;
+}
+
+.public-body-ranking td.statistic {
+    text-align: center;
+}
+
+.public-body-ranking .axisLabels {
+    /* Justification for using !important hereL the axis label color is
+       set in the style attribute in Flot's Javascript to the same
+       colour as the grid background. Changing this requires quite
+       invasive changes to the Javascript, and is likely to be
+       irrelevant in the next version of Flot anyway, which will have
+       core support for axis labels.  So, just use !important to make
+       the axes black rather than transparent grey for the moment: */
+    color: #000 !important;
+}

@@ -1,26 +1,26 @@
+# encoding: utf-8
 # == Schema Information
-# Schema version: 20120919140404
 #
 # Table name: info_requests
 #
-#  id                        :integer         not null, primary key
-#  title                     :text            not null
+#  id                        :integer          not null, primary key
+#  title                     :text             not null
 #  user_id                   :integer
-#  public_body_id            :integer         not null
-#  created_at                :datetime        not null
-#  updated_at                :datetime        not null
-#  described_state           :string(255)     not null
-#  awaiting_description      :boolean         default(FALSE), not null
-#  prominence                :string(255)     default("normal"), not null
-#  url_title                 :text            not null
-#  law_used                  :string(255)     default("foi"), not null
-#  allow_new_responses_from  :string(255)     default("anybody"), not null
-#  handle_rejected_responses :string(255)     default("bounce"), not null
-#  idhash                    :string(255)     not null
+#  public_body_id            :integer          not null
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  described_state           :string(255)      not null
+#  awaiting_description      :boolean          default(FALSE), not null
+#  prominence                :string(255)      default("normal"), not null
+#  url_title                 :text             not null
+#  law_used                  :string(255)      default("foi"), not null
+#  allow_new_responses_from  :string(255)      default("anybody"), not null
+#  handle_rejected_responses :string(255)      default("bounce"), not null
+#  idhash                    :string(255)      not null
 #  external_user_name        :string(255)
 #  external_url              :string(255)
-#  attention_requested       :boolean         default(FALSE)
-#  comments_allowed          :boolean         default(TRUE), not null
+#  attention_requested       :boolean          default(FALSE)
+#  comments_allowed          :boolean          default(TRUE), not null
 #
 
 require 'digest/sha1'
@@ -31,7 +31,10 @@ class InfoRequest < ActiveRecord::Base
     strip_attributes!
 
     validates_presence_of :title, :message => N_("Please enter a summary of your request")
-    validates_format_of :title, :with => /[a-zA-Z]/, :message => N_("Please write a summary with some text in it"), :if => Proc.new { |info_request| !info_request.title.nil? && !info_request.title.empty? }
+    # TODO: When we no longer support Ruby 1.8, this can be done with /[[:alpha:]]/
+    validates_format_of :title, :with => /[ёЁа-яА-Яa-zA-Zà-üÀ-Ü]/iu,
+                                :message => N_("Please write a summary with some text in it"),
+                                :if => Proc.new { |info_request| !info_request.title.nil? && !info_request.title.empty? }
 
     belongs_to :user
     validate :must_be_internal_or_external
@@ -764,28 +767,30 @@ public
         self.info_request_events.create!(:event_type => type, :params => params)
     end
 
-    def response_events
-        self.info_request_events.select{|e| e.response?}
+    def public_response_events
+        self.info_request_events.select{|e| e.response? && e.incoming_message.all_can_view? }
     end
 
-    # The last response is the default one people might want to reply to
-    def get_last_response_event_id
-        get_last_response_event.id if get_last_response_event
-    end
-    def get_last_response_event
-        response_events.last
-    end
-    def get_last_response
-        get_last_response_event.incoming_message if get_last_response_event
+    # The last public response is the default one people might want to reply to
+    def get_last_public_response_event_id
+        get_last_public_response_event.id if get_last_public_response_event
     end
 
-    def outgoing_events
-        info_request_events.select{|e| e.outgoing? }
+    def get_last_public_response_event
+        public_response_events.last
     end
 
-    # The last outgoing message
-    def get_last_outgoing_event
-        outgoing_events.last
+    def get_last_public_response
+        get_last_public_response_event.incoming_message if get_last_public_response_event
+    end
+
+    def public_outgoing_events
+        info_request_events.select{|e| e.outgoing? && e.outgoing_message.all_can_view? }
+    end
+
+    # The last public outgoing message
+    def get_last_public_outgoing_event
+        public_outgoing_events.last
     end
 
     # Text from the the initial request, for use in summary display
@@ -834,6 +839,10 @@ public
         else
             return events[-1]
         end
+    end
+
+    def last_update_hash
+        Digest::SHA1.hexdigest(info_request_events.last.created_at.to_i.to_s + updated_at.to_i.to_s)
     end
 
     # Get previous email sent to
@@ -930,19 +939,29 @@ public
     end
 
     # Used to find when event last changed
-    def InfoRequest.last_event_time_clause(event_type=nil)
+    def InfoRequest.last_event_time_clause(event_type=nil, join_table=nil, join_clause=nil)
         event_type_clause = ''
         event_type_clause = " AND info_request_events.event_type = '#{event_type}'" if event_type
-        "(SELECT created_at
-          FROM info_request_events
+        tables = ['info_request_events']
+        tables << join_table if join_table
+        join_clause = "AND #{join_clause}" if join_clause
+        "(SELECT info_request_events.created_at
+          FROM #{tables.join(', ')}
           WHERE info_request_events.info_request_id = info_requests.id
           #{event_type_clause}
+          #{join_clause}
           ORDER BY created_at desc
           LIMIT 1)"
     end
 
+    def InfoRequest.last_public_response_clause()
+        join_clause = "incoming_messages.id = info_request_events.incoming_message_id
+                       AND incoming_messages.prominence = 'normal'"
+        last_event_time_clause('response', 'incoming_messages', join_clause)
+    end
+
     def InfoRequest.old_unclassified_params(extra_params, include_last_response_time=false)
-        last_response_created_at = last_event_time_clause('response')
+        last_response_created_at = last_public_response_clause()
         age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
         params = { :conditions => ["awaiting_description = ?
                                     AND #{last_response_created_at} < ?
@@ -995,9 +1014,39 @@ public
         find(:all, params)
     end
 
+    def InfoRequest.download_zip_dir()
+        File.join(Rails.root, "cache", "zips", "#{Rails.env}")
+    end
+
+    def request_dirs
+        first_three_digits = id.to_s()[0..2]
+        File.join(first_three_digits.to_s, id.to_s)
+    end
+
+    def download_zip_dir
+        File.join(InfoRequest.download_zip_dir, "download", request_dirs)
+    end
+
+    def make_zip_cache_path(user)
+        cache_file_dir = File.join(InfoRequest.download_zip_dir(),
+                                   "download",
+                                   request_dirs,
+                                   last_update_hash)
+        cache_file_suffix = if all_can_view_all_correspondence?
+                ""
+            elsif Ability.can_view_with_prominence?('hidden', self, user)
+                "_hidden"
+            elsif Ability.can_view_with_prominence?('requester_only', self, user)
+                "_requester_only"
+            else
+                ""
+            end
+        File.join(cache_file_dir, "#{url_title}#{cache_file_suffix}.zip")
+    end
+
     def is_old_unclassified?
-        !is_external? && awaiting_description && url_title != 'holding_pen' && get_last_response_event &&
-            Time.now > get_last_response_event.created_at + OLD_AGE_IN_DAYS
+        !is_external? && awaiting_description && url_title != 'holding_pen' && get_last_public_response_event &&
+            Time.now > get_last_public_response_event.created_at + OLD_AGE_IN_DAYS
     end
 
     # List of incoming messages to followup, by unique email
@@ -1009,6 +1058,8 @@ public
                 next
             end
             incoming_message.safe_mail_from
+
+            next if ! incoming_message.all_can_view?
 
             email = OutgoingMailer.email_for_followup(self, incoming_message)
             name = OutgoingMailer.name_for_followup(self, incoming_message)
@@ -1059,19 +1110,19 @@ public
     end
 
     def user_can_view?(user)
-        if self.prominence == 'hidden'
-            return User.view_hidden_requests?(user)
-        end
-        if self.prominence == 'requester_only'
-            return self.is_owning_user?(user)
-        end
-        return true
+        Ability.can_view_with_prominence?(self.prominence, self, user)
     end
 
     # Is this request visible to everyone?
     def all_can_view?
         return true if ['normal', 'backpage'].include?(self.prominence)
         return false
+    end
+
+    def all_can_view_all_correspondence?
+        all_can_view? &&
+            incoming_messages.all?{ |message| message.all_can_view? } &&
+            outgoing_messages.all?{ |message| message.all_can_view? }
     end
 
     def indexed_by_search?
@@ -1133,6 +1184,23 @@ public
             end
             req.save()
         end
+    end
+
+    after_save :update_counter_cache
+    after_destroy :update_counter_cache
+    def update_counter_cache
+        PublicBody.skip_callback(:save, :after, :purge_in_cache)
+        self.public_body.info_requests_not_held_count = InfoRequest.where(
+            :public_body_id => self.public_body.id,
+            :described_state => 'not_held').count
+        self.public_body.info_requests_successful_count = InfoRequest.where(
+            :public_body_id => self.public_body.id,
+            :described_state => ['successful', 'partially_successful']).count
+        self.public_body.without_revision do
+            public_body.no_xapian_reindex = true
+            public_body.save
+        end
+        PublicBody.set_callback(:save, :after, :purge_in_cache)
     end
 
     def for_admin_column

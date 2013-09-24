@@ -1,18 +1,17 @@
 # == Schema Information
-# Schema version: 114
 #
 # Table name: post_redirects
 #
-#  id                 :integer         not null, primary key
-#  token              :text            not null
-#  uri                :text            not null
+#  id                 :integer          not null, primary key
+#  token              :text             not null
+#  uri                :text             not null
 #  post_params_yaml   :text
-#  created_at         :datetime        not null
-#  updated_at         :datetime        not null
-#  email_token        :text            not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  email_token        :text             not null
 #  reason_params_yaml :text
 #  user_id            :integer
-#  circumstance       :text            default("normal"), not null
+#  circumstance       :text             default("normal"), not null
 #
 
 # models/post_redirect.rb:

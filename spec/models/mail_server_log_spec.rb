@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: mail_server_logs
+#
+#  id                      :integer          not null, primary key
+#  mail_server_log_done_id :integer
+#  info_request_id         :integer
+#  order                   :integer          not null
+#  line                    :text             not null
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe MailServerLog do

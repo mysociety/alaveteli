@@ -25,7 +25,7 @@
 <div id="left_column">
     <h1><%=h(@info_request.title)%></h1>
 
-    <% if !@info_request.is_external? && @info_request.user.profile_photo %>
+    <% if !@info_request.is_external? && @info_request.user.profile_photo && !@render_to_file %>
         <p class="user_photo_on_request">
             <img src="<%= get_profile_photo_url(:url_name => @info_request.user.url_name) %>" alt="">
         </p>
@@ -48,7 +48,7 @@
 
     <p id="request_status" class="request_icon_line icon_<%= @info_request.calculate_status %>">
     <% if @info_request.awaiting_description %>
-        <% if @is_owning_user && !@info_request.is_external? %>
+        <% if @is_owning_user && !@info_request.is_external? && !@render_to_file %>
             <%= _('Please <strong>answer the question above</strong> so we know whether the ')%>
             <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'recent response contains', 'recent responses contain') %> <%= _('useful information.') %>
         <% else %>
@@ -146,4 +146,4 @@
     <%= render :partial => 'after_actions' %>
 </div>
 
-<%= render :partial => 'sidebar' %>
+<%- if @sidebar %><%= render :partial => 'sidebar' %><% end %>

@@ -108,7 +108,7 @@ ACCELERATOR_PORT: '6081'
 # mySociety's gazeteer service.  Shouldn't change.
 GAZE_URL: http://gaze.mysociety.org
 
-# Path to a program that converts a page at a URL to HTML.  It should
+# Path to a program that converts a page in a file to PDF.  It should
 # take two arguments: the URL, and a path to an output file.  A static
 # binary of wkhtmltopdf is recommended:
 # http://code.google.com/p/wkhtmltopdf/downloads/list

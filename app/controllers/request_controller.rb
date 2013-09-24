@@ -63,26 +63,24 @@ class RequestController < ApplicationController
 
             # Look up by new style text names
             @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-            set_last_request(@info_request)
 
             # Test for whole request being hidden
             if !@info_request.user_can_view?(authenticated_user)
                 return render_hidden
             end
 
-            # Other parameters
-            @info_request_events = @info_request.info_request_events
-            @status = @info_request.calculate_status
-            @collapse_quotes = params[:unfold] ? false : true
+            set_last_request(@info_request)
 
+            # assign variables from request parameters
+            @collapse_quotes = params[:unfold] ? false : true
             # Don't allow status update on external requests, otherwise accept param
             if @info_request.is_external?
                 @update_status = false
             else
                 @update_status = params[:update_status] ? true : false
             end
-            @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
-            @is_owning_user = @info_request.is_owning_user?(authenticated_user)
+
+            assign_variables_for_show_template(@info_request)
 
             if @update_status
                 return if !@is_owning_user && !authenticated_as_user?(@info_request.user,
@@ -92,11 +90,8 @@ class RequestController < ApplicationController
                     )
             end
 
-
-            @last_info_request_event_id = @info_request.last_event_id_needing_description
-            @new_responses_count = @info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
-
             # Sidebar stuff
+            @sidebar = true
             # ... requests that have similar imporant terms
             begin
                 limit = 10
@@ -106,13 +101,11 @@ class RequestController < ApplicationController
             rescue
                 @xapian_similar = nil
             end
-
             # Track corresponding to this page
             @track_thing = TrackThing.create_track_for_request(@info_request)
             @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
-            # For send followup link at bottom
-            @last_response = @info_request.get_last_response
+
             respond_to do |format|
                 format.html { @has_json = true; render :template => 'request/show'}
                 format.json { render :json => @info_request.json_for_api(true) }
@@ -304,7 +297,7 @@ class RequestController < ApplicationController
             # We don't want the error "Outgoing messages is invalid", as in this
             # case the list of errors will also contain a more specific error
             # describing the reason it is invalid.
-            @info_request.errors.delete("outgoing_messages")
+            @info_request.errors.delete(:outgoing_messages)
 
             render :action => 'new'
             return
@@ -683,9 +676,13 @@ class RequestController < ApplicationController
             @info_request = incoming_message.info_request # used by view
             return render_hidden
         end
+        if !incoming_message.user_can_view?(authenticated_user)
+            @incoming_message = incoming_message # used by view
+            return render_hidden_message
+        end
         # Is this a completely public request that we can cache attachments for
         # to be served up without authentication?
-        if incoming_message.info_request.all_can_view?
+        if incoming_message.info_request.all_can_view? && incoming_message.all_can_view?
             @files_can_be_cached = true
         end
     end
@@ -871,10 +868,6 @@ class RequestController < ApplicationController
         @locale = self.locale_from_params()
         I18n.with_locale(@locale) do
             @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-            # Test for whole request being hidden or requester-only
-            if !@info_request.all_can_view?
-                return render_hidden
-            end
             if authenticated?(
                               :web => _("To download the zip file"),
                               :email => _("Then you can download a zip file of {{info_request_title}}.",
@@ -882,54 +875,17 @@ class RequestController < ApplicationController
                               :email_subject => _("Log in to download a zip file of {{info_request_title}}",
                                            :info_request_title=>@info_request.title)
                               )
-                updated = Digest::SHA1.hexdigest(@info_request.info_request_events.last.created_at.to_i.to_s + @info_request.updated_at.to_i.to_s)
-                @url_path = File.join("/download",
-                                       request_dirs(@info_request),
-                                       updated,
-                                       "#{params[:url_title]}.zip")
-                file_path = File.expand_path(File.join(download_zip_dir(), @url_path))
-                if !File.exists?(file_path)
-                    FileUtils.mkdir_p(File.dirname(file_path))
-                    Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) { |zipfile|
-                        convert_command = AlaveteliConfiguration::html_to_pdf_command
-                        done = false
-                        if !convert_command.blank? && File.exists?(convert_command)
-                            url = "http://#{AlaveteliConfiguration::domain}#{request_path(@info_request)}?print_stylesheet=1"
-                            tempfile = Tempfile.new('foihtml2pdf')
-                            output = AlaveteliExternalCommand.run(convert_command, url, tempfile.path)
-                            if !output.nil?
-                                zipfile.get_output_stream("correspondence.pdf") { |f|
-                                    f.puts(File.open(tempfile.path).read)
-                                }
-                                done = true
-                            else
-                                logger.error("Could not convert info request #{@info_request.id} to PDF with command '#{convert_command} #{url} #{tempfile.path}'")
-                            end
-                            tempfile.close
-                        else
-                            logger.warn("No HTML -> PDF converter found at #{convert_command}")
-                        end
-                        if !done
-                            @info_request_events = @info_request.info_request_events
-                            template = File.read(File.join(File.dirname(__FILE__), "..", "views", "request", "simple_correspondence.html.erb"))
-                            output = ERB.new(template).result(binding)
-                            zipfile.get_output_stream("correspondence.txt") { |f|
-                                f.puts(output)
-                            }
-                        end
-                        for message in @info_request.incoming_messages
-                            attachments = message.get_attachments_for_display
-                            for attachment in attachments
-                                filename = "#{attachment.url_part_number}_#{attachment.display_filename}"
-                                zipfile.get_output_stream(filename) { |f|
-                                    f.puts(attachment.body)
-                                }
-                            end
-                        end
-                    }
-                    File.chmod(0644, file_path)
+                # Test for whole request being hidden or requester-only
+                if !@info_request.user_can_view?(@user)
+                    return render_hidden
                 end
-                redirect_to @url_path
+                cache_file_path = @info_request.make_zip_cache_path(@user)
+                if !File.exists?(cache_file_path)
+                    FileUtils.mkdir_p(File.dirname(cache_file_path))
+                    make_request_zip(@info_request, cache_file_path)
+                    File.chmod(0644, cache_file_path)
+                end
+                send_file(cache_file_path, :filename => "#{@info_request.url_title}.zip")
             end
         end
     end
@@ -938,11 +894,81 @@ class RequestController < ApplicationController
 
     def render_hidden
         respond_to do |format|
-            response_code = 410 # gone
+            response_code = 403 # forbidden
             format.html{ render :template => 'request/hidden', :status => response_code }
             format.any{ render :nothing => true, :status => response_code }
         end
         false
+    end
+
+    def render_hidden_message
+        respond_to do |format|
+            response_code = 403 # forbidden
+            format.html{ render :template => 'request/hidden_correspondence', :status => response_code }
+            format.any{ render :nothing => true, :status => response_code }
+        end
+        false
+    end
+
+    def assign_variables_for_show_template(info_request)
+        @info_request = info_request
+        @info_request_events = info_request.info_request_events
+        @status = info_request.calculate_status
+        @old_unclassified = info_request.is_old_unclassified? && !authenticated_user.nil?
+        @is_owning_user = info_request.is_owning_user?(authenticated_user)
+        @last_info_request_event_id = info_request.last_event_id_needing_description
+        @new_responses_count = info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
+        # For send followup link at bottom
+        @last_response = info_request.get_last_public_response
+    end
+
+    def make_request_zip(info_request, file_path)
+        Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) do |zipfile|
+            file_info = make_request_summary_file(info_request)
+            zipfile.get_output_stream(file_info[:filename]) { |f| f.puts(file_info[:data]) }
+            message_index = 0
+            info_request.incoming_messages.each do |message|
+                next unless message.user_can_view?(authenticated_user)
+                message_index += 1
+                message.get_attachments_for_display.each do |attachment|
+                    filename = "#{message_index}_#{attachment.url_part_number}_#{attachment.display_filename}"
+                    zipfile.get_output_stream(filename) { |f| f.puts(attachment.body) }
+                end
+            end
+        end
+    end
+
+    def make_request_summary_file(info_request)
+        done = false
+        convert_command = AlaveteliConfiguration::html_to_pdf_command
+        assign_variables_for_show_template(info_request)
+        if !convert_command.blank? && File.exists?(convert_command)
+            @render_to_file = true
+            html_output = render_to_string(:template => 'request/show')
+            tmp_input = Tempfile.new(['foihtml2pdf-input', '.html'])
+            tmp_input.write(html_output)
+            tmp_input.close
+            tmp_output = Tempfile.new('foihtml2pdf-output')
+            output = AlaveteliExternalCommand.run(convert_command, tmp_input.path, tmp_output.path)
+            if !output.nil?
+                file_info = { :filename => 'correspondence.pdf',
+                              :data => File.open(tmp_output.path).read }
+                done = true
+            else
+                logger.error("Could not convert info request #{info_request.id} to PDF with command '#{convert_command} #{tmp_input.path} #{tmp_output.path}'")
+            end
+            tmp_output.close
+            tmp_input.delete
+            tmp_output.delete
+        else
+            logger.warn("No HTML -> PDF converter found at #{convert_command}")
+        end
+        if !done
+            file_info = { :filename => 'correspondence.txt',
+                          :data => render_to_string(:template => 'request/show.text',
+                                                    :layout => false) }
+        end
+        file_info
     end
 
 end

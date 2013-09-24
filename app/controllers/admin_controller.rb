@@ -17,7 +17,7 @@ class AdminController < ApplicationController
     end
 
     # Always give full stack trace for admin interface
-    def local_request?
+    def show_rails_exceptions?
         true
     end
 
@@ -29,8 +29,7 @@ class AdminController < ApplicationController
         FileUtils.rm_rf(cache_subpath)
 
         # Remove any download zips
-        download_dir = request_download_zip_dir(info_request)
-        FileUtils.rm_rf(download_dir)
+        FileUtils.rm_rf(info_request.download_zip_dir)
 
         # Remove the database caches of body / attachment text (the attachment text
         # one is after privacy rules are applied)

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
 describe RequestController, "when classifying an information request" do
 
@@ -16,26 +17,22 @@ describe RequestController, "when classifying an information request" do
         describe 'when logged in as the requestor' do
 
             before :each do
-                @request_owner = @dog_request.user
-                visit signin_path
-                fill_in "Your e-mail:", :with => @request_owner.email
-                fill_in "Password:", :with => "jonespassword"
-                click_button "Sign in"
+                @bob = login(:bob_smith_user)
             end
 
             it "should send an email including the message" do
-                visit describe_state_message_path(:url_title => @dog_request.url_title,
+                @bob.visit describe_state_message_path(:url_title => @dog_request.url_title,
                     :described_state => "requires_admin")
-                fill_in "Please tell us more:", :with => "Okay. I don't quite understand."
-                click_button "Submit status and send message"
+                @bob.fill_in "Please tell us more:", :with => "Okay. I don't quite understand."
+                @bob.click_button "Submit status and send message"
 
-                response.should contain "Thank you! We'll look into what happened and try and fix it up."
+                @bob.response.should contain "Thank you! We'll look into what happened and try and fix it up."
 
                 deliveries = ActionMailer::Base.deliveries
                 deliveries.size.should == 1
                 mail = deliveries[0]
                 mail.body.should =~ /as needing admin/
-                mail.body.should =~ /Okay. I don't quite understand./                
+                mail.body.should =~ /Okay. I don't quite understand./
             end
         end
     end

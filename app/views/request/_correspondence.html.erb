@@ -1,80 +1,12 @@
 <div class="ff-print-fix"></div>
-<%
-if !info_request_event.nil? && info_request_event.event_type == 'response'
-    incoming_message = info_request_event.incoming_message
-end
-
-if not incoming_message.nil?
-%>
-    <div class="incoming correspondence" id="incoming-<%=incoming_message.id.to_s%>">
-        <h2>
-            <% if !incoming_message.safe_mail_from.nil? && incoming_message.safe_mail_from.strip != @info_request.public_body.name.strip %>
-                <%= _("From:") %> <%=h incoming_message.safe_mail_from %><br>
-            <% end %>
-            <% if incoming_message.safe_mail_from.nil? || (incoming_message.mail_from_domain == @info_request.public_body.request_email_domain) %>
-                <%=h @info_request.public_body.name %><br>
-            <% end %>
-            <br><%= simple_date(incoming_message.sent_at) %>
-        </h2>
-
-        <%= render :partial => 'bubble', :locals => { :incoming_message => incoming_message, :body => incoming_message.get_body_for_html_display(@collapse_quotes), :attachments => incoming_message.get_attachments_for_display }  %>
-
-        <p class="event_actions">
-            <% if !@user.nil? && @user.admin_page_links? %>
-                <%= link_to "Admin", admin_request_show_raw_email_path(incoming_message.raw_email_id) %> |
-            <% end %>
-            <%= link_to _("Link to this"), incoming_message_path(incoming_message), :class => "link_to_this" %>
-        </p>
-    </div>
-<%
-elsif [ 'sent', 'followup_sent' ].include?(info_request_event.event_type)
-    outgoing_message = info_request_event.outgoing_message
-    %>
-    <div class="outgoing correspondence" id="outgoing-<%=outgoing_message.id.to_s%>">
-
-        <h2>
-        <%= _("From:") %> <%=h @info_request.user_name %><br>
-        <br><%= simple_date(info_request_event.created_at) %>
-        </h2>
-
-        <%= render :partial => 'bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
-
-        <p class="event_actions">
-            <% if outgoing_message.status == 'ready' && !@info_request.is_external? %>
-                 <strong>Warning:</strong> This message has <strong>not yet been sent</strong> for an unknown reason.
-            <% end %>
-
-            <!-- Can use this to get name of who followup was too, if say you
-                 play with proper from display, but not sure needed
-            <% if outgoing_message.message_type == 'followup' && !outgoing_message.incoming_message_followup.nil? && !outgoing_message.incoming_message_followup.safe_mail_from.nil? %>
-                Follow up sent to: <%=h outgoing_message.incoming_message_followup.safe_mail_from %>
-            <% end %>
-            -->
-
-            <%= link_to _("Link to this"), outgoing_message_path(outgoing_message), :class => "link_to_this" %>
-        </p>
-    </div>
-<% elsif [ 'resent', 'followup_resent' ].include?(info_request_event.event_type) %>
-    <div class="outgoing correspondence" id="outgoing-<%=info_request_event.outgoing_message.id.to_s%>">
-        <h2>
-            <%= simple_date(info_request_event.created_at) %>
-        </h2>
-        <p class="event_plain">
-            Sent
-            <% if info_request_event.outgoing_message.message_type == 'initial_request' %>
-                request
-            <% elsif info_request_event.outgoing_message.message_type == 'followup' %>
-                a follow up
-            <% else %>
-                <% raise "unknown message_type" %>
-            <% end %>
-
-            to <%= public_body_link(@info_request.public_body) %> again<% if not info_request_event.same_email_as_previous_send? %>, using a new contact address<% end %>.
-         </p>
-    </div>
-<% elsif info_request_event.event_type == 'comment'
-    comment = info_request_event.comment
-%>
-    <%= render :partial => 'comment/single_comment', :locals => { :comment => comment } %>
+<% case info_request_event.event_type %>
+<% when 'response' %>
+  <%= render :partial => 'request/incoming_correspondence', :locals => { :incoming_message => info_request_event.incoming_message } %>
+<% when 'sent', 'followup_sent' %>
+  <%= render :partial => 'request/outgoing_correspondence', :locals => { :outgoing_message => info_request_event.outgoing_message, :info_request_event => info_request_event }%>
+<% when 'resent', 'followup_resent' %>
+  <%= render :partial => 'request/resent_outgoing_correspondence', :locals => { :outgoing_message => info_request_event.outgoing_message, :info_request_event => info_request_event }%>
+<% when 'comment' %>
+  <%= render :partial => 'comment/single_comment', :locals => { :comment => info_request_event.comment } %>
 <% end %>
 
