@@ -185,8 +185,10 @@ class RequestController < ApplicationController
 
     def new_batch
         @batch = true
-        @info_request = InfoRequest.new
-        render :action => 'new'
+        if params[:submitted_new_request].nil? || params[:reedit]
+            return render_new_compose(batch=true)
+        end
+
     end
 
     # Page new form posts to
@@ -233,55 +235,7 @@ class RequestController < ApplicationController
                 render :template => 'user/rate_limited'
                 return
             end
-
-            params[:info_request] = { } if !params[:info_request]
-
-            # Read parameters in - first the public body (by URL name or id)
-            if params[:url_name]
-                if params[:url_name].match(/^[0-9]+$/)
-                    params[:info_request][:public_body] = PublicBody.find(params[:url_name])
-                else
-                    public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-                    raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # XXX proper 404
-                    params[:info_request][:public_body] = public_body
-                end
-            elsif params[:public_body_id]
-                params[:info_request][:public_body] = PublicBody.find(params[:public_body_id])
-            # Explicitly load the association as this isn't done automatically in newer Rails versions
-            elsif params[:info_request][:public_body_id]
-                params[:info_request][:public_body] = PublicBody.find(params[:info_request][:public_body_id])
-            end
-            if !params[:info_request][:public_body]
-                # compulsory to have a body by here, or go to front page which is start of process
-                redirect_to frontpage_url
-                return
-            end
-
-            # ... next any tags or other things
-            params[:info_request][:title] = params[:title] if params[:title]
-            params[:info_request][:tag_string] = params[:tags] if params[:tags]
-
-            @info_request = InfoRequest.new(params[:info_request])
-            params[:info_request_id] = @info_request.id
-            params[:outgoing_message] = {} if !params[:outgoing_message]
-            params[:outgoing_message][:body] = params[:body] if params[:body]
-            params[:outgoing_message][:default_letter] = params[:default_letter] if params[:default_letter]
-            params[:outgoing_message][:info_request] = @info_request
-            @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
-            @outgoing_message.set_signature_name(@user.name) if !@user.nil?
-
-            if @info_request.public_body.is_requestable?
-                render :action => 'new'
-            else
-                if @info_request.public_body.not_requestable_reason == 'bad_contact'
-                    render :action => 'new_bad_contact'
-                else
-                    # if not requestable because defunct or not_apply, redirect to main page
-                    # (which doesn't link to the /new/ URL)
-                    redirect_to public_body_url(@info_request.public_body)
-                end
-            end
-            return
+            return render_new_compose(batch=false)
         end
 
         # See if the exact same request has already been submitted
@@ -995,6 +949,68 @@ class RequestController < ApplicationController
         if !@user.can_make_batch_requests?
              return render_hidden('request/batch_not_allowed')
         end
+    end
+
+    def render_new_compose(batch)
+
+        params[:info_request] = { } if !params[:info_request]
+
+        # Read parameters in
+        unless batch
+            # first the public body (by URL name or id)
+            if params[:url_name]
+                if params[:url_name].match(/^[0-9]+$/)
+                    params[:info_request][:public_body] = PublicBody.find(params[:url_name])
+                else
+                    public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
+                    raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # XXX proper 404
+                    params[:info_request][:public_body] = public_body
+                end
+            elsif params[:public_body_id]
+                params[:info_request][:public_body] = PublicBody.find(params[:public_body_id])
+            # Explicitly load the association as this isn't done automatically in newer Rails versions
+            elsif params[:info_request][:public_body_id]
+                params[:info_request][:public_body] = PublicBody.find(params[:info_request][:public_body_id])
+            end
+            if !params[:info_request][:public_body]
+                # compulsory to have a body by here, or go to front page which is start of process
+                redirect_to frontpage_url
+                return
+            end
+        end
+
+        # ... next any tags or other things
+        params[:info_request][:title] = params[:title] if params[:title]
+        params[:info_request][:tag_string] = params[:tags] if params[:tags]
+
+        @info_request = InfoRequest.new(params[:info_request])
+        if batch
+            @info_request.is_batch_request_template = true
+        end
+        params[:info_request_id] = @info_request.id
+        params[:outgoing_message] = {} if !params[:outgoing_message]
+        params[:outgoing_message][:body] = params[:body] if params[:body]
+        params[:outgoing_message][:default_letter] = params[:default_letter] if params[:default_letter]
+        params[:outgoing_message][:info_request] = @info_request
+        @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
+        @outgoing_message.set_signature_name(@user.name) if !@user.nil?
+
+        if batch
+            render :action => 'new'
+        else
+            if @info_request.public_body.is_requestable?
+                render :action => 'new'
+            else
+                if @info_request.public_body.not_requestable_reason == 'bad_contact'
+                    render :action => 'new_bad_contact'
+                else
+                    # if not requestable because defunct or not_apply, redirect to main page
+                    # (which doesn't link to the /new/ URL)
+                    redirect_to public_body_url(@info_request.public_body)
+                end
+            end
+        end
+        return
     end
 
 end
