@@ -1079,7 +1079,10 @@ public
 
     # Get the list of censor rules that apply to this request
     def applicable_censor_rules
-        applicable_rules = [self.censor_rules, self.public_body.censor_rules, CensorRule.global.all]
+        applicable_rules = [self.censor_rules, CensorRule.global.all]
+        unless is_batch_request_template?
+            applicable_rules << self.public_body.censor_rules
+        end
         if self.user && !self.user.censor_rules.empty?
             applicable_rules << self.user.censor_rules
         end

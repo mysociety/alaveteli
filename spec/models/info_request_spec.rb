@@ -613,6 +613,12 @@ describe InfoRequest do
                 @info_request.apply_censor_rules_to_text!(@text)
             end
 
+            it 'should not raise an error if the request is a batch request template' do
+                @info_request.stub!(:public_body).and_return(nil)
+                @info_request.is_batch_request_template = true
+                lambda{ @info_request.apply_censor_rules_to_text!(@text) }.should_not raise_error
+            end
+
         end
 
         context 'when applying censor rules to binary files' do
