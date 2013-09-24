@@ -184,10 +184,50 @@ class RequestController < ApplicationController
     end
 
     def new_batch
+
+        # TODO: Check that have at least one public body in public_bodies param
+
+        # TODO: Pass public bodies list through new and preview template forms
+
+        # TODO: I don't think batch requesters should be subject to rate limits,
+        # but I do think we should probably check for double submission of batch
+        # requests as we do in 'new' for ordinary requests with find_by_existing_request
+
+        # TODO: Decide if we make batch requesters describe their undescribed requests
+        # before being able to make a new batch request
+
+        # TODO: Add logic for checking if the user is banned
+
         @batch = true
         if params[:submitted_new_request].nil? || params[:reedit]
             return render_new_compose(batch=true)
         end
+
+        @info_request = InfoRequest.new(params[:info_request])
+        @info_request.is_batch_request_template = true
+        @outgoing_message = OutgoingMessage.new(params[:outgoing_message].merge({
+            :status => 'ready',
+            :message_type => 'initial_request',
+            :what_doing => 'normal_sort'
+        }))
+        @info_request.outgoing_messages << @outgoing_message
+        @outgoing_message.info_request = @info_request
+        @info_request.user = authenticated_user
+        if !@info_request.valid?
+            # TODO: add in code from 'new' for removing spurious extra
+            # "Outgoing messages is invalid" message - move to model?
+            render :action => 'new'
+            return
+        end
+
+        # Show preview page, if it is a preview
+        if params[:preview].to_i == 1
+            return render_new_preview
+        end
+
+        # TODO: create info requests and associated outgoing messages from this
+        # template request, and send those that can be sent, giving messages about bodies
+        # that are no longer requestable
 
     end
 
@@ -272,24 +312,7 @@ class RequestController < ApplicationController
 
         # Show preview page, if it is a preview
         if params[:preview].to_i == 1
-            message = ""
-            if @outgoing_message.contains_email?
-                if @user.nil?
-                    message += _("<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>", :url => (help_privacy_path+"#email_address").html_safe);
-                else
-                    message += _("<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>", :url => (help_privacy_path+"#email_address").html_safe);
-                end
-                message += _("<p>We recommend that you edit your request and remove the email address.
-                If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>")
-            end
-            if @outgoing_message.contains_postcode?
-                message += _("<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>");
-            end
-            if not message.empty?
-                flash.now[:error] = message.html_safe
-            end
-            render :action => 'preview'
-            return
+            return render_new_preview
         end
 
         if user_exceeded_limit
@@ -1013,5 +1036,24 @@ class RequestController < ApplicationController
         return
     end
 
+    def render_new_preview
+        message = ""
+        if @outgoing_message.contains_email?
+            if @user.nil?
+                message += _("<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>", :url => (help_privacy_path+"#email_address").html_safe);
+            else
+                message += _("<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>", :url => (help_privacy_path+"#email_address").html_safe);
+            end
+            message += _("<p>We recommend that you edit your request and remove the email address.
+            If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>")
+        end
+        if @outgoing_message.contains_postcode?
+            message += _("<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>");
+        end
+        if not message.empty?
+            flash.now[:error] = message.html_safe
+        end
+        render :action => 'preview'
+    end
 end
 
