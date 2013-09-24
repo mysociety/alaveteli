@@ -57,7 +57,8 @@ describe OutgoingMessage, " when making an outgoing message" do
         info_request = mock_model(InfoRequest, :public_body => public_body,
                                                :url_title => 'a_test_title',
                                                :title => 'A test title',
-                                               :apply_censor_rules_to_text! => nil)
+                                               :apply_censor_rules_to_text! => nil,
+                                               :is_batch_request_template? => false)
         outgoing_message = OutgoingMessage.new({
             :status => 'ready',
             :message_type => 'followup',
@@ -67,6 +68,15 @@ describe OutgoingMessage, " when making an outgoing message" do
         expected_text = "I am writing to request an internal review of A test public body's handling of my FOI request 'A test title'."
         outgoing_message.body.should include(expected_text)
     end
+
+    context "when associated with a batch template request" do
+
+        it 'should produce a salutation with a placeholder' do
+            @om.info_request.is_batch_request_template = true
+            @om.get_salutation.should == 'Dear [Authority name],'
+        end
+    end
+
 
     describe 'when asked if a user can view it' do
 
@@ -166,7 +176,7 @@ describe OutgoingMessage, " when censoring data" do
     end
 end
 
-describe OutgoingMessage, "when validating the format of the message body", :focus => true do
+describe OutgoingMessage, "when validating the format of the message body" do
 
     it 'should handle a salutation with a bracket in it' do
         outgoing_message = FactoryGirl.build(:initial_request)

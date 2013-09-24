@@ -71,7 +71,11 @@ class OutgoingMessage < ActiveRecord::Base
         if self.message_type == 'followup' && !self.incoming_message_followup.nil? && !self.incoming_message_followup.safe_mail_from.nil? && self.incoming_message_followup.valid_to_reply_to?
             ret = ret + OutgoingMailer.name_for_followup(self.info_request, self.incoming_message_followup)
         else
-            ret = ret + self.info_request.public_body.name
+            if self.info_request.is_batch_request_template?
+                ret = ret + _("[Authority name]")
+            else
+                ret = ret + self.info_request.public_body.name
+            end
         end
         salutation = _("Dear {{public_body_name}},", :public_body_name => ret)
     end
