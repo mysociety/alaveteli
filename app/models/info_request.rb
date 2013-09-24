@@ -40,7 +40,7 @@ class InfoRequest < ActiveRecord::Base
     validate :must_be_internal_or_external
 
     belongs_to :public_body, :counter_cache => true
-    validates_presence_of :public_body_id
+    validates_presence_of :public_body_id, :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
     has_many :outgoing_messages, :order => 'created_at'
     has_many :incoming_messages, :order => 'created_at'
@@ -50,6 +50,7 @@ class InfoRequest < ActiveRecord::Base
     has_many :comments, :order => 'created_at'
     has_many :censor_rules, :order => 'created_at desc'
     has_many :mail_server_logs, :order => 'mail_server_log_done_id'
+    attr_accessor :is_batch_request_template
 
     has_tag_string
 
@@ -120,6 +121,10 @@ class InfoRequest < ActiveRecord::Base
     def must_be_valid_state
         errors.add(:described_state, "is not a valid state") if
             !InfoRequest.enumerate_states.include? described_state
+    end
+
+    def is_batch_request_template?
+        is_batch_request_template == true
     end
 
     # The request must either be internal, in which case it has
