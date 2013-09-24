@@ -883,6 +883,7 @@ class RequestController < ApplicationController
                 if !File.exists?(cache_file_path)
                     FileUtils.mkdir_p(File.dirname(cache_file_path))
                     make_request_zip(@info_request, cache_file_path)
+                    File.chmod(0644, cache_file_path)
                 end
                 send_file(cache_file_path, :filename => "#{@info_request.url_title}.zip")
             end
