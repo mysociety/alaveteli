@@ -9,27 +9,31 @@ namespace :gettext do
     end
   end
 
-  desc "Update pot file only, without fuzzy guesses (these are done by Transifex)"
-  task :findpot => :environment do
-    load_gettext
-    $LOAD_PATH << File.join(File.dirname(__FILE__),'..','..','lib')
-    require 'gettext_i18n_rails/haml_parser'
-    files = files_to_translate
-
-    #write found messages to tmp.pot
-    temp_pot = "tmp.pot"
-    GetText::rgettext(files, temp_pot)
-
-    #merge tmp.pot and existing pot
-    FileUtils.mkdir_p('locale')
-    GetText::msgmerge("locale/app.pot", temp_pot, "alaveteli",  :po_root => 'locale', :msgmerge=>[ :no_wrap, :sort_output ])
-    Dir.glob("locale/*/app.po") do |po_file|
-      GetText::msgmerge(po_file, temp_pot, "alaveteli", :po_root => 'locale', :msgmerge=>[ :no_wrap, :sort_output ])
+  desc "Update pot/po files for a theme."
+  task :find_theme => :environment do
+    theme = ENV['THEME']
+    unless theme
+        puts "Usage: Specify an Alaveteli-theme with THEME=[theme directory name]"
+        exit(0)
     end
-    File.delete(temp_pot)
-  end
+    load_gettext
+    msgmerge = Rails.application.config.gettext_i18n_rails.msgmerge
+    msgmerge ||= %w[--sort-output --no-location --no-wrap]
+    GetText.update_pofiles_org(
+      text_domain,
+      theme_files_to_translate(theme),
+      "version 0.0.1",
+      :po_root => theme_locale_path(theme),
+      :msgmerge => msgmerge
+     )
+   end
 
-  def files_to_translate
-    Dir.glob("{app,lib,config,locale}/**/*.{rb,erb,haml,rhtml}")
-  end
+   def theme_files_to_translate(theme)
+       Dir.glob("{vendor/plugins/#{theme}/lib}/**/*.{rb,erb}")
+   end
+
+   def theme_locale_path(theme)
+     File.join(Rails.root, "vendor", "plugins", theme, "locale-theme")
+   end
+
 end

@@ -233,7 +233,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#outgoing_<%=outgoing_message.id%>" data-toggle="collapse" data-parent="#outgoing_messages"><%= chevron_right %></a>
-        <%= link_to admin_request_edit_outgoing_path(outgoing_message) do %>
+        <%= link_to admin_outgoing_edit_path(outgoing_message) do %>
           #<%= outgoing_message.id %> -- <%= outgoing_message.status.humanize %> <%= outgoing_message.message_type.humanize %>
         <% end %>
         <blockquote>
@@ -275,11 +275,16 @@
 <hr>
 <h2>Incoming messages</h2>
 <div class="accordion" id="incoming_messages">
-  <% for incoming_message in @info_request.incoming_messages.find(:all, :order => 'created_at') %>
+  <% for incoming_message in @info_request.incoming_messages %>
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#incoming_<%=incoming_message.id%>" data-toggle="collapse" data-parent="#incoming_messages"><%= chevron_right %></a>
-        <%=incoming_message.id%> -- <%= h(incoming_message.mail_from) %> <%=_("at")%> <%=admin_value(incoming_message.sent_at)%>
+        <%= link_to admin_incoming_edit_path(incoming_message) do %>
+          <%=incoming_message.id%>
+          --
+          <%= h(incoming_message.mail_from) %>
+          <%=_("at")%> <%=admin_value(incoming_message.sent_at)%>
+        <% end %>
         <blockquote class="incoming-message">
           <% if !incoming_message.cached_main_body_text_folded.nil? %>
             <%= truncate(incoming_message.cached_main_body_text_folded.gsub('FOLDED_QUOTED_SECTION', ''), :length => 400) %>

@@ -64,7 +64,7 @@ add custom help pages, as described below.
 # Branding the site
 
 The core templates that comprise the layout and user interface of an
-Alaveteli site live in `app/views/`.  They are use Rails' ERB syntax.
+Alaveteli site live in `app/views/`.  They use Rails' ERB syntax.
 For example, the template for the home page lives at
 `app/views/general/frontpage.html.erb`, and the template for the "about
 us" page is at `app/views/help/about.html.erb`.

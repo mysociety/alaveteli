@@ -91,4 +91,30 @@ namespace :stats do
     end
   end
 
+  desc 'Update statistics in the public_bodies table'
+  task :update_public_bodies_stats => :environment do
+    verbose = ENV['VERBOSE'] == '1'
+    PublicBody.all.each do |public_body|
+      puts "Counting overdue requests for #{public_body.name}" if verbose
+
+      # Look for values of 'waiting_response_overdue' and
+      # 'waiting_response_very_overdue' which aren't directly in the
+      # described_state column, and instead need to be calculated:
+      overdue_count = 0
+      very_overdue_count = 0
+      InfoRequest.find_each(:conditions => {:public_body_id => public_body.id}) do |ir|
+        case ir.calculate_status
+        when 'waiting_response_very_overdue'
+          very_overdue_count += 1
+        when 'waiting_response_overdue'
+          overdue_count += 1
+        end
+      end
+      public_body.info_requests_overdue_count = overdue_count + very_overdue_count
+      public_body.no_xapian_reindex = true
+      public_body.without_revision do
+          public_body.save!
+      end
+    end
+  end
 end

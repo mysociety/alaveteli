@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: holidays
+#
+#  id          :integer          not null, primary key
+#  day         :date
+#  description :text
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Holiday, " when calculating due date" do

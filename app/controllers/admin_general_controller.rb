@@ -5,7 +5,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminGeneralController < AdminController
-    skip_before_filter :authenticate, :only => :admin_js
 
     def index
         # ensure we have a trailing slash
@@ -142,9 +141,5 @@ class AdminGeneralController < AdminController
         @request_env = request.env
     end
 
-    # TODO: Remove this when support for proxy admin interface is removed
-    def admin_js
-      render :layout => false, :content_type => "application/javascript"
-    end
 end
 

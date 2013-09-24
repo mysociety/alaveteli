@@ -105,6 +105,7 @@ Alaveteli::Application.routes.draw do
     match '/body/:url_name/view_email' => 'public_body#view_email', :as => :view_public_body_email
     match '/body/:url_name/:tag' => 'public_body#show', :as => :show_public_body_tag
     match '/body/:url_name/:tag/:view' => 'public_body#show', :as => :show_public_body_tag_view
+    match '/body_statistics' => 'public_body#statistics', :as => :public_bodies_statistics
     ####
 
     #### Comment controller
@@ -176,7 +177,6 @@ Alaveteli::Application.routes.draw do
     match '/admin/timeline' => 'admin_general#timeline', :as => :admin_timeline
     match '/admin/debug' => 'admin_general#debug', :as => :admin_debug
     match '/admin/stats' => 'admin_general#stats', :as => :admin_stats
-    match '/admin/javascripts/admin.js' => 'admin_general#admin_js', :as => :admin_js
     ####
 
     #### AdminRequest controller
@@ -187,19 +187,27 @@ Alaveteli::Application.routes.draw do
     match '/admin/request/edit/:id' => 'admin_request#edit', :as => :admin_request_edit
     match '/admin/request/update/:id' => 'admin_request#update', :as => :admin_request_update
     match '/admin/request/destroy/:id' => 'admin_request#fully_destroy', :as => :admin_request_destroy
-    match '/admin/request/edit_outgoing/:id' => 'admin_request#edit_outgoing', :as => :admin_request_edit_outgoing
-    match '/admin/request/destroy_outgoing/:id' => 'admin_request#destroy_outgoing', :as => :admin_request_destroy_outgoing
-    match '/admin/request/update_outgoing/:id' => 'admin_request#update_outgoing', :as => :admin_request_update_outgoing
     match '/admin/request/edit_comment/:id' => 'admin_request#edit_comment', :as => :admin_request_edit_comment
     match '/admin/request/update_comment/:id' => 'admin_request#update_comment', :as => :admin_request_update_comment
-    match '/admin/request/destroy_incoming' => 'admin_request#destroy_incoming', :as => :admin_request_destroy_incoming
-    match '/admin/request/redeliver_incoming' => 'admin_request#redeliver_incoming', :as => :admin_request_redeliver_incoming
     match '/admin/request/move_request' => 'admin_request#move_request', :as => :admin_request_move_request
     match '/admin/request/generate_upload_url/:id' => 'admin_request#generate_upload_url', :as => :admin_request_generate_upload_url
     match '/admin/request/show_raw_email/:id' => 'admin_request#show_raw_email', :as => :admin_request_show_raw_email
     match '/admin/request/download_raw_email/:id' => 'admin_request#download_raw_email', :as => :admin_request_download_raw_email
     match '/admin/request/mark_event_as_clarification' => 'admin_request#mark_event_as_clarification', :as => :admin_request_clarification
     match '/admin/request/hide/:id' => 'admin_request#hide_request', :as => :admin_request_hide
+    ####
+
+    #### AdminIncomingMessage controller
+    match '/admin/incoming/destroy' => 'admin_incoming_message#destroy', :as => :admin_incoming_destroy
+    match '/admin/incoming/redeliver' => 'admin_incoming_message#redeliver', :as => :admin_incoming_redeliver
+    match '/admin/incoming/edit/:id' => 'admin_incoming_message#edit', :as => :admin_incoming_edit
+    match '/admin/incoming/update/:id' => 'admin_incoming_message#update', :as => :admin_incoming_update
+    ####
+
+    #### AdminOutgoingMessage controller
+    match '/admin/outgoing/edit/:id' => 'admin_outgoing_message#edit', :as => :admin_outgoing_edit
+    match '/admin/outgoing/destroy/:id' => 'admin_outgoing_message#destroy', :as => :admin_outgoing_destroy
+    match '/admin/outgoing/update/:id' => 'admin_outgoing_message#update', :as => :admin_outgoing_update
     ####
 
     #### AdminUser controller

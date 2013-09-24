@@ -1,6 +1,52 @@
+# encoding: utf-8
+# == Schema Information
+#
+# Table name: info_requests
+#
+#  id                        :integer          not null, primary key
+#  title                     :text             not null
+#  user_id                   :integer
+#  public_body_id            :integer          not null
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  described_state           :string(255)      not null
+#  awaiting_description      :boolean          default(FALSE), not null
+#  prominence                :string(255)      default("normal"), not null
+#  url_title                 :text             not null
+#  law_used                  :string(255)      default("foi"), not null
+#  allow_new_responses_from  :string(255)      default("anybody"), not null
+#  handle_rejected_responses :string(255)      default("bounce"), not null
+#  idhash                    :string(255)      not null
+#  external_user_name        :string(255)
+#  external_url              :string(255)
+#  attention_requested       :boolean          default(FALSE)
+#  comments_allowed          :boolean          default(TRUE), not null
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequest do
+
+    describe 'when validating', :focus => true do
+
+        it 'should accept a summary with ascii characters' do
+            info_request = InfoRequest.new(:title => 'abcde')
+            info_request.valid?
+            info_request.errors[:title].should be_empty
+        end
+
+        it 'should accept a summary with unicode characters' do
+            info_request = InfoRequest.new(:title => 'кажете')
+            info_request.valid?
+            info_request.errors[:title].should be_empty
+        end
+
+        it 'should not accept a summary with no ascii or unicode characters' do
+            info_request = InfoRequest.new(:title => '55555')
+            info_request.valid?
+            info_request.errors[:title].should_not be_empty
+        end
+    end
 
     describe 'when generating a user name slug' do
 
@@ -376,10 +422,12 @@ describe InfoRequest do
 
         it 'should add extra conditions if supplied' do
             expected_conditions = ["awaiting_description = ?
-                                    AND (SELECT created_at
-                                         FROM info_request_events
+                                    AND (SELECT info_request_events.created_at
+                                         FROM info_request_events, incoming_messages
                                          WHERE info_request_events.info_request_id = info_requests.id
                                          AND info_request_events.event_type = 'response'
+                                         AND incoming_messages.id = info_request_events.incoming_message_id
+                                         AND incoming_messages.prominence = 'normal'
                                          ORDER BY created_at desc LIMIT 1) < ?
                                     AND url_title != 'holding_pen'
                                     AND user_id IS NOT NULL
@@ -394,21 +442,25 @@ describe InfoRequest do
             InfoRequest.find_old_unclassified({:conditions => ["prominence != 'backpage'"]})
         end
 
-        it 'should ask the database for requests that are awaiting description, have a last response older
+        it 'should ask the database for requests that are awaiting description, have a last public response older
         than 21 days old, have a user, are not the holding pen and are not backpaged' do
             expected_conditions = ["awaiting_description = ?
-                                    AND (SELECT created_at
-                                         FROM info_request_events
+                                    AND (SELECT info_request_events.created_at
+                                         FROM info_request_events, incoming_messages
                                          WHERE info_request_events.info_request_id = info_requests.id
                                          AND info_request_events.event_type = 'response'
+                                         AND incoming_messages.id = info_request_events.incoming_message_id
+                                         AND incoming_messages.prominence = 'normal'
                                          ORDER BY created_at desc LIMIT 1) < ?
                                     AND url_title != 'holding_pen'
                                     AND user_id IS NOT NULL".split(' ').join(' '),
                                     true, Time.now - 21.days]
-            expected_select = "*, (SELECT created_at
-                                   FROM info_request_events
+            expected_select = "*, (SELECT info_request_events.created_at
+                                   FROM info_request_events, incoming_messages
                                    WHERE info_request_events.info_request_id = info_requests.id
                                    AND info_request_events.event_type = 'response'
+                                   AND incoming_messages.id = info_request_events.incoming_message_id
+                                   AND incoming_messages.prominence = 'normal'
                                    ORDER BY created_at desc LIMIT 1)
                                    AS last_response_time".split(' ').join(' ')
             InfoRequest.should_receive(:find) do |all, query_params|
@@ -464,8 +516,14 @@ describe InfoRequest do
 
         before do
             Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
-            @mock_comment_event = mock_model(InfoRequestEvent, :created_at => Time.now - 23.days, :event_type => 'comment', :response? => false)
-            @mock_response_event = mock_model(InfoRequestEvent, :created_at => Time.now - 22.days, :event_type => 'response', :response? => true)
+            @mock_comment_event = mock_model(InfoRequestEvent, :created_at => Time.now - 23.days,
+                                                               :event_type => 'comment',
+                                                               :response? => false)
+            mock_incoming_message = mock_model(IncomingMessage, :all_can_view? => true)
+            @mock_response_event = mock_model(InfoRequestEvent, :created_at => Time.now - 22.days,
+                                                                :event_type => 'response',
+                                                                :response? => true,
+                                                                :incoming_message => mock_incoming_message)
             @info_request = InfoRequest.new(:prominence => 'normal',
                                             :awaiting_description => true,
                                             :info_request_events => [@mock_response_event, @mock_comment_event])
@@ -627,6 +685,96 @@ describe InfoRequest do
             @info_request.prominence = 'requester_only'
             @info_request.all_can_view?.should == false
         end
+    end
+
+    describe 'when asked for the last public response event' do
+
+        before do
+            @info_request = FactoryGirl.create(:info_request_with_incoming)
+            @incoming_message = @info_request.incoming_messages.first
+        end
+
+        it 'should not return an event with a hidden prominence message' do
+            @incoming_message.prominence = 'hidden'
+            @incoming_message.save!
+            @info_request.get_last_public_response_event.should == nil
+        end
+
+        it 'should not return an event with a requester_only prominence message' do
+            @incoming_message.prominence = 'requester_only'
+            @incoming_message.save!
+            @info_request.get_last_public_response_event.should == nil
+        end
+
+        it 'should return an event with a normal prominence message' do
+            @incoming_message.prominence = 'normal'
+            @incoming_message.save!
+            @info_request.get_last_public_response_event.should == @incoming_message.response_event
+        end
+    end
+
+    describe 'when asked for the last public outgoing event' do
+
+        before do
+            @info_request = FactoryGirl.create(:info_request)
+            @outgoing_message = @info_request.outgoing_messages.first
+        end
+
+        it 'should not return an event with a hidden prominence message' do
+            @outgoing_message.prominence = 'hidden'
+            @outgoing_message.save!
+            @info_request.get_last_public_outgoing_event.should == nil
+        end
+
+        it 'should not return an event with a requester_only prominence message' do
+            @outgoing_message.prominence = 'requester_only'
+            @outgoing_message.save!
+            @info_request.get_last_public_outgoing_event.should == nil
+        end
+
+        it 'should return an event with a normal prominence message' do
+            @outgoing_message.prominence = 'normal'
+            @outgoing_message.save!
+            @info_request.get_last_public_outgoing_event.should == @outgoing_message.info_request_events.first
+        end
+
+    end
+
+    describe 'when asked who can be sent a followup' do
+
+        before do
+            @info_request = FactoryGirl.create(:info_request_with_plain_incoming)
+            @incoming_message = @info_request.incoming_messages.first
+            @public_body = @info_request.public_body
+        end
+
+        it 'should not include details from a hidden prominence response' do
+            @incoming_message.prominence = 'hidden'
+            @incoming_message.save!
+            @info_request.who_can_followup_to.should == [[@public_body.name,
+                                                          @public_body.request_email,
+                                                          nil]]
+        end
+
+        it 'should not include details from a requester_only prominence response' do
+            @incoming_message.prominence = 'requester_only'
+            @incoming_message.save!
+            @info_request.who_can_followup_to.should == [[@public_body.name,
+                                                          @public_body.request_email,
+                                                          nil]]
+        end
+
+        it 'should include details from a normal prominence response' do
+            @incoming_message.prominence = 'normal'
+            @incoming_message.save!
+            @info_request.who_can_followup_to.should == [[@public_body.name,
+                                                          @public_body.request_email,
+                                                          nil],
+                                                         ['Bob Responder',
+                                                          "bob@example.com",
+                                                          @incoming_message.id]]
+        end
+
     end
 
     describe  'when generating json for the api' do
@@ -921,4 +1069,75 @@ describe InfoRequest do
             end
         end
     end
+
+    describe 'when saving an info_request' do
+
+        before do
+            @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
+                                            :external_user_name => 'Example User',
+                                            :title => 'Some request or other',
+                                            :public_body => public_bodies(:geraldine_public_body))
+        end
+
+        it "should call purge_in_cache and update_counter_cache" do
+            @info_request.should_receive(:purge_in_cache)
+            # Twice - once for save, once for destroy:
+            @info_request.should_receive(:update_counter_cache).twice
+            @info_request.save!
+            @info_request.destroy
+        end
+
+    end
+
+    describe 'when destroying an info_request' do
+
+        before do
+            @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
+                                            :external_user_name => 'Example User',
+                                            :title => 'Some request or other',
+                                            :public_body => public_bodies(:geraldine_public_body))
+        end
+
+        it "should call update_counter_cache" do
+            @info_request.save!
+            @info_request.should_receive(:update_counter_cache)
+            @info_request.destroy
+        end
+
+    end
+
+    describe 'when changing a described_state' do
+
+        it "should change the counts on its PublicBody without saving a new version" do
+            pb = public_bodies(:geraldine_public_body)
+            old_version_count = pb.versions.count
+            old_successful_count = pb.info_requests_successful_count
+            old_not_held_count = pb.info_requests_not_held_count
+            ir = InfoRequest.new(:external_url => 'http://www.example.com',
+                                 :external_user_name => 'Example User',
+                                 :title => 'Some request or other',
+                                 :described_state => 'partially_successful',
+                                 :public_body => pb)
+            ir.save!
+            pb.info_requests_successful_count.should == (old_successful_count + 1)
+            ir.described_state = 'not_held'
+            ir.save!
+            pb.reload
+            pb.info_requests_successful_count.should == old_successful_count
+            pb.info_requests_not_held_count.should == (old_not_held_count + 1)
+            ir.described_state = 'successful'
+            ir.save!
+            pb.reload
+            pb.info_requests_successful_count.should == (old_successful_count + 1)
+            pb.info_requests_not_held_count.should == old_not_held_count
+            ir.destroy
+            pb.reload
+            pb.info_requests_successful_count.should == old_successful_count
+            pb.info_requests_successful_count.should == old_not_held_count
+            pb.versions.count.should == old_version_count
+        end
+
+    end
+
+
 end

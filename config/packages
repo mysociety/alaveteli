@@ -3,7 +3,6 @@
 # alavateli mailing list if you want to change it
 ruby1.8
 ruby
-libopenssl-ruby1.8 # needed for Ubuntu 10.04 TLS; included in libruby1.8 in Squeeze
 rdoc | rdoc1.8
 irb | irb1.8
 wv
@@ -28,9 +27,11 @@ wkhtmltopdf-static
 libmagic-dev
 libmagickwand-dev
 libpq-dev
+libxml2-dev
+libxslt-dev
 uuid-dev
 ruby1.8-dev
-rubygems
+rubygems (>= 1.8.15)
 rake (>= 0.9.2.2)
 build-essential
 bundler

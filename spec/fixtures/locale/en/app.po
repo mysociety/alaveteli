@@ -1417,10 +1417,6 @@ msgstr ""
 msgid "InfoRequestEvent|Params yaml"
 msgstr ""
 
-#: locale/model_attributes.rb:41
-msgid "InfoRequestEvent|Prominence"
-msgstr ""
-
 #: locale/model_attributes.rb:102
 msgid "InfoRequest|Allow new responses from"
 msgstr ""

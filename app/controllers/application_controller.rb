@@ -119,12 +119,9 @@ class ApplicationController < ActionController::Base
     end
 
     def render_exception(exception)
-
-        # In development, or the admin interface, or for a local request, let Rails handle the exception
-        # with its stack trace templates. Local requests in testing are a special case so that we can
-        # test this method - there we use consider_all_requests_local to control behaviour.
-        if Rails.application.config.consider_all_requests_local || local_request? ||
-        (request.local? && !Rails.env.test?)
+        # In development or the admin interface let Rails handle the exception
+        # with its stack trace templates
+        if Rails.application.config.consider_all_requests_local || show_rails_exceptions?
             raise exception
         end
 
@@ -150,7 +147,7 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    def local_request?
+    def show_rails_exceptions?
         false
     end
 
@@ -212,19 +209,6 @@ class ApplicationController < ActionController::Base
         File.atomic_write(key_path) do |f|
             f.write(content)
         end
-    end
-
-    def request_dirs(info_request)
-        first_three_digits = info_request.id.to_s()[0..2]
-        File.join(first_three_digits.to_s, info_request.id.to_s)
-    end
-
-    def request_download_zip_dir(info_request)
-        File.join(download_zip_dir, "download", request_dirs(info_request))
-    end
-
-    def download_zip_dir()
-        File.join(Rails.root, '/cache/zips/')
     end
 
     # get the local locale

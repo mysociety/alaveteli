@@ -1,3 +1,10 @@
+# == Schema Information
+#
+# Table name: raw_emails
+#
+#  id :integer          not null, primary key
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe User, "manipulating a raw email" do 

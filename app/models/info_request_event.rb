@@ -1,20 +1,18 @@
 # == Schema Information
-# Schema version: 114
 #
 # Table name: info_request_events
 #
-#  id                  :integer         not null, primary key
-#  info_request_id     :integer         not null
-#  event_type          :text            not null
-#  params_yaml         :text            not null
-#  created_at          :datetime        not null
+#  id                  :integer          not null, primary key
+#  info_request_id     :integer          not null
+#  event_type          :text             not null
+#  params_yaml         :text             not null
+#  created_at          :datetime         not null
 #  described_state     :string(255)
 #  calculated_state    :string(255)
 #  last_described_at   :datetime
 #  incoming_message_id :integer
 #  outgoing_message_id :integer
 #  comment_id          :integer
-#  prominence          :string(255)     default("normal"), not null
 #
 
 # models/info_request_event.rb:
@@ -48,10 +46,10 @@ class InfoRequestEvent < ActiveRecord::Base
          'destroy_incoming', # deleted an incoming message (in admin interface)
          'destroy_outgoing', # deleted an outgoing message (in admin interface)
          'redeliver_incoming', # redelivered an incoming message elsewhere (in admin interface)
+         'edit_incoming', # incoming message edited (in admin interface)
          'move_request', # changed user or public body (in admin interface)
          'hide', # hid a request (in admin interface)
          'manual', # you did something in the db by hand
-
          'response',
          'comment',
          'status_update'
@@ -63,34 +61,11 @@ class InfoRequestEvent < ActiveRecord::Base
     # user described state (also update in info_request)
     validate :must_be_valid_state
 
-    # whether event is publicly visible
-    validates_inclusion_of :prominence, :in => [
-        'normal',
-        'hidden',
-        'requester_only'
-    ]
-
     def must_be_valid_state
         if !described_state.nil? and !InfoRequest.enumerate_states.include?(described_state)
             errors.add(described_state, "is not a valid state")
         end
     end
-
-    def user_can_view?(user)
-        unless info_request.user_can_view?(user)
-            raise "internal error, called user_can_view? on event when there is not permission to view entire request"
-        end
-
-        case prominence
-        when 'hidden'
-            User.view_hidden_requests?(user)
-        when 'requester_only'
-            info_request.is_owning_user?(user)
-        else
-            true
-        end
-    end
-
 
     # Full text search indexing
     acts_as_xapian :texts => [ :search_text_main, :title ],
@@ -260,6 +235,12 @@ class InfoRequestEvent < ActiveRecord::Base
             if !self.info_request.indexed_by_search?
                 return false
             end
+            if self.event_type == 'response' && !self.incoming_message.indexed_by_search?
+                return false
+            end
+            if ['sent', 'followup_sent'].include?(self.event_type) && !self.outgoing_message.indexed_by_search?
+                return false
+            end
             if self.event_type == 'comment' && !self.comment.visible
                 return false
             end
@@ -268,6 +249,7 @@ class InfoRequestEvent < ActiveRecord::Base
             return false
         end
     end
+
     def variety
         self.event_type
     end

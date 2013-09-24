@@ -174,7 +174,7 @@ describe RequestController, "when changing things that appear on the request pag
         ir.save!
         PurgeRequest.all().first.model_id.should == ir.id
     end
-    it "should not create more than one entry for any given resourcce" do
+    it "should not create more than one entry for any given resource" do
         ir = info_requests(:fancy_dog_request)
         ir.prominence = 'hidden'
         ir.save!
@@ -191,7 +191,6 @@ describe RequestController, "when showing one request" do
 
     before(:each) do
         load_raw_emails_data
-        FileUtils.rm_rf File.join(File.dirname(__FILE__), "../../cache/zips")
     end
 
     it "should be successful" do
@@ -768,194 +767,221 @@ describe RequestController, "when showing one request" do
             end
         end
 
-        describe 'when making a zipfile available' do
 
-            it 'should return a 410 for a request that is hidden' do
-                title = 'why_do_you_have_such_a_fancy_dog'
-                ir = info_requests(:fancy_dog_request)
-                ir.prominence = 'hidden'
-                ir.save!
-                get :download_entire_request, {:url_title => title}, { :user_id => ir.user.id }
-                response.should render_template('request/hidden')
-                response.code.should == '410'
-            end
-
-            it "should have a different zipfile URL when the request changes" do
-                title = 'why_do_you_have_such_a_fancy_dog'
-                ir = info_requests(:fancy_dog_request)
-                session[:user_id] = ir.user.id # bob_smith_user
-                get :download_entire_request, :url_title => title
-                assigns[:url_path].should contain /#{title}.zip$/
-                old_path = assigns[:url_path]
-                response.location.should contain /#{assigns[:url_path]}$/
-                zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", old_path)) { |zipfile|
-                    zipfile.count.should == 1 # just the message
-                }
-                receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-                get :download_entire_request, :url_title => title
-                assigns[:url_path].should contain /#{title}.zip$/
-                old_path = assigns[:url_path]
-                response.location.should contain /#{assigns[:url_path]}$/
-                zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", old_path)) { |zipfile|
-                    zipfile.count.should == 3 # the message plus two "hello-world.txt" files
-                }
-
-                # The path of the zip file is based on the hash of the timestamp of the last request
-                # in the thread, so we wait for a second to make sure this one will have a different
-                # timestamp than the previous.
-                sleep 1
-                receive_incoming_mail('incoming-request-attachment-unknown-extension.email', ir.incoming_email)
-                get :download_entire_request, :url_title => title
-                assigns[:url_path].should contain /#{title}.zip$/
-                assigns[:url_path].should_not == old_path
-                response.location.should contain assigns[:url_path]
-                zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", assigns[:url_path])) { |zipfile|
-                    zipfile.count.should == 4 # the message, two hello-world.txt plus the unknown attachment
-                }
-            end
-
-            it 'should successfully make a zipfile for an external request' do
-                info_request = info_requests(:external_request)
-                get :download_entire_request, { :url_title => info_request.url_title },
-                                              { :user_id => users(:bob_smith_user) }
-                response.location.should contain /#{assigns[:url_path]}$/
-            end
-        end
     end
 end
 
-describe RequestController, "when changing prominence of a request" do
-    before(:each) do
-        load_raw_emails_data
-    end
+describe RequestController, "when handling prominence" do
 
-    it "should not show hidden requests" do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
-
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should render_template('hidden')
-    end
-
-    it "should not show hidden requests even if logged in as their owner" do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
-
-        session[:user_id] = ir.user.id # bob_smith_user
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should render_template('hidden')
-    end
-
-    it 'should not show hidden requests if requested using json' do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
-
-        session[:user_id] = ir.user.id # bob_smith_user
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :format => 'json'
-        response.code.should == '410'
-    end
-
-    it "should show hidden requests if logged in as super user" do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
-
-        session[:user_id] = users(:admin_user)
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should render_template('show')
-    end
-
-    it "should not show requester_only requests if you're not logged in" do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'requester_only'
-        ir.save!
-
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should render_template('hidden')
-    end
-
-    it "should show requester_only requests to requester and admin if logged in" do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'requester_only'
-        ir.save!
-
-        session[:user_id] = users(:silly_name_user).id
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should render_template('hidden')
-
-        session[:user_id] = ir.user.id # bob_smith_user
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should render_template('show')
-
-        session[:user_id] = users(:admin_user).id
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should render_template('show')
-    end
-
-    it 'should not cache an attachment on a request whose prominence is requester_only when showing
-        the request to the requester or admin' do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'requester_only'
-        ir.save!
-        session[:user_id] = ir.user.id # bob_smith_user
-        @controller.should_not_receive(:foi_fragment_cache_write)
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-    end
-
-    it "should not download attachments if hidden" do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
-        receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-
-        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id,
-                             :id => ir.id,
-                             :part => 2,
-                             :skip_cache => 1
+    def expect_hidden(hidden_template)
         response.content_type.should == "text/html"
-        response.should_not contain "Second hello"
-        response.should render_template('request/hidden')
-        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id,
-                             :id => ir.id,
-                             :part => 3,
-                             :skip_cache => 1
-        response.content_type.should == "text/html"
-        response.should_not contain "First hello"
-        response.should render_template('request/hidden')
-        response.code.should == '410'
+        response.should render_template(hidden_template)
+        response.code.should == '403'
     end
 
-    it 'should not generate an HTML version of an attachment whose prominence is hidden/requester
-        only even for the requester or an admin but should return a 404' do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
-        receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-        session[:user_id] = users(:admin_user).id
-        lambda do
-            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id,
-                                      :id => ir.id,
-                                      :part => 2,
-                                      :file_name => 'hello world.txt'
-        end.should raise_error(ActiveRecord::RecordNotFound)
+    context 'when the request is hidden' do
+
+        before(:each) do
+            @info_request = FactoryGirl.create(:info_request_with_incoming_attachments,
+                                               :prominence => 'hidden')
+        end
+
+        it "should not show request if you're not logged in" do
+            get :show, :url_title => @info_request.url_title
+            expect_hidden('hidden')
+        end
+
+        it "should not show request even if logged in as their owner" do
+            session[:user_id] = @info_request.user.id
+            get :show, :url_title => @info_request.url_title
+            expect_hidden('hidden')
+        end
+
+        it 'should not show request if requested using json' do
+            session[:user_id] = @info_request.user.id
+            get :show, :url_title => @info_request.url_title, :format => 'json'
+            response.code.should == '403'
+        end
+
+        it "should show request if logged in as super user" do
+            session[:user_id] = FactoryGirl.create(:admin_user)
+            get :show, :url_title => @info_request.url_title
+            response.should render_template('show')
+        end
+
+        it "should not download attachments" do
+            incoming_message = @info_request.incoming_messages.first
+            get :get_attachment, :incoming_message_id => incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf',
+                                 :skip_cache => 1
+            expect_hidden('request/hidden')
+        end
+
+        it 'should not generate an HTML version of an attachment for a request whose prominence
+            is hidden even for an admin but should return a 404' do
+            session[:user_id] = FactoryGirl.create(:admin_user)
+            incoming_message = @info_request.incoming_messages.first
+            lambda do
+                get :get_attachment_as_html, :incoming_message_id => incoming_message.id,
+                                          :id => @info_request.id,
+                                          :part => 2,
+                                          :file_name => 'interesting.pdf'
+            end.should raise_error(ActiveRecord::RecordNotFound)
+        end
+
     end
 
-    it 'should not generate an HTML version of an attachment whose prominence is hidden/requester
-        only even for the requester or an admin but should return a 404' do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
-        receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-        session[:user_id] = users(:admin_user).id
-        lambda do
-            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id,
-                                      :id => ir.id,
-                                      :part => 2,
-                                      :file_name => 'hello world.txt'
-        end.should raise_error(ActiveRecord::RecordNotFound)
+    context 'when the request is requester_only' do
+
+        before(:each) do
+            @info_request = FactoryGirl.create(:info_request_with_incoming_attachments,
+                                               :prominence => 'requester_only')
+        end
+
+        it "should not show request if you're not logged in" do
+             get :show, :url_title => @info_request.url_title
+             expect_hidden('hidden')
+         end
+
+         it "should show request to requester and admin if logged in" do
+             session[:user_id] = FactoryGirl.create(:user).id
+             get :show, :url_title => @info_request.url_title
+             expect_hidden('hidden')
+
+             session[:user_id] = @info_request.user.id
+             get :show, :url_title => @info_request.url_title
+             response.should render_template('show')
+
+             session[:user_id] = FactoryGirl.create(:admin_user).id
+             get :show, :url_title => @info_request.url_title
+             response.should render_template('show')
+         end
+
+         it 'should not cache an attachment when showing an attachment to the requester or admin' do
+             session[:user_id] = @info_request.user.id
+             incoming_message = @info_request.incoming_messages.first
+             @controller.should_not_receive(:foi_fragment_cache_write)
+             get :get_attachment, :incoming_message_id => incoming_message.id,
+                                  :id => @info_request.id,
+                                  :part => 2,
+                                  :file_name => 'interesting.pdf'
+         end
+    end
+
+    context 'when the incoming message has prominence hidden' do
+
+        before(:each) do
+            @incoming_message = FactoryGirl.create(:incoming_message_with_attachments,
+                                                   :prominence => 'hidden')
+            @info_request = @incoming_message.info_request
+        end
+
+        it "should not download attachments for a non-logged in user" do
+            get :get_attachment, :incoming_message_id => @incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf',
+                                 :skip_cache => 1
+            expect_hidden('request/hidden_correspondence')
+        end
+
+        it 'should not download attachments for the request owner' do
+            session[:user_id] = @info_request.user.id
+            get :get_attachment, :incoming_message_id => @incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf',
+                                 :skip_cache => 1
+            expect_hidden('request/hidden_correspondence')
+        end
+
+        it 'should download attachments for an admin user', :focus => true do
+            session[:user_id] = FactoryGirl.create(:admin_user).id
+            get :get_attachment, :incoming_message_id => @incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf',
+                                 :skip_cache => 1
+            response.content_type.should == 'application/pdf'
+            response.should be_success
+        end
+
+        it 'should not generate an HTML version of an attachment for a request whose prominence
+            is hidden even for an admin but should return a 404' do
+            session[:user_id] = FactoryGirl.create(:admin_user).id
+            lambda do
+                get :get_attachment_as_html, :incoming_message_id => @incoming_message.id,
+                                          :id => @info_request.id,
+                                          :part => 2,
+                                          :file_name => 'interesting.pdf',
+                                          :skip_cache => 1
+            end.should raise_error(ActiveRecord::RecordNotFound)
+        end
+
+        it 'should not cache an attachment when showing an attachment to the requester or admin' do
+            session[:user_id] = @info_request.user.id
+            @controller.should_not_receive(:foi_fragment_cache_write)
+            get :get_attachment, :incoming_message_id => @incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf'
+        end
+
+    end
+
+    context 'when the incoming message has prominence requester_only' do
+
+        before(:each) do
+            @incoming_message = FactoryGirl.create(:incoming_message_with_attachments,
+                                                   :prominence => 'requester_only')
+            @info_request = @incoming_message.info_request
+        end
+
+        it "should not download attachments for a non-logged in user" do
+            get :get_attachment, :incoming_message_id => @incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf',
+                                 :skip_cache => 1
+            expect_hidden('request/hidden_correspondence')
+        end
+
+        it 'should download attachments for the request owner' do
+            session[:user_id] = @info_request.user.id
+            get :get_attachment, :incoming_message_id => @incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf',
+                                 :skip_cache => 1
+            response.content_type.should == 'application/pdf'
+            response.should be_success
+        end
+
+        it 'should download attachments for an admin user', :focus => true do
+            session[:user_id] = FactoryGirl.create(:admin_user).id
+            get :get_attachment, :incoming_message_id => @incoming_message.id,
+                                 :id => @info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.pdf',
+                                 :skip_cache => 1
+            response.content_type.should == 'application/pdf'
+            response.should be_success
+        end
+
+        it 'should not generate an HTML version of an attachment for a request whose prominence
+            is hidden even for an admin but should return a 404' do
+            session[:user_id] = FactoryGirl.create(:admin_user)
+            lambda do
+                get :get_attachment_as_html, :incoming_message_id => @incoming_message.id,
+                                          :id => @info_request.id,
+                                          :part => 2,
+                                          :file_name => 'interesting.pdf',
+                                          :skip_cache => 1
+            end.should raise_error(ActiveRecord::RecordNotFound)
+        end
+
     end
 
 end
@@ -1037,6 +1063,14 @@ describe RequestController, "when creating a new request" do
         get :new, :public_body_id => @body.id
         assigns[:info_request].public_body.should == @body
         response.should render_template('new')
+    end
+
+    it 'should display one meaningful error message when no message body is added' do
+        post :new, :info_request => { :public_body_id => @body.id },
+            :outgoing_message => { :body => "" },
+            :submitted_new_request => 1, :preview => 1
+        assigns[:info_request].errors.full_messages.should_not include('Outgoing messages is invalid')
+        assigns[:outgoing_message].errors.full_messages.should include('Body Please enter your letter requesting information')
     end
 
     it "should give an error and render 'new' template when a summary isn't given" do
@@ -1293,12 +1327,12 @@ describe RequestController, "when viewing an individual response for reply/follo
             response.should render_template('request/hidden')
         end
 
-        it 'should respond to a json request for a hidden request with a 410 code and no body' do
+        it 'should respond to a json request for a hidden request with a 403 code and no body' do
             get :show_response, :id => info_requests(:fancy_dog_request).id,
                                 :incoming_message_id => incoming_messages(:useless_incoming_message),
                                 :format => 'json'
 
-            response.code.should == '410'
+            response.code.should == '403'
         end
 
     end
@@ -1572,7 +1606,7 @@ describe RequestController, "when classifying an information request" do
                 @dog_request.reload
                 @dog_request.awaiting_description.should == false
                 @dog_request.described_state.should == 'rejected'
-                @dog_request.get_last_response_event.should == info_request_events(:useless_incoming_message_event)
+                @dog_request.get_last_public_response_event.should == info_request_events(:useless_incoming_message_event)
                 @dog_request.info_request_events.last.event_type.should == "status_update"
                 @dog_request.info_request_events.last.calculated_state.should == 'rejected'
             end
@@ -1725,13 +1759,13 @@ describe RequestController, "when classifying an information request" do
 
                 it 'should redirect to the "response url" when there is a last response' do
                     incoming_message = mock_model(IncomingMessage)
-                    @dog_request.stub!(:get_last_response).and_return(incoming_message)
+                    @dog_request.stub!(:get_last_public_response).and_return(incoming_message)
                     expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response/#{incoming_message.id}")
                 end
 
                 it 'should redirect to the "response no followup url" when there are no events
                     needing description' do
-                    @dog_request.stub!(:get_last_response).and_return(nil)
+                    @dog_request.stub!(:get_last_public_response).and_return(nil)
                     expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response")
                 end
 
@@ -1770,7 +1804,7 @@ describe RequestController, "when classifying an information request" do
             context 'when status is updated to "gone postal"' do
 
                 it 'should redirect to the "respond to last url"' do
-                    expect_redirect('gone_postal', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}?gone_postal=1")
+                    expect_redirect('gone_postal', "request/#{@dog_request.id}/response/#{@dog_request.get_last_public_response.id}?gone_postal=1")
                 end
 
             end
@@ -1812,7 +1846,7 @@ describe RequestController, "when classifying an information request" do
             context 'when status is updated to "user_withdrawn"' do
 
                 it 'should redirect to the "respond to last url url" ' do
-                    expect_redirect('user_withdrawn', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}")
+                    expect_redirect('user_withdrawn', "request/#{@dog_request.id}/response/#{@dog_request.get_last_public_response.id}")
                 end
 
             end
@@ -1865,7 +1899,7 @@ describe RequestController, "when sending a followup message" do
         # fake that this is a clarification
         info_requests(:fancy_dog_request).set_described_state('waiting_clarification')
         info_requests(:fancy_dog_request).described_state.should == 'waiting_clarification'
-        info_requests(:fancy_dog_request).get_last_response_event.calculated_state.should == 'waiting_clarification'
+        info_requests(:fancy_dog_request).get_last_public_response_event.calculated_state.should == 'waiting_clarification'
 
         # make the followup
         session[:user_id] = users(:bob_smith_user).id
@@ -1883,7 +1917,7 @@ describe RequestController, "when sending a followup message" do
         # and that the status changed
         info_requests(:fancy_dog_request).reload
         info_requests(:fancy_dog_request).described_state.should == 'waiting_response'
-        info_requests(:fancy_dog_request).get_last_response_event.calculated_state.should == 'waiting_clarification'
+        info_requests(:fancy_dog_request).get_last_public_response_event.calculated_state.should == 'waiting_clarification'
     end
 
     it "should give an error if the same followup is submitted twice" do
@@ -2456,7 +2490,9 @@ describe RequestController, "when caching fragments" do
                                                  :info_request_id => 132,
                                                  :id => 44,
                                                  :get_attachments_for_display => nil,
-                                                 :html_mask_stuff! => nil)
+                                                 :html_mask_stuff! => nil,
+                                                 :user_can_view? => true,
+                                                 :all_can_view? => true)
         attachment = mock(FoiAttachment, :display_filename => long_name,
                                          :body_as_html => ['some text', 'wrapper'])
         IncomingMessage.stub!(:find).with("44").and_return(incoming_message)

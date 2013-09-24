@@ -10,7 +10,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.13'
+ALAVETELI_VERSION = '0.14'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
@@ -25,7 +25,6 @@ ALAVETELI_VERSION = '0.13'
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register "application/x-mobile", :mobile
 
-# The Rails cache is set up by the Interlock plugin to use memcached
 
 # Domain for URLs (so can work for scripts, not just web pages)
 ActionMailer::Base.default_url_options[:host] = AlaveteliConfiguration::domain
@@ -50,6 +49,7 @@ require 'ability'
 require 'normalize_string'
 require 'alaveteli_file_types'
 require 'alaveteli_localization'
+require 'message_prominence'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)

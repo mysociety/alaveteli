@@ -1,4 +1,4 @@
-These instructions assume Debian Squeeze (64-bit) or Ubuntu 10.04 LTS.
+These instructions assume Debian Squeeze (64-bit) or Ubuntu 12.04 LTS (precise).
 [Install instructions for OS X](https://github.com/mysociety/alaveteli/wiki/OS-X-Quickstart)
 are under development.  Debian Squeeze is the best supported
 deployment platform.
@@ -27,12 +27,16 @@ master branch (which always contains the latest stable release):
 
 # Package pinning
 
-You need to configure [apt-pinning](http://wiki.debian.org/AptPreferences#Pinning-1) preferences in order to prevent packages being pulled from the debian testing distribution in preference to the stable distribution once you have added the testing repository as described below.
+You need to configure [apt-pinning](http://wiki.debian.org/AptPreferences#Pinning-1) preferences in order to prevent packages being pulled from the debian wheezy distribution in preference to the stable distribution once you have added the wheezy repository as described below.
 
-In order to configure apt-pinning and to keep most packages coming from the Debian stable repository while installing the ones required from testing and the mySociety repository you need to run the following commands:
+In order to configure apt-pinning and to keep most packages coming from the Debian stable repository while installing the ones required from wheezy and the mySociety repository you need to run the following commands:
 
       echo "Package: *" >> /tmp/preferences
-      echo "Pin: release a=testing">> /tmp/preferences
+      echo "Pin: release a=squeeze-backports">> /tmp/preferences
+      echo "Pin-Priority: 200" >> /tmp/preferences
+      echo "" >> /tmp/preferences
+      echo "Package: *" >> /tmp/preferences
+      echo "Pin: release a=wheezy">> /tmp/preferences
       echo "Pin-Priority: 50" >> /tmp/preferences
       sudo cp /tmp/preferences /etc/apt/
       rm /tmp/preferences
@@ -48,7 +52,8 @@ If you are running Debian, add the following repositories to
 `/etc/apt/sources.list` and run `apt-get update`:
 
     deb http://debian.mysociety.org squeeze main
-    deb http://ftp.debian.org/debian/ testing main non-free contrib
+    deb http://ftp.debian.org/debian/ wheezy main non-free contrib
+    deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
 
 The repositories above allow us to install the packages
 `wkhtmltopdf-static` and `bundler` using `apt`; so if you're running

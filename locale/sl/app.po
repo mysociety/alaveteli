@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-08-05 17:01+0100\n"
-"PO-Revision-Date: 2013-08-05 16:09+0000\n"
+"POT-Creation-Date: 2013-09-19 10:47+0100\n"
+"PO-Revision-Date: 2013-09-19 09:50+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/alaveteli/language/sl/)\n"
 "Language: sl\n"
@@ -1004,6 +1004,9 @@ msgstr "Če niste zadovoljni z odgovorom, ki ste ga prejeli od organa, se imate 
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Če imate še vedno težave, nas prosimo <a href=\"{{url}}\">kontaktirajte</a>."
 
+msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
+msgstr ""
+
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
 msgstr "Če ste vi prosilec, potem se lahko <a href=\"{{url}}\">prijavite</a>, da si ogledate zahtevek."
 
@@ -1073,6 +1076,12 @@ msgstr "PrihajajoceSporocilo|Pošiljatelj"
 msgid "IncomingMessage|Mail from domain"
 msgstr "PrihajajoceSporocilo|Domena pošiljatelja"
 
+msgid "IncomingMessage|Prominence"
+msgstr ""
+
+msgid "IncomingMessage|Prominence reason"
+msgstr ""
+
 msgid "IncomingMessage|Sent at"
 msgstr "PrihajajoceSporocilo|Poslano ob"
 
@@ -1105,9 +1114,6 @@ msgstr "InfoZahtevekDogodek|Zadnje opisano ob"
 
 msgid "InfoRequestEvent|Params yaml"
 msgstr "InfoZahtevekDogodek|Parametri"
-
-msgid "InfoRequestEvent|Prominence"
-msgstr "InfoZahtevekDogodek|Prominenca"
 
 msgid "InfoRequest|Allow new responses from"
 msgstr "InfoZahtevek|Dovoli nove odzive od"
@@ -1271,6 +1277,9 @@ msgstr "Veliko zahtevkov"
 msgid "Message"
 msgstr "Sporočilo"
 
+msgid "Message has been removed"
+msgstr ""
+
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Sporočilo je bilo poslano z uporabo obrazca na {{site_name}},"
 
@@ -1388,6 +1397,9 @@ msgstr "Preglejte vaš odziv"
 msgid "Now preview your message asking for an internal review"
 msgstr "Preglejte vaš zahtevek za interno revizijo"
 
+msgid "Number of requests"
+msgstr ""
+
 msgid "OR remove the existing photo"
 msgstr "ALI odstranite trenutno fotografijo"
 
@@ -1451,6 +1463,12 @@ msgstr "IzhodnoSporočilo|Zadnje poslano ob"
 msgid "OutgoingMessage|Message type"
 msgstr "IzhodnoSporočilo|Tip sporočila"
 
+msgid "OutgoingMessage|Prominence"
+msgstr ""
+
+msgid "OutgoingMessage|Prominence reason"
+msgstr ""
+
 msgid "OutgoingMessage|Status"
 msgstr "IzhodnoSporočilo|Status"
 
@@ -1478,6 +1496,12 @@ msgstr "Ljudje"
 msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Ljudje od {{start_count}} do {{end_count}} od skupno {{total_count}}"
 
+msgid "Percentage of requests that are overdue"
+msgstr ""
+
+msgid "Percentage of total requests"
+msgstr ""
+
 msgid "Photo of you:"
 msgstr "Vaša slika:"
 
@@ -1492,6 +1516,9 @@ msgstr "Igrajte igro kategorizacije zahtevkov!"
 
 msgid "Please"
 msgstr "Prosimo"
+
+msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
+msgstr ""
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Prosimo, <a href=\"{{url}}\">stopite v kontakt z nami</a>, da lahko zadevo popravimo."
@@ -1697,6 +1724,12 @@ msgstr "ProfilnaSlika|Podatki"
 msgid "ProfilePhoto|Draft"
 msgstr "ProfilnaSlika|Osnutek"
 
+msgid "Public Bodies"
+msgstr ""
+
+msgid "Public Body Statistics"
+msgstr ""
+
 msgid "Public authorities"
 msgstr "Javni organi"
 
@@ -1708,6 +1741,21 @@ msgstr "Javni organi od {{start_count}} do {{end_count}} od skupno {{total_count
 
 msgid "Public authority – {{name}}"
 msgstr "Javni organ - {{name}}"
+
+msgid "Public bodies that most frequently replied with \"Not Held\""
+msgstr ""
+
+msgid "Public bodies with most overdue requests"
+msgstr ""
+
+msgid "Public bodies with the fewest successful requests"
+msgstr ""
+
+msgid "Public bodies with the most requests"
+msgstr ""
+
+msgid "Public bodies with the most successful requests"
+msgstr ""
 
 msgid "Public body"
 msgstr "Javni organ"
@@ -1735,6 +1783,15 @@ msgstr "JavniOrgan|Domača stran"
 
 msgid "PublicBody|Info requests count"
 msgstr "PublicBody|Število zahtevkov IJZ"
+
+msgid "PublicBody|Info requests not held count"
+msgstr ""
+
+msgid "PublicBody|Info requests overdue count"
+msgstr ""
+
+msgid "PublicBody|Info requests successful count"
+msgstr ""
 
 msgid "PublicBody|Last edit comment"
 msgstr "JavniOrgan|Zadnji urejani komentar"
@@ -1846,6 +1903,12 @@ msgstr "Zahtevano od {{public_body_name}} s strani uporabnika {{info_request_use
 
 msgid "Requested on {{date}}"
 msgstr "Zahtevano dne {{date}}"
+
+msgid "Requests are considered overdue if they are in the 'Overdue' or 'Very Overdue' states."
+msgstr ""
+
+msgid "Requests are considered successful if they were classified as either 'Successful' or 'Partially Successful'."
+msgstr ""
 
 msgid "Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
 msgstr "Zahtevki za osebne podatke in provokativni zahtevki se ne smatrajo za veljavne zahtevke za IJZ (<a href=\"/help/about\">preberite več</a>)."
@@ -2157,11 +2220,20 @@ msgstr "Organ pravi, da potrebuje poštni naslov, ne zgolj e-pošte, da gre za v
 msgid "The authority would like to / has <strong>responded by post</strong> to this request."
 msgstr "Organ bi želel oziroma je na ta zahtevek <strong>odgovoril preko pošte</strong>."
 
+msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
+msgstr ""
+
 msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to reply to an {{law_used_short}}\\nrequest has not been delivered."
 msgstr "E-pošta, ki ste jo v imenu {{public_body}} poslali {{user}} \\nkot odgovor na zahtevek za {{law_used_short}} ni bila dostavljena."
 
+msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
+msgstr ""
+
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Stran ne obstaja. Kaj lahko storite:"
+
+msgid "The percentages are calculated with respect to the total number of requests, which includes invalid requests; this is a known problem that will be fixed in a later release."
+msgstr ""
 
 msgid "The public authority does not have the information requested"
 msgstr "Organ nima zahtevanih informacij"
@@ -2308,11 +2380,17 @@ msgstr "Prišlo je do <strong>napake pri pošiljanju</strong> ali druge napake, 
 msgid "There was an error with the words you entered, please try again."
 msgstr "Pri vnešenem besedilu je prišlo do napake, prosimo poskusite ponovno."
 
+msgid "There was no data calculated for this graph yet."
+msgstr ""
+
 msgid "There were no requests matching your query."
 msgstr "Poizvedbi ne ustreza noben zahtevek."
 
 msgid "There were no results matching your query."
 msgstr "Vaša poizvedba ni vrnila rezultatov."
+
+msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
+msgstr ""
 
 msgid "They are going to reply <strong>by post</strong>"
 msgstr "Odgovorili bodo <strong>po pošti</strong>"
@@ -2338,9 +2416,6 @@ msgstr "Stvari, ki jim sledite"
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Ta organ ne obstaja več, zato mu ne morete več posredovati zahtevkov"
 
-msgid "This comment has been hidden. See annotations to\\n            find out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
-msgstr "Ta komentar je bil skrit. Poglejte zaznamke, da bi videli čemu. Če ste prosilec vi, se lahko <a href=\"{{url}}\">prijavite</a>, da vidite odgovor."
-
 msgid "This covers a very wide spectrum of information about the state of\\n            the <strong>natural and built environment</strong>, such as:"
 msgstr "To pokriva zelo širok spekter informacij o stanju <strong>narave in okolja</strong>, na primer:"
 
@@ -2362,8 +2437,26 @@ msgstr "To je prva različica."
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "To je vaš zahtevek, zato boste ob spremembah obveščeni po e-pošti"
 
-msgid "This outgoing message has been hidden. See annotations to\\n\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
-msgstr "To odhodno sporočilo je bilo skrito. Poglejte zaznamke, da bi videli čemu. Če ste prosilec vi, se lahko <a href=\"{{url}}\">prijavite</a> in vidite odgovor."
+msgid "This message has been hidden."
+msgstr ""
+
+msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
+msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgstr ""
+
+msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
+
+msgid "This page of public body statistics is currently experimental, so there are some caveats that should be borne in mind:"
+msgstr ""
 
 msgid "This particular request is finished:"
 msgstr "Ta zahtevek je končan:"
@@ -2435,9 +2528,6 @@ msgstr "Ta zahtevek zahteva pozornost administratorja"
 
 msgid "This request was not made via {{site_name}}"
 msgstr "Ta zahtevek ni bil narejen z uporabo {{site_name}}"
-
-msgid "This response has been hidden. See annotations to find out why.\\n            If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the response."
-msgstr "Ta odgovor je bil skrit. Poglejte zaznamke, da bi videli čemu. Če ste prosilec vi, potem se lahko <a href=\"{{url}}\">prijavite</a> in vidite odgovor."
 
 msgid "This table shows the technical details of the internal events that happened\\nto this request on {{site_name}}. This could be used to generate information about\\nthe speed with which authorities respond to requests, the number of requests\\nwhich require a postal response and much more."
 msgstr "Ta tabela prikazuje tehnične podrobnosti internih dogodkov, ki so se dogajali na tem zahtevku na {{site_name}}. To lahko uporabite, da zgenerirate informacije o odzivnosti oz. hitrosti, s katero organi odgovarjajo na zahteve, število zahtev ki zahtevajo poštno pošiljanje in še mnogo več."
@@ -3282,9 +3372,6 @@ msgstr "da pošljete odziv"
 
 msgid "to {{public_body}}"
 msgstr "za {{public_body}}"
-
-msgid "unexpected prominence on request event"
-msgstr "nepričakovana pozornost za zahtevek"
 
 msgid "unknown reason "
 msgstr "neznan razlog"

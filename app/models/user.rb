@@ -1,26 +1,27 @@
 # == Schema Information
-# Schema version: 20120919140404
 #
 # Table name: users
 #
-#  id                     :integer         not null, primary key
-#  email                  :string(255)     not null
-#  name                   :string(255)     not null
-#  hashed_password        :string(255)     not null
-#  salt                   :string(255)     not null
-#  created_at             :datetime        not null
-#  updated_at             :datetime        not null
-#  email_confirmed        :boolean         default(FALSE), not null
-#  url_name               :text            not null
-#  last_daily_track_email :datetime        default(Sat Jan 01 00:00:00 UTC 2000)
-#  admin_level            :string(255)     default("none"), not null
-#  ban_text               :text            default(""), not null
-#  about_me               :text            default(""), not null
+#  id                     :integer          not null, primary key
+#  email                  :string(255)      not null
+#  name                   :string(255)      not null
+#  hashed_password        :string(255)      not null
+#  salt                   :string(255)      not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  email_confirmed        :boolean          default(FALSE), not null
+#  url_name               :text             not null
+#  last_daily_track_email :datetime         default(2000-01-01 00:00:00 UTC)
+#  admin_level            :string(255)      default("none"), not null
+#  ban_text               :text             default(""), not null
+#  about_me               :text             default(""), not null
 #  locale                 :string(255)
 #  email_bounced_at       :datetime
-#  email_bounce_message   :text            default(""), not null
-#  no_limit               :boolean         default(FALSE), not null
-#  receive_email_alerts   :boolean         default(TRUE), not null
+#  email_bounce_message   :text             default(""), not null
+#  no_limit               :boolean          default(FALSE), not null
+#  receive_email_alerts   :boolean          default(TRUE), not null
+#  address                :string(255)
+#  dob                    :date
 #
 
 require 'digest/sha1'
@@ -243,8 +244,8 @@ class User < ActiveRecord::Base
       !user.nil? && user.owns_every_request?
     end
 
-    # Can the user see every request, even hidden ones?
-    def User.view_hidden_requests?(user)
+    # Can the user see every request, response, and outgoing message, even hidden ones?
+    def User.view_hidden?(user)
       !user.nil? && user.super?
     end
 
