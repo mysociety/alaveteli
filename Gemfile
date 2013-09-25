@@ -55,6 +55,7 @@ gem 'unidecoder'
 group :assets do
   gem 'sass-rails', "~> 3.1"
   gem 'uglifier'
+  gem 'therubyracer'
 end
 
 group :test do
