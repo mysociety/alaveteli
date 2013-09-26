@@ -17,10 +17,9 @@
           <%= stylesheet_link_tag "/admin/stylesheets/admin", :title => "Main", :rel => "stylesheet" %>
         <% end %>
 
-        <%= javascript_include_tag 'jquery.js', 'jquery-ui.min','jquery.cookie.js', 'general.js' %>
+        <%= javascript_include_tag "application" %>
         <% if @profile_photo_javascript %>
-            <script type="text/javascript" src="/javascripts/jquery.Jcrop.js"></script>
-            <script type="text/javascript" src="/javascripts/profile_photo.js"></script>
+            <%= javascript_include_tag "profile-photos" %>
             <link rel="stylesheet" href="/stylesheets/jquery.Jcrop.css" type="text/css" >
         <% end %>
 
