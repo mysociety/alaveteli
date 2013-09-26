@@ -53,7 +53,9 @@ gem 'unicode'
 gem 'unidecoder'
 
 group :assets do
+  gem 'bootstrap-sass'
   gem 'sass-rails', "= 3.1.4"
+  gem 'compass-rails'
   gem 'coffee-rails', "~> 3.1"
   gem 'uglifier'
   gem 'therubyracer'
@@ -73,8 +75,6 @@ end
 group :develop do
   gem 'ruby-debug', :platforms => :ruby_18
   gem 'debugger', :platforms => :ruby_19
-  gem 'bootstrap-sass'
-  gem 'compass'
   gem 'annotate'
 end
 
