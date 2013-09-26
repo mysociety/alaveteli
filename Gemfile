@@ -52,7 +52,7 @@ gem 'unicode'
 gem 'unidecode'
 
 group :assets do
-  gem 'sass-rails', "~> 3.1"
+  gem 'sass-rails', "= 3.1.4"
   gem 'uglifier'
   gem 'therubyracer'
 end
