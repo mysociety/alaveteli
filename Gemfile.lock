@@ -60,6 +60,13 @@ GEM
       net-ssh-gateway (>= 1.1.0)
     charlock_holmes (0.6.9.4)
     chunky_png (1.2.8)
+    coffee-rails (3.1.1)
+      coffee-script (>= 2.2.0)
+      railties (~> 3.1.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.6.3)
     colorize (0.5.8)
     columnize (0.3.6)
     compass (0.12.2)
@@ -271,6 +278,7 @@ DEPENDENCIES
   bootstrap-sass
   capistrano
   charlock_holmes
+  coffee-rails (~> 3.1)
   compass
   coveralls
   debugger
