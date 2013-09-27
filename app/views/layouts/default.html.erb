@@ -20,7 +20,7 @@
         <%= javascript_include_tag "application" %>
         <% if @profile_photo_javascript %>
             <%= javascript_include_tag "profile-photos" %>
-            <link rel="stylesheet" href="/stylesheets/jquery.Jcrop.css" type="text/css" >
+            <%= stylesheet_link_tag "jquery.Jcrop" %>
         <% end %>
 
         <% if @feed_autodetect %>
