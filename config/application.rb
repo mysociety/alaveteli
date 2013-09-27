@@ -92,7 +92,9 @@ module Alaveteli
                                  'jquery-ui-1.8.15.custom.css',
                                  'excanvas.min.js',
                                  'fonts.css',
-                                 'main.css']
+                                 'main.css',
+                                 'ie6.css',
+                                 'ie7.css']
 
   end
 end
