@@ -41,7 +41,7 @@ border-width:1px;
 }
 
 #navigation_search input#navigation_search_button {
-background: url(/images/search-button.png) no-repeat center center;
+background: image-url('search-button.png') no-repeat center center;
 width: 27px;
 height: 26px;
 color: transparent;
@@ -252,7 +252,7 @@ padding:12px 0 0;
 
 .request_listing span.head /* full page request list only */ {
 min-height:32px;
-background-image:url(../images/navimg/request-icon.png);
+background-image:image-url('navimg/request-icon.png');
 background-repeat:no-repeat;
 background-position:4px 0;
 margin:0 0 0.3em;
@@ -261,7 +261,7 @@ padding:8px 0 0 42px;
 
 .body_listing span.head /* full page request list only */ {
 min-height:32px;
-background-image:url(../images/navimg/auth-icon.png);
+background-image:image-url('navimg/auth-icon.png');
 background-repeat:no-repeat;
 background-position:4px 0;
 margin:0 0 0.3em;
@@ -270,7 +270,7 @@ padding:8px 0 0 42px;
 
 .user_listing span.head /* full page request list only */ {
 min-height:32px;
-background-image:url(../images/navimg/user-icon.png);
+background-image:image-url('navimg/user-icon.png');
 background-repeat:no-repeat;
 background-position:4px 0;
 margin:0 0 0.3em;
@@ -305,46 +305,46 @@ padding:8px 0 10px 42px;
 }
 
 .icon_waiting_response,.icon_waiting_classification,.icon_waiting_clarification {
-background-image:url(/images/status-pending.png);
+background-image:image-url('status-pending.png');
 color:#A68C2E;
 }
 
 .icon_rejected {
-background-image:url(../images/navimg/status-icons-fail.png);
+background-image:image-url('navimg/status-icons-fail.png');
 }
 
 .icon_not_held, .icon_attention_requested {
-background-image:url(/images/status-not-held.png);
+background-image:image-url('status-not-held.png');
 color:#A68C2E;
 }
 
 .icon_successful,.icon_partially_successful {
-background-image:url(/images/status-complete.png);
+background-image:image-url('status-complete.png');
 color:#69952F;
 }
 
 .icon_requires_admin,.icon_waiting_response_overdue,.icon_waiting_response_very_overdue {
-background-image:url(/images/status-overdue.png);
+background-image:image-url('status-overdue.png');
 color:#C1272D;
 }
 
 .icon_gone_postal {
-background-image:url(/images/status-gone-postal.png);
+background-image:image-url('status-gone-postal.png');
 color:#A68C2E;
 }
 
 .icon_error_message {
-background-image:url(/images/status-error.png);
+background-image:image-url('status-error.png');
 color:#C1272D;
 }
 
 .icon_internal_review {
-background-image:url(/images/status-internal-review.png);
+background-image:image-url('status-internal-review.png');
 color:#A68C2E;
 }
 
 .icon_user_withdrawn {
-background-image:url(/images/status-withdrawn.png);
+background-image:image-url('status-withdrawn.png');
 color:#A68C2E;
 }
 
@@ -360,7 +360,7 @@ overflow:hidden;
 .request_listing span.desc
 /* full page request list only */ {
 width:25em;
-background-image:url(../images/navimg/quote-open.png);
+background-image:image-url('navimg/quote-open.png');
 background-repeat:no-repeat;
 background-position:0 0;
 padding:8px 0 0 25px;
@@ -1073,7 +1073,7 @@ padding-bottom:0;
 }
 
 .icon_failed,.icon_rejected {
-background-image:url(/images/status-denied.png);
+background-image:image-url('status-denied.png');
 color:#C1272D;
 }
 
@@ -1086,7 +1086,7 @@ padding:4px 0;
 }
 
 .request_listing span.desc {
-background:url(/images/quote-marks.png) no-repeat;
+background:image-url('quote-marks.png') no-repeat;
 min-height:60px;
 width:100%;
 color:#444;
@@ -1280,7 +1280,7 @@ padding:5px;
 
 form input.use-datepicker[type=text] {
 width:130px !important;
-background:url(/images/calendar.png) no-repeat 115px 3px;
+background:image-url('calendar.png') no-repeat 115px 3px;
 border-radius:3px !important;
 -moz-border-radius:3px !important;
 font-size:1.1em !important;
@@ -1298,7 +1298,7 @@ input[type="submit"]::-moz-focus-inner {
 form input[type=submit],a.link_button_green,a.link_button_green_large {
 color:#FFF;
 background-color: #8cc63f; /* fallback color if gradients are not supported */
-background-image: url(/images/button-gradient.png);
+background-image: image-url('button-gradient.png');
 background-image: -webkit-linear-gradient(top, #8cc63f, #6b9731); /* For Chrome and Safari */
 background-image:    -moz-linear-gradient(top, #8cc63f, #6b9731); /* For old Fx (3.6 to 15) */
 background-image:     -ms-linear-gradient(top, #8cc63f, #6b9731); /* For pre-releases of IE 10*/
@@ -1320,7 +1320,7 @@ padding:5px 6px;
  color:white;
 }
 a.link_button_green_large {
-background-image: url(/images/button-gradient-large.png);
+background-image: image-url('button-gradient-large.png');
 background-image: -webkit-linear-gradient(top, #8cc63f, #6b9731); /* For Chrome and Safari */
 background-image:    -moz-linear-gradient(top, #8cc63f, #6b9731); /* For old Fx (3.6 to 15) */
 background-image:     -ms-linear-gradient(top, #8cc63f, #6b9731); /* For pre-releases of IE 10*/
@@ -1362,7 +1362,7 @@ line-height:180%;
 }
 
 div.frontpage-box {
-background:url(/images/stripes.png);
+background:image-url('stripes.png');
 border:1px solid #DEBEDD;
 border-radius:5px;
 -moz-border-radius:5px;
@@ -1398,7 +1398,7 @@ padding:5px 0;
 
 #frontpage_examples .excerpt {
 cursor:pointer;
-background:url(/images/quote-marks.png) no-repeat;
+background:image-url('quote-marks.png') no-repeat;
 color:#444;
 line-height:18px;
 min-height:30px;
@@ -1407,7 +1407,7 @@ padding:0 0 0 40px;
 }
 
 #set_photo {
-background:url(/images/defaultprofilepic.png);
+background:image-url('defaultprofilepic.png');
 }
 
 div.correspondence,div.comment_in_request {
@@ -1441,7 +1441,7 @@ margin:0 0 0 10px;
 }
 
 #frontpage_splash {
-background:url(/images/flying-computer.png) no-repeat 175px bottom;
+background:image-url('flying-computer.png') no-repeat 175px bottom;
 height:375px;
 margin-top:-12px;
 margin-bottom:20px;
@@ -1547,7 +1547,7 @@ color:#FFF;
 }
 
 #ui-datepicker-div .ui-icon-circle-triangle-w,#ui-datepicker-div .ui-icon-circle-triangle-e {
-background-image:url(/images/ui-icons-theme.png);
+background-image:image-url('ui-icons-theme.png');
 }
 
 #ui-datepicker-div .ui-datepicker-prev-hover {
@@ -1598,7 +1598,7 @@ display:inline-block;
 border-radius:2px;
 -moz-border-radius:2px;
 cursor:pointer;
-background:url(/images/small-white-cross.png) no-repeat;
+background:image-url('small-white-cross.png') no-repeat;
 width:15px;
 height:15px;
 border:solid 0 #FFF;
@@ -1632,7 +1632,7 @@ display:inline-block;
 width:20px;
 letter-spacing:-1000em;
 overflow:hidden;
-background:url(/images/link-icon.png) no-repeat;
+background:image-url('link-icon.png') no-repeat;
 }
 
 #to_public_body {
