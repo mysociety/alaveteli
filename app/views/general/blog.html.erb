@@ -4,8 +4,8 @@
 <div id="right_column">
   <div class="act_link">
     <h2><%= _("Stay up to date") %></h2>
-    <img src="/images/twitter-16.png" alt="twitter icon"  class="twitter-icon"> <a href="https://twitter.com/<%= @twitter_user %>"><%= _("Follow us on twitter") %></a><br/><br/>
-    <img src="/images/feed-16.png" alt="RSS icon"> <a href="<%= @feed_url %>"><%= _("Subscribe to blog") %></a>
+    <%= image_tag "twitter-16.png", :alt => "twitter icon", :class => "twitter-icon" %> <a href="https://twitter.com/<%= @twitter_user %>"><%= _("Follow us on twitter") %></a><br/><br/>
+    <%= image_tag "feed-16.png", :alt => "RSS icon" %> <a href="<%= @feed_url %>"><%= _("Subscribe to blog") %></a>
   </div>
   <% if AlaveteliConfiguration::twitter_widget_id %>
   <div id="twitter">
