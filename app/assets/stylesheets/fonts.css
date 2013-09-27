@@ -1,0 +1,73 @@
+
+@font-face {
+    font-family: 'DeliciousBold';
+    src: url(font-path('delicious-bold-webfont.eot'));
+    src: url(font-path('delicious-bold-webfont.eot?#iefix')) format('embedded-opentype'),
+         url(font-path('delicious-bold-webfont.woff')) format('woff'),
+         url(font-path('delicious-bold-webfont.ttf')) format('truetype'),
+         url(font-path('delicious-bold-webfont.svg#DeliciousBold')) format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'DeliciousBoldItalic';
+    src: url(font-path('delicious-bolditalic-webfont.eot'));
+    src: url(font-path('delicious-bolditalic-webfont.eot?#iefix')) format('embedded-opentype'),
+         url(font-path('delicious-bolditalic-webfont.woff')) format('woff'),
+         url(font-path('delicious-bolditalic-webfont.ttf')) format('truetype'),
+         url(font-path('delicious-bolditalic-webfont.svg#DeliciousBoldItalic')) format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'DeliciousHeavyRegular';
+    src: url(font-path('delicious-heavy-webfont.eot'));
+    src: url(font-path('delicious-heavy-webfont.eot?#iefix')) format('embedded-opentype'),
+         url(font-path('delicious-heavy-webfont.woff')) format('woff'),
+         url(font-path('delicious-heavy-webfont.ttf')) format('truetype'),
+         url(font-path('delicious-heavy-webfont.svg#DeliciousHeavyRegular')) format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'DeliciousItalic';
+    src: url(font-path('delicious-italic-webfont.eot'));
+    src: url(font-path('delicious-italic-webfont.eot?#iefix')) format('embedded-opentype'),
+         url(font-path('delicious-italic-webfont.woff')) format('woff'),
+         url(font-path('delicious-italic-webfont.ttf')) format('truetype'),
+         url(font-path('delicious-italic-webfont.svg#DeliciousItalic')) format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'DeliciousRoman';
+    src: url(font-path('delicious-roman-webfont.eot'));
+    src: url(font-path('delicious-roman-webfont.eot?#iefix')) format('embedded-opentype'),
+         url(font-path('delicious-roman-webfont.woff')) format('woff'),
+         url(font-path('delicious-roman-webfont.ttf')) format('truetype'),
+         url(font-path('delicious-roman-webfont.svg#DeliciousRoman')) format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'DeliciousSmallCapsRegular';
+    src: url(font-path('delicious-smallcaps-webfont.eot'));
+    src: url(font-path('delicious-smallcaps-webfont.eot?#iefix')) format('embedded-opentype'),
+         url(font-path('delicious-smallcaps-webfont.woff')) format('woff'),
+         url(font-path('delicious-smallcaps-webfont.ttf')) format('truetype'),
+         url(font-path('delicious-smallcaps-webfont.svg#DeliciousSmallCapsRegular')) format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
