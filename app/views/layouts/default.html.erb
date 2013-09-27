@@ -14,7 +14,7 @@
 
         <%= render :partial => 'general/stylesheet_includes' %>
         <% if is_admin? %>
-          <%= stylesheet_link_tag "/admin/stylesheets/admin", :title => "Main", :rel => "stylesheet" %>
+          <%= stylesheet_link_tag "admin", :title => "Main", :rel => "stylesheet" %>
         <% end %>
 
         <%= javascript_include_tag "application" %>
