@@ -51,6 +51,11 @@ gem 'routing-filter'
 gem 'unicode'
 gem 'unidecode'
 
+group :assets do
+  gem 'sass-rails', "~> 3.1"
+  gem 'uglifier'
+end
+
 group :test do
   gem 'fakeweb'
   gem 'coveralls', :require => false

@@ -6,7 +6,7 @@ require File.dirname(__FILE__) + '/../lib/configuration'
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env) if defined?(Bundler)
+Bundler.require(:default, :assets, Rails.env) if defined?(Bundler)
 
 module Alaveteli
   class Application < Rails::Application
@@ -71,5 +71,15 @@ module Alaveteli
     # Insert a bit of middleware code to prevent uneeded cookie setting.
     require "#{Rails.root}/lib/whatdotheyknow/strip_empty_sessions"
     config.middleware.insert_before ActionDispatch::Session::CookieStore, WhatDoTheyKnow::StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
+
+    # Enable the asset pipeline
+    config.assets.enabled = true
+
+    # Version of your assets, change this if you want to expire all your assets
+    config.assets.version = '1.0'
+
+    # Change the path that assets are served from
+    # config.assets.prefix = "/assets"
+
   end
 end
