@@ -85,6 +85,7 @@ GEM
     eventmachine (1.0.3)
     exception_notification (3.0.1)
       actionmailer (>= 3.0.4)
+    execjs (2.0.1)
     factory_girl (2.6.4)
       activesupport (>= 2.3.9)
     factory_girl_rails (1.7.0)
@@ -202,6 +203,10 @@ GEM
       vpim (>= 0.360)
     ruby-ole (1.2.11.6)
     sass (3.2.9)
+    sass-rails (3.1.0)
+      actionpack (~> 3.1.0)
+      railties (~> 3.1.0)
+      sass (>= 3.1.4)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
@@ -235,6 +240,9 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
+    uglifier (2.2.1)
+      execjs (>= 0.3.0)
+      multi_json (~> 1.0, >= 1.0.2)
     unicode (0.4.4)
     unidecoder (1.1.2)
     vpim (0.695)
@@ -289,10 +297,12 @@ DEPENDENCIES
   rspec-rails
   ruby-debug
   ruby-msg (~> 1.5.0)
+  sass-rails (~> 3.1)
   spork-rails
   statistics2 (~> 0.54)
   syslog_protocol
   thin
+  uglifier
   unicode
   unidecoder
   vpim
