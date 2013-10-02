@@ -1,7 +1,7 @@
 <%- if @render_to_file %>
   <style>
-  <%= raw File.read(Rails.root.join('app', 'assets', 'stylesheets', 'main.css')) %>
-  <%= raw File.read(Rails.root.join('app', 'assets', 'stylesheets', 'print.css')) %>
+  <%= Rails.application.assets["main.css"].to_s %>
+  <%= Rails.application.assets["print.css"].to_s %>
   </style>
 <%- else %>
   <%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet", :media => "all" %>
