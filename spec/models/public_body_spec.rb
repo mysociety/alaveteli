@@ -190,6 +190,17 @@ describe PublicBody, " when saving" do
         @public_body.first_letter.should == 'T'
     end
 
+    it "should update first letter, even if it's a multibyte character" do
+        pb = PublicBody.new(:name => 'åccents, lower-case',
+                            :short_name => 'ALC',
+                            :request_email => 'foo@localhost',
+                            :last_edit_editor => 'test',
+                            :last_edit_comment => '')
+        pb.first_letter.should be_nil
+        pb.save!
+        pb.first_letter.should == 'Å'
+    end
+
     it "should save the name when renaming an existing public body" do
         public_body = public_bodies(:geraldine_public_body)
         public_body.name = "Mark's Public Body"

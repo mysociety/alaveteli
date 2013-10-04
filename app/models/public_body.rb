@@ -71,7 +71,7 @@ class PublicBody < ActiveRecord::Base
     def PublicBody.set_first_letter(instance)
         unless instance.name.nil? or instance.name.empty?
             # we use a regex to ensure it works with utf-8/multi-byte
-            first_letter = instance.name.scan(/^./mu)[0].upcase
+            first_letter = Unicode.upcase instance.name.scan(/^./mu)[0]
             if first_letter != instance.first_letter
                 instance.first_letter = first_letter
             end
