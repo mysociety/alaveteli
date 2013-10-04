@@ -113,8 +113,8 @@ class PublicBodyController < ApplicationController
         elsif @tag == 'other'
             category_list = PublicBodyCategories::get().tags().map{|c| "'"+c+"'"}.join(",")
             where_condition += base_tag_condition + " AND has_tag_string_tags.name in (#{category_list})) = 0"
-        elsif @tag.size == 1
-            @tag.upcase!
+        elsif @tag.scan(/./mu).size == 1
+            @tag = Unicode.upcase @tag
             # The first letter queries have to be done on
             # translations, so just indicate to add that later:
             first_letter = true
