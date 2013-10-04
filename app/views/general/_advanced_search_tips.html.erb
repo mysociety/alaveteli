@@ -40,7 +40,10 @@
     <p><%= _("All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent.") %></p>
     <table class="status_table">
         <tr><td><strong><%=search_link('variety:sent')%></strong></td><td><%= _('Original request sent') %></td></tr>
-        <tr><td><strong><%=search_link('variety:followup_sent')%></strong></td><td><%= _('Follow up message sent by requester') %></td></tr>
+        <tr><td><strong><%=search_link('variety:followup_sent')%></strong></td><td><%=  # TRANSLATORS: "Follow up message" in this context means a
+        # further message sent by the requester to the authority after
+        # the initial request
+         _('Follow up message sent by requester') %></td></tr>
         <tr><td><strong><%=search_link('variety:response')%></strong></td><td><%= _('Response from a public authority') %></td></tr>
         <tr><td><strong><%=search_link('variety:comment')%></strong></td><td><%= _('Annotation added to request') %></td></tr>
         <tr><td><strong><%=search_link('variety:authority')%></strong></td><td><%= _('A public authority') %></td></tr>
