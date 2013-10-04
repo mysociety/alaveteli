@@ -80,7 +80,7 @@
         <% if @update_status %>
           <div>
              <%= radio_button "incoming_message", "described_state", "requires_admin", :id => 'requires_admin' + id_suffix %>
-              <label for="error_message<%=id_suffix%>">
+              <label for="requires_admin<%=id_suffix%>">
               <%= _('This request <strong>requires administrator attention</strong>') %> 
               </label>
           </div>
