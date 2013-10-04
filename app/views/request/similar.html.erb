@@ -12,8 +12,6 @@
   <%- end %>
 </h1>
 
-<!-- Important terms: <%= @xapian_object.important_terms.join(" ") %>  -->
-
 <% if @xapian_object.results.empty? %>
     <p><%= _('No similar requests found.')%></p>
 <% else %>
