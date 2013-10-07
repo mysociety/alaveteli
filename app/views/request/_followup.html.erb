@@ -45,7 +45,12 @@
 </div>
 <% end %>
     <% if @info_request.allow_new_responses_from == 'nobody' %>
-        <p><%= _('Follow ups and new responses to this request have been stopped to prevent spam. Please <a href="{{url}}">contact us</a> if you are {{user_link}} and need to send a follow up.',:user_link=>user_link(@info_request.user), :url=>help_contact_path) %></p>
+
+        <p><%=
+        # TRANSLATORS: "Follow ups" in this context means further
+        # messages sent by the requester to the authority after
+        # the initial request
+         _('Follow ups and new responses to this request have been stopped to prevent spam. Please <a href="{{url}}">contact us</a> if you are {{user_link}} and need to send a follow up.',:user_link=>user_link(@info_request.user), :url=>help_contact_path) %></p>
     <% else %>
         <% if @internal_review %>
             <p>
