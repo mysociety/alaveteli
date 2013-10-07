@@ -55,7 +55,8 @@ describe AdminPublicBodyController, "when administering public bodies" do
     end
 
     it "mass assigns tags" do
-        n = PublicBody.count
+        condition = "public_body_translations.locale = ?"
+        n = PublicBody.joins(:translations).where([condition, "en"]).count
         post :mass_tag_add, { :new_tag => "department", :table_name => "substring" }
         request.flash[:notice].should == "Added tag to table of bodies."
         response.should redirect_to(:action=>'list')

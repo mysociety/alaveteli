@@ -250,6 +250,13 @@ describe PublicBodyController, "when listing bodies" do
         response.code.should == '406'
     end
 
+    it "should list authorities starting with a multibyte first letter" do
+        get :list, {:tag => "å", :show_locale => 'cs'}
+        response.should render_template('list')
+        assigns[:public_bodies].should == [ public_bodies(:accented_public_body) ]
+        assigns[:tag].should == "Å"
+    end
+
 end
 
 describe PublicBodyController, "when showing JSON version for API" do
