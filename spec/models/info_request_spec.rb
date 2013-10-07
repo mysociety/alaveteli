@@ -770,6 +770,16 @@ describe InfoRequest do
         end
     end
 
+    describe 'when working out a subject for request emails' do
+
+        it 'should create a standard request subject' do
+            info_request = FactoryGirl.build(:info_request)
+            expected_text = "Freedom of Information request - #{info_request.title}"
+            info_request.email_subject_request.should == expected_text
+        end
+
+    end
+
     describe 'when working out a subject for a followup emails' do
 
         it "should not be confused by an nil subject in the incoming message" do
