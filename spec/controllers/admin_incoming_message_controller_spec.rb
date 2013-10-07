@@ -50,6 +50,17 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
                              :url_title => destination_info_request.url_title
         end
 
+        it 'should succeed, even if a duplicate xapian indexing job is created' do
+
+            with_duplicate_xapian_job_creation do
+                current_info_request = info_requests(:fancy_dog_request)
+                destination_info_request = info_requests(:naughty_chicken_request)
+                incoming_message = incoming_messages(:useless_incoming_message)
+                post :redeliver, :redeliver_incoming_message_id => incoming_message.id,
+                                 :url_title => destination_info_request.url_title
+            end
+
+        end
 
     end
 
