@@ -406,28 +406,13 @@ describe InfoRequestEvent, " when faced with a race condition during xapian_mark
     before(:each) do
         load_raw_emails_data
         get_fixtures_xapian_index
-        # Use the before create job hook to simulate a race condition with another process
-        # by creating an acts_as_xapian_job record for the same model
-        class InfoRequestEvent
-            def xapian_before_create_job_hook(action, model, model_id)
-                ActsAsXapian::ActsAsXapianJob.create!(:model => model,
-                                                      :model_id => model_id,
-                                                      :action => action)
-            end
-        end
-    end
-
-    after(:each) do
-        # Reset the before create job hook
-        class InfoRequestEvent
-            def xapian_before_create_job_hook(action, model, model_id)
-            end
-        end
     end
 
     it 'should not raise an error but should fail silently' do
-        ir = info_requests(:naughty_chicken_request)
-        ir.reindex_request_events
+        with_duplicate_xapian_job_creation do
+            ir = info_requests(:naughty_chicken_request)
+            ir.reindex_request_events
+        end
     end
 
 end
