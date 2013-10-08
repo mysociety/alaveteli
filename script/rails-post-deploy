@@ -97,4 +97,7 @@ bundle exec rake db:migrate #--trace
 
 bundle exec rake themes:install
 
-bundle exec rake assets:precompile
+if [ "$OPTION_STAGING_SITE" = "0" ]
+then
+    bundle exec rake assets:precompile
+fi
