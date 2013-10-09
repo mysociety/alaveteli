@@ -655,13 +655,22 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
+    def self.where_clause_for_stats(minimum_requests, total_column)
+        # When producing statistics for public bodies, we want to
+        # exclude any that are tagged with 'test' - we use a
+        # sub-select to find the IDs of those public bodies.
+        test_tagged_query = "SELECT model_id FROM has_tag_string_tags" \
+            " WHERE model = 'PublicBody' AND name = 'test'"
+        "#{total_column} >= #{minimum_requests} AND id NOT IN (#{test_tagged_query})"
+    end
+
     # Return data for the 'n' public bodies with the highest (or
     # lowest) number of requests, but only returning data for those
     # with at least 'minimum_requests' requests.
     def self.get_request_totals(n, highest, minimum_requests)
         ordering = "info_requests_count"
         ordering += " DESC" if highest
-        where_clause = "info_requests_count >= #{minimum_requests}"
+        where_clause = where_clause_for_stats minimum_requests, 'info_requests_count'
         public_bodies = PublicBody.order(ordering).where(where_clause).limit(n)
         public_bodies.reverse! if highest
         y_values = public_bodies.map { |pb| pb.info_requests_count }
@@ -682,7 +691,8 @@ class PublicBody < ActiveRecord::Base
         ordering = "y_value"
         ordering += " DESC" if highest
         y_value_column = "(cast(#{column} as float) / #{total_column})"
-        where_clause = "#{total_column} >= #{minimum_requests} AND #{column} IS NOT NULL"
+        where_clause = where_clause_for_stats minimum_requests, total_column
+        where_clause += " AND #{column} IS NOT NULL"
         public_bodies = PublicBody.select("*, #{y_value_column} AS y_value").order(ordering).where(where_clause).limit(n)
         public_bodies.reverse! if highest
         y_values = public_bodies.map { |pb| pb.y_value.to_f }

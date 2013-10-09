@@ -532,6 +532,7 @@ describe PublicBody, " when override all public body request emails set" do
 end
 
 describe PublicBody, "when calculating statistics" do
+
     it "should not include unclassified or hidden requests in percentages" do
         with_hidden_and_successful_requests do
             totals_data = PublicBody.get_request_totals(n=3,
@@ -559,4 +560,47 @@ describe PublicBody, "when calculating statistics" do
             percentages_data['y_values'][geraldine_index].should == 50
         end
     end
+
+    it "should only return totals for those with at least a minimum number of requests" do
+        minimum_requests = 1
+        with_enough_info_requests = PublicBody.where(["info_requests_count >= ?",
+                                                      minimum_requests]).length
+        all_data = PublicBody.get_request_totals 4, true, minimum_requests
+        all_data['public_bodies'].length.should == with_enough_info_requests
+    end
+
+    it "should only return percentages for those with at least a minimum number of requests" do
+        with_hidden_and_successful_requests do
+            # With minimum requests at 3, this should return nil
+            # (corresponding to zero public bodies) since the only
+            # public body with just more than 3 info requests (The
+            # Geraldine Quango) has a hidden and an unclassified
+            # request within this block:
+            minimum_requests = 3
+            with_enough_info_requests = PublicBody.where(["info_requests_visible_classified_count >= ?",
+                                                          minimum_requests]).length
+            all_data = PublicBody.get_request_percentages(column='info_requests_successful_count',
+                                                          n=10,
+                                                          true,
+                                                          minimum_requests)
+            all_data.should be_nil
+        end
+    end
+
+    it "should only return those with at least a minimum number of requests, but not tagged 'test'" do
+        hpb = PublicBody.find_by_name 'Department for Humpadinking'
+
+        original_tag_string = hpb.tag_string
+        hpb.add_tag_if_not_already_present 'test'
+
+        begin
+            minimum_requests = 1
+            with_enough_info_requests = PublicBody.where(["info_requests_count >= ?", minimum_requests])
+            all_data = PublicBody.get_request_totals 4, true, minimum_requests
+            all_data['public_bodies'].length.should == 3
+        ensure
+            hpb.tag_string = original_tag_string
+        end
+    end
+
 end
