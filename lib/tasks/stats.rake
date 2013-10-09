@@ -94,7 +94,7 @@ namespace :stats do
   desc 'Update statistics in the public_bodies table'
   task :update_public_bodies_stats => :environment do
     verbose = ENV['VERBOSE'] == '1'
-    PublicBody.all.each do |public_body|
+    PublicBody.find_each(:batch_size => 10) do |public_body|
       puts "Counting overdue requests for #{public_body.name}" if verbose
 
       # Look for values of 'waiting_response_overdue' and
@@ -102,7 +102,8 @@ namespace :stats do
       # described_state column, and instead need to be calculated:
       overdue_count = 0
       very_overdue_count = 0
-      InfoRequest.find_each(:conditions => {:public_body_id => public_body.id}) do |ir|
+      InfoRequest.find_each(:batch_size => 200,
+                            :conditions => {:public_body_id => public_body.id}) do |ir|
         case ir.calculate_status
         when 'waiting_response_very_overdue'
           very_overdue_count += 1
