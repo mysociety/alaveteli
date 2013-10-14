@@ -18,7 +18,6 @@ if Rails.env == "test"
     end
 else
     for url in AlaveteliConfiguration::theme_urls.reverse
-        theme_name = url.sub(/.*\/(.*).git/, "\\1")
-        require_theme(theme_name)
+        require_theme theme_url_to_theme_name(url)
     end
 end
