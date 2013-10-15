@@ -56,6 +56,7 @@ $(document).ready(function() {
         }
 
         options = {
+            'grid': { 'hoverable': true, 'clickable': true },
             'xaxis': {
                 'ticks': graph_data.x_ticks,
                 'rotateTicks': 90
@@ -84,5 +85,17 @@ $(document).ready(function() {
         plot = $.plot(graph_div,
                       dataset,
                       options);
+
+        graph_div.bind("plotclick", function(event, pos, item) {
+            var i, pb, url, name;
+            if (item) {
+                i = item.dataIndex;
+                pb = graph_data.public_bodies[i];
+                url = pb.url;
+                name = pb.name;
+                window.location.href = url;
+            }
+        });
+
     });
 });
