@@ -11,7 +11,8 @@ $(document).ready(function() {
             dataset,
             plot,
             graph_data,
-            graph_div = $('#' + graph_id);
+            graph_div = $('#' + graph_id),
+            previousPoint = null;
 
         if (!graph_data.x_values) {
             /* Then there's no data for this graph */
@@ -97,5 +98,38 @@ $(document).ready(function() {
             }
         });
 
+        /* This code is adapted from:
+           http://www.flotcharts.org/flot/examples/interacting/ */
+
+        function showTooltip(x, y, contents) {
+            $('<div id="flot-tooltip">' + contents + '</div>').css({
+                'position': 'absolute',
+                'display': 'none',
+                'top': y + 10,
+                'left': x + 10,
+                'border': '1px solid #fdd',
+                'padding': '2px',
+                'background-color': '#fee',
+                'opacity': 0.80
+            }).appendTo("body").fadeIn(200);
+        }
+
+        graph_div.bind("plothover", function (event, pos, item) {
+            var escapedName, x, y;
+            if (item) {
+                if (previousPoint != item.dataIndex) {
+                    previousPoint = item.dataIndex;
+                    $("#flot-tooltip").remove();
+                    escapedName = $('<div />').text(
+                        graph_data.tooltips[item.dataIndex]).html();
+                    showTooltip(item.pageX,
+                                item.pageY,
+                                escapedName);
+                }
+            } else {
+                $("#flot-tooltip").remove();
+                previousPoint = null;
+            }
+        });
     });
 });
