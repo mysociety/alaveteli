@@ -251,6 +251,11 @@ class PublicBodyController < ApplicationController
                                                          minimum_requests)
                 end
 
+                # We just need the URL and name of each public body:
+                data['public_bodies'].map! { |pb|
+                    {'name' => pb.name, 'url' => public_body_path(pb)}
+                }
+
                 data_to_draw = {
                     'id' => "#{column}-#{highest ? 'highest' : 'lowest'}",
                     'x_axis' => _('Public Bodies'),
@@ -261,7 +266,7 @@ class PublicBodyController < ApplicationController
                 if data
                     data_to_draw.update(data)
                     data_to_draw['x_values'] = data['public_bodies'].each_with_index.map { |pb, i| i }
-                    data_to_draw['x_ticks'] = data['public_bodies'].each_with_index.map { |pb, i| [i, pb.name] }
+                    data_to_draw['x_ticks'] = data['public_bodies'].each_with_index.map { |pb, i| [i, pb['name']] }
                 end
 
                 @graph_list.push data_to_draw
