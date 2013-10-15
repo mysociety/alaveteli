@@ -256,17 +256,22 @@ class PublicBodyController < ApplicationController
                     {'name' => pb.name, 'url' => public_body_path(pb)}
                 }
 
-                data_to_draw = {
+                data_to_draw = Hash.new { |h, k| h[k] = [] }
+                data_to_draw.update({
                     'id' => "#{column}-#{highest ? 'highest' : 'lowest'}",
                     'x_axis' => _('Public Bodies'),
                     'y_axis' => graph_properties[:y_axis],
                     'errorbars' => percentages,
-                    'title' => graph_properties[:title]}
+                    'title' => graph_properties[:title]
+                })
 
                 if data
                     data_to_draw.update(data)
-                    data_to_draw['x_values'] = data['public_bodies'].each_with_index.map { |pb, i| i }
-                    data_to_draw['x_ticks'] = data['public_bodies'].each_with_index.map { |pb, i| [i, pb['name']] }
+                    data['public_bodies'].each_with_index { |pb, i|
+                        data_to_draw['x_values'].push i
+                        data_to_draw['x_ticks'].push [i, pb['name']]
+                        data_to_draw['tooltips'].push pb['name']
+                    }
                 end
 
                 @graph_list.push data_to_draw
