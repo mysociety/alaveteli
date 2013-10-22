@@ -236,7 +236,7 @@ GEM
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
     unicode (0.4.4)
-    unidecode (1.0.0)
+    unidecoder (1.1.2)
     vpim (0.695)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
@@ -293,7 +293,7 @@ DEPENDENCIES
   statistics2 (~> 0.54)
   syslog_protocol
   unicode
-  unidecode
+  unidecoder
   vpim
   webrat
   will_paginate

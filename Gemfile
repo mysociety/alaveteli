@@ -49,7 +49,7 @@ gem 'globalize3', :git => 'git://github.com/henare/globalize3.git', :branch => '
 gem 'locale'
 gem 'routing-filter'
 gem 'unicode'
-gem 'unidecode'
+gem 'unidecoder'
 
 group :test do
   gem 'fakeweb'
