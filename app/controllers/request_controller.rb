@@ -184,9 +184,9 @@ class RequestController < ApplicationController
     end
 
     def new_batch
-
-        # TODO: Check that have at least one public body in public_bodies param
-
+        if params[:public_body_ids].blank?
+            redirect_to select_authorities_path and return
+        end
         # TODO: Pass public bodies list through new and preview template forms
 
         # TODO: I don't think batch requesters should be subject to rate limits,

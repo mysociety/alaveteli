@@ -2521,23 +2521,29 @@ describe RequestController, "#new_batch", :focus => true do
 
             before do
                 @user = FactoryGirl.create(:user, :can_make_batch_requests => true)
+                @public_body = FactoryGirl.create(:public_body)
             end
 
             it 'should be successful' do
-                get :new_batch, {}, {:user_id => @user.id}
+                get :new_batch, {:public_body_ids => [@public_body.id]}, {:user_id => @user.id}
                 response.should be_success
             end
 
             it 'should render the "new" template' do
-                get :new_batch, {}, {:user_id => @user.id}
+                get :new_batch, {:public_body_ids => [@public_body.id]}, {:user_id => @user.id}
                 response.should render_template('request/new')
             end
 
+            it 'should redirect to "select_authorities" if no public_body_ids param is passed' do
+                get :new_batch, {}, {:user_id => @user.id}
+                response.should redirect_to select_authorities_path
+            end
 
             it "should render 'preview' when given a good title and body" do
 
                 post :new_batch, { :info_request => { :title => "What does it all mean?",
                                                       :tag_string => "" },
+                                   :public_body_ids => [@public_body.id],
                                    :outgoing_message => { :body => "This is a silly letter." },
                                    :submitted_new_request => 1,
                                    :preview => 1 }, { :user_id => @user.id }
@@ -2546,6 +2552,7 @@ describe RequestController, "#new_batch", :focus => true do
 
             it "should give an error and render 'new' template when a summary isn't given" do
                 post :new_batch, { :info_request => { :tag_string => "" },
+                                   :public_body_ids => [@public_body.id],
                                    :outgoing_message => { :body => "This is a silly letter." },
                                    :submitted_new_request => 1,
                                    :preview => 1 }, { :user_id => @user.id }
@@ -2555,6 +2562,7 @@ describe RequestController, "#new_batch", :focus => true do
 
             it "should allow re-editing of a request" do
                 post :new_batch, { :info_request => { :tag_string => "" },
+                                   :public_body_ids => [@public_body.id],
                                    :outgoing_message => { :body => "This is a silly letter." },
                                    :submitted_new_request => 1,
                                    :preview => 0,
