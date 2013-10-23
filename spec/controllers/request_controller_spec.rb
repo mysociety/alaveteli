@@ -2522,6 +2522,12 @@ describe RequestController, "#new_batch", :focus => true do
             before do
                 @user = FactoryGirl.create(:user, :can_make_batch_requests => true)
                 @public_body = FactoryGirl.create(:public_body)
+                @default_post_params = { :info_request => { :title => "What does it all mean?",
+                                                            :tag_string => "" },
+                                         :public_body_ids => [@public_body.id],
+                                         :outgoing_message => { :body => "This is a silly letter." },
+                                         :submitted_new_request => 1,
+                                         :preview => 1 }
             end
 
             it 'should be successful' do
@@ -2540,33 +2546,20 @@ describe RequestController, "#new_batch", :focus => true do
             end
 
             it "should render 'preview' when given a good title and body" do
-
-                post :new_batch, { :info_request => { :title => "What does it all mean?",
-                                                      :tag_string => "" },
-                                   :public_body_ids => [@public_body.id],
-                                   :outgoing_message => { :body => "This is a silly letter." },
-                                   :submitted_new_request => 1,
-                                   :preview => 1 }, { :user_id => @user.id }
+                post :new_batch, @default_post_params, { :user_id => @user.id }
                 response.should render_template('preview')
             end
 
             it "should give an error and render 'new' template when a summary isn't given" do
-                post :new_batch, { :info_request => { :tag_string => "" },
-                                   :public_body_ids => [@public_body.id],
-                                   :outgoing_message => { :body => "This is a silly letter." },
-                                   :submitted_new_request => 1,
-                                   :preview => 1 }, { :user_id => @user.id }
+                @default_post_params[:info_request].delete(:title)
+                post :new_batch, @default_post_params, { :user_id => @user.id }
                 assigns[:info_request].errors[:title].should == ['Please enter a summary of your request']
                 response.should render_template('new')
             end
 
             it "should allow re-editing of a request" do
-                post :new_batch, { :info_request => { :tag_string => "" },
-                                   :public_body_ids => [@public_body.id],
-                                   :outgoing_message => { :body => "This is a silly letter." },
-                                   :submitted_new_request => 1,
-                                   :preview => 0,
-                                   :reedit => 1}, { :user_id => @user.id }
+                params = @default_post_params.merge(:preview => 0, :reedit => 1)
+                post :new_batch, params, { :user_id => @user.id }
                 response.should render_template('new')
             end
 
