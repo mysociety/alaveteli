@@ -187,7 +187,6 @@ class RequestController < ApplicationController
         if params[:public_body_ids].blank?
             redirect_to select_authorities_path and return
         end
-        # TODO: Pass public bodies list through new and preview template forms
 
         # TODO: I don't think batch requesters should be subject to rate limits,
         # but I do think we should probably check for double submission of batch
