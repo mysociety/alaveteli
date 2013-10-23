@@ -188,8 +188,7 @@ class RequestController < ApplicationController
             redirect_to select_authorities_path and return
         end
 
-        # TODO: I don't think batch requesters should be subject to rate limits,
-        # but I do think we should probably check for double submission of batch
+        # TODO: I do think we should probably check for double submission of batch
         # requests as we do in 'new' for ordinary requests with find_by_existing_request
 
         # TODO: Decide if we make batch requesters describe their undescribed requests

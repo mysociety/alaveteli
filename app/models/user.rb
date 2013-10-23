@@ -269,6 +269,9 @@ class User < ActiveRecord::Base
         # Some users have no limit
         return false if self.no_limit
 
+        # Batch request users don't have a limit
+        return false if self.can_make_batch_requests?
+
         # Has the user issued as many as MAX_REQUESTS_PER_USER_PER_DAY requests in the past 24 hours?
         return false if AlaveteliConfiguration::max_requests_per_user_per_day.blank?
         recent_requests = InfoRequest.count(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id])

@@ -360,4 +360,11 @@ describe User, "when calculating if a user has exceeded the request limit" do
         @user.exceeded_limit?.should be_true
     end
 
+    it 'should return false if the user is allowed to make batch requests' do
+        @user.can_make_batch_requests = true
+        AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return(0)
+        @user.exceeded_limit?.should be_false
+    end
+
+
 end
