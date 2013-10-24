@@ -216,8 +216,10 @@ class RequestController < ApplicationController
         @outgoing_message.info_request = @info_request
         @info_request.user = authenticated_user
         if !@info_request.valid?
-            # TODO: add in code from 'new' for removing spurious extra
-            # "Outgoing messages is invalid" message - move to model?
+            # We don't want the error "Outgoing messages is invalid", as in this
+            # case the list of errors will also contain a more specific error
+            # describing the reason it is invalid.
+            @info_request.errors.delete(:outgoing_messages)
             render :action => 'new'
             return
         end
