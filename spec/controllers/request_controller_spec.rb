@@ -2573,6 +2573,17 @@ describe RequestController, "#new_batch", :focus => true do
                 response.should redirect_to(info_request_batch_path(new_info_request_batch))
             end
 
+            it 'should prevent double submission of a batch request' do
+                params = @default_post_params.merge(:preview => 0)
+                post :new_batch, params, { :user_id => @user.id }
+                new_info_request_batch = assigns[:info_request_batch]
+                response.should redirect_to(info_request_batch_path(new_info_request_batch))
+                post :new_batch, params, { :user_id => @user.id }
+                response.should render_template('new')
+                assigns[:existing_batch].should_not be_nil
+            end
+
+
             context "when the user is banned" do
 
                 before do

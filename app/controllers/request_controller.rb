@@ -188,12 +188,8 @@ class RequestController < ApplicationController
             redirect_to select_authorities_path and return
         end
 
-        # TODO: I do think we should probably check for double submission of batch
-        # requests as we do in 'new' for ordinary requests with find_existing
-
         # TODO: Decide if we make batch requesters describe their undescribed requests
         # before being able to make a new batch request
-
 
         if  !authenticated_user.can_file_requests?
             @details = authenticated_user.can_fail_html
@@ -205,12 +201,18 @@ class RequestController < ApplicationController
             return render_new_compose(batch=true)
         end
 
+        # Check for double submission of batch
+        @existing_batch = InfoRequestBatch.find_existing(authenticated_user,
+                                                         params[:info_request][:title],
+                                                         params[:outgoing_message][:body],
+                                                         params[:public_body_ids])
+
         @info_request = InfoRequest.create_from_attributes(params[:info_request],
                                                            params[:outgoing_message],
                                                            authenticated_user)
         @outgoing_message = @info_request.outgoing_messages.first
         @info_request.is_batch_request_template = true
-        if !@info_request.valid?
+        if !@existing_batch.nil? || !@info_request.valid?
             # We don't want the error "Outgoing messages is invalid", as in this
             # case the list of errors will also contain a more specific error
             # describing the reason it is invalid.
@@ -227,6 +229,7 @@ class RequestController < ApplicationController
         # TODO: give messages about bodies
         # that are no longer requestable
         @info_request_batch = InfoRequestBatch.create!(:title => params[:info_request][:title],
+                                                       :body => params[:outgoing_message][:body],
                                                        :user => authenticated_user)
         @public_bodies = PublicBody.where({:id => params[:public_body_ids]}).all
         @public_bodies.each do |public_body|

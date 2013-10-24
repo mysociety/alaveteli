@@ -33,6 +33,13 @@
       </li>
       </ul></div>
     <% end %>
+    <% if @existing_batch %>
+    <div class="errorExplanation" id="errorExplanation"><ul>
+    <li>
+     <%= _('You already created the same batch of requests on {{date}}.   You can either view the <a href="{{existing_batch}}">existing batch</a>, or edit the details below to make a new but similar batch of requests.', :date=>simple_date(@existing_batch.created_at), :existing_batch=>info_request_batch_path(@existing_batch)) %>
+    </li>
+    </ul></div>
+    <% end %>
 
     <%= foi_error_messages_for :info_request, :outgoing_message %>
 

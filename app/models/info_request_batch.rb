@@ -16,5 +16,17 @@ class InfoRequestBatch < ActiveRecord::Base
 
     validates_presence_of :user
     validates_presence_of :title
+    validates_presence_of :body
+
+    #  When constructing a new batch, use this to check user hasn't double submitted.
+    def InfoRequestBatch.find_existing(user, title, body, public_body_ids)
+        find(:first, :conditions => ['info_request_batches.user_id = ?
+                                      AND info_request_batches.title = ?
+                                      AND body = ?
+                                      AND info_requests.public_body_id in (?)',
+                                      user, title, body, public_body_ids],
+                     :include => :info_requests)
+    end
+
 
 end
