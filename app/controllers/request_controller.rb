@@ -194,7 +194,11 @@ class RequestController < ApplicationController
         # TODO: Decide if we make batch requesters describe their undescribed requests
         # before being able to make a new batch request
 
-        # TODO: Add logic for checking if the user is banned
+
+        if  !authenticated_user.can_file_requests?
+            @details = authenticated_user.can_fail_html
+            render :template => 'user/banned' and return
+        end
 
         @batch = true
         if params[:submitted_new_request].nil? || params[:reedit]

@@ -2563,6 +2563,21 @@ describe RequestController, "#new_batch", :focus => true do
                 response.should render_template('new')
             end
 
+            context "when the user is banned" do
+
+                before do
+                    @user.ban_text = "bad behaviour"
+                    @user.save!
+                end
+
+                it 'should show the "banned" template' do
+                    post :new_batch, @default_post_params, { :user_id => @user.id }
+                    response.should render_template('user/banned')
+                    assigns[:details].should == 'bad behaviour'
+                end
+
+            end
+
         end
 
         context "when the current user can't make batch requests" do
