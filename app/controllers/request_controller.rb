@@ -205,16 +205,11 @@ class RequestController < ApplicationController
             return render_new_compose(batch=true)
         end
 
-        @info_request = InfoRequest.new(params[:info_request])
+        @info_request = InfoRequest.create_from_attributes(params[:info_request],
+                                                           params[:outgoing_message],
+                                                           authenticated_user)
+        @outgoing_message = @info_request.outgoing_messages.first
         @info_request.is_batch_request_template = true
-        @outgoing_message = OutgoingMessage.new(params[:outgoing_message].merge({
-            :status => 'ready',
-            :message_type => 'initial_request',
-            :what_doing => 'normal_sort'
-        }))
-        @info_request.outgoing_messages << @outgoing_message
-        @outgoing_message.info_request = @info_request
-        @info_request.user = authenticated_user
         if !@info_request.valid?
             # We don't want the error "Outgoing messages is invalid", as in this
             # case the list of errors will also contain a more specific error
@@ -229,10 +224,21 @@ class RequestController < ApplicationController
             return render_new_preview
         end
 
-        # TODO: create info requests and associated outgoing messages from this
-        # template request, and send those that can be sent, giving messages about bodies
+        # TODO: give messages about bodies
         # that are no longer requestable
-
+        @info_request_batch = InfoRequestBatch.create!(:title => params[:info_request][:title],
+                                                       :user => authenticated_user)
+        @public_bodies = PublicBody.where({:id => params[:public_body_ids]}).all
+        @public_bodies.each do |public_body|
+            info_request = InfoRequest.create_from_attributes(params[:info_request],
+                                                              params[:outgoing_message],
+                                                              authenticated_user)
+            info_request.public_body_id = public_body.id
+            info_request.info_request_batch = @info_request_batch
+            info_request.save!
+            info_request.outgoing_messages.first.send_message
+        end
+        redirect_to info_request_batch_path(@info_request_batch)
     end
 
     # Page new form posts to
@@ -289,13 +295,9 @@ class RequestController < ApplicationController
         @existing_request = InfoRequest.find_by_existing_request(params[:info_request][:title], params[:info_request][:public_body_id], params[:outgoing_message][:body])
 
         # Create both FOI request and the first request message
-        @info_request = InfoRequest.new(params[:info_request])
-        @outgoing_message = OutgoingMessage.new(params[:outgoing_message].merge({
-            :status => 'ready',
-            :message_type => 'initial_request'
-        }))
-        @info_request.outgoing_messages << @outgoing_message
-        @outgoing_message.info_request = @info_request
+        @info_request = InfoRequest.create_from_attributes(params[:info_request],
+                                                           params[:outgoing_message])
+        @outgoing_message = @info_request.outgoing_messages.first
 
         # Maybe we lost the address while they're writing it
         if !@info_request.public_body.is_requestable?

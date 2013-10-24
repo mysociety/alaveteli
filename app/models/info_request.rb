@@ -936,6 +936,20 @@ public
         self.idhash = InfoRequest.hash_from_id(self.id)
     end
 
+    def InfoRequest.create_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
+        info_request = new(info_request_atts)
+        default_message_params = {
+            :status => 'ready',
+            :message_type => 'initial_request',
+            :what_doing => 'normal_sort'
+        }
+        outgoing_message = OutgoingMessage.new(outgoing_message_atts.merge(default_message_params))
+        info_request.outgoing_messages << outgoing_message
+        outgoing_message.info_request = info_request
+        info_request.user = user
+        info_request
+    end
+
     def InfoRequest.hash_from_id(id)
         return Digest::SHA1.hexdigest(id.to_s + AlaveteliConfiguration::incoming_email_secret)[0,8]
     end

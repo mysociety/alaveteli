@@ -2565,6 +2565,14 @@ describe RequestController, "#new_batch", :focus => true do
                 response.should render_template('new')
             end
 
+            it 'should create an info request batch and redirect to the new batch on success' do
+                params = @default_post_params.merge(:preview => 0)
+                post :new_batch, params, { :user_id => @user.id }
+                new_info_request_batch = assigns[:info_request_batch]
+                new_info_request_batch.should_not be_nil
+                response.should redirect_to(info_request_batch_path(new_info_request_batch))
+            end
+
             context "when the user is banned" do
 
                 before do

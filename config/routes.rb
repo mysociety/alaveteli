@@ -65,6 +65,8 @@ Alaveteli::Application.routes.draw do
         resource :report, :only => [:new, :create]
     end
 
+    resources :info_request_batch, :only => :show
+
     #### User controller
     # Use /profile for things to do with the currently signed in user.
     # Use /user/XXXX for things that anyone can see about that user.
