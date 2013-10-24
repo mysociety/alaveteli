@@ -2522,21 +2522,23 @@ describe RequestController, "#new_batch", :focus => true do
             before do
                 @user = FactoryGirl.create(:user, :can_make_batch_requests => true)
                 @public_body = FactoryGirl.create(:public_body)
+                @other_public_body = FactoryGirl.create(:public_body)
+                @public_body_ids = [@public_body.id, @other_public_body.id]
                 @default_post_params = { :info_request => { :title => "What does it all mean?",
                                                             :tag_string => "" },
-                                         :public_body_ids => [@public_body.id],
+                                         :public_body_ids => @public_body_ids,
                                          :outgoing_message => { :body => "This is a silly letter." },
                                          :submitted_new_request => 1,
                                          :preview => 1 }
             end
 
             it 'should be successful' do
-                get :new_batch, {:public_body_ids => [@public_body.id]}, {:user_id => @user.id}
+                get :new_batch, {:public_body_ids => @public_body_ids}, {:user_id => @user.id}
                 response.should be_success
             end
 
             it 'should render the "new" template' do
-                get :new_batch, {:public_body_ids => [@public_body.id]}, {:user_id => @user.id}
+                get :new_batch, {:public_body_ids => @public_body_ids}, {:user_id => @user.id}
                 response.should render_template('request/new')
             end
 
