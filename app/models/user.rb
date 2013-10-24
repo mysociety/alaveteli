@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20131024114346
 #
 # Table name: users
 #
@@ -20,6 +21,7 @@
 #  email_bounce_message   :text             default(""), not null
 #  no_limit               :boolean          default(FALSE), not null
 #  receive_email_alerts   :boolean          default(TRUE), not null
+#  can_make_batch_requests :boolean          default(FALSE), not null
 #
 
 require 'digest/sha1'

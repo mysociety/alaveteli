@@ -145,4 +145,8 @@ FactoryGirl.define do
         track_query 'Example Query'
     end
 
+    factory :info_request_batch do
+        title "Example title"
+        user
+    end
 end

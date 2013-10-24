@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20131024114346
 #
 # Table name: outgoing_messages
 #

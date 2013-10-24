@@ -1,5 +1,6 @@
 # encoding: utf-8
 # == Schema Information
+# Schema version: 20131024114346
 #
 # Table name: info_requests
 #
@@ -21,6 +22,7 @@
 #  external_url              :string(255)
 #  attention_requested       :boolean          default(FALSE)
 #  comments_allowed          :boolean          default(TRUE), not null
+#  info_request_batch_id     :integer
 #
 
 require 'digest/sha1'
@@ -40,6 +42,7 @@ class InfoRequest < ActiveRecord::Base
     validate :must_be_internal_or_external
 
     belongs_to :public_body, :counter_cache => true
+    belongs_to :info_request_batch
     validates_presence_of :public_body_id, :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
     has_many :outgoing_messages, :order => 'created_at'
