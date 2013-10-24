@@ -10,7 +10,7 @@ describe TrackController, "when making a new track on a request" do
                                               :tracking_user_id= => nil)
         TrackThing.stub!(:create_track_for_request).and_return(@track_thing)
         TrackThing.stub!(:create_track_for_search_query).and_return(@track_thing)
-        TrackThing.stub!(:find_by_existing_track).and_return(nil)
+        TrackThing.stub!(:find_existing).and_return(nil)
         InfoRequest.stub!(:find_by_url_title!) do |url_title|
           if url_title == "myrequest"
             @ir

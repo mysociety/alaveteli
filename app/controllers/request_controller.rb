@@ -189,7 +189,7 @@ class RequestController < ApplicationController
         end
 
         # TODO: I do think we should probably check for double submission of batch
-        # requests as we do in 'new' for ordinary requests with find_by_existing_request
+        # requests as we do in 'new' for ordinary requests with find_existing
 
         # TODO: Decide if we make batch requesters describe their undescribed requests
         # before being able to make a new batch request
@@ -292,7 +292,7 @@ class RequestController < ApplicationController
         # XXX this check should theoretically be a validation rule in the
         # model, except we really want to pass @existing_request to the view so
         # it can link to it.
-        @existing_request = InfoRequest.find_by_existing_request(params[:info_request][:title], params[:info_request][:public_body_id], params[:outgoing_message][:body])
+        @existing_request = InfoRequest.find_existing(params[:info_request][:title], params[:info_request][:public_body_id], params[:outgoing_message][:body])
 
         # Create both FOI request and the first request message
         @info_request = InfoRequest.create_from_attributes(params[:info_request],

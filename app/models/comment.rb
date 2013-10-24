@@ -62,7 +62,7 @@ class Comment < ActiveRecord::Base
     end
 
     # When posting a new comment, use this to check user hasn't double submitted.
-    def Comment.find_by_existing_comment(info_request_id, body)
+    def Comment.find_existing(info_request_id, body)
         # XXX can add other databases here which have regexp_replace
         if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
             # Exclude spaces from the body comparison using regexp_replace

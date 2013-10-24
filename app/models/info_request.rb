@@ -387,7 +387,7 @@ public
     # repeated requests, say once a quarter for time information, then might need to do that.
     # XXX this *should* also check outgoing message joined to is an initial
     # request (rather than follow up)
-    def InfoRequest.find_by_existing_request(title, public_body_id, body)
+    def InfoRequest.find_existing(title, public_body_id, body)
         return InfoRequest.find(:first, :conditions => [ "title = ? and public_body_id = ? and outgoing_messages.body = ?", title, public_body_id, body ], :include => [ :outgoing_messages ] )
     end
 
