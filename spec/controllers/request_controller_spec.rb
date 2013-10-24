@@ -2565,24 +2565,42 @@ describe RequestController, "#new_batch", :focus => true do
                 response.should render_template('new')
             end
 
-            it 'should create an info request batch and redirect to the new batch on success' do
-                params = @default_post_params.merge(:preview => 0)
-                post :new_batch, params, { :user_id => @user.id }
-                new_info_request_batch = assigns[:info_request_batch]
-                new_info_request_batch.should_not be_nil
-                response.should redirect_to(info_request_batch_path(new_info_request_batch))
-            end
+            context "on success" do
 
-            it 'should prevent double submission of a batch request' do
-                params = @default_post_params.merge(:preview => 0)
-                post :new_batch, params, { :user_id => @user.id }
-                new_info_request_batch = assigns[:info_request_batch]
-                response.should redirect_to(info_request_batch_path(new_info_request_batch))
-                post :new_batch, params, { :user_id => @user.id }
-                response.should render_template('new')
-                assigns[:existing_batch].should_not be_nil
-            end
+                def make_request
+                    @params = @default_post_params.merge(:preview => 0)
+                    post :new_batch, @params, { :user_id => @user.id }
+                end
 
+                it 'should create an info request batch and redirect to the new batch on success' do
+                    make_request
+                    new_info_request_batch = assigns[:info_request_batch]
+                    new_info_request_batch.should_not be_nil
+                    response.should redirect_to(info_request_batch_path(new_info_request_batch))
+                end
+
+                it 'should prevent double submission of a batch request' do
+                    make_request
+                    post :new_batch, @params, { :user_id => @user.id }
+                    response.should render_template('new')
+                    assigns[:existing_batch].should_not be_nil
+                end
+
+                it 'should display a success notice' do
+                    make_request
+                    notice_text = "<p>Your Freedom of Information requests have been <strong>sent</strong>!</p>"
+                    flash[:notice].should match notice_text
+                end
+
+                it 'should display notes about any bodies that could not be included' do
+                    @other_public_body.request_email = ''
+                    @other_public_body.save!
+                    make_request
+                    error_text = "Unfortunately, we do not have a working address for #{@other_public_body.name}."
+                    flash[:error].should match error_text
+                end
+
+            end
 
             context "when the user is banned" do
 
