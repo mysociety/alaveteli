@@ -28,26 +28,41 @@ class InfoRequestBatch < ActiveRecord::Base
                      :include => :info_requests)
     end
 
-
+    # Create a batch of information requests, returning the batch, and a list of public bodies
+    # that are unrequestable from the initial list of public body ids passed.
     def InfoRequestBatch.create_batch!(info_request_params, outgoing_message_params, public_body_ids, user)
-        info_request_batch = InfoRequestBatch.create!(:title => info_request_params[:title],
-                                                      :body => outgoing_message_params[:body],
-                                                      :user => user)
-       public_bodies = PublicBody.where({:id => public_body_ids}).all
-       unrequestable = []
-       public_bodies.each do |public_body|
-           if public_body.is_requestable?
-               info_request = InfoRequest.create_from_attributes(info_request_params,
-                                                                 outgoing_message_params,
-                                                                 user)
-               info_request.public_body_id = public_body.id
-               info_request.info_request_batch = info_request_batch
-               info_request.save!
-               info_request.outgoing_messages.first.send_message
-           else
-                unrequestable << public_body
-           end
-       end
-       return {:batch => info_request_batch, :unrequestable => unrequestable}
+        info_request_batch = nil
+        unrequestable = []
+        created = []
+        public_bodies = PublicBody.where({:id => public_body_ids}).all
+        ActiveRecord::Base.transaction do
+            info_request_batch = InfoRequestBatch.create!(:title => info_request_params[:title],
+                                                          :body => outgoing_message_params[:body],
+                                                          :user => user)
+            public_bodies.each do |public_body|
+                if public_body.is_requestable?
+                    created << info_request_batch.create_request!(public_body,
+                                                                  info_request_params,
+                                                                  outgoing_message_params,
+                                                                  user)
+                else
+                    unrequestable << public_body
+                end
+            end
+        end
+        created.each{ |info_request| info_request.outgoing_messages.first.send_message }
+        return {:batch => info_request_batch, :unrequestable => unrequestable}
+    end
+
+    # Create and send an FOI request to a public body
+    def create_request!(public_body, info_request_params, outgoing_message_params, user)
+        body = OutgoingMessage.fill_in_salutation(outgoing_message_params[:body], public_body)
+        info_request = InfoRequest.create_from_attributes(info_request_params,
+                                                          outgoing_message_params.merge(:body => body),
+                                                          user)
+        info_request.public_body_id = public_body.id
+        info_request.info_request_batch = self
+        info_request.save!
+        info_request
     end
 end
