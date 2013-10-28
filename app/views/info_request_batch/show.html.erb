@@ -1,0 +1,10 @@
+<% @title = _("Batch request") %>
+<h1><%= @title %></h1>
+<div class="results_section">
+  <div class="results_block">
+  <% @info_requests.each do |info_request| %>
+      <%= render :partial => 'request/request_listing_via_event', :locals => { :event => info_request.last_event_forming_initial_request, :info_request => info_request } %>
+  <% end %>
+  </div>
+    <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @info_request_batch.info_requests.count) %>
+</div>

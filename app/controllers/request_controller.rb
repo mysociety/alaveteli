@@ -226,8 +226,6 @@ class RequestController < ApplicationController
             return render_new_preview
         end
 
-        # TODO: give messages about bodies
-        # that are no longer requestable
         @info_request_batch = InfoRequestBatch.create!(:title => params[:info_request][:title],
                                                        :body => params[:outgoing_message][:body],
                                                        :user => authenticated_user)
