@@ -226,35 +226,21 @@ class RequestController < ApplicationController
             return render_new_preview
         end
 
-        @info_request_batch = InfoRequestBatch.create!(:title => params[:info_request][:title],
-                                                       :body => params[:outgoing_message][:body],
-                                                       :user => authenticated_user)
-        @public_bodies = PublicBody.where({:id => params[:public_body_ids]}).all
-        unrequestable = []
-        @public_bodies.each do |public_body|
-            if public_body.is_requestable?
-                info_request = InfoRequest.create_from_attributes(params[:info_request],
-                                                                  params[:outgoing_message],
-                                                                  authenticated_user)
-                info_request.public_body_id = public_body.id
-                info_request.info_request_batch = @info_request_batch
-                info_request.save!
-                info_request.outgoing_messages.first.send_message
-            else
-                unrequestable << public_body.name
-            end
-        end
-
+        batch_results = InfoRequestBatch.create_batch!(params[:info_request],
+                                                       params[:outgoing_message],
+                                                       params[:public_body_ids],
+                                                       authenticated_user)
+        @info_request_batch = batch_results[:batch]
         flash[:notice] = _("<p>Your {{law_used_full}} requests have been <strong>sent</strong>!</p>
             <p><strong>We will email you</strong> when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't
             replied by then.</p>
             <p>If you write about these requests (for example in a forum or a blog) please link to this page.</p>",
             :law_used_full=>@info_request.law_used_full,
             :late_number_of_days => AlaveteliConfiguration::reply_late_after_days)
-        if ! unrequestable.empty?
+        if ! batch_results[:unrequestable].empty?
             error_messages = []
             error_messages << _('Unfortunately, we do not have a working address for {{public_body_names}}.',
-                               :public_body_names => unrequestable.join(","))
+                               :public_body_names => batch_results[:unrequestable].map{|body| body.name}.join(","))
             error_messages << _('You may be able to find one on their website, or by phoning them up and asking. If you manage
                               to find one, then please <a href="{{help_url}}">send it to us</a>.',
                               :help_url => help_contact_path)

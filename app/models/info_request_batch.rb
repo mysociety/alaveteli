@@ -29,4 +29,25 @@ class InfoRequestBatch < ActiveRecord::Base
     end
 
 
+    def InfoRequestBatch.create_batch!(info_request_params, outgoing_message_params, public_body_ids, user)
+        info_request_batch = InfoRequestBatch.create!(:title => info_request_params[:title],
+                                                      :body => outgoing_message_params[:body],
+                                                      :user => user)
+       public_bodies = PublicBody.where({:id => public_body_ids}).all
+       unrequestable = []
+       public_bodies.each do |public_body|
+           if public_body.is_requestable?
+               info_request = InfoRequest.create_from_attributes(info_request_params,
+                                                                 outgoing_message_params,
+                                                                 user)
+               info_request.public_body_id = public_body.id
+               info_request.info_request_batch = info_request_batch
+               info_request.save!
+               info_request.outgoing_messages.first.send_message
+           else
+                unrequestable << public_body
+           end
+       end
+       return {:batch => info_request_batch, :unrequestable => unrequestable}
+    end
 end
