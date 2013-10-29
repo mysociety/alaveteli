@@ -407,6 +407,8 @@ class PublicBody < ActiveRecord::Base
                     fields = {}
                     field_names.each{|name, i| fields[name] = row[i]}
 
+                    yield line, fields if block_given?
+
                     name = row[field_names['name']]
                     email = row[field_names['request_email']]
                     next if name.nil?
