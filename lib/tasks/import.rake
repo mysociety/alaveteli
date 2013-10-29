@@ -15,8 +15,11 @@ namespace :import do
             STDERR.puts "Only a dry run; public bodies will not be created"
         end
 
-        tmp_csv = Tempfile.new 'alaveteli'
-        tmp_csv.write STDIN.read
+        tmp_csv = nil
+        Tempfile.open('alaveteli') do |f|
+            f.write STDIN.read
+            tmp_csv = f
+        end
 
         number_of_rows = 0
 
