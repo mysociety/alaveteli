@@ -1,12 +1,7 @@
 require 'csv'
 require 'tempfile'
 
-require 'action_view'
-require 'action_view/helpers'
-
 namespace :import do
-
-    include ActionView::Helpers::DateHelper
 
     desc 'Import public bodies from CSV provided on standard input'
     task :import_csv => :environment do
@@ -58,8 +53,6 @@ namespace :import do
 
         STDERR.puts "Now importing the public bodies..."
 
-        start = Time.now.to_f
-
         # Now it's (probably) safe to try to import:
         errors, notes = PublicBody.import_csv(tmp_csv.path,
                                               tag='',
@@ -67,13 +60,9 @@ namespace :import do
                                               dryrun,
                                               editor="#{ENV['USER']} (Unix user)",
                                               I18n.available_locales) do |row_number, fields|
-            now = Time.now.to_f
             percent_complete = (100 * row_number.to_f / number_of_rows).to_i
-            expected_end = number_of_rows * (now - start) / row_number.to_f + start
-            time_left = distance_of_time_in_words now, expected_end
             STDERR.print "#{row_number} out of #{number_of_rows} "
-            STDERR.print "(#{percent_complete}% complete) "
-            STDERR.puts "#{time_left} remaining"
+            STDERR.puts "(#{percent_complete}% complete)"
         end
 
         if errors.length > 0
