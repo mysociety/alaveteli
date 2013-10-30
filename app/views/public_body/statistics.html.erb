@@ -52,9 +52,9 @@ are due to him.") %></p>
             </tr>
           </thead>
           <tbody>
-            <% graph_data['x_ticks'].each_with_index do |pb_and_index, i| %>
+            <% graph_data['public_bodies'].each_with_index do |pb, i| %>
               <tr>
-                <td><%= pb_and_index[1] %></td>
+                <td><%= link_to pb['name'], pb['url'] %></td>
                 <td class="statistic"><%= graph_data['y_values'][i].round %></td>
               </tr>
             <% end %>
@@ -70,6 +70,6 @@ are due to him.") %></p>
   var graphs_data = <%= @graph_list.to_json.html_safe %>;
 </script>
 <!--[if lte IE 8]><%= javascript_include_tag 'excanvas.min.js' %><![endif]-->
-<%= javascript_include_tag 'jquery.flot.min.js', 'jquery.flot.errorbars.min.js', 'jquery.flot.axislabels.js', 'stats-graphs.js' %>
+<%= javascript_include_tag 'jquery.flot.min.js', 'jquery.flot.errorbars.min.js', 'jquery.flot.tickrotor.min.js', 'jquery.flot.axislabels.min.js', 'stats-graphs.js' %>
 
 </div>

@@ -201,7 +201,7 @@ class PublicBodyController < ApplicationController
             raise ActiveRecord::RecordNotFound.new("Page not enabled")
         end
 
-        per_graph = 8
+        per_graph = 10
         minimum_requests = AlaveteliConfiguration::minimum_requests_for_statistics
         # Make sure minimum_requests is > 0 to avoid division-by-zero
         minimum_requests = [minimum_requests, 1].max
@@ -251,17 +251,27 @@ class PublicBodyController < ApplicationController
                                                          minimum_requests)
                 end
 
-                data_to_draw = {
+                # We just need the URL and name of each public body:
+                data['public_bodies'].map! { |pb|
+                    {'name' => pb.name, 'url' => public_body_path(pb)}
+                }
+
+                data_to_draw = Hash.new { |h, k| h[k] = [] }
+                data_to_draw.update({
                     'id' => "#{column}-#{highest ? 'highest' : 'lowest'}",
                     'x_axis' => _('Public Bodies'),
                     'y_axis' => graph_properties[:y_axis],
                     'errorbars' => percentages,
-                    'title' => graph_properties[:title]}
+                    'title' => graph_properties[:title]
+                })
 
                 if data
                     data_to_draw.update(data)
-                    data_to_draw['x_values'] = data['public_bodies'].each_with_index.map { |pb, i| i }
-                    data_to_draw['x_ticks'] = data['public_bodies'].each_with_index.map { |pb, i| [i, pb.name] }
+                    data['public_bodies'].each_with_index { |pb, i|
+                        data_to_draw['x_values'].push i
+                        data_to_draw['x_ticks'].push [i, pb['name']]
+                        data_to_draw['tooltips'].push pb['name']
+                    }
                 end
 
                 @graph_list.push data_to_draw
