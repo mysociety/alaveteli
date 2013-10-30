@@ -134,6 +134,7 @@ fi
 cd "$REPOSITORY"
 
 sed -r \
+    -e "/foi-purge-varnish/d" \
     -e "s,^(MAILTO=).*,\1root@$HOST," \
     -e "s,\!\!\(\*= .user \*\)\!\!,$UNIX_USER,g" \
     -e "s,/data/vhost/\!\!\(\*= .vhost \*\)\!\!/\!\!\(\*= .vcspath \*\)\!\!,$REPOSITORY,g" \
@@ -147,14 +148,7 @@ sed -r \
     -e "s,\!\!\(\*= .vhost_dir \*\)\!\!,$DIRECTORY,g" \
     config/alert-tracks-debian.ugly > /etc/init.d/foi-alert-tracks
 
-sed -r \
-    -e "s,\!\!\(\*= .user \*\)\!\!,$UNIX_USER,g" \
-    -e "s,\!\!\(\*= .daemon_name \*\)\!\!,foi-alert-tracks,g" \
-    -e "s,\!\!\(\*= .vhost_dir \*\)\!\!,$DIRECTORY,g" \
-    config/purge-varnish-debian.ugly > /etc/init.d/foi-purge-varnish
-
 chmod a+rx /etc/init.d/foi-alert-tracks
-chmod a+rx /etc/init.d/foi-purge-varnish
 
 if [ $DEFAULT_SERVER = true ] && [ x != x$EC2_HOSTNAME ]
 then
