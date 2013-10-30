@@ -114,10 +114,16 @@ install_website_packages
 
 # Make the PostgreSQL user a superuser to avoid the irritating error:
 #   PG::Error: ERROR:  permission denied: "RI_ConstraintTrigger_16564" is a system trigger
+# This is only needed for loading the sample data, so the superuser
+# permissions are dropped below.
 add_postgresql_user --superuser
 
 export DEVELOPMENT_INSTALL
 su -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY'" "$UNIX_USER"
+
+# Now that the install-as-user script has loaded the sample data, we
+# no longer need the PostgreSQL user to be a superuser:
+echo "ALTER USER \"$UNIX_USER\" WITH NOSUPERUSER;" | su -l -c 'psql' postgres
 
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
     install_sysvinit_script
