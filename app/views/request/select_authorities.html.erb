@@ -6,7 +6,7 @@
 </p>
 
 <div>
-  <%= form_tag(select_authorities_path, {:method => 'get', :id => 'body_search_form'}) do %>
+  <%= form_tag(select_authorities_path, {:method => 'get', :id => 'body_search_form', :remote => true, "data-type" => 'json'}) do %>
     <%= text_field_tag 'public_body_query', params[:public_body_query], { :size => 30, :title => "type your search term here" } %>
     <% if !@public_bodies.blank? %>
        <%- @public_bodies.each do |public_body| %>
@@ -20,6 +20,7 @@
   <div id="body_lists">
     <div id="body_candidates" class="body_list">
       <%= form_tag(select_authorities_path, {:id => "body_select_form"}) do %>
+        <%= submit_tag _(' >> '), :id => 'body_select_all_button', :class => 'select_all_button' %>
         <%= submit_tag _(' > '), :id => 'body_select_button' %>
         <%= hidden_field_tag "public_body_query", params[:public_body_query], { :id => 'public_body_select_query' } %>
         <% if !@public_bodies.blank? %>
@@ -41,7 +42,9 @@
 
     <div id="body_selections" class="body_list">
       <%= form_tag(select_authorities_path, {:id => "body_deselect_form"}) do %>
+
         <%= submit_tag _(' < '), :id => 'body_deselect_button' %>
+        <%= submit_tag _(' << '), :id => 'body_deselect_all_button', :class => 'select_all_button' %>
         <%= hidden_field_tag "public_body_query", params[:public_body_query], { :id => 'public_body_deselect_query' } %>
         <% if @public_bodies %>
           <% @public_bodies.each do |public_body| %>
@@ -71,4 +74,4 @@
     </div>
   </div>
 </div>
-
+<%= javascript_include_tag 'jquery_ujs.js', 'select-authorities.js' %>

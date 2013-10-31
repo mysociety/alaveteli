@@ -1788,6 +1788,7 @@ text-decoration:none;
    width: 45%;
 }
 
+#body_selection .body_list #body_select_all_button,
 #body_selection .body_list #body_deselect_button{
   float: right;
 }
@@ -1803,6 +1804,10 @@ text-decoration:none;
 #body_selection #body_submission input[type='submit'] {
   margin: 10px 0;
   width:100%;
+}
+
+#body_selection .select_all_button {
+  display: none;
 }
 
 #body_selection .body_select {

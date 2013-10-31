@@ -47,13 +47,25 @@ class RequestController < ApplicationController
         if !params[:public_body_query].nil?
             @search_bodies = perform_search_typeahead(params[:public_body_query], PublicBody, 1000)
         end
-        if !params[:public_body_ids].nil?
-            if !params[:remove_public_body_ids].nil?
-                body_ids = params[:public_body_ids] - params[:remove_public_body_ids]
-            else
-                body_ids = params[:public_body_ids]
+        respond_to do |format|
+            format.html do
+                if !params[:public_body_ids].nil?
+                    if !params[:remove_public_body_ids].nil?
+                        body_ids = params[:public_body_ids] - params[:remove_public_body_ids]
+                    else
+                        body_ids = params[:public_body_ids]
+                    end
+                    @public_bodies = PublicBody.where({:id => body_ids}).all
+                end
             end
-            @public_bodies = PublicBody.where({:id => body_ids}).all
+            format.json do
+                if @search_bodies
+                    render :json => @search_bodies.results.map{ |result| {:name => result[:model].name,
+                                                                          :id => result[:model].id } }
+                else
+                    render :json => []
+                end
+            end
         end
     end
 

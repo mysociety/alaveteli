@@ -96,6 +96,8 @@ module Alaveteli
     config.assets.precompile += ['jquery.fancybox-1.3.4.pack.js',
                                  'jquery.Jcrop.css',
                                  'excanvas.min.js',
+                                 'select-authorities.js',
+                                 'jquery_ujs.js',
                                  'fonts.css',
                                  'print.css',
                                  'admin.css',

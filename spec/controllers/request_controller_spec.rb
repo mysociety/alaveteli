@@ -2509,7 +2509,7 @@ describe RequestController, "when caching fragments" do
 
 end
 
-describe RequestController, "#new_batch", :focus => true do
+describe RequestController, "#new_batch" do
 
     context "when batch requests is enabled" do
 
@@ -2675,37 +2675,69 @@ describe RequestController, "#select_authorities" do
                 @user = FactoryGirl.create(:user, :can_make_batch_requests => true)
             end
 
-            it 'should be successful' do
-                get :select_authorities, {}, {:user_id => @user.id}
-                response.should be_success
+            context 'when asked for HTML' do
+
+                it 'should be successful' do
+                    get :select_authorities, {}, {:user_id => @user.id}
+                    response.should be_success
+                end
+
+                it 'should render the "select_authorities" template' do
+                    get :select_authorities, {}, {:user_id => @user.id}
+                    response.should render_template('request/select_authorities')
+                end
+
+                it 'should assign a list of search results to the view if passed a query' do
+                    get :select_authorities, {:public_body_query => "Quango"}, {:user_id => @user.id}
+                    assigns[:search_bodies].results.size.should == 1
+                    assigns[:search_bodies].results[0][:model].name.should == public_bodies(:geraldine_public_body).name
+                end
+
+                it 'should assign a list of public bodies to the view if passed a list of ids' do
+                    get :select_authorities, {:public_body_ids => [public_bodies(:humpadink_public_body).id]},
+                                             {:user_id => @user.id}
+                    assigns[:public_bodies].size.should == 1
+                    assigns[:public_bodies][0].name.should == public_bodies(:humpadink_public_body).name
+                end
+
+                it 'should subtract a list of public bodies to remove from the list of bodies assigned to
+                    the view' do
+                    get :select_authorities, {:public_body_ids => [public_bodies(:humpadink_public_body).id,
+                                                                   public_bodies(:geraldine_public_body).id],
+                                              :remove_public_body_ids => [public_bodies(:geraldine_public_body).id]},
+                                             {:user_id => @user.id}
+                    assigns[:public_bodies].size.should == 1
+                    assigns[:public_bodies][0].name.should == public_bodies(:humpadink_public_body).name
+                end
+
             end
 
-            it 'should render the "select_authorities" template' do
-                get :select_authorities, {}, {:user_id => @user.id}
-                response.should render_template('request/select_authorities')
-            end
+            context 'when asked for JSON', :focus => true do
 
-            it 'should assign a list of search results to the view if passed a query' do
-                get :select_authorities, {:public_body_query => "Quango"}, {:user_id => @user.id}
-                assigns[:search_bodies].results.size.should == 1
-                assigns[:search_bodies].results[0][:model].name.should == public_bodies(:geraldine_public_body).name
-            end
+                it 'should be successful' do
+                    get :select_authorities, {:public_body_query => "Quan", :format => 'json'}, {:user_id => @user.id}
+                    response.should be_success
+                end
 
-            it 'should assign a list of public bodies to the view if passed a list of ids' do
-                get :select_authorities, {:public_body_ids => [public_bodies(:humpadink_public_body).id]},
-                                         {:user_id => @user.id}
-                assigns[:public_bodies].size.should == 1
-                assigns[:public_bodies][0].name.should == public_bodies(:humpadink_public_body).name
-            end
+                it 'should return a list of public body names and ids' do
+                    get :select_authorities, {:public_body_query => "Quan", :format => 'json'},
+                                             {:user_id => @user.id}
 
-            it 'should subtract a list of public bodies to remove from the list of bodies assigned to
-                the view' do
-                get :select_authorities, {:public_body_ids => [public_bodies(:humpadink_public_body).id,
-                                                               public_bodies(:geraldine_public_body).id],
-                                          :remove_public_body_ids => [public_bodies(:geraldine_public_body).id]},
-                                         {:user_id => @user.id}
-                assigns[:public_bodies].size.should == 1
-                assigns[:public_bodies][0].name.should == public_bodies(:humpadink_public_body).name
+                    JSON(response.body).should == [{ 'id' => public_bodies(:geraldine_public_body).id,
+                                                     'name' => public_bodies(:geraldine_public_body).name }]
+                end
+
+                it 'should return an empty list if no search is passed' do
+                    get :select_authorities, {:format => 'json' },{:user_id => @user.id}
+                    JSON(response.body).should == []
+                end
+
+                it 'should return an empty list if there are no bodies' do
+                    get :select_authorities, {:public_body_query => 'fknkskalnr', :format => 'json' },
+                                             {:user_id => @user.id}
+                    JSON(response.body).should == []
+                end
+
             end
 
         end
