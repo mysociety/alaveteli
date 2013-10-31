@@ -15,8 +15,15 @@ server {
         try_files $uri @ruby;
     }
 
+    location /download {
+        internal;
+        alias /var/www/alaveteli/alaveteli/cache/zips/development/download;
+    }
+
     location @ruby {
         proxy_pass http://alaveteli;
         proxy_set_header Host $http_host;
+        proxy_set_header X-Sendfile-Type X-Accel-Redirect;
+        proxy_set_header X-Accel-Mapping /var/www/alaveteli/alaveteli/cache/zips/development/download=/download;
     }
 }
