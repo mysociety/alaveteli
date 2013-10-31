@@ -251,21 +251,21 @@ class PublicBodyController < ApplicationController
                                                          minimum_requests)
                 end
 
-                # We just need the URL and name of each public body:
-                data['public_bodies'].map! { |pb|
-                    {'name' => pb.name, 'url' => public_body_path(pb)}
-                }
-
-                data_to_draw = Hash.new { |h, k| h[k] = [] }
-                data_to_draw.update({
-                    'id' => "#{column}-#{highest ? 'highest' : 'lowest'}",
-                    'x_axis' => _('Public Bodies'),
-                    'y_axis' => graph_properties[:y_axis],
-                    'errorbars' => percentages,
-                    'title' => graph_properties[:title]
-                })
-
                 if data
+                    # We just need the URL and name of each public body:
+                    data['public_bodies'].map! { |pb|
+                        {'name' => pb.name, 'url' => public_body_path(pb)}
+                    }
+
+                    data_to_draw = Hash.new { |h, k| h[k] = [] }
+                    data_to_draw.update({
+                        'id' => "#{column}-#{highest ? 'highest' : 'lowest'}",
+                        'x_axis' => _('Public Bodies'),
+                        'y_axis' => graph_properties[:y_axis],
+                        'errorbars' => percentages,
+                        'title' => graph_properties[:title]
+                    })
+
                     data_to_draw.update(data)
                     data['public_bodies'].each_with_index { |pb, i|
                         data_to_draw['x_values'].push i
