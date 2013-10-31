@@ -130,14 +130,15 @@ fi
 
 cd "$REPOSITORY"
 
+echo -n "Creating /etc/cron.d/alaveteli... "
+(su -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_crontab DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' CRONTAB=config/crontab-example" "$UNIX_USER") > /etc/cron.d/alaveteli
+# There are some other parts to rewrite, so just do them with sed:
 sed -r \
     -e "/foi-purge-varnish/d" \
     -e "s,^(MAILTO=).*,\1root@$HOST," \
-    -e "s,\!\!\(\*= .user \*\)\!\!,$UNIX_USER,g" \
-    -e "s,/data/vhost/\!\!\(\*= .vhost \*\)\!\!/\!\!\(\*= .vcspath \*\)\!\!,$REPOSITORY,g" \
-    -e "s,/data/vhost/\!\!\(\*= .vhost \*\)\!\!,$DIRECTORY,g" \
     -e "s,run-with-lockfile,$REPOSITORY/commonlib/bin/run-with-lockfile.sh,g" \
-    config/crontab-example > /etc/cron.d/alaveteli
+    -i /etc/cron.d/alaveteli
+echo $DONE_MSG
 
 echo -n "Creating /etc/init.d/foi-alert-tracks... "
 (su -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.ugly" "$UNIX_USER") > /etc/init.d/foi-alert-tracks
