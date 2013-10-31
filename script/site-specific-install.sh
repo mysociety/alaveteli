@@ -3,8 +3,7 @@
 # Set IDEAL_VERSION to the commitish we want to check out; typically
 # this is the version tag.  Since this may not exist before release,
 # fall back to the master branch:
-IDEAL_VERSION=0.15
-FALLBACK_VERSION=origin/master
+VERSIONS="origin/install-script 0.15 origin/master"
 
 PARENT_SCRIPT_URL=https://github.com/mysociety/commonlib/blob/master/bin/install-site.sh
 
@@ -27,8 +26,7 @@ misuse() {
 [ -z "$DEFAULT_SERVER" ] && misuse DEFAULT_SERVER
 [ -z "$HOST" ] && misuse HOST
 [ -z "$DISTRIBUTION" ] && misuse DISTRIBUTION
-[ -z "$IDEAL_VERSION" ] && misuse VERSION
-[ -z "$FALLBACK_VERSION" ] && misuse FALLBACK_VERSION
+[ -z "$VERSIONS" ] && misuse VERSIONS
 [ -z "$DEVELOPMENT_INSTALL" ] && misuse DEVELOPMENT_INSTALL
 [ -z "$BIN_DIRECTORY" ] && misuse BIN_DIRECTORY
 
@@ -37,9 +35,8 @@ update_mysociety_apt_sources
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
     install_nginx
     add_website_to_nginx
-    # Check out the requested version:
-    su -l -c "cd '$REPOSITORY' && (git checkout '$IDEAL_VERSION' ||
-                                   git checkout '$FALLBACK_VERSION')" \
+    # Check out the first available requested version:
+    su -l -c "cd '$REPOSITORY' && (for v in $VERSIONS; do git checkout $v && break; done)" \
         "$UNIX_USER"
 fi
 
