@@ -336,8 +336,20 @@ like `!!(*= $this *)!!`.  The variables are:
 * `user`: the user that the software runs as
 * `site`: a string to identify your alaveteli instance
 
-There is a dumb python script at `script/make-crontab` which you can
-edit and run to do some basic substitution for you.
+There is a rake task that will help to rewrite this file into
+one that is useful to you, which can be invoked with:
+
+    bundle exec rake config_files:convert_crontab \
+	    DEPLOY_USER=deploy \
+		VHOST_DIR=/dir/above/alaveteli \
+		VCSPATH=alaveteli \
+		SITE=alaveteli \
+		CRONTAB=config/crontab-example > crontab
+
+You should change the `DEPLOY_USER`, `VHOST_DIR`, `VCSPATH` and
+`SITE` environment variables to match your server and
+installation.  You should also edit the resulting `crontab` file
+to customize the `MAILTO` variable.
 
 One of the cron jobs refers to a script at
 `/etc/init.d/foi-alert-tracks`.  This is an init script, a copy of
