@@ -270,7 +270,8 @@ class PublicBodyController < ApplicationController
                     data['public_bodies'].each_with_index { |pb, i|
                         data_to_draw['x_values'].push i
                         data_to_draw['x_ticks'].push [i, pb['name']]
-                        data_to_draw['tooltips'].push pb['name']
+                        tooltip = "#{pb['name']} (#{data_to_draw['totals'][i]})"
+                        data_to_draw['tooltips'].push tooltip
                     }
 
                     @graph_list.push data_to_draw

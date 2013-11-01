@@ -668,7 +668,8 @@ class PublicBody < ActiveRecord::Base
         return {
             'public_bodies' => public_bodies,
             'y_values' => y_values,
-            'y_max' => y_values.max}
+            'y_max' => y_values.max,
+            'totals' => y_values}
     end
 
     # Return data for the 'n' public bodies with the highest (or
@@ -711,7 +712,8 @@ class PublicBody < ActiveRecord::Base
             'y_values' => y_values,
             'cis_below' => cis_below,
             'cis_above' => cis_above,
-            'y_max' => 100}
+            'y_max' => 100,
+            'totals' => original_totals}
     end
 
     private
