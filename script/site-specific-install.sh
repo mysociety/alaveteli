@@ -116,7 +116,7 @@ install_website_packages
 add_postgresql_user --superuser
 
 export DEVELOPMENT_INSTALL
-su -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY'" "$UNIX_USER"
+su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY'" "$UNIX_USER"
 
 # Now that the install-as-user script has loaded the sample data, we
 # no longer need the PostgreSQL user to be a superuser:
@@ -131,7 +131,7 @@ fi
 cd "$REPOSITORY"
 
 echo -n "Creating /etc/cron.d/alaveteli... "
-(su -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_crontab DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' CRONTAB=config/crontab-example" "$UNIX_USER") > /etc/cron.d/alaveteli
+(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_crontab DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' CRONTAB=config/crontab-example" "$UNIX_USER") > /etc/cron.d/alaveteli
 # There are some other parts to rewrite, so just do them with sed:
 sed -r \
     -e "/foi-purge-varnish/d" \
@@ -141,7 +141,7 @@ sed -r \
 echo $DONE_MSG
 
 echo -n "Creating /etc/init.d/foi-alert-tracks... "
-(su -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.ugly" "$UNIX_USER") > /etc/init.d/foi-alert-tracks
+(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.ugly" "$UNIX_USER") > /etc/init.d/foi-alert-tracks
 chmod a+rx /etc/init.d/foi-alert-tracks
 echo $DONE_MSG
 
