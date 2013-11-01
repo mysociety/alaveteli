@@ -3,26 +3,27 @@
 #
 # Table name: public_bodies
 #
-#  id                             :integer          not null, primary key
-#  name                           :text             not null
-#  short_name                     :text             not null
-#  request_email                  :text             not null
-#  version                        :integer          not null
-#  last_edit_editor               :string(255)      not null
-#  last_edit_comment              :text             not null
-#  created_at                     :datetime         not null
-#  updated_at                     :datetime         not null
-#  url_name                       :text             not null
-#  home_page                      :text             default(""), not null
-#  notes                          :text             default(""), not null
-#  first_letter                   :string(255)      not null
-#  publication_scheme             :text             default(""), not null
-#  api_key                        :string(255)      not null
-#  info_requests_count            :integer          default(0), not null
-#  disclosure_log                 :text             default(""), not null
-#  info_requests_successful_count :integer
-#  info_requests_not_held_count   :integer
-#  info_requests_overdue_count    :integer
+#  id                                     :integer          not null, primary key
+#  name                                   :text             not null
+#  short_name                             :text             not null
+#  request_email                          :text             not null
+#  version                                :integer          not null
+#  last_edit_editor                       :string(255)      not null
+#  last_edit_comment                      :text             not null
+#  created_at                             :datetime         not null
+#  updated_at                             :datetime         not null
+#  url_name                               :text             not null
+#  home_page                              :text             default(""), not null
+#  notes                                  :text             default(""), not null
+#  first_letter                           :string(255)      not null
+#  publication_scheme                     :text             default(""), not null
+#  api_key                                :string(255)      not null
+#  info_requests_count                    :integer          default(0), not null
+#  disclosure_log                         :text             default(""), not null
+#  info_requests_successful_count         :integer
+#  info_requests_not_held_count           :integer
+#  info_requests_overdue_count            :integer
+#  info_requests_visible_classified_count :integer
 #
 
 require 'csv'
@@ -193,6 +194,7 @@ class PublicBody < ActiveRecord::Base
     acts_as_versioned
     self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
     self.non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
+    self.non_versioned_columns << 'info_requests_count' << 'info_requests_visible_classified_count'
     self.non_versioned_columns << 'info_requests_not_held_count' << 'info_requests_overdue'
     self.non_versioned_columns << 'info_requests_overdue_count'
 

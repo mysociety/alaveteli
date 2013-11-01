@@ -1190,6 +1190,10 @@ public
         self.public_body.info_requests_successful_count = InfoRequest.where(
             :public_body_id => self.public_body.id,
             :described_state => ['successful', 'partially_successful']).count
+        self.public_body.info_requests_visible_classified_count = InfoRequest.where(
+            :public_body_id => self.public_body_id,
+            :awaiting_description => false,
+            :prominence => 'normal').count
         self.public_body.without_revision do
             public_body.no_xapian_reindex = true
             public_body.save
