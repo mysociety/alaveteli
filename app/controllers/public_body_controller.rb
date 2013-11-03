@@ -272,9 +272,9 @@ class PublicBodyController < ApplicationController
                         data_to_draw['x_ticks'].push [i, pb['name']]
                         data_to_draw['tooltips'].push pb['name']
                     }
-                end
 
-                @graph_list.push data_to_draw
+                    @graph_list.push data_to_draw
+                end
             end
         end
 
