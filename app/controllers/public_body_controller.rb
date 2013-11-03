@@ -196,6 +196,50 @@ class PublicBodyController < ApplicationController
                   :disposition =>'attachment', :encoding => 'utf8')
     end
 
+
+    # This is a helper method to take data returned by the PublicBody
+    # model's statistics-generating methods, and converting them to
+    # simpler data structure that can be rendered by a Javascript
+    # graph library. (This could be a class method except that we need
+    # access to the URL helper public_body_path.)
+    def simplify_stats_for_graphs(data,
+                                  column,
+                                  percentages,
+                                  graph_properties)
+        # Copy the data, only taking known-to-be-safe keys:
+        result = Hash.new { |h, k| h[k] = [] }
+        result.update Hash[data.select do |key, value|
+            ['y_values',
+             'y_max',
+             'totals',
+             'cis_below',
+             'cis_above'].include? key
+        end]
+
+        # Extract data about the public bodies for the x-axis,
+        # tooltips, and so on:
+        data['public_bodies'].each_with_index do |pb, i|
+            result['x_values'] << i
+            result['x_ticks'] << [i, pb.name]
+            result['tooltips'] << "#{pb.name} (#{result['totals'][i]})"
+            result['public_bodies'] << {
+                'name' => pb.name,
+                'url' => public_body_path(pb)
+            }
+        end
+
+        # Set graph metadata properties, like the title, axis labels, etc.
+        graph_id = "#{column}-"
+        graph_id += graph_properties[:highest] ? 'highest' : 'lowest'
+        result.update({
+            'id' => graph_id,
+            'x_axis' => _('Public Bodies'),
+            'y_axis' => graph_properties[:y_axis],
+            'errorbars' => percentages,
+            'title' => graph_properties[:title]
+        })
+    end
+
     def statistics
         unless AlaveteliConfiguration::public_body_statistics_page
             raise ActiveRecord::RecordNotFound.new("Page not enabled")
@@ -252,29 +296,10 @@ class PublicBodyController < ApplicationController
                 end
 
                 if data
-                    # We just need the URL and name of each public body:
-                    data['public_bodies'].map! { |pb|
-                        {'name' => pb.name, 'url' => public_body_path(pb)}
-                    }
-
-                    data_to_draw = Hash.new { |h, k| h[k] = [] }
-                    data_to_draw.update({
-                        'id' => "#{column}-#{highest ? 'highest' : 'lowest'}",
-                        'x_axis' => _('Public Bodies'),
-                        'y_axis' => graph_properties[:y_axis],
-                        'errorbars' => percentages,
-                        'title' => graph_properties[:title]
-                    })
-
-                    data_to_draw.update(data)
-                    data['public_bodies'].each_with_index { |pb, i|
-                        data_to_draw['x_values'].push i
-                        data_to_draw['x_ticks'].push [i, pb['name']]
-                        tooltip = "#{pb['name']} (#{data_to_draw['totals'][i]})"
-                        data_to_draw['tooltips'].push tooltip
-                    }
-
-                    @graph_list.push data_to_draw
+                    @graph_list.push simplify_stats_for_graphs(data,
+                                                               column,
+                                                               percentages,
+                                                               graph_properties)
                 end
             end
         end
