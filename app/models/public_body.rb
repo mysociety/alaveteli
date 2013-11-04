@@ -677,7 +677,7 @@ class PublicBody < ActiveRecord::Base
     # percentage.  This only returns data for those public bodies with
     # at least 'minimum_requests' requests.
     def self.get_request_percentages(column, n, highest, minimum_requests)
-        total_column = "info_requests_count"
+        total_column = "info_requests_visible_classified_count"
         ordering = "y_value"
         ordering += " DESC" if highest
         y_value_column = "(cast(#{column} as float) / #{total_column})"

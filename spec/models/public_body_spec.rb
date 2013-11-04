@@ -530,3 +530,33 @@ describe PublicBody, " when override all public body request emails set" do
         @geraldine.request_email.should == "catch_all_test_email@foo.com"
     end
 end
+
+describe PublicBody, "when calculating statistics" do
+    it "should not include unclassified or hidden requests in percentages" do
+        with_hidden_and_successful_requests do
+            totals_data = PublicBody.get_request_totals(n=3,
+                                                        highest=true,
+                                                        minimum_requests=1)
+            # For the total number of requests, we still include
+            # hidden or unclassified requests:
+            totals_data['public_bodies'][-1].name.should == "Geraldine Quango"
+            totals_data['totals'][-1].should == 4
+
+            # However, for percentages, don't include the hidden or
+            # unclassified requests.  So, for the Geraldine Quango
+            # we've made sure that there are only two visible and
+            # classified requests, one of which is successful, so the
+            # percentage should be 50%:
+
+            percentages_data = PublicBody.get_request_percentages(column='info_requests_successful_count',
+                                                                  n=3,
+                                                                  highest=false,
+                                                                  minimum_requests=1)
+            geraldine_index = percentages_data['public_bodies'].index do |pb|
+                pb.name == "Geraldine Quango"
+            end
+
+            percentages_data['y_values'][geraldine_index].should == 50
+        end
+    end
+end
