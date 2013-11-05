@@ -51,8 +51,8 @@ ensure_line_present \
     /etc/postfix/master.cf 644
 
 ensure_line_present \
-    "^ *transport_maps *= *regexp:/etc/postfix/regexp" \
-    "transport_maps = regexp:/etc/postfix/regexp" \
+    "^ *transport_maps *=" \
+    "transport_maps = regexp:/etc/postfix/transports" \
     /etc/postfix/main.cf 644
 
 ensure_line_present \
@@ -66,11 +66,6 @@ ensure_line_present \
     /etc/postfix/main.cf 644
 
 ensure_line_present \
-    "^.*alaveteli" \
-    "/^foi.*/	alaveteli" \
-    /etc/postfix/regexp 644
-
-ensure_line_present \
     "^do-not-reply" \
     "do-not-reply-to-this-address:        :blackhole:" \
     /etc/aliases 644
@@ -79,6 +74,10 @@ ensure_line_present \
     "^mail" \
     "mail.*                          -/var/log/mail/mail.log" \
     /etc/rsyslog.d/50-default.conf 644
+
+cat > /etc/postfix/transports <<EOF
+/^foi.*/                alaveteli
+EOF
 
 cat > /etc/postfix/recipients <<EOF
 /^foi.*/                this-is-ignored
@@ -109,7 +108,7 @@ fi
 /etc/init.d/rsyslog restart
 
 newaliases
-postmap /etc/postfix/regexp
+postmap /etc/postfix/transports
 postmap /etc/postfix/recipients
 postfix reload
 
