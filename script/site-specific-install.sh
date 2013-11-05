@@ -57,7 +57,7 @@ ensure_line_present \
 
 ensure_line_present \
     "^ *local_recipient_maps *=" \
-    "local_recipient_maps = " \
+    "local_recipient_maps = proxy:unix:passwd.byname regexp:/etc/postfix/recipients" \
     /etc/postfix/main.cf 644
 
 ensure_line_present \
@@ -79,6 +79,13 @@ ensure_line_present \
     "^mail" \
     "mail.*                          -/var/log/mail/mail.log" \
     /etc/rsyslog.d/50-default.conf 644
+
+cat > /etc/postfix/recipients <<EOF
+/^foi.*/                this-is-ignored
+/^postmaster@/          this-is-ignored
+/^user-support@/        this-is-ignored
+/^team@/                this-is-ignored
+EOF
 
 if ! egrep '^ */var/log/mail/mail.log *{' /etc/logrotate.d/rsyslog
 then
@@ -103,6 +110,7 @@ fi
 
 newaliases
 postmap /etc/postfix/regexp
+postmap /etc/postfix/recipients
 postfix reload
 
 # (end of the Postfix configuration)
