@@ -249,6 +249,11 @@ describe GeneralController, 'when using xapian search' do
         assigns[:xapian_bodies].results.map{|x|x[:model]}.should == [public_bodies(:geraldine_public_body)]
     end
 
+    it 'should show "Browse all" link if there are no results for a search restricted to bodies' do
+        get :search, :combined => "noresultsshouldbefound/bodies"
+        response.body.should include('Browse all')
+    end
+
     it "should show help when searching for nothing" do
         get :search_redirect, :query => nil
         response.should render_template('search')
