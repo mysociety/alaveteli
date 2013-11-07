@@ -7,7 +7,8 @@ if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.s
 end
 source 'https://rubygems.org'
 
-gem 'rails', '3.1.12'
+gem 'rails', '3.2.15'
+
 gem 'pg'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
@@ -53,10 +54,10 @@ gem 'unidecode'
 
 group :assets do
   gem 'bootstrap-sass'
-  gem 'sass-rails', "= 3.1.4"
+  gem 'sass-rails', '~> 3.2.3'
   gem 'compass-rails'
-  gem 'coffee-rails', "~> 3.1"
-  gem 'uglifier'
+  gem 'coffee-rails', "~> 3.2.1"
+  gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer'
 end
 
