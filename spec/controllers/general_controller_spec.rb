@@ -219,6 +219,17 @@ describe GeneralController, 'when using xapian search' do
         assigns[:xapian_bodies].should == nil
     end
 
+    it 'should highlight words for a user-only request' do
+      get :search, :combined => "bob/users"
+      assigns[:highlight_words].should == ['bob']
+    end
+
+    it 'should show spelling corrections for a user-only request' do
+      get :search, :combined => "rob/users"
+      assigns[:spelling_correction].should == 'bob'
+      response.body.should include('did_you_mean')
+    end
+
     it "should filter results based on end of URL being 'requests'" do
         get :search, :combined => "bob/requests"
         assigns[:xapian_requests].results.map{|x|x[:model]}.should =~ [

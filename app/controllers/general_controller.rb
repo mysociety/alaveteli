@@ -178,6 +178,7 @@ class GeneralController < ApplicationController
             @xapian_requests_hits = @xapian_requests.results.size
             @xapian_requests_total_hits = @xapian_requests.matches_estimated
             @total_hits += @xapian_requests.matches_estimated
+            @request_for_spelling = @xapian_requests
         end
         if @bodies
             @xapian_bodies = perform_search([PublicBody], @query, @sortby, nil, 5)
@@ -186,6 +187,7 @@ class GeneralController < ApplicationController
             @xapian_bodies_hits = @xapian_bodies.results.size
             @xapian_bodies_total_hits = @xapian_bodies.matches_estimated
             @total_hits += @xapian_bodies.matches_estimated
+            @request_for_spelling = @xapian_bodies
         end
         if @users
             @xapian_users = perform_search([User], @query, @sortby, nil, 5)
@@ -194,14 +196,13 @@ class GeneralController < ApplicationController
             @xapian_users_hits = @xapian_users.results.size
             @xapian_users_total_hits = @xapian_users.matches_estimated
             @total_hits += @xapian_users.matches_estimated
+            @request_for_spelling = @xapian_users
         end
 
         # Spelling and highight words are same for all three queries
-        if !@xapian_requests.nil?
-            @highlight_words = @xapian_requests.words_to_highlight
-            if !(@xapian_requests.spelling_correction =~ /[a-z]+:/)
-                @spelling_correction = @xapian_requests.spelling_correction
-            end
+        @highlight_words = @request_for_spelling.words_to_highlight
+        if !(@request_for_spelling.spelling_correction =~ /[a-z]+:/)
+            @spelling_correction = @request_for_spelling.spelling_correction
         end
 
         @track_thing = TrackThing.create_track_for_search_query(@query, @variety_postfix)
