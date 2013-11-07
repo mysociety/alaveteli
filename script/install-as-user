@@ -123,6 +123,7 @@ sed -r \
     -e "s,^( *username: *).*,\\1${UNIX_USER}," \
     -e "s,^( *password: *).*,\\1null," \
     -e "s,^( *host: *).*,\\1/var/run/postgresql/," \
+    -e "s,# constraint_disabling: false,  constraint_disabling: false," \
     config/database.yml-example > config/database.yml
 
 for SUFFIX in production test development
