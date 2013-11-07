@@ -1,0 +1,159 @@
+#!/bin/bash
+
+set -e
+set -x
+
+if [ $# -ne 3 ]
+then
+    cat >&2 <<EOUSAGE
+Usage: $0 <UNIX-USER> <HOST> <INSTALLATION-DIRECTORY>
+EOUSAGE
+    exit 1
+fi
+
+UNIX_USER="$1"
+HOST="$2"
+DIRECTORY="$3"
+DB_NAME="alaveteli"
+
+# Check that the arguments we've been passed are sensible:
+
+IP_ADDRESS_FOR_HOST="$(dig +short $HOST)"
+
+if [ x = x"$IP_ADDRESS_FOR_HOST" ]
+then
+    echo "The hostname $HOST didn't resolve to an IP address"
+    exit 1
+fi
+
+if ! id "$UNIX_USER" 2> /dev/null > /dev/null
+then
+    echo "The user '$UNIX_USER' didn't exist."
+    exit 1
+fi
+
+if [ "$(whoami)" != "$UNIX_USER" ]
+then
+    echo "This script should be run by the user '$UNIX_USER'."
+    exit 1
+fi
+
+REPOSITORY="$DIRECTORY/alaveteli"
+LINK_DESTINATION="$HOME/alaveteli"
+
+ln -sfn "$REPOSITORY" $LINK_DESTINATION
+cd "$REPOSITORY"
+
+BASHRC="$HOME/.bashrc"
+
+BASHRC_GEM_COMMENT="Set up local gem directory for Alaveteli"
+BASHRC_START="# START $BASHRC_GEM_COMMENT"
+BASHRC_END="# END $BASHRC_GEM_COMMENT"
+
+# Remove the old lines we added:
+sed -ibackup "/$BASHRC_START/,/$BASHRC_END/d" "$BASHRC"
+
+# Create a temporary file, so we can prepend the lines we need.  They
+# need to be prepended since the Ubuntu skeleton .bashrc begins with
+# '[ -z "$PS1" ] && return', skipping the rest of the .bashrc for
+# non-interactive use, but we need the gem settings when invoking
+# commands in the shell non-interactively.
+TMP_BASHRC="$(mktemp "$BASHRC.XXXXXXX")"
+
+cat >>$TMP_BASHRC <<EOBRC
+$BASHRC_START
+export GEM_HOME="$HOME/gems"
+mkdir -p "\$GEM_HOME"
+export GEM_PATH=
+export PATH="\$GEM_HOME/bin:\$PATH"
+$BASHRC_END
+EOBRC
+
+cat "$BASHRC" >> "$TMP_BASHRC"
+mv "$TMP_BASHRC" "$BASHRC"
+
+source "$BASHRC"
+
+# Speed up the installation of gems:
+echo 'gem: --no-ri --no-rdoc' > "$HOME/.gemrc"
+
+# Write sensible values into the config file:
+
+function random_alphanumerics() {
+    < /dev/urandom tr -dc A-Za-z0-9 | head -c$1
+}
+
+RANDOM_EMAIL_SECRET=$(random_alphanumerics 32)
+RANDOM_EMERGENCY_PASSWORD=$(random_alphanumerics 10)
+RANDOM_COOKIE_SECRET=$(random_alphanumerics 100)
+
+if ! [ -f config/general.yml ]
+then
+    sed -r \
+        -e "s,^( *DOMAIN:).*,\\1 '$HOST'," \
+        -e "s,^( *FORCE_SSL:).*,\\1 false," \
+        -e "s,^( *TIME_ZONE:).*,\\1 'Europe/London'," \
+        -e "s,^( *BLOG_FEED:).*,\\1 null," \
+        -e "s,^( *TWITTER_USERNAME:).*,\\1 null," \
+        -e "s,^( *INCLUDE_DEFAULT_LOCALE_IN_URLS:).*,\\1 false," \
+        -e "s,^( *INCOMING_EMAIL_DOMAIN:).*,\\1 '$HOST'," \
+        -e "s,^( *INCOMING_EMAIL_PREFIX:).*,\\1 'foi+'," \
+        -e "s,^( *INCOMING_EMAIL_SECRET:).*,\\1 '$RANDOM_EMAIL_SECRET'," \
+        -e "s,^( *ADMIN_USERNAME:).*,\\1 'emergency'," \
+        -e "s,^( *ADMIN_PASSWORD:).*,\\1 '$RANDOM_EMERGENCY_PASSWORD'," \
+        -e "s,^( *CONTACT_EMAIL:).*,\\1 'postmaster@$HOST'," \
+        -e "s,^( *TRACK_SENDER_EMAIL:).*,\\1 'postmaster@$HOST'," \
+        -e "s,^( *COOKIE_STORE_SESSION_SECRET:).*,\\1 '$RANDOM_COOKIE_SECRET'," \
+        -e "s,^( *FORWARD_NONBOUNCE_RESPONSES_TO:).*,\\1 'user-support@$HOST'," \
+        -e "s,^( *HTML_TO_PDF_COMMAND:).*,\\1 '/usr/bin/wkhtmltopdf-static'," \
+        -e "s,^( *EXCEPTION_NOTIFICATIONS_FROM:).*,\\1 'do-not-reply-to-this-address@$HOST'," \
+        -e "/EXCEPTION_NOTIFICATIONS_TO:/,/^$/c EXCEPTION_NOTIFICATIONS_TO:\n - team@$HOST\n" \
+        -e "s,^( *VARNISH_HOST:).*,\\1 null," \
+        -e "s,^( *MTA_LOG_PATH:).*,\\1 '/var/log/mail/mail.log-*'," \
+        -e "s,^( *MTA_LOG_TYPE:).*,\\1 'postfix'," \
+        -e "s,^( *DONATION_URL:).*,\\1 null," \
+        -e "s,^( *THEME_BRANCH:).*,\\1 'develop'," \
+        -e "s,^( *USE_MAILCATCHER_IN_DEVELOPMENT:).*,\\1 false," \
+        config/general.yml-example > config/general.yml
+fi
+
+# add database.yml
+sed -r \
+    -e "s,^( *database: *)foi_(.*),\\1${DB_NAME}_\\2," \
+    -e "s,^( *username: *).*,\\1${UNIX_USER}," \
+    -e "s,^( *password: *).*,\\1null," \
+    -e "s,^( *host: *).*,\\1/var/run/postgresql/," \
+    -e "s,# constraint_disabling: false,  constraint_disabling: false," \
+    config/database.yml-example > config/database.yml
+
+for SUFFIX in production test development
+do
+    REAL_DB_NAME="${DB_NAME}_$SUFFIX"
+    echo Creating the database $REAL_DB_NAME
+    # Create each database if it doesn't exist:
+    if ! psql -l | egrep "^ *$REAL_DB_NAME *\|" > /dev/null
+    then
+        createdb -T template0 --owner "$UNIX_USER" "$REAL_DB_NAME"
+    fi
+done
+
+# Bundler isn't packaged on Debian squeeze, so we have to install it
+# as a gem:
+
+which bundle || gem install bundler
+
+echo Running rails-post-deploy
+script/rails-post-deploy
+
+LOADED_INDICATOR="$HOME/.alaveteli-sample-data-loaded"
+
+if [ ! -f "$LOADED_INDICATOR" ]
+then
+    echo Running load-sample-data
+    bundle exec script/load-sample-data
+
+    echo Running rebuild-xapian-index
+    script/rebuild-xapian-index
+
+    touch "$LOADED_INDICATOR"
+fi
