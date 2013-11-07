@@ -1,8 +1,14 @@
 namespace :stats do
 
-  desc 'Produce transaction stats'
+  desc 'Produce monthly transaction stats for a period starting START_YEAR'
   task :show => :environment do
-    month_starts = (Date.new(2009, 1)..Date.new(2011, 8)).select { |d| d.day == 1 }
+    example = 'rake stats:show START_YEAR=2009 [START_MONTH=3 END_YEAR=2012 END_MONTH=10]'
+    check_for_env_vars(['START_YEAR'], example)
+    start_year = (ENV['START_YEAR']).to_i
+    start_month = (ENV['START_MONTH'] || 1).to_i
+    end_year = (ENV['END_YEAR'] || Time.now.year).to_i
+    end_month = (ENV['END_MONTH'] || Time.now.month).to_i
+    month_starts = (Date.new(start_year, start_month)..Date.new(end_year, end_month)).select { |d| d.day == 1 }
     headers = ['Period',
                'Requests sent',
                'Annotations added',
