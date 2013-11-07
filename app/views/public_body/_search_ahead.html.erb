@@ -14,7 +14,5 @@
     <% end %>
   </div>
   <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_requests.matches_estimated), :params => {:controller=>"request", :action => "select_authority"} %>
+ <p><%= raw(_('<a href="{{browse_url}}">Browse all</a> or <a href="{{add_url}}">ask us to add one</a>.', :browse_url => list_public_bodies_default_path.html_safe, :add_url => (help_requesting_path + '#missing_body').html_safe)) %></p>
  <% end %>
-
-
-
