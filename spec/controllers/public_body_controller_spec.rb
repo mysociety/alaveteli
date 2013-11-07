@@ -275,38 +275,125 @@ end
 
 describe PublicBodyController, "when showing public body statistics" do
 
-  it "should render the right template with the right data" do
-    config = MySociety::Config.load_default()
-    config['MINIMUM_REQUESTS_FOR_STATISTICS'] = 1
-    config['PUBLIC_BODY_STATISTICS_PAGE'] = true
-    get :statistics
-    response.should render_template('public_body/statistics')
-    # There are 5 different graphs we're creating at the moment.
-    assigns[:graph_list].length.should == 5
-    # The first is the only one with raw values, the rest are
-    # percentages with error bars:
-    assigns[:graph_list].each_with_index do |graph, index|
-      if index == 0
-        graph['errorbars'].should be_false
-        graph['x_values'].length.should == 4
-        graph['x_values'].should == [0, 1, 2, 3]
-        graph['y_values'].should == [1, 2, 2, 4]
-      else
-        graph['errorbars'].should be_true
-        # Just check the first one:
-        if index == 1
-          graph['x_values'].should == [0, 1, 2, 3]
-          graph['y_values'].should == [0, 50, 100, 100]
+    it "should render the right template with the right data" do
+        config = MySociety::Config.load_default()
+        config['MINIMUM_REQUESTS_FOR_STATISTICS'] = 1
+        config['PUBLIC_BODY_STATISTICS_PAGE'] = true
+        get :statistics
+        response.should render_template('public_body/statistics')
+        # There are 5 different graphs we're creating at the moment.
+        assigns[:graph_list].length.should == 5
+        # The first is the only one with raw values, the rest are
+        # percentages with error bars:
+        assigns[:graph_list].each_with_index do |graph, index|
+            if index == 0
+                graph['errorbars'].should be_false
+                graph['x_values'].length.should == 4
+                graph['x_values'].should == [0, 1, 2, 3]
+                graph['y_values'].should == [1, 2, 2, 4]
+            else
+                graph['errorbars'].should be_true
+                # Just check the first one:
+                if index == 1
+                    graph['x_values'].should == [0, 1, 2, 3]
+                    graph['y_values'].should == [0, 50, 100, 100]
+                end
+                # Check that at least every confidence interval value is
+                # a Float (rather than NilClass, say):
+                graph['cis_below'].each { |v| v.should be_instance_of(Float) }
+                graph['cis_above'].each { |v| v.should be_instance_of(Float) }
+            end
         end
-        # Check that at least every confidence interval value is
-        # a Float (rather than NilClass, say):
-        graph['cis_below'].each { |v| v.should be_instance_of(Float) }
-        graph['cis_above'].each { |v| v.should be_instance_of(Float) }
-      end
     end
-  end
 
 end
+
+describe PublicBodyController, "when converting data for graphing" do
+
+    before(:each) do
+        @raw_count_data = PublicBody.get_request_totals(n=3,
+                                                        highest=true,
+                                                        minimum_requests=1)
+        @percentages_data = PublicBody.get_request_percentages(
+            column='info_requests_successful_count',
+            n=3,
+            highest=false,
+            minimum_requests=1)
+    end
+
+    it "should not include the real public body model instance" do
+        to_draw = controller.simplify_stats_for_graphs(@raw_count_data,
+                                                       column='blah_blah',
+                                                       percentages=false,
+                                                       {} )
+        to_draw['public_bodies'][0].class.should == Hash
+        to_draw['public_bodies'][0].has_key?('request_email').should be_false
+    end
+
+    it "should generate the expected id" do
+        to_draw = controller.simplify_stats_for_graphs(@raw_count_data,
+                                                       column='blah_blah',
+                                                       percentages=false,
+                                                       {:highest => true} )
+        to_draw['id'].should == "blah_blah-highest"
+        to_draw = controller.simplify_stats_for_graphs(@raw_count_data,
+                                                       column='blah_blah',
+                                                       percentages=false,
+                                                       {:highest => false} )
+        to_draw['id'].should == "blah_blah-lowest"
+    end
+
+    it "should have exactly the expected keys" do
+        to_draw = controller.simplify_stats_for_graphs(@raw_count_data,
+                                                       column='blah_blah',
+                                                       percentages=false,
+                                                       {} )
+        to_draw.keys.sort.should == ["errorbars", "id", "public_bodies",
+                                     "title", "tooltips", "totals",
+                                     "x_axis", "x_ticks", "x_values",
+                                     "y_axis", "y_max", "y_values"]
+
+        to_draw = controller.simplify_stats_for_graphs(@percentages_data,
+                                                       column='whatever',
+                                                       percentages=true,
+                                                       {})
+        to_draw.keys.sort.should == ["cis_above", "cis_below",
+                                     "errorbars", "id", "public_bodies",
+                                     "title", "tooltips", "totals",
+                                     "x_axis", "x_ticks", "x_values",
+                                     "y_axis", "y_max", "y_values"]
+    end
+
+    it "should have values of the expected class and length" do
+        [controller.simplify_stats_for_graphs(@raw_count_data,
+                                              column='blah_blah',
+                                              percentages=false,
+                                              {}),
+         controller.simplify_stats_for_graphs(@percentages_data,
+                                              column='whatever',
+                                              percentages=true,
+                                              {})].each do |to_draw|
+            per_pb_keys = ["cis_above", "cis_below", "public_bodies",
+                           "tooltips", "totals", "x_ticks", "x_values",
+                           "y_values"]
+            # These should be all be arrays with one element per public body:
+            per_pb_keys.each do |key|
+                if to_draw.has_key? key
+                    to_draw[key].class.should == Array
+                    to_draw[key].length.should eq(3), "for key #{key}"
+                end
+            end
+            # Just check that the rest aren't of class Array:
+            to_draw.keys.each do |key|
+                unless per_pb_keys.include? key
+                    to_draw[key].class.should_not eq(Array), "for key #{key}"
+                end
+            end
+        end
+    end
+
+end
+
 
 describe PublicBodyController, "when doing type ahead searches" do
 

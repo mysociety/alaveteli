@@ -158,6 +158,31 @@ Spork.prefork do
     ActiveRecord::Base.default_timezone = old_zone
   end
 
+  # To test the statistics calculations, it's helpful to have the
+  # request fixtures in different states, but changing the fixtures
+  # themselves disrupts many other tests.  This function takes a
+  # block, and runs that block with the info requests for the
+  # Geraldine Quango altered so that one is hidden and there's a
+  # successful one.
+  def with_hidden_and_successful_requests
+    external = info_requests(:external_request)
+    chicken = info_requests(:naughty_chicken_request)
+    old_external_prominence = external.prominence
+    old_chicken_described_state = chicken.described_state
+    begin
+      external.prominence = 'hidden'
+      external.save!
+      chicken.described_state = 'successful'
+      chicken.save!
+      yield
+    ensure
+      external.prominence = old_external_prominence
+      external.save!
+      chicken.described_state = old_chicken_described_state
+      chicken.save!
+    end
+  end
+
   def load_test_categories
       PublicBodyCategories.add(:en, [
           "Local and regional",
