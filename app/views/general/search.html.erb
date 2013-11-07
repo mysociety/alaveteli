@@ -116,7 +116,7 @@
 
   <% end # if @advanced %>
 
-  <% if !@query.nil? %>
+  <% if !@query.nil? && @total_hits > 0 %>
     <p id="search_controls">
       <%=link_to_unless @sortby == 'relevant', _("Show most relevant results first"), search_path([params[:query], @variety_postfix, 'relevant'], params) %>
       |
@@ -137,6 +137,9 @@
 <div style="clear:both;"></div>
 <% if @total_hits == 0 %>
     <h2><%=@title %></h2>
+    <% if @spelling_correction %>
+      <p id="did_you_mean"><%= _('Did you mean: {{correction}}', :correction => search_link(@spelling_correction)) %></p>
+    <% end %>
 <% end %>
 
 <% if not @query.nil? %>
@@ -155,10 +158,7 @@
         </div>
 
         <%= will_paginate WillPaginate::Collection.new(@page, @bodies_per_page, @xapian_bodies.matches_estimated) %>
-      <% elsif @bodies && !@query.nil? && @xapian_bodies.results.size == 0 && @page == 1 %>
-        <% if @spelling_correction %>
-          <p id="did_you_mean"><%= _('Did you mean: {{correction}}', :correction => search_link(@spelling_correction)) %></p>
-        <% end %>
+      <% elsif @variety_postfix == 'bodies' %>
         <p><%= raw(_('<a href="{{browse_url}}">Browse all</a> or <a href="{{add_url}}">ask us to add one</a>.', :browse_url => list_public_bodies_default_path.html_safe, :add_url => (help_requesting_path + '#missing_body').html_safe)) %></p>
       <% end %>
     </div>
