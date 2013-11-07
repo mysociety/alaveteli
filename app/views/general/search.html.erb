@@ -116,7 +116,7 @@
 
   <% end # if @advanced %>
 
-  <% if !@query.nil? %>
+  <% if !@query.nil? && @total_hits > 0 %>
     <p id="search_controls">
       <%=link_to_unless @sortby == 'relevant', _("Show most relevant results first"), search_path([params[:query], @variety_postfix, 'relevant'], params) %>
       |
