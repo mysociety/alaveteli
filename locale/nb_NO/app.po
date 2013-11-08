@@ -4,15 +4,16 @@
 #
 # Translators:
 # gorm <gormer@gmail.com>, 2013
+# gorm <gormer@gmail.com>, 2013
 # pere <pere-transifex@hungry.com>, 2013
 # pere <pere-transifex@hungry.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-08 12:10+0000\n"
-"PO-Revision-Date: 2013-10-24 20:07+0000\n"
-"Last-Translator: gorm <gormer@gmail.com>\n"
+"PO-Revision-Date: 2013-11-08 12:13+0000\n"
+"Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
@@ -3519,12 +3520,3 @@ msgstr "{{user}} ({{user_admin_link}}) laget denne {{law_used_full}} henvendelse
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} sendte denne {{law_used_full}} henvendelsen"
-
-#~ msgid "User|Address"
-#~ msgstr "Bruker|Adresse"
-
-#~ msgid "User|Dob"
-#~ msgstr "Bruker|Dob"
-
-#~ msgid "{{law_used_full}} request GQ - {{title}}"
-#~ msgstr "{{law_used_full}} henvendelse GQ - {{title}}"

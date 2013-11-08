@@ -6,13 +6,14 @@
 # Anh Phan <ppanhh@gmail.com>, 2013
 # ppanhh <vietnamesel10n@gmail.com>, 2013
 # ppanhh <ppanhh@gmail.com>, 2013
+# ppanhh <vietnamesel10n@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-08 12:10+0000\n"
-"PO-Revision-Date: 2013-10-02 10:27+0000\n"
-"Last-Translator: ppanhh <vietnamesel10n@gmail.com>\n"
+"PO-Revision-Date: 2013-11-08 12:13+0000\n"
+"Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/projects/p/alaveteli/language/vi/)\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"

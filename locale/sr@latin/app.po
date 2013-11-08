@@ -10,13 +10,14 @@
 # Valon <vbrestovci@gmail.com>, 2011-2012
 # Valon <vbrestovci@gmail.com>, 2012
 # Valon <vbrestovci@gmail.com>, 2011
+# vucko <vucko@acm.org>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-08 12:10+0000\n"
-"PO-Revision-Date: 2013-10-16 20:56+0000\n"
-"Last-Translator: vucko <vucko@acm.org>\n"
+"PO-Revision-Date: 2013-11-08 12:26+0000\n"
+"Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/alaveteli/language/sr@latin/)\n"
 "Language: sr@latin\n"
 "MIME-Version: 1.0\n"
@@ -1838,9 +1839,8 @@ msgstr "PublicBody|Broj zakasnelih odgovora"
 msgid "PublicBody|Info requests successful count"
 msgstr "PublicBody|Broj uspešnih odgovora"
 
-#, fuzzy
 msgid "PublicBody|Info requests visible classified count"
-msgstr "PublicBody|Broj uspešnih odgovora"
+msgstr ""
 
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Komentar poslednje izmene"
@@ -3629,12 +3629,3 @@ msgstr "{{user}} ({{user_admin_link}}) je podneo ovaj zahtev vezan za {{law_used
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} je podneo/la ovaj zahtev pozivajući se na {{law_used_full}}"
-
-#~ msgid "User|Address"
-#~ msgstr "User|Adresa"
-
-#~ msgid "User|Dob"
-#~ msgstr "User|Datum rođenja"
-
-#~ msgid "{{law_used_full}} request GQ - {{title}}"
-#~ msgstr "Zahtev koji se poziva na {{law_used_full}} - {{title}}"

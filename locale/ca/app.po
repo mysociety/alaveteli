@@ -10,11 +10,11 @@
 # mmtarres <mmtarres@gmail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-08 12:10+0000\n"
-"PO-Revision-Date: 2013-09-19 09:50+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2013-11-08 12:13+0000\n"
+"Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/alaveteli/language/ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -3753,6 +3753,3 @@ msgstr "{{user}} ({{user_admin_link}}) hizo esta solicitud {{law_used_full}} (<a
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} hizo esta solicitud {{law_used_full}}"
-
-#~ msgid "{{law_used_full}} request GQ - {{title}}"
-#~ msgstr "solicitud {{law_used_full}} - {{title}}"

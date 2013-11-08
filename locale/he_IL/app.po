@@ -18,11 +18,11 @@
 # Z.D <zdevir@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-08 12:10+0000\n"
-"PO-Revision-Date: 2013-09-30 17:58+0000\n"
-"Last-Translator: yehuda <yehudab@gmail.com>\n"
+"PO-Revision-Date: 2013-11-08 12:13+0000\n"
+"Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -1813,9 +1813,8 @@ msgstr ""
 msgid "PublicBody|Info requests successful count"
 msgstr ""
 
-#, fuzzy
 msgid "PublicBody|Info requests visible classified count"
-msgstr "גוף ציבורי|מספר הבקשות שהוגשו"
+msgstr ""
 
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Last ערכו הערה"
@@ -3526,12 +3525,3 @@ msgstr "{{user}} ({{user_admin_link}}) יצר את בקשת {{law_used_full}} (<
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} הגיש את בקשת {{law_used_full}} הזו"
-
-#~ msgid "User|Address"
-#~ msgstr "משתמש|כתובת"
-
-#~ msgid "User|Dob"
-#~ msgstr "משתמש|תאריך לידה"
-
-#~ msgid "{{law_used_full}} request GQ - {{title}}"
-#~ msgstr "{{law_used_full}} בקשת GQ - {{title}}"
