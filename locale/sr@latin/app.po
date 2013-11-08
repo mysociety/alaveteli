@@ -3250,10 +3250,7 @@ msgid "[{{site_name}} contact email]"
 msgstr "[Kontakt email za sistem {{site_name}}]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-"\n"
-"\n"
-"[ Poruka sistema {{site_name}}: Tekst iznad je bio loše kodiran, pa su čudni znakovi uklonjeni. ]"
+msgstr "\\n\\n[ Poruka sistema {{site_name}}: Tekst iznad je bio loše kodiran, pa su čudni znakovi uklonjeni. ]"
 
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
 msgstr "sažetak u jednoj liniji kakve informacije tražite, \\n⇥⇥⇥npr."
