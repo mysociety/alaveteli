@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-08 12:10+0000\n"
-"PO-Revision-Date: 2014-01-23 15:13+0000\n"
+"PO-Revision-Date: 2014-01-26 10:03+0000\n"
 "Last-Translator: Valentin Laskov <laskov@festa.bg>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/alaveteli/language/bg/)\n"
 "Language: bg\n"
@@ -153,7 +153,7 @@ msgid "<p>Thank you! Your request is long overdue, by more than {{very_late_numb
 msgstr "<p>Благодарим Ви! Отговорът на Вашето заявление се забави повече от {{very_late_number_of_days}} работни дни. На повечето заявления се отговаря в рамките на {{late_number_of_days}} работни дни. Ако желаете да подадете оплакване за това, вижте надолу.</p>"
 
 msgid "<p>Thanks for changing the text about you on your profile.</p>\\n            <p><strong>Next...</strong> You can upload a profile photograph too.</p>"
-msgstr "<p>Благодарим Ви, че обновихте текста за Вас в профила Ви.</p>\\n <p><strong>Сега може...</strong> Да качите и снимка в профила Ви.</p>"
+msgstr "<p>Благодарим Ви, че обновихте текста за Вас в профила Ви.</p>\\n <p><strong>Сега може...</strong> да качите и снимка в профила Ви.</p>"
 
 msgid "<p>Thanks for updating your profile photo.</p>\\n                <p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
 msgstr "<p>Благодарим Ви, че обновихте снимката в профила Ви.</p>\\n <p><strong>Сега може...</strong> да напишете текст за Вас и разследванията Ви.</p>"
@@ -944,7 +944,7 @@ msgid "Home page of authority"
 msgstr "Сайт на публичния орган"
 
 msgid "However, you have the right to request environmental\\n            information under a different law"
-msgstr ""
+msgstr "Впрочем, Вие имате правото да поискате информация за\\n            околната среда съгласно друг закон"
 
 msgid "Human health and safety"
 msgstr "Здравеопазване и сигурност"
