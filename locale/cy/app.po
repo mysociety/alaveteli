@@ -17,9 +17,9 @@
 # PerryX <wyeboy@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-19 10:47+0100\n"
+"POT-Creation-Date: 2013-11-08 12:10+0000\n"
 "PO-Revision-Date: 2013-11-06 00:36+0000\n"
 "Last-Translator: Hywel <hywelm.jones@talk21.com>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
@@ -818,15 +818,24 @@ msgstr "Dilynwch y person hwn"
 msgid "Follow this request"
 msgstr "Dilynwch y cais hwn"
 
+#. "Follow up" in this context means a further
+#. message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up"
 msgstr "Dilyniant"
 
+#. "Follow up message" in this context means a
+#. further message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up message sent by requester"
 msgstr "Neges ddilynol a anfonwyd gan y ceisydd"
 
 msgid "Follow up messages to existing requests are sent to "
 msgstr "Anfonir negeseuon dilynol i geisiadau presennol at "
 
+#. "Follow ups" in this context means further
+#. messages sent by the requester to the authority after
+#. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Rhwystrwyd dilyniannau ac ymatebion newydd i'r cais hwn i atal spam. <a href=\"{{url}}\">Cysylltwch â ni</a> os ydych yn {{user_link}}  ac mae angen anfon neges ddilynol."
 
@@ -1803,6 +1812,9 @@ msgstr ""
 msgid "PublicBody|Info requests successful count"
 msgstr ""
 
+msgid "PublicBody|Info requests visible classified count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr ""
 
@@ -2740,16 +2752,10 @@ msgstr ""
 msgid "User|About me"
 msgstr ""
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr ""
 
 msgid "User|Ban text"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3456,9 +3462,6 @@ msgstr ""
 
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "Cais {{law_used_full}} - {{title}}"
-
-msgid "{{law_used_full}} request GQ - {{title}}"
-msgstr ""
 
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr ""

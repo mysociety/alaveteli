@@ -16,9 +16,9 @@
 # vickyanderica <victoria@access-info.org>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-19 10:47+0100\n"
+"POT-Creation-Date: 2013-11-08 12:10+0000\n"
 "PO-Revision-Date: 2013-10-18 17:24+0000\n"
 "Last-Translator: hoedic <stephane.guidoin@gmail.com>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/projects/p/alaveteli/language/fr_CA/)\n"
@@ -819,15 +819,24 @@ msgstr "Suivre cette personne "
 msgid "Follow this request"
 msgstr "Suivre cette demande"
 
+#. "Follow up" in this context means a further
+#. message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up"
 msgstr "Message de suivi"
 
+#. "Follow up message" in this context means a
+#. further message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up message sent by requester"
 msgstr "Suivre les messages envoyés par le demandeur"
 
 msgid "Follow up messages to existing requests are sent to "
 msgstr "Les messages de suivi des demandes existantes sont envoyés "
 
+#. "Follow ups" in this context means further
+#. messages sent by the requester to the authority after
+#. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Les messages de suivi et les nouvelles réponses à cette demande ont été arrêtés afin de prévenir le pourriel. Veuillez <a href=\"{{url}}\">nous contacter </a> si vous êtes {{user_link}} et que vous avez besoin d'envoyer un message de suivi."
 
@@ -1802,6 +1811,10 @@ msgstr "OrganismePublic|Info comptage des demandes en retard"
 msgid "PublicBody|Info requests successful count"
 msgstr "OrganismePublic|Info comptage des demandes réussies"
 
+#, fuzzy
+msgid "PublicBody|Info requests visible classified count"
+msgstr "OrganismePublic|Info comptage des demandes réussies"
+
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Last edit comment"
 
@@ -2731,17 +2744,11 @@ msgstr "UserInfoRequestSentAlert|Alert type"
 msgid "User|About me"
 msgstr "User|About me"
 
-msgid "User|Address"
-msgstr "User|Address"
-
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
 msgid "User|Ban text"
 msgstr "User|Ban text"
-
-msgid "User|Dob"
-msgstr "User|Dob"
 
 msgid "User|Email"
 msgstr "User|Email"
@@ -3435,9 +3442,6 @@ msgstr "{{info_request_user_name}} uniquement:"
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "{{law_used_full}} - {{title}}"
 
-msgid "{{law_used_full}} request GQ - {{title}}"
-msgstr "{{law_used_full}} - {{title}}"
-
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "{{law_used}} pour {{public_body}}"
 
@@ -3521,3 +3525,12 @@ msgstr "{{user}} ({{user_admin_link}}) a fait cette demande (<a href=\"{{request
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "Cette demande a été faite par {{user}} "
+
+#~ msgid "User|Address"
+#~ msgstr "User|Address"
+
+#~ msgid "User|Dob"
+#~ msgstr "User|Dob"
+
+#~ msgid "{{law_used_full}} request GQ - {{title}}"
+#~ msgstr "{{law_used_full}} - {{title}}"

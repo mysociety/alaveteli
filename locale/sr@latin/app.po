@@ -12,9 +12,9 @@
 # Valon <vbrestovci@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-19 10:47+0100\n"
+"POT-Creation-Date: 2013-11-08 12:10+0000\n"
 "PO-Revision-Date: 2013-10-16 20:56+0000\n"
 "Last-Translator: vucko <vucko@acm.org>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/alaveteli/language/sr@latin/)\n"
@@ -829,15 +829,24 @@ msgstr "Prati ovog korisnika"
 msgid "Follow this request"
 msgstr "Prati ovaj zahtev"
 
+#. "Follow up" in this context means a further
+#. message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up"
 msgstr "Reakcija"
 
+#. "Follow up message" in this context means a
+#. further message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up message sent by requester"
 msgstr "Poruka reakcije poslata od strane podnosioca zahteva"
 
 msgid "Follow up messages to existing requests are sent to "
 msgstr "Poruke reakcije na postojeće zahteve se šalju na"
 
+#. "Follow ups" in this context means further
+#. messages sent by the requester to the authority after
+#. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Reakcije i novi odgovori na ovaj zahtev su blokirani da se spreči spamovanje. Molimo <a href=\"{{url}}\">da nas kontaktirate</a> ako ste Vi {{user_link}} i potrebno vam je da pošaljete reakciju."
 
@@ -1829,6 +1838,10 @@ msgstr "PublicBody|Broj zakasnelih odgovora"
 msgid "PublicBody|Info requests successful count"
 msgstr "PublicBody|Broj uspešnih odgovora"
 
+#, fuzzy
+msgid "PublicBody|Info requests visible classified count"
+msgstr "PublicBody|Broj uspešnih odgovora"
+
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Komentar poslednje izmene"
 
@@ -2805,17 +2818,11 @@ msgstr "UserInfoRequestSentAlert|Alert događaja"
 msgid "User|About me"
 msgstr "User|O meni"
 
-msgid "User|Address"
-msgstr "User|Adresa"
-
 msgid "User|Admin level"
 msgstr "User|Administratorski nivo"
 
 msgid "User|Ban text"
 msgstr "User|Tekst isključenja"
-
-msgid "User|Dob"
-msgstr "User|Datum rođenja"
 
 msgid "User|Email"
 msgstr "User|E-mail"
@@ -3540,9 +3547,6 @@ msgstr "samo {{info_request_user_name}}:"
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "Zahtev koji se poziva na {{law_used_full}} - {{title}}"
 
-msgid "{{law_used_full}} request GQ - {{title}}"
-msgstr "Zahtev koji se poziva na {{law_used_full}} - {{title}}"
-
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "Zahtevi vezani za {{law_used}} za ustanovu {{public_body}}"
 
@@ -3628,3 +3632,12 @@ msgstr "{{user}} ({{user_admin_link}}) je podneo ovaj zahtev vezan za {{law_used
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} je podneo/la ovaj zahtev pozivajući se na {{law_used_full}}"
+
+#~ msgid "User|Address"
+#~ msgstr "User|Adresa"
+
+#~ msgid "User|Dob"
+#~ msgstr "User|Datum rođenja"
+
+#~ msgid "{{law_used_full}} request GQ - {{title}}"
+#~ msgstr "Zahtev koji se poziva na {{law_used_full}} - {{title}}"
