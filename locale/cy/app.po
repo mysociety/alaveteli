@@ -186,7 +186,7 @@ msgid "<p>You do not need to include your email in the request in order to get a
 msgstr "Nid <p> oes angen i chi gynnwys eich e-bost yn y cais er mwyn cael ateb (<a href=\"{{url}}\"> fanylion </ a>). </ p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>"
-msgstr "<p>Does dim rhaid i chi roi'ich cyfeiriad yn y cais er mwyn cael ymateb, gan y byddwn yn gofyn amdano ar y sgrîn nesaf (<aa href=\"{{url}}\">manylion</a>).</p>"
+msgstr "<p>Does dim rhaid i chi roi'ich cyfeiriad yn y cais er mwyn cael ymateb, gan y byddwn yn gofyn amdano ar y sgrîn nesaf (<a href=\"{{url}}\">manylion</a>).</p>"
 
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
 msgstr "<p>Mae'ch cais yn cynnwys <strong>cod post</strong>. Oni bai ei fod o'n ymwneud yn uniongyrchol â'r cais, dilewch unrhyw gyfeiriad os gwelwch yn dda, oherwydd y bydd yn <strong>ymddangos yn gyhoeddus ar y Rhyngrwyd</strong>.</p>"
