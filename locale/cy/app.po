@@ -120,7 +120,7 @@ msgid "*unknown*"
 msgstr "* Anhysbys *"
 
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
-msgstr ",    Yr eiddoch,   {{USER_NAME}}"
+msgstr ",    Yr eiddoch,   {{user_name}}"
 
 msgid "- or -"
 msgstr "- neu -"
@@ -141,7 +141,7 @@ msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or other
 msgstr "href=\"{{url}}\"> <a Ychwanegwch anodiad </ a> (i helpu'r sawl sy'n gwneud y cais neu eraill)"
 
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
-msgstr "<a href=\"{{url}}\"> Mewngofnodi </ a> i newid cyfrinair, tanysgrifiadau a mwy ({{USER_NAME}} yn unig)"
+msgstr "<a href=\"{{url}}\"> Mewngofnodi </ a> i newid cyfrinair, tanysgrifiadau a mwy ({{user_name}} yn unig)"
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Wedi gorffen! Diolch yn fawr am eich help.</p><p>Mae <a href=\"{{helpus_url}}\">mwy o bethau i'w wneud</a>er mwyn helpu {{site_name}}.</p>"
@@ -564,7 +564,7 @@ msgid "Confirm you want to follow new requests or responses matching your search
 msgstr "Cadarnhewch eich bod am ddilyn ceisiadau newydd neu ymatebion sy'n matsio eich chwiliad"
 
 msgid "Confirm you want to follow requests by '{{user_name}}'"
-msgstr "Cadarnhewch eich bod am ddilyn ceisiadau gan '{{USER_NAME}}'"
+msgstr "Cadarnhewch eich bod am ddilyn ceisiadau gan '{{user_name}}'"
 
 msgid "Confirm you want to follow requests to '{{public_body_name}}'"
 msgstr "Cadarnhewch eich bod am ddilyn ceisiadau i '{{public_body_name}}'"
