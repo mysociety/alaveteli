@@ -3140,9 +3140,7 @@ msgid "[{{site_name}} contact email]"
 msgstr ""
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-"\n"
-"\\n\\n[ {{site_name}} съобщение: Горният текст е в непозволен формат. Някои странни символи бяха премахнати. ]"
+msgstr "\\n\\n[ {{site_name}} съобщение: Горният текст е в непозволен формат. Някои странни символи бяха премахнати. ]"
 
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
 msgstr "обобщение на един ред на информацията, която искате, \\n\t\t\t\tнапр."
