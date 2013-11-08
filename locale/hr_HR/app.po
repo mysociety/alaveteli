@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
-"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-19 10:47+0100\n"
 "PO-Revision-Date: 2013-09-19 09:50+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"

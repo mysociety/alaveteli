@@ -19,10 +19,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
-"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-19 10:47+0100\n"
-"PO-Revision-Date: 2013-09-19 09:50+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2013-09-30 17:58+0000\n"
+"Last-Translator: yehuda <yehudab@gmail.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -2233,7 +2233,7 @@ msgid "The classification of requests (e.g. to say whether they were successful 
 msgstr ""
 
 msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to reply to an {{law_used_short}}\\nrequest has not been delivered."
-msgstr "הדוא\"ל ששלחתם בשם {{public_body}}, ל- \\n{{user}} כדי להגיב על בקשת {{law_used_short}}\\nלא נמסר."
+msgstr "הדוא\"ל ששלחתם בשם {{public_body}}, ל-{{user}} כדי להגיב על בקשת {{law_used_short}} לא נשלח."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr ""
@@ -2409,10 +2409,10 @@ msgid "They have been given the following explanation:"
 msgstr "ניתן להם ההסבר הבא:"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
-msgstr "הם לא השיבו {{law_used_short}} לבקשתכם {{title}} מייד, כפי שקבוע בחוק"
+msgstr "לא התקבלה תגובה לבקשת {{law_used_short}} \"{{title}}\", כפי שקבוע בתקנות."
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, \\nas required by law"
-msgstr "לא התקבלה תגובה לבקשת {{title}} לפי חוק {{law_used_short}, \\nפי שקבוע בחוק."
+msgstr "לא התקבלה תגובה לבקשת {{law_used_short}} \"{{title}}\", כפי שקבוע בתקנות."
 
 msgid "Things to do with this request"
 msgstr "דברים שניתן לעשות עם הבקשה"
