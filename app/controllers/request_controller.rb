@@ -965,8 +965,9 @@ class RequestController < ApplicationController
         end
         if !done
             file_info = { :filename => 'correspondence.txt',
-                          :data => render_to_string(:template => 'request/show.text',
-                                                    :layout => false) }
+                          :data => render_to_string(:template => 'request/show',
+                                                    :layout => false,
+                                                    :formats => [:text]) }
         end
         file_info
     end
