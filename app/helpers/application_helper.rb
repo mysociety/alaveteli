@@ -54,9 +54,9 @@ module ApplicationHelper
     # Highlight words, also escapes HTML (other than spans that we add)
     def highlight_words(t, words, html = true)
         if html
-            highlight(h(t), words, '<span class="highlight">\1</span>').html_safe
+            highlight(h(t), words, :highlighter => '<span class="highlight">\1</span>').html_safe
         else
-            highlight(t, words, '*\1*')
+            highlight(t, words, :highlighter => '*\1*')
         end
     end
 
