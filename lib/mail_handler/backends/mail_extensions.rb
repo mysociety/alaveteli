@@ -29,6 +29,7 @@ module Mail
     # HACK: Backport encoding fixes for Ruby 1.8 from Mail 2.5
     # Can be removed when we no longer support Ruby 1.8
     class Ruby18
+
         def Ruby18.b_value_decode(str)
             match = str.match(/\=\?(.+)?\?[Bb]\?(.+)?\?\=/m)
             if match
@@ -81,11 +82,11 @@ module Mail
         def Ruby19.b_value_decode(str)
           match = str.match(/\=\?(.+)?\?[Bb]\?(.+)?\?\=/m)
           if match
-            encoding = match[1]
+            charset = match[1]
             str = Ruby19.decode_base64(match[2])
             # Rescue an ArgumentError arising from an unknown encoding.
             begin
-                str.force_encoding(fix_encoding(encoding))
+                str.force_encoding(pick_encoding(charset))
             rescue ArgumentError
             end
           end
