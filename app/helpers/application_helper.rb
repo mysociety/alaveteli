@@ -61,9 +61,9 @@ module ApplicationHelper
     end
 
     def highlight_and_excerpt(t, words, excount, html = true)
-        newt = excerpt(t, words[0], excount)
+        newt = excerpt(t, words[0], :radius => excount)
         if not newt
-            newt = excerpt(t, '', excount)
+            newt = excerpt(t, '', :radius => excount)
         end
         t = newt
         t = highlight_words(t, words, html)
