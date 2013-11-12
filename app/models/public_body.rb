@@ -194,7 +194,6 @@ class PublicBody < ActiveRecord::Base
     self.non_versioned_columns << 'info_requests_overdue_count'
 
     class Version
-        attr_accessor :created_at
 
         def last_edit_comment_for_html_display
             text = self.last_edit_comment.strip
