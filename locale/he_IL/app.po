@@ -19,10 +19,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
-"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-09-19 10:47+0100\n"
-"PO-Revision-Date: 2013-09-19 09:50+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-08 12:10+0000\n"
+"PO-Revision-Date: 2013-11-08 12:13+0000\n"
+"Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -821,15 +821,24 @@ msgstr "עקוב אחר האדם הזה"
 msgid "Follow this request"
 msgstr "עקבו אחר הבקשה"
 
+#. "Follow up" in this context means a further
+#. message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up"
 msgstr "הודעת עדכון"
 
+#. "Follow up message" in this context means a
+#. further message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up message sent by requester"
 msgstr "הודעת עדכון נשלחה על ידי המבקש"
 
 msgid "Follow up messages to existing requests are sent to "
 msgstr "הודעות מעקב לבקשות קיימות נשלחות ל- "
 
+#. "Follow ups" in this context means further
+#. messages sent by the requester to the authority after
+#. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "הודעות תגובה והודעות חדשות לבקשה זו נחסמו מחשש לדואר זבל. נא <a href=\"{{url}}\">צרו קשר</a> אם את/ה {{user_link}} וצריך לשלוח הודעת המשך."
 
@@ -1804,6 +1813,9 @@ msgstr ""
 msgid "PublicBody|Info requests successful count"
 msgstr ""
 
+msgid "PublicBody|Info requests visible classified count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Last ערכו הערה"
 
@@ -2233,7 +2245,7 @@ msgid "The classification of requests (e.g. to say whether they were successful 
 msgstr ""
 
 msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to reply to an {{law_used_short}}\\nrequest has not been delivered."
-msgstr "הדוא\"ל ששלחתם בשם {{public_body}}, ל- \\n{{user}} כדי להגיב על בקשת {{law_used_short}}\\nלא נמסר."
+msgstr "הדוא\"ל ששלחתם בשם {{public_body}}, ל-{{user}} כדי להגיב על בקשת {{law_used_short}} לא נשלח."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr ""
@@ -2409,10 +2421,10 @@ msgid "They have been given the following explanation:"
 msgstr "ניתן להם ההסבר הבא:"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
-msgstr "הם לא השיבו {{law_used_short}} לבקשתכם {{title}} מייד, כפי שקבוע בחוק"
+msgstr "לא התקבלה תגובה לבקשת {{law_used_short}} \"{{title}}\", כפי שקבוע בתקנות."
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, \\nas required by law"
-msgstr "לא התקבלה תגובה לבקשת {{title}} לפי חוק {{law_used_short}, \\nפי שקבוע בחוק."
+msgstr "לא התקבלה תגובה לבקשת {{law_used_short}} \"{{title}}\", כפי שקבוע בתקנות."
 
 msgid "Things to do with this request"
 msgstr "דברים שניתן לעשות עם הבקשה"
@@ -2733,17 +2745,11 @@ msgstr "UserInfoRequestSentAlert|Alert type"
 msgid "User|About me"
 msgstr "User|About me"
 
-msgid "User|Address"
-msgstr "משתמש|כתובת"
-
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
 msgid "User|Ban text"
 msgstr "User|Ban text"
-
-msgid "User|Dob"
-msgstr "משתמש|תאריך לידה"
 
 msgid "User|Email"
 msgstr "User|Email"
@@ -3435,9 +3441,6 @@ msgstr "רק {{info_request_user_name}} –"
 
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "בקשת {{law_used_full}} - {{title}} "
-
-msgid "{{law_used_full}} request GQ - {{title}}"
-msgstr "{{law_used_full}} בקשת GQ - {{title}}"
 
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "{{law_used}} בקשות ב{{public_body}}"

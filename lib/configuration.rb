@@ -69,6 +69,7 @@ module AlaveteliConfiguration
             :TWITTER_WIDGET_ID => false,
             :USE_DEFAULT_BROWSER_LANGUAGE => true,
             :USE_GHOSTSCRIPT_COMPRESSION => false,
+            :USE_MAILCATCHER_IN_DEVELOPMENT => true,
             :UTILITY_SEARCH_PATH => ["/usr/bin", "/usr/local/bin"],
             :VARNISH_HOST => '',
             :WORKING_OR_CALENDAR_DAYS => 'working',

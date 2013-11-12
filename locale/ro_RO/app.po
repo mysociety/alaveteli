@@ -20,10 +20,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
-"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-09-19 10:47+0100\n"
-"PO-Revision-Date: 2013-09-19 09:50+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-08 12:10+0000\n"
+"PO-Revision-Date: 2013-11-08 12:13+0000\n"
+"Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
 "MIME-Version: 1.0\n"
@@ -820,15 +820,24 @@ msgstr "Urmăriţi această persoană"
 msgid "Follow this request"
 msgstr "Urmăriţi această solicitare"
 
+#. "Follow up" in this context means a further
+#. message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up"
 msgstr "Urmăriţi"
 
+#. "Follow up message" in this context means a
+#. further message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up message sent by requester"
 msgstr "Urmăriţi mesajul trimis de solicitant"
 
 msgid "Follow up messages to existing requests are sent to "
 msgstr "Urmăriţi mesajele  trimise de solicitant"
 
+#. "Follow ups" in this context means further
+#. messages sent by the requester to the authority after
+#. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Urmăririle si noile răspunsuri la această cerere au fost stopate pentru a preveni spam-ul. Vă rugăm <a href=\"{{url}}\"> să ne contactaţi</a> dacă sunteţi {{user_link}} şi aveţi nevoie să trimiteţi follw up."
 
@@ -1806,6 +1815,9 @@ msgstr ""
 msgid "PublicBody|Info requests successful count"
 msgstr ""
 
+msgid "PublicBody|Info requests visible classified count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr "Instituţie publică| Ultimul comentariu editat"
 
@@ -2739,17 +2751,11 @@ msgstr "UserInfoRequestSentAlert|Tip Alerta"
 msgid "User|About me"
 msgstr "Utilizator|Despre mine"
 
-msgid "User|Address"
-msgstr "Utilizator|Adresă"
-
 msgid "User|Admin level"
 msgstr "Utilizator|Nivel administrator"
 
 msgid "User|Ban text"
 msgstr "Utilizator|Text interzis"
-
-msgid "User|Dob"
-msgstr "Utilizator|Dob"
 
 msgid "User|Email"
 msgstr "Utilizator|Email"
@@ -3445,9 +3451,6 @@ msgstr "numai  {{info_request_user_name}} :"
 
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "cerere {{law_used_full}}  - {{title}}"
-
-msgid "{{law_used_full}} request GQ - {{title}}"
-msgstr "cerere  GQ {{law_used_full}}  - {{title}}"
 
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "{{law_used}} cereri către {{public_body}}"

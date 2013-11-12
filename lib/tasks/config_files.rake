@@ -11,11 +11,7 @@ namespace :config_files do
                 var = $1.to_sym
                 replacement = replacements[var]
                 if replacement == nil
-                    if ! (skip[var] == true)
-                        raise "Unhandled variable in .ugly file: $#{var}"
-                    else
-                        match
-                    end
+                    raise "Unhandled variable in .ugly file: $#{var}"
                 else
                     replacements[var]
                 end
@@ -52,5 +48,23 @@ namespace :config_files do
         end
     end
 
+    desc 'Convert Debian .ugly crontab file in config to a form suitable for installing in /etc/cron.d'
+    task :convert_crontab => :environment do
+        example = 'rake config_files:convert_crontab DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli SITE=alaveteli CRONTAB=config/crontab-example'
+        check_for_env_vars(['DEPLOY_USER',
+                            'VHOST_DIR',
+                            'VCSPATH',
+                            'SITE',
+                            'CRONTAB'], example)
+        replacements = {
+            :user => ENV['DEPLOY_USER'],
+            :vhost_dir => ENV['VHOST_DIR'],
+            :vcspath => ENV['VCSPATH'],
+            :site => ENV['SITE']
+        }
+        convert_ugly(ENV['CRONTAB'], replacements).each do |line|
+            puts line
+        end
+    end
 
 end

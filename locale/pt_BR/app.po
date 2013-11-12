@@ -41,10 +41,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
-"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-09-19 10:47+0100\n"
-"PO-Revision-Date: 2013-09-19 09:50+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-08 12:10+0000\n"
+"PO-Revision-Date: 2013-11-08 12:13+0000\n"
+"Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/alaveteli/language/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -861,15 +861,24 @@ msgstr "Seguir esta pessoa"
 msgid "Follow this request"
 msgstr "Acompanhar este pedido"
 
+#. "Follow up" in this context means a further
+#. message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up"
 msgstr "Acompanhar"
 
+#. "Follow up message" in this context means a
+#. further message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up message sent by requester"
 msgstr "Mensagem de acompanhamento enviada pelo solicitante"
 
 msgid "Follow up messages to existing requests are sent to "
 msgstr "Mensagens de acompanhamento para solicitações existentes são enviadas para"
 
+#. "Follow ups" in this context means further
+#. messages sent by the requester to the authority after
+#. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Acompanhamento e novas respostas ao pedido foram interrompidos para evitar spam. Por favor, <a href=\"{{url}}\">nos contate</a> se você for {{user_link}} e precisar enviar um acompanhamento."
 
@@ -1853,6 +1862,9 @@ msgstr ""
 msgid "PublicBody|Info requests successful count"
 msgstr ""
 
+msgid "PublicBody|Info requests visible classified count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody | Última edição"
 
@@ -2792,17 +2804,11 @@ msgstr "UserInfoRequestSentAlert | Tipo de alerta"
 msgid "User|About me"
 msgstr "Usuário | Sobre mim"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "Usuário | Nível de administrador"
 
 msgid "User|Ban text"
 msgstr "Usuário | Banir texto"
-
-msgid "User|Dob"
-msgstr ""
 
 msgid "User|Email"
 msgstr "Usuário | E-mail"
@@ -3502,9 +3508,6 @@ msgstr "{{info_request_user_name}} apenas:"
 
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "Pedido de {{law_used_full}} - {{title}}"
-
-msgid "{{law_used_full}} request GQ - {{title}}"
-msgstr ""
 
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "Pedidos de Informação a(o) {{public_body}}"
