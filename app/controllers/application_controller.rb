@@ -138,7 +138,9 @@ class ApplicationController < ActionController::Base
             backtrace = Rails.backtrace_cleaner.clean(exception.backtrace, :silent)
             message << "  " << backtrace.join("\n  ")
             Rails.logger.fatal("#{message}\n\n")
-            ExceptionNotifier::Notifier.exception_notification(request.env, exception).deliver
+            if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+                ExceptionNotifier::Notifier.exception_notification(request.env, exception).deliver
+            end
             @status = 500
         end
         respond_to do |format|
