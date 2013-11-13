@@ -93,6 +93,7 @@ module Alaveteli
                                  'excanvas.min.js',
                                  'fonts.css',
                                  'main.css',
+                                 'admin.css',
                                  'ie6.css',
                                  'ie7.css']
 
