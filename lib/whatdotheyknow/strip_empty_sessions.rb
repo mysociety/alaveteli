@@ -1,9 +1,9 @@
 module WhatDoTheyKnow
-  
+
   class StripEmptySessions
     ENV_SESSION_KEY = "rack.session".freeze
     HTTP_SET_COOKIE = "Set-Cookie".freeze
-    STRIPPABLE_KEYS = [:session_id, :_csrf_token, :locale]
+    STRIPPABLE_KEYS = ['session_id', '_csrf_token', 'locale']
 
     def initialize(app, options = {})
       @app = app
