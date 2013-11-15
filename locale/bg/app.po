@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-08 12:10+0000\n"
-"PO-Revision-Date: 2013-11-08 12:16+0000\n"
-"Last-Translator: mysociety <transifex@mysociety.org>\n"
+"PO-Revision-Date: 2013-11-08 14:16+0000\n"
+"Last-Translator: Valentin Laskov <laskov@festa.bg>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/alaveteli/language/bg/)\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -1898,7 +1898,7 @@ msgid "Request an internal review from {{person_or_body}}"
 msgstr "Искане на вътрешно разглеждане от {{person_or_body}}"
 
 msgid "Request email"
-msgstr ""
+msgstr "Поискай имейл"
 
 msgid "Request has been removed"
 msgstr "Заявлението беше премахнато"
@@ -2004,8 +2004,8 @@ msgstr "С търсачката в сайта може да намерите т�
 
 msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
 msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Търсене измежду {{count}} Заявление за Достъп до Информация, отправено към {{public_body_name}}"
+msgstr[1] "Търсене измежду {{count}} Заявления за Достъп до Информация, отправени към {{public_body_name}}"
 
 msgid "Search your contributions"
 msgstr "Търсене в допринесеното от Вас"
@@ -2397,7 +2397,7 @@ msgid "There were no results matching your query."
 msgstr "Няма резултати, съвпадащи със заявката ви."
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
-msgstr ""
+msgstr "Тези графики са частично вдъхновени от <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">някои статистики, които Mark Goodge създаде за WhatDoTheyKnow</a>, за което му благодарим."
 
 msgid "They are going to reply <strong>by post</strong>"
 msgstr "Те ще отговорят <strong>по пощата</strong>"
@@ -3103,7 +3103,7 @@ msgid "Your response to an FOI request was not delivered"
 msgstr "Вашият отговор на заявлението за ДдИ не беше доставен"
 
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
-msgstr ""
+msgstr "Вашият отговор <strong>ще се появи в Интернет</strong>, <a href=\"{{url}}\">вижте защо</a> и ще отговори на други въпроси."
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Вашите мисли за това, какво {{site_name}} <strong>администраторите</strong> би трябвало да направят за Заявлението."
