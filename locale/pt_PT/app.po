@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-08 12:10+0000\n"
-"PO-Revision-Date: 2013-11-08 12:13+0000\n"
-"Last-Translator: mysociety <transifex@mysociety.org>\n"
+"PO-Revision-Date: 2013-11-09 16:17+0000\n"
+"Last-Translator: luispaisbernardo <luispaisbernardo@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/alaveteli/language/pt_PT/)\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
@@ -100,7 +100,7 @@ msgid "'Pollution levels over time for the River Tyne'"
 msgstr ""
 
 msgid "'{{link_to_authority}}', a public authority"
-msgstr ""
+msgstr "'{{link_to_authority}}', uma autoridade pública"
 
 msgid "'{{link_to_request}}', a request"
 msgstr ""
@@ -115,7 +115,7 @@ msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ""
 
 msgid "- or -"
-msgstr ""
+msgstr "- ou -"
 
 msgid "1. Select an authority"
 msgstr "1. Seleccione uma entidade"
@@ -151,7 +151,7 @@ msgid "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a 
 msgstr ""
 
 msgid "<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>"
-msgstr ""
+msgstr "<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>"
 
 msgid "<p>Thanks for changing the text about you on your profile.</p>\\n            <p><strong>Next...</strong> You can upload a profile photograph too.</p>"
 msgstr ""
