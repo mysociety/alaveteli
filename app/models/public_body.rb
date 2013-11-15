@@ -3,23 +3,27 @@
 #
 # Table name: public_bodies
 #
-#  id                  :integer          not null, primary key
-#  name                :text             not null
-#  short_name          :text             not null
-#  request_email       :text             not null
-#  version             :integer          not null
-#  last_edit_editor    :string(255)      not null
-#  last_edit_comment   :text             not null
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  url_name            :text             not null
-#  home_page           :text             default(""), not null
-#  notes               :text             default(""), not null
-#  first_letter        :string(255)      not null
-#  publication_scheme  :text             default(""), not null
-#  api_key             :string(255)      not null
-#  info_requests_count :integer          default(0), not null
-#  disclosure_log      :text             default(""), not null
+#  id                                     :integer          not null, primary key
+#  name                                   :text             not null
+#  short_name                             :text             not null
+#  request_email                          :text             not null
+#  version                                :integer          not null
+#  last_edit_editor                       :string(255)      not null
+#  last_edit_comment                      :text             not null
+#  created_at                             :datetime         not null
+#  updated_at                             :datetime         not null
+#  url_name                               :text             not null
+#  home_page                              :text             default(""), not null
+#  notes                                  :text             default(""), not null
+#  first_letter                           :string(255)      not null
+#  publication_scheme                     :text             default(""), not null
+#  api_key                                :string(255)      not null
+#  info_requests_count                    :integer          default(0), not null
+#  disclosure_log                         :text             default(""), not null
+#  info_requests_successful_count         :integer
+#  info_requests_not_held_count           :integer
+#  info_requests_overdue_count            :integer
+#  info_requests_visible_classified_count :integer
 #
 
 require 'csv'
@@ -71,7 +75,7 @@ class PublicBody < ActiveRecord::Base
     def PublicBody.set_first_letter(instance)
         unless instance.name.nil? or instance.name.empty?
             # we use a regex to ensure it works with utf-8/multi-byte
-            first_letter = instance.name.scan(/^./mu)[0].upcase
+            first_letter = Unicode.upcase instance.name.scan(/^./mu)[0]
             if first_letter != instance.first_letter
                 instance.first_letter = first_letter
             end
@@ -190,6 +194,7 @@ class PublicBody < ActiveRecord::Base
     acts_as_versioned
     self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
     self.non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
+    self.non_versioned_columns << 'info_requests_count' << 'info_requests_visible_classified_count'
     self.non_versioned_columns << 'info_requests_not_held_count' << 'info_requests_overdue'
     self.non_versioned_columns << 'info_requests_overdue_count'
 
@@ -406,6 +411,8 @@ class PublicBody < ActiveRecord::Base
 
                     fields = {}
                     field_names.each{|name, i| fields[name] = row[i]}
+
+                    yield line, fields if block_given?
 
                     name = row[field_names['name']]
                     email = row[field_names['request_email']]
@@ -646,20 +653,30 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
+    def self.where_clause_for_stats(minimum_requests, total_column)
+        # When producing statistics for public bodies, we want to
+        # exclude any that are tagged with 'test' - we use a
+        # sub-select to find the IDs of those public bodies.
+        test_tagged_query = "SELECT model_id FROM has_tag_string_tags" \
+            " WHERE model = 'PublicBody' AND name = 'test'"
+        "#{total_column} >= #{minimum_requests} AND id NOT IN (#{test_tagged_query})"
+    end
+
     # Return data for the 'n' public bodies with the highest (or
     # lowest) number of requests, but only returning data for those
     # with at least 'minimum_requests' requests.
     def self.get_request_totals(n, highest, minimum_requests)
         ordering = "info_requests_count"
         ordering += " DESC" if highest
-        where_clause = "info_requests_count >= #{minimum_requests}"
+        where_clause = where_clause_for_stats minimum_requests, 'info_requests_count'
         public_bodies = PublicBody.order(ordering).where(where_clause).limit(n)
         public_bodies.reverse! if highest
         y_values = public_bodies.map { |pb| pb.info_requests_count }
         return {
             'public_bodies' => public_bodies,
             'y_values' => y_values,
-            'y_max' => y_values.max}
+            'y_max' => y_values.max,
+            'totals' => y_values}
     end
 
     # Return data for the 'n' public bodies with the highest (or
@@ -668,11 +685,12 @@ class PublicBody < ActiveRecord::Base
     # percentage.  This only returns data for those public bodies with
     # at least 'minimum_requests' requests.
     def self.get_request_percentages(column, n, highest, minimum_requests)
-        total_column = "info_requests_count"
+        total_column = "info_requests_visible_classified_count"
         ordering = "y_value"
         ordering += " DESC" if highest
         y_value_column = "(cast(#{column} as float) / #{total_column})"
-        where_clause = "#{total_column} >= #{minimum_requests} AND #{column} IS NOT NULL"
+        where_clause = where_clause_for_stats minimum_requests, total_column
+        where_clause += " AND #{column} IS NOT NULL"
         public_bodies = PublicBody.select("*, #{y_value_column} AS y_value").order(ordering).where(where_clause).limit(n)
         public_bodies.reverse! if highest
         y_values = public_bodies.map { |pb| pb.y_value.to_f }
@@ -702,7 +720,8 @@ class PublicBody < ActiveRecord::Base
             'y_values' => y_values,
             'cis_below' => cis_below,
             'cis_above' => cis_above,
-            'y_max' => 100}
+            'y_max' => 100,
+            'totals' => original_totals}
     end
 
     private

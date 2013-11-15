@@ -125,6 +125,25 @@ Spork.prefork do
       rebuild_xapian_index
   end
 
+  # Use the before create job hook to simulate a race condition with
+  # another process by creating an acts_as_xapian_job record for the
+  # same model:
+  def with_duplicate_xapian_job_creation
+      InfoRequestEvent.module_eval do
+          def xapian_before_create_job_hook(action, model, model_id)
+              ActsAsXapian::ActsAsXapianJob.create!(:model => model,
+                                                    :model_id => model_id,
+                                                    :action => action)
+          end
+      end
+      yield
+  ensure
+      InfoRequestEvent.module_eval do
+          def xapian_before_create_job_hook(action, model, model_id)
+          end
+      end
+  end
+
   def with_env_tz(new_tz = 'US/Eastern')
     old_tz, ENV['TZ'] = ENV['TZ'], new_tz
     yield
@@ -137,6 +156,31 @@ Spork.prefork do
     yield
   ensure
     ActiveRecord::Base.default_timezone = old_zone
+  end
+
+  # To test the statistics calculations, it's helpful to have the
+  # request fixtures in different states, but changing the fixtures
+  # themselves disrupts many other tests.  This function takes a
+  # block, and runs that block with the info requests for the
+  # Geraldine Quango altered so that one is hidden and there's a
+  # successful one.
+  def with_hidden_and_successful_requests
+    external = info_requests(:external_request)
+    chicken = info_requests(:naughty_chicken_request)
+    old_external_prominence = external.prominence
+    old_chicken_described_state = chicken.described_state
+    begin
+      external.prominence = 'hidden'
+      external.save!
+      chicken.described_state = 'successful'
+      chicken.save!
+      yield
+    ensure
+      external.prominence = old_external_prominence
+      external.save!
+      chicken.described_state = old_chicken_described_state
+      chicken.save!
+    end
   end
 
   def load_test_categories

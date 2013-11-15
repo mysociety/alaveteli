@@ -114,8 +114,8 @@ class PublicBodyController < ApplicationController
         elsif @tag == 'other'
             category_list = PublicBodyCategories::get().tags().map{|c| "'"+c+"'"}.join(",")
             where_condition += base_tag_condition + " AND has_tag_string_tags.name in (#{category_list})) = 0"
-        elsif @tag.size == 1
-            @tag.upcase!
+        elsif @tag.scan(/./mu).size == 1
+            @tag = Unicode.upcase @tag
             # The first letter queries have to be done on
             # translations, so just indicate to add that later:
             first_letter = true
@@ -220,12 +220,56 @@ class PublicBodyController < ApplicationController
                   :encoding => 'utf8')
     end
 
+
+    # This is a helper method to take data returned by the PublicBody
+    # model's statistics-generating methods, and converting them to
+    # simpler data structure that can be rendered by a Javascript
+    # graph library. (This could be a class method except that we need
+    # access to the URL helper public_body_path.)
+    def simplify_stats_for_graphs(data,
+                                  column,
+                                  percentages,
+                                  graph_properties)
+        # Copy the data, only taking known-to-be-safe keys:
+        result = Hash.new { |h, k| h[k] = [] }
+        result.update Hash[data.select do |key, value|
+            ['y_values',
+             'y_max',
+             'totals',
+             'cis_below',
+             'cis_above'].include? key
+        end]
+
+        # Extract data about the public bodies for the x-axis,
+        # tooltips, and so on:
+        data['public_bodies'].each_with_index do |pb, i|
+            result['x_values'] << i
+            result['x_ticks'] << [i, pb.name]
+            result['tooltips'] << "#{pb.name} (#{result['totals'][i]})"
+            result['public_bodies'] << {
+                'name' => pb.name,
+                'url' => public_body_path(pb)
+            }
+        end
+
+        # Set graph metadata properties, like the title, axis labels, etc.
+        graph_id = "#{column}-"
+        graph_id += graph_properties[:highest] ? 'highest' : 'lowest'
+        result.update({
+            'id' => graph_id,
+            'x_axis' => _('Public Bodies'),
+            'y_axis' => graph_properties[:y_axis],
+            'errorbars' => percentages,
+            'title' => graph_properties[:title]
+        })
+    end
+
     def statistics
         unless AlaveteliConfiguration::public_body_statistics_page
             raise ActiveRecord::RecordNotFound.new("Page not enabled")
         end
 
-        per_graph = 8
+        per_graph = 10
         minimum_requests = AlaveteliConfiguration::minimum_requests_for_statistics
         # Make sure minimum_requests is > 0 to avoid division-by-zero
         minimum_requests = [minimum_requests, 1].max
@@ -275,20 +319,12 @@ class PublicBodyController < ApplicationController
                                                          minimum_requests)
                 end
 
-                data_to_draw = {
-                    'id' => "#{column}-#{highest ? 'highest' : 'lowest'}",
-                    'x_axis' => _('Public Bodies'),
-                    'y_axis' => graph_properties[:y_axis],
-                    'errorbars' => percentages,
-                    'title' => graph_properties[:title]}
-
                 if data
-                    data_to_draw.update(data)
-                    data_to_draw['x_values'] = data['public_bodies'].each_with_index.map { |pb, i| i }
-                    data_to_draw['x_ticks'] = data['public_bodies'].each_with_index.map { |pb, i| [i, pb.name] }
+                    @graph_list.push simplify_stats_for_graphs(data,
+                                                               column,
+                                                               percentages,
+                                                               graph_properties)
                 end
-
-                @graph_list.push data_to_draw
             end
         end
 

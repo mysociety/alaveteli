@@ -4,5 +4,5 @@ source_lang = en
 source_file = locale/en/app.po
 
 [main]
-host = https://www.transifex.net
+host = https://www.transifex.com
 

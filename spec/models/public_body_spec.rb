@@ -3,23 +3,27 @@
 #
 # Table name: public_bodies
 #
-#  id                  :integer          not null, primary key
-#  name                :text             not null
-#  short_name          :text             not null
-#  request_email       :text             not null
-#  version             :integer          not null
-#  last_edit_editor    :string(255)      not null
-#  last_edit_comment   :text             not null
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  url_name            :text             not null
-#  home_page           :text             default(""), not null
-#  notes               :text             default(""), not null
-#  first_letter        :string(255)      not null
-#  publication_scheme  :text             default(""), not null
-#  api_key             :string(255)      not null
-#  info_requests_count :integer          default(0), not null
-#  disclosure_log      :text             default(""), not null
+#  id                                     :integer          not null, primary key
+#  name                                   :text             not null
+#  short_name                             :text             not null
+#  request_email                          :text             not null
+#  version                                :integer          not null
+#  last_edit_editor                       :string(255)      not null
+#  last_edit_comment                      :text             not null
+#  created_at                             :datetime         not null
+#  updated_at                             :datetime         not null
+#  url_name                               :text             not null
+#  home_page                              :text             default(""), not null
+#  notes                                  :text             default(""), not null
+#  first_letter                           :string(255)      not null
+#  publication_scheme                     :text             default(""), not null
+#  api_key                                :string(255)      not null
+#  info_requests_count                    :integer          default(0), not null
+#  disclosure_log                         :text             default(""), not null
+#  info_requests_successful_count         :integer
+#  info_requests_not_held_count           :integer
+#  info_requests_overdue_count            :integer
+#  info_requests_visible_classified_count :integer
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -190,6 +194,17 @@ describe PublicBody, " when saving" do
         @public_body.first_letter.should == 'T'
     end
 
+    it "should update first letter, even if it's a multibyte character" do
+        pb = PublicBody.new(:name => 'åccents, lower-case',
+                            :short_name => 'ALC',
+                            :request_email => 'foo@localhost',
+                            :last_edit_editor => 'test',
+                            :last_edit_comment => '')
+        pb.first_letter.should be_nil
+        pb.save!
+        pb.first_letter.should == 'Å'
+    end
+
     it "should save the name when renaming an existing public body" do
         public_body = public_bodies(:geraldine_public_body)
         public_body.name = "Mark's Public Body"
@@ -300,7 +315,7 @@ describe PublicBody, " when loading CSV files" do
         errors.should == []
         notes.size.should == 2
         notes[0].should == "line 1: creating new authority 'aBody' (locale: en):\n\t{\"name\":\"aBody\"}"
-        notes[1].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
+        notes[1].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
     end
 
     it "should do a dry run successfully" do
@@ -309,14 +324,15 @@ describe PublicBody, " when loading CSV files" do
         csv_contents = normalize_string_to_utf8(load_file_fixture("fake-authority-type.csv"))
         errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin') # true means dry run
         errors.should == []
-        notes.size.should == 5
-        notes[0..3].should == [
+        notes.size.should == 6
+        notes[0..4].should == [
             "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\"\}",
             "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\"\}",
             "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\"\}",
             "line 4: creating new authority 'Gobierno de Aragón' (locale: en):\n\t\{\"name\":\"Gobierno de Arag\\u00f3n\",\"request_email\":\"spain_foi@localhost\"}",
+            "line 5: creating new authority 'Nordic æøå' (locale: en):\n\t{\"name\":\"Nordic \\u00e6\\u00f8\\u00e5\",\"request_email\":\"no_foi@localhost\"}"
         ]
-        notes[4].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
+        notes[5].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
 
         PublicBody.count.should == original_count
     end
@@ -327,16 +343,17 @@ describe PublicBody, " when loading CSV files" do
         csv_contents = normalize_string_to_utf8(load_file_fixture("fake-authority-type.csv"))
         errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', false, 'someadmin') # false means real run
         errors.should == []
-        notes.size.should == 5
-        notes[0..3].should == [
+        notes.size.should == 6
+        notes[0..4].should == [
             "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\"\}",
             "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\"\}",
             "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\"\}",
             "line 4: creating new authority 'Gobierno de Aragón' (locale: en):\n\t\{\"name\":\"Gobierno de Arag\\u00f3n\",\"request_email\":\"spain_foi@localhost\"}",
+            "line 5: creating new authority 'Nordic æøå' (locale: en):\n\t{\"name\":\"Nordic \\u00e6\\u00f8\\u00e5\",\"request_email\":\"no_foi@localhost\"}"
         ]
-        notes[4].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
+        notes[5].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
 
-        PublicBody.count.should == original_count + 4
+        PublicBody.count.should == original_count + 5
     end
 
     it "should do imports without a tag successfully" do
@@ -345,15 +362,16 @@ describe PublicBody, " when loading CSV files" do
         csv_contents = normalize_string_to_utf8(load_file_fixture("fake-authority-type.csv"))
         errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', false, 'someadmin') # false means real run
         errors.should == []
-        notes.size.should == 5
-        notes[0..3].should == [
+        notes.size.should == 6
+        notes[0..4].should == [
             "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\"\}",
             "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\"\}",
             "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\"\}",
             "line 4: creating new authority 'Gobierno de Aragón' (locale: en):\n\t\{\"name\":\"Gobierno de Arag\\u00f3n\",\"request_email\":\"spain_foi@localhost\"}",
+            "line 5: creating new authority 'Nordic æøå' (locale: en):\n\t{\"name\":\"Nordic \\u00e6\\u00f8\\u00e5\",\"request_email\":\"no_foi@localhost\"}"
         ]
-        notes[4].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
-        PublicBody.count.should == original_count + 4
+        notes[5].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
+        PublicBody.count.should == original_count + 5
     end
 
     it "should handle a field list and fields out of order" do
@@ -368,7 +386,7 @@ describe PublicBody, " when loading CSV files" do
             "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"\}",
             "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"\}",
         ]
-        notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
+        notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
 
         PublicBody.count.should == original_count
     end
@@ -425,7 +443,7 @@ describe PublicBody, " when loading CSV files" do
             "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"}",
             "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: es):\n\t{\"name\":\"Autoridad Irlandesa\"}",
         ]
-        notes[6].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
+        notes[6].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
 
         PublicBody.count.should == original_count + 3
 
@@ -451,7 +469,7 @@ describe PublicBody, " when loading CSV files" do
             "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"}",
             "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"}",
         ]
-        notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
+        notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
 
         PublicBody.count.should == original_count
     end
@@ -511,4 +529,78 @@ describe PublicBody, " when override all public body request emails set" do
         @geraldine = public_bodies(:geraldine_public_body)
         @geraldine.request_email.should == "catch_all_test_email@foo.com"
     end
+end
+
+describe PublicBody, "when calculating statistics" do
+
+    it "should not include unclassified or hidden requests in percentages" do
+        with_hidden_and_successful_requests do
+            totals_data = PublicBody.get_request_totals(n=3,
+                                                        highest=true,
+                                                        minimum_requests=1)
+            # For the total number of requests, we still include
+            # hidden or unclassified requests:
+            totals_data['public_bodies'][-1].name.should == "Geraldine Quango"
+            totals_data['totals'][-1].should == 4
+
+            # However, for percentages, don't include the hidden or
+            # unclassified requests.  So, for the Geraldine Quango
+            # we've made sure that there are only two visible and
+            # classified requests, one of which is successful, so the
+            # percentage should be 50%:
+
+            percentages_data = PublicBody.get_request_percentages(column='info_requests_successful_count',
+                                                                  n=3,
+                                                                  highest=false,
+                                                                  minimum_requests=1)
+            geraldine_index = percentages_data['public_bodies'].index do |pb|
+                pb.name == "Geraldine Quango"
+            end
+
+            percentages_data['y_values'][geraldine_index].should == 50
+        end
+    end
+
+    it "should only return totals for those with at least a minimum number of requests" do
+        minimum_requests = 1
+        with_enough_info_requests = PublicBody.where(["info_requests_count >= ?",
+                                                      minimum_requests]).length
+        all_data = PublicBody.get_request_totals 4, true, minimum_requests
+        all_data['public_bodies'].length.should == with_enough_info_requests
+    end
+
+    it "should only return percentages for those with at least a minimum number of requests" do
+        with_hidden_and_successful_requests do
+            # With minimum requests at 3, this should return nil
+            # (corresponding to zero public bodies) since the only
+            # public body with just more than 3 info requests (The
+            # Geraldine Quango) has a hidden and an unclassified
+            # request within this block:
+            minimum_requests = 3
+            with_enough_info_requests = PublicBody.where(["info_requests_visible_classified_count >= ?",
+                                                          minimum_requests]).length
+            all_data = PublicBody.get_request_percentages(column='info_requests_successful_count',
+                                                          n=10,
+                                                          true,
+                                                          minimum_requests)
+            all_data.should be_nil
+        end
+    end
+
+    it "should only return those with at least a minimum number of requests, but not tagged 'test'" do
+        hpb = PublicBody.find_by_name 'Department for Humpadinking'
+
+        original_tag_string = hpb.tag_string
+        hpb.add_tag_if_not_already_present 'test'
+
+        begin
+            minimum_requests = 1
+            with_enough_info_requests = PublicBody.where(["info_requests_count >= ?", minimum_requests])
+            all_data = PublicBody.get_request_totals 4, true, minimum_requests
+            all_data['public_bodies'].length.should == 3
+        ensure
+            hpb.tag_string = original_tag_string
+        end
+    end
+
 end

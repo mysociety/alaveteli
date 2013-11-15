@@ -8,10 +8,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
-"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-09-19 10:47+0100\n"
-"PO-Revision-Date: 2013-09-19 09:50+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-08 12:10+0000\n"
+"PO-Revision-Date: 2013-11-08 12:13+0000\n"
+"Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/alaveteli/language/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -496,28 +496,28 @@ msgid "Change your password on {{site_name}}"
 msgstr "Cambia la tua password"
 
 msgid "Change your password {{site_name}}"
-msgstr ""
+msgstr "Cambia la tua password su {{site_name}}"
 
 msgid "Charity registration"
-msgstr ""
+msgstr "Registrazione NoProfit"
 
 msgid "Check for mistakes if you typed or copied the address."
-msgstr ""
+msgstr "Verifica gli errori se hai digitato o copiato l'indirizzo."
 
 msgid "Check you haven't included any <strong>personal information</strong>."
-msgstr ""
+msgstr "Verifica di non aver incluso nessuna <strong>informazione personale</strong>."
 
 msgid "Choose your profile photo"
 msgstr "Scegli una foto"
 
 msgid "Clarification"
-msgstr ""
+msgstr "Chiarificazione"
 
 msgid "Clarify your FOI request - "
 msgstr ""
 
 msgid "Classify an FOI response from "
-msgstr ""
+msgstr "Classifica una risposta da"
 
 msgid "Clear photo"
 msgstr ""
@@ -526,7 +526,7 @@ msgid "Click on the link below to send a message to {{public_body_name}} telling
 msgstr ""
 
 msgid "Click on the link below to send a message to {{public_body}} reminding them to reply to your request."
-msgstr ""
+msgstr "Clicca sul link qui sotto per inviare un messaggio all'autorità pubblica {{public_body}} e ricordargli di rispondere alla tua richiesta."
 
 msgid "Close"
 msgstr ""
@@ -535,16 +535,16 @@ msgid "Comment"
 msgstr ""
 
 msgid "Comment|Body"
-msgstr ""
+msgstr "Comment|Corpo"
 
 msgid "Comment|Comment type"
-msgstr ""
+msgstr "Comment|Tipo Commento"
 
 msgid "Comment|Locale"
-msgstr ""
+msgstr "Comment|Ora locale"
 
 msgid "Comment|Visible"
-msgstr ""
+msgstr "Comment|Visibile"
 
 msgid "Confirm you want to follow all successful FOI requests"
 msgstr ""
@@ -565,19 +565,19 @@ msgid "Confirm you want to follow the request '{{request_title}}'"
 msgstr ""
 
 msgid "Confirm your FOI request to "
-msgstr ""
+msgstr "Conferma la tua richiesta a"
 
 msgid "Confirm your account on {{site_name}}"
-msgstr ""
+msgstr "Conferma il tuo account su {{site_name}}"
 
 msgid "Confirm your annotation to {{info_request_title}}"
-msgstr ""
+msgstr "Conferma la tua annotazione su {{info_request_title}}"
 
 msgid "Confirm your email address"
-msgstr ""
+msgstr "Conferma il tuo indirizzo email"
 
 msgid "Confirm your new email address on {{site_name}}"
-msgstr ""
+msgstr "Conferma il tuo nuovo indirizzo email su {{site_name}}"
 
 msgid "Considered by administrators as not an FOI request and hidden from site."
 msgstr ""
@@ -589,10 +589,10 @@ msgid "Contact {{recipient}}"
 msgstr ""
 
 msgid "Contact {{site_name}}"
-msgstr ""
+msgstr "Contatta {{site_name}}"
 
 msgid "Could not identify the request from the email address"
-msgstr ""
+msgstr "Potresti non identificare la richiesta dall'indirizzo email"
 
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Il formato del file uploadato non è stato riconosciuto. Sono supportati i formati PNG, JPEG, GIF ed altri comuni formati."
@@ -604,10 +604,10 @@ msgid "Cultural sites and built structures (as they may be affected by the\\n   
 msgstr ""
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
-msgstr ""
+msgstr "Attualmente stiamo <strong>attendendo una risposta</strong> da {{public_body_link}}, essi dovranno rispondere velocemente e"
 
 msgid "Date:"
-msgstr ""
+msgstr "Data:"
 
 msgid "Dear {{name}},"
 msgstr "Salve {{name}},"
@@ -622,25 +622,25 @@ msgid "Defunct."
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
-msgstr ""
+msgstr "Risposta in attesa per la tua richiesta - "
 
 msgid "Delayed."
-msgstr ""
+msgstr "In attesa"
 
 msgid "Delivery error"
-msgstr ""
+msgstr "Errore di invio"
 
 msgid "Destroy {{name}}"
 msgstr ""
 
 msgid "Details of request '"
-msgstr ""
+msgstr "Dettagli della richiesta '"
 
 msgid "Did you mean: {{correction}}"
-msgstr ""
+msgstr "Volevi forse dire: {{correction}}"
 
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
-msgstr ""
+msgstr "Disclaimer: Questo messaggio e le eventuali risposte che pubblicherai saranno pubblicate su internet. Queste sono le nostre policies in materia di privacy e copyright:"
 
 msgid "Disclosure log"
 msgstr ""
@@ -649,22 +649,22 @@ msgid "Disclosure log URL"
 msgstr ""
 
 msgid "Don't want to address your message to {{person_or_body}}?  You can also write to:"
-msgstr ""
+msgstr "Non vuoi inviare il tuo messaggio a {{person_or_body}}?  Puoi anche scrivere a:"
 
 msgid "Done"
-msgstr ""
+msgstr "Fatto"
 
 msgid "Done &gt;&gt;"
 msgstr ""
 
 msgid "Download a zip file of all correspondence"
-msgstr ""
+msgstr "Scarica un file compresso .zip di tutta la corrispondenza"
 
 msgid "Download original attachment"
-msgstr ""
+msgstr "Scarica l'allegato originale"
 
 msgid "EIR"
-msgstr ""
+msgstr "EIR"
 
 msgid "Edit"
 msgstr ""
@@ -682,34 +682,34 @@ msgid "Either the email or password was not recognised, please try again."
 msgstr "L'indirizzo email e/o la password non sono stati riconosciuti, prova di nuovo."
 
 msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the right."
-msgstr ""
+msgstr "La email e/o la password non sono state riconosciute, prova di nuovo. Oppure crea un nuovo account usando il formulario sulla destra."
 
 msgid "Email doesn't look like a valid address"
-msgstr ""
+msgstr "L'indirizzo email inserito non ha un formato valido"
 
 msgid "Email me future updates to this request"
-msgstr ""
+msgstr "Inviami per email futuri aggiornamenti su questa richiesta"
 
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
-msgstr ""
+msgstr "Inserisci le parole che vuoi cercare separate da spazi, per es. <strong>via nazionale</strong>"
 
 msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"{{url}}\">contact us</a> if you need more)."
 msgstr ""
 
 msgid "Environmental Information Regulations"
-msgstr ""
+msgstr "Environmental Information Regulations"
 
 msgid "Environmental Information Regulations requests made"
-msgstr ""
+msgstr "Fatta una richiesta su Environmental Information Regulations "
 
 msgid "Environmental Information Regulations requests made using this site"
-msgstr ""
+msgstr "Fatte richieste su Environmental Information Regulations usando questo sito"
 
 msgid "Event history"
-msgstr ""
+msgstr "Storia dell'evento"
 
 msgid "Event history details"
-msgstr ""
+msgstr "Dettagli della storia dell'evento"
 
 msgid "Event {{id}}"
 msgstr ""
@@ -721,34 +721,34 @@ msgid "Everything that you enter on this page\\n                will be <strong>
 msgstr "Tutte le cose che scrivi in questa pagina,\\n                saranno <strong>rese pubbliche</strong> on\\n                su questo sito per sempre (<a href=\"{{url}}\">perchè?</a>)."
 
 msgid "FOI"
-msgstr ""
+msgstr "FOI"
 
 msgid "FOI email address for {{public_body}}"
-msgstr ""
+msgstr "Indirizzo email dell'autorità pubblica {{public_body}}"
 
 msgid "FOI request – {{title}}"
 msgstr ""
 
 msgid "FOI requests"
-msgstr ""
+msgstr "Richieste"
 
 msgid "FOI requests by '{{user_name}}'"
-msgstr ""
+msgstr "Richieste fatte da '{{user_name}}'"
 
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
-msgstr ""
+msgstr "Richieste da {{start_count}} a {{end_count}} per un totale di {{total_count}}"
 
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr ""
 
 msgid "Failed to convert image to a PNG"
-msgstr ""
+msgstr "Errore di conversione dell'immagine a PNG"
 
 msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
 msgstr ""
 
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 msgid "First, did your other requests succeed?"
 msgstr ""
@@ -760,25 +760,25 @@ msgid "Foi attachment"
 msgstr ""
 
 msgid "FoiAttachment|Charset"
-msgstr ""
+msgstr "FoiAttachment|Set caratteri"
 
 msgid "FoiAttachment|Content type"
-msgstr ""
+msgstr "FoiAttachment|Tipo contenuto"
 
 msgid "FoiAttachment|Display size"
-msgstr ""
+msgstr "FoiAttachment|Dimensioni visualizzazione"
 
 msgid "FoiAttachment|Filename"
-msgstr ""
+msgstr "FoiAttachment|Nome file"
 
 msgid "FoiAttachment|Hexdigest"
-msgstr ""
+msgstr "FoiAttachment|Hexdigest"
 
 msgid "FoiAttachment|Url part number"
-msgstr ""
+msgstr "FoiAttachment|Url part number"
 
 msgid "FoiAttachment|Within rfc822 subject"
-msgstr ""
+msgstr "FoiAttachment|Within rfc822 subject"
 
 msgid "Follow"
 msgstr "Segui"
@@ -799,28 +799,37 @@ msgid "Follow things matching this search"
 msgstr ""
 
 msgid "Follow this authority"
-msgstr ""
+msgstr "Segui questa autorità"
 
 msgid "Follow this link to see the request:"
-msgstr ""
+msgstr "Vai a questo link per vedere la richiesta:"
 
 msgid "Follow this person"
 msgstr ""
 
 msgid "Follow this request"
-msgstr ""
+msgstr "Segui questa richiesta"
 
+#. "Follow up" in this context means a further
+#. message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up"
-msgstr ""
+msgstr "Risposta"
 
+#. "Follow up message" in this context means a
+#. further message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up message sent by requester"
-msgstr ""
+msgstr "Messaggio di risposta inviato dal richiedente"
 
 msgid "Follow up messages to existing requests are sent to "
-msgstr ""
+msgstr "Messaggi di risposta a richieste esistenti sono inviati a "
 
+#. "Follow ups" in this context means further
+#. messages sent by the requester to the authority after
+#. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
-msgstr ""
+msgstr "Messaggi di risposta e nuove ulteriori risposte a questa richiesta sono stati fermati per prevenire lo spam. <a href=\"{{url}}\">Contattaci</a> se sei l'utente {{user_link}} e necessiti di inviare un messaggio di risposta."
 
 msgid "Follow us on twitter"
 msgstr "Seguici su Twitter"
@@ -829,7 +838,7 @@ msgid "Followups cannot be sent for this request, as it was made externally, and
 msgstr ""
 
 msgid "For an unknown reason, it is not possible to make a request to this authority."
-msgstr ""
+msgstr "Per una ragione sconosciuta, non è possibile inviare una richiesta a questa autorità."
 
 msgid "Forgotten your password?"
 msgstr "Persa la password?"
@@ -840,31 +849,31 @@ msgstr[0] "Trovata {{count}} autorità pubblica {{description}}"
 msgstr[1] "Trovate {{count}} autorità pubbliche {{description}}"
 
 msgid "Freedom of Information"
-msgstr ""
+msgstr "Freedom of Information"
 
 msgid "Freedom of Information Act"
-msgstr ""
+msgstr "Freedom of Information Act"
 
 msgid "Freedom of Information law does not apply to this authority, so you cannot make\\n                a request to it."
 msgstr ""
 
 msgid "Freedom of Information law no longer applies to"
-msgstr ""
+msgstr "La legge sulla Freedom of Information non si applica più a"
 
 msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
-msgstr ""
+msgstr "La legge sulla Freedom of Information non si applica più a questa autorità. I messaggi di risposta a richieste esistenti vengono inviati a "
 
 msgid "Freedom of Information requests made"
-msgstr ""
+msgstr "Le richieste fatte"
 
 msgid "Freedom of Information requests made by this person"
-msgstr ""
+msgstr "Le richieste fatte da questa persona"
 
 msgid "Freedom of Information requests made by you"
 msgstr "Le tue richieste"
 
 msgid "Freedom of Information requests made using this site"
-msgstr ""
+msgstr "Le richieste fatte usando questo sito"
 
 msgid "Freedom of information requests to"
 msgstr "Richieste di informazioni a"
@@ -879,10 +888,10 @@ msgid "From:"
 msgstr "Da:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
-msgstr ""
+msgstr "FORNISCI DETTAGLI SUL TUO RECLAMO QUI"
 
 msgid "Handled by post."
-msgstr ""
+msgstr "Gestito via posta."
 
 msgid "Has tag string/has tag string tag"
 msgstr ""
@@ -897,7 +906,7 @@ msgid "HasTagString::HasTagStringTag|Value"
 msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
-msgstr ""
+msgstr "Ciao! Puoi fare richieste in {{country_name}} attraverso {{link_to_website}}"
 
 msgid "Hello, {{username}}!"
 msgstr "Ciao, {{username}}!"
@@ -909,7 +918,7 @@ msgid "Here <strong>described</strong> means when a user selected a status for t
 msgstr ""
 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
-msgstr ""
+msgstr "Questo è il messaggio che hai scritto. Copialo e salvalo se ti serve il testo in seguito."
 
 msgid "Hi! We need your help. The person who made the following request\\n    hasn't told us whether or not it was successful. Would you mind taking\\n    a moment to read it and help us keep the place tidy for everyone?\\n    Thanks."
 msgstr ""
@@ -921,52 +930,52 @@ msgid "Holiday"
 msgstr ""
 
 msgid "Holiday|Day"
-msgstr ""
+msgstr "Holiday|Giorno"
 
 msgid "Holiday|Description"
-msgstr ""
+msgstr "Holiday|Descrizione"
 
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 msgid "Home page"
 msgstr ""
 
 msgid "Home page of authority"
-msgstr ""
+msgstr "Home page dell'autorità"
 
 msgid "However, you have the right to request environmental\\n            information under a different law"
 msgstr ""
 
 msgid "Human health and safety"
-msgstr ""
+msgstr "Salute umana e sicurezza"
 
 msgid "I am asking for <strong>new information</strong>"
-msgstr ""
+msgstr "Sto richiedendo una <strong>nuova informazione</strong>"
 
 msgid "I am requesting an <strong>internal review</strong>"
-msgstr ""
+msgstr "Sto richiedendo una <strong>recensione interna</strong>"
 
 msgid "I am writing to request an internal review of {{public_body_name}}'s handling of my FOI request '{{info_request_title}}'."
 msgstr ""
 
 msgid "I don't like these ones &mdash; give me some more!"
-msgstr ""
+msgstr "Non mi piacciono queste &mdash; dammene altre!"
 
 msgid "I don't want to do any more tidying now!"
-msgstr ""
+msgstr "Non voglio fare nessun ordinamento ora!"
 
 msgid "I like this request"
 msgstr ""
 
 msgid "I would like to <strong>withdraw this request</strong>"
-msgstr ""
+msgstr "Voglio <strong>ritirare questa richiesta</strong>"
 
 msgid "I'm still <strong>waiting</strong> for my information\\n                <small>(maybe you got an acknowledgement)</small>"
 msgstr ""
 
 msgid "I'm still <strong>waiting</strong> for the internal review"
-msgstr ""
+msgstr "Sto ancora <strong>aspettando</strong> la recensione interna"
 
 msgid "I'm waiting for an <strong>internal review</strong> response"
 msgstr ""
@@ -1793,6 +1802,9 @@ msgstr ""
 msgid "PublicBody|Info requests successful count"
 msgstr ""
 
+msgid "PublicBody|Info requests visible classified count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr ""
 
@@ -1980,7 +1992,7 @@ msgid "Search in"
 msgstr ""
 
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
-msgstr "Cerca tra le<br/>\\n  <strong>{{number_of_requests}} richieste</strong> <span>e le</span><br/>\\n  <strong>{{number_of_authorities}} autorità pubbliche</strong>"
+msgstr "Cerca tra<br/>\\n  <strong>{{number_of_requests}} richieste</strong> <span>e</span><br/>\\n  <strong>{{number_of_authorities}} autorità pubbliche</strong>"
 
 msgid "Search queries"
 msgstr ""
@@ -2722,16 +2734,10 @@ msgstr ""
 msgid "User|About me"
 msgstr ""
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr ""
 
 msgid "User|Ban text"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3421,9 +3427,6 @@ msgid "{{info_request_user_name}} only:"
 msgstr ""
 
 msgid "{{law_used_full}} request - {{title}}"
-msgstr ""
-
-msgid "{{law_used_full}} request GQ - {{title}}"
 msgstr ""
 
 msgid "{{law_used}} requests at {{public_body}}"

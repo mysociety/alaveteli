@@ -16,10 +16,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
-"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-09-19 10:47+0100\n"
-"PO-Revision-Date: 2013-09-19 09:50+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-08 12:10+0000\n"
+"PO-Revision-Date: 2013-11-08 12:13+0000\n"
+"Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/projects/p/alaveteli/language/sq/)\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
@@ -873,15 +873,24 @@ msgstr "Ndiq këtë person"
 msgid "Follow this request"
 msgstr "Përcjell këtë kërkesë"
 
+#. "Follow up" in this context means a further
+#. message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up"
 msgstr "Përcjell"
 
+#. "Follow up message" in this context means a
+#. further message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up message sent by requester"
 msgstr "Mesazhi vazhdues është dërguar nga kërkuesi"
 
 msgid "Follow up messages to existing requests are sent to "
 msgstr "Mesazhet vazhduese të kërkesës ekzistuese dërgohen te  "
 
+#. "Follow ups" in this context means further
+#. messages sent by the requester to the authority after
+#. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Mesazhet vazhduese dhe përgjigjet e reja në këtë kërkesë janë stopuar për të parandaluar spam emailat. Të lutem <a href=\"{{url}}\"> na kontakto</a> nëse ti je {{user_link}} dhe ke nevojë të dërgosh mesazh vazhdues."
 
@@ -1894,6 +1903,9 @@ msgstr ""
 msgid "PublicBody|Info requests successful count"
 msgstr ""
 
+msgid "PublicBody|Info requests visible classified count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody | Editimi i fundit i komentit"
 
@@ -2850,17 +2862,11 @@ msgstr "UserInfoRequestSentAlert|Alert type"
 msgid "User|About me"
 msgstr "Përdoruesi|Rreth meje"
 
-msgid "User|Address"
-msgstr "Përdoruesi|Adresa"
-
 msgid "User|Admin level"
 msgstr "Përdoruesi | Niveli i Administrimit"
 
 msgid "User|Ban text"
 msgstr "Përdoruesi|Tekst i ndaluar"
-
-msgid "User|Dob"
-msgstr "Përdoruesi|Datëlindja"
 
 msgid "User|Email"
 msgstr "Përdoruesi |Email"
@@ -3592,9 +3598,6 @@ msgstr "Vetëm për {{info_request_user_name}}:"
 
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "Kërkesë për {{law_used_full}} - {{title}}"
-
-msgid "{{law_used_full}} request GQ - {{title}}"
-msgstr ""
 
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr ""

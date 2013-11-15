@@ -12,6 +12,8 @@
 #  last_sent_at                 :datetime
 #  incoming_message_followup_id :integer
 #  what_doing                   :string(255)      not null
+#  prominence                   :string(255)      default("normal"), not null
+#  prominence_reason            :text
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
@@ -144,7 +146,7 @@ describe OutgoingMessage, " when making an outgoing message" do
 end
 
 
-describe IncomingMessage, " when censoring data" do
+describe OutgoingMessage, " when censoring data" do
 
     before do
         @om = outgoing_messages(:useless_outgoing_message)

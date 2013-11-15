@@ -60,7 +60,6 @@
         <% if @xapian_similar_more %>
             <p><%= link_to _("More similar requests"), similar_request_path(@info_request.url_title) %></p>
         <% end %>
-        <!-- Important terms: <%= @xapian_similar.important_terms.join(" ") %>  -->
       <% end %>
 
     <p><%= link_to _('Event history details'), request_details_path(@info_request) %></p>

@@ -22,6 +22,8 @@ DUSER=!!(*= $user *)!!
 # RAILS_ENV=your_rails_env
 # export RAILS_ENV
 
+type varnishadm > /dev/null 2>&1 || exit
+
 trap "" 1
 
 export PIDFILE LOGFILE

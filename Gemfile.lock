@@ -136,7 +136,7 @@ GEM
     net-ssh (2.6.7)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    newrelic_rpm (3.6.2.96)
+    newrelic_rpm (3.6.8.164)
     nokogiri (1.5.9)
     paper_trail (2.7.2)
       activerecord (~> 3.0)
@@ -236,7 +236,7 @@ GEM
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
     unicode (0.4.4)
-    unidecode (1.0.0)
+    unidecoder (1.1.2)
     vpim (0.695)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
@@ -292,8 +292,9 @@ DEPENDENCIES
   spork-rails
   statistics2 (~> 0.54)
   syslog_protocol
+  thin
   unicode
-  unidecode
+  unidecoder
   vpim
   webrat
   will_paginate

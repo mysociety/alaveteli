@@ -20,8 +20,6 @@
 #  email_bounce_message   :text             default(""), not null
 #  no_limit               :boolean          default(FALSE), not null
 #  receive_email_alerts   :boolean          default(TRUE), not null
-#  address                :string(255)
-#  dob                    :date
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

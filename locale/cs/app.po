@@ -18,10 +18,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
-"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2013-09-19 10:47+0100\n"
-"PO-Revision-Date: 2013-09-19 09:50+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-08 12:10+0000\n"
+"PO-Revision-Date: 2013-11-08 12:13+0000\n"
+"Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -881,15 +881,24 @@ msgstr "Sledovat tohoto uživatele"
 msgid "Follow this request"
 msgstr "Sledovat tyto dotazy"
 
+#. "Follow up" in this context means a further
+#. message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up"
 msgstr "Odpověď"
 
+#. "Follow up message" in this context means a
+#. further message sent by the requester to the authority after
+#. the initial request
 msgid "Follow up message sent by requester"
 msgstr "Odpověď zaslána uživatelem"
 
 msgid "Follow up messages to existing requests are sent to "
 msgstr "Zasílat aktualizace zpráv u tohoto dotazu na"
 
+#. "Follow ups" in this context means further
+#. messages sent by the requester to the authority after
+#. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
 msgstr "Přidávání odpovědí a komentářů u tohoto dotazu bylo ukončeno kvůli spamu. Prosíme <a href=\"{{url}}\">kontaktujte nás</a> pokud jste {{user_link}} a chcete přidat komentář."
 
@@ -1899,6 +1908,9 @@ msgstr ""
 msgid "PublicBody|Info requests successful count"
 msgstr ""
 
+msgid "PublicBody|Info requests visible classified count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody | Naposled aktualizovaný komentář"
 
@@ -2876,17 +2888,11 @@ msgstr "UserInfoRequestSentAlert| Typ upozornění"
 msgid "User|About me"
 msgstr "User | O mně"
 
-msgid "User|Address"
-msgstr "User | Adresa"
-
 msgid "User|Admin level"
 msgstr "User | Úroveň admin"
 
 msgid "User|Ban text"
 msgstr "User | Zakázat text"
-
-msgid "User|Dob"
-msgstr "User | Datum narození"
 
 msgid "User|Email"
 msgstr "User | E-mail"
@@ -3629,9 +3635,6 @@ msgstr "Pouze {{info_request_user_name}}:"
 
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "Žádost o informace podle {{law_used_full}} - {{title}}"
-
-msgid "{{law_used_full}} request GQ - {{title}}"
-msgstr "{{law_used_full}} žádejte GQ - {{title}} ??"
 
 msgid "{{law_used}} requests at {{public_body}}"
 msgstr "{{law_used}} dotazy vznesené na instituci {{public_body}}"

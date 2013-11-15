@@ -271,15 +271,9 @@ public
 
     # Subject lines for emails about the request
     def email_subject_request
-        # XXX pull out this general_register_office specialisation
-        # into some sort of separate jurisdiction dependent file
-        if self.public_body.url_name == 'general_register_office'
-            # without GQ in the subject, you just get an auto response
-            _('{{law_used_full}} request GQ - {{title}}',:law_used_full=>self.law_used_full,:title=>self.title.html_safe)
-        else
-            _('{{law_used_full}} request - {{title}}',:law_used_full=>self.law_used_full,:title=>self.title.html_safe)
-        end
+        _('{{law_used_full}} request - {{title}}',:law_used_full=>self.law_used_full,:title=>self.title.html_safe)
     end
+
     def email_subject_followup(incoming_message = nil)
         if incoming_message.nil? || !incoming_message.valid_to_reply_to? || !incoming_message.subject
             'Re: ' + self.email_subject_request
@@ -1188,14 +1182,23 @@ public
 
     after_save :update_counter_cache
     after_destroy :update_counter_cache
+    # This method updates the count columns of the PublicBody that
+    # store the number of "not held", "to some extent successful" and
+    # "both visible and classified" requests when saving or destroying
+    # an InfoRequest associated with the body:
     def update_counter_cache
         PublicBody.skip_callback(:save, :after, :purge_in_cache)
-        self.public_body.info_requests_not_held_count = InfoRequest.where(
-            :public_body_id => self.public_body.id,
-            :described_state => 'not_held').count
-        self.public_body.info_requests_successful_count = InfoRequest.where(
-            :public_body_id => self.public_body.id,
-            :described_state => ['successful', 'partially_successful']).count
+        basic_params = {
+            :public_body_id => self.public_body_id,
+            :awaiting_description => false,
+            :prominence => 'normal'
+        }
+        [['info_requests_not_held_count', {:described_state => 'not_held'}],
+         ['info_requests_successful_count', {:described_state => ['successful', 'partially_successful']}],
+         ['info_requests_visible_classified_count', {}]].each do |column, extra_params|
+            params = basic_params.clone.update extra_params
+            self.public_body.send "#{column}=", InfoRequest.where(params).count
+        end
         self.public_body.without_revision do
             public_body.no_xapian_reindex = true
             public_body.save

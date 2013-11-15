@@ -33,6 +33,7 @@ gem 'rmagick', :require => 'RMagick'
 gem 'ruby-msg', '~> 1.5.0'
 gem "statistics2", "~> 0.54"
 gem 'syslog_protocol'
+gem 'thin'
 gem 'vpim'
 gem 'will_paginate'
 # when 1.2.9 is released by the maintainer, we can stop using this fork:
@@ -49,7 +50,7 @@ gem 'globalize3', :git => 'git://github.com/henare/globalize3.git', :branch => '
 gem 'locale'
 gem 'routing-filter'
 gem 'unicode'
-gem 'unidecode'
+gem 'unidecoder'
 
 group :test do
   gem 'fakeweb'

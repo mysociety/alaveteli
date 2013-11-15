@@ -22,6 +22,7 @@ TAGS
 bin/
 config/aliases
 config/httpd.conf
+config/general*.yml
 .sass-cache
 alaveteli.sublime*
 webrat.log

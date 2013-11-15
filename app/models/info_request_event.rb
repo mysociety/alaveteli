@@ -339,6 +339,9 @@ class InfoRequestEvent < ActiveRecord::Base
                 end
                 raise _("unknown status ") + status
             end
+            # TRANSLATORS: "Follow up" in this context means a further
+            # message sent by the requester to the authority after
+            # the initial request
             return _("Follow up")
         end
 

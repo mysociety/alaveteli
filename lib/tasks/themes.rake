@@ -85,7 +85,7 @@ namespace :themes do
 
     def install_theme(theme_url, verbose, deprecated=false)
         deprecation_string = deprecated ? " using deprecated THEME_URL" : ""
-        theme_name = File.basename(theme_url, '.git')
+        theme_name = theme_url_to_theme_name theme_url
         puts "Installing theme #{theme_name}#{deprecation_string} from #{theme_url}"
         uninstall(theme_name, verbose) if installed?(theme_name)
         install_theme_using_git(theme_name, theme_url, verbose)

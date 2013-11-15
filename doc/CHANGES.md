@@ -1,3 +1,31 @@
+#  Version 0.15
+
+## Highlighted features
+
+* A new install script for setting up Alaveteli automatically on
+  a fresh Debian wheezy or Ubuntu precise server, and a
+  Vagrantfile so that it can be easily invoked by `vagrant up`
+* Salutations in outgoing messages now can contain regular
+  expression special characters.
+* The links to public bodies from the first letters of the
+  alphabet now work properly in when the letter would be
+  represented by multiple bytes in UTF-8.
+* There are improvements to searching for public bodies and
+  when the "ask us to add one" message is shown.
+* There is a fix for the
+  [long-standing error](https://github.com/mysociety/alaveteli/issues/555)
+  about duplicate Xapian job creation.
+* A new rake task for importing large numbers of public bodies
+  from CSV files: `rake import:import_csv`.
+* Various improvements to the public body statistics graphs,
+  thanks to feedback from the WDTK volunteers.
+* The new_relic gem has been updated (Matthew Landauer)
+* An example nginx config file for running Alaveteli behind
+  nginx: `config/nginx.conf.example`.
+* There's now a simple script for switching between themes
+  (`script/switch-theme.rb`) for developers who have to work on
+  more than one jurisdiction's theme.
+
 # Version 0.14
 
 ## Highlighted features

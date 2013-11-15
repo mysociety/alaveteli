@@ -1,3 +1,123 @@
+# Installation Script and AMI
+
+The easiest options for installating Alaveteli for evaluation
+are to use our install script or to use the AMI (Amazon Machine
+Image) to create an instance on Amazon EC2.  These options are
+described below.  If you would prefer to install the site
+manually, please go to the Manual Installation section below.
+
+## Installing from an AMI (Amazon Machine Image)
+
+To help people try out Alaveteli, we have created an AMI (Amazon
+Machine Image) with a basic installation of Alaveteli, which you
+can use to create a running server on an Amazon EC2 instance.
+This creates an instance that runs in development mode, so we
+wouldn't recommend you use it for a production system without
+changing the configuration.
+
+If you haven't used Amazon Web Services before, then you can get
+a Micro instance which will be
+[free for a year](http://aws.amazon.com/free/).  You will find
+that a micro instance isn't powerful enough for anything other
+very basic testing of Alaveteli, however.
+
+The AMI can be found in the EU West (Ireland) region, with the
+ID ami-0f24c678 and name “Basic Alaveteli installation
+2013-10-31”. You can launch an instance based on that AMI with
+[this link](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-0f24c678).
+
+When you create an EC2 instance based on that AMI, make sure
+that you choose Security Groups that allows at least inbound
+HTTP, HTTPS, SSH and, if you want to test incoming mail as well,
+SMTP.
+
+When your EC2 instance is launched, you will be able to log in
+as the `ubuntu` user.  This user can `sudo` freely to run
+commands as root.  However, the code is actually owned by (and
+runs as) the `alaveteli` user.  After creating the instance, you
+may want to edit a configuration file to customize the site's
+configuration.  That configuration file is
+`/var/www/alaveteli/alaveteli/config/general.yml`, which can be
+edited with:
+
+    ubuntu@ip-10-58-191-98:~$ sudo su - alaveteli
+    alaveteli@ip-10-58-191-98:~$ cd alaveteli
+    alaveteli@ip-10-58-191-98:~/alaveteli$ nano config/general.yml
+
+Then you should restart the Thin webserver with:
+
+    alaveteli@ip-10-58-191-98:~/alaveteli$ logout
+    ubuntu@ip-10-58-191-98:~$ sudo /etc/init.d/alaveteli restart
+
+If you find the hostname of your EC2 instance from the AWS
+console, you should then be able to see the site at
+`http://your-ec2-hostname.eu-west-1.compute.amazonaws.com`
+
+If you have any problems or questions, please ask on the
+[Alaveteli Google Group](https://groups.google.com/forum/#!forum/alaveteli-dev)
+or [report an issue](https://github.com/mysociety/alaveteli/issues?state=open).
+
+## Installing with the Installation Script
+
+If you have a clean installation of Debian squeeze or Ubuntu
+precise, you can use an install script in our commonlib
+repository to set up a working instance of Alaveteli.  This is
+not suitable for production (it runs in development mode, for
+example) but should set up a functional installation of the
+site.
+
+**Warning: only use this script on a newly installed server – it
+will make significant changes to your server’s setup, including
+modifying your nginx setup, creating a user account, creating a
+database, installing new packages etc.**
+
+To download the script, run the following command:
+
+    curl -O https://raw.github.com/mysociety/commonlib/master/bin/install-site.sh
+
+If you run this script with `sh install-site.sh`, you'll see its
+usage message:
+
+    Usage: ./install-site.sh [--default] <SITE-NAME> <UNIX-USER> [HOST]
+    HOST is only optional if you are running this on an EC2 instance.
+    --default means to install as the default site for this server,
+    rather than a virtualhost for HOST.
+
+In this case `<SITE-NAME>` should be `alaveteli`.  `<UNIX-USER>`
+is the name of the Unix user that you want to own and run the
+code. (This user will be created by the script.)
+
+The `HOST` parameter is a hostname for the server that will be
+usable externally – a virtualhost for this name will be created
+by the script, unless you specified the `--default` option. This
+parameter is optional if you are on an EC2 instance, in which
+case the hostname of that instance will be used.
+
+For example, if you wish to use a new user called `alaveteli`
+and the hostname `alaveteli.127.0.0.1.xip.io`, creating a
+virtualhost just for that hostname, you could download and run
+the script with:
+
+    sudo sh install-site.sh alaveteli alaveteli alaveteli.127.0.0.1.xip.io
+
+([xip.io](http://xip.io/) is a helpful domain for development.)
+
+Or, if you want to set this up as the default site on an EC2
+instance, you could download the script, make it executable and
+then invoke it with:
+
+    sudo ./install-site.sh --default alaveteli alaveteli
+
+When the script has finished, you should have a working copy of
+the website, accessible via the hostname you supplied to the
+script.
+
+If you have any problems or questions, please ask on the
+[Alaveteli Google Group](https://groups.google.com/forum/#!forum/alaveteli-dev)
+or [report an issue](https://github.com/mysociety/alaveteli/issues?state=open).
+
+# Manual Installation
+
 These instructions assume Debian Squeeze (64-bit) or Ubuntu 12.04 LTS (precise).
 [Install instructions for OS X](https://github.com/mysociety/alaveteli/wiki/OS-X-Quickstart)
 are under development.  Debian Squeeze is the best supported
@@ -9,7 +129,7 @@ As an aid to evaluation, there is an
 [Amazon AMI](https://github.com/mysociety/alaveteli/wiki/Alaveteli-ec2-ami)
 with all these steps configured.  It is *not* production-ready.
 
-# Get Alaveteli
+## Get Alaveteli
 
 To start with, you may need to install git, e.g. with `sudo apt-get
 install git-core`
@@ -25,7 +145,7 @@ master branch (which always contains the latest stable release):
 
     git checkout master
 
-# Package pinning
+## Package pinning
 
 You need to configure [apt-pinning](http://wiki.debian.org/AptPreferences#Pinning-1) preferences in order to prevent packages being pulled from the debian wheezy distribution in preference to the stable distribution once you have added the wheezy repository as described below.
 
@@ -41,7 +161,7 @@ In order to configure apt-pinning and to keep most packages coming from the Debi
       sudo cp /tmp/preferences /etc/apt/
       rm /tmp/preferences
 
-# Install system dependencies
+## Install system dependencies
 
 These are packages that the software depends on: third-party software
 used to parse documents, host the site, etc.  There are also packages
@@ -70,7 +190,7 @@ Some of the files also have a version number listed in config/packages
 - check that you have appropriate versions installed. Some also list
 "|" and offer a choice of packages.
 
-# Install Ruby dependencies
+## Install Ruby dependencies
 
 To install Alaveteli's Ruby dependencies, we need to install
 bundler.  In Debian, this is provided as a package (installed as part
@@ -79,7 +199,7 @@ gem:
 
     sudo gem1.8 install bundler
 
-# Install mySociety libraries
+## Install mySociety libraries
 
 You will also want to install mySociety's common ruby libraries and the Rails
 code. Run:
@@ -88,7 +208,7 @@ code. Run:
 
 to fetch the contents of the submodules.
 
-## Packages customised by mySociety
+### Packages customised by mySociety
 
 Debian users should add the mySociety debian archive to their
 `/etc/apt/sources.list` as described above.  Doing this and following
@@ -115,7 +235,7 @@ use the Debian package compiled by mySociety (see link in
 [issue 305](https://github.com/mysociety/alaveteli/issues/305))
 
 
-# Configure Database
+## Configure Database
 
 There has been a little work done in trying to make the code work with
 other databases (e.g. SQLite), but the currently supported database is
@@ -155,7 +275,7 @@ data that may not be valid UTF (for example, data originating from
 various broken email clients that's not 8-bit clean), it's safer to be
 able to store *anything*, than reject data at runtime.
 
-# Configure email
+## Configure email
 
 You will need to set up an email server (MTA) to send and receive
 emails.  Full configuration for an MTA is beyond the scope of this
@@ -167,13 +287,13 @@ so that you can see the mails in a browser - see http://mailcatcher.me/
 for more details. Start mailcatcher by running `bundle exec mailcatcher`
 in your application directory.
 
-## Minimal
+### Minimal
 
 If you just want to get the tests to pass, you will at a minimum need
 to allow sending emails via a `sendmail` command (a requirement met,
 for example, with `sudo apt-get install exim4`).
 
-## Detailed
+### Detailed
 
 When an authority receives an email, the email's `reply-to` field is a
 magic address which is parsed and consumed by the Rails app.
@@ -206,7 +326,7 @@ A well-configured installation of this code will separately have had
 Exim make a backup copy of the email in a separate mailbox, just in
 case.
 
-# Set up configs
+## Set up configs
 
 Copy `config/general.yml-example` to `config/general.yml` and edit to
 your taste.
@@ -225,7 +345,7 @@ performance management system. By default, monitoring is switched off
 by the `agent_enabled: false` setting. See https://github.com/newrelic/rpm
 for instructions on switching on local and remote performance analysis.
 
-# Deployment
+## Deployment
 
 In the 'alaveteli' directory, run:
 
@@ -253,7 +373,7 @@ Next we need to create the index for the search engine (Xapian):
 If this fails, the site should still mostly run, but it's a core
 component so you should really try to get this working.
 
-# Run the Tests
+## Run the Tests
 
 Make sure everything looks OK:
 
@@ -265,7 +385,7 @@ workaround). You might be able to move on to the next step, depending
 on how serious they are, but ideally you should try to find out what's
 gone wrong.
 
-## glibc bug workaround
+### glibc bug workaround
 
 There's a
 [bug in glibc](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=637239)
@@ -276,7 +396,7 @@ it's not as of version `2.11.3-2`.
 Until it's fixed (e.g. `libc6 2.13-26` does work), you can get the
 tests to pass by setting `export LD_PRELOAD=/lib/libuuid.so.1`.
 
-# Run the Server
+## Run the Server
 
 Run the following to get the server running:
 
@@ -288,7 +408,7 @@ localhost interface by adding ` --binding=127.0.0.1`
 The server should have told you the URL to access in your browser to see
 the site in action.
 
-# Administrator privileges
+## Administrator privileges
 
 The administrative interface is at the URL `/admin`.
 
@@ -311,7 +431,7 @@ in the front end.
 It is possible completely to override the administrator authentication
 by setting `SKIP_ADMIN_AUTH` to `true` in `general.yml`.
 
-# Cron jobs and init scripts
+## Cron jobs and init scripts
 
 `config/crontab-example` contains the cronjobs run on WhatDoTheyKnow.
 It's in a strange templating format they use in mySociety.  mySociety
@@ -336,8 +456,20 @@ like `!!(*= $this *)!!`.  The variables are:
 * `user`: the user that the software runs as
 * `site`: a string to identify your alaveteli instance
 
-There is a dumb python script at `script/make-crontab` which you can
-edit and run to do some basic substitution for you.
+There is a rake task that will help to rewrite this file into
+one that is useful to you, which can be invoked with:
+
+    bundle exec rake config_files:convert_crontab \
+	    DEPLOY_USER=deploy \
+		VHOST_DIR=/dir/above/alaveteli \
+		VCSPATH=alaveteli \
+		SITE=alaveteli \
+		CRONTAB=config/crontab-example > crontab
+
+You should change the `DEPLOY_USER`, `VHOST_DIR`, `VCSPATH` and
+`SITE` environment variables to match your server and
+installation.  You should also edit the resulting `crontab` file
+to customize the `MAILTO` variable.
 
 One of the cron jobs refers to a script at
 `/etc/init.d/foi-alert-tracks`.  This is an init script, a copy of
@@ -360,7 +492,7 @@ discussion of where to find this program, and how you might replace
 it. This [one line script](https://gist.github.com/3741194) can install
 this program system-wide.
 
-# Set up production web server
+## Set up production web server
 
 It is not recommended to run the website using the default Rails web
 server.  There are various recommendations here:
@@ -409,7 +541,7 @@ Some
 [production server best practice notes](https://github.com/mysociety/alaveteli/wiki/Production-Server-Best-Practices)
 are evolving on the wiki.
 
-# Upgrading Alaveteli
+## Upgrading Alaveteli
 
 The developer team policy is that the master branch in git should
 always contain the latest stable release.  Therefore, in production,
@@ -437,7 +569,7 @@ You should always run the script `scripts/rails-post-deploy` after
 each deployment.  This runs any database migrations for you, plus
 various other things that can be automated for deployment.
 
-# Troubleshooting
+## Troubleshooting
 
 *   **Incoming emails aren't appearing in my Alaveteli install**
 
