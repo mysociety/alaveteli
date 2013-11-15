@@ -237,7 +237,7 @@ GEM
     tzinfo (0.3.37)
     unicode (0.4.4)
     unidecoder (1.1.2)
-    vpim (0.695)
+    vpim (13.11.11)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
