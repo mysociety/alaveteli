@@ -1,7 +1,7 @@
 GIT
-  remote: git://github.com/henare/globalize3.git
-  revision: 2931f559cbed8843ab7d16278d70ce99a0239132
-  branch: not-null-empty-attributes
+  remote: git://github.com/globalize/globalize.git
+  revision: 5fd95f2389dff13c9368fb2e08c96c8a48798c72
+  ref: 5fd95f2389dff1
   specs:
     globalize3 (0.3.0)
       activemodel (>= 3.0.0)
