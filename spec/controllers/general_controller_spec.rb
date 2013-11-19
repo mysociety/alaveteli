@@ -73,11 +73,10 @@ describe GeneralController, "when showing the frontpage" do
     end
 
     it "should render the front page with default language" do
-        old_default_locale = I18n.default_locale
-        I18n.default_locale = "es"
-        get :frontpage
-        response.should have_selector('html[lang="es"]')
-        I18n.default_locale = old_default_locale
+        with_default_locale("es") do
+            get :frontpage
+            response.should have_selector('html[lang="es"]')
+        end
     end
 
     it "should render the front page with default language and ignore the browser setting" do
@@ -85,11 +84,10 @@ describe GeneralController, "when showing the frontpage" do
         config['USE_DEFAULT_BROWSER_LANGUAGE'] = false
         accept_language = "en-GB,en-US;q=0.8,en;q=0.6"
         request.env['HTTP_ACCEPT_LANGUAGE'] = accept_language
-        old_default_locale = I18n.default_locale
-        I18n.default_locale = "es"
-        get :frontpage
-        response.should have_selector('html[lang="es"]')
-        I18n.default_locale = old_default_locale
+        with_default_locale("es") do
+            get :frontpage
+            response.should have_selector('html[lang="es"]')
+        end
     end
 
     it "should render the front page with browser-selected language when there's no default set" do
