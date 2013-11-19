@@ -13,6 +13,7 @@ set :git_enable_submodules, true
 set :deploy_to, configuration['deploy_to']
 set :user, configuration['user']
 set :use_sudo, false
+set :rails_env, configuration['rails_env']
 
 server configuration['server'], :app, :web, :db, :primary => true
 
