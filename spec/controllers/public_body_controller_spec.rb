@@ -275,6 +275,20 @@ describe PublicBodyController, "when showing JSON version for API" do
 
 end
 
+describe PublicBodyController, "when asked to export public bodies as CSV" do
+
+    it "should return a valid CSV file with the right number of rows" do
+        get :list_all_csv
+        all_data = CSV.parse response.body
+        all_data.length.should == 8
+        # Check that the header has the right number of columns:
+        all_data[0].length.should == 11
+        # And an actual line of data:
+        all_data[1].length.should == 11
+    end
+
+end
+
 describe PublicBodyController, "when showing public body statistics" do
 
     it "should render the right template with the right data" do
