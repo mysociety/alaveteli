@@ -188,13 +188,13 @@ describe PublicBodyController, "when listing bodies" do
     end
 
     it "should list bodies in alphabetical order with different locale" do
-        I18n.default_locale = :es
-        get :list
-        response.should render_template('list')
-        assigns[:public_bodies].should == [ public_bodies(:geraldine_public_body), public_bodies(:humpadink_public_body) ]
-        assigns[:tag].should == "all"
-        assigns[:description].should == ""
-        I18n.default_locale = :en
+        with_default_locale(:es) do
+            get :list
+            response.should render_template('list')
+            assigns[:public_bodies].should == [ public_bodies(:geraldine_public_body), public_bodies(:humpadink_public_body) ]
+            assigns[:tag].should == "all"
+            assigns[:description].should == ""
+        end
     end
 
     it "should list a tagged thing on the appropriate list page, and others on the other page, and all still on the all page" do
