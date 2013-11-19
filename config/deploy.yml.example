@@ -4,10 +4,12 @@ production:
   branch: master
   server: www.example.com
   user: deploy
+  rails_env: production
   deploy_to: /srv/www/alaveteli_production
 staging:
   repository: git://github.com/mysociety/alaveteli.git
   branch: develop
   server: test.example.com
   user: deploy
+  rails_env: production
   deploy_to: /srv/www/alaveteli_staging
