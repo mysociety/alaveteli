@@ -514,10 +514,8 @@ class PublicBody < ActiveRecord::Base
     end
 
     # Returns all public bodies (except for the internal admin authority) as csv
-    def self.export_csv
-        public_bodies = PublicBody.visible.find(:all, :order => 'url_name',
-                                              :include => [:translations, :tags])
-        FasterCSV.generate() do |csv|
+    def self.export_csv(output_filename)
+        CSV.open(output_filename, "w") do |csv|
             csv << [
                     'Name',
                     'Short name',
@@ -532,7 +530,7 @@ class PublicBody < ActiveRecord::Base
                     'Updated at',
                     'Version',
             ]
-            public_bodies.each do |public_body|
+            PublicBody.visible.find_each(:include => [:translations, :tags]) do |public_body|
                 # Skip bodies we use only for site admin
                 next if public_body.has_tag?('site_administration')
                 csv << [
