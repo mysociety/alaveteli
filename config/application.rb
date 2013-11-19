@@ -93,6 +93,7 @@ module Alaveteli
                                  'jquery.Jcrop.css',
                                  'excanvas.min.js',
                                  'fonts.css',
+                                 'print.css',
                                  'main.css',
                                  'admin.css',
                                  'ie6.css',
