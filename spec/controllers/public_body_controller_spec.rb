@@ -82,21 +82,23 @@ describe PublicBodyController, "when listing bodies" do
 
     def make_single_language_example(locale)
         result = nil
-        I18n.with_locale(locale) do
-            case locale
-            when :en
-                result = PublicBody.new(:name => 'English only',
-                                        :short_name => 'EO')
-            when :es
-                result = PublicBody.new(:name => 'Español Solamente',
-                                        :short_name => 'ES')
-            else
-                raise StandardError.new "Unknown locale #{locale}"
+        with_default_locale(locale) do
+            I18n.with_locale(locale) do
+                case locale
+                when :en
+                    result = PublicBody.new(:name => 'English only',
+                                            :short_name => 'EO')
+                when :es
+                    result = PublicBody.new(:name => 'Español Solamente',
+                                            :short_name => 'ES')
+                else
+                    raise StandardError.new "Unknown locale #{locale}"
+                end
+                result.request_email = "#{locale}@example.org"
+                result.last_edit_editor = 'test'
+                result.last_edit_comment = ''
+                result.save
             end
-            result.request_email = "#{locale}@example.org"
-            result.last_edit_editor = 'test'
-            result.last_edit_comment = ''
-            result.save
         end
         result
     end
