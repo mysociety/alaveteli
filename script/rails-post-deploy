@@ -96,3 +96,5 @@ bundle exec rake submodules:check
 bundle exec rake db:migrate #--trace
 
 bundle exec rake themes:install
+
+bundle exec rake assets:precompile
