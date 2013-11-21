@@ -209,3 +209,8 @@ PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE: false
 # If true, while in development mode, try to send mail by SMTP to port
 # 1025 (the port the mailcatcher listens on by default):
 USE_MAILCATCHER_IN_DEVELOPMENT: true
+
+# Use memcached to cache HTML fragments for better performance. Will
+# only have an effect in environments where
+# config.action_controller.perform_caching is set to true
+CACHE_FRAGMENTS: true

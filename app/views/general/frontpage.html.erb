@@ -1,4 +1,4 @@
-<% cache("frontpage-#{@locale}", :expires_in => 5.minutes) do %>
+<% cache_if_caching_fragments("frontpage-#{@locale}", :expires_in => 5.minutes) do %>
   <div id="frontpage_splash">
     <div id="left_column">
       <%= render :partial => "frontpage_new_request" %>
