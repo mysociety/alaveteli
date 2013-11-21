@@ -92,6 +92,8 @@ class RequestController < ApplicationController
 
             # Sidebar stuff
             @sidebar = true
+            @similar_cache_key = cache_key_for_similar_requests(@info_request, @locale)
+
             # Track corresponding to this page
             @track_thing = TrackThing.create_track_for_request(@info_request)
             @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
@@ -961,6 +963,11 @@ class RequestController < ApplicationController
         end
         file_info
     end
+
+    def cache_key_for_similar_requests(info_request, locale)
+        "request/similar/#{info_request.id}/#{locale}"
+    end
+
 
 end
 

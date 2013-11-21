@@ -51,7 +51,7 @@
 
     <%= render :partial => 'request/next_actions' %>
 
-    <% # TODO: Cache for 1 day %>
+    <% cache(@similar_cache_key, :expires_in => 1.day) do %>
       <% xapian_similar, xapian_similar_more = @info_request.similar_requests %>
       <% if !xapian_similar.nil? && xapian_similar.results.size > 0 %>
         <h2><%= _('Similar requests')%></h2>
@@ -62,6 +62,7 @@
             <p><%= link_to _("More similar requests"), similar_request_path(@info_request.url_title) %></p>
         <% end %>
       <% end %>
+    <% end %>
 
     <p><%= link_to _('Event history details'), request_details_path(@info_request) %></p>
 
