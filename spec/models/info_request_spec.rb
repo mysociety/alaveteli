@@ -27,7 +27,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequest do
 
-    describe 'when validating', :focus => true do
+    describe 'when validating' do
 
         it 'should accept a summary with ascii characters' do
             info_request = InfoRequest.new(:title => 'abcde')
@@ -1030,7 +1030,7 @@ describe InfoRequest do
                 end
             end
 
-            context "another series of events on a request", :focus => true do
+            context "another series of events on a request" do
                 it "should have sensible event states" do
                     # An initial request is sent
                     request.log_event('sent', {})
@@ -1122,5 +1122,22 @@ describe InfoRequest do
 
     end
 
+    describe InfoRequest, 'when getting similar requests' do
+
+        before(:each) do
+            get_fixtures_xapian_index
+        end
+
+        it 'should return similar requests' do
+            similar, more = info_requests(:spam_1_request).similar_requests(1)
+            similar.results.first[:model].info_request.should == info_requests(:spam_2_request)
+        end
+
+        it 'should return a flag set to true' do
+            similar, more = info_requests(:spam_1_request).similar_requests(1)
+            more.should be_true
+        end
+
+    end
 
 end

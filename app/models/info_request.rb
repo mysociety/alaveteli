@@ -1212,6 +1212,21 @@ public
       end
     end
 
+
+    # Get requests that have similar important terms
+    def similar_requests(limit=10)
+        xapian_similar = nil
+        xapian_similar_more = false
+        begin
+            xapian_similar = ActsAsXapian::Similar.new([InfoRequestEvent],
+                                                       info_request_events,
+                                                       :limit => limit,
+                                                       :collapse_by_prefix => 'request_collapse')
+            xapian_similar_more = (xapian_similar.matches_estimated > limit)
+        rescue
+        end
+        return [xapian_similar, xapian_similar_more]
+    end
     private
 
     def set_defaults
