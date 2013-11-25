@@ -55,6 +55,10 @@ module Alaveteli
     # will be in this time zone
     config.time_zone = ::AlaveteliConfiguration::time_zone
 
+    # Set the cache to use a memcached backend
+    config.cache_store = :mem_cache_store, { :namespace => AlaveteliConfiguration::domain }
+    config.action_dispatch.rack_cache = nil
+
     config.after_initialize do |app|
        require 'routing_filters.rb'
        # Add a catch-all route to force routing errors to be handled by the application,

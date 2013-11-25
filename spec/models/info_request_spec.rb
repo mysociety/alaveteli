@@ -27,7 +27,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequest do
 
-    describe 'when validating', :focus => true do
+    describe 'when validating' do
 
         it 'should accept a summary with ascii characters' do
             info_request = InfoRequest.new(:title => 'abcde')
@@ -1030,7 +1030,7 @@ describe InfoRequest do
                 end
             end
 
-            context "another series of events on a request", :focus => true do
+            context "another series of events on a request" do
                 it "should have sensible event states" do
                     # An initial request is sent
                     request.log_event('sent', {})
@@ -1122,5 +1122,59 @@ describe InfoRequest do
 
     end
 
+    describe InfoRequest, 'when getting similar requests' do
 
+        before(:each) do
+            get_fixtures_xapian_index
+        end
+
+        it 'should return similar requests' do
+            similar, more = info_requests(:spam_1_request).similar_requests(1)
+            similar.results.first[:model].info_request.should == info_requests(:spam_2_request)
+        end
+
+        it 'should return a flag set to true' do
+            similar, more = info_requests(:spam_1_request).similar_requests(1)
+            more.should be_true
+        end
+
+    end
+
+    describe InfoRequest, 'when constructing the list of recent requests' do
+
+        before(:each) do
+            get_fixtures_xapian_index
+        end
+
+        describe 'when there are fewer than five successful requests' do
+
+            it 'should list the most recently sent and successful requests by the creation date of the
+                request event' do
+                # Make sure the newest response is listed first even if a request
+                # with an older response has a newer comment or was reclassified more recently:
+                # https://github.com/mysociety/alaveteli/issues/370
+                #
+                # This is a deliberate behaviour change, in that the
+                # previous behaviour (showing more-recently-reclassified
+                # requests first) was intentional.
+                request_events, request_events_all_successful = InfoRequest.recent_requests
+                previous = nil
+                request_events.each do |event|
+                    if previous
+                        previous.created_at.should be >= event.created_at
+                    end
+                    ['sent', 'response'].include?(event.event_type).should be_true
+                    if event.event_type == 'response'
+                        ['successful', 'partially_successful'].include?(event.calculated_state).should be_true
+                    end
+                    previous = event
+                end
+            end
+        end
+
+        it 'should coalesce duplicate requests' do
+            request_events, request_events_all_successful = InfoRequest.recent_requests
+            request_events.map(&:info_request).select{|x|x.url_title =~ /^spam/}.length.should == 1
+        end
+    end
 end

@@ -116,5 +116,12 @@ module ApplicationHelper
       return !session[:using_admin].nil? || (!@user.nil? && @user.super?)
     end
 
+    def cache_if_caching_fragments(*args, &block)
+        if AlaveteliConfiguration::cache_fragments
+            cache(*args) { yield }
+        else
+            yield
+        end
+    end
 end
 
