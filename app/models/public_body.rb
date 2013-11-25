@@ -726,7 +726,7 @@ class PublicBody < ActiveRecord::Base
     def self.popular_bodies(locale)
         # get some example searches and public bodies to display
         # either from config, or based on a (slow!) query if not set
-        body_short_names = AlaveteliConfiguration::frontpage_publicbody_examples.split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")
+        body_short_names = AlaveteliConfiguration::frontpage_publicbody_examples.split(/\s*;\s*/)
         locale_condition = 'public_body_translations.locale = ?'
         conditions = [locale_condition, locale]
         bodies = []
@@ -740,7 +740,8 @@ class PublicBody < ActiveRecord::Base
                     :joins => :translations
                 )
             else
-                conditions[0] += " and public_bodies.url_name in (" + body_short_names + ")"
+                conditions[0] += " and public_bodies.url_name in (?)"
+                conditions << body_short_names
                 bodies = find(:all, :conditions => conditions, :joins => :translations)
             end
         end
