@@ -38,3 +38,4 @@ bundler
 sqlite3
 libsqlite3-dev
 libicu-dev
+memcached
