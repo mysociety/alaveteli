@@ -89,7 +89,6 @@ module Alaveteli
     # ... while these are individual files that can't easily be
     # grouped:
     config.assets.precompile += ['jquery.fancybox-1.3.4.pack.js',
-                                 'jquery-ui-1.8.15.custom.css',
                                  'jquery.Jcrop.css',
                                  'excanvas.min.js',
                                  'fonts.css',
