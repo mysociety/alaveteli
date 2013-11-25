@@ -4,7 +4,7 @@
   <%= Rails.application.assets["print.css"].to_s %>
   </style>
 <%- else %>
-  <%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet", :media => "all" %>
+  <%= stylesheet_link_tag 'application', :title => "Main", :rel => "stylesheet", :media => "all" %>
   <%= stylesheet_link_tag 'fonts', :rel => "stylesheet", :media => "all"  %>
   <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "print"  %>
   <% if !params[:print_stylesheet].nil? %>
