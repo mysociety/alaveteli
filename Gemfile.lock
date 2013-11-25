@@ -117,6 +117,8 @@ GEM
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (4.1.0)
+      railties (>= 3.1.0)
     json (1.8.0)
     libv8 (3.16.14.3)
     linecache (0.46)
@@ -294,6 +296,7 @@ DEPENDENCIES
   gettext_i18n_rails
   globalize3!
   jquery-rails (~> 3.0.4)
+  jquery-ui-rails
   json
   locale
   mahoro
