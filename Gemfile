@@ -20,7 +20,7 @@ gem 'fastercsv', '>=1.5.5'
 gem 'jquery-rails', '~> 2.1'
 gem 'json'
 gem 'mahoro'
-gem 'net-http-local'
+gem 'net-http-local', :platforms => [:ruby_18, :ruby_19]
 gem 'net-purge'
 gem 'newrelic_rpm'
 gem 'rack'
@@ -66,6 +66,7 @@ end
 group :develop do
   gem 'ruby-debug', :platforms => :ruby_18
   gem 'debugger', :platforms => :ruby_19
+  gem 'byebug', :platforms => :ruby_20
   gem 'bootstrap-sass'
   gem 'compass'
   gem 'annotate'
