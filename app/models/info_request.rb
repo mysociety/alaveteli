@@ -1212,6 +1212,69 @@ public
       end
     end
 
+
+    # Get requests that have similar important terms
+    def similar_requests(limit=10)
+        xapian_similar = nil
+        xapian_similar_more = false
+        begin
+            xapian_similar = ActsAsXapian::Similar.new([InfoRequestEvent],
+                                                       info_request_events,
+                                                       :limit => limit,
+                                                       :collapse_by_prefix => 'request_collapse')
+            xapian_similar_more = (xapian_similar.matches_estimated > limit)
+        rescue
+        end
+        return [xapian_similar, xapian_similar_more]
+    end
+
+    def InfoRequest.recent_requests
+        request_events = []
+        request_events_all_successful = false
+        # Get some successful requests
+        begin
+            query = 'variety:response (status:successful OR status:partially_successful)'
+            sortby = "newest"
+            max_count = 5
+
+            xapian_object = ActsAsXapian::Search.new([InfoRequestEvent],
+                query,
+                :offset => 0,
+                :limit => 5,
+                :sort_by_prefix => 'created_at',
+                :sort_by_ascending => true,
+                :collapse_by_prefix => 'request_title_collapse'
+            )
+            xapian_object.results
+            request_events = xapian_object.results.map { |r| r[:model] }
+
+            # If there are not yet enough successful requests, fill out the list with
+            # other requests
+            if request_events.count < max_count
+                query = 'variety:sent'
+                xapian_object = ActsAsXapian::Search.new([InfoRequestEvent],
+                    query,
+                    :offset => 0,
+                    :limit => max_count-request_events.count,
+                    :sort_by_prefix => 'created_at',
+                    :sort_by_ascending => true,
+                    :collapse_by_prefix => 'request_title_collapse'
+                )
+                xapian_object.results
+                more_events = xapian_object.results.map { |r| r[:model] }
+                request_events += more_events
+                # Overall we still want the list sorted with the newest first
+                request_events.sort!{|e1,e2| e2.created_at <=> e1.created_at}
+            else
+                request_events_all_successful = true
+            end
+        rescue
+            request_events = []
+        end
+
+        return [request_events, request_events_all_successful]
+    end
+
     private
 
     def set_defaults

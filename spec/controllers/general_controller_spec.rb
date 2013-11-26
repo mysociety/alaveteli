@@ -73,11 +73,10 @@ describe GeneralController, "when showing the frontpage" do
     end
 
     it "should render the front page with default language" do
-        old_default_locale = I18n.default_locale
-        I18n.default_locale = "es"
-        get :frontpage
-        response.should have_selector('html[lang="es"]')
-        I18n.default_locale = old_default_locale
+        with_default_locale("es") do
+            get :frontpage
+            response.should have_selector('html[lang="es"]')
+        end
     end
 
     it "should render the front page with default language and ignore the browser setting" do
@@ -85,11 +84,10 @@ describe GeneralController, "when showing the frontpage" do
         config['USE_DEFAULT_BROWSER_LANGUAGE'] = false
         accept_language = "en-GB,en-US;q=0.8,en;q=0.6"
         request.env['HTTP_ACCEPT_LANGUAGE'] = accept_language
-        old_default_locale = I18n.default_locale
-        I18n.default_locale = "es"
-        get :frontpage
-        response.should have_selector('html[lang="es"]')
-        I18n.default_locale = old_default_locale
+        with_default_locale("es") do
+            get :frontpage
+            response.should have_selector('html[lang="es"]')
+        end
     end
 
     it "should render the front page with browser-selected language when there's no default set" do
@@ -118,49 +116,7 @@ describe GeneralController, "when showing the frontpage" do
     end
 
 end
-describe GeneralController, "when showing the front page with fixture data" do
 
-    describe 'when constructing the list of recent requests' do
-
-        before(:each) do
-            get_fixtures_xapian_index
-        end
-
-        describe 'when there are fewer than five successful requests' do
-
-            it 'should list the most recently sent and successful requests by the creation date of the
-                request event' do
-                # Make sure the newest response is listed first even if a request
-                # with an older response has a newer comment or was reclassified more recently:
-                # https://github.com/mysociety/alaveteli/issues/370
-                #
-                # This is a deliberate behaviour change, in that the
-                # previous behaviour (showing more-recently-reclassified
-                # requests first) was intentional.
-                get :frontpage
-
-                request_events = assigns[:request_events]
-                previous = nil
-                request_events.each do |event|
-                    if previous
-                        previous.created_at.should be >= event.created_at
-                    end
-                    ['sent', 'response'].include?(event.event_type).should be_true
-                    if event.event_type == 'response'
-                        ['successful', 'partially_successful'].include?(event.calculated_state).should be_true
-                    end
-                    previous = event
-                end
-            end
-        end
-
-        it 'should coalesce duplicate requests' do
-            get :frontpage
-            assigns[:request_events].map(&:info_request).select{|x|x.url_title =~ /^spam/}.length.should == 1
-        end
-    end
-
-end
 
 describe GeneralController, 'when using xapian search' do
 
