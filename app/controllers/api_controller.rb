@@ -200,7 +200,7 @@ class ApiController < ApplicationController
             ])
         end
         if feed_type == "atom"
-            render :template => "api/request_events.atom", :layout => false
+            render :template => "api/request_events", :formats => ['atom'], :layout => false
         elsif feed_type == "json"
             # For the JSON feed, we take a "since" parameter that allows the client
             # to restrict to events more recent than a certain other event

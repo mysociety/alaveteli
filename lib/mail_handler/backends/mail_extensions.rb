@@ -7,54 +7,6 @@ module Mail
         attr_accessor :within_rfc822_attachment # for parts within a message attached as text (for getting subject mainly)
         attr_accessor :count_parts_count
         attr_accessor :count_first_uudecode_count
-
-        # A patched version of the message initializer to work around a bug where stripping the original
-        # input removes meaningful spaces - e.g. in the case of uuencoded bodies.
-        def initialize(*args, &block)
-            @body = nil
-            @body_raw = nil
-            @separate_parts = false
-            @text_part = nil
-            @html_part = nil
-            @errors = nil
-            @header = nil
-            @charset = 'UTF-8'
-            @defaulted_charset = true
-
-            @perform_deliveries = true
-            @raise_delivery_errors = true
-
-            @delivery_handler = nil
-
-            @delivery_method = Mail.delivery_method.dup
-
-            @transport_encoding = Mail::Encodings.get_encoding('7bit')
-
-            @mark_for_delete = false
-
-            if args.flatten.first.respond_to?(:each_pair)
-                init_with_hash(args.flatten.first)
-            else
-                # The replacement of this commented out line is the change.
-                # init_with_string(args.flatten[0].to_s.strip)
-                init_with_string(args.flatten[0].to_s)
-            end
-
-            if block_given?
-                instance_eval(&block)
-            end
-
-            self
-        end
-
-        def set_envelope_header
-            raw_string = raw_source.to_s
-            if match_data = raw_source.to_s.match(/\AFrom\s(#{TEXT}+)#{CRLF}/m)
-               set_envelope(match_data[1])
-               self.raw_source = raw_string.sub(match_data[0], "")
-            end
-        end
-
     end
 
     # A patched version of the parameter hash that handles nil values without throwing
@@ -77,6 +29,7 @@ module Mail
     # HACK: Backport encoding fixes for Ruby 1.8 from Mail 2.5
     # Can be removed when we no longer support Ruby 1.8
     class Ruby18
+
         def Ruby18.b_value_decode(str)
             match = str.match(/\=\?(.+)?\?[Bb]\?(.+)?\?\=/m)
             if match
@@ -129,11 +82,11 @@ module Mail
         def Ruby19.b_value_decode(str)
           match = str.match(/\=\?(.+)?\?[Bb]\?(.+)?\?\=/m)
           if match
-            encoding = match[1]
+            charset = match[1]
             str = Ruby19.decode_base64(match[2])
             # Rescue an ArgumentError arising from an unknown encoding.
             begin
-                str.force_encoding(fix_encoding(encoding))
+                str.force_encoding(pick_encoding(charset))
             rescue ArgumentError
             end
           end
@@ -141,18 +94,5 @@ module Mail
           decoded.valid_encoding? ? decoded : decoded.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
         end
 
-        def Ruby19.q_value_decode(str)
-            match = str.match(/\=\?(.+)?\?[Qq]\?(.+)?\?\=/m)
-            if match
-                encoding = match[1]
-                str = Encodings::QuotedPrintable.decode(match[2].gsub(/_/, '=20'))
-                # Backport line from mail 2.5 to strip a trailing = character
-                # Remove trailing = if it exists in a Q encoding
-                str = str.sub(/\=$/, '')
-                str.force_encoding(fix_encoding(encoding))
-            end
-            decoded = str.encode("utf-8", :invalid => :replace, :replace => "")
-            decoded.valid_encoding? ? decoded : decoded.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
-        end
     end
 end

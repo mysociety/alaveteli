@@ -95,7 +95,7 @@ module MailHandler
             def get_from_address(mail)
                 first_from = first_from(mail)
                 if first_from
-                    if first_from.is_a?(ActiveSupport::Multibyte::Chars)
+                    if first_from.is_a?(String)
                         return nil
                     else
                         return first_from.address
@@ -109,7 +109,7 @@ module MailHandler
             def get_from_name(mail)
                 first_from = first_from(mail)
                 if first_from
-                    if first_from.is_a?(ActiveSupport::Multibyte::Chars)
+                    if first_from.is_a?(String)
                         return nil
                     else
                         return (first_from.display_name || nil)

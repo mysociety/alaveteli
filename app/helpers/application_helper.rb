@@ -54,16 +54,16 @@ module ApplicationHelper
     # Highlight words, also escapes HTML (other than spans that we add)
     def highlight_words(t, words, html = true)
         if html
-            highlight(h(t), words, '<span class="highlight">\1</span>').html_safe
+            highlight(h(t), words, :highlighter => '<span class="highlight">\1</span>').html_safe
         else
-            highlight(t, words, '*\1*')
+            highlight(t, words, :highlighter => '*\1*')
         end
     end
 
     def highlight_and_excerpt(t, words, excount, html = true)
-        newt = excerpt(t, words[0], excount)
+        newt = excerpt(t, words[0], :radius => excount)
         if not newt
-            newt = excerpt(t, '', excount)
+            newt = excerpt(t, '', :radius => excount)
         end
         t = newt
         t = highlight_words(t, words, html)
