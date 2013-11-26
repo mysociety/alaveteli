@@ -1,0 +1,5 @@
+/* Themes will typically add a custom.css file with their own CSS.
+   This file is present to stop errors where THEME_URLS is empty,
+   since it is mentioned in the application.css manifest.  Themes
+   should prepend their directories to the asset path so this will
+   be overriden by any custom.css in the theme. */

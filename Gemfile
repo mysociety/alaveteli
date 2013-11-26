@@ -17,7 +17,8 @@ gem 'charlock_holmes'
 gem 'dynamic_form'
 gem 'exception_notification'
 gem 'fastercsv', '>=1.5.5'
-gem 'jquery-rails', '~> 2.1'
+gem 'jquery-rails', '~> 3.0.4'
+gem 'jquery-ui-rails'
 gem 'json'
 gem 'mahoro'
 gem 'memcache-client'
@@ -53,6 +54,15 @@ gem 'routing-filter'
 gem 'unicode'
 gem 'unidecoder'
 
+group :assets do
+  gem 'bootstrap-sass'
+  gem 'sass-rails', "= 3.1.4"
+  gem 'compass-rails'
+  gem 'coffee-rails', "~> 3.1"
+  gem 'uglifier'
+  gem 'therubyracer'
+end
+
 group :test do
   gem 'fakeweb'
   gem 'coveralls', :require => false
@@ -67,8 +77,6 @@ end
 group :develop do
   gem 'ruby-debug', :platforms => :ruby_18
   gem 'debugger', :platforms => :ruby_19
-  gem 'bootstrap-sass'
-  gem 'compass'
   gem 'annotate'
 end
 

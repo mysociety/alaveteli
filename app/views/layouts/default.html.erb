@@ -14,14 +14,13 @@
 
         <%= render :partial => 'general/stylesheet_includes' %>
         <% if is_admin? %>
-          <%= stylesheet_link_tag "/admin/stylesheets/admin", :title => "Main", :rel => "stylesheet" %>
+          <%= stylesheet_link_tag "admin", :title => "Main", :rel => "stylesheet" %>
         <% end %>
 
-        <%= javascript_include_tag 'jquery.js', 'jquery-ui.min','jquery.cookie.js', 'general.js' %>
+        <%= javascript_include_tag "application" %>
         <% if @profile_photo_javascript %>
-            <script type="text/javascript" src="/javascripts/jquery.Jcrop.js"></script>
-            <script type="text/javascript" src="/javascripts/profile_photo.js"></script>
-            <link rel="stylesheet" href="/stylesheets/jquery.Jcrop.css" type="text/css" >
+            <%= javascript_include_tag "profile-photos" %>
+            <%= stylesheet_link_tag "jquery.Jcrop.css" %>
         <% end %>
 
         <% if @feed_autodetect %>
@@ -44,7 +43,7 @@
     </head>
     <body class="<%= 'front' if params[:action] == 'frontpage' %>">
     <% if AlaveteliConfiguration::force_registration_on_new_request && !@user %>
-    <%= javascript_include_tag 'jquery.fancybox-1.3.4.pack' %>
+    <%= javascript_include_tag 'jquery.fancybox-1.3.4.pack.js' %>
     <script type="text/javascript">
         $(document).ready(function() {
             $("#make-request-link").fancybox({
