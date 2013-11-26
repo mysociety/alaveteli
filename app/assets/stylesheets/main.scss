@@ -1722,7 +1722,7 @@ padding-right:50px;
 margin-bottom:10px;
 }
 
-div.ff-icon-printfix,.comment_in_request_text img.comment_quote,body.front #other-country-notice,#other-country-notice,#authority_preview .public-body-name-prefix,#authority_preview #list-filter,#authority_preview h2.foi_results,div#show_response_view p.event_actions {
+div.ff-icon-printfix,.comment_in_request_text img.comment_quote,body.front #other-country-notice,#other-country-notice,#authority_preview .public-body-name-prefix,#authority_preview #list-filter,#authority_preview h2.foi_results,div#show_response_view p.event_actions, div.batch_public_body_toggle {
 display:none;
 }
 
@@ -1812,4 +1812,13 @@ text-decoration:none;
 
 #body_selection .body_select {
    width: 100%;
+}
+
+.batch_public_body_list {
+  margin-left: 110px;
+}
+
+.batch_public_body_toggle {
+  color: #0000EE;
+  font-size: 0.9em;
 }

@@ -98,6 +98,7 @@ module Alaveteli
                                  'excanvas.min.js',
                                  'select-authorities.js',
                                  'jquery_ujs.js',
+                                 'new-request.js',
                                  'fonts.css',
                                  'print.css',
                                  'admin.css',

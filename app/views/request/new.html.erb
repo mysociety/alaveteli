@@ -48,13 +48,27 @@
     <div id="request_header">
         <div id="request_header_body">
             <label class="form_label"><%= _('To:') %></label>
-            <span id="to_public_body">
-              <% if @batch %>
-                <%= _("Your selected authorities")%>
-              <% else %>
+
+            <% if @batch %>
+                <span id="to_public_body">
+                  <%= _("Your selected authorities") %>
+                  <span class="batch_public_body_toggle" data-hidetext="<%= _("(hide)") %>" data-showtext="<%= _("(show)") %>"><a class="toggle-message"></a></span>
+                </span>
+
+                <div class="batch_public_body_list">
+                  <ul>
+                  <% @public_bodies.each do |public_body| %>
+                    <li><%= public_body.name %></li>
+                  <% end %>
+                  </ul>
+                </div>
+
+            <% else %>
+              <span id="to_public_body">
                 <%=h(@info_request.public_body.name)%>
-              <% end %>
-            </span>
+              </span>
+            <% end %>
+
             <% unless @batch %>
               <div class="form_item_note">
                   <% if @info_request.public_body.info_requests.size > 0 %>
@@ -175,5 +189,6 @@
 
         </div>
 <% end %>
-
-
+<% if @batch %>
+  <%= javascript_include_tag 'new-request.js' %>
+<% end %>
