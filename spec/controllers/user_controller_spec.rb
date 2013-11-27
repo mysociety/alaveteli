@@ -58,9 +58,10 @@ describe UserController, "when showing a user" do
             get :show, {:url_name => @user.url_name, :view => 'profile'}, {:user_id => @user.id}
         end
 
-        it 'should not show requests but should show account options' do
+        it 'should not show requests, or batch requests, but should show account options' do
             make_request
             response.body.should_not match(/Freedom of Information requests made by you/)
+            assigns[:show_batches].should be_false
             response.body.should include("Change your password")
         end
 
@@ -74,9 +75,10 @@ describe UserController, "when showing a user" do
             get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
         end
 
-        it 'should show requests but no account options' do
+        it 'should show requests, batch requests, but no account options' do
             make_request
             response.body.should match(/Freedom of Information requests made by you/)
+            assigns[:show_batches].should be_true
             response.body.should_not include("Change your password")
         end
 
