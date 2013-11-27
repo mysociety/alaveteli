@@ -2588,16 +2588,8 @@ describe RequestController, "#new_batch" do
 
                 it 'should display a success notice' do
                     make_request
-                    notice_text = "<p>Your Freedom of Information requests have been <strong>sent</strong>!</p>"
+                    notice_text = "<p>Your Freedom of Information requests will be <strong>sent</strong> shortly!"
                     flash[:notice].should match notice_text
-                end
-
-                it 'should display notes about any bodies that could not be included' do
-                    @other_public_body.request_email = ''
-                    @other_public_body.save!
-                    make_request
-                    error_text = "Unfortunately, we do not have a working address for #{@other_public_body.name}."
-                    flash[:error].should match error_text
                 end
 
             end

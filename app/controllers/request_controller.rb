@@ -247,24 +247,14 @@ class RequestController < ApplicationController
         @info_request_batch = InfoRequestBatch.create!(:title => params[:info_request][:title],
                                                       :body => params[:outgoing_message][:body],
                                                       :public_bodies => @public_bodies,
-                                                      :user => authenticated_user )
-
-        batch_results = @info_request_batch.create_batch!
-        flash[:notice] = _("<p>Your {{law_used_full}} requests have been <strong>sent</strong>!</p>
-            <p><strong>We will email you</strong> when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't
+                                                      :user => authenticated_user)
+        flash[:notice] = _("<p>Your {{law_used_full}} requests will be <strong>sent</strong> shortly!</p>
+            <p><strong>We will email you</strong> when they have been sent.
+            We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't
             replied by then.</p>
             <p>If you write about these requests (for example in a forum or a blog) please link to this page.</p>",
             :law_used_full=>@info_request.law_used_full,
             :late_number_of_days => AlaveteliConfiguration::reply_late_after_days)
-        if ! batch_results[:unrequestable].empty?
-            error_messages = []
-            error_messages << _('Unfortunately, we do not have a working address for {{public_body_names}}.',
-                               :public_body_names => batch_results[:unrequestable].map{|body| body.name}.join(","))
-            error_messages << _('You may be able to find one on their website, or by phoning them up and asking. If you manage
-                              to find one, then please <a href="{{help_url}}">send it to us</a>.',
-                              :help_url => help_contact_path)
-            flash[:error] = error_messages.map{ |message| "<p>#{message}</p>"}.join(" ").html_safe
-        end
         redirect_to info_request_batch_path(@info_request_batch)
     end
 
