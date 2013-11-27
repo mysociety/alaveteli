@@ -108,3 +108,43 @@ describe InfoRequestBatch, "when creating a batch", :focus => true do
     end
 
 end
+
+describe InfoRequestBatch, "when sending batches" do
+
+    before do
+        @title = 'A test title'
+        @body = "Dear [Authority name],\nA message\nYours faithfully,\nRequester"
+        @first_public_body = FactoryGirl.create(:public_body)
+        @second_public_body = FactoryGirl.create(:public_body)
+        @user = FactoryGirl.create(:user)
+        @info_request_batch = InfoRequestBatch.create!({:title => @title,
+                                                       :body => @body,
+                                                       :public_bodies => [@first_public_body,
+                                                                          @second_public_body],
+                                                       :user => @user})
+        @sent_batch = InfoRequestBatch.create!({:title => @title,
+                                                :body => @body,
+                                                :public_bodies => [@first_public_body,
+                                                                   @second_public_body],
+                                                :user => @user,
+                                                :sent_at => Time.now})
+    end
+
+    it 'should send requests and notifications for only unsent batch requests' do
+        InfoRequestBatch.send_batches
+        ActionMailer::Base.deliveries.size.should == 3
+        first_email = ActionMailer::Base.deliveries.first
+        first_email.to.should == [@first_public_body.request_email]
+        first_email.subject.should == 'Freedom of Information request - A test title'
+
+        second_email = ActionMailer::Base.deliveries.second
+        second_email.to.should == [@second_public_body.request_email]
+        second_email.subject.should == 'Freedom of Information request - A test title'
+
+        third_email = ActionMailer::Base.deliveries.third
+        third_email.to.should == [@user.email]
+        third_email.subject.should == 'Your batch request "A test title" has been sent'
+    end
+
+end
+
