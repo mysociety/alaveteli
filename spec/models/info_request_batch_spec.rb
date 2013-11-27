@@ -69,21 +69,42 @@ end
 
 describe InfoRequestBatch, "when creating a batch", :focus => true do
 
+    before do
+        @title = 'A test title'
+        @body = "Dear [Authority name],\nA message\nYours faithfully,\nRequester"
+        @first_public_body = FactoryGirl.create(:public_body)
+        @second_public_body = FactoryGirl.create(:public_body)
+        @user = FactoryGirl.create(:user)
+        @info_request_batch = InfoRequestBatch.create!({:title => @title,
+                                                       :body => @body,
+                                                       :public_bodies => [@first_public_body,
+                                                                          @second_public_body],
+                                                       :user => @user})
+    end
+
     it 'should substitute authority name for the placeholder in each request' do
-        body = "Dear [Authority name],\nA message\nYours faithfully,\nRequester"
-        first_public_body = FactoryGirl.create(:public_body)
-        second_public_body = FactoryGirl.create(:public_body)
-        user = FactoryGirl.create(:user)
-        info_request_batch = InfoRequestBatch.create!({:title => 'A test title',
-                                                       :body => body,
-                                                       :public_bodies => [first_public_body,
-                                                                          second_public_body],
-                                                       :user => user})
-        results = info_request_batch.create_batch!
-        [first_public_body, second_public_body].each do |public_body|
-            request = info_request_batch.info_requests.detect{|info_request| info_request.public_body == public_body}
-            request.outgoing_messages.first.body.should == "Dear #{public_body.name},\nA message\nYours faithfully,\nRequester"
+        unrequestable = @info_request_batch.create_batch!
+        [@first_public_body, @second_public_body].each do |public_body|
+            request = @info_request_batch.info_requests.detect do |info_request|
+                info_request.public_body == public_body
+            end
+            expected = "Dear #{public_body.name},\nA message\nYours faithfully,\nRequester"
+            request.outgoing_messages.first.body.should == expected
         end
+    end
+
+    it 'should send requests to requestable public bodies, and return a list of unrequestable ones' do
+        @first_public_body.stub(:is_requestable?).and_return(false)
+        unrequestable = @info_request_batch.create_batch!
+        unrequestable.should == [@first_public_body]
+        @info_request_batch.info_requests.size.should == 1
+        request = @info_request_batch.info_requests.first
+        request.outgoing_messages.first.status.should == 'sent'
+    end
+
+    it 'should set the sent_at value of the info request batch' do
+        @info_request_batch.create_batch!
+        @info_request_batch.sent_at.should_not be_nil
     end
 
 end

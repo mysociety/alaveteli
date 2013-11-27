@@ -42,9 +42,12 @@ class InfoRequestBatch < ActiveRecord::Base
                     unrequestable << public_body
                 end
             end
+            self.sent_at = Time.now
+            self.save!
         end
         created.each{ |info_request| info_request.outgoing_messages.first.send_message }
-        return {:unrequestable => unrequestable}
+
+        return unrequestable
     end
 
     # Create and send an FOI request to a public body
