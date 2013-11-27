@@ -13,6 +13,7 @@
 class InfoRequestBatch < ActiveRecord::Base
     has_many :info_requests
     belongs_to :user
+    has_and_belongs_to_many :public_bodies
 
     validates_presence_of :user
     validates_presence_of :title
