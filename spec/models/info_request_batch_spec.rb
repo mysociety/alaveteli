@@ -61,26 +61,25 @@ describe InfoRequestBatch, "when finding an existing batch" do
         InfoRequestBatch.find_existing(FactoryGirl.create(:user),
                                        @info_request_batch.title,
                                        @info_request_batch.body,
-                                       [@first_request.public_body_id]).should be_nil
+                                       [@first_body]).should be_nil
     end
 end
 
 describe InfoRequestBatch, "when creating a batch", :focus => true do
 
     it 'should substitute authority name for the placeholder in each request' do
-        info_request_params = {:title => 'A test title'}
-        outgoing_message_params = {:body => "Dear [Authority name],\nA message\nYours faithfully,\nRequester",
-                                  }
+        body = "Dear [Authority name],\nA message\nYours faithfully,\nRequester"
         first_public_body = FactoryGirl.create(:public_body)
         second_public_body = FactoryGirl.create(:public_body)
         user = FactoryGirl.create(:user)
-        results = InfoRequestBatch.create_batch!(info_request_params,
-                                                 outgoing_message_params,
-                                                 [first_public_body.id, second_public_body.id],
-                                                 user)
-        info_requests = results[:batch].info_requests
+        info_request_batch = InfoRequestBatch.create!({:title => 'A test title',
+                                                       :body => body,
+                                                       :public_bodies => [first_public_body,
+                                                                          second_public_body],
+                                                       :user => user})
+        results = info_request_batch.create_batch!
         [first_public_body, second_public_body].each do |public_body|
-            request = info_requests.detect{|info_request| info_request.public_body == public_body}
+            request = info_request_batch.info_requests.detect{|info_request| info_request.public_body == public_body}
             request.outgoing_messages.first.body.should == "Dear #{public_body.name},\nA message\nYours faithfully,\nRequester"
         end
     end

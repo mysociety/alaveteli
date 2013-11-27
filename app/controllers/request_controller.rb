@@ -244,11 +244,12 @@ class RequestController < ApplicationController
             return render_new_preview
         end
 
-        batch_results = InfoRequestBatch.create_batch!(params[:info_request],
-                                                       params[:outgoing_message],
-                                                       params[:public_body_ids],
-                                                       authenticated_user)
-        @info_request_batch = batch_results[:batch]
+        @info_request_batch = InfoRequestBatch.create!(:title => params[:info_request][:title],
+                                                      :body => params[:outgoing_message][:body],
+                                                      :public_bodies => @public_bodies,
+                                                      :user => authenticated_user )
+
+        batch_results = @info_request_batch.create_batch!
         flash[:notice] = _("<p>Your {{law_used_full}} requests have been <strong>sent</strong>!</p>
             <p><strong>We will email you</strong> when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't
             replied by then.</p>
