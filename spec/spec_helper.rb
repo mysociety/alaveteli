@@ -13,6 +13,7 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 SimpleCov.start('rails') do
     add_filter  'commonlib'
     add_filter  'vendor/plugins'
+    add_filter  'lib/strip_attributes'
 end
 
 Spork.prefork do
