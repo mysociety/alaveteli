@@ -4,7 +4,7 @@ export RAILS_ENV=$1
 set -e
 
 if [ -x /usr/bin/xapian-compact ]; then
-    XAPIAN_DB_DIR=$( cd "$( dirname "$0" )" && pwd )/../vendor/plugins/acts_as_xapian/xapiandbs
+    XAPIAN_DB_DIR=$( cd "$( dirname "$0" )" && pwd )/../lib/acts_as_xapian/xapiandbs
     if [ -e "$XAPIAN_DB_DIR/$RAILS_ENV.new" ]; then
 	echo >&2 "Didn't compact Xapian database because there was an existing database at $XAPIAN_DB_DIR/$RAILS_ENV.new"
 	exit 1
