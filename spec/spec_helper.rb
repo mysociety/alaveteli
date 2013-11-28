@@ -14,6 +14,7 @@ SimpleCov.start('rails') do
     add_filter  'commonlib'
     add_filter  'vendor/plugins'
     add_filter  'lib/strip_attributes'
+    add_filter  'lib/has_tag_string'
 end
 
 Spork.prefork do
