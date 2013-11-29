@@ -117,4 +117,8 @@ symlink(full_theme_path,
         requested_theme)
 
 STDERR.puts """Switched to #{requested_theme}!
-You will need to restart any development server you have running."""
+You will need to:
+  1. restart any development server you have running.
+  2. run: bundle exec rake assets:clean
+  3. run: bundle exec rake assets:precompile
+"""
