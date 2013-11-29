@@ -29,11 +29,11 @@ namespace :gettext do
    end
 
    def theme_files_to_translate(theme)
-       Dir.glob("{vendor/plugins/#{theme}/lib}/**/*.{rb,erb}")
+       Dir.glob("{lib/themes/#{theme}/lib}/**/*.{rb,erb}")
    end
 
    def theme_locale_path(theme)
-     File.join(Rails.root, "vendor", "plugins", theme, "locale-theme")
+     Rails.root.join "lib", "themes", theme, "locale-theme"
    end
 
 end

@@ -113,7 +113,7 @@ symlink(File.join(full_theme_path, 'public'),
         'alavetelitheme')
 
 symlink(full_theme_path,
-        File.join(alaveteli_directory, 'vendor', 'plugins'),
+        File.join(alaveteli_directory, 'lib', 'themes'),
         requested_theme)
 
 STDERR.puts """Switched to #{requested_theme}!
