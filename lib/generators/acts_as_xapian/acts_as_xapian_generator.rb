@@ -1,13 +1,10 @@
-class ActsAsXapianGenerator < Rails::Generator::Base
-  def manifest
-    record do |m|
-      m.migration_template 'migration.rb', 'db/migrate',
-        :migration_file_name => "create_acts_as_xapian"
-    end
+require 'rails/generators/active_record/migration'
+
+class ActsAsXapianGenerator < Rails::Generators::Base
+  include Rails::Generators::Migration
+  extend ActiveRecord::Generators::Migration
+  source_root File.expand_path("../templates", __FILE__)
+  def create_migration_file
+    migration_template "migration.rb", "db/migrate/add_acts_as_xapian_jobs.rb"
   end
-  
-  protected
-    def banner
-      "Usage: #{$0} acts_as_xapian"
-    end
 end
