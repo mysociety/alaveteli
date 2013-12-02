@@ -59,7 +59,7 @@ module MailHandler
         end
 
         # e.g. http://www.whatdotheyknow.com/request/copy_of_current_swessex_scr_opt#incoming-9928
-        if content_type == 'application/acrobat'
+        if content_type == 'application/acrobat' or content_type == 'document/pdf'
             content_type = 'application/pdf'
         end
 
