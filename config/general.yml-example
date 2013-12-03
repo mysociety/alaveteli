@@ -214,3 +214,9 @@ USE_MAILCATCHER_IN_DEVELOPMENT: true
 # only have an effect in environments where
 # config.action_controller.perform_caching is set to true
 CACHE_FRAGMENTS: true
+
+# Allow some users to make batch requests to multiple authorities. Once
+# this is set to true, you can enable batch requests for an individual
+# user via the user admin page.
+
+ALLOW_BATCH_REQUESTS: false
