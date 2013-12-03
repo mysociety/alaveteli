@@ -11,7 +11,7 @@ require 'open-uri'
 class RequestController < ApplicationController
     before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
     protect_from_forgery :only => [ :new, :show_response, :describe_state, :upload_response ] # See ActionController::RequestForgeryProtection for details
-
+    before_filter :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
     MAX_RESULTS = 500
     PER_PAGE = 25
 
@@ -44,20 +44,6 @@ class RequestController < ApplicationController
     end
 
     def select_authorities
-        if !AlaveteliConfiguration::allow_batch_requests
-            raise RouteNotFound.new("Page not enabled")
-        end
-        if !authenticated?(
-                          :web => _("To make a batch request"),
-                          :email => _("Then you can make a batch request"),
-                          :email_subject => _("Make a batch request"),
-                          :user_name => "a user who has been authorised to make batch requests")
-            # do nothing - as "authenticated?" has done the redirect to signin page for us
-            return
-        end
-        if !@user.can_make_batch_requests?
-             return render_hidden('request/batch_not_allowed')
-        end
         if !params[:public_body_query].nil?
             @search_bodies = perform_search_typeahead(params[:public_body_query], PublicBody)
         end
@@ -195,6 +181,12 @@ class RequestController < ApplicationController
         if @page > 20
             @no_crawl = true
         end
+    end
+
+    def new_batch
+        @batch = true
+        @info_request = InfoRequest.new
+        render :action => 'new'
     end
 
     # Page new form posts to
@@ -988,6 +980,22 @@ class RequestController < ApplicationController
         "request/similar/#{info_request.id}/#{locale}"
     end
 
+    def check_batch_requests_and_user_allowed
+        if !AlaveteliConfiguration::allow_batch_requests
+            raise RouteNotFound.new("Page not enabled")
+        end
+        if !authenticated?(
+                          :web => _("To make a batch request"),
+                          :email => _("Then you can make a batch request"),
+                          :email_subject => _("Make a batch request"),
+                          :user_name => "a user who has been authorised to make batch requests")
+            # do nothing - as "authenticated?" has done the redirect to signin page for us
+            return
+        end
+        if !@user.can_make_batch_requests?
+             return render_hidden('request/batch_not_allowed')
+        end
+    end
 
 end
 
