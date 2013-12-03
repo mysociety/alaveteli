@@ -1777,3 +1777,34 @@ text-decoration:none;
        the axes black rather than transparent grey for the moment: */
     color: #000 !important;
 }
+
+
+#body_selection .body_list {
+  width: 45%;
+}
+
+#body_selection .body_list input[type='submit'] {
+   margin: 10px 0;
+   width: 45%;
+}
+
+#body_selection .body_list #body_deselect_button{
+  float: right;
+}
+
+#body_selection #body_candidates {
+  float: left;
+}
+
+#body_selection #body_selections {
+  float: right;
+}
+
+#body_selection #body_submission input[type='submit'] {
+  margin: 10px 0;
+  width:100%;
+}
+
+#body_selection .body_select {
+   width: 100%;
+}

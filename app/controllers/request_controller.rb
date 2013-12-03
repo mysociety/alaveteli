@@ -58,6 +58,17 @@ class RequestController < ApplicationController
         if !@user.can_make_batch_requests?
              return render_hidden('request/batch_not_allowed')
         end
+        if !params[:public_body_query].nil?
+            @search_bodies = perform_search_typeahead(params[:public_body_query], PublicBody)
+        end
+        if !params[:public_body_ids].nil?
+            if !params[:remove_public_body_ids].nil?
+                body_ids = params[:public_body_ids] - params[:remove_public_body_ids]
+            else
+                body_ids = params[:public_body_ids]
+            end
+            @public_bodies = PublicBody.where({:id => body_ids}).all
+        end
     end
 
     def show

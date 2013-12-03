@@ -897,7 +897,7 @@ describe RequestController, "when handling prominence" do
             expect_hidden('request/hidden_correspondence')
         end
 
-        it 'should download attachments for an admin user', :focus => true do
+        it 'should download attachments for an admin user' do
             session[:user_id] = FactoryGirl.create(:admin_user).id
             get :get_attachment, :incoming_message_id => @incoming_message.id,
                                  :id => @info_request.id,
@@ -959,7 +959,7 @@ describe RequestController, "when handling prominence" do
             response.should be_success
         end
 
-        it 'should download attachments for an admin user', :focus => true do
+        it 'should download attachments for an admin user' do
             session[:user_id] = FactoryGirl.create(:admin_user).id
             get :get_attachment, :incoming_message_id => @incoming_message.id,
                                  :id => @info_request.id,
@@ -2514,6 +2514,8 @@ describe RequestController, "#select_authorities" do
     context "when batch requests is enabled" do
 
         before do
+            get_fixtures_xapian_index
+            load_raw_emails_data
             AlaveteliConfiguration.stub!(:allow_batch_requests).and_return(true)
         end
 
@@ -2526,6 +2528,34 @@ describe RequestController, "#select_authorities" do
             it 'should be successful' do
                 get :select_authorities, {}, {:user_id => @user.id}
                 response.should be_success
+            end
+
+            it 'should render the "select_authorities" template' do
+                get :select_authorities, {}, {:user_id => @user.id}
+                response.should render_template('request/select_authorities')
+            end
+
+            it 'should assign a list of search results to the view if passed a query' do
+                get :select_authorities, {:public_body_query => "Quango"}, {:user_id => @user.id}
+                assigns[:search_bodies].results.size.should == 1
+                assigns[:search_bodies].results[0][:model].name.should == public_bodies(:geraldine_public_body).name
+            end
+
+            it 'should assign a list of public bodies to the view if passed a list of ids' do
+                get :select_authorities, {:public_body_ids => [public_bodies(:humpadink_public_body).id]},
+                                         {:user_id => @user.id}
+                assigns[:public_bodies].size.should == 1
+                assigns[:public_bodies][0].name.should == public_bodies(:humpadink_public_body).name
+            end
+
+            it 'should subtract a list of public bodies to remove from the list of bodies assigned to
+                the view' do
+                get :select_authorities, {:public_body_ids => [public_bodies(:humpadink_public_body).id,
+                                                               public_bodies(:geraldine_public_body).id],
+                                          :remove_public_body_ids => [public_bodies(:geraldine_public_body).id]},
+                                         {:user_id => @user.id}
+                assigns[:public_bodies].size.should == 1
+                assigns[:public_bodies][0].name.should == public_bodies(:humpadink_public_body).name
             end
 
         end
