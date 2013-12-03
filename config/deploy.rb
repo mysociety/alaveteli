@@ -58,7 +58,7 @@ namespace :deploy do
       "#{release_path}/public/favicon.ico" => "#{shared_path}/favicon.ico",
       "#{release_path}/files" => "#{shared_path}/files",
       "#{release_path}/cache" => "#{shared_path}/cache",
-      "#{release_path}/vendor/plugins/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
+      "#{release_path}/lib/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
     }
 
     # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists

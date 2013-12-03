@@ -2,7 +2,7 @@
 namespace :themes do
 
     def plugin_dir
-        File.join(Rails.root,"vendor","plugins")
+        File.join(Rails.root,"lib","themes")
     end
 
     def theme_dir(theme_name)
