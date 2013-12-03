@@ -369,9 +369,9 @@ class ApplicationController < ActionController::Base
         return page
     end
 
-    def perform_search_typeahead(query, model)
+    def perform_search_typeahead(query, model, per_page=25)
         @page = get_search_page_from_params
-        @per_page = 10
+        @per_page = per_page
         query_words = query.split(/ +(?![-+]+)/)
         if query_words.last.nil? || query_words.last.strip.length < 3
             xapian_requests = nil
