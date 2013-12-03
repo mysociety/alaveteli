@@ -7,3 +7,5 @@ Alaveteli::Application.load_tasks
 if Rails.env == 'test'
     Dir[File.join(File.dirname(__FILE__),'commonlib','rblib','tests','*.rake')].each { |file| load(file) }
 end
+# Make sure the the acts_as_xapian tasks are also loaded:
+Dir[File.join(File.dirname(__FILE__),'lib','acts_as_xapian','tasks','*.rake')].each { |file| load(file) }
