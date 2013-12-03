@@ -99,5 +99,5 @@ bundle exec rake themes:install
 
 if [ "$OPTION_STAGING_SITE" = "0" ]
 then
-bundle exec rake assets:precompile
+    bundle exec rake assets:precompile
 fi
