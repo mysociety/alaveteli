@@ -84,6 +84,7 @@ namespace :themes do
     end
 
     def install_theme(theme_url, verbose, deprecated=false)
+        FileUtils.mkdir_p plugin_dir
         deprecation_string = deprecated ? " using deprecated THEME_URL" : ""
         theme_name = theme_url_to_theme_name theme_url
         puts "Installing theme #{theme_name}#{deprecation_string} from #{theme_url}"
