@@ -370,7 +370,7 @@ describe PublicBody, " when only indexing selected things on a rebuild" do
     end
 end
 
-# I would expect ActsAsXapian to have some tests under vendor/plugins/acts_as_xapian, but
+# I would expect ActsAsXapian to have some tests under lib/acts_as_xapian, but
 # it looks like this is not the case. Putting a test here instead.
 describe ActsAsXapian::Search, "#words_to_highlight" do
     before(:each) do

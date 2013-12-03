@@ -11,7 +11,7 @@
 .autotest
 *#*#
 TAGS
-/vendor/plugins/*theme
+/lib/themes
 /locale/model_attributes.rb
 /files/
 /public/download
