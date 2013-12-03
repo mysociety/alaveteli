@@ -143,6 +143,8 @@ class AdminPublicBodyController < AdminController
         @errors = ""
         if request.post?
             dry_run_only = (params['commit'] == 'Upload' ? false : true)
+            # (FIXME: both of these cases could now be changed to use
+            # PublicBody.import_csv_from_file.)
             # Read file from params
             if params[:csv_file]
                 csv_contents = params[:csv_file].read
