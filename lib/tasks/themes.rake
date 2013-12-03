@@ -9,6 +9,14 @@ namespace :themes do
         File.join(plugin_dir, theme_name)
     end
 
+    def old_theme_dir(theme_name)
+        File.join(Rails.root, "vendor", "plugins", theme_name)
+    end
+
+    def possible_theme_dirs(theme_name)
+        [theme_dir(theme_name), old_theme_dir(theme_name)]
+    end
+
     def checkout(commitish)
         puts "Checking out #{commitish}" if verbose
         system "git checkout #{commitish}"
@@ -61,13 +69,14 @@ namespace :themes do
     end
 
     def uninstall(theme_name, verbose=false)
-        dir = theme_dir(theme_name)
-        if File.directory?(dir)
-            run_hook(theme_name, 'uninstall', verbose)
-            puts "Removing '#{dir}'" if verbose
-            rm_r dir
-        else
-            puts "Plugin doesn't exist: #{dir}"
+        possible_theme_dirs(theme_name).each do |dir|
+            if File.directory?(dir)
+                run_hook(theme_name, 'uninstall', verbose)
+                puts "Removing '#{dir}'" if verbose
+                rm_r dir
+            else
+                puts "Plugin doesn't exist: #{dir}"
+            end
         end
     end
 
@@ -80,7 +89,7 @@ namespace :themes do
     end
 
     def installed?(theme_name)
-        File.directory?(theme_dir(theme_name))
+        possible_theme_dirs(theme_name).any? { |dir| File.directory? dir }
     end
 
     def install_theme(theme_url, verbose, deprecated=false)
