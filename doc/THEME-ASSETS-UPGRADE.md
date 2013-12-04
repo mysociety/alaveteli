@@ -67,3 +67,8 @@ should be mentioned in `lib/alavetelitheme.rb` with:
 
 You should be left with nothing in the `public` directory after
 making these changes, except possibly custom error pages.
+
+Remove the code that symlinks the theme 'public' directory to a
+subdirectory of the main application's 'public' directory from
+install.rb. Also remove the code from uninstall.rb that removes that
+symlink. The asset pipeline will handle making assets available.
