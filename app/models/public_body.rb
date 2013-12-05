@@ -727,7 +727,8 @@ class PublicBody < ActiveRecord::Base
         # either from config, or based on a (slow!) query if not set
         body_short_names = AlaveteliConfiguration::frontpage_publicbody_examples.split(/\s*;\s*/)
         locale_condition = 'public_body_translations.locale = ?'
-        conditions = [locale_condition, locale]
+        underscore_locale = locale.gsub '-', '_'
+        conditions = [locale_condition, underscore_locale]
         bodies = []
         I18n.with_locale(locale) do
             if body_short_names.empty?

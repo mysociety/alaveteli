@@ -604,3 +604,12 @@ describe PublicBody, "when calculating statistics" do
     end
 
 end
+
+describe PublicBody, 'when asked for popular bodies' do
+
+    it 'should return bodies correctly when passed the hyphenated version of the locale' do
+        AlaveteliConfiguration.stub!(:frontpage_publicbody_examples).and_return('')
+        PublicBody.popular_bodies('he-IL').should == [public_bodies(:humpadink_public_body)]
+    end
+
+end
