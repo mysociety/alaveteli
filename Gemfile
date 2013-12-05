@@ -23,7 +23,7 @@ gem 'jquery-ui-rails'
 gem 'json'
 gem 'mahoro'
 gem 'memcache-client'
-gem 'net-http-local'
+gem 'net-http-local', :platforms => [:ruby_18, :ruby_19]
 gem 'net-purge'
 gem 'newrelic_rpm'
 gem 'rack'
@@ -77,6 +77,7 @@ end
 group :develop do
   gem 'ruby-debug', :platforms => :ruby_18
   gem 'debugger', :platforms => :ruby_19
+  gem 'byebug', :platforms => :ruby_20
   gem 'annotate'
 end
 
