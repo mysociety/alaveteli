@@ -15,11 +15,10 @@ This creates an instance that runs in development mode, so we
 wouldn't recommend you use it for a production system without
 changing the configuration.
 
-If you haven't used Amazon Web Services before, then you can get
-a Micro instance which will be
-[free for a year](http://aws.amazon.com/free/).  You will find
-that a micro instance isn't powerful enough for anything other
-very basic testing of Alaveteli, however.
+Unfortunately, Alaveteli will not run properly on a free Micro
+instance due to the low amount of memory available on those
+instances; you will need to use at least a Small instance, which
+Amazon will charge for.
 
 The AMI can be found in the EU West (Ireland) region, with the
 ID ami-0f24c678 and name “Basic Alaveteli installation
