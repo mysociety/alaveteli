@@ -213,6 +213,15 @@ describe PublicBody, " when saving" do
         public_body.name.should == "Mark's Public Body"
     end
 
+    it 'should update the right translation when in a locale with an underscore' do
+        AlaveteliLocalization.set_locales('he_IL', 'he_IL')
+        public_body = public_bodies(:humpadink_public_body)
+        translation_count = public_body.translations.size
+        public_body.name = 'Renamed'
+        public_body.save!
+        public_body.translations.size.should == translation_count
+    end
+
     it 'should not create a new version when nothing has changed' do
         @public_body.versions.size.should == 0
         set_default_attributes(@public_body)
