@@ -42,6 +42,17 @@ describe GeneralController, 'when getting the blog feed' do
         assigns[:blog_items].count.should == 1
     end
 
+    context 'if no feed is configured' do
+
+        before do
+            AlaveteliConfiguration.stub!(:blog_feed).and_return('')
+        end
+
+        it 'should raise an ActiveRecord::RecordNotFound error' do
+            lambda{ get :blog }.should raise_error(ActiveRecord::RecordNotFound)
+        end
+    end
+
 end
 
 describe GeneralController, "when showing the frontpage" do
