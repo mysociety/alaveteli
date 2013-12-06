@@ -51,9 +51,6 @@ GEM
     bootstrap-sass (2.3.1.2)
       sass (~> 3.2)
     builder (3.0.4)
-    byebug (2.3.1)
-      columnize (~> 0.3.6)
-      debugger-linecache (~> 1.2.0)
     capistrano (2.15.4)
       highline
       net-scp (>= 1.0.0)
@@ -281,7 +278,6 @@ DEPENDENCIES
   acts_as_versioned!
   annotate
   bootstrap-sass
-  byebug
   capistrano
   charlock_holmes
   coffee-rails (~> 3.2.1)
