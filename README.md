@@ -19,7 +19,7 @@ drop a line to hello@alaveteli.org to let us know that you're using Alaveteli.
 
 Some documentation can be found in the
 [`doc/` folder](https://github.com/mysociety/alaveteli/tree/master/doc).
-There's background information and a more documentation on
+There's background information and more documentation on
 [our wiki](https://github.com/mysociety/alaveteli/wiki/Home/), and lots
 of useful information (including a blog) on
 [the project website](http://alaveteli.org)
