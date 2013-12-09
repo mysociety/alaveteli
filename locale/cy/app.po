@@ -2117,7 +2117,7 @@ msgid "Sorry - you cannot respond to this request via {{site_name}}, because thi
 msgstr "Mae'n ddrwg gennym - ni allwch ymateb i'r cais hwn trwy {{site_name}}, gan fod hwn yn gopi o'r cais a oedd yn wreiddiol yn {{link_to_original_request}} ."
 
 msgid "Sorry, but only {{user_name}} is allowed to do that."
-msgstr "Mae'n ddrwg gennym, ond dim ond {{USER_NAME}} sy'n cael gwneud hynny."
+msgstr "Mae'n ddrwg gennym, ond dim ond {{user_name}} sy'n cael gwneud hynny."
 
 msgid "Sorry, there was a problem processing this page"
 msgstr "Mae'n ddrwg gennym, roedd problem wrth brosesu'r dudalen hon"
@@ -2129,7 +2129,7 @@ msgid "Special note for this authority!"
 msgstr "Nodyn arbennig ar gyfer yr awdurdod hwn!"
 
 msgid "Start now &raquo;"
-msgstr "Dechrau nawr »"
+msgstr "Dechrau nawr &raquo"
 
 msgid "Start your own blog"
 msgstr "Dechreuwch eich blog eich hun"
@@ -2198,7 +2198,7 @@ msgid "Thank you for responding to this FOI request! Your response has been publ
 msgstr "Diolch i chi am ymateb i'r cais Rhyddid Gwybodaeth hwn! Mae eich ymateb wedi ei gyhoeddi isod, a dolen at eich ymateb wedi cael ei e-bostio at "
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
-msgstr "Diolch i chi am ddiweddaru statws y cais '<a href=\"{{url}}\">{{ info_request_title}}</a>'. Mae ychydig yn rhagor o geisiadau isod i chi eu dosbarthu."
+msgstr "Diolch i chi am ddiweddaru statws y cais '<a href=\"{{url}}\">{{info_request_title}}</a>'. Mae ychydig yn rhagor o geisiadau isod i chi eu dosbarthu."
 
 msgid "Thank you for updating this request!"
 msgstr "Diolch i chi am ddiweddaru'r cais hwn!"
@@ -2324,7 +2324,7 @@ msgid "Then you can classify the FOI response you have got from "
 msgstr "Yna gallwch ddosbarthu'r ymateb Rhyddid Gwybodaeth yr ydych wedi'i gael gan "
 
 msgid "Then you can download a zip file of {{info_request_title}}."
-msgstr "Yna gallwch lawrlwytho ffeil zip o {{ info_request_title}}."
+msgstr "Yna gallwch lawrlwytho ffeil zip o {{info_request_title}}."
 
 msgid "Then you can log into the administrative interface"
 msgstr "Yna gallwch logio i mewn i'r rhyngwyneb gweinyddol"
@@ -2975,7 +2975,7 @@ msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> 
 msgstr "Rydych wedi dod o hyd i fyg. <a href=\"{{contact_url}}\">Cysylltwch  â ni </a> i ddweud wrthym am y broblem"
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
-msgstr "Rydych chi wedi cyrraedd y terfyn cyfradd ar geisiadau newydd. Fel arfer cyfyngir defnyddwyr i {{max_requests_per_user_per_day}}  cais mewn unrhyw gyfnod treigl 24-awr. Byddwch yn gallu gwneud cais arall ymhen {{ can_make_another_request}}."
+msgstr "Rydych chi wedi cyrraedd y terfyn cyfradd ar geisiadau newydd. Fel arfer cyfyngir defnyddwyr i {{max_requests_per_user_per_day}}  cais mewn unrhyw gyfnod treigl 24-awr. Byddwch yn gallu gwneud cais arall ymhen {{can_make_another_request}}."
 
 msgid "You have made no Freedom of Information requests using this site."
 msgstr "Nid ydych wedi gwneud unrhyw geisiadau Rhyddid Gwybodaeth drwy ddefnyddio'r wefan hon."
