@@ -473,6 +473,20 @@ describe PublicBody, " when loading CSV files" do
 
         PublicBody.count.should == original_count
     end
+
+    it "should be able to load CSV from a file as well as a string" do
+        # Essentially the same code is used for import_csv_from_file
+        # as import_csv, so this is just a basic check that
+        # import_csv_from_file can load from a file at all. (It would
+        # be easy to introduce a regression that broke this, because
+        # of the confusing change in behaviour of CSV.parse between
+        # Ruby 1.8 and 1.9.)
+        original_count = PublicBody.count
+        filename = file_fixture_name('fake-authority-type-with-field-names.csv')
+        PublicBody.import_csv_from_file(filename, '', 'replace', false, 'someadmin')
+        PublicBody.count.should == original_count + 3
+    end
+
 end
 
 describe PublicBody do

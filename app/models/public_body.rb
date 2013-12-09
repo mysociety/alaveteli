@@ -369,10 +369,24 @@ class PublicBody < ActiveRecord::Base
     class ImportCSVDryRun < StandardError
     end
 
-    # Import from CSV. Just tests things and returns messages if dry_run is true.
-    # Returns an array of [array of errors, array of notes]. If there are errors,
-    # always rolls back (as with dry_run).
+    # Import from a string in CSV format.
+    # Just tests things and returns messages if dry_run is true.
+    # Returns an array of [array of errors, array of notes]. If there
+    # are errors, always rolls back (as with dry_run).
     def self.import_csv(csv, tag, tag_behaviour, dry_run, editor, available_locales = [])
+        tmp_csv = nil
+        Tempfile.open('alaveteli') do |f|
+            f.write csv
+            tmp_csv = f
+        end
+        PublicBody.import_csv_from_file(tmp_csv.path, tag, tag_behaviour, dry_run, editor, available_locales)
+    end
+
+    # Import from a CSV file.
+    # Just tests things and returns messages if dry_run is true.
+    # Returns an array of [array of errors, array of notes]. If there
+    # are errors, always rolls back (as with dry_run).
+    def self.import_csv_from_file(csv_filename, tag, tag_behaviour, dry_run, editor, available_locales = [])
         errors = []
         notes = []
         available_locales = [I18n.default_locale] if available_locales.empty?
@@ -398,7 +412,8 @@ class PublicBody < ActiveRecord::Base
                 set_of_importing = Set.new()
                 field_names = { 'name'=>1, 'request_email'=>2 }     # Default values in case no field list is given
                 line = 0
-                CSV.parse(csv) do |row|
+
+                CSV.foreach(csv_filename) do |row|
                     line = line + 1
 
                     # Parse the first line as a field list if it starts with '#'
