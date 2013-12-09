@@ -19,7 +19,8 @@ class RequestMailer < ApplicationMailer
         end
 
         mail(:from => from_user.name_and_email,
-             :to => info_request.incoming_name_and_email)
+             :to => info_request.incoming_name_and_email,
+             :subject => info_request.email_subject_followup)
     end
 
     # Used when a response is uploaded using the API
