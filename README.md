@@ -35,9 +35,10 @@ If you find what looks like a bug:
 If you want to contribute an enhancement or a fix:
 
 * Fork the project on GitHub.
+* Make a topic branch from the rails-3-develop branch.
 * Make your changes with tests.
 * Commit the changes without making changes to any files that aren't related to your enhancement or fix.
-* Send a pull request.
+* Send a pull request against the rails-3-develop branch.
 
 Looking for the latest stable release? It's on the
 [master branch](https://github.com/mysociety/alaveteli/tree/master).
