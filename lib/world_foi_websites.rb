@@ -53,7 +53,20 @@ class WorldFOIWebsites
                               {:name => "Informace pro Vsechny",
                                   :country_name => "Česká republika",
                                   :country_iso_code => "CZ",
-                                  :url => "http://www.infoprovsechny.cz"}
+                                  :url => "http://www.infoprovsechny.cz"},
+                              {:name => "¿Qué Sabés?",
+                                  :country_name => "Uruguay",
+                                  :country_iso_code => "UY",
+                                  :url => "http://www.quesabes.org/"},
+                              {:name => "Nu Vă Supărați",
+                                  :country_name => "România",
+                                  :country_iso_code => "RO",
+                                  :url => "http://nuvasuparati.info/"},
+                               {:name => "Marsoum41",
+                                  :country_name => "تونس",
+                                  :country_iso_code => "TN",
+                                  :url => "http://www.marsoum41.org"}
+
                               ]
         return world_foi_websites
     end
