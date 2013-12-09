@@ -409,6 +409,12 @@ describe 'when getting attachment attributes' do
         attributes[1][:body].length.should == 7769
     end
 
+    it 'should treat a document/pdf attachment as application/pdf' do
+        mail = get_fixture_mail('document-pdf.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+        attributes[1][:content_type].should == "application/pdf"
+    end
+
     it 'should produce a consistent set of url_part_numbers, content_types, within_rfc822_subjects
         and filenames from an example mail with lots of attachments' do
         mail = get_fixture_mail('many-attachments-date-header.email')
