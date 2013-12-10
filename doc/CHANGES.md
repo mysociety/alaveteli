@@ -1,3 +1,46 @@
+# Version 0.16
+
+## Highlighted features
+
+* Upgrade of the Rails framework to 3.2.16
+* Enabling the Rails asset pipeline for managing assets (more about the
+  asset pipeline at http://guides.rubyonrails.org/asset_pipeline.html).
+* The all authorities csv download now uses less system resources
+* Ruby 2.0 is now included in the matrix of versions we run continuous
+  integration tests against
+* When using capistrano, the RAILS_ENV can now be explicitly set from
+  deploy.yml
+* The front page and request pages once more use fragment caching backed
+  by memcached to speed up serving of slow parts of these pages
+* The robots.txt file has been updated to allow crawling of response
+  attachment files (in original and HTML versions)
+* The `themes:install` rake task is kinder to developers; it no longer
+  removes and reclones themes, destroying local changes, and it keeps
+  themes as git repositories.
+* Social media elements (the blog, twitter feed) are only included if
+  the appropriate config variables (BLOG_FEED and TWITTER_USERNAME) have
+  been populated.
+* Some fixes to the treatment of hyphenated/underscored locales so that
+  public body translations are consistently stored using the underscore
+  format of the locale (so 'he_IL', not 'he-IL').
+
+## Upgrade notes
+
+* You will need to update your theme to use the asset pipeline - notes
+  on how to do this are in doc/THEME-ASSETS-UPGRADE.md
+* The syntax of the highlight and excerpt methods has changed, so if you
+  use these in your theme, you may see deprecation warnings until you
+  update them. More information at http://apidock.com/rails/v3.2.13/ActionView/Helpers/TextHelper/highlight
+  and
+  http://apidock.com/rails/v3.2.13/ActionView/Helpers/TextHelper/excerpt
+* If you don't want to use fragment caching, you can turn it off in your
+  config file by setting `CACHE_FRAGMENTS` to `false`.
+* If you use a locale with an underscore in it, you should double check
+  that the locale field of your `public_body_translations` table shows
+  the underscore version of the locale name.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running rails-post-deploy
+
 #  Version 0.15
 
 ## Highlighted features
