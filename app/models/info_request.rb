@@ -1228,6 +1228,23 @@ public
         return [xapian_similar, xapian_similar_more]
     end
 
+    def InfoRequest.request_list(filters, page, per_page, max_results)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent],
+                                                 InfoRequestEvent.make_query_from_params(filters),
+                                                 :offset => (page - 1) * per_page,
+                                                 :limit => 25,
+                                                 :sort_by_prefix => 'created_at',
+                                                 :sort_by_ascending => true,
+                                                 :collapse_by_prefix => 'request_collapse'
+        )
+        list_results = xapian_object.results.map { |r| r[:model] }
+        matches_estimated = xapian_object.matches_estimated
+        show_no_more_than = [matches_estimated, max_results].min
+        return { :results => list_results,
+                 :matches_estimated => matches_estimated,
+                 :show_no_more_than => show_no_more_than }
+    end
+
     def InfoRequest.recent_requests
         request_events = []
         request_events_all_successful = false
