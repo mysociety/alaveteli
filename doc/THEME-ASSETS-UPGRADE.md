@@ -33,6 +33,8 @@ tag to use `image_tag` instead.  For example, instead of:
 
     image_tag('helpmeinvestigate.png', :alt => "", :class => "rss")
 
+If you have a favicon.ico file in your theme's `public` directory, you should move it to `assets/images` as well.
+
 You should similarly move your stylesheets into
 `assets/stylesheets`.  If a stylesheet refers to images, you
 should rename the `.css` file to `.css.scss`, and change `url`
