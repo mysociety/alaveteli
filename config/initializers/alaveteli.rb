@@ -50,7 +50,6 @@ require 'normalize_string'
 require 'alaveteli_file_types'
 require 'alaveteli_localization'
 require 'message_prominence'
-require 'actionmailer_patches'
 require 'theme'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
