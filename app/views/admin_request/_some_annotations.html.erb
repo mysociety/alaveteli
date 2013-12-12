@@ -1,0 +1,48 @@
+<% if @info_request.comments.size > 0 %>
+  <div class="accordion" id="comments">
+    <% for comment in @info_request.comments %>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+         <a href="#comment_<%=comment.id%>" data-toggle="collapse" data-parent="#comments"><%= chevron_right %></a>
+         <%= link_to admin_request_edit_comment_path(comment) do %>
+            #<%=comment.id%>
+            --
+            <%=h(comment.user.name)%>
+            <%=admin_value(comment.created_at)%>
+            <% end %>
+          <blockquote class="incoming-message">
+            <%= truncate(comment.body, :length => 400) %>
+          </blockquote>
+        </div>
+        <div id="comment_<%=comment.id%>" class="accordion-body collapse">
+          <table class="table table-striped table-condensed">
+            <tbody>
+              <tr>
+                <td colspan="2">
+                 By <%= user_both_links(comment.user) %>
+                </td>
+              </tr>
+              <% comment.for_admin_column do |name, value, type, column_name |%>
+                <tr>
+                  <td>
+                    <b><%=name%></b>
+                  </td>
+                  <td>
+                    <% if column_name == 'body' && !comment.visible %>
+                      <s><%=h comment.send(column_name) %></s>
+                    <% else %>
+                      <%=h comment.send(column_name) %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>None yet.</p>
+<% end %>
+ 
