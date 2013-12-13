@@ -325,7 +325,8 @@
 <hr>
 <h2>Annotations</h2>
 
-<%= render :partial => 'admin_request/some_annotations' %>
+<%= render :partial => 'admin_request/some_annotations' , :locals => { :comments => @info_request.comments } %>
+
 <hr>
 <h2>Mail server delivery logs</h2>
 

@@ -1,6 +1,6 @@
-<% if @info_request.comments.size > 0 %>
+<% if comments.size > 0 %>
   <div class="accordion" id="comments">
-    <% for comment in @info_request.comments %>
+    <% for comment in comments %>
       <div class="accordion-group">
         <div class="accordion-heading">
          <a href="#comment_<%=comment.id%>" data-toggle="collapse" data-parent="#comments"><%= chevron_right %></a>
