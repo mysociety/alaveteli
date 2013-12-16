@@ -35,7 +35,7 @@ def gettext_interpolate(string, values)
     pattern, key = $1, $1.to_sym
 
     if !values.include?(key)
-      raise I18n::MissingInterpolationArgument.new(pattern, string)
+      raise I18n::MissingInterpolationArgument.new(pattern, string, values)
     else
       v = values[key].to_s
       if safe && !v.html_safe?

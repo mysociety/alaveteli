@@ -634,7 +634,7 @@ msgid "Date:"
 msgstr "Date:"
 
 msgid "Dear {{name}},"
-msgstr "Cher {{nom}},"
+msgstr "Cher {{name}},"
 
 msgid "Dear {{public_body_name}},"
 msgstr "Cher {{public_body_name}},"
