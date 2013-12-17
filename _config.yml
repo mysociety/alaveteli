@@ -1,0 +1,4 @@
+safe: true
+pygments: true
+baseurl: /
+permalink: pretty
