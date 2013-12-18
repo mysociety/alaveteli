@@ -2279,11 +2279,13 @@ describe RequestController, "authority uploads a response from the web interface
         # domain after the @ is used for authentication of FOI officers, so to test it
         # we need a user which isn't at localhost.
         @normal_user = User.new(:name => "Mr. Normal", :email => "normal-user@flourish.org",
-                                      :password => PostRedirect.generate_random_token)
+                                      :password => PostRedirect.generate_random_token,
+                                      :address => "Law Street")
         @normal_user.save!
 
         @foi_officer_user = User.new(:name => "The Geraldine Quango", :email => "geraldine-requests@localhost",
-                                      :password => PostRedirect.generate_random_token)
+                                      :password => PostRedirect.generate_random_token,
+                                      :address => "Law Street")
         @foi_officer_user.save!
     end
 

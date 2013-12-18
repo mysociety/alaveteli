@@ -344,9 +344,18 @@ describe AdminPublicBodyController, "when creating public bodies with i18n" do
         n = PublicBody.count
         post :create, {
             :public_body => {
-                :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code',
-                :translated_versions => [{ :locale => "es", :name => "Mi Nuevo Quango", :short_name => "", :request_email => 'newquango@localhost' }]
-                }
+                :name => "New Quango",
+                :short_name => "",
+                :tag_string => "blah",
+                :request_email => 'newquango@localhost',
+                :last_edit_comment => 'From test code',
+                :translated_versions => [{
+                    :locale => "es",
+                    :name => "Mi Nuevo Quango",
+                    :short_name => "",
+                    :request_email => 'newquango@localhost'
+                }]
+            }
         }
         PublicBody.count.should == n + 1
 

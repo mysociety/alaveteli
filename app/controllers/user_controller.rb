@@ -395,6 +395,35 @@ class UserController < ApplicationController
         redirect_to user_url(@user)
     end
 
+    # Change your address
+    def signchangeaddress
+        if not authenticated?(
+                :web => _("To change your address used on {{site_name}}",:site_name=>site_name),
+                :email => _("Then you can change your address used on {{site_name}}",:site_name=>site_name),
+                :email_subject => _("Change your address used on {{site_name}}",:site_name=>site_name)
+            )
+            # "authenticated?" has done the redirect to signin page for us
+            return
+        end
+
+        unless params[:submitted_signchangeaddress_do]
+            render :action => 'signchangeaddress'
+            return
+        end
+
+        @user.address = params[:signchangeaddress][:address]
+
+        if @user.invalid?
+            render :action => 'signchangeaddress'
+            return
+        end
+
+        @user.save!
+
+        flash[:notice] = _("You have now changed your address used on {{site_name}}",:site_name=>site_name)
+        redirect_to user_url(@user)
+    end
+
     # Send a message to another user
     def contact
         @recipient_user = User.find(params[:id])

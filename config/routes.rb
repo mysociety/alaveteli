@@ -80,6 +80,7 @@ Alaveteli::Application.routes.draw do
 
     match '/profile/change_password' => 'user#signchangepassword', :as => :signchangepassword
     match '/profile/change_email' => 'user#signchangeemail', :as => :signchangeemail
+    match '/profile/change_address' => 'user#signchangeaddress', :as => :signchangeaddress
 
     match '/profile/set_photo' => 'user#set_profile_photo', :as => :set_profile_photo
     match '/profile/clear_photo' => 'user#clear_profile_photo', :as => :clear_profile_photo

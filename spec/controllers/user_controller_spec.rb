@@ -243,21 +243,31 @@ describe UserController, "when signing up" do
 
     it "should be an error if you type the password differently each time" do
         post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
-            :password => 'sillypassword', :password_confirmation => 'sillypasswordtwo' }
+            :password => 'sillypassword', :password_confirmation => 'sillypasswordtwo',
+            :address => 'Maple str' }
         }
         assigns[:user_signup].errors[:password].should == ['Please enter the same password twice']
     end
 
     it "should be an error to sign up with a misformatted email" do
         post :signup, { :user_signup => { :email => 'malformed-email', :name => 'Mr Malformed',
-            :password => 'sillypassword', :password_confirmation => 'sillypassword' }
+            :password => 'sillypassword', :password_confirmation => 'sillypassword',
+            :address => 'Maple str' }
         }
         assigns[:user_signup].errors[:email].should_not be_nil
     end
 
+    it "should be an error to sign up without address" do
+        post :signup, { :user_signup => { :email => 'malformed-email', :name => 'Mr Malformed',
+            :password => 'sillypassword', :password_confirmation => 'sillypassword' }
+        }
+        assigns[:user_signup].errors[:address].should_not be_nil
+    end
+
     it "should send confirmation mail if you fill in the form right" do
         post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
-            :password => 'sillypassword', :password_confirmation => 'sillypassword' }
+            :password => 'sillypassword', :password_confirmation => 'sillypassword',
+            :address => 'Maple str' }
         }
         response.should render_template('confirm')
 
@@ -270,7 +280,7 @@ describe UserController, "when signing up" do
         session[:locale] = "es"
         post :signup, {:user_signup => { :email => 'new@localhost', :name => 'New Person',
             :password => 'sillypassword', :password_confirmation => 'sillypassword',
-           }
+            :address => 'Maple Street' }
         }
         response.should render_template('confirm')
 
@@ -281,7 +291,7 @@ describe UserController, "when signing up" do
 
     it "should send special 'already signed up' mail if you fill the form in with existing registered email" do
         post :signup, { :user_signup => { :email => 'silly@localhost', :name => 'New Person',
-            :password => 'sillypassword', :password_confirmation => 'sillypassword' }
+            :password => 'sillypassword', :password_confirmation => 'sillypassword', :address => 'Maple str' }
         }
         response.should render_template('confirm')
 

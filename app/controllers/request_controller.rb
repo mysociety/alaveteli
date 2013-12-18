@@ -298,6 +298,7 @@ class RequestController < ApplicationController
 
         # Show preview page, if it is a preview
         if params[:preview].to_i == 1
+            @outgoing_message.body += "\nAddress: #{@info_request.address}"
             message = ""
             if @outgoing_message.contains_email?
                 if @user.nil?

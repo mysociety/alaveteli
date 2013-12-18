@@ -31,6 +31,8 @@ class User < ActiveRecord::Base
 
     validates_presence_of :name, :message => _("Please enter your name")
 
+    validates_presence_of :address, :message => _("Please enter your address")
+
     validates_presence_of :hashed_password, :message => _("Please enter a password")
 
     has_many :info_requests, :order => 'created_at desc'
@@ -199,7 +201,8 @@ class User < ActiveRecord::Base
                 :name => 'Internal admin user',
                 :email => AlaveteliConfiguration::contact_email,
                 :password => password,
-                :password_confirmation => password
+                :password_confirmation => password,
+                :address => "Maple Street"
             )
             u.save!
         end

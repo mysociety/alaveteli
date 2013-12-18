@@ -77,6 +77,7 @@ describe User, " when authenticating" do
         @full_user.name = "Sensible User"
         @full_user.password = "foolishpassword"
         @full_user.email = "sensible@localhost"
+        @full_user.address = "Law Street"
         @full_user.save
     end
 
@@ -97,7 +98,9 @@ describe User, " when authenticating" do
     end
 
     it "should find the user when given the right email and password" do
-        found_user = User.authenticate_from_form( { :email => "sensible@localhost", :password => "foolishpassword" })
+        found_user = User.authenticate_from_form( { :email => "sensible@localhost",
+                                                    :password => "foolishpassword",
+                                                    :address => "Law Street" })
         found_user.errors.size.should == 0
         found_user.should == (@full_user)
     end
@@ -117,6 +120,7 @@ describe User, " when saving" do
         @user.name = "Mr. Silly"
         @user.password = "insecurepassword"
         @user.email = "mousefooble"
+        @user.address = "Maple Street"
         @user.should have(1).error_on(:email)
     end
 
@@ -124,6 +128,7 @@ describe User, " when saving" do
         @user.name = "silly@example.com"
         @user.email = "silly@example.com"
         @user.password = "insecurepassword"
+        @user.address = "Maple Street"
         @user.should have(1).error_on(:name)
     end
 
@@ -131,6 +136,7 @@ describe User, " when saving" do
         @user.name = "Mr. Silly"
         @user.password = ""
         @user.email = "silly@localhost"
+        @user.address = "Maple Street"
         @user.should have(1).error_on(:hashed_password)
     end
 
@@ -138,6 +144,7 @@ describe User, " when saving" do
         @user.name = "Mr. Reasonable"
         @user.password = "insecurepassword"
         @user.email = "reasonable@localhost"
+        @user.address = "Maple Street"
         @user.save!
     end
 
@@ -145,12 +152,14 @@ describe User, " when saving" do
         @user.name = "Mr. Flobble"
         @user.password = "insecurepassword"
         @user.email = "flobble@localhost"
+        @user.address = "Maple Street"
         @user.save!
 
         @user2 = User.new
         @user2.name = "Mr. Flobble"
         @user2.password = "insecurepassword"
         @user2.email = "flobble2@localhost"
+        @user2.address = "Law Street"
         @user2.save!
     end
 
@@ -158,6 +167,7 @@ describe User, " when saving" do
         @user.name = "Mr. First"
         @user.password = "insecurepassword"
         @user.email = "reasonable@localhost"
+        @user.address = "Law Street"
         @user.no_xapian_reindex = false
         @user.should_receive(:xapian_mark_needs_index)
         @user.save!
@@ -167,6 +177,7 @@ describe User, " when saving" do
         @user.name = "Mr. Second"
         @user.password = "insecurepassword"
         @user.email = "reasonable@localhost"
+        @user.address = "Law Street"
         @user.no_xapian_reindex = nil
         @user.should_receive(:xapian_mark_needs_index)
         @user.save!
@@ -176,6 +187,7 @@ describe User, " when saving" do
         @user.name = "Mr. Third"
         @user.password = "insecurepassword"
         @user.email = "reasonable@localhost"
+        @user.address = "Law Street"
         @user.no_xapian_reindex = true
         @user.should_not_receive(:xapian_mark_needs_index)
         @user.save!
@@ -290,6 +302,7 @@ describe User, "when setting a profile photo" do
         @user.name = "Sensible User"
         @user.email = "sensible@localhost"
         @user.password = "sensiblepassword"
+        @user.address = "Maple Street"
     end
 
     it "should attach it to the user" do
