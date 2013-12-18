@@ -1275,6 +1275,12 @@ public
         return [request_events, request_events_all_successful]
     end
 
+    def InfoRequest.find_in_state(state)
+        find(:all, :select => '*, ' + last_event_time_clause + ' as last_event_time',
+                   :conditions => ["described_state = ?", state],
+                   :order => "last_event_time")
+    end
+
     private
 
     def set_defaults
