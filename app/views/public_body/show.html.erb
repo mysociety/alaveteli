@@ -32,6 +32,7 @@
             <% end %>
         <% end %>
         <%= link_to _('View FOI email address'), view_public_body_email_path(@public_body.url_name) %><br>
+        <%= link_to _("Ask us to update FOI email"), new_change_request_path(:body => @public_body.url_name) %><br>
     </div>
 
     <div id="header_left">
