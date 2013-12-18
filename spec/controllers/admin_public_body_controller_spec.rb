@@ -37,6 +37,33 @@ describe AdminPublicBodyController, "when showing a public body" do
 
 end
 
+describe AdminPublicBodyController, 'when showing the form for a new public body' do
+
+    it 'should assign a new public body to the view' do
+        get :new
+        assigns[:public_body].should be_a(PublicBody)
+    end
+
+    context 'when passed a change request id as a param' do
+        render_views
+
+        it 'should populate the name, email address and last edit comment on the public body' do
+            change_request = FactoryGirl.create(:add_body_request)
+            get :new, :change_request_id => change_request.id
+            assigns[:public_body].name.should == change_request.public_body_name
+            assigns[:public_body].request_email.should == change_request.public_body_email
+            assigns[:public_body].last_edit_comment.should match('Notes: Please')
+        end
+
+        it 'should assign a default response text to the view' do
+            change_request = FactoryGirl.create(:add_body_request)
+            get :new, :change_request_id => change_request.id
+            assigns[:change_request_user_response].should match("Thanks for your suggestion to add A New Body")
+        end
+    end
+
+end
+
 describe AdminPublicBodyController, "when creating a public body" do
     render_views
 
@@ -85,6 +112,35 @@ describe AdminPublicBodyController, "when creating a public body" do
         response.should redirect_to(:controller=>'admin_public_body', :action=>'show', :id=>body.id)
     end
 
+    context 'when the body is being created as a result of a change request' do
+
+        before do
+            @change_request = FactoryGirl.create(:add_body_request)
+            post :create, { :public_body => { :name => "New Quango",
+                                              :short_name => "",
+                                              :tag_string => "blah",
+                                              :request_email => 'newquango@localhost',
+                                              :last_edit_comment => 'From test code' },
+                            :change_request_id => @change_request.id,
+                            :subject => 'Adding a new body',
+                            :response => 'The URL will be [Authority URL will be inserted here]'}
+        end
+
+        it 'should send a response to the requesting user' do
+            deliveries = ActionMailer::Base.deliveries
+            deliveries.size.should == 1
+            mail = deliveries[0]
+            mail.subject.should == 'Adding a new body'
+            mail.to.should == [@change_request.get_user_email]
+            mail.body.should =~ /The URL will be http:\/\/test.host\/body\/new_quango/
+        end
+
+        it 'should mark the change request as closed' do
+            PublicBodyChangeRequest.find(@change_request.id).is_open.should be_false
+        end
+
+    end
+
 end
 
 describe AdminPublicBodyController, "when editing a public body" do
@@ -102,6 +158,27 @@ describe AdminPublicBodyController, "when editing a public body" do
         assigns[:public_body].name.should == 'Department for Humpadinking'
         response.should render_template('edit')
     end
+
+    context 'when passed a change request id as a param' do
+        render_views
+
+        before do
+            @change_request = FactoryGirl.create(:update_body_request)
+            get :edit, :id => @change_request.public_body_id,  :change_request_id => @change_request.id
+        end
+
+        it 'should populate the email address and last edit comment on the public body' do
+            change_request = FactoryGirl.create(:update_body_request)
+            get :edit, :id => change_request.public_body_id,  :change_request_id => change_request.id
+            assigns[:public_body].request_email.should == @change_request.public_body_email
+            assigns[:public_body].last_edit_comment.should match('Notes: Please')
+        end
+
+        it 'should assign a default response text to the view' do
+            assigns[:change_request_user_response].should match("Thanks for your suggestion to update the email address")
+        end
+    end
+
 end
 
 describe AdminPublicBodyController, "when updating a public body" do
@@ -149,6 +226,35 @@ describe AdminPublicBodyController, "when updating a public body" do
         I18n.with_locale(:en) do
            pb.name.should == "Department for Humpadinking"
         end
+    end
+
+    context 'when the body is being updated as a result of a change request' do
+
+        before do
+            @change_request = FactoryGirl.create(:update_body_request)
+            post :update, { :id => @change_request.public_body_id,
+                            :public_body => { :name => "New Quango",
+                                              :short_name => "",
+                                              :request_email => 'newquango@localhost',
+                                              :last_edit_comment => 'From test code' },
+                            :change_request_id => @change_request.id,
+                            :subject => 'Body update',
+                            :response => 'Done.'}
+        end
+
+        it 'should send a response to the requesting user' do
+            deliveries = ActionMailer::Base.deliveries
+            deliveries.size.should == 1
+            mail = deliveries[0]
+            mail.subject.should == 'Body update'
+            mail.to.should == [@change_request.get_user_email]
+            mail.body.should =~ /Done./
+        end
+
+        it 'should mark the change request as closed' do
+            PublicBodyChangeRequest.find(@change_request.id).is_open.should be_false
+        end
+
     end
 end
 
