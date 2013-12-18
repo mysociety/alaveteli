@@ -108,6 +108,8 @@ Alaveteli::Application.routes.draw do
     match '/body_statistics' => 'public_body#statistics', :as => :public_bodies_statistics
     ####
 
+    resource :change_request, :only => [:new, :create], :controller => 'public_body_change_requests'
+
     #### Comment controller
     match '/annotate/request/:url_title' => 'comment#new', :as => :new_comment, :type => 'request'
     ####
