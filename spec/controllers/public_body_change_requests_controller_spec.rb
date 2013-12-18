@@ -36,6 +36,8 @@ describe PublicBodyChangeRequestsController, "creating a change request" do
             mail.body.should include('new_body@example.com')
             mail.body.should include('New Body')
             mail.body.should include("Please")
+            mail.body.should include('http://test.host/admin/body/new?change_request_id=')
+            mail.body.should include('http://test.host/admin/change_request/edit/')
         end
 
         it 'should show a notice' do
@@ -76,6 +78,8 @@ describe PublicBodyChangeRequestsController, "creating a change request" do
             mail.body.should include('new_body@example.com')
             mail.body.should include(@public_body.name)
             mail.body.should include("Please")
+            mail.body.should include("http://test.host/admin/body/edit/#{@public_body.id}?change_request_id=")
+            mail.body.should include('http://test.host/admin/change_request/edit/')
         end
 
         it 'should show a notice' do
