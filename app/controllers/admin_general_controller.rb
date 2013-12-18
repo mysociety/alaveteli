@@ -35,6 +35,8 @@ class AdminGeneralController < AdminController
         @old_unclassified = InfoRequest.find_old_unclassified(:limit => 20,
                                                               :conditions => ["prominence = 'normal'"])
         @holding_pen_messages = InfoRequest.holding_pen_request.incoming_messages
+        @new_body_requests = PublicBodyChangeRequest.new_body_requests.open
+        @body_update_requests = PublicBodyChangeRequest.body_update_requests.open
     end
 
     def timeline
