@@ -1,0 +1,15 @@
+<h3>Response to change request (will be emailed to user):</h3>
+<%= hidden_field_tag 'change_request_id', @change_request.id %>
+<div class="control-group" id="change_request_user_subject">
+  <label for="change_request_user_subject_field" class="control-label">Subject of email:</label>
+  <div class="controls">
+    <%= text_field_tag "subject", (params[:subject] || @change_request.default_response_subject), {:id => "change_request_user_subject_field", :class => "span6"} %>
+  </div>
+</div>
+
+<div class="control-group" id="change_request_user_response">
+  <label for="change_request_user_response_field" class="control-label">Response</label>
+  <div class="controls">
+    <%= text_area_tag "response", (params[:response] || h(@change_request_user_response)), {:id => "change_request_user_response_field", :rows => 10, :class => 'span6'} %>
+  </div>
+</div>

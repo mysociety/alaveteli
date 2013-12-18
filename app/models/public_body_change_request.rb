@@ -81,6 +81,39 @@ class PublicBodyChangeRequest < ActiveRecord::Base
         end
     end
 
+    def send_response(subject, response)
+        ContactMailer.from_admin_message(get_user_name,
+                                         get_user_email,
+                                         subject,
+                                         response.strip.html_safe).deliver
+    end
+
+    def comment_for_public_body
+        comments = [_("Requested by: #{get_user_name} (#{get_user_email})")]
+        if !source_url.blank?
+            comments << _("Source URL: #{source_url}")
+        end
+        if !notes.blank?
+            comments << _("Notes: #{notes}")
+        end
+        comments.join("\n")
+    end
+
+    def default_response_subject
+        if self.public_body
+            _("Your request to update {{public_body_name}} on {{site_name}}", :site_name => AlaveteliConfiguration::site_name,
+                                                                       :public_body_name => public_body.name)
+        else
+            _("Your request to add {{public_body_name}} to {{site_name}}", :site_name => AlaveteliConfiguration::site_name,
+                                                                       :public_body_name => public_body_name)
+        end
+    end
+
+    def close!
+        self.is_open = false
+        self.save!
+    end
+
     private
 
     def body_email_format

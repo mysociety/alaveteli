@@ -95,4 +95,8 @@
     <p class="help-block">put URL or other source of new info</p>
   </div>
 </div>
+<% if @change_request %>
+  <%= render :partial => 'admin_public_body_change_requests/response' %>
+
+<% end %>
 <!--[eoform:public_body]-->
