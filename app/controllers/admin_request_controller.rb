@@ -281,7 +281,8 @@ class AdminRequestController < AdminController
 
             if ! info_request.is_external?
                 ContactMailer.from_admin_message(
-                        info_request.user,
+                        info_request.user.name,
+                        info_request.user.email,
                         subject,
                         params[:explanation].strip.html_safe
                     ).deliver
