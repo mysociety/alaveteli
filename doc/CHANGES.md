@@ -40,6 +40,15 @@
   the underscore version of the locale name.
 * This release includes an update to the commonlib submodule - you
   should be warned about this when running rails-post-deploy
+* All code has been moved out of the deprecated plugin path
+  `vendor/plugins`. Once you are up and running under 0.16, you should
+  check that your xapian databases have all been copied to
+  `lib/acts_as_xapian/xapiandbs` (the code in
+  `config/initializers/acts_as_xapian` should do this), and then check
+  and remove any files under vendor/plugins so that you won't get
+  deprecation warnings about having Rails 2.3 style plugins (deprecation
+  warnings can result in incoming mail getting an auto reply under some
+  email configs).
 
 #  Version 0.15
 
