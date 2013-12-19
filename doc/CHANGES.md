@@ -1,3 +1,19 @@
+# rails-3-develop
+
+## Highlighted features
+
+* There is a new form for users to request that a new authority should
+  be added, or to request an update to the contact email used for an
+  authority. Site admins are emailed about these requests, and can
+  resolve them from the admin interface.
+
+## Upgrade notes
+
+* If your theme overrides the help/requesting template, you should
+  update the link in the section on requesting new authorities so the
+  link points to `<%= new_change_request_path %>` instead of `<%=
+  help_contact_path %>`.
+
 #  Version 0.15
 
 ## Highlighted features
