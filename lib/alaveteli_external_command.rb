@@ -49,6 +49,10 @@ module AlaveteliExternalCommand
                 $stderr.puts("Error from #{program_name} #{args.join(' ')}:")
                 $stderr.print(xc.err)
                 return nil
+            elsif !xc.exited
+                # Crash or timeout
+                $stderr.puts("#{program_name} #{args.join(' ')} exited abnormally")
+                return nil
             else
                 if opts.has_key? :append_to
                     opts[:append_to] << "\n\n"
