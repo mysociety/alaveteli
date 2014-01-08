@@ -326,7 +326,7 @@ class RequestController < ApplicationController
         if !authenticated?(
                 :web => _("To send your FOI request").to_str,
                 :email => _("Then your FOI request to {{public_body_name}} will be sent.",:public_body_name=>@info_request.public_body.name),
-                :email_subject => _("Confirm your FOI request to ") + @info_request.public_body.name
+                :email_subject => _("Confirm your FOI request to {{public_body_name}}",:public_body_name=>@info_request.public_body.name)
             )
             # do nothing - as "authenticated?" has done the redirect to signin page for us
             return
