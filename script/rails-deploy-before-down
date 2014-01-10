@@ -57,6 +57,53 @@ cd log
 touch development.log fastcgi.crash.log production.log test.log
 cd ..
 
+# Returns 0 if an element is present in a bash array, and 1 otherwise
+# Taken from: http://stackoverflow.com/a/8574392/223092
+contains () {
+    local E
+    for E in "${@:2}"
+    do
+        [ "$E" == "$1" ] && return 0
+    done
+    return 1
+}
+
+if [ x"$OPTION_SHARED_FILES_PATH" != x ]
+then
+    for F in "${OPTION_SHARED_FILES[@]}" "${OPTION_SHARED_DIRECTORIES[@]}"
+    do
+        # Remove any trailing slash from directories:
+        NORMALIZED_F="${F%/}"
+        RELATIVE_DIRECTORY="$(dirname $NORMALIZED_F)"
+        DESTINATION="$OPTION_SHARED_FILES_PATH/$NORMALIZED_F"
+        # Ensure that the directory in the shared path exists:
+        mkdir -p "$OPTION_SHARED_FILES_PATH/$RELATIVE_DIRECTORY"
+        # If it's a directory, and it doesn't exist, make sure that
+        # it's created:
+        if contains "$F" "${OPTION_SHARED_DIRECTORIES[@]}"
+        then
+            if [ ! -d "$DESTINATION" ]
+            then
+                mkdir -p "$DESTINATION"
+            fi
+        fi
+        # Make sure we won't overwrite a file because it hasn't been
+        # moved to the shared directory yet:
+        if [ -e "$NORMALIZED_F" ] && [ ! -L "$NORMALIZED_F" ]
+        then
+            cat <<EOF
+$F is a real file or directory, but is listed in SHARED_FILES or
+SHARED_DIRECTORIES and SHARED_FILES_PATH is set.  $F should have
+been moved to $OPTION_SHARED_FILES_PATH/$F - for mySociety
+deployments you can use script/mysociety-switch-to-shared to automate
+this.
+EOF
+            exit 1
+        fi
+        ln -snf "$DESTINATION" "$NORMALIZED_F"
+    done
+fi
+
 # Force appropriate environment in production
 if [ "$OPTION_STAGING_SITE" = "0" ]
 then
