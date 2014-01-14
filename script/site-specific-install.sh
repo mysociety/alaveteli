@@ -66,6 +66,11 @@ ensure_line_present \
     /etc/postfix/main.cf 644
 
 ensure_line_present \
+    "^ *myhostname *=" \
+    "myhostname = $(hostname --fqdn)" \
+    /etc/postfix/main.cf 644
+
+ensure_line_present \
     "^do-not-reply" \
     "do-not-reply-to-this-address:        :blackhole:" \
     /etc/aliases 644

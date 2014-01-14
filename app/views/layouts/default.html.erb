@@ -66,16 +66,17 @@
 <% if is_admin? %>
   <%= render :partial => 'admin_general/admin_navbar' %>
 <% end %>
-<% popup_banner = render(:partial => "general/popup_banner").strip %>
-<% if popup_banner.present? %>
-<div id="everypage" class="jshide">
-  <p class="popup-close"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;"><%= _('Close') %></a></p>
-  <%= raw popup_banner %>
-  <p class="popup-close"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;"><%= _('Close') %></a></p>
-</div>
-<% end %>
 
 <div class="entirebody">
+    <% popup_banner = render(:partial => "general/popup_banner").strip %>
+    <% if popup_banner.present? and  ! @render_to_file %>
+    <div id="everypage" class="popup">
+      <span class="popup-content">
+      <%= raw popup_banner %>
+      </span>
+      <span class="popup-close"><a href="#top" ><%= _('Close') %></a></span>
+    </div>
+    <% end %>
     <%= render :partial => 'general/header' %>
     <div id="wrapper">
         <div id="content">
@@ -96,7 +97,6 @@
     <%= render :partial => 'general/footer' %>
 
 </div>
-<div id="other-country-notice"></div>
 <div id="link_box"><span class="close-button">X</span>
 <%= _("Paste this link into emails, tweets, and anywhere else:") %>
 <br />
