@@ -44,14 +44,14 @@ module AlaveteliExternalCommand
             end
             xc.run(opts[:stdin_string] || "", opts[:env] || {})
 
-            if xc.status != 0
+            if !xc.exited
+                # Crash or timeout
+                $stderr.puts("#{program_name} #{args.join(' ')}:exited abnormally")
+                return nil
+            elsif xc.status != 0
                 # Error
                 $stderr.puts("Error from #{program_name} #{args.join(' ')}:")
                 $stderr.print(xc.err)
-                return nil
-            elsif !xc.exited
-                # Crash or timeout
-                $stderr.puts("#{program_name} #{args.join(' ')} exited abnormally")
                 return nil
             else
                 if opts.has_key? :append_to
