@@ -8,7 +8,6 @@ padding:0;
 }
 
 #banner {
-position:absolute;
 top:0;
 background-color:#F3F3F3;
 left:0;
@@ -121,7 +120,6 @@ clear:both;
 top:0;
 text-align:left;
 overflow:visible;
-padding-top:160px;
 width:900px;
 margin:0 auto 1.2em;
 }
@@ -719,28 +717,45 @@ margin:60px 0 0;
 padding:0.5em 0;
 }
 
-#everypage {
-background-color:#fc9;
-border:solid 2px #f60;
-border-top:none;
-opacity:0.97;
-border-bottom-left-radius:10px;
-border-bottom-right-radius:10px;
-position:fixed;
-width:70%;
-left:15%;
+.popup {
+background-color:#D5FFD8;
+border:solid 3px #16C132;
 z-index:2000;
-max-height:95%;
 overflow:auto;
-padding:4px;
+text-align:center;
+margin-top:2px;
+}
+
+.popup .popup-content{
+margin:0.5em;
+width: 95%;
+float: left;
+}
+
+.popup p {
+margin: 0;
 }
 
 #everypage h2,#everypage h3 {
 margin:0.5em 0;
 }
 
-#everypage .popup-close {
-  text-align: right;
+
+.popup .popup-close {
+color:#FFF;
+text-decoration:none;
+display:inline-block;
+border-radius:2px;
+-moz-border-radius:2px;
+cursor:pointer;
+background: url('/images/small-green-cross.png') no-repeat 0;
+width:15px;
+height:15px;
+border:solid 0 #FFF;
+text-indent:-999px;
+overflow:hidden;
+float:right;
+padding:10px 0;
 }
 
 #game_sidebar {
@@ -1568,27 +1583,12 @@ cursor:pointer;
 opacity:1;
 }
 
-#other-country-notice {
-background:#222;
-color:#FFF;
-font-size:1.1em;
-width:100%;
-z-index:999;
-display:block;
-position:absolute;
-top:0;
-opacity:0.9;
-}
 
 p.public-body-name-prefix {
 color:#888;
 margin-top:15px;
 margin-bottom:-15px;
 font-size: 1.2em;
-}
-
-#other-country-notice a {
-color:#FFF;
 }
 
 .close-button {

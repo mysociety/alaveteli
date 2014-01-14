@@ -7,7 +7,7 @@ $(document).ready(function() {
         dataType: 'html',
         success: function(country_message){
         if (country_message != ''){
-      $('#other-country-notice').html(country_message);
+      $('#other-country-notice .popup-content').html(country_message);
       $('body:not(.front) #other-country-notice').show()
         }
     }
@@ -16,10 +16,17 @@ $(document).ready(function() {
      }
  }
 
- $('#other-country-notice').click(function() {
-   $('#other-country-notice').hide();
+ // popup messages
+ $('#other-country-notice .popup-close').click(function() {
+   $('#other-country-notice').hide('slow');
    $.cookie('has_seen_country_message', 1, {expires: 365, path: '/'});
      });
+ $('#everypage .popup-close').click(function() {
+   $('#everypage').hide('slow');
+   $.cookie('seen_foi2', 1, { expires: 7, path: '/' });
+   return false;
+   });
+
  // "link to this" widget
      $('a.link_to_this').click(function() {
     var box = $('div#link_box');

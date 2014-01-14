@@ -24,9 +24,6 @@ class ServicesController < ApplicationController
               FastGettext.locale = old_fgt_locale
             end
         end
-        if !text.empty?
-            text += ' <span class="close-button">X</span>'.html_safe
-        end
         render :text => text, :content_type => "text/plain"  # XXX workaround the HTML validation in test suite
     end
 
