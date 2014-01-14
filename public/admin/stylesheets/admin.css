@@ -8,7 +8,7 @@ body.admin { margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-se
 
 /* When the admin stylesheet is loaded (and so the user is seeing the admin  navbar), pad the banner of the front end interface so that it isn't hidden, and move any special notice down too.
 */
-.entirebody, #banner { padding-top: 50px; }
+.entirebody, #banner { padding-top: 42px; }
 
 #special-notice { margin-top: 50px; }
 
@@ -987,7 +987,7 @@ body.admin { margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-se
 .admin .clearfix:after { clear: both; }
 .admin .hide-text { font: 0/0 a; color: transparent; text-shadow: none; background-color: transparent; border: 0; }
 .admin .input-block-level { display: block; width: 100%; min-height: 30px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
-.admin #main { padding-top: 50px; }
+.admin #main { padding-top: 42px; }
 .admin .form-inline { display: inline; }
 .admin table .form { display: inline-block; margin: 0; }
 .admin .accordion-group { border: none; }
