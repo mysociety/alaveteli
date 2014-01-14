@@ -8,7 +8,7 @@ body.admin { margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-se
 
 /* When the admin stylesheet is loaded (and so the user is seeing the admin  navbar), pad the banner of the front end interface so that it isn't hidden, and move any special notice down too.
 */
-.entirebody, #banner { padding-top: 42px; }
+.entirebody { padding-top: 42px; }
 
 #special-notice { margin-top: 50px; }
 
