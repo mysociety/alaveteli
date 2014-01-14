@@ -58,7 +58,7 @@ describe ServicesController, "when returning a message for people in other count
             FakeWeb.register_uri(:get, %r|denmark.com|, :body => "DK")
             get :other_country_message
             response.should be_success
-            response.body.should == 'Hello! We have an  <a href="/help/alaveteli?country_name=Deutschland">important message</a> for visitors outside Deutschland <span class="close-button">X</span>'
+            response.body.should == 'Hello! We have an  <a href="/help/alaveteli?country_name=Deutschland">important message</a> for visitors outside Deutschland'
         end
         it "should default to no message if the country_from_ip domain doesn't exist" do
             AlaveteliConfiguration.stub!(:gaze_url).and_return('http://12123sdf14qsd.com')

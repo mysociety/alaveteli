@@ -23,6 +23,9 @@
 * Some fixes to the treatment of hyphenated/underscored locales so that
   public body translations are consistently stored using the underscore
   format of the locale (so 'he_IL', not 'he-IL').
+* The popup message elements for temporary notices and for letting users
+  know about other sites have been made consistent and now use simpler
+  styles.
 
 ## Upgrade notes
 
@@ -49,6 +52,8 @@
   deprecation warnings about having Rails 2.3 style plugins (deprecation
   warnings can result in incoming mail getting an auto reply under some
   email configs).
+* If you have any custom styles that rely on the absolute positioning
+  of the 'banner' and 'wrapper' elements, they may need to be updated.
 
 #  Version 0.15
 
