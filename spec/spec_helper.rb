@@ -187,11 +187,16 @@ Spork.prefork do
     end
   end
 
+  # Reset the default locale, making sure that the previous default locale
+  # is also cleared from the fallbacks
   def with_default_locale(locale)
       original_default_locale = I18n.default_locale
+      original_fallbacks = I18n.fallbacks
+      I18n.fallbacks = nil
       I18n.default_locale = locale
       yield
   ensure
+      I18n.fallbacks = original_fallbacks
       I18n.default_locale = original_default_locale
   end
 
