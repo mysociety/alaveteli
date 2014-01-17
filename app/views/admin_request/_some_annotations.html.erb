@@ -11,6 +11,7 @@
               <%=h(comment.user.name)%>
               <%=admin_value(comment.created_at)%>
            <% end %>
+           <%= check_box_tag 'comment_ids[]', comment.id %>
             <blockquote class="incoming-message">
               <%= truncate(comment.body, :length => 400) %>
             </blockquote>
@@ -43,6 +44,8 @@
         </div>
       <% end %>
     </div>
+    <%= button_tag 'Hide selected', {:name=>"newstate",:value=>"hide"} %>
+    <%= button_tag 'Unhide selected', {:name=>"newstate",:value=>"visible"} %>
   <% end %>
 <% else %>
   <p>None yet.</p>
