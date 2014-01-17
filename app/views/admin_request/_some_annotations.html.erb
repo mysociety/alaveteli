@@ -1,4 +1,5 @@
 <% if comments.size > 0 %>
+  <%= form_tag admin_user_modify_comment_visibility_path do %>
   <div class="accordion" id="comments">
     <% for comment in comments %>
       <div class="accordion-group">
@@ -42,6 +43,7 @@
       </div>
     <% end %>
   </div>
+  <% end %>
 <% else %>
   <p>None yet.</p>
 <% end %>
