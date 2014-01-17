@@ -1,0 +1,45 @@
+ Hello Example,
+
+ This is a reply to your test request Nov 28.
+
+ Regards.
+
+ On Thu, Nov 28, 2013 at 9:08 AM, Example User
+ <[1]request-x-xxx@xxx.com> wrote:
+
+ Dear Test Authority,
+
+ This is the request body.
+
+ Yours faithfully,
+
+ Example User
+
+ -------------------------------------------------------------------
+
+ Please use this email address for all replies to this request:
+ [2]request-x-xxx@xxx.com
+
+ Is [3]testauthority@example.com the wrong address for Freedom of
+ Information requests to AYG Test Authority? If so, please contact us
+ using this form:
+ [4]http://example.com/help/contact
+
+ Disclaimer: This message and any reply that you make will be published
+ on the internet. Our privacy and copyright policies:
+ [5]http://example.com/help/officers
+
+ If you find this service useful as an FOI officer, please ask your web
+ manager to link to us from your organisation's FOI page.
+
+ -------------------------------------------------------------------
+
+References
+
+ Visible links
+ 1. mailto:request-x-xxx@xxx.com
+ 2. mailto:request-x-xxx@xxx.com
+ 3. mailto:testauthority@example.com
+ 4. http://example.com/help/contact
+ 5. http://example.com/help/officers
+
