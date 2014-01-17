@@ -220,3 +220,16 @@ Spork.each_run do
     FactoryGirl.reload
   # This code will be run each time you run your specs.
 end
+
+def normalise_whitespace(s)
+    s = s.gsub(/\A\s+|\s+\Z/, "")
+    s = s.gsub(/\s+/, " ")
+    return s
+end
+
+RSpec::Matchers.define :be_equal_modulo_whitespace_to do |expected|
+  match do |actual|
+    normalise_whitespace(actual) == normalise_whitespace(expected)
+  end
+end
+
