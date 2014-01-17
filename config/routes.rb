@@ -233,6 +233,7 @@ Alaveteli::Application.routes.draw do
     match '/admin/user/destroy_track' => 'admin_user#destroy_track', :as => :admin_user_destroy_track
     match '/admin/user/login_as/:id' => 'admin_user#login_as', :as => :admin_user_login_as
     match '/admin/user/clear_profile_photo/:id' => 'admin_user#clear_profile_photo', :as => :admin_clear_profile_photo
+    match '/admin/user/modify_comment_visibility/:id' => 'admin_user#modify_comment_visibility', :as => 'admin_user_modify_comment_visibility'
     ####
 
     #### AdminTrack controller
