@@ -35,9 +35,11 @@ Alaveteli::Application.routes.draw do
     match '/list' => 'request#list', :as => :request_list
 
     match '/select_authority' => 'request#select_authority', :as => :select_authority
+    match '/select_authorities' => 'request#select_authorities', :as => :select_authorities
 
     match '/new' => 'request#new', :as => :new_request
     match '/new/:url_name' => 'request#new', :as => :new_request_to_body
+    match '/new_batch' => 'request#new_batch', :as => :new_batch
 
     match '/request/search_ahead' => 'request#search_typeahead', :as => :search_ahead
 
@@ -62,6 +64,8 @@ Alaveteli::Application.routes.draw do
     resources :request, :only => [] do
         resource :report, :only => [:new, :create]
     end
+
+    resources :info_request_batch, :only => :show
 
     #### User controller
     # Use /profile for things to do with the currently signed in user.

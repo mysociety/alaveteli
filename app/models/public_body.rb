@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # == Schema Information
+# Schema version: 20131024114346
 #
 # Table name: public_bodies
 #

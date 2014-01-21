@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20131024114346
 #
 # Table name: outgoing_messages
 #
@@ -67,13 +68,28 @@ class OutgoingMessage < ActiveRecord::Base
 
     # How the default letter starts and ends
     def get_salutation
+        if self.info_request.is_batch_request_template?
+            return OutgoingMessage.placeholder_salutation
+        end
         ret = ""
         if self.message_type == 'followup' && !self.incoming_message_followup.nil? && !self.incoming_message_followup.safe_mail_from.nil? && self.incoming_message_followup.valid_to_reply_to?
             ret = ret + OutgoingMailer.name_for_followup(self.info_request, self.incoming_message_followup)
         else
-            ret = ret + self.info_request.public_body.name
+            return OutgoingMessage.default_salutation(self.info_request.public_body)
         end
         salutation = _("Dear {{public_body_name}},", :public_body_name => ret)
+    end
+
+    def OutgoingMessage.default_salutation(public_body)
+        _("Dear {{public_body_name}},", :public_body_name => public_body.name)
+    end
+
+    def OutgoingMessage.placeholder_salutation
+        _("Dear [Authority name],")
+    end
+
+    def OutgoingMessage.fill_in_salutation(body, public_body)
+        body.gsub(placeholder_salutation, default_salutation(public_body))
     end
 
     def get_signoff

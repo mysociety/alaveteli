@@ -46,6 +46,19 @@ describe InfoRequest do
             info_request.valid?
             info_request.errors[:title].should_not be_empty
         end
+
+        it 'should require a public body id by default' do
+            info_request = InfoRequest.new
+            info_request.valid?
+            info_request.errors[:public_body_id].should_not be_empty
+        end
+
+        it 'should not require a public body id if it is a batch request template' do
+            info_request = InfoRequest.new
+            info_request.is_batch_request_template = true
+            info_request.valid?
+            info_request.errors[:public_body_id].should be_empty
+        end
     end
 
     describe 'when generating a user name slug' do
@@ -598,6 +611,12 @@ describe InfoRequest do
             it 'should apply a request rule' do
                 @request_rule.should_receive(:apply_to_text!).with(@text)
                 @info_request.apply_censor_rules_to_text!(@text)
+            end
+
+            it 'should not raise an error if the request is a batch request template' do
+                @info_request.stub!(:public_body).and_return(nil)
+                @info_request.is_batch_request_template = true
+                lambda{ @info_request.apply_censor_rules_to_text!(@text) }.should_not raise_error
             end
 
         end

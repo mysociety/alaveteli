@@ -337,3 +337,34 @@ describe User, "when emails have bounced" do
         user.email_bounce_message.should == "The reason we think the email bounced (e.g. a bounce message)"
     end
 end
+
+describe User, "when calculating if a user has exceeded the request limit" do
+
+    before do
+        @info_request = FactoryGirl.create(:info_request)
+        @user = @info_request.user
+    end
+
+    it 'should return false if no request limit is set' do
+        AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return nil
+        @user.exceeded_limit?.should be_false
+    end
+
+    it 'should return false if the user has not submitted more than the limit' do
+        AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return(2)
+        @user.exceeded_limit?.should be_false
+    end
+
+    it 'should return true if the user has submitted more than the limit' do
+        AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return(0)
+        @user.exceeded_limit?.should be_true
+    end
+
+    it 'should return false if the user is allowed to make batch requests' do
+        @user.can_make_batch_requests = true
+        AlaveteliConfiguration.stub!(:max_requests_per_user_per_day).and_return(0)
+        @user.exceeded_limit?.should be_false
+    end
+
+
+end
