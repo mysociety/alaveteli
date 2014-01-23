@@ -4,6 +4,7 @@
       <% for comment in comments %>
         <div class="accordion-group">
           <div class="accordion-heading">
+           <%= check_box_tag 'comment_ids[]', comment.id %>
            <a href="#comment_<%=comment.id%>" data-toggle="collapse" data-parent="#comments"><%= chevron_right %></a>
            <%= link_to admin_request_edit_comment_path(comment) do %>
               #<%=comment.id%>
@@ -12,7 +13,6 @@
               <%=admin_value(comment.created_at)%>
            <% end %>
            <%= comment.visible ? 'Visible' : 'Hidden' %>
-           <%= check_box_tag 'comment_ids[]', comment.id %>
             <blockquote class="incoming-message">
               <%= truncate(comment.body, :length => 400) %>
             </blockquote>
