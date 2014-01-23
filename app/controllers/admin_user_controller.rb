@@ -102,9 +102,9 @@ class AdminUserController < AdminController
         comments_to_change = params[:comment_ids]
         comment_value = (params[:newstate] == "visible")
         Comment.update_all(["visible=?", comment_value], :id => comments_to_change)
-        # This can be called from either user or request page.
-        # Return to the one we came from
-        redirect_to  request.referer
+
+        # Return to the page we were called from (either user or request page) 
+        redirect_to :back
     end
 
     private
