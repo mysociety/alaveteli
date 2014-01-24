@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# rails-deploy-while-down
+
+# For Ruby on Rails, run this in exec_while_down in vhosts.pl. It does
+# any deploy actions that should be done while the site is down;
+# typically this is the database migrations.
+#
+# Copyright (c) 2014 UK Citizens Online Democracy. All rights reserved.
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
+
+set -e
+#set -x # debug
+
+# upgrade database
+bundle exec rake db:migrate #--trace

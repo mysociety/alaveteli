@@ -31,6 +31,7 @@
 
 require 'tempfile'
 
+$no_theme_name = 'none'
 theme_directory = ENV['ALAVETELI_THEMES_DIR']
 alaveteli_directory = File.expand_path(File.join(File.dirname(__FILE__),
                                                  ".."))
@@ -53,7 +54,9 @@ $available_themes = Dir.entries(theme_directory).find_all do |local_theme_name|
   next unless File.directory? full_path
   next unless File.directory? File.join(full_path, '.git')
   local_theme_name
-end
+end.sort
+
+$available_themes.unshift $no_theme_name
 
 if $available_themes.empty?
   STDERR.puts "There were no theme directories found in '#{theme_directory}'"
@@ -62,7 +65,7 @@ end
 
 def usage_and_exit
   STDERR.puts "Usage: #{$0} <THEME-NAME>"
-  $available_themes.sort.each do |theme_name|
+  $available_themes.each do |theme_name|
     STDERR.puts "  #{theme_name}"
   end
   exit 1
@@ -108,13 +111,23 @@ symlink(File.basename(theme_filename),
         config_directory,
         "general.yml")
 
-symlink(File.join(full_theme_path, 'public'),
-        File.join(alaveteli_directory, 'public'),
-        'alavetelitheme')
+public_directory = File.join(alaveteli_directory, 'public')
 
-symlink(full_theme_path,
-        File.join(alaveteli_directory, 'vendor', 'plugins'),
-        requested_theme)
+if requested_theme == $no_theme_name
+    File.unlink File.join(public_directory, 'alavetelitheme')
+else
+    symlink(File.join(full_theme_path, 'public'),
+            public_directory,
+            'alavetelitheme')
+
+    symlink(full_theme_path,
+            File.join(alaveteli_directory, 'lib', 'themes'),
+            requested_theme)
+end
 
 STDERR.puts """Switched to #{requested_theme}!
-You will need to restart any development server you have running."""
+You will need to:
+  1. restart any development server you have running.
+  2. run: bundle exec rake assets:clean
+  3. run: bundle exec rake assets:precompile
+"""

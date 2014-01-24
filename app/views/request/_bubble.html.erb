@@ -13,11 +13,11 @@
                                     :file_name => a.display_filename + '.html')
                         %>
                         <% img_filename = "icon_" + a.content_type.sub('/', '_') + "_large.png"
-                        full_filename = File.expand_path(File.join(File.dirname(__FILE__), "../../../public/images", img_filename))
+                        full_filename = File.expand_path(Rails.root.join('app', 'assets', 'images', img_filename))
                         if File.exist?(full_filename) %>
-                            <a href="<%=attachment_path%>"><img class="attachment_image" alt="Attachment" src="/images/<%=img_filename%>"></a>
+                            <%= link_to image_tag(img_filename, :class => "attachment_image", :alt => "Attachment"), attachment_path %>
                         <% else %>
-                            <a href="<%=attachment_path%>"><img class="attachment_image" alt="Attachment" src="/images/icon_unknown.png"></a>
+                            <%= link_to image_tag("icon_unknown.png", :class => "attachment_image", :alt => "Attachment"), attachment_path %>
                         <% end %>
                         <strong><%= h a.display_filename %></strong>
                         <br>

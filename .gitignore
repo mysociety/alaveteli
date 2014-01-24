@@ -11,7 +11,7 @@
 .autotest
 *#*#
 TAGS
-/vendor/plugins/*theme
+/lib/themes
 /locale/model_attributes.rb
 /files/
 /public/download
@@ -28,3 +28,5 @@ alaveteli.sublime*
 webrat.log
 /.rbenv-version
 /db/development_structure.sql
+/db/structure.sql
+/public/assets

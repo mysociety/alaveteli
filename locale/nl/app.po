@@ -4,13 +4,14 @@
 #
 # Translators:
 # Edwin Bosveld <edwin@inwy.nl>, 2013
+# Infwolf <infwolf@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-08 12:10+0000\n"
-"PO-Revision-Date: 2013-11-08 12:13+0000\n"
-"Last-Translator: mysociety <transifex@mysociety.org>\n"
+"PO-Revision-Date: 2014-01-16 20:59+0000\n"
+"Last-Translator: Infwolf <infwolf@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/alaveteli/language/nl/)\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -58,52 +59,52 @@ msgid " Include relevant links, such as to a campaign page, your blog or a\\n   
 msgstr ""
 
 msgid " Link to the information requested, if it is <strong>already available</strong> on the Internet. "
-msgstr ""
+msgstr "Een link naar de gevraagde informatie, indien het <strong> al beschikbaar </ strong> is op het internet."
 
 msgid " Offer better ways of <strong>wording the request</strong> to get the information. "
 msgstr ""
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr ""
+msgstr "Vertel hoe u <strong> de informatie heeft gebruikt </ strong>, met een  link indien mogelijk."
 
 msgid " Suggest <strong>where else</strong> the requester might find the information. "
-msgstr ""
+msgstr "Geef een suggestie <strong> waar anders </ strong> de aanvrager de informatie zou kunnen vinden."
 
 msgid " What are you investigating using Freedom of Information? "
-msgstr ""
+msgstr "Wat bent u aan het onderzoeken met behulp van de Wet Openbaarheid Bestuur?"
 
 msgid " You are already being emailed updates about the request."
-msgstr ""
+msgstr "U bent reeds gemaild met updates over het verzoek."
 
 msgid " You will also be emailed updates about the request."
-msgstr ""
+msgstr "U zult via de email op de hoogte gehouden worden over het verzoek."
 
 msgid " made by "
-msgstr ""
+msgstr "gemaakt door"
 
 msgid " or "
-msgstr ""
+msgstr "of"
 
 msgid " when you send this message."
-msgstr ""
+msgstr "wanneer u dit bericht verzend."
 
 msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
 msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "'Misdaadstatistieken op wijkniveau voor Wales'"
 
 msgid "'Pollution levels over time for the River Tyne'"
-msgstr ""
+msgstr "'Vervuiling in der loop der tijd van de rivier de Tyne'"
 
 msgid "'{{link_to_authority}}', a public authority"
-msgstr ""
+msgstr "'{{link_to_authority}}', een overheidsinstantie"
 
 msgid "'{{link_to_request}}', a request"
-msgstr ""
+msgstr "'{{link_to_request}}', een verzoek"
 
 msgid "'{{link_to_user}}', a person"
-msgstr ""
+msgstr "'{{link_to_user}}', een persoon"
 
 msgid "*unknown*"
 msgstr ""
@@ -112,16 +113,16 @@ msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ""
 
 msgid "- or -"
-msgstr ""
+msgstr "- of -"
 
 msgid "1. Select an authority"
-msgstr ""
+msgstr "1. Selecteer een instantie"
 
 msgid "2. Ask for Information"
-msgstr ""
+msgstr "2. Vraag om informatie"
 
 msgid "3. Now check your request"
-msgstr ""
+msgstr "3. Controleer nu uw verzoek"
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr ""
@@ -139,7 +140,7 @@ msgid "<p>Thank you! Here are some ideas on what to do next:</p>\\n            <
 msgstr ""
 
 msgid "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>"
-msgstr ""
+msgstr "<p> Dank u wel! Ik hoop dat u niet al te lang hoeft te wachten. </ P> Volgens de wet moet u reactie hebben gekregen, voor <strong> {{date_response_required_by}} </ strong>. </ p>"
 
 msgid "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>\\n{{date_response_required_by}}</strong>.</p>"
 msgstr ""
@@ -220,7 +221,7 @@ msgid "<strong>Advice</strong> on how to get a response that will satisfy the re
 msgstr ""
 
 msgid "<strong>All the information</strong> has been sent"
-msgstr ""
+msgstr "<strong> Alle informatie </ strong> is verzonden"
 
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr ""
@@ -229,7 +230,7 @@ msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, yo
 msgstr ""
 
 msgid "<strong>Clarification</strong> has been requested"
-msgstr ""
+msgstr "<strong> Toelichting </ strong> is aangevraagd"
 
 msgid "<strong>No response</strong> has been received\\n                <small>(maybe there's just an acknowledgement)</small>"
 msgstr ""
@@ -253,7 +254,7 @@ msgid "<strong>Privacy warning:</strong> Your message, and any response\\n      
 msgstr ""
 
 msgid "<strong>Some of the information</strong> has been sent "
-msgstr ""
+msgstr "<strong> Een deel van de informatie </ strong> is verzonden"
 
 msgid "<strong>Thank</strong> the public authority or "
 msgstr ""
@@ -271,7 +272,7 @@ msgid "A <strong>summary</strong> of the response if you have received it by pos
 msgstr ""
 
 msgid "A Freedom of Information request"
-msgstr ""
+msgstr "Een Wet Openbaarheid Bestuur verzoek"
 
 msgid "A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}"
 msgstr ""
@@ -280,25 +281,25 @@ msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>
 msgstr ""
 
 msgid "A public authority"
-msgstr ""
+msgstr "Een overheidsinstantie"
 
 msgid "A response will be sent <strong>by post</strong>"
-msgstr ""
+msgstr "Een reactie zal <strong>per post</ strong> worden verzonden"
 
 msgid "A strange reponse, required attention by the {{site_name}} team"
-msgstr ""
+msgstr "Een vreemde respons, vereist aandacht van het {{site_name}} team"
 
 msgid "A vexatious request"
 msgstr ""
 
 msgid "A {{site_name}} user"
-msgstr ""
+msgstr "Een {{site_name}} gebruiker"
 
 msgid "About you:"
-msgstr ""
+msgstr "Over u:"
 
 msgid "Act on what you've learnt"
-msgstr ""
+msgstr "Handel naar wat u heeft geleerd"
 
 msgid "Acts as xapian/acts as xapian job"
 msgstr ""
@@ -310,25 +311,25 @@ msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr ""
 
 msgid "Add an annotation"
-msgstr ""
+msgstr "Voeg een aantekening toe"
 
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr ""
 
 msgid "Added on {{date}}"
-msgstr ""
+msgstr "Toegevoegd op {{date}}"
 
 msgid "Admin level is not included in list"
-msgstr ""
+msgstr "Beheerder-niveau is niet opgenomen in de lijst"
 
 msgid "Administration URL:"
-msgstr ""
+msgstr "Administratie URL:"
 
 msgid "Advanced search"
-msgstr ""
+msgstr "Geavanceerd zoeken"
 
 msgid "Advanced search tips"
-msgstr ""
+msgstr "Geavanceerde zoektips"
 
 msgid "Advise on whether the <strong>refusal is legal</strong>, and how to complain about it if not."
 msgstr ""
@@ -337,7 +338,7 @@ msgid "Air, water, soil, land, flora and fauna (including how these effect\\n   
 msgstr ""
 
 msgid "All of the information requested has been received"
-msgstr ""
+msgstr "Alle vereiste informatie is ontvangen"
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
 msgstr ""
@@ -346,13 +347,13 @@ msgid "All the options below can use <strong>variety</strong> or <strong>latest_
 msgstr ""
 
 msgid "Also called {{other_name}}."
-msgstr ""
+msgstr "Ook wel {{other_name}} genoemd."
 
 msgid "Also send me alerts by email"
 msgstr ""
 
 msgid "Alter your subscription"
-msgstr ""
+msgstr "Wijzig uw aanmelding"
 
 msgid "Although all responses are automatically published, we depend on\\nyou, the original requester, to evaluate them."
 msgstr ""
@@ -361,7 +362,7 @@ msgid "An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</e
 msgstr ""
 
 msgid "An <strong>error message</strong> has been received"
-msgstr ""
+msgstr "Een <strong>foutmelding</ strong> is ontvangen"
 
 msgid "An Environmental Information Regulations request"
 msgstr ""
@@ -370,10 +371,10 @@ msgid "An anonymous user"
 msgstr ""
 
 msgid "Annotation added to request"
-msgstr ""
+msgstr "Aantekening toegevoegd aan verzoek"
 
 msgid "Annotations"
-msgstr ""
+msgstr "Aantekeningen"
 
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr ""
@@ -385,7 +386,7 @@ msgid "Anonymous user"
 msgstr ""
 
 msgid "Anyone:"
-msgstr ""
+msgstr "iedereen:"
 
 msgid "Applies to"
 msgstr ""
@@ -403,22 +404,22 @@ msgid "At the bottom of this page, write a reply to them trying to persuade them
 msgstr ""
 
 msgid "Attachment (optional):"
-msgstr ""
+msgstr "Bijlage (optioneel):"
 
 msgid "Attachment:"
-msgstr ""
+msgstr "Bijlage:"
 
 msgid "Awaiting classification."
-msgstr ""
+msgstr "In afwachting van classificatie."
 
 msgid "Awaiting internal review."
-msgstr ""
+msgstr "In afwachting van interne beoordeling."
 
 msgid "Awaiting response."
-msgstr ""
+msgstr "In afwachting van antwoord,\\."
 
 msgid "Beginning with"
-msgstr ""
+msgstr "Te beginnen met"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr ""
@@ -427,10 +428,10 @@ msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for
 msgstr ""
 
 msgid "Browse all authorities..."
-msgstr ""
+msgstr "Blader door alle instanties ..."
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
-msgstr ""
+msgstr "Volgens de wet, onder alle omstandigheden, {{public_body_link}} zou na al moeten hebben gereageerd"
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
 msgstr ""
@@ -442,19 +443,19 @@ msgid "Can't find the one you want?"
 msgstr ""
 
 msgid "Cancel a {{site_name}} alert"
-msgstr ""
+msgstr "Annuleer een {{site_name}} waarschuwing"
 
 msgid "Cancel some {{site_name}} alerts"
-msgstr ""
+msgstr "Annuleer sommige {{site_name}} waarschuwingen"
 
 msgid "Cancel, return to your profile page"
-msgstr ""
+msgstr "Annuleer, terug naar uw profielpagina"
 
 msgid "Censor rule"
 msgstr ""
 
 msgid "CensorRule|Last edit comment"
-msgstr ""
+msgstr "CensorRule | Laatst bewerkt commentaar"
 
 msgid "CensorRule|Last edit editor"
 msgstr ""
@@ -469,52 +470,52 @@ msgid "CensorRule|Text"
 msgstr ""
 
 msgid "Change email on {{site_name}}"
-msgstr ""
+msgstr "Wijzig uw e-mail op {{site_name}}"
 
 msgid "Change password on {{site_name}}"
-msgstr ""
+msgstr "Wijzig uw wachtwoord op {{site_name}}"
 
 msgid "Change profile photo"
-msgstr ""
+msgstr "Wijzig profiel foto"
 
 msgid "Change the text about you on your profile at {{site_name}}"
-msgstr ""
+msgstr "Wijzig de tekst over u op uw profiel bij {{site_name}}"
 
 msgid "Change your email"
-msgstr ""
+msgstr "Wijzig uw e-mail"
 
 msgid "Change your email address used on {{site_name}}"
-msgstr ""
+msgstr "Wijzig uw e-mailadres gebruikt op {{site_name}}"
 
 msgid "Change your password"
-msgstr ""
+msgstr "Wijzig uw wachtwoord"
 
 msgid "Change your password on {{site_name}}"
-msgstr ""
+msgstr "Wijzig uw wachtwoord op {{site_name}}"
 
 msgid "Change your password {{site_name}}"
-msgstr ""
+msgstr "Wijzig uw wachtwoord {{site_name}}"
 
 msgid "Charity registration"
-msgstr ""
+msgstr "goede doel registratie"
 
 msgid "Check for mistakes if you typed or copied the address."
-msgstr ""
+msgstr "Controleer het adres op fouten."
 
 msgid "Check you haven't included any <strong>personal information</strong>."
 msgstr ""
 
 msgid "Choose your profile photo"
-msgstr ""
+msgstr "Kies uw profiel foto"
 
 msgid "Clarification"
-msgstr ""
+msgstr "Verduidelijking"
 
 msgid "Clarify your FOI request - "
 msgstr ""
 
 msgid "Classify an FOI response from "
-msgstr ""
+msgstr "Classificeer een WOB reactie van"
 
 msgid "Clear photo"
 msgstr ""
@@ -562,19 +563,19 @@ msgid "Confirm you want to follow the request '{{request_title}}'"
 msgstr ""
 
 msgid "Confirm your FOI request to "
-msgstr ""
+msgstr "Bevestig uw WOB verzoek aan"
 
 msgid "Confirm your account on {{site_name}}"
-msgstr ""
+msgstr "Bevestig uw account op {{site_name}}"
 
 msgid "Confirm your annotation to {{info_request_title}}"
-msgstr ""
+msgstr "Bevestig uw aantekening  {{info_request_title}}"
 
 msgid "Confirm your email address"
-msgstr ""
+msgstr "Bevestig uw email adres"
 
 msgid "Confirm your new email address on {{site_name}}"
-msgstr ""
+msgstr "Bevestig uw nieuwe e-mailadres op {{site_name}}"
 
 msgid "Considered by administrators as not an FOI request and hidden from site."
 msgstr ""
@@ -586,7 +587,7 @@ msgid "Contact {{recipient}}"
 msgstr ""
 
 msgid "Contact {{site_name}}"
-msgstr ""
+msgstr "Contact {{site_name}}"
 
 msgid "Could not identify the request from the email address"
 msgstr ""
@@ -604,13 +605,13 @@ msgid "Currently <strong>waiting for a response</strong> from {{public_body_link
 msgstr ""
 
 msgid "Date:"
-msgstr ""
+msgstr "Datum:"
 
 msgid "Dear {{name}},"
 msgstr ""
 
 msgid "Dear {{public_body_name}},"
-msgstr ""
+msgstr "Geachte {{public_body_name}},"
 
 msgid "Default locale"
 msgstr ""
@@ -619,10 +620,10 @@ msgid "Defunct."
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
-msgstr ""
+msgstr "Vertraagde reactie op uw WOB verzoek -"
 
 msgid "Delayed."
-msgstr ""
+msgstr "Vertraagd."
 
 msgid "Delivery error"
 msgstr ""
@@ -649,7 +650,7 @@ msgid "Don't want to address your message to {{person_or_body}}?  You can also w
 msgstr ""
 
 msgid "Done"
-msgstr ""
+msgstr "Gereed"
 
 msgid "Done &gt;&gt;"
 msgstr ""
@@ -658,7 +659,7 @@ msgid "Download a zip file of all correspondence"
 msgstr ""
 
 msgid "Download original attachment"
-msgstr ""
+msgstr "Download originele bijlage"
 
 msgid "EIR"
 msgstr ""
@@ -718,7 +719,7 @@ msgid "Everything that you enter on this page\\n                will be <strong>
 msgstr ""
 
 msgid "FOI"
-msgstr ""
+msgstr "WOB"
 
 msgid "FOI email address for {{public_body}}"
 msgstr ""
@@ -727,7 +728,7 @@ msgid "FOI request – {{title}}"
 msgstr ""
 
 msgid "FOI requests"
-msgstr ""
+msgstr "WOB aanvragen"
 
 msgid "FOI requests by '{{user_name}}'"
 msgstr ""
@@ -846,34 +847,34 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Freedom of Information"
-msgstr ""
+msgstr "Wet Openbaarheid Bestuur"
 
 msgid "Freedom of Information Act"
-msgstr ""
+msgstr "Wet Openbaarheid Bestuur"
 
 msgid "Freedom of Information law does not apply to this authority, so you cannot make\\n                a request to it."
-msgstr ""
+msgstr "Wet Openbaarheid Bestuur is niet van toepassing op deze instantie, u kunt daar geen verzoek voor indienen."
 
 msgid "Freedom of Information law no longer applies to"
-msgstr ""
+msgstr "Wet Openbaarheid Bestuur is niet meer van toepassing op"
 
 msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
 msgstr ""
 
 msgid "Freedom of Information requests made"
-msgstr ""
+msgstr "Wet Openbaarheid Bestuur verzoeken van"
 
 msgid "Freedom of Information requests made by this person"
-msgstr ""
+msgstr "Wet Openbaarheid Bestuur verzoeken door deze persoon"
 
 msgid "Freedom of Information requests made by you"
-msgstr ""
+msgstr "Wet Openbaarheid Bestuur verzoeken door u"
 
 msgid "Freedom of Information requests made using this site"
-msgstr ""
+msgstr "Wet Openbaarheid Bestuur verzoeken door gebruik van deze site"
 
 msgid "Freedom of information requests to"
-msgstr ""
+msgstr "Wet Openbaarheid Bestuur verzoek aan"
 
 msgid "From"
 msgstr ""
@@ -1323,7 +1324,7 @@ msgid "Name is already taken"
 msgstr ""
 
 msgid "New Freedom of Information requests"
-msgstr ""
+msgstr "Nieuwe Wet Openbaarheid Bestuur verzoeken"
 
 msgid "New censor rule"
 msgstr ""
@@ -1377,7 +1378,7 @@ msgid "No tracked things found."
 msgstr ""
 
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
-msgstr ""
+msgstr "Niemand heeft een Wet Openbaarheid Bestuur verzoek ​​aan {{public_body_name}} ingediend met behulp van deze site."
 
 msgid "None found."
 msgstr ""
@@ -1482,16 +1483,16 @@ msgid "OutgoingMessage|What doing"
 msgstr ""
 
 msgid "Partially successful."
-msgstr ""
+msgstr "Gedeeltelijk succesvol."
 
 msgid "Password is not correct"
-msgstr ""
+msgstr "Wachtwoord is niet correct"
 
 msgid "Password:"
-msgstr ""
+msgstr "Wachtwoord:"
 
 msgid "Password: (again)"
-msgstr ""
+msgstr "Wachtwoord: (nogmaals)"
 
 msgid "Paste this link into emails, tweets, and anywhere else:"
 msgstr ""
@@ -1509,19 +1510,19 @@ msgid "Percentage of total requests"
 msgstr ""
 
 msgid "Photo of you:"
-msgstr ""
+msgstr "Foto van u:"
 
 msgid "Plans and administrative measures that affect these matters"
 msgstr ""
 
 msgid "Play the request categorisation game"
-msgstr ""
+msgstr "Speel het verzoek categorisatie spel"
 
 msgid "Play the request categorisation game!"
-msgstr ""
+msgstr "Speel het verzoek categorisatie spel!"
 
 msgid "Please"
-msgstr ""
+msgstr "Alstublieft"
 
 msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
 msgstr ""
@@ -1539,7 +1540,7 @@ msgid "Please <strong>only</strong> write messages directly relating to your req
 msgstr ""
 
 msgid "Please ask for environmental information only"
-msgstr ""
+msgstr "Vraag aub uitsluitend om milieu-informatie "
 
 msgid "Please check the URL (i.e. the long code of letters and numbers) is copied\\ncorrectly from your email."
 msgstr ""
@@ -1632,7 +1633,7 @@ msgid "Please only request information that comes under those categories, <stron
 msgstr ""
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
-msgstr ""
+msgstr "Gelieve door te geven aan de persoon die Wet Openbaarheid Bestuur beoordelingen verricht."
 
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong>\\nif they are successful yet or not."
 msgstr ""
@@ -1737,10 +1738,10 @@ msgid "Public Body Statistics"
 msgstr ""
 
 msgid "Public authorities"
-msgstr ""
+msgstr "Overheidsinstanties"
 
 msgid "Public authorities - {{description}}"
-msgstr ""
+msgstr "Overheidsinstanties - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr ""
@@ -1845,7 +1846,7 @@ msgid "PurgeRequest|Url"
 msgstr ""
 
 msgid "RSS feed"
-msgstr ""
+msgstr "RSS feed"
 
 msgid "RSS feed of updates"
 msgstr ""
@@ -1869,13 +1870,13 @@ msgid "Recently described results first"
 msgstr ""
 
 msgid "Refused."
-msgstr ""
+msgstr "Geweigerd."
 
 msgid "Remember me</label> (keeps you signed in longer;\\n    do not use on a public computer) "
 msgstr ""
 
 msgid "Report abuse"
-msgstr ""
+msgstr "Rapporteer misbruik"
 
 msgid "Report an offensive or unsuitable request"
 msgstr ""
@@ -1977,7 +1978,7 @@ msgid "Search"
 msgstr ""
 
 msgid "Search Freedom of Information requests, public authorities and users"
-msgstr ""
+msgstr "Zoek door Wet Openbaarheid Bestuur verzoeken, overheden en gebruikers"
 
 msgid "Search contributions by this person"
 msgstr ""
@@ -2002,8 +2003,8 @@ msgstr ""
 
 msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
 msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Zoek binnen de {{count}} Wet Openbaarheid Bestuur gedane verzoek aan {{public_body_name}}"
+msgstr[1] "Zoek binnen de {{count}} Wet Openbaarheid Bestuur gedane verzoeken aan {{public_body_name}}"
 
 msgid "Search your contributions"
 msgstr ""
@@ -2144,7 +2145,7 @@ msgid "Subscribe to blog"
 msgstr ""
 
 msgid "Successful Freedom of Information requests"
-msgstr ""
+msgstr "Succesvolle Wet Openbaarheid Bestuur verzoeken"
 
 msgid "Successful."
 msgstr ""
@@ -2210,7 +2211,7 @@ msgid "The <strong>review has finished</strong> and overall:"
 msgstr ""
 
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
-msgstr ""
+msgstr "De Wet Openbaarheid Bestuur <strong> is niet van toepassing </ strong> op"
 
 msgid "The accounts have been left as they previously were."
 msgstr ""
@@ -2285,10 +2286,10 @@ msgid "The response to your request is <strong>long overdue</strong>.   You can 
 msgstr ""
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests that have been made to this authority."
-msgstr ""
+msgstr "De zoekindex is momenteel niet beschikbaar, we kunnen de Wet Openbaarheid Bestuur verzoeken die aangevraagd zijn bij deze instantie niet tonen."
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
-msgstr ""
+msgstr "De zoekindex is momenteel niet beschikbaar, dus we kunnen de Wet Openbaarheid Bestuur verzoeken die deze persoon heeft gemaakt niet tonen."
 
 msgid "The {{site_name}} team."
 msgstr ""
@@ -2431,7 +2432,7 @@ msgid "This is a plain-text version of the Freedom of Information request \"{{re
 msgstr ""
 
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
-msgstr ""
+msgstr "Dit is een HTML-versie van een bijlage bij de Wet Openbaarheid Bestuur verzoek"
 
 msgid "This is because {{title}} is an old request that has been\\nmarked to no longer receive responses."
 msgstr ""
@@ -2467,15 +2468,15 @@ msgid "This particular request is finished:"
 msgstr ""
 
 msgid "This person has made no Freedom of Information requests using this site."
-msgstr ""
+msgstr "Deze persoon heeft geen Wet Openbaarheid Bestuur verzoek met behulp van deze site gemaakt."
 
 msgid "This person's annotations"
 msgstr ""
 
 msgid "This person's {{count}} Freedom of Information request"
 msgid_plural "This person's {{count}} Freedom of Information requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Deze persoon heeft {{count}} Wet Openbaarheid Bestuur verzoek ingediend"
+msgstr[1] "Deze persoon heeft {{count}} Wet Openbaarheid Bestuur verzoeken ingediend"
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
@@ -2786,7 +2787,7 @@ msgid "View FOI email address for {{public_body_name}}"
 msgstr ""
 
 msgid "View Freedom of Information requests made by {{user_name}}:"
-msgstr ""
+msgstr "Bekijk de Wet Openbaarheid Bestuur verzoeken van {{gebruikersnaam}}:"
 
 msgid "View and search requests"
 msgstr ""
@@ -2957,7 +2958,7 @@ msgid "You have hit the rate limit on new requests. Users are ordinarily limited
 msgstr ""
 
 msgid "You have made no Freedom of Information requests using this site."
-msgstr ""
+msgstr "U heeft geen Wet Openbaarheid Bestuur verzoek met behulp van deze site gemaakt."
 
 msgid "You have now changed the text about you on your profile."
 msgstr ""
@@ -3108,8 +3109,8 @@ msgstr ""
 
 msgid "Your {{count}} Freedom of Information request"
 msgid_plural "Your {{count}} Freedom of Information requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Uw {{count}} Wet Openbaarheid Bestuur verzoek"
+msgstr[1] "Uw {{count}} Wet Openbaarheid Bestuur verzoeken"
 
 msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
@@ -3399,8 +3400,8 @@ msgstr ""
 
 msgid "{{count}} Freedom of Information request to {{public_body_name}}"
 msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} Wet Openbaarheid Bestuur verzoek aan {{public_body_name}}"
+msgstr[1] "{{count}} Wet Openbaarheid Bestuur verzoeken aan {{public_body_name}}"
 
 msgid "{{count}} person is following this authority"
 msgid_plural "{{count}} people are following this authority"
@@ -3475,13 +3476,13 @@ msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{
 msgstr ""
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
-msgstr ""
+msgstr "{{title}} - een Wet Openbaarheid Bestuur verzoek aan {{public_body}}"
 
 msgid "{{user_name}} (Account suspended)"
 msgstr ""
 
 msgid "{{user_name}} - Freedom of Information requests"
-msgstr ""
+msgstr "{{user_name}} - Wet Openbaarheid Bestuur verzoeken"
 
 msgid "{{user_name}} - user profile"
 msgstr ""

@@ -129,15 +129,15 @@ class IncomingMessage < ActiveRecord::Base
         if (!force.nil? || self.last_parsed.nil?)
             ActiveRecord::Base.transaction do
                 self.extract_attachments!
-                self.sent_at = self.mail.date || self.created_at
-                self.subject = self.mail.subject
-                self.mail_from = MailHandler.get_from_name(self.mail)
+                write_attribute(:sent_at, self.mail.date || self.created_at)
+                write_attribute(:subject, self.mail.subject)
+                write_attribute(:mail_from, MailHandler.get_from_name(self.mail))
                 if self.from_email
                     self.mail_from_domain = PublicBody.extract_domain_from_email(self.from_email)
                 else
                     self.mail_from_domain = ""
                 end
-                self.valid_to_reply_to = self._calculate_valid_to_reply_to
+                write_attribute(:valid_to_reply_to, self._calculate_valid_to_reply_to)
                 self.last_parsed = Time.now
                 self.foi_attachments reload=true
                 self.save!

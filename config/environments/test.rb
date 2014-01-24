@@ -24,4 +24,9 @@ Alaveteli::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+  if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+    middleware.use ExceptionNotifier,
+      :sender_address => AlaveteliConfiguration::exception_notifications_from,
+      :exception_recipients => AlaveteliConfiguration::exception_notifications_to
+  end
 end

@@ -1,6 +1,8 @@
 <div id="footer">
     <%= link_to _("Contact {{site_name}}", :site_name => site_name), help_contact_path %>
-| <img src="/images/twitter-16.png" alt="twitter icon" class="twitter-icon"> <a href="https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>"><%= _("Follow us on twitter") %></a>
+<% unless AlaveteliConfiguration::twitter_username.blank? %>
+| <%= image_tag "twitter-16.png", :alt => "twitter icon", :class => "twitter-icon" %> <a href="https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>"><%= _("Follow us on twitter") %></a>
+<% end %>
 <%= render :partial => 'general/credits' %>
 </div>
 <div class="after-footer">&nbsp;</div>

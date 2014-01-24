@@ -550,33 +550,6 @@ describe InfoRequest do
 
     end
 
-    describe 'when an instance is asked if all can view it' do
-
-        before do
-            @info_request = InfoRequest.new
-        end
-
-        it 'should return true if its prominence is normal' do
-            @info_request.prominence = 'normal'
-            @info_request.all_can_view?.should == true
-        end
-
-        it 'should return true if its prominence is backpage' do
-            @info_request.prominence = 'backpage'
-            @info_request.all_can_view?.should == true
-        end
-
-        it 'should return false if its prominence is hidden' do
-            @info_request.prominence = 'hidden'
-            @info_request.all_can_view?.should == false
-        end
-
-        it 'should return false if its prominence is requester_only' do
-            @info_request.prominence = 'requester_only'
-            @info_request.all_can_view?.should == false
-        end
-    end
-
     describe 'when applying censor rules' do
 
         before do

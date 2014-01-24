@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# David Cabo <david.cabo@gmail.com>, 2012
+# David Cabo <david.cabo@gmail.com>, 2012,2014
 # ecapfri <ecapfri@yahoo.es>, 2012
 # ecapfri <ecapfri@yahoo.es>, 2012
 # mmtarres <mmtarres@gmail.com>, 2012
@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-08 12:10+0000\n"
-"PO-Revision-Date: 2013-11-08 12:13+0000\n"
-"Last-Translator: mysociety <transifex@mysociety.org>\n"
+"PO-Revision-Date: 2014-01-13 19:26+0000\n"
+"Last-Translator: David Cabo <david.cabo@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/alaveteli/language/ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -2199,7 +2199,7 @@ msgid "Sign in or make a new account"
 msgstr "Abrir sesión o crear nueva cuenta"
 
 msgid "Sign in or sign up"
-msgstr "Iniciar sesión o registro"
+msgstr "Inicia sessió / registra't"
 
 msgid "Sign out"
 msgstr "Cerrar sesión"

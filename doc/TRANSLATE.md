@@ -79,7 +79,7 @@ must:
       language, using `bundle exec rake
       gettext:store_model_attributes`, followed by `bundle exec rake
       gettext:find`
-        * careful of including msgids from themes in `vendor/plugin`;
+        * careful of including msgids from themes in `lib/themes`;
           you might want to move them out of the way before running
           the above commands
         * this updates the PO template, but also merges it with the

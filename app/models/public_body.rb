@@ -199,7 +199,6 @@ class PublicBody < ActiveRecord::Base
     self.non_versioned_columns << 'info_requests_overdue_count'
 
     class Version
-        attr_accessor :created_at
 
         def last_edit_comment_for_html_display
             text = self.last_edit_comment.strip
@@ -261,13 +260,13 @@ class PublicBody < ActiveRecord::Base
 
     # When name or short name is changed, also change the url name
     def short_name=(short_name)
-        globalize.write(I18n.locale, :short_name, short_name)
+        globalize.write(Globalize.locale, :short_name, short_name)
         self[:short_name] = short_name
         self.update_url_name
     end
 
     def name=(name)
-        globalize.write(I18n.locale, :name, name)
+        globalize.write(Globalize.locale, :name, name)
         self[:name] = name
         self.update_url_name
     end
@@ -370,10 +369,24 @@ class PublicBody < ActiveRecord::Base
     class ImportCSVDryRun < StandardError
     end
 
-    # Import from CSV. Just tests things and returns messages if dry_run is true.
-    # Returns an array of [array of errors, array of notes]. If there are errors,
-    # always rolls back (as with dry_run).
+    # Import from a string in CSV format.
+    # Just tests things and returns messages if dry_run is true.
+    # Returns an array of [array of errors, array of notes]. If there
+    # are errors, always rolls back (as with dry_run).
     def self.import_csv(csv, tag, tag_behaviour, dry_run, editor, available_locales = [])
+        tmp_csv = nil
+        Tempfile.open('alaveteli') do |f|
+            f.write csv
+            tmp_csv = f
+        end
+        PublicBody.import_csv_from_file(tmp_csv.path, tag, tag_behaviour, dry_run, editor, available_locales)
+    end
+
+    # Import from a CSV file.
+    # Just tests things and returns messages if dry_run is true.
+    # Returns an array of [array of errors, array of notes]. If there
+    # are errors, always rolls back (as with dry_run).
+    def self.import_csv_from_file(csv_filename, tag, tag_behaviour, dry_run, editor, available_locales = [])
         errors = []
         notes = []
         available_locales = [I18n.default_locale] if available_locales.empty?
@@ -399,7 +412,8 @@ class PublicBody < ActiveRecord::Base
                 set_of_importing = Set.new()
                 field_names = { 'name'=>1, 'request_email'=>2 }     # Default values in case no field list is given
                 line = 0
-                CSV.parse(csv) do |row|
+
+                CSV.foreach(csv_filename) do |row|
                     line = line + 1
 
                     # Parse the first line as a field list if it starts with '#'
@@ -728,7 +742,8 @@ class PublicBody < ActiveRecord::Base
         # either from config, or based on a (slow!) query if not set
         body_short_names = AlaveteliConfiguration::frontpage_publicbody_examples.split(/\s*;\s*/)
         locale_condition = 'public_body_translations.locale = ?'
-        conditions = [locale_condition, locale]
+        underscore_locale = locale.gsub '-', '_'
+        conditions = [locale_condition, underscore_locale]
         bodies = []
         I18n.with_locale(locale) do
             if body_short_names.empty?

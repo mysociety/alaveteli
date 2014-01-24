@@ -17,6 +17,10 @@ class GeneralController < ApplicationController
 
     # Display blog entries
     def blog
+        if AlaveteliConfiguration::blog_feed.empty?
+            raise ActiveRecord::RecordNotFound.new("Page not enabled")
+        end
+
         medium_cache
         @feed_autodetect = []
         @feed_url = AlaveteliConfiguration::blog_feed

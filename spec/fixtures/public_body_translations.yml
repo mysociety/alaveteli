@@ -10,6 +10,8 @@ geraldine_es_public_body_translation:
   notes: ""
   publication_scheme: ""
   disclosure_log: ""
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639
 
 geraldine_en_public_body_translation:
   name: Geraldine Quango
@@ -23,6 +25,8 @@ geraldine_en_public_body_translation:
   notes: ""
   publication_scheme: ""
   disclosure_log: ""
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639
 
 humpadink_es_public_body_translation:
   name: "El Department for Humpadinking"
@@ -36,6 +40,8 @@ humpadink_es_public_body_translation:
   notes: Baguette
   publication_scheme: ""
   disclosure_log: ""
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639
 
 humpadink_en_public_body_translation:
   name: "Department for Humpadinking"
@@ -49,6 +55,8 @@ humpadink_en_public_body_translation:
   notes: An albatross told me!!!
   publication_scheme: ""
   disclosure_log: ""
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639
 
 forlorn_en_public_body_translation:
   name: "Department of Loneliness"
@@ -62,6 +70,8 @@ forlorn_en_public_body_translation:
   notes: A very lonely public body that no one has corresponded with
   publication_scheme: ""
   disclosure_log: ""
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639
 
 silly_walks_en_public_body_translation:
   id: 6
@@ -75,6 +85,8 @@ silly_walks_en_public_body_translation:
   notes: You know the one.
   publication_scheme: ""
   disclosure_log: ""
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639
 
 sensible_walks_en_public_body_translation:
   id: 7
@@ -88,6 +100,8 @@ sensible_walks_en_public_body_translation:
   notes: I bet you’ve never heard of it.
   publication_scheme: ""
   disclosure_log: ""
+  created_at: 2008-10-25 10:51:01.161639
+  updated_at: 2008-10-25 10:51:01.161639
 
 other_public_body_translation:
   id: 8
@@ -101,6 +115,8 @@ other_public_body_translation:
   notes: More notes
   publication_scheme: ""
   disclosure_log: ""
+  created_at: 2008-10-25 10:51:01.161639
+  updated_at: 2008-10-25 10:51:01.161639
 
 humpadink_he_IL_public_body_translation:
   name: "Hebrew Humpadinking"
@@ -114,6 +130,8 @@ humpadink_he_IL_public_body_translation:
   notes: An albatross told me!!!
   publication_scheme: ""
   disclosure_log: ""
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639
 
 accented_public_body_translation:
   id: 10
@@ -127,3 +145,5 @@ accented_public_body_translation:
   notes: This is to test unicode handling in body names
   publication_scheme: ""
   disclosure_log: ""
+  created_at: 2008-10-25 10:51:01.161639
+  updated_at: 2008-10-25 10:51:01.161639

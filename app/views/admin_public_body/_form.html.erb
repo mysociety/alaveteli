@@ -51,12 +51,6 @@
         </div>
       </div>
       <div class="control-group">
-        <label for="<%= form_tag_id(t.object_name, :disclosure_log, locale) %>" class="control-label"><%=_("Disclosure log URL")%></label>
-        <div class="controls">
-          <%= t.text_field :disclosure_log, :size => 60, :id => form_tag_id(t.object_name, :disclosure_log, locale), :class => "span3" %>
-        </div>
-      </div>
-      <div class="control-group">
         <label for="<%= form_tag_id(t.object_name, :notes, locale) %>" class="control-label"><%=_("Public notes")%></label>
         <div class="controls">
           <%= t.text_area :notes, :rows => 3, :id => form_tag_id(t.object_name, :notes, locale), :class => "span6" %>
@@ -82,10 +76,16 @@
   </div>
 </div>
 <div class="control-group">
-  <label for="public_body_home_page"><%=_("Home page")%></label>
+  <label for="public_body_home_page" class="control-label"><%=_("Home page")%></label>
   <div class="controls">
     <%= f.text_field :home_page, :class => "span4"  %>
     <p class="help-block">(of whole authority, not just their FOI page; set to <strong>blank</strong> (empty string) to guess it from the email)</p>
+  </div>
+</div>
+<div class="control-group">
+  <label for="public_body_disclosure_log" class="control-label"><%=_("Disclosure log URL")%></label>
+  <div class="controls">
+    <%= f.text_field :disclosure_log, :size => 60, :class => "span4" %>
   </div>
 </div>
 <div class="control-group">
