@@ -3232,7 +3232,7 @@ msgid "by <strong>{{date}}</strong>"
 msgstr "erbyn <strong>{{date}}</strong>"
 
 msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr "gan {{public_body_name}}  i {{ info_request_user}} ar {{date}}."
+msgstr "gan {{public_body_name}}  i {{info_request_user}} ar {{date}}."
 
 msgid "by {{user_link_absolute}}"
 msgstr "gan {{user_link_absolute}} "
