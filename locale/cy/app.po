@@ -12,7 +12,7 @@
 # Hywel <hywelm.jones@talk21.com>, 2013
 # Hywel <hywelm.jones@talk21.com>, 2013
 # louisecrow <louise@mysociety.org>, 2013
-# louisecrow <louise@mysociety.org>, 2013
+# louisecrow <louise@mysociety.org>, 2013-2014
 # PerryX <wyeboy@gmail.com>, 2013
 # PerryX <wyeboy@gmail.com>, 2013
 msgid ""
@@ -20,8 +20,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-08 12:10+0000\n"
-"PO-Revision-Date: 2014-01-04 22:22+0000\n"
-"Last-Translator: Hywel <hywelm.jones@talk21.com>\n"
+"PO-Revision-Date: 2014-01-24 09:25+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -2117,7 +2117,7 @@ msgid "Sorry - you cannot respond to this request via {{site_name}}, because thi
 msgstr "Mae'n ddrwg gennym - ni allwch ymateb i'r cais hwn trwy {{site_name}}, gan fod hwn yn gopi o'r cais a oedd yn wreiddiol yn {{link_to_original_request}} ."
 
 msgid "Sorry, but only {{user_name}} is allowed to do that."
-msgstr "Mae'n ddrwg gennym, ond dim ond {{USER_NAME}} sy'n cael gwneud hynny."
+msgstr "Mae'n ddrwg gennym, ond dim ond {{user_name}} sy'n cael gwneud hynny."
 
 msgid "Sorry, there was a problem processing this page"
 msgstr "Mae'n ddrwg gennym, roedd problem wrth brosesu'r dudalen hon"
@@ -2198,7 +2198,7 @@ msgid "Thank you for responding to this FOI request! Your response has been publ
 msgstr "Diolch i chi am ymateb i'r cais Rhyddid Gwybodaeth hwn! Mae eich ymateb wedi ei gyhoeddi isod, a dolen at eich ymateb wedi cael ei e-bostio at "
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
-msgstr "Diolch i chi am ddiweddaru statws y cais '<a href=\"{{url}}\">{{ info_request_title}}</a>'. Mae ychydig yn rhagor o geisiadau isod i chi eu dosbarthu."
+msgstr "Diolch i chi am ddiweddaru statws y cais '<a href=\"{{url}}\">{{info_request_title}}</a>'. Mae ychydig yn rhagor o geisiadau isod i chi eu dosbarthu."
 
 msgid "Thank you for updating this request!"
 msgstr "Diolch i chi am ddiweddaru'r cais hwn!"
@@ -2324,7 +2324,7 @@ msgid "Then you can classify the FOI response you have got from "
 msgstr "Yna gallwch ddosbarthu'r ymateb Rhyddid Gwybodaeth yr ydych wedi'i gael gan "
 
 msgid "Then you can download a zip file of {{info_request_title}}."
-msgstr "Yna gallwch lawrlwytho ffeil zip o {{ info_request_title}}."
+msgstr "Yna gallwch lawrlwytho ffeil zip o {{info_request_title}}."
 
 msgid "Then you can log into the administrative interface"
 msgstr "Yna gallwch logio i mewn i'r rhyngwyneb gweinyddol"
@@ -3472,10 +3472,10 @@ msgid "{{number_of_comments}} comments"
 msgstr "{{number_of_comments}} o sylwadau"
 
 msgid "{{public_body_link}} answered a request about"
-msgstr "{{}} Public_body_link ateb cais am"
+msgstr "{{public_body_link}}  ateb cais am"
 
 msgid "{{public_body_link}} was sent a request about"
-msgstr "{{}} Public_body_link Anfonwyd cais am"
+msgstr "{{public_body_link}} Anfonwyd cais am"
 
 msgid "{{public_body_name}} only:"
 msgstr "{{public_body_name}} yn unig:"
