@@ -1,0 +1,148 @@
+#!/bin/bash
+#
+# rails-post-deploy
+# For Ruby on Rails, run this in exec_before_down in vhosts.pl.
+# This does all the tasks for a new deploying a new version that can
+# be done in a new directory before taking the site down; for example,
+# this is appropriate for long-running tasks like asset precompilation.
+#
+# Copyright (c) 2014 UK Citizens Online Democracy. All rights reserved.
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
+
+set -e
+#set -x # debug
+
+TOP_DIR="$(dirname "$BASH_SOURCE")/.."
+cd "$TOP_DIR"
+
+# make sure that there is an app directory, so are in a rails app tree
+if ! [ -d app ]
+then
+    echo "Error: the 'app' directory didn't exist"
+    exit 1
+fi
+
+# read config file in for later (STAGING_SITE)
+if [ -e "config/general" ] || [ -e "config/general.yml" ]
+then
+    . commonlib/shlib/deployfns
+    read_conf config/general
+else
+    OPTION_DOMAIN=127.0.0.1:3000
+    OPTION_STAGING_SITE=1
+fi
+
+# create initial log files
+if [ -e $TOP_DIR/../logs ]
+then
+    # mySociety servers have logs dir in level above
+    if ! [ -h log ] && [ -d log ]
+    then
+        # If log is a directory rather than a symlink, move that
+        # directory out of the way:
+        mv log log.original
+    fi
+    ln -sfn $TOP_DIR/../logs log
+else
+    # otherwise just make the directory
+    if [ -h log ]
+    then
+        # remove any old-style symlink first
+        rm -f log
+    fi
+    mkdir -p log
+fi
+
+cd log
+touch development.log fastcgi.crash.log production.log test.log
+cd ..
+
+# Returns 0 if an element is present in a bash array, and 1 otherwise
+# Taken from: http://stackoverflow.com/a/8574392/223092
+contains () {
+    local E
+    for E in "${@:2}"
+    do
+        [ "$E" == "$1" ] && return 0
+    done
+    return 1
+}
+
+if [ x"$OPTION_SHARED_FILES_PATH" != x ]
+then
+    for F in "${OPTION_SHARED_FILES[@]}" "${OPTION_SHARED_DIRECTORIES[@]}"
+    do
+        # Remove any trailing slash from directories:
+        NORMALIZED_F="${F%/}"
+        RELATIVE_DIRECTORY="$(dirname $NORMALIZED_F)"
+        DESTINATION="$OPTION_SHARED_FILES_PATH/$NORMALIZED_F"
+        # Ensure that the directory in the shared path exists:
+        mkdir -p "$OPTION_SHARED_FILES_PATH/$RELATIVE_DIRECTORY"
+        # If it's a directory, and it doesn't exist, make sure that
+        # it's created:
+        if contains "$F" "${OPTION_SHARED_DIRECTORIES[@]}"
+        then
+            if [ ! -d "$DESTINATION" ]
+            then
+                mkdir -p "$DESTINATION"
+            fi
+        fi
+        # Make sure we won't overwrite a file because it hasn't been
+        # moved to the shared directory yet:
+        if [ -e "$NORMALIZED_F" ] && [ ! -L "$NORMALIZED_F" ]
+        then
+            cat <<EOF
+$F is a real file or directory, but is listed in SHARED_FILES or
+SHARED_DIRECTORIES and SHARED_FILES_PATH is set.  $F should have
+been moved to $OPTION_SHARED_FILES_PATH/$F - for mySociety
+deployments you can use script/mysociety-switch-to-shared to automate
+this.
+EOF
+            exit 1
+        fi
+        ln -snf "$DESTINATION" "$NORMALIZED_F"
+    done
+fi
+
+# Force appropriate environment in production
+if [ "$OPTION_STAGING_SITE" = "0" ]
+then
+    cat <<-END
+
+    *****************************************************************
+    WARNING: About to make config/rails_env.rb which, via special
+    code in config/boot.rb, forces the Rails environment to be
+    "production". If this is a development system, please edit your
+    config/general.yml file and set the STAGING_SITE option to 1,
+    and also delete the generated config/rails_env.rb file.
+    Alternatively, you can override config/rails_env.rb at any time
+    with an environment variable.
+    *****************************************************************
+
+END
+    echo "ENV['RAILS_ENV'] ||= 'production'" > config/rails_env.rb
+fi
+
+bundle_install_options=""
+if [ "$OPTION_STAGING_SITE" = "0" ]
+then
+    bundle_install_options="--without development:test --deployment"
+fi
+if [ "$OPTION_STAGING_SITE" = "1" ]
+then
+    bundle_install_options="--path vendor/bundle"
+fi
+if [ "$TRAVIS" = "true" ]
+then
+    bundle_install_options="--without development develop --deployment"
+fi
+bundle install $bundle_install_options
+
+bundle exec rake submodules:check
+
+bundle exec rake themes:install
+
+if [ "$OPTION_STAGING_SITE" = "0" ]
+then
+    bundle exec rake assets:precompile
+fi
