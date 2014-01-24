@@ -3157,10 +3157,10 @@ msgid "[FOI #{{request}} email]"
 msgstr "[Cais Rhyddid Gwybodaeth e-bost #{{request}} ]"
 
 msgid "[{{public_body}} request email]"
-msgstr "[E-bost cais {{Public_body}}]"
+msgstr "[E-bost cais {{public_body}}]"
 
 msgid "[{{site_name}} contact email]"
-msgstr "[Cyswllt e-bost {{Site_name}}]"
+msgstr "[Cyswllt e-bost {{site_name}}]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
 msgstr "[Nodyn {{site_name}} : Roedd y testun uchod wedi'i amgodio'n wael, ac mae nodau rhyfedd wedi eu dileu. ]"
@@ -3232,7 +3232,7 @@ msgid "by <strong>{{date}}</strong>"
 msgstr "erbyn <strong>{{date}}</strong>"
 
 msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr "gan {{public_body_name}}  i {{ info_request_user}} ar {{date}}."
+msgstr "gan {{public_body_name}}  i {{info_request_user}} ar {{date}}."
 
 msgid "by {{user_link_absolute}}"
 msgstr "gan {{user_link_absolute}} "
