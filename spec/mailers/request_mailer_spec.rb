@@ -332,6 +332,27 @@ describe RequestMailer, 'when sending mail when someone has updated an old uncla
 
 end
 
+describe RequestMailer, 'when generating a fake response for an upload' do
+
+    before do
+        @foi_officer = mock_model(User, :name_and_email => "FOI officer's name and email")
+        @request_user = mock_model(User)
+        @public_body = mock_model(PublicBody, :name => 'Test public body')
+        @info_request = mock_model(InfoRequest, :user => @request_user,
+                                                :email_subject_followup => 'Re: Freedom of Information - Test request',
+                                                :incoming_name_and_email => 'Someone <someone@example.org>')
+    end
+
+    it 'should should generate a "fake response" email with a reasonable subject line' do
+        fake_email = RequestMailer.fake_response(@info_request,
+                                                 @foi_officer,
+                                                 "The body of the email...",
+                                                 "blah.txt",
+                                                 "The content of blah.txt")
+        fake_email.subject.should == "Re: Freedom of Information - Test request"
+    end
+
+end
 
 describe RequestMailer, 'when sending a new response email' do
 

@@ -7,7 +7,8 @@ if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.s
 end
 source 'https://rubygems.org'
 
-gem 'rails', '3.1.12'
+gem 'rails', '3.2.16'
+
 gem 'pg'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
@@ -17,10 +18,12 @@ gem 'charlock_holmes'
 gem 'dynamic_form'
 gem 'exception_notification'
 gem 'fastercsv', '>=1.5.5'
-gem 'jquery-rails', '~> 2.1'
+gem 'jquery-rails', '~> 3.0.4'
+gem 'jquery-ui-rails'
 gem 'json'
 gem 'mahoro'
-gem 'net-http-local'
+gem 'memcache-client'
+gem 'net-http-local', :platforms => [:ruby_18, :ruby_19]
 gem 'net-purge'
 gem 'newrelic_rpm'
 gem 'rack'
@@ -51,6 +54,15 @@ gem 'routing-filter'
 gem 'unicode'
 gem 'unidecoder'
 
+group :assets do
+  gem 'bootstrap-sass'
+  gem 'sass-rails', '~> 3.2.3'
+  gem 'compass-rails'
+  gem 'coffee-rails', "~> 3.2.1"
+  gem 'uglifier', '>= 1.0.3'
+  gem 'therubyracer'
+end
+
 group :test do
   gem 'fakeweb'
   gem 'coveralls', :require => false
@@ -65,8 +77,6 @@ end
 group :develop do
   gem 'ruby-debug', :platforms => :ruby_18
   gem 'debugger', :platforms => :ruby_19
-  gem 'bootstrap-sass'
-  gem 'compass'
   gem 'annotate'
 end
 

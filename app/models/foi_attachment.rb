@@ -69,7 +69,7 @@ class FoiAttachment < ActiveRecord::Base
             tries = 0
             delay = 1
             begin
-                binary_data = File.open(self.filepath, "rb" ).read
+                binary_data = File.open(self.filepath, "rb" ){ |file| file.read }
                 if self.content_type =~ /^text/
                     @cached_body = convert_string_to_utf8_or_binary(binary_data, 'UTF-8')
                 else

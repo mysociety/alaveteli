@@ -3,7 +3,9 @@
 $alaveteli_route_extensions = []
 
 def require_theme(theme_name)
-    theme_main_include = File.expand_path "../../../vendor/plugins/#{theme_name}/lib/alavetelitheme.rb", __FILE__
+    theme_lib = Rails.root.join 'lib', 'themes', theme_name, 'lib'
+    $LOAD_PATH.unshift theme_lib.to_s
+    theme_main_include = Rails.root.join theme_lib, "alavetelitheme.rb"
     if File.exists? theme_main_include
         require theme_main_include
     end

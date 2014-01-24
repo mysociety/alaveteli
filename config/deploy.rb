@@ -13,6 +13,7 @@ set :git_enable_submodules, true
 set :deploy_to, configuration['deploy_to']
 set :user, configuration['user']
 set :use_sudo, false
+set :rails_env, configuration['rails_env']
 
 server configuration['server'], :app, :web, :db, :primary => true
 
@@ -54,10 +55,9 @@ namespace :deploy do
       "#{release_path}/config/aliases" => "#{shared_path}/aliases",
       "#{release_path}/public/foi-live-creation.png" => "#{shared_path}/foi-live-creation.png",
       "#{release_path}/public/foi-user-use.png" => "#{shared_path}/foi-user-use.png",
-      "#{release_path}/public/favicon.ico" => "#{shared_path}/favicon.ico",
       "#{release_path}/files" => "#{shared_path}/files",
       "#{release_path}/cache" => "#{shared_path}/cache",
-      "#{release_path}/vendor/plugins/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
+      "#{release_path}/lib/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
     }
 
     # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists

@@ -6,7 +6,7 @@ require File.dirname(__FILE__) + '/../lib/configuration'
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env) if defined?(Bundler)
+Bundler.require(:default, :assets, Rails.env) if defined?(Bundler)
 
 module Alaveteli
   class Application < Rails::Application
@@ -33,7 +33,6 @@ module Alaveteli
     # config.i18n.default_locale = :de
     I18n.config.enforce_available_locales = false
 
-
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
 
@@ -57,6 +56,10 @@ module Alaveteli
     # will be in this time zone
     config.time_zone = ::AlaveteliConfiguration::time_zone
 
+    # Set the cache to use a memcached backend
+    config.cache_store = :mem_cache_store, { :namespace => AlaveteliConfiguration::domain }
+    config.action_dispatch.rack_cache = nil
+
     config.after_initialize do |app|
        require 'routing_filters.rb'
        # Add a catch-all route to force routing errors to be handled by the application,
@@ -73,5 +76,32 @@ module Alaveteli
     # Insert a bit of middleware code to prevent uneeded cookie setting.
     require "#{Rails.root}/lib/whatdotheyknow/strip_empty_sessions"
     config.middleware.insert_before ::ActionDispatch::Cookies, WhatDoTheyKnow::StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
+
+    # Enable the asset pipeline
+    config.assets.enabled = true
+
+    # Version of your assets, change this if you want to expire all your assets
+    config.assets.version = '1.0'
+
+    # Change the path that assets are served from
+    # config.assets.prefix = "/assets"
+
+    # These additional precompiled Javascript files are actually
+    # manifests that require the real javascript files:
+    config.assets.precompile += ['admin.js',
+                                 'profile-photos.js',
+                                 'stats.js']
+    # ... while these are individual files that can't easily be
+    # grouped:
+    config.assets.precompile += ['jquery.fancybox-1.3.4.pack.js',
+                                 'jquery.fancybox-1.3.4.css',
+                                 'jquery.Jcrop.css',
+                                 'excanvas.min.js',
+                                 'fonts.css',
+                                 'print.css',
+                                 'admin.css',
+                                 'ie6.css',
+                                 'ie7.css']
+
   end
 end

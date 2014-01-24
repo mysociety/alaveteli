@@ -19,7 +19,7 @@ drop a line to hello@alaveteli.org to let us know that you're using Alaveteli.
 
 Some documentation can be found in the
 [`doc/` folder](https://github.com/mysociety/alaveteli/tree/master/doc).
-There's background information and a more documentation on
+There's background information and more documentation on
 [our wiki](https://github.com/mysociety/alaveteli/wiki/Home/), and lots
 of useful information (including a blog) on
 [the project website](http://alaveteli.org)
@@ -35,9 +35,10 @@ If you find what looks like a bug:
 If you want to contribute an enhancement or a fix:
 
 * Fork the project on GitHub.
+* Make a topic branch from the rails-3-develop branch.
 * Make your changes with tests.
 * Commit the changes without making changes to any files that aren't related to your enhancement or fix.
-* Send a pull request.
+* Send a pull request against the rails-3-develop branch.
 
 Looking for the latest stable release? It's on the
 [master branch](https://github.com/mysociety/alaveteli/tree/master).

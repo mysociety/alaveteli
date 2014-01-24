@@ -11,16 +11,16 @@
     </h2>
     <div class="comment_in_request_text"> 
         <p>
-        <img class="comment_quote" src="/images/quote-marks.png" alt="">
+        <%= image_tag "quote-marks.png", :class => "comment_quote" %>
         <%= comment.get_body_for_html_display %>
         </p>
     </div>
     <p class="event_actions">
         <% if !comment.id.nil? %>
-            <%= link_to "Link to this", comment_path(comment), :class => "link_to_this" %>
             <% if !@user.nil? && @user.admin_page_links? %>
-                | <%= link_to "Admin", admin_request_edit_comment_path(comment) %>
+                <%= link_to "Admin", admin_request_edit_comment_path(comment) %> |
             <% end %>
+            <%= link_to "Link to this", comment_path(comment), :class => "link_to_this" %>
             <!-- | <%= link_to _('Report abuse'), comment_path(comment) %> -->
         <% end %>
     </p>

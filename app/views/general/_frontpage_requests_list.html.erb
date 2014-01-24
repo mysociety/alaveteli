@@ -1,3 +1,4 @@
+<%- @request_events, @request_events_all_successful = InfoRequest.recent_requests %>
 <div id="examples_1">
   <h3>
     <% if @request_events_all_successful %>
@@ -21,7 +22,7 @@
 
            <%=link_to h(event.info_request.title), request_path(event.info_request)%>
            <%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(event.described_at)) %>
-           <p class="excerpt" onclick="document.location.href='<%=request_path(event.info_request)%>'"><%= excerpt(event.search_text_main(true), "", 200) %></p>
+           <p class="excerpt" onclick="document.location.href='<%=request_path(event.info_request)%>'"><%= excerpt(event.search_text_main(true), "", :radius => 200) %></p>
         </li>
       <% end %>
     </ul>

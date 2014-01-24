@@ -92,15 +92,8 @@ class RequestController < ApplicationController
 
             # Sidebar stuff
             @sidebar = true
-            # ... requests that have similar imporant terms
-            begin
-                limit = 10
-                @xapian_similar = ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
-                  :limit => limit, :collapse_by_prefix => 'request_collapse')
-                @xapian_similar_more = (@xapian_similar.matches_estimated > limit)
-            rescue
-                @xapian_similar = nil
-            end
+            @similar_cache_key = cache_key_for_similar_requests(@info_request, @locale)
+
             # Track corresponding to this page
             @track_thing = TrackThing.create_track_for_request(@info_request)
             @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
@@ -965,11 +958,17 @@ class RequestController < ApplicationController
         end
         if !done
             file_info = { :filename => 'correspondence.txt',
-                          :data => render_to_string(:template => 'request/show.text',
-                                                    :layout => false) }
+                          :data => render_to_string(:template => 'request/show',
+                                                    :layout => false,
+                                                    :formats => [:text]) }
         end
         file_info
     end
+
+    def cache_key_for_similar_requests(info_request, locale)
+        "request/similar/#{info_request.id}/#{locale}"
+    end
+
 
 end
 

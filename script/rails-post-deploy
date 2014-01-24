@@ -1,9 +1,10 @@
 #!/bin/bash
 #
 # rails-post-deploy
-# For Ruby on Rails, run this in exec_extras in vhosts.pl. It makes symlinks
-# from vendor to the server version of rails, and migrates the db to the most
-# recent version.
+# For Ruby on Rails, this used to be run in exec_extras in vhosts.pl;
+# however, now we use exec_before_down and exec_while_down instead, so
+# this is here for compatability with alternative deploy scripts that
+# still call rails-post-deploy.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
@@ -14,85 +15,5 @@ set -e
 TOP_DIR="$(dirname "$BASH_SOURCE")/.."
 cd "$TOP_DIR"
 
-# make sure that there is an app directory, so are in a rails app tree
-if ! [ -d app ]
-then
-    echo "Error: the 'app' directory didn't exist"
-    exit 1
-fi
-
-# read config file in for later (STAGING_SITE)
-if [ -e "config/general" ] || [ -e "config/general.yml" ]
-then
-    . commonlib/shlib/deployfns
-    read_conf config/general
-else
-    OPTION_DOMAIN=127.0.0.1:3000
-    OPTION_STAGING_SITE=1
-fi
-
-# create initial log files
-if [ -e $TOP_DIR/../logs ]
-then
-    # mySociety servers have logs dir in level above
-    if ! [ -h log ] && [ -d log ]
-    then
-        # If log is a directory rather than a symlink, move that
-        # directory out of the way:
-        mv log log.original
-    fi
-    ln -sfn $TOP_DIR/../logs log
-else
-    # otherwise just make the directory
-    if [ -h log ]
-    then
-        # remove any old-style symlink first
-        rm -f log
-    fi
-    mkdir -p log
-fi
-
-cd log
-touch development.log fastcgi.crash.log production.log test.log
-cd ..
-
-# Force appropriate environment in production
-if [ "$OPTION_STAGING_SITE" = "0" ]
-then
-    cat <<-END
-
-    *****************************************************************
-    WARNING: About to make config/rails_env.rb which, via special
-    code in config/boot.rb, forces the Rails environment to be
-    "production". If this is a development system, please edit your
-    config/general.yml file and set the STAGING_SITE option to 1,
-    and also delete the generated config/rails_env.rb file.
-    Alternatively, you can override config/rails_env.rb at any time
-    with an environment variable.
-    *****************************************************************
-
-END
-    echo "ENV['RAILS_ENV'] ||= 'production'" > config/rails_env.rb
-fi
-
-bundle_install_options=""
-if [ "$OPTION_STAGING_SITE" = "0" ]
-then
-    bundle_install_options="--without development:test --deployment"
-fi
-if [ "$OPTION_STAGING_SITE" = "1" ]
-then
-    bundle_install_options="--path vendor/bundle"
-fi
-if [ "$TRAVIS" = "true" ]
-then
-    bundle_install_options="--without development develop --deployment"
-fi
-bundle install $bundle_install_options
-
-bundle exec rake submodules:check
-
-# upgrade database
-bundle exec rake db:migrate #--trace
-
-bundle exec rake themes:install
+"$TOP_DIR/script/rails-deploy-before-down"
+"$TOP_DIR/script/rails-deploy-while-down"

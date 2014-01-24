@@ -19,7 +19,8 @@ class RequestMailer < ApplicationMailer
         end
 
         mail(:from => from_user.name_and_email,
-             :to => info_request.incoming_name_and_email)
+             :to => info_request.incoming_name_and_email,
+             :subject => info_request.email_subject_followup)
     end
 
     # Used when a response is uploaded using the API
@@ -63,7 +64,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => user.name_and_email,
              :to => contact_from_name_and_email,
-             :subject => _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title))
+             :subject => _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title).html_safe)
     end
 
     # Tell the requester that a new response has arrived
@@ -79,7 +80,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
-             :subject => _("New response to your FOI request - ") + info_request.title,
+             :subject => (_("New response to your FOI request - ") + info_request.title).html_safe,
              :charset => "UTF-8",
              # not much we can do if the user's email is broken
              :reply_to => contact_from_name_and_email)
@@ -182,7 +183,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
-             :subject => _("Clarify your FOI request - ") + info_request.title)
+             :subject => (_("Clarify your FOI request - ") + info_request.title).html_safe)
     end
 
     # Tell requester that somebody add an annotation to their request

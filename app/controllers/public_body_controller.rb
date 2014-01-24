@@ -7,6 +7,7 @@
 
 require 'fastercsv'
 require 'confidence_intervals'
+require 'tempfile'
 
 class PublicBodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -191,9 +192,32 @@ class PublicBodyController < ApplicationController
     end
 
     def list_all_csv
-        send_data(PublicBody.export_csv, :type=> 'text/csv; charset=utf-8; header=present',
+        # FIXME: this is just using the download directory for zip
+        # archives, since we know that is allowed for X-Sendfile and
+        # the filename can't clash with the numeric subdirectory names
+        # used for the zips.  However, really there should be a
+        # generically named downloads directory that contains all
+        # kinds of downloadable assets.
+        download_directory = File.join(InfoRequest.download_zip_dir(),
+                                       'download')
+        FileUtils.mkdir_p download_directory
+        output_leafname = 'all-authorities.csv'
+        output_filename = File.join download_directory, output_leafname
+        # Create a temporary file in the same directory, so we can
+        # rename it atomically to the intended filename:
+        tmp = Tempfile.new output_leafname, download_directory
+        tmp.close
+        # Export all the public bodies to that temporary path and make
+        # it readable:
+        PublicBody.export_csv tmp.path
+        FileUtils.chmod 0644, tmp.path
+        # Rename into place and send the file:
+        File.rename tmp.path, output_filename
+        send_file(output_filename,
+                  :type => 'text/csv; charset=utf-8; header=present',
                   :filename => 'all-authorities.csv',
-                  :disposition =>'attachment', :encoding => 'utf8')
+                  :disposition =>'attachment',
+                  :encoding => 'utf8')
     end
 
 

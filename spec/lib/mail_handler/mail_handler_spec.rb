@@ -235,7 +235,7 @@ describe 'when deriving a name, email and formatted address from a message from 
 
     it 'should quote a name with quotes in it' do
         should_render_from_address('"FOI \" Person" <foiperson@localhost>',
-                                   ['FOI \" Person',
+                                   ['FOI " Person',
                                     'foiperson@localhost',
                                     '"FOI \" Person" <foiperson@localhost>'])
     end
@@ -407,6 +407,12 @@ describe 'when getting attachment attributes' do
         # This is the size of the TNEF-encoded attachment; currently,
         # we expect the code just to return this without decoding:
         attributes[1][:body].length.should == 7769
+    end
+
+    it 'should treat a document/pdf attachment as application/pdf' do
+        mail = get_fixture_mail('document-pdf.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+        attributes[1][:content_type].should == "application/pdf"
     end
 
     it 'should produce a consistent set of url_part_numbers, content_types, within_rfc822_subjects

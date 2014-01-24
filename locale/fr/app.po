@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Adrien Chauvet <adr.chauvet@gmail.com>, 2013
 # skenaja <alex@alexskene.com>, 2011
 # andreas.pavlou <andreas@access-info.org>, 2013
 # andreas.pavlou <andreas@access-info.org>, 2013
@@ -12,6 +13,7 @@
 # cegall, 2013
 # cegall, 2013
 # David Cabo <david.cabo@gmail.com>, 2013
+# louisecrow <louise@mysociety.org>, 2013
 # pchrzanowski <pierre.chrzanowski@gmail.com>, 2013
 # pchrzanowski <pierre.chrzanowski@gmail.com>, 2013
 # radproject <radhouanef@gmail.com>, 2013
@@ -31,8 +33,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-08 12:10+0000\n"
-"PO-Revision-Date: 2013-11-08 12:13+0000\n"
-"Last-Translator: mysociety <transifex@mysociety.org>\n"
+"PO-Revision-Date: 2013-12-16 12:59+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/alaveteli/language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -633,7 +635,7 @@ msgid "Date:"
 msgstr "Date:"
 
 msgid "Dear {{name}},"
-msgstr "Cher {{nom}},"
+msgstr "Cher {{name}},"
 
 msgid "Dear {{public_body_name}},"
 msgstr "Cher {{public_body_name}},"
@@ -1037,7 +1039,7 @@ msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a
 msgstr "Si vous rencontrez toujours des problèmes, s'il vous plaît <a href=\"{{url}}\">contact us</a>."
 
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr ""
+msgstr "Si vous êtes l'auteur de la demande, <a href=\"{{url}}\">connectez-vous</a> pour voir le message."
 
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
 msgstr "Si vous êtes le demandeur, alors vous pouvez <a href=\"{{url}}\">sign in</a> voir à la demande."
@@ -1109,10 +1111,10 @@ msgid "IncomingMessage|Mail from domain"
 msgstr "IncomingMessage|Mail from domain"
 
 msgid "IncomingMessage|Prominence"
-msgstr ""
+msgstr "Nouveau message|important"
 
 msgid "IncomingMessage|Prominence reason"
-msgstr ""
+msgstr "Nouveau message | Objet important"
 
 msgid "IncomingMessage|Sent at"
 msgstr "IncomingMessage|Envoyé à"
@@ -1310,7 +1312,7 @@ msgid "Message"
 msgstr "Message"
 
 msgid "Message has been removed"
-msgstr ""
+msgstr "Le message a été supprimé"
 
 msgid "Message sent using {{site_name}} contact form, "
 msgstr "Message envoyé en utilisant  le formulaire {{site_name}}"
@@ -1430,7 +1432,7 @@ msgid "Now preview your message asking for an internal review"
 msgstr "Maintenant prévisualisez votre message demandant un examen interne"
 
 msgid "Number of requests"
-msgstr ""
+msgstr "Nombre de requêtes"
 
 msgid "OR remove the existing photo"
 msgstr "Ou effacer la photo existante"
@@ -1496,10 +1498,10 @@ msgid "OutgoingMessage|Message type"
 msgstr "OutgoingMessage|Message type"
 
 msgid "OutgoingMessage|Prominence"
-msgstr ""
+msgstr "Message sortant |Important"
 
 msgid "OutgoingMessage|Prominence reason"
-msgstr ""
+msgstr "Message sortant | Objet important"
 
 msgid "OutgoingMessage|Status"
 msgstr "OutgoingMessage|Status"
@@ -1529,10 +1531,10 @@ msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Personnes {{start_count}} à  {{end_count}} de {{total_count}}"
 
 msgid "Percentage of requests that are overdue"
-msgstr ""
+msgstr "Taux de requêtes en retard"
 
 msgid "Percentage of total requests"
-msgstr ""
+msgstr "Taux de requêtes total"
 
 msgid "Photo of you:"
 msgstr "Votre photo :"
@@ -1550,7 +1552,7 @@ msgid "Please"
 msgstr "S'il vous plait"
 
 msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
+msgstr "Merci de <a href=\"{{url}}\">nous contacter</a> si vous avez des questions."
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Veuillez  <a href=\"{{url}}\">nous contacter </a> afin que nous puissions le corriger."
@@ -1757,10 +1759,10 @@ msgid "ProfilePhoto|Draft"
 msgstr "ProfilePhoto|Draft"
 
 msgid "Public Bodies"
-msgstr ""
+msgstr "Organismes publics"
 
 msgid "Public Body Statistics"
-msgstr ""
+msgstr "Statistiques de l'organisme public"
 
 msgid "Public authorities"
 msgstr "Organismes publics"
@@ -1775,19 +1777,19 @@ msgid "Public authority – {{name}}"
 msgstr "Organisme public  – {{name}}"
 
 msgid "Public bodies that most frequently replied with \"Not Held\""
-msgstr ""
+msgstr "Organismes publics ayant le plus souvent répondu par \"Non approuvé\""
 
 msgid "Public bodies with most overdue requests"
-msgstr ""
+msgstr "Organismes publics ayant le plus de requêtes en retard"
 
 msgid "Public bodies with the fewest successful requests"
-msgstr ""
+msgstr "Organismes publics ayant le moins de requêtes réussies"
 
 msgid "Public bodies with the most requests"
-msgstr ""
+msgstr "Organismes publics ayant le plus de requêtes"
 
 msgid "Public bodies with the most successful requests"
-msgstr ""
+msgstr "Organismes publics ayant le plus de requêtes réussies"
 
 msgid "Public body"
 msgstr "Organisme public"
@@ -1817,16 +1819,16 @@ msgid "PublicBody|Info requests count"
 msgstr "PublicBody|Info requests count"
 
 msgid "PublicBody|Info requests not held count"
-msgstr ""
+msgstr "Organisme public | Compteur de requêtes non approuvées"
 
 msgid "PublicBody|Info requests overdue count"
-msgstr ""
+msgstr "Organisme public | Compteur de requête en retard"
 
 msgid "PublicBody|Info requests successful count"
-msgstr ""
+msgstr "Organisme public | Compteur de requêtes réussies"
 
 msgid "PublicBody|Info requests visible classified count"
-msgstr ""
+msgstr "Organisme public | Compteur classé d'info requête visible"
 
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Last edit comment"
@@ -1940,10 +1942,10 @@ msgid "Requested on {{date}}"
 msgstr "Demandé le  {{date}}"
 
 msgid "Requests are considered overdue if they are in the 'Overdue' or 'Very Overdue' states."
-msgstr ""
+msgstr "Les requêtes sont considérées comme dépassées si elles sont classées 'en retard' ou 'très en retard'."
 
 msgid "Requests are considered successful if they were classified as either 'Successful' or 'Partially Successful'."
-msgstr ""
+msgstr "Les requêtes sont considérées comme réussies si elles sont classées en tant que 'Réussies' ou 'Partiellement réussies'."
 
 msgid "Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
 msgstr "Les demandes de renseignements personnels et les demandes abusives ne sont pas considérées comme  demandes valides (<a href=\"/help/about\">Lire plus</a>)."
@@ -2254,19 +2256,19 @@ msgid "The authority would like to / has <strong>responded by post</strong> to t
 msgstr "L'autorité aimerait répondre, ou a répondu, <strong> par la Poste </strong> à cette demande."
 
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
-msgstr ""
+msgstr "La classification des requêtes (e.g. si elles sont réussies ou non) étant effectuée manuellement par les utilisateurs et administrateurs du site, des erreurs peuvent apparaître."
 
 msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to reply to an {{law_used_short}}\\nrequest has not been delivered."
 msgstr "Le message que vous , au nom de {{public_body}}, avez envoyé à \\n{{user}} en réponse à  la demande  {{law_used_short}}\\n  n'a pas été delivré"
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
-msgstr ""
+msgstr "Les barres d'erreurs affichées sont précises à 95% pour les proportions sous-jacentes supposées (i.e. celles que vous obtiendriez en effectuant un nombre infini de requêtes via ce site aux autorités). En d'autres mots, la population échantillonnée concerne toute les requêtes futures et actuelles aux autorités via ce site plutôt que, par exemple, toutes les requêtes effectuées aux organismes publics par tous les moyens."
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "La page n'existe pas . Vous pouvez essayer de :"
 
 msgid "The percentages are calculated with respect to the total number of requests, which includes invalid requests; this is a known problem that will be fixed in a later release."
-msgstr ""
+msgstr "Les taux sont calculés selon le nombre total de requêtes, qui inclue les requêtes invalides ; c'est un problème connu qui sera fixé dans une prochaine version."
 
 msgid "The public authority does not have the information requested"
 msgstr "L'autorité administrative n'a pas les informations demandées"
@@ -2412,7 +2414,7 @@ msgid "There was an error with the words you entered, please try again."
 msgstr "Il y a une erreur liée aux mots que vous avez saisis, veuillez réessayer."
 
 msgid "There was no data calculated for this graph yet."
-msgstr ""
+msgstr "Il n'y a actuellement pas de données calculées pour ce graphique."
 
 msgid "There were no requests matching your query."
 msgstr "Aucune demande d'information ne correspond à votre recherche."
@@ -2421,7 +2423,7 @@ msgid "There were no results matching your query."
 msgstr "Aucun résultat  correspondant à votre recherche."
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
-msgstr ""
+msgstr "Ces graphiques son issus en partie <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">des statistiques</a> que Mark Goodge a produit pour WhatDoTheyKnow, donc le mérite lui revient."
 
 msgid "They are going to reply <strong>by post</strong>"
 msgstr "Ils vont répondre <strong>par courrier</strong>"
@@ -2469,25 +2471,25 @@ msgid "This is your own request, so you will be automatically emailed when new r
 msgstr "Ceci est votre propre demande, afin que vous receviez automatiquement un e-mail dès que de nouvelles réponses arrivent."
 
 msgid "This message has been hidden."
-msgstr ""
+msgstr "Ce message a été masqué."
 
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
-msgstr ""
+msgstr "Ce message a été masqué. Plusieurs raisons peuvent expliquer ce phénomène, désolé de ne pouvoir vous en dire davantage ici."
 
 msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "Ce message possède le statu 'caché'. Vous pouvez le voir uniquement car vous êtes connecté en tant que super-utilisateur."
 
 msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "Ce message possède le statut 'caché'. {{Raison}}  Vous pouvez le voir uniquement car vous êtes connecté en tant que super-utilisateur."
 
 msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr ""
+msgstr "Ce message est caché, afin que seulement vous, le demandeur, puissiez le voir. Merci de <a href=\"{{url}}\">nous contacter</a> si vous ne savez pas pourquoi."
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
-msgstr ""
+msgstr "Ce message est caché, afin que seulement vous, le demandeur, puissiez le voir. {{raison}}"
 
 msgid "This page of public body statistics is currently experimental, so there are some caveats that should be borne in mind:"
-msgstr ""
+msgstr "Cette page des statistiques des organismes publics est actuellement expérimentale, c'est pourquoi certaines mises en gardes doivent être portées à votre connaissance :"
 
 msgid "This particular request is finished:"
 msgstr "Cette demande particulière est terminée:"

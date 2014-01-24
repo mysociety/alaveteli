@@ -10,7 +10,7 @@ by the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 Note in particular,
-- acts_as_xapian in vendor/plugins/ is licensed with an MIT license.
+- acts_as_xapian in lib/acts_as_xapian is licensed with an MIT license.
 
 Can you explain briefly what the GNU Affero GPL is? We offer the
 source code of our websites to our users. The GNU Affero GPL has the

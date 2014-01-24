@@ -1,7 +1,7 @@
 
     <% if !@display_user.get_about_me_for_html_display.empty? || @is_you %>
         <div class="user_about_me">
-            <img class="comment_quote" src="/images/quote-marks.png" alt="">
+            <%= image_tag "quote-marks.png", :class => "comment_quote" %>
             <%= @display_user.get_about_me_for_html_display %>
             <% if @is_you %>
                 (<%= link_to _("edit text about you"), set_profile_about_me_path %>)

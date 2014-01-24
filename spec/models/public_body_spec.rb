@@ -213,6 +213,15 @@ describe PublicBody, " when saving" do
         public_body.name.should == "Mark's Public Body"
     end
 
+    it 'should update the right translation when in a locale with an underscore' do
+        AlaveteliLocalization.set_locales('he_IL', 'he_IL')
+        public_body = public_bodies(:humpadink_public_body)
+        translation_count = public_body.translations.size
+        public_body.name = 'Renamed'
+        public_body.save!
+        public_body.translations.size.should == translation_count
+    end
+
     it 'should not create a new version when nothing has changed' do
         @public_body.versions.size.should == 0
         set_default_attributes(@public_body)
@@ -473,6 +482,20 @@ describe PublicBody, " when loading CSV files" do
 
         PublicBody.count.should == original_count
     end
+
+    it "should be able to load CSV from a file as well as a string" do
+        # Essentially the same code is used for import_csv_from_file
+        # as import_csv, so this is just a basic check that
+        # import_csv_from_file can load from a file at all. (It would
+        # be easy to introduce a regression that broke this, because
+        # of the confusing change in behaviour of CSV.parse between
+        # Ruby 1.8 and 1.9.)
+        original_count = PublicBody.count
+        filename = file_fixture_name('fake-authority-type-with-field-names.csv')
+        PublicBody.import_csv_from_file(filename, '', 'replace', false, 'someadmin')
+        PublicBody.count.should == original_count + 3
+    end
+
 end
 
 describe PublicBody do
@@ -601,6 +624,15 @@ describe PublicBody, "when calculating statistics" do
         ensure
             hpb.tag_string = original_tag_string
         end
+    end
+
+end
+
+describe PublicBody, 'when asked for popular bodies' do
+
+    it 'should return bodies correctly when passed the hyphenated version of the locale' do
+        AlaveteliConfiguration.stub!(:frontpage_publicbody_examples).and_return('')
+        PublicBody.popular_bodies('he-IL').should == [public_bodies(:humpadink_public_body)]
     end
 
 end

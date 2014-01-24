@@ -8,7 +8,10 @@
 #       Crawl-delay: 1
 # http://www.bing.com/community/blogs/webmaster/archive/2009/08/10/crawl-delay-and-the-bing-crawler-msnbot.aspx
 
-# This file uses the non-standard extension characters * and $, which are supported by Google and Yahoo!
+# This file uses the non-standard extension characters * and $, which
+# are supported by Google and Yahoo! and the 'Allow' directive, which
+# is supported by Google.
+
 #   http://code.google.com/web/controlcrawlindex/docs/robots_txt.html
 #   http://help.yahoo.com/l/us/yahoo/search/webcrawler/slurp-02.html
 
@@ -23,6 +26,7 @@ Disallow: */user/contact/
 Disallow: */feed/
 Disallow: */profile/
 Disallow: */signin
+Allow: */request/*/response/*/attach/*
 Disallow: */request/*/response/
 Disallow: */body/*/view_email$
 

@@ -33,34 +33,21 @@
        <%= link_to _("Report this request"), new_request_report_path(:request_id => @info_request.url_title) %>
       <% end %>
     <% end %>
-    <h2><%= _("Act on what you've learnt") %></h2>
-
-    <div class="act_link">
-        <% tweet_link = "https://twitter.com/share?" + {:url => request.url, :via => AlaveteliConfiguration::twitter_username, :text => "'#{@info_request.title}'", :related => _('alaveteli_foi:The software that runs {{site_name}}', :site_name => site_name)}.to_query %>
-        <% link_to tweet_link do %>
-          <%= image_tag "twitter-16.png", :alt => "twitter icon" %>
-        <% end %>
-        <%= link_to _("Tweet this request"), tweet_link %>
-    </div>
-    <div class="act_link">
-        <%= link_to "http://wordpress.com/" do %>
-          <%= image_tag "wordpress.png", :class => "rss" %>
-        <% end %>
-        <%= link_to _("Start your own blog"), "http://wordpress.com/"%>
-    </div>
-
+    <%= render :partial => 'request/act' %>
     <%= render :partial => 'request/next_actions' %>
 
-    <% # TODO: Cache for 1 day %>
-      <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
+    <% cache_if_caching_fragments(@similar_cache_key, :expires_in => 1.day) do %>
+      <% xapian_similar, xapian_similar_more = @info_request.similar_requests %>
+      <% if !xapian_similar.nil? && xapian_similar.results.size > 0 %>
         <h2><%= _('Similar requests')%></h2>
-        <% for result in @xapian_similar.results %>
+        <% for result in xapian_similar.results %>
             <%= render :partial => 'request/request_listing_short_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
         <% end %>
-        <% if @xapian_similar_more %>
+        <% if xapian_similar_more %>
             <p><%= link_to _("More similar requests"), similar_request_path(@info_request.url_title) %></p>
         <% end %>
       <% end %>
+    <% end %>
 
     <p><%= link_to _('Event history details'), request_details_path(@info_request) %></p>
 
