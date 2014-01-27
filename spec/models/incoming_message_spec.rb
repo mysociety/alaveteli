@@ -165,7 +165,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
             message = File.read(file)
             parsed = IncomingMessage.remove_quoted_sections(message)
             expected = File.read("#{file}.expected")
-            parsed.should include(expected)
+            parsed.should be_equal_modulo_whitespace_to expected
         end
     end
 
@@ -462,7 +462,7 @@ describe IncomingMessage, " when censoring data" do
         data.should == "His email was x\000x\000x\000@\000x\000x\000x\000.\000x\000x\000x\000, indeed"
     end
 
-    it 'should handle multibyte characters correctly', :focus => true do
+    it 'should handle multibyte characters correctly' do
         orig_data = 'á'
         data = orig_data.dup
         @regex_censor_rule = CensorRule.new()

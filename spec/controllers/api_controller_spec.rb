@@ -1,18 +1,6 @@
 # coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-def normalise_whitespace(s)
-    s = s.gsub(/\A\s+|\s+\Z/, "")
-    s = s.gsub(/\s+/, " ")
-    return s
-end
-
-RSpec::Matchers.define :be_equal_modulo_whitespace_to do |expected|
-  match do |actual|
-    normalise_whitespace(actual) == normalise_whitespace(expected)
-  end
-end
-
 describe ApiController, "when using the API" do
 
     describe 'checking API keys' do
