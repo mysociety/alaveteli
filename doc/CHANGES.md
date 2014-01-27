@@ -54,6 +54,14 @@
   email configs).
 * If you have any custom styles that rely on the absolute positioning
   of the 'banner' and 'wrapper' elements, they may need to be updated.
+* Cached HTML versions of attachments in cache/attachments_production/
+  will have obsolete links to `/stylesheets/main.css` and
+  `/images/navimg/logo-trans-small.png`. You can resolve these by either
+  moving the cached attachments away and allowing them to be regenerated
+  on demand, or by symlinking `public/stylesheets/main.css` to
+  `public/assets/application.css` and
+  `public/images/navimg/logo-trans-small.png` to
+  `public/assets/navimg/logo-trans-small.png`.
 
 #  Version 0.15
 
