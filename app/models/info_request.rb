@@ -113,8 +113,12 @@ class InfoRequest < ActiveRecord::Base
 
     # Possible reasons that a request could be reported for administrator attention
     def report_reasons
-        ["Contains defamatory material", "Not a valid request", "Request for personal information",
-            "Contains personal information", "Vexatious", "Other"]
+        [_("Contains defamatory material"),
+         _("Not a valid request"),
+         _("Request for personal information"),
+         _("Contains personal information"),
+         _("Vexatious"),
+         _("Other")]
     end
 
     def must_be_valid_state
