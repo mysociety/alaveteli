@@ -70,21 +70,25 @@ class ProfilePhoto < ActiveRecord::Base
 
     def data_and_draft_checks
         if self.data.nil?
-            errors.add(:data, N_("Please choose a file containing your photo."))
+            errors.add(:data, _("Please choose a file containing your photo."))
             return
         end
 
         if self.image.nil?
-            errors.add(:data, N_("Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."))
+            errors.add(:data, _("Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."))
             return
         end
 
         if self.image.format != 'PNG'
-            errors.add(:data, N_("Failed to convert image to a PNG"))
+            errors.add(:data, _("Failed to convert image to a PNG"))
         end
 
         if !self.draft && (self.image.columns != WIDTH || self.image.rows != HEIGHT)
-            errors.add(:data, N_("Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}", :cols => self.image.columns, :rows => self.image.rows, :width => WIDTH, :height => HEIGHT))
+            errors.add(:data, _("Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}",
+                                :cols => self.image.columns,
+                                :rows => self.image.rows,
+                                :width => WIDTH,
+                                :height => HEIGHT))
         end
 
         if self.draft && self.user_id
