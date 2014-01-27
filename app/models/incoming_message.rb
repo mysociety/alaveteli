@@ -385,6 +385,10 @@ class IncomingMessage < ActiveRecord::Base
         multiline_original_message = '(' + '''>>>.* \d\d/\d\d/\d\d\d\d\s+\d\d:\d\d(?::\d\d)?\s*>>>''' + ')'
         text.gsub!(/^(#{multiline_original_message}\n.*)$/m, replacement)
 
+        # On Thu, Nov 28, 2013 at 9:08 AM, A User
+        # <[1]request-7-skm40s2ls@xxx.xxxx> wrote:
+        text.gsub!(/^( On [^\n]+\n\s*\<[^>\n]+\> (wrote|said):\s*\n.*)$/m, replacement)
+
         # Single line sections
         text.gsub!(/^(>.*\n)/, replacement)
         text.gsub!(/^(On .+ (wrote|said):\n)/, replacement)
