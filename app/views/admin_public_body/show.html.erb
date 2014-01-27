@@ -67,7 +67,10 @@
     </div>
     <% if i == versions.length - 1 %>
       <div class="span6">
-        <%=_("This is the first version.")%>
+          <p>“<%= h(historic_public_body.last_edit_comment) %>”</p>
+        <ul>
+          <li><%=_("This is the first version.")%></li>
+        </ul>
       </div>
     <% else %>
       <div class="span6">
