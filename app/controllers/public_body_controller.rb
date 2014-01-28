@@ -40,7 +40,7 @@ class PublicBodyController < ApplicationController
                 @searched_to_send_request = true
             end
             @view = params[:view]
-            query = make_query_from_params(params.merge(:latest_status => @view))
+            query = InfoRequestEvent.make_query_from_params(params.merge(:latest_status => @view))
             query += " requested_from:#{@public_body.url_name}"
             # Use search query for this so can collapse and paginate easily
             # XXX really should just use SQL query here rather than Xapian.

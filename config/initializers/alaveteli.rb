@@ -51,6 +51,7 @@ require 'alaveteli_file_types'
 require 'alaveteli_localization'
 require 'message_prominence'
 require 'theme'
+require 'xapian_queries'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)
