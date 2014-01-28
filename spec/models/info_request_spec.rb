@@ -1177,4 +1177,100 @@ describe InfoRequest do
             request_events.map(&:info_request).select{|x|x.url_title =~ /^spam/}.length.should == 1
         end
     end
+
+    describe InfoRequest, "when constructing a list of requests by query" do
+
+        before(:each) do
+            get_fixtures_xapian_index
+        end
+
+        def apply_filters(filters)
+            results = InfoRequest.request_list(filters, page=1, per_page=100, max_results=100)
+            results[:results].map(&:info_request)
+        end
+
+        it "should filter requests" do
+            apply_filters(:latest_status => 'all').should =~ InfoRequest.all
+
+            # default sort order is the request with the most recently created event first
+            apply_filters(:latest_status => 'all').should == InfoRequest.all(
+                :order => "(SELECT max(info_request_events.created_at)
+                            FROM info_request_events
+                            WHERE info_request_events.info_request_id = info_requests.id)
+                            DESC")
+
+            apply_filters(:latest_status => 'successful').should =~ InfoRequest.all(
+                :conditions => "id in (
+                    SELECT info_request_id
+                    FROM info_request_events
+                    WHERE NOT EXISTS (
+                        SELECT *
+                        FROM info_request_events later_events
+                        WHERE later_events.created_at > info_request_events.created_at
+                        AND later_events.info_request_id = info_request_events.info_request_id
+                        AND later_events.described_state IS NOT null
+                    )
+                    AND info_request_events.described_state IN ('successful', 'partially_successful')
+                )")
+
+        end
+
+        it "should filter requests by date" do
+            # The semantics of the search are that it finds any InfoRequest
+            # that has any InfoRequestEvent created in the specified range
+            filters = {:latest_status => 'all', :request_date_before => '13/10/2007'}
+            apply_filters(filters).should =~ InfoRequest.all(
+                :conditions => "id IN (SELECT info_request_id
+                                       FROM info_request_events
+                                       WHERE created_at < '2007-10-13'::date)")
+
+            filters = {:latest_status => 'all', :request_date_after => '13/10/2007'}
+            apply_filters(filters).should =~ InfoRequest.all(
+                :conditions => "id IN (SELECT info_request_id
+                                       FROM info_request_events
+                                       WHERE created_at > '2007-10-13'::date)")
+
+            filters = {:latest_status => 'all',
+                       :request_date_after => '13/10/2007',
+                       :request_date_before => '01/11/2007'}
+            apply_filters(filters).should =~ InfoRequest.all(
+                :conditions => "id IN (SELECT info_request_id
+                                       FROM info_request_events
+                                       WHERE created_at BETWEEN '2007-10-13'::date
+                                       AND '2007-11-01'::date)")
+        end
+
+
+        it "should list internal_review requests as unresolved ones" do
+
+            # This doesn’t precisely duplicate the logic of the actual
+            # query, but it is close enough to give the same result with
+            # the current set of test data.
+            results = apply_filters(:latest_status => 'awaiting')
+            results.should =~ InfoRequest.all(
+                :conditions => "id IN (SELECT info_request_id
+                                       FROM info_request_events
+                                       WHERE described_state in (
+                        'waiting_response', 'waiting_clarification',
+                        'internal_review', 'gone_postal', 'error_message', 'requires_admin'
+                    ) and not exists (
+                        select *
+                        from info_request_events later_events
+                        where later_events.created_at > info_request_events.created_at
+                        and later_events.info_request_id = info_request_events.info_request_id
+                    ))")
+
+
+            results.include?(info_requests(:fancy_dog_request)).should == false
+
+            event = info_request_events(:useless_incoming_message_event)
+            event.described_state = event.calculated_state = "internal_review"
+            event.save!
+            rebuild_xapian_index
+            results = apply_filters(:latest_status => 'awaiting')
+            results.include?(info_requests(:fancy_dog_request)).should == true
+        end
+
+
+    end
 end

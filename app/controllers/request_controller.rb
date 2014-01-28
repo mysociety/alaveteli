@@ -141,7 +141,10 @@ class RequestController < ApplicationController
     def list
         medium_cache
         @view = params[:view]
+        @locale = self.locale_from_params()
         @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
+        @per_page = PER_PAGE
+        @max_results = MAX_RESULTS
         if @view == "recent"
             return redirect_to request_list_all_url(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
         end
@@ -151,16 +154,11 @@ class RequestController < ApplicationController
             raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / PER_PAGE}.")
         end
 
-        query = make_query_from_params(params.merge(:latest_status => @view))
+        @filters = params.merge(:latest_status => @view)
         @title = _("View and search requests")
-        sortby = "newest"
-        xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
-        @list_results = xapian_object.results.map { |r| r[:model] }
-        @matches_estimated = xapian_object.matches_estimated
-        @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
 
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
-        @track_thing = TrackThing.create_track_for_search_query(query)
+        @track_thing = TrackThing.create_track_for_search_query(InfoRequestEvent.make_query_from_params(@filters))
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
         # Don't let robots go more than 20 pages in
