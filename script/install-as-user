@@ -93,8 +93,8 @@ then
         -e "s,^( *DOMAIN:).*,\\1 '$HOST'," \
         -e "s,^( *FORCE_SSL:).*,\\1 false," \
         -e "s,^( *TIME_ZONE:).*,\\1 'Europe/London'," \
-        -e "s,^( *BLOG_FEED:).*,\\1 null," \
-        -e "s,^( *TWITTER_USERNAME:).*,\\1 null," \
+        -e "s,^( *BLOG_FEED:).*,\\1 ''," \
+        -e "s,^( *TWITTER_USERNAME:).*,\\1 ''," \
         -e "s,^( *INCLUDE_DEFAULT_LOCALE_IN_URLS:).*,\\1 false," \
         -e "s,^( *INCOMING_EMAIL_DOMAIN:).*,\\1 '$HOST'," \
         -e "s,^( *INCOMING_EMAIL_PREFIX:).*,\\1 'foi+'," \
