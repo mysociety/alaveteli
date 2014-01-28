@@ -66,9 +66,10 @@ namespace :translation do
                                                                'Hello!')
         write_email(user_contact_email, 'Contact email (user to user)', output_file)
 
-        admin_contact_email = ContactMailer.from_admin_message(info_request.user,
-                                                                      'A test message',
-                                                                      'Hello!')
+        admin_contact_email = ContactMailer.from_admin_message(info_request.user.name,
+                                                               info_request.user.email,
+                                                               'A test message',
+                                                               'Hello!')
         write_email(admin_contact_email, 'Contact email (admin to user)', output_file)
 
         # request mailer
