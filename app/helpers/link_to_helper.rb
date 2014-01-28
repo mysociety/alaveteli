@@ -128,7 +128,7 @@ module LinkToHelper
         link_to user.name, user_path(user)
     end
 
-    def external_user_link(request, absolute=false, text)
+    def external_user_link(request, absolute, text)
         if request.external_user_name
             request.external_user_name
         else
@@ -151,7 +151,7 @@ module LinkToHelper
 
     def request_user_link(request, anonymous_text=_("Anonymous user"))
         if request.is_external?
-            external_user_link(request, anonymous_text)
+            external_user_link(request, absolute=false, anonymous_text)
         else
             user_link(request.user)
         end
