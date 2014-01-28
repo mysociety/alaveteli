@@ -45,7 +45,7 @@ describe InfoRequestBatchController, "when showing a request" do
             @info_request_batch.sent_at = Time.now
             @info_request_batch.save!
             make_request
-            assigns[:info_requests].should == [@first_request, @second_request]
+            assigns[:info_requests].sort.should == [@first_request, @second_request]
         end
 
     end
