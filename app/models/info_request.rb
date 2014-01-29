@@ -1,5 +1,6 @@
 # encoding: utf-8
 # == Schema Information
+# Schema version: 20131024114346
 #
 # Table name: info_requests
 #
@@ -21,6 +22,7 @@
 #  external_url              :string(255)
 #  attention_requested       :boolean          default(FALSE)
 #  comments_allowed          :boolean          default(TRUE), not null
+#  info_request_batch_id     :integer
 #
 
 require 'digest/sha1'
@@ -40,7 +42,8 @@ class InfoRequest < ActiveRecord::Base
     validate :must_be_internal_or_external
 
     belongs_to :public_body, :counter_cache => true
-    validates_presence_of :public_body_id
+    belongs_to :info_request_batch
+    validates_presence_of :public_body_id, :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
     has_many :outgoing_messages, :order => 'created_at'
     has_many :incoming_messages, :order => 'created_at'
@@ -50,6 +53,7 @@ class InfoRequest < ActiveRecord::Base
     has_many :comments, :order => 'created_at'
     has_many :censor_rules, :order => 'created_at desc'
     has_many :mail_server_logs, :order => 'mail_server_log_done_id'
+    attr_accessor :is_batch_request_template
 
     has_tag_string
 
@@ -124,6 +128,10 @@ class InfoRequest < ActiveRecord::Base
     def must_be_valid_state
         errors.add(:described_state, "is not a valid state") if
             !InfoRequest.enumerate_states.include? described_state
+    end
+
+    def is_batch_request_template?
+        is_batch_request_template == true
     end
 
     # The request must either be internal, in which case it has
@@ -383,7 +391,7 @@ public
     # repeated requests, say once a quarter for time information, then might need to do that.
     # XXX this *should* also check outgoing message joined to is an initial
     # request (rather than follow up)
-    def InfoRequest.find_by_existing_request(title, public_body_id, body)
+    def InfoRequest.find_existing(title, public_body_id, body)
         return InfoRequest.find(:first, :conditions => [ "title = ? and public_body_id = ? and outgoing_messages.body = ?", title, public_body_id, body ], :include => [ :outgoing_messages ] )
     end
 
@@ -932,6 +940,20 @@ public
         self.idhash = InfoRequest.hash_from_id(self.id)
     end
 
+    def InfoRequest.create_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
+        info_request = new(info_request_atts)
+        default_message_params = {
+            :status => 'ready',
+            :message_type => 'initial_request',
+            :what_doing => 'normal_sort'
+        }
+        outgoing_message = OutgoingMessage.new(outgoing_message_atts.merge(default_message_params))
+        info_request.outgoing_messages << outgoing_message
+        outgoing_message.info_request = info_request
+        info_request.user = user
+        info_request
+    end
+
     def InfoRequest.hash_from_id(id)
         return Digest::SHA1.hexdigest(id.to_s + AlaveteliConfiguration::incoming_email_secret)[0,8]
     end
@@ -1078,7 +1100,10 @@ public
 
     # Get the list of censor rules that apply to this request
     def applicable_censor_rules
-        applicable_rules = [self.censor_rules, self.public_body.censor_rules, CensorRule.global.all]
+        applicable_rules = [self.censor_rules, CensorRule.global.all]
+        unless is_batch_request_template?
+            applicable_rules << self.public_body.censor_rules
+        end
         if self.user && !self.user.censor_rules.empty?
             applicable_rules << self.user.censor_rules
         end

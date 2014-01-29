@@ -38,7 +38,7 @@ class CommentController < ApplicationController
 
         if params[:comment]
             # XXX this check should theoretically be a validation rule in the model
-            @existing_comment = Comment.find_by_existing_comment(@info_request.id, params[:comment][:body])
+            @existing_comment = Comment.find_existing(@info_request.id, params[:comment][:body])
         else
             # Default to subscribing to request when first viewing form
             params[:subscribe_to_request] = true
@@ -68,7 +68,7 @@ class CommentController < ApplicationController
 
             if params[:subscribe_to_request]
                 @track_thing = TrackThing.create_track_for_request(@info_request)
-                @existing_track = TrackThing.find_by_existing_track(@user, @track_thing)
+                @existing_track = TrackThing.find_existing(@user, @track_thing)
                 if @user && @info_request.user == @user
                     # don't subscribe to own request!
                 elsif !@existing_track

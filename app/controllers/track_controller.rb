@@ -116,7 +116,7 @@ class TrackController < ApplicationController
     # Generic request tracker - set @track_thing before calling
     def track_set
         if @user
-            @existing_track = TrackThing.find_by_existing_track(@user, @track_thing)
+            @existing_track = TrackThing.find_existing(@user, @track_thing)
             if @existing_track
                 flash[:notice] = _("You are already following updates about {{track_description}}", :track_description => @track_thing.params[:list_description])
                 return true

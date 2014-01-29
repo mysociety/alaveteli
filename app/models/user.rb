@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20131024114346
 #
 # Table name: users
 #
@@ -20,6 +21,7 @@
 #  email_bounce_message   :text             default(""), not null
 #  no_limit               :boolean          default(FALSE), not null
 #  receive_email_alerts   :boolean          default(TRUE), not null
+#  can_make_batch_requests :boolean          default(FALSE), not null
 #
 
 require 'digest/sha1'
@@ -40,6 +42,7 @@ class User < ActiveRecord::Base
     has_many :comments, :order => 'created_at desc'
     has_one :profile_photo
     has_many :censor_rules, :order => 'created_at desc'
+    has_many :info_request_batches, :order => 'created_at desc'
 
     attr_accessor :password_confirmation, :no_xapian_reindex
     validates_confirmation_of :password, :message => _("Please enter the same password twice")
@@ -268,6 +271,9 @@ class User < ActiveRecord::Base
     def exceeded_limit?
         # Some users have no limit
         return false if self.no_limit
+
+        # Batch request users don't have a limit
+        return false if self.can_make_batch_requests?
 
         # Has the user issued as many as MAX_REQUESTS_PER_USER_PER_DAY requests in the past 24 hours?
         return false if AlaveteliConfiguration::max_requests_per_user_per_day.blank?
