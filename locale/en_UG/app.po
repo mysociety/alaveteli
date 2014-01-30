@@ -149,9 +149,8 @@ msgstr ""
 msgid "1. Select an authority"
 msgstr "1. Select an agency"
 
-#, fuzzy
 msgid "1. Select authorities"
-msgstr "1. Select an agency"
+msgstr ""
 
 msgid "2. Ask for Information"
 msgstr ""
@@ -219,9 +218,8 @@ msgstr ""
 msgid "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
 msgstr "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the agency still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
 
-#, fuzzy
 msgid "<p>Your {{law_used_full}} requests will be <strong>sent</strong> shortly!</p>\\n            <p><strong>We will email you</strong> when they have been sent.\\n            We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't\\n            replied by then.</p>\\n            <p>If you write about these requests (for example in a forum or a blog) please link to this page.</p>"
-msgstr "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the agency still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
+msgstr ""
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr ""
@@ -355,13 +353,11 @@ msgstr ""
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr ""
 
-#, fuzzy
 msgid "Add authority - {{public_body_name}}"
-msgstr "View ATI email address for {{public_body_name}}"
+msgstr ""
 
-#, fuzzy
 msgid "Add the authority:"
-msgstr "A public agency"
+msgstr ""
 
 msgid "Added on {{date}}"
 msgstr ""
@@ -447,16 +443,14 @@ msgstr ""
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr ""
 
-#, fuzzy
 msgid "Ask us to add an authority"
-msgstr "1. Select an agency"
+msgstr ""
 
 msgid "Ask us to update FOI email"
 msgstr ""
 
-#, fuzzy
 msgid "Ask us to update the email address for {{public_body_name}}"
-msgstr "View ATI email address for {{public_body_name}}"
+msgstr ""
 
 msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
@@ -470,9 +464,8 @@ msgstr ""
 msgid "Authority email:"
 msgstr ""
 
-#, fuzzy
 msgid "Authority:"
-msgstr "agencies"
+msgstr ""
 
 msgid "Awaiting classification."
 msgstr ""
@@ -636,9 +629,8 @@ msgstr ""
 msgid "Confirm you want to follow the request '{{request_title}}'"
 msgstr ""
 
-#, fuzzy
 msgid "Confirm your FOI request to {{public_body_name}}"
-msgstr "Then your ATI request to {{public_body_name}} will be sent."
+msgstr ""
 
 msgid "Confirm your account on {{site_name}}"
 msgstr ""
@@ -700,9 +692,8 @@ msgstr ""
 msgid "Dear {{public_body_name}},"
 msgstr ""
 
-#, fuzzy
 msgid "Dear {{user_name}},"
-msgstr "ATI requests by '{{user_name}}'"
+msgstr ""
 
 msgid "Default locale"
 msgstr ""
@@ -1204,9 +1195,8 @@ msgstr ""
 msgid "Info request"
 msgstr ""
 
-#, fuzzy
 msgid "Info request batch"
-msgstr "ATI requests"
+msgstr ""
 
 msgid "Info request event"
 msgstr ""
@@ -1379,9 +1369,8 @@ msgstr "Make a new<br/>\\n  <strong>Access <span>to</span><br/>\\n  Information<
 msgid "Make a request"
 msgstr ""
 
-#, fuzzy
 msgid "Make a request to these authorities"
-msgstr "Make a request to this agency"
+msgstr ""
 
 msgid "Make a request to this authority"
 msgstr "Make a request to this agency"
@@ -1509,9 +1498,8 @@ msgstr ""
 msgid "Not a valid FOI request"
 msgstr "Not a valid ATI request"
 
-#, fuzzy
 msgid "Not a valid request"
-msgstr "Not a valid ATI request"
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr ""
@@ -1723,9 +1711,8 @@ msgstr ""
 msgid "Please enter the message you want to send"
 msgstr ""
 
-#, fuzzy
 msgid "Please enter the name of the authority"
-msgstr "Special note for this agency!"
+msgstr ""
 
 msgid "Please enter the same password twice"
 msgstr ""
@@ -1856,9 +1843,8 @@ msgstr ""
 msgid "Preview new {{law_used_short}} request"
 msgstr ""
 
-#, fuzzy
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
-msgstr "{{count}} Access to Information request to {{public_body_name}}"
+msgstr ""
 
 msgid "Preview your annotation"
 msgstr ""
@@ -1914,9 +1900,8 @@ msgstr ""
 msgid "Public body"
 msgstr ""
 
-#, fuzzy
 msgid "Public body change request"
-msgstr "Public bodies with most overdue requests"
+msgstr ""
 
 msgid "Public notes"
 msgstr ""
@@ -2199,9 +2184,8 @@ msgstr ""
 msgid "Select one to see more information about the authority."
 msgstr "Select one to see more information about the agency."
 
-#, fuzzy
 msgid "Select the authorities to write to"
-msgstr "Select the agency to write to"
+msgstr ""
 
 msgid "Select the authority to write to"
 msgstr "Select the agency to write to"
@@ -2337,9 +2321,8 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#, fuzzy
 msgid "Submit request"
-msgstr "ATI requests"
+msgstr ""
 
 msgid "Submit status"
 msgstr ""
@@ -2449,9 +2432,8 @@ msgstr "The agency would like to / has <strong>responded by post</strong> to thi
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
 msgstr ""
 
-#, fuzzy
 msgid "The contact email address for FOI requests to the authority."
-msgstr "We do not have a working request email address for this agency."
+msgstr ""
 
 msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to reply to an {{law_used_short}}\\nrequest has not been delivered."
 msgstr ""
@@ -2537,9 +2519,8 @@ msgstr ""
 msgid "Then you can log into the administrative interface"
 msgstr ""
 
-#, fuzzy
 msgid "Then you can make a batch request"
-msgstr "Then you can upload an ATI response. "
+msgstr ""
 
 msgid "Then you can play the request categorisation game."
 msgstr ""
@@ -2823,9 +2804,8 @@ msgstr ""
 msgid "To log into the administrative interface"
 msgstr ""
 
-#, fuzzy
 msgid "To make a batch request"
-msgstr "Not a valid ATI request"
+msgstr ""
 
 msgid "To play the request categorisation game"
 msgstr ""
@@ -2923,9 +2903,8 @@ msgstr ""
 msgid "Unfortunately we don't know the FOI\\nemail address for that authority, so we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr "Unfortunately we don't know the ATI\\nemail address for that agency, so we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it out."
 
-#, fuzzy
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
-msgstr "View ATI email address for {{public_body_name}}"
+msgstr ""
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr ""
@@ -2939,9 +2918,8 @@ msgstr ""
 msgid "Unusual response."
 msgstr ""
 
-#, fuzzy
 msgid "Update email address - {{public_body_name}}"
-msgstr "View ATI email address for {{public_body_name}}"
+msgstr ""
 
 msgid "Update the address:"
 msgstr ""
@@ -2973,9 +2951,8 @@ msgstr ""
 msgid "UserInfoRequestSentAlert|Alert type"
 msgstr ""
 
-#, fuzzy
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
-msgstr "There is a limit on the number of requests you can make in a day, because we don’t want public agencies to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
 
 msgid "User|About me"
 msgstr ""
@@ -3364,13 +3341,11 @@ msgstr ""
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr ""
 
-#, fuzzy
 msgid "Your request to add {{public_body_name}} to {{site_name}}"
-msgstr "Then your ATI request to {{public_body_name}} will be sent."
+msgstr ""
 
-#, fuzzy
 msgid "Your request to update {{public_body_name}} on {{site_name}}"
-msgstr "Then your ATI request to {{public_body_name}} will be sent."
+msgstr ""
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr ""
@@ -3384,9 +3359,8 @@ msgstr "Your response to an ATI request was not delivered"
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr ""
 
-#, fuzzy
 msgid "Your selected authorities"
-msgstr "Public agencies"
+msgstr ""
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr ""
@@ -3401,11 +3375,10 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] ""
 msgstr[1] ""
 
-#, fuzzy
 msgid "Your {{count}} batch requests"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "Your {{count}} Access to Information request"
-msgstr[1] "Your {{count}} Access to Information requests"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{site_name}} email alert"
 msgstr ""
@@ -3801,9 +3774,8 @@ msgstr ""
 msgid "{{user_name}} would like a new authority added to {{site_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "{{user_name}} would like the email address for {{public_body_name}} to be updated"
-msgstr "View ATI email address for {{public_body_name}}"
+msgstr ""
 
 msgid "{{username}} left an annotation:"
 msgstr ""
