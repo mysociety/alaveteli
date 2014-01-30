@@ -5,13 +5,14 @@
 # Translators:
 # Edwin Bosveld <edwin@inwy.nl>, 2013
 # Infwolf <infwolf@gmail.com>, 2014
+# Infwolf <infwolf@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-30 17:09+0000\n"
-"PO-Revision-Date: 2014-01-16 20:59+0000\n"
-"Last-Translator: Infwolf <infwolf@gmail.com>\n"
+"PO-Revision-Date: 2014-01-30 17:18+0000\n"
+"Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/alaveteli/language/nl/)\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -151,9 +152,8 @@ msgstr "- of -"
 msgid "1. Select an authority"
 msgstr "1. Selecteer een instantie"
 
-#, fuzzy
 msgid "1. Select authorities"
-msgstr "1. Selecteer een instantie"
+msgstr ""
 
 msgid "2. Ask for Information"
 msgstr "2. Vraag om informatie"
@@ -356,13 +356,11 @@ msgstr "Voeg een aantekening toe"
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr ""
 
-#, fuzzy
 msgid "Add authority - {{public_body_name}}"
-msgstr "Geachte {{public_body_name}},"
+msgstr ""
 
-#, fuzzy
 msgid "Add the authority:"
-msgstr "Een overheidsinstantie"
+msgstr ""
 
 msgid "Added on {{date}}"
 msgstr "Toegevoegd op {{date}}"
@@ -448,16 +446,14 @@ msgstr ""
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr ""
 
-#, fuzzy
 msgid "Ask us to add an authority"
-msgstr "1. Selecteer een instantie"
+msgstr ""
 
 msgid "Ask us to update FOI email"
 msgstr ""
 
-#, fuzzy
 msgid "Ask us to update the email address for {{public_body_name}}"
-msgstr "Bevestig uw nieuwe e-mailadres op {{site_name}}"
+msgstr ""
 
 msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
@@ -471,9 +467,8 @@ msgstr "Bijlage:"
 msgid "Authority email:"
 msgstr ""
 
-#, fuzzy
 msgid "Authority:"
-msgstr "Een overheidsinstantie"
+msgstr ""
 
 msgid "Awaiting classification."
 msgstr "In afwachting van classificatie."
@@ -637,9 +632,8 @@ msgstr ""
 msgid "Confirm you want to follow the request '{{request_title}}'"
 msgstr ""
 
-#, fuzzy
 msgid "Confirm your FOI request to {{public_body_name}}"
-msgstr "Bevestig uw WOB verzoek aan"
+msgstr ""
 
 msgid "Confirm your account on {{site_name}}"
 msgstr "Bevestig uw account op {{site_name}}"
@@ -701,9 +695,8 @@ msgstr ""
 msgid "Dear {{public_body_name}},"
 msgstr "Geachte {{public_body_name}},"
 
-#, fuzzy
 msgid "Dear {{user_name}},"
-msgstr "Geachte {{public_body_name}},"
+msgstr ""
 
 msgid "Default locale"
 msgstr ""
@@ -1205,9 +1198,8 @@ msgstr ""
 msgid "Info request"
 msgstr ""
 
-#, fuzzy
 msgid "Info request batch"
-msgstr "WOB aanvragen"
+msgstr ""
 
 msgid "Info request event"
 msgstr ""
@@ -1509,9 +1501,8 @@ msgstr ""
 msgid "Not a valid FOI request"
 msgstr ""
 
-#, fuzzy
 msgid "Not a valid request"
-msgstr "Aantekening toegevoegd aan verzoek"
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr ""
@@ -1855,9 +1846,8 @@ msgstr ""
 msgid "Preview new {{law_used_short}} request"
 msgstr ""
 
-#, fuzzy
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
-msgstr "{{count}} Wet Openbaarheid Bestuur verzoek aan {{public_body_name}}"
+msgstr ""
 
 msgid "Preview your annotation"
 msgstr ""
@@ -2072,9 +2062,8 @@ msgstr ""
 msgid "Request email"
 msgstr ""
 
-#, fuzzy
 msgid "Request for personal information"
-msgstr "Vraag aub uitsluitend om milieu-informatie "
+msgstr ""
 
 msgid "Request has been removed"
 msgstr ""
@@ -2335,9 +2324,8 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#, fuzzy
 msgid "Submit request"
-msgstr "WOB aanvragen"
+msgstr ""
 
 msgid "Submit status"
 msgstr ""
@@ -2918,9 +2906,8 @@ msgstr ""
 msgid "Unfortunately we don't know the FOI\\nemail address for that authority, so we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
 
-#, fuzzy
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
-msgstr "{{count}} Wet Openbaarheid Bestuur verzoek aan {{public_body_name}}"
+msgstr ""
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr ""
@@ -2934,9 +2921,8 @@ msgstr ""
 msgid "Unusual response."
 msgstr ""
 
-#, fuzzy
 msgid "Update email address - {{public_body_name}}"
-msgstr "Geachte {{public_body_name}},"
+msgstr ""
 
 msgid "Update the address:"
 msgstr ""
@@ -3376,9 +3362,8 @@ msgstr ""
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr ""
 
-#, fuzzy
 msgid "Your selected authorities"
-msgstr "Overheidsinstanties"
+msgstr ""
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr ""
@@ -3393,11 +3378,10 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] ""
 msgstr[1] ""
 
-#, fuzzy
 msgid "Your {{count}} batch requests"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "Uw {{count}} Wet Openbaarheid Bestuur verzoek"
-msgstr[1] "Uw {{count}} Wet Openbaarheid Bestuur verzoeken"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{site_name}} email alert"
 msgstr ""
@@ -3790,9 +3774,8 @@ msgstr ""
 msgid "{{user_name}} sent a request to {{public_body}}"
 msgstr ""
 
-#, fuzzy
 msgid "{{user_name}} would like a new authority added to {{site_name}}"
-msgstr "Bevestig uw nieuwe e-mailadres op {{site_name}}"
+msgstr ""
 
 msgid "{{user_name}} would like the email address for {{public_body_name}} to be updated"
 msgstr ""

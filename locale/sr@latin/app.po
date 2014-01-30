@@ -13,10 +13,10 @@
 # vucko <vucko@acm.org>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-30 17:09+0000\n"
-"PO-Revision-Date: 2013-11-20 10:14+0000\n"
+"PO-Revision-Date: 2014-01-30 17:18+0000\n"
 "Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/alaveteli/language/sr@latin/)\n"
 "Language: sr@latin\n"
@@ -122,9 +122,8 @@ msgstr ""
 msgid "\"Source URL: #{source_url}\""
 msgstr ""
 
-#, fuzzy
 msgid "\"Your request to update the address for #{get_public_body_name} has been sent. Thank you for getting in touch! We'll get back to you soon.\""
-msgstr "Vaša poruka je poslata. Hvala što ste se javili! Javićemo Vam se uskoro."
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "„Statistika krivičnih dela po mesnim zajednicama u Beogradu“"
@@ -162,9 +161,8 @@ msgstr "- ili -"
 msgid "1. Select an authority"
 msgstr "1. Odaberite organ javne vlasti"
 
-#, fuzzy
 msgid "1. Select authorities"
-msgstr "1. Odaberite organ javne vlasti"
+msgstr ""
 
 msgid "2. Ask for Information"
 msgstr "2. Tražite informacije"
@@ -232,9 +230,8 @@ msgstr "<p>Vaš zahtev sadrži <strong>poštanski broj</strong>. Ako se ovaj po�
 msgid "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
 msgstr "<p>Vaš zahtev vezan za {{law_used_full}} je <strong>poslat</strong>!</p>\\n <p><strong>Obavestićemo Vas e-mailom</strong> kada dođe odgovor, ili nakon {{late_number_of_days}} radnih dana, ako ustanova još nije\\n odgovorila.</p>\\n <p>Ako pišete o ovom zahtevu (npr. na nekom forumu ili blogu) molimo Vas da dodate link na ovu stranicu, i \\n komentar ispod, da informišete zainteresovane o Vašem pisanju.</p>"
 
-#, fuzzy
 msgid "<p>Your {{law_used_full}} requests will be <strong>sent</strong> shortly!</p>\\n            <p><strong>We will email you</strong> when they have been sent.\\n            We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't\\n            replied by then.</p>\\n            <p>If you write about these requests (for example in a forum or a blog) please link to this page.</p>"
-msgstr "<p>Vaš zahtev vezan za {{law_used_full}} je <strong>poslat</strong>!</p>\\n <p><strong>Obavestićemo Vas e-mailom</strong> kada dođe odgovor, ili nakon {{late_number_of_days}} radnih dana, ako ustanova još nije\\n odgovorila.</p>\\n <p>Ako pišete o ovom zahtevu (npr. na nekom forumu ili blogu) molimo Vas da dodate link na ovu stranicu, i \\n komentar ispod, da informišete zainteresovane o Vašem pisanju.</p>"
+msgstr ""
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>{{site_name}} je trenutno u režimu održavanja. Možete samo pregledati postojeće zahteve. Ne možete unositi nove, dodavati prateće poruke ili napomene ili na bilo koji način menjati bazu podataka.</p> <p>{{read_only}}</p>"
@@ -372,13 +369,11 @@ msgstr "Dodaj napomenu"
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr "Dodajte napomenu Vašem zahtevu sa izabranim citatima iz odgovora, ili\\n<strong>sažetak odgovora</strong>."
 
-#, fuzzy
 msgid "Add authority - {{public_body_name}}"
-msgstr "Poštovani {{public_body_name}},"
+msgstr ""
 
-#, fuzzy
 msgid "Add the authority:"
-msgstr "Javna ustanova"
+msgstr ""
 
 msgid "Added on {{date}}"
 msgstr "Dodato {{date}}"
@@ -464,16 +459,14 @@ msgstr "Da li ste vlasnik autorskih prava (kopirajta) na bilo šta na ovoj stran
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Tražite <strong>konkretne</strong> dokumente ili informacije, ovaj sistem namenjen za opšte upite."
 
-#, fuzzy
 msgid "Ask us to add an authority"
-msgstr "1. Odaberite organ javne vlasti"
+msgstr ""
 
 msgid "Ask us to update FOI email"
 msgstr ""
 
-#, fuzzy
 msgid "Ask us to update the email address for {{public_body_name}}"
-msgstr "Pogledati ZOSPI e-mail adresu za {{public_body_name}}"
+msgstr ""
 
 msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
@@ -486,13 +479,11 @@ msgstr "Prilog (neobavezno):"
 msgid "Attachment:"
 msgstr "Prilog:"
 
-#, fuzzy
 msgid "Authority email:"
-msgstr "Vaš e-mail:"
+msgstr ""
 
-#, fuzzy
 msgid "Authority:"
-msgstr "ustanove"
+msgstr ""
 
 msgid "Awaiting classification."
 msgstr "Čeka na klasifikaciju."
@@ -503,9 +494,8 @@ msgstr "Čeka urgenciju."
 msgid "Awaiting response."
 msgstr "Čeka odgovor."
 
-#, fuzzy
 msgid "Batch created by {{info_request_user}} on {{date}}."
-msgstr "poslato za {{public_body_name}} od strane {{info_request_user}} na dan {{date}}."
+msgstr ""
 
 msgid "Beginning with"
 msgstr "Počevši sa"
@@ -594,9 +584,8 @@ msgstr "Proverite ima li grešaka ako ste ukucali ili kopirali adresu."
 msgid "Check you haven't included any <strong>personal information</strong>."
 msgstr "Proverite da niste uključili nikakve <strong>lične podatke</strong>."
 
-#, fuzzy
 msgid "Choose a reason"
-msgstr "Molimo odaberite razlog"
+msgstr ""
 
 msgid "Choose your profile photo"
 msgstr "Odaberite sliku na Vašem profilu"
@@ -658,9 +647,8 @@ msgstr "Potvrdite da želite da pratite zahteve podnete za ustanovu '{{user_name
 msgid "Confirm you want to follow the request '{{request_title}}'"
 msgstr "Potvrdite da želite da pratite zahtev  '{{request_title}}' pomoću e-mail biltena "
 
-#, fuzzy
 msgid "Confirm your FOI request to {{public_body_name}}"
-msgstr "Potvrdite da želite da pratite zahteve podnete za ustanovu '{{user_name}}' pomoću e-mail biltena "
+msgstr ""
 
 msgid "Confirm your account on {{site_name}}"
 msgstr "Potvrdite Vaš profil na {{site_name}}"
@@ -689,9 +677,8 @@ msgstr "Kontaktirajte {{site_name}}"
 msgid "Contains defamatory material"
 msgstr ""
 
-#, fuzzy
 msgid "Contains personal information"
-msgstr "Napomene ove osobe"
+msgstr ""
 
 msgid "Could not identify the request from the email address"
 msgstr "Nismo mogli prepoznati zahtev sa e-mail adrese"
@@ -699,9 +686,8 @@ msgstr "Nismo mogli prepoznati zahtev sa e-mail adrese"
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Format datoteke sa slikom nije prepoznat. Podržani su PNG, JPEG, GIF i dosta drugih uobičajenih formata."
 
-#, fuzzy
 msgid "Created by {{info_request_user}} on {{date}}."
-msgstr "poslato za {{public_body_name}} od strane {{info_request_user}} na dan {{date}}."
+msgstr ""
 
 msgid "Crop your profile photo"
 msgstr "Smanjite sliku za Vaš profil - odsecite ivice"
@@ -724,9 +710,8 @@ msgstr "Poštovani {{name}},"
 msgid "Dear {{public_body_name}},"
 msgstr "Poštovani {{public_body_name}},"
 
-#, fuzzy
 msgid "Dear {{user_name}},"
-msgstr "Poštovani {{name}},"
+msgstr ""
 
 msgid "Default locale"
 msgstr "Podrazumevani jezik"
@@ -806,9 +791,8 @@ msgstr "E-mail ne izgleda kao ispravna adresa"
 msgid "Email me future updates to this request"
 msgstr "Šaljite mi buduće izmene ovog zahteva emailom"
 
-#, fuzzy
 msgid "Email:"
-msgstr "User|E-mail"
+msgstr ""
 
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Unesite reči koje želite naći odvojene razmacima, npr. <strong>jonizujućeg zračenja</strong>"
@@ -930,9 +914,8 @@ msgstr "Prati ovu ustanovu"
 msgid "Follow this link to see the request:"
 msgstr "Pratite ovaj link da biste videli zahtev:"
 
-#, fuzzy
 msgid "Follow this link to see the requests:"
-msgstr "Pratite ovaj link da biste videli zahtev:"
+msgstr ""
 
 msgid "Follow this person"
 msgstr "Prati ovog korisnika"
@@ -1242,24 +1225,20 @@ msgstr "Pojedinačni zahtevi"
 msgid "Info request"
 msgstr "Zahtev za informacije"
 
-#, fuzzy
 msgid "Info request batch"
-msgstr "Zahtev za informacije"
+msgstr ""
 
 msgid "Info request event"
 msgstr "Događaj u vezi zahteva za informacije"
 
-#, fuzzy
 msgid "InfoRequestBatch|Body"
-msgstr "InfoRequest|Idhash"
+msgstr ""
 
-#, fuzzy
 msgid "InfoRequestBatch|Sent at"
-msgstr "InfoRequestEvent|Tip događaja"
+msgstr ""
 
-#, fuzzy
 msgid "InfoRequestBatch|Title"
-msgstr "InfoRequest|Naslov"
+msgstr ""
 
 msgid "InfoRequestEvent|Calculated state"
 msgstr "InfoRequestEvent|Sračunato stanje"
@@ -1411,9 +1390,8 @@ msgstr "MailServerLog|Linija"
 msgid "MailServerLog|Order"
 msgstr "MailServerLog|Redosled"
 
-#, fuzzy
 msgid "Make a batch request"
-msgstr "Podnesi zahtev"
+msgstr ""
 
 msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
 msgstr "Podnesi novi<br/>\\n<strong>Zahtev<span> za</span><br/>\\nslobodan<br/>\\npristup informacijama od javnog značaja</strong>"
@@ -1421,16 +1399,14 @@ msgstr "Podnesi novi<br/>\\n<strong>Zahtev<span> za</span><br/>\\nslobodan<br/>\
 msgid "Make a request"
 msgstr "Podnesi zahtev"
 
-#, fuzzy
 msgid "Make a request to these authorities"
-msgstr "Podnesite zahtev ovoj instituciji"
+msgstr ""
 
 msgid "Make a request to this authority"
 msgstr "Podnesite zahtev ovoj instituciji"
 
-#, fuzzy
 msgid "Make an {{law_used_short}} request"
-msgstr "Novi odgovor na zahtev {{law_used_short}}"
+msgstr ""
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Podnesi {{law_used_short}} zahtev javnoj ustanovi '{{public_body_name}}'"
@@ -1552,9 +1528,8 @@ msgstr "Nije podnet nijedan."
 msgid "Not a valid FOI request"
 msgstr "Neispravan zahtev"
 
-#, fuzzy
 msgid "Not a valid request"
-msgstr "Neispravan zahtev"
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Imajte u vidu da podnosilac zahteva neće biti obavešten o Vašem komentaru, zato što je zahtev objavljen od strane ustanove {{public_body_name}} u njegovo/njeno ime."
@@ -1628,9 +1603,8 @@ msgstr "Ili tražite ovu informaciju na njihovom web sajtu."
 msgid "Original request sent"
 msgstr "Originalni zahtev poslat"
 
-#, fuzzy
 msgid "Other"
-msgstr "Ostalo:"
+msgstr ""
 
 msgid "Other:"
 msgstr "Ostalo:"
@@ -1776,9 +1750,8 @@ msgstr "Molimo unesite ispravnu e-mail adresu"
 msgid "Please enter the message you want to send"
 msgstr "Molimo unesite poruku koju želite da pošaljete"
 
-#, fuzzy
 msgid "Please enter the name of the authority"
-msgstr "Molimo unesite istu lozinku dva puta"
+msgstr ""
 
 msgid "Please enter the same password twice"
 msgstr "Molimo unesite istu lozinku dva puta"
@@ -1839,9 +1812,8 @@ msgstr "Molimo prijavite se kao "
 msgid "Please sign in or make a new account."
 msgstr "Molimo prijavite se na sistem ili se registrujte."
 
-#, fuzzy
 msgid "Please tell us more:"
-msgstr "Molimo unesite Vaše ime"
+msgstr ""
 
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Molimo upišite poruku i/ili odaberite fajl koji sadrži vaš odgovor."
@@ -1909,13 +1881,11 @@ msgstr "Pregledajte reakcije do '"
 msgid "Preview new annotation on '{{info_request_title}}'"
 msgstr "Pregledajte novu napomenu o '{{info_request_title}}'"
 
-#, fuzzy
 msgid "Preview new {{law_used_short}} request"
-msgstr "Novi odgovor na zahtev {{law_used_short}}"
+msgstr ""
 
-#, fuzzy
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
-msgstr "Podnesi {{law_used_short}} zahtev javnoj ustanovi '{{public_body_name}}'"
+msgstr ""
 
 msgid "Preview your annotation"
 msgstr "Pregledajte Vašu napomenu"
@@ -1971,9 +1941,8 @@ msgstr "Javne ustanove sa najviše uspešnih zahteva"
 msgid "Public body"
 msgstr "Javna ustanova"
 
-#, fuzzy
 msgid "Public body change request"
-msgstr "Javne ustanove sa najviše zahteva"
+msgstr ""
 
 msgid "Public notes"
 msgstr "Javne beleške"
@@ -1984,33 +1953,26 @@ msgstr "Javna strana"
 msgid "Public page not available"
 msgstr "Javna strana nije raspoloživa"
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Is open"
-msgstr "PublicBody|Email adresa"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Notes"
-msgstr "PublicBody|Beleške"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Public body email"
-msgstr "PublicBody|Email adresa"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Public body name"
-msgstr "PublicBody|Mehanizam objavljivanja"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Source url"
-msgstr "PublicBody|Email adresa"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|User email"
-msgstr "PublicBody|Email adresa"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|User name"
-msgstr "PublicBody|Url ime"
+msgstr ""
 
 msgid "PublicBody|Api key"
 msgstr "PublicBody|API ključ"
@@ -2140,9 +2102,8 @@ msgstr "Zatražite urgenciju od strane {{person_or_body}}"
 msgid "Request email"
 msgstr "Zahtevajte email"
 
-#, fuzzy
 msgid "Request for personal information"
-msgstr "Molimo tražite samo informacije o prirodnoj okolini"
+msgstr ""
 
 msgid "Request has been removed"
 msgstr "Zahtev je uklonjen"
@@ -2267,9 +2228,8 @@ msgstr "Postavite poruku u slučaju odbijanja"
 msgid "Select one to see more information about the authority."
 msgstr "Odaberite jedan da biste videli više informacija o ustanovi."
 
-#, fuzzy
 msgid "Select the authorities to write to"
-msgstr "Odaberite ustanovu kojoj ćete pisati"
+msgstr ""
 
 msgid "Select the authority to write to"
 msgstr "Odaberite ustanovu kojoj ćete pisati"
@@ -2298,12 +2258,11 @@ msgstr "Pošalji poruku za"
 msgid "Send request"
 msgstr "Pošalji zahtev"
 
-#, fuzzy
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
-msgstr[0] "poslato za {{public_body_name}} od strane {{info_request_user}} na dan {{date}}."
-msgstr[1] "poslato za {{public_body_name}} od strane {{info_request_user}} na dan {{date}}."
-msgstr[2] "poslato za {{public_body_name}} od strane {{info_request_user}} na dan {{date}}."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Set your profile photo"
 msgstr "Podesite sliku na Vašem profilu"
@@ -2413,9 +2372,8 @@ msgstr "Predmet:"
 msgid "Submit"
 msgstr "Pošalji"
 
-#, fuzzy
 msgid "Submit request"
-msgstr "Slični zahtevi"
+msgstr ""
 
 msgid "Submit status"
 msgstr "Pošalji status"
@@ -2518,9 +2476,8 @@ msgstr "Korisnički profili nisu menjani"
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)"
 msgstr "Ustanova <strong>ne poseduje</strong> informacije <small>(ali oni možda mogu reći ko ih poseduje)"
 
-#, fuzzy
 msgid "The authority email doesn't look like a valid address"
-msgstr "Novi e-mail ne izgleda kao ispravna adresa"
+msgstr ""
 
 msgid "The authority only has a <strong>paper copy</strong> of the information."
 msgstr "Ustanova ima samo <strong>štampani oblik</strong> informacije."
@@ -2537,9 +2494,8 @@ msgstr "Ustanova bi htela da odgovori / je odgovorila <strong>poštom</strong> n
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
 msgstr "Klasifikaciju zahteva (npr. da li je uspešan ili ne)  rade korisnici i administratori sistma, što znači da je podložna greškama"
 
-#, fuzzy
 msgid "The contact email address for FOI requests to the authority."
-msgstr "Ne posedujemo ispravnu e-mail adresu za zahteve za ovu ustanovu."
+msgstr ""
 
 msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to reply to an {{law_used_short}}\\nrequest has not been delivered."
 msgstr "Poruka koju ste, u ime ustanove '{{public_body}}', poslali podnosiocu\\n'{{user}}' da odgovorite na zahtev vezan za {{law_used_short}}\\n nije isporučena."
@@ -2634,9 +2590,8 @@ msgstr "Tada možete preuzeti {{info_request_title}} u formi zip arhive."
 msgid "Then you can log into the administrative interface"
 msgstr "Onda se možete prijaviti na administrativnu aplikaciju"
 
-#, fuzzy
 msgid "Then you can make a batch request"
-msgstr "Tada možete opozvati upozorenje."
+msgstr ""
 
 msgid "Then you can play the request categorisation game."
 msgstr "Tada možete igrati igru kategorizacije zatjeva."
@@ -2933,9 +2888,8 @@ msgstr "Da svima objavite, molimo pratite ovaj link i onda odaberite odgovaraju�
 msgid "To log into the administrative interface"
 msgstr "Da se prijavite na administrativnu aplikaciju"
 
-#, fuzzy
 msgid "To make a batch request"
-msgstr "Podnesi zahtev"
+msgstr ""
 
 msgid "To play the request categorisation game"
 msgstr "Da biste igrali igru kategorizacije zahteva"
@@ -3036,9 +2990,8 @@ msgstr ""
 "te ustanove, tako da ne možemo da ovo validiramo.\n"
 "Molimo <a href=\"{{url}}\">kontaktirajte nas</a> da to razjasnimo."
 
-#, fuzzy
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
-msgstr "Nemamo ispravnu adresu za {{public_body_name}} za upite vezane za {{law_used_full}}."
+msgstr ""
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr ""
@@ -3054,9 +3007,8 @@ msgstr "Otkaži praćenje"
 msgid "Unusual response."
 msgstr "Neobičan odgovor."
 
-#, fuzzy
 msgid "Update email address - {{public_body_name}}"
-msgstr "Pogledati ZOSPI e-mail adresu za {{public_body_name}}"
+msgstr ""
 
 msgid "Update the address:"
 msgstr ""
@@ -3088,9 +3040,8 @@ msgstr "Korisnik – {{name}}"
 msgid "UserInfoRequestSentAlert|Alert type"
 msgstr "UserInfoRequestSentAlert|Alert događaja"
 
-#, fuzzy
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
-msgstr "Postoji ograničenje broja zahteva koje možete podneti u jednom danu, pošto želimo da izbegnemo da javne ustanove budu bombardovane velikim brojem neprikladnih zahteva. Ako mislite da u Vašem slučaju ovo ograničenje treba ukloniti, molimo  <a href='{{help_contact_path}}'>da nam se javite</a>."
+msgstr ""
 
 msgid "User|About me"
 msgstr "User|O meni"
@@ -3101,9 +3052,8 @@ msgstr "User|Administratorski nivo"
 msgid "User|Ban text"
 msgstr "User|Tekst isključenja"
 
-#, fuzzy
 msgid "User|Can make batch requests"
-msgstr "Pregledaj i pretraži zahteve"
+msgstr ""
 
 msgid "User|Email"
 msgstr "User|E-mail"
@@ -3289,9 +3239,8 @@ msgstr "Pišite Vaš zahtev <strong>jednostavnim, preciznim jezikom</strong>."
 msgid "You"
 msgstr "Vi"
 
-#, fuzzy
 msgid "You already created the same batch of requests on {{date}}.   You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr "{{existing_request_user}} je već\\n podneo isti zahtev na dan {{date}}. Možete ili pogledati <a href=\"{{existing_request}}\">postojeći zahtev</a>,\\n ili promeniti detalje ispod da napravite novi, sličan zahtev."
+msgstr ""
 
 msgid "You are already following new requests"
 msgstr "Već pratite nove zahteve"
@@ -3367,12 +3316,8 @@ msgstr "Znate šta je uzrok ove greške i možete <strong>predložiti rešenje</
 msgid "You may <strong>include attachments</strong>. If you would like to attach a\\n  file too large for email, use the form below."
 msgstr "Možete <strong>ubaciti priloge</strong>. Ako želite ubaciti datoteku\\n preveliku za e-mail poruke, koristite obrazac ispod."
 
-#, fuzzy
 msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please send it to us:"
 msgstr ""
-"Moguće je da je nađete\n"
-"    na njihovoj web stranici, ili uz pomoć telefonskog poziva. Ako uspete\n"
-"    da je nađete, onda molimo <a href=\"{{url}}\">da nam je pošaljete</a>."
 
 msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
@@ -3443,9 +3388,8 @@ msgstr "Vaše <strong>ime će biti javno prikazano</strong>\\n (<a href=\"{{why_
 msgid "Your annotations"
 msgstr "Vaše napomene"
 
-#, fuzzy
 msgid "Your batch request \"{{title}}\" has been sent"
-msgstr "Vaša poruka za korisnika {{recipient_user_name}} je poslata"
+msgstr ""
 
 msgid "Your details, including your email address, have not been given to anyone."
 msgstr "Vaši lični podaci, uključujući Vašu email adresu, nisu dati nikome."
@@ -3453,9 +3397,8 @@ msgstr "Vaši lični podaci, uključujući Vašu email adresu, nisu dati nikome.
 msgid "Your e-mail:"
 msgstr "Vaš e-mail:"
 
-#, fuzzy
 msgid "Your email doesn't look like a valid address"
-msgstr "Novi e-mail ne izgleda kao ispravna adresa"
+msgstr ""
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr "Vaša reakcija nije poslata zato što je ovaj zahtev blokiran da se spreči spam. Molimo <a href=\"{{url}}\">kontaktirajte nas</a> ako stvarno želite da pošaljete ovu reakciju."
@@ -3507,17 +3450,14 @@ msgstr "Vaš zahtev '{{request}}' na {{url}} je bio pregledan od strane moderato
 msgid "Your request on {{site_name}} hidden"
 msgstr "Vaš zahtev na sistemu {{site_name}} je sakriven"
 
-#, fuzzy
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
-msgstr "Vaša poruka je poslata. Hvala što ste se javili! Javićemo Vam se uskoro."
+msgstr ""
 
-#, fuzzy
 msgid "Your request to add {{public_body_name}} to {{site_name}}"
-msgstr "Tada će Vaš zahtev za pristup informacijama od javnog značaja za {{public_body_name}} biti poslati."
+msgstr ""
 
-#, fuzzy
 msgid "Your request to update {{public_body_name}} on {{site_name}}"
-msgstr "Tada će Vaš zahtev za pristup informacijama od javnog značaja za {{public_body_name}} biti poslati."
+msgstr ""
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Naziv Vašeg zahteva je {{info_request}}. Ažuriranjem informacije o tome da li ste dobili odgovor ćete nam pomoći da bolje pratimo ponašanje "
@@ -3531,9 +3471,8 @@ msgstr "Vaš odgovor na Zahtev za slobodan pristup informacijama od javnog znač
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr "Vaš odgovor će se <strong>pojaviti na Internetu</strong>, <a href=\"{{url}}\">pročitajte zašto</a> i odgovore na druga pitanja."
 
-#, fuzzy
 msgid "Your selected authorities"
-msgstr "Javne ustanove"
+msgstr ""
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Vaše mišljenje o tome šta administratori sistema {{site_name}} treba da rade po pitanju ovog zahteva."
@@ -3550,12 +3489,11 @@ msgstr[0] "Vaš {{count}} komentar"
 msgstr[1] "Vaša {{count}} komentara"
 msgstr[2] "Vaših {{count}} komentara"
 
-#, fuzzy
 msgid "Your {{count}} batch requests"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "{{count}} zahtev"
-msgstr[1] "{{count}} zahteva"
-msgstr[2] "{{count}} zahteva"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Your {{site_name}} email alert"
 msgstr "Vaš e-mail bilten od {{site_name}} "
@@ -3927,9 +3865,8 @@ msgstr "{{thing_changed}} je promenjeno sa <code>{{from_value}}</code> na <code>
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - Zahtev za slobodan pristup informacijama od javnog značaja upućen ustanovi {{public_body}}"
 
-#, fuzzy
 msgid "{{title}} - a batch request"
-msgstr "Pregledaj i pretraži zahteve"
+msgstr ""
 
 msgid "{{user_name}} (Account suspended)"
 msgstr "{{user_name}} (blokiran profil)"
@@ -3957,13 +3894,11 @@ msgstr "{{user_name}} je poslao/la reakciju za {{public_body}}"
 msgid "{{user_name}} sent a request to {{public_body}}"
 msgstr "{{user_name}} je poslao/la zahtev za {{public_body}}"
 
-#, fuzzy
 msgid "{{user_name}} would like a new authority added to {{site_name}}"
-msgstr "Potvrdite Vašu novu e-mail adresu na {{site_name}}"
+msgstr ""
 
-#, fuzzy
 msgid "{{user_name}} would like the email address for {{public_body_name}} to be updated"
-msgstr "Pogledati ZOSPI e-mail adresu za {{public_body_name}}"
+msgstr ""
 
 msgid "{{username}} left an annotation:"
 msgstr "{{username}} je ostavio/la napomenu:"
@@ -3973,12 +3908,3 @@ msgstr "{{user}} ({{user_admin_link}}) je podneo ovaj zahtev vezan za {{law_used
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} je podneo/la ovaj zahtev pozivajući se na {{law_used_full}}"
-
-#~ msgid "Confirm your FOI request to "
-#~ msgstr "Potvrdite Vaš ZOSPIOJ zahtev za"
-
-#~ msgid "List all"
-#~ msgstr "Prikaži sve"
-
-#~ msgid "Unexpected search result type"
-#~ msgstr "Neočekivani tip rezultata pretrage"

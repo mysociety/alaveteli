@@ -9,10 +9,10 @@
 # ppanhh <vietnamesel10n@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-30 17:09+0000\n"
-"PO-Revision-Date: 2013-11-20 10:14+0000\n"
+"PO-Revision-Date: 2014-01-30 17:18+0000\n"
 "Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/projects/p/alaveteli/language/vi/)\n"
 "Language: vi\n"
@@ -153,9 +153,8 @@ msgstr ""
 msgid "1. Select an authority"
 msgstr ""
 
-#, fuzzy
 msgid "1. Select authorities"
-msgstr "Một cơ quan công cộng"
+msgstr ""
 
 msgid "2. Ask for Information"
 msgstr ""
@@ -361,9 +360,8 @@ msgstr ""
 msgid "Add authority - {{public_body_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "Add the authority:"
-msgstr "Một cơ quan công cộng"
+msgstr ""
 
 msgid "Added on {{date}}"
 msgstr ""
@@ -470,9 +468,8 @@ msgstr ""
 msgid "Authority email:"
 msgstr ""
 
-#, fuzzy
 msgid "Authority:"
-msgstr "Một cơ quan công cộng"
+msgstr ""
 
 msgid "Awaiting classification."
 msgstr ""
@@ -699,9 +696,8 @@ msgstr ""
 msgid "Dear {{public_body_name}},"
 msgstr ""
 
-#, fuzzy
 msgid "Dear {{user_name}},"
-msgstr "Người dùng {{site_name}}"
+msgstr ""
 
 msgid "Default locale"
 msgstr ""
@@ -1505,9 +1501,8 @@ msgstr ""
 msgid "Not a valid FOI request"
 msgstr ""
 
-#, fuzzy
 msgid "Not a valid request"
-msgstr "Đây là yêu cầu khó"
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr ""

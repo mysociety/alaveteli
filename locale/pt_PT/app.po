@@ -9,11 +9,11 @@
 # luispaisbernardo <luispaisbernardo@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-30 17:09+0000\n"
-"PO-Revision-Date: 2013-11-20 10:14+0000\n"
-"Last-Translator: luispaisbernardo <luispaisbernardo@gmail.com>\n"
+"PO-Revision-Date: 2014-01-30 17:18+0000\n"
+"Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/alaveteli/language/pt_PT/)\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
@@ -153,9 +153,8 @@ msgstr "- ou -"
 msgid "1. Select an authority"
 msgstr "1. Seleccione uma entidade"
 
-#, fuzzy
 msgid "1. Select authorities"
-msgstr "1. Seleccione uma entidade"
+msgstr ""
 
 msgid "2. Ask for Information"
 msgstr "2. Peça informação"
@@ -361,9 +360,8 @@ msgstr ""
 msgid "Add authority - {{public_body_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "Add the authority:"
-msgstr "uma entidade pública"
+msgstr ""
 
 msgid "Added on {{date}}"
 msgstr ""
@@ -449,9 +447,8 @@ msgstr ""
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr ""
 
-#, fuzzy
 msgid "Ask us to add an authority"
-msgstr "1. Seleccione uma entidade"
+msgstr ""
 
 msgid "Ask us to update FOI email"
 msgstr ""
@@ -468,13 +465,11 @@ msgstr "Anexo (opcional)"
 msgid "Attachment:"
 msgstr "Anexo"
 
-#, fuzzy
 msgid "Authority email:"
-msgstr "E-mail:"
+msgstr ""
 
-#, fuzzy
 msgid "Authority:"
-msgstr "uma entidade pública"
+msgstr ""
 
 msgid "Awaiting classification."
 msgstr "Classificação pendente"
@@ -575,9 +570,8 @@ msgstr ""
 msgid "Check you haven't included any <strong>personal information</strong>."
 msgstr ""
 
-#, fuzzy
 msgid "Choose a reason"
-msgstr "Por favor, escolha uma razão"
+msgstr ""
 
 msgid "Choose your profile photo"
 msgstr ""
@@ -1508,9 +1502,8 @@ msgstr ""
 msgid "Not a valid FOI request"
 msgstr ""
 
-#, fuzzy
 msgid "Not a valid request"
-msgstr "Nota adicionada ao pedido"
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr ""
@@ -1722,9 +1715,8 @@ msgstr ""
 msgid "Please enter the message you want to send"
 msgstr ""
 
-#, fuzzy
 msgid "Please enter the name of the authority"
-msgstr "Introduza o seu nome"
+msgstr ""
 
 msgid "Please enter the same password twice"
 msgstr ""
@@ -1783,9 +1775,8 @@ msgstr ""
 msgid "Please sign in or make a new account."
 msgstr ""
 
-#, fuzzy
 msgid "Please tell us more:"
-msgstr "Introduza o seu nome"
+msgstr ""
 
 msgid "Please type a message and/or choose a file containing your response."
 msgstr ""
@@ -2334,9 +2325,8 @@ msgstr "Assunto:"
 msgid "Submit"
 msgstr ""
 
-#, fuzzy
 msgid "Submit request"
-msgstr "Pedido:"
+msgstr ""
 
 msgid "Submit status"
 msgstr ""
@@ -3373,9 +3363,8 @@ msgstr ""
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr ""
 
-#, fuzzy
 msgid "Your selected authorities"
-msgstr "Pesquise todas as autoridades..."
+msgstr ""
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr ""

@@ -8,10 +8,10 @@
 # sroberto <ertoba@yahoo.es>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-30 17:09+0000\n"
-"PO-Revision-Date: 2013-11-20 10:14+0000\n"
+"PO-Revision-Date: 2014-01-30 17:18+0000\n"
 "Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/alaveteli/language/eu/)\n"
 "Language: eu\n"
@@ -117,9 +117,8 @@ msgstr ""
 msgid "\"Source URL: #{source_url}\""
 msgstr ""
 
-#, fuzzy
 msgid "\"Your request to update the address for #{get_public_body_name} has been sent. Thank you for getting in touch! We'll get back to you soon.\""
-msgstr "Zure mezua bidali da. Eskerrik asko idazteagatik, laster jarriko gara zurekin harremanetan."
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Espainiako krimen estatistika, eskualdeka'"
@@ -164,9 +163,8 @@ msgstr "- edo -"
 msgid "1. Select an authority"
 msgstr "1. Aukera ezazu erakunde publiko bat"
 
-#, fuzzy
 msgid "1. Select authorities"
-msgstr "1. Aukera ezazu erakunde publiko bat"
+msgstr ""
 
 msgid "2. Ask for Information"
 msgstr "2. Eskatu informazioa"
@@ -385,13 +383,11 @@ msgstr "Gehitu iruzkina"
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr "Gehitu zure eskabideari buruzko iruzkina, aipamen aukeratuekin edo <strong>erantzunaren laburpenarekin</strong>."
 
-#, fuzzy
 msgid "Add authority - {{public_body_name}}"
-msgstr "{{public_body_name}} agurgarria,"
+msgstr ""
 
-#, fuzzy
 msgid "Add the authority:"
-msgstr "Erakunde publikoa"
+msgstr ""
 
 msgid "Added on {{date}}"
 msgstr " {{date}} egunean gehituta"
@@ -479,16 +475,14 @@ msgstr "Orrialde honetako infomazioaren eskubideak dituzu zuk?"
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Eska itzatzu agiriak edo informazio  <strong>zehatza</strong>, web orrialde hau ez dago zalantza orokorrak argitzeko pentsatuta."
 
-#, fuzzy
 msgid "Ask us to add an authority"
-msgstr "1. Aukera ezazu erakunde publiko bat"
+msgstr ""
 
 msgid "Ask us to update FOI email"
 msgstr ""
 
-#, fuzzy
 msgid "Ask us to update the email address for {{public_body_name}}"
-msgstr "Ikusi '{{public_body_name}}'-ren posta helbidea"
+msgstr ""
 
 msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr "Orrialde honen amaieran, idatz ezazu erantzuna, eskanea dezaten konbentzitzeko (<a href=\"{{url}}\">xehetasun gehiago</a>)."
@@ -499,13 +493,11 @@ msgstr "Gehigarriak (aukerakoa):"
 msgid "Attachment:"
 msgstr "Gehigarria:"
 
-#, fuzzy
 msgid "Authority email:"
-msgstr "Zure helbide elektronikoa:"
+msgstr ""
 
-#, fuzzy
 msgid "Authority:"
-msgstr "erakundeak"
+msgstr ""
 
 msgid "Awaiting classification."
 msgstr "Sailkatzeko zain."
@@ -516,9 +508,8 @@ msgstr "Barneko berrikusketaren zain."
 msgid "Awaiting response."
 msgstr "Erantzunaren zain."
 
-#, fuzzy
 msgid "Batch created by {{info_request_user}} on {{date}}."
-msgstr "{{public_body_name}}-ri {{info_request_user}}-k bidali dio {{date}} egunean."
+msgstr ""
 
 msgid "Beginning with"
 msgstr "___-ekin hasita"
@@ -670,9 +661,8 @@ msgstr ""
 msgid "Confirm you want to follow the request '{{request_title}}'"
 msgstr ""
 
-#, fuzzy
 msgid "Confirm your FOI request to {{public_body_name}}"
-msgstr "Orduan {{public_body_name}}-ri egin diozun eskabidea bidaliko da."
+msgstr ""
 
 msgid "Confirm your account on {{site_name}}"
 msgstr "Berretsi {{site_name}}-ean daukazun kontua"
@@ -701,9 +691,8 @@ msgstr "Jar zaitez {{site_name}}-rekin harremanetan"
 msgid "Contains defamatory material"
 msgstr ""
 
-#, fuzzy
 msgid "Contains personal information"
-msgstr "Zure iruzkinak"
+msgstr ""
 
 msgid "Could not identify the request from the email address"
 msgstr "Ezin izan dugu eskabidea zehaztu helbide elektronikoaren arabera"
@@ -711,9 +700,8 @@ msgstr "Ezin izan dugu eskabidea zehaztu helbide elektronikoaren arabera"
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Ezin dugu prozesatu igo duzun irudia. PNG, JPEG, GIF edo beste irudi formatu orokorrak erabil ditzakezu."
 
-#, fuzzy
 msgid "Created by {{info_request_user}} on {{date}}."
-msgstr "{{public_body_name}}-ri {{info_request_user}}-k bidali dio {{date}} egunean."
+msgstr ""
 
 msgid "Crop your profile photo"
 msgstr "Moztu zure profilaren argazkia"
@@ -736,9 +724,8 @@ msgstr ""
 msgid "Dear {{public_body_name}},"
 msgstr "{{public_body_name}} agurgarria,"
 
-#, fuzzy
 msgid "Dear {{user_name}},"
-msgstr "Kaixo, {{username}}!"
+msgstr ""
 
 msgid "Default locale"
 msgstr ""
@@ -818,9 +805,8 @@ msgstr "Badirudi helbide elektronikoa ez dela zuzena"
 msgid "Email me future updates to this request"
 msgstr "Eskabide honen gaurkotzeak emailez jaso nahi ditut"
 
-#, fuzzy
 msgid "Email:"
-msgstr "User|Email"
+msgstr ""
 
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Sartu nahi dituzun hitzak, espazio batez bananduta, hau da <strong>parlamentua gastua</strong>"
@@ -939,9 +925,8 @@ msgstr "Jarraitu erakunde honi"
 msgid "Follow this link to see the request:"
 msgstr "Jarraitu esteka honi eskabidea ikusteko:"
 
-#, fuzzy
 msgid "Follow this link to see the requests:"
-msgstr "Jarraitu esteka honi eskabidea ikusteko:"
+msgstr ""
 
 msgid "Follow this person"
 msgstr ""
@@ -1252,24 +1237,20 @@ msgstr ""
 msgid "Info request"
 msgstr ""
 
-#, fuzzy
 msgid "Info request batch"
-msgstr "InfoRequest|Idhash"
+msgstr ""
 
 msgid "Info request event"
 msgstr ""
 
-#, fuzzy
 msgid "InfoRequestBatch|Body"
-msgstr "InfoRequest|Idhash"
+msgstr ""
 
-#, fuzzy
 msgid "InfoRequestBatch|Sent at"
-msgstr "InfoRequestEvent|Event type"
+msgstr ""
 
-#, fuzzy
 msgid "InfoRequestBatch|Title"
-msgstr "InfoRequest|Title"
+msgstr ""
 
 msgid "InfoRequestEvent|Calculated state"
 msgstr "InfoRequestEvent|Calculated state"
@@ -1421,9 +1402,8 @@ msgstr ""
 msgid "MailServerLog|Order"
 msgstr ""
 
-#, fuzzy
 msgid "Make a batch request"
-msgstr "Bidali eskabidea"
+msgstr ""
 
 msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
 msgstr ""
@@ -1434,16 +1414,14 @@ msgstr ""
 msgid "Make a request"
 msgstr "Bidali eskabidea"
 
-#, fuzzy
 msgid "Make a request to these authorities"
-msgstr "Erakunde honi buruzko informazio gehiago"
+msgstr ""
 
 msgid "Make a request to this authority"
 msgstr ""
 
-#, fuzzy
 msgid "Make an {{law_used_short}} request"
-msgstr "Zure {{law_used_short}} eskabideari egindako erantzun berria"
+msgstr ""
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Egin eizaiozu {{law_used_short}} eskabidea '{{public_body_name}}'-ri"
@@ -1565,9 +1543,8 @@ msgstr "Ez da honelakorik egin."
 msgid "Not a valid FOI request"
 msgstr ""
 
-#, fuzzy
 msgid "Not a valid request"
-msgstr "Bidali eskabidea"
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr ""
@@ -1641,9 +1618,8 @@ msgstr "EDO bila ezazu informazio hau haren web orrialdean."
 msgid "Original request sent"
 msgstr "Eskabide originala bidalita"
 
-#, fuzzy
 msgid "Other"
-msgstr "Beste batzuk:"
+msgstr ""
 
 msgid "Other:"
 msgstr "Beste batzuk:"
@@ -1782,9 +1758,8 @@ msgstr "Mesedez, jar ezazu email baliagarri bat"
 msgid "Please enter the message you want to send"
 msgstr "Mesedez, sar ezazu bidali nahi duzun mezua"
 
-#, fuzzy
 msgid "Please enter the name of the authority"
-msgstr "Mesedez, sar ezazu pasahitz bera bi aldiz"
+msgstr ""
 
 msgid "Please enter the same password twice"
 msgstr "Mesedez, sar ezazu pasahitz bera bi aldiz"
@@ -1843,9 +1818,8 @@ msgstr "Mesedez, ireki saioa ___________  bezala"
 msgid "Please sign in or make a new account."
 msgstr ""
 
-#, fuzzy
 msgid "Please tell us more:"
-msgstr "Mesedez, sar ezazu zure izena"
+msgstr ""
 
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Mesedez, idatz ezazu mezua edota aukera ezazu erantzuna dakarren fitxategia."
@@ -1913,13 +1887,11 @@ msgstr "_____'-ren mezua berrikusi"
 msgid "Preview new annotation on '{{info_request_title}}'"
 msgstr " '{{info_request_title}}'-ren iruzkin berria berrikusi"
 
-#, fuzzy
 msgid "Preview new {{law_used_short}} request"
-msgstr "Zure {{law_used_short}} eskabideari egindako erantzun berria"
+msgstr ""
 
-#, fuzzy
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
-msgstr "Egin eizaiozu {{law_used_short}} eskabidea '{{public_body_name}}'-ri"
+msgstr ""
 
 msgid "Preview your annotation"
 msgstr "Berrikusi zure iruzkina"
@@ -1975,9 +1947,8 @@ msgstr ""
 msgid "Public body"
 msgstr ""
 
-#, fuzzy
 msgid "Public body change request"
-msgstr "PublicBody|Request email"
+msgstr ""
 
 msgid "Public notes"
 msgstr ""
@@ -1988,33 +1959,26 @@ msgstr ""
 msgid "Public page not available"
 msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Is open"
-msgstr "PublicBody|Request email"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Notes"
-msgstr "Notas"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Public body email"
-msgstr "PublicBody|Request email"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Public body name"
-msgstr "PublicBody|Publication scheme"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Source url"
-msgstr "PublicBody|Request email"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|User email"
-msgstr "PublicBody|Request email"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|User name"
-msgstr "Dirección web"
+msgstr ""
 
 msgid "PublicBody|Api key"
 msgstr ""
@@ -2144,9 +2108,8 @@ msgstr "{{person_or_body}}-ri barneko berrikusketa eskatu."
 msgid "Request email"
 msgstr ""
 
-#, fuzzy
 msgid "Request for personal information"
-msgstr "Mesedez, eska ezazu soilik inguruneari buruzko informazioa"
+msgstr ""
 
 msgid "Request has been removed"
 msgstr "Eskabidea ezabatuta dago"
@@ -2273,9 +2236,8 @@ msgstr ""
 msgid "Select one to see more information about the authority."
 msgstr "Aukera ezazu bat erakunde honi buruzko informazio gehiago ikusteko"
 
-#, fuzzy
 msgid "Select the authorities to write to"
-msgstr "Aukera ezazu idatziko diozun erakundea"
+msgstr ""
 
 msgid "Select the authority to write to"
 msgstr "Aukera ezazu idatziko diozun erakundea"
@@ -2304,11 +2266,10 @@ msgstr "Bidali _____-ri mezua"
 msgid "Send request"
 msgstr "Bidali eskabidea"
 
-#, fuzzy
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
-msgstr[0] "{{public_body_name}}-ri {{info_request_user}}-k bidali dio {{date}} egunean."
-msgstr[1] "{{public_body_name}}-ri {{info_request_user}}-k bidali dio {{date}} egunean."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Set your profile photo"
 msgstr "Aldatu profilaren argazkia"
@@ -2414,9 +2375,8 @@ msgstr "Gaia:"
 msgid "Submit"
 msgstr "Bidali"
 
-#, fuzzy
 msgid "Submit request"
-msgstr "Antzeko eskabideak"
+msgstr ""
 
 msgid "Submit status"
 msgstr "Bidali egoera"
@@ -2513,9 +2473,8 @@ msgstr "Kontuak lehen zeuden bezalaxe utzi dira."
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)"
 msgstr "Erakundeak <strong>ez dauka</strong> informazioa <small>(agian esan dezakete nork daukan)"
 
-#, fuzzy
 msgid "The authority email doesn't look like a valid address"
-msgstr "Helbide berriak ez du baliagarria ematen"
+msgstr ""
 
 msgid "The authority only has a <strong>paper copy</strong> of the information."
 msgstr "Erakundeak informazioaren <strong>paperezko kopia</strong> baino ez dauka."
@@ -2531,9 +2490,8 @@ msgstr "Erakundeak eskabide honi erantzun dio / nahi izango luke <strong>posta a
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
 msgstr ""
 
-#, fuzzy
 msgid "The contact email address for FOI requests to the authority."
-msgstr "Ez daukagu erakunde honetako helbide baliagarririk."
+msgstr ""
 
 msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to reply to an {{law_used_short}}\\nrequest has not been delivered."
 msgstr ""
@@ -2625,9 +2583,8 @@ msgstr "Orduan {{info_request_title}}-tik deskargatu ahal izango duzu ZIP fitxat
 msgid "Then you can log into the administrative interface"
 msgstr ""
 
-#, fuzzy
 msgid "Then you can make a batch request"
-msgstr "Orduan ezeztatu ahal izango duzu zure alerta."
+msgstr ""
 
 msgid "Then you can play the request categorisation game."
 msgstr "Orduan eskabideak sailkatzeko jolasean jokatu ahal izango duzu."
@@ -2915,9 +2872,8 @@ msgstr ""
 msgid "To log into the administrative interface"
 msgstr ""
 
-#, fuzzy
 msgid "To make a batch request"
-msgstr "Bidali eskabidea"
+msgstr ""
 
 msgid "To play the request categorisation game"
 msgstr "Eskabideak bersailkatzeko jolasean aritu"
@@ -3015,9 +2971,8 @@ msgstr "Ustegabeko emaitza aurkitu da "
 msgid "Unfortunately we don't know the FOI\\nemail address for that authority, so we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr "Zoritxarrez ez dugu erakunde honetako posta helbidea, beraz ezin izan dugu balioztatu. Mesedez, jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a> hau konpontzeko."
 
-#, fuzzy
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
-msgstr "Ez daukagu {{public_body_name}} honetako {{law_used_full}} helbide baliagarririk."
+msgstr ""
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr "Zoritxarrez ez dugu posta helbide baliagarria honentzat: {{info_request_law_used_full}}"
@@ -3031,9 +2986,8 @@ msgstr ""
 msgid "Unusual response."
 msgstr "Ez-ohiko erantzuna."
 
-#, fuzzy
 msgid "Update email address - {{public_body_name}}"
-msgstr "Ikusi '{{public_body_name}}'-ren posta helbidea"
+msgstr ""
 
 msgid "Update the address:"
 msgstr ""
@@ -3065,9 +3019,8 @@ msgstr ""
 msgid "UserInfoRequestSentAlert|Alert type"
 msgstr "UserInfoRequestSentAlert|Alert type"
 
-#, fuzzy
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
-msgstr "Badago egunean egin ditzakezun eskabide kopuru mugatua, ez dugulako nahi erakunde publikoek gaizki idatzitako eskabide gehiegizkoak jaso ditzaten. Zure kasuan muga hau aplika ez dadin behar izanez gero, mesedez jar zaitez gurekin <a href='{{help_contact_path}}'>harremanetan</a>."
+msgstr ""
 
 msgid "User|About me"
 msgstr "User|About me"
@@ -3078,9 +3031,8 @@ msgstr "User|Admin level"
 msgid "User|Ban text"
 msgstr "User|Ban text"
 
-#, fuzzy
 msgid "User|Can make batch requests"
-msgstr "Ikusi eta bilatu eskabideak"
+msgstr ""
 
 msgid "User|Email"
 msgstr "User|Email"
@@ -3259,11 +3211,8 @@ msgstr "Idatz ezazu zure eskabidea <strong>hizkera erraz eta argi</strong> batez
 msgid "You"
 msgstr "Zu"
 
-#, fuzzy
 msgid "You already created the same batch of requests on {{date}}.   You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr ""
-"{{existing_request_user}}-k eskabide bera bidali du {{date}} egunean. <a href=\"{{existing_request}}\">dagoen eskabidea</a> ikus dezakezu,\n"
-"      edo jarraian zurea editatu ahal duzu, aurrekoaren antzeko eskabide bat bidaltzeko."
 
 msgid "You are already following new requests"
 msgstr ""
@@ -3337,9 +3286,8 @@ msgstr "Badakizu zerk eragin duen errorea eta <strong>irtenbidea iradoki</a> aha
 msgid "You may <strong>include attachments</strong>. If you would like to attach a\\n  file too large for email, use the form below."
 msgstr ""
 
-#, fuzzy
 msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please send it to us:"
-msgstr "Agian aurkitu ahal duzu haien web orrialdean edo telefonoz galdetzen. Lortuz gero, mesedez <a href=\"{{url}}\">bidal iezaguzu</a>."
+msgstr ""
 
 msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send it to us</a>."
 msgstr "Agian aurkitu ahal duzu haien web orrialdean edo telefonoz galdetzen. Lortuz gero, mesedez <a href=\"{{url}}\">bidal iezaguzu</a>."
@@ -3410,9 +3358,8 @@ msgstr ""
 msgid "Your annotations"
 msgstr "Zure iruzkinak"
 
-#, fuzzy
 msgid "Your batch request \"{{title}}\" has been sent"
-msgstr "{{recipient_user_name}}-ri egin diozun mezua bidali da."
+msgstr ""
 
 msgid "Your details, including your email address, have not been given to anyone."
 msgstr ""
@@ -3420,9 +3367,8 @@ msgstr ""
 msgid "Your e-mail:"
 msgstr "Zure helbide elektronikoa:"
 
-#, fuzzy
 msgid "Your email doesn't look like a valid address"
-msgstr "Helbide berriak ez du baliagarria ematen"
+msgstr ""
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr "Zure erantzuna ez da bidali, eskabide hau blokeatuta dagoelako, spama ekidetzearren. Benetan erantzuna bidali nahi baldin baduzu, mesedez, jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a>."
@@ -3474,17 +3420,14 @@ msgstr ""
 msgid "Your request on {{site_name}} hidden"
 msgstr ""
 
-#, fuzzy
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
-msgstr "Zure mezua bidali da. Eskerrik asko idazteagatik, laster jarriko gara zurekin harremanetan."
+msgstr ""
 
-#, fuzzy
 msgid "Your request to add {{public_body_name}} to {{site_name}}"
-msgstr "Orduan {{public_body_name}}-ri egin diozun eskabidea bidaliko da."
+msgstr ""
 
-#, fuzzy
 msgid "Your request to update {{public_body_name}} on {{site_name}}"
-msgstr "Orduan {{public_body_name}}-ri egin diozun eskabidea bidaliko da."
+msgstr ""
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Zure eskabidearen izenburua  {{info_request}} zen. Jakinarazi informazioa jaso duzun, kontrolatzen laguntzearren."
@@ -3498,9 +3441,8 @@ msgstr ""
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr "Zure erantzuna eta beste galderen erantzunak <strong>Interneten agertuko dira</strong>, <a href=\"{{url}}\">irakurri zergatik</a>."
 
-#, fuzzy
 msgid "Your selected authorities"
-msgstr "Erakunde publikoak"
+msgstr ""
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Emaiguzu zure iritzia, {{site_name}}-ko <strong>administratzaileek</strong> zer egin behar dute eskabidearekin?"
@@ -3515,11 +3457,10 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] "Zure iruzkin {{count}} "
 msgstr[1] "Zure {{count}} iruzkinak"
 
-#, fuzzy
 msgid "Your {{count}} batch requests"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "{{count}} eskabidea"
-msgstr[1] "{{count}} eskabideak"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{site_name}} email alert"
 msgstr "Zure alerta {{site_name}}-ean"
@@ -3891,9 +3832,8 @@ msgstr ""
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr ""
 
-#, fuzzy
 msgid "{{title}} - a batch request"
-msgstr "Ikusi eta bilatu eskabideak"
+msgstr ""
 
 msgid "{{user_name}} (Account suspended)"
 msgstr "{{user_name}} (Kontua baliogabetuta dago)"
@@ -3921,13 +3861,11 @@ msgstr "{{user_name}}-k {{public_body}}-ri bidali dio mezu bat"
 msgid "{{user_name}} sent a request to {{public_body}}"
 msgstr "{{user_name}}-k {{public_body}}-ri bidali dio eskabide bat"
 
-#, fuzzy
 msgid "{{user_name}} would like a new authority added to {{site_name}}"
-msgstr "Berretsi {{site_name}}-ean daukazun helbide elektroniko berria"
+msgstr ""
 
-#, fuzzy
 msgid "{{user_name}} would like the email address for {{public_body_name}} to be updated"
-msgstr "Ikusi '{{public_body_name}}'-ren posta helbidea"
+msgstr ""
 
 msgid "{{username}} left an annotation:"
 msgstr "{{username}}-k iruzkin bat utzi du:"
@@ -3937,9 +3875,3 @@ msgstr "{{user}}-k ({{user_admin_link}}) {{law_used_full}} eskabidea  (<a href=\
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}}-k {{law_used_full}} eskabidea egin zuen"
-
-#~ msgid "Confirm your FOI request to "
-#~ msgstr "Berretsi _____-ri egindako eskabidea "
-
-#~ msgid "Unexpected search result type"
-#~ msgstr "Ustegabeko emaitza aurkitu da"

@@ -6,10 +6,10 @@
 # David Cabo <david.cabo@gmail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-30 17:09+0000\n"
-"PO-Revision-Date: 2013-11-20 10:14+0000\n"
+"PO-Revision-Date: 2014-01-30 17:18+0000\n"
 "Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Galician (http://www.transifex.com/projects/p/alaveteli/language/gl/)\n"
 "Language: gl\n"
@@ -121,9 +121,8 @@ msgstr ""
 msgid "\"Source URL: #{source_url}\""
 msgstr ""
 
-#, fuzzy
 msgid "\"Your request to update the address for #{get_public_body_name} has been sent. Thank you for getting in touch! We'll get back to you soon.\""
-msgstr "Tu mensaje ha sido enviado. Gracias por escribir, nos pondremos en contacto contigo pronto."
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Estadísticas de crímenes por región en España'"
@@ -168,9 +167,8 @@ msgstr "- o -"
 msgid "1. Select an authority"
 msgstr "1. Elija un organismo público"
 
-#, fuzzy
 msgid "1. Select authorities"
-msgstr "1. Elija un organismo público"
+msgstr ""
 
 msgid "2. Ask for Information"
 msgstr "2. Solicite información"
@@ -407,13 +405,11 @@ msgstr ""
 "Añade un comentario a tu solicitud con citas seleccionadas, o\n"
 "                un <strong>resumen de la respuesta</strong>."
 
-#, fuzzy
 msgid "Add authority - {{public_body_name}}"
-msgstr "Estimado {{public_body_name}},"
+msgstr ""
 
-#, fuzzy
 msgid "Add the authority:"
-msgstr "Un organismo público"
+msgstr ""
 
 msgid "Added on {{date}}"
 msgstr "Añadido el {{date}}"
@@ -505,16 +501,14 @@ msgstr "¿Posee el copyright de alguna información de esta página?"
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Pide documentos o información <strong>específica</strong>, esta web no está pensada para resolver dudas generales."
 
-#, fuzzy
 msgid "Ask us to add an authority"
-msgstr "1. Elija un organismo público"
+msgstr ""
 
 msgid "Ask us to update FOI email"
 msgstr ""
 
-#, fuzzy
 msgid "Ask us to update the email address for {{public_body_name}}"
-msgstr "Ver dirección de correo para '{{public_body_name}}'"
+msgstr ""
 
 msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
@@ -527,13 +521,11 @@ msgstr "Adjuntos (opcional):"
 msgid "Attachment:"
 msgstr "Adjunto:"
 
-#, fuzzy
 msgid "Authority email:"
-msgstr "Tu correo:"
+msgstr ""
 
-#, fuzzy
 msgid "Authority:"
-msgstr "organismos"
+msgstr ""
 
 msgid "Awaiting classification."
 msgstr "Esperando clasificación."
@@ -544,9 +536,8 @@ msgstr "Esperando revisión interna."
 msgid "Awaiting response."
 msgstr "Esperando respuesta."
 
-#, fuzzy
 msgid "Batch created by {{info_request_user}} on {{date}}."
-msgstr "enviada a {{public_body_name}} por {{info_request_user}} el {{date}}."
+msgstr ""
 
 msgid "Beginning with"
 msgstr "Comenzando por"
@@ -700,9 +691,8 @@ msgstr ""
 msgid "Confirm you want to follow the request '{{request_title}}'"
 msgstr ""
 
-#, fuzzy
 msgid "Confirm your FOI request to {{public_body_name}}"
-msgstr "Entonces tu solicitud a {{public_body_name}} será enviada."
+msgstr ""
 
 msgid "Confirm your account on {{site_name}}"
 msgstr "Confirma tu cuenta en {{site_name}}"
@@ -731,9 +721,8 @@ msgstr "Contacta con {{site_name}}"
 msgid "Contains defamatory material"
 msgstr ""
 
-#, fuzzy
 msgid "Contains personal information"
-msgstr "Tus comentarios"
+msgstr ""
 
 msgid "Could not identify the request from the email address"
 msgstr "No hemos podido identificar la solicitud a partir de la dirección de correo"
@@ -741,9 +730,8 @@ msgstr "No hemos podido identificar la solicitud a partir de la dirección de co
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "No se pudo procesar la imagen subida. Puedes utilizar PNG, JPEG, GIF u otros formatos de imagen populares."
 
-#, fuzzy
 msgid "Created by {{info_request_user}} on {{date}}."
-msgstr "enviada a {{public_body_name}} por {{info_request_user}} el {{date}}."
+msgstr ""
 
 msgid "Crop your profile photo"
 msgstr "Recorta tu foto de perfil"
@@ -768,9 +756,8 @@ msgstr ""
 msgid "Dear {{public_body_name}},"
 msgstr "Estimado {{public_body_name}},"
 
-#, fuzzy
 msgid "Dear {{user_name}},"
-msgstr "¡Hola, {{username}}!"
+msgstr ""
 
 msgid "Default locale"
 msgstr ""
@@ -852,9 +839,8 @@ msgstr "La dirección de correo no parece válida"
 msgid "Email me future updates to this request"
 msgstr "Quiero recibir emails con las actulizaciones de esta solicitud"
 
-#, fuzzy
 msgid "Email:"
-msgstr "User|Email"
+msgstr ""
 
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Introduzca las palabras que desee separadas por espacio, es decir <strong>parlamento gasto</strong>"
@@ -976,9 +962,8 @@ msgstr "Seguir a este organismo"
 msgid "Follow this link to see the request:"
 msgstr "Siga este enlace para ver la solicitud:"
 
-#, fuzzy
 msgid "Follow this link to see the requests:"
-msgstr "Siga este enlace para ver la solicitud:"
+msgstr ""
 
 msgid "Follow this person"
 msgstr ""
@@ -1317,24 +1302,20 @@ msgstr ""
 msgid "Info request"
 msgstr ""
 
-#, fuzzy
 msgid "Info request batch"
-msgstr "InfoRequest|Idhash"
+msgstr ""
 
 msgid "Info request event"
 msgstr ""
 
-#, fuzzy
 msgid "InfoRequestBatch|Body"
-msgstr "InfoRequest|Idhash"
+msgstr ""
 
-#, fuzzy
 msgid "InfoRequestBatch|Sent at"
-msgstr "InfoRequestEvent|Event type"
+msgstr ""
 
-#, fuzzy
 msgid "InfoRequestBatch|Title"
-msgstr "InfoRequest|Title"
+msgstr ""
 
 msgid "InfoRequestEvent|Calculated state"
 msgstr "InfoRequestEvent|Calculated state"
@@ -1494,9 +1475,8 @@ msgstr ""
 msgid "MailServerLog|Order"
 msgstr ""
 
-#, fuzzy
 msgid "Make a batch request"
-msgstr "Enviar solicitud"
+msgstr ""
 
 msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
 msgstr ""
@@ -1507,16 +1487,14 @@ msgstr ""
 msgid "Make a request"
 msgstr "Enviar solicitud"
 
-#, fuzzy
 msgid "Make a request to these authorities"
-msgstr "Más información sobre este organismo"
+msgstr ""
 
 msgid "Make a request to this authority"
 msgstr ""
 
-#, fuzzy
 msgid "Make an {{law_used_short}} request"
-msgstr "Nueva respuesta a tu solicitud {{law_used_short}}"
+msgstr ""
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Hacer una solicitud {{law_used_short}} a '{{public_body_name}}'"
@@ -1638,9 +1616,8 @@ msgstr "Ninguno/a."
 msgid "Not a valid FOI request"
 msgstr ""
 
-#, fuzzy
 msgid "Not a valid request"
-msgstr "Enviar solicitud"
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr ""
@@ -1714,9 +1691,8 @@ msgstr "O busque esta información en su web."
 msgid "Original request sent"
 msgstr "Solicitud original enviada"
 
-#, fuzzy
 msgid "Other"
-msgstr "Otros:"
+msgstr ""
 
 msgid "Other:"
 msgstr "Otros:"
@@ -1862,9 +1838,8 @@ msgstr "Por favor, introduzca una dirección de correo válida"
 msgid "Please enter the message you want to send"
 msgstr "Por favor, introduzca el mensaje que quieres enviar"
 
-#, fuzzy
 msgid "Please enter the name of the authority"
-msgstr "Por favor, introduzca la misma contraseña dos veces"
+msgstr ""
 
 msgid "Please enter the same password twice"
 msgstr "Por favor, introduzca la misma contraseña dos veces"
@@ -1925,9 +1900,8 @@ msgstr "Por favor abre una sesión como "
 msgid "Please sign in or make a new account."
 msgstr ""
 
-#, fuzzy
 msgid "Please tell us more:"
-msgstr "Por favor, introduce tu nombre"
+msgstr ""
 
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Por favor escribe un mensaje y/o escoje un fichero conteniendo su respuesta."
@@ -1995,13 +1969,11 @@ msgstr "Revisar mensaje a '"
 msgid "Preview new annotation on '{{info_request_title}}'"
 msgstr "Revisar nuevo comentario a '{{info_request_title}}'"
 
-#, fuzzy
 msgid "Preview new {{law_used_short}} request"
-msgstr "Nueva respuesta a tu solicitud {{law_used_short}}"
+msgstr ""
 
-#, fuzzy
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
-msgstr "Hacer una solicitud {{law_used_short}} a '{{public_body_name}}'"
+msgstr ""
 
 msgid "Preview your annotation"
 msgstr "Revisa tu comentario"
@@ -2057,9 +2029,8 @@ msgstr ""
 msgid "Public body"
 msgstr ""
 
-#, fuzzy
 msgid "Public body change request"
-msgstr "PublicBody|Request email"
+msgstr ""
 
 msgid "Public notes"
 msgstr ""
@@ -2070,33 +2041,26 @@ msgstr ""
 msgid "Public page not available"
 msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Is open"
-msgstr "PublicBody|Request email"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Notes"
-msgstr "Notas"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Public body email"
-msgstr "PublicBody|Request email"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Public body name"
-msgstr "PublicBody|Publication scheme"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Source url"
-msgstr "PublicBody|Request email"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|User email"
-msgstr "PublicBody|Request email"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|User name"
-msgstr "Dirección web"
+msgstr ""
 
 msgid "PublicBody|Api key"
 msgstr ""
@@ -2226,9 +2190,8 @@ msgstr "Pedir una revisión interna a {{person_or_body}}"
 msgid "Request email"
 msgstr ""
 
-#, fuzzy
 msgid "Request for personal information"
-msgstr "Por favor pida información medio-ambiental solamente"
+msgstr ""
 
 msgid "Request has been removed"
 msgstr "La solicitud ha sido eliminada"
@@ -2355,9 +2318,8 @@ msgstr ""
 msgid "Select one to see more information about the authority."
 msgstr "Elija uno para ver más información sobre el organismo."
 
-#, fuzzy
 msgid "Select the authorities to write to"
-msgstr "Elija el organismo al que escribir"
+msgstr ""
 
 msgid "Select the authority to write to"
 msgstr "Elija el organismo al que escribir"
@@ -2386,11 +2348,10 @@ msgstr "Enviar un mensaje a "
 msgid "Send request"
 msgstr "Enviar solicitud"
 
-#, fuzzy
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
-msgstr[0] "enviada a {{public_body_name}} por {{info_request_user}} el {{date}}."
-msgstr[1] "enviada a {{public_body_name}} por {{info_request_user}} el {{date}}."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Set your profile photo"
 msgstr "Cambiar foto de perfil"
@@ -2500,9 +2461,8 @@ msgstr "Tema:"
 msgid "Submit"
 msgstr "Enviar"
 
-#, fuzzy
 msgid "Submit request"
-msgstr "Solicitudes similares"
+msgstr ""
 
 msgid "Submit status"
 msgstr "Enviar estado"
@@ -2605,9 +2565,8 @@ msgstr "Las cuentas se han dejado tal y como estaban anteriormente."
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)"
 msgstr "El organismo <strong>no tiene</strong> la información <small>(tal vez dicen quién la tiene)"
 
-#, fuzzy
 msgid "The authority email doesn't look like a valid address"
-msgstr "La nueva dirección no parece válida"
+msgstr ""
 
 msgid "The authority only has a <strong>paper copy</strong> of the information."
 msgstr "El organismo sólo tiene una <strong>copia en papel</strong> de la información."
@@ -2623,9 +2582,8 @@ msgstr "El organismo querría / ha respondido <strong>por correo ordinario</stro
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
 msgstr ""
 
-#, fuzzy
 msgid "The contact email address for FOI requests to the authority."
-msgstr "No tenemos una dirección de correo válida para este organismo."
+msgstr ""
 
 msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to reply to an {{law_used_short}}\\nrequest has not been delivered."
 msgstr ""
@@ -2723,9 +2681,8 @@ msgstr "Entonces podrá descargarse el fichero ZIP de {{info_request_title}}."
 msgid "Then you can log into the administrative interface"
 msgstr ""
 
-#, fuzzy
 msgid "Then you can make a batch request"
-msgstr "Entonces podrás cancelar tu alerta."
+msgstr ""
 
 msgid "Then you can play the request categorisation game."
 msgstr "Entonces podrá jugar al juego de clasificar solicitudes"
@@ -3031,9 +2988,8 @@ msgstr ""
 msgid "To log into the administrative interface"
 msgstr ""
 
-#, fuzzy
 msgid "To make a batch request"
-msgstr "Enviar solicitud"
+msgstr ""
 
 msgid "To play the request categorisation game"
 msgstr "Jugar al juego de recategorización de solicitudes"
@@ -3134,9 +3090,8 @@ msgstr ""
 "de correo para este organismo, así que no podemos validarlo.\n"
 "Por favor <a href=\"{{url}}\">contáctenos</a> para arreglarlo."
 
-#, fuzzy
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
-msgstr "No tenemos una dirección de correo válida para este {{public_body_name}}."
+msgstr ""
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr "Desgraciadamente, no tenemos una dirección de correo válida para"
@@ -3150,9 +3105,8 @@ msgstr ""
 msgid "Unusual response."
 msgstr "Respuesta no habitual."
 
-#, fuzzy
 msgid "Update email address - {{public_body_name}}"
-msgstr "Ver dirección de correo para '{{public_body_name}}'"
+msgstr ""
 
 msgid "Update the address:"
 msgstr ""
@@ -3184,9 +3138,8 @@ msgstr ""
 msgid "UserInfoRequestSentAlert|Alert type"
 msgstr "UserInfoRequestSentAlert|Alert type"
 
-#, fuzzy
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
-msgstr "Hay un límite en el número de solicitudes que puedes hacer en un día, porque no queremos que los organismos públicos reciban un número exagerado de solicitudes mal formuladas. Si necesitas que el límite no se aplique en tu caso, por favor <a href='{{help_contact_path}}'>contacta con nosotros</a>."
+msgstr ""
 
 msgid "User|About me"
 msgstr "User|About me"
@@ -3197,9 +3150,8 @@ msgstr "User|Admin level"
 msgid "User|Ban text"
 msgstr "User|Ban text"
 
-#, fuzzy
 msgid "User|Can make batch requests"
-msgstr "Ver y buscar solicitudes"
+msgstr ""
 
 msgid "User|Email"
 msgstr "User|Email"
@@ -3393,12 +3345,8 @@ msgstr "Escribe tu solicitud en un <strong>lenguaje sencillo y claro</strong>."
 msgid "You"
 msgstr "Tú"
 
-#, fuzzy
 msgid "You already created the same batch of requests on {{date}}.   You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr ""
-"{{existing_request_user}} ya\n"
-"      envió la misma solicitud el {{date}}. Puedes ver <a href=\"{{existing_request}}\">la solicitud existente</a>,\n"
-"      o editar la tuya a continuación para enviar una nueva similar a la anterior."
 
 msgid "You are already following new requests"
 msgstr ""
@@ -3476,12 +3424,8 @@ msgstr "Sabes lo que ha causado el error, y puedes <strong>sugerir una solución
 msgid "You may <strong>include attachments</strong>. If you would like to attach a\\n  file too large for email, use the form below."
 msgstr ""
 
-#, fuzzy
 msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please send it to us:"
 msgstr ""
-"Puede que encuentres una\n"
-"    en su página web, o preguntando por teléfono. Si la consigues\n"
-"    por favor <a href=\"{{url}}\">envíanosla</a>."
 
 msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
@@ -3562,9 +3506,8 @@ msgstr ""
 msgid "Your annotations"
 msgstr "Tus comentarios"
 
-#, fuzzy
 msgid "Your batch request \"{{title}}\" has been sent"
-msgstr "Tu mensaje a {{recipient_user_name}} ha sido enviado."
+msgstr ""
 
 msgid "Your details, including your email address, have not been given to anyone."
 msgstr ""
@@ -3572,9 +3515,8 @@ msgstr ""
 msgid "Your e-mail:"
 msgstr "Tu correo:"
 
-#, fuzzy
 msgid "Your email doesn't look like a valid address"
-msgstr "La nueva dirección no parece válida"
+msgstr ""
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr "Tu respuesta no ha sido enviada porque esta solicitud ha sido bloqueada para evitar spam. Por favor <a href=\"{{url}}\">contáctanos</a> si realmente quieres enviar una respuesta."
@@ -3626,17 +3568,14 @@ msgstr ""
 msgid "Your request on {{site_name}} hidden"
 msgstr ""
 
-#, fuzzy
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
-msgstr "Tu mensaje ha sido enviado. Gracias por escribir, nos pondremos en contacto contigo pronto."
+msgstr ""
 
-#, fuzzy
 msgid "Your request to add {{public_body_name}} to {{site_name}}"
-msgstr "Entonces tu solicitud a {{public_body_name}} será enviada."
+msgstr ""
 
-#, fuzzy
 msgid "Your request to update {{public_body_name}} on {{site_name}}"
-msgstr "Entonces tu solicitud a {{public_body_name}} será enviada."
+msgstr ""
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Tu solicitud se llamaba {{info_request}}. Haznos saber si has recibido la información para ayudarnos a controlar a"
@@ -3650,9 +3589,8 @@ msgstr ""
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr "Tu respuesta <strong>aparecerá en Internet</strong>, <a href=\"{{url}}\">lee por qué</a> y respuestas a otras preguntas."
 
-#, fuzzy
 msgid "Your selected authorities"
-msgstr "Organismos públicos"
+msgstr ""
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Opine sobre lo que los <strong>administradores</strong> de {{site_name}} deberían hacer con la solicitud."
@@ -3667,11 +3605,10 @@ msgid_plural "Your {{count}} annotations"
 msgstr[0] "Tu {{count}} comentario"
 msgstr[1] "Tus {{count}} comentarios"
 
-#, fuzzy
 msgid "Your {{count}} batch requests"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "{{count}} solicitud"
-msgstr[1] "{{count}} solicitudes"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Your {{site_name}} email alert"
 msgstr "Tu alerta en {{site_name}}"
@@ -4050,9 +3987,8 @@ msgstr ""
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr ""
 
-#, fuzzy
 msgid "{{title}} - a batch request"
-msgstr "Ver y buscar solicitudes"
+msgstr ""
 
 msgid "{{user_name}} (Account suspended)"
 msgstr "{{user_name}} (Expulsado)"
@@ -4080,13 +4016,11 @@ msgstr "{{user_name}} envió un mensaje a {{public_body}}"
 msgid "{{user_name}} sent a request to {{public_body}}"
 msgstr "{{user_name}} envió una solicitud a {{public_body}}"
 
-#, fuzzy
 msgid "{{user_name}} would like a new authority added to {{site_name}}"
-msgstr "Confirma tu nueva dirección de correo en {{site_name}}"
+msgstr ""
 
-#, fuzzy
 msgid "{{user_name}} would like the email address for {{public_body_name}} to be updated"
-msgstr "Ver dirección de correo para '{{public_body_name}}'"
+msgstr ""
 
 msgid "{{username}} left an annotation:"
 msgstr "{{username}} dejó un comentario:"
@@ -4096,9 +4030,3 @@ msgstr "{{user}} ({{user_admin_link}}) hizo esta solicitud {{law_used_full}} (<a
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} hizo esta solicitud {{law_used_full}}"
-
-#~ msgid "Confirm your FOI request to "
-#~ msgstr "Confirma tu solicitud a "
-
-#~ msgid "Unexpected search result type"
-#~ msgstr "Se encontró un tipo de resultado inesperado"

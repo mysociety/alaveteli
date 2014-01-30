@@ -17,11 +17,11 @@
 # louisecrow <louise@mysociety.org>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-30 17:09+0000\n"
-"PO-Revision-Date: 2014-01-28 09:09+0000\n"
-"Last-Translator: Hana Huntova <>\n"
+"PO-Revision-Date: 2014-01-30 17:18+0000\n"
+"Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -126,9 +126,8 @@ msgstr ""
 msgid "\"Source URL: #{source_url}\""
 msgstr ""
 
-#, fuzzy
 msgid "\"Your request to update the address for #{get_public_body_name} has been sent. Thank you for getting in touch! We'll get back to you soon.\""
-msgstr "Vaše zpráva byla odeslána. Děkujeme vám, odpovíme co nejdříve. "
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "\"Statistiky kriminality pro Liberecký kraj.\""
@@ -173,9 +172,8 @@ msgstr "- nebo -"
 msgid "1. Select an authority"
 msgstr "1. Vyberte instituci"
 
-#, fuzzy
 msgid "1. Select authorities"
-msgstr "1. Vyberte instituci"
+msgstr ""
 
 msgid "2. Ask for Information"
 msgstr "2. Vzneste dotaz"
@@ -253,11 +251,8 @@ msgstr ""
 "<p><strong>Odesláno!</strong></p>\n"
 "<p><strong>Pošleme vám e-mail </strong> až vám instituce odpoví nebo po {{late_number_of_days}} dní po vypršení lhůty na odpověď.</p>\\n  <p>Pokud o svém dotazu budete dále psát (například na nějakém fóru či blogu), přiložte odkaz na stránky IPV a k dotazu přidejte komentář.</p>"
 
-#, fuzzy
 msgid "<p>Your {{law_used_full}} requests will be <strong>sent</strong> shortly!</p>\\n            <p><strong>We will email you</strong> when they have been sent.\\n            We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't\\n            replied by then.</p>\\n            <p>If you write about these requests (for example in a forum or a blog) please link to this page.</p>"
 msgstr ""
-"<p><strong>Odesláno!</strong></p>\n"
-"<p><strong>Pošleme vám e-mail </strong> až vám instituce odpoví nebo po {{late_number_of_days}} dní po vypršení lhůty na odpověď.</p>\\n  <p>Pokud o svém dotazu budete dále psát (například na nějakém fóru či blogu), přiložte odkaz na stránky IPV a k dotazu přidejte komentář.</p>"
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>Stránky {{site_name}} jsou právě v údržbě. Můžete si pouze prohlížet již vznesené dotazy. Nelze vznášet nové dotazy, přidávat poznámky či odpovědi, nebo jiným způsobem upravovat databázi</p> <p>{{read_only}}</p>"
@@ -411,18 +406,11 @@ msgstr ""
 "Přidejte poznámku k vašemu dotazu s připravenými komentáři, nebo\n"
 "                 <strong>shrnutím odpovědi</strong>."
 
-#, fuzzy
 msgid "Add authority - {{public_body_name}}"
 msgstr ""
-"Povinný subjekt: {{public_body_name}}\n"
-"\n"
-"Žádost o informace podle zákona č. 106/1999 Sb. o svobodném přístupu k informacím.\n"
-"\n"
-"Vážená paní, vážený pane,"
 
-#, fuzzy
 msgid "Add the authority:"
-msgstr "Instituce"
+msgstr ""
 
 msgid "Added on {{date}}"
 msgstr "Vloženo {{date}}"
@@ -512,16 +500,14 @@ msgstr "Jste vlastníkem nějakých autorských práv na této stránce?"
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr "Požádejte o <strong>konkrétní</strong> dokumenty nebo informace, tyto stránky nejsou určeny pro obecné dotazy."
 
-#, fuzzy
 msgid "Ask us to add an authority"
-msgstr "1. Vyberte instituci"
+msgstr ""
 
 msgid "Ask us to update FOI email"
 msgstr ""
 
-#, fuzzy
 msgid "Ask us to update the email address for {{public_body_name}}"
-msgstr "Zobrazit e-mailovou adresu pro dotazy vznesené na {{public_body_name}}"
+msgstr ""
 
 msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
@@ -534,13 +520,11 @@ msgstr "Příloha (nepovinná):"
 msgid "Attachment:"
 msgstr "Příloha:"
 
-#, fuzzy
 msgid "Authority email:"
-msgstr "Váš e-mail:"
+msgstr ""
 
-#, fuzzy
 msgid "Authority:"
-msgstr "instituce"
+msgstr ""
 
 msgid "Awaiting classification."
 msgstr "Čeká se zařazení."
@@ -551,9 +535,8 @@ msgstr "Čeká se na doplnění dotazu."
 msgid "Awaiting response."
 msgstr "Čeká se na odpověď."
 
-#, fuzzy
 msgid "Batch created by {{info_request_user}} on {{date}}."
-msgstr "posláno instituci {{public_body_name}} uživatelem {{info_request_user}} dne {{date}}."
+msgstr ""
 
 msgid "Beginning with"
 msgstr "Začínající na"
@@ -642,9 +625,8 @@ msgstr "Zkontrolujte chyby, pokud je adresa opisovaná či kopírovaná"
 msgid "Check you haven't included any <strong>personal information</strong>."
 msgstr "Zkontrolujte, zda jste neuvedli nějakou <strong>osobní informaci</strong>."
 
-#, fuzzy
 msgid "Choose a reason"
-msgstr "Prosím vyberte důvod"
+msgstr ""
 
 msgid "Choose your profile photo"
 msgstr "Vyberte své profilové foto:"
@@ -706,9 +688,8 @@ msgstr "Potvrďte, že chcete být informováni o dotazech vznesených na instit
 msgid "Confirm you want to follow the request '{{request_title}}'"
 msgstr "Potvrďte, že chcete sledovat vznesený dotaz '{{request_title}}'"
 
-#, fuzzy
 msgid "Confirm your FOI request to {{public_body_name}}"
-msgstr "Potvrďte, že chcete být informováni o dotazech vznesených na instituci '{{public_body_name}}'"
+msgstr ""
 
 msgid "Confirm your account on {{site_name}}"
 msgstr "Potvďte svou registraci na stránkách {{site_name}}"
@@ -737,9 +718,8 @@ msgstr "Kontaktujte stránky {{site_name}}"
 msgid "Contains defamatory material"
 msgstr ""
 
-#, fuzzy
 msgid "Contains personal information"
-msgstr "Poznámka této osoby"
+msgstr ""
 
 msgid "Could not identify the request from the email address"
 msgstr "Dotaz z této e-mailové adresy nemohl být identifikován"
@@ -747,9 +727,8 @@ msgstr "Dotaz z této e-mailové adresy nemohl být identifikován"
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Nahraný soubor nebyl rozeznán. Jsou podporovány soubory s koncovkou PNG, JPEG, GIF a další. "
 
-#, fuzzy
 msgid "Created by {{info_request_user}} on {{date}}."
-msgstr "posláno instituci {{public_body_name}} uživatelem {{info_request_user}} dne {{date}}."
+msgstr ""
 
 msgid "Crop your profile photo"
 msgstr "Upravte své profilové foto"
@@ -779,9 +758,8 @@ msgstr ""
 "\n"
 "Vážená paní, vážený pane,"
 
-#, fuzzy
 msgid "Dear {{user_name}},"
-msgstr "Vážený/á {{name}},"
+msgstr ""
 
 msgid "Default locale"
 msgstr "Původní nastavení"
@@ -863,9 +841,8 @@ msgstr "Neplatná e-mailová adresa"
 msgid "Email me future updates to this request"
 msgstr "Pošlete mi budoucí aktualizace tohoto dotazu. "
 
-#, fuzzy
 msgid "Email:"
-msgstr "User | E-mail"
+msgstr ""
 
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "Slova, která chcete najít, musí být oddělena mezerou, například <strong>přechod pro chodce</strong>"
@@ -988,9 +965,8 @@ msgstr "Sledovat tuto instituci"
 msgid "Follow this link to see the request:"
 msgstr "Pro úpravu statusu dotazu přejděte na tento odkaz:"
 
-#, fuzzy
 msgid "Follow this link to see the requests:"
-msgstr "Pro úpravu statusu dotazu přejděte na tento odkaz:"
+msgstr ""
 
 msgid "Follow this person"
 msgstr "Sledovat tohoto uživatele"
@@ -1313,24 +1289,20 @@ msgstr "Jednotlivé dotazy"
 msgid "Info request"
 msgstr "Dotaz na informaci"
 
-#, fuzzy
 msgid "Info request batch"
-msgstr "Dotaz na informaci"
+msgstr ""
 
 msgid "Info request event"
 msgstr "Dotaz na informaci – akce ??"
 
-#, fuzzy
 msgid "InfoRequestBatch|Body"
-msgstr "InfoRequestEventIdhash ??"
+msgstr ""
 
-#, fuzzy
 msgid "InfoRequestBatch|Sent at"
-msgstr "InfoRequestEvent | Typ aktivity"
+msgstr ""
 
-#, fuzzy
 msgid "InfoRequestBatch|Title"
-msgstr "InfoRequestEvent|Název"
+msgstr ""
 
 msgid "InfoRequestEvent|Calculated state"
 msgstr "InfoRequestEvent| V procesu"
@@ -1487,9 +1459,8 @@ msgstr "MailServerLog|Řádek"
 msgid "MailServerLog|Order"
 msgstr "MailServerLog|Příkaz"
 
-#, fuzzy
 msgid "Make a batch request"
-msgstr "Vzneste dotaz"
+msgstr ""
 
 msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
 msgstr ""
@@ -1501,16 +1472,14 @@ msgstr ""
 msgid "Make a request"
 msgstr "Vzneste dotaz"
 
-#, fuzzy
 msgid "Make a request to these authorities"
-msgstr "Vzneste žádost na tuto instituci"
+msgstr ""
 
 msgid "Make a request to this authority"
 msgstr "Vzneste žádost na tuto instituci"
 
-#, fuzzy
 msgid "Make an {{law_used_short}} request"
-msgstr "Nové odpovědi na {{law_used_short}} dotaz"
+msgstr ""
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Vzneste {{law_used_short}} dotaz na '{{public_body_name}}'"
@@ -1632,9 +1601,8 @@ msgstr "Nic tu není"
 msgid "Not a valid FOI request"
 msgstr "Neplatné vznesení dotazu"
 
-#, fuzzy
 msgid "Not a valid request"
-msgstr "Neplatné vznesení dotazu"
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Rádi bychom vás upozornili, že tazatel nebude o vašem komentáři informován, jelikož tento dotaz byl zveřejněn na žádost instituce {{public_body_name}}."
@@ -1708,9 +1676,8 @@ msgstr "Nebo prohledejte tuto informaci na jejich internetových stránkách."
 msgid "Original request sent"
 msgstr "Původní dotaz odeslán"
 
-#, fuzzy
 msgid "Other"
-msgstr "Jiné:"
+msgstr ""
 
 msgid "Other:"
 msgstr "Jiné:"
@@ -1852,9 +1819,8 @@ msgstr "Vložte platnou e-mailovou adresu. "
 msgid "Please enter the message you want to send"
 msgstr "Tady napište zprávu, kterou chcete poslat. "
 
-#, fuzzy
 msgid "Please enter the name of the authority"
-msgstr "Vložte dvakrát heslo. "
+msgstr ""
 
 msgid "Please enter the same password twice"
 msgstr "Vložte dvakrát heslo. "
@@ -1915,9 +1881,8 @@ msgstr "Přihlašte se jako"
 msgid "Please sign in or make a new account."
 msgstr "Prosíme přihlašte se nebo se zaregistrujte."
 
-#, fuzzy
 msgid "Please tell us more:"
-msgstr "Vložte své jméno. "
+msgstr ""
 
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Napište zprávu a/nebo vyberte soubor, který obsahuje vaši odpověď."
@@ -1985,13 +1950,11 @@ msgstr "Náhled odpovědi pro"
 msgid "Preview new annotation on '{{info_request_title}}'"
 msgstr "Náhled nové anotace týkající se '{{info_request_title}}'"
 
-#, fuzzy
 msgid "Preview new {{law_used_short}} request"
-msgstr "Nové odpovědi na {{law_used_short}} dotaz"
+msgstr ""
 
-#, fuzzy
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
-msgstr "Vzneste {{law_used_short}} dotaz na '{{public_body_name}}'"
+msgstr ""
 
 msgid "Preview your annotation"
 msgstr "Náhled poznámky"
@@ -2047,9 +2010,8 @@ msgstr "Veřejné instituce s největším počtem úspěšných žádostí"
 msgid "Public body"
 msgstr "Instituce"
 
-#, fuzzy
 msgid "Public body change request"
-msgstr "Veřejné instituce s nejvíce žádostmi"
+msgstr ""
 
 msgid "Public notes"
 msgstr "Poznámka (viditelná pro všechny)"
@@ -2060,33 +2022,26 @@ msgstr "Stránka (viditelná pro všechny)"
 msgid "Public page not available"
 msgstr "Stránku nelze načíst"
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Is open"
-msgstr "PublicBody | Požádat o e-mail NEBO Dotaz vznesený e-mailem"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Notes"
-msgstr "PublicBody | Poznámka"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Public body email"
-msgstr "PublicBody | Požádat o e-mail NEBO Dotaz vznesený e-mailem"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Public body name"
-msgstr "PublicBody | Publikační schéma ??"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|Source url"
-msgstr "PublicBody | Požádat o e-mail NEBO Dotaz vznesený e-mailem"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|User email"
-msgstr "PublicBody | Požádat o e-mail NEBO Dotaz vznesený e-mailem"
+msgstr ""
 
-#, fuzzy
 msgid "PublicBodyChangeRequest|User name"
-msgstr "PublicBody | Název URL"
+msgstr ""
 
 msgid "PublicBody|Api key"
 msgstr "PublicBody | Název ??"
@@ -2216,9 +2171,8 @@ msgstr "Požádat o doplnění dotazu od instituce či jmenovitě jejím pracovn
 msgid "Request email"
 msgstr "E-mailová adresa dotazu"
 
-#, fuzzy
 msgid "Request for personal information"
-msgstr "Prosíme ptejte se pouze na informace o životním prostředí. "
+msgstr ""
 
 msgid "Request has been removed"
 msgstr "Dotaz byl odstraněn"
@@ -2346,9 +2300,8 @@ msgstr "Prohlédněte si odmítnutou zprávu"
 msgid "Select one to see more information about the authority."
 msgstr "Vyberte jednu instituci pro zobrazení podrobnějších informací"
 
-#, fuzzy
 msgid "Select the authorities to write to"
-msgstr "Vyberte instituci, které chcete napsat"
+msgstr ""
 
 msgid "Select the authority to write to"
 msgstr "Vyberte instituci, které chcete napsat"
@@ -2377,12 +2330,11 @@ msgstr "Vznést dotaz na "
 msgid "Send request"
 msgstr "Vznést dotaz"
 
-#, fuzzy
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
-msgstr[0] "posláno instituci {{public_body_name}} uživatelem {{info_request_user}} dne {{date}}."
-msgstr[1] "posláno instituci {{public_body_name}} uživatelem {{info_request_user}} dne {{date}}."
-msgstr[2] "posláno instituci {{public_body_name}} uživatelem {{info_request_user}} dne {{date}}."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Set your profile photo"
 msgstr "Nastavte své profilové foto"
@@ -2491,9 +2443,8 @@ msgstr "Předmět:"
 msgid "Submit"
 msgstr "Odeslat"
 
-#, fuzzy
 msgid "Submit request"
-msgstr "Podobné dotazy"
+msgstr ""
 
 msgid "Submit status"
 msgstr "Odešlete status"
@@ -2598,9 +2549,8 @@ msgstr "Ůčty zůstaly v původním stavu. "
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)"
 msgstr "Instituce <strong>nedisponuje</strong> požadovanými informacemi<small>(možná vám sdělili, kdo je může poskytnout)"
 
-#, fuzzy
 msgid "The authority email doesn't look like a valid address"
-msgstr "Nový e-mail není platný"
+msgstr ""
 
 msgid "The authority only has a <strong>paper copy</strong> of the information."
 msgstr "Tyto informace existují pouze v <strong>papírové podobě</strong>."
@@ -2614,9 +2564,8 @@ msgstr "Instituce by na tento dotaz ráda /nebo již odpověděla<strong>poslán
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
 msgstr "Zařazení žádostí (např. zda byla žádost úspěšně zodpovězena nebo ne) provádí sami uživatelé, popřípadě adminsitrátor stránek. To znamená, že zde mohou být nepřesnosti. "
 
-#, fuzzy
 msgid "The contact email address for FOI requests to the authority."
-msgstr "Nemáme funkční e-mailovou adresu pro tuto instituci."
+msgstr ""
 
 msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to reply to an {{law_used_short}}\\nrequest has not been delivered."
 msgstr ""
@@ -2711,9 +2660,8 @@ msgstr "Poté si můžete stáhnout komprimovaný soubor {{info_request_title}}.
 msgid "Then you can log into the administrative interface"
 msgstr "Poté se můžete přihlásit do administrátorské sekce."
 
-#, fuzzy
 msgid "Then you can make a batch request"
-msgstr "Pak můžete upozornění zrušit."
+msgstr ""
 
 msgid "Then you can play the request categorisation game."
 msgstr "Poté si můžete zahrát hru na kategorizaci dotazů. "
@@ -3012,9 +2960,8 @@ msgstr "Stav svého dotazu můžete sdílet s ostatními na internetu – stač�
 msgid "To log into the administrative interface"
 msgstr "Přihlásit se do administrace"
 
-#, fuzzy
 msgid "To make a batch request"
-msgstr "Vzneste dotaz"
+msgstr ""
 
 msgid "To play the request categorisation game"
 msgstr "Zahrát si hru na kategorizaci dotazů"
@@ -3115,9 +3062,8 @@ msgstr ""
 "pro vznášení dotazů, proto tento údaj nemůžeme ověřit.\n"
 "Prosíme <a href=\"{{url}}\">kontaktujte nás</a> abychom to vyřešili."
 
-#, fuzzy
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
-msgstr "Ještě nemáme {{law_used_full}} adresu pro {{public_body_name}}."
+msgstr ""
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr "Bohužel nemáme funkční adresu pro zaslání {{info_request_law_used_full}}"
@@ -3131,9 +3077,8 @@ msgstr "Odhlásit odběr"
 msgid "Unusual response."
 msgstr "Neobvyklá odpověď."
 
-#, fuzzy
 msgid "Update email address - {{public_body_name}}"
-msgstr "Zobrazit e-mailovou adresu pro dotazy vznesené na {{public_body_name}}"
+msgstr ""
 
 msgid "Update the address:"
 msgstr ""
@@ -3165,9 +3110,8 @@ msgstr "Uživatel – {{name}}"
 msgid "UserInfoRequestSentAlert|Alert type"
 msgstr "UserInfoRequestSentAlert| Typ upozornění"
 
-#, fuzzy
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
-msgstr "Počet dotazů za jeden den je limitován. Nechceme, aby byly instituce bombardovány velkým množstvím nerelevantních dotazů. Pokud máte dobrý důvod, proč by měl být váš limit navýšen, prosíme<a href='{{help_contact_path}}'>kontaktujte nás</a>."
+msgstr ""
 
 msgid "User|About me"
 msgstr "User | O mně"
@@ -3178,9 +3122,8 @@ msgstr "User | Úroveň admin"
 msgid "User|Ban text"
 msgstr "User | Zakázat text"
 
-#, fuzzy
 msgid "User|Can make batch requests"
-msgstr "Prohledávejte a prohlížejte dotazy"
+msgstr ""
 
 msgid "User|Email"
 msgstr "User | E-mail"
@@ -3374,9 +3317,8 @@ msgstr ""
 msgid "You"
 msgstr "Vy"
 
-#, fuzzy
 msgid "You already created the same batch of requests on {{date}}.   You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr "{{existing_request_user}} již vznesl stejný dotaz dne {{date}}. Můžete si <a href=\"{{existing_request}}\">tento dotaz</a> přečíst, nebo vzneste podobný, ale podle svých potřeb upravený dotaz."
+msgstr ""
 
 msgid "You are already following new requests"
 msgstr "Nově vznesené dotazy již sledujete."
@@ -3452,12 +3394,8 @@ msgstr "Víte, co způsobilo chybu a můžete <strong>navrhnout řešení</stron
 msgid "You may <strong>include attachments</strong>. If you would like to attach a\\n  file too large for email, use the form below."
 msgstr "Můžete <strong>přiložit dokumenty</strong>. POkud je vaše příloha⏎ příliš velká pro poslání e-mailem, použíjte formulář níže."
 
-#, fuzzy
 msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please send it to us:"
 msgstr ""
-"Možná se vám podaří\n"
-"    najít adresu na jejich stránkách, nebo jim zavolejte a zeptejte se. Pokud uspějete,\n"
-"    prosíme <a href=\"{{url}}\">pošlete nám ji</a>."
 
 msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
@@ -3538,9 +3476,8 @@ msgstr ""
 msgid "Your annotations"
 msgstr "Vaše poznámky"
 
-#, fuzzy
 msgid "Your batch request \"{{title}}\" has been sent"
-msgstr "Vaše zpráva pro uživatele {{recipient_user_name}} byla odeslána."
+msgstr ""
 
 msgid "Your details, including your email address, have not been given to anyone."
 msgstr "Nikomu jsme nepředali vaše osobní údaje, včetně vaší emailové adresy. "
@@ -3548,9 +3485,8 @@ msgstr "Nikomu jsme nepředali vaše osobní údaje, včetně vaší emailové a
 msgid "Your e-mail:"
 msgstr "Váš e-mail:"
 
-#, fuzzy
 msgid "Your email doesn't look like a valid address"
-msgstr "Nový e-mail není platný"
+msgstr ""
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr "Vaše odpověď nebyla odeslána, protože tento dotaz byl identifikován jako nevyžádaná zpráva. Prosíme <a href=\"{{url}}\">kontaktujte nás</a> pokud svou zprávu chcete odeslat. "
@@ -3602,17 +3538,14 @@ msgstr "Vaše žádost '{{request}}' v {{url}} byla upravena adminstrátorem."
 msgid "Your request on {{site_name}} hidden"
 msgstr "Vaše žádost na stránkách {{site_name}} je skryta"
 
-#, fuzzy
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
-msgstr "Vaše zpráva byla odeslána. Děkujeme vám, odpovíme co nejdříve. "
+msgstr ""
 
-#, fuzzy
 msgid "Your request to add {{public_body_name}} to {{site_name}}"
-msgstr "Poté bude váš dotaz instituci {{public_body_name}} zaslán."
+msgstr ""
 
-#, fuzzy
 msgid "Your request to update {{public_body_name}} on {{site_name}}"
-msgstr "Poté bude váš dotaz instituci {{public_body_name}} zaslán."
+msgstr ""
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr "Informace se týká vašeho dotazu {{info_request}}. Můžete všechny informovat, zda jste požadovanou informaci obdrželi a bude tak přehled o odpovědích této instituce"
@@ -3626,9 +3559,8 @@ msgstr "Vaše odpověď na dotaz nebyla doručena"
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr "Vaše odpověď <strong>bude uveřejněna na internetu</strong>, <a href=\"{{url}}\">čtěte proč</a> spolu s historií konverzace."
 
-#, fuzzy
 msgid "Your selected authorities"
-msgstr "Instituce"
+msgstr ""
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr "Vaše doporučení co by <strong>administrátor</strong> stránek {{site_name}} měl udělat s tímto dotazem."
@@ -3645,12 +3577,11 @@ msgstr[0] "Váš {{count}} poznámka"
 msgstr[1] "Vaše {{count}} poznámky"
 msgstr[2] "Vašich {{count}} poznámek"
 
-#, fuzzy
 msgid "Your {{count}} batch requests"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "{{count}} dotaz"
-msgstr[1] "{{count}} dotazy"
-msgstr[2] "{{count}} dotazů"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Your {{site_name}} email alert"
 msgstr "Upozornění ze stránek {{site_name}}"
@@ -4026,9 +3957,8 @@ msgstr "{{thing_changed}} je změněno z <code>{{from_value}}</code> na <code>{{
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - dotaz vznesený podle zákona 106/1999 Sb., o svobodném přístupu k informacím na instituci {{public_body}}"
 
-#, fuzzy
 msgid "{{title}} - a batch request"
-msgstr "Prohledávejte a prohlížejte dotazy"
+msgstr ""
 
 msgid "{{user_name}} (Account suspended)"
 msgstr "Uživatel {{user_name}} (Účet pozastaven)"
@@ -4056,13 +3986,11 @@ msgstr "Vážený uživateli {{user_name}}, pošlete odpověď instituci {{publi
 msgid "{{user_name}} sent a request to {{public_body}}"
 msgstr "Uživatel {{user_name}} vznesl dotaz na instituci {{public_body}}"
 
-#, fuzzy
 msgid "{{user_name}} would like a new authority added to {{site_name}}"
-msgstr "Potvrďte novou e-mailovou adresu na stránkách {{site_name}}"
+msgstr ""
 
-#, fuzzy
 msgid "{{user_name}} would like the email address for {{public_body_name}} to be updated"
-msgstr "Zobrazit e-mailovou adresu pro dotazy vznesené na {{public_body_name}}"
+msgstr ""
 
 msgid "{{username}} left an annotation:"
 msgstr "{{username}} zanechal poznámku:"
@@ -4072,12 +4000,3 @@ msgstr "{{user}} ({{user_admin_link}}) vznesl tento {{law_used_full}} dotaz (<a 
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} vložil tuto {{law_used_full}} "
-
-#~ msgid "Confirm your FOI request to "
-#~ msgstr "Potvrďte svůj dotaz vznesený na"
-
-#~ msgid "List all"
-#~ msgstr "Vypsat vše"
-
-#~ msgid "Unexpected search result type"
-#~ msgstr "Neočekávané výsledky vyhledávání"

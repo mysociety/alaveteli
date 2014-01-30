@@ -4,13 +4,14 @@
 #
 # Translators:
 # caxekis <caxekis@gmail.com>, 2013
+# caxekis <caxekis@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-30 17:09+0000\n"
-"PO-Revision-Date: 2013-12-14 08:17+0000\n"
-"Last-Translator: caxekis <caxekis@gmail.com>\n"
+"PO-Revision-Date: 2014-01-30 17:18+0000\n"
+"Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/projects/p/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
 "MIME-Version: 1.0\n"
@@ -150,9 +151,8 @@ msgstr "- 或 -"
 msgid "1. Select an authority"
 msgstr "1. 選擇部門及機構"
 
-#, fuzzy
 msgid "1. Select authorities"
-msgstr "1. 選擇部門及機構"
+msgstr ""
 
 msgid "2. Ask for Information"
 msgstr "2. 索取資料"
@@ -358,9 +358,8 @@ msgstr ""
 msgid "Add authority - {{public_body_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "Add the authority:"
-msgstr "1. 選擇部門及機構"
+msgstr ""
 
 msgid "Added on {{date}}"
 msgstr ""
@@ -446,9 +445,8 @@ msgstr ""
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
 msgstr ""
 
-#, fuzzy
 msgid "Ask us to add an authority"
-msgstr "1. 選擇部門及機構"
+msgstr ""
 
 msgid "Ask us to update FOI email"
 msgstr ""
@@ -696,9 +694,8 @@ msgstr ""
 msgid "Dear {{public_body_name}},"
 msgstr ""
 
-#, fuzzy
 msgid "Dear {{user_name}},"
-msgstr "{{site_name}} 團隊"
+msgstr ""
 
 msgid "Default locale"
 msgstr ""
@@ -895,9 +892,8 @@ msgstr ""
 msgid "Follow this link to see the request:"
 msgstr ""
 
-#, fuzzy
 msgid "Follow this link to see the requests:"
-msgstr "追蹤此要求"
+msgstr ""
 
 msgid "Follow this person"
 msgstr ""
@@ -1374,9 +1370,8 @@ msgstr ""
 msgid "Make a request"
 msgstr ""
 
-#, fuzzy
 msgid "Make a request to these authorities"
-msgstr "向此部門或機構提出要求"
+msgstr ""
 
 msgid "Make a request to this authority"
 msgstr "向此部門或機構提出要求"
@@ -1504,9 +1499,8 @@ msgstr ""
 msgid "Not a valid FOI request"
 msgstr ""
 
-#, fuzzy
 msgid "Not a valid request"
-msgstr "編輯此要求"
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr ""
@@ -1718,9 +1712,8 @@ msgstr ""
 msgid "Please enter the message you want to send"
 msgstr ""
 
-#, fuzzy
 msgid "Please enter the name of the authority"
-msgstr "向此部門或機構提出要求"
+msgstr ""
 
 msgid "Please enter the same password twice"
 msgstr ""
@@ -2327,9 +2320,8 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#, fuzzy
 msgid "Submit request"
-msgstr "編輯此要求"
+msgstr ""
 
 msgid "Submit status"
 msgstr ""
@@ -2439,9 +2431,8 @@ msgstr ""
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
 msgstr ""
 
-#, fuzzy
 msgid "The contact email address for FOI requests to the authority."
-msgstr "向此部門或機構提出要求"
+msgstr ""
 
 msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to reply to an {{law_used_short}}\\nrequest has not been delivered."
 msgstr ""
@@ -2809,9 +2800,8 @@ msgstr ""
 msgid "To log into the administrative interface"
 msgstr ""
 
-#, fuzzy
 msgid "To make a batch request"
-msgstr "為報告此要求"
+msgstr ""
 
 msgid "To play the request categorisation game"
 msgstr ""
@@ -3365,9 +3355,8 @@ msgstr ""
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
 msgstr ""
 
-#, fuzzy
 msgid "Your selected authorities"
-msgstr "列出所有部門及機構"
+msgstr ""
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
 msgstr ""
@@ -3380,10 +3369,9 @@ msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
 msgstr[0] ""
 
-#, fuzzy
 msgid "Your {{count}} batch requests"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] "{{count}} 宗要求"
+msgstr[0] ""
 
 msgid "Your {{site_name}} email alert"
 msgstr ""

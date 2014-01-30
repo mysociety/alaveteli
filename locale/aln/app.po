@@ -7,10 +7,10 @@
 # Valon <vbrestovci@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-30 17:09+0000\n"
-"PO-Revision-Date: 2013-11-20 10:14+0000\n"
+"PO-Revision-Date: 2014-01-30 17:18+0000\n"
 "Last-Translator: mysociety <transifex@mysociety.org>\n"
 "Language-Team: Albanian Gheg (http://www.transifex.com/projects/p/alaveteli/language/aln/)\n"
 "Language: aln\n"
@@ -358,9 +358,8 @@ msgstr ""
 msgid "Add authority - {{public_body_name}}"
 msgstr ""
 
-#, fuzzy
 msgid "Add the authority:"
-msgstr "ueb faqja e autoritetit"
+msgstr ""
 
 msgid "Added on {{date}}"
 msgstr ""
@@ -695,9 +694,8 @@ msgstr ""
 msgid "Dear {{public_body_name}},"
 msgstr ""
 
-#, fuzzy
 msgid "Dear {{user_name}},"
-msgstr "Tungjat, {{username}}!"
+msgstr ""
 
 msgid "Default locale"
 msgstr ""
