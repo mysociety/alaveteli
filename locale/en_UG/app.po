@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-30 17:09+0000\n"
-"PO-Revision-Date: 2013-12-05 15:18-0000\n"
+"PO-Revision-Date: 2014-01-31 09:14+0000\n"
 "Last-Translator: Louise Crow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en_UG\n"
@@ -3785,6 +3785,3 @@ msgstr ""
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr ""
-
-#~ msgid "Confirm your FOI request to "
-#~ msgstr "Confirm your ATI request to "
