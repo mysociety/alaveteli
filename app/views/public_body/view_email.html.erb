@@ -1,4 +1,4 @@
-<% @title = "FOI email address for '" + h(@public_body.name) + "'" %>
+<% @title = _("FOI email address for {{public_body}}", :public_body => h(@public_body.name)) %>
 
 <h1><%= _('FOI email address for {{public_body}}',:public_body=> public_body_link(@public_body))%></h1>
 
