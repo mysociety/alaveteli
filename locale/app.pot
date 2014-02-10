@@ -3507,3 +3507,9 @@ msgstr ""
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr ""
+
+msgid "Make a new FOI request"
+msgstr ""
+
+msgid "Make a new EIR request"
+msgstr ""
