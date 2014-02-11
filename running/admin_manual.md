@@ -9,6 +9,8 @@ title: Administrator's guide
 	What is it like running an Alaveteli site? This guide explains what you can expect, and the types of problem that you might encounter. It includes examples of how mySociety manages their own <a href="/glossary/#foi" class="glossary">Freedom of Information</a> site, <a href="http://www.whatdotheyknow.com">whatdotheyknow.com</a>.
 </p>
 
+## What's involved?
+
 The overhead in managing a successful FOI website is quite high. Richard, a
 volunteer, wrote a [blog
 post](http://www.mysociety.org/2009/10/13/behind-whatdotheyknow/) about some of
@@ -36,14 +38,14 @@ server bounce messages).
 
 During that week, the tasks broke down as follows:
 
-## Regular maintenance tasks
+### Regular maintenance tasks
 
 * 18 misdelivered / undelivered responses (a.k.a. the "Holding Pen") 
 * 4 requests that are unclassified 21 days after response needing classification
 * 2 requests that have been marked as needing admin attention 
 * 2 things marked as errors (message refused by server - spam, full mailbox, etc) to fix
 
-## User interaction tasks
+### User interaction tasks
 
 * 16 general, daily admin: i.e. things that resulted in admin actions on the
   site (bounces, misdelivered responses, etc)
@@ -53,13 +55,13 @@ During that week, the tasks broke down as follows:
 * 3 requests to redact personal information
 * 2 requests to redact defamatory information
 
-# Types of user interaction
+## Types of user interaction
 
 There follows a breakdown of the most common kinds of user interaction. It's
 intended for use as a guide to the kind of policies and training that a support
 team might need to develop.
 
-## Dealing with email that's not getting through to the authority
+### Dealing with email that's not getting through to the authority
 
 Emails may not get through to the authority in the first place for a few
 reasons:
@@ -79,15 +81,16 @@ authority. Sometimes the authority's mail server will bounce the email, in
 which case it appears in the administrative interface as "needs admin
 attention".
 
-## Requests to take down information
-### Legal action
+### Requests to take down information
+
+#### Legal action
 
 This is where someone tells us that information on the site might be subject to
 legal action. The scenario will vary wildly across different legal
 jurisdictions. In the UK, this kind of request is most likely to be related to
 defamation.
 
-#### Action 
+##### Action 
 
 * Get the notification by email to a central support email address, so there is
   a written record
@@ -99,21 +102,21 @@ defamation.
   assessment that suggests you can republish the request, or show it with
   limited redactions.
 
-### Copyright / Commercial
+#### Copyright / Commercial
 
 Public authorities who have not quite understood that their responses are
 public sometimes don't like this, and claim copyright. Occasionally other
 copyright assertions are made about content, but this is the most common one.
 "Commercially sensitive" data might also be considered private information.
 
-#### Action
+##### Action
 
 * In the case of threatened legal action, see above.
 * Otherwise, in the first instance, treat this as an advocacy case, on the
   basis that FOI requests can be made repeatedly by anyone, the data should be
   public anyway, and publishing it should actually save the authority money.
 
-#### Example email to authority
+##### Example email to authority
 
 > As I'm sure you know, our Freedom of Information law is "applicant blind", 
 > so anyone in the world can request the same document and get a copy of it.
@@ -124,13 +127,13 @@ copyright assertions are made about content, but this is the most common one.
 > website since last year, without any trouble.
 
 
-### Personal data
+#### Personal data
 
 This includes everything from inadvertently revealed personal data such as
 personally identifying information about benefits claimants to the name of a
 user of the site who later develops "Google remorse".
 
-#### Action
+##### Action
 
 * Assess request, with reference to local Data Protection laws.  Don't
   automatically presume in favour of taking something down, but weighing the
@@ -160,7 +163,7 @@ user of the site who later develops "Google remorse".
   request
 
 
-## Incorrectly addressed
+### Incorrectly addressed
 
 Emails that arrive at the support team address, but shouldn't have.  Two main types:
 
@@ -171,16 +174,16 @@ Emails that arrive at the support team address, but shouldn't have.  Two main ty
   usually because they've replied to a system email rather than followed the
   link in the message
 
-### Action
+#### Action
 
 Respond to user and point them in the right direction.
 
-#### Example message:
+##### Example message:
 
 > I like to know some information about my EEA2 application which i applied on
 > july 2010.i do not get any response yet ...please let me know what i will do.
 
-#### Example response:
+##### Example response:
 
 > You have written to the team responsible for the WhatDoTheyKnow.com website;
 > we only run that website and are not part of the UK Government.
@@ -195,13 +198,13 @@ Respond to user and point them in the right direction.
 > local council or the Citizens Advice Bureau if there is an immigration advice
 > centre where you are.
 
-#### Example message:
+##### Example message:
 
 >  is the greenwaste collection paying for its self? .i suspect due to
 >  the low numbers of residents taking up the scheme, what is the true
 >  cost of these collections? is the scheme liable to be scrapped ?
 
-#### Example response:
+##### Example response:
 
 >  You've written to the team responsible for the website WhatDoTheyKnow.com
 > and not &lt;authority_name&gt;
@@ -212,7 +215,7 @@ Respond to user and point them in the right direction.
 >
 > http://www.whatdotheyknow.com/body/&lt;authority_name&gt;
 
-## Wants advice
+### Wants advice
 
 Two common examples are:
 
@@ -220,13 +223,13 @@ Two common examples are:
 * Wants to know the best way to ask an authority for all the personal data they
   hold about themselves
 
-#### Example request:
+##### Example request:
 
 > I would like to know at this stage under the freedom act can ask
 > directly to UK embassies or high commission abroad to disclose some
 > information. or I have to contact FCO through this website. 
 
-#### Example response:
+##### Example response:
 
 > I would suggest making your request to the FCO as they are they body
 > technically subject to the Freedom of Information Act. 
@@ -236,7 +239,7 @@ Two common examples are:
 > organisation. 
 
 
-## General assistance required
+### General assistance required
 
 Can be for many reasons, e.g.
 

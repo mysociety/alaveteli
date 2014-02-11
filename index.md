@@ -7,19 +7,26 @@ title: Welcome
 
 <p class="lead">
 	This is the documentation for Alaveteli,
-	an open source Freedom of Information Platform
+	an open source Freedom of Information platform
 	created by <a href="http://www.mysociety.org">mySociety</a>.
 </p>
 
 ## New to Alaveteli?
 
-* Find out more about the Alaveteli project
+You've found the documentation for Alaveteli. 
 
-* Download Turbo Transparency, a paper about how and why to use Alaveteli for Freedom of Information systems
+* Learn about the project at [www.alaveteli.org](http://www.alaveteli.org).
 
-* Read the Getting Started guide on our wiki
+* Read [Turbo Transparency](http://www.alaveteli.org/files/2012/10/Turbo-Transparency-v1.0.pdf), a paper about how and why to use Alaveteli for Freedom of Information systems
 
-If you are an organisation who wants to use Alaveteli in your jurisdiction, or a developer who is interested in collaborating on the software, please send a message introducing yourself to our developers mailing list or our users mailing list.
+* Read the [Getting Started guide]({{ site.baseurl }}getting_started)
 
-Developers might want to start with the technical overview.
+If you are an organisation who wants to use Alaveteli in your jurisdiction, or a developer who is interested in collaborating on the software, please 
+[get in touch]({{ site.baseurl }}community).
+
+The **documentation** covers
+[installing]({{ site.baseurl }}installing),
+[customising]({{ site.baseurl }}customising), and
+[customising]({{ site.baseurl }}running) your own Alaveteli site.
+If you're a developer making changes to the code, we have lots of [technical documentation]({{ site.baseurl }}developers) too.
 

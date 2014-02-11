@@ -9,7 +9,7 @@ title: Manual installation
 <p class="lead">
 	The following instructions describe the step-by-step process for
 	installing Alavetli. <em>You don't necessarily need to do it this
-	way:</em> it's usually be easier to use the
+	way:</em> it's usually easier to use the
 	<a href="{{ site.baseurl }}installing/script">installation script</a>
 	or the
 	<a href="{{ site.baseurl }}installing/ami">Amazon EC2 AMI</a>.
@@ -67,7 +67,7 @@ mySociety repository you need to run the following commands:
 ## Install system dependencies
 
 These are packages that the software depends on: third-party software used to
-parse documents, host the site, etc. There are also packages that contain
+parse documents, host the site, and so on. There are also packages that contain
 headers necessary to compile some of the gem dependencies in the next step.
 
 If you are running Debian, add the following repositories to
@@ -77,12 +77,12 @@ If you are running Debian, add the following repositories to
     deb http://ftp.debian.org/debian/ wheezy main non-free contrib
     deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
 
-The repositories above allow us to install the packages `wkhtmltopdf-static`
+The repositories above let you install the packages `wkhtmltopdf-static`
 and `bundler` using `apt`; so if you're running Ubuntu, you won't be able to
-use the above repositories, and you will need to comment out those two lines in
+use the above repositories. Instead, comment out those two lines in
 `config/packages` before following the next step (and install bundler manually).
 
-Now install the packages that are listed in config/packages using apt-get e.g.:
+Now install the packages that are listed in config/packages using apt-get:
 
     sudo apt-get install `cut -d " " -f 1 config/packages | grep -v "^#"`
 
@@ -92,7 +92,7 @@ choice of packages.
 
 ## Install Ruby dependencies
 
-To install Alaveteli's Ruby dependencies, we need to install bundler. In
+To install Alaveteli's Ruby dependencies, you need to install bundler. In
 Debian, this is provided as a package (installed as part of the package install
 process above). You could also install it as a gem:
 
@@ -100,34 +100,34 @@ process above). You could also install it as a gem:
 
 ## Install mySociety libraries
 
-You will also want to install mySociety's common ruby libraries and the Rails
-code. Run:
+Next, install mySociety's common ruby libraries and the Rails
+code. To fetch the contents of the submodules, run:
 
     git submodule update --init
 
-to fetch the contents of the submodules.
 
 ### Packages customised by mySociety
 
-Debian users should add the mySociety debian archive to their
+If you're using Debian, you should add the mySociety debian archive to your
 `/etc/apt/sources.list` as described above. Doing this and following the above
-instructions should install a couple of custom dependencies. Users of other
-platforms can optionally install these dependencies manually, as follows:
+instructions will install a couple of custom dependencies. If you're using 
+some other platform, you can optionally install these dependencies manually,
+as follows:
 
-1. If you would like users to be able to download pretty PDFs as part of the
-downloadable zipfile of their request history, you should install
+1. If you would like users to be able to get pretty PDFs as part of the
+downloadable zipfile of their request history, install
 [wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/downloads/list). We
 recommend downloading the latest, statically compiled version from the project
-website, as this allows running headless (i.e. without a graphical interface
+website, as this allows running headless (that is, without a graphical interface
 running) on Linux. If you do install `wkhtmltopdf`, you need to edit a setting
 in the config file to point to it (see below). If you don't install it,
 everything will still work, but users will get ugly, plain text versions of
 their requests when they download them.
 
-2. Version 1.44 of `pdftk` contains a bug which makes it to loop forever in
+2. Version 1.44 of `pdftk` contains a bug which makes it loop forever in
 certain edge conditions. Until it's incorporated into an official release, you
 can either hope you don't encounter the bug (it ties up a rails process until
-you kill it) you'll need to patch it yourself or use the Debian package
+you kill it), patch it yourself, or use the Debian package
 compiled by mySociety (see link in [issue
 305](https://github.com/mysociety/alaveteli/issues/305))
 
@@ -135,32 +135,35 @@ compiled by mySociety (see link in [issue
 ## Configure Database
 
 There has been a little work done in trying to make the code work with other
-databases (e.g. SQLite), but the currently supported database is PostgreSQL.
+databases (e.g., SQLite), but the currently supported database is PostgreSQL
+("postgres").
 
-If you don't have it installed:
+If you don't have postgres installed:
 
     apt-get install postgresql postgresql-client
 
-Now we need to set up the database config file to contain the name, username
+Now you need to set up the database config file to contain the name, username
 and password of your postgres database.
 
 * copy `database.yml-example` to `database.yml` in `alaveteli/config`
 * edit it to point to your local postgresql database in the development
   and test sections and create the databases:
 
-Make sure that the user specified in database.yml exists, and has full
+Make sure that the user specified in `database.yml` exists, and has full
 permissions on these databases. As they need the ability to turn off
 constraints whilst running the tests they also need to be a superuser. If you
-don't want your database user to be a superuser, you can add a line
-`disable_constraints: false` to the test config in database.yml, as seen in
-database.yml-example
+don't want your database user to be a superuser, you can add this line
+to the test config in `database.yml` (as seen in `database.yml-example`)
 
-You can create a `foi` user from the command line, thus:
+    disable_constraints: false
+
+
+Create a `foi` user from the command line, like this:
 
     # su - postgres
     $ createuser -s -P foi
 
-And you can create a database thus:
+Then create a database:
 
     $ createdb -T template0 -E SQL_ASCII -O foi foi_production
     $ createdb -T template0 -E SQL_ASCII -O foi foi_test
@@ -175,10 +178,10 @@ data at runtime.
 ## Configure email
 
 You will need to set up an email server (MTA) to send and receive emails. Full
-configuration for an MTA is beyond the scope of this document, though we
-describe an example configuration for Exim in `INSTALL-exim4.md`.
+configuration for an MTA is beyond the scope of this document -- see this
+[example config for Exim4]({{ site.baseurl }}installing/exim4).
 
-Note that in development mode, mail is handled by default by mailcatcher so
+Note that in development mode mail is handled by mailcatcher by default so
 that you can see the mails in a browser - see http://mailcatcher.me/ for more
 details. Start mailcatcher by running `bundle exec mailcatcher` in your
 application directory.
@@ -209,14 +212,13 @@ The respective parts of this address are controlled with options in
     INCOMING_EMAIL_PREFIX = 'foi+'
     INCOMING_EMAIL_DOMAIN = 'example.com'
 
-When you set up your MTA, note that if there is some error inside Rails, the
+When you set up your MTA, if there is some error inside Rails, the
 email is returned with an exit code 75, which for Exim at least means the MTA
 will try again later. Additionally, a stacktrace is emailed to `CONTACT_EMAIL`.
 
-`INSTALL-exim4.md` describes one possible configuration for Exim (>=
-1.9).
+See [this example]({{ site.baseurl }}exim4) for a possible configuration for Exim (>=1.9).
 
-A well-configured installation of this code will separately have had Exim make
+A well-configured installation of this code will have had Exim make
 a backup copy of the email in a separate mailbox, just in case.
 
 ## Set up configs
@@ -234,8 +236,9 @@ The default theme is the "Alaveteli" theme. When you run `rails-post-deploy`
 Finally, copy `config/newrelic.yml-example` to `config/newrelic.yml`. This file
 contains configuration information for the New Relic performance management
 system. By default, monitoring is switched off by the `agent_enabled: false`
-setting. See https://github.com/newrelic/rpm for instructions on switching on
-local and remote performance analysis.
+setting. See New Relic's [remote performance analysis](https://github.com/newrelic/rpm) instructions for switching it on
+for both local and remote analysis.
+
 
 ## Deployment
 
@@ -256,7 +259,7 @@ the test suite uses into your development database. You can do this with:
 
     script/load-sample-data
 
-Next we need to create the index for the search engine (Xapian):
+Next, create the index for the search engine (Xapian):
 
     script/rebuild-xapian-index
 

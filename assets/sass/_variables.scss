@@ -1,0 +1,22 @@
+$source: "Source Sans Pro", "Helvetica Neue", Arial, Helvetica, serif;
+
+$colour_orange: #f79421;
+$colour_light_grey: #e4e3dd;
+$colour_dark_grey: #787774;
+$colour_black: #333333;
+
+$colour_background: #f7f4f0;
+$colour_links: $colour_orange;
+$colour_borders: $colour_light_grey;
+
+$giant-screen: 87.5em;
+$large-screen: 64em;
+$medium-screen: 33.75em;
+
+//These should always be overridden in _config.scss
+$logo_path: "../img/fixmystreet-logo.svg" !default;
+$logo_height: 60px !default;
+$logo_width: 320px !default;
+$background_image_path: "../img/default-bg.jpg" !default;
+$background_repeat: no-repeat !default;
+$background_size: cover !default;

@@ -47,6 +47,7 @@ Here are the steps we suggest you follow in order to get started.
 
 
 <a name="step-0"> </a>
+
 ## Step zero: assemble your initial team
 
 You're unlikely to be able to get much done on your own. You will need
@@ -81,6 +82,7 @@ software, and so on.
 ask questions of a technical nature, such as problems installing Alaveteli.
 
 <a name="step-1"> </a>
+
 ## Step one: get a working, uncustomised version running
 
 You have two options here: install your own copy, or ask the Alaveteli team to
@@ -110,14 +112,12 @@ with this. The minimum spec for running a low traffic website is 512MB RAM and
 a 20GB disk. 2GB RAM would be ideal. We recommend Debian Squeeze as the
 operating system, though any sort of Linux should do. Rackspace offer suitable
 cloud servers, which start out at around $25 / month. Then your tech person
-should follow the [install
-documentation](https://github.com/mysociety/alaveteli/blob/master/doc/INSTALL.md
-) included with the software.
+should follow the [installation documentation]({{ site.baseurl }}installing).
 
 Alternatively, you could use Amazon Web Services. If you've not used them
 before, you can get a free "micro" instance for twelve months. This has the
 added advantage that you can use our preconfigured [Alaveteli EC2
-AMI](https://github.com/mysociety/alaveteli/wiki/Alaveteli-ec2-ami) to get you
+AMI]({{ site.baseurl }}installing/ami) to get you
 started almost instantly. However, it's more expensive than Rackspace,
 especially if you want more RAM.
 
@@ -143,6 +143,7 @@ confusing with several email addresses, so one quick and easy way to manage
 this is to use a throwaway email service like http://mailinator.com.
 
 <a name="step-2"> </a>
+
 ## Step two: start to gather data about public authorities
 
 One of the most important things you need to do before launching is to gather
@@ -164,6 +165,7 @@ convenient format -- for example, it's easy to save data from a spreadsheet as
 a CSV file.
 
 <a name="step-3"> </a>
+
 ## Step three: customise the site
 
 ### Name and social media
@@ -260,6 +262,7 @@ expert advice on the amount of extra time this will require. Typically, changes
 like these could add between one and three months onto the project schedule.
 
 <a name="step-4"> </a>
+
 ## Step four: translate everything
 
 This is potentially a big job!
@@ -304,6 +307,7 @@ to the file. Therefore, you need to keep an eye on `app.pot` and periodically
 review the untranslated strings.
 
 <a name="step-5"> </a>
+
 ## Step five: Test drive the site
 
 For launch, the tech person should review the [Production Server Best
@@ -316,6 +320,7 @@ jurisdictions, and the right way of making your website a success will vary
 with these responses.
 
 <a name="step-6"> </a>
+
 ## Step six: Market the website
 
 In general, the best way to engage authorities is with a mixture of
@@ -333,6 +338,7 @@ an incredibly useful resource for driving traffic to your site. It's well worth
 setting yourself up as a charity if only to take advantage of this programme.
 
 <a name="step-7"> </a>
+
 ## Step seven: Maintain the website
 
 Running a successful Alaveteli website requires some regular, ongoing input.
