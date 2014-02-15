@@ -290,8 +290,6 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         _user
       end
 
-      let(:payload) { stripe_event.to_s }
-
       before do
         signed =
           signed_headers(payload: payload, signing_secret: signing_secret)
@@ -315,8 +313,6 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
         StripeMock.mock_webhook_event('customer.subscription.updated-renewed')
       end
 
-      let(:payload) { stripe_event.to_s }
-
       before do
         signed =
           signed_headers(payload: payload, signing_secret: signing_secret)
@@ -337,8 +333,6 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       let(:stripe_event) do
         StripeMock.mock_webhook_event('customer.subscription.updated-trial-end')
       end
-
-      let(:payload) { stripe_event.to_s }
 
       before do
         signed =
@@ -361,8 +355,6 @@ describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_
       let(:stripe_event) do
         StripeMock.mock_webhook_event('customer.subscription.updated-cancelled')
       end
-
-      let(:payload) { stripe_event.to_s }
 
       before do
         signed =
