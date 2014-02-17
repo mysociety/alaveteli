@@ -33,7 +33,7 @@ alternative to acts_as_solr, acts_as_ferret, Ultrasphinx, acts_as_indexed,
 acts_as_searchable or acts_as_tsearch.
 
 acts_as_xapian is deployed in production on these websites.
-* "WhatDoTheyKnow":http://www.whatdotheyknow.com
+* "WhatDoTheyKnow":https://www.whatdotheyknow.com
 * "MindBites":http://www.mindbites.com
 
 The section "c. Comparison to acts_as_solr" below will give you an idea of
