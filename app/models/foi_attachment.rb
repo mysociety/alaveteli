@@ -359,7 +359,8 @@ class FoiAttachment < ActiveRecord::Base
             ret = "<html><head></head><body>";
             if self.has_google_docs_viewer?
                 wrapper_id = "wrapper_google_embed"
-                ret = ret + "<iframe src='http://docs.google.com/viewer?url=<attachment-url-here>&embedded=true' width='100%' height='100%' style='border: none;'></iframe>";
+                protocol = AlaveteliConfiguration::force_ssl ? 'https' : 'http'
+                ret = ret + "<iframe src='#{protocol}://docs.google.com/viewer?url=<attachment-url-here>&embedded=true' width='100%' height='100%' style='border: none;'></iframe>";
             else
                 ret = ret + "<p>Sorry, we were unable to convert this file to HTML. Please use the download link at the top right.</p>"
             end
