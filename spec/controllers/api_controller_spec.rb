@@ -282,6 +282,18 @@ describe ApiController, "when using the API" do
         # check, which does not really test anything at all.
     end
 
+    it 'should show information about an external request' do
+        info_request = info_requests(:external_request)
+        get :show_request,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :id => info_request.id
+
+        response.should be_success
+        assigns[:request].id.should == info_request.id
+        r = ActiveSupport::JSON.decode(response.body)
+        r["title"].should == info_request.title
+    end
+
     it "should show an Atom feed of new request events" do
         get :body_request_events,
             :id => public_bodies(:geraldine_public_body).id,
