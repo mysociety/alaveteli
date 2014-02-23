@@ -35,7 +35,7 @@
 require 'htmlentities'
 require 'rexml/document'
 require 'zip/zip'
-require 'iconv' unless RUBY_VERSION >= '1.9'
+require 'iconv' unless String.method_defined?(:encode)
 
 class IncomingMessage < ActiveRecord::Base
     extend MessageProminence
@@ -294,7 +294,7 @@ class IncomingMessage < ActiveRecord::Base
         emails = ascii_chars.scan(MySociety::Validate.email_find_regexp)
 
         # Convert back to UCS-2, making a mask at the same time
-        if RUBY_VERSION >= '1.9'
+        if String.method_defined?(:encode)
             emails.map! do |email|
                 # We want the ASCII representation of UCS-2
                 [email[0].encode('UTF-16LE').force_encoding('US-ASCII'),
@@ -516,7 +516,7 @@ class IncomingMessage < ActiveRecord::Base
                 # should instead tell elinks to respect the source
                 # charset
                 use_charset = "utf-8"
-                if RUBY_VERSION.to_f >= 1.9
+                if String.method_defined?(:encode)
                     begin
                         text.encode('utf-8')
                     rescue Encoding::UndefinedConversionError, Encoding::InvalidByteSequenceError
@@ -547,7 +547,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     def _sanitize_text(text)
-        if RUBY_VERSION.to_f >= 1.9
+        if String.method_defined?(:encode)
             begin
                 # Test if it's good UTF-8
                 text.encode('utf-8')
@@ -792,26 +792,27 @@ class IncomingMessage < ActiveRecord::Base
         return self.cached_attachment_text_clipped
     end
 
-    def _get_attachment_text_internal
+    def _extract_text
         # Extract text from each attachment
-        text = ''
-        attachments = self.get_attachments_for_display
-        for attachment in attachments
-            text += MailHandler.get_attachment_text_one_file(attachment.content_type,
+        self.get_attachments_for_display.reduce(''){ |memo, attachment|
+            memo += MailHandler.get_attachment_text_one_file(attachment.content_type,
                                                              attachment.body,
                                                              attachment.charset)
-        end
+        }
+    end
+
+    def _get_attachment_text_internal
+        text = self._extract_text
 
         # Remove any bad characters
-        if RUBY_VERSION >= '1.9'
-            text.encode("utf-8", :invalid => :replace,
-                                 :undef => :replace,
-                                 :replace => "")
+        if String.method_defined?(:encode)
+            # handle "problematic" encoding
+            text.encode!('UTF-16', 'UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
+            text.encode('UTF-8', 'UTF-16')
         else
             Iconv.conv('utf-8//IGNORE', 'utf-8', text)
         end
     end
-
 
     # Returns text for indexing
     def get_text_for_indexing_full
