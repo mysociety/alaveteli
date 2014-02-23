@@ -6,33 +6,34 @@ title: Configuration
 # Configuring Alaveteli
 
 <p style="lead">
-    Your Alavateli site loads its general configuration from the file
-    `app/Config/general.yml`
 </p>
 
-## Create your own general.yml
+The alaveteli code ships with an example configuration file: `config/general.yml-example`.
 
-Copy `config/general.yml-example` to `config/general.yml` and edit to your
-taste.
+As part of the [installation process]({{ site.baseurl }}installing ), the
+example file gets copied to `config/general.yml`. You must edit this file to
+suit your needs.
 
 Note that the default settings for frontpage examples are designed to work with
-the dummy data shipped with Alaveteli; once you have real data, you should
+the dummy data shipped with Alaveteli. Once you have real data, you should
 certainly edit these.
 
-The default theme is the "Alaveteli" theme. When you run `rails-post-deploy`
-(see below), that theme gets installed automatically.
-
-Finally, copy `config/newrelic.yml-example` to `config/newrelic.yml`. This file
-contains configuration information for the New Relic performance management
-system. By default, monitoring is switched off by the `agent_enabled: false`
-setting. See https://github.com/newrelic/rpm for instructions on switching on
-local and remote performance analysis.
+The default theme is the "Alaveteli" theme. When you run `rails-post-deploy`, 
+that theme gets installed automatically.
 
 
-The following are configuration settings that you can change in `conf/general`
+<!-- check TODO: this in installation docs now:
+    Finally, copy `config/newrelic.yml-example` to `config/newrelic.yml`. This file
+    contains configuration information for the New Relic performance management
+    system. By default, monitoring is switched off by the `agent_enabled: false`
+    setting. See https://github.com/newrelic/rpm for instructions on switching on
+    local and remote performance analysis.
+-->
+
+The following are configuration settings that you can change in `conf/general`.
+
 
 <!--
-
 # general.yml-example:
 # Example values for the "general" config file.
 #
