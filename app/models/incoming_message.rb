@@ -792,15 +792,17 @@ class IncomingMessage < ActiveRecord::Base
         return self.cached_attachment_text_clipped
     end
 
-    def _get_attachment_text_internal
+    def _extract_text
         # Extract text from each attachment
-        text = ''
-        attachments = self.get_attachments_for_display
-        for attachment in attachments
-            text += MailHandler.get_attachment_text_one_file(attachment.content_type,
+        self.get_attachments_for_display.reduce(''){ |memo, attachment|
+            memo += MailHandler.get_attachment_text_one_file(attachment.content_type,
                                                              attachment.body,
                                                              attachment.charset)
-        end
+        }
+    end
+
+    def _get_attachment_text_internal
+        text = self._extract_text
 
         # Remove any bad characters
         if String.method_defined?(:encode)
@@ -811,7 +813,6 @@ class IncomingMessage < ActiveRecord::Base
             Iconv.conv('utf-8//IGNORE', 'utf-8', text)
         end
     end
-
 
     # Returns text for indexing
     def get_text_for_indexing_full
