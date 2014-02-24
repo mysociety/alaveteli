@@ -742,11 +742,13 @@ describe IncomingMessage, "when extracting attachments" do
         attachments.first.body.should == 'No way!'
     end
 
-    it 'makes invalid utf-8 encoded attachment text valid' do
-      im = incoming_messages(:useless_incoming_message)
-      im.stub!(:extract_text).and_return("\xBF")
+    it 'makes invalid utf-8 encoded attachment text valid when string responds to encode' do
+       if String.method_defined?(:encode)
+          im = incoming_messages(:useless_incoming_message)
+          im.stub!(:extract_text).and_return("\xBF")
 
-      im._get_attachment_text_internal.valid_encoding?.should be_true
+          im._get_attachment_text_internal.valid_encoding?.should be_true
+       end
     end
 
 end
