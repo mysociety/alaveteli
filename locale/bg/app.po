@@ -3342,7 +3342,7 @@ msgid "Your request to add {{public_body_name}} to {{site_name}}"
 msgstr "Вашата заявка за добавяне на {{public_body_name}} в {{site_name}}"
 
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
-msgstr "Вашата заявка за обновяване адреса на {{get_public_body_name}} беше изпратена. Благодарим Ви, че ни пишете! Ще се постараем да Ви отговорим скоро."
+msgstr "Вашата заявка за обновяване адреса на {{public_body_name}} беше изпратена. Благодарим Ви, че ни пишете! Ще се постараем да Ви отговорим скоро."
 
 msgid "Your request to update {{public_body_name}} on {{site_name}}"
 msgstr "Вашата заявка за обновление на {{public_body_name}} в {{site_name}}"

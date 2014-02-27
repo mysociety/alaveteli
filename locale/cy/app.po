@@ -3364,7 +3364,7 @@ msgid "Your request to add {{public_body_name}} to {{site_name}}"
 msgstr "Eich cais i ychwanegu {{public_body_name}} at {{site_name}}"
 
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
-msgstr "Mae'ch cais i ddiweddaru'r cyfeiriad ar gyfer {{get_public_body_name}} wedi ei anfon. Diolch am gysylltu! Byddwn yn eich ateb yn fuan."
+msgstr "Mae'ch cais i ddiweddaru'r cyfeiriad ar gyfer {{public_body_name}} wedi ei anfon. Diolch am gysylltu! Byddwn yn eich ateb yn fuan."
 
 msgid "Your request to update {{public_body_name}} on {{site_name}}"
 msgstr "Eich cais i ddiweddaru {{public_body_name}} ar {{site_name}}"
