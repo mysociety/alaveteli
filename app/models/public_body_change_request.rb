@@ -75,7 +75,8 @@ class PublicBodyChangeRequest < ActiveRecord::Base
 
     def thanks_notice
         if self.public_body
-            _("Your request to update the address for #{get_public_body_name} has been sent. Thank you for getting in touch! We'll get back to you soon.")
+            _("Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon.",
+              :public_body_name => get_public_body_name)
         else
             _("Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon.")
         end
@@ -89,12 +90,12 @@ class PublicBodyChangeRequest < ActiveRecord::Base
     end
 
     def comment_for_public_body
-        comments = [_("Requested by: #{get_user_name} (#{get_user_email})")]
+        comments = ["Requested by: #{get_user_name} (#{get_user_email})"]
         if !source_url.blank?
-            comments << _("Source URL: #{source_url}")
+            comments << "Source URL: #{source_url}"
         end
         if !notes.blank?
-            comments << _("Notes: #{notes}")
+            comments << "Notes: #{notes}"
         end
         comments.join("\n")
     end
