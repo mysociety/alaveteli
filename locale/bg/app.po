@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-30 17:09+0000\n"
-"PO-Revision-Date: 2014-02-06 20:18+0000\n"
-"Last-Translator: Valentin Laskov <laskov@festa.bg>\n"
+"POT-Creation-Date: 2014-02-27 09:52+0000\n"
+"PO-Revision-Date: 2014-02-27 09:59+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/alaveteli/language/bg/)\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -103,18 +103,6 @@ msgstr " когато изпратите това съобщение."
 
 msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
 msgstr "\"Здравейте! Имаме <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">важно съобщение</a> за посетители извън {{country_name}}\""
-
-msgid "\"Notes: #{notes}\""
-msgstr "\"Бележки: #{notes}\""
-
-msgid "\"Requested by: #{get_user_name} (#{get_user_email})\""
-msgstr "\"Заявено от: #{get_user_name} (#{get_user_email})\""
-
-msgid "\"Source URL: #{source_url}\""
-msgstr "\"URL на източника: #{source_url}\""
-
-msgid "\"Your request to update the address for #{get_public_body_name} has been sent. Thank you for getting in touch! We'll get back to you soon.\""
-msgstr "\"Вашата заявка за обновяване адреса на #{get_public_body_name} беше изпратена. Благодарим Ви, че ни пишете! Ще се постараем да Ви отговорим скоро.\""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Криминална статистика на ниво квартал за София област'"
@@ -1365,6 +1353,12 @@ msgstr ""
 
 msgid "Make a batch request"
 msgstr "Направете размножено заявление"
+
+msgid "Make a new EIR request"
+msgstr ""
+
+msgid "Make a new FOI request"
+msgstr ""
 
 msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
 msgstr "Създаване на ново<br/>\\n  <strong>Заявление <span>за</span><br/>\\n  Достъп до<br/>\\n  Информация</strong>"
@@ -3346,6 +3340,9 @@ msgstr "Вашата заявка за добавяне на орган беше
 
 msgid "Your request to add {{public_body_name}} to {{site_name}}"
 msgstr "Вашата заявка за добавяне на {{public_body_name}} в {{site_name}}"
+
+msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
+msgstr "Вашата заявка за обновяване адреса на {{get_public_body_name}} беше изпратена. Благодарим Ви, че ни пишете! Ще се постараем да Ви отговорим скоро."
 
 msgid "Your request to update {{public_body_name}} on {{site_name}}"
 msgstr "Вашата заявка за обновление на {{public_body_name}} в {{site_name}}"

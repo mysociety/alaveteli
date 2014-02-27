@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-30 17:09+0000\n"
+"POT-Creation-Date: 2014-02-27 09:52+0000\n"
 "PO-Revision-Date: 2011-10-09 01:10+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,18 +98,6 @@ msgid " when you send this message."
 msgstr ""
 
 msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
-msgstr ""
-
-msgid "\"Notes: #{notes}\""
-msgstr ""
-
-msgid "\"Requested by: #{get_user_name} (#{get_user_email})\""
-msgstr ""
-
-msgid "\"Source URL: #{source_url}\""
-msgstr ""
-
-msgid "\"Your request to update the address for #{get_public_body_name} has been sent. Thank you for getting in touch! We'll get back to you soon.\""
 msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
@@ -1360,6 +1348,12 @@ msgid "MailServerLog|Order"
 msgstr ""
 
 msgid "Make a batch request"
+msgstr ""
+
+msgid "Make a new EIR request"
+msgstr ""
+
+msgid "Make a new FOI request"
 msgstr ""
 
 msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
@@ -3343,6 +3337,9 @@ msgstr ""
 msgid "Your request to add {{public_body_name}} to {{site_name}}"
 msgstr ""
 
+msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
+msgstr ""
+
 msgid "Your request to update {{public_body_name}} on {{site_name}}"
 msgstr ""
 
@@ -3783,10 +3780,4 @@ msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a hr
 msgstr ""
 
 msgid "{{user}} made this {{law_used_full}} request"
-msgstr ""
-
-msgid "Make a new FOI request"
-msgstr ""
-
-msgid "Make a new EIR request"
 msgstr ""

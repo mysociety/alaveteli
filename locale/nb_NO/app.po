@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-30 17:09+0000\n"
-"PO-Revision-Date: 2014-01-30 17:18+0000\n"
-"Last-Translator: mysociety <transifex@mysociety.org>\n"
+"POT-Creation-Date: 2014-02-27 09:52+0000\n"
+"PO-Revision-Date: 2014-02-27 09:59+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
@@ -108,18 +108,6 @@ msgstr " når du sender denne meldinen."
 
 msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
 msgstr "\"Hei! Vi har en  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">viktig beskjed</a> til besøkende som ikke fra {{country_name}}\""
-
-msgid "\"Notes: #{notes}\""
-msgstr ""
-
-msgid "\"Requested by: #{get_user_name} (#{get_user_email})\""
-msgstr ""
-
-msgid "\"Source URL: #{source_url}\""
-msgstr ""
-
-msgid "\"Your request to update the address for #{get_public_body_name} has been sent. Thank you for getting in touch! We'll get back to you soon.\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Kriminalitetsstatistikk på bydelsnivå for Oslo'"
@@ -1372,6 +1360,12 @@ msgid "MailServerLog|Order"
 msgstr ""
 
 msgid "Make a batch request"
+msgstr ""
+
+msgid "Make a new EIR request"
+msgstr ""
+
+msgid "Make a new FOI request"
 msgstr ""
 
 msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
@@ -3356,6 +3350,9 @@ msgid "Your request to add an authority has been sent. Thank you for getting in 
 msgstr ""
 
 msgid "Your request to add {{public_body_name}} to {{site_name}}"
+msgstr ""
+
+msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr ""
 
 msgid "Your request to update {{public_body_name}} on {{site_name}}"

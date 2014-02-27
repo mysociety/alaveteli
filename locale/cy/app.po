@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-30 17:09+0000\n"
-"PO-Revision-Date: 2014-02-10 19:42+0000\n"
-"Last-Translator: Cymrodor <cymrodor@gmail.com>\n"
+"POT-Creation-Date: 2014-02-27 09:52+0000\n"
+"PO-Revision-Date: 2014-02-27 09:59+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -113,18 +113,6 @@ msgstr " pan fyddwch chi'n anfon y neges hon"
 
 msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
 msgstr "\"Helo! Mae gennym <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">neges bwysig</a> i ymwelwyr y tu allan i {{country_name}}\""
-
-msgid "\"Notes: #{notes}\""
-msgstr "\"Nodiadau: #{notes}\""
-
-msgid "\"Requested by: #{get_user_name} (#{get_user_email})\""
-msgstr "\"Cais gan: #{get_user_name} (#{get_user_email})\""
-
-msgid "\"Source URL: #{source_url}\""
-msgstr "\"URL Tarddle: #{source_url}\""
-
-msgid "\"Your request to update the address for #{get_public_body_name} has been sent. Thank you for getting in touch! We'll get back to you soon.\""
-msgstr "\"Mae'ch cais i ddiweddaru'r cyfeiriad ar gyfer #{get_public_body_name} wedi ei anfon. Diolch am gysylltu! Byddwn yn eich ateb yn fuan.\""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Ystadegau troseddu yn ôl lefel ardal etholiadol ar gyfer Cymru'"
@@ -1376,6 +1364,12 @@ msgid "MailServerLog|Order"
 msgstr "MailServerLog|Archeb"
 
 msgid "Make a batch request"
+msgstr ""
+
+msgid "Make a new EIR request"
+msgstr ""
+
+msgid "Make a new FOI request"
 msgstr ""
 
 msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
@@ -3368,6 +3362,9 @@ msgstr "Mae'ch cais i ychwanegu awdurdod wedi ei anfon. Diolch am gysylltu. Bydd
 
 msgid "Your request to add {{public_body_name}} to {{site_name}}"
 msgstr "Eich cais i ychwanegu {{public_body_name}} at {{site_name}}"
+
+msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
+msgstr "Mae'ch cais i ddiweddaru'r cyfeiriad ar gyfer {{get_public_body_name}} wedi ei anfon. Diolch am gysylltu! Byddwn yn eich ateb yn fuan."
 
 msgid "Your request to update {{public_body_name}} on {{site_name}}"
 msgstr "Eich cais i ddiweddaru {{public_body_name}} ar {{site_name}}"
