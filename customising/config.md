@@ -13,18 +13,21 @@ title: Configuration
 The alaveteli code ships with an example configuration file: `config/general.yml-example`.
 
 As part of the [installation process]({{ site.baseurl }}installing ), the
-example file gets copied to `config/general.yml`. You must edit this file to
+example file gets copied to `config/general.yml`. You **must** edit this file to
 suit your needs.
 
 Note that the default settings for frontpage examples are designed to work with
 the dummy data shipped with Alaveteli. Once you have real data, you should
 certainly edit these.
 
-The default theme is the "Alaveteli" theme. This gets installed automatically when `rails-post-deploy` runs.
 
 ## Config settings
 
-The following are all the configuration settings that you can change in `conf/general`.
+The following are all the configuration settings that you can change in `config/general.yml`.
+When you edit this file, remember it must be in the <a href="http://yaml.org">YAML syntax</a>.
+It's not complicated, but especially if you're editing a list be careful to get the
+indentation correct. If in doubt, look at the examples already in the file, and don't use tabs.
+
 
 ### Appearance and overall behaviour of the site:
 
@@ -37,6 +40,11 @@ The following are all the configuration settings that you can change in `conf/ge
 <br> <code><a href="#frontpage_publicbody_examples">FRONTPAGE_PUBLICBODY_EXAMPLES</a></code>
 <br> <code><a href="#public_body_statistics_page">PUBLIC_BODY_STATISTICS_PAGE</a></code>
 <br> <code><a href="#minimum_requests_for_statistics">MINIMUM_REQUESTS_FOR_STATISTICS</a></code>
+
+### Site status:
+
+<code><a href="#read_only">READ_ONLY</a></code>
+<br> <code><a href="#staging_site">STAGING_SITE</a></code>
 
 ### Locale and internationalisation:
 
@@ -53,17 +61,6 @@ The following are all the configuration settings that you can change in `conf/ge
 <br> <code><a href="#reply_very_late_after_days">REPLY_VERY_LATE_AFTER_DAYS</a></code>
 <br> <code><a href="#special_reply_very_late_after_days">SPECIAL_REPLY_VERY_LATE_AFTER_DAYS</a></code>
 <br> <code><a href="#working_or_calendar_days">WORKING_OR_CALENDAR_DAYS</a></code>
-
-### External public services:
-
-<code><a href="#blog_feed">BLOG_FEED</a></code>
-<br> <code><a href="#twitter_username">TWITTER_USERNAME</a></code>
-<br> <code><a href="#donation_url">DONATION_URL</a></code>
-
-### Site status:
-
-<code><a href="#read_only">READ_ONLY</a></code>
-<br> <code><a href="#staging_site">STAGING_SITE</a></code>
 
 ### Admin access:
 
@@ -101,7 +98,7 @@ The following are all the configuration settings that you can change in `conf/ge
 <br> <code><a href="#shared_files">SHARED_FILES</a></code>
 <br> <code><a href="#shared_directories">SHARED_DIRECTORIES</a></code>
 
-### Behaviour switches:
+### Behaviour settings and switches:
 
 <code><a href="#new_response_reminder_after_days">NEW_RESPONSE_REMINDER_AFTER_DAYS</a></code>
 <br> <code><a href="#max_requests_per_user_per_day">MAX_REQUESTS_PER_USER_PER_DAY</a></code>
@@ -109,6 +106,13 @@ The following are all the configuration settings that you can change in `conf/ge
 <br> <code><a href="#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>
 <br> <code><a href="#public_body_list_fallback_to_default_locale">PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE</a></code>
 <br> <code><a href="#cache_fragments">CACHE_FRAGMENTS</a></code>
+
+### External public services:
+
+<code><a href="#blog_feed">BLOG_FEED</a></code>
+<br> <code><a href="#twitter_username">TWITTER_USERNAME</a></code>
+<br> <code><a href="#twitter_widget_id">TWITTER_WIDGET_ID</a></code>
+<br> <code><a href="#donation_url">DONATION_URL</a></code>
 
 ### Development work or special cases:
 
@@ -229,45 +233,37 @@ The following are all the configuration settings that you can change in `conf/ge
 
   <dt>
     <a name="twitter_username"><code>TWITTER_USERNAME</code></a>
+    <a name="twitter_widget_id"><code>TWITTER_WIDGET_ID</code></a>
   </dt>
   <dd>
-    If you want a twitter feed displayed on the "blog" page, set this to be the twitter username.
+    If you want a twitter feed displayed on the "blog" page, provide the widget ID and username.
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul>
         <li>
             <code>TWITTER_USERNAME: TheyWorkForYou</code>
         </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="available_locales"><code>AVAILABLE_LOCALES</code></a>
-  </dt>
-  <dd>
-    Locales you want to support. If your site supports more than one, use spaces betwween the entries.
-    You can nominate one of these as the default with <strong><a href="#default_locale">DEFAULT_LOCALE</a></strong>.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul>
         <li>
-            <code>AVAILABLE_LOCALES: 'en es'</code>
+            <code>TWITTER_WIDGET_ID: '833549204689320031'</code>
         </li>
       </ul>
     </div>
   </dd>
 
   <dt>
+    <a name="available_locales"><code>AVAILABLE_LOCALES</code></a> &
     <a name="default_locale"><code>DEFAULT_LOCALE</code></a>
   </dt>
   <dd>
-    Use <strong><a href="#available_locales">AVAILABLE_LOCALES</a></strong> to specify
-    which locales your site is supporting, then use <strong>DEFAULT_LOCALE</strong> to
-    nominate one of them as the default.
+    <strong>AVAILABLE_LOCALES</strong> lists all the locales you want your site to support. 
+    If there is more than one, use spaces betwween the entries.
+    Nominate one of these locales as the default with <strong>DEFAULT_LOCALE</strong>.
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul>
+        <li>
+            <code>AVAILABLE_LOCALES: 'en es'</code>
+        </li>
         <li>
             <code>DEFAULT_LOCALE: 'en'</code>
         </li>
@@ -294,9 +290,10 @@ The following are all the configuration settings that you can change in `conf/ge
     <a name="include_default_locale_in_urls"><code>INCLUDE_DEFAULT_LOCALE_IN_URLS</code></a>
   </dt>
   <dd>
-    If you don't want the default locale to be included in URLs generated
-    by Alaveteli, set this to false. 
-    <!-- TODO implying that the absernce of such a locale to (obviously) be the default one -->
+    Normally, Alaveteli will put the locale into its URLs, like this
+    <code>www.example.org/en/body/list/all</code>. If you don't want this
+    behaviour whenever the locale is the default one, set 
+    <strong>INCLUDE_DEFAULT_LOCALE_IN_URLS</strong> to false. 
     <div class="more-info">
       <p>Example:</p>
       <ul>
@@ -383,8 +380,9 @@ The following are all the configuration settings that you can change in `conf/ge
     <a name="theme_urls"><code>THEME_URLS</code></a>
   </dt>
   <dd>
-    URLs of themes to download and use (when running the <code>rails-post-deploy</code>
-    script). The earlier in the list means the templates have a higher priority.
+    URLs of <a href="{{ site.baseurl }}customising/themes">themes</a> to download and use
+    (when running the <code>rails-post-deploy</code> script). The earlier in the list means
+    the templates have a higher priority.
     <div class="more-info">
       <p>Example:</p>
       <ul>
@@ -402,11 +400,15 @@ THEME_URLS:
     <a name="theme_branch"><code>THEME_BRANCH</code></a>
   </dt>
   <dd>
-    When <code>rails-post-deploy</code> installs the themes, it will try the
-    theme branch first <!-- TODO: the what? -->, but only if you've set <code>THEME_BRANCH</code>
+    When <code>rails-post-deploy</code> installs the <a href="{{ site.baseurl }}customising/themes">themes</a>,
+    it will try the theme branch first, but only if you've set <code>THEME_BRANCH</code>
     to be true. If the branch doesn't exist it will fall back to using a tagged version
     specific to your installed alaveteli version, and if that doesn't exist it will
     back to <code>master</code>.
+    <p>
+        The default theme is the "Alaveteli" theme. This gets installed automatically when 
+        <code>rails-post-deploy</code> runs.
+    </p>
     <div class="more-info">
       <p>Example:</p>
       <ul>
@@ -455,10 +457,7 @@ THEME_URLS:
     <a name="incoming_email_prefix"><code>INCOMING_EMAIL_PREFIX</code></a>
   </dt>
   <dd>
-      An optional prefix to help you distinguish FOI requests. This is 
-      especially useful if you're using a service like gmail that accepts 
-      incoming email with an arbitrary prefix with a plus-sign before your
-      address. <!-- TODO: check this -->
+      An optional prefix to help you distinguish FOI requests.
     <div class="more-info">
       <p>Example:</p>
       <ul>
@@ -482,7 +481,7 @@ THEME_URLS:
       <p>Example:</p>
       <ul>
         <li>
-            <code>INCOMING_EMAIL_SECRET: 'xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx'</code>
+            <code>INCOMING_EMAIL_SECRET: '11ae 4e3b 70ff c001 3682 4a51 e86d ef5f'</code>
         </li>
       </ul>
     </div>
@@ -503,37 +502,30 @@ THEME_URLS:
     </div>
   </dd>
 
-</dl>
-
-### Administration settings
-
-
-<dl class="glossary">
-    
-<dt>
-  <a name="admin_username"><code>ADMIN_USERNAME</code></a>
-  &amp;
-  <a name="admin_password"><code>ADMIN_PASSWORD</code></a>
-  <br>
-  <a name="admin_username"><code>DISABLE_EMERGENCY_USER</code></a>
-</dt>
-<dd>
-    The emergency user.
-  <div class="more-info">
-    <p>Example:</p>
-    <ul>
-      <li>
-          <code>ADMIN_USERNAME: 'adminxxxx'</code>
-      </li>
-      <li>
-          <code>ADMIN_PASSWORD: 'passwordx'</code>
-      </li>
-      <li>
-          <code>DISABLE_EMERGENCY_USER: false</code>
-      </li>
-    </ul>
-  </div>
-</dd>  
+  <dt>
+    <a name="admin_username"><code>ADMIN_USERNAME</code></a>
+    &amp;
+    <a name="admin_password"><code>ADMIN_PASSWORD</code></a>
+    <br>
+    <a name="admin_username"><code>DISABLE_EMERGENCY_USER</code></a>
+  </dt>
+  <dd>
+      The emergency user.
+    <div class="more-info">
+      <p>Examples:</p>
+      <ul>
+        <li>
+            <code>ADMIN_USERNAME: 'adminxxxx'</code>
+        </li>
+        <li>
+            <code>ADMIN_PASSWORD: 'passwordx'</code>
+        </li>
+        <li>
+            <code>DISABLE_EMERGENCY_USER: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>  
 
   <dt>
     <a name="skip_admin_auth"><code>SKIP_ADMIN_AUTH</code></a>
@@ -559,7 +551,7 @@ THEME_URLS:
   <dd>
       Email "from" details.
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul>
         <li>
             <code>CONTACT_EMAIL: 'team@example.com'</code>
@@ -578,7 +570,7 @@ THEME_URLS:
   <dd>
       Email "from" details for track messages.
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul>
         <li>
             <code>TRACK_SENDER_EMAIL: 'alaveteli@example.com'</code>
@@ -629,7 +621,7 @@ THEME_URLS:
       and uses the text as reason (whole paragraph). Please use a read-only database 
       user as well, as it only checks in a few obvious places.
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul>
         <li>
             Typically, of course, you do <strong>not</strong> want to run your
@@ -676,7 +668,7 @@ THEME_URLS:
      <a href="http://recaptcha.net/whyrecaptcha.html">http://recaptcha.net/whyrecaptcha.html</a>
       
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul>
         <li>
             <code>RECAPTCHA_PUBLIC_KEY: '7HoPjGBBBBBBBBBkmj78HF9PjjaisQ893'</code>
@@ -804,7 +796,7 @@ THEME_URLS:
   <dd>
       Email address(es) used for sending exception notifications.
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul>
         <li>
             <code>EXCEPTION_NOTIFICATIONS_FROM: do-not-reply-to-this-address@example.com</code>
@@ -843,7 +835,7 @@ EXCEPTION_NOTIFICATIONS_TO:
       work out where to send purge requests.
       Otherwise, don't set it.      
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul>
         <li>
             <code>VARNISH_HOST: null</code>
@@ -861,7 +853,7 @@ EXCEPTION_NOTIFICATIONS_TO:
   <dd>
       Adding a value here will enable Google Analytics on all non-admin pages for non-admin users.
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul>
         <li>
             <code>GA_CODE: ''</code>
@@ -884,7 +876,7 @@ EXCEPTION_NOTIFICATIONS_TO:
     This is useful for a staging server, so you can play with the whole process of sending requests
     without inadvertently sending an email to a real authority.
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul>
         <li>
             <code>OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: test-email@foo.com</code>
@@ -1083,7 +1075,7 @@ EXCEPTION_NOTIFICATIONS_TO:
      and directories that are shared; i.e. those to which the deploy scripts
      should create symlinks from the repository.
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul>
         <li>
             <pre>
