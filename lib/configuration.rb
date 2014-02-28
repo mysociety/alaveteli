@@ -60,6 +60,8 @@ module AlaveteliConfiguration
             :SITE_NAME => 'Alaveteli',
             :SKIP_ADMIN_AUTH => false,
             :SPECIAL_REPLY_VERY_LATE_AFTER_DAYS => 60,
+            :SURVEY_URL => '',
+            :SEND_SURVEY_MAILS => true,
             :THEME_BRANCH => false,
             :THEME_URL => "",
             :THEME_URLS => [],
