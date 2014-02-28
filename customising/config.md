@@ -10,6 +10,8 @@ title: Configuration
     changing the config settings.
 </p>
 
+## The general configuration file
+
 The alaveteli code ships with an example configuration file: `config/general.yml-example`.
 
 As part of the [installation process]({{ site.baseurl }}installing ), the
@@ -20,12 +22,14 @@ Note that the default settings for frontpage examples are designed to work with
 the dummy data shipped with Alaveteli. Once you have real data, you should
 certainly edit these.
 
+Note that there are [other configuration files](#other-config) too, for specific aspects of Alaveteli.
 
-## Config settings
+
+## Config settings by topic
 
 The following are all the configuration settings that you can change in `config/general.yml`.
 When you edit this file, remember it must be in the <a href="http://yaml.org">YAML syntax</a>.
-It's not complicated, but especially if you're editing a list be careful to get the
+It's not complicated but &mdash; especially if you're editing a list &mdash; be careful to get the
 indentation correct. If in doubt, look at the examples already in the file, and don't use tabs.
 
 
@@ -125,7 +129,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 
 ---
 
-## All the settings
+## All the general settings
 
 
 <dl class="glossary">
@@ -308,13 +312,15 @@ indentation correct. If in doubt, look at the examples already in the file, and 
     <a name="reply_late_after_days"><code>REPLY_LATE_AFTER_DAYS</code></a><br>
     <a name="reply_very_late_after_days"><code>REPLY_VERY_LATE_AFTER_DAYS</code></a><br>
     <a name="special_reply_very_late_after_days"><code>SPECIAL_REPLY_VERY_LATE_AFTER_DAYS</code></a>
+    <a name="working_or_calendar_days"><code>WORKING_OR_CALENDAR_DAYS</code></a>
   </dt>
   <dd>
-        These settings define how many days must have passed before an answer to a request is officially 
-        <em>late</em>.
+        The <strong>REPLY...AFTER_DAYS</strong> settings define how many days must have
+        passed before an answer to a request is officially <em>late</em>.
         The SPECIAL case is for some types of authority (for example: in the UK, schools) which are
         granted a bit longer than everyone else to respond to questions.
-
+        The <strong>WORKING_OR_CALENDAR_DAYS</strong> setting can be either "working" (the default)
+        or "calendar", and determines which days are counted.
     <div class="more-info">
       <p>Examples:</p>
       <ul>
@@ -327,23 +333,8 @@ indentation correct. If in doubt, look at the examples already in the file, and 
         <li>
             <code>SPECIAL_REPLY_VERY_LATE_AFTER_DAYS: 60</code>
         </li>
-      </ul>
-    </div>
-  </dd>
-
-
-  <dt>
-    <a name="working_or_calendar_days"><code>WORKING_OR_CALENDAR_DAYS</code></a>
-  </dt>
-  <dd>
-      Are the days in the <a href="#reply_late_after_days"><strong>REPLY...AFTER_DAYS</strong></a>
-      settings are given in working or  calendar days. 
-      Value can be "working" (the default) or "calendar".
-    <div class="more-info">
-      <p>Example:</p>
-      <ul>
         <li>
-            <code>WORKING_OR_CALENDAR_DAYS: working</code>
+          <code>WORKING_OR_CALENDAR_DAYS: working</code>
         </li>
       </ul>
     </div>
@@ -1121,4 +1112,39 @@ SHARED_DIRECTORIES:
     </div>
   </dd>
 
+</dl>
+
+<a name="other-config"> </a>
+
+## Other configuration files
+
+Note that there are other configuration files for Alaveteli &mdash; you'll find them all
+in the `config` directory. These are presented in the git repository as `*-example` files
+which you can copy into place.
+
+<dl>
+  <dt>
+    <strong>database.yml</strong>
+  </dt>
+  <dd>
+    database settings (as per Rails)
+  </dd>
+  <dt>
+    <strong>deploy.yml</strong>
+  </dt>
+  <dd>
+    deployment specifications used by Capistrano
+  </dd>
+  <dt>
+    <strong>httpd.conf, nginx.conf</strong>
+  </dt>
+  <dd>
+    Apache and Nginx configuration suggestions
+  </dd>
+  <dt>
+    <strong>newrelic.yml</strong>
+  </dt>
+  <dd>
+    Analytics configuration
+  </dd>
 </dl>
