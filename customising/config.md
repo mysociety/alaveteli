@@ -24,75 +24,104 @@ The default theme is the "Alaveteli" theme. This gets installed automatically wh
 
 ## Config settings
 
-The following are configuration settings that you can change in `conf/general`.
+The following are all the configuration settings that you can change in `conf/general`.
 
-<br> <a href="#site_name"><code>SITE_NAME</code></a>
-<br> <a href="#domain"><code>DOMAIN</code></a>
-<br> <a href="#force_ssl"><code>FORCE_SSL</code></a>
-<br> <a href="#iso_country_code"><code>ISO_COUNTRY_CODE</code></a>
-<br> <a href="#time_zone"><code>TIME_ZONE</code></a>
-<br> <a href="#blog_feed"><code>BLOG_FEED</code></a>
-<br> <a href="#twitter_username"><code>TWITTER_USERNAME</code></a>
-<br> <a href="#available_locales"><code>AVAILABLE_LOCALES</code></a>
-<br> <a href="#default_locale"><code>DEFAULT_LOCALE</code></a>
-<br> <a href="#use_default_browser_language"><code>USE_DEFAULT_BROWSER_LANGUAGE</code></a>
-<br> <a href="#include_default_locale_in_urls"><code>INCLUDE_DEFAULT_LOCALE_IN_URLS</code></a>
-<br> <a href="#reply_late_after_days"><code>REPLY_LATE_AFTER_DAYS</code></a>
-<br> <a href="#reply_very_late_after_days"><code>REPLY_VERY_LATE_AFTER_DAYS</code></a>
-<br> <a href="#special_reply_very_late_after_days"><code>SPECIAL_REPLY_VERY_LATE_AFTER_DAYS</code></a>
-<br> <a href="#working_or_calendar_days"><code>WORKING_OR_CALENDAR_DAYS</code></a>
-<br> <a href="#frontpage_publicbody_examples"><code>FRONTPAGE_PUBLICBODY_EXAMPLES</code></a>
-<br> <a href="#theme_urls"><code>THEME_URLS</code></a>
-<br> <a href="#theme_branch"><code>THEME_BRANCH</code></a>
-<br> <a href="#force_registration_on_new_request"><code>FORCE_REGISTRATION_ON_NEW_REQUEST</code></a>
-<br> <a href="#incoming_email_domain"><code>INCOMING_EMAIL_DOMAIN</code></a>
-<br> <a href="#incoming_email_prefix"><code>INCOMING_EMAIL_PREFIX</code></a>
-<br> <a href="#incoming_email_secret"><code>INCOMING_EMAIL_SECRET</code></a>
-<br> <a href="#blackhole_prefix"><code>BLACKHOLE_PREFIX</code></a>
-<br> <a href="#admin_username"><code>ADMIN_USERNAME</code></a>
-<br> <a href="#admin_password"><code>ADMIN_PASSWORD</code></a>
-<br> <a href="#admin_username"><code>DISABLE_EMERGENCY_USER</code></a>
-<br> <a href="#skip_admin_auth"><code>SKIP_ADMIN_AUTH</code></a>
-<br> <a href="#contact_email"><code>CONTACT_EMAIL</code></a>
-<br> <a href="#contact_name"><code>CONTACT_NAME</code></a>
-<br> <a href="#track_sender_email"><code>TRACK_SENDER_EMAIL</code></a>
-<br> <a href="#track_sender_name"><code>TRACK_SENDER_NAME</code></a>
-<br> <a href="#raw_emails_location"><code>RAW_EMAILS_LOCATION</code></a>
-<br> <a href="#cookie_store_session_secret"><code>COOKIE_STORE_SESSION_SECRET</code></a>
-<br> <a href="#read_only"><code>READ_ONLY</code></a>
-<br> <a href="#staging_site"><code>STAGING_SITE</code></a>
-<br> <a href="#recaptcha_public_key"><code>RECAPTCHA_PUBLIC_KEY</code></a>
-<br> <a href="#recaptcha_private_key"><code>RECAPTCHA_PRIVATE_KEY</code></a> 
-<br> <a href="#new_response_reminder_after_days"><code>NEW_RESPONSE_REMINDER_AFTER_DAYS</code></a>
-<br> <a href="#debug_record_memory"><code>DEBUG_RECORD_MEMORY</code></a>
-<br> <a href="#use_ghostscript_compression"><code>USE_GHOSTSCRIPT_COMPRESSION</code></a>
-<br> <a href="#gaze_url"><code>GAZE_URL</code></a>
-<br> <a href="#forward_nonbounce_responses_to"><code>FORWARD_NONBOUNCE_RESPONSES_TO</code></a>
-<br> <a href="#html_to_pdf_command"><code>HTML_TO_PDF_COMMAND</code></a>
-<br> <a href="#exception_notifications_from"><code>EXCEPTION_NOTIFICATIONS_FROM</code></a>
-<br> <a href="#exception_notifications_to"><code>EXCEPTION_NOTIFICATIONS_TO</code></a>
-<br> <a href="#max_requests_per_user_per_day"><code>MAX_REQUESTS_PER_USER_PER_DAY</code></a>
-<br> <a href="#varnish_host"><code>VARNISH_HOST</code></a>
-<br> <a href="#ga_code"><code>GA_CODE</code> (GA=Google Analytics)</a>
-<br> <a href="#override_all_public_body_request_emails"><code>OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS</code></a>
-<br> <a href="#utility_search_path"><code>UTILITY_SEARCH_PATH</code></a>
-<br> <a href="#mta_log_path"><code>MTA_LOG_PATH</code></a>
-<br> <a href="#mta_log_type"><code>MTA_LOG_TYPE</code></a>
-<br> <a href="#donation_url"><code>DONATION_URL</code></a>
-<br> <a href="#public_body_statistics_page"><code>PUBLIC_BODY_STATISTICS_PAGE</code></a>
-<br> <a href="#minimum_requests_for_statistics"><code>MINIMUM_REQUESTS_FOR_STATISTICS</code></a>
-<br> <a href="#public_body_list_fallback_to_default_locale"><code>PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE</code></a>
-<br> <a href="#use_mailcatcher_in_development"><code>USE_MAILCATCHER_IN_DEVELOPMENT</code></a>
-<br> <a href="#cache_fragments"><code>CACHE_FRAGMENTS</code></a>
-<br> <a href="#shared_files_path"><code>SHARED_FILES_PATH</code></a>
-<br> <a href="#shared_files"><code>SHARED_FILES</code></a> 
-<br> <a href="#shared_directories"><code>SHARED_DIRECTORIES</code></a>
-<br> <a href="#allow_batch_requests"><code>ALLOW_BATCH_REQUESTS</code></a>
+### Appearance and overall behaviour of the site:
+
+<code><a href="#site_name">SITE_NAME</a></code>
+<br> <code><a href="#domain">DOMAIN</a></code>
+<br> <code><a href="#force_ssl">FORCE_SSL</a></code>
+<br> <code><a href="#force_registration_on_new_request">FORCE_REGISTRATION_ON_NEW_REQUEST</a></code>
+<br> <code><a href="#theme_urls">THEME_URLS</a></code>
+<br> <code><a href="#theme_branch">THEME_BRANCH</a></code>
+<br> <code><a href="#frontpage_publicbody_examples">FRONTPAGE_PUBLICBODY_EXAMPLES</a></code>
+<br> <code><a href="#public_body_statistics_page">PUBLIC_BODY_STATISTICS_PAGE</a></code>
+<br> <code><a href="#minimum_requests_for_statistics">MINIMUM_REQUESTS_FOR_STATISTICS</a></code>
+
+### Locale and internationalisation:
+
+<code><a href="#iso_country_code">ISO_COUNTRY_CODE</a></code>
+<br> <code><a href="#time_zone">TIME_ZONE</a></code>
+<br> <code><a href="#available_locales">AVAILABLE_LOCALES</a></code>
+<br> <code><a href="#default_locale">DEFAULT_LOCALE</a></code>
+<br> <code><a href="#use_default_browser_language">USE_DEFAULT_BROWSER_LANGUAGE</a></code>
+<br> <code><a href="#include_default_locale_in_urls">INCLUDE_DEFAULT_LOCALE_IN_URLS</a></code>
+
+### Definition of "late":
+
+<code><a href="#reply_late_after_days">REPLY_LATE_AFTER_DAYS</a></code>
+<br> <code><a href="#reply_very_late_after_days">REPLY_VERY_LATE_AFTER_DAYS</a></code>
+<br> <code><a href="#special_reply_very_late_after_days">SPECIAL_REPLY_VERY_LATE_AFTER_DAYS</a></code>
+<br> <code><a href="#working_or_calendar_days">WORKING_OR_CALENDAR_DAYS</a></code>
+
+### External public services:
+
+<code><a href="#blog_feed">BLOG_FEED</a></code>
+<br> <code><a href="#twitter_username">TWITTER_USERNAME</a></code>
+<br> <code><a href="#donation_url">DONATION_URL</a></code>
+
+### Site status:
+
+<code><a href="#read_only">READ_ONLY</a></code>
+<br> <code><a href="#staging_site">STAGING_SITE</a></code>
+
+### Admin access:
+
+<code><a href="#admin_username">ADMIN_USERNAME</a></code>
+<br> <code><a href="#admin_password">ADMIN_PASSWORD</a></code>
+<br> <code><a href="#admin_username">DISABLE_EMERGENCY_USER</a></code>
+<br> <code><a href="#skip_admin_auth">SKIP_ADMIN_AUTH</a></code>
+
+### Email management:
+
+<code><a href="#incoming_email_domain">INCOMING_EMAIL_DOMAIN</a></code>
+<br> <code><a href="#incoming_email_prefix">INCOMING_EMAIL_PREFIX</a></code>
+<br> <code><a href="#incoming_email_secret">INCOMING_EMAIL_SECRET</a></code>
+<br> <code><a href="#blackhole_prefix">BLACKHOLE_PREFIX</a></code>
+<br> <code><a href="#contact_email">CONTACT_EMAIL</a></code>
+<br> <code><a href="#contact_name">CONTACT_NAME</a></code>
+<br> <code><a href="#track_sender_email">TRACK_SENDER_EMAIL</a></code>
+<br> <code><a href="#track_sender_name">TRACK_SENDER_NAME</a></code>
+<br> <code><a href="#raw_emails_location">RAW_EMAILS_LOCATION</a></code>
+<br> <code><a href="#exception_notifications_from">EXCEPTION_NOTIFICATIONS_FROM</a></code>
+<br> <code><a href="#exception_notifications_to">EXCEPTION_NOTIFICATIONS_TO</a></code>
+<br> <code><a href="#forward_nonbounce_responses_to">FORWARD_NONBOUNCE_RESPONSES_TO</a></code>
+<br> <code><a href="#mta_log_path">MTA_LOG_PATH</a></code>
+<br> <code><a href="#mta_log_type">MTA_LOG_TYPE</a></code>
+
+### General admin (keys, paths, back-end services):
+
+<code><a href="#cookie_store_session_secret">COOKIE_STORE_SESSION_SECRET</a></code>
+<br> <code><a href="#recaptcha_public_key">RECAPTCHA_PUBLIC_KEY</a></code>
+<br> <code><a href="#recaptcha_private_key">RECAPTCHA_PRIVATE_KEY</a></code>
+<br> <code><a href="#gaze_url">GAZE_URL</a></code>
+<br> <code><a href="#ga_code">GA_CODE</a></code> (GA=Google Analytics)
+<br> <code><a href="#utility_search_path">UTILITY_SEARCH_PATH</a></code>
+<br> <code><a href="#shared_files_path">SHARED_FILES_PATH</a></code>
+<br> <code><a href="#shared_files">SHARED_FILES</a></code>
+<br> <code><a href="#shared_directories">SHARED_DIRECTORIES</a></code>
+
+### Behaviour switches:
+
+<code><a href="#new_response_reminder_after_days">NEW_RESPONSE_REMINDER_AFTER_DAYS</a></code>
+<br> <code><a href="#max_requests_per_user_per_day">MAX_REQUESTS_PER_USER_PER_DAY</a></code>
+<br> <code><a href="#override_all_public_body_request_emails">OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS</a></code>
+<br> <code><a href="#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>
+<br> <code><a href="#public_body_list_fallback_to_default_locale">PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE</a></code>
+<br> <code><a href="#cache_fragments">CACHE_FRAGMENTS</a></code>
+
+### Development work or special cases:
+
+<code><a href="#debug_record_memory">DEBUG_RECORD_MEMORY</a></code>
+<br> <code><a href="#varnish_host">VARNISH_HOST</a></code>
+<br> <code><a href="#use_mailcatcher_in_development">USE_MAILCATCHER_IN_DEVELOPMENT</a></code>
+<br> <code><a href="#use_ghostscript_compression">USE_GHOSTSCRIPT_COMPRESSION</a></code>
+<br> <code><a href="#html_to_pdf_command">HTML_TO_PDF_COMMAND</a></code>
 
 
 ---
 
-### General settings
+## All the settings
 
 
 <dl class="glossary">
@@ -103,7 +132,7 @@ The following are configuration settings that you can change in `conf/general`.
   <dd>
     <strong>SITE_NAME</strong> appears in various places throughout the site.
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul>
         <li>
             <code>SITE_NAME: 'Alaveteli'</code>
@@ -121,10 +150,13 @@ The following are configuration settings that you can change in `conf/general`.
   <dd>
       Domain used in URLs generated by scripts (e.g. for going in some emails)
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul>
         <li>
             <code>DOMAIN: '127.0.0.1:3000'</code>
+        </li>
+        <li>
+            <code>DOMAIN: 'www.example.com'</code>
         </li>
       </ul>
     </div>
@@ -287,7 +319,7 @@ The following are configuration settings that you can change in `conf/general`.
         granted a bit longer than everyone else to respond to questions.
 
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul>
         <li>
             <code>REPLY_LATE_AFTER_DAYS: 20</code>
@@ -332,7 +364,7 @@ The following are configuration settings that you can change in `conf/general`.
       <strong>Warning</strong>: this is slow &mdash; don't use in production!
     </p>
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul>
         <li>
             <code>FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'</code>
@@ -640,7 +672,8 @@ THEME_URLS:
       <a name="recaptcha_private_key"><code>RECAPTCHA_PRIVATE_KEY</code></a> 
   </dt>
   <dd>
-     Recaptcha, for detecting humans. Get keys here: http://recaptcha.net/whyrecaptcha.html
+     Recaptcha, for detecting humans. Get keys here: 
+     <a href="http://recaptcha.net/whyrecaptcha.html">http://recaptcha.net/whyrecaptcha.html</a>
       
     <div class="more-info">
       <p>Example:</p>
@@ -969,9 +1002,8 @@ EXCEPTION_NOTIFICATIONS_TO:
     <a name="public_body_list_fallback_to_default_locale"><code>PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE</code></a>
   </dt>
   <dd>
-     If only some of the public bodies have been translated into every
-     available locale, you can allow a fallback to the default locale for
-     listing of public bodies. 
+     If you would like the public body list page to include bodies that have no translation
+     in the current locale (but which do have a translation in the default locale), set this to true.
     <div class="more-info">
       <p>Example:</p>
       <ul>
