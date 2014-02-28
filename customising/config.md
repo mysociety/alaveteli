@@ -295,7 +295,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
   </dt>
   <dd>
     Normally, Alaveteli will put the locale into its URLs, like this
-    <code>www.example.org/en/body/list/all</code>. If you don't want this
+    <code>www.example.com/en/body/list/all</code>. If you don't want this
     behaviour whenever the locale is the default one, set 
     <strong>INCLUDE_DEFAULT_LOCALE_IN_URLS</strong> to false. 
     <div class="more-info">
@@ -795,8 +795,8 @@ THEME_URLS:
         <li>
             <pre>
 EXCEPTION_NOTIFICATIONS_TO:
- - robin@example.org
- - seb@example.org                
+ - robin@example.com
+ - seb@example.com              
 </pre>
         </li>
       </ul>
