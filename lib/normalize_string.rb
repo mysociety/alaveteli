@@ -33,7 +33,6 @@ def normalize_string_to_utf8(s, suggested_character_encoding=nil)
                 # the encode('UTF-8'); move onto the next one...
             end
         else
-            to_encoding = 'UTF-8'
             begin
                 converted = Iconv.conv 'UTF-8', from_encoding, s
                 return converted
@@ -45,7 +44,6 @@ def normalize_string_to_utf8(s, suggested_character_encoding=nil)
         end
     end
     raise EncodingNormalizationError, "Couldn't find a valid character encoding for the string"
-
 end
 
 def convert_string_to_utf8_or_binary(s, suggested_character_encoding=nil)
