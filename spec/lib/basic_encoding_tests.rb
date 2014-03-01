@@ -4,8 +4,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 def bytes_to_binary_string( bytes, claimed_encoding = nil )
     claimed_encoding ||= 'ASCII-8BIT'
     bytes_string = bytes.pack('c*')
-    if RUBY_VERSION.to_f >= 1.9
-        bytes_string.force_encoding! claimed_encoding
+    if String.method_defined?(:force_encoding)
+        bytes_string.force_encoding claimed_encoding
     end
     bytes_string
 end
@@ -110,15 +110,15 @@ describe "convert_string_to_utf8_or_binary" do
             converted = convert_string_to_utf8_or_binary random_string
             converted.should == random_string
 
-            if RUBY_VERSION.to_f >= 1.9
-                converted.encoding.should == 'ASCII-8BIT'
+            if String.method_defined?(:encode)
+                converted.encoding.to_s.should == 'ASCII-8BIT'
             end
 
             converted = convert_string_to_utf8_or_binary random_string,'UTF-8'
             converted.should == random_string
 
-            if RUBY_VERSION.to_f >= 1.9
-                converted.encoding.should == 'ASCII-8BIT'
+            if String.method_defined?(:encode)
+                converted.encoding.to_s.should == 'ASCII-8BIT'
             end
 
         end
@@ -132,8 +132,8 @@ describe "convert_string_to_utf8_or_binary" do
 
             converted.should ==  "DASH – DASH"
 
-            if RUBY_VERSION.to_f >= 1.9
-                converted.encoding.should == 'UTF-8'
+            if String.method_defined?(:encode)
+                converted.encoding.to_s.should == 'UTF-8'
             end
         end
 
@@ -147,8 +147,8 @@ describe "convert_string_to_utf8_or_binary" do
 
             converted.should start_with("贵公司负责人")
 
-            if RUBY_VERSION.to_f >= 1.9
-                converted.encoding.should == 'UTF-8'
+            if String.method_defined?(:encode)
+                converted.encoding.to_s.should == 'UTF-8'
             end
         end
 
