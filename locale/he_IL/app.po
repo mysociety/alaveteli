@@ -8,7 +8,7 @@
 # Ram Ezrach <ram.ezrach@gmail.com>, 2013
 # rshlo <r@roishlomi.com>, 2013
 # rshlo <r@roishlomi.com>, 2013
-# yauzi <yair.uziel@gmail.com>, 2013
+# yauzi <yair.uziel@gmail.com>, 2013-2014
 # yauzi <yair.uziel@gmail.com>, 2013
 # yehuda <yehudab@gmail.com>, 2013
 # yehuda <yehudab@gmail.com>, 2013
@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-27 09:52+0000\n"
-"PO-Revision-Date: 2014-02-27 09:59+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2014-03-03 17:37+0000\n"
+"Last-Translator: yauzi <yair.uziel@gmail.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -693,7 +693,10 @@ msgid "Dear {{name}},"
 msgstr "{{name}} יקר,"
 
 msgid "Dear {{public_body_name}},"
-msgstr "{{public_body_name}} נכבד, "
+msgstr ""
+"לכבוד הממונה על חוק חופש המידע ב{{public_body_name}},\n"
+"\n"
+"בהתאם לסעיף 7 לחוק חופש המידע, התשנ\"ח-1998 הריני לפנות אליכם כדלקמן:"
 
 msgid "Dear {{user_name}},"
 msgstr ""
@@ -3398,10 +3401,10 @@ msgid "Your {{site_name}} email alert"
 msgstr "התרעת הדוא\"ל שלכם מאתר {{site_name}} "
 
 msgid "Yours faithfully,"
-msgstr "שלכם במסירות,"
+msgstr "בתודה מראש על טיפולכם המסור בבקשה זו,"
 
 msgid "Yours sincerely,"
-msgstr "שלכם בכנות,"
+msgstr "בתודה מראש על טיפולכם המסור בבקשה זו,"
 
 msgid "Yours,"
 msgstr "בהוקרה,"

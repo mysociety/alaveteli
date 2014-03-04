@@ -5,14 +5,15 @@
 # Translators:
 # antitoxic <antitoxic@gmail.com>, 2013
 # antitoxic <antitoxic@gmail.com>, 2013
+# louisecrow <louise@mysociety.org>, 2014
 # Valentin Laskov <laskov@festa.bg>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-27 09:52+0000\n"
-"PO-Revision-Date: 2014-02-27 09:59+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2014-03-01 08:10+0000\n"
+"Last-Translator: Valentin Laskov <laskov@festa.bg>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/alaveteli/language/bg/)\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -549,7 +550,7 @@ msgid "Change your password {{site_name}}"
 msgstr "Промяна на паролата Ви {{site_name}}"
 
 msgid "Charity registration"
-msgstr ""
+msgstr "Регистрация на фондацията"
 
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Проверете за грешки ако сте написали или копирали адреса."
@@ -570,7 +571,7 @@ msgid "Clarify your FOI request - "
 msgstr "Пояснете Вашето Заявление за ДдИ - "
 
 msgid "Classify an FOI response from "
-msgstr ""
+msgstr "Класифициране на отговор за ДдИ от "
 
 msgid "Clear photo"
 msgstr "Премахни снимката"
@@ -1355,10 +1356,10 @@ msgid "Make a batch request"
 msgstr "Направете размножено заявление"
 
 msgid "Make a new EIR request"
-msgstr ""
+msgstr "Ново заявление за околната среда"
 
 msgid "Make a new FOI request"
-msgstr ""
+msgstr "Ново заявление за ДдИ"
 
 msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
 msgstr "Създаване на ново<br/>\\n  <strong>Заявление <span>за</span><br/>\\n  Достъп до<br/>\\n  Информация</strong>"
@@ -1481,7 +1482,7 @@ msgid "No similar requests found."
 msgstr "Няма намерени подобни резултати."
 
 msgid "No tracked things found."
-msgstr ""
+msgstr "Не са намерени следени неща."
 
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
 msgstr "До {{public_body_name}} все още никой не е отправил заявление за Достъп до информация чрез този сайт."
@@ -2630,7 +2631,7 @@ msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Този орган вече не съществува, поради което не може да отправите заявление към него."
 
 msgid "This covers a very wide spectrum of information about the state of\\n            the <strong>natural and built environment</strong>, such as:"
-msgstr ""
+msgstr "Това покрива широк спектър информация относно състоянието\\n            на <strong>природната среда и строителството</strong>, като:"
 
 msgid "This external request has been hidden"
 msgstr "Външното заявление беше скрито"
@@ -3399,10 +3400,10 @@ msgid "[FOI #{{request}} email]"
 msgstr "[ДдИ #{{request}} имейл]"
 
 msgid "[{{public_body}} request email]"
-msgstr ""
+msgstr "[{{public_body}} имейл за заявления]"
 
 msgid "[{{site_name}} contact email]"
-msgstr ""
+msgstr "[{{site_name}} имейл за контакти]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
 msgstr "\\n\\n[ {{site_name}} съобщение: Горният текст е в непозволен формат. Някои странни символи бяха премахнати. ]"
@@ -3748,7 +3749,7 @@ msgid "{{title}} - a batch request"
 msgstr "{{title}} - размножено заявление"
 
 msgid "{{user_name}} (Account suspended)"
-msgstr ""
+msgstr "{{user_name}} (Блокирана регистрация)"
 
 msgid "{{user_name}} - Freedom of Information requests"
 msgstr "{{user_name}} - Заявления за Достъп до Обществена Информация"
