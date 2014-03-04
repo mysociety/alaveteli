@@ -91,6 +91,12 @@
 
 <hr>
 
+<h2>Annotations</h2>
+
+<%= render :partial => 'admin_request/some_annotations' , :locals => { :comments => @admin_user.comments } %>
+
+<hr>
+
 <h2>Censor rules</h2>
 <%= render :partial => 'admin_censor_rule/show', :locals => { :censor_rules => @admin_user.censor_rules, :user => @admin_user } %>
 

@@ -174,9 +174,39 @@
       </div>
     </div>
   <% end %>
+
+  <% if @new_body_requests.size > 0 %>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" href="#new-authorities" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%= @new_body_requests.size %></span><%= chevron_right %> Add new authorities</a>
+      </div>
+      <div id="new-authorities" class="accordion-body collapse">
+            <% for @change_request in @new_body_requests %>
+              <%= render :partial => 'change_request_summary'%>
+              <%= link_to("Close and respond", admin_change_request_edit_path(@change_request), :class => 'btn') %>
+              <%= link_to("Add authority", admin_body_new_path(:change_request_id => @change_request.id), :class => 'btn btn-primary') %>
+            <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @body_update_requests.size > 0 %>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" href="#update-authorities" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%= @body_update_requests.size %></span><%= chevron_right %> Update authorities</a>
+      </div>
+      <div id="update-authorities" class="accordion-body collapse">
+        <% for @change_request in @body_update_requests %>
+            <%= render :partial => 'change_request_summary' %>
+            <%= link_to("Close and respond", admin_change_request_edit_path(@change_request), :class => 'btn') %>
+            <%= link_to("Make update", admin_body_edit_path(@change_request.public_body, :change_request_id => @change_request.id), :class => 'btn btn-primary') %>
+          <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>
 
-<% if @holding_pen_messages.size == 0 && @old_unclassified.size == 0 && @requires_admin_requests.size == 0 && @blank_contacts.size == 0 && @attention_requests.size == 0 %>
+<% if @holding_pen_messages.size == 0 && @old_unclassified.size == 0 && @requires_admin_requests.size == 0 && @blank_contacts.size == 0 && @attention_requests.size == 0 && @new_body_requests.size == 0 && @body_update_requests.size == 0 %>
   <div class="row">
     <div class="span12 alert alert-success">
       No pending administration required.

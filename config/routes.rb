@@ -35,9 +35,11 @@ Alaveteli::Application.routes.draw do
     match '/list' => 'request#list', :as => :request_list
 
     match '/select_authority' => 'request#select_authority', :as => :select_authority
+    match '/select_authorities' => 'request#select_authorities', :as => :select_authorities
 
     match '/new' => 'request#new', :as => :new_request
     match '/new/:url_name' => 'request#new', :as => :new_request_to_body
+    match '/new_batch' => 'request#new_batch', :as => :new_batch
 
     match '/request/search_ahead' => 'request#search_typeahead', :as => :search_ahead
 
@@ -62,6 +64,8 @@ Alaveteli::Application.routes.draw do
     resources :request, :only => [] do
         resource :report, :only => [:new, :create]
     end
+
+    resources :info_request_batch, :only => :show
 
     #### User controller
     # Use /profile for things to do with the currently signed in user.
@@ -107,6 +111,8 @@ Alaveteli::Application.routes.draw do
     match '/body/:url_name/:tag/:view' => 'public_body#show', :as => :show_public_body_tag_view
     match '/body_statistics' => 'public_body#statistics', :as => :public_bodies_statistics
     ####
+
+    resource :change_request, :only => [:new, :create], :controller => 'public_body_change_requests'
 
     #### Comment controller
     match '/annotate/request/:url_title' => 'comment#new', :as => :new_comment, :type => 'request'
@@ -170,6 +176,11 @@ Alaveteli::Application.routes.draw do
     match '/admin/body/destroy/:id' => 'admin_public_body#destroy', :as => :admin_body_destroy
     match '/admin/body/import_csv' => 'admin_public_body#import_csv', :as => :admin_body_import_csv
     match '/admin/body/mass_tag_add' => 'admin_public_body#mass_tag_add', :as => :admin_body_mass_tag_add
+    ####
+
+    #### AdminPublicBodyChangeRequest controller
+    match '/admin/change_request/edit/:id' => 'admin_public_body_change_requests#edit', :as => :admin_change_request_edit
+    match '/admin/change_request/update/:id' => 'admin_public_body_change_requests#update', :as => :admin_change_request_update
     ####
 
     #### AdminGeneral controller

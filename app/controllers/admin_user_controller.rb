@@ -48,6 +48,7 @@ class AdminUserController < AdminController
         @admin_user.ban_text = params[:admin_user][:ban_text]
         @admin_user.about_me = params[:admin_user][:about_me]
         @admin_user.no_limit = params[:admin_user][:no_limit]
+        @admin_user.can_make_batch_requests = params[:admin_user][:can_make_batch_requests]
 
         if @admin_user.valid?
             @admin_user.save!

@@ -12,6 +12,7 @@ MAILTO=cron-!!(*= $site *)!!@mysociety.org
 # Every 10 minutes
 5,15,25,35,45,55 * * * * !!(*= $user *)!! /etc/init.d/foi-alert-tracks check
 5,15,25,35,45,55 * * * * !!(*= $user *)!! /etc/init.d/foi-purge-varnish check
+0,10,20,30,40,50 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/send-batch-requests.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/send-batch-requests || echo "stalled?"
 
 # Once an hour
 09 * * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $vhost_dir *)!!/alert-comment-on-request.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-comment-on-request || echo "stalled?"

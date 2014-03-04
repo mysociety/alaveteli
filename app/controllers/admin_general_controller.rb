@@ -27,13 +27,16 @@ class AdminGeneralController < AdminController
         @comment_count = Comment.count
 
         # Tasks to do
-        @requires_admin_requests = InfoRequest.find(:all, :select => '*, ' + InfoRequest.last_event_time_clause + ' as last_event_time', :conditions => ["described_state = 'requires_admin'"], :order => "last_event_time")
-        @error_message_requests = InfoRequest.find(:all, :select => '*, ' + InfoRequest.last_event_time_clause + ' as last_event_time', :conditions => ["described_state = 'error_message'"], :order => "last_event_time")
-        @attention_requests = InfoRequest.find(:all, :select => '*, ' + InfoRequest.last_event_time_clause + ' as last_event_time', :conditions => ["described_state = 'attention_requested'"], :order => "last_event_time")
-        @blank_contacts = PublicBody.find(:all, :conditions => ["request_email = ''"], :order => "updated_at")
+        @requires_admin_requests = InfoRequest.find_in_state('requires_admin')
+        @error_message_requests = InfoRequest.find_in_state('error_message')
+        @attention_requests = InfoRequest.find_in_state('attention_requested')
+        @blank_contacts = PublicBody.find(:all, :conditions => ["request_email = ''"],
+                                                :order => "updated_at")
         @old_unclassified = InfoRequest.find_old_unclassified(:limit => 20,
-                                                                       :conditions => ["prominence = 'normal'"])
+                                                              :conditions => ["prominence = 'normal'"])
         @holding_pen_messages = InfoRequest.holding_pen_request.incoming_messages
+        @new_body_requests = PublicBodyChangeRequest.new_body_requests.open
+        @body_update_requests = PublicBodyChangeRequest.body_update_requests.open
     end
 
     def timeline

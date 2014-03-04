@@ -123,6 +123,7 @@ FactoryGirl.define do
         salt "-6116981980.392287733335677"
         hashed_password '6b7cd45a5f35fd83febc0452a799530398bfb6e8' # jonespassword
         email_confirmed true
+        ban_text ""
         factory :admin_user do
             name 'Admin User'
             admin_level 'super'
@@ -144,4 +145,21 @@ FactoryGirl.define do
         track_query 'Example Query'
     end
 
+    factory :public_body_change_request do
+        user
+        source_url 'http://www.example.com'
+        notes 'Please'
+        public_body_email 'new@example.com'
+        factory :add_body_request do
+            public_body_name 'A New Body'
+        end
+        factory :update_body_request do
+            public_body
+        end
+    end
+    factory :info_request_batch do
+        title "Example title"
+        user
+        body "Some text"
+    end
 end

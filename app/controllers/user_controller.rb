@@ -26,12 +26,15 @@ class UserController < ApplicationController
         if params[:view].nil?
             @show_requests = true
             @show_profile = true
+            @show_batches = false
         elsif params[:view] == 'profile'
             @show_profile = true
             @show_requests = false
+            @show_batches = false
         elsif params[:view] == 'requests'
             @show_profile = false
             @show_requests = true
+            @show_batches = true
         end
 
         @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])

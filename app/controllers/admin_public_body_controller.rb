@@ -85,14 +85,33 @@ class AdminPublicBodyController < AdminController
 
     def new
         @public_body = PublicBody.new
-        render
+        if params[:change_request_id]
+            @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
+        end
+        if @change_request
+            @change_request_user_response = render_to_string(:template => "admin_public_body_change_requests/add_accepted",
+                                                             :formats => [:txt])
+            @public_body.name = @change_request.public_body_name
+            @public_body.request_email = @change_request.public_body_email
+            @public_body.last_edit_comment = @change_request.comment_for_public_body
+        end
+        render :formats => [:html]
     end
 
     def create
         I18n.with_locale(I18n.default_locale) do
+            if params[:change_request_id]
+                @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
+            end
             params[:public_body][:last_edit_editor] = admin_current_user()
             @public_body = PublicBody.new(params[:public_body])
             if @public_body.save
+               if @change_request
+                    response_text = params[:response].gsub(_("[Authority URL will be inserted here]"),
+                                                          public_body_url(@public_body, :only_path => false))
+                    @change_request.close!
+                    @change_request.send_response(params[:subject], response_text)
+                end
                 flash[:notice] = 'PublicBody was successfully created.'
                 redirect_to admin_body_show_url(@public_body)
             else
@@ -103,15 +122,32 @@ class AdminPublicBodyController < AdminController
 
     def edit
         @public_body = PublicBody.find(params[:id])
-        @public_body.last_edit_comment = ""
-        render
+        if params[:change_request_id]
+            @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
+        end
+        if @change_request
+            @change_request_user_response = render_to_string(:template => "admin_public_body_change_requests/update_accepted",
+                                                             :formats => [:txt])
+            @public_body.request_email = @change_request.public_body_email
+            @public_body.last_edit_comment = @change_request.comment_for_public_body
+        else
+            @public_body.last_edit_comment = ""
+        end
+        render :formats => [:html]
     end
 
     def update
+        if params[:change_request_id]
+            @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
+        end
         I18n.with_locale(I18n.default_locale) do
             params[:public_body][:last_edit_editor] = admin_current_user()
             @public_body = PublicBody.find(params[:id])
             if @public_body.update_attributes(params[:public_body])
+                if @change_request
+                    @change_request.close!
+                    @change_request.send_response(params[:subject], params[:response])
+                end
                 flash[:notice] = 'PublicBody was successfully updated.'
                 redirect_to admin_body_show_url(@public_body)
             else

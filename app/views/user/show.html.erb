@@ -105,6 +105,17 @@
 <div style="clear:both"></div>
 <% end %>
 
+<% if @show_batches %>
+
+  <% if @is_you && !@display_user.info_request_batches.empty? %>
+      <h2 class="batch_results" id="batch_requests">
+          <%=  n_('Your {{count}} batch requests', 'Your {{count}} batch requests', @display_user.info_request_batches.size, :count => @display_user.info_request_batches.size) %>
+      </h2>
+      <%= render :partial => 'info_request_batch/info_request_batch', :collection => @display_user.info_request_batches %>
+    <% end %>
+
+<% end %>
+
 <% if @show_requests %>
 <div id="user_profile_search">
     <%= form_tag(show_user_url, :method => "get", :id=>"search_form") do %>

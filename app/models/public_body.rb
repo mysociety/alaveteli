@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # == Schema Information
+# Schema version: 20131024114346
 #
 # Table name: public_bodies
 #
@@ -346,22 +347,26 @@ class PublicBody < ActiveRecord::Base
 
     # The "internal admin" is a special body for internal use.
     def PublicBody.internal_admin_body
-        I18n.with_locale(I18n.default_locale) do
-            pb = PublicBody.find_by_url_name("internal_admin_authority")
-            if pb.nil?
-                pb = PublicBody.new(
-                 :name => 'Internal admin authority',
-                 :short_name => "",
-                 :request_email => AlaveteliConfiguration::contact_email,
-                 :home_page => "",
-                 :notes => "",
-                 :publication_scheme => "",
-                 :last_edit_editor => "internal_admin",
-                 :last_edit_comment => "Made by PublicBody.internal_admin_body"
-                )
-                pb.save!
+        # Use find_by_sql to avoid the search being specific to a
+        # locale, since url_name is a translated field:
+        sql = "SELECT * FROM public_bodies WHERE url_name = 'internal_admin_authority'"
+        matching_pbs = PublicBody.find_by_sql sql
+        case
+        when matching_pbs.empty? then
+            I18n.with_locale(I18n.default_locale) do
+                PublicBody.create!(:name => 'Internal admin authority',
+                                   :short_name => "",
+                                   :request_email => AlaveteliConfiguration::contact_email,
+                                   :home_page => "",
+                                   :notes => "",
+                                   :publication_scheme => "",
+                                   :last_edit_editor => "internal_admin",
+                                   :last_edit_comment => "Made by PublicBody.internal_admin_body")
             end
-            return pb
+        when matching_pbs.length == 1 then
+            matching_pbs[0]
+        else
+            raise "Multiple public bodies (#{matching_pbs.length}) found with url_name 'internal_admin_authority'"
         end
     end
 

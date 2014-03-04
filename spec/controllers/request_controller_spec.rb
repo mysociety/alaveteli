@@ -17,92 +17,6 @@ describe RequestController, "when listing recent requests" do
         response.should render_template('list')
     end
 
-    it "should filter requests" do
-        get :list, :view => 'all'
-        assigns[:list_results].map(&:info_request).should =~ InfoRequest.all
-
-        # default sort order is the request with the most recently created event first
-        assigns[:list_results].map(&:info_request).should == InfoRequest.all(
-            :order => "(select max(info_request_events.created_at) from info_request_events where info_request_events.info_request_id = info_requests.id) DESC")
-
-        get :list, :view => 'successful'
-        assigns[:list_results].map(&:info_request).should =~ InfoRequest.all(
-            :conditions => "id in (
-                select info_request_id
-                from info_request_events
-                where not exists (
-                    select *
-                    from info_request_events later_events
-                    where later_events.created_at > info_request_events.created_at
-                    and later_events.info_request_id = info_request_events.info_request_id
-                    and later_events.described_state is not null
-                )
-                and info_request_events.described_state in ('successful', 'partially_successful')
-            )")
-    end
-
-    it "should filter requests by date" do
-        # The semantics of the search are that it finds any InfoRequest
-        # that has any InfoRequestEvent created in the specified range
-
-        get :list, :view => 'all', :request_date_before => '13/10/2007'
-        assigns[:list_results].map(&:info_request).should =~ InfoRequest.all(
-            :conditions => "id in (select info_request_id from info_request_events where created_at < '2007-10-13'::date)")
-
-        get :list, :view => 'all', :request_date_after => '13/10/2007'
-        assigns[:list_results].map(&:info_request).should =~ InfoRequest.all(
-            :conditions => "id in (select info_request_id from info_request_events where created_at > '2007-10-13'::date)")
-
-        get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
-        assigns[:list_results].map(&:info_request).should =~ InfoRequest.all(
-            :conditions => "id in (select info_request_id from info_request_events where created_at between '2007-10-13'::date and '2007-11-01'::date)")
-    end
-
-    it "should list internal_review requests as unresolved ones" do
-        get :list, :view => 'awaiting'
-
-        # This doesn’t precisely duplicate the logic of the actual
-        # query, but it is close enough to give the same result with
-        # the current set of test data.
-        assigns[:list_results].should =~ InfoRequestEvent.all(
-            :conditions => "described_state in (
-                    'waiting_response', 'waiting_clarification',
-                    'internal_review', 'gone_postal', 'error_message', 'requires_admin'
-                ) and not exists (
-                    select *
-                    from info_request_events later_events
-                    where later_events.created_at > info_request_events.created_at
-                    and later_events.info_request_id = info_request_events.info_request_id
-                )")
-
-
-        get :list, :view => 'awaiting'
-        assigns[:list_results].map(&:info_request).include?(info_requests(:fancy_dog_request)).should == false
-
-        event = info_request_events(:useless_incoming_message_event)
-        event.described_state = event.calculated_state = "internal_review"
-        event.save!
-        rebuild_xapian_index
-
-        get :list, :view => 'awaiting'
-        assigns[:list_results].map(&:info_request).include?(info_requests(:fancy_dog_request)).should == true
-    end
-
-    it "should assign the first page of results" do
-        xap_results = mock(ActsAsXapian::Search,
-                   :results => (1..25).to_a.map { |m| { :model => m } },
-                   :matches_estimated => 1000000)
-
-        ActsAsXapian::Search.should_receive(:new).
-          with([InfoRequestEvent]," (variety:sent OR variety:followup_sent OR variety:response OR variety:comment)",
-            :sort_by_prefix => "created_at", :offset => 0, :limit => 25, :sort_by_ascending => true,
-            :collapse_by_prefix => "request_collapse").
-          and_return(xap_results)
-        get :list, :view => 'all'
-        assigns[:list_results].size.should == 25
-        assigns[:show_no_more_than].should == RequestController::MAX_RESULTS
-    end
-
     it "should return 404 for pages we don't want to serve up" do
         xap_results = mock(ActsAsXapian::Search,
                    :results => (1..25).to_a.map { |m| { :model => m } },
@@ -897,7 +811,7 @@ describe RequestController, "when handling prominence" do
             expect_hidden('request/hidden_correspondence')
         end
 
-        it 'should download attachments for an admin user', :focus => true do
+        it 'should download attachments for an admin user' do
             session[:user_id] = FactoryGirl.create(:admin_user).id
             get :get_attachment, :incoming_message_id => @incoming_message.id,
                                  :id => @info_request.id,
@@ -959,7 +873,7 @@ describe RequestController, "when handling prominence" do
             response.should be_success
         end
 
-        it 'should download attachments for an admin user', :focus => true do
+        it 'should download attachments for an admin user' do
             session[:user_id] = FactoryGirl.create(:admin_user).id
             get :get_attachment, :incoming_message_id => @incoming_message.id,
                                  :id => @info_request.id,
@@ -2505,6 +2419,271 @@ describe RequestController, "when caching fragments" do
                    :incoming_message_id => "44",
                    :part => "2" }
         get :get_attachment_as_html, params
+    end
+
+end
+
+describe RequestController, "#new_batch" do
+
+    context "when batch requests is enabled" do
+
+        before do
+            AlaveteliConfiguration.stub!(:allow_batch_requests).and_return(true)
+        end
+
+        context "when the current user can make batch requests" do
+
+            before do
+                @user = FactoryGirl.create(:user, :can_make_batch_requests => true)
+                @public_body = FactoryGirl.create(:public_body)
+                @other_public_body = FactoryGirl.create(:public_body)
+                @public_body_ids = [@public_body.id, @other_public_body.id]
+                @default_post_params = { :info_request => { :title => "What does it all mean?",
+                                                            :tag_string => "" },
+                                         :public_body_ids => @public_body_ids,
+                                         :outgoing_message => { :body => "This is a silly letter." },
+                                         :submitted_new_request => 1,
+                                         :preview => 1 }
+            end
+
+            it 'should be successful' do
+                get :new_batch, {:public_body_ids => @public_body_ids}, {:user_id => @user.id}
+                response.should be_success
+            end
+
+            it 'should render the "new" template' do
+                get :new_batch, {:public_body_ids => @public_body_ids}, {:user_id => @user.id}
+                response.should render_template('request/new')
+            end
+
+            it 'should redirect to "select_authorities" if no public_body_ids param is passed' do
+                get :new_batch, {}, {:user_id => @user.id}
+                response.should redirect_to select_authorities_path
+            end
+
+            it "should render 'preview' when given a good title and body" do
+                post :new_batch, @default_post_params, { :user_id => @user.id }
+                response.should render_template('preview')
+            end
+
+            it "should give an error and render 'new' template when a summary isn't given" do
+                @default_post_params[:info_request].delete(:title)
+                post :new_batch, @default_post_params, { :user_id => @user.id }
+                assigns[:info_request].errors[:title].should == ['Please enter a summary of your request']
+                response.should render_template('new')
+            end
+
+            it "should allow re-editing of a request" do
+                params = @default_post_params.merge(:preview => 0, :reedit => 1)
+                post :new_batch, params, { :user_id => @user.id }
+                response.should render_template('new')
+            end
+
+            context "on success" do
+
+                def make_request
+                    @params = @default_post_params.merge(:preview => 0)
+                    post :new_batch, @params, { :user_id => @user.id }
+                end
+
+                it 'should create an info request batch and redirect to the new batch on success' do
+                    make_request
+                    new_info_request_batch = assigns[:info_request_batch]
+                    new_info_request_batch.should_not be_nil
+                    response.should redirect_to(info_request_batch_path(new_info_request_batch))
+                end
+
+                it 'should prevent double submission of a batch request' do
+                    make_request
+                    post :new_batch, @params, { :user_id => @user.id }
+                    response.should render_template('new')
+                    assigns[:existing_batch].should_not be_nil
+                end
+
+                it 'should display a success notice' do
+                    make_request
+                    notice_text = "<p>Your Freedom of Information requests will be <strong>sent</strong> shortly!"
+                    flash[:notice].should match notice_text
+                end
+
+            end
+
+            context "when the user is banned" do
+
+                before do
+                    @user.ban_text = "bad behaviour"
+                    @user.save!
+                end
+
+                it 'should show the "banned" template' do
+                    post :new_batch, @default_post_params, { :user_id => @user.id }
+                    response.should render_template('user/banned')
+                    assigns[:details].should == 'bad behaviour'
+                end
+
+            end
+
+        end
+
+        context "when the current user can't make batch requests" do
+
+            render_views
+
+            before do
+                @user = FactoryGirl.create(:user)
+            end
+
+            it 'should return a 403 with an appropriate message' do
+                get :new_batch, {}, {:user_id => @user.id}
+                response.code.should == '403'
+                response.body.should match("Users cannot usually make batch requests to multiple authorities at once")
+            end
+
+        end
+
+        context 'when there is no logged-in user' do
+
+            it 'should return a redirect to the login page' do
+                get :new_batch
+                post_redirect = PostRedirect.get_last_post_redirect
+                response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+            end
+        end
+
+
+    end
+
+    context "when batch requests is not enabled" do
+
+        it 'should return a 404' do
+            Rails.application.config.stub!(:consider_all_requests_local).and_return(false)
+            get :new_batch
+            response.code.should == '404'
+        end
+
+    end
+
+end
+
+describe RequestController, "#select_authorities" do
+
+    context "when batch requests is enabled" do
+
+        before do
+            get_fixtures_xapian_index
+            load_raw_emails_data
+            AlaveteliConfiguration.stub!(:allow_batch_requests).and_return(true)
+        end
+
+        context "when the current user can make batch requests" do
+
+            before do
+                @user = FactoryGirl.create(:user, :can_make_batch_requests => true)
+            end
+
+            context 'when asked for HTML' do
+
+                it 'should be successful' do
+                    get :select_authorities, {}, {:user_id => @user.id}
+                    response.should be_success
+                end
+
+                it 'should render the "select_authorities" template' do
+                    get :select_authorities, {}, {:user_id => @user.id}
+                    response.should render_template('request/select_authorities')
+                end
+
+                it 'should assign a list of search results to the view if passed a query' do
+                    get :select_authorities, {:public_body_query => "Quango"}, {:user_id => @user.id}
+                    assigns[:search_bodies].results.size.should == 1
+                    assigns[:search_bodies].results[0][:model].name.should == public_bodies(:geraldine_public_body).name
+                end
+
+                it 'should assign a list of public bodies to the view if passed a list of ids' do
+                    get :select_authorities, {:public_body_ids => [public_bodies(:humpadink_public_body).id]},
+                                             {:user_id => @user.id}
+                    assigns[:public_bodies].size.should == 1
+                    assigns[:public_bodies][0].name.should == public_bodies(:humpadink_public_body).name
+                end
+
+                it 'should subtract a list of public bodies to remove from the list of bodies assigned to
+                    the view' do
+                    get :select_authorities, {:public_body_ids => [public_bodies(:humpadink_public_body).id,
+                                                                   public_bodies(:geraldine_public_body).id],
+                                              :remove_public_body_ids => [public_bodies(:geraldine_public_body).id]},
+                                             {:user_id => @user.id}
+                    assigns[:public_bodies].size.should == 1
+                    assigns[:public_bodies][0].name.should == public_bodies(:humpadink_public_body).name
+                end
+
+            end
+
+            context 'when asked for JSON', :focus => true do
+
+                it 'should be successful' do
+                    get :select_authorities, {:public_body_query => "Quan", :format => 'json'}, {:user_id => @user.id}
+                    response.should be_success
+                end
+
+                it 'should return a list of public body names and ids' do
+                    get :select_authorities, {:public_body_query => "Quan", :format => 'json'},
+                                             {:user_id => @user.id}
+
+                    JSON(response.body).should == [{ 'id' => public_bodies(:geraldine_public_body).id,
+                                                     'name' => public_bodies(:geraldine_public_body).name }]
+                end
+
+                it 'should return an empty list if no search is passed' do
+                    get :select_authorities, {:format => 'json' },{:user_id => @user.id}
+                    JSON(response.body).should == []
+                end
+
+                it 'should return an empty list if there are no bodies' do
+                    get :select_authorities, {:public_body_query => 'fknkskalnr', :format => 'json' },
+                                             {:user_id => @user.id}
+                    JSON(response.body).should == []
+                end
+
+            end
+
+        end
+
+        context "when the current user can't make batch requests" do
+
+            render_views
+
+            before do
+                @user = FactoryGirl.create(:user)
+            end
+
+            it 'should return a 403 with an appropriate message' do
+                get :select_authorities, {}, {:user_id => @user.id}
+                response.code.should == '403'
+                response.body.should match("Users cannot usually make batch requests to multiple authorities at once")
+            end
+
+        end
+
+        context 'when there is no logged-in user' do
+
+            it 'should return a redirect to the login page' do
+                get :select_authorities
+                post_redirect = PostRedirect.get_last_post_redirect
+                response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+            end
+        end
+
+
+    end
+
+    context "when batch requests is not enabled" do
+
+        it 'should return a 404' do
+            Rails.application.config.stub!(:consider_all_requests_local).and_return(false)
+            get :select_authorities
+            response.code.should == '404'
+        end
+
     end
 
 end

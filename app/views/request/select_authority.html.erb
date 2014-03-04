@@ -40,6 +40,13 @@
            <%= hidden_field_tag 'bodies', 1 %>
            <%= submit_tag _('Search') %>
        </div>
+       <% if AlaveteliConfiguration.allow_batch_requests && @user && @user.can_make_batch_requests? %>
+         <div id="batch_request_link">
+          <p>
+            <%= _('Or make a <a href="{{url}}">batch request</a> to <strong>multiple authorities</strong> at once.', :url => select_authorities_path) %>
+          </p>
+         </div>
+        <% end %>
     <% end %>
 
     <div id="typeahead_response">

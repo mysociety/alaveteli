@@ -187,11 +187,16 @@ Spork.prefork do
     end
   end
 
+  # Reset the default locale, making sure that the previous default locale
+  # is also cleared from the fallbacks
   def with_default_locale(locale)
       original_default_locale = I18n.default_locale
+      original_fallbacks = I18n.fallbacks
+      I18n.fallbacks = nil
       I18n.default_locale = locale
       yield
   ensure
+      I18n.fallbacks = original_fallbacks
       I18n.default_locale = original_default_locale
   end
 
@@ -215,3 +220,16 @@ Spork.each_run do
     FactoryGirl.reload
   # This code will be run each time you run your specs.
 end
+
+def normalise_whitespace(s)
+    s = s.gsub(/\A\s+|\s+\Z/, "")
+    s = s.gsub(/\s+/, " ")
+    return s
+end
+
+RSpec::Matchers.define :be_equal_modulo_whitespace_to do |expected|
+  match do |actual|
+    normalise_whitespace(actual) == normalise_whitespace(expected)
+  end
+end
+

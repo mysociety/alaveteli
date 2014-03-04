@@ -165,7 +165,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
             message = File.read(file)
             parsed = IncomingMessage.remove_quoted_sections(message)
             expected = File.read("#{file}.expected")
-            parsed.should include(expected)
+            parsed.should be_equal_modulo_whitespace_to expected
         end
     end
 
@@ -462,7 +462,7 @@ describe IncomingMessage, " when censoring data" do
         data.should == "His email was x\000x\000x\000@\000x\000x\000x\000.\000x\000x\000x\000, indeed"
     end
 
-    it 'should handle multibyte characters correctly', :focus => true do
+    it 'should handle multibyte characters correctly' do
         orig_data = 'á'
         data = orig_data.dup
         @regex_censor_rule = CensorRule.new()
@@ -742,5 +742,13 @@ describe IncomingMessage, "when extracting attachments" do
         attachments.first.body.should == 'No way!'
     end
 
-end
+    it 'makes invalid utf-8 encoded attachment text valid when string responds to encode' do
+       if String.method_defined?(:encode)
+          im = incoming_messages(:useless_incoming_message)
+          im.stub!(:extract_text).and_return("\xBF")
 
+          im._get_attachment_text_internal.valid_encoding?.should be_true
+       end
+    end
+
+end

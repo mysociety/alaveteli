@@ -311,7 +311,7 @@ class TrackThing < ActiveRecord::Base
     end
 
     # When constructing a new track, use this to avoid duplicates / double posting
-    def TrackThing.find_by_existing_track(tracking_user, track)
+    def TrackThing.find_existing(tracking_user, track)
         if tracking_user.nil?
             return nil
         end
