@@ -21,6 +21,9 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class InfoRequestEvent < ActiveRecord::Base
+
+    extend XapianQueries
+
     belongs_to :info_request
     validates_presence_of :info_request
 
@@ -416,4 +419,5 @@ class InfoRequestEvent < ActiveRecord::Base
       yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
     end
   end
+
 end

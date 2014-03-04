@@ -77,6 +77,12 @@ module Alaveteli
     require "#{Rails.root}/lib/whatdotheyknow/strip_empty_sessions"
     config.middleware.insert_before ::ActionDispatch::Cookies, WhatDoTheyKnow::StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
 
+    # Allow the generation of full URLs in emails
+    config.action_mailer.default_url_options = { :host => AlaveteliConfiguration::domain }
+    if AlaveteliConfiguration::force_ssl
+      config.action_mailer.default_url_options[:protocol] = "https"
+    end
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
@@ -97,6 +103,9 @@ module Alaveteli
                                  'jquery.fancybox-1.3.4.css',
                                  'jquery.Jcrop.css',
                                  'excanvas.min.js',
+                                 'select-authorities.js',
+                                 'jquery_ujs.js',
+                                 'new-request.js',
                                  'fonts.css',
                                  'print.css',
                                  'admin.css',

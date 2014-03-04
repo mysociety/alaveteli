@@ -30,55 +30,90 @@ describe UserController, "when redirecting a show request to a canonical url" do
 end
 
 describe UserController, "when showing a user" do
-    render_views
+
     before(:each) do
-        load_raw_emails_data
-        get_fixtures_xapian_index
+        @user = FactoryGirl.create(:user)
     end
 
     it "should be successful" do
-        get :show, :url_name => "bob_smith"
+        get :show, :url_name => @user.url_name
         response.should be_success
     end
 
     it "should render with 'show' template" do
-        get :show, :url_name => "bob_smith"
+        get :show, :url_name => @user.url_name
         response.should render_template('show')
     end
 
-    it "should distinguish between 'my profile' and 'my requests' for logged in users" do
-        session[:user_id] = users(:bob_smith_user).id
-        get :show, :url_name => "bob_smith", :view => 'requests'
-        response.body.should_not include("Change your password")
-        response.body.should match(/Your [0-9]+ Freedom of Information requests/)
-        get :show, :url_name => "bob_smith", :view => 'profile'
-        response.body.should include("Change your password")
-        response.body.should_not match(/Your [0-9]+ Freedom of Information requests/)
-    end
-
     it "should assign the user" do
-        get :show, :url_name => "bob_smith"
-        assigns[:display_user].should == users(:bob_smith_user)
+        get :show, :url_name => @user.url_name
+        assigns[:display_user].should == @user
     end
 
-    it "should search the user's contributions" do
-        get :show, :url_name => "bob_smith"
-        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(
-            :conditions => "user_id = #{users(:bob_smith_user).id}")
+    context "when viewing the user's own profile" do
 
-        get :show, :url_name => "bob_smith", :user_query => "money"
-        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ [
-            info_requests(:naughty_chicken_request),
-            info_requests(:another_boring_request),
-        ]
-    end
+        render_views
 
-    it "should not show unconfirmed users" do
-        begin
-            get :show, :url_name => "unconfirmed_user"
-        rescue => e
+        def make_request
+            get :show, {:url_name => @user.url_name, :view => 'profile'}, {:user_id => @user.id}
         end
-        e.should be_an_instance_of(ActiveRecord::RecordNotFound)
+
+        it 'should not show requests, or batch requests, but should show account options' do
+            make_request
+            response.body.should_not match(/Freedom of Information requests made by you/)
+            assigns[:show_batches].should be_false
+            response.body.should include("Change your password")
+        end
+
+    end
+
+    context "when viewing a user's own requests" do
+
+        render_views
+
+        def make_request
+            get :show, {:url_name => @user.url_name, :view => 'requests'}, {:user_id => @user.id}
+        end
+
+        it 'should show requests, batch requests, but no account options' do
+            make_request
+            response.body.should match(/Freedom of Information requests made by you/)
+            assigns[:show_batches].should be_true
+            response.body.should_not include("Change your password")
+        end
+
+    end
+
+end
+
+describe UserController, "when showing a user" do
+
+    context 'when using fixture data' do
+
+        before do
+            load_raw_emails_data
+            get_fixtures_xapian_index
+        end
+
+        it "should search the user's contributions" do
+               get :show, :url_name => "bob_smith"
+               assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(
+                   :conditions => "user_id = #{users(:bob_smith_user).id}")
+
+               get :show, :url_name => "bob_smith", :user_query => "money"
+               assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ [
+                   info_requests(:naughty_chicken_request),
+                   info_requests(:another_boring_request),
+               ]
+         end
+
+         it "should not show unconfirmed users" do
+             begin
+                 get :show, :url_name => "unconfirmed_user"
+             rescue => e
+             end
+             e.should be_an_instance_of(ActiveRecord::RecordNotFound)
+         end
     end
 
 end

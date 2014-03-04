@@ -300,6 +300,37 @@ describe PublicBody, "when searching" do
     end
 end
 
+describe PublicBody, "when asked for the internal_admin_body" do
+    before(:each) do
+        # Make sure that there's no internal_admin_body before each of
+        # these tests:
+        PublicBody.connection.delete("DELETE FROM public_bodies WHERE url_name = 'internal_admin_body'")
+        PublicBody.connection.delete("DELETE FROM public_body_translations WHERE url_name = 'internal_admin_body'")
+    end
+
+    it "should create the internal_admin_body if it didn't exist" do
+        iab = PublicBody.internal_admin_body
+        iab.should_not be_nil
+    end
+
+    it "should find the internal_admin_body even if the default locale has changed since it was created" do
+        with_default_locale("en") do
+            I18n.with_locale(:en) do
+                iab = PublicBody.internal_admin_body
+                iab.should_not be_nil
+            end
+        end
+        with_default_locale("es") do
+            I18n.with_locale(:es) do
+                iab = PublicBody.internal_admin_body
+                iab.should_not be_nil
+            end
+        end
+    end
+
+end
+
+
 describe PublicBody, " when dealing public body locales" do
     it "shouldn't fail if it internal_admin_body was created in a locale other than the default" do
         # first time, do it with the non-default locale

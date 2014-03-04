@@ -10,7 +10,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.16'
+ALAVETELI_VERSION = '0.17'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
@@ -51,6 +51,7 @@ require 'alaveteli_file_types'
 require 'alaveteli_localization'
 require 'message_prominence'
 require 'theme'
+require 'xapian_queries'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)

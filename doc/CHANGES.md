@@ -1,3 +1,50 @@
+# Version 0.17
+
+## Highlighted features
+
+* There is some initial support for making a request to multiple
+  authorities at once.
+* There is a new form for users to request that a new authority should
+  be added, or to request an update to the contact email used for an
+  authority. Site admins are emailed about these requests, and can
+  resolve them from the admin interface.
+* For attachments where we rely on Google Document Viewer to display the
+  HTML version, link to the HTTPS version where the Alaveteli site is
+  served over HTTPS to avoid mixed content warnings and non display in
+  some browsers (Matthew Somerville).
+* The 'view requests' page now has some fragment caching backed by
+  memcached to speed up serving commonly used lists of requests - e.g
+  all successful requests. Like the caching introduced in release 0.16,
+  this is controlled by the `CACHE_FRAGMENTS` parameter in the config
+  file and will be on by default.
+* A user's annotations can now be seen on their admin page (Andrew
+  Black)
+* Better detection of the quoted text of a previous email in the HTML
+  parts of responses.
+* Fixed bugs in the profile photos (György Peng), calendar translations
+  (Mark Longair), the use of external utilities (Ian Chard), the
+  internal admin authority locale handling (Mark Longair), badly formed
+  attachment handling (Rowan Crawford).
+
+## Upgrade notes
+
+* To use the batch request functionality, set the `ALLOW_BATCH_REQUESTS`
+  parameter to `true` in your config file. Once this is done, and the
+  install has been restarted, any user for whom 'Can make batch
+  requests' is checked in the admin interface should see a new link on
+  the 'Select an authority' page that allows them to make a batch
+  request.
+* If your theme overrides the help/requesting template, you should
+  update the link in the section on requesting new authorities so the
+  link points to `<%= new_change_request_path %>` instead of `<%=
+  help_contact_path %>`.
+* If your site runs over HTTPS, some cached attachments may still
+  contain links to Google Document Viewer with 'http', not 'https'. You
+  can clear the cached attachments after upgrade, and they will be
+  created with links that use the correct protocol.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running rails-post-deploy.
+
 # Version 0.16
 
 ## Highlighted features

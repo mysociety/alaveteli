@@ -1,6 +1,6 @@
 <%
     if @user
-        existing_track = TrackThing.find_by_existing_track(@user, track_thing)
+        existing_track = TrackThing.find_existing(@user, track_thing)
     end
 %>
 

@@ -1,6 +1,9 @@
-<% @title = "Preview new " + h(@info_request.law_used_short) + " request to '" + h(@info_request.public_body.name) + "'" %>
-
-<%= form_for(@info_request, :url => new_request_path, :html => { :id => 'preview_form' }  ) do |f| %>
+<% if @batch %>
+  <% @title = _("Preview new {{law_used_short}} request", :law_used_short => h(@info_request.law_used_short))  %>
+<% else %>
+  <% @title = _("Preview new {{law_used_short}} request to '{{public_body_name}}", :law_used_short => h(@info_request.law_used_short), :public_body_name => h(@info_request.public_body.name)) %>
+<% end %>
+<%= form_for(@info_request, :url => (@batch ? new_batch_path : new_request_path), :html => { :id => 'preview_form' }  ) do |f| %>
 
     <h1><%= _('3. Now check your request') %></h1>
     <ul>
@@ -14,7 +17,12 @@
 
         <div class="correspondence" id="outgoing-0">
             <p class="preview_subject">
-                <strong><%= _('To:') %></strong> <%=h @info_request.public_body.name %>
+                <strong><%= _('To:') %></strong>
+                <% if @batch %>
+                  <%= _("Your selected authorities")%>
+                <% else %>
+                  <%=h(@info_request.public_body.name)%>
+                <% end %>
                 <br><strong><%= _('Subject:') %></strong> <%=h @info_request.email_subject_request %>
             </p>
 
@@ -33,7 +41,13 @@
 
     <p>
     <%= f.hidden_field(:title) %>
-    <%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
+    <% if @batch %>
+      <% params[:public_body_ids].each do |public_body_id| %>
+        <%= hidden_field_tag("public_body_ids[]", public_body_id)%>
+      <% end %>
+    <% else %>
+      <%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
+    <% end %>
     <%= f.hidden_field(:tag_string) %>
     <%= hidden_field_tag(:submitted_new_request, 1) %>
     <%= hidden_field_tag(:preview, 0 ) %>

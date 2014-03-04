@@ -14,21 +14,11 @@
 <div style="clear:both"></div>
 
 <div class="results_section">
-  <% # TODO: Cache for 5 minutes %>
-    <% if @list_results.empty? %>
-        <p> <%= _('No requests of this sort yet.')%></p>
-    <% else %>
-        <h2 class="foi_results"><%= _('{{count}} FOI requests found', :count => @matches_estimated) %></h2>
-        <div class="results_block">
-          <% for result in @list_results%>
-              <% if result.class.to_s == 'InfoRequestEvent' %>
-                  <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result, :info_request => result.info_request } %>
-              <% else %>
-                  <p><strong><%= _('Unexpected search result type') %> <%=result.class.to_s%></strong></p>
-              <% end %>
-          <% end %>
-        </div>
+  <% if key = request_list_cache_key %>
+    <% cache_if_caching_fragments(key, :expires_in => 5.minutes) do %>
+    <%= render :partial => 'list_results' %>
     <% end %>
-
-  <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @show_no_more_than) %>
+  <% else %>
+    <%= render :partial => 'list_results' %>
+  <% end %>
 </div>

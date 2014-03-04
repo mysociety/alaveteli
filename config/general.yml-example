@@ -172,10 +172,6 @@ VARNISH_HOST: localhost
 # Adding a value here will enable Google Analytics on all non-admin pages for non-admin users.
 GA_CODE: ''
 
-# We need to add the WDTK survey variables here, or else the deployment
-# system will cry.
-SURVEY_SECRET: ''
-SURVEY_URL: ''
 
 # If you want to override *all* the public body request emails with your own
 # email so that request emails that would normally go to the public body
@@ -248,3 +244,9 @@ SHARED_DIRECTORIES:
  - lib/acts_as_xapian/xapiandbs/
  - vendor/bundle
  - public/assets
+
+# Allow some users to make batch requests to multiple authorities. Once
+# this is set to true, you can enable batch requests for an individual
+# user via the user admin page.
+
+ALLOW_BATCH_REQUESTS: false
