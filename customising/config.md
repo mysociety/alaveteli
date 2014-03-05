@@ -523,7 +523,7 @@ THEME_URLS:
   </dt>
   <dd>
       Set this to true, and the admin interface will be available to anonymous users.
-      Obviously, do not set this to be true in production environments.
+      Obviously, you should not set this to be true in production environments.
     <div class="more-info">
       <p>Example:</p>
       <ul>
@@ -615,8 +615,8 @@ THEME_URLS:
       <p>Examples:</p>
       <ul>
         <li>
-            Typically, of course, you do <strong>not</strong> want to run your
-            site in read-only mode. So set <strong>READ_ONLY</strong> to be
+            Typically, you do <strong>not</strong> want to run your site in
+            read-only mode &mdash; so set <strong>READ_ONLY</strong> to be
             an empty string.
             <br>
             <code>
@@ -766,8 +766,7 @@ THEME_URLS:
   <dd>
     Path to a program that converts an HTML page in a file to PDF.  It
     should take two arguments: the URL, and a path to an output file.
-    A static binary of wkhtmltopdf is recommended:
-    http://code.google.com/p/wkhtmltopdf/downloads/list
+    A static binary of <a href="http://wkhtmltopdf.org">wkhtmltopdf</a> is recommended.
     If the command is not present, a text-only version will be rendered
     instead.
     <div class="more-info">
@@ -790,10 +789,9 @@ THEME_URLS:
       <p>Examples:</p>
       <ul>
         <li>
-            <code>EXCEPTION_NOTIFICATIONS_FROM: do-not-reply-to-this-address@example.com</code>
-        </li>
-        <li>
             <pre>
+EXCEPTION_NOTIFICATIONS_FROM: do-not-reply-to-this-address@example.com
+
 EXCEPTION_NOTIFICATIONS_TO:
  - robin@example.com
  - seb@example.com              
@@ -947,11 +945,15 @@ EXCEPTION_NOTIFICATIONS_TO:
   </dd>
       
   <dt>
-    <a name="public_body_statistics_page"><code>PUBLIC_BODY_STATISTICS_PAGE</code></a>
+    <a name="public_body_statistics_page"><code>PUBLIC_BODY_STATISTICS_PAGE</code></a> &amp;
+    <a name="minimum_requests_for_statistics"><code>MINIMUM_REQUESTS_FOR_STATISTICS</code></a>
   </dt>
   <dd>
-      If set to true, then Alaveteli will make a page of statistics on the
-      performance of public bodies. <!-- TODO at which URL? -->
+      If <strong>PUBLIC_BODY_STATISTICS_PAGE</strong> is set to true, Alaveteli will make a
+      page of statistics on the performance of public bodies (which you can see at 
+      <code>/body_statistics</code>).
+      The page will only consider public bodies that have had at least the number of requests
+      set by <strong>MINIMUM_REQUESTS_FOR_STATISTICS</strong>.
       
     <div class="more-info">
       <p>Example:</p>
@@ -959,28 +961,13 @@ EXCEPTION_NOTIFICATIONS_TO:
         <li>
             <code>PUBLIC_BODY_STATISTICS_PAGE: false</code>
         </li>
-      </ul>
-    </div>
-  </dd>
-      
-  <dt>
-    <a name="minimum_requests_for_statistics"><code>MINIMUM_REQUESTS_FOR_STATISTICS</code></a>
-  </dt>
-  <dd>
-      The page of statistics for public bodies will only consider public
-      bodies that have had at least this number of requests.
-      The page itself will only be displayed if you've set <strong>PUBLIC_BODY_STATISTICS_PAGE</strong>.
-      
-    <div class="more-info">
-      <p>Example:</p>
-      <ul>
         <li>
             <code>MINIMUM_REQUESTS_FOR_STATISTICS: 50</code>
         </li>
       </ul>
     </div>
   </dd>
-
+      
   <dt>
     <a name="public_body_list_fallback_to_default_locale"><code>PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE</code></a>
   </dt>

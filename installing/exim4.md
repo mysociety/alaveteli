@@ -28,15 +28,17 @@ In `/etc/exim4/conf.d/main/04_alaveteli_options`:
     MAIN_LOG_SELECTOR==+all -retry_defer
     extract_addresses_remove_arguments=false
 
-(The user ALAVETELI_USER should have write permissions on ALAVETELI_HOME).
+The user ALAVETELI_USER should have write permissions on ALAVETELI_HOME.
 
-Note that the name and location of the log files created by Exim must match
-what the `load-mail-server-logs` script expects, hence the need for the extra
-`log_file_path` setting. And the `check-recent-requests-sent` scripts expects
-the logs to contain the `from=<...>` envelope information, so we make the
-logs more verbose with `log_selector`. The ALAVETELI_USER may need to also
-need to be added to the `trusted_users` list in your Exim config in order to
-set the return path on outgoing mail, depending on your setup.
+The name and location of the log files created by Exim must match what the
+`load-mail-server-logs` script expects, which is why you must provide the
+`log_file_path` setting.
+
+The `check-recent-requests-sent` scripts expects the logs to contain the
+`from=<...>` envelope information, so we make the logs more verbose with
+`log_selector`. The ALAVETELI_USER may need to also need to be added to the
+`trusted_users` list in your Exim config in order to set the return path on
+outgoing mail, depending on your setup.
 
 In `/etc/exim4/conf.d/router/04_alaveteli`:
 
@@ -64,8 +66,8 @@ content:
 
 You should also configure exim to discard any messages sent to the
 `BLACKHOLE_PREFIX` address, whose default value is
-'do-not-reply-to-this-address'. For example, add the following to
-config/aliases:
+`do-not-reply-to-this-address`. For example, add the following to
+`config/aliases`:
 
     # We use this for envelope from for some messages where we don't care about delivery
     do-not-reply-to-this-address:        :blackhole:
@@ -86,7 +88,7 @@ Finally, make sure you have `dc_use_split_config='true'` in
 `/etc/exim4/update-exim4.conf.conf`, and execute the command
 `update-exim4.conf`.
 
-NB: if the file `/etc/exim4/exim4.conf` exists then `update-exim4.conf`
+Note that if the file `/etc/exim4/exim4.conf` exists then `update-exim4.conf`
 will silently do nothing. Some distributions include this file. If
 yours does, you will need to rename it before running `update-exim4.conf`.
 

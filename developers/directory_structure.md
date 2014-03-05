@@ -19,7 +19,7 @@ installation](/customising).
 remember to read the page about [feeding your changes back](/feeding-back)).-->
 
 Alaveteli uses Ruby on Rails, which is a common "Model-View-Controller" web
-framework, so if you're familiar with Rails this will look very familiar. For
+framework &mdash; if you're familiar with Rails this will look very familiar. For
 more information about the Rails structure see the [Ruby on Rails
 website](http://guides.rubyonrails.org/getting_started.html).
 
