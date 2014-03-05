@@ -3,10 +3,10 @@ layout: page
 title: Production server best prctices
 ---
 
-# Production server best prctices
+# Production server best practices
 
 <p class="lead">
-  This list of notes serve as a checklist to make sure you're running
+  These notes serve as a checklist to make sure you're running
   your production server sensibly. Of course you should refer to this
   list before you've gone live.
 </p>
