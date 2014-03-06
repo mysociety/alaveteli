@@ -446,3 +446,8 @@ ul {
         }
     }
 }
+
+/* fix for code links (e.g., links to config variables)*/
+a:visited code {
+  border: 1px solid #e4e3dd;
+}
