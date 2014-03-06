@@ -6,13 +6,13 @@ title: Production server best prctices
 # Production server best practices
 
 <p class="lead">
-  These notes serve as a checklist to make sure you're running
-  your production server sensibly. Of course you should refer to this
-  list before you've gone live.
+  These notes serve as a checklist of things to consider when you're ready
+  to deploy your Alavetli site to production.
 </p>
 
 
 ## Hosting options
+
 * Cloud Server
 * Virtual Private Server
 
@@ -27,30 +27,31 @@ and possible alternatives, lives in
 
 ## Webserver configuration
 
-We recommend running your site behind Apache + Passenger. Refer to the 
+We recommend running your site behind 
+[Apache](https://httpd.apache.org) + 
+[Passenger](https://www.phusionpassenger.com). Refer to the 
 [installation instructions]({{ site.baseurl }}installing/manual_install)
 regarding `PassengerMaxPoolSize`, which you should
 experiment with to match your available RAM. It is very unlikely that you'll
 ever need a pool larger than [Passenger's
-default](http://www.modrails.com/documentation/Users%20guide%20Apache.html#_pass
-engermaxpoolsize_lt_integer_gt) of 6.
+default](http://www.modrails.com/documentation/Users%20guide%20Apache.html#_passengermaxpoolsize_lt_integer_gt) of 6.
 
-We recommended you run your server behind an HTTP accelerator like Varnish.
+We recommend you run your server behind an HTTP accelerator like 
+[Varnish](https://www.varnish-cache.org).
 Alaveteli ships with a 
-[sample varnish VCL](https://github.com/mysociety/alaveteli/blob/master/config/varnish-alav
-eteli.vcl).
+[sample varnish VCL](https://github.com/mysociety/alaveteli/blob/master/config/varnish-alaveteli.vcl).
 
 ## Security
 
 You must change all key-related [config settings]({{ site.baseurl }}customising/config)
 in `general.yml` from their default values. This includes (but may not be limited to!):
 
-* `INCOMING_EMAIL_SECRET`
-* `ADMIN_USERNAME`
-* `ADMIN_PASSWORD`
-* `COOKIE_STORE_SESSION_SECRET`
-* `RECAPTCHA_PUBLIC_KEY`
-* `RECAPTCHA_PRIVATE_KEY`
+* [`INCOMING_EMAIL_SECRET`]({{ site.baseurl }}customising/config/#incoming_email_secret)
+* [`ADMIN_USERNAME`]({{ site.baseurl }}customising/config/#admin_username)
+* [`ADMIN_PASSWORD`]({{ site.baseurl }}customising/config/#admin_password)
+* [`COOKIE_STORE_SESSION_SECRET`]({{ site.baseurl }}customising/config/#cookie_store_session_secret)
+* [`RECAPTCHA_PUBLIC_KEY`]({{ site.baseurl }}customising/config/#recaptcha_public_key)
+* [`RECAPTCHA_PRIVATE_KEY`]({{ site.baseurl }}customising/config/#recaptcha_private_key)
 
 You should consider running the admin part of the site over HTTPS. This can be
 achieved with rewrite rules that redirect URLs beginning with `/admin`.
@@ -59,9 +60,9 @@ achieved with rewrite rules that redirect URLs beginning with `/admin`.
 
 See the application-specific 
 [email configuration for exim]({{ site.baseurl }}installing/exim4) for
-setting up your Mail Transfer Agent (MTA). It is possible to use other MTAs;
-the documentation for exim should provide you with enough information to get
-started with a different MTA. If you do use a different one, please add to the
+setting up your Mail Transfer Agent (MTA). It is possible to use other MTAs &mdash;
+if you use a different one, the documentation for exim should provide you with 
+enough information to get started. If you do use a different one, please add to the
 documentation!
 
 On a live server, you should also consider the following, to increase the
@@ -80,7 +81,9 @@ deliverability of your email:
 
 Most of the data for the site lives in the production database. The exception
 is the raw incoming email data, which is stored on the filesystem, as specified
-in the setting `RAW_EMAILS_LOCATION` of `config/general.yml`.
+in the setting 
+[`RAW_EMAILS_LOCATION`]({{ site.baseurl }}customising/config/#raw_emails_location)
+setting in `config/general.yml`.
 
 Refer to the [Postgres
 documentation](http://www.postgresql.org/docs/8.4/static/backup.html) for
