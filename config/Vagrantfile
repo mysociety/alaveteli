@@ -1,9 +1,14 @@
 # This Vagrantfile should be used with the --no-color option, e.g.
 #   vagrant --no-color up
+#
 # Then you should be able to visit the site at:
 #   http://alaveteli.10.10.10.30.xip.io
-
+#
+# You can customise the FQDN in your environment
+#   export ALAVETELI_VAGRANT_FQDN=alaveteli.dev
+#
 VAGRANTFILE_API_VERSION = "2"
+ALAVETELI_FQDN = ENV['ALAVETELI_VAGRANT_FQDN'] || "alaveteli.10.10.10.30.xip.io"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "precise64"
@@ -25,5 +30,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, :inline => "./install-site.sh " \
                                              "alaveteli " \
                                              "alaveteli " \
-                                             "alaveteli.10.10.10.30.xip.io"
+                                             "#{ ALAVETELI_FQDN }"
 end
