@@ -209,3 +209,43 @@ PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE: false
 # If true, while in development mode, try to send mail by SMTP to port
 # 1025 (the port the mailcatcher listens on by default):
 USE_MAILCATCHER_IN_DEVELOPMENT: true
+
+# Use memcached to cache HTML fragments for better performance. Will
+# only have an effect in environments where
+# config.action_controller.perform_caching is set to true
+CACHE_FRAGMENTS: true
+
+# In some deployments of Alaveteli you may wish to install each newly
+# deployed version alongside the previous ones, in which case certain
+# files and resources should be shared between these installations:
+# for example, the 'files' directory, the 'cache' directory and the
+# generated graphs such as 'public/foi-live-creation.png'.  If you're
+# installing Alaveteli in such a setup then set SHARED_FILES_PATH to
+# the directory you're keeping these files under.  Otherwise, leave it
+# blank.
+SHARED_FILES_PATH: ''
+
+# If you have SHARED_FILES_PATH set, then these options list the files
+# and directories that are shared; i.e. those that the deploy scripts
+# should create symlinks to from the repository.
+SHARED_FILES:
+ - config/database.yml
+ - config/general.yml
+ - config/rails_env.rb
+ - config/newrelic.yml
+ - config/httpd.conf
+ - public/foi-live-creation.png
+ - public/foi-user-use.png
+ - config/aliases
+SHARED_DIRECTORIES:
+ - files/
+ - cache/
+ - lib/acts_as_xapian/xapiandbs/
+ - vendor/bundle
+ - public/assets
+
+# Allow some users to make batch requests to multiple authorities. Once
+# this is set to true, you can enable batch requests for an individual
+# user via the user admin page.
+
+ALLOW_BATCH_REQUESTS: false
