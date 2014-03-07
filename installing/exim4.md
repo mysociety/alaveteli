@@ -58,14 +58,16 @@ In `/etc/exim4/conf.d/transport/04_alaveteli`:
        user = ALAVETELI_USER
        group = ALAVETELI_USER
 
-And, assuming you set `INCOMING_EMAIL_PREFIX` in your config at
-`config/general` to "foi+", create `config/aliases` with the following
+And, assuming you set 
+[`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}customising/config/#incoming_email_prefix)
+in your config at `config/general.yml` to "foi+", create `config/aliases` with the following
 content:
 
     ^foi\\+.*: |/path/to/alaveteli/software/script/mailin
 
 You should also configure exim to discard any messages sent to the
-`BLACKHOLE_PREFIX` address, whose default value is
+[`BLACKHOLE_PREFIX`]({{ site.baseurl }}customising/config/#blackhole_prefix)
+address, whose default value is
 `do-not-reply-to-this-address`. For example, add the following to
 `config/aliases`:
 
@@ -73,10 +75,13 @@ You should also configure exim to discard any messages sent to the
     do-not-reply-to-this-address:        :blackhole:
 
 If you want to make use of the automatic bounce-message handling, then
-set the `TRACK_SENDER_EMAIL` address to be filtered through
+set the 
+[`TRACK_SENDER_EMAIL`]({{ site.baseurl }}customising/config/#track_sender_email)
+address to be filtered through
 `script/handle-mail-replies`. Messages that are not bounces or
 out-of-office autoreplies will be forwarded to
-`FORWARD_NONBOUNCE_RESPONSES_TO`. For example, in WhatDoTheyKnow the
+[`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ site.baseurl }}customising/config/#forward_nonbounce_responses_to).
+For example, in WhatDoTheyKnow the
 configuration looks like this:
 
     raw_team: [a list of people on the team]

@@ -7,12 +7,13 @@ title: Production server best prctices
 
 <p class="lead">
   These notes serve as a checklist of things to consider when you're ready
-  to deploy your Alavetli site to production.
+  to deploy your Alaveteli site to production.
 </p>
 
 
 ## Hosting options
 
+<!-- TODO identify what needs to be considered here -->
 * Cloud Server
 * Virtual Private Server
 
@@ -23,7 +24,7 @@ Don't forget to set up the cron jobs as outlined in the
 As of October 2011, they rely on a small program created by mySociety called
 `run-with-lockfile`. A discussion of where the source for this can be found,
 and possible alternatives, lives in
-[this ticket](https://github.com/mysociety/alaveteli/issues/112).
+[Alaveteli issue #112](https://github.com/mysociety/alaveteli/issues/112).
 
 ## Webserver configuration
 
@@ -43,8 +44,9 @@ Alaveteli ships with a
 
 ## Security
 
-You must change all key-related [config settings]({{ site.baseurl }}customising/config)
-in `general.yml` from their default values. This includes (but may not be limited to!):
+You _must_ change all key-related [config settings]({{ site.baseurl }}customising/config)
+in `general.yml` from their default values. This includes (but may not be limited to!)
+these settings:
 
 * [`INCOMING_EMAIL_SECRET`]({{ site.baseurl }}customising/config/#incoming_email_secret)
 * [`ADMIN_USERNAME`]({{ site.baseurl }}customising/config/#admin_username)

@@ -8,15 +8,18 @@ title: Themes
 <p class="lead">
 	Alaveteli uses <strong>themes</strong> to make the site look and run
 	differently from the default.
-	Simple changes like colour and logo are relatively easy, but themes can also control more complex things like <em>how</em> the site behaves.
+	Simple changes like colour and logo are relatively easy, but themes can also
+  control more complex things like <em>how</em> the site behaves.
 </p>
 
-When installing an Alaveteli site, there are a few things that you
-might want to do to customise it, beyond the available settings in the
-`config/general` file.
+When you customise your Alaveteli site, there is a lot you can change just
+by editing the [config settings]({{ site.baseurl }}customising/config).
+But if you want to change the way the site looks, or add more specific
+behaviour, you'll need to make a **theme**.
 
-You don't need to be a programmer in order to make simple changes, but you 
-will need to be confident enough to copy and change some files. If you're not sure about this, [ask for help](/community)!
+You don't need to be a programmer in order to make simple changes, but you will
+need to be confident enough to copy and change some files. If you're not sure
+about this, [ask for help](/community)!
 
 ## What you might want to change
 
@@ -36,7 +39,7 @@ In any case, the important principle to bear in mind is that the less
 you override and customise the code, the easier your site will be to
 maintain in the long term.  Any customisation is possible, but for
 each customisation beyond the simple cases documented here, ask
-yourself or your client, "can we possibly live without this?"  If the
+yourself (or your client), "can we possibly live without this?"  If the
 answer is "no", then consider starting a discussion about a pluggable
 way of achieving your goals, rather than overriding any of the core
 code.
@@ -46,8 +49,9 @@ code.
 We try to encapsulate all site-specific functionality in one of these
 places:
 
-* Site configuration (e.g. the name of your site, the available
-  languages etc -- all in `config/general`)
+* Site [configuration]({{ site.baseurl }}customisation/config ) 
+  (e.g., the name of your site, the available
+  languages, and so on &mdash; all in `config/general.yml`)
 * Data (e.g. the public bodies to whom requests should be addressed)
 * A rails "plugin", installed in `vendor/plugins/`.  We call these
   "themes".
@@ -55,8 +59,9 @@ places:
 This document is about what you can do in a theme.
 
 By default, the sample theme ("alavetelitheme") has already been
-installed.  See the setting `THEME_URLS` in `general.yml` for an
-explanation.
+installed.  See the setting 
+[`THEME_URLS`]({{ site.baseurl }}customising/config/#theme_urls) 
+in `general.yml` for an explanation.
 
 You can also install the sample theme by hand, by running:
 
@@ -132,7 +137,8 @@ locale you support.
 As mentioned above, if you can possibly live with the
 [default Alaveteli request statuses](https://github.com/mysociety/alaveteli/wiki/Alaveteli's-request-statuses),
 it would be good to do so.  Note that you can set how many days counts
-as "overdue" in the main site config file.
+as "overdue" in the main site config file &mdash;
+see [`REPLY_LATE_AFTER_DAYS`]({{ site.baseurl }}customising/config/#reply_late_after_days).
 
 If you can't live with the states as they are, there's a very basic
 way to add to them (which will get improved over time).  There's not

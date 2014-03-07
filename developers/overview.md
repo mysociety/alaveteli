@@ -14,7 +14,7 @@ title: High-level overview
 _See also the [schema diagram](#schema-diagram) at the bottom of this page._
 
 The main entity is **InfoRequest**, which represents a request for information by a
-User to a **PublicBody**. A new InfoRequest results in an initial **OutgoingMessage**,
+**User** to a **PublicBody**. A new InfoRequest results in an initial **OutgoingMessage**,
 which represents the initial email.
 
 Once an InfoRequest is made, its state is tracked using **InfoRequestEvents**. For
