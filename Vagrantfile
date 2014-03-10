@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "precise64"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
   config.vm.network :private_network, :ip => "10.10.10.30"
-  config.vm.synced_folder "../.", "/home/vagrant/alaveteli", :owner => "vagrant", :group => "vagrant"
+  config.vm.synced_folder ".", "/home/vagrant/alaveteli", :owner => "vagrant", :group => "vagrant"
 
   config.ssh.forward_agent = true
 
