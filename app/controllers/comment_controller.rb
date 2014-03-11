@@ -9,6 +9,7 @@ class CommentController < ApplicationController
     before_filter :find_info_request, :only => [ :new ]
     before_filter :create_track_thing, :only => [ :new ]
     before_filter :reject_unless_comments_allowed, :only => [ :new ]
+    before_filter :reject_if_user_banned, :only => [ :new ]
     protect_from_forgery :only => [ :new ]
 
     def new
@@ -17,13 +18,6 @@ class CommentController < ApplicationController
                 :comment_type => 'request',
                 :user => @user
             }))
-        end
-
-        # Banned from adding comments?
-        if !authenticated_user.nil? && !authenticated_user.can_make_comments?
-            @details = authenticated_user.can_fail_html
-            render :template => 'user/banned'
-            return
         end
 
         if params[:comment]
@@ -103,6 +97,14 @@ class CommentController < ApplicationController
     def reject_unless_comments_allowed
         unless @info_request.comments_allowed?
             redirect_to request_url(@info_request), :notice => "Comments are not allowed on this request"
+        end
+    end
+
+    # Banned from adding comments?
+    def reject_if_user_banned
+        if authenticated_user && !authenticated_user.can_make_comments?
+            @details = authenticated_user.can_fail_html
+            render :template => 'user/banned'
         end
     end
 
