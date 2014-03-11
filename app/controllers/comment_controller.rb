@@ -21,13 +21,15 @@ class CommentController < ApplicationController
         else
             raise "Unknown type " + params[:type]
         end
-        
+
         # Are comments disabled on this request?
         #
         # There is no “add comment” link when comments are disabled, so users should
-        # not usually hit this unless they are explicitly attempting to avoid the comment
-        # block, so we just raise an exception.
-        raise "Comments are not allowed on this request" if !@info_request.comments_allowed?
+        # not usually hit this unless they are explicitly attempting to avoid the comment block
+        unless @info_request.comments_allowed?
+            redirect_to request_url(@info_request), :notice => "Comments are not allowed on this request"
+            return
+        end
 
         # Banned from adding comments?
         if !authenticated_user.nil? && !authenticated_user.can_make_comments?
