@@ -1,13 +1,52 @@
-# This Vagrantfile should be used with the --no-color option, e.g.
-#   vagrant --no-color up
+# Welcome! Thanks for taking an interest in contributing to Alaveteli.
+# This Vagrantfile should get you started with the minimum of fuss.
 #
-# Then you should be able to visit the site at:
-#   http://alaveteli.10.10.10.30.xip.io
+# Usage
+# =====
 #
-# You can customise the FQDN in your environment
-#   export ALAVETELI_VAGRANT_FQDN=alaveteli.dev
+# Get a copy of Alaveteli from GitHub and create the Vagrant instance
 #
-# Customisation Options
+#   # Host
+#   $ git clone git@github.com:mysociety/alaveteli.git
+#   $ cd alaveteli
+#   $ git submodule update --init
+#   $ vagrant --no-color up
+#
+# You should now be able to ssh in to the guest and run the test suite
+#
+#   # Host
+#   $ vagrant ssh
+#
+#   # Guest
+#   $ cd /home/vagrant/alaveteli
+#   $ bundle exec rake spec
+#
+# Run the rails server and visit the application in your host browser
+# at http://10.10.10.30:3000
+#
+#   # Guest
+#   bundle exec rails s
+#
+# Customizing the Vagrant instance
+# ================================
+#
+# This Vagrantfile allows customisation of some aspects of the virtaual machine
+# See the customization options below for details.
+#
+# The options can be set either by prefixing the vagrant command, or by
+# exporting to the environment.
+#
+#   # Prefixing the command
+#   $ ALAVETELI_MEMORY=2048 vagrant up
+#
+#   # Exporting to the environment
+#   $ export ALAVETELI_MEMORY=2048
+#   $ vagrant up
+#
+# Both have the same effect, but exporting will retain the variable for the
+# duration of your shell session.
+#
+# Customization Options
 # =====================
 ALAVETELI_FQDN = ENV['ALAVETELI_VAGRANT_FQDN'] || "alaveteli.10.10.10.30.xip.io"
 ALAVETELI_MEMORY = ENV['ALAVETELI_VAGRANT_MEMORY'] || 1536
