@@ -8,6 +8,7 @@ class CommentController < ApplicationController
     before_filter :check_read_only, :only => [ :new ]
     before_filter :find_info_request, :only => [ :new ]
     before_filter :create_track_thing, :only => [ :new ]
+    before_filter :reject_unless_comments_allowed, :only => [ :new ]
     protect_from_forgery :only => [ :new ]
 
     def new
@@ -16,15 +17,6 @@ class CommentController < ApplicationController
                 :comment_type => 'request',
                 :user => @user
             }))
-        end
-
-        # Are comments disabled on this request?
-        #
-        # There is no “add comment” link when comments are disabled, so users should
-        # not usually hit this unless they are explicitly attempting to avoid the comment block
-        unless @info_request.comments_allowed?
-            redirect_to request_url(@info_request), :notice => "Comments are not allowed on this request"
-            return
         end
 
         # Banned from adding comments?
@@ -102,6 +94,16 @@ class CommentController < ApplicationController
 
     def create_track_thing
         @track_thing = TrackThing.create_track_for_request(@info_request)
+    end
+
+    # Are comments disabled on this request?
+    #
+    # There is no “add comment” link when comments are disabled, so users should
+    # not usually hit this unless they are explicitly attempting to avoid the comment block
+    def reject_unless_comments_allowed
+        unless @info_request.comments_allowed?
+            redirect_to request_url(@info_request), :notice => "Comments are not allowed on this request"
+        end
     end
 
 end
