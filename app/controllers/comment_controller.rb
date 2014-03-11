@@ -7,10 +7,10 @@
 class CommentController < ApplicationController
     before_filter :check_read_only, :only => [ :new ]
     before_filter :find_info_request, :only => [ :new ]
+    before_filter :create_track_thing, :only => [ :new ]
     protect_from_forgery :only => [ :new ]
 
     def new
-        @track_thing = TrackThing.create_track_for_request(@info_request)
         if params[:comment]
             @comment = Comment.new(params[:comment].merge({
                 :comment_type => 'request',
@@ -98,6 +98,10 @@ class CommentController < ApplicationController
         else
             raise "Unknown type #{ params[:type] }"
         end
+    end
+
+    def create_track_thing
+        @track_thing = TrackThing.create_track_for_request(@info_request)
     end
 
 end
