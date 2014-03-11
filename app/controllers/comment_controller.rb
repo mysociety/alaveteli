@@ -6,20 +6,16 @@
 
 class CommentController < ApplicationController
     before_filter :check_read_only, :only => [ :new ]
+    before_filter :find_info_request, :only => [ :new ]
     protect_from_forgery :only => [ :new ]
 
     def new
-        if params[:type] == 'request'
-            @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-            @track_thing = TrackThing.create_track_for_request(@info_request)
-            if params[:comment]
-                @comment = Comment.new(params[:comment].merge({
-                    :comment_type => 'request',
-                    :user => @user
-                }))
-            end
-        else
-            raise "Unknown type " + params[:type]
+        @track_thing = TrackThing.create_track_for_request(@info_request)
+        if params[:comment]
+            @comment = Comment.new(params[:comment].merge({
+                :comment_type => 'request',
+                :user => @user
+            }))
         end
 
         # Are comments disabled on this request?
@@ -94,5 +90,14 @@ class CommentController < ApplicationController
         end
     end
 
-end
+    private
 
+    def find_info_request
+        if params[:type] == 'request'
+            @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+        else
+            raise "Unknown type #{ params[:type] }"
+        end
+    end
+
+end
