@@ -7,9 +7,12 @@
 # You can customise the FQDN in your environment
 #   export ALAVETELI_VAGRANT_FQDN=alaveteli.dev
 #
-VAGRANTFILE_API_VERSION = "2"
+# Customisation Options
+# =====================
 ALAVETELI_FQDN = ENV['ALAVETELI_VAGRANT_FQDN'] || "alaveteli.10.10.10.30.xip.io"
 ALAVETELI_MEMORY = ENV['ALAVETELI_VAGRANT_MEMORY'] || 1536
+
+VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "precise64"
