@@ -50,6 +50,7 @@
 # =====================
 ALAVETELI_FQDN = ENV['ALAVETELI_VAGRANT_FQDN'] || "alaveteli.10.10.10.30.xip.io"
 ALAVETELI_MEMORY = ENV['ALAVETELI_VAGRANT_MEMORY'] || 1536
+ALAVETELI_THEMES_DIR = ENV['ALAVETELI_THEMES_DIR'] || '../alaveteli-themes'
 
 VAGRANTFILE_API_VERSION = "2"
 
@@ -57,7 +58,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "precise64"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
   config.vm.network :private_network, :ip => "10.10.10.30"
+
   config.vm.synced_folder ".", "/home/vagrant/alaveteli", :owner => "vagrant", :group => "vagrant"
+
+  if File.directory?(ALAVETELI_THEMES_DIR)
+    config.vm.synced_folder ALAVETELI_THEMES_DIR,
+                            "/home/vagrant/alaveteli-themes",
+                            :owner => "vagrant",
+                            :group => "vagrant"
+  end
 
   config.ssh.forward_agent = true
 
