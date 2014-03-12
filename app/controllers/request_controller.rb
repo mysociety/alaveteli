@@ -765,8 +765,12 @@ class RequestController < ApplicationController
         FileUtils.mkdir_p(image_dir)
         html, wrapper_id = @attachment.body_as_html(image_dir)
 
+        html_title = "#{ @attachment.display_filename } - "\
+                     "#{ site_name } - "\
+                     "#{ _('Make and browse Freedom of Information (FOI) requests') }"
+
         view_html_stylesheet = render_to_string :partial => "request/view_html_stylesheet"
-        html.sub!(/<head>/i, "<head>" + view_html_stylesheet)
+        html.sub!(/<head>/i, "<head><title>#{ html_title }</title>" + view_html_stylesheet)
         html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="' + wrapper_id + '"><div id="view-html-content">')
         html.sub!(/<\/body[^>]*>/i, '</div></div></body>')
 
