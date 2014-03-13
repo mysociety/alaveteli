@@ -17,8 +17,15 @@ class ServicesController < ApplicationController
                   text = _("Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}",
                     :country_name => found_country[:country_name], :link_to_website => "<a href=\"#{found_country[:url]}\">#{found_country[:name]}</a>".html_safe)
               else
-                  current_country = WorldFOIWebsites.by_code(iso_country_code)[:country_name]
-                  text = _("Hello! We have an  <a href=\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\">important message</a> for visitors outside {{country_name}}", :country_name => current_country)
+                  country_data = WorldFOIWebsites.by_code(iso_country_code)
+                  if country_data
+                      text = _("Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}",
+                                :country_name => country_data[:country_name],
+                                :url => "/help/alaveteli?country_name=#{CGI.escape(country_data[:country_name])}")
+                  else
+                      text = _("Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries",
+                                :url => "/help/alaveteli")
+                  end
               end
             ensure
               FastGettext.locale = old_fgt_locale
