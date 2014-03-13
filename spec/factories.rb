@@ -14,6 +14,11 @@ FactoryGirl.define do
             filename 'interesting.pdf'
             body { load_file_fixture('interesting.pdf') }
         end
+        factory :binary_pdf_attachment do
+            content_type 'application/pdf'
+            filename 'binary.pdf'
+            body { load_file_fixture('binary.pdf') }
+        end
     end
 
     factory :incoming_message do

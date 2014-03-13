@@ -325,9 +325,23 @@ class FoiAttachment < ActiveRecord::Base
                 if self.content_type == 'application/pdf'
                     # We set a timeout here, because pdftohtml can spiral out of control
                     # on some PDF files and we don't want to crash the whole server.
-                    html = AlaveteliExternalCommand.run("pdftohtml", "-nodrm", "-zoom", "1.0", "-stdout", "-enc", "UTF-8", "-noframes", tempfile.path, :timeout => 30)
+                    html = AlaveteliExternalCommand.run("pdftohtml",
+                                                        "-nodrm",
+                                                        "-zoom",
+                                                        "1.0",
+                                                        "-stdout",
+                                                        "-enc",
+                                                        "UTF-8",
+                                                        "-noframes",
+                                                        tempfile.path,
+                                                        :timeout => 30,
+                                                        :binary_output => false)
                 elsif self.content_type == 'application/rtf'
-                    html = AlaveteliExternalCommand.run("unrtf", "--html", tempfile.path, :timeout => 120)
+                    html = AlaveteliExternalCommand.run("unrtf",
+                                                        "--html",
+                                                        tempfile.path,
+                                                        :timeout => 120,
+                                                        :binary_output => false)
                 end
 
                 tempfile.close

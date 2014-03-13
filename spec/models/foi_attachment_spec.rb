@@ -59,3 +59,12 @@ describe FoiAttachment, "when ensuring a filename is present" do
     end
 
 end
+
+describe FoiAttachment, 'when returning the HTML version of a PDF attachment' do
+
+    it 'should return a UTF-8 encoded string' do
+        attachment = FactoryGirl.build(:binary_pdf_attachment)
+        html, wrapper_id = attachment.body_as_html(Dir::tmpdir)
+        html.encoding.to_s.should == 'UTF-8'
+    end
+end
