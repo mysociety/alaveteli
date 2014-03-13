@@ -72,6 +72,12 @@ group :test do
   gem 'nokogiri'
 end
 
+group :test, :development do
+  gem 'factory_girl_rails', '~> 1.7'
+  gem 'rspec-rails'
+  gem 'spork-rails'
+end
+
 group :development do
   gem 'mailcatcher'
 end
@@ -82,8 +88,3 @@ group :develop do
   gem 'annotate'
 end
 
-group :test, :development do
-  gem 'factory_girl_rails', '~> 1.7'
-  gem 'rspec-rails'
-  gem 'spork-rails'
-end
