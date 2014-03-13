@@ -75,15 +75,15 @@ module LinkToHelper
     end
 
     def public_body_link_short(public_body)
-        link_to h(public_body.short_or_long_name), public_body_path(public_body)
+        link_to public_body.short_or_long_name, public_body_path(public_body)
     end
 
     def public_body_link(public_body, cls=nil)
-        link_to h(public_body.name), public_body_path(public_body), :class => cls
+        link_to public_body.name, public_body_path(public_body), :class => cls
     end
 
     def public_body_link_absolute(public_body) # e.g. for in RSS
-        link_to h(public_body.name), public_body_url(public_body)
+        link_to public_body.name, public_body_url(public_body)
     end
 
     # Users
