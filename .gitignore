@@ -30,3 +30,4 @@ webrat.log
 /db/development_structure.sql
 /db/structure.sql
 /public/assets
+.vagrant
