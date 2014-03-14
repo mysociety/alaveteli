@@ -13,9 +13,14 @@ title: Production server best prctices
 
 ## Hosting options
 
-<!-- TODO identify what needs to be considered here -->
+Your production server must be reliable and secure. If you don't run your own 
+servers already, consider one of these options:
+
 * Cloud Server
 * Virtual Private Server
+
+In some cases, we can host new Alaveteli projects &mdash; if you need help, 
+ask us about hosting.
 
 ## Cron jobs
 
