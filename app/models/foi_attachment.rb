@@ -296,44 +296,19 @@ class FoiAttachment < ActiveRecord::Base
         html = nil
         wrapper_id = "wrapper"
 
-        # simple cases, can never fail
-        if self.content_type == 'text/plain'
-            text = self.body.strip
-            text = CGI.escapeHTML(text)
-            text = MySociety::Format.make_clickable(text)
-            html = text.gsub(/\n/, '<br>')
-            return "<!DOCTYPE html><html><head><title>#{ display_filename }</title></head><body>#{ html }</body></html>", wrapper_id
+        case content_type
+        when 'text/plain'
+            AttachmentToHTML.to_html(:text, :title => display_filename,
+                                            :body => body)
+        when 'application/pdf'
+            AttachmentToHTML.to_html(:pdf, :title => display_filename,
+                                           :body => body,
+                                           :tempdir => dir)
+        when 'application/rdf'
+            # etc ...
         end
 
-        # the extractions will also produce image files, which go in the
-        # current directory, so change to the directory the function caller
-        # wants everything in
 
-        html = nil
-        if ['application/pdf', 'application/rtf'].include?(self.content_type)
-            text = self.body
-            Dir.chdir(dir) do
-                if RUBY_VERSION.to_f >= 1.9
-                    tempfile = Tempfile.new('foiextract', '.',  :encoding => text.encoding)
-                else
-                    tempfile = Tempfile.new('foiextract', '.')
-                end
-                tempfile.print text
-                tempfile.flush
-
-
-                if self.content_type == 'application/pdf'
-                    # We set a timeout here, because pdftohtml can spiral out of control
-                    # on some PDF files and we don't want to crash the whole server.
-                    html = AlaveteliExternalCommand.run("pdftohtml", "-nodrm", "-zoom", "1.0", "-stdout", "-enc", "UTF-8", "-noframes", tempfile.path, :timeout => 30)
-                elsif self.content_type == 'application/rtf'
-                    html = AlaveteliExternalCommand.run("unrtf", "--html", tempfile.path, :timeout => 120)
-                end
-
-                tempfile.close
-                tempfile.delete
-            end
-        end
         if html.nil?
             if self.has_google_docs_viewer?
                 html = '' # force error and using Google docs viewer
