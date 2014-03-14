@@ -15,7 +15,7 @@
               <%= admin_value(comment.created_at) %>
             <% end %>
   
-            <%= comment.visible ? 'Visible' : 'Hidden' %>
+            <%= comment_visibility(comment) %>
 
             <blockquote class="incoming-message">
               <%= truncate(comment.body, :length => 400) %>
