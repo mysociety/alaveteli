@@ -44,3 +44,72 @@ describe AdminUserController, "when updating a user" do
     end
 
 end
+
+describe AdminUserController do
+
+    describe :modify_comment_visibility do
+
+        before(:each) do
+            @user = FactoryGirl.create(:user)
+            request.env["HTTP_REFERER"] = admin_user_show_path(@user)
+        end
+
+        it 'redirects to the page the admin was previously on' do
+            comment = FactoryGirl.create(:visible_comment, :user => @user)
+
+            post :modify_comment_visibility, { :id => @user.id,
+                                               :comment_ids => comment.id,
+                                               :hide_selected => 'hidden' }
+
+            response.should redirect_to(admin_user_show_path(@user))
+        end
+
+        it 'sets the given comments visibility to hidden' do
+            comments = FactoryGirl.create_list(:visible_comment, 3, :user => @user)
+            comment_ids = comments.map(&:id)
+
+            post :modify_comment_visibility, { :id => @user.id,
+                                               :comment_ids => comment_ids,
+                                               :hide_selected => 'hidden' }
+
+            Comment.find(comment_ids).each { |comment| comment.should_not be_visible }
+        end
+
+        it 'sets the given comments visibility to visible' do
+            comments = FactoryGirl.create_list(:hidden_comment, 3, :user => @user)
+            comment_ids = comments.map(&:id)
+
+            post :modify_comment_visibility, { :id => @user.id,
+                                               :comment_ids => comment_ids,
+                                               :unhide_selected => 'visible' }
+
+            Comment.find(comment_ids).each { |comment| comment.should be_visible }
+        end
+
+        it 'only modifes the given list of comments' do
+            unaffected_comment = FactoryGirl.create(:hidden_comment, :user => @user)
+            affected_comment = FactoryGirl.create(:hidden_comment, :user => @user)
+
+            post :modify_comment_visibility, { :id => @user.id,
+                                               :comment_ids => affected_comment.id,
+                                               :unhide_selected => 'visible' }
+
+            Comment.find(unaffected_comment).should_not be_visible
+            Comment.find(affected_comment).should be_visible
+        end
+
+        it 'preserves the visibility if a comment is already of the requested visibility' do
+            hidden_comment = FactoryGirl.create(:hidden_comment, :user => @user)
+            visible_comment = FactoryGirl.create(:visible_comment, :user => @user)
+            comment_ids = [hidden_comment.id, visible_comment.id]
+
+            post :modify_comment_visibility, { :id => @user.id,
+                                               :comment_ids => comment_ids,
+                                               :unhide_selected => 'visible' }
+
+            Comment.find(comment_ids).each { |c| c.should be_visible }
+        end
+
+    end
+
+end
