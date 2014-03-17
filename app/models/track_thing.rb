@@ -74,7 +74,6 @@ class TrackThing < ActiveRecord::Base
         original_text = parsed_text = self.track_query.gsub(/([()]|OR)/, "")
         filters = parsed_text.scan /\b\S+:\S+\b/
         varieties = Set.new
-        date = ""
         statuses = Set.new
         for filter in filters
             parsed_text = parsed_text.sub(filter, "")
@@ -89,9 +88,6 @@ class TrackThing < ActiveRecord::Base
             end
             if filter =~ /(variety:(sent|followup_sent|response)|latest_status)/
                 varieties << _("requests")
-            end
-            if filter =~ /[0-9\/]+\.\.[0-9\/]+/
-                date = _("between two dates")
             end
             if filter =~ /(rejected|not_held)/
                 statuses << _("unsuccessful")
