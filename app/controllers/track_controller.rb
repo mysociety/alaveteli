@@ -118,7 +118,7 @@ class TrackController < ApplicationController
         if @user
             @existing_track = TrackThing.find_existing(@user, @track_thing)
             if @existing_track
-                flash[:notice] = _("You are already following updates about {{track_description}}", :track_description => @track_thing.params[:list_description])
+                flash[:notice] = view_context.already_subscribed_notice(@track_thing)
                 return true
             end
         end
