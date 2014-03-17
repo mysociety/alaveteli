@@ -31,6 +31,11 @@ describe TrackHelper do
             unsubscribe_notice(@track_thing).should == expected
         end
 
+        it 'should create a description of the track' do
+            expected = %Q(<a href="/search/Example%20Query/newest/advanced">anything matching text 'Example Query'</a>)
+            track_description(@track_thing).should == expected
+        end
+
     end
 
     describe 'when displaying notices for a user track' do
@@ -57,6 +62,11 @@ describe TrackHelper do
         it 'should create an unsubscribe notice' do
             expected = %Q(You are no longer following '#{user_link(@track_thing.tracked_user)}', a person)
             unsubscribe_notice(@track_thing).should == expected
+        end
+
+        it 'should create a description of the track' do
+            expected = %Q('#{user_link(@track_thing.tracked_user)}', a person)
+            track_description(@track_thing).should == expected
         end
 
     end
@@ -86,6 +96,11 @@ describe TrackHelper do
             expected = %Q(You are no longer following '#{public_body_link(@track_thing.public_body)}', a public authority)
             unsubscribe_notice(@track_thing).should == expected
         end
+
+        it 'should create a description of the track' do
+            expected = %Q('#{public_body_link(@track_thing.public_body)}', a public authority)
+            track_description(@track_thing).should == expected
+        end
     end
 
     describe 'when displaying notices for a successful request track' do
@@ -114,6 +129,10 @@ describe TrackHelper do
             unsubscribe_notice(@track_thing).should == expected
         end
 
+        it 'should create a description of the track' do
+            expected = %Q(<a href="/list/successful">successful requests</a>)
+            track_description(@track_thing).should == expected
+        end
     end
 
     describe 'when displaying notices for a new request track' do
@@ -142,6 +161,11 @@ describe TrackHelper do
             unsubscribe_notice(@track_thing).should == expected
         end
 
+        it 'should create a description of the track' do
+            expected = %Q(<a href="/list">new requests</a>)
+            track_description(@track_thing).should == expected
+        end
+
     end
 
     describe 'when displaying notices for a request update track' do
@@ -168,6 +192,11 @@ describe TrackHelper do
         it 'should create an unsubscribe notice' do
             expected = %Q(You are no longer following '#{request_link(@track_thing.info_request)}', a request)
             unsubscribe_notice(@track_thing).should == expected
+        end
+
+        it 'should create a description of the track' do
+            expected = %Q('#{request_link(@track_thing.info_request)}', a request)
+            track_description(@track_thing).should == expected
         end
 
     end

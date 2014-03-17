@@ -99,4 +99,24 @@ module TrackHelper
         end
     end
 
+    def track_description(track_thing)
+        case track_thing.track_type
+        when 'request_updates'
+            _("'{{link_to_request}}', a request",
+                :link_to_request => request_link(track_thing.info_request))
+        when 'all_new_requests'
+            link_to(_('new requests'), request_list_path)
+        when 'all_successful_requests'
+            link_to(_('successful requests'), request_list_successful_path)
+        when 'public_body_updates'
+            _("'{{link_to_authority}}', a public authority",
+                :link_to_authority => public_body_link(track_thing.public_body))
+        when 'user_updates'
+            _("'{{link_to_user}}', a person",
+                :link_to_user => user_link(track_thing.tracked_user))
+        when 'search_query'
+            link_to(track_thing.track_query_description,
+                    search_path([track_thing.track_query, 'newest', 'advanced']))
+        end
+    end
 end

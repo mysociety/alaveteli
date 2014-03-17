@@ -224,7 +224,7 @@
                 <li>
                     <%= form_tag({:controller => 'track', :action => 'update', :track_id => track_thing.id}, :class => "feed_form") do %>
                         <div>
-                            <%= track_thing.params[:list_description] %>
+                            <%= track_description(track_thing) %>
                             <%= hidden_field_tag 'track_medium', "delete", { :id => 'track_medium_' + track_thing.id.to_s } %>
                             <%= hidden_field_tag 'r', request.fullpath, { :id => 'r_' + track_thing.id.to_s }  %>
                             <%= submit_tag _('unsubscribe') %>
