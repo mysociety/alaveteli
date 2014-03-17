@@ -209,7 +209,6 @@ class TrackController < ApplicationController
         for track_thing in TrackThing.find(:all, :conditions => [ "track_type = ? and tracking_user_id = ?", track_type, user_id ])
             track_thing.destroy
         end
-        flash[:notice] += "</ul>"
 
         redirect_to params[:r]
     end
