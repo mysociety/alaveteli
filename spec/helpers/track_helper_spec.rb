@@ -16,6 +16,16 @@ describe TrackHelper do
             already_subscribed_notice(@track_thing).should == expected
         end
 
+        it 'should create an email subscription notice' do
+            expected = %Q(You will now be emailed updates about <a href="/search/Example%20Query/newest/advanced">this search</a>)
+            subscribe_email_notice(@track_thing).should == expected
+        end
+
+        it 'should create a following subscription notice' do
+            expected = %Q(You are now <a href="#{show_user_wall_path(:url_name => @track_thing.tracking_user.url_name)}">following</a> updates about <a href="/search/Example%20Query/newest/advanced">this search</a>)
+            subscribe_follow_notice(@track_thing).should == expected
+        end
+
     end
 
     describe 'when displaying notices for a user track' do
@@ -27,6 +37,16 @@ describe TrackHelper do
         it 'should create an already subscribed_notice' do
             expected = %Q(You are already subscribed to '#{user_link(@track_thing.tracked_user)}', a person)
             already_subscribed_notice(@track_thing).should == expected
+        end
+
+        it 'should create an email subscription notice' do
+            expected = %Q(You will now be emailed updates about '#{user_link(@track_thing.tracked_user)}', a person)
+            subscribe_email_notice(@track_thing).should == expected
+        end
+
+        it 'should create a following subscription notice' do
+            expected = %Q(You are now <a href="#{show_user_wall_path(:url_name => @track_thing.tracking_user.url_name)}">following</a> updates about '#{user_link(@track_thing.tracked_user)}', a person)
+            subscribe_follow_notice(@track_thing).should == expected
         end
 
     end
@@ -42,6 +62,16 @@ describe TrackHelper do
             already_subscribed_notice(@track_thing).should == expected
         end
 
+        it 'should create an email subscription notice' do
+            expected = %Q(You will now be emailed updates about '#{public_body_link(@track_thing.public_body)}', a public authority)
+            subscribe_email_notice(@track_thing).should == expected
+        end
+
+        it 'should create a following subscription notice' do
+            expected = %Q(You are now <a href="#{show_user_wall_path(:url_name => @track_thing.tracking_user.url_name)}">following</a> updates about '#{public_body_link(@track_thing.public_body)}', a public authority)
+            subscribe_follow_notice(@track_thing).should == expected
+        end
+
     end
 
     describe 'when displaying notices for a successful request track' do
@@ -53,6 +83,16 @@ describe TrackHelper do
         it 'should create an already subscribed_notice' do
             expected = %Q(You are already subscribed to any <a href="/list/successful">successful requests</a>)
             already_subscribed_notice(@track_thing).should == expected
+        end
+
+        it 'should create an email subscription notice' do
+            expected = %Q(You will now be emailed updates about <a href="/list/successful">successful requests</a>)
+            subscribe_email_notice(@track_thing).should == expected
+        end
+
+        it 'should create a following subscription notice' do
+            expected = %Q(You are now <a href="#{show_user_wall_path(:url_name => @track_thing.tracking_user.url_name)}">following</a> updates about <a href="/list/successful">successful requests</a>)
+            subscribe_follow_notice(@track_thing).should == expected
         end
 
     end
@@ -68,6 +108,16 @@ describe TrackHelper do
             already_subscribed_notice(@track_thing).should == expected
         end
 
+        it 'should create an email subscription notice' do
+            expected = %Q(You will now be emailed updates about any <a href="/list">new requests</a>)
+            subscribe_email_notice(@track_thing).should == expected
+        end
+
+        it 'should create a following subscription notice' do
+            expected = %Q(You are now <a href="#{show_user_wall_path(:url_name => @track_thing.tracking_user.url_name)}">following</a> updates about <a href="/list">new requests</a>)
+            subscribe_follow_notice(@track_thing).should == expected
+        end
+
     end
 
     describe 'when displaying notices for a request update track' do
@@ -79,6 +129,16 @@ describe TrackHelper do
         it 'should create an already subscribed_notice' do
             expected = %Q(You are already subscribed to '#{request_link(@track_thing.info_request)}', a request)
             already_subscribed_notice(@track_thing).should == expected
+        end
+
+        it 'should create an email subscription notice' do
+            expected = %Q(You will now be emailed updates about '#{request_link(@track_thing.info_request)}', a request)
+            subscribe_email_notice(@track_thing).should == expected
+        end
+
+        it 'should create a following subscription notice' do
+            expected = %Q(You are now <a href="#{show_user_wall_path(:url_name => @track_thing.tracking_user.url_name)}">following</a> updates about '#{request_link(@track_thing.info_request)}', a request)
+            subscribe_follow_notice(@track_thing).should == expected
         end
 
     end
