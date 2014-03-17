@@ -5,7 +5,7 @@
         <h2 class="foi_results"><%= _('{{count}} FOI requests found', :count => @results[:matches_estimated]) %></h2>
         <div class="results_block">
           <% @results[:results].each do |result| %>
-            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result, :info_request => result.info_request } %>
+            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result } %>
           <% end %>
         </div>
     <% end %>
