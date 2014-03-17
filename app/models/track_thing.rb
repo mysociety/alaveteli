@@ -69,61 +69,29 @@ class TrackThing < ActiveRecord::Base
     end
 
     def track_query_description
-        # XXX this is very brittle... we should probably ask users
-        # simply to name their tracks when they make them?
-        original_text = parsed_text = self.track_query.gsub(/([()]|OR)/, "")
-        filters = parsed_text.scan /\b\S+:\S+\b/
-        varieties = Set.new
-        statuses = Set.new
-        for filter in filters
-            parsed_text = parsed_text.sub(filter, "")
-            if filter =~ /variety:user/
-                varieties << _("users")
-            end
-            if filter =~ /variety:comment/
-                varieties << _("comments")
-            end
-            if filter =~ /variety:authority/
-                varieties << _("authorities")
-            end
-            if filter =~ /(variety:(sent|followup_sent|response)|latest_status)/
-                varieties << _("requests")
-            end
-            if filter =~ /(rejected|not_held)/
-                statuses << _("unsuccessful")
-            end
-            if filter =~ /(:successful|:partially_successful)/
-                statuses << _("successful")
-            end
-            if filter =~ /waiting/
-                statuses << _("awaiting a response")
-            end
-        end
-        if filters.empty?
-            parsed_text = original_text
-        end
-        descriptions = []
-        if varieties.include? _("requests")
-            if statuses.empty?
-                # HACK: Relies on the 'descriptions.sort' below to luckily put this first
-                descriptions << _("all requests")
-            else
-                descriptions << _("requests which are {{list_of_statuses}}", :list_of_statuses => Array(statuses).sort.join(_(' or ')))
-            end
-            varieties -= [_("requests")]
-        end
-        if descriptions.empty? and varieties.empty?
-            varieties << _("anything")
-        end
-        descriptions += Array(varieties)
-        parsed_text = parsed_text.strip
-        descriptions = descriptions.sort.join(_(" or "))
-        if !parsed_text.empty?
-            descriptions += _("{{list_of_things}} matching text '{{search_query}}'", :list_of_things => "", :search_query => parsed_text)
-        end
-        return descriptions
+        filter_description = query_filter_description('(variety:sent OR variety:followup_sent OR variety:response OR variety:comment)',
+                                    :no_query => N_("all requests or comments"),
+                                    :query => N_("all requests or comments matching text '{{query}}'"))
+        return filter_description if filter_description
+        filter_description = query_filter_description('(latest_status:successful OR latest_status:partially_successful)',
+                                    :no_query => N_("requests which are successful"),
+                                    :query => N_("requests which are successful matching text '{{query}}'"))
+        return filter_description if filter_description
+        return _("anything matching text '{{query}}'", :query => track_query)
     end
 
+    # Return a readable query description for queries involving commonly used filter clauses
+    def query_filter_description(string, options)
+        parsed_query = track_query.gsub(string, '')
+        if parsed_query != track_query
+            parsed_query.strip!
+            if parsed_query.empty?
+                _(options[:no_query])
+            else
+                _(options[:query], :query => parsed_query)
+            end
+        end
+    end
 
     def TrackThing.create_track_for_request(info_request)
         track_thing = TrackThing.new
