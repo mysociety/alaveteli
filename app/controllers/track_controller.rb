@@ -185,14 +185,6 @@ class TrackController < ApplicationController
             track_thing.destroy
             flash[:notice] = _("You are no longer following {{track_description}}.", :track_description => track_thing.params[:list_description])
             redirect_to URI.parse(params[:r]).path
-
-        # Reuse code like this if we let medium change again.
-        #elsif new_medium == 'email_daily'
-        #    track_thing.track_medium = new_medium
-        #    track_thing.created_at = Time.now() # as created_at is used to limit the alerts to start with
-        #    track_thing.save!
-        #    flash[:notice] = "You are now tracking " + track_thing.params[:list_description] + " by email daily"
-        #    redirect_to user_url(track_thing.tracking_user)
         else
             raise "new medium not handled " + new_medium
         end
