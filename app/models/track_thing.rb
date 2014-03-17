@@ -222,8 +222,12 @@ class TrackThing < ActiveRecord::Base
                     :verb_on_page_already => _("You are already following requests to {{public_body_name}}",
                                         :public_body_name => self.public_body.name),
                     # Email
-                    :title_in_email => self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
-                    :title_in_rss => self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
+                    :title_in_email => _("{{foi_law}} requests to '{{public_body_name}}'",
+                                        :foi_law => self.public_body.law_only_short,
+                                        :public_body_name => self.public_body.name),
+                    :title_in_rss => _("{{foi_law}} requests to '{{public_body_name}}'",
+                                        :foi_law => self.public_body.law_only_short,
+                                        :public_body_name => self.public_body.name),
                     # Authentication
                     :web => _("To follow requests made using {{site_name}} to the public authority '{{public_body_name}}'",
                                 :site_name => AlaveteliConfiguration::site_name,
