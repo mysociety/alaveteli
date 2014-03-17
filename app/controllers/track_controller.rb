@@ -179,7 +179,7 @@ class TrackController < ApplicationController
         new_medium = params[:track_medium]
         if new_medium == 'delete'
             track_thing.destroy
-            flash[:notice] = _("You are no longer following {{track_description}}.", :track_description => track_thing.params[:list_description])
+            flash[:notice] = view_context.unsubscribe_notice(track_thing)
             redirect_to URI.parse(params[:r]).path
         else
             raise "new medium not handled " + new_medium
