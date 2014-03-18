@@ -22,7 +22,7 @@
     -->
     <% for result in @xapian_object.results %>
         <% if result[:model].class.to_s == 'InfoRequestEvent' %>
-            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
+            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
         <% else %>
             <p><strong><%= _('Unexpected search result type ')%><%=result[:model].class.to_s%></strong></p>
         <% end %>
