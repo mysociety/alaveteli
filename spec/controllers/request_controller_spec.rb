@@ -2407,8 +2407,7 @@ describe RequestController, "when caching fragments" do
                                                  :html_mask_stuff! => nil,
                                                  :user_can_view? => true,
                                                  :all_can_view? => true)
-        attachment = mock(FoiAttachment, :display_filename => long_name,
-                                         :body_as_html => ['some text', 'wrapper'])
+        attachment = FactoryGirl.build(:body_text, :filename => long_name)
         IncomingMessage.stub!(:find).with("44").and_return(incoming_message)
         IncomingMessage.stub!(:get_attachment_by_url_part_number_and_filename).and_return(attachment)
         InfoRequest.stub!(:find).with("132").and_return(info_request)
