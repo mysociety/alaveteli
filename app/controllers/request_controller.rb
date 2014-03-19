@@ -763,18 +763,22 @@ class RequestController < ApplicationController
         key_path = foi_fragment_cache_path(key)
         image_dir = File.dirname(key_path)
         FileUtils.mkdir_p(image_dir)
-        html, wrapper_id = @attachment.body_as_html(image_dir)
+        html = @attachment.body_as_html(image_dir, :attachment_url => CGI.escape(@attachment_url))
 
-        view_html_stylesheet = render_to_string :partial => "request/view_html_stylesheet"
-        html.sub!(/<head>/i, "<head>" + view_html_stylesheet)
-        html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="' + wrapper_id + '"><div id="view-html-content">')
-        html.sub!(/<\/body[^>]*>/i, '</div></div></body>')
+        view_html_stylesheet = render_to_string(:partial => "request/view_html_stylesheet")
+        view_html_prefix = render_to_string(:partial => "request/view_html_prefix")
 
-        view_html_prefix = render_to_string :partial => "request/view_html_prefix"
-        html.sub!("<prefix-here>", view_html_prefix)
-        html.sub!("<attachment-url-here>", CGI.escape(@attachment_url))
+        # Parse the generated HTML so we can inject more stuff
+        parsed = Nokogiri::HTML.parse(html)
+        # Insert the stylesheet in the head
+        parsed.css('head').children.after(view_html_stylesheet)
+        # Insert the content prefix
+        parsed.css('body').children.before(view_html_prefix)
+        # Get the raw html to render
+        html = parsed.to_html
 
         @incoming_message.html_mask_stuff!(html)
+
         response.content_type = 'text/html'
         render :text => html
     end
