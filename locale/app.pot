@@ -469,6 +469,9 @@ msgstr ""
 msgid "Change email on {{site_name}}"
 msgstr ""
 
+msgid "Change address on {{site_name}}"
+msgstr ""
+
 msgid "Change password on {{site_name}}"
 msgstr ""
 
@@ -479,6 +482,9 @@ msgid "Change the text about you on your profile at {{site_name}}"
 msgstr ""
 
 msgid "Change your email"
+msgstr ""
+
+msgid "Change your address"
 msgstr ""
 
 msgid "Change your email address used on {{site_name}}"
@@ -2963,6 +2969,9 @@ msgstr ""
 msgid "You have now changed your email address used on {{site_name}}"
 msgstr ""
 
+msgid "You have now changed your address used on {{site_name}}"
+msgstr ""
+
 msgid "You just tried to sign up to {{site_name}}, when you\\nalready have an account. Your name and password have been\\nleft as they previously were.\\n\\nPlease click on the link below."
 msgstr ""
 
@@ -3069,6 +3078,9 @@ msgid "Your name, request and any responses will appear in <strong>search engine
 msgstr ""
 
 msgid "Your name:"
+msgstr ""
+
+msgid "Your address:"
 msgstr ""
 
 msgid "Your original message is attached."

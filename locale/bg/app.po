@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # antitoxic <antitoxic@gmail.com>, 2013
 # antitoxic <antitoxic@gmail.com>, 2013
@@ -728,6 +728,9 @@ msgstr ""
 msgid "Change email on {{site_name}}"
 msgstr "Промяна на имейла в {{site_name}}"
 
+msgid "Change address on {{site_name}}"
+msgstr "Промяна на адреса в {{site_name}}"
+
 msgid "Change password on {{site_name}}"
 msgstr "Промяна на паролата за {{site_name}}"
 
@@ -739,6 +742,9 @@ msgstr "Промяна на текста за Вас в профила Ви в {
 
 msgid "Change your email"
 msgstr "Промяна на Вашия имейл"
+
+msgid "Change your address"
+msgstr "Промяна на Вашия адрес"
 
 msgid "Change your email address used on {{site_name}}"
 msgstr "Промяна на имейл адреса Ви, използван в {{site_name}}"
@@ -3842,6 +3848,9 @@ msgstr "Вие сменихте текста за Вас във Вашия пр�
 msgid "You have now changed your email address used on {{site_name}}"
 msgstr "Вие променихте имейл адреса си, използван в {{site_name}}"
 
+msgid "You have now changed your address used on {{site_name}}"
+msgstr "Вие променихте адреса си, използван в {{site_name}}"
+
 msgid ""
 "You just tried to sign up to {{site_name}}, when you\\nalready have an "
 "account. Your name and password have been\\nleft as they previously "
@@ -4002,6 +4011,9 @@ msgstr "Вашето име, Заявление и каквито и да са �
 
 msgid "Your name:"
 msgstr "Вашето име:"
+
+msgid "Your address:"
+msgstr "Вашият адрес:"
 
 msgid "Your original message is attached."
 msgstr "Оригиналното Ви съобщение е прикрепено."
