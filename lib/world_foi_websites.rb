@@ -2,6 +2,10 @@
 class WorldFOIWebsites
     def self.world_foi_websites
         world_foi_websites = [
+                              {:name => "Pitai gi",
+                                  :country_name => "Bulgaria",
+                                  :country_iso_code => "BG",
+                                  :url => "http://www.pitaigi.bg"},
                               {:name => "WhatDoTheyKnow",
                                   :country_name => "United Kingdom",
                                   :country_iso_code => "GB",
