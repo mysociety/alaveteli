@@ -191,7 +191,7 @@
 
         <div class="results_block">
           <% for result in @xapian_requests.results %>
-            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
+            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
           <% end %>
         </div>
 

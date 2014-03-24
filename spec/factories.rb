@@ -69,13 +69,21 @@ FactoryGirl.define do
                 body 'Some information please'
                 what_doing 'normal_sort'
             end
-            initialize_with { OutgoingMessage.new({ :status => status,
-                                                    :message_type => message_type,
-                                                    :body => body,
-                                                    :what_doing => what_doing }) }
-            after_create do |outgoing_message|
-                outgoing_message.send_message
+        end
+        factory :internal_review_request do
+            ignore do
+                status 'ready'
+                message_type 'followup'
+                body 'I want a review'
+                what_doing 'internal_review'
             end
+        end
+        initialize_with { OutgoingMessage.new({ :status => status,
+                                                :message_type => message_type,
+                                                :body => body,
+                                                :what_doing => what_doing }) }
+        after_create do |outgoing_message|
+            outgoing_message.send_message
         end
     end
 
@@ -106,6 +114,12 @@ FactoryGirl.define do
             after_create do |info_request, evaluator|
                 incoming_message = FactoryGirl.create(:incoming_message_with_attachments, :info_request => info_request)
                 info_request.log_event("response", {:incoming_message_id => incoming_message.id})
+            end
+        end
+
+        factory :info_request_with_internal_review_request do
+            after_create do |info_request, evaluator|
+                outgoing_message = FactoryGirl.create(:internal_review_request, :info_request => info_request)
             end
         end
 
