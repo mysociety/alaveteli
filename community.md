@@ -11,7 +11,7 @@ The Alaveteli Community
 </p>
 
 We actively help people set up and run Alaveteli instances all around the
-world. Alaveteli is mosre than just software, it's also a community of people
+world. Alaveteli is more than just software, it's also a community of people
 who care enough about <a href="{{ site.baseurl}}glossary/#foi">Freedom of
 Information</a> to build and run sites to benefit the public.
 
