@@ -10,41 +10,65 @@ The Alaveteli Community
 	If you are running an Alaveteli installation &mdash; or are thinking of setting one up &mdash; let the community help.
 </p>
 
+We actively help people set up and run Alaveteli instances all around the
+world. Alaveteli is mosre than just software, it's also a community of people
+who care enough about <a href="{{ site.baseurl}}glossary/#foi">Freedom of
+Information</a> to build and run sites to benefit the public.
 
-<dl>
-	<dt>
-		Project mailing list
-	</dt>
-	<dd>
-		<a href="https://groups.google.com/group/alaveteli-dev">Project mailing list</a>
-	</dd>
-	<dt>
-		IRC
-	</dt>
-	<dd>
-		try &nbsp;<code>#alaveteli</code> on Freenode (as of July 2011, rather quiet <img src="http://www.alaveteli.org/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley"> 
-		<br>
-		...but the mySociety developers can be found on
-		
-		<li>Louise Crow (project lead): <a href="mailto:louise@mysociety.org">email</a>, <a href="http://twitter.com/crowbot">twitter</a></li>
-	</dd>
-	<dt>
-		Alaveteli commit messages (code)
-	</dt>
-	<dd>
-		<a href="https://groups.google.com/group/alaveteli-commits/">Alaveteli push messages mailing list (one a day)</a>
-	</dd>
-	<dt>
-		Code on github
-	</dt>
-	<dd>
-		<a href="https://github.com/mysociety/alaveteli">The alaveteli software on github</a>
-	</dd>
-	<dt>
-		Dev wiki
-	</dt>
-	<dd>
-		There's a <a href="https://github.com/mysociety/alaveteli/wiki">wiki for tech/dev things</a> on github, where informal tech notes are kept,
-		updated or discussed.
-	</dd>
-</dl>
+If you're just starting out, or you've already got your site up and running,
+this page points you at the places you can find out more, ask questions, or
+just say hi.
+
+<!--	
+  direct email and twitter?
+
+	<li>Louise Crow (project lead): <a href="mailto:louise@mysociety.org">email</a>, <a href="http://twitter.com/crowbot">twitter</a></li>
+-->
+
+
+## Project mailing list
+
+Sign up for the <a href="https://groups.google.com/group/alaveteli-dev">Alaveteli project mailing list</a> &mdash; feel free to ask questions. Lots of helpful people are on it
+&mdash; not just mySociety staff but also people (like you!) running their own
+sites.
+
+The archives are a good source of information too. If you've got a problem, it's
+always worth checking to see if someone has already solved it.
+
+It you're just starting out, saying hello on the mailing list is a great way to
+begin <img src="http://www.alaveteli.org/wp-includes/images/smilies/icon_smile.gif" alt=":-)"> 
+
+## IRC
+
+### irc.mysociety.org #mschat
+
+**`#mschat`** &mdash;
+the mySociety developers can be found on IRC in `#mschat` on
+`irc.mysociety.org` (running on port `6667`, and also `9219`)
+(also available via this [web interface](http://www.irc.mysociety.org)).
+
+### irc.freenode.net #alaveteli
+
+**`#alaveteli`** &mdash;
+there's an `#alaveteli` channel on 
+[Freenode](http://freenode.net) (`irc.freenode.net`) ...although that channel can be rather quiet 
+<img src="http://www.alaveteli.org/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley">
+
+##	Alaveteli commit messages (code)
+
+To keep an eye on activity on the repo, join the 
+<a href="https://groups.google.com/group/alaveteli-commits/">Alaveteli push messages mailing list</a> (one a day).
+
+## Code and issues on github
+
+The [Alaveteli software is on github](https://github.com/mysociety/alaveteli) and we actively use 
+[github's issues](https://github.com/mysociety/alaveteli) &mdash; sometimes there's discussion on specific issues in there too, which can be handy (especially if it's an issue you've raised).
+
+## Documentation
+
+Although asking a human is great, sometimes what you want to know can be 
+found in the documentation:
+
+* [this documentation]({{ site.baseurl }}) &mdash; always the first place to look
+* [the dev wiki](http://github.com/mysociety/alaveteli/wiki) &mdash; informal or specific notes
+* [docs in the repo](https://github.com/mysociety/alaveteli/tree/rails-3-develop/doc) (although we're slowly phasing these out in favour of the docs you're reading now)
