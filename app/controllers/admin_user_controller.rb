@@ -99,6 +99,15 @@ class AdminUserController < AdminController
         redirect_to admin_user_show_url(@admin_user)
     end
 
+    def modify_comment_visibility
+        comments_to_change = params[:comment_ids]
+        comment_value = (params[:newstate] == "visible")
+        Comment.update_all(["visible=?", comment_value], :id => comments_to_change)
+
+        # Return to the page we were called from (either user or request page) 
+        redirect_to :back
+    end
+
     private
 
 end
