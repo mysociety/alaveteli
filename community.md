@@ -67,7 +67,7 @@ The [Alaveteli software is on github](https://github.com/mysociety/alaveteli) an
 
 ## Documentation
 
-Although asking a human is great, sometimes what you want to know can be 
+Although asking a human is great, often what you want to know can be 
 found in the documentation:
 
 * [this documentation]({{ site.baseurl }}) &mdash; always the first place to look
