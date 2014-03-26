@@ -58,6 +58,23 @@ describe HelpController do
             deliveries.clear
         end
 
+        it 'has rudimentary spam protection' do
+            post :contact, { :contact => {
+                    :name => 'Vinny Vanilli',
+                    :email => 'vinny@localhost',
+                    :subject => 'Why do I have such an ace name?',
+                    :comment => 'I AM A SPAMBOT',
+                    :message => "You really should know!!!\n\nVinny",
+                }, :submitted_contact_form => 1
+            }
+
+            response.should redirect_to(frontpage_path)
+
+            deliveries = ActionMailer::Base.deliveries
+            deliveries.size.should == 0
+            deliveries.clear
+        end
+
     end
 
 end
