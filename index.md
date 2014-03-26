@@ -26,7 +26,7 @@ You've found the documentation for Alaveteli.
 [customising]({{ site.baseurl }}customising), and
 [running]({{ site.baseurl }}running) your own Alaveteli site.**
 
-If you're making changes to the source code, we have  
+If you're making changes to the source code, we have
 [documentation for developers]({{ site.baseurl }}developers) too.
 
 If you are an organisation who wants to use Alaveteli in your jurisdiction, or a developer who is interested in collaborating on the software, please 

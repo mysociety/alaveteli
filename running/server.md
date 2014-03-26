@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Production server best prctices
+title: Production server best practices
 ---
 
 # Production server best practices
