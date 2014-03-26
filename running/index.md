@@ -23,8 +23,6 @@ the project up to date.
   [things to consider]({{ site.baseurl }}running/server)
   when setting up your production server
 
-<!-- admin guide -->
-<!-- server best practices -->
-
+* see the [different states a request can be in]({{ site.baseurl }}running/states)
 
 
