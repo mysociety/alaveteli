@@ -253,11 +253,11 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-			    <a href="{{ site.baseurl }}/running/states">example states for WhatDoTheyKnow</a>
+			    <a href="{{ site.baseurl }}running/states">example states for WhatDoTheyKnow</a>
           (Alaveteli site running in the UK)
         </li>
         <li>
-			    for comparison, <a href="{{ site.baseurl }}/running/states_informatazyrtare">example states for InformataZyrtare</a>
+			    for comparison, <a href="{{ site.baseurl }}running/states_informatazyrtare">example states for InformataZyrtare</a>
           (Alaveteli site running in Kosovo)
         </li>
         <li>
