@@ -8,6 +8,8 @@ describe HelpController do
 
         it 'shows the about page' do
             get :about
+            response.should be_success
+            response.should render_template('help/about')
         end
 
     end
@@ -16,6 +18,8 @@ describe HelpController do
 
         it 'shows contact form' do
             get :contact
+            response.should be_success
+            response.should render_template('help/contact')
         end
 
         describe 'when requesting a page in a supported locale' do
@@ -46,7 +50,7 @@ describe HelpController do
                     :message => "You really should know!!!\n\nVinny",
                 }, :submitted_contact_form => 1
             }
-            response.should redirect_to(:controller => 'general', :action => 'frontpage')
+            response.should redirect_to(frontpage_path)
 
             deliveries = ActionMailer::Base.deliveries
             deliveries.size.should == 1
