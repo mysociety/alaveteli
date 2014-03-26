@@ -1,9 +1,9 @@
 ---
 layout: page
-title: Request states
+title: States of requests
 ---
 
-# Request states
+# States of requests
 
 <p class="lead">
   A <a href="{{site.baseurl}}glossary/#request">request</a> passes through different <strong>states</strong> as it is processed. These may vary from one jurisdiction to another (you can configure them when you set your site up). <!-- TODO: specifiying states -->  
