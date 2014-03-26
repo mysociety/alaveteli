@@ -1,6 +1,6 @@
 ---
 layout: page
-title: States of requests
+title: States of requests (InformataZyrtare)
 ---
 
 # States of requests
