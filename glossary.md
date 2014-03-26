@@ -68,7 +68,7 @@ Definitions
   <dd>
 	  <a href="#foi" class="glossary">Freedom of Information</a> (FoI) law typically considers
     the <a href="#response" class="glossary">responses</a> given by the 
-    <a href="#authority">authorities</a> to be <strong>asker agnostic</strong>. This means
+    <a href="#authority" class="glossary">authorities</a> to be <strong>asker agnostic</strong>. This means
     that the reply should not be any different depending on <em>who</em> asked for the 
     information. One consequence of this is that the response
     can be <a href="#publish" class="glossary">published</a>, because in theory <em>everyone</em>
@@ -133,7 +133,7 @@ Definitions
     helps us track changes to the code, and also makes it easy for other people
     to duplicate and even contribute to our software.
     <p>
-      The website <a href="github.com/mysociety">github.com</a> is a central, public
+      The website <a href="http://github.com/mysociety">github.com</a> is a central, public
       place where we make our software available. Because it's Open Source, you can
       inspect the code there (Alaveteli is mostly written in the programming language
       Ruby), report bugs, suggest features and many other useful things.
@@ -228,7 +228,7 @@ Definitions
   </dt>
   <dd>
     In Alaveteli, a <strong>request</strong> is the 
-    <a href="#foi">Freedom of Information</a> request
+    <a href="#foi" class="glossary">Freedom of Information</a> request
     that a user enters, and which the site then emails to the relevant 
     <a href="#authority" class="glossary">authority</a>.
     Alaveteli automatically <a href="#publish" class="glossary">publishes</a>
@@ -240,14 +240,14 @@ Definitions
     <a name="state">state</a>
   </dt>
   <dd>
-    Each <a href="#request">request</a> passes through different
+    Each <a href="#request" class="glossary">request</a> passes through different
     <strong>states</strong> as it progresses through the system.
     States help Alaveteli administrators, as well as the public, 
     understand the current situation with any request and what 
     action, if any, is required.
     <p>
       The states available can be customised within
-      your site's <a href="#theme">theme</a>.
+      your site's <a href="#theme" class="glossary">theme</a>.
     </p>
     <div class="more-info">
       <p>More information:</p>
@@ -280,7 +280,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-			<a href="/customising/themes">about themes</a>
+			<a href="{{ site.baseurl }}customising/themes">about themes</a>
         </li>
       </ul>
     </div>

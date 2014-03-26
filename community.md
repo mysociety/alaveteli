@@ -12,8 +12,9 @@ The Alaveteli Community
 
 We actively help people set up and run Alaveteli instances all around the
 world. Alaveteli is more than just software, it's also a community of people
-who care enough about <a href="{{ site.baseurl}}glossary/#foi">Freedom of
-Information</a> to build and run sites to benefit the public.
+who care enough about <a href="{{ site.baseurl}}glossary/#foi"
+class="glossary">Freedom of Information</a> to build and run sites to benefit
+the public.
 
 If you're just starting out, or you've already got your site up and running,
 this page points you at the places you can find out more, ask questions, or

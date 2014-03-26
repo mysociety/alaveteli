@@ -6,14 +6,16 @@ title: States of requests
 # States of requests
 
 <p class="lead">
-  A <a href="{{site.baseurl}}glossary/#request">request</a> passes through different <strong>states</strong> as it is processed. These may vary from one jurisdiction to another (you can configure them when you set your site up).
+  A <a href="{{site.baseurl}}glossary/#request" class="glossary">request</a>
+  passes through different <strong>states</strong> as it is processed. These may
+  vary from one jurisdiction to another.
 </p>
 
 The request states are defined in the Alaveteli code, and we recommend you use
-them (provided they match the <a href="{{ site.baseurl }}glossary/#foi">FOI
-law</a> in your own jurisdiction). But if you do need to customise them, you
-can &mdash; see <a href="{{ site.baseurl }}customising/themes">Customising the
-request states</a> for details.
+them (provided they match the <a href="{{ site.baseurl }}glossary/#foi"
+class="glossary">FOI law</a> in your own jurisdiction). But if you do need to
+customise them, you can &mdash; see <a href="{{ site.baseurl
+}}customising/themes">Customising the request states</a> for details.
   
 ## TheyWorkForYou example
 
