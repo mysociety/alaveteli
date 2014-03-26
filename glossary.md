@@ -14,17 +14,19 @@ Glossary
 Definitions
 -----------
 
-[Alaveteli](#alaveteli) |
-[asker agnostic](#agnostic) |
-[authority](#authority) |
-[freedom of information](#foi) |
-[git](#git) |
-[holding pen](#holding_pen) |
-[MTA](#mta) |
-[publish](#publish) |
-[request](#request) |
-[response](#response) |
-[theme](#theme)
+<ul class="definitions">
+  <li><a href="#alaveteli">Alaveteli</a></li>
+  <li><a href="#agnostic">asker agnostic</a></li>
+  <li><a href="#authority">authority</a></li>
+  <li><a href="#foi">freedom of information</a></li>
+  <li><a href="#git">git</a></li>
+  <li><a href="#holding_pen">holding pen</a></li>
+  <li><a href="#mta">MTA</a></li>
+  <li><a href="#publish">publish</a></li>
+  <li><a href="#request">request</a></li>
+  <li><a href="#response">response</a></li>
+  <li><a href="#theme">theme</a></li>
+</ul>
 
 
 <dl class="glossary">
