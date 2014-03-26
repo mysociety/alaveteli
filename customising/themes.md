@@ -135,7 +135,7 @@ locale you support.
 ## Customising the request states
 
 As mentioned above, if you can possibly live with the
-[default Alaveteli request statuses](https://github.com/mysociety/alaveteli/wiki/Alaveteli's-request-statuses),
+[default Alaveteli request statuses]({{ site.baseurl }}running/states),
 it would be good to do so.  Note that you can set how many days counts
 as "overdue" in the main site config file &mdash;
 see [`REPLY_LATE_AFTER_DAYS`]({{ site.baseurl }}customising/config/#reply_late_after_days).
