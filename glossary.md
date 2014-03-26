@@ -25,6 +25,7 @@ Definitions
   <li><a href="#publish">publish</a></li>
   <li><a href="#request">request</a></li>
   <li><a href="#response">response</a></li>
+  <li><a href="#state">state</a></li>
   <li><a href="#theme">theme</a></li>
 </ul>
 
@@ -233,6 +234,38 @@ Definitions
     Alaveteli automatically <a href="#publish" class="glossary">publishes</a>
     the <a href="#response" class="glossary">responses</a>
     to all the requests it sends.
+  </dd>
+
+  <dt>
+    <a name="state">state</a>
+  </dt>
+  <dd>
+    Each <a href="#request">request</a> passes through different
+    <strong>states</strong> as it progresses through the system.
+    States help Alaveteli administrators, as well as the public, 
+    understand the current situation with any request and what 
+    action, if any, is required.
+    <p>
+      The states available can be customised within
+      your site's <a href="#theme">theme</a>.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+			    <a href="{{ site.baseurl }}/running/states">example states for WhatDoTheyKnow</a>
+          (Alaveteli site running in the UK)
+        </li>
+        <li>
+			    for comparison, <a href="{{ site.baseurl }}/running/states_informatazyrtare">example states for InformataZyrtare</a>
+          (Alaveteli site running in Kosovo)
+        </li>
+        <li>
+          to customise or add your own states, see <a href="{{ site.baseurl }}customising/themes">Customising the request states</a>
+        </li>
+      </ul>
+    </div>
+    
   </dd>
 
   <dt>
