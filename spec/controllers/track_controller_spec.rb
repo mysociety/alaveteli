@@ -5,7 +5,7 @@ describe TrackController, "when making a new track on a request" do
         @ir = mock_model(InfoRequest, :url_title => 'myrequest',
                                       :title => 'My request')
         @track_thing = mock_model(TrackThing, :save! => true,
-                                              :params => {:list_description => 'list description'},
+                                              :params => {},
                                               :track_medium= => nil,
                                               :tracking_user_id= => nil)
         TrackThing.stub!(:create_track_for_request).and_return(@track_thing)
@@ -58,7 +58,7 @@ end
 describe TrackController, "when unsubscribing from a track" do
 
     before do
-        @track_thing = FactoryGirl.create(:track_thing)
+        @track_thing = FactoryGirl.create(:search_track)
     end
 
     it 'should destroy the track thing' do
@@ -78,7 +78,7 @@ describe TrackController, "when unsubscribing from a track" do
     end
 
     it 'should not redirect to a url on another site' do
-        track_thing = FactoryGirl.create(:track_thing)
+        track_thing = FactoryGirl.create(:search_track)
         get :update, {:track_id => @track_thing.id,
                       :track_medium => 'delete',
                       :r => 'http://example.com/'},

@@ -51,10 +51,11 @@ describe TrackThing, "when tracking changes" do
     end
 
     it "will make some sane descriptions of search-based tracks" do
-        tests = { 'bob variety:user' => "users matching text 'bob'",
-                  'bob (variety:sent OR variety:followup_sent OR variety:response OR variety:comment) (latest_status:successful OR latest_status:partially_successful OR latest_status:rejected OR latest_status:not_held)' => "comments or requests which are successful or unsuccessful matching text 'bob'",
-                  '(latest_status:waiting_response OR latest_status:waiting_clarification OR waiting_classification:true)' => 'requests which are awaiting a response',
-                  ' (variety:sent OR variety:followup_sent OR variety:response OR variety:comment)' => 'all requests or comments' }
+        tests = { ' (variety:sent OR variety:followup_sent OR variety:response OR variety:comment)' => 'all requests or comments',
+                  'bob (variety:sent OR variety:followup_sent OR variety:response OR variety:comment)' => "all requests or comments matching text 'bob'",
+                  'bob (latest_status:successful OR latest_status:partially_successful)' => "requests which are successful matching text 'bob'",
+                  '(latest_status:successful OR latest_status:partially_successful)' => 'requests which are successful',
+                  'bob' => "anything matching text 'bob'" }
         tests.each do |query, description|
             track_thing = TrackThing.create_track_for_search_query(query)
             track_thing.track_query_description.should == description
