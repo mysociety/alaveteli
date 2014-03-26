@@ -14,8 +14,8 @@ title: States of requests
 The request states are defined in the Alaveteli code, and we recommend you use
 them (provided they match the <a href="{{ site.baseurl }}glossary/#foi"
 class="glossary">FOI law</a> in your own jurisdiction). But if you do need to
-customise them, you can &mdash; see <a href="{{ site.baseurl
-}}customising/themes">Customising the request states</a> for details.
+customise them, you can &mdash; see
+<a href="{{ site.baseurl }}customising/themes">Customising the request states</a> for details.
   
 ## TheyWorkForYou example
 
