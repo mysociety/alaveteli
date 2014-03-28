@@ -4,6 +4,18 @@
 
 <div class="row">
     <div class="span12">
+        <p>
+            Incoming mail that gets redirected to the holding pen will be
+            rejected if it is sent <code>To:</code> an address on this
+            list.
+        </p>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="span12">
         <%= form_for(@spam_address, :html => { :class => 'form-inline' }) do |f| -%>
             <%= error_messages_for @spam_address %>
             <%= f.text_field :email, :class => 'input-xxlarge', :placeholder => 'Enter email' %>
