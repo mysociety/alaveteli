@@ -65,6 +65,11 @@
         <%= f.text_area :message, :rows => 10, :cols => 60 %>
     </p>
 
+    <p style="display:none;">
+        <%= f.label :comment, 'Do not fill in this field' %>
+        <%= f.text_field :comment %>
+    </p>
+
     <% if !@last_request.nil? %>
         <p>
             <label class="form_label" for="contact_message">Include link to request:</label>
