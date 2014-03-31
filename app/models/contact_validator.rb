@@ -7,7 +7,7 @@
 class ContactValidator
     include ActiveModel::Validations
 
-    attr_accessor :name, :email, :subject, :message
+    attr_accessor :name, :email, :subject, :message, :comment
 
     validates_presence_of :name, :message => N_("Please enter your name")
     validates_presence_of :email, :message => N_("Please enter your email address")
