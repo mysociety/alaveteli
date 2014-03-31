@@ -22,6 +22,13 @@
   </div>
  </div>
 
+  <div class="control-group">
+    <label class="control-label">Mark <code>To:</code> address as spam</label>
+    <div class="controls">
+      <%= link_to 'Spam Addresses', spam_addresses_path %>
+    </div>
+  </div>
+
  <%= form_tag admin_incoming_destroy_path, :class => "form form-inline" do %>
   <div class="control-group">
    <label class="control-label" for="destroy_message_<%= incoming_message.id %>">Destroy message</label>
