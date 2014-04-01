@@ -83,9 +83,12 @@ module AttachmentToHTML
             end
 
             def convert
+                # Get the attachment body outside of the chdir call as getting
+                # the body may require opening files too
+                text = attachment_body
+
                 @converted ||= Dir.chdir(tmpdir) do
-                    tempfile = create_tempfile
-                    write_attachment_body_to_tempfile(tempfile)
+                    tempfile = create_tempfile(text)
 
                     html = AlaveteliExternalCommand.run("unrtf", "--html",
                       tempfile.path, :timeout => 120
@@ -97,22 +100,25 @@ module AttachmentToHTML
                 end
             end
 
-            def create_tempfile
-                if RUBY_VERSION.to_f >= 1.9
-                    Tempfile.new('foiextract', '.', :encoding => attachment.body.encoding)
-                else
-                    Tempfile.new('foiextract', '.')
-                end
-            end
-
-            def write_attachment_body_to_tempfile(tempfile)
-                tempfile.print(attachment.body)
+            def create_tempfile(text)
+                tempfile = if RUBY_VERSION.to_f >= 1.9
+                               Tempfile.new('foiextract', '.',
+                                            :encoding => text.encoding)
+                           else
+                               Tempfile.new('foiextract', '.')
+                           end
+                tempfile.print(text)
                 tempfile.flush
+                tempfile
             end
 
             def cleanup_tempfile(tempfile)
                 tempfile.close
                 tempfile.delete
+            end
+
+            def attachment_body
+                @attachment_body ||= attachment.body
             end
 
         end
