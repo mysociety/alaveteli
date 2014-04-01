@@ -69,6 +69,31 @@ describe AttachmentToHTML::Adapters::RTF do
             rtf_adapter.to_html
         end
 
+        it 'does not result in incorrect conversion when unrtf returns an invalid doctype' do
+            # Doctype public identifier is unquoted
+            # Valid doctype would be:
+            # <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+            # See bug report http://savannah.gnu.org/bugs/?42015
+            invalid = <<-DOC
+            <!DOCTYPE html PUBLIC -//W3C//DTD HTML 4.01 Transitional//EN>
+            <html>
+            <head>
+            <meta http-equiv="content-type" content="text/html; charset=utf-8">
+            <!-- Translation from RTF performed by UnRTF, version 0.21.5 -->
+            <!--font table contains 0 fonts total-->
+            <!--invalid font number 0-->
+            </head>
+            <body><font size="3"><font color="#000000">thisisthebody</font></font></body>
+            </html>
+            DOC
+            AlaveteliExternalCommand.stub(:run).and_return(invalid)
+
+            parsed = Nokogiri::HTML.parse(rtf_adapter.to_html) do |config|
+               config.strict
+            end
+            parsed.css('body').inner_text.should_not include('//W3C//DTD HTML 4.01 Transitional//EN')
+        end
+
     end
 
     describe :success? do

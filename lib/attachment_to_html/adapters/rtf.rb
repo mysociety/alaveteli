@@ -96,8 +96,19 @@ module AttachmentToHTML
 
                     cleanup_tempfile(tempfile)
 
-                    html
+                    sanitize_converted(html)
                 end
+
+            end
+
+            # Works around http://savannah.gnu.org/bugs/?42015 in unrtf ~> 0.21
+            def sanitize_converted(html)
+                invalid = %Q(<!DOCTYPE html PUBLIC -//W3C//DTD HTML 4.01 Transitional//EN>)
+                valid   = %Q(<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN>")
+                if html.include?(invalid)
+                   html.sub!(invalid, valid)
+                end
+                html
             end
 
             def create_tempfile(text)
