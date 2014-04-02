@@ -10,14 +10,15 @@ module AttachmentToHTML
 
     def to_html(attachment, opts = {})
         adapter = adapter_for(attachment).new(attachment, opts)
-        html = HTML.new(adapter)
 
-        if html.success?
-            html
-        else
-            fallback = fallback_adapter_for(attachment).new(attachment, opts)
-            HTML.new(fallback)
+        unless adapter.success?
+          adapter = fallback_adapter_for(attachment).new(attachment, opts)
         end
+
+        view = View.new(adapter)
+        view.wrapper = 'wrapper_google_embed' if adapter.is_a?(Adapters::GoogleDocsViewer)
+
+        view.render
     end
 
     private

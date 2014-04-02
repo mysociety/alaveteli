@@ -12,11 +12,12 @@ describe AttachmentToHTML do
             to_html(attachment)
         end
 
-        it 'returns the results in a HTML class' do
-            expected = AttachmentToHTML::Adapters::Text.new(attachment).to_html
-            to_html(attachment).should be_instance_of(AttachmentToHTML::HTML)
+        it 'renders the attachment as html' do
+            adapter = AttachmentToHTML::Adapters::Text.new(attachment)
+            expected = AttachmentToHTML::View.new(adapter).render
+            to_html(attachment).should == expected
         end
- 
+
         it 'accepts a hash of options to pass to the adapter' do
             options = { :wrapper => 'wrap' }
             AttachmentToHTML::Adapters::Text.should_receive(:new).with(attachment, options).and_call_original
@@ -25,9 +26,9 @@ describe AttachmentToHTML do
 
         it 'converts an attachment that has an adapter, fails to convert, but has a google viewer' do
             attachment = FactoryGirl.build(:pdf_attachment)
-            AttachmentToHTML::HTML.any_instance.stub(:success?).and_return(false)
+            AttachmentToHTML::Adapters::PDF.any_instance.stub(:success?).and_return(false)
             AttachmentToHTML::Adapters::PDF.should_receive(:new).with(attachment, {}).and_call_original
-            AttachmentToHTML::Adapters::GoogleDocsViewer.should_receive(:new).with(attachment, {})
+            AttachmentToHTML::Adapters::GoogleDocsViewer.should_receive(:new).with(attachment, {}).and_call_original
             to_html(attachment)
         end
 
@@ -41,6 +42,23 @@ describe AttachmentToHTML do
             attachment = FactoryGirl.build(:body_text, :content_type => 'application/json')
             AttachmentToHTML::Adapters::CouldNotConvert.should_receive(:new).with(attachment, {}).and_call_original
             to_html(attachment)
+        end
+
+        describe 'when wrapping the content' do
+
+            it 'uses a the default wrapper' do
+                attachment = FactoryGirl.build(:pdf_attachment)
+                to_html(attachment).should include(%Q(<div id="wrapper">))
+            end
+
+            it 'uses a custom wrapper for GoogleDocsViewer attachments' do
+                attachment = FactoryGirl.build(:pdf_attachment)
+                # TODO: Add a document that will always render in a
+                # GoogleDocsViewer for testing
+                AttachmentToHTML::Adapters::PDF.any_instance.stub(:success?).and_return(false)
+                to_html(attachment).should include(%Q(<div id="wrapper_google_embed">))
+            end
+
         end
 
     end
