@@ -294,7 +294,8 @@ class FoiAttachment < ActiveRecord::Base
     # For "View as HTML" of attachment
     def body_as_html(dir, opts = {})
         attachment_url = opts.fetch(:attachment_url, nil)
-        AttachmentToHTML.to_html(self, :tmpdir => dir, :attachment_url => attachment_url)
+        to_html_opts = opts.merge(:tmpdir => dir, :attachment_url => attachment_url)
+        AttachmentToHTML.to_html(self, to_html_opts)
     end
 
 end
