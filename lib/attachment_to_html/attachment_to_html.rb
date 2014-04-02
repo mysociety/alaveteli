@@ -1,4 +1,5 @@
 require 'html'
+require 'view'
 
 Dir[File.dirname(__FILE__) + '/adapters/*.rb'].each do |file|
     require file
