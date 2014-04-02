@@ -2,25 +2,31 @@ module AttachmentToHTML
     module Adapters
         class CouldNotConvert
 
-            attr_reader :attachment, :wrapper
+            attr_reader :attachment
 
-            # Public: Initialize a Text converter
+            # Public: Initialize a PDF converter
             #
             # attachment - the FoiAttachment to convert to HTML
             # opts       - a Hash of options (default: {}):
-            #              :wrapper - String id of the div that wraps the
-            #                         attachment body
+            #              No options currently accepted
             def initialize(attachment, opts = {})
                 @attachment = attachment
-                @wrapper = opts.fetch(:wrapper, 'wrapper')
             end
 
-            # Public: Convert the attachment to HTML
+            # Public: The title to use in the <title> tag
             #
             # Returns a String
-            def to_html
-                @html ||= generate_html
+            def title
+                @title ||= attachment.display_filename
             end
+
+            # Public: The contents of the extracted html <body> tag
+            #
+            # Returns a String
+            def body
+                @body ||= parse_body
+            end
+
 
             # Public: Was the document conversion successful?
             # As this is a fallback option and not doing anything dynamic
@@ -33,27 +39,7 @@ module AttachmentToHTML
 
             private
 
-            def generate_html
-                html =  "<!DOCTYPE html>"
-                html += "<html>"
-                html += "<head>"
-                html += "<title>#{ title }</title>"
-                html += "</head>"
-                html += "<body>"
-                html += "<div id=\"#{ wrapper }\">"
-                html += "<div id=\"view-html-content\">"
-                html += body
-                html += "</div>"
-                html += "</div>"
-                html += "</body>"
-                html += "</html>"
-            end
-
-            def title
-                @title ||= attachment.display_filename
-            end
-
-            def body
+            def parse_body
                 "<p>Sorry, we were unable to convert this file to HTML. " \
                 "Please use the download link at the top right.</p>"
             end
