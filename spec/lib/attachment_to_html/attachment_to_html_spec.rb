@@ -18,6 +18,11 @@ describe AttachmentToHTML do
             to_html(attachment).should == expected
         end
 
+        it 'passes content injections options when rendering the result' do
+            html = to_html(attachment, :content_for => { :body_prefix => '<p>prefix</p>' })
+            html.should include('<p>prefix</p>')
+        end
+
         it 'accepts a hash of options to pass to the adapter' do
             options = { :wrapper => 'wrap' }
             AttachmentToHTML::Adapters::Text.should_receive(:new).with(attachment, options).and_call_original

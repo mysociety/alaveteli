@@ -19,8 +19,20 @@ module AttachmentToHTML
             super(File.read(template))
         end
 
-        def render
+        def render(&block)
+            instance_eval(&block) if block_given?
             result(binding)
+        end
+
+        def content_for(area)
+            send(area) if respond_to?(area)
+        end
+
+        private
+
+        def inject_content(area, &block)
+          instance_variable_set("@#{ area }".to_sym, block.call)
+          self.class.send(:attr_accessor, area)
         end
 
     end
