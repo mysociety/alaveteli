@@ -1,3 +1,19 @@
+# rails-3-develop
+
+## Highlighted features
+
+## Upgrade notes
+
+* Theme owners are required to update references to fancybox CSS and JS files.
+
+Example:
+
+    - <%= javascript_include_tag 'jquery.fancybox-1.3.4.pack.js' %>
+    + <%= javascript_include_tag 'fancybox.js' %>
+
+    - <%= stylesheet_link_tag 'jquery.fancybox-1.3.4.css', :rel => "stylesheet"
+    + <%= stylesheet_link_tag 'fancybox.css', :rel => "stylesheet"  %>
+
 # Version 0.17
 
 ## Highlighted features
