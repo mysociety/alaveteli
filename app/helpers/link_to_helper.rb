@@ -18,8 +18,8 @@ module LinkToHelper
         request_url(info_request, {:only_path => true}.merge(options))
     end
 
-    def request_link(info_request, cls=nil )
-        link_to h(info_request.title), request_path(info_request), :class => cls
+    def request_link(info_request, cls=nil)
+        link_to info_request.title, request_path(info_request), :class => cls
     end
 
     def request_details_path(info_request)
@@ -96,19 +96,19 @@ module LinkToHelper
     end
 
     def user_link(user, cls=nil)
-        link_to h(user.name), user_path(user), :class => cls
+        link_to user.name, user_path(user), :class => cls
     end
 
     def user_link_for_request(request, cls=nil)
         if request.is_external?
             user_name = request.external_user_name || _("Anonymous user")
             if !request.external_url.nil?
-                link_to h(user_name), request.external_url
+                link_to user_name, request.external_url
             else
                 user_name
             end
         else
-            link_to h(request.user.name), user_path(request.user), :class => cls
+            link_to request.user.name, user_path(request.user), :class => cls
         end
     end
 
@@ -116,7 +116,7 @@ module LinkToHelper
         if request.is_external?
             external_text || (request.external_user_name || _("Anonymous user")) + " (external)"
         else
-            link_to(h(internal_text || request.user.name), admin_user_show_url(request.user))
+            link_to(internal_text || request.user.name, admin_user_show_url(request.user))
         end
     end
 

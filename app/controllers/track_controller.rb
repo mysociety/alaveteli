@@ -118,7 +118,7 @@ class TrackController < ApplicationController
         if @user
             @existing_track = TrackThing.find_existing(@user, @track_thing)
             if @existing_track
-                flash[:notice] = _("You are already following updates about {{track_description}}", :track_description => @track_thing.params[:list_description])
+                flash[:notice] = view_context.already_subscribed_notice(@track_thing)
                 return true
             end
         end
@@ -130,11 +130,7 @@ class TrackController < ApplicationController
         @track_thing.track_medium = 'email_daily'
         @track_thing.tracking_user_id = @user.id
         @track_thing.save!
-        if @user.receive_email_alerts
-            flash[:notice] = _('You will now be emailed updates about {{track_description}}. <a href="{{change_email_alerts_url}}">Prefer not to receive emails?</a>', :track_description =>  @track_thing.params[:list_description], :change_email_alerts_url => url_for(:controller => "user", :action => "wall", :url_name => @user.url_name))
-        else
-            flash[:notice] = _('You are now <a href="{{wall_url_user}}">following</a> updates about {{track_description}}', :track_description => @track_thing.params[:list_description], :wall_url_user => url_for(:controller => "user", :action => "wall", :url_name => @user.url_name))
-        end
+        flash[:notice] = render_to_string(:partial => 'track_set').html_safe
         return true
     end
 
@@ -183,16 +179,8 @@ class TrackController < ApplicationController
         new_medium = params[:track_medium]
         if new_medium == 'delete'
             track_thing.destroy
-            flash[:notice] = _("You are no longer following {{track_description}}.", :track_description => track_thing.params[:list_description])
+            flash[:notice] = view_context.unsubscribe_notice(track_thing)
             redirect_to URI.parse(params[:r]).path
-
-        # Reuse code like this if we let medium change again.
-        #elsif new_medium == 'email_daily'
-        #    track_thing.track_medium = new_medium
-        #    track_thing.created_at = Time.now() # as created_at is used to limit the alerts to start with
-        #    track_thing.save!
-        #    flash[:notice] = "You are now tracking " + track_thing.params[:list_description] + " by email daily"
-        #    redirect_to user_url(track_thing.tracking_user)
         else
             raise "new medium not handled " + new_medium
         end
@@ -217,7 +205,6 @@ class TrackController < ApplicationController
         for track_thing in TrackThing.find(:all, :conditions => [ "track_type = ? and tracking_user_id = ?", track_type, user_id ])
             track_thing.destroy
         end
-        flash[:notice] += "</ul>"
 
         redirect_to params[:r]
     end
