@@ -17,8 +17,7 @@
     .rsp_menu_button{
         @include grid-column(4);
         float: right;
-        a{
-            @include button($padding:1, $bg: white);
+        a {
             &.open{
                 display: block;
             }
@@ -88,7 +87,6 @@
     @include grid-row;
     padding: 0;
     position: relative;
-    border-bottom: 1px solid #e9e9e9;
     /* Spread the nav elements horizontally on larger screens */
     li{
         display: block;
