@@ -16,7 +16,7 @@
     padding-right:5px;
   }
 
-  label.title, h3.title {
+  label.title {
     @media( min-width: $main_menu-mobile_menu_cutoff ){
       display:inline-block;
       float:none;
@@ -26,18 +26,7 @@
 
   .filter-request-types {
     display: inline-block;
-    max-width: 420px;
-    vertical-align: middle;
-    margin-top: 3px;
     line-height: 1.5em;
-  }
-
-  h3.title {
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
-      width:114px;
-      margin-bottom:5px;
-      vertical-align: middle;
-    }
   }
 
   #requests-subfilters div {
@@ -57,16 +46,15 @@
   }
 
   .list-filter-item{
-    margin-bottom:10px;
+    margin-bottom:0.5em;
   }
 }
 
 
 .results_section {
   @include grid-column(12);
-  margin-bottom:40px;
-  div:last-child {
-    border-bottom-width:0;
+  .results-block:last-child {
+    border-bottom: none;
     padding-bottom:0;
   }
 }
