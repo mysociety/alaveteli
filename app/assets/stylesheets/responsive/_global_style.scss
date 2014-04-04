@@ -67,6 +67,22 @@ img {
     height: auto;
 }
 
+dt {
+  margin-top: 1em;
+}
+
+dd {
+  margin-left: 2em;
+}
+
+dt + dd {
+  margin-top: 0.5em;
+  > p {
+    margin-top: 0;
+  }
+}
+
+
 /* Links in sidebars usually only underlined on hover */
 .feed_link,.act_link {
   margin-bottom:10px;
