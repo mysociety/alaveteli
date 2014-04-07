@@ -92,16 +92,16 @@ module Alaveteli
     # Change the path that assets are served from
     # config.assets.prefix = "/assets"
 
-    # These additional precompiled Javascript files are actually
-    # manifests that require the real javascript files:
+    # These additional precompiled asset files are actually
+    # manifests that require the real asset files:
     config.assets.precompile += ['admin.js',
                                  'profile-photos.js',
-                                 'stats.js']
+                                 'stats.js',
+                                 'fancybox.css',
+                                 'fancybox.js']
     # ... while these are individual files that can't easily be
     # grouped:
-    config.assets.precompile += ['jquery.fancybox-1.3.4.pack.js',
-                                 'jquery.fancybox-1.3.4.css',
-                                 'jquery.Jcrop.css',
+    config.assets.precompile += ['jquery.Jcrop.css',
                                  'excanvas.min.js',
                                  'select-authorities.js',
                                  'jquery_ujs.js',
