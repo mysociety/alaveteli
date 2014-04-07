@@ -78,6 +78,16 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries.clear
     end
 
+    it "should ignore mail sent to known spam addresses" do
+        @spam_address = FactoryGirl.create(:spam_address)
+
+        receive_incoming_mail('incoming-request-plain.email', @spam_address.email)
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 0
+        deliveries.clear
+    end
+
     it "should return incoming mail to sender when a request is stopped fully for spam" do
         # mark request as anti-spam
         ir = info_requests(:fancy_dog_request)
