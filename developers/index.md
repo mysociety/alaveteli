@@ -56,8 +56,8 @@ title: For developers
   2GB is recommended. Deployment behind [Varnish](https://www.varnish-cache.org) is also fairly essential. See
   [[Production Server Best Practices]] for more.
 
-* There's a number of [[proposals for enhancements]], such as more user-focused
-  features, but see also...
+* There's a number of [proposals for enhancements](https://github.com/mysociety/alaveteli/wiki/Proposals-for-enhancements),
+  such as more user-focused features, but see also...
   
 * ...the [github issues](https://github.com/mysociety/alaveteli/issues). We
   mark issues with the label **suitable for volunteers** if we think they are
