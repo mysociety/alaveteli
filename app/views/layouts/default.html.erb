@@ -2,6 +2,8 @@
 <html lang="<%= I18n.locale %>">
     <head>
         <meta charset="utf-8">
+        <%= csrf_meta_tags %>
+
         <title>
         <% if @title %>
             <%=@title%> - <%= site_name %>

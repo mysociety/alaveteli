@@ -248,6 +248,14 @@ Alaveteli::Application.routes.draw do
     match '/admin/censor/destroy/:censor_rule_id' => 'admin_censor_rule#destroy', :as => :admin_rule_destroy
     ####
 
+    #### AdminSpamAddresses controller
+    scope '/admin' do
+        resources :spam_addresses,
+                  :controller => 'admin_spam_addresses',
+                  :only => [:index, :create, :destroy]
+    end
+    ####
+
     #### Api controller
     match '/api/v2/request.json' => 'api#create_request', :as => :api_create_request, :via => :post
 
