@@ -18,6 +18,7 @@
         @include grid-column(4);
         float: right;
         a {
+            text-align: right;
             &.open{
                 display: block;
             }
