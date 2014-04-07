@@ -1,28 +1,21 @@
 /* Signin styles */
 #signup, #signin {
-  .form_item_note, .form_note{
-    font-size:0.9em;
+  input[type=text],
+  input[type=password]  {
+    width: 100%;
   }
 }
 
 #middle_strip {
   text-align:center;
-  margin-top:45px;
+  position: relative;
+  top: 3em;
   font-size:1.2em;
-  font-family:Georgia;
-  font-style:italic;
-}
-
-#sign_together{
-  h1 {
-    text-align:center;
-  }
 }
 
 p#sign_in_reason, p#superuser_message {
-  text-align:center;
-  font-size:1.4em;
-  font-weight:700;
+  font-size:2em;
+  font-weight:bold;
   line-height:1em;
 }
 
