@@ -1,9 +1,4 @@
 /* Style for user pages */
-#user_photo_on_profile {
-  img, #set_photo {
-  border:1px solid #ddd;
-  }
-}
 
 #set_photo {
   background:image-url('defaultprofilepic.png');
@@ -20,8 +15,7 @@
     float:left;
     vertical-align:middle;
     text-align:center;
-    margin-right:5px;
-    padding:2px;
+    margin-right:0.5em;
   }
 }
 
