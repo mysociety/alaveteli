@@ -96,7 +96,7 @@ Definitions
           Authorities are usually, but not always, public bodies that are obliged by the local
           <a href="#foi" class="glossary">Freedom of Information</a> (FoI) law to respond. Sometimes an
           Alaveteli site is set up in a jurisdiction that does not yet have FoI law. In the UK,
-          we add some authorites to our <a href="http://www.theyworkforyou.com">TheyWorkForYou</a>
+          we add some authorites to our <a href="https://www.whatdotheyknow.com">WhaDoTheyKnow</a>
           site that are not subject to FoI law, but which have either voluntarily submitted themselves
           to it, or which we believe should be accountable in this way.
         </li>

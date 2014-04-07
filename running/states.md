@@ -17,7 +17,7 @@ class="glossary">FOI law</a> in your own jurisdiction). But if you do need to
 customise them, you can &mdash; see
 <a href="{{ site.baseurl }}customising/themes">Customising the request states</a> for details.
   
-## TheyWorkForYou example
+## WhatDoTheyKnow example
 
 Requests made on the UK's Alaveteli instance, [WhatDoTheyKnow](http://www.whatdotheyknow.com), may be in any of the following states
 (for comparison, Kosovo's instance uses 

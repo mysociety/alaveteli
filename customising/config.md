@@ -245,7 +245,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
       <p>Examples:</p>
       <ul>
         <li>
-            <code>TWITTER_USERNAME: TheyWorkForYou</code>
+            <code>TWITTER_USERNAME: WhatDoTheyKnow</code>
         </li>
         <li>
             <code>TWITTER_WIDGET_ID: '833549204689320031'</code>
