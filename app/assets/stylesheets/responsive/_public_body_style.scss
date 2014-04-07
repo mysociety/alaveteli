@@ -1,28 +1,14 @@
 /* Style for public body pages */
-
-#stepwise_make_request_view_email {
-  text-align:center;
-  margin:0;
-  padding:1em 0;
-}
-
-p.public-body-name-prefix {
+.public-body-name-prefix {
   color:#888;
-  margin-top:15px;
-  margin-bottom:-5px;
-  font-size: 1.2em;
+  font-size: 1.3em;
+  position: relative;
+  top: 1em;
 }
 
 #follow_count {
-  text-align: right;
-  float: left;
-  margin-top: -20px;
-  margin-right: 5px;
-  font-weight: 700;
-  font-size: 60px;
-  line-height: 60px;
-}
-
-#stepwise_make_request {
-  margin:0 14em 40px 0;
+  font-weight: bold;
+  font-size: 3em;
+  position: relative;
+  top: 0.25em;
 }
