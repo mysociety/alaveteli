@@ -57,6 +57,9 @@
     border-bottom: none;
     padding-bottom:0;
   }
+  .results_section {
+    @include grid-column(12, $collapse:true);
+  }
 }
 
 #advanced-search input[type=text] {
@@ -65,8 +68,4 @@
 
 #advanced-search-tips{
   @include grid-column(12);
-}
-
-#general_search h2 {
-  margin-top:20px;
 }
