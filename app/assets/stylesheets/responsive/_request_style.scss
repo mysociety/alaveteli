@@ -12,10 +12,10 @@ div.correspondence {
 }
 
 div.comment_in_request {
-  border-style:dotted;
-  margin:0 0 1em 50px;
+  border: 1px dotted #ccc;
+  margin:0 0 1em 3em;
   padding:0 0.5em;
-  border-width:1px;
+
   h2 {
     font-size:1em;
   }
@@ -39,9 +39,7 @@ div.comment_in_request {
   height:48px;
   float:left;
   vertical-align:middle;
-  border:1px solid #ddd;
-  margin-right:5px;
-  padding:2px;
+  margin-right:0.5em;
 }
 
 .user_photo_on_comment img {
@@ -49,10 +47,7 @@ div.comment_in_request {
   height:36px;
   float:left;
   vertical-align:middle;
-  border:1px solid #ddd;
-  margin-right:5px;
-  margin-top:5px;
-  padding:2px;
+  margin-right:0.5em;
 }
 
 a img.attachment_image {
@@ -73,18 +68,19 @@ a img.attachment_image {
 }
 
 .describe_state_form,#other_recipients {
-  font-weight:400;
-  border-radius:6px;
-  -moz-border-radius:6px;
-  margin:15px 0;
-  padding:10px 20px;
+
+  border-radius:3px;
+  -moz-border-radius:3px;
+  margin:1em 0;
+  padding:0.5em 1em;
 }
 
 .describe_state_form {
   hr {
-    border-top:0;
-    border-style:dotted;
-    margin:20px 0;
+    margin-top: 1em;
+    &+p {
+      margin-top: 1em;
+    }
   }
 }
 
