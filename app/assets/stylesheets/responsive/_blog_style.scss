@@ -1,6 +1,10 @@
-/* Styling for blog */
 .blog_post {
-  p {
-    line-height:180%;
-  }
+    h2 a {
+        text-decoration: none;
+        &:hover,
+        &:active,
+        &:focus {
+            text-decoration: underline;
+        }
+    }
 }
