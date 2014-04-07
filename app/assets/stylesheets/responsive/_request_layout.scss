@@ -3,9 +3,6 @@
 
 .describe_state_form,.gone_postal_help{
   @include grid-column(12);
-  @media( min-width: $main_menu-mobile_menu_cutoff ){
-    @include grid-column(8);
-  }
 }
 
 
