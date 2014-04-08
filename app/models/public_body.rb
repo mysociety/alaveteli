@@ -37,7 +37,7 @@ class PublicBody < ActiveRecord::Base
     validates_presence_of :name, :message => N_("Name can't be blank")
     validates_presence_of :url_name, :message => N_("URL name can't be blank")
 
-    validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :if => Proc.new { |pb| pb.short_name != "" }
+    validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :allow_blank => true
     validates_uniqueness_of :name, :message => N_("Name is already taken")
 
     validate :request_email_if_requestable
