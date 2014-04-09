@@ -9,7 +9,9 @@
 #middle_strip {
   text-align:center;
   position: relative;
-  top: 3em;
+  @media( min-width: $main_menu-mobile_menu_cutoff ){
+    top: 3em;
+  }
   font-size:1.2em;
 }
 
