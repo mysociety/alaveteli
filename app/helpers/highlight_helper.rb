@@ -1,6 +1,6 @@
 module HighlightHelper
 
-  include ERB::Util
+    include ERB::Util
 
     # implementation of rails' highlight that respects word boundaries
     def do_highlight(text, phrases, *args)
