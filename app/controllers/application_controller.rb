@@ -129,7 +129,7 @@ class ApplicationController < ActionController::Base
         @exception_class = exception.class.to_s
         @exception_message = exception.message
         case exception
-        when ActiveRecord::RecordNotFound, RouteNotFound
+        when ActiveRecord::RecordNotFound, RouteNotFound, WillPaginate::InvalidPage
             @status = 404
             sanitize_path(params)
         when PermissionDenied
