@@ -205,6 +205,12 @@ describe PublicBody, " when saving" do
         pb.first_letter.should == 'Å'
     end
 
+    it "should not save if the url_name is already taken" do
+        existing = FactoryGirl.create(:public_body)
+        pb = PublicBody.new(existing.attributes)
+        pb.should have(1).errors_on(:url_name)
+    end
+
     it "should save the name when renaming an existing public body" do
         public_body = public_bodies(:geraldine_public_body)
         public_body.name = "Mark's Public Body"
