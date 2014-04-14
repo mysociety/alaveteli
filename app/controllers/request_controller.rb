@@ -763,18 +763,17 @@ class RequestController < ApplicationController
         key_path = foi_fragment_cache_path(key)
         image_dir = File.dirname(key_path)
         FileUtils.mkdir_p(image_dir)
-        html, wrapper_id = @attachment.body_as_html(image_dir)
 
-        view_html_stylesheet = render_to_string :partial => "request/view_html_stylesheet"
-        html.sub!(/<head>/i, "<head>" + view_html_stylesheet)
-        html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="' + wrapper_id + '"><div id="view-html-content">')
-        html.sub!(/<\/body[^>]*>/i, '</div></div></body>')
-
-        view_html_prefix = render_to_string :partial => "request/view_html_prefix"
-        html.sub!("<prefix-here>", view_html_prefix)
-        html.sub!("<attachment-url-here>", CGI.escape(@attachment_url))
+        html = @attachment.body_as_html(image_dir,
+            :attachment_url => Rack::Utils.escape(@attachment_url),
+            :content_for => {
+                :head_suffix => render_to_string(:partial => "request/view_html_stylesheet"),
+                :body_prefix => render_to_string(:partial => "request/view_html_prefix")
+            }
+        )
 
         @incoming_message.html_mask_stuff!(html)
+
         response.content_type = 'text/html'
         render :text => html
     end
