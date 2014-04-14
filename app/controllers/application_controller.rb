@@ -432,7 +432,11 @@ class ApplicationController < ActionController::Base
     def country_from_ip
         country = ""
         if !AlaveteliConfiguration::gaze_url.empty?
-            country = quietly_try_to_open("#{AlaveteliConfiguration::gaze_url}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
+            begin
+                country = quietly_try_to_open("#{AlaveteliConfiguration::gaze_url}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
+            rescue ActionDispatch::RemoteIp::IpSpoofAttackError
+                country = AlaveteliConfiguration::iso_country_code
+            end
         end
         country = AlaveteliConfiguration::iso_country_code if country.empty?
         return country
