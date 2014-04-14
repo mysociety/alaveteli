@@ -533,6 +533,19 @@ describe PublicBody, " when loading CSV files" do
         PublicBody.count.should == original_count + 3
     end
 
+    it "should handle active record validation errors" do
+        csv = <<-CSV
+#name,request_email,short_name
+Foobar,a@example.com,foobar
+Foobar Test,b@example.com,foobar
+CSV
+
+        csv_contents = normalize_string_to_utf8(csv)
+        errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin') # true means dry run
+
+        errors.should include("error: line 3: Url name URL name is already taken for authority 'Foobar Test'")
+    end
+
 end
 
 describe PublicBody do

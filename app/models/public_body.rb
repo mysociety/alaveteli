@@ -506,7 +506,15 @@ class PublicBody < ActiveRecord::Base
                                     public_body.publication_scheme = public_body.publication_scheme || ""
                                     public_body.last_edit_editor = editor
                                     public_body.last_edit_comment = 'Created from spreadsheet'
-                                    public_body.save!
+
+                                    begin
+                                        public_body.save!
+                                    rescue ActiveRecord::RecordInvalid
+                                        public_body.errors.full_messages.each do |msg|
+                                            errors.push "error: line #{ line }: #{ msg } for authority '#{ name }'"
+                                        end
+                                        next
+                                    end
                                 end
                             end
                         end
