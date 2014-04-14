@@ -68,6 +68,7 @@ module Alaveteli
     end
 
     config.autoload_paths << "#{Rails.root.to_s}/lib/mail_handler"
+    config.autoload_paths << "#{Rails.root.to_s}/lib/attachment_to_html"
 
     # See Rails::Configuration for more options
     ENV['RECAPTCHA_PUBLIC_KEY'] = ::AlaveteliConfiguration::recaptcha_public_key

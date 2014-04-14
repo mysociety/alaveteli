@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <%= content_for(:head_suffix) %>
+</head>
+<body>
+  <%= content_for(:body_prefix) %>
+  <div id="<%= wrapper %>">
+    <div id="view-html-content">
+      <%= body %>
+    </div>
+  </div>
+  <%= content_for(:body_suffix) %>
+</body>
+</html>

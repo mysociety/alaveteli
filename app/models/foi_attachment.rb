@@ -292,83 +292,10 @@ class FoiAttachment < ActiveRecord::Base
     end
 
     # For "View as HTML" of attachment
-    def body_as_html(dir)
-        html = nil
-        wrapper_id = "wrapper"
-
-        # simple cases, can never fail
-        if self.content_type == 'text/plain'
-            text = self.body.strip
-            text = CGI.escapeHTML(text)
-            text = MySociety::Format.make_clickable(text)
-            html = text.gsub(/\n/, '<br>')
-            return '<!DOCTYPE html><html><head><title></title></head><body>' + html + "</body></html>", wrapper_id
-        end
-
-        # the extractions will also produce image files, which go in the
-        # current directory, so change to the directory the function caller
-        # wants everything in
-
-        html = nil
-        if ['application/pdf', 'application/rtf'].include?(self.content_type)
-            text = self.body
-            Dir.chdir(dir) do
-                if RUBY_VERSION.to_f >= 1.9
-                    tempfile = Tempfile.new('foiextract', '.',  :encoding => text.encoding)
-                else
-                    tempfile = Tempfile.new('foiextract', '.')
-                end
-                tempfile.print text
-                tempfile.flush
-
-
-                if self.content_type == 'application/pdf'
-                    # We set a timeout here, because pdftohtml can spiral out of control
-                    # on some PDF files and we don't want to crash the whole server.
-                    html = AlaveteliExternalCommand.run("pdftohtml", "-nodrm", "-zoom", "1.0", "-stdout", "-enc", "UTF-8", "-noframes", tempfile.path, :timeout => 30)
-                elsif self.content_type == 'application/rtf'
-                    html = AlaveteliExternalCommand.run("unrtf", "--html", tempfile.path, :timeout => 120)
-                end
-
-                tempfile.close
-                tempfile.delete
-            end
-        end
-        if html.nil?
-            if self.has_google_docs_viewer?
-                html = '' # force error and using Google docs viewer
-            else
-                raise "No HTML conversion available for type " + self.content_type
-            end
-        end
-
-
-
-        # We need to look at:
-        # a) Any error code
-        # b) The output size, as pdftohtml does not return an error code upon error.
-        # c) For cases when there is no text in the body of the HTML, or
-        # images, so nothing will be rendered. This is to detect some bug in
-        # pdftohtml, which sometimes makes it return just <hr>s and no other
-        # content.
-        html.match(/(\<body[^>]*\>.*)/mi)
-        body = $1.to_s
-        body_without_tags = body.gsub(/\s+/,"").gsub(/\<[^\>]*\>/, "")
-        contains_images = html.match(/<img/mi) ? true : false
-        if html.size == 0 || !$?.success? || (body_without_tags.size == 0 && !contains_images)
-            ret = "<html><head></head><body>";
-            if self.has_google_docs_viewer?
-                wrapper_id = "wrapper_google_embed"
-                protocol = AlaveteliConfiguration::force_ssl ? 'https' : 'http'
-                ret = ret + "<iframe src='#{protocol}://docs.google.com/viewer?url=<attachment-url-here>&embedded=true' width='100%' height='100%' style='border: none;'></iframe>";
-            else
-                ret = ret + "<p>Sorry, we were unable to convert this file to HTML. Please use the download link at the top right.</p>"
-            end
-            ret = ret + "</body></html>"
-            return ret, wrapper_id
-        end
-
-        return html, wrapper_id
+    def body_as_html(dir, opts = {})
+        attachment_url = opts.fetch(:attachment_url, nil)
+        to_html_opts = opts.merge(:tmpdir => dir, :attachment_url => attachment_url)
+        AttachmentToHTML.to_html(self, to_html_opts)
     end
 
 end
