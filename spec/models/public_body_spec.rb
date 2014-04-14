@@ -5,7 +5,7 @@
 #
 #  id                                     :integer          not null, primary key
 #  name                                   :text             not null
-#  short_name                             :text             not null
+#  short_name                             :text             default(""), not null
 #  request_email                          :text             not null
 #  version                                :integer          not null
 #  last_edit_editor                       :string(255)      not null
@@ -203,6 +203,12 @@ describe PublicBody, " when saving" do
         pb.first_letter.should be_nil
         pb.save!
         pb.first_letter.should == 'Å'
+    end
+
+    it "should not save if the url_name is already taken" do
+        existing = FactoryGirl.create(:public_body)
+        pb = PublicBody.new(existing.attributes)
+        pb.should have(1).errors_on(:url_name)
     end
 
     it "should save the name when renaming an existing public body" do
@@ -525,6 +531,19 @@ describe PublicBody, " when loading CSV files" do
         filename = file_fixture_name('fake-authority-type-with-field-names.csv')
         PublicBody.import_csv_from_file(filename, '', 'replace', false, 'someadmin')
         PublicBody.count.should == original_count + 3
+    end
+
+    it "should handle active record validation errors" do
+        csv = <<-CSV
+#name,request_email,short_name
+Foobar,a@example.com,foobar
+Foobar Test,b@example.com,foobar
+CSV
+
+        csv_contents = normalize_string_to_utf8(csv)
+        errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin') # true means dry run
+
+        errors.should include("error: line 3: Url name URL name is already taken for authority 'Foobar Test'")
     end
 
 end

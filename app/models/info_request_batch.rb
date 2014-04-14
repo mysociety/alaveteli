@@ -1,13 +1,14 @@
 # == Schema Information
-# Schema version: 20131024114346
 #
 # Table name: info_request_batches
 #
 #  id         :integer          not null, primary key
 #  title      :text             not null
 #  user_id    :integer          not null
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  body       :text
+#  sent_at    :datetime
 #
 
 class InfoRequestBatch < ActiveRecord::Base
