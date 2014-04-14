@@ -21,6 +21,7 @@
 #  external_url              :string(255)
 #  attention_requested       :boolean          default(FALSE)
 #  comments_allowed          :boolean          default(TRUE), not null
+#  info_request_batch_id     :integer
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
