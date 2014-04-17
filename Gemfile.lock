@@ -105,6 +105,9 @@ GEM
       railties (>= 3.1.0)
     fast_gettext (0.7.0)
     fastercsv (1.5.5)
+    foundation-rails (5.2.1.0)
+      railties (>= 3.1.0)
+      sass (>= 3.2.0)
     fssm (0.2.10)
     gettext (2.3.9)
       locale
@@ -293,6 +296,7 @@ DEPENDENCIES
   fancybox-rails
   fast_gettext
   fastercsv (>= 1.5.5)
+  foundation-rails
   gettext
   gettext_i18n_rails
   globalize3!
