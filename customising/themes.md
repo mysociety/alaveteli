@@ -53,8 +53,7 @@ places:
   (e.g., the name of your site, the available
   languages, and so on &mdash; all in `config/general.yml`)
 * Data (e.g. the public bodies to whom requests should be addressed)
-* A rails "plugin", installed in `vendor/plugins/`.  We call these
-  "themes".
+* A theme, installed in `lib/themes`.
 
 This document is about what you can do in a theme.
 
@@ -102,7 +101,7 @@ then issue a pull request.
 Normally, however, you should override these pages **in your own
 theme**, by placing them at a corresponding location within your
 theme's `lib/` directory.  These means that a file at
-`vendor/plugins/alavetelitheme/lib/help/about.rhml` will appear
+`lib/themes/alavetelitheme/lib/help/about.rhml` will appear
 instead of the core "about us" file.
 
 Rails expects all its stylesheets to live at `<railshome>/public`,
