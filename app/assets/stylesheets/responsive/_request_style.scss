@@ -1,20 +1,13 @@
 /* Style for request page */
 
 div.correspondence {
-  border-style:solid;
-  margin:0 0 1em;
-  border-width:1px;
-  padding:9px 20px 0 9px;
+  border: 1px solid #ccc;
+  margin: 0 0 1em;
+  padding: 0.5em 1em 0 0.5em;
 
   h2 {
     text-align:right;
     font-size:1em;
-  }
-
-  .preview_subject {
-    font-size:1.2em !important;
-    margin-left:10px;
-    line-height:25px;
   }
 }
 
