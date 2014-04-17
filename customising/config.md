@@ -6,7 +6,7 @@ title: Configuration
 # Configuring Alaveteli
 
 <p class="lead">
-    You can control much of how Alaveteli looks and behaves just by 
+    You can control much of how Alaveteli looks and behaves just by
     changing the config settings.
 </p>
 
@@ -44,6 +44,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <br> <code><a href="#frontpage_publicbody_examples">FRONTPAGE_PUBLICBODY_EXAMPLES</a></code>
 <br> <code><a href="#public_body_statistics_page">PUBLIC_BODY_STATISTICS_PAGE</a></code>
 <br> <code><a href="#minimum_requests_for_statistics">MINIMUM_REQUESTS_FOR_STATISTICS</a></code>
+<br> <code><a href="#responsive_styling">RESPONSIVE_STYLING</a></code>
 
 ### Site status:
 
@@ -151,7 +152,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
       </ul>
     </div>
   </dd>
-    
+
   <dt>
     <a name="domain"><code>DOMAIN</code></a>
   </dt>
@@ -169,7 +170,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
       </ul>
     </div>
   </dd>
- 
+
   <dt>
     <a name="force_ssl"><code>FORCE_SSL</code></a>
   </dt>
@@ -191,7 +192,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
     <a name="iso_country_code"><code>ISO_COUNTRY_CODE</code></a>
   </dt>
   <dd>
-    The <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO country code</a> 
+    The <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO country code</a>
     of the country in which your Alaveteli site is deployed.
     <div class="more-info">
       <p>Example:</p>
@@ -259,7 +260,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
     <a name="default_locale"><code>DEFAULT_LOCALE</code></a>
   </dt>
   <dd>
-    <strong>AVAILABLE_LOCALES</strong> lists all the locales you want your site to support. 
+    <strong>AVAILABLE_LOCALES</strong> lists all the locales you want your site to support.
     If there is more than one, use spaces betwween the entries.
     Nominate one of these locales as the default with <strong>DEFAULT_LOCALE</strong>.
     <div class="more-info">
@@ -296,8 +297,8 @@ indentation correct. If in doubt, look at the examples already in the file, and 
   <dd>
     Normally, Alaveteli will put the locale into its URLs, like this
     <code>www.example.com/en/body/list/all</code>. If you don't want this
-    behaviour whenever the locale is the default one, set 
-    <strong>INCLUDE_DEFAULT_LOCALE_IN_URLS</strong> to false. 
+    behaviour whenever the locale is the default one, set
+    <strong>INCLUDE_DEFAULT_LOCALE_IN_URLS</strong> to false.
     <div class="more-info">
       <p>Example:</p>
       <ul>
@@ -344,10 +345,10 @@ indentation correct. If in doubt, look at the examples already in the file, and 
     <a name="frontpage_publicbody_examples"><code>FRONTPAGE_PUBLICBODY_EXAMPLES</code></a>
   </dt>
   <dd>
-    Specify which public bodies you want to be listed as examples on the home page, 
+    Specify which public bodies you want to be listed as examples on the home page,
     using their <code>short_names</code>.
     If you want more than one, separate them with semicolons.
-    Comment this out if you want this to be auto-generated. 
+    Comment this out if you want this to be auto-generated.
     <p>
       <strong>Warning</strong>: this is slow &mdash; don't use in production!
     </p>
@@ -397,7 +398,7 @@ THEME_URLS:
     specific to your installed alaveteli version, and if that doesn't exist it will
     back to <code>master</code>.
     <p>
-        The default theme is the "Alaveteli" theme. This gets installed automatically when 
+        The default theme is the "Alaveteli" theme. This gets installed automatically when
         <code>rails-post-deploy</code> runs.
     </p>
     <div class="more-info">
@@ -516,7 +517,7 @@ THEME_URLS:
         </li>
       </ul>
     </div>
-  </dd>  
+  </dd>
 
   <dt>
     <a name="skip_admin_auth"><code>SKIP_ADMIN_AUTH</code></a>
@@ -553,7 +554,7 @@ THEME_URLS:
       </ul>
     </div>
   </dd>
-            
+
   <dt>
     <a name="track_sender_email"><code>TRACK_SENDER_EMAIL</code></a> &amp;
     <a name="track_sender_name"><code>TRACK_SENDER_NAME</code></a>
@@ -572,12 +573,12 @@ THEME_URLS:
       </ul>
     </div>
   </dd>
-      
+
   <dt>
     <a name="raw_emails_location"><code>RAW_EMAILS_LOCATION</code></a>
   </dt>
   <dd>
-      Where the raw incoming email data gets stored. 
+      Where the raw incoming email data gets stored.
       <strong>Make sure you back this up!</strong>
     <div class="more-info">
       <p>Example:</p>
@@ -608,8 +609,8 @@ THEME_URLS:
     <a name="read_only"><code>READ_ONLY</code></a>
   </dt>
   <dd>
-      If present, <strong>READ_ONLY</strong> puts the site in read-only mode, 
-      and uses the text as reason (whole paragraph). Please use a read-only database 
+      If present, <strong>READ_ONLY</strong> puts the site in read-only mode,
+      and uses the text as reason (whole paragraph). Please use a read-only database
       user as well, as it only checks in a few obvious places.
     <div class="more-info">
       <p>Examples:</p>
@@ -652,12 +653,12 @@ THEME_URLS:
 
   <dt>
       <a name="recaptcha_public_key"><code>RECAPTCHA_PUBLIC_KEY</code></a> &amp;
-      <a name="recaptcha_private_key"><code>RECAPTCHA_PRIVATE_KEY</code></a> 
+      <a name="recaptcha_private_key"><code>RECAPTCHA_PRIVATE_KEY</code></a>
   </dt>
   <dd>
-     Recaptcha, for detecting humans. Get keys here: 
+     Recaptcha, for detecting humans. Get keys here:
      <a href="http://recaptcha.net/whyrecaptcha.html">http://recaptcha.net/whyrecaptcha.html</a>
-      
+
     <div class="more-info">
       <p>Examples:</p>
       <ul>
@@ -695,7 +696,7 @@ THEME_URLS:
      request (Linux only).  Since Ruby never returns memory to the OS, if the
      existing process previously served a larger request, this won't
      show any consumption for the later request.
-      
+
     <div class="more-info">
       <p>Example:</p>
       <ul>
@@ -716,7 +717,7 @@ THEME_URLS:
     compression.  Some versions of pdftk are buggy with respect to
     compression, in which case Alaveteli doesn't recompress the PDFs at
     all and logs a warning message "Unable to compress PDF" &mdash; which would
-    be another reason to try this setting.  
+    be another reason to try this setting.
     <div class="more-info">
       <p>Example:</p>
       <ul>
@@ -726,7 +727,7 @@ THEME_URLS:
       </ul>
     </div>
   </dd>
-      
+
 
   <dt>
     <a name="gaze_url"><code>GAZE_URL</code></a>
@@ -749,7 +750,7 @@ THEME_URLS:
     <a name="forward_nonbounce_responses_to"><code>FORWARD_NONBOUNCE_RESPONSES_TO</code></a>
   </dt>
   <dd>
-     The email address to which non-bounce responses should be forwarded 
+     The email address to which non-bounce responses should be forwarded
     <div class="more-info">
       <p>Example:</p>
       <ul>
@@ -759,7 +760,7 @@ THEME_URLS:
       </ul>
     </div>
   </dd>
-      
+
   <dt>
     <a name="html_to_pdf_command"><code>HTML_TO_PDF_COMMAND</code></a>
   </dt>
@@ -794,7 +795,7 @@ EXCEPTION_NOTIFICATIONS_FROM: do-not-reply-to-this-address@example.com
 
 EXCEPTION_NOTIFICATIONS_TO:
  - robin@example.com
- - seb@example.com              
+ - seb@example.com
 </pre>
         </li>
       </ul>
@@ -820,9 +821,9 @@ EXCEPTION_NOTIFICATIONS_TO:
     <a name="varnish_host"><code>VARNISH_HOST</code></a>
   </dt>
   <dd>
-      If you're running behind Varnish, it might help to set this to 
+      If you're running behind Varnish, it might help to set this to
       work out where to send purge requests.
-      Otherwise, don't set it.      
+      Otherwise, don't set it.
     <div class="more-info">
       <p>Examples:</p>
       <ul>
@@ -853,7 +854,7 @@ EXCEPTION_NOTIFICATIONS_TO:
       </ul>
     </div>
   </dd>
-      
+
 
   <dt>
     <a name="override_all_public_body_request_emails"><code>OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS</code></a>
@@ -878,7 +879,7 @@ EXCEPTION_NOTIFICATIONS_TO:
       </ul>
     </div>
   </dd>
-      
+
   <dt>
     <a name="utility_search_path"><code>UTILITY_SEARCH_PATH</code></a>
   </dt>
@@ -893,8 +894,8 @@ EXCEPTION_NOTIFICATIONS_TO:
       </ul>
     </div>
   </dd>
-  
-  
+
+
   <dt>
     <a name="mta_log_path"><code>MTA_LOG_PATH</code></a>
   </dt>
@@ -910,13 +911,13 @@ EXCEPTION_NOTIFICATIONS_TO:
       </ul>
     </div>
   </dd>
-      
+
   <dt>
     <a name="mta_log_type"><code>MTA_LOG_TYPE</code></a>
   </dt>
   <dd>
       Are you using "exim" or "postfix" for your Mail Transfer Agnt (MTA)?
-      
+
     <div class="more-info">
       <p>Example:</p>
       <ul>
@@ -926,7 +927,7 @@ EXCEPTION_NOTIFICATIONS_TO:
       </ul>
     </div>
   </dd>
-      
+
   <dt>
     <a name="donation_url"><code>DONATION_URL</code></a>
   </dt>
@@ -943,18 +944,18 @@ EXCEPTION_NOTIFICATIONS_TO:
       </ul>
     </div>
   </dd>
-      
+
   <dt>
     <a name="public_body_statistics_page"><code>PUBLIC_BODY_STATISTICS_PAGE</code></a> &amp;
     <a name="minimum_requests_for_statistics"><code>MINIMUM_REQUESTS_FOR_STATISTICS</code></a>
   </dt>
   <dd>
       If <strong>PUBLIC_BODY_STATISTICS_PAGE</strong> is set to true, Alaveteli will make a
-      page of statistics on the performance of public bodies (which you can see at 
+      page of statistics on the performance of public bodies (which you can see at
       <code>/body_statistics</code>).
       The page will only consider public bodies that have had at least the number of requests
       set by <strong>MINIMUM_REQUESTS_FOR_STATISTICS</strong>.
-      
+
     <div class="more-info">
       <p>Example:</p>
       <ul>
@@ -967,7 +968,7 @@ EXCEPTION_NOTIFICATIONS_TO:
       </ul>
     </div>
   </dd>
-      
+
   <dt>
     <a name="public_body_list_fallback_to_default_locale"><code>PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE</code></a>
   </dt>
@@ -983,7 +984,7 @@ EXCEPTION_NOTIFICATIONS_TO:
       </ul>
     </div>
   </dd>
-      
+
 
   <dt>
     <a name="use_mailcatcher_in_development"><code>USE_MAILCATCHER_IN_DEVELOPMENT</code></a>
@@ -991,7 +992,7 @@ EXCEPTION_NOTIFICATIONS_TO:
   <dd>
       <!-- TODO check mailcatcher URL -->
      If true, while in development mode, try to send mail by SMTP to port
-     1025 (the port the <a href="http://mailcatcher.me">mailcatcher</a> listens on by default):      
+     1025 (the port the <a href="http://mailcatcher.me">mailcatcher</a> listens on by default):
     <div class="more-info">
       <p>Example:</p>
       <ul>
@@ -1006,10 +1007,10 @@ EXCEPTION_NOTIFICATIONS_TO:
     <a name="cache_fragments"><code>CACHE_FRAGMENTS</code></a>
   </dt>
   <dd>
-      Use memcached to cache HTML fragments for better performance. 
+      Use memcached to cache HTML fragments for better performance.
       This will only have an effect in environments where
       <code>config.action_controller.perform_caching</code> is set to true
-      
+
     <div class="more-info">
       <p>Example:</p>
       <ul>
@@ -1019,7 +1020,7 @@ EXCEPTION_NOTIFICATIONS_TO:
       </ul>
     </div>
   </dd>
-      
+
 
 
   <dt>
@@ -1032,7 +1033,7 @@ EXCEPTION_NOTIFICATIONS_TO:
      For example, the <code>files</code> directory, the <code>cache</code> directory and the
      generated graphs such as <code>public/foi-live-creation.png</code>.  If you're
      installing Alaveteli in such a setup then set <strong>SHARED_FILES_PATH</strong> to
-     the directory you're keeping these files under.  Otherwise, leave it blank.  
+     the directory you're keeping these files under.  Otherwise, leave it blank.
     <div class="more-info">
       <p>Example:</p>
       <ul>
@@ -1042,10 +1043,10 @@ EXCEPTION_NOTIFICATIONS_TO:
       </ul>
     </div>
   </dd>
-      
+
 
   <dt>
-    <a name="shared_files"><code>SHARED_FILES</code></a> & 
+    <a name="shared_files"><code>SHARED_FILES</code></a> &
     <a name="shared_directories"><code>SHARED_DIRECTORIES</code></a>
   </dt>
   <dd>
@@ -1094,6 +1095,28 @@ SHARED_DIRECTORIES:
       <ul>
         <li>
             <code>ALLOW_BATCH_REQUESTS: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="responsive_styling"><code>RESPONSIVE_STYLING</code></a>
+  </dt>
+  <dd>
+
+     Use the responsive base stylesheets and templates, rather than
+     those that only render the site at a fixed width. These
+     stylesheets are currently experimental but will become the default
+     in the future. They allow the site to render nicely on mobile
+     devices as well as larger screens. Currently the fixed width
+     stylesheets are used by default.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul>
+        <li>
+            <code>RESPONSIVE_STYLING: true</code>
         </li>
       </ul>
     </div>
