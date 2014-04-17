@@ -2,13 +2,14 @@
 
 #banner_content{
     @include grid-row;
+    position: relative;
 }
 
 #banner{
     // Hide menu items by default on mobile
-    #banner_nav,
     #logged_in_bar,
-    #topnav{
+    #topnav,
+    #user_locale_switcher{
         display:none;
     }
 
@@ -47,7 +48,8 @@
         @media( max-width: $main_menu-mobile_menu_cutoff ){
             // Show menu items when menu is targeted
             #logged_in_bar,
-            #topnav{
+            #topnav,
+            #user_locale_switcher{
                 display:block;
                 clear:both;
             }
@@ -60,7 +62,8 @@
         // On larger screens show the menu
         #banner_nav,
         #logged_in_bar,
-        #topnav{
+        #topnav,
+        #user_locale_switcher{
             display:block;
         }
 
@@ -82,7 +85,6 @@
         list-style: none;
         @include grid-row;
         padding: 0;
-
     }
     /* Spread the nav elements horizontally on larger screens */
     li{
@@ -168,34 +170,22 @@
             padding:0 0 0 1em;
         }
 
+      }
     }
 }
 
-#banner_upper{
-  @include grid-row;
-}
-
-#banner_nav{
-
-    display:none;
-    @extend .right;
+#user_locale_switcher {
     @media( min-width: $main_menu-mobile_menu_cutoff ){
-        display:block;
-        @include grid-column(6);
+      position: absolute;
+      right: 0;
+      top: 0;
     }
-
-    #user_locale_switcher {
-
-        .btn-group {
-          @extend .right;
-          padding: 1em 2em;
+    a{
+        display: block;
+        padding: 0.5em 1em;
+        @media( min-width: $main_menu-mobile_menu_cutoff ){
+          display: inline-block;
         }
-        a{
-            line-height: 1.4;
-            padding: 0.6em 1em;
-        }
-
     }
-
 
 }
