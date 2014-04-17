@@ -1,70 +1,28 @@
 /* Frontpage styles */
-
-body.front h3 {
-  font-size:28px;
-}
-
-h1 {
-  font-size:39px;
-  font-weight:400;
-  line-height: 1em;
-  margin:0 0 20px;
-}
-
-h1 strong {
-  font-size:54px;
-  font-weight:400;
-}
-
-h1 span {
-  font-family:Georgia;
-  font-style:italic;
-  font-weight:400;
-  font-size:25px;
-}
-
-h2 {
-  font-size:26px;
-  font-weight:400;
-  margin-bottom:10px;
-  line-height:28px;
-}
-
-h2 strong {
-  font-size:31px;
-}
-
-h2 span {
-  font-style:italic;
-  font-size:19px;
-  font-family:Georgia;
+#frontpage_splash {
+  h1, h2 {
+    font-weight: normal;
+  }
+  strong {
+    font-weight: bold;
+  }
 }
 
 #frontpage_examples {
-
-  p, ul {
-    text-align:left;
+  ul {
+    list-style:none outside none;
+    padding: 0;
   }
-
   .excerpt {
     cursor:pointer;
-    line-height:18px;
-    min-height:30px;
     font-style:italic;
-    padding:0 0 0 40px;
+    padding:0 0 0 2em;
   }
 
   #examples_1 {
-    ul li {
+    li {
       border-bottom:1px solid #ddd;
-      padding:5px 0;
+      padding-top: 1em;
     }
   }
-
-  ul {
-    list-style:none;
-    margin:0;
-    padding:1em 0;
-  }
-
 }
