@@ -113,5 +113,10 @@ module Alaveteli
                                  'ie6.css',
                                  'ie7.css']
 
+     config.sass.load_paths += [
+       "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/components",
+       "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/"
+     ]
+
   end
 end
