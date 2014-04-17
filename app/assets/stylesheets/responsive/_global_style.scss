@@ -22,7 +22,6 @@ a {
 h1, h2, h3, h4, h5, h6 {
     margin-bottom: 18px;
     margin-bottom: 1rem;
-    margin-top: 1em;
     line-height: 1.1em;
     text-rendering: optimizeLegibility;
 }
@@ -115,17 +114,11 @@ dt + dd {
 
 /* Notices to the user (usually on action completion) */
 #notice {
-  font-size:1.4em;
-  font-weight:400;
-  background-color :#E9FDD3;
-  color:#517704;
-  border-color:#B0CA86;
-  border-radius:6px;
-  -moz-border-radius:6px;
-  margin:15px 0;
-  padding:10px 20px;
-  border-style: solid;
-  border-width: 1px;
+  font-size:1em;
+  background-color: lighten(#62b356, 23%);
+  border-radius:3px;
+  margin:1em 0;
+  padding:1.5em;
 
   p:first-child {
     margin-top:0;
@@ -138,7 +131,7 @@ dt + dd {
 }
 
 .big {
-  font-size: larger;
+  font-size: 1.2em;
 }
 
 /* Form styling */
@@ -148,7 +141,12 @@ label.form_label {
 }
 
 .form_item_note,.form_note {
-  font-size:1em;
+  font-size:0.875em;
+}
+
+p + .form_item_note {
+  position: relative;
+  top: -1.25em;
 }
 
 form input[type=text],form input[type=password] {

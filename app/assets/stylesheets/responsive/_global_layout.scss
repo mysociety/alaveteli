@@ -28,7 +28,7 @@ textarea{
 #header_right {
   @include grid-column(12);
   @media( min-width: $main_menu-mobile_menu_cutoff ){
-    @include grid-column($columns:3, $float:right);
+    @include grid-column($columns:4, $float:right);
     padding-top:27px;
   }
 }
