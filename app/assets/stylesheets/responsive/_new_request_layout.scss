@@ -2,9 +2,12 @@
 
 /* /select_authority page */
 #authority_selection {
-  @include grid-column(12, $collapse: true);
-  @media( min-width: $main_menu-mobile_menu_cutoff ){
-    @include grid-column(6, $collapse: true);
+  @include grid-column($columns: 12, $collapse: true);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns: 6, $collapse: true);
+    @include ie8{
+      padding-right: 0.9375em;
+    }
   }
 }
 
@@ -14,9 +17,12 @@
 
 #authority_preview {
   @include grid-column(12);
-  @media( min-width: $main_menu-mobile_menu_cutoff ){
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
     @include grid-column(6);
     margin-top:-67px;
+    @include ie8{
+      padding-right: 0.9375em;
+    }
   }
 
   /* Hide some elements of the public body that aren't appropriate in this
@@ -48,8 +54,11 @@
   /* Restrict width of form elements on wide screens */
     #request_header_body, #request_header_subject, #typeahead_response  {
     @include grid-column(12);
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
-      @include grid-column($columns:8, $last-column:true)
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-column($columns:8, $last-column:true);
+      @include ie8{
+        padding-right: 0.9375em;
+      }
     }
   }
 
@@ -63,16 +72,22 @@
 #request_advice {
 
   @include grid-column(12);
-  @media( min-width: $main_menu-mobile_menu_cutoff ){
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
     @include grid-column($columns:4, $push: 8);
+    @include ie8{
+      padding-left: 0.9375em;
+    }
   }
 }
 
 #request_form {
 
   @include grid-column(12);
-  @media( min-width: $main_menu-mobile_menu_cutoff ){
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
     @include grid-column($columns:8, $pull: 4);
+    @include ie8{
+      padding-right: 0.9375em;
+    }
   }
 
 }
@@ -93,7 +108,7 @@ div.batch_public_body_toggle {
   /* Equal columns */
   .body_list {
     @include grid-column(12);
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
        @include grid-column(5);
      }
   }
@@ -104,10 +119,16 @@ div.batch_public_body_toggle {
 
   #body_candidates {
     float: left;
+    @include ie8{
+      padding-right: 0.9375em;
+    }
   }
 
   #body_selections {
     float: right;
+    @include ie8{
+      padding-left: 0.9375em;
+    }
   }
 
   input[type='submit'] {

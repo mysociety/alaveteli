@@ -1,5 +1,10 @@
 /* Layout for popup messages */
 
+.popup {
+  @include ie8{
+    width: 100%;
+  }
+}
 .popup .popup-content{
   margin:0.5em;
   width: 95%;

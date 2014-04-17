@@ -3,6 +3,9 @@
 #banner_content{
     @include grid-row;
     position: relative;
+    @include ie8{
+      width: $main_menu-mobile_menu_cutoff;
+    }
 }
 
 #banner{
@@ -33,7 +36,7 @@
     #logo_wrapper{
         @include grid-column(4);
         padding: 1em 1em 0 1em;
-        @media( min-width: $main_menu-mobile_menu_cutoff ){
+        @include respond-min( $main_menu-mobile_menu_cutoff ){
           padding: 1em;
           margin-bottom: 1em;
         }
@@ -62,7 +65,7 @@
 
     }
 
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
         // On larger screens show the menu
         #banner_nav,
         #logged_in_bar,
@@ -82,7 +85,7 @@
 
 #topnav{
   padding: 0  0 1em 0;
-  @media( min-width: $main_menu-mobile_menu_cutoff ){
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
       padding: 0;
   }
 }
@@ -92,24 +95,27 @@
     @include grid-row;
     padding: 0;
     position: relative;
+    @include ie8{
+      width: $main_menu-mobile_menu_cutoff;
+    }
     /* Spread the nav elements horizontally on larger screens */
     li{
         display: block;
-        @media( min-width: $main_menu-mobile_menu_cutoff ){
+        @include respond-min( $main_menu-mobile_menu_cutoff ){
           display: inline-block;
         }
     }
     a{
       padding: 0.5em 1em;
       display: block;
-      @media( min-width: $main_menu-mobile_menu_cutoff ){
+      @include respond-min( $main_menu-mobile_menu_cutoff ){
         display: inline-block;
       }
     }
 }
 
 #navigation_search {
-   @media( min-width: $main_menu-mobile_menu_cutoff ){
+   @include respond-min( $main_menu-mobile_menu_cutoff ){
         position: absolute;
         top: 0;
         right: 0;
@@ -133,8 +139,12 @@
 }
 
 #logged_in_bar{
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
         @include grid-column(8);
+        @include ie8{
+          padding-left: 0.9375em;
+          padding-right: 0.9375em;
+        }
     }
 
     a, .greeting {
@@ -142,7 +152,7 @@
         padding: 0.5em 1em;
     }
 
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
       #logged_in_links {
         float: right;
         top: 3em;
@@ -158,7 +168,7 @@
 }
 
 #user_locale_switcher {
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
       position: absolute;
       right: 0;
       top: 0;
@@ -166,7 +176,7 @@
     a{
         display: block;
         padding: 0.5em 1em;
-        @media( min-width: $main_menu-mobile_menu_cutoff ){
+        @include respond-min( $main_menu-mobile_menu_cutoff ){
           display: inline-block;
         }
     }

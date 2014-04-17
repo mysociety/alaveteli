@@ -15,15 +15,18 @@
 
   .correspondence {
     @include grid-column(12);
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
       @include grid-column(9);
+      @include ie8{
+        padding-right: 0.9375em;
+      }
     }
   }
 
 
   #followup {
     @include grid-column(12, $collapse: true);
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
       @include grid-column(8, $collapse: true);
     }
   }

@@ -6,8 +6,21 @@
 
 #game_sidebar {
   @include grid-column(12);
-  @media( min-width: $main_menu-mobile_menu_cutoff ){
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
     @include grid-column($columns:4, $float:right);
+    @include ie8{
+      padding-left: 0.9375em;
+    }
+  }
+}
+
+#game {
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:8);
+    @include ie8{
+      padding-right: 0.9375em;
+    }
   }
 }
 

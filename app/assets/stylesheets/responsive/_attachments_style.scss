@@ -17,7 +17,7 @@
 
 .view_html_prefix {
   text-align:center;
-  @media( min-width: $main_menu-mobile_menu_cutoff ){
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
     text-align:left;
     min-height:3em;
     padding:0.5em 1em;

@@ -17,7 +17,7 @@
   }
 
   label.title {
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
       display:inline-block;
       float:none;
       width:110px;
@@ -34,13 +34,13 @@
   }
 
   #requests-subfilters #latest_status_0,#requests-subfilters #request_variety_0 {
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
       margin-left:0;
     }
   }
 
   #requests-subfilters input[type=checkbox] {
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
        margin-left:119px;
     }
   }

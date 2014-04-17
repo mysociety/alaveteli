@@ -2,23 +2,29 @@
 
 #frontpage_splash {
   @include grid-row($behavior: nest);
-  @media( min-width: $main_menu-mobile_menu_cutoff ){
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
     min-height: 375px;
   }
 
   #left_column {
     @include grid-column(12);
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
       @include grid-column(8);
       margin-top:66px;
+      @include ie8{
+        padding-right: 0.9375em;
+      }
     }
   }
 
   #right_column {
     @include grid-column(12);
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
       @include grid-column(4);
       margin-top: 30px;
+      @include ie8{
+        padding-left: 0.9375em;
+      }
     }
 
     input[type=text] {
@@ -40,21 +46,27 @@
 #frontpage_examples {
   @include grid-row($behavior: nest);
   margin-top: 2em;
-  @media( min-width: $main_menu-mobile_menu_cutoff ){
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
     margin-top: 0;
   }
 
   #examples_0 {
     @include grid-column(12);
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
       @include grid-column($columns:6);
+      @include ie8{
+        padding-right: 0.9375em;
+      }
     }
   }
 
   #examples_1 {
     @include grid-column(12);
-    @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
       @include grid-column($columns:6);
+      @include ie8{
+        padding-left: 0.9375em;
+      }
     }
   }
 

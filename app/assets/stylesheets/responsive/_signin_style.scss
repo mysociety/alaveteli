@@ -9,7 +9,7 @@
 #middle_strip {
   text-align:center;
   position: relative;
-  @media( min-width: $main_menu-mobile_menu_cutoff ){
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
     top: 3em;
   }
   font-size:1.2em;

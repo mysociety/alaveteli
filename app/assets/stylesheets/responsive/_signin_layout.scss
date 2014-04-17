@@ -5,22 +5,32 @@
 }
 #left_half {
   @include grid-column(12);
-  @media( min-width: $main_menu-mobile_menu_cutoff ){
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
     @include grid-column($columns:5,$float:left);
+    @include ie8{
+      padding-right: 0.9375em;
+    }
   }
 }
 
 #right_half {
   @include grid-column(12);
-  @media( min-width: $main_menu-mobile_menu_cutoff ){
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
     @include grid-column($columns:5,$float:right);
+    @include ie8{
+      padding-left: 0.9375em;
+    }
   }
 }
 
 #middle_strip {
   @include grid-column(12);
-  @media( min-width: $main_menu-mobile_menu_cutoff ){
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
     @include grid-column($columns:2,$float:left);
+    @include ie8{
+      padding-left: 0.9375em;
+      padding-right: 0.9375em;
+    }
   }
 }
 
@@ -34,6 +44,10 @@
     @include grid-column(12);
     @include respond-min( $main_menu-mobile_menu_cutoff ){
       @include grid-column($columns:6,$push:3);
+      @include ie8{
+        padding-left: 0.9375em;
+        padding-right: 0.9375em;
+      }
     }
   }
 
