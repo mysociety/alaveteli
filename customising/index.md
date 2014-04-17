@@ -24,7 +24,7 @@ shows the sort of things you can control in this way.
 
 It's common to want to change the basic appearance of the site. Although you
 can simply edit the default templates and CSS to do this, we **strongly
-recommend** that you [create a theme]({{ site.baseurl }} customising/themes).
+recommend** that you [create a theme]({{ site.baseurl }}customising/themes).
 
 Themes do not need to be especially complex, but they allow your changes to
 work alongside the core code, which you can then update (when new releases or
