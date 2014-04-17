@@ -1,0 +1,22 @@
+/* Layout for categorisation game */
+
+#request_game_play {
+  @include grid-row($behavior: nest);
+}
+
+#game_sidebar {
+  @include grid-column(12);
+  @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:4, $float:right);
+  }
+}
+
+/* Don't display request extracts floated right as there is constrained space */
+#request_game_play{
+  span.desc {
+    float: none;
+    padding: 0;
+    background: none;
+    min-height: inherit;
+  }
+}

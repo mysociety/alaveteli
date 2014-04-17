@@ -1,0 +1,201 @@
+/* Header layout */
+
+#banner_content{
+    @include grid-row;
+}
+
+#banner{
+    // Hide menu items by default on mobile
+    #banner_nav,
+    #logged_in_bar,
+    #topnav{
+        display:none;
+    }
+
+    // …and show a button to reveal them
+    .rsp_menu_button{
+        @include grid-column(4);
+        float: right;
+        a{
+            @include button($padding:1, $bg: white);
+            &.open{
+                display: block;
+            }
+            &.close{
+                display: none;
+            }
+        }
+    }
+
+    // Squeeze the logo up on small screens to make room for the button
+    #logo_wrapper{
+        @include grid-column(4);
+        margin-bottom: 1em;
+        padding: 1em;
+    }
+
+    &:target{
+        // Hide menu button when menu is open
+        .rsp_menu_button{
+            .open{
+                display:none;
+            }
+            .close{
+                display:block;
+            }
+        }
+        @media( max-width: $main_menu-mobile_menu_cutoff ){
+            // Show menu items when menu is targeted
+            #logged_in_bar,
+            #topnav{
+                display:block;
+                clear:both;
+            }
+        }
+
+
+    }
+
+    @media( min-width: $main_menu-mobile_menu_cutoff ){
+        // On larger screens show the menu
+        #banner_nav,
+        #logged_in_bar,
+        #topnav{
+            display:block;
+        }
+
+        // …and hide the menu button
+        .rsp_menu_button{
+            display:none;
+        }
+    }
+
+}
+
+
+#topnav{
+    padding: 0  0 1em 0;
+    @media( min-width: $main_menu-mobile_menu_cutoff ){
+        padding: 0;
+    }
+    ul{
+        list-style: none;
+        @include grid-row;
+        padding: 0;
+
+    }
+    /* Spread the nav elements horizontally on larger screens */
+    li{
+        @include grid-column(12);
+        @media( min-width: $main_menu-mobile_menu_cutoff ){
+            @include grid-column(2);
+            padding:0;
+        }
+
+        &#navigation_search{
+
+            @include grid-column(12);
+            padding: 0.35em 1em;
+
+            @media( min-width: $main_menu-mobile_menu_cutoff ){
+                @include grid-column(4);
+                padding: 0.35em 0 0 0;
+            }
+
+            form{
+                @include grid-row;
+                padding-right: 1em;
+            }
+            input{
+                @include grid-column($columns:9);
+                margin:0;
+            }
+            label{
+                @include prefix-postfix-base;
+                @include grid-column($columns:3,$float:left);
+                border:none;
+                img{
+                    max-width: 100%;
+                }
+            }
+        }
+        padding: 0;
+        a{
+            @media( min-width: $main_menu-mobile_menu_cutoff ){
+                font-weight: normal;
+                text-align: center;
+            }
+            @media( min-width: $main_menu-mobile_menu_cutoff ) and ( max-width: 55em ){
+                font-size: 0.8em;
+            }
+            display:block;
+            width:100%;
+            height:100%;
+            min-height: 2.875em;
+            padding: 0.6em 1em;
+        }
+        &.active a{
+            @media( min-width: $main_menu-mobile_menu_cutoff ){
+                padding-top: 1.2em;
+                margin-top: -0.5em;
+            }
+        }
+
+    }
+
+}
+
+
+
+#logged_in_bar{
+    @media( min-width: $main_menu-mobile_menu_cutoff ){
+        @include grid-column(8);
+    }
+
+    a, .greeting {
+        display:block;
+        padding: 0.5em 1em;
+    }
+
+    @media( min-width: $main_menu-mobile_menu_cutoff ){
+      #logged_in_links {
+        float: right;
+        top: 3em;
+        position: relative;
+        a, .greeting{
+            display:inline;
+            font-weight: bold;
+            padding:0 0 0 1em;
+        }
+
+    }
+}
+
+#banner_upper{
+  @include grid-row;
+}
+
+#banner_nav{
+
+    display:none;
+    @extend .right;
+    @media( min-width: $main_menu-mobile_menu_cutoff ){
+        display:block;
+        @include grid-column(6);
+    }
+
+    #user_locale_switcher {
+
+        .btn-group {
+          @extend .right;
+          padding: 1em 2em;
+        }
+        a{
+            line-height: 1.4;
+            padding: 0.6em 1em;
+        }
+
+    }
+
+
+}

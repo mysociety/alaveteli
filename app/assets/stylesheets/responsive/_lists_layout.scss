@@ -1,0 +1,55 @@
+/* Layout for lists of requests, authorities, users */
+.request_listing,.body_listing,.user_listing {
+  overflow:hidden;
+  padding:12px 0 6px;
+  margin:0 0 -1px;
+
+  span.head {
+    display:block;
+    min-height:32px;
+    margin-bottom:6px;
+    padding:0;
+  }
+
+  span.bottomline {
+    clear:left;
+    display:block;
+  }
+}
+
+.info_request_batch_intro{
+  @include grid-column(12);
+}
+
+.request_listing{
+  @include grid-row($behavior:nest);
+  .request_right {
+    @include grid-column(12);
+    @media( min-width: $main_menu-mobile_menu_cutoff ){
+      @include grid-column($columns:4, $float:right);
+      padding-top:5px;
+    }
+  }
+
+  .request_left {
+    @include grid-column(12);
+    @media( min-width: $main_menu-mobile_menu_cutoff ){
+      @include grid-column($columns:8);
+    }
+  }
+
+  span.desc {
+    min-height:60px;
+    width:100%;
+    @media( min-width: $main_menu-mobile_menu_cutoff ){
+      padding:0 0 0 40px;
+    }
+  }
+}
+
+span.desc {
+  display:block;
+  float:right;
+  clear:none;
+  overflow:hidden;
+}

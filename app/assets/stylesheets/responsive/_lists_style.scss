@@ -1,0 +1,154 @@
+/* Styles for lists of requests, authorities, users */
+.request_listing,.body_listing,.user_listing {
+  font-size:0.9em;
+  border-bottom:1px solid #DDD;
+
+  a {
+    text-decoration: none;
+  }
+  span.head {
+    font-weight:700;
+    font-size: 1.5em;
+
+    a {
+      text-decoration:none;
+      font-size:1.3em;
+      margin-top:3px;
+      display:block;
+      margin-bottom:-6px;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+
+}
+
+.request_listing{
+
+  span.bottomline{
+    font-style:normal;
+    margin-bottom:0;
+    margin-top:12px;
+    background-position:top left;
+    background-repeat: no-repeat;
+    font-size:1.1em;
+    font-weight:400;
+    min-height:36px;
+    padding:3px 0 0 27px;
+  }
+  .requester {
+    padding-bottom:0;
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+
+  span.desc {
+    line-height:18px;
+  }
+
+}
+
+.body_listing, .user_listing {
+
+  span.desc, span.bottomline {
+    font-style:normal;
+    font-weight:400;
+    margin:0;
+    padding:0;
+    float: left;
+  }
+}
+
+span.desc {
+  display:block;
+  float:right;
+  clear:none;
+  font-style:italic;
+  overflow:hidden;
+}
+
+
+.user_listing {
+  padding-top:10px;
+  padding-bottom:0;
+}
+
+.request_icon_line {
+  background-repeat:no-repeat;
+  background-position:left center;
+  min-height:24px;
+  clear:left;
+  padding:8px 0 10px 42px;
+}
+
+.request_short_listing {
+  margin-top:1em;
+
+  h3{
+    font-size:1.2em;
+  }
+
+  a{
+    text-decoration: none;
+  }
+  p {
+    font-size:0.8em;
+    margin-top:-0.8em;
+    margin-bottom:0;
+  }
+}
+
+
+
+/* Status lines and icons */
+.icon_waiting_response,.icon_waiting_classification,.icon_waiting_clarification {
+  background-image:image-url('status-pending.png');
+  color:#A68C2E;
+}
+
+.icon_rejected {
+  background-image:image-url('navimg/status-icons-fail.png');
+}
+
+.icon_not_held, .icon_attention_requested {
+  background-image:image-url('status-not-held.png');
+  color:#A68C2E;
+}
+
+.icon_successful,.icon_partially_successful {
+  background-image:image-url('status-complete.png');
+  color:#69952F;
+}
+
+.icon_requires_admin,.icon_waiting_response_overdue,.icon_waiting_response_very_overdue {
+  background-image:image-url('status-overdue.png');
+  color:#C1272D;
+}
+
+.icon_gone_postal {
+  background-image:image-url('status-gone-postal.png');
+  color:#A68C2E;
+}
+
+.icon_error_message {
+  background-image:image-url('status-error.png');
+  color:#C1272D;
+}
+
+.icon_internal_review {
+  background-image:image-url('status-internal-review.png');
+  color:#A68C2E;
+}
+
+.icon_user_withdrawn {
+  background-image:image-url('status-withdrawn.png');
+  color:#A68C2E;
+}
+
+.icon_failed,.icon_rejected {
+  background-image:image-url('status-denied.png');
+  color:#C1272D;
+}

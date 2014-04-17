@@ -14,7 +14,7 @@
         </li>
 
         <% unless AlaveteliConfiguration::blog_feed.empty? %>
-          <li class="<%= 'selected' if params[:controller] == 'blog' %>"><%= link_to _("Read blog"), blog_path %></li>
+          <li class="<%= 'selected' if params[:controller] == 'general' and params[:action] == 'blog' %>"><%= link_to _("Read blog"), blog_path %></li>
         <% end %>
         <li class="<%= 'selected' if params[:controller] == 'help' %>">
           <%= link_to _("Help"), help_about_path %>

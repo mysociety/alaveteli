@@ -1,0 +1,84 @@
+/* Layout for search (and filters on request list)*/
+/* These pages use grid-columns, so are contained in a grid-row */
+#general_search,
+#general_search_redirect,
+#public_body_show,
+#request_list {
+  @include grid-row($behavior: nest);
+}
+
+
+#filter_requests_form, #search_form, #filter_form {
+
+  label {
+    display:inline;
+    float:none;
+    padding-right:5px;
+  }
+
+  label.title, h3.title {
+    @media( min-width: $main_menu-mobile_menu_cutoff ){
+      display:inline-block;
+      float:none;
+      width:110px;
+    }
+  }
+
+  .filter-request-types {
+    display: inline-block;
+    max-width: 420px;
+    vertical-align: middle;
+    margin-top: 3px;
+    line-height: 1.5em;
+  }
+
+  h3.title {
+    @media( min-width: $main_menu-mobile_menu_cutoff ){
+      width:114px;
+      margin-bottom:5px;
+      vertical-align: middle;
+    }
+  }
+
+  #requests-subfilters div {
+  margin-top:10px;
+  }
+
+  #requests-subfilters #latest_status_0,#requests-subfilters #request_variety_0 {
+    @media( min-width: $main_menu-mobile_menu_cutoff ){
+      margin-left:0;
+    }
+  }
+
+  #requests-subfilters input[type=checkbox] {
+    @media( min-width: $main_menu-mobile_menu_cutoff ){
+       margin-left:119px;
+    }
+  }
+
+  .list-filter-item{
+    margin-bottom:10px;
+  }
+}
+
+
+.results_section {
+  @include grid-column(12);
+  margin-bottom:40px;
+  div:last-child {
+    border-bottom-width:0;
+    padding-bottom:0;
+  }
+}
+
+#advanced-search input[type=text] {
+  width:50%;
+}
+
+#advanced-search-tips{
+  @include grid-column(12);
+}
+
+#general_search h2 {
+  margin-top:20px;
+}

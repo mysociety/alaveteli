@@ -1,0 +1,57 @@
+/* Layout across the site */
+#wrapper{
+  @include grid-row();
+}
+
+#content{
+  @include grid-column(12);
+}
+
+
+textarea{
+  @media( min-width: $main_menu-mobile_menu_cutoff ){
+    width: inherit;
+  }
+}
+
+
+/* Container grid-rows for pages that use these generic headers and columns */
+#public_body_list,
+#user_profile_header,
+#general_blog,
+#request_show,
+#info_request_batch_show {
+  @include grid-row($behavior: nest);
+}
+
+/* Column headers */
+#header_right {
+  @include grid-column(12);
+  @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:3, $float:right);
+    padding-top:27px;
+  }
+}
+
+#header_left {
+  @include grid-column(12);
+  @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include grid-column(8);
+  }
+}
+
+/* Columns */
+#left_column_flip, #left_column{
+  @include grid-column(12);
+  @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include grid-column(9);
+  }
+}
+
+#right_column_flip, #right_column {
+  @include grid-column(12);
+  @media( min-width: $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:3);
+    margin-top:20px;
+  }
+}

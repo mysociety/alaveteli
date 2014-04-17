@@ -1,0 +1,173 @@
+h1,h2,h3 {
+  font-weight:700;
+  line-height:1em;
+  letter-spacing:0;
+  clear:left;
+}
+
+h1 {
+  font-size: 2.2em;
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+h2, dt {
+  font-size: 1.8em;
+}
+
+h3 {
+  text-decoration:none;
+  font-size:1.6em;
+  margin-top:3px;
+  margin-bottom:10px;
+}
+
+dl {
+  margin-top:24px;
+  line-height:160%;
+}
+
+dt {
+  font-weight:700;
+}
+
+dd {
+  width:auto;
+  margin:18px 0 36px;
+}
+
+p.subtitle {
+  margin-top:10px;
+  margin-bottom:20px;
+  font-size:1.2em;
+  font-style:normal;
+  color:#222;
+}
+
+
+/* Links in sidebars usually only underlined on hover */
+.feed_link,.act_link {
+  margin-bottom:10px;
+  a{
+    text-decoration:none;
+  }
+  a:hover{
+    text-decoration:underline;
+  }
+}
+
+#header_right {
+  > a {
+     text-decoration:none;
+  }
+  > a:hover{
+    text-decoration:underline;
+  }
+
+  br{
+    line-height:200%;
+  }
+
+}
+
+/* Notices to the user (usually on action completion) */
+#notice {
+  font-size:1.4em;
+  font-weight:400;
+  background-color :#E9FDD3;
+  color:#517704;
+  border-color:#B0CA86;
+  border-radius:6px;
+  -moz-border-radius:6px;
+  margin:15px 0;
+  padding:10px 20px;
+  border-style: solid;
+  border-width: 1px;
+
+  p:first-child {
+    margin-top:0;
+  }
+
+  p:last-child {
+    margin-bottom:0;
+  }
+
+}
+
+.big {
+  font-size: larger;
+}
+
+/* Form styling */
+
+label.form_label {
+  font-size: 1.1em;
+}
+
+.form_item_note,.form_note {
+  font-size:1em;
+}
+
+form input[type=text],form input[type=password] {
+  font-size:1.1em;
+  width:200px;
+  border-radius:3px;
+  -moz-border-radius:3px;
+  border-color:#BBB;
+  border-style:solid;
+  border-width:1px;
+  padding:5px;
+  display: inline-block;
+}
+
+.fieldWithErrors {
+  display:block;
+  padding:0.2em;
+  textarea, input {
+    border:solid 1px Red !important;
+  }
+}
+
+.errorExplanation {
+  border-radius:6px;
+  -moz-border-radius:6px;
+  font-weight:400;
+  margin:20px 0 30px;
+}
+
+#error,#hidden_request {
+  font-weight:700;
+  padding:0.5em;
+}
+
+#preview_form ul {
+  margin:0;
+  padding:1px 32px 10px;
+}
+
+#preview_form ul li {
+  margin:10px 0;
+}
+
+/* Pagination */
+
+div.pagination {
+  text-align:center;
+  padding-top:0.3em;
+
+  span.current {
+    padding:0 0.6em 0.1em;
+  }
+
+  span.disabled {
+    padding:0 0.6em 0.1em;
+  }
+
+  a, a:visited {
+    text-decoration:none;
+    padding:0 0.6em 0.1em;
+  }
+
+}
+
+
