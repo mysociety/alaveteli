@@ -1,19 +1,39 @@
 /* Layout for lists of requests, authorities, users */
 .request_listing,.body_listing,.user_listing {
   overflow:hidden;
-  padding:12px 0 6px;
-  margin:0 0 -1px;
-
-  span.head {
+  margin-top: 1.5em;
+  .head {
     display:block;
-    min-height:32px;
-    margin-bottom:6px;
-    padding:0;
+    margin-bottom: 0.33em;
   }
-
-  span.bottomline {
-    clear:left;
+  .requester {
+    margin-bottom: 0.5em;
+  }
+  .bottomline {
     display:block;
+    margin-bottom: 0.5em;
+    @media( min-width: $main_menu-mobile_menu_cutoff ){
+      margin-bottom: 1.5em;
+    }
+  }
+}
+
+.desc {
+  display:block;
+  float:right;
+  clear:none;
+  overflow:hidden;
+  margin-bottom: 1.5em;
+}
+
+.body_listing, .user_listing {
+  .desc, .bottomline {
+    clear: both;
+    float: none;
+    margin-bottom: 0;
+  }
+  .bottomline {
+    margin-bottom: 1.5em
   }
 }
 
@@ -26,8 +46,7 @@
   .request_right {
     @include grid-column(12);
     @media( min-width: $main_menu-mobile_menu_cutoff ){
-      @include grid-column($columns:4, $float:right);
-      padding-top:5px;
+      @include grid-column($columns:4, $float:right, $collapse: true);
     }
   }
 
@@ -38,18 +57,12 @@
     }
   }
 
-  span.desc {
-    min-height:60px;
+   .desc {
     width:100%;
     @media( min-width: $main_menu-mobile_menu_cutoff ){
-      padding:0 0 0 40px;
+      padding:0 0 0 2em;
     }
   }
 }
 
-span.desc {
-  display:block;
-  float:right;
-  clear:none;
-  overflow:hidden;
-}
+
