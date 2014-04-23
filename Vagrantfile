@@ -37,10 +37,10 @@
 # exporting to the environment.
 #
 #   # Prefixing the command
-#   $ ALAVETELI_MEMORY=2048 vagrant up
+#   $ ALAVETELI_VAGRANT_MEMORY=2048 vagrant up
 #
 #   # Exporting to the environment
-#   $ export ALAVETELI_MEMORY=2048
+#   $ export ALAVETELI_VAGRANT_MEMORY=2048
 #   $ vagrant up
 #
 # Both have the same effect, but exporting will retain the variable for the
