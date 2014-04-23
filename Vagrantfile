@@ -25,7 +25,7 @@
 # at http://10.10.10.30:3000
 #
 #   # Guest
-#   bundle exec rails s
+#   bundle exec rails server
 #
 # Customizing the Vagrant instance
 # ================================
