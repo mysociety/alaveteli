@@ -13,6 +13,9 @@
     padding-left: 0.9375em;
     padding-right: 0.9375em;
   }
+  @include lte-ie7 {
+    width: 56.125em;
+  }
 }
 
 
@@ -43,6 +46,9 @@ textarea{
     @include ie8{
       padding-left: 0.9375em;
     }
+    @include lte-ie7 {
+      width: 17.438em;
+    }
   }
 }
 
@@ -53,6 +59,9 @@ textarea{
     @include ie8{
       padding-right: 0.9375em;
     }
+    @include lte-ie7 {
+      width: 36.813em;
+    }
   }
 }
 
@@ -61,6 +70,9 @@ textarea{
   @include grid-column(12);
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     @include grid-column(9);
+    @include lte-ie7 {
+      width: 41.625em;
+    }
   }
 }
 
@@ -69,6 +81,9 @@ textarea{
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     @include grid-column($columns:3);
     margin-top:20px;
+    @include lte-ie7 {
+      width: 12.625em;
+    }
   }
 }
 

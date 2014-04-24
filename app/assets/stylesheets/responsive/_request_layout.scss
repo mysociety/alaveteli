@@ -20,6 +20,9 @@
       @include ie8{
         padding-right: 0.9375em;
       }
+      @include lte-ie7 {
+        width: 41.625em;
+      }
     }
   }
 

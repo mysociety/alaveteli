@@ -39,6 +39,9 @@
         @include respond-min( $main_menu-mobile_menu_cutoff ){
           padding: 1em;
           margin-bottom: 1em;
+          @include lte-ie7 {
+              width: 17.313em;
+          }
         }
     }
 
@@ -104,6 +107,9 @@
         @include respond-min( $main_menu-mobile_menu_cutoff ){
           display: inline-block;
         }
+        @include lte-ie7 {
+          display: inline;
+        }
     }
     a{
       padding: 0.5em 1em;
@@ -123,10 +129,16 @@
   form{
         @include grid-row;
         padding-right: 1em;
+        @include lte-ie7 {
+           display: inline;
+        }
     }
     input{
         @include grid-column($columns:9);
         margin:0;
+        @include lte-ie7 {
+     width: 10.063em;
+        }
     }
     label{
         @include prefix-postfix-base;
@@ -134,6 +146,9 @@
         border:none;
         img{
             max-width: 100%;
+        }
+        @include lte-ie7 {
+           width: 2.125em;
         }
     }
 }
@@ -144,6 +159,9 @@
         @include ie8{
           padding-left: 0.9375em;
           padding-right: 0.9375em;
+        }
+        @include lte-ie7 {
+           width: 36.813em;
         }
     }
 

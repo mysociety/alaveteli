@@ -10,6 +10,9 @@
     @include ie8{
       padding-right: 0.9375em;
     }
+    @include lte-ie7 {
+      width: 22.313em;
+    }
   }
 }
 
@@ -19,6 +22,9 @@
     @include grid-column($columns:5,$float:right);
     @include ie8{
       padding-left: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 22.313em;
     }
   }
 }
@@ -30,6 +36,9 @@
     @include ie8{
       padding-left: 0.9375em;
       padding-right: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 7.438em;
     }
   }
 }

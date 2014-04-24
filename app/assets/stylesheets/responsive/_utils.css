@@ -18,10 +18,18 @@ $fix-mqs: false !default;
 }
 
 $ie8: false !default;
+$lte-ie7: false !default;
 
 @mixin ie8 {
-    // Only use this content if we're dealing with old IE
+    // Only use this content if we're dealing with IE8
     @if $ie8 {
+        @content;
+    }
+}
+
+@mixin lte-ie7 {
+    // Only use this content if we're dealing with oldest IE (<= 7)
+    @if $lte-ie7 {
         @content;
     }
 }

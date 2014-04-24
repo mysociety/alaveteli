@@ -26,6 +26,7 @@
   @include ie8{
     padding-left: 0.9375em;
     padding-right: 0.9375em;
+    width: $main_menu-mobile_menu_cutoff;
   }
 
   .view_html_logo {

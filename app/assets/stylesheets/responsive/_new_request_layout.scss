@@ -8,6 +8,9 @@
     @include ie8{
       padding-right: 0.9375em;
     }
+    @include lte-ie7 {
+      width: 27.125em;
+    }
   }
 }
 
@@ -22,6 +25,9 @@
     margin-top:-67px;
     @include ie8{
       padding-right: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 26.188em;
     }
   }
 
@@ -59,6 +65,9 @@
       @include ie8{
         padding-right: 0.9375em;
       }
+      @include lte-ie7 {
+        width: 36.813em;
+      }
     }
   }
 
@@ -77,6 +86,9 @@
     @include ie8{
       padding-left: 0.9375em;
     }
+    @include lte-ie7 {
+      width: 17.438em;
+    }
   }
 }
 
@@ -87,6 +99,9 @@
     @include grid-column($columns:8, $pull: 4);
     @include ie8{
       padding-right: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 36.813em;
     }
   }
 
@@ -110,6 +125,9 @@ div.batch_public_body_toggle {
     @include grid-column(12);
     @include respond-min( $main_menu-mobile_menu_cutoff ){
        @include grid-column(5);
+     }
+     @include lte-ie7 {
+       width: 22.313em;
      }
   }
 

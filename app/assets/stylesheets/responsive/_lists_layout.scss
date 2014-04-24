@@ -50,6 +50,9 @@
       @include ie8{
         padding-left: 0.9375em;
       }
+      @include lte-ie7 {
+        width: 17.438em;
+      }
     }
   }
 
@@ -60,6 +63,9 @@
       @include ie8{
         padding-right: 0.9375em;
       }
+      @include lte-ie7 {
+        width: 36.813em;
+      }
     }
   }
 
@@ -67,6 +73,9 @@
     width:100%;
     @include respond-min( $main_menu-mobile_menu_cutoff ){
       padding:0 0 0 2em;
+      @include lte-ie7 {
+        padding: 0;
+      }
     }
   }
 }
