@@ -1,0 +1,29 @@
+/* Help style */
+
+div.controller_help {
+  /* Underline links on hover */
+  dt a, h1 a {
+    text-decoration:none;
+    font-size:0.9em;
+  }
+  dt:hover, h1:hover {
+    > a {
+      color:#777;
+    }
+    > a:hover{
+      text-decoration: underline;
+    }
+  }
+}
+
+
+
+ul.no_bullets {
+  list-style-type:none;
+  margin:0 0 30px;
+  padding:0;
+
+  li {
+    margin-bottom:6px;
+  }
+}

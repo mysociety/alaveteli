@@ -1,0 +1,41 @@
+/* Layout for categorisation game */
+
+#request_game_play {
+  @include grid-row($behavior: nest);
+}
+
+#game_sidebar {
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:4, $float:right);
+    @include ie8{
+      padding-left: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 17.438em;
+    }
+  }
+}
+
+#game {
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:8);
+    @include ie8{
+      padding-right: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 36.813em;
+    }
+  }
+}
+
+/* Don't display request extracts floated right as there is constrained space */
+#request_game_play{
+  span.desc {
+    float: none;
+    padding: 0;
+    background: none;
+    min-height: inherit;
+  }
+}

@@ -1,0 +1,55 @@
+# == Schema Information
+#
+# Table name: incoming_messages
+#
+#  id                             :integer          not null, primary key
+#  info_request_id                :integer          not null
+#  created_at                     :datetime         not null
+#  updated_at                     :datetime         not null
+#  raw_email_id                   :integer          not null
+#  cached_attachment_text_clipped :text
+#  cached_main_body_text_folded   :text
+#  cached_main_body_text_unfolded :text
+#  subject                        :text
+#  mail_from_domain               :text
+#  valid_to_reply_to              :boolean
+#  last_parsed                    :datetime
+#  mail_from                      :text
+#  sent_at                        :datetime
+#  prominence                     :string(255)      default("normal"), not null
+#  prominence_reason              :text
+#
+
+useless_incoming_message: 
+    id: 1
+    info_request_id: 101
+    updated_at: 2007-11-13 18:09:20.042061
+    raw_email_id: 1
+    created_at: 2007-11-13 18:09:20.042061
+
+useful_incoming_message:
+    id: 2
+    info_request_id: 105
+    raw_email_id: 2
+    created_at: 2012-01-26 10:19:23
+    updated_at: 2012-01-26 10:19:23
+
+another_useful_incoming_message:
+    id: 3
+    info_request_id: 106
+    raw_email_id: 3
+    created_at: 2007-11-13 18:09:20
+    updated_at: 2007-11-13 18:09:20
+
+spam_1_incoming_message:
+    id: 4
+    info_request_id: 107
+    raw_email_id: 4
+    created_at: 2008-11-13 18:09:20
+    updated_at: 2008-11-13 18:09:20
+spam_2_incoming_message:
+    id: 5
+    info_request_id: 108
+    raw_email_id: 5
+    created_at: 2008-11-13 19:09:20
+    updated_at: 2008-11-13 19:09:20

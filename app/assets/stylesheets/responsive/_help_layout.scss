@@ -1,0 +1,17 @@
+/* Help layout */
+
+/* These help pages use grid-column elements, so need grid-row mixed in */
+#help_about,
+#help_alaveteli,
+#help_api,
+#help_credits,
+#help_officers,
+#help_privacy,
+#help_requesting,
+#help_unhappy {
+  @include grid-row($behavior: nest);
+}
+
+#hash_link_padding {
+  margin-bottom:10em;
+}

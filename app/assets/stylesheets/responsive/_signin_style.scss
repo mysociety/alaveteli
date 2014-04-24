@@ -1,0 +1,28 @@
+/* Signin styles */
+#signup, #signin {
+  input[type=text],
+  input[type=password]  {
+    width: 100%;
+  }
+}
+
+#middle_strip {
+  text-align:center;
+  position: relative;
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    top: 3em;
+  }
+  font-size:1.2em;
+}
+
+p#sign_in_reason, p#superuser_message {
+  font-size:2em;
+  font-weight:bold;
+  line-height:1em;
+}
+
+p#superuser_message {
+ font-size:1.2em;
+}
+
+

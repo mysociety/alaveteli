@@ -1,0 +1,28 @@
+/* Frontpage styles */
+#frontpage_splash {
+  h1, h2 {
+    font-weight: normal;
+  }
+  strong {
+    font-weight: bold;
+  }
+}
+
+#frontpage_examples {
+  ul {
+    list-style:none outside none;
+    padding: 0;
+  }
+  .excerpt {
+    cursor:pointer;
+    font-style:italic;
+    padding:0 0 0 2em;
+  }
+
+  #examples_1 {
+    li {
+      border-bottom:1px solid #ddd;
+      padding-top: 1em;
+    }
+  }
+}

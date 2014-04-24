@@ -253,3 +253,6 @@ SHARED_DIRECTORIES:
 # user via the user admin page.
 
 ALLOW_BATCH_REQUESTS: false
+
+# Should we use the responsive stylesheets?
+RESPONSIVE_STYLING: false

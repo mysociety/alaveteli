@@ -1,0 +1,57 @@
+/* Styles for popup messages */
+.popup {
+  background-color:#D5FFD8;
+  border:solid 3px #16C132;
+  z-index:2000;
+  overflow:auto;
+  text-align:center;
+  margin-top:2px;
+}
+
+.popup p {
+  margin: 0;
+}
+
+#everypage h2,#everypage h3 {
+  margin:0.5em 0;
+}
+
+.popup .popup-close {
+  color:#FFF;
+  text-decoration:none;
+  border-radius:2px;
+  -moz-border-radius:2px;
+  width:15px;
+  height:15px;
+  cursor:pointer;
+  background: image-url('small-green-cross.png') no-repeat 0;
+  border:solid 0 #FFF;
+  text-indent:-999px;
+  overflow:hidden;
+  float:right;
+}
+
+/* Box that appears when you click the link icon in a request thread */
+#link_box {
+  text-align:left;
+  background-color:#FFF;
+  opacity:0.9;
+  border-radius:6px;
+  -moz-border-radius:6px;
+  border:1px solid #444;
+  padding:5px;
+}
+
+#link_box .close-button {
+  background-color:#444;
+  margin-left:15px;
+  padding:0;
+}
+
+a.link_to_this {
+  display:inline-block;
+  width:20px;
+  letter-spacing:-1000em;
+  overflow:hidden;
+  background:image-url('link-icon.png') no-repeat;
+}

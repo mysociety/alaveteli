@@ -1,0 +1,45 @@
+div#content, div#left_column, div.entirebody div#wrapper {
+ width: 100%;
+ margin: 0;
+ float: none;
+}
+
+div#content {
+ padding-right: 0;
+ width: 96%;
+}
+
+#wrapper {
+ width: auto;
+ padding: 0;
+
+}
+
+p.event_actions,
+div#after_actions,
+#right_column,
+#banner,
+.admin .navbar,
+#header_right,
+#describe_state_form_1,
+#describe_state_form_2,
+.attachment_image,
+#footer {
+ display: none;
+}
+
+p#request_status {
+ page-break-after: avoid;
+}
+div.correspondence {
+ page-break-before: avoid;
+}
+
+#other-country-notice {
+ display: none;
+}
+
+.not-for-print {
+ display: none !IMPORTANT;
+}
+

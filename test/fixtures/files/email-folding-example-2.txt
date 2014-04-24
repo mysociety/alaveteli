@@ -1,0 +1,7 @@
+Preface to the message which we are not interested in
+
+-----------------------------------------------------------------------------------------
+Important message about cheese
+-----------------------------------------------------------------------------------------
+
+Actual footer that contains the word confidential
