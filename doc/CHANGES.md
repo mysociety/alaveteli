@@ -2,10 +2,16 @@
 
 ## Highlighted features
 
+* There is an alternative set of stylesheets for rendering the site in a stripped-down, responsive way (so that it will display appropriately on mobile devices as well as larger screens). We'll be adding some corresponding stylesheets shortly to alavetelitheme to provide a nice basic look and feel.
+
 ## Upgrade notes
 
-* Theme owners are required to update references to fancybox CSS and JS files.
-
+* To use the responsive stylesheets across the site, add
+  `RESPONSIVE_STYLING: true` to general.yml. To preview the way a given
+  page would appear with the new stylesheets, add the parameter
+  `responsive=1` to the URL.
+* Theme owners are required to update references to fancybox CSS and JS
+  files.
 Example:
 
     - <%= javascript_include_tag 'jquery.fancybox-1.3.4.pack.js' %>

@@ -1,0 +1,20 @@
+From foo@bar Thu Mar 01 15:02:33 2012
+Return-path: <foo@bar>
+Envelope-to: foi@quux
+Delivery-date: Thu, 01 Mar 2012 15:02:33 +0000
+Date: Thu, 01 Mar 2012 15:01:58 +0000
+Subject: some FOI request
+To: foi@quux
+From: foo@bar
+MIME-Version: 1.0
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+Message-Id: <2468@bar.local>
+
+Dear Whoever,
+
+THERE'S A DASH NEXT – REQUEST FOR INFORMATION
+
+Best regards,
+Other Person
+

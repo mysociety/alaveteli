@@ -1,0 +1,35 @@
+$fix-mqs: false !default;
+
+@mixin respond-min($width) {
+    // If we're outputting for a fixed media query set...
+    @if $fix-mqs {
+        // ...and if we should apply these rules...
+        @if $fix-mqs >= $width {
+            // ...output the content the user gave us.
+            @content;
+        }
+    }
+    @else {
+        // Otherwise, output it using a regular media query
+        @media(min-width: $width) {
+            @content;
+        }
+    }
+}
+
+$ie8: false !default;
+$lte-ie7: false !default;
+
+@mixin ie8 {
+    // Only use this content if we're dealing with IE8
+    @if $ie8 {
+        @content;
+    }
+}
+
+@mixin lte-ie7 {
+    // Only use this content if we're dealing with oldest IE (<= 7)
+    @if $lte-ie7 {
+        @content;
+    }
+}

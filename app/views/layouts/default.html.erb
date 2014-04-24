@@ -40,7 +40,9 @@
         <% if @no_crawl %>
             <meta name="robots" content="noindex, nofollow">
         <% end %>
-
+        <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <% end %>
         <%= render :partial => 'general/before_head_end' %>
     </head>
     <body class="<%= 'front' if params[:action] == 'frontpage' %>">
@@ -50,7 +52,7 @@
         $(document).ready(function() {
             $("#make-request-link").fancybox({
                 'modal': false,
-                'width': 920,
+                'width': 950,
                 'height': 400,
                 'type': 'iframe',
                 'href': '/<%= FastGettext.locale %>/profile/sign_in?modal=1',
@@ -84,7 +86,11 @@
       </span>
       <span class="popup-close"><a href="#top" ><%= _('Close') %></a></span>
     </div>
-    <%= render :partial => 'general/header' %>
+    <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
+        <%= render :partial => 'general/responsive_header' %>
+    <% else %>
+        <%= render :partial => 'general/header' %>
+    <% end %>
     <div id="wrapper">
         <div id="content">
             <% if flash[:notice] %>
@@ -100,8 +106,11 @@
             <div style="clear:both"></div>
         </div>
     </div>
-
-    <%= render :partial => 'general/footer' %>
+    <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
+        <%= render :partial => 'general/responsive_footer' %>
+    <% else %>
+        <%= render :partial => 'general/footer' %>
+    <% end %>
 
 </div>
 <div id="link_box"><span class="close-button">X</span>

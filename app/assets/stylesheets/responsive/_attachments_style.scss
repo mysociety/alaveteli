@@ -1,0 +1,26 @@
+/* Styling for the HTML view of attachments */
+
+#view-html-content {
+
+   td,th {
+     border:solid 1px #000;
+   }
+
+   tr:nth-child(odd) {
+     background-color:#bbb;
+   }
+
+   tr:nth-child(even) {
+     background-color:#ddd;
+   }
+}
+
+.view_html_prefix {
+  text-align:center;
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    text-align:left;
+    min-height:3em;
+    padding:0.5em 1em;
+  }
+  border-bottom: 1px solid #5F5F5F;
+}

@@ -1,0 +1,168 @@
+Delivered-To: mysociety.robin@gmail.com
+Received: by 10.216.93.2 with SMTP id k2csp112824wef;
+        Tue, 1 May 2012 07:34:18 -0700 (PDT)
+Received: by 10.180.86.197 with SMTP id r5mr1890784wiz.21.1335882857831;
+        Tue, 01 May 2012 07:34:17 -0700 (PDT)
+Return-Path: <MAILER-DAEMON@wildfire.ukcod.org.uk>
+Received: from wildfire.ukcod.org.uk (wildfire.ukcod.org.uk. [89.238.145.74])
+        by mx.google.com with ESMTPS id m57si21571764wee.109.2012.05.01.07.34.17
+        (version=TLSv1/SSLv3 cipher=OTHER);
+        Tue, 01 May 2012 07:34:17 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of MAILER-DAEMON@wildfire.ukcod.org.uk designates 89.238.145.74 as permitted sender) client-ip=89.238.145.74;
+Authentication-Results: mx.google.com; spf=pass (google.com: best guess record for domain of MAILER-DAEMON@wildfire.ukcod.org.uk designates 89.238.145.74 as permitted sender) smtp.mail=MAILER-DAEMON@wildfire.ukcod.org.uk
+Received: from foi by wildfire.ukcod.org.uk with local (Exim 4.72)
+	(envelope-from <MAILER-DAEMON@wildfire.ukcod.org.uk>)
+	id 1SPE9b-0004QG-IC
+	for team_delivery@whatdotheyknow.com; Tue, 01 May 2012 15:34:11 +0100
+Received: from majestic.ukcod.org.uk ([89.238.145.68]:41415)
+	by wildfire.ukcod.org.uk with esmtp (Exim 4.72)
+	id 1SPE9a-0004PY-Pt
+	for foi-track@wildfire.ukcod.org.uk; Tue, 01 May 2012 15:34:11 +0100
+Received: from 83-216-147-106.lancas785.adsl.metronet.co.uk ([83.216.147.106]:41706 helo=SERVER1.example.internal)
+	by majestic.ukcod.org.uk with esmtp (Exim 4.72)
+	id 1SPE9P-00024F-Vz
+	for track@whatdotheyknow.com; Tue, 01 May 2012 15:34:00 +0100
+Received: from server.example.internal (192.168.0.2) by
+ SERVER1.example.internal (192.168.0.3) with Microsoft SMTP Server id
+ 14.1.323.3; Tue, 1 May 2012 15:43:04 +0100
+From: <postmaster@example.org.uk>
+To: <track@whatdotheyknow.com>
+Date: Tue, 1 May 2012 11:42:55 +0100
+MIME-Version: 1.0
+X-DSNContext: 7ac7e7f9 - 374 - 00000004 - C00402D1
+Message-ID: <5C10braWX00000031@server.example.internal>
+Subject: Delivery Status Notification (Delay)
+Content-Type: multipart/mixed;
+	boundary="_c3f90810-77af-49ee-88c2-d3a2f6212326_"
+
+--_c3f90810-77af-49ee-88c2-d3a2f6212326_
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="_12a1cb74-57e4-4506-a3d9-c4b591d5a63f_"
+
+--_12a1cb74-57e4-4506-a3d9-c4b591d5a63f_
+Content-Type: text/plain; charset="unicode-1-1-utf-7"
+
+This is an automatically generated Delivery Status Notification.
+
+THIS IS A WARNING MESSAGE ONLY.
+
+YOU DO NOT NEED TO RESEND YOUR MESSAGE.
+
+Delivery to the following recipients has been delayed.
+
+       username@example.org.uk
+
+
+
+
+--_12a1cb74-57e4-4506-a3d9-c4b591d5a63f_
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;server.example.internal
+Received-From-MTA: dns;wildfire.ukcod.org.uk
+Arrival-Date: Mon, 30 Apr 2012 23:24:59 +0100
+
+Final-Recipient: rfc822;username@example.org.uk
+Action: delayed
+Status: 4.4.7
+Will-Retry-Until: Wed, 2 May 2012 23:24:59 +0100
+
+--_12a1cb74-57e4-4506-a3d9-c4b591d5a63f_
+Content-Type: message/rfc822
+
+Received: from wildfire.ukcod.org.uk ([89.238.145.74]) by
+ server.example.internal with Microsoft SMTPSVC(6.0.3790.4675);	 Mon, 30
+ Apr 2012 23:24:59 +0100
+Received: from foi by wildfire.ukcod.org.uk with local (Exim 4.72)
+	(envelope-from <track@whatdotheyknow.com>)	id 1SOysI-0003iJ-1S	for
+ username@example.org.uk; Mon, 30 Apr 2012 23:15:19 +0100
+Message-ID: <E1SOysI-0003iJ-1S@wildfire.ukcod.org.uk>
+Date: Mon, 30 Apr 2012 23:15:17 +0100
+From: WhatDoTheyKnow <track@whatdotheyknow.com>
+To: User Name <username@example.org.uk>
+Subject: Your WhatDoTheyKnow email alert
+MIME-Version: 1.0
+Precedence: bulk
+Auto-Submitted: auto-generated
+Return-Path: track@whatdotheyknow.com
+X-OriginalArrivalTime: 30 Apr 2012 22:24:59.0309 (UTC) FILETIME=[1416D5D0:01CD2720]
+X-MS-Exchange-Organization-AVStamp-AVG: 10.0.1424 [2113.1.1/4831];0;
+X-MS-Exchange-Organization-AVStamp-Mailbox: AVGESE;6944;0;
+Content-Type: multipart/mixed;
+	boundary="_c03afbbc-87c9-4022-a9f2-fec3c53e1fef_"
+
+--_c03afbbc-87c9-4022-a9f2-fec3c53e1fef_
+Content-Type: text/plain; charset="utf-8"
+
+FOI requests to 'Lancashire Constabulary'
+=========================================
+
+-- Copy of Information from Comments made in FOI --
+Jim Ebbs sent a request to Lancashire Constabulary (30 April 2012)
+     "My previous FOI related to Section 20 of the 1989 Chidrens Act
+     legislation and parents having parental control of their children.
+     In your response..."
+http://www.whatdotheyknow.com/request/copy_of_information_from_comment#outgoing-199196
+
+
+FOI requests to 'Lancashire County Council'
+===========================================
+
+-- Telecommunications Contracts --
+Lancashire County Council sent a response to Wendy (30 April 2012)
+     "Dear Wendy, Please accept my apologies for not having provided you
+     with a response before the statutory time limit. I am still in the
+     process of de..."
+http://www.whatdotheyknow.com/request/telecommunications_contracts_20#incoming-277652
+
+-- Adult's and childreen's social care IT systems --
+Lancashire County Council sent a response to will johnson (30 April 2012)
+     "Dear Mr Johnson, Â  Request for information under the Freedom of
+     Information Act 2000 Â  Further to your email dated 2^nd April, in
+     which you re..."
+http://www.whatdotheyknow.com/request/adults_and_childreens_social_car#incoming-277643
+
+
+FOI requests to 'Lancaster City Council'
+========================================
+
+-- Empty Commercial Property --
+Lancaster City Council sent a response to Paul Norris (30 April 2012)
+     "Dear Mr Norris Please find attached a spreadheet with the
+     information you requested for. If you are not happy with this
+     response please contact me i..."
+http://www.whatdotheyknow.com/request/empty_commercial_property_93#incoming-277913
+
+
+Alter your subscription
+=======================
+
+
+http://www.whatdotheyknow.com/c/huz3dzb3gtyq5y47r4r
+
+-- the WhatDoTheyKnow team
+
+
+--_c03afbbc-87c9-4022-a9f2-fec3c53e1fef_
+Content-Type: text/plain; x-avg=cert; charset="windows-1252"
+Content-Disposition: inline; filename="AVG certification.txt"
+Content-Description: "AVG certification"
+Content-Transfer-Encoding: quoted-printable
+
+The message does not contain any threats
+AVG for MS Exchange Server (10.0.1424 - 2113/4831)=
+
+--_c03afbbc-87c9-4022-a9f2-fec3c53e1fef_--
+
+--_12a1cb74-57e4-4506-a3d9-c4b591d5a63f_--
+
+--_c3f90810-77af-49ee-88c2-d3a2f6212326_
+Content-Type: text/plain; x-avg=cert; charset="windows-1252"
+Content-Disposition: inline; filename="AVG certification.txt"
+Content-Description: "AVG certification"
+Content-Transfer-Encoding: quoted-printable
+
+The message does not contain any threats
+AVG for MS Exchange Server (10.0.1424 - 2113/4831)=
+
+--_c3f90810-77af-49ee-88c2-d3a2f6212326_--
