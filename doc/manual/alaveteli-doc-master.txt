@@ -1,0 +1,56 @@
+This is a summary of the docs as we transition them to code.alaveteli.org.
+Ultimately:
+
+  * definitive and stable docs end up on code.alaveteli.org (the gh-pages branch),
+  * notes and proposed feature discussions, etc., stay on the (github) wiki
+  
+  
+
+docs: [ok] - it's in the docs                         wiki: [ok] is in the wiki, OK
+      [no] - it's not in the docs and should not be         [x ] should not be in wiki, needs redirection
+      [  ] - needs attention                                [? ] needs work
+      [??] - needs attention, but not in docs per se
+
+docs wiki 
+[ok] [x ] Administrator's manual -- have moved this into running/admin_manual/
+[  ] [  ] Administrator's manual TODO -- needs to be implemented
+[ok] [x ] Adminstrator's manual -- holding page, now running/admin_manual/
+[ok] [x ] Alaveteli ec2 ami -- installing/ami/
+[ok] [x ] Current states -- new page needed: running/states TODO check this is indeed "default states"
+[ok] [x ] API -- developers/api
+[no] [ok] Automate metadata with opencalais (not for docs)
+[no] [??] Caching currently implemented <-- TODO if needed (seems old)
+[no] [ok] Code goals <-- (not for docs)
+[no] [ok] Comments as trackbacks <-- (not for docs)
+[no] [ok] Complaining to ombudsman feature requirements <-- (not for docs) should it be?
+[no] [ok] Current project status <-- but TODO facts from here prob should be represented on the .org site
+[ok] [x ] Developers guide <-- is in /developers/
+[no] [ok] Embargo requests feature requirements <-- (not for docs) this is a proposal/discussion
+[no] [ok] Escalating privileges system <-- (not for docs) this is a proposal/discussion
+[no] [ok] Escalating privileges: proposal for initial version <-- (not for docs) see above
+[no] [ok] Factor out "email in public" parts <-- (not for docs) this is a proposal/discussion
+[??] [  ] Features <-- not sure this is for documentation, but is for the website -- see https://github.com/mysociety/alaveteli/issues/1350
+[no] [ok] Fine grained user roles and permissions <-- (not for docs) this is a proposal/discussion
+[ok] [x ] Getting started <-- getting_started/
+[no] [ok] Home <-- ignored (wiki home; maybe update with clarity on what the wiki is for?)
+[no] [x?] I18n approach -- seems out of date, since gettext is used now, but provides historical justification for how this was done (linked-to from i18n in wiki)
+[  ] [  ] I18n guide      } developers/i18n maybe: see also http://mysociety.github.io/internationalization.html
+[??] [do] Improved document conversion <-- some of this needs to go into docs, some is a proposal
+[no] [ok] Legislation in different jurisdictions <-- interesting but out of date? could be a new page later
+[??] [ok] List of foi websites and projects <-- perhaps should be in the site, but not really a docs issue just now
+[??] [x ] Local customization; Initial setup and administration <-- no info, but good questions: where should this go?
+[>>] [? ] Marking up text for translation <-- needs writing as part of specific Alavateli i18n, but
+                                              linking to http://mysociety.github.io/internationalization.html
+[ok] [x ] OS X Quickstart <-- installing/macos/
+[no] [ok] Performance issues <-- seems more like a discussion, keep it on the wiki
+[ok] [x ] Production Server Best Practices -- running/server
+[ok] [ok] Proposals for enhancements <-- (not for docs) (is linked-to)
+[no] [ok] Rails 3 upgrade rollout <-- belongs on the wiki
+[no] [ok] Release Manager's checklist <-- belongs on the wiki as I believe this is only really relevant to us, as custodians
+[no] [ok] Request templates <-- actually about muckrock (and a feature request), stays on wiki
+[no] [ok] Roadmap <-- historical, stays on wiki
+[no] [ok] Rules engine for statuses <-- (not for docs) this is a proposal/discussion
+[>>] [no] Setting up a demo site <-- TODO should be in the docs, a useful page with some overlap
+[no] [ok] WhatDoTheyKnow <-- notes and diagrams for WDTK, leave on wiki (not for docs)
+[ok] [x ] Understanding the code -- developers/overview
+[ok] [x ] Writing a theme -- customising/themes/  <-- actually points to 
