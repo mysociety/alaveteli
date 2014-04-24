@@ -1,0 +1,21 @@
+From: EMAIL_FROM
+To: FOI Person <EMAIL_TO>
+Return-path: <>
+Delivery-date: Fri, 01 Aug 2008 14:35:58 +0100
+X-Failed-Recipients: enquiries@cheese.com
+From: Mail Delivery System <Mailer-Daemon@sandwich.com>
+Subject: Mail delivery failed: returning message to sender
+Message-Id: <E1KOunW-000dXv-C6@sandwich.com>
+Date: Fri, 01 Aug 2008 14:35:58 +0100
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  enquiries@cheese.com
+    Unrouteable address
+
+------ This is a copy of the message, including all the headers. ------
+
+Hello

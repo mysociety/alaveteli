@@ -1,0 +1,38 @@
+# == Schema Information
+#
+# Table name: track_things
+#
+#  id               :integer          not null, primary key
+#  tracking_user_id :integer          not null
+#  track_query      :string(255)      not null
+#  info_request_id  :integer
+#  tracked_user_id  :integer
+#  public_body_id   :integer
+#  track_medium     :string(255)      not null
+#  track_type       :string(255)      default("internal_error"), not null
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
+track_fancy_dog_request: 
+  id: "10"
+  track_query: request:why_do_you_have_such_a_fancy_dog
+  track_type: request_updates
+  track_medium: email_daily
+  tracking_user_id: "2"
+  info_request_id: "101"
+  tracked_user_id: 
+  public_body_id: 
+  created_at: 2007-10-01 00:00:00
+  updated_at: 2007-01-01 00:00:00
+track_fancy_dog_search: 
+  id: "11"
+  track_query: fancy dog
+  track_type: search_query
+  track_medium: email_daily
+  tracking_user_id: "2"
+  info_request_id: 
+  tracked_user_id: 
+  public_body_id: 
+  created_at: 2007-10-01 00:00:00
+  updated_at: 2007-01-01 00:00:00

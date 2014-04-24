@@ -104,8 +104,10 @@
     /* Spread the nav elements horizontally on larger screens */
     li{
         display: block;
+
         @include respond-min( $main_menu-mobile_menu_cutoff ){
           display: inline-block;
+          float: left;
         }
         @include lte-ie7 {
           display: inline;

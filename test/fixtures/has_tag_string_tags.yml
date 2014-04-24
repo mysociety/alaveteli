@@ -1,0 +1,36 @@
+lonely_tag: 
+  name: lonely_agency
+  id: "1"
+  created_at: 2007-10-24 10:51:01.161639
+  model: PublicBody
+  model_id: 4
+useless_tag_1: 
+  name: useless_agency
+  id: "2"
+  created_at: 2007-10-24 10:51:01.161639
+  model: PublicBody
+  model_id: 3
+useless_tag_2: 
+  name: useless_agency
+  id: "3"
+  created_at: 2007-10-24 10:51:01.161639
+  model: PublicBody
+  model_id: 4
+useless_tag_3:
+  name: useless_agency
+  id: "4"
+  created_at: 2007-10-24 10:51:01.161639
+  model: PublicBody
+  model_id: 5
+popular_tag_1: 
+  name: popular_agency
+  id: "5"
+  created_at: 2007-10-24 10:51:01.161639
+  model: PublicBody
+  model_id: 2
+popular_tag_2: 
+  name: popular_agency
+  id: "6"
+  created_at: 2007-10-24 10:51:01.161639
+  model: PublicBody
+  model_id: 3

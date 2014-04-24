@@ -1,0 +1,38 @@
+From example@example.com Wed Sep 15 17:55:40 2010
+Return-path: <example@example.com>
+Envelope-to: example@example.com
+Delivery-date: Wed, 15 Sep 2010 17:55:40 +0100
+From: <example@example.com>
+To: <request-xxxxx@whatdotheyknow.com>
+Date: Wed, 15 Sep 2010 17:56:03 +0100
+Subject: FOI Internal Review response
+Thread-Topic: FOI Internal Review response
+Thread-Index: xxxxx
+Message-ID: <xxxxxx>
+Accept-Language: en-US, en-GB
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+acceptlanguage: en-US, en-GB
+Content-Type: multipart/mixed;
+    boundary="_002_E6527350F565F54A88C36C23F6C2B86702618AD0DF95SDCCPMSXMB5_"
+MIME-Version: 1.0
+
+--_002_E6527350F565F54A88C36C23F6C2B86702618AD0DF95SDCCPMSXMB5_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+
+someencodedtext=
+
+--_002_E6527350F565F54A88C36C23F6C2B86702618AD0DF95SDCCPMSXMB5_
+Content-Type: document/pdf; name="document.pdf"
+Content-Description: document.pdf
+Content-Disposition: attachment; filename="document.pdf";
+    size=62103; creation-date="Wed, 15 Sep 2010 17:54:27 GMT";
+    modification-date="Wed, 15 Sep 2010 17:54:27 GMT"
+Content-Transfer-Encoding: base64
+
+somemoreencodedtext=
+
+--_002_E6527350F565F54A88C36C23F6C2B86702618AD0DF95SDCCPMSXMB5_--
+

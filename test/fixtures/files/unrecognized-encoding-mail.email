@@ -1,0 +1,36 @@
+From xxx@example.com Fri Jun 21 07:50:52 2013
+Return-path: <xxx@example.com>
+Envelope-to: xxx@example.com
+Delivery-date: Fri, 21 Jun 2013 07:50:52 +0100
+Message-ID: <185C0D48380D7AE612DD38A527D5EAF2@tmvbalem>
+From: "cttlqvx" <xxx@example.com>
+To: <xxx@example.com>
+Subject: =?hz-gb-2312?B?fntPck9ISXpWQn59c3J5dW95d3MoQUQpICAgIA==?=
+Date: Fri, 21 Jun 2013 14:48:20 +0800
+MIME-Version: 1.0
+Content-Type: multipart/related;
+    type="multipart/alternative";
+    boundary="----=_NextPart_000_02ED_01A0462A.178683F0"
+X-Priority: 1
+X-MSMail-Priority: High
+X-Mailer: Microsoft Outlook Express 6.00.2900.5512
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.5512
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_02ED_01A0462A.178683F0
+Content-Type: multipart/alternative;
+    boundary="----=_NextPart_001_09EC_01A0462A.178683F0"
+
+------=_NextPart_001_09EC_01A0462A.178683F0
+Content-Type: text/plain;
+    charset="hz-gb-2312"
+Content-Transfer-Encoding: base64
+
+
+------=_NextPart_001_09EC_01A0462A.178683F0
+Content-Type: text/html;
+    charset="hz-gb-2312"
+Content-Transfer-Encoding: base64
+
+------=_NextPart_001_09EC_01A0462A.178683F0--
