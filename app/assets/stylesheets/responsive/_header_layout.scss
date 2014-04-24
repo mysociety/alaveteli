@@ -34,9 +34,10 @@
 
     // Squeeze the logo up on small screens to make room for the button
     #logo_wrapper{
-        @include grid-column(4);
+        @include grid-column(8);
         padding: 1em 1em 0 1em;
         @include respond-min( $main_menu-mobile_menu_cutoff ){
+          @include grid-column(4);
           padding: 1em;
           margin-bottom: 1em;
           @include lte-ie7 {
@@ -139,7 +140,7 @@
         @include grid-column($columns:9);
         margin:0;
         @include lte-ie7 {
-     width: 10.063em;
+          width: 10.063em;
         }
     }
     label{
