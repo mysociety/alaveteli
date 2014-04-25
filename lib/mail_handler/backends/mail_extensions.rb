@@ -1,4 +1,5 @@
 require 'mail/message'
+require 'mail/part'
 require 'mail/fields/common/parameter_hash'
 module Mail
     class Message
@@ -7,6 +8,12 @@ module Mail
         attr_accessor :within_rfc822_attachment # for parts within a message attached as text (for getting subject mainly)
         attr_accessor :count_parts_count
         attr_accessor :count_first_uudecode_count
+    end
+
+    class Part < Message
+        def inline?
+          header[:content_disposition].disposition_type == 'inline' if header[:content_disposition] rescue false
+        end
     end
 
     # A patched version of the parameter hash that handles nil values without throwing
@@ -95,4 +102,5 @@ module Mail
         end
 
     end
+
 end
