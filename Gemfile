@@ -85,7 +85,7 @@ group :development do
   gem 'rdoc'
 end
 
-group :develop do
+group :debug do
   gem 'ruby-debug', :platforms => :ruby_18
   gem 'debugger', :platforms => :ruby_19
   gem 'annotate'

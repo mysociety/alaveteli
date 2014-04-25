@@ -129,7 +129,7 @@ bundle_install_options="--path $BUNDLE_PATH"
 
 if [ "$OPTION_STAGING_SITE" = "0" ]
 then
-    bundle_install_options="$bundle_install_options --without development:test --deployment"
+    bundle_install_options="$bundle_install_options --without development debug test --deployment"
 fi
 if [ "$OPTION_STAGING_SITE" = "1" ]
 then
