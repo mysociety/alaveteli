@@ -9,6 +9,12 @@ module Mail
         attr_accessor :count_first_uudecode_count
     end
 
+    class Part < Message
+        def inline?
+          header[:content_disposition].disposition_type == 'inline' if header[:content_disposition] rescue false
+        end
+    end
+
     # A patched version of the parameter hash that handles nil values without throwing
     # an error.
     class ParameterHash < IndifferentHash
