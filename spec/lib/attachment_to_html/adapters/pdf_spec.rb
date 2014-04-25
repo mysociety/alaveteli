@@ -58,6 +58,43 @@ describe AttachmentToHTML::Adapters::PDF do
             adapter.success?.should be_false
         end
 
+        it 'is not successful if the body contains more than 50 images' do
+            # Sometimes pdftohtml extracts images incorrectly, resulting
+            # in thousands of PNGs being created for one image. This creates
+            # a huge request spike when the converted attachment is requested.
+            #
+            # See bug report https://bugs.freedesktop.org/show_bug.cgi?id=77932
+
+            # Construct mocked HTML output with 51 images
+            invalid = <<-DOC
+            <!DOCTYPE html>
+            <HTML xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+            <HEAD>
+            <TITLE>Microsoft Word - FOI 12-01605 Resp 1.doc</TITLE>
+            <META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            <META name="generator" content="pdftohtml 0.36"/>
+            <META name="author" content="8065"/>
+            <META name="date" content="2012-09-24T15:37:06+00:00"/>
+            </HEAD>
+            <BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+            <A name=1></a><IMG src="FOI 12 01605 Resp 1 PDF-1_1.png"/><br/>
+            <IMG src="FOI 12 01605 Resp 1 PDF-1_2.png"/><br/>
+            DOC
+
+            (3..51).each { |i| invalid += %Q(<IMG src="FOI 12 01605 Resp 1 PDF-1_#{i}.png"/><br/>) }
+
+            invalid += <<-DOC
+            &#160;<br/>
+            Some Content<br/>
+            <hr>
+            </BODY>
+            </HTML>
+            DOC
+            AlaveteliExternalCommand.stub(:run).and_return(invalid)
+
+            adapter.success?.should be_false
+        end
+
     end
 
 end
