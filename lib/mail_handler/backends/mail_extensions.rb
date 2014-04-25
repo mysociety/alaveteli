@@ -1,4 +1,5 @@
 require 'mail/message'
+require 'mail/part'
 require 'mail/fields/common/parameter_hash'
 module Mail
     class Message
