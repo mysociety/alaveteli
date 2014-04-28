@@ -26,6 +26,7 @@ before_install:
   - sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler|^ruby$|^ruby1.8$|^rubygems$|^rake)"`
   - RAILS_ENV=test ./script/rails-post-deploy
   - RAILS_ENV=test ./script/update-xapian-index
+install: echo 'Bundle installed through script/rails-post-deploy'
 notifications:
   irc: "irc.freenode.org#alaveteli"
   email:
