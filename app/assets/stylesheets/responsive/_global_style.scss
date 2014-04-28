@@ -113,9 +113,8 @@ dt + dd {
 }
 
 /* Notices to the user (usually on action completion) */
-#notice {
+#notice, #error {
   font-size:1em;
-  background-color: lighten(#62b356, 23%);
   border-radius:3px;
   margin:1em 0;
   padding:1.5em;
@@ -128,6 +127,14 @@ dt + dd {
     margin-bottom:0;
   }
 
+}
+
+#notice {
+  background-color: lighten(#62b356, 23%);
+}
+
+#error {
+  background-color: lighten(#b05460, 23%);
 }
 
 .big {
