@@ -43,6 +43,7 @@
 
 .request_listing{
   @include grid-row($behavior:nest);
+  margin-top: 1.5em;
   .request_right {
     @include grid-column(12);
     @include respond-min( $main_menu-mobile_menu_cutoff ){
