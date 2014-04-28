@@ -33,18 +33,6 @@
   margin-top:10px;
   }
 
-  #requests-subfilters #latest_status_0,#requests-subfilters #request_variety_0 {
-    @include respond-min( $main_menu-mobile_menu_cutoff ){
-      margin-left:0;
-    }
-  }
-
-  #requests-subfilters input[type=checkbox] {
-    @include respond-min( $main_menu-mobile_menu_cutoff ){
-       margin-left:119px;
-    }
-  }
-
   .list-filter-item{
     margin-bottom:0.5em;
   }
