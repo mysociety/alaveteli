@@ -1,10 +1,16 @@
 /* Layout for request page */
 
 
-.describe_state_form,.gone_postal_help{
+.gone_postal_help{
   @include grid-column(12);
 }
 
+#describe_state_form_1 {
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column(9);
+  }
+}
 
 #show_response_view {
   @include grid-row();
