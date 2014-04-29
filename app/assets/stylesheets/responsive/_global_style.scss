@@ -179,12 +179,12 @@ form input[type=text],form input[type=password] {
 .errorExplanation {
   border-radius:6px;
   -moz-border-radius:6px;
-  font-weight:400;
+  font-weight: normal;
   margin:20px 0 30px;
 }
 
 #error,#hidden_request {
-  font-weight:700;
+  font-weight: bold;
   padding:0.5em;
 }
 
