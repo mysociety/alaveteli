@@ -197,6 +197,10 @@ form input[type=text],form input[type=password] {
   margin:10px 0;
 }
 
+label small{
+  text-transform: none;
+}
+
 /* Pagination */
 
 div.pagination {
