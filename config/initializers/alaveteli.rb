@@ -52,6 +52,7 @@ require 'alaveteli_localization'
 require 'message_prominence'
 require 'theme'
 require 'xapian_queries'
+require 'date_quarter'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)
