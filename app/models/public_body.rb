@@ -60,6 +60,34 @@ class PublicBody < ActiveRecord::Base
 
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
+    # Public: Search for Public Bodies whose name, short_name, request_email or
+    # tags contain the given query
+    #
+    # query  - String to query the searchable fields
+    # locale - String to specify the language of the seach query
+    #          (default: I18n.locale)
+    #
+    # Returns an ActiveRecord::Relation
+    def self.search(query, locale = I18n.locale)
+        locale = locale.to_s.gsub('-', '_') # Clean the locale string
+
+        sql = <<-SQL
+            (
+              lower(public_body_translations.name) like lower('%'||?||'%')
+              OR lower(public_body_translations.short_name) like lower('%'||?||'%')
+              OR lower(public_body_translations.request_email) like lower('%'||?||'%' )
+              OR lower(has_tag_string_tags.name) like lower('%'||?||'%' )
+            )
+            AND has_tag_string_tags.model_id = public_bodies.id
+            AND has_tag_string_tags.model = 'PublicBody'
+            AND (public_body_translations.locale = ?)
+        SQL
+
+        PublicBody.joins(:translations, :tags).
+                     where([sql, query, query, query, query, locale]).
+                       uniq
+    end
+
     # Convenience methods for creating/editing translations via forms
     def find_translation_by_locale(locale)
         self.translations.find_by_locale(locale)
