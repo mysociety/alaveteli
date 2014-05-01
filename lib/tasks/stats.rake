@@ -97,6 +97,61 @@ namespace :stats do
     end
   end
 
+  desc <<-DESC
+Prints the per-quarter number of created FOI Requests made to each Public Body found by the query.
+Specify the search query as QUERY='london school'
+DESC
+  task :number_of_requests_created => :environment do
+    query = ENV['QUERY']
+    start_at = PublicBody.minimum(:created_at)
+    finish_at = PublicBody.maximum(:created_at)
+    public_bodies = PublicBody.search(query)
+    quarters = DateQuarter.quarters_between(start_at, finish_at)
+
+    # Headers
+    headers = ['Body'] + quarters.map { |date_tuple| date_tuple.join('~') }
+    puts headers.join(",")
+
+    public_bodies.each do |body|
+        stats = quarters.map do |quarter|
+                    conditions = ['created_at >= ? AND created_at < ?', quarter[0], quarter[1]]
+                    count = body.info_requests.count(:conditions => conditions)
+                    count ? count : 0
+                end
+
+      row = [body.name] + stats
+      puts row.join(",")
+    end
+  end
+
+  desc <<-DESC
+Prints the per-quarter number of successful FOI Requests made to each Public Body found by the query.
+Specify the search query as QUERY='london school'
+DESC
+  task :number_of_requests_successful => :environment do
+    query = ENV['QUERY']
+    start_at = PublicBody.minimum(:created_at)
+    finish_at = PublicBody.maximum(:created_at)
+    public_bodies = PublicBody.search(query)
+    quarters = DateQuarter.quarters_between(start_at, finish_at)
+
+    # Headers
+    headers = ['Body'] + quarters.map { |date_tuple| date_tuple.join('~') }
+    puts headers.join(",")
+
+    public_bodies.each do |body|
+      stats = quarters.map do |quarter|
+                  conditions = ['created_at >= ? AND created_at < ? AND described_state = ?',
+                                quarter[0], quarter[1], 'successful']
+                  count = body.info_requests.count(:conditions => conditions)
+                  count ? count : 0
+              end
+
+      row = [body.name] + stats
+      puts row.join(",")
+    end
+  end
+
   desc 'Update statistics in the public_bodies table'
   task :update_public_bodies_stats => :environment do
     verbose = ENV['VERBOSE'] == '1'
