@@ -98,7 +98,7 @@ namespace :stats do
   end
 
   desc <<-DESC
-Prints the total and per-quarter number of created FOI Requests made to each Public Body found by the query.
+Prints the per-quarter number of created FOI Requests made to each Public Body found by the query.
 Specify the search query as QUERY='london school'
 DESC
   task :number_of_requests_created => :environment do
@@ -109,7 +109,7 @@ DESC
     quarters = DateQuarter.quarters_between(start_at, finish_at)
 
     # Headers
-    headers = ['Body', 'Total Requests'] + quarters.map { |date_tuple| date_tuple.join('~') }
+    headers = ['Body'] + quarters.map { |date_tuple| date_tuple.join('~') }
     puts headers.join(",")
 
     public_bodies.each do |body|
@@ -119,13 +119,13 @@ DESC
                     count ? count : 0
                 end
 
-      row = [body.name, body.info_requests_count] + stats
+      row = [body.name] + stats
       puts row.join(",")
     end
   end
 
   desc <<-DESC
-Prints the total and per-quarter number of successful FOI Requests made to each Public Body found by the query.
+Prints the per-quarter number of successful FOI Requests made to each Public Body found by the query.
 Specify the search query as QUERY='london school'
 DESC
   task :number_of_requests_successful => :environment do
@@ -136,7 +136,7 @@ DESC
     quarters = DateQuarter.quarters_between(start_at, finish_at)
 
     # Headers
-    headers = ['Body', 'Total Requests'] + quarters.map { |date_tuple| date_tuple.join('~') }
+    headers = ['Body'] + quarters.map { |date_tuple| date_tuple.join('~') }
     puts headers.join(",")
 
     public_bodies.each do |body|
@@ -147,7 +147,7 @@ DESC
                   count ? count : 0
               end
 
-      row = [body.name, body.info_requests_count] + stats
+      row = [body.name] + stats
       puts row.join(",")
     end
   end
