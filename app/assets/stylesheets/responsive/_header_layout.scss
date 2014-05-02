@@ -175,7 +175,6 @@
 
     @include respond-min( $main_menu-mobile_menu_cutoff ){
       #logged_in_links {
-        float: right;
         top: 3em;
         position: absolute;
         right: 0.9375em;
