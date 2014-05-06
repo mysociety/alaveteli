@@ -135,13 +135,18 @@ if [ "$OPTION_STAGING_SITE" = "1" ]
 then
     bundle_install_options="$bundle_install_options"
 fi
+
+# Use script/wad to install bundle when on Travis
 if [ "$TRAVIS" = "true" ]
 then
-    bundle_install_options="--without development develop --deployment"
+    script/wad
 fi
 
-echo "Running bundle install with options: $bundle_install_options"
-bundle install $bundle_install_options
+if [ ! "$TRAVIS" = "true" ]
+then
+    echo "Running bundle install with options: $bundle_install_options"
+    bundle install $bundle_install_options
+fi
 
 bundle exec rake submodules:check
 
