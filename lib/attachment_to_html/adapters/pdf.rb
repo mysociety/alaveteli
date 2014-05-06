@@ -2,6 +2,7 @@ module AttachmentToHTML
     module Adapters
         # Convert application/pdf documents in to HTML
         class PDF
+            TOO_MANY_IMAGES = 51
 
             attr_reader :attachment, :tmpdir
 
@@ -34,6 +35,7 @@ module AttachmentToHTML
             #
             # Returns a Boolean
             def success?
+                return false if contains_too_many_images?
                 has_content? || contains_images?
             end
 
@@ -50,6 +52,15 @@ module AttachmentToHTML
 
             def contains_images?
                 body.match(/<img[^>]*>/mi) ? true : false
+            end
+
+            # Works around https://bugs.freedesktop.org/show_bug.cgi?id=77932 in pdftohtml
+            def contains_too_many_images?
+                number_of_images_in_body >= TOO_MANY_IMAGES
+            end
+
+            def number_of_images_in_body
+                body.scan(/<img[^>]*>/i).size
             end
 
             def convert
