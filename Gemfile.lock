@@ -104,7 +104,6 @@ GEM
     fancybox-rails (0.2.1)
       railties (>= 3.1.0)
     fast_gettext (0.7.0)
-    fastercsv (1.5.5)
     foundation-rails (5.2.1.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
@@ -295,7 +294,6 @@ DEPENDENCIES
   fakeweb
   fancybox-rails
   fast_gettext
-  fastercsv (>= 1.5.5)
   foundation-rails
   gettext
   gettext_i18n_rails

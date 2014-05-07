@@ -5,7 +5,6 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-require 'fastercsv'
 require 'confidence_intervals'
 require 'tempfile'
 
