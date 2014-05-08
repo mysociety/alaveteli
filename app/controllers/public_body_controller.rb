@@ -190,6 +190,9 @@ class PublicBodyController < ApplicationController
         redirect_to list_public_bodies_url(:tag => @tag)
     end
 
+    # GET /body/all-authorities.csv
+    #
+    # Returns all public bodies (except for the internal admin authority) as CSV
     def list_all_csv
         # FIXME: this is just using the download directory for zip
         # archives, since we know that is allowed for X-Sendfile and
@@ -197,21 +200,29 @@ class PublicBodyController < ApplicationController
         # used for the zips.  However, really there should be a
         # generically named downloads directory that contains all
         # kinds of downloadable assets.
-        download_directory = File.join(InfoRequest.download_zip_dir(),
-                                       'download')
-        FileUtils.mkdir_p download_directory
+        download_directory = File.join(InfoRequest.download_zip_dir, 'download')
+        FileUtils.mkdir_p(download_directory)
         output_leafname = 'all-authorities.csv'
-        output_filename = File.join download_directory, output_leafname
+        output_filename = File.join(download_directory, output_leafname)
         # Create a temporary file in the same directory, so we can
         # rename it atomically to the intended filename:
-        tmp = Tempfile.new output_leafname, download_directory
+        tmp = Tempfile.new(output_leafname, download_directory)
         tmp.close
-        # Export all the public bodies to that temporary path and make
-        # it readable:
-        PublicBody.export_csv tmp.path
-        FileUtils.chmod 0644, tmp.path
-        # Rename into place and send the file:
-        File.rename tmp.path, output_filename
+
+        # Create the CSV
+        csv = PublicBodyCSV.new
+        PublicBody.visible.find_each(:include => [:translations, :tags]) do |public_body|
+           next if public_body.has_tag?('site_administration')
+           csv << public_body
+        end
+
+        # Export all the public bodies to that temporary path, make it readable,
+        # and rename it
+        File.open(tmp.path, 'w') { |file| file.write(csv.generate) }
+        FileUtils.chmod(0644, tmp.path)
+        File.rename(tmp.path, output_filename)
+
+        # Send the file
         send_file(output_filename,
                   :type => 'text/csv; charset=utf-8; header=present',
                   :filename => 'all-authorities.csv',
