@@ -166,6 +166,14 @@ form input[type=text],form input[type=password] {
   border-width:1px;
   padding:5px;
   display: inline-block;
+  /* Set a fixed height for text inputs in older IE 8 */
+  @include ie8{
+      height: 2.3125em;
+  }
+  /* Do the same in px for IE < 7 */
+  @include lte-ie7{
+      height: 22px;
+  }
 }
 
 .fieldWithErrors {
