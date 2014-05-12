@@ -30,9 +30,9 @@
 <div id="game">
   <h2><%= _("Play the request categorisation game!")%></h2>
   <p><%= _("Some people who've made requests haven't let us know whether they were
-  successful or not.  We need <strong>your</strong> help &ndash;
-  choose one of these requests, read it, and let everyone know whether or not the
-  information has been provided. Everyone'll be exceedingly grateful.")%></p>
+successful or not.  We need <strong>your</strong> help &ndash;
+choose one of these requests, read it, and let everyone know whether or not the
+information has been provided. Everyone'll be exceedingly grateful.")%></p>
   <% for info_request in @requests %>
       <%= render :partial => 'request/request_listing_single', :locals => { :info_request => info_request } %>
   <% end %>
@@ -41,7 +41,7 @@
   <%= button_to _('I don\'t want to do any more tidying now!'), categorise_stop_url %>
   </p>
   <p><%= _('Thanks for helping - your work will make it easier for everyone to find successful
-  responses, and maybe even let us make league tables...')%></p>
+responses, and maybe even let us make league tables...')%></p>
 </div>
 
 
