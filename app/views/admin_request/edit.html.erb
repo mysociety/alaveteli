@@ -49,6 +49,8 @@
 
 <hr>
 
+<div class="well">
+
 <%= form_tag admin_request_destroy_path(@info_request) do %>
     <p>
     <strong>This is permanent and irreversible!</strong> <%= submit_tag 'Destroy request entirely', :class => 'btn btn-danger' %>
@@ -57,5 +59,7 @@
     </p>
 
 <% end %>
+
+</div>
 
 <hr>
