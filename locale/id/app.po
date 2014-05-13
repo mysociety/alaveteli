@@ -1082,7 +1082,7 @@ msgid "HasTagString::HasTagStringTag|Value"
 msgstr ""
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
-msgstr ""
+msgstr "Halo! Kami mempunyai <a href=\"{{url}}\">pesan penting</a> untuk pengunjung diluar {{country_name}}"
 
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
 msgstr ""
