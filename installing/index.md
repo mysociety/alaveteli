@@ -15,7 +15,7 @@ title: Installing
 
 * [Install on Amazon EC2]({{ site.baseurl }}installing/ami) using our AMI
 * [Use the installation script]({{ site.baseurl }}installing/script) which does the full installation on your own server
-* [Manual installation]({{ site.baseurl }}installing/script) -- step-by-step instructions
+* [Manual installation]({{ site.baseurl }}installing/manual_install) -- step-by-step instructions
 
 If you're setting up a development server on MacOS X, we've also got [MacOS installation instructions]({{ site.baseurl }}installing/macos).
 
