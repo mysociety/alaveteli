@@ -8,6 +8,7 @@
 # hiiri <murahoid@gmail.com>, 2012
 # louisecrow <louise@mysociety.org>, 2013
 # louisecrow <louise@mysociety.org>, 2013
+# hiiri <murahoid@gmail.com>, 2014
 # hiiri <murahoid@gmail.com>, 2012
 # hiiri <murahoid@gmail.com>, 2012
 msgid ""
@@ -15,8 +16,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-27 09:52+0000\n"
-"PO-Revision-Date: 2014-02-27 09:59+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2014-03-19 11:18+0000\n"
+"Last-Translator: hiiri <murahoid@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/alaveteli/language/uk/)\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -175,17 +176,7 @@ msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\
 msgstr "<p>Готово! Дякуємо за вашу допомогу.</p><p>За бажання ви можете <a href=\"{{helpus_url}}\">зробити більше</a>, щоб допомогти сайту.</p>"
 
 msgid "<p>Thank you! Here are some ideas on what to do next:</p>\\n            <ul>\\n            <li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li>\\n            <li>If you would like to contest the authority's claim that they do not hold the information, here is\\n            <a href=\"{{complain_url}}\">how to complain</a>.\\n            </li>\\n            <li>We have <a href=\"{{other_means_url}}\">suggestions</a>\\n            on other means to answer your question.\\n            </li>\\n            </ul>"
-msgstr ""
-"<p>Дякуємо! Ось що ви можете зробити далі:</p>\n"
-" <ul>\n"
-"<li>Щоб відправити запит іншому розпоряднику, спершу скопіюйте текст вашого запиту нижче, далі <a href=\"{{find_authority_url}}\">знайдіть іншого розпорядника</a>.</li>\n"
-"<li>Якщо ви хочете опротестувати заяву розпорядника про те, що він не володіє потрібною інформацією, ось\n"
-"<a href=\"{{complain_url}}\">як ви можете поскаржитись</a>.\n"
-"</li>\n"
-"<li>У нас є <a href=\"{{other_means_url}}\">поради</a>\n"
-"щодо інших способів знайти відповідь на ваше запитання.\n"
-"</li>\n"
-"</ul>"
+msgstr "<p>Дякуємо! Щоб відправити запит іншому розпоряднику, спершу скопіюйте текст вашого запиту нижче, далі знайдіть іншого розпорядника</p>"
 
 msgid "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>"
 msgstr "<p>Дякуємо! Сподіваємось, вам не доведеться чекати довше.</p> <p>Згідно з законодавством, ви маєте отримати відповідь швидко, не пізніше цієї дати: <strong>{{date_response_required_by}}</strong>.</p>"
@@ -199,7 +190,7 @@ msgid "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a 
 msgstr "<p>Дякуємо! Сподіваємось, вам не доведеться довго чекати.</p><p>Ви маєте отримати відповідь в межах {{late_number_of_days}} днів, або ж вам повідомлять, що це займе більше часу (<a href=\"{{review_url}}\">details</a>).</p>"
 
 msgid "<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>"
-msgstr "<p>Дякуємо! Ваш запит давно прострочений, більш ніж {{very_late_number_of_days}} робочих днів. Більшість запитів отримують відповідь в межах {{late_number_of_days}} робочих днів. Якщо ви хочете поскаржитись щодо цього, див. нижче.</p>"
+msgstr "<p>Дякуємо! Ваш запит давно прострочений, більш ніж {{very_late_number_of_days}} робочих днів. Більшість запитів отримують відповідь в межах {{late_number_of_days}} робочих днів.</p>"
 
 msgid "<p>Thanks for changing the text about you on your profile.</p>\\n            <p><strong>Next...</strong> You can upload a profile photograph too.</p>"
 msgstr ""
@@ -220,10 +211,10 @@ msgid "<p>We're glad you got all the information that you wanted. If you write a
 msgstr ""
 
 msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>"
-msgstr "<p>Ми раді, що ви отримали всю потрібну інформацію. Якщо ви напишете про це або використаєте цю інформацію в будь-який спосіб, поверніться та додайте коментар про це внизу.</p><p>Якщо {{site_name}} видався вам корисним, <a href=\"{{donation_url}}\">ви можете допомогти фінансово</a> громадській організації, що займається його підтримкою.</p>"
+msgstr "<p>Ми раді, що ви отримали всю потрібну інформацію. Якщо ви напишете про це або використаєте цю інформацію в будь-який спосіб, поверніться та додайте коментар про це внизу.</p>"
 
 msgid "<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
-msgstr "<p>Ми раді, що ви отримали дещо з потрібної вам інформації. Якщо ви напишете про це або використаєте цю інформацію в будь-який спосіб, поверніться та додайте коментар про це внизу.</p><p>Якщо {{site_name}} видався вам корисним, <a href=\"{{donation_url}}\">ви можете допомогти фінансово</a> громадській організації, що займається його підтримкою.</p><p>Якщо ви хочете спробувати отримати решту інформацію, вам слід зробити наступне.</p>"
+msgstr "<p>Ми раді, що ви отримали дещо з потрібної вам інформації. Якщо ви напишете про це або використаєте цю інформацію в будь-який спосіб, поверніться та додайте коментар про це внизу.</p>"
 
 msgid "<p>We're glad you got some of the information that you wanted.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
 msgstr ""
@@ -771,7 +762,7 @@ msgid "Did you mean: {{correction}}"
 msgstr "Можливо, ви мали на увазі: {{correction}}"
 
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
-msgstr "Увага! Це повідомлення та будь-яка відповідь на нього будуть опубліковані на сайті {{site_name}}"
+msgstr "Увага! Це повідомлення та будь-яка відповідь на нього будуть опубліковані на сайті Доступу до Правди"
 
 msgid "Disclosure log"
 msgstr ""
@@ -1176,7 +1167,7 @@ msgid "If you are dissatisfied by the response you got from\\n            the pu
 msgstr ""
 "Якщо ви не задоволені відповіддю, отриману від\n"
 " розпорядника інформації, ви маєте право на \n"
-"скаргу (<a href=\"{{url}}\">деталі</a>)."
+"скаргу."
 
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Якщо у вас все ще виникають проблеми, <a href=\"{{url}}\">зверніться до нас</a>."
@@ -1635,7 +1626,7 @@ msgid "Offensive? Unsuitable?"
 msgstr "Образливо? Недоречно?"
 
 msgid "Oh no! Sorry to hear that your request was refused. Here is what to do now."
-msgstr "Сумно, але ваш запит було відхилено. Ось що можна зробити зараз."
+msgstr "Шкода, що ваш запит було відхилено"
 
 msgid "Old e-mail:"
 msgstr "Стара адреса:"
@@ -2702,8 +2693,8 @@ msgstr ""
 
 msgid "There is {{count}} person following this request"
 msgid_plural "There are {{count}} people following this request"
-msgstr[0] "Цей запит ніхто не відслідковує"
-msgstr[1] "Цей запит відслідковує 1 людина"
+msgstr[0] "Цей запит відслідковує 1 людина"
+msgstr[1] "Цей запит відслідковує така кількість людей: {{count}}"
 msgstr[2] "Цей запит відслідковує така кількість людей: {{count}}"
 
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
@@ -2799,22 +2790,22 @@ msgid "This particular request is finished:"
 msgstr "Переписка щодо цього запиту завершена:"
 
 msgid "This person has made no Freedom of Information requests using this site."
-msgstr "Ця людина не зробила жодного запиту через цей сайт."
+msgstr "Цей користувач не зробив жодного запиту через цей сайт."
 
 msgid "This person's annotations"
 msgstr "Коментарі цієї людини"
 
 msgid "This person's {{count}} Freedom of Information request"
 msgid_plural "This person's {{count}} Freedom of Information requests"
-msgstr[0] "Ця людина має {{count}} запитів"
-msgstr[1] "Ця людина має {{count}} запит"
-msgstr[2] "Ця людина має {{count}} запитів (запити)"
+msgstr[0] "Цей користувач має {{count}} запит"
+msgstr[1] "Цей користувач має {{count}} запити"
+msgstr[2] "Цей користувач має {{count}} запитів"
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
-msgstr[0] "Ця людина має {{count}} коментарів"
-msgstr[1] "Ця людина має {{count}} коментар"
-msgstr[2] "Ця людина має {{count}} коментарів"
+msgstr[0] "Цей користувач має {{count}} коментар"
+msgstr[1] "Цей користувач має {{count}} коментарі"
+msgstr[2] "Цей користувач має {{count}} коментарів"
 
 msgid "This request <strong>requires administrator attention</strong>"
 msgstr "Цей запит потребує уваги адміністрації сайту"
@@ -3744,7 +3735,7 @@ msgid "send a follow up message"
 msgstr ""
 
 msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "надіслано до розпорядника {{public_body_name}} користувачем {{info_request_user}} {{date}}."
 
 msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
 msgstr ""

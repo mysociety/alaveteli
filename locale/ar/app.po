@@ -5,7 +5,7 @@
 # Translators:
 # aelharaty <aelharaty@gmail.com>, 2012
 # aelharaty <aelharaty@gmail.com>, 2012
-# radproject <radhouanef@gmail.com>, 2013
+# radproject <radhouanef@gmail.com>, 2013-2014
 # radproject <radhouanef@gmail.com>, 2013
 # radproject <radhouanef@gmail.com>, 2013
 #   <rwiwina@live.fr>, 2013
@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-27 09:52+0000\n"
-"PO-Revision-Date: 2014-02-27 09:59+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2014-04-01 18:18+0000\n"
+"Last-Translator: radproject <radhouanef@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/alaveteli/language/ar/)\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -133,7 +133,7 @@ msgid "(show)"
 msgstr ""
 
 msgid "*unknown*"
-msgstr ""
+msgstr "*مجهول*"
 
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ",\\n\\n\\n\\nتحياتي,\\n\\n{{user_name}}"
