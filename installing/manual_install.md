@@ -57,17 +57,26 @@ headers necessary to compile some of the gem dependencies in the next step.
 
 Add the following repositories to `/etc/apt/sources.list`:
 
-    # Debian Squeeze
-    deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
+**Debian Squeeze**
 
-    # Ubuntu Precise
+    cat > /etc/apt/sources.list.d/debian-backports.list <<EOF
+    deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
+    EOF
+
+The repositories above let you install `wkhtmltopdf-static` and `bundler` using
+`apt`.
+
+**Ubuntu Precise**
+
+    cat > /etc/apt/sources.list.d/ubuntu-extra.list <<EOF
     deb http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise multiverse
     deb-src http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise multiverse
     deb http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise-updates multiverse
     deb-src http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise-updates multiverse
+    EOF
 
-The repositories above let you install the packages `wkhtmltopdf-static`
-and `bundler` using `apt`.
+The repositories above let you install `wkhtmltopdf-static` using `apt`.
+`bundler` will have to be installed manually on Ubuntu Precise.
 
 ### Packages customised by mySociety
 
