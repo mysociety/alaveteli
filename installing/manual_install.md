@@ -178,6 +178,16 @@ and password of your postgres database.
 * Edit it to point to your local postgresql database in the development
   and test sections.
 
+Example `development` section of `config/database.yml`:
+
+    development:
+      adapter: postgresql
+      database: foi_development
+      username: foi
+      password: secure-password-here
+      host: localhost
+      port: 5432
+
 Make sure that the user specified in `database.yml` exists, and has full
 permissions on these databases. As they need the ability to turn off
 constraints whilst running the tests they also need to be a superuser
