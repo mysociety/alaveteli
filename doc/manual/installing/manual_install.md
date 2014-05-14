@@ -58,8 +58,8 @@ headers necessary to compile some of the gem dependencies in the next step.
 If you are running Debian, add the following repositories to
 `/etc/apt/sources.list` and run `apt-get update`:
 
+    # Debian Squeeze
     deb http://debian.mysociety.org squeeze main
-    deb http://ftp.debian.org/debian/ wheezy main non-free contrib
     deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
 
 The repositories above let you install the packages `wkhtmltopdf-static`
