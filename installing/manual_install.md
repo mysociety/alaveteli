@@ -42,27 +42,12 @@ code. If you don't want to add or try new features, swap to the master branch
 
     git checkout master
 
-## Package pinning
+## Install mySociety libraries
 
-You need to configure
-[apt-pinning](http://wiki.debian.org/AptPreferences#Pinning-1) preferences in
-order to prevent packages being pulled from the debian wheezy distribution in
-preference to the stable distribution once you have added the wheezy repository
-as described below.
+Next, install mySociety's common ruby libraries. To fetch the contents of the
+submodules, run:
 
-In order to configure apt-pinning and to keep most packages coming from the
-Debian stable repository while installing the ones required from wheezy and the
-mySociety repository you need to run the following commands:
-
-      echo "Package: *" >> /tmp/preferences
-      echo "Pin: release a=squeeze-backports">> /tmp/preferences
-      echo "Pin-Priority: 200" >> /tmp/preferences
-      echo "" >> /tmp/preferences
-      echo "Package: *" >> /tmp/preferences
-      echo "Pin: release a=wheezy">> /tmp/preferences
-      echo "Pin-Priority: 50" >> /tmp/preferences
-      sudo cp /tmp/preferences /etc/apt/
-      rm /tmp/preferences
+    git submodule update --init
 
 ## Install system dependencies
 
@@ -70,49 +55,49 @@ These are packages that the software depends on: third-party software used to
 parse documents, host the site, and so on. There are also packages that contain
 headers necessary to compile some of the gem dependencies in the next step.
 
-If you are running Debian, add the following repositories to
-`/etc/apt/sources.list` and run `apt-get update`:
+Add the following repositories to `/etc/apt/sources.list`:
 
-    deb http://debian.mysociety.org squeeze main
-    deb http://ftp.debian.org/debian/ wheezy main non-free contrib
+**Debian Squeeze**
+
+    cat > /etc/apt/sources.list.d/debian-backports.list <<EOF
     deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
+    EOF
 
-The repositories above let you install the packages `wkhtmltopdf-static`
-and `bundler` using `apt`; so if you're running Ubuntu, you won't be able to
-use the above repositories. Instead, comment out those two lines in
-`config/packages` before following the next step (and install bundler manually).
+The repositories above let you install `wkhtmltopdf-static` and `bundler` using
+`apt`.
 
-Now install the packages that are listed in config/packages using apt-get:
+**Ubuntu Precise**
 
-    sudo apt-get install `cut -d " " -f 1 config/packages | grep -v "^#"`
+    cat > /etc/apt/sources.list.d/ubuntu-extra.list <<EOF
+    deb http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise multiverse
+    deb-src http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise multiverse
+    deb http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise-updates multiverse
+    deb-src http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise-updates multiverse
+    EOF
 
-Some of the files also have a version number listed in config/packages - check
-that you have appropriate versions installed. Some also list "|" and offer a
-choice of packages.
-
-## Install Ruby dependencies
-
-To install Alaveteli's Ruby dependencies, you need to install bundler. In
-Debian, this is provided as a package (installed as part of the package install
-process above). You could also install it as a gem:
-
-    sudo gem1.8 install bundler
-
-## Install mySociety libraries
-
-Next, install mySociety's common ruby libraries and the Rails
-code. To fetch the contents of the submodules, run:
-
-    git submodule update --init
-
+The repositories above let you install `wkhtmltopdf-static` using `apt`.
+`bundler` will have to be installed manually on Ubuntu Precise.
 
 ### Packages customised by mySociety
 
-If you're using Debian, you should add the mySociety debian archive to your
-`/etc/apt/sources.list` as described above. Doing this and following the above
-instructions will install a couple of custom dependencies. If you're using 
-some other platform, you can optionally install these dependencies manually,
-as follows:
+If you're using Debian, you should add the mySociety Debian archive to your
+apt sources.
+
+    cat > /etc/apt/sources.list.d/mysociety-debian.list <<EOF
+    deb http://debian.mysociety.org squeeze main
+    EOF
+
+You should also configure package-pinning to reduce the priority of this
+repository.
+
+    cat > /etc/apt/preferences <<EOF
+    Package: *
+    Pin: origin debian.mysociety.org
+    Pin-Priority: 50
+    EOF
+
+If you're using some other platform, you can optionally install these
+dependencies manually, as follows:
 
 1. If you would like users to be able to get pretty PDFs as part of the
 downloadable zipfile of their request history, install
@@ -131,6 +116,31 @@ you kill it), patch it yourself, or use the Debian package
 compiled by mySociety (see link in [issue
 305](https://github.com/mysociety/alaveteli/issues/305))
 
+### Install the dependencies
+
+Refresh the sources after adding the extra repositories:
+
+    sudo apt-get update
+
+Now install the packages relevant to your system:
+
+    # Debian Squeeze
+    sudo apt-get install $(cat config/packages.debian-squeeze)
+
+    # Ubuntu Precise
+    sudo apt-get install $(cat config/packages.ubuntu-precise)
+
+Some of the files also have a version number listed in config/packages - check
+that you have appropriate versions installed. Some also list "`|`" and offer a
+choice of packages.
+
+## Install Ruby dependencies
+
+To install Alaveteli's Ruby dependencies, you need to install bundler. In
+Debian, this is provided as a package (installed as part of the package install
+process above). You could also install it as a gem:
+
+    sudo gem install bundler
 
 ## Configure Database
 
@@ -142,28 +152,12 @@ If you don't have postgres installed:
 
     apt-get install postgresql postgresql-client
 
-Now you need to set up the database config file to contain the name, username
-and password of your postgres database.
-
-* copy `database.yml-example` to `database.yml` in `alaveteli/config`
-* edit it to point to your local postgresql database in the development
-  and test sections and create the databases:
-
-Make sure that the user specified in `database.yml` exists, and has full
-permissions on these databases. As they need the ability to turn off
-constraints whilst running the tests they also need to be a superuser. If you
-don't want your database user to be a superuser, you can add this line
-to the test config in `database.yml` (as seen in `database.yml-example`)
-
-    disable_constraints: false
-
-
 Create a `foi` user from the command line, like this:
 
     # su - postgres
     $ createuser -s -P foi
 
-Then create a database:
+Then create the databases:
 
     $ createdb -T template0 -E SQL_ASCII -O foi foi_production
     $ createdb -T template0 -E SQL_ASCII -O foi foi_test
@@ -174,6 +168,21 @@ We create using the ``SQL_ASCII`` encoding, because in postgres this is means
 be valid UTF (for example, data originating from various broken email clients
 that's not 8-bit clean), it's safer to be able to store *anything*, than reject
 data at runtime.
+
+Now you need to set up the database config file to contain the name, username
+and password of your postgres database.
+
+* Copy `database.yml-example` to `database.yml` in `alaveteli/config`
+* Edit it to point to your local postgresql database in the development
+  and test sections.
+
+Make sure that the user specified in `database.yml` exists, and has full
+permissions on these databases. As they need the ability to turn off
+constraints whilst running the tests they also need to be a superuser. If you
+don't want your database user to be a superuser, you can add this line
+to the test config in `database.yml` (as seen in `database.yml-example`)
+
+    disable_constraints: false
 
 ## Configure email
 
