@@ -150,18 +150,20 @@ databases (e.g., SQLite), but the currently supported database is PostgreSQL
 
 If you don't have postgres installed:
 
-    apt-get install postgresql postgresql-client
+    $ sudo apt-get install postgresql postgresql-client
 
 Create a `foi` user from the command line, like this:
 
-    # su - postgres
-    $ createuser -s -P foi
+    # sudo -u postgres createuser -s -P foi
+
+_Note:_ Leaving the password blank will cause great confusion if you're new to
+PostgreSQL.
 
 Then create the databases:
 
-    $ createdb -T template0 -E SQL_ASCII -O foi foi_production
-    $ createdb -T template0 -E SQL_ASCII -O foi foi_test
-    $ createdb -T template0 -E SQL_ASCII -O foi foi_development
+    # sudo -u postgres createdb -T template0 -E SQL_ASCII -O foi foi_production
+    # sudo -u postgres createdb -T template0 -E SQL_ASCII -O foi foi_test
+    # sudo -u postgres createdb -T template0 -E SQL_ASCII -O foi foi_development
 
 We create using the ``SQL_ASCII`` encoding, because in postgres this is means
 "no encoding"; and because we handle and store all kinds of data that may not
@@ -178,8 +180,9 @@ and password of your postgres database.
 
 Make sure that the user specified in `database.yml` exists, and has full
 permissions on these databases. As they need the ability to turn off
-constraints whilst running the tests they also need to be a superuser. If you
-don't want your database user to be a superuser, you can add this line
+constraints whilst running the tests they also need to be a superuser
+
+If you don't want your database user to be a superuser, you can add this line
 to the test config in `database.yml` (as seen in `database.yml-example`)
 
     disable_constraints: false
