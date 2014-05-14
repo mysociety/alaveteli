@@ -67,12 +67,16 @@ and `bundler` using `apt`; so if you're running Ubuntu, you won't be able to
 use the above repositories. Instead, comment out those two lines in
 `config/packages` before following the next step (and install bundler manually).
 
-Now install the packages that are listed in config/packages using apt-get:
+Now install the packages relevant to your system using apt-get:
 
-    sudo apt-get install `cut -d " " -f 1 config/packages | grep -v "^#"`
+    # Debian Squeeze
+    sudo apt-get install $(cat config/packages.debian-squeeze)
+
+    # Ubuntu Precise
+    sudo apt-get install $(cat config/packages.ubuntu-precise)
 
 Some of the files also have a version number listed in config/packages - check
-that you have appropriate versions installed. Some also list "|" and offer a
+that you have appropriate versions installed. Some also list "`|`" and offer a
 choice of packages.
 
 ## Install Ruby dependencies
