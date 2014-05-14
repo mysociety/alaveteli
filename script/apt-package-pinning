@@ -1,0 +1,64 @@
+#!/bin/bash
+#
+# Outputs the correct apt package pinning preferences for the host operating
+# system.
+#
+# You can set the preferences by redirecting the output of this script to the
+# appropriate location:
+#
+#   ./apt-package-pinning > /etc/apt/preferences
+#
+# Exit Codes
+# ==========
+#
+# Success: 0
+# Unsupported Operating System: 1
+# Other error: 2
+DISTRIBUTION="$(lsb_release -i -s  | tr A-Z a-z)"
+DISTVERSION="$(lsb_release -c -s)"
+SYSTEM="$DISTRIBUTION-$DISTVERSION"
+
+debian_squeeze_preferences() {
+  cat <<EOF
+Package: *
+Pin: origin debian.mysociety.org
+Pin-Priority: 50  
+EOF
+}
+
+debian_wheezy_preferences() {
+  cat <<EOF
+Package: *
+Pin: origin debian.mysociety.org
+Pin-Priority: 50  
+EOF
+}
+
+ubuntu_precise_preferences() {
+  cat <<EOF
+Package: *
+Pin: origin debian.mysociety.org
+Pin-Priority: 50  
+EOF
+}
+
+case $SYSTEM in
+  'debian-squeeze')
+    debian_squeeze_preferences
+    exit 0
+    ;;
+  'debian-wheezy')
+    debian_wheezy_preferences
+    exit 0
+    ;;
+  'ubuntu-precise')
+    ubuntu_precise_preferences
+    exit 0
+    ;;
+  *)
+  echo "$SYSTEM is not currently supported"
+  exit 1
+  ;;
+esac
+
+exit 2
