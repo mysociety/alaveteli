@@ -79,14 +79,6 @@ Some of the files also have a version number listed in config/packages - check
 that you have appropriate versions installed. Some also list "`|`" and offer a
 choice of packages.
 
-## Install Ruby dependencies
-
-To install Alaveteli's Ruby dependencies, you need to install bundler. In
-Debian, this is provided as a package (installed as part of the package install
-process above). You could also install it as a gem:
-
-    sudo gem install bundler
-
 ### Packages customised by mySociety
 
 If you're using Debian, you should add the mySociety debian archive to your
@@ -112,6 +104,13 @@ you kill it), patch it yourself, or use the Debian package
 compiled by mySociety (see link in [issue
 305](https://github.com/mysociety/alaveteli/issues/305))
 
+## Install Ruby dependencies
+
+To install Alaveteli's Ruby dependencies, you need to install bundler. In
+Debian, this is provided as a package (installed as part of the package install
+process above). You could also install it as a gem:
+
+    sudo gem install bundler
 
 ## Configure Database
 
