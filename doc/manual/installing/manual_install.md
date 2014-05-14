@@ -69,18 +69,6 @@ Add the following repositories to `/etc/apt/sources.list`:
 The repositories above let you install the packages `wkhtmltopdf-static`
 and `bundler` using `apt`.
 
-Now install the packages relevant to your system using apt-get:
-
-    # Debian Squeeze
-    sudo apt-get install $(cat config/packages.debian-squeeze)
-
-    # Ubuntu Precise
-    sudo apt-get install $(cat config/packages.ubuntu-precise)
-
-Some of the files also have a version number listed in config/packages - check
-that you have appropriate versions installed. Some also list "`|`" and offer a
-choice of packages.
-
 ### Packages customised by mySociety
 
 If you're using Debian, you should add the mySociety Debian archive to your
@@ -118,6 +106,24 @@ can either hope you don't encounter the bug (it ties up a rails process until
 you kill it), patch it yourself, or use the Debian package
 compiled by mySociety (see link in [issue
 305](https://github.com/mysociety/alaveteli/issues/305))
+
+### Install the dependencies
+
+Refresh the sources after adding the extra repositories:
+
+    sudo apt-get update
+
+Now install the packages relevant to your system:
+
+    # Debian Squeeze
+    sudo apt-get install $(cat config/packages.debian-squeeze)
+
+    # Ubuntu Precise
+    sudo apt-get install $(cat config/packages.ubuntu-precise)
+
+Some of the files also have a version number listed in config/packages - check
+that you have appropriate versions installed. Some also list "`|`" and offer a
+choice of packages.
 
 ## Install Ruby dependencies
 
