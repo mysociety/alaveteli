@@ -49,28 +49,6 @@ submodules, run:
 
     git submodule update --init
 
-## Package pinning
-
-You need to configure
-[apt-pinning](http://wiki.debian.org/AptPreferences#Pinning-1) preferences in
-order to prevent packages being pulled from the debian wheezy distribution in
-preference to the stable distribution once you have added the wheezy repository
-as described below.
-
-In order to configure apt-pinning and to keep most packages coming from the
-Debian stable repository while installing the ones required from wheezy and the
-mySociety repository you need to run the following commands:
-
-      echo "Package: *" >> /tmp/preferences
-      echo "Pin: release a=squeeze-backports">> /tmp/preferences
-      echo "Pin-Priority: 200" >> /tmp/preferences
-      echo "" >> /tmp/preferences
-      echo "Package: *" >> /tmp/preferences
-      echo "Pin: release a=wheezy">> /tmp/preferences
-      echo "Pin-Priority: 50" >> /tmp/preferences
-      sudo cp /tmp/preferences /etc/apt/
-      rm /tmp/preferences
-
 ## Install system dependencies
 
 These are packages that the software depends on: third-party software used to
