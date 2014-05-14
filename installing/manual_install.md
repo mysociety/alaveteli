@@ -42,6 +42,13 @@ code. If you don't want to add or try new features, swap to the master branch
 
     git checkout master
 
+## Install mySociety libraries
+
+Next, install mySociety's common ruby libraries. To fetch the contents of the
+submodules, run:
+
+    git submodule update --init
+
 ## Package pinning
 
 You need to configure
@@ -97,14 +104,6 @@ Debian, this is provided as a package (installed as part of the package install
 process above). You could also install it as a gem:
 
     sudo gem1.8 install bundler
-
-## Install mySociety libraries
-
-Next, install mySociety's common ruby libraries and the Rails
-code. To fetch the contents of the submodules, run:
-
-    git submodule update --init
-
 
 ### Packages customised by mySociety
 
