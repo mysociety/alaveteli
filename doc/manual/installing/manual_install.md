@@ -55,17 +55,19 @@ These are packages that the software depends on: third-party software used to
 parse documents, host the site, and so on. There are also packages that contain
 headers necessary to compile some of the gem dependencies in the next step.
 
-If you are running Debian, add the following repositories to
-`/etc/apt/sources.list` and run `apt-get update`:
+Add the following repositories to `/etc/apt/sources.list`:
 
     # Debian Squeeze
-    deb http://debian.mysociety.org squeeze main
     deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
 
+    # Ubuntu Precise
+    deb http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise multiverse
+    deb-src http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise multiverse
+    deb http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise-updates multiverse
+    deb-src http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise-updates multiverse
+
 The repositories above let you install the packages `wkhtmltopdf-static`
-and `bundler` using `apt`; so if you're running Ubuntu, you won't be able to
-use the above repositories. Instead, comment out those two lines in
-`config/packages` before following the next step (and install bundler manually).
+and `bundler` using `apt`.
 
 Now install the packages relevant to your system using apt-get:
 
