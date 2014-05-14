@@ -83,11 +83,24 @@ choice of packages.
 
 ### Packages customised by mySociety
 
-If you're using Debian, you should add the mySociety debian archive to your
-`/etc/apt/sources.list` as described above. Doing this and following the above
-instructions will install a couple of custom dependencies. If you're using 
-some other platform, you can optionally install these dependencies manually,
-as follows:
+If you're using Debian, you should add the mySociety Debian archive to your
+apt sources.
+
+    cat > /etc/apt/sources.list.d/mysociety-debian.list <<EOF
+    deb http://debian.mysociety.org squeeze main
+    EOF
+
+You should also configure package-pinning to reduce the priority of this
+repository.
+
+    cat > /etc/apt/preferences <<EOF
+    Package: *
+    Pin: origin debian.mysociety.org
+    Pin-Priority: 50
+    EOF
+
+If you're using some other platform, you can optionally install these
+dependencies manually, as follows:
 
 1. If you would like users to be able to get pretty PDFs as part of the
 downloadable zipfile of their request history, install
