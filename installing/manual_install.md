@@ -152,28 +152,12 @@ If you don't have postgres installed:
 
     apt-get install postgresql postgresql-client
 
-Now you need to set up the database config file to contain the name, username
-and password of your postgres database.
-
-* copy `database.yml-example` to `database.yml` in `alaveteli/config`
-* edit it to point to your local postgresql database in the development
-  and test sections and create the databases:
-
-Make sure that the user specified in `database.yml` exists, and has full
-permissions on these databases. As they need the ability to turn off
-constraints whilst running the tests they also need to be a superuser. If you
-don't want your database user to be a superuser, you can add this line
-to the test config in `database.yml` (as seen in `database.yml-example`)
-
-    disable_constraints: false
-
-
 Create a `foi` user from the command line, like this:
 
     # su - postgres
     $ createuser -s -P foi
 
-Then create a database:
+Then create the databases:
 
     $ createdb -T template0 -E SQL_ASCII -O foi foi_production
     $ createdb -T template0 -E SQL_ASCII -O foi foi_test
@@ -184,6 +168,21 @@ We create using the ``SQL_ASCII`` encoding, because in postgres this is means
 be valid UTF (for example, data originating from various broken email clients
 that's not 8-bit clean), it's safer to be able to store *anything*, than reject
 data at runtime.
+
+Now you need to set up the database config file to contain the name, username
+and password of your postgres database.
+
+* Copy `database.yml-example` to `database.yml` in `alaveteli/config`
+* Edit it to point to your local postgresql database in the development
+  and test sections.
+
+Make sure that the user specified in `database.yml` exists, and has full
+permissions on these databases. As they need the ability to turn off
+constraints whilst running the tests they also need to be a superuser. If you
+don't want your database user to be a superuser, you can add this line
+to the test config in `database.yml` (as seen in `database.yml-example`)
+
+    disable_constraints: false
 
 ## Configure email
 
