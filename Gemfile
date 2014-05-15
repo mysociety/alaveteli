@@ -13,11 +13,12 @@ gem 'pg'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', :git => 'git://github.com/technoweenie/acts_as_versioned.git'
-gem 'capistrano'
 gem 'charlock_holmes'
 gem 'dynamic_form'
 gem 'exception_notification'
+gem 'fancybox-rails'
 gem 'fastercsv', '>=1.5.5'
+gem 'foundation-rails'
 gem 'jquery-rails', '~> 3.0.4'
 gem 'jquery-ui-rails'
 gem 'json'
@@ -25,11 +26,9 @@ gem 'mahoro'
 gem 'memcache-client'
 gem 'net-http-local', :platforms => [:ruby_18, :ruby_19]
 gem 'net-purge'
-gem 'newrelic_rpm'
 gem 'rack'
 gem 'rake', '0.9.2.2'
 gem 'rails-i18n'
-gem 'rdoc'
 gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 # :require avoids "already initialized constant" warnings
 gem 'rmagick', :require => 'RMagick'
@@ -63,6 +62,10 @@ group :assets do
   gem 'therubyracer'
 end
 
+group :production do
+  gem 'newrelic_rpm'
+end
+
 group :test do
   gem 'fakeweb'
   gem 'coveralls', :require => false
@@ -70,18 +73,21 @@ group :test do
   gem 'nokogiri'
 end
 
-group :development do
-  gem 'mailcatcher'
-end
-
-group :develop do
-  gem 'ruby-debug', :platforms => :ruby_18
-  gem 'debugger', :platforms => :ruby_19
-  gem 'annotate'
-end
-
 group :test, :development do
   gem 'factory_girl_rails', '~> 1.7'
   gem 'rspec-rails'
   gem 'spork-rails'
 end
+
+group :development do
+  gem 'capistrano'
+  gem 'mailcatcher'
+  gem 'rdoc'
+end
+
+group :debug do
+  gem 'ruby-debug', :platforms => :ruby_18
+  gem 'debugger', :platforms => :ruby_19
+  gem 'annotate'
+end
+

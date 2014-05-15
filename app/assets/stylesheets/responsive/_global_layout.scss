@@ -1,0 +1,100 @@
+/* Layout across the site */
+#wrapper{
+  @include grid-row();
+  @include ie8{
+    width: $main_menu-mobile_menu_cutoff;
+  }
+}
+
+/* A global 12 column element provides padding for all pages */
+#content{
+  @include grid-column(12);
+  @include ie8{
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+  }
+  @include lte-ie7 {
+    width: 56.125em;
+  }
+}
+
+
+textarea{
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    width: inherit;
+  }
+}
+
+
+/* Container grid-rows for pages that use these generic headers and columns */
+#public_body_list,
+#user_profile_header,
+#general_blog,
+#request_show,
+#info_request_batch_show {
+  @include grid-row($behavior: nest);
+}
+
+/* Column headers */
+#header_right {
+  @include grid-column(12);
+
+
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:4, $float:right);
+    padding-top:27px;
+    @include ie8{
+      padding-left: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 17.438em;
+    }
+  }
+}
+
+#header_left {
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column(8);
+    @include ie8{
+      padding-right: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 36.813em;
+    }
+  }
+}
+
+/* Columns */
+#left_column_flip, #left_column{
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column(9);
+    @include lte-ie7 {
+      width: 41.625em;
+    }
+  }
+}
+
+#right_column_flip, #right_column {
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:3);
+    margin-top:20px;
+    @include lte-ie7 {
+      width: 12.625em;
+    }
+  }
+}
+
+#left_column_flip, #right_column {
+  @include ie8{
+    padding-left: 0.9375em;
+  }
+}
+
+#right_column_flip, #left_column {
+  @include ie8{
+    padding-right: 0.9375em;
+  }
+}

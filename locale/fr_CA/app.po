@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-27 09:52+0000\n"
-"PO-Revision-Date: 2014-02-27 09:59+0000\n"
+"POT-Creation-Date: 2014-05-15 12:46+0100\n"
+"PO-Revision-Date: 2014-05-15 11:56+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/projects/p/alaveteli/language/fr_CA/)\n"
 "Language: fr_CA\n"
@@ -105,14 +105,8 @@ msgstr "Vous recevrez aussi des mises à jour par courriel concernant cette dema
 msgid " made by "
 msgstr "faite par"
 
-msgid " or "
-msgstr "ou"
-
 msgid " when you send this message."
 msgstr "quand vous envoyez ce message."
-
-msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
-msgstr "*** \"Bonjour! Nous avons <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">un message important </a> pour les visiteurs à l'extérieur de  {{country_name}}\""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Document statistique sur la criminalité de 2001 à 2013'"
@@ -576,6 +570,9 @@ msgstr "Choisissez votre photo de profil"
 msgid "Clarification"
 msgstr "Précisions"
 
+msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Clarify your FOI request - "
 msgstr "Clarifier votre demande -"
 
@@ -915,6 +912,9 @@ msgstr "Suivre les messages envoyés par le demandeur"
 msgid "Follow up messages to existing requests are sent to "
 msgstr "Les messages de suivi des demandes existantes sont envoyés "
 
+msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 #. "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
@@ -994,6 +994,12 @@ msgstr "HasTagString::HasTagStringTag|Name"
 
 msgid "HasTagString::HasTagStringTag|Value"
 msgstr "HasTagString::HasTagStringTag|Value"
+
+msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
+msgstr "*** Bonjour! Nous avons <a href=\"{{url}}\">un message important </a> pour les visiteurs à l'extérieur de  {{country_name}}"
+
+msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
+msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Bonjour! Vous pouvez faire des demandes d'accès aux documents au {{country_name}} ici: {{link_to_website}}"
@@ -1273,6 +1279,9 @@ msgstr "Informations sur les émissions et les déversements (par exemple, le br
 
 msgid "Internal review request"
 msgstr "Demande de révision interne"
+
+msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Est-ce que {{email_address}} est la mauvaise adresse pour les demandes de {{type_of_request}} à {{public_body_name}}? Si c'est le cas, veuillez nous l'indiquer en complétant ce formulaire:"
@@ -1838,6 +1847,9 @@ msgstr "Publié le {{date}} par {{author}}"
 msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 msgstr "Propulsé par <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 
+msgid "Prefer not to receive emails?"
+msgstr ""
+
 msgid "Prev"
 msgstr "Prev"
 
@@ -2120,6 +2132,9 @@ msgstr "Répondre en utilisant le web"
 msgid "Response"
 msgstr "Réponse"
 
+msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Response from a public authority"
 msgstr "Réponse d'un organisme"
 
@@ -2302,6 +2317,12 @@ msgid "Source URL:"
 msgstr ""
 
 msgid "Source:"
+msgstr ""
+
+msgid "Spam address"
+msgstr ""
+
+msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Special note for this authority!"
@@ -2895,6 +2916,9 @@ msgstr "Saisissez <strong><code>01/01/2008..14/01/2008</code></strong> pour n'af
 msgid "URL name can't be blank"
 msgstr "Le champs URL ne peut être vide"
 
+msgid "URL name is already taken"
+msgstr ""
+
 msgid "Unable to change email address on {{site_name}}"
 msgstr "Impossible de changer l'adresse courriel sur {{site_name}}"
 
@@ -2964,6 +2988,9 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|About me"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -2971,6 +2998,9 @@ msgid "User|Ban text"
 msgstr "User|Ban text"
 
 msgid "User|Can make batch requests"
+msgstr ""
+
+msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3165,8 +3195,23 @@ msgstr "Vous suivez déjà cette personne"
 msgid "You are already following this request"
 msgstr "Vous suivez déjà cette demande"
 
-msgid "You are already following updates about {{track_description}}"
-msgstr "Vous recevez déjà des mises à jour sur {{track_description}}"
+msgid "You are already subscribed to '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are already subscribed to <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
 
 msgid "You are currently receiving notification of new activity on your wall by email."
 msgstr "Vous recevez présentement des notifications par courriel au sujet de nouvelles activités sur votre mur."
@@ -3174,11 +3219,41 @@ msgstr "Vous recevez présentement des notifications par courriel au sujet de no
 msgid "You are following all new successful responses"
 msgstr "Vous suivez maintenant toutes les nouvelles réponses complètes."
 
-msgid "You are no longer following {{track_description}}."
-msgstr "Vous ne suivez plus {{track_description}}."
+msgid "You are no longer following '{{link_to_authority}}', a public authority."
+msgstr ""
 
-msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about {{track_description}}"
-msgstr "Vous <a href=\"{{wall_url_user}}\">suivez </a>maintenant les mises à jour concernant {{track_description}}"
+msgid "You are no longer following '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are no longer following '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
 
 msgid "You can <strong>complain</strong> by"
 msgstr "Vous pouvez <strong>vous plaindre</strong> en "
@@ -3258,8 +3333,23 @@ msgstr "Vous serez incapable de faire de nouvelles demandes, d'envoyer des suivi
 msgid "You will no longer be emailed updates for those alerts"
 msgstr "Vous ne recevrez plus de mises à jour pour ces alertes."
 
-msgid "You will now be emailed updates about {{track_description}}. <a href=\"{{change_email_alerts_url}}\">Prefer not to receive emails?</a>"
-msgstr "Vous allez recevoir des courriels de mise à jour concernant {{track_description}}. <a href=\"{{change_email_alerts_url}}\"> Vous préférez ne pas recevoir de courriels?</a>"
+msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
 
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
 msgstr "Vous ne pourrez obtenir une réponse à votre demande que si vous envoyez une  \\n  clarification."
@@ -3432,6 +3522,12 @@ msgstr "alaveteli_foi: Le logiciel qui optimise {{site_name}}"
 msgid "all requests"
 msgstr "toutes les demandes"
 
+msgid "all requests or comments"
+msgstr ""
+
+msgid "all requests or comments matching text '{{query}}'"
+msgstr ""
+
 msgid "also called {{public_body_short_name}}"
 msgstr "aussi appelé {{public_body_short_name}}"
 
@@ -3450,14 +3546,8 @@ msgstr "et mettre à jour le statut"
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "et nous vous suggérerons <strong> quoi faire ensuite </strong>"
 
-msgid "any <a href=\"/list\">new requests</a>"
-msgstr "Toutes <a href=\"/list\">les nouvelles demandes</a>"
-
-msgid "any <a href=\"/list/successful\">successful requests</a>"
-msgstr "toutes <a href=\"/list/successful\">les demandes réussies</a>"
-
-msgid "anything"
-msgstr "tout"
+msgid "anything matching text '{{query}}'"
+msgstr ""
 
 msgid "are long overdue."
 msgstr "sont en retard depuis un certain temps."
@@ -3468,14 +3558,8 @@ msgstr "à"
 msgid "authorities"
 msgstr "organismes"
 
-msgid "awaiting a response"
-msgstr "en attente d'une réponse"
-
 msgid "beginning with ‘{{first_letter}}’"
 msgstr "Commençant par ‘{{first_letter}}’"
-
-msgid "between two dates"
-msgstr "entre deux dates"
 
 msgid "but followupable"
 msgstr "mais vous pouvez en faire le suivi"
@@ -3485,9 +3569,6 @@ msgstr "par"
 
 msgid "by <strong>{{date}}</strong>"
 msgstr "avant le <strong>{{date}}</strong>"
-
-msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr "par {{public_body_name}} à {{info_request_user}} le {{date}}."
 
 msgid "by {{user_link_absolute}}"
 msgstr "par {{user_link_absolute}}"
@@ -3564,6 +3645,9 @@ msgstr "messages des utilisateurs"
 msgid "move..."
 msgstr "déplacer…"
 
+msgid "new requests"
+msgstr ""
+
 msgid "no later than"
 msgstr "au plus tard le"
 
@@ -3585,17 +3669,17 @@ msgstr "solliciter une révision interne "
 msgid "requests"
 msgstr "demandes"
 
-msgid "requests which are {{list_of_statuses}}"
-msgstr "demandes qui sont {{list_of_statuses}}"
+msgid "requests which are successful"
+msgstr ""
+
+msgid "requests which are successful matching text '{{query}}'"
+msgstr ""
 
 msgid "response as needing administrator attention. Take a look, and reply to this\\nemail to let them know what you are going to do about it."
 msgstr "réponse qui nécessite l'attention de l'administrateur. Jetez-y un oeil et répondez à ce \\ncourriel pour leur faire savoir ce que vous allez faire à ce sujet."
 
 msgid "send a follow up message"
 msgstr "envoyer un message de suivi "
-
-msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr "envoyée à {{public_body_name}} par {{info_request_user}} le {{date}}."
 
 msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
 msgstr "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
@@ -3608,9 +3692,6 @@ msgstr "Connexion"
 
 msgid "simple_date_format"
 msgstr "simple_date_format"
-
-msgid "successful"
-msgstr "fructueux/se"
 
 msgid "successful requests"
 msgstr "demandes qui ont abouti"
@@ -3659,9 +3740,6 @@ msgstr "se désabonner"
 msgid "unsubscribe all"
 msgstr "se désabonner de tout"
 
-msgid "unsuccessful"
-msgstr "infructueux/se"
-
 msgid "unsuccessful requests"
 msgstr "demandes qui n'ont pas abouti"
 
@@ -3700,6 +3778,9 @@ msgstr[1] "{{count}} demandes formulées."
 msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
 msgstr "{{existing_request_user}} a déjà effectué la même demande le {{date}}. Vous pouvez soit voir la <a href=\"{{existing_request}}\">demande existante </a>\\n ou modifier les détails ci-dessous pour faire une demande différente, mais similaire."
 
+msgid "{{foi_law}} requests to '{{public_body_name}}'"
+msgstr ""
+
 msgid "{{info_request_user_name}} only:"
 msgstr "{{info_request_user_name}} uniquement:"
 
@@ -3711,9 +3792,6 @@ msgstr "{{law_used}} pour {{public_body}}"
 
 msgid "{{length_of_time}} ago"
 msgstr "depuis {{length_of_time}}"
-
-msgid "{{list_of_things}} matching text '{{search_query}}'"
-msgstr "{{list_of_things}} correspondant au texte '{{search_query}}'"
 
 msgid "{{number_of_comments}} comments"
 msgstr "{{number_of_comments}} commentaires"

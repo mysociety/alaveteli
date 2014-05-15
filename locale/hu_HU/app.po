@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-27 09:52+0000\n"
-"PO-Revision-Date: 2014-02-27 09:59+0000\n"
+"POT-Creation-Date: 2014-05-15 12:46+0100\n"
+"PO-Revision-Date: 2014-05-15 11:56+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/alaveteli/language/hu_HU/)\n"
 "Language: hu_HU\n"
@@ -102,14 +102,8 @@ msgstr " E-mailben is tájékoztatjuk az igényléssel kapcsolatos fejleményekr
 msgid " made by "
 msgstr "készítette: "
 
-msgid " or "
-msgstr " vagy "
-
 msgid " when you send this message."
 msgstr " részére, így a címzett megismerheti azt."
-
-msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
-msgstr "\"Üdvözöljük! <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">Fontos üzenet</a> nem  {{country_name}}\" országból való látogatók számára"
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'A kiskereki oktatási intézmények 2010-es évi ételszállítási szerződései'."
@@ -615,6 +609,9 @@ msgstr "Profilkép feltöltése"
 msgid "Clarification"
 msgstr "Pontosítás"
 
+msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Clarify your FOI request - "
 msgstr "A közérdekűadat-igénylés pontosítása"
 
@@ -969,6 +966,9 @@ msgstr "Nyomon követési üzenetet az igénylő elküldte "
 msgid "Follow up messages to existing requests are sent to "
 msgstr "Meglevő igénylésekre vonatkozóan nyomon követési üzeneteket küldtek a következőnek: "
 
+msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 #. "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
@@ -1052,6 +1052,12 @@ msgid "HasTagString::HasTagStringTag|Name"
 msgstr ""
 
 msgid "HasTagString::HasTagStringTag|Value"
+msgstr ""
+
+msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
+msgstr "Üdvözöljük! <a href=\"{{url}}\">Fontos üzenet</a> nem  {{country_name}} országból való látogatók számára"
+
+msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
 msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
@@ -1367,6 +1373,9 @@ msgstr ""
 
 msgid "Internal review request"
 msgstr "Belső felülvizsgálatot kért"
+
+msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Hibás a(z) {{email_address}} cím a(z) {{public_body_name}} részére benyújtott {{type_of_request}} igénylésekre vonatkozóan? Ha igen, lépjen velünk kapcsolatba az űrlap segítségével: "
@@ -1955,6 +1964,9 @@ msgstr " {{date}}  Beküldte: {{author}} "
 msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 msgstr "A KiMitTud motorja az <a href=\"http://www.alaveteli.org/\">Alaveteli</a> | Üzemelteti az <a href=\"http://atlatszo.hu/\">atlatszo.hu</a>."
 
+msgid "Prefer not to receive emails?"
+msgstr ""
+
 msgid "Prev"
 msgstr "Előző"
 
@@ -2239,6 +2251,9 @@ msgstr "Válasz a weben "
 msgid "Response"
 msgstr "Válasz"
 
+msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Response from a public authority"
 msgstr "Válasz érkezett a közintézménytől "
 
@@ -2430,6 +2445,12 @@ msgid "Source URL:"
 msgstr ""
 
 msgid "Source:"
+msgstr ""
+
+msgid "Spam address"
+msgstr ""
+
+msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Special note for this authority!"
@@ -3067,6 +3088,9 @@ msgstr "Ha csak a január első két hetében történt dolgokat szeretné megje
 msgid "URL name can't be blank"
 msgstr "URL-név nem lehet üres "
 
+msgid "URL name is already taken"
+msgstr ""
+
 msgid "Unable to change email address on {{site_name}}"
 msgstr "Nem sikerült a {{site_name}} weboldalon használt e-mail cím módosítása "
 
@@ -3141,6 +3165,9 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|About me"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -3148,6 +3175,9 @@ msgid "User|Ban text"
 msgstr "User|Ban text"
 
 msgid "User|Can make batch requests"
+msgstr ""
+
+msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3358,7 +3388,22 @@ msgstr "Ön már követi ezt a személyt"
 msgid "You are already following this request"
 msgstr "Ön már követi ezt az igénylést"
 
-msgid "You are already following updates about {{track_description}}"
+msgid "You are already subscribed to '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are already subscribed to <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr ""
 
 msgid "You are currently receiving notification of new activity on your wall by email."
@@ -3367,10 +3412,40 @@ msgstr "Az új tevékenységekről értesítést kap e-mailben az üzenőfalára
 msgid "You are following all new successful responses"
 msgstr "Követi az összes sikeres választ"
 
-msgid "You are no longer following {{track_description}}."
+msgid "You are no longer following '{{link_to_authority}}', a public authority."
 msgstr ""
 
-msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about {{track_description}}"
+msgid "You are no longer following '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are no longer following '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr ""
 
 msgid "You can <strong>complain</strong> by"
@@ -3468,7 +3543,22 @@ msgstr ""
 msgid "You will no longer be emailed updates for those alerts"
 msgstr "A továbbiakban nem fog e-mailben értesítőt kapni ezekről az eseményekről"
 
-msgid "You will now be emailed updates about {{track_description}}. <a href=\"{{change_email_alerts_url}}\">Prefer not to receive emails?</a>"
+msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>."
 msgstr ""
 
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
@@ -3645,6 +3735,12 @@ msgstr ""
 msgid "all requests"
 msgstr " minden igénylés "
 
+msgid "all requests or comments"
+msgstr ""
+
+msgid "all requests or comments matching text '{{query}}'"
+msgstr ""
+
 msgid "also called {{public_body_short_name}}"
 msgstr "más néven {{public_body_short_name}} "
 
@@ -3663,14 +3759,8 @@ msgstr "és az állapot frissítése. "
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "és elmondjuk, <strong>mi a következő teendője</strong> "
 
-msgid "any <a href=\"/list\">new requests</a>"
-msgstr "bármely <a href=\"/list\">új igénylés</a> "
-
-msgid "any <a href=\"/list/successful\">successful requests</a>"
-msgstr "bármely <a href=\"/list/successful\">sikeres igénylés</a> "
-
-msgid "anything"
-msgstr "bármi"
+msgid "anything matching text '{{query}}'"
+msgstr ""
 
 msgid "are long overdue."
 msgstr "adatgazdának már régen válaszolnia kellett volna."
@@ -3681,14 +3771,8 @@ msgstr ""
 msgid "authorities"
 msgstr "közintézmények"
 
-msgid "awaiting a response"
-msgstr "válaszra vár "
-
 msgid "beginning with ‘{{first_letter}}’"
 msgstr "‘{{first_letter}}’ kezdőbetűvel "
-
-msgid "between two dates"
-msgstr "két dátum között "
 
 msgid "but followupable"
 msgstr ""
@@ -3698,9 +3782,6 @@ msgstr "által"
 
 msgid "by <strong>{{date}}</strong>"
 msgstr "<strong>{{date}}</strong> határidőig "
-
-msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr "ez az adatigénylés {{date}} -n, melyet {{info_request_user}} nyújtott be a(z) {{public_body_name}} részére."
 
 msgid "by {{user_link_absolute}}"
 msgstr "{{user_link_absolute}} által "
@@ -3779,6 +3860,9 @@ msgstr "felhasználóktól érkező üzenetek "
 msgid "move..."
 msgstr ""
 
+msgid "new requests"
+msgstr ""
+
 msgid "no later than"
 msgstr "nem később, mint "
 
@@ -3804,8 +3888,11 @@ msgstr "belső felülvizsgálat kérése "
 msgid "requests"
 msgstr "igénylések"
 
-msgid "requests which are {{list_of_statuses}}"
-msgstr "{{list_of_statuses}} állapotú igénylések "
+msgid "requests which are successful"
+msgstr ""
+
+msgid "requests which are successful matching text '{{query}}'"
+msgstr ""
 
 msgid "response as needing administrator attention. Take a look, and reply to this\\nemail to let them know what you are going to do about it."
 msgstr ""
@@ -3814,9 +3901,6 @@ msgstr ""
 
 msgid "send a follow up message"
 msgstr "nyomon követési üzenet küldése "
-
-msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr "{{info_request_user}} {{public_body_name}} adatgazdánál {{date}} -n. "
 
 msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
 msgstr ""
@@ -3829,9 +3913,6 @@ msgstr "bejelentkezés"
 
 msgid "simple_date_format"
 msgstr "simple_date_format"
-
-msgid "successful"
-msgstr "sikeres"
 
 msgid "successful requests"
 msgstr "sikeres igénylések "
@@ -3880,9 +3961,6 @@ msgstr "leiratkozás"
 msgid "unsubscribe all"
 msgstr "leiratkozás mindenről "
 
-msgid "unsuccessful"
-msgstr "sikertelen"
-
 msgid "unsuccessful requests"
 msgstr "sikertelen igénylések "
 
@@ -3924,6 +4002,9 @@ msgstr ""
 "     ugyanezt az igénylést {{date}} napon. Megtekintheti a <a href=\"{{existing_request}}\">meglevő igénylést</a>,\n"
 "     vagy módosíthatja az adatokat az alábbiakban egy új, de hasonló igénylés létrehozásához. "
 
+msgid "{{foi_law}} requests to '{{public_body_name}}'"
+msgstr ""
+
 msgid "{{info_request_user_name}} only:"
 msgstr "Csak az adatigénylést beküldő {{info_request_user_name}}:"
 
@@ -3935,9 +4016,6 @@ msgstr "{{law_used}} igénylések {{public_body}} adatgazdánál"
 
 msgid "{{length_of_time}} ago"
 msgstr "Azóta {{length_of_time}} telt el."
-
-msgid "{{list_of_things}} matching text '{{search_query}}'"
-msgstr ", ami a '{{search_query}}' keresőkifejezésnek megfelel{{list_of_things}}"
 
 msgid "{{number_of_comments}} comments"
 msgstr "{{number_of_comments}} hozzászólás"

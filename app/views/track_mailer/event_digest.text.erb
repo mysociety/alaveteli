@@ -32,7 +32,7 @@
                 else
                     raise "unknown type in event_digest " + event.event_type
                 end
-                main_text += " (" + simple_date(event.created_at) + ")\n"
+                main_text += " (" + simple_date(event.created_at, :format => :text) + ")\n"
 
                 # Main text, wrapped, words highlighted with * and indented.
                 if event.is_outgoing_message?

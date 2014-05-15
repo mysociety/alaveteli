@@ -53,16 +53,30 @@ describe CommentController, "when commenting on a request" do
 
         response.should render_template('new')
     end
-    
-    it "should not allow comments if comments are not allowed" do
-      session[:user_id] = users(:silly_name_user).id
 
-      expect {
-        post :new, :url_title => info_requests(:spam_1_request).url_title,
-              :comment => { :body => "I demand to be heard!" },
-              :type => 'request', :submitted_comment => 1, :preview => 0
-      }.to raise_error("Comments are not allowed on this request")
-      
+    it "should not allow comments if comments are not allowed" do
+        session[:user_id] = users(:silly_name_user).id
+        info_request = info_requests(:spam_1_request)
+
+        post :new, :url_title => info_request.url_title,
+             :comment => { :body => "I demand to be heard!" },
+             :type => 'request', :submitted_comment => 1, :preview => 0
+
+        response.should redirect_to(show_request_path(info_request.url_title))
+        flash[:notice].should == 'Comments are not allowed on this request'
+    end
+
+    it "should not allow comments from banned users" do
+        User.any_instance.stub(:ban_text).and_return('Banned from commenting')
+
+        user = users(:silly_name_user)
+        session[:user_id] = user.id
+
+        post :new, :url_title => info_requests(:fancy_dog_request).url_title,
+             :comment => { :body => comments(:silly_comment).body },
+             :type => 'request', :submitted_comment => 1, :preview => 0
+
+        response.should render_template('user/banned')
     end
 
     describe 'when commenting on an external request' do

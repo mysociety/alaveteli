@@ -65,6 +65,11 @@
         <%= f.text_area :message, :rows => 10, :cols => 60 %>
     </p>
 
+    <p style="display:none;">
+        <%= f.label :comment, 'Do not fill in this field' %>
+        <%= f.text_field :comment %>
+    </p>
+
     <% if !@last_request.nil? %>
         <p>
             <label class="form_label" for="contact_message">Include link to request:</label>
@@ -88,7 +93,7 @@
 
     <div class="form_button">
         <%= hidden_field_tag(:submitted_contact_form, 1) %>
-        <%= submit_tag "Send message to the charity" %>
+        <%= submit_tag "Send message to the charity", :disable_with => "Sending..." %>
         &lt;-- we run this site, not the Government!
     </div>
 

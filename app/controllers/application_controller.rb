@@ -129,8 +129,9 @@ class ApplicationController < ActionController::Base
         @exception_class = exception.class.to_s
         @exception_message = exception.message
         case exception
-        when ActiveRecord::RecordNotFound, RouteNotFound
+        when ActiveRecord::RecordNotFound, RouteNotFound, WillPaginate::InvalidPage
             @status = 404
+            sanitize_path(params)
         when PermissionDenied
             @status = 403
         else
@@ -431,7 +432,11 @@ class ApplicationController < ActionController::Base
     def country_from_ip
         country = ""
         if !AlaveteliConfiguration::gaze_url.empty?
-            country = quietly_try_to_open("#{AlaveteliConfiguration::gaze_url}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
+            begin
+                country = quietly_try_to_open("#{AlaveteliConfiguration::gaze_url}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
+            rescue ActionDispatch::RemoteIp::IpSpoofAttackError
+                country = AlaveteliConfiguration::iso_country_code
+            end
         end
         country = AlaveteliConfiguration::iso_country_code if country.empty?
         return country
@@ -439,6 +444,15 @@ class ApplicationController < ActionController::Base
 
     def alaveteli_git_commit
       `git log -1 --format="%H"`.strip
+    end
+
+    # URL Encode the path parameter for use in render_exception
+    #
+    # params - the params Hash
+    #
+    # Returns a Hash
+    def sanitize_path(params)
+        params.merge!(:path => Rack::Utils.escape(params[:path])) if params.key?(:path)
     end
 
     # URL generating functions are needed by all controllers (for redirects),

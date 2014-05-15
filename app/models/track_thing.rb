@@ -69,65 +69,29 @@ class TrackThing < ActiveRecord::Base
     end
 
     def track_query_description
-        # XXX this is very brittle... we should probably ask users
-        # simply to name their tracks when they make them?
-        original_text = parsed_text = self.track_query.gsub(/([()]|OR)/, "")
-        filters = parsed_text.scan /\b\S+:\S+\b/
-        varieties = Set.new
-        date = ""
-        statuses = Set.new
-        for filter in filters
-            parsed_text = parsed_text.sub(filter, "")
-            if filter =~ /variety:user/
-                varieties << _("users")
-            end
-            if filter =~ /variety:comment/
-                varieties << _("comments")
-            end
-            if filter =~ /variety:authority/
-                varieties << _("authorities")
-            end
-            if filter =~ /(variety:(sent|followup_sent|response)|latest_status)/
-                varieties << _("requests")
-            end
-            if filter =~ /[0-9\/]+\.\.[0-9\/]+/
-                date = _("between two dates")
-            end
-            if filter =~ /(rejected|not_held)/
-                statuses << _("unsuccessful")
-            end
-            if filter =~ /(:successful|:partially_successful)/
-                statuses << _("successful")
-            end
-            if filter =~ /waiting/
-                statuses << _("awaiting a response")
-            end
-        end
-        if filters.empty?
-            parsed_text = original_text
-        end
-        descriptions = []
-        if varieties.include? _("requests")
-            if statuses.empty?
-                # HACK: Relies on the 'descriptions.sort' below to luckily put this first
-                descriptions << _("all requests")
-            else
-                descriptions << _("requests which are {{list_of_statuses}}", :list_of_statuses => Array(statuses).sort.join(_(' or ')))
-            end
-            varieties -= [_("requests")]
-        end
-        if descriptions.empty? and varieties.empty?
-            varieties << _("anything")
-        end
-        descriptions += Array(varieties)
-        parsed_text = parsed_text.strip
-        descriptions = descriptions.sort.join(_(" or "))
-        if !parsed_text.empty?
-            descriptions += _("{{list_of_things}} matching text '{{search_query}}'", :list_of_things => "", :search_query => parsed_text)
-        end
-        return descriptions
+        filter_description = query_filter_description('(variety:sent OR variety:followup_sent OR variety:response OR variety:comment)',
+                                    :no_query => N_("all requests or comments"),
+                                    :query => N_("all requests or comments matching text '{{query}}'"))
+        return filter_description if filter_description
+        filter_description = query_filter_description('(latest_status:successful OR latest_status:partially_successful)',
+                                    :no_query => N_("requests which are successful"),
+                                    :query => N_("requests which are successful matching text '{{query}}'"))
+        return filter_description if filter_description
+        return _("anything matching text '{{query}}'", :query => track_query)
     end
 
+    # Return a readable query description for queries involving commonly used filter clauses
+    def query_filter_description(string, options)
+        parsed_query = track_query.gsub(string, '')
+        if parsed_query != track_query
+            parsed_query.strip!
+            if parsed_query.empty?
+                _(options[:no_query])
+            else
+                _(options[:query], :query => parsed_query)
+            end
+        end
+    end
 
     def TrackThing.create_track_for_request(info_request)
         track_thing = TrackThing.new
@@ -194,30 +158,32 @@ class TrackThing < ActiveRecord::Base
     end
 
     # Return hash of text parameters describing the request etc.
-    include LinkToHelper
     def params
         if @params.nil?
             if self.track_type == 'request_updates'
                 @params = {
                     # Website
-                    :list_description => _("'{{link_to_request}}', a request",
-                                        :link_to_request => ("<a href=\"/request/" + CGI.escapeHTML(self.info_request.url_title) + "\">" + CGI.escapeHTML(self.info_request.title) + "</a>").html_safe), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
+
                     :verb_on_page => _("Follow this request"),
                     :verb_on_page_already => _("You are already following this request"),
                     # Email
-                    :title_in_email => _("New updates for the request '{{request_title}}'", :request_title => self.info_request.title.html_safe),
-                                         :title_in_rss => _("New updates for the request '{{request_title}}'", :request_title => self.info_request.title),
+                    :title_in_email => _("New updates for the request '{{request_title}}'",
+                                        :request_title => self.info_request.title.html_safe),
+                    :title_in_rss => _("New updates for the request '{{request_title}}'",
+                                        :request_title => self.info_request.title),
                     # Authentication
-                    :web => _("To follow the request '{{request_title}}'", :request_title => CGI.escapeHTML(self.info_request.title)),
-                    :email => _("Then you will be updated whenever the request '{{request_title}}' is updated.", :request_title => CGI.escapeHTML(self.info_request.title)),
-                    :email_subject => _("Confirm you want to follow the request '{{request_title}}'", :request_title => self.info_request.title),
+                    :web => _("To follow the request '{{request_title}}'",
+                                :request_title => self.info_request.title),
+                    :email => _("Then you will be updated whenever the request '{{request_title}}' is updated.",
+                                :request_title => self.info_request.title),
+                    :email_subject => _("Confirm you want to follow the request '{{request_title}}'",
+                                :request_title => self.info_request.title),
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
             elsif self.track_type == 'all_new_requests'
                 @params = {
                     # Website
-                    :list_description => _("any <a href=\"/list\">new requests</a>"),
                     :verb_on_page => _("Follow all new requests"),
                     :verb_on_page_already => _("You are already following new requests"),
                     # Email
@@ -233,7 +199,6 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'all_successful_requests'
                 @params = {
                     # Website
-                    :list_description => _("any <a href=\"/list/successful\">successful requests</a>"),
                     :verb_on_page => _("Follow new successful responses"),
                     :verb_on_page_already => _("You are following all new successful responses"),
                     # Email
@@ -252,39 +217,51 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'public_body_updates'
                 @params = {
                     # Website
-                    :list_description => _("'{{link_to_authority}}', a public authority", :link_to_authority => ("<a href=\"/body/" + CGI.escapeHTML(self.public_body.url_name) + "\">" + CGI.escapeHTML(self.public_body.name) + "</a>").html_safe), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
-                    :verb_on_page => _("Follow requests to {{public_body_name}}",:public_body_name=>CGI.escapeHTML(self.public_body.name)),
-                    :verb_on_page_already => _("You are already following requests to {{public_body_name}}", :public_body_name=>CGI.escapeHTML(self.public_body.name)),
+                    :verb_on_page => _("Follow requests to {{public_body_name}}",
+                                        :public_body_name => self.public_body.name),
+                    :verb_on_page_already => _("You are already following requests to {{public_body_name}}",
+                                        :public_body_name => self.public_body.name),
                     # Email
-                    :title_in_email => self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
-                    :title_in_rss => self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
+                    :title_in_email => _("{{foi_law}} requests to '{{public_body_name}}'",
+                                        :foi_law => self.public_body.law_only_short,
+                                        :public_body_name => self.public_body.name),
+                    :title_in_rss => _("{{foi_law}} requests to '{{public_body_name}}'",
+                                        :foi_law => self.public_body.law_only_short,
+                                        :public_body_name => self.public_body.name),
                     # Authentication
-                    :web => _("To follow requests made using {{site_name}} to the public authority '{{public_body_name}}'", :site_name=>AlaveteliConfiguration::site_name, :public_body_name=>CGI.escapeHTML(self.public_body.name)),
-                    :email => _("Then you will be notified whenever someone requests something or gets a response from '{{public_body_name}}'.", :public_body_name=>CGI.escapeHTML(self.public_body.name)),
-                    :email_subject => _("Confirm you want to follow requests to '{{public_body_name}}'", :public_body_name=>self.public_body.name),
+                    :web => _("To follow requests made using {{site_name}} to the public authority '{{public_body_name}}'",
+                                :site_name => AlaveteliConfiguration::site_name,
+                                :public_body_name => self.public_body.name),
+                    :email => _("Then you will be notified whenever someone requests something or gets a response from '{{public_body_name}}'.",
+                                :public_body_name => self.public_body.name),
+                    :email_subject => _("Confirm you want to follow requests to '{{public_body_name}}'",
+                                :public_body_name => self.public_body.name),
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
             elsif self.track_type == 'user_updates'
                 @params = {
                     # Website
-                    :list_description => _("'{{link_to_user}}', a person", :link_to_user => ("<a href=\"/user/" + CGI.escapeHTML(self.tracked_user.url_name) + "\">" + CGI.escapeHTML(self.tracked_user.name) + "</a>").html_safe), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
                     :verb_on_page => _("Follow this person"),
                     :verb_on_page_already => _("You are already following this person"),
                     # Email
-                    :title_in_email => _("FOI requests by '{{user_name}}'", :user_name=>self.tracked_user.name.html_safe),
-                    :title_in_rss => _("FOI requests by '{{user_name}}'", :user_name=>self.tracked_user.name),
+                    :title_in_email => _("FOI requests by '{{user_name}}'",
+                                        :user_name => self.tracked_user.name.html_safe),
+                    :title_in_rss => _("FOI requests by '{{user_name}}'",
+                                        :user_name => self.tracked_user.name),
                     # Authentication
-                    :web => _("To follow requests by '{{user_name}}'", :user_name=>CGI.escapeHTML(self.tracked_user.name)),
-                    :email => _("Then you will be notified whenever '{{user_name}}' requests something or gets a response.", :user_name=>CGI.escapeHTML(self.tracked_user.name)),
-                    :email_subject => _("Confirm you want to follow requests by '{{user_name}}'", :user_name=>self.tracked_user.name),
+                    :web => _("To follow requests by '{{user_name}}'",
+                                :user_name=> self.tracked_user.name),
+                    :email => _("Then you will be notified whenever '{{user_name}}' requests something or gets a response.",
+                                :user_name => self.tracked_user.name),
+                    :email_subject => _("Confirm you want to follow requests by '{{user_name}}'",
+                                :user_name => self.tracked_user.name),
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
             elsif self.track_type == 'search_query'
                 @params = {
                     # Website
-                    :list_description => ("<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest/advanced\">" + CGI.escapeHTML(self.track_query_description) + "</a>").html_safe, # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
                     :verb_on_page => _("Follow things matching this search"),
                     :verb_on_page_already => _("You are already following things matching this search"),
                     # Email

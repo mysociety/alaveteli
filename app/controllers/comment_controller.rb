@@ -6,34 +6,18 @@
 
 class CommentController < ApplicationController
     before_filter :check_read_only, :only => [ :new ]
+    before_filter :find_info_request, :only => [ :new ]
+    before_filter :create_track_thing, :only => [ :new ]
+    before_filter :reject_unless_comments_allowed, :only => [ :new ]
+    before_filter :reject_if_user_banned, :only => [ :new ]
     protect_from_forgery :only => [ :new ]
 
     def new
-        if params[:type] == 'request'
-            @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-            @track_thing = TrackThing.create_track_for_request(@info_request)
-            if params[:comment]
-                @comment = Comment.new(params[:comment].merge({
-                    :comment_type => 'request',
-                    :user => @user
-                }))
-            end
-        else
-            raise "Unknown type " + params[:type]
-        end
-        
-        # Are comments disabled on this request?
-        #
-        # There is no “add comment” link when comments are disabled, so users should
-        # not usually hit this unless they are explicitly attempting to avoid the comment
-        # block, so we just raise an exception.
-        raise "Comments are not allowed on this request" if !@info_request.comments_allowed?
-
-        # Banned from adding comments?
-        if !authenticated_user.nil? && !authenticated_user.can_make_comments?
-            @details = authenticated_user.can_fail_html
-            render :template => 'user/banned'
-            return
+        if params[:comment]
+            @comment = Comment.new(params[:comment].merge({
+                :comment_type => 'request',
+                :user => @user
+            }))
         end
 
         if params[:comment]
@@ -92,5 +76,36 @@ class CommentController < ApplicationController
         end
     end
 
-end
+    private
 
+    def find_info_request
+        if params[:type] == 'request'
+            @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+        else
+            raise "Unknown type #{ params[:type] }"
+        end
+    end
+
+    def create_track_thing
+        @track_thing = TrackThing.create_track_for_request(@info_request)
+    end
+
+    # Are comments disabled on this request?
+    #
+    # There is no “add comment” link when comments are disabled, so users should
+    # not usually hit this unless they are explicitly attempting to avoid the comment block
+    def reject_unless_comments_allowed
+        unless @info_request.comments_allowed?
+            redirect_to request_url(@info_request), :notice => "Comments are not allowed on this request"
+        end
+    end
+
+    # Banned from adding comments?
+    def reject_if_user_banned
+        if authenticated_user && !authenticated_user.can_make_comments?
+            @details = authenticated_user.can_fail_html
+            render :template => 'user/banned'
+        end
+    end
+
+end

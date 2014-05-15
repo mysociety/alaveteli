@@ -114,6 +114,7 @@ then
         -e "s,^( *DONATION_URL:).*,\\1 null," \
         -e "s,^( *THEME_BRANCH:).*,\\1 'develop'," \
         -e "s,^( *USE_MAILCATCHER_IN_DEVELOPMENT:).*,\\1 false," \
+        -e "s,^( *BUNDLE_PATH:).*,\\1 $HOME/bundle/," \
         config/general.yml-example > config/general.yml
 fi
 

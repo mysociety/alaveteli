@@ -1,0 +1,54 @@
+/* Style for search (and filters on request list) */
+.user_photo_on_search img {
+  width:48px;
+  height:48px;
+  vertical-align:middle;
+  border:1px solid #ddd;
+  margin-right:5px;
+  padding:2px;
+  float: left;
+}
+
+input.use-datepicker[type=text] {
+  width: 130px;
+  background:image-url('calendar.png') no-repeat 100px 5px;
+}
+
+#ui-datepicker-div.ui-widget {
+  font-family:Arial, sans-serif;
+}
+
+#ui-datepicker-div .ui-datepicker-header,#ui-datepicker-div .ui-widget-header {
+  background:none;
+  border:solid 0 #FFF;
+  color:#444;
+  font-size:17px;
+  font-weight:normal;
+  line-height:1.5em !important;
+}
+
+#ui-datepicker-div {
+  .ui-datepicker-prev, .ui-datepicker-next {
+    margin-top:2px;
+    opacity:0.5;
+  }
+  .ui-datepicker-prev-hover {
+    left:2px;
+    top:2px;
+    border:none;
+    background:#FFF;
+    cursor:pointer;
+    opacity:1;
+  }
+
+  .ui-datepicker-next-hover {
+    right:2px;
+    top:2px;
+    border:none;
+    background:#FFF;
+    cursor:pointer;
+    opacity:1;
+  }
+}
+
+

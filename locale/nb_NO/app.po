@@ -8,6 +8,8 @@
 # Hans-Petter Fjeld <atluxity@1kb.no>, 2014
 # gorm <gormer@gmail.com>, 2013-2014
 # gorm <gormer@gmail.com>, 2013
+# Hans-Petter Fjeld <atluxity@1kb.no>, 2014
+# oeyrvin <oeyrvin@hagan.no>, 2014
 # oeyrvin <oeyrvin@hagan.no>, 2014
 # pere <pere-transifex@hungry.com>, 2013
 # pere <pere-transifex@hungry.com>, 2013-2014
@@ -15,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-27 09:52+0000\n"
-"PO-Revision-Date: 2014-03-30 11:47+0000\n"
-"Last-Translator: oeyrvin <oeyrvin@hagan.no>\n"
+"POT-Creation-Date: 2014-05-15 12:46+0100\n"
+"PO-Revision-Date: 2014-05-15 11:56+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
@@ -102,14 +104,8 @@ msgstr "Vi vil også motta oppdateringer om denne forespørselen på e-post."
 msgid " made by "
 msgstr " laget av "
 
-msgid " or "
-msgstr " eller "
-
 msgid " when you send this message."
 msgstr " når du sender denne meldinen."
-
-msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
-msgstr "\"Hei! Vi har en  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">viktig beskjed</a> til besøkende som ikke fra {{country_name}}\""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Kriminalitetsstatistikk på bydelsnivå for Oslo'"
@@ -576,6 +572,9 @@ msgstr "Velg ditt profil-bilde"
 msgid "Clarification"
 msgstr "Klargjøring"
 
+msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Clarify your FOI request - "
 msgstr "Klargjør din innsynsforespørsel -"
 
@@ -915,6 +914,9 @@ msgstr "Oppfølgingsbeskjed fra innsender av henvendelsen"
 msgid "Follow up messages to existing requests are sent to "
 msgstr "Oppfølgingsbeskjeder på en eksisterende henvendelse sendes til"
 
+msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 #. "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
@@ -993,6 +995,12 @@ msgid "HasTagString::HasTagStringTag|Name"
 msgstr ""
 
 msgid "HasTagString::HasTagStringTag|Value"
+msgstr ""
+
+msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
+msgstr "Hei! Vi har en  <a href=\"{{url}}\">viktig beskjed</a> til besøkende som ikke fra {{country_name}}"
+
+msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
 msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
@@ -1273,6 +1281,9 @@ msgstr "Informasjon om utslipp (for eksempel støy, energi,\\n stråling, avfall
 
 msgid "Internal review request"
 msgstr "Klage"
+
+msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Er  {{email_address}} feil adresse for forespørsler om {{type_of_request}} til {{public_body_name}}? I så fall, vær så snill å ta kontakt med oss ved å bruke dette skjemaet:"
@@ -1838,6 +1849,9 @@ msgstr "Innsendt {{date}} av {{author}}"
 msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 msgstr "Motoren er <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 
+msgid "Prefer not to receive emails?"
+msgstr ""
+
 msgid "Prev"
 msgstr "Forrige"
 
@@ -2120,6 +2134,9 @@ msgstr "Svar på nett"
 msgid "Response"
 msgstr "Svar"
 
+msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Response from a public authority"
 msgstr "Svar fra en offentlig myndighet"
 
@@ -2303,6 +2320,12 @@ msgstr "Kilde-URL:"
 
 msgid "Source:"
 msgstr "Kilde:"
+
+msgid "Spam address"
+msgstr ""
+
+msgid "SpamAddress|Email"
+msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "Spesiell merknad for denne myndigheten!"
@@ -2895,6 +2918,9 @@ msgstr "Skriv <strong><code>01/01/2008..14/01/2008</code></strong> for å bare v
 msgid "URL name can't be blank"
 msgstr "URL navn kan ikke være blank"
 
+msgid "URL name is already taken"
+msgstr ""
+
 msgid "Unable to change email address on {{site_name}}"
 msgstr "Klarte ikke endre e-post adresse på {{site_name}}"
 
@@ -2964,6 +2990,9 @@ msgstr ""
 msgid "User|About me"
 msgstr "Bruker|Om meg"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "Bruker|Admin nivå"
 
@@ -2971,6 +3000,9 @@ msgid "User|Ban text"
 msgstr "Bruker|Ban tekst"
 
 msgid "User|Can make batch requests"
+msgstr ""
+
+msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3168,8 +3200,23 @@ msgstr "Du følger allerede denne personen"
 msgid "You are already following this request"
 msgstr "Du følger allerede denne henvendelsen"
 
-msgid "You are already following updates about {{track_description}}"
-msgstr "Du følger allerede oppdateringer om {{track_description}}"
+msgid "You are already subscribed to '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are already subscribed to <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
 
 msgid "You are currently receiving notification of new activity on your wall by email."
 msgstr "Du mottar e-post varsel om ny aktivitet på veggen din."
@@ -3177,11 +3224,41 @@ msgstr "Du mottar e-post varsel om ny aktivitet på veggen din."
 msgid "You are following all new successful responses"
 msgstr "Du følger all nye vellykkede svar"
 
-msgid "You are no longer following {{track_description}}."
-msgstr "Du følger ikke lenger {{track_description}}."
+msgid "You are no longer following '{{link_to_authority}}', a public authority."
+msgstr ""
 
-msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about {{track_description}}"
-msgstr "Du <a href=\"{{wall_url_user}}\">følger</a> oppdateringer om {{track_description}}"
+msgid "You are no longer following '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are no longer following '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
 
 msgid "You can <strong>complain</strong> by"
 msgstr "Du kan <strong>klage</strong> ved"
@@ -3261,8 +3338,23 @@ msgstr ""
 msgid "You will no longer be emailed updates for those alerts"
 msgstr "Du vil ikke lenger motta e-postoppdateringer for disse varslene"
 
-msgid "You will now be emailed updates about {{track_description}}. <a href=\"{{change_email_alerts_url}}\">Prefer not to receive emails?</a>"
-msgstr "Du vil nå få eposter med oppdatering om {{track_description}}. <a href=\"{{change_email_alerts_url}}\">Foretrekker du å ikke få epost?</a>"
+msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
 
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
 msgstr ""
@@ -3432,6 +3524,12 @@ msgstr "alaveteli_foi:Programvaren som kjører {{site_name}}"
 msgid "all requests"
 msgstr "alle henvendelser"
 
+msgid "all requests or comments"
+msgstr ""
+
+msgid "all requests or comments matching text '{{query}}'"
+msgstr ""
+
 msgid "also called {{public_body_short_name}}"
 msgstr "også kalt {{public_body_short_name}}"
 
@@ -3450,14 +3548,8 @@ msgstr "og oppdater statusen"
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "så skal vi foreslå hva du <strong>kan gjøre videre</strong>"
 
-msgid "any <a href=\"/list\">new requests</a>"
-msgstr "noen <a href=\"/list\">nye henvendelser</a>"
-
-msgid "any <a href=\"/list/successful\">successful requests</a>"
-msgstr "noen <a href=\"/list/successful\">vellykkede henvendelser</a>"
-
-msgid "anything"
-msgstr "noe"
+msgid "anything matching text '{{query}}'"
+msgstr ""
 
 msgid "are long overdue."
 msgstr "er svært forsinket."
@@ -3468,14 +3560,8 @@ msgstr "ved"
 msgid "authorities"
 msgstr "myndigheter"
 
-msgid "awaiting a response"
-msgstr "venter på et svar"
-
 msgid "beginning with ‘{{first_letter}}’"
 msgstr "som begynner med '{{first_letter}}'"
-
-msgid "between two dates"
-msgstr "mellom to datoer"
 
 msgid "but followupable"
 msgstr "men oppfølgbar"
@@ -3485,9 +3571,6 @@ msgstr "av"
 
 msgid "by <strong>{{date}}</strong>"
 msgstr "før <strong>{{date}}</strong>"
-
-msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr "av{{public_body_name}} til {{info_request_user}} den {{date}}."
 
 msgid "by {{user_link_absolute}}"
 msgstr "av {{user_link_absolute}}"
@@ -3564,6 +3647,9 @@ msgstr "meldinger fra brukere"
 msgid "move..."
 msgstr "flytt..."
 
+msgid "new requests"
+msgstr ""
+
 msgid "no later than"
 msgstr "ikke senere enn"
 
@@ -3585,17 +3671,17 @@ msgstr "klager"
 msgid "requests"
 msgstr "henvendelser"
 
-msgid "requests which are {{list_of_statuses}}"
-msgstr "henvendelser som er {{list_of_statuses}}"
+msgid "requests which are successful"
+msgstr ""
+
+msgid "requests which are successful matching text '{{query}}'"
+msgstr ""
 
 msgid "response as needing administrator attention. Take a look, and reply to this\\nemail to let them know what you are going to do about it."
 msgstr ""
 
 msgid "send a follow up message"
 msgstr "send en oppfølgningsmelding"
-
-msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr "sent til {{public_body_name}} av {{info_request_user}} den {{date}}."
 
 msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
 msgstr ""
@@ -3608,9 +3694,6 @@ msgstr "logg inn"
 
 msgid "simple_date_format"
 msgstr ""
-
-msgid "successful"
-msgstr "vellykket"
 
 msgid "successful requests"
 msgstr "vellykkede henvendelser"
@@ -3659,9 +3742,6 @@ msgstr "av-meld"
 msgid "unsubscribe all"
 msgstr "av-meld alle"
 
-msgid "unsuccessful"
-msgstr "ikke vellykket"
-
 msgid "unsuccessful requests"
 msgstr "mislykkede henvendelser"
 
@@ -3700,6 +3780,9 @@ msgstr[1] "{{count}} henvendelser laget."
 msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
 msgstr ""
 
+msgid "{{foi_law}} requests to '{{public_body_name}}'"
+msgstr ""
+
 msgid "{{info_request_user_name}} only:"
 msgstr "Bare {{info_request_user_name}} (henvender):"
 
@@ -3711,9 +3794,6 @@ msgstr "{{law_used}} henvendelse til {{public_body}}"
 
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} siden"
-
-msgid "{{list_of_things}} matching text '{{search_query}}'"
-msgstr "{{list_of_things}} treffer søketeksten '{{search_query}}'"
 
 msgid "{{number_of_comments}} comments"
 msgstr "{{number_of_comments}} kommentarer"

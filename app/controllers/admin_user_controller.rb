@@ -99,6 +99,12 @@ class AdminUserController < AdminController
         redirect_to admin_user_show_url(@admin_user)
     end
 
+    def modify_comment_visibility
+        @visibility_value = params.key?(:hide_selected) ? false : true
+        Comment.update_all(["visible=?", @visibility_value], :id => params[:comment_ids])
+        redirect_to :back
+    end
+
     private
 
 end

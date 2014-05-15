@@ -1,0 +1,82 @@
+/* Signin layout */
+
+#sign_in_reason {
+  @include grid-column(12);
+}
+#left_half {
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:5,$float:left);
+    @include ie8{
+      padding-right: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 22.313em;
+    }
+  }
+}
+
+#right_half {
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:5,$float:right);
+    @include ie8{
+      padding-left: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 22.313em;
+    }
+  }
+}
+
+#middle_strip {
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:2,$float:left);
+    @include ie8{
+      padding-left: 0.9375em;
+      padding-right: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 7.438em;
+    }
+  }
+}
+
+#sign_together{
+  @include grid-row($behavior: nest);
+}
+
+#sign_alone{
+  @include grid-row($behavior: nest);
+  #signin {
+    @include grid-column(12);
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-column($columns:6,$push:3);
+      @include ie8{
+        padding-left: 0.9375em;
+        padding-right: 0.9375em;
+      }
+    }
+  }
+
+}
+
+#signup, #signin {
+margin-top:20px;
+
+  .form_checkbox {
+    input{
+      margin-bottom: 0;
+    }
+    label {
+      font-size:1em;
+      display:inline;
+      margin-right: 0;
+    }
+  }
+}
+
+#sign_in_reason {
+  margin-top: 0.5em;
+}

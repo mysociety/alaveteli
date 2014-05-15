@@ -42,7 +42,7 @@
      <% end %>
   </div>
 
-  <div class="header_left">
+  <div id="header_left">
     <p id="user_photo_on_profile">
         <% if @display_user.profile_photo %>
             <% if @is_you %>
@@ -147,7 +147,7 @@
 
 
             <% for result in @xapian_requests.results %>
-                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
+                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
             <% end %>
 
             <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.info_requests.size) %>
@@ -175,7 +175,7 @@
             </h2>
 
             <% for result in @xapian_comments.results %>
-                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
+                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
             <% end %>
 
             <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.visible_comments.size) %>
@@ -224,7 +224,7 @@
                 <li>
                     <%= form_tag({:controller => 'track', :action => 'update', :track_id => track_thing.id}, :class => "feed_form") do %>
                         <div>
-                            <%= track_thing.params[:list_description] %>
+                            <%= track_description(track_thing) %>
                             <%= hidden_field_tag 'track_medium', "delete", { :id => 'track_medium_' + track_thing.id.to_s } %>
                             <%= hidden_field_tag 'r', request.fullpath, { :id => 'r_' + track_thing.id.to_s }  %>
                             <%= submit_tag _('unsubscribe') %>

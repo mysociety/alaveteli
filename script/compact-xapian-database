@@ -3,23 +3,28 @@
 export RAILS_ENV=$1
 set -e
 
-if [ -x /usr/bin/xapian-compact ]; then
-    XAPIAN_DB_DIR=$( cd "$( dirname "$0" )" && pwd )/../lib/acts_as_xapian/xapiandbs
-    if [ -e "$XAPIAN_DB_DIR/$RAILS_ENV.new" ]; then
-	echo >&2 "Didn't compact Xapian database because there was an existing database at $XAPIAN_DB_DIR/$RAILS_ENV.new"
-	exit 1
-    else
-	OWNER=$(stat -c %U "$XAPIAN_DB_DIR/$RAILS_ENV")
-	export XAPIAN_DB_DIR RAILS_ENV
-	su "$OWNER" <<SU
-           xapian-compact "\$XAPIAN_DB_DIR/\$RAILS_ENV" "\$XAPIAN_DB_DIR/\$RAILS_ENV.new"
+cd "$(dirname "$0")"/..
+
+if [ -x /usr/bin/xapian-compact ];
+  then
+    XAPIAN_DB_DIR=$( pwd )/lib/acts_as_xapian/xapiandbs
+
+    if [ -e "$XAPIAN_DB_DIR/$RAILS_ENV.new" ];
+      then
+        echo >&2 "Didn't compact Xapian database because there was an existing database at $XAPIAN_DB_DIR/$RAILS_ENV.new"
+        exit 1
+      else
+        OWNER=$(stat -c %U "$XAPIAN_DB_DIR/$RAILS_ENV")
+        export XAPIAN_DB_DIR RAILS_ENV
+        su "$OWNER" <<SU
+commonlib/bin/output-on-error xapian-compact "\$XAPIAN_DB_DIR/\$RAILS_ENV" "\$XAPIAN_DB_DIR/\$RAILS_ENV.new"
 SU
-	mv "$XAPIAN_DB_DIR/$RAILS_ENV" "$XAPIAN_DB_DIR/$RAILS_ENV.tmp"
-	mv "$XAPIAN_DB_DIR/$RAILS_ENV.new" "$XAPIAN_DB_DIR/$RAILS_ENV"
-	rm -rf "$XAPIAN_DB_DIR/$RAILS_ENV.tmp"
-	/etc/init.d/apache2 restart
+        mv "$XAPIAN_DB_DIR/$RAILS_ENV" "$XAPIAN_DB_DIR/$RAILS_ENV.tmp"
+        mv "$XAPIAN_DB_DIR/$RAILS_ENV.new" "$XAPIAN_DB_DIR/$RAILS_ENV"
+        rm -rf "$XAPIAN_DB_DIR/$RAILS_ENV.tmp"
+        commonlib/bin/output-on-error /etc/init.d/apache2 restart
     fi
-else
+  else
     echo >&2 "Could not find xapian-compact script; have you installed xapian-tools?"
     exit 1
 fi

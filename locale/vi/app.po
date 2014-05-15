@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-27 09:52+0000\n"
-"PO-Revision-Date: 2014-02-27 09:59+0000\n"
+"POT-Creation-Date: 2014-05-15 12:46+0100\n"
+"PO-Revision-Date: 2014-05-15 11:56+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/projects/p/alaveteli/language/vi/)\n"
 "Language: vi\n"
@@ -96,14 +96,8 @@ msgstr ""
 msgid " made by "
 msgstr "được tạo bởi"
 
-msgid " or "
-msgstr "hoặc"
-
 msgid " when you send this message."
 msgstr "khi bạn gửi đi tin nhắn này"
-
-msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr ""
@@ -567,6 +561,9 @@ msgstr ""
 msgid "Clarification"
 msgstr ""
 
+msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Clarify your FOI request - "
 msgstr ""
 
@@ -906,6 +903,9 @@ msgstr ""
 msgid "Follow up messages to existing requests are sent to "
 msgstr ""
 
+msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 #. "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
@@ -983,6 +983,12 @@ msgid "HasTagString::HasTagStringTag|Name"
 msgstr ""
 
 msgid "HasTagString::HasTagStringTag|Value"
+msgstr ""
+
+msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
+msgstr ""
+
+msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
 msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
@@ -1262,6 +1268,9 @@ msgid "Information on emissions and discharges (e.g. noise, energy,\\n          
 msgstr ""
 
 msgid "Internal review request"
+msgstr ""
+
+msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
@@ -1828,6 +1837,9 @@ msgstr ""
 msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 msgstr ""
 
+msgid "Prefer not to receive emails?"
+msgstr ""
+
 msgid "Prev"
 msgstr ""
 
@@ -2110,6 +2122,9 @@ msgstr ""
 msgid "Response"
 msgstr ""
 
+msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Response from a public authority"
 msgstr ""
 
@@ -2290,6 +2305,12 @@ msgid "Source URL:"
 msgstr ""
 
 msgid "Source:"
+msgstr ""
+
+msgid "Spam address"
+msgstr ""
+
+msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Special note for this authority!"
@@ -2880,6 +2901,9 @@ msgstr ""
 msgid "URL name can't be blank"
 msgstr ""
 
+msgid "URL name is already taken"
+msgstr ""
+
 msgid "Unable to change email address on {{site_name}}"
 msgstr ""
 
@@ -2949,6 +2973,9 @@ msgstr ""
 msgid "User|About me"
 msgstr ""
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr ""
 
@@ -2956,6 +2983,9 @@ msgid "User|Ban text"
 msgstr ""
 
 msgid "User|Can make batch requests"
+msgstr ""
+
+msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3150,7 +3180,22 @@ msgstr ""
 msgid "You are already following this request"
 msgstr ""
 
-msgid "You are already following updates about {{track_description}}"
+msgid "You are already subscribed to '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are already subscribed to <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr ""
 
 msgid "You are currently receiving notification of new activity on your wall by email."
@@ -3159,10 +3204,40 @@ msgstr ""
 msgid "You are following all new successful responses"
 msgstr ""
 
-msgid "You are no longer following {{track_description}}."
+msgid "You are no longer following '{{link_to_authority}}', a public authority."
 msgstr ""
 
-msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about {{track_description}}"
+msgid "You are no longer following '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are no longer following '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr ""
 
 msgid "You can <strong>complain</strong> by"
@@ -3243,7 +3318,22 @@ msgstr ""
 msgid "You will no longer be emailed updates for those alerts"
 msgstr ""
 
-msgid "You will now be emailed updates about {{track_description}}. <a href=\"{{change_email_alerts_url}}\">Prefer not to receive emails?</a>"
+msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>."
 msgstr ""
 
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
@@ -3411,6 +3501,12 @@ msgstr ""
 msgid "all requests"
 msgstr ""
 
+msgid "all requests or comments"
+msgstr ""
+
+msgid "all requests or comments matching text '{{query}}'"
+msgstr ""
+
 msgid "also called {{public_body_short_name}}"
 msgstr ""
 
@@ -3429,13 +3525,7 @@ msgstr ""
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr ""
 
-msgid "any <a href=\"/list\">new requests</a>"
-msgstr ""
-
-msgid "any <a href=\"/list/successful\">successful requests</a>"
-msgstr ""
-
-msgid "anything"
+msgid "anything matching text '{{query}}'"
 msgstr ""
 
 msgid "are long overdue."
@@ -3447,13 +3537,7 @@ msgstr ""
 msgid "authorities"
 msgstr ""
 
-msgid "awaiting a response"
-msgstr ""
-
 msgid "beginning with ‘{{first_letter}}’"
-msgstr ""
-
-msgid "between two dates"
 msgstr ""
 
 msgid "but followupable"
@@ -3463,9 +3547,6 @@ msgid "by"
 msgstr ""
 
 msgid "by <strong>{{date}}</strong>"
-msgstr ""
-
-msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
 msgstr ""
 
 msgid "by {{user_link_absolute}}"
@@ -3543,6 +3624,9 @@ msgstr ""
 msgid "move..."
 msgstr ""
 
+msgid "new requests"
+msgstr ""
+
 msgid "no later than"
 msgstr ""
 
@@ -3564,16 +3648,16 @@ msgstr ""
 msgid "requests"
 msgstr ""
 
-msgid "requests which are {{list_of_statuses}}"
+msgid "requests which are successful"
+msgstr ""
+
+msgid "requests which are successful matching text '{{query}}'"
 msgstr ""
 
 msgid "response as needing administrator attention. Take a look, and reply to this\\nemail to let them know what you are going to do about it."
 msgstr ""
 
 msgid "send a follow up message"
-msgstr ""
-
-msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
 msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
@@ -3586,9 +3670,6 @@ msgid "sign in"
 msgstr ""
 
 msgid "simple_date_format"
-msgstr ""
-
-msgid "successful"
 msgstr ""
 
 msgid "successful requests"
@@ -3638,9 +3719,6 @@ msgstr ""
 msgid "unsubscribe all"
 msgstr ""
 
-msgid "unsuccessful"
-msgstr ""
-
 msgid "unsuccessful requests"
 msgstr ""
 
@@ -3675,6 +3753,9 @@ msgstr[0] ""
 msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
 msgstr ""
 
+msgid "{{foi_law}} requests to '{{public_body_name}}'"
+msgstr ""
+
 msgid "{{info_request_user_name}} only:"
 msgstr ""
 
@@ -3685,9 +3766,6 @@ msgid "{{law_used}} requests at {{public_body}}"
 msgstr ""
 
 msgid "{{length_of_time}} ago"
-msgstr ""
-
-msgid "{{list_of_things}} matching text '{{search_query}}'"
 msgstr ""
 
 msgid "{{number_of_comments}} comments"

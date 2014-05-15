@@ -6,7 +6,7 @@
 #
 #  id                                     :integer          not null, primary key
 #  name                                   :text             not null
-#  short_name                             :text             not null
+#  short_name                             :text             default(""), not null
 #  request_email                          :text             not null
 #  version                                :integer          not null
 #  last_edit_editor                       :string(255)      not null
@@ -37,7 +37,8 @@ class PublicBody < ActiveRecord::Base
     validates_presence_of :name, :message => N_("Name can't be blank")
     validates_presence_of :url_name, :message => N_("URL name can't be blank")
 
-    validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :if => Proc.new { |pb| pb.short_name != "" }
+    validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :allow_blank => true
+    validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
     validates_uniqueness_of :name, :message => N_("Name is already taken")
 
     validate :request_email_if_requestable
@@ -58,6 +59,34 @@ class PublicBody < ActiveRecord::Base
     }
 
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
+
+    # Public: Search for Public Bodies whose name, short_name, request_email or
+    # tags contain the given query
+    #
+    # query  - String to query the searchable fields
+    # locale - String to specify the language of the seach query
+    #          (default: I18n.locale)
+    #
+    # Returns an ActiveRecord::Relation
+    def self.search(query, locale = I18n.locale)
+        locale = locale.to_s.gsub('-', '_') # Clean the locale string
+
+        sql = <<-SQL
+            (
+              lower(public_body_translations.name) like lower('%'||?||'%')
+              OR lower(public_body_translations.short_name) like lower('%'||?||'%')
+              OR lower(public_body_translations.request_email) like lower('%'||?||'%' )
+              OR lower(has_tag_string_tags.name) like lower('%'||?||'%' )
+            )
+            AND has_tag_string_tags.model_id = public_bodies.id
+            AND has_tag_string_tags.model = 'PublicBody'
+            AND (public_body_translations.locale = ?)
+        SQL
+
+        PublicBody.joins(:translations, :tags).
+                     where([sql, query, query, query, query, locale]).
+                       uniq
+    end
 
     # Convenience methods for creating/editing translations via forms
     def find_translation_by_locale(locale)
@@ -505,7 +534,15 @@ class PublicBody < ActiveRecord::Base
                                     public_body.publication_scheme = public_body.publication_scheme || ""
                                     public_body.last_edit_editor = editor
                                     public_body.last_edit_comment = 'Created from spreadsheet'
-                                    public_body.save!
+
+                                    begin
+                                        public_body.save!
+                                    rescue ActiveRecord::RecordInvalid
+                                        public_body.errors.full_messages.each do |msg|
+                                            errors.push "error: line #{ line }: #{ msg } for authority '#{ name }'"
+                                        end
+                                        next
+                                    end
                                 end
                             end
                         end
