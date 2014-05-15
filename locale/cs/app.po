@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-13 13:02+0100\n"
-"PO-Revision-Date: 2014-05-13 14:15+0000\n"
+"POT-Creation-Date: 2014-05-15 12:46+0100\n"
+"PO-Revision-Date: 2014-05-15 11:56+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/alaveteli/language/cs/)\n"
 "Language: cs\n"
@@ -3359,22 +3359,22 @@ msgstr "Tohoto uživatele již sledujete."
 msgid "You are already following this request"
 msgstr "Tento dotaz již sledujete."
 
-msgid "You are already subscribed to '{{link_to_authority}}', a public authority"
+msgid "You are already subscribed to '{{link_to_authority}}', a public authority."
 msgstr ""
 
-msgid "You are already subscribed to '{{link_to_request}}', a request"
+msgid "You are already subscribed to '{{link_to_request}}', a request."
 msgstr ""
 
-msgid "You are already subscribed to '{{link_to_user}}', a person"
+msgid "You are already subscribed to '{{link_to_user}}', a person."
 msgstr ""
 
-msgid "You are already subscribed to <a href=\"{{search_url}}\">this search</a>"
+msgid "You are already subscribed to <a href=\"{{search_url}}\">this search</a>."
 msgstr ""
 
-msgid "You are already subscribed to any <a href=\"{{new_requests_url}}\">new requests</a>"
+msgid "You are already subscribed to any <a href=\"{{new_requests_url}}\">new requests</a>."
 msgstr ""
 
-msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>"
+msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr ""
 
 msgid "You are currently receiving notification of new activity on your wall by email."
@@ -3383,40 +3383,40 @@ msgstr "Pokud se cokoliv změní na vaší nástěnce, budete upozorněni e-mail
 msgid "You are following all new successful responses"
 msgstr "Budete upozorněni na všechny úspěšně zodpovězené dotazy."
 
-msgid "You are no longer following '{{link_to_authority}}', a public authority"
+msgid "You are no longer following '{{link_to_authority}}', a public authority."
 msgstr ""
 
-msgid "You are no longer following '{{link_to_request}}', a request"
+msgid "You are no longer following '{{link_to_request}}', a request."
 msgstr ""
 
-msgid "You are no longer following '{{link_to_user}}', a person"
+msgid "You are no longer following '{{link_to_user}}', a person."
 msgstr ""
 
-msgid "You are no longer following <a href=\"{{new_requests_url}}\">new requests</a>"
+msgid "You are no longer following <a href=\"{{new_requests_url}}\">new requests</a>."
 msgstr ""
 
-msgid "You are no longer following <a href=\"{{search_url}}\">this search</a>"
+msgid "You are no longer following <a href=\"{{search_url}}\">this search</a>."
 msgstr ""
 
-msgid "You are no longer following <a href=\"{{successful_requests_url}}\">successful requests</a>"
+msgid "You are no longer following <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr ""
 
-msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_authority}}', a public authority"
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_authority}}', a public authority."
 msgstr ""
 
-msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_request}}', a request"
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_request}}', a request."
 msgstr ""
 
-msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_user}}', a person"
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_user}}', a person."
 msgstr ""
 
-msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>"
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>."
 msgstr ""
 
-msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>"
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>."
 msgstr ""
 
-msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>"
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr ""
 
 msgid "You can <strong>complain</strong> by"
@@ -3511,22 +3511,22 @@ msgstr ""
 msgid "You will no longer be emailed updates for those alerts"
 msgstr "E-mailová upozornění o těchto aktualizacích vám přestanou chodit "
 
-msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority"
+msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority."
 msgstr ""
 
-msgid "You will now be emailed updates about '{{link_to_request}}', a request"
+msgid "You will now be emailed updates about '{{link_to_request}}', a request."
 msgstr ""
 
-msgid "You will now be emailed updates about '{{link_to_user}}', a person"
+msgid "You will now be emailed updates about '{{link_to_user}}', a person."
 msgstr ""
 
-msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this search</a>"
+msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this search</a>."
 msgstr ""
 
-msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>"
+msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr ""
 
-msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>"
+msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>."
 msgstr ""
 
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
