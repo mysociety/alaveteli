@@ -1,8 +1,34 @@
-# rails-3-develop
+# Version 0.18
 
 ## Highlighted features
 
-* There is an alternative set of stylesheets for rendering the site in a stripped-down, responsive way (so that it will display appropriately on mobile devices as well as larger screens). We'll be adding some corresponding stylesheets shortly to alavetelitheme to provide a nice basic look and feel.
+* There is an alternative set of stylesheets and header and footer
+  templates for rendering the site in a stripped-down, responsive way
+  (so that it will display appropriately on mobile devices as well as
+  larger screens). This can be customised in a theme. We'll be adding
+  some corresponding stylesheets shortly to alavetelitheme to provide a
+  nice basic look and feel that can be customised. Eventually these
+  responsive stylesheets will become the default (Louise Crow).
+* Improvements in the Vagrant file (update to v2 API, configuration of
+  FQDN, VirtualBox memory, development environment, better
+  documentation) (Gareth Rees)
+* Full date/time of correspondence now displayed on hover (Gareth Rees)
+* Admins can now hide annotations in bulk from the admin interface
+  (Andrew Black)
+* Admins can now mark non-request email addresses as spam-targets if
+  they are only receiving spam, so that email sent to these addresses no
+  longer shows up in the holding pen, but is silently discarded (Gareth
+  Rees)
+* The contact form now has an anti-spam honeypot, and prevents double
+  submission (Gareth Rees)
+* Improvements to some translatable strings so that they're not composed
+  on the fly according to English grammar (Louise Crow)
+* Fixed bugs in text conversion under Ruby 1.9 (Rowan Crawford),
+  handling of messages directing people to other instances of Alaveteli
+  (Louise Crow), link-to-this popup location, 404 handling, comments on
+  requests that are closed to comments, missing title tags in HTML
+  attachments, PDF conversion and public body batch updates (Gareth
+  Rees).
 
 ## Upgrade notes
 
@@ -19,6 +45,10 @@ Example:
 
     - <%= stylesheet_link_tag 'jquery.fancybox-1.3.4.css', :rel => "stylesheet"
     + <%= stylesheet_link_tag 'fancybox.css', :rel => "stylesheet"  %>
+* There are some new strings in this release for translation, so if your
+  site isn't in English, make sure your translations are up to date
+  before deploying to production
+
 
 # Version 0.17
 
