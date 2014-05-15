@@ -3182,9 +3182,8 @@ msgstr ""
 msgid "You are already following this request"
 msgstr ""
 
-#, fuzzy
 msgid "You are already subscribed to '{{link_to_authority}}', a public authority."
-msgstr "'{{link_to_authority}}', a public agency"
+msgstr "'{{link_to_authority}}', a public agency."
 
 msgid "You are already subscribed to '{{link_to_request}}', a request."
 msgstr ""
@@ -3207,9 +3206,8 @@ msgstr ""
 msgid "You are following all new successful responses"
 msgstr ""
 
-#, fuzzy
 msgid "You are no longer following '{{link_to_authority}}', a public authority."
-msgstr "'{{link_to_authority}}', a public agency"
+msgstr "'{{link_to_authority}}', a public agency."
 
 msgid "You are no longer following '{{link_to_request}}', a request."
 msgstr ""
@@ -3322,9 +3320,8 @@ msgstr ""
 msgid "You will no longer be emailed updates for those alerts"
 msgstr ""
 
-#, fuzzy
 msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority."
-msgstr "'{{link_to_authority}}', a public agency"
+msgstr "'{{link_to_authority}}', a public agency."
 
 msgid "You will now be emailed updates about '{{link_to_request}}', a request."
 msgstr ""
