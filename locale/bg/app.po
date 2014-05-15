@@ -6,14 +6,15 @@
 # antitoxic <antitoxic@gmail.com>, 2013
 # antitoxic <antitoxic@gmail.com>, 2013
 # louisecrow <louise@mysociety.org>, 2014
+# louisecrow <louise@mysociety.org>, 2014
 # Valentin Laskov <laskov@festa.bg>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-13 13:02+0100\n"
-"PO-Revision-Date: 2014-05-13 12:08+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2014-05-14 18:42+0000\n"
+"Last-Translator: Valentin Laskov <laskov@festa.bg>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/alaveteli/language/bg/)\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -562,7 +563,7 @@ msgid "Clarification"
 msgstr "Изясняване"
 
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Изпратено е пояснение до {{public_body_name}} от {{info_request_user}} на {{date}}."
 
 msgid "Clarify your FOI request - "
 msgstr "Пояснете Вашето Заявление за ДдИ - "
@@ -990,7 +991,7 @@ msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors
 msgstr "Здравейте! Имаме <a href=\"{{url}}\">важно съобщение</a> за посетители извън {{country_name}}"
 
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
-msgstr ""
+msgstr "Здравейте! Ние имаме <a href=\"{{url}}\">важно съобщение</a> за посетители от други държави"
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Здравейте! Вие можете да отправяте заявления за достъп до обществена информация за {{country_name}} на {{link_to_website}}"
@@ -1272,7 +1273,7 @@ msgid "Internal review request"
 msgstr "Заявление за вътрешно разглеждане"
 
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Заявление за вътрешно разглеждане, изпратено до {{public_body_name}} от {{info_request_user}} на {{date}}."
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Грешен ли е адресът {{email_address}} за {{type_of_request}} заявления към {{public_body_name}}? Ако да, моля свържете се с нас, използвайки тази форма:"
@@ -1839,7 +1840,7 @@ msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 msgstr "Задвижвано от <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 
 msgid "Prefer not to receive emails?"
-msgstr ""
+msgstr "Предпочитате да не получавате имейли?"
 
 msgid "Prev"
 msgstr "Преден"
@@ -2124,7 +2125,7 @@ msgid "Response"
 msgstr "Отговор"
 
 msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Отговор от {{public_body_name}} до {{info_request_user}} от {{date}}."
 
 msgid "Response from a public authority"
 msgstr "Отговор от публичен орган"
@@ -2908,7 +2909,7 @@ msgid "URL name can't be blank"
 msgstr "URL името не може да е празно"
 
 msgid "URL name is already taken"
-msgstr ""
+msgstr "URL името е вече заето"
 
 msgid "Unable to change email address on {{site_name}}"
 msgstr "Не беше възможно да се промени имейл адрес на {{site_name}}"
@@ -3187,22 +3188,22 @@ msgid "You are already following this request"
 msgstr "Вие вече следвате това Заявление"
 
 msgid "You are already subscribed to '{{link_to_authority}}', a public authority"
-msgstr ""
+msgstr "Вие вече сте абонирани за публичния орган '{{link_to_authority}}'"
 
 msgid "You are already subscribed to '{{link_to_request}}', a request"
-msgstr ""
+msgstr "Вие вече сте абонирани за заявлението '{{link_to_request}}'"
 
 msgid "You are already subscribed to '{{link_to_user}}', a person"
-msgstr ""
+msgstr "Вие вече сте абонирани за потребителя '{{link_to_user}}'"
 
 msgid "You are already subscribed to <a href=\"{{search_url}}\">this search</a>"
-msgstr ""
+msgstr "Вие вече сте абонирани за <a href=\"{{search_url}}\">това търсене</a>"
 
 msgid "You are already subscribed to any <a href=\"{{new_requests_url}}\">new requests</a>"
-msgstr ""
+msgstr "Вие вече сте абонирани за всякакви <a href=\"{{new_requests_url}}\">нови заявления</a>"
 
 msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>"
-msgstr ""
+msgstr "Вие вече сте абонирани за всякакви <a href=\"{{successful_requests_url}}\">успешни заявления</a>"
 
 msgid "You are currently receiving notification of new activity on your wall by email."
 msgstr "Към момента Вие получавате известия с имейл при нова активност на стената Ви."
@@ -3211,40 +3212,40 @@ msgid "You are following all new successful responses"
 msgstr "Вие следите всички нови успешни отговори"
 
 msgid "You are no longer following '{{link_to_authority}}', a public authority"
-msgstr ""
+msgstr "Вие вече не следите публичния орган '{{link_to_authority}}'"
 
 msgid "You are no longer following '{{link_to_request}}', a request"
-msgstr ""
+msgstr "Вие вече не следите заявлението '{{link_to_request}}'"
 
 msgid "You are no longer following '{{link_to_user}}', a person"
-msgstr ""
+msgstr "Вие вече не следите потребителя '{{link_to_user}}'"
 
 msgid "You are no longer following <a href=\"{{new_requests_url}}\">new requests</a>"
-msgstr ""
+msgstr "Вие вече не следите за <a href=\"{{new_requests_url}}\">нови заявления</a>"
 
 msgid "You are no longer following <a href=\"{{search_url}}\">this search</a>"
-msgstr ""
+msgstr "Вие вече не следите <a href=\"{{search_url}}\">това търсене</a>"
 
 msgid "You are no longer following <a href=\"{{successful_requests_url}}\">successful requests</a>"
-msgstr ""
+msgstr "Вие вече не следите за <a href=\"{{successful_requests_url}}\">успешни заявления</a>"
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_authority}}', a public authority"
-msgstr ""
+msgstr "Вие вече <a href=\"{{wall_url_user}}\">следите</a> новостите за публичния орган '{{link_to_authority}}'"
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_request}}', a request"
-msgstr ""
+msgstr "Вие вече <a href=\"{{wall_url_user}}\">следите</a> новостите за заявлението '{{link_to_request}}'"
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_user}}', a person"
-msgstr ""
+msgstr "Вие вече <a href=\"{{wall_url_user}}\">следите</a> новостите за потребителя '{{link_to_user}}'"
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>"
-msgstr ""
+msgstr "Вие вече <a href=\"{{wall_url_user}}\">следите</a> за <a href=\"{{new_requests_url}}\">нови заявления</a>"
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>"
-msgstr ""
+msgstr "Вие вече <a href=\"{{wall_url_user}}\">следите</a> новостите за <a href=\"{{search_url}}\">това търсене</a>"
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>"
-msgstr ""
+msgstr "Вие вече <a href=\"{{wall_url_user}}\">следите</a> новостите за <a href=\"{{successful_requests_url}}\">успешни заявления</a>"
 
 msgid "You can <strong>complain</strong> by"
 msgstr "Можете да се <strong>оплачете</strong> като"
@@ -3325,22 +3326,22 @@ msgid "You will no longer be emailed updates for those alerts"
 msgstr "Вие вече няма да получавате новости по имейл за тези известия"
 
 msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority"
-msgstr ""
+msgstr "Вие вече ще получавате имейл с новости за публичния орган '{{link_to_authority}}'"
 
 msgid "You will now be emailed updates about '{{link_to_request}}', a request"
-msgstr ""
+msgstr "Вие вече ще получавате имейл с новости за заявлението '{{link_to_request}}'"
 
 msgid "You will now be emailed updates about '{{link_to_user}}', a person"
-msgstr ""
+msgstr "Вие вече ще получавате имейл с новости за потребителя '{{link_to_user}}'"
 
 msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this search</a>"
-msgstr ""
+msgstr "Вие вече ще получавате имейл с новости за <a href=\"{{search_url}}\">това търсене</a>"
 
 msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>"
-msgstr ""
+msgstr "Вие вече ще получавате имейл с новости за <a href=\"{{successful_requests_url}}\">успешните заявления</a>"
 
 msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>"
-msgstr ""
+msgstr "Вие вече ще получавате имейл с новости за всякакви <a href=\"{{new_requests_url}}\">нови заявления</a>"
 
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
 msgstr "Вие ще получите отговор на заявлението само ако изпратите\\nпояснително съобщение с разяснения."
@@ -3511,10 +3512,10 @@ msgid "all requests"
 msgstr "всички заявления"
 
 msgid "all requests or comments"
-msgstr ""
+msgstr "всички заявления или коментари"
 
 msgid "all requests or comments matching text '{{query}}'"
-msgstr ""
+msgstr "всички заявления или коментари, съдържащи текста '{{query}}'"
 
 msgid "also called {{public_body_short_name}}"
 msgstr "наричан също {{public_body_short_name}}"
@@ -3535,7 +3536,7 @@ msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "и ние ще предложим <strong>каква да е следващата стъпка</strong>"
 
 msgid "anything matching text '{{query}}'"
-msgstr ""
+msgstr "всичко, съдържащо текста '{{query}}'"
 
 msgid "are long overdue."
 msgstr "са много закъснели."
@@ -3634,7 +3635,7 @@ msgid "move..."
 msgstr "преместване..."
 
 msgid "new requests"
-msgstr ""
+msgstr "нови заявления"
 
 msgid "no later than"
 msgstr "не по-късно от"
@@ -3658,10 +3659,10 @@ msgid "requests"
 msgstr "заявления"
 
 msgid "requests which are successful"
-msgstr ""
+msgstr "заявления, които са успешни"
 
 msgid "requests which are successful matching text '{{query}}'"
-msgstr ""
+msgstr "заявления, които са успешни, съдържащи текста '{{query}}'"
 
 msgid "response as needing administrator attention. Take a look, and reply to this\\nemail to let them know what you are going to do about it."
 msgstr "отговор като нуждаещ се от вниманието на администратор. Прегледайте го и отговорете\\nна този имейл за да ги уведомите какво смятате да направите."
@@ -3767,7 +3768,7 @@ msgid "{{existing_request_user}} already\\n      created the same request on {{d
 msgstr "{{existing_request_user}} вече\\n отправи същото заявление на {{date}}. Вие можете да разгледате <a href=\"{{existing_request}}\">съществуващото Заявление</a>,\\n или да редактирате детайли по-долу за да направите ново подобно Заявление."
 
 msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr ""
+msgstr "{{foi_law}} заявления до '{{public_body_name}}'"
 
 msgid "{{info_request_user_name}} only:"
 msgstr "{{info_request_user_name}} само:"

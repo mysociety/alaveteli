@@ -8,6 +8,8 @@
 # Hans-Petter Fjeld <atluxity@1kb.no>, 2014
 # gorm <gormer@gmail.com>, 2013-2014
 # gorm <gormer@gmail.com>, 2013
+# Hans-Petter Fjeld <atluxity@1kb.no>, 2014
+# oeyrvin <oeyrvin@hagan.no>, 2014
 # oeyrvin <oeyrvin@hagan.no>, 2014
 # pere <pere-transifex@hungry.com>, 2013
 # pere <pere-transifex@hungry.com>, 2013-2014
@@ -16,7 +18,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-13 13:02+0100\n"
-"PO-Revision-Date: 2014-05-13 12:08+0000\n"
+"PO-Revision-Date: 2014-05-13 14:17+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"

@@ -34,6 +34,7 @@
 # markun <pedro@esfera.mobi>, 2011-2012
 # Rafael H L Moretti <rafael.moretti@gmail.com>, 2012
 # Rafael H L Moretti <rafael.moretti@gmail.com>, 2012
+# Rafael H L Moretti <rafael.moretti@gmail.com>, 2012
 # serramassuda <a.serramassuda@gmail.com>, 2012
 # vitorbaptista <vitor@vitorbaptista.com>, 2013
 # vitorbaptista <vitor@vitorbaptista.com>, 2013
@@ -43,7 +44,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-13 13:02+0100\n"
-"PO-Revision-Date: 2014-05-13 12:08+0000\n"
+"PO-Revision-Date: 2014-05-13 14:14+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/alaveteli/language/pt_BR/)\n"
 "Language: pt_BR\n"
