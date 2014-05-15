@@ -3182,9 +3182,8 @@ msgstr ""
 msgid "You are already following this request"
 msgstr ""
 
-#, fuzzy
 msgid "You are already subscribed to '{{link_to_authority}}', a public authority"
-msgstr "'{{link_to_authority}}', a public agency"
+msgstr ""
 
 msgid "You are already subscribed to '{{link_to_request}}', a request"
 msgstr ""
@@ -3207,9 +3206,8 @@ msgstr ""
 msgid "You are following all new successful responses"
 msgstr ""
 
-#, fuzzy
 msgid "You are no longer following '{{link_to_authority}}', a public authority"
-msgstr "'{{link_to_authority}}', a public agency"
+msgstr ""
 
 msgid "You are no longer following '{{link_to_request}}', a request"
 msgstr ""
@@ -3322,9 +3320,8 @@ msgstr ""
 msgid "You will no longer be emailed updates for those alerts"
 msgstr ""
 
-#, fuzzy
 msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority"
-msgstr "'{{link_to_authority}}', a public agency"
+msgstr ""
 
 msgid "You will now be emailed updates about '{{link_to_request}}', a request"
 msgstr ""
@@ -3533,9 +3530,8 @@ msgstr ""
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr ""
 
-#, fuzzy
 msgid "anything matching text '{{query}}'"
-msgstr "Listing public agencies matching '{{query}}'"
+msgstr ""
 
 msgid "are long overdue."
 msgstr ""
@@ -3633,9 +3629,8 @@ msgstr ""
 msgid "move..."
 msgstr ""
 
-#, fuzzy
 msgid "new requests"
-msgstr "ATI requests"
+msgstr ""
 
 msgid "no later than"
 msgstr ""
@@ -3661,9 +3656,8 @@ msgstr ""
 msgid "requests which are successful"
 msgstr ""
 
-#, fuzzy
 msgid "requests which are successful matching text '{{query}}'"
-msgstr "Listing public agencies matching '{{query}}'"
+msgstr ""
 
 msgid "response as needing administrator attention. Take a look, and reply to this\\nemail to let them know what you are going to do about it."
 msgstr ""
@@ -3768,9 +3762,8 @@ msgstr[1] ""
 msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
 msgstr ""
 
-#, fuzzy
 msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr "View ATI email address for '{{public_body_name}}'"
+msgstr ""
 
 msgid "{{info_request_user_name}} only:"
 msgstr ""
