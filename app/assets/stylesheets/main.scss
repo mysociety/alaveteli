@@ -134,6 +134,10 @@ overflow:visible;
 margin:0;
 }
 
+#wrapper_google_embed iframe {
+min-height: 800px;
+}
+
 #content {
 position:relative;
 width:875px;
