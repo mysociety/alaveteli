@@ -1,0 +1,59 @@
+/* Layout for search (and filters on request list)*/
+/* These pages use grid-columns, so are contained in a grid-row */
+#general_search,
+#general_search_redirect,
+#public_body_show,
+#request_list {
+  @include grid-row($behavior: nest);
+}
+
+
+#filter_requests_form, #search_form, #filter_form {
+
+  label {
+    display:inline;
+    float:none;
+    padding-right:5px;
+  }
+
+  label.title {
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      display:inline-block;
+      float:none;
+      width:110px;
+    }
+  }
+
+  .filter-request-types {
+    display: inline-block;
+    line-height: 1.5em;
+  }
+
+  #requests-subfilters div {
+  margin-top:10px;
+  }
+
+  .list-filter-item{
+    margin-bottom:0.5em;
+  }
+}
+
+
+.results_section {
+  @include grid-column(12);
+  .results-block:last-child {
+    border-bottom: none;
+    padding-bottom:0;
+  }
+  .results_section {
+    @include grid-column(12, $collapse:true);
+  }
+}
+
+#advanced-search input[type=text] {
+  width:50%;
+}
+
+#advanced-search-tips{
+  @include grid-column(12);
+}

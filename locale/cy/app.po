@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Cymrodor <cymrodor@gmail.com>, 2014
+# Aled Powell <cymrodor@gmail.com>, 2014
 # skenaja <alex@alexskene.com>, 2011-2012
 # baragouiner <graham.craig@gmail.com>, 2013
 # baragouiner <graham.craig@gmail.com>, 2013
@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-27 09:52+0000\n"
-"PO-Revision-Date: 2014-02-27 10:11+0000\n"
+"POT-Creation-Date: 2014-05-15 12:46+0100\n"
+"PO-Revision-Date: 2014-05-15 11:56+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
@@ -105,14 +105,8 @@ msgstr "Byddwch chi'n derbyn diweddariadau am y cais drwy ebost hefyd."
 msgid " made by "
 msgstr " a wnaed gan "
 
-msgid " or "
-msgstr " neu "
-
 msgid " when you send this message."
 msgstr " pan fyddwch chi'n anfon y neges hon"
-
-msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
-msgstr "\"Helo! Mae gennym <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">neges bwysig</a> i ymwelwyr y tu allan i {{country_name}}\""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Ystadegau troseddu yn ôl lefel ardal etholiadol ar gyfer Cymru'"
@@ -576,6 +570,9 @@ msgstr "Dewiswch eich llun proffil"
 msgid "Clarification"
 msgstr "Eglurhad"
 
+msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Clarify your FOI request - "
 msgstr "Eglurwch eich cais Rhyddid Gwybodaeth - "
 
@@ -915,6 +912,9 @@ msgstr "Neges ddilynol a anfonwyd gan y ceisydd"
 msgid "Follow up messages to existing requests are sent to "
 msgstr "Anfonir negeseuon dilynol i geisiadau presennol at "
 
+msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 #. "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
@@ -996,6 +996,12 @@ msgstr "HasTagString :: HasTagStringTag|Enw"
 
 msgid "HasTagString::HasTagStringTag|Value"
 msgstr "HasTagString :: HasTagStringTag|Gwerth"
+
+msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
+msgstr "Helo! Mae gennym <a href=\"{{url}}\">neges bwysig</a> i ymwelwyr y tu allan i {{country_name}}"
+
+msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
+msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Helo! Rydych chi'n gallu gwneud ceisiadau Rhyddid Gwybodaeth o fewn {{country_name}} yma:{{link_to_website}}"
@@ -1275,6 +1281,9 @@ msgstr "Gwybodaeth am allyriadau a gollyngiadau (ee sŵn, ynni, ymbelydredd, deu
 
 msgid "Internal review request"
 msgstr "Cais am adolygiad mewnol"
+
+msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "A yw {{email_address}} y cyfeiriad anghywir ar gyfer ceisiadau  {{type_of_request}} i {{public_body_name}}? Os felly, cysylltwch â ni gan ddefnyddio'r ffurflen hon:"
@@ -1840,6 +1849,9 @@ msgstr "Postiwyd ar {{date}} gan {{author}}"
 msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 msgstr "Wedi ei yrru gan <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 
+msgid "Prefer not to receive emails?"
+msgstr ""
+
 msgid "Prev"
 msgstr "Blaenorol"
 
@@ -2122,6 +2134,9 @@ msgstr "Ymateb trwy ddefnyddio'r we"
 msgid "Response"
 msgstr "Ymateb"
 
+msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Response from a public authority"
 msgstr "Ymateb gan awdurdod cyhoeddus"
 
@@ -2309,6 +2324,12 @@ msgstr "URL y Ffynhonnell:"
 
 msgid "Source:"
 msgstr "Ffynhonell:"
+
+msgid "Spam address"
+msgstr ""
+
+msgid "SpamAddress|Email"
+msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "Nodyn arbennig ar gyfer yr awdurdod hwn!"
@@ -2907,6 +2928,9 @@ msgstr "Teipiwch <strong><code> 01/01/2008..14/01/2008 </code></strong> i ddango
 msgid "URL name can't be blank"
 msgstr "Ni all enw URL fod yn wag"
 
+msgid "URL name is already taken"
+msgstr ""
+
 msgid "Unable to change email address on {{site_name}}"
 msgstr "Yn methu newid cyfeiriad e-bost ar {{site_name}}"
 
@@ -2976,6 +3000,9 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|Amdanaf i"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "User|Lefel weinyddu"
 
@@ -2983,6 +3010,9 @@ msgid "User|Ban text"
 msgstr "User|Gwahardd testun"
 
 msgid "User|Can make batch requests"
+msgstr ""
+
+msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3177,8 +3207,23 @@ msgstr "Rydych eisoes yn dilyn person hwn"
 msgid "You are already following this request"
 msgstr "Rydych eisoes yn dilyn cais hwn"
 
-msgid "You are already following updates about {{track_description}}"
-msgstr "Rydych eisoes yn dilyn diweddariadau am {{track_description}} "
+msgid "You are already subscribed to '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are already subscribed to <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
 
 msgid "You are currently receiving notification of new activity on your wall by email."
 msgstr "Ar hyn o bryd yr ydych yn derbyn hysbysiad o weithgarwch newydd ar eich wal drwy e-bost."
@@ -3186,11 +3231,41 @@ msgstr "Ar hyn o bryd yr ydych yn derbyn hysbysiad o weithgarwch newydd ar eich 
 msgid "You are following all new successful responses"
 msgstr "Rydych yn dilyn yr holl ymatebion llwyddiannus newydd "
 
-msgid "You are no longer following {{track_description}}."
-msgstr "Nid ydych chi bellach yn dilyn {{track_description}} "
+msgid "You are no longer following '{{link_to_authority}}', a public authority."
+msgstr ""
 
-msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about {{track_description}}"
-msgstr "Yr ydych yn awr yn <a href=\"{{wall_url_user}}\">dilyn</a> diweddariadau am {{track_description}} "
+msgid "You are no longer following '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are no longer following '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
 
 msgid "You can <strong>complain</strong> by"
 msgstr "Gallwch <strong>gwyno</strong> drwy"
@@ -3270,8 +3345,23 @@ msgstr "Ni fyddwch yn gallu gwneud ceisiadau newydd, anfon negeseuon dilynol, yc
 msgid "You will no longer be emailed updates for those alerts"
 msgstr "Ni fydd diweddariadau am y rhybuddion hynny'n cael eu e-bostio atoch mwyach "
 
-msgid "You will now be emailed updates about {{track_description}}. <a href=\"{{change_email_alerts_url}}\">Prefer not to receive emails?</a>"
-msgstr "Bydd diweddariadau am {{track_description}} yn awr yn cael eu e-bostio atoch. <a href=\"{{change_email_alerts_url}}\"> Well gennych beidio â derbyn e-byst? </a>"
+msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
 
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
 msgstr "Byddwch ond yn cael ateb i'ch cais os byddwch yn ymateb gyda'r eglurhad."
@@ -3447,6 +3537,12 @@ msgstr "alaveteli_foi: Y meddalwedd sy'n rhedeg {{site_name}}"
 msgid "all requests"
 msgstr "pob cais"
 
+msgid "all requests or comments"
+msgstr ""
+
+msgid "all requests or comments matching text '{{query}}'"
+msgstr ""
+
 msgid "also called {{public_body_short_name}}"
 msgstr "a elwir hefyd yn {{public_body_short_name}} "
 
@@ -3465,14 +3561,8 @@ msgstr "a diweddaru'r statws."
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "a byddwn yn awgrymu <strong>beth i'w wneud nesaf</strong>"
 
-msgid "any <a href=\"/list\">new requests</a>"
-msgstr "unrhyw <a href=\"/list\">geisiadau newydd</a>"
-
-msgid "any <a href=\"/list/successful\">successful requests</a>"
-msgstr "unrhyw <a href=\"/list/successful\">geisiadau llwyddiannus</a>"
-
-msgid "anything"
-msgstr "unrhyw beth"
+msgid "anything matching text '{{query}}'"
+msgstr ""
 
 msgid "are long overdue."
 msgstr "yn ddyledus ers tro"
@@ -3483,14 +3573,8 @@ msgstr "yn"
 msgid "authorities"
 msgstr "awdurdodau"
 
-msgid "awaiting a response"
-msgstr "aros am ymateb"
-
 msgid "beginning with ‘{{first_letter}}’"
 msgstr "sy'n dechrau gyda '{{first_letter}}'"
-
-msgid "between two dates"
-msgstr "rhwng dau ddyddiad"
 
 msgid "but followupable"
 msgstr "ond â modd mynd ar ei ôl"
@@ -3500,9 +3584,6 @@ msgstr "erbyn"
 
 msgid "by <strong>{{date}}</strong>"
 msgstr "erbyn <strong>{{date}}</strong>"
-
-msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr "gan {{public_body_name}}  i {{info_request_user}} ar {{date}}."
 
 msgid "by {{user_link_absolute}}"
 msgstr "gan {{user_link_absolute}} "
@@ -3579,6 +3660,9 @@ msgstr "negeseuon gan ddefnyddwyr"
 msgid "move..."
 msgstr "symud ..."
 
+msgid "new requests"
+msgstr ""
+
 msgid "no later than"
 msgstr "heb fod yn hwyrach na"
 
@@ -3600,17 +3684,17 @@ msgstr "yn gofyn am adolygiad mewnol"
 msgid "requests"
 msgstr "ceisiadau"
 
-msgid "requests which are {{list_of_statuses}}"
-msgstr "ceisiadau sy'n {{list_of_statuses}} "
+msgid "requests which are successful"
+msgstr ""
+
+msgid "requests which are successful matching text '{{query}}'"
+msgstr ""
 
 msgid "response as needing administrator attention. Take a look, and reply to this\\nemail to let them know what you are going to do about it."
 msgstr "ymateb sydd angen sylw gweinyddwr. Cymerwch olwg, ac ymatebwch i'r e-bost hwn i roi gwybod iddynt beth yr ydych yn mynd i'w wneud am y peth."
 
 msgid "send a follow up message"
 msgstr "anfon neges ddilynol"
-
-msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr "anfonwyd at {{public_body_name}}  gan {{info_request_user}} ar {{date}}."
 
 msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
 msgstr "gosodir yn <strong>wag</strong> (llinyn gwag) os na ellir dod o hyd i gyfeiriad; mae'r  e-byst hyn yn <strong>gyhoeddus</strong> gan y gall unrhyw eu gweld gyda CAPTCHA"
@@ -3623,9 +3707,6 @@ msgstr "mewngofnodi"
 
 msgid "simple_date_format"
 msgstr "simple_date_format"
-
-msgid "successful"
-msgstr "llwyddiannus"
 
 msgid "successful requests"
 msgstr "ceisiadau llwyddiannus"
@@ -3674,9 +3755,6 @@ msgstr "dad-danysgrifio"
 msgid "unsubscribe all"
 msgstr "dad-danysgrifio o bopeth"
 
-msgid "unsuccessful"
-msgstr "aflwyddiannus"
-
 msgid "unsuccessful requests"
 msgstr "ceisiadau aflwyddiannus"
 
@@ -3723,6 +3801,9 @@ msgstr[3] "Cais {{count}} a wnaed."
 msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
 msgstr "Creodd {{existing_request_user}} yr un cais eisoes ar {{date}}. Gallwch naill ai weld y <a href=\"{{existing_request}}\">cais presennol</a>, neu newid y manylion isod i wneud cais newydd ond tebyg."
 
+msgid "{{foi_law}} requests to '{{public_body_name}}'"
+msgstr ""
+
 msgid "{{info_request_user_name}} only:"
 msgstr "{info_request_user_name}} yn unig:"
 
@@ -3734,9 +3815,6 @@ msgstr "ceisiadau {{law_used}}   yn {{public_body}}"
 
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} yn ôl"
-
-msgid "{{list_of_things}} matching text '{{search_query}}'"
-msgstr "{{list_of_things}}  yn matsio testun '{{search_query}}'"
 
 msgid "{{number_of_comments}} comments"
 msgstr "{{number_of_comments}} o sylwadau"

@@ -1,0 +1,225 @@
+html {
+    height: 100%;
+    font-size: 1em;
+}
+
+body {
+    color: #333;
+    line-height: 1.5em;
+    height: 100%;
+    min-height: 100%;
+}
+
+a {
+    color: #2688dc;
+    &:hover,
+    &:active,
+    &:focus {
+        color: #333333;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 18px;
+    margin-bottom: 1rem;
+    line-height: 1.1em;
+    text-rendering: optimizeLegibility;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.6em
+}
+
+h4 {
+  font-size: 1.3em;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+p.subtitle {
+  margin-top:0.5em;
+  margin-bottom:1.5em;
+  font-size:1.2em;
+  font-style:normal;
+  color:#222;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #e9e9e9;
+    margin: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+dt {
+  margin-top: 1em;
+}
+
+dd {
+  margin-left: 2em;
+}
+
+dt + dd {
+  margin-top: 0.5em;
+  > p {
+    margin-top: 0;
+  }
+}
+
+
+/* Links in sidebars usually only underlined on hover */
+.feed_link,.act_link {
+  margin-bottom:10px;
+  a{
+    text-decoration:none;
+  }
+  a:hover{
+    text-decoration:underline;
+  }
+}
+
+#header_right {
+  > a {
+     text-decoration:none;
+  }
+  > a:hover{
+    text-decoration:underline;
+  }
+
+  br{
+    line-height:200%;
+  }
+
+}
+
+/* Notices to the user (usually on action completion) */
+#notice, #error {
+  font-size:1em;
+  border-radius:3px;
+  margin:1em 0;
+  padding:1.5em;
+
+  p:first-child {
+    margin-top:0;
+  }
+
+  p:last-child {
+    margin-bottom:0;
+  }
+
+}
+
+#notice {
+  background-color: lighten(#62b356, 23%);
+}
+
+#error {
+  background-color: lighten(#b05460, 23%);
+}
+
+.big {
+  font-size: 1.2em;
+}
+
+/* Form styling */
+
+label.form_label {
+  font-size: 1.1em;
+}
+
+.form_item_note,.form_note {
+  font-size:0.875em;
+}
+
+p + .form_item_note {
+  position: relative;
+  top: -1.25em;
+}
+
+form input[type=text],form input[type=password] {
+  font-size:1.1em;
+  width:200px;
+  border-radius:3px;
+  -moz-border-radius:3px;
+  border-color:#BBB;
+  border-style:solid;
+  border-width:1px;
+  padding:5px;
+  display: inline-block;
+}
+
+.fieldWithErrors {
+  display:block;
+  padding:0.2em;
+  textarea, input {
+    border:solid 1px Red !important;
+  }
+}
+
+.errorExplanation {
+  border-radius:6px;
+  -moz-border-radius:6px;
+  font-weight: normal;
+  margin:20px 0 30px;
+}
+
+#error,#hidden_request {
+  font-weight: bold;
+  padding:0.5em;
+}
+
+#preview_form ul {
+  margin:0;
+  padding:1px 32px 10px;
+}
+
+#preview_form ul li {
+  margin:10px 0;
+}
+
+label small{
+  text-transform: none;
+}
+
+/* Pagination */
+
+div.pagination {
+  text-align:center;
+  padding-top:0.3em;
+
+  span.current {
+    padding:0 0.6em 0.1em;
+  }
+
+  span.disabled {
+    padding:0 0.6em 0.1em;
+  }
+
+  a, a:visited {
+    text-decoration:none;
+    padding:0 0.6em 0.1em;
+  }
+
+}
+
+

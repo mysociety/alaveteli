@@ -6,7 +6,7 @@
 #
 #  id                                     :integer          not null, primary key
 #  name                                   :text             not null
-#  short_name                             :text             not null
+#  short_name                             :text             default(""), not null
 #  request_email                          :text             not null
 #  version                                :integer          not null
 #  last_edit_editor                       :string(255)      not null
@@ -37,7 +37,8 @@ class PublicBody < ActiveRecord::Base
     validates_presence_of :name, :message => N_("Name can't be blank")
     validates_presence_of :url_name, :message => N_("URL name can't be blank")
 
-    validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :if => Proc.new { |pb| pb.short_name != "" }
+    validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :allow_blank => true
+    validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
     validates_uniqueness_of :name, :message => N_("Name is already taken")
 
     validate :request_email_if_requestable
@@ -533,7 +534,15 @@ class PublicBody < ActiveRecord::Base
                                     public_body.publication_scheme = public_body.publication_scheme || ""
                                     public_body.last_edit_editor = editor
                                     public_body.last_edit_comment = 'Created from spreadsheet'
-                                    public_body.save!
+
+                                    begin
+                                        public_body.save!
+                                    rescue ActiveRecord::RecordInvalid
+                                        public_body.errors.full_messages.each do |msg|
+                                            errors.push "error: line #{ line }: #{ msg } for authority '#{ name }'"
+                                        end
+                                        next
+                                    end
                                 end
                             end
                         end

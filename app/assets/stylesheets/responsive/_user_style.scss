@@ -1,0 +1,36 @@
+/* Style for user pages */
+
+#set_photo {
+  background:image-url('defaultprofilepic.png');
+}
+
+#user_public_banned {
+    background-color:#d0d0d0;
+}
+
+#user_photo_on_profile {
+  img, #set_photo {
+    width:96px;
+    height:96px;
+    float:left;
+    vertical-align:middle;
+    text-align:center;
+    margin-right:0.5em;
+  }
+}
+
+div.user_about_me {
+  overflow:auto;
+  margin:1em 1.5em;
+  padding:0 0.5em;
+}
+
+#user_public_banned {
+
+  padding:0.5em 1em;
+
+ .details {
+    font-size:0.9em;
+    font-style:italic;
+  }
+}

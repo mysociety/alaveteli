@@ -136,15 +136,18 @@
 
 <div style="clear:both;"></div>
 <% if @total_hits == 0 %>
+  <div class="results_section">
     <h2><%=@title %></h2>
     <% if @spelling_correction %>
       <p id="did_you_mean"><%= _('Did you mean: {{correction}}', :correction => search_link(@spelling_correction)) %></p>
     <% end %>
+  </div>
 <% end %>
 
 <% if not @query.nil? %>
-    <div class="results_section">
-      <% if @xapian_bodies_hits > 0 %>
+
+    <% if @xapian_bodies_hits > 0 %>
+      <div class="results_section">
         <% if @xapian_bodies_hits == 1 && @page == 1 %>
           <h2 class="publicbody_results"><%= _('One public authority found') %></h2>
         <% else %>
@@ -158,13 +161,13 @@
         </div>
 
         <%= will_paginate WillPaginate::Collection.new(@page, @bodies_per_page, @xapian_bodies.matches_estimated) %>
-      <% elsif @variety_postfix == 'bodies' %>
-        <p><%= raw(_('<a href="{{browse_url}}">Browse all</a> or <a href="{{add_url}}">ask us to add one</a>.', :browse_url => list_public_bodies_default_path.html_safe, :add_url => (help_requesting_path + '#missing_body').html_safe)) %></p>
-      <% end %>
-    </div>
+      </div>
+       <% elsif @variety_postfix == 'bodies' %>
+          <p><%= raw(_('<a href="{{browse_url}}">Browse all</a> or <a href="{{add_url}}">ask us to add one</a>.', :browse_url => list_public_bodies_default_path.html_safe, :add_url => (help_requesting_path + '#missing_body').html_safe)) %></p>
+    <% end %>
 
-    <div class="results_section">
-      <% if @xapian_users_hits > 0 %>
+    <% if @xapian_users_hits > 0 %>
+      <div class="results_section">
         <% if @xapian_users_hits == 1 && @page == 1 %>
             <h2 class="person_results"><%= _("One person found") %></h2>
         <% else %>
@@ -178,11 +181,12 @@
         </div>
         <%= will_paginate WillPaginate::Collection.new(@page, @users_per_page, @xapian_users.matches_estimated) %>
 
-      <% end %>
-    </div>
+      </div>
+    <% end %>
 
-    <div class="results_section">
-      <% if @xapian_requests_hits > 0 %>
+
+    <% if @xapian_requests_hits > 0 %>
+      <div class="results_section">
         <% if @xapian_requests_hits == 1 && @page == 1 %>
             <h2 class="foi_results"><%= _("One FOI request found") %></h2>
         <% else %>
@@ -191,13 +195,13 @@
 
         <div class="results_block">
           <% for result in @xapian_requests.results %>
-            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
+            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
           <% end %>
         </div>
 
         <%= will_paginate WillPaginate::Collection.new(@page, @requests_per_page, @xapian_requests.matches_estimated) %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
 <% end %>
 
 <% if @advanced %>

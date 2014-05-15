@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-27 09:52+0000\n"
-"PO-Revision-Date: 2014-02-27 09:59+0000\n"
+"POT-Creation-Date: 2014-05-15 12:46+0100\n"
+"PO-Revision-Date: 2014-05-15 11:56+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/alaveteli/language/cs/)\n"
 "Language: cs\n"
@@ -108,14 +108,8 @@ msgstr " Aktualizace týkající se tohoto dotazu vám budou také zaslány e-ma
 msgid " made by "
 msgstr "vytvořeno"
 
-msgid " or "
-msgstr " nebo "
-
 msgid " when you send this message."
 msgstr " když tuto zprávu pošlete."
-
-msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
-msgstr "\"Hello! We have an <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "\"Statistiky kriminality pro Liberecký kraj.\""
@@ -622,6 +616,9 @@ msgstr "Vyberte své profilové foto:"
 msgid "Clarification"
 msgstr "Vysvětlení"
 
+msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Clarify your FOI request - "
 msgstr "Upřesněte svůj dotaz – "
 
@@ -977,6 +974,9 @@ msgstr "Odpověď zaslána uživatelem"
 msgid "Follow up messages to existing requests are sent to "
 msgstr "Zasílat aktualizace zpráv u tohoto dotazu na"
 
+msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 #. "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
@@ -1059,6 +1059,12 @@ msgstr "HasTagString::HasTagStringTag|Jméno"
 
 msgid "HasTagString::HasTagStringTag|Value"
 msgstr "HasTagString::HasTagStringTag|Hodnota"
+
+msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
+msgstr "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
+
+msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
+msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
 msgstr "Dobrý den, můžete vznést dotaz v zemi {{country_name}} na stránkách {{link_to_website}}"
@@ -1354,6 +1360,9 @@ msgstr "Informace o vypouštění imisí a emisí (např. energie, hluk, radiace
 
 msgid "Internal review request"
 msgstr "Doplnění dotazu"
+
+msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Je {{email_address}} chybná adresa pro {{type_of_request}} dotazy vznesené na instituci {{public_body_name}}? Pokud ano, prosíme kontaktujte nás vyplněním tohoto formuláře:"
@@ -1935,6 +1944,9 @@ msgstr "Vloženo {{date}} od {{author}}"
 msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 msgstr "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 
+msgid "Prefer not to receive emails?"
+msgstr ""
+
 msgid "Prev"
 msgstr "Předešlý"
 
@@ -2219,6 +2231,9 @@ msgstr "Odpovězte na internetových stránkách"
 msgid "Response"
 msgstr "Odpověď "
 
+msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Response from a public authority"
 msgstr "Odpověď od instituce "
 
@@ -2411,6 +2426,12 @@ msgid "Source URL:"
 msgstr ""
 
 msgid "Source:"
+msgstr ""
+
+msgid "Spam address"
+msgstr ""
+
+msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Special note for this authority!"
@@ -3038,6 +3059,9 @@ msgstr "Napište <strong><code>01/01/2008..14/01/2008</code></strong> pokud chce
 msgid "URL name can't be blank"
 msgstr "Název URL nemůže zůstat prázdný"
 
+msgid "URL name is already taken"
+msgstr ""
+
 msgid "Unable to change email address on {{site_name}}"
 msgstr "Nelze změnit e-mailovou adresu na stránkách {{site_name}}"
 
@@ -3110,6 +3134,9 @@ msgstr ""
 msgid "User|About me"
 msgstr "User | O mně"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "User | Úroveň admin"
 
@@ -3117,6 +3144,9 @@ msgid "User|Ban text"
 msgstr "User | Zakázat text"
 
 msgid "User|Can make batch requests"
+msgstr ""
+
+msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3329,8 +3359,23 @@ msgstr "Tohoto uživatele již sledujete."
 msgid "You are already following this request"
 msgstr "Tento dotaz již sledujete."
 
-msgid "You are already following updates about {{track_description}}"
-msgstr "Již sledujete {{track_description}}"
+msgid "You are already subscribed to '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are already subscribed to <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
 
 msgid "You are currently receiving notification of new activity on your wall by email."
 msgstr "Pokud se cokoliv změní na vaší nástěnce, budete upozorněni e-mailem."
@@ -3338,11 +3383,41 @@ msgstr "Pokud se cokoliv změní na vaší nástěnce, budete upozorněni e-mail
 msgid "You are following all new successful responses"
 msgstr "Budete upozorněni na všechny úspěšně zodpovězené dotazy."
 
-msgid "You are no longer following {{track_description}}."
-msgstr "Již dále nesledujete {{track_description}}."
+msgid "You are no longer following '{{link_to_authority}}', a public authority."
+msgstr ""
 
-msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about {{track_description}}"
-msgstr "Od nynějška budete upozorněni na změny týkající se <a href=\"{{wall_url_user}}\">sledovaného</a> tématu {{track_description}}"
+msgid "You are no longer following '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are no longer following '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
 
 msgid "You can <strong>complain</strong> by"
 msgstr "Můžete si <strong>stěžovat</strong> "
@@ -3436,8 +3511,23 @@ msgstr ""
 msgid "You will no longer be emailed updates for those alerts"
 msgstr "E-mailová upozornění o těchto aktualizacích vám přestanou chodit "
 
-msgid "You will now be emailed updates about {{track_description}}. <a href=\"{{change_email_alerts_url}}\">Prefer not to receive emails?</a>"
-msgstr "Od nynějška budete dostávat e-mailové upozornění týkající se změn v dotazu {{track_description}}. <a href=\"{{change_email_alerts_url}}\">Nechcete dostávat e-maily týkající se tohoto dotazu?</a>"
+msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
 
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
 msgstr ""
@@ -3621,6 +3711,12 @@ msgstr "alaveteli_foi: Software, na kterém běží {{site_name}}"
 msgid "all requests"
 msgstr "všechny dotazy"
 
+msgid "all requests or comments"
+msgstr ""
+
+msgid "all requests or comments matching text '{{query}}'"
+msgstr ""
+
 msgid "also called {{public_body_short_name}}"
 msgstr "také se nazývá {{public_body_short_name}}"
 
@@ -3639,14 +3735,8 @@ msgstr "a aktualizujte status."
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "a my vám doporučíme <strong>další postup</strong>"
 
-msgid "any <a href=\"/list\">new requests</a>"
-msgstr "jakékoliv <a href=\"/list\">nové dotazu</a>"
-
-msgid "any <a href=\"/list/successful\">successful requests</a>"
-msgstr "jakékoliv <a href=\"/list/successful\">úspěšné dotazy</a>"
-
-msgid "anything"
-msgstr "vše"
+msgid "anything matching text '{{query}}'"
+msgstr ""
 
 msgid "are long overdue."
 msgstr "– tato instituce výrazně překročila zákonem daný termín."
@@ -3657,14 +3747,8 @@ msgstr "na"
 msgid "authorities"
 msgstr "instituce"
 
-msgid "awaiting a response"
-msgstr "očekává se odpověď "
-
 msgid "beginning with ‘{{first_letter}}’"
 msgstr "Začínající na ‘{{first_letter}}’"
-
-msgid "between two dates"
-msgstr "mezi dvěma daty"
 
 msgid "but followupable"
 msgstr "ale "
@@ -3674,9 +3758,6 @@ msgstr "od"
 
 msgid "by <strong>{{date}}</strong>"
 msgstr "od <strong>{{date}}</strong>"
-
-msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr "od instituce {{public_body_name}} pro uživatele {{info_request_user}} dne {{date}}."
 
 msgid "by {{user_link_absolute}}"
 msgstr "by {{user_link_absolute}}"
@@ -3755,6 +3836,9 @@ msgstr "zprávy od uživatelů"
 msgid "move..."
 msgstr "přesunout..."
 
+msgid "new requests"
+msgstr ""
+
 msgid "no later than"
 msgstr "nejpozději do"
 
@@ -3778,17 +3862,17 @@ msgstr "požádat o doplnění dotazu "
 msgid "requests"
 msgstr "dotazy"
 
-msgid "requests which are {{list_of_statuses}}"
-msgstr "dotazy které jsou {{list_of_statuses}}"
+msgid "requests which are successful"
+msgstr ""
+
+msgid "requests which are successful matching text '{{query}}'"
+msgstr ""
 
 msgid "response as needing administrator attention. Take a look, and reply to this\\nemail to let them know what you are going to do about it."
 msgstr "administrátorovi. Podívejte se prosím na vznesený dotaz i odpověď. Až uděláte nezbytné kroky, odpovězte na tento e-mail a stručně je popište."
 
 msgid "send a follow up message"
 msgstr "poslat odpověď"
-
-msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr "posláno instituci {{public_body_name}} uživatelem {{info_request_user}} dne {{date}}."
 
 msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
 msgstr "nastaveno <strong>jako prázdné </strong> (empty string) pokud nelze nalézt adresu; tyto e-maily jsou <strong>veřejné</strong> a kdokoliv je může vidět pomocí CAPTCHA"
@@ -3801,9 +3885,6 @@ msgstr "přihlásit se"
 
 msgid "simple_date_format"
 msgstr "%e/%-m/%Y"
-
-msgid "successful"
-msgstr "úspěšné"
 
 msgid "successful requests"
 msgstr "úspěšně zodpovězené dotazy"
@@ -3852,9 +3933,6 @@ msgstr "zrušit odběr"
 msgid "unsubscribe all"
 msgstr "odhlásit vše"
 
-msgid "unsuccessful"
-msgstr "neúspěšné"
-
 msgid "unsuccessful requests"
 msgstr "nezodpovězené dotazy"
 
@@ -3897,6 +3975,9 @@ msgstr[2] "{{count}} dotazů bylo vzneseno."
 msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
 msgstr "{{existing_request_user}} již vznesl stejný dotaz dne {{date}}. Můžete si <a href=\"{{existing_request}}\">tento dotaz</a> přečíst, nebo vzneste podobný, ale podle svých potřeb upravený dotaz."
 
+msgid "{{foi_law}} requests to '{{public_body_name}}'"
+msgstr ""
+
 msgid "{{info_request_user_name}} only:"
 msgstr "Pouze {{info_request_user_name}}:"
 
@@ -3908,9 +3989,6 @@ msgstr "{{law_used}} dotazy vznesené na instituci {{public_body}}"
 
 msgid "{{length_of_time}} ago"
 msgstr "před {{length_of_time}}"
-
-msgid "{{list_of_things}} matching text '{{search_query}}'"
-msgstr "{{list_of_things}} odpovídající text '{{search_query}}'"
 
 msgid "{{number_of_comments}} comments"
 msgstr "{{number_of_comments}} komentářů"

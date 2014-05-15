@@ -18,8 +18,8 @@ module LinkToHelper
         request_url(info_request, {:only_path => true}.merge(options))
     end
 
-    def request_link(info_request, cls=nil )
-        link_to h(info_request.title), request_path(info_request), :class => cls
+    def request_link(info_request, cls=nil)
+        link_to info_request.title, request_path(info_request), :class => cls
     end
 
     def request_details_path(info_request)
@@ -75,15 +75,15 @@ module LinkToHelper
     end
 
     def public_body_link_short(public_body)
-        link_to h(public_body.short_or_long_name), public_body_path(public_body)
+        link_to public_body.short_or_long_name, public_body_path(public_body)
     end
 
     def public_body_link(public_body, cls=nil)
-        link_to h(public_body.name), public_body_path(public_body), :class => cls
+        link_to public_body.name, public_body_path(public_body), :class => cls
     end
 
     def public_body_link_absolute(public_body) # e.g. for in RSS
-        link_to h(public_body.name), public_body_url(public_body)
+        link_to public_body.name, public_body_url(public_body)
     end
 
     # Users
@@ -96,19 +96,19 @@ module LinkToHelper
     end
 
     def user_link(user, cls=nil)
-        link_to h(user.name), user_path(user), :class => cls
+        link_to user.name, user_path(user), :class => cls
     end
 
     def user_link_for_request(request, cls=nil)
         if request.is_external?
             user_name = request.external_user_name || _("Anonymous user")
             if !request.external_url.nil?
-                link_to h(user_name), request.external_url
+                link_to user_name, request.external_url
             else
                 user_name
             end
         else
-            link_to h(request.user.name), user_path(request.user), :class => cls
+            link_to request.user.name, user_path(request.user), :class => cls
         end
     end
 
@@ -116,7 +116,7 @@ module LinkToHelper
         if request.is_external?
             external_text || (request.external_user_name || _("Anonymous user")) + " (external)"
         else
-            link_to(h(internal_text || request.user.name), admin_user_show_url(request.user))
+            link_to(internal_text || request.user.name, admin_user_show_url(request.user))
         end
     end
 
@@ -279,13 +279,58 @@ module LinkToHelper
         end
     end
 
-    # Basic date format
-    def simple_date(date)
+    # Public: Usually-correct format for a DateTime-ish object
+    # To define a new new format define the `simple_date_{FORMAT}` method
+    #
+    # date - a DateTime, Date or Time
+    # opts - a Hash of options (default: { format: :html})
+    #        :format - :html returns a HTML <time> tag
+    #                  :text returns a plain String
+    #
+    # Examples
+    #
+    #   simple_date(Time.now)
+    #   # => "<time>..."
+    #
+    #   simple_date(Time.now, :format => :text)
+    #   # => "March 10, 2014"
+    #
+    # Returns a String
+    # Raises ArgumentError if the format is unrecognized
+    def simple_date(date, opts = {})
+        opts = { :format => :html }.merge(opts)
+        date_formatter = "simple_date_#{ opts[:format] }"
+
+        if respond_to?(date_formatter)
+            send(date_formatter, date)
+        else
+            raise ArgumentError, "Unrecognised format :#{ opts[:format] }"
+        end
+    end
+
+    # Usually-correct HTML formatting of a DateTime-ish object
+    # Use LinkToHelper#simple_date with desired formatting options
+    #
+    # date - a DateTime, Date or Time
+    #
+    # Returns a String
+    def simple_date_html(date)
+        date = date.in_time_zone unless date.is_a? Date
+        time_tag date, simple_date_text(date), :title => date.to_s
+    end
+
+    # Usually-correct plain text formatting of a DateTime-ish object
+    # Use LinkToHelper#simple_date with desired formatting options
+    #
+    # date - a DateTime, Date or Time
+    #
+    # Returns a String
+    def simple_date_text(date)
         date = date.in_time_zone.to_date unless date.is_a? Date
 
         date_format = _("simple_date_format")
         date_format = :long if date_format == "simple_date_format"
-        return I18n.l(date, :format => date_format)
+        I18n.l(date, :format => date_format)
     end
 
     def simple_time(date)

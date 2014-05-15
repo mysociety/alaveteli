@@ -27,8 +27,8 @@ $(document).ready(function() {
    return false;
    });
 
- // "link to this" widget
-     $('a.link_to_this').click(function() {
+  // "link to this" widget
+  $('a.link_to_this').click(function() {
     var box = $('div#link_box');
     var location = window.location.protocol + "//" + window.location.hostname + $(this).attr('href');
     box.width(location.length + " em");
@@ -36,12 +36,12 @@ $(document).ready(function() {
     box.show();
     box.find('input').select();
     box.position({
-      my:   "left top",
+      my: "right center",
       at: "left bottom",
       of:  this,
       collision: "fit" });
     return false;
-   });
+  });
 
      $('.close-button').click(function() { $(this).parent().hide() });
      $('div#variety-filter a').each(function() {

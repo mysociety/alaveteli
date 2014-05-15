@@ -1,0 +1,84 @@
+/* Layout for lists of requests, authorities, users */
+.request_listing,.body_listing,.user_listing {
+  overflow:hidden;
+  margin-top: 1.5em;
+  .head {
+    display:block;
+    margin-bottom: 0.33em;
+  }
+  .requester {
+    margin-bottom: 0.5em;
+  }
+  .bottomline {
+    display:block;
+    margin-bottom: 0.5em;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      margin-bottom: 1.5em;
+    }
+  }
+}
+
+.desc {
+  display:block;
+  float:right;
+  clear:none;
+  overflow:hidden;
+  margin-bottom: 1.5em;
+}
+
+.body_listing, .user_listing {
+  .desc, .bottomline {
+    clear: both;
+    float: none;
+    margin-bottom: 0;
+  }
+  .bottomline {
+    margin-bottom: 1.5em
+  }
+}
+
+.info_request_batch_intro{
+  @include grid-column(12);
+}
+
+.request_listing{
+  @include grid-row($behavior:nest);
+  margin-top: 1.5em;
+  .request_right {
+    @include grid-column(12);
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-column($columns:4, $float:right);
+      @include ie8{
+        padding-left: 0.9375em;
+      }
+      @include lte-ie7 {
+        width: 17.438em;
+      }
+    }
+  }
+
+  .request_left {
+    @include grid-column(12);
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-column($columns:8);
+      @include ie8{
+        padding-right: 0.9375em;
+      }
+      @include lte-ie7 {
+        width: 36.813em;
+      }
+    }
+  }
+
+   .desc {
+    width:100%;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      padding:0 0 0 2em;
+      @include lte-ie7 {
+        padding: 0;
+      }
+    }
+  }
+}
+
+

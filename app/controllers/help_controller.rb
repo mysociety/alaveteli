@@ -9,6 +9,7 @@ class HelpController < ApplicationController
     # we don't even have a control subroutine for most help pages, just see their templates
 
     before_filter :long_cache
+    before_filter :catch_spam, :only => [:contact]
 
     def unhappy
         @info_request = nil
@@ -67,6 +68,14 @@ class HelpController < ApplicationController
             end
         end
 
+    end
+
+    private
+
+    def catch_spam
+        if request.post? && !params[:contact][:comment].empty?
+            redirect_to frontpage_url
+        end
     end
 
 end

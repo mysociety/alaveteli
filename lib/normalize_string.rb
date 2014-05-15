@@ -1,4 +1,4 @@
-require 'iconv' unless RUBY_VERSION.to_f >= 1.9
+require 'iconv' unless String.method_defined?(:encode)
 require 'charlock_holmes'
 
 class EncodingNormalizationError < StandardError
@@ -23,17 +23,16 @@ def normalize_string_to_utf8(s, suggested_character_encoding=nil)
     to_try.push guessed_encoding
 
     to_try.each do |from_encoding|
-        if RUBY_VERSION.to_f >= 1.9
+        if String.method_defined?(:encode)
             begin
                 s.force_encoding from_encoding
                 return s.encode('UTF-8') if s.valid_encoding?
-            rescue ArgumentError
+            rescue ArgumentError, Encoding::UndefinedConversionError
                 # We get this is there are invalid bytes when
                 # interpreted as from_encoding at the point of
                 # the encode('UTF-8'); move onto the next one...
             end
         else
-            to_encoding = 'UTF-8'
             begin
                 converted = Iconv.conv 'UTF-8', from_encoding, s
                 return converted
@@ -45,7 +44,6 @@ def normalize_string_to_utf8(s, suggested_character_encoding=nil)
         end
     end
     raise EncodingNormalizationError, "Couldn't find a valid character encoding for the string"
-
 end
 
 def convert_string_to_utf8_or_binary(s, suggested_character_encoding=nil)
@@ -69,13 +67,13 @@ def convert_string_to_utf8_or_binary(s, suggested_character_encoding=nil)
         result = normalize_string_to_utf8 s, suggested_character_encoding
     rescue EncodingNormalizationError
         result = s
-        s.force_encoding 'ASCII-8BIT' if RUBY_VERSION.to_f >= 1.9
+        s.force_encoding 'ASCII-8BIT' if String.method_defined?(:encode)
     end
     result
 end
 
 def log_text_details(message, text)
-    if RUBY_VERSION.to_f >= 1.9
+    if String.method_defined?(:encode)
         STDERR.puts "#{message}, we have text: #{text}, of class #{text.class} and encoding #{text.encoding}"
     else
         STDERR.puts "#{message}, we have text: #{text}, of class #{text.class}"

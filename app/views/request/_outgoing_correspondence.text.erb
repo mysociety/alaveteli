@@ -3,6 +3,6 @@
 <%- else %>
   <%= _('From:') %> <% if @info_request.user_name %><%= @info_request.user_name %><% else %><%= "[#{_('An anonymous user')}]"%><% end %>
   <%= _('To:') %> <%= @info_request.public_body.name %>
-  <%= _('Date:') %> <%= simple_date(info_request_event.created_at) %>
+  <%= _('Date:') %> <%= simple_date(info_request_event.created_at, :format => :text) %>
   <%= outgoing_message.get_body_for_text_display %>
 <%- end %>

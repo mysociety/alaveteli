@@ -1,0 +1,50 @@
+/* Layout for request page */
+
+
+.gone_postal_help{
+  @include grid-column(12);
+}
+
+#describe_state_form_1 {
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column(9);
+  }
+}
+
+#show_response_view {
+  @include grid-row();
+
+  > h2 {
+    @include grid-column($columns: 12, $collapse: true);
+  }
+
+  .correspondence {
+    @include grid-column(12);
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-column(9);
+      @include ie8{
+        padding-right: 0.9375em;
+      }
+      @include lte-ie7 {
+        width: 41.625em;
+      }
+    }
+  }
+
+
+  #followup {
+    @include grid-column(12, $collapse: true);
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-column(8, $collapse: true);
+    }
+  }
+}
+
+
+/* Event history details */
+#request_details {
+  table {
+    margin-bottom:1em;
+  }
+}

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-27 09:52+0000\n"
-"PO-Revision-Date: 2014-02-27 09:59+0000\n"
+"POT-Creation-Date: 2014-05-15 12:46+0100\n"
+"PO-Revision-Date: 2014-05-15 11:56+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/projects/p/alaveteli/language/hr/)\n"
 "Language: hr\n"
@@ -106,14 +106,8 @@ msgstr " Ažuriranja zahtjeva će Vam takođe biti poslana putem e-maila."
 msgid " made by "
 msgstr " načinjeno od strane "
 
-msgid " or "
-msgstr " ili "
-
 msgid " when you send this message."
 msgstr " kada pošaljete ovu poruku."
-
-msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr ""
@@ -609,6 +603,9 @@ msgstr "Odaberite sliku na Vašem profilu"
 msgid "Clarification"
 msgstr "Objašnjenje"
 
+msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Clarify your FOI request - "
 msgstr ""
 
@@ -958,6 +955,9 @@ msgstr "Prateća poruka poslana od strane podnosioca zahtjeva"
 msgid "Follow up messages to existing requests are sent to "
 msgstr ""
 
+msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 #. "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
@@ -1037,6 +1037,12 @@ msgid "HasTagString::HasTagStringTag|Name"
 msgstr ""
 
 msgid "HasTagString::HasTagStringTag|Value"
+msgstr ""
+
+msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
+msgstr ""
+
+msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
 msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
@@ -1348,6 +1354,9 @@ msgstr ""
 
 msgid "Internal review request"
 msgstr "Zahtjev za urgenciju"
+
+msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Da li je {{email_address}} pogrešna adresa za {{type_of_request}} zahtjeve za {{public_body_name}}?Ako da, molimo kontaktirajte nas koristeći ovaj formular:"
@@ -1933,6 +1942,9 @@ msgstr "Poslano na datum {{date}} od strane {{author}}"
 msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 msgstr ""
 
+msgid "Prefer not to receive emails?"
+msgstr ""
+
 msgid "Prev"
 msgstr ""
 
@@ -2217,6 +2229,9 @@ msgstr "Odgovoriti preko web-a"
 msgid "Response"
 msgstr "Odgovor"
 
+msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Response from a public authority"
 msgstr "Odgovor od javne ustanove"
 
@@ -2407,6 +2422,12 @@ msgid "Source URL:"
 msgstr ""
 
 msgid "Source:"
+msgstr ""
+
+msgid "Spam address"
+msgstr ""
+
+msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Special note for this authority!"
@@ -3034,6 +3055,9 @@ msgstr "Ukucajte <strong><code>01/01/2008..14/01/2008</code></strong> da prikaž
 msgid "URL name can't be blank"
 msgstr "Ime URL-a ne može ostati prazno "
 
+msgid "URL name is already taken"
+msgstr ""
+
 msgid "Unable to change email address on {{site_name}}"
 msgstr "Nemoguće promijeniti e-mail adresu na  {{site_name}}"
 
@@ -3108,6 +3132,9 @@ msgstr ""
 msgid "User|About me"
 msgstr "Korisnik|O meni"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "Korisnik|Administratorski nivo"
 
@@ -3115,6 +3142,9 @@ msgid "User|Ban text"
 msgstr "Korisnik|tekst isključenja"
 
 msgid "User|Can make batch requests"
+msgstr ""
+
+msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3325,7 +3355,22 @@ msgstr ""
 msgid "You are already following this request"
 msgstr ""
 
-msgid "You are already following updates about {{track_description}}"
+msgid "You are already subscribed to '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are already subscribed to <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr ""
 
 msgid "You are currently receiving notification of new activity on your wall by email."
@@ -3334,10 +3379,40 @@ msgstr ""
 msgid "You are following all new successful responses"
 msgstr ""
 
-msgid "You are no longer following {{track_description}}."
+msgid "You are no longer following '{{link_to_authority}}', a public authority."
 msgstr ""
 
-msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about {{track_description}}"
+msgid "You are no longer following '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are no longer following '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr ""
 
 msgid "You can <strong>complain</strong> by"
@@ -3429,7 +3504,22 @@ msgstr ""
 msgid "You will no longer be emailed updates for those alerts"
 msgstr "Više vam nećemo slati ažuriranja za ova upozorenja"
 
-msgid "You will now be emailed updates about {{track_description}}. <a href=\"{{change_email_alerts_url}}\">Prefer not to receive emails?</a>"
+msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>."
 msgstr ""
 
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
@@ -3607,6 +3697,12 @@ msgstr ""
 msgid "all requests"
 msgstr "svi zahtjevi"
 
+msgid "all requests or comments"
+msgstr ""
+
+msgid "all requests or comments matching text '{{query}}'"
+msgstr ""
+
 msgid "also called {{public_body_short_name}}"
 msgstr "takođe poznat/a kao {{public_body_short_name}}"
 
@@ -3625,14 +3721,8 @@ msgstr "i ažurirajte status."
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "i mi ćemo predložiti <strong>šta raditi dalje</strong>"
 
-msgid "any <a href=\"/list\">new requests</a>"
-msgstr "svi <a href=\"/list\">novi zahtjevi</a>"
-
-msgid "any <a href=\"/list/successful\">successful requests</a>"
-msgstr "svi <a href=\"/list/successful\">uspješni zahtjevi</a>"
-
-msgid "anything"
-msgstr "bilo šta"
+msgid "anything matching text '{{query}}'"
+msgstr ""
 
 msgid "are long overdue."
 msgstr "kasne"
@@ -3643,14 +3733,8 @@ msgstr ""
 msgid "authorities"
 msgstr "ustanove"
 
-msgid "awaiting a response"
-msgstr ""
-
 msgid "beginning with ‘{{first_letter}}’"
 msgstr ""
-
-msgid "between two dates"
-msgstr "između dva datuma"
 
 msgid "but followupable"
 msgstr ""
@@ -3660,9 +3744,6 @@ msgstr "od strane"
 
 msgid "by <strong>{{date}}</strong>"
 msgstr "od strane <strong>{{date}}</strong>"
-
-msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr "od strane {{public_body_name}} za {{info_request_user}} na datum {{date}}."
 
 msgid "by {{user_link_absolute}}"
 msgstr "od strane {{user_link_absolute}}"
@@ -3741,6 +3822,9 @@ msgstr "poruke od korisnika"
 msgid "move..."
 msgstr ""
 
+msgid "new requests"
+msgstr ""
+
 msgid "no later than"
 msgstr "ne kasnije od"
 
@@ -3762,17 +3846,17 @@ msgstr "zahtjeva urgenciju"
 msgid "requests"
 msgstr "zahtjevi"
 
-msgid "requests which are {{list_of_statuses}}"
-msgstr "zahtjevi koji su {{list_of_statuses}}"
+msgid "requests which are successful"
+msgstr ""
+
+msgid "requests which are successful matching text '{{query}}'"
+msgstr ""
 
 msgid "response as needing administrator attention. Take a look, and reply to this\\nemail to let them know what you are going to do about it."
 msgstr ""
 
 msgid "send a follow up message"
 msgstr "pošaljite prateću poruku"
-
-msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr "poslano za {{public_body_name}} od strane {{info_request_user}} na datum {{date}}."
 
 msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
 msgstr ""
@@ -3785,9 +3869,6 @@ msgstr "prijavite se"
 
 msgid "simple_date_format"
 msgstr ""
-
-msgid "successful"
-msgstr "uspješni"
 
 msgid "successful requests"
 msgstr "uspješni zahtjevi"
@@ -3836,9 +3917,6 @@ msgstr "prekinuti pretplatu"
 msgid "unsubscribe all"
 msgstr "prekinuti pretplatu na sve"
 
-msgid "unsuccessful"
-msgstr "neuspješni"
-
 msgid "unsuccessful requests"
 msgstr "neuspješni zahtjevi"
 
@@ -3881,6 +3959,9 @@ msgstr[2] ""
 msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
 msgstr ""
 
+msgid "{{foi_law}} requests to '{{public_body_name}}'"
+msgstr ""
+
 msgid "{{info_request_user_name}} only:"
 msgstr "{{info_request_user_name}} samo:"
 
@@ -3892,9 +3973,6 @@ msgstr ""
 
 msgid "{{length_of_time}} ago"
 msgstr "prije {{length_of_time}}"
-
-msgid "{{list_of_things}} matching text '{{search_query}}'"
-msgstr ""
 
 msgid "{{number_of_comments}} comments"
 msgstr "{{number_of_comments}} komentara"

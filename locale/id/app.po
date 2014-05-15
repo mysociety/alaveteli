@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-27 09:52+0000\n"
-"PO-Revision-Date: 2014-02-27 09:59+0000\n"
+"POT-Creation-Date: 2014-05-15 12:46+0100\n"
+"PO-Revision-Date: 2014-05-15 11:56+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/projects/p/alaveteli/language/id/)\n"
 "Language: id\n"
@@ -109,14 +109,8 @@ msgstr " Anda juga akan dikirimkan email berisi update tentang permintaan."
 msgid " made by "
 msgstr " dibuat oleh "
 
-msgid " or "
-msgstr " atau "
-
 msgid " when you send this message."
 msgstr " saat Anda mengirim pesan ini."
-
-msgid "\"Hello! We have an  <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">important message</a> for visitors outside {{country_name}}\""
-msgstr "\"Halo! Kami mempunyai <a href=\\\"/help/alaveteli?country_name=#{CGI.escape(current_country)}\\\">pesan penting</a> untuk pengunjung diluar {{country_name}}\""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Statistik Kriminal berdasarkan tingkat penjara untuk Wales'"
@@ -643,6 +637,9 @@ msgstr "Memilih foto profil Anda"
 msgid "Clarification"
 msgstr "Klarifikasi"
 
+msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Clarify your FOI request - "
 msgstr "Silakan klarifikasi permintaan Anda - "
 
@@ -997,6 +994,9 @@ msgstr "Tindak lanjuti pesan yang dikirimkan oleh pemohon"
 msgid "Follow up messages to existing requests are sent to "
 msgstr "Pesan tindak lanjut terhadap permintaan yang ada dikirimkan ke "
 
+msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
 #. "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
@@ -1079,6 +1079,12 @@ msgid "HasTagString::HasTagStringTag|Name"
 msgstr ""
 
 msgid "HasTagString::HasTagStringTag|Value"
+msgstr ""
+
+msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
+msgstr "Halo! Kami mempunyai <a href=\"{{url}}\">pesan penting</a> untuk pengunjung diluar {{country_name}}"
+
+msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
 msgstr ""
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
@@ -1393,6 +1399,9 @@ msgstr ""
 
 msgid "Internal review request"
 msgstr "Permintaan kajian internal"
+
+msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Apakah {{email_address}} adalah alamat yang salah untuk {{type_of_request}} permintaan kepada {{public_body_name}}? Jika demikian, silakan hubungi kami menggunakan formulir ini:"
@@ -1978,6 +1987,9 @@ msgstr "Diposting pada{{date}} oleh{{author}}"
 msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 msgstr "Didukung oleh <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 
+msgid "Prefer not to receive emails?"
+msgstr ""
+
 msgid "Prev"
 msgstr "Prev"
 
@@ -2262,6 +2274,9 @@ msgstr "Merespon lewat web"
 msgid "Response"
 msgstr "Respon"
 
+msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
+msgstr ""
+
 msgid "Response from a public authority"
 msgstr "Respon dari otoritas publik"
 
@@ -2451,6 +2466,12 @@ msgid "Source URL:"
 msgstr ""
 
 msgid "Source:"
+msgstr ""
+
+msgid "Spam address"
+msgstr ""
+
+msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Special note for this authority!"
@@ -3085,6 +3106,9 @@ msgstr "Ketik <strong><code>0 /0 /2008.. 4/0 /2008</code></strong> untuk hanya m
 msgid "URL name can't be blank"
 msgstr "Nama URL tidak bisa kosong"
 
+msgid "URL name is already taken"
+msgstr ""
+
 msgid "Unable to change email address on {{site_name}}"
 msgstr "Tidak dapat mengubah alamat email pada {{site_name}}"
 
@@ -3159,6 +3183,9 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|About me"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -3166,6 +3193,9 @@ msgid "User|Ban text"
 msgstr "User|Ban text"
 
 msgid "User|Can make batch requests"
+msgstr ""
+
+msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3378,8 +3408,23 @@ msgstr "Anda telah mengikuti orang ini"
 msgid "You are already following this request"
 msgstr "Anda telah mengikuti permintaan ini"
 
-msgid "You are already following updates about {{track_description}}"
-msgstr "Anda telah mengikuti pembaruan tentang {{track_description}}"
+msgid "You are already subscribed to '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are already subscribed to '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are already subscribed to <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
 
 msgid "You are currently receiving notification of new activity on your wall by email."
 msgstr "Anda sekarang menerima notifikasi aktivitas baru di wall Anda melalui email."
@@ -3387,11 +3432,41 @@ msgstr "Anda sekarang menerima notifikasi aktivitas baru di wall Anda melalui em
 msgid "You are following all new successful responses"
 msgstr "Anda mengikuti semua jawaban baru yang berhasil"
 
-msgid "You are no longer following {{track_description}}."
-msgstr "Anda tidak lagi mengikuti {{track_description}}."
+msgid "You are no longer following '{{link_to_authority}}', a public authority."
+msgstr ""
 
-msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about {{track_description}}"
-msgstr "Anda sekarang <a href=\"{{wall_url_user}}\">mengikuti</a> pembaruan tentang {{track_description}}"
+msgid "You are no longer following '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are no longer following '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are no longer following <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
 
 msgid "You can <strong>complain</strong> by"
 msgstr "Anda dapat <strong>mengajukan keberatan</strong> lewat"
@@ -3487,8 +3562,23 @@ msgstr ""
 msgid "You will no longer be emailed updates for those alerts"
 msgstr "Anda tidak akan lagi diemail update untuk tanda notifikasi tersebut"
 
-msgid "You will now be emailed updates about {{track_description}}. <a href=\"{{change_email_alerts_url}}\">Prefer not to receive emails?</a>"
-msgstr "Sekarang Anda akan menerima email pembaruan tentang {{track_description}}. <a href=\"{{change_email_alerts_url}}\">Lebih suka tidak menerima email?</a>"
+msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_request}}', a request."
+msgstr ""
+
+msgid "You will now be emailed updates about '{{link_to_user}}', a person."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this search</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
 
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
 msgstr ""
@@ -3666,6 +3756,12 @@ msgstr "alaveteli_foi:Perangkat lunak yang berjalan {{site_name}}"
 msgid "all requests"
 msgstr "semua permintaan"
 
+msgid "all requests or comments"
+msgstr ""
+
+msgid "all requests or comments matching text '{{query}}'"
+msgstr ""
+
 msgid "also called {{public_body_short_name}}"
 msgstr "juga disebut {{public_body_short_name}}"
 
@@ -3684,14 +3780,8 @@ msgstr "dan memperbarui status."
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "dan kami akan menyarankan <strong>apa yang harus dilakukan selanjutnya</strong>"
 
-msgid "any <a href=\"/list\">new requests</a>"
-msgstr "setiap <a href=\"/list\">permintaan baru</a>"
-
-msgid "any <a href=\"/list/successful\">successful requests</a>"
-msgstr "setiap <a href=\"/list/successful\">permintaan yang berhasil</a>"
-
-msgid "anything"
-msgstr "apa saja"
+msgid "anything matching text '{{query}}'"
+msgstr ""
 
 msgid "are long overdue."
 msgstr "sudah lama terlambat."
@@ -3702,14 +3792,8 @@ msgstr "di"
 msgid "authorities"
 msgstr "otoritas"
 
-msgid "awaiting a response"
-msgstr "menunggu tanggapan"
-
 msgid "beginning with ‘{{first_letter}}’"
 msgstr "dimulai dengan ‘{{first_letter}}’"
-
-msgid "between two dates"
-msgstr "antara dua tanggal"
 
 msgid "but followupable"
 msgstr "tetapi terikuti"
@@ -3719,9 +3803,6 @@ msgstr "oleh"
 
 msgid "by <strong>{{date}}</strong>"
 msgstr "oleh <strong>{{date}}</strong>"
-
-msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr "oleh {{public_body_name}} kepada {{info_request_user}} pada {{date}}"
 
 msgid "by {{user_link_absolute}}"
 msgstr "oleh {{user_link_absolute}}"
@@ -3800,6 +3881,9 @@ msgstr "pesan dari pengguna"
 msgid "move..."
 msgstr "pindah..."
 
+msgid "new requests"
+msgstr ""
+
 msgid "no later than"
 msgstr "tidak kurang dari"
 
@@ -3825,8 +3909,11 @@ msgstr "meminta kajian internal"
 msgid "requests"
 msgstr "permintaan"
 
-msgid "requests which are {{list_of_statuses}}"
-msgstr "permintaan yang {{list_of_statuses}}"
+msgid "requests which are successful"
+msgstr ""
+
+msgid "requests which are successful matching text '{{query}}'"
+msgstr ""
 
 msgid "response as needing administrator attention. Take a look, and reply to this\\nemail to let them know what you are going to do about it."
 msgstr ""
@@ -3835,9 +3922,6 @@ msgstr ""
 
 msgid "send a follow up message"
 msgstr "mengirimkan pesan tidak lanjut"
-
-msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr "dikirmkan ke {{public_body_name}} oleh {{info_request_user}} pada {{date}}."
 
 msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
 msgstr "set <strong>kosong</strong> (string kosong) jika tidak dapat menemukan alamat; email ini <strong>publik</strong> bagi siapapun dapat melihatnya dengan sebuah CAPTCHA"
@@ -3850,9 +3934,6 @@ msgstr "masuk"
 
 msgid "simple_date_format"
 msgstr "simple_date_format"
-
-msgid "successful"
-msgstr "berhasil"
 
 msgid "successful requests"
 msgstr "permintaan berhasil"
@@ -3901,9 +3982,6 @@ msgstr "berhenti langganan"
 msgid "unsubscribe all"
 msgstr "berhenti langganan semua"
 
-msgid "unsuccessful"
-msgstr "gagal"
-
 msgid "unsuccessful requests"
 msgstr "permintaan yang gagal"
 
@@ -3941,6 +4019,9 @@ msgstr ""
 "      menciptakan permintaan yang sama pada {{date}}. Anda dapat menampilkan <a href=\"{{existing_request}}\">permintaan yang sudah ada</a>,\n"
 "      atau merubah rincian di bawah untuk membuat permintaan baru tetapi serupa."
 
+msgid "{{foi_law}} requests to '{{public_body_name}}'"
+msgstr ""
+
 msgid "{{info_request_user_name}} only:"
 msgstr "hanya {{info_request_user_name}} :"
 
@@ -3952,9 +4033,6 @@ msgstr "{{law_used}} permintaan di {{public_body}}"
 
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} yang lalu"
-
-msgid "{{list_of_things}} matching text '{{search_query}}'"
-msgstr "{{list_of_things}} teks yang sesuai '{{search_query}}'"
 
 msgid "{{number_of_comments}} comments"
 msgstr "{{number_of_comments}} komentar"

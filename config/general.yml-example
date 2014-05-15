@@ -224,6 +224,10 @@ USE_MAILCATCHER_IN_DEVELOPMENT: true
 # config.action_controller.perform_caching is set to true
 CACHE_FRAGMENTS: true
 
+# The default bundle path is vendor/bundle; you can set this option to
+# change it.
+BUNDLE_PATH: vendor/bundle
+
 # In some deployments of Alaveteli you may wish to install each newly
 # deployed version alongside the previous ones, in which case certain
 # files and resources should be shared between these installations:
@@ -258,3 +262,6 @@ SHARED_DIRECTORIES:
 # user via the user admin page.
 
 ALLOW_BATCH_REQUESTS: false
+
+# Should we use the responsive stylesheets?
+RESPONSIVE_STYLING: false

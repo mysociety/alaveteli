@@ -233,6 +233,7 @@ Alaveteli::Application.routes.draw do
     match '/admin/user/destroy_track' => 'admin_user#destroy_track', :as => :admin_user_destroy_track
     match '/admin/user/login_as/:id' => 'admin_user#login_as', :as => :admin_user_login_as
     match '/admin/user/clear_profile_photo/:id' => 'admin_user#clear_profile_photo', :as => :admin_clear_profile_photo
+    match '/admin/user/modify_comment_visibility/:id' => 'admin_user#modify_comment_visibility', :as => 'admin_user_modify_comment_visibility'
     ####
 
     #### AdminTrack controller
@@ -245,6 +246,14 @@ Alaveteli::Application.routes.draw do
     match '/admin/censor/edit/:id' => 'admin_censor_rule#edit', :as => :admin_rule_edit
     match '/admin/censor/update/:id' => 'admin_censor_rule#update', :as => :admin_rule_update
     match '/admin/censor/destroy/:censor_rule_id' => 'admin_censor_rule#destroy', :as => :admin_rule_destroy
+    ####
+
+    #### AdminSpamAddresses controller
+    scope '/admin' do
+        resources :spam_addresses,
+                  :controller => 'admin_spam_addresses',
+                  :only => [:index, :create, :destroy]
+    end
     ####
 
     #### Api controller

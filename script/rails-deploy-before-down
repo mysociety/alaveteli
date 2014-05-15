@@ -123,20 +123,30 @@ END
     echo "ENV['RAILS_ENV'] ||= 'production'" > config/rails_env.rb
 fi
 
-bundle_install_options=""
+BUNDLE_PATH="${OPTION_BUNDLE_PATH:-vendor/bundle}"
+
+bundle_install_options="--path $BUNDLE_PATH"
+
 if [ "$OPTION_STAGING_SITE" = "0" ]
 then
-    bundle_install_options="--without development:test --deployment"
+    bundle_install_options="$bundle_install_options --without development debug test --deployment"
 fi
 if [ "$OPTION_STAGING_SITE" = "1" ]
 then
-    bundle_install_options="--path vendor/bundle"
+    bundle_install_options="$bundle_install_options"
 fi
+
+# Use script/wad to install bundle when on Travis
 if [ "$TRAVIS" = "true" ]
 then
-    bundle_install_options="--without development develop --deployment"
+    script/wad
 fi
-bundle install $bundle_install_options
+
+if [ ! "$TRAVIS" = "true" ]
+then
+    echo "Running bundle install with options: $bundle_install_options"
+    bundle install $bundle_install_options
+fi
 
 bundle exec rake submodules:check
 

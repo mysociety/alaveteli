@@ -36,23 +36,35 @@
     %>
     </p>
 
-    <p><strong>CSV file format:</strong>The first row should be a list
-    of fields, starting with '#'. The fields 'name' and
-    'request_email' are required; additionally, translated values are
+    <p><strong>CSV file format:</strong> The first row should be a list
+    of fields, starting with <code>#</code>. The fields <code>name</code> and
+    <code>request_email</code> are required; additionally, translated values are
     supported by adding the locale name to the field name,
-    e.g. 'name.es', 'name.de'... Example:
+    e.g. <code>name.es</code>, <code>name.de</code>&hellip;<br />
+    <strong>Example:</strong>
     </p>
 
-    <blockquote>
-        <p>
-            &#35;id,name,request_email,name.es,tag_string<br/>
-            1,An Authority,a@example.com,Un organismo,a_tag another_tag<br/>
-            2,Another One,another@example.com,Otro organismo,a_tag<br/>
-        <p>
-    </blockquote>
+    <pre>
+&#35;name,request_email,name.es,tag_string
+An Authority,a@example.com,Un organismo,a_tag another_tag
+Another One,another@example.com,Otro organismo,a_tag
+    </pre>
 
-    <p>Supported fields: name (i18n), short_name (i18n), request_email (i18n), notes (i18n),
-    publication_scheme (i18n), disclosure_log (i18n), home_page, tag_string (tags separated by spaces).</p>
+    <p><strong>Supported fields:</strong>
+      <ul>
+        <li>
+          <code>name</code> (i18n)
+          <strong>Existing records cannot be renamed</strong>
+        </li>
+        <li><code>short_name</code> (i18n)</li>
+        <li><code>request_email</code> (i18n)</li>
+        <li><code>notes</code> (i18n)</li>
+        <li><code>publication_scheme</code> (i18n)</li>
+        <li><code>disclosure_log</code> (i18n)</li>
+        <li><code>home_page</code></li>
+        <li><code>tag_string</code> (tags separated by spaces)</li>
+      </ul>
+    </p>
 
     <p><strong>Note:</strong> Choose <strong>dry run</strong> to test, without
     actually altering the database. Choose <strong>upload</strong> to actually

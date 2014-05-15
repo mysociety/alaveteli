@@ -1,0 +1,112 @@
+/* Style for request page */
+
+div.correspondence {
+  border: 1px solid #ccc;
+  margin: 0 0 1em;
+  padding: 0.5em 1em 0 0.5em;
+
+  h2 {
+    text-align:right;
+    font-size:1em;
+  }
+}
+
+div.comment_in_request {
+  border: 1px dotted #ccc;
+  margin:0 0 1em 3em;
+  padding:0 0.5em;
+
+  h2 {
+    font-size:1em;
+  }
+  p {
+    font-size: 0.9em;
+  }
+}
+
+.event_actions {
+  text-align:right;
+  line-height: 1em;
+  margin-bottom: 1em;
+}
+
+.correspondence_text,.comment_in_request_text {
+  margin:0 1.2em 0 0.9em;
+}
+
+.user_photo_on_request img {
+  width:48px;
+  height:48px;
+  float:left;
+  vertical-align:middle;
+  margin-right:0.5em;
+}
+
+.user_photo_on_comment img {
+  width:36px;
+  height:36px;
+  float:left;
+  vertical-align:middle;
+  margin-top: 0.5em;
+  margin-right:0.5em;
+}
+
+a img.attachment_image {
+  float:left;
+  border:0;
+  vertical-align:middle;
+  margin:0 0.2em 0.2em 0;
+}
+
+.attachments hr.top {
+  clear:both;
+  margin:0 0 1em;
+}
+
+.attachments hr.bottom {
+  clear:both;
+  margin:1em 0 0;
+}
+
+.describe_state_form,#other_recipients {
+
+  border-radius:3px;
+  -moz-border-radius:3px;
+  margin:1em 0;
+  padding:0.5em 1em;
+}
+
+.describe_state_form {
+  hr {
+    margin-top: 1em;
+    &+p {
+      margin-top: 1em;
+    }
+  }
+}
+
+#follow_box .feed_link {
+ text-align: center;
+}
+
+
+/* Event history details */
+
+#request_details {
+
+ table {
+    border-collapse: collapse;
+  }
+
+  td,th {
+    border:solid 1px #000;
+  }
+
+  tr.odd {
+    background-color:#bbb;
+  }
+
+  tr.even {
+    background-color:#ddd;
+  }
+}
