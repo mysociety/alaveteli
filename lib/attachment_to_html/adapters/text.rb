@@ -1,5 +1,3 @@
-require 'nokogiri'
-
 module AttachmentToHTML
     module Adapters
         # Convert text/plain documents in to HTML
