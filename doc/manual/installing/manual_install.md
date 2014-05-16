@@ -200,7 +200,7 @@ constraints whilst running the tests they also need to be a superuser
 If you don't want your database user to be a superuser, you can add this line
 to the test config in `database.yml` (as seen in `database.yml-example`)
 
-    disable_constraints: false
+    constraint_disabling: false
 
 ## Configure email
 
