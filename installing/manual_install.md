@@ -87,6 +87,11 @@ apt sources.
     deb http://debian.mysociety.org squeeze main
     EOF
 
+Add the GPG key from the
+[mySociety Debian Package Repository](http://debian.mysociety.org/).
+
+    wget -O - https://debian.mysociety.org/debian.mysociety.org.gpg.key | sudo apt-key add -
+
 You should also configure package-pinning to reduce the priority of this
 repository.
 
