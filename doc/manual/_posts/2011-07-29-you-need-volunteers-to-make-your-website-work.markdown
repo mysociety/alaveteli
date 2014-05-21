@@ -10,20 +10,20 @@ categories:
 - Uncategorised
 ---
 
-A successful Alaveteli website is nothing without its volunteers.  These are people who care so much about transparency and the right to know that they are motivated to help run a busy website.  There's [some detail on the wiki](https://github.com/sebbacon/alaveteli/wiki/Adminstrator%27s-manual), but in short, volunteers do things like:
+A successful Alaveteli website is nothing without its volunteers.  These are people who care so much about transparency and the right to know that they are motivated to help run a busy website.  There's [some detail on the wiki](https://github.com/mysociety/alaveteli/wiki/Adminstrator%27s-manual), but in short, volunteers do things like:
 
 
 
-	
+
   * Provide user support to people who need help using the website
 
-	
+
   * Provide advice on FOI laws when users encounter difficult authorities or situations
 
-	
+
   * Act on takedown or redaction requests in response to legally or ethically reasonable requests from users or authorities
 
-	
+
   * Investigate and report on bugs in the software
 
 
