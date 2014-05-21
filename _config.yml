@@ -3,4 +3,11 @@ pygments: true
 baseurl: /
 permalink: pretty
 markdown: kramdown
+authors:
+  sebbacon:
+    display_name: Seb
+  admin:
+    display_name: Louise
+  myfnixon:
+    display_name: Myf
 
