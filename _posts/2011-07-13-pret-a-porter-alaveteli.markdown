@@ -22,4 +22,4 @@ As a nice side-effect, it means I can run the automated tests really quickly by 
 
 People thinking of trying out Alaveteli should therefore consider using the AMI to get started quickly; not least because new AWS customers have access to a "[free tier](http://aws.amazon.com/free/)" for a year.
 
-The only down side is that actually getting started with EC2 can be a bit fiddly if you've never done it before.  [Read more about the AMI on the Alaveteli wiki](https://github.com/sebbacon/alaveteli/wiki/Alaveteli-ec2-ami).
+The only down side is that actually getting started with EC2 can be a bit fiddly if you've never done it before.  [Read more about the AMI on the Alaveteli wiki](https://github.com/mysociety/alaveteli/wiki/Alaveteli-ec2-ami).

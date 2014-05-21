@@ -11,4 +11,4 @@ categories:
 - Partners
 ---
 
-Just a quick blog post to note that there's now a rudimentary [Getting Started](https://github.com/sebbacon/alaveteli/wiki/Getting-started) guide, which is recommended reading for anyone thinking of starting their own Alaveteli website.
+Just a quick blog post to note that there's now a rudimentary [Getting Started](https://github.com/mysociety/alaveteli/wiki/Getting-started) guide, which is recommended reading for anyone thinking of starting their own Alaveteli website.
