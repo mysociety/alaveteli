@@ -10,7 +10,7 @@ categories:
 - Development
 ---
 
-Finally Alaveteli 0.6 is out of the door!  Grab it from the [github master branch](https://github.com/mysociety/alaveteli/) and try it out.  The most obvious new feature is a glossy new administrative interface, based on work started at AlaveteliCon by [@wombleton](https://twitter.com/#%21/wombleton).  If you are upgrading, be sure to read the upgrade notes in [CHANGES.md](https://github.com/mysociety/alaveteli/blob/master/doc/CHANGES.md), and the [new section in the install docs](/installing/manual_install#upgrading-alaveteli) about upgrading Alavetel[i](https://github.com/mysociety/alaveteli/blob/master/doc/INSTALL.md#upgrading-alaveteli).  Drop a note to the [alaveteli-dev mailing list](http://groups.google.com/group/alaveteli-dev) if you need any help with your upgrade.
+Finally Alaveteli 0.6 is out of the door!  Grab it from the [github master branch](https://github.com/mysociety/alaveteli/) and try it out.  The most obvious new feature is a glossy new administrative interface, based on work started at AlaveteliCon by [@wombleton](https://twitter.com/#%21/wombleton).  If you are upgrading, be sure to read the upgrade notes in [CHANGES.md](https://github.com/mysociety/alaveteli/blob/master/doc/CHANGES.md), and the [new section in the install docs](/installing) about [upgrading Alaveteli](/installing/manual_install#upgrading-alaveteli).  Drop a note to the [alaveteli-dev mailing list](http://groups.google.com/group/alaveteli-dev) if you need any help with your upgrade.
 
 [A full list of changes](https://github.com/mysociety/alaveteli/issues?milestone=13&state=closed) is on Github.  Interesting features and bugfixes include:
 
@@ -35,7 +35,7 @@ Finally Alaveteli 0.6 is out of the door!  Grab it from the [github master branc
   * Alert subscriptions are now referred to as "following" a request (or  group of requests) throughout the UI.  When a user "follows" a request,  updates regarding that request are posted on a new "wall" page.  Now  they have a wall, users can opt not to receive alerts by email.
 
 
-  * New features to [support fast post-moderation of bad requests](http://www.alaveteli.org/2012/06/new-feature-easier-request-moderation/): a  button for users to report potentially unsuitable requests, and a form  control in the administrative interface that hides a request and sends  the user an email explaining why.
+  * New features to [support fast post-moderation of bad requests](/uncategorised/2012/06/20/new-feature-easier-request-moderation/): a  button for users to report potentially unsuitable requests, and a form  control in the administrative interface that hides a request and sends  the user an email explaining why.
 
 
   * A bug which prevented locales containing underscores (e.g. `en_GB`) was fixed ([issue #503](https://github.com/mysociety/alaveteli/issues/503))
@@ -47,15 +47,15 @@ Finally Alaveteli 0.6 is out of the door!  Grab it from the [github master branc
 There are some blog posts about some of the new features here:
 
 
-  * [The new admin theme](http://www.alaveteli.org/2012/06/the-new-bootstrap-admin-theme/)
+  * [The new admin theme](/development/2012/06/20/the-new-bootstrap-admin-theme/)
 
 
-  * [The request moderation features](http://www.alaveteli.org/2012/06/new-feature-easier-request-moderation/)
+  * [The request moderation features](/uncategorised/2012/06/20/new-feature-easier-request-moderation/)
 
 
-  * ["Following" and the "wall"](http://www.alaveteli.org/2012/06/new-feature-following-and-the-wall/)
+  * ["Following" and the "wall"](/uncategorised/2012/06/21/new-feature-following-and-the-wall/)
 
 
-  * [Bundler](http://www.alaveteli.org/2012/06/new-for-developers-bundler-support/)
+  * [Bundler](/uncategorised/2012/06/21/new-for-developers-bundler-support/)
 
 
