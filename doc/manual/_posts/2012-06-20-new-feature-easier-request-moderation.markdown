@@ -12,7 +12,7 @@ categories:
 
 WhatDoTheyKnow [has been criticised in the past](http://2040infolawblog.com/2012/02/09/do-they-know-what/) for not doing more to discourage frivolous or abusive requests.  The vast majority of requests for information are sensible, but we get a some citizens using the site to vent their anger or frustration at something, and a reasonable number of requests which are not really FOI requests at all, made by people who misunderstand the purpose of the site.
 
-Alaveteli has always supported hiding requests that are unsuitable, but in [version 0.6](http://www.alaveteli.org/2012/06/alaveteli-0-6-fancy-admin-released/) we've added some new functionality that makes the process smoother and faster.
+Alaveteli has always supported hiding requests that are unsuitable, but in [version 0.6](/development/2012/06/20/alaveteli-0-6-fancy-admin-released/) we've added some new functionality that makes the process smoother and faster.
 
 First, we allow any logged in user to report a request for moderation by an administrator.  This is important because there's no way we could support the moderation of requests before they are published on the site:
 
