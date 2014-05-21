@@ -46,6 +46,15 @@
 # Both have the same effect, but exporting will retain the variable for the
 # duration of your shell session.
 #
+# Using Themes
+# ------------
+#
+# You can also use the built in theme switcher (script/switch-theme.rb). The
+# ALAVETELI_THEMES_DIR will be shared in to /home/vagrant/alaveteli-themes so
+# that the default location is used on the guest. You can use the env var
+# ALAVETELI_THEMES_DIR to change where this Vagrantfile looks for the themes
+# directory on the host.
+#
 # Customization Options
 # =====================
 ALAVETELI_FQDN = ENV['ALAVETELI_VAGRANT_FQDN'] || "alaveteli.10.10.10.30.xip.io"
