@@ -24,4 +24,4 @@ _Merging_ is the process of taking someone else's changes and mixing them with 
 
 This is now complete, which means we can once again start to benefit from each others' work.
 
-As a side effect, I needed to come up with ways to keep customisations separate from the core code.  All such customisations should now live in "themes", which I have [started to document](https://github.com/mysociety/alaveteli/blob/master/doc/THEMES.md).  One such theme is the Informata Zyrtare theme, which is now on Github, should anyone want to experiment with it.
+As a side effect, I needed to come up with ways to keep customisations separate from the core code.  All such customisations should now live in "themes", which I have [started to document](/customising/themes).  One such theme is the Informata Zyrtare theme, which is now on Github, should anyone want to experiment with it.

@@ -20,7 +20,7 @@ Alaveteli will now be using the Rails 3 series - the series we were previously r
 
 Rails cognoscenti will be aware that series 4.0 is imminent - and that we've only upgraded to 3.1 when 3.2 is available. We will be upgrading further in due course - it seemed sensible to progress in smaller steps. But meanwhile, we're happy with this upgrade! The bulk of the work was done by Henare Degan and Matthew Landauer of the [Open Australia Foundation](http://www.openaustraliafoundation.org.au/), as volunteers - and we are immensely grateful to them. Thanks, guys.
 
-[Find the Alaveteli code here](https://github.com/mysociety/alaveteli/) - or read our [guide to getting started](https://github.com/mysociety/alaveteli/wiki/Getting-started).
+[Find the Alaveteli code here](https://github.com/mysociety/alaveteli/) - or read our [guide to getting started](/getting_started).
 
 **This entry is cross-posted from the [main mySociety blog](http://www.mysociety.org/2013/06/04/alaveteli-gets-an-upgrade/).**
 
