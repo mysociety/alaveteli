@@ -1,5 +1,5 @@
 ---
-author: sebbacon
+author: Seb
 comments: true
 date: 2012-06-20 13:11:12+00:00
 layout: post
@@ -25,5 +25,6 @@ Requests that have been reported now appear in a worklist on the home page of Al
 When a moderator clicks through to the edit page for the request, they are now presented with radio buttons to select a reason why the request should be hidden (if any).  A text box appears prefilled with suggested text, and when the moderator hits the "hide request" button, this message is emailed to the requestor notifying them that their message has been hidden:
 
 ![](http://blogs.mysociety.org/alaveteliorg/files/2012/06/hide.png)
+
 
 Let us know if you find this useful, and if you think it needs any more tweaking!

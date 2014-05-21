@@ -1,5 +1,5 @@
 ---
-author: sebbacon
+author: Seb
 comments: true
 date: 2012-06-20 11:06:09+00:00
 layout: post

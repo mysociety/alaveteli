@@ -1,5 +1,5 @@
 ---
-author: sebbacon
+author: Seb
 comments: true
 date: 2012-06-21 06:52:08+00:00
 layout: post
@@ -16,13 +16,13 @@ We have a few such dependencies, like `recaptcha` and `rmagick`.  Previously we
 
 
 
-	
+
   * We can upgrade to newer versions more quickly than Debian packages allow
 
-	
+
   * It's the standard way of packaging software in Rails 3, to which we will migrate in due course (in fact, we will probably skip straight to Rails 4...)
 
-	
+
   * It brings the process of getting a working setup in OS X closer to that of building the same thing on a Linux-based system
 
 

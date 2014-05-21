@@ -1,5 +1,5 @@
 ---
-author: sebbacon
+author: Seb
 comments: true
 date: 2012-04-16 10:25:18+00:00
 layout: post
@@ -82,13 +82,13 @@ WhatDoTheyKnow was launched in the context of the UK having a Freedom of Informa
 
 
 
-	
+
   * [Visit the site itself](http://tuderechoasaber.es/)
 
-	
+
   * El Pais article in the [original Spanish](http://politica.elpais.com/politica/2012/03/22/actualidad/1332442382_587760.html) or [translated into English](http://translate.google.com/translate?sl=es&tl=en&js=n&prev=_t&hl=en&ie=UTF-8&layout=2&eotf=1&u=http%3A%2F%2Fpolitica.elpais.com%2Fpolitica%2F2012%2F03%2F22%2Factualidad%2F1332442382_587760.html)
 
-	
+
   * El Mundo article in the [original Spanish](http://www.elmundo.es/elmundo/2012/03/22/navegante/1332412363.html) or [translated into English](http://translate.google.com/translate?sl=es&tl=en&js=n&prev=_t&hl=en&ie=UTF-8&layout=2&eotf=1&u=http%3A%2F%2Fwww.elmundo.es%2Felmundo%2F2012%2F03%2F22%2Fnavegante%2F1332412363.html)
 
 
