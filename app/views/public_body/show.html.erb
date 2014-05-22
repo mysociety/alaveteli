@@ -127,7 +127,10 @@
             <% if @xapian_requests.results.empty? %>
                 <p><% _('There were no requests matching your query.') %></p>
             <% else %>
-                  <p> <%= _('Only requests made using {{site_name}} are shown.', :site_name => site_name) %></p>
+                  <p>
+                    <%= _('Only requests made using {{site_name}} are shown.', :site_name => site_name) %>
+                    <%= link_to _('?'), help_about_path %>
+                  </p>
             <% end %>
 
         <% else %>
