@@ -179,7 +179,8 @@ class GeneralController < ApplicationController
                 :alaveteli_git_commit => alaveteli_git_commit,
                 :alaveteli_version => ALAVETELI_VERSION,
                 :ruby_version => RUBY_VERSION,
-                :visible_request_count => InfoRequest.visible.count
+                :visible_request_count => InfoRequest.visible.count,
+                :confirmed_user_count => User.where(:email_confirmed => true).count
             }}
         end
     end
