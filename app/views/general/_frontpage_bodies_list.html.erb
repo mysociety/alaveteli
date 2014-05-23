@@ -3,7 +3,8 @@
   <div id="examples_0">
     <h3><%= _("Who can I request information from?") %></h3>
     <%= _("{{site_name}} covers requests to {{number_of_authorities}} authorities, including:",
-        :site_name => site_name, :number_of_authorities => PublicBody.visible.count) %>
+        :site_name => site_name,
+        :number_of_authorities => number_with_delimiter(PublicBody.visible.count)) %>
     <ul>
         <% for popular_body in popular_bodies %>
             <li><%=public_body_link(popular_body)%>
