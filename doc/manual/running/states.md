@@ -3,7 +3,7 @@ layout: page
 title: States of requests
 ---
 
-# States of requests
+# Request states
 
 <p class="lead">
   A <a href="{{site.baseurl}}glossary/#request" class="glossary">request</a>

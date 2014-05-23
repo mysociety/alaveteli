@@ -3,7 +3,7 @@ layout: page
 title: States of requests (InformataZyrtare)
 ---
 
-# States of requests: example comparison
+# Request states: example comparison
 
 <p class="lead">
   This page shows differences between states used on two different
