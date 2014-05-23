@@ -19,9 +19,12 @@ customise them, you can &mdash; see
   
 ## WhatDoTheyKnow example
 
-Requests made on the UK's Alaveteli instance, [WhatDoTheyKnow](http://www.whatdotheyknow.com), may be in any of the following states
-(for comparison, Kosovo's instance uses 
-[slightly different states]({{ site.baseurl }}running/states_informatazyrtare)):
+Requests made on the UK's Alaveteli instance, [WhatDoTheyKnow](http://www.whatdotheyknow.com),
+may be in any of the states described below.
+
+Note that your site doesn't need to use the same states as WhatDoTheyKnow does. For example,
+Kosovo's instance uses slightly different states: see
+[this comparison of their differences]({{ site.baseurl }}running/states_informatazyrtare).
 
 ### States
 
@@ -197,7 +200,7 @@ Requests made on the UK's Alaveteli instance, [WhatDoTheyKnow](http://www.whatdo
     <a name="user_withdrawn">user_withdrawn</a>
   </dt>
   <dd>
-    The requester has abandoned this request for som e reason
+    The requester has abandoned this request for some reason.
     <ul>
       <li>Prompt user to write message to tell authority</li>
     </ul>
