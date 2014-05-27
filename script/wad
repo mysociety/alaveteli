@@ -229,6 +229,7 @@ class Presss
         log("Got response: #{response.status_code}")
         response.body
       else
+        log("Unsuccessful response: #{response.inspect}")
         nil
       end
     end
