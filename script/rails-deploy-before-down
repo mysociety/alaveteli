@@ -139,7 +139,7 @@ fi
 # Use script/wad to install bundle when on Travis
 if [ "$TRAVIS" = "true" ]
 then
-    script/wad
+    travis_retry script/wad
 fi
 
 if [ ! "$TRAVIS" = "true" ]
