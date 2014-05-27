@@ -139,7 +139,9 @@ fi
 # Use script/wad to install bundle when on Travis
 if [ "$TRAVIS" = "true" ]
 then
+    cat Gemfile.lock > tmp/Gemfile.lock.before-bundle
     script/wad -v
+    diff tmp/Gemfile.lock.before-bundle Gemfile.lock
 fi
 
 if [ ! "$TRAVIS" = "true" ]
