@@ -109,17 +109,17 @@ class PublicBodyController < ApplicationController
 
         # Restrict the public bodies shown according to the tag
         # parameter supplied in the URL:
-        if @tag.nil? or @tag == "all"
-            @tag = "all"
+        if @tag.nil? || @tag == 'all'
+            @tag = 'all'
         elsif @tag == 'other'
-            category_list = PublicBodyCategories::get().tags().map{|c| "'"+c+"'"}.join(",")
+            category_list = PublicBodyCategories.get.tags.map{ |c| %Q('#{ c }') }.join(",")
             where_condition += base_tag_condition + " AND has_tag_string_tags.name in (#{category_list})) = 0"
         elsif @tag.scan(/./mu).size == 1
-            @tag = Unicode.upcase @tag
+            @tag = Unicode.upcase(@tag)
             # The first letter queries have to be done on
             # translations, so just indicate to add that later:
             first_letter = true
-        elsif @tag.include?(":")
+        elsif @tag.include?(':')
             name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(@tag)
             where_condition += base_tag_condition + " AND has_tag_string_tags.name = ? AND has_tag_string_tags.value = ?) > 0"
             where_parameters.concat [name, value]
@@ -128,16 +128,16 @@ class PublicBodyController < ApplicationController
             where_parameters.concat [@tag]
         end
 
-        if @tag == "all"
-            @description = ""
+        if @tag == 'all'
+            @description = ''
         elsif @tag.size == 1
-            @description = _("beginning with ‘{{first_letter}}’", :first_letter=>@tag)
+            @description = _("beginning with ‘{{first_letter}}’", :first_letter => @tag)
         else
-            category_name = PublicBodyCategories::get().by_tag()[@tag]
+            category_name = PublicBodyCategories.get.by_tag[@tag]
             if category_name.nil?
-                @description = _("matching the tag ‘{{tag_name}}’", :tag_name=>@tag)
+                @description = _("matching the tag ‘{{tag_name}}’", :tag_name => @tag)
             else
-                @description = _("in the category ‘{{category_name}}’", :category_name=>category_name)
+                @description = _("in the category ‘{{category_name}}’", :category_name => category_name)
             end
         end
 
@@ -151,11 +151,11 @@ class PublicBodyController < ApplicationController
                     FROM public_bodies
                     LEFT OUTER JOIN public_body_translations as current_locale
                         ON (public_bodies.id = current_locale.public_body_id
-                            AND current_locale.locale = ? AND #{get_public_body_list_translated_condition 'current_locale', first_letter})
+                            AND current_locale.locale = ? AND #{ get_public_body_list_translated_condition('current_locale', first_letter) })
                     LEFT OUTER JOIN public_body_translations as default_locale
                         ON (public_bodies.id = default_locale.public_body_id
-                            AND default_locale.locale = ? AND #{get_public_body_list_translated_condition 'default_locale', first_letter})
-                    WHERE #{where_condition} AND COALESCE(current_locale.name, default_locale.name) IS NOT NULL
+                            AND default_locale.locale = ? AND #{ get_public_body_list_translated_condition('default_locale', first_letter) })
+                    WHERE #{ where_condition } AND COALESCE(current_locale.name, default_locale.name) IS NOT NULL
                     ORDER BY display_name}
                 sql = [query, underscore_locale, like_query, like_query]
                 sql.push @tag if first_letter
@@ -173,14 +173,14 @@ class PublicBodyController < ApplicationController
                 where_sql = [where_condition, like_query, like_query]
                 where_sql.push @tag if first_letter
                 where_sql += [underscore_locale] + where_parameters
-                @public_bodies = PublicBody.where(where_sql) \
-                    .joins(:translations) \
-                    .order("public_body_translations.name") \
-                    .paginate(:page => params[:page], :per_page => 100)
+                @public_bodies = PublicBody.where(where_sql).
+                                   joins(:translations).
+                                     order("public_body_translations.name").
+                                       paginate(:page => params[:page], :per_page => 100)
             end
 
             respond_to do |format|
-                format.html { render :template => "public_body/list" }
+                format.html { render :template => 'public_body/list' }
             end
         end
     end
