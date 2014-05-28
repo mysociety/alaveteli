@@ -157,9 +157,9 @@ class PublicBodyController < ApplicationController
                             AND default_locale.locale = ? AND #{ get_public_body_list_translated_condition('default_locale', first_letter) })
                     WHERE #{ where_condition } AND COALESCE(current_locale.name, default_locale.name) IS NOT NULL
                     ORDER BY display_name}
-                sql = [query, underscore_locale, like_query, like_query]
+                sql = [query, underscore_locale, like_query, like_query, like_query]
                 sql.push @tag if first_letter
-                sql += [underscore_default_locale, like_query, like_query]
+                sql += [underscore_default_locale, like_query, like_query, like_query]
                 sql.push @tag if first_letter
                 sql += where_parameters
                 @public_bodies = PublicBody.paginate_by_sql(
@@ -170,7 +170,7 @@ class PublicBodyController < ApplicationController
                 # The simpler case where we're just searching in the current locale:
                 where_condition = get_public_body_list_translated_condition('public_body_translations', first_letter, true) +
                     ' AND ' + where_condition
-                where_sql = [where_condition, like_query, like_query]
+                where_sql = [where_condition, like_query, like_query, like_query]
                 where_sql.push @tag if first_letter
                 where_sql += [underscore_locale] + where_parameters
                 @public_bodies = PublicBody.where(where_sql).
@@ -344,9 +344,11 @@ class PublicBodyController < ApplicationController
     end
 
     private
+
     def get_public_body_list_translated_condition(table, first_letter=false, locale=nil)
         result = "(upper(#{table}.name) LIKE upper(?)" \
-            " OR upper(#{table}.notes) LIKE upper (?))"
+                 " OR upper(#{table}.notes) LIKE upper(?)" \
+                 " OR upper(#{table}.short_name) LIKE upper(?))"
         if first_letter
             result += " AND #{table}.first_letter = ?"
         end
