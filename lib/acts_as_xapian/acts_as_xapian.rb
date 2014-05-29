@@ -472,16 +472,27 @@ module ActsAsXapian
         # Return just normal words in the query i.e. Not operators, ones in
         # date ranges or similar. Use this for cheap highlighting with
         # TextHelper::highlight, and excerpt.
-        def words_to_highlight
-            # TODO: In Ruby 1.9 we can do matching of any unicode letter with \p{L}
-            # But we still need to support ruby 1.8 for the time being so...
-            query_nopunc = self.query_string.gsub(/[^ёЁа-яА-Яa-zA-Zà-üÀ-Ü0-9:\.\/_]/iu, " ")
-            query_nopunc = query_nopunc.gsub(/\s+/, " ")
-            words = query_nopunc.split(" ")
-            # Remove anything with a :, . or / in it
-            words = words.find_all {|o| !o.match(/(:|\.|\/)/) }
-            words = words.find_all {|o| !o.match(/^(AND|NOT|OR|XOR)$/) }
-            return words
+        def words_to_highlight(opts = { :regex => false } )
+          # Reject all prefixes other than Z, which we know is reserved for stems
+          terms = query.terms.reject { |t| t.term.first.match(/^[A-Y]$/) }
+
+          # Collect stems, chopping the Z prefix off
+          stems = terms.map { |t| t.term[1..-1] if t.term.start_with?('Z') }.compact.sort
+          # Collect the non-stem terms
+          words = terms.map { |t| t.term unless t.term.start_with?('Z') }.compact.sort
+
+          if opts[:regex]
+            stems.map! { |w| /\b(#{ w })\w*\b/iu }
+            words.map! { |w| /\b(#{ w })\b/iu }
+          end
+
+          if RUBY_VERSION.to_f >= 1.9
+              (stems + words).map! do |term|
+                  term.is_a?(String) ? term.force_encoding('UTF-8') : term
+              end
+          else
+              stems + words
+          end
         end
 
         # Text for lines in log file
