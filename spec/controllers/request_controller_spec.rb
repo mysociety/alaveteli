@@ -1007,6 +1007,17 @@ describe RequestController, "when creating a new request" do
         # post_redirect.post_params.should == params # XXX get this working. there's a : vs '' problem amongst others
     end
 
+    it 'redirects to the frontpage if the action is sent the invalid
+        public_body param' do
+        post :new, :info_request => { :public_body => @body.id,
+                                      :title => 'Why Geraldine?',
+                                      :tag_string => '' },
+                   :outgoing_message => { :body => 'This is a silly letter.' },
+                   :submitted_new_request => 1,
+                   :preview => 1
+        response.should redirect_to frontpage_url
+    end
+
     it "should show preview when input is good" do
         session[:user_id] = @user.id
         post :new, { :info_request => { :public_body_id => @body.id,
