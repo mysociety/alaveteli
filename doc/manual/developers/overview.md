@@ -3,13 +3,12 @@ layout: page
 title: High-level overview
 ---
 
+# High-level overview
+
 <p class="lead">
     This page describes the process and entities that make up Alaveteli.
     It's a high-level overview of how Alaveteli works to help you orientate yourself to the code.
 </p>
-
-
-# High-level overview
 
 _See also the [schema diagram](#schema-diagram) at the bottom of this page._
 

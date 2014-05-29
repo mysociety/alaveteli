@@ -16,7 +16,6 @@ These pages (in the wiki) have work/attention still pending:
 ------------------------------------------------------------
 
 [  ] [  ] Administrator's manual TODO -- needs to be implemented
-[  ] [no] Current states -- running/states TODO simplify comparison with running/states_informatazyrtare/
 [no] [??] Caching currently implemented <-- TODO if needed (seems old)
 [no] [ok] Current project status <-- but TODO facts from here prob should be represented on the .org site
 [??] [  ] Features <-- not sure this is for documentation, but is for the website -- see https://github.com/mysociety/alaveteli/issues/1350
@@ -28,7 +27,6 @@ These pages (in the wiki) have work/attention still pending:
 [>>] [? ] Marking up text for translation <-- needs writing as part of specific Alavateli i18n, but
                                               linking to http://mysociety.github.io/internationalization.html
 [>>] [no] Setting up a demo site <-- TODO should be in the docs, a useful page with some overlap
-[ok] [x ] Understanding the code -- developers/overview
 
 
 
@@ -50,6 +48,7 @@ These pages are all effetively done (i.e., definitively settled in the docs)
 [no] [ok] Code goals <-- (not for docs)
 [no] [ok] Comments as trackbacks <-- (not for docs)
 [no] [ok] Complaining to ombudsman feature requirements <-- (not for docs) should it be?
+[ok] [no] Current states -- running/states
 [no] [ok] Escalating privileges system <-- (not for docs) this is a proposal/discussion
 [no] [ok] Escalating privileges: proposal for initial version <-- (not for docs) see above
 [no] [ok] Factor out "email in public" parts <-- (not for docs) this is a proposal/discussion
@@ -66,5 +65,6 @@ These pages are all effetively done (i.e., definitively settled in the docs)
 [no] [ok] Request templates <-- actually about muckrock (and a feature request), stays on wiki
 [no] [ok] Roadmap <-- historical, stays on wiki
 [no] [ok] Rules engine for statuses <-- (not for docs) this is a proposal/discussion
+[ok] [no] Understanding the code -- developers/overview
 [no] [ok] WhatDoTheyKnow <-- notes and diagrams for WDTK, leave on wiki (not for docs)
 [ok] [no] Writing a theme -- customising/themes/
