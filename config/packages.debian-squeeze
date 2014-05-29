@@ -37,3 +37,4 @@ libsqlite3-dev
 libicu-dev
 postgresql
 postgresql-client
+ttf-bitstream-vera
