@@ -159,7 +159,7 @@ class GeneralController < ApplicationController
         end
 
         # Spelling and highight words are same for all three queries
-        @highlight_words = @request_for_spelling.words_to_highlight
+        @highlight_words = @request_for_spelling.words_to_highlight(:regex => true)
         if !(@request_for_spelling.spelling_correction =~ /[a-z]+:/)
             @spelling_correction = @request_for_spelling.spelling_correction
         end

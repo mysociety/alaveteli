@@ -923,7 +923,6 @@ describe RequestController, "when searching for an authority" do
     end
 
     it "should return matching bodies" do
-
         session[:user_id] = @user.id
         get :select_authority, :query => "Quango"
 

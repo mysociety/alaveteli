@@ -6,14 +6,19 @@ module HighlightHelper
     def highlight_matches(text, phrases, options = {})
         text = ActionController::Base.helpers.sanitize(text).try(:html_safe) if options.fetch(:sanitize, true)
 
-         if text.blank? || phrases.blank?
-           text
-         else
-           highlighter = options.fetch(:highlighter, '<mark>\1</mark>')
-           match = Array(phrases).map do |p|
-             Regexp === p ? p.to_s : Regexp.escape(p)
-           end.join('|')
-           text.gsub(/(#{match})(?![^<]*?>)/i, highlighter)
+        if text.blank? || phrases.blank?
+            text
+        else
+            match = Array(phrases).map do |p|
+                Regexp === p ? p.to_s : Regexp.escape(p)
+            end.join('|')
+
+            if block_given?
+                text.gsub(/(#{match})(?![^<]*?>)/i) { |found| yield found }
+            else
+                highlighter = options.fetch(:highlighter, '<mark>\1</mark>')
+                text.gsub(/(#{match})(?![^<]*?>)/i, highlighter)
+            end
          end.html_safe
     end
 
@@ -40,11 +45,11 @@ module HighlightHelper
       return unless text && phrase
 
       separator = options.fetch(:separator, nil) || ""
-      if Regexp === phrase
+      case phrase
+      when Regexp
         regex = phrase
       else
-        phrase    = Regexp.escape(phrase)
-        regex     = /#{phrase}/iu
+        regex = /#{Regexp.escape(phrase)}/i
       end
 
       return unless matches = text.match(regex)
@@ -59,7 +64,7 @@ module HighlightHelper
         end
       end
 
-      first_part, second_part = text.split(regex, 2)
+      first_part, second_part = text.split(phrase, 2)
 
       prefix, first_part   = cut_excerpt_part(:first, first_part, separator, options)
       postfix, second_part = cut_excerpt_part(:second, second_part, separator, options)

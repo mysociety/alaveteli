@@ -105,6 +105,13 @@ describe HighlightHelper do
             assert_equal options, passed_options
         end
 
+        it 'highlights with a block' do
+            assert_equal(
+                "<b>one</b> <b>two</b> <b>three</b>",
+                highlight_matches("one two three", ["one", "two", "three"]) { |word| "<b>#{word}</b>" }
+            )
+        end
+
     end
 
     describe :excerpt do
@@ -113,8 +120,6 @@ describe HighlightHelper do
         assert_equal("...is a beautiful morn...", excerpt("This is a beautiful morning", "beautiful", :radius => 5))
         assert_equal("This is a...", excerpt("This is a beautiful morning", "this", :radius => 5))
         assert_equal("...iful morning", excerpt("This is a beautiful morning", "morning", :radius => 5))
-        assert_equal("...udge Allen and...", excerpt("This day was challenging for judge Allen and his colleagues.", /\ballen\b/i, :radius => 5))
-        assert_equal("...judge Allen and...", excerpt("This day was challenging for judge Allen and his colleagues.", /\ballen\b/i, :radius => 1, :separator => ' '))
         assert_nil excerpt("This is a beautiful morning", "day")
       end
 
@@ -142,6 +147,11 @@ describe HighlightHelper do
       it 'excerpts with regex' do
         assert_equal('...is a beautiful! mor...', excerpt('This is a beautiful! morning', 'beautiful', :radius => 5))
         assert_equal('...is a beautiful? mor...', excerpt('This is a beautiful? morning', 'beautiful', :radius => 5))
+        assert_equal('...is a beautiful? mor...', excerpt('This is a beautiful? morning', /\bbeau\w*\b/i, :radius => 5))
+        assert_equal('...is a beautiful? mor...', excerpt('This is a beautiful? morning', /\b(beau\w*)\b/i, :radius => 5))
+        assert_equal("...udge Allen and...", excerpt("This day was challenging for judge Allen and his colleagues.", /\ballen\b/i, :radius => 5))
+        assert_equal("...judge Allen and...", excerpt("This day was challenging for judge Allen and his colleagues.", /\ballen\b/i, :radius => 1, :separator => ' '))
+        assert_equal("...was challenging for...", excerpt("This day was challenging for judge Allen and his colleagues.", /\b(\w*allen\w*)\b/i, :radius => 5))
       end
 
       it 'excerpts with omission' do
