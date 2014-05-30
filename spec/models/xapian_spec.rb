@@ -46,6 +46,14 @@ describe PublicBody, " when indexing public bodies with Xapian" do
         xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
     end
 
+    it "is not case sensitive" do
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "humpadink", :limit => 100)
+        xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
+
+        xapian_object = ActsAsXapian::Search.new([PublicBody], "Humpadink", :limit => 100)
+        xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
+    end
+
     it "should search index the notes field" do
         xapian_object = ActsAsXapian::Search.new([PublicBody], "albatross", :limit => 100)
         xapian_object.results.size.should == 1
