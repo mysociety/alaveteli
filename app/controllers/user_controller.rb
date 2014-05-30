@@ -288,7 +288,7 @@ class UserController < ApplicationController
                     :reason_params => {
                         :web => "",
                         :email => _("Then you can change your password on {{site_name}}",:site_name=>site_name),
-                        :email_subject => _("Change your password {{site_name}}",:site_name=>site_name)
+                        :email_subject => _("Change your password on {{site_name}}",:site_name=>site_name)
                     },
                     :circumstance => "change_password" # special login that lets you change your password
                 )
