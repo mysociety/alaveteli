@@ -184,6 +184,11 @@ describe PublicBodyController, "when listing bodies" do
         assigns[:public_bodies].should == [ public_bodies(:geraldine_public_body) ]
     end
 
+    it "should support simple searching of bodies by short_name" do
+        get :list, :public_body_query => 'DfH'
+        assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
+    end
+
     it "should support simple searching of bodies by notes" do
         get :list, :public_body_query => 'Albatross'
         assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
