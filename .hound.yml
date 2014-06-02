@@ -1,0 +1,5 @@
+# Configuration for https://houndci.com/
+
+Style/IndentationWidth:
+  Description: 'Use 2 spaces for indentation.'
+  Enabled: false
