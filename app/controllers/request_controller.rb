@@ -306,7 +306,7 @@ class RequestController < ApplicationController
         # Check we have :public_body_id - spammers seem to be using :public_body
         # erroneously instead
         if params[:info_request][:public_body_id].blank?
-          redirect_to frontpage_path && return
+          redirect_to frontpage_path and return
         end
 
         # See if the exact same request has already been submitted
