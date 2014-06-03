@@ -4,7 +4,7 @@ describe DateTimeHelper do
 
     include DateTimeHelper
 
-    describe 'simple_date' do
+    describe :simple_date do
 
         it 'formats a date in html by default' do
             time = Time.utc(2012, 11, 07, 21, 30, 26)
@@ -25,19 +25,19 @@ describe DateTimeHelper do
 
     end
 
-    describe 'simple_date_html' do
+    describe :simple_date_html do
 
         it 'formats a date in a time tag' do
             Time.use_zone('London') do
                 time = Time.utc(2012, 11, 07, 21, 30, 26)
-                expected = "<time datetime=\"2012-11-07T21:30:26+00:00\" title=\"2012-11-07 21:30:26 +0000\">November 07, 2012</time>"
+                expected = %Q(<time datetime="2012-11-07T21:30:26+00:00" title="2012-11-07 21:30:26 +0000">November 07, 2012</time>)
                 simple_date_html(time).should == expected
             end
         end
 
     end
 
-    describe 'simple_date_text' do
+    describe :simple_date_text do
 
         it 'should respect time zones' do
             Time.use_zone('Australia/Sydney') do

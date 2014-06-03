@@ -24,7 +24,7 @@ module DateTimeHelper
         if respond_to?(date_formatter)
             send(date_formatter, date)
         else
-            raise ArgumentError, "Unrecognised format :#{ opts[:format] }"
+            raise ArgumentError, "Unrecognized format :#{ opts[:format] }"
         end
     end
 
@@ -35,7 +35,7 @@ module DateTimeHelper
     #
     # Returns a String
     def simple_date_html(date)
-        date = date.in_time_zone unless date.is_a? Date
+        date = date.in_time_zone unless date.is_a?(Date)
         time_tag date, simple_date_text(date), :title => date.to_s
     end
 
@@ -48,8 +48,8 @@ module DateTimeHelper
     def simple_date_text(date)
         date = date.in_time_zone.to_date unless date.is_a? Date
 
-        date_format = _("simple_date_format")
-        date_format = :long if date_format == "simple_date_format"
+        date_format = _('simple_date_format')
+        date_format = :long if date_format == 'simple_date_format'
         I18n.l(date, :format => date_format)
     end
 
