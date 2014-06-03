@@ -13,6 +13,9 @@ module ApplicationHelper
     # all of all.
     include LinkToHelper
 
+    # Some extra date and time formatters
+    include DateTimeHelper
+
     # Site-wide access to configuration settings
     include ConfigHelper
 
