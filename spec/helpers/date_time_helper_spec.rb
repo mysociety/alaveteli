@@ -51,4 +51,20 @@ describe DateTimeHelper do
 
     end
 
+    describe :year_from_date do
+
+        it 'returns the year component of a date' do
+            year_from_date(Date.new(2012, 11, 21)).should == '2012'
+        end
+
+        it 'returns the year component of a datetime' do
+            year_from_date(DateTime.new(2012, 11, 21)).should == '2012'
+        end
+
+        it 'returns the year component of a time' do
+            year_from_date(Time.now).should == Date.today.year.to_s
+        end
+
+    end
+
 end
