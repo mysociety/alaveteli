@@ -53,8 +53,18 @@ module DateTimeHelper
         I18n.l(date, :format => date_format)
     end
 
+    # Strips the date from a DateTime
+    #
+    # date - a DateTime, Date or Time
+    #
+    # Examples
+    #
+    #   simple_time(Time.now)
+    #   # => "10:46:54"
+    #
+    # Returns a String
     def simple_time(date)
-        return date.strftime("%H:%M:%S").strip
+        date.strftime("%H:%M:%S").strip
     end
 
     # Return the year component from a date

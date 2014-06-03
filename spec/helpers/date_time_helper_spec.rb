@@ -51,6 +51,24 @@ describe DateTimeHelper do
 
     end
 
+    describe :simple_time do
+
+        it 'returns 00:00:00 for a date' do
+            simple_time(Date.new(2012, 11, 21)).should == '00:00:00'
+        end
+
+        it 'returns the time component of a datetime' do
+            date = DateTime.new(2012, 11, 21, 10, 34, 56)
+            simple_time(date).should == '10:34:56'
+        end
+
+        it 'returns the time component of a time' do
+            time = Time.utc(2000, 'jan', 1, 20, 15, 1)
+            simple_time(time).should == '20:15:01'
+        end
+
+    end
+
     describe :year_from_date do
 
         it 'returns the year component of a date' do
