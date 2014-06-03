@@ -28,23 +28,19 @@ module LinkToHelper
 
     # Incoming / outgoing messages
     def incoming_message_url(incoming_message, options = {})
-        default_options = { :anchor => "incoming-#{ incoming_message.id }",
-                            :nocache => "incoming-#{ incoming_message.id }" }
-        request_url(incoming_message.info_request, options.merge(default_options))
+        message_url(incoming_message, options)
     end
 
     def incoming_message_path(incoming_message)
-        incoming_message_url(incoming_message, :only_path => true)
+        message_path(incoming_message)
     end
 
     def outgoing_message_url(outgoing_message, options = {})
-        default_options = { :anchor => "outgoing-#{ outgoing_message.id }",
-                            :nocache => "outgoing-#{ outgoing_message.id }" }
-        request_url(outgoing_message.info_request, options.merge(default_options))
+        message_url(outgoing_message, options)
     end
 
     def outgoing_message_path(outgoing_message)
-        outgoing_message_url(outgoing_message, :only_path => true)
+        message_path(outgoing_message)
     end
 
     def comment_url(comment, options = {})
@@ -350,6 +346,25 @@ module LinkToHelper
     def locale_switcher(locale, params)
         params['locale'] = locale
         return url_for(params)
+    end
+
+    private
+
+    # Private: Generate a request_url linking to the new correspondence
+    def message_url(message, options = {})
+        message_type = message.class.to_s.gsub('Message', '').downcase
+
+        default_options = { :anchor => "#{ message_type }-#{ message.id }" }
+
+        if options.delete(:cachebust)
+            default_options.merge!(:nocache => "#{ message_type }-#{ message.id }")
+        end
+
+        request_url(message.info_request, options.merge(default_options))
+    end
+
+    def message_path(message)
+      message_url(message, :only_path => true)
     end
 
 end

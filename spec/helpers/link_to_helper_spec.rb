@@ -37,8 +37,12 @@ describe LinkToHelper do
                 incoming_message_url(@incoming_message).should include('#incoming-32')
             end
 
-            it 'includes a cache busting parameter' do
-                incoming_message_url(@incoming_message).should include('nocache=incoming-32')
+            it 'includes does not cache by default' do
+                incoming_message_url(@incoming_message).should_not include('nocache=incoming-32')
+            end
+
+            it 'includes a cache busting parameter if set' do
+                incoming_message_url(@incoming_message, :cachebust => true).should include('nocache=incoming-32')
             end
 
         end
@@ -46,7 +50,7 @@ describe LinkToHelper do
         context 'for internal links' do
 
             it 'generates the incoming_message_url with the path only' do
-                expected = '/request/test_title?nocache=incoming-32#incoming-32'
+                expected = '/request/test_title#incoming-32'
                 incoming_message_path(@incoming_message).should == expected
             end
 
@@ -71,8 +75,12 @@ describe LinkToHelper do
                 outgoing_message_url(@outgoing_message).should include('#outgoing-32')
             end
 
-            it 'includes a cache busting parameter' do
-                outgoing_message_url(@outgoing_message).should include('nocache=outgoing-32')
+            it 'includes does not cache by default' do
+                outgoing_message_url(@outgoing_message).should_not include('nocache=outgoing-32')
+            end
+
+            it 'includes a cache busting parameter if set' do
+                outgoing_message_url(@outgoing_message, :cachebust => true).should include('nocache=outgoing-32')
             end
 
         end
@@ -80,7 +88,7 @@ describe LinkToHelper do
         context 'for internal links' do
 
             it 'generates the outgoing_message_url with the path only' do
-                expected = '/request/test_title?nocache=outgoing-32#outgoing-32'
+                expected = '/request/test_title#outgoing-32'
                 outgoing_message_path(@outgoing_message).should == expected
             end
 

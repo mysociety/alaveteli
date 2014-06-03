@@ -71,7 +71,7 @@ class RequestMailer < ApplicationMailer
     def new_response(info_request, incoming_message)
         # Don't use login link here, just send actual URL. This is
         # because people tend to forward these emails amongst themselves.
-        @url = incoming_message_url(incoming_message)
+        @url = incoming_message_url(incoming_message, :cachebust => true)
         @incoming_message, @info_request = incoming_message, info_request
 
         headers('Return-Path' => blackhole_email,
