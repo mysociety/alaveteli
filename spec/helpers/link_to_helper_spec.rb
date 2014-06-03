@@ -20,6 +20,74 @@ describe LinkToHelper do
 
     end
 
+    describe 'when linking to new incoming messages' do
+
+        before do
+            @info_request = mock_model(InfoRequest, :id => 123, :url_title => 'test_title')
+            @incoming_message = mock_model(IncomingMessage, :id => 32, :info_request => @info_request)
+        end
+
+        context 'for external links' do
+
+            it 'generates the url to the info request of the message' do
+                incoming_message_url(@incoming_message).should include('http://test.host/request/test_title')
+            end
+
+            it 'includes an anchor to the new message' do
+                incoming_message_url(@incoming_message).should include('#incoming-32')
+            end
+
+            it 'includes a cache busting parameter' do
+                incoming_message_url(@incoming_message).should include('nocache=incoming-32')
+            end
+
+        end
+
+        context 'for internal links' do
+
+            it 'generates the incoming_message_url with the path only' do
+                expected = '/request/test_title?nocache=incoming-32#incoming-32'
+                incoming_message_path(@incoming_message).should == expected
+            end
+
+        end
+
+    end
+
+    describe 'when linking to new outgoing messages' do
+
+        before do
+            @info_request = mock_model(InfoRequest, :id => 123, :url_title => 'test_title')
+            @outgoing_message = mock_model(OutgoingMessage, :id => 32, :info_request => @info_request)
+        end
+
+        context 'for external links' do
+
+            it 'generates the url to the info request of the message' do
+                outgoing_message_url(@outgoing_message).should include('http://test.host/request/test_title')
+            end
+
+            it 'includes an anchor to the new message' do
+                outgoing_message_url(@outgoing_message).should include('#outgoing-32')
+            end
+
+            it 'includes a cache busting parameter' do
+                outgoing_message_url(@outgoing_message).should include('nocache=outgoing-32')
+            end
+
+        end
+
+        context 'for internal links' do
+
+            it 'generates the outgoing_message_url with the path only' do
+                expected = '/request/test_title?nocache=outgoing-32#outgoing-32'
+                outgoing_message_path(@outgoing_message).should == expected
+            end
+
+        end
+
+    end
+
     describe 'when displaying a user link for a request' do
 
         context "for external requests" do

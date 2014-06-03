@@ -28,7 +28,9 @@ module LinkToHelper
 
     # Incoming / outgoing messages
     def incoming_message_url(incoming_message, options = {})
-        return request_url(incoming_message.info_request, options.merge(:anchor => "incoming-#{incoming_message.id}"))
+        default_options = { :anchor => "incoming-#{ incoming_message.id }",
+                            :nocache => "incoming-#{ incoming_message.id }" }
+        request_url(incoming_message.info_request, options.merge(default_options))
     end
 
     def incoming_message_path(incoming_message)
@@ -36,7 +38,9 @@ module LinkToHelper
     end
 
     def outgoing_message_url(outgoing_message, options = {})
-        request_url(outgoing_message.info_request, options.merge(:anchor => "outgoing-#{outgoing_message.id}"))
+        default_options = { :anchor => "outgoing-#{ outgoing_message.id }",
+                            :nocache => "outgoing-#{ outgoing_message.id }" }
+        request_url(outgoing_message.info_request, options.merge(default_options))
     end
 
     def outgoing_message_path(outgoing_message)

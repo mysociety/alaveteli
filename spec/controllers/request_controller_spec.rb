@@ -567,7 +567,7 @@ describe RequestController, "when showing one request" do
             get :get_attachment_as_html, :incoming_message_id => im.id, :id => ir.id, :part => 5, :file_name => 'hello world.txt', :skip_cache => 1
             response.status.should == 303
             new_location = response.header['Location']
-            new_location.should match(/request\/#{ir.url_title}#incoming-#{im.id}/)
+            new_location.should match(/request\/#{ir.url_title}\?nocache=incoming-#{im.id}#incoming-#{im.id}/)
         end
 
         it "should find a uniquely named filename even if the URL part number was wrong" do
