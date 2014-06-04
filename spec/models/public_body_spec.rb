@@ -594,6 +594,20 @@ describe PublicBody do
 
     end
 
+    describe :site_administration? do
+
+        it 'is true when the body has the site_administration tag' do
+            p = FactoryGirl.build(:public_body, :tag_string => 'site_administration')
+            p.site_administration?.should be_true
+        end
+
+        it 'is false when the body does not have the site_administration tag' do
+            p = FactoryGirl.build(:public_body)
+            p.site_administration?.should be_false
+        end
+
+    end
+
 end
 
 describe PublicBody, " when override all public body request emails set" do

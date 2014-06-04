@@ -212,8 +212,8 @@ class PublicBodyController < ApplicationController
         # Create the CSV
         csv = PublicBodyCSV.new
         PublicBody.visible.find_each(:include => [:translations, :tags]) do |public_body|
-           next if public_body.has_tag?('site_administration')
-           csv << public_body
+            next if public_body.site_administration?
+            csv << public_body
         end
 
         # Export all the public bodies to that temporary path, make it readable,

@@ -399,6 +399,9 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
+    def site_administration?
+        has_tag?('site_administration')
+    end
 
     class ImportCSVDryRun < StandardError
     end
