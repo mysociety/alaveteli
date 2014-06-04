@@ -1,6 +1,6 @@
 <% @title = _("Public Body Statistics") %>
 <div id="main_content">
-  <h1>Public Body Statistics</h1>
+  <h1><%= @title %></h1>
 
   <p><%= _("This page of public body statistics is currently \
 experimental, so there are some caveats that should be borne \
@@ -32,6 +32,8 @@ population being sampled is all the current and future \
 requests to the authority through this site, rather than, \
 say, all requests that have been made to the public body by \
 any means.") %></li>
+
+    <li><%= _("Unclassified or hidden requests are not counted.") %></li>
 
   </ul>
 
