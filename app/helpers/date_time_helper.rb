@@ -66,18 +66,4 @@ module DateTimeHelper
     def simple_time(date)
         date.strftime("%H:%M:%S").strip
     end
-
-    # Return the year component from a date
-    #
-    # date - a DateTime, Date or Time
-    #
-    # Examples
-    #
-    #   year_from_date(Date.new(2012, 11, 21))
-    #   # => "2012"
-    #
-    # Returns a String
-    def year_from_date(date)
-        date.strftime("%Y").strip
-    end
 end
