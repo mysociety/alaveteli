@@ -112,6 +112,24 @@ describe IncomingMessage, 'when asked if a user can view it' do
 
 end
 
+describe 'when destroying a message' do
+
+    before do
+        @incoming_message = FactoryGirl.create(:plain_incoming_message)
+    end
+
+    it 'can destroy a message with more than one info request event' do
+        @info_request = @incoming_message.info_request
+        @info_request.log_event('response',
+                                :incoming_message_id => @incoming_message.id)
+        @info_request.log_event('edit_incoming',
+                                :incoming_message_id => @incoming_message.id)
+        @incoming_message.fully_destroy
+        IncomingMessage.where(:id => @incoming_message.id).should be_empty
+    end
+
+end
+
 describe 'when asked if it is indexed by search' do
 
     before do
