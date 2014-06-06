@@ -303,6 +303,12 @@ class RequestController < ApplicationController
             return render_new_compose(batch=false)
         end
 
+        # Check we have :public_body_id - spammers seem to be using :public_body
+        # erroneously instead
+        if params[:info_request][:public_body_id].blank?
+          redirect_to frontpage_path and return
+        end
+
         # See if the exact same request has already been submitted
         # XXX this check should theoretically be a validation rule in the
         # model, except we really want to pass @existing_request to the view so
