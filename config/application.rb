@@ -111,7 +111,10 @@ module Alaveteli
                                  'print.css',
                                  'admin.css',
                                  'ie6.css',
-                                 'ie7.css']
+                                 'ie7.css',
+                                 'responsive/print.css',
+                                 'responsive/application-lte-ie7.css',
+                                 'responsive/application-ie8.css']
 
      config.sass.load_paths += [
        "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/components",
