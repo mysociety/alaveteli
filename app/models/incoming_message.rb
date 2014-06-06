@@ -834,14 +834,15 @@ class IncomingMessage < ActiveRecord::Base
 
     def fully_destroy
         ActiveRecord::Base.transaction do
-            for o in self.outgoing_message_followups
-                o.incoming_message_followup = nil
-                o.save!
+            outgoing_message_followups.each do |outgoing_message_followup|
+                outgoing_message_followup.incoming_message_followup = nil
+                outgoing_message_followup.save!
             end
-            info_request_event = InfoRequestEvent.find_by_incoming_message_id(self.id)
-            info_request_event.track_things_sent_emails.each { |a| a.destroy }
-            info_request_event.user_info_request_sent_alerts.each { |a| a.destroy }
-            info_request_event.destroy
+            info_request_events.each do |info_request_event|
+                info_request_event.track_things_sent_emails.each { |a| a.destroy }
+                info_request_event.user_info_request_sent_alerts.each { |a| a.destroy }
+                info_request_event.destroy
+            end
             self.raw_email.destroy_file_representation!
             self.destroy
         end
