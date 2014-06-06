@@ -60,6 +60,17 @@ describe AttachmentToHTML::Adapters::RTF do
             adapter.body.should_not include('//W3C//DTD HTML 4.01 Transitional//EN')
         end
 
+        it 'converts empty files' do
+            attachment = FactoryGirl.build(:rtf_attachment, :body => load_file_fixture('empty.rtf'))
+            adapter = AttachmentToHTML::Adapters::RTF.new(attachment)
+            adapter.body.should == ''
+        end
+
+        it 'doesnt fail if the external command returns nil' do
+            AlaveteliExternalCommand.stub(:run).and_return(nil)
+            adapter.body.should == ''
+        end
+
     end
 
 
