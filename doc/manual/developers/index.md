@@ -39,11 +39,13 @@ title: For developers
 
 * Installing the software is a little involved, though it's getting easier. If
   you stick to Debian or Ubuntu, it should be possible to get a running version
-  within a few hours. The documentation is in
-  [INSTALL.md](https://github.com/mysociety/alaveteli/blob/develop/doc/INSTALL.m
-  d). There is an [Alaveteli EC2 AMI]({{ site.baseurl }}installing/ami/) that
-  might help you get up and running quickly. [Get in
-  touch](http://www.alaveteli.org/contact/) on the project mailing list or IRC
+  within a few hours. If you've got your own server, run the 
+  [installation script]({{ site.baseurl }}installing/script/), or follow the
+  instructions for a 
+  [manual installation]({{ site.baseurl }}installing/manual_install/).
+  Alternatively, there's an [Alaveteli EC2 AMI]({{ site.baseurl }}installing/ami/)
+  that might help you get up and running quickly. 
+  [Get in touch](http://www.alaveteli.org/contact/) on the project mailing list or IRC
   for help.
 
 * A standard initial step for customising your deployment is [writing a
