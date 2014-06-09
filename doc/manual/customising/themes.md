@@ -6,9 +6,9 @@ title: Themes
 # Alaveteli's themes
 
 <p class="lead">
-	Alaveteli uses <strong>themes</strong> to make the site look and run
-	differently from the default.
-	Simple changes like colour and logo are relatively easy, but themes can also
+    Alaveteli uses <strong>themes</strong> to make the site look and run
+    differently from the default.
+    Simple changes like colour and logo are relatively easy, but themes can also
   control more complex things like <em>how</em> the site behaves.
 </p>
 
@@ -49,7 +49,7 @@ code.
 We try to encapsulate all site-specific functionality in one of these
 places:
 
-* Site [configuration]({{ site.baseurl }}customisation/config ) 
+* Site [configuration]({{ site.baseurl }}customisation/config )
   (e.g., the name of your site, the available
   languages, and so on &mdash; all in `config/general.yml`)
 * Data (e.g. the public bodies to whom requests should be addressed)
