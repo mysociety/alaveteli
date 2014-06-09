@@ -26,6 +26,7 @@ Definitions
   <li><a href="#request">request</a></li>
   <li><a href="#response">response</a></li>
   <li><a href="#rails">Ruby&nbsp;on&nbsp;Rails</a></li>
+  <li><a href="#sass">Sass</a></li>
   <li><a href="#state">state</a></li>
   <li><a href="#theme">theme</a></li>
 </ul>
@@ -256,6 +257,32 @@ Definitions
       </ul>
     </div>
 
+  </dd>
+
+  <dt>
+    <a name="sass">Sass</a> (for generating CSS)
+  </dt>
+  <dd>
+    Alaveteli's cascading stylesheets (CSS) control how the pages appear, and
+    are defined using <strong>Sass</strong>. It's technically a CSS extension
+    language, and we use it because it's easier to manage than writing CSS
+    directly (for example, Sass lets you easily make a single change that will
+    be applied to many elements across the whole site).
+    <a href="#rails" class="glossary">Rails</a> notices if you change any of
+    the Sass files, and automatically re-generates the CSS files that the
+    website uses.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          <a href="http://sass-lang.com">Sass website</a>
+        </li>
+        <li>
+          more about <a href="{{ site.baseurl }}customising/themes/#changing-the-colour-scheme">changing
+          your colour scheme</a>, which uses Sass
+        </li>
+      </ul>
+    </div>
   </dd>
 
   <dt>
