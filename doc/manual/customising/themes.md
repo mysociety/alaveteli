@@ -24,7 +24,7 @@ about this, [ask for help](/community)!
 ## What you might want to change
 
 The most common requirement is to brand the site: at a minimum,
-inserting your own logo and colour scheme.  You may also want to tweak
+[inserting your own logo](#changing-the-logo) and [colour scheme](#changing-the-colour-scheme).  You may also want to tweak
 the different states that a request can go through.  You'll also want
 to edit the categories that public bodies can appear in (i.e. the
 groupings on the left hand side of the
@@ -104,21 +104,20 @@ theme's `lib/` directory.  These means that a file at
 `lib/themes/alavetelitheme/lib/views/help/about.rhml` will appear
 instead of the core "about us" file.
 
-Rails expects all its stylesheets to live at `<railshome>/public`,
-which presents a problem for plugins.  Here's how we solve it: the
-stylesheet and associated resources for your theme live (by
-convention) in `alavetelitheme/public/`.  This is symlinked from
-the main Rails app -- see `alavetelitheme/install.rb` to see how this
-happens.
+### Changing the logo
 
-The partial at
-`alavetelitheme/lib/views/general/_before_head_end.html.erb` includes the
-custom CSS in your theme's stylesheet folder (by convention, in
-`alavetelitheme/public/stylesheets/`), with:
+Alaveteli uses Rails' [asset pipeline](http://guides.rubyonrails.org/asset_pipeline.html) to convert and compress stylesheets written in [Sass](http://sass-lang.com/), the css extension language, to minified concatenated css. Assets are stored in core Alaveteli under `app/assets` - in `fonts`, `images`, `javascripts` and `stylesheets`.
+ The default theme has corresponding asset directories in `alavetelitheme/assets` Asset files placed in these directories will  override those in the core directories. As with templates, a file at `lib/themes/alavetelitheme/assets/images/logo.png` will appear on the site instead of the logo from `app/assets/images/logo.png`.
 
-     <%= stylesheet_link_tag "/alavetelitheme/stylesheets/custom" %>
+### Changing the colour scheme
 
-...which will, usually, need changing for your theme.
+Alaveteli uses a set of basic Sass modules to define the layout for the site on different device sizes, and some basic styling. These modules are in `app/assets/stylesheets/responsive`. The colours and fonts are added in the theme - alavetelitheme defines them in `lib/themes/alavetelitheme/assets/stylesheets/responsive/custom.scss`. Colours used in the theme are defined as variables at the top of this file and you can edit them here.
+
+### Changing other styling
+
+To change other styling, you can add to or edit the styles in `lib/themes/alavetelitheme/assets/stylesheets/responsive/custom.scss`. Styles defined here will override those in the sass modules in `app/assets/stylesheets/responsive` as they will be imported last by `app/assets/stylesheets/responsive/all.scss`. However, if you want to substantially change the way a particular part of the site is laid out, you may want to override one of the core sass modules. You could override the layout of the front page, for example, by copying `app/assets/stylesheets/responsive/_frontpage_layout.scss` to `lib/themes/alavetelitheme/assets/stylesheets/responsive/_frontpage_layout.scss` and editing it.
+
+You can load extra stylesheets and javascript files by adding them to `lib/themes/alavetelitheme/lib/views/general/_before_head_end.html.erb`
 
 ## Adding your own categories for public bodies
 
