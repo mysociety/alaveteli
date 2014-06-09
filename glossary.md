@@ -25,6 +25,7 @@ Definitions
   <li><a href="#publish">publish</a></li>
   <li><a href="#request">request</a></li>
   <li><a href="#response">response</a></li>
+  <li><a href="#rails">Ruby&nbsp;on&nbsp;Rails</a></li>
   <li><a href="#state">state</a></li>
   <li><a href="#theme">theme</a></li>
 </ul>
@@ -234,6 +235,27 @@ Definitions
     Alaveteli automatically <a href="#publish" class="glossary">publishes</a>
     the <a href="#response" class="glossary">responses</a>
     to all the requests it sends.
+  </dd>
+
+  <dt>
+    <a name="rails">Ruby on Rails</a> (also Rails)
+  </dt>
+  <dd>
+    Alaveteli is written in the Ruby programming language, using
+    the web application framework "Ruby on Rails".
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          <a href="http://rubyonrails.org/">Ruby on Rails</a> website
+        </li>
+        <li>
+			    Alavateli's <a href="{{ site.baseurl }}developers/directory_structure/">directory structure</a>
+          is influenced by its use of Ruby on Rails
+        </li>
+      </ul>
+    </div>
+
   </dd>
 
   <dt>
