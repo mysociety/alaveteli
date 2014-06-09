@@ -101,8 +101,6 @@ yours does, you will need to rename it before running `update-exim4.conf`.
 `dc_local_interfaces='0.0.0.0 ; ::1'`, and
 `dc_other_hostnames='<your-host-name>'`)
 
-<a name="troubleshooting"> </a>
-
 ## Troubleshooting
 
 To test mail delivery, run:
