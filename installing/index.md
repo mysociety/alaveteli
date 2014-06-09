@@ -23,6 +23,6 @@ If you're setting up a development server on MacOS X, we've also got [MacOS inst
 
 Alaveteli needs to be able to send and receive email, so you need to setup your MTA (Mail Transfer Agent) appropriately.
 
-* [Installing the MTA]({{ site.baseurl }}installing/exim4)
+* [Installing the MTA]({{ site.baseurl }}installing/email)
 
 

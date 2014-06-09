@@ -192,8 +192,8 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-			    see these instructions for <a href="{{ site.baseurl }}installing/exim4">configuring exim4</a>,
-          a common MTA
+			    see these instructions for <a href="{{ site.baseurl }}installing/email">configuring your MTA</a>
+          (examples are for exim4 and postfix, two of the most common)
         </li>
       </ul>
     </div>
