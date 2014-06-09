@@ -49,7 +49,7 @@ code.
 We try to encapsulate all site-specific functionality in one of these
 places:
 
-* Site [configuration]({{ site.baseurl }}customisation/config )
+* Site [configuration]({{ site.baseurl }}customising/config)
   (e.g., the name of your site, the available
   languages, and so on &mdash; all in `config/general.yml`)
 * Data (e.g. the public bodies to whom requests should be addressed)
