@@ -58,13 +58,13 @@ places:
 This document is about what you can do in a theme.
 
 By default, the sample theme ("alavetelitheme") has already been
-installed.  See the setting 
-[`THEME_URLS`]({{ site.baseurl }}customising/config/#theme_urls) 
+installed.  See the setting
+[`THEME_URLS`]({{ site.baseurl }}customising/config/#theme_urls)
 in `general.yml` for an explanation.
 
 You can also install the sample theme by hand, by running:
 
-    bundle exec rails plugin install git://github.com/mysociety/alavetelitheme.git
+    bundle exec rake themes:install
 
 The sample theme contains examples for nearly everything you might
 want to customise.  You should probably make a copy, rename it, and
