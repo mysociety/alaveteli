@@ -493,7 +493,7 @@ things that can be automated for deployment.
     First, you need to check that your MTA is delivering relevant
     incoming emails to the `script/mailin` command.  There are various
     ways of setting your MTA up to do this; we have documented
-    [one way of doing it]({{ site.baseurl }}installing/exim4/#troubleshooting) 
+    [one way of doing it]({{ site.baseurl }}installing/exim4/#troubleshooting-exim) 
     in Exim, including a command you can use to check that the email
     routing is set up correctly.
 
