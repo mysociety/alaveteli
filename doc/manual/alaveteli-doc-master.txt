@@ -29,6 +29,19 @@ These pages (in the wiki) have work/attention still pending:
 [>>] [no] Setting up a demo site <-- TODO should be in the docs, a useful page with some overlap
 
 
+These pages are form the repo's doc/ directory
+----------------------------------------------
+
+[  ] [  ] CHANGES.md
+[  ] [  ] DEPLOY.md
+[  ] [  ] INSTALL-exim4.md
+[  ] [  ] INSTALL-postfix.md
+[  ] [  ] INSTALL.md
+[  ] [  ] THEME-ASSETS-UPGRADE.md
+[  ] [  ] THEMES-UPGRADE.md
+[  ] [  ] THEMES.md
+[  ] [  ] TRANSLATE.md
+
 
 
 These pages are all effetively done (i.e., definitively settled in the docs)
