@@ -206,7 +206,7 @@ to the test config in `database.yml` (as seen in `database.yml-example`)
 
 You will need to set up an email server (MTA) to send and receive emails. Full
 configuration for an MTA is beyond the scope of this document -- see this
-[example config for Exim4]({{ site.baseurl }}installing/exim4).
+[example config for Exim4]({{ site.baseurl }}installing/email).
 
 Note that in development mode mail is handled by mailcatcher by default so
 that you can see the mails in a browser - see http://mailcatcher.me/ for more
@@ -243,7 +243,7 @@ When you set up your MTA, if there is some error inside Rails, the
 email is returned with an exit code 75, which for Exim at least means the MTA
 will try again later. Additionally, a stacktrace is emailed to `CONTACT_EMAIL`.
 
-See [this example]({{ site.baseurl }}exim4) for a possible configuration for Exim (>=1.9).
+See [this example]({{ site.baseurl }}installing/email/) for a possible configuration for Exim (>=1.9).
 
 A well-configured installation of this code will have had Exim make
 a backup copy of the email in a separate mailbox, just in case.
@@ -493,7 +493,7 @@ things that can be automated for deployment.
     First, you need to check that your MTA is delivering relevant
     incoming emails to the `script/mailin` command.  There are various
     ways of setting your MTA up to do this; we have documented
-    [one way of doing it]({{ site.baseurl }}installing/exim4/#troubleshooting-exim) 
+    [one way of doing it]({{ site.baseurl }}installing/email/#troubleshooting-exim) 
     in Exim, including a command you can use to check that the email
     routing is set up correctly.
 
