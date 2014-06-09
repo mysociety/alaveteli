@@ -5,3 +5,4 @@ Specifically:
 [Installation](http://code.alaveteli.org/installing/)
 [Themes](http://code.alaveteli.org/customising/themes/)
 [Translation](http://code.alaveteli.org/customising/translation/)
+[Email](http://code.alaveteli.org/installing/email/)
