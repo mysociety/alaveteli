@@ -1,34 +1,114 @@
 ---
-layout: page
+layout: landing
 title: Welcome
 ---
+<div class="hero">
+  <div class="container">
+    <h1><span>Run your own</span> Freedom of Information website</h1>
+    <p>Alaveteli helps you lower the barriers that prevent citizens asking questions of those in power</p>
+    <p><a href="#" class="button">Get started</a> <a href="#" class="button">Learn more</a></p>
+  </div>
+</div>
 
-# Alaveteli documentation
+<div class="what-is-alaveteli">
+    <div class="container">
+        <h2>What is Alaveteli?</h2>
+        <div class="grid-row what-is-alaveteli__items-grid">
+            <div class="what-is-alaveteli__grid-unit">
+                <div class="what-is-alaveteli__item what-is-alaveteli__item--foi">
+                    <p>An open-source platform for making public freedom of information requests to public bodies.</p>
+                </div>
+            </div><!--
+            --><div class="what-is-alaveteli__grid-unit">
+                <div class="what-is-alaveteli__item what-is-alaveteli__item--help">
+                    <p>Built to help citizens request information, and view and comment on other people’s requests</p>
+                </div>
+            </div><!--
+            --><div class="what-is-alaveteli__grid-unit">
+                <div class="what-is-alaveteli__item what-is-alaveteli__item--published">
+                    <p>All requests made through Alaveteli, and their responses are published online for everyone to see.</p>
+                </div>
+            </div><!--
+            --><div class="what-is-alaveteli__grid-unit">
+                <div class="what-is-alaveteli__item what-is-alaveteli__item--open">
+                    <p>Used all over the world to open up governments and other public bodies. </p>
+                </div>
+            </div>
+        </div>
+        <div class="what-is-alaveteli__international-reach">
+            <p>Alaveteli has helped citizens make over <strong>200,000 Freedom of Information requests</strong> in <strong>16 jurisdictions</strong></p>
+        </div>
+    </div>
+</div>
 
-<p class="lead">
-	This is the documentation for Alaveteli,
-	an open source Freedom of Information platform
-	created by <a href="http://www.mysociety.org">mySociety</a>.
-</p>
+<div class="features">
+    <div class="container">
+        <h2>Features</h2>
+        <div class="grid-row">
+            <div class="features__grid-unit features__grid-unit--wide">
+                <div class="features__item">
+                    <h3>Supports many, many devices out of the box</h3>
+                    <p>Alaveteli works beautifully on a wide range of devices, including smartphones and tablets, thanks to a flexible responsive design.</p>
+                </div>
+            </div><!--
+            --><div class="features__grid-unit features__grid-unit--wide">
+                <div class="features__item">
+                    <h3>Messaging, notifications and follow ups</h3>
+                    <p>Alaveteli controls the workflow of every request, notifying, and reminding  public bodies and requesters at every stage.</p>
+                </div>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="features__grid-unit">
+                <div class="features__item">
+                    <h3>Fully customisable</h3>
+                    <p>Use our code as a starting point to add your own functionality, or country-specific requirements</p>
+                </div>
+            </div><!--
+            --><div class="features__grid-unit">
+                <div class="features__item">
+                    <h3>Multilingual</h3>
+                    <p>Available in ten languages and counting, and you can translate it to your own</p>
+                </div>
+            </div><!--
+            --><div class="features__grid-unit">
+                <div class="features__item">
+                    <h3>Active</h3>
+                    <p>Alaveteli is always in development and the code is open source, so you can help make it better</p>
+                </div>
+            </div><!--
+            --><div class="features__grid-unit">
+                <div class="features__item">
+                    <h3>Simple</h3>
+                    <p>Alaveteli hides the complexity behind the FOI process and makes it easy for citizens to use their rights</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-## New to Alaveteli?
-
-You've found the documentation for Alaveteli. 
-
-* Learn about the project at [www.alaveteli.org](http://www.alaveteli.org).
-
-* Read [Turbo Transparency](http://www.alaveteli.org/files/2012/10/Turbo-Transparency-v1.0.pdf), a paper about how and why to use Alaveteli for Freedom of Information systems
-
-* Read the [Getting Started guide]({{ site.baseurl }}getting_started)
-
-**The documentation covers
-[installing]({{ site.baseurl }}installing),
-[customising]({{ site.baseurl }}customising), and
-[running]({{ site.baseurl }}running) your own Alaveteli site.**
-
-If you're making changes to the source code, we have
-[documentation for developers]({{ site.baseurl }}developers) too.
-
-If you are an organisation who wants to use Alaveteli in your jurisdiction, or a developer who is interested in collaborating on the software, please 
-[get in touch]({{ site.baseurl }}community).
-
+<div class="get-started">
+  <div class="container">
+    <h2>Get started</h2>
+    <div class="get-started__grid-unit get-started__grid-unit--wide">
+        <div class="get-started__item get-started__item--primary">
+            <p>From team members to maintenance, our get started guide will walk you through the process of planning, starting and running your own Alaveteli website</p>
+            <p><a href="#" class="button">Get started</a></p>
+        </div>
+    </div>
+    <div class="get-started__grid-unit">
+        <div class="get-started__item get-started__item">
+            <h3>Get the code</h3>
+            <p>From team members to maintenance, our get started guide will walk you through the process of planning, starting and running your own Alaveteli website</p>
+            <p><a href="#" class="button">Github</a></p>
+        </div>
+    </div>
+    <div class="get-started__grid-unit">
+        <div class="get-started__item get-started__item">
+            <h3>Speak to us</h3>
+            <p>Need some help? Tell us about your plans</p>
+            <p><a href="#" class="button">Get in touch</a></p>
+        </div>
+    </div>
+  </div>
+</div>
