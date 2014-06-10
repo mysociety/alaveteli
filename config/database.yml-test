@@ -1,4 +1,5 @@
 test:
   adapter: postgresql
+  encoding: sql_ascii
   database: foi_test
   username: postgres
