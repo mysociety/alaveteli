@@ -37,7 +37,7 @@ The archives are a good source of information too. If you've got a problem, it's
 always worth checking to see if someone has already solved it.
 
 It you're just starting out, saying hello on the mailing list is a great way to
-begin <img src="http://www.alaveteli.org/wp-includes/images/smilies/icon_smile.gif" alt=":-)">
+begin <img src="{{ site.baseurl }}assets/img/icon_smile.gif" alt=":-)">
 
 ## IRC
 
