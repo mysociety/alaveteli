@@ -12,7 +12,9 @@ categories:
 
 I recently interviewed Daniel Dietrich and Stefan Wehrmeyer of [Open Knowledge Foundation Germany](http://okfn.de).  Back in August 2011 they launched [Frag den Staat](https://fragdenstaat.de/), a website inspired by [WhatDoTheyKnow](http://www.whatdotheyknow.com/).  We talked about launching with media coverage and the challenges it brings, relationships with officials, and the challenges of implementing multiple jurisdictions within a single federated country.
 
-[![Frag den Staat screenshot](http://blogs.mysociety.org/alaveteliorg/files/2011/11/fds.png)](http://blogs.mysociety.org/alaveteliorg/files/2011/11/fds.png)Daniel's role is as activist and troublemaker, creating connections and ensuring the site launched with lots of support. Stefan wrote the software, acted as project manager, and continues to carry out all the maintenance and development.
+{% include image.html url="/assets/img/fds.png" description="Frag den Staat screenshot" width="271" %}
+
+Daniel's role is as activist and troublemaker, creating connections and ensuring the site launched with lots of support. Stefan wrote the software, acted as project manager, and continues to carry out all the maintenance and development.
 
 **_Seb_: How did the launch go?**
 

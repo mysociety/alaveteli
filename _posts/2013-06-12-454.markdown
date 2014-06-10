@@ -10,7 +10,7 @@ categories:
 - Development
 ---
 
-[![Brass Band Serenade by .sashi](http://blogs.mysociety.org/mysociety/files/2013/06/2319053387_eb231d4a60_z.jpg)](http://www.flickr.com/photos/sashimanek/2319053387/)
+{% include image.html url="/assets/img/2319053387_eb231d4a60_z.jpg" description="Brass Band Serenade by .sashi - http://www.flickr.com/photos/sashimanek/2319053387/" width="658" %}
 
 Today, we are using the phrase "Alaveteli upgrade" rather a lot - and not just because it's such a great tongue-twister. It's also a notable milestone for our open-source community.
 

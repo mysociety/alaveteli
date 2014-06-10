@@ -16,7 +16,7 @@ As part of my recent work on the Alaveteli code, I've needed to repeatedly test 
 
 It seemed a good idea while I was doing this to set up an Amazon Machine Image (AMI). This means that anyone with a correctly set up Amazon Web Services account can get a running Alaveteli server with just a few clicks. Not only does it have the core software deployed, it also comes with a web server and mail server configured, so it should in theory just work out of the box.
 
-[caption id="attachment_22" align="alignnone" width="517" caption="Alaveteli instances running in EC2"][![](http://blogs.mysociety.org/alaveteliorg/files/2011/07/ec2.png)](http://blogs.mysociety.org/alaveteliorg/files/2011/07/ec2.png)[/caption]
+{% include image.html url="/assets/img/ec2.png" description="Alaveteli instances running in EC2" width="517" %}
 
 As a nice side-effect, it means I can run the automated tests really quickly by running them on an "xlarge" EC2 instance (which is equivalent to a server with 14Gb of memory).
 

@@ -12,7 +12,7 @@ categories:
 
 One of the major new features in the latest release of Alaveteli is a more attractive (and hopefully more usable) admin theme.  Here's a before-and-after shot of the home page:
 
-[![](http://blogs.mysociety.org/alaveteliorg/files/2012/06/oldnew.png)](http://blogs.mysociety.org/alaveteliorg/files/2012/06/oldnew.png)
+{% include image.html url="/assets/img/oldnew.png" description="Admin interface before and after" width="643" %}
 
 The theme was started at AlaveteliCon by [@wombleton](https://twitter.com/#!/wombleton).  It's based on Twitter's [Bootstrap framework](http://twitter.github.com/bootstrap/), a CSS-and-javascript foundation for layout and styling of websites.  It tries to collapse the large amounts of data often found on a single page into smaller chunks that can be scanned more easily.
 

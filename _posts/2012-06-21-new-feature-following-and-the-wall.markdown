@@ -14,8 +14,8 @@ You've always been able to subscribe to email alerts about requests.  However, 
 
 Here's the _"Follow"_ button:
 
-[![following a topic](http://blogs.mysociety.org/alaveteliorg/files/2012/06/boring.png)](http://blogs.mysociety.org/alaveteliorg/files/2012/06/boring.png)
+{% include image.html url="/assets/img/boring.png" description="Following a request" width="658" %}
 
 ...and here's the "wall":
 
-![the new "wall" in alaveteli](http://blogs.mysociety.org/alaveteliorg/files/2012/06/wall.png)
+{% include image.html url="/assets/img/wall.png" description="the new 'wall' in alaveteli" width="658" %}
