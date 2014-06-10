@@ -18,7 +18,7 @@ In non-technical terms: the team from Kosovo have been working to a tight deadli
 
 This meant they could move swiftly towards deployment; however, the down side was that they were no longer running off the same code base as WhatDoTheyKnow.  As a result, they were missing out on bug fixes and improvements that mySociety were making to the code, and mySociety were missing out on things like the internationalised templates.
 
-[caption id="attachment_17" align="alignright" width="300" caption="The current Informata Zyrtare theme"][![](http://blogs.mysociety.org/alaveteliorg/files/2011/07/sq.png?w=300)](http://informatazyrtare.org)[/caption]
+{% include image.html url="/assets/img/sq.png" description="The current Informata Zyrtare theme" width="500"%}
 
 _Merging_ is the process of taking someone else's changes and mixing them with your own changes to create a new, combined version of the software.
 

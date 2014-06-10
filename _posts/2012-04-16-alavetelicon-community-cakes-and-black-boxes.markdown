@@ -19,7 +19,9 @@ The [schedule was split into streams](http://www.alaveteli.org/about-2/alaveteli
 ## Building a movement
 
 
-The main goal of the conference was to strengthen and build the community.  At the time of the conference there were 7 installations of Alaveteli worldwide, but only a small amount interaction between these groups.  So far, I've been the only person with a clear incentive to make sure people collaborate (I'm funded to do it!)  This clearly isn't sustainable; more people need to talk directly to each other.  There's no better way of building trust and understading that meeting face-to-face.[![](http://blogs.mysociety.org/alaveteliorg/files/2012/02/alavetelicon-300x154.jpg)](http://blogs.mysociety.org/alaveteliorg/files/2012/02/alavetelicon.jpg)
+The main goal of the conference was to strengthen and build the community.  At the time of the conference there were 7 installations of Alaveteli worldwide, but only a small amount interaction between these groups.  So far, I've been the only person with a clear incentive to make sure people collaborate (I'm funded to do it!)  This clearly isn't sustainable; more people need to talk directly to each other.  There's no better way of building trust and understading that meeting face-to-face.
+
+{% include image.html url="/assets/img/alavetelicon.jpg" description="Alavetelicon attendees" width="700"%}
 
 This certainly worked well for me.  Of course, I had conversations with people about Freedom of Information and database architectures, but more importantly, I now know who has a new baby daughter, who is thinking about living in a co-housing project, and who loves British 80s electronic sensation _Depeche Mode_.  I was really struck by what a friendly group of people this was.
 
