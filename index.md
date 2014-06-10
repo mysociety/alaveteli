@@ -17,7 +17,7 @@ You've found the documentation for Alaveteli.
 
 * Learn about the project at [www.alaveteli.org](http://www.alaveteli.org).
 
-* Read [Turbo Transparency](http://www.alaveteli.org/files/2012/10/Turbo-Transparency-v1.0.pdf), a paper about how and why to use Alaveteli for Freedom of Information systems
+* Read [Turbo Transparency](/assets/files/Turbo-Transparency-v1.0.pdf), a paper about how and why to use Alaveteli for Freedom of Information systems
 
 * Read the [Getting Started guide]({{ site.baseurl }}getting_started)
 
