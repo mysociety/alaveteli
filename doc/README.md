@@ -6,3 +6,4 @@ Specifically:
 [Themes](http://code.alaveteli.org/customising/themes/)
 [Translation](http://code.alaveteli.org/customising/translation/)
 [Email](http://code.alaveteli.org/installing/email/)
+[Deployment](http://code.alaveteli.org/installing/deployment/)
