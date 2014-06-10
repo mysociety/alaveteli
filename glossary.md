@@ -18,15 +18,18 @@ Definitions
   <li><a href="#alaveteli">Alaveteli</a></li>
   <li><a href="#agnostic">asker agnostic</a></li>
   <li><a href="#authority">authority</a></li>
+  <li><a href="#development">development site</a></li>
   <li><a href="#foi">freedom of information</a></li>
   <li><a href="#git">git</a></li>
   <li><a href="#holding_pen">holding pen</a></li>
   <li><a href="#mta">MTA</a></li>
+  <li><a href="#production">production site</a></li>
   <li><a href="#publish">publish</a></li>
   <li><a href="#request">request</a></li>
   <li><a href="#response">response</a></li>
   <li><a href="#rails">Ruby&nbsp;on&nbsp;Rails</a></li>
   <li><a href="#sass">Sass</a></li>
+  <li><a href="#staging">staging site</a></li>
   <li><a href="#state">state</a></li>
   <li><a href="#theme">theme</a></li>
 </ul>
@@ -104,6 +107,20 @@ Definitions
         </li>
       </ul>
     </div>
+  </dd>
+
+  <dt>
+    <a name="development">development site</a> (also: dev, development server)
+  </dt>
+  <dd>
+    A <strong>dev server</strong> is one that is running your Alaveteli site
+    so you can <a href="{{ site.baseurl }}customising/">customise it</a>, experiment
+    with different settings, and test that it does what you expect.
+    This is different from a 
+    <a href="#production" class="glossary">production server</a>, which is the one your
+    users actually visit running with live data, or a
+    <a href="#staging" class="glossary">staging server</a>,
+    which is used for testing code before it goes live.
   </dd>
 
   <dt>
@@ -203,6 +220,31 @@ Definitions
   </dd>
 
   <dt>
+    <a name="production">production site</a> (also: live, production server)
+  </dt>
+  <dd>
+    A <strong>production server</strong> is one that is running your Alaveteli site
+    for real users, with live data. This is different from a 
+    <a href="#development" class="glossary">development server</a>, which you use make your
+    customisation and environment changes and try to get them to all work OK, or a 
+    <a href="#staging" class="glossary">staging server</a>, which is used for testing code
+    and configuration after it's been finished but before it goes live.
+    <p>
+      Your production site should be configured to run as efficiently as possible: for
+      example, caching is enabled, and debugging switched off.
+    <p>
+      If you have a staging server, the system environment of your staging and
+      production servers should be identical.
+    </p>
+    <p>
+      You should never need to edit code directly on your production server.
+      We strongly recommend you use Alaveteli's 
+      <a href="{{ site.baseurl }}installing/deploy/">deployment mechanism</a>
+      (using Capistrano) to make changes to your production site.
+    </p>
+  </dd>
+
+  <dt>
     <a name="publish">publish</a>
   </dt>
   <dd>
@@ -283,6 +325,28 @@ Definitions
         </li>
       </ul>
     </div>
+  </dd>
+
+  <dt>
+    <a name="staging">staging server</a> (also: staging site)
+  </dt>
+  <dd>
+    A <strong>staging server</strong> is one that you use for testing code or configuration
+    before it goes live. This is different from a <a href="#development"
+    class="glossary">development server</a>, on which you change the code and settings to
+    make everything all work OK, or the
+    <a href="#production" class="glossary">production server</a>, which is the
+    site your users visit running with live data.
+    <p>
+      If you have a staging server, the system environment of your staging and
+      production servers should be identical.
+    </p>
+    <p>
+      You should never need to edit code directly on your production or staging servers.
+      We strongly recommend you use Alaveteli's 
+      <a href="{{ site.baseurl }}installing/deploy/">deployment mechanism</a>
+      (using Capistrano) to make changes to these sites.
+    </p>
   </dd>
 
   <dt>
