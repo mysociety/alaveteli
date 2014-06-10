@@ -9,6 +9,7 @@ rvm:
   - 2.0.0
 env:
   global:
+    - CHARSET=SQL_ASCII
     - S3_REGION=us-east-1
     - S3_BUCKET_NAME=alaveteli-bundle-cache
     - secure: "cbZMhxbih4k2syqykwVprnBBTyD9Rk9pVhwM2W1Oa3Y9QIn79giL2yTUrJi3+bapHHFedWstG1wkLxEalc/Ei1G4vWYDqXiOtdzYR/WMqqCyd8royrkusist+rVcolvZ2dTCu8uvmteQ6sE3/FsoayTlYJmWCNFWhAiWayaai8Q="
