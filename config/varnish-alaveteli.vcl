@@ -92,7 +92,7 @@ sub vcl_recv {
       # ban lists, see
       # http://kristianlyng.wordpress.com/2010/07/28/smart-bans-with-varnish/
 
-      # XXX in Varnish 2.x, the following would be
+      # TODO: in Varnish 2.x, the following would be
       # purge("obj.http.x-url ~ " req.url);
       ban("obj.http.x-url ~ " + req.url);
       error 200 "Banned";

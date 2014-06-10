@@ -178,7 +178,7 @@ class FoiAttachment < ActiveRecord::Base
         return filename
     end
 
-    # XXX changing this will break existing URLs, so have a care - maybe
+    # TODO: changing this will break existing URLs, so have a care - maybe
     # make another old_display_filename see above
     def display_filename
         filename = self.filename

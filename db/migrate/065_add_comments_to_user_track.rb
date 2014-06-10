@@ -9,6 +9,6 @@ class AddCommentsToUserTrack < ActiveRecord::Migration
     end
 
     def self.down
-      # XXX forget it
+      # TODO: forget it
     end
 end

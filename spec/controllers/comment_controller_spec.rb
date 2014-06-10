@@ -26,7 +26,7 @@ describe CommentController, "when commenting on a request" do
         post :new, params
         post_redirect = PostRedirect.get_last_post_redirect
         response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
-        # post_redirect.post_params.should == params # XXX get this working. there's a : vs '' problem amongst others
+        # post_redirect.post_params.should == params # TODO: get this working. there's a : vs '' problem amongst others
     end
 
     it "should create the comment, and redirect to request page when input is good and somebody is logged in" do

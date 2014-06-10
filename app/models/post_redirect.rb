@@ -65,7 +65,7 @@ class PostRedirect < ActiveRecord::Base
 
     # Used by (rspec) test code only
     def self.get_last_post_redirect
-        # XXX yeuch - no other easy way of getting the token so we can check
+        # TODO: yeuch - no other easy way of getting the token so we can check
         # the redirect URL, as it is by definition opaque to the controller
         # apart from in the place that it redirects to.
         post_redirects = PostRedirect.find_by_sql("select * from post_redirects order by id desc limit 1")

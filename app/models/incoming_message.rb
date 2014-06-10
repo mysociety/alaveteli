@@ -150,7 +150,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # The cached fields mentioned in the previous comment
-    # XXX there must be a nicer way to do this without all that
+    # TODO: there must be a nicer way to do this without all that
     # repetition.  I tried overriding method_missing but got some
     # unpredictable results.
     def valid_to_reply_to
@@ -194,7 +194,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # And look up by URL part number and display filename to get an attachment
-    # XXX relies on extract_attachments calling MailHandler.ensure_parts_counted
+    # TODO: relies on extract_attachments calling MailHandler.ensure_parts_counted
     # The filename here is passed from the URL parameter, so it's the
     # display_filename rather than the real filename.
     def self.get_attachment_by_url_part_number_and_filename(attachments, found_url_part_number, display_filename)
@@ -220,7 +220,7 @@ class IncomingMessage < ActiveRecord::Base
 
     # Converts email addresses we know about into textual descriptions of them
     def mask_special_emails!(text)
-        # XXX can later display some of these special emails as actual emails,
+        # TODO: can later display some of these special emails as actual emails,
         # if they are public anyway.  For now just be precautionary and only
         # put in descriptions of them in square brackets.
         if self.info_request.public_body.is_followupable?
@@ -368,8 +368,8 @@ class IncomingMessage < ActiveRecord::Base
 
 
     # Remove quoted sections from emails (eventually the aim would be for this
-    # to do as good a job as GMail does) XXX bet it needs a proper parser
-    # XXX and this FOLDED_QUOTED_SECTION stuff is a mess
+    # to do as good a job as GMail does) TODO: bet it needs a proper parser
+    # TODO: and this FOLDED_QUOTED_SECTION stuff is a mess
     def self.remove_quoted_sections(text, replacement = "FOLDED_QUOTED_SECTION")
         text = text.dup
         replacement = "\n" + replacement + "\n"
@@ -399,7 +399,7 @@ class IncomingMessage < ActiveRecord::Base
                         (
                             \s*#{score}\n(?:(?!#{score}\n).)*? # top line
                             (disclaimer:\n|confidential|received\sthis\semail\sin\serror|virus|intended\s+recipient|monitored\s+centrally|intended\s+(for\s+|only\s+for\s+use\s+by\s+)the\s+addressee|routinely\s+monitored|MessageLabs|unauthorised\s+use)
-                            .*?(?:#{score}|\z) # bottom line OR end of whole string (for ones with no terminator XXX risky)
+                            .*?(?:#{score}|\z) # bottom line OR end of whole string (for ones with no terminator TODO: risky)
                         )
                        /imx, replacement)
         end
@@ -480,7 +480,7 @@ class IncomingMessage < ActiveRecord::Base
     # Returns body text from main text part of email, converted to UTF-8, with uudecode removed,
     # emails and privacy sensitive things remove, censored, and folded to remove excess quoted text
     # (marked with FOLDED_QUOTED_SECTION)
-    # XXX returns a .dup of the text, so calling functions can in place modify it
+    # TODO: returns a .dup of the text, so calling functions can in place modify it
     def get_main_body_text_folded
         if self.cached_main_body_text_folded.nil?
             self._cache_main_body_text
@@ -511,7 +511,7 @@ class IncomingMessage < ActiveRecord::Base
             source_charset = part.charset
             if part.content_type == 'text/html'
                 # e.g. http://www.whatdotheyknow.com/request/35/response/177
-                # XXX This is a bit of a hack as it is calling a
+                # TODO: This is a bit of a hack as it is calling a
                 # convert to text routine.  Could instead call a
                 # sanitize HTML one.
 
@@ -627,7 +627,7 @@ class IncomingMessage < ActiveRecord::Base
             return nil
         end
         # otherwise return it assuming it is text (sometimes you get things
-        # like binary/octet-stream, or the like, which are really text - XXX if
+        # like binary/octet-stream, or the like, which are really text - TODO: if
         # you find an example, put URL here - perhaps we should be always returning
         # nil in this case)
         return p
@@ -722,7 +722,7 @@ class IncomingMessage < ActiveRecord::Base
         text = get_main_body_text_unfolded
         folded_quoted_text = get_main_body_text_folded
 
-        # Remove quoted sections, adding HTML. XXX The FOLDED_QUOTED_SECTION is
+        # Remove quoted sections, adding HTML. TODO: The FOLDED_QUOTED_SECTION is
         # a nasty hack so we can escape other HTML before adding the unfold
         # links, without escaping them. Rather than using some proper parser
         # making a tree structure (I don't know of one that is to hand, that

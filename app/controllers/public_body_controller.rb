@@ -10,7 +10,7 @@ require 'confidence_intervals'
 require 'tempfile'
 
 class PublicBodyController < ApplicationController
-    # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
+    # TODO: tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
     def show
         long_cache
         if MySociety::Format.simplify_url_part(params[:url_name], 'body') != params[:url_name]
@@ -43,7 +43,7 @@ class PublicBodyController < ApplicationController
             query = InfoRequestEvent.make_query_from_params(params.merge(:latest_status => @view))
             query += " requested_from:#{@public_body.url_name}"
             # Use search query for this so can collapse and paginate easily
-            # XXX really should just use SQL query here rather than Xapian.
+            # TODO: really should just use SQL query here rather than Xapian.
             sortby = "described"
             begin
                 @xapian_requests = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
@@ -86,7 +86,7 @@ class PublicBodyController < ApplicationController
 
     def list
         long_cache
-        # XXX move some of these tag SQL queries into has_tag_string.rb
+        # TODO: move some of these tag SQL queries into has_tag_string.rb
 
         like_query = params[:public_body_query]
         like_query = "" if like_query.nil?

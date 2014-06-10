@@ -93,7 +93,7 @@ class PublicBody < ActiveRecord::Base
         self.translations.find_by_locale(locale)
     end
 
-    # XXX - Don't like repeating this!
+    # TODO: - Don't like repeating this!
     def calculate_cached_fields(t)
         PublicBody.set_first_letter(t)
         short_long_name = t.name
@@ -329,7 +329,7 @@ class PublicBody < ActiveRecord::Base
                     first = false
                 end
                 if html
-                    # XXX this should call proper route helpers, but is in model sigh
+                    # TODO: this should call proper route helpers, but is in model sigh
                     desc = '<a href="/body/list/' + tag.name + '">' + desc + '</a>'
                 end
                 types.push(desc)

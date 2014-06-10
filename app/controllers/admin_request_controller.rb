@@ -199,7 +199,7 @@ class AdminRequestController < AdminController
         end
 
         # Bejeeps, look, sometimes a URL is something that belongs in a controller, jesus.
-        # XXX hammer this square peg into the round MVC hole
+        # TODO: hammer this square peg into the round MVC hole
         post_redirect = PostRedirect.new(
             :uri => upload_response_url(:url_title => info_request.url_title),
             :user_id => user.id)
@@ -253,7 +253,7 @@ class AdminRequestController < AdminController
         end
         info_request_event.described_state = 'waiting_clarification'
         info_request_event.calculated_state = 'waiting_clarification'
-        # XXX deliberately don't update described_at so doesn't reenter search?
+        # TODO: deliberately don't update described_at so doesn't reenter search?
         info_request_event.save!
 
         flash[:notice] = "Old response marked as having been a clarification"
