@@ -1,4 +1,5 @@
 module HighlightHelper
+    include ERB::Util
 
     # Implementation of rails' highlight that allows regex to be passed to
     # the phrases parameter.

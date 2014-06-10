@@ -1,9 +1,57 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe HighlightHelper do
-
   include HighlightHelper
 
+  describe :highlight_and_excerpt do
+
+      it 'excerpts text and highlights phrases' do
+          text = "Quentin Nobble-Boston, Permanent Under-Secretary, Department for Humpadinking"
+          phrases = ['humpadinking']
+          expected = '...Department for <span class="highlight">Humpadinking</span>'
+          highlight_and_excerpt(text, phrases, 15).should == expected
+      end
+
+      it 'excerpts text and highlights matches' do
+          text = "Quentin Nobble-Boston, Permanent Under-Secretary, Department for Humpadinking"
+          matches = [/\bhumpadink\w*\b/iu]
+          expected = '...Department for <span class="highlight">Humpadinking</span>'
+          highlight_and_excerpt(text, matches, 15).should == expected
+      end
+
+      context 'multiple matches' do
+
+          it 'highlights multiple matches' do
+              text = <<-EOF
+Quentin Nobble-Boston, Permanent Under-Secretary, Department for Humpadinking
+decided to visit Humpadink so that he could be with the Humpadinks
+EOF
+
+              expected = <<-EOF
+Quentin Nobble-Boston, Permanent Under-Secretary, Department for <span class="highlight">Humpadinking</span>
+decided to visit <span class="highlight">Humpadink</span> so that he could be with the <span class="highlight">Humpadinks</span>
+EOF
+              text.chomp!
+              expected.chomp!
+              matches = [/\b(humpadink\w*)\b/iu]
+              highlight_and_excerpt(text, matches, 1000).should == expected
+          end
+
+          it 'bases the split on the first match' do
+              text = "Quentin Nobble-Boston, Permanent Under-Secretary," \
+                     "Department for Humpadinking decided to visit Humpadink" \
+                     "so that he could be with the Humpadinks"
+
+              expected = "...Department for <span class=\"highlight\">" \
+                         "Humpadinking</span> decided to vis..."
+
+              matches = [/\b(humpadink\w*)\b/iu]
+              highlight_and_excerpt(text, matches, 15).should == expected
+          end
+
+      end
+
+  end
 
   describe :highlight_matches do
 
