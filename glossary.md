@@ -121,6 +121,11 @@ Definitions
     users actually visit running with live data, or a
     <a href="#staging" class="glossary">staging server</a>,
     which is used for testing code before it goes live.
+    <p>
+      On your dev server, you should set
+      <code><a href="{{site.baseurl}}customising/config/#staging_site">STAGING_SITE</a></code>
+      to <code>1</code>.
+    </p>
   </dd>
 
   <dt>
@@ -232,6 +237,10 @@ Definitions
     <p>
       Your production site should be configured to run as efficiently as possible: for
       example, caching is enabled, and debugging switched off.
+      <a href="#rails" class="glossary">Rails</a> has a "production mode" which does
+      this for you: set
+      <code><a href="{{site.baseurl}}customising/config/#staging_site">STAGING_SITE</a></code>
+      to <code>0</code>.
     <p>
       If you have a staging server, the system environment of your staging and
       production servers should be identical.
@@ -337,6 +346,11 @@ Definitions
     make everything all work OK, or the
     <a href="#production" class="glossary">production server</a>, which is the
     site your users visit running with live data.
+    <p>
+      On your staging server, you should set
+      <code><a href="{{site.baseurl}}customising/config/#staging_site">STAGING_SITE</a></code>
+      to <code>1</code>.
+    </p>
     <p>
       If you have a staging server, the system environment of your staging and
       production servers should be identical.
