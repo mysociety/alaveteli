@@ -343,7 +343,7 @@ Definitions
     A <strong>staging server</strong> is one that you use for testing code or configuration
     before it goes live. This is different from a <a href="#development"
     class="glossary">development server</a>, on which you change the code and settings to
-    make everything all work OK, or the
+    make everything work, or the
     <a href="#production" class="glossary">production server</a>, which is the
     site your users visit running with live data.
     <p>
