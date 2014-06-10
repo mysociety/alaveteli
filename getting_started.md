@@ -311,7 +311,7 @@ review the untranslated strings.
 ## Step five: Test drive the site
 
 For launch, the tech person should review the [Production Server Best
-Practices](FIXME).
+Practices]({{ site.baseurl }}running/server).
 
 A low-key launch, where you tell just a few trusted people about the site, is a
 very good idea. You can then track how things work, and gauge the responses of
