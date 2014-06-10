@@ -1,6 +1,6 @@
 test:
   adapter: postgresql
-  encoding: sql_ascii
+  # encoding: sql_ascii
   template: template_sqlascii
   database: foi_test
   username: postgres
