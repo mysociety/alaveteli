@@ -38,4 +38,4 @@ The moral: on all but the smallest Alaveteli website, deploy it behind a caching
 
 You can see the difference on the resource usage of the server running WhatDoTheyKnow on this chart -- I deployed the caching-related changes around 08:15 on these charts:
 
-[![](http://blogs.mysociety.org/alaveteliorg/files/2011/07/performance.png)](http://blogs.mysociety.org/alaveteliorg/files/2011/07/performance.png)
+{% include image.html url="/assets/img/performance.png" description="Performance charts" width="700" %}

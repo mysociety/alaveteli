@@ -16,15 +16,15 @@ Alaveteli has always supported hiding requests that are unsuitable, but in [vers
 
 First, we allow any logged in user to report a request for moderation by an administrator.  This is important because there's no way we could support the moderation of requests before they are published on the site:
 
-[![](http://blogs.mysociety.org/alaveteliorg/files/2012/06/report.png)](http://blogs.mysociety.org/alaveteliorg/files/2012/06/report.png)
+{% include image.html url="/assets/img/report.png" description="Reporting a request" width="651" %}
 
 Requests that have been reported now appear in a worklist on the home page of Alaveteli's administrative interface:
 
-![](http://blogs.mysociety.org/alaveteliorg/files/2012/06/review.png)
+{% include image.html url="/assets/img/review.png" description="Reported requests" width="504" %}
 
 When a moderator clicks through to the edit page for the request, they are now presented with radio buttons to select a reason why the request should be hidden (if any).  A text box appears prefilled with suggested text, and when the moderator hits the "hide request" button, this message is emailed to the requestor notifying them that their message has been hidden:
 
-![](http://blogs.mysociety.org/alaveteliorg/files/2012/06/hide.png)
+{% include image.html url="/assets/img/hide.png" description="Interface for hiding a request" width="635" %}
 
 
 Let us know if you find this useful, and if you think it needs any more tweaking!
