@@ -204,10 +204,12 @@ h3 {
       margin-right: 0; } }
 
 .get-started__grid-unit--wide {
-  width: 100%; }
+  width: 100%;
+  margin-right: 0; }
   @media (min-width: 56.88889em) {
     .get-started__grid-unit--wide {
-      width: 47%; } }
+      width: 47%;
+      margin-right: 3%; } }
 
 .get-started__item--primary p {
   margin-top: 0;
