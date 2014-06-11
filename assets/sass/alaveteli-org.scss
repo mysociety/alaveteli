@@ -1,4 +1,5 @@
 @import '../../theme/sass/variables';
+@import '../../theme/sass/mixins';
 @import 'config';
 
 $high-dpi-screen: '-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi';
@@ -60,6 +61,95 @@ h3 {
         text-decoration: none;
     }
 }
+.nav-position {
+    @media (min-width: 47.5em) {
+        position: absolute;
+        top: 0.33em;
+        left: 180px;
+    }
+    @media (min-width: $large-screen) {
+        left: 240px;
+        top: 0;
+    }
+}
+
+.site-nav {
+    ul {
+        margin-top: 0;
+        @extend .unstyled-list;
+    }
+    li {
+        @media (min-width: 47.5em) {
+            display: inline-block;
+        }
+    }
+    a {
+        color: #fff;
+        margin-right: 0.33em;
+        display: block;
+        padding: 0.33em;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        @media (min-width: 47.5em) {
+            display: inline-block;
+            border-bottom: none;
+        }
+        @media (min-width: $large-screen) {
+            font-size: 1.125em;
+            margin-right: 0.66em;
+        }
+    }
+}
+
+/*! responsive-nav.js 1.0.32 by @viljamis */
+
+.js .nav-collapse {
+  clip: rect(0 0 0 0);
+  max-height: 0;
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  zoom: 1;
+}
+
+.nav-collapse.opened {
+  max-height: 9999px;
+}
+
+.disable-pointer-events {
+  pointer-events: none !important;
+}
+
+.nav-toggle {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  position: absolute;
+  top: 0.1em;
+  right: 5em;
+  display: inline-block;
+  padding: 0.3em 0.75em;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 5px;
+  color: #fff;
+  font-size: 0.875em;
+}
+
+@media screen and (min-width: 47.5em) {
+  .js .nav-collapse {
+    position: relative;
+  }
+  .js .nav-collapse.closed {
+    max-height: none;
+  }
+  .nav-toggle {
+    display: none;
+  }
+}
+
 
 .hero {
     @extend %dark-section;
@@ -75,6 +165,9 @@ h3 {
         border-bottom: 1px solid rgba(255,255,255,0.2);
         padding-bottom: 0.5em;
         margin-bottom: 0.25em;
+        @media (min-width: $large-screen) {
+            font-size: 4em;
+        }
     }
     span {
         opacity: 0.7;
@@ -309,3 +402,4 @@ h3 {
         margin-top: 2.4em;
     }
 }
+
