@@ -6,7 +6,7 @@ title: Welcome
   <div class="container">
     <h1><span>Run your own</span> Freedom of Information website</h1>
     <p>Alaveteli helps you lower the barriers that prevent citizens asking questions of those in power</p>
-    <p><a href="#" class="button">Get started</a> <a href="#" class="button">Learn more</a></p>
+    <p class="action-buttons"><a href="#" class="button">Get started</a> <a href="#" class="button">Learn more</a></p>
   </div>
 </div>
 
@@ -35,8 +35,11 @@ title: Welcome
                 </div>
             </div>
         </div>
-        <div class="what-is-alaveteli__international-reach">
-            <p>Alaveteli has helped citizens make over <strong>200,000 Freedom of Information requests</strong> in <strong>16 jurisdictions</strong></p>
+        <div class="what-is-alaveteli__international-reach-position">
+            <div class="what-is-alaveteli__international-reach">
+                <p class="message">Alaveteli has helped citizens make over <strong>200,000 Freedom of Information requests</strong> in <strong>16 jurisdictions</strong></p>
+                <p><a href="#">See all deployments</a></p>
+            </div>
         </div>
     </div>
 </div>
@@ -45,14 +48,14 @@ title: Welcome
         <h2>Features</h2>
         <div class="grid-row">
             <div class="features__grid-unit features__grid-unit--wide">
-                <div class="features__item">
+                <div class="features__item features__item--primary features__item--devices">
                     <h3>Supports many, many devices out of the box</h3>
                     <p>Alaveteli works beautifully on a wide range of devices, including smartphones and tablets, thanks to a flexible responsive design.</p>
                 </div>
             </div><!--
             --><div class="features__grid-unit features__grid-unit--wide">
-                <div class="features__item">
-                    <h3>Messaging, notifications and follow ups</h3>
+                <div class="features__item features__item--primary features__item--messaging">
+                    <h3>Messaging, notifications, and follow ups</h3>
                     <p>Alaveteli controls the workflow of every request, notifying, and reminding  public bodies and requesters at every stage.</p>
                 </div>
             </div>
@@ -94,19 +97,19 @@ title: Welcome
             <p>From team members to maintenance, our get started guide will walk you through the process of planning, starting and running your own Alaveteli website</p>
             <p><a href="#" class="button">Get started</a></p>
         </div>
-    </div>
-    <div class="get-started__grid-unit">
+    </div><!--
+    --><div class="get-started__grid-unit">
         <div class="get-started__item get-started__item">
             <h3>Get the code</h3>
-            <p>From team members to maintenance, our get started guide will walk you through the process of planning, starting and running your own Alaveteli website</p>
+            <p>Alaveteli is open source and available to view, download and modify on GitHub</p>
             <p><a href="#" class="button">Github</a></p>
         </div>
-    </div>
-    <div class="get-started__grid-unit">
+    </div><!--
+    --><div class="get-started__grid-unit">
         <div class="get-started__item get-started__item">
             <h3>Speak to us</h3>
             <p>Need some help? Tell us about your plans</p>
-            <p><a href="#" class="button">Get in touch</a></p>
+            <p class="push-top"><a href="#" class="button">Get in touch</a></p>
         </div>
     </div>
   </div>
