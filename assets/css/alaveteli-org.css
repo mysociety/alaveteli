@@ -18,7 +18,7 @@
         width: auto;
         margin-bottom: 0; } }
     .hero .button:hover, .get-started .button:hover, .hero .button:active, .get-started .button:active, .hero .button:focus, .get-started .button:focus {
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: rgba(0, 0, 0, 0.1);
       border-color: rgba(0, 0, 0, 0.1); }
 
 .what-is-alaveteli__grid-unit, .features__grid-unit, .get-started__grid-unit {
