@@ -289,8 +289,10 @@ h3 {
 
 .get-started__grid-unit--wide {
     width: 100%;
+    margin-right: 0;
     @media (min-width: $large-screen) {
         width: 47%;
+        margin-right: 3%;
     }
 }
 
