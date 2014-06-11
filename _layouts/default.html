@@ -45,6 +45,17 @@
   <header class="site-header">
     <div class="container">
       <a href="{{ site.baseurl }}" class="site-title"><h1>Alaveteli</h1></a>
+      <div class="nav-position">
+        <nav role="navigation" class="site-nav nav-collapse">
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Get started</a></li>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </header>
 
@@ -55,7 +66,11 @@
 
     </footer>
 
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/scripts/responsive-nav.min.js"></script>
+    <script>
+      var nav = responsiveNav(".nav-collapse");
+    </script>
     <script>
       function replace_str(base, replacement) {
         return base + replacement; // FIXME TODO should replace %s
