@@ -1,3 +1,223 @@
+/* Alaveteli's purple */
+.hero, .what-is-alaveteli, .features, .get-started {
+  padding: 2em 0; }
+  @media (min-width: 40em) {
+    .hero, .what-is-alaveteli, .features, .get-started {
+      padding: 3.5em 0; } }
+
+.hero, .get-started {
+  background-color: #333333;
+  color: #fff; }
+  .hero .button, .get-started .button {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.3);
+    width: 100%;
+    margin-bottom: 1em; }
+    @media (min-width: 30em) {
+      .hero .button, .get-started .button {
+        width: auto;
+        margin-bottom: 0; } }
+    .hero .button:hover, .get-started .button:hover, .hero .button:active, .get-started .button:active, .hero .button:focus, .get-started .button:focus {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-color: rgba(0, 0, 0, 0.1); }
+
+.what-is-alaveteli__grid-unit, .features__grid-unit, .get-started__grid-unit {
+  display: inline-block;
+  vertical-align: top; }
+
+h1, h2, h4, h5, h6 {
+  font-weight: 700; }
+
+h3 {
+  font-weight: 600; }
+
+.button {
+  display: inline-block;
+  padding: 0.4em 2.4em;
+  border: 1px solid #e4e3dd;
+  vertical-align: middle;
+  border-radius: 7px;
+  text-align: center; }
+  .button:hover, .button:active, .button:focus {
+    background-color: #3a3a3a;
+    border-color: rgba(255, 255, 255, 0.2);
+    text-decoration: none; }
+
+.hero {
+  background-color: #974495;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat; }
+  .hero h1 {
+    display: inline-block;
+    font-weight: 600;
+    width: auto;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.5em;
+    margin-bottom: 0.25em; }
+  .hero span {
+    opacity: 0.7;
+    display: block; }
+  .hero p {
+    font-size: 1.125em;
+    max-width: 25em; }
+
+.action-buttons {
+  margin-top: 2em; }
+  .action-buttons .button {
+    font-weight: 600;
+    margin-right: 1em; }
+
+.what-is-alaveteli {
+  border-bottom: 1px solid #e4e3dd;
+  position: relative; }
+
+@media (min-width: 56.88889em) {
+  .what-is-alaveteli__items-grid {
+    width: 66.666%; } }
+
+@media (min-width: 30em) {
+  .what-is-alaveteli__grid-unit {
+    width: 46%;
+    margin-right: 4%; } }
+
+.what-is-alaveteli__item {
+  padding-left: 3.625em;
+  background-position: top left;
+  background-size: 50px 50px;
+  background-repeat: no-repeat; }
+
+.what-is-alaveteli__item--foi {
+  background-image: url("../img/scales.svg"); }
+
+.what-is-alaveteli__item--help {
+  background-image: url("../img/pointer.svg"); }
+
+.what-is-alaveteli__item--published {
+  background-image: url("../img/binoculars.svg"); }
+
+.what-is-alaveteli__item--open {
+  background-image: url("../img/open.svg"); }
+
+@media (min-width: 56.88889em) {
+  .what-is-alaveteli__international-reach-position {
+    width: 33.3333%;
+    position: absolute;
+    top: -13em;
+    right: 0; } }
+
+.what-is-alaveteli__international-reach {
+  background-color: #f3f1eb;
+  background-image: url("../img/worldmap.svg");
+  background-position: center 1.5em;
+  background-repeat: no-repeat;
+  background-size: 280px 158px;
+  padding: 10em 1.25em 1em; }
+  @media (min-width: 30em) {
+    .what-is-alaveteli__international-reach {
+      background-size: 360px 204px;
+      padding: 11.5em 2em 1em; } }
+  @media (min-width: 40em) {
+    .what-is-alaveteli__international-reach {
+      background-size: 360px 204px;
+      padding: 1em 2em 1em 22em;
+      background-position: left center; } }
+  @media (min-width: 56.88889em) {
+    .what-is-alaveteli__international-reach {
+      background-size: 360px 204px;
+      padding: 12.5em 2em 1em;
+      background-position: center 1.5em; } }
+  .what-is-alaveteli__international-reach .message {
+    font-size: 1.4em; }
+  .what-is-alaveteli__international-reach strong {
+    color: #a94ca6; }
+  .what-is-alaveteli__international-reach a {
+    color: #787774;
+    border-bottom: 1px dotted #e4e3dd; }
+    .what-is-alaveteli__international-reach a:hover, .what-is-alaveteli__international-reach a:active, .what-is-alaveteli__international-reach a:focus {
+      text-decoration: none;
+      border-color: #2b8cdb;
+      color: #2b8cdb; }
+
+@media (min-width: 40em) {
+  .features__grid-unit {
+    width: 48.5%; }
+    .features__grid-unit:nth-child(n) {
+      margin-right: 3%; }
+    .features__grid-unit:nth-child(2n) {
+      margin-right: 0; } }
+@media (min-width: 56.88889em) {
+  .features__grid-unit {
+    width: 22.75%; }
+    .features__grid-unit:nth-child(n) {
+      margin-right: 3%; }
+    .features__grid-unit:nth-child(4n) {
+      margin-right: 0; } }
+
+@media (min-width: 40em) {
+  .features__grid-unit--wide {
+    width: 48.5%; }
+    .features__grid-unit--wide:nth-child(n) {
+      margin-right: 3%; }
+    .features__grid-unit--wide:last-child {
+      margin-right: 0; } }
+
+.features__item {
+  margin-top: 1em;
+  margin-bottom: 1em; }
+
+.features__item--primary {
+  background-position: center top;
+  background-repeat: no-repeat;
+  padding-top: 11.5em; }
+  @media (min-width: 56.88889em) {
+    .features__item--primary {
+      background-position: left center;
+      padding: 1em 0; }
+      .features__item--primary h3, .features__item--primary p {
+        padding-left: 53%; } }
+  .features__item--primary h3 {
+    font-size: 1.4em; }
+
+.features__item--devices {
+  background-image: url("../img/devices.svg");
+  background-size: 258px 188px; }
+
+.features__item--messaging {
+  background-image: url("../img/signs.svg");
+  background-size: 200px 166px; }
+  @media (min-width: 56.88889em) {
+    .features__item--messaging {
+      background-position: 3em center; } }
+
+@media (min-width: 30em) {
+  .get-started__grid-unit {
+    width: 48.5%;
+    margin-right: 3%; }
+    .get-started__grid-unit:last-child {
+      margin-right: 0; } }
+@media (min-width: 56.88889em) {
+  .get-started__grid-unit {
+    width: 23.5%;
+    margin-right: 3%; }
+    .get-started__grid-unit:last-child {
+      margin-right: 0; } }
+
+.get-started__grid-unit--wide {
+  width: 100%; }
+  @media (min-width: 56.88889em) {
+    .get-started__grid-unit--wide {
+      width: 47%; } }
+
+.get-started__item--primary p {
+  margin-top: 0;
+  font-size: 1.25em;
+  margin-bottom: 1.9em; }
+
+@media (min-width: 56.88889em) {
+  .push-top {
+    margin-top: 2.4em; } }
+
 /* AlaveteliCon 2012 bios*/
 .delegate-bio {
   clear: left;
