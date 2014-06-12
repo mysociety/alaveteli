@@ -181,7 +181,7 @@ http://blogger.com and announce your project with a new blog post.
 
 Next, think about the visual identity. At a minimum, you should probably
 replace the default Alaveteli logo that you can see at the top left of
-http://demo.alaveteli.org. It's also easy to change the colour scheme.
+<http://demo.alaveteli.org>. It's also easy to change the colour scheme.
 
 If you have a bit more budget and time, you can rework the design more, with a
 custom homepage, different fonts, etc; however, the more you customise the
@@ -218,14 +218,14 @@ therefore relevant only to the UK. You should take these pages as inspiration,
 but review their content with a view to your jurisdiction. The important pages
 to translate are:
 
-* [About](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/about.rhtml): why the website exists, why it works, etc
-* [contact](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/contact.rhtml): how to get in touch
-* [credits](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/credits.rhtml): who is involved in the site.  Importantly, includes a section on how users can help the project.
-* [officers](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/officers.rhtml): information for the officers who deal with FOI at authorities.  They get a link to this page in emails that the site sends them. 
-* [privacy](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/privacy.rhtml): privacy policy, plus information making it clear that requests are going to appear on the internet.  Let users know if they are allowed to use pseudonyms in your jurisdiction.
-* [requesting](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/requesting.rhtml): the main help page about making requests.  How it works, how to decide who to write to, what they can expect in terms of responses, how to make appeals, etc.
-* [unhappy](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/unhappy.rhtml): users are taken to this page after a request that has been somehow unsuccessful (e.g. the request has been refused, or the authority is insisting on a postal request).  The page should encourage them to keep going, e.g. by starting a new request or addressing it to a different body.
-* [why email](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/_why_they_should_reply_by_email.rhtml): a snippet of information that explains why users should insist on replies by email.  This is displayed next to requests that have "gone postal".
+* [About](https://github.com/mysociety/alaveteli/blob/master/app/views/help/about.rhtml): why the website exists, why it works, etc
+* [contact](https://github.com/mysociety/alaveteli/blob/master/app/views/help/contact.rhtml): how to get in touch
+* [credits](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.rhtml): who is involved in the site.  Importantly, includes a section on how users can help the project.
+* [officers](https://github.com/mysociety/alaveteli/blob/master/app/views/help/officers.rhtml): information for the officers who deal with FOI at authorities.  They get a link to this page in emails that the site sends them.
+* [privacy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/privacy.rhtml): privacy policy, plus information making it clear that requests are going to appear on the internet.  Let users know if they are allowed to use pseudonyms in your jurisdiction.
+* [requesting](https://github.com/mysociety/alaveteli/blob/master/app/views/help/requesting.rhtml): the main help page about making requests.  How it works, how to decide who to write to, what they can expect in terms of responses, how to make appeals, etc.
+* [unhappy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.rhtml): users are taken to this page after a request that has been somehow unsuccessful (e.g. the request has been refused, or the authority is insisting on a postal request).  The page should encourage them to keep going, e.g. by starting a new request or addressing it to a different body.
+* [why email](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_why_they_should_reply_by_email.rhtml): a snippet of information that explains why users should insist on replies by email.  This is displayed next to requests that have "gone postal".
 
 The help pages contain some HTML. Your tech person should be able to advise on
 this.
@@ -290,7 +290,7 @@ one place, using a fairly easy interface.
 The Alaveteli page on Transifex is at
 https://www.transifex.net/projects/p/alaveteli/; the translations all live in a
 single translation file called
-[`app.pot`](https://www.transifex.net/projects/p/alaveteli/resource/apppot/).
+[`app.pot`](https://www.transifex.com/projects/p/alaveteli/resource/apppot/).
 
 You can set up your language and provide translations there; you can also use
 specialise software on your own computer (see the help pages on Transifex)
