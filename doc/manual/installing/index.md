@@ -3,7 +3,7 @@ layout: page
 title: Deploying
 ---
 
-# Deploying Alaveteli
+# Installing Alaveteli
 
 <p class="lead">
   Although you can install Alaveteli and just change it when you need it, we
