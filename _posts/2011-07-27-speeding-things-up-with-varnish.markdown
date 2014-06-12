@@ -6,8 +6,6 @@ layout: post
 slug: speeding-things-up-with-varnish
 title: Speeding things up with Varnish
 wordpress_id: 49
-categories:
-- Uncategorised
 ---
 
 On [WhatDoTheyKnow](http://www.whatdotheyknow.com), the Alaveteli software has lately been grinding to a halt.   It's hard to pinpoint the exact cause, but it's related to many of the following points:

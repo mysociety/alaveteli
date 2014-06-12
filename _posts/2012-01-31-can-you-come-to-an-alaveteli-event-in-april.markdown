@@ -6,8 +6,6 @@ layout: post
 slug: can-you-come-to-an-alaveteli-event-in-april
 title: Can you come to an Alaveteli event in April?
 wordpress_id: 100
-categories:
-- Uncategorised
 ---
 
 We are planning a

@@ -6,8 +6,6 @@ layout: post
 slug: a-right-to-know-site-for-spain
 title: A Right-to-Know site for Spain
 wordpress_id: 339
-categories:
-- Uncategorised
 ---
 
 ## ![](http://diy.mysociety.org/wp-content/uploads/2012/04/tuderechoasaber.jpg)
