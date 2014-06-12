@@ -46,7 +46,7 @@ title: Welcome
 
 <div class="features">
     <div class="container">
-        <h2>Features</h2>
+        <h2>What does Alaveteli do?</h2>
         <div class="grid-row">
             <div class="features__grid-unit features__grid-unit--wide">
                 <div class="features__item features__item--primary features__item--devices">
