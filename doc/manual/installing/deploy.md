@@ -33,7 +33,8 @@ you're running one, your
 
 ## Capistrano
 
-Capistrano is included as part of Alaveteli as a standard deployment system.
+<a href="{{site.baseurl}}glossary/#capistrano" class="glossary">Capistrano</a>
+is included as part of Alaveteli as a standard deployment system.
 
 ### Set up
 

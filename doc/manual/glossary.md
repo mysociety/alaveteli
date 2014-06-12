@@ -18,6 +18,7 @@ Definitions
   <li><a href="#alaveteli">Alaveteli</a></li>
   <li><a href="#agnostic">asker agnostic</a></li>
   <li><a href="#authority">authority</a></li>
+  <li><a href="#capistrano">Capistrano</a></li>
   <li><a href="#development">development site</a></li>
   <li><a href="#foi">freedom of information</a></li>
   <li><a href="#git">git</a></li>
@@ -104,6 +105,27 @@ Definitions
           we add some authorites to our <a href="https://www.whatdotheyknow.com">WhaDoTheyKnow</a>
           site that are not subject to FoI law, but which have either voluntarily submitted themselves
           to it, or which we believe should be accountable in this way.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="capistrano">Capistrano</a>
+  </dt>
+  <dd>
+	  <strong>Capistrano</strong> is a remote server automation and deployment tool written in Ruby.
+    Alaveteli's deployment mechanism, which is optional, uses it. 
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          how to <a href="{{ site.baseurl }}installing/deploy">deploy Alaveteli</a> (and why it's
+          a good idea)
+        </li>
+        <li>
+         The <a href="http://capistranorb.com/">Capistrano website</a> has thorough documentation
+         about the tool
         </li>
       </ul>
     </div>
