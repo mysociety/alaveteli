@@ -40,7 +40,7 @@ production server.
 
 ## Deployment
 
-However, if you're running a production server, we **strongly recommend** you
+If you're running a production server, we **strongly recommend** you
 use the Capistrano [deployment mechanism]({{ site.baseurl }}installing/deploy/)
 that's included with Alaveteli. Set this up and you never have to edit files on
 those servers, because Capistrano takes care of that for you.
