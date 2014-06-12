@@ -64,18 +64,19 @@ h3 {
 .nav-position {
     @media (min-width: 47.5em) {
         position: absolute;
-        top: 0.33em;
+        top: 0.6em;
         left: 180px;
     }
     @media (min-width: $large-screen) {
         left: 240px;
-        top: 0;
+        top: 0.5em;
     }
 }
 
 .site-nav {
     ul {
         margin-top: 0;
+        margin-bottom: 0;
         @extend .unstyled-list;
     }
     li {
@@ -130,6 +131,9 @@ h3 {
   position: absolute;
   top: 0.1em;
   right: 5em;
+  @media (min-width: $medium-screen) {
+    right: 10em;
+  }
   display: inline-block;
   padding: 0.3em 0.75em;
   border: 1px solid rgba(255,255,255,0.1);
