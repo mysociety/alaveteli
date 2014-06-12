@@ -114,8 +114,7 @@ operating system, though any sort of Linux should do. Rackspace offer suitable
 cloud servers, which start out at around $25 / month. Then your tech person
 should follow the [installation documentation]({{ site.baseurl }}installing).
 
-Alternatively, you could use Amazon Web Services. If you've not used them
-before, you can get a free "micro" instance for twelve months. This has the
+Alternatively, you could use Amazon Web Services. This has the
 added advantage that you can use our preconfigured [Alaveteli EC2
 AMI]({{ site.baseurl }}installing/ami) to get you
 started almost instantly. However, it's more expensive than Rackspace,
