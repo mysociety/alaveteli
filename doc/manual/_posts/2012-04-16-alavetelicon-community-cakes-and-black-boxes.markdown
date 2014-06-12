@@ -6,8 +6,6 @@ layout: post
 slug: alavetelicon-community-cakes-and-black-boxes
 title: 'Alavetelicon: community, cakes, and black boxes'
 wordpress_id: 325
-categories:
-- Uncategorised
 ---
 
 [Alavetelicon 2012](http://www.alaveteli.org/about-2/alavetelicon-april-2012/) has finished, the tweeting has subsided, and I think I've just about finished digesting the enormous conference dinner.  It was a lot of fun, with [a host of dedicated FOI activists and hackers](http://www.alaveteli.org/about-2/alavetelicon-april-2012/delegates/) who could only make it thanks to the generous funding provided by [Open Society Foundation](http://www.soros.org/) and [Hivos](http://www.hivos.nl/).

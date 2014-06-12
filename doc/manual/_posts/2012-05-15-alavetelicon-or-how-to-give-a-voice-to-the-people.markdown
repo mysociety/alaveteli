@@ -6,8 +6,6 @@ layout: post
 slug: alavetelicon-or-how-to-give-a-voice-to-the-people
 title: Alavetelicon, or how to give a voice to the people
 wordpress_id: 348
-categories:
-- Uncategorised
 ---
 
 _This guest post by Romina Colman from Argentina is a translation of her [original article at La Nacion](http://blogs.lanacion.com.ar/data/mundo/conferencia-de-alaveteli-o-de-como-darle-voz-a-la-sociedad-civil/)_

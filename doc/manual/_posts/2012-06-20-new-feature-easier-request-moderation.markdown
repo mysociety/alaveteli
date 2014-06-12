@@ -6,8 +6,6 @@ layout: post
 slug: new-feature-easier-request-moderation
 title: 'New feature: easier request moderation'
 wordpress_id: 361
-categories:
-- Uncategorised
 ---
 
 WhatDoTheyKnow [has been criticised in the past](http://2040infolawblog.com/2012/02/09/do-they-know-what/) for not doing more to discourage frivolous or abusive requests.  The vast majority of requests for information are sensible, but we get a some citizens using the site to vent their anger or frustration at something, and a reasonable number of requests which are not really FOI requests at all, made by people who misunderstand the purpose of the site.
