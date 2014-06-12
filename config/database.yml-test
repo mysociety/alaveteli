@@ -1,4 +1,6 @@
 test:
   adapter: postgresql
+  # encoding: utf-8
+  template: template_utf8
   database: foi_test
   username: postgres

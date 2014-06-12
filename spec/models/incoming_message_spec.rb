@@ -224,6 +224,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
         receive_incoming_mail('no-part-charset-random-data.email', ir.incoming_email)
         message = ir.incoming_messages[1]
         message.parse_raw_email!
+        puts message.get_main_body_text_internal
         message.get_main_body_text_internal.should include("The above text was badly encoded")
     end
 

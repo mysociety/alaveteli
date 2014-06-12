@@ -16,7 +16,9 @@ before_install:
   - gem update --system 2.1.11
   - gem install rake --version=0.9.2.2
   - git submodule update --init --recursive
-  - psql -c "create database foi_test template template0 encoding 'SQL_ASCII';" -U postgres
+  - psql -c "create database template_utf8 template template0 encoding 'UTF-8';" -U postgres
+  - psql -c "update pg_database set datistemplate=true where datname='template_utf8';" -U postgres
+  - psql -c "create database foi_test template template_utf8;" -U postgres
   - cp config/database.yml-test config/database.yml
   - cp config/general.yml-example config/general.yml
   - cp config/newrelic.yml-example config/newrelic.yml
