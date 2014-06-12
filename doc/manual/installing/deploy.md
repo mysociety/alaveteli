@@ -14,9 +14,9 @@ title: Deploying
 
 ## Why deploy?
 
-Although you can install Alaveteli in a number of ways, once you're running,
-sooner or later you'll need to make changes to the site. A common example is
-updating your site when we issue a new release.
+Although you can [install Alaveteli]({{ site.baseurl }}installing/) in a number
+of ways, once you're running, sooner or later you'll need to make changes to
+the site. A common example is updating your site when we issue a new release.
 
 The deployment mechanism takes care of putting all the right files into the
 right place, so when you need to put changes live, there's no risk of you
