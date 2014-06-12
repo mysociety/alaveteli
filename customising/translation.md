@@ -28,7 +28,7 @@ need to know about the one that applies to you.
 
 ## Translation process: translator's view
 
-**If you're just working on translating Alavetli into a language you know, then
+**If you're just working on translating Alaveteli into a language you know, then
 this section is for you.**
 
 When a developer adds a new feature to the user interface in Alaveteli, they
