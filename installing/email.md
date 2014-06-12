@@ -6,21 +6,111 @@ title: Installing MTA
 # Installing the MTA
 
 <p class="lead">
-	Alaveteli sends and recieves email. You'll need to set up your Mail
-	Transfer Agent (MTA) to handle this properly.
+	Alaveteli sends and receives email. You'll need to set up your Mail
+	Transfer Agent (MTA) to handle this properly. We've got examples
+  here for both postfix and exim4, two of the most popular MTAs.
 </p>
+
+Make sure you follow the correct instructions for the specific MTA you're using:
+
+* [postfix](#example-setup-on-postfix)
+* [exim4](#example-setup-on-exim4)
+
+## Example setup on postfix
+
+This section shows an example of how to set up your MTA if you're using
+**postfix** (running on Ubuntu). See the example for
+[exim4](#example-setup-on-exim4) if you're using that instead of postfix.
+
+### Instructions
+
+For example, with:
+
+    ALAVETELI_HOME=/path/to/alaveteli/software
+    ALAVETELI_USER=www-data
+
+In `/etc/postfix/master.cf`:
+
+    alaveteli unix  - n n - 50 pipe
+      flags=R user=ALAVETELI_USER argv=ALAVETELI_HOME/script/mailin
+
+The user ALAVETELI_USER should have write permissions on ALAVETELI_HOME.
+
+In `/etc/postfix/main.cf`:
+
+    virtual_alias_maps = regexp:/etc/postfix/regexp
+
+And, assuming you set
+[`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}customising/config/#incoming_email_prefix)
+in `config/general` to "foi+", create `/etc/postfix/regexp` with the following
+content:
+
+    /^foi.*/  alaveteli
+
+You should also configure postfix to discard any messages sent to the
+[`BLACKHOLE_PREFIX`]({{ site.baseurl }}customising/config/#blackhole_prefix)
+address, whose default value is `do-not-reply-to-this-address`. For example, add the
+following to `/etc/aliases`:
+
+    # We use this for envelope from for some messages where
+    # we don't care about delivery
+    do-not-reply-to-this-address:        :blackhole:
+
+### Logging
+
+For the postfix logs to be succesfully read by the script `load-mail-server-logs`, they need
+to be log rotated with a date in the filename. Since that will create a lot of rotated log
+files (one for each day), it's good to have them in their own directory. For example (on Ubuntu),
+in `/etc/rsyslog.d/50-default.conf` set:
+
+    mail.*                  -/var/log/mail/mail.log
+
+And also edit `/etc/logrotate.d/rsyslog`:
+
+    /var/log/mail/mail.log
+    {
+          rotate 30
+          daily
+          dateext
+          missingok
+          notifempty
+          compress
+          delaycompress
+          sharedscripts
+          postrotate
+                  reload rsyslog >/dev/null 2>&1 || true
+          endscript
+    }
+
+You'll also need to tell Alaveteli where the log files are stored and that they're in postfix
+format. Update
+[`MTA_LOG_PATH`]({{ site.baseurl }}customising/config/#mta_log_path) and
+[`MTA_LOG_TYPE`]({{ site.baseurl }}customising/config/#mta_log_type) in `config/general.yml` with:
+
+    MTA_LOG_PATH: '/var/log/mail/mail.log-*'
+    MTA_LOG_TYPE: "postfix"
+
+### Troubleshooting (postfix)
+
+To test mail delivery, run:
+  
+    $ /usr/sbin/sendmail -bv foi+requrest-1234@localhost
+
+This tells you if sending the emails to `foi\+.*localhost` is working. 
+
 
 ## Example setup on exim4
 
-This page shows an example of how to set up your mail transfer agent (MTA).
-These instructions are for **exim4** (running on Ubuntu) -- exim is one of the most
-popular MTAs.
+This section shows an example of how to set up your MTA if you're using
+**exim4** (running on Ubuntu). See the example for
+[postfix](#example-setup-on-postfix) if you're using that instead of exim4.
 
-## Instructions
+
+### Instructions
 
 We suggest you add the following to your exim configuration.
 
-In `/etc/exim4/conf.d/main/04_alaveteli_options`:
+In `/etc/exim4/conf.d/main/04_alaveteli_options`, set:
 
     ALAVETELI_HOME=/path/to/alaveteli/software
     ALAVETELI_USER=www-data
@@ -74,8 +164,7 @@ address, whose default value is
     # We use this for envelope from for some messages where we don't care about delivery
     do-not-reply-to-this-address:        :blackhole:
 
-If you want to make use of the automatic bounce-message handling, then
-set the 
+If you want to make use of the automatic bounce-message handling, then set the 
 [`TRACK_SENDER_EMAIL`]({{ site.baseurl }}customising/config/#track_sender_email)
 address to be filtered through
 `script/handle-mail-replies`. Messages that are not bounces or
@@ -87,7 +176,7 @@ configuration looks like this:
     raw_team: [a list of people on the team]
     team:     |/path/to/alaveteli/software/script/handle-mail-replies
 
-with `FORWARD_NONBOUNCE_RESPONSES_TO: 'raw_team@whatdotheyknow.com'`
+with `FORWARD_NONBOUNCE_RESPONSES_TO`: 'raw_team@whatdotheyknow.com'`
 
 Finally, make sure you have `dc_use_split_config='true'` in
 `/etc/exim4/update-exim4.conf.conf`, and execute the command
@@ -99,9 +188,9 @@ yours does, you will need to rename it before running `update-exim4.conf`.
 
 (You may also want to set `dc_eximconfig_configtype='internet'`,
 `dc_local_interfaces='0.0.0.0 ; ::1'`, and
-`dc_other_hostnames='<your-host-name>'`)
+`dc_other_hostnames='<your-host-name>'`).
 
-## Troubleshooting
+### Troubleshooting (exim)
 
 To test mail delivery, run:
 

@@ -1521,3 +1521,12 @@ table.table td {
   .owl-buttons .owl-next {
     background-image: url("../../theme/img/icon-arrow-right.svg");
     border-radius: 0 3px 3px 0; }
+
+/* AlaveteliCon 2012 bios*/
+.delegate-bio {
+  clear: left;
+  padding-bottom: 1em;
+  border-top: 1px solid #e4e3dd;
+  padding-top: 1.2em;
+}
+

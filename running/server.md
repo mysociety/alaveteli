@@ -65,11 +65,10 @@ achieved with rewrite rules that redirect URLs beginning with `/admin`.
 
 ## Email configuration
 
-See the application-specific 
-[email configuration for exim]({{ site.baseurl }}installing/exim4) for
+See the [configuration for exim or postfix]({{ site.baseurl }}installing/email/) for
 setting up your Mail Transfer Agent (MTA). It is possible to use other MTAs &mdash;
-if you use a different one, the documentation for exim should provide you with 
-enough information to get started. If you do use a different one, please add to the
+if you use a different one, the documentation there should provide you with 
+enough information to get started. If this applies to you, please add to the
 documentation!
 
 On a live server, you should also consider the following, to increase the

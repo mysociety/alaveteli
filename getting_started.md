@@ -188,8 +188,7 @@ custom homepage, different fonts, etc; however, the more you customise the
 site, the harder it is to upgrade in the future; and you'll need a developer
 and/or designer to help do these customisations. We call the custom set of
 colours, fonts, logos etc a "theme"; there are some notes for developers about
-[writing a
-theme](https://github.com/mysociety/alaveteli/blob/master/doc/THEMES.md). You
+[writing a theme]({{ site.baseurl }}customising/themes/). You
 might spend anywhere between 1 and 15 days on this.
 
 ### Legislative differences
@@ -237,10 +236,11 @@ Now is also a good time to start thinking about some of your standard emails
 that you'll be sending out in response to common user queries and
 administrative tasks -- for example, an email that you send to IT departments
 asking them to whitelist emails from your Alaveteli website (if your emails are
-being marked as spam). Review the [Administrator's
-Manual](/running/admin_manual.md) for details on some of the common administrative tasks. There is a list of the
-standard emails used by WhatDoTheyKnow on the [FOI Wiki](
-http://foiwiki.com/foiwiki/index.php/Common_WhatDoTheyKnow_support_responses).
+being marked as spam). See the
+[Administrator's Manual]({{ site.baseurl }}running/admin_manual/) for details
+on some of the common administrative tasks. There is a list of the
+standard emails used by WhatDoTheyKnow on the
+[FOI Wiki](http://foiwiki.com/foiwiki/index.php/Common_WhatDoTheyKnow_support_responses).
 
 ### Other software customisations
 
@@ -311,7 +311,7 @@ review the untranslated strings.
 ## Step five: Test drive the site
 
 For launch, the tech person should review the [Production Server Best
-Practices](FIXME).
+Practices]({{ site.baseurl }}running/server).
 
 A low-key launch, where you tell just a few trusted people about the site, is a
 very good idea. You can then track how things work, and gauge the responses of

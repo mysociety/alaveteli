@@ -25,6 +25,8 @@ Definitions
   <li><a href="#publish">publish</a></li>
   <li><a href="#request">request</a></li>
   <li><a href="#response">response</a></li>
+  <li><a href="#rails">Ruby&nbsp;on&nbsp;Rails</a></li>
+  <li><a href="#sass">Sass</a></li>
   <li><a href="#state">state</a></li>
   <li><a href="#theme">theme</a></li>
 </ul>
@@ -192,8 +194,8 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-			    see these instructions for <a href="{{ site.baseurl }}installing/exim4">configuring exim4</a>,
-          a common MTA
+			    see these instructions for <a href="{{ site.baseurl }}installing/email">configuring your MTA</a>
+          (examples are for exim4 and postfix, two of the most common)
         </li>
       </ul>
     </div>
@@ -234,6 +236,53 @@ Definitions
     Alaveteli automatically <a href="#publish" class="glossary">publishes</a>
     the <a href="#response" class="glossary">responses</a>
     to all the requests it sends.
+  </dd>
+
+  <dt>
+    <a name="rails">Ruby on Rails</a> (also Rails)
+  </dt>
+  <dd>
+    Alaveteli is written in the Ruby programming language, using
+    the web application framework "Ruby on Rails".
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          <a href="http://rubyonrails.org/">Ruby on Rails</a> website
+        </li>
+        <li>
+			    Alavateli's <a href="{{ site.baseurl }}developers/directory_structure/">directory structure</a>
+          is influenced by its use of Ruby on Rails
+        </li>
+      </ul>
+    </div>
+
+  </dd>
+
+  <dt>
+    <a name="sass">Sass</a> (for generating CSS)
+  </dt>
+  <dd>
+    Alaveteli's cascading stylesheets (CSS) control how the pages appear, and
+    are defined using <strong>Sass</strong>. It's technically a CSS extension
+    language, and we use it because it's easier to manage than writing CSS
+    directly (for example, Sass lets you easily make a single change that will
+    be applied to many elements across the whole site).
+    <a href="#rails" class="glossary">Rails</a> notices if you change any of
+    the Sass files, and automatically re-generates the CSS files that the
+    website uses.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          <a href="http://sass-lang.com">Sass website</a>
+        </li>
+        <li>
+          more about <a href="{{ site.baseurl }}customising/themes/#changing-the-colour-scheme">changing
+          your colour scheme</a>, which uses Sass
+        </li>
+      </ul>
+    </div>
   </dd>
 
   <dt>

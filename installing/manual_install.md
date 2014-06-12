@@ -36,7 +36,7 @@ Next, get hold of the Alaveteli source code from github:
     git clone https://github.com/mysociety/alaveteli.git
     cd alaveteli
 
-This will get the development branch, which has the latest (possibly buggy)
+This will get the rails-3-develop branch, which has the latest (possibly buggy)
 code. If you don't want to add or try new features, swap to the master branch
 (which always contains the latest stable release):
 
@@ -206,10 +206,10 @@ to the test config in `database.yml` (as seen in `database.yml-example`)
 
 You will need to set up an email server (MTA) to send and receive emails. Full
 configuration for an MTA is beyond the scope of this document -- see this
-[example config for Exim4]({{ site.baseurl }}installing/exim4).
+[example config for Exim4]({{ site.baseurl }}installing/email).
 
 Note that in development mode mail is handled by mailcatcher by default so
-that you can see the mails in a browser - see http://mailcatcher.me/ for more
+that you can see the mails in a browser - see [http://mailcatcher.me/](http://mailcatcher.me/) for more
 details. Start mailcatcher by running `bundle exec mailcatcher` in your
 application directory.
 
@@ -243,7 +243,7 @@ When you set up your MTA, if there is some error inside Rails, the
 email is returned with an exit code 75, which for Exim at least means the MTA
 will try again later. Additionally, a stacktrace is emailed to `CONTACT_EMAIL`.
 
-See [this example]({{ site.baseurl }}exim4) for a possible configuration for Exim (>=1.9).
+See [this example]({{ site.baseurl }}installing/email/) for a possible configuration for Exim (>=1.9).
 
 A well-configured installation of this code will have had Exim make
 a backup copy of the email in a separate mailbox, just in case.
@@ -322,7 +322,7 @@ Run the following to get the server running:
     bundle exec rails server  --environment=development
 
 By default the server listens on all interfaces. You can restrict it to the
-localhost interface by adding ` --binding=127.0.0.1`
+localhost interface by adding `--binding=127.0.0.1`
 
 The server should have told you the URL to access in your browser to see the
 site in action.
@@ -421,7 +421,7 @@ include the following in an Apache configuration file:
 
 Under all but light loads, it is strongly recommended to run the server behind
 an http accelerator like Varnish. A sample varnish VCL is supplied in
-`../conf/varnish-alaveteli.vcl`.
+`conf/varnish-alaveteli.vcl`.
 
 It's strongly recommended that you run the site over SSL. (Set FORCE_SSL to
 true in config/general.yml). For this you will need an SSL certificate for your
@@ -492,10 +492,10 @@ things that can be automated for deployment.
 
     First, you need to check that your MTA is delivering relevant
     incoming emails to the `script/mailin` command.  There are various
-    ways of setting your MTA up to do this; we have documented one way
-    of doing it in Exim at `doc/INSTALL-exim4.conf`, including a
-    command you can use to check that the email routing is set up
-    correctly.
+    ways of setting your MTA up to do this; we have documented
+    [one way of doing it]({{ site.baseurl }}installing/email/#troubleshooting-exim) 
+    in Exim, including a command you can use to check that the email
+    routing is set up correctly.
 
     Second, you need to test that the mailin script itself is working
     correctly, by running it from the command line, First, find a
