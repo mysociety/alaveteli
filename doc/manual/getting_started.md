@@ -288,7 +288,7 @@ called Transifex. This website allows teams of translators to collaborate in
 one place, using a fairly easy interface.
 
 The Alaveteli page on Transifex is at
-https://www.transifex.net/projects/p/alaveteli/; the translations all live in a
+<https://www.transifex.com/projects/p/alaveteli/>; the translations all live in a
 single translation file called
 [`app.pot`](https://www.transifex.com/projects/p/alaveteli/resource/apppot/).
 
