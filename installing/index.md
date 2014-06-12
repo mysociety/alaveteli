@@ -14,7 +14,7 @@ title: Deploying
 
 ## Before you start
 
-This is important: you need to decide if you installing Alaveteli for
+This is important: you need to decide if you are installing Alaveteli for
 [development]({{ site.baseurl }}glossary/#development) or
 [production]({{ site.baseurl }}glossary/#production).
 
