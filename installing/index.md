@@ -28,7 +28,7 @@ A **production** site is different: you want your production site to run as
 efficiently as possible, so things like caching are swiched on, and debug
 messages switched off. It's important to be able to deploy changes to a
 production site quickly and efficiently, so we recommend you consider using a
-[deployment mechanism]({{ site.baseurl }}installing/deploying/) too.
+[deployment mechanism]({{ site.baseurl }}installing/deploy/) too.
 
 Ideally, you should also have a [staging site]({{ site.baseurl }}glossary/#staging),
 which is used solely to test new code in an identical environment to your
