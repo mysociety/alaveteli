@@ -448,6 +448,7 @@ Definitions
           see <a href="http://en.wikibooks.org/wiki/Regular_Expressions"><em>Regular
           Expressions</em> on wikibooks</a> for more information
         </li>
+      </ul>
     </div>
   </dd>
 
