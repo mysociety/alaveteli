@@ -36,51 +36,112 @@ you're running one, your
 <a href="{{site.baseurl}}glossary/#capistrano" class="glossary">Capistrano</a>
 is included as part of Alaveteli as a standard deployment system.
 
+The basic principle of Capistrano is that you execute `cap [do-something]`
+commands on your local machine, and Capistrano connects to your server (using
+`ssh`) and does the corresponding task there for you.
+
 ### Set up
 
 Capistrano requires things to be set up at both ends -- that is, on the server
 where you want Alaveteli to run, and on your own local machine.
 
+* *the server* is the machine that will be running the Alaveteli
+  instance you're deploying
+
 * your *local machine* may be your laptop or similar device -- as well as those
   belonging to anyone in your team whom you want to be able to deploy
-* *the server* is the machine (possibly on that will be running the Alaveteli instance you're deploying
 
-First you need to customise the deployment settings on your own machine. Copy
-the example file `config/deploy.yml.example` to `config/deploy.yml` and edit
-the settings to suit -- for example, the name of the server.
+In order to allow the Capistrano deployment mechanism work, you need to set up
+the server so that the Alaveteli app is being served from a directory called
+`current`. Once you've done that, deploying a new version is essentially
+creating a timestamped sister directory to the `current` directory, and
+switching the symlink `current` from the old timestamped directory to the new
+one. Things that need to persist between deployments, like config files, are
+kept in a `shared` directory that is at the same level, and symlinked-to from
+each timestamped deploy directory.
 
-These are the general steps required to set up the deployment mechanism:
+We're [working on making this easier](https://github.com/mysociety/alaveteli/issues/1596),
+but for now, here's the manual process you need to follow to set up this
+deployment mechanism. Remember, you only have to do this once to set it up,
+and thereafter you'll be able to deploy very easily (see [usage, below](#usage)).
 
-On your local machine:
+First, on the server:
 
-* Install packages from `config/packages`
-* Install Postgres and configure a user
-* Create a directory to deploy to and make sure your deployment user can write to it
-* Run `cap deploy:setup` to create directories, etc.
-* Run `cap deploy:update_code` so that there's a copy of the example config on the server.
-  This process will take a long time installing gems and suchlike.
-  It will also fail on `rake:themes:install` -- but that's OK
+* [install Alaveteli]({{ site.baseurl }}installing/)
+* then move the Alaveteli app to a temporary place on the server, like your home
+  directory (temporarily, your site will be missing, until the deployment puts
+  new files in place)
 
-Next, on the server:
+Next, on your local machine:
 
-> *Note:* if you've *already* installed Alaveteli, these files may already be in place.
-> Otherwise, you should [install Alaveteli]({{ site.baseurl }}installing/) first.
+* install Capistrano:
+   * Capistrano requires Ruby 1.9 or more, and can be installed using rubygems
+   * do: `gem install capistrano`
+* install Bundler if you don't have it already -- do: `gem install bundler`
+* checkout the [Alaveteli repo](http://github.com/mysociety/alaveteli/) (you
+  need some of the files available locally even though you might not be running
+  Alaveteli on this machine)
+* copy the example file `config/deploy.yml.example` to `config/deploy.yml`
+* now customise the deployment settings in that file: edit `config/deploy.yml`
+  appropriately -- for example, edit the name of the server. Also, change
+  `deploy_to` to be the path where Alaveteli is currently installed on the
+  server -- if you used the installation script, this will be
+  `/var/www/alaveteli/alaveteli`.
+* `cd` into the Alaveteli repo you checked out (otherwise the `cap` commands you're about to 
+  execute won't work)
+* still on your local machine, run `cap -S stage=staging deploy:setup` to setup capistrano on the server
+* again on your local machine, run `cap -S stage=staging  deploy:update_code` to get a code checkout on the server
 
-* change to the `deploy_to` directory
-* `cp releases/[SOME_DATE]/config/general.yml-example shared/general.yml`
-* `cp releases/[SOME_DATE]/config/database.yml-example shared/database.yml`
-* Edit those files to match your required settings
+Back on the server:
 
-Then, back on your local machine:
+* copy the following config files from the temporary copy of Alaveteli you made at
+  the begining (perhaps in your home directory) to the `shared` directory that
+  Capistrano just created on the server:
+   * `general.yml`
+   * `database.yml`
+   * `rails_env.rb`
+   * `newrelic.yml`
+   * `aliases` &larr; if you're using Exim as your MTA
+* if you're using Exim as your MTA, edit the `aliases` file you just copied across
+  so that the path to Alaveteli includes the `current` element. If it was
+  `/var/www/alaveteli/alaveteli/script/mailin`, it should now be
+  `/var/www/alaveteli/alaveteli/current/script/mailin`.
+* copy the following directories from your temporary copy of Alaveteli to the
+  `shared` directory created by Capistrano on the server:
+   * `cache/`
+   * `files/`
 
-* Back on your machine, run `cap deploy` and it should successfully deploy
-* Do the DB migrations: run `cap deploy:migrate`
-* Build the Xapian database: run `cap xapian:rebuild_index`
-* Configure Apache/Passenger with a `DocumentRoot` of `your_deploy_to/current/public`
-* Phew. Time to admire your work by browsing to the server!
+Now, back on your local machine:
 
+* make sure you're still in the Alaveteli repo (if not, `cd` back into it)
+* create a deployment directory on the server by running *one* of these commands:
+   * `cap deploy` if you're deploying a <a href="{{site.baseurl}}glossary/#staging" class="glossary">staging site</a>, or...
+   * `cap -S stage=production deploy` for <a href="{{site.baseurl}}glossary/#production" class="glossary">production</a>
+* update the webserver config (either apache or nginx) to add the `current` element
+  to the path where it is serving Alaveteli from. If you installed using the
+  installation script, this will be replacing `/var/www/alaveteli/alaveteli/` with
+  `/var/www/alaveteli/alaveteli/current` in `etc/nginx/sites-available/default`.
+* edit the server crontab so that the paths in the cron jobs also include the 
+  `current` element. If you used the installation script the crontab will be in
+  `etc/cron.d/alaveteli`.
+* Update the MTA config to include the `current` element in the paths it uses.
+  If you installed using the installation script, the MTA will be postfix,
+  and you will need to edit  `/etc/postfix/master.cf` to replace
+  `argv=/var/www/alaveteli/alaveteli/script/mailin` with
+  `argv=/var/www/alaveteli/alaveteli/current/script/mailin`.
+  If you're using Exim as your MTA, edit `etc/exim4/conf.d/04_alaveteli_options`
+  to update the `ALAVETELI_HOME` variable to the new Alaveteli path. 
+
+Phew, you're done! 
+
+You can delete the temporary copy of Alaveteli (perhaps in your
+home directory) now.
 
 ### Usage
+
+Before you issue any Capistrano commands, `cd` into the checkout of the 
+Alaveteli repo on your local machine (because that's where it will look
+for the config that you've set up).
 
 Ensure you've got a `config/deploy.yml` file with the correct settings for your
 site. If there are other people in your team who need to deploy, you'll need to
@@ -90,6 +151,17 @@ version in a [Gist](http://gist.github.com/).
 * to deploy to staging, just run `cap deploy`
 * to deploy to production, run `cap -S stage=production deploy`
 
+You might notice that, after deploying, the old deploy directory is still there
+-- that is, the one that was `current` until you replaced it with the new one.
+By default, the deploy mechanism keeps the last five deployments there. Run
+`cap deploy:cleanup` to tidy up older versions.
+
 For additional usage instructions, see the [Capistrano
-wiki](https://github.com/capistrano/capistrano/wiki/).
+website](http://capistranorb.com/).
+
+### Whoops, that's not what I expected
+
+If a deployment goes wrong, or you discover after doing it that you're not
+ready for the latest version after all, don't panic! Run `cap deploy:rollback`
+and it will switch `current` back to the previous deployment.
 
