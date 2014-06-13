@@ -25,6 +25,7 @@ Definitions
   <li><a href="#foi">freedom of information</a></li>
   <li><a href="#git">git</a></li>
   <li><a href="#holding_pen">holding pen</a></li>
+  <li><a href="#newrelic">New Relic</a></li>
   <li><a href="#mta">MTA</a></li>
   <li><a href="#production">production site</a></li>
   <li><a href="#publish">publish</a></li>
@@ -304,6 +305,34 @@ Definitions
   </dd>
 
   <dt>
+    <a name="newrelic">New Relic</a>
+  </dt>
+  <dd>
+    Alaveteli can use <strong>New Relic</strong>'s application monitoring tool to track the
+    performance of your <a href="#production" class="glossary">production site</a>. If enabled,
+    data from your application is gathered on the New Relic website, which you can inspect with
+    their visual tools. Basic use is free.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          use the <code>agent_enabled:</code> setting in the
+          the <code>newrelic.yml</code> config file to enable the New Relic analytics.
+          See the <a href="{{ site.baseurl }}installing/manual_install">manual installation</a> instructions.
+        </li>
+        <li>
+          see also the New Relic Ruby Agent <a href="https://github.com/newrelic/rpm">github repo</a> and
+          <a href="https://docs.newrelic.com/docs/ruby/">documentation</a>
+        </li>
+        <li>
+          the <a href="http://newrelic.com">New Relic website</a>: if you've enabled the service,
+          you can log in to inspect the perfomance analytics
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
     <a name="production">production site</a> (also: live, production server)
   </dt>
   <dd>
@@ -448,6 +477,7 @@ Definitions
           see <a href="http://en.wikibooks.org/wiki/Regular_Expressions"><em>Regular
           Expressions</em> on wikibooks</a> for more information
         </li>
+      </ul>
     </div>
   </dd>
 
