@@ -10,18 +10,18 @@ title: Manual installation
     The following instructions describe the step-by-step process for
     installing Alaveteli. <em>You don't necessarily need to do it this
     way:</em> it's usually easier to use the
-    <a href="{{ site.baseurl }}installing/script">installation script</a>
+    <a href="{{ site.baseurl }}docs/installing/script">installation script</a>
     or the
-    <a href="{{ site.baseurl }}installing/ami">Amazon EC2 AMI</a>.
+    <a href="{{ site.baseurl }}docs/installing/ami">Amazon EC2 AMI</a>.
 </p>
 
-Note that there are [other ways to install Alaveteli]({{ site.baseurl }}installing).
+Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing).
 
 ## Target operating system
 
 These instructions assume Debian Squeeze (64-bit) or Ubuntu 12.04 LTS
 (precise). Debian Squeeze is the best supported deployment platform. We also
-have instructions for [installing on MacOS]({{ site.baseurl }}installing/macos).
+have instructions for [installing on MacOS]({{ site.baseurl }}docs/installing/macos).
 
 Commands are intended to be run via the terminal or over ssh.
 
@@ -206,7 +206,7 @@ to the test config in `database.yml` (as seen in `database.yml-example`)
 
 You will need to set up an email server (MTA) to send and receive emails. Full
 configuration for an MTA is beyond the scope of this document -- see this
-[example config for Exim4]({{ site.baseurl }}installing/email).
+[example config for Exim4]({{ site.baseurl }}docs/installing/email).
 
 Note that in development mode mail is handled by mailcatcher by default so
 that you can see the mails in a browser - see [http://mailcatcher.me/](http://mailcatcher.me/) for more
@@ -243,7 +243,7 @@ When you set up your MTA, if there is some error inside Rails, the
 email is returned with an exit code 75, which for Exim at least means the MTA
 will try again later. Additionally, a stacktrace is emailed to `CONTACT_EMAIL`.
 
-See [this example]({{ site.baseurl }}installing/email/) for a possible configuration for Exim (>=1.9).
+See [this example]({{ site.baseurl }}docs/installing/email/) for a possible configuration for Exim (>=1.9).
 
 A well-configured installation of this code will have had Exim make
 a backup copy of the email in a separate mailbox, just in case.
@@ -378,11 +378,11 @@ There is a rake task that will help to rewrite this file into one that is
 useful to you, which can be invoked with:
 
     bundle exec rake config_files:convert_crontab \
-	    DEPLOY_USER=deploy \
-		VHOST_DIR=/dir/above/alaveteli \
-		VCSPATH=alaveteli \
-		SITE=alaveteli \
-		CRONTAB=config/crontab-example > crontab
+      DEPLOY_USER=deploy \
+    VHOST_DIR=/dir/above/alaveteli \
+    VCSPATH=alaveteli \
+    SITE=alaveteli \
+    CRONTAB=config/crontab-example > crontab
 
 You should change the `DEPLOY_USER`, `VHOST_DIR`, `VCSPATH` and `SITE`
 environment variables to match your server and installation. You should also
@@ -433,21 +433,21 @@ this:
     <VirtualHost *:443>
         ServerName www.yourdomain
 
-	    ProxyRequests       Off
-	    ProxyPreserveHost On
-	    ProxyPass           /       http://localhost:80/
-	    ProxyPassReverse    /       http://localhost:80/
-	    RequestHeader set X-Forwarded-Proto 'https'
+      ProxyRequests       Off
+      ProxyPreserveHost On
+      ProxyPass           /       http://localhost:80/
+      ProxyPassReverse    /       http://localhost:80/
+      RequestHeader set X-Forwarded-Proto 'https'
 
-	    SSLEngine on
-	    SSLProtocol all -SSLv2
-	    SSLCipherSuite ALL:!ADH:!EXPORT:!SSLv2:RC4+RSA:+HIGH:+MEDIUM
+      SSLEngine on
+      SSLProtocol all -SSLv2
+      SSLCipherSuite ALL:!ADH:!EXPORT:!SSLv2:RC4+RSA:+HIGH:+MEDIUM
 
-	    SSLCertificateFile /etc/apache2/ssl/ssl.crt
-	    SSLCertificateKeyFile /etc/apache2/ssl/ssl.key
-	    SSLCertificateChainFile /etc/apache2/ssl/sub.class2.server.ca.pem
-	    SSLCACertificateFile /etc/apache2/ssl/ca.pem
-	    SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
+      SSLCertificateFile /etc/apache2/ssl/ssl.crt
+      SSLCertificateKeyFile /etc/apache2/ssl/ssl.key
+      SSLCertificateChainFile /etc/apache2/ssl/sub.class2.server.ca.pem
+      SSLCACertificateFile /etc/apache2/ssl/ca.pem
+      SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
 
     </VirtualHost>
 
@@ -456,7 +456,7 @@ is important. This ultimately tells Rails that it's serving a page over https
 and so it knows to include that in any absolute urls it serves.
 
 We have some [production server best practice
-notes]({{ site.baseurl}}running/server/).
+notes]({{ site.baseurl}}docs/running/server/).
 
 ## Upgrading Alaveteli
 
@@ -492,7 +492,7 @@ things that can be automated for deployment.
     First, you need to check that your MTA is delivering relevant
     incoming emails to the `script/mailin` command.  There are various
     ways of setting your MTA up to do this; we have documented
-    [one way of doing it]({{ site.baseurl }}installing/email/#troubleshooting-exim) 
+    [one way of doing it]({{ site.baseurl }}docs/installing/email/#troubleshooting-exim)
     in Exim, including a command you can use to check that the email
     routing is set up correctly.
 

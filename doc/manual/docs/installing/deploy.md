@@ -8,13 +8,13 @@ title: Deploying
 <p class="lead">
   Although you can install Alaveteli and just change it when you need it, we
   recommend you adopt a way of <strong>deploying</strong> it automatically,
-  especially on your <a href="{{ site.baseurl }}glossary/#production">production server</a>.
+  especially on your <a href="{{ site.baseurl }}docs/glossary/#production">production server</a>.
   Alaveteli provides a deployment mechanism using Capistrano.
 </p>
 
 ## Why deploy?
 
-Although you can [install Alaveteli]({{ site.baseurl }}installing/) in a number
+Although you can [install Alaveteli]({{ site.baseurl }}docs/installing/) in a number
 of ways, once you're running, sooner or later you'll need to make changes to
 the site. A common example is updating your site when we issue a new release.
 
@@ -26,14 +26,14 @@ automatically. It's also more efficient because it is faster than making
 changes or copying files by hand, so your site will be down for the shortest
 possible time.
 
-We **strongly recommend** you use the deployment mechanism for your 
-<a href="{{ site.baseurl }}glossary/#production">production server</a> and, if
-you're running one, your 
-<a href="{{ site.baseurl }}glossary/#staging">staging server</a> too.
+We **strongly recommend** you use the deployment mechanism for your
+<a href="{{ site.baseurl }}docs/glossary/#production">production server</a> and, if
+you're running one, your
+<a href="{{ site.baseurl }}docs/glossary/#staging">staging server</a> too.
 
 ## Capistrano
 
-<a href="{{site.baseurl}}glossary/#capistrano" class="glossary">Capistrano</a>
+<a href="{{site.baseurl}}docs/glossary/#capistrano" class="glossary">Capistrano</a>
 is included as part of Alaveteli as a standard deployment system.
 
 The basic principle of Capistrano is that you execute `cap [do-something]`
@@ -67,7 +67,7 @@ and thereafter you'll be able to deploy very easily (see [usage, below](#usage))
 
 First, on the server:
 
-* [install Alaveteli]({{ site.baseurl }}installing/)
+* [install Alaveteli]({{ site.baseurl }}docs/installing/)
 * then move the Alaveteli app to a temporary place on the server, like your home
   directory (temporarily, your site will be missing, until the deployment puts
   new files in place)
@@ -87,7 +87,7 @@ Next, on your local machine:
   `deploy_to` to be the path where Alaveteli is currently installed on the
   server -- if you used the installation script, this will be
   `/var/www/alaveteli/alaveteli`.
-* `cd` into the Alaveteli repo you checked out (otherwise the `cap` commands you're about to 
+* `cd` into the Alaveteli repo you checked out (otherwise the `cap` commands you're about to
   execute won't work)
 * still on your local machine, run `cap -S stage=staging deploy:setup` to setup capistrano on the server
 * again on your local machine, run `cap -S stage=staging  deploy:update_code` to get a code checkout on the server
@@ -115,13 +115,13 @@ Now, back on your local machine:
 
 * make sure you're still in the Alaveteli repo (if not, `cd` back into it)
 * create a deployment directory on the server by running *one* of these commands:
-   * `cap deploy` if you're deploying a <a href="{{site.baseurl}}glossary/#staging" class="glossary">staging site</a>, or...
-   * `cap -S stage=production deploy` for <a href="{{site.baseurl}}glossary/#production" class="glossary">production</a>
+   * `cap deploy` if you're deploying a <a href="{{site.baseurl}}docs/glossary/#staging" class="glossary">staging site</a>, or...
+   * `cap -S stage=production deploy` for <a href="{{site.baseurl}}docs/glossary/#production" class="glossary">production</a>
 * update the webserver config (either apache or nginx) to add the `current` element
   to the path where it is serving Alaveteli from. If you installed using the
   installation script, this will be replacing `/var/www/alaveteli/alaveteli/` with
   `/var/www/alaveteli/alaveteli/current` in `etc/nginx/sites-available/default`.
-* edit the server crontab so that the paths in the cron jobs also include the 
+* edit the server crontab so that the paths in the cron jobs also include the
   `current` element. If you used the installation script the crontab will be in
   `etc/cron.d/alaveteli`.
 * Update the MTA config to include the `current` element in the paths it uses.
@@ -130,16 +130,16 @@ Now, back on your local machine:
   `argv=/var/www/alaveteli/alaveteli/script/mailin` with
   `argv=/var/www/alaveteli/alaveteli/current/script/mailin`.
   If you're using Exim as your MTA, edit `etc/exim4/conf.d/04_alaveteli_options`
-  to update the `ALAVETELI_HOME` variable to the new Alaveteli path. 
+  to update the `ALAVETELI_HOME` variable to the new Alaveteli path.
 
-Phew, you're done! 
+Phew, you're done!
 
 You can delete the temporary copy of Alaveteli (perhaps in your
 home directory) now.
 
 ### Usage
 
-Before you issue any Capistrano commands, `cd` into the checkout of the 
+Before you issue any Capistrano commands, `cd` into the checkout of the
 Alaveteli repo on your local machine (because that's where it will look
 for the config that you've set up).
 

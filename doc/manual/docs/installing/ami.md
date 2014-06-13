@@ -6,12 +6,12 @@ title: Installing the easy way
 # Installation on Amazon EC2
 
 <p class="lead">
-	We've made an Amazon Machine Image (AMI) so you can quickly deploy on Amazon EC2. This is handy if you just want to evaluate Alaveteli, for example. 
+  We've made an Amazon Machine Image (AMI) so you can quickly deploy on Amazon EC2. This is handy if you just want to evaluate Alaveteli, for example.
 </p>
 
-Note that there are [other ways to install Alaveteli]({{ site.baseurl }}installing).
+Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing).
 
-## Installing from our AMI 
+## Installing from our AMI
 
 To help people try out Alaveteli, we have created an AMI (Amazon Machine Image)
 with a basic installation of Alaveteli, which you can use to create a running
