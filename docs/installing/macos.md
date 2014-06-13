@@ -84,7 +84,7 @@ As of August 22, 2012 or earlier, you can install `mahoro` in Ruby 1.9.3 on OS X
 
 ## Alaveteli
 
-The following is mostly from [the manual installation process]({{ site.baseur l}}/installing/manual_install).
+The following is mostly from [the manual installation process]({{ site.baseurl}}docs/installing/manual_install).
 
 ### Configure database
 
