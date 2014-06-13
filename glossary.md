@@ -18,7 +18,9 @@ Definitions
   <li><a href="#alaveteli">Alaveteli</a></li>
   <li><a href="#agnostic">asker agnostic</a></li>
   <li><a href="#authority">authority</a></li>
+  <li><a href="#blackhole">black hole</a></li>
   <li><a href="#capistrano">Capistrano</a></li>
+  <li><a href="#censor-rule">censor rule</a></li>
   <li><a href="#development">development site</a></li>
   <li><a href="#foi">freedom of information</a></li>
   <li><a href="#git">git</a></li>
@@ -26,6 +28,9 @@ Definitions
   <li><a href="#mta">MTA</a></li>
   <li><a href="#production">production site</a></li>
   <li><a href="#publish">publish</a></li>
+  <li><a href="#recaptcha">recaptcha</a></li>
+  <li><a href="#redact">redacting</a></li>
+  <li><a href="#regexp">regular expression</a></li>
   <li><a href="#request">request</a></li>
   <li><a href="#response">response</a></li>
   <li><a href="#rails">Ruby&nbsp;on&nbsp;Rails</a></li>
@@ -86,6 +91,8 @@ Definitions
       This also serves to reduce duplicate requests, by publishing the answer instead of
       requiring it to be asked again.
     </p>
+  </dd>
+
   <dt>
     <a name="authority">authority</a>
   </dt>
@@ -111,6 +118,32 @@ Definitions
   </dd>
 
   <dt>
+    <a name="blackhole">black hole</a>
+  </dt>
+  <dd>
+    A <strong>black hole</strong> is an email address that accepts and destroys
+    any email messages that are sent to it. Alaveteli uses this for "do not
+    reply" emails, which are usually automatically generated system emails.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          Use the config setting 
+          <code><a href="{{site.baseurl}}customising/config/#blackhole_prefix">BLACKHOLE_PREFIX</a></code>
+          to specify what this email address looks like. 
+        </li>
+        <li>
+          Conversely, see 
+          <code><a href="{{site.baseurl}}customising/config/#contact_email">CONTACT_EMAIL</a></code>
+          to specify the email address to which users' emails (such as support
+          enquiries) will be delivered.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
     <a name="capistrano">Capistrano</a>
   </dt>
   <dd>
@@ -126,6 +159,31 @@ Definitions
         <li>
          The <a href="http://capistranorb.com/">Capistrano website</a> has thorough documentation
          about the tool
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="censor-rule">censor rule</a>
+  </dt>
+  <dd>
+    Alaveteli administrators can define <strong>censor rules</strong> to define
+    which parts of replies or responses should be 
+    <a href="#redact" class="glossary">redacted</a>.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          see the 
+          <a href="{{ site.baseurl }}running/admin_manual/">admin manual</a>
+          for more about censor rules
+        </li>
+        <li>
+          censor rules may simply redact text that exactly matches a 
+          particular sentence or phrase, or may use
+          <a href="regexp">regular expressions</a>
         </li>
       </ul>
     </div>
@@ -243,7 +301,6 @@ Definitions
         </li>
       </ul>
     </div>
-    
   </dd>
 
   <dt>
@@ -301,6 +358,100 @@ Definitions
   </dd>
 
   <dt>
+    <a name="recaptcha">recaptcha</a>
+  </dt>
+  <dd>
+    <strong>Recaptcha</strong> is a mechanism that deters non-human users,
+    such as automated bots, from submitting requests automatically.
+    It requires the (human) user to identify a pattern of letters presented
+    in an image, which is difficult or impossible for a non-human to
+    do. Alaveteli uses this to prevent incoming spam.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          use the config settings
+          <code><a href="{{site.baseurl}}customising/config/#recaptcha_public_key">RECAPTCHA_PUBLIC_KEY</a></code>
+          and
+          <code><a href="{{site.baseurl}}customising/config/#recaptcha_private_key">RECAPTCHA_PRIVATE_KEY</a></code>
+          to set this up. 
+        </li>
+        <li>
+          see the <a href="http://www.google.com/recaptcha/">recaptcha website</a> for more details
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="redact">redacting</a> (also: redaction)
+  </dt>
+  <dd>
+    <strong>Redacting</strong> means removing or hiding part of a message so it
+    cannot be read: you are effectively removing part of a document from
+    your site.
+    <p>
+      This may be necessary for a variety of reasons. For example, a user may
+      accidentally put personal information into their request, or an
+      authority may include it in their response. You may also need to 
+      redact parts of requests or responses that are libellous or legally
+      sensitive.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          see the 
+          <a href="{{ site.baseurl }}running/admin_manual/">admin manual</a>
+          for more about how and when you may need to redact information
+        </li>
+        <li>
+          you can do text-only redaction with Alaveteli's 
+          <a href="#censor-rule" class="glossary">censor rules</a>
+        </li>
+        <li>
+          some things are easier to redact than others &mdash; especially in PDFs,
+          things like signatures or images can be difficult to partially remove.
+          In such cases, you may need to remove the document entirely.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="regexp">regular expression</a> (also: regexp)
+  </dt>
+  <dd>
+    A <strong>regular expression</strong> is a concise way to describe a
+    pattern or sequence of characters, letters or words. As an administrator,
+    you may find regular expressions useful if you need to define <a
+    href="#censor-rule" class="glossary">censor rules</a>. For example, instead
+    of <a href="#redact" class="glossary">redacting</a> just one specific
+    phrase, you can describe a whole range of <em>similar</em> phrases with one
+    single regular expression.
+    <p>
+      Regular expressions can be complicated, but also powerful. If you're not
+      familiar with using them, it's easy to make mistakes. Be careful!
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          for example, the regular expression
+          <code>Jo(e|ey|seph)\s+Blogg?s</code> would match names
+          including
+          "<code>Joe Bloggs</code>", "<code>Joey Bloggs</code>" and
+          "<code>Joseph Blogs</code>", but not 
+          "<code>John Bloggs</code>".
+        </li>
+        <li>
+          see <a href="http://en.wikibooks.org/wiki/Regular_Expressions"><em>Regular
+          Expressions</em> on wikibooks</a> for more information
+        </li>
+    </div>
+  </dd>
+
+  <dt>
     <a name="request">request</a>
   </dt>
   <dd>
@@ -331,7 +482,6 @@ Definitions
         </li>
       </ul>
     </div>
-
   </dd>
 
   <dt>
@@ -416,7 +566,6 @@ Definitions
         </li>
       </ul>
     </div>
-    
   </dd>
 
   <dt>
