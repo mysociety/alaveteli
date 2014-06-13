@@ -455,9 +455,8 @@ Notice the line `RequestHeader` that sets the `X-Forwarded-Proto` header. This
 is important. This ultimately tells Rails that it's serving a page over https
 and so it knows to include that in any absolute urls it serves.
 
-Some [production server best practice
-notes](https://github.com/mysociety/alaveteli/wiki/Production-Server-Best-Practi
-ces) are evolving on the wiki.
+We have some [production server best practice
+notes]({{ site.baseurl}}running/server/).
 
 ## Upgrading Alaveteli
 
