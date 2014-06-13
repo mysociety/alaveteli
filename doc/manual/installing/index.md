@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Deploying
+title: Installing
 ---
 
 # Installing Alaveteli
@@ -25,7 +25,7 @@ worry too much about the efficiency and performance of the site (because it's
 not really getting lots of traffic).
 
 A **production** site is different: you want your production site to run as
-efficiently as possible, so things like cacheing are swiched on, and debug
+efficiently as possible, so things like caching are swiched on, and debug
 messages switched off. It's important to be able to deploy changes to a
 production site quickly and efficiently, so we recommend you consider using a
 [deployment mechanism]({{ site.baseurl }}installing/deploying/) too.

@@ -262,7 +262,9 @@ Definitions
       <a href="#rails" class="glossary">Rails</a> has a "production mode" which does
       this for you: set
       <code><a href="{{site.baseurl}}customising/config/#staging_site">STAGING_SITE</a></code>
-      to <code>0</code>.
+      to <code>0</code>. Note that if you <em>change</em> this setting after you've
+      deployed, the <code>rails_env.rb</code> file that enables Rails's production
+      mode won't be created until you run <code>rails-post-deploy</code>.
     <p>
       If you have a staging server, the system environment of your staging and
       production servers should be identical.
