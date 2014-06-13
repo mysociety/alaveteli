@@ -2,7 +2,8 @@
 layout: page
 title: Upgrading
 ---
-## Upgrading Alaveteli
+Upgrading Alaveteli
+====================
 
 The developer team policy is that the master branch in git should always
 contain the latest stable release. Therefore, in production, you should usually
