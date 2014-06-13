@@ -318,7 +318,7 @@ Definitions
         <li>
           use the <code>agent_enabled:</code> setting in the
           the <code>newrelic.yml</code> config file to enable the New Relic analytics.
-          See the <a href="{{ site.baseurl }}installing/manual_install">manual installation</a> instructions.
+          See the <a href="{{ site.baseurl }}docs/installing/manual_install">manual installation</a> instructions.
         </li>
         <li>
           see also the New Relic Ruby Agent <a href="https://github.com/newrelic/rpm">github repo</a> and
