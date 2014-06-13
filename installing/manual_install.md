@@ -7,12 +7,12 @@ title: Manual installation
 # Manual Installation
 
 <p class="lead">
-	The following instructions describe the step-by-step process for
-	installing Alavetli. <em>You don't necessarily need to do it this
-	way:</em> it's usually easier to use the
-	<a href="{{ site.baseurl }}installing/script">installation script</a>
-	or the
-	<a href="{{ site.baseurl }}installing/ami">Amazon EC2 AMI</a>.
+    The following instructions describe the step-by-step process for
+    installing Alaveteli. <em>You don't necessarily need to do it this
+    way:</em> it's usually easier to use the
+    <a href="{{ site.baseurl }}installing/script">installation script</a>
+    or the
+    <a href="{{ site.baseurl }}installing/ami">Amazon EC2 AMI</a>.
 </p>
 
 Note that there are [other ways to install Alaveteli]({{ site.baseurl }}installing).
@@ -36,7 +36,7 @@ Next, get hold of the Alaveteli source code from github:
     git clone https://github.com/mysociety/alaveteli.git
     cd alaveteli
 
-This will get the development branch, which has the latest (possibly buggy)
+This will get the rails-3-develop branch, which has the latest (possibly buggy)
 code. If you don't want to add or try new features, swap to the master branch
 (which always contains the latest stable release):
 
@@ -209,7 +209,7 @@ configuration for an MTA is beyond the scope of this document -- see this
 [example config for Exim4]({{ site.baseurl }}installing/email).
 
 Note that in development mode mail is handled by mailcatcher by default so
-that you can see the mails in a browser - see http://mailcatcher.me/ for more
+that you can see the mails in a browser - see [http://mailcatcher.me/](http://mailcatcher.me/) for more
 details. Start mailcatcher by running `bundle exec mailcatcher` in your
 application directory.
 
@@ -421,7 +421,7 @@ include the following in an Apache configuration file:
 
 Under all but light loads, it is strongly recommended to run the server behind
 an http accelerator like Varnish. A sample varnish VCL is supplied in
-`../conf/varnish-alaveteli.vcl`.
+`conf/varnish-alaveteli.vcl`.
 
 It's strongly recommended that you run the site over SSL. (Set FORCE_SSL to
 true in config/general.yml). For this you will need an SSL certificate for your
@@ -455,9 +455,8 @@ Notice the line `RequestHeader` that sets the `X-Forwarded-Proto` header. This
 is important. This ultimately tells Rails that it's serving a page over https
 and so it knows to include that in any absolute urls it serves.
 
-Some [production server best practice
-notes](https://github.com/mysociety/alaveteli/wiki/Production-Server-Best-Practi
-ces) are evolving on the wiki.
+We have some [production server best practice
+notes]({{ site.baseurl}}running/server/).
 
 ## Upgrading Alaveteli
 
