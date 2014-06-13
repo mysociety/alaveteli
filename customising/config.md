@@ -637,15 +637,27 @@ THEME_URLS:
     <a name="staging_site"><code>STAGING_SITE</code></a>
   </dt>
   <dd>
-     Is this a staging or development site (1) or a live (production) site (0)?
-     This controls whether or not the <code>rails-post-deploy</code> script
-     will create the file <code>config/rails_env.rb</code> file to force
+     Is this a
+     <a href="{{site.baseurl}}glossary/#staging" class="glossary">staging</a> or
+     <a href="{{site.baseurl}}glossary/#development" class="glossary">development</a> site?
+     If not, it's a live <a href="{{site.baseurl}}glossary/#production" class="glossary">production</a>
+     site. This setting controls whether or not the <code>rails-post-deploy</code>
+     script will create the file <code>config/rails_env.rb</code> file to force
      Rails into production environment.
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul class="examples">
         <li>
-            <code>STAGING_SITE: 1</code>
+            For staging or development:
+            <p>
+              <code>STAGING_SITE: 1</code>
+            </p>
+        </li>
+        <li>
+            For production:
+            <p>
+              <code>STAGING_SITE: 0</code>
+            </p>
         </li>
       </ul>
     </div>
