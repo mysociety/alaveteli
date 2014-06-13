@@ -7,8 +7,8 @@ Glossary
 ====================
 
 <p class="lead">
-	Glossary of terms for Alaveteli, mySociety's freedom of information
- 	platform.
+  Glossary of terms for Alaveteli, mySociety's freedom of information
+  platform.
 </p>
 
 Definitions
@@ -51,7 +51,7 @@ Definitions
     by <a href="http://www.mysociety.org">mySociety</a> for submitting,
     managing and archiving Freedom of Information requests.
     <p>
-      It grew from the successful FOI UK project 
+      It grew from the successful FOI UK project
       <a href="http://www.whatdotheyknow.com">WhatDoTheyKnow</a>.
       We use the name <em>Alaveteli</em> to distinguish the software
       that runs the platform from any specific website that it is powering.
@@ -63,9 +63,9 @@ Definitions
           The Alaveteli website is at <a href="http://www.alaveteli.org">www.alaveteli.org</a>
         </li>
         <li>
-          The name "Alaveteli" comes from 
+          The name "Alaveteli" comes from
           <a href="http://en.wikipedia.org/wiki/Alaveteli,_Finland">Alaveteli in Finland</a>
-          where 
+          where
           <a href="http://en.wikipedia.org/wiki/Anders_Chydenius">an early FOI campaigner</a>
           once worked.
         </li>
@@ -77,13 +77,13 @@ Definitions
     <a name="agnostic">asker agnostic</a>
   </dt>
   <dd>
-	  <a href="#foi" class="glossary">Freedom of Information</a> (FoI) law typically considers
-    the <a href="#response" class="glossary">responses</a> given by the 
+    <a href="#foi" class="glossary">Freedom of Information</a> (FoI) law typically considers
+    the <a href="#response" class="glossary">responses</a> given by the
     <a href="#authority" class="glossary">authorities</a> to be <strong>asker agnostic</strong>. This means
-    that the reply should not be any different depending on <em>who</em> asked for the 
+    that the reply should not be any different depending on <em>who</em> asked for the
     information. One consequence of this is that the response
     can be <a href="#publish" class="glossary">published</a>, because in theory <em>everyone</em>
-    could ask for it and expect, by law, to receive the same information. 
+    could ask for it and expect, by law, to receive the same information.
     <p>
       Despite this, it's still very common all around the world for authorities to reply
       to FoI requests privately, instead of publishing their responses themselves. One of the
@@ -97,7 +97,7 @@ Definitions
     <a name="authority">authority</a>
   </dt>
   <dd>
-	  An <strong>authority</strong> is the term we use for any of the bodies, organisations,
+    An <strong>authority</strong> is the term we use for any of the bodies, organisations,
     departments, or companies to which users can send <a href="#request" class="glossary">requests</a>.
     <div class="more-info">
       <p>More information:</p>
@@ -129,13 +129,13 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          Use the config setting 
-          <code><a href="{{site.baseurl}}customising/config/#blackhole_prefix">BLACKHOLE_PREFIX</a></code>
-          to specify what this email address looks like. 
+          Use the config setting
+          <code><a href="{{site.baseurl}}docs/customising/config/#blackhole_prefix">BLACKHOLE_PREFIX</a></code>
+          to specify what this email address looks like.
         </li>
         <li>
-          Conversely, see 
-          <code><a href="{{site.baseurl}}customising/config/#contact_email">CONTACT_EMAIL</a></code>
+          Conversely, see
+          <code><a href="{{site.baseurl}}docs/customising/config/#contact_email">CONTACT_EMAIL</a></code>
           to specify the email address to which users' emails (such as support
           enquiries) will be delivered.
         </li>
@@ -147,13 +147,13 @@ Definitions
     <a name="capistrano">Capistrano</a>
   </dt>
   <dd>
-	  <strong>Capistrano</strong> is a remote server automation and deployment tool written in Ruby.
-    Alaveteli's deployment mechanism, which is optional, uses it. 
+    <strong>Capistrano</strong> is a remote server automation and deployment tool written in Ruby.
+    Alaveteli's deployment mechanism, which is optional, uses it.
     <div class="more-info">
       <p>More information:</p>
       <ul>
         <li>
-          how to <a href="{{ site.baseurl }}installing/deploy">deploy Alaveteli</a> (and why it's
+          how to <a href="{{ site.baseurl }}docs/installing/deploy">deploy Alaveteli</a> (and why it's
           a good idea)
         </li>
         <li>
@@ -169,19 +169,19 @@ Definitions
   </dt>
   <dd>
     Alaveteli administrators can define <strong>censor rules</strong> to define
-    which parts of replies or responses should be 
+    which parts of replies or responses should be
     <a href="#redact" class="glossary">redacted</a>.
     </p>
     <div class="more-info">
       <p>More information:</p>
       <ul>
         <li>
-          see the 
-          <a href="{{ site.baseurl }}running/admin_manual/">admin manual</a>
+          see the
+          <a href="{{ site.baseurl }}docs/running/admin_manual/">admin manual</a>
           for more about censor rules
         </li>
         <li>
-          censor rules may simply redact text that exactly matches a 
+          censor rules may simply redact text that exactly matches a
           particular sentence or phrase, or may use
           <a href="regexp">regular expressions</a>
         </li>
@@ -194,16 +194,16 @@ Definitions
   </dt>
   <dd>
     A <strong>dev server</strong> is one that is running your Alaveteli site
-    so you can <a href="{{ site.baseurl }}customising/">customise it</a>, experiment
+    so you can <a href="{{ site.baseurl }}docs/customising/">customise it</a>, experiment
     with different settings, and test that it does what you expect.
-    This is different from a 
+    This is different from a
     <a href="#production" class="glossary">production server</a>, which is the one your
     users actually visit running with live data, or a
     <a href="#staging" class="glossary">staging server</a>,
     which is used for testing code before it goes live.
     <p>
       On your dev server, you should set
-      <code><a href="{{site.baseurl}}customising/config/#staging_site">STAGING_SITE</a></code>
+      <code><a href="{{site.baseurl}}docs/customising/config/#staging_site">STAGING_SITE</a></code>
       to <code>1</code>.
     </p>
   </dd>
@@ -252,7 +252,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          See the <a href="{{ site.baseurl }}installing">installation instructions</a> which will
+          See the <a href="{{ site.baseurl }}docs/installing">installation instructions</a> which will
           clone the Alaveteli repo.
         </li>
         <li>
@@ -271,13 +271,13 @@ Definitions
     <a name="holding pen">holding pen</a>
   </dt>
   <dd>
-    The <strong>holding pen</strong> is the conceptual place where responses that 
+    The <strong>holding pen</strong> is the conceptual place where responses that
     could not be delivered are held. They need attention from a administrator.
     <div class="more-info">
       <p>More information:</p>
       <ul>
         <li>
-			    see the <a href="{{ site.baseurl }}running/admin_manual">admin manual</a> for
+          see the <a href="{{ site.baseurl }}docs/running/admin_manual">admin manual</a> for
           information on dealing with emails in the holding pen
         </li>
       </ul>
@@ -296,7 +296,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-			    see these instructions for <a href="{{ site.baseurl }}installing/email">configuring your MTA</a>
+          see these instructions for <a href="{{ site.baseurl }}docs/installing/email">configuring your MTA</a>
           (examples are for exim4 and postfix, two of the most common)
         </li>
       </ul>
@@ -308,9 +308,9 @@ Definitions
   </dt>
   <dd>
     A <strong>production server</strong> is one that is running your Alaveteli site
-    for real users, with live data. This is different from a 
+    for real users, with live data. This is different from a
     <a href="#development" class="glossary">development server</a>, which you use make your
-    customisation and environment changes and try to get them to all work OK, or a 
+    customisation and environment changes and try to get them to all work OK, or a
     <a href="#staging" class="glossary">staging server</a>, which is used for testing code
     and configuration after it's been finished but before it goes live.
     <p>
@@ -318,7 +318,7 @@ Definitions
       example, caching is enabled, and debugging switched off.
       <a href="#rails" class="glossary">Rails</a> has a "production mode" which does
       this for you: set
-      <code><a href="{{site.baseurl}}customising/config/#staging_site">STAGING_SITE</a></code>
+      <code><a href="{{site.baseurl}}docs/customising/config/#staging_site">STAGING_SITE</a></code>
       to <code>0</code>. Note that if you <em>change</em> this setting after you've
       deployed, the <code>rails_env.rb</code> file that enables Rails's production
       mode won't be created until you run <code>rails-post-deploy</code>.
@@ -328,8 +328,8 @@ Definitions
     </p>
     <p>
       You should never need to edit code directly on your production server.
-      We strongly recommend you use Alaveteli's 
-      <a href="{{ site.baseurl }}installing/deploy/">deployment mechanism</a>
+      We strongly recommend you use Alaveteli's
+      <a href="{{ site.baseurl }}docs/installing/deploy/">deployment mechanism</a>
       (using Capistrano) to make changes to your production site.
     </p>
   </dd>
@@ -338,8 +338,8 @@ Definitions
     <a name="publish">publish</a>
   </dt>
   <dd>
-    Alaveteli works by <strong>publishing</strong> the 
-    <a href="#response" class="glossary">responses</a> it recieves to the 
+    Alaveteli works by <strong>publishing</strong> the
+    <a href="#response" class="glossary">responses</a> it recieves to the
     <a href="#foi" class="glossary">Freedom of Information</a>
     <a href="#request" class="glossary">requests</a> that its users send.
     It does this by processing the emails it receives and presenting them
@@ -352,8 +352,8 @@ Definitions
     <a name="response">response</a>
   </dt>
   <dd>
-	  A <strong>response</strong> is the email sent by an 
-     <a href="#authority" class="glossary">authority</a> in reply to 
+    A <strong>response</strong> is the email sent by an
+     <a href="#authority" class="glossary">authority</a> in reply to
      a user's  <a href="#request" class="glossary">requests</a>.
   </dd>
 
@@ -371,10 +371,10 @@ Definitions
       <ul>
         <li>
           use the config settings
-          <code><a href="{{site.baseurl}}customising/config/#recaptcha_public_key">RECAPTCHA_PUBLIC_KEY</a></code>
+          <code><a href="{{site.baseurl}}docs/customising/config/#recaptcha_public_key">RECAPTCHA_PUBLIC_KEY</a></code>
           and
-          <code><a href="{{site.baseurl}}customising/config/#recaptcha_private_key">RECAPTCHA_PRIVATE_KEY</a></code>
-          to set this up. 
+          <code><a href="{{site.baseurl}}docs/customising/config/#recaptcha_private_key">RECAPTCHA_PRIVATE_KEY</a></code>
+          to set this up.
         </li>
         <li>
           see the <a href="http://www.google.com/recaptcha/">recaptcha website</a> for more details
@@ -393,7 +393,7 @@ Definitions
     <p>
       This may be necessary for a variety of reasons. For example, a user may
       accidentally put personal information into their request, or an
-      authority may include it in their response. You may also need to 
+      authority may include it in their response. You may also need to
       redact parts of requests or responses that are libellous or legally
       sensitive.
     </p>
@@ -401,12 +401,12 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          see the 
-          <a href="{{ site.baseurl }}running/admin_manual/">admin manual</a>
+          see the
+          <a href="{{ site.baseurl }}docs/running/admin_manual/">admin manual</a>
           for more about how and when you may need to redact information
         </li>
         <li>
-          you can do text-only redaction with Alaveteli's 
+          you can do text-only redaction with Alaveteli's
           <a href="#censor-rule" class="glossary">censor rules</a>
         </li>
         <li>
@@ -441,7 +441,7 @@ Definitions
           <code>Jo(e|ey|seph)\s+Blogg?s</code> would match names
           including
           "<code>Joe Bloggs</code>", "<code>Joey Bloggs</code>" and
-          "<code>Joseph Blogs</code>", but not 
+          "<code>Joseph Blogs</code>", but not
           "<code>John Bloggs</code>".
         </li>
         <li>
@@ -455,9 +455,9 @@ Definitions
     <a name="request">request</a>
   </dt>
   <dd>
-    In Alaveteli, a <strong>request</strong> is the 
+    In Alaveteli, a <strong>request</strong> is the
     <a href="#foi" class="glossary">Freedom of Information</a> request
-    that a user enters, and which the site then emails to the relevant 
+    that a user enters, and which the site then emails to the relevant
     <a href="#authority" class="glossary">authority</a>.
     Alaveteli automatically <a href="#publish" class="glossary">publishes</a>
     the <a href="#response" class="glossary">responses</a>
@@ -477,7 +477,7 @@ Definitions
           <a href="http://rubyonrails.org/">Ruby on Rails</a> website
         </li>
         <li>
-			    Alavateli's <a href="{{ site.baseurl }}developers/directory_structure/">directory structure</a>
+          Alavateli's <a href="{{ site.baseurl }}docs/developers/directory_structure/">directory structure</a>
           is influenced by its use of Ruby on Rails
         </li>
       </ul>
@@ -503,7 +503,7 @@ Definitions
           <a href="http://sass-lang.com">Sass website</a>
         </li>
         <li>
-          more about <a href="{{ site.baseurl }}customising/themes/#changing-the-colour-scheme">changing
+          more about <a href="{{ site.baseurl }}docs/customising/themes/#changing-the-colour-scheme">changing
           your colour scheme</a>, which uses Sass
         </li>
       </ul>
@@ -522,7 +522,7 @@ Definitions
     site your users visit running with live data.
     <p>
       On your staging server, you should set
-      <code><a href="{{site.baseurl}}customising/config/#staging_site">STAGING_SITE</a></code>
+      <code><a href="{{site.baseurl}}docs/customising/config/#staging_site">STAGING_SITE</a></code>
       to <code>1</code>.
     </p>
     <p>
@@ -531,8 +531,8 @@ Definitions
     </p>
     <p>
       You should never need to edit code directly on your production or staging servers.
-      We strongly recommend you use Alaveteli's 
-      <a href="{{ site.baseurl }}installing/deploy/">deployment mechanism</a>
+      We strongly recommend you use Alaveteli's
+      <a href="{{ site.baseurl }}docs/installing/deploy/">deployment mechanism</a>
       (using Capistrano) to make changes to these sites.
     </p>
   </dd>
@@ -543,8 +543,8 @@ Definitions
   <dd>
     Each <a href="#request" class="glossary">request</a> passes through different
     <strong>states</strong> as it progresses through the system.
-    States help Alaveteli administrators, as well as the public, 
-    understand the current situation with any request and what 
+    States help Alaveteli administrators, as well as the public,
+    understand the current situation with any request and what
     action, if any, is required.
     <p>
       The states available can be customised within
@@ -554,15 +554,15 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-			    <a href="{{ site.baseurl }}running/states">example states for WhatDoTheyKnow</a>
+          <a href="{{ site.baseurl }}docs/running/states">example states for WhatDoTheyKnow</a>
           (Alaveteli site running in the UK)
         </li>
         <li>
-			    for comparison, <a href="{{ site.baseurl }}running/states_informatazyrtare">example states for InformataZyrtare</a>
+          for comparison, <a href="{{ site.baseurl }}docs/running/states_informatazyrtare">example states for InformataZyrtare</a>
           (Alaveteli site running in Kosovo)
         </li>
         <li>
-          to customise or add your own states, see <a href="{{ site.baseurl }}customising/themes">Customising the request states</a>
+          to customise or add your own states, see <a href="{{ site.baseurl }}docs/customising/themes">Customising the request states</a>
         </li>
       </ul>
     </div>
@@ -572,15 +572,16 @@ Definitions
     <a name="theme">theme</a>
   </dt>
   <dd>
-	  A <strong>theme</strong> is the collection of changes to the templates
-	  and the code that causes the site to look or behave differently from the 
-	  default. Typically you'll need a theme to make Alaveteli show your own
-	  brand.
+    A <strong>theme</strong> is the collection of changes to the templates
+    and the code that causes the site to look or behave differently from the
+    default. Typically you'll need a theme to make Alaveteli show your own
+    brand.
     <div class="more-info">
       <p>More information:</p>
       <ul>
         <li>
-			<a href="{{ site.baseurl }}customising/themes">about themes</a>
+      <a href="{{ site.baseurl }}docs/customising
+/themes">about themes</a>
         </li>
       </ul>
     </div>

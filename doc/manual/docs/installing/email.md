@@ -6,8 +6,8 @@ title: Installing MTA
 # Installing the MTA
 
 <p class="lead">
-	Alaveteli sends and receives email. You'll need to set up your Mail
-	Transfer Agent (MTA) to handle this properly. We've got examples
+  Alaveteli sends and receives email. You'll need to set up your Mail
+  Transfer Agent (MTA) to handle this properly. We've got examples
   here for both postfix and exim4, two of the most popular MTAs.
 </p>
 
@@ -41,14 +41,14 @@ In `/etc/postfix/main.cf`:
     virtual_alias_maps = regexp:/etc/postfix/regexp
 
 And, assuming you set
-[`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}customising/config/#incoming_email_prefix)
+[`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}docs/customising/config/#incoming_email_prefix)
 in `config/general` to "foi+", create `/etc/postfix/regexp` with the following
 content:
 
     /^foi.*/  alaveteli
 
 You should also configure postfix to discard any messages sent to the
-[`BLACKHOLE_PREFIX`]({{ site.baseurl }}customising/config/#blackhole_prefix)
+[`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix)
 address, whose default value is `do-not-reply-to-this-address`. For example, add the
 following to `/etc/aliases`:
 
@@ -84,8 +84,8 @@ And also edit `/etc/logrotate.d/rsyslog`:
 
 You'll also need to tell Alaveteli where the log files are stored and that they're in postfix
 format. Update
-[`MTA_LOG_PATH`]({{ site.baseurl }}customising/config/#mta_log_path) and
-[`MTA_LOG_TYPE`]({{ site.baseurl }}customising/config/#mta_log_type) in `config/general.yml` with:
+[`MTA_LOG_PATH`]({{ site.baseurl }}docs/customising/config/#mta_log_path) and
+[`MTA_LOG_TYPE`]({{ site.baseurl }}docs/customising/config/#mta_log_type) in `config/general.yml` with:
 
     MTA_LOG_PATH: '/var/log/mail/mail.log-*'
     MTA_LOG_TYPE: "postfix"
@@ -93,10 +93,10 @@ format. Update
 ### Troubleshooting (postfix)
 
 To test mail delivery, run:
-  
+
     $ /usr/sbin/sendmail -bv foi+requrest-1234@localhost
 
-This tells you if sending the emails to `foi\+.*localhost` is working. 
+This tells you if sending the emails to `foi\+.*localhost` is working.
 
 
 ## Example setup on exim4
@@ -148,15 +148,15 @@ In `/etc/exim4/conf.d/transport/04_alaveteli`:
        user = ALAVETELI_USER
        group = ALAVETELI_USER
 
-And, assuming you set 
-[`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}customising/config/#incoming_email_prefix)
+And, assuming you set
+[`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}docs/customising/config/#incoming_email_prefix)
 in your config at `config/general.yml` to "foi+", create `config/aliases` with the following
 content:
 
     ^foi\\+.*: |/path/to/alaveteli/software/script/mailin
 
 You should also configure exim to discard any messages sent to the
-[`BLACKHOLE_PREFIX`]({{ site.baseurl }}customising/config/#blackhole_prefix)
+[`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix)
 address, whose default value is
 `do-not-reply-to-this-address`. For example, add the following to
 `config/aliases`:
@@ -164,12 +164,12 @@ address, whose default value is
     # We use this for envelope from for some messages where we don't care about delivery
     do-not-reply-to-this-address:        :blackhole:
 
-If you want to make use of the automatic bounce-message handling, then set the 
-[`TRACK_SENDER_EMAIL`]({{ site.baseurl }}customising/config/#track_sender_email)
+If you want to make use of the automatic bounce-message handling, then set the
+[`TRACK_SENDER_EMAIL`]({{ site.baseurl }}docs/customising/config/#track_sender_email)
 address to be filtered through
 `script/handle-mail-replies`. Messages that are not bounces or
 out-of-office autoreplies will be forwarded to
-[`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ site.baseurl }}customising/config/#forward_nonbounce_responses_to).
+[`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ site.baseurl }}docs/customising/config/#forward_nonbounce_responses_to).
 For example, in WhatDoTheyKnow the
 configuration looks like this:
 
