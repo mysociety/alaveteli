@@ -11,18 +11,18 @@ title: Running
 </p>
 
 Alaveteli is not just software. To run a successful
-<a href="{{ site.baseurl }}glossary/#foi" class="glossary">Freedom of Information</a>
+<a href="{{ site.baseurl }}docs/glossary/#foi" class="glossary">Freedom of Information</a>
 site, you need to make sure day-to-day tasks get done too. Most Alaveteli sites
 are run by a team who allocate some time every day to user support and generally keeping
 the project up to date.
 
-* the [administrator's guide]({{ site.baseurl }}running/admin_manual) describes
+* the [administrator's guide]({{ site.baseurl }}docs/running/admin_manual) describes
   what you need to do and know to run your site
 
 * we've prepared a checklist of
-  [things to consider]({{ site.baseurl }}running/server)
+  [things to consider]({{ site.baseurl }}docs/running/server)
   when setting up your production server
 
-* see the [different states a request can be in]({{ site.baseurl }}running/states)
+* see the [different states a request can be in]({{ site.baseurl }}docs/running/states)
 
 

@@ -6,7 +6,7 @@ title: Administrator's guide
 # Alaveteli administrator's guide
 
 <p class="lead">
-	What is it like running an Alaveteli site? This guide explains what you can expect, and the types of problem that you might encounter. It includes examples of how mySociety manages their own <a href="/glossary/#foi" class="glossary">Freedom of Information</a> site, <a href="http://www.whatdotheyknow.com">whatdotheyknow.com</a>.
+  What is it like running an Alaveteli site? This guide explains what you can expect, and the types of problem that you might encounter. It includes examples of how mySociety manages their own <a href="/docs/glossary/#foi" class="glossary">Freedom of Information</a> site, <a href="http://www.whatdotheyknow.com">whatdotheyknow.com</a>.
 </p>
 
 ## What's involved?
@@ -40,9 +40,9 @@ During that week, the tasks broke down as follows:
 
 ### Regular maintenance tasks
 
-* 18 misdelivered / undelivered responses (a.k.a. the "Holding Pen") 
+* 18 misdelivered / undelivered responses (a.k.a. the "Holding Pen")
 * 4 requests that are unclassified 21 days after response needing classification
-* 2 requests that have been marked as needing admin attention 
+* 2 requests that have been marked as needing admin attention
 * 2 things marked as errors (message refused by server - spam, full mailbox, etc) to fix
 
 ### User interaction tasks
@@ -90,12 +90,12 @@ legal action. The scenario will vary wildly across different legal
 jurisdictions. In the UK, this kind of request is most likely to be related to
 defamation.
 
-##### Action 
+##### Action
 
 * Get the notification by email to a central support email address, so there is
   a written record
 * Act according to standard legal advice (e.g. you may need to temporarily take
-  down requests while you debate it, even if you think they should stay up; or 
+  down requests while you debate it, even if you think they should stay up; or
   you may be able to redact them temporarily rather than take them down)
 * Centrally log the entire conversation and the actions you have taken
 * Get further legal advice where necessary.  For example, you may get a risk
@@ -118,11 +118,11 @@ copyright assertions are made about content, but this is the most common one.
 
 ##### Example email to authority
 
-> As I'm sure you know, our Freedom of Information law is "applicant blind", 
+> As I'm sure you know, our Freedom of Information law is "applicant blind",
 > so anyone in the world can request the same document and get a copy of it.
 > To save tax payers' money by preventing duplicate requests, and for good
 > public relations, we'd advise you not to ask us to take down the
-> information or to apply for a license. I would also note that 
+> information or to apply for a license. I would also note that
 > &lt;authority_name&gt; has allowed re-use of FOI responses through our
 > website since last year, without any trouble.
 
@@ -143,7 +143,7 @@ user of the site who later develops "Google remorse".
   much higher level of public interest.
 * [WhatDoTheyKnow considers](http://www.whatdotheyknow.com/help/privacy#takedown) there to be a
   strong public interest in retaining the names of officers or servants of
-  public authorities 
+  public authorities
 * For users who want their name removed entirely from the site, in the first
   instance, try to persuade them not to do so:
 * Find out why they want their name removing
@@ -227,16 +227,16 @@ Two common examples are:
 
 > I would like to know at this stage under the freedom act can ask
 > directly to UK embassies or high commission abroad to disclose some
-> information. or I have to contact FCO through this website. 
+> information. or I have to contact FCO through this website.
 
 ##### Example response:
 
 > I would suggest making your request to the FCO as they are they body
-> technically subject to the Freedom of Information Act. 
+> technically subject to the Freedom of Information Act.
 >
 > When you make your request it will be sent to the FCO's central FOI team they
 > will then co-ordinate the response with the relevant parts of their
-> organisation. 
+> organisation.
 
 
 ### General assistance required
@@ -249,7 +249,7 @@ Can be for many reasons, e.g.
   themselves
 * A reply has been automatically filed under the wrong request
 
-## Vexatious users 
+## Vexatious users
 
 Some users persistently misuse the website. An alaveteli site should have a
 policy on banning users, for example giving them a first warning, informing

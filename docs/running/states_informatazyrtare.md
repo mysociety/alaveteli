@@ -9,11 +9,11 @@ title: States of requests (InformataZyrtare)
   This page shows differences between states used on two different
   Alaveteli instances &mdash; one in Kosovo and one in the UK. This
   is a practical example showing that you can customise the states that
-  your site uses. 
+  your site uses.
 </p>
 
 The request states are defined in the Alaveteli code, and we recommend you use
-them (provided they match the <a href="{{ site.baseurl }}glossary/#foi"
+them (provided they match the <a href="{{ site.baseurl }}docs/glossary/#foi"
 class="glossary">FOI law</a> in your own jurisdiction).
 
 ## InformataZyrtare.org (Kosovo) example
@@ -29,7 +29,7 @@ facilitates this by allowing you to customise the states that are used.
 
 This example is to show clearly that you can use different states depending on
 your local requirements, and how that might look. See [Customising the request
-states]({{ site.baseurl }}customising/themes) for details on how to do this.
+states]({{ site.baseurl }}docs/customising/themes) for details on how to do this.
 
 ### States used by InformataZyrtare but not WDTK
 
@@ -39,13 +39,13 @@ states]({{ site.baseurl }}customising/themes) for details on how to do this.
 
 ### States used by WDTK but not InformataZyrtare
 
-   * <a href="{{ site.baseurl }}running/states/#awaiting_description">awaiting_description</a>
-   * <a href="{{ site.baseurl }}running/states/#gone_postal">gone_postal</a>
-   * <a href="{{ site.baseurl }}running/states/#internal_review">internal_review</a>
-   * <a href="{{ site.baseurl }}running/states/#user_withdrawn">user_withdrawn</a>
-   * <a href="{{ site.baseurl }}running/states/#waiting_response_very_overdue">waiting_response_very_overdue</a>
+   * <a href="{{ site.baseurl }}docs/running/states/#awaiting_description">awaiting_description</a>
+   * <a href="{{ site.baseurl }}docs/running/states/#gone_postal">gone_postal</a>
+   * <a href="{{ site.baseurl }}docs/running/states/#internal_review">internal_review</a>
+   * <a href="{{ site.baseurl }}docs/running/states/#user_withdrawn">user_withdrawn</a>
+   * <a href="{{ site.baseurl }}docs/running/states/#waiting_response_very_overdue">waiting_response_very_overdue</a>
 
-For more details, see all the [states used by WhatDoTheyKnow]({{site.baseurl}}running/states)) for details.
+For more details, see all the [states used by WhatDoTheyKnow]({{site.baseurl}}docs/running/states)) for details.
 
 
 ---
@@ -54,10 +54,10 @@ For more details, see all the [states used by WhatDoTheyKnow]({{site.baseurl}}ru
 
 ### Details of InformataZytare states
 
-The states which aren't represented on [WDTK's states]({{ site.baseurl }}running/states/) are described
+The states which aren't represented on [WDTK's states]({{ site.baseurl }}docs/running/states/) are described
 in a little more detail here:
 
-<ul class="definitions">  
+<ul class="definitions">
   <li><a href="#deadline_extended">deadline_extended</a></li>
   <li><a href="#partial_rejected">partial_rejected</a></li>
   <li><a href="#wrong_response">wrong_response</a></li>

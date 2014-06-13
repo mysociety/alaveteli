@@ -6,12 +6,12 @@ title: Installing on MacOS X
 # Installation on MacOS X
 
 <p class="lead">
-	We don't recommend using OS X in production, but if you want to get
-	Alaveteli running on your Mac for development, these guidelines should
-	help. 
+  We don't recommend using OS X in production, but if you want to get
+  Alaveteli running on your Mac for development, these guidelines should
+  help.
 </p>
 
-Note that there are [other ways to install Alaveteli]({{ site.baseurl }}installing).
+Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing).
 
 ## MacOS X 10.7
 
@@ -96,7 +96,7 @@ Creates Alaveteli databases and an `foi` user with password `foi`.
     ALTER USER foi WITH PASSWORD 'foi';
     ALTER USER foi WITH CREATEDB;
     GRANT ALL PRIVILEGES ON DATABASE foi_development TO foi;
-    GRANT ALL PRIVILEGES ON DATABASE foi_test TO foi;       
+    GRANT ALL PRIVILEGES ON DATABASE foi_test TO foi;
     ALTER DATABASE foi_development OWNER TO foi;
     ALTER DATABASE foi_test OWNER TO foi;" | psql -h localhost template1
 
@@ -107,9 +107,9 @@ We don't want to vendor Rails, as it causes problems locally.
     git clone https://github.com/mysociety/alaveteli.git
     cd alaveteli
     git submodule init
-    
+
     sed -i~ 's/\\&#91;submodule "vendor\/rails"\\&#93;//' .git/config
-    
+
     sed -i~ 's/url = git:\/\/github.com\/rails\/rails.git//' .git/config
     git submodule update
 
