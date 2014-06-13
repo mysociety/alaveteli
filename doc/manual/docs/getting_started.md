@@ -109,7 +109,7 @@ advantage if they do.
 
 You'll also need to source a server. You should ask your tech person to help
 with this. The minimum spec for running a low traffic website is 512MB RAM and
-a 20GB disk. 2GB RAM would be ideal. We recommend Debian Squeeze as the
+a 20GB disk. 2GB RAM would be ideal. We recommend Debian Squeeze 64-bit as the
 operating system, though any sort of Linux should do. Rackspace offer suitable
 cloud servers, which start out at around $25 / month. Then your tech person
 should follow the [installation documentation]({{ site.baseurl }}docs/installing).

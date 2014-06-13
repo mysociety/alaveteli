@@ -81,7 +81,7 @@ The repositories above let you install `wkhtmltopdf-static` using `apt`.
 ### Packages customised by mySociety
 
 If you're using Debian, you should add the mySociety Debian archive to your
-apt sources.
+apt sources. Note that mySociety packages are currently only built for 64-bit Debian.
 
     cat > /etc/apt/sources.list.d/mysociety-debian.list <<EOF
     deb http://debian.mysociety.org squeeze main
