@@ -37,7 +37,7 @@ describe LinkToHelper do
                 incoming_message_url(@incoming_message).should include('#incoming-32')
             end
 
-            it 'includes does not cache by default' do
+            it 'does not cache by default' do
                 incoming_message_url(@incoming_message).should_not include('nocache=incoming-32')
             end
 
@@ -75,7 +75,7 @@ describe LinkToHelper do
                 outgoing_message_url(@outgoing_message).should include('#outgoing-32')
             end
 
-            it 'includes does not cache by default' do
+            it 'does not cache by default' do
                 outgoing_message_url(@outgoing_message).should_not include('nocache=outgoing-32')
             end
 
