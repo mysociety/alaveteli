@@ -28,19 +28,19 @@ module LinkToHelper
 
     # Incoming / outgoing messages
     def incoming_message_url(incoming_message, options = {})
-        return request_url(incoming_message.info_request, options.merge(:anchor => "incoming-#{incoming_message.id}"))
+        message_url(incoming_message, options)
     end
 
     def incoming_message_path(incoming_message)
-        incoming_message_url(incoming_message, :only_path => true)
+        message_path(incoming_message)
     end
 
     def outgoing_message_url(outgoing_message, options = {})
-        request_url(outgoing_message.info_request, options.merge(:anchor => "outgoing-#{outgoing_message.id}"))
+        message_url(outgoing_message, options)
     end
 
     def outgoing_message_path(outgoing_message)
-        outgoing_message_url(outgoing_message, :only_path => true)
+        message_path(outgoing_message)
     end
 
     def comment_url(comment, options = {})
@@ -279,73 +279,30 @@ module LinkToHelper
         end
     end
 
-    # Public: Usually-correct format for a DateTime-ish object
-    # To define a new new format define the `simple_date_{FORMAT}` method
-    #
-    # date - a DateTime, Date or Time
-    # opts - a Hash of options (default: { format: :html})
-    #        :format - :html returns a HTML <time> tag
-    #                  :text returns a plain String
-    #
-    # Examples
-    #
-    #   simple_date(Time.now)
-    #   # => "<time>..."
-    #
-    #   simple_date(Time.now, :format => :text)
-    #   # => "March 10, 2014"
-    #
-    # Returns a String
-    # Raises ArgumentError if the format is unrecognized
-    def simple_date(date, opts = {})
-        opts = { :format => :html }.merge(opts)
-        date_formatter = "simple_date_#{ opts[:format] }"
-
-        if respond_to?(date_formatter)
-            send(date_formatter, date)
-        else
-            raise ArgumentError, "Unrecognised format :#{ opts[:format] }"
-        end
-    end
-
-    # Usually-correct HTML formatting of a DateTime-ish object
-    # Use LinkToHelper#simple_date with desired formatting options
-    #
-    # date - a DateTime, Date or Time
-    #
-    # Returns a String
-    def simple_date_html(date)
-        date = date.in_time_zone unless date.is_a? Date
-        time_tag date, simple_date_text(date), :title => date.to_s
-    end
-
-    # Usually-correct plain text formatting of a DateTime-ish object
-    # Use LinkToHelper#simple_date with desired formatting options
-    #
-    # date - a DateTime, Date or Time
-    #
-    # Returns a String
-    def simple_date_text(date)
-        date = date.in_time_zone.to_date unless date.is_a? Date
-
-        date_format = _("simple_date_format")
-        date_format = :long if date_format == "simple_date_format"
-        I18n.l(date, :format => date_format)
-    end
-
-    def simple_time(date)
-        return date.strftime("%H:%M:%S").strip
-    end
-
-    def year_from_date(date)
-        return date.strftime("%Y").strip
-    end
-
     #I18n locale switcher
 
     def locale_switcher(locale, params)
         params['locale'] = locale
         return url_for(params)
+    end
+
+    private
+
+    # Private: Generate a request_url linking to the new correspondence
+    def message_url(message, options = {})
+        message_type = message.class.to_s.gsub('Message', '').downcase
+
+        default_options = { :anchor => "#{ message_type }-#{ message.id }" }
+
+        if options.delete(:cachebust)
+            default_options.merge!(:nocache => "#{ message_type }-#{ message.id }")
+        end
+
+        request_url(message.info_request, options.merge(default_options))
+    end
+
+    def message_path(message)
+      message_url(message, :only_path => true)
     end
 
 end
