@@ -82,7 +82,7 @@ class TrackController < ApplicationController
     def track_search_query
         @query = params[:query_array]
 
-        # XXX more hackery to make alternate formats still work with query_array
+        # TODO: more hackery to make alternate formats still work with query_array
         if /^(.*)\.json$/.match(@query)
             @query = $1
             params[:format] = "json"
