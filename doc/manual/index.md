@@ -109,7 +109,7 @@ title: Welcome
         <div class="get-started__item get-started__item">
             <h3>Speak to us</h3>
             <p>Need some help? Tell us about your plans</p>
-            <p class="push-top"><a href="{{ site.baseurl }}docs/contact" class="button">Get in touch</a></p>
+            <p class="push-top"><a href="{{ site.baseurl }}community" class="button">Get in touch</a></p>
         </div>
     </div>
   </div>
