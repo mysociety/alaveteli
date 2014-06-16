@@ -24,9 +24,6 @@
 .text--center {
   text-align: center; }
 
-.bg-default {
-  background: lightblue; }
-
 /* Alaveteli's purple */
 .hero, .what-is-alaveteli, .features, .get-started, .about__intro {
   padding: 2em 0; }
