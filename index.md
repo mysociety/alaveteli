@@ -6,7 +6,7 @@ title: Welcome
   <div class="container">
     <h1><span>Run your own</span> Freedom of Information website</h1>
     <p>Alaveteli helps you lower the barriers that prevent citizens asking questions of those in power</p>
-    <p class="action-buttons"><a href="#" class="button">Get started</a> <a href="#" class="button">Learn more</a></p>
+    <p class="action-buttons"><a href="{{ site.baseurl }}docs/getting_started/" class="button">Get started</a> <a href="{{ site.baseurl }}docs/" class="button">Learn more</a></p>
   </div>
 </div>
 
@@ -95,21 +95,21 @@ title: Welcome
     <div class="get-started__grid-unit get-started__grid-unit--wide">
         <div class="get-started__item get-started__item--primary">
             <p>From team members to maintenance, our get started guide will walk you through the process of planning, starting and running your own Alaveteli website</p>
-            <p><a href="#" class="button">Get started</a></p>
+            <p><a href="{{ site.baseurl }}docs/getting_started/" class="button">Get started</a></p>
         </div>
     </div><!--
     --><div class="get-started__grid-unit">
         <div class="get-started__item get-started__item">
             <h3>Get the code</h3>
             <p>Alaveteli is open source and available to view, download and modify on GitHub</p>
-            <p><a href="#" class="button">Github</a></p>
+            <p><a href="https://github.com/mysociety/alaveteli/" class="button">Github</a></p>
         </div>
     </div><!--
     --><div class="get-started__grid-unit">
         <div class="get-started__item get-started__item">
             <h3>Speak to us</h3>
             <p>Need some help? Tell us about your plans</p>
-            <p class="push-top"><a href="#" class="button">Get in touch</a></p>
+            <p class="push-top"><a href="{{ site.baseurl }}docs/contact" class="button">Get in touch</a></p>
         </div>
     </div>
   </div>
