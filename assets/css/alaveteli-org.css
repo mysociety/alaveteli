@@ -28,10 +28,10 @@
   background: lightblue; }
 
 /* Alaveteli's purple */
-.hero, .what-is-alaveteli, .features, .get-started {
+.hero, .what-is-alaveteli, .features, .get-started, .about__intro {
   padding: 2em 0; }
   @media (min-width: 40em) {
-    .hero, .what-is-alaveteli, .features, .get-started {
+    .hero, .what-is-alaveteli, .features, .get-started, .about__intro {
       padding: 3.5em 0; } }
 
 .hero, .get-started {
@@ -53,6 +53,21 @@
 .what-is-alaveteli__grid-unit, .features__grid-unit, .get-started__grid-unit {
   display: inline-block;
   vertical-align: top; }
+
+.grid-row {
+  /**
+   * For IE 6/7 only
+   * Include this rule to trigger hasLayout and contain floats.
+   */ }
+  .grid-row:before, .grid-row:after {
+    content: " ";
+    /* 1 */
+    display: table;
+    /* 2 */ }
+  .grid-row:after {
+    clear: both; }
+  .grid-row {
+    *zoom: 1; }
 
 h1, h2, h4, h5, h6 {
   font-weight: 700; }
@@ -332,3 +347,73 @@ h3 {
   padding-bottom: 1em;
   border-top: 1px solid #e4e3dd;
   padding-top: 1.2em; }
+
+.about__intro {
+  background-color: #974495;
+  margin-bottom: 4em; }
+  .about__intro h1 {
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0px 2px 1px rgba(0, 0, 0, 0.3);
+    margin-bottom: 0.25em; }
+    @media (min-width: 56.88889em) {
+      .about__intro h1 {
+        font-size: 4em; } }
+  .about__intro a {
+    color: #fff;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.3); }
+    .about__intro a:hover, .about__intro a:active, .about__intro a:focus {
+      border-color: rgba(255, 255, 255, 0.6);
+      background-color: #863c83;
+      text-decoration: none; }
+  .about__intro p {
+    color: #fff; }
+    @media (min-width: 40em) {
+      .about__intro p {
+        font-size: 1.25em; } }
+
+@media (min-width: 40em) {
+  .about__column {
+    /* Use for multi-column grids where all columns are equal width, it gives them equal spacing */
+    float: left;
+    padding-left: 1.5%;
+    padding-right: 1.5%;
+    width: 50%;
+    padding: 0 3%; }
+    .about__column:nth-child(odd), .about__column:first-child {
+      padding-left: 0; }
+    .about__column:nth-child(even), .about__column:last-child {
+      padding-right: 0; } }
+
+.content-in-columns {
+  margin-bottom: 1.5em;
+  border-top: 3px dashed #f3f1eb;
+  padding-top: 1.5em; }
+  .content-in-columns:first-of-type {
+    border-top: none;
+    padding-top: 0; }
+
+.stamp-graphic {
+  position: absolute;
+  width: 24%;
+  right: 2em;
+  -webkit-transform: rotate(9deg);
+  -moz-transform: rotate(9deg);
+  -o-transform: rotate(9deg);
+  transform: rotate(9deg); }
+  @media (min-width: 45.4375em) {
+    .stamp-graphic {
+      top: 20em; } }
+  @media (min-width: 50.6875em) {
+    .stamp-graphic {
+      top: 19em; } }
+  @media (min-width: 66.875em) {
+    .stamp-graphic {
+      top: 9em; } }
+
+@media (min-width: 50.6875em) {
+  .about__intro p {
+    max-width: 27em; } }
+@media (min-width: 66.875em) {
+  .about__intro p {
+    max-width: 34em; } }
