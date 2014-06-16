@@ -8,7 +8,7 @@
 # separated) paragraphs, as is the convention for all the other mailers. This
 # turned out to fit better with user exepectations when formatting messages.
 #
-# XXX The other mail templates are written to use blank line separated
+# TODO: The other mail templates are written to use blank line separated
 # paragraphs. They could be rewritten, and the wrapping method made uniform
 # throughout the application.
 
@@ -35,10 +35,10 @@ class OutgoingMailer < ApplicationMailer
              :subject => OutgoingMailer.subject_for_followup(info_request, outgoing_message))
     end
 
-    # XXX the condition checking valid_to_reply_to? also appears in views/request/_followup.html.erb,
+    # TODO: the condition checking valid_to_reply_to? also appears in views/request/_followup.html.erb,
     # it shouldn't really, should call something here.
-    # XXX also OutgoingMessage.get_salutation
-    # XXX these look like they should be members of IncomingMessage, but logically they
+    # TODO: also OutgoingMessage.get_salutation
+    # TODO: these look like they should be members of IncomingMessage, but logically they
     # need to work even when IncomingMessage is nil
     def OutgoingMailer.name_and_email_for_followup(info_request, incoming_message_followup)
         if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?

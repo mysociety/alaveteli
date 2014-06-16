@@ -24,7 +24,7 @@ end
 module ActsAsXapian
     ######################################################################
     # Module level variables
-    # XXX must be some kind of cattr_accessor that can do this better
+    # TODO: must be some kind of cattr_accessor that can do this better
     def ActsAsXapian.bindings_available
         $acts_as_xapian_bindings_available
     end
@@ -109,12 +109,12 @@ module ActsAsXapian
       @@db_path = File.join(db_parent_path, environment)
 
       # make some things that don't depend on the db
-      # XXX this gets made once for each acts_as_xapian. Oh well.
+      # TODO: this gets made once for each acts_as_xapian. Oh well.
       @@stemmer = Xapian::Stem.new('english')
     end
 
     # Opens / reopens the db for reading
-    # XXX we perhaps don't need to rebuild database and enquire and queryparser -
+    # TODO: we perhaps don't need to rebuild database and enquire and queryparser -
     # but db.reopen wasn't enough by itself, so just do everything it's easier.
     def ActsAsXapian.readable_init
         raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed") unless ActsAsXapian.bindings_available
@@ -188,7 +188,7 @@ module ActsAsXapian
                   raise "Z is reserved for stemming terms" if term[1] == "Z"
                   raise "Already have code '" + term[1] + "' in another model but with different prefix '" + @@terms_by_capital[term[1]] + "'" if @@terms_by_capital.include?(term[1]) && @@terms_by_capital[term[1]] != term[2]
                   @@terms_by_capital[term[1]] = term[2]
-                  # XXX use boolean here so doesn't stem our URL names in WhatDoTheyKnow
+                  # TODO: use boolean here so doesn't stem our URL names in WhatDoTheyKnow
                   # If making acts_as_xapian generic, would really need to make the :terms have
                   # another option that lets people choose non-boolean for terms that need it
                   # (i.e. searching explicitly within a free text field)
@@ -231,7 +231,7 @@ module ActsAsXapian
         raise "acts_as_xapian hasn't been called in any models" if @@init_values.empty?
 
         # if DB is not nil, then we're already initialised, so don't do it
-        # again XXX reopen it each time, xapian_spec.rb needs this so database
+        # again TODO: reopen it each time, xapian_spec.rb needs this so database
         # gets written twice correctly.
         # return unless @@writable_db.nil?
 
@@ -510,7 +510,7 @@ module ActsAsXapian
                 # Find the documents by their unique term
                 input_models_query = Xapian::Query.new(Xapian::Query::OP_OR, query_models.map{|m| "I" + m.xapian_document_term})
                 ActsAsXapian.enquire.query = input_models_query
-                matches = ActsAsXapian.enquire.mset(0, 100, 100) # XXX so this whole method will only work with 100 docs
+                matches = ActsAsXapian.enquire.mset(0, 100, 100) # TODO: so this whole method will only work with 100 docs
 
                 # Get set of relevant terms for those documents
                 selection = Xapian::RSet.new()
@@ -601,7 +601,7 @@ module ActsAsXapian
 
                     begin
                         if job.action == 'update'
-                            # XXX Index functions may reference other models, so we could eager load here too?
+                            # TODO: Index functions may reference other models, so we could eager load here too?
                             model = job.model.constantize.find(job.model_id) # :include => cls.constantize.xapian_options[:include]
                             model.xapian_index
                         elsif job.action == 'destroy'
@@ -717,7 +717,7 @@ module ActsAsXapian
 
               ActiveRecord::Base.connection.disconnect!
 
-              pid = Process.fork # XXX this will only work on Unix, tough
+              pid = Process.fork # TODO: this will only work on Unix, tough
               if pid
                     Process.waitpid(pid)
                     if not $?.success?
@@ -898,7 +898,7 @@ module ActsAsXapian
                 ActsAsXapian.term_generator.document = doc
                 for text in texts_to_index
                     ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
-                    # XXX the "1" here is a weight that could be varied for a boost function
+                    # TODO: the "1" here is a weight that could be varied for a boost function
                     ActsAsXapian.term_generator.index_text(xapian_value(text, nil, true), 1)
                 end
             end

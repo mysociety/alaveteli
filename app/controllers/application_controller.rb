@@ -278,10 +278,10 @@ class ApplicationController < ActionController::Base
 
         session[:post_redirect_token] = post_redirect.token
 
-        # XXX what is the built in Ruby URI munging function that can do this
+        # TODO: what is the built in Ruby URI munging function that can do this
         # choice of & vs. ? more elegantly than this dumb if statement?
         if uri.include?("?")
-            # XXX This looks odd. What would a fragment identifier be doing server-side?
+            # TODO: This looks odd. What would a fragment identifier be doing server-side?
             #     But it also looks harmless, so I’ll leave it just in case.
             if uri.include?("#")
                 uri.sub!("#", "&post_redirect=1#")

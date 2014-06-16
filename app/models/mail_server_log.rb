@@ -166,7 +166,7 @@ class MailServerLog < ActiveRecord::Base
     # lines. Writes any errors to STDERR. This check is really mainly to
     # check the envelope from is the request address, as Ruby is quite
     # flaky with regard to that, and it is important for anti-spam reasons.
-    # XXX does this really check that, as the log just wouldn't pick
+    # TODO: does this really check that, as the log just wouldn't pick
     # up at all if the requests weren't sent that way as there would be
     # no request- email in it?
     #

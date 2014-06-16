@@ -125,7 +125,7 @@ class OutgoingMessage < ActiveRecord::Base
         get_salutation + "\n\n" + get_default_letter + "\n\n" + get_signoff + "\n\n"
     end
     def set_signature_name(name)
-        # XXX We use raw_body here to get unstripped one
+        # TODO: We use raw_body here to get unstripped one
         if self.raw_body == self.get_default_message
             self.body = self.raw_body + name
         end

@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
     end
 
     # Don't display any leading/trailing spaces
-    # XXX we have strip_attributes! now, so perhaps this can be removed (might
+    # TODO: we have strip_attributes! now, so perhaps this can be removed (might
     # be still needed for existing cases)
     def name
         name = read_attribute(:name)
@@ -222,7 +222,7 @@ class User < ActiveRecord::Base
 
     # Can the user make new requests, without having to describe state of (most) existing ones?
     def can_leave_requests_undescribed?
-        # XXX should be flag in database really
+        # TODO: should be flag in database really
         if self.url_name == "heather_brooke" || self.url_name == "heather_brooke_2"
             return true
         end
@@ -425,7 +425,7 @@ class User < ActiveRecord::Base
 
     ## Class methods
     def User.encrypted_password(password, salt)
-        string_to_hash = password + salt # XXX need to add a secret here too?
+        string_to_hash = password + salt # TODO: need to add a secret here too?
         Digest::SHA1.hexdigest(string_to_hash)
     end
 

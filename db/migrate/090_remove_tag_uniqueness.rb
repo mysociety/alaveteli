@@ -1,7 +1,7 @@
 class RemoveTagUniqueness < ActiveRecord::Migration
     def self.up
         # MySQL cannot index text blobs like this
-        # XXX perhaps should change :name/:value to be a :string
+        # TODO: perhaps should change :name/:value to be a :string
         if ActiveRecord::Base.connection.adapter_name != "MySQL"
             remove_index :public_body_tags, [:public_body_id, :name]
             # allow the key to repeat, but not the value also
