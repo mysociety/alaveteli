@@ -13,19 +13,19 @@ title: Production server best practices
 
 ## Hosting options
 
-Your production server must be reliable and secure. If you don't run your own 
+Your production server must be reliable and secure. If you don't run your own
 servers already, consider one of these options:
 
 * Cloud Server
 * Virtual Private Server
 
-In some cases, we can host new Alaveteli projects &mdash; if you need help, 
+In some cases, we can host new Alaveteli projects &mdash; if you need help,
 ask us about hosting.
 
 ## Cron jobs
 
 Don't forget to set up the cron jobs as outlined in the
-[installation instructions]({{ site.baseurl }}installing/manual_install). 
+[installation instructions]({{ site.baseurl }}docs/installing/manual_install).
 As of October 2011, they rely on a small program created by mySociety called
 `run-with-lockfile`. A discussion of where the source for this can be found,
 and possible alternatives, lives in
@@ -33,41 +33,41 @@ and possible alternatives, lives in
 
 ## Webserver configuration
 
-We recommend running your site behind 
-[Apache](https://httpd.apache.org) + 
-[Passenger](https://www.phusionpassenger.com). Refer to the 
-[installation instructions]({{ site.baseurl }}installing/manual_install)
+We recommend running your site behind
+[Apache](https://httpd.apache.org) +
+[Passenger](https://www.phusionpassenger.com). Refer to the
+[installation instructions]({{ site.baseurl }}docs/installing/manual_install)
 regarding `PassengerMaxPoolSize`, which you should
 experiment with to match your available RAM. It is very unlikely that you'll
 ever need a pool larger than [Passenger's
 default](http://www.modrails.com/documentation/Users%20guide%20Apache.html#_passengermaxpoolsize_lt_integer_gt) of 6.
 
-We recommend you run your server behind an HTTP accelerator like 
+We recommend you run your server behind an HTTP accelerator like
 [Varnish](https://www.varnish-cache.org).
-Alaveteli ships with a 
+Alaveteli ships with a
 [sample varnish VCL](https://github.com/mysociety/alaveteli/blob/master/config/varnish-alaveteli.vcl).
 
 ## Security
 
-You _must_ change all key-related [config settings]({{ site.baseurl }}customising/config)
+You _must_ change all key-related [config settings]({{ site.baseurl }}docs/customising/config)
 in `general.yml` from their default values. This includes (but may not be limited to!)
 these settings:
 
-* [`INCOMING_EMAIL_SECRET`]({{ site.baseurl }}customising/config/#incoming_email_secret)
-* [`ADMIN_USERNAME`]({{ site.baseurl }}customising/config/#admin_username)
-* [`ADMIN_PASSWORD`]({{ site.baseurl }}customising/config/#admin_password)
-* [`COOKIE_STORE_SESSION_SECRET`]({{ site.baseurl }}customising/config/#cookie_store_session_secret)
-* [`RECAPTCHA_PUBLIC_KEY`]({{ site.baseurl }}customising/config/#recaptcha_public_key)
-* [`RECAPTCHA_PRIVATE_KEY`]({{ site.baseurl }}customising/config/#recaptcha_private_key)
+* [`INCOMING_EMAIL_SECRET`]({{ site.baseurl }}docs/customising/config/#incoming_email_secret)
+* [`ADMIN_USERNAME`]({{ site.baseurl }}docs/customising/config/#admin_username)
+* [`ADMIN_PASSWORD`]({{ site.baseurl }}docs/customising/config/#admin_password)
+* [`COOKIE_STORE_SESSION_SECRET`]({{ site.baseurl }}docs/customising/config/#cookie_store_session_secret)
+* [`RECAPTCHA_PUBLIC_KEY`]({{ site.baseurl }}docs/customising/config/#recaptcha_public_key)
+* [`RECAPTCHA_PRIVATE_KEY`]({{ site.baseurl }}docs/customising/config/#recaptcha_private_key)
 
 You should consider running the admin part of the site over HTTPS. This can be
 achieved with rewrite rules that redirect URLs beginning with `/admin`.
 
 ## Email configuration
 
-See the [configuration for exim or postfix]({{ site.baseurl }}installing/email/) for
+See the [configuration for exim or postfix]({{ site.baseurl }}docs/installing/email/) for
 setting up your Mail Transfer Agent (MTA). It is possible to use other MTAs &mdash;
-if you use a different one, the documentation there should provide you with 
+if you use a different one, the documentation there should provide you with
 enough information to get started. If this applies to you, please add to the
 documentation!
 
@@ -80,15 +80,15 @@ deliverability of your email:
   or_some_email_providers">feedback loops</a> with the main email providers
   (Hotmail and Yahoo! are recommended)
 * Especially if deploying from Amazon EC2, use an external SMTP relay for
-  sending outgoing mail. See [Alaveteli EC2 AMI]( {{ site.baseurl }}installing/ami)
+  sending outgoing mail. See [Alaveteli EC2 AMI]( {{ site.baseurl }}docs/installing/ami)
   for more suggestions.
 
 ## Backup
 
 Most of the data for the site lives in the production database. The exception
 is the raw incoming email data, which is stored on the filesystem, as specified
-in the setting 
-[`RAW_EMAILS_LOCATION`]({{ site.baseurl }}customising/config/#raw_emails_location)
+in the setting
+[`RAW_EMAILS_LOCATION`]({{ site.baseurl }}docs/customising/config/#raw_emails_location)
 setting in `config/general.yml`.
 
 Refer to the [Postgres
@@ -113,7 +113,7 @@ something like:
     if $header_to: contains "mydomain.org"
     then
     unseen deliver "backup@mybackupdomain.org"
-    endif 
+    endif
 
     if $sender_address: contains "mydomain.org"
     then

@@ -6,8 +6,8 @@ title: Getting started
 # Getting started with Alaveteli
 
 <p class="lead">
-	This guide is aimed at people who are thinking about setting up their own
-	Alaveteli website in a new jurisdiction.
+  This guide is aimed at people who are thinking about setting up their own
+  Alaveteli website in a new jurisdiction.
 </p>
 
 For inspiration, take a look at some of the existing Alaveteli websites, like
@@ -34,7 +34,7 @@ need to think about how you will run the website; a successful Alaveteli
 requires lots of ongoing effort to moderate and publicise (see Step 6 and Step
 7, below).
 
-Here are the steps we suggest you follow in order to get started. 
+Here are the steps we suggest you follow in order to get started.
 
 * [Step zero: assemble your initial team](#step-0)
 * [Step one: get a working, uncustomised version running](#step-1)
@@ -112,12 +112,11 @@ with this. The minimum spec for running a low traffic website is 512MB RAM and
 a 20GB disk. 2GB RAM would be ideal. We recommend Debian Squeeze as the
 operating system, though any sort of Linux should do. Rackspace offer suitable
 cloud servers, which start out at around $25 / month. Then your tech person
-should follow the [installation documentation]({{ site.baseurl }}installing).
+should follow the [installation documentation]({{ site.baseurl }}docs/installing).
 
-Alternatively, you could use Amazon Web Services. If you've not used them
-before, you can get a free "micro" instance for twelve months. This has the
+Alternatively, you could use Amazon Web Services. This has the
 added advantage that you can use our preconfigured [Alaveteli EC2
-AMI]({{ site.baseurl }}installing/ami) to get you
+AMI]({{ site.baseurl }}docs/installing/ami) to get you
 started almost instantly. However, it's more expensive than Rackspace,
 especially if you want more RAM.
 
@@ -181,14 +180,14 @@ http://blogger.com and announce your project with a new blog post.
 
 Next, think about the visual identity. At a minimum, you should probably
 replace the default Alaveteli logo that you can see at the top left of
-http://demo.alaveteli.org. It's also easy to change the colour scheme.
+<http://demo.alaveteli.org>. It's also easy to change the colour scheme.
 
 If you have a bit more budget and time, you can rework the design more, with a
 custom homepage, different fonts, etc; however, the more you customise the
 site, the harder it is to upgrade in the future; and you'll need a developer
 and/or designer to help do these customisations. We call the custom set of
 colours, fonts, logos etc a "theme"; there are some notes for developers about
-[writing a theme]({{ site.baseurl }}customising/themes/). You
+[writing a theme]({{ site.baseurl }}docs/customising/themes/). You
 might spend anywhere between 1 and 15 days on this.
 
 ### Legislative differences
@@ -218,14 +217,14 @@ therefore relevant only to the UK. You should take these pages as inspiration,
 but review their content with a view to your jurisdiction. The important pages
 to translate are:
 
-* [About](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/about.rhtml): why the website exists, why it works, etc
-* [contact](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/contact.rhtml): how to get in touch
-* [credits](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/credits.rhtml): who is involved in the site.  Importantly, includes a section on how users can help the project.
-* [officers](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/officers.rhtml): information for the officers who deal with FOI at authorities.  They get a link to this page in emails that the site sends them. 
-* [privacy](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/privacy.rhtml): privacy policy, plus information making it clear that requests are going to appear on the internet.  Let users know if they are allowed to use pseudonyms in your jurisdiction.
-* [requesting](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/requesting.rhtml): the main help page about making requests.  How it works, how to decide who to write to, what they can expect in terms of responses, how to make appeals, etc.
-* [unhappy](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/unhappy.rhtml): users are taken to this page after a request that has been somehow unsuccessful (e.g. the request has been refused, or the authority is insisting on a postal request).  The page should encourage them to keep going, e.g. by starting a new request or addressing it to a different body.
-* [why email](https://github.com/mysociety/alaveteli/blob/develop/app/views/help/_why_they_should_reply_by_email.rhtml): a snippet of information that explains why users should insist on replies by email.  This is displayed next to requests that have "gone postal".
+* [About](https://github.com/mysociety/alaveteli/blob/master/app/views/help/about.rhtml): why the website exists, why it works, etc
+* [contact](https://github.com/mysociety/alaveteli/blob/master/app/views/help/contact.rhtml): how to get in touch
+* [credits](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.rhtml): who is involved in the site.  Importantly, includes a section on how users can help the project.
+* [officers](https://github.com/mysociety/alaveteli/blob/master/app/views/help/officers.rhtml): information for the officers who deal with FOI at authorities.  They get a link to this page in emails that the site sends them.
+* [privacy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/privacy.rhtml): privacy policy, plus information making it clear that requests are going to appear on the internet.  Let users know if they are allowed to use pseudonyms in your jurisdiction.
+* [requesting](https://github.com/mysociety/alaveteli/blob/master/app/views/help/requesting.rhtml): the main help page about making requests.  How it works, how to decide who to write to, what they can expect in terms of responses, how to make appeals, etc.
+* [unhappy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.rhtml): users are taken to this page after a request that has been somehow unsuccessful (e.g. the request has been refused, or the authority is insisting on a postal request).  The page should encourage them to keep going, e.g. by starting a new request or addressing it to a different body.
+* [why email](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_why_they_should_reply_by_email.rhtml): a snippet of information that explains why users should insist on replies by email.  This is displayed next to requests that have "gone postal".
 
 The help pages contain some HTML. Your tech person should be able to advise on
 this.
@@ -237,7 +236,7 @@ that you'll be sending out in response to common user queries and
 administrative tasks -- for example, an email that you send to IT departments
 asking them to whitelist emails from your Alaveteli website (if your emails are
 being marked as spam). See the
-[Administrator's Manual]({{ site.baseurl }}running/admin_manual/) for details
+[Administrator's Manual]({{ site.baseurl }}docs/running/admin_manual/) for details
 on some of the common administrative tasks. There is a list of the
 standard emails used by WhatDoTheyKnow on the
 [FOI Wiki](http://foiwiki.com/foiwiki/index.php/Common_WhatDoTheyKnow_support_responses).
@@ -288,9 +287,9 @@ called Transifex. This website allows teams of translators to collaborate in
 one place, using a fairly easy interface.
 
 The Alaveteli page on Transifex is at
-https://www.transifex.net/projects/p/alaveteli/; the translations all live in a
+<https://www.transifex.com/projects/p/alaveteli/>; the translations all live in a
 single translation file called
-[`app.pot`](https://www.transifex.net/projects/p/alaveteli/resource/apppot/).
+[`app.pot`](https://www.transifex.com/projects/p/alaveteli/resource/apppot/).
 
 You can set up your language and provide translations there; you can also use
 specialise software on your own computer (see the help pages on Transifex)
@@ -311,7 +310,7 @@ review the untranslated strings.
 ## Step five: Test drive the site
 
 For launch, the tech person should review the [Production Server Best
-Practices]({{ site.baseurl }}running/server).
+Practices]({{ site.baseurl }}docs/running/server).
 
 A low-key launch, where you tell just a few trusted people about the site, is a
 very good idea. You can then track how things work, and gauge the responses of
@@ -371,7 +370,7 @@ website is. To ensure its success, you should be doing things like:
 * Recruiting volunteers to help with the site
 * Categorising uncategorised requests
 
-See also the [Administrator's Manual](/running/admin_manual), which describes
+See also the [Administrator's Manual](/docs/running/admin_manual), which describes
 some of the typical tasks you'll need to perform when your site is up and
 running.
 

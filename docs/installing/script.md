@@ -6,10 +6,10 @@ title: Installing the easy way
 # Installation  script
 
 <p class="lead">
-	If you prefer to use your own server, we've provided an installation script which does most of the work for you.
+  If you prefer to use your own server, we've provided an installation script which does most of the work for you.
 </p>
 
-Note that there are [other ways to install Alaveteli]({{ site.baseurl }}installing).
+Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing).
 
 ## Installing with the installation script
 

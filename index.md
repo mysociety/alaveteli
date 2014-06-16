@@ -89,7 +89,6 @@ title: Welcome
         </div>
     </div>
 </div>
-
 <div class="get-started">
   <div class="container">
     <h2>Get started</h2>

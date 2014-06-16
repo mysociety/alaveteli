@@ -7,12 +7,12 @@ The Alaveteli Community
 ====================
 
 <p class="lead">
-	If you are running an Alaveteli installation &mdash; or are thinking of setting one up &mdash; let the community help.
+  If you are running an Alaveteli installation &mdash; or are thinking of setting one up &mdash; let the community help.
 </p>
 
 We actively help people set up and run Alaveteli instances all around the
 world. Alaveteli is more than just software, it's also a community of people
-who care enough about <a href="{{ site.baseurl}}glossary/#foi"
+who care enough about <a href="{{ site.baseurl}}docs/glossary/#foi"
 class="glossary">Freedom of Information</a> to build and run sites to benefit
 the public.
 
@@ -20,10 +20,10 @@ If you're just starting out, or you've already got your site up and running,
 this page points you at the places you can find out more, ask questions, or
 just say hi.
 
-<!--	
+<!--
   direct email and twitter?
 
-	<li>Louise Crow (project lead): <a href="mailto:louise@mysociety.org">email</a>, <a href="http://twitter.com/crowbot">twitter</a></li>
+  <li>Louise Crow (project lead): <a href="mailto:louise@mysociety.org">email</a>, <a href="http://twitter.com/crowbot">twitter</a></li>
 -->
 
 
@@ -36,8 +36,9 @@ sites.
 The archives are a good source of information too. If you've got a problem, it's
 always worth checking to see if someone has already solved it.
 
-It you're just starting out, saying hello on the mailing list is a great way to
-begin <img src="{{ site.baseurl }}assets/img/icon_smile.gif" alt=":-)">
+It you're just starting out, saying hello on the mailing list is a great way to begin
+<img src="{{ site.baseurl }}assets/img/icon_smile.gif" alt=":-)">
+
 
 ## IRC
 
@@ -51,25 +52,25 @@ the mySociety developers can be found on IRC in `#mschat` on
 ### irc.freenode.net #alaveteli
 
 **`#alaveteli`** &mdash;
-there's an `#alaveteli` channel on 
-[Freenode](http://freenode.net) (`irc.freenode.net`) ...although that channel can be rather quiet 
+there's an `#alaveteli` channel on
+[Freenode](http://freenode.net) (`irc.freenode.net`) ...although that channel can be rather quiet
 <img src="http://www.alaveteli.org/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley">
 
-##	Alaveteli commit messages (code)
+##  Alaveteli commit messages (code)
 
-To keep an eye on activity on the repo, join the 
+To keep an eye on activity on the repo, join the
 <a href="https://groups.google.com/group/alaveteli-commits/">Alaveteli push messages mailing list</a> (one a day).
 
 ## Code and issues on github
 
-The [Alaveteli software is on github](https://github.com/mysociety/alaveteli) and we actively use 
+The [Alaveteli software is on github](https://github.com/mysociety/alaveteli) and we actively use
 [github's issues](https://github.com/mysociety/alaveteli) &mdash; sometimes there's discussion on specific issues in there too, which can be handy (especially if it's an issue you've raised).
 
 ## Documentation
 
-Although asking a human is great, often what you want to know can be 
+Although asking a human is great, often what you want to know can be
 found in the documentation:
 
-* [this documentation]({{ site.baseurl }}) &mdash; always the first place to look
+* [this documentation]({{ site.baseurl }}docs/) &mdash; always the first place to look
 * [the dev wiki](http://github.com/mysociety/alaveteli/wiki) &mdash; informal or specific notes
 * [docs in the repo](https://github.com/mysociety/alaveteli/tree/rails-3-develop/doc) (although we're slowly phasing these out in favour of the docs you're reading now)

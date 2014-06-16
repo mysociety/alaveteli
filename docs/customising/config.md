@@ -14,7 +14,7 @@ title: Configuration
 
 The alaveteli code ships with an example configuration file: `config/general.yml-example`.
 
-As part of the [installation process]({{ site.baseurl }}installing ), the
+As part of the [installation process]({{ site.baseurl }}docs/installing ), the
 example file gets copied to `config/general.yml`. You **must** edit this file to
 suit your needs.
 
@@ -372,7 +372,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
     <a name="theme_urls"><code>THEME_URLS</code></a>
   </dt>
   <dd>
-    URLs of <a href="{{ site.baseurl }}customising/themes">themes</a> to download and use
+    URLs of <a href="{{ site.baseurl }}docs/customising/themes">themes</a> to download and use
     (when running the <code>rails-post-deploy</code> script). The earlier in the list means
     the templates have a higher priority.
     <div class="more-info">
@@ -392,7 +392,7 @@ THEME_URLS:
     <a name="theme_branch"><code>THEME_BRANCH</code></a>
   </dt>
   <dd>
-    When <code>rails-post-deploy</code> installs the <a href="{{ site.baseurl }}customising/themes">themes</a>,
+    When <code>rails-post-deploy</code> installs the <a href="{{ site.baseurl }}docs/customising/themes">themes</a>,
     it will try the theme branch first, but only if you've set <code>THEME_BRANCH</code>
     to be true. If the branch doesn't exist it will fall back to using a tagged version
     specific to your installed alaveteli version, and if that doesn't exist it will
@@ -637,15 +637,27 @@ THEME_URLS:
     <a name="staging_site"><code>STAGING_SITE</code></a>
   </dt>
   <dd>
-     Is this a staging or development site (1) or a live (production) site (0)?
-     This controls whether or not the <code>rails-post-deploy</code> script
-     will create the file <code>config/rails_env.rb</code> file to force
+     Is this a
+     <a href="{{site.baseurl}}docs/glossary/#staging" class="glossary">staging</a> or
+     <a href="{{site.baseurl}}docs/glossary/#development" class="glossary">development</a> site?
+     If not, it's a live <a href="{{site.baseurl}}docs/glossary/#production" class="glossary">production</a>
+     site. This setting controls whether or not the <code>rails-post-deploy</code>
+     script will create the file <code>config/rails_env.rb</code> file to force
      Rails into production environment.
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul class="examples">
         <li>
-            <code>STAGING_SITE: 1</code>
+            For staging or development:
+            <p>
+              <code>STAGING_SITE: 1</code>
+            </p>
+        </li>
+        <li>
+            For production:
+            <p>
+              <code>STAGING_SITE: 0</code>
+            </p>
         </li>
       </ul>
     </div>
