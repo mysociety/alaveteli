@@ -13,7 +13,7 @@ title: Administrator's guide
 
 The overhead in managing a successful FOI website is quite high. Richard, a
 volunteer, wrote a [blog
-post](http://www.mysociety.org/2009/10/13/behind-whatdotheyknow/) about some of
+post](https://www.mysociety.org/2009/10/13/behind-whatdotheyknow/) about some of
 this in 2009.
 
 WhatDoTheyKnow usually has about 3 active volunteers at any one time managing

@@ -74,7 +74,7 @@ title: For developers
 
 * If you're experiencing memory issues, [this blog post about some strategies
   used in the
-  past](http://www.mysociety.org/2009/09/17/whatdotheyknow-growing-pains-and-rub
+  past](https://www.mysociety.org/2009/09/17/whatdotheyknow-growing-pains-and-rub
   y-memory-leaks/) might be useful.
 
 * If you're coding on a mac, see these [MacOS X installation notes]({{ site.baseurl }}docs/installing/macos/). <!-- [[OS X Quickstart]] -->

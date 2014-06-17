@@ -8,7 +8,7 @@ title: Welcome
 <p class="lead">
   This is the documentation for Alaveteli,
   an open source Freedom of Information platform
-  created by <a href="http://www.mysociety.org">mySociety</a>.
+  created by <a href="https://www.mysociety.org">mySociety</a>.
 </p>
 
 ## New to Alaveteli?

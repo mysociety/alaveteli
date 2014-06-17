@@ -230,7 +230,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
       <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>BLOG_FEED: 'http://www.mysociety.org/category/projects/whatdotheyknow/feed/'</code>
+            <code>BLOG_FEED: 'https://www.mysociety.org/category/projects/whatdotheyknow/feed/'</code>
         </li>
       </ul>
     </div>
@@ -951,7 +951,7 @@ EXCEPTION_NOTIFICATIONS_TO:
       <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>DONATION_URL: "http://www.mysociety.org/donate/"</code>
+            <code>DONATION_URL: "https://www.mysociety.org/donate/"</code>
         </li>
       </ul>
     </div>
