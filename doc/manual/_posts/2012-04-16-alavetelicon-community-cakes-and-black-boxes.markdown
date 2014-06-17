@@ -8,9 +8,9 @@ title: 'Alavetelicon: community, cakes, and black boxes'
 wordpress_id: 325
 ---
 
-[Alavetelicon 2012](http://www.alaveteli.org/about-2/alavetelicon-april-2012/) has finished, the tweeting has subsided, and I think I've just about finished digesting the enormous conference dinner.  It was a lot of fun, with [a host of dedicated FOI activists and hackers](http://www.alaveteli.org/about-2/alavetelicon-april-2012/delegates/) who could only make it thanks to the generous funding provided by [Open Society Foundation](http://www.soros.org/) and [Hivos](http://www.hivos.nl/).
+[Alavetelicon 2012]({{ site.baseurl }}community/conferences/2012/) has finished, the tweeting has subsided, and I think I've just about finished digesting the enormous conference dinner.  It was a lot of fun, with [a host of dedicated FOI activists and hackers]({{ site.baseurl }}community/conferences/2012/) who could only make it thanks to the generous funding provided by [Open Society Foundation](http://www.soros.org/) and [Hivos](http://www.hivos.nl/).
 
-The [schedule was split into streams](http://www.alaveteli.org/about-2/alavetelicon-april-2012/schedule/), and had lots of non-programmed time, so I only actually saw a small part of it.  There are [write-ups](http://www.elvaso.cl/2012/04/alaveteli-conf-2012-otra-comunidad-para-acceso-inteligente) in [various](http://tinyurl.com/7zamxfa) [languages](http://blogs.lanacion.com.ar/data/mundo/conferencia-de-alaveteli-o-de-como-darle-voz-a-la-sociedad-civil/) from other participants; here are some personal observations.
+The schedule was split into streams, and had lots of non-programmed time, so I only actually saw a small part of it.  There are [write-ups](http://www.elvaso.cl/2012/04/alaveteli-conf-2012-otra-comunidad-para-acceso-inteligente) in [various](http://tinyurl.com/7zamxfa) [languages](http://blogs.lanacion.com.ar/data/mundo/conferencia-de-alaveteli-o-de-como-darle-voz-a-la-sociedad-civil/) from other participants; here are some personal observations.
 
 
 
