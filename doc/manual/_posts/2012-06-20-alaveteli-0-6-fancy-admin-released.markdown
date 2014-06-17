@@ -35,7 +35,7 @@ Finally Alaveteli 0.6 is out of the door!  Grab it from the [github master branc
   * Alert subscriptions are now referred to as "following" a request (or  group of requests) throughout the UI.  When a user "follows" a request,  updates regarding that request are posted on a new "wall" page.  Now  they have a wall, users can opt not to receive alerts by email.
 
 
-  * New features to [support fast post-moderation of bad requests](/uncategorised/2012/06/20/new-feature-easier-request-moderation/): a  button for users to report potentially unsuitable requests, and a form  control in the administrative interface that hides a request and sends  the user an email explaining why.
+  * New features to [support fast post-moderation of bad requests](/2012/06/20/new-feature-easier-request-moderation/): a  button for users to report potentially unsuitable requests, and a form  control in the administrative interface that hides a request and sends  the user an email explaining why.
 
 
   * A bug which prevented locales containing underscores (e.g. `en_GB`) was fixed ([issue #503](https://github.com/mysociety/alaveteli/issues/503))
@@ -50,12 +50,12 @@ There are some blog posts about some of the new features here:
   * [The new admin theme](/development/2012/06/20/the-new-bootstrap-admin-theme/)
 
 
-  * [The request moderation features](/uncategorised/2012/06/20/new-feature-easier-request-moderation/)
+  * [The request moderation features](/2012/06/20/new-feature-easier-request-moderation/)
 
 
-  * ["Following" and the "wall"](/uncategorised/2012/06/21/new-feature-following-and-the-wall/)
+  * ["Following" and the "wall"](/2012/06/21/new-feature-following-and-the-wall/)
 
 
-  * [Bundler](/uncategorised/2012/06/21/new-for-developers-bundler-support/)
+  * [Bundler](/2012/06/21/new-for-developers-bundler-support/)
 
 
