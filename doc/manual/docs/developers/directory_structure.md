@@ -215,7 +215,7 @@ website](http://guides.rubyonrails.org/getting_started.html).
   <dd>
     <p><em>tests</em></p>
     <p>
-      Alaveteli's test suite runs under <a href="TODO">spec</a>.
+      Alaveteli's test suite runs under <a href="http://rspec.info/">rspec</a>.
     </p>
   </dd>
   <dt>
