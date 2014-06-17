@@ -14,8 +14,11 @@ Upgrading Alaveteli
 ## Master branch contains the latest stable release
 
 The developer team policy is that the `master` branch in git should always
-contain the latest stable release. Therefore, in production, you should usually
-have your software deployed from the `master` branch.
+contain the latest stable release -- so you'll be up to date if you pull from
+the `master` branch. However, on your <a
+href="{{site.baseurl}}docs/glossary/#production" class="glossary">production site</a>,
+you should know precisely what version you're running, and deploy Alaveteli
+from a [*specific* release tag](https://github.com/mysociety/alaveteli/releases).
 
 Upgrading may just require pulling in the latest code -- but it may also require
 other changes ("further action"). For this reason, for anything other than a
