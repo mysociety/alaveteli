@@ -15,7 +15,7 @@ wordpress_id: 339
 
 When the project was started, Spain was one of four EU countries with no Freedom of Information law. The subject was, however, on the political agenda – FOI had been promised, but not delivered, by the previous government in both 2004 and 2008. On election in December 2011, the new conservative ruling party again pledged to introduce Freedom of Information, within their first 100 days in office.
 
-Anderica works at the organisation [Access Info Europe](http://www.access-info.org/), which had been campaigning, with the support of NGOs including Amnesty International and Greenpeace, for a Freedom of Information law. Cabo is one of the founders of [Civio](http://www.civio.es/), a new organisation hoping to emulate the work of [mySociety](http://www.mysociety.org/) or the [Sunlight Foundation](http://sunlightfoundation.com/), in Spain. The combination of Access Info and Civio’s knowledge – legal and technical – meant that Tuderechoasaber.es could become a reality.
+Anderica works at the organisation [Access Info Europe](http://www.access-info.org/), which had been campaigning, with the support of NGOs including Amnesty International and Greenpeace, for a Freedom of Information law. Cabo is one of the founders of [Civio](http://www.civio.es/), a new organisation hoping to emulate the work of [mySociety](https://www.mysociety.org/) or the [Sunlight Foundation](http://sunlightfoundation.com/), in Spain. The combination of Access Info and Civio’s knowledge – legal and technical – meant that Tuderechoasaber.es could become a reality.
 
 There was such public thirst for these withheld rights that Cabo and Anderica were able to fund their website through crowdsourced donations. They raised €6,000 and the site was built.
 

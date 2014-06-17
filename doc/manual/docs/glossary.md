@@ -49,7 +49,7 @@ Definitions
   </dt>
   <dd>
     <strong>Alaveteli</strong> is the name of the open source software platform created
-    by <a href="http://www.mysociety.org">mySociety</a> for submitting,
+    by <a href="https://www.mysociety.org">mySociety</a> for submitting,
     managing and archiving Freedom of Information requests.
     <p>
       It grew from the successful FOI UK project
