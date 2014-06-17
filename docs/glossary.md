@@ -154,7 +154,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          how to <a href="{{ site.baseurl }}docs/installing/deploy">deploy Alaveteli</a> (and why it's
+          how to <a href="{{ site.baseurl }}docs/installing/deploy/">deploy Alaveteli</a> (and why it's
           a good idea)
         </li>
         <li>
@@ -610,7 +610,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-      <a href="{{ site.baseurl }}docs/customising/themes">about themes</a>
+      <a href="{{ site.baseurl }}docs/customising/themes/">about themes</a>
         </li>
       </ul>
     </div>

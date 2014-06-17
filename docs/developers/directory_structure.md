@@ -13,7 +13,7 @@ directories.</p>
 Alaveteli -- this is really more useful if you're a developer planning on
 making more substantive changes to the code. You don't need to be familiar with
 Ruby to install or make basic [customisations to your
-installation](/docs/customising).
+installation](/docs/customising/).
 
 <!--  (and if you do,
 remember to read the page about [feeding your changes back](/feeding-back)).-->
