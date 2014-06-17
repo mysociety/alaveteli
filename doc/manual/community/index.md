@@ -20,12 +20,6 @@ If you're just starting out, or you've already got your site up and running,
 this page points you at the places you can find out more, ask questions, or
 just say hi.
 
-<!--
-  direct email and twitter?
-
-  <li>Louise Crow (project lead): <a href="mailto:louise@mysociety.org">email</a>, <a href="http://twitter.com/crowbot">twitter</a></li>
--->
-
 
 ## Project mailing list
 
@@ -38,6 +32,10 @@ always worth checking to see if someone has already solved it.
 
 It you're just starting out, saying hello on the mailing list is a great way to
 begin <img src="{{ site.baseurl }}assets/img/icon_smile.gif" alt=":-)">
+
+## mySociety international team
+
+mySociety has very limited capacity to run a handful of Alaveteli sites for willing volunteers. Contact our <a href="mailto:international@mysociety.org">international team</a> for more information.
 
 ## IRC
 
