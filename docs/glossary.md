@@ -253,7 +253,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          See the <a href="{{ site.baseurl }}docs/installing">installation instructions</a> which will
+          See the <a href="{{ site.baseurl }}docs/installing/">installation instructions</a> which will
           clone the Alaveteli repo.
         </li>
         <li>
@@ -278,7 +278,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          see the <a href="{{ site.baseurl }}docs/running/admin_manual">admin manual</a> for
+          see the <a href="{{ site.baseurl }}docs/running/admin_manual/">admin manual</a> for
           information on dealing with emails in the holding pen
         </li>
       </ul>
@@ -297,7 +297,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          see these instructions for <a href="{{ site.baseurl }}docs/installing/email">configuring your MTA</a>
+          see these instructions for <a href="{{ site.baseurl }}docs/installing/email/">configuring your MTA</a>
           (examples are for exim4 and postfix, two of the most common)
         </li>
       </ul>
@@ -318,7 +318,7 @@ Definitions
         <li>
           use the <code>agent_enabled:</code> setting in the
           the <code>newrelic.yml</code> config file to enable the New Relic analytics.
-          See the <a href="{{ site.baseurl }}docs/installing/manual_install">manual installation</a> instructions.
+          See the <a href="{{ site.baseurl }}docs/installing/manual_install/">manual installation</a> instructions.
         </li>
         <li>
           see also the New Relic Ruby Agent <a href="https://github.com/newrelic/rpm">github repo</a> and
@@ -584,15 +584,15 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          <a href="{{ site.baseurl }}docs/running/states">example states for WhatDoTheyKnow</a>
+          <a href="{{ site.baseurl }}docs/running/states/">example states for WhatDoTheyKnow</a>
           (Alaveteli site running in the UK)
         </li>
         <li>
-          for comparison, <a href="{{ site.baseurl }}docs/running/states_informatazyrtare">example states for InformataZyrtare</a>
+          for comparison, <a href="{{ site.baseurl }}docs/running/states_informatazyrtare/">example states for InformataZyrtare</a>
           (Alaveteli site running in Kosovo)
         </li>
         <li>
-          to customise or add your own states, see <a href="{{ site.baseurl }}docs/customising/themes">Customising the request states</a>
+          to customise or add your own states, see <a href="{{ site.baseurl }}docs/customising/themes/">Customising the request states</a>
         </li>
       </ul>
     </div>

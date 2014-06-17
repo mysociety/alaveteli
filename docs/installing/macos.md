@@ -11,7 +11,7 @@ title: Installing on MacOS X
   help.
 </p>
 
-Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing).
+Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing/).
 
 ## MacOS X 10.7
 

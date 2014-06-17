@@ -112,11 +112,11 @@ with this. The minimum spec for running a low traffic website is 512MB RAM and
 a 20GB disk. 2GB RAM would be ideal. We recommend Debian Squeeze 64-bit as the
 operating system, though any sort of Linux should do. Rackspace offer suitable
 cloud servers, which start out at around $25 / month. Then your tech person
-should follow the [installation documentation]({{ site.baseurl }}docs/installing).
+should follow the [installation documentation]({{ site.baseurl }}docs/installing/).
 
 Alternatively, you could use Amazon Web Services. This has the
 added advantage that you can use our preconfigured [Alaveteli EC2
-AMI]({{ site.baseurl }}docs/installing/ami) to get you
+AMI]({{ site.baseurl }}docs/installing/ami/) to get you
 started almost instantly. However, it's more expensive than Rackspace,
 especially if you want more RAM.
 
@@ -310,7 +310,7 @@ review the untranslated strings.
 ## Step five: Test drive the site
 
 For launch, the tech person should review the [Production Server Best
-Practices]({{ site.baseurl }}docs/running/server).
+Practices]({{ site.baseurl }}docs/running/server/).
 
 A low-key launch, where you tell just a few trusted people about the site, is a
 very good idea. You can then track how things work, and gauge the responses of

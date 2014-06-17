@@ -13,7 +13,7 @@ title: Themes
 </p>
 
 When you customise your Alaveteli site, there is a lot you can change just
-by editing the [config settings]({{ site.baseurl }}docs/customising/config).
+by editing the [config settings]({{ site.baseurl }}docs/customising/config/).
 But if you want to change the way the site looks, or add more specific
 behaviour, you'll need to make a **theme**.
 
@@ -49,7 +49,7 @@ code.
 We try to encapsulate all site-specific functionality in one of these
 places:
 
-* Site [configuration]({{ site.baseurl }}docs/customising/config)
+* Site [configuration]({{ site.baseurl }}docs/customising/config/)
   (e.g., the name of your site, the available
   languages, and so on &mdash; all in `config/general.yml`)
 * Data (e.g. the public bodies to whom requests should be addressed)
@@ -137,7 +137,7 @@ locale you support.
 ## Customising the request states
 
 As mentioned above, if you can possibly live with the
-[default Alaveteli request statuses]({{ site.baseurl }}docs/running/states),
+[default Alaveteli request statuses]({{ site.baseurl }}docs/running/states/),
 it would be good to do so.  Note that you can set how many days counts
 as "overdue" in the main site config file &mdash;
 see [`REPLY_LATE_AFTER_DAYS`]({{ site.baseurl }}docs/customising/config/#reply_late_after_days).
