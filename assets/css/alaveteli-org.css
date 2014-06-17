@@ -550,3 +550,10 @@ h3 {
 .deployment--major .deployment__country,
 .deployment--major .deployment__link {
   margin-left: 37%; }
+
+.blog-title {
+  line-height: 1.3em; }
+
+table.image {
+  width: auto;
+  max-width: 100%; }
