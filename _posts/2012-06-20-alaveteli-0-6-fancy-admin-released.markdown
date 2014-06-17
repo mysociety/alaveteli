@@ -56,6 +56,6 @@ There are some blog posts about some of the new features here:
   * ["Following" and the "wall"](/2012/06/20/new-feature-following-and-the-wall/)
 
 
-  * [Bundler](/2012/06/21/new-for-developers-bundler-support/)
+  * [Bundler](/2012/06/20/new-for-developers-bundler-support/)
 
 
