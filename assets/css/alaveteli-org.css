@@ -438,15 +438,17 @@ h3 {
         font-size: 1.666666667em; } }
     .deployments__intro h1 span {
       display: block;
-      font-size: 1.8em;
+      font-size: 1.5em;
+      margin-top: 0.25em;
       font-weight: 700;
       line-height: 1em; }
       @media (min-width: 30em) {
         .deployments__intro h1 span {
-          font-size: 2.4em; } }
+          margin-top: 0.15em;
+          font-size: 1.8em; } }
       @media (min-width: 56.88889em) {
         .deployments__intro h1 span {
-          font-size: 3em; } }
+          font-size: 2.4em; } }
   .deployments__intro p {
     font-size: 1em;
     max-width: 23em;
@@ -532,7 +534,11 @@ h3 {
   margin-top: 0;
   margin-bottom: 0.5em;
   font-size: 0.888888889em;
-  text-overflow: ellipsis; }
+  text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden; }
   @media (min-width: 56.88889em) {
     .deployment__link {
       font-size: 1em; } }
@@ -541,9 +547,12 @@ h3 {
   font-size: 0.888888889em;
   clear: both; }
 
+.deployment__screenshot {
+  border: 1px solid #e4e3dd; }
+
 .deployment--minor .deployment__title {
   padding-top: 0;
-  font-size: 1.3em; }
+  font-size: 1.1em; }
 .deployment--minor .deployment__country {
   font-size: 1em; }
 .deployment--minor .deployment__link {
