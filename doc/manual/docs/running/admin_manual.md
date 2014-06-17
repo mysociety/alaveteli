@@ -141,7 +141,7 @@ user of the site who later develops "Google remorse".
   material down against the public interest in publishing / continuing to
   publish the material.  "Sensitive" personal data will typically require a
   much higher level of public interest.
-* [WhatDoTheyKnow considers](http://www.whatdotheyknow.com/help/privacy#takedown) there to be a
+* [WhatDoTheyKnow considers](https://www.whatdotheyknow.com/help/privacy#takedown) there to be a
   strong public interest in retaining the names of officers or servants of
   public authorities
 * For users who want their name removed entirely from the site, in the first
@@ -213,7 +213,7 @@ Respond to user and point them in the right direction.
 > in public, via our site. To get started click "make a new freedom of
 > information request" at:
 >
-> http://www.whatdotheyknow.com/body/&lt;authority_name&gt;
+> https://www.whatdotheyknow.com/body/&lt;authority_name&gt;
 
 ### Wants advice
 
