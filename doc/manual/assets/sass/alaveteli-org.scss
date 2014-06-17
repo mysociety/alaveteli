@@ -522,12 +522,14 @@ h3 {
         margin-bottom: 1em;
         span {
             display: block;
-            font-size: 1.8em;
+            font-size: 1.5em;
+            margin-top: 0.25em;
             @media (min-width: $medium-screen) {
-                font-size: 2.4em;
+                margin-top: 0.15em;
+                font-size: 1.8em;
             }
             @media (min-width: $large-screen) {
-                font-size: 3em;
+                font-size: 2.4em;
             }
             font-weight: 700;
             line-height: 1em;
@@ -643,6 +645,10 @@ h3 {
     margin-bottom: 0.5em;
     font-size: 0.888888889em;
     text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow: hidden;
     @media (min-width: $large-screen) {
         font-size: 1em;
     }
@@ -653,11 +659,15 @@ h3 {
     clear: both;
 }
 
+ .deployment__screenshot {
+    border: 1px solid $colour_borders;
+}
+
 .deployment--minor {
     @extend .deployment;
     .deployment__title {
         padding-top: 0;
-        font-size: 1.3em;
+        font-size: 1.1em;
     }
     .deployment__country {
         font-size: 1em;
