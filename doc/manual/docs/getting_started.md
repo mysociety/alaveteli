@@ -98,7 +98,7 @@ third parties, and to do so we're happy to help host low-volume sites for two
 or three partners. However, you will have no service level agreement, no
 warranties, and no guarantee on our time: if the website goes down when we're
 on holiday, you'll have to wait until we're back! If you want to try this
-route, please [get in touch](http://alaveteli.org/contact-us) to find out if
+route, please [get in touch](mailto:international@mysociety.org) to find out if
 we have capacity.
 
 ### Install your own copy
