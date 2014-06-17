@@ -10,18 +10,18 @@ title: Manual installation
     The following instructions describe the step-by-step process for
     installing Alaveteli. <em>You don't necessarily need to do it this
     way:</em> it's usually easier to use the
-    <a href="{{ site.baseurl }}docs/installing/script">installation script</a>
+    <a href="{{ site.baseurl }}docs/installing/script/">installation script</a>
     or the
-    <a href="{{ site.baseurl }}docs/installing/ami">Amazon EC2 AMI</a>.
+    <a href="{{ site.baseurl }}docs/installing/ami/">Amazon EC2 AMI</a>.
 </p>
 
-Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing).
+Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing/).
 
 ## Target operating system
 
 These instructions assume Debian Squeeze (64-bit) or Ubuntu 12.04 LTS
 (precise). Debian Squeeze is the best supported deployment platform. We also
-have instructions for [installing on MacOS]({{ site.baseurl }}docs/installing/macos).
+have instructions for [installing on MacOS]({{ site.baseurl }}docs/installing/macos/).
 
 Commands are intended to be run via the terminal or over ssh.
 
@@ -206,7 +206,7 @@ to the test config in `database.yml` (as seen in `database.yml-example`)
 
 You will need to set up an email server (MTA) to send and receive emails. Full
 configuration for an MTA is beyond the scope of this document -- see this
-[example config for Exim4]({{ site.baseurl }}docs/installing/email).
+[example config for Exim4]({{ site.baseurl }}docs/installing/email/).
 
 Note that in development mode mail is handled by mailcatcher by default so
 that you can see the mails in a browser - see [http://mailcatcher.me/](http://mailcatcher.me/) for more
