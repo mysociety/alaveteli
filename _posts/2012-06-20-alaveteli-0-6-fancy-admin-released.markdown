@@ -53,7 +53,7 @@ There are some blog posts about some of the new features here:
   * [The request moderation features](/2012/06/20/new-feature-easier-request-moderation/)
 
 
-  * ["Following" and the "wall"](/2012/06/21/new-feature-following-and-the-wall/)
+  * ["Following" and the "wall"](/2012/06/20/new-feature-following-and-the-wall/)
 
 
   * [Bundler](/2012/06/21/new-for-developers-bundler-support/)

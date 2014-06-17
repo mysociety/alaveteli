@@ -6,8 +6,6 @@ layout: post
 slug: new-for-developers-bundler-support
 title: 'New for developers: bundler support'
 wordpress_id: 373
-categories:
-- Blog
 ---
 
 Thanks to lots of hard work from [@mckinneyjames](https://twitter.com/#!/mckinneyjames), Alaveteli now uses [Bundler](http://gembundler.com/) wherever possible to satisfy its dependencies.
