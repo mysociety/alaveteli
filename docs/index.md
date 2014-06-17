@@ -19,7 +19,7 @@ You've found the documentation for Alaveteli.
 
 * Read [Turbo Transparency](/assets/files/Turbo-Transparency-v1.0.pdf), a paper about how and why to use Alaveteli for Freedom of Information systems
 
-* Read the [Getting Started guide]({{ site.baseurl }}docs/getting_started)
+* Read the [Getting Started guide]({{ site.baseurl }}docs/getting_started/)
 
 **The documentation covers
 [installing]({{ site.baseurl }}docs/installing/),
