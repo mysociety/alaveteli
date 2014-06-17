@@ -140,7 +140,7 @@ website](http://guides.rubyonrails.org/getting_started.html).
     <p><em>documentation</em></p>
     <p>
         These are technical notes. This is in addition to the <a
-        href="http://code.fixmystreet.com">core documentation</a> &mdash; which
+        href="http://code.alaveteli.org/docs/">core documentation</a> &mdash; which
         you are reading now &mdash; which is actually stored in the git
         repository in the <code>gh-pages</code> branch, and published as GitHub
         pages.
