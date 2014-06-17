@@ -369,7 +369,7 @@ website is. To ensure its success, you should be doing things like:
 * Recruiting volunteers to help with the site
 * Categorising uncategorised requests
 
-See also the [Administrator's Manual](/docs/running/admin_manual), which describes
+See also the [Administrator's Manual](/docs/running/admin_manual/), which describes
 some of the typical tasks you'll need to perform when your site is up and
 running.
 
