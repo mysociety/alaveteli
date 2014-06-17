@@ -11,4 +11,4 @@ categories:
 - Partners
 ---
 
-Just a quick blog post to note that there's now a rudimentary [Getting Started](/getting_started) guide, which is recommended reading for anyone thinking of starting their own Alaveteli website.
+Just a quick blog post to note that there's now a rudimentary [Getting Started](/docs/getting_started) guide, which is recommended reading for anyone thinking of starting their own Alaveteli website.

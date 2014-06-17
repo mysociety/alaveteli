@@ -8,7 +8,7 @@ title: You need volunteers to make your website work
 wordpress_id: 55
 ---
 
-A successful Alaveteli website is nothing without its volunteers.  These are people who care so much about transparency and the right to know that they are motivated to help run a busy website.  There's [some details here](/running/admin_manual), but in short, volunteers do things like:
+A successful Alaveteli website is nothing without its volunteers.  These are people who care so much about transparency and the right to know that they are motivated to help run a busy website.  There's [some details here](/docs/running/admin_manual), but in short, volunteers do things like:
 
 
 

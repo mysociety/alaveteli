@@ -10,7 +10,7 @@ categories:
 - Development
 ---
 
-Finally Alaveteli 0.6 is out of the door!  Grab it from the [github master branch](https://github.com/mysociety/alaveteli/) and try it out.  The most obvious new feature is a glossy new administrative interface, based on work started at AlaveteliCon by [@wombleton](https://twitter.com/#%21/wombleton).  If you are upgrading, be sure to read the upgrade notes in [CHANGES.md](https://github.com/mysociety/alaveteli/blob/master/doc/CHANGES.md), and the [new section in the install docs](/installing) about [upgrading Alaveteli](/installing/manual_install#upgrading-alaveteli).  Drop a note to the [alaveteli-dev mailing list](http://groups.google.com/group/alaveteli-dev) if you need any help with your upgrade.
+Finally Alaveteli 0.6 is out of the door!  Grab it from the [github master branch](https://github.com/mysociety/alaveteli/) and try it out.  The most obvious new feature is a glossy new administrative interface, based on work started at AlaveteliCon by [@wombleton](https://twitter.com/#%21/wombleton).  If you are upgrading, be sure to read the upgrade notes in [CHANGES.md](https://github.com/mysociety/alaveteli/blob/master/doc/CHANGES.md), and the [new section in the install docs](/docs/installing) about [upgrading Alaveteli](/docs/running/upgrading/).  Drop a note to the [alaveteli-dev mailing list](http://groups.google.com/group/alaveteli-dev) if you need any help with your upgrade.
 
 [A full list of changes](https://github.com/mysociety/alaveteli/issues?milestone=13&state=closed) is on Github.  Interesting features and bugfixes include:
 
