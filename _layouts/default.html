@@ -67,9 +67,12 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="{{ site.baseurl }}assets/scripts/responsive-nav.min.js"></script>
-    <script src="{{ site.baseurl }}assets/scripts/svgeezy.js"></script>
     <script>
       var nav = responsiveNav(".nav-collapse");
+    </script>
+    <script src="{{ site.baseurl }}assets/scripts/svgeezy.js"></script>
+    <script>
+      svgeezy.init('nocheck', 'png'); // this will tell the plugin to not check images with a class of 'nocheck'
     </script>
     <script>
       function replace_str(base, replacement) {
