@@ -184,7 +184,7 @@ Definitions
         <li>
           censor rules may simply redact text that exactly matches a
           particular sentence or phrase, or may use
-          <a href="regexp">regular expressions</a>
+          <a href="#regexp">regular expressions</a>
         </li>
       </ul>
     </div>
@@ -258,7 +258,7 @@ Definitions
         </li>
         <li>
           Everything about git from the <a
-          href="//http://git-scm.com">official website</a>.
+          href="http://git-scm.com">official website</a>.
         </li>
         <li>
           See <a href="http://github.com/mysociety">the mySociety projects on
@@ -269,7 +269,7 @@ Definitions
   </dd>
 
   <dt>
-    <a name="holding pen">holding pen</a>
+    <a name="holding_pen">holding pen</a>
   </dt>
   <dd>
     The <strong>holding pen</strong> is the conceptual place where responses that
@@ -610,8 +610,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-      <a href="{{ site.baseurl }}docs/customising
-/themes">about themes</a>
+      <a href="{{ site.baseurl }}docs/customising/themes">about themes</a>
         </li>
       </ul>
     </div>
