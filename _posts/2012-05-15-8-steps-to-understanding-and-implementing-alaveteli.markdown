@@ -23,7 +23,7 @@ Here, in eight points, is the key to understanding why Alaveteli has excited adv
   1. It can be developed in countries whether or not they have a right to the Freedom of Information. In places which have an established Right to Information law, Alaveteli helps strengthen and extend citizens’ access, through the publication of thousands of public documents. In places with no history of FOI, it helps people to put pressure on the State to create a law.
 
 
-  2. Why the name? Alaveteli is the town where the first ever Access to Public Information law was passed. mySociety chose the name to express the idea of "free for everybody." Development began in 2011 when a team, led by Seb Bacon, decided to take the open code from the UK site [WhatDoTheyKnow](http://www.whatdotheyknow.com/), and improve and adapt it so that  it could easily be replicated in different contexts.
+  2. Why the name? Alaveteli is the town where the first ever Access to Public Information law was passed. mySociety chose the name to express the idea of "free for everybody." Development began in 2011 when a team, led by Seb Bacon, decided to take the open code from the UK site [WhatDoTheyKnow](https://www.whatdotheyknow.com/), and improve and adapt it so that  it could easily be replicated in different contexts.
 
 
   3. Anyone can participate in the project. Yes, you will need access to programmers and FOI experts. But take a look at [Turbo Transparency](/assets/files/Turbo-Transparency-v1.0.pdf), a brief guide explaining what Alaveteli is, how it is used and why it should implemented in other countries. Above all, it highlights the need for people who are passionate about open government, and accountability for the many tasks that government performs for its people.

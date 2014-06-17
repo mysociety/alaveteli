@@ -10,7 +10,7 @@ categories:
 - Blog
 ---
 
-I recently interviewed Daniel Dietrich and Stefan Wehrmeyer of [Open Knowledge Foundation Germany](http://okfn.de).  Back in August 2011 they launched [Frag den Staat](https://fragdenstaat.de/), a website inspired by [WhatDoTheyKnow](http://www.whatdotheyknow.com/).  We talked about launching with media coverage and the challenges it brings, relationships with officials, and the challenges of implementing multiple jurisdictions within a single federated country.
+I recently interviewed Daniel Dietrich and Stefan Wehrmeyer of [Open Knowledge Foundation Germany](http://okfn.de).  Back in August 2011 they launched [Frag den Staat](https://fragdenstaat.de/), a website inspired by [WhatDoTheyKnow](https://www.whatdotheyknow.com/).  We talked about launching with media coverage and the challenges it brings, relationships with officials, and the challenges of implementing multiple jurisdictions within a single federated country.
 
 {% include image.html url="/assets/img/fds.png" description="Frag den Staat screenshot" width="271" %}
 
