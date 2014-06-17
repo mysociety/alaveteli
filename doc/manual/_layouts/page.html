@@ -1,7 +1,29 @@
 ---
 layout: default
 ---
+<div class="page-wrapper">
 <div class="page">
+  {% capture url_parts %} {{ page.url | remove: "/index.html" | replace:'/'," " }}{% endcapture %}
+  {% assign parts = url_parts | split: ' ' %}
+  {% assign previous="" %}
+  <ul class="breadcrumb">
+    {% if num_parts == "-1" %}
+    {% elsif num_parts == "0" %}
+      <li><a href="/">Home</a></li>
+    {% else %}
+      <li><a href="/">Home</a></li>
+      {% if page.slug == null %}
+          {% for part in parts %}
+            {% capture previous %}{{ previous }}/{{ part }}{% endcapture %}
+            <li><a href="{{ previous }}/">{{ part | capitalize | replace:'_'," " }}</a></li>
+            {% capture url_parts %}{{ url_parts | remove_first:part }}{% endcapture %}
+          {% endfor %}
+      {% else %}
+        <li><a href="/blog">Blog</a></li>
+      {% endif %}
+    {% endif %}
+  </ul>
+
     <div class="main-content-column">
       <main role="main" class="main-content">
         {{ content }}
@@ -55,10 +77,7 @@ layout: default
           <li><a href="{{ site.baseurl }}community/">Community</a>
                 <ul>
                     <li>
-                        <ul><li>
-                                <a href="{{ site.baseurl }}community/conferences/2012/">AlaveteliCon 2012</a>
-                            </li>
-                        </ul>
+                        <a href="{{ site.baseurl }}community/conferences/2012/">AlaveteliCon 2012</a>
                     </li>
                 </ul>
           </li>
@@ -68,3 +87,4 @@ layout: default
     </div>
 
   </div>
+</div>
