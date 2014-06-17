@@ -53,11 +53,6 @@ there's an `#alaveteli` channel on
 [Freenode](http://freenode.net) (`irc.freenode.net`) ...although that channel can be rather quiet
 <img src="http://www.alaveteli.org/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley">
 
-##  Alaveteli commit messages (code)
-
-To keep an eye on activity on the repo, join the
-<a href="https://groups.google.com/group/alaveteli-commits/">Alaveteli push messages mailing list</a> (one a day).
-
 ## Code and issues on github
 
 The [Alaveteli software is on github](https://github.com/mysociety/alaveteli) and we actively use
