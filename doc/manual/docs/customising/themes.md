@@ -19,7 +19,7 @@ behaviour, you'll need to make a **theme**.
 
 You don't need to be a programmer in order to make simple changes, but you will
 need to be confident enough to copy and change some files. If you're not sure
-about this, [ask for help](/community)!
+about this, [ask for help](/community/)!
 
 ## What you might want to change
 
