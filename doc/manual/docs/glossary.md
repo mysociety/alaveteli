@@ -238,7 +238,7 @@ Definitions
     helps us track changes to the code, and also makes it easy for other people
     to duplicate and even contribute to our software.
     <p>
-      The website <a href="http://github.com/mysociety">github.com</a> is a central, public
+      The website <a href="https://github.com/mysociety">github.com</a> is a central, public
       place where we make our software available. Because it's Open Source, you can
       inspect the code there (Alaveteli is mostly written in the programming language
       Ruby), report bugs, suggest features and many other useful things.
@@ -261,7 +261,7 @@ Definitions
           href="http://git-scm.com">official website</a>.
         </li>
         <li>
-          See <a href="http://github.com/mysociety">the mySociety projects on
+          See <a href="https://github.com/mysociety">the mySociety projects on
           github</a>.
         </li>
       </ul>

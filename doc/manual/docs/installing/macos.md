@@ -25,7 +25,7 @@ If you are using OS X Lion, download *Command Line Tools for Xcode* from [Apple]
 
 **Note:** As of Xcode 4.2, a non-LLVM version of GCC is no longer included. Homebrew has dealt with it by [switching to Clang](https://github.com/mxcl/homebrew/issues/6852). However, you may encounter errors installing RVM. *Please report these on the [mailing list](https://groups.google.com/group/alaveteli-dev).* The following instructions have been tested with Xcode 4.1. If necessary, you can install GCC from Xcode 4.1 by running:
 
-    brew install http://github.com/adamv/homebrew-alt/raw/master/duplicates/apple-gcc42.rb
+    brew install https://github.com/adamv/homebrew-alt/raw/master/duplicates/apple-gcc42.rb
 
 ## Homebrew
 

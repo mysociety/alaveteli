@@ -78,7 +78,7 @@ Next, on your local machine:
    * Capistrano requires Ruby 1.9 or more, and can be installed using rubygems
    * do: `gem install capistrano`
 * install Bundler if you don't have it already -- do: `gem install bundler`
-* checkout the [Alaveteli repo](http://github.com/mysociety/alaveteli/) (you
+* checkout the [Alaveteli repo](https://github.com/mysociety/alaveteli/) (you
   need some of the files available locally even though you might not be running
   Alaveteli on this machine)
 * copy the example file `config/deploy.yml.example` to `config/deploy.yml`
