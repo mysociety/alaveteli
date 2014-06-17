@@ -8,9 +8,6 @@ title: A Right-to-Know site for Spain
 wordpress_id: 339
 ---
 
-## ![](http://diy.mysociety.org/wp-content/uploads/2012/04/tuderechoasaber.jpg)
-
-
 [Tuderechoasaber.es](http://www.tuderechoasaber.es/) is Spain’s brand new Right-to-Know site, built on Alaveteli. The project is managed by David Cabo and Victoria Anderica, and it launches against a fascinating political background.
 
 When the project was started, Spain was one of four EU countries with no Freedom of Information law. The subject was, however, on the political agenda – FOI had been promised, but not delivered, by the previous government in both 2004 and 2008. On election in December 2011, the new conservative ruling party again pledged to introduce Freedom of Information, within their first 100 days in office.
