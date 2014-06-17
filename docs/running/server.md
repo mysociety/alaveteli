@@ -76,8 +76,7 @@ deliverability of your email:
 
 * Set up [SPF records](http://www.openspf.org/) for your domain
 * Set up <a
-  href="http://en.wikipedia.org/wiki/Feedback_loop_(email)#Feedback_loop_links_f
-  or_some_email_providers">feedback loops</a> with the main email providers
+  href="http://wiki.asrg.sp.am/wiki/Feedback_loop_links_for_some_email_providers">feedback loops</a> with the main email providers
   (Hotmail and Yahoo! are recommended)
 * Especially if deploying from Amazon EC2, use an external SMTP relay for
   sending outgoing mail. See [Alaveteli EC2 AMI]( {{ site.baseurl }}docs/installing/ami/)

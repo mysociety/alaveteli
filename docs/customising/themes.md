@@ -28,7 +28,7 @@ The most common requirement is to brand the site: at a minimum,
 the different states that a request can go through.  You'll also want
 to edit the categories that public bodies can appear in (i.e. the
 groupings on the left hand side of the
-"[View authorities](http://www.whatdotheyknow.com/body/list/all)" page
+"[View authorities](https://www.whatdotheyknow.com/body/list/all)" page
 on WhatDoTheyKnow.
 
 There may also be other things you want to customise -- drop a line on

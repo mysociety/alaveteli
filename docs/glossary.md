@@ -53,7 +53,7 @@ Definitions
     managing and archiving Freedom of Information requests.
     <p>
       It grew from the successful FOI UK project
-      <a href="http://www.whatdotheyknow.com">WhatDoTheyKnow</a>.
+      <a href="https://www.whatdotheyknow.com">WhatDoTheyKnow</a>.
       We use the name <em>Alaveteli</em> to distinguish the software
       that runs the platform from any specific website that it is powering.
     </p>
@@ -224,7 +224,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          Wikipedia summary of <a href="http://http://en.wikipedia.org/wiki/Freedom_of_information_laws_by_country">FOI laws by country</a>.
+          Wikipedia summary of <a href="http://en.wikipedia.org/wiki/Freedom_of_information_laws_by_country">FOI laws by country</a>.
         </li>
       </ul>
     </div>
