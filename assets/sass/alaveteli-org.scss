@@ -207,7 +207,6 @@ h3 {
 
 .what-is-alaveteli {
     @extend %full-width-section;
-    border-bottom: 1px solid $colour_borders;
     position: relative;
 }
 
@@ -297,6 +296,59 @@ h3 {
             border-color: $colour_links;
             color: $colour_links;
         }
+    }
+}
+
+.how-does-it-work {
+    @extend %full-width-section;
+    @extend %dark-section;
+    background-color: darken($colour_brand, 5%);
+    position: relative;
+    padding-bottom: 0;
+    @media(min-width: $mediumish-screen) {
+        margin-top: 2em;
+    }
+    @media(min-width: $large-screen) {
+        margin-top: 4em;
+        margin-bottom: 2em;
+    }
+    .container {
+        @media(min-width: $mediumish-screen) {
+            padding-bottom: 3.5em;
+            min-height: 320px;
+        }
+    }
+}
+
+.how-does-it-work__screenshot-position {
+    text-align: center;
+    overflow: hidden;
+    line-height: 0;
+    @media(min-width: $mediumish-screen) {
+        position: absolute;
+        bottom: 0;
+        left: 60%;
+        width: 40%;
+    }
+    @media(min-width: 71.25em) {
+        right: 43%;
+        left: auto;
+        width: 58.333333%;
+    }
+    img {
+        @media(min-width: $mediumish-screen) {
+            min-width: 660px;
+        }
+    }
+}
+
+.how-does-it-work__content {
+    @media(min-width: $mediumish-screen) {
+        margin-right: 44%;
+    }
+    @media(min-width: 71.25em) {
+        margin-left: 61.333333%;
+        margin-right: 0;
     }
 }
 

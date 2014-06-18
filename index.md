@@ -43,6 +43,23 @@ title: Welcome
         </div>
     </div>
 </div>
+<div class="how-does-it-work">
+    <div class="container">
+        <div class="how-does-it-work__content">
+                <h2>How does Alaveteli work?</h2>
+                <ul>
+                    <li>A user makes a request for information from a public authority</li>
+                    <li>Alaveteli notifies the authority, and handles any other workflow, like notifications and reminders</li>
+                    <li>Alaveteli also publishes the request so that anyone can see it on the web</li>
+                    <li>When the authority responds, the information is published too, so it’s accessible for everyone
+</li>
+                </ul>
+        </div>
+        <div class="how-does-it-work__screenshot-position">
+            <img src="{{ site.baseurl }}assets/img/alaveteli-demo.svg" class="alaveteli-demo-screenshot"/>
+        </div>
+    </div>
+</div>
 <div class="features">
     <div class="container">
         <h2>What does Alaveteli do?</h2>
