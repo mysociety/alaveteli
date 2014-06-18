@@ -162,6 +162,8 @@ GEM
       railties (~> 3.0)
     pg (0.15.1)
     polyglot (0.3.4)
+    quiet_assets (1.0.2)
+      railties (>= 3.1, < 5.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -312,6 +314,7 @@ DEPENDENCIES
   newrelic_rpm
   nokogiri
   pg
+  quiet_assets
   rack
   rails (= 3.2.18)
   rails-i18n
