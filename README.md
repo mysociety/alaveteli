@@ -17,12 +17,12 @@ Please join our mailing list at
 https://groups.google.com/group/alaveteli-dev and introduce yourself, or
 drop a line to hello@alaveteli.org to let us know that you're using Alaveteli.
 
-Some documentation can be found in the
-[`doc/` folder](https://github.com/mysociety/alaveteli/tree/master/doc).
-There's background information and more documentation on
-[our wiki](https://github.com/mysociety/alaveteli/wiki/Home/), and lots
-of useful information (including a blog) on
-[the project website](http://alaveteli.org)
+There's lots of useful information and documentation (including a blog)
+on [the project website](http://alaveteli.org). There's background
+information and notes on [our
+wiki](https://github.com/mysociety/alaveteli/wiki/Home/), and upgrade
+notes in the [`doc/`
+folder](https://github.com/mysociety/alaveteli/tree/master/doc/CHANGES.md)
 
 ## How to contribute
 
