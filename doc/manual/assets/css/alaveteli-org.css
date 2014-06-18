@@ -25,32 +25,32 @@
   text-align: center; }
 
 /* Alaveteli's purple */
-.hero, .what-is-alaveteli, .features, .get-started, .about__intro, .deployments__intro {
+.hero, .what-is-alaveteli, .how-does-it-work, .features, .get-started, .about__intro, .deployments__intro {
   padding: 2em 0; }
   @media (min-width: 40em) {
-    .hero, .what-is-alaveteli, .features, .get-started, .about__intro, .deployments__intro {
+    .hero, .what-is-alaveteli, .how-does-it-work, .features, .get-started, .about__intro, .deployments__intro {
       padding: 3.5em 0; } }
 
-.hero, .get-started, .about__intro, .deployments__intro {
+.hero, .how-does-it-work, .get-started, .about__intro, .deployments__intro {
   background-color: #333333;
   color: #fff; }
-  .hero a, .get-started a, .about__intro a, .deployments__intro a {
+  .hero a, .how-does-it-work a, .get-started a, .about__intro a, .deployments__intro a {
     color: #fff;
     border-bottom: 1px dotted rgba(255, 255, 255, 0.3); }
-    .hero a:hover, .get-started a:hover, .about__intro a:hover, .deployments__intro a:hover, .hero a:active, .get-started a:active, .about__intro a:active, .deployments__intro a:active, .hero a:focus, .get-started a:focus, .about__intro a:focus, .deployments__intro a:focus {
+    .hero a:hover, .how-does-it-work a:hover, .get-started a:hover, .about__intro a:hover, .deployments__intro a:hover, .hero a:active, .how-does-it-work a:active, .get-started a:active, .about__intro a:active, .deployments__intro a:active, .hero a:focus, .how-does-it-work a:focus, .get-started a:focus, .about__intro a:focus, .deployments__intro a:focus {
       border-color: rgba(255, 255, 255, 0.6);
       background-color: #863c83;
       text-decoration: none; }
-  .hero .button, .get-started .button, .about__intro .button, .deployments__intro .button {
+  .hero .button, .how-does-it-work .button, .get-started .button, .about__intro .button, .deployments__intro .button {
     color: #fff;
     border: 1px solid rgba(255, 255, 255, 0.3);
     width: 100%;
     margin-bottom: 1em; }
     @media (min-width: 30em) {
-      .hero .button, .get-started .button, .about__intro .button, .deployments__intro .button {
+      .hero .button, .how-does-it-work .button, .get-started .button, .about__intro .button, .deployments__intro .button {
         width: auto;
         margin-bottom: 0; } }
-    .hero .button:hover, .get-started .button:hover, .about__intro .button:hover, .deployments__intro .button:hover, .hero .button:active, .get-started .button:active, .about__intro .button:active, .deployments__intro .button:active, .hero .button:focus, .get-started .button:focus, .about__intro .button:focus, .deployments__intro .button:focus {
+    .hero .button:hover, .how-does-it-work .button:hover, .get-started .button:hover, .about__intro .button:hover, .deployments__intro .button:hover, .hero .button:active, .how-does-it-work .button:active, .get-started .button:active, .about__intro .button:active, .deployments__intro .button:active, .hero .button:focus, .how-does-it-work .button:focus, .get-started .button:focus, .about__intro .button:focus, .deployments__intro .button:focus {
       background-color: rgba(0, 0, 0, 0.1);
       border-color: rgba(0, 0, 0, 0.1); }
 
@@ -194,7 +194,6 @@ h3 {
     margin-right: 1em; }
 
 .what-is-alaveteli {
-  border-bottom: 1px solid #e4e3dd;
   position: relative; }
 
 @media (min-width: 56.88889em) {
@@ -263,6 +262,49 @@ h3 {
       text-decoration: none;
       border-color: #2b8cdb;
       color: #2b8cdb; }
+
+.how-does-it-work {
+  background-color: #974495;
+  position: relative;
+  padding-bottom: 0; }
+  @media (min-width: 40em) {
+    .how-does-it-work {
+      margin-top: 2em; } }
+  @media (min-width: 56.88889em) {
+    .how-does-it-work {
+      margin-top: 4em;
+      margin-bottom: 2em; } }
+  @media (min-width: 40em) {
+    .how-does-it-work .container {
+      padding-bottom: 3.5em;
+      min-height: 320px; } }
+
+.how-does-it-work__screenshot-position {
+  text-align: center;
+  overflow: hidden;
+  line-height: 0; }
+  @media (min-width: 40em) {
+    .how-does-it-work__screenshot-position {
+      position: absolute;
+      bottom: 0;
+      left: 60%;
+      width: 40%; } }
+  @media (min-width: 71.25em) {
+    .how-does-it-work__screenshot-position {
+      right: 43%;
+      left: auto;
+      width: 58.333333%; } }
+  @media (min-width: 40em) {
+    .how-does-it-work__screenshot-position img {
+      min-width: 660px; } }
+
+@media (min-width: 40em) {
+  .how-does-it-work__content {
+    margin-right: 44%; } }
+@media (min-width: 71.25em) {
+  .how-does-it-work__content {
+    margin-left: 61.333333%;
+    margin-right: 0; } }
 
 @media (min-width: 40em) {
   .features__grid-unit {
@@ -477,17 +519,17 @@ h3 {
 
 .deployments__unit--minor {
   display: inline-block;
-  width: 48.5%;
+  width: 47.5%;
   vertical-align: top; }
   .deployments__unit--minor:nth-child(n) {
-    margin-right: 3%; }
+    margin-right: 5%; }
   .deployments__unit--minor:nth-child(even) {
     margin-right: 0; }
   @media (min-width: 37.22222em) {
     .deployments__unit--minor {
-      width: 31.333333333%; }
+      width: 30%; }
       .deployments__unit--minor:nth-child(n) {
-        margin-right: 3%; }
+        margin-right: 5%; }
       .deployments__unit--minor:nth-child(3n+3) {
         margin-right: 0; } }
   @media (min-width: 56.88889em) {
