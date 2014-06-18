@@ -116,6 +116,71 @@ in any language, and within any legislation</p>
                         <p class="deployment__country">Tunisia</p>
                         <p class="deployment__link"><a href="http://www.marsoum41.org/en">http://www.marsoum41.org/en</a></p>
                     </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/nu-va-suparati.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Nu Vă Supărați</h3>
+                        <p class="deployment__country">Romania</p>
+                        <p class="deployment__link"><a href="http://nuvasuparati.info/">http://nuvasuparati.info/ </a></p>
+                    </div>
+                </div><!--
+
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/pravo-da-znam.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Pravo Da Znam</h3>
+                        <p class="deployment__country">Bosnia</p>
+                        <p class="deployment__link"><a href="http://www.pravodaznam.ba/">http://www.pravodaznam.ba/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/ask-data.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Ask Data</h3>
+                        <p class="deployment__country">Israel</p>
+                        <p class="deployment__link"><a href="http://askdata.org.il/">http://askdata.org.il/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/je-veux-savoir.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Je Veux Savoir</h3>
+                        <p class="deployment__country">Canada</p>
+                        <p class="deployment__link"><a href="http://www.jeveuxsavoir.org/">http://www.jeveuxsavoir.org/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/macedonia.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Слободен пристап</h3>
+                        <p class="deployment__country">Macedonia</p>
+                        <p class="deployment__link"><a href="http://www.slobodenpristap.mk/">http://www.slobodenpristap.mk/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/da-zanamo-svi.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Da Zanamo Svi</h3>
+                        <p class="deployment__country">Serbia</p>
+                        <p class="deployment__link"><a href="http://daznamosvi.rs/sr">http://daznamosvi.rs/sr</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/ask-your-gov.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Ask Your Government</h3>
+                        <p class="deployment__country">Uganda</p>
+                        <p class="deployment__link"><a href="http://askyourgov.ug/">http://askyourgov.ug/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/what-do-they-know.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">WhatDoTheyKnow</h3>
+                        <p class="deployment__country">United Kingdom</p>
+                        <p class="deployment__link"><a href="https://www.whatdotheyknow.com/">https://www.whatdotheyknow.com/</a></p>
+                    </div>
                 </div>
             </div>
         </div>
