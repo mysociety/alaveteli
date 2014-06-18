@@ -87,7 +87,7 @@ title: Welcome
             --><div class="features__grid-unit">
                 <div class="features__item">
                     <h3>Multilingual</h3>
-                    <p>Available in ten languages and counting, and you can translate it to your own</p>
+                    <p>Available in over sixteen languages, and you can translate it to your own</p>
                 </div>
             </div><!--
             --><div class="features__grid-unit">
