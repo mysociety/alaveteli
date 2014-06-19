@@ -37,7 +37,7 @@ title: Welcome
         </div>
         <div class="what-is-alaveteli__international-reach-position">
             <div class="what-is-alaveteli__international-reach">
-                <p class="message">Alaveteli has helped citizens make over <strong>200,000 Freedom of Information requests</strong> in <strong>16 jurisdictions</strong></p>
+                <p class="message">Alaveteli has helped citizens make over <strong>200,000 Freedom of Information requests</strong> in <strong>18 jurisdictions</strong></p>
                 <p><a href="{{ site.baseurl }}deployments/">See all deployments</a></p>
             </div>
         </div>
@@ -70,7 +70,7 @@ title: Welcome
             --><div class="features__grid-unit">
                 <div class="features__item">
                     <h3>Multilingual</h3>
-                    <p>Available in ten languages and counting, and you can translate it to your own</p>
+                    <p>Available in twenty languages and counting, and you can translate it to your own</p>
                 </div>
             </div><!--
             --><div class="features__grid-unit">
