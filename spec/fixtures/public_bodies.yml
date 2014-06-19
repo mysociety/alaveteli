@@ -4,7 +4,7 @@
 #
 #  id                                     :integer          not null, primary key
 #  name                                   :text             not null
-#  short_name                             :text             not null
+#  short_name                             :text             default(""), not null
 #  request_email                          :text             not null
 #  version                                :integer          not null
 #  last_edit_editor                       :string(255)      not null

@@ -2,24 +2,25 @@
 #
 # Table name: users
 #
-#  id                     :integer          not null, primary key
-#  email                  :string(255)      not null
-#  name                   :string(255)      not null
-#  hashed_password        :string(255)      not null
-#  salt                   :string(255)      not null
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  email_confirmed        :boolean          default(FALSE), not null
-#  url_name               :text             not null
-#  last_daily_track_email :datetime         default(2000-01-01 00:00:00 UTC)
-#  admin_level            :string(255)      default("none"), not null
-#  ban_text               :text             default(""), not null
-#  about_me               :text             default(""), not null
-#  locale                 :string(255)
-#  email_bounced_at       :datetime
-#  email_bounce_message   :text             default(""), not null
-#  no_limit               :boolean          default(FALSE), not null
-#  receive_email_alerts   :boolean          default(TRUE), not null
+#  id                      :integer          not null, primary key
+#  email                   :string(255)      not null
+#  name                    :string(255)      not null
+#  hashed_password         :string(255)      not null
+#  salt                    :string(255)      not null
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  email_confirmed         :boolean          default(FALSE), not null
+#  url_name                :text             not null
+#  last_daily_track_email  :datetime         default(Sat Jan 01 00:00:00 UTC 2000)
+#  admin_level             :string(255)      default("none"), not null
+#  ban_text                :text             default(""), not null
+#  about_me                :text             default(""), not null
+#  locale                  :string(255)
+#  email_bounced_at        :datetime
+#  email_bounce_message    :text             default(""), not null
+#  no_limit                :boolean          default(FALSE), not null
+#  receive_email_alerts    :boolean          default(TRUE), not null
+#  can_make_batch_requests :boolean          default(FALSE), not null
 #
 
 require 'digest/sha1'
@@ -42,6 +43,7 @@ class User < ActiveRecord::Base
     has_many :comments, :order => 'created_at desc'
     has_one :profile_photo
     has_many :censor_rules, :order => 'created_at desc'
+    has_many :info_request_batches, :order => 'created_at desc'
 
     attr_accessor :password_confirmation, :no_xapian_reindex
     validates_confirmation_of :password, :message => _("Please enter the same password twice")
@@ -271,6 +273,9 @@ class User < ActiveRecord::Base
     def exceeded_limit?
         # Some users have no limit
         return false if self.no_limit
+
+        # Batch request users don't have a limit
+        return false if self.can_make_batch_requests?
 
         # Has the user issued as many as MAX_REQUESTS_PER_USER_PER_DAY requests in the past 24 hours?
         return false if AlaveteliConfiguration::max_requests_per_user_per_day.blank?

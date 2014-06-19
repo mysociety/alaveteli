@@ -1,0 +1,56 @@
+/* Styles for pages in making a new request */
+
+/* /new/[body_name] page */
+.new_info_request {
+  label {
+    display: block;
+    margin-bottom: 0.5em;
+  }
+  input[type=text],
+  textarea {
+    width: 100%;
+    font-size: 1em;
+  }
+}
+
+#request_header {
+  padding-top:0.5em;
+  padding-bottom:1em;
+
+}
+
+#to_public_body {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+#request_header_text {
+  border-radius:3px;
+  background-color: lighten(#62b356, 23%);
+  padding:0 1em;
+  margin-bottom: 1.5em;
+  margin-top: 1.5em;
+  overflow: hidden;
+  h3 {
+   font-size: 1em;
+  }
+
+}
+
+#request_advice {
+  ul {
+    margin:0 auto;
+
+    li {
+      margin:0 0 1em;
+    }
+  }
+}
+
+
+/* Batch request page */
+
+.batch_public_body_toggle {
+  color: #0000EE;
+  font-size: 0.9em;
+}

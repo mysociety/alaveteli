@@ -1,0 +1,31 @@
+/* Layout for popup messages */
+
+.popup {
+  @include ie8{
+    width: 100%;
+  }
+}
+.popup .popup-content{
+  margin:0.5em;
+  width: 95%;
+  float: left;
+}
+
+.popup .popup-close {
+  display:inline-block;
+  overflow:hidden;
+  float:right;
+  padding:10px 0;
+}
+
+#other-country-notice{
+  display:none;
+}
+
+#link_box {
+  position:absolute;
+  z-index:999;
+  display:none;
+}
+
+

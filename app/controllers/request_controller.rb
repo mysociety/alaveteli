@@ -11,7 +11,7 @@ require 'open-uri'
 class RequestController < ApplicationController
     before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
     protect_from_forgery :only => [ :new, :show_response, :describe_state, :upload_response ] # See ActionController::RequestForgeryProtection for details
-
+    before_filter :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
     MAX_RESULTS = 500
     PER_PAGE = 25
 
@@ -41,6 +41,32 @@ class RequestController < ApplicationController
             @xapian_requests = perform_search_typeahead(query, PublicBody)
         end
         medium_cache
+    end
+
+    def select_authorities
+        if !params[:public_body_query].nil?
+            @search_bodies = perform_search_typeahead(params[:public_body_query], PublicBody, 1000)
+        end
+        respond_to do |format|
+            format.html do
+                if !params[:public_body_ids].nil?
+                    if !params[:remove_public_body_ids].nil?
+                        body_ids = params[:public_body_ids] - params[:remove_public_body_ids]
+                    else
+                        body_ids = params[:public_body_ids]
+                    end
+                    @public_bodies = PublicBody.where({:id => body_ids}).all
+                end
+            end
+            format.json do
+                if @search_bodies
+                    render :json => @search_bodies.results.map{ |result| {:name => result[:model].name,
+                                                                          :id => result[:model].id } }
+                else
+                    render :json => []
+                end
+            end
+        end
     end
 
     def show
@@ -141,7 +167,10 @@ class RequestController < ApplicationController
     def list
         medium_cache
         @view = params[:view]
+        @locale = self.locale_from_params()
         @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
+        @per_page = PER_PAGE
+        @max_results = MAX_RESULTS
         if @view == "recent"
             return redirect_to request_list_all_url(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
         end
@@ -151,22 +180,80 @@ class RequestController < ApplicationController
             raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / PER_PAGE}.")
         end
 
-        query = make_query_from_params(params.merge(:latest_status => @view))
+        @filters = params.merge(:latest_status => @view)
         @title = _("View and search requests")
-        sortby = "newest"
-        xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
-        @list_results = xapian_object.results.map { |r| r[:model] }
-        @matches_estimated = xapian_object.matches_estimated
-        @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
 
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
-        @track_thing = TrackThing.create_track_for_search_query(query)
+        @track_thing = TrackThing.create_track_for_search_query(InfoRequestEvent.make_query_from_params(@filters))
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
         # Don't let robots go more than 20 pages in
         if @page > 20
             @no_crawl = true
         end
+    end
+
+    def new_batch
+        if params[:public_body_ids].blank?
+            redirect_to select_authorities_path and return
+        end
+
+        # TODO: Decide if we make batch requesters describe their undescribed requests
+        # before being able to make a new batch request
+
+        if  !authenticated_user.can_file_requests?
+            @details = authenticated_user.can_fail_html
+            render :template => 'user/banned' and return
+        end
+
+        @batch = true
+
+        I18n.with_locale(@locale) do
+            @public_bodies = PublicBody.where({:id => params[:public_body_ids]}).
+                                        includes(:translations).
+                                        order('public_body_translations.name').all
+        end
+        if params[:submitted_new_request].nil? || params[:reedit]
+            return render_new_compose(batch=true)
+        end
+
+        # Check for double submission of batch
+        @existing_batch = InfoRequestBatch.find_existing(authenticated_user,
+                                                         params[:info_request][:title],
+                                                         params[:outgoing_message][:body],
+                                                         params[:public_body_ids])
+
+        @info_request = InfoRequest.create_from_attributes(params[:info_request],
+                                                           params[:outgoing_message],
+                                                           authenticated_user)
+        @outgoing_message = @info_request.outgoing_messages.first
+        @info_request.is_batch_request_template = true
+        if !@existing_batch.nil? || !@info_request.valid?
+            # We don't want the error "Outgoing messages is invalid", as in this
+            # case the list of errors will also contain a more specific error
+            # describing the reason it is invalid.
+            @info_request.errors.delete(:outgoing_messages)
+            render :action => 'new'
+            return
+        end
+
+        # Show preview page, if it is a preview
+        if params[:preview].to_i == 1
+            return render_new_preview
+        end
+
+        @info_request_batch = InfoRequestBatch.create!(:title => params[:info_request][:title],
+                                                      :body => params[:outgoing_message][:body],
+                                                      :public_bodies => @public_bodies,
+                                                      :user => authenticated_user)
+        flash[:notice] = _("<p>Your {{law_used_full}} requests will be <strong>sent</strong> shortly!</p>
+            <p><strong>We will email you</strong> when they have been sent.
+            We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't
+            replied by then.</p>
+            <p>If you write about these requests (for example in a forum or a blog) please link to this page.</p>",
+            :law_used_full=>@info_request.law_used_full,
+            :late_number_of_days => AlaveteliConfiguration::reply_late_after_days)
+        redirect_to info_request_batch_path(@info_request_batch)
     end
 
     # Page new form posts to
@@ -213,71 +300,19 @@ class RequestController < ApplicationController
                 render :template => 'user/rate_limited'
                 return
             end
-
-            params[:info_request] = { } if !params[:info_request]
-
-            # Read parameters in - first the public body (by URL name or id)
-            if params[:url_name]
-                if params[:url_name].match(/^[0-9]+$/)
-                    params[:info_request][:public_body] = PublicBody.find(params[:url_name])
-                else
-                    public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-                    raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # XXX proper 404
-                    params[:info_request][:public_body] = public_body
-                end
-            elsif params[:public_body_id]
-                params[:info_request][:public_body] = PublicBody.find(params[:public_body_id])
-            # Explicitly load the association as this isn't done automatically in newer Rails versions
-            elsif params[:info_request][:public_body_id]
-                params[:info_request][:public_body] = PublicBody.find(params[:info_request][:public_body_id])
-            end
-            if !params[:info_request][:public_body]
-                # compulsory to have a body by here, or go to front page which is start of process
-                redirect_to frontpage_url
-                return
-            end
-
-            # ... next any tags or other things
-            params[:info_request][:title] = params[:title] if params[:title]
-            params[:info_request][:tag_string] = params[:tags] if params[:tags]
-
-            @info_request = InfoRequest.new(params[:info_request])
-            params[:info_request_id] = @info_request.id
-            params[:outgoing_message] = {} if !params[:outgoing_message]
-            params[:outgoing_message][:body] = params[:body] if params[:body]
-            params[:outgoing_message][:default_letter] = params[:default_letter] if params[:default_letter]
-            params[:outgoing_message][:info_request] = @info_request
-            @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
-            @outgoing_message.set_signature_name(@user.name) if !@user.nil?
-
-            if @info_request.public_body.is_requestable?
-                render :action => 'new'
-            else
-                if @info_request.public_body.not_requestable_reason == 'bad_contact'
-                    render :action => 'new_bad_contact'
-                else
-                    # if not requestable because defunct or not_apply, redirect to main page
-                    # (which doesn't link to the /new/ URL)
-                    redirect_to public_body_url(@info_request.public_body)
-                end
-            end
-            return
+            return render_new_compose(batch=false)
         end
 
         # See if the exact same request has already been submitted
         # XXX this check should theoretically be a validation rule in the
         # model, except we really want to pass @existing_request to the view so
         # it can link to it.
-        @existing_request = InfoRequest.find_by_existing_request(params[:info_request][:title], params[:info_request][:public_body_id], params[:outgoing_message][:body])
+        @existing_request = InfoRequest.find_existing(params[:info_request][:title], params[:info_request][:public_body_id], params[:outgoing_message][:body])
 
         # Create both FOI request and the first request message
-        @info_request = InfoRequest.new(params[:info_request])
-        @outgoing_message = OutgoingMessage.new(params[:outgoing_message].merge({
-            :status => 'ready',
-            :message_type => 'initial_request'
-        }))
-        @info_request.outgoing_messages << @outgoing_message
-        @outgoing_message.info_request = @info_request
+        @info_request = InfoRequest.create_from_attributes(params[:info_request],
+                                                           params[:outgoing_message])
+        @outgoing_message = @info_request.outgoing_messages.first
 
         # Maybe we lost the address while they're writing it
         if !@info_request.public_body.is_requestable?
@@ -298,25 +333,7 @@ class RequestController < ApplicationController
 
         # Show preview page, if it is a preview
         if params[:preview].to_i == 1
-            @outgoing_message.body += "\nAddress: #{@info_request.address}"
-            message = ""
-            if @outgoing_message.contains_email?
-                if @user.nil?
-                    message += _("<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>", :url => (help_privacy_path+"#email_address").html_safe);
-                else
-                    message += _("<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>", :url => (help_privacy_path+"#email_address").html_safe);
-                end
-                message += _("<p>We recommend that you edit your request and remove the email address.
-                If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>")
-            end
-            if @outgoing_message.contains_postcode?
-                message += _("<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>");
-            end
-            if not message.empty?
-                flash.now[:error] = message.html_safe
-            end
-            render :action => 'preview'
-            return
+            return render_new_preview
         end
 
         if user_exceeded_limit
@@ -430,9 +447,9 @@ class RequestController < ApplicationController
         flash[:notice] = case info_request.calculate_status
         when 'waiting_response'
             _("<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>
-{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(info_request.date_response_required_by))
+{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>view_context.simple_date(info_request.date_response_required_by))
         when 'waiting_response_overdue'
-            _("<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(info_request.date_response_required_by))
+            _("<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>view_context.simple_date(info_request.date_response_required_by))
         when 'waiting_response_very_overdue'
             _("<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>", :very_late_number_of_days => AlaveteliConfiguration::reply_very_late_after_days, :late_number_of_days => AlaveteliConfiguration::reply_late_after_days)
         when 'not_held'
@@ -672,7 +689,7 @@ class RequestController < ApplicationController
         end
         if !incoming_message.user_can_view?(authenticated_user)
             @incoming_message = incoming_message # used by view
-            return render_hidden_message
+            return render_hidden('request/hidden_correspondence')
         end
         # Is this a completely public request that we can cache attachments for
         # to be served up without authentication?
@@ -746,18 +763,17 @@ class RequestController < ApplicationController
         key_path = foi_fragment_cache_path(key)
         image_dir = File.dirname(key_path)
         FileUtils.mkdir_p(image_dir)
-        html, wrapper_id = @attachment.body_as_html(image_dir)
 
-        view_html_stylesheet = render_to_string :partial => "request/view_html_stylesheet"
-        html.sub!(/<head>/i, "<head>" + view_html_stylesheet)
-        html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="' + wrapper_id + '"><div id="view-html-content">')
-        html.sub!(/<\/body[^>]*>/i, '</div></div></body>')
-
-        view_html_prefix = render_to_string :partial => "request/view_html_prefix"
-        html.sub!("<prefix-here>", view_html_prefix)
-        html.sub!("<attachment-url-here>", CGI.escape(@attachment_url))
+        html = @attachment.body_as_html(image_dir,
+            :attachment_url => Rack::Utils.escape(@attachment_url),
+            :content_for => {
+                :head_suffix => render_to_string(:partial => "request/view_html_stylesheet"),
+                :body_prefix => render_to_string(:partial => "request/view_html_prefix")
+            }
+        )
 
         @incoming_message.html_mask_stuff!(html)
+
         response.content_type = 'text/html'
         render :text => html
     end
@@ -886,19 +902,10 @@ class RequestController < ApplicationController
 
     private
 
-    def render_hidden
+    def render_hidden(template='request/hidden')
         respond_to do |format|
             response_code = 403 # forbidden
-            format.html{ render :template => 'request/hidden', :status => response_code }
-            format.any{ render :nothing => true, :status => response_code }
-        end
-        false
-    end
-
-    def render_hidden_message
-        respond_to do |format|
-            response_code = 403 # forbidden
-            format.html{ render :template => 'request/hidden_correspondence', :status => response_code }
+            format.html{ render :template => template, :status => response_code }
             format.any{ render :nothing => true, :status => response_code }
         end
         false
@@ -970,6 +977,103 @@ class RequestController < ApplicationController
         "request/similar/#{info_request.id}/#{locale}"
     end
 
+    def check_batch_requests_and_user_allowed
+        if !AlaveteliConfiguration::allow_batch_requests
+            raise RouteNotFound.new("Page not enabled")
+        end
+        if !authenticated?(
+                          :web => _("To make a batch request"),
+                          :email => _("Then you can make a batch request"),
+                          :email_subject => _("Make a batch request"),
+                          :user_name => "a user who has been authorised to make batch requests")
+            # do nothing - as "authenticated?" has done the redirect to signin page for us
+            return
+        end
+        if !@user.can_make_batch_requests?
+             return render_hidden('request/batch_not_allowed')
+        end
+    end
 
+    def render_new_compose(batch)
+
+        params[:info_request] = { } if !params[:info_request]
+
+        # Read parameters in
+        unless batch
+            # first the public body (by URL name or id)
+            if params[:url_name]
+                if params[:url_name].match(/^[0-9]+$/)
+                    params[:info_request][:public_body] = PublicBody.find(params[:url_name])
+                else
+                    public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
+                    raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # XXX proper 404
+                    params[:info_request][:public_body] = public_body
+                end
+            elsif params[:public_body_id]
+                params[:info_request][:public_body] = PublicBody.find(params[:public_body_id])
+            # Explicitly load the association as this isn't done automatically in newer Rails versions
+            elsif params[:info_request][:public_body_id]
+                params[:info_request][:public_body] = PublicBody.find(params[:info_request][:public_body_id])
+            end
+            if !params[:info_request][:public_body]
+                # compulsory to have a body by here, or go to front page which is start of process
+                redirect_to frontpage_url
+                return
+            end
+        end
+
+        # ... next any tags or other things
+        params[:info_request][:title] = params[:title] if params[:title]
+        params[:info_request][:tag_string] = params[:tags] if params[:tags]
+
+        @info_request = InfoRequest.new(params[:info_request])
+        if batch
+            @info_request.is_batch_request_template = true
+        end
+        params[:info_request_id] = @info_request.id
+        params[:outgoing_message] = {} if !params[:outgoing_message]
+        params[:outgoing_message][:body] = params[:body] if params[:body]
+        params[:outgoing_message][:default_letter] = params[:default_letter] if params[:default_letter]
+        params[:outgoing_message][:info_request] = @info_request
+        @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
+        @outgoing_message.set_signature_name(@user.name) if !@user.nil?
+
+        if batch
+            render :action => 'new'
+        else
+            if @info_request.public_body.is_requestable?
+                render :action => 'new'
+            else
+                if @info_request.public_body.not_requestable_reason == 'bad_contact'
+                    render :action => 'new_bad_contact'
+                else
+                    # if not requestable because defunct or not_apply, redirect to main page
+                    # (which doesn't link to the /new/ URL)
+                    redirect_to public_body_url(@info_request.public_body)
+                end
+            end
+        end
+        return
+    end
+
+    def render_new_preview
+        message = ""
+        if @outgoing_message.contains_email?
+            if @user.nil?
+                message += _("<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>", :url => (help_privacy_path+"#email_address").html_safe);
+            else
+                message += _("<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>", :url => (help_privacy_path+"#email_address").html_safe);
+            end
+            message += _("<p>We recommend that you edit your request and remove the email address.
+                If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>")
+        end
+        if @outgoing_message.contains_postcode?
+            message += _("<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>");
+        end
+        if not message.empty?
+            flash.now[:error] = message.html_safe
+        end
+        render :action => 'preview'
+    end
 end
 

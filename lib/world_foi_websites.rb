@@ -9,7 +9,7 @@ class WorldFOIWebsites
                               {:name => "WhatDoTheyKnow",
                                   :country_name => "United Kingdom",
                                   :country_iso_code => "GB",
-                                  :url => "http://www.whatdotheyknow.com"},
+                                  :url => "https://www.whatdotheyknow.com"},
                               {:name => "Informata Zyrtare",
                                   :country_name => "Kosova",
                                   :country_iso_code => "XK",

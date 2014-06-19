@@ -123,5 +123,60 @@ module ApplicationHelper
             yield
         end
     end
+
+    # We only want to cache request lists that have a reasonable chance of not expiring
+    # before they're requested again. Don't cache lists returned from specific searches
+    # or anything except the first page of results, just the first page of the default
+    # views
+    def request_list_cache_key
+        cacheable_param_list = ['controller', 'action', 'locale', 'view']
+        if params.keys.all?{ |key| cacheable_param_list.include?(key) }
+            "request-list-#{@view}-#{@locale}"
+        else
+            nil
+        end
+    end
+
+    def event_description(event)
+        body_link = public_body_link_absolute(event.info_request.public_body)
+        user_link = request_user_link_absolute(event.info_request)
+        date = simple_date(event.created_at)
+        case event.event_type
+        when 'sent'
+            _('Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',
+             :public_body_name => body_link,
+             :info_request_user => user_link,
+             :date => date)
+        when 'followup_sent'
+            case event.calculated_state
+            when 'internal_review'
+                _('Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',
+                 :public_body_name => body_link,
+                 :info_request_user => user_link,
+                 :date => date)
+            when 'waiting_response'
+                _('Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',
+                 :public_body_name => body_link,
+                 :info_request_user => user_link,
+                 :date => date)
+            else
+                _('Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',
+                 :public_body_name => body_link,
+                 :info_request_user => user_link,
+                 :date => date)
+            end
+        when 'response'
+            _('Response by {{public_body_name}} to {{info_request_user}} on {{date}}.',
+             :public_body_name => body_link,
+             :info_request_user => user_link,
+             :date => date)
+        when 'comment'
+            _('Request to {{public_body_name}} by {{info_request_user}}. Annotated by {{event_comment_user}} on {{date}}.',
+             :public_body_name => body_link,
+             :info_request_user => user_link,
+             :event_comment_user => user_link_absolute(event.comment.user),
+             :date => date)
+        end
+    end
 end
 

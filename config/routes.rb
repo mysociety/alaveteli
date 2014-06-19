@@ -35,9 +35,11 @@ Alaveteli::Application.routes.draw do
     match '/list' => 'request#list', :as => :request_list
 
     match '/select_authority' => 'request#select_authority', :as => :select_authority
+    match '/select_authorities' => 'request#select_authorities', :as => :select_authorities
 
     match '/new' => 'request#new', :as => :new_request
     match '/new/:url_name' => 'request#new', :as => :new_request_to_body
+    match '/new_batch' => 'request#new_batch', :as => :new_batch
 
     match '/request/search_ahead' => 'request#search_typeahead', :as => :search_ahead
 
@@ -62,6 +64,8 @@ Alaveteli::Application.routes.draw do
     resources :request, :only => [] do
         resource :report, :only => [:new, :create]
     end
+
+    resources :info_request_batch, :only => :show
 
     #### User controller
     # Use /profile for things to do with the currently signed in user.
@@ -108,6 +112,8 @@ Alaveteli::Application.routes.draw do
     match '/body/:url_name/:tag/:view' => 'public_body#show', :as => :show_public_body_tag_view
     match '/body_statistics' => 'public_body#statistics', :as => :public_bodies_statistics
     ####
+
+    resource :change_request, :only => [:new, :create], :controller => 'public_body_change_requests'
 
     #### Comment controller
     match '/annotate/request/:url_title' => 'comment#new', :as => :new_comment, :type => 'request'
@@ -173,6 +179,11 @@ Alaveteli::Application.routes.draw do
     match '/admin/body/mass_tag_add' => 'admin_public_body#mass_tag_add', :as => :admin_body_mass_tag_add
     ####
 
+    #### AdminPublicBodyChangeRequest controller
+    match '/admin/change_request/edit/:id' => 'admin_public_body_change_requests#edit', :as => :admin_change_request_edit
+    match '/admin/change_request/update/:id' => 'admin_public_body_change_requests#update', :as => :admin_change_request_update
+    ####
+
     #### AdminGeneral controller
     match '/admin' => 'admin_general#index', :as => :admin_general_index
     match '/admin/timeline' => 'admin_general#timeline', :as => :admin_timeline
@@ -223,6 +234,7 @@ Alaveteli::Application.routes.draw do
     match '/admin/user/destroy_track' => 'admin_user#destroy_track', :as => :admin_user_destroy_track
     match '/admin/user/login_as/:id' => 'admin_user#login_as', :as => :admin_user_login_as
     match '/admin/user/clear_profile_photo/:id' => 'admin_user#clear_profile_photo', :as => :admin_clear_profile_photo
+    match '/admin/user/modify_comment_visibility/:id' => 'admin_user#modify_comment_visibility', :as => 'admin_user_modify_comment_visibility'
     ####
 
     #### AdminTrack controller
@@ -235,6 +247,14 @@ Alaveteli::Application.routes.draw do
     match '/admin/censor/edit/:id' => 'admin_censor_rule#edit', :as => :admin_rule_edit
     match '/admin/censor/update/:id' => 'admin_censor_rule#update', :as => :admin_rule_update
     match '/admin/censor/destroy/:censor_rule_id' => 'admin_censor_rule#destroy', :as => :admin_rule_destroy
+    ####
+
+    #### AdminSpamAddresses controller
+    scope '/admin' do
+        resources :spam_addresses,
+                  :controller => 'admin_spam_addresses',
+                  :only => [:index, :create, :destroy]
+    end
     ####
 
     #### Api controller

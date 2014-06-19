@@ -1,18 +1,6 @@
 # coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-def normalise_whitespace(s)
-    s = s.gsub(/\A\s+|\s+\Z/, "")
-    s = s.gsub(/\s+/, " ")
-    return s
-end
-
-RSpec::Matchers.define :be_equal_modulo_whitespace_to do |expected|
-  match do |actual|
-    normalise_whitespace(actual) == normalise_whitespace(expected)
-  end
-end
-
 describe ApiController, "when using the API" do
 
     describe 'checking API keys' do
@@ -280,6 +268,18 @@ describe ApiController, "when using the API" do
         # essentially just be a matter of copying the code that
         # assigns them and changing assignment to an equality
         # check, which does not really test anything at all.
+    end
+
+    it 'should show information about an external request' do
+        info_request = info_requests(:external_request)
+        get :show_request,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :id => info_request.id
+
+        response.should be_success
+        assigns[:request].id.should == info_request.id
+        r = ActiveSupport::JSON.decode(response.body)
+        r["title"].should == info_request.title
     end
 
     it "should show an Atom feed of new request events" do

@@ -17,13 +17,12 @@ set :rails_env, configuration['rails_env']
 
 server configuration['server'], :app, :web, :db, :primary => true
 
-namespace :rake do
-  namespace :themes do
-    task :install do
-      run "cd #{latest_release} && bundle exec rake themes:install RAILS_ENV=#{rails_env}"
-    end
+namespace :themes do
+  task :install do
+    run "cd #{latest_release} && bundle exec rake themes:install RAILS_ENV=#{rails_env}"
   end
 end
+
 
 # Not in the rake namespace because we're also specifying app-specific arguments here
 namespace :xapian do
@@ -71,8 +70,8 @@ namespace :deploy do
   end
 end
 
-after 'deploy:update_code', 'deploy:symlink_configuration'
-after 'deploy:update_code', 'rake:themes:install'
+before 'deploy:assets:precompile', 'deploy:symlink_configuration'
+before 'deploy:assets:precompile', 'themes:install'
 
 # Put up a maintenance notice if doing a migration which could take a while
 before 'deploy:migrate', 'deploy:web:disable'

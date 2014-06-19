@@ -9,9 +9,8 @@
         <%# When not logged in, but mid-comment-leaving, there'll be no comment.user %>
         <%= comment.user ? user_link(comment.user) : _("You") %> <%= _("left an annotation") %> (<%= simple_date(comment.created_at || Time.now) %>)
     </h2>
-    <div class="comment_in_request_text"> 
+    <div class="comment_in_request_text">
         <p>
-        <%= image_tag "quote-marks.png", :class => "comment_quote" %>
         <%= comment.get_body_for_html_display %>
         </p>
     </div>

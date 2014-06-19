@@ -129,8 +129,9 @@ class ApplicationController < ActionController::Base
         @exception_class = exception.class.to_s
         @exception_message = exception.message
         case exception
-        when ActiveRecord::RecordNotFound, RouteNotFound
+        when ActiveRecord::RecordNotFound, RouteNotFound, WillPaginate::InvalidPage
             @status = 404
+            sanitize_path(params)
         when PermissionDenied
             @status = 403
         else
@@ -369,9 +370,9 @@ class ApplicationController < ActionController::Base
         return page
     end
 
-    def perform_search_typeahead(query, model)
+    def perform_search_typeahead(query, model, per_page=25)
         @page = get_search_page_from_params
-        @per_page = 10
+        @per_page = per_page
         query_words = query.split(/ +(?![-+]+)/)
         if query_words.last.nil? || query_words.last.strip.length < 3
             xapian_requests = nil
@@ -428,104 +429,14 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    def get_request_variety_from_params(params)
-        query = ""
-        sortby = "newest"
-        varieties = []
-        if params[:request_variety] && !(query =~ /variety:/)
-            if params[:request_variety].include? "sent"
-                varieties -= ['variety:sent', 'variety:followup_sent', 'variety:response', 'variety:comment']
-                varieties << ['variety:sent', 'variety:followup_sent']
-            end
-            if params[:request_variety].include? "response"
-                varieties << ['variety:response']
-            end
-            if params[:request_variety].include? "comment"
-                varieties << ['variety:comment']
-            end
-        end
-        if !varieties.empty?
-            query = " (#{varieties.join(' OR ')})"
-        end
-        return query
-    end
-
-    def get_status_from_params(params)
-        query = ""
-        if params[:latest_status]
-            statuses = []
-            if params[:latest_status].class == String
-                params[:latest_status] = [params[:latest_status]]
-            end
-            if params[:latest_status].include?("recent") ||  params[:latest_status].include?("all")
-                query += " (variety:sent OR variety:followup_sent OR variety:response OR variety:comment)"
-            end
-            if params[:latest_status].include? "successful"
-                statuses << ['latest_status:successful', 'latest_status:partially_successful']
-            end
-            if params[:latest_status].include? "unsuccessful"
-                statuses << ['latest_status:rejected', 'latest_status:not_held']
-            end
-            if params[:latest_status].include? "awaiting"
-                statuses << ['latest_status:waiting_response', 'latest_status:waiting_clarification', 'waiting_classification:true', 'latest_status:internal_review','latest_status:gone_postal', 'latest_status:error_message', 'latest_status:requires_admin']
-            end
-            if params[:latest_status].include? "internal_review"
-                statuses << ['status:internal_review']
-            end
-            if params[:latest_status].include? "other"
-                statuses << ['latest_status:gone_postal', 'latest_status:error_message', 'latest_status:requires_admin', 'latest_status:user_withdrawn']
-            end
-            if params[:latest_status].include? "gone_postal"
-                statuses << ['latest_status:gone_postal']
-            end
-            if !statuses.empty?
-                query = " (#{statuses.join(' OR ')})"
-            end
-        end
-        return query
-    end
-
-    def get_date_range_from_params(params)
-        query = ""
-        if params.has_key?(:request_date_after) && !params.has_key?(:request_date_before)
-            params[:request_date_before] = Time.now.strftime("%d/%m/%Y")
-            query += " #{params[:request_date_after]}..#{params[:request_date_before]}"
-        elsif !params.has_key?(:request_date_after) && params.has_key?(:request_date_before)
-            params[:request_date_after] = "01/01/2001"
-        end
-        if params.has_key?(:request_date_after)
-            query = " #{params[:request_date_after]}..#{params[:request_date_before]}"
-        end
-        return query
-    end
-
-    def get_tags_from_params(params)
-        query = ""
-        tags = []
-        if params.has_key?(:tags)
-            params[:tags].split().each do |tag|
-                tags << "tag:#{tag}"
-            end
-        end
-        if !tags.empty?
-            query = " (#{tags.join(' OR ')})"
-        end
-        return query
-    end
-
-    def make_query_from_params(params)
-        query = params[:query] || "" if query.nil?
-        query += get_date_range_from_params(params)
-        query += get_request_variety_from_params(params)
-        query += get_status_from_params(params)
-        query += get_tags_from_params(params)
-        return query
-    end
-
     def country_from_ip
         country = ""
         if !AlaveteliConfiguration::gaze_url.empty?
-            country = quietly_try_to_open("#{AlaveteliConfiguration::gaze_url}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
+            begin
+                country = quietly_try_to_open("#{AlaveteliConfiguration::gaze_url}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
+            rescue ActionDispatch::RemoteIp::IpSpoofAttackError
+                country = AlaveteliConfiguration::iso_country_code
+            end
         end
         country = AlaveteliConfiguration::iso_country_code if country.empty?
         return country
@@ -533,6 +444,15 @@ class ApplicationController < ActionController::Base
 
     def alaveteli_git_commit
       `git log -1 --format="%H"`.strip
+    end
+
+    # URL Encode the path parameter for use in render_exception
+    #
+    # params - the params Hash
+    #
+    # Returns a Hash
+    def sanitize_path(params)
+        params.merge!(:path => Rack::Utils.escape(params[:path])) if params.key?(:path)
     end
 
     # URL generating functions are needed by all controllers (for redirects),

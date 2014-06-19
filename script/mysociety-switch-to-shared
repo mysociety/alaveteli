@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# This script is a one-off script to move the shared files on a
+# mySociety instance of Alaveteli out of the repository and into the
+# vhost's shared directory.  This is specific to mySociety's servers -
+# the list of files and directories which are moved would be unlikely
+# to be correct in another environment.
+#
+# This should be run *before* the first time the site is deployed with
+# the timestamped_deploy option.
+
+set -e
+
+# (Using `pwd -P` here instead of readlink -f so that it works on Mac
+# OS as well, just in case that's required for testing on a laptop.)
+RAILS_ROOT="$(cd "$(dirname "$BASH_SOURCE")/.." && pwd -P)"
+VHOST_DIR="$(cd "$RAILS_ROOT/.." && pwd -P)"
+SHARED_DIR="$VHOST_DIR/shared"
+
+cd "$RAILS_ROOT"
+
+mkdir -p "$SHARED_DIR"
+
+for F in \
+    cache \
+    public/foi-live-creation.png \
+    public/foi-user-use.png \
+    config/aliases \
+    lib/acts_as_xapian/xapiandbs \
+    vendor/bundle
+do
+    SYMLINK_LOCATION="$F"
+    INTENDED_DESTINATION="$SHARED_DIR/$F"
+    echo "Switching to $SYMLINK_LOCATION -> $INTENDED_DESTINATION"
+    # If anything exists where the symlink should be:
+    if [ -e "$SYMLINK_LOCATION" ]
+    then
+        # First, if it's a symlink, check whether it's correct:
+        if [ -L "$SYMLINK_LOCATION" ]
+        then
+            SYMLINK_DESTINATION="$(readlink "$SYMLINK_LOCATION")"
+            if [ "$SYMLINK_DESTINATION" = "$INTENDED_DESTINATION" ]
+            then
+                echo "  already correct!"
+            else
+                echo "  ERROR: already symlinked to $INTENDED_DESTINATION"
+            fi
+        else
+            # So the file or directory is there, and it's not a
+            # symlink.  Check first that that destination doesn't
+            # exist (in which case a move would either fail or
+            # overwrite what's there):
+            if [ -e "$INTENDED_DESTINATION" ]
+            then
+                echo "   ERROR: would move, but something already existed at $INTENDED_DESTINATION"
+            else
+                # Otherwise (bar race condition) everything's fine,
+                # and we should be able to move the file or directory
+                # and create a symlink to its new location:
+                mkdir -p "$(dirname "$INTENDED_DESTINATION")"
+                mv "$SYMLINK_LOCATION" "$INTENDED_DESTINATION"
+                ln -snf "$INTENDED_DESTINATION" "$SYMLINK_LOCATION"
+            fi
+        fi
+    else
+        # This may not be anything to worry about, e.g. if the
+        # public/foi-user-use.png graph has never been generated:
+        echo "  ERROR: nothing existed at $SYMLINK_LOCATION"
+    fi
+
+done

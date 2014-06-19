@@ -68,6 +68,7 @@ module Alaveteli
     end
 
     config.autoload_paths << "#{Rails.root.to_s}/lib/mail_handler"
+    config.autoload_paths << "#{Rails.root.to_s}/lib/attachment_to_html"
 
     # See Rails::Configuration for more options
     ENV['RECAPTCHA_PUBLIC_KEY'] = ::AlaveteliConfiguration::recaptcha_public_key
@@ -76,6 +77,12 @@ module Alaveteli
     # Insert a bit of middleware code to prevent uneeded cookie setting.
     require "#{Rails.root}/lib/whatdotheyknow/strip_empty_sessions"
     config.middleware.insert_before ::ActionDispatch::Cookies, WhatDoTheyKnow::StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
+
+    # Allow the generation of full URLs in emails
+    config.action_mailer.default_url_options = { :host => AlaveteliConfiguration::domain }
+    if AlaveteliConfiguration::force_ssl
+      config.action_mailer.default_url_options[:protocol] = "https"
+    end
 
     # Enable the asset pipeline
     config.assets.enabled = true
@@ -86,22 +93,30 @@ module Alaveteli
     # Change the path that assets are served from
     # config.assets.prefix = "/assets"
 
-    # These additional precompiled Javascript files are actually
-    # manifests that require the real javascript files:
+    # These additional precompiled asset files are actually
+    # manifests that require the real asset files:
     config.assets.precompile += ['admin.js',
                                  'profile-photos.js',
-                                 'stats.js']
+                                 'stats.js',
+                                 'fancybox.css',
+                                 'fancybox.js']
     # ... while these are individual files that can't easily be
     # grouped:
-    config.assets.precompile += ['jquery.fancybox-1.3.4.pack.js',
-                                 'jquery.fancybox-1.3.4.css',
-                                 'jquery.Jcrop.css',
+    config.assets.precompile += ['jquery.Jcrop.css',
                                  'excanvas.min.js',
+                                 'select-authorities.js',
+                                 'jquery_ujs.js',
+                                 'new-request.js',
                                  'fonts.css',
                                  'print.css',
                                  'admin.css',
                                  'ie6.css',
                                  'ie7.css']
+
+     config.sass.load_paths += [
+       "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/components",
+       "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/"
+     ]
 
   end
 end

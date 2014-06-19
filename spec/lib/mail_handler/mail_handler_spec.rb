@@ -22,6 +22,11 @@ describe 'when creating a mail object from raw data' do
         mail.multipart?.should == true
     end
 
+    it "should not fail on invalid byte sequence in content-disposition header", :focus => true do
+      part = Mail::Part.new("Content-Disposition: inline; filename=a\xB8z\r\n\r\nThis is the body text.")
+      lambda { part.inline? }.should_not raise_error
+    end
+
     it 'should parse multiple to addresses with unqoted display names' do
         mail = get_fixture_mail('multiple-unquoted-display-names.email')
         mail.to.should == ["request-66666-caa77777@whatdotheyknow.com", "foi@example.com"]

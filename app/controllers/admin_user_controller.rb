@@ -48,6 +48,7 @@ class AdminUserController < AdminController
         @admin_user.ban_text = params[:admin_user][:ban_text]
         @admin_user.about_me = params[:admin_user][:about_me]
         @admin_user.no_limit = params[:admin_user][:no_limit]
+        @admin_user.can_make_batch_requests = params[:admin_user][:can_make_batch_requests]
 
         if @admin_user.valid?
             @admin_user.save!
@@ -96,6 +97,12 @@ class AdminUserController < AdminController
 
         flash[:notice] = "Profile photo cleared"
         redirect_to admin_user_show_url(@admin_user)
+    end
+
+    def modify_comment_visibility
+        @visibility_value = params.key?(:hide_selected) ? false : true
+        Comment.update_all(["visible=?", @visibility_value], :id => params[:comment_ids])
+        redirect_to :back
     end
 
     private

@@ -13,6 +13,7 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 SimpleCov.start('rails') do
     add_filter  'commonlib'
     add_filter  'vendor/plugins'
+    add_filter  'lib/attachment_to_html'
     add_filter  'lib/strip_attributes'
     add_filter  'lib/has_tag_string'
     add_filter  'lib/acts_as_xapian'
@@ -220,3 +221,16 @@ Spork.each_run do
     FactoryGirl.reload
   # This code will be run each time you run your specs.
 end
+
+def normalise_whitespace(s)
+    s = s.gsub(/\A\s+|\s+\Z/, "")
+    s = s.gsub(/\s+/, " ")
+    return s
+end
+
+RSpec::Matchers.define :be_equal_modulo_whitespace_to do |expected|
+  match do |actual|
+    normalise_whitespace(actual) == normalise_whitespace(expected)
+  end
+end
+

@@ -103,7 +103,7 @@ class GeneralController < ApplicationController
             params[:query] = @query
         end
         if @variety_postfix != "all" && @requests
-            @query, _ = make_query_from_params(params)
+            @query = InfoRequestEvent.make_query_from_params(params)
         end
         @inputted_sortby = @sortby
         if @sortby.nil?

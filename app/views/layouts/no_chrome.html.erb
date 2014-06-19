@@ -2,6 +2,8 @@
 <html lang="<%= I18n.locale %>">
     <head>
         <meta charset="utf-8">
+        <%= csrf_meta_tags %>
+
         <title>
         <% if @title %>
             <%=@title%> - <%= site_name %>
@@ -12,11 +14,15 @@
 
         <%= javascript_include_tag "application" %>
 
-        <%= stylesheet_link_tag 'application', :title => "Main", :rel => "stylesheet" %>
-        <%= stylesheet_link_tag 'fonts', :rel => "stylesheet" %>
-        <!--[if LT IE 7]>
-        <%= stylesheet_link_tag 'ie6', :rel => "stylesheet" %>
-        <![endif]-->
+        <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
+            <%= render :partial => 'general/responsive_stylesheets' %>
+        <% else %>
+            <%= stylesheet_link_tag 'application', :title => "Main", :rel => "stylesheet" %>
+            <%= stylesheet_link_tag 'fonts', :rel => "stylesheet" %>
+            <!--[if LT IE 7]>
+            <%= stylesheet_link_tag 'ie6', :rel => "stylesheet" %>
+            <![endif]-->
+        <% end %>
     </head>
     <body>
         <div class="entirebody">

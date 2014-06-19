@@ -31,3 +31,4 @@ webrat.log
 /db/structure.sql
 /public/assets
 .ruby-version
+.vagrant

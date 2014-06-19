@@ -1,3 +1,102 @@
+# Version 0.18
+
+## Highlighted features
+
+* There is an alternative set of stylesheets and header and footer
+  templates for rendering the site in a stripped-down, responsive way
+  (so that it will display appropriately on mobile devices as well as
+  larger screens). This can be customised in a theme. We'll be adding
+  some corresponding stylesheets shortly to alavetelitheme to provide a
+  nice basic look and feel that can be customised. Eventually these
+  responsive stylesheets will become the default (Louise Crow).
+* Improvements in the Vagrant file (update to v2 API, configuration of
+  FQDN, VirtualBox memory, development environment, better
+  documentation) (Gareth Rees)
+* Full date/time of correspondence now displayed on hover (Gareth Rees)
+* Admins can now hide annotations in bulk from the admin interface
+  (Andrew Black)
+* Admins can now mark non-request email addresses as spam-targets if
+  they are only receiving spam, so that email sent to these addresses no
+  longer shows up in the holding pen, but is silently discarded (Gareth
+  Rees)
+* The contact form now has an anti-spam honeypot, and prevents double
+  submission (Gareth Rees)
+* Improvements to some translatable strings so that they're not composed
+  on the fly according to English grammar (Louise Crow)
+* Fixed bugs in text conversion under Ruby 1.9 (Rowan Crawford),
+  handling of messages directing people to other instances of Alaveteli
+  (Louise Crow), link-to-this popup location, 404 handling, comments on
+  requests that are closed to comments, missing title tags in HTML
+  attachments, PDF conversion and public body batch updates (Gareth
+  Rees).
+
+## Upgrade notes
+
+* To use the responsive stylesheets across the site, add
+  `RESPONSIVE_STYLING: true` to general.yml. To preview the way a given
+  page would appear with the new stylesheets, add the parameter
+  `responsive=1` to the URL.
+* Theme owners are required to update references to fancybox CSS and JS
+  files.
+Example:
+
+    - <%= javascript_include_tag 'jquery.fancybox-1.3.4.pack.js' %>
+    + <%= javascript_include_tag 'fancybox.js' %>
+
+    - <%= stylesheet_link_tag 'jquery.fancybox-1.3.4.css', :rel => "stylesheet"
+    + <%= stylesheet_link_tag 'fancybox.css', :rel => "stylesheet"  %>
+* There are some new strings in this release for translation, so if your
+  site isn't in English, make sure your translations are up to date
+  before deploying to production
+
+
+# Version 0.17
+
+## Highlighted features
+
+* There is some initial support for making a request to multiple
+  authorities at once.
+* There is a new form for users to request that a new authority should
+  be added, or to request an update to the contact email used for an
+  authority. Site admins are emailed about these requests, and can
+  resolve them from the admin interface.
+* For attachments where we rely on Google Document Viewer to display the
+  HTML version, link to the HTTPS version where the Alaveteli site is
+  served over HTTPS to avoid mixed content warnings and non display in
+  some browsers (Matthew Somerville).
+* The 'view requests' page now has some fragment caching backed by
+  memcached to speed up serving commonly used lists of requests - e.g
+  all successful requests. Like the caching introduced in release 0.16,
+  this is controlled by the `CACHE_FRAGMENTS` parameter in the config
+  file and will be on by default.
+* A user's annotations can now be seen on their admin page (Andrew
+  Black)
+* Better detection of the quoted text of a previous email in the HTML
+  parts of responses.
+* Fixed bugs in the profile photos (György Peng), calendar translations
+  (Mark Longair), the use of external utilities (Ian Chard), the
+  internal admin authority locale handling (Mark Longair), badly formed
+  attachment handling (Rowan Crawford).
+
+## Upgrade notes
+
+* To use the batch request functionality, set the `ALLOW_BATCH_REQUESTS`
+  parameter to `true` in your config file. Once this is done, and the
+  install has been restarted, any user for whom 'Can make batch
+  requests' is checked in the admin interface should see a new link on
+  the 'Select an authority' page that allows them to make a batch
+  request.
+* If your theme overrides the help/requesting template, you should
+  update the link in the section on requesting new authorities so the
+  link points to `<%= new_change_request_path %>` instead of `<%=
+  help_contact_path %>`.
+* If your site runs over HTTPS, some cached attachments may still
+  contain links to Google Document Viewer with 'http', not 'https'. You
+  can clear the cached attachments after upgrade, and they will be
+  created with links that use the correct protocol.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running rails-post-deploy.
+
 # Version 0.16
 
 ## Highlighted features
@@ -54,6 +153,14 @@
   email configs).
 * If you have any custom styles that rely on the absolute positioning
   of the 'banner' and 'wrapper' elements, they may need to be updated.
+* Cached HTML versions of attachments in cache/attachments_production/
+  will have obsolete links to `/stylesheets/main.css` and
+  `/images/navimg/logo-trans-small.png`. You can resolve these by either
+  moving the cached attachments away and allowing them to be regenerated
+  on demand, or by symlinking `public/stylesheets/main.css` to
+  `public/assets/application.css` and
+  `public/images/navimg/logo-trans-small.png` to
+  `public/assets/navimg/logo-trans-small.png`.
 
 #  Version 0.15
 
