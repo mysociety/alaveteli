@@ -4,7 +4,7 @@ title: Deployments
 ---
 <div class="deployments__intro">
     <div class="container">
-    <h1>16+ languages, 16 jurisdictions
+    <h1>20+ languages, 18 jurisdictions
     <span>200,000 requests for information</span></h1>
     <p>Alaveteli can help open up government in any country,
 in any language, and within any legislation</p>
