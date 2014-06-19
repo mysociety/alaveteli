@@ -384,7 +384,7 @@ useful to you. Change the variables to suit your installation.
 
     bundle exec rake config_files:convert_crontab \
       DEPLOY_USER=deploy \
-      VHOST_DIR=/dir/above/alaveteli \
+      VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
       SITE=alaveteli \
       MAILTO=cron-alaveteli@example.org \
