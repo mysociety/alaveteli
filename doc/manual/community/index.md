@@ -1,4 +1,5 @@
 ---
+redirect_from: /contact/
 layout: page
 title: Community
 ---
