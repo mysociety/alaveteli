@@ -371,13 +371,10 @@ server.
 The `ugly` format uses simple variable substitution. A variable looks like
 `!!(*= $this *)!!`. The variables are:
 
-* `vhost_dir`: the entire path to the directory where the software is
-  served from. -- you should replace this with a path to the
-  directory where your Alaveteli software installation lives,
-   e.g. `/var/www/`
-* `vcspath`: the name of the alaveteli checkout, e.g. `alaveteli`.
-  Thus, `/data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!` might be
-  replaced with `/var/www/alaveteli` in your cron tab
+* `vhost_dir`: the full path to the directory where alaveteli is checked out.
+  e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
+* `vcspath`: the name of the directory that contains the alaveteli code.
+  e.g. `alaveteli`
 * `user`: the user that the software runs as
 * `site`: a string to identify your alaveteli instance
 * `mailto`: The email address that cron output will be sent to
