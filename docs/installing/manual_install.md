@@ -392,11 +392,11 @@ useful to you, which can be invoked with:
 
     bundle exec rake config_files:convert_crontab \
       DEPLOY_USER=deploy \
-    VHOST_DIR=/dir/above/alaveteli \
-    VCSPATH=alaveteli \
-    SITE=alaveteli \
-    MAILTO=cron-alaveteli@example.org \
-    CRONTAB=config/crontab-example > crontab
+      VHOST_DIR=/dir/above/alaveteli \
+      VCSPATH=alaveteli \
+      SITE=alaveteli \
+      MAILTO=cron-alaveteli@example.org \
+      CRONTAB=config/crontab-example > crontab
 
 You should change the `DEPLOY_USER`, `VHOST_DIR`, `VCSPATH` `MAILTO` and `SITE`
 environment variables to match your server and installation.
