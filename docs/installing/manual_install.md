@@ -380,7 +380,7 @@ The `ugly` format uses simple variable substitution. A variable looks like
 * `mailto`: The email address that cron output will be sent to
 
 There is a rake task that will help to rewrite this file into one that is
-useful to you, which can be invoked with:
+useful to you. Change the variables to suit your installation.
 
     bundle exec rake config_files:convert_crontab \
       DEPLOY_USER=deploy \
@@ -389,9 +389,6 @@ useful to you, which can be invoked with:
       SITE=alaveteli \
       MAILTO=cron-alaveteli@example.org \
       CRONTAB=config/crontab-example > crontab
-
-You should change the `DEPLOY_USER`, `VHOST_DIR`, `VCSPATH` `MAILTO` and `SITE`
-environment variables to match your server and installation.
 
 One of the cron jobs refers to a script at `/etc/init.d/foi-alert-tracks`. This
 is an init script, a copy of which lives in `config/alert-tracks-debian.ugly`.
