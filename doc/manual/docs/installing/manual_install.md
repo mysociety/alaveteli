@@ -388,7 +388,7 @@ useful to you. Change the variables to suit your installation.
       VCSPATH=alaveteli \
       SITE=alaveteli \
       MAILTO=cron-alaveteli@example.org \
-      CRONTAB=config/crontab-example > crontab
+      CRONTAB=config/crontab-example > /etc/cron.d/alaveteli
 
 One of the cron jobs refers to a script at `/etc/init.d/foi-alert-tracks`. This
 is an init script, a copy of which lives in `config/alert-tracks-debian.ugly`.
