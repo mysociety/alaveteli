@@ -430,11 +430,13 @@ and not required if you choose not to run your site behind Varnish (see below).
 
 This template does not yet have a rake task to generate it.
 
+### Init script permissions
+
 Either tweak the file permissions to make the scripts executable by your deploy
 user, or add the following line to your sudoers file to allow these to be run
-by your deploy user (named `deploy` in this case):
+by your deploy user (named `deploy` in this case).
 
-    deploy  ALL = NOPASSWD: /etc/init.d/foi-alert-tracks, /etc/init.d/foi-purge-varnish
+    deploy ALL = NOPASSWD: /etc/init.d/foi-alert-tracks, /etc/init.d/foi-purge-varnish
 
 ## Set up production web server
 
