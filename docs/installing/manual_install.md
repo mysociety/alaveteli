@@ -363,13 +363,19 @@ setting `SKIP_ADMIN_AUTH` to `true` in `general.yml`.
 
 ## Cron jobs and init scripts
 
-`config/crontab-example` contains the cronjobs run on WhatDoTheyKnow. It's in a
-strange templating format they use in mySociety. mySociety render the example
-file to reference absolute paths, and then drop it in `/etc/cron.d/` on the
-server.
+The crontab and init scripts use the `.ugly` file format, which is a strange
+templating format used by mySociety.
 
 The `ugly` format uses simple variable substitution. A variable looks like
-`!!(*= $this *)!!`. The variables are:
+`!!(*= $this *)!!`.
+
+### Generate crontab
+
+`config/crontab-example` contains the cron jobs that run on
+WhatDoTheyKnow. mySociety render the example file to reference absolute paths,
+and then drop it in `/etc/cron.d/` on the server.
+
+The variables are:
 
 * `vhost_dir`: the full path to the directory where alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
@@ -390,11 +396,15 @@ useful to you. Change the variables to suit your installation.
       MAILTO=cron-alaveteli@example.org \
       CRONTAB=config/crontab-example > /etc/cron.d/alaveteli
 
+### Generate alert daemon
+
 One of the cron jobs refers to a script at `/etc/init.d/foi-alert-tracks`. This
 is an init script, a copy of which lives in `config/alert-tracks-debian.ugly`.
 As with the cron jobs above, replace the variables (and/or bits near the
 variables) with paths to your software. You can use the rake task `rake
 config_files:convert_init_script` to do this.
+
+### Generate varnish purge daemon
 
 `config/purge-varnish-debian.ugly` is a similar init script, which is optional
 and not required if you choose not to run your site behind Varnish (see below).
