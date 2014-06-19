@@ -572,19 +572,19 @@ h3 {
 
 .deployments__unit--minor {
     display: inline-block;
-    width: 48.5%;
+    width: 47.5%;
     vertical-align: top;
     &:nth-child(n) {
-        margin-right: 3%;
+        margin-right: 5%;
     }
     &:nth-child(even) {
         margin-right: 0;
     }
 
     @media (min-width: 37.222222222em) {
-        width: 31.333333333%;
+        width: 30%;
         &:nth-child(n) {
-            margin-right: 3%;
+            margin-right: 5%;
         }
         &:nth-child(3n+3) {
             margin-right: 0;
