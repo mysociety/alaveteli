@@ -375,7 +375,7 @@ The `ugly` format uses simple variable substitution. A variable looks like
 WhatDoTheyKnow. mySociety render the example file to reference absolute paths,
 and then drop it in `/etc/cron.d/` on the server.
 
-The variables are:
+**Template Variables:**
 
 * `vhost_dir`: the full path to the directory where alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
@@ -399,10 +399,22 @@ useful to you. Change the variables to suit your installation.
 ### Generate alert daemon
 
 One of the cron jobs refers to a script at `/etc/init.d/foi-alert-tracks`. This
-is an init script, a copy of which lives in `config/alert-tracks-debian.ugly`.
-As with the cron jobs above, replace the variables (and/or bits near the
-variables) with paths to your software. You can use the rake task `rake
-config_files:convert_init_script` to do this.
+is an init script, which can be generated from the
+`config/alert-tracks-debian.ugly` template.
+
+**Template Variables:**
+
+* `vhost_dir`: the full path to the directory where alaveteli is checked out.
+  e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
+* `user`: the user that the software runs as
+
+There is a rake task that will help to rewrite this file into one that is
+useful to you. Change the variables to suit your installation.
+
+    bundle exec rake config_files:convert_init_script \
+      DEPLOY_USER=deploy \
+      VHOST_DIR=/var/www \
+      SCRIPT_FILE=config/alert-tracks-debian.ugly > /etc/init.d/foi-alert-tracks
 
 ### Generate varnish purge daemon
 
