@@ -371,11 +371,6 @@ server.
 The `ugly` format uses simple variable substitution. A variable looks like
 `!!(*= $this *)!!`. The variables are:
 
-* `vhost`: part of the path to the directory where the software is
-  served from.  In the mySociety files, it usually comes as
-  `/data/vhost/!!(*= $vhost *)!!` -- you should replace that whole
-  port with a path to the directory where your Alaveteli software
-  installation lives, e.g. `/var/www/`
 * `vhost_dir`: the entire path to the directory where the software is
   served from. -- you should replace this with a path to the
   directory where your Alaveteli software installation lives,
