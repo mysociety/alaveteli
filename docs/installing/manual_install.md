@@ -420,6 +420,16 @@ useful to you. Change the variables to suit your installation.
 
 `config/purge-varnish-debian.ugly` is a similar init script, which is optional
 and not required if you choose not to run your site behind Varnish (see below).
+
+**Template Variables:**
+
+* `daemon_name`: The name of the daemon. Set this to `purge-varnish`.
+* `vhost_dir`: the full path to the directory where alaveteli is checked out.
+  e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
+* `user`: the user that the software runs as
+
+This template does not yet have a rake task to generate it.
+
 Either tweak the file permissions to make the scripts executable by your deploy
 user, or add the following line to your sudoers file to allow these to be run
 by your deploy user (named `deploy` in this case):
