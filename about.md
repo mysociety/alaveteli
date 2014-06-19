@@ -1,4 +1,5 @@
 ---
+redirect_from: /about-2/
 layout: landing
 title: About
 ---
