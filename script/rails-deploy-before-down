@@ -15,6 +15,10 @@ set -e
 TOP_DIR="$(dirname "$BASH_SOURCE")/.."
 cd "$TOP_DIR"
 
+top_dir_perms=$(stat --format=%a $TOP_DIR)
+top_dir_owner=$(stat --format=%U $TOP_DIR)
+top_dir_group=$(stat --format=%G $TOP_DIR)
+
 # make sure that there is an app directory, so are in a rails app tree
 if ! [ -d app ]
 then
@@ -32,29 +36,30 @@ else
     OPTION_STAGING_SITE=1
 fi
 
-# create initial log files
+# Ensure the default Rails log directory exists
+if ! [ -e $TOP_DIR/log ]
+  then
+    mkdir $TOP_DIR/log
+    chown $top_dir_owner:$top_dir_group $TOP_DIR/log
+    chmod $top_dir_perms $TOP_DIR/log
+fi
+
+# mySociety servers have logs in the level above the APP_ROOT.
 if [ -e $TOP_DIR/../logs ]
-then
-    # mySociety servers have logs dir in level above
-    if ! [ -h log ] && [ -d log ]
-    then
-        # If log is a directory rather than a symlink, move that
-        # directory out of the way:
-        mv log log.original
+  then
+    # If the mySociety logs dir is a directory, move it out of the way and
+    # symlink to the usual Rails log directory
+    if ! [ -h $TOP_DIR/../logs ] && [ -d $TOP_DIR/../logs ]
+      mv $TOP_DIR/../logs $TOP_DIR/../logs.original
     fi
-    ln -sfn $TOP_DIR/../logs log
-else
-    # otherwise just make the directory
-    if [ -h log ]
-    then
-        # remove any old-style symlink first
-        rm -f log
-    fi
-    mkdir -p log
+
+    ln -sfn log $TOP_DIR/../logs
 fi
 
 cd log
 touch development.log fastcgi.crash.log production.log test.log
+chown $top_dir_owner:$top_dir_group *.log
+chmod 664 *.log
 cd ..
 
 # Returns 0 if an element is present in a bash array, and 1 otherwise
