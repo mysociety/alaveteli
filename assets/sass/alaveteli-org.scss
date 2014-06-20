@@ -313,36 +313,85 @@ h3 {
         margin-bottom: 2em;
     }
     .container {
-        @media(min-width: $mediumish-screen) {
-            padding-bottom: 3.5em;
-            min-height: 320px;
-        }
+
     }
 }
 
 .how-does-it-work__screenshot-position {
     text-align: center;
-    overflow: hidden;
     line-height: 0;
-    @media(min-width: $mediumish-screen) {
+    @media(min-width: $large-screen) {
         position: absolute;
-        bottom: 0;
-        left: 60%;
-        width: 40%;
+        bottom: -3px; // TODO: recrop the images and make this 0
+        left: 0;
+        width: 100%;
+
     }
     @media(min-width: 71.25em) {
-        right: 43%;
-        left: auto;
-        width: 58.333333%;
-    }
-    img {
-        @media(min-width: $mediumish-screen) {
-            min-width: 660px;
-        }
+
     }
 }
 
-.how-does-it-work__content {
+.alaveteli-demo-screenshot {
+    width: 100%;
+    @media(min-width: $medium-screen) {
+        width: 40%;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 60%;
+    }
+
+    @media(min-width: $large-screen) {
+
+
+    }
+    @media(min-width: 71.25em) {
+
+    }
+}
+
+.screenshot-annotation {
+    position: absolute;
+    top: 50%;
+    right: 0;
+}
+
+.owl-item {
+    min-height: 400px;
+    @media(min-width: $large-screen) {
+        min-height: 500px;
+    }
+    div {
+        bottom: 0;
+    }
+}
+
+.owl-controls {
+        width: 100%;
+}
+.owl-buttons {
+
+}
+
+.owl-prev {
+    position: absolute;
+    top: 50%;
+    left: 0;
+        background-color: black;
+    padding: 0.75em;
+}
+
+.owl-next {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: auto;
+        background-color: black;
+    padding: 0.75em;
+}
+
+/** .how-does-it-work__content {
     @media(min-width: $mediumish-screen) {
         margin-right: 44%;
     }
