@@ -12,12 +12,12 @@
 set -e
 #set -x # debug
 
-TOP_DIR="$(dirname "$BASH_SOURCE")/.."
-cd "$TOP_DIR"
+APP_ROOT="$(dirname "$BASH_SOURCE")/.."
+cd "$APP_ROOT"
 
-top_dir_perms=$(stat --format=%a $TOP_DIR)
-top_dir_owner=$(stat --format=%U $TOP_DIR)
-top_dir_group=$(stat --format=%G $TOP_DIR)
+app_root_perms=$(stat --format=%a $APP_ROOT)
+app_root_owner=$(stat --format=%U $APP_ROOT)
+app_root_group=$(stat --format=%G $APP_ROOT)
 
 # make sure that there is an app directory, so are in a rails app tree
 if ! [ -d app ]
@@ -37,28 +37,28 @@ else
 fi
 
 # Ensure the default Rails log directory exists
-if ! [ -e $TOP_DIR/log ]
+if ! [ -e $APP_ROOT/log ]
   then
-    mkdir $TOP_DIR/log
-    chown $top_dir_owner:$top_dir_group $TOP_DIR/log
-    chmod $top_dir_perms $TOP_DIR/log
+    mkdir $APP_ROOT/log
+    chown $app_root_owner:$app_root_group $APP_ROOT/log
+    chmod $app_root_perms $APP_ROOT/log
 fi
 
 # mySociety servers have logs in the level above the APP_ROOT.
-if [ -e $TOP_DIR/../logs ]
+if [ -e $APP_ROOT/../logs ]
   then
     # If the mySociety logs dir is a directory, move it out of the way and
     # symlink to the usual Rails log directory
-    if ! [ -h $TOP_DIR/../logs ] && [ -d $TOP_DIR/../logs ]
-      mv $TOP_DIR/../logs $TOP_DIR/../logs.original
+    if ! [ -h $APP_ROOT/../logs ] && [ -d $APP_ROOT/../logs ]
+      mv $APP_ROOT/../logs $APP_ROOT/../logs.original
     fi
 
-    ln -sfn log $TOP_DIR/../logs
+    ln -sfn log $APP_ROOT/../logs
 fi
 
 cd log
 touch development.log fastcgi.crash.log production.log test.log
-chown $top_dir_owner:$top_dir_group *.log
+chown $app_root_owner:$app_root_group *.log
 chmod 664 *.log
 cd ..
 
