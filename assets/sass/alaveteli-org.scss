@@ -350,7 +350,9 @@ h3 {
         margin-left: 61.333333%;
         margin-right: 0;
     }
-}
+} **/
+
+@import 'owl-carousel';
 
 .features {
     @extend %full-width-section;
