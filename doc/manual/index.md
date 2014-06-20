@@ -45,7 +45,7 @@ title: Welcome
 </div>
 <div class="how-does-it-work">
     <div class="container">
-        <div class="how-does-it-work__content">
+        <!--<div class="how-does-it-work__content">
                 <h2>How does Alaveteli work?</h2>
                 <ul>
                     <li>A user makes a request for information from a public authority</li>
@@ -54,9 +54,23 @@ title: Welcome
                     <li>When the authority responds, the information is published too, so it’s accessible for everyone
 </li>
                 </ul>
-        </div>
+        </div>-->
         <div class="how-does-it-work__screenshot-position">
-            <img src="{{ site.baseurl }}assets/img/alaveteli-demo.svg" class="alaveteli-demo-screenshot"/>
+            <div id="owl-example" class="owl-carousel">
+              <div>
+                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-find.svg" class="alaveteli-demo-screenshot"/>
+                <p class="screenshot-annotation">A user makes a request for information from a public authority</p>
+              </div>
+              <div>
+                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-ask.svg" class="alaveteli-demo-screenshot"/>
+                <p class="screenshot-annotation">A user makes a request for information from a public authority</p>
+              </div>
+              <div>
+                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-view.svg" class="alaveteli-demo-screenshot"/>
+                <p class="screenshot-annotation">A user makes a request for information from a public authority</p>
+              </div>
+            </div>
+
         </div>
     </div>
 </div>
