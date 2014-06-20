@@ -305,6 +305,7 @@ h3 {
     background-color: darken($colour_brand, 5%);
     position: relative;
     padding-bottom: 0;
+    overflow:-x hidden;
     @media(min-width: $mediumish-screen) {
         margin-top: 2em;
     }
@@ -313,41 +314,34 @@ h3 {
         margin-bottom: 2em;
     }
     .container {
-
+        @media(min-width: $mediumish-screen) {
+            padding-bottom: 3.5em;
+            min-height: 320px;
+        }
     }
 }
 
 .how-does-it-work__screenshot-position {
     text-align: center;
+    overflow: hidden;
     line-height: 0;
     @media(min-width: $large-screen) {
         position: absolute;
         bottom: -3px; // TODO: recrop the images and make this 0
+        right: -40%;
+        width: 100%;
+        img {
+            width: 55%;
+            min-width: 665px;
+            left: 0;
+            bottom: 0;
+            position: absolute;
+        }
+    }
+    @media(min-width: 71.25em) {
+        right: auto;
         left: 0;
         width: 100%;
-
-    }
-    @media(min-width: 71.25em) {
-
-    }
-}
-
-.alaveteli-demo-screenshot {
-    width: 100%;
-    @media(min-width: $medium-screen) {
-        width: 40%;
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 60%;
-    }
-
-    @media(min-width: $large-screen) {
-
-
-    }
-    @media(min-width: 71.25em) {
-
     }
 }
 
@@ -358,10 +352,7 @@ h3 {
 }
 
 .owl-item {
-    min-height: 400px;
-    @media(min-width: $large-screen) {
-        min-height: 500px;
-    }
+    min-height: 500px;
     div {
         bottom: 0;
     }

@@ -266,7 +266,8 @@ h3 {
 .how-does-it-work {
   background-color: #974495;
   position: relative;
-  padding-bottom: 0; }
+  padding-bottom: 0;
+  overflow: -x hidden; }
   @media (min-width: 40em) {
     .how-does-it-work {
       margin-top: 2em; } }
@@ -274,26 +275,32 @@ h3 {
     .how-does-it-work {
       margin-top: 4em;
       margin-bottom: 2em; } }
+  @media (min-width: 40em) {
+    .how-does-it-work .container {
+      padding-bottom: 3.5em;
+      min-height: 320px; } }
 
 .how-does-it-work__screenshot-position {
   text-align: center;
+  overflow: hidden;
   line-height: 0; }
   @media (min-width: 56.88889em) {
     .how-does-it-work__screenshot-position {
       position: absolute;
       bottom: -3px;
+      right: -40%;
+      width: 100%; }
+      .how-does-it-work__screenshot-position img {
+        width: 55%;
+        min-width: 665px;
+        left: 0;
+        bottom: 0;
+        position: absolute; } }
+  @media (min-width: 71.25em) {
+    .how-does-it-work__screenshot-position {
+      right: auto;
       left: 0;
       width: 100%; } }
-
-.alaveteli-demo-screenshot {
-  width: 100%; }
-  @media (min-width: 30em) {
-    .alaveteli-demo-screenshot {
-      width: 40%;
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 60%; } }
 
 .screenshot-annotation {
   position: absolute;
@@ -301,10 +308,7 @@ h3 {
   right: 0; }
 
 .owl-item {
-  min-height: 400px; }
-  @media (min-width: 56.88889em) {
-    .owl-item {
-      min-height: 500px; } }
+  min-height: 500px; }
   .owl-item div {
     bottom: 0; }
 
