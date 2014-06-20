@@ -300,46 +300,55 @@ h3 {
 }
 
 .how-does-it-work {
-
   @extend %full-width-section;
   @extend %dark-section;
   background-color: darken($colour_brand, 5%);
-
   overflow: hidden;
-
-  @media(min-width: $mediumish-screen) {
+  img {
+        position: relative;
+        bottom: -1px;
+  }
+  @media(min-width: $medium-screen) {
+    .how-does-it-work__slide {
+        border-top: 4em solid #fff;
+        padding-top: 4.7em;
+    }
     padding-top: 0;
     padding-bottom: 0;
-
-    .how-does-it-work__slide {
-      border-top: 4em solid #fff;
-      padding-top: 3.5em;
-    }
-
     h2, p {
       width: 50%;
     }
-
     img {
-      float: right;
-      width: 30em;
-      margin-right: -15em;
-      margin-top: -13em;
+        float: right;
+        width: 30em;
+        margin-right: -15em;
+        margin-top: -13em;
+    }
+  }
+
+  @media(min-width: 43.5em) {
+    .how-does-it-work__slide {
+      border-top: 4em solid #fff;
+      padding-top: 4.7em;
+    }
+    h2, p {
+      width: 33.333%;
+    }
+    img {
+      margin-right: -5em;
+      margin-top: -15em;
     }
   }
 
   @media (min-width: $large-screen) {
     h2, p, .how-does-it-work__slide__nav {
-      width: 50%;
-      margin-left: 50%;
+      width: 33.333%;
+      margin-left: 66.666%;
     }
-
     img {
       float: left;
-      width: 45%;
-      margin-right: 1em;
-      margin-left: 1em;
-      margin-top: -12em;
+      width: 63.666%;
+      margin-top: -15em;
     }
   }
 
@@ -350,7 +359,11 @@ h3 {
 }
 
 .how-does-it-work__slide__nav {
-  margin-top: 0.5em;
+    margin-top: 0.5em;
+    text-align: center;
+    @media(min-width: $medium-screen) {
+        text-align: left;
+    }
 }
 
 .how-does-it-work__slide__skip {
@@ -361,124 +374,25 @@ h3 {
   span {
     display: block;
     border-radius: 1em; // :TODO: cross-browser?
-    width: 1em;
-    height: 1em;
-    background-color: rgba(0,0,0,0.5);
+    width: 0.8em;
+    height: 0.8em;
+    background-color: rgba(0,0,0,0.3);
   }
 
   &.active {
     span {
-      background-color: transparent;
-      border: 0.2em solid rgba(0,0,0,0.5);
+      background-color: rgba(255,255,255,0.3);
     }
   }
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:active {
     span {
       background-color: rgba(0,0,0,0.3);
     }
-    &.active span {
-      background-color: transparent;
-      border-color: rgba(0,0,0,0.3);
-    }
   }
 }
-
-/* .how-does-it-work {
-    @extend %full-width-section;
-    @extend %dark-section;
-    background-color: darken($colour_brand, 5%);
-    position: relative;
-    padding-bottom: 0;
-    overflow:-x hidden;
-    @media(min-width: $mediumish-screen) {
-        margin-top: 2em;
-    }
-    @media(min-width: $large-screen) {
-        margin-top: 4em;
-        margin-bottom: 2em;
-    }
-    .container {
-        @media(min-width: $mediumish-screen) {
-            padding-bottom: 3.5em;
-            min-height: 320px;
-        }
-    }
-}
-
-.how-does-it-work__screenshot-position {
-    text-align: center;
-    overflow: hidden;
-    line-height: 0;
-    @media(min-width: $large-screen) {
-        position: absolute;
-        bottom: -3px; // TODO: recrop the images and make this 0
-        right: -40%;
-        width: 100%;
-        img {
-            width: 55%;
-            min-width: 665px;
-            left: 0;
-            bottom: 0;
-            position: absolute;
-        }
-    }
-    @media(min-width: 71.25em) {
-        right: auto;
-        left: 0;
-        width: 100%;
-    }
-}
-
-.screenshot-annotation {
-    position: absolute;
-    top: 50%;
-    right: 0;
-}
-
-.owl-item {
-    min-height: 500px;
-    div {
-        bottom: 0;
-    }
-}
-
-.owl-controls {
-        width: 100%;
-}
-.owl-buttons {
-
-}
-
-.owl-prev {
-    position: absolute;
-    top: 50%;
-    left: 0;
-        background-color: black;
-    padding: 0.75em;
-}
-
-.owl-next {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    left: auto;
-        background-color: black;
-    padding: 0.75em;
-} */
-
-/** .how-does-it-work__content {
-    @media(min-width: $mediumish-screen) {
-        margin-right: 44%;
-    }
-    @media(min-width: 71.25em) {
-        margin-left: 61.333333%;
-        margin-right: 0;
-    }
-} **/
-
-@import 'owl-carousel';
 
 .features {
     @extend %full-width-section;

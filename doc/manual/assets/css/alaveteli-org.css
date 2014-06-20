@@ -138,7 +138,7 @@ h3 {
   pointer-events: none !important; }
 
 .nav-toggle {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -266,13 +266,16 @@ h3 {
 .how-does-it-work {
   background-color: #974495;
   overflow: hidden; }
-  @media (min-width: 40em) {
+  .how-does-it-work img {
+    position: relative;
+    bottom: -1px; }
+  @media (min-width: 30em) {
     .how-does-it-work {
       padding-top: 0;
       padding-bottom: 0; }
       .how-does-it-work .how-does-it-work__slide {
         border-top: 4em solid #fff;
-        padding-top: 3.5em; }
+        padding-top: 4.7em; }
       .how-does-it-work h2, .how-does-it-work p {
         width: 50%; }
       .how-does-it-work img {
@@ -280,16 +283,23 @@ h3 {
         width: 30em;
         margin-right: -15em;
         margin-top: -13em; } }
+  @media (min-width: 43.5em) {
+    .how-does-it-work .how-does-it-work__slide {
+      border-top: 4em solid #fff;
+      padding-top: 4.7em; }
+    .how-does-it-work h2, .how-does-it-work p {
+      width: 33.333%; }
+    .how-does-it-work img {
+      margin-right: -5em;
+      margin-top: -15em; } }
   @media (min-width: 56.88889em) {
     .how-does-it-work h2, .how-does-it-work p, .how-does-it-work .how-does-it-work__slide__nav {
-      width: 50%;
-      margin-left: 50%; }
+      width: 33.333%;
+      margin-left: 66.666%; }
     .how-does-it-work img {
       float: left;
-      width: 45%;
-      margin-right: 1em;
-      margin-left: 1em;
-      margin-top: -12em; } }
+      width: 63.666%;
+      margin-top: -15em; } }
 
 .how-does-it-work__slide {
   /**
@@ -307,7 +317,11 @@ h3 {
     *zoom: 1; }
 
 .how-does-it-work__slide__nav {
-  margin-top: 0.5em; }
+  margin-top: 0.5em;
+  text-align: center; }
+  @media (min-width: 30em) {
+    .how-does-it-work__slide__nav {
+      text-align: left; } }
 
 .how-does-it-work__slide__skip {
   display: inline-block;
@@ -316,414 +330,13 @@ h3 {
   .how-does-it-work__slide__skip span {
     display: block;
     border-radius: 1em;
-    width: 1em;
-    height: 1em;
-    background-color: rgba(0, 0, 0, 0.5); }
-  .how-does-it-work__slide__skip.active span {
-    background-color: transparent;
-    border: 0.2em solid rgba(0, 0, 0, 0.5); }
-  .how-does-it-work__slide__skip:hover span, .how-does-it-work__slide__skip:focus span {
+    width: 0.8em;
+    height: 0.8em;
     background-color: rgba(0, 0, 0, 0.3); }
-  .how-does-it-work__slide__skip:hover.active span, .how-does-it-work__slide__skip:focus.active span {
-    background-color: transparent;
-    border-color: rgba(0, 0, 0, 0.3); }
-
-/* .how-does-it-work {
-    @extend %full-width-section;
-    @extend %dark-section;
-    background-color: darken($colour_brand, 5%);
-    position: relative;
-    padding-bottom: 0;
-    overflow:-x hidden;
-    @media(min-width: $mediumish-screen) {
-        margin-top: 2em;
-    }
-    @media(min-width: $large-screen) {
-        margin-top: 4em;
-        margin-bottom: 2em;
-    }
-    .container {
-        @media(min-width: $mediumish-screen) {
-            padding-bottom: 3.5em;
-            min-height: 320px;
-        }
-    }
-}
-
-.how-does-it-work__screenshot-position {
-    text-align: center;
-    overflow: hidden;
-    line-height: 0;
-    @media(min-width: $large-screen) {
-        position: absolute;
-        bottom: -3px; // TODO: recrop the images and make this 0
-        right: -40%;
-        width: 100%;
-        img {
-            width: 55%;
-            min-width: 665px;
-            left: 0;
-            bottom: 0;
-            position: absolute;
-        }
-    }
-    @media(min-width: 71.25em) {
-        right: auto;
-        left: 0;
-        width: 100%;
-    }
-}
-
-.screenshot-annotation {
-    position: absolute;
-    top: 50%;
-    right: 0;
-}
-
-.owl-item {
-    min-height: 500px;
-    div {
-        bottom: 0;
-    }
-}
-
-.owl-controls {
-        width: 100%;
-}
-.owl-buttons {
-
-}
-
-.owl-prev {
-    position: absolute;
-    top: 50%;
-    left: 0;
-        background-color: black;
-    padding: 0.75em;
-}
-
-.owl-next {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    left: auto;
-        background-color: black;
-    padding: 0.75em;
-} */
-/** .how-does-it-work__content {
-    @media(min-width: $mediumish-screen) {
-        margin-right: 44%;
-    }
-    @media(min-width: 71.25em) {
-        margin-left: 61.333333%;
-        margin-right: 0;
-    }
-} **/
-/*
- *  Core Owl Carousel CSS File
- *  v1.3.3
- */
-/* display none until init */
-.owl-carousel {
-  display: none;
-  position: relative;
-  width: 100%;
-  -ms-touch-action: pan-y; }
-
-.owl-carousel .owl-wrapper {
-  display: none;
-  position: relative;
-  -webkit-transform: translate3d(0px, 0px, 0px); }
-
-.owl-carousel .owl-wrapper-outer {
-  overflow-x: hidden;
-  position: relative;
-  width: 100%; }
-
-.owl-carousel .owl-wrapper-outer.autoHeight {
-  -webkit-transition: height 500ms ease-in-out;
-  -moz-transition: height 500ms ease-in-out;
-  -ms-transition: height 500ms ease-in-out;
-  -o-transition: height 500ms ease-in-out;
-  transition: height 500ms ease-in-out; }
-
-.owl-carousel .owl-item {
-  float: left; }
-
-.owl-controls .owl-page,
-.owl-controls .owl-buttons div {
-  cursor: pointer; }
-
-.owl-controls {
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
-
-/* mouse grab icon */
-.grabbing {
-  cursor: url("../img/grabbing.png") 8 8, move; }
-
-/* fix */
-.owl-carousel .owl-wrapper,
-.owl-carousel .owl-item {
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  -ms-backface-visibility: hidden;
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0); }
-
-/*
- *  Owl Carousel CSS3 Transitions
- *  v1.3.2
- */
-.owl-origin {
-  -webkit-perspective: 1200px;
-  -webkit-perspective-origin-x: 50%;
-  -webkit-perspective-origin-y: 50%;
-  -moz-perspective: 1200px;
-  -moz-perspective-origin-x: 50%;
-  -moz-perspective-origin-y: 50%;
-  perspective: 1200px; }
-
-/* fade */
-.owl-fade-out {
-  z-index: 10;
-  -webkit-animation: fadeOut .7s both ease;
-  -moz-animation: fadeOut .7s both ease;
-  animation: fadeOut .7s both ease; }
-
-.owl-fade-in {
-  -webkit-animation: fadeIn .7s both ease;
-  -moz-animation: fadeIn .7s both ease;
-  animation: fadeIn .7s both ease; }
-
-/* backSlide */
-.owl-backSlide-out {
-  -webkit-animation: backSlideOut 1s both ease;
-  -moz-animation: backSlideOut 1s both ease;
-  animation: backSlideOut 1s both ease; }
-
-.owl-backSlide-in {
-  -webkit-animation: backSlideIn 1s both ease;
-  -moz-animation: backSlideIn 1s both ease;
-  animation: backSlideIn 1s both ease; }
-
-/* goDown */
-.owl-goDown-out {
-  -webkit-animation: scaleToFade .7s ease both;
-  -moz-animation: scaleToFade .7s ease both;
-  animation: scaleToFade .7s ease both; }
-
-.owl-goDown-in {
-  -webkit-animation: goDown .6s ease both;
-  -moz-animation: goDown .6s ease both;
-  animation: goDown .6s ease both; }
-
-/* scaleUp */
-.owl-fadeUp-in {
-  -webkit-animation: scaleUpFrom .5s ease both;
-  -moz-animation: scaleUpFrom .5s ease both;
-  animation: scaleUpFrom .5s ease both; }
-
-.owl-fadeUp-out {
-  -webkit-animation: scaleUpTo .5s ease both;
-  -moz-animation: scaleUpTo .5s ease both;
-  animation: scaleUpTo .5s ease both; }
-
-/* Keyframes */
-/*empty*/
-@-webkit-keyframes empty {
-  0% {
-    opacity: 1; } }
-
-@-moz-keyframes empty {
-  0% {
-    opacity: 1; } }
-
-@keyframes empty {
-  0% {
-    opacity: 1; } }
-
-@-webkit-keyframes fadeIn {
-  0% {
-    opacity: 0; }
-
-  100% {
-    opacity: 1; } }
-
-@-moz-keyframes fadeIn {
-  0% {
-    opacity: 0; }
-
-  100% {
-    opacity: 1; } }
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0; }
-
-  100% {
-    opacity: 1; } }
-
-@-webkit-keyframes fadeOut {
-  0% {
-    opacity: 1; }
-
-  100% {
-    opacity: 0; } }
-
-@-moz-keyframes fadeOut {
-  0% {
-    opacity: 1; }
-
-  100% {
-    opacity: 0; } }
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1; }
-
-  100% {
-    opacity: 0; } }
-
-@-webkit-keyframes backSlideOut {
-  25% {
-    opacity: .5;
-    -webkit-transform: translateZ(-500px); }
-
-  75% {
-    opacity: .5;
-    -webkit-transform: translateZ(-500px) translateX(-200%); }
-
-  100% {
-    opacity: .5;
-    -webkit-transform: translateZ(-500px) translateX(-200%); } }
-
-@-moz-keyframes backSlideOut {
-  25% {
-    opacity: .5;
-    -moz-transform: translateZ(-500px); }
-
-  75% {
-    opacity: .5;
-    -moz-transform: translateZ(-500px) translateX(-200%); }
-
-  100% {
-    opacity: .5;
-    -moz-transform: translateZ(-500px) translateX(-200%); } }
-
-@keyframes backSlideOut {
-  25% {
-    opacity: .5;
-    transform: translateZ(-500px); }
-
-  75% {
-    opacity: .5;
-    transform: translateZ(-500px) translateX(-200%); }
-
-  100% {
-    opacity: .5;
-    transform: translateZ(-500px) translateX(-200%); } }
-
-@-webkit-keyframes backSlideIn {
-  0%, 25% {
-    opacity: .5;
-    -webkit-transform: translateZ(-500px) translateX(200%); }
-
-  75% {
-    opacity: .5;
-    -webkit-transform: translateZ(-500px); }
-
-  100% {
-    opacity: 1;
-    -webkit-transform: translateZ(0) translateX(0); } }
-
-@-moz-keyframes backSlideIn {
-  0%, 25% {
-    opacity: .5;
-    -moz-transform: translateZ(-500px) translateX(200%); }
-
-  75% {
-    opacity: .5;
-    -moz-transform: translateZ(-500px); }
-
-  100% {
-    opacity: 1;
-    -moz-transform: translateZ(0) translateX(0); } }
-
-@keyframes backSlideIn {
-  0%, 25% {
-    opacity: .5;
-    transform: translateZ(-500px) translateX(200%); }
-
-  75% {
-    opacity: .5;
-    transform: translateZ(-500px); }
-
-  100% {
-    opacity: 1;
-    transform: translateZ(0) translateX(0); } }
-
-@-webkit-keyframes scaleToFade {
-  to {
-    opacity: 0;
-    -webkit-transform: scale(0.8); } }
-
-@-moz-keyframes scaleToFade {
-  to {
-    opacity: 0;
-    -moz-transform: scale(0.8); } }
-
-@keyframes scaleToFade {
-  to {
-    opacity: 0;
-    transform: scale(0.8); } }
-
-@-webkit-keyframes goDown {
-  from {
-    -webkit-transform: translateY(-100%); } }
-
-@-moz-keyframes goDown {
-  from {
-    -moz-transform: translateY(-100%); } }
-
-@keyframes goDown {
-  from {
-    transform: translateY(-100%); } }
-
-@-webkit-keyframes scaleUpFrom {
-  from {
-    opacity: 0;
-    -webkit-transform: scale(1.5); } }
-
-@-moz-keyframes scaleUpFrom {
-  from {
-    opacity: 0;
-    -moz-transform: scale(1.5); } }
-
-@keyframes scaleUpFrom {
-  from {
-    opacity: 0;
-    transform: scale(1.5); } }
-
-@-webkit-keyframes scaleUpTo {
-  to {
-    opacity: 0;
-    -webkit-transform: scale(1.5); } }
-
-@-moz-keyframes scaleUpTo {
-  to {
-    opacity: 0;
-    -moz-transform: scale(1.5); } }
-
-@keyframes scaleUpTo {
-  to {
-    opacity: 0;
-    transform: scale(1.5); } }
+  .how-does-it-work__slide__skip.active span {
+    background-color: rgba(255, 255, 255, 0.3); }
+  .how-does-it-work__slide__skip:hover span, .how-does-it-work__slide__skip:focus span, .how-does-it-work__slide__skip:active span {
+    background-color: rgba(0, 0, 0, 0.3); }
 
 @media (min-width: 40em) {
   .features__grid-unit {
