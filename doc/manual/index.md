@@ -44,33 +44,25 @@ title: Welcome
     </div>
 </div>
 <div class="how-does-it-work">
-    <div class="container">
-        <!--<div class="how-does-it-work__content">
-                <h2>How does Alaveteli work?</h2>
-                <ul>
-                    <li>A user makes a request for information from a public authority</li>
-                    <li>Alaveteli notifies the authority, and handles any other workflow, like notifications and reminders</li>
-                    <li>Alaveteli also publishes the request so that anyone can see it on the web</li>
-                    <li>When the authority responds, the information is published too, so it’s accessible for everyone
-</li>
-                </ul>
-        </div>-->
-        <div class="how-does-it-work__screenshot-position">
-            <div id="owl-example" class="owl-carousel">
-              <div>
-                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-find.svg" class="alaveteli-demo-screenshot"/>
-                <p class="screenshot-annotation">A user makes a request for information from a public authority</p>
-              </div>
-              <div>
-                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-ask.svg" class="alaveteli-demo-screenshot"/>
-                <p class="screenshot-annotation">A user makes a request for information from a public authority</p>
-              </div>
-              <div>
-                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-view.svg" class="alaveteli-demo-screenshot"/>
-                <p class="screenshot-annotation">A user makes a request for information from a public authority</p>
-              </div>
-            </div>
-
+    <div class="how-does-it-work__slide">
+        <div class="container">
+            <h2>How Alaveteli works</h2>
+            <p>A user makes a request for information from a public authority.</p>
+            <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-find.svg" class="alaveteli-demo-screenshot"/>
+        </div>
+    </div>
+    <div class="how-does-it-work__slide">
+        <div class="container">
+            <h2>How Alaveteli works</h2>
+            <p>Description of the second step goes here. It involves filling in a form.</p>
+            <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-ask.svg" class="alaveteli-demo-screenshot"/>
+        </div>
+    </div>
+    <div class="how-does-it-work__slide">
+        <div class="container">
+            <h2>How Alaveteli works</h2>
+            <p>The third step in the process goes here. This is the last one.</p>
+            <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-view.svg" class="alaveteli-demo-screenshot"/>
         </div>
     </div>
 </div>
