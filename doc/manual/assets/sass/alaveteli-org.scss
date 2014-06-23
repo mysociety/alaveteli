@@ -4,6 +4,7 @@
 
 $high-dpi-screen: '-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi';
 
+
 html {
     background-color: $colour_black;
     height: 100%;
@@ -13,6 +14,13 @@ html {
 body {
     background-color: transparent;
 }
+
+.no-svg {
+   .site-title {
+        background-image: url('../img/alaveteli-logo.png');
+    }
+}
+
 
 %full-width-section {
     padding: 2em 0;
@@ -244,16 +252,40 @@ h3 {
     background-image: url('../img/scales.svg');
 }
 
+.no-svg {
+    .what-is-alaveteli__item--foi {
+        background-image: url('../img/scales.png');
+    }
+}
+
 .what-is-alaveteli__item--help {
     background-image: url('../img/pointer.svg');
+}
+
+.no-svg {
+    .what-is-alaveteli__item--help {
+        background-image: url('../img/pointer.png');
+    }
 }
 
 .what-is-alaveteli__item--published {
     background-image: url('../img/binoculars.svg');
 }
 
+.no-svg {
+    .what-is-alaveteli__item--published {
+        background-image: url('../img/binoculars.png');
+    }
+}
+
 .what-is-alaveteli__item--open {
     background-image: url('../img/open.svg');
+}
+
+.no-svg {
+    .what-is-alaveteli__item--open {
+        background-image: url('../img/open.png');
+    }
 }
 
 .what-is-alaveteli__international-reach-position {
@@ -305,6 +337,12 @@ h3 {
             border-color: $colour_links;
             color: $colour_links;
         }
+    }
+}
+
+.no-svg {
+    .what-is-alaveteli__international-reach {
+        background-image: url('../img/worldmap.png');
     }
 }
 
@@ -451,7 +489,6 @@ h3 {
 .features__item--primary {
     background-position: center top;
     background-repeat: no-repeat;
-
     padding-top: 11.5em;
     @media (min-width: $large-screen) {
         background-position: left center;
@@ -476,11 +513,23 @@ h3 {
     background-size: 258px 188px;
 }
 
+.no-svg {
+    .features__item--devices {
+        background-image: url('../img/devices.png');
+    }
+}
+
 .features__item--messaging {
     background-image: url('../img/signs.svg');
     background-size: 200px 166px;
     @media (min-width: $large-screen) {
         background-position: 3em center;
+    }
+}
+
+.no-svg {
+    .features__item--messaging {
+        background-image: url('../img/signs.png');
     }
 }
 
@@ -653,6 +702,12 @@ h3 {
         }
         max-width: 23em;
         margin: 0 auto;
+    }
+}
+
+.no-svg {
+    .deployments__intro {
+        background-image: url('../img/worldmap-pale.png');
     }
 }
 
