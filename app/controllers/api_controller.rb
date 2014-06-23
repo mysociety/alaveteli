@@ -163,6 +163,40 @@ class ApiController < ApplicationController
         }
     end
 
+    def update_state
+        request = InfoRequest.find_by_id(params[:id])
+        if request.nil?
+            render :json => { "errors" => ["Could not find request #{params[:id]}"] }, :status => 404
+            return
+        end
+        new_state = params["state"]
+
+        errors = []
+
+        if !request.is_external?
+            render :json => { "errors" => ["Request #{params[:id]} cannot be updated using the API"] }, :status => 500
+            return
+        end
+
+        if request.public_body_id != @public_body.id
+            render :json => { "errors" => ["You do not own request #{params[:id]}"] }, :status => 500
+            return
+        end
+
+        if InfoRequest.enumerate_states.include?(new_state)
+            request.set_described_state(new_state)
+        else
+              render :json => {"errors" => [
+                  "'#{new_state}' is not a valid request state" ] },
+              :status => 500
+          return
+        end
+
+        render :json => {
+            'url' => make_url("request", request.url_title),
+        }
+    end
+
     def body_request_events
         feed_type = params[:feed_type]
         raise PermissionDenied.new("#{@public_body.id} != #{params[:id]}") if @public_body.id != params[:id].to_i
