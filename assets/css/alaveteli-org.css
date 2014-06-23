@@ -33,6 +33,9 @@ html {
 body {
   background-color: transparent; }
 
+.no-svg .site-title {
+  background-image: url("../img/alaveteli-logo.png"); }
+
 .hero, .what-is-alaveteli, .how-does-it-work, .features, .get-started, .about__intro, .deployments__intro {
   padding: 2em 0; }
   @media (min-width: 40em) {
@@ -222,14 +225,26 @@ h3 {
 .what-is-alaveteli__item--foi {
   background-image: url("../img/scales.svg"); }
 
+.no-svg .what-is-alaveteli__item--foi {
+  background-image: url("../img/scales.png"); }
+
 .what-is-alaveteli__item--help {
   background-image: url("../img/pointer.svg"); }
+
+.no-svg .what-is-alaveteli__item--help {
+  background-image: url("../img/pointer.png"); }
 
 .what-is-alaveteli__item--published {
   background-image: url("../img/binoculars.svg"); }
 
+.no-svg .what-is-alaveteli__item--published {
+  background-image: url("../img/binoculars.png"); }
+
 .what-is-alaveteli__item--open {
   background-image: url("../img/open.svg"); }
+
+.no-svg .what-is-alaveteli__item--open {
+  background-image: url("../img/open.png"); }
 
 @media (min-width: 56.88889em) {
   .what-is-alaveteli__international-reach-position {
@@ -270,6 +285,9 @@ h3 {
       text-decoration: none;
       border-color: #2b8cdb;
       color: #2b8cdb; }
+
+.no-svg .what-is-alaveteli__international-reach {
+  background-image: url("../img/worldmap.png"); }
 
 .how-does-it-work {
   background-color: #974495;
@@ -395,12 +413,18 @@ h3 {
   background-image: url("../img/devices.svg");
   background-size: 258px 188px; }
 
+.no-svg .features__item--devices {
+  background-image: url("../img/devices.png"); }
+
 .features__item--messaging {
   background-image: url("../img/signs.svg");
   background-size: 200px 166px; }
   @media (min-width: 56.88889em) {
     .features__item--messaging {
       background-position: 3em center; } }
+
+.no-svg .features__item--messaging {
+  background-image: url("../img/signs.png"); }
 
 .get-started {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
@@ -546,6 +570,9 @@ h3 {
     @media (min-width: 30em) {
       .deployments__intro p {
         font-size: 1.666666667em; } }
+
+.no-svg .deployments__intro {
+  background-image: url("../img/worldmap-pale.png"); }
 
 .deployments__content h2 {
   margin-bottom: 1.5em; }
