@@ -4,6 +4,15 @@
 
 $high-dpi-screen: '-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi';
 
+html {
+    background-color: $colour_black;
+    height: 100%;
+    min-height: 100%;
+}
+
+body {
+    background-color: transparent;
+}
 
 %full-width-section {
     padding: 2em 0;
