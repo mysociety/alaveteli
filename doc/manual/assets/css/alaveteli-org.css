@@ -25,6 +25,14 @@
   text-align: center; }
 
 /* Alaveteli's purple */
+html {
+  background-color: #333333;
+  height: 100%;
+  min-height: 100%; }
+
+body {
+  background-color: transparent; }
+
 .hero, .what-is-alaveteli, .how-does-it-work, .features, .get-started, .about__intro, .deployments__intro {
   padding: 2em 0; }
   @media (min-width: 40em) {
