@@ -34,17 +34,17 @@ describe ApiController, "when using the API" do
 
     def _create_request
       post :create_request,
-          :k => public_bodies(:geraldine_public_body).api_key,
-          :request_json => {
-              "title" => "Tell me about your chickens",
-              "body" => "Dear Sir,\n\nI should like to know about your chickens.\n\nYours in faith,\nBob\n",
+           :k => public_bodies(:geraldine_public_body).api_key,
+           :request_json => {
+               "title" => "Tell me about your chickens",
+               "body" => "Dear Sir,\n\nI should like to know about your chickens.\n\nYours in faith,\nBob\n",
 
-              "external_url" => "http://www.example.gov.uk/foi/chickens_23",
-              "external_user_name" => "Bob Smith",
-          }.to_json
+               "external_url" => "http://www.example.gov.uk/foi/chickens_23",
+               "external_user_name" => "Bob Smith",
+           }.to_json
       response.content_type.should == "application/json"
       return ActiveSupport::JSON.decode(response.body)["id"]
-  end
+    end
 
     # POST /api/v2/request.json
     describe 'creating a request' do
@@ -106,13 +106,13 @@ describe ApiController, "when using the API" do
           sent_at = "2012-05-28T12:35:39+01:00"
           response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
           post :add_correspondence,
-              :k => public_bodies(:geraldine_public_body).api_key,
-              :id => request_id,
-              :correspondence_json => {
-                  "direction" => "response",
-                  "sent_at" => sent_at,
-                  "body" => response_body
-              }.to_json
+               :k => public_bodies(:geraldine_public_body).api_key,
+               :id => request_id,
+               :correspondence_json => {
+                   "direction" => "response",
+                   "sent_at" => sent_at,
+                   "body" => response_body
+               }.to_json
 
           # And make sure it worked
           response.should be_success
@@ -135,13 +135,13 @@ describe ApiController, "when using the API" do
           sent_at = "2012-05-29T12:35:39+01:00"
           followup_body = "Pls answer ASAP.\nkthxbye\n"
           post :add_correspondence,
-              :k => public_bodies(:geraldine_public_body).api_key,
-              :id => request_id,
-              :correspondence_json => {
-                  "direction" => "request",
-                  "sent_at" => sent_at,
-                  "body" => followup_body
-              }.to_json
+               :k => public_bodies(:geraldine_public_body).api_key,
+               :id => request_id,
+               :correspondence_json => {
+                   "direction" => "request",
+                   "sent_at" => sent_at,
+                   "body" => followup_body
+               }.to_json
 
           # Make sure it worked
           response.should be_success
@@ -155,19 +155,75 @@ describe ApiController, "when using the API" do
           followup_message.body.should == followup_body.strip
       end
 
+      it "should update the status if a valid state is supplied" do
+          # First we need an external request
+          request_id = info_requests(:external_request).id
+
+          # Initially it has no incoming messages
+          IncomingMessage.count(:conditions => ["info_request_id = ?", request_id]).should == 0
+
+          # Now add one
+          sent_at = "2012-05-28T12:35:39+01:00"
+          response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
+          post :add_correspondence,
+              :k => public_bodies(:geraldine_public_body).api_key,
+              :id => request_id,
+              :state => "successful",
+              :correspondence_json => {
+                  "direction" => "response",
+                  "sent_at" => sent_at,
+                  "body" => response_body,
+              }.to_json
+
+          # And make sure it worked
+          response.should be_success
+          incoming_messages = IncomingMessage.all(:conditions => ["info_request_id = ?", request_id])
+          incoming_messages.count.should == 1
+          request = InfoRequest.find_by_id(request_id)
+          request.described_state.should == "successful"
+      end
+
+      it "should ignore the status if an invalid state is supplied" do
+          # First we need an external request
+          request_id = info_requests(:external_request).id
+
+          # Initially it has no incoming messages
+          IncomingMessage.count(:conditions => ["info_request_id = ?", request_id]).should == 0
+
+          # Now add one
+          sent_at = "2012-05-28T12:35:39+01:00"
+          response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
+          post :add_correspondence,
+              :k => public_bodies(:geraldine_public_body).api_key,
+              :id => request_id,
+              :state => "random_string",
+              :correspondence_json => {
+                  "direction" => "response",
+                  "sent_at" => sent_at,
+                  "body" => response_body,
+              }.to_json
+
+          # And make sure it worked
+          response.should be_success
+          incoming_messages = IncomingMessage.all(:conditions => ["info_request_id = ?", request_id])
+          incoming_messages.count.should == 1
+          request = InfoRequest.find_by_id(request_id)
+          request.described_state.should == "waiting_response"
+      end
+
       it "should not allow internal requests to be updated" do
           n_incoming_messages = IncomingMessage.count
           n_outgoing_messages = OutgoingMessage.count
 
           request_id = info_requests(:naughty_chicken_request).id
           post :add_correspondence,
-              :k => public_bodies(:geraldine_public_body).api_key,
-              :id => request_id,
-              :correspondence_json => {
-                  "direction" => "request",
-                  "sent_at" => Time.now.iso8601,
-                  "body" => "xxx"
-              }.to_json
+               :k => public_bodies(:geraldine_public_body).api_key,
+               :id => request_id,
+               :correspondence_json => {
+                   "direction" => "request",
+                   "sent_at" => Time.now.iso8601,
+                   "body" => "xxx"
+               }.to_json
 
           response.status.should == 500
           ActiveSupport::JSON.decode(response.body)["errors"].should == [
@@ -183,13 +239,13 @@ describe ApiController, "when using the API" do
           n_outgoing_messages = OutgoingMessage.count
 
           post :add_correspondence,
-              :k => public_bodies(:humpadink_public_body).api_key,
-              :id => request_id,
-              :correspondence_json => {
-                  "direction" => "request",
-                  "sent_at" => Time.now.iso8601,
-                  "body" => "xxx"
-              }.to_json
+               :k => public_bodies(:humpadink_public_body).api_key,
+               :id => request_id,
+               :correspondence_json => {
+                   "direction" => "request",
+                   "sent_at" => Time.now.iso8601,
+                   "body" => "xxx"
+               }.to_json
 
           response.status.should == 500
           ActiveSupport::JSON.decode(response.body)["errors"].should == [
@@ -204,13 +260,13 @@ describe ApiController, "when using the API" do
           sent_at = "2012-05-28T12:35:39+01:00"
           response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
           post :add_correspondence,
-              :k => public_bodies(:geraldine_public_body).api_key,
-              :id => request_id,
-              :correspondence_json => {
-                  "direction" => "response",
-                  "sent_at" => sent_at,
-                  "body" => response_body
-              }.to_json
+               :k => public_bodies(:geraldine_public_body).api_key,
+               :id => request_id,
+               :correspondence_json => {
+                   "direction" => "response",
+                   "sent_at" => sent_at,
+                   "body" => response_body
+               }.to_json
           response.status.should == 404
           ActiveSupport::JSON.decode(response.body)["errors"].should == ["Could not find request 123459876"]
       end
@@ -220,29 +276,29 @@ describe ApiController, "when using the API" do
           sent_at = "2012-05-28T12:35:39+01:00"
           response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
           post :add_correspondence,
-              :k => public_bodies(:geraldine_public_body).api_key,
-              :id => request_id,
-              :correspondence_json => {
-                  "direction" => "response",
-                  "sent_at" => sent_at,
-                  "body" => response_body
-              }.to_json
+               :k => public_bodies(:geraldine_public_body).api_key,
+               :id => request_id,
+               :correspondence_json => {
+                   "direction" => "response",
+                   "sent_at" => sent_at,
+                   "body" => response_body
+               }.to_json
           response.status.should == 500
           ActiveSupport::JSON.decode(response.body)["errors"].should == ["Request #{request_id} cannot be updated using the API"]
       end
 
       it "should not allow files to be attached to a followup" do
           post :add_correspondence,
-              :k => public_bodies(:geraldine_public_body).api_key,
-              :id => info_requests(:external_request).id,
-              :correspondence_json => {
-                      "direction" => "request",
-                      "sent_at" => Time.now.iso8601,
-                      "body" => "Are you joking, or are you serious?"
-                  }.to_json,
-              :attachments => [
-                  fixture_file_upload("/files/tfl.pdf")
-              ]
+               :k => public_bodies(:geraldine_public_body).api_key,
+               :id => info_requests(:external_request).id,
+               :correspondence_json => {
+                   "direction" => "request",
+                   "sent_at" => Time.now.iso8601,
+                   "body" => "Are you joking, or are you serious?"
+                }.to_json,
+               :attachments => [
+                   fixture_file_upload("/files/tfl.pdf")
+               ]
 
           # Make sure it worked
           response.status.should == 500
@@ -264,10 +320,10 @@ describe ApiController, "when using the API" do
               :k => public_bodies(:geraldine_public_body).api_key,
               :id => request_id,
               :correspondence_json => {
-                      "direction" => "response",
-                      "sent_at" => sent_at,
-                      "body" => response_body
-                  }.to_json,
+                  "direction" => "response",
+                  "sent_at" => sent_at,
+                  "body" => response_body
+              }.to_json,
               :attachments => [
                   fixture_file_upload("/files/tfl.pdf")
               ]
@@ -302,9 +358,9 @@ describe ApiController, "when using the API" do
 
             # Now accept an update
             post :update_state,
-              :k => public_bodies(:geraldine_public_body).api_key,
-              :id => request_id,
-              :state => "not_held"
+                 :k => public_bodies(:geraldine_public_body).api_key,
+                 :id => request_id,
+                 :state => "not_held"
 
             # It should have updated the status
             request = InfoRequest.find_by_id(request_id)
@@ -321,9 +377,9 @@ describe ApiController, "when using the API" do
 
             # Now post an invalid update
             post :update_state,
-              :k => public_bodies(:geraldine_public_body).api_key,
-              :id => request_id,
-              :state => "random_string"
+                 :k => public_bodies(:geraldine_public_body).api_key,
+                 :id => request_id,
+                 :state => "random_string"
 
             # Check that the error has been raised...
             response.status.should == 500
@@ -338,9 +394,9 @@ describe ApiController, "when using the API" do
             request_id = 123459876 # Let's hope this doesn't exist!
 
             post :update_state,
-              :k => public_bodies(:geraldine_public_body).api_key,
-              :id => request_id,
-              :state => "successful"
+                 :k => public_bodies(:geraldine_public_body).api_key,
+                 :id => request_id,
+                 :state => "successful"
 
             response.status.should == 404
             ActiveSupport::JSON.decode(response.body)["errors"].should == ["Could not find request 123459876"]
@@ -350,9 +406,9 @@ describe ApiController, "when using the API" do
             request_id = info_requests(:naughty_chicken_request).id
 
             post :update_state,
-              :k => public_bodies(:geraldine_public_body).api_key,
-              :id => request_id,
-              :state => "successful"
+                 :k => public_bodies(:geraldine_public_body).api_key,
+                 :id => request_id,
+                 :state => "successful"
 
             response.status.should == 500
             ActiveSupport::JSON.decode(response.body)["errors"].should == ["Request #{request_id} cannot be updated using the API"]
@@ -405,7 +461,7 @@ describe ApiController, "when using the API" do
           assigns[:events].each do |event|
               event.info_request.public_body.should == public_bodies(:geraldine_public_body)
               event.outgoing_message.should_not be_nil
-              event.event_type.should satisfy {|x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x)}
+              event.event_type.should satisfy { |x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x) }
           end
       end
 
@@ -425,7 +481,7 @@ describe ApiController, "when using the API" do
 
           assigns[:event_data].size.should == assigns[:events].size
           assigns[:event_data].each do |event_record|
-              event_record[:event_type].should satisfy {|x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x)}
+              event_record[:event_type].should satisfy { |x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x) }
           end
       end
 

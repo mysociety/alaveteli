@@ -89,6 +89,7 @@ class ApiController < ApplicationController
         direction = json["direction"]
         body = json["body"]
         sent_at = json["sent_at"]
+        new_state = params["state"]
 
         errors = []
 
@@ -157,6 +158,10 @@ class ApiController < ApplicationController
             mail = RequestMailer.external_response(request, body, sent_at, attachment_hashes)
 
             request.receive(mail, mail.encoded, true)
+
+            if new_state && InfoRequest.enumerate_states.include?(new_state)
+                request.set_described_state(new_state)
+            end
         end
         render :json => {
             'url' => make_url("request", request.url_title),
@@ -166,7 +171,10 @@ class ApiController < ApplicationController
     def update_state
         request = InfoRequest.find_by_id(params[:id])
         if request.nil?
-            render :json => { "errors" => ["Could not find request #{params[:id]}"] }, :status => 404
+            render :json => {
+                        "errors" => ["Could not find request #{params[:id]}"]
+                    },
+                   :status => 404
             return
         end
         new_state = params["state"]
@@ -174,22 +182,29 @@ class ApiController < ApplicationController
         errors = []
 
         if !request.is_external?
-            render :json => { "errors" => ["Request #{params[:id]} cannot be updated using the API"] }, :status => 500
+            render :json => {
+                        "errors" => ["Request #{params[:id]} cannot be updated using the API"]
+                     },
+                    :status => 500
             return
         end
 
         if request.public_body_id != @public_body.id
-            render :json => { "errors" => ["You do not own request #{params[:id]}"] }, :status => 500
+            render :json => {
+                        "errors" => ["You do not own request #{params[:id]}"]
+                    },
+                   :status => 500
             return
         end
 
         if InfoRequest.enumerate_states.include?(new_state)
             request.set_described_state(new_state)
         else
-              render :json => {"errors" => [
-                  "'#{new_state}' is not a valid request state" ] },
-              :status => 500
-          return
+            render :json => {
+                        "errors" => ["'#{new_state}' is not a valid request state" ]
+                    },
+                   :status => 500
+            return
         end
 
         render :json => {
