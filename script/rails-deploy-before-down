@@ -44,19 +44,6 @@ if ! [ -e $APP_ROOT/log ]
     chmod $app_root_perms $APP_ROOT/log
 fi
 
-# mySociety servers have logs in the level above the APP_ROOT.
-if [ -e $APP_ROOT/../logs ]
-  then
-    # If the mySociety logs dir is a directory, move it out of the way and
-    # symlink to the usual Rails log directory
-    if ! [ -h $APP_ROOT/../logs ] && [ -d $APP_ROOT/../logs ]
-      then
-        mv $APP_ROOT/../logs $APP_ROOT/../logs.original
-    fi
-
-    ln -sfn log $APP_ROOT/../logs
-fi
-
 cd log
 touch development.log fastcgi.crash.log production.log test.log
 chown $app_root_owner:$app_root_group *.log
