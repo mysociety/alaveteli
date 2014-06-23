@@ -50,7 +50,8 @@ if [ -e $APP_ROOT/../logs ]
     # If the mySociety logs dir is a directory, move it out of the way and
     # symlink to the usual Rails log directory
     if ! [ -h $APP_ROOT/../logs ] && [ -d $APP_ROOT/../logs ]
-      mv $APP_ROOT/../logs $APP_ROOT/../logs.original
+      then
+        mv $APP_ROOT/../logs $APP_ROOT/../logs.original
     fi
 
     ln -sfn log $APP_ROOT/../logs
