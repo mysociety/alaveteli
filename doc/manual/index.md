@@ -46,23 +46,29 @@ title: Welcome
 <div class="how-does-it-work">
     <div class="how-does-it-work__slide">
         <div class="container">
-            <h2>How Alaveteli works</h2>
-            <p>A user makes a request for information from a public authority.</p>
-            <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-find.svg" class="alaveteli-demo-screenshot"/>
+            <div class="how-does-it-work__content">
+                <h2>How Alaveteli works</h2>
+                <p>Make a public request for information by finding the relevant authority</p>
+                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-find.svg" class="alaveteli-demo-screenshot"/>
+            </div>
         </div>
     </div>
     <div class="how-does-it-work__slide">
         <div class="container">
-            <h2>How Alaveteli works</h2>
-            <p>Description of the second step goes here. It involves filling in a form.</p>
-            <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-ask.svg" class="alaveteli-demo-screenshot"/>
+            <div class="how-does-it-work__content">
+                <h2>How Alaveteli works</h2>
+                <p>You write a request for information from the authority</p>
+                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-ask.svg" class="alaveteli-demo-screenshot"/>
+            </div>
         </div>
     </div>
     <div class="how-does-it-work__slide">
         <div class="container">
-            <h2>How Alaveteli works</h2>
-            <p>The third step in the process goes here. This is the last one.</p>
-            <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-view.svg" class="alaveteli-demo-screenshot"/>
+            <div class="how-does-it-work__content">
+                <h2>How Alaveteli works</h2>
+                <p>The request and all responses are published online for anyone to view</p>
+                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-view.svg" class="alaveteli-demo-screenshot"/>
+            </div>
         </div>
     </div>
 </div>
