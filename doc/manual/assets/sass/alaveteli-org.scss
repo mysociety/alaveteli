@@ -478,6 +478,7 @@ h3 {
 .get-started {
     @extend %dark-section;
     @extend %full-width-section;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .get-started__grid-unit {
