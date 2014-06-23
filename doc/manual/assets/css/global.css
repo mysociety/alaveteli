@@ -349,7 +349,7 @@ table {
   margin: 0 auto;
   position: relative; }
 
-.unstyled-list, .unstyled, .sidebar ul, .list-of-blog-posts, .definitions {
+.unstyled-list, .unstyled, .breadcrumb, .sidebar ul, .list-of-blog-posts, .definitions {
   margin-left: 0;
   padding-left: 0;
   list-style: none outside none; }
@@ -848,6 +848,18 @@ ul {
     width: 25%; }
     .secondary-content-column:first-child {
       padding-left: 0; } }
+
+.breadcrumb {
+  padding: 8px 0; }
+  .breadcrumb li {
+    display: inline;
+    font-size: 0.75em; }
+    .breadcrumb li:after {
+      content: '/';
+      margin: 0 0.33em;
+      color: #e4e3dd; }
+    .breadcrumb li a {
+      color: #787774; }
 
 .sidebar ul {
   -webkit-column-count: 2;

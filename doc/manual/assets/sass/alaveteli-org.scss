@@ -80,12 +80,12 @@ h3 {
 .nav-position {
     @media (min-width: 47.5em) {
         position: absolute;
-        top: 0.6em;
+        top: 0.4em;
         left: 180px;
     }
     @media (min-width: $large-screen) {
         left: 240px;
-        top: 0.5em;
+        top: 0.35em;
     }
 }
 
@@ -145,7 +145,7 @@ h3 {
   -o-user-select: none;
   user-select: none;
   position: absolute;
-  top: 0.1em;
+  top: 0.4em;
   right: 5em;
   @media (min-width: $medium-screen) {
     right: 10em;
@@ -306,7 +306,9 @@ h3 {
   overflow: hidden;
   img {
         position: relative;
-        bottom: -1px;
+        @media(min-width: $large-screen) {
+            bottom: -1px;
+        }
   }
   @media(min-width: $medium-screen) {
     .how-does-it-work__slide {
@@ -445,6 +447,11 @@ h3 {
     @media (min-width: $large-screen) {
         background-position: left center;
         padding: 1em 0;
+        h3, p {
+            padding-left: 63%;
+        }
+    }
+    @media (min-width: 65em) {
         h3, p {
             padding-left: 53%;
         }
@@ -738,11 +745,14 @@ h3 {
     margin-top: 0;
     margin-bottom: 0.5em;
     font-size: 0.888888889em;
-    text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
+    a {
+        display: block;
+        text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        /* Required for text-overflow to do anything */
+        white-space: nowrap;
+        overflow: hidden;
+    }
     @media (min-width: $large-screen) {
         font-size: 1em;
     }
@@ -782,7 +792,7 @@ h3 {
     .deployment__title,
     .deployment__country,
     .deployment__link {
-            margin-left: 37%;
+        margin-left: 37%;
     }
 }
 
