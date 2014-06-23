@@ -94,12 +94,12 @@ h3 {
 @media (min-width: 47.5em) {
   .nav-position {
     position: absolute;
-    top: 0.6em;
+    top: 0.4em;
     left: 180px; } }
 @media (min-width: 56.88889em) {
   .nav-position {
     left: 240px;
-    top: 0.5em; } }
+    top: 0.35em; } }
 
 .site-nav ul {
   margin-top: 0;
@@ -146,7 +146,7 @@ h3 {
   -o-user-select: none;
   user-select: none;
   position: absolute;
-  top: 0.1em;
+  top: 0.4em;
   right: 5em;
   display: inline-block;
   padding: 0.3em 0.75em;
@@ -267,8 +267,10 @@ h3 {
   background-color: #974495;
   overflow: hidden; }
   .how-does-it-work img {
-    position: relative;
-    bottom: -1px; }
+    position: relative; }
+    @media (min-width: 56.88889em) {
+      .how-does-it-work img {
+        bottom: -1px; } }
   @media (min-width: 30em) {
     .how-does-it-work {
       padding-top: 0;
@@ -374,7 +376,10 @@ h3 {
       background-position: left center;
       padding: 1em 0; }
       .features__item--primary h3, .features__item--primary p {
-        padding-left: 53%; } }
+        padding-left: 63%; } }
+  @media (min-width: 65em) {
+    .features__item--primary h3, .features__item--primary p {
+      padding-left: 53%; } }
   .features__item--primary h3 {
     font-size: 1.4em; }
 
@@ -607,12 +612,14 @@ h3 {
 .deployment__link {
   margin-top: 0;
   margin-bottom: 0.5em;
-  font-size: 0.888888889em;
-  text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  /* Required for text-overflow to do anything */
-  white-space: nowrap;
-  overflow: hidden; }
+  font-size: 0.888888889em; }
+  .deployment__link a {
+    display: block;
+    text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow: hidden; }
   @media (min-width: 56.88889em) {
     .deployment__link {
       font-size: 1em; } }
