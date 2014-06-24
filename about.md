@@ -14,7 +14,7 @@ title: About
         <img src="{{ site.baseurl }}assets/img/stamp.svg" class="stamp-graphic" />
     </div>
 </div>
-<div class="container">
+<div class="container clearfix">
     <h2>What next?</h2>
     <h3>Take a look at <a href="{{ site.baseurl }}docs/">our documentation</a></h3>
     <div class="grid-row content-in-columns">
