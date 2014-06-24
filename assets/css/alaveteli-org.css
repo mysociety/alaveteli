@@ -688,3 +688,18 @@ h3 {
 
 .blog-title {
   line-height: 1.3em; }
+
+.clearfix {
+  /**
+   * For IE 6/7 only
+   * Include this rule to trigger hasLayout and contain floats.
+   */ }
+  .clearfix:before, .clearfix:after {
+    content: " ";
+    /* 1 */
+    display: table;
+    /* 2 */ }
+  .clearfix:after {
+    clear: both; }
+  .clearfix {
+    *zoom: 1; }

@@ -864,3 +864,7 @@ h3 {
 .blog-title {
     line-height: 1.3em;
 }
+
+.clearfix {
+    @include clearfix;
+}
