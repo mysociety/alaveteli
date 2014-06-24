@@ -14,7 +14,7 @@ title: Configuration
 
 The alaveteli code ships with an example configuration file: `config/general.yml-example`.
 
-As part of the [installation process]({{ site.baseurl }}docs/installing ), the
+As part of the [installation process]({{ site.baseurl }}docs/installing/ ), the
 example file gets copied to `config/general.yml`. You **must** edit this file to
 suit your needs.
 
@@ -230,7 +230,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
       <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>BLOG_FEED: 'http://www.mysociety.org/category/projects/whatdotheyknow/feed/'</code>
+            <code>BLOG_FEED: 'https://www.mysociety.org/category/projects/whatdotheyknow/feed/'</code>
         </li>
       </ul>
     </div>
@@ -372,7 +372,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
     <a name="theme_urls"><code>THEME_URLS</code></a>
   </dt>
   <dd>
-    URLs of <a href="{{ site.baseurl }}docs/customising/themes">themes</a> to download and use
+    URLs of <a href="{{ site.baseurl }}docs/customising/themes/">themes</a> to download and use
     (when running the <code>rails-post-deploy</code> script). The earlier in the list means
     the templates have a higher priority.
     <div class="more-info">
@@ -392,7 +392,7 @@ THEME_URLS:
     <a name="theme_branch"><code>THEME_BRANCH</code></a>
   </dt>
   <dd>
-    When <code>rails-post-deploy</code> installs the <a href="{{ site.baseurl }}docs/customising/themes">themes</a>,
+    When <code>rails-post-deploy</code> installs the <a href="{{ site.baseurl }}docs/customising/themes/">themes</a>,
     it will try the theme branch first, but only if you've set <code>THEME_BRANCH</code>
     to be true. If the branch doesn't exist it will fall back to using a tagged version
     specific to your installed alaveteli version, and if that doesn't exist it will
@@ -951,7 +951,7 @@ EXCEPTION_NOTIFICATIONS_TO:
       <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>DONATION_URL: "http://www.mysociety.org/donate/"</code>
+            <code>DONATION_URL: "https://www.mysociety.org/donate/"</code>
         </li>
       </ul>
     </div>

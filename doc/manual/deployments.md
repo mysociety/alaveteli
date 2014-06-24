@@ -4,7 +4,7 @@ title: Deployments
 ---
 <div class="deployments__intro">
     <div class="container">
-    <h1>16+ languages, 16 jurisdictions
+    <h1>20+ languages, 18 jurisdictions
     <span>200,000 requests for information</span></h1>
     <p>Alaveteli can help open up government in any country,
 in any language, and within any legislation</p>
@@ -16,7 +16,19 @@ in any language, and within any legislation</p>
         <h2>Deployments of Alaveteli</h2>
         <div class="deployments__list--featured">
             <div class="grid-row">
-                <div class="deployments__unit--major">
+            <div class="deployments__unit--major">
+                    <div class="deployment--major">
+                        <img src="{{ site.baseurl }}assets/img/what-do-they-know.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">WhatDoTheyKnow</h3>
+                        <p class="deployment__country">United Kingdom</p>
+                        <p class="deployment__link"><a href="https://www.whatdotheyknow.com/">https://www.whatdotheyknow.com/</a></p>
+                        <div class="deployment__description">
+                            <p>Alaveteli started life as <a href="https://www.whatdotheyknow.com">WhatDoTheyKnow</a>, a website produced by <a href="https://mysociety.org/">mySociety</a> for making FOI requests in the UK.</p>
+                            <p>Around 15% to 20% of requests to UK Central Government are made through WhatDoTheyKnow.com.</p>
+                        </div>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--major">
                     <div class="deployment--major">
                         <img src="{{ site.baseurl }}assets/img/ki-mit-tud.jpg" class="deployment__screenshot" />
                         <h3 class="deployment__title">Ki Mit Tud</h3>
@@ -29,18 +41,18 @@ in any language, and within any legislation</p>
                     </div>
                 </div><!--
                 --><div class="deployments__unit--major">
-                    <div class="deployment--major">
-                        <img src="{{ site.baseurl }}assets/img/fyi.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">FYI </h3>
-                        <p class="deployment__country">New Zealand</p>
-                        <p class="deployment__link"><a href="https://fyi.org.nz/">https://fyi.org.nz/</a></p>
-                        <div class="deployment__description">
-                            <p>New Zealand’s public sector is reportedly among the least corrupt in the world. Nonetheless, Open New Zealand, the organisation behind FYI, believe that a Freedom of Information site can bring benefits.</p>
-                            <p>Like all Alaveteli installs, FYI simplifies the whole process of submitting a request - and publishes requests and their responses online, for all to see. </p>
-                        </div>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--major">
+                      <div class="deployment--major">
+                          <img src="{{ site.baseurl }}assets/img/fyi.jpg" class="deployment__screenshot" />
+                          <h3 class="deployment__title">FYI </h3>
+                          <p class="deployment__country">New Zealand</p>
+                          <p class="deployment__link"><a href="https://fyi.org.nz/">https://fyi.org.nz/</a></p>
+                          <div class="deployment__description">
+                              <p>New Zealand’s public sector is reportedly among the least corrupt in the world. Nonetheless, Open New Zealand, the organisation behind FYI, believe that a Freedom of Information site can bring benefits.</p>
+                              <p>Like all Alaveteli installs, FYI simplifies the whole process of submitting a request - and publishes requests and their responses online, for all to see. </p>
+                          </div>
+                      </div>
+                  </div><!--
+                  --><div class="deployments__unit--major">
                     <div class="deployment--major">
                         <img src="{{ site.baseurl }}assets/img/tu-derecho-a-saber.jpg" class="deployment__screenshot" />
                         <h3 class="deployment__title">Tu Derecho A Saber</h3>
@@ -164,22 +176,6 @@ in any language, and within any legislation</p>
                         <h3 class="deployment__title">Da Zanamo Svi</h3>
                         <p class="deployment__country">Serbia</p>
                         <p class="deployment__link"><a href="http://daznamosvi.rs/sr">http://daznamosvi.rs/sr</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/ask-your-gov.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Ask Your Government</h3>
-                        <p class="deployment__country">Uganda</p>
-                        <p class="deployment__link"><a href="http://askyourgov.ug/">http://askyourgov.ug/</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/what-do-they-know.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">WhatDoTheyKnow</h3>
-                        <p class="deployment__country">United Kingdom</p>
-                        <p class="deployment__link"><a href="https://www.whatdotheyknow.com/">https://www.whatdotheyknow.com/</a></p>
                     </div>
                 </div>
             </div>

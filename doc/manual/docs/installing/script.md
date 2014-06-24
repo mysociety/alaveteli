@@ -9,7 +9,7 @@ title: Installing the easy way
   If you prefer to use your own server, we've provided an installation script which does most of the work for you.
 </p>
 
-Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing).
+Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing/).
 
 ## Installing with the installation script
 

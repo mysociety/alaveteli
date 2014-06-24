@@ -18,8 +18,7 @@ The software translations are implemented using GNU gettext, and the resource
 files are managed in Transifex.
 
 The Transifex project is at
-[https://www.transifex.net/projects/p/alaveteli](https://www.transifex.net/proje
-cts/p/alaveteli) -- you'll probably want an account there (ask on the mailing
+[https://www.transifex.net/projects/p/alaveteli](https://www.transifex.net/projects/p/alaveteli) -- you'll probably want an account there (ask on the mailing
 list). It has a fairly easy-to-use interface for contributing translations.
 
 There are three roles in the translation process, and each one is described

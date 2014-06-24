@@ -27,7 +27,7 @@ A successful Alaveteli website is nothing without its volunteers.  These are pe
 
 [WhatDoTheyKnow](http://www.whatdotheyknow.com) has an amazing volunteer pool of around six or seven people, of whom about three are active at any one time (it varies depending on their other commitments).  They are dedicated, committed, knowledgeable and enthusiastic, and the website quite simply wouldn't function without them.
 
-So, how did WhatDoTheyKnow recruit this team of experts?  I spoke with the original author of WhatDoTheyKnow, [Francis Irving](http://twitter.com/#!/frabcus), to find out.
+So, how did WhatDoTheyKnow recruit this team of experts?  I spoke with the original author of WhatDoTheyKnow, [Francis Irving](https://twitter.com/#!/frabcus), to find out.
 
 
 >At mySociety, we had a pool of people on our mailing lists who had been waiting for years for something to get involved in.  We found a way early on of letting people contribute really easily, and this became a route to finding volunteers who were really good:

@@ -12,8 +12,8 @@ title: Getting started
 
 For inspiration, take a look at some of the existing Alaveteli websites, like
 [tuderechoasaber.es](http://tuderechoasaber.es) (Spain),
-[AskTheEU](http://asktheeu.org) (EU), or
-[WhatDoTheyKnow](http://www.whatdotheyknow.com) (UK). These sites all use the
+[AskTheEU](http://www.asktheeu.org) (EU), or
+[WhatDoTheyKnow](https://www.whatdotheyknow.com) (UK). These sites all use the
 Alaveteli software, plus their own custom themes installed on top to make them
 look different.
 
@@ -68,7 +68,7 @@ Alaveteli.
 >
 > -- _Pedro Markun, Queremos Saber_
 
-[AskTheEU](http://asktheeu.org), a much more complete and polished version with
+[AskTheEU](http://www.asktheeu.org), a much more complete and polished version with
 a custom theme and several other customisations, took a team of 2 or 3 people
 about 3 months (part time) to complete.
 
@@ -112,11 +112,11 @@ with this. The minimum spec for running a low traffic website is 512MB RAM and
 a 20GB disk. 2GB RAM would be ideal. We recommend Debian Squeeze 64-bit as the
 operating system, though any sort of Linux should do. Rackspace offer suitable
 cloud servers, which start out at around $25 / month. Then your tech person
-should follow the [installation documentation]({{ site.baseurl }}docs/installing).
+should follow the [installation documentation]({{ site.baseurl }}docs/installing/).
 
 Alternatively, you could use Amazon Web Services. This has the
 added advantage that you can use our preconfigured [Alaveteli EC2
-AMI]({{ site.baseurl }}docs/installing/ami) to get you
+AMI]({{ site.baseurl }}docs/installing/ami/) to get you
 started almost instantly. However, it's more expensive than Rackspace,
 especially if you want more RAM.
 
@@ -310,7 +310,7 @@ review the untranslated strings.
 ## Step five: Test drive the site
 
 For launch, the tech person should review the [Production Server Best
-Practices]({{ site.baseurl }}docs/running/server).
+Practices]({{ site.baseurl }}docs/running/server/).
 
 A low-key launch, where you tell just a few trusted people about the site, is a
 very good idea. You can then track how things work, and gauge the responses of
@@ -369,7 +369,7 @@ website is. To ensure its success, you should be doing things like:
 * Recruiting volunteers to help with the site
 * Categorising uncategorised requests
 
-See also the [Administrator's Manual](/docs/running/admin_manual), which describes
+See also the [Administrator's Manual](/docs/running/admin_manual/), which describes
 some of the typical tasks you'll need to perform when your site is up and
 running.
 

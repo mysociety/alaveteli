@@ -12,14 +12,14 @@ title: For developers
 * The software is written in **Ruby on Rails 3.x**. We support postgresql as
   the backend database. A configured mail transfer agent (MTA) like exim,
   postfix or sendmail is necessary to parse incoming emails. We have production
-  sites deployed on Debian (Squeeze and Wheezy) and Ubuntu (10.04 and 12.04 LTS). For performance
+  sites deployed on Debian (Squeeze and Wheezy) and Ubuntu (12.04 LTS). For performance
   reasons, we recommend the use of [Varnish](https://www.varnish-cache.org).
 
 * To help you understand what the code is doing, read this [high-level
-  overview]({{ site.baseurl }}docs/developers/overview), which includes a diagram of
+  overview]({{ site.baseurl }}docs/developers/overview/), which includes a diagram of
   the models and how they are related.
 
-* See the [API documentation]({{ site.baseurl }}docs/developers/api) for how to get
+* See the [API documentation]({{ site.baseurl }}docs/developers/api/) for how to get
   data into or out of Alaveteli.
 
 * If you need to change or add strings in the interface, see our [guidelines
@@ -49,7 +49,7 @@ title: For developers
   for help.
 
 * A standard initial step for customising your deployment is [writing a
-  theme]({{ site.baseurl }}docs/customising/themes). **If you only read one thing,
+  theme]({{ site.baseurl }}docs/customising/themes/). **If you only read one thing,
   it should be this!**
 
 * Like many Ruby on Rails sites, the software is not hugely performant (see
@@ -74,10 +74,9 @@ title: For developers
 
 * If you're experiencing memory issues, [this blog post about some strategies
   used in the
-  past](http://www.mysociety.org/2009/09/17/whatdotheyknow-growing-pains-and-rub
-  y-memory-leaks/) might be useful.
+  past](https://www.mysociety.org/2009/09/17/whatdotheyknow-growing-pains-and-ruby-memory-leaks/) might be useful.
 
-* If you're coding on a mac, see these [MacOS X installation notes]({{ site.baseurl }}docs/installing/macos). <!-- [[OS X Quickstart]] -->
+* If you're coding on a mac, see these [MacOS X installation notes]({{ site.baseurl }}docs/installing/macos/). <!-- [[OS X Quickstart]] -->
 
 * We try to adhere to similar good practice across all our projects: see
   [mysociety.github.io](http://mysociety.github.io/) for things like our

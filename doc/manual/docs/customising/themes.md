@@ -13,13 +13,13 @@ title: Themes
 </p>
 
 When you customise your Alaveteli site, there is a lot you can change just
-by editing the [config settings]({{ site.baseurl }}docs/customising/config).
+by editing the [config settings]({{ site.baseurl }}docs/customising/config/).
 But if you want to change the way the site looks, or add more specific
 behaviour, you'll need to make a **theme**.
 
 You don't need to be a programmer in order to make simple changes, but you will
 need to be confident enough to copy and change some files. If you're not sure
-about this, [ask for help](/community)!
+about this, [ask for help](/community/)!
 
 ## What you might want to change
 
@@ -28,7 +28,7 @@ The most common requirement is to brand the site: at a minimum,
 the different states that a request can go through.  You'll also want
 to edit the categories that public bodies can appear in (i.e. the
 groupings on the left hand side of the
-"[View authorities](http://www.whatdotheyknow.com/body/list/all)" page
+"[View authorities](https://www.whatdotheyknow.com/body/list/all)" page
 on WhatDoTheyKnow.
 
 There may also be other things you want to customise -- drop a line on
@@ -49,7 +49,7 @@ code.
 We try to encapsulate all site-specific functionality in one of these
 places:
 
-* Site [configuration]({{ site.baseurl }}docs/customising/config)
+* Site [configuration]({{ site.baseurl }}docs/customising/config/)
   (e.g., the name of your site, the available
   languages, and so on &mdash; all in `config/general.yml`)
 * Data (e.g. the public bodies to whom requests should be addressed)
@@ -137,7 +137,7 @@ locale you support.
 ## Customising the request states
 
 As mentioned above, if you can possibly live with the
-[default Alaveteli request statuses]({{ site.baseurl }}docs/running/states),
+[default Alaveteli request statuses]({{ site.baseurl }}docs/running/states/),
 it would be good to do so.  Note that you can set how many days counts
 as "overdue" in the main site config file &mdash;
 see [`REPLY_LATE_AFTER_DAYS`]({{ site.baseurl }}docs/customising/config/#reply_late_after_days).

@@ -47,16 +47,16 @@ those servers, because Capistrano takes care of that for you.
 
 ## Installing the core code
 
-* [Install on Amazon EC2]({{ site.baseurl }}docs/installing/ami) using our AMI
-* [Use the installation script]({{ site.baseurl }}docs/installing/script) which does the full installation on your own server
-* [Manual installation]({{ site.baseurl }}docs/installing/manual_install) -- step-by-step instructions
+* [Install on Amazon EC2]({{ site.baseurl }}docs/installing/ami/) using our AMI
+* [Use the installation script]({{ site.baseurl }}docs/installing/script/) which does the full installation on your own server
+* [Manual installation]({{ site.baseurl }}docs/installing/manual_install/) -- step-by-step instructions
 
 If you're setting up a development server on MacOS X, we've also got
-[MacOS installation instructions]({{ site.baseurl }}docs/installing/macos).
+[MacOS installation instructions]({{ site.baseurl }}docs/installing/macos/).
 
 ## Other installation information
 
 Alaveteli needs to be able to send and receive email, so you need to setup your
 MTA (Mail Transfer Agent) appropriately.
 
-* [Installing the MTA]({{ site.baseurl }}docs/installing/email)
+* [Installing the MTA]({{ site.baseurl }}docs/installing/email/)
