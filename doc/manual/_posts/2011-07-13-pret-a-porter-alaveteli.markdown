@@ -6,10 +6,6 @@ layout: post
 slug: pret-a-porter-alaveteli
 title: Pret-a-porter Alaveteli
 wordpress_id: 21
-categories:
-- Blog
-- Development
-- Hosting
 ---
 
 As part of my recent work on the Alaveteli code, I've needed to repeatedly test it. Currently it's quite complicated installing an Alaveteli website, and I've been having to reinstall from scratch a few times to make sure my test environment is clean.
