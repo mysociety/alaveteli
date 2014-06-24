@@ -43,6 +43,35 @@ title: Welcome
         </div>
     </div>
 </div>
+<div class="how-does-it-work">
+    <div class="how-does-it-work__slide">
+        <div class="container">
+            <div class="how-does-it-work__content">
+                <h2>How Alaveteli works</h2>
+                <p>Make a public request for information by finding the relevant authority</p>
+                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-find.svg" class="alaveteli-demo-screenshot"/>
+            </div>
+        </div>
+    </div>
+    <div class="how-does-it-work__slide">
+        <div class="container">
+            <div class="how-does-it-work__content">
+                <h2>How Alaveteli works</h2>
+                <p>You write a request for information from the authority</p>
+                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-ask.svg" class="alaveteli-demo-screenshot"/>
+            </div>
+        </div>
+    </div>
+    <div class="how-does-it-work__slide">
+        <div class="container">
+            <div class="how-does-it-work__content">
+                <h2>How Alaveteli works</h2>
+                <p>The request and all responses are published online for anyone to view</p>
+                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-view.svg" class="alaveteli-demo-screenshot"/>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="features">
     <div class="container">
         <h2>What does Alaveteli do?</h2>
