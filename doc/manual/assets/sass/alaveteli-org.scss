@@ -5,6 +5,23 @@
 $high-dpi-screen: '-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi';
 
 
+html {
+    background-color: $colour_black;
+    height: 100%;
+    min-height: 100%;
+}
+
+body {
+    background-color: transparent;
+}
+
+.no-svg {
+   .site-title {
+        background-image: url('../img/alaveteli-logo.png');
+    }
+}
+
+
 %full-width-section {
     padding: 2em 0;
     @media (min-width: $mediumish-screen) {
@@ -80,12 +97,12 @@ h3 {
 .nav-position {
     @media (min-width: 47.5em) {
         position: absolute;
-        top: 0.6em;
+        top: 0.4em;
         left: 180px;
     }
     @media (min-width: $large-screen) {
         left: 240px;
-        top: 0.5em;
+        top: 0.35em;
     }
 }
 
@@ -145,7 +162,7 @@ h3 {
   -o-user-select: none;
   user-select: none;
   position: absolute;
-  top: 0.1em;
+  top: 0.4em;
   right: 5em;
   @media (min-width: $medium-screen) {
     right: 10em;
@@ -207,7 +224,6 @@ h3 {
 
 .what-is-alaveteli {
     @extend %full-width-section;
-    border-bottom: 1px solid $colour_borders;
     position: relative;
 }
 
@@ -236,16 +252,40 @@ h3 {
     background-image: url('../img/scales.svg');
 }
 
+.no-svg {
+    .what-is-alaveteli__item--foi {
+        background-image: url('../img/scales.png');
+    }
+}
+
 .what-is-alaveteli__item--help {
     background-image: url('../img/pointer.svg');
+}
+
+.no-svg {
+    .what-is-alaveteli__item--help {
+        background-image: url('../img/pointer.png');
+    }
 }
 
 .what-is-alaveteli__item--published {
     background-image: url('../img/binoculars.svg');
 }
 
+.no-svg {
+    .what-is-alaveteli__item--published {
+        background-image: url('../img/binoculars.png');
+    }
+}
+
 .what-is-alaveteli__item--open {
     background-image: url('../img/open.svg');
+}
+
+.no-svg {
+    .what-is-alaveteli__item--open {
+        background-image: url('../img/open.png');
+    }
 }
 
 .what-is-alaveteli__international-reach-position {
@@ -300,6 +340,109 @@ h3 {
     }
 }
 
+.no-svg {
+    .what-is-alaveteli__international-reach {
+        background-image: url('../img/worldmap.png');
+    }
+}
+
+.how-does-it-work {
+  @extend %full-width-section;
+  @extend %dark-section;
+  background-color: darken($colour_brand, 5%);
+  overflow: hidden;
+  img {
+        position: relative;
+        @media(min-width: $large-screen) {
+            bottom: -1px;
+        }
+  }
+  @media(min-width: $medium-screen) {
+    .how-does-it-work__slide {
+        border-top: 4em solid #fff;
+        padding-top: 4.7em;
+    }
+    padding-top: 0;
+    padding-bottom: 0;
+    h2, p {
+      width: 50%;
+    }
+    img {
+        float: right;
+        width: 30em;
+        margin-right: -15em;
+        margin-top: -13em;
+    }
+  }
+
+  @media(min-width: 43.5em) {
+    .how-does-it-work__slide {
+      border-top: 4em solid #fff;
+      padding-top: 4.7em;
+    }
+    h2, p {
+      width: 33.333%;
+    }
+    img {
+      margin-right: -5em;
+      margin-top: -15em;
+    }
+  }
+
+  @media (min-width: $large-screen) {
+    h2, p, .how-does-it-work__slide__nav {
+      width: 33.333%;
+      margin-left: 66.666%;
+    }
+    img {
+      float: left;
+      width: 63.666%;
+      margin-top: -15em;
+    }
+  }
+
+}
+
+.how-does-it-work__slide {
+  @include clearfix();
+}
+
+.how-does-it-work__slide__nav {
+    margin-top: 0.5em;
+    text-align: center;
+    @media(min-width: $medium-screen) {
+        text-align: left;
+    }
+}
+
+.how-does-it-work__slide__skip {
+  display: inline-block;
+  padding: 0.3em;
+  cursor: pointer;
+
+  span {
+    display: block;
+    border-radius: 1em; // :TODO: cross-browser?
+    width: 0.8em;
+    height: 0.8em;
+    background-color: rgba(0,0,0,0.3);
+  }
+
+  &.active {
+    span {
+      background-color: rgba(255,255,255,0.3);
+    }
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    span {
+      background-color: rgba(0,0,0,0.3);
+    }
+  }
+}
+
 .features {
     @extend %full-width-section;
 }
@@ -346,11 +489,15 @@ h3 {
 .features__item--primary {
     background-position: center top;
     background-repeat: no-repeat;
-
     padding-top: 11.5em;
     @media (min-width: $large-screen) {
         background-position: left center;
         padding: 1em 0;
+        h3, p {
+            padding-left: 63%;
+        }
+    }
+    @media (min-width: 65em) {
         h3, p {
             padding-left: 53%;
         }
@@ -366,6 +513,12 @@ h3 {
     background-size: 258px 188px;
 }
 
+.no-svg {
+    .features__item--devices {
+        background-image: url('../img/devices.png');
+    }
+}
+
 .features__item--messaging {
     background-image: url('../img/signs.svg');
     background-size: 200px 166px;
@@ -374,9 +527,16 @@ h3 {
     }
 }
 
+.no-svg {
+    .features__item--messaging {
+        background-image: url('../img/signs.png');
+    }
+}
+
 .get-started {
     @extend %dark-section;
     @extend %full-width-section;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .get-started__grid-unit {
@@ -545,6 +705,12 @@ h3 {
     }
 }
 
+.no-svg {
+    .deployments__intro {
+        background-image: url('../img/worldmap-pale.png');
+    }
+}
+
 .deployments__content {
     h2 {
         margin-bottom: 1.5em;
@@ -644,11 +810,14 @@ h3 {
     margin-top: 0;
     margin-bottom: 0.5em;
     font-size: 0.888888889em;
-    text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
+    a {
+        display: block;
+        text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        /* Required for text-overflow to do anything */
+        white-space: nowrap;
+        overflow: hidden;
+    }
     @media (min-width: $large-screen) {
         font-size: 1em;
     }
@@ -688,10 +857,14 @@ h3 {
     .deployment__title,
     .deployment__country,
     .deployment__link {
-            margin-left: 37%;
+        margin-left: 37%;
     }
 }
 
 .blog-title {
     line-height: 1.3em;
+}
+
+.clearfix {
+    @include clearfix;
 }
