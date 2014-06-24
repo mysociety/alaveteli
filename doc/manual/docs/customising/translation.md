@@ -110,13 +110,8 @@ translate the text that comes *after* the `|`.
 need to understand how to make any text you add easy for translators to work
 with.**
 
-Please read our [internationalisation
+See the page about [internationalising Alaveteli]({{site.baseurl}}docs/developers/i18n/).
+You should also read mySociety's [internationalisation
 guide](http://mysociety.github.io/internationalization.html) for our advice on
 using strings that will need translation. This applies across all mySociety
 projects, not just Alaveteli.
-
-The release manager will enforce a translation freeze just before a new release
-is cut. During such time, you must not introduce new strings to the code if
-your work is due for inclusion in this release. This is necessary to allow
-translators time to complete and check their translations against all the known
-strings.
