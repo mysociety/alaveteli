@@ -148,7 +148,6 @@ echo -n "Creating /etc/cron.d/alaveteli... "
 sed -r \
     -e "/foi-purge-varnish/d" \
     -e "s,^(MAILTO=).*,\1root@$HOST," \
-    -e "s,run-with-lockfile,$REPOSITORY/commonlib/bin/run-with-lockfile.sh,g" \
     -i /etc/cron.d/alaveteli
 echo $DONE_MSG
 
