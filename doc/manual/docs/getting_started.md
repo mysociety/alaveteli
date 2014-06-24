@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Getting started
+redirect_from: /getting_started/
 ---
 
 # Getting started with Alaveteli
