@@ -29,7 +29,7 @@ facilitates this by allowing you to customise the states that are used.
 
 This example is to show clearly that you can use different states depending on
 your local requirements, and how that might look. See [Customising the request
-states]({{ site.baseurl }}docs/customising/themes) for details on how to do this.
+states]({{ site.baseurl }}docs/customising/themes/) for details on how to do this.
 
 ### States used by InformataZyrtare but not WDTK
 
@@ -45,7 +45,7 @@ states]({{ site.baseurl }}docs/customising/themes) for details on how to do this
    * <a href="{{ site.baseurl }}docs/running/states/#user_withdrawn">user_withdrawn</a>
    * <a href="{{ site.baseurl }}docs/running/states/#waiting_response_very_overdue">waiting_response_very_overdue</a>
 
-For more details, see all the [states used by WhatDoTheyKnow]({{site.baseurl}}docs/running/states)) for details.
+For more details, see all the [states used by WhatDoTheyKnow]({{site.baseurl}}docs/running/states/)) for details.
 
 
 ---

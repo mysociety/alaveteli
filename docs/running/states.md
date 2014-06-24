@@ -15,16 +15,16 @@ The request states are defined in the Alaveteli code, and we recommend you use
 them (provided they match the <a href="{{ site.baseurl }}docs/glossary/#foi"
 class="glossary">FOI law</a> in your own jurisdiction). But if you do need to
 customise them, you can &mdash; see
-<a href="{{ site.baseurl }}docs/customising/themes">Customising the request states</a> for details.
+<a href="{{ site.baseurl }}docs/customising/themes/">Customising the request states</a> for details.
 
 ## WhatDoTheyKnow example
 
-Requests made on the UK's Alaveteli instance, [WhatDoTheyKnow](http://www.whatdotheyknow.com),
+Requests made on the UK's Alaveteli instance, [WhatDoTheyKnow](https://www.whatdotheyknow.com),
 may be in any of the states described below.
 
 Note that your site doesn't need to use the same states as WhatDoTheyKnow does. For example,
 Kosovo's instance uses slightly different states: see
-[this comparison of their differences]({{ site.baseurl }}docs/running/states_informatazyrtare).
+[this comparison of their differences]({{ site.baseurl }}docs/running/states_informatazyrtare/).
 
 ### States
 

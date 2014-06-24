@@ -32,15 +32,15 @@ These pages (in the wiki) have work/attention still pending:
 These pages are form the repo's doc/ directory
 ----------------------------------------------
 
-[  ] [  ] CHANGES.md
-[  ] [  ] DEPLOY.md
-[  ] [  ] INSTALL-exim4.md
-[  ] [  ] INSTALL-postfix.md
-[  ] [  ] INSTALL.md
-[  ] [  ] THEME-ASSETS-UPGRADE.md
-[  ] [  ] THEMES-UPGRADE.md
-[  ] [  ] THEMES.md
-[  ] [  ] TRANSLATE.md
+[no] [ok] CHANGES.md
+[ok] [no] DEPLOY.md
+[ok] [no] INSTALL-exim4.md
+[ok] [no] INSTALL-postfix.md
+[ok] [no] INSTALL.md
+[no] [ok] THEME-ASSETS-UPGRADE.md
+[no] [ok] THEMES-UPGRADE.md
+[no] [ok] THEMES.md
+[no] [ok] TRANSLATE.md
 
 
 

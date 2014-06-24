@@ -25,7 +25,7 @@ ask us about hosting.
 ## Cron jobs
 
 Don't forget to set up the cron jobs as outlined in the
-[installation instructions]({{ site.baseurl }}docs/installing/manual_install).
+[installation instructions]({{ site.baseurl }}docs/installing/manual_install/).
 As of October 2011, they rely on a small program created by mySociety called
 `run-with-lockfile`. A discussion of where the source for this can be found,
 and possible alternatives, lives in
@@ -36,7 +36,7 @@ and possible alternatives, lives in
 We recommend running your site behind
 [Apache](https://httpd.apache.org) +
 [Passenger](https://www.phusionpassenger.com). Refer to the
-[installation instructions]({{ site.baseurl }}docs/installing/manual_install)
+[installation instructions]({{ site.baseurl }}docs/installing/manual_install/)
 regarding `PassengerMaxPoolSize`, which you should
 experiment with to match your available RAM. It is very unlikely that you'll
 ever need a pool larger than [Passenger's
@@ -49,7 +49,7 @@ Alaveteli ships with a
 
 ## Security
 
-You _must_ change all key-related [config settings]({{ site.baseurl }}docs/customising/config)
+You _must_ change all key-related [config settings]({{ site.baseurl }}docs/customising/config/)
 in `general.yml` from their default values. This includes (but may not be limited to!)
 these settings:
 
@@ -76,11 +76,10 @@ deliverability of your email:
 
 * Set up [SPF records](http://www.openspf.org/) for your domain
 * Set up <a
-  href="http://en.wikipedia.org/wiki/Feedback_loop_(email)#Feedback_loop_links_f
-  or_some_email_providers">feedback loops</a> with the main email providers
+  href="http://wiki.asrg.sp.am/wiki/Feedback_loop_links_for_some_email_providers">feedback loops</a> with the main email providers
   (Hotmail and Yahoo! are recommended)
 * Especially if deploying from Amazon EC2, use an external SMTP relay for
-  sending outgoing mail. See [Alaveteli EC2 AMI]( {{ site.baseurl }}docs/installing/ami)
+  sending outgoing mail. See [Alaveteli EC2 AMI]( {{ site.baseurl }}docs/installing/ami/)
   for more suggestions.
 
 ## Backup

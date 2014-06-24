@@ -6,14 +6,14 @@ title: Administrator's guide
 # Alaveteli administrator's guide
 
 <p class="lead">
-  What is it like running an Alaveteli site? This guide explains what you can expect, and the types of problem that you might encounter. It includes examples of how mySociety manages their own <a href="/docs/glossary/#foi" class="glossary">Freedom of Information</a> site, <a href="http://www.whatdotheyknow.com">whatdotheyknow.com</a>.
+  What is it like running an Alaveteli site? This guide explains what you can expect, and the types of problem that you might encounter. It includes examples of how mySociety manages their own <a href="/docs/glossary/#foi" class="glossary">Freedom of Information</a> site, <a href="https://www.whatdotheyknow.com">whatdotheyknow.com</a>.
 </p>
 
 ## What's involved?
 
 The overhead in managing a successful FOI website is quite high. Richard, a
 volunteer, wrote a [blog
-post](http://www.mysociety.org/2009/10/13/behind-whatdotheyknow/) about some of
+post](https://www.mysociety.org/2009/10/13/behind-whatdotheyknow/) about some of
 this in 2009.
 
 WhatDoTheyKnow usually has about 3 active volunteers at any one time managing

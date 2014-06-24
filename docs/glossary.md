@@ -49,11 +49,11 @@ Definitions
   </dt>
   <dd>
     <strong>Alaveteli</strong> is the name of the open source software platform created
-    by <a href="http://www.mysociety.org">mySociety</a> for submitting,
+    by <a href="https://www.mysociety.org">mySociety</a> for submitting,
     managing and archiving Freedom of Information requests.
     <p>
       It grew from the successful FOI UK project
-      <a href="http://www.whatdotheyknow.com">WhatDoTheyKnow</a>.
+      <a href="https://www.whatdotheyknow.com">WhatDoTheyKnow</a>.
       We use the name <em>Alaveteli</em> to distinguish the software
       that runs the platform from any specific website that it is powering.
     </p>
@@ -154,7 +154,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          how to <a href="{{ site.baseurl }}docs/installing/deploy">deploy Alaveteli</a> (and why it's
+          how to <a href="{{ site.baseurl }}docs/installing/deploy/">deploy Alaveteli</a> (and why it's
           a good idea)
         </li>
         <li>
@@ -224,7 +224,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          Wikipedia summary of <a href="http://http://en.wikipedia.org/wiki/Freedom_of_information_laws_by_country">FOI laws by country</a>.
+          Wikipedia summary of <a href="http://en.wikipedia.org/wiki/Freedom_of_information_laws_by_country">FOI laws by country</a>.
         </li>
       </ul>
     </div>
@@ -238,7 +238,7 @@ Definitions
     helps us track changes to the code, and also makes it easy for other people
     to duplicate and even contribute to our software.
     <p>
-      The website <a href="http://github.com/mysociety">github.com</a> is a central, public
+      The website <a href="https://github.com/mysociety">github.com</a> is a central, public
       place where we make our software available. Because it's Open Source, you can
       inspect the code there (Alaveteli is mostly written in the programming language
       Ruby), report bugs, suggest features and many other useful things.
@@ -253,7 +253,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          See the <a href="{{ site.baseurl }}docs/installing">installation instructions</a> which will
+          See the <a href="{{ site.baseurl }}docs/installing/">installation instructions</a> which will
           clone the Alaveteli repo.
         </li>
         <li>
@@ -261,7 +261,7 @@ Definitions
           href="http://git-scm.com">official website</a>.
         </li>
         <li>
-          See <a href="http://github.com/mysociety">the mySociety projects on
+          See <a href="https://github.com/mysociety">the mySociety projects on
           github</a>.
         </li>
       </ul>
@@ -278,7 +278,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          see the <a href="{{ site.baseurl }}docs/running/admin_manual">admin manual</a> for
+          see the <a href="{{ site.baseurl }}docs/running/admin_manual/">admin manual</a> for
           information on dealing with emails in the holding pen
         </li>
       </ul>
@@ -297,7 +297,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          see these instructions for <a href="{{ site.baseurl }}docs/installing/email">configuring your MTA</a>
+          see these instructions for <a href="{{ site.baseurl }}docs/installing/email/">configuring your MTA</a>
           (examples are for exim4 and postfix, two of the most common)
         </li>
       </ul>
@@ -318,7 +318,7 @@ Definitions
         <li>
           use the <code>agent_enabled:</code> setting in the
           the <code>newrelic.yml</code> config file to enable the New Relic analytics.
-          See the <a href="{{ site.baseurl }}docs/installing/manual_install">manual installation</a> instructions.
+          See the <a href="{{ site.baseurl }}docs/installing/manual_install/">manual installation</a> instructions.
         </li>
         <li>
           see also the New Relic Ruby Agent <a href="https://github.com/newrelic/rpm">github repo</a> and
@@ -584,15 +584,15 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          <a href="{{ site.baseurl }}docs/running/states">example states for WhatDoTheyKnow</a>
+          <a href="{{ site.baseurl }}docs/running/states/">example states for WhatDoTheyKnow</a>
           (Alaveteli site running in the UK)
         </li>
         <li>
-          for comparison, <a href="{{ site.baseurl }}docs/running/states_informatazyrtare">example states for InformataZyrtare</a>
+          for comparison, <a href="{{ site.baseurl }}docs/running/states_informatazyrtare/">example states for InformataZyrtare</a>
           (Alaveteli site running in Kosovo)
         </li>
         <li>
-          to customise or add your own states, see <a href="{{ site.baseurl }}docs/customising/themes">Customising the request states</a>
+          to customise or add your own states, see <a href="{{ site.baseurl }}docs/customising/themes/">Customising the request states</a>
         </li>
       </ul>
     </div>
@@ -610,7 +610,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-      <a href="{{ site.baseurl }}docs/customising/themes">about themes</a>
+      <a href="{{ site.baseurl }}docs/customising/themes/">about themes</a>
         </li>
       </ul>
     </div>

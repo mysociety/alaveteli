@@ -9,7 +9,7 @@ title: Installing the easy way
   We've made an Amazon Machine Image (AMI) so you can quickly deploy on Amazon EC2. This is handy if you just want to evaluate Alaveteli, for example.
 </p>
 
-Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing).
+Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing/).
 
 ## Installing from our AMI
 
@@ -24,10 +24,10 @@ instance due to the low amount of memory available on those
 instances; you will need to use at least a Small instance, which
 Amazon will charge for.
 
-The AMI can be found in the EU West (Ireland) region, with the ID ami-8603f4f1
-and name “Basic Alaveteli installation 2014-01-29”. You can launch an instance
+The AMI can be found in the EU West (Ireland) region, with the ID ami-23519f54
+and name “Basic Alaveteli installation 2014-06-12”. You can launch an instance
 based on that AMI with [this
-link](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-8603f4f1).
+link](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-23519f54).
 
 When you create an EC2 instance based on that AMI, make sure that you choose
 Security Groups that allows at least inbound HTTP, HTTPS, SSH and, if you want

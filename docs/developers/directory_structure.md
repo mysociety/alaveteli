@@ -13,7 +13,7 @@ directories.</p>
 Alaveteli -- this is really more useful if you're a developer planning on
 making more substantive changes to the code. You don't need to be familiar with
 Ruby to install or make basic [customisations to your
-installation](/docs/customising).
+installation](/docs/customising/).
 
 <!--  (and if you do,
 remember to read the page about [feeding your changes back](/feeding-back)).-->
@@ -140,7 +140,7 @@ website](http://guides.rubyonrails.org/getting_started.html).
     <p><em>documentation</em></p>
     <p>
         These are technical notes. This is in addition to the <a
-        href="http://code.fixmystreet.com">core documentation</a> &mdash; which
+        href="http://code.alaveteli.org/docs/">core documentation</a> &mdash; which
         you are reading now &mdash; which is actually stored in the git
         repository in the <code>gh-pages</code> branch, and published as GitHub
         pages.
@@ -215,7 +215,7 @@ website](http://guides.rubyonrails.org/getting_started.html).
   <dd>
     <p><em>tests</em></p>
     <p>
-      Alaveteli's test suite runs under <a href="TODO">spec</a>.
+      Alaveteli's test suite runs under <a href="http://rspec.info/">rspec</a>.
     </p>
   </dd>
   <dt>
