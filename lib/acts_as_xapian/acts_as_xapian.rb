@@ -21,6 +21,20 @@ rescue LoadError
     $acts_as_xapian_bindings_available = false
 end
 
+module Xapian
+    class QueryParser
+        def unstem(term)
+            words = []
+
+            Xapian._safelyIterate(unstem_begin(term), unstem_end(term)) do |item|
+                words << item.term
+            end
+
+            words
+        end
+    end
+end
+
 module ActsAsXapian
     ######################################################################
     # Module level variables
@@ -472,14 +486,29 @@ module ActsAsXapian
         # Return just normal words in the query i.e. Not operators, ones in
         # date ranges or similar. Use this for cheap highlighting with
         # TextHelper::highlight, and excerpt.
-        def words_to_highlight(opts = { :regex => false } )
+        def words_to_highlight(opts = {})
+          default_opts = { :include_original => false, :regex => false }
+          opts = default_opts.merge(opts)
+
           # Reject all prefixes other than Z, which we know is reserved for stems
           terms = query.terms.reject { |t| t.term.first.match(/^[A-Y]$/) }
-
+          # Collect the stems including the Z prefix
+          raw_stems = terms.map { |t| t.term if t.term.start_with?('Z') }.compact.uniq.sort
           # Collect stems, chopping the Z prefix off
-          stems = terms.map { |t| t.term[1..-1] if t.term.start_with?('Z') }.compact.sort
+          stems = raw_stems.map { |t| t[1..-1] }.compact.sort
           # Collect the non-stem terms
           words = terms.map { |t| t.term unless t.term.start_with?('Z') }.compact.sort
+
+          # Add the unstemmed words from the original query
+          # Sometimes stems can be unhelpful with the :regex option, for example
+          # stemming 'boring' results in us trying to highlight 'bore'.
+          if opts[:include_original]
+            raw_stems.each do |raw_stem|
+              words << ActsAsXapian.query_parser.unstem(raw_stem).uniq
+            end
+
+            words = words.any? ? words.flatten.uniq : []
+          end
 
           if opts[:regex]
             stems.map! { |w| /\b(#{ w })\w*\b/iu }
@@ -986,5 +1015,3 @@ end
 
 # Reopen ActiveRecord and include the acts_as_xapian method
 ActiveRecord::Base.extend ActsAsXapian::ActsMethods
-
-

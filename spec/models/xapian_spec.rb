@@ -413,6 +413,16 @@ describe ActsAsXapian::Search, "#words_to_highlight" do
         s.words_to_highlight.should == ["depart", "humpadinking"]
     end
 
+    it "includes the original search terms if requested" do
+        s = ActsAsXapian::Search.new([PublicBody], 'boring', :limit => 1)
+        s.words_to_highlight(:include_original => true).should == ['bore', 'boring']
+    end
+
+    it "does not return duplicate terms" do
+        s = ActsAsXapian::Search.new([PublicBody], 'boring boring', :limit => 1)
+        s.words_to_highlight.should == ['bore']
+    end
+
     context 'the :regex option' do
 
         it 'wraps each words in a regex that matches the full word' do

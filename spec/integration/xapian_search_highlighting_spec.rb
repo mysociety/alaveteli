@@ -26,4 +26,14 @@ describe 'highlighting search results' do
         highlight_matches(phrase, matches).should == '<mark>department</mark>'
     end
 
+    it 'highlights stemmed words even if the stem is unhelpful' do
+        # Stemming returns 'bore' as the word to highlight which can't be
+        # matched in the original phrase.
+        phrase = 'boring'
+        search = ActsAsXapian::Search.new([PublicBody], phrase, :limit => 1)
+        matches = search.words_to_highlight(:regex => true, :include_original => true)
+
+        highlight_matches(phrase, matches).should == '<mark>boring</mark>'
+    end
+
 end

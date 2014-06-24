@@ -154,7 +154,15 @@ class TrackController < ApplicationController
         request.format = 'xml' unless params[:format]
         respond_to do |format|
             format.json { render :json => @xapian_object.results.map { |r| r[:model].json_for_api(true,
-                    lambda { |t| view_context.highlight_and_excerpt(t, @xapian_object.words_to_highlight(:regex => true), 150) }
+                    lambda do |t|
+                        view_context.highlight_and_excerpt(
+                            t,
+                            @xapian_object.words_to_highlight(
+                                :regex => true,
+                                :include_original => true),
+                            150
+                        )
+                    end
                 ) } }
             format.any { render :template => 'track/atom_feed',
                                 :formats => ['atom'],
