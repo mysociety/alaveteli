@@ -7,6 +7,7 @@ slug: pret-a-porter-alaveteli
 title: Pret-a-porter Alaveteli
 wordpress_id: 21
 categories:
+- Blog
 - Development
 - Hosting
 redirect_from: /2011/07/13/pret-a-porter-alaveteli/
