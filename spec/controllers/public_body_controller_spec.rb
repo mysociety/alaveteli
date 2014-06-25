@@ -292,6 +292,23 @@ describe PublicBodyController, "when asked to export public bodies as CSV" do
         all_data[1].length.should == 11
     end
 
+    it "only includes visible bodies" do
+        get :list_all_csv
+        all_data = CSV.parse(response.body)
+        all_data.any?{ |row| row.include?('Internal admin authority') }.should be_false
+    end
+
+    it "does not include site_administration bodies" do
+        FactoryGirl.create(:public_body,
+                           :name => 'Site Admin Body',
+                           :tag_string => 'site_administration')
+
+        get :list_all_csv
+
+        all_data = CSV.parse(response.body)
+        all_data.any?{ |row| row.include?('Site Admin Body') }.should be_false
+    end
+
 end
 
 describe PublicBodyController, "when showing public body statistics" do
