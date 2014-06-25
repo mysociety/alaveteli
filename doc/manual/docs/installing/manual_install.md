@@ -183,9 +183,9 @@ We'll create a template for our Alaveteli databases:
 
 Then create the databases:
 
-    # sudo -u postgres createdb -T template_utf8 -O foi foi_production
-    # sudo -u postgres createdb -T template_utf8 -O foi foi_test
-    # sudo -u postgres createdb -T template_utf8 -O foi foi_development
+    # sudo -u postgres createdb -T template_utf8 -O foi alaveteli_production
+    # sudo -u postgres createdb -T template_utf8 -O foi alaveteli_test
+    # sudo -u postgres createdb -T template_utf8 -O foi alaveteli_development
 
 Now you need to set up the database config file so that the application can
 connect to the postgres database.
@@ -199,7 +199,7 @@ Example `development` section of `config/database.yml`:
     development:
       adapter: postgresql
       template: template_utf8
-      database: foi_development
+      database: alaveteli_development
       username: foi
       password: secure-password-here
       host: localhost

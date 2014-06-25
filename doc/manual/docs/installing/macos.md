@@ -106,9 +106,9 @@ We'll create a template for our Alaveteli databases:
 
 Then create the databases:
 
-    createdb -T template_utf8 -O foi foi_production
-    createdb -T template_utf8 -O foi foi_test
-    createdb -T template_utf8 -O foi foi_development
+    createdb -T template_utf8 -O foi alaveteli_production
+    createdb -T template_utf8 -O foi alaveteli_test
+    createdb -T template_utf8 -O foi alaveteli_development
 
 ### Clone Alaveteli
 
