@@ -25,6 +25,17 @@ have instructions for [installing on MacOS]({{ site.baseurl }}docs/installing/ma
 
 Commands are intended to be run via the terminal or over ssh.
 
+## Set the locale
+
+**Debian Squeeze**
+
+Follow the [Debian guide](https://wiki.debian.org/Locale#Standard) for configuring the locale of the operating system.
+
+Generate the locales you wish to make available. When the interactive screen asks you to pick a default locale, choose "None", as the SSH session will provide the locale required.
+
+    # dpkg-reconfigure locales
+
+Start a new SSH session to use your SSH locale.
 
 ## Get Alaveteli
 
