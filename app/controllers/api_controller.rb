@@ -13,16 +13,11 @@ class ApiController < ApplicationController
             :id => @request.id,
             :url => make_url("request", @request.url_title),
             :title => @request.title,
-
             :created_at => @request.created_at,
             :updated_at => @request.updated_at,
-
             :status => @request.calculate_status,
-
             :public_body_url => make_url("body", @request.public_body.url_name),
-
             :request_email => @request.incoming_email,
-
             :request_text => @request.last_event_forming_initial_request.outgoing_message.body,
         }
         if @request.user
@@ -77,7 +72,6 @@ class ApiController < ApplicationController
             'url' => make_url("request", request.url_title),
             'id'  => request.id
         }
-
     end
 
     def add_correspondence
@@ -199,36 +193,36 @@ class ApiController < ApplicationController
         since_date_str = params[:since_date]
         if since_date_str.nil?
             @events = InfoRequestEvent.find_by_sql([
-              %(select info_request_events.*
-                from info_requests
-                join info_request_events on info_requests.id = info_request_events.info_request_id
-                where info_requests.public_body_id = ?
-                and info_request_events.event_type in (
-                  'sent', 'followup_sent', 'resent', 'followup_resent'
-                )
-                order by info_request_events.created_at desc
-              ), @public_body.id
+                %(select info_request_events.*
+                    from info_requests
+                    join info_request_events on info_requests.id = info_request_events.info_request_id
+                    where info_requests.public_body_id = ?
+                    and info_request_events.event_type in (
+                       'sent', 'followup_sent', 'resent', 'followup_resent'
+                    )
+                    order by info_request_events.created_at desc
+                ), @public_body.id
             ])
         else
             begin
-              since_date = Date.strptime(since_date_str, "%Y-%m-%d")
+                since_date = Date.strptime(since_date_str, "%Y-%m-%d")
             rescue ArgumentError
-              render :json => {"errors" => [
-                      "Parameter since_date must be in format yyyy-mm-dd (not '#{since_date_str}')" ] },
-                  :status => 500
-              return
+                render :json => {"errors" => [
+                                    "Parameter since_date must be in format yyyy-mm-dd (not '#{since_date_str}')" ] },
+                       :status => 500
+                return
             end
             @events = InfoRequestEvent.find_by_sql([
-              %(select info_request_events.*
-                from info_requests
-                join info_request_events on info_requests.id = info_request_events.info_request_id
-                where info_requests.public_body_id = ?
-                and info_request_events.event_type in (
-                  'sent', 'followup_sent', 'resent', 'followup_resent'
-                )
-                and info_request_events.created_at >= ?
-                order by info_request_events.created_at desc
-              ), @public_body.id, since_date
+                %(select info_request_events.*
+                    from info_requests
+                    join info_request_events on info_requests.id = info_request_events.info_request_id
+                    where info_requests.public_body_id = ?
+                    and info_request_events.event_type in (
+                        'sent', 'followup_sent', 'resent', 'followup_resent'
+                    )
+                    and info_request_events.created_at >= ?
+                    order by info_request_events.created_at desc
+                ), @public_body.id, since_date
             ])
         end
         if feed_type == "atom"
@@ -253,7 +247,6 @@ class ApiController < ApplicationController
                     :request_email => request.incoming_email,
                     :title => request.title,
                     :body => event.outgoing_message.body,
-
                     :user_name => request.user_name,
                 }
                 if request.user
