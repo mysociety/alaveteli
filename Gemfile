@@ -82,6 +82,7 @@ end
 group :development do
   gem 'capistrano'
   gem 'mailcatcher'
+  gem 'quiet_assets'
   gem 'rdoc'
 end
 
