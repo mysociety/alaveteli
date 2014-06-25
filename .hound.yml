@@ -6,3 +6,6 @@ IndentationWidth:
 
 HashSyntax:
   EnforcedStyle: hash_rockets
+
+LineLength:
+  Enabled: false
