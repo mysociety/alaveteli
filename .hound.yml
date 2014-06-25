@@ -1,8 +1,8 @@
 # Configuration for https://houndci.com/
 
-Style/IndentationWidth:
+IndentationWidth:
   Description: 'Use 2 spaces for indentation.'
   Enabled: false
 
-Style/HashSyntax:
+HashSyntax:
   EnforcedStyle: hash_rockets
