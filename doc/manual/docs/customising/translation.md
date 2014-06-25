@@ -14,18 +14,23 @@ title: Translation
 
 ## Alaveteli's translations
 
-The software translations are implemented using GNU gettext, and the resource
-files are managed in Transifex.
+You don't need to be a programmer to translate Alaveteli -- we use an external
+website called Transifex to help manage translations. This makes it easy for
+translators to get to work, but it does mean you (or your technical team)
+need to do a little extra work to get those translations back into Alaveteli
+when they are ready.
 
 The Transifex project is at
-[https://www.transifex.net/projects/p/alaveteli](https://www.transifex.net/projects/p/alaveteli) -- you'll probably want an account there (ask on the mailing
-list). It has a fairly easy-to-use interface for contributing translations.
+[https://www.transifex.net/projects/p/alaveteli](https://www.transifex.net/projects/p/alaveteli)
+-- you'll probably want an account there (ask on the mailing list). It has a
+fairly easy-to-use interface for contributing translations.
 
-There are three roles in the translation process, and each one is described
-below: **translator**, **developer**, and **release manager**. You probably only
-need to know about the one that applies to you.
+Alaveteli implements translations using GNU gettext and `.pot` & `.po` files.
+If you're a developer, you should read
+[internationalising Alaveteli]({{ site.baseurl }}docs/developers/i18n/).
 
-## Translation process: translator's view
+
+## What a translator needs to do
 
 **If you're just working on translating Alaveteli into a language you know, then
 this section is for you.**
@@ -104,14 +109,19 @@ they do not appear on the site anywhere at the moment, and when they do, they
 will only be used in the admin interface. If you do translate them, only
 translate the text that comes *after* the `|`.
 
-## Translation process: developers' view
 
-**If you're writing new code for Alaveteli, then you're a developer, and you
+## How the translations get into Alaveteli
+
+In order to get the translated strings from Transifex into Alaveteli, follow
+the instructions in these [deployment notes]({{ site.baseurl }}docs/developers/i18n/#deployment-notes).
+This will be the job of the technical people on your team (or
+even mySociety's release manager) -- if translators aren't technical, they can
+use Transifex without needing to worry about this.
+
+
+## Developers and internationalisation
+
+If you're writing new code for Alaveteli, then you're a developer, and you
 need to understand how to make any text you add easy for translators to work
-with.**
-
-See the page about [internationalising Alaveteli]({{site.baseurl}}docs/developers/i18n/).
-You should also read mySociety's [internationalisation
-guide](http://mysociety.github.io/internationalization.html) for our advice on
-using strings that will need translation. This applies across all mySociety
-projects, not just Alaveteli.
+with -- see the page about
+[internationalising Alaveteli]({{site.baseurl}}docs/developers/i18n/).
