@@ -5,7 +5,7 @@
 # Email: hello@mysociety.org. WWW: http://www.mysociety.org/
 
 PATH=/usr/local/bin:/usr/bin:/bin
-MAILTO=cron-!!(*= $site *)!!@mysociety.org
+MAILTO=!!(*= $mailto *)!!
 
 # Every 5 minutes
 */5 * * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/change-xapian-database.lock "!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/update-xapian-index verbose=true" >> !!(*= $vhost_dir *)!!/logs/update-xapian-index.log || echo "stalled?"
