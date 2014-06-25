@@ -13,10 +13,10 @@
 # !!(*= $daemon_name *)!! Start the Alaveteli email alert daemon
 
 NAME=!!(*= $daemon_name *)!!
-DAEMON=!!(*= $vhost_dir *)!!/alaveteli/script/runner
+DAEMON=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/runner
 DAEMON_ARGS="--daemon TrackMailer.alert_tracks_loop"
-PIDFILE=!!(*= $vhost_dir *)!!/alert-tracks.pid
-LOGFILE=!!(*= $vhost_dir *)!!/alaveteli/log/alert-tracks.log
+PIDFILE=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/tmp/pids/alert-tracks.pid
+LOGFILE=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/log/alert-tracks.log
 DUSER=!!(*= $user *)!!
 # Set RAILS_ENV - not needed if using config/rails_env.rb
 # RAILS_ENV=your_rails_env

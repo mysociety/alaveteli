@@ -23,7 +23,7 @@ namespace :config_files do
 
     desc 'Convert Debian .ugly init script in config to a form suitable for installing in /etc/init.d'
     task :convert_init_script => :environment do
-        example = 'rake config_files:convert_init_script DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli SCRIPT_FILE=config/alert-tracks-debian.ugly '
+        example = 'rake config_files:convert_init_script DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli SCRIPT_FILE=config/alert-tracks-debian.ugly'
         check_for_env_vars(['DEPLOY_USER',
                             'VHOST_DIR',
                             'SCRIPT_FILE'], example)
@@ -32,7 +32,8 @@ namespace :config_files do
 
         replacements = {
             :user => ENV['DEPLOY_USER'],
-            :vhost_dir => ENV['VHOST_DIR']
+            :vhost_dir => ENV['VHOST_DIR'],
+            :vcspath => ENV.fetch('VCSPATH', 'alaveteli')
         }
 
         daemon_name = File.basename(script_file, '-debian.ugly')
