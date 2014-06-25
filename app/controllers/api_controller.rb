@@ -105,6 +105,10 @@ class ApiController < ApplicationController
             errors << "You cannot attach files to messages in the 'request' direction"
         end
 
+        if new_state && !InfoRequest.allowed_incoming_states.include?(new_state)
+            errors << "'#{new_state}' is not a valid request state"
+        end
+
         if !errors.empty?
             render :json => { "errors" => errors }, :status => 500
             return
@@ -147,7 +151,14 @@ class ApiController < ApplicationController
 
             @request.receive(mail, mail.encoded, true)
 
-            if new_state && InfoRequest.enumerate_states.include?(new_state)
+            if new_state
+                # we've already checked above that the status is valid
+                # so no need to check a second time
+                event = @request.log_event("status_update",
+                        { :script => "#{@public_body.name} via API",
+                          :old_described_state => @request.described_state,
+                          :described_state => new_state,
+                        })
                 @request.set_described_state(new_state)
             end
         end
@@ -158,8 +169,6 @@ class ApiController < ApplicationController
 
     def update_state
         new_state = params["state"]
-
-        errors = []
 
         if InfoRequest.allowed_incoming_states.include?(new_state)
             ActiveRecord::Base.transaction do

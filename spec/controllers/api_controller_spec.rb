@@ -64,7 +64,9 @@ describe ApiController, "when using the API" do
             "external_user_name" => "Bob Smith",
         }
 
-        post :create_request, :k => public_bodies(:geraldine_public_body).api_key, :request_json => request_data.to_json
+        post :create_request,
+             :k => public_bodies(:geraldine_public_body).api_key,
+             :request_json => request_data.to_json
         response.should be_success
 
         response.content_type.should == "application/json"
@@ -90,7 +92,7 @@ describe ApiController, "when using the API" do
         new_request.info_request_events.size.should == 1
         new_request.info_request_events[0].event_type.should == 'sent'
         new_request.info_request_events[0].calculated_state.should == 'waiting_response'
-    end
+      end
     end
 
     # POST /api/v2/request/:id/add_correspondence.json
@@ -183,32 +185,35 @@ describe ApiController, "when using the API" do
           request.described_state.should == "successful"
       end
 
-      it "should ignore the status if an invalid state is supplied" do
-          # First we need an external request
-          request_id = info_requests(:external_request).id
+      it 'should raise a JSON 500 error if an invalid state is supplied' do
+        # First we need an external request
+        request_id = info_requests(:external_request).id
 
-          # Initially it has no incoming messages
-          IncomingMessage.count(:conditions => ["info_request_id = ?", request_id]).should == 0
+        # Initially it has no incoming messages
+        IncomingMessage.count(:conditions => ["info_request_id = ?", request_id]).should == 0
 
-          # Now add one
-          sent_at = "2012-05-28T12:35:39+01:00"
-          response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
-          post :add_correspondence,
-              :k => public_bodies(:geraldine_public_body).api_key,
-              :id => request_id,
-              :state => "random_string",
-              :correspondence_json => {
-                  "direction" => "response",
-                  "sent_at" => sent_at,
-                  "body" => response_body,
-              }.to_json
+        # Now add one
+        sent_at = "2012-05-28T12:35:39+01:00"
+        response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
+        post :add_correspondence,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :id => request_id,
+            :state => 'random_string',
+            :correspondence_json => {
+                "direction" => "response",
+                "sent_at" => sent_at,
+                "body" => response_body,
+            }.to_json
 
-          # And make sure it worked
-          response.should be_success
-          incoming_messages = IncomingMessage.all(:conditions => ["info_request_id = ?", request_id])
-          incoming_messages.count.should == 1
-          request = InfoRequest.find_by_id(request_id)
-          request.described_state.should == "waiting_response"
+        # And make sure it worked
+        response.status.should == 500
+        ActiveSupport::JSON.decode(response.body)["errors"].should == [
+          "'random_string' is not a valid request state"]
+
+        incoming_messages = IncomingMessage.all(:conditions => ["info_request_id = ?", request_id])
+        incoming_messages.count.should == 0
+        request = InfoRequest.find_by_id(request_id)
+        request.described_state.should == "waiting_response"
       end
 
       it "should not allow internal requests to be updated" do
@@ -305,7 +310,7 @@ describe ApiController, "when using the API" do
           response.status.should == 500
           errors = ActiveSupport::JSON.decode(response.body)["errors"]
           errors.should == ["You cannot attach files to messages in the 'request' direction"]
-      end
+    end
 
       it "should allow files to be attached to a response" do
           # First we need an external request
@@ -366,6 +371,12 @@ describe ApiController, "when using the API" do
             # It should have updated the status
             request = InfoRequest.find_by_id(request_id)
             request.described_state.should == "partially_successful"
+
+            # It should have recorded the status_update event
+            last_event = request.info_request_events.last
+            last_event.event_type.should == 'status_update'
+            last_event.described_state.should == 'partially_successful'
+            last_event.params_yaml.should =~ /script: Geraldine Quango on behalf of requester via API/
         end
 
         it "should return a JSON 500 error if an invalid state is sent" do
