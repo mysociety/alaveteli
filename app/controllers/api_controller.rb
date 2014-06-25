@@ -1,5 +1,9 @@
 class ApiController < ApplicationController
     before_filter :check_api_key
+    before_filter :check_external_request,
+                  :only => [:add_correspondence, :update_state]
+    before_filter :check_request_ownership,
+                  :only => [:add_correspondence, :update_state]
 
     def show_request
         @request = InfoRequest.find(params[:id])
@@ -77,12 +81,6 @@ class ApiController < ApplicationController
     end
 
     def add_correspondence
-        request = InfoRequest.find_by_id(params[:id])
-        if request.nil?
-            render :json => { "errors" => ["Could not find request #{params[:id]}"] }, :status => 404
-            return
-        end
-
         json = ActiveSupport::JSON.decode(params[:correspondence_json])
         attachments = params[:attachments]
 
@@ -92,16 +90,6 @@ class ApiController < ApplicationController
         new_state = params["state"]
 
         errors = []
-
-        if !request.is_external?
-            render :json => { "errors" => ["Request #{params[:id]} cannot be updated using the API"] }, :status => 500
-            return
-        end
-
-        if request.public_body_id != @public_body.id
-            render :json => { "errors" => ["You do not own request #{params[:id]}"] }, :status => 500
-            return
-        end
 
         if !["request", "response"].include?(direction)
             errors << "The direction parameter must be 'request' or 'response'"
@@ -126,16 +114,16 @@ class ApiController < ApplicationController
             # In the 'request' direction, i.e. what we (Alaveteli) regard as outgoing
 
             outgoing_message = OutgoingMessage.new(
-                :info_request => request,
+                :info_request => @request,
                 :status => 'ready',
                 :message_type => 'followup',
                 :body => body,
                 :last_sent_at => sent_at,
                 :what_doing => 'normal_sort'
             )
-            request.outgoing_messages << outgoing_message
-            request.save!
-            request.log_event("followup_sent",
+            @request.outgoing_messages << outgoing_message
+            @request.save!
+            @request.log_event("followup_sent",
                 :api => true,
                 :email => nil,
                 :outgoing_message_id => outgoing_message.id,
@@ -155,50 +143,33 @@ class ApiController < ApplicationController
                 )
             end
 
-            mail = RequestMailer.external_response(request, body, sent_at, attachment_hashes)
+            mail = RequestMailer.external_response(@request, body, sent_at, attachment_hashes)
 
-            request.receive(mail, mail.encoded, true)
+            @request.receive(mail, mail.encoded, true)
 
             if new_state && InfoRequest.enumerate_states.include?(new_state)
-                request.set_described_state(new_state)
+                @request.set_described_state(new_state)
             end
         end
         render :json => {
-            'url' => make_url("request", request.url_title),
+            'url' => make_url("request", @request.url_title),
         }
     end
 
     def update_state
-        request = InfoRequest.find_by_id(params[:id])
-        if request.nil?
-            render :json => {
-                        "errors" => ["Could not find request #{params[:id]}"]
-                    },
-                   :status => 404
-            return
-        end
         new_state = params["state"]
 
         errors = []
 
-        if !request.is_external?
-            render :json => {
-                        "errors" => ["Request #{params[:id]} cannot be updated using the API"]
-                     },
-                    :status => 500
-            return
-        end
-
-        if request.public_body_id != @public_body.id
-            render :json => {
-                        "errors" => ["You do not own request #{params[:id]}"]
-                    },
-                   :status => 500
-            return
-        end
-
-        if InfoRequest.enumerate_states.include?(new_state)
-            request.set_described_state(new_state)
+        if InfoRequest.allowed_incoming_states.include?(new_state)
+            ActiveRecord::Base.transaction do
+                event = @request.log_event("status_update",
+                    { :script => "#{@public_body.name} on behalf of requester via API",
+                      :old_described_state => @request.described_state,
+                      :described_state => new_state,
+                    })
+                @request.set_described_state(new_state)
+            end
         else
             render :json => {
                         "errors" => ["'#{new_state}' is not a valid request state" ]
@@ -208,7 +179,7 @@ class ApiController < ApplicationController
         end
 
         render :json => {
-            'url' => make_url("request", request.url_title),
+            'url' => make_url("request", @request.url_title),
         }
     end
 
@@ -293,6 +264,21 @@ class ApiController < ApplicationController
         raise PermissionDenied.new("Missing required parameter 'k'") if params[:k].nil?
         @public_body = PublicBody.find_by_api_key(params[:k].gsub(' ', '+'))
         raise PermissionDenied if @public_body.nil?
+    end
+
+    def check_external_request
+        @request = InfoRequest.find_by_id(params[:id])
+        if @request.nil?
+            render :json => { "errors" => ["Could not find request #{params[:id]}"] }, :status => 404
+        elsif !@request.is_external?
+            render :json => { "errors" => ["Request #{params[:id]} cannot be updated using the API"] }, :status => 403
+        end
+    end
+
+    def check_request_ownership
+        if @request.public_body_id != @public_body.id
+            render :json => { "errors" => ["You do not own request #{params[:id]}"] }, :status => 403
+        end
     end
 
     private

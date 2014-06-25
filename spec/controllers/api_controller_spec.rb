@@ -225,7 +225,7 @@ describe ApiController, "when using the API" do
                    "body" => "xxx"
                }.to_json
 
-          response.status.should == 500
+          response.status.should == 403
           ActiveSupport::JSON.decode(response.body)["errors"].should == [
             "Request #{request_id} cannot be updated using the API"]
 
@@ -247,7 +247,7 @@ describe ApiController, "when using the API" do
                    "body" => "xxx"
                }.to_json
 
-          response.status.should == 500
+          response.status.should == 403
           ActiveSupport::JSON.decode(response.body)["errors"].should == [
             "You do not own request #{request_id}"]
 
@@ -256,7 +256,8 @@ describe ApiController, "when using the API" do
       end
 
       it "should return a JSON 404 error for non-existent requests" do
-          request_id = 123459876 # Let's hope this doesn't exist!
+          request_id = "123459876"
+          InfoRequest.stub(:find_by_id).with(request_id).and_return(nil)
           sent_at = "2012-05-28T12:35:39+01:00"
           response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
           post :add_correspondence,
@@ -271,7 +272,7 @@ describe ApiController, "when using the API" do
           ActiveSupport::JSON.decode(response.body)["errors"].should == ["Could not find request 123459876"]
       end
 
-      it "should return a JSON 500 error if we try to add correspondence to a request we don't own" do
+      it "should return a JSON 403 error if we try to add correspondence to a request we don't own" do
           request_id = info_requests(:naughty_chicken_request).id
           sent_at = "2012-05-28T12:35:39+01:00"
           response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
@@ -283,7 +284,7 @@ describe ApiController, "when using the API" do
                    "sent_at" => sent_at,
                    "body" => response_body
                }.to_json
-          response.status.should == 500
+          response.status.should == 403
           ActiveSupport::JSON.decode(response.body)["errors"].should == ["Request #{request_id} cannot be updated using the API"]
       end
 
@@ -360,11 +361,11 @@ describe ApiController, "when using the API" do
             post :update_state,
                  :k => public_bodies(:geraldine_public_body).api_key,
                  :id => request_id,
-                 :state => "not_held"
+                 :state => "partially_successful"
 
             # It should have updated the status
             request = InfoRequest.find_by_id(request_id)
-            request.described_state.should == "not_held"
+            request.described_state.should == "partially_successful"
         end
 
         it "should return a JSON 500 error if an invalid state is sent" do
@@ -391,7 +392,8 @@ describe ApiController, "when using the API" do
         end
 
         it "should return a JSON 404 error for non-existent requests" do
-            request_id = 123459876 # Let's hope this doesn't exist!
+            request_id = "123459876"
+            InfoRequest.stub(:find_by_id).with(request_id).and_return(nil)
 
             post :update_state,
                  :k => public_bodies(:geraldine_public_body).api_key,
@@ -402,7 +404,7 @@ describe ApiController, "when using the API" do
             ActiveSupport::JSON.decode(response.body)["errors"].should == ["Could not find request 123459876"]
         end
 
-        it "should return a JSON 500 error if we try to add correspondence to a request we don't own" do
+        it "should return a JSON 403 error if we try to add correspondence to a request we don't own" do
             request_id = info_requests(:naughty_chicken_request).id
 
             post :update_state,
@@ -410,7 +412,7 @@ describe ApiController, "when using the API" do
                  :id => request_id,
                  :state => "successful"
 
-            response.status.should == 500
+            response.status.should == 403
             ActiveSupport::JSON.decode(response.body)["errors"].should == ["Request #{request_id} cannot be updated using the API"]
         end
     end
