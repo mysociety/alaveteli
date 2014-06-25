@@ -53,10 +53,10 @@ title: For developers
   it should be this!**
 
 * Like many Ruby on Rails sites, the software is not hugely performant (see
-  some notes about [[performance issues]] gathered over time with
+  [these notes about performance issues](https://github.com/mysociety/alaveteli/wiki/Performance-issues) gathered over time with
   WhatDoTheyKnow). The site will run on a server with 512MB RAM but at least
   2GB is recommended. Deployment behind [Varnish](https://www.varnish-cache.org) is also fairly essential. See
-  [[Production Server Best Practices]] for more.
+  [production server best practices]({{site.baseurl}}docs/running/server/) for more.
 
 * There's a number of [proposals for enhancements](https://github.com/mysociety/alaveteli/wiki/Proposals-for-enhancements),
   such as more user-focused features, but see also...
