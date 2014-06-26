@@ -175,20 +175,20 @@ Create a `foi` user from the command line, like this:
 _Note:_ Leaving the password blank will cause great confusion if you're new to
 PostgreSQL.
 
+We'll create a template for our Alaveteli databases:
+
+    # sudo -u postgres createdb -T template0 -E UTF-8 template_utf8
+    # echo "update pg_database set datistemplate=true where datname='template_utf8';" > /tmp/update-template.sql
+    # sudo -u postgres psql -f /tmp/update-template.sql
+
 Then create the databases:
 
-    # sudo -u postgres createdb -T template0 -E SQL_ASCII -O foi foi_production
-    # sudo -u postgres createdb -T template0 -E SQL_ASCII -O foi foi_test
-    # sudo -u postgres createdb -T template0 -E SQL_ASCII -O foi foi_development
+    # sudo -u postgres createdb -T template_utf8 -O foi alaveteli_production
+    # sudo -u postgres createdb -T template_utf8 -O foi alaveteli_test
+    # sudo -u postgres createdb -T template_utf8 -O foi alaveteli_development
 
-We create using the ``SQL_ASCII`` encoding, because in postgres this is means
-"no encoding"; and because we handle and store all kinds of data that may not
-be valid UTF (for example, data originating from various broken email clients
-that's not 8-bit clean), it's safer to be able to store *anything*, than reject
-data at runtime.
-
-Now you need to set up the database config file to contain the name, username
-and password of your postgres database.
+Now you need to set up the database config file so that the application can
+connect to the postgres database.
 
 * Copy `database.yml-example` to `database.yml` in `alaveteli/config`
 * Edit it to point to your local postgresql database in the development
@@ -198,7 +198,8 @@ Example `development` section of `config/database.yml`:
 
     development:
       adapter: postgresql
-      database: foi_development
+      template: template_utf8
+      database: alaveteli_development
       username: foi
       password: secure-password-here
       host: localhost
