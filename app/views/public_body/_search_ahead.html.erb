@@ -1,9 +1,9 @@
 
  <% if !@xapian_requests.nil? %>
   <% if @xapian_requests.results.size > 0 %>
-    <h3><%= _('Top search results:') %></h3>
+    <p><%= _('Matching authorities') %></p>
   <% else %>
-    <h3><%= _('No results found.') %></h3>
+    <p><%= _('No results found.') %></p>
   <% end %>
   <div id="authority_search_ahead_results">
     <% for result in @xapian_requests.results %>
