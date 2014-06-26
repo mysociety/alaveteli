@@ -6,18 +6,20 @@ title: Production installation
 `sudo` is not installed on Debian by default. Make sure your system is up-to-date and install it.
 
     # run as root!
+    # Update sources and current packages
     apt-get update -y
     apt-get upgrade -y
-    apt-get install -y sudo
+
+    # Install useful tools
+    apt-get install -y sudo vim git-core
 
     # Configure locales
+    # Log out of teh SSH session and log back in to use the SSH session locale
     dpkg-reconfigure locales
 
-    # Install git
-    apt-get install -y git-core
-
     # Create a user to run the app
-    adduser --disabled-login --no-create-home --gecos 'Alaveteli' alaveteli
+    # adduser --quiet --disabled-password --no-create-home --gecos "Alaveteli" alaveteli
+    adduser --quiet --disabled-password --gecos "Alaveteli" alaveteli
 
     # Create the target directory and clone alaveteli
     mkdir /opt/alaveteli
@@ -54,12 +56,14 @@ title: Production installation
     gem install bundler --no-rdoc --no-ri
 
     # Create the database user and databases
+    # Enter password for database user
     sudo -u postgres createuser -s -P alaveteli
     sudo -u postgres createdb -T template0 -E UTF-8 -O alaveteli alaveteli_production
     sudo -u postgres createdb -T template0 -E UTF-8 -O alaveteli alaveteli_test
     sudo -u postgres createdb -T template0 -E UTF-8 -O alaveteli alaveteli_development
 
     # Copy the config files
+    # Edit for your install
     cp /opt/alaveteli/config/database.yml-example /opt/alaveteli/config/database.yml
     cp /opt/alaveteli/config/general.yml-example /opt/alaveteli/config/general.yml
     cp /opt/alaveteli/config/newrelic.yml-example /opt/alaveteli/config/newrelic.yml
@@ -70,16 +74,21 @@ title: Production installation
     sudo -u alaveteli /opt/alaveteli/script/rails-post-deploy
     
     # needs a RAILS_ENV
-    sudo -u alaveteli /opt/alaveteli/script/rebuild-xapian-index
+    # Breaks with RAILS_ENV=production
+    # Works with RAILS_ENV=development
+    sudo -u alaveteli RAILS_ENV=production /opt/alaveteli/script/rebuild-xapian-index
 
     # Generate crontab and init scripts
+
+    cd /opt/alaveteli
+
     bundle exec rake config_files:convert_crontab \
       DEPLOY_USER=alaveteli \
       VHOST_DIR=/opt \
       VCSPATH=alaveteli \
       SITE=alaveteli \
-      MAILTO=cron-alaveteli@example.org \
-      CRONTAB=/opt/alaveteli/config/crontab-example.ugly > /etc/cron.d/alaveteli
+      MAILTO=vagrant@localhost \
+      CRONTAB=/opt/alaveteli/config/crontab-example > /etc/cron.d/alaveteli
 
     bundle exec rake config_files:convert_init_script \
       DEPLOY_USER=alaveteli \
