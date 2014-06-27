@@ -57,10 +57,10 @@ title: Production installation
 
     # Create the database user and databases
     # Enter password for database user
-    sudo -u postgres createuser -s -P alaveteli
-    sudo -u postgres createdb -T template0 -E UTF-8 -O alaveteli alaveteli_production
-    sudo -u postgres createdb -T template0 -E UTF-8 -O alaveteli alaveteli_test
-    sudo -u postgres createdb -T template0 -E UTF-8 -O alaveteli alaveteli_development
+    sudo -u postgres createuser -s -P foi
+    sudo -u postgres createdb -T template0 -E UTF-8 -O foi alaveteli_production
+    sudo -u postgres createdb -T template0 -E UTF-8 -O foi alaveteli_test
+    sudo -u postgres createdb -T template0 -E UTF-8 -O foi alaveteli_development
 
     # Copy the config files
     # Edit for your install
