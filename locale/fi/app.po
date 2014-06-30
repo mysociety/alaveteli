@@ -5,8 +5,8 @@
 # Translators:
 # apoikola <antti.poikola@gmail.com>, 2013
 # apoikola <antti.poikola@gmail.com>, 2013
-# Hamatti <juhamattisantala@gmail.com>, 2013
-# Hamatti <juhamattisantala@gmail.com>, 2013
+# Juha-Matti Santala <juhamattisantala@gmail.com>, 2013
+# Juha-Matti Santala <juhamattisantala@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"

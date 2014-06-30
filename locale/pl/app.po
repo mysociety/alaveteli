@@ -3,8 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# EwaModrzejewska <ewa.modrzejewska@art61.pl>, 2013
-# EwaModrzejewska <ewa.modrzejewska@art61.pl>, 2013
+# Ewa Modrzejewska <ewa.modrzejewska@art61.pl>, 2013
+# Ewa Modrzejewska <ewa.modrzejewska@art61.pl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"

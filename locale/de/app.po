@@ -7,13 +7,14 @@
 # FOI Monkey <>, 2012
 # KerstiRu <kersti@access-info.org>, 2011
 # KerstiRu <kersti@access-info.org>, 2011
+# louisecrow <louise@mysociety.org>, 2014
 # stefanw <stefanwehrmeyer@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
+"PO-Revision-Date: 2014-05-28 15:17+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/alaveteli/language/de/)\n"
 "Language: de\n"
@@ -2570,7 +2571,7 @@ msgid "The response to your request has been <strong>delayed</strong>.  You can 
 msgstr "Die Beantwortung auf Ihre Anfrage ist verspätet. Nach gesetzlicher Vorschrift sollte die Behörde unverzüglich geantwortet haben und"
 
 msgid "The response to your request is <strong>long overdue</strong>.   You can say that, by\\n            law, under all circumstances, the authority should have responded\\n            by now"
-msgstr "The response to your request is <strong>long overdue</strong>. Nach gesetzlicher Vorschrift sollte {{public_body_link}} Ihnen inzwischen unter allen Umständen geantwortet haben.   "
+msgstr "Nach gesetzlicher Vorschrift sollte Dieser Behörde Ihnen inzwischen unter allen Umständen geantwortet haben.   "
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests that have been made to this authority."
 msgstr "Da die Suchanzeige momentan offline ist, können wir die an diese Behörde gestellten Informationsfreiheitsanfragen gerade leider nicht anzeigen. "

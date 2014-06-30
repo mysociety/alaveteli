@@ -3,8 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# antitoxic <antitoxic@gmail.com>, 2013
-# antitoxic <antitoxic@gmail.com>, 2013
+# Anton Stoychev <antitoxic@gmail.com>, 2013
+# Anton Stoychev <antitoxic@gmail.com>, 2013
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
 # Valentin Laskov <laskov@festa.bg>, 2013-2014
@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2014-05-19 10:59+0000\n"
+"Last-Translator: Valentin Laskov <laskov@festa.bg>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/alaveteli/language/bg/)\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -2480,7 +2480,7 @@ msgid "The request has been <strong>refused</strong>"
 msgstr "Заявлението беше <strong>отхвърлено</strong>"
 
 msgid "The request has been updated since you originally loaded this page. Please check for any new incoming messages below, and try again."
-msgstr "Заявлението беше обновено от както заредихте тази страница. Моля, проверете за нови съобщения по-долу, и опитайте отново."
+msgstr "Заявлението беше обновено откакто заредихте тази страница. Моля, проверете за нови съобщения по-долу, и опитайте отново."
 
 msgid "The request is <strong>waiting for clarification</strong>."
 msgstr "Заявлението <strong>очаква пояснение</strong>."
@@ -2582,7 +2582,7 @@ msgid "Then you will be notified whenever someone requests something or gets a r
 msgstr "След това ще бъдете уведомявани, когато някой отправи заявление или получи отговор от '{{public_body_name}}'."
 
 msgid "Then you will be updated whenever the request '{{request_title}}' is updated."
-msgstr ""
+msgstr "След това ще бъдете уведомявани при всяко актуализиране на заявлението '{{request_title}}'."
 
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "След това Вие ще можете да изпращате заявления за ДдИ."

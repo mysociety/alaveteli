@@ -3,11 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# aelharaty <aelharaty@gmail.com>, 2012
-# aelharaty <aelharaty@gmail.com>, 2012
-# radproject <radhouanef@gmail.com>, 2013-2014
-# radproject <radhouanef@gmail.com>, 2013
-# radproject <radhouanef@gmail.com>, 2013
+# Aladdin El-Haraty <aelharaty@gmail.com>, 2012
+# Aladdin El-Haraty <aelharaty@gmail.com>, 2012
+# radhouane fazai <radhouanef@gmail.com>, 2013-2014
+# radhouane fazai <radhouanef@gmail.com>, 2013
+# radhouane fazai <radhouanef@gmail.com>, 2013
 #   <rwiwina@live.fr>, 2013
 #   <sana_bj@live.fr>, 2013
 msgid ""

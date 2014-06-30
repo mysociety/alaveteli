@@ -4,13 +4,13 @@
 #
 # Translators:
 # Goran Rakic <grakic@devbase.net>, 2013
-# vucko <vucko@acm.org>, 2013
-# krledmno1 <krledmno1@gmail.com>, 2013
-# krledmno1 <krledmno1@gmail.com>, 2013
+# Goran Vučković <vucko@acm.org>, 2013
+# Srdjan Krstic <krledmno1@gmail.com>, 2013
+# Srdjan Krstic <krledmno1@gmail.com>, 2013
 # Valon <vbrestovci@gmail.com>, 2011-2012
 # Valon <vbrestovci@gmail.com>, 2012
 # Valon <vbrestovci@gmail.com>, 2011
-# vucko <vucko@acm.org>, 2013
+# Goran Vučković <vucko@acm.org>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"

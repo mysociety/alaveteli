@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# njung <agung@airputih.or.id>, 2013
-# Agus Triwanto <agus.triwanto@gmail.com>, 2012
-# Agus Triwanto <agus.triwanto@gmail.com>, 2012
+# Agung Riyadi <ariadi01@gmail.com>, 2013
+# agustriwanto <agus.triwanto@gmail.com>, 2012
+# agustriwanto <agus.triwanto@gmail.com>, 2012
 #   <ariadi01@gmail.com>, 2012
 # bobo7e836b32124642a5 <bobo@airputih.org>, 2012
 # bobo7e836b32124642a5 <bobo@airputih.org>, 2012
-# njung <agung@airputih.or.id>, 2013
+# Agung Riyadi <ariadi01@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"

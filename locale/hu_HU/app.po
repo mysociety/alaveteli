@@ -5,8 +5,8 @@
 # Translators:
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
-# Ebatta <orsibatta@gmail.com>, 2013
-# Ebatta <orsibatta@gmail.com>, 2013
+# Orsolya Batta <orsibatta@gmail.com>, 2013
+# Orsolya Batta <orsibatta@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
