@@ -16,7 +16,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 SITE_HOME=/var/www/alaveteli
 NAME=alaveteli
 DESC="Alaveteli app server"
-USER=fms
+USER=alaveteli
 
 echo $DAEMON
 test -f $DAEMON || exit 0
