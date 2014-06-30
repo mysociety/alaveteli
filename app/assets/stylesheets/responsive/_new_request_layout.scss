@@ -4,7 +4,6 @@
 #authority_selection {
   @include grid-column($columns: 12, $collapse: true);
   @include respond-min( $main_menu-mobile_menu_cutoff ){
-    @include grid-column($columns: 6, $collapse: true);
     @include ie8{
       padding-right: 0.9375em;
     }
@@ -13,6 +12,17 @@
     }
     #query {
       width: 80%;
+    }
+  }
+  .authority_search_ahead_results_container {
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-row($behavior: nest);
+    }
+  }
+  #authority_search_ahead_results,
+  .cant_find_results {
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-column(6);
     }
   }
 }
@@ -32,6 +42,33 @@
       width: 26.188em;
     }
   }
+
+  /* Hide some elements of the public body that aren't appropriate in this
+  context */
+  #list-filter, h2.foi_results, .public-body-name-prefix {
+    display: none;
+  }
+
+  /* Compact request list for viewing in authority preview column */
+  .request_left, #header_left {
+    @include grid-column(12, $collapse: true);
+  }
+
+  .request_right {
+    @include grid-column(12, $collapse: true);
+  }
+
+  span.desc {
+    background:none;
+    line-height:18px;
+    padding: 0;
+  }
+
+  .typeahead_response {
+    @include grid-row($behavior: nest);
+  }
+
+
 }
 
 /* /new/[body_name] page */
