@@ -6,11 +6,11 @@
 # andreas.pavlou <andreas@access-info.org>, 2013
 # Bbear <borisjf@post.harvard.edu>, 2011
 # David Cabo <david.cabo@gmail.com>, 2013
-# pchrzanowski <pierre.chrzanowski@gmail.com>, 2013
-# radproject <radhouanef@gmail.com>, 2013
+# pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
+# radhouane fazai <radhouanef@gmail.com>, 2013
 # rrobert <rrobertpolson@gmail.com>, 2013
 # sebbacon <seb.bacon@gmail.com>, 2012
-# sim51 <contact@bsimard.com>, 2013
+# Benoît Simard <contact@bsimard.com>, 2013
 # skenaja <alex@alexskene.com>, 2011
 # teymour <tanguim@gmail.com>, 2011
 # vickyanderica <victoria@access-info.org>, 2011

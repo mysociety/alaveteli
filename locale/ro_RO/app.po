@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# andreicristianpetcu <andreicristianpetcu@gmail.com>, 2012-2013
-# andreicristianpetcu <andreicristianpetcu@gmail.com>, 2013
-# andreicristianpetcu <andreicristianpetcu@gmail.com>, 2012
-# CoPyratul <copyratul@gmail.com>, 2012
-# CoPyratul <copyratul@gmail.com>, 2012
-# yozness <cosmin@funkycitizens.org>, 2013
-# elena.calistru <calistru.elena@gmail.com>, 2013
-# elena.calistru <calistru.elena@gmail.com>, 2013
-# Paul Chioveanu <paul_kimmy@yahoo.com>, 2013
-# Paul Chioveanu <paul_kimmy@yahoo.com>, 2013
-# rodicaa <rodxy@yahoo.com>, 2013
-# rodicaa <rodxy@yahoo.com>, 2013
-# rodicaa <rodxy@yahoo.com>, 2013
-# yozness <cosmin@funkycitizens.org>, 2013
+# Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2012-2013
+# Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2013
+# Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2012
+# Claudiu Marginean <copyratul@gmail.com>, 2012
+# Claudiu Marginean <copyratul@gmail.com>, 2012
+# Cosmin Pojoranu <cosmin@funkycitizens.org>, 2013
+# Elena Calistru <calistru.elena@gmail.com>, 2013
+# Elena Calistru <calistru.elena@gmail.com>, 2013
+# paul.chioveanu <paul_kimmy@yahoo.com>, 2013
+# paul.chioveanu <paul_kimmy@yahoo.com>, 2013
+# Rodica Ardelean <rodxy@yahoo.com>, 2013
+# Rodica Ardelean <rodxy@yahoo.com>, 2013
+# Rodica Ardelean <rodxy@yahoo.com>, 2013
+# Cosmin Pojoranu <cosmin@funkycitizens.org>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
