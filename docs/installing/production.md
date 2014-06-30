@@ -87,19 +87,28 @@ title: Production installation
       VHOST_DIR=/opt \
       VCSPATH=alaveteli \
       SITE=alaveteli \
-      MAILTO=vagrant@localhost \
+      MAILTO=example@example.org \
       CRONTAB=/opt/alaveteli/config/crontab-example > /etc/cron.d/alaveteli
 
+    # TODO: Requires origin/alert-tracks-generator
+    # TODO: Document that you need to name the output file correctly
     bundle exec rake config_files:convert_init_script \
       DEPLOY_USER=alaveteli \
       VHOST_DIR=/opt \
-      SCRIPT_FILE=/opt/alaveteli/config/alert-tracks-debian.ugly > /etc/init.d/foi-alert-tracks
+      VCSPATH=alaveteli \
+      SITE=alaveteli \
+      SCRIPT_FILE=/opt/alaveteli/config/alert-tracks-debian.ugly > /etc/init.d/{SITE}-alert-tracks
 
     chown root:alaveteli /etc/cron.d/alaveteli
     chmod 754 /etc/cron.d/alaveteli
 
-    chown root:alaveteli /etc/init.d/foi-alert-tracks
-    chmod 754 /etc/init.d/foi-alert-tracks
+    chown root:alaveteli /etc/init.d/{SITE}-alert-tracks
+    chmod 754 /etc/init.d/{SITE}-alert-tracks
+
+    # NOTE: You may need to replace `alaveteli` with the name you gave the
+    # daemon with the SITE variable when running
+    # rake config_files:convert_init_script
+    service alaveteli-alert-tracks start
 
     # Add passenger/nginx
     apt-get install apt-transport-https ca-certificates
