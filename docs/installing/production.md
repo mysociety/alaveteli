@@ -110,6 +110,20 @@ title: Production installation
     # rake config_files:convert_init_script
     service alaveteli-alert-tracks start
 
+    # TODO: Test mail config:
+
+    apt-get install -y exim4
+
+    cat > /etc/exim4/conf.d/main/04_alaveteli_options <<EOF
+    ALAVETELI_HOME=/opt/alaveteli
+    ALAVETELI_USER=alaveteli
+    log_file_path=/var/log/exim4/exim-%slog-%D
+    MAIN_LOG_SELECTOR==+all -retry_defer
+    extract_addresses_remove_arguments=false
+    EOF
+
+    # TODO: Configure Web server:
+
     # Add passenger/nginx
     apt-get install apt-transport-https ca-certificates
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
