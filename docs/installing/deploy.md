@@ -86,8 +86,9 @@ Next, on your local machine:
 * now customise the deployment settings in that file: edit `config/deploy.yml`
   appropriately -- for example, edit the name of the server. Also, change
   `deploy_to` to be the path where Alaveteli is currently installed on the
-  server -- if you used the installation script, this will be
-  `/var/www/alaveteli/alaveteli`.
+  server -- if you used the installation script , this will be
+  `/var/www/[HOST or alaveteli]/alaveteli`.
+
 * `cd` into the Alaveteli repo you checked out (otherwise the `cap` commands you're about to
   execute won't work)
 * still on your local machine, run `cap -S stage=staging deploy:setup` to setup capistrano on the server
