@@ -92,6 +92,12 @@ Next, on your local machine:
   execute won't work)
 * still on your local machine, run `cap -S stage=staging deploy:setup` to setup capistrano on the server
 
+If you get an error `SSH::AuthenticationFailed`, and are not prompted for the password of the deployment user, you may have run into a bug in the net-ssh gem version 2.8.0. Try installing version 2.7.0 instead:
+
+    `gem uninstall net-ssh`
+
+    `gem install net-ssh -v 2.7.0`
+
 Back on the server:
 
 * copy the following config files from the temporary copy of Alaveteli you made at
