@@ -69,7 +69,11 @@ and thereafter you'll be able to deploy very easily (see [usage, below](#usage))
 First, on the server:
 
 * [install Alaveteli]({{ site.baseurl }}docs/installing/)
-* then move the Alaveteli app to a temporary place on the server, like your home
+* give the Unix user that runs Alaveteli the ability to ssh to your server. Either give them a password or, preferably, set up ssh keys for them so they can ssh from your local machine to the server:
+   * to give them a password (if they don't already have one) - `sudo passwd [UNIX-USER]`. Store this password securely on your local machine e.g in a password manager
+   * to set up ssh keys for them, follow the instructions in the [capistrano documentation](http://capistranorb.com/documentation/getting-started/authentication-and-authorisation/). There's no need to set up ssh keys to the git repository as it is public.
+* make sure the Unix user that runs Alaveteli has write permissions on the parent directory of your Alaveteli app
+* move the Alaveteli app to a temporary place on the server, like your home
   directory (temporarily, your site will be missing, until the deployment puts
   new files in place)
 
