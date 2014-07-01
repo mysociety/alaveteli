@@ -36,7 +36,7 @@
 <% else %>
   <% @title = _("Make an {{law_used_short}} request to '{{public_body_name}}'",:law_used_short=>h(@info_request.law_used_short),:public_body_name=>h(@info_request.public_body.name))  %>
 <% end %>
-    <h1><%= _('2. Ask for Information') %></h1>
+    <h1><%= _('Make a request') %></h1>
 
     <% if @existing_request %>
       <div class="errorExplanation" id="errorExplanation"><ul>
@@ -61,9 +61,8 @@
 
     <div id="request_header">
         <div id="request_header_body">
-            <label class="form_label"><%= _('To:') %></label>
-
             <% if @batch %>
+                <label class="form_label"><%= _('To:') %></label>
                 <span id="to_public_body">
                   <%= _("Your selected authorities") %>
                   <span class="batch_public_body_toggle" data-hidetext="<%= _("(hide)") %>" data-showtext="<%= _("(show)") %>"><a class="toggle-message"></a></span>
@@ -78,23 +77,14 @@
                 </div>
 
             <% else %>
-              <span id="to_public_body">
+              <p id="to_public_body"><span class="to_public_body_label">To:</span>
                 <%=h(@info_request.public_body.name)%>
-              </span>
+              </p>
             <% end %>
 
             <% unless @batch %>
-              <div class="form_item_note">
-                  <% if @info_request.public_body.info_requests.size > 0 %>
-                      <%= _("Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request.", :public_body_name=>h(@info_request.public_body.name), :url=>public_body_path(@info_request.public_body)) %>
-                  <% else %>
-                      <%= _("Browse <a href='{{url}}'>other requests</a> for examples of how to word your request.", :url=>request_list_url) %>
-                  <% end %>
-              </div>
-
               <% if @info_request.public_body.has_notes? %>
                 <div id="request_header_text">
-                  <h3><%= _('Special note for this authority!') %></h3>
                   <p><%= @info_request.public_body.notes_as_html.html_safe %></p>
                 </div>
               <% end %>
@@ -130,6 +120,48 @@
             <% end %>
           <% end %>
         </div>
+    </div>
+
+
+    <div id="request_advice">
+      <p>
+        <% if @info_request.public_body.info_requests.size > 0 %>
+            <%= _("Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request.", :public_body_name=>h(@info_request.public_body.name), :url=>public_body_path(@info_request.public_body)) %>
+        <% else %>
+            <%= _("Browse <a href='{{url}}'>other requests</a> for examples of how to word your request.", :url=>request_list_url) %>
+        <% end %>
+      </p>
+      <% unless @batch %>
+        <% if !@user %>
+          <p>
+            <%= raw(_('Everything that you enter on this page, including <strong>your name</strong>,
+            will be <strong>displayed publicly</strong> on
+            this website <a href="{{url}}">forever</a>', :url => (help_privacy_path+"#public_request").html_safe)) %>.
+          </p>
+          <p>
+            <%= raw(_('<a href="{{url}}">Thinking of using a pseudonym?</a>.', :url => (help_privacy_path+"#real_name").html_safe)) %>
+          </p>
+        <% else %>
+          <p>
+            <%= raw(_('Everything that you enter on this page
+            will be <strong>displayed publicly</strong> on
+            this website forever (<a href="{{url}}">why?</a>).', :url => (help_privacy_path+"#public_request").html_safe)) %>
+          </p>
+      <% end %>
+
+        <p>
+          <%= raw(_("<strong> Can I request information about myself?</strong>\n" +
+          "\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>", :url => (help_requesting_path+"#data_protection").html_safe)) %>
+        </p>
+        <ul>
+          <% end %>
+          <li><%= _('Write your request in <strong>simple, precise language</strong>.') %></li>
+          <li><%= _('Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries.') %></li>
+          <li><%= _('Keep it <strong>focused</strong>, you\'ll be more likely to get what you want (<a href="{{url}}">why?</a>).', :url => (help_requesting_path + '#focused').html_safe) %></li>
+        </ul>
+    </div>
+
+    <div id="request_form">
 
         <div id="request_header_subject">
             <p>
@@ -144,17 +176,7 @@
 
         <div id="typeahead_response">
         </div>
-    </div>
 
-    <div id="request_advice">
-        <ul>
-        <li><%= _('Write your request in <strong>simple, precise language</strong>.') %></li>
-        <li><%= _('Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries.') %></li>
-        <li><%= _('Keep it <strong>focused</strong>, you\'ll be more likely to get what you want (<a href="{{url}}">why?</a>).', :url => (help_requesting_path + '#focused').html_safe) %></li>
-        </ul>
-    </div>
-
-    <div id="request_form">
         <%= fields_for :outgoing_message do |o| %>
         <p>
             <label class="form_label" for="outgoing_message_body"><%= _('Your request:') %></label>
@@ -162,27 +184,7 @@
         </p>
         <% end %>
 
-        <% if !@user %>
-            <p class="form_note">
 
-                <%= raw(_('Everything that you enter on this page, including <strong>your name</strong>,
-                will be <strong>displayed publicly</strong> on
-                this website forever (<a href="{{url}}">why?</a>).', :url => (help_privacy_path+"#public_request").html_safe)) %>
-                <%= raw(_('If you are thinking of using a pseudonym,
-                please <a href="{{url}}">read this first</a>.', :url => (help_privacy_path+"#real_name").html_safe)) %>
-            </p>
-        <% else %>
-            <p class="form_note">
-                <%= raw(_('Everything that you enter on this page
-                will be <strong>displayed publicly</strong> on
-                this website forever (<a href="{{url}}">why?</a>).', :url => (help_privacy_path+"#public_request").html_safe)) %>
-            </p>
-        <% end %>
-
-        <p class="form_note">
-            <%= raw(_("<strong> Can I request information about myself?</strong>\n" +
-            "\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>", :url => (help_requesting_path+"#data_protection").html_safe)) %>
-        </p>
 
         <div class="form_button">
             <% if @batch %>

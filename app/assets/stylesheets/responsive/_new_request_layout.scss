@@ -99,6 +99,10 @@
   float: right;
 }
 
+.request_body {
+  @include grid-row($behavior: nest);
+}
+
 /* Advice sits on right hand side */
 #request_advice {
 
