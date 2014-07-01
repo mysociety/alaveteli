@@ -48,7 +48,14 @@ Example:
 * There are some new strings in this release for translation, so if your
   site isn't in English, make sure your translations are up to date
   before deploying to production
+* If your theme overrides the help/contact template, you should
+  add elements to the form to match those added to the main template:
 
+    <p style="display:none;">
+        <%= f.label :comment, 'Do not fill in this field' %>
+        <%= f.text_field :comment %>
+    </p>
+  This is the anti-spam honeypot.
 
 # Version 0.17
 
