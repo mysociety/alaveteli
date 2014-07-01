@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Daniela Mattern <3laste2000@gmail.com>, 2012
+# elaste <3laste2000@gmail.com>, 2012
 # serramassuda <a.serramassuda@gmail.com>, 2012
 # Bruno <bgx@bol.com.br>, 2012
 # Bruno <bgx@bol.com.br>, 2012
-# brunomelnic <brunomelnic@gmail.com>, 2012-2013
+# Bruno Melnic Incao <brunomelnic@gmail.com>, 2012-2013
 # Carlos Vieira <edu.carlos.vieira@gmail.com>, 2011
 # danielabsilva <danielabsilva@gmail.com>, 2011
 # danielabsilva <danielabsilva@gmail.com>, 2011
-# Daniela Mattern <3laste2000@gmail.com>, 2012
-# Daniela Mattern <3laste2000@gmail.com>, 2012
+# elaste <3laste2000@gmail.com>, 2012
+# elaste <3laste2000@gmail.com>, 2012
 #   <everton137@gmail.com>, 2011
 # gabinardy <gabileitao@gmail.com>, 2012
 # gabinardy <gabileitao@gmail.com>, 2012
@@ -36,9 +36,9 @@
 # Rafael H L Moretti <rafael.moretti@gmail.com>, 2012
 # Rafael H L Moretti <rafael.moretti@gmail.com>, 2012
 # serramassuda <a.serramassuda@gmail.com>, 2012
-# vitorbaptista <vitor@vitorbaptista.com>, 2013
-# vitorbaptista <vitor@vitorbaptista.com>, 2013
-# vitorbaptista <vitor@vitorbaptista.com>, 2013
+# Vítor Márcio Paiva de Sousa Baptista <vitor@vitorbaptista.com>, 2013
+# Vítor Márcio Paiva de Sousa Baptista <vitor@vitorbaptista.com>, 2013
+# Vítor Márcio Paiva de Sousa Baptista <vitor@vitorbaptista.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"

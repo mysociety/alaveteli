@@ -3,17 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# nirshman <nirshman99@gmail.com>, 2013
-# nirshman <nirshman99@gmail.com>, 2013
+# Nir Hirshman <nirshman99@gmail.com>, 2013
+# Nir Hirshman <nirshman99@gmail.com>, 2013
 # Ram Ezrach <ram.ezrach@gmail.com>, 2013
 # rshlo <r@roishlomi.com>, 2013
 # rshlo <r@roishlomi.com>, 2013
-# yauzi <yair.uziel@gmail.com>, 2013-2014
-# yauzi <yair.uziel@gmail.com>, 2013
+# Yair Uziel <yair.uziel@gmail.com>, 2013-2014
+# Yair Uziel <yair.uziel@gmail.com>, 2013
 # yehuda <yehudab@gmail.com>, 2013-2014
 # yehuda <yehudab@gmail.com>, 2013
-# Yoni Yalovitsky <yoni@yalovitsky.com>, 2013
-# Yoni Yalovitsky <yoni@yalovitsky.com>, 2013
+# yoniYalovitsky <yoni@yalovitsky.com>, 2013
+# yoniYalovitsky <yoni@yalovitsky.com>, 2013
 # Z.D <zdevir@gmail.com>, 2013
 # Z.D <zdevir@gmail.com>, 2013
 msgid ""
