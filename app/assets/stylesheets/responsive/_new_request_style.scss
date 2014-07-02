@@ -55,6 +55,11 @@
 }
 
 #request_advice {
+  margin-bottom: 1.5em;
+  font-size: 0.875em;
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    font-size: 1em;
+  }
   ul {
     margin:0 auto;
     list-style: none outside none;
@@ -68,7 +73,7 @@
 .advice-panel {
   background-color: darken(#f7eee1, 5%);
   padding: 1.5em;
-  margin-top: 1em;
+  margin-top: 1.5em;
 }
 
 
@@ -76,7 +81,7 @@
 .advice-panel {
   background-color: darken(#f7eee1, 5%);
   padding: 1.5em;
-  margin-top: 1em;
+  margin-top: 1.5em;
 }
 
 /* Batch request page */
