@@ -58,24 +58,26 @@
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     font-size: 1em;
   }
+  .advice-panel {
+      margin-top: 1.5em;
+  }
+}
+
+.advice-panel {
+  background-color: #f4f4f4;
+  padding: 1.5em;
   ul {
     margin:0 auto;
     list-style: none outside none;
-    padding-left: 0;
+    padding: 0;
     li {
       margin:0 0 1em;
     }
   }
 }
 
-.advice-panel {
-  background-color: darken(#f7eee1, 5%);
-  padding: 1.5em;
-  margin-top: 1.5em;
-}
-
 #request_search_ahead_results {
-   background-color: darken(#f7eee1, 5%);
+   background-color: #f4f4f4;
    padding: 1.5em;
    margin-bottom: 1.5em;
    h2 {
@@ -84,20 +86,17 @@
    }
 }
 
-.advice-panel {
-  background-color: darken(#f7eee1, 5%);
-  padding: 1.5em;
-  margin-top: 1.5em;
-}
 
-#request_search_ahead_results {
-   background-color: darken(#f7eee1, 5%);
-   padding: 1.5em;
-   margin-bottom: 1.5em;
-   h2 {
-    font-size: 1em;
-    font-weight: normal;
-   }
+input#reedit_button {
+  background-color: transparent;
+  color: #2688dc;
+  text-decoration: underline;
+    &:hover,
+    &:active,
+    &:focus {
+        color: #333333;
+    }
+    border: none;
 }
 
 /* Batch request page */

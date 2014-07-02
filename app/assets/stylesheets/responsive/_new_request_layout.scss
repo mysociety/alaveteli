@@ -76,7 +76,7 @@
   @include grid-row;
 
   /* Restrict width of form elements on wide screens */
-    #request_header_body, #request_header_subject, #typeahead_response  {
+    #request_header_body, #request_header_subject, #typeahead_response {
     @include grid-column(12);
     @include respond-min( $main_menu-mobile_menu_cutoff ){
       @include grid-column($columns:8, $last-column:true);
@@ -104,7 +104,7 @@
 }
 
 /* Advice sits on right hand side */
-#request_advice {
+#request_advice, .preview-advice {
 
   @include grid-column(12);
   @include respond-min( $main_menu-mobile_menu_cutoff ){
@@ -119,7 +119,6 @@
 }
 
 #request_form {
-
   @include grid-column(12);
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     @include grid-column($columns:8, $pull: 4);
@@ -133,9 +132,27 @@
 
 }
 
+/* Message preview */
+.message-preview {
+  @include grid-row($behavior: nest);
+}
+
 #preview_form {
   @include grid-column(12);
 }
+
+.preview-pane {
+    @include grid-column(12);
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-column($columns:8, $pull:4);
+      @include ie8{
+        padding-right: 0.9375em;
+      }
+      @include lte-ie7 {
+        width: 36.813em;
+      }
+    }
+  }
 
 
 /* Batch request page*/
@@ -204,7 +221,6 @@ div.batch_public_body_toggle {
 .batch_public_body_list {
   margin-left: 110px;
 }
-
 
 /* Request sent page */
 .request-sent-message {
