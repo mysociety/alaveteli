@@ -26,8 +26,6 @@
 
 }
 
-
-
 #to_public_body {
   font-weight: bold;
   font-size: 1.3em;
@@ -76,12 +74,30 @@
   margin-top: 1.5em;
 }
 
-
+#request_search_ahead_results {
+   background-color: darken(#f7eee1, 5%);
+   padding: 1.5em;
+   margin-bottom: 1.5em;
+   h2 {
+    font-size: 1em;
+    font-weight: normal;
+   }
+}
 
 .advice-panel {
   background-color: darken(#f7eee1, 5%);
   padding: 1.5em;
   margin-top: 1.5em;
+}
+
+#request_search_ahead_results {
+   background-color: darken(#f7eee1, 5%);
+   padding: 1.5em;
+   margin-bottom: 1.5em;
+   h2 {
+    font-size: 1em;
+    font-weight: normal;
+   }
 }
 
 /* Batch request page */

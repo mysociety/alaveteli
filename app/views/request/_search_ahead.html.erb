@@ -2,7 +2,7 @@
   <div id="request_search_ahead_results">
     <% if @xapian_requests.results.any? %>
       <span class="close-button">X</span>
-      <h3><%= _("Possibly related requests:") %></h3> 
+      <h2><%= _("Possible duplicate requests") %></h2>
 
       <% @xapian_requests.results.each do |result| %>
         <%= render :partial => 'request/request_listing_short_via_event',
