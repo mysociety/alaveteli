@@ -86,7 +86,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # Fetch and run the install script:
-  config.vm.provision :shell, :inline => "wget -O install-site.sh https://raw.github.com/mysociety/commonlib/master/bin/install-site.sh"
+  config.vm.provision :shell, :inline => "wget -O install-site.sh https://raw.githubusercontent.com/mysociety/commonlib/master/bin/install-site.sh"
   config.vm.provision :shell, :inline => "chmod a+rx install-site.sh"
   config.vm.provision :shell, :inline => "./install-site.sh " \
                                              "--dev " \
