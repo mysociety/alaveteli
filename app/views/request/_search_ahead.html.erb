@@ -1,20 +1,19 @@
 <% unless @xapian_requests.nil? %>
-  <div id="request_search_ahead_results">
     <% if @xapian_requests.results.any? %>
-      <span class="close-button">X</span>
-      <h2><%= _("Possible duplicate requests") %></h2>
+        <div id="request_search_ahead_results">
+            <span class="close-button">X</span>
+            <h2><%= _("Possible duplicate requests") %></h2>
+            <% @xapian_requests.results.each do |result| %>
+              <%= render :partial => 'request/request_listing_short_via_event',
+                         :locals => { :event => result[:model],
+                                      :info_request => result[:model].info_request } %>
+            <% end %>
 
-      <% @xapian_requests.results.each do |result| %>
-        <%= render :partial => 'request/request_listing_short_via_event',
-                   :locals => { :event => result[:model],
-                                :info_request => result[:model].info_request } %>
-      <% end %>
-
-      <p>
-          <a id="body-site-search-link">
-            <%= _("Search in their website for this information &rarr;") %>
-          </a>
-      </p>
+            <p>
+                <a id="body-site-search-link">
+                  <%= _("Search in their website for this information &rarr;") %>
+                </a>
+            </p>
+        </div>
     <% end %>
-  </div>
 <% end %>
