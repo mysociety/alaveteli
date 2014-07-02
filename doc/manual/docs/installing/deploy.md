@@ -97,7 +97,7 @@ Next, on your local machine:
   execute won't work)
 * still on your local machine, run `cap -S stage=staging deploy:setup` to setup capistrano on the server
 
-If you get an error `SSH::AuthenticationFailed`, and are not prompted for the password of the deployment user, you may have run into a bug in the net-ssh gem version 2.8.0. Try installing version 2.7.0 instead:
+If you get an error `SSH::AuthenticationFailed`, and are not prompted for the password of the deployment user, you may have run into [a bug](http://stackoverflow.com/questions/21560297/capistrano-sshauthenticationfailed-not-prompting-for-password) in the net-ssh gem version 2.8.0. Try installing version 2.7.0 instead:
 
     `gem uninstall net-ssh`
 
