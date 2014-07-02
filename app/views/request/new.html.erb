@@ -19,11 +19,11 @@
                       // When following links in typeahead results, open new
                       // tab/window
                       $("#typeahead_response a").attr("target","_blank");
-                      
+
                       // Update the public body site search link
                       $("#body-site-search-link").attr("href", "http://www.google.com/#q="+encodeURI($("#typeahead_search").val())+
                                                       "+site:<%= @info_request.public_body.calculated_home_page %>");
-                      
+
                       $('.close-button').click(function() { $(this).parent().hide() });
                   }
               });
@@ -122,7 +122,6 @@
         </div>
     </div>
 
-
     <div id="request_advice">
       <p>
         <% if @info_request.public_body.info_requests.size > 0 %>
@@ -151,14 +150,14 @@
 
         <p>
           <%= raw(_("<strong> Can I request information about myself?</strong>\n" +
-          "\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>", :url => (help_requesting_path+"#data_protection").html_safe)) %>
+          "\t\t\t<a href=\"{{url}}\">No!</a>", :url => (help_requesting_path+"#data_protection").html_safe)) %>
         </p>
         <div class="advice-panel">
           <ul>
             <% end %>
             <li><%= _('Write your request in <strong>simple, precise language</strong>.') %></li>
             <li><%= _('Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries.') %></li>
-            <li><%= _('Keep it <strong>focused</strong>, you\'ll be more likely to get what you want (<a href="{{url}}">why?</a>).', :url => (help_requesting_path + '#focused').html_safe) %></li>
+            <li><%= _('<a href="{{url}}">Keep it <strong>focused</strong></a>, you\'ll be more likely to get what you want.', :url => (help_requesting_path + '#focused').html_safe) %></li>
           </ul>
         </div>
     </div>
@@ -171,8 +170,8 @@
                 <%= f.text_field :title, :size => 50, :id =>"typeahead_search" %>
             </p>
             <div class="form_item_note">
-                (<%= _("a one line summary of the information you are requesting, \n\t\t\te.g.") %>
-                  <%= render :partial => "summary_suggestion" %>)
+                <%= _("A one line summary of the information you are requesting, \n\t\t\te.g.") %>
+                  <%= render :partial => "summary_suggestion" %>
             </div>
         </div>
 
@@ -185,8 +184,6 @@
             <%= o.text_area :body, :rows => 20, :cols => 60 %>
         </p>
         <% end %>
-
-
 
         <div class="form_button">
             <% if @batch %>
