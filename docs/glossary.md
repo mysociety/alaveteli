@@ -27,6 +27,7 @@ Definitions
   <li><a href="#holding_pen">holding pen</a></li>
   <li><a href="#newrelic">New Relic</a></li>
   <li><a href="#mta">MTA</a></li>
+  <li><a href="#po">.po files</a></li>
   <li><a href="#production">production site</a></li>
   <li><a href="#publish">publish</a></li>
   <li><a href="#recaptcha">recaptcha</a></li>
@@ -327,6 +328,36 @@ Definitions
         <li>
           the <a href="http://newrelic.com">New Relic website</a>: if you've enabled the service,
           you can log in to inspect the perfomance analytics
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="po"><code>.po</code> file</a> (and <code>.pot</code> file)
+  </dt>
+  <dd>
+    These are the files needed by the gettext mechanism Alaveteli uses for
+    localisation. A <code>.pot</code> file is effectively a list of all the
+    strings in the application that need translating. Each <code>.po</code>
+    file contains the mapping between those strings, used as keys, and their
+    translations for one particular language. The key is called the
+    <em>msgid</em>, and its corresponding translation is the <em>msgstr</em>.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          See <a href="{{ site.baseurl }}docs/customising/translation/">translating
+          Alaveteli</a> for an overview from a translator's point of view.
+        </li>
+        <li>
+          See <a href="{{ site.baseurl }}docs/developers/i18n/">Internationalising
+          Alaveteli</a> for more technical details.
+        </li>
+        <li>
+          Alaveteli is on the  <a href="https://www.transifex.net/projects/p/alaveteli/">Transifex</a>
+          website, which lets translators work on Alaveteli in a browser, without needing
+          to worry about this underlying structure.
         </li>
       </ul>
     </div>
