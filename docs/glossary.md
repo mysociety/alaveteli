@@ -410,15 +410,6 @@ Definitions
   </dd>
 
   <dt>
-    <a name="response">response</a>
-  </dt>
-  <dd>
-    A <strong>response</strong> is the email sent by an
-     <a href="#authority" class="glossary">authority</a> in reply to
-     a user's  <a href="#request" class="glossary">requests</a>.
-  </dd>
-
-  <dt>
     <a name="recaptcha">recaptcha</a>
   </dt>
   <dd>
@@ -559,6 +550,15 @@ Definitions
     Alaveteli automatically <a href="#publish" class="glossary">publishes</a>
     the <a href="#response" class="glossary">responses</a>
     to all the requests it sends.
+  </dd>
+
+  <dt>
+    <a name="response">response</a>
+  </dt>
+  <dd>
+    A <strong>response</strong> is the email sent by an
+     <a href="#authority" class="glossary">authority</a> in reply to
+     a user's  <a href="#request" class="glossary">requests</a>.
   </dd>
 
   <dt>
