@@ -34,6 +34,7 @@ Definitions
   <li><a href="#redact">redacting</a></li>
   <li><a href="#regexp">regular expression</a></li>
   <li><a href="#request">request</a></li>
+  <li><a href="#release">release</a></li>
   <li><a href="#response">response</a></li>
   <li><a href="#rails">Ruby&nbsp;on&nbsp;Rails</a></li>
   <li><a href="#sass">Sass</a></li>
@@ -507,6 +508,41 @@ Definitions
         <li>
           see <a href="http://en.wikibooks.org/wiki/Regular_Expressions"><em>Regular
           Expressions</em> on wikibooks</a> for more information
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="release">release</a> (also: release manager)
+  </dt>
+  <dd>
+    We issue new <strong>releases</strong> of the Alaveteli code whenever key
+    work (new features, improvements, bugfixes, and so on) have been added to
+    the core code. Releases are identified by three numbers: major, minor, and
+    &mdash; if necessary &mdash; a patch number. We recommend you always use
+    the latest version. The process is handled by the Alaveteli <strong>release
+    manager</strong>, who decides what changes are to be included in the
+    current release, and the cut-off date for the work. Currently this is
+    Alaveteli's lead developer at mySociety.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          The latest stable release is on the
+          <a href="https://github.com/mysociety/alaveteli/tree/master">master branch</a>.
+        </li>
+        <li>
+          See a <a href="https://github.com/mysociety/alaveteli/releases">list of all releases</a>.
+        </li>
+        <li>
+          We try to coordinate releases with any active translation work too.
+          See <a href="http://localhost:4000/docs/customising/translation/">translating
+          Alaveteli</a> for more information.
+        </li>
+        <li>
+          We encourage you use the <a href="{{site.baseurl}}docs/installing/deploy/">deployment
+          mechanism</a>, which makes it easier to keep your production server up-to-date.
         </li>
       </ul>
     </div>
