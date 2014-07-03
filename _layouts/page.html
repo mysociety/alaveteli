@@ -19,7 +19,7 @@ layout: default
             {% capture url_parts %}{{ url_parts | remove_first:part }}{% endcapture %}
           {% endfor %}
       {% else %}
-        <li><a href="/blog">Blog</a></li>
+        <li><a href="/blog/">Blog</a></li>
       {% endif %}
     {% endif %}
   </ul>
@@ -33,13 +33,13 @@ layout: default
       <nav class="sidebar">
         <ul>
           <li>
-            <!-- <gcse:searchbox-only></gcse:searchbox-only> -->
+            <gcse:searchbox-only></gcse:searchbox-only>
 
           </li>
           <li><a href="{{ site.baseurl }}about/">About</a></li>
           <li><a href="{{ site.baseurl }}docs/">Documentation</a>
             <ul>
-              <li><a href="{{ site.baseurl }}docs/glossary">Glossary</a></li>
+              <li><a href="{{ site.baseurl }}docs/glossary/">Glossary</a></li>
             </uL>
           </li>
           <li><a href="{{ site.baseurl }}docs/getting_started/">Getting Started</a></li>
@@ -47,7 +47,7 @@ layout: default
             <ul>
               <li><a href="{{ site.baseurl }}docs/installing/script/">Install script</a></li>
               <li><a href="{{ site.baseurl }}docs/installing/ami/">Alaveteli AMI for EC2</a></li>
-              <li><a href="{{ site.baseurl }}docs/installing/manual_install/">Installing by hand</a></li>
+              <li><a href="{{ site.baseurl }}docs/installing/manual_install/">Manual Install</a></li>
               <li><a href="{{ site.baseurl }}docs/installing/deploy/">Deploying</a></li>
               <li><a href="{{ site.baseurl }}docs/installing/email/">MTA (email)</a></li>
             </ul>
@@ -71,6 +71,7 @@ layout: default
             <ul>
               <li><a href="{{ site.baseurl }}docs/developers/overview/">High-level overview</a></li>
               <li><a href="{{ site.baseurl }}docs/developers/directory_structure/">Directory structure</a></li>
+              <li><a href="{{ site.baseurl }}docs/developers/i18n/">Internationalisation</a></li>
               <li><a href="{{ site.baseurl }}docs/developers/api/">API</a></li>
             </ul>
           </li>

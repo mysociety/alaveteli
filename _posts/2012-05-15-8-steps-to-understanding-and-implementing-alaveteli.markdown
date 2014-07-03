@@ -67,11 +67,11 @@ Here, in eight points, is the key to understanding why Alaveteli has excited adv
   * The Alaveteli code has been translated into 8 languages.
 
 
-[Dolores Lavalle Cobo](http://twitter.com/dololavalle), a lawyer and specialist in access to public information, says Alaveteli revolutionises the concept of what it means to share information, and creates a change of mentality in the people.
+[Dolores Lavalle Cobo](https://twitter.com/dololavalle), a lawyer and specialist in access to public information, says Alaveteli revolutionises the concept of what it means to share information, and creates a change of mentality in the people.
 
 She’s not exaggerating. This software is a testament to how technology, enthusiasm and a commitment to transparency can create a tool without limits for citizen participation.
 
-Meanwhile, public policy consultant [Germain Stalker](http://twitter.com/stalkerGer) agrees with this definition: "Alaveteli universalises access to information, allowing the public documents held by the State to acquire real and tangible value."
+Meanwhile, public policy consultant [Germain Stalker](https://twitter.com/stalkerGer) agrees with this definition: "Alaveteli universalises access to information, allowing the public documents held by the State to acquire real and tangible value."
 
 Nothing is more certain than this. Demanding transparency is a task for the people, and the platform has awakened interest in what governments do, as never before.
 

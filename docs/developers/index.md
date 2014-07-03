@@ -12,7 +12,7 @@ title: For developers
 * The software is written in **Ruby on Rails 3.x**. We support postgresql as
   the backend database. A configured mail transfer agent (MTA) like exim,
   postfix or sendmail is necessary to parse incoming emails. We have production
-  sites deployed on Debian (Squeeze and Wheezy) and Ubuntu (10.04 and 12.04 LTS). For performance
+  sites deployed on Debian (Squeeze and Wheezy) and Ubuntu (12.04 LTS). For performance
   reasons, we recommend the use of [Varnish](https://www.varnish-cache.org).
 
 * To help you understand what the code is doing, read this [high-level
@@ -53,10 +53,10 @@ title: For developers
   it should be this!**
 
 * Like many Ruby on Rails sites, the software is not hugely performant (see
-  some notes about [[performance issues]] gathered over time with
+  [these notes about performance issues](https://github.com/mysociety/alaveteli/wiki/Performance-issues) gathered over time with
   WhatDoTheyKnow). The site will run on a server with 512MB RAM but at least
   2GB is recommended. Deployment behind [Varnish](https://www.varnish-cache.org) is also fairly essential. See
-  [[Production Server Best Practices]] for more.
+  [production server best practices]({{site.baseurl}}docs/running/server/) for more.
 
 * There's a number of [proposals for enhancements](https://github.com/mysociety/alaveteli/wiki/Proposals-for-enhancements),
   such as more user-focused features, but see also...
@@ -74,8 +74,7 @@ title: For developers
 
 * If you're experiencing memory issues, [this blog post about some strategies
   used in the
-  past](https://www.mysociety.org/2009/09/17/whatdotheyknow-growing-pains-and-rub
-  y-memory-leaks/) might be useful.
+  past](https://www.mysociety.org/2009/09/17/whatdotheyknow-growing-pains-and-ruby-memory-leaks/) might be useful.
 
 * If you're coding on a mac, see these [MacOS X installation notes]({{ site.baseurl }}docs/installing/macos/). <!-- [[OS X Quickstart]] -->
 

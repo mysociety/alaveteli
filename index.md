@@ -37,8 +37,37 @@ title: Welcome
         </div>
         <div class="what-is-alaveteli__international-reach-position">
             <div class="what-is-alaveteli__international-reach">
-                <p class="message">Alaveteli has helped citizens make over <strong>200,000 Freedom of Information requests</strong> in <strong>16 jurisdictions</strong></p>
-                <!--<p><a href="#">See all deployments</a></p>-->
+                <p class="message">Alaveteli has helped citizens make over <strong>200,000 Freedom of Information requests</strong> in <strong>18 jurisdictions</strong></p>
+                <p><a href="{{ site.baseurl }}deployments/">See all deployments</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="how-does-it-work">
+    <div class="how-does-it-work__slide">
+        <div class="container">
+            <div class="how-does-it-work__content">
+                <h2>How Alaveteli works</h2>
+                <p>Make a public request for information by finding the relevant authority</p>
+                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-find.svg" class="alaveteli-demo-screenshot"/>
+            </div>
+        </div>
+    </div>
+    <div class="how-does-it-work__slide">
+        <div class="container">
+            <div class="how-does-it-work__content">
+                <h2>How Alaveteli works</h2>
+                <p>You write a request for information from the authority</p>
+                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-ask.svg" class="alaveteli-demo-screenshot"/>
+            </div>
+        </div>
+    </div>
+    <div class="how-does-it-work__slide">
+        <div class="container">
+            <div class="how-does-it-work__content">
+                <h2>How Alaveteli works</h2>
+                <p>The request and all responses are published online for anyone to view</p>
+                <img src="{{ site.baseurl }}assets/img/alaveteli-demo-screen-view.svg" class="alaveteli-demo-screenshot"/>
             </div>
         </div>
     </div>
@@ -70,7 +99,7 @@ title: Welcome
             --><div class="features__grid-unit">
                 <div class="features__item">
                     <h3>Multilingual</h3>
-                    <p>Available in ten languages and counting, and you can translate it to your own</p>
+                    <p>Available in twenty languages and counting, and you can translate it to your own</p>
                 </div>
             </div><!--
             --><div class="features__grid-unit">
@@ -109,7 +138,7 @@ title: Welcome
         <div class="get-started__item get-started__item">
             <h3>Speak to us</h3>
             <p>Need some help? Tell us about your plans</p>
-            <p class="push-top"><a href="{{ site.baseurl }}community" class="button">Get in touch</a></p>
+            <p class="push-top"><a href="{{ site.baseurl }}community/" class="button">Get in touch</a></p>
         </div>
     </div>
   </div>
