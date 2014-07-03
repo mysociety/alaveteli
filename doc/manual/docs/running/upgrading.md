@@ -7,8 +7,9 @@ Upgrading Alaveteli
 
 <p class="lead">
   Alaveteli is under active development &mdash; don't let the
-  version you're running get too far behind our latest release. This page
-  describes how to keep your site up-to-date
+  version you're running get too far behind our latest
+  <a href="{{site.baseurl}}docs/glossary/#release" class="glossary__link">release</a>.
+  This page describes how to keep your site up-to-date
 </p>
 
 ## Master branch contains the latest stable release
@@ -16,9 +17,10 @@ Upgrading Alaveteli
 The developer team policy is that the `master` branch in git should always
 contain the latest stable release -- so you'll be up to date if you pull from
 the `master` branch. However, on your
-<a href="{{site.baseurl}}docs/glossary/#production" class="glossary">production site</a>,
-you should know precisely what version you're running, and deploy Alaveteli
-from a [*specific* release tag](https://github.com/mysociety/alaveteli/releases).
+<a href="{{site.baseurl}}docs/glossary/#production" class="glossary">production
+site</a>, you should know precisely what version you're running, and deploy
+Alaveteli from a [*specific* release
+tag](https://github.com/mysociety/alaveteli/releases).
 
 Upgrading may just require pulling in the latest code -- but it may also require
 other changes ("further action"). For this reason, for anything other than a
@@ -32,7 +34,7 @@ other changes that might be needed to make the new code work.
 * If you're using Capistrano for deployment,
   simply [deploy the code]({{site.baseurl}}docs/installing/deploy/#usage):
   set the repo and branch in `deploy.yml` to be the version you want. 
-  We recommend you set this to the explicit branch name (for example, 
+  We recommend you set this to the explicit tag name (for example, 
   `0.18`, and not `master`) so there's no risk of you accidentally deploying
   a new version before you're aware it's been released.
 * otherwise, you can simply upgrade by running `git pull`
