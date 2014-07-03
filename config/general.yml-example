@@ -5,6 +5,9 @@
 #
 # Copy this file to one called "general.yml" in the same directory.  Or
 # have multiple config files and use a symlink to change between them.
+#
+# Default values for these settings can be found in
+# RAILS_ROOT/lib/configuration.rb
 
 # Site name appears in various places throughout the site
 SITE_NAME: 'Alaveteli'
