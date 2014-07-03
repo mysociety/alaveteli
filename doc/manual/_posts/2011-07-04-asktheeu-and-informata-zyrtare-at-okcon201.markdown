@@ -18,7 +18,7 @@ tags:
 - whatdotheyknow
 ---
 
-Last week I travelled to Berlin to meet with [@dcabo](http://twitter.com/#!/dcabo), [@helen_access](http://twitter.com/#!/helen_access) and [@KerstiRu](http://twitter.com/#!/KerstiRu) of [Access Info Europe](http://www.access-info.org/) and Valon Brestovci of [Free Libre Open Source Software Kosova](http://www.flossk.org/) (FLOSSK) to discuss and plan collaboration on the first Alaveteli-driven websites: _AskTheEu_ and _Informata Zyrtare_.
+Last week I travelled to Berlin to meet with [@dcabo](https://twitter.com/#!/dcabo), [@helen_access](https://twitter.com/#!/helen_access) and [@KerstiRu](https://twitter.com/#!/KerstiRu) of [Access Info Europe](http://www.access-info.org/) and Valon Brestovci of [Free Libre Open Source Software Kosova](http://www.flossk.org/) (FLOSSK) to discuss and plan collaboration on the first Alaveteli-driven websites: _AskTheEu_ and _Informata Zyrtare_.
 
 
 {% include image.html url="/assets/img/foamthing.jpg" description="Open hardware milling machine at OKCon" width="223" %}

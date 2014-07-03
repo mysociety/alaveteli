@@ -10,6 +10,7 @@ categories:
 - Blog
 - Development
 - Hosting
+redirect_from: /2011/07/13/pret-a-porter-alaveteli/
 ---
 
 As part of my recent work on the Alaveteli code, I've needed to repeatedly test it. Currently it's quite complicated installing an Alaveteli website, and I've been having to reinstall from scratch a few times to make sure my test environment is clean.

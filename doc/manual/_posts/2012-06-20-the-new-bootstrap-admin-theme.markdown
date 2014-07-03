@@ -14,7 +14,7 @@ One of the major new features in the latest release of Alaveteli is a more attra
 
 {% include image.html url="/assets/img/oldnew.png" description="Admin interface before and after" width="643" %}
 
-The theme was started at AlaveteliCon by [@wombleton](https://twitter.com/#!/wombleton).  It's based on Twitter's [Bootstrap framework](http://twitter.github.com/bootstrap/), a CSS-and-javascript foundation for layout and styling of websites.  It tries to collapse the large amounts of data often found on a single page into smaller chunks that can be scanned more easily.
+The theme was started at AlaveteliCon by [@wombleton](https://twitter.com/#!/wombleton).  It's based on Twitter's [Bootstrap framework](https://twitter.github.com/bootstrap/), a CSS-and-javascript foundation for layout and styling of websites.  It tries to collapse the large amounts of data often found on a single page into smaller chunks that can be scanned more easily.
 
 When I started integrating the new code into the Alaveteli core, I realised that this might be quite a big and potentially unwanted step for users who are used to the old interface.  So I moved all the interface changes [into their own theme](https://github.com/mysociety/adminbootstraptheme), which can be installed or uninstalled by changing [a line in the configuration file](https://github.com/mysociety/alaveteli/blob/2e69a53ff5c3e15dd5a7a0fcb5f8fcedf3d6f778/config/general.yml-example#L37).
 

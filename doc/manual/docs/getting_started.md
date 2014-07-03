@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Getting started
+redirect_from: /getting_started/
 ---
 
 # Getting started with Alaveteli
@@ -12,8 +13,8 @@ title: Getting started
 
 For inspiration, take a look at some of the existing Alaveteli websites, like
 [tuderechoasaber.es](http://tuderechoasaber.es) (Spain),
-[AskTheEU](http://asktheeu.org) (EU), or
-[WhatDoTheyKnow](http://www.whatdotheyknow.com) (UK). These sites all use the
+[AskTheEU](http://www.asktheeu.org) (EU), or
+[WhatDoTheyKnow](https://www.whatdotheyknow.com) (UK). These sites all use the
 Alaveteli software, plus their own custom themes installed on top to make them
 look different.
 
@@ -68,7 +69,7 @@ Alaveteli.
 >
 > -- _Pedro Markun, Queremos Saber_
 
-[AskTheEU](http://asktheeu.org), a much more complete and polished version with
+[AskTheEU](http://www.asktheeu.org), a much more complete and polished version with
 a custom theme and several other customisations, took a team of 2 or 3 people
 about 3 months (part time) to complete.
 
@@ -369,7 +370,7 @@ website is. To ensure its success, you should be doing things like:
 * Recruiting volunteers to help with the site
 * Categorising uncategorised requests
 
-See also the [Administrator's Manual](/docs/running/admin_manual), which describes
+See also the [Administrator's Manual](/docs/running/admin_manual/), which describes
 some of the typical tasks you'll need to perform when your site is up and
 running.
 

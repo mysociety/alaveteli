@@ -19,7 +19,7 @@ customise them, you can &mdash; see
 
 ## WhatDoTheyKnow example
 
-Requests made on the UK's Alaveteli instance, [WhatDoTheyKnow](http://www.whatdotheyknow.com),
+Requests made on the UK's Alaveteli instance, [WhatDoTheyKnow](https://www.whatdotheyknow.com),
 may be in any of the states described below.
 
 Note that your site doesn't need to use the same states as WhatDoTheyKnow does. For example,

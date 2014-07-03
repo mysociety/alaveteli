@@ -27,12 +27,14 @@ Definitions
   <li><a href="#holding_pen">holding pen</a></li>
   <li><a href="#newrelic">New Relic</a></li>
   <li><a href="#mta">MTA</a></li>
+  <li><a href="#po">.po files</a></li>
   <li><a href="#production">production site</a></li>
   <li><a href="#publish">publish</a></li>
   <li><a href="#recaptcha">recaptcha</a></li>
   <li><a href="#redact">redacting</a></li>
   <li><a href="#regexp">regular expression</a></li>
   <li><a href="#request">request</a></li>
+  <li><a href="#release">release</a></li>
   <li><a href="#response">response</a></li>
   <li><a href="#rails">Ruby&nbsp;on&nbsp;Rails</a></li>
   <li><a href="#sass">Sass</a></li>
@@ -53,7 +55,7 @@ Definitions
     managing and archiving Freedom of Information requests.
     <p>
       It grew from the successful FOI UK project
-      <a href="http://www.whatdotheyknow.com">WhatDoTheyKnow</a>.
+      <a href="https://www.whatdotheyknow.com">WhatDoTheyKnow</a>.
       We use the name <em>Alaveteli</em> to distinguish the software
       that runs the platform from any specific website that it is powering.
     </p>
@@ -154,7 +156,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          how to <a href="{{ site.baseurl }}docs/installing/deploy">deploy Alaveteli</a> (and why it's
+          how to <a href="{{ site.baseurl }}docs/installing/deploy/">deploy Alaveteli</a> (and why it's
           a good idea)
         </li>
         <li>
@@ -224,7 +226,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          Wikipedia summary of <a href="http://http://en.wikipedia.org/wiki/Freedom_of_information_laws_by_country">FOI laws by country</a>.
+          Wikipedia summary of <a href="http://en.wikipedia.org/wiki/Freedom_of_information_laws_by_country">FOI laws by country</a>.
         </li>
       </ul>
     </div>
@@ -238,7 +240,7 @@ Definitions
     helps us track changes to the code, and also makes it easy for other people
     to duplicate and even contribute to our software.
     <p>
-      The website <a href="http://github.com/mysociety">github.com</a> is a central, public
+      The website <a href="https://github.com/mysociety">github.com</a> is a central, public
       place where we make our software available. Because it's Open Source, you can
       inspect the code there (Alaveteli is mostly written in the programming language
       Ruby), report bugs, suggest features and many other useful things.
@@ -261,7 +263,7 @@ Definitions
           href="http://git-scm.com">official website</a>.
         </li>
         <li>
-          See <a href="http://github.com/mysociety">the mySociety projects on
+          See <a href="https://github.com/mysociety">the mySociety projects on
           github</a>.
         </li>
       </ul>
@@ -333,6 +335,36 @@ Definitions
   </dd>
 
   <dt>
+    <a name="po"><code>.po</code> file</a> (and <code>.pot</code> file)
+  </dt>
+  <dd>
+    These are the files needed by the gettext mechanism Alaveteli uses for
+    localisation. A <code>.pot</code> file is effectively a list of all the
+    strings in the application that need translating. Each <code>.po</code>
+    file contains the mapping between those strings, used as keys, and their
+    translations for one particular language. The key is called the
+    <em>msgid</em>, and its corresponding translation is the <em>msgstr</em>.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          See <a href="{{ site.baseurl }}docs/customising/translation/">translating
+          Alaveteli</a> for an overview from a translator's point of view.
+        </li>
+        <li>
+          See <a href="{{ site.baseurl }}docs/developers/i18n/">Internationalising
+          Alaveteli</a> for more technical details.
+        </li>
+        <li>
+          Alaveteli is on the  <a href="https://www.transifex.net/projects/p/alaveteli/">Transifex</a>
+          website, which lets translators work on Alaveteli in a browser, without needing
+          to worry about this underlying structure.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
     <a name="production">production site</a> (also: live, production server)
   </dt>
   <dd>
@@ -375,15 +407,6 @@ Definitions
     as pages &mdash; one per request &mdash; on the website. This makes it
     easy for people to find, read, link to, and share the request and the
     information provided in response.
-  </dd>
-
-  <dt>
-    <a name="response">response</a>
-  </dt>
-  <dd>
-    A <strong>response</strong> is the email sent by an
-     <a href="#authority" class="glossary">authority</a> in reply to
-     a user's  <a href="#request" class="glossary">requests</a>.
   </dd>
 
   <dt>
@@ -482,6 +505,41 @@ Definitions
   </dd>
 
   <dt>
+    <a name="release">release</a> (also: release manager)
+  </dt>
+  <dd>
+    We issue new <strong>releases</strong> of the Alaveteli code whenever key
+    work (new features, improvements, bugfixes, and so on) have been added to
+    the core code. Releases are identified by three numbers: major, minor, and
+    &mdash; if necessary &mdash; a patch number. We recommend you always use
+    the latest version. The process is handled by the Alaveteli <strong>release
+    manager</strong>, who decides what changes are to be included in the
+    current release, and the cut-off date for the work. Currently this is
+    Alaveteli's lead developer at mySociety.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          The latest stable release is on the
+          <a href="https://github.com/mysociety/alaveteli/tree/master">master branch</a>.
+        </li>
+        <li>
+          See a <a href="https://github.com/mysociety/alaveteli/releases">list of all releases</a>.
+        </li>
+        <li>
+          We try to coordinate releases with any active translation work too.
+          See <a href="http://localhost:4000/docs/customising/translation/">translating
+          Alaveteli</a> for more information.
+        </li>
+        <li>
+          We encourage you use the <a href="{{site.baseurl}}docs/installing/deploy/">deployment
+          mechanism</a>, which makes it easier to keep your production server up-to-date.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
     <a name="request">request</a>
   </dt>
   <dd>
@@ -492,6 +550,15 @@ Definitions
     Alaveteli automatically <a href="#publish" class="glossary">publishes</a>
     the <a href="#response" class="glossary">responses</a>
     to all the requests it sends.
+  </dd>
+
+  <dt>
+    <a name="response">response</a>
+  </dt>
+  <dd>
+    A <strong>response</strong> is the email sent by an
+     <a href="#authority" class="glossary">authority</a> in reply to
+     a user's  <a href="#request" class="glossary">requests</a>.
   </dd>
 
   <dt>
@@ -610,7 +677,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-      <a href="{{ site.baseurl }}docs/customising/themes">about themes</a>
+      <a href="{{ site.baseurl }}docs/customising/themes/">about themes</a>
         </li>
       </ul>
     </div>
