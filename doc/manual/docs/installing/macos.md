@@ -88,17 +88,27 @@ The following is mostly from [the manual installation process]({{ site.baseurl}}
 
 ### Configure database
 
-Creates Alaveteli databases and an `foi` user with password `foi`.
+Create a database for your Mac user as homebrew doesn't create one by default:
 
-    echo "CREATE DATABASE foi_development encoding = 'UTF8';
-    CREATE DATABASE foi_test encoding = 'UTF8';
-    CREATE USER foi WITH CREATEUSER;
-    ALTER USER foi WITH PASSWORD 'foi';
-    ALTER USER foi WITH CREATEDB;
-    GRANT ALL PRIVILEGES ON DATABASE foi_development TO foi;
-    GRANT ALL PRIVILEGES ON DATABASE foi_test TO foi;
-    ALTER DATABASE foi_development OWNER TO foi;
-    ALTER DATABASE foi_test OWNER TO foi;" | psql -h localhost template1
+    createdb
+
+Create a `foi` user from the command line, like this:
+
+    createuser -s -P foi
+
+_Note:_ Leaving the password blank will cause great confusion if you're new to
+PostgreSQL.
+
+We'll create a template for our Alaveteli databases:
+
+    createdb -T template0 -E UTF-8 template_utf8
+    echo "update pg_database set datistemplate=true where datname='template_utf8';" | psql
+
+Then create the databases:
+
+    createdb -T template_utf8 -O foi alaveteli_production
+    createdb -T template_utf8 -O foi alaveteli_test
+    createdb -T template_utf8 -O foi alaveteli_development
 
 ### Clone Alaveteli
 
