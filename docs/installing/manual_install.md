@@ -339,28 +339,6 @@ localhost interface by adding `--binding=127.0.0.1`
 The server should have told you the URL to access in your browser to see the
 site in action.
 
-## Administrator privileges
-
-The administrative interface is at the URL `/admin`.
-
-Only users with the `super` admin level can access the admin interface. Users
-create their own accounts in the usual way, and then administrators can give
-them `super` privileges.
-
-There is an emergency user account which can be accessed via
-`/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
-`ADMIN_PASSWORD`, which are set in `general.yml`.  To bootstrap the
-first `super` level accounts, you will need to log in as the emergency
-user. You can disable the emergency user account by setting `DISABLE_EMERGENCY_USER` to `true` in `general.yml`.
-
-Users with the superuser role also have extra privileges in the website
-frontend, such as being able to categorise any request, being able to view
-items that have been hidden from the search, and being presented with "admin"
-links next to individual requests and comments in the front end.
-
-It is possible completely to override the administrator authentication by
-setting `SKIP_ADMIN_AUTH` to `true` in `general.yml`.
-
 ## Cron jobs and init scripts
 
 `config/crontab-example` contains the cronjobs run on WhatDoTheyKnow. It's in a
