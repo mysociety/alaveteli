@@ -510,12 +510,12 @@ Definitions
   <dd>
     We issue new <strong>releases</strong> of the Alaveteli code whenever key
     work (new features, improvements, bugfixes, and so on) have been added to
-    the core code. Releases are identified by three numbers: major, minor, and
-    &mdash; if necessary &mdash; a patch number. We recommend you always use
-    the latest version. The process is handled by the Alaveteli <strong>release
-    manager</strong>, who decides what changes are to be included in the
-    current release, and the cut-off date for the work. Currently this is
-    Alaveteli's lead developer at mySociety.
+    the core code. Releases are identified by their tag, which comprises two or
+    three numbers: major, minor, and &mdash; if necessary &mdash; a patch
+    number. We recommend you always use the latest version. The process is
+    handled by the Alaveteli <strong>release manager</strong>, who decides what
+    changes are to be included in the current release, and the cut-off date for
+    the work. Currently this is Alaveteli's lead developer at mySociety.
     <div class="more-info">
       <p>More information:</p>
       <ul>
@@ -524,7 +524,8 @@ Definitions
           <a href="https://github.com/mysociety/alaveteli/tree/master">master branch</a>.
         </li>
         <li>
-          See a <a href="https://github.com/mysociety/alaveteli/releases">list of all releases</a>.
+          See a <a href="https://github.com/mysociety/alaveteli/releases">list of all releases</a>
+          and their explicit tags.
         </li>
         <li>
           We try to coordinate releases with any active translation work too.
