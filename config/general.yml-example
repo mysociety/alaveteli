@@ -83,8 +83,6 @@ INCOMING_EMAIL_SECRET: 'xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx'
 # used as envelope from at the incoming email domain for cases where we don't care about failure
 BLACKHOLE_PREFIX: 'do-not-reply-to-this-address'
 
-## Administration
-
 # The emergency user
 ADMIN_USERNAME: 'adminxxxx'
 ADMIN_PASSWORD: 'passwordx'
