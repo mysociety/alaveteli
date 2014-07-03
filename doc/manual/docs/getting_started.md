@@ -108,12 +108,13 @@ You'll need to find a tech person who knows about hosting websites using Apache
 and Linux. They don't need to know Ruby on Rails, but it would be a huge
 advantage if they do.
 
-You'll also need to source a server. You should ask your tech person to help
-with this. The minimum spec for running a low traffic website is 512MB RAM and
-a 20GB disk. 2GB RAM would be ideal. We recommend Debian Squeeze 64-bit as the
-operating system, though any sort of Linux should do. Rackspace offer suitable
-cloud servers, which start out at around $25 / month. Then your tech person
-should follow the [installation documentation]({{ site.baseurl }}docs/installing/).
+You'll also need to source a server. You should ask your tech person to
+help with this. The minimum spec for running a low traffic website is
+512MB RAM and a 20GB disk. 2GB RAM would be ideal. We recommend the
+latest Debian Wheezy (7) or Squeeze (6) 64-bit or Ubuntu precise (12.04)
+as the operating system. Rackspace offer suitable cloud servers, which
+start out at around $25 / month. Then your tech person should follow the
+[installation documentation]({{ site.baseurl }}docs/installing/).
 
 Alternatively, you could use Amazon Web Services. This has the
 added advantage that you can use our preconfigured [Alaveteli EC2
