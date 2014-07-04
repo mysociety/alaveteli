@@ -23,7 +23,7 @@ There's also an Alaveteli-specific stylesheet, so do:
 
 To view the documentation locally using Jekyll, do something like:
 
-    `jekyll serve --watch`
+    jekyll serve --watch
 
 
 ## Using grunt to work locally
