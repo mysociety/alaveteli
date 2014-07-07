@@ -94,6 +94,17 @@ The squeeze-backports repository is providing a more recent version of rubygems,
     Pin-Priority: 50
     EOF
 
+**Debian Wheezy**
+
+    cat > /etc/apt/sources.list.d/debian-extra.list <<EOF
+    # Debian mirror to use, including contrib and non-free:
+    deb http://the.earth.li/debian/ wheezy main contrib non-free
+    deb-src http://the.earth.li/debian/ wheezy main contrib non-free
+
+    # Security Updates:
+    deb http://security.debian.org/ wheezy/updates main non-free
+    deb-src http://security.debian.org/ wheezy/updates main non-free
+    EOF
 
 **Ubuntu Precise**
 
