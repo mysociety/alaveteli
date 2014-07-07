@@ -60,7 +60,7 @@ submodules, run:
 
     git submodule update --init
 
-## Install system dependencies
+## Prepare to install system dependencies using OS packages
 
 These are packages that the software depends on: third-party software used to
 parse documents, host the site, and so on. There are also packages that contain
@@ -132,7 +132,7 @@ you kill it), patch it yourself, or use the Debian package
 compiled by mySociety (see link in [issue
 305](https://github.com/mysociety/alaveteli/issues/305))
 
-### Install the dependencies
+## Install the dependencies
 
 Refresh the sources after adding the extra repositories:
 
