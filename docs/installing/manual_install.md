@@ -76,12 +76,24 @@ Add the following repositories to `/etc/apt/sources.list`:
 
 **Debian Squeeze**
 
-    cat > /etc/apt/sources.list.d/debian-backports.list <<EOF
+    cat > /etc/apt/sources.list.d/debian-extra.list <<EOF
     deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
+    deb http://the.earth.li/debian/ wheezy main contrib non-free
     EOF
 
-The repositories above let you install `wkhtmltopdf-static` and `bundler` using
-`apt`.
+The squeeze-backports repository is providing a more recent version of rubygems, and the wheezy repository is providing bundler. You should configure package-pinning to reduce the priority of the wheezy repository so other packages aren't pulled from it.
+
+    cat > /etc/apt/preferences <<EOF
+
+    Package: bundler
+    Pin: release n=wheezy
+    Pin-Priority: 990
+
+    Package: *
+    Pin: release n=wheezy
+    Pin-Priority: 50
+    EOF
+
 
 **Ubuntu Precise**
 
