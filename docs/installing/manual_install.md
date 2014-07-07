@@ -83,7 +83,7 @@ Add the following repositories to `/etc/apt/sources.list`:
 
 The squeeze-backports repository is providing a more recent version of rubygems, and the wheezy repository is providing bundler. You should configure package-pinning to reduce the priority of the wheezy repository so other packages aren't pulled from it.
 
-    cat > /etc/apt/preferences <<EOF
+    cat >> /etc/apt/preferences <<EOF
 
     Package: bundler
     Pin: release n=wheezy
@@ -137,28 +137,39 @@ The raring repo is used here to get a more recent version of bundler and pdftk. 
 
 ### Packages customised by mySociety
 
-If you're using Debian, you should add the mySociety Debian archive to your
+If you're using Debian or Ubuntu, you should add the mySociety Debian archive to your
 apt sources. Note that mySociety packages are currently only built for 64-bit Debian.
+
+**Debian Squeeze, Wheezy or Ubuntu Precise**
 
     cat > /etc/apt/sources.list.d/mysociety-debian.list <<EOF
     deb http://debian.mysociety.org squeeze main
     EOF
+
+The repository above lets you install `wkhtmltopdf-static` and `pdftk` (for squeeze) using `apt`.
 
 Add the GPG key from the
 [mySociety Debian Package Repository](http://debian.mysociety.org/).
 
     wget -O - https://debian.mysociety.org/debian.mysociety.org.gpg.key | sudo apt-key add -
 
-You should also configure package-pinning to reduce the priority of this
-repository.
 
-    cat > /etc/apt/preferences <<EOF
+**Debian Wheezy or Ubuntu Precise**
+
+You should also configure package-pinning to reduce the priority of this
+repository - we only want to pull wkhtmltopdf-static from mysociety.
+
+    cat >> /etc/apt/preferences <<EOF
+
     Package: *
     Pin: origin debian.mysociety.org
     Pin-Priority: 50
     EOF
 
-If you're using some other platform, you can optionally install these
+**Debian Squeeze**
+
+No special package pinning is required.
+
 dependencies manually, as follows:
 
 1. If you would like users to be able to get pretty PDFs as part of the
