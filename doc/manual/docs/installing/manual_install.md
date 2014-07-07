@@ -170,6 +170,8 @@ repository - we only want to pull wkhtmltopdf-static from mysociety.
 
 No special package pinning is required.
 
+### Other platforms
+If you're using some other linux platform, you can optionally install these
 dependencies manually, as follows:
 
 1. If you would like users to be able to get pretty PDFs as part of the
@@ -183,7 +185,9 @@ everything will still work, but users will get ugly, plain text versions of
 their requests when they download them.
 
 2. Version 1.44 of `pdftk` contains a bug which makes it loop forever in
-certain edge conditions. Until it's incorporated into an official release, you
+certain edge conditions. This is fixed in the standard 1.44.7 package which is available in wheezy (Debian) and raring (Ubuntu).
+
+If you can't get an official release for your OS with the fix, you
 can either hope you don't encounter the bug (it ties up a rails process until
 you kill it), patch it yourself, or use the Debian package
 compiled by mySociety (see link in [issue
