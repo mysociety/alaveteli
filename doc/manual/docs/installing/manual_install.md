@@ -109,14 +109,31 @@ The squeeze-backports repository is providing a more recent version of rubygems,
 **Ubuntu Precise**
 
     cat > /etc/apt/sources.list.d/ubuntu-extra.list <<EOF
-    deb http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise multiverse
-    deb-src http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise multiverse
-    deb http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise-updates multiverse
-    deb-src http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise-updates multiverse
+    deb http://de.archive.ubuntu.com/ubuntu/ precise multiverse
+    deb-src http://de.archive.ubuntu.com/ubuntu/ precise multiverse
+    deb http://de.archive.ubuntu.com/ubuntu/ precise-updates multiverse
+    deb-src http://de.archive.ubuntu.com/ubuntu/ precise-updates multiverse
+    deb http://de.archive.ubuntu.com/ubuntu/ raring universe
+    deb-src http://de.archive.ubuntu.com/ubuntu/ raring universe
     EOF
 
-The repositories above let you install `wkhtmltopdf-static` using `apt`.
-`bundler` will have to be installed manually on Ubuntu Precise.
+The raring repo is used here to get a more recent version of bundler and pdftk. You should configure package-pinning to reduce the priority of the raring repository so other packages aren't pulled from it.
+
+    cat >> /etc/apt/preferences <<EOF
+
+    Package: ruby-bundler
+    Pin: release n=raring
+    Pin-Priority: 990
+
+    Package: pdftk
+    Pin: release n=raring
+    Pin-Priority: 990
+
+    Package: *
+    Pin: release n=raring
+    Pin-Priority: 50
+    EOF
+
 
 ### Packages customised by mySociety
 
