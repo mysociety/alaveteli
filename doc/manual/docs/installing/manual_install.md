@@ -19,15 +19,15 @@ Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/ins
 
 ## Target operating system
 
-These instructions assume Debian Squeeze (64-bit) or Ubuntu 12.04 LTS
-(precise). Debian Squeeze is the best supported deployment platform. We also
+These instructions assume Debian Wheezy or Squeeze (64-bit) or Ubuntu 12.04 LTS
+(precise). Debian is the best supported deployment platform. We also
 have instructions for [installing on MacOS]({{ site.baseurl }}docs/installing/macos/).
 
 Commands are intended to be run via the terminal or over ssh.
 
 ## Set the locale
 
-**Debian Squeeze**
+**Debian Wheezy or Squeeze**
 
 Follow the [Debian guide](https://wiki.debian.org/Locale#Standard) for configuring the locale of the operating system.
 
