@@ -217,7 +217,7 @@ choice of packages.
 ## Install Ruby dependencies
 
 To install Alaveteli's Ruby dependencies, you need to install bundler. In
-Debian, this is provided as a package (installed as part of the package install
+Debian and Ubuntu, this is provided as a package (installed as part of the package install
 process above). You could also install it as a gem:
 
     sudo gem install bundler
