@@ -40,16 +40,24 @@ run your site is `www-data`, and the directory where Alaveteli is installed is
 
 The Unix user should have write permissions on the directory where Alaveteli is installed.
 
-In `/etc/postfix/main.cf`:
+In `/etc/postfix/main.cf`, add the lines:
 
-    virtual_alias_maps = regexp:/etc/postfix/regexp
+    transport_maps = regexp:/etc/postfix/transports
+    local_recipient_maps = proxy:unix:passwd.byname regexp:/etc/postfix/recipients
 
 And, assuming you set
 [`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}docs/customising/config/#incoming_email_prefix)
-in `config/general` to "foi+", create `/etc/postfix/regexp` with the following
+in `config/general` to "foi+", create `/etc/postfix/transports` with the following
 content:
 
-    /^foi.*/  alaveteli
+    /^foi.*/                alaveteli
+
+Create `/etc/postfix/recipients` with the following content:
+
+    /^foi.*/                this-is-ignored
+    /^postmaster@/          this-is-ignored
+    /^user-support@/        this-is-ignored
+    /^team@/                this-is-ignored
 
 You should also configure postfix to discard any messages sent to the
 [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix)
@@ -93,6 +101,17 @@ format. Update
 
     MTA_LOG_PATH: '/var/log/mail/mail.log-*'
     MTA_LOG_TYPE: "postfix"
+
+### Making the changes live
+
+As the root user, make all these changes live with the following commands:
+
+    /etc/init.d/rsyslog restart
+
+    newaliases
+    postmap /etc/postfix/transports
+    postmap /etc/postfix/recipients
+    postfix reload
 
 ### Troubleshooting (postfix)
 
