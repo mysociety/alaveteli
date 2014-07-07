@@ -147,6 +147,9 @@ To test mail delivery, run:
     $ /usr/sbin/sendmail -bv foi+request-1234@localhost
 
 This tells you if sending the emails to `foi\+.*localhost` is working.
+If it is, you should receive a delivery report email sent to `root`,
+with text like "<foi+request-1234@localhost>: delivery via alaveteli:
+delivers to command: /var/www/alaveteli/script/mailin".
 
 
 ## Example setup on exim4
