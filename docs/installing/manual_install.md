@@ -201,6 +201,9 @@ Refresh the sources after adding the extra repositories:
 
 Now install the packages relevant to your system:
 
+    # Debian Wheezy
+    sudo apt-get install $(cat config/packages.debian-wheezy)
+
     # Debian Squeeze
     sudo apt-get install $(cat config/packages.debian-squeeze)
 
