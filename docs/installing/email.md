@@ -68,9 +68,10 @@ following to `/etc/aliases`:
     # we don't care about delivery
     do-not-reply-to-this-address:        :blackhole:
 
+
 ### Logging
 
-For the postfix logs to be succesfully read by the script `load-mail-server-logs`, they need
+For the postfix logs to be successfully read by the script `load-mail-server-logs`, they need
 to be log rotated with a date in the filename. Since that will create a lot of rotated log
 files (one for each day), it's good to have them in their own directory. For example (on Ubuntu),
 in `/etc/rsyslog.d/50-default.conf` set:
@@ -117,7 +118,7 @@ As the root user, make all these changes live with the following commands:
 
 To test mail delivery, run:
 
-    $ /usr/sbin/sendmail -bv foi+requrest-1234@localhost
+    $ /usr/sbin/sendmail -bv foi+request-1234@localhost
 
 This tells you if sending the emails to `foi\+.*localhost` is working.
 
