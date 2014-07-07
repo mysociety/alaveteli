@@ -30,12 +30,15 @@ Install postfix.
 
 In the install options, select the default configuration `Internet Site` and set the hostname to your sitename.
 
-In `/etc/postfix/master.cf`:
+Now configure Postfix. For example, if the Unix user that is going to
+run your site is `www-data`, and the directory where Alaveteli is installed is
+`/var/www/alaveteli`, add the following line to
+`/etc/postfix/master.cf`:
 
     alaveteli unix  - n n - 50 pipe
-      flags=R user=ALAVETELI_USER argv=ALAVETELI_HOME/script/mailin
+      flags=R user=www-data argv=/var/www/alaveteli/script/mailin
 
-The user ALAVETELI_USER should have write permissions on ALAVETELI_HOME.
+The Unix user should have write permissions on the directory where Alaveteli is installed.
 
 In `/etc/postfix/main.cf`:
 
