@@ -66,6 +66,12 @@ These are packages that the software depends on: third-party software used to
 parse documents, host the site, and so on. There are also packages that contain
 headers necessary to compile some of the gem dependencies in the next step.
 
+<div class="attention-box">
+Note the commands in this section will require root privileges
+</div>
+
+### Using other repositories to get more recent packages
+
 Add the following repositories to `/etc/apt/sources.list`:
 
 **Debian Squeeze**
