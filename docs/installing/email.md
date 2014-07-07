@@ -24,10 +24,11 @@ This section shows an example of how to set up your MTA if you're using
 
 ### Instructions
 
-For example, with:
+Install postfix.
 
-    ALAVETELI_HOME=/path/to/alaveteli/software
-    ALAVETELI_USER=www-data
+    sudo apt-get install postfix
+
+In the install options, select the default configuration `Internet Site` and set the hostname to your sitename.
 
 In `/etc/postfix/master.cf`:
 
