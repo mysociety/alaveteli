@@ -134,7 +134,7 @@ Now, back on your local machine:
 * update the webserver config (either apache or nginx) to add the `current` element
   to the path where it is serving Alaveteli from. If you installed using the
   installation script, this will be replacing `/var/www/alaveteli/alaveteli/` with
-  `/var/www/alaveteli/alaveteli/current` in `etc/nginx/sites-available/default`.
+  `/var/www/alaveteli/alaveteli/current` in `/etc/nginx/sites-available/default`.
 * edit the server crontab so that the paths in the cron jobs also include the
   `current` element. If you used the installation script the crontab will be in
   `etc/cron.d/alaveteli`.
