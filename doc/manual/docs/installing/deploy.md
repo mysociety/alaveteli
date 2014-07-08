@@ -110,6 +110,7 @@ Back on the server:
   `shared` directory created by Capistrano on the server:
    * `cache/`
    * `files/`
+   * `lib/acts_as_xapian/xapiandbs` (copy this to straight into `shared` so it becomes `shared/xapiandbs`)
 
 Now, back on your local machine:
 
