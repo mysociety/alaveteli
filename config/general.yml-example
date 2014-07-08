@@ -255,4 +255,4 @@ SHARED_DIRECTORIES:
 ALLOW_BATCH_REQUESTS: false
 
 # Should we use the responsive stylesheets?
-RESPONSIVE_STYLING: false
+RESPONSIVE_STYLING: true
