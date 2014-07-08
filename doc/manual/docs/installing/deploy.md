@@ -131,6 +131,9 @@ Now, back on your local machine:
 * create a deployment directory on the server by running *one* of these commands:
    * `cap deploy` if you're deploying a <a href="{{site.baseurl}}docs/glossary/#staging" class="glossary__link">staging site</a>, or...
    * `cap -S stage=production deploy` for <a href="{{site.baseurl}}docs/glossary/#production" class="glossary__link">production</a>
+
+Back on the server:
+
 * update the webserver config (either apache or nginx) to add the `current` element
   to the path where it is serving Alaveteli from. If you installed using the
   installation script, this will be replacing `/var/www/alaveteli/alaveteli/` with
@@ -144,7 +147,7 @@ Now, back on your local machine:
   `argv=/var/www/alaveteli/alaveteli/script/mailin` with
   `argv=/var/www/alaveteli/alaveteli/current/script/mailin`.
   If you're using Exim as your MTA, edit `etc/exim4/conf.d/04_alaveteli_options`
-  to update the `ALAVETELI_HOME` variable to the new Alaveteli path.
+  to update the `ALAVETELI_HOME` variable to the new Alaveteli path. Restart the MTA after you've made these changes.
 
 Phew, you're done!
 
