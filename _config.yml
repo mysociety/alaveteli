@@ -4,5 +4,6 @@ baseurl: /
 permalink: pretty
 markdown: kramdown
 url: http://code.alaveteli.org
+exclude: [ node_modules ]
 gems:
   - jekyll-redirect-from

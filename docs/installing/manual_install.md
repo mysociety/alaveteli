@@ -405,56 +405,80 @@ site in action.
 
 ## Cron jobs and init scripts
 
-`config/crontab-example` contains the cronjobs run on WhatDoTheyKnow. It's in a
-strange templating format they use in mySociety. mySociety render the example
-file to reference absolute paths, and then drop it in `/etc/cron.d/` on the
-server.
+The crontab and init scripts use the `.ugly` file format, which is a strange
+templating format used by mySociety.
 
 The `ugly` format uses simple variable substitution. A variable looks like
-`!!(*= $this *)!!`. The variables are:
+`!!(*= $this *)!!`.
 
-* `vhost`: part of the path to the directory where the software is
-  served from.  In the mySociety files, it usually comes as
-  `/data/vhost/!!(*= $vhost *)!!` -- you should replace that whole
-  port with a path to the directory where your Alaveteli software
-  installation lives, e.g. `/var/www/`
-* `vhost_dir`: the entire path to the directory where the software is
-  served from. -- you should replace this with a path to the
-  directory where your Alaveteli software installation lives,
-   e.g. `/var/www/`
-* `vcspath`: the name of the alaveteli checkout, e.g. `alaveteli`.
-  Thus, `/data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!` might be
-  replaced with `/var/www/alaveteli` in your cron tab
+### Generate crontab
+
+`config/crontab-example` contains the cron jobs that run on
+WhatDoTheyKnow. mySociety render the example file to reference absolute paths,
+and then drop it in `/etc/cron.d/` on the server.
+
+**Template Variables:**
+
+* `vhost_dir`: the full path to the directory where alaveteli is checked out.
+  e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
+* `vcspath`: the name of the directory that contains the alaveteli code.
+  e.g. `alaveteli`
 * `user`: the user that the software runs as
 * `site`: a string to identify your alaveteli instance
+* `mailto`: The email address that cron output will be sent to
 
 There is a rake task that will help to rewrite this file into one that is
-useful to you, which can be invoked with:
+useful to you. Change the variables to suit your installation.
 
     bundle exec rake config_files:convert_crontab \
       DEPLOY_USER=deploy \
-    VHOST_DIR=/dir/above/alaveteli \
-    VCSPATH=alaveteli \
-    SITE=alaveteli \
-    CRONTAB=config/crontab-example > crontab
+      VHOST_DIR=/var/www \
+      VCSPATH=alaveteli \
+      SITE=alaveteli \
+      MAILTO=cron-alaveteli@example.org \
+      CRONTAB=config/crontab-example > /etc/cron.d/alaveteli
 
-You should change the `DEPLOY_USER`, `VHOST_DIR`, `VCSPATH` and `SITE`
-environment variables to match your server and installation. You should also
-edit the resulting `crontab` file to customize the `MAILTO` variable.
+### Generate alert daemon
 
 One of the cron jobs refers to a script at `/etc/init.d/foi-alert-tracks`. This
-is an init script, a copy of which lives in `config/alert-tracks-debian.ugly`.
-As with the cron jobs above, replace the variables (and/or bits near the
-variables) with paths to your software. You can use the rake task `rake
-config_files:convert_init_script` to do this.
+is an init script, which can be generated from the
+`config/alert-tracks-debian.ugly` template.
+
+**Template Variables:**
+
+* `vhost_dir`: the full path to the directory where alaveteli is checked out.
+  e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
+* `user`: the user that the software runs as
+
+There is a rake task that will help to rewrite this file into one that is
+useful to you. Change the variables to suit your installation.
+
+    bundle exec rake config_files:convert_init_script \
+      DEPLOY_USER=deploy \
+      VHOST_DIR=/var/www \
+      SCRIPT_FILE=config/alert-tracks-debian.ugly > /etc/init.d/foi-alert-tracks
+
+### Generate varnish purge daemon
 
 `config/purge-varnish-debian.ugly` is a similar init script, which is optional
 and not required if you choose not to run your site behind Varnish (see below).
+
+**Template Variables:**
+
+* `daemon_name`: The name of the daemon. Set this to `purge-varnish`.
+* `vhost_dir`: the full path to the directory where alaveteli is checked out.
+  e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
+* `user`: the user that the software runs as
+
+This template does not yet have a rake task to generate it.
+
+### Init script permissions
+
 Either tweak the file permissions to make the scripts executable by your deploy
 user, or add the following line to your sudoers file to allow these to be run
-by your deploy user (named `deploy` in this case):
+by your deploy user (named `deploy` in this case).
 
-    deploy  ALL = NOPASSWD: /etc/init.d/foi-alert-tracks, /etc/init.d/foi-purge-varnish
+    deploy ALL = NOPASSWD: /etc/init.d/foi-alert-tracks, /etc/init.d/foi-purge-varnish
 
 ## Set up production web server
 
