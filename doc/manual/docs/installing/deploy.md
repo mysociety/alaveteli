@@ -149,6 +149,12 @@ Back on the server:
   If you're using Exim as your MTA, edit `etc/exim4/conf.d/04_alaveteli_options`
   to update the `ALAVETELI_HOME` variable to the new Alaveteli path. Restart the MTA after you've made these changes.
 
+* You will also need to update the path to Alaveteli in your [init scripts]({{site.baseurl}}docs/installing/manual_install/#cron-jobs-and-init-scripts).
+  You should have a script for running the alert tracks
+  (`/etc/init.d/foi-alert-tracks`), and possibly scripts for purging the
+  varnish cache (`/etc/init.d/foi-purge-varnish`), and restarting the
+  app server (`/etc/init.d/alaveteli`).
+
 Phew, you're done!
 
 You can delete the temporary copy of Alaveteli (perhaps in your
