@@ -90,7 +90,6 @@ Next, on your local machine:
 * `cd` into the Alaveteli repo you checked out (otherwise the `cap` commands you're about to
   execute won't work)
 * still on your local machine, run `cap -S stage=staging deploy:setup` to setup capistrano on the server
-* again on your local machine, run `cap -S stage=staging  deploy:update_code` to get a code checkout on the server
 
 Back on the server:
 
@@ -115,6 +114,7 @@ Back on the server:
 Now, back on your local machine:
 
 * make sure you're still in the Alaveteli repo (if not, `cd` back into it)
+* run `cap -S stage=staging  deploy:update_code` to get a code checkout on the server.
 * create a deployment directory on the server by running *one* of these commands:
    * `cap deploy` if you're deploying a <a href="{{site.baseurl}}docs/glossary/#staging" class="glossary">staging site</a>, or...
    * `cap -S stage=production deploy` for <a href="{{site.baseurl}}docs/glossary/#production" class="glossary">production</a>
