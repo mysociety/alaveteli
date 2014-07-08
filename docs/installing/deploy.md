@@ -87,11 +87,16 @@ Next, on your local machine:
   need some of the files available locally even though you might not be running
   Alaveteli on this machine)
 * copy the example file `config/deploy.yml.example` to `config/deploy.yml`
-* now customise the deployment settings in that file: edit `config/deploy.yml`
-  appropriately -- for example, edit the name of the server. Also, change
-  `deploy_to` to be the path where Alaveteli is currently installed on the
-  server -- if you used the installation script , this will be
-  `/var/www/[HOST or alaveteli]/alaveteli`.
+* now customise the deployment settings in that file: edit
+  `config/deploy.yml` appropriately -- for example, edit the name of the
+  server. Also, change `deploy_to` to be the path where Alaveteli is
+  currently installed on the server -- if you used the installation
+  script , this will be `/var/www/[HOST or alaveteli]/alaveteli`. If
+  you're running the thin application server rather than passenger,
+  you'll need to set `rails_app_server` to `thin` and `rails_app_port`
+  to whatever port it's running on. If you installed with the install
+  script, this will be port 3300.
+
 
 * `cd` into the Alaveteli repo you checked out (otherwise the `cap` commands you're about to
   execute won't work)
