@@ -19,15 +19,15 @@ Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/ins
 
 ## Target operating system
 
-These instructions assume Debian Squeeze (64-bit) or Ubuntu 12.04 LTS
-(precise). Debian Squeeze is the best supported deployment platform. We also
+These instructions assume Debian Wheezy or Squeeze (64-bit) or Ubuntu 12.04 LTS
+(precise). Debian is the best supported deployment platform. We also
 have instructions for [installing on MacOS]({{ site.baseurl }}docs/installing/macos/).
 
 Commands are intended to be run via the terminal or over ssh.
 
 ## Set the locale
 
-**Debian Squeeze**
+**Debian Wheezy or Squeeze**
 
 Follow the [Debian guide](https://wiki.debian.org/Locale#Standard) for configuring the locale of the operating system.
 
@@ -60,59 +60,118 @@ submodules, run:
 
     git submodule update --init
 
-## Install system dependencies
+## Prepare to install system dependencies using OS packages
 
 These are packages that the software depends on: third-party software used to
 parse documents, host the site, and so on. There are also packages that contain
 headers necessary to compile some of the gem dependencies in the next step.
 
+<div class="attention-box">
+Note the commands in this section will require root privileges
+</div>
+
+### Using other repositories to get more recent packages
+
 Add the following repositories to `/etc/apt/sources.list`:
 
 **Debian Squeeze**
 
-    cat > /etc/apt/sources.list.d/debian-backports.list <<EOF
+    cat > /etc/apt/sources.list.d/debian-extra.list <<EOF
     deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
+    deb http://the.earth.li/debian/ wheezy main contrib non-free
     EOF
 
-The repositories above let you install `wkhtmltopdf-static` and `bundler` using
-`apt`.
+The squeeze-backports repository is providing a more recent version of rubygems, and the wheezy repository is providing bundler. You should configure package-pinning to reduce the priority of the wheezy repository so other packages aren't pulled from it.
+
+    cat >> /etc/apt/preferences <<EOF
+
+    Package: bundler
+    Pin: release n=wheezy
+    Pin-Priority: 990
+
+    Package: *
+    Pin: release n=wheezy
+    Pin-Priority: 50
+    EOF
+
+**Debian Wheezy**
+
+    cat > /etc/apt/sources.list.d/debian-extra.list <<EOF
+    # Debian mirror to use, including contrib and non-free:
+    deb http://the.earth.li/debian/ wheezy main contrib non-free
+    deb-src http://the.earth.li/debian/ wheezy main contrib non-free
+
+    # Security Updates:
+    deb http://security.debian.org/ wheezy/updates main non-free
+    deb-src http://security.debian.org/ wheezy/updates main non-free
+    EOF
 
 **Ubuntu Precise**
 
     cat > /etc/apt/sources.list.d/ubuntu-extra.list <<EOF
-    deb http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise multiverse
-    deb-src http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise multiverse
-    deb http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise-updates multiverse
-    deb-src http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ precise-updates multiverse
+    deb http://de.archive.ubuntu.com/ubuntu/ precise multiverse
+    deb-src http://de.archive.ubuntu.com/ubuntu/ precise multiverse
+    deb http://de.archive.ubuntu.com/ubuntu/ precise-updates multiverse
+    deb-src http://de.archive.ubuntu.com/ubuntu/ precise-updates multiverse
+    deb http://de.archive.ubuntu.com/ubuntu/ raring universe
+    deb-src http://de.archive.ubuntu.com/ubuntu/ raring universe
     EOF
 
-The repositories above let you install `wkhtmltopdf-static` using `apt`.
-`bundler` will have to be installed manually on Ubuntu Precise.
+The raring repo is used here to get a more recent version of bundler and pdftk. You should configure package-pinning to reduce the priority of the raring repository so other packages aren't pulled from it.
+
+    cat >> /etc/apt/preferences <<EOF
+
+    Package: ruby-bundler
+    Pin: release n=raring
+    Pin-Priority: 990
+
+    Package: pdftk
+    Pin: release n=raring
+    Pin-Priority: 990
+
+    Package: *
+    Pin: release n=raring
+    Pin-Priority: 50
+    EOF
+
 
 ### Packages customised by mySociety
 
-If you're using Debian, you should add the mySociety Debian archive to your
+If you're using Debian or Ubuntu, you should add the mySociety Debian archive to your
 apt sources. Note that mySociety packages are currently only built for 64-bit Debian.
+
+**Debian Squeeze, Wheezy or Ubuntu Precise**
 
     cat > /etc/apt/sources.list.d/mysociety-debian.list <<EOF
     deb http://debian.mysociety.org squeeze main
     EOF
+
+The repository above lets you install `wkhtmltopdf-static` and `pdftk` (for squeeze) using `apt`.
 
 Add the GPG key from the
 [mySociety Debian Package Repository](http://debian.mysociety.org/).
 
     wget -O - https://debian.mysociety.org/debian.mysociety.org.gpg.key | sudo apt-key add -
 
-You should also configure package-pinning to reduce the priority of this
-repository.
 
-    cat > /etc/apt/preferences <<EOF
+**Debian Wheezy or Ubuntu Precise**
+
+You should also configure package-pinning to reduce the priority of this
+repository - we only want to pull wkhtmltopdf-static from mysociety.
+
+    cat >> /etc/apt/preferences <<EOF
+
     Package: *
     Pin: origin debian.mysociety.org
     Pin-Priority: 50
     EOF
 
-If you're using some other platform, you can optionally install these
+**Debian Squeeze**
+
+No special package pinning is required.
+
+### Other platforms
+If you're using some other linux platform, you can optionally install these
 dependencies manually, as follows:
 
 1. If you would like users to be able to get pretty PDFs as part of the
@@ -126,19 +185,24 @@ everything will still work, but users will get ugly, plain text versions of
 their requests when they download them.
 
 2. Version 1.44 of `pdftk` contains a bug which makes it loop forever in
-certain edge conditions. Until it's incorporated into an official release, you
+certain edge conditions. This is fixed in the standard 1.44.7 package which is available in wheezy (Debian) and raring (Ubuntu).
+
+If you can't get an official release for your OS with the fix, you
 can either hope you don't encounter the bug (it ties up a rails process until
 you kill it), patch it yourself, or use the Debian package
 compiled by mySociety (see link in [issue
 305](https://github.com/mysociety/alaveteli/issues/305))
 
-### Install the dependencies
+## Install the dependencies
 
 Refresh the sources after adding the extra repositories:
 
     sudo apt-get update
 
 Now install the packages relevant to your system:
+
+    # Debian Wheezy
+    sudo apt-get install $(cat config/packages.debian-wheezy)
 
     # Debian Squeeze
     sudo apt-get install $(cat config/packages.debian-squeeze)
@@ -153,7 +217,7 @@ choice of packages.
 ## Install Ruby dependencies
 
 To install Alaveteli's Ruby dependencies, you need to install bundler. In
-Debian, this is provided as a package (installed as part of the package install
+Debian and Ubuntu, this is provided as a package (installed as part of the package install
 process above). You could also install it as a gem:
 
     sudo gem install bundler
