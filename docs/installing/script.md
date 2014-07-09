@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Installing the easy way
+title: Installation script
 ---
 
 # Installation  script
