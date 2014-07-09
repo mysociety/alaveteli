@@ -33,7 +33,7 @@ you're running one, your
 
 ## Capistrano
 
-<a href="{{site.baseurl}}docs/glossary/#capistrano" class="glossary">Capistrano</a>
+<a href="{{site.baseurl}}docs/glossary/#capistrano" class="glossary__link">Capistrano</a>
 is included as part of Alaveteli as a standard deployment system.
 
 The basic principle of Capistrano is that you execute `cap [do-something]`
@@ -115,8 +115,8 @@ Now, back on your local machine:
 
 * make sure you're still in the Alaveteli repo (if not, `cd` back into it)
 * create a deployment directory on the server by running *one* of these commands:
-   * `cap deploy` if you're deploying a <a href="{{site.baseurl}}docs/glossary/#staging" class="glossary">staging site</a>, or...
-   * `cap -S stage=production deploy` for <a href="{{site.baseurl}}docs/glossary/#production" class="glossary">production</a>
+   * `cap deploy` if you're deploying a <a href="{{site.baseurl}}docs/glossary/#staging" class="glossary__link">staging site</a>, or...
+   * `cap -S stage=production deploy` for <a href="{{site.baseurl}}docs/glossary/#production" class="glossary__link">production</a>
 * update the webserver config (either apache or nginx) to add the `current` element
   to the path where it is serving Alaveteli from. If you installed using the
   installation script, this will be replacing `/var/www/alaveteli/alaveteli/` with
