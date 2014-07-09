@@ -17,8 +17,8 @@ title: Installing
 ## Before you start
 
 This is important: you need to decide if you are installing Alaveteli for
-[development]({{ site.baseurl }}docs/glossary/#development) or
-[production]({{ site.baseurl }}docs/glossary/#production).
+<a href="{{ site.baseurl }}docs/glossary/#development" class="glossary__link">development</a> or
+<a href="{{ site.baseurl }}docs/glossary/#production" class="glossary__link">production</a>.
 
 A **development** site is one where you're going to change, customise, and
 perhaps experiment while you get it up and running. You should always do this
@@ -32,9 +32,10 @@ messages switched off. It's important to be able to deploy changes to a
 production site quickly and efficiently, so we recommend you consider using a
 [deployment mechanism]({{ site.baseurl }}docs/installing/deploy/) too.
 
-Ideally, you should also have a [staging site]({{ site.baseurl }}docs/glossary/#staging),
+Ideally, you should also have a
+<a href="{{ site.baseurl }}docs/glossary/#staging" class="glossary__link">staging site</a>,
 which is used solely to test new code in an identical environment to your
-production site but before it goes live.
+production site before it goes live.
 
 If you're in doubt, you're probably running a development site. Get it up and
 running, play with it, customise it, and -- later -- you can install it as a
