@@ -6,10 +6,12 @@ title: Installing
 # Installing Alaveteli
 
 <p class="lead">
-  Although you can install Alaveteli and just change it when you need it, we
-  recommend you adopt a way of <strong>deploying</strong> it automatically.
-  This has several advantages, especially for your
-  <a href="{{ site.baseurl }}docs/glossary/#production" class="glossary__link">production server</a>.
+  There are a number of ways to install Alaveteli.
+  We've made an Amazon Machine Image (AMI) so you can quickly deploy on
+  Amazon EC2 (handy if you just want to evaluate it, for example).
+  If you prefer to use your own server, there's an installation script
+  which does most of the work for you, or you can follow the manual
+  installation instructions.
 </p>
 
 ## Before you start
