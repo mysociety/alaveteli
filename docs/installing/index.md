@@ -9,7 +9,7 @@ title: Installing
   Although you can install Alaveteli and just change it when you need it, we
   recommend you adopt a way of <strong>deploying</strong> it automatically.
   This has several advantages, especially for your
-  <a href="{{ site.baseurl }}docs/glossary/#production">production server</a>.
+  <a href="{{ site.baseurl }}docs/glossary/#production" class="glossary__link">production server</a>.
 </p>
 
 ## Before you start

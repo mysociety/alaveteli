@@ -8,7 +8,8 @@ title: Deploying
 <p class="lead">
   Although you can install Alaveteli and just change it when you need it, we
   recommend you adopt a way of <strong>deploying</strong> it automatically,
-  especially on your <a href="{{ site.baseurl }}docs/glossary/#production">production server</a>.
+  especially on your
+  <a href="{{ site.baseurl }}docs/glossary/#production" class="glossary__link">production server</a>.
   Alaveteli provides a deployment mechanism using Capistrano.
 </p>
 
@@ -27,9 +28,9 @@ changes or copying files by hand, so your site will be down for the shortest
 possible time.
 
 We **strongly recommend** you use the deployment mechanism for your
-<a href="{{ site.baseurl }}docs/glossary/#production">production server</a> and, if
-you're running one, your
-<a href="{{ site.baseurl }}docs/glossary/#staging">staging server</a> too.
+<a href="{{ site.baseurl }}docs/glossary/#production" class="glossary__link">production server</a>
+and, if you're running one, your
+<a href="{{ site.baseurl }}docs/glossary/#staging" class="glossary__link">staging server</a> too.
 
 ## Capistrano
 
