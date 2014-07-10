@@ -95,7 +95,7 @@ Next, on your local machine:
 Back on the server:
 
 * copy the following config files from the temporary copy of Alaveteli you made at
-  the begining (perhaps in your home directory) to the `shared` directory that
+  the beginning (perhaps in your home directory) to the `shared` directory that
   Capistrano just created on the server:
    * `general.yml`
    * `database.yml`
