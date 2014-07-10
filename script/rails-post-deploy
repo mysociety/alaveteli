@@ -12,8 +12,8 @@
 set -e
 #set -x # debug
 
-TOP_DIR="$(dirname "$BASH_SOURCE")/.."
-cd "$TOP_DIR"
+APP_ROOT="$(dirname "$BASH_SOURCE")/.."
+cd "$APP_ROOT"
 
-"$TOP_DIR/script/rails-deploy-before-down"
-"$TOP_DIR/script/rails-deploy-while-down"
+"$APP_ROOT/script/rails-deploy-before-down"
+"$APP_ROOT/script/rails-deploy-while-down"
