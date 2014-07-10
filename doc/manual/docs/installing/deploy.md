@@ -110,6 +110,7 @@ Back on the server:
   `shared` directory created by Capistrano on the server:
    * `cache/`
    * `files/`
+   * `log/`
 
 Now, back on your local machine:
 
