@@ -141,7 +141,7 @@ can see what requests look like to them.
 When trying things out, you need to wear several hats -- as a site
 administrator, an ordinary site user, and as a public authority. This can get
 confusing with several email addresses, so one quick and easy way to manage
-this is to use a throwaway email service like http://mailinator.com.
+this is to use a throwaway email service like [Mailinator](http://mailinator.com).
 
 <a name="step-2"> </a>
 

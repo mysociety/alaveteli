@@ -6,7 +6,11 @@ title: Administrator's guide
 # Alaveteli administrator's guide
 
 <p class="lead">
-  What is it like running an Alaveteli site? This guide explains what you can expect, and the types of problem that you might encounter. It includes examples of how mySociety manages their own <a href="/docs/glossary/#foi" class="glossary">Freedom of Information</a> site, <a href="https://www.whatdotheyknow.com">whatdotheyknow.com</a>.
+  What is it like running an Alaveteli site? This guide explains what you can
+  expect, and the types of problem that you might encounter. It includes
+  examples of how mySociety manages their own <a href="/docs/glossary/#foi"
+  class="glossary__link">Freedom of Information</a> site, <a
+  href="https://www.whatdotheyknow.com">whatdotheyknow.com</a>.
 </p>
 
 ## What's involved?

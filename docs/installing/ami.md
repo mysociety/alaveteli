@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Installing the easy way
+title: Installation from AMI
 ---
 
 # Installation on Amazon EC2

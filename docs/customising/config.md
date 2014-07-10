@@ -638,9 +638,9 @@ THEME_URLS:
   </dt>
   <dd>
      Is this a
-     <a href="{{site.baseurl}}docs/glossary/#staging" class="glossary">staging</a> or
-     <a href="{{site.baseurl}}docs/glossary/#development" class="glossary">development</a> site?
-     If not, it's a live <a href="{{site.baseurl}}docs/glossary/#production" class="glossary">production</a>
+     <a href="{{site.baseurl}}docs/glossary/#staging" class="glossary__link">staging</a> or
+     <a href="{{site.baseurl}}docs/glossary/#development" class="glossary__link">development</a> site?
+     If not, it's a live <a href="{{site.baseurl}}docs/glossary/#production" class="glossary__link">production</a>
      site. This setting controls whether or not the <code>rails-post-deploy</code>
      script will create the file <code>config/rails_env.rb</code> file to force
      Rails into production environment.
