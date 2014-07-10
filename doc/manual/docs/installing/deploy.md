@@ -8,7 +8,8 @@ title: Deploying
 <p class="lead">
   Although you can install Alaveteli and just change it when you need it, we
   recommend you adopt a way of <strong>deploying</strong> it automatically,
-  especially on your <a href="{{ site.baseurl }}docs/glossary/#production">production server</a>.
+  especially on your
+  <a href="{{ site.baseurl }}docs/glossary/#production" class="glossary__link">production server</a>.
   Alaveteli provides a deployment mechanism using Capistrano.
 </p>
 
@@ -27,13 +28,13 @@ changes or copying files by hand, so your site will be down for the shortest
 possible time.
 
 We **strongly recommend** you use the deployment mechanism for your
-<a href="{{ site.baseurl }}docs/glossary/#production">production server</a> and, if
-you're running one, your
-<a href="{{ site.baseurl }}docs/glossary/#staging">staging server</a> too.
+<a href="{{ site.baseurl }}docs/glossary/#production" class="glossary__link">production server</a>
+and, if you're running one, your
+<a href="{{ site.baseurl }}docs/glossary/#staging" class="glossary__link">staging server</a> too.
 
 ## Capistrano
 
-<a href="{{site.baseurl}}docs/glossary/#capistrano" class="glossary">Capistrano</a>
+<a href="{{site.baseurl}}docs/glossary/#capistrano" class="glossary__link">Capistrano</a>
 is included as part of Alaveteli as a standard deployment system.
 
 The basic principle of Capistrano is that you execute `cap [do-something]`
@@ -94,7 +95,7 @@ Next, on your local machine:
 Back on the server:
 
 * copy the following config files from the temporary copy of Alaveteli you made at
-  the begining (perhaps in your home directory) to the `shared` directory that
+  the beginning (perhaps in your home directory) to the `shared` directory that
   Capistrano just created on the server:
    * `general.yml`
    * `database.yml`
@@ -110,14 +111,15 @@ Back on the server:
    * `cache/`
    * `files/`
    * `lib/acts_as_xapian/xapiandbs` (copy this to straight into `shared` so it becomes `shared/xapiandbs`)
+   * `log/`
 
 Now, back on your local machine:
 
 * make sure you're still in the Alaveteli repo (if not, `cd` back into it)
 * run `cap -S stage=staging  deploy:update_code` to get a code checkout on the server.
 * create a deployment directory on the server by running *one* of these commands:
-   * `cap deploy` if you're deploying a <a href="{{site.baseurl}}docs/glossary/#staging" class="glossary">staging site</a>, or...
-   * `cap -S stage=production deploy` for <a href="{{site.baseurl}}docs/glossary/#production" class="glossary">production</a>
+   * `cap deploy` if you're deploying a <a href="{{site.baseurl}}docs/glossary/#staging" class="glossary__link">staging site</a>, or...
+   * `cap -S stage=production deploy` for <a href="{{site.baseurl}}docs/glossary/#production" class="glossary__link">production</a>
 * update the webserver config (either apache or nginx) to add the `current` element
   to the path where it is serving Alaveteli from. If you installed using the
   installation script, this will be replacing `/var/www/alaveteli/alaveteli/` with

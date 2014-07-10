@@ -11,7 +11,7 @@ title: Running
 </p>
 
 Alaveteli is not just software. To run a successful
-<a href="{{ site.baseurl }}docs/glossary/#foi" class="glossary">Freedom of Information</a>
+<a href="{{ site.baseurl }}docs/glossary/#foi" class="glossary__link">Freedom of Information</a>
 site, you need to make sure day-to-day tasks get done too. Most Alaveteli sites
 are run by a team who allocate some time every day to user support and generally keeping
 the project up to date.

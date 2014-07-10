@@ -14,7 +14,7 @@ title: States of requests (InformataZyrtare)
 
 The request states are defined in the Alaveteli code, and we recommend you use
 them (provided they match the <a href="{{ site.baseurl }}docs/glossary/#foi"
-class="glossary">FOI law</a> in your own jurisdiction).
+class="glossary__link">FOI law</a> in your own jurisdiction).
 
 ## InformataZyrtare.org (Kosovo) example
 

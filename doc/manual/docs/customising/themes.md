@@ -107,14 +107,14 @@ instead of the core "about us" file.
 ### Changing the logo
 
 Alaveteli uses Rails' [asset pipeline](http://guides.rubyonrails.org/asset_pipeline.html) to convert and compress stylesheets written in
-<a href="{{ site.baseurl }}docs/glossary/#sass" class="glossary">Sass</a>,
+<a href="{{ site.baseurl }}docs/glossary/#sass" class="glossary__link">Sass</a>,
 the css extension language, to minified concatenated css. Assets are stored in core Alaveteli under `app/assets` - in `fonts`, `images`, `javascripts` and `stylesheets`.
 The default theme has corresponding asset directories in `alavetelitheme/assets` Asset files placed in these directories will  override those in the core directories. As with templates, a file at `lib/themes/alavetelitheme/assets/images/logo.png` will appear on the site instead of the logo from `app/assets/images/logo.png`.
 
 ### Changing the colour scheme
 
 Alaveteli uses a set of basic
-<a href="{{ site.baseurl }}docs/glossary/#sass" class="glossary">Sass</a>
+<a href="{{ site.baseurl }}docs/glossary/#sass" class="glossary__link">Sass</a>
 modules to define the layout for the site on different device sizes, and some basic styling. These modules are in `app/assets/stylesheets/responsive`. The colours and fonts are added in the theme - alavetelitheme defines them in `lib/themes/alavetelitheme/assets/stylesheets/responsive/custom.scss`. Colours used in the theme are defined as variables at the top of this file and you can edit them here.
 
 ### Changing other styling

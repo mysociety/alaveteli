@@ -80,12 +80,12 @@ Definitions
     <a name="agnostic">asker agnostic</a>
   </dt>
   <dd>
-    <a href="#foi" class="glossary">Freedom of Information</a> (FoI) law typically considers
-    the <a href="#response" class="glossary">responses</a> given by the
-    <a href="#authority" class="glossary">authorities</a> to be <strong>asker agnostic</strong>. This means
+    <a href="#foi" class="glossary__link">Freedom of Information</a> (FoI) law typically considers
+    the <a href="#response" class="glossary__link">responses</a> given by the
+    <a href="#authority" class="glossary__link">authorities</a> to be <strong>asker agnostic</strong>. This means
     that the reply should not be any different depending on <em>who</em> asked for the
     information. One consequence of this is that the response
-    can be <a href="#publish" class="glossary">published</a>, because in theory <em>everyone</em>
+    can be <a href="#publish" class="glossary__link">published</a>, because in theory <em>everyone</em>
     could ask for it and expect, by law, to receive the same information.
     <p>
       Despite this, it's still very common all around the world for authorities to reply
@@ -101,7 +101,7 @@ Definitions
   </dt>
   <dd>
     An <strong>authority</strong> is the term we use for any of the bodies, organisations,
-    departments, or companies to which users can send <a href="#request" class="glossary">requests</a>.
+    departments, or companies to which users can send <a href="#request" class="glossary__link">requests</a>.
     <div class="more-info">
       <p>More information:</p>
       <ul>
@@ -110,7 +110,7 @@ Definitions
         </li>
         <li>
           Authorities are usually, but not always, public bodies that are obliged by the local
-          <a href="#foi" class="glossary">Freedom of Information</a> (FoI) law to respond. Sometimes an
+          <a href="#foi" class="glossary__link">Freedom of Information</a> (FoI) law to respond. Sometimes an
           Alaveteli site is set up in a jurisdiction that does not yet have FoI law. In the UK,
           we add some authorites to our <a href="https://www.whatdotheyknow.com">WhaDoTheyKnow</a>
           site that are not subject to FoI law, but which have either voluntarily submitted themselves
@@ -173,7 +173,7 @@ Definitions
   <dd>
     Alaveteli administrators can define <strong>censor rules</strong> to define
     which parts of replies or responses should be
-    <a href="#redact" class="glossary">redacted</a>.
+    <a href="#redact" class="glossary__link">redacted</a>.
     </p>
     <div class="more-info">
       <p>More information:</p>
@@ -200,9 +200,9 @@ Definitions
     so you can <a href="{{ site.baseurl }}docs/customising/">customise it</a>, experiment
     with different settings, and test that it does what you expect.
     This is different from a
-    <a href="#production" class="glossary">production server</a>, which is the one your
+    <a href="#production" class="glossary__link">production server</a>, which is the one your
     users actually visit running with live data, or a
-    <a href="#staging" class="glossary">staging server</a>,
+    <a href="#staging" class="glossary__link">staging server</a>,
     which is used for testing code before it goes live.
     <p>
       On your dev server, you should set
@@ -293,7 +293,7 @@ Definitions
   <dd>
     A <strong>Mail Tranfer Agent</strong> is the the program which actually sends
     and receives email. Alaveteli sends email on behalf of its users, and processes
-    the <a href="#response" class="glossary">responses</a> and replies it receives.
+    the <a href="#response" class="glossary__link">responses</a> and replies it receives.
     All this email goes through the MTA, which is a seperate service on your system.
     <div class="more-info">
       <p>More information:</p>
@@ -311,7 +311,7 @@ Definitions
   </dt>
   <dd>
     Alaveteli can use <strong>New Relic</strong>'s application monitoring tool to track the
-    performance of your <a href="#production" class="glossary">production site</a>. If enabled,
+    performance of your <a href="#production" class="glossary__link">production site</a>. If enabled,
     data from your application is gathered on the New Relic website, which you can inspect with
     their visual tools. Basic use is free.
     <div class="more-info">
@@ -370,14 +370,14 @@ Definitions
   <dd>
     A <strong>production server</strong> is one that is running your Alaveteli site
     for real users, with live data. This is different from a
-    <a href="#development" class="glossary">development server</a>, which you use make your
+    <a href="#development" class="glossary__link">development server</a>, which you use make your
     customisation and environment changes and try to get them to all work OK, or a
-    <a href="#staging" class="glossary">staging server</a>, which is used for testing code
+    <a href="#staging" class="glossary__link">staging server</a>, which is used for testing code
     and configuration after it's been finished but before it goes live.
     <p>
       Your production site should be configured to run as efficiently as possible: for
       example, caching is enabled, and debugging switched off.
-      <a href="#rails" class="glossary">Rails</a> has a "production mode" which does
+      <a href="#rails" class="glossary__link">Rails</a> has a "production mode" which does
       this for you: set
       <code><a href="{{site.baseurl}}docs/customising/config/#staging_site">STAGING_SITE</a></code>
       to <code>0</code>. Note that if you <em>change</em> this setting after you've
@@ -400,9 +400,9 @@ Definitions
   </dt>
   <dd>
     Alaveteli works by <strong>publishing</strong> the
-    <a href="#response" class="glossary">responses</a> it recieves to the
-    <a href="#foi" class="glossary">Freedom of Information</a>
-    <a href="#request" class="glossary">requests</a> that its users send.
+    <a href="#response" class="glossary__link">responses</a> it recieves to the
+    <a href="#foi" class="glossary__link">Freedom of Information</a>
+    <a href="#request" class="glossary__link">requests</a> that its users send.
     It does this by processing the emails it receives and presenting them
     as pages &mdash; one per request &mdash; on the website. This makes it
     easy for people to find, read, link to, and share the request and the
@@ -459,7 +459,7 @@ Definitions
         </li>
         <li>
           you can do text-only redaction with Alaveteli's
-          <a href="#censor-rule" class="glossary">censor rules</a>
+          <a href="#censor-rule" class="glossary__link">censor rules</a>
         </li>
         <li>
           some things are easier to redact than others &mdash; especially in PDFs,
@@ -477,8 +477,8 @@ Definitions
     A <strong>regular expression</strong> is a concise way to describe a
     pattern or sequence of characters, letters or words. As an administrator,
     you may find regular expressions useful if you need to define <a
-    href="#censor-rule" class="glossary">censor rules</a>. For example, instead
-    of <a href="#redact" class="glossary">redacting</a> just one specific
+    href="#censor-rule" class="glossary__link">censor rules</a>. For example, instead
+    of <a href="#redact" class="glossary__link">redacting</a> just one specific
     phrase, you can describe a whole range of <em>similar</em> phrases with one
     single regular expression.
     <p>
@@ -545,11 +545,11 @@ Definitions
   </dt>
   <dd>
     In Alaveteli, a <strong>request</strong> is the
-    <a href="#foi" class="glossary">Freedom of Information</a> request
+    <a href="#foi" class="glossary__link">Freedom of Information</a> request
     that a user enters, and which the site then emails to the relevant
-    <a href="#authority" class="glossary">authority</a>.
-    Alaveteli automatically <a href="#publish" class="glossary">publishes</a>
-    the <a href="#response" class="glossary">responses</a>
+    <a href="#authority" class="glossary__link">authority</a>.
+    Alaveteli automatically <a href="#publish" class="glossary__link">publishes</a>
+    the <a href="#response" class="glossary__link">responses</a>
     to all the requests it sends.
   </dd>
 
@@ -558,8 +558,8 @@ Definitions
   </dt>
   <dd>
     A <strong>response</strong> is the email sent by an
-     <a href="#authority" class="glossary">authority</a> in reply to
-     a user's  <a href="#request" class="glossary">requests</a>.
+     <a href="#authority" class="glossary__link">authority</a> in reply to
+     a user's  <a href="#request" class="glossary__link">requests</a>.
   </dd>
 
   <dt>
@@ -591,7 +591,7 @@ Definitions
     language, and we use it because it's easier to manage than writing CSS
     directly (for example, Sass lets you easily make a single change that will
     be applied to many elements across the whole site).
-    <a href="#rails" class="glossary">Rails</a> notices if you change any of
+    <a href="#rails" class="glossary__link">Rails</a> notices if you change any of
     the Sass files, and automatically re-generates the CSS files that the
     website uses.
     <div class="more-info">
@@ -614,9 +614,9 @@ Definitions
   <dd>
     A <strong>staging server</strong> is one that you use for testing code or configuration
     before it goes live. This is different from a <a href="#development"
-    class="glossary">development server</a>, on which you change the code and settings to
+    class="glossary__link">development server</a>, on which you change the code and settings to
     make everything work, or the
-    <a href="#production" class="glossary">production server</a>, which is the
+    <a href="#production" class="glossary__link">production server</a>, which is the
     site your users visit running with live data.
     <p>
       On your staging server, you should set
@@ -639,14 +639,14 @@ Definitions
     <a name="state">state</a>
   </dt>
   <dd>
-    Each <a href="#request" class="glossary">request</a> passes through different
+    Each <a href="#request" class="glossary__link">request</a> passes through different
     <strong>states</strong> as it progresses through the system.
     States help Alaveteli administrators, as well as the public,
     understand the current situation with any request and what
     action, if any, is required.
     <p>
       The states available can be customised within
-      your site's <a href="#theme" class="glossary">theme</a>.
+      your site's <a href="#theme" class="glossary__link">theme</a>.
     </p>
     <div class="more-info">
       <p>More information:</p>
