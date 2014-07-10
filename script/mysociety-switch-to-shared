@@ -23,6 +23,7 @@ mkdir -p "$SHARED_DIR"
 
 for F in \
     cache \
+    log \
     public/foi-live-creation.png \
     public/foi-user-use.png \
     config/aliases \
