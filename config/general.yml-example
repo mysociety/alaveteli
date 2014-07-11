@@ -596,7 +596,7 @@ UTILITY_SEARCH_PATH: ["/usr/bin", "/usr/local/bin"]
 # Path to your exim or postfix log files that will get sucked up by
 # script/load-mail-server-logs
 #
-# MTA_LOG_PATH - String
+# MTA_LOG_PATH - String (default: /var/log/exim4/exim-mainlog-*)
 #
 # Examples:
 #
