@@ -456,7 +456,7 @@ DEBUG_RECORD_MEMORY: false
 # USE_GHOSTSCRIPT_COMPRESSION - Boolean (default: false)
 #
 # ---
-USE_GHOSTSCRIPT_COMPRESSION: true
+USE_GHOSTSCRIPT_COMPRESSION: false
 
 # Alateveli uses mySociety's gazeteer service to determine country from
 # incoming IP address (this lets us suggest an Alaveteli in the user's country
