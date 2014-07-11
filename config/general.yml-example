@@ -530,7 +530,12 @@ EXCEPTION_NOTIFICATIONS_TO:
 
 # This rate limiting can be turned off per-user via the admin interface
 #
-# MAX_REQUESTS_PER_USER_PER_DAY - Integer (default: nil)
+# MAX_REQUESTS_PER_USER_PER_DAY - Integer (default: 6)
+#
+# Examples:
+#
+#   MAX_REQUESTS_PER_USER_PER_DAY: 1
+#   MAX_REQUESTS_PER_USER_PER_DAY: '' # No limit
 #
 # ---
 MAX_REQUESTS_PER_USER_PER_DAY: 6
