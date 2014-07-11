@@ -256,12 +256,12 @@ INCOMING_EMAIL_DOMAIN: 'localhost'
 
 # An optional prefix to help you distinguish FOI requests.
 #
-# INCOMING_EMAIL_PREFIX - String (default: nil)
+# INCOMING_EMAIL_PREFIX - String (default: foi+)
 #
 # Examples:
 #
-#   INCOMING_EMAIL_PREFIX: ''
-#   INCOMING_EMAIL_PREFIX: 'foi+'
+#   INCOMING_EMAIL_PREFIX: ''             # No prefix
+#   INCOMING_EMAIL_PREFIX: 'alaveteli+'
 #
 # ---
 INCOMING_EMAIL_PREFIX: 'foi+'

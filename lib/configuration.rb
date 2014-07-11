@@ -42,7 +42,7 @@ module AlaveteliConfiguration
             :HTML_TO_PDF_COMMAND => '',
             :INCLUDE_DEFAULT_LOCALE_IN_URLS => true,
             :INCOMING_EMAIL_DOMAIN => 'localhost',
-            :INCOMING_EMAIL_PREFIX => '',
+            :INCOMING_EMAIL_PREFIX => 'foi+',
             :INCOMING_EMAIL_SECRET => 'dummysecret',
             :ISO_COUNTRY_CODE => 'GB',
             :MINIMUM_REQUESTS_FOR_STATISTICS => 100,
