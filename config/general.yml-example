@@ -290,7 +290,7 @@ INCOMING_EMAIL_SECRET: 'xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx'
 # ---
 BLACKHOLE_PREFIX: 'do-not-reply-to-this-address'
 
-# Emergency admin user login username. You should change this.
+# Emergency admin user login username. YOU SHOULD CHANGE THIS.
 #
 # ADMIN_USERNAME - String (default: nil)
 #
@@ -301,7 +301,7 @@ BLACKHOLE_PREFIX: 'do-not-reply-to-this-address'
 # ---
 ADMIN_USERNAME: 'adminxxxx'
 
-# Emergency admin user login password. You should change this.
+# Emergency admin user login password. YOU SHOULD CHANGE THIS.
 #
 # ADMIN_USERNAME - String (default: nil)
 #
