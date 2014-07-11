@@ -511,7 +511,7 @@ HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf-amd64
 #   EXCEPTION_NOTIFICATIONS_FROM: do-not-reply-to-this-address@example.com
 #
 # ---
-EXCEPTION_NOTIFICATIONS_FROM: do-not-reply-to-this-address@example.com
+EXCEPTION_NOTIFICATIONS_FROM: do-not-reply-to-this-address@localhost
 
 # Email address(es) used for receiving exception notifications.
 #
@@ -525,8 +525,7 @@ EXCEPTION_NOTIFICATIONS_FROM: do-not-reply-to-this-address@example.com
 #
 # ---
 EXCEPTION_NOTIFICATIONS_TO:
-  - robin@example.org
-  - seb@example.org
+  - alaveteli@localhost
 
 # This rate limiting can be turned off per-user via the admin interface
 #
