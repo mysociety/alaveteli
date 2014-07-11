@@ -1,6 +1,17 @@
+# == Schema Information
+#
+# Table name: public_body_categories
+#
+#  id            :integer        not null, primary key
+#  locale        :string
+#  title         :text           not null
+#  category_tag  :text           not null
+#  description   :text           not null
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe PublicBodyCategories do
+describe PublicBodyCategory do
 
     before do
         load_test_categories
@@ -17,7 +28,7 @@ describe PublicBodyCategories do
                                    "Miscellaneous", ["other",
                                                      "Miscellaneous",
                                                      "miscellaneous"]]
-            PublicBodyCategories::get().with_headings().should == expected_categories
+            PublicBodyCategory::get().with_headings().should == expected_categories
         end
 
     end
@@ -25,7 +36,7 @@ describe PublicBodyCategories do
     describe 'when asked for headings' do
 
         it 'should return a list of headings' do
-            PublicBodyCategories::get().headings().should == ['Local and regional', 'Miscellaneous']
+            PublicBodyCategory::get().headings().should == ['Local and regional', 'Miscellaneous']
         end
 
     end
@@ -33,7 +44,7 @@ describe PublicBodyCategories do
     describe 'when asked for tags by headings' do
 
         it 'should return a hash of tags keyed by heading' do
-            PublicBodyCategories::get().by_heading().should == {'Local and regional' => ['local_council'],
+            PublicBodyCategory::get().by_heading().should == {'Local and regional' => ['local_council'],
                                                                 'Miscellaneous' => ['other']}
         end
 
