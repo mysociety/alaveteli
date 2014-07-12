@@ -7,7 +7,7 @@
     <div id="alawidget-top">
       <div id="alawidget-left">
         <div id="alawidget-title">
-          <%= @info_request.title %>
+          <%= link_to @info_request.title, request_path(@info_request) %>
         </div>
         <div id="alawidget-status" class="<%= @info_request.calculate_status %>">
           <% if @info_request.awaiting_description %>

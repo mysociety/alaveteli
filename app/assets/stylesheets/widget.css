@@ -19,6 +19,10 @@ body {
     overflow: hidden;
     color: #5a5a5a;
 }
+#alawidget-title a {
+    text-decoration: none;
+    color: #5a5a5a;
+}
 #alawidget-status {
     position: absolute;
     top: 113px;
