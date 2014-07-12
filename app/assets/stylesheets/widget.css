@@ -1,0 +1,92 @@
+body {
+    background: steelblue;
+}
+#alawidget-base {
+    width: 320px;
+    height: 215px;
+    background: url("widget-base.png") no-repeat;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    position: relative;
+}
+#alawidget-title {
+    position: absolute;
+    top: 24px;
+    left: 22px;
+    width: 123px;
+    height: 80px;
+    overflow: hidden;
+    color: #5a5a5a;
+}
+#alawidget-status {
+    position: absolute;
+    top: 113px;
+    left: 27px;
+    width: 1184x;
+    font-weight: 800;
+    font-size: 12px;
+}
+#alawidget-status.waiting_response,
+#alawidget-status.waiting_response_overdue,
+#alawidget-status.waiting_response_very_overdue {
+    color: #750096;
+}
+#alawidget-status.not_held {
+    color: #830016;
+}
+#alawidget-status.rejected {
+    color: #e62590;
+}
+#alawidget-status.successful {
+    color: #76b12c;
+}
+#alawidget-status.partially_successful {
+    color: #559798;
+}
+#alawidget-status.waiting_clarification {
+    color: #978f0b;
+}
+#alawidget-status.gone_postal {
+    color: #959191;
+}
+#alawidget-status.internal_review {
+    color: #7da49b;
+}
+#alawidget-status.error_message {
+    color: #e57f12;
+}
+#alawidget-status.user_withdrawn {
+    color: #5b8048;
+}
+#alawidget-left {
+    position: absolute;
+    width: 145px;
+}
+#alawidget-count {
+    position: absolute;
+    left: 176px;
+    top: 22px;
+    color: white;
+    font-weight: 800;
+    font-size: 55px;
+}
+#alawidget-bottom a {
+    text-decoration: none;
+}
+#alawidget-button {
+    position: absolute;
+    top: 173px;
+    left: 8px;
+    width: 151px;
+    height: 25px;
+    padding-top: 3px;
+    background: #009699;
+    color: white;
+    text-align: center;
+    box-shadow: 0 0 6px 1px #009699;
+}
+#alawidget-button.down {
+    background: #91b85d;
+    box-shadow: 0 0 6px 1px #91b85d;
+}

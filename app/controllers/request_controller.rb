@@ -161,6 +161,20 @@ class RequestController < ApplicationController
         @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
     end
 
+    def widget
+        medium_cache
+        @info_request = InfoRequest.find(params[:id])
+        @track_thing = TrackThing.create_track_for_request(@info_request)
+        @status = @info_request.calculate_status
+        render :template => 'request/widget', :layout => false
+    end
+
+    def create_widget
+        long_cache
+        @info_request = InfoRequest.find(params[:id])
+        render :template => 'request/create_widget'
+    end
+
     def list
         medium_cache
         @view = params[:view]
