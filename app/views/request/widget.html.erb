@@ -1,0 +1,79 @@
+<head>
+  <%= stylesheet_link_tag "widget" %>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:600,800' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <div id="alawidget-base">
+    <div id="alawidget-top">
+      <div id="alawidget-left">
+        <div id="alawidget-title">
+          <%= @info_request.title %>
+        </div>
+        <div id="alawidget-status" class="<%= @info_request.calculate_status %>">
+          <% if @info_request.awaiting_description %>
+            <%= _('UNKNOWN STATUS') %>
+          <% elsif @status == 'waiting_response' %>
+            <%= _('WAITING RESPONSE') %>
+          <% elsif @status == 'waiting_response_overdue' %>
+            <%= _('WAITING RESPONSE') %>
+          <% elsif @status == 'waiting_response_very_overdue' %>
+            <%= _('WAITING RESPONSE') %>
+          <% elsif @status == 'not_held' %>
+            <%= _('NOT HELD') %>
+          <% elsif @status == 'rejected' %>
+            <%= _('REJECTED') %>
+          <% elsif @status == 'successful' %>
+            <%= _('SUCCESSFUL') %>
+          <% elsif @status == 'partially_successful' %>
+            <%= _('PARTIAL SUCCESS') %>
+          <% elsif @status == 'waiting_clarification' %>
+            <%= _('WAITING CLARIFICATION') %>
+          <% elsif @status == 'gone_postal' %>
+            <%= _('GONE POSTAL') %>
+          <% elsif @status == 'internal_review' %>
+            <%= _('INTERNAL REVIEW') %>
+          <% elsif @status == 'error_message' %>
+            <%= _('ERROR MESSAGE') %>
+          <% elsif @status == 'requires_admin' %>
+            <%= _('REQUIRES ADMIN') %>
+          <% elsif @status == 'user_withdrawn' %>
+            <%= _('USER WITHDRAWN') %>
+          <% elsif @status == 'attention_requested' %>
+            <%= _('ATTENTION REQUESTED') %>
+          <% elsif @status == 'vexatious' %>
+            <%= _('VEXATIOUS') %>
+          <% else %>
+            <%= render :partial => 'general/custom_state_descriptions', :locals => { :status => @status } %>
+          <% end %>
+        </div>
+      </div>
+      <div id="alawidget-count">
+        <%= TrackThing.count(:all, :conditions => ["info_request_id = ?", @info_request.id]) + 1 %>
+      </div>
+    </div>
+    <%
+      if @user
+        existing_track = TrackThing.find_existing(@user, @track_thing)
+      end
+    %>
+    <div id="alawidget-bottom">
+      <% if @info_request.user && @info_request.user == @user %>
+        <div id="alawidget-button" class="down">
+          <%= _('This is your request') %>
+        </div>
+      <% elsif existing_track %>
+        <a href="<%= url_for :controller => 'track', :action => 'update', :track_id => existing_track.id, :track_medium => "delete", :r => request.fullpath %>">
+          <div id="alawidget-button" class="down">
+            <%= _('I also want to know!') %>
+          </div>
+        </a>
+      <% else %>
+        <a href="<%= url_for do_track_path(@track_thing) %>" target="_blank">
+          <div id="alawidget-button">
+            <%= _('I also want to know!') %>
+          </div>
+        </a>
+      <% end %>
+    </div>
+  </div>
+</body>

@@ -112,6 +112,7 @@ module Alaveteli
                                  'admin.css',
                                  'ie6.css',
                                  'ie7.css',
+                                 'widget.css',
                                  'responsive/print.css',
                                  'responsive/application-lte-ie7.css',
                                  'responsive/application-ie8.css']
