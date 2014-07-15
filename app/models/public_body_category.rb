@@ -11,13 +11,15 @@
 require 'forwardable'
 
 class PublicBodyCategory < ActiveRecord::Base
-    attr_accessible :locale, :category_tag, :title, :description
+    attr_accessible :locale, :category_tag, :title, :description, :translated_versions
 
     has_and_belongs_to_many :public_body_headings
 
     translates :title, :description
-
-    validates_uniqueness_of :category_tag, :message => N_("Tag is already taken")
+    validates_uniqueness_of :category_tag, :message => N_('Tag is already taken')
+    validates_presence_of :title, :message => N_('Title can\'t be blank')
+    validates_presence_of :category_tag, :message => N_('Tag can\'t be blank')
+    validates_presence_of :description, :message => N_('Description can\'t be blank')
 
     def self.get
         locale = I18n.locale.to_s || default_locale.to_s || ""
@@ -84,6 +86,37 @@ class PublicBodyCategory < ActiveRecord::Base
                         @heading = PublicBodyHeading.create(:name => category)
                     end
                 end
+            end
+        end
+    end
+
+    # Convenience methods for creating/editing translations via forms
+    def find_translation_by_locale(locale)
+        self.translations.find_by_locale(locale)
+    end
+
+    def skip?(attrs)
+        valueless = attrs.inject({}) { |h, (k, v)| h[k] = v if v != '' and k != 'locale'; h } # because we want to fall back to alternative translations where there are empty values
+        return valueless.length == 0
+     end
+
+    def translated_versions
+        translations
+    end
+
+    def translated_versions=(translation_attrs)
+        if translation_attrs.respond_to? :each_value    # Hash => updating
+            translation_attrs.each_value do |attrs|
+                next if skip?(attrs)
+                t = translation_for(attrs[:locale]) || PublicBodyCategory::Translation.new
+                t.attributes = attrs
+                t.save!
+            end
+        else                                            # Array => creating
+            translation_attrs.each do |attrs|
+                next if skip?(attrs)
+                new_translation = PublicBodyCategory::Translation.new(attrs)
+                translations << new_translation
             end
         end
     end
