@@ -254,6 +254,7 @@ SHARED_DIRECTORIES:
  - files/
  - cache/
  - lib/acts_as_xapian/xapiandbs/
+ - log/
  - vendor/bundle
  - public/assets
 

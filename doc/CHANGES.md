@@ -1,3 +1,21 @@
+## rails-3-develop
+
+## Highlighted Features
+
+## Upgrade Notes
+
+* rails-post-deploy no longer handles linking `APP_ROOT/log` to a log directory
+  outside the app. Capistrano users will find that `:symlink_configuration` now
+  links `APP_ROOT/log` to `SHARED_PATH/log`. Users who aleady use the
+  `SHARED_FILES` and `SHARED_DIRECTORIES` settings in `config/general.yml`
+  should add `log/` to the `SHARED_DIRECTORIES` setting. The existing mechanism
+  for shared directories (in `script/rails-deploy-before-down`) will create the
+  necessary link to `SHARED_FILES_PATH/log`. If your existing shared log
+  directory is not at `SHARED_FILES_PATH/log`, move the directory and re-run
+  `script/rails-post-deploy` to link up the new location. If you don't use
+  `SHARED_FILES` and `SHARED_DIRECTORIES`, alaveteli will now write it's
+  application logs to `APP_ROOT/log` rather than `APP_ROOT/../logs` by default.
+
 # Version 0.18
 
 ## Highlighted features

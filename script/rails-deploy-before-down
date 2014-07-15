@@ -32,31 +32,6 @@ else
     OPTION_STAGING_SITE=1
 fi
 
-# create initial log files
-if [ -e $TOP_DIR/../logs ]
-then
-    # mySociety servers have logs dir in level above
-    if ! [ -h log ] && [ -d log ]
-    then
-        # If log is a directory rather than a symlink, move that
-        # directory out of the way:
-        mv log log.original
-    fi
-    ln -sfn $TOP_DIR/../logs log
-else
-    # otherwise just make the directory
-    if [ -h log ]
-    then
-        # remove any old-style symlink first
-        rm -f log
-    fi
-    mkdir -p log
-fi
-
-cd log
-touch development.log fastcgi.crash.log production.log test.log
-cd ..
-
 # Returns 0 if an element is present in a bash array, and 1 otherwise
 # Taken from: http://stackoverflow.com/a/8574392/223092
 contains () {
