@@ -4,6 +4,8 @@
 
 ## Upgrade Notes
 
+* The `SHARED_DIRECTORIES` setting now includes `tmp/pids`. The notes below for
+  updating the log directory should cover the update steps for `tmp/pids`.
 * Capistrano now creates `SHARED_PATH/tmp/pids` and links `APP_ROOT/tmp/pids`
   here, as the alert tracks daemon writes its pids to the generally expected
   location of `APP_ROOT/tmp/pids`.
