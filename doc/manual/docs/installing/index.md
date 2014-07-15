@@ -59,7 +59,7 @@ If you're setting up a development server on MacOS X, we've also got
 
 ## Other installation information
 
-Alaveteli needs to be able to send and receive email, so you need to setup your
-MTA (Mail Transfer Agent) appropriately.
+Alaveteli needs to be able to send and receive email. If you're installing manually, you need to [setup your
+MTA (Mail Transfer Agent) appropriately]({{ site.baseurl }}docs/installing/email/). The other install methods will do this for you.
 
 * [Installing the MTA]({{ site.baseurl }}docs/installing/email/)
