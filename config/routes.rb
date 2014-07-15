@@ -178,6 +178,24 @@ Alaveteli::Application.routes.draw do
     match '/admin/body/mass_tag_add' => 'admin_public_body#mass_tag_add', :as => :admin_body_mass_tag_add
     ####
 
+    #### AdminPublicBodyCategory controller
+    match '/admin/category' => 'admin_public_body_category#index', :as => :admin_category_index
+    match '/admin/category/new' => 'admin_public_body_category#new', :as => :admin_category_new
+    match '/admin/category/edit/:id' => 'admin_public_body_category#edit', :as => :admin_category_edit
+    match '/admin/category/update/:id' => 'admin_public_body_category#update', :as => :admin_category_update
+    match '/admin/category/create' => 'admin_public_body_category#create', :as => :admin_category_create
+    match '/admin/category/destroy/:id' => 'admin_public_body_category#destroy', :as => :admin_category_destroy
+    ####
+
+    #### AdminPublicBodyHeading controller
+    match '/admin/category_heading' => 'admin_public_body_heading#index'
+    match '/admin/category_heading/new' => 'admin_public_body_heading#new', :as => :admin_heading_new
+    match '/admin/category_heading/edit/:id' => 'admin_public_body_heading#edit', :as => :admin_heading_edit
+    match '/admin/category_heading/update/:id' => 'admin_public_body_heading#update', :as => :admin_heading_update
+    match '/admin/category_heading/create' => 'admin_public_body_heading#create', :as => :admin_heading_create
+    match '/admin/category_heading/destroy/:id' => 'admin_public_body_heading#destroy', :as => :admin_heading_destroy
+    ####
+
     #### AdminPublicBodyChangeRequest controller
     match '/admin/change_request/edit/:id' => 'admin_public_body_change_requests#edit', :as => :admin_change_request_edit
     match '/admin/change_request/update/:id' => 'admin_public_body_change_requests#update', :as => :admin_change_request_update

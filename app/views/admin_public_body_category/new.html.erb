@@ -1,0 +1,21 @@
+<% @title = 'New category' %>
+
+<h1><%=@title%></h1>
+<div class="row">
+  <div class="span8">
+    <div id="public_category_form">
+      <%= form_for @category, :as => :public_body_category, :url => admin_category_create_path, :html => {:class => "form form-horizontal"} do |f| %>
+          <%= render :partial => 'form', :locals => {:f => f} %>
+
+          <div class="form-actions">
+            <%= f.submit "Create", :class => "btn btn-primary"  %>
+          </div>
+        <% end %>
+        <div class="row">
+          <div class="span8 well">
+              <%= link_to 'List all', admin_category_index_path, :class => "btn" %>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
