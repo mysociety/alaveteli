@@ -4,6 +4,9 @@
 
 ## Upgrade Notes
 
+* Capistrano now creates `SHARED_PATH/tmp/pids` and links `APP_ROOT/tmp/pids`
+  here, as the alert tracks daemon writes its pids to the generally expected
+  location of `APP_ROOT/tmp/pids`.
 * rails-post-deploy no longer handles linking `APP_ROOT/log` to a log directory
   outside the app. Capistrano users will find that `:symlink_configuration` now
   links `APP_ROOT/log` to `SHARED_PATH/log`. Users who aleady use the
