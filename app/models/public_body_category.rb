@@ -3,7 +3,6 @@
 # Table name: public_body_categories
 #
 #  id            :integer        not null, primary key
-#  locale        :string
 #  title         :text           not null
 #  category_tag  :text           not null
 #  description   :text           not null
@@ -16,18 +15,24 @@ class PublicBodyCategory < ActiveRecord::Base
 
     has_and_belongs_to_many :public_body_headings
 
+    translates :title, :description
+
+    validates_uniqueness_of :category_tag, :message => N_("Tag is already taken")
+
     def self.get
         locale = I18n.locale.to_s || default_locale.to_s || ""
-        headings = PublicBodyHeading.find_all_by_locale(locale)
         categories = CategoryCollection.new
-        headings.each do |heading|
-            categories << heading.name
-            heading.public_body_categories.each do |category|
-                categories << [
-                    category.category_tag,
-                    category.title,
-                    category.description
-                ]
+        I18n.with_locale(locale) do
+            headings = PublicBodyHeading.all
+            headings.each do |heading|
+                categories << heading.name
+                heading.public_body_categories.each do |category|
+                    categories << [
+                        category.category_tag,
+                        category.title,
+                        category.description
+                    ]
+                end
             end
         end
         categories
@@ -35,25 +40,50 @@ class PublicBodyCategory < ActiveRecord::Base
 
     # Called from the data files themselves
     def self.add(locale, categories)
-        heading = nil
+        @heading = nil
         categories.each do |category|
             if category.is_a?(Array)
                 #categories
-                unless PublicBodyCategory.find_by_locale_and_category_tag(locale, category[0])
-                    pb_category = PublicBodyCategory.new(
+                pb_category = PublicBodyCategory.find_by_category_tag(category[0])
+                unless pb_category
+                    pb_category = PublicBodyCategory.create(
                         {
-                            :locale => locale,
                             :category_tag => category[0],
                             :title => category[1],
                             :description => category[2]
                         }
                     )
-                    pb_category.public_body_headings << heading
-                    pb_category.save
+                    # add the translation if this is not the default locale
+                    # (occurs when a category is not defined in default locale)
+                    unless pb_category.translations.map { |t| t.locale }.include?(locale)
+                        I18n.with_locale(locale) do
+                            pb_category.title = category[1]
+                            pb_category.description = category[2]
+                            pb_category.save
+                        end
+                    end
+                    pb_category.public_body_headings << @heading
+                else
+                    I18n.with_locale(locale) do
+                        pb_category.title = category[1]
+                        pb_category.description = category[2]
+                        pb_category.save
+                    end
                 end
             else
                 #headings
-                heading = PublicBodyHeading.find_or_create_by_locale_and_name(locale, category)
+                matching_headings = PublicBodyHeading.with_translations.where(:name => category)
+                if matching_headings.count > 0
+                    @heading = matching_headings.first
+                    I18n.with_locale(locale) do
+                        @heading.name = category
+                        @heading.save
+                    end
+                else
+                    I18n.with_locale(locale) do
+                        @heading = PublicBodyHeading.create(:name => category)
+                    end
+                end
             end
         end
     end
