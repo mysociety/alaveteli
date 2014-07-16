@@ -57,3 +57,6 @@ If you have any problems or questions, please ask on the [Alaveteli Google
 Group](https://groups.google.com/forum/#!forum/alaveteli-dev) or [report an
 issue](https://github.com/mysociety/alaveteli/issues?state=open).
 
+##What next?
+
+Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
