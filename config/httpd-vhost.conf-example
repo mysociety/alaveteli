@@ -23,6 +23,7 @@
         PassengerAppRoot /opt/alaveteli
 
         # Set this to something like 100 if you have memory leak issues
+        # See http://blog.phusion.nl/2013/03/12/tuning-phusion-passengers-concurrency-settings/ for more information on tuning Passenger
         PassengerMaxRequests 2000
         PassengerResolveSymlinksInDocumentRoot on
         PassengerMaxPoolSize 6
