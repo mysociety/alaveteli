@@ -480,6 +480,16 @@ by your deploy user (named `deploy` in this case).
 
     deploy ALL = NOPASSWD: /etc/init.d/foi-alert-tracks, /etc/init.d/foi-purge-varnish
 
+There is also an example config for stopping and starting the
+Alaveteli app server as a service in `config/sysvinit.example`. This
+example assumes you're using Thin as an application server, so will
+need tweaking for Passenger or any other app server. You can install
+this by copying it to `/etc/init.d/alaveteli` and setting the
+`SITE_HOME` variable to the path where Alaveteli is running, and the
+`USER` variable to the Unix user that will be running Alaveteli. Once
+that's done, you can restart Alaveteli with `/etc/init.d/alaveteli
+restart`.
+
 ## Set up production web server
 
 It is not recommended to run the website using the default Rails web server.

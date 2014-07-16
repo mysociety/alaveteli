@@ -25,7 +25,7 @@ etc.**
 
 To download the script, run the following command:
 
-    curl -O https://raw.github.com/mysociety/commonlib/master/bin/install-site.sh
+    curl -O https://raw.githubusercontent.com/mysociety/commonlib/master/bin/install-site.sh
 
 If you run this script with `sh install-site.sh`, you'll see its usage message:
 

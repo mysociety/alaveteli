@@ -69,7 +69,11 @@ and thereafter you'll be able to deploy very easily (see [usage, below](#usage))
 First, on the server:
 
 * [install Alaveteli]({{ site.baseurl }}docs/installing/)
-* then move the Alaveteli app to a temporary place on the server, like your home
+* give the Unix user that runs Alaveteli the ability to ssh to your server. Either give them a password or, preferably, set up ssh keys for them so they can ssh from your local machine to the server:
+   * to give them a password (if they don't already have one) - `sudo passwd [UNIX-USER]`. Store this password securely on your local machine e.g in a password manager
+   * to set up ssh keys for them, follow the instructions in the [capistrano documentation](http://capistranorb.com/documentation/getting-started/authentication-and-authorisation/). There's no need to set up ssh keys to the git repository as it is public.
+* make sure the Unix user that runs Alaveteli has write permissions on the parent directory of your Alaveteli app
+* move the Alaveteli app to a temporary place on the server, like your home
   directory (temporarily, your site will be missing, until the deployment puts
   new files in place)
 
@@ -83,14 +87,26 @@ Next, on your local machine:
   need some of the files available locally even though you might not be running
   Alaveteli on this machine)
 * copy the example file `config/deploy.yml.example` to `config/deploy.yml`
-* now customise the deployment settings in that file: edit `config/deploy.yml`
-  appropriately -- for example, edit the name of the server. Also, change
-  `deploy_to` to be the path where Alaveteli is currently installed on the
-  server -- if you used the installation script, this will be
-  `/var/www/alaveteli/alaveteli`.
+* now customise the deployment settings in that file: edit
+  `config/deploy.yml` appropriately -- for example, edit the name of the
+  server. Also, change `deploy_to` to be the path where Alaveteli is
+  currently installed on the server -- if you used the installation
+  script , this will be `/var/www/[HOST or alaveteli]/alaveteli`. If
+  you're running the thin application server rather than passenger,
+  you'll need to set `rails_app_server` to `thin` and `rails_app_port`
+  to whatever port it's running on. If you installed with the install
+  script, this will be port 3300.
+
+
 * `cd` into the Alaveteli repo you checked out (otherwise the `cap` commands you're about to
   execute won't work)
 * still on your local machine, run `cap -S stage=staging deploy:setup` to setup capistrano on the server
+
+If you get an error `SSH::AuthenticationFailed`, and are not prompted for the password of the deployment user, you may have run into [a bug](http://stackoverflow.com/questions/21560297/capistrano-sshauthenticationfailed-not-prompting-for-password) in the net-ssh gem version 2.8.0. Try installing version 2.7.0 instead:
+
+    gem uninstall net-ssh
+
+    gem install net-ssh -v 2.7.0
 
 Back on the server:
 
@@ -120,10 +136,13 @@ Now, back on your local machine:
 * create a deployment directory on the server by running *one* of these commands:
    * `cap deploy` if you're deploying a <a href="{{site.baseurl}}docs/glossary/#staging" class="glossary__link">staging site</a>, or...
    * `cap -S stage=production deploy` for <a href="{{site.baseurl}}docs/glossary/#production" class="glossary__link">production</a>
+
+Back on the server:
+
 * update the webserver config (either apache or nginx) to add the `current` element
   to the path where it is serving Alaveteli from. If you installed using the
   installation script, this will be replacing `/var/www/alaveteli/alaveteli/` with
-  `/var/www/alaveteli/alaveteli/current` in `etc/nginx/sites-available/default`.
+  `/var/www/alaveteli/alaveteli/current` in `/etc/nginx/sites-available/default`.
 * edit the server crontab so that the paths in the cron jobs also include the
   `current` element. If you used the installation script the crontab will be in
   `etc/cron.d/alaveteli`.
@@ -133,7 +152,13 @@ Now, back on your local machine:
   `argv=/var/www/alaveteli/alaveteli/script/mailin` with
   `argv=/var/www/alaveteli/alaveteli/current/script/mailin`.
   If you're using Exim as your MTA, edit `etc/exim4/conf.d/04_alaveteli_options`
-  to update the `ALAVETELI_HOME` variable to the new Alaveteli path.
+  to update the `ALAVETELI_HOME` variable to the new Alaveteli path. Restart the MTA after you've made these changes.
+
+* You will also need to update the path to Alaveteli in your [init scripts]({{site.baseurl}}docs/installing/manual_install/#cron-jobs-and-init-scripts).
+  You should have a script for running the alert tracks
+  (`/etc/init.d/foi-alert-tracks`), and possibly scripts for purging the
+  varnish cache (`/etc/init.d/foi-purge-varnish`), and restarting the
+  app server (`/etc/init.d/alaveteli`).
 
 Phew, you're done!
 
