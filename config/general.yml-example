@@ -758,12 +758,11 @@ SHARED_DIRECTORIES:
 ALLOW_BATCH_REQUESTS: false
 
 # Use the responsive base stylesheets and templates, rather than those that
-# only render the site at a fixed width. These stylesheets are currently
-# experimental but will become the default in the future. They allow the site
-# to render nicely on mobile devices as well as larger screens. Currently the
-# fixed width stylesheets are used by default.
+# only render the site at a fixed width. They allow the site to render nicely
+# on mobile devices as well as larger screens. Set this to false if you want to
+# continue using fixed width stylesheets.
 #
-# RESPONSIVE_STYLING - Boolean (default: false)
+# RESPONSIVE_STYLING - Boolean (default: true)
 #
 # ---
 RESPONSIVE_STYLING: true
