@@ -15,8 +15,8 @@
     # TODO: Remove this and use PassengerUser
     SuExecUserGroup foi foi
 
-    ErrorLog /var/log/apache2/alaveteli/error_log
-    CustomLog /var/log/apache2/alaveteli/access_log combined
+    ErrorLog /var/log/apache2/alaveteli_error.log
+    CustomLog /var/log/apache2/alaveteli_access.log combined
 
     # App server configuration
     <IfModule mod_passenger.c>
