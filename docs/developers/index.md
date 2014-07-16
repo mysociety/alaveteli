@@ -45,7 +45,7 @@ title: For developers
   [manual installation]({{ site.baseurl }}docs/installing/manual_install/).
   Alternatively, there's an [Alaveteli EC2 AMI]({{ site.baseurl }}docs/installing/ami/)
   that might help you get up and running quickly.
-  [Get in touch](http://www.alaveteli.org/contact/) on the project mailing list or IRC
+  [Get in touch]({{ site.baseurl }}community/) on the project mailing list or IRC
   for help.
 
 * A standard initial step for customising your deployment is [writing a
