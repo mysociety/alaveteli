@@ -10,7 +10,7 @@
 <VirtualHost *:80>
     ServerName www.example.com
     ServerAdmin webmaster@example.com
-    DocumentRoot /srv/www.example.com/
+    DocumentRoot /srv/alaveteli/
 
     # TODO: Remove this and use PassengerUser
     SuExecUserGroup foi foi
@@ -35,7 +35,7 @@
     </IfModule>
 
     # This is your Rails app's public directory
-    <Directory "/srv/www.example.com/">
+    <Directory "/srv/alaveteli/">
         Options +ExecCGI -MultiViews
         AllowOverride All
         AddHandler fastcgi-script .cgi
@@ -92,20 +92,20 @@
         <IfModule mod_xsendfile.c>
             RequestHeader Set X-Sendfile-Type X-Sendfile
             XSendFile On
-            XSendFilePath /srv/www.example.com
+            XSendFilePath /srv/alaveteli
         </IfModule>
     </Location>
 
     # Commonlib is typically found in alaveteli/commonlib
-    Alias /jslib/ "/srv/www.example.com/jslib"
-    <Directory "/srv/www.example.com/commonlib/jslib">
+    Alias /jslib/ "/srv/alaveteli/jslib"
+    <Directory "/srv/alaveteli/commonlib/jslib">
         Options +ExecCGI
         AddHandler fastcgi-script .cgi
         AddType application/x-httpd-fastphp .php
         Action application/x-httpd-fastphp /fcgi/php-basic
     </Directory>
 
-    Alias /files/ "/srv/www.example.com/files/"
+    Alias /files/ "/srv/alaveteli/files/"
 
     # Serve attachments directly from the cache, if possible.
     #
@@ -154,8 +154,8 @@
 # as mod_alias doesn't work with Passenger.
 <VirtualHost *:80>
     ServerName files.example.com
-    DocumentRoot /srv/files.example.com/files
-    <Directory "/srv/files.example.com/files">
+    DocumentRoot /srv/alaveteli-files/files
+    <Directory "/srv/alaveteli-files/files">
         Options +Indexes
     </Directory>
 </VirtualHost>
