@@ -44,8 +44,11 @@
     RewriteEngine On
 
     # Rewrite all proxied HTTP requests to HTTPS.
-    RewriteCond %{HTTP:X-Forwarded-Proto} !https
-    RewriteRule /(.*) https://www.example.com/$1 [L,R=permanent]
+    # Uncomment the following two lines if you have set `FORCE_SSL: true` in
+    # general.yml:
+    # ---
+    # RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    # RewriteRule /(.*) https://www.example.com/$1 [L,R=permanent]
 
     # TODO: do we need this now we use Passenger?
     # Pass through the HTTP basic authentication to mongrel. See also
