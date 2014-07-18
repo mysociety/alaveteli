@@ -341,9 +341,8 @@ In the `alaveteli` directory, run:
 
     script/rails-post-deploy
 
-(This will need execute privs so `chmod 755` if necessary.) This sets up
-directory structures, creates logs, installs/updates themes, runs database
-migrations, etc. You should run it after each new software update.
+This sets up directory structures, creates logs, installs/updates themes, runs
+database migrations, etc. You should run it after each new software update.
 
 One of the things the script does is install dependencies (using `bundle
 install`). Note that the first time you run it, part of the `bundle install`
