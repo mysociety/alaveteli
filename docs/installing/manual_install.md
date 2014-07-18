@@ -376,11 +376,6 @@ One of the things the script does is install dependencies (using `bundle
 install`). Note that the first time you run it, part of the `bundle install`
 that compiles `xapian-full` takes a *long* time!
 
-If you want some dummy data to play with, you can try loading the fixtures that
-the test suite uses into your development database. You can do this with:
-
-    script/load-sample-data
-
 Next, create the index for the search engine (Xapian):
 
     script/rebuild-xapian-index
