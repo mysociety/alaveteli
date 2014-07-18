@@ -364,23 +364,37 @@ for both local and remote analysis.
 
 ## Deployment
 
-In the `alaveteli` directory, run:
+You should run the `rails-post-deploy` script after each new software upgrade:
 
-    script/rails-post-deploy
+    sudo -u alaveteli RAILS_ENV=production \
+      /var/www/alaveteli/script/rails-post-deploy
 
-This sets up directory structures, creates logs, installs/updates themes, runs
-database migrations, etc. You should run it after each new software update.
+This sets up installs Ruby dependencies, installs/updates themes, runs database
+migrations, updates shared directories and runs other tasks that need to be run
+after a software update.
 
-One of the things the script does is install dependencies (using `bundle
-install`). Note that the first time you run it, part of the `bundle install`
-that compiles `xapian-full` takes a *long* time!
+That the first time you run this script can take a *long* time, as it must
+compile native dependencies for `xapian-full`.
 
-Next, create the index for the search engine (Xapian):
+Precompile the static assets:
 
-    script/rebuild-xapian-index
+    sudo -u alaveteli \
+      bash -c 'RAILS_ENV=production cd /var/www/alaveteli && \
+        bundle exec rake assets:precompile'
+
+Create the index for the search engine (Xapian):
+
+    sudo -u alaveteli RAILS_ENV=production \
+      /var/www/alaveteli/script/rebuild-xapian-index
 
 If this fails, the site should still mostly run, but it's a core component so
 you should really try to get this working.
+
+<div class="attention-box">
+  Note that we set <code>RAILS_ENV=production</code>. Use
+  <code>RAILS_ENV=development</code> if you are installing Alaveteli to make
+  changes to the code.
+</div>
 
 ## Run the Server
 
