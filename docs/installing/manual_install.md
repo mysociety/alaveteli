@@ -296,49 +296,13 @@ to the test config in `database.yml` (as seen in `database.yml-example`)
 
 ## Configure email
 
-You will need to set up an email server (MTA) to send and receive emails. Full
-configuration for an MTA is beyond the scope of this document -- see this
-[example config for Exim4]({{ site.baseurl }}docs/installing/email/).
+You will need to set up an email server – or Mail Transfer Agent (MTA) – to
+send and receive emails.
 
-Note that in development mode mail is handled by mailcatcher by default so
-that you can see the mails in a browser - see [http://mailcatcher.me/](http://mailcatcher.me/) for more
-details. Start mailcatcher by running `bundle exec mailcatcher` in your
-application directory.
+Full configuration for an MTA is beyond the scope of this document -- see the guide for [configuring the Exim4 or Postfix MTAs]({{ site.baseurl }}docs/installing/email/).
 
-### Minimal
-
-If you just want to get the tests to pass, you will at a minimum need to allow
-sending emails via a `sendmail` command (a requirement met, for example, with
-`apt-get install exim4`).
-
-### Detailed
-
-When an authority receives an email, the email's `reply-to` field is a magic
-address which is parsed and consumed by the Rails app.
-
-To receive such email in a production setup, you will need to configure your
-MTA to pipe incoming emails to the Alaveteli script `script/mailin`. Therefore,
-you will need to configure your MTA to accept emails to magic addresses, and to
-pipe such emails to this script.
-
-Magic email addresses are of the form:
-
-    <foi+request-3-691c8388@example.com>
-
-The respective parts of this address are controlled with options in
-`config/general.yml`, thus:
-
-    INCOMING_EMAIL_PREFIX = 'foi+'
-    INCOMING_EMAIL_DOMAIN = 'example.com'
-
-When you set up your MTA, if there is some error inside Rails, the
-email is returned with an exit code 75, which for Exim at least means the MTA
-will try again later. Additionally, a stacktrace is emailed to `CONTACT_EMAIL`.
-
-See [this example]({{ site.baseurl }}docs/installing/email/) for a possible configuration for Exim (>=1.9).
-
-A well-configured installation of this code will have had Exim make
-a backup copy of the email in a separate mailbox, just in case.
+Note that in development mode mail is handled by [`mailcatcher`](http://mailcatcher.me/) by default so
+that you can see the mails in a browser. Start mailcatcher by running `bundle exec mailcatcher` in the application directory.
 
 ## Set up configs
 
