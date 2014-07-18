@@ -383,28 +383,6 @@ Next, create the index for the search engine (Xapian):
 If this fails, the site should still mostly run, but it's a core component so
 you should really try to get this working.
 
-## Run the Tests
-
-Make sure everything looks OK:
-
-    bundle exec rake spec
-
-If there are failures here, something has gone wrong with the preceding steps
-(see the next section for a common problem and workaround). You might be able
-to move on to the next step, depending on how serious they are, but ideally you
-should try to find out what's gone wrong.
-
-### glibc bug workaround
-
-There's a [bug in
-glibc](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=637239) which causes
-Xapian to segfault when running the tests. Although the bug report linked to
-claims it's fixed in the current Debian stable, it's not as of version
-`2.11.3-2`.
-
-Until it's fixed (e.g. `libc6 2.13-26` does work), you can get the tests to
-pass by setting `export LD_PRELOAD=/lib/libuuid.so.1`.
-
 ## Run the Server
 
 Run the following to get the server running:
@@ -560,6 +538,28 @@ notes]({{ site.baseurl}}docs/running/server/).
 Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
 
 ## Troubleshooting
+
+*   **Run the Tests**
+
+    Make sure everything looks OK:
+
+        bundle exec rake spec
+
+    If there are failures here, something has gone wrong with the preceding
+    steps (see the next section for a common problem and workaround). You might
+    be able to move on to the next step, depending on how serious they are, but
+    ideally you should try to find out what's gone wrong.
+
+*   **glibc bug workaround**
+
+    There's a [bug in
+    glibc](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=637239) which causes
+    Xapian to segfault when running the tests. Although the bug report linked to
+    claims it's fixed in the current Debian stable, it's not as of version
+    `2.11.3-2`.
+
+    Until it's fixed (e.g. `libc6 2.13-26` does work), you can get the tests to
+    pass by setting `export LD_PRELOAD=/lib/libuuid.so.1`.
 
 *   **Incoming emails aren't appearing in my Alaveteli install**
 
