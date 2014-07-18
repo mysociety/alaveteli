@@ -259,6 +259,7 @@ We'll create a template for our Alaveteli databases:
     sudo -u postgres createdb -T template0 -E UTF-8 template_utf8
     echo "update pg_database set datistemplate=true where datname='template_utf8';" > /tmp/update-template.sql
     sudo -u postgres psql -f /tmp/update-template.sql
+    rm /tmp/update-template.sql
 
 Then create the databases:
 
