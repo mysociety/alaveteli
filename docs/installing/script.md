@@ -16,7 +16,7 @@ Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/ins
 If you have a clean installation of Debian squeeze 64-bit or Ubuntu precise, you can
 use an install script in our commonlib repository to set up a working instance
 of Alaveteli. This is not suitable for production (it runs in development mode,
-for example) but should set up a functional installation of the site.
+for example) but should set up a functional installation of the site, which can send and receive email.
 
 **Warning: only use this script on a newly installed server – it will make
 significant changes to your server’s setup, including modifying your nginx
@@ -56,10 +56,20 @@ could download the script, make it executable and then invoke it with:
 
     sudo ./install-site.sh --default alaveteli alaveteli
 
-When the script has finished, you should have a working copy of the website,
-accessible via the hostname you supplied to the script.
-
 If you have any problems or questions, please ask on the [Alaveteli Google
-Group](https://groups.google.com/forum/#!forum/alaveteli-dev) or [report an
-issue](https://github.com/mysociety/alaveteli/issues?state=open).
+    Group](https://groups.google.com/forum/#!forum/alaveteli-dev) or [report an
+    issue](https://github.com/mysociety/alaveteli/issues?state=open).
+
+## What the install script does
+
+When the script has finished, you should have a working copy of the website,
+accessible via the hostname you supplied to the script. So, for this example, you could access the site in a browser at `http://alaveteli.10.10.10.30.xip.io`. The site runs using the thin application server, and the nginx webserver. By default, Alaveteli will be installed into `/var/www/[HOST]` on the server.
+
+The server will also be configured to accept replies to information request emails (as long as the MX record for the domain is pointing at the server). Incoming mail handling is set up using Postfix as the MTA.
+
+##What next?
+
+Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
+
+
 
