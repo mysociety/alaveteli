@@ -219,13 +219,13 @@ The `--recursive` option installs mySociety's common libraries which are require
 Now install the packages relevant to your system:
 
     # Debian Wheezy
-    apt-get install $(cat config/packages.debian-wheezy)
+    apt-get -y install $(cat /var/www/alaveteli/config/packages.debian-wheezy)
 
     # Debian Squeeze
-    apt-get install $(cat config/packages.debian-squeeze)
+    apt-get -y install $(cat /var/www/alaveteli/config/packages.debian-squeeze)
 
     # Ubuntu Precise
-    apt-get install $(cat config/packages.ubuntu-precise)
+    apt-get -y install $(cat /var/www/alaveteli/config/packages.ubuntu-precise)
 
 Some of the files also have a version number listed in config/packages - check
 that you have appropriate versions installed. Some also list "`|`" and offer a
