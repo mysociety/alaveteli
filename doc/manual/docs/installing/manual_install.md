@@ -190,6 +190,12 @@ Refresh the sources after adding the extra repositories:
 
     apt-get -y update
 
+### Create Alaveteli User
+
+Create a new linux user to run the Alaveteli application.
+
+    adduser --quiet --disabled-password --gecos "Alaveteli" alaveteli
+
 ## Get Alaveteli
 
 To start with, you may need to install git, e.g. with `apt-get install
