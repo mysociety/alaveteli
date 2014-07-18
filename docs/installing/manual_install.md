@@ -24,13 +24,15 @@ Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/ins
   </ul>
 </div>
 
-## Target operating system
+## Configure the Operating System
+
+### Target operating system
 
 These instructions assume Debian Wheezy or Squeeze (64-bit) or Ubuntu 12.04 LTS
 (precise). Debian is the best supported deployment platform. We also
 have instructions for [installing on MacOS]({{ site.baseurl }}docs/installing/macos/).
 
-## Set the locale
+### Set the locale
 
 **Debian Wheezy or Squeeze**
 
@@ -42,36 +44,13 @@ Generate the locales you wish to make available. When the interactive screen ask
 
 Start a new SSH session to use your SSH locale.
 
-## Get Alaveteli
-
-To start with, you may need to install git, e.g. with `apt-get install
-git-core`
-
-Next, get hold of the Alaveteli source code from github:
-
-    git clone https://github.com/mysociety/alaveteli.git
-    cd alaveteli
-
-This will get the rails-3-develop branch, which has the latest (possibly buggy)
-code. If you don't want to add or try new features, swap to the master branch
-(which always contains the latest stable release):
-
-    git checkout master
-
-## Install mySociety libraries
-
-Next, install mySociety's common ruby libraries. To fetch the contents of the
-submodules, run:
-
-    git submodule update --init
-
-## Prepare to install system dependencies using OS packages
+### Prepare to install system dependencies using OS packages
 
 These are packages that the software depends on: third-party software used to
 parse documents, host the site, and so on. There are also packages that contain
 headers necessary to compile some of the gem dependencies in the next step.
 
-### Using other repositories to get more recent packages
+#### Using other repositories to get more recent packages
 
 Add the following repositories to `/etc/apt/sources.list`:
 
@@ -136,7 +115,7 @@ The raring repo is used here to get a more recent version of bundler and pdftk. 
     EOF
 
 
-### Packages customised by mySociety
+#### Packages customised by mySociety
 
 If you're using Debian or Ubuntu, you should add the mySociety Debian archive to your
 apt sources. Note that mySociety packages are currently only built for 64-bit Debian.
@@ -171,7 +150,7 @@ repository - we only want to pull wkhtmltopdf-static from mysociety.
 
 No special package pinning is required.
 
-### Other platforms
+#### Other platforms
 If you're using some other linux platform, you can optionally install these
 dependencies manually, as follows:
 
@@ -194,11 +173,36 @@ you kill it), patch it yourself, or use the Debian package
 compiled by mySociety (see link in [issue
 305](https://github.com/mysociety/alaveteli/issues/305))
 
-## Install the dependencies
+#### Refresh sources
 
 Refresh the sources after adding the extra repositories:
 
-    apt-get update
+    apt-get -y update
+
+## Get Alaveteli
+
+To start with, you may need to install git, e.g. with `apt-get install
+git-core`
+
+Next, get hold of the Alaveteli source code from github:
+
+    git clone https://github.com/mysociety/alaveteli.git
+    cd alaveteli
+
+This will get the rails-3-develop branch, which has the latest (possibly buggy)
+code. If you don't want to add or try new features, swap to the master branch
+(which always contains the latest stable release):
+
+    git checkout master
+
+## Install mySociety libraries
+
+Next, install mySociety's common ruby libraries. To fetch the contents of the
+submodules, run:
+
+    git submodule update --init
+
+## Install the dependencies
 
 Now install the packages relevant to your system:
 
