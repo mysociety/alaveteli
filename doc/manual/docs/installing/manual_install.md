@@ -44,6 +44,17 @@ Generate the locales you wish to make available. When the interactive screen ask
 
 Start a new SSH session to use your SSH locale.
 
+### Update the OS
+
+Update the Operating System with the latest packages
+
+    apt-get update -y
+    apt-get upgrade -y
+
+`sudo` is not installed on Debian by default. Install it along with `vim` (a useful text editor) and `git` (the version control tool we'll use to get a copy of the Alaveteli code).
+
+    apt-get install -y sudo vim git-core
+
 ### Prepare to install system dependencies using OS packages
 
 These are packages that the software depends on: third-party software used to
