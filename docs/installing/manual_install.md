@@ -407,7 +407,7 @@ site in action.
 
 You can daemonize the process by starting it with the `--daemonize` option.
 
-## Cron jobs and init scripts
+## Cron jobs and Daemons
 
 The crontab and init scripts use the `.ugly` file format, which is a strange
 templating format used by mySociety.
@@ -434,13 +434,18 @@ and then drop it in `/etc/cron.d/` on the server.
 There is a rake task that will help to rewrite this file into one that is
 useful to you. Change the variables to suit your installation.
 
+    pushd /var/www/alaveteli
     bundle exec rake config_files:convert_crontab \
-      DEPLOY_USER=deploy \
+      DEPLOY_USER=alaveteli \
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
       SITE=alaveteli \
       MAILTO=cron-alaveteli@example.org \
-      CRONTAB=config/crontab-example > /etc/cron.d/alaveteli
+      CRONTAB=/var/www/alaveteli/config/crontab-example > /etc/cron.d/alaveteli
+    popd
+
+    chown root:alaveteli /etc/cron.d/alaveteli
+    chmod 754 /etc/cron.d/alaveteli
 
 ### Generate alert daemon
 
@@ -452,15 +457,29 @@ is an init script, which can be generated from the
 
 * `vhost_dir`: the full path to the directory where alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
+* `vcspath`: the name of the directory that contains the alaveteli code.
+  e.g. `alaveteli`
+* `site`: a string to identify your alaveteli instance
 * `user`: the user that the software runs as
 
 There is a rake task that will help to rewrite this file into one that is
 useful to you. Change the variables to suit your installation.
 
+    pushd /var/www/alaveteli
     bundle exec rake config_files:convert_init_script \
-      DEPLOY_USER=deploy \
+      DEPLOY_USER=alaveteli \
       VHOST_DIR=/var/www \
-      SCRIPT_FILE=config/alert-tracks-debian.ugly > /etc/init.d/foi-alert-tracks
+      VCSPATH=alaveteli \
+      SITE=alaveteli \
+      SCRIPT_FILE=/var/www/alaveteli/config/alert-tracks-debian.ugly > /etc/init.d/alaveteli-alert-tracks
+    popd
+
+    chown root:alaveteli /etc/init.d/alaveteli-alert-tracks
+    chmod 754 /etc/init.d/alaveteli-alert-tracks
+
+Start the alert tracks daemon:
+
+    service alaveteli-alert-tracks start
 
 ### Generate varnish purge daemon
 
