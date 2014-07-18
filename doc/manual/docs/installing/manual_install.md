@@ -369,17 +369,43 @@ you should really try to get this working.
   changes to the code.
 </div>
 
-## Run the Server
+## Configure the Application Server
+
+Alaveteli can run under many popular application servers. mySociety recommends
+the use of [Phusion Passenger](https://www.phusionpassenger.com) (AKA
+mod_rails) or [thin](http://code.macournoyer.com/thin).
+
+### Using Phusion Passenger
+
+Passenger is the recommended application server as it is well proven in
+production environments. It is implemented as an Apache mod, so it cannot be
+run independently.
+
+    apt-get install -y libapache2-mod-passenger
+
+See later in the guide for configuring the Apache web server with Passenger.
+
+### Using Thin
+
+Thin is a lighter-weight application server which can be run independently of
+a web server.
 
 Run the following to get the server running:
 
-    bundle exec rails server  --environment=development
+    cd /var/www/alaveteli
+    bundle exec thin \
+      --environment=production \
+      --user=alaveteli \
+      --group=alaveteli \
+      start
 
 By default the server listens on all interfaces. You can restrict it to the
 localhost interface by adding `--binding=127.0.0.1`
 
 The server should have told you the URL to access in your browser to see the
 site in action.
+
+You can daemonize the process by starting it with the `--daemonize` option.
 
 ## Cron jobs and init scripts
 
