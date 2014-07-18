@@ -17,13 +17,18 @@ title: Manual installation
 
 Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing/).
 
+<div class="attention-box">
+  <ul>
+    <li>Commands in this guide will require root privileges</li>
+    <li>Commands are intended to be run via the terminal or over ssh</li>
+  </ul>
+</div>
+
 ## Target operating system
 
 These instructions assume a 64-bit version of Debian 6 (Wheezy), Debian 7 (Squeeze)
 or Ubuntu 12.04 LTS (Precise). Debian is the best supported deployment platform. We also
 have instructions for [installing on MacOS]({{ site.baseurl }}docs/installing/macos/).
-
-Commands are intended to be run via the terminal or over ssh.
 
 ## Set the locale
 
@@ -33,13 +38,13 @@ Follow the [Debian guide](https://wiki.debian.org/Locale#Standard) for configuri
 
 Generate the locales you wish to make available. When the interactive screen asks you to pick a default locale, choose "None", as the SSH session will provide the locale required.
 
-    # dpkg-reconfigure locales
+    dpkg-reconfigure locales
 
 Start a new SSH session to use your SSH locale.
 
 ## Get Alaveteli
 
-To start with, you may need to install git, e.g. with `sudo apt-get install
+To start with, you may need to install git, e.g. with `apt-get install
 git-core`
 
 Next, get hold of the Alaveteli source code from github:
@@ -65,10 +70,6 @@ submodules, run:
 These are packages that the software depends on: third-party software used to
 parse documents, host the site, and so on. There are also packages that contain
 headers necessary to compile some of the gem dependencies in the next step.
-
-<div class="attention-box">
-Note the commands in this section will require root privileges
-</div>
 
 ### Using other repositories to get more recent packages
 
@@ -151,7 +152,7 @@ The repository above lets you install `wkhtmltopdf-static` and `pdftk` (for sque
 Add the GPG key from the
 [mySociety Debian Package Repository](http://debian.mysociety.org/).
 
-    wget -O - https://debian.mysociety.org/debian.mysociety.org.gpg.key | sudo apt-key add -
+    wget -O - https://debian.mysociety.org/debian.mysociety.org.gpg.key | apt-key add -
 
 
 **Debian Wheezy or Ubuntu Precise**
@@ -197,18 +198,18 @@ compiled by mySociety (see link in [issue
 
 Refresh the sources after adding the extra repositories:
 
-    sudo apt-get update
+    apt-get update
 
 Now install the packages relevant to your system:
 
     # Debian Wheezy
-    sudo apt-get install $(cat config/packages.debian-wheezy)
+    apt-get install $(cat config/packages.debian-wheezy)
 
     # Debian Squeeze
-    sudo apt-get install $(cat config/packages.debian-squeeze)
+    apt-get install $(cat config/packages.debian-squeeze)
 
     # Ubuntu Precise
-    sudo apt-get install $(cat config/packages.ubuntu-precise)
+    apt-get install $(cat config/packages.ubuntu-precise)
 
 Some of the files also have a version number listed in config/packages - check
 that you have appropriate versions installed. Some also list "`|`" and offer a
@@ -220,7 +221,7 @@ To install Alaveteli's Ruby dependencies, you need to install bundler. In
 Debian and Ubuntu, this is provided as a package (installed as part of the package install
 process above). You could also install it as a gem:
 
-    sudo gem install bundler
+    gem install bundler
 
 ## Configure Database
 
@@ -230,26 +231,26 @@ databases (e.g., SQLite), but the currently supported database is PostgreSQL
 
 If you don't have postgres installed:
 
-    $ sudo apt-get install postgresql postgresql-client
+    apt-get -y install postgresql postgresql-client
 
 Create a `foi` user from the command line, like this:
 
-    # sudo -u postgres createuser -s -P foi
+    sudo -u postgres createuser -s -P foi
 
 _Note:_ Leaving the password blank will cause great confusion if you're new to
 PostgreSQL.
 
 We'll create a template for our Alaveteli databases:
 
-    # sudo -u postgres createdb -T template0 -E UTF-8 template_utf8
-    # echo "update pg_database set datistemplate=true where datname='template_utf8';" > /tmp/update-template.sql
-    # sudo -u postgres psql -f /tmp/update-template.sql
+    sudo -u postgres createdb -T template0 -E UTF-8 template_utf8
+    echo "update pg_database set datistemplate=true where datname='template_utf8';" > /tmp/update-template.sql
+    sudo -u postgres psql -f /tmp/update-template.sql
 
 Then create the databases:
 
-    # sudo -u postgres createdb -T template_utf8 -O foi alaveteli_production
-    # sudo -u postgres createdb -T template_utf8 -O foi alaveteli_test
-    # sudo -u postgres createdb -T template_utf8 -O foi alaveteli_development
+    sudo -u postgres createdb -T template_utf8 -O foi alaveteli_production
+    sudo -u postgres createdb -T template_utf8 -O foi alaveteli_test
+    sudo -u postgres createdb -T template_utf8 -O foi alaveteli_development
 
 Now you need to set up the database config file so that the application can
 connect to the postgres database.
@@ -293,7 +294,7 @@ application directory.
 
 If you just want to get the tests to pass, you will at a minimum need to allow
 sending emails via a `sendmail` command (a requirement met, for example, with
-`sudo apt-get install exim4`).
+`apt-get install exim4`).
 
 ### Detailed
 
