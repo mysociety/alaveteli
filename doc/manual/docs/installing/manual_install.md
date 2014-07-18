@@ -267,12 +267,37 @@ Then create the databases:
     sudo -u postgres createdb -T template_utf8 -O foi alaveteli_test
     sudo -u postgres createdb -T template_utf8 -O foi alaveteli_development
 
+## Configure email
+
+You will need to set up an email server – or Mail Transfer Agent (MTA) – to
+send and receive emails.
+
+Full configuration for an MTA is beyond the scope of this document -- see the guide for [configuring the Exim4 or Postfix MTAs]({{ site.baseurl }}docs/installing/email/).
+
+Note that in development mode mail is handled by [`mailcatcher`](http://mailcatcher.me/) by default so
+that you can see the mails in a browser. Start mailcatcher by running `bundle exec mailcatcher` in the application directory.
+
+## Configure Alaveteli
+
+Alaveteli has three main configuration files:
+  - `config/database.yml`: Configures Alaveteli to communicate with the database
+  - `config/general.yml`: The general Alaveteli application settings
+  - `config/newrelic.yml`: Configuration for the [NewRelic](http://newrelic.com) monitoring service
+
+Copy the configuration files and update their permissions:
+
+    cp /var/www/alaveteli/config/database.yml-example /var/www/alaveteli/config/database.yml
+    cp /var/www/alaveteli/config/general.yml-example /var/www/alaveteli/config/general.yml
+    cp /var/www/alaveteli/config/newrelic.yml-example /var/www/alaveteli/config/newrelic.yml
+    chown alaveteli:alaveteli /var/www/alaveteli/config/{database,general,newrelic}.yml
+    chmod 640 /var/www/alaveteli/config/{database,general,newrelic}.yml
+
+### database.yml
+
 Now you need to set up the database config file so that the application can
 connect to the postgres database.
 
-* Copy `database.yml-example` to `database.yml` in `alaveteli/config`
-* Edit it to point to your local postgresql database in the development
-  and test sections.
+Edit each section to point to the relevant local postgresql database.
 
 Example `development` section of `config/database.yml`:
 
@@ -286,43 +311,29 @@ Example `development` section of `config/database.yml`:
       port: 5432
 
 Make sure that the user specified in `database.yml` exists, and has full
-permissions on these databases. As they need the ability to turn off
-constraints whilst running the tests they also need to be a superuser
+permissions on these databases.
 
-If you don't want your database user to be a superuser, you can add this line
-to the test config in `database.yml` (as seen in `database.yml-example`)
+As the user needs the ability to turn off constraints whilst running the tests they also need to be a superuser. If you don't want your database user to be a superuser, you can add this line to the `test` section in `database.yml` (as seen in `config/database.yml-example`):
 
     constraint_disabling: false
 
-## Configure email
+### general.yml
 
-You will need to set up an email server (MTA) to send and receive emails. Full
-configuration for an MTA is beyond the scope of this document -- see this
-[example configs for Exim4 and Postfix]({{ site.baseurl }}docs/installing/email/).
+We have a full [guide to Alaveteli configuration]({{ site.baseurl }}docs/customising/config/) which covers all the settings in `config/general.yml`.
 
-Full configuration for an MTA is beyond the scope of this document -- see the guide for [configuring the Exim4 or Postfix MTAs]({{ site.baseurl }}docs/installing/email/).
-
-Note that in development mode mail is handled by [`mailcatcher`](http://mailcatcher.me/) by default so
-that you can see the mails in a browser. Start mailcatcher by running `bundle exec mailcatcher` in the application directory.
-
-## Set up configs
-
-Copy `config/general.yml-example` to `config/general.yml` and edit to your
-taste.
-
-Note that the default settings for frontpage examples are designed to work with
+The default settings for frontpage examples are designed to work with
 the dummy data shipped with Alaveteli; once you have real data, you should
 certainly edit these.
 
 The default theme is the "Alaveteli" theme. When you run `rails-post-deploy`
 (see below), that theme gets installed automatically.
 
-Finally, copy `config/newrelic.yml-example` to `config/newrelic.yml`. This file
-contains configuration information for the New Relic performance management
-system. By default, monitoring is switched off by the `agent_enabled: false`
-setting. See New Relic's [remote performance analysis](https://github.com/newrelic/rpm) instructions for switching it on
-for both local and remote analysis.
+### newrelic.yml
 
+This file contains configuration information for the New Relic performance
+management system. By default, monitoring is switched off by the
+`agent_enabled: false` setting. See New Relic's [remote performance analysis](https://github.com/newrelic/rpm) instructions for switching it on
+for both local and remote analysis.
 
 ## Deployment
 
