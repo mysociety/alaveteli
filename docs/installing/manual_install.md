@@ -198,26 +198,21 @@ Create a new linux user to run the Alaveteli application.
 
 ## Get Alaveteli
 
-To start with, you may need to install git, e.g. with `apt-get install
-git-core`
+Create the target directory and clone the Alaveteli source code in to this directory:
 
-Next, get hold of the Alaveteli source code from github:
+    mkdir /var/www/alaveteli
+    chown alaveteli:alaveteli /var/www/alaveteli
+    sudo -u alaveteli git clone --recursive \
+      --branch master \
+      https://github.com/mysociety/alaveteli.git /var/www/alaveteli
 
-    git clone https://github.com/mysociety/alaveteli.git
-    cd alaveteli
+This clones the master branch which always contains the latest stable release. If you want to try out the latest (possibly buggy) code you can switch to the `rails-3-develop` branch.
 
-This will get the rails-3-develop branch, which has the latest (possibly buggy)
-code. If you don't want to add or try new features, swap to the master branch
-(which always contains the latest stable release):
+    pushd /var/www/alaveteli
+    sudo -u alaveteli git checkout rails-3-develop 
+    popd
 
-    git checkout master
-
-## Install mySociety libraries
-
-Next, install mySociety's common ruby libraries. To fetch the contents of the
-submodules, run:
-
-    git submodule update --init
+The `--recursive` option installs mySociety's common libraries which are required to run Alaveteli.
 
 ## Install the dependencies
 
