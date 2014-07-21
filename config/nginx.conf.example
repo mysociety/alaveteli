@@ -3,6 +3,11 @@ upstream alaveteli {
 }
 
 server {
+  server_name example.com example.org www.example.org;
+  rewrite ^(.*) http://www.example.com$1 permanent;
+}
+
+server {
     listen 80 default;
     server_name www.example.com;
     root /srv/alaveteli;
