@@ -540,53 +540,117 @@ this by copying it to `/etc/init.d/alaveteli` and setting the
 that's done, you can restart Alaveteli with `/etc/init.d/alaveteli
 restart`.
 
-## Set up production web server
+## Configure the web server
 
-It is not recommended to run the website using the default Rails web server.
-There are various recommendations here: http://rubyonrails.org/deploy
+In almost all scenarios, we recommend running the Alaveteli Rails application
+behind a web server. This allows the web server to serve static content without
+going through the Rails stack, which improves performance.
 
-We usually use Passenger / mod_rails. The file at `conf/httpd.conf-example`
-gives you an example config file for WhatDoTheyKnow. At a minimum, you should
-include the following in an Apache configuration file:
+We recommend two main combinations of application and web server:
 
-    PassengerResolveSymlinksInDocumentRoot on
-    PassengerMaxPoolSize 6 # Recommend setting this to 3 or less on servers with 512MB RAM
+- Apache &amp; Passenger
+- Nginx &amp; Thin
+
+There are ways to run Passenger with Nginx, and indeed Thin with Apache, but
+that's out of scope for this guide. If you want to do something that isn't 
+documented here, get in touch on [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) and we'll
+be more than happy to help you get set up.
+
+You should have already installed an application server if you have followed
+this guide, so pick the appropriate web server to configure.
+
+### Apache (with Passenger)
+
+Install Apache:
+
+    apt-get install -y apache2
+
+Enable the required modules
+
+    a2enmod actions
+    a2enmod expires
+    a2enmod headers
+    a2enmod passenger
+    a2enmod proxy
+    a2enmod proxy_http
+    a2enmod rewrite
+    a2enmod suexec
+
+Link the application `public` directory to the document root for the VirtualHost
+
+    ln -s /var/www/alaveteli/public/ /srv/alaveteli
+
+Create a directory for optional Alaveteli configuration
+
+    mkdir -p /etc/apache2/vhost.d/alaveteli
+
+Copy the example VirtualHost configuration file. You will need to change all
+occurrences of `www.example.com` to your URL
+
+    cp /var/www/alaveteli/config/httpd-vhost.conf-example \
+      /etc/apache2/sites-available/alaveteli.conf
+
+Disable the default site and enable the `alaveteli` VirtualHost
+  
+    a2dissite default
+    a2ensite alaveteli
+
+Check the configuration and fix any issues
+
+    apachectl configtest
+
+Restart apache to load the new Alaveteli config
+
+    service apache2 graceful
+
+It's strongly recommended that you run the site over SSL. (Set `FORCE_SSL` to
+true in `config/general.yml`). For this you will need an SSL certificate for your domain.
+
+Enable the SSL apache mod
+
+    a2enmod ssl
+
+Copy the SSL configuration – again changing `www.example.com` to your domain –
+and enable the VirtualHost
+
+    cp /var/www/alaveteli/config/httpd-ssl-vhost.conf-example \
+      /etc/apache2/sites-available/alavetli_https.conf
+    a2ensite alaveteli_https
+
+Force HTTPS requests from the HTTP VirtualHost
+
+    cp /var/www/alaveteli/config/httpd-force-ssl.conf-example \
+      /etc/apache2/vhost.d/alaveteli/force-ssl.conf
+
+If you are testing Alaveteli or setting up an internal staging site, generate
+self-signed SSL certificates. **Do not use self-signed certificates for a
+production server**. Replace `www.example.com` with your domain name.
+
+    openssl genrsa -out /etc/ssl/private/www.example.com.key 2048
+    chmod 640 /etc/ssl/private/www.example.com.key
+
+    openssl req -new -x509 \
+      -key /etc/ssl/private/www.example.com.key \
+      -out /etc/ssl/certs/www.example.com.cert \
+      -days 3650 \
+      -subj /CN=www.example.com
+    chmod 640 /etc/ssl/certs/www.example.com.cert
+
+Check the configuration and fix any issues
+
+    apachectl configtest
+
+Restart apache to load the new Alaveteli config
+
+    service apache2 graceful
 
 Under all but light loads, it is strongly recommended to run the server behind
 an http accelerator like Varnish. A sample varnish VCL is supplied in
 `conf/varnish-alaveteli.vcl`.
 
-It's strongly recommended that you run the site over SSL. (Set FORCE_SSL to
-true in config/general.yml). For this you will need an SSL certificate for your
-domain and you will need to configure an SSL terminator to sit in front of
-Varnish. If you're already using Apache as a web server you could simply use
-Apache as the SSL terminator. A minimal configuration would look something like
-this:
-
-    <VirtualHost *:443>
-        ServerName www.yourdomain
-
-      ProxyRequests       Off
-      ProxyPreserveHost On
-      ProxyPass           /       http://localhost:80/
-      ProxyPassReverse    /       http://localhost:80/
-      RequestHeader set X-Forwarded-Proto 'https'
-
-      SSLEngine on
-      SSLProtocol all -SSLv2
-      SSLCipherSuite ALL:!ADH:!EXPORT:!SSLv2:RC4+RSA:+HIGH:+MEDIUM
-
-      SSLCertificateFile /etc/apache2/ssl/ssl.crt
-      SSLCertificateKeyFile /etc/apache2/ssl/ssl.key
-      SSLCertificateChainFile /etc/apache2/ssl/sub.class2.server.ca.pem
-      SSLCACertificateFile /etc/apache2/ssl/ca.pem
-      SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
-
-    </VirtualHost>
-
-Notice the line `RequestHeader` that sets the `X-Forwarded-Proto` header. This
-is important. This ultimately tells Rails that it's serving a page over https
-and so it knows to include that in any absolute urls it serves.
+If you are using SSL you will need to configure an SSL terminator to sit in
+front of Varnish. If you're already using Apache as a web server you could
+simply use Apache as the SSL terminator.
 
 We have some [production server best practice
 notes]({{ site.baseurl}}docs/running/server/).
