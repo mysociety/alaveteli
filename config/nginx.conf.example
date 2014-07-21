@@ -4,7 +4,6 @@ upstream alaveteli {
 
 server {
     listen 80;
-    root /var/www/alaveteli/alaveteli/public;
 
     location / {
         proxy_set_header X-Real-IP  $remote_addr;
@@ -14,6 +13,7 @@ server {
         proxy_redirect off;
         try_files $uri @ruby;
     }
+    root /srv/alaveteli;
 
     server_tokens off;
 
