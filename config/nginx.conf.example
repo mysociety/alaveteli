@@ -15,6 +15,9 @@ server {
         try_files $uri @ruby;
     }
 
+    server_tokens off;
+
+
     error_page 500 502 503 504 /500.html;
     error_page 404             /404.html;
     error_page 422             /422.html;
