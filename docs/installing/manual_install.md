@@ -644,6 +644,86 @@ Restart apache to load the new Alaveteli config
 
     service apache2 graceful
 
+### Nginx (with Thin)
+
+Install nginx
+
+    apt-get install -y nginx
+
+Link the application `public` directory to the document root for the VirtualHost
+
+    ln -s /var/www/alaveteli/public/ /srv/alaveteli
+
+Copy the example nginx config
+
+    cp /var/www/alaveteli/config/nginx.conf.example \
+      /etc/nginx/sites-available/alaveteli.conf
+
+Disable the default site and enable the `alaveteli` server
+
+    rm /etc/nginx/sites-enabled/default
+    ln -s /etc/nginx/sites-available/alaveteli.conf \
+      /etc/nginx/sites-enabled/alaveteli
+
+Check the configuration and fix any issues
+
+    service nginx configtest
+
+Start the rails application with thin (if you haven't already).
+
+    cd /var/www/alaveteli
+    bundle exec thin \
+      --environment=production \
+      --user=alaveteli \
+      --group=alaveteli \
+      --address=127.0.0.1 \
+      --daemonize \
+      start
+
+Reload the nginx configuration
+
+    service nginx reload
+
+It's strongly recommended that you run the site over SSL. (Set `FORCE_SSL` to
+true in `config/general.yml`). For this you will need an SSL certificate for your domain.
+
+Copy the SSL configuration – again changing `www.example.com` to your domain –
+and enable the server
+
+    cp /var/www/alaveteli/config/nginx-ssl.conf-example \
+      /etc/nginx/sites-available/alaveteli_https.conf
+    ln -s /etc/nginx/sites-available/alaveteli_https.conf \
+      /etc/nginx/sites-enabled/alaveteli_https
+
+<!-- Force HTTPS requests from the HTTP VirtualHost
+
+    cp /var/www/alaveteli/config/httpd-force-ssl.conf-example \
+      /etc/apache2/vhost.d/alaveteli/force-ssl.conf -->
+
+If you are testing Alaveteli or setting up an internal staging site, generate
+self-signed SSL certificates. **Do not use self-signed certificates for a
+production server**. Replace `www.example.com` with your domain name.
+
+    openssl genrsa -out /etc/ssl/private/www.example.com.key 2048
+    chmod 640 /etc/ssl/private/www.example.com.key
+
+    openssl req -new -x509 \
+      -key /etc/ssl/private/www.example.com.key \
+      -out /etc/ssl/certs/www.example.com.cert \
+      -days 3650 \
+      -subj /CN=www.example.com
+    chmod 640 /etc/ssl/certs/www.example.com.cert
+
+Check the configuration and fix any issues
+
+    service nginx configtest
+
+Reload the new nginx configuration
+
+    service nginx reload
+
+---
+
 Under all but light loads, it is strongly recommended to run the server behind
 an http accelerator like Varnish. A sample varnish VCL is supplied in
 `conf/varnish-alaveteli.vcl`.
