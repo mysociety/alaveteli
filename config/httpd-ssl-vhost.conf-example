@@ -1,4 +1,4 @@
-# VirtualHost for HTTPS requess
+# VirtualHost for HTTPS requests
 <VirtualHost *:443>
   ServerName www.example.com
 
