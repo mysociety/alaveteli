@@ -15,6 +15,10 @@ server {
         try_files $uri @ruby;
     }
 
+    error_page 500 502 503 504 /500.html;
+    error_page 404             /404.html;
+    error_page 422             /422.html;
+
     location /download {
         internal;
         alias /var/www/alaveteli/alaveteli/cache/zips/development/download;
