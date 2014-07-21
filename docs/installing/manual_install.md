@@ -427,7 +427,7 @@ Run the following to get the server running:
       start
 
 By default the server listens on all interfaces. You can restrict it to the
-localhost interface by adding `--binding=127.0.0.1`
+localhost interface by adding `--address=127.0.0.1`
 
 The server should have told you the URL to access in your browser to see the
 site in action.
