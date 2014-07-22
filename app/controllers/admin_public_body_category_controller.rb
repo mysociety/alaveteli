@@ -2,6 +2,7 @@ class AdminPublicBodyCategoryController < AdminController
     def index
         @locale = self.locale_from_params
         @category_headings = PublicBodyHeading.all
+        @without_heading = PublicBodyCategory.without_headings
     end
 
     def new

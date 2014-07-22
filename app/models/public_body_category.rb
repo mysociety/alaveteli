@@ -40,6 +40,15 @@ class PublicBodyCategory < ActiveRecord::Base
         categories
     end
 
+    def self.without_headings
+        sql = %Q| SELECT * FROM public_body_categories pbc
+                  WHERE pbc.id NOT IN (
+                      SELECT public_body_category_id AS id
+                      FROM public_body_categories_public_body_headings
+                  ) |
+        PublicBodyCategory.find_by_sql(sql)
+    end
+
     # Called from the data files themselves
     def self.add(locale, categories)
         @heading = nil
