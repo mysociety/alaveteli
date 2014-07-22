@@ -14,3 +14,12 @@
 <h2>All categories</h2>
 
 <%= render :partial => 'one_list', :locals => { :category_headings => @category_headings, :table_name => 'exact' } %>
+
+<% if @without_heading.count > 0 %>
+
+    <h3>No heading</h3>
+
+    <% @without_heading.each do |category| %>
+          <%= render :partial => 'one', :locals => { :category => category } %>
+    <% end %>
+<% end %>
