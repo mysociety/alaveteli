@@ -60,12 +60,27 @@
 ALAVETELI_FQDN = ENV['ALAVETELI_VAGRANT_FQDN'] || "alaveteli.10.10.10.30.xip.io"
 ALAVETELI_MEMORY = ENV['ALAVETELI_VAGRANT_MEMORY'] || 1536
 ALAVETELI_THEMES_DIR = ENV['ALAVETELI_THEMES_DIR'] || '../alaveteli-themes'
+ALAVETELI_OS = ENV['ALAVETELI_VAGRANT_OS'] || 'precise64'
+
+SUPPORTED_OPERATING_SYSTEMS = {
+  'precise64' => 'http://files.vagrantup.com/precise64.box',
+  'squeeze64' => 'http://puppet-vagrant-boxes.puppetlabs.com/debian-607-x64-vbox4210-nocm.box',
+  'wheezy64' => 'http://puppet-vagrant-boxes.puppetlabs.com/debian-73-x64-virtualbox-nocm.box'
+}
+
+def box
+  ALAVETELI_OS
+end
+
+def box_url
+  SUPPORTED_OPERATING_SYSTEMS[ALAVETELI_OS]
+end
 
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "precise64"
-  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+  config.vm.box = box
+  config.vm.box_url = box_url
   config.vm.network :private_network, :ip => "10.10.10.30"
 
   config.vm.synced_folder ".", "/home/vagrant/alaveteli", :owner => "vagrant", :group => "vagrant"
