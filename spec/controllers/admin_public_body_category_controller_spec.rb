@@ -117,6 +117,24 @@ describe AdminPublicBodyCategoryController do
                pbc.title.should == "Useless ministries"
             end
         end
+
+        it "does not save edits to category_tag if the category has associated bodies" do
+            post :update, { :id => @category.id,
+                            :public_body_category => { :category_tag => "renamed" } }
+            request.flash[:notice].should include('can\'t')
+            pbc = PublicBodyCategory.find(@category.id)
+            pbc.category_tag.should == "useless_agency"
+        end
+
+
+        it "save edits to category_tag if the category has no associated bodies" do
+            category = PublicBodyCategory.create(:title => "Empty Category", :category_tag => "empty", :description => "-")
+            post :update, { :id => category.id,
+                            :public_body_category => { :category_tag => "renamed" } }
+            request.flash[:notice].should include('success')
+            pbc = PublicBodyCategory.find(category.id)
+            pbc.category_tag.should == "renamed"
+        end
     end
 
     context 'when destroying a public body category' do

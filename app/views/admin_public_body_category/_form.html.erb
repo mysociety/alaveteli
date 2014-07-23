@@ -44,12 +44,15 @@ end
   </div>
 </div>
 
-<h3>Common Fields</h3>
+<% if PublicBody.find_by_tag(@category.category_tag).count == 0 %>
 
-<div class="control-group">
-  <label for="public_body_category_category_tag" class="control-label">Category tag</label>
-  <div class="controls">
-    <%= f.text_field :category_tag, :class => "span4" %>
-  </div>
-</div>
+    <h3>Common Fields</h3>
+
+    <div class="control-group">
+      <label for="public_body_category_category_tag" class="control-label">Category tag</label>
+      <div class="controls">
+        <%= f.text_field :category_tag, :class => "span4" %>
+      </div>
+    </div>
+<% end %>
 <!--[eoform:public_body_category]-->
