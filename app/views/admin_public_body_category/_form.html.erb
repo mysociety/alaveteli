@@ -44,8 +44,7 @@ end
   </div>
 </div>
 
-<% if PublicBody.find_by_tag(@category.category_tag).count == 0 %>
-
+<% if PublicBody.find_by_tag(@category.category_tag).count == 0 or @category.errors.messages.keys.include?(:category_tag) %>
     <h3>Common Fields</h3>
 
     <div class="control-group">
@@ -55,4 +54,13 @@ end
       </div>
     </div>
 <% end %>
+
+<h3>Headings</h3>
+<div class="control-group">
+    <% PublicBodyHeading.all.each do |heading| %>
+        <div class="span3">
+            &nbsp;<%= check_box_tag "headings[heading_#{heading.id}]", heading.id, heading_is_selected?(heading) %> <label for="headings_heading_<%= heading.id %>" class="control-label"><%= heading.name %></label>
+        </div>
+    <% end %>
+</div>
 <!--[eoform:public_body_category]-->

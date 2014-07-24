@@ -85,12 +85,26 @@ describe AdminPublicBodyCategoryController do
             @category = PublicBodyCategory.find_by_title("Useless ministries")
         end
 
+        render_views
+
         it "saves edits to a public body category" do
             post :update, { :id => @category.id,
                             :public_body_category => { :title => "Renamed" } }
             request.flash[:notice].should include('successful')
             pbc = PublicBodyCategory.find(@category.id)
             pbc.title.should == "Renamed"
+        end
+
+        it "saves edits to a public body category's heading associations" do
+            @category.public_body_headings.count.should == 1
+            @category.public_body_headings.first.name.should == "Silly ministries"
+            heading = PublicBodyHeading.find_by_name("Popular agencies")
+            post :update, { :id => @category.id,
+                            :public_body_category => { :title => "Renamed" },
+                            :headings => {"heading_#{heading.id}" => heading.id} }
+            request.flash[:notice].should include('successful')
+            pbc = PublicBodyCategory.find(@category.id)
+            pbc.public_body_headings.should == [heading]
         end
 
         it "saves edits to a public body category in another locale" do
