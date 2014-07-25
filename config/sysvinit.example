@@ -13,8 +13,8 @@
 # http://richard.wallman.org.uk/2010/02/howto-deploy-a-catalyst-application-using-fastcgi-and-nginx/
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-SITE_HOME=/var/www/alaveteli
 NAME=alaveteli
+SITE_HOME="/var/www/$NAME"
 DESC="Alaveteli app server"
 USER=alaveteli
 
@@ -30,15 +30,16 @@ start_daemon() {
     --group="$USER" \
     --address=127.0.0.1 \
     --daemonize \
-    start
+    --quiet \
+    start || true
 }
 
 stop_daemon() {
-  cd "$SITE_HOME"/alaveteli && bundle exec thin stop
+  cd "$SITE_HOME" && bundle exec thin --quiet stop || true
 }
 
 restart_daemon() {
-  cd "$SITE_HOME"/alaveteli && bundle exec thin --onebyone restart
+  cd "$SITE_HOME" && bundle exec thin --onebyone --quiet restart || true
 }
 
 case "$1" in
