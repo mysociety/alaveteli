@@ -24,11 +24,18 @@ test -f $DAEMON || exit 0
 set -e
 
 start_daemon() {
-  su -l -c "cd $SITE_HOME/alaveteli && bundle exec thin -d -e production start" $USER
+  cd "$SITE_HOME"/alaveteli && bundle exec thin \
+    --environment=production \
+    --user="$USER" \
+    --group="$USER" \
+    --address=127.0.0.1 \
+    --daemonize \
+    start
 }
 
 stop_daemon() {
-  pkill -f thin -u $USER || true
+  cd "$SITE_HOME"/alaveteli && bundle exec thin stop
+}
 }
 
 case "$1" in
