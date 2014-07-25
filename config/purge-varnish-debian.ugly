@@ -15,8 +15,8 @@
 NAME=!!(*= $daemon_name *)!!
 DAEMON=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/runner
 DAEMON_ARGS="--daemon PurgeRequest.purge_all_loop"
-PIDFILE=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/tmp/pids/purge-varnish.pid
-LOGFILE=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/log/purge-varnish.log
+PIDFILE=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/tmp/pids/!!(*= $daemon_name *)!!.pid
+LOGFILE=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/log/!!(*= $daemon_name *)!!.log
 DUSER=!!(*= $user *)!!
 # Set RAILS_ENV - not needed if using config/rails_env.rb
 # RAILS_ENV=your_rails_env
