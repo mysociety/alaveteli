@@ -42,20 +42,20 @@ restart_daemon() {
 }
 
 case "$1" in
- start)
- start_daemon
- ;;
- stop)
- stop_daemon
- ;;
- reload|restart|force-reload)
- restart_daemon
- ;;
- *)
- N=/etc/init.d/$NAME
- echo "Usage: $N {start|stop|reload|restart|force-reload}" >&2
- exit 1
- ;;
+  start)
+    start_daemon
+    ;;
+  stop)
+    stop_daemon
+    ;;
+  reload|restart|force-reload)
+    restart_daemon
+    ;;
+  *)
+    N=/etc/init.d/$NAME
+    echo "Usage: $N {start|stop|reload|restart|force-reload}" >&2
+    exit 1
+    ;;
 esac
 
 exit 0
