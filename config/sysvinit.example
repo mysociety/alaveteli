@@ -18,10 +18,10 @@ NAME=alaveteli
 DESC="Alaveteli app server"
 USER=alaveteli
 
-echo $DAEMON
-test -f $DAEMON || exit 0
-
 set -e
+
+# Check that the Daemon can be run
+su -l -c "cd $SITE_HOME && bundle exec thin --version &> /dev/null || exit 0" $USER
 
 start_daemon() {
   cd "$SITE_HOME"/alaveteli && bundle exec thin \
