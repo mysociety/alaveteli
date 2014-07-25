@@ -13,10 +13,10 @@
 # !!(*= $daemon_name *)!! Start the Alaveteli email purge-varnish daemon
 
 NAME=!!(*= $daemon_name *)!!
-DAEMON=!!(*= $vhost_dir *)!!/alaveteli/script/runner
+DAEMON=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/runner
 DAEMON_ARGS="--daemon PurgeRequest.purge_all_loop"
-PIDFILE=!!(*= $vhost_dir *)!!/purge-varnish.pid
-LOGFILE=!!(*= $vhost_dir *)!!/alaveteli/log/purge-varnish.log
+PIDFILE=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/tmp/pids/purge-varnish.pid
+LOGFILE=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/log/purge-varnish.log
 DUSER=!!(*= $user *)!!
 # Set RAILS_ENV - not needed if using config/rails_env.rb
 # RAILS_ENV=your_rails_env
