@@ -36,6 +36,9 @@ start_daemon() {
 stop_daemon() {
   cd "$SITE_HOME"/alaveteli && bundle exec thin stop
 }
+
+restart_daemon() {
+  cd "$SITE_HOME"/alaveteli && bundle exec thin --onebyone restart
 }
 
 case "$1" in
@@ -46,9 +49,7 @@ case "$1" in
  stop_daemon
  ;;
  reload|restart|force-reload)
- stop_daemon
- sleep 5
- start_daemon
+ restart_daemon
  ;;
  *)
  N=/etc/init.d/$NAME
