@@ -35,6 +35,7 @@ fancy_dog_request:
     awaiting_description: true
     comments_allowed: true
     idhash: 50929748
+    address: Some address
 naughty_chicken_request:
     id: 103
     title: How much public money is wasted on breeding naughty chickens?
@@ -47,6 +48,7 @@ naughty_chicken_request:
     awaiting_description: false
     comments_allowed: true
     idhash: e8d18c84
+    address: Some address
 badger_request:
     id: 104
     title: Are you really a badger?
@@ -59,6 +61,7 @@ badger_request:
     awaiting_description: false
     comments_allowed: true
     idhash: e8d18c84
+    address: Some address
 boring_request:
     id: 105
     title: The cost of boring
@@ -71,6 +74,7 @@ boring_request:
     awaiting_description: false
     comments_allowed: true
     idhash: 173fd003
+    address: Some address
 another_boring_request:
     id: 106
     title: The cost of boring
@@ -83,6 +87,7 @@ another_boring_request:
     awaiting_description: false
     comments_allowed: true
     idhash: 173fd004
+    address: Some address
 
 # A pair of identical requests (with url_title differing only in the numeric suffix)
 # used to test the request de-duplication features.
@@ -98,6 +103,7 @@ spam_1_request:
     awaiting_description: false
     comments_allowed: false
     idhash: 173fd005
+    address: Some address
 spam_2_request:
     id: 108
     title: Cheap v1agra
@@ -110,6 +116,7 @@ spam_2_request:
     awaiting_description: false
     comments_allowed: true
     idhash: 173fd005
+    address: Some address
 external_request:
     id: 109
     title: Balalas
@@ -121,6 +128,7 @@ external_request:
     awaiting_description: false
     comments_allowed: true
     idhash: a1234567
+    address: Some address
 anonymous_external_request:
     id: 110
     title: Anonymous request
@@ -132,6 +140,7 @@ anonymous_external_request:
     awaiting_description: false
     comments_allowed: true
     idhash: 7654321a
+    address: Some address
 other_request:
     id: 111
     title: Another request
@@ -144,3 +153,4 @@ other_request:
     awaiting_description: false
     comments_allowed: true
     idhash: b234567
+    address: Some address
