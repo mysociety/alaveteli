@@ -115,6 +115,16 @@ class InfoRequest < ActiveRecord::Base
         states
     end
 
+    # Subset of states accepted via the API
+    def self.allowed_incoming_states
+        [
+            'waiting_response',
+            'rejected',
+            'successful',
+            'partially_successful'
+        ]
+    end
+
     # Possible reasons that a request could be reported for administrator attention
     def report_reasons
         [_("Contains defamatory material"),

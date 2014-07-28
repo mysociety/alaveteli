@@ -261,6 +261,7 @@ Alaveteli::Application.routes.draw do
 
     match '/api/v2/request/:id.json' => 'api#show_request', :as => :api_show_request, :via => :get
     match '/api/v2/request/:id.json' => 'api#add_correspondence', :as => :api_add_correspondence, :via => :post
+    match '/api/v2/request/:id/update.json' => 'api#update_state', :as => :api_update_state, :via => :post
 
     match '/api/v2/body/:id/request_events.:feed_type' => 'api#body_request_events', :as => :api_body_request_events, :feed_type => '^(json|atom)$'
     ####
