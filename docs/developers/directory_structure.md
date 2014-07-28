@@ -33,6 +33,30 @@ website](http://guides.rubyonrails.org/getting_started.html).
     <p><em>the core Alaveteli application code</em></p>
     <dl>
       <dt>
+        assets
+      </dt>
+      <dd>
+          <em>static assets that require precompilation before being served</em>
+          <dl>
+              <dt>
+                  fonts
+              </dt>
+              <dt>
+                  images
+              </dt>
+              <dt>
+                  javascripts
+              </dt>
+              <dt class="last">
+                  stylesheets
+              </dt>
+              <dd class="last">
+                  <p><em>stylesheets in CSS or <a href="http://sass-lang.com/">SCSS</a> format.</em></p>
+                  <p>SCSS stylesheets are compiled to CSS.</p>
+              </dd>
+          </dl>
+      </dd>
+      <dt>
         controllers
       </dt>
       <dt>
@@ -44,53 +68,15 @@ website](http://guides.rubyonrails.org/getting_started.html).
       <dt>
         models
       </dt>
-      <dt>
-        sass
-      </dt>
       <dt class="last">
         views
       </dt>
     </dl>
   </dd>
-  <dt>
-      assets
+  <dt>cache
   </dt>
-  <dd>
-      Static assets
-      <dl>
-          <dt>
-              css
-          </dt>
-          <dd>
-              Rendered stylesheets
-          </dd>
-          <dt>
-              img
-          </dt>
-          <dd>
-              static images
-          </dd>
-          <dt>
-              sass
-          </dt>
-          <dd>
-              Stylesheets in SCSS format, which are compiled to CSS
-          </dd>
-          <dt class="last">
-              scripts
-          </dt>
-          <dd class="last">
-              JavaScript
-          </dd>
-      </dl>
+  <dd><p><em>cached files for downloads, attachments and templates.</em></p>
   </dd>
-  <dt>
-      bootstrap
-  </dt>
-  <dd>
-      <p>
-          Alaveteli's default style uses Bootstrap.
-      </p>
   <dt>
     commonlib
   </dt>
@@ -155,9 +141,13 @@ website](http://guides.rubyonrails.org/getting_started.html).
         <dt>
             tasks
         </dt>
+        <dd><a href="http://guides.rubyonrails.org/command_line.html#rake">Rake</a> tasks.
+        </dd>
         <dt class="last">
-            whatdotheyknow
+            themes
         </dt>
+        <dd class="last">This is where your Alaveteli theme lives.
+        </dd>
     </dl>
   </dd>
   <dt>
@@ -171,33 +161,15 @@ website](http://guides.rubyonrails.org/getting_started.html).
     </p>
   </dd>
   <dt>
-    public
+    log
   </dt>
   <dd>
-    <p><em>static assets</em></p>
-    <dl>
-        <dt>
-            admin
-        </dt>
-        <dd>
-            images, JavaScript and stylesheets used by the admin back-end
-        </dd>
-        <dt>
-            fcgi
-        </dt>
-        <dd>
-            Fast CGI files for serving static assets
-        </dd>
-        <dt>
-            images
-        </dt>
-        <dt>
-            javascripts
-        </dt>
-        <dt class="last">
-            stylesheets
-        </dt>
-    </dl>
+    <p><em>application log files.</em></p>
+  </dd>
+  <dt>
+    public
+  </dt>
+  <dd> <p><em>static files that can be served directly.</em></p>
   </dd>
   <dt>
     script
@@ -219,17 +191,6 @@ website](http://guides.rubyonrails.org/getting_started.html).
     </p>
   </dd>
   <dt>
-    stylesheets
-  </dt>
-  <dd>
-    <p>
-      <em>global stylesheet</em>
-    </p>
-    <p>
-        Actually just <code>global.css</code>
-    </p>
-  </dd>
-  <dt>
     tmp
   </dt>
   <dd>
@@ -243,10 +204,10 @@ website](http://guides.rubyonrails.org/getting_started.html).
   <dd class="last">
     <p><em>third-party software</em></p>
     <dl>
-      <dt class="last">plugins</dt>
+      <dt class="last">bundle</dt>
       <dd class="last">
           <p>
-              Plugins
+              <em>the bundle of gems needed to run Alaveteli</em>
           </p>
       </dd>
     </dl>
