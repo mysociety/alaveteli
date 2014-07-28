@@ -541,6 +541,10 @@ and so it knows to include that in any absolute urls it serves.
 We have some [production server best practice
 notes]({{ site.baseurl}}docs/running/server/).
 
+## What next? 
+
+Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
+
 ## Troubleshooting
 
 *   **Incoming emails aren't appearing in my Alaveteli install**

@@ -13,11 +13,13 @@ Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/ins
 
 ## Installing from our AMI
 
-To help people try out Alaveteli, we have created an AMI (Amazon Machine Image)
-with a basic installation of Alaveteli, which you can use to create a running
-server on an Amazon EC2 instance. This creates an instance that runs in
-development mode, so we wouldn't recommend you use it for a production system
-without changing the configuration.
+To help people try out Alaveteli, we have created an AMI (Amazon Machine
+Image) with a basic installation of Alaveteli (installed using the
+[installation script]({{ site.baseurl }}docs/installing/script/)), which
+you can use to create a running server on an Amazon EC2 instance. This
+creates an instance that runs in development mode, so we wouldn't
+recommend you use it for a production system without changing the
+configuration.
 
 Unfortunately, Alaveteli will not run properly on a free Micro
 instance due to the low amount of memory available on those
@@ -57,3 +59,6 @@ If you have any problems or questions, please ask on the [Alaveteli Google
 Group](https://groups.google.com/forum/#!forum/alaveteli-dev) or [report an
 issue](https://github.com/mysociety/alaveteli/issues?state=open).
 
+##What next?
+
+Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
