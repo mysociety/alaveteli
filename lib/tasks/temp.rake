@@ -1,5 +1,33 @@
 namespace :temp do
 
+    desc 'Rewrite cached HTML attachment headers to use responsive CSS'
+    task :responsive_attachments => :environment do
+        example = 'rake responsive_attachments PATTERN="./cache/views/request/*/*/response/*/attach/html/*/*.html"'
+        check_for_env_vars(['PATTERN'],example)
+        pattern = ENV['PATTERN']
+        replacement_head_content = <<-EOF
+<!--[if LTE IE 7]>
+<link href="/assets/responsive/application-lte-ie7.css" media="all" rel="stylesheet" title="Main" type="text/css" />
+<![endif]-->
+
+<!--[if IE 8]>
+<link href="/assets/responsive/application-ie8.css" media="all" rel="stylesheet" title="Main" type="text/css" />
+<![endif]-->
+
+<!--[if GT IE 8]><!-->
+<link href="/assets/responsive/application.css" media="all" rel="stylesheet" title="Main" type="text/css" />
+<!--<![endif]-->
+
+<script type="text/javascript" src="//use.typekit.net/csi1ugd.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+EOF
+        Dir.glob(pattern) do |cached_html_file|
+            puts cached_html_file
+            text = File.read(cached_html_file)
+            text.sub!(/<link [^>]*href="\/assets\/application.css"[^>]*>/, replacement_head_content)
+            File.open(cached_html_file, 'w') { |file| file.write(text) }
+        end
+    end
 
     desc 'Analyse rails log specified by LOG_FILE to produce a list of request volume'
     task :request_volume => :environment do
