@@ -8,10 +8,10 @@
 # baragouiner <graham.craig@gmail.com>, 2013
 # baragouiner <graham.craig@gmail.com>, 2013
 # baragouiner <graham.craig@gmail.com>, 2013
-# huwwaters <huwwaters@gmail.com>, 2013
-# huwwaters <huwwaters@gmail.com>, 2013
-# Hywel <hywelm.jones@talk21.com>, 2013
-# Hywel <hywelm.jones@talk21.com>, 2013
+# Huw Waters <huwwaters@gmail.com>, 2013
+# Huw Waters <huwwaters@gmail.com>, 2013
+# hywelm <hywelm.jones@talk21.com>, 2013
+# hywelm <hywelm.jones@talk21.com>, 2013
 # louisecrow <louise@mysociety.org>, 2013
 # louisecrow <louise@mysociety.org>, 2013-2014
 # PerryX <wyeboy@gmail.com>, 2013
@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
+"PO-Revision-Date: 2014-06-03 13:06+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
@@ -3805,7 +3805,7 @@ msgid "{{foi_law}} requests to '{{public_body_name}}'"
 msgstr ""
 
 msgid "{{info_request_user_name}} only:"
-msgstr "{info_request_user_name}} yn unig:"
+msgstr "{{info_request_user_name}} yn unig:"
 
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "Cais {{law_used_full}} - {{title}}"

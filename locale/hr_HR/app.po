@@ -3,8 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# BojanOpacak <bojan@rationalinternational.net>, 2013
-# BojanOpacak <bojan@rationalinternational.net>, 2013
+# Bojan Opacak <bojan@rationalinternational.net>, 2013
+# Bojan Opacak <bojan@rationalinternational.net>, 2013
 # louisecrow <louise@mysociety.org>, 2013
 # louisecrow <louise@mysociety.org>, 2013
 msgid ""
