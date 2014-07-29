@@ -26,7 +26,7 @@ EOF
         Dir.glob(pattern) do |cached_html_file|
             puts cached_html_file
             text = File.read(cached_html_file)
-            text.sub!(/<link [^>]*href="(\/assets\/application.css|\/stylesheets\/main.css|https:\/\/www.whatdotheyknow.com\/stylesheets\/main.css)[^>]*>/, replacement_head_content)
+            text.sub!(/<link [^>]*href="(\/assets\/application.css|\/stylesheets\/main.css|https?:\/\/www.whatdotheyknow.com\/stylesheets\/main.css)[^>]*>/, replacement_head_content)
             text.sub!(/<\/div>(\s*This is an HTML version of an attachment to the Freedom of Information request.*?)<\/div>/m, '</div><p class="view_html_description">\1</p></div>')
             File.open(cached_html_file, 'w') { |file| file.write(text) }
         end
