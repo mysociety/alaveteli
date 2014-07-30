@@ -29,6 +29,7 @@ EOF
             text.sub!(/<link [^>]*href="(\/assets\/application.css|\/stylesheets\/main.css|https?:\/\/www.whatdotheyknow.com\/stylesheets\/main.css)[^>]*>/, replacement_head_content)
             text.sub!(/<\/div>(\s*This is an HTML version of an attachment to the Freedom of Information request.*?)<\/div>/m, '</div><p class="view_html_description">\1</p></div>')
             text.sub!(/<iframe src='http:\/\/docs.google.com\/viewer/, "<iframe src='https://docs.google.com/viewer")
+            text.sub!(/<\/head>/, '<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>')
             File.open(cached_html_file, 'w') { |file| file.write(text) }
         end
     end
