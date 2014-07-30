@@ -48,8 +48,11 @@ Ubuntu 12.04 LTS that contains everything you need to work on Alaveteli.
             # in the virtual machine terminal
             bundle exec rails server
 
+## What next?
 
-# Customizing the Vagrant instance
+Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
+
+## Customizing the Vagrant instance
 
 The Vagrantfile allows customisation of some aspects of the virtual machine. See the customization options in the file [`Vagrantfile`](https://github.com/mysociety/alaveteli/blob/master/Vagrantfile#L30) at the top level of the Alaveteli repository.
 
