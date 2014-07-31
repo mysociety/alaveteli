@@ -1,4 +1,5 @@
 build-essential
+bundler
 catdoc
 elinks
 gettext
