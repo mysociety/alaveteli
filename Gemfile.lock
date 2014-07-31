@@ -219,6 +219,8 @@ GEM
       ruby-ole (>= 1.2.8)
       vpim (>= 0.360)
     ruby-ole (1.2.11.6)
+    rvm-capistrano (1.5.3)
+      capistrano (~> 2.15.4)
     sass (3.2.10)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -323,6 +325,7 @@ DEPENDENCIES
   rspec-rails
   ruby-debug
   ruby-msg (~> 1.5.0)
+  rvm-capistrano
   sass-rails (~> 3.2.3)
   spork-rails
   statistics2 (~> 0.54)

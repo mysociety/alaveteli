@@ -81,6 +81,7 @@ end
 
 group :development do
   gem 'capistrano'
+  gem 'rvm-capistrano'
   gem 'mailcatcher'
   gem 'rdoc'
 end
