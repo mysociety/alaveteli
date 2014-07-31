@@ -3,6 +3,7 @@ FactoryGirl.define do
     factory :info_request do
         title "Example Title"
         public_body
+        prominence 'normal'
         user
 
         after_create do |info_request, evaluator|
