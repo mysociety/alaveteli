@@ -492,17 +492,41 @@ restart`.
 
 ## Set up production web server
 
-It is not recommended to run the website using the default Rails app
+It is not recommended to run the website using the default Rails web
+server - we suggest running a production app server behind a general web
 server. There are various recommendations here:
-http://rubyonrails.org/deploy
+[http://rubyonrails.org/deploy](http://rubyonrails.org/deploy)
 
-We usually use Passenger running behind Apache or Thin running behing
-Nginx. The file at `conf/httpd.conf-example` gives you an example
+We recommend Passenger running behind Apache or Thin running behind
+Nginx.
+
+### Passenger and Apache
+
+If you want to use Passenger and Apache, you can
+install them using `apt`. You can obtain an appropriate Passenger
+package from [the Passenger
+website](https://www.phusionpassenger.com/install_debian).
+
+The file at `config/httpd.conf-example` gives you an example
 Apache/Passenger config file for Alaveteli. At a minimum, you should
 include the following in an Apache configuration file:
 
     PassengerResolveSymlinksInDocumentRoot on
     PassengerMaxPoolSize 6 # Recommend setting this to 3 or less on servers with 512MB RAM
+
+### Thin and Nginx
+
+Thin will be installed in the application bundle and used to run
+Alaveteli by default. If you install using the install script (but not
+running it in development mode), Nginx will be installed from `apt` and
+configured for you. Otherwise you can install it yourself from `apt`.
+
+The file at `config/nginx.conf.example` gives you an example Nginx/Thin
+config file for Alaveteli. For production, you will want to run a
+cluster of thin servers rather than just one - run `thin -h` for
+options.
+
+### Varnish
 
 Under all but light loads, it is strongly recommended to run the server behind
 an http accelerator like Varnish. A sample varnish VCL is supplied in
