@@ -421,7 +421,7 @@ class User < ActiveRecord::Base
         if self.email != "" && !MySociety::Validate.is_valid_email(self.email)
             errors.add(:email, _("Please enter a valid email address"))
         end
-        if MySociety::Validate.is_valid_email(self.name)
+        unless name_valid?(self.name)
             errors.add(:name, _("Please enter your name, not your email address, in the name field."))
         end
     end
@@ -449,5 +449,10 @@ class User < ActiveRecord::Base
         end
     end
 
+    private
+
+    def name_valid?(name)
+        name =~ /\w+\s+\w+\s+\w+/
+    end
 end
 

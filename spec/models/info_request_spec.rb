@@ -166,7 +166,7 @@ describe InfoRequest do
         end
 
         it "should have a sensible incoming name and email" do
-            @info_request.incoming_name_and_email.should == "Bob Smith <" + @info_request.incoming_email + ">"
+            @info_request.incoming_name_and_email.should == "Bob James Smith <" + @info_request.incoming_email + ">"
         end
 
         it "should have a sensible recipient name and email" do

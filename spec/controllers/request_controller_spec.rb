@@ -60,13 +60,13 @@ describe RequestController, "when changing things that appear on the request pag
     end
     it "should purge the downstream cache when the authority data is changed" do
         ir = info_requests(:fancy_dog_request)
-        ir.public_body.name = "Something new"
+        ir.public_body.name = "Something really new"
         ir.public_body.save!
         PurgeRequest.all().map{|x| x.model_id}.should =~ ir.public_body.info_requests.map{|x| x.id}
     end
     it "should purge the downstream cache when the user name is changed" do
         ir = info_requests(:fancy_dog_request)
-        ir.user.name = "Something new"
+        ir.user.name = "Something really new"
         ir.user.save!
         PurgeRequest.all().map{|x| x.model_id}.should =~ ir.user.info_requests.map{|x| x.id}
     end
@@ -2192,7 +2192,7 @@ describe RequestController, "authority uploads a response from the web interface
     before(:each) do
         # domain after the @ is used for authentication of FOI officers, so to test it
         # we need a user which isn't at localhost.
-        @normal_user = User.new(:name => "Mr. Normal", :email => "normal-user@flourish.org",
+        @normal_user = User.new(:name => "Somebody Quite Normal", :email => "normal-user@flourish.org",
                                       :password => PostRedirect.generate_random_token,
                                       :address => "Law Street")
         @normal_user.save!

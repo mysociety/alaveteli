@@ -75,7 +75,7 @@ describe User, " when authenticating" do
         @empty_user = User.new
 
         @full_user = User.new
-        @full_user.name = "Sensible User"
+        @full_user.name = "Sensible Kind User"
         @full_user.password = "foolishpassword"
         @full_user.email = "sensible@localhost"
         @full_user.address = "Law Street"
@@ -113,12 +113,22 @@ describe User, " when saving" do
         @user = User.new
     end
 
+    it "should not accept one name" do
+        @user.name = "Mr. Silly"
+        @user.should have(1).error_on(:name)
+    end
+
+    it "should accept full name" do
+        @user.name = "John James George"
+        @user.should_not have(1).error_on(:name)
+    end
+
     it "should not save without setting some parameters" do
         lambda { @user.save! }.should raise_error(ActiveRecord::RecordInvalid)
     end
 
     it "should not save with misformatted email" do
-        @user.name = "Mr. Silly"
+        @user.name = "Mr Silly User"
         @user.password = "insecurepassword"
         @user.email = "mousefooble"
         @user.address = "Maple Street"
@@ -134,7 +144,7 @@ describe User, " when saving" do
     end
 
     it "should not save with no password" do
-        @user.name = "Mr. Silly"
+        @user.name = "Mr Silly User"
         @user.password = ""
         @user.email = "silly@localhost"
         @user.address = "Maple Street"
@@ -142,7 +152,7 @@ describe User, " when saving" do
     end
 
     it "should save with reasonable name, password and email" do
-        @user.name = "Mr. Reasonable"
+        @user.name = "Mr Reasonable User"
         @user.password = "insecurepassword"
         @user.email = "reasonable@localhost"
         @user.address = "Maple Street"
@@ -150,14 +160,14 @@ describe User, " when saving" do
     end
 
     it "should let you make two users with same name" do
-        @user.name = "Mr. Flobble"
+        @user.name = "Mr Flobble Wobble"
         @user.password = "insecurepassword"
         @user.email = "flobble@localhost"
         @user.address = "Maple Street"
         @user.save!
 
         @user2 = User.new
-        @user2.name = "Mr. Flobble"
+        @user2.name = "Mr Flobble Wobble"
         @user2.password = "insecurepassword"
         @user2.email = "flobble2@localhost"
         @user2.address = "Law Street"
@@ -165,7 +175,7 @@ describe User, " when saving" do
     end
 
     it 'should mark the model for reindexing in xapian if the no_xapian_reindex flag is set to false' do
-        @user.name = "Mr. First"
+        @user.name = "Mr First User"
         @user.password = "insecurepassword"
         @user.email = "reasonable@localhost"
         @user.address = "Law Street"
@@ -175,7 +185,7 @@ describe User, " when saving" do
     end
 
     it 'should mark the model for reindexing in xapian if the no_xapian_reindex flag is not set'  do
-        @user.name = "Mr. Second"
+        @user.name = "Mr Second User"
         @user.password = "insecurepassword"
         @user.email = "reasonable@localhost"
         @user.address = "Law Street"
@@ -185,7 +195,7 @@ describe User, " when saving" do
     end
 
     it 'should not mark the model for reindexing in xapian if the no_xapian_reindex flag is set' do
-        @user.name = "Mr. Third"
+        @user.name = "Mr Third User"
         @user.password = "insecurepassword"
         @user.email = "reasonable@localhost"
         @user.address = "Law Street"
@@ -300,7 +310,7 @@ end
 describe User, "when setting a profile photo" do
     before do
         @user = User.new
-        @user.name = "Sensible User"
+        @user.name = "Obviously Sensible User"
         @user.email = "sensible@localhost"
         @user.password = "sensiblepassword"
         @user.address = "Maple Street"

@@ -48,11 +48,11 @@ describe LinkToHelper do
             end
 
             it 'should display a relative link by default' do
-                request_user_link(@info_request).should == '<a href="/user/example_user">Example User</a>'
+                request_user_link(@info_request).should == '<a href="/user/example_fake_user">Example Fake User</a>'
             end
 
             it 'should display an absolute link if requested' do
-                request_user_link_absolute(@info_request).should == '<a href="http://test.host/user/example_user">Example User</a>'
+                request_user_link_absolute(@info_request).should == '<a href="http://test.host/user/example_fake_user">Example Fake User</a>'
             end
 
         end

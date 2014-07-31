@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
     factory :user do
-        name 'Example User'
+        name 'Example Fake User'
         address 'Maple Street'
         sequence(:email) { |n| "person#{n}@example.com" }
         salt "-6116981980.392287733335677"
@@ -9,7 +9,7 @@ FactoryGirl.define do
         email_confirmed true
         ban_text ""
         factory :admin_user do
-            name 'Admin User'
+            name 'Admin Super User'
             admin_level 'super'
         end
     end
