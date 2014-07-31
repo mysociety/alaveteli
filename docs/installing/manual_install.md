@@ -492,11 +492,13 @@ restart`.
 
 ## Set up production web server
 
-It is not recommended to run the website using the default Rails web server.
-There are various recommendations here: http://rubyonrails.org/deploy
+It is not recommended to run the website using the default Rails app
+server. There are various recommendations here:
+http://rubyonrails.org/deploy
 
-We usually use Passenger / mod_rails. The file at `conf/httpd.conf-example`
-gives you an example config file for WhatDoTheyKnow. At a minimum, you should
+We usually use Passenger running behind Apache or Thin running behing
+Nginx. The file at `conf/httpd.conf-example` gives you an example
+Apache/Passenger config file for Alaveteli. At a minimum, you should
 include the following in an Apache configuration file:
 
     PassengerResolveSymlinksInDocumentRoot on
