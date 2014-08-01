@@ -1,4 +1,6 @@
 # Alaveteli за България
+[![Build Status](https://travis-ci.org/obshtestvo/alaveteli-bulgaria.svg?branch=master)](https://travis-ci.org/obshtestvo/alaveteli-bulgaria)
+
 <small>*Вижте по долу за оригиналното съдържание на READMЕ файла.*</small>
 ## Резюме & Увод
 Това е интеграция на вече изградения код от [mySociety](http://mysociety.org), първоначално използван за [WhatDoTheyKnow](http://www.whatdotheyknow.com).
