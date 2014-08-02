@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Anton Stoychev <antitoxic@gmail.com>, 2013
 # Anton Stoychev <antitoxic@gmail.com>, 2013
@@ -4630,3 +4630,6 @@ msgstr "{{user}} ({{user_admin_link}}) отправи това заявлени�
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} отправи това {{law_used_full}} заявление"
+
+msgid "Your address:"
+msgstr "Вашият адрес:"
