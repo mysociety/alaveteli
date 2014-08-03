@@ -33,14 +33,16 @@ ministry_of_madness = PublicBody.create(name: 'Ministry of Madness',
 stupid_request = InfoRequest.create(title: 'Hey, sup?',
                                     public_body: authority,
                                     user: test_user,
-                                    prominence: 'normal')
+                                    prominence: 'normal',
+                                    address: 'Law Street')
 
 stupid_request_initial_message = OutgoingMessage.create(status: 'sent',
                                                         message_type: 'initial_request',
                                                         what_doing: 'normal_sort',
                                                         info_request: stupid_request,
                                                         last_sent_at: Time.now(),
-                                                        body: 'Hey guys, wassup??')
+                                                        body: 'Hey guys, wassup??',
+                                                        address: 'Law Street')
 
 stupid_request_event = InfoRequestEvent.create(event_type: 'sent',
                                                params: {},
@@ -51,14 +53,16 @@ stupid_request_event = InfoRequestEvent.create(event_type: 'sent',
 formal_request = InfoRequest.create(title: 'I would like to make an information request',
                                     public_body: ministry_of_madness,
                                     user: test_user,
-                                    prominence: 'normal')
+                                    prominence: 'normal',
+                                    address: 'Law Street')
 
 formal_request_initial_message = OutgoingMessage.create(status: 'sent',
                                                         message_type: 'initial_request',
                                                         what_doing: 'normal_sort',
                                                         info_request: formal_request,
                                                         last_sent_at: Time.now(),
-                                                        body: 'I am not sure what I really want to know...')
+                                                        body: 'I am not sure what I really want to know...',
+                                                        address: 'Law Street')
 
 
 formal_request_outgoing_event = InfoRequestEvent.create(event_type: 'sent',
