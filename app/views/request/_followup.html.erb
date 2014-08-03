@@ -87,6 +87,13 @@
             <p>
                 <%= o.text_area :body, :rows => 15, :cols => 55 %>
             </p>
+            <p>
+                <label class="form_label" for="typeahead_search"><%= _('Your address:') %></label>
+                <%= o.text_field :address,
+                                 :size => 50,
+                                 :id =>"typeahead_search",
+                                 :value => @user.address if @user %>
+            </p>
 
             <% if @internal_review %>
                 <%= hidden_field_tag "outgoing_message[what_doing]", "internal_review" %>
