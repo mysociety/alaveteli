@@ -1,11 +1,9 @@
 require 'bundler/capistrano'
-require 'rvm/capistrano'
 
 set :stage, 'staging' unless exists? :stage
 
 configuration = YAML.load_file('config/deploy.yml')[stage]
 
-set :rvm_type, :system
 set :application, 'alaveteli'
 set :scm, :git
 set :deploy_via, :remote_cache
@@ -14,10 +12,15 @@ set :branch, configuration['branch']
 set :git_enable_submodules, true
 set :deploy_to, configuration['deploy_to']
 set :user, configuration['user']
-set :password, configuration['password']
+if configuration.has_key? 'password'
+  set :password, configuration['password']
+end
 set :use_sudo, false
 set :rails_env, configuration['rails_env']
 
+unless configuration.has_key? 'port'
+  configuration['port'] = 22
+end
 server configuration['server'], :app, :web, :db, :primary => true, :port => configuration['port']
 
 namespace :themes do
