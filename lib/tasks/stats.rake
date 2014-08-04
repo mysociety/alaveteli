@@ -119,7 +119,7 @@ DESC
                     count ? count : 0
                 end
 
-      row = [body.name] + stats
+      row = [%Q("#{ body.name }")] + stats
       puts row.join(",")
     end
   end
@@ -147,7 +147,7 @@ DESC
                   count ? count : 0
               end
 
-      row = [body.name] + stats
+      row = [%Q("#{ body.name }")] + stats
       puts row.join(",")
     end
   end
