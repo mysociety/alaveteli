@@ -35,6 +35,12 @@ describe PublicBodyCategory do
         it 'should return a list of headings' do
             PublicBodyCategory::get().headings().should == ['Local and regional', 'Miscellaneous']
         end
+
+        it 'should call load_categories if categories are not already loaded' do
+            PublicBodyCategory.stub!(:count).and_return(0)
+            PublicBodyCategory.should_receive(:load_categories)
+            PublicBodyCategory::get()
+        end
     end
 
     describe 'when asked for tags by headings' do
