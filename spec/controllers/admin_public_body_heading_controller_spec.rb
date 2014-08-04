@@ -58,7 +58,7 @@ describe AdminPublicBodyHeadingController do
     context 'when editing a public body heading' do
         before do
             PublicBodyCategory.load_categories
-            @heading= PublicBodyHeading.find_by_name("Silly ministries")
+            @heading = PublicBodyHeading.find_by_name("Silly ministries")
         end
 
         render_views

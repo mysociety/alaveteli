@@ -22,6 +22,8 @@ class PublicBodyCategory < ActiveRecord::Base
     validates_presence_of :description, :message => N_('Description can\'t be blank')
 
     def self.get
+        load_categories if PublicBodyCategory.count < 1
+
         locale = I18n.locale.to_s || default_locale.to_s || ""
         categories = CategoryCollection.new
         I18n.with_locale(locale) do
