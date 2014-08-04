@@ -4,10 +4,15 @@
 #
 #  id            :integer        not null, primary key
 #  name          :text           not null
+#  display_order :integer
 #
 
 class PublicBodyHeading < ActiveRecord::Base
-    has_and_belongs_to_many :public_body_categories
+    attr_accessible :name, :display_order, :translated_versions
+
+    has_many :public_body_category_links
+    has_many :public_body_categories, :order => :category_display_order, :through => :public_body_category_links
+    default_scope order('display_order ASC')
 
     translates :name
 

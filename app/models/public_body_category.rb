@@ -6,14 +6,17 @@
 #  title         :text           not null
 #  category_tag  :text           not null
 #  description   :text           not null
+#  display_order :integer
 #
 
 require 'forwardable'
 
 class PublicBodyCategory < ActiveRecord::Base
-    attr_accessible :locale, :category_tag, :title, :description, :translated_versions
+    attr_accessible :locale, :category_tag, :title, :description,
+                    :translated_versions, :display_order
 
-    has_and_belongs_to_many :public_body_headings
+    has_many :public_body_category_links
+    has_many :public_body_headings, :through => :public_body_category_links
 
     translates :title, :description
     validates_uniqueness_of :category_tag, :message => N_('Tag is already taken')
@@ -46,7 +49,7 @@ class PublicBodyCategory < ActiveRecord::Base
         sql = %Q| SELECT * FROM public_body_categories pbc
                   WHERE pbc.id NOT IN (
                       SELECT public_body_category_id AS id
-                      FROM public_body_categories_public_body_headings
+                      FROM public_body_category_links
                   ) |
         PublicBodyCategory.find_by_sql(sql)
     end
@@ -54,6 +57,7 @@ class PublicBodyCategory < ActiveRecord::Base
     # Called from the data files themselves
     def self.add(locale, categories)
         @heading = nil
+        @heading_order = 0
         categories.each do |category|
             if category.is_a?(Array)
                 #categories
@@ -75,13 +79,15 @@ class PublicBodyCategory < ActiveRecord::Base
                             pb_category.save
                         end
                     end
-                    pb_category.public_body_headings << @heading
+
+                    pb_category.add_to_heading(@heading)
                 else
                     I18n.with_locale(locale) do
                         pb_category.title = category[1]
                         pb_category.description = category[2]
                         pb_category.save
                     end
+                    pb_category.add_to_heading(@heading)
                 end
             else
                 #headings
@@ -94,11 +100,41 @@ class PublicBodyCategory < ActiveRecord::Base
                     end
                 else
                     I18n.with_locale(locale) do
-                        @heading = PublicBodyHeading.create(:name => category)
+                        last_heading = PublicBodyHeading.last
+                        if last_heading
+                            @heading_order = last_heading.display_order + 1
+                        else
+                            @heading_order = 1
+                        end
+                        @heading = PublicBodyHeading.create(:name => category, :display_order => @heading_order)
                     end
                 end
             end
         end
+    end
+
+    def add_to_heading(heading)
+        if self.public_body_headings.include?(heading)
+            # we already have this, stop
+            return
+        end
+
+        # find the last display_order for this heading
+        last_link = PublicBodyCategoryLink.where(
+            :public_body_heading_id => heading.id
+        ).order(:category_display_order).last
+
+        if last_link
+            display_order = last_link.category_display_order + 1
+        else
+            display_order = 1
+        end
+
+        heading_link = PublicBodyCategoryLink.create(
+            :public_body_category_id => self.id,
+            :public_body_heading_id => heading.id,
+            :category_display_order => display_order
+        )
     end
 
     # Convenience methods for creating/editing translations via forms
