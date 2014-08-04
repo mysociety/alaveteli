@@ -26,10 +26,27 @@ class AdminPublicBodyCategoryController < AdminController
             else
                 if params[:headings]
                     heading_ids = params[:headings].values
+                    removed_headings = @category.public_body_heading_ids - heading_ids
+                    added_headings = heading_ids - @category.public_body_heading_ids
+
+                    unless removed_headings.empty?
+                        # remove the link objects
+                        deleted_links = PublicBodyCategoryLink.where(
+                            :public_body_category_id => @category.id,
+                            :public_body_heading_id => [removed_headings]
+                        )
+                        deleted_links.delete_all
+
+                        #fix the category object
+                        @category.public_body_heading_ids = heading_ids
+                    end
+
+                    added_headings.each do |heading_id|
+                        @category.add_to_heading(PublicBodyHeading.find(heading_id))
+                    end
                 end
 
                 if @category.update_attributes(params[:public_body_category])
-                    @category.public_body_heading_ids = heading_ids
                     flash[:notice] = 'Category was successfully updated.'
                 end
             end
