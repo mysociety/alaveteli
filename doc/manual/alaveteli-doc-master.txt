@@ -17,19 +17,22 @@ These pages (in the wiki) have work/attention still pending:
 
 [  ] [  ] Administrator's manual TODO -- needs to be implemented
 [no] [??] Caching currently implemented <-- TODO if needed (seems old)
-[no] [ok] Current project status <-- but TODO facts from here prob should be represented on the .org site
-[??] [  ] Features <-- not sure this is for documentation, but is for the website -- see https://github.com/mysociety/alaveteli/issues/1350
-[no] [x?] I18n approach -- seems out of date, since gettext is used now, but provides historical justification for how this was done (linked-to from i18n in wiki)
-[  ] [  ] I18n guide      } developers/i18n maybe: see also http://mysociety.github.io/internationalization.html
-[??] [do] Improved document conversion <-- some of this needs to go into docs, some is a proposal
-[??] [ok] List of foi websites and projects <-- perhaps should be in the site, but not really a docs issue just now
-[??] [x ] Local customization; Initial setup and administration <-- no info, but good questions: where should this go?
-[>>] [? ] Marking up text for translation <-- needs writing as part of specific Alavateli i18n, but
+[no] [no] Current project status <-- moved onto the intranet Twiki
+[no] [no] Features  -- see https://github.com/mysociety/alaveteli/issues/1350
+[no] [no] I18n approach
+[ok] [no] I18n guide      } developers/i18n maybe: see also http://mysociety.github.io/internationalization.html
+[no] [ok] Improved document conversion kept on wiki
+[ok] [ok] List of foi websites and projects <-- keep non-production alaveteli and non-alaveteli in the wiki, rest are in the site **TODO**: move the alaveteli ones to the Twiki so we keep the repo links (e.g. Hungarian fork on their own github) etc. The rest remain there -- and put a link to the "live" page on http://alaveteli.org/deployments/
+[no] [ok] Local customization; Initial setup and administration <-- no info, but good questions: where should this go? (moved into an issue #1651)
+[ok] [no] Marking up text for translation <-- needs writing as part of specific Alavateli i18n, but
                                               linking to http://mysociety.github.io/internationalization.html
-[>>] [no] Setting up a demo site <-- TODO should be in the docs, a useful page with some overlap
+[>>] [x ] Setting up a demo site <-- TODO should be in the docs, presumably into the EC2/AMI installation page
+          The section on Localisation (pulling in Transifex translations) should probably end up in 
+          http://alaveteli.org/docs/developers/i18n/#deployment-notes
+          since the wiki notes are more detailed than the docs at the moment
 
 
-These pages are form the repo's doc/ directory
+These pages are from the repo's doc/ directory
 ----------------------------------------------
 
 [no] [ok] CHANGES.md
