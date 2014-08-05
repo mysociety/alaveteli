@@ -19,7 +19,7 @@ Make sure you follow the correct instructions for the specific MTA you're using:
 ## Example setup on postfix
 
 This section shows an example of how to set up your MTA if you're using
-**postfix** (running on Ubuntu). See the example for
+**postfix**. See the example for
 [exim4](#example-setup-on-exim4) if you're using that instead of postfix.
 
 ### Instructions
@@ -110,10 +110,12 @@ Finally, edit `/etc/aliases` to replace `team` with `real_team`:
 
 ### Logging
 
-For the postfix logs to be successfully read by the script `load-mail-server-logs`, they need
-to be log rotated with a date in the filename. Since that will create a lot of rotated log
-files (one for each day), it's good to have them in their own directory. For example (on Ubuntu),
-in `/etc/rsyslog.d/50-default.conf` set:
+For the postfix logs to be successfully read by the script
+`load-mail-server-logs`, they need to be log rotated with a date in the
+filename. Since that will create a lot of rotated log files (one for
+each day), it's good to have them in their own directory. For example
+(in `/etc/rsyslog.d/50-default.conf` on Ubuntu, or
+`/etc/rsyslog.conf` on Debian), set:
 
     mail.*                  -/var/log/mail/mail.log
 
@@ -168,7 +170,7 @@ delivers to command: /var/www/alaveteli/script/mailin".
 ## Example setup on exim4
 
 This section shows an example of how to set up your MTA if you're using
-**exim4** (running on Ubuntu). See the example for
+**exim4**. See the example for
 [postfix](#example-setup-on-postfix) if you're using that instead of exim4.
 
 
