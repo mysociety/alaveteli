@@ -28,6 +28,12 @@
       <%= text_field_tag 'public_body_change_request[comment]' %>
     </p>
   This is the anti-spam honeypot.
+* The capistrano `stop`, `start` and `restart` tasks now restart the app
+  server via the service `/etc/init.d/alaveteli`. If you're using
+  capistrano for deployment, make sure `/etc/init.d/alaveteli` exists
+  and is current. You can create it using the template
+  `config/sysvinit-thin.ugly` or `config/sysvinit-passenger.ugly` as
+  described in http://alaveteli.org/docs/installing/manual_install/#generate-alaveteli-service
 
 # Version 0.18
 

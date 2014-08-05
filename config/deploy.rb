@@ -33,14 +33,12 @@ namespace :xapian do
 end
 
 namespace :deploy do
-  desc "Restarting mod_rails with restart.txt"
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "touch #{current_path}/tmp/restart.txt"
-  end
 
-  [:start, :stop].each do |t|
-    desc "#{t} task is a no-op with mod_rails"
-    task t, :roles => :app do ; end
+  [:start, :stop, :restart].each do |t|
+    desc "#{t.to_s.capitalize} Alaveteli service defined in /etc/init.d/alaveteli"
+    task t, :roles => :app, :except => { :no_release => true } do
+      run "service alaveteli #{t}"
+    end
   end
 
   desc 'Link configuration after a code update'
