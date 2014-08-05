@@ -26,9 +26,17 @@ This section shows an example of how to set up your MTA if you're using
 
 Install postfix.
 
-    sudo apt-get install postfix
+    # Install debconf so we can configure non-interactively
+    apt-get -qq install -y debconf >/dev/null
 
-In the install options, select the default configuration `Internet Site` and set the hostname to your sitename.
+    # Set the default configuration 'Internet Site'
+    echo postfix postfix/main_mailer_type select 'Internet Site' | debconf-set-selections
+
+    # Set your hostname (change example.com to your hostname)
+    echo postfix postfix/mail_name string "example.com" | debconf-set-selections
+
+    # Install postfix
+    DEBIAN_FRONTEND=noninteractive apt-get -qq -y install postfix >/dev/null
 
 Now configure Postfix. For example, if the Unix user that is going to
 run your site is `www-data`, and the directory where Alaveteli is installed is
@@ -44,6 +52,7 @@ In `/etc/postfix/main.cf`, add the lines:
 
     transport_maps = regexp:/etc/postfix/transports
     local_recipient_maps = proxy:unix:passwd.byname regexp:/etc/postfix/recipients
+
 
 And, assuming you set
 [`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}docs/customising/config/#incoming_email_prefix)
