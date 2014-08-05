@@ -138,10 +138,10 @@
 # Large / static files for WhatDoTheyKnow. Used for manual sysadmin uploads.
 # Is on its own files.example.com subdomain (instead of old /files URL)
 # as mod_alias doesn't work with Passenger.
-<VirtualHost *:80>
-    ServerName files.example.com
-    DocumentRoot /srv/alaveteli-files/files
-    <Directory "/srv/alaveteli-files/files">
-        Options +Indexes
-    </Directory>
-</VirtualHost>
+# <VirtualHost *:80>
+#     ServerName files.example.com
+#     DocumentRoot /srv/alaveteli-files/files
+#     <Directory "/srv/alaveteli-files/files">
+#         Options +Indexes
+#     </Directory>
+# </VirtualHost>
