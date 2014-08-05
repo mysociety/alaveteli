@@ -71,13 +71,6 @@ class AdminPublicBodyCategoryController < AdminController
         @locale = self.locale_from_params
         I18n.with_locale(@locale) do
             category = PublicBodyCategory.find(params[:id])
-
-            if PublicBody.find_by_tag(category.category_tag).count > 0
-                flash[:notice] = "There are authorities associated with this category, so can't destroy it"
-                redirect_to admin_category_edit_url(category)
-                return
-            end
-
             category.destroy
             flash[:notice] = "Category was successfully destroyed."
             redirect_to admin_category_index_url
