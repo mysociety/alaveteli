@@ -36,9 +36,6 @@
     <Directory "/srv/alaveteli/">
         Options +ExecCGI -MultiViews
         AllowOverride All
-        AddHandler fastcgi-script .cgi
-        AddType application/x-httpd-fastphp .php
-        Action application/x-httpd-fastphp /fcgi/php-basic
     </Directory>
 
     RewriteEngine On
@@ -74,12 +71,6 @@
         RewriteRule /([^.]*)$ /down [PT]
     # END Maintenance Page
 
-    # This is needed for the PHP spell checker
-    <Location /fcgi>
-        Options +ExecCGI
-        SetHandler fastcgi-script
-    </Location>
-
     # Set the Sendfile header and switch sendfile on - Apache will
     # now handle send_file calls from Alaveteli
     <Location />
@@ -95,8 +86,6 @@
     <Directory "/srv/alaveteli/commonlib/jslib">
         Options +ExecCGI
         AddHandler fastcgi-script .cgi
-        AddType application/x-httpd-fastphp .php
-        Action application/x-httpd-fastphp /fcgi/php-basic
     </Directory>
 
     Alias /files/ "/srv/alaveteli/files/"
