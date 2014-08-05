@@ -156,15 +156,7 @@ describe AdminPublicBodyCategoryController do
             PublicBodyCategory.load_categories
         end
 
-        it "does not destroy a public body category that has associated bodies" do
-            category = PublicBodyCategory.find_by_title("Useless ministries")
-            n = PublicBodyCategory.count
-            post :destroy, { :id => category.id }
-            response.should redirect_to(:controller=>'admin_public_body_category', :action=>'edit', :id => category.id)
-            PublicBodyCategory.count.should == n
-        end
-
-        it "destroys an empty public body category" do
+        it "destroys a public body category" do
             pbc = PublicBodyCategory.create(:title => "Empty Category", :category_tag => "empty", :description => "-")
             n = PublicBodyCategory.count
             post :destroy, { :id => pbc.id }
