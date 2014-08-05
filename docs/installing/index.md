@@ -50,6 +50,7 @@ those servers, because Capistrano takes care of that for you.
 
 ## Installing the core code
 
+* [Install into a Vagrant virtual development environment]({{ site.baseurl }}docs/installing/vagrant/) -- a good choice for development, and playing around with the site.
 * [Install on Amazon EC2]({{ site.baseurl }}docs/installing/ami/) using our AMI
 * [Use the installation script]({{ site.baseurl }}docs/installing/script/) which does the full installation on your own server
 * [Manual installation]({{ site.baseurl }}docs/installing/manual_install/) -- step-by-step instructions
