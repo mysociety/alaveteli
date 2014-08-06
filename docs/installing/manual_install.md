@@ -630,12 +630,12 @@ Link the application `public` directory to the document root for the VirtualHost
 Copy the example nginx config
 
     cp /var/www/alaveteli/config/nginx.conf.example \
-      /etc/nginx/sites-available/alaveteli.conf
+      /etc/nginx/sites-available/alaveteli
 
 Disable the default site and enable the `alaveteli` server
 
     rm /etc/nginx/sites-enabled/default
-    ln -s /etc/nginx/sites-available/alaveteli.conf \
+    ln -s /etc/nginx/sites-available/alaveteli \
       /etc/nginx/sites-enabled/alaveteli
 
 Check the configuration and fix any issues
@@ -664,8 +664,8 @@ Copy the SSL configuration â€“ again changing `www.example.com` to your domain â
 and enable the server
 
     cp /var/www/alaveteli/config/nginx-ssl.conf-example \
-      /etc/nginx/sites-available/alaveteli_https.conf
-    ln -s /etc/nginx/sites-available/alaveteli_https.conf \
+      /etc/nginx/sites-available/alaveteli_https
+    ln -s /etc/nginx/sites-available/alaveteli_https \
       /etc/nginx/sites-enabled/alaveteli_https
 
 <!-- Force HTTPS requests from the HTTP VirtualHost
