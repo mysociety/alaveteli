@@ -2,10 +2,13 @@ upstream alaveteli {
     server 127.0.0.1:3000;
 }
 
-server {
-  server_name example.com example.org www.example.org;
-  rewrite ^(.*) http://www.example.com$1 permanent;
-}
+# Example to redirect other domains to the canonical URL. Also redirects the
+# unqualified domain to the FQDN www.example.com, which is recommended.
+#
+# server {
+#   server_name example.com example.org www.example.org;
+#   rewrite ^(.*) http://www.example.com$1 permanent;
+# }
 
 server {
     listen 80 default;
