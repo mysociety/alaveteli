@@ -587,7 +587,7 @@ Copy the SSL configuration â€“ again changing `www.example.com` to your domain â
 and enable the VirtualHost
 
     cp /var/www/alaveteli/config/httpd-ssl-vhost.conf-example \
-      /etc/apache2/sites-available/alavetli_https
+      /etc/apache2/sites-available/alaveteli_https
     a2ensite alaveteli_https
 
 Force HTTPS requests from the HTTP VirtualHost
