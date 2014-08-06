@@ -88,8 +88,6 @@
         AddHandler fastcgi-script .cgi
     </Directory>
 
-    Alias /files/ "/srv/alaveteli/files/"
-
     # Serve attachments directly from the cache, if possible.
     #
     # The file names are URL-encoded on disk, and sharded by the first
