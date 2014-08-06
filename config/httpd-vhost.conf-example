@@ -22,8 +22,11 @@
     <IfModule mod_passenger.c>
         PassengerAppRoot /var/www/alaveteli
 
+        # See http://blog.phusion.nl/2013/03/12/tuning-phusion-passengers-concurrency-settings/
+        # and http://blog.scoutapp.com/articles/2009/12/08/production-rails-tuning-with-passenger-passengermaxprocesses
+        # for more information on tuning Passenger
+
         # Set this to something like 100 if you have memory leak issues
-        # See http://blog.phusion.nl/2013/03/12/tuning-phusion-passengers-concurrency-settings/ for more information on tuning Passenger
         PassengerMaxRequests 2000
         PassengerResolveSymlinksInDocumentRoot on
         PassengerMaxPoolSize 6
