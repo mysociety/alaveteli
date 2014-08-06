@@ -245,7 +245,7 @@ databases (e.g., SQLite), but the currently supported database is PostgreSQL
 
 If you don't have postgres installed:
 
-    apt-get install postgresql postgresql-client
+    apt-get -y install postgresql postgresql-client
 
 Create a `foi` user from the command line, like this:
 
