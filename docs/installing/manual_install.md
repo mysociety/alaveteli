@@ -267,33 +267,6 @@ Then create the databases:
     sudo -u postgres createdb -T template_utf8 -O foi alaveteli_test
     sudo -u postgres createdb -T template_utf8 -O foi alaveteli_development
 
-Now you need to set up the database config file so that the application can
-connect to the postgres database.
-
-* Copy `database.yml-example` to `database.yml` in `alaveteli/config`
-* Edit it to point to your local postgresql database in the development
-  and test sections.
-
-Example `development` section of `config/database.yml`:
-
-    development:
-      adapter: postgresql
-      template: template_utf8
-      database: alaveteli_development
-      username: foi
-      password: secure-password-here
-      host: localhost
-      port: 5432
-
-Make sure that the user specified in `database.yml` exists, and has full
-permissions on these databases. As they need the ability to turn off
-constraints whilst running the tests they also need to be a superuser
-
-If you don't want your database user to be a superuser, you can add this line
-to the test config in `database.yml` (as seen in `database.yml-example`)
-
-    constraint_disabling: false
-
 ## Configure email
 
 You will need to set up an email server – or Mail Transfer Agent (MTA) – to
