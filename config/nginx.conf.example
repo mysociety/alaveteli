@@ -12,7 +12,9 @@ upstream alaveteli {
 
 server {
     listen 80 default;
-    server_name www.example.com;
+    # Set the server name to your domain name if you have multiple nginx servers
+    # running on your machine
+    # server_name www.example.com;
     root /var/www/alaveteli/public;
 
     server_tokens off;
