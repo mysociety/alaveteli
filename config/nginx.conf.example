@@ -10,7 +10,7 @@ server {
 server {
     listen 80 default;
     server_name www.example.com;
-    root /srv/alaveteli;
+    root /var/www/alaveteli/public;
 
     server_tokens off;
 

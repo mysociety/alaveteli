@@ -5,7 +5,7 @@ upstream alaveteli {
 server {
     listen 443;
     server_name www.example.com;
-    root /srv/alaveteli;
+    root /var/www/alaveteli/public;
 
     server_tokens off;
 
