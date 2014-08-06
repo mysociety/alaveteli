@@ -12,7 +12,8 @@
     ServerAdmin webmaster@example.com
     DocumentRoot /srv/alaveteli/
 
-    # TODO: Remove this and use PassengerUser
+    # TODO: Remove this and use PassengerUser when supported
+    # This is the user that runs the rails application processes
     SuExecUserGroup foi foi
     RewriteEngine On
 
