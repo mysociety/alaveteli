@@ -549,10 +549,6 @@ Enable the required modules
     a2enmod rewrite
     a2enmod suexec
 
-Link the application `public` directory to the document root for the VirtualHost
-
-    ln -s /var/www/alaveteli/public/ /srv/alaveteli
-
 Create a directory for optional Alaveteli configuration
 
     mkdir -p /etc/apache2/vhost.d/alaveteli
@@ -622,10 +618,6 @@ Restart apache to load the new Alaveteli config
 Install nginx
 
     apt-get install -y nginx
-
-Link the application `public` directory to the document root for the VirtualHost
-
-    ln -s /var/www/alaveteli/public/ /srv/alaveteli
 
 Copy the example nginx config
 
