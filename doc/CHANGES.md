@@ -8,6 +8,8 @@
   rather than only as a database constraint. If you have added a `CensorRule` in
   your theme, you will now have to satisfy the additional validations on the
   `:replacement`, `:last_edit_comment` and `:last_edit_editor` attributes.
+* Public body categories will now be stored in the database rather than being read directly from the `lib/public_body_categories_LOCALE` files - on first run, the contents of the files will be automatically imported into the database and all further changes will need to be made via the administrative interface.
+
 
 # Version 0.19
 
@@ -69,11 +71,11 @@ candidate:
 
 * Install `lockfile-progs` so that the `run-with-lockfile` shell script can be
   used instead of the C program
-* Use responsive stylesheets in `config/general.yml`:  
+* Use responsive stylesheets in `config/general.yml`:
   `RESPONSIVE_STYLING: true`. If you don't currently use responsive styling,
   and you don't want to get switched over just set `RESPONSIVE_STYLING: false`
   and the fixed-width stylesheets will be used as before.
-* Allow access to public body stats page if desired in `config/general/yml`:  
+* Allow access to public body stats page if desired in `config/general/yml`:
   `PUBLIC_BODY_STATISTICS_PAGE: true`
 * Run migrations to define track_things constraint correctly (Robin Houston) and
   add additional index for `event_type` on `info_request_events` (Steven Day)
