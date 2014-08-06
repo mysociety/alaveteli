@@ -37,6 +37,8 @@
         # above to tune this for your system 
         PassengerMaxPoolSize 3
 
+        # The RAILS_ENV that the app is running in. This can be any of
+        # the environments listed in APP_ROOT/config/environments.
         RailsEnv production
         RackEnv production
     </IfModule>
