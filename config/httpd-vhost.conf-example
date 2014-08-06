@@ -10,7 +10,7 @@
 <VirtualHost *:80>
     ServerName www.example.com
     ServerAdmin webmaster@example.com
-    DocumentRoot /srv/alaveteli/
+    DocumentRoot /var/www/alaveteli/public
 
     # TODO: Remove this and use PassengerUser when supported
     # This is the user that runs the rails application processes
@@ -44,7 +44,7 @@
     </IfModule>
 
     # This is your Rails app's public directory
-    <Directory "/srv/alaveteli/">
+    <Directory "/var/www/alaveteli/public">
         Options +ExecCGI -MultiViews
         AllowOverride All
     </Directory>
@@ -77,13 +77,13 @@
         <IfModule mod_xsendfile.c>
             RequestHeader Set X-Sendfile-Type X-Sendfile
             XSendFile On
-            XSendFilePath /srv/alaveteli
+            XSendFilePath /var/www/alaveteli/public
         </IfModule>
     </Location>
 
     # Commonlib is typically found in alaveteli/commonlib
-    Alias /jslib/ "/srv/alaveteli/jslib"
-    <Directory "/srv/alaveteli/commonlib/jslib">
+    Alias /jslib/ "/var/www/alaveteli/commonlib/jslib"
+    <Directory "/var/www/alaveteli/commonlib/jslib">
         Options +ExecCGI
         AddHandler fastcgi-script .cgi
     </Directory>
@@ -138,8 +138,8 @@
 # as mod_alias doesn't work with Passenger.
 # <VirtualHost *:80>
 #     ServerName files.example.com
-#     DocumentRoot /srv/alaveteli-files/files
-#     <Directory "/srv/alaveteli-files/files">
+#     DocumentRoot /var/www/alaveteli/files
+#     <Directory "/var/www/alaveteli/files">
 #         Options +Indexes
 #     </Directory>
 # </VirtualHost>
