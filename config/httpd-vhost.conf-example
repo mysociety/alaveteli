@@ -14,7 +14,7 @@
 
     # TODO: Remove this and use PassengerUser when supported
     # This is the user that runs the rails application processes
-    SuExecUserGroup foi foi
+    SuExecUserGroup alaveteli alaveteli
     RewriteEngine On
 
     ErrorLog /var/log/apache2/alaveteli_error.log
