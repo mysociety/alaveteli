@@ -14,6 +14,7 @@
 
     # TODO: Remove this and use PassengerUser
     SuExecUserGroup foi foi
+    RewriteEngine On
 
     ErrorLog /var/log/apache2/alaveteli_error.log
     CustomLog /var/log/apache2/alaveteli_access.log combined
@@ -44,8 +45,6 @@
         Options +ExecCGI -MultiViews
         AllowOverride All
     </Directory>
-
-    RewriteEngine On
 
     # Maintenance Page
         # Make a file down.html in the DocumentRoot to bring down the whole
