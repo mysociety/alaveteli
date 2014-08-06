@@ -112,6 +112,12 @@
         </IfModule>
     </Location>
 
+    # Cache assets
+    ExpiresActive On
+    <LocationMatch "^/(assets).*\.(ico|gif|jpe?g|png|js|css|svg|ttf|otf|eot|woff)$">
+        ExpiresDefault "access plus 1 day"
+    </LocationMatch>
+
     # Compress font resources
     <IfModule mod_deflate.c>
         <IfModule mod_mime.c>
@@ -123,12 +129,6 @@
         AddOutputFilterByType DEFLATE font/opentype font/truetype font/eot
         AddOutputFilterByType DEFLATE image/svg+xml
     </IfModule>
-
-    # Cache assets
-    ExpiresActive On
-    <LocationMatch "^/(assets).*\.(ico|gif|jpe?g|png|js|css|svg|ttf|otf|eot|woff)$">
-        ExpiresDefault "access plus 1 day"
-    </LocationMatch>
 
     # Include optional configuration
     Include vhost.d/alaveteli
