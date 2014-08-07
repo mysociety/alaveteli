@@ -9,6 +9,7 @@ gettext
 ghostscript
 gnuplot-nox
 irb | irb1.8
+libapache2-mod-passenger
 libicu-dev
 libmagic-dev
 libmagickwand-dev
