@@ -68,6 +68,10 @@ following to `/etc/aliases`:
     # we don't care about delivery
     do-not-reply-to-this-address:        :blackhole:
 
+To set up recipient groups for the `team@` and `user-support@` email addresses at your domain, add alias records for them in `/etc/aliases` too:
+
+    team: user@example.com, otheruser@example.com
+    user-support: team
 
 ### Logging
 
