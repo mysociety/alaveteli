@@ -116,13 +116,13 @@ We suggest you add the following to your exim configuration.
 
 In `/etc/exim4/conf.d/main/04_alaveteli_options`, set:
 
-    ALAVETELI_HOME=/path/to/alaveteli/software
-    ALAVETELI_USER=www-data
+    ALAVETELI_HOME=/var/www/alaveteli
+    ALAVETELI_USER=alaveteli
     log_file_path=/var/log/exim4/exim-%slog-%D
     MAIN_LOG_SELECTOR==+all -retry_defer
     extract_addresses_remove_arguments=false
 
-The user ALAVETELI_USER should have write permissions on ALAVETELI_HOME.
+The `ALAVETELI_HOME` variable should be set to the directory where Alaveteli is installed. `ALAVETELI_USER` should be the Unix user that is going to run your site. They should have write permissions on `ALAVETELI_HOME`.
 
 The name and location of the log files created by Exim must match what the
 `load-mail-server-logs` script expects, which is why you must provide the
@@ -157,7 +157,7 @@ And, assuming you set
 in your config at `config/general.yml` to "foi+", create `config/aliases` with the following
 content:
 
-    ^foi\\+.*: |/path/to/alaveteli/software/script/mailin
+    ^foi\\+.*: |/var/www/alaveteli/script/mailin
 
 You should also configure exim to discard any messages sent to the
 [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix)
@@ -177,10 +177,10 @@ out-of-office autoreplies will be forwarded to
 For example, in WhatDoTheyKnow the
 configuration looks like this:
 
-    raw_team: [a list of people on the team]
-    team:     |/path/to/alaveteli/software/script/handle-mail-replies
+    real_team: [a list of people on the team]
+    team:     |/var/www/alaveteli/script/handle-mail-replies
 
-with `FORWARD_NONBOUNCE_RESPONSES_TO`: 'raw_team@whatdotheyknow.com'`
+with `FORWARD_NONBOUNCE_RESPONSES_TO`: 'real_team@whatdotheyknow.com'`
 
 Finally, make sure you have `dc_use_split_config='true'` in
 `/etc/exim4/update-exim4.conf.conf`, and execute the command
