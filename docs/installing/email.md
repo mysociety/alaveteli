@@ -174,13 +174,14 @@ address to be filtered through
 `script/handle-mail-replies`. Messages that are not bounces or
 out-of-office autoreplies will be forwarded to
 [`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ site.baseurl }}docs/customising/config/#forward_nonbounce_responses_to).
-For example, in WhatDoTheyKnow the
-configuration looks like this:
+For example, you could add the following to `config/aliases`:
 
     real_team: [a list of people on the team]
     team:     |/var/www/alaveteli/script/handle-mail-replies
 
-with `FORWARD_NONBOUNCE_RESPONSES_TO`: 'real_team@whatdotheyknow.com'`
+In your Alaveteli `config/general.yml` file you would have (replacing `example.com` with your domain):
+
+    FORWARD_NONBOUNCE_RESPONSES_TO: 'real_team@example.com'
 
 Finally, make sure you have `dc_use_split_config='true'` in
 `/etc/exim4/update-exim4.conf.conf` so that exim uses the files in `/etc/exim4/conf.d` to configure itself, and execute the command
