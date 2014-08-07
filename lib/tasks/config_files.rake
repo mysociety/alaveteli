@@ -28,22 +28,23 @@ namespace :config_files do
                             'VHOST_DIR',
                             'SCRIPT_FILE'], example)
 
-        script_file = ENV['SCRIPT_FILE']
-        site = ENV.fetch('SITE', 'foi')
-
         replacements = {
             :user => ENV['DEPLOY_USER'],
             :vhost_dir => ENV['VHOST_DIR'],
-            :vcspath => ENV.fetch('VCSPATH', 'alaveteli'),
-            :site => site
+            :vcspath => ENV.fetch('VCSPATH'), { 'alaveteli' },
+            :site => ENV.fetch('SITE') { 'foi' }
         }
 
-        daemon_name = File.basename(script_file, '-debian.ugly')
-        replacements.update(:daemon_name => "#{ site }-#{ daemon_name }")
-        converted = convert_ugly(script_file, replacements)
-        rails_env_file = File.expand_path(File.join(Rails.root, 'config', 'rails_env.rb'))
+        # Use the filename for the $daemon_name ugly variable
+        daemon_name = File.basename(ENV['SCRIPT_FILE'], '-debian.ugly')
+        replacements.update(:daemon_name => "#{ replacements[:site] }-#{ daemon_name }")
 
-        unless File.exists?(rails_env_file)
+        # Generate the template for potential further processing
+        converted = convert_ugly(ENV['SCRIPT_FILE'], replacements)
+
+        # gsub the RAILS_ENV in to the generated template if its not set by the
+        # hard coded config file
+        unless File.exists?("#{ Rails.root }/config/rails_env.rb")
             converted.each do |line|
                 line.gsub!(/^#\s*RAILS_ENV=your_rails_env/, "RAILS_ENV=#{Rails.env}")
                 line.gsub!(/^#\s*export RAILS_ENV/, "export RAILS_ENV")
