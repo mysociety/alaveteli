@@ -79,7 +79,7 @@ following to `/etc/aliases`:
 
     # We use this for envelope from for some messages where
     # we don't care about delivery
-    do-not-reply-to-this-address:        :blackhole:
+    do-not-reply-to-this-address:        /dev/null
 
 To set up recipient groups for the `team@` and `user-support@` email addresses at your domain, add alias records for them in `/etc/aliases` too:
 
