@@ -159,11 +159,11 @@ As the root user, make all these changes live with the following commands:
 
 To test mail delivery, run:
 
-    $ /usr/sbin/sendmail -bv foi+request-1234@localhost
+    $ /usr/sbin/sendmail -bv foi+request-1234@example.com
 
-This tells you if sending the emails to `foi\+.*localhost` is working.
+Make sure to replace `example.com` with your domain. This command tells you if sending the emails to `foi\+.*example.com` is working.
 If it is, you should receive a delivery report email sent to `root`,
-with text like "<foi+request-1234@localhost>: delivery via alaveteli:
+with text like "<foi+request-1234@example.com>: delivery via alaveteli:
 delivers to command: /var/www/alaveteli/script/mailin".
 
 
