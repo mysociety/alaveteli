@@ -1,0 +1,5 @@
+# Rewrite all proxied HTTP requests to HTTPS.
+# Only include if FORCE_SSL: true is set in general.yml
+# Expected to be found at /etc/apache2/vhost.d/alaveteli
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule /(.*) https://www.example.com/$1 [L,R=permanent]
