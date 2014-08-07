@@ -73,6 +73,28 @@ To set up recipient groups for the `team@` and `user-support@` email addresses a
     team: user@example.com, otheruser@example.com
     user-support: team
 
+
+If you want to make use of the automatic bounce-message handling, then set the
+    [`TRACK_SENDER_EMAIL`]({{ site.baseurl }}docs/customising/config/#track_sender_email)
+    address to be filtered through
+    `script/handle-mail-replies`. Messages that are not bounces or
+    out-of-office autoreplies will be forwarded to
+    [`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ site.baseurl }}docs/customising/config/#forward_nonbounce_responses_to). To do this, for a `general.yml` file that sets [`TRACK_SENDER_EMAIL`]({{ site.baseurl }}docs/customising/config/#track_sender_email) to team@[HOST] and [`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ site.baseurl }}docs/customising/config/#forward_nonbounce_responses_to) to `real_team@[HOST]`,
+add a new line to `/etc/postfix/master.cf`:
+
+        alaveteli_replies unix  - n n - 50 pipe
+          flags=R user=www-data argv=/var/www/alaveteli/script/handle-mail-replies
+
+making sure to replace `/var/www/alaveteli` with the correct path to alaveteli if you're not running it from `/var/www/alaveteli`. Next, add a line to `/etc/postfix/transports`:
+
+    /^team@*/                alaveteli_replies
+
+Finally, edit `/etc/aliases` to replace `team` with `real_team`:
+
+    real_team: user@example.com, otheruser@example.com
+    user-support: team
+
+
 ### Logging
 
 For the postfix logs to be successfully read by the script `load-mail-server-logs`, they need
