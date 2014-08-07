@@ -183,7 +183,7 @@ configuration looks like this:
 with `FORWARD_NONBOUNCE_RESPONSES_TO`: 'real_team@whatdotheyknow.com'`
 
 Finally, make sure you have `dc_use_split_config='true'` in
-`/etc/exim4/update-exim4.conf.conf`, and execute the command
+`/etc/exim4/update-exim4.conf.conf` so that exim uses the files in `/etc/exim4/conf.d` to configure itself, and execute the command
 `update-exim4.conf`.
 
 Note that if the file `/etc/exim4/exim4.conf` exists then `update-exim4.conf`
