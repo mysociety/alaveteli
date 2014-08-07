@@ -48,11 +48,15 @@ run your site is `www-data`, and the directory where Alaveteli is installed is
 
 The Unix user should have write permissions on the directory where Alaveteli is installed.
 
-In `/etc/postfix/main.cf`, add the lines:
+In `/etc/postfix/main.cf`, add:
 
     transport_maps = regexp:/etc/postfix/transports
     local_recipient_maps = proxy:unix:passwd.byname regexp:/etc/postfix/recipients
 
+
+and update the mydestinations line (which determines what domains this machine will deliver locally) - add your domain, not `example.com`, to the beginning of the list:
+
+    mydestination = example.com, localhost.localdomain, localhost
 
 And, assuming you set
 [`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}docs/customising/config/#incoming_email_prefix)
