@@ -25,7 +25,7 @@ su -l -c "cd $SITE_HOME && bundle exec thin --version &> /dev/null || exit 0" $U
 
 start_daemon() {
   echo -n "Starting $DESC: "
-  cd "$SITE_HOME"/alaveteli && bundle exec thin \
+  cd "$SITE_HOME" && bundle exec thin \
     --environment=production \
     --user="$USER" \
     --group="$USER" \
