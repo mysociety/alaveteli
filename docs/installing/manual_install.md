@@ -556,7 +556,7 @@ Create a directory for optional Alaveteli configuration
 Copy the example VirtualHost configuration file. You will need to change all
 occurrences of `www.example.com` to your URL
 
-    cp /var/www/alaveteli/config/httpd-vhost.conf-example \
+    cp /var/www/alaveteli/config/httpd.conf-example \
       /etc/apache2/sites-available/alaveteli
 
 Disable the default site and enable the `alaveteli` VirtualHost
@@ -582,7 +582,7 @@ Enable the SSL apache mod
 Copy the SSL configuration – again changing `www.example.com` to your domain –
 and enable the VirtualHost
 
-    cp /var/www/alaveteli/config/httpd-ssl-vhost.conf-example \
+    cp /var/www/alaveteli/config/httpd-ssl.conf-example \
       /etc/apache2/sites-available/alaveteli_https
     a2ensite alaveteli_https
 
