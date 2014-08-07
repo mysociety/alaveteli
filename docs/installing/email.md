@@ -192,24 +192,25 @@ yours does, you will need to rename it before running `update-exim4.conf`.
 
 (You may also want to set `dc_eximconfig_configtype='internet'`,
 `dc_local_interfaces='0.0.0.0 ; ::1'`, and
-`dc_other_hostnames='<your-host-name>'`).
+`dc_other_hostnames='example.com'` - using your domain name, not `example.com`).
+
 
 ### Troubleshooting (exim)
 
 To test mail delivery, run:
 
-    exim -bt foi+request-1234@localhost
+    exim4 -bt foi+request-1234@example.com
 
-This should tell you which routers are being processed.  You should
+replacing `example.com` with your domain name. This should tell you which routers are being processed.  You should
 see something like:
 
-    $ exim -bt foi+request-1234@localhost
-    R: alaveteli pipe for snafflerequest-234@localhost
-    snafflerequest-234@localhost -> |/home/alaveteli/alaveteli/script/mailin
-    transport = alaveteli_mailin_transport
+    $ exim4 -bt foi+request-1234@localhost
+    R: alaveteli for foi+request-1234@example.com
+    foi+request-1234@example.com -> |/var/www/alaveteli/script/mailin
+      transport = alaveteli_mailin_transport
 
 This tells you that the routing part (making emails to
-`foi\+.*@localhost` be forwarded to Alaveteli's `mailin` script) is
+`foi\+.*@example.com` be forwarded to Alaveteli's `mailin` script) is
 working.
 
 There is a great
