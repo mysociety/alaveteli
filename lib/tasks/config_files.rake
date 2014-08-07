@@ -31,7 +31,7 @@ namespace :config_files do
         replacements = {
             :user => ENV['DEPLOY_USER'],
             :vhost_dir => ENV['VHOST_DIR'],
-            :vcspath => ENV.fetch('VCSPATH'), { 'alaveteli' },
+            :vcspath => ENV.fetch('VCSPATH') { 'alaveteli' },
             :site => ENV.fetch('SITE') { 'foi' }
         }
 
