@@ -162,9 +162,11 @@ To test mail delivery, run:
     $ /usr/sbin/sendmail -bv foi+request-1234@example.com
 
 Make sure to replace `example.com` with your domain. This command tells you if sending the emails to `foi\+.*example.com` is working.
-If it is, you should receive a delivery report email sent to `root`,
+If it is, you should receive a delivery report email,
 with text like "<foi+request-1234@example.com>: delivery via alaveteli:
-delivers to command: /var/www/alaveteli/script/mailin".
+delivers to command: /var/www/alaveteli/script/mailin". Note that you may need to install the `mailutils` package to read the delivery report email using the `mail` command on a new server:
+
+    apt-get install mailutils
 
 
 ## Example setup on exim4
