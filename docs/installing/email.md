@@ -108,6 +108,10 @@ This section shows an example of how to set up your MTA if you're using
 
 ### Instructions
 
+Install exim4:
+
+     apt-get install exim4
+
 We suggest you add the following to your exim configuration.
 
 In `/etc/exim4/conf.d/main/04_alaveteli_options`, set:
