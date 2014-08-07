@@ -39,12 +39,12 @@ Install postfix.
     DEBIAN_FRONTEND=noninteractive apt-get -qq -y install postfix >/dev/null
 
 Now configure Postfix. For example, if the Unix user that is going to
-run your site is `www-data`, and the directory where Alaveteli is installed is
+run your site is `alaveteli`, and the directory where Alaveteli is installed is
 `/var/www/alaveteli`, add the following line to
 `/etc/postfix/master.cf`:
 
     alaveteli unix  - n n - 50 pipe
-      flags=R user=www-data argv=/var/www/alaveteli/script/mailin
+      flags=R user=alaveteli argv=/var/www/alaveteli/script/mailin
 
 The Unix user should have write permissions on the directory where Alaveteli is installed.
 
@@ -96,7 +96,7 @@ If you want to make use of the automatic bounce-message handling, then set the
 add a new line to `/etc/postfix/master.cf`:
 
         alaveteli_replies unix  - n n - 50 pipe
-          flags=R user=www-data argv=/var/www/alaveteli/script/handle-mail-replies
+          flags=R user=alaveteli argv=/var/www/alaveteli/script/handle-mail-replies
 
 making sure to replace `/var/www/alaveteli` with the correct path to alaveteli if you're not running it from `/var/www/alaveteli`. Next, add a line to `/etc/postfix/transports`:
 
