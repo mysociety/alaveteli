@@ -674,7 +674,8 @@ Check the configuration and fix any issues
 
     apachectl configtest
 
-Restart apache to load the new Alaveteli config
+Restart apache to load the new Alaveteli config. This will also restart
+Passenger (the application server).
 
     service apache2 graceful
 
@@ -701,14 +702,7 @@ Check the configuration and fix any issues
 
 Start the rails application with thin (if you haven't already).
 
-    cd /var/www/alaveteli
-    bundle exec thin \
-      --environment=production \
-      --user=alaveteli \
-      --group=alaveteli \
-      --address=127.0.0.1 \
-      --daemonize \
-      start
+    service alaveteli start
 
 Reload the nginx configuration
 
@@ -748,9 +742,10 @@ Check the configuration and fix any issues
 
     service nginx configtest
 
-Reload the new nginx configuration
+Reload the new nginx configuration and restart the application
 
     service nginx reload
+    service alaveteli restart
 
 ---
 
