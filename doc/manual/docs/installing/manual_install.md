@@ -447,6 +447,71 @@ useful to you. Change the variables to suit your installation.
     chown root:alaveteli /etc/cron.d/alaveteli
     chmod 754 /etc/cron.d/alaveteli
 
+### Generate application daemon
+
+Generate a daemon based on the application server you installed. This allows you
+to use the native `service` command to stop, start and restart the application.
+
+#### Passenger
+
+**Template Variables:**
+
+* `vhost_dir`: the full path to the directory where alaveteli is checked out.
+  e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
+* `vcspath`: the name of the directory that contains the alaveteli code.
+  e.g. `alaveteli`
+* `site`: a string to identify your alaveteli instance
+* `user`: the user that the software runs as
+
+There is a rake task that will help to rewrite this file into one that is
+useful to you. Change the variables to suit your installation.
+
+    pushd /var/www/alaveteli
+    bundle exec rake config_files:convert_init_script \
+      DEPLOY_USER=alaveteli \
+      VHOST_DIR=/var/www \
+      VCSPATH=alaveteli \
+      SITE=alaveteli \
+      SCRIPT_FILE=/var/www/alaveteli/config/sysvinit-passenger.ugly > /etc/init.d/alaveteli
+    popd
+
+    chown root:alaveteli /etc/init.d/alaveteli
+    chmod 754 /etc/init.d/alaveteli
+
+Start the application:
+
+    service alaveteli start
+
+#### Thin
+
+**Template Variables:**
+
+* `vhost_dir`: the full path to the directory where alaveteli is checked out.
+  e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
+* `vcspath`: the name of the directory that contains the alaveteli code.
+  e.g. `alaveteli`
+* `site`: a string to identify your alaveteli instance
+* `user`: the user that the software runs as
+
+There is a rake task that will help to rewrite this file into one that is
+useful to you. Change the variables to suit your installation.
+
+    pushd /var/www/alaveteli
+    bundle exec rake config_files:convert_init_script \
+      DEPLOY_USER=alaveteli \
+      VHOST_DIR=/var/www \
+      VCSPATH=alaveteli \
+      SITE=alaveteli \
+      SCRIPT_FILE=/var/www/alaveteli/config/sysvinit-thin.ugly > /etc/init.d/alaveteli
+    popd
+
+    chown root:alaveteli /etc/init.d/alaveteli
+    chmod 754 /etc/init.d/alaveteli
+
+Start the application:
+
+    service alaveteli start
+
 ### Generate alert daemon
 
 One of the cron jobs refers to a script at `/etc/init.d/foi-alert-tracks`. This
