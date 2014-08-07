@@ -197,7 +197,7 @@ yours does, you will need to rename it before running `update-exim4.conf`.
 
 ### Troubleshooting (exim)
 
-To test mail delivery, run:
+To test mail delivery, as a privileged user run:
 
     exim4 -bt foi+request-1234@example.com
 
