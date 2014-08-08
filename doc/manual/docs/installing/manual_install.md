@@ -556,9 +556,29 @@ and not required if you choose not to run your site behind Varnish (see below).
 * `daemon_name`: The name of the daemon. Set this to `purge-varnish`.
 * `vhost_dir`: the full path to the directory where alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
+* `vcspath`: the name of the directory that contains the alaveteli code.
+  e.g. `alaveteli`
+* `site`: a string to identify your alaveteli instance
 * `user`: the user that the software runs as
 
-This template does not yet have a rake task to generate it.
+There is a rake task that will help to rewrite this file into one that is
+useful to you. Change the variables to suit your installation.
+
+    pushd /var/www/alaveteli
+    bundle exec rake config_files:convert_init_script \
+      DEPLOY_USER=alaveteli \
+      VHOST_DIR=/var/www \
+      VCSPATH=alaveteli \
+      SITE=alaveteli \
+      SCRIPT_FILE=/var/www/alaveteli/config/purge-varnish-debian.ugly > /etc/init.d/alaveteli-purge-varnish
+    popd
+
+    chown root:alaveteli /etc/init.d/alaveteli-purge-varnish
+    chmod 754 /etc/init.d/alaveteli-purge-varnish
+
+Start the alert tracks daemon:
+
+    service alaveteli-purge-varnish start
 
 ### Init script permissions
 
