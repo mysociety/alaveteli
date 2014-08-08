@@ -288,10 +288,19 @@ To test mail delivery, run:
 
     $ /usr/sbin/sendmail -bv foi+request-1234@example.com
 
-Make sure to replace `example.com` with your domain. This command tells you if sending the emails to `foi\+.*example.com` is working (it doesn't actually send any mail).
-If it is working, you should receive a delivery report email,
-with text like "<foi+request-1234@example.com>: delivery via alaveteli:
-delivers to command: /var/www/alaveteli/script/mailin". Note that you may need to install the `mailutils` package to read the delivery report email using the `mail` command on a new server:
+Make sure to replace `example.com` with your domain. This command tells
+you if sending the emails to `foi\+.*example.com` is working (it doesn't
+actually send any mail). If it is working, you should receive a delivery
+report email, with text like
+
+    <foi+request-1234@example.com>: delivery via alaveteli:
+delivers to command: /var/www/alaveteli/script/mailin
+
+You can also test the other aliases you have set up for your domain in
+this section to check that they will deliver mail as you expect.
+
+Note that you may need to install the `mailutils` package to read the
+delivery report email using the `mail` command on a new server:
 
     apt-get install mailutils
 
