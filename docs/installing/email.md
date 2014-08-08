@@ -66,9 +66,7 @@ This section shows an example of how to set up your MTA if you're using
 **postfix**. See the example for
 [exim4](#example-setup-on-exim4) if you're using that instead of postfix.
 
-### Instructions
-
-Install postfix.
+### Install postfix
 
     # Install debconf so we can configure non-interactively
     apt-get -qq install -y debconf >/dev/null
@@ -82,7 +80,12 @@ Install postfix.
     # Install postfix
     DEBIAN_FRONTEND=noninteractive apt-get -qq -y install postfix >/dev/null
 
-Now configure Postfix. For example, if the Unix user that is going to
+### Configure postfix
+
+
+#### Pipe incoming mail for requests into Alaveteli
+
+If the Unix user that is going to
 run your site is `alaveteli`, and the directory where Alaveteli is installed is
 `/var/www/alaveteli`, add the following line to
 `/etc/postfix/master.cf`:
@@ -110,6 +113,8 @@ command:
     cat > /etc/postfix/transports <<EOF
     /^foi.*/                alaveteli
     EOF
+
+#### Define the valid recipients for your domain
 
 Create `/etc/postfix/recipients` with the following command:
 
@@ -192,7 +197,7 @@ format. Update
     MTA_LOG_PATH: '/var/log/mail/mail.log-*'
     MTA_LOG_TYPE: "postfix"
 
-### Making the changes live
+#### Making the changes live
 
 As the root user, make all these changes live with the following commands:
 
@@ -203,7 +208,7 @@ As the root user, make all these changes live with the following commands:
     postmap /etc/postfix/recipients
     postfix reload
 
-### Troubleshooting (postfix)
+#### Troubleshooting (postfix)
 
 To test mail delivery, run:
 
