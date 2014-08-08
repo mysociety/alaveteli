@@ -100,8 +100,13 @@ In `/etc/postfix/main.cf`, add:
     transport_maps = regexp:/etc/postfix/transports
     local_recipient_maps = proxy:unix:passwd.byname regexp:/etc/postfix/recipients
 
-
-and update the mydestinations line (which determines what domains this machine will deliver locally) - add your domain, not `example.com`, to the beginning of the list:
+This tells postfix to accept messages for local delivery where
+recipients are either defined by a regular expression in
+`/etc/postfix/transports`, are local UNIX accounts or are local aliases
+specified as regular expressions in `/etc/postfix/recipients`. Also
+update the `mydestination` line (which determines what domains this
+machine will deliver locally) - add your domain, not `example.com`, to
+the beginning of the list:
 
     mydestination = example.com, localhost.localdomain, localhost
 
