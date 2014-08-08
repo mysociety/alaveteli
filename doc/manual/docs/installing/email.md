@@ -201,12 +201,12 @@ making sure to replace `/var/www/alaveteli` with the correct path to
 alaveteli if you're not running it from `/var/www/alaveteli`. Next, add
 a line to `/etc/postfix/transports`:
 
-    /^team@*/                alaveteli_replies
+    /^user-support@*/                alaveteli_replies
 
-Finally, edit `/etc/aliases` to replace `team` with `real_team`:
+Finally, edit `/etc/aliases` to remove `user-support`:
 
-    real_team: user@example.com, otheruser@example.com
-    user-support: team
+    team: user@example.com, otheruser@example.com
+
 
 #### Logging
 
