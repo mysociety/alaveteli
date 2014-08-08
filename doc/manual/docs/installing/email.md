@@ -208,15 +208,24 @@ Finally, edit `/etc/aliases` to replace `team` with `real_team`:
     real_team: user@example.com, otheruser@example.com
     user-support: team
 
-
-### Logging
+#### Logging
 
 For the postfix logs to be successfully read by the script
 `load-mail-server-logs`, they need to be log rotated with a date in the
 filename. Since that will create a lot of rotated log files (one for
-each day), it's good to have them in their own directory. For example
-(in `/etc/rsyslog.d/50-default.conf` on Ubuntu, or
-`/etc/rsyslog.conf` on Debian), set:
+each day), it's good to have them in their own directory.
+
+You'll also need to tell Alaveteli where the log files are stored and that they're in postfix
+format. Update
+[`MTA_LOG_PATH`]({{ site.baseurl }}docs/customising/config/#mta_log_path) and
+[`MTA_LOG_TYPE`]({{ site.baseurl }}docs/customising/config/#mta_log_type) in `config/general.yml` with:
+
+    MTA_LOG_PATH: '/var/log/mail/mail.log-*'
+    MTA_LOG_TYPE: "postfix"
+
+##### Debian
+
+In `/etc/rsyslog.conf`, set:
 
     mail.*                  -/var/log/mail/mail.log
 
@@ -237,13 +246,29 @@ And also edit `/etc/logrotate.d/rsyslog`:
           endscript
     }
 
-You'll also need to tell Alaveteli where the log files are stored and that they're in postfix
-format. Update
-[`MTA_LOG_PATH`]({{ site.baseurl }}docs/customising/config/#mta_log_path) and
-[`MTA_LOG_TYPE`]({{ site.baseurl }}docs/customising/config/#mta_log_type) in `config/general.yml` with:
+##### Ubuntu
 
-    MTA_LOG_PATH: '/var/log/mail/mail.log-*'
-    MTA_LOG_TYPE: "postfix"
+In `/etc/rsyslog.d/50-default.conf` set:
+
+    mail.*                  -/var/log/mail/mail.log
+
+And also edit `/etc/logrotate.d/rsyslog`:
+
+    /var/log/mail/mail.log
+    {
+          rotate 30
+          daily
+          dateext
+          missingok
+          notifempty
+          compress
+          delaycompress
+          sharedscripts
+          postrotate
+                  reload rsyslog >/dev/null 2>&1 || true
+          endscript
+    }
+
 
 #### Making the changes live
 
