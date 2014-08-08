@@ -119,6 +119,8 @@ command:
     /^foi.*/                alaveteli
     EOF
 
+This means that all incoming mail that starts `foi+` will be piped to `/var/www/alaveteli/script/mailin` as specified in `/etc/postfix/master.cf` at the start of this section.
+
 #### Define the valid recipients for your domain
 
 Create `/etc/postfix/recipients` with the following command:
