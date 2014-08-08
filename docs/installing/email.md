@@ -274,7 +274,7 @@ And also edit `/etc/logrotate.d/rsyslog`:
 
 As the root user, make all these changes live with the following commands:
 
-    /etc/init.d/rsyslog restart
+    service rsyslog restart
 
     newaliases
     postmap /etc/postfix/transports
