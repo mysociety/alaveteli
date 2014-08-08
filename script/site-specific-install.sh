@@ -134,10 +134,6 @@ su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY'" "$UN
 # no longer need the PostgreSQL user to be a superuser:
 echo "ALTER USER \"$UNIX_USER\" WITH NOSUPERUSER;" | su -l -c 'psql' postgres
 
-if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
-    install_sysvinit_script
-fi
-
 # Set up root's crontab:
 
 cd "$REPOSITORY"
@@ -150,6 +146,13 @@ sed -r \
     -e "s,^(MAILTO=).*,\1root@$HOST," \
     -i /etc/cron.d/alaveteli
 echo $DONE_MSG
+
+if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
+  echo -n "Creating /etc/init.d/$SITE... "
+  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' SCRIPT_FILE=config/sysvinit-thin.ugly" "$UNIX_USER") > /etc/init.d/"$SITE"
+  chmod a+rx /etc/init.d/"$SITE"
+  echo $DONE_MSG
+fi
 
 echo -n "Creating /etc/init.d/foi-alert-tracks... "
 (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.ugly" "$UNIX_USER") > /etc/init.d/foi-alert-tracks
