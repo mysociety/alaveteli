@@ -68,8 +68,17 @@ Add the following repositories to `/etc/apt/sources.list`:
 **Debian Squeeze**
 
     cat > /etc/apt/sources.list.d/debian-extra.list <<EOF
+    # Debian mirror to use, including contrib and non-free:
+    deb http://the.earth.li/debian/ squeeze main contrib non-free
+    deb-src http://the.earth.li/debian/ squeeze main contrib non-free
+
+    # Security Updates:
+    deb http://security.debian.org/ squeeze/updates main non-free
+    deb-src http://security.debian.org/ squeeze/updates main non-free
+
+    # Debian Backports
     deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
-    deb http://the.earth.li/debian/ wheezy main contrib non-free
+    deb-src http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
     EOF
 
 The squeeze-backports repository is providing a more recent version of rubygems, and the wheezy repository is providing bundler. You should configure package-pinning to reduce the priority of the wheezy repository so other packages aren't pulled from it.
