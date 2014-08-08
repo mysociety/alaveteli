@@ -431,7 +431,7 @@ THEME_URLS:
     <a name="incoming_email_domain"><code>INCOMING_EMAIL_DOMAIN</code></a>
   </dt>
   <dd>
-    Your email domain for incoming mail.
+    Your email domain for incoming mail.  See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
@@ -449,7 +449,7 @@ THEME_URLS:
     <a name="incoming_email_prefix"><code>INCOMING_EMAIL_PREFIX</code></a>
   </dt>
   <dd>
-      An optional prefix to help you distinguish FOI requests.
+      An optional prefix to help you distinguish FOI requests.  See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
@@ -541,7 +541,7 @@ THEME_URLS:
     <a name="contact_name"><code>CONTACT_NAME</code></a>
   </dt>
   <dd>
-      Email "from" details.
+      Email "from" details.  See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
     <div class="more-info">
       <p>Examples:</p>
       <ul class="examples">
@@ -560,7 +560,7 @@ THEME_URLS:
     <a name="track_sender_name"><code>TRACK_SENDER_NAME</code></a>
   </dt>
   <dd>
-      Email "from" details for track messages.
+      Email "from" details for track messages.  See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
     <div class="more-info">
       <p>Examples:</p>
       <ul class="examples">
@@ -762,7 +762,7 @@ THEME_URLS:
     <a name="forward_nonbounce_responses_to"><code>FORWARD_NONBOUNCE_RESPONSES_TO</code></a>
   </dt>
   <dd>
-     The email address to which non-bounce responses should be forwarded
+     The email address to which non-bounce responses should be forwarded. See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
