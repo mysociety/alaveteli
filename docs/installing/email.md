@@ -11,6 +11,50 @@ title: Installing MTA
   here for both postfix and exim4, two of the most popular MTAs.
 </p>
 
+## How Alaveteli handles email
+
+### Request mail
+
+When someone makes a Freedom of Information request to an authority in
+Alaveteli, an email containing the request is sent to the authority. The
+email's `reply-to` address is a special one so that any replies to it
+can be automatically directed back to Alaveteli, and so that Alaveteli
+can tell which request the reply needs to be shown with. This requires
+some configuration of the MTA on the server that is running Alaveteli,
+so that it will pipe all emails to these special addresses to Alaveteli
+to handle, via its `script/mailin` script. The special addresses are of
+the form:
+
+    <foi+request-3-691c8388@example.com>
+
+The respective parts of this address are controlled with options in
+`config/general.yml`, thus:
+
+    INCOMING_EMAIL_PREFIX = 'foi+'
+    INCOMING_EMAIL_DOMAIN = 'example.com'
+
+When you have set up your MTA, if there is some error inside Rails, the
+email is returned with an exit code 75, which for postfix and exim at least means the MTA will try again later. Additionally, a stacktrace is emailed to `CONTACT_EMAIL`.
+
+A well-configured production Alaveteli install will have had the MTA make
+a backup copy of the email sent to the special Alaveteli addresses in a separate mailbox, just in case.
+
+
+### Other mail
+
+Alaveteli also sends other kinds of mail - emails to users about their requests, letting them know when someone has replied to them, or prompting them to take further action, and emails to users who have subscribed to updates from the site, also known as `tracks`, letting them know that there is something new of interest to them on the site. The addresses that these messages come from can be configured with the  [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) and [`TRACK_SENDER_EMAIL`]({{ site.baseurl }}docs/customising/config/#track_sender_email)  options in `config/general.yml` respectively:
+
+    CONTACT_EMAIL = 'team@example.com'
+    TRACK_SENDER_EMAIL = 'track@example.com'
+
+The address in [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) is also visible in various places on the site, so people can get in touch.  Your MTA needs to be configured to deliver mail to these addresses to the people who are going to administer your site, so that they can handle it. Optionally, Alaveteli can also be configured so that emails to these addresses are filtered through a script, `script/handle-mail-replies`, that handles temporary and permanent bounce messages and 'out of office' notifications and forwards other mails to your administrators. This script will also prevent any further track emails being sent to a user email address that appears to have a permanent delivery problem.
+
+If you want to make use of this automatic bounce-message handling, then set the
+    [`TRACK_SENDER_EMAIL`]({{ site.baseurl }}docs/customising/config/#track_sender_email) and [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) address to one that you will filter through `script/handle-mail-replies` (see the MTA-specific instructions for how to do this). Messages that are not bounces or
+    out-of-office autoreplies will be forwarded to
+    [`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ site.baseurl }}docs/customising/config/#forward_nonbounce_responses_to), which you should configure to a mail alias that points at your list of site administrators.
+
+
 Make sure you follow the correct instructions for the specific MTA you're using:
 
 * [postfix](#example-setup-on-postfix)
