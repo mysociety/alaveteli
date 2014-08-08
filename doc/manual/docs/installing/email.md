@@ -171,28 +171,36 @@ Create `/etc/postfix/recipients` with the following command:
     /^team@/                this-is-ignored
     EOF
 
-You should also configure postfix to discard any messages sent to the
-[`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix)
-address, whose default value is `do-not-reply-to-this-address`. For example, add the
-following to `/etc/aliases`:
+The left-hand column of this file specifies regular expressions that
+define addresses that mail will be accepted for. The values on the
+right-hand side are ignored by postfix. Here we allow postfix to accept
+mails to special Alaveteli addresses, and `postmaster@example.com`,
+`user-support@example.com` and `team@example.com`.
 
-    # We use this for envelope from for some messages where
-    # we don't care about delivery
-    do-not-reply-to-this-address:        /dev/null
+#### Set up contact email recipient groups
 
-To set up recipient groups for the `team@` and `user-support@` email addresses at your domain, add alias records for them in `/etc/aliases` too:
+To set up recipient groups for the `postmaster@`, `team@` and `user-support@` email addresses at your domain, add alias records for them in `/etc/aliases`:
 
     team: user@example.com, otheruser@example.com
     user-support: team
 
+You should also configure postfix to discard any messages sent to the [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix) address, whose default value is `do-not-reply-to-this-address`. For example, add the following to `/etc/aliases`:
 
-If you want to make use of the automatic bounce-message handling, then set the
-    [`TRACK_SENDER_EMAIL`]({{ site.baseurl }}docs/customising/config/#track_sender_email)
-    address to be filtered through
-    `script/handle-mail-replies`. Messages that are not bounces or
-    out-of-office autoreplies will be forwarded to
-    [`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ site.baseurl }}docs/customising/config/#forward_nonbounce_responses_to). To do this, for a `general.yml` file that sets [`TRACK_SENDER_EMAIL`]({{ site.baseurl }}docs/customising/config/#track_sender_email) to team@[HOST] and [`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ site.baseurl }}docs/customising/config/#forward_nonbounce_responses_to) to `real_team@[HOST]`,
-add a new line to `/etc/postfix/master.cf`:
+        # We use this for envelope from for some messages where
+        # we don't care about delivery
+        do-not-reply-to-this-address:        /dev/null
+
+#### Filter incoming messages to site admin addresses
+
+As described in ['Other
+mail']({{site.baseurl}}docs/installing/email#other-mail) you can make
+use of the script that filters mail to
+[`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email)
+and [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email) for bounce messages before
+delivering it to your admin team. To do this, for a `general.yml` file
+that sets those addresses to `user-support@example.com` and
+[`FORWARD_NONBOUNCE_RESPONSES_TO`]({{site.baseurl}}docs/customising/config/#forward_nonbounce_responses_to) to
+`team@example.com`, add a new line to `/etc/postfix/master.cf`:
 
         alaveteli_replies unix  - n n - 50 pipe
           flags=R user=alaveteli argv=/var/www/alaveteli/script/handle-mail-replies
