@@ -61,16 +61,20 @@ and update the mydestinations line (which determines what domains this machine w
 And, assuming you set
 [`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}docs/customising/config/#incoming_email_prefix)
 in `config/general` to "foi+", create `/etc/postfix/transports` with the following
-content:
+command:
 
+    cat > /etc/postfix/transports <<EOF
     /^foi.*/                alaveteli
+    EOF
 
-Create `/etc/postfix/recipients` with the following content:
+Create `/etc/postfix/recipients` with the following command:
 
+    cat > /etc/postfix/recipients <<EOF
     /^foi.*/                this-is-ignored
     /^postmaster@/          this-is-ignored
     /^user-support@/        this-is-ignored
     /^team@/                this-is-ignored
+    EOF
 
 You should also configure postfix to discard any messages sent to the
 [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix)
