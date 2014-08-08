@@ -148,6 +148,18 @@ command:
 
 This means that all incoming mail that starts `foi+` will be piped to `/var/www/alaveteli/script/mailin` as specified in `/etc/postfix/master.cf` at the start of this section.
 
+You can copy all incoming mail to Alaveteli to a backup account to a separate mailbox, just in case. Create a UNIX user `backupfoi`, and add the following line to
+`/etc/postfix/master.cf`
+
+    recipient_bcc_maps = regexp:/etc/postfix/recipient_bcc
+
+Create `/etc/postfix/recipient_bcc` with the following command:
+
+    cat > /etc/postfix/recipient_bcc <<EOF
+    /^foi.*/                backupfoi
+    EOF
+
+
 #### Define the valid recipients for your domain
 
 Create `/etc/postfix/recipients` with the following command:
@@ -242,6 +254,7 @@ As the root user, make all these changes live with the following commands:
     newaliases
     postmap /etc/postfix/transports
     postmap /etc/postfix/recipients
+    postmap /etc/postfix/recipient_bcc
     postfix reload
 
 #### Troubleshooting (postfix)
