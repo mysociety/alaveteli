@@ -192,6 +192,9 @@ command:
     cat > /var/www/alaveteli/config/aliases <<'EOF'
     ^foi\\+.*: |/var/www/alaveteli/script/mailin
     EOF
+
+That's assuming that Alaveteli is running from `/var/www/alaveteli`. If it isn't, substitute the path it is running from.
+
 #### Set up your contact email recipient groups
 
 To set up recipient groups for the `team@` and `user-support@` email addresses at your domain, add alias records for them in `/var/www/alaveteli/config/etc/aliases`
