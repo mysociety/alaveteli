@@ -134,14 +134,21 @@ Edit `/etc/exim4/update-exim4.conf.conf`. Set the following settings (use your h
 
 This final line tells exim to use the files in `/etc/exim4/conf.d` to configure itself.
 
+#### Define general variables and logging settings
 
+Create `/etc/exim4/conf.d/main/04_alaveteli_options` with the command:
+
+    cat > /etc/exim4/conf.d/main/04_alaveteli_options <<'EOF'
     ALAVETELI_HOME=/var/www/alaveteli
     ALAVETELI_USER=alaveteli
     log_file_path=/var/log/exim4/exim-%slog-%D
     MAIN_LOG_SELECTOR==+all -retry_defer
     extract_addresses_remove_arguments=false
+    EOF
 
-The `ALAVETELI_HOME` variable should be set to the directory where Alaveteli is installed. `ALAVETELI_USER` should be the Unix user that is going to run your site. They should have write permissions on `ALAVETELI_HOME`.
+This sets up `ALAVETELI_HOME` and `ALAVETELI_USER` for use in other config files, and sets up logging. The `ALAVETELI_HOME` variable should be set to the directory where Alaveteli is installed. `ALAVETELI_USER` should be the Unix user that is going to run your site. They should have write permissions on `ALAVETELI_HOME`.
+
+Note that if you are editing an existing exim config that restricts the `untrusted_set_sender` option, you will need also to add `ALAVETELI_USER` to the `trusted_users` list in order to allow them to set the return path on outgoing mail. This option is in `/etx/exim4/conf.d/main/02_exim4-config_options` in a split config.
 
 The name and location of the log files created by Exim must match what the
 `load-mail-server-logs` script expects, which is why you must provide the
