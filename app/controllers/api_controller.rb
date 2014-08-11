@@ -168,10 +168,17 @@ class ApiController < ApplicationController
         raise PermissionDenied.new("#{@public_body.id} != #{params[:id]}") if @public_body.id != params[:id].to_i
 
         since_date_str = params[:since_date]
+        since_event_id = params[:since_event_id]
+
         event_type_clause = "event_type in ('sent', 'followup_sent', 'resent', 'followup_resent')"
-        if since_date_str.nil?
-            where_params = event_type_clause
-         else
+
+        @events = InfoRequestEvent.where(event_type_clause) \
+            .joins(:info_request) \
+            .where("public_body_id = ?", @public_body.id) \
+            .includes([{:info_request => :user}, :outgoing_message]) \
+            .order('info_request_events.created_at DESC')
+
+        if since_date_str
             begin
               since_date = Date.strptime(since_date_str, "%Y-%m-%d")
             rescue ArgumentError
@@ -180,26 +187,29 @@ class ApiController < ApplicationController
                   :status => 500
               return
             end
-            event_type_clause << " AND info_request_events.created_at >= ?"
-            where_params = [event_type_clause, since_date]
+            @events = @events.where("info_request_events.created_at >= ?", since_date)
         end
-        @events = InfoRequestEvent.where(where_params) \
-            .joins(:info_request) \
-            .where("public_body_id = ?", @public_body.id) \
-            .includes([{:info_request => :user}, :outgoing_message]) \
-            .order('info_request_events.created_at DESC')
+
+        # We take a "since" parameter that allows the client
+        # to restrict to events more recent than a certain other event
+        if since_event_id
+            begin
+                event = InfoRequestEvent.find(since_event_id)
+            rescue ActiveRecord::RecordNotFound
+                render :json => {"errors" => [
+                                    "Event ID #{since_event_id} not found" ] },
+                       :status => 500
+                return
+            end
+            @events = @events.where("info_request_events.created_at > ?", event.created_at)
+        end
+
 
         if feed_type == "atom"
             render :template => "api/request_events", :formats => ['atom'], :layout => false
         elsif feed_type == "json"
-            # For the JSON feed, we take a "since" parameter that allows the client
-            # to restrict to events more recent than a certain other event
-            if params[:since_event_id]
-                @since_event_id = params[:since_event_id].to_i
-            end
             @event_data = []
             @events.each do |event|
-                break if event.id == @since_event_id
 
                 request = event.info_request
                 this_event = {
