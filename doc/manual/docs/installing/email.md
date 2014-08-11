@@ -158,6 +158,12 @@ in your config at `config/general.yml` to "foi+", create `config/aliases` with t
 content:
 
     ^foi\\+.*: |/var/www/alaveteli/script/mailin
+#### Set up your contact email recipient groups
+
+To set up recipient groups for the `team@` and `user-support@` email addresses at your domain, add alias records for them in `/var/www/alaveteli/config/etc/aliases`
+
+    team: user@example.com, otheruser@example.com
+    user-support: team
 
 You should also configure exim to discard any messages sent to the
 [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix)
