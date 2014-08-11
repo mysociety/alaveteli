@@ -11,6 +11,14 @@ title: Installing MTA
   here for both postfix and exim4, two of the most popular MTAs.
 </p>
 
+<div class="attention-box">
+ <ul>
+ <li>Commands in this guide will require root privileges</li>
+ <li>Commands are intended to be run via the terminal or over ssh</li>
+ </ul>
+</div>
+
+
 Make sure you follow the correct instructions for the specific MTA you're using:
 
 * [postfix](#example-setup-on-postfix)
