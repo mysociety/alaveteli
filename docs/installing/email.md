@@ -156,20 +156,25 @@ The name and location of the log files created by Exim must match what the
 
 The `check-recent-requests-sent` scripts expects the logs to contain the
 `from=<...>` envelope information, so we make the logs more verbose with
-`log_selector`. The ALAVETELI_USER may need to also need to be added to the
-`trusted_users` list in your Exim config in order to set the return path on
-outgoing mail, depending on your setup.
+`MAIN_LOG_SELECTOR`.
 
-In `/etc/exim4/conf.d/router/04_alaveteli`:
+Setting `extract_addresses_remove_arguments` to `false` gets exim to treat the `-t` command line option that the `mail` gem uses when specifying delivery addresses on the command line as specifying that the addresses should be added, not removed. See [this `mail` issue](https://github.com/mikel/mail/issues/70) for more details.
 
+#### Pipe incoming mail for requests from Exim to Alaveteli
+
+Create `/etc/exim4/conf.d/router/04_alaveteli`:
+
+    cat > /etc/exim4/conf.d/router/04_alaveteli <<'EOF'
     alaveteli_request:
        debug_print = "R: alaveteli for $local_part@$domain"
        driver = redirect
        data = ${lookup{$local_part}wildlsearch{ALAVETELI_HOME/config/aliases}}
        pipe_transport = alaveteli_mailin_transport
+    EOF
 
-In `/etc/exim4/conf.d/transport/04_alaveteli`:
+Create `/etc/exim4/conf.d/transport/04_alaveteli`:
 
+    cat > /etc/exim4/conf.d/transport/04_alaveteli <<'EOF'
     alaveteli_mailin_transport:
        driver = pipe
        command = $address_pipe ${lc:$local_part}
@@ -177,13 +182,16 @@ In `/etc/exim4/conf.d/transport/04_alaveteli`:
        home_directory = ALAVETELI_HOME
        user = ALAVETELI_USER
        group = ALAVETELI_USER
+    EOF
 
 And, assuming you set
 [`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}docs/customising/config/#incoming_email_prefix)
 in your config at `config/general.yml` to "foi+", create `config/aliases` with the following
-content:
+command:
 
+    cat > /var/www/alaveteli/config/aliases <<'EOF'
     ^foi\\+.*: |/var/www/alaveteli/script/mailin
+    EOF
 #### Set up your contact email recipient groups
 
 To set up recipient groups for the `team@` and `user-support@` email addresses at your domain, add alias records for them in `/var/www/alaveteli/config/etc/aliases`
