@@ -211,35 +211,29 @@ address, whose default value is
     # We use this for envelope from for some messages where we don't care about delivery
     do-not-reply-to-this-address:        :blackhole:
 
-If you want to make use of the automatic bounce-message handling, then set the
-[`TRACK_SENDER_EMAIL`]({{ site.baseurl }}docs/customising/config/#track_sender_email)
-address to be filtered through
-`script/handle-mail-replies`. Messages that are not bounces or
-out-of-office autoreplies will be forwarded to
-[`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ site.baseurl }}docs/customising/config/#forward_nonbounce_responses_to).
-For example, you could add the following to `config/aliases`:
+#### Filter incoming messages to admin addresses
 
-    real_team: [a list of people on the team]
-    team:     |/var/www/alaveteli/script/handle-mail-replies
+As described in ['Other mail']({{site.baseurl}}docs/installing/email#other-mail) you can make use of the script that filters mail to [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email) and [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email) for bounce messages before delivering it to your admin team.
+To do this, for a `general.yml` file
+that sets those addresses to `user-support@example.com` and
+[`FORWARD_NONBOUNCE_RESPONSES_TO`]({{site.baseurl}}docs/customising/config/#forward_nonbounce_responses_to) to
+`team@example.com`, update the `user-support` line in  `/var/www/alaveteli/config/aliases`:
 
-In your Alaveteli `config/general.yml` file you would have (replacing `example.com` with your domain):
+    user-support:     |/var/www/alaveteli/script/handle-mail-replies
 
-    FORWARD_NONBOUNCE_RESPONSES_TO: 'real_team@example.com'
+#### Making the changes live in exim
 
-Finally, make sure you have `dc_use_split_config='true'` in
-`/etc/exim4/update-exim4.conf.conf` so that exim uses the files in `/etc/exim4/conf.d` to configure itself, and execute the command
-`update-exim4.conf`.
+Finally, execute the command:
+
+    update-exim4.conf
+    service exim4 restart
 
 Note that if the file `/etc/exim4/exim4.conf` exists then `update-exim4.conf`
 will silently do nothing. Some distributions include this file. If
-yours does, you will need to rename it before running `update-exim4.conf`.
-
-(You may also want to set `dc_eximconfig_configtype='internet'`,
-`dc_local_interfaces='0.0.0.0 ; ::1'`, and
-`dc_other_hostnames='example.com'` - using your domain name, not `example.com`).
+yours does, you will need to remove or rename it before running `update-exim4.conf`.
 
 
-### Troubleshooting (exim)
+#### Troubleshooting (exim)
 
 To test mail delivery, as a privileged user run:
 
