@@ -110,7 +110,7 @@ This tells you if sending the emails to `foi\+.*localhost` is working.
 ## Example setup on exim4
 
 This section shows an example of how to set up your MTA if you're using
-**exim4** (running on Ubuntu). See the example for
+**exim4**. See the example for
 [postfix](#example-setup-on-postfix) if you're using that instead of exim4.
 
 
