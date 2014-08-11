@@ -114,15 +114,26 @@ This section shows an example of how to set up your MTA if you're using
 [postfix](#example-setup-on-postfix) if you're using that instead of exim4.
 
 
-### Instructions
+### Install exim4
 
 Install exim4:
 
      apt-get install exim4
 
-We suggest you add the following to your exim configuration.
 
-In `/etc/exim4/conf.d/main/04_alaveteli_options`, set:
+### Configure exim4
+
+#### Set up exim to receive mail from other servers
+
+Edit `/etc/exim4/update-exim4.conf.conf`. Set the following settings (use your hostname, not `example.com`):
+
+    dc_eximconfig_configtype='internet'
+    dc_other_hostnames='example.com'
+    dc_local_interfaces='0.0.0.0 ; ::1'
+    dc_use_split_config='true'
+
+This final line tells exim to use the files in `/etc/exim4/conf.d` to configure itself.
+
 
     ALAVETELI_HOME=/var/www/alaveteli
     ALAVETELI_USER=alaveteli
