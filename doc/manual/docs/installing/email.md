@@ -242,14 +242,19 @@ To test mail delivery, as a privileged user run:
 replacing `example.com` with your domain name. This should tell you which routers are being processed.  You should
 see something like:
 
-    $ exim4 -bt foi+request-1234@localhost
+    $ exim4 -bt foi+request-1234@example.com
     R: alaveteli for foi+request-1234@example.com
     foi+request-1234@example.com -> |/var/www/alaveteli/script/mailin
       transport = alaveteli_mailin_transport
 
 This tells you that the routing part (making emails to
 `foi\+.*@example.com` be forwarded to Alaveteli's `mailin` script) is
-working.
+working. You can test bounce message routing in the same way:
+
+    exim4 -bt user-support@example.com
+    R: alaveteli for user-support@example.com
+    user-support@example.com -> |/var/www/alaveteli/script/handle-mail-replies
+      transport = alaveteli_mailin_transport
 
 There is a great
 [Exim Cheatsheet](http://bradthemad.org/tech/notes/exim_cheatsheet.php)
