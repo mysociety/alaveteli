@@ -514,7 +514,7 @@ describe ApiController, "when using the API" do
             assigns[:event_data].should == [first_event]
         end
 
-        it 'should honour the since_date parameter for the Atom feed' do
+        it 'should honour the since_date parameter' do
             get :body_request_events,
                 :id => public_bodies(:humpadink_public_body).id,
                 :k => public_bodies(:humpadink_public_body).api_key,
@@ -524,6 +524,15 @@ describe ApiController, "when using the API" do
             response.should be_success
             response.should render_template('api/request_events')
             assigns[:events].size.should > 0
+            assigns[:events].each do |event|
+                event.created_at.should >= Date.new(2010, 1, 1)
+            end
+
+            get :body_request_events,
+                :id => public_bodies(:humpadink_public_body).id,
+                :k => public_bodies(:humpadink_public_body).api_key,
+                :since_date => '2010-01-01',
+                :feed_type => 'json'
             assigns[:events].each do |event|
                 event.created_at.should >= Date.new(2010, 1, 1)
             end
