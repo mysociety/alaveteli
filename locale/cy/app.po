@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-06-03 13:06+0000\n"
+"PO-Revision-Date: 2014-08-12 11:36+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
@@ -2657,7 +2657,7 @@ msgid "They have not replied to your {{law_used_short}} request {{title}} prompt
 msgstr "Nid ydynt wedi ymateb i'ch cais {{title}} {{law_used_short}} yn brydlon, fel sy'n ofynnol fel arfer yn ôl y gyfraith"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, \\nas required by law"
-msgstr "Nid ydynt wedi ateb i'ch cais {{teitl}} {{law_used_short}}, fel sy'n ofynnol yn ôl y gyfraith"
+msgstr "Nid ydynt wedi ateb i'ch cais {{title}} {{law_used_short}}, fel sy'n ofynnol yn ôl y gyfraith"
 
 msgid "Things to do with this request"
 msgstr "Pethau i'w gwneud gyda'r cais hwn"
@@ -2836,7 +2836,7 @@ msgid "To follow the request '{{request_title}}'"
 msgstr "I ddilyn y cais '{{request_title}}'"
 
 msgid "To help us keep the site tidy, someone else has updated the status of the \\n{{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
-msgstr "I'n helpu ni i gadw'r wefan yn daclus, mae rhywun arall wedi diweddaru statws y cais  {{law_used_full}} {{teitl}} a wnaethoch i {{public_body}} , i \"{{display_status}}\" Os ydych yn anghytuno â'u categoreiddio, diweddarwch y statws unwaith eto eich hun i'r hyn y credwch i fod yn fwy cywir."
+msgstr "I'n helpu ni i gadw'r wefan yn daclus, mae rhywun arall wedi diweddaru statws y cais  {{law_used_full}} {{title}} a wnaethoch i {{public_body}} , i \"{{display_status}}\" Os ydych yn anghytuno â'u categoreiddio, diweddarwch y statws unwaith eto eich hun i'r hyn y credwch i fod yn fwy cywir."
 
 msgid "To let everyone know, follow this link and then select the appropriate box."
 msgstr "I adael i bawb wybod, dilynwch y ddolen hon ac yna dewiswch y blwch priodol."
