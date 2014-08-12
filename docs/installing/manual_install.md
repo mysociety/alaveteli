@@ -676,13 +676,13 @@ Enable the SSL apache mod
 Copy the SSL configuration – again changing `www.example.com` to your domain –
 and enable the VirtualHost
 
-    cp /var/www/alaveteli/config/httpd-ssl.conf-example \
+    cp /var/www/alaveteli/config/httpd-ssl.conf.example \
       /etc/apache2/sites-available/alaveteli_https
     a2ensite alaveteli_https
 
 Force HTTPS requests from the HTTP VirtualHost
 
-    cp /var/www/alaveteli/config/httpd-force-ssl.conf-example \
+    cp /var/www/alaveteli/config/httpd-force-ssl.conf.example \
       /etc/apache2/vhost.d/alaveteli/force-ssl.conf
 
 If you are testing Alaveteli or setting up an internal staging site, generate
