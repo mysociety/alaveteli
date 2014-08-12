@@ -70,7 +70,7 @@ permanent delivery problem.
 If you want to make use of this automatic bounce-message handling, then
 set the [`TRACK_SENDER_EMAIL`]({{ site.baseurl }}docs/customising/config/#track_sender_email) and [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) address to one
 that you will filter through `script/handle-mail-replies` (see the
-MTA-specific instructions for how to do this for exim and [postfix]({{ site.baseurl }}docs/installing/email#filter-incoming-messages-to-site-admin-addresses)).
+MTA-specific instructions for how to do this for [exim]({{ site.baseurl }}docs/installing/email#filter-incoming-messages-to-admin-addresses) and [postfix]({{ site.baseurl }}docs/installing/email#filter-incoming-messages-to-site-admin-addresses)).
 Messages that are not bounces or out-of-office autoreplies will be
 forwarded to [`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ site.baseurl }}docs/customising/config/#forward_nonbounce_responses_to), which you
 should set to a mail alias that points at your list of site
