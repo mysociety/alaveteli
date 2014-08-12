@@ -323,7 +323,7 @@ is working (it doesn't actually send any mail). If it is working, you
 should receive a delivery report email, with text like:
 
     <foi+request-1234@example.com>: delivery via alaveteli:
-delivers to command: /var/www/alaveteli/script/mailin
+    delivers to command: /var/www/alaveteli/script/mailin
     <backupfoi@local.machine.name>: delivery via local: delivers to  mailbox
 
 You can also test the other aliases you have set up for your domain in
@@ -338,6 +338,11 @@ Note that you may need to install the `mailutils` package to read the
 delivery report email using the `mail` command on a new server:
 
     apt-get install mailutils
+
+If emails are not being received by your Alaveteli install, we have some
+more troubleshooting tips for incoming mail in [the manual install
+guide]({{ site.baseurl }}docs/installing/manual_install/#troubleshooting).
+
 
 
 ## Example setup on exim4
@@ -541,6 +546,10 @@ message routing in the same way:
     user-support@example.com -> |/var/www/alaveteli/script/handle-mail-replies
       transport = alaveteli_mailin_transport
 
-There is a great
-[Exim Cheatsheet](http://bradthemad.org/tech/notes/exim_cheatsheet.php)
-online that you may find useful.
+If emails are not being received by your Alaveteli install, we have some
+more troubleshooting tips for incoming mail in [the manual install guide]({{ site.baseurl }}docs/installing/manual_install/#troubleshooting). There is also a
+great [Exim
+Cheatsheet](http://bradthemad.org/tech/notes/exim_cheatsheet.php) online
+that you may find useful.
+
+
