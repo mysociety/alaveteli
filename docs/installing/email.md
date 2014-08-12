@@ -162,7 +162,9 @@ Setting `extract_addresses_remove_arguments` to `false` gets exim to treat the `
 
 #### Pipe incoming mail for requests from Exim to Alaveteli
 
-Create `/etc/exim4/conf.d/router/04_alaveteli`:
+In this section, we'll add config to pipe incoming mail for special
+Alaveteli addresses into Alaveteli, and also send them to a local backup
+mailbox, just in case. Create the `backupfoi` UNIX user, and then create `/etc/exim4/conf.d/router/04_alaveteli`:
 
     cat > /etc/exim4/conf.d/router/04_alaveteli <<'EOF'
     alaveteli_request:
@@ -190,7 +192,7 @@ in your config at `config/general.yml` to "foi+", create `config/aliases` with t
 command:
 
     cat > /var/www/alaveteli/config/aliases <<'EOF'
-    ^foi\\+.*: |/var/www/alaveteli/script/mailin
+    ^foi\\+.*: "|/var/www/alaveteli/script/mailin", backupfoi
     EOF
 
 That's assuming that Alaveteli is running from `/var/www/alaveteli`. If it isn't, substitute the path it is running from.
@@ -246,10 +248,21 @@ see something like:
     R: alaveteli for foi+request-1234@example.com
     foi+request-1234@example.com -> |/var/www/alaveteli/script/mailin
       transport = alaveteli_mailin_transport
+    R: alaveteli for backupfoi@your.machine.name
+    R: system_aliases for backupfoi@your.machine.name
+    R: userforward for backupfoi@your.machine.name
+    R: procmail for backupfoi@your.machine.name
+    R: maildrop for backupfoi@your.machine.name
+    R: lowuid_aliases for backupfoi@your.machine.name (UID 1001)
+    R: local_user for backupfoi@your.machine.name
+    backupfoi@your.machine.name
+        <-- foi+request-1234@example.com
+      router = local_user, transport = mail_spool
 
 This tells you that the routing part (making emails to
-`foi\+.*@example.com` be forwarded to Alaveteli's `mailin` script) is
-working. You can test bounce message routing in the same way:
+`foi\+.*@example.com` be forwarded to Alaveteli's `mailin` script, and
+also sent to the local backup account) is working. You can test bounce
+message routing in the same way:
 
     exim4 -bt user-support@example.com
     R: alaveteli for user-support@example.com
