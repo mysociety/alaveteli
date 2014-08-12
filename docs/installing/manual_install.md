@@ -541,7 +541,7 @@ and so it knows to include that in any absolute urls it serves.
 We have some [production server best practice
 notes]({{ site.baseurl}}docs/running/server/).
 
-## What next? 
+## What next?
 
 Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
 
@@ -579,9 +579,51 @@ Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
         75
 
     The `mailin` script emails the details of any errors to
-    `CONTACT_EMAIL` (from your `general.yml` file).  A common problem is
+    `CONTACT_EMAIL` (from your `general.yml` file). A common problem is
     for the user that the MTA runs as not to have write access to
     `files/raw_emails/`.
+
+    If everything seems fine locally, you should also check from another
+    computer connected to the Internet that the DNS for your chosen
+    domain indicates that your Alaveteli server is handling mail, and
+    that your server is receiving mail on port 25. The following
+    command is a query to ask which server is handling the mail for
+    the domain `example.com`, which receives the answer `mail.example.com`.
+
+        $ host -t mx example.com
+        example.com mail is handled by 5 mail.example.com.
+
+    This next command tries to connect to port 25, the standard SMTP
+    port, on `mail.example.com`, and is refused.
+
+        $ telnet mail.example.com 25
+        Trying 10.10.10.30...
+    telnet: connect to address 10.10.10.30: Connection refused
+
+    The transcript below shows a successful connection where the server
+    accepts mail for delivery (the commands you would type are prefixed
+    by a `$`):
+
+        $ telnet 10.10.10.30 25
+        Trying 10.10.10.30...
+        Connected to 10.10.10.30.
+        Escape character is '^]'.
+        220 mail.example.com ESMTP Exim 4.80 Tue, 12 Aug 2014 11:10:39 +0000
+        $ HELO X
+        250 mail.example.com Hello X [10.10.10.1]
+        $ MAIL FROM: <test@local.domain>
+        250 OK
+        $ RCPT TO:<foi+request-1234@example.com>
+        250 Accepted
+        $ DATA
+        354 Enter message, ending with "." on a line by itself
+        $ Subject: Test
+        $
+        $ This is a test mail.
+        $ .
+        250 OK id=1XHA03-0001Vx-Qn
+        QUIT
+
 
 *   **Various tests fail with "*Your PostgreSQL connection does not support
     unescape_bytea. Try upgrading to pg 0.9.0 or later.*"**
