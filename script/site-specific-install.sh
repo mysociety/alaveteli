@@ -52,6 +52,32 @@ Pin-Priority: 50
 EOF
 fi
 
+# Ubuntu Precise Fixes
+if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"precise" ]
+then
+  cat > /etc/apt/sources.list.d/ubuntu-raring.list <<EOF
+deb http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ raring universe
+deb-src http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ raring universe
+EOF
+
+  # Get bundler and pdftk from raring and de-prioritise all other
+  # raring packages
+  cat >> /etc/apt/preferences <<EOF
+
+Package: ruby-bundler
+Pin: release n=raring
+Pin-Priority: 990
+
+Package: pdftk
+Pin: release n=raring
+Pin-Priority: 990
+
+Package: *
+Pin: release n=raring
+Pin-Priority: 50
+EOF
+fi
+
 update_mysociety_apt_sources
 
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
