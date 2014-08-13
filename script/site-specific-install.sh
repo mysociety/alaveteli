@@ -30,6 +30,8 @@ misuse() {
 [ -z "$DEVELOPMENT_INSTALL" ] && misuse DEVELOPMENT_INSTALL
 [ -z "$BIN_DIRECTORY" ] && misuse BIN_DIRECTORY
 
+update_mysociety_apt_sources
+
 # Debian Squeeze Fixes
 if [ x"$DISTRIBUTION" = x"debian" ] && [ x"$DISTVERSION" = x"squeeze" ]
 then
@@ -50,9 +52,39 @@ Package: *
 Pin: release n=wheezy
 Pin-Priority: 50
 EOF
+
+apt-get -qq update
 fi
 
-update_mysociety_apt_sources
+# Ubuntu Precise Fixes
+if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"precise" ]
+then
+  cat > /etc/apt/sources.list.d/ubuntu-trusty.list <<EOF
+deb http://archive.ubuntu.com/ubuntu/ trusty universe
+deb-src http://archive.ubuntu.com/ubuntu/ trusty universe
+EOF
+
+  # Get bundler and pdftk from raring and de-prioritise all other
+  # raring packages
+  cat >> /etc/apt/preferences <<EOF
+
+Package: ruby-bundler
+Pin: release n=trusty
+Pin-Priority: 990
+
+Package: pdftk
+Pin: release n=squeeze
+Pin-Priority: 990
+
+Package: *
+Pin: release n=trusty
+Pin-Priority: 50
+EOF
+
+apt-get -qq update
+fi
+
+apt-get -y update
 
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
     install_nginx
