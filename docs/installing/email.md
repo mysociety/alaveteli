@@ -208,22 +208,32 @@ If you have set [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#
 
 #### Filter incoming messages to site admin addresses
 
-As described in ['Other
-mail']({{site.baseurl}}docs/installing/email#other-mail) you can make
-use of the script that filters mail to
-[`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email)
-and [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email) for bounce messages before
-delivering it to your admin team. To do this, for a `general.yml` file
-that sets those addresses to `user-support@example.com` and
-[`FORWARD_NONBOUNCE_RESPONSES_TO`]({{site.baseurl}}docs/customising/config/#forward_nonbounce_responses_to) to
-`team@example.com`, add a new line to `/etc/postfix/master.cf`:
+You can make use of Alaveteli's [automatic bounce handling]({{site.baseurl}}docs/installing/email/#automatic-bounce-handling-optional) to filter bounces sent to [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email)
+and [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email). 
 
-        alaveteli_replies unix  - n n - 50 pipe
-          flags=R user=alaveteli argv=/var/www/alaveteli/script/handle-mail-replies
 
-making sure to replace `/var/www/alaveteli` with the correct path to
-alaveteli if you're not running it from `/var/www/alaveteli`. Next, add
-a line to `/etc/postfix/transports`:
+<div class="attention-box">
+This guide assumes you have set the following in <code>config/general.yml</code>:
+
+  <ul>
+    <li><a href="{{site.baseurl}}docs/customising/config/#contact_email">CONTACT_EMAIL</a>: <code>user-support@example.com</code></li>
+    <li><a href="{{site.baseurl}}docs/customising/config/#track_sender_email">TRACK_SENDER_EMAIL</a>: <code>user-support@example.com</code></li>
+    <li><a href="{{site.baseurl}}docs/customising/config/#forward_nonbounce_responses_to">FORWARD_NONBOUNCE_RESPONSES_TO</a>: <code>team@example.com</code></li>
+  </ul>
+
+Change the examples below to the addresses you have configured.
+</div>
+
+Create a new pipe to handle replies:
+
+    cat >> /etc/postfix/master.cf <<EOF
+    alaveteli_replies unix  - n n - 50 pipe
+      flags=R user=alaveteli argv=/var/www/alaveteli/script/handle-mail-replies
+    EOF
+
+_Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if required.
+
+Next, add a line to `/etc/postfix/transports`:
 
     /^user-support@*/                alaveteli_replies
 
