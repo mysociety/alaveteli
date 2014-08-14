@@ -147,12 +147,20 @@ command:
 
 This means that all incoming mail that starts `foi+` will be piped to `/var/www/alaveteli/script/mailin` as specified in `/etc/postfix/master.cf` at the start of this section.
 
-You can copy all incoming mail to Alaveteli to a backup account to a separate mailbox, just in case. Create a UNIX user `backupfoi`, and add the following line to
-`/etc/postfix/main.cf`
+#### Backup request mail
+
+You can copy all incoming mail to Alaveteli to a backup account to a separate mailbox, just in case.
+
+Create a UNIX user `backupfoi`
+
+    adduser --quiet --disabled-password \
+      --gecos "Alaveteli Mail Backup" backupfoi
+
+Add the following line to `/etc/postfix/main.cf`
 
     recipient_bcc_maps = regexp:/etc/postfix/recipient_bcc
 
-Create `/etc/postfix/recipient_bcc` with the following command:
+Configure mail sent to an `foi+` prefixed address to be sent to the backup user:
 
     cat > /etc/postfix/recipient_bcc <<EOF
     /^foi.*/                backupfoi
