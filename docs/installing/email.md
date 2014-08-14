@@ -233,14 +233,15 @@ Create a new pipe to handle replies:
 
 _Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if required.
 
-Next, add a line to `/etc/postfix/transports`:
+Pipe mail sent to `user-support@example.com` to the `alaveteli_replies` pipe:
 
+    cat >> /etc/postfix/transports <<EOF
     /^user-support@*/                alaveteli_replies
+    EOF
 
 Finally, edit `/etc/aliases` to remove `user-support`:
 
     team: user@example.com, otheruser@example.com
-
 
 #### Logging
 
