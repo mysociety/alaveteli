@@ -60,7 +60,11 @@ Configure the address that these messages are sent from in the [`TRACK_SENDER_EM
 
 ### Automatic bounce handling (optional)
 
-Emails to [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) and [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email) can be filtered through a script, `script/handle-mail-replies`, that handles <a href="{{ site.baseurl }}docs/glossary/#bounce-message">bounce messages</a> for temporary and permanent delivery problems and 'out of office' notifications and forwards other mails to your administrators. This script will also prevent any further track emails being sent to a user email address that appears to have a permanent delivery problem.
+As [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) and [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email) appear in the `From:` header of emails sent from Alaveteli, they sometimes receive reply emails, including <a href="{{ site.baseurl }}docs/glossary/#bounce-message">bounce messages</a> and ‘out of office’ notifications.
+
+Alaveteli provides a script (`script/handle-mail-replies`) that handles bounce messages and ‘out of office’ notifications and forwards genuine mails to your administrators.
+
+It also prevents further track emails being sent to a user email address that appears to have a permanent delivery problem.
 
 If you want to make use of this automatic bounce-message handling, then
 set the [`TRACK_SENDER_EMAIL`]({{ site.baseurl }}docs/customising/config/#track_sender_email) and [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) address to one
