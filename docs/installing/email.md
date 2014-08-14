@@ -109,11 +109,12 @@ This section shows an example of how to set up your MTA if you're using
 
 If the Unix user that is going to
 run your site is `alaveteli`, and the directory where Alaveteli is installed is
-`/var/www/alaveteli`, add the following line to
-`/etc/postfix/master.cf`:
+`/var/www/alaveteli`, create the pipe that will receive request mail:
 
+    cat >> /etc/postfix/master.cf <<EOF
     alaveteli unix  - n n - 50 pipe
       flags=R user=alaveteli argv=/var/www/alaveteli/script/mailin
+    EOF
 
 The Unix user should have write permissions on the directory where Alaveteli is installed.
 
