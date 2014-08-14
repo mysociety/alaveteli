@@ -189,8 +189,10 @@ The `@example.com` domain is set in the `mydestination` as above. This should be
 
 To set up recipient groups for the `postmaster@`, `team@` and `user-support@` email addresses at your domain, add alias records for them in `/etc/aliases`:
 
+    cat >> /etc/aliases <<EOF
     team: user@example.com, otheruser@example.com
     user-support: team
+    EOF
 
 You should also configure postfix to discard any messages sent to the [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix) address, whose default value is `do-not-reply-to-this-address`. For example, add the following to `/etc/aliases`:
 
