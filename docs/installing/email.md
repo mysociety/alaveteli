@@ -18,21 +18,18 @@ title: Installing MTA
 When someone makes a Freedom of Information request to an authority through
 Alaveteli, the application sends an email containing the request to the authority.
 
-The email's `reply-to` address is a special one so that any replies to it
-can be automatically directed back to Alaveteli, and so that Alaveteli
-can tell which request the reply needs to be shown with. This requires
-some configuration of the MTA on the server that is running Alaveteli,
-so that it will pipe all emails to these special addresses to Alaveteli
-to handle, via its `script/mailin` script. The special addresses are of
-the form:
+The email's `Reply-To` header contains a special address that allows Alaveteli
+to map replies to the request:
 
     <foi+request-3-691c8388@example.com>
 
-The respective parts of this address are controlled with options in
-`config/general.yml`, thus:
+Parts of this address are controlled with options in `config/general.yml`:
 
     INCOMING_EMAIL_PREFIX = 'foi+'
     INCOMING_EMAIL_DOMAIN = 'example.com'
+
+You must configure the MTA running on the Alaveteli server to pipe mail sent to
+the formatted addresses to Alaveteli's `mailin` script (`script/mailin`).
 
 When you have set up your MTA, if there is some error inside Rails, the
 email is returned with an exit code 75, which for postfix and exim at least means the MTA will try again later. Additionally, a stacktrace is emailed to `CONTACT_EMAIL`.
