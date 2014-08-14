@@ -180,7 +180,7 @@ Create `/etc/postfix/recipients` with the following command:
 The left-hand column of this file specifies regular expressions that
 define addresses that mail will be accepted for. The values on the
 right-hand side are ignored by postfix. Here we allow postfix to accept
-mails to special Alaveteli addresses, and `postmaster@example.com`,
+mails to special Alaveteli addresses, `postmaster@example.com`,
 `user-support@example.com` and `team@example.com`.
 
 #### Set up contact email recipient groups
