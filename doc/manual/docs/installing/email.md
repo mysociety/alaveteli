@@ -15,9 +15,10 @@ title: Installing MTA
 
 ### Request mail
 
-When someone makes a Freedom of Information request to an authority in
-Alaveteli, an email containing the request is sent to the authority. The
-email's `reply-to` address is a special one so that any replies to it
+When someone makes a Freedom of Information request to an authority through
+Alaveteli, the application sends an email containing the request to the authority.
+
+The email's `reply-to` address is a special one so that any replies to it
 can be automatically directed back to Alaveteli, and so that Alaveteli
 can tell which request the reply needs to be shown with. This requires
 some configuration of the MTA on the server that is running Alaveteli,
