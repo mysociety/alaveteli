@@ -45,9 +45,7 @@ Configure the address that these messages are sent from in the [`CONTACT_EMAIL`]
 
     CONTACT_EMAIL = 'team@example.com'
 
-The address in [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) is also visible in various
-places on the site, so people can get in touch with the team that runs
-the site.
+The address in [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) is also visible in various places on the site so that users can get in touch with the team that runs the site.
 
 Your MTA needs to be configured to deliver mail to these
 addresses to the people who are going to administer your site, so that
