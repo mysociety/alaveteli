@@ -37,32 +37,35 @@ If there is some error inside Rails while processing an email, the script return
 
 [Production]({{ site.baseurl }}/docs/glossary/#production) installs of Alaveteli should make a backup copy of emails sent to the special addresses. You can configure your chosen MTA to backup these in a separate mailbox.
 
-### Other mail
+### Transactional mail
 
-Alaveteli also sends other kinds of mail - emails to users about their
-requests, letting them know when someone has replied to them, or
-prompting them to take further action, and emails to users who have
-subscribed to updates from the site, also known as `tracks`, letting
-them know that there is something new of interest to them on the site.
-The addresses that these messages come from can be configured with the
-[`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email)
-and [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email) options in
-`config/general.yml` respectively:
+Alaveteli also sends emails to users about their requests, letting them know when someone has replied to them, or prompting them to take further action.
+
+The address that these messages are sent from is configured by the
+[`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email) option in `config/general.yml`:
 
     CONTACT_EMAIL = 'team@example.com'
-    TRACK_SENDER_EMAIL = 'team@example.com'
 
 The address in [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) is also visible in various
 places on the site, so people can get in touch with the team that runs
-the site. Your MTA needs to be configured to deliver mail to these
+the site.
+
+Your MTA needs to be configured to deliver mail to these
 addresses to the people who are going to administer your site, so that
-they can handle it. Optionally, Alaveteli can also be configured so that
-emails to these addresses are filtered through a script,
-`script/handle-mail-replies`, that handles <a href="{{ site.baseurl }}docs/glossary/#bounce-message">bounce messages</a> for temporary and permanent
-delivery problems and 'out of office' notifications and forwards other
-mails to your administrators. This script will also prevent any further
-track emails being sent to a user email address that appears to have a
-permanent delivery problem.
+they can handle it.
+
+### Tracks mail
+
+Users may receive emails if subscribed to updates from the site, also known as `tracks`, letting them know that there is something new of interest to them on the site.
+
+The address that these messages are sent from is configured by the 
+[`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email) option in `config/general.yml`
+
+    TRACK_SENDER_EMAIL = 'track@example.com'
+
+### Automatic bounce handling (optional)
+
+Emails to [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) and [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email) can be filtered through a script, `script/handle-mail-replies`, that handles <a href="{{ site.baseurl }}docs/glossary/#bounce-message">bounce messages</a> for temporary and permanent delivery problems and 'out of office' notifications and forwards other mails to your administrators. This script will also prevent any further track emails being sent to a user email address that appears to have a permanent delivery problem.
 
 If you want to make use of this automatic bounce-message handling, then
 set the [`TRACK_SENDER_EMAIL`]({{ site.baseurl }}docs/customising/config/#track_sender_email) and [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) address to one
@@ -78,6 +81,7 @@ addresses; any bounce messages from authorities will be added to the
 request page so that the user can see what has happened and ask site
 admins for help redelivering the request if necessary.
 
+---
 
 Make sure you follow the correct instructions for the specific MTA you're using:
 
