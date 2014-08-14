@@ -66,19 +66,15 @@ Alaveteli provides a script (`script/handle-mail-replies`) that handles bounce m
 
 It also prevents further track emails being sent to a user email address that appears to have a permanent delivery problem.
 
-If you want to make use of this automatic bounce-message handling, then
-set the [`TRACK_SENDER_EMAIL`]({{ site.baseurl }}docs/customising/config/#track_sender_email) and [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) address to one
-that you will filter through `script/handle-mail-replies` (see the
-MTA-specific instructions for how to do this for [exim]({{ site.baseurl }}docs/installing/email#filter-incoming-messages-to-admin-addresses) and [postfix]({{ site.baseurl }}docs/installing/email#filter-incoming-messages-to-site-admin-addresses)).
-Messages that are not bounces or out-of-office autoreplies will be
-forwarded to [`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ site.baseurl }}docs/customising/config/#forward_nonbounce_responses_to), which you
-should set to a mail alias that points at your list of site
-administrators.
+To make use of automatic bounce-message handling, set [`TRACK_SENDER_EMAIL`]({{ site.baseurl }}docs/customising/config/#track_sender_email) and [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) to an address that you will filter through `script/handle-mail-replies`. Messages that are not bounces or out-of-office autoreplies will be forwarded to [`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ site.baseurl }}docs/customising/config/#forward_nonbounce_responses_to), which you should set to a mail alias that points at your list of site administrators.
+
+See the MTA-specific instructions for how to do this for [exim]({{ site.baseurl }}docs/installing/email#filter-incoming-messages-to-admin-addresses) and [postfix]({{ site.baseurl }}docs/installing/email#filter-incoming-messages-to-site-admin-addresses).
 
 Note that this bounce handling is not applied to request email
 addresses; any bounce messages from authorities will be added to the
 request page so that the user can see what has happened and ask site
 admins for help redelivering the request if necessary.
+
 
 ---
 
