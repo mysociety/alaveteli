@@ -54,8 +54,7 @@ You must configure your MTA to deliver mail sent to these addresses to the admin
 
 Users subscribed to updates from the site – known as `tracks` – receive emails when there is something new of interest to them on the site.
 
-The address that these messages are sent from is configured by the
-[`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email) option in `config/general.yml`
+Configure the address that these messages are sent from in the [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email) option in `config/general.yml`:
 
     TRACK_SENDER_EMAIL = 'track@example.com'
 
