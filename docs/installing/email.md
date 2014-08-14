@@ -31,6 +31,8 @@ Parts of this address are controlled with options in `config/general.yml`:
 You must configure the MTA running on the Alaveteli server to pipe mail sent to
 the formatted addresses to Alaveteli's `mailin` script (`script/mailin`).
 
+![Request Email Process]({{ site.baseurl }}assets/img/request-email-process.png "Request Email Process")
+
 When you have set up your MTA, if there is some error inside Rails, the
 email is returned with an exit code 75, which for postfix and exim at least means the MTA will try again later. Additionally, a stacktrace is emailed to `CONTACT_EMAIL`.
 
