@@ -245,15 +245,15 @@ Finally, edit `/etc/aliases` to remove `user-support`:
 
 #### Logging
 
-For the postfix logs to be successfully read by the script
-`load-mail-server-logs`, they need to be log rotated with a date in the
+For the postfix logs to be successfully read by
+`script/load-mail-server-logs`, they need to be log rotated with a date in the
 filename. Since that will create a lot of rotated log files (one for
 each day), it's good to have them in their own directory.
 
 You'll also need to tell Alaveteli where the log files are stored and that they're in postfix
 format. Update
 [`MTA_LOG_PATH`]({{ site.baseurl }}docs/customising/config/#mta_log_path) and
-[`MTA_LOG_TYPE`]({{ site.baseurl }}docs/customising/config/#mta_log_type) in `config/general.yml` with:
+[`MTA_LOG_TYPE`]({{ site.baseurl }}docs/customising/config/#mta_log_type) in `config/general.yml`:
 
     MTA_LOG_PATH: '/var/log/mail/mail.log-*'
     MTA_LOG_TYPE: "postfix"
