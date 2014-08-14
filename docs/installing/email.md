@@ -183,6 +183,8 @@ right-hand side are ignored by postfix. Here we allow postfix to accept
 mails to special Alaveteli addresses, `postmaster@example.com`,
 `user-support@example.com` and `team@example.com`.
 
+The `@example.com` domain is set in the `mydestination` as above. This should be set to your actual domain.
+
 #### Set up contact email recipient groups
 
 To set up recipient groups for the `postmaster@`, `team@` and `user-support@` email addresses at your domain, add alias records for them in `/etc/aliases`:
