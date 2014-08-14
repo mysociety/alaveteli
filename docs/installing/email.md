@@ -256,28 +256,14 @@ format. Update
     MTA_LOG_PATH: '/var/log/mail/mail.log-*'
     MTA_LOG_TYPE: "postfix"
 
+Configure postfix to log to its own directory:
+
 ##### Debian
 
 In `/etc/rsyslog.conf`, set:
 
     mail.*                  -/var/log/mail/mail.log
 
-And also edit `/etc/logrotate.d/rsyslog`:
-
-    /var/log/mail/mail.log
-    {
-          rotate 30
-          daily
-          dateext
-          missingok
-          notifempty
-          compress
-          delaycompress
-          sharedscripts
-          postrotate
-                  reload rsyslog >/dev/null 2>&1 || true
-          endscript
-    }
 
 ##### Ubuntu
 
@@ -285,8 +271,11 @@ In `/etc/rsyslog.d/50-default.conf` set:
 
     mail.*                  -/var/log/mail/mail.log
 
-And also edit `/etc/logrotate.d/rsyslog`:
+##### Configure logrotate
 
+Configure logrotate to rotate the log files in the required format:
+
+    cat >> /etc/logrotate.d/rsyslog <<EOF
     /var/log/mail/mail.log
     {
           rotate 30
@@ -301,7 +290,7 @@ And also edit `/etc/logrotate.d/rsyslog`:
                   reload rsyslog >/dev/null 2>&1 || true
           endscript
     }
-
+    EOF
 
 #### Making the changes live
 
