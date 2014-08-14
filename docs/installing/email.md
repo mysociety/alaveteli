@@ -33,8 +33,7 @@ the formatted addresses to Alaveteli's `mailin` script (`script/mailin`).
 
 ![Request Email Process]({{ site.baseurl }}assets/img/request-email-process.png "Request Email Process")
 
-When you have set up your MTA, if there is some error inside Rails, the
-email is returned with an exit code 75, which for postfix and exim at least means the MTA will try again later. Additionally, a stacktrace is emailed to `CONTACT_EMAIL`.
+If there is some error inside Rails while processing an email, the email is returned with an exit code `75`. Postfix and Exim (and maybe others) take this  as a signal for the MTA to try again later. Additionally, a stacktrace is emailed to `CONTACT_EMAIL`.
 
 A well-configured production Alaveteli install will have had the MTA make
 a backup copy of the email sent to the special Alaveteli addresses in a separate mailbox, just in case.
