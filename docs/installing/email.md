@@ -28,8 +28,8 @@ the form:
 
     <foi+request-3-691c8388@example.com>
 
-The respective parts of this address are controlled with options in
-`config/general.yml`, thus:
+Parts of this address are controlled with options in
+`config/general.yml`:
 
     INCOMING_EMAIL_PREFIX = 'foi+'
     INCOMING_EMAIL_DOMAIN = 'example.com'
