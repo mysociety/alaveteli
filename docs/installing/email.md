@@ -52,7 +52,7 @@ You must configure your MTA to deliver mail sent to these addresses to the admin
 
 ### Tracks mail
 
-Users may receive emails if subscribed to updates from the site, also known as `tracks`, letting them know that there is something new of interest to them on the site.
+Users subscribed to updates from the site – known as `tracks` – receive emails when there is something new of interest to them on the site.
 
 The address that these messages are sent from is configured by the
 [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email) option in `config/general.yml`
