@@ -41,8 +41,7 @@ If there is some error inside Rails while processing an email, the script return
 
 Alaveteli also sends emails to users about their requests – letting them know when someone has replied to them, or prompting them to take further action.
 
-The address that these messages are sent from is configured by the
-[`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email) option in `config/general.yml`:
+Configure the address that these messages are sent from in the [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email) option in `config/general.yml`:
 
     CONTACT_EMAIL = 'team@example.com'
 
