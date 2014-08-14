@@ -136,16 +136,15 @@ In `/etc/postfix/main.cf` update the `mydestination` line (which determines what
 
     mydestination = example.com, localhost.localdomain, localhost
 
-And, assuming you set
-[`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}docs/customising/config/#incoming_email_prefix)
-in `config/general` to "foi+", create `/etc/postfix/transports` with the following
-command:
+<div class="attention-box">
+This guide assumes you have set <a href="{{ site.baseurl }}docs/customising/config/#incoming_email_prefix"><code>INCOMING_EMAIL_PREFIX</code></a> to <code>foi+</code> in <code>config/general.yml</code>
+</div>
+
+Pipe all incoming mail where the `To:` address starts with `foi+` to the `alaveteli` pipe (`/var/www/alaveteli/script/mailin`, as specified in `/etc/postfix/master.cf` at the start of this section):
 
     cat > /etc/postfix/transports <<EOF
     /^foi.*/                alaveteli
     EOF
-
-This means that all incoming mail that starts `foi+` will be piped to `/var/www/alaveteli/script/mailin` as specified in `/etc/postfix/master.cf` at the start of this section.
 
 #### Backup request mail
 
