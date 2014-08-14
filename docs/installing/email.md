@@ -70,7 +70,7 @@ To make use of automatic bounce-message handling, set [`TRACK_SENDER_EMAIL`]({{ 
 
 See the MTA-specific instructions for how to do this for [exim]({{ site.baseurl }}docs/installing/email#filter-incoming-messages-to-admin-addresses) and [postfix]({{ site.baseurl }}docs/installing/email#filter-incoming-messages-to-site-admin-addresses).
 
-_Note:_ Bounce handling is not applied to request emails. Bounce messages from authorities get added to the request page so that the user can see what has happened. Users can ask site admins for help redelivering the request if necessary.
+_Note:_ Bounce handling is not applied to [request emails]({{ site.baseurl }}docs/installing/email#request-mail). Bounce messages from authorities get added to the request page so that the user can see what has happened. Users can ask site admins for help redelivering the request if necessary.
 
 
 ---
