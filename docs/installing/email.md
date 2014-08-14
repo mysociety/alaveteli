@@ -192,11 +192,17 @@ To set up recipient groups for the `postmaster@`, `team@` and `user-support@` em
     user-support: team
     EOF
 
-You should also configure postfix to discard any messages sent to the [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix) address, whose default value is `do-not-reply-to-this-address`. For example, add the following to `/etc/aliases`:
+#### Discard unwanted incoming email
 
-        # We use this for envelope from for some messages where
-        # we don't care about delivery
-        do-not-reply-to-this-address:        /dev/null
+Configure postfix to discard any messages sent to the [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix) address, whose default value is `do-not-reply-to-this-address`:
+
+    cat >> /etc/aliases <<EOF
+    # We use this for envelope from for some messages where
+    # we don't care about delivery
+    do-not-reply-to-this-address:        /dev/null
+    EOF
+
+If you have set [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix) address, replace `do-not-reply-to-this-address` with the address you have configured.
 
 #### Filter incoming messages to site admin addresses
 
