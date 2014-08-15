@@ -149,11 +149,26 @@ Add the GPG key from the
 
     wget -O - https://debian.mysociety.org/debian.mysociety.org.gpg.key | apt-key add -
 
+**Ubuntu Precise only**
+
+    cat > /etc/apt/sources.list.d/mysociety-launchpad.list <<EOF
+    deb http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
+    deb-src http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
+    EOF
+
+The repository above lets you install a recent version of `pdftk` using `apt`.
+
+Add the GPG key from the
+[mySociety Alaveteli Ubuntu Package Repository](https://launchpad.net/~mysociety/+archive/ubuntu/alaveteli).
+
+    apt-get install python-software-properties
+    add-apt-repository -y ppa:mysociety/alaveteli
 
 **Debian Wheezy or Ubuntu Precise**
 
-You should also configure package-pinning to reduce the priority of this
-repository - we only want to pull wkhtmltopdf-static from mysociety.
+You should also configure package-pinning to reduce the priority of the
+mysociety Debian repository - we only want to pull wkhtmltopdf-static
+from mysociety.
 
     cat >> /etc/apt/preferences <<EOF
 
