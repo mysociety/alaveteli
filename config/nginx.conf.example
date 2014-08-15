@@ -15,7 +15,7 @@ server {
     # Set the server name to your domain name if you have multiple nginx servers
     # running on your machine
     # server_name www.example.com;
-    root /var/www/alaveteli/public;
+    root /var/www/alaveteli/alaveteli/public;
 
     server_tokens off;
 
@@ -30,7 +30,7 @@ server {
 
     location /download {
         internal;
-        alias /var/www/alaveteli/cache/zips/production/download;
+        alias /var/www/alaveteli/alaveteli/cache/zips/production/download;
     }
 
     location @alaveteli {
@@ -39,7 +39,7 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto http;
         proxy_set_header X-Sendfile-Type X-Accel-Redirect;
-        proxy_set_header X-Accel-Mapping /var/www/alaveteli/cache/zips/production/download=/download;
+        proxy_set_header X-Accel-Mapping /var/www/alaveteli/alaveteli/cache/zips/production/download=/download;
         proxy_redirect off;
         proxy_pass http://alaveteli;
     }
