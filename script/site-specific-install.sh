@@ -30,6 +30,8 @@ misuse() {
 [ -z "$DEVELOPMENT_INSTALL" ] && misuse DEVELOPMENT_INSTALL
 [ -z "$BIN_DIRECTORY" ] && misuse BIN_DIRECTORY
 
+update_mysociety_apt_sources
+
 # Debian Squeeze Fixes
 if [ x"$DISTRIBUTION" = x"debian" ] && [ x"$DISTVERSION" = x"squeeze" ]
 then
@@ -50,6 +52,8 @@ Package: *
 Pin: release n=wheezy
 Pin-Priority: 50
 EOF
+
+apt-get -qq update
 fi
 
 # Ubuntu Precise Fixes
@@ -76,9 +80,11 @@ Package: *
 Pin: release n=trusty
 Pin-Priority: 50
 EOF
+
+apt-get -qq update
 fi
 
-update_mysociety_apt_sources
+apt-get -y update
 
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
     install_nginx
