@@ -64,22 +64,27 @@ deb http://archive.ubuntu.com/ubuntu/ trusty universe
 deb-src http://archive.ubuntu.com/ubuntu/ trusty universe
 EOF
 
-  # Get bundler and pdftk from raring and de-prioritise all other
-  # raring packages
+  cat > /etc/apt/sources.list.d/mysociety-launchpad.list <<EOF
+deb http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
+deb-src http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
+EOF
+
+  # Get bundler from trusty and de-prioritise all other
+  # trusty packages
   cat >> /etc/apt/preferences <<EOF
 
 Package: ruby-bundler
 Pin: release n=trusty
 Pin-Priority: 990
 
-Package: pdftk
-Pin: release n=squeeze
-Pin-Priority: 990
-
 Package: *
 Pin: release n=trusty
 Pin-Priority: 50
 EOF
+
+# Get the key for the mysociety ubuntu alaveteli repo
+apt-get install python-software-properties
+add-apt-repository -y ppa:mysociety/alaveteli
 
 apt-get -qq update
 fi
