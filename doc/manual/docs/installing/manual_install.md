@@ -198,11 +198,13 @@ their requests when they download them.
 2. Version 1.44 of `pdftk` contains a bug which makes it loop forever in
 certain edge conditions. This is fixed in the standard 1.44.7 package which is available in wheezy (Debian) and raring (Ubuntu).
 
-If you can't get an official release for your OS with the fix, you
-can either hope you don't encounter the bug (it ties up a rails process until
-you kill it), patch it yourself, or use the Debian package
-compiled by mySociety (see link in [issue
-305](https://github.com/mysociety/alaveteli/issues/305))
+If you can't get an official release for your OS with the fix, you can
+either hope you don't encounter the bug (it ties up a rails process
+until you kill it), patch it yourself, or use the
+[Debian](http://debian.mysociety.org/dists/squeeze/main/binary-amd64/)
+or
+[Ubuntu](https://launchpad.net/~mysociety/+archive/ubuntu/alaveteli/+packages)
+packages compiled by mySociety.
 
 #### Refresh sources
 
