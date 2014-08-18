@@ -606,10 +606,9 @@ Start the alert tracks daemon:
 
 Either tweak the file permissions to make the scripts executable by your deploy
 user, or add the following line to your sudoers file to allow these to be run
-by your deploy user (named `deploy` in this case).
+by your deploy user (named `alaveteli` in this case).
 
-    deploy ALL = NOPASSWD: /etc/init.d/foi-alert-tracks, /etc/init.d/foi-purge-varnish
-
+    alaveteli ALL = NOPASSWD: /etc/init.d/foi-alert-tracks, /etc/init.d/foi-purge-varnish
 
 ## Configure the web server
 
