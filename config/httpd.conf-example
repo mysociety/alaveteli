@@ -129,7 +129,7 @@
     </IfModule>
 
     # Include optional configuration
-    Include vhost.d/alaveteli
+    Include vhost.d/alaveteli/*.conf
 
 </VirtualHost>
 
