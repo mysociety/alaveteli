@@ -146,19 +146,15 @@ Create `/etc/exim4/conf.d/main/04_alaveteli_options` with the command:
     extract_addresses_remove_arguments=false
     EOF
 
-This sets up `ALAVETELI_HOME` and `ALAVETELI_USER` for use in other config files, and sets up logging. The `ALAVETELI_HOME` variable should be set to the directory where Alaveteli is installed. `ALAVETELI_USER` should be the Unix user that is going to run your site. They should have write permissions on `ALAVETELI_HOME`.
+This sets up `ALAVETELI_HOME` and `ALAVETELI_USER` for use in other config files, and sets up logging.
+
+- **`ALAVETELI_HOME`:** set to the directory where Alaveteli is installed.
+- **`ALAVETELI_USER`:** should be the Unix user that is going to run your site. They should have write permissions on `ALAVETELI_HOME`.
+- **`log_file_path`:** The name and location of the log files created by Exim must match what the `load-mail-server-logs` script expects
+- **`MAIN_LOG_SELECTOR`:** The `check-recent-requests-sent` scripts expects the logs to contain the `from=<...>` envelope information, so we make the logs more verbose
+- **`extract_addresses_remove_arguments`:** setting to `false` gets exim to treat the `-t` command line option that the `mail` gem uses when specifying delivery addresses on the command line as specifying that the addresses should be added, not removed. See [this `mail` issue](https://github.com/mikel/mail/issues/70) for more details.
 
 Note that if you are editing an existing exim config that restricts the `untrusted_set_sender` option, you will need also to add `ALAVETELI_USER` to the `trusted_users` list in order to allow them to set the return path on outgoing mail. This option is in `/etx/exim4/conf.d/main/02_exim4-config_options` in a split config.
-
-The name and location of the log files created by Exim must match what the
-`load-mail-server-logs` script expects, which is why you must provide the
-`log_file_path` setting.
-
-The `check-recent-requests-sent` scripts expects the logs to contain the
-`from=<...>` envelope information, so we make the logs more verbose with
-`MAIN_LOG_SELECTOR`.
-
-Setting `extract_addresses_remove_arguments` to `false` gets exim to treat the `-t` command line option that the `mail` gem uses when specifying delivery addresses on the command line as specifying that the addresses should be added, not removed. See [this `mail` issue](https://github.com/mikel/mail/issues/70) for more details.
 
 #### Pipe incoming mail for requests from Exim to Alaveteli
 
