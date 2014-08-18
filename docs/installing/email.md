@@ -205,8 +205,10 @@ _Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if requi
 
 To set up recipient groups for the `team@` and `user-support@` email addresses at your domain, add alias records for them in `/var/www/alaveteli/config/aliases`
 
+    cat >> /var/www/alaveteli/config/aliases <<EOF
     team: user@example.com, otheruser@example.com
     user-support: team
+    EOF
 
 #### Discard unwanted incoming email
 
