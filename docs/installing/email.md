@@ -237,11 +237,22 @@ _Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if requi
 
 #### Filter incoming messages to admin addresses
 
-As described in ['Other mail']({{site.baseurl}}docs/installing/email#other-mail) you can make use of the script that filters mail to [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email) and [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email) for bounce messages before delivering it to your admin team.
-To do this, for a `general.yml` file
-that sets those addresses to `user-support@example.com` and
-[`FORWARD_NONBOUNCE_RESPONSES_TO`]({{site.baseurl}}docs/customising/config/#forward_nonbounce_responses_to) to
-`team@example.com`, update the `user-support` line in  `/var/www/alaveteli/config/aliases`:
+You can make use of Alaveteli's [automatic bounce handling]({{site.baseurl}}docs/installing/email/#automatic-bounce-handling-optional) to filter bounces sent to [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email)
+and [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email). 
+
+<div class="attention-box">
+This guide assumes you have set the following in <code>config/general.yml</code>:
+
+  <ul>
+    <li><a href="{{site.baseurl}}docs/customising/config/#contact_email">CONTACT_EMAIL</a>: <code>user-support@example.com</code></li>
+    <li><a href="{{site.baseurl}}docs/customising/config/#track_sender_email">TRACK_SENDER_EMAIL</a>: <code>user-support@example.com</code></li>
+    <li><a href="{{site.baseurl}}docs/customising/config/#forward_nonbounce_responses_to">FORWARD_NONBOUNCE_RESPONSES_TO</a>: <code>team@example.com</code></li>
+  </ul>
+
+Change the examples below to the addresses you have configured.
+</div>
+
+Change the `user-support` line in `/var/www/alaveteli/config/aliases`:
 
     user-support:     |/var/www/alaveteli/script/handle-mail-replies
 
