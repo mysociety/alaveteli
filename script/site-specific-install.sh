@@ -83,7 +83,7 @@ Pin-Priority: 50
 EOF
 
 # Get the key for the mysociety ubuntu alaveteli repo
-apt-get install python-software-properties
+apt-get install -y python-software-properties
 add-apt-repository -y ppa:mysociety/alaveteli
 
 apt-get -qq update
