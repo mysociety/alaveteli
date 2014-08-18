@@ -223,14 +223,17 @@ To set up recipient groups for the `team@` and `user-support@` email addresses a
     team: user@example.com, otheruser@example.com
     user-support: team
 
-You should also configure exim to discard any messages sent to the
-[`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix)
-address, whose default value is
-`do-not-reply-to-this-address`. For example, add the following to
-`config/aliases`:
+#### Discard unwanted incoming email
 
-    # We use this for envelope from for some messages where we don't care about delivery
+Configure exim to discard any messages sent to the [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix) address, whose default value is `do-not-reply-to-this-address`
+
+    cat >> /var/www/alaveteli/config/aliases <<EOF
+    # We use this for envelope from for some messages where
+    # we don't care about delivery
     do-not-reply-to-this-address:        :blackhole:
+    EOF
+
+_Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if required.
 
 #### Filter incoming messages to admin addresses
 
