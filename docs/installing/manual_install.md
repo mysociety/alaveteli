@@ -282,7 +282,7 @@ to the test config in `database.yml` (as seen in `database.yml-example`)
 
 You will need to set up an email server (MTA) to send and receive emails. Full
 configuration for an MTA is beyond the scope of this document -- see this
-[example config for Exim4]({{ site.baseurl }}docs/installing/email/).
+[example configs for Exim4 and Postfix]({{ site.baseurl }}docs/installing/email/).
 
 Note that in development mode mail is handled by mailcatcher by default so
 that you can see the mails in a browser - see [http://mailcatcher.me/](http://mailcatcher.me/) for more
@@ -552,9 +552,9 @@ Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
     First, you need to check that your MTA is delivering relevant
     incoming emails to the `script/mailin` command.  There are various
     ways of setting your MTA up to do this; we have documented
-    [one way of doing it]({{ site.baseurl }}docs/installing/email/#troubleshooting-exim)
-    in Exim, including a command you can use to check that the email
-    routing is set up correctly.
+    one way of doing it
+    [in Exim]({{ site.baseurl }}docs/installing/email/#example-setup-on-exim4), including [a command you can use]({{ site.baseurl }}docs/installing/email/#troubleshooting-exim) to check that the email
+    routing is set up correctly. We've also documented one way of setting up [Postfix]({{ site.baseurl }}docs/installing/email/#example-setup-on-postfix), with a similar [debugging command]({{ site.baseurl }}docs/installing/email/#troubleshooting-postfix).
 
     Second, you need to test that the mailin script itself is working
     correctly, by running it from the command line, First, find a

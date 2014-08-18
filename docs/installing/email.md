@@ -11,6 +11,70 @@ title: Installing MTA
   here for both postfix and exim4, two of the most popular MTAs.
 </p>
 
+## How Alaveteli handles email
+
+### Request mail
+
+When someone makes a Freedom of Information request to an authority through
+Alaveteli, the application sends an email containing the request to the authority.
+
+The email's `reply-to` address is a special one so that any replies to it
+can be automatically directed back to Alaveteli, and so that Alaveteli
+can tell which request the reply needs to be shown with. This requires
+some configuration of the MTA on the server that is running Alaveteli,
+so that it will pipe all emails to these special addresses to Alaveteli
+to handle, via its `script/mailin` script. The special addresses are of
+the form:
+
+    <foi+request-3-691c8388@example.com>
+
+Parts of this address are controlled with options in
+`config/general.yml`:
+
+    INCOMING_EMAIL_PREFIX = 'foi+'
+    INCOMING_EMAIL_DOMAIN = 'example.com'
+
+If there is some error inside Rails while processing an email,  an exit code `75` is returned to the MTA by the `script/mailin` script. Postfix and Exim (and maybe others) take this  as a signal for the MTA to try again later. Additionally, a stacktrace is emailed to `CONTACT_EMAIL`.
+
+[Production]({{ site.baseurl }}/docs/glossary/#production) installs of Alaveteli should make a backup copy of emails sent to the special addresses. You can configure your chosen MTA to backup these in a separate mailbox.
+
+### Transactional mail
+
+Alaveteli also sends emails to users about their requests – letting them know when someone has replied to them, or prompting them to take further action.
+
+Configure the address that these messages are sent from in the [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email) option in `config/general.yml`:
+
+    CONTACT_EMAIL = 'team@example.com'
+
+The address in [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) is also visible in various places on the site so that users can get in touch with the team that runs the site.
+
+You must configure your MTA to deliver mail sent to these addresses to the administrators of your site so that they can respond to it.
+
+### Tracks mail
+
+Users subscribed to updates from the site – known as `tracks` – receive emails when there is something new of interest to them on the site.
+
+Configure the address that these messages are sent from in the [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email) option in `config/general.yml`:
+
+    TRACK_SENDER_EMAIL = 'track@example.com'
+
+### Automatic bounce handling (optional)
+
+As [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) and [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email) appear in the `From:` header of emails sent from Alaveteli, they sometimes receive reply emails, including <a href="{{ site.baseurl }}docs/glossary/#bounce-message">bounce messages</a> and ‘out of office’ notifications.
+
+Alaveteli provides a script (`script/handle-mail-replies`) that handles bounce messages and ‘out of office’ notifications and forwards genuine mails to your administrators.
+
+It also prevents further track emails being sent to a user email address that appears to have a permanent delivery problem.
+
+To make use of automatic bounce-message handling, set [`TRACK_SENDER_EMAIL`]({{ site.baseurl }}docs/customising/config/#track_sender_email) and [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) to an address that you will filter through `script/handle-mail-replies`. Messages that are not bounces or out-of-office autoreplies will be forwarded to [`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ site.baseurl }}docs/customising/config/#forward_nonbounce_responses_to), which you should set to a mail alias that points at your list of site administrators.
+
+See the MTA-specific instructions for how to do this for [exim]({{ site.baseurl }}docs/installing/email#filter-incoming-messages-to-admin-addresses) and [postfix]({{ site.baseurl }}docs/installing/email#filter-incoming-messages-to-site-admin-addresses).
+
+_Note:_ Bounce handling is not applied to [request emails]({{ site.baseurl }}docs/installing/email#request-mail). Bounce messages from authorities get added to the request page so that the user can see what has happened. Users can ask site admins for help redelivering the request if necessary.
+
+
+---
+
 Make sure you follow the correct instructions for the specific MTA you're using:
 
 * [postfix](#example-setup-on-postfix)
@@ -19,54 +83,199 @@ Make sure you follow the correct instructions for the specific MTA you're using:
 ## Example setup on postfix
 
 This section shows an example of how to set up your MTA if you're using
-**postfix** (running on Ubuntu). See the example for
+**postfix**. See the example for
 [exim4](#example-setup-on-exim4) if you're using that instead of postfix.
 
-### Instructions
+### Install postfix
 
-For example, with:
+    # Install debconf so we can configure non-interactively
+    apt-get -qq install -y debconf >/dev/null
 
-    ALAVETELI_HOME=/path/to/alaveteli/software
-    ALAVETELI_USER=www-data
+    # Set the default configuration 'Internet Site'
+    echo postfix postfix/main_mailer_type select 'Internet Site' | debconf-set-selections
 
-In `/etc/postfix/master.cf`:
+    # Set your hostname (change example.com to your hostname)
+    echo postfix postfix/mail_name string "example.com" | debconf-set-selections
 
+    # Install postfix
+    DEBIAN_FRONTEND=noninteractive apt-get -qq -y install postfix >/dev/null
+
+### Configure postfix
+
+
+#### Pipe incoming mail for requests into Alaveteli
+
+If the Unix user that is going to
+run your site is `alaveteli`, and the directory where Alaveteli is installed is
+`/var/www/alaveteli`, create the pipe that will receive request mail:
+
+    cat >> /etc/postfix/master.cf <<EOF
     alaveteli unix  - n n - 50 pipe
-      flags=R user=ALAVETELI_USER argv=ALAVETELI_HOME/script/mailin
+      flags=R user=alaveteli argv=/var/www/alaveteli/script/mailin
+    EOF
 
-The user ALAVETELI_USER should have write permissions on ALAVETELI_HOME.
+The Unix user should have write permissions on the directory where Alaveteli is installed.
 
-In `/etc/postfix/main.cf`:
+Configure postfix to accept messages for local delivery where
+recipients are:
 
-    virtual_alias_maps = regexp:/etc/postfix/regexp
+  - defined by a regular expression in `/etc/postfix/transports`
+  - local UNIX accounts
+  - local aliases specified as regular expressions in `/etc/postfix/recipients`
 
-And, assuming you set
-[`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}docs/customising/config/#incoming_email_prefix)
-in `config/general` to "foi+", create `/etc/postfix/regexp` with the following
-content:
+<!-- Comment to enable markdown to render code fence under list -->
 
-    /^foi.*/  alaveteli
+    cat >> /etc/postfix/main.cf <<EOF
+    transport_maps = regexp:/etc/postfix/transports
+    local_recipient_maps = proxy:unix:passwd.byname regexp:/etc/postfix/recipients
+    EOF
 
-You should also configure postfix to discard any messages sent to the
-[`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix)
-address, whose default value is `do-not-reply-to-this-address`. For example, add the
-following to `/etc/aliases`:
+In `/etc/postfix/main.cf` update the `mydestination` line (which determines what domains this machine will deliver locally). Add your domain, not `example.com`, to the beginning of the list:
 
+    mydestination = example.com, localhost.localdomain, localhost
+
+<div class="attention-box">
+This guide assumes you have set <a href="{{ site.baseurl }}docs/customising/config/#incoming_email_prefix"><code>INCOMING_EMAIL_PREFIX</code></a> to <code>foi+</code> in <code>config/general.yml</code>
+</div>
+
+Pipe all incoming mail where the `To:` address starts with `foi+` to the `alaveteli` pipe (`/var/www/alaveteli/script/mailin`, as specified in `/etc/postfix/master.cf` at the start of this section):
+
+    cat > /etc/postfix/transports <<EOF
+    /^foi.*/                alaveteli
+    EOF
+
+#### Backup request mail
+
+You can copy all incoming mail to Alaveteli to a backup account to a separate mailbox, just in case.
+
+Create a UNIX user `backupfoi`
+
+    adduser --quiet --disabled-password \
+      --gecos "Alaveteli Mail Backup" backupfoi
+
+Add the following line to `/etc/postfix/main.cf`
+
+    recipient_bcc_maps = regexp:/etc/postfix/recipient_bcc
+
+Configure mail sent to an `foi+` prefixed address to be sent to the backup user:
+
+    cat > /etc/postfix/recipient_bcc <<EOF
+    /^foi.*/                backupfoi
+    EOF
+
+
+#### Define the valid recipients for your domain
+
+Create `/etc/postfix/recipients` with the following command:
+
+    cat > /etc/postfix/recipients <<EOF
+    /^foi.*/                this-is-ignored
+    /^postmaster@/          this-is-ignored
+    /^user-support@/        this-is-ignored
+    /^team@/                this-is-ignored
+    EOF
+
+The left-hand column of this file specifies regular expressions that
+define addresses that mail will be accepted for. The values on the
+right-hand side are ignored by postfix. Here we allow postfix to accept
+mails to special Alaveteli addresses, and `postmaster@example.com`,
+`user-support@example.com` and `team@example.com`.
+
+The `@example.com` domain is set in the `mydestination` as above. This should be set to your actual domain.
+
+#### Set up contact email recipient groups
+
+To set up recipient groups for the `postmaster@`, `team@` and `user-support@` email addresses at your domain, add alias records for them in `/etc/aliases`:
+
+    cat >> /etc/aliases <<EOF
+    team: user@example.com, otheruser@example.com
+    user-support: team
+    EOF
+
+#### Discard unwanted incoming email
+
+Configure postfix to discard any messages sent to the [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix) address, whose default value is `do-not-reply-to-this-address`:
+
+    cat >> /etc/aliases <<EOF
     # We use this for envelope from for some messages where
     # we don't care about delivery
-    do-not-reply-to-this-address:        :blackhole:
+    do-not-reply-to-this-address:        /dev/null
+    EOF
 
-### Logging
+If you have set [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix) address, replace `do-not-reply-to-this-address` with the address you have configured.
 
-For the postfix logs to be succesfully read by the script `load-mail-server-logs`, they need
-to be log rotated with a date in the filename. Since that will create a lot of rotated log
-files (one for each day), it's good to have them in their own directory. For example (on Ubuntu),
-in `/etc/rsyslog.d/50-default.conf` set:
+#### Filter incoming messages to site admin addresses
+
+You can make use of Alaveteli's [automatic bounce handling]({{site.baseurl}}docs/installing/email/#automatic-bounce-handling-optional) to filter bounces sent to [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email)
+and [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email). 
+
+
+<div class="attention-box">
+This guide assumes you have set the following in <code>config/general.yml</code>:
+
+  <ul>
+    <li><a href="{{site.baseurl}}docs/customising/config/#contact_email">CONTACT_EMAIL</a>: <code>user-support@example.com</code></li>
+    <li><a href="{{site.baseurl}}docs/customising/config/#track_sender_email">TRACK_SENDER_EMAIL</a>: <code>user-support@example.com</code></li>
+    <li><a href="{{site.baseurl}}docs/customising/config/#forward_nonbounce_responses_to">FORWARD_NONBOUNCE_RESPONSES_TO</a>: <code>team@example.com</code></li>
+  </ul>
+
+Change the examples below to the addresses you have configured.
+</div>
+
+Create a new pipe to handle replies:
+
+    cat >> /etc/postfix/master.cf <<EOF
+    alaveteli_replies unix  - n n - 50 pipe
+      flags=R user=alaveteli argv=/var/www/alaveteli/script/handle-mail-replies
+    EOF
+
+_Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if required.
+
+Pipe mail sent to `user-support@example.com` to the `alaveteli_replies` pipe:
+
+    cat >> /etc/postfix/transports <<EOF
+    /^user-support@*/                alaveteli_replies
+    EOF
+
+Finally, edit `/etc/aliases` to remove `user-support`:
+
+    team: user@example.com, otheruser@example.com
+
+#### Logging
+
+For the postfix logs to be successfully read by
+`script/load-mail-server-logs`, they need to be log rotated with a date in the
+filename. Since that will create a lot of rotated log files (one for
+each day), it's good to have them in their own directory.
+
+You'll also need to tell Alaveteli where the log files are stored and that they're in postfix
+format. Update
+[`MTA_LOG_PATH`]({{ site.baseurl }}docs/customising/config/#mta_log_path) and
+[`MTA_LOG_TYPE`]({{ site.baseurl }}docs/customising/config/#mta_log_type) in `config/general.yml`:
+
+    MTA_LOG_PATH: '/var/log/mail/mail.log-*'
+    MTA_LOG_TYPE: "postfix"
+
+Configure postfix to log to its own directory:
+
+##### Debian
+
+In `/etc/rsyslog.conf`, set:
 
     mail.*                  -/var/log/mail/mail.log
 
-And also edit `/etc/logrotate.d/rsyslog`:
 
+##### Ubuntu
+
+In `/etc/rsyslog.d/50-default.conf` set:
+
+    mail.*                  -/var/log/mail/mail.log
+
+##### Configure logrotate
+
+Configure logrotate to rotate the log files in the required format:
+
+    cat >> /etc/logrotate.d/rsyslog <<EOF
     /var/log/mail/mail.log
     {
           rotate 30
@@ -81,28 +290,53 @@ And also edit `/etc/logrotate.d/rsyslog`:
                   reload rsyslog >/dev/null 2>&1 || true
           endscript
     }
+    EOF
 
-You'll also need to tell Alaveteli where the log files are stored and that they're in postfix
-format. Update
-[`MTA_LOG_PATH`]({{ site.baseurl }}docs/customising/config/#mta_log_path) and
-[`MTA_LOG_TYPE`]({{ site.baseurl }}docs/customising/config/#mta_log_type) in `config/general.yml` with:
+#### Making the changes live
 
-    MTA_LOG_PATH: '/var/log/mail/mail.log-*'
-    MTA_LOG_TYPE: "postfix"
+As the root user, make all these changes live with the following commands:
 
-### Troubleshooting (postfix)
+    service rsyslog restart
+
+    newaliases
+    postmap /etc/postfix/transports
+    postmap /etc/postfix/recipients
+    postmap /etc/postfix/recipient_bcc
+    postfix reload
+
+#### Troubleshooting (postfix)
 
 To test mail delivery, run:
 
-    $ /usr/sbin/sendmail -bv foi+requrest-1234@localhost
+    $ /usr/sbin/sendmail -bv foi+request-1234@example.com
 
-This tells you if sending the emails to `foi\+.*localhost` is working.
+Make sure to replace `example.com` with your domain. This command tells
+you if sending the emails to `foi\+.*example.com` and the backup account
+is working (it doesn't actually send any mail). If it is working, you
+should receive a delivery report email, with text like:
+
+    <foi+request-1234@example.com>: delivery via alaveteli:
+delivers to command: /var/www/alaveteli/script/mailin
+    <backupfoi@local.machine.name>: delivery via local: delivers to  mailbox
+
+You can also test the other aliases you have set up for your domain in
+this section to check that they will deliver mail as you expect. For
+example, you can test bounce message routing in the same way - the text
+of this delivery report mail should read something like:
+
+    <user-support@example.com>: delivery via alaveteli_replies: delivers to command: /var/www/alaveteli/script/handle-mail-replies
+
+
+Note that you may need to install the `mailutils` package to read the
+delivery report email using the `mail` command on a new server:
+
+    apt-get install mailutils
 
 
 ## Example setup on exim4
 
 This section shows an example of how to set up your MTA if you're using
-**exim4** (running on Ubuntu). See the example for
+**exim4**. See the example for
 [postfix](#example-setup-on-postfix) if you're using that instead of exim4.
 
 
