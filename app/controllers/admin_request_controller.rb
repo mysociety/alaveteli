@@ -101,7 +101,7 @@ class AdminRequestController < AdminController
         # expire cached files
         expire_for_request(@info_request)
         email = user.try(:email) ? user.email : 'This request is external so has no associated user'
-        flash[:notice] = "Request #{url_title} has been completely destroyed. Email of user who made request: " + email
+        flash[:notice] = "Request #{ url_title } has been completely destroyed. Email of user who made request: #{ email }"
         redirect_to admin_request_list_url
     end
 
