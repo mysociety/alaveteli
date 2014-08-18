@@ -148,7 +148,17 @@ Create `/etc/exim4/conf.d/main/04_alaveteli_options` with the command:
 
 This sets up `ALAVETELI_HOME` and `ALAVETELI_USER` for use in other config files, and sets up logging. The `ALAVETELI_HOME` variable should be set to the directory where Alaveteli is installed. `ALAVETELI_USER` should be the Unix user that is going to run your site. They should have write permissions on `ALAVETELI_HOME`.
 
-Note: If you are editing an existing exim config rather than creating a new one, check the `untrusted_set_sender` option in  `/etc/exim4/conf.d/main/02_exim4-config_options`. By default, untrusted users in exim are only allowed to set an empty envelope sender address, to declare that a message should never generate any bounces. `untrusted_set_sender` can be set to a list of address patterns, meaning that  untrusted users are allowed to set envelope sender addresses that match any of the patterns in the list. If a pattern list is specified,  you will need also to add `ALAVETELI_USER` to the `trusted_users` list in order to allow them to set the return path on outgoing mail. This option is also in `/etc/exim4/conf.d/main/02_exim4-config_options` in a split config. If `untrusted_set_sender` is set to `*`, that means that untrusted users can set envelope sender addresses without restriction, so there's no need to add `ALAVETELI_USER` to the `trusted_users` list.
+<div class="attention-box">
+Note: If you are editing an existing exim config rather than creating a new one, check the <code>untrusted_set_sender</code> option in  <code>/etc/exim4/conf.d/main/02_exim4-config_options</code>. By default, untrusted users in exim are only allowed to set an empty envelope sender address, to declare that a message should never generate any bounces. <code>untrusted_set_sender</code> can be set to a list of address patterns, meaning that  untrusted users are allowed to set envelope sender addresses that match any of the patterns in the list. If a pattern list is specified,  you will need also to add <code>ALAVETELI_USER</code> to the <code>MAIN_TRUSTED_USERS</code> list in order to allow them to set the return path on outgoing mail. This option is also in <code>/etc/exim4/conf.d/main/02_exim4-config_options</code> in a split config. Look for the line that begins with <code>MAIN_TRUSTED_USERS</code> - something like:
+
+    <pre><code>MAIN_TRUSTED_USERS = uucp</code></pre>
+
+and add the alaveteli user:
+
+    <pre><code>MAIN_TRUSTED_USERS = uucp : alaveteli</code></pre>
+
+ If <code>untrusted_set_sender</code> is set to <code>*</code>, that means that untrusted users can set envelope sender addresses without restriction, so there's no need to add <code>ALAVETELI_USER</code> to the <code>MAIN_TRUSTED_USERS</code> list.
+</div>
 
 The name and location of the log files created by Exim must match what the
 `load-mail-server-logs` script expects, which is why you must provide the
