@@ -154,7 +154,7 @@ This sets up `ALAVETELI_HOME` and `ALAVETELI_USER` for use in other config files
 - **`MAIN_LOG_SELECTOR`:** The `check-recent-requests-sent` scripts expects the logs to contain the `from=<...>` envelope information, so we make the logs more verbose
 - **`extract_addresses_remove_arguments`:** setting to `false` gets exim to treat the `-t` command line option that the `mail` gem uses when specifying delivery addresses on the command line as specifying that the addresses should be added, not removed. See [this `mail` issue](https://github.com/mikel/mail/issues/70) for more details.
 
-Note that if you are editing an existing exim config that restricts the `untrusted_set_sender` option, you will need also to add `ALAVETELI_USER` to the `trusted_users` list in order to allow them to set the return path on outgoing mail. This option is in `/etc/exim4/conf.d/main/02_exim4-config_options` in a split config.
+Note that if you are editing an existing exim config that restricts the `untrusted_set_sender` option, you will need also to add `ALAVETELI_USER` to the `trusted_users` list in order to allow them to set the return path on outgoing mail. These options are in `/etc/exim4/conf.d/main/02_exim4-config_options` in a split config.
 
 #### Pipe incoming mail for requests from Exim to Alaveteli
 
