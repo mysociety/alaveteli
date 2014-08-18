@@ -769,11 +769,6 @@ and enable the server
   <strong>Note:</strong> For historical reasons, <code>nginx-ssl.conf-example</code> has the path to Alaveteli set as <code>/var/www/alaveteli/alaveteli</code> – you will need to manually change this to <code>/var/www/alaveteli</code>, or to the root of your Alaveteli install
 </div>
 
-<!-- Force HTTPS requests from the HTTP VirtualHost
-
-    cp /var/www/alaveteli/config/httpd-force-ssl.conf-example \
-      /etc/apache2/vhost.d/alaveteli/force-ssl.conf -->
-
 If you are testing Alaveteli or setting up an internal staging site, generate
 self-signed SSL certificates. **Do not use self-signed certificates for a
 production server**. Replace `www.example.com` with your domain name.
