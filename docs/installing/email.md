@@ -247,7 +247,7 @@ Change the `user-support` line in `/var/www/alaveteli/config/aliases`:
 
 #### Making the changes live in exim
 
-Finally, execute the command:
+Finally, execute the commands:
 
     update-exim4.conf
     service exim4 restart
