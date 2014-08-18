@@ -732,6 +732,10 @@ Copy the example nginx config
     cp /var/www/alaveteli/config/nginx.conf.example \
       /etc/nginx/sites-available/alaveteli
 
+<div class="attention-box">
+  <strong>Note:</strong> For historical reasons, <code>nginx.conf.example</code> has the path to Alaveteli set as <code>/var/www/alaveteli/alaveteli</code> – you will need to manually change this to <code>/var/www/alaveteli</code>, or to the root of your Alaveteli install
+</div>
+
 Disable the default site and enable the `alaveteli` server
 
     rm /etc/nginx/sites-enabled/default
@@ -760,6 +764,10 @@ and enable the server
       /etc/nginx/sites-available/alaveteli_https
     ln -s /etc/nginx/sites-available/alaveteli_https \
       /etc/nginx/sites-enabled/alaveteli_https
+
+<div class="attention-box">
+  <strong>Note:</strong> For historical reasons, <code>nginx-ssl.conf-example</code> has the path to Alaveteli set as <code>/var/www/alaveteli/alaveteli</code> – you will need to manually change this to <code>/var/www/alaveteli</code>, or to the root of your Alaveteli install
+</div>
 
 <!-- Force HTTPS requests from the HTTP VirtualHost
 
