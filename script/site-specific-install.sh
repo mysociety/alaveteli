@@ -32,6 +32,65 @@ misuse() {
 
 update_mysociety_apt_sources
 
+# Debian Squeeze Fixes
+if [ x"$DISTRIBUTION" = x"debian" ] && [ x"$DISTVERSION" = x"squeeze" ]
+then
+  # Add wheezy repo to get bundler
+  cat > /etc/apt/sources.list.d/debian-wheezy.list <<EOF
+deb http://the.earth.li/debian/ wheezy main contrib non-free
+EOF
+
+  # Get bundler from wheezy repo and de-prioritise all other
+  # wheezy packages
+  cat >> /etc/apt/preferences <<EOF
+
+Package: bundler
+Pin: release n=wheezy
+Pin-Priority: 990
+
+Package: *
+Pin: release n=wheezy
+Pin-Priority: 50
+EOF
+
+apt-get -qq update
+fi
+
+# Ubuntu Precise Fixes
+if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"precise" ]
+then
+  cat > /etc/apt/sources.list.d/ubuntu-trusty.list <<EOF
+deb http://archive.ubuntu.com/ubuntu/ trusty universe
+deb-src http://archive.ubuntu.com/ubuntu/ trusty universe
+EOF
+
+  cat > /etc/apt/sources.list.d/mysociety-launchpad.list <<EOF
+deb http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
+deb-src http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
+EOF
+
+  # Get bundler from trusty and de-prioritise all other
+  # trusty packages
+  cat >> /etc/apt/preferences <<EOF
+
+Package: ruby-bundler
+Pin: release n=trusty
+Pin-Priority: 990
+
+Package: *
+Pin: release n=trusty
+Pin-Priority: 50
+EOF
+
+# Get the key for the mysociety ubuntu alaveteli repo
+apt-get install -y python-software-properties
+add-apt-repository -y ppa:mysociety/alaveteli
+
+apt-get -qq update
+fi
+
+apt-get -y update
+
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
     install_nginx
     add_website_to_nginx
