@@ -146,7 +146,13 @@ Create `/etc/exim4/conf.d/main/04_alaveteli_options` with the command:
     extract_addresses_remove_arguments=false
     EOF
 
-This sets up `ALAVETELI_HOME` and `ALAVETELI_USER` for use in other config files, and sets up logging. The `ALAVETELI_HOME` variable should be set to the directory where Alaveteli is installed. `ALAVETELI_USER` should be the Unix user that is going to run your site. They should have write permissions on `ALAVETELI_HOME`.
+This sets up `ALAVETELI_HOME` and `ALAVETELI_USER` for use in other config files, and sets up logging.
+
+- **`ALAVETELI_HOME`:** set to the directory where Alaveteli is installed.
+- **`ALAVETELI_USER`:** should be the Unix user that is going to run your site. They should have write permissions on `ALAVETELI_HOME`.
+- **`log_file_path`:** The name and location of the log files created by Exim must match what the `load-mail-server-logs` script expects
+- **`MAIN_LOG_SELECTOR`:** The `check-recent-requests-sent` scripts expects the logs to contain the `from=<...>` envelope information, so we make the logs more verbose
+- **`extract_addresses_remove_arguments`:** setting to `false` gets exim to treat the `-t` command line option that the `mail` gem uses when specifying delivery addresses on the command line as specifying that the addresses should be added, not removed. See [this `mail` issue](https://github.com/mikel/mail/issues/70) for more details.
 
 <div class="attention-box">
 Note: If you are editing an existing exim config rather than creating a new one, check the <code>untrusted_set_sender</code> option in  <code>/etc/exim4/conf.d/main/02_exim4-config_options</code>. By default, untrusted users in exim are only allowed to set an empty envelope sender address, to declare that a message should never generate any bounces. <code>untrusted_set_sender</code> can be set to a list of address patterns, meaning that  untrusted users are allowed to set envelope sender addresses that match any of the patterns in the list. If a pattern list is specified,  you will need also to add <code>ALAVETELI_USER</code> to the <code>MAIN_TRUSTED_USERS</code> list in order to allow them to set the return path on outgoing mail. This option is also in <code>/etc/exim4/conf.d/main/02_exim4-config_options</code> in a split config. Look for the line that begins with <code>MAIN_TRUSTED_USERS</code> - something like:
@@ -159,16 +165,6 @@ and add the alaveteli user:
 
  If <code>untrusted_set_sender</code> is set to <code>*</code>, that means that untrusted users can set envelope sender addresses without restriction, so there's no need to add <code>ALAVETELI_USER</code> to the <code>MAIN_TRUSTED_USERS</code> list.
 </div>
-
-The name and location of the log files created by Exim must match what the
-`load-mail-server-logs` script expects, which is why you must provide the
-`log_file_path` setting.
-
-The `check-recent-requests-sent` scripts expects the logs to contain the
-`from=<...>` envelope information, so we make the logs more verbose with
-`MAIN_LOG_SELECTOR`.
-
-Setting `extract_addresses_remove_arguments` to `false` gets exim to treat the `-t` command line option that the `mail` gem uses when specifying delivery addresses on the command line as specifying that the addresses should be added, not removed. See [this `mail` issue](https://github.com/mikel/mail/issues/70) for more details.
 
 #### Pipe incoming mail for requests from Exim to Alaveteli
 
@@ -238,7 +234,7 @@ _Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if requi
 #### Filter incoming messages to admin addresses
 
 You can make use of Alaveteli's [automatic bounce handling]({{site.baseurl}}docs/installing/email/#automatic-bounce-handling-optional) to filter bounces sent to [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email)
-and [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email). 
+and [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email).
 
 <div class="attention-box">
 This guide assumes you have set the following in <code>config/general.yml</code>:
