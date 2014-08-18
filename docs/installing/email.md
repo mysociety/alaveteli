@@ -193,16 +193,17 @@ Create `/etc/exim4/conf.d/transport/04_alaveteli`:
        group = ALAVETELI_USER
     EOF
 
-And, assuming you set
-[`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}docs/customising/config/#incoming_email_prefix)
-in your config at `config/general.yml` to "foi+", create `config/aliases` with the following
-command:
+<div class="attention-box">
+  This guide assumes you have set <a href="/docs/customising/config/#incoming_email_prefix"><code>INCOMING_EMAIL_PREFIX</code></a> to <code>foi+</code> in <code>config/general.yml</code>
+</div>
+
+Create the `config/aliases` file that the `alaveteli_request` exim router sources. This pipes mail from the special address to `script/mailin` and the `backupfoi` user.
 
     cat > /var/www/alaveteli/config/aliases <<'EOF'
     ^foi\\+.*: "|/var/www/alaveteli/script/mailin", backupfoi
     EOF
 
-That's assuming that Alaveteli is running from `/var/www/alaveteli`. If it isn't, substitute the path it is running from.
+_Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if required.
 
 #### Set up your contact email recipient groups
 
