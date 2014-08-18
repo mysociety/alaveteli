@@ -146,25 +146,28 @@ Create `/etc/exim4/conf.d/main/04_alaveteli_options` with the command:
     extract_addresses_remove_arguments=false
     EOF
 
-This sets up `ALAVETELI_HOME` and `ALAVETELI_USER` for use in other config files, and sets up logging. The `ALAVETELI_HOME` variable should be set to the directory where Alaveteli is installed. `ALAVETELI_USER` should be the Unix user that is going to run your site. They should have write permissions on `ALAVETELI_HOME`.
+This sets up `ALAVETELI_HOME` and `ALAVETELI_USER` for use in other config files, and sets up logging.
 
-Note that if you are editing an existing exim config that restricts the `untrusted_set_sender` option, you will need also to add `ALAVETELI_USER` to the `trusted_users` list in order to allow them to set the return path on outgoing mail. This option is in `/etx/exim4/conf.d/main/02_exim4-config_options` in a split config.
+- **`ALAVETELI_HOME`:** set to the directory where Alaveteli is installed.
+- **`ALAVETELI_USER`:** should be the Unix user that is going to run your site. They should have write permissions on `ALAVETELI_HOME`.
+- **`log_file_path`:** The name and location of the log files created by Exim must match what the `load-mail-server-logs` script expects
+- **`MAIN_LOG_SELECTOR`:** The `check-recent-requests-sent` scripts expects the logs to contain the `from=<...>` envelope information, so we make the logs more verbose
+- **`extract_addresses_remove_arguments`:** setting to `false` gets exim to treat the `-t` command line option that the `mail` gem uses when specifying delivery addresses on the command line as specifying that the addresses should be added, not removed. See [this `mail` issue](https://github.com/mikel/mail/issues/70) for more details.
 
-The name and location of the log files created by Exim must match what the
-`load-mail-server-logs` script expects, which is why you must provide the
-`log_file_path` setting.
-
-The `check-recent-requests-sent` scripts expects the logs to contain the
-`from=<...>` envelope information, so we make the logs more verbose with
-`MAIN_LOG_SELECTOR`.
-
-Setting `extract_addresses_remove_arguments` to `false` gets exim to treat the `-t` command line option that the `mail` gem uses when specifying delivery addresses on the command line as specifying that the addresses should be added, not removed. See [this `mail` issue](https://github.com/mikel/mail/issues/70) for more details.
+Note that if you are editing an existing exim config that restricts the `untrusted_set_sender` option, you will need also to add `ALAVETELI_USER` to the `trusted_users` list in order to allow them to set the return path on outgoing mail. These options are in `/etc/exim4/conf.d/main/02_exim4-config_options` in a split config.
 
 #### Pipe incoming mail for requests from Exim to Alaveteli
 
 In this section, we'll add config to pipe incoming mail for special
 Alaveteli addresses into Alaveteli, and also send them to a local backup
-mailbox, just in case. Create the `backupfoi` UNIX user, and then create `/etc/exim4/conf.d/router/04_alaveteli`:
+mailbox.
+
+Create the `backupfoi` UNIX user
+
+    adduser --quiet --disabled-password \
+      --gecos "Alaveteli Mail Backup" backupfoi
+
+Add the pipe config:
 
     cat > /etc/exim4/conf.d/router/04_alaveteli <<'EOF'
     alaveteli_request:
@@ -186,46 +189,71 @@ Create `/etc/exim4/conf.d/transport/04_alaveteli`:
        group = ALAVETELI_USER
     EOF
 
-And, assuming you set
-[`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}docs/customising/config/#incoming_email_prefix)
-in your config at `config/general.yml` to "foi+", create `config/aliases` with the following
-command:
+<div class="attention-box">
+  This guide assumes you have set <a href="/docs/customising/config/#incoming_email_prefix"><code>INCOMING_EMAIL_PREFIX</code></a> to <code>foi+</code> in <code>config/general.yml</code>
+</div>
+
+Create the `config/aliases` file that the `alaveteli_request` exim router sources. This pipes mail from the special address to `script/mailin` and the `backupfoi` user.
 
     cat > /var/www/alaveteli/config/aliases <<'EOF'
     ^foi\\+.*: "|/var/www/alaveteli/script/mailin", backupfoi
     EOF
 
-That's assuming that Alaveteli is running from `/var/www/alaveteli`. If it isn't, substitute the path it is running from.
+_Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if required.
 
 #### Set up your contact email recipient groups
 
-To set up recipient groups for the `team@` and `user-support@` email addresses at your domain, add alias records for them in `/var/www/alaveteli/config/etc/aliases`
+To set up recipient groups for the `team@` and `user-support@` email addresses at your domain, add alias records for them in `/var/www/alaveteli/config/aliases`
 
+    cat >> /var/www/alaveteli/config/aliases <<EOF
     team: user@example.com, otheruser@example.com
     user-support: team
+    EOF
 
-You should also configure exim to discard any messages sent to the
-[`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix)
-address, whose default value is
-`do-not-reply-to-this-address`. For example, add the following to
-`config/aliases`:
+#### Discard unwanted incoming email
 
-    # We use this for envelope from for some messages where we don't care about delivery
+Configure exim to discard any messages sent to the [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix) address, whose default value is `do-not-reply-to-this-address`
+
+    cat >> /var/www/alaveteli/config/aliases <<EOF
+    # We use this for envelope from for some messages where
+    # we don't care about delivery
     do-not-reply-to-this-address:        :blackhole:
+    EOF
+
+_Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if required.
 
 #### Filter incoming messages to admin addresses
 
-As described in ['Other mail']({{site.baseurl}}docs/installing/email#other-mail) you can make use of the script that filters mail to [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email) and [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email) for bounce messages before delivering it to your admin team.
-To do this, for a `general.yml` file
-that sets those addresses to `user-support@example.com` and
-[`FORWARD_NONBOUNCE_RESPONSES_TO`]({{site.baseurl}}docs/customising/config/#forward_nonbounce_responses_to) to
-`team@example.com`, update the `user-support` line in  `/var/www/alaveteli/config/aliases`:
+You can make use of Alaveteli's [automatic bounce handling]({{site.baseurl}}docs/installing/email/#automatic-bounce-handling-optional) to filter bounces sent to [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email)
+and [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email). 
+
+<div class="attention-box">
+This guide assumes you have set the following in <code>config/general.yml</code>:
+
+  <ul>
+    <li><a href="{{site.baseurl}}docs/customising/config/#contact_email">CONTACT_EMAIL</a>: <code>user-support@example.com</code></li>
+    <li><a href="{{site.baseurl}}docs/customising/config/#track_sender_email">TRACK_SENDER_EMAIL</a>: <code>user-support@example.com</code></li>
+    <li><a href="{{site.baseurl}}docs/customising/config/#forward_nonbounce_responses_to">FORWARD_NONBOUNCE_RESPONSES_TO</a>: <code>team@example.com</code></li>
+  </ul>
+
+Change the examples below to the addresses you have configured.
+</div>
+
+Change the `user-support` line in `/var/www/alaveteli/config/aliases`:
 
     user-support:     |/var/www/alaveteli/script/handle-mail-replies
 
+#### Logging
+
+You’ll need to tell Alaveteli where the log files are stored and that they’re in exim format. Update [`MTA_LOG_PATH`]({{ site.baseurl }}docs/customising/config/#mta_log_path) and [`MTA_LOG_TYPE`]({{ site.baseurl }}docs/customising/config/#mta_log_type) in `config/general.yml`:
+
+    MTA_LOG_PATH: '/var/log/exim4/exim-mainlog-*'
+    MTA_LOG_TYPE: 'exim'
+
+
 #### Making the changes live in exim
 
-Finally, execute the command:
+Finally, execute the commands:
 
     update-exim4.conf
     service exim4 restart
