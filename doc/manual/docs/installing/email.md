@@ -164,7 +164,7 @@ Setting `extract_addresses_remove_arguments` to `false` gets exim to treat the `
 
 In this section, we'll add config to pipe incoming mail for special
 Alaveteli addresses into Alaveteli, and also send them to a local backup
-mailbox, just in case. Create the `backupfoi` UNIX user, and then create `/etc/exim4/conf.d/router/04_alaveteli`:
+mailbox, just in case. Create the `backupfoi` UNIX user, and then create `/etc/exim4/conf.d/router/04_alaveteli` to specify an exim `router` for special Alaveteli addresses, which will route messages into Alaveteli using a local pipe transport:
 
     cat > /etc/exim4/conf.d/router/04_alaveteli <<'EOF'
     alaveteli_request:
@@ -174,7 +174,7 @@ mailbox, just in case. Create the `backupfoi` UNIX user, and then create `/etc/e
        pipe_transport = alaveteli_mailin_transport
     EOF
 
-Create `/etc/exim4/conf.d/transport/04_alaveteli`:
+Create `/etc/exim4/conf.d/transport/04_alaveteli`, which sets the properties of the pipe `transport` that will deliver mail to Alaveteli:
 
     cat > /etc/exim4/conf.d/transport/04_alaveteli <<'EOF'
     alaveteli_mailin_transport:
@@ -186,10 +186,11 @@ Create `/etc/exim4/conf.d/transport/04_alaveteli`:
        group = ALAVETELI_USER
     EOF
 
-And, assuming you set
-[`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}docs/customising/config/#incoming_email_prefix)
-in your config at `config/general.yml` to "foi+", create `config/aliases` with the following
-command:
+And, assuming you set [`INCOMING_EMAIL_PREFIX`]({{ site.baseurl }}docs/customising/config/#incoming_email_prefix) in your config at
+`config/general.yml` to "foi+", create `config/aliases` with the
+following command. This defines the special addresses that the `router`
+and `transport` will apply to with a regular expression. It also defines
+the pipe command to be used:
 
     cat > /var/www/alaveteli/config/aliases <<'EOF'
     ^foi\\+.*: "|/var/www/alaveteli/script/mailin", backupfoi
