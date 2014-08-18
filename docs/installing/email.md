@@ -164,7 +164,7 @@ Setting `extract_addresses_remove_arguments` to `false` gets exim to treat the `
 
 In this section, we'll add config to pipe incoming mail for special
 Alaveteli addresses into Alaveteli, and also send them to a local backup
-mailbox, just in case. Create the `backupfoi` UNIX user, and then create `/etc/exim4/conf.d/router/04_alaveteli`:
+mailbox. Create the `backupfoi` UNIX user, and then create `/etc/exim4/conf.d/router/04_alaveteli`:
 
     cat > /etc/exim4/conf.d/router/04_alaveteli <<'EOF'
     alaveteli_request:
