@@ -19,6 +19,7 @@ Definitions
   <li><a href="#agnostic">asker agnostic</a></li>
   <li><a href="#authority">authority</a></li>
   <li><a href="#blackhole">black hole</a></li>
+  <li><a href="#bounce-message">bounce message</a></li>
   <li><a href="#capistrano">Capistrano</a></li>
   <li><a href="#censor-rule">censor rule</a></li>
   <li><a href="#development">development site</a></li>
@@ -141,6 +142,24 @@ Definitions
           <code><a href="{{site.baseurl}}docs/customising/config/#contact_email">CONTACT_EMAIL</a></code>
           to specify the email address to which users' emails (such as support
           enquiries) will be delivered.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="bounce-message">bounce message</a>
+  </dt>
+  <dd>
+    A <strong>bounce message</strong> is an automated electronic mail message from a mail system informing the sender of another message about a delivery problem.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>
+        </li>
+        <li>The wikipedia page on <a href="http://en.wikipedia.org/wiki/Bounce_message">bounce messages</a>
         </li>
       </ul>
     </div>
