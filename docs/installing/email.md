@@ -243,6 +243,14 @@ Change the `user-support` line in `/var/www/alaveteli/config/aliases`:
 
     user-support:     |/var/www/alaveteli/script/handle-mail-replies
 
+#### Logging
+
+You’ll need to tell Alaveteli where the log files are stored and that they’re in exim format. Update [`MTA_LOG_PATH`]({{ site.baseurl }}docs/customising/config/#mta_log_path) and [`MTA_LOG_TYPE`]({{ site.baseurl }}docs/customising/config/#mta_log_type) in `config/general.yml`:
+
+    MTA_LOG_PATH: '/var/log/exim4/exim-mainlog-*'
+    MTA_LOG_TYPE: 'exim'
+
+
 #### Making the changes live in exim
 
 Finally, execute the commands:
