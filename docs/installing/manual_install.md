@@ -557,7 +557,7 @@ Start the application:
 
 One of the cron jobs refers to a script at `/etc/init.d/alaveteli-alert-tracks`. This
 is an init script, which can be generated from the
-`config/alert-tracks-debian.ugly` template.
+`config/alert-tracks-debian.ugly` template. This script sends out emails to users subscribed to updates from the site – known as `tracks` – when there is something new matching their interests.
 
 **Template Variables:**
 
@@ -590,7 +590,7 @@ Start the alert tracks daemon:
 ### Generate varnish purge daemon
 
 `config/purge-varnish-debian.ugly` is a similar init script, which is optional
-and not required if you choose not to run your site behind Varnish (see below). It will not run if varnish is not installed.
+and not required if you choose not to run your site behind Varnish (see below). It notifies Varnish of cached pages that need to be purged from Varnish's cache. It will not run if Varnish is not installed.
 
 **Template Variables:**
 
