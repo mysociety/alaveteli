@@ -44,6 +44,14 @@ Generate the locales you wish to make available. When the interactive screen ask
 
 Start a new SSH session to use your SSH locale.
 
+**Ubuntu Precise**
+
+Unset the default locale, as the SSH session should provide the locale required.
+
+    update-locale LC_ALL=
+
+Start a new SSH session to use your SSH locale.
+
 ### Update the OS
 
 Update the Operating System with the latest packages
