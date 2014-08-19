@@ -234,6 +234,7 @@ Create a new linux user to run the Alaveteli application.
 Create the target directory and clone the Alaveteli source code in to this directory:
 
     mkdir -p /var/www/alaveteli
+    chown alaveteli:alaveteli /var/www
     chown alaveteli:alaveteli /var/www/alaveteli
     cd /home/alaveteli
     sudo -u alaveteli git clone --recursive \
