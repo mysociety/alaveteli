@@ -465,10 +465,10 @@ and then drop it in `/etc/cron.d/` on the server.
   e.g. `alaveteli`
 * `user`: the user that the software runs as
 * `site`: a string to identify your alaveteli instance
-* `mailto`: The email address that cron output will be sent to
+* `mailto`: The email address or local account that cron output will be sent to - setting an email address depends on your MTA having been configured for remote delivery.
 
 There is a rake task that will help to rewrite this file into one that is
-useful to you. Change the variables to suit your installation.
+useful to you. This example sends cron output to the local `alaveteli` user. Change the variables to suit your installation.
 
     pushd /var/www/alaveteli
     bundle exec rake config_files:convert_crontab \
@@ -476,7 +476,7 @@ useful to you. Change the variables to suit your installation.
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
       SITE=alaveteli \
-      MAILTO=cron-alaveteli@example.org \
+      MAILTO=alaveteli \
       CRONTAB=/var/www/alaveteli/config/crontab-example > /etc/cron.d/alaveteli
     popd
 
