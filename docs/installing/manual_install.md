@@ -169,7 +169,7 @@ The repository above lets you install a recent version of `pdftk` using `apt`.
 Add the GPG key from the
 [mySociety Alaveteli Ubuntu Package Repository](https://launchpad.net/~mysociety/+archive/ubuntu/alaveteli).
 
-    apt-get install python-software-properties
+    apt-get install -y python-software-properties
     add-apt-repository -y ppa:mysociety/alaveteli
 
 **Debian Wheezy or Ubuntu Precise**
