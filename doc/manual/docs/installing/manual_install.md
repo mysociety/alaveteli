@@ -385,16 +385,10 @@ You should run the `rails-post-deploy` script after each new software upgrade:
 
 This installs Ruby dependencies, installs/updates themes, runs database
 migrations, updates shared directories and runs other tasks that need to be run
-after a software update.
+after a software update, like precompiling static assets for a production install.
 
 That the first time you run this script can take a *long* time, as it must
 compile native dependencies for `xapian-full`.
-
-Precompile the static assets:
-
-    sudo -u alaveteli \
-      bash -c 'RAILS_ENV=production cd /var/www/alaveteli && \
-        bundle exec rake assets:precompile'
 
 Create the index for the search engine (Xapian):
 
