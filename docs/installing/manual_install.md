@@ -465,12 +465,27 @@ and not required if you choose not to run your site behind Varnish (see below).
 
 **Template Variables:**
 
-* `daemon_name`: The name of the daemon. Set this to `purge-varnish`.
 * `vhost_dir`: the full path to the directory where alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
 * `user`: the user that the software runs as
 
-This template does not yet have a rake task to generate it.
+You can use the rake task to rewrite this file into one that is
+useful to you. Again, change the variables to suit your installation.
+
+    bundle exec rake config_files:convert_init_script \
+      DEPLOY_USER=deploy \
+      VHOST_DIR=/var/www \
+      SCRIPT_FILE=config/purge-varnish-debian.ugly > /etc/init.d/foi-purge-varnish
+
+### Generate Alaveteli service
+
+There is also an example config for stopping and starting the
+Alaveteli app server as a service in `config/sysvinit.example`. You can install
+this by copying it to `/etc/init.d/alaveteli` and setting the
+`SITE_HOME` variable to the path where Alaveteli is running, and the
+`USER` variable to the Unix user that will be running Alaveteli. Once
+that's done, you can restart Alaveteli with `/etc/init.d/alaveteli
+restart`.
 
 ### Init script permissions
 
@@ -478,17 +493,7 @@ Either tweak the file permissions to make the scripts executable by your deploy
 user, or add the following line to your sudoers file to allow these to be run
 by your deploy user (named `deploy` in this case).
 
-    deploy ALL = NOPASSWD: /etc/init.d/foi-alert-tracks, /etc/init.d/foi-purge-varnish
-
-There is also an example config for stopping and starting the
-Alaveteli app server as a service in `config/sysvinit.example`. This
-example assumes you're using Thin as an application server, so will
-need tweaking for Passenger or any other app server. You can install
-this by copying it to `/etc/init.d/alaveteli` and setting the
-`SITE_HOME` variable to the path where Alaveteli is running, and the
-`USER` variable to the Unix user that will be running Alaveteli. Once
-that's done, you can restart Alaveteli with `/etc/init.d/alaveteli
-restart`.
+    deploy ALL = NOPASSWD: /etc/init.d/foi-alert-tracks, /etc/init.d/foi-purge-varnish, /etc/init.d/alaveteli
 
 ## Set up production web server
 
