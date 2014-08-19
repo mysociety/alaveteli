@@ -279,10 +279,6 @@ There has been a little work done in trying to make the code work with other
 databases (e.g., SQLite), but the currently supported database is PostgreSQL
 ("postgres").
 
-If you don't have postgres installed:
-
-    apt-get -y install postgresql postgresql-client
-
 Create a `foi` user from the command line, like this:
 
     sudo -u postgres createuser -s -P foi
