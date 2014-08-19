@@ -454,7 +454,7 @@ The `ugly` format uses simple variable substitution. A variable looks like
 ### Generate crontab
 
 `config/crontab-example` contains the cron jobs that run on
-WhatDoTheyKnow. mySociety render the example file to reference absolute paths,
+Alaveteli. Rewrite the example file to replace the variables,
 and then drop it in `/etc/cron.d/` on the server.
 
 **Template Variables:**
@@ -809,7 +809,7 @@ simply use Apache as the SSL terminator.
 We have some [production server best practice
 notes]({{ site.baseurl}}docs/running/server/).
 
-## What next? 
+## What next?
 
 Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
 
@@ -823,7 +823,7 @@ Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
 
     If there are failures here, something has gone wrong with the preceding
     steps (see the next section for a common problem and workaround). You might
-    be able to move on to the next step, depending on how serious they are, but
+    be able to move on to the [next steps]({{ site.baseurl }}docs/installing/next_steps/), depending on how serious they are, but
     ideally you should try to find out what's gone wrong.
 
 *   **glibc bug workaround**
