@@ -18,6 +18,7 @@ libsqlite3-dev
 libxml2-dev
 libxslt-dev
 links
+lockfile-progs
 memcached
 mutt
 pdftk (>> 1.41+dfsg-1) | pdftk (<< 1.41+dfsg-1) # that version has a non-functionining uncompress option
