@@ -232,6 +232,7 @@ Create the target directory and clone the Alaveteli source code in to this direc
 
     mkdir -p /var/www/alaveteli
     chown alaveteli:alaveteli /var/www/alaveteli
+    cd /home/alaveteli
     sudo -u alaveteli git clone --recursive \
       --branch master \
       https://github.com/mysociety/alaveteli.git /var/www/alaveteli
