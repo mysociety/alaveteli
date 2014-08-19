@@ -383,7 +383,7 @@ You should run the `rails-post-deploy` script after each new software upgrade:
     sudo -u alaveteli RAILS_ENV=production \
       /var/www/alaveteli/script/rails-post-deploy
 
-This sets up installs Ruby dependencies, installs/updates themes, runs database
+This installs Ruby dependencies, installs/updates themes, runs database
 migrations, updates shared directories and runs other tasks that need to be run
 after a software update.
 
