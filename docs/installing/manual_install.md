@@ -357,6 +357,10 @@ As the user needs the ability to turn off constraints whilst running the tests t
 
 We have a full [guide to Alaveteli configuration]({{ site.baseurl }}docs/customising/config/) which covers all the settings in `config/general.yml`.
 
+_Note:_ If you are setting up Alaveteli to run in production, set the `STAGING_SITE` variable to `0` now.
+
+    STAGING_SITE: 0
+
 The default settings for frontpage examples are designed to work with
 the dummy data shipped with Alaveteli; once you have real data, you should
 certainly edit these.
@@ -567,7 +571,7 @@ There is a rake task that will help to rewrite this file into one that is
 useful to you. Change the variables to suit your installation.
 
     pushd /var/www/alaveteli
-    bundle exec rake config_files:convert_init_script \
+    bundle exec rake RAILS_ENV=production config_files:convert_init_script \
       DEPLOY_USER=alaveteli \
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
@@ -601,7 +605,7 @@ There is a rake task that will help to rewrite this file into one that is
 useful to you. Change the variables to suit your installation.
 
     pushd /var/www/alaveteli
-    bundle exec rake config_files:convert_init_script \
+    bundle exec rake RAILS_ENV=production config_files:convert_init_script \
       DEPLOY_USER=alaveteli \
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
