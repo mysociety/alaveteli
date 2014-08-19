@@ -585,7 +585,7 @@ Start the alert tracks daemon:
 ### Generate varnish purge daemon
 
 `config/purge-varnish-debian.ugly` is a similar init script, which is optional
-and not required if you choose not to run your site behind Varnish (see below).
+and not required if you choose not to run your site behind Varnish (see below). It will not run if varnish is not installed.
 
 **Template Variables:**
 
