@@ -262,11 +262,16 @@ Some of the files also have a version number listed in config/packages - check
 that you have appropriate versions installed. Some also list "`|`" and offer a
 choice of packages.
 
-To install Alaveteli's Ruby dependencies, you need to install bundler. In
-Debian and Ubuntu, this is provided as a package (installed as part of the
-package install process above). You could also install it as a gem:
+<div class="attention-box">
 
-    gem install bundler --no-rdoc --no-ri
+<strong>Note:</strong> To install Alaveteli's Ruby dependencies, you need to install bundler. In
+Debian and Ubuntu, this is provided as a package (installed as part of the
+package install process above). For other OSes, you could also install it as a gem:
+
+   <pre><code> gem install bundler --no-rdoc --no-ri</code></pre>
+
+</div>
+
 
 ## Configure Database
 
