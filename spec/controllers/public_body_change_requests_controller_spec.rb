@@ -22,7 +22,8 @@ describe PublicBodyChangeRequestsController, "creating a change request" do
                                      :public_body_name => 'New Body',
                                      :public_body_email => 'new_body@example.com',
                                      :notes => 'Please',
-                                     :source => 'http://www.example.com'}
+                                     :source => 'http://www.example.com',
+                                     :comment => '' }
         end
 
         it "should send an email to the site contact address" do
@@ -51,6 +52,18 @@ describe PublicBodyChangeRequestsController, "creating a change request" do
             response.should redirect_to frontpage_url
         end
 
+        it 'has rudimentary spam protection' do
+            spam_request_params = @change_request_params.merge({ :comment => 'I AM A SPAMBOT' })
+
+            post :create, { :public_body_change_request => spam_request_params }
+
+            response.should redirect_to(frontpage_path)
+
+            deliveries = ActionMailer::Base.deliveries
+            deliveries.size.should == 0
+            deliveries.clear
+        end
+
     end
 
     context 'when handling a request for an update to an existing authority' do
@@ -64,7 +77,8 @@ describe PublicBodyChangeRequestsController, "creating a change request" do
                                      :public_body_id => @public_body.id,
                                      :public_body_email => 'new_body@example.com',
                                      :notes => 'Please',
-                                     :source => 'http://www.example.com'}
+                                     :source => 'http://www.example.com',
+                                     :comment => '' }
         end
 
         it 'should send an email to the site contact address' do

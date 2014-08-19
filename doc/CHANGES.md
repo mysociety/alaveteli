@@ -20,6 +20,14 @@
   `script/rails-post-deploy` to link up the new location. If you don't use
   `SHARED_FILES` and `SHARED_DIRECTORIES`, alaveteli will now write it's
   application logs to `APP_ROOT/log` rather than `APP_ROOT/../logs` by default.
+* `public_body_change_requests/new.html.erb` has a new field for spam prevention
+  so customisations of this template should be updated with:
+
+    <p style="display:none;">
+      <%= label_tag 'public_body_change_request[comment]', _('Do not fill in this field') %>
+      <%= text_field_tag 'public_body_change_request[comment]' %>
+    </p>
+  This is the anti-spam honeypot.
 
 # Version 0.18
 
