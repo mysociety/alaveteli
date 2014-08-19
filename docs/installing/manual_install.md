@@ -621,13 +621,6 @@ Start the alert tracks daemon:
 
     service alaveteli-purge-varnish start
 
-### Init script permissions
-
-Either tweak the file permissions to make the scripts executable by your deploy
-user, or add the following line to your sudoers file to allow these to be run
-by your deploy user (named `alaveteli` in this case).
-
-    alaveteli ALL = NOPASSWD: /etc/init.d/alaveteli-alert-tracks, /etc/init.d/alaveteli-purge-varnish
 
 ## Configure the web server
 
