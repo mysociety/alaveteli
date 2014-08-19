@@ -59,9 +59,9 @@ Update the Operating System with the latest packages
     apt-get update -y
     apt-get upgrade -y
 
-`sudo` is not installed on Debian by default. Install it along with `vim` (a useful text editor) and `git` (the version control tool we'll use to get a copy of the Alaveteli code).
+`sudo` is not installed on Debian by default. Install it along with `git` (the version control tool we'll use to get a copy of the Alaveteli code).
 
-    apt-get install -y sudo vim git-core
+    apt-get install -y sudo git-core
 
 ### Prepare to install system dependencies using OS packages
 
