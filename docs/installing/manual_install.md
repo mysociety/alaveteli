@@ -243,7 +243,8 @@ Create the target directory and clone the Alaveteli source code in to this direc
 This clones the master branch which always contains the latest stable release. If you want to try out the latest (possibly buggy) code you can switch to the `rails-3-develop` branch.
 
     pushd /var/www/alaveteli
-    sudo -u alaveteli git checkout rails-3-develop 
+    sudo -u alaveteli git checkout rails-3-develop
+    sudo -u alaveteli git submodule update
     popd
 
 The `--recursive` option installs mySociety's common libraries which are required to run Alaveteli.
