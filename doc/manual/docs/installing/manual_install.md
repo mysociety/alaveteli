@@ -87,6 +87,9 @@ Add the following repositories to `/etc/apt/sources.list`:
     # Debian Backports
     deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
     deb-src http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
+
+    # Wheezy
+    deb http://ftp.uk.debian.org/debian wheezy main contrib non-free
     EOF
 
 The squeeze-backports repository is providing a more recent version of rubygems, and the wheezy repository is providing bundler. You should configure package-pinning to reduce the priority of the wheezy repository so other packages aren't pulled from it.
