@@ -2,8 +2,58 @@
 
 ## Highlighted Features
 
+* Improved documentation at http://alaveteli.org/docs (Louise Crow, Gareth Rees,
+  Dave Whiteland)
+* Added mySociety Launchpad PPA to supply updated version of pdftk (Louise Crow)
+* Made default maintenance page generic (Gareth Rees)
+* Support additional Vagrant operating system images (Gareth Rees)
+* Add SysVinit for Phusion Passenger (Gareth Rees)
+* Eager loading to speed up `body_request_events` API action (Louise Crow)
+* Ability to update the status of external requests made via the API (Liz
+  Conlan)
+* Removed more mySociety internal dependencies from install script and example configuration and template files (Gareth Rees)
+* Improved example configuration files (Gareth Rees)
+* Support Portugese locale (Louise Crow)
+* Default to using UTF-8 encoded database for new installs and CI (Gareth Rees)
+* Better config file generators in `lib/tasks/config_files.rake` (Gareth Rees)
+* Improved search term highlighting (Gareth Rees)
+* Added responsive styling (Louise Crow)
+* Documentation tidying and redirection (Louise Crow)
+* Allow a message with more than one event to be destroyed (Louise Crow)
+* Makes public body stats available if configured (Gareth Rees)
+* Cache-busting on request response notification emails (Gareth Rees)
+* Better error handling on new requests (Louise Crow)
+* Rake task for cleaning up holding pen events (`rake cleanup:holding_pen`)
+  (Louise Crow)
+* Added searching of bodies by short_name (Gareth Rees)
+* Additional stats on `/version.json` (Gareth Rees)
+* Minor tweaks to the homepage (Gareth Rees)
+* Translation housekeeping (Louise Crow)
+* Minor style updates to admin request edit page (Gareth Rees)
+
 ## Upgrade Notes
 
+* Ubuntu Precise users can get an updated version of pdftk from mySociety's PPA
+
+Install the repo and update the sources:
+
+    apt-get install python-software-properties
+    add-apt-repository ppa:mysociety/alaveteli
+    apt-get update
+
+The mySociety pdftk package (`1.44-7~precise1ms1`) should now be the install
+candidate:
+
+    apt-cache policy pdftk
+
+* Install `lockfile-progs` so that the `run-with-lockfile` shell script can be
+  used instead of the C program
+* Use responsive stylesheets in `config/general.yml`:  
+  `RESPONSIVE_STYLING: true`
+* Allow access to public body stats page if desired in `config/general/yml`:  
+  `PUBLIC_BODY_STATISTICS_PAGE: true`
+* Run migrations to define track_things constraint correctly (Robin Houston) and
+  add additional index for `event_type` on `info_request_events` (Steven Day)
 * The `SHARED_DIRECTORIES` setting now includes `tmp/pids`. The notes below for
   updating the log directory should cover the update steps for `tmp/pids`.
 * Capistrano now creates `SHARED_PATH/tmp/pids` and links `APP_ROOT/tmp/pids`
