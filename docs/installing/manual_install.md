@@ -750,13 +750,13 @@ true in `config/general.yml`). For this you will need an SSL certificate for you
 Copy the SSL configuration – again changing `www.example.com` to your domain –
 and enable the server
 
-    cp /var/www/alaveteli/config/nginx-ssl.conf-example \
+    cp /var/www/alaveteli/config/nginx-ssl.conf.example \
       /etc/nginx/sites-available/alaveteli_https
     ln -s /etc/nginx/sites-available/alaveteli_https \
       /etc/nginx/sites-enabled/alaveteli_https
 
 <div class="attention-box">
-  <strong>Note:</strong> For historical reasons, <code>nginx-ssl.conf-example</code> has the path to Alaveteli set as <code>/var/www/alaveteli/alaveteli</code> – you will need to manually change this to <code>/var/www/alaveteli</code>, or to the root of your Alaveteli install
+  <strong>Note:</strong> For historical reasons, <code>nginx-ssl.conf.example</code> has the path to Alaveteli set as <code>/var/www/alaveteli/alaveteli</code> – you will need to manually change this to <code>/var/www/alaveteli</code>, or to the root of your Alaveteli install
 </div>
 
 If you are testing Alaveteli or setting up an internal staging site, generate
