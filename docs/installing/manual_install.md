@@ -317,6 +317,7 @@ that you can see the mails in a browser. Start mailcatcher by running `bundle ex
 ## Configure Alaveteli
 
 Alaveteli has three main configuration files:
+
   - `config/database.yml`: Configures Alaveteli to communicate with the database
   - `config/general.yml`: The general Alaveteli application settings
   - `config/newrelic.yml`: Configuration for the [NewRelic](http://newrelic.com) monitoring service
