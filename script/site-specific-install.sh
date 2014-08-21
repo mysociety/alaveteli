@@ -201,7 +201,7 @@ echo -n "Creating /etc/cron.d/alaveteli... "
 (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_crontab DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' CRONTAB=config/crontab-example" "$UNIX_USER") > /etc/cron.d/alaveteli
 # There are some other parts to rewrite, so just do them with sed:
 sed -r \
-    -e "/foi-purge-varnish/d" \
+    -e "/$SITE-purge-varnish/d" \
     -e "s,^(MAILTO=).*,\1root@$HOST," \
     -i /etc/cron.d/alaveteli
 echo $DONE_MSG
@@ -213,9 +213,9 @@ if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
   echo $DONE_MSG
 fi
 
-echo -n "Creating /etc/init.d/foi-alert-tracks... "
-(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.ugly" "$UNIX_USER") > /etc/init.d/foi-alert-tracks
-chmod a+rx /etc/init.d/foi-alert-tracks
+echo -n "Creating /etc/init.d/$SITE-alert-tracks... "
+(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.ugly" "$UNIX_USER") > /etc/init.d/$SITE-alert-tracks
+chmod a+rx /etc/init.d/$SITE-alert-tracks
 echo $DONE_MSG
 
 if [ $DEFAULT_SERVER = true ] && [ x != x$EC2_HOSTNAME ]
