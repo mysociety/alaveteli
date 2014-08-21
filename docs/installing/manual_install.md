@@ -747,11 +747,14 @@ Reload the nginx configuration
 It's strongly recommended that you run the site over SSL. (Set `FORCE_SSL` to
 true in `config/general.yml`). For this you will need an SSL certificate for your domain.
 
-Copy the SSL configuration – again changing `www.example.com` to your domain –
-and enable the server
+Copy the SSL configuration – again changing `www.example.com` to your domain.
 
     cp /var/www/alaveteli/config/nginx-ssl.conf.example \
       /etc/nginx/sites-available/alaveteli_https
+
+Disable the HTTP server and enable the HTTPS server:
+
+    rm /etc/nginx/sites-enabled/alaveteli
     ln -s /etc/nginx/sites-available/alaveteli_https \
       /etc/nginx/sites-enabled/alaveteli_https
 
