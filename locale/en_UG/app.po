@@ -1372,9 +1372,8 @@ msgstr "Make a new<br/>\\n  <strong>Access <span>to</span><br/>\\n  Information<
 msgid "Make a request"
 msgstr ""
 
-#, fuzzy
 msgid "Make a request &raquo;"
-msgstr "Make a request to this agency"
+msgstr ""
 
 msgid "Make a request to these authorities"
 msgstr ""
@@ -1892,9 +1891,8 @@ msgstr "Public agencies - {{description}}"
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Public agencies {{start_count}} to {{end_count}} of {{total_count}}"
 
-#, fuzzy
 msgid "Public authority statistics"
-msgstr "Public agencies"
+msgstr "Public agency statistics"
 
 msgid "Public authority – {{name}}"
 msgstr "Public agency – {{name}}"
@@ -2121,9 +2119,8 @@ msgstr ""
 msgid "Respond to request"
 msgstr ""
 
-#, fuzzy
 msgid "Respond to the FOI request '{{request}}' made by {{user}}"
-msgstr "Respond to the ATI request"
+msgstr "Respond to the ATI request '{{request}}' made by {{user}}"
 
 msgid "Respond using the web"
 msgstr ""
