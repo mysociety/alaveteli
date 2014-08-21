@@ -14,6 +14,11 @@ server {
     access_log /var/log/nginx/alaveteli_ssl_access.log;
     error_log /var/log/nginx/alaveteli_ssl_error.log error;
 
+    location /download {
+        internal;
+        alias /var/www/alaveteli/alaveteli/cache/zips/production/download;
+    }
+
     ssl on;
     ssl_certificate /etc/ssl/certs/www.example.com.cert;
     ssl_certificate_key /etc/ssl/private/www.example.com.key;
