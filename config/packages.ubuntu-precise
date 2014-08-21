@@ -12,6 +12,7 @@ libsqlite3-dev
 libxml2-dev
 libxslt1-dev
 links
+lockfile-progs
 mutt
 pdftk
 poppler-utils
