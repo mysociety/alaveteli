@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-08-21 13:43+0000\n"
+"PO-Revision-Date: 2014-08-21 13:44+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/alaveteli/language/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -106,9 +106,6 @@ msgstr " Ya está recibiendo actualizaciones por correo sobre la solicitud."
 
 msgid " You will also be emailed updates about the request."
 msgstr " Recibirá actualizaciones por correo sobre esta solicitud."
-
-msgid " made by "
-msgstr " hecha por "
 
 msgid " when you send this message."
 msgstr " cuando envió este mensaje."
@@ -352,6 +349,9 @@ msgstr "<strong>Dé las gracias</strong> al organismo público o "
 
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>no tenía</strong> la información solicitada."
+
+msgid "?"
+msgstr ""
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Un <a href=\"{{request_url}}\">seguimiento</a> de <em>{{request_title}}</em> ha sido enviado a {{public_body_name}} por {{info_request_user}} el {{date}}."
@@ -618,9 +618,6 @@ msgstr "Cambia tu contraseña"
 msgid "Change your password on {{site_name}}"
 msgstr "Cambia tu contraseña en {{site_name}}"
 
-msgid "Change your password {{site_name}}"
-msgstr "Cambia tu contraseña en {{site_name}}"
-
 msgid "Charity registration"
 msgstr "Registro de la ONG"
 
@@ -798,6 +795,9 @@ msgstr "Registro de declaraciones"
 
 msgid "Disclosure log URL"
 msgstr "URL del registro de declaraciones"
+
+msgid "Do not fill in this field"
+msgstr ""
 
 msgid "Don't have a superuser account yet?"
 msgstr ""
@@ -1512,6 +1512,9 @@ msgstr ""
 msgid "Make a request"
 msgstr "Enviar solicitud"
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -2024,6 +2027,9 @@ msgstr "ProfilePhoto|Draft"
 msgid "Public Bodies"
 msgstr ""
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr ""
 
@@ -2035,6 +2041,9 @@ msgstr "Organismos públicos - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Organismos públicos {{start_count}} a {{end_count}} de {{total_count}}"
+
+msgid "Public authority statistics"
+msgstr ""
 
 msgid "Public authority – {{name}}"
 msgstr "Organismo público - {{name}}"
@@ -2263,8 +2272,8 @@ msgstr "Contestar por correo"
 msgid "Respond to request"
 msgstr "Contestar la solicitud"
 
-msgid "Respond to the FOI request"
-msgstr "Contestar la solicitud"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr ""
 
 msgid "Respond using the web"
 msgstr "Contestar vía web"
@@ -2476,9 +2485,6 @@ msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "¡Notas especiales sobre este organismo!"
-
-msgid "Start now &raquo;"
-msgstr "Comience ahora &raquo;"
 
 msgid "Start your own blog"
 msgstr "Crea tu propio blog"
@@ -3121,6 +3127,9 @@ msgstr "No se pudo enviar la respuesta a {{username}}"
 msgid "Unable to send follow up message to {{username}}"
 msgstr "No se pudo enviar la respuesta a {{username}}"
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr "Se encontró un tipo de resultado inesperado "
 
@@ -3184,9 +3193,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|About me"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -3194,9 +3200,6 @@ msgid "User|Ban text"
 msgstr "User|Ban text"
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
