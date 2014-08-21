@@ -723,41 +723,17 @@ Install nginx
 
     apt-get install -y nginx
 
-Copy the example nginx config
-
-    cp /var/www/alaveteli/config/nginx.conf.example \
-      /etc/nginx/sites-available/alaveteli
-
-<div class="attention-box">
-  <strong>Note:</strong> For historical reasons, <code>nginx.conf.example</code> has the path to Alaveteli set as <code>/var/www/alaveteli/alaveteli</code> – you will need to manually change this to <code>/var/www/alaveteli</code>, or to the root of your Alaveteli install
-</div>
-
-Disable the default site and enable the `alaveteli` server
-
-    rm /etc/nginx/sites-enabled/default
-    ln -s /etc/nginx/sites-available/alaveteli \
-      /etc/nginx/sites-enabled/alaveteli
-
-Check the configuration and fix any issues
-
-    service nginx configtest
-
-Start the rails application with thin (if you haven't already).
-
-    service alaveteli start
-
-Reload the nginx configuration
-
-    service nginx reload
+#### Running over SSL
 
 It's strongly recommended that you run the site over SSL. (Set `FORCE_SSL` to
 true in `config/general.yml`). For this you will need an SSL certificate for your domain.
 
-Copy the SSL configuration – again changing `www.example.com` to your domain –
-and enable the server
+Copy the SSL configuration – changing `www.example.com` to your domain –
+and enable the `alaveteli_https` server, disabling the default site.
 
     cp /var/www/alaveteli/config/nginx-ssl.conf-example \
       /etc/nginx/sites-available/alaveteli_https
+    rm /etc/nginx/sites-enabled/default
     ln -s /etc/nginx/sites-available/alaveteli_https \
       /etc/nginx/sites-enabled/alaveteli_https
 
@@ -788,7 +764,40 @@ Reload the new nginx configuration and restart the application
     service nginx reload
     service alaveteli restart
 
+#### Running without SSL
+
+Set `FORCE_SSL` to
+false in `config/general.yml`. Copy the example nginx config
+
+    cp /var/www/alaveteli/config/nginx.conf.example \
+      /etc/nginx/sites-available/alaveteli
+
+<div class="attention-box">
+  <strong>Note:</strong> For historical reasons, <code>nginx.conf.example</code> has the path to Alaveteli set as <code>/var/www/alaveteli/alaveteli</code> – you will need to manually change this to <code>/var/www/alaveteli</code>, or to the root of your Alaveteli install
+</div>
+
+Disable the default site and enable the `alaveteli` server
+
+    rm /etc/nginx/sites-enabled/default
+    ln -s /etc/nginx/sites-available/alaveteli \
+      /etc/nginx/sites-enabled/alaveteli
+
+Check the configuration and fix any issues
+
+    service nginx configtest
+
+Start the rails application with thin (if you haven't already).
+
+    service alaveteli start
+
+Reload the nginx configuration
+
+    service nginx reload
+
+
 ---
+
+## Add varnish as an HTTP accelerator
 
 Under all but light loads, it is strongly recommended to run the server behind
 an http accelerator like Varnish. A sample varnish VCL is supplied in
