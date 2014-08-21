@@ -819,7 +819,7 @@ Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
 
 *   **Run the Tests**
 
-    Make sure everything looks OK:
+    Make sure everything looks OK. As the alaveteli user, run:
 
         bundle exec rake spec
 
@@ -830,12 +830,14 @@ Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
 
 
 <div class="attention-box">
-  <strong>Note:</strong> If you have setup your install of Alaveteli for production, you will need to temporarily remove the file <code>config/rails_env.rb</code>, which is used to force the rails environment to production, and edit your <code>.bundle/config</code> file to remove the <code>BUNDLE_WITHOUT</code> line that excludes development dependencies. After you have done this, as the alaveteli user, run <code>bundle install</code>. You should then be able to run the tests. Don't forget to restore <code>config/rails_env.rb</code> when you're done. You will probably see some errors from cron jobs in the meantime, as they'll be running in development mode.
+  <strong>Note:</strong> If you have setup your install of Alaveteli for production, you will need to temporarily remove the file <code>config/rails_env.rb</code>, which is used to force the rails environment to production, and edit your <code>.bundle/config</code> file to remove the <code>BUNDLE_WITHOUT</code> line that excludes development dependencies. After you have done this, as the alaveteli user, run <code>bundle install</code>. You will also need to make alaveteli the owner of <code>/var/www/alaveteli/log/development.log</code>, and run the database migrations.
+
+    <pre><code>chown alaveteli:alaveteli /var/www/alaveteli/log/development.log
+sudo -u alaveteli bundle exec rake db:migrate</code></pre>
+
+You should then be able to run the tests. Don't forget to restore <code>config/rails_env.rb</code> when you're done. You will probably see some errors from cron jobs in the meantime, as they'll be running in development mode.
 
 </div>
-
-
-
 
 *   **glibc bug workaround**
 
