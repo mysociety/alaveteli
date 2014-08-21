@@ -827,6 +827,15 @@ Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
     be able to move on to the [next steps]({{ site.baseurl }}docs/installing/next_steps/), depending on how serious they are, but
     ideally you should try to find out what's gone wrong.
 
+
+<div class="attention-box">
+  <strong>Note:</strong> If you have setup your install of Alaveteli for production, you will need to temporarily remove the file <code>config/rails_env.rb</code>, which is used to force the rails environment to production, and edit your <code>.bundle/config</code> file to remove the <code>BUNDLE_WITHOUT</code> line that excludes development dependencies. After you have done this, as the alaveteli user, run <code>bundle install</code>. You should then be able to run the tests. Don't forget to restore <code>config/rails_env.rb</code> when you're done. You will probably see some errors from cron jobs in the meantime, as they'll be running in development mode.
+
+</div>
+
+
+
+
 *   **glibc bug workaround**
 
     There's a [bug in
