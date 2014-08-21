@@ -839,16 +839,6 @@ You should then be able to run the tests. Don't forget to restore <code>config/r
 
 </div>
 
-*   **glibc bug workaround**
-
-    There's a [bug in
-    glibc](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=637239) which causes
-    Xapian to segfault when running the tests. Although the bug report linked to
-    claims it's fixed in the current Debian stable, it's not as of version
-    `2.11.3-2`.
-
-    Until it's fixed (e.g. `libc6 2.13-26` does work), you can get the tests to
-    pass by setting `export LD_PRELOAD=/lib/libuuid.so.1`.
 
 *   **Incoming emails aren't appearing in my Alaveteli install**
 
