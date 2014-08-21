@@ -60,6 +60,12 @@ describe AdminRequestController, "when administering requests" do
             get :fully_destroy, { :id => info_request }
         end
 
+        it 'uses a different flash message to avoid trying to fetch a non existent user record' do
+            info_request = info_requests(:external_request)
+            post :fully_destroy, { :id => info_request.id }
+            request.flash[:notice].should include('external')
+        end
+
     end
 
 end

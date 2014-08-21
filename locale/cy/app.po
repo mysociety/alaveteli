@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-08-12 11:36+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-08-21 13:43+0000\n"
+"PO-Revision-Date: 2014-08-21 13:44+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -101,9 +101,6 @@ msgstr "Rydych chi eisoes yn derbyn diweddariadau am y cais drwy ebost."
 
 msgid " You will also be emailed updates about the request."
 msgstr "Byddwch chi'n derbyn diweddariadau am y cais drwy ebost hefyd."
-
-msgid " made by "
-msgstr " a wnaed gan "
 
 msgid " when you send this message."
 msgstr " pan fyddwch chi'n anfon y neges hon"
@@ -293,6 +290,9 @@ msgstr "<strong>Diolch</strong> i'r awdurdod cyhoeddus neu"
 
 msgid "<strong>did not have</strong> the information requested."
 msgstr "Nid oedd gan y wybodaeth y gofynnwyd amdani."
+
+msgid "?"
+msgstr ""
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Mae <a href=\"{{request_url}}\">cais dilynol</a> i <em>{{request_title}}</em> wedi ei anfon i {{public_body_name}} gan {{info_request_user}} ar {{date}}."
@@ -549,9 +549,6 @@ msgstr "Newid eich cyfrinair"
 msgid "Change your password on {{site_name}}"
 msgstr "Newid eich cyfrinair ar {{site_name}}"
 
-msgid "Change your password {{site_name}}"
-msgstr "Newid eich cyfrinair {{site_name}}"
-
 msgid "Charity registration"
 msgstr "Elusen gofrestredig"
 
@@ -725,6 +722,9 @@ msgstr "Log datgelu"
 
 msgid "Disclosure log URL"
 msgstr "URL log datgelu"
+
+msgid "Do not fill in this field"
+msgstr ""
 
 msgid "Don't have a superuser account yet?"
 msgstr ""
@@ -1387,6 +1387,9 @@ msgstr "Gwnewch <strong>Cais<br/>Rhyddid<br/>Gwybodaeth</strong><br/>newydd"
 msgid "Make a request"
 msgstr "Gwneud cais"
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr "Gwneud cais i'r awdurdodau hyn"
 
@@ -1888,6 +1891,9 @@ msgstr "ProfilePhoto|Drafft"
 msgid "Public Bodies"
 msgstr "Cyrff Cyhoeddus"
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr "Ystadegau Cyrff Cyhoeddus"
 
@@ -1899,6 +1905,9 @@ msgstr "Awdurdodau cyhoeddus - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Awdurdodau cyhoeddus {{start_count}} i {{end_count}} o {{total_count}}"
+
+msgid "Public authority statistics"
+msgstr ""
 
 msgid "Public authority – {{name}}"
 msgstr "Awdurdod cyhoeddus – {{name}}"
@@ -2125,8 +2134,8 @@ msgstr "Ymateb drwy e-bost"
 msgid "Respond to request"
 msgstr "Ymateb i gais"
 
-msgid "Respond to the FOI request"
-msgstr "Ymateb i'r cais Rhyddid Gwybodaeth"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr ""
 
 msgid "Respond using the web"
 msgstr "Ymateb trwy ddefnyddio'r we"
@@ -2333,9 +2342,6 @@ msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "Nodyn arbennig ar gyfer yr awdurdod hwn!"
-
-msgid "Start now &raquo;"
-msgstr "Dechrau nawr »"
 
 msgid "Start your own blog"
 msgstr "Dechreuwch eich blog eich hun"
@@ -2940,6 +2946,9 @@ msgstr "Yn methu anfon ateb i {{username}}"
 msgid "Unable to send follow up message to {{username}}"
 msgstr "Yn methu anfon neges ddilynol i {{username}}"
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr "Canlyniad chwiliad o fath annisgwyl "
 
@@ -3000,9 +3009,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|Amdanaf i"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "User|Lefel weinyddu"
 
@@ -3010,9 +3016,6 @@ msgid "User|Ban text"
 msgstr "User|Gwahardd testun"
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
