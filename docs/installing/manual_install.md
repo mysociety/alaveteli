@@ -44,6 +44,14 @@ Generate the locales you wish to make available. When the interactive screen ask
 
 Start a new SSH session to use your SSH locale.
 
+**Ubuntu Precise**
+
+Unset the default locale, as the SSH session should provide the locale required.
+
+    update-locale LC_ALL=
+
+Start a new SSH session to use your SSH locale.
+
 ### Update the OS
 
 Update the Operating System with the latest packages
@@ -51,9 +59,9 @@ Update the Operating System with the latest packages
     apt-get update -y
     apt-get upgrade -y
 
-`sudo` is not installed on Debian by default. Install it along with `vim` (a useful text editor) and `git` (the version control tool we'll use to get a copy of the Alaveteli code).
+`sudo` is not installed on Debian by default. Install it along with `git` (the version control tool we'll use to get a copy of the Alaveteli code).
 
-    apt-get install -y sudo vim git-core
+    apt-get install -y sudo git-core
 
 ### Prepare to install system dependencies using OS packages
 
@@ -79,6 +87,9 @@ Add the following repositories to `/etc/apt/sources.list`:
     # Debian Backports
     deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
     deb-src http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
+
+    # Wheezy
+    deb http://the.earth.li/debian/ wheezy main contrib non-free
     EOF
 
 The squeeze-backports repository is providing a more recent version of rubygems, and the wheezy repository is providing bundler. You should configure package-pinning to reduce the priority of the wheezy repository so other packages aren't pulled from it.
@@ -161,7 +172,7 @@ The repository above lets you install a recent version of `pdftk` using `apt`.
 Add the GPG key from the
 [mySociety Alaveteli Ubuntu Package Repository](https://launchpad.net/~mysociety/+archive/ubuntu/alaveteli).
 
-    apt-get install python-software-properties
+    apt-get install -y python-software-properties
     add-apt-repository -y ppa:mysociety/alaveteli
 
 **Debian Wheezy or Ubuntu Precise**
@@ -223,7 +234,9 @@ Create a new linux user to run the Alaveteli application.
 Create the target directory and clone the Alaveteli source code in to this directory:
 
     mkdir -p /var/www/alaveteli
+    chown alaveteli:alaveteli /var/www
     chown alaveteli:alaveteli /var/www/alaveteli
+    cd /home/alaveteli
     sudo -u alaveteli git clone --recursive \
       --branch master \
       https://github.com/mysociety/alaveteli.git /var/www/alaveteli
@@ -231,7 +244,8 @@ Create the target directory and clone the Alaveteli source code in to this direc
 This clones the master branch which always contains the latest stable release. If you want to try out the latest (possibly buggy) code you can switch to the `rails-3-develop` branch.
 
     pushd /var/www/alaveteli
-    sudo -u alaveteli git checkout rails-3-develop 
+    sudo -u alaveteli git checkout rails-3-develop
+    sudo -u alaveteli git submodule update
     popd
 
 The `--recursive` option installs mySociety's common libraries which are required to run Alaveteli.
@@ -253,21 +267,22 @@ Some of the files also have a version number listed in config/packages - check
 that you have appropriate versions installed. Some also list "`|`" and offer a
 choice of packages.
 
-To install Alaveteli's Ruby dependencies, you need to install bundler. In
-Debian and Ubuntu, this is provided as a package (installed as part of the
-package install process above). You could also install it as a gem:
+<div class="attention-box">
 
-    gem install bundler --no-rdoc --no-ri
+<strong>Note:</strong> To install Alaveteli's Ruby dependencies, you need to install bundler. In
+Debian and Ubuntu, this is provided as a package (installed as part of the
+package install process above). For other OSes, you could also install it as a gem:
+
+   <pre><code> gem install bundler --no-rdoc --no-ri</code></pre>
+
+</div>
+
 
 ## Configure Database
 
 There has been a little work done in trying to make the code work with other
 databases (e.g., SQLite), but the currently supported database is PostgreSQL
 ("postgres").
-
-If you don't have postgres installed:
-
-    apt-get -y install postgresql postgresql-client
 
 Create a `foi` user from the command line, like this:
 
@@ -343,6 +358,10 @@ As the user needs the ability to turn off constraints whilst running the tests t
 
 We have a full [guide to Alaveteli configuration]({{ site.baseurl }}docs/customising/config/) which covers all the settings in `config/general.yml`.
 
+_Note:_ If you are setting up Alaveteli to run in production, set the `STAGING_SITE` variable to `0` now.
+
+    STAGING_SITE: 0
+
 The default settings for frontpage examples are designed to work with
 the dummy data shipped with Alaveteli; once you have real data, you should
 certainly edit these.
@@ -364,18 +383,12 @@ You should run the `rails-post-deploy` script after each new software upgrade:
     sudo -u alaveteli RAILS_ENV=production \
       /var/www/alaveteli/script/rails-post-deploy
 
-This sets up installs Ruby dependencies, installs/updates themes, runs database
+This installs Ruby dependencies, installs/updates themes, runs database
 migrations, updates shared directories and runs other tasks that need to be run
-after a software update.
+after a software update, like precompiling static assets for a production install.
 
 That the first time you run this script can take a *long* time, as it must
 compile native dependencies for `xapian-full`.
-
-Precompile the static assets:
-
-    sudo -u alaveteli \
-      bash -c 'RAILS_ENV=production cd /var/www/alaveteli && \
-        bundle exec rake assets:precompile'
 
 Create the index for the search engine (Xapian):
 
@@ -440,7 +453,7 @@ The `ugly` format uses simple variable substitution. A variable looks like
 ### Generate crontab
 
 `config/crontab-example` contains the cron jobs that run on
-WhatDoTheyKnow. mySociety render the example file to reference absolute paths,
+Alaveteli. Rewrite the example file to replace the variables,
 and then drop it in `/etc/cron.d/` on the server.
 
 **Template Variables:**
@@ -451,10 +464,10 @@ and then drop it in `/etc/cron.d/` on the server.
   e.g. `alaveteli`
 * `user`: the user that the software runs as
 * `site`: a string to identify your alaveteli instance
-* `mailto`: The email address that cron output will be sent to
+* `mailto`: The email address or local account that cron output will be sent to - setting an email address depends on your MTA having been configured for remote delivery.
 
 There is a rake task that will help to rewrite this file into one that is
-useful to you. Change the variables to suit your installation.
+useful to you. This example sends cron output to the local `alaveteli` user. Change the variables to suit your installation.
 
     pushd /var/www/alaveteli
     bundle exec rake config_files:convert_crontab \
@@ -462,7 +475,7 @@ useful to you. Change the variables to suit your installation.
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
       SITE=alaveteli \
-      MAILTO=cron-alaveteli@example.org \
+      MAILTO=alaveteli \
       CRONTAB=/var/www/alaveteli/config/crontab-example > /etc/cron.d/alaveteli
     popd
 
@@ -536,9 +549,9 @@ Start the application:
 
 ### Generate alert daemon
 
-One of the cron jobs refers to a script at `/etc/init.d/foi-alert-tracks`. This
+One of the cron jobs refers to a script at `/etc/init.d/alaveteli-alert-tracks`. This
 is an init script, which can be generated from the
-`config/alert-tracks-debian.ugly` template.
+`config/alert-tracks-debian.ugly` template. This script sends out emails to users subscribed to updates from the site – known as `tracks` – when there is something new matching their interests.
 
 **Template Variables:**
 
@@ -553,7 +566,7 @@ There is a rake task that will help to rewrite this file into one that is
 useful to you. Change the variables to suit your installation.
 
     pushd /var/www/alaveteli
-    bundle exec rake config_files:convert_init_script \
+    bundle exec rake RAILS_ENV=production config_files:convert_init_script \
       DEPLOY_USER=alaveteli \
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
@@ -571,7 +584,7 @@ Start the alert tracks daemon:
 ### Generate varnish purge daemon
 
 `config/purge-varnish-debian.ugly` is a similar init script, which is optional
-and not required if you choose not to run your site behind Varnish (see below).
+and not required if you choose not to run your site behind Varnish (see below). It notifies Varnish of cached pages that need to be purged from Varnish's cache. It will not run if Varnish is not installed.
 
 **Template Variables:**
 
@@ -587,7 +600,7 @@ There is a rake task that will help to rewrite this file into one that is
 useful to you. Change the variables to suit your installation.
 
     pushd /var/www/alaveteli
-    bundle exec rake config_files:convert_init_script \
+    bundle exec rake RAILS_ENV=production config_files:convert_init_script \
       DEPLOY_USER=alaveteli \
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
@@ -602,13 +615,6 @@ Start the alert tracks daemon:
 
     service alaveteli-purge-varnish start
 
-### Init script permissions
-
-Either tweak the file permissions to make the scripts executable by your deploy
-user, or add the following line to your sudoers file to allow these to be run
-by your deploy user (named `alaveteli` in this case).
-
-    alaveteli ALL = NOPASSWD: /etc/init.d/foi-alert-tracks, /etc/init.d/foi-purge-varnish
 
 ## Configure the web server
 
@@ -631,9 +637,10 @@ this guide, so pick the appropriate web server to configure.
 
 ### Apache (with Passenger)
 
-Install Apache:
+Install Apache with the Suexec wrapper:
 
     apt-get install -y apache2
+    apt-get install -u apache2-suexec
 
 Enable the required modules
 
@@ -717,41 +724,17 @@ Install nginx
 
     apt-get install -y nginx
 
-Copy the example nginx config
-
-    cp /var/www/alaveteli/config/nginx.conf.example \
-      /etc/nginx/sites-available/alaveteli
-
-<div class="attention-box">
-  <strong>Note:</strong> For historical reasons, <code>nginx.conf.example</code> has the path to Alaveteli set as <code>/var/www/alaveteli/alaveteli</code> – you will need to manually change this to <code>/var/www/alaveteli</code>, or to the root of your Alaveteli install
-</div>
-
-Disable the default site and enable the `alaveteli` server
-
-    rm /etc/nginx/sites-enabled/default
-    ln -s /etc/nginx/sites-available/alaveteli \
-      /etc/nginx/sites-enabled/alaveteli
-
-Check the configuration and fix any issues
-
-    service nginx configtest
-
-Start the rails application with thin (if you haven't already).
-
-    service alaveteli start
-
-Reload the nginx configuration
-
-    service nginx reload
+#### Running over SSL
 
 It's strongly recommended that you run the site over SSL. (Set `FORCE_SSL` to
 true in `config/general.yml`). For this you will need an SSL certificate for your domain.
 
-Copy the SSL configuration – again changing `www.example.com` to your domain –
-and enable the server
+Copy the SSL configuration – changing `www.example.com` to your domain –
+and enable the `alaveteli_https` server, disabling the default site.
 
     cp /var/www/alaveteli/config/nginx-ssl.conf.example \
       /etc/nginx/sites-available/alaveteli_https
+    rm /etc/nginx/sites-enabled/default
     ln -s /etc/nginx/sites-available/alaveteli_https \
       /etc/nginx/sites-enabled/alaveteli_https
 
@@ -782,7 +765,40 @@ Reload the new nginx configuration and restart the application
     service nginx reload
     service alaveteli restart
 
+#### Running without SSL
+
+Set `FORCE_SSL` to
+false in `config/general.yml`. Copy the example nginx config
+
+    cp /var/www/alaveteli/config/nginx.conf.example \
+      /etc/nginx/sites-available/alaveteli
+
+<div class="attention-box">
+  <strong>Note:</strong> For historical reasons, <code>nginx.conf.example</code> has the path to Alaveteli set as <code>/var/www/alaveteli/alaveteli</code> – you will need to manually change this to <code>/var/www/alaveteli</code>, or to the root of your Alaveteli install
+</div>
+
+Disable the default site and enable the `alaveteli` server
+
+    rm /etc/nginx/sites-enabled/default
+    ln -s /etc/nginx/sites-available/alaveteli \
+      /etc/nginx/sites-enabled/alaveteli
+
+Check the configuration and fix any issues
+
+    service nginx configtest
+
+Start the rails application with thin (if you haven't already).
+
+    service alaveteli start
+
+Reload the nginx configuration
+
+    service nginx reload
+
+
 ---
+
+## Add varnish as an HTTP accelerator
 
 Under all but light loads, it is strongly recommended to run the server behind
 an http accelerator like Varnish. A sample varnish VCL is supplied in
@@ -795,7 +811,7 @@ simply use Apache as the SSL terminator.
 We have some [production server best practice
 notes]({{ site.baseurl}}docs/running/server/).
 
-## What next? 
+## What next?
 
 Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
 
@@ -803,25 +819,26 @@ Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
 
 *   **Run the Tests**
 
-    Make sure everything looks OK:
+    Make sure everything looks OK. As the alaveteli user, run:
 
         bundle exec rake spec
 
     If there are failures here, something has gone wrong with the preceding
     steps (see the next section for a common problem and workaround). You might
-    be able to move on to the next step, depending on how serious they are, but
+    be able to move on to the [next steps]({{ site.baseurl }}docs/installing/next_steps/), depending on how serious they are, but
     ideally you should try to find out what's gone wrong.
 
-*   **glibc bug workaround**
 
-    There's a [bug in
-    glibc](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=637239) which causes
-    Xapian to segfault when running the tests. Although the bug report linked to
-    claims it's fixed in the current Debian stable, it's not as of version
-    `2.11.3-2`.
+<div class="attention-box">
+  <strong>Note:</strong> If you have setup your install of Alaveteli for production, you will need to temporarily remove the file <code>config/rails_env.rb</code>, which is used to force the rails environment to production, and edit your <code>.bundle/config</code> file to remove the <code>BUNDLE_WITHOUT</code> line that excludes development dependencies. After you have done this, as the alaveteli user, run <code>bundle install</code>. You will also need to make alaveteli the owner of <code>/var/www/alaveteli/log/development.log</code>, and run the database migrations.
 
-    Until it's fixed (e.g. `libc6 2.13-26` does work), you can get the tests to
-    pass by setting `export LD_PRELOAD=/lib/libuuid.so.1`.
+    <pre><code>chown alaveteli:alaveteli /var/www/alaveteli/log/development.log
+sudo -u alaveteli bundle exec rake db:migrate</code></pre>
+
+You should then be able to run the tests. Don't forget to restore <code>config/rails_env.rb</code> when you're done. You will probably see some errors from cron jobs in the meantime, as they'll be running in development mode.
+
+</div>
+
 
 *   **Incoming emails aren't appearing in my Alaveteli install**
 
