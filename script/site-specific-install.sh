@@ -214,7 +214,7 @@ if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
 fi
 
 echo -n "Creating /etc/init.d/alaveteli-alert-tracks... "
-(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.ugly" "$UNIX_USER") > /etc/init.d/alaveteli-alert-tracks
+(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.ugly" "$UNIX_USER") > /etc/init.d/$SITE-alert-tracks
 chmod a+rx /etc/init.d/alaveteli-alert-tracks
 echo $DONE_MSG
 
