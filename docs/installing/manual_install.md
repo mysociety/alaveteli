@@ -637,9 +637,10 @@ this guide, so pick the appropriate web server to configure.
 
 ### Apache (with Passenger)
 
-Install Apache:
+Install Apache with the Suexec wrapper:
 
     apt-get install -y apache2
+    apt-get install -u apache2-suexec
 
 Enable the required modules
 
