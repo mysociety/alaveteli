@@ -119,6 +119,7 @@ describe AttachmentToHTML::View do
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>An attachment.txt</title>
 </head>
 <body>
