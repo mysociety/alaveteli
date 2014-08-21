@@ -60,6 +60,21 @@ class PublicBody < ActiveRecord::Base
 
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
+    # Default fields available for importing from CSV, in the format
+    # [field_name, 'short description of field (basic html allowed)']
+    cattr_accessor :csv_import_fields do
+        [
+            ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
+            ['short_name', '(i18n)'],
+            ['request_email', '(i18n)'],
+            ['notes', '(i18n)'],
+            ['publication_scheme', '(i18n)'],
+            ['disclosure_log', '(i18n)'],
+            ['home_page', ''],
+            ['tag_string', '(tags separated by spaces)'],
+        ]
+    end
+
     # Public: Search for Public Bodies whose name, short_name, request_email or
     # tags contain the given query
     #
@@ -477,7 +492,10 @@ class PublicBody < ActiveRecord::Base
                         next
                     end
 
-                    field_list = ['name', 'short_name', 'request_email', 'notes', 'publication_scheme', 'disclosure_log', 'home_page', 'tag_string']
+                    field_list = []
+                    self.csv_import_fields.each do |field_name, field_notes|
+                        field_list.push field_name
+                    end
 
                     if public_body = bodies_by_name[name]   # Existing public body
                         available_locales.each do |locale|
