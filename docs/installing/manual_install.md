@@ -367,8 +367,7 @@ The default settings for frontpage examples are designed to work with
 the dummy data shipped with Alaveteli; once you have real data, you should
 certainly edit these.
 
-The default theme is the "Alaveteli" theme. When you run `rails-post-deploy`
-(see below), that theme gets installed automatically.
+The default theme is the ["Alaveteli" theme](https://github.com/mysociety/alavetelitheme). When you run `rails-post-deploy` (see below), that theme gets installed automatically.
 
 ### newrelic.yml
 
