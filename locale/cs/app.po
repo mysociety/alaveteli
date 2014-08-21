@@ -3209,7 +3209,7 @@ msgstr "Zobrazit e-mailovou adresu pro dotazy vznesené na {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Prohlédněte si dotazy vznesené uživatelem {{user_name}}:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Prohledávejte a prohlížejte dotazy"
 
 msgid "View authorities"
@@ -3218,7 +3218,7 @@ msgstr "Zobrazit instituce"
 msgid "View email"
 msgstr "Zobrazit e-mail"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Zobrazit dotazy"
 
 msgid "Waiting clarification."

@@ -3168,7 +3168,7 @@ msgstr "Електронна адреса розпорядника інформ�
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Переглянути запити, зроблені користувачем {{user_name}}:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Переглядати та шукати запити"
 
 msgid "View authorities"
@@ -3177,7 +3177,7 @@ msgstr "Показати розпорядників інформації"
 msgid "View email"
 msgstr "Показати емейли"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Показати запити"
 
 msgid "Waiting clarification."

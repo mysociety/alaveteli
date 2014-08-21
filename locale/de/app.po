@@ -3124,7 +3124,7 @@ msgstr "IFG-Emailadresse für {{public_body_name}} ansehen"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Sehen Sie die durch {{user_name}} gestellten IFG-Anfragen an:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Ansehen und Suchen von Anfragen"
 
 msgid "View authorities"
@@ -3133,7 +3133,7 @@ msgstr "Behörden ansehen"
 msgid "View email"
 msgstr "Email ansehen"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Anfragen ansehen"
 
 msgid "Waiting clarification."

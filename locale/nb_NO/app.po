@@ -3062,7 +3062,7 @@ msgstr "Vis e-post adresse for innsyn mot {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Vis innsynsbegjæringer som er opprettet av {{user_name}}:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Vis og søk i henvendelser"
 
 msgid "View authorities"
@@ -3071,7 +3071,7 @@ msgstr "Vis myndigheter"
 msgid "View email"
 msgstr "Les epost"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Vis henvendelser"
 
 msgid "Waiting clarification."

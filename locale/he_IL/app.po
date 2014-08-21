@@ -3065,7 +3065,7 @@ msgstr "צפו בדוא\"ל של בקשות מידע ל- '{{public_body_name}}'"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "צפו בבקשות מידע שהוגשו על-ידי {{user_name}}:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "צפו וחפשו בקשות מידע"
 
 msgid "View authorities"
@@ -3074,7 +3074,7 @@ msgstr "רשויות"
 msgid "View email"
 msgstr "צפו בדואר האלקטרוני"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "בקשות מידע"
 
 msgid "Waiting clarification."

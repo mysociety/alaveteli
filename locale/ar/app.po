@@ -3078,7 +3078,7 @@ msgstr "رؤية البريد الالكتروني لحرية النفاذ ال�
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "الاطلاع على طلبات حرية النفاذ الى المعلومة المقدمة من قبل {{user_name}}:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "عرض والبحث عن الطلبات"
 
 msgid "View authorities"
@@ -3087,7 +3087,7 @@ msgstr "عرض السلطات"
 msgid "View email"
 msgstr "عرض البريد الالكتروني"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "عرض الطلبات"
 
 msgid "Waiting clarification."

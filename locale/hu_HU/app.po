@@ -3237,7 +3237,7 @@ msgstr "{{public_body_name}} közérdekűadat-igényléshez használt e-mail cí
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "{{user_name}} által benyújtott  közérdekűadat-igénylések megtekintése "
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Böngészés az adatigénylések között"
 
 msgid "View authorities"
@@ -3246,7 +3246,7 @@ msgstr "Adatgazdák "
 msgid "View email"
 msgstr "E-mail megtekintése "
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Adatigénylések"
 
 msgid "Waiting clarification."

@@ -3255,7 +3255,7 @@ msgstr "Tampilkan alamat email FOI untuk {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Tampilkan permintaan Freedom of Information yang dibuat oleh {{user_name}}:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Tampilkan dan cari permintaan"
 
 msgid "View authorities"
@@ -3264,7 +3264,7 @@ msgstr "Tampilkan otoritas"
 msgid "View email"
 msgstr "Tampilkan email"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Tampilkan permintaan"
 
 msgid "Waiting clarification."

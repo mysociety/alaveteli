@@ -3115,7 +3115,7 @@ msgstr "Ikusi '{{public_body_name}}'-ren posta helbidea"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Ikusi  {{user_name}}-k egin dituen informaziorako sarbidearen eskabideak:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Ikusi eta bilatu eskabideak"
 
 msgid "View authorities"
@@ -3124,7 +3124,7 @@ msgstr "Ikusi erakunde publikoak"
 msgid "View email"
 msgstr "Ikusi posta"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Ikusi eskabideak"
 
 msgid "Waiting clarification."

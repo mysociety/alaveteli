@@ -3052,7 +3052,7 @@ msgstr "Показване ДдИ имейл адрес за {{public_body_name}
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Преглед на Заявленията за Достъп до информация, направени от {{user_name}}:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Преглед и търсене на заявления"
 
 msgid "View authorities"
@@ -3061,7 +3061,7 @@ msgstr "Преглед на органите"
 msgid "View email"
 msgstr "Преглед на имейл"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Преглед на заявления"
 
 msgid "Waiting clarification."

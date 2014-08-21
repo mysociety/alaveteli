@@ -3206,7 +3206,7 @@ msgstr "Pogledati ZOSPI e-mail adrese za {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Pegledati Zahjeve za slobodan pristup informacijama napravljene od strane {{user_name}}:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Pregledaj i pretraži zahtjeve"
 
 msgid "View authorities"
@@ -3215,7 +3215,7 @@ msgstr "Vidjeti ustanove"
 msgid "View email"
 msgstr "Pogledati e-mail"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Vidjeti zahtjeve"
 
 msgid "Waiting clarification."
