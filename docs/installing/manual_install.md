@@ -732,7 +732,7 @@ true in `config/general.yml`). For this you will need an SSL certificate for you
 Copy the SSL configuration – changing `www.example.com` to your domain –
 and enable the `alaveteli_https` server, disabling the default site.
 
-    cp /var/www/alaveteli/config/nginx-ssl.conf-example \
+    cp /var/www/alaveteli/config/nginx-ssl.conf.example \
       /etc/nginx/sites-available/alaveteli_https
     rm /etc/nginx/sites-enabled/default
     ln -s /etc/nginx/sites-available/alaveteli_https \
