@@ -37,7 +37,7 @@ namespace :deploy do
   [:start, :stop, :restart].each do |t|
     desc "#{t.to_s.capitalize} Alaveteli service defined in /etc/init.d/alaveteli"
     task t, :roles => :app, :except => { :no_release => true } do
-      run "service alaveteli #{t}"
+      run "/etc/init.d alaveteli #{t}"
     end
   end
 
