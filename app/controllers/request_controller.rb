@@ -181,7 +181,7 @@ class RequestController < ApplicationController
         end
 
         @filters = params.merge(:latest_status => @view)
-        @title = _("View and search requests")
+        @title = _('Browse and search requests')
 
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
         @track_thing = TrackThing.create_track_for_search_query(InfoRequestEvent.make_query_from_params(@filters))

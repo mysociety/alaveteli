@@ -3077,7 +3077,7 @@ msgstr "Voir l'adresse mail des demandes d'accès à l'information pour  {{publi
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Voir les demandes faites par {{user_name}}:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Visualiser et parcourir les demandes d'information"
 
 msgid "View authorities"
@@ -3086,7 +3086,7 @@ msgstr "Voir les institutions publiques"
 msgid "View email"
 msgstr "Voir l'email "
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Voir les demandes"
 
 msgid "Waiting clarification."

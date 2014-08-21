@@ -3069,7 +3069,7 @@ msgstr "Vezi adresa de email  pentru '{{public_body_name}}'"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Vezi cererile solicitările de acces la informații făcute de {{user_name}}:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Vezi şi caută cereri"
 
 msgid "View authorities"
@@ -3078,7 +3078,7 @@ msgstr "Vezi autorităţi"
 msgid "View email"
 msgstr "Vezi email"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Vezi cereri"
 
 msgid "Waiting clarification."

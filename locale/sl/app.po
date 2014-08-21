@@ -3061,7 +3061,7 @@ msgstr "Poglejte e-poštni naslov za zahtevke za IJZ za {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Poglejte zahtevke za informacije javnega značaja, ki jih je naredil {{user_name}}:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Preglejte in iščite po zahtevkih"
 
 msgid "View authorities"
@@ -3070,7 +3070,7 @@ msgstr "Poglejte organe"
 msgid "View email"
 msgstr "Poglejte e-poštni naslov"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Poglejte zahtevke"
 
 msgid "Waiting clarification."

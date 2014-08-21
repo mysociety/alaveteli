@@ -3052,7 +3052,7 @@ msgstr "Видете ја адресата за е-пошта за слобод�
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Видете ги барањата за слободен пристап до информации од јавен карактер направени од {{user_name}}:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Видете и пребарајте барања"
 
 msgid "View authorities"
@@ -3061,7 +3061,7 @@ msgstr "Видете ги имателите"
 msgid "View email"
 msgstr "Видете е-пошта"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Видете барања"
 
 msgid "Waiting clarification."

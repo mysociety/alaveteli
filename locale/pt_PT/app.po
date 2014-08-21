@@ -3106,7 +3106,7 @@ msgstr "Veja o e-mail de {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Ver os pedidos de acesso a informação feitos por {{user_name}}:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Visualizar ou buscar pedidos"
 
 msgid "View authorities"
@@ -3115,7 +3115,7 @@ msgstr "Ver órgãos públicos"
 msgid "View email"
 msgstr "Ver e-mail"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Ver pedidos"
 
 msgid "Waiting clarification."

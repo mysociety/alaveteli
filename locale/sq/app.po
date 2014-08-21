@@ -3179,7 +3179,7 @@ msgstr "Shiko adresën e emailit për Informatë Zyrtare {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Shiko kërkesat për informata zyrtare të bëra nga {{user_name}}: "
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Shiko dhe kërko kërkesat"
 
 msgid "View authorities"
@@ -3188,7 +3188,7 @@ msgstr "Shiko autoritetet"
 msgid "View email"
 msgstr "Shiko adresën e emailit"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Shiko kërkesat"
 
 msgid "Waiting clarification."

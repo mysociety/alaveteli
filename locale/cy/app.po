@@ -3072,7 +3072,7 @@ msgstr "Gweld cyfeiriad e-bost Rhyddid Gwybodaeth ar gyfer '{{public_body_name}}
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Gweld ceisiadau Rhyddid Gwybodaeth a wnaed gan {{user_name}}:"
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr "Gweld a chwilio ceisiadau"
 
 msgid "View authorities"
@@ -3081,7 +3081,7 @@ msgstr "Gweld yr awdurdodau"
 msgid "View email"
 msgstr "Gweld e-bost"
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr "Gweld ceisiadau"
 
 msgid "Waiting clarification."

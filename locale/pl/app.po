@@ -3055,7 +3055,7 @@ msgstr ""
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr ""
 
-msgid "View and search requests"
+msgid "Browse and search requests"
 msgstr ""
 
 msgid "View authorities"
@@ -3064,7 +3064,7 @@ msgstr ""
 msgid "View email"
 msgstr ""
 
-msgid "View requests"
+msgid "Browse Requests"
 msgstr ""
 
 msgid "Waiting clarification."
