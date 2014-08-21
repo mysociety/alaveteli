@@ -154,7 +154,7 @@ GEM
     net-ssh (2.6.7)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    newrelic_rpm (3.8.0.218)
+    newrelic_rpm (3.9.1.236)
     nokogiri (1.5.9)
     paper_trail (2.7.2)
       activerecord (~> 3.0)
