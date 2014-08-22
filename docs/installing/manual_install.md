@@ -442,6 +442,8 @@ site in action.
 
 You can daemonize the process by starting it with the `--daemonize` option.
 
+Later in this guide we'll actually create a SysVinit daemon to run the application, so stop any thin processes you've started here.
+
 ## Cron jobs and Daemons
 
 The crontab and init scripts use the `.ugly` file format, which is a strange
