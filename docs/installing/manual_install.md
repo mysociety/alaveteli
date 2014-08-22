@@ -423,7 +423,7 @@ See later in the guide for configuring the Apache web server with Passenger.
 ### Using Thin
 
 Thin is a lighter-weight application server which can be run independently of
-a web server.
+a web server. Thin will be installed in the application bundle and used to run Alaveteli by default.
 
 Run the following to get the server running:
 
