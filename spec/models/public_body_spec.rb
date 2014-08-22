@@ -562,7 +562,7 @@ CSV
     end
 
     it 'allows you to override the default list of fields to import' do
-        old_csv_import_fields = PublicBody.csv_import_fields
+        old_csv_import_fields = PublicBody.csv_import_fields.clone
         expected_fields = [
             ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
             ['short_name', '(i18n)'],
@@ -577,7 +577,7 @@ CSV
     end
 
     it 'allows you to append to the default list of fields to import' do
-        old_csv_import_fields = PublicBody.csv_import_fields
+        old_csv_import_fields = PublicBody.csv_import_fields.clone
         expected_fields = [
             ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
             ['short_name', '(i18n)'],
