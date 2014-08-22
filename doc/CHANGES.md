@@ -49,7 +49,9 @@ candidate:
 * Install `lockfile-progs` so that the `run-with-lockfile` shell script can be
   used instead of the C program
 * Use responsive stylesheets in `config/general.yml`:  
-  `RESPONSIVE_STYLING: true`
+  `RESPONSIVE_STYLING: true`. If you don't currently use responsive styling,
+  and you don't want to get switched over just set `RESPONSIVE_STYLING: false`
+  and the fixed-width stylesheets will be used as before.
 * Allow access to public body stats page if desired in `config/general/yml`:  
   `PUBLIC_BODY_STATISTICS_PAGE: true`
 * Run migrations to define track_things constraint correctly (Robin Houston) and
