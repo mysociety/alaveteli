@@ -446,6 +446,7 @@ is an init script, which can be generated from the
 
 **Template Variables:**
 
+* `daemon_name`: The name of the daemon. This is set by the rake task.
 * `vhost_dir`: the full path to the directory where alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
 * `user`: the user that the software runs as
@@ -465,7 +466,7 @@ and not required if you choose not to run your site behind Varnish (see below).
 
 **Template Variables:**
 
-* `daemon_name`: The name of the daemon. Set this to `purge-varnish`.
+* `daemon_name`: The name of the daemon. This is set by the rake task.
 * `vhost_dir`: the full path to the directory where alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
 * `user`: the user that the software runs as
