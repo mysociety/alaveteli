@@ -28,6 +28,7 @@
       <%= text_field_tag 'public_body_change_request[comment]' %>
     </p>
   This is the anti-spam honeypot.
+*  The workaround for an old [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=637239) in libc6 in squeeze has been removed. If you're running on squeeze, please make sure you're using the latest version of libc6 (2.11.3-4) to prevent the risk of segfaults.
 
 # Version 0.18
 
