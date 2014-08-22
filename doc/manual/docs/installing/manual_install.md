@@ -598,7 +598,7 @@ Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
 
         $ telnet mail.example.com 25
         Trying 10.10.10.30...
-    telnet: connect to address 10.10.10.30: Connection refused
+        telnet: connect to address 10.10.10.30: Connection refused
 
     The transcript below shows a successful connection where the server
     accepts mail for delivery (the commands you would type are prefixed
