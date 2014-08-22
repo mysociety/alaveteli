@@ -31,7 +31,9 @@ Don't forget to set up the cron jobs as outlined in the
 
 We recommend running your site behind
 [Apache](https://httpd.apache.org) +
-[Passenger](https://www.phusionpassenger.com). Refer to the
+[Passenger](https://www.phusionpassenger.com) or [Nginx](http://wiki.nginx.org/Main) + [Thin](http://code.macournoyer.com/thin/).
+
+If you're using Passenger, refer to the
 [installation instructions]({{ site.baseurl }}docs/installing/manual_install/)
 regarding `PassengerMaxPoolSize`, which you should
 experiment with to match your available RAM. It is very unlikely that you'll
