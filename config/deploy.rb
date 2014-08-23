@@ -1,4 +1,5 @@
 require 'bundler/capistrano'
+require 'rvm/capistrano'
 
 set :stage, 'staging' unless exists? :stage
 
@@ -17,6 +18,7 @@ if configuration.has_key? 'password'
 end
 set :use_sudo, false
 set :rails_env, configuration['rails_env']
+set :rvm_type, :system
 
 unless configuration.has_key? 'port'
   configuration['port'] = 22
