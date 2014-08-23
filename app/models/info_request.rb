@@ -941,6 +941,7 @@ public
     end
 
     def InfoRequest.create_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
+        info_request_atts[:address] = outgoing_message_atts[:address]
         info_request = new(info_request_atts)
         default_message_params = {
             :status => 'ready',
