@@ -1712,7 +1712,7 @@ msgid ""
 msgstr "Създаване на ново<br/>\\n  <strong>Заявление <span>за</span><br/>\\n  Достъп до<br/>\\n  Информация</strong>"
 
 msgid "Make a request"
-msgstr "Създаване на заявление"
+msgstr "Създай заявление"
 
 msgid "Make a request to these authorities"
 msgstr "Направете заявление до тези органи"
