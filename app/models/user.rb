@@ -452,7 +452,7 @@ class User < ActiveRecord::Base
     private
 
     def name_valid?(name)
-        name =~ /\w+\s+\w+\s+\w+/
+        name =~ /[[:word:]]+\s+[[:word:]]+\s+[[:word:]]+/
     end
 end
 
