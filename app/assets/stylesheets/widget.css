@@ -72,9 +72,11 @@ no { border: 1px solid red; }
     position: absolute;
     left: 176px;
     top: 22px;
+    width: 100px;
     color: white;
     font-weight: 800;
     font-size: 55px;
+    text-align: center;
 }
 #alawidget-bottom a {
     text-decoration: none;
