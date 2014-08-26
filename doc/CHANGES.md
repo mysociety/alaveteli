@@ -33,6 +33,16 @@
 
 ## Upgrade Notes
 
+* `HighlightHelper#excerpt` backports the Rails 4 `excerpt` which requires a
+  Hash for the options parameter rather than globbing the remaining arguments.
+
+For example:
+
+    - <%=h excerpt(info_request.initial_request_text, "", 100) %>
+    + <%=h excerpt(info_request.initial_request_text, "", :radius => 100) %>
+
+You will need to update any use of `excerpt` in your theme to use the Hash args.
+
 * Ubuntu Precise users can get an updated version of pdftk from mySociety's PPA
 
 Install the repo and update the sources:
