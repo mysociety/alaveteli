@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 16:06+0000\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:50+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
@@ -486,14 +486,14 @@ msgstr "הקליקו על <a href='{{url}}'>בקשות אחרות</a> לצפות
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "הקליקו על <a href='{{url}}'>בקשות אחרות</a> אל '{{public_body_name}}' לצפות בדוגמאות לניסוח הבקשה."
 
-msgid "Browse Requests"
-msgstr "בקשות מידע"
-
 msgid "Browse all authorities..."
 msgstr "עיון בכל הרשויות..."
 
 msgid "Browse and search requests"
 msgstr "צפו וחפשו בקשות מידע"
+
+msgid "Browse requests"
+msgstr "בקשות מידע"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "לפי החוק, בכפוף לנסיבות, {{public_body_link}} היו צרכים להשיב עד עתה"

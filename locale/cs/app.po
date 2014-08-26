@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 16:04+0000\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:47+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/alaveteli/language/cs/)\n"
 "Language: cs\n"
@@ -530,14 +530,14 @@ msgstr "Pokud se chcete inspirovat jak formulovat svůj dotaz, prohlédněte si 
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Přečtěte si <a href='{{url}}'>dříve vznesené dotazy</a> na '{{public_body_name}}', pomůže vám to lépe formulovat váš dotaz."
 
-msgid "Browse Requests"
-msgstr "Zobrazit dotazy"
-
 msgid "Browse all authorities..."
 msgstr "Procházejte všechny instituce"
 
 msgid "Browse and search requests"
 msgstr "Prohledávejte a prohlížejte dotazy"
+
+msgid "Browse requests"
+msgstr "Zobrazit dotazy"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Podle zákona by instituce {{public_body_link}} měla v každém případě odpovědět."

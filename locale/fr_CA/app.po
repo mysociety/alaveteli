@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 16:05+0000\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:49+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/projects/p/alaveteli/language/fr_CA/)\n"
 "Language: fr_CA\n"
@@ -486,14 +486,14 @@ msgstr "Prenez connaissance <a href='{{url}}'>des autres demandes</a> pour des e
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Prenez connaissance <a href='{{url}}'>des autres demandes</a> faites au '{{public_body_name}}' pour des exemples sur la façon dont vous pouvez formuler votre demande. Vérifiez également que votre demande n'a pas déjà été faite (et répondue!) par un autre utilisateur."
 
-msgid "Browse Requests"
-msgstr "Voir les demandes"
-
 msgid "Browse all authorities..."
 msgstr "Parcourir tous les organismes gouvernementaux…"
 
 msgid "Browse and search requests"
 msgstr "Parcourir les demandes passées"
+
+msgid "Browse requests"
+msgstr "Voir les demandes"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Selon la loi, en toutes circonstances, {{public_body_link}} devrait avoir déjà répondu"

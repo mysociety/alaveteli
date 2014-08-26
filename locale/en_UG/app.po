@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-21 13:43+0000\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
 "PO-Revision-Date: 2014-01-31 09:14+0000\n"
 "Last-Translator: Louise Crow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -470,13 +470,13 @@ msgstr "Browse <a href='{{url}}' target='_blank'>other requests</a> for examples
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Browse <a href='{{url}}' target='_blank'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 
-msgid "Browse Requests"
-msgstr ""
-
 msgid "Browse all authorities..."
 msgstr "Browse all agencies…"
 
 msgid "Browse and search requests"
+msgstr ""
+
+msgid "Browse requests"
 msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
