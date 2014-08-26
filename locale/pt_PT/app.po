@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 16:06+0000\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:50+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/alaveteli/language/pt_PT/)\n"
 "Language: pt_PT\n"
@@ -508,14 +508,14 @@ msgstr "Veja <a href=\"{{url}}\">outros pedidos</a> para exemplos de como escrev
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Busque <a href='{{url}}'>outros pedidos</a> para '{{public_body_name}}' para exemplos de como escrever seu pedido."
 
-msgid "Browse Requests"
-msgstr "Ver pedidos"
-
 msgid "Browse all authorities..."
 msgstr "Listar todos os órgãos..."
 
 msgid "Browse and search requests"
 msgstr "Visualizar ou buscar pedidos"
+
+msgid "Browse requests"
+msgstr "Ver pedidos"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "De acordo com a lei, em qualquer circunstância, {{public_body_link}} já deveria ter respondido seu pedido."

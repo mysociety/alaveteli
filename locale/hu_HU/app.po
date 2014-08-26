@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 16:06+0000\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:49+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/alaveteli/language/hu_HU/)\n"
 "Language: hu_HU\n"
@@ -522,14 +522,14 @@ msgstr "A <a href='{{url}}'>többi igénylés</a> megtekintése az ön segítsé
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Igénylése megfogalmazásához az adatgazdának küldött <a href='{{url}}'>többi kérelemből</a> is meríthet ötleteket."
 
-msgid "Browse Requests"
-msgstr "Adatigénylések"
-
 msgid "Browse all authorities..."
 msgstr "Az összes adatgazda böngészése... "
 
 msgid "Browse and search requests"
 msgstr "Böngészés az adatigénylések között"
+
+msgid "Browse requests"
+msgstr "Adatigénylések"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "A vonatkozó jogszabály értelmében  a(z) {{public_body_link}} munkatársainak már ki kellett volna adniuk a kért adatokat."

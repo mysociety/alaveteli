@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-25 21:45+0000\n"
-"Last-Translator: gorm <gormer@gmail.com>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:50+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
@@ -486,14 +486,14 @@ msgstr "Se på <a href='{{url}}'>andre henvendelser</a> for eksempler på hvorda
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Se på <a href='{{url}}'>andre henvendelser</a> til '{{public_body_name}}' for eksempler på hvordan du kan ordlegge deg."
 
-msgid "Browse Requests"
-msgstr "Vis henvendelser"
-
 msgid "Browse all authorities..."
 msgstr "Vis alle myndighetene..."
 
 msgid "Browse and search requests"
 msgstr "Vis og søk i henvendelser"
+
+msgid "Browse requests"
+msgstr "Vis henvendelser"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "I følge loven så burde {{public_body_link}}, under enhver omstendighet ha svart på dette tidspunkt"

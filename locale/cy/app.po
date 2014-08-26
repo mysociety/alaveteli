@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-24 23:30+0000\n"
-"Last-Translator: hywelm <hywelm.jones@talk21.com>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:48+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -484,14 +484,14 @@ msgstr "Porwch<a href='{{url}}'>geisiadau eraill</a> am enghreifftiau o sut i ei
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Porwch <a href='{{url}}'>geisiadau eraill</a> i '{{public_body_name}}' am enghreifftiau o sut i eirio'ch cais."
 
-msgid "Browse Requests"
-msgstr "Gweld ceisiadau"
-
 msgid "Browse all authorities..."
 msgstr "Mwy o awdurdodau..."
 
 msgid "Browse and search requests"
 msgstr "Gweld a chwilio ceisiadau"
+
+msgid "Browse requests"
+msgstr "Gweld ceisiadau"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Yn ôl y gyfraith, ym mhob amgylchiad, dylai {{public_body_link}} fod wedi ymateb erbyn hyn."

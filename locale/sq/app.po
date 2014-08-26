@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 16:05+0000\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:49+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/projects/p/alaveteli/language/sq/)\n"
 "Language: sq\n"
@@ -526,14 +526,14 @@ msgstr "Shfleto <a href='{{url}}'>kërkesa të tjera</a> për shembuj se si të 
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Shfleto <a href='{{url}}'>kërkesa të tjera</a> të drejtuara te '{{public_body_name}}' për shembuj se si të formulosh kërkesën tënde."
 
-msgid "Browse Requests"
-msgstr "Shiko kërkesat"
-
 msgid "Browse all authorities..."
 msgstr "Shfleto të gjitha autoritetet ..."
 
 msgid "Browse and search requests"
 msgstr "Shiko dhe kërko kërkesat"
+
+msgid "Browse requests"
+msgstr "Shiko kërkesat"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Sipas ligjit, në të gjitha rrethanat, {{public_body_link}} është duhur të përgjigjet deri tani"

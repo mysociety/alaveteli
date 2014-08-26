@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-21 13:43+0000\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
 "PO-Revision-Date: 2011-10-09 01:10+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -470,6 +470,12 @@ msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for
 msgstr ""
 
 msgid "Browse all authorities..."
+msgstr ""
+
+msgid "Browse and search requests"
+msgstr ""
+
+msgid "Browse requests"
 msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
@@ -3046,16 +3052,10 @@ msgstr ""
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr ""
 
-msgid "Browse and search requests"
-msgstr ""
-
 msgid "View authorities"
 msgstr ""
 
 msgid "View email"
-msgstr ""
-
-msgid "Browse Requests"
 msgstr ""
 
 msgid "Waiting clarification."

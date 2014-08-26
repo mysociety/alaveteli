@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 16:06+0000\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:49+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/alaveteli/language/sl/)\n"
 "Language: sl\n"
@@ -472,14 +472,14 @@ msgstr "Prebrskajte <a href='{{url}}'>za drugimi zahtevki</a> za primere kako ub
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Prebrskajte <a href='{{url}}'>za drugimi zahtevki</a> za '{{public_body_name}}' za primere kako ubesediti vaš zahtevek."
 
-msgid "Browse Requests"
-msgstr "Poglejte zahtevke"
-
 msgid "Browse all authorities..."
 msgstr "Prebrskajte vse organe..."
 
 msgid "Browse and search requests"
 msgstr "Preglejte in iščite po zahtevkih"
+
+msgid "Browse requests"
+msgstr "Poglejte zahtevke"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Po zakonu in po vseh možnih scenarijih bi {{public_body_link}} do sedaj že moral odgovoriti"
