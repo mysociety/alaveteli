@@ -4,13 +4,15 @@
 #
 # Translators:
 # Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2012-2013
-# Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2013
+# Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2012-2013
 # Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2012
+# Claudiu Marginean <copyratul@gmail.com>, 2012
 # Claudiu Marginean <copyratul@gmail.com>, 2012
 # Claudiu Marginean <copyratul@gmail.com>, 2012
 # Cosmin Pojoranu <cosmin@funkycitizens.org>, 2013
 # Elena Calistru <calistru.elena@gmail.com>, 2013
 # Elena Calistru <calistru.elena@gmail.com>, 2013
+# paul.chioveanu <paul_kimmy@yahoo.com>, 2013
 # paul.chioveanu <paul_kimmy@yahoo.com>, 2013
 # paul.chioveanu <paul_kimmy@yahoo.com>, 2013
 # Rodica Ardelean <rodxy@yahoo.com>, 2013
@@ -22,7 +24,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 13:44+0000\n"
+"PO-Revision-Date: 2014-08-21 16:05+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -484,8 +486,14 @@ msgstr "Consultaţi  <a href='{{url}}'> şi alte cereri </a> pentru exemple asup
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Consultaţi  <a href='{{url}}'> şi alte cereri </a> catre '{{public_body_name}}' pentru exemple asupra modului în care să formulaţi cererea."
 
+msgid "Browse Requests"
+msgstr "Vezi cereri"
+
 msgid "Browse all authorities..."
 msgstr "Consultaţi toate autoritaţile ..."
+
+msgid "Browse and search requests"
+msgstr "Vezi şi caută cereri"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Conform legii, în oricare circumstanţe, {{public_body_link}} ar fi trebuit să vă răspundă până acum"
@@ -3069,17 +3077,11 @@ msgstr "Vezi adresa de email  pentru '{{public_body_name}}'"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Vezi cererile solicitările de acces la informații făcute de {{user_name}}:"
 
-msgid "Browse and search requests"
-msgstr "Vezi şi caută cereri"
-
 msgid "View authorities"
 msgstr "Vezi autorităţi"
 
 msgid "View email"
 msgstr "Vezi email"
-
-msgid "Browse Requests"
-msgstr "Vezi cereri"
 
 msgid "Waiting clarification."
 msgstr "Aşteaptă clarificare"

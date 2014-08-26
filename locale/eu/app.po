@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 13:44+0000\n"
+"PO-Revision-Date: 2014-08-21 16:04+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/alaveteli/language/eu/)\n"
 "Language: eu\n"
@@ -502,8 +502,14 @@ msgstr "Kontsulta itzazu <a href='{{url}}'>beste eskabideak</a>, ikusteko nola i
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Araka itzazu<a href='{{url}}'>beste eskabideak</a>, '{{public_body_name}}' zure eskabidea nola idatz daitekeen adibideak ikusteko."
 
+msgid "Browse Requests"
+msgstr "Ikusi eskabideak"
+
 msgid "Browse all authorities..."
 msgstr "Arakatu beste erakunde publikoak..."
+
+msgid "Browse and search requests"
+msgstr "Ikusi eta bilatu eskabideak"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Legearen arabera, edozein zirkunstantzia dela, {{public_body_link}}k jada erantzun behar izango zukeen"
@@ -3115,17 +3121,11 @@ msgstr "Ikusi '{{public_body_name}}'-ren posta helbidea"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Ikusi  {{user_name}}-k egin dituen informaziorako sarbidearen eskabideak:"
 
-msgid "Browse and search requests"
-msgstr "Ikusi eta bilatu eskabideak"
-
 msgid "View authorities"
 msgstr "Ikusi erakunde publikoak"
 
 msgid "View email"
 msgstr "Ikusi posta"
-
-msgid "Browse Requests"
-msgstr "Ikusi eskabideak"
 
 msgid "Waiting clarification."
 msgstr "Azalpenaren zain."

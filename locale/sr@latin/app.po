@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 13:44+0000\n"
+"PO-Revision-Date: 2014-08-21 16:04+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/alaveteli/language/sr@latin/)\n"
 "Language: sr@latin\n"
@@ -488,8 +488,14 @@ msgstr "Listajte <a href='{{url}}'>druge zahteve</a> da nađete primer kako da s
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Listajte <a href='{{url}}'>druge zahteve</a> od '{{public_body_name}}' za primere kako da sročite Vaš zahtev."
 
+msgid "Browse Requests"
+msgstr "Pregled zahteva"
+
 msgid "Browse all authorities..."
 msgstr "Listajte sve ustanove..."
+
+msgid "Browse and search requests"
+msgstr "Pregledaj i pretraži zahteve"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Po zakonu je, u svakoj varijanti, {{public_body_link}} trebalo da odgovori do sada"
@@ -3136,17 +3142,11 @@ msgstr "Pogledati ZOSPI e-mail adresu za {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Videti Zahteve za slobodan pristup informacijama od javnog značaja napravljene od strane {{user_name}}:"
 
-msgid "Browse and search requests"
-msgstr "Pregledaj i pretraži zahteve"
-
 msgid "View authorities"
 msgstr "Pregledaj ustanove"
 
 msgid "View email"
 msgstr "Prikaži e-mail"
-
-msgid "Browse Requests"
-msgstr "Pregled zahteva"
 
 msgid "Waiting clarification."
 msgstr "Čeka na razjašnjenje."

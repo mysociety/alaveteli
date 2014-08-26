@@ -9,6 +9,7 @@
 # janakneschke <jana.kneschke@gmail.com>, 2013
 # janakneschke <jana.kneschke@gmail.com>, 2012-2013
 # janakneschke <jana.kneschke@gmail.com>, 2013
+# Jiří Vírava <appukonrad@gmail.com>, 2012
 # josefpospisil <josef.pospisil@laststar.eu>, 2012
 # josefpospisil <josef.pospisil@laststar.eu>, 2012
 # Jiří Vírava <appukonrad@gmail.com>, 2012
@@ -20,7 +21,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 13:44+0000\n"
+"PO-Revision-Date: 2014-08-21 16:04+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/alaveteli/language/cs/)\n"
 "Language: cs\n"
@@ -529,8 +530,14 @@ msgstr "Pokud se chcete inspirovat jak formulovat svůj dotaz, prohlédněte si 
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Přečtěte si <a href='{{url}}'>dříve vznesené dotazy</a> na '{{public_body_name}}', pomůže vám to lépe formulovat váš dotaz."
 
+msgid "Browse Requests"
+msgstr "Zobrazit dotazy"
+
 msgid "Browse all authorities..."
 msgstr "Procházejte všechny instituce"
+
+msgid "Browse and search requests"
+msgstr "Prohledávejte a prohlížejte dotazy"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Podle zákona by instituce {{public_body_link}} měla v každém případě odpovědět."
@@ -3209,17 +3216,11 @@ msgstr "Zobrazit e-mailovou adresu pro dotazy vznesené na {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Prohlédněte si dotazy vznesené uživatelem {{user_name}}:"
 
-msgid "Browse and search requests"
-msgstr "Prohledávejte a prohlížejte dotazy"
-
 msgid "View authorities"
 msgstr "Zobrazit instituce"
 
 msgid "View email"
 msgstr "Zobrazit e-mail"
-
-msgid "Browse Requests"
-msgstr "Zobrazit dotazy"
 
 msgid "Waiting clarification."
 msgstr "Čeká se na vysvětlení. "

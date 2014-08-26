@@ -12,6 +12,7 @@
 # Bbear <borisjf@post.harvard.edu>, 2011
 # cegall, 2013
 # Claire, 2013
+# Claire, 2013
 # David Cabo <david.cabo@gmail.com>, 2013
 # louisecrow <louise@mysociety.org>, 2013
 # louisecrow <louise@mysociety.org>, 2013
@@ -34,7 +35,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 13:44+0000\n"
+"PO-Revision-Date: 2014-08-21 16:02+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/alaveteli/language/fr/)\n"
 "Language: fr\n"
@@ -500,8 +501,14 @@ msgstr "Parcourir <a href='{{url}}'>les autres demandes</a> , par exemple, comme
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Parcourir <a href='{{url}}'>les autres demandes</a> to '{{public_body_name}}' , par exemple, comment formuler votre demande"
 
+msgid "Browse Requests"
+msgstr "Voir les demandes"
+
 msgid "Browse all authorities..."
 msgstr "Parcourir toutes les autorités publiques..."
+
+msgid "Browse and search requests"
+msgstr "Visualiser et parcourir les demandes d'information"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Selon la loi, {{public_body_link}} aurait déjà dû répondre à la demande "
@@ -3077,17 +3084,11 @@ msgstr "Voir l'adresse mail des demandes d'accès à l'information pour  {{publi
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Voir les demandes faites par {{user_name}}:"
 
-msgid "Browse and search requests"
-msgstr "Visualiser et parcourir les demandes d'information"
-
 msgid "View authorities"
 msgstr "Voir les institutions publiques"
 
 msgid "View email"
 msgstr "Voir l'email "
-
-msgid "Browse Requests"
-msgstr "Voir les demandes"
 
 msgid "Waiting clarification."
 msgstr "En attente de clarification"
