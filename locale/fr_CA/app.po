@@ -5,8 +5,11 @@
 # Translators:
 # andreas.pavlou <andreas@access-info.org>, 2013
 # Bbear <borisjf@post.harvard.edu>, 2011
+# Benoît Simard <contact@bsimard.com>, 2013
 # David Cabo <david.cabo@gmail.com>, 2013
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
+# pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
+# radhouane fazai <radhouanef@gmail.com>, 2013
 # radhouane fazai <radhouanef@gmail.com>, 2013
 # rrobert <rrobertpolson@gmail.com>, 2013
 # sebbacon <seb.bacon@gmail.com>, 2012
@@ -19,7 +22,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 13:44+0000\n"
+"PO-Revision-Date: 2014-08-21 16:05+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/projects/p/alaveteli/language/fr_CA/)\n"
 "Language: fr_CA\n"
@@ -483,8 +486,14 @@ msgstr "Prenez connaissance <a href='{{url}}'>des autres demandes</a> pour des e
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Prenez connaissance <a href='{{url}}'>des autres demandes</a> faites au '{{public_body_name}}' pour des exemples sur la façon dont vous pouvez formuler votre demande. Vérifiez également que votre demande n'a pas déjà été faite (et répondue!) par un autre utilisateur."
 
+msgid "Browse Requests"
+msgstr "Voir les demandes"
+
 msgid "Browse all authorities..."
 msgstr "Parcourir tous les organismes gouvernementaux…"
+
+msgid "Browse and search requests"
+msgstr "Parcourir les demandes passées"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Selon la loi, en toutes circonstances, {{public_body_link}} devrait avoir déjà répondu"
@@ -3060,17 +3069,11 @@ msgstr "Voir l'adresse courriel pour {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Voir les demandes faites par {{user_name}}:"
 
-msgid "Browse and search requests"
-msgstr "Parcourir les demandes passées"
-
 msgid "View authorities"
 msgstr "Voir les organismes"
 
 msgid "View email"
 msgstr "Voir le courriel"
-
-msgid "Browse Requests"
-msgstr "Voir les demandes"
 
 msgid "Waiting clarification."
 msgstr "En attente de clarification"

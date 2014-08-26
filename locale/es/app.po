@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 13:44+0000\n"
+"PO-Revision-Date: 2014-08-21 16:06+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/alaveteli/language/es/)\n"
 "Language: es\n"
@@ -552,8 +552,14 @@ msgstr "Consulta <a href='{{url}}'>otras solicitudes</a> para ver cómo puede re
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Explora <a href='{{url}}'>otras solicitudes</a> a '{{public_body_name}}' para ver ejemplos de cómo redactar tu solicitud."
 
+msgid "Browse Requests"
+msgstr "Ver solicitudes"
+
 msgid "Browse all authorities..."
 msgstr "Explore otros organismos públicos..."
+
+msgid "Browse and search requests"
+msgstr "Ver y buscar solicitudes"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "{{public_body_link}} ya debería haber respondido"
@@ -3256,17 +3262,11 @@ msgstr "Ver dirección de correo para '{{public_body_name}}'"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Ver solicitudes de acceso a información hechas por {{user_name}}:"
 
-msgid "Browse and search requests"
-msgstr "Ver y buscar solicitudes"
-
 msgid "View authorities"
 msgstr "Ver organismos públicos"
 
 msgid "View email"
 msgstr "Ver correo"
-
-msgid "Browse Requests"
-msgstr "Ver solicitudes"
 
 msgid "Waiting clarification."
 msgstr "Esperando aclaración."

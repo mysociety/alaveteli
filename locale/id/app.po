@@ -4,9 +4,11 @@
 #
 # Translators:
 # Agung Riyadi <ariadi01@gmail.com>, 2013
+# Agung Riyadi <ariadi01@gmail.com>, 2013
 # agustriwanto <agus.triwanto@gmail.com>, 2012
 # agustriwanto <agus.triwanto@gmail.com>, 2012
-#   <ariadi01@gmail.com>, 2012
+# agustriwanto <agus.triwanto@gmail.com>, 2012
+# Agung Riyadi <ariadi01@gmail.com>, 2012
 # bobo7e836b32124642a5 <bobo@airputih.org>, 2012
 # bobo7e836b32124642a5 <bobo@airputih.org>, 2012
 # Agung Riyadi <ariadi01@gmail.com>, 2013
@@ -15,7 +17,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 13:44+0000\n"
+"PO-Revision-Date: 2014-08-21 16:05+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/projects/p/alaveteli/language/id/)\n"
 "Language: id\n"
@@ -550,8 +552,14 @@ msgstr "Melihat<a href='{{url}}'>permintaan lain</a> contohnya tentang bagaimana
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Melihat <a href='{{url}}'>permintaan lain</a> untuk'{{public_body_name}}' contohnya tentang bagaiamana menyampaikan permintaan Anda."
 
+msgid "Browse Requests"
+msgstr "Tampilkan permintaan"
+
 msgid "Browse all authorities..."
 msgstr "Melihat semua otoritas..."
+
+msgid "Browse and search requests"
+msgstr "Tampilkan dan cari permintaan"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Berdasarkan undang-undang, dalam semua keadaan, {{public_body_link}} sekarang seharusnya sudah ditanggapi"
@@ -3255,17 +3263,11 @@ msgstr "Tampilkan alamat email FOI untuk {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Tampilkan permintaan Freedom of Information yang dibuat oleh {{user_name}}:"
 
-msgid "Browse and search requests"
-msgstr "Tampilkan dan cari permintaan"
-
 msgid "View authorities"
 msgstr "Tampilkan otoritas"
 
 msgid "View email"
 msgstr "Tampilkan email"
-
-msgid "Browse Requests"
-msgstr "Tampilkan permintaan"
 
 msgid "Waiting clarification."
 msgstr "Menunggu klarifikasi."

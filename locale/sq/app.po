@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 13:44+0000\n"
+"PO-Revision-Date: 2014-08-21 16:05+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/projects/p/alaveteli/language/sq/)\n"
 "Language: sq\n"
@@ -526,8 +526,14 @@ msgstr "Shfleto <a href='{{url}}'>kërkesa të tjera</a> për shembuj se si të 
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr "Shfleto <a href='{{url}}'>kërkesa të tjera</a> të drejtuara te '{{public_body_name}}' për shembuj se si të formulosh kërkesën tënde."
 
+msgid "Browse Requests"
+msgstr "Shiko kërkesat"
+
 msgid "Browse all authorities..."
 msgstr "Shfleto të gjitha autoritetet ..."
+
+msgid "Browse and search requests"
+msgstr "Shiko dhe kërko kërkesat"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Sipas ligjit, në të gjitha rrethanat, {{public_body_link}} është duhur të përgjigjet deri tani"
@@ -3179,17 +3185,11 @@ msgstr "Shiko adresën e emailit për Informatë Zyrtare {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Shiko kërkesat për informata zyrtare të bëra nga {{user_name}}: "
 
-msgid "Browse and search requests"
-msgstr "Shiko dhe kërko kërkesat"
-
 msgid "View authorities"
 msgstr "Shiko autoritetet"
 
 msgid "View email"
 msgstr "Shiko adresën e emailit"
-
-msgid "Browse Requests"
-msgstr "Shiko kërkesat"
 
 msgid "Waiting clarification."
 msgstr "Duke pritur sqarim."

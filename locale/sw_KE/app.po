@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-21 13:43+0000\n"
-"PO-Revision-Date: 2014-08-21 13:44+0000\n"
+"PO-Revision-Date: 2014-08-21 16:02+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Swahili (Kenya) (http://www.transifex.com/projects/p/alaveteli/language/sw_KE/)\n"
 "Language: sw_KE\n"
@@ -470,7 +470,13 @@ msgstr ""
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
 msgstr ""
 
+msgid "Browse Requests"
+msgstr ""
+
 msgid "Browse all authorities..."
+msgstr ""
+
+msgid "Browse and search requests"
 msgstr ""
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
@@ -3047,16 +3053,10 @@ msgstr ""
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr ""
 
-msgid "Browse and search requests"
-msgstr ""
-
 msgid "View authorities"
 msgstr ""
 
 msgid "View email"
-msgstr ""
-
-msgid "Browse Requests"
 msgstr ""
 
 msgid "Waiting clarification."
