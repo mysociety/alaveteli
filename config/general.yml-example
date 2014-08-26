@@ -391,7 +391,7 @@ COOKIE_STORE_SESSION_SECRET: 'your secret key here, make it long and random'
 #   server.'
 #
 # ---
-# READ_ONLY: ''
+READ_ONLY: ''
 
 # Is this a staging or development site? If not, it's a live production site.
 # This setting controls whether or not the rails-post-deploy script will create
@@ -549,7 +549,7 @@ MAX_REQUESTS_PER_USER_PER_DAY: 6
 #   VARNISH_HOST: localhost
 #
 # ---
-# VARNISH_HOST: localhost
+VARNISH_HOST: null
 
 # Adding a value here will enable Google Analytics on all non-admin pages for
 # non-admin users.
