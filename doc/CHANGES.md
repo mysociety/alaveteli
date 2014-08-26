@@ -87,6 +87,8 @@ candidate:
   and is current, and executable by the cap user. You can create it using the template
   `config/sysvinit-thin.ugly` or `config/sysvinit-passenger.ugly` as
   described in http://alaveteli.org/docs/installing/manual_install/#generate-alaveteli-service
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running rails-post-deploy.
 
 # Version 0.18
 
