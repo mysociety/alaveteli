@@ -48,9 +48,9 @@ candidate:
 
 * Install `lockfile-progs` so that the `run-with-lockfile` shell script can be
   used instead of the C program
-* Use responsive stylesheets in `config/general.yml`:  
+* Use responsive stylesheets in `config/general.yml`:
   `RESPONSIVE_STYLING: true`
-* Allow access to public body stats page if desired in `config/general/yml`:  
+* Allow access to public body stats page if desired in `config/general/yml`:
   `PUBLIC_BODY_STATISTICS_PAGE: true`
 * Run migrations to define track_things constraint correctly (Robin Houston) and
   add additional index for `event_type` on `info_request_events` (Steven Day)
@@ -85,6 +85,7 @@ candidate:
   and is current, and executable by the cap user. You can create it using the template
   `config/sysvinit-thin.ugly` or `config/sysvinit-passenger.ugly` as
   described in http://alaveteli.org/docs/installing/manual_install/#generate-alaveteli-service
+* Public body categories will now be stored in the database rather than being read directly from the `lib/public_body_categories_LOCALE` files - on first run, the contents of the files will be automatically imported into the database and all further changes will need to be made via the administrative interface.
 
 # Version 0.18
 

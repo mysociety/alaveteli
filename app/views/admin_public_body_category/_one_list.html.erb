@@ -1,0 +1,12 @@
+<div class="accordion" id="categories">
+  <% for heading in category_headings %>
+    <h3>
+        <%= link_to(heading.name, admin_heading_edit_path(heading), :title => "view full details")%>
+    </h3>
+    <div>
+        <% for category in heading.public_body_categories %>
+          <%= render :partial => 'one', :locals => { :category => category } %>
+        <% end %>
+    </div>
+  <% end %>
+</div>
