@@ -101,7 +101,7 @@ then issue a pull request.
 Normally, however, you should override these pages **in your own
 theme**, by placing them at a corresponding location within your
 theme's `lib/` directory.  These means that a file at
-`lib/themes/alavetelitheme/lib/views/help/about.rhml` will appear
+`lib/themes/alavetelitheme/lib/views/help/about.html.erb` will appear
 instead of the core "about us" file.
 
 ### Changing the logo
