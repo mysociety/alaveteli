@@ -1,7 +1,7 @@
 # coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-# XXX Use route_for or params_from to check /c/ links better
+# TODO: Use route_for or params_from to check /c/ links better
 # http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/ControllerExampleGroup.html
 describe UserController, "when redirecting a show request to a canonical url" do
 
@@ -327,7 +327,7 @@ describe UserController, "when signing up" do
         deliveries[0].body.should match(/when\s+you\s+already\s+have\s+an/)
     end
 
-    # XXX need to do bob@localhost signup and check that sends different email
+    # TODO: need to do bob@localhost signup and check that sends different email
 end
 
 describe UserController, "when signing out" do
@@ -380,7 +380,7 @@ describe UserController, "when sending another user a message" do
         mail = deliveries[0]
         mail.body.should include("Bob Smith has used #{AlaveteliConfiguration::site_name} to send you the message below")
         mail.body.should include("Just a test!")
-        #mail.to_addrs.first.to_s.should == users(:silly_name_user).name_and_email # XXX fix some nastiness with quoting name_and_email
+        #mail.to_addrs.first.to_s.should == users(:silly_name_user).name_and_email # TODO: fix some nastiness with quoting name_and_email
         mail.from_addrs.first.to_s.should == users(:bob_smith_user).email
     end
 
@@ -651,7 +651,7 @@ describe UserController, "when using profile photos" do
         @user.profile_photo.should_not be_nil
     end
 
-    # XXX todo check the two stage javascript cropping (above only tests one stage non-javascript one)
+    # TODO: todo check the two stage javascript cropping (above only tests one stage non-javascript one)
 end
 
 describe UserController, "when showing JSON version for API" do

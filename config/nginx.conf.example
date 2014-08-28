@@ -1,29 +1,43 @@
 upstream alaveteli {
-    server 127.0.0.1:3300;
+    server 127.0.0.1:3000;
 }
+
+# Example to redirect other domains to the canonical URL. Also redirects the
+# unqualified domain to the FQDN www.example.com, which is recommended.
+#
+# server {
+#   server_name example.com example.org www.example.org;
+#   rewrite ^(.*) http://www.example.com$1 permanent;
+# }
 
 server {
     listen 80;
+    # Set the server name to your domain name if you have multiple nginx servers
+    # running on your machine
+    # server_name www.example.com;
     root /var/www/alaveteli/alaveteli/public;
 
-    location / {
-        proxy_set_header X-Real-IP  $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Forwarded-Proto http;
-        proxy_redirect off;
-        try_files $uri @ruby;
-    }
+    server_tokens off;
+
+    access_log /var/log/nginx/alaveteli_access.log;
+    error_log /var/log/nginx/alaveteli_error.log error;
+
+    try_files $uri/index.html $uri @alaveteli;
+
 
     location /download {
         internal;
-        alias /var/www/alaveteli/alaveteli/cache/zips/development/download;
+        alias /var/www/alaveteli/alaveteli/cache/zips/production/download;
     }
 
-    location @ruby {
-        proxy_pass http://alaveteli;
+    location @alaveteli {
         proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto http;
         proxy_set_header X-Sendfile-Type X-Accel-Redirect;
-        proxy_set_header X-Accel-Mapping /var/www/alaveteli/alaveteli/cache/zips/development/download=/download;
+        proxy_set_header X-Accel-Mapping /var/www/alaveteli/alaveteli/cache/zips/production/download=/download;
+        proxy_redirect off;
+        proxy_pass http://alaveteli;
     }
 }

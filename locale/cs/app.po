@@ -9,6 +9,7 @@
 # janakneschke <jana.kneschke@gmail.com>, 2013
 # janakneschke <jana.kneschke@gmail.com>, 2012-2013
 # janakneschke <jana.kneschke@gmail.com>, 2013
+# Jiří Vírava <appukonrad@gmail.com>, 2012
 # josefpospisil <josef.pospisil@laststar.eu>, 2012
 # josefpospisil <josef.pospisil@laststar.eu>, 2012
 # Jiří Vírava <appukonrad@gmail.com>, 2012
@@ -19,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-06-12 13:59+0000\n"
-"Last-Translator: Hana Huntova <>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:47+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -104,9 +105,6 @@ msgstr "Aktualizace týkající se tohoto dotazu vám již byly zaslány e-maile
 
 msgid " You will also be emailed updates about the request."
 msgstr " Aktualizace týkající se tohoto dotazu vám budou také zaslány e-mailem."
-
-msgid " made by "
-msgstr "vytvořeno"
 
 msgid " when you send this message."
 msgstr " když tuto zprávu pošlete."
@@ -332,6 +330,9 @@ msgstr "<strong>Poděkujte</strong> instituci, nebo"
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>neměli</strong> požadované informace."
 
+msgid "?"
+msgstr ""
+
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "<a href=\"{{request_url}}\">Odpověď</a> v konverzaci týkající se <em>{{request_title}}</em> byla odeslána instituci {{public_body_name}} uživatelem {{info_request_user}} dne {{date}}."
 
@@ -532,6 +533,12 @@ msgstr "Přečtěte si <a href='{{url}}'>dříve vznesené dotazy</a> na '{{publ
 msgid "Browse all authorities..."
 msgstr "Procházejte všechny instituce"
 
+msgid "Browse and search requests"
+msgstr "Prohledávejte a prohlížejte dotazy"
+
+msgid "Browse requests"
+msgstr "Zobrazit dotazy"
+
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Podle zákona by instituce {{public_body_link}} měla v každém případě odpovědět."
 
@@ -594,9 +601,6 @@ msgstr "Změňte své heslo"
 
 msgid "Change your password on {{site_name}}"
 msgstr "Změňte své heslo na stránkách {{site_name}}"
-
-msgid "Change your password {{site_name}}"
-msgstr "Změňte heslo na stránkách {{site_name}}"
 
 msgid "Charity registration"
 msgstr "Registrace dobročinné společnosti"
@@ -781,6 +785,9 @@ msgstr "Disclosure log"
 
 msgid "Disclosure log URL"
 msgstr "Disclosure log URL"
+
+msgid "Do not fill in this field"
+msgstr ""
 
 msgid "Don't have a superuser account yet?"
 msgstr "Nemáte ještě vytvořen \"superuser\" přístup?"
@@ -1478,6 +1485,9 @@ msgstr ""
 msgid "Make a request"
 msgstr "Vzneste dotaz"
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr "Vzneste dotaz na tyto instituce"
 
@@ -1986,6 +1996,9 @@ msgstr "Profilové foto | Koncept"
 msgid "Public Bodies"
 msgstr "Veřejné instituce"
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr "Statistika veřejných institucí"
 
@@ -1997,6 +2010,9 @@ msgstr "Veřejná instituce - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Instituce od {{start_count}} do {{end_count}} z {{total_count}}"
+
+msgid "Public authority statistics"
+msgstr ""
 
 msgid "Public authority – {{name}}"
 msgstr "Veřejná instituce – {{name}}"
@@ -2225,8 +2241,8 @@ msgstr "Odpovězte e-mailem"
 msgid "Respond to request"
 msgstr "Odpovědět na dotaz"
 
-msgid "Respond to the FOI request"
-msgstr "Odpovědět na dotaz"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr ""
 
 msgid "Respond using the web"
 msgstr "Odpovězte na internetových stránkách"
@@ -2439,9 +2455,6 @@ msgstr "SpamAdresa|Email"
 
 msgid "Special note for this authority!"
 msgstr "Speciální poznámka k této instituci!"
-
-msgid "Start now &raquo;"
-msgstr "Začněte zde &raquo;"
 
 msgid "Start your own blog"
 msgstr "Začněte psát vlastní blg"
@@ -3074,6 +3087,9 @@ msgstr "Nelze poslat odpověď uživateli {{username}}"
 msgid "Unable to send follow up message to {{username}}"
 msgstr "Nelze poslat odpověď uživateli {{username}}"
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr "Neočekávané výsledky vyhledávání "
 
@@ -3137,9 +3153,6 @@ msgstr "Uživatelé nemohou obvykle vznášet hromadné dotazy na více instituc
 msgid "User|About me"
 msgstr "User | O mně"
 
-msgid "User|Address"
-msgstr "Uživatel|Adresa"
-
 msgid "User|Admin level"
 msgstr "User | Úroveň admin"
 
@@ -3148,9 +3161,6 @@ msgstr "User | Zakázat text"
 
 msgid "User|Can make batch requests"
 msgstr "Uživatel|Může vznášet hromadné dotazy"
-
-msgid "User|Dob"
-msgstr "Uživatel|Dob"
 
 msgid "User|Email"
 msgstr "User | E-mail"
@@ -3206,17 +3216,11 @@ msgstr "Zobrazit e-mailovou adresu pro dotazy vznesené na {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Prohlédněte si dotazy vznesené uživatelem {{user_name}}:"
 
-msgid "View and search requests"
-msgstr "Prohledávejte a prohlížejte dotazy"
-
 msgid "View authorities"
 msgstr "Zobrazit instituce"
 
 msgid "View email"
 msgstr "Zobrazit e-mail"
-
-msgid "View requests"
-msgstr "Zobrazit dotazy"
 
 msgid "Waiting clarification."
 msgstr "Čeká se na vysvětlení. "

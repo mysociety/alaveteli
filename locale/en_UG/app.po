@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
 "PO-Revision-Date: 2014-01-31 09:14+0000\n"
 "Last-Translator: Louise Crow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,9 +87,6 @@ msgid " You are already being emailed updates about the request."
 msgstr ""
 
 msgid " You will also be emailed updates about the request."
-msgstr ""
-
-msgid " made by "
 msgstr ""
 
 msgid " when you send this message."
@@ -279,6 +276,9 @@ msgid "<strong>Thank</strong> the public authority or "
 msgstr "<strong>Thank</strong> the public agency or "
 
 msgid "<strong>did not have</strong> the information requested."
+msgstr ""
+
+msgid "?"
 msgstr ""
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
@@ -473,6 +473,12 @@ msgstr "Browse <a href='{{url}}' target='_blank'>other requests</a> to '{{public
 msgid "Browse all authorities..."
 msgstr "Browse all agencies…"
 
+msgid "Browse and search requests"
+msgstr ""
+
+msgid "Browse requests"
+msgstr ""
+
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr ""
 
@@ -534,9 +540,6 @@ msgid "Change your password"
 msgstr ""
 
 msgid "Change your password on {{site_name}}"
-msgstr ""
-
-msgid "Change your password {{site_name}}"
 msgstr ""
 
 msgid "Charity registration"
@@ -711,6 +714,9 @@ msgid "Disclosure log"
 msgstr ""
 
 msgid "Disclosure log URL"
+msgstr ""
+
+msgid "Do not fill in this field"
 msgstr ""
 
 msgid "Don't have a superuser account yet?"
@@ -1372,6 +1378,9 @@ msgstr "Make a new<br/>\\n  <strong>Access <span>to</span><br/>\\n  Information<
 msgid "Make a request"
 msgstr ""
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -1873,6 +1882,9 @@ msgstr ""
 msgid "Public Bodies"
 msgstr ""
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr ""
 
@@ -1884,6 +1896,9 @@ msgstr "Public agencies - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Public agencies {{start_count}} to {{end_count}} of {{total_count}}"
+
+msgid "Public authority statistics"
+msgstr "Public agency statistics"
 
 msgid "Public authority – {{name}}"
 msgstr "Public agency – {{name}}"
@@ -2110,8 +2125,8 @@ msgstr ""
 msgid "Respond to request"
 msgstr ""
 
-msgid "Respond to the FOI request"
-msgstr "Respond to the ATI request"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr "Respond to the ATI request '{{request}}' made by {{user}}"
 
 msgid "Respond using the web"
 msgstr ""
@@ -2314,9 +2329,6 @@ msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "Special note for this agency!"
-
-msgid "Start now &raquo;"
-msgstr ""
 
 msgid "Start your own blog"
 msgstr ""
@@ -2915,6 +2927,9 @@ msgstr ""
 msgid "Unable to send follow up message to {{username}}"
 msgstr ""
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr ""
 
@@ -2975,9 +2990,6 @@ msgstr ""
 msgid "User|About me"
 msgstr ""
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr ""
 
@@ -2985,9 +2997,6 @@ msgid "User|Ban text"
 msgstr ""
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3044,16 +3053,10 @@ msgstr "View ATI email address for {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "View Access to Information requests made by {{user_name}}:"
 
-msgid "View and search requests"
-msgstr ""
-
 msgid "View authorities"
 msgstr "View agencies"
 
 msgid "View email"
-msgstr ""
-
-msgid "View requests"
 msgstr ""
 
 msgid "Waiting clarification."

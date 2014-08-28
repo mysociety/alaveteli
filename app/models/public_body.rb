@@ -93,7 +93,7 @@ class PublicBody < ActiveRecord::Base
         self.translations.find_by_locale(locale)
     end
 
-    # XXX - Don't like repeating this!
+    # TODO: - Don't like repeating this!
     def calculate_cached_fields(t)
         PublicBody.set_first_letter(t)
         short_long_name = t.name
@@ -329,7 +329,7 @@ class PublicBody < ActiveRecord::Base
                     first = false
                 end
                 if html
-                    # XXX this should call proper route helpers, but is in model sigh
+                    # TODO: this should call proper route helpers, but is in model sigh
                     desc = '<a href="/body/list/' + tag.name + '">' + desc + '</a>'
                 end
                 types.push(desc)
@@ -399,6 +399,9 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
+    def site_administration?
+        has_tag?('site_administration')
+    end
 
     class ImportCSVDryRun < StandardError
     end
@@ -567,45 +570,6 @@ class PublicBody < ActiveRecord::Base
         end
 
         return [errors, notes]
-    end
-
-    # Returns all public bodies (except for the internal admin authority) as csv
-    def self.export_csv(output_filename)
-        CSV.open(output_filename, "w") do |csv|
-            csv << [
-                    'Name',
-                    'Short name',
-                    # deliberately not including 'Request email'
-                    'URL name',
-                    'Tags',
-                    'Home page',
-                    'Publication scheme',
-                    'Disclosure log',
-                    'Notes',
-                    'Created at',
-                    'Updated at',
-                    'Version',
-            ]
-            PublicBody.visible.find_each(:include => [:translations, :tags]) do |public_body|
-                # Skip bodies we use only for site admin
-                next if public_body.has_tag?('site_administration')
-                csv << [
-                    public_body.name,
-                    public_body.short_name,
-                    # DO NOT include request_email (we don't want to make it
-                    # easy to spam all authorities with requests)
-                    public_body.url_name,
-                    public_body.tag_string,
-                    public_body.calculated_home_page,
-                    public_body.publication_scheme,
-                    public_body.disclosure_log,
-                    public_body.notes,
-                    public_body.created_at,
-                    public_body.updated_at,
-                    public_body.version,
-                ]
-            end
-        end
     end
 
     # Does this user have the power of FOI officer for this body?

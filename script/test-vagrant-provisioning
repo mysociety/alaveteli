@@ -1,0 +1,19 @@
+#!/bin/bash
+ 
+OS=$1
+ 
+vagrant destroy
+ 
+ALAVETELI_VAGRANT_OS="$OS" vagrant up &&
+  vagrant ssh -c "cd /home/vagrant/alaveteli && bundle exec rails s --daemon" &&
+  sleep 10 &&
+  curl -I http://10.10.10.30:3000
+
+if [[ $? -ne 0 ]]
+then
+  echo "Failed with exit code $?"
+  exit 1
+else
+  echo "Success!"
+  exit 0
+fi

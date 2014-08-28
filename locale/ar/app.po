@@ -5,6 +5,7 @@
 # Translators:
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
+# Aladdin El-Haraty <aelharaty@gmail.com>, 2012
 # radhouane fazai <radhouanef@gmail.com>, 2013-2014
 # radhouane fazai <radhouanef@gmail.com>, 2013
 # radhouane fazai <radhouanef@gmail.com>, 2013
@@ -14,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:48+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/alaveteli/language/ar/)\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -95,9 +96,6 @@ msgstr " يجري حصولكم على رسالةٍ إلكترونية  تتضم�
 
 msgid " You will also be emailed updates about the request."
 msgstr "سنمدكم أيضاً برسالةٍ إلكترونية تتضمن مستجدات متعلقة بطلبكم."
-
-msgid " made by "
-msgstr "قام  به"
 
 msgid " when you send this message."
 msgstr " عندما تقومون ببعث هذه الرسالة ."
@@ -287,6 +285,9 @@ msgstr "<strong>شكر</strong> السلطة العامة أو "
 
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>لم تكن لدينا</strong>المعلومات المطلوبة."
+
+msgid "?"
+msgstr ""
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "A <a href=\"{{request_url}}\">المتابعة</a> الى <em>{{request_title}}</em> وقع ارسالها {{public_body_name}} من قبل {{info_request_user}} بتاريخ {{date}}."
@@ -480,6 +481,12 @@ msgstr "تصفح <a href='{{url}}'>طلبات اخرى</a>ل '{{public_body_name
 msgid "Browse all authorities..."
 msgstr "تصفح كل السلطات "
 
+msgid "Browse and search requests"
+msgstr "عرض والبحث عن الطلبات"
+
+msgid "Browse requests"
+msgstr "عرض الطلبات"
+
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "حسب مايمليه القانون ومهما كانت الظروف يجب أن يكون, {{public_body_link}} قد قام بالرد الآن"
 
@@ -542,9 +549,6 @@ msgstr "تغيير كلمة السر"
 
 msgid "Change your password on {{site_name}}"
 msgstr "تغيير كلمة السر على{{site_name}}"
-
-msgid "Change your password {{site_name}}"
-msgstr " تغيير كلمة السر {{site_name}}"
 
 msgid "Charity registration"
 msgstr "تسجيل خيري"
@@ -718,6 +722,9 @@ msgid "Disclosure log"
 msgstr "سجل الكشف"
 
 msgid "Disclosure log URL"
+msgstr ""
+
+msgid "Do not fill in this field"
 msgstr ""
 
 msgid "Don't have a superuser account yet?"
@@ -1383,6 +1390,9 @@ msgstr "اضف<br/>\\n  <strong>لحرية<span>of</span><br/>\\n  النفاذ 
 msgid "Make a request"
 msgstr "قدم مطلبا"
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -1884,6 +1894,9 @@ msgstr "صورة الحساب|مسودة"
 msgid "Public Bodies"
 msgstr ""
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr ""
 
@@ -1895,6 +1908,9 @@ msgstr "سلطات عامة - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "السلطات العمومية {{start_count}} الى {{end_count}} من {{total_count}}"
+
+msgid "Public authority statistics"
+msgstr ""
 
 msgid "Public authority – {{name}}"
 msgstr ""
@@ -2121,8 +2137,8 @@ msgstr "الرد عبر البريد الإلكتروني"
 msgid "Respond to request"
 msgstr "الرد على المطلب "
 
-msgid "Respond to the FOI request"
-msgstr "رد على مطالب حرية المعلومة "
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr ""
 
 msgid "Respond using the web"
 msgstr "الرد عن طريق الشبكة العنكبوتية "
@@ -2333,9 +2349,6 @@ msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "ملاحظة خاصة بهذه السلطة."
-
-msgid "Start now &raquo;"
-msgstr "ابدأ الان &raquo;"
 
 msgid "Start your own blog"
 msgstr "اطلق مدونتك الخاصة"
@@ -2946,6 +2959,9 @@ msgstr "غير قادر على ارسال رد ل {{username}}"
 msgid "Unable to send follow up message to {{username}}"
 msgstr "غير قادر على بعث رسالة متابعة ل {{username}}"
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr "نوع نتيجة البحث غير متوقع "
 
@@ -3006,9 +3022,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "مستخدم|معلومات عني"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "مستخدم|مستوى المشرف"
 
@@ -3016,9 +3029,6 @@ msgid "User|Ban text"
 msgstr "مستخدم|منع النص"
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3075,17 +3085,11 @@ msgstr "رؤية البريد الالكتروني لحرية النفاذ ال�
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "الاطلاع على طلبات حرية النفاذ الى المعلومة المقدمة من قبل {{user_name}}:"
 
-msgid "View and search requests"
-msgstr "عرض والبحث عن الطلبات"
-
 msgid "View authorities"
 msgstr "عرض السلطات"
 
 msgid "View email"
 msgstr "عرض البريد الالكتروني"
-
-msgid "View requests"
-msgstr "عرض الطلبات"
 
 msgid "Waiting clarification."
 msgstr "انتظار التوضيحات"

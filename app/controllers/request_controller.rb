@@ -181,7 +181,7 @@ class RequestController < ApplicationController
         end
 
         @filters = params.merge(:latest_status => @view)
-        @title = _("View and search requests")
+        @title = _('Browse and search requests')
 
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
         @track_thing = TrackThing.create_track_for_search_query(InfoRequestEvent.make_query_from_params(@filters))
@@ -303,8 +303,14 @@ class RequestController < ApplicationController
             return render_new_compose(batch=false)
         end
 
+        # Check we have :public_body_id - spammers seem to be using :public_body
+        # erroneously instead
+        if params[:info_request][:public_body_id].blank?
+          redirect_to frontpage_path and return
+        end
+
         # See if the exact same request has already been submitted
-        # XXX this check should theoretically be a validation rule in the
+        # TODO: this check should theoretically be a validation rule in the
         # model, except we really want to pass @existing_request to the view so
         # it can link to it.
         @existing_request = InfoRequest.find_existing(params[:info_request][:title], params[:info_request][:public_body_id], params[:outgoing_message][:body])
@@ -359,7 +365,7 @@ class RequestController < ApplicationController
         end
         # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
         @info_request.save!
-        # XXX send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
+        # TODO: send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
         @outgoing_message.send_message
         flash[:notice] = _("<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>
             <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't
@@ -537,7 +543,7 @@ class RequestController < ApplicationController
         elsif @info_request_event.is_outgoing_message?
             redirect_to outgoing_message_url(@info_request_event.outgoing_message), :status => :moved_permanently
         else
-            # XXX maybe there are better URLs for some events than this
+            # TODO: maybe there are better URLs for some events than this
             redirect_to request_url(@info_request_event.info_request), :status => :moved_permanently
         end
     end
@@ -1006,7 +1012,7 @@ class RequestController < ApplicationController
                     params[:info_request][:public_body] = PublicBody.find(params[:url_name])
                 else
                     public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-                    raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # XXX proper 404
+                    raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # TODO: proper 404
                     params[:info_request][:public_body] = public_body
                 end
             elsif params[:public_body_id]

@@ -71,7 +71,7 @@ class RequestMailer < ApplicationMailer
     def new_response(info_request, incoming_message)
         # Don't use login link here, just send actual URL. This is
         # because people tend to forward these emails amongst themselves.
-        @url = incoming_message_url(incoming_message)
+        @url = incoming_message_url(incoming_message, :cachebust => true)
         @incoming_message, @info_request = incoming_message, info_request
 
         headers('Return-Path' => blackhole_email,
@@ -234,7 +234,7 @@ class RequestMailer < ApplicationMailer
     def requests_matching_email(email)
         # We deliberately don't use Envelope-to here, so ones that are BCC
         # drop into the holding pen for checking.
-        reply_info_requests = [] # XXX should be set?
+        reply_info_requests = [] # TODO: should be set?
         for address in (email.to || []) + (email.cc || [])
             reply_info_request = InfoRequest.find_by_incoming_email(address)
             reply_info_requests.push(reply_info_request) if reply_info_request
@@ -362,7 +362,7 @@ class RequestMailer < ApplicationMailer
                 store_sent.user = info_request.user
                 store_sent.alert_type = type_code
                 store_sent.info_request_event_id = alert_event_id
-                # XXX uses same template for reminder 1 and reminder 2 right now.
+                # TODO: uses same template for reminder 1 and reminder 2 right now.
                 RequestMailer.new_response_reminder_alert(info_request, last_response_message).deliver
                 store_sent.save!
             end
@@ -405,7 +405,7 @@ class RequestMailer < ApplicationMailer
         # cron jobs broke for more than a month events would be lost, but no
         # matter. I suspect the performance gain will be needed (with an index on updated_at)
 
-        # XXX the :order part info_request_events.created_at is a work around
+        # TODO: the :order part info_request_events.created_at is a work around
         # for a very old Rails bug which means eager loading does not respect
         # association orders.
         #   http://dev.rubyonrails.org/ticket/3438

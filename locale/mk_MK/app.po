@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:46+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Macedonian (Macedonia) (http://www.transifex.com/projects/p/alaveteli/language/mk_MK/)\n"
 "Language: mk_MK\n"
 "MIME-Version: 1.0\n"
@@ -88,9 +88,6 @@ msgstr " Веќе ви се испратени новости за барање�
 
 msgid " You will also be emailed updates about the request."
 msgstr " Исто така ќе ви бидат испратени новости за барањето по е-пошта."
-
-msgid " made by "
-msgstr " креирано од "
 
 msgid " when you send this message."
 msgstr " кога ќе ја испратите оваа порака."
@@ -280,6 +277,9 @@ msgstr "<strong>Заблагодарете</strong> му се ја имател�
 
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>ја немаше</strong> бараната информација."
+
+msgid "?"
+msgstr ""
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "<a href=\"{{request_url}}\">Реакција</a> на <em>{{request_title}}</em> беше испратена на {{public_body_name}} од {{info_request_user}} на {{date}}."
@@ -473,6 +473,12 @@ msgstr "Прелистајте <a href='{{url}}'>други барања</a> о�
 msgid "Browse all authorities..."
 msgstr "Прелистајте ги сите иматели..."
 
+msgid "Browse and search requests"
+msgstr "Видете и пребарајте барања"
+
+msgid "Browse requests"
+msgstr "Видете барања"
+
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Според законот, под сите околности, {{public_body_link}} требаше да одговори до сега"
 
@@ -535,9 +541,6 @@ msgstr "Променете ја лозинката"
 
 msgid "Change your password on {{site_name}}"
 msgstr "Променете ја лозинката на {{site_name}}"
-
-msgid "Change your password {{site_name}}"
-msgstr "Променете ја лозинката {{site_name}}"
 
 msgid "Charity registration"
 msgstr "Регистрација на добротворна органзиација"
@@ -712,6 +715,9 @@ msgstr "Дневник на објави"
 
 msgid "Disclosure log URL"
 msgstr "URL на дневник на објави"
+
+msgid "Do not fill in this field"
+msgstr ""
 
 msgid "Don't have a superuser account yet?"
 msgstr ""
@@ -1372,6 +1378,9 @@ msgstr "Направи ново<br/>\\n  <strong>Барање  за Слобод
 msgid "Make a request"
 msgstr "Поднесете барање"
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -1873,6 +1882,9 @@ msgstr "ProfilePhoto|Draft"
 msgid "Public Bodies"
 msgstr "Јавни институции"
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr "Статистика за јавни институции"
 
@@ -1884,6 +1896,9 @@ msgstr "Јавни надлежни органи - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Јавни надлежни органи {{start_count}} до {{end_count}} од {{total_count}}"
+
+msgid "Public authority statistics"
+msgstr ""
 
 msgid "Public authority – {{name}}"
 msgstr "Јавен надлежен орган – {{name}}"
@@ -2110,8 +2125,8 @@ msgstr "Одговорете по е-пошта"
 msgid "Respond to request"
 msgstr "Одговорете на барање"
 
-msgid "Respond to the FOI request"
-msgstr "Одговорете на барањето за слободен пристап до информации од јавен карактер"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr ""
 
 msgid "Respond using the web"
 msgstr "Одговорете преку веб"
@@ -2314,9 +2329,6 @@ msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "Специјална белешка за овој имател!"
-
-msgid "Start now &raquo;"
-msgstr "Почнете сега &raquo;"
 
 msgid "Start your own blog"
 msgstr "Почнете сопствен блог"
@@ -2915,6 +2927,9 @@ msgstr "Не може да се испрати одговор на {{username}}"
 msgid "Unable to send follow up message to {{username}}"
 msgstr "Не може да се испрати порака за реакција до {{username}}"
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr "Неочекуван тип на резултат од пребарување "
 
@@ -2980,9 +2995,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|За мене"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "User|Администраторско ниво"
 
@@ -2990,9 +3002,6 @@ msgid "User|Ban text"
 msgstr "User|Текст за исклучување"
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3049,17 +3058,11 @@ msgstr "Видете ја адресата за е-пошта за слобод�
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Видете ги барањата за слободен пристап до информации од јавен карактер направени од {{user_name}}:"
 
-msgid "View and search requests"
-msgstr "Видете и пребарајте барања"
-
 msgid "View authorities"
 msgstr "Видете ги имателите"
 
 msgid "View email"
 msgstr "Видете е-пошта"
-
-msgid "View requests"
-msgstr "Видете барања"
 
 msgid "Waiting clarification."
 msgstr "Се чека појаснување."

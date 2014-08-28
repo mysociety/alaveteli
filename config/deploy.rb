@@ -33,14 +33,12 @@ namespace :xapian do
 end
 
 namespace :deploy do
-  desc "Restarting mod_rails with restart.txt"
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "touch #{current_path}/tmp/restart.txt"
-  end
 
-  [:start, :stop].each do |t|
-    desc "#{t} task is a no-op with mod_rails"
-    task t, :roles => :app do ; end
+  [:start, :stop, :restart].each do |t|
+    desc "#{t.to_s.capitalize} Alaveteli service defined in /etc/init.d/alaveteli"
+    task t, :roles => :app, :except => { :no_release => true } do
+      run "/etc/init.d/alaveteli #{t}"
+    end
   end
 
   desc 'Link configuration after a code update'
@@ -56,6 +54,8 @@ namespace :deploy do
       "#{release_path}/public/foi-user-use.png" => "#{shared_path}/foi-user-use.png",
       "#{release_path}/files" => "#{shared_path}/files",
       "#{release_path}/cache" => "#{shared_path}/cache",
+      "#{release_path}/log" => "#{shared_path}/log",
+      "#{release_path}/tmp/pids" => "#{shared_path}/tmp/pids",
       "#{release_path}/lib/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
     }
 
@@ -66,6 +66,8 @@ namespace :deploy do
   after 'deploy:setup' do
     run "mkdir -p #{shared_path}/files"
     run "mkdir -p #{shared_path}/cache"
+    run "mkdir -p #{shared_path}/log"
+    run "mkdir -p #{shared_path}/tmp/pids"
     run "mkdir -p #{shared_path}/xapiandbs"
   end
 end

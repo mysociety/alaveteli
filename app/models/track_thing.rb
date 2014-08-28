@@ -149,7 +149,7 @@ class TrackThing < ActiveRecord::Base
             end
         end
         track_thing.track_query = query
-        # XXX should extract requested_by:, request:, requested_from:
+        # TODO: should extract requested_by:, request:, requested_from:
         # and stick their values into the respective relations.
         # Should also update "params" to make the list_description
         # nicer and more generic.  It will need to do some clever
@@ -271,7 +271,7 @@ class TrackThing < ActiveRecord::Base
                     :web => _("To follow requests and responses matching your search"),
                     :email => _("Then you will be notified whenever a new request or response matches your search."),
                     :email_subject => _("Confirm you want to follow new requests or responses matching your search"),
-                    # RSS sorting - XXX hmmm, we don't really know which to use
+                    # RSS sorting - TODO: hmmm, we don't really know which to use
                     # here for sorting. Might be a query term (e.g. 'cctv'), in
                     # which case newest is good, or might be something like
                     # all refused requests in which case want to sort by

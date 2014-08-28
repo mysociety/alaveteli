@@ -1,6 +1,6 @@
 <% @title = _("Public Body Statistics") %>
 <div id="main_content">
-  <h1>Public Body Statistics</h1>
+  <h1><%= @title %></h1>
 
   <p><%= _("This page of public body statistics is currently \
 experimental, so there are some caveats that should be borne \
@@ -33,6 +33,8 @@ requests to the authority through this site, rather than, \
 say, all requests that have been made to the public body by \
 any means.") %></li>
 
+    <li><%= _("Unclassified or hidden requests are not counted.") %></li>
+
   </ul>
 
   <p><%= _("These graphs were partly inspired by \
@@ -47,7 +49,7 @@ are due to him.") %></p>
         <table border=0>
           <thead>
             <tr>
-              <th>Public Body</th>
+              <th><%= _('Public Body') %></th>
               <th><%= graph_data['y_axis'] %></th>
             </tr>
           </thead>

@@ -32,6 +32,65 @@ misuse() {
 
 update_mysociety_apt_sources
 
+# Debian Squeeze Fixes
+if [ x"$DISTRIBUTION" = x"debian" ] && [ x"$DISTVERSION" = x"squeeze" ]
+then
+  # Add wheezy repo to get bundler
+  cat > /etc/apt/sources.list.d/debian-wheezy.list <<EOF
+deb http://the.earth.li/debian/ wheezy main contrib non-free
+EOF
+
+  # Get bundler from wheezy repo and de-prioritise all other
+  # wheezy packages
+  cat >> /etc/apt/preferences <<EOF
+
+Package: bundler
+Pin: release n=wheezy
+Pin-Priority: 990
+
+Package: *
+Pin: release n=wheezy
+Pin-Priority: 50
+EOF
+
+apt-get -qq update
+fi
+
+# Ubuntu Precise Fixes
+if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"precise" ]
+then
+  cat > /etc/apt/sources.list.d/ubuntu-trusty.list <<EOF
+deb http://archive.ubuntu.com/ubuntu/ trusty universe
+deb-src http://archive.ubuntu.com/ubuntu/ trusty universe
+EOF
+
+  cat > /etc/apt/sources.list.d/mysociety-launchpad.list <<EOF
+deb http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
+deb-src http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
+EOF
+
+  # Get bundler from trusty and de-prioritise all other
+  # trusty packages
+  cat >> /etc/apt/preferences <<EOF
+
+Package: ruby-bundler
+Pin: release n=trusty
+Pin-Priority: 990
+
+Package: *
+Pin: release n=trusty
+Pin-Priority: 50
+EOF
+
+# Get the key for the mysociety ubuntu alaveteli repo
+apt-get install -y python-software-properties
+add-apt-repository -y ppa:mysociety/alaveteli
+
+apt-get -qq update
+fi
+
+apt-get -y update
+
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
     install_nginx
     add_website_to_nginx
@@ -134,10 +193,6 @@ su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY'" "$UN
 # no longer need the PostgreSQL user to be a superuser:
 echo "ALTER USER \"$UNIX_USER\" WITH NOSUPERUSER;" | su -l -c 'psql' postgres
 
-if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
-    install_sysvinit_script
-fi
-
 # Set up root's crontab:
 
 cd "$REPOSITORY"
@@ -146,15 +201,21 @@ echo -n "Creating /etc/cron.d/alaveteli... "
 (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_crontab DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' CRONTAB=config/crontab-example" "$UNIX_USER") > /etc/cron.d/alaveteli
 # There are some other parts to rewrite, so just do them with sed:
 sed -r \
-    -e "/foi-purge-varnish/d" \
+    -e "/$SITE-purge-varnish/d" \
     -e "s,^(MAILTO=).*,\1root@$HOST," \
-    -e "s,run-with-lockfile,$REPOSITORY/commonlib/bin/run-with-lockfile.sh,g" \
     -i /etc/cron.d/alaveteli
 echo $DONE_MSG
 
-echo -n "Creating /etc/init.d/foi-alert-tracks... "
-(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.ugly" "$UNIX_USER") > /etc/init.d/foi-alert-tracks
-chmod a+rx /etc/init.d/foi-alert-tracks
+if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
+  echo -n "Creating /etc/init.d/$SITE... "
+  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' SCRIPT_FILE=config/sysvinit-thin.ugly" "$UNIX_USER") > /etc/init.d/"$SITE"
+  chmod a+rx /etc/init.d/"$SITE"
+  echo $DONE_MSG
+fi
+
+echo -n "Creating /etc/init.d/$SITE-alert-tracks... "
+(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.ugly" "$UNIX_USER") > /etc/init.d/$SITE-alert-tracks
+chmod a+rx /etc/init.d/$SITE-alert-tracks
 echo $DONE_MSG
 
 if [ $DEFAULT_SERVER = true ] && [ x != x$EC2_HOSTNAME ]

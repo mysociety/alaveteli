@@ -100,7 +100,8 @@ class AdminRequestController < AdminController
         @info_request.fully_destroy
         # expire cached files
         expire_for_request(@info_request)
-        flash[:notice] = "Request #{url_title} has been completely destroyed. Email of user who made request: " + user.email
+        email = user.try(:email) ? user.email : 'This request is external so has no associated user'
+        flash[:notice] = "Request #{ url_title } has been completely destroyed. Email of user who made request: #{ email }"
         redirect_to admin_request_list_url
     end
 
@@ -199,7 +200,7 @@ class AdminRequestController < AdminController
         end
 
         # Bejeeps, look, sometimes a URL is something that belongs in a controller, jesus.
-        # XXX hammer this square peg into the round MVC hole
+        # TODO: hammer this square peg into the round MVC hole
         post_redirect = PostRedirect.new(
             :uri => upload_response_url(:url_title => info_request.url_title),
             :user_id => user.id)
@@ -253,7 +254,7 @@ class AdminRequestController < AdminController
         end
         info_request_event.described_state = 'waiting_clarification'
         info_request_event.calculated_state = 'waiting_clarification'
-        # XXX deliberately don't update described_at so doesn't reenter search?
+        # TODO: deliberately don't update described_at so doesn't reenter search?
         info_request_event.save!
 
         flash[:notice] = "Old response marked as having been a clarification"

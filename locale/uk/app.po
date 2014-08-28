@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:46+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/alaveteli/language/uk/)\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -98,9 +98,6 @@ msgstr " Оновлення щодо запиту вже відправлені 
 
 msgid " You will also be emailed updates about the request."
 msgstr " Вам також надійдуть оновлення щодо запиту."
-
-msgid " made by "
-msgstr " зроблено"
 
 msgid " when you send this message."
 msgstr " коли ви відправите повідомлення."
@@ -327,6 +324,9 @@ msgstr "<strong>Подякуйте</strong> розпоряднику інфор�
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>не володіють</strong> запитаною інформацією."
 
+msgid "?"
+msgstr ""
+
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "<a href=\"{{request_url}}\">Додатковий запит</a> щодо <em>{{request_title}}</em> було надіслано {{public_body_name}} користувачем {{info_request_user}}. Дата: {{date}}."
 
@@ -523,6 +523,12 @@ msgstr "Прогляньте <a href='{{url}}'>інші запити</a> до '{
 msgid "Browse all authorities..."
 msgstr "Проглянути всіх розпорядників..."
 
+msgid "Browse and search requests"
+msgstr "Переглядати та шукати запити"
+
+msgid "Browse requests"
+msgstr "Показати запити"
+
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Згідно з законодавством, за будь-яких умов {{public_body_link}} мав би вже відповісти"
 
@@ -585,9 +591,6 @@ msgstr "Змініть свій пароль"
 
 msgid "Change your password on {{site_name}}"
 msgstr "Змініть свій пароль на сайті"
-
-msgid "Change your password {{site_name}}"
-msgstr "Змініть свій пароль"
 
 msgid "Charity registration"
 msgstr "Реєстрація благодійної організації"
@@ -765,6 +768,9 @@ msgid "Disclosure log"
 msgstr ""
 
 msgid "Disclosure log URL"
+msgstr ""
+
+msgid "Do not fill in this field"
 msgstr ""
 
 msgid "Don't have a superuser account yet?"
@@ -1475,6 +1481,9 @@ msgstr ""
 msgid "Make a request"
 msgstr "Зробити запит"
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -1979,6 +1988,9 @@ msgstr ""
 msgid "Public Bodies"
 msgstr ""
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr ""
 
@@ -1989,6 +2001,9 @@ msgid "Public authorities - {{description}}"
 msgstr "Розпорядники інформації - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
+msgstr ""
+
+msgid "Public authority statistics"
 msgstr ""
 
 msgid "Public authority – {{name}}"
@@ -2218,8 +2233,8 @@ msgstr "Відповісти електронною поштою"
 msgid "Respond to request"
 msgstr "Відповісти на запит"
 
-msgid "Respond to the FOI request"
-msgstr "Відповісти на запит"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr ""
 
 msgid "Respond using the web"
 msgstr "Відповісти через інтернет"
@@ -2424,9 +2439,6 @@ msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "Примітка:"
-
-msgid "Start now &raquo;"
-msgstr "Почати зараз &raquo;"
 
 msgid "Start your own blog"
 msgstr ""
@@ -3036,6 +3048,9 @@ msgstr "Неможливо надіслати відповідь користу�
 msgid "Unable to send follow up message to {{username}}"
 msgstr "Неможливо надіслати повідомленя користувачу {{username}}"
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr "Неочікуваний результат пошуку"
 
@@ -3096,9 +3111,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "Користувач|Про мене"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr ""
 
@@ -3106,9 +3118,6 @@ msgid "User|Ban text"
 msgstr ""
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3165,17 +3174,11 @@ msgstr "Електронна адреса розпорядника інформ�
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Переглянути запити, зроблені користувачем {{user_name}}:"
 
-msgid "View and search requests"
-msgstr "Переглядати та шукати запити"
-
 msgid "View authorities"
 msgstr "Показати розпорядників інформації"
 
 msgid "View email"
 msgstr "Показати емейли"
-
-msgid "View requests"
-msgstr "Показати запити"
 
 msgid "Waiting clarification."
 msgstr "Очікує на уточнення"
