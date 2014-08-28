@@ -23,7 +23,7 @@ describe User, "manipulating a raw email" do
         @raw_email.data.should == "Hello, world!"
     end
 
-    # XXX this test fails, hopefully will be fixed in later Rails.
+    # TODO: this test fails, hopefully will be fixed in later Rails.
     # Doesn't matter too much for us for storing raw_emails, it would seem,
     # but keep an eye out.
 

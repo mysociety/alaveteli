@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:46+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/projects/p/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
 "MIME-Version: 1.0\n"
@@ -90,9 +90,6 @@ msgstr ""
 
 msgid " You will also be emailed updates about the request."
 msgstr ""
-
-msgid " made by "
-msgstr " 由 "
 
 msgid " when you send this message."
 msgstr "當您傳送此訊息時。"
@@ -281,6 +278,9 @@ msgid "<strong>Thank</strong> the public authority or "
 msgstr ""
 
 msgid "<strong>did not have</strong> the information requested."
+msgstr ""
+
+msgid "?"
 msgstr ""
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
@@ -475,6 +475,12 @@ msgstr ""
 msgid "Browse all authorities..."
 msgstr "列出所有部門及機構"
 
+msgid "Browse and search requests"
+msgstr ""
+
+msgid "Browse requests"
+msgstr ""
+
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr ""
 
@@ -536,9 +542,6 @@ msgid "Change your password"
 msgstr ""
 
 msgid "Change your password on {{site_name}}"
-msgstr ""
-
-msgid "Change your password {{site_name}}"
 msgstr ""
 
 msgid "Charity registration"
@@ -713,6 +716,9 @@ msgid "Disclosure log"
 msgstr ""
 
 msgid "Disclosure log URL"
+msgstr ""
+
+msgid "Do not fill in this field"
 msgstr ""
 
 msgid "Don't have a superuser account yet?"
@@ -1373,6 +1379,9 @@ msgstr ""
 msgid "Make a request"
 msgstr ""
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -1874,6 +1883,9 @@ msgstr ""
 msgid "Public Bodies"
 msgstr ""
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr ""
 
@@ -1884,6 +1896,9 @@ msgid "Public authorities - {{description}}"
 msgstr ""
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
+msgstr ""
+
+msgid "Public authority statistics"
 msgstr ""
 
 msgid "Public authority – {{name}}"
@@ -2111,7 +2126,7 @@ msgstr ""
 msgid "Respond to request"
 msgstr ""
 
-msgid "Respond to the FOI request"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
 msgstr ""
 
 msgid "Respond using the web"
@@ -2312,9 +2327,6 @@ msgid "SpamAddress|Email"
 msgstr ""
 
 msgid "Special note for this authority!"
-msgstr ""
-
-msgid "Start now &raquo;"
 msgstr ""
 
 msgid "Start your own blog"
@@ -2911,6 +2923,9 @@ msgstr ""
 msgid "Unable to send follow up message to {{username}}"
 msgstr ""
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr ""
 
@@ -2971,9 +2986,6 @@ msgstr ""
 msgid "User|About me"
 msgstr ""
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr ""
 
@@ -2981,9 +2993,6 @@ msgid "User|Ban text"
 msgstr ""
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3040,16 +3049,10 @@ msgstr ""
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr ""
 
-msgid "View and search requests"
-msgstr ""
-
 msgid "View authorities"
 msgstr ""
 
 msgid "View email"
-msgstr ""
-
-msgid "View requests"
 msgstr ""
 
 msgid "Waiting clarification."

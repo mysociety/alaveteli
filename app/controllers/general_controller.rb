@@ -59,7 +59,7 @@ class GeneralController < ApplicationController
 
     # Actual search
     def search
-        # XXX Why is this so complicated with arrays and stuff? Look at the route
+        # TODO: Why is this so complicated with arrays and stuff? Look at the route
         # in config/routes.rb for comments.
         combined = params[:combined].split("/")
         @sortby = nil
@@ -70,7 +70,7 @@ class GeneralController < ApplicationController
         else
             @advanced = false
         end
-        # XXX currently /described isn't linked to anywhere, just used in RSS and for /list/successful
+        # TODO: currently /described isn't linked to anywhere, just used in RSS and for /list/successful
         # This is because it's confusingly different from /newest - but still useful for power users.
         if combined.size > 0 && (['newest', 'described', 'relevant'].include?(combined[-1]))
             @sort_postfix = combined.pop
@@ -124,7 +124,7 @@ class GeneralController < ApplicationController
             end
         end
 
-        # Query each type separately for separate display (XXX we are calling
+        # Query each type separately for separate display (TODO: we are calling
         # perform_search multiple times and it clobbers per_page for each one,
         # so set as separate var)
         requests_per_page = params[:requests_per_page] ? params[:requests_per_page].to_i : 25
@@ -159,7 +159,7 @@ class GeneralController < ApplicationController
         end
 
         # Spelling and highight words are same for all three queries
-        @highlight_words = @request_for_spelling.words_to_highlight
+        @highlight_words = @request_for_spelling.words_to_highlight(:regex => true, :include_original => true)
         if !(@request_for_spelling.spelling_correction =~ /[a-z]+:/)
             @spelling_correction = @request_for_spelling.spelling_correction
         end
@@ -178,7 +178,9 @@ class GeneralController < ApplicationController
             format.json { render :json => {
                 :alaveteli_git_commit => alaveteli_git_commit,
                 :alaveteli_version => ALAVETELI_VERSION,
-                :ruby_version => RUBY_VERSION
+                :ruby_version => RUBY_VERSION,
+                :visible_request_count => InfoRequest.visible.count,
+                :confirmed_user_count => User.where(:email_confirmed => true).count
             }}
         end
     end

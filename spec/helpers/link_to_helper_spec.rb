@@ -20,6 +20,82 @@ describe LinkToHelper do
 
     end
 
+    describe 'when linking to new incoming messages' do
+
+        before do
+            @info_request = mock_model(InfoRequest, :id => 123, :url_title => 'test_title')
+            @incoming_message = mock_model(IncomingMessage, :id => 32, :info_request => @info_request)
+        end
+
+        context 'for external links' do
+
+            it 'generates the url to the info request of the message' do
+                incoming_message_url(@incoming_message).should include('http://test.host/request/test_title')
+            end
+
+            it 'includes an anchor to the new message' do
+                incoming_message_url(@incoming_message).should include('#incoming-32')
+            end
+
+            it 'does not cache by default' do
+                incoming_message_url(@incoming_message).should_not include('nocache=incoming-32')
+            end
+
+            it 'includes a cache busting parameter if set' do
+                incoming_message_url(@incoming_message, :cachebust => true).should include('nocache=incoming-32')
+            end
+
+        end
+
+        context 'for internal links' do
+
+            it 'generates the incoming_message_url with the path only' do
+                expected = '/request/test_title#incoming-32'
+                incoming_message_path(@incoming_message).should == expected
+            end
+
+        end
+
+    end
+
+    describe 'when linking to new outgoing messages' do
+
+        before do
+            @info_request = mock_model(InfoRequest, :id => 123, :url_title => 'test_title')
+            @outgoing_message = mock_model(OutgoingMessage, :id => 32, :info_request => @info_request)
+        end
+
+        context 'for external links' do
+
+            it 'generates the url to the info request of the message' do
+                outgoing_message_url(@outgoing_message).should include('http://test.host/request/test_title')
+            end
+
+            it 'includes an anchor to the new message' do
+                outgoing_message_url(@outgoing_message).should include('#outgoing-32')
+            end
+
+            it 'does not cache by default' do
+                outgoing_message_url(@outgoing_message).should_not include('nocache=outgoing-32')
+            end
+
+            it 'includes a cache busting parameter if set' do
+                outgoing_message_url(@outgoing_message, :cachebust => true).should include('nocache=outgoing-32')
+            end
+
+        end
+
+        context 'for internal links' do
+
+            it 'generates the outgoing_message_url with the path only' do
+                expected = '/request/test_title#outgoing-32'
+                outgoing_message_path(@outgoing_message).should == expected
+            end
+
+        end
+
+    end
+
     describe 'when displaying a user link for a request' do
 
         context "for external requests" do
@@ -65,53 +141,6 @@ describe LinkToHelper do
             info_request = mock_model(InfoRequest, :external_user_name => nil,
                                                    :is_external? => true)
             user_admin_link_for_request(info_request).should == 'Anonymous user (external)'
-        end
-
-    end
-
-    describe 'simple_date' do
-
-        it 'formats a date in html by default' do
-            time = Time.utc(2012, 11, 07, 21, 30, 26)
-            self.should_receive(:simple_date_html).with(time)
-            simple_date(time)
-        end
-
-        it 'formats a date in the specified format' do
-            time = Time.utc(2012, 11, 07, 21, 30, 26)
-            self.should_receive(:simple_date_text).with(time)
-            simple_date(time, :format => :text)
-        end
-
-        it 'raises an argument error if given an unrecognized format' do
-            time = Time.utc(2012, 11, 07, 21, 30, 26)
-            expect { simple_date(time, :format => :unknown) }.to raise_error(ArgumentError)
-        end
-
-    end
-
-    describe 'simple_date_html' do
-
-        it 'formats a date in a time tag' do
-            Time.use_zone('London') do
-                time = Time.utc(2012, 11, 07, 21, 30, 26)
-                expected = "<time datetime=\"2012-11-07T21:30:26+00:00\" title=\"2012-11-07 21:30:26 +0000\">November 07, 2012</time>"
-                simple_date_html(time).should == expected
-            end
-        end
-
-    end
-
-    describe 'simple_date_text' do
-
-        it 'should respect time zones' do
-            Time.use_zone('Australia/Sydney') do
-                simple_date_text(Time.utc(2012, 11, 07, 21, 30, 26)).should == 'November 08, 2012'
-            end
-        end
-
-        it 'should handle Date objects' do
-            simple_date_text(Date.new(2012, 11, 21)).should == 'November 21, 2012'
         end
 
     end

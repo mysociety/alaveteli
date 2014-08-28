@@ -1,41 +1,44 @@
 # please note that this package list currently forms part of the
 # mysociety deployment infrastructure -- please discuss on the
 # alavateli mailing list if you want to change it
-ruby1.8
-ruby
-rdoc | rdoc1.8
-irb | irb1.8
-wv
-poppler-utils
-pdftk (>> 1.41+dfsg-1) | pdftk (<< 1.41+dfsg-1) # that version has a non-functionining uncompress option
-ghostscript
+build-essential
+bundler
 catdoc
-links
 elinks
-unrtf
-xlhtml
-xapian-tools
-gnuplot-nox
-php5-cli
-sharutils
-unzip
-mutt
-tnef (>= 1.4.5)
 gettext
-python-yaml
-wkhtmltopdf-static
+ghostscript
+gnuplot-nox
+irb | irb1.8
+libapache2-mod-passenger
+libicu-dev
 libmagic-dev
 libmagickwand-dev
 libpq-dev
+libsqlite3-dev
 libxml2-dev
 libxslt-dev
-uuid-dev
+links
+lockfile-progs
+memcached
+mutt
+pdftk (>> 1.41+dfsg-1) | pdftk (<< 1.41+dfsg-1) # that version has a non-functionining uncompress option
+php5-cli
+poppler-utils
+python-yaml
+rake (>= 0.9.2.2)
+rdoc | rdoc1.8
+ruby
+ruby1.8
 ruby1.8-dev
 rubygems (>= 1.8.15)
-rake (>= 0.9.2.2)
-build-essential
-bundler
+sharutils
 sqlite3
-libsqlite3-dev
-libicu-dev
-memcached
+tnef (>= 1.4.5)
+ttf-bitstream-vera
+unrtf
+unzip
+uuid-dev
+wkhtmltopdf-static
+wv
+xapian-tools
+xlhtml

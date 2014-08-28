@@ -46,17 +46,41 @@
 # Both have the same effect, but exporting will retain the variable for the
 # duration of your shell session.
 #
+# Using Themes
+# ------------
+#
+# You can also use the built in theme switcher (script/switch-theme.rb). The
+# ALAVETELI_THEMES_DIR will be shared in to /home/vagrant/alaveteli-themes so
+# that the default location is used on the guest. You can use the env var
+# ALAVETELI_THEMES_DIR to change where this Vagrantfile looks for the themes
+# directory on the host.
+#
 # Customization Options
 # =====================
 ALAVETELI_FQDN = ENV['ALAVETELI_VAGRANT_FQDN'] || "alaveteli.10.10.10.30.xip.io"
 ALAVETELI_MEMORY = ENV['ALAVETELI_VAGRANT_MEMORY'] || 1536
 ALAVETELI_THEMES_DIR = ENV['ALAVETELI_THEMES_DIR'] || '../alaveteli-themes'
+ALAVETELI_OS = ENV['ALAVETELI_VAGRANT_OS'] || 'precise64'
+
+SUPPORTED_OPERATING_SYSTEMS = {
+  'precise64' => 'https://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box',
+  'squeeze64' => 'http://puppet-vagrant-boxes.puppetlabs.com/debian-607-x64-vbox4210-nocm.box',
+  'wheezy64' => 'http://puppet-vagrant-boxes.puppetlabs.com/debian-73-x64-virtualbox-nocm.box'
+}
+
+def box
+  ALAVETELI_OS
+end
+
+def box_url
+  SUPPORTED_OPERATING_SYSTEMS[ALAVETELI_OS]
+end
 
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "precise64"
-  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+  config.vm.box = box
+  config.vm.box_url = box_url
   config.vm.network :private_network, :ip => "10.10.10.30"
 
   config.vm.synced_folder ".", "/home/vagrant/alaveteli", :owner => "vagrant", :group => "vagrant"
@@ -77,7 +101,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # Fetch and run the install script:
-  config.vm.provision :shell, :inline => "wget -O install-site.sh https://raw.github.com/mysociety/commonlib/master/bin/install-site.sh"
+  config.vm.provision :shell, :inline => "apt-get -y install curl"
+  config.vm.provision :shell, :inline => "curl -O https://raw.githubusercontent.com/mysociety/commonlib/master/bin/install-site.sh"
   config.vm.provision :shell, :inline => "chmod a+rx install-site.sh"
   config.vm.provision :shell, :inline => "./install-site.sh " \
                                              "--dev " \

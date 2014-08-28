@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:47+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/projects/p/alaveteli/language/hr/)\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -102,9 +102,6 @@ msgstr " Ažuriranja zahtjeva već su Vam poslana putem e-maila."
 
 msgid " You will also be emailed updates about the request."
 msgstr " Ažuriranja zahtjeva će Vam takođe biti poslana putem e-maila."
-
-msgid " made by "
-msgstr " načinjeno od strane "
 
 msgid " when you send this message."
 msgstr " kada pošaljete ovu poruku."
@@ -317,6 +314,9 @@ msgstr ""
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>nije sadržavao</strong> traženu informaciju."
 
+msgid "?"
+msgstr ""
+
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
@@ -519,6 +519,12 @@ msgstr "Pretražite <a href='{{url}}'>druge zahtjeve</a> za '{{public_body_name}
 msgid "Browse all authorities..."
 msgstr "Pretražite sve ustanove"
 
+msgid "Browse and search requests"
+msgstr "Pregledaj i pretraži zahtjeve"
+
+msgid "Browse requests"
+msgstr "Vidjeti zahtjeve"
+
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Po zakonu, pod svim uvjetima, {{public_body_link}} je trebala odgovoriti do sada"
 
@@ -581,9 +587,6 @@ msgstr "Promijeniti Vaš password"
 
 msgid "Change your password on {{site_name}}"
 msgstr "Promijeniti password na {{site_name}}"
-
-msgid "Change your password {{site_name}}"
-msgstr "Promjenite Vaš password {{site_name}}"
 
 msgid "Charity registration"
 msgstr "Registracija nevladine organizacije"
@@ -759,6 +762,9 @@ msgid "Disclosure log"
 msgstr ""
 
 msgid "Disclosure log URL"
+msgstr ""
+
+msgid "Do not fill in this field"
 msgstr ""
 
 msgid "Don't have a superuser account yet?"
@@ -1469,6 +1475,9 @@ msgstr ""
 msgid "Make a request"
 msgstr "Podnesi zahtjev"
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -1981,6 +1990,9 @@ msgstr "Slika na profilu|Skica"
 msgid "Public Bodies"
 msgstr ""
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr ""
 
@@ -1991,6 +2003,9 @@ msgid "Public authorities - {{description}}"
 msgstr "Javne ustanove - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
+msgstr ""
+
+msgid "Public authority statistics"
 msgstr ""
 
 msgid "Public authority – {{name}}"
@@ -2220,8 +2235,8 @@ msgstr "Odgovoriti e-mailom"
 msgid "Respond to request"
 msgstr "Odgovoriti na zahtjev"
 
-msgid "Respond to the FOI request"
-msgstr "Odgovoriti na Zahtjev za slobodan pristup informacijama"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr ""
 
 msgid "Respond using the web"
 msgstr "Odgovoriti preko web-a"
@@ -2432,9 +2447,6 @@ msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "Posebna napomena za ovu ustanovu!"
-
-msgid "Start now &raquo;"
-msgstr "Počni sada &raquo;"
 
 msgid "Start your own blog"
 msgstr "Započnite Vaš blog"
@@ -3067,6 +3079,9 @@ msgstr "Ne možemo poslati poruku za {{username}}"
 msgid "Unable to send follow up message to {{username}}"
 msgstr "Ne možemo poslati popratnu pokuku za {{username}}"
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr ""
 
@@ -3132,9 +3147,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "Korisnik|O meni"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "Korisnik|Administratorski nivo"
 
@@ -3142,9 +3154,6 @@ msgid "User|Ban text"
 msgstr "Korisnik|tekst isključenja"
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3201,17 +3210,11 @@ msgstr "Pogledati ZOSPI e-mail adrese za {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Pegledati Zahjeve za slobodan pristup informacijama napravljene od strane {{user_name}}:"
 
-msgid "View and search requests"
-msgstr "Pregledaj i pretraži zahtjeve"
-
 msgid "View authorities"
 msgstr "Vidjeti ustanove"
 
 msgid "View email"
 msgstr "Pogledati e-mail"
-
-msgid "View requests"
-msgstr "Vidjeti zahtjeve"
 
 msgid "Waiting clarification."
 msgstr "Čekamo na objašnjenje."

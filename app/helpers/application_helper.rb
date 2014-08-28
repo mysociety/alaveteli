@@ -13,11 +13,17 @@ module ApplicationHelper
     # all of all.
     include LinkToHelper
 
+    # Some extra date and time formatters
+    include DateTimeHelper
+
     # Site-wide access to configuration settings
     include ConfigHelper
 
     # Useful for sending emails
     include MailerHelper
+
+    # Extra highlight helpers
+    include HighlightHelper
 
     # Copied from error_messages_for in active_record_helper.rb
     def foi_error_messages_for(*params)
@@ -49,25 +55,6 @@ module ApplicationHelper
         else
             ''
         end
-    end
-
-    # Highlight words, also escapes HTML (other than spans that we add)
-    def highlight_words(t, words, html = true)
-        if html
-            highlight(h(t), words, :highlighter => '<span class="highlight">\1</span>').html_safe
-        else
-            highlight(t, words, :highlighter => '*\1*')
-        end
-    end
-
-    def highlight_and_excerpt(t, words, excount, html = true)
-        newt = excerpt(t, words[0], :radius => excount)
-        if not newt
-            newt = excerpt(t, '', :radius => excount)
-        end
-        t = newt
-        t = highlight_words(t, words, html)
-        return t
     end
 
     def locale_name(locale)

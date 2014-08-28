@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:48+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/alaveteli/language/eu/)\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
@@ -95,9 +95,6 @@ msgstr " Eskabideari buruzko gaurkotzeak jasotzen ari zara posta elektronikoan."
 
 msgid " You will also be emailed updates about the request."
 msgstr "Eskabide honi buruzko gaurkotzeak jasoko dituzu posta elektronikoan."
-
-msgid " made by "
-msgstr "  _____-k egina. "
 
 msgid " when you send this message."
 msgstr " Mezu hau bidali duzunean."
@@ -311,6 +308,9 @@ msgstr "<strong>Eman eskerrak</strong> erakunde publikoari edo "
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>ez zeukan</strong> eskatutako informazioa."
 
+msgid "?"
+msgstr ""
+
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
@@ -505,6 +505,12 @@ msgstr "Araka itzazu<a href='{{url}}'>beste eskabideak</a>, '{{public_body_name}
 msgid "Browse all authorities..."
 msgstr "Arakatu beste erakunde publikoak..."
 
+msgid "Browse and search requests"
+msgstr "Ikusi eta bilatu eskabideak"
+
+msgid "Browse requests"
+msgstr "Ikusi eskabideak"
+
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Legearen arabera, edozein zirkunstantzia dela, {{public_body_link}}k jada erantzun behar izango zukeen"
 
@@ -566,9 +572,6 @@ msgid "Change your password"
 msgstr "Aldatu zure pasahitza"
 
 msgid "Change your password on {{site_name}}"
-msgstr "Aldatu zure pasahitza {{site_name}}-an"
-
-msgid "Change your password {{site_name}}"
 msgstr "Aldatu zure pasahitza {{site_name}}-an"
 
 msgid "Charity registration"
@@ -743,6 +746,9 @@ msgid "Disclosure log"
 msgstr ""
 
 msgid "Disclosure log URL"
+msgstr ""
+
+msgid "Do not fill in this field"
 msgstr ""
 
 msgid "Don't have a superuser account yet?"
@@ -1417,6 +1423,9 @@ msgstr ""
 msgid "Make a request"
 msgstr "Bidali eskabidea"
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -1920,6 +1929,9 @@ msgstr "ProfilePhoto|Draft"
 msgid "Public Bodies"
 msgstr ""
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr ""
 
@@ -1931,6 +1943,9 @@ msgstr "Erakunde publikoak - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Erakunde publikoak {{start_count}}-etik {{end_count}}-era, guztira {{total_count}}"
+
+msgid "Public authority statistics"
+msgstr ""
 
 msgid "Public authority – {{name}}"
 msgstr ""
@@ -2159,8 +2174,8 @@ msgstr "Emailez erantzun"
 msgid "Respond to request"
 msgstr "Eskabideari erantzun"
 
-msgid "Respond to the FOI request"
-msgstr "Eskabideari erantzun"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr ""
 
 msgid "Respond using the web"
 msgstr "Web orrialdearen bidez erantzun"
@@ -2368,9 +2383,6 @@ msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "Erakunde horri buruzko ohar berezia!"
-
-msgid "Start now &raquo;"
-msgstr "Has zaitez orain &raquo;"
 
 msgid "Start your own blog"
 msgstr "Sortu zeure bloga"
@@ -2983,6 +2995,9 @@ msgstr "Ezin izan zaio {{username}}-ri erantzuna bidali."
 msgid "Unable to send follow up message to {{username}}"
 msgstr "Ezin izan zaio {{username}}-ri erantzuna bidali."
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr "Ustegabeko emaitza aurkitu da "
 
@@ -3043,9 +3058,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|About me"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -3053,9 +3065,6 @@ msgid "User|Ban text"
 msgstr "User|Ban text"
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3112,17 +3121,11 @@ msgstr "Ikusi '{{public_body_name}}'-ren posta helbidea"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Ikusi  {{user_name}}-k egin dituen informaziorako sarbidearen eskabideak:"
 
-msgid "View and search requests"
-msgstr "Ikusi eta bilatu eskabideak"
-
 msgid "View authorities"
 msgstr "Ikusi erakunde publikoak"
 
 msgid "View email"
 msgstr "Ikusi posta"
-
-msgid "View requests"
-msgstr "Ikusi eskabideak"
 
 msgid "Waiting clarification."
 msgstr "Azalpenaren zain."

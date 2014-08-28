@@ -1,4 +1,5 @@
 test:
   adapter: postgresql
+  template: template_utf8
   database: foi_test
   username: postgres

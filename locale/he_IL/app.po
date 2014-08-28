@@ -14,15 +14,16 @@
 # yehuda <yehudab@gmail.com>, 2013
 # yoniYalovitsky <yoni@yalovitsky.com>, 2013
 # yoniYalovitsky <yoni@yalovitsky.com>, 2013
+# yoniYalovitsky <yoni@yalovitsky.com>, 2013
 # Z.D <zdevir@gmail.com>, 2013
 # Z.D <zdevir@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:50+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -101,9 +102,6 @@ msgstr "כתובת הדוא\"ל רשומה לקבלת עדכונים על הבק
 
 msgid " You will also be emailed updates about the request."
 msgstr "תקבלו גם עדכונים בדוא\"ל על הבקשה."
-
-msgid " made by "
-msgstr "נוצר על-ידי"
 
 msgid " when you send this message."
 msgstr "כאשר אתם שולחים הודעה זו."
@@ -295,6 +293,9 @@ msgstr "<strong>הודו</strong> לרשות הציבורית או "
 
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>אין</strong> את המידע המבוקש."
+
+msgid "?"
+msgstr ""
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "<a href=\"{{request_url}}\">מעקב</a> ל- <em>{{request_title}}</em> נשלחה ל- {{public_body_name}} על-ידי {{info_request_user}} בתאריך {{date}}."
@@ -488,6 +489,12 @@ msgstr "הקליקו על <a href='{{url}}'>בקשות אחרות</a> אל '{{pu
 msgid "Browse all authorities..."
 msgstr "עיון בכל הרשויות..."
 
+msgid "Browse and search requests"
+msgstr "צפו וחפשו בקשות מידע"
+
+msgid "Browse requests"
+msgstr "בקשות מידע"
+
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "לפי החוק, בכפוף לנסיבות, {{public_body_link}} היו צרכים להשיב עד עתה"
 
@@ -550,9 +557,6 @@ msgstr "שינוי סיסמה"
 
 msgid "Change your password on {{site_name}}"
 msgstr "שנה סיסמתך ב {{site_name}}"
-
-msgid "Change your password {{site_name}}"
-msgstr "שנה סיסמתך {{site_name}}"
 
 msgid "Charity registration"
 msgstr "רישום צדקה"
@@ -730,6 +734,9 @@ msgstr "יומן גילוי נאות"
 
 msgid "Disclosure log URL"
 msgstr "כתובת יומן גילוי נאות"
+
+msgid "Do not fill in this field"
+msgstr ""
 
 msgid "Don't have a superuser account yet?"
 msgstr ""
@@ -1390,6 +1397,9 @@ msgstr "הגישו<br><strong>בקשה</strong><br><span>לפתיחת</span> <br
 msgid "Make a request"
 msgstr "בקשה חדשה"
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -1891,6 +1901,9 @@ msgstr "ProfilePhoto|Draft"
 msgid "Public Bodies"
 msgstr ""
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr ""
 
@@ -1902,6 +1915,9 @@ msgstr "רשויות ציבוריות - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "רשויות ציבוריות {{start_count}} עד {{end_count}} מתוך {{total_count}}"
+
+msgid "Public authority statistics"
+msgstr ""
 
 msgid "Public authority – {{name}}"
 msgstr "רשות ציבורית – {{name}}"
@@ -2128,8 +2144,8 @@ msgstr "הגיבו בדוא\"ל"
 msgid "Respond to request"
 msgstr "להגיב לבקשה"
 
-msgid "Respond to the FOI request"
-msgstr "הגיבו לבקשה"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr ""
 
 msgid "Respond using the web"
 msgstr "הגיבו דרך הרשת"
@@ -2332,9 +2348,6 @@ msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "הערה מיוחדת לרשות זו"
-
-msgid "Start now &raquo;"
-msgstr "התחילו עכשיו &raquo;"
 
 msgid "Start your own blog"
 msgstr "צרו את הבלוג שלכם"
@@ -2933,6 +2946,9 @@ msgstr "לא ניתן לשלוח תגובה ל- {{username}}"
 msgid "Unable to send follow up message to {{username}}"
 msgstr "לא ניתן לשלוח הודעת מעקב ל- {{username}}"
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr "תוצאת חיפוש לא צפויה"
 
@@ -2993,9 +3009,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|About me"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -3003,9 +3016,6 @@ msgid "User|Ban text"
 msgstr "User|Ban text"
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3062,17 +3072,11 @@ msgstr "צפו בדוא\"ל של בקשות מידע ל- '{{public_body_name}}'"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "צפו בבקשות מידע שהוגשו על-ידי {{user_name}}:"
 
-msgid "View and search requests"
-msgstr "צפו וחפשו בקשות מידע"
-
 msgid "View authorities"
 msgstr "רשויות"
 
 msgid "View email"
 msgstr "צפו בדואר האלקטרוני"
-
-msgid "View requests"
-msgstr "בקשות מידע"
 
 msgid "Waiting clarification."
 msgstr "ממתין להבהרות"

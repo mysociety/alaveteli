@@ -1,0 +1,44 @@
+upstream alaveteli {
+    server 127.0.0.1:3000;
+}
+
+# Redirect any http:// request to https://www.example.com
+server {
+  listen 80;
+  server_name www.example.com;
+  rewrite ^(.*) https://www.example.com$request_uri permanent;
+}
+
+server {
+    listen 443;
+    server_name www.example.com;
+    root /var/www/alaveteli/alaveteli/public;
+
+    server_tokens off;
+
+    try_files $uri/index.html $uri @alaveteli;
+
+    access_log /var/log/nginx/alaveteli_ssl_access.log;
+    error_log /var/log/nginx/alaveteli_ssl_error.log error;
+
+    location /download {
+        internal;
+        alias /var/www/alaveteli/alaveteli/cache/zips/production/download;
+    }
+
+    ssl on;
+    ssl_certificate /etc/ssl/certs/www.example.com.cert;
+    ssl_certificate_key /etc/ssl/private/www.example.com.key;
+    ssl_ciphers ECDHE-RSA-AES256-SHA384:AES256-SHA256:RC4:HIGH:!MD5:!aNULL:!EDH:!AESGCM;
+
+    location @alaveteli {
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Sendfile-Type X-Accel-Redirect;
+        proxy_set_header X-Accel-Mapping /var/www/alaveteli/alaveteli/cache/zips/production/download=/download;
+        proxy_redirect off;
+        proxy_pass http://alaveteli;
+    }
+}

@@ -122,11 +122,11 @@ describe TrackController, "when sending alerts for a track" do
 
         mail.body.should =~ /This a the daftest comment the world has ever seen/ # comment text included
         # Check subscription managing link
-# XXX We can't do this, as it is redirecting to another controller. I'm
+# TODO: We can't do this, as it is redirecting to another controller. I'm
 # apparently meant to be writing controller unit tests here, not functional
 # tests.  Bah, I so don't care, bit of an obsessive constraint.
 #        session[:user_id].should be_nil
-#        controller.test_code_redirect_by_email_token(mail_token, self) # XXX hack to avoid having to call User controller for email link
+#        controller.test_code_redirect_by_email_token(mail_token, self) # TODO: hack to avoid having to call User controller for email link
 #        session[:user_id].should == users(:silly_name_user).id
 #
 #        response.should render_template('users/show')
@@ -173,7 +173,7 @@ describe TrackController, "when viewing RSS feed for a track" do
         get :track_request, :feed => 'feed', :url_title => track_thing.info_request.url_title
         response.should render_template('track/atom_feed')
         response.content_type.should == 'application/atom+xml'
-        # XXX should check it is an atom.builder type being rendered, not sure how to
+        # TODO: should check it is an atom.builder type being rendered, not sure how to
 
         assigns[:xapian_object].matches_estimated.should == 3
         assigns[:xapian_object].results.size.should == 3

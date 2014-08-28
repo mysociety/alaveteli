@@ -26,7 +26,7 @@ ISO_COUNTRY_CODE: GB
 TIME_ZONE: Australia/Sydney
 
 # These feeds are displayed accordingly on the Alaveteli "blog" page:
-BLOG_FEED: 'http://www.mysociety.org/category/projects/whatdotheyknow/feed/'
+BLOG_FEED: 'https://www.mysociety.org/category/projects/whatdotheyknow/feed/'
 TWITTER_USERNAME: 'whatdotheyknow'
 # Set the widget_id to get the Twitter sidebar on the blog page.
 # To get one https://twitter.com/settings/widgets
@@ -255,6 +255,7 @@ SHARED_DIRECTORIES:
  - cache/
  - lib/acts_as_xapian/xapiandbs/
  - log/
+ - tmp/pids
  - vendor/bundle
  - public/assets
 
@@ -265,4 +266,4 @@ SHARED_DIRECTORIES:
 ALLOW_BATCH_REQUESTS: false
 
 # Should we use the responsive stylesheets?
-RESPONSIVE_STYLING: false
+RESPONSIVE_STYLING: true

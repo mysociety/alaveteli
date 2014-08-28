@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:49+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/projects/p/alaveteli/language/sq/)\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
@@ -108,9 +108,6 @@ msgstr " Ti tashmë je duke i pranuar me email aktualizimet në lidhje me këtë
 
 msgid " You will also be emailed updates about the request."
 msgstr " Ti gjithashtu do të pranon email me aktualizimet e reja në lidhje me kërkesën."
-
-msgid " made by "
-msgstr " bërë nga "
 
 msgid " when you send this message."
 msgstr " kur e dërgoni këtë mesazh."
@@ -329,6 +326,9 @@ msgstr "<strong>Falënderoju</strong> autoritet publik ose "
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>nuk e kanë</strong> informacionin e kërkuar."
 
+msgid "?"
+msgstr ""
+
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
@@ -529,6 +529,12 @@ msgstr "Shfleto <a href='{{url}}'>kërkesa të tjera</a> të drejtuara te '{{pub
 msgid "Browse all authorities..."
 msgstr "Shfleto të gjitha autoritetet ..."
 
+msgid "Browse and search requests"
+msgstr "Shiko dhe kërko kërkesat"
+
+msgid "Browse requests"
+msgstr "Shiko kërkesat"
+
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Sipas ligjit, në të gjitha rrethanat, {{public_body_link}} është duhur të përgjigjet deri tani"
 
@@ -591,9 +597,6 @@ msgstr "Ndrysho fjalëkalimin tënd"
 
 msgid "Change your password on {{site_name}}"
 msgstr "Ndrysho fjalëkalimin tënd në {{site_name}}"
-
-msgid "Change your password {{site_name}}"
-msgstr "Ndrysho fjalëkalimin tënd {{site_name}}"
 
 msgid "Charity registration"
 msgstr "Regjistrimi i organizatës"
@@ -767,6 +770,9 @@ msgid "Disclosure log"
 msgstr ""
 
 msgid "Disclosure log URL"
+msgstr ""
+
+msgid "Do not fill in this field"
 msgstr ""
 
 msgid "Don't have a superuser account yet?"
@@ -1468,6 +1474,9 @@ msgstr ""
 msgid "Make a request"
 msgstr "Bëj një kërkesë"
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -1978,6 +1987,9 @@ msgstr "ProfilePhoto|Draft"
 msgid "Public Bodies"
 msgstr ""
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr ""
 
@@ -1989,6 +2001,9 @@ msgstr "Autoritetet publike - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Autoritetet publike {{start_count}} deri {{end_count}} prej {{total_count}}"
+
+msgid "Public authority statistics"
+msgstr ""
 
 msgid "Public authority – {{name}}"
 msgstr ""
@@ -2217,8 +2232,8 @@ msgstr "Përgjigju me email"
 msgid "Respond to request"
 msgstr "Përgjigju kërkesës"
 
-msgid "Respond to the FOI request"
-msgstr "Përgjigju kërkesës për Informata Zyrtare"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr ""
 
 msgid "Respond using the web"
 msgstr "Përgjigju duke përdorur ueb faqen"
@@ -2426,9 +2441,6 @@ msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "Shënim i veçantë për këtë autoritet!"
-
-msgid "Start now &raquo;"
-msgstr "Fillo tash &raquo;"
 
 msgid "Start your own blog"
 msgstr "Nis blogun tënd"
@@ -3047,6 +3059,9 @@ msgstr "Nuk munda të dërgoj përgjigje te {{username}}"
 msgid "Unable to send follow up message to {{username}}"
 msgstr "Nuk munda të dërgoj një përcjellje te {{username}}"
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr "Lloji i papritur i rezultatit të kërkuar "
 
@@ -3107,9 +3122,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "Përdoruesi|Rreth meje"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "Përdoruesi | Niveli i Administrimit"
 
@@ -3117,9 +3129,6 @@ msgid "User|Ban text"
 msgstr "Përdoruesi|Tekst i ndaluar"
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3176,17 +3185,11 @@ msgstr "Shiko adresën e emailit për Informatë Zyrtare {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Shiko kërkesat për informata zyrtare të bëra nga {{user_name}}: "
 
-msgid "View and search requests"
-msgstr "Shiko dhe kërko kërkesat"
-
 msgid "View authorities"
 msgstr "Shiko autoritetet"
 
 msgid "View email"
 msgstr "Shiko adresën e emailit"
-
-msgid "View requests"
-msgstr "Shiko kërkesat"
 
 msgid "Waiting clarification."
 msgstr "Duke pritur sqarim."

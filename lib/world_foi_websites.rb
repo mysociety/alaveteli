@@ -62,11 +62,22 @@ class WorldFOIWebsites
                                   :country_name => "România",
                                   :country_iso_code => "RO",
                                   :url => "http://nuvasuparati.info/"},
-                               {:name => "Marsoum41",
+                              {:name => "Marsoum41",
                                   :country_name => "تونس",
                                   :country_iso_code => "TN",
-                                  :url => "http://www.marsoum41.org"}
-
+                                  :url => "http://www.marsoum41.org"},
+                              {:name => "Доступ до правди",
+                                  :country_name => "Україна",
+                                  :country_iso_code => "UA",
+                                  :url => "https://dostup.pravda.com.ua/"},
+                              {:name => "Ask Data",
+                                  :country_name => "מְדִינַת יִשְׂרָאֵל",
+                                  :country_iso_code => "IL",
+                                  :url => "http://askdata.org.il/"},
+                              {:name => "Слободен пристап",
+                                  :country_name => "Република Македонија",
+                                  :country_iso_code => "MK",
+                                  :url => "http://www.slobodenpristap.mk/"}
                               ]
         return world_foi_websites
     end

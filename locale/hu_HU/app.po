@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:49+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/alaveteli/language/hu_HU/)\n"
 "Language: hu_HU\n"
 "MIME-Version: 1.0\n"
@@ -98,9 +98,6 @@ msgstr " E-mailben már tájékoztattuk az igényléssel kapcsolatos fejleménye
 
 msgid " You will also be emailed updates about the request."
 msgstr " E-mailben is tájékoztatjuk az igényléssel kapcsolatos fejleményekről. "
-
-msgid " made by "
-msgstr "készítette: "
 
 msgid " when you send this message."
 msgstr " részére, így a címzett megismerheti azt."
@@ -327,6 +324,9 @@ msgstr "<strong>Köszönje meg</strong> a közintézménynek vagy"
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>nem kapta meg</strong> a kért információt. "
 
+msgid "?"
+msgstr ""
+
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "A(z) <em>{{request_title}}</em> adatigénylésre vonatkozóan {{info_request_user}} <a href=\"{{request_url}}\">emlékeztetőt</a> küldött a(z) {{public_body_name}} részére {{date}} napon."
 
@@ -525,6 +525,12 @@ msgstr "Igénylése megfogalmazásához az adatgazdának küldött <a href='{{ur
 msgid "Browse all authorities..."
 msgstr "Az összes adatgazda böngészése... "
 
+msgid "Browse and search requests"
+msgstr "Böngészés az adatigénylések között"
+
+msgid "Browse requests"
+msgstr "Adatigénylések"
+
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "A vonatkozó jogszabály értelmében  a(z) {{public_body_link}} munkatársainak már ki kellett volna adniuk a kért adatokat."
 
@@ -586,9 +592,6 @@ msgid "Change your password"
 msgstr "Jelszavam módosítása "
 
 msgid "Change your password on {{site_name}}"
-msgstr "{{site_name}} jelszó módosítása"
-
-msgid "Change your password {{site_name}}"
 msgstr "{{site_name}} jelszó módosítása"
 
 msgid "Charity registration"
@@ -767,6 +770,9 @@ msgid "Disclosure log"
 msgstr "Közzétételi napló"
 
 msgid "Disclosure log URL"
+msgstr ""
+
+msgid "Do not fill in this field"
 msgstr ""
 
 msgid "Don't have a superuser account yet?"
@@ -1489,6 +1495,9 @@ msgstr ""
 msgid "Make a request"
 msgstr "Új igénylés"
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -2003,6 +2012,9 @@ msgstr "ProfilePhoto|Draft"
 msgid "Public Bodies"
 msgstr ""
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr ""
 
@@ -2014,6 +2026,9 @@ msgstr "Adatgazdák - {{description}} "
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Adatgazdák: {{start_count}} - {{end_count}}, összesen: {{total_count}} "
+
+msgid "Public authority statistics"
+msgstr ""
 
 msgid "Public authority – {{name}}"
 msgstr ""
@@ -2242,8 +2257,8 @@ msgstr "Válasz küldése e-mailben "
 msgid "Respond to request"
 msgstr "Válasz az adatigénylésre"
 
-msgid "Respond to the FOI request"
-msgstr "Válasz a közérdekűadat-igénylésre"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr ""
 
 msgid "Respond using the web"
 msgstr "Válasz a weben "
@@ -2455,9 +2470,6 @@ msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "Egyéb megállapítások az adatgazdával kapcsolatban:"
-
-msgid "Start now &raquo;"
-msgstr "Máris kezdhetjük &raquo;"
 
 msgid "Start your own blog"
 msgstr "Saját blog indítása "
@@ -3100,6 +3112,9 @@ msgstr "Nem sikerült választ küldeni {{username}} részére "
 msgid "Unable to send follow up message to {{username}}"
 msgstr "Nem sikerült nyomon követési üzenetet küldeni {{username}} részére "
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr "Váratlan keresésieredmény-típus "
 
@@ -3165,9 +3180,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|About me"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -3175,9 +3187,6 @@ msgid "User|Ban text"
 msgstr "User|Ban text"
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3234,17 +3243,11 @@ msgstr "{{public_body_name}} közérdekűadat-igényléshez használt e-mail cí
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "{{user_name}} által benyújtott  közérdekűadat-igénylések megtekintése "
 
-msgid "View and search requests"
-msgstr "Böngészés az adatigénylések között"
-
 msgid "View authorities"
 msgstr "Adatgazdák "
 
 msgid "View email"
 msgstr "E-mail megtekintése "
-
-msgid "View requests"
-msgstr "Adatigénylések"
 
 msgid "Waiting clarification."
 msgstr "Pontosításra vár."

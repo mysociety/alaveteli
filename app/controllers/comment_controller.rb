@@ -21,7 +21,7 @@ class CommentController < ApplicationController
         end
 
         if params[:comment]
-            # XXX this check should theoretically be a validation rule in the model
+            # TODO: this check should theoretically be a validation rule in the model
             @existing_comment = Comment.find_existing(@info_request.id, params[:comment][:body])
         else
             # Default to subscribing to request when first viewing form

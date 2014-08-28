@@ -5,8 +5,11 @@
 # Translators:
 # andreas.pavlou <andreas@access-info.org>, 2013
 # Bbear <borisjf@post.harvard.edu>, 2011
+# Benoît Simard <contact@bsimard.com>, 2013
 # David Cabo <david.cabo@gmail.com>, 2013
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
+# pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
+# radhouane fazai <radhouanef@gmail.com>, 2013
 # radhouane fazai <radhouanef@gmail.com>, 2013
 # rrobert <rrobertpolson@gmail.com>, 2013
 # sebbacon <seb.bacon@gmail.com>, 2012
@@ -18,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:49+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/projects/p/alaveteli/language/fr_CA/)\n"
 "Language: fr_CA\n"
 "MIME-Version: 1.0\n"
@@ -101,9 +104,6 @@ msgstr "Il est déjà prévu que vous receviez des mises à jour par courriel co
 
 msgid " You will also be emailed updates about the request."
 msgstr "Vous recevrez aussi des mises à jour par courriel concernant cette demande."
-
-msgid " made by "
-msgstr "faite par"
 
 msgid " when you send this message."
 msgstr "quand vous envoyez ce message."
@@ -293,6 +293,9 @@ msgstr "<strong>Remerciez</strong> l'organisme ou "
 
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>n'avait pas </strong> les informations demandées."
+
+msgid "?"
+msgstr ""
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Un <a href=\"{{request_url}}\">suivi</a> à <em>{{request_title}}</em> a été envoyé à {{public_body_name}} par {{info_request_user}} le {{date}}."
@@ -486,6 +489,12 @@ msgstr "Prenez connaissance <a href='{{url}}'>des autres demandes</a> faites au 
 msgid "Browse all authorities..."
 msgstr "Parcourir tous les organismes gouvernementaux…"
 
+msgid "Browse and search requests"
+msgstr "Parcourir les demandes passées"
+
+msgid "Browse requests"
+msgstr "Voir les demandes"
+
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Selon la loi, en toutes circonstances, {{public_body_link}} devrait avoir déjà répondu"
 
@@ -548,9 +557,6 @@ msgstr "Changer votre mot de passe"
 
 msgid "Change your password on {{site_name}}"
 msgstr "Changer votre mot de passe sur {{site_name}}"
-
-msgid "Change your password {{site_name}}"
-msgstr "Changer votre mot de passe {{site_name}}"
 
 msgid "Charity registration"
 msgstr "Organisme de bienfaisance"
@@ -725,6 +731,9 @@ msgstr "Disclosure log"
 
 msgid "Disclosure log URL"
 msgstr "Disclosure log URL"
+
+msgid "Do not fill in this field"
+msgstr ""
 
 msgid "Don't have a superuser account yet?"
 msgstr ""
@@ -1385,6 +1394,9 @@ msgstr "Faire une nouvelle<br/>\\n  <strong>demande <span>d'accès</span><br/>\\
 msgid "Make a request"
 msgstr "Faire une demande"
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -1886,6 +1898,9 @@ msgstr "ProfilePhoto|Draft"
 msgid "Public Bodies"
 msgstr "Organismes publics"
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr "Statistiques de l'organisme"
 
@@ -1897,6 +1912,9 @@ msgstr "Organismes publics - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Organismes publics {{start_count}} à {{end_count}} de {{total_count}}"
+
+msgid "Public authority statistics"
+msgstr ""
 
 msgid "Public authority – {{name}}"
 msgstr "Organisme public – {{name}}"
@@ -2123,8 +2141,8 @@ msgstr "Répondre par courriel"
 msgid "Respond to request"
 msgstr "Répondre à la demande"
 
-msgid "Respond to the FOI request"
-msgstr "Répondre à la demande d'accès aux documents"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr ""
 
 msgid "Respond using the web"
 msgstr "Répondre en utilisant le web"
@@ -2327,9 +2345,6 @@ msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "Remarque spéciale pour cet organisme!"
-
-msgid "Start now &raquo;"
-msgstr "C'est ici! &raquo;"
 
 msgid "Start your own blog"
 msgstr "Commencez votre blog"
@@ -2928,6 +2943,9 @@ msgstr "Impossible d'envoyer une réponse à {{username}}"
 msgid "Unable to send follow up message to {{username}}"
 msgstr "Impossible d'envoyer un message de suivi à {{username}}"
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr "Type de résultat de recherche inattendu"
 
@@ -2988,9 +3006,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|About me"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -2998,9 +3013,6 @@ msgid "User|Ban text"
 msgstr "User|Ban text"
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3057,17 +3069,11 @@ msgstr "Voir l'adresse courriel pour {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Voir les demandes faites par {{user_name}}:"
 
-msgid "View and search requests"
-msgstr "Parcourir les demandes passées"
-
 msgid "View authorities"
 msgstr "Voir les organismes"
 
 msgid "View email"
 msgstr "Voir le courriel"
-
-msgid "View requests"
-msgstr "Voir les demandes"
 
 msgid "Waiting clarification."
 msgstr "En attente de clarification"

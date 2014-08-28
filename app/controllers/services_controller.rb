@@ -31,7 +31,7 @@ class ServicesController < ApplicationController
               FastGettext.locale = old_fgt_locale
             end
         end
-        render :text => text, :content_type => "text/plain"  # XXX workaround the HTML validation in test suite
+        render :text => text, :content_type => "text/plain"  # TODO: workaround the HTML validation in test suite
     end
 
     def hidden_user_explanation

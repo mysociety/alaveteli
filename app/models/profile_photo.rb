@@ -115,7 +115,7 @@ class ProfilePhoto < ActiveRecord::Base
             return
         end
 
-        self.image = image_list[0] # XXX perhaps take largest image or somesuch if there were multiple in the file?
+        self.image = image_list[0] # TODO: perhaps take largest image or somesuch if there were multiple in the file?
         self.convert_image
     end
 end

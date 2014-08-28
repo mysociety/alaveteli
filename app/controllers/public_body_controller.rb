@@ -5,12 +5,11 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-require 'fastercsv'
 require 'confidence_intervals'
 require 'tempfile'
 
 class PublicBodyController < ApplicationController
-    # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
+    # TODO: tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
     def show
         long_cache
         if MySociety::Format.simplify_url_part(params[:url_name], 'body') != params[:url_name]
@@ -43,7 +42,7 @@ class PublicBodyController < ApplicationController
             query = InfoRequestEvent.make_query_from_params(params.merge(:latest_status => @view))
             query += " requested_from:#{@public_body.url_name}"
             # Use search query for this so can collapse and paginate easily
-            # XXX really should just use SQL query here rather than Xapian.
+            # TODO: really should just use SQL query here rather than Xapian.
             sortby = "described"
             begin
                 @xapian_requests = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
@@ -86,7 +85,7 @@ class PublicBodyController < ApplicationController
 
     def list
         long_cache
-        # XXX move some of these tag SQL queries into has_tag_string.rb
+        # TODO: move some of these tag SQL queries into has_tag_string.rb
 
         like_query = params[:public_body_query]
         like_query = "" if like_query.nil?
@@ -109,17 +108,17 @@ class PublicBodyController < ApplicationController
 
         # Restrict the public bodies shown according to the tag
         # parameter supplied in the URL:
-        if @tag.nil? or @tag == "all"
-            @tag = "all"
+        if @tag.nil? || @tag == 'all'
+            @tag = 'all'
         elsif @tag == 'other'
-            category_list = PublicBodyCategories::get().tags().map{|c| "'"+c+"'"}.join(",")
+            category_list = PublicBodyCategories.get.tags.map{ |c| %Q('#{ c }') }.join(",")
             where_condition += base_tag_condition + " AND has_tag_string_tags.name in (#{category_list})) = 0"
         elsif @tag.scan(/./mu).size == 1
-            @tag = Unicode.upcase @tag
+            @tag = Unicode.upcase(@tag)
             # The first letter queries have to be done on
             # translations, so just indicate to add that later:
             first_letter = true
-        elsif @tag.include?(":")
+        elsif @tag.include?(':')
             name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(@tag)
             where_condition += base_tag_condition + " AND has_tag_string_tags.name = ? AND has_tag_string_tags.value = ?) > 0"
             where_parameters.concat [name, value]
@@ -128,16 +127,16 @@ class PublicBodyController < ApplicationController
             where_parameters.concat [@tag]
         end
 
-        if @tag == "all"
-            @description = ""
+        if @tag == 'all'
+            @description = ''
         elsif @tag.size == 1
-            @description = _("beginning with ‘{{first_letter}}’", :first_letter=>@tag)
+            @description = _("beginning with ‘{{first_letter}}’", :first_letter => @tag)
         else
-            category_name = PublicBodyCategories::get().by_tag()[@tag]
+            category_name = PublicBodyCategories.get.by_tag[@tag]
             if category_name.nil?
-                @description = _("matching the tag ‘{{tag_name}}’", :tag_name=>@tag)
+                @description = _("matching the tag ‘{{tag_name}}’", :tag_name => @tag)
             else
-                @description = _("in the category ‘{{category_name}}’", :category_name=>category_name)
+                @description = _("in the category ‘{{category_name}}’", :category_name => category_name)
             end
         end
 
@@ -151,15 +150,15 @@ class PublicBodyController < ApplicationController
                     FROM public_bodies
                     LEFT OUTER JOIN public_body_translations as current_locale
                         ON (public_bodies.id = current_locale.public_body_id
-                            AND current_locale.locale = ? AND #{get_public_body_list_translated_condition 'current_locale', first_letter})
+                            AND current_locale.locale = ? AND #{ get_public_body_list_translated_condition('current_locale', first_letter) })
                     LEFT OUTER JOIN public_body_translations as default_locale
                         ON (public_bodies.id = default_locale.public_body_id
-                            AND default_locale.locale = ? AND #{get_public_body_list_translated_condition 'default_locale', first_letter})
-                    WHERE #{where_condition} AND COALESCE(current_locale.name, default_locale.name) IS NOT NULL
+                            AND default_locale.locale = ? AND #{ get_public_body_list_translated_condition('default_locale', first_letter) })
+                    WHERE #{ where_condition } AND COALESCE(current_locale.name, default_locale.name) IS NOT NULL
                     ORDER BY display_name}
-                sql = [query, underscore_locale, like_query, like_query]
+                sql = [query, underscore_locale, like_query, like_query, like_query]
                 sql.push @tag if first_letter
-                sql += [underscore_default_locale, like_query, like_query]
+                sql += [underscore_default_locale, like_query, like_query, like_query]
                 sql.push @tag if first_letter
                 sql += where_parameters
                 @public_bodies = PublicBody.paginate_by_sql(
@@ -170,17 +169,17 @@ class PublicBodyController < ApplicationController
                 # The simpler case where we're just searching in the current locale:
                 where_condition = get_public_body_list_translated_condition('public_body_translations', first_letter, true) +
                     ' AND ' + where_condition
-                where_sql = [where_condition, like_query, like_query]
+                where_sql = [where_condition, like_query, like_query, like_query]
                 where_sql.push @tag if first_letter
                 where_sql += [underscore_locale] + where_parameters
-                @public_bodies = PublicBody.where(where_sql) \
-                    .joins(:translations) \
-                    .order("public_body_translations.name") \
-                    .paginate(:page => params[:page], :per_page => 100)
+                @public_bodies = PublicBody.where(where_sql).
+                                   joins(:translations).
+                                     order("public_body_translations.name").
+                                       paginate(:page => params[:page], :per_page => 100)
             end
 
             respond_to do |format|
-                format.html { render :template => "public_body/list" }
+                format.html { render :template => 'public_body/list' }
             end
         end
     end
@@ -191,6 +190,9 @@ class PublicBodyController < ApplicationController
         redirect_to list_public_bodies_url(:tag => @tag)
     end
 
+    # GET /body/all-authorities.csv
+    #
+    # Returns all public bodies (except for the internal admin authority) as CSV
     def list_all_csv
         # FIXME: this is just using the download directory for zip
         # archives, since we know that is allowed for X-Sendfile and
@@ -198,21 +200,29 @@ class PublicBodyController < ApplicationController
         # used for the zips.  However, really there should be a
         # generically named downloads directory that contains all
         # kinds of downloadable assets.
-        download_directory = File.join(InfoRequest.download_zip_dir(),
-                                       'download')
-        FileUtils.mkdir_p download_directory
+        download_directory = File.join(InfoRequest.download_zip_dir, 'download')
+        FileUtils.mkdir_p(download_directory)
         output_leafname = 'all-authorities.csv'
-        output_filename = File.join download_directory, output_leafname
+        output_filename = File.join(download_directory, output_leafname)
         # Create a temporary file in the same directory, so we can
         # rename it atomically to the intended filename:
-        tmp = Tempfile.new output_leafname, download_directory
+        tmp = Tempfile.new(output_leafname, download_directory)
         tmp.close
-        # Export all the public bodies to that temporary path and make
-        # it readable:
-        PublicBody.export_csv tmp.path
-        FileUtils.chmod 0644, tmp.path
-        # Rename into place and send the file:
-        File.rename tmp.path, output_filename
+
+        # Create the CSV
+        csv = PublicBodyCSV.new
+        PublicBody.visible.find_each(:include => [:translations, :tags]) do |public_body|
+            next if public_body.site_administration?
+            csv << public_body
+        end
+
+        # Export all the public bodies to that temporary path, make it readable,
+        # and rename it
+        File.open(tmp.path, 'w') { |file| file.write(csv.generate) }
+        FileUtils.chmod(0644, tmp.path)
+        File.rename(tmp.path, output_filename)
+
+        # Send the file
         send_file(output_filename,
                   :type => 'text/csv; charset=utf-8; header=present',
                   :filename => 'all-authorities.csv',
@@ -344,9 +354,11 @@ class PublicBodyController < ApplicationController
     end
 
     private
+
     def get_public_body_list_translated_condition(table, first_letter=false, locale=nil)
         result = "(upper(#{table}.name) LIKE upper(?)" \
-            " OR upper(#{table}.notes) LIKE upper (?))"
+                 " OR upper(#{table}.notes) LIKE upper(?)" \
+                 " OR upper(#{table}.short_name) LIKE upper(?))"
         if first_letter
             result += " AND #{table}.first_letter = ?"
         end

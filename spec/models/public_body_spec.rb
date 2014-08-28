@@ -493,7 +493,7 @@ describe PublicBody, " when loading CSV files" do
 
         PublicBody.count.should == original_count + 3
 
-        # XXX Not sure why trying to do a I18n.with_locale fails here. Seems related to
+        # TODO: Not sure why trying to do a I18n.with_locale fails here. Seems related to
         # the way categories are loaded every time from the PublicBody class. For now we just
         # test some translation was done.
         body = PublicBody.find_by_name('North West Fake Authority')
@@ -590,6 +590,20 @@ describe PublicBody do
 
         it 'should remove simple tags from notes' do
             @public_body.notes_without_html.should == 'some notes'
+        end
+
+    end
+
+    describe :site_administration? do
+
+        it 'is true when the body has the site_administration tag' do
+            p = FactoryGirl.build(:public_body, :tag_string => 'site_administration')
+            p.site_administration?.should be_true
+        end
+
+        it 'is false when the body does not have the site_administration tag' do
+            p = FactoryGirl.build(:public_body)
+            p.site_administration?.should be_false
         end
 
     end

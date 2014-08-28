@@ -16,15 +16,15 @@ class AlaveteliFileTypes
         "tnef" => 'application/ms-tnef',
         "tif" => 'image/tiff',
         "gif" => 'image/gif',
-        "jpg" => 'image/jpeg', # XXX add jpeg
+        "jpg" => 'image/jpeg', # TODO: add jpeg
         "png" => 'image/png',
         "bmp" => 'image/bmp',
-        "html" => 'text/html', # XXX add htm
+        "html" => 'text/html', # TODO: add htm
         "vcf" => 'text/x-vcard',
         "zip" => 'application/zip',
         "delivery-status" => 'message/delivery-status'
     }
-    # XXX doesn't have way of choosing default for inverse map - might want to add
+    # TODO: doesn't have way of choosing default for inverse map - might want to add
     # one when you need it
     FileExtensionToMimeTypeRev = FileExtensionToMimeType.invert
     
@@ -46,7 +46,7 @@ class AlaveteliFileTypes
             m = Mahoro.new(Mahoro::MIME)
             mahoro_type = m.buffer(content)
             mahoro_type.strip!
-            # XXX we shouldn't have to check empty? here, but Mahoro sometimes returns a blank line :(
+            # TODO: we shouldn't have to check empty? here, but Mahoro sometimes returns a blank line :(
             # e.g. for InfoRequestEvent 17930
             if mahoro_type.nil? || mahoro_type.empty?
                 return nil

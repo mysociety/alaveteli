@@ -123,7 +123,7 @@ Spork.prefork do
     end
   end
 
-  # XXX No idea what namespace/class/module to put this in
+  # TODO: No idea what namespace/class/module to put this in
   # Create a clean xapian index based on the fixture files and the raw_email data.
   def create_fixtures_xapian_index
       load_raw_emails_data

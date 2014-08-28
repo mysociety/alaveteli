@@ -10,7 +10,7 @@ module HasTagString
     # Represents one tag of one model.
     # The migration to make this is currently only in WDTK code.
     class HasTagStringTag < ActiveRecord::Base
-        # XXX strip_attributes!
+        # TODO: strip_attributes!
 
         validates_presence_of :name
 
@@ -46,7 +46,7 @@ module HasTagString
     # Methods which are added to the model instances being tagged
     module InstanceMethods
         # Given an input string of tags, sets all tags to that string.
-        # XXX This immediately saves the new tags.
+        # TODO: This immediately saves the new tags.
         def tag_string=(tag_string)
             if tag_string.nil?
                 tag_string = ""

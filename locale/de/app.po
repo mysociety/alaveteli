@@ -8,14 +8,15 @@
 # KerstiRu <kersti@access-info.org>, 2011
 # KerstiRu <kersti@access-info.org>, 2011
 # louisecrow <louise@mysociety.org>, 2014
+# louisecrow <louise@mysociety.org>, 2014
 # stefanw <stefanwehrmeyer@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-28 15:17+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:47+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/alaveteli/language/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -96,9 +97,6 @@ msgstr "Sie haben bereits Aktualisierungen zu dieser Anfrage per Email erhalten.
 
 msgid " You will also be emailed updates about the request."
 msgstr "Aktualisierungen zu dieser Anfrage werden Ihnen auch per Email übermittelt. "
-
-msgid " made by "
-msgstr "erstellt durch"
 
 msgid " when you send this message."
 msgstr "wenn Sie diese Nachricht senden. "
@@ -313,6 +311,9 @@ msgstr "<strong>Danken Sie</strong> der Behörde oder "
 msgid "<strong>did not have</strong> the information requested."
 msgstr "Die angefragten Informationen waren <strong>nicht vorhanden</strong>."
 
+msgid "?"
+msgstr ""
+
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
@@ -509,6 +510,12 @@ msgstr "Schauen Sie <a href='{{url}}'>andere Anfragen</a> an '{{public_body_name
 msgid "Browse all authorities..."
 msgstr "Durchsuchen Sie alle Behörden"
 
+msgid "Browse and search requests"
+msgstr "Ansehen und Suchen von Anfragen"
+
+msgid "Browse requests"
+msgstr "Anfragen ansehen"
+
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Nach gesetzlicher Vorschrift sollte {{public_body_link}} Ihnen inzwischen unter allen Umständen geantwortet haben. "
 
@@ -571,9 +578,6 @@ msgstr "Passwort ändern"
 
 msgid "Change your password on {{site_name}}"
 msgstr "Ändern Sie Ihr Passwort: {{site_name}}"
-
-msgid "Change your password {{site_name}}"
-msgstr "Passwort ändern{{site_name}}"
 
 msgid "Charity registration"
 msgstr "Charity Registrierung"
@@ -749,6 +753,9 @@ msgid "Disclosure log"
 msgstr ""
 
 msgid "Disclosure log URL"
+msgstr ""
+
+msgid "Do not fill in this field"
 msgstr ""
 
 msgid "Don't have a superuser account yet?"
@@ -1428,6 +1435,9 @@ msgstr ""
 msgid "Make a request"
 msgstr "Anfrage stellen"
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -1932,6 +1942,9 @@ msgstr "ProfilePhoto|Draft"
 msgid "Public Bodies"
 msgstr ""
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr ""
 
@@ -1943,6 +1956,9 @@ msgstr "Behörden - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Behörde {{start_count}} bis {{end_count}} von {{total_count}}"
+
+msgid "Public authority statistics"
+msgstr ""
 
 msgid "Public authority – {{name}}"
 msgstr ""
@@ -2169,8 +2185,8 @@ msgstr "Email-Antwort senden"
 msgid "Respond to request"
 msgstr "Auf Anfrage reagieren"
 
-msgid "Respond to the FOI request"
-msgstr "IFG-Anfrage beantworten"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr ""
 
 msgid "Respond using the web"
 msgstr "Online antworten"
@@ -2378,9 +2394,6 @@ msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "Spezielle Nachricht and diese Behörde!"
-
-msgid "Start now &raquo;"
-msgstr ""
 
 msgid "Start your own blog"
 msgstr "Starten Sie Ihren eigenen Blog"
@@ -2990,6 +3003,9 @@ msgstr "Antwort an {{username}} kann nicht gesendet werden"
 msgid "Unable to send follow up message to {{username}}"
 msgstr "Nachfrage an {{username}} kann nicht gesendet werden"
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr "Unerwartetes Suchergebnis"
 
@@ -3052,9 +3068,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "BenutzerIÜber mich"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -3062,9 +3075,6 @@ msgid "User|Ban text"
 msgstr "User|Ban text"
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3121,17 +3131,11 @@ msgstr "IFG-Emailadresse für {{public_body_name}} ansehen"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Sehen Sie die durch {{user_name}} gestellten IFG-Anfragen an:"
 
-msgid "View and search requests"
-msgstr "Ansehen und Suchen von Anfragen"
-
 msgid "View authorities"
 msgstr "Behörden ansehen"
 
 msgid "View email"
 msgstr "Email ansehen"
-
-msgid "View requests"
-msgstr "Anfragen ansehen"
 
 msgid "Waiting clarification."
 msgstr "Klärung wird erwartet. "

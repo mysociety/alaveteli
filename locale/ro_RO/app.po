@@ -4,13 +4,15 @@
 #
 # Translators:
 # Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2012-2013
-# Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2013
+# Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2012-2013
 # Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2012
+# Claudiu Marginean <copyratul@gmail.com>, 2012
 # Claudiu Marginean <copyratul@gmail.com>, 2012
 # Claudiu Marginean <copyratul@gmail.com>, 2012
 # Cosmin Pojoranu <cosmin@funkycitizens.org>, 2013
 # Elena Calistru <calistru.elena@gmail.com>, 2013
 # Elena Calistru <calistru.elena@gmail.com>, 2013
+# paul.chioveanu <paul_kimmy@yahoo.com>, 2013
 # paul.chioveanu <paul_kimmy@yahoo.com>, 2013
 # paul.chioveanu <paul_kimmy@yahoo.com>, 2013
 # Rodica Ardelean <rodxy@yahoo.com>, 2013
@@ -21,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:49+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
 "MIME-Version: 1.0\n"
@@ -102,9 +104,6 @@ msgstr "Ţi s-au trimis deja prin e-mail actualizări referitoare la solicitare.
 
 msgid " You will also be emailed updates about the request."
 msgstr "Vei primi prin email noutăți legate de cererea ta."
-
-msgid " made by "
-msgstr "făcut de"
 
 msgid " when you send this message."
 msgstr "când trimiți acest mesaj."
@@ -294,6 +293,9 @@ msgstr "<strong>Mulţumiri </strong> autorităţii publice sau "
 
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>nu au avut</strong>  informaţia solicitată."
+
+msgid "?"
+msgstr ""
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "O <a href=\"{{request_url}}\">urmărire </a> către <em>{{request_title}}</em> a fost trimisă către {{public_body_name}} de către {{info_request_user}} la  {{date}}."
@@ -487,6 +489,12 @@ msgstr "Consultaţi  <a href='{{url}}'> şi alte cereri </a> catre '{{public_bod
 msgid "Browse all authorities..."
 msgstr "Consultaţi toate autoritaţile ..."
 
+msgid "Browse and search requests"
+msgstr "Vezi şi caută cereri"
+
+msgid "Browse requests"
+msgstr "Vezi cereri"
+
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Conform legii, în oricare circumstanţe, {{public_body_link}} ar fi trebuit să vă răspundă până acum"
 
@@ -549,9 +557,6 @@ msgstr "Modificaţi parola"
 
 msgid "Change your password on {{site_name}}"
 msgstr "Modifică-ţi parola pe {{site_name}}"
-
-msgid "Change your password {{site_name}}"
-msgstr "Modifică parola ta pe {{site_name}}"
 
 msgid "Charity registration"
 msgstr "Înregistrare ONG"
@@ -726,6 +731,9 @@ msgstr "Disclosure log"
 
 msgid "Disclosure log URL"
 msgstr "Disclosure log URL"
+
+msgid "Do not fill in this field"
+msgstr ""
 
 msgid "Don't have a superuser account yet?"
 msgstr ""
@@ -1389,6 +1397,9 @@ msgstr "Faceți o nouă<br/>\\n <strong>solicitare <span>de</span><br/>\\n infor
 msgid "Make a request"
 msgstr "Faceţi o cerere"
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -1890,6 +1901,9 @@ msgstr "Poza de profil|Ciornă"
 msgid "Public Bodies"
 msgstr ""
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr ""
 
@@ -1901,6 +1915,9 @@ msgstr "Autorităţi publice - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Instituții publice de la {{start_count}} la {{end_count}} din {{total_count}}"
+
+msgid "Public authority statistics"
+msgstr ""
 
 msgid "Public authority – {{name}}"
 msgstr "Autoritatea publică – {{name}}"
@@ -2127,8 +2144,8 @@ msgstr "Răspuns prin email"
 msgid "Respond to request"
 msgstr "Răspuns la cerere"
 
-msgid "Respond to the FOI request"
-msgstr "Răspunde la solicitarea de acces la informații"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr ""
 
 msgid "Respond using the web"
 msgstr "Răspuns utilizând Internetul"
@@ -2333,9 +2350,6 @@ msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "O notă specială pentru această autoritate!"
-
-msgid "Start now &raquo;"
-msgstr "Start acum  &raquo;"
 
 msgid "Start your own blog"
 msgstr "Incepeţi propriul jurnal"
@@ -2937,6 +2951,9 @@ msgstr "Nu se poate trimite un răspuns către  {{username}}"
 msgid "Unable to send follow up message to {{username}}"
 msgstr "Nu se poate trimite un mesaj de urmărire către {{username}}"
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr "Tip neaşteptat de  rezultat la căutare"
 
@@ -2997,9 +3014,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "Utilizator|Despre mine"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "Utilizator|Nivel administrator"
 
@@ -3007,9 +3021,6 @@ msgid "User|Ban text"
 msgstr "Utilizator|Text interzis"
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3066,17 +3077,11 @@ msgstr "Vezi adresa de email  pentru '{{public_body_name}}'"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Vezi cererile solicitările de acces la informații făcute de {{user_name}}:"
 
-msgid "View and search requests"
-msgstr "Vezi şi caută cereri"
-
 msgid "View authorities"
 msgstr "Vezi autorităţi"
 
 msgid "View email"
 msgstr "Vezi email"
-
-msgid "View requests"
-msgstr "Vezi cereri"
 
 msgid "Waiting clarification."
 msgstr "Aşteaptă clarificare"

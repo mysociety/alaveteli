@@ -4,9 +4,11 @@
 #
 # Translators:
 # Agung Riyadi <ariadi01@gmail.com>, 2013
+# Agung Riyadi <ariadi01@gmail.com>, 2012-2013
 # agustriwanto <agus.triwanto@gmail.com>, 2012
 # agustriwanto <agus.triwanto@gmail.com>, 2012
-#   <ariadi01@gmail.com>, 2012
+# agustriwanto <agus.triwanto@gmail.com>, 2012
+# Agung Riyadi <ariadi01@gmail.com>, 2012
 # bobo7e836b32124642a5 <bobo@airputih.org>, 2012
 # bobo7e836b32124642a5 <bobo@airputih.org>, 2012
 # Agung Riyadi <ariadi01@gmail.com>, 2013
@@ -14,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 12:46+0100\n"
-"PO-Revision-Date: 2014-05-15 11:56+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-08-26 14:45+0000\n"
+"PO-Revision-Date: 2014-08-26 14:48+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/projects/p/alaveteli/language/id/)\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -105,9 +107,6 @@ msgstr " Update tentang permintaan tersebut sudah dikirimkan ke email Anda."
 
 msgid " You will also be emailed updates about the request."
 msgstr " Anda juga akan dikirimkan email berisi update tentang permintaan."
-
-msgid " made by "
-msgstr " dibuat oleh "
 
 msgid " when you send this message."
 msgstr " saat Anda mengirim pesan ini."
@@ -351,6 +350,9 @@ msgstr "<strong>Berterima kasih kepada</strong> otoritas publik atau "
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>tidak memiliki</strong> informasi yang diminta."
 
+msgid "?"
+msgstr ""
+
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Sebuah <a href=\"{{request_url}}\">tindak lanjut</a> untuk <em>{{request_title}}</em> telah terkirim kepada {{public_body_name}} oleh {{info_request_user}} pada {{date}}."
 
@@ -553,6 +555,12 @@ msgstr "Melihat <a href='{{url}}'>permintaan lain</a> untuk'{{public_body_name}}
 msgid "Browse all authorities..."
 msgstr "Melihat semua otoritas..."
 
+msgid "Browse and search requests"
+msgstr "Tampilkan dan cari permintaan"
+
+msgid "Browse requests"
+msgstr "Tampilkan permintaan"
+
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "Berdasarkan undang-undang, dalam semua keadaan, {{public_body_link}} sekarang seharusnya sudah ditanggapi"
 
@@ -615,9 +623,6 @@ msgstr "Mengubah kode sandi Anda"
 
 msgid "Change your password on {{site_name}}"
 msgstr "Mengubah kode sandi Anda di{{site_name}}"
-
-msgid "Change your password {{site_name}}"
-msgstr "Mengubah kode sandi Anda {{site_name}}"
 
 msgid "Charity registration"
 msgstr "Pendaftaran Amal"
@@ -796,6 +801,9 @@ msgstr "Pembukaan log"
 
 msgid "Disclosure log URL"
 msgstr "Pembukaan riwayat URL"
+
+msgid "Do not fill in this field"
+msgstr ""
 
 msgid "Don't have a superuser account yet?"
 msgstr ""
@@ -1514,6 +1522,9 @@ msgstr ""
 msgid "Make a request"
 msgstr "Buat permintaan"
 
+msgid "Make a request &raquo;"
+msgstr ""
+
 msgid "Make a request to these authorities"
 msgstr ""
 
@@ -2026,6 +2037,9 @@ msgstr "ProfilePhoto|Draft"
 msgid "Public Bodies"
 msgstr ""
 
+msgid "Public Body"
+msgstr ""
+
 msgid "Public Body Statistics"
 msgstr ""
 
@@ -2037,6 +2051,9 @@ msgstr "Otoritas publik - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Ptoritas publik {{start_count}} ke{{end_count}} dari {{total_count}}"
+
+msgid "Public authority statistics"
+msgstr ""
 
 msgid "Public authority – {{name}}"
 msgstr "Otoritas publik - {{name}}"
@@ -2265,8 +2282,8 @@ msgstr "Merespon lewat email"
 msgid "Respond to request"
 msgstr "Merespon permintaan"
 
-msgid "Respond to the FOI request"
-msgstr "Merespon pemintaan FOI"
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr ""
 
 msgid "Respond using the web"
 msgstr "Merespon lewat web"
@@ -2476,9 +2493,6 @@ msgstr ""
 
 msgid "Special note for this authority!"
 msgstr "Catatan khusus untuk otoritas ini!"
-
-msgid "Start now &raquo;"
-msgstr "Mulai sekarang &raquo;"
 
 msgid "Start your own blog"
 msgstr "Mulai blog Anda sendiri"
@@ -3118,6 +3132,9 @@ msgstr "Tidak dapat mengirimkan balasan kepada {{username}}"
 msgid "Unable to send follow up message to {{username}}"
 msgstr "Tidak dapat mengirimkan pesan tindak lanjut kepada {{username}}"
 
+msgid "Unclassified or hidden requests are not counted."
+msgstr ""
+
 msgid "Unexpected search result type "
 msgstr "Jenis hasil pencarian yang tidak terduga "
 
@@ -3183,9 +3200,6 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|About me"
 
-msgid "User|Address"
-msgstr ""
-
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -3193,9 +3207,6 @@ msgid "User|Ban text"
 msgstr "User|Ban text"
 
 msgid "User|Can make batch requests"
-msgstr ""
-
-msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3252,17 +3263,11 @@ msgstr "Tampilkan alamat email FOI untuk {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Tampilkan permintaan Freedom of Information yang dibuat oleh {{user_name}}:"
 
-msgid "View and search requests"
-msgstr "Tampilkan dan cari permintaan"
-
 msgid "View authorities"
 msgstr "Tampilkan otoritas"
 
 msgid "View email"
 msgstr "Tampilkan email"
-
-msgid "View requests"
-msgstr "Tampilkan permintaan"
 
 msgid "Waiting clarification."
 msgstr "Menunggu klarifikasi."

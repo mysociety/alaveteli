@@ -184,6 +184,11 @@ describe PublicBodyController, "when listing bodies" do
         assigns[:public_bodies].should == [ public_bodies(:geraldine_public_body) ]
     end
 
+    it "should support simple searching of bodies by short_name" do
+        get :list, :public_body_query => 'DfH'
+        assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
+    end
+
     it "should support simple searching of bodies by notes" do
         get :list, :public_body_query => 'Albatross'
         assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
@@ -285,6 +290,23 @@ describe PublicBodyController, "when asked to export public bodies as CSV" do
         all_data[0].length.should == 11
         # And an actual line of data:
         all_data[1].length.should == 11
+    end
+
+    it "only includes visible bodies" do
+        get :list_all_csv
+        all_data = CSV.parse(response.body)
+        all_data.any?{ |row| row.include?('Internal admin authority') }.should be_false
+    end
+
+    it "does not include site_administration bodies" do
+        FactoryGirl.create(:public_body,
+                           :name => 'Site Admin Body',
+                           :tag_string => 'site_administration')
+
+        get :list_all_csv
+
+        all_data = CSV.parse(response.body)
+        all_data.any?{ |row| row.include?('Site Admin Body') }.should be_false
     end
 
 end

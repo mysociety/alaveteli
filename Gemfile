@@ -1,13 +1,6 @@
-# Work around bug in Debian Squeeze - see https://github.com/mysociety/alaveteli/pull/297#issuecomment-4101012
-if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.strip =~ /^(squeeze.*|6\.0\.[45])$/
-    if File.exist? "/lib/libuuid.so.1"
-        require 'dl'
-        DL::dlopen('/lib/libuuid.so.1')
-    end
-end
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.18'
+gem 'rails', '3.2.19'
 
 gem 'pg'
 
@@ -17,7 +10,6 @@ gem 'charlock_holmes'
 gem 'dynamic_form'
 gem 'exception_notification'
 gem 'fancybox-rails'
-gem 'fastercsv', '>=1.5.5'
 gem 'foundation-rails'
 gem 'jquery-rails', '~> 3.0.4'
 gem 'jquery-ui-rails'
@@ -82,6 +74,7 @@ end
 group :development do
   gem 'capistrano'
   gem 'mailcatcher'
+  gem 'quiet_assets'
   gem 'rdoc'
 end
 
