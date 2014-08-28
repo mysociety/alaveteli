@@ -1,4 +1,4 @@
-## rails-3-develop
+# Version 0.19
 
 ## Highlighted Features
 
@@ -33,6 +33,16 @@
 
 ## Upgrade Notes
 
+* `HighlightHelper#excerpt` backports the Rails 4 `excerpt` which requires a
+  Hash for the options parameter rather than globbing the remaining arguments.
+
+For example:
+
+    - <%=h excerpt(info_request.initial_request_text, "", 100) %>
+    + <%=h excerpt(info_request.initial_request_text, "", :radius => 100) %>
+
+You will need to update any use of `excerpt` in your theme to use the Hash args.
+
 * Ubuntu Precise users can get an updated version of pdftk from mySociety's PPA
 
 Install the repo and update the sources:
@@ -49,7 +59,9 @@ candidate:
 * Install `lockfile-progs` so that the `run-with-lockfile` shell script can be
   used instead of the C program
 * Use responsive stylesheets in `config/general.yml`:  
-  `RESPONSIVE_STYLING: true`
+  `RESPONSIVE_STYLING: true`. If you don't currently use responsive styling,
+  and you don't want to get switched over just set `RESPONSIVE_STYLING: false`
+  and the fixed-width stylesheets will be used as before.
 * Allow access to public body stats page if desired in `config/general/yml`:  
   `PUBLIC_BODY_STATISTICS_PAGE: true`
 * Run migrations to define track_things constraint correctly (Robin Houston) and
@@ -85,6 +97,8 @@ candidate:
   and is current, and executable by the cap user. You can create it using the template
   `config/sysvinit-thin.ugly` or `config/sysvinit-passenger.ugly` as
   described in http://alaveteli.org/docs/installing/manual_install/#generate-alaveteli-service
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running rails-post-deploy.
 
 # Version 0.18
 
