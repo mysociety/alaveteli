@@ -17,6 +17,7 @@ NAME=!!(*= $site *)!!
 SITE_HOME=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!
 DESC="Alaveteli app server"
 USER=!!(*= $user *)!!
+RAILS_ENV=!!(*= $rails_env *)!!
 
 set -e
 
@@ -26,7 +27,7 @@ su -l -c "cd $SITE_HOME && bundle exec thin --version &> /dev/null || exit 0" $U
 start_daemon() {
   echo -n "Starting $DESC: "
   cd "$SITE_HOME" && bundle exec thin \
-    --environment=production \
+    --environment=$RAILS_ENV \
     --user="$USER" \
     --group="$USER" \
     --address=127.0.0.1 \
