@@ -1048,11 +1048,17 @@ public
         File.join(Rails.root, "cache", "zips", "#{Rails.env}")
     end
 
-    def foi_fragment_cache_directory
+    def foi_fragment_cache_directories
         # return stub path so admin can expire it
-        path = "views/request/#{request_dirs}"
-        foi_cache_path = File.expand_path(File.join(Rails.root, 'cache'))
-        return File.join(foi_cache_path, path)
+        directories = []
+        path = File.join("request", request_dirs)
+        foi_cache_path = File.expand_path(File.join(Rails.root, 'cache', 'views'))
+        directories << File.join(foi_cache_path, path)
+        I18n.available_locales.each do |locale|
+            directories << File.join(foi_cache_path, locale.to_s, path)
+        end
+
+        directories
     end
 
     def request_dirs
