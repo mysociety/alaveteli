@@ -1050,8 +1050,7 @@ public
 
     def foi_fragment_cache_directory
         # return stub path so admin can expire it
-        first_three_digits = id.to_s()[0..2]
-        path = "views/request/#{first_three_digits}/#{id}"
+        path = "views/request/#{request_dirs}"
         foi_cache_path = File.expand_path(File.join(Rails.root, 'cache'))
         return File.join(foi_cache_path, path)
     end
