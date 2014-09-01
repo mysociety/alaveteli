@@ -1048,6 +1048,14 @@ public
         File.join(Rails.root, "cache", "zips", "#{Rails.env}")
     end
 
+    def foi_fragment_cache_directory
+        # return stub path so admin can expire it
+        first_three_digits = id.to_s()[0..2]
+        path = "views/request/#{first_three_digits}/#{id}"
+        foi_cache_path = File.expand_path(File.join(File.dirname(__FILE__), '../../cache'))
+        return File.join(foi_cache_path, path)
+    end
+
     def request_dirs
         first_three_digits = id.to_s()[0..2]
         File.join(first_three_digits.to_s, id.to_s)

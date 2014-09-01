@@ -147,6 +147,18 @@ describe InfoRequest do
 
     end
 
+    describe 'when managing the cache path' do
+        before do
+            @info_request = info_requests(:fancy_dog_request)
+        end
+
+        it 'should return the default locale cache path without locale parts' do
+            default_locale_path = File.join(Rails.root, 'cache', 'views', 'request', '101', '101')
+            @info_request.foi_fragment_cache_directory.include?(default_locale_path).should == true
+        end
+
+    end
+
     describe " when emailing" do
 
         before do
