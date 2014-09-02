@@ -29,6 +29,10 @@
     @include lte-ie7 {
       width: 26.188em;
     }
+    #public_body_show {
+      @include grid-row();
+    }
+
   }
 
   /* Hide some elements of the public body that aren't appropriate in this
