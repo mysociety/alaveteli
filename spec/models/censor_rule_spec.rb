@@ -90,10 +90,22 @@ end
 
 describe 'when validating rules' do
 
-    it 'should be invalid without text' do
+    it 'must have the text to redact' do
         censor_rule = CensorRule.new
-        censor_rule.valid?.should == false
-        censor_rule.errors[:text].should == ["can't be blank"]
+        expect(censor_rule).to have(1).error_on(:text)
+        expect(censor_rule.errors[:text]).to eql(["can't be blank"])
+    end
+
+    it 'must have a replacement' do
+      expect(CensorRule.new).to have(1).error_on(:replacement)
+    end
+
+    it 'must have a last_edit_editor' do
+      expect(CensorRule.new).to have(1).error_on(:last_edit_editor)
+    end
+
+    it 'must have a last_edit_comment' do
+      expect(CensorRule.new).to have(1).error_on(:last_edit_comment)
     end
 
     describe 'when validating a regexp rule' do
