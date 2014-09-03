@@ -112,7 +112,10 @@ describe 'when validating rules' do
 
         before do
             @censor_rule = CensorRule.new(:regexp => true,
-                                          :text => '*')
+                                          :text => '*',
+                                          :replacement => '---',
+                                          :last_edit_comment => 'test',
+                                          :last_edit_editor => 'rspec')
         end
 
         it 'should try to create a regexp from the text' do
@@ -145,7 +148,10 @@ describe 'when validating rules' do
     describe 'when the allow_global flag has been set' do
 
         before do
-            @censor_rule = CensorRule.new(:text => 'some text')
+            @censor_rule = CensorRule.new(:text => 'some text',
+                                          :replacement => '---',
+                                          :last_edit_comment => 'test',
+                                          :last_edit_editor => 'rspec')
             @censor_rule.allow_global = true
         end
 
@@ -158,7 +164,10 @@ describe 'when validating rules' do
     describe 'when the allow_global flag has not been set' do
 
         before do
-            @censor_rule = CensorRule.new(:text => '/./')
+            @censor_rule = CensorRule.new(:text => '/./',
+                                          :replacement => '---',
+                                          :last_edit_comment => 'test',
+                                          :last_edit_editor => 'rspec')
         end
 
         it 'should not allow a global text censor rule (without user_id, request_id or public_body_id)' do
