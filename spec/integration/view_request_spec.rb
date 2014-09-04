@@ -19,6 +19,28 @@ describe "When viewing requests" do
        @unregistered.browses_request("#{@info_request.url_title}?action=add")
     end
 
+    context "when a request is hidden by an admin" do
+
+        it 'should not retain any cached attachments to be served up by the webserver' do
+            admin = login(FactoryGirl.create(:admin_user))
+            non_owner = login(FactoryGirl.create(:user))
+            info_request = FactoryGirl.create(:info_request_with_incoming_attachments)
+            incoming_message = info_request.incoming_messages.first
+            attachment_url = "/es/request/#{info_request.id}/response/#{incoming_message.id}/attach/2/interesting.pdf"
+            non_owner.get(attachment_url)
+            cache_directories_exist?(info_request).should be_true
+
+            # Admin makes the incoming message requester only
+            post_data = {:incoming_message => {:prominence => 'hidden',
+                                               :prominence_reason => 'boring'}}
+            admin.post_via_redirect "/admin/incoming/update/#{info_request.incoming_messages.first.id}", post_data
+            admin.response.should be_success
+
+            cache_directories_exist?(info_request).should be_false
+        end
+
+    end
+
     context 'when a response has prominence "normal"' do
 
         before do
