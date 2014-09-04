@@ -25,8 +25,7 @@ class AdminController < ApplicationController
     def expire_for_request(info_request)
         # Clear out cached entries, by removing files from disk (the built in
         # Rails fragment cache made doing this and other things too hard)
-        cache_subpath = foi_fragment_cache_all_for_request(info_request)
-        FileUtils.rm_rf(cache_subpath)
+        info_request.foi_fragment_cache_directories.each{ |dir| FileUtils.rm_rf(dir) }
 
         # Remove any download zips
         FileUtils.rm_rf(info_request.download_zip_dir)
