@@ -986,6 +986,24 @@ public
         find(:all, params)
     end
 
+    def foi_fragment_cache_directories
+        # return stub path so admin can expire it
+        directories = []
+        path = File.join("request", request_dirs)
+        foi_cache_path = File.expand_path(File.join(Rails.root, 'cache', 'views'))
+        directories << File.join(foi_cache_path, path)
+        I18n.available_locales.each do |locale|
+            directories << File.join(foi_cache_path, locale.to_s, path)
+        end
+
+        directories
+    end
+
+    def request_dirs
+        first_three_digits = id.to_s()[0..2]
+        File.join(first_three_digits.to_s, id.to_s)
+    end
+
     def is_old_unclassified?
         return false if is_external?
         return false if !awaiting_description
