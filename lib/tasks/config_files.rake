@@ -32,7 +32,8 @@ namespace :config_files do
             :user => ENV['DEPLOY_USER'],
             :vhost_dir => ENV['VHOST_DIR'],
             :vcspath => ENV.fetch('VCSPATH') { 'alaveteli' },
-            :site => ENV.fetch('SITE') { 'foi' }
+            :site => ENV.fetch('SITE') { 'foi' },
+            :rails_env => ENV.fetch('RAILS_ENV') { 'development' }
         }
 
         # Use the filename for the $daemon_name ugly variable
