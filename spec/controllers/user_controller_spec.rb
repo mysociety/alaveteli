@@ -327,6 +327,17 @@ describe UserController, "when signing up" do
         deliveries[0].body.should match(/when\s+you\s+already\s+have\s+an/)
     end
 
+    it 'accepts only whitelisted parameters' do
+      post :signup, { :user_signup => { :email => 'silly@localhost',
+                                        :name => 'New Person',
+                                        :password => 'sillypassword',
+                                        :password_confirmation => 'sillypassword',
+                                        :admin_level => 'super' } }
+
+      expect(assigns(:user_signup).admin_level).to eq('none')
+    end
+
+
     # XXX need to do bob@localhost signup and check that sends different email
 end
 
