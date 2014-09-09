@@ -199,7 +199,7 @@ class UserController < ApplicationController
         work_out_post_redirect
         @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
         # Make the user and try to save it
-        @user_signup = User.new(params[:user_signup])
+        @user_signup = User.new(user_params(:user_signup))
         error = false
         if @request_from_foreign_country && !verify_recaptcha
             flash.now[:error] = _("There was an error with the words you entered, please try again.")
@@ -600,6 +600,10 @@ class UserController < ApplicationController
     end
 
     private
+
+    def user_params(key = :user)
+        params[key].slice(:name, :email, :password, :password_confirmation)
+    end
 
     def is_modal_dialog
         (params[:modal].to_i != 0)
