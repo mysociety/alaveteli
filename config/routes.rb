@@ -73,6 +73,7 @@ Alaveteli::Application.routes.draw do
     # Note that /profile isn't indexed by search (see robots.txt)
     match '/profile/sign_in' => 'user#signin', :as => :signin
     match '/profile/sign_up' => 'user#create', :as => :signup, :via => :post
+    match '/profile/sign_out' => 'sessions#destroy', :as => :signout, :via => [:get, :delete]
     match '/profile/sign_out' => 'user#signout', :as => :signout
 
     match '/c/:email_token' => 'user#confirm', :as => :confirm
