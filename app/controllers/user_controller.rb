@@ -142,6 +142,8 @@ class UserController < ApplicationController
 
     # Login form
     def signin
+        @user_signup = User.new
+
         work_out_post_redirect
         @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
         # make sure we have cookies
