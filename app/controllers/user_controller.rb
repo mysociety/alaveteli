@@ -199,30 +199,33 @@ class UserController < ApplicationController
     # Create new account form
     def signup
         work_out_post_redirect
+
         @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
-        # Make the user and try to save it
         @user_signup = User.new(params[:user_signup])
-        error = false
+
+        capture_error = false
         if @request_from_foreign_country && !verify_recaptcha
-            flash.now[:error] = _("There was an error with the words you entered, please try again.")
-            error = true
+            capture_error = true
         end
-        if error || !@user_signup.valid?
-            # Show the form
-            render :action => 'sign'
+
+        existing_user = User.find_user_by_email(params[:user_signup][:email])
+        if existing_user
+            already_registered_mail(existing_user)
+            return
+        end
+
+        if @user_signup.save && !capture_error
+            @user_signup.email_confirmed = false
+            send_confirmation_mail(@user_signup)
+            return
         else
-            user_alreadyexists = User.find_user_by_email(params[:user_signup][:email])
-            if user_alreadyexists
-                already_registered_mail user_alreadyexists
-                return
-            else
-                # New unconfirmed user
-                @user_signup.email_confirmed = false
-                @user_signup.save!
-                send_confirmation_mail @user_signup
-                return
+            if capture_error
+                flash.now[:error] = _("There was an error with the words you entered, please try again.")
             end
+
+            render :action => 'sign'
         end
+
     end
 
     # Followed link in user account confirmation email.
