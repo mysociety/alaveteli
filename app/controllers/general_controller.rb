@@ -32,7 +32,7 @@ class GeneralController < ApplicationController
             if !content.empty?
                 @data = XmlSimple.xml_in(content)
                 @channel = @data['channel'][0]
-                @blog_items = @channel['item']
+                @blog_items = @channel.fetch('item') { [] }
                 @feed_autodetect = [{:url => @feed_url, :title => "#{site_name} blog"}]
             end
         end
