@@ -1,3 +1,14 @@
+# rails-3-develop
+
+## Highlighted Features
+
+## Upgrade Notes
+
+* `CensorRule` now validates the presence of all attributes at the model layer,
+  rather than only as a database constraint. If you have added a `CensorRule` in
+  your theme, you will now have to satisfy the additional validations on the
+  `:replacement`, `:last_edit_comment` and `:last_edit_editor` attributes.
+
 # Version 0.19
 
 ## Highlighted Features
