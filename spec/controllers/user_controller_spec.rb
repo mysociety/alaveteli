@@ -277,21 +277,21 @@ describe UserController, "when signing up" do
     end
 
     it "should be an error if you type the password differently each time" do
-        post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
+        post :create, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
             :password => 'sillypassword', :password_confirmation => 'sillypasswordtwo' }
         }
         assigns[:user_signup].errors[:password].should == ['Please enter the same password twice']
     end
 
     it "should be an error to sign up with a misformatted email" do
-        post :signup, { :user_signup => { :email => 'malformed-email', :name => 'Mr Malformed',
+        post :create, { :user_signup => { :email => 'malformed-email', :name => 'Mr Malformed',
             :password => 'sillypassword', :password_confirmation => 'sillypassword' }
         }
         assigns[:user_signup].errors[:email].should_not be_nil
     end
 
     it "should send confirmation mail if you fill in the form right" do
-        post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
+        post :create, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
             :password => 'sillypassword', :password_confirmation => 'sillypassword' }
         }
         response.should render_template('confirm')
@@ -303,7 +303,7 @@ describe UserController, "when signing up" do
 
     it "should send confirmation mail in other languages or different locales" do
         session[:locale] = "es"
-        post :signup, {:user_signup => { :email => 'new@localhost', :name => 'New Person',
+        post :create, {:user_signup => { :email => 'new@localhost', :name => 'New Person',
             :password => 'sillypassword', :password_confirmation => 'sillypassword',
            }
         }
@@ -315,7 +315,7 @@ describe UserController, "when signing up" do
     end
 
     it "should send special 'already signed up' mail if you fill the form in with existing registered email" do
-        post :signup, { :user_signup => { :email => 'silly@localhost', :name => 'New Person',
+        post :create, { :user_signup => { :email => 'silly@localhost', :name => 'New Person',
             :password => 'sillypassword', :password_confirmation => 'sillypassword' }
         }
         response.should render_template('confirm')
