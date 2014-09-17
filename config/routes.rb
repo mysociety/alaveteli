@@ -61,6 +61,8 @@ Alaveteli::Application.routes.draw do
     match '/request/:url_title/download' => 'request#download_entire_request', :as => :download_entire_request
     ####
 
+    resources :health_checks, :only => [:index]
+
     resources :request, :only => [] do
         resource :report, :only => [:new, :create]
     end
