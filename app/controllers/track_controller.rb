@@ -214,6 +214,14 @@ class TrackController < ApplicationController
         redirect_to URI.parse(params[:r]).path
     end
 
+    # Track interest in a request from a non-logged in user
+    def widget_vote
+        info_request = InfoRequest.find(params[:info_request_id])
+        if not @user and cookies[:widget_vote]
+            wv = info_request.widget_votes.where(:cookie => cookies[:widget_vote]).first_or_create
+        end
 
+        track_thing = TrackThing.create_track_for_request(info_request)
+        redirect_to do_track_path(track_thing), status => :temporary_redirect
+    end
 end
-

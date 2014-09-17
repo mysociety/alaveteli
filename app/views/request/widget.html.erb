@@ -68,11 +68,19 @@
           </div>
         </a>
       <% else %>
-        <a href="<%= url_for do_track_path(@track_thing) %>" target="_blank">
-          <div id="alawidget-button">
-            <%= _('I also want to know!') %>
-          </div>
-        </a>
+        <% if @user %>
+          <a href="<%= url_for do_track_path(@track_thing) %>" target="_blank">
+            <div id="alawidget-button">
+              <%= _('I also want to know!') %>
+            </div>
+          </a>
+        <% else %>
+          <a href="<%= url_for :controller => 'track', :action => 'widget_vote', :info_request_id => @info_request %>" target="_blank">
+            <div id="alawidget-button">
+              <%= _('I also want to know!') %>
+            </div>
+          </a>
+        <% end %>
       <% end %>
     </div>
   </div>
