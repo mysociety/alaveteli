@@ -48,7 +48,7 @@
         </div>
       </div>
       <div id="alawidget-count">
-        <%= TrackThing.count(:all, :conditions => ["info_request_id = ?", @info_request.id]) + 1 %>
+        <%= TrackThing.count(:all, :conditions => ["info_request_id = ?", @info_request.id]) + 1 + WidgetVote.count(:all, :conditions => ["info_request_id = ?", @info_request.id]) %>
       </div>
     </div>
     <%
