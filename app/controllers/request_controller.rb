@@ -7,6 +7,7 @@
 
 require 'zip/zip'
 require 'open-uri'
+require 'securerandom'
 
 class RequestController < ApplicationController
     before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
@@ -169,6 +170,9 @@ class RequestController < ApplicationController
         @info_request = InfoRequest.find(params[:id])
         @track_thing = TrackThing.create_track_for_request(@info_request)
         @status = @info_request.calculate_status
+        unless @user or cookies[:widget_vote]
+          cookies.permanent[:widget_vote] = SecureRandom.hex(10)
+        end
         render :template => 'request/widget', :layout => false
     end
 
