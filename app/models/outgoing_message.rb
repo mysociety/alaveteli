@@ -308,9 +308,9 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     def format_of_body
-        if self.body.empty? || self.body =~ /\A#{Regexp.escape(get_salutation)}\s+#{Regexp.escape(get_signoff)}/ || self.body =~ /#{Regexp.escape(get_internal_review_insert_here_note)}/
-            if self.message_type == 'followup'
-                if self.what_doing == 'internal_review'
+        if body.empty? || body =~ /\A#{Regexp.escape(get_salutation)}\s+#{Regexp.escape(get_signoff)}/ || body =~ /#{Regexp.escape(get_internal_review_insert_here_note)}/
+            if message_type == 'followup'
+                if what_doing == 'internal_review'
                     errors.add(:body, _("Please give details explaining why you want a review"))
                 else
                     errors.add(:body, _("Please enter your follow up message"))
@@ -318,16 +318,16 @@ class OutgoingMessage < ActiveRecord::Base
             elsif
                 errors.add(:body, _("Please enter your letter requesting information"))
             else
-                raise "Message id #{self.id} has type '#{self.message_type}' which validate can't handle"
+                raise "Message id #{id} has type '#{message_type}' which validate can't handle"
             end
         end
-        if self.body =~ /#{get_signoff}\s*\Z/m
+        if body =~ /#{get_signoff}\s*\Z/m
             errors.add(:body, _("Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature", :signoff => get_signoff))
         end
-        if !MySociety::Validate.uses_mixed_capitals(self.body)
+        if !MySociety::Validate.uses_mixed_capitals(body)
             errors.add(:body, _('Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read.'))
         end
-        if self.what_doing.nil? || !['new_information', 'internal_review', 'normal_sort'].include?(self.what_doing)
+        if what_doing.nil? || !['new_information', 'internal_review', 'normal_sort'].include?(what_doing)
             errors.add(:what_doing_dummy, _('Please choose what sort of reply you are making.'))
         end
     end
