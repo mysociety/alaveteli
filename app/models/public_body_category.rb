@@ -118,22 +118,9 @@ class PublicBodyCategory < ActiveRecord::Base
             # we already have this, stop
             return
         end
-
-        # find the last display_order for this heading
-        last_link = PublicBodyCategoryLink.where(
-            :public_body_heading_id => heading.id
-        ).order(:category_display_order).last
-
-        if last_link
-            display_order = last_link.category_display_order + 1
-        else
-            display_order = 1
-        end
-
         heading_link = PublicBodyCategoryLink.create(
             :public_body_category_id => self.id,
             :public_body_heading_id => heading.id,
-            :category_display_order => display_order
         )
     end
 

@@ -18,6 +18,14 @@ class PublicBodyHeading < ActiveRecord::Base
 
     validates_uniqueness_of :name, :message => N_('Name is already taken')
     validates_presence_of :name, :message => N_('Name can\'t be blank')
+    validates :display_order, :numericality => { :only_integer => true,
+                                                 :message => N_('Display order must be a number') }
+
+    before_validation :on => :create do
+        unless self.display_order
+            self.display_order = PublicBodyHeading.next_display_order
+        end
+    end
 
     # Convenience methods for creating/editing translations via forms
     def find_translation_by_locale(locale)
@@ -47,6 +55,14 @@ class PublicBodyHeading < ActiveRecord::Base
                 new_translation = PublicBodyHeading::Translation.new(attrs)
                 translations << new_translation
             end
+        end
+    end
+
+    def PublicBodyHeading.next_display_order
+        if max = maximum(:display_order)
+            max + 1
+        else
+            0
         end
     end
 end

@@ -33,13 +33,13 @@ describe PublicBodyCategory do
             cat_group2[0].public_body_category_links.where(
                 :public_body_heading_id => headings[1].id).
                     first.
-                    category_display_order.should eq 1
+                    category_display_order.should eq 0
 
             cat_group2[1].title.should eq "Aardvark"
             cat_group2[1].public_body_category_links.where(
                 :public_body_heading_id => headings[1].id).
                     first.
-                    category_display_order.should eq 2
+                    category_display_order.should eq 1
         end
     end
 
