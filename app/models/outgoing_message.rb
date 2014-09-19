@@ -283,9 +283,7 @@ class OutgoingMessage < ActiveRecord::Base
     private
 
     def set_default_letter
-        if self.body.nil?
-            self.body = get_default_message
-        end
+        self.body = get_default_message if body.nil?
     end
 
     def format_of_body
