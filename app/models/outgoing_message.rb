@@ -29,6 +29,9 @@ class OutgoingMessage < ActiveRecord::Base
     include Rails.application.routes.url_helpers
     include LinkToHelper
 
+    # To override the default letter
+    attr_accessor :default_letter
+
     strip_attributes!
 
     has_prominence
@@ -45,9 +48,6 @@ class OutgoingMessage < ActiveRecord::Base
     # can have many events, for items which were resent by site admin e.g. if
     # contact address changed
     has_many :info_request_events
-
-    # To override the default letter
-    attr_accessor :default_letter
 
     after_save :purge_in_cache
 
