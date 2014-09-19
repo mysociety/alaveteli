@@ -66,8 +66,12 @@ class OutgoingMessage < ActiveRecord::Base
         end
 
         ret = ""
-        if message_type == 'followup' && !incoming_message_followup.nil? && !incoming_message_followup.safe_mail_from.nil? && incoming_message_followup.valid_to_reply_to?
-            ret = ret + OutgoingMailer.name_for_followup(info_request, incoming_message_followup)
+        if message_type == 'followup' &&
+            !incoming_message_followup.nil? &&
+            !incoming_message_followup.safe_mail_from.nil? &&
+            incoming_message_followup.valid_to_reply_to?
+
+            ret += OutgoingMailer.name_for_followup(info_request, incoming_message_followup)
         else
             return OutgoingMessage.default_salutation(info_request.public_body)
         end
