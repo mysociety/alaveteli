@@ -78,15 +78,15 @@ class OutgoingMessage < ActiveRecord::Base
         salutation = _("Dear {{public_body_name}},", :public_body_name => ret)
     end
 
-    def OutgoingMessage.default_salutation(public_body)
+    def self.default_salutation(public_body)
         _("Dear {{public_body_name}},", :public_body_name => public_body.name)
     end
 
-    def OutgoingMessage.placeholder_salutation
+    def self.placeholder_salutation
         _("Dear [Authority name],")
     end
 
-    def OutgoingMessage.fill_in_salutation(body, public_body)
+    def self.fill_in_salutation(body, public_body)
         body.gsub(placeholder_salutation, default_salutation(public_body))
     end
 
