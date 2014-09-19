@@ -54,6 +54,8 @@ class OutgoingMessage < ActiveRecord::Base
     # To override the default letter
     attr_accessor :default_letter
 
+    after_save :purge_in_cache
+
     # reindex if body text is edited (e.g. by admin interface)
     after_update :xapian_reindex_after_update
     def xapian_reindex_after_update
@@ -269,7 +271,6 @@ class OutgoingMessage < ActiveRecord::Base
         end
     end
 
-    after_save(:purge_in_cache)
     def purge_in_cache
         self.info_request.purge_in_cache
     end
