@@ -199,11 +199,11 @@ class OutgoingMessage < ActiveRecord::Base
 
     # An admin function
     def resend_message
-        if ['initial_request', 'followup'].include?(self.message_type) and self.status == 'sent'
+        if ['initial_request', 'followup'].include?(message_type) and status == 'sent'
             self.status = 'ready'
             send_message('resent')
         else
-            raise "Message id #{self.id} has type '#{self.message_type}' status '#{self.status}' which resend_message can't handle"
+            raise "Message id #{id} has type '#{message_type}' status '#{status}' which resend_message can't handle"
         end
     end
 
