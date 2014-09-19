@@ -92,8 +92,9 @@ class OutgoingMessage < ActiveRecord::Base
             return _("Yours faithfully,")
         end
     end
+
     def get_internal_review_insert_here_note
-        return _("GIVE DETAILS ABOUT YOUR COMPLAINT HERE")
+        _("GIVE DETAILS ABOUT YOUR COMPLAINT HERE")
     end
 
     def get_default_letter
