@@ -1,31 +1,5 @@
-  <div class="accordion-group">
-    <div class="accordion-heading accordion-toggle row">
-      <span class="item-title span6">
-        <a href="#category_<%=category.id%>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
+<div class="category-list-item" <% if heading %> data-id="categories_<%= category.id %>"<% end %>>
+    <%= link_to(category.title, admin_category_edit_path(category), :title => "view full details") %>
+</div>
 
-        <%= link_to(category.title, admin_category_edit_path(category), :title => "view full details")%>
-      </span>
-      <span class="item-metadata span6">
-        <span class="label label-info tag">
-            <%= category.category_tag %>
-        </span>
-      </span>
-  </div>
-  <div id="category_<%= category.id %>" class="item-detail accordion-body collapse row">
-      <div>
-          <span class="span6">
-              <b>name</b>
-          </span>
-          <span class="span6">
-              <%= h category.title %>&nbsp;
-          </span>
-      </div>
-      <div>
-          <span class="span6">
-              <b>description</b>
-          </span>
-          <span class="span6">
-              <%= h category.description %>&nbsp;
-          </span>
-      </div>
-  </div>
+
