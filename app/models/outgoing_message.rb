@@ -32,13 +32,13 @@ class OutgoingMessage < ActiveRecord::Base
     # To override the default letter
     attr_accessor :default_letter
 
-    belongs_to :info_request
     validates_presence_of :info_request
 
     validates_inclusion_of :status, :in => ['ready', 'sent', 'failed']
     validates_inclusion_of :message_type, :in => ['initial_request', 'followup' ] #, 'complaint']
     validate :format_of_body
 
+    belongs_to :info_request
     belongs_to :incoming_message_followup, :foreign_key => 'incoming_message_followup_id', :class_name => 'IncomingMessage'
 
     # can have many events, for items which were resent by site admin e.g. if
