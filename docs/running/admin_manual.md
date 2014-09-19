@@ -13,6 +13,35 @@ title: Administrator's guide
   href="https://www.whatdotheyknow.com">whatdotheyknow.com</a>.
 </p>
 
+In this guide:
+
+<ul class="toc">
+  <li><a href="#whats-involved">What's involved?</a></li>
+  <li><a href="#user-support">User support</a>
+    <ul>
+      <li><a href="#dealing-with-email-thats-not-getting-through-to-the-authority">Dealing with email that's not getting through to the authority</a></li>
+      <li><a href="#requests-to-take-down-information">Requests to take down information</a></li>
+      <li><a href="#incorrectly-addressed">Incorrectly addressed</a></li>
+      <li><a href="#wants-advice">Wants advice</a></li>
+      <li><a href="#general-assistance-required">General assistance required</a></li>
+      <li><a href="#vexatious-users">Vexatious users</a></li>
+      <li><a href="#mail-import-errors">Mail import errors</a></li>
+    </ul>
+  <li><a href="#maintenance">Maintenance</a></li>
+    <ul>
+      <li><a href="#administrator-privileges-and-accessing-the-admin-interface">Administrator privileges and accessing the admin interface</a></li>
+      <li><a href="#removing-a-message-from-the-holding-pen">Removing a message from the 'Holding Pen'</a></li>
+      <li><a href="#editing-and-uploading-public-body-email-addresses">Editing and uploading public body email addresses</a></li>
+      <li><a href="#banning-a-user">Banning a user</a></li>
+      <li><a href="#deleting-a-request">Deleting a request</a></li>
+      <li><a href="#hiding-a-request">Hiding a request</a></li>
+      <li><a href="#hiding-an-incoming-or-outgoing-message">Hiding an incoming or outgoing message</a></li>
+      <li><a href="#editing-an-outgoing-message">Editing an outgoing message</a></li>
+      <li><a href="#hiding-certain-text-from-a-request-using-censor-rules">Hiding certain text from a request</a></li>
+    </ul>
+  </li>
+</ul>
+
 ## What's involved?
 
 The overhead in managing a successful FOI website is quite high. Richard, a
@@ -24,7 +53,7 @@ WhatDoTheyKnow usually has about 3 active volunteers at any one time managing
 the support, plus a few other less active people who help out at different
 times.
 
-Administration tasks can be split into **maintenance** and **user support**.
+Administration tasks can be split into [**maintenance**]({{ site.baseurl }}docs/running/admin_manual/#maintenance) and [**user support**]({{ site.baseurl }}docs/running/admin_manual/#user-support).
 The boundaries of these tasks is in fact quite blurred; the main distinction is
 that the former happen exclusively through the web admin interface, whereas the
 latter are mediated by email directly with end users (but often result in
@@ -253,13 +282,13 @@ Can be for many reasons, e.g.
   themselves
 * A reply has been automatically filed under the wrong request
 
-## Vexatious users
+### Vexatious users
 
 Some users persistently misuse the website. An alaveteli site should have a
 policy on banning users, for example giving them a first warning, informing
 them about moderation policy, etc.
 
-## Mail import errors
+### Mail import errors
 
 These are currently occurring at a rate of about two a month. Sometimes the
 root cause seems to be blocking in the database when two mails are received for
@@ -274,7 +303,46 @@ the error sent to the site support address) in a file without the first "From"
 line, and piping the contents of that file into the mail handling script. e.g.
 ```cat missing_mail.txt | script/mailin```
 
-## Censor rules
+
+## Maintenance
+
+### Administrator privileges and accessing the admin interface
+
+The administrative interface is at the URL `/admin`.
+
+Only users with the `super` admin level can access the admin interface. Users
+create their own accounts in the usual way, and then administrators can give
+them `super` privileges.
+
+There is an emergency user account which can be accessed via
+`/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
+`ADMIN_PASSWORD`, which are set in `general.yml`.  To bootstrap the
+first `super` level accounts, you will need to log in as the emergency
+user. You can disable the emergency user account by setting `DISABLE_EMERGENCY_USER` to `true` in `general.yml`.
+
+Users with the superuser role also have extra privileges in the website
+front end, such as being able to categorise any request, being able to view
+items that have been hidden from the search, and being presented with "admin"
+links next to individual requests and comments in the front end.
+
+It is possible completely to override the administrator authentication by
+setting `SKIP_ADMIN_AUTH` to `true` in `general.yml`.
+
+### Removing a message from the 'Holding Pen'
+
+### Editing and uploading public body email addresses
+
+### Banning a user
+
+### Deleting a request
+
+### Hiding a request
+
+### Hiding an incoming or outgoing message
+
+### Editing an outgoing message
+
+### Hiding certain text from a request using censor rules
 
 Censor rules can be attached to a request or to a user and define bits of text
 to be removed (either from the request (and all associated files e.g. incoming
@@ -301,24 +369,4 @@ hanging the application altogether), so please:
 * Restrict your use of them to cases that can't otherwise be easily covered.
 * Keep them as simple and specific as possible.
 
-## Administrator privileges
 
-The administrative interface is at the URL `/admin`.
-
-Only users with the `super` admin level can access the admin interface. Users
-create their own accounts in the usual way, and then administrators can give
-them `super` privileges.
-
-There is an emergency user account which can be accessed via
-`/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
-`ADMIN_PASSWORD`, which are set in `general.yml`.  To bootstrap the
-first `super` level accounts, you will need to log in as the emergency
-user. You can disable the emergency user account by setting `DISABLE_EMERGENCY_USER` to `true` in `general.yml`.
-
-Users with the superuser role also have extra privileges in the website
-front end, such as being able to categorise any request, being able to view
-items that have been hidden from the search, and being presented with "admin"
-links next to individual requests and comments in the front end.
-
-It is possible completely to override the administrator authentication by
-setting `SKIP_ADMIN_AUTH` to `true` in `general.yml`.
