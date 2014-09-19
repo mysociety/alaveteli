@@ -95,20 +95,21 @@ class OutgoingMessage < ActiveRecord::Base
     def get_internal_review_insert_here_note
         return _("GIVE DETAILS ABOUT YOUR COMPLAINT HERE")
     end
+
     def get_default_letter
-        if self.default_letter
-            return self.default_letter
+        if default_letter
+            return default_letter
         end
 
-        if self.what_doing == 'internal_review'
+        if what_doing == 'internal_review'
             _("Please pass this on to the person who conducts Freedom of Information reviews.") +
             "\n\n" +
             _("I am writing to request an internal review of {{public_body_name}}'s handling of my FOI request '{{info_request_title}}'.",
-              :public_body_name => self.info_request.public_body.name,
-              :info_request_title => self.info_request.title) +
-            "\n\n\n\n [ " + self.get_internal_review_insert_here_note + " ] \n\n\n\n" +
+              :public_body_name => info_request.public_body.name,
+              :info_request_title => info_request.title) +
+            "\n\n\n\n [ " + get_internal_review_insert_here_note + " ] \n\n\n\n" +
             _("A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}",
-            :url => request_url(self.info_request)) +
+            :url => request_url(info_request)) +
             "\n"
         else
             ""
