@@ -321,12 +321,15 @@ class OutgoingMessage < ActiveRecord::Base
                 raise "Message id #{id} has type '#{message_type}' which validate can't handle"
             end
         end
+
         if body =~ /#{get_signoff}\s*\Z/m
             errors.add(:body, _("Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature", :signoff => get_signoff))
         end
-        if !MySociety::Validate.uses_mixed_capitals(body)
+
+        unless MySociety::Validate.uses_mixed_capitals(body)
             errors.add(:body, _('Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read.'))
         end
+
         if what_doing.nil? || !['new_information', 'internal_review', 'normal_sort'].include?(what_doing)
             errors.add(:what_doing_dummy, _('Please choose what sort of reply you are making.'))
         end
