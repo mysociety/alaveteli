@@ -28,11 +28,6 @@ class OutgoingMessage < ActiveRecord::Base
     extend MessageProminence
     include Rails.application.routes.url_helpers
     include LinkToHelper
-    self.default_url_options[:host] = AlaveteliConfiguration::domain
-    # https links in emails if forcing SSL
-    if AlaveteliConfiguration::force_ssl
-      self.default_url_options[:protocol] = "https"
-    end
 
     strip_attributes!
 
@@ -67,6 +62,13 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     after_initialize :set_default_letter
+
+    self.default_url_options[:host] = AlaveteliConfiguration::domain
+
+    # https links in emails if forcing SSL
+    if AlaveteliConfiguration::force_ssl
+      self.default_url_options[:protocol] = "https"
+    end
 
     # How the default letter starts and ends
     def get_salutation
