@@ -210,7 +210,9 @@ class OutgoingMessage < ActiveRecord::Base
     # Returns the text to quote the original message when sending this one
     def quoted_part_to_append_to_email
         if message_type == 'followup' && !incoming_message_followup.nil?
-            "\n\n-----Original Message-----\n\n" + incoming_message_followup.get_body_for_quoting + "\n"
+            quoted = "\n\n-----Original Message-----\n\n"
+            quoted += incoming_message_followup.get_body_for_quoting
+            quoted += "\n"
         else
             ""
         end
