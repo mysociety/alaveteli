@@ -61,14 +61,15 @@ class OutgoingMessage < ActiveRecord::Base
 
     # How the default letter starts and ends
     def get_salutation
-        if self.info_request.is_batch_request_template?
+        if info_request.is_batch_request_template?
             return OutgoingMessage.placeholder_salutation
         end
+
         ret = ""
-        if self.message_type == 'followup' && !self.incoming_message_followup.nil? && !self.incoming_message_followup.safe_mail_from.nil? && self.incoming_message_followup.valid_to_reply_to?
-            ret = ret + OutgoingMailer.name_for_followup(self.info_request, self.incoming_message_followup)
+        if message_type == 'followup' && !incoming_message_followup.nil? && !incoming_message_followup.safe_mail_from.nil? && incoming_message_followup.valid_to_reply_to?
+            ret = ret + OutgoingMailer.name_for_followup(info_request, incoming_message_followup)
         else
-            return OutgoingMessage.default_salutation(self.info_request.public_body)
+            return OutgoingMessage.default_salutation(info_request.public_body)
         end
         salutation = _("Dear {{public_body_name}},", :public_body_name => ret)
     end
