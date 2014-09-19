@@ -18,6 +18,27 @@ class AdminPublicBodyHeadingController < AdminController
         end
     end
 
+    def reorder
+        error = nil
+        ActiveRecord::Base.transaction do
+            params[:headings].each_with_index do |heading_id, index|
+                begin
+                    heading = PublicBodyHeading.find(heading_id)
+                rescue ActiveRecord::RecordNotFound => e
+                    error = e.message
+                    raise ActiveRecord::Rollback
+                end
+                heading.display_order = index
+                unless heading.save
+                    error = heading.errors.full_messages.join(",")
+                    raise ActiveRecord::Rollback
+                end
+            end
+            render :nothing => true, :status => :ok and return
+        end
+        render :text => error, :status => :unprocessable_entity
+    end
+
     def new
         @heading = PublicBodyHeading.new
         render :formats => [:html]

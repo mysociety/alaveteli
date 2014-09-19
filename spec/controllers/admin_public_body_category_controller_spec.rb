@@ -171,4 +171,55 @@ describe AdminPublicBodyCategoryController do
             PublicBodyCategory.count.should == n - 1
         end
     end
+
+    context 'when reordering public body categories' do
+
+        render_views
+
+        before do
+            @silly_heading = FactoryGirl.create(:silly_heading)
+            @useless_category = @silly_heading.public_body_categories.detect do |category|
+                category.title == 'Useless ministries'
+            end
+            @lonely_category = @silly_heading.public_body_categories.detect do |category|
+                category.title == 'Lonely agencies'
+            end
+            @default_params = { :categories => [@lonely_category.id, @useless_category.id],
+                                :heading_id => @silly_heading }
+        end
+
+        def make_request(params=@default_params)
+            post :reorder, params
+        end
+
+        context 'when handling valid input' do
+
+            it 'should reorder categories for the heading according to their position \
+                in the submitted params' do
+                old_order = [@useless_category, @lonely_category]
+                new_order = [@lonely_category, @useless_category]
+                @silly_heading.public_body_categories.should == old_order
+                make_request
+                @silly_heading.public_body_categories(reload=true).should == new_order
+            end
+
+            it 'should return a success status' do
+                make_request
+                response.should be_success
+            end
+        end
+
+        context 'when handling invalid input' do
+
+            it 'should return an "unprocessable entity" status and an error message' do
+                @lonely_category.destroy
+                make_request
+                assert_response :unprocessable_entity
+                response.body.should match("Couldn't find PublicBodyCategoryLink")
+            end
+
+        end
+
+    end
+
 end

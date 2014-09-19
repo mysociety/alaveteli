@@ -180,6 +180,7 @@ Alaveteli::Application.routes.draw do
 
     #### AdminPublicBodyCategory controller
     match '/admin/category' => 'admin_public_body_category#index', :as => :admin_category_index
+    match '/admin/category/reorder/:heading_id' => 'admin_public_body_category#reorder', :as => :admin_category_reorder, :via => :post
     match '/admin/category/new' => 'admin_public_body_category#new', :as => :admin_category_new
     match '/admin/category/edit/:id' => 'admin_public_body_category#edit', :as => :admin_category_edit
     match '/admin/category/update/:id' => 'admin_public_body_category#update', :as => :admin_category_update
@@ -189,6 +190,7 @@ Alaveteli::Application.routes.draw do
 
     #### AdminPublicBodyHeading controller
     match '/admin/category_heading' => 'admin_public_body_heading#index'
+    match '/admin/category_heading/reorder' => 'admin_public_body_heading#reorder', :as => :admin_heading_reorder, :via => :post
     match '/admin/category_heading/new' => 'admin_public_body_heading#new', :as => :admin_heading_new
     match '/admin/category_heading/edit/:id' => 'admin_public_body_heading#edit', :as => :admin_heading_edit
     match '/admin/category_heading/update/:id' => 'admin_public_body_heading#update', :as => :admin_heading_update

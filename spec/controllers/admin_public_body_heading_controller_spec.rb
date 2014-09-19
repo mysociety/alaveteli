@@ -117,11 +117,48 @@ describe AdminPublicBodyHeadingController do
         end
 
         it "destroys an empty public body heading" do
-            heading = PublicBodyHeading.create(:name => "Empty Heading")
+            heading = FactoryGirl.create(:heading_with_no_categories)
             n = PublicBodyHeading.count
             post :destroy, { :id => heading.id }
             response.should redirect_to(:controller=>'admin_public_body_category', :action=>'index')
             PublicBodyHeading.count.should == n - 1
         end
+    end
+
+    context 'when reordering public body headings' do
+
+        render_views
+
+        before do
+            @silly_heading = FactoryGirl.create(:silly_heading)
+            @popular_heading = FactoryGirl.create(:popular_heading)
+            @default_params = { :headings => [@popular_heading.id, @silly_heading.id] }
+        end
+
+        def make_request(params=@default_params)
+            post :reorder, params
+        end
+
+        context 'when handling valid input' do
+
+            it 'should reorder headings according to their position in the submitted params' do
+                make_request
+                PublicBodyHeading.find(@popular_heading.id).display_order.should == 0
+                PublicBodyHeading.find(@silly_heading.id).display_order.should == 1
+            end
+
+            it 'should return a "success" status' do
+                make_request
+                response.should be_success
+            end
+        end
+
+        it 'should return an "unprocessable entity" status and an error message' do
+            @popular_heading.destroy
+            make_request
+            assert_response :unprocessable_entity
+            response.body.should match("Couldn't find PublicBodyHeading with id")
+        end
+
     end
 end
