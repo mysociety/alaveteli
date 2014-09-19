@@ -254,11 +254,11 @@ class OutgoingMessage < ActiveRecord::Base
 
     def fully_destroy
         ActiveRecord::Base.transaction do
-            info_request_event = InfoRequestEvent.find_by_outgoing_message_id(self.id)
+            info_request_event = InfoRequestEvent.find_by_outgoing_message_id(id)
             info_request_event.track_things_sent_emails.each { |a| a.destroy }
             info_request_event.user_info_request_sent_alerts.each { |a| a.destroy }
             info_request_event.destroy
-            self.destroy
+            destroy
         end
     end
 
