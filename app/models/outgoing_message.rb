@@ -147,7 +147,7 @@ class OutgoingMessage < ActiveRecord::Base
 
     # Used to give warnings when writing new messages
     def contains_email?
-        MySociety::Validate.email_find_regexp.match(self.body)
+        MySociety::Validate.email_find_regexp.match(body)
     end
 
     def contains_postcode?
