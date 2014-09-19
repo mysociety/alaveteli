@@ -222,8 +222,8 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     # Returns text for indexing / text display
-    def get_text_for_indexing(strip_salutation=true)
-        text = self.body.strip
+    def get_text_for_indexing(strip_salutation = true)
+        text = body.strip
 
         # Remove salutation
         text.sub!(/Dear .+,/, "") if strip_salutation
@@ -231,7 +231,7 @@ class OutgoingMessage < ActiveRecord::Base
         # Remove email addresses from display/index etc.
         self.remove_privacy_sensitive_things!(text)
 
-        return text
+        text
     end
 
     # Return body for display as HTML
