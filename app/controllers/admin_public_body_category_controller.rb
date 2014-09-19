@@ -82,6 +82,11 @@ class AdminPublicBodyCategoryController < AdminController
         I18n.with_locale(I18n.default_locale) do
             @category = PublicBodyCategory.new(params[:public_body_category])
             if @category.save
+                if params[:headings]
+                    params[:headings].values.each do |heading_id|
+                        @category.add_to_heading(PublicBodyHeading.find(heading_id))
+                    end
+                end
                 flash[:notice] = 'Category was successfully created.'
                 redirect_to admin_category_index_url
             else

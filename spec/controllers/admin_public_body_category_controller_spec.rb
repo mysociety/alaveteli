@@ -32,6 +32,22 @@ describe AdminPublicBodyCategoryController do
             response.should redirect_to(:controller=>'admin_public_body_category', :action=>'index')
         end
 
+        it "saves the public body category's heading associations" do
+            heading = FactoryGirl.create(:popular_heading)
+            post :create, {
+                :public_body_category => {
+                    :title => 'New Category',
+                    :category_tag => 'new_test_category',
+                    :description => 'New category for testing stuff'
+                 },
+                 :headings => {"heading_#{heading.id}" => heading.id}
+            }
+            request.flash[:notice].should include('successful')
+            category = PublicBodyCategory.find_by_title("New Category")
+            category.public_body_headings.should == [heading]
+        end
+
+
         it 'creates a new public body category with multiple locales' do
             n = PublicBodyCategory.count
             post :create, {
