@@ -263,7 +263,7 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     def purge_in_cache
-        self.info_request.purge_in_cache
+        info_request.purge_in_cache
     end
 
     def for_admin_column
