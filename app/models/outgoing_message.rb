@@ -273,9 +273,9 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     def xapian_reindex_after_update
-        if self.changes.include?('body')
-            for info_request_event in self.info_request_events
-                info_request_event.xapian_mark_needs_index
+        if changes.include?('body')
+            info_request_events.each do |event|
+                event.xapian_mark_needs_index
             end
         end
     end
