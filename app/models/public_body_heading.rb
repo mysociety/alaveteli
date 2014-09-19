@@ -10,7 +10,7 @@
 class PublicBodyHeading < ActiveRecord::Base
     attr_accessible :name, :display_order, :translated_versions
 
-    has_many :public_body_category_links
+    has_many :public_body_category_links, :dependent => :destroy
     has_many :public_body_categories, :order => :category_display_order, :through => :public_body_category_links
     default_scope order('display_order ASC')
 
