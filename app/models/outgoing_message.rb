@@ -107,9 +107,7 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     def get_default_letter
-        if default_letter
-            return default_letter
-        end
+        return default_letter if default_letter
 
         if what_doing == 'internal_review'
             letter = _("Please pass this on to the person who conducts Freedom of Information reviews.")
