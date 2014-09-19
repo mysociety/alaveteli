@@ -157,43 +157,43 @@ class OutgoingMessage < ActiveRecord::Base
     # Note: You can test this from script/console with, say:
     # InfoRequest.find(1).outgoing_messages[0].send_message
     def send_message(log_event_type = 'sent')
-        if self.status == 'ready'
-            if self.message_type == 'initial_request'
+        if status == 'ready'
+            if message_type == 'initial_request'
                 self.last_sent_at = Time.now
                 self.status = 'sent'
                 self.save!
 
-                mail_message = OutgoingMailer.initial_request(self.info_request, self).deliver
+                mail_message = OutgoingMailer.initial_request(info_request, self).deliver
                 self.info_request.log_event(log_event_type, {
                     :email => mail_message.to_addrs.join(", "),
                     :outgoing_message_id => self.id,
                     :smtp_message_id => mail_message.message_id
                 })
                 self.info_request.set_described_state('waiting_response')
-            elsif self.message_type == 'followup'
+            elsif message_type == 'followup'
                 self.last_sent_at = Time.now
                 self.status = 'sent'
                 self.save!
 
-                mail_message = OutgoingMailer.followup(self.info_request, self, self.incoming_message_followup).deliver
+                mail_message = OutgoingMailer.followup(info_request, self, incoming_message_followup).deliver
                 self.info_request.log_event('followup_' + log_event_type, {
                     :email => mail_message.to_addrs.join(", "),
                     :outgoing_message_id => self.id,
                     :smtp_message_id => mail_message.message_id
                 })
-                if self.info_request.described_state == 'waiting_clarification'
+                if info_request.described_state == 'waiting_clarification'
                     self.info_request.set_described_state('waiting_response')
                 end
-                if self.what_doing == 'internal_review'
+                if what_doing == 'internal_review'
                     self.info_request.set_described_state('internal_review')
                 end
             else
-                raise "Message id #{self.id} has type '#{self.message_type}' which send_message can't handle"
+                raise "Message id #{id} has type '#{message_type}' which send_message can't handle"
             end
-        elsif self.status == 'sent'
-            raise "Message id #{self.id} has already been sent"
+        elsif status == 'sent'
+            raise "Message id #{id} has already been sent"
         else
-            raise "Message id #{self.id} not in state for send_message"
+            raise "Message id #{id} not in state for send_message"
         end
     end
 
