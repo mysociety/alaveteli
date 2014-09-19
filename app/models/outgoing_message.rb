@@ -113,8 +113,8 @@ class OutgoingMessage < ActiveRecord::Base
             letter = _("Please pass this on to the person who conducts Freedom of Information reviews.")
             letter += "\n\n"
             letter += _("I am writing to request an internal review of {{public_body_name}}'s handling of my FOI request '{{info_request_title}}'.",
-                          :public_body_name => self.info_request.public_body.name,
-                          :info_request_title => self.info_request.title)
+                          :public_body_name => info_request.public_body.name,
+                          :info_request_title => info_request.title)
             letter += "\n\n\n\n [ #{ get_internal_review_insert_here_note } ] \n\n\n\n"
             letter += _("A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}",
                           :url => request_url(info_request))
