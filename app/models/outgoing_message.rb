@@ -114,8 +114,14 @@ class OutgoingMessage < ActiveRecord::Base
             ""
         end
     end
+
     def get_default_message
-        get_salutation + "\n\n" + get_default_letter + "\n\n" + get_signoff + "\n\n"
+        msg = get_salutation
+        msg += "\n\n"
+        msg += get_default_letter
+        msg += "\n\n"
+        msg += get_signoff
+        msg += "\n\n"
     end
 
     def set_signature_name(name)
