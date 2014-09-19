@@ -52,7 +52,7 @@ class OutgoingMessage < ActiveRecord::Base
     strip_attributes!
     has_prominence
 
-    self.default_url_options[:host] = AlaveteliConfiguration::domain
+    self.default_url_options[:host] = AlaveteliConfiguration.domain
 
     # https links in emails if forcing SSL
     if AlaveteliConfiguration::force_ssl
