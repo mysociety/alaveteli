@@ -49,13 +49,6 @@ class OutgoingMessage < ActiveRecord::Base
 
     # reindex if body text is edited (e.g. by admin interface)
     after_update :xapian_reindex_after_update
-    def xapian_reindex_after_update
-        if self.changes.include?('body')
-            for info_request_event in self.info_request_events
-                info_request_event.xapian_mark_needs_index
-            end
-        end
-    end
 
     after_initialize :set_default_letter
 
@@ -279,6 +272,14 @@ class OutgoingMessage < ActiveRecord::Base
     def for_admin_column
         self.class.content_columns.each do |column|
             yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+        end
+    end
+
+    def xapian_reindex_after_update
+        if self.changes.include?('body')
+            for info_request_event in self.info_request_events
+                info_request_event.xapian_mark_needs_index
+            end
         end
     end
 
