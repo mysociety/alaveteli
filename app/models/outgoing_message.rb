@@ -135,12 +135,13 @@ class OutgoingMessage < ActiveRecord::Base
         ret.gsub!(/(?:\n\s*){2,}/, "\n\n") # remove excess linebreaks that unnecessarily space it out
 
         # Remove things from censor rules
-        if !self.info_request.nil?
+        unless info_request.nil?
             self.info_request.apply_censor_rules_to_text!(ret)
         end
 
         ret
     end
+
     def raw_body
         read_attribute(:body)
     end
