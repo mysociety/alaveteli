@@ -59,6 +59,18 @@ class OutgoingMessage < ActiveRecord::Base
       self.default_url_options[:protocol] = "https"
     end
 
+    def self.default_salutation(public_body)
+        _("Dear {{public_body_name}},", :public_body_name => public_body.name)
+    end
+
+    def self.placeholder_salutation
+        _("Dear [Authority name],")
+    end
+
+    def self.fill_in_salutation(body, public_body)
+        body.gsub(placeholder_salutation, default_salutation(public_body))
+    end
+
     # How the default letter starts and ends
     def get_salutation
         if info_request.is_batch_request_template?
@@ -76,18 +88,6 @@ class OutgoingMessage < ActiveRecord::Base
             return OutgoingMessage.default_salutation(info_request.public_body)
         end
         salutation = _("Dear {{public_body_name}},", :public_body_name => ret)
-    end
-
-    def self.default_salutation(public_body)
-        _("Dear {{public_body_name}},", :public_body_name => public_body.name)
-    end
-
-    def self.placeholder_salutation
-        _("Dear [Authority name],")
-    end
-
-    def self.fill_in_salutation(body, public_body)
-        body.gsub(placeholder_salutation, default_salutation(public_body))
     end
 
     def get_signoff
