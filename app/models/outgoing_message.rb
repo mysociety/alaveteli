@@ -149,8 +149,9 @@ class OutgoingMessage < ActiveRecord::Base
     def contains_email?
         MySociety::Validate.email_find_regexp.match(self.body)
     end
+
     def contains_postcode?
-        MySociety::Validate.contains_postcode?(self.body)
+        MySociety::Validate.contains_postcode?(body)
     end
 
     # Deliver outgoing message
