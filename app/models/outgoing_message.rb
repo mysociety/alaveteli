@@ -33,7 +33,6 @@ class OutgoingMessage < ActiveRecord::Base
     attr_accessor :default_letter
 
     validates_presence_of :info_request
-
     validates_inclusion_of :status, :in => ['ready', 'sent', 'failed']
     validates_inclusion_of :message_type, :in => ['initial_request', 'followup' ] #, 'complaint']
     validate :format_of_body
@@ -45,12 +44,10 @@ class OutgoingMessage < ActiveRecord::Base
     # contact address changed
     has_many :info_request_events
 
+    after_initialize :set_default_letter
     after_save :purge_in_cache
-
     # reindex if body text is edited (e.g. by admin interface)
     after_update :xapian_reindex_after_update
-
-    after_initialize :set_default_letter
 
     strip_attributes!
     has_prominence
