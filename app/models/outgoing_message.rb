@@ -86,10 +86,14 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     def get_signoff
-        if self.message_type == 'followup' && !self.incoming_message_followup.nil? && !self.incoming_message_followup.safe_mail_from.nil? && self.incoming_message_followup.valid_to_reply_to?
-            return _("Yours sincerely,")
+        if message_type == 'followup' &&
+            !incoming_message_followup.nil? &&
+            !incoming_message_followup.safe_mail_from.nil? &&
+            incoming_message_followup.valid_to_reply_to?
+
+            _("Yours sincerely,")
         else
-            return _("Yours faithfully,")
+            _("Yours faithfully,")
         end
     end
 
