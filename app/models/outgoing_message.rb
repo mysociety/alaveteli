@@ -32,10 +32,6 @@ class OutgoingMessage < ActiveRecord::Base
     # To override the default letter
     attr_accessor :default_letter
 
-    strip_attributes!
-
-    has_prominence
-
     belongs_to :info_request
     validates_presence_of :info_request
 
@@ -62,6 +58,9 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     after_initialize :set_default_letter
+
+    strip_attributes!
+    has_prominence
 
     self.default_url_options[:host] = AlaveteliConfiguration::domain
 
