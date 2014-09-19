@@ -28,43 +28,36 @@ class OutgoingMessage < ActiveRecord::Base
     extend MessageProminence
     include Rails.application.routes.url_helpers
     include LinkToHelper
-    self.default_url_options[:host] = AlaveteliConfiguration::domain
-    # https links in emails if forcing SSL
-    if AlaveteliConfiguration::force_ssl
-      self.default_url_options[:protocol] = "https"
-    end
 
-    strip_attributes!
+    # To override the default letter
+    attr_accessor :default_letter
 
-    has_prominence
-
-    belongs_to :info_request
     validates_presence_of :info_request
-
     validates_inclusion_of :status, :in => ['ready', 'sent', 'failed']
     validates_inclusion_of :message_type, :in => ['initial_request', 'followup' ] #, 'complaint']
     validate :format_of_body
 
+    belongs_to :info_request
     belongs_to :incoming_message_followup, :foreign_key => 'incoming_message_followup_id', :class_name => 'IncomingMessage'
 
     # can have many events, for items which were resent by site admin e.g. if
     # contact address changed
     has_many :info_request_events
 
-    # To override the default letter
-    attr_accessor :default_letter
-
+    after_initialize :set_default_letter
+    after_save :purge_in_cache
     # reindex if body text is edited (e.g. by admin interface)
     after_update :xapian_reindex_after_update
-    def xapian_reindex_after_update
-        if self.changes.include?('body')
-            for info_request_event in self.info_request_events
-                info_request_event.xapian_mark_needs_index
-            end
-        end
-    end
 
-    after_initialize :set_default_letter
+    strip_attributes!
+    has_prominence
+
+    self.default_url_options[:host] = AlaveteliConfiguration::domain
+
+    # https links in emails if forcing SSL
+    if AlaveteliConfiguration::force_ssl
+      self.default_url_options[:protocol] = "https"
+    end
 
     # How the default letter starts and ends
     def get_salutation
@@ -269,7 +262,6 @@ class OutgoingMessage < ActiveRecord::Base
         end
     end
 
-    after_save(:purge_in_cache)
     def purge_in_cache
         self.info_request.purge_in_cache
     end
@@ -277,6 +269,14 @@ class OutgoingMessage < ActiveRecord::Base
     def for_admin_column
         self.class.content_columns.each do |column|
             yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+        end
+    end
+
+    def xapian_reindex_after_update
+        if self.changes.include?('body')
+            for info_request_event in self.info_request_events
+                info_request_event.xapian_mark_needs_index
+            end
         end
     end
 
