@@ -60,8 +60,11 @@ describe AdminPublicBodyCategoryController do
 
     context 'when editing a public body category' do
         before do
-            PublicBodyCategory.load_categories
-            @category = PublicBodyCategory.find_by_title("Useless ministries")
+            @category = FactoryGirl.create(:useless_category)
+            I18n.with_locale('es') do
+                @category.title = 'Los useless ministries'
+                @category.save!
+            end
         end
 
         render_views
@@ -80,9 +83,16 @@ describe AdminPublicBodyCategoryController do
     end
 
     context 'when updating a public body category' do
+
         before do
-            PublicBodyCategory.load_categories
-            @category = PublicBodyCategory.find_by_title("Useless ministries")
+            @heading = FactoryGirl.create(:silly_heading)
+            @category = @heading.public_body_categories.detect do |category|
+                category.title == 'Useless ministries'
+            end
+            I18n.with_locale('es') do
+                @category.title = 'Los useless ministries'
+                @category.save!
+            end
         end
 
         render_views
@@ -98,7 +108,7 @@ describe AdminPublicBodyCategoryController do
         it "saves edits to a public body category's heading associations" do
             @category.public_body_headings.count.should == 1
             @category.public_body_headings.first.name.should == "Silly ministries"
-            heading = PublicBodyHeading.find_by_name("Popular agencies")
+            heading = FactoryGirl.create(:popular_heading)
             post :update, { :id => @category.id,
                             :public_body_category => { :title => "Renamed" },
                             :headings => {"heading_#{heading.id}" => heading.id} }
@@ -152,9 +162,6 @@ describe AdminPublicBodyCategoryController do
     end
 
     context 'when destroying a public body category' do
-        before do
-            PublicBodyCategory.load_categories
-        end
 
         it "destroys a public body category" do
             pbc = PublicBodyCategory.create(:title => "Empty Category", :category_tag => "empty", :description => "-")

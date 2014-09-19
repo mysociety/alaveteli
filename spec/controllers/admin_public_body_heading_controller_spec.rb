@@ -57,8 +57,7 @@ describe AdminPublicBodyHeadingController do
 
     context 'when editing a public body heading' do
         before do
-            PublicBodyCategory.load_categories
-            @heading = PublicBodyHeading.find_by_name("Silly ministries")
+            @heading = FactoryGirl.create(:silly_heading)
         end
 
         render_views
@@ -70,8 +69,7 @@ describe AdminPublicBodyHeadingController do
 
     context 'when updating a public body heading' do
         before do
-            PublicBodyCategory.load_categories
-            @heading = PublicBodyHeading.find_by_name("Silly ministries")
+            @heading = FactoryGirl.create(:silly_heading)
         end
 
         it "saves edits to a public body heading" do
@@ -109,12 +107,9 @@ describe AdminPublicBodyHeadingController do
     end
 
     context 'when destroying a public body heading' do
-        before do
-            PublicBodyCategory.load_categories
-        end
 
         it "does not destroy a public body heading that has associated categories" do
-            heading = PublicBodyHeading.find_by_name("Silly ministries")
+            heading = FactoryGirl.create(:silly_heading)
             n = PublicBodyHeading.count
             post :destroy, { :id => heading.id }
             response.should redirect_to(:controller=>'admin_public_body_heading', :action=>'edit', :id => heading.id)
