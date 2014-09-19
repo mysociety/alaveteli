@@ -49,7 +49,7 @@ During that week, the tasks broke down as follows:
 * 2 requests that have been marked as needing admin attention
 * 2 things marked as errors (message refused by server - spam, full mailbox, etc) to fix
 
-### User interaction tasks
+### User support tasks
 
 * 16 general, daily admin: i.e. things that resulted in admin actions on the
   site (bounces, misdelivered responses, etc)
@@ -59,9 +59,9 @@ During that week, the tasks broke down as follows:
 * 3 requests to redact personal information
 * 2 requests to redact defamatory information
 
-## Types of user interaction
+## User support
 
-There follows a breakdown of the most common kinds of user interaction. It's
+There follows a breakdown of the most common kinds of user support. It's
 intended for use as a guide to the kind of policies and training that a support
 team might need to develop.
 
