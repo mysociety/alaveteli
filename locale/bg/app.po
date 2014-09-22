@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:46+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2014-09-01 10:10+0000\n"
+"Last-Translator: Valentin Laskov <laskov@festa.bg>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/alaveteli/language/bg/)\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -284,7 +284,7 @@ msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>не са имали</strong> исканата информация."
 
 msgid "?"
-msgstr ""
+msgstr "?"
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "<a href=\"{{request_url}}\">Пояснително съобщение</a> към <em>{{request_title}}</em> беше изпратено до {{public_body_name}} от {{info_request_user}} на {{date}}."
@@ -419,7 +419,7 @@ msgid "Anyone:"
 msgstr "Който и да е:"
 
 msgid "Applies to"
-msgstr ""
+msgstr "Приложимо за"
 
 msgid "Are we missing a public authority?"
 msgstr "Да не сме пропуснали публичен орган?"
@@ -491,7 +491,7 @@ msgid "By law, {{public_body_link}} should normally have responded <strong>promp
 msgstr "По закон, {{public_body_link}} нормално следва да са отговорили <strong>незабавно</strong> и"
 
 msgid "Calculated home page"
-msgstr ""
+msgstr "Генерирана начална страница"
 
 msgid "Can't find the one you want?"
 msgstr "Не намирате това, което искате?"
@@ -599,10 +599,10 @@ msgid "Comment|Comment type"
 msgstr "Коментар|Тип на коментар"
 
 msgid "Comment|Locale"
-msgstr ""
+msgstr "Comment|Националност"
 
 msgid "Comment|Visible"
-msgstr ""
+msgstr "Comment|Видим"
 
 msgid "Confirm you want to follow all successful FOI requests"
 msgstr "Потвърдете, че искате да следвате всички успешни Заявления за ДдИ"
@@ -689,7 +689,7 @@ msgid "Dear {{user_name}},"
 msgstr "Уважаеми {{user_name}},"
 
 msgid "Default locale"
-msgstr ""
+msgstr "Националност по подразбиране"
 
 msgid "Defunct."
 msgstr "Неработещ."
@@ -722,7 +722,7 @@ msgid "Disclosure log URL"
 msgstr ""
 
 msgid "Do not fill in this field"
-msgstr ""
+msgstr "Не пишете в това поле"
 
 msgid "Don't have a superuser account yet?"
 msgstr "Все още нямате акаунт на суперпотребител?"
@@ -842,16 +842,16 @@ msgid "Foi attachment"
 msgstr "ДдИ приложение"
 
 msgid "FoiAttachment|Charset"
-msgstr ""
+msgstr "FoiAttachment|Кодова таблица"
 
 msgid "FoiAttachment|Content type"
-msgstr ""
+msgstr "FoiAttachment|Тип съдържание"
 
 msgid "FoiAttachment|Display size"
-msgstr ""
+msgstr "FoiAttachment|Показвай големината"
 
 msgid "FoiAttachment|Filename"
-msgstr ""
+msgstr "FoiAttachment|Име на файл"
 
 msgid "FoiAttachment|Hexdigest"
 msgstr ""
@@ -1888,10 +1888,10 @@ msgid "Public Bodies"
 msgstr "Публични органи"
 
 msgid "Public Body"
-msgstr ""
+msgstr "Публичен орган"
 
 msgid "Public Body Statistics"
-msgstr "Статистика за Публичен Огран"
+msgstr "Статистика за Публичен Орган"
 
 msgid "Public authorities"
 msgstr "Публични органи"
@@ -1903,7 +1903,7 @@ msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Публични органи от {{start_count}} до {{end_count}}, от общо{{total_count}}"
 
 msgid "Public authority statistics"
-msgstr ""
+msgstr "Статистика за публичния орган"
 
 msgid "Public authority – {{name}}"
 msgstr "Публичен орган – {{name}}"
@@ -1942,22 +1942,22 @@ msgid "PublicBodyChangeRequest|Is open"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|Notes"
-msgstr ""
+msgstr "PublicBodyChangeRequest|Бележки"
 
 msgid "PublicBodyChangeRequest|Public body email"
-msgstr ""
+msgstr "PublicBodyChangeRequest|Имейл на публичния орган"
 
 msgid "PublicBodyChangeRequest|Public body name"
-msgstr ""
+msgstr "PublicBodyChangeRequest|Име на публичния орган"
 
 msgid "PublicBodyChangeRequest|Source url"
-msgstr ""
+msgstr "PublicBodyChangeRequest|url източник"
 
 msgid "PublicBodyChangeRequest|User email"
-msgstr ""
+msgstr "PublicBodyChangeRequest|Имейл на потребител"
 
 msgid "PublicBodyChangeRequest|User name"
-msgstr ""
+msgstr "PublicBodyChangeRequest|Име на потребител"
 
 msgid "PublicBody|Api key"
 msgstr ""
@@ -1966,52 +1966,52 @@ msgid "PublicBody|Disclosure log"
 msgstr ""
 
 msgid "PublicBody|First letter"
-msgstr ""
+msgstr "PublicBody|Първа буква"
 
 msgid "PublicBody|Home page"
-msgstr ""
+msgstr "PublicBody|Сайт"
 
 msgid "PublicBody|Info requests count"
-msgstr ""
+msgstr "PublicBody|Брой заявления"
 
 msgid "PublicBody|Info requests not held count"
 msgstr ""
 
 msgid "PublicBody|Info requests overdue count"
-msgstr ""
+msgstr "PublicBody|Брой просрочени заявления"
 
 msgid "PublicBody|Info requests successful count"
-msgstr ""
+msgstr "PublicBody|Брой успешни заявления"
 
 msgid "PublicBody|Info requests visible classified count"
 msgstr ""
 
 msgid "PublicBody|Last edit comment"
-msgstr ""
+msgstr "PublicBody|Последно редактиран коментар"
 
 msgid "PublicBody|Last edit editor"
-msgstr ""
+msgstr "PublicBody|Последен редактор на коментар"
 
 msgid "PublicBody|Name"
-msgstr ""
+msgstr "PublicBody|Име"
 
 msgid "PublicBody|Notes"
-msgstr ""
+msgstr "PublicBody|Бележки"
 
 msgid "PublicBody|Publication scheme"
 msgstr ""
 
 msgid "PublicBody|Request email"
-msgstr ""
+msgstr "PublicBody|Имейл за заявления"
 
 msgid "PublicBody|Short name"
-msgstr ""
+msgstr "PublicBody|Кратко име"
 
 msgid "PublicBody|Url name"
-msgstr ""
+msgstr "PublicBody|Url име"
 
 msgid "PublicBody|Version"
-msgstr ""
+msgstr "PublicBody|Версия"
 
 msgid "Publication scheme"
 msgstr ""
@@ -2891,13 +2891,13 @@ msgid "Top search results:"
 msgstr "Най-често търсени резултати:"
 
 msgid "Track thing"
-msgstr ""
+msgstr "Следване"
 
 msgid "Track this person"
-msgstr ""
+msgstr "Следване на този потребител"
 
 msgid "Track this search"
-msgstr ""
+msgstr "Следване на такива резултати"
 
 msgid "TrackThing|Track medium"
 msgstr ""
@@ -2906,7 +2906,7 @@ msgid "TrackThing|Track query"
 msgstr ""
 
 msgid "TrackThing|Track type"
-msgstr ""
+msgstr "TrackThing|Тип следване"
 
 msgid "Turn off email alerts"
 msgstr "Спри известията по имейл"
@@ -2933,7 +2933,7 @@ msgid "Unable to send follow up message to {{username}}"
 msgstr "Не бе възможно да се изпрати пояснително съобщение до {{username}}"
 
 msgid "Unclassified or hidden requests are not counted."
-msgstr ""
+msgstr "Не се броят некласифицирани или скрити заявления."
 
 msgid "Unexpected search result type "
 msgstr "Неочакван тип резултат на търсене "
@@ -2981,58 +2981,58 @@ msgid "User"
 msgstr "Потребител"
 
 msgid "User info request sent alert"
-msgstr ""
+msgstr "Потребителска заявка за уведомления"
 
 msgid "User – {{name}}"
 msgstr "Потребител – {{name}}"
 
 msgid "UserInfoRequestSentAlert|Alert type"
-msgstr ""
+msgstr "UserInfoRequestSentAlert|Тип известяване"
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "Нормално потребителите не могат да правят размножени заявления до множество органи, понеже не желаем публичните органи да бъдат бомбардирани с голям брой неуместни заявления. Ако считате, че имате основателна причина да изпратите размножено заявление до няколко органа наведнъж, молим, <a href=\"{{url}}\">свържете се с нас</a>."
 
 msgid "User|About me"
-msgstr ""
+msgstr "User|За мен"
 
 msgid "User|Admin level"
-msgstr ""
+msgstr "User|Административно ниво"
 
 msgid "User|Ban text"
-msgstr ""
+msgstr "User|Текст при блокиране"
 
 msgid "User|Can make batch requests"
-msgstr ""
+msgstr "User|Може да създава размножени заявления"
 
 msgid "User|Email"
-msgstr ""
+msgstr "User|Имейл"
 
 msgid "User|Email bounce message"
-msgstr ""
+msgstr "User|Връщане на съобщение по имейл"
 
 msgid "User|Email bounced at"
-msgstr ""
+msgstr "User|Имейл върнат на"
 
 msgid "User|Email confirmed"
-msgstr ""
+msgstr "User|Имейлът потвърден"
 
 msgid "User|Hashed password"
-msgstr ""
+msgstr "User|Криптирана парола"
 
 msgid "User|Last daily track email"
 msgstr ""
 
 msgid "User|Locale"
-msgstr ""
+msgstr "User|Националност"
 
 msgid "User|Name"
-msgstr ""
+msgstr "User|Име"
 
 msgid "User|No limit"
-msgstr ""
+msgstr "User|Без ограничения"
 
 msgid "User|Receive email alerts"
-msgstr ""
+msgstr "User|Получава известия по имейл"
 
 msgid "User|Salt"
 msgstr ""

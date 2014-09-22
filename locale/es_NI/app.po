@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-09-18 19:48+0000\n"
+"PO-Revision-Date: 2014-09-19 15:18+0000\n"
 "Last-Translator: Victor Diaz <victor.diaz@cwpanama.net>\n"
 "Language-Team: Spanish (Nicaragua) (http://www.transifex.com/projects/p/alaveteli/language/es_NI/)\n"
 "Language: es_NI\n"
@@ -2607,7 +2607,7 @@ msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "La ley de acceso a la información <strong>no es aplicable</strong> a"
 
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
-msgstr ""
+msgstr "La URL donde ha encontrado la dirección de correo electrónico. Este es un campo opcional, pero nos ayudaría mucho si usted puede proporcionar un enlace a una página específica en el sitio web de la autoridad que da a esta dirección, ya que hará que sea mucho más fácil que revisemos."
 
 msgid "The accounts have been left as they previously were."
 msgstr "Las cuentas se han dejado tal y como estaban anteriormente."
@@ -2630,7 +2630,7 @@ msgid "The authority would like to / has <strong>responded by post</strong> to t
 msgstr "El organismo querría / ha respondido <strong>por correo ordinario</strong> a esta solicitud."
 
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
-msgstr ""
+msgstr "La clasificación de las solicitudes (por ejemplo, para decir si tuvieron éxito o no) se realiza manualmente por los usuarios y los administradores del sitio, lo que significa que están sujetos a error."
 
 msgid "The contact email address for FOI requests to the authority."
 msgstr ""
@@ -2809,7 +2809,7 @@ msgid "There was an error with the words you entered, please try again."
 msgstr "Ha habido un error con las palabras introducidas, por favor pruebe otra vez."
 
 msgid "There was no data calculated for this graph yet."
-msgstr ""
+msgstr "No existen datos calculados para este gráfico todavía."
 
 msgid "There were no requests matching your query."
 msgstr "No se encontraron solicitudes para tu búsqueda."
@@ -2855,7 +2855,7 @@ msgid "This external request has been hidden"
 msgstr "Esta solicitud externa ha sido ocultada"
 
 msgid "This is <a href=\"{{profile_url}}\">{{user_name}}'s</a> wall"
-msgstr ""
+msgstr "Este es el muro de <a href=\"{{profile_url}}\">{{user_name}}'s</a> "
 
 msgid "This is a plain-text version of the Freedom of Information request \"{{request_title}}\".  The latest, full version is available online at {{full_url}}"
 msgstr "Esta es la versión sólo-texto de la solicitud de información \"{{request_title}}\".  La versión más actualizada y completa está disponible en {{full_url}}"
