@@ -644,7 +644,7 @@ msgid "Clarification"
 msgstr "Aclaración"
 
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr "Aclaración enviada a {{public_body_name}} por {{info_request_user}} el {{fecha}}."
+msgstr "Aclaración enviada a {{public_body_name}} por {{info_request_user}} el {{date}}."
 
 msgid "Clarify your FOI request - "
 msgstr "Clarifica tu solicitud de información -"
@@ -742,7 +742,7 @@ msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and 
 msgstr "No se pudo procesar la imagen subida. Puedes utilizar PNG, JPEG, GIF u otros formatos de imagen populares."
 
 msgid "Created by {{info_request_user}} on {{date}}."
-msgstr "Creado por {{info_request_user}} el {{fecha}}."
+msgstr "Creado por {{info_request_user}} el {{date}}."
 
 msgid "Crop your profile photo"
 msgstr "Recorta tu foto de perfil"
@@ -1001,7 +1001,7 @@ msgid "Follow up messages to existing requests are sent to "
 msgstr "Las respuestas a solicitudes existentes se envían a "
 
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr "Seguimiento enviado a {{public_body_name}} por {{info_request_user}} el {{fecha}}."
+msgstr "Seguimiento enviado a {{public_body_name}} por {{info_request_user}} el {{date}}."
 
 #. "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
@@ -1406,7 +1406,7 @@ msgid "Internal review request"
 msgstr "Solicitud de revisión interna"
 
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr "Solicitud de revisión interna enviada a {{public_body_name}} por {{info_request_user}} en {{fecha}}."
+msgstr "Solicitud de revisión interna enviada a {{public_body_name}} por {{info_request_user}} en {{date}}."
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "¿Es {{email_address}} la dirección incorrecta para solicitudes {{type_of_request}} a {{public_body_name}}? Si es así, por favor contáctenos usando el siguiente formulario:"
@@ -2289,7 +2289,7 @@ msgid "Response"
 msgstr "Respuesta"
 
 msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr "Respuesta por {{public_body_name}} a {{info_request_user}} el {{fecha}}."
+msgstr "Respuesta por {{public_body_name}} a {{info_request_user}} el {{date}}."
 
 msgid "Response from a public authority"
 msgstr "Respuesta de un organismo público"
