@@ -23,6 +23,5 @@ the project up to date.
   [things to consider]({{ site.baseurl }}docs/running/server/)
   when setting up your production server
 
-* see the [different states a request can be in]({{ site.baseurl }}docs/running/states/)
 
 

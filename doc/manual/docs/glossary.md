@@ -671,15 +671,15 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          <a href="{{ site.baseurl }}docs/running/states/">example states for WhatDoTheyKnow</a>
+          <a href="{{ site.baseurl }}docs/customising/states/">example states for WhatDoTheyKnow</a>
           (Alaveteli site running in the UK)
         </li>
         <li>
-          for comparison, <a href="{{ site.baseurl }}docs/running/states_informatazyrtare/">example states for InformataZyrtare</a>
+          for comparison, <a href="{{ site.baseurl }}docs/customising/states_informatazyrtare/">example states for InformataZyrtare</a>
           (Alaveteli site running in Kosovo)
         </li>
         <li>
-          to customise or add your own states, see <a href="{{ site.baseurl }}docs/customising/themes/">Customising the request states</a>
+          to customise or add your own states, see <a href="{{ site.baseurl }}docs/customising/themes/#customising-the-request-states">Customising the request states</a>
         </li>
       </ul>
     </div>
