@@ -354,6 +354,13 @@ The message will now be associated with the correct request and will appear on t
 
 ### Editing an outgoing message
 
+You may find there is a need to edit an outgoing message because the requester has accidentally included personal information that they don't want to be published on the site. You can either follow one of the 'admin' links from the public request page on the site, or find the request from the admin interface by searching under 'Requests'.
+
+Scroll down to the 'Outgoing Messages' section, and click on 'Edit'.
+
+Then on the next page you will be able to edit the message accordingly and save it. The edited version will then appear on the Alaveteli website, although an unedited version will have been sent to the authority.
+
+
 ### Hiding certain text from a request using censor rules
 
 Censor rules can be attached to a request or to a user and define bits of text
