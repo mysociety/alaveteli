@@ -346,6 +346,12 @@ The message will now be associated with the correct request and will appear on t
 
 ### Banning a user
 
+You may wish to completely ban a user from the website (such as a spammer or troll for example). You need to log into the admin interface at `/admin`. On the top row of links, locate and click on ‘Users’.
+
+Find the user you wish to ban on the list and click on their name. Once on the user page, select ‘edit’.
+
+Enter some text in the in the ‘Ban text’ box to explain why they have been banned.  Please be aware, this is publicly viewable from the users' account. Then click on save and the user will be banned.
+
 ### Deleting a request
 
 ### Hiding a request
