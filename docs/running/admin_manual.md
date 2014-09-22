@@ -330,7 +330,19 @@ setting `SKIP_ADMIN_AUTH` to `true` in `general.yml`.
 
 ### Removing a message from the 'Holding Pen'
 
+The reason a message is in the holding pen is because the email can't be automatically associated with the request it is responding to. The email needs to be moved from the holding pen to the request it belongs with.
+
+First, log into the admin interface at `/admin`. You will see messages that are in the 'holding pen' under the title ‘Put misdelivered responses with the right request’. Click on the chevron to see the individual messages.
+
+If you click on a message in the holding pen, you may see a guess made by Alaveteli as to which request the message belongs to. Check this request. If it isn't the right one, or if Alaveteli hasn't made any guesses, you will need to look at the `To:` address of the raw email and the contents of the mail in order to figure out which request it belongs to. You can browse and search requests in the admin interface under the 'Requests' menu item.
+
+Once you have identified the request the message belongs to, you need to go back to the holding pen message page. Paste the request `id` or `url_title` into the box under 'Actions' in 'Incoming Message'. The request `id` can be found in the request URL in the admin interface - it is the part after `/show/`. In the admin request URL `/admin/request/show/118`, the request `id` is `118`. The `url_title` can be found in the request URL in the main interface - it is the part after `/request/`. In the URL `/request/documents_relating_to_meeting`, it is `documents_relating_to_meeting`. Then click on 'Redeliver to another request'.
+
+The message will now be associated with the correct request and will appear on the public request page.
+
 ### Editing and uploading public body email addresses
+
+
 
 ### Banning a user
 
