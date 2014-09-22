@@ -354,7 +354,10 @@ Enter some text in the in the ‘Ban text’ box to explain why they have been b
 
 ### Deleting a request
 
+You can delete a request entirely using the admin interface. You will mainly only need to do this if someone has posted private information. Go to the admin page for the request by searching or browsing in the 'Requests' section of the admin interface. In the first section, click the 'Edit metadata' button. At the bottom of the next page, click the red 'Destroy request entirely' button.
+
 ### Hiding a request
+
 
 ### Hiding an incoming or outgoing message
 
