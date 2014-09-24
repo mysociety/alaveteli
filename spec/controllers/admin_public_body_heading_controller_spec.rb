@@ -160,12 +160,24 @@ describe AdminPublicBodyHeadingController do
             end
         end
 
-        it 'should return an "unprocessable entity" status and an error message' do
-            @first.destroy
-            make_request
-            assert_response :unprocessable_entity
-            response.body.should match("Couldn't find PublicBodyHeading with id")
-        end
+        context 'when handling invalid input' do
 
+            before do
+                @params = { :headings => [@second.id, @first.id, @second.id + 1]}
+            end
+
+            it 'should return an "unprocessable entity" status and an error message' do
+                make_request(@params)
+                assert_response :unprocessable_entity
+                response.body.should match("Couldn't find PublicBodyHeading with id")
+            end
+
+            it 'should not reorder headings' do
+                make_request(@params)
+                PublicBodyHeading.find(@first.id).display_order.should == 0
+                PublicBodyHeading.find(@second.id).display_order.should == 1
+            end
+
+        end
     end
 end

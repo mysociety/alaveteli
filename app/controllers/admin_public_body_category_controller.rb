@@ -59,10 +59,9 @@ class AdminPublicBodyCategoryController < AdminController
         error = nil
         ActiveRecord::Base.transaction do
             params[:categories].each_with_index do |category_id, index|
-                link = PublicBodyCategoryLink.find(:first,
-                                                  :conditions => ['public_body_category_id = ?
-                                                                   AND public_body_heading_id = ?',
-                                                                   category_id, params[:heading_id]])
+                conditions = { :public_body_category_id => category_id,
+                               :public_body_heading_id => params[:heading_id] }
+                link = PublicBodyCategoryLink.where(conditions).first
                 unless link
                     error = "Couldn't find PublicBodyCategoryLink for category #{category_id}, heading #{params[:heading_id]}"
                     raise ActiveRecord::Rollback
