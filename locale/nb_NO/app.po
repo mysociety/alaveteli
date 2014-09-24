@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:50+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2014-09-13 06:04+0000\n"
+"Last-Translator: pere <pere-transifex@hungry.com>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
@@ -592,7 +592,7 @@ msgid "Click on the link below to send a message to {{public_body_name}} telling
 msgstr "Trykk på linken nedenfor for  å sende en melding til {{public_body_name}} for å be om svar på henvendelsen. Du kan ha behov for be om en gjennomgang \\n hos dem om hvorfor det tar så lang tid å få svar på henvendelsen."
 
 msgid "Click on the link below to send a message to {{public_body}} reminding them to reply to your request."
-msgstr "Klikk på  lenken under for å sende en melding til {{public_body}} og minne den på å besvare forespørselen."
+msgstr "Klikk på  lenken under for å sende en melding til {{public_body}} og minne dem på å besvare forespørselen."
 
 msgid "Close"
 msgstr "Lukk"
@@ -706,7 +706,7 @@ msgid "Defunct."
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
-msgstr "Forsinket svar på din innsynshenvendelse"
+msgstr "Forsinket svar på din innsynsforespørsel -"
 
 msgid "Delayed."
 msgstr "Forsinket."
@@ -2532,6 +2532,8 @@ msgstr "Forespørrer har av en eller annen grunn gitt opp denne henvendelsen"
 
 msgid "The response to your request has been <strong>delayed</strong>.  You can say that,\\n            by law, the authority should normally have responded\\n            <strong>promptly</strong> and"
 msgstr ""
+"Svaret på din forespørsel er <strong>forsinket</strong>.  I følge lovverket\\n kan en si\n"
+"at etaten normal skulle svart <strong>uten opphold</strong> og"
 
 msgid "The response to your request is <strong>long overdue</strong>.   You can say that, by\\n            law, under all circumstances, the authority should have responded\\n            by now"
 msgstr "Svaret på din forespørsel er <strong>svært forsinket</strong>.  I følge loven\\n så burde instansen under enhver omstendighet ha svart på\\n dette tidspunkt"
@@ -2665,7 +2667,7 @@ msgid "They have been given the following explanation:"
 msgstr "De har fått følgende forklaring:"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
-msgstr "De har ikke svart på din {{law_used_short}} begjæring {{title}} innen kort tid, som det normalt kreves i følge loven"
+msgstr "De har ikke svart på din innsynsforespørsel i henhold til {{law_used_short}} om «{{title}}» innen kort tid, som er det som normalt kreves i følge lovverket."
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, \\nas required by law"
 msgstr "De har ikke svart på din {{law_used_short}} forespørsel {{title}}, \\ n som kreves i lovverket."
@@ -3614,7 +3616,7 @@ msgid "has reported an"
 msgstr "har rapportert en"
 
 msgid "have delayed."
-msgstr "har forsinket."
+msgstr "har blitt forsinket."
 
 msgid "hide quoted sections"
 msgstr "fjern sitert seksjon"
