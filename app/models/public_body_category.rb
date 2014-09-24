@@ -124,7 +124,7 @@ class PublicBodyCategory < ActiveRecord::Base
     end
 
     def add_to_heading(heading)
-        if self.public_body_headings.include?(heading)
+        if public_body_headings.include?(heading)
             # we already have this, stop
             return
         end
