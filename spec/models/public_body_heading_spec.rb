@@ -15,7 +15,11 @@ describe PublicBodyHeading do
     context 'when loading the data' do
 
         before do
-            load_test_categories
+            PublicBodyCategories.add(:en, [
+                  "Local and regional",
+                      [ "local_council", "Local councils", "a local council" ],
+                  "Miscellaneous",
+                      [ "other", "Miscellaneous", "miscellaneous" ],])
         end
 
         it 'should use the display_order field to preserve the original data order' do
