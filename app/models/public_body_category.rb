@@ -124,31 +124,32 @@ class PublicBodyCategory < ActiveRecord::Base
         )
     end
 
+
     # Convenience methods for creating/editing translations via forms
     def find_translation_by_locale(locale)
         self.translations.find_by_locale(locale)
     end
 
-    def skip?(attrs)
-        valueless = attrs.inject({}) { |h, (k, v)| h[k] = v if v != '' and k != 'locale'; h } # because we want to fall back to alternative translations where there are empty values
-        return valueless.length == 0
-     end
 
     def translated_versions
         translations
     end
 
     def translated_versions=(translation_attrs)
+        def empty_translation?(attrs)
+            attrs_with_values = attrs.select{ |key, value| value != '' and key != 'locale' }
+            attrs_with_values.empty?
+        end
         if translation_attrs.respond_to? :each_value    # Hash => updating
             translation_attrs.each_value do |attrs|
-                next if skip?(attrs)
+                next if empty_translation?(attrs)
                 t = translation_for(attrs[:locale]) || PublicBodyCategory::Translation.new
                 t.attributes = attrs
                 t.save!
             end
         else                                            # Array => creating
             translation_attrs.each do |attrs|
-                next if skip?(attrs)
+                next if empty_translation?(attrs)
                 new_translation = PublicBodyCategory::Translation.new(attrs)
                 translations << new_translation
             end

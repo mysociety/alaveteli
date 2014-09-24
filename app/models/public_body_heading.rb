@@ -37,21 +37,21 @@ class PublicBodyHeading < ActiveRecord::Base
     end
 
     def translated_versions=(translation_attrs)
-        def skip?(attrs)
-            valueless = attrs.inject({}) { |h, (k, v)| h[k] = v if v != '' and k != 'locale'; h } # because we want to fall back to alternative translations where there are empty values
-            return valueless.length == 0
+        def empty_translation?(attrs)
+            attrs_with_values = attrs.select{ |key, value| value != '' and key != 'locale' }
+            attrs_with_values.empty?
         end
 
         if translation_attrs.respond_to? :each_value    # Hash => updating
             translation_attrs.each_value do |attrs|
-                next if skip?(attrs)
+                next if empty_translation?(attrs)
                 t = translation_for(attrs[:locale]) || PublicBodyHeading::Translation.new
                 t.attributes = attrs
                 t.save!
             end
         else                                            # Array => creating
             translation_attrs.each do |attrs|
-                next if skip?(attrs)
+                next if empty_translation?(attrs)
                 new_translation = PublicBodyHeading::Translation.new(attrs)
                 translations << new_translation
             end
