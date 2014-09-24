@@ -58,7 +58,7 @@ class PublicBodyHeading < ActiveRecord::Base
         end
     end
 
-    def PublicBodyHeading.next_display_order
+    def self.next_display_order
         if max = maximum(:display_order)
             max + 1
         else

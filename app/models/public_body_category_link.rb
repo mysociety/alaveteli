@@ -17,11 +17,11 @@ class PublicBodyCategoryLink < ActiveRecord::Base
 
     before_validation :on => :create do
         unless self.category_display_order
-            self.category_display_order = PublicBodyCategoryLink.next_display_order(self.public_body_heading_id)
+            self.category_display_order = PublicBodyCategoryLink.next_display_order(public_body_heading_id)
         end
     end
 
-    def PublicBodyCategoryLink.next_display_order(heading_id)
+    def self.next_display_order(heading_id)
         if last = where(:public_body_heading_id => heading_id).order(:category_display_order).last
             last.category_display_order + 1
         else
