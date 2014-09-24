@@ -1,7 +1,4 @@
 class AdminPublicBodyHeadingController < AdminController
-    def index
-        redirect_to admin_category_index_url
-    end
 
     def edit
         @heading = PublicBodyHeading.find(params[:id])
