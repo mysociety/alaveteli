@@ -57,7 +57,7 @@ describe AdminPublicBodyHeadingController do
 
     context 'when editing a public body heading' do
         before do
-            @heading = FactoryGirl.create(:silly_heading)
+            @heading = FactoryGirl.create(:public_body_heading)
         end
 
         render_views
@@ -69,7 +69,8 @@ describe AdminPublicBodyHeadingController do
 
     context 'when updating a public body heading' do
         before do
-            @heading = FactoryGirl.create(:silly_heading)
+            @heading = FactoryGirl.create(:public_body_heading)
+            @name = @heading.name
         end
 
         it "saves edits to a public body heading" do
@@ -82,11 +83,10 @@ describe AdminPublicBodyHeadingController do
 
         it "saves edits to a public body heading in another locale" do
             I18n.with_locale(:es) do
-                @heading.name.should == 'Silly ministries'
                 post :update, {
                     :id => @heading.id,
                     :public_body_heading => {
-                        :name => "Silly ministries",
+                        :name => @name,
                         :translated_versions => {
                             @heading.id => {:locale => "es",
                                             :name => "Renamed"}
@@ -101,25 +101,32 @@ describe AdminPublicBodyHeadingController do
                heading.name.should == "Renamed"
             end
             I18n.with_locale(:en) do
-               heading.name.should == "Silly ministries"
+               heading.name.should == @name
             end
         end
     end
 
     context 'when destroying a public body heading' do
 
+        before do
+            @heading = FactoryGirl.create(:public_body_heading)
+        end
+
         it "does not destroy a public body heading that has associated categories" do
-            heading = FactoryGirl.create(:silly_heading)
+            category = FactoryGirl.create(:public_body_category)
+            link = FactoryGirl.create(:public_body_category_link,
+                                      :public_body_category => category,
+                                      :public_body_heading => @heading,
+                                      :category_display_order => 0)
             n = PublicBodyHeading.count
-            post :destroy, { :id => heading.id }
-            response.should redirect_to(:controller=>'admin_public_body_heading', :action=>'edit', :id => heading.id)
+            post :destroy, { :id => @heading.id }
+            response.should redirect_to(:controller=>'admin_public_body_heading', :action=>'edit', :id => @heading.id)
             PublicBodyHeading.count.should == n
         end
 
         it "destroys an empty public body heading" do
-            heading = FactoryGirl.create(:heading_with_no_categories)
             n = PublicBodyHeading.count
-            post :destroy, { :id => heading.id }
+            post :destroy, { :id => @heading.id }
             response.should redirect_to(:controller=>'admin_public_body_category', :action=>'index')
             PublicBodyHeading.count.should == n - 1
         end

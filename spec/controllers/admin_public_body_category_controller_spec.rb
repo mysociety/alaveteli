@@ -33,7 +33,7 @@ describe AdminPublicBodyCategoryController do
         end
 
         it "saves the public body category's heading associations" do
-            heading = FactoryGirl.create(:popular_heading)
+            heading = FactoryGirl.create(:public_body_heading)
             post :create, {
                 :public_body_category => {
                     :title => 'New Category',
@@ -76,9 +76,9 @@ describe AdminPublicBodyCategoryController do
 
     context 'when editing a public body category' do
         before do
-            @category = FactoryGirl.create(:useless_category)
+            @category = FactoryGirl.create(:public_body_category)
             I18n.with_locale('es') do
-                @category.title = 'Los useless ministries'
+                @category.title = 'Los category'
                 @category.save!
             end
         end
@@ -93,7 +93,7 @@ describe AdminPublicBodyCategoryController do
             get :edit, {:id => @category.id, :locale => :en}
 
             # When editing a body, the controller returns all available translations
-            assigns[:category].find_translation_by_locale("es").title.should == 'Los useless ministries'
+            assigns[:category].find_translation_by_locale("es").title.should == 'Los category'
             response.should render_template('edit')
         end
     end
@@ -101,12 +101,15 @@ describe AdminPublicBodyCategoryController do
     context 'when updating a public body category' do
 
         before do
-            @heading = FactoryGirl.create(:silly_heading)
-            @category = @heading.public_body_categories.detect do |category|
-                category.title == 'Useless ministries'
-            end
+            @heading = FactoryGirl.create(:public_body_heading)
+            @category = FactoryGirl.create(:public_body_category)
+            link = FactoryGirl.create(:public_body_category_link,
+                                      :public_body_category => @category,
+                                      :public_body_heading => @heading,
+                                      :category_display_order => 0)
+            @tag = @category.category_tag
             I18n.with_locale('es') do
-                @category.title = 'Los useless ministries'
+                @category.title = 'Los category'
                 @category.save!
             end
         end
@@ -122,9 +125,8 @@ describe AdminPublicBodyCategoryController do
         end
 
         it "saves edits to a public body category's heading associations" do
-            @category.public_body_headings.count.should == 1
-            @category.public_body_headings.first.name.should == "Silly ministries"
-            heading = FactoryGirl.create(:popular_heading)
+            @category.public_body_headings.should == [@heading]
+            heading = FactoryGirl.create(:public_body_heading)
             post :update, { :id => @category.id,
                             :public_body_category => { :title => "Renamed" },
                             :headings => {"heading_#{heading.id}" => heading.id} }
@@ -135,11 +137,11 @@ describe AdminPublicBodyCategoryController do
 
         it "saves edits to a public body category in another locale" do
             I18n.with_locale(:es) do
-                @category.title.should == 'Los useless ministries'
+                @category.title.should == 'Los category'
                 post :update, {
                     :id => @category.id,
                     :public_body_category => {
-                        :title => "Useless ministries",
+                        :title => "Category",
                         :translated_versions => {
                             @category.id => {:locale => "es",
                                   :title => "Renamed"}
@@ -154,16 +156,17 @@ describe AdminPublicBodyCategoryController do
                pbc.title.should == "Renamed"
             end
             I18n.with_locale(:en) do
-               pbc.title.should == "Useless ministries"
+               pbc.title.should == "Category"
             end
         end
 
         it "does not save edits to category_tag if the category has associated bodies" do
+            body = FactoryGirl.create(:public_body, :tag_string => @tag)
             post :update, { :id => @category.id,
                             :public_body_category => { :category_tag => "renamed" } }
             request.flash[:notice].should include('can\'t')
             pbc = PublicBodyCategory.find(@category.id)
-            pbc.category_tag.should == "useless_agency"
+            pbc.category_tag.should == @tag
         end
 
 

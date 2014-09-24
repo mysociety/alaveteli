@@ -37,7 +37,7 @@ describe PublicBodyHeading do
         end
 
         it 'should require a unique name' do
-            heading = FactoryGirl.create(:silly_heading)
+            heading = FactoryGirl.create(:public_body_heading)
             new_heading = PublicBodyHeading.new(:name => heading.name)
             new_heading.should_not be_valid
             new_heading.errors[:name].should == ["Name is already taken"]
@@ -57,8 +57,8 @@ describe PublicBodyHeading do
         end
 
         it 'should return one more than the highest display order if there are public body headings' do
-            heading = FactoryGirl.create(:popular_heading)
-            PublicBodyHeading.next_display_order.should == 2
+            heading = FactoryGirl.create(:public_body_heading)
+            PublicBodyHeading.next_display_order.should == 1
         end
     end
 end
