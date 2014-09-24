@@ -24,6 +24,16 @@ class PublicBodyCategory < ActiveRecord::Base
     validates_presence_of :category_tag, :message => N_('Tag can\'t be blank')
     validates_presence_of :description, :message => N_('Description can\'t be blank')
 
+    def self.load_categories
+        I18n.available_locales.each do |locale|
+            begin
+                load "public_body_categories_#{locale}.rb"
+            rescue MissingSourceFile
+            end
+        end
+    end
+    private_class_method :load_categories
+
     def self.get
         load_categories if PublicBodyCategory.count < 1
 
@@ -152,16 +162,6 @@ class PublicBodyCategory < ActiveRecord::Base
                 next if empty_translation?(attrs)
                 new_translation = PublicBodyCategory::Translation.new(attrs)
                 translations << new_translation
-            end
-        end
-    end
-
-    private
-    def self.load_categories()
-        I18n.available_locales.each do |locale|
-            begin
-                load "public_body_categories_#{locale}.rb"
-            rescue MissingSourceFile
             end
         end
     end
