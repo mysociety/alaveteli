@@ -130,7 +130,7 @@ class PublicBodyCategory < ActiveRecord::Base
         end
         heading_link = PublicBodyCategoryLink.create(
             :public_body_category_id => self.id,
-            :public_body_heading_id => heading.id,
+            :public_body_heading_id => heading.id
         )
     end
 
