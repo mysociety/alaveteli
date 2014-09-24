@@ -34,16 +34,13 @@ describe AdminPublicBodyCategoryController do
 
         it "saves the public body category's heading associations" do
             heading = FactoryGirl.create(:public_body_heading)
+            category_attributes = FactoryGirl.attributes_for(:public_body_category)
             post :create, {
-                :public_body_category => {
-                    :title => 'New Category',
-                    :category_tag => 'new_test_category',
-                    :description => 'New category for testing stuff'
-                 },
-                 :headings => {"heading_#{heading.id}" => heading.id}
+                    :public_body_category => category_attributes,
+                    :headings => {"heading_#{heading.id}" => heading.id}
             }
             request.flash[:notice].should include('successful')
-            category = PublicBodyCategory.find_by_title("New Category")
+            category = PublicBodyCategory.find_by_title(category_attributes[:title])
             category.public_body_headings.should == [heading]
         end
 
