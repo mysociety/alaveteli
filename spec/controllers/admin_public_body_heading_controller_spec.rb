@@ -137,9 +137,9 @@ describe AdminPublicBodyHeadingController do
         render_views
 
         before do
-            @silly_heading = FactoryGirl.create(:silly_heading)
-            @popular_heading = FactoryGirl.create(:popular_heading)
-            @default_params = { :headings => [@popular_heading.id, @silly_heading.id] }
+            @first = FactoryGirl.create(:public_body_heading, :display_order => 0)
+            @second = FactoryGirl.create(:public_body_heading, :display_order => 1)
+            @default_params = { :headings => [@second.id, @first.id] }
         end
 
         def make_request(params=@default_params)
@@ -150,8 +150,8 @@ describe AdminPublicBodyHeadingController do
 
             it 'should reorder headings according to their position in the submitted params' do
                 make_request
-                PublicBodyHeading.find(@popular_heading.id).display_order.should == 0
-                PublicBodyHeading.find(@silly_heading.id).display_order.should == 1
+                PublicBodyHeading.find(@second.id).display_order.should == 0
+                PublicBodyHeading.find(@first.id).display_order.should == 1
             end
 
             it 'should return a "success" status' do
@@ -161,7 +161,7 @@ describe AdminPublicBodyHeadingController do
         end
 
         it 'should return an "unprocessable entity" status and an error message' do
-            @popular_heading.destroy
+            @first.destroy
             make_request
             assert_response :unprocessable_entity
             response.body.should match("Couldn't find PublicBodyHeading with id")

@@ -196,15 +196,19 @@ describe AdminPublicBodyCategoryController do
         render_views
 
         before do
-            @silly_heading = FactoryGirl.create(:silly_heading)
-            @useless_category = @silly_heading.public_body_categories.detect do |category|
-                category.title == 'Useless ministries'
-            end
-            @lonely_category = @silly_heading.public_body_categories.detect do |category|
-                category.title == 'Lonely agencies'
-            end
-            @default_params = { :categories => [@lonely_category.id, @useless_category.id],
-                                :heading_id => @silly_heading }
+            @heading = FactoryGirl.create(:public_body_heading)
+            @first_category = FactoryGirl.create(:public_body_category)
+            @first_link = FactoryGirl.create(:public_body_category_link,
+                                             :public_body_category => @first_category,
+                                             :public_body_heading => @heading,
+                                             :category_display_order => 0)
+            @second_category = FactoryGirl.create(:public_body_category)
+            @second_link = FactoryGirl.create(:public_body_category_link,
+                                                  :public_body_category => @second_category,
+                                                  :public_body_heading => @heading,
+                                                  :category_display_order => 1)
+            @default_params = { :categories => [@second_category.id, @first_category.id],
+                                :heading_id => @heading }
         end
 
         def make_request(params=@default_params)
@@ -215,11 +219,11 @@ describe AdminPublicBodyCategoryController do
 
             it 'should reorder categories for the heading according to their position \
                 in the submitted params' do
-                old_order = [@useless_category, @lonely_category]
-                new_order = [@lonely_category, @useless_category]
-                @silly_heading.public_body_categories.should == old_order
+                old_order = [@first_category, @second_category]
+                new_order = [@second_category, @first_category]
+                @heading.public_body_categories.should == old_order
                 make_request
-                @silly_heading.public_body_categories(reload=true).should == new_order
+                @heading.public_body_categories(reload=true).should == new_order
             end
 
             it 'should return a success status' do
@@ -231,7 +235,7 @@ describe AdminPublicBodyCategoryController do
         context 'when handling invalid input' do
 
             it 'should return an "unprocessable entity" status and an error message' do
-                @lonely_category.destroy
+                @first_category.destroy
                 make_request
                 assert_response :unprocessable_entity
                 response.body.should match("Couldn't find PublicBodyCategoryLink")
