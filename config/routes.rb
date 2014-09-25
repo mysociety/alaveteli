@@ -189,7 +189,6 @@ Alaveteli::Application.routes.draw do
     ####
 
     #### AdminPublicBodyHeading controller
-    match '/admin/category_heading' => 'admin_public_body_heading#index'
     match '/admin/category_heading/reorder' => 'admin_public_body_heading#reorder', :as => :admin_heading_reorder, :via => :post
     match '/admin/category_heading/new' => 'admin_public_body_heading#new', :as => :admin_heading_new
     match '/admin/category_heading/edit/:id' => 'admin_public_body_heading#edit', :as => :admin_heading_edit

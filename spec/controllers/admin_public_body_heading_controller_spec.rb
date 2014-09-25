@@ -1,14 +1,6 @@
 require 'spec_helper'
 
 describe AdminPublicBodyHeadingController do
-    context 'when showing the index of categories and headings' do
-        render_views
-
-        it 'redirect to the category list page from the index' do
-            get :index
-            response.should redirect_to :admin_category_index
-        end
-    end
 
     context 'when showing the form for a new public body category' do
         it 'should assign a new public body heading to the view' do
