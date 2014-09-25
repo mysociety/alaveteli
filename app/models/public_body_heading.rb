@@ -58,6 +58,12 @@ class PublicBodyHeading < ActiveRecord::Base
         end
     end
 
+    def add_category(category)
+        unless public_body_categories.include?(category)
+            public_body_categories << category
+        end
+    end
+
     def self.next_display_order
         if max = maximum(:display_order)
             max + 1
@@ -65,4 +71,5 @@ class PublicBodyHeading < ActiveRecord::Base
             0
         end
     end
+
 end

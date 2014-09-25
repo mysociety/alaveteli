@@ -53,6 +53,7 @@ require 'theme'
 require 'xapian_queries'
 require 'date_quarter'
 require 'public_body_csv'
+require 'category_and_heading_migrator'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)

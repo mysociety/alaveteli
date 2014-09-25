@@ -42,7 +42,7 @@ class AdminPublicBodyCategoryController < AdminController
                     end
 
                     added_headings.each do |heading_id|
-                        @category.add_to_heading(PublicBodyHeading.find(heading_id))
+                        PublicBodyHeading.find(heading_id).add_category(@category)
                     end
                 end
 
@@ -83,7 +83,7 @@ class AdminPublicBodyCategoryController < AdminController
             if @category.save
                 if params[:headings]
                     params[:headings].values.each do |heading_id|
-                        @category.add_to_heading(PublicBodyHeading.find(heading_id))
+                        PublicBodyHeading.find(heading_id).add_category(@category)
                     end
                 end
                 flash[:notice] = 'Category was successfully created.'

@@ -45,9 +45,9 @@ describe PublicBodyCategory do
 
     context "requesting data" do
 
-        it 'should call load_categories if categories are not already loaded' do
+        it 'should migrate categories if categories are not already loaded' do
             PublicBodyCategory.stub!(:count).and_return(0)
-            PublicBodyCategory.should_receive(:load_categories)
+            CategoryAndHeadingMigrator.should_receive(:migrate_categories_and_headings)
             PublicBodyCategory::get()
         end
 
