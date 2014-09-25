@@ -25,9 +25,9 @@ describe PublicBodyHeading do
         it 'should use the display_order field to preserve the original data order' do
             headings = PublicBodyHeading.all
             headings[0].name.should eq 'Local and regional'
-            headings[0].display_order.should eq 1
+            headings[0].display_order.should eq 0
             headings[1].name.should eq 'Miscellaneous'
-            headings[1].display_order.should eq 2
+            headings[1].display_order.should eq 1
         end
 
     end

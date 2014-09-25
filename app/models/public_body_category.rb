@@ -64,61 +64,59 @@ class PublicBodyCategory < ActiveRecord::Base
         PublicBodyCategory.find_by_sql(sql)
     end
 
-    # Called from the data files themselves
-    def self.add(locale, categories)
-        @heading = nil
-        @heading_order = 0
-        categories.each do |category|
-            if category.is_a?(Array)
-                #categories
-                pb_category = PublicBodyCategory.find_by_category_tag(category[0])
-                unless pb_category
-                    pb_category = PublicBodyCategory.create(
-                        {
-                            :category_tag => category[0],
-                            :title => category[1],
-                            :description => category[2]
-                        }
-                    )
-                    # add the translation if this is not the default locale
-                    # (occurs when a category is not defined in default locale)
-                    unless pb_category.translations.map { |t| t.locale }.include?(locale)
-                        I18n.with_locale(locale) do
-                            pb_category.title = category[1]
-                            pb_category.description = category[2]
-                            pb_category.save
-                        end
-                    end
+    def self.add_category(category_data, heading, locale)
+        tag, title, description = category_data
+        category = PublicBodyCategory.find_by_category_tag(tag)
+        if category
+            I18n.with_locale(locale) do
+                category.title = title
+                category.description = description
+                category.save
+            end
+        else
+            category = PublicBodyCategory.create(:category_tag => tag,
+                                                 :title => title,
+                                                 :description => description)
 
-                    pb_category.add_to_heading(@heading)
-                else
-                    I18n.with_locale(locale) do
-                        pb_category.title = category[1]
-                        pb_category.description = category[2]
-                        pb_category.save
-                    end
-                    pb_category.add_to_heading(@heading)
+            # add the translation if this is not the default locale
+            # (occurs when a category is not defined in default locale)
+            unless category.translations.map { |t| t.locale }.include?(locale)
+                I18n.with_locale(locale) do
+                    category.title = title
+                    category.description = description
+                    category.save
                 end
+            end
+        end
+        category.add_to_heading(heading)
+    end
+
+    def self.add_heading(name, locale)
+        matching_headings = PublicBodyHeading.with_translations.where(:name => name)
+        if matching_headings.count > 0
+            heading = matching_headings.first
+            I18n.with_locale(locale) do
+                heading.name = name
+                heading.save
+            end
+        else
+            I18n.with_locale(locale) do
+                heading = PublicBodyHeading.create(:name => name)
+            end
+        end
+        heading
+    end
+
+    # Called from the data files themselves
+    def self.add(locale, data_list)
+        current_heading = nil
+        data_list.each do |list_item|
+            if list_item.is_a?(Array)
+                # item is list of category data
+                add_category(list_item, current_heading, locale)
             else
-                #headings
-                matching_headings = PublicBodyHeading.with_translations.where(:name => category)
-                if matching_headings.count > 0
-                    @heading = matching_headings.first
-                    I18n.with_locale(locale) do
-                        @heading.name = category
-                        @heading.save
-                    end
-                else
-                    I18n.with_locale(locale) do
-                        last_heading = PublicBodyHeading.last
-                        if last_heading
-                            @heading_order = last_heading.display_order + 1
-                        else
-                            @heading_order = 1
-                        end
-                        @heading = PublicBodyHeading.create(:name => category, :display_order => @heading_order)
-                    end
-                end
+                # item is heading name
+                current_heading = add_heading(list_item, locale)
             end
         end
     end
