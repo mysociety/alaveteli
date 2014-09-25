@@ -82,6 +82,9 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration
         # finally, drop the old locale column from both tables
         remove_column :public_body_headings, :locale
         remove_column :public_body_categories, :locale
+        remove_column :public_body_headings, :name
+        remove_column :public_body_categories, :title
+        remove_column :public_body_categories, :description
 
         # and set category_tag to be unique
         add_index :public_body_categories, :category_tag, :unique => true
@@ -91,6 +94,9 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration
         # reinstate the columns
         add_column :public_body_categories, :locale, :string
         add_column :public_body_headings, :locale, :string
+        add_column :public_body_headings, :name, :string
+        add_column :public_body_categories, :title, :string
+        add_column :public_body_categories, :description, :string
 
         # drop the index
         remove_index :public_body_categories, :category_tag
