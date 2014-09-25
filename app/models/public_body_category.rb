@@ -135,7 +135,7 @@ class PublicBodyCategory < ActiveRecord::Base
 
     # Convenience methods for creating/editing translations via forms
     def find_translation_by_locale(locale)
-        self.translations.find_by_locale(locale)
+        translations.find_by_locale(locale)
     end
 
 
