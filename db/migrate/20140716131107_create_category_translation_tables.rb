@@ -1,4 +1,10 @@
 class CreateCategoryTranslationTables < ActiveRecord::Migration
+    class PublicBodyCategory < ActiveRecord::Base
+        translates :title, :description
+    end
+    class PublicBodyHeading < ActiveRecord::Base
+        translates :name
+    end
     def up
         default_locale = I18n.locale.to_s
 
@@ -47,7 +53,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration
         # copy current values across to the default locale
         PublicBodyHeading.where(:locale => default_locale).each do |heading|
           heading.translated_attributes.each do |a, default|
-            value = category.read_attribute(a)
+            value = heading.read_attribute(a)
             unless value.nil?
               heading.send(:"#{a}=", value)
             end
@@ -58,7 +64,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration
         # copy current values across to the non-default locale(s)
         PublicBodyHeading.where('locale != ?', default_locale).each do |heading|
             default_heading = PublicBodyHeading.find_by_name_and_locale(heading.name, default_locale)
-            I18n.with_locale(category.locale) do
+            I18n.with_locale(heading.locale) do
                 heading.translated_attributes.each do |a, default|
                     value = heading.read_attribute(a)
                     unless value.nil?
