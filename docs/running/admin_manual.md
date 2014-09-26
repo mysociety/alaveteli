@@ -388,6 +388,21 @@ of two ways.
 
 ### Hiding an incoming or outgoing message
 
+You may need to hide a particular incoming or outgoing message from a
+public request page, perhaps because someone has included personal
+information in it. You can do this from the message's page in the admin
+interface. You can get to a message's admin page either by following the
+links from the "Outgoing messages" or "Incoming messages" sections of
+the request's admin page, or directly from the public request page by
+clicking on the 'admin' link on the message itself. Once you are on the
+message's admin page, you can change it's prominence. Set the prominence
+to 'hidden' to hide it from everyone except site admins, or to
+'requester_only' to allow it to be viewed by the requester (and by site
+admins). If you can, add some text in the box 'Reason for prominence'.
+This will be displayed as part of the information that will appear on
+the request page where the message used to be, telling people that it
+has been hidden.
+
 ### Editing an outgoing message
 
 You may find there is a need to edit an outgoing message because the requester has accidentally included personal information that they don't want to be published on the site. You can either follow one of the 'admin' links from the public request page on the site, or find the request from the admin interface by searching under 'Requests'.
