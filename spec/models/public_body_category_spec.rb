@@ -52,4 +52,24 @@ describe PublicBodyCategory do
         end
 
     end
+
+    context 'when validating' do
+
+        it 'should require a title' do
+            category = PublicBodyCategory.new
+            category.should_not be_valid
+            category.errors[:title].should == ["Title can't be blank"]
+        end
+
+        it 'should require a category tag' do
+            category = PublicBodyCategory.new
+            category.should_not be_valid
+            category.errors[:category_tag].should == ["Tag can't be blank"]
+        end
+
+        it 'should require a unique tag' do
+            existing = FactoryGirl.create(:public_body_category)
+            PublicBodyCategory.new(:email => existing.category_tag).should_not be_valid
+        end
+    end
 end
