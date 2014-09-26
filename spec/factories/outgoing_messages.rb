@@ -1,6 +1,8 @@
 FactoryGirl.define do
 
     factory :outgoing_message do
+        info_request
+
         factory :initial_request do
             ignore do
                 status 'ready'
@@ -17,6 +19,13 @@ FactoryGirl.define do
                 what_doing 'internal_review'
             end
         end
+
+        # FIXME: This here because OutgoingMessage has an after_initialize,
+        # which seems to call everything in the app! FactoryGirl calls new with
+        # no parameters and then uses the assignment operator of each attribute
+        # to update it. Because after_initialize executes before assigning the
+        # attributes, loads of stuff fails because whatever after_initialize is
+        # doing expects some of the attributes to be there.
         initialize_with { OutgoingMessage.new({ :status => status,
                                                 :message_type => message_type,
                                                 :body => body,
