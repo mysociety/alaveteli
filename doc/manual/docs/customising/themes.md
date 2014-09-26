@@ -125,14 +125,15 @@ You can load extra stylesheets and javascript files by adding them to `lib/theme
 
 ## Adding your own categories for public bodies
 
-Categories are implemented in Alaveteli using tags.  Specific tags can
-be designated to group authorities together as a category.
-
-There's a file in the sample theme,
-`alavetelitheme/lib/public_body_categories_en.rb`, which contains a
-nested structure that defines categories.  It contains a comment
-describing its structure. You should make a copy of this file for each
-locale you support.
+Categories are implemented in Alaveteli using tags. Specific tags can be
+used to group authorities together as a category. Categories themselves
+are grouped under category headings on the side of the "View
+authorities" page. You can create, edit and reorder categories and
+category headings in the admin interface, from the "Categories" admin
+menu item. You can apply the category tags you have created to
+authorities under the "Authorities" admin menu item. For an authority to
+appear under a category, the category's "category tag" must be one of
+the tags applied to the authority.
 
 ## Customising the request states
 
