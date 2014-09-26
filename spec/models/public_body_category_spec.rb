@@ -43,16 +43,6 @@ describe PublicBodyCategory do
         end
     end
 
-    context "requesting data" do
-
-        it 'should migrate categories if categories are not already loaded' do
-            PublicBodyCategory.stub!(:count).and_return(0)
-            CategoryAndHeadingMigrator.should_receive(:migrate_categories_and_headings)
-            PublicBodyCategory::get()
-        end
-
-    end
-
     context 'when validating' do
 
         it 'should require a title' do

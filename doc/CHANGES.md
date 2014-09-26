@@ -8,7 +8,7 @@
   rather than only as a database constraint. If you have added a `CensorRule` in
   your theme, you will now have to satisfy the additional validations on the
   `:replacement`, `:last_edit_comment` and `:last_edit_editor` attributes.
-* Public body categories will now be stored in the database rather than being read directly from the `lib/public_body_categories_LOCALE` files - on first run, the contents of the files will be automatically imported into the database and all further changes will need to be made via the administrative interface.
+* Public body categories will now be stored in the database rather than being read directly from the `lib/public_body_categories_LOCALE` files. Once you have upgraded, run `script/migrate-public-body-categories`to import the contents of the files into the database. All further changes will then need to be made via the administrative interface.
 
 
 # Version 0.19

@@ -24,8 +24,6 @@ class PublicBodyCategory < ActiveRecord::Base
     validates_presence_of :category_tag, :message => N_("Tag can't be blank")
 
     def self.get
-        # migrate from file-based public body categories
-        CategoryAndHeadingMigrator.migrate_categories_and_headings if count < 1
         locale = I18n.locale.to_s || default_locale.to_s || ""
         categories = CategoryCollection.new
         I18n.with_locale(locale) do
