@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminPublicBodyHeadingController do
+describe AdminPublicBodyHeadingsController do
 
     context 'when showing the form for a new public body category' do
         it 'should assign a new public body heading to the view' do
@@ -20,7 +20,7 @@ describe AdminPublicBodyHeadingController do
             PublicBodyHeading.count.should == n + 1
 
             heading = PublicBodyHeading.find_by_name("New Heading")
-            response.should redirect_to(:controller=>'admin_public_body_category', :action=>'index')
+            response.should redirect_to(categories_path)
         end
 
         it 'creates a new public body heading with multiple locales' do
@@ -43,7 +43,7 @@ describe AdminPublicBodyHeadingController do
                 heading.name.should == "Mi Nuevo Heading"
             end
 
-            response.should redirect_to(:controller=>'admin_public_body_category', :action=>'index')
+            response.should redirect_to(categories_path)
         end
     end
 
@@ -112,14 +112,14 @@ describe AdminPublicBodyHeadingController do
                                       :category_display_order => 0)
             n = PublicBodyHeading.count
             post :destroy, { :id => @heading.id }
-            response.should redirect_to(:controller=>'admin_public_body_heading', :action=>'edit', :id => @heading.id)
+            response.should redirect_to(edit_heading_path(@heading))
             PublicBodyHeading.count.should == n
         end
 
         it "destroys an empty public body heading" do
             n = PublicBodyHeading.count
             post :destroy, { :id => @heading.id }
-            response.should redirect_to(:controller=>'admin_public_body_category', :action=>'index')
+            response.should redirect_to(categories_path)
             PublicBodyHeading.count.should == n - 1
         end
     end
@@ -171,5 +171,70 @@ describe AdminPublicBodyHeadingController do
             end
 
         end
+    end
+
+    context 'when reordering public body categories' do
+
+        render_views
+
+        before do
+            @heading = FactoryGirl.create(:public_body_heading)
+            @first_category = FactoryGirl.create(:public_body_category)
+            @first_link = FactoryGirl.create(:public_body_category_link,
+                                             :public_body_category => @first_category,
+                                             :public_body_heading => @heading,
+                                             :category_display_order => 0)
+            @second_category = FactoryGirl.create(:public_body_category)
+            @second_link = FactoryGirl.create(:public_body_category_link,
+                                                  :public_body_category => @second_category,
+                                                  :public_body_heading => @heading,
+                                                  :category_display_order => 1)
+            @default_params = { :categories => [@second_category.id, @first_category.id],
+                                :id => @heading }
+            @old_order = [@first_category, @second_category]
+            @new_order = [@second_category, @first_category]
+        end
+
+        def make_request(params=@default_params)
+            post :reorder_categories, params
+        end
+
+        context 'when handling valid input' do
+
+            it 'should reorder categories for the heading according to their position \
+                in the submitted params' do
+
+                @heading.public_body_categories.should == @old_order
+                make_request
+                @heading.public_body_categories(reload=true).should == @new_order
+            end
+
+            it 'should return a success status' do
+                make_request
+                response.should be_success
+            end
+        end
+
+        context 'when handling invalid input' do
+
+            before do
+                @new_category = FactoryGirl.create(:public_body_category)
+                @params = @default_params.merge(:categories => [@second_category.id,
+                                                                @first_category.id,
+                                                                @new_category.id])
+            end
+
+            it 'should return an "unprocessable entity" status and an error message' do
+                make_request(@params)
+                assert_response :unprocessable_entity
+                response.body.should match("Couldn't find PublicBodyCategoryLink")
+            end
+
+            it 'should not reorder the categories for the heading' do
+                make_request(@params)
+                @heading.public_body_categories(reload=true).should == @old_order
+            end
+        end
+
     end
 end

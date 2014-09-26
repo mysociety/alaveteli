@@ -1,4 +1,4 @@
-class AdminPublicBodyCategoryController < AdminController
+class AdminPublicBodyCategoriesController < AdminController
     def index
         @locale = self.locale_from_params
         @category_headings = PublicBodyHeading.all
@@ -55,28 +55,6 @@ class AdminPublicBodyCategoryController < AdminController
         end
     end
 
-    def reorder
-        error = nil
-        ActiveRecord::Base.transaction do
-            params[:categories].each_with_index do |category_id, index|
-                conditions = { :public_body_category_id => category_id,
-                               :public_body_heading_id => params[:heading_id] }
-                link = PublicBodyCategoryLink.where(conditions).first
-                unless link
-                    error = "Couldn't find PublicBodyCategoryLink for category #{category_id}, heading #{params[:heading_id]}"
-                    raise ActiveRecord::Rollback
-                end
-                link.category_display_order = index
-                unless link.save
-                    error = link.errors.full_messages.join(",")
-                    raise ActiveRecord::Rollback
-                end
-            end
-            render :nothing => true, :status => :ok and return
-        end
-        render :text => error, :status => :unprocessable_entity
-    end
-
     def create
         I18n.with_locale(I18n.default_locale) do
             @category = PublicBodyCategory.new(params[:public_body_category])
@@ -87,7 +65,7 @@ class AdminPublicBodyCategoryController < AdminController
                     end
                 end
                 flash[:notice] = 'Category was successfully created.'
-                redirect_to admin_category_index_url
+                redirect_to categories_path
             else
                 render :action => 'new'
             end
@@ -100,7 +78,7 @@ class AdminPublicBodyCategoryController < AdminController
             category = PublicBodyCategory.find(params[:id])
             category.destroy
             flash[:notice] = "Category was successfully destroyed."
-            redirect_to admin_category_index_url
+            redirect_to categories_path
         end
     end
 end

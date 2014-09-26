@@ -179,22 +179,21 @@ Alaveteli::Application.routes.draw do
     ####
 
     #### AdminPublicBodyCategory controller
-    match '/admin/category' => 'admin_public_body_category#index', :as => :admin_category_index
-    match '/admin/category/reorder/:heading_id' => 'admin_public_body_category#reorder', :as => :admin_category_reorder, :via => :post
-    match '/admin/category/new' => 'admin_public_body_category#new', :as => :admin_category_new
-    match '/admin/category/edit/:id' => 'admin_public_body_category#edit', :as => :admin_category_edit
-    match '/admin/category/update/:id' => 'admin_public_body_category#update', :as => :admin_category_update
-    match '/admin/category/create' => 'admin_public_body_category#create', :as => :admin_category_create
-    match '/admin/category/destroy/:id' => 'admin_public_body_category#destroy', :as => :admin_category_destroy
+    scope '/admin' do
+        resources :categories,
+                  :controller => 'admin_public_body_categories'
+    end
     ####
 
     #### AdminPublicBodyHeading controller
-    match '/admin/category_heading/reorder' => 'admin_public_body_heading#reorder', :as => :admin_heading_reorder, :via => :post
-    match '/admin/category_heading/new' => 'admin_public_body_heading#new', :as => :admin_heading_new
-    match '/admin/category_heading/edit/:id' => 'admin_public_body_heading#edit', :as => :admin_heading_edit
-    match '/admin/category_heading/update/:id' => 'admin_public_body_heading#update', :as => :admin_heading_update
-    match '/admin/category_heading/create' => 'admin_public_body_heading#create', :as => :admin_heading_create
-    match '/admin/category_heading/destroy/:id' => 'admin_public_body_heading#destroy', :as => :admin_heading_destroy
+    scope '/admin' do
+        resources :headings,
+                  :controller => 'admin_public_body_headings',
+                  :except => [:index] do
+                      post 'reorder', :on => :collection
+                      post 'reorder_categories', :on => :member
+        end
+    end
     ####
 
     #### AdminPublicBodyChangeRequest controller

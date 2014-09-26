@@ -1,10 +1,10 @@
-<% @title = 'New category heading' %>
+<% @title = 'New category' %>
 
 <h1><%=@title%></h1>
 <div class="row">
   <div class="span8">
-    <div id="public_heading_form">
-      <%= form_for @heading, :as => :public_body_heading, :url => admin_heading_create_path, :html => {:class => "form form-horizontal"} do |f| %>
+    <div id="public_category_form">
+      <%= form_for @category, :url => categories_path, :html => {:class => "form form-horizontal"} do |f| %>
           <%= render :partial => 'form', :locals => {:f => f} %>
 
           <div class="form-actions">
@@ -13,7 +13,7 @@
         <% end %>
         <div class="row">
           <div class="span8 well">
-              <%= link_to 'List all', admin_category_index_path, :class => "btn" %>
+              <%= link_to 'List all', categories_path, :class => "btn" %>
           </div>
         </div>
     </div>

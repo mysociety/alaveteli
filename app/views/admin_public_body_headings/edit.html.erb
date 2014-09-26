@@ -3,7 +3,7 @@
 <div class="row">
   <div class="span8">
     <div id="public_body_heading_form">
-      <%= form_for @heading, :url => admin_heading_update_path(@heading), :html => { :class => "form form-horizontal" } do |f| %>
+      <%= form_for @heading, :url => heading_path(@heading), :html => { :class => "form form-horizontal" } do |f| %>
           <%= render :partial => 'form', :locals => {:f => f} %>
           <div class="form-actions">
             <%= f.submit 'Save', :accesskey => 's', :class => "btn btn-success" %></p>
@@ -14,14 +14,14 @@
 
 <div class="row">
   <div class="span8 well">
-      <%= link_to 'List all', admin_category_index_path, :class => "btn" %>
+      <%= link_to 'List all', categories_path, :class => "btn" %>
   </div>
 </div>
 
 <% if @heading.public_body_categories.empty? %>
     <div class="row">
         <div class="span8">
-        <%= form_tag(admin_heading_destroy_path(@heading), :class => "form form-inline") do %>
+        <%= form_tag(heading_path(@heading), :method => 'delete', :class => "form form-inline") do %>
          <%= hidden_field_tag(:public_body_heading_id, { :value => @heading.id } ) %>
          <%= submit_tag "Destroy #{@heading.name}", :name => @heading.name, :class => "btn btn-danger" %> (this is permanent!)
         <% end %>

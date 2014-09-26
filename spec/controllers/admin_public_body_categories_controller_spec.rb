@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminPublicBodyCategoryController do
+describe AdminPublicBodyCategoriesController do
     context 'when showing the index of categories and headings' do
         render_views
 
@@ -29,7 +29,7 @@ describe AdminPublicBodyCategoryController do
             PublicBodyCategory.count.should == n + 1
 
             category = PublicBodyCategory.find_by_title("New Category")
-            response.should redirect_to(:controller=>'admin_public_body_category', :action=>'index')
+            response.should redirect_to(categories_path)
         end
 
         it "saves the public body category's heading associations" do
@@ -67,7 +67,7 @@ describe AdminPublicBodyCategoryController do
                 category.title.should == "Mi Nuevo Category"
             end
 
-            response.should redirect_to(:controller=>'admin_public_body_category', :action=>'index')
+            response.should redirect_to(categories_path)
         end
     end
 
@@ -183,74 +183,10 @@ describe AdminPublicBodyCategoryController do
             pbc = PublicBodyCategory.create(:title => "Empty Category", :category_tag => "empty", :description => "-")
             n = PublicBodyCategory.count
             post :destroy, { :id => pbc.id }
-            response.should redirect_to(:controller=>'admin_public_body_category', :action=>'index')
+            response.should redirect_to(categories_path)
             PublicBodyCategory.count.should == n - 1
         end
     end
 
-    context 'when reordering public body categories' do
-
-        render_views
-
-        before do
-            @heading = FactoryGirl.create(:public_body_heading)
-            @first_category = FactoryGirl.create(:public_body_category)
-            @first_link = FactoryGirl.create(:public_body_category_link,
-                                             :public_body_category => @first_category,
-                                             :public_body_heading => @heading,
-                                             :category_display_order => 0)
-            @second_category = FactoryGirl.create(:public_body_category)
-            @second_link = FactoryGirl.create(:public_body_category_link,
-                                                  :public_body_category => @second_category,
-                                                  :public_body_heading => @heading,
-                                                  :category_display_order => 1)
-            @default_params = { :categories => [@second_category.id, @first_category.id],
-                                :heading_id => @heading }
-            @old_order = [@first_category, @second_category]
-            @new_order = [@second_category, @first_category]
-        end
-
-        def make_request(params=@default_params)
-            post :reorder, params
-        end
-
-        context 'when handling valid input' do
-
-            it 'should reorder categories for the heading according to their position \
-                in the submitted params' do
-
-                @heading.public_body_categories.should == @old_order
-                make_request
-                @heading.public_body_categories(reload=true).should == @new_order
-            end
-
-            it 'should return a success status' do
-                make_request
-                response.should be_success
-            end
-        end
-
-        context 'when handling invalid input' do
-
-            before do
-                @new_category = FactoryGirl.create(:public_body_category)
-                @params = @default_params.merge(:categories => [@second_category.id,
-                                                                @first_category.id,
-                                                                @new_category.id])
-            end
-
-            it 'should return an "unprocessable entity" status and an error message' do
-                make_request(@params)
-                assert_response :unprocessable_entity
-                response.body.should match("Couldn't find PublicBodyCategoryLink")
-            end
-
-            it 'should not reorder the categories for the heading' do
-                make_request(@params)
-                @heading.public_body_categories(reload=true).should == @old_order
-            end
-        end
-
-    end
 
 end
