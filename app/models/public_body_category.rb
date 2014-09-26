@@ -20,9 +20,9 @@ class PublicBodyCategory < ActiveRecord::Base
 
     translates :title, :description
     validates_uniqueness_of :category_tag, :message => N_('Tag is already taken')
-    validates_presence_of :title, :message => N_('Title can\'t be blank')
-    validates_presence_of :category_tag, :message => N_('Tag can\'t be blank')
-    validates_presence_of :description, :message => N_('Description can\'t be blank')
+    validates_presence_of :title, :message => N_("Title can't be blank")
+    validates_presence_of :category_tag, :message => N_("Tag can't be blank")
+    validates_presence_of :description, :message => N_("Description can't be blank")
 
     def self.get
         # migrate from file-based public body categories
