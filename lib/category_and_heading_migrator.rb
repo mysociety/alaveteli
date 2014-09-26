@@ -59,8 +59,10 @@ module CategoryAndHeadingMigrator
     end
 
     def self.add_heading(name, locale, first_locale)
-        heading = PublicBodyHeading.with_translations.where(:name => name).first
-
+        heading = nil
+        I18n.with_locale(locale) do
+            heading = PublicBodyHeading.find_by_name(name)
+        end
         # For multi-locale installs, we assume that all public_body_[locale].rb files
         # use the same headings in the same order, so we add translations to the heading
         # that was in the same position in the list loaded from other public_body_[locale].rb
