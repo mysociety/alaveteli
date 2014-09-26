@@ -414,7 +414,7 @@ Then on the next page you will be able to edit the message accordingly and save 
 
 ### Hiding certain text from a request using censor rules
 
-Censor rules can be attached to a request or to a user and define bits of text
+Censor rules can be attached to a request or to a user. These rules define bits of text
 to be removed (either from the request (and all associated files e.g. incoming
 message attachments) or from all requests associated with a user), and some
 replacement text. In binary files, the replacement text will always be a series
@@ -438,5 +438,24 @@ hanging the application altogether), so please:
 
 * Restrict your use of them to cases that can't otherwise be easily covered.
 * Keep them as simple and specific as possible.
+
+<strong>To attach a censor rule to a request</strong>, go to the admin page for the
+request, scroll to the bottom of the page, and click the "New censor
+rule (for this request only)" button. On the following page, enter the
+text that you want to replace e.g. 'some private info', the text you
+wish to replace it with e.g. '[private info has been hidden]', and a
+comment letting other admins know why you have hidden the information.
+
+<strong>To attach a censor rule to a user</strong>, so that it will be applied to all
+requests that the user has made, go to the user page in the admin
+interface. You can do this either by clicking on the admin heading
+'Users' and browsing or searching to find the user you want, or by
+following an 'admin' link for the user from the public interface. One
+you are on the admin page for the user, scroll to the bottom of the page
+and click the 'New censor rule' button. On the following page, enter the
+text that you want to replace e.g. 'my real name is Bruce Wayne', the
+text you wish to replace it with e.g. '[personal information has been
+hidden]', and a comment letting other admins know why you have hidden
+the information.
 
 
