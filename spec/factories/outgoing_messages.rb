@@ -30,9 +30,6 @@ FactoryGirl.define do
                                                 :message_type => message_type,
                                                 :body => body,
                                                 :what_doing => what_doing }) }
-        after_create do |outgoing_message|
-            outgoing_message.send_message
-        end
     end
     
 end
