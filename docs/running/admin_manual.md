@@ -362,6 +362,29 @@ You can delete a request entirely using the admin interface. You will mainly onl
 
 ### Hiding a request
 
+You can hide an entire request from the admin interface. Log in to the
+admin interface at `/admin`. On the top row of links, locate and click on
+'Requests'. Search or browse to find the admin page for the request you
+want to hide. You can also go directly to this page by following an
+'admin' link from the public request page. You can hide a request in one
+of two ways.
+
+  * <strong>Hiding a vexatious or non-FOI request and notifying the
+    requester</strong>
+    Scroll down to the 'actions' section of the request
+    admin page. Select one of the options next to 'Hide the request and
+    notify the user:' and customise the text of the email that will be
+    sent to the user to let them know what you've done. When you're
+    ready, click the 'Hide request' button.
+  * <strong>Hiding a request or making it only visible to the
+    requester without notifying the requester</strong>
+    In the 'Request metadata' section of the request
+    admin page, click 'Edit metadata'. Change the 'Prominence' value to
+    'requester_only' to only allow the requester to view the request, or
+    to 'hidden' to hide the request from everyone except site admins.
+    When you're ready, click 'Save changes' at the bottom of the 'Edit
+    metadata' section. No email will be sent to the requester to notify
+    them of what you've done.
 
 ### Hiding an incoming or outgoing message
 
