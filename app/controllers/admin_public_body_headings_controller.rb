@@ -16,46 +16,21 @@ class AdminPublicBodyHeadingsController < AdminController
     end
 
     def reorder
-        error = nil
-        ActiveRecord::Base.transaction do
-            params[:headings].each_with_index do |heading_id, index|
-                begin
-                    heading = PublicBodyHeading.find(heading_id)
-                rescue ActiveRecord::RecordNotFound => e
-                    error = e.message
-                    raise ActiveRecord::Rollback
-                end
-                heading.display_order = index
-                unless heading.save
-                    error = heading.errors.full_messages.join(",")
-                    raise ActiveRecord::Rollback
-                end
-            end
-            render :nothing => true, :status => :ok and return
+        transaction = reorder_headings(params[:headings])
+        if transaction[:success]
+            render :nothing => true, :status => :ok
+        else
+            render :text => transaction[:error], :status => :unprocessable_entity
         end
-        render :text => error, :status => :unprocessable_entity
     end
 
     def reorder_categories
-        error = nil
-        ActiveRecord::Base.transaction do
-            params[:categories].each_with_index do |category_id, index|
-                conditions = { :public_body_category_id => category_id,
-                               :public_body_heading_id => params[:id] }
-                link = PublicBodyCategoryLink.where(conditions).first
-                unless link
-                    error = "Couldn't find PublicBodyCategoryLink for category #{category_id}, heading #{params[:id]}"
-                    raise ActiveRecord::Rollback
-                end
-                link.category_display_order = index
-                unless link.save
-                    error = link.errors.full_messages.join(",")
-                    raise ActiveRecord::Rollback
-                end
-            end
+        transaction = reorder_categories_for_heading(params[:id], params[:categories])
+        if transaction[:success]
             render :nothing => true, :status => :ok and return
+        else
+            render :text => transaction[:error], :status => :unprocessable_entity
         end
-        render :text => error, :status => :unprocessable_entity
     end
 
     def new
@@ -91,4 +66,48 @@ class AdminPublicBodyHeadingsController < AdminController
             redirect_to categories_url
         end
     end
+
+    protected
+
+    def reorder_headings(headings)
+        error = nil
+        ActiveRecord::Base.transaction do
+            headings.each_with_index do |heading_id, index|
+                begin
+                    heading = PublicBodyHeading.find(heading_id)
+                rescue ActiveRecord::RecordNotFound => e
+                    error = e.message
+                    raise ActiveRecord::Rollback
+                end
+                heading.display_order = index
+                unless heading.save
+                    error = heading.errors.full_messages.join(",")
+                    raise ActiveRecord::Rollback
+                end
+            end
+        end
+        { :success => error.nil? ? true : false, :error => error }
+    end
+
+    def reorder_categories_for_heading(heading_id, categories)
+        error = nil
+        ActiveRecord::Base.transaction do
+            categories.each_with_index do |category_id, index|
+                conditions = { :public_body_category_id => category_id,
+                               :public_body_heading_id => heading_id }
+                link = PublicBodyCategoryLink.where(conditions).first
+                unless link
+                    error = "Couldn't find PublicBodyCategoryLink for category #{category_id}, heading #{heading_id}"
+                    raise ActiveRecord::Rollback
+                end
+                link.category_display_order = index
+                unless link.save
+                    error = link.errors.full_messages.join(",")
+                    raise ActiveRecord::Rollback
+                end
+            end
+        end
+        { :success => error.nil? ? true : false, :error => error }
+    end
+
 end
