@@ -13,14 +13,14 @@
 
 <h2>All category headings</h2>
 <div>
-<%= render :partial => 'one_list', :locals => { :category_headings => @category_headings, :table_name => 'exact' } %>
+<%= render :partial => 'heading_list', :locals => { :category_headings => @category_headings, :table_name => 'exact' } %>
 
 <% if @without_heading.count > 0 %>
 
     <h3>Categories with no heading</h3>
 
     <% @without_heading.each do |category| %>
-          <%= render :partial => 'one', :locals => { :category => category, :heading => nil } %>
+          <%= render :partial => 'category_list_item', :locals => { :category => category, :heading => nil } %>
     <% end %>
 <% end %>
 <div class="form-actions save-panel">
