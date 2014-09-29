@@ -23,6 +23,7 @@ Definitions
   <li><a href="#capistrano">Capistrano</a></li>
   <li><a href="#censor-rule">censor rule</a></li>
   <li><a href="#development">development site</a></li>
+  <li><a href="#emergency">emergency user</a></li>
   <li><a href="#foi">freedom of information</a></li>
   <li><a href="#git">git</a></li>
   <li><a href="#holding_pen">holding pen</a></li>
@@ -228,6 +229,40 @@ Definitions
       <code><a href="{{site.baseurl}}docs/customising/config/#staging_site">STAGING_SITE</a></code>
       to <code>1</code>.
     </p>
+  </dd>
+
+  <dt>
+    <a name="emergency">emergency user</a>
+  </dt>
+  <dd>
+    Alaveteli ships with a configuration setting for an <strong>emergency user</strong>.
+    This provides a username and password you can use to access the admin, even though
+    the user doesn't appear in the database.
+    <p>
+      When the system has been bootstrapped (that is, you've used the emergency user to
+      grant a user account full <em>super</em> privileges), you must disable the emergency
+      user.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          The username and password are defined by the configuration settings
+          <code><a href="{{site.baseurl}}docs/customising/config/#admin_username">ADMIN_USERNAME</a></code>
+          and 
+          <code><a href="{{site.baseurl}}docs/customising/config/#admin_password">ADMIN_PASSWORD</a></code>.
+        </li>
+        <li>
+          For an example of using the emergency user, see
+          <a href="{{site.baseurl}}docs/installing/next_steps/#create-a-superuser-account-for-yourself">creating
+            a superuser account</a>.
+        </li>
+        <li>
+          Disable the emergency user by setting
+          <code><a href="{{site.baseurl}}docs/customising/config/#disable_emergency_user">DISABLE_EMERGENCY_USER</a> = false</code>
+        </li>
+      </ul>
+    </div>
   </dd>
 
   <dt>

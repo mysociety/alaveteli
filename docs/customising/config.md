@@ -71,7 +71,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 
 <code><a href="#admin_username">ADMIN_USERNAME</a></code>
 <br> <code><a href="#admin_password">ADMIN_PASSWORD</a></code>
-<br> <code><a href="#admin_username">DISABLE_EMERGENCY_USER</a></code>
+<br> <code><a href="#disable_emergency_user">DISABLE_EMERGENCY_USER</a></code>
 <br> <code><a href="#skip_admin_auth">SKIP_ADMIN_AUTH</a></code>
 
 ### Email management:
@@ -499,10 +499,22 @@ THEME_URLS:
     &amp;
     <a name="admin_password"><code>ADMIN_PASSWORD</code></a>
     <br>
-    <a name="admin_username"><code>DISABLE_EMERGENCY_USER</code></a>
+    <a name="disable_emergency_user"><code>DISABLE_EMERGENCY_USER</code></a>
   </dt>
   <dd>
-      The emergency user.
+      Details for the 
+      <a href="{{site.baseurl}}docs/glossary/#emergency" class="glossary__link">emergency user</a>.
+      <p>
+        This is useful for "bootstrapping" your
+        site: create a new user (using regular sign up on the site)
+        log in as the emergency user, promote the new account,
+        then disable the emergency user.
+      </p>
+      <p>
+        For details of this processs, see
+        <a href="{{site.baseurl}}docs/installing/next_steps/#create-a-superuser-account-for-yourself">creating
+          a superuser account</a>.
+      </p>
     <div class="more-info">
       <p>Examples:</p>
       <ul class="examples">
