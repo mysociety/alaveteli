@@ -46,7 +46,12 @@ class InfoRequestBatch < ActiveRecord::Base
             self.sent_at = Time.now
             self.save!
         end
-        created.each{ |info_request| info_request.outgoing_messages.first.send_message }
+        created.each do |info_request|
+            job = SendInitialRequestJob.new(info_request.outgoing_messages.first)
+            job.before
+            job.perform
+            job.after
+        end
 
         return unrequestable
     end

@@ -180,14 +180,6 @@ class OutgoingMessage < ActiveRecord::Base
                 self.last_sent_at = Time.now
                 self.status = 'sent'
                 self.save!
-
-                mail_message = OutgoingMailer.initial_request(info_request, self).deliver
-                self.info_request.log_event(log_event_type, {
-                    :email => mail_message.to_addrs.join(", "),
-                    :outgoing_message_id => self.id,
-                    :smtp_message_id => mail_message.message_id
-                })
-                self.info_request.set_described_state('waiting_response')
             elsif message_type == 'followup'
                 self.last_sent_at = Time.now
                 self.status = 'sent'
