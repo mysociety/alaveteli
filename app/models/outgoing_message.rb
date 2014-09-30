@@ -176,35 +176,10 @@ class OutgoingMessage < ActiveRecord::Base
     # InfoRequest.find(1).outgoing_messages[0].send_message
     def send_message(log_event_type = 'sent')
         if status == 'ready'
-            if message_type == 'initial_request'
+            if %w(initial_request followup).include?(message_type)
                 self.last_sent_at = Time.now
                 self.status = 'sent'
                 self.save!
-
-                mail_message = OutgoingMailer.initial_request(info_request, self).deliver
-                self.info_request.log_event(log_event_type, {
-                    :email => mail_message.to_addrs.join(", "),
-                    :outgoing_message_id => self.id,
-                    :smtp_message_id => mail_message.message_id
-                })
-                self.info_request.set_described_state('waiting_response')
-            elsif message_type == 'followup'
-                self.last_sent_at = Time.now
-                self.status = 'sent'
-                self.save!
-
-                mail_message = OutgoingMailer.followup(info_request, self, incoming_message_followup).deliver
-                self.info_request.log_event('followup_' + log_event_type, {
-                    :email => mail_message.to_addrs.join(", "),
-                    :outgoing_message_id => self.id,
-                    :smtp_message_id => mail_message.message_id
-                })
-                if info_request.described_state == 'waiting_clarification'
-                    self.info_request.set_described_state('waiting_response')
-                end
-                if what_doing == 'internal_review'
-                    self.info_request.set_described_state('internal_review')
-                end
             else
                 raise "Message id #{id} has type '#{message_type}' which send_message can't handle"
             end

@@ -365,8 +365,13 @@ class RequestController < ApplicationController
         end
         # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
         @info_request.save!
+
         # TODO: send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
-        @outgoing_message.send_message
+        job = SendInitialRequestJob.new(@outgoing_message)
+        job.before
+        job.perform
+        job.after
+
         flash[:notice] = _("<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>
             <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't
             replied by then.</p>
@@ -668,7 +673,11 @@ class RequestController < ApplicationController
                 end
 
                 # Send a follow up message
-                @outgoing_message.send_message
+                job = SendFollowupJob.new(@outgoing_message)
+                job.before
+                job.perform
+                job.after
+
                 @outgoing_message.save!
                 if @outgoing_message.what_doing == 'internal_review'
                     flash[:notice] = _("Your internal review request has been sent on its way.")
