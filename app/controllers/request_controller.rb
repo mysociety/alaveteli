@@ -673,7 +673,11 @@ class RequestController < ApplicationController
                 end
 
                 # Send a follow up message
-                @outgoing_message.send_message
+                job = SendFollowupJob.new(@outgoing_message)
+                job.before
+                job.perform
+                job.after
+
                 @outgoing_message.save!
                 if @outgoing_message.what_doing == 'internal_review'
                     flash[:notice] = _("Your internal review request has been sent on its way.")

@@ -50,7 +50,10 @@ FactoryGirl.define do
                                                     :what_doing => what_doing }) }
 
             after_create do |outgoing_message|
-                outgoing_message.send_message
+                job = SendFollowupJob.new(outgoing_message)
+                job.before
+                job.perform
+                job.after
             end
         end
 

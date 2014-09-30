@@ -1982,7 +1982,11 @@ describe RequestController, "sending overdue request alerts" do
                                                :info_request_id => chicken_request.id,
                                                :body => 'Some text',
                                                :what_doing => 'normal_sort')
-        outgoing_message.send_message
+
+        job = SendFollowupJob.new(outgoing_message)
+        job.before
+        job.perform
+        job.after
         outgoing_message.save!
 
         chicken_request = InfoRequest.find(chicken_request.id)
