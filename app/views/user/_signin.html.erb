@@ -18,7 +18,7 @@
     </p>
 
     <p class="form_note">
-    <%= link_to _('Forgotten your password?'), signchangepassword_path + "?pretoken=" + h(params[:token]), :tabindex => 30 %>
+    <%= link_to _('Forgotten your password?'), signchangepassword_path(:pretoken => h(params[:token])), :tabindex => 30 %>
     </p>
 
     <p class="form_checkbox">
