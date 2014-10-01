@@ -219,7 +219,7 @@ class TrackController < ApplicationController
         end
         flash[:notice] += "</ul>"
 
-        redirect_to params[:r]
+        redirect_to URI.parse(params[:r]).path
     end
 
 
