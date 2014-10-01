@@ -161,11 +161,10 @@ class InfoRequestEvent < ActiveRecord::Base
     end
 
     def incoming_message_selective_columns(fields)
-        message = IncomingMessage.find(:all,
-                                       :select => fields + ", incoming_messages.info_request_id",
-                                       :joins => "INNER JOIN info_request_events ON incoming_messages.id = incoming_message_id ",
-                                       :conditions => "info_request_events.id = #{self.id}"
-                                       )
+        message = IncomingMessage.select("#{ fields }, incoming_messages.info_request_id").
+            joins('INNER JOIN info_request_events ON incoming_messages.id = incoming_message_id').
+                where('info_request_events.id = ?', id)
+
         message = message[0]
         if !message.nil?
             message.info_request = InfoRequest.find(message.info_request_id)
