@@ -214,7 +214,7 @@ class TrackController < ApplicationController
             track_thing.destroy
         end
 
-        redirect_to params[:r]
+        redirect_to URI.parse(params[:r]).path
     end
 
     # Track interest in a request from a non-logged in user
