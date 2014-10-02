@@ -10,7 +10,6 @@ require 'open-uri'
 
 class RequestController < ApplicationController
     before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
-    protect_from_forgery :only => [ :new, :show_response, :describe_state, :upload_response ] # See ActionController::RequestForgeryProtection for details
     before_filter :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
     MAX_RESULTS = 500
     PER_PAGE = 25

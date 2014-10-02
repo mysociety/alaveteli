@@ -7,14 +7,7 @@
 require 'set'
 
 class UserController < ApplicationController
-
     layout :select_layout
-
-    protect_from_forgery :only => [ :contact,
-                                    :set_profile_photo,
-                                    :signchangeemail,
-                                    :clear_profile_photo,
-                                    :set_profile_about_me ] # See ActionController::RequestForgeryProtection for details
 
     # Show page about a user
     def show

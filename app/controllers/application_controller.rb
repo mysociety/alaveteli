@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
     end
     class RouteNotFound < StandardError
     end
+    protect_from_forgery
+
     # assign our own handler method for non-local exceptions
     rescue_from Exception, :with => :render_exception
 
