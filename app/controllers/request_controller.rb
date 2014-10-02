@@ -840,7 +840,15 @@ class RequestController < ApplicationController
         end
 
         # check filename in URL matches that in database (use a censor rule if you want to change a filename)
-        raise ActiveRecord::RecordNotFound.new("please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'") if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
+        if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
+            msg = 'please use same filename as original file has, display: '
+            msg += "'#{ @attachment.display_filename }' "
+            msg += 'old_display: '
+            msg += "'#{ @attachment.old_display_filename }' "
+            msg += 'original: '
+            msg += "'#{ @original_filename }'"
+            raise ActiveRecord::RecordNotFound.new(msg)
+        end
 
         @attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,
                 :incoming_message_id => @incoming_message.id, :part => @part_number,
