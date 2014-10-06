@@ -26,7 +26,7 @@ instance due to the low amount of memory available on those
 instances; you will need to use at least a Small instance, which
 Amazon will charge for.
 
-The AMI can be found in the EU West (Ireland) region, with the ID ami-baf351cd
+The AMI can be found in the EU West (Ireland) region, with the ID `ami-baf351cd`
 and name “Basic Alaveteli installation 2014-10-06”. You can launch an instance
 based on that AMI with [this
 link](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-baf351cd).
