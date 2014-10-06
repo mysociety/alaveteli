@@ -26,10 +26,10 @@ instance due to the low amount of memory available on those
 instances; you will need to use at least a Small instance, which
 Amazon will charge for.
 
-The AMI can be found in the EU West (Ireland) region, with the ID ami-23519f54
-and name “Basic Alaveteli installation 2014-06-12”. You can launch an instance
+The AMI can be found in the EU West (Ireland) region, with the ID ami-baf351cd
+and name “Basic Alaveteli installation 2014-10-06”. You can launch an instance
 based on that AMI with [this
-link](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-23519f54).
+link](https://console.aws.amazon.com/ec2/home?region=eu-west-1#launchAmi=ami-baf351cd).
 
 When you create an EC2 instance based on that AMI, make sure that you choose
 Security Groups that allows at least inbound HTTP, HTTPS, SSH and, if you want
