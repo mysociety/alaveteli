@@ -1,0 +1,63 @@
+{
+  "ignored_warnings": [
+    {
+      "location": {
+        "type": "method",
+        "method": "list_all_csv",
+        "class": "PublicBodyController"
+      },
+      "file": "app/controllers/public_body_controller.rb",
+      "warning_code": 16,
+      "render_path": null,
+      "link": "http://brakemanscanner.org/docs/warning_types/file_access/",
+      "warning_type": "File Access",
+      "code": "File.open(Tempfile.new(\"all-authorities.csv\", File.join(InfoRequest.download_zip_dir, \"download\")).path, \"w\")",
+      "line": 211,
+      "confidence": "Weak",
+      "user_input": "InfoRequest.download_zip_dir",
+      "message": "Model attribute used in file name",
+      "fingerprint": "00ce9cdd1d2c3f220bae94cb854393b5072ee1da064ca7a3af693fe2867d51c8",
+      "note": "InfoRequest.download_zip_dir does not contain user input"
+    },
+    {
+      "location": {
+        "type": "method",
+        "method": "list_all_csv",
+        "class": "PublicBodyController"
+      },
+      "file": "app/controllers/public_body_controller.rb",
+      "warning_code": 16,
+      "render_path": null,
+      "link": "http://brakemanscanner.org/docs/warning_types/file_access/",
+      "warning_type": "File Access",
+      "code": "File.rename(Tempfile.new(\"all-authorities.csv\", File.join(InfoRequest.download_zip_dir, \"download\")).path, File.join(File.join(InfoRequest.download_zip_dir, \"download\"), \"all-authorities.csv\"))",
+      "line": 213,
+      "confidence": "Weak",
+      "user_input": "InfoRequest.download_zip_dir",
+      "message": "Model attribute used in file name",
+      "fingerprint": "6078628aa47451d597e211629d80dcea0fdc7600dc066cabf2c0a4b9e07a75cc",
+      "note": "InfoRequest.download_zip_dir does not contain user input"
+    },
+    {
+      "location": {
+        "type": "method",
+        "method": "list_all_csv",
+        "class": "PublicBodyController"
+      },
+      "file": "app/controllers/public_body_controller.rb",
+      "warning_code": 16,
+      "render_path": null,
+      "link": "http://brakemanscanner.org/docs/warning_types/file_access/",
+      "warning_type": "File Access",
+      "code": "FileUtils.mkdir_p(File.join(InfoRequest.download_zip_dir, \"download\"))",
+      "line": 194,
+      "confidence": "Weak",
+      "user_input": "InfoRequest.download_zip_dir",
+      "message": "Model attribute used in file name",
+      "fingerprint": "5ed20f867c17c814cfe117906161a26f37b986d694996c9fd0089d4f971dc1d0",
+      "note": "InfoRequest.download_zip_dir does not contain user input"
+    }
+  ],
+  "updated": "Thu Oct 02 10:43:19 +0000 2014",
+  "brakeman_version": "2.6.2"
+}
