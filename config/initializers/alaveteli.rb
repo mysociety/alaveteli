@@ -54,6 +54,7 @@ require 'xapian_queries'
 require 'date_quarter'
 require 'public_body_csv'
 require 'category_and_heading_migrator'
+require 'public_body_categories'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)
@@ -63,7 +64,3 @@ if Rails.env == 'test' and ActiveRecord::Base.configurations['test']['constraint
   require 'no_constraint_disabling'
 end
 
-# Allow the PublicBodyCategory model to be addressed using the same syntax
-# as the old PublicBodyCategories class without needing to rename everything,
-# make sure we're not going to break any themes
-PublicBodyCategories = PublicBodyCategory

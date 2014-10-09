@@ -335,8 +335,8 @@ class PublicBody < ActiveRecord::Base
         types = []
         first = true
         for tag in self.tags
-            if PublicBodyCategories::get().by_tag().include?(tag.name)
-                desc = PublicBodyCategories::get().singular_by_tag()[tag.name]
+            if PublicBodyCategory.get().by_tag().include?(tag.name)
+                desc = PublicBodyCategory.get().singular_by_tag()[tag.name]
                 if first
                     # terrible that Ruby/Rails doesn't have an equivalent of ucfirst
                     # (capitalize shockingly converts later characters to lowercase)

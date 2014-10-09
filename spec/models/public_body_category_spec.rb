@@ -15,7 +15,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe PublicBodyCategory do
     describe 'when loading the data' do
         it 'should use the display_order field to preserve the original data order' do
-            PublicBodyCategories.add(:en, [
+            PublicBodyCategory.add(:en, [
                 "Local and regional",
                     [ "local_council", "Local councils", "a local council" ],
                 "Miscellaneous",
