@@ -15,7 +15,7 @@ describe PublicBodyHeading do
     context 'when loading the data' do
 
         before do
-            PublicBodyCategories.add(:en, [
+            PublicBodyCategory.add(:en, [
                   "Local and regional",
                       [ "local_council", "Local councils", "a local council" ],
                   "Miscellaneous",
