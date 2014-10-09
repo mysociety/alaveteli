@@ -179,14 +179,14 @@ Alaveteli::Application.routes.draw do
     ####
 
     #### AdminPublicBodyCategory controller
-    scope '/admin' do
+    scope '/admin', :as => 'admin' do
         resources :categories,
                   :controller => 'admin_public_body_categories'
     end
     ####
 
     #### AdminPublicBodyHeading controller
-    scope '/admin' do
+    scope '/admin', :as => 'admin'  do
         resources :headings,
                   :controller => 'admin_public_body_headings',
                   :except => [:index] do

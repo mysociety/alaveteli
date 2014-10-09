@@ -20,7 +20,7 @@ describe AdminPublicBodyHeadingsController do
             PublicBodyHeading.count.should == n + 1
 
             heading = PublicBodyHeading.find_by_name("New Heading")
-            response.should redirect_to(categories_path)
+            response.should redirect_to(admin_categories_path)
         end
 
         it 'creates a new public body heading with multiple locales' do
@@ -43,7 +43,7 @@ describe AdminPublicBodyHeadingsController do
                 heading.name.should == "Mi Nuevo Heading"
             end
 
-            response.should redirect_to(categories_path)
+            response.should redirect_to(admin_categories_path)
         end
     end
 
@@ -112,14 +112,14 @@ describe AdminPublicBodyHeadingsController do
                                       :category_display_order => 0)
             n = PublicBodyHeading.count
             post :destroy, { :id => @heading.id }
-            response.should redirect_to(edit_heading_path(@heading))
+            response.should redirect_to(edit_admin_heading_path(@heading))
             PublicBodyHeading.count.should == n
         end
 
         it "destroys an empty public body heading" do
             n = PublicBodyHeading.count
             post :destroy, { :id => @heading.id }
-            response.should redirect_to(categories_path)
+            response.should redirect_to(admin_categories_path)
             PublicBodyHeading.count.should == n - 1
         end
     end

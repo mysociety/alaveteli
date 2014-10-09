@@ -29,7 +29,7 @@ describe AdminPublicBodyCategoriesController do
             PublicBodyCategory.count.should == n + 1
 
             category = PublicBodyCategory.find_by_title("New Category")
-            response.should redirect_to(categories_path)
+            response.should redirect_to(admin_categories_path)
         end
 
         it "saves the public body category's heading associations" do
@@ -67,7 +67,7 @@ describe AdminPublicBodyCategoriesController do
                 category.title.should == "Mi Nuevo Category"
             end
 
-            response.should redirect_to(categories_path)
+            response.should redirect_to(admin_categories_path)
         end
     end
 
@@ -183,7 +183,7 @@ describe AdminPublicBodyCategoriesController do
             pbc = PublicBodyCategory.create(:title => "Empty Category", :category_tag => "empty", :description => "-")
             n = PublicBodyCategory.count
             post :destroy, { :id => pbc.id }
-            response.should redirect_to(categories_path)
+            response.should redirect_to(admin_categories_path)
             PublicBodyCategory.count.should == n - 1
         end
     end

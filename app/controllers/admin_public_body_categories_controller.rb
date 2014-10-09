@@ -65,7 +65,7 @@ class AdminPublicBodyCategoriesController < AdminController
                     end
                 end
                 flash[:notice] = 'Category was successfully created.'
-                redirect_to categories_path
+                redirect_to admin_categories_path
             else
                 render :action => 'new'
             end
@@ -78,7 +78,7 @@ class AdminPublicBodyCategoriesController < AdminController
             category = PublicBodyCategory.find(params[:id])
             category.destroy
             flash[:notice] = "Category was successfully destroyed."
-            redirect_to categories_path
+            redirect_to admin_categories_path
         end
     end
 end

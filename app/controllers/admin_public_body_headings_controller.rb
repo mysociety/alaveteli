@@ -43,7 +43,7 @@ class AdminPublicBodyHeadingsController < AdminController
             @heading = PublicBodyHeading.new(params[:public_body_heading])
             if @heading.save
                 flash[:notice] = 'Category heading was successfully created.'
-                redirect_to categories_url
+                redirect_to admin_categories_url
             else
                 render :action => 'new'
             end
@@ -57,13 +57,13 @@ class AdminPublicBodyHeadingsController < AdminController
 
             if heading.public_body_categories.count > 0
                 flash[:notice] = "There are categories associated with this heading, so can't destroy it"
-                redirect_to edit_heading_url(heading)
+                redirect_to edit_admin_heading_url(heading)
                 return
             end
 
             heading.destroy
             flash[:notice] = "Category heading was successfully destroyed."
-            redirect_to categories_url
+            redirect_to admin_categories_url
         end
     end
 
