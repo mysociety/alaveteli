@@ -13,6 +13,35 @@ title: Administrator's guide
   href="https://www.whatdotheyknow.com">whatdotheyknow.com</a>.
 </p>
 
+In this guide:
+
+<ul class="toc">
+  <li><a href="#whats-involved">What's involved?</a></li>
+  <li><a href="#user-support">User support</a>
+    <ul>
+      <li><a href="#dealing-with-email-thats-not-getting-through-to-the-authority">Dealing with email that's not getting through to the authority</a></li>
+      <li><a href="#requests-to-take-down-information">Requests to take down information</a></li>
+      <li><a href="#incorrectly-addressed">Incorrectly addressed</a></li>
+      <li><a href="#wants-advice">Wants advice</a></li>
+      <li><a href="#general-assistance-required">General assistance required</a></li>
+      <li><a href="#vexatious-users">Vexatious users</a></li>
+      <li><a href="#mail-import-errors">Mail import errors</a></li>
+    </ul>
+  <li><a href="#maintenance">Maintenance</a></li>
+    <ul>
+      <li><a href="#administrator-privileges-and-accessing-the-admin-interface">Administrator privileges and accessing the admin interface</a></li>
+      <li><a href="#removing-a-message-from-the-holding-pen">Removing a message from the 'Holding Pen'</a></li>
+      <li><a href="#editing-and-uploading-public-body-email-addresses">Editing and uploading public body email addresses</a></li>
+      <li><a href="#banning-a-user">Banning a user</a></li>
+      <li><a href="#deleting-a-request">Deleting a request</a></li>
+      <li><a href="#hiding-a-request">Hiding a request</a></li>
+      <li><a href="#hiding-an-incoming-or-outgoing-message">Hiding an incoming or outgoing message</a></li>
+      <li><a href="#editing-an-outgoing-message">Editing an outgoing message</a></li>
+      <li><a href="#hiding-certain-text-from-a-request-using-censor-rules">Hiding certain text from a request</a></li>
+    </ul>
+  </li>
+</ul>
+
 ## What's involved?
 
 The overhead in managing a successful FOI website is quite high. Richard, a
@@ -24,7 +53,7 @@ WhatDoTheyKnow usually has about 3 active volunteers at any one time managing
 the support, plus a few other less active people who help out at different
 times.
 
-Administration tasks can be split into **maintenance** and **user support**.
+Administration tasks can be split into [**maintenance**]({{ site.baseurl }}docs/running/admin_manual/#maintenance) and [**user support**]({{ site.baseurl }}docs/running/admin_manual/#user-support).
 The boundaries of these tasks is in fact quite blurred; the main distinction is
 that the former happen exclusively through the web admin interface, whereas the
 latter are mediated by email directly with end users (but often result in
@@ -49,7 +78,7 @@ During that week, the tasks broke down as follows:
 * 2 requests that have been marked as needing admin attention
 * 2 things marked as errors (message refused by server - spam, full mailbox, etc) to fix
 
-### User interaction tasks
+### User support tasks
 
 * 16 general, daily admin: i.e. things that resulted in admin actions on the
   site (bounces, misdelivered responses, etc)
@@ -59,9 +88,9 @@ During that week, the tasks broke down as follows:
 * 3 requests to redact personal information
 * 2 requests to redact defamatory information
 
-## Types of user interaction
+## User support
 
-There follows a breakdown of the most common kinds of user interaction. It's
+There follows a breakdown of the most common kinds of user support. It's
 intended for use as a guide to the kind of policies and training that a support
 team might need to develop.
 
@@ -253,13 +282,13 @@ Can be for many reasons, e.g.
   themselves
 * A reply has been automatically filed under the wrong request
 
-## Vexatious users
+### Vexatious users
 
 Some users persistently misuse the website. An alaveteli site should have a
 policy on banning users, for example giving them a first warning, informing
 them about moderation policy, etc.
 
-## Mail import errors
+### Mail import errors
 
 These are currently occurring at a rate of about two a month. Sometimes the
 root cause seems to be blocking in the database when two mails are received for
@@ -274,9 +303,118 @@ the error sent to the site support address) in a file without the first "From"
 line, and piping the contents of that file into the mail handling script. e.g.
 ```cat missing_mail.txt | script/mailin```
 
-## Censor rules
 
-Censor rules can be attached to a request or to a user and define bits of text
+## Maintenance
+
+### Administrator privileges and accessing the admin interface
+
+The administrative interface is at the URL `/admin`.
+
+Only users with the `super` admin level can access the admin interface. Users
+create their own accounts in the usual way, and then administrators can give
+them `super` privileges.
+
+There is an emergency user account which can be accessed via
+`/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
+`ADMIN_PASSWORD`, which are set in `general.yml`.  To bootstrap the
+first `super` level accounts, you will need to log in as the emergency
+user. You can disable the emergency user account by setting `DISABLE_EMERGENCY_USER` to `true` in `general.yml`.
+
+Users with the superuser role also have extra privileges in the website
+front end, such as being able to categorise any request, being able to view
+items that have been hidden from the search, and being presented with "admin"
+links next to individual requests and comments in the front end.
+
+It is possible completely to override the administrator authentication by
+setting `SKIP_ADMIN_AUTH` to `true` in `general.yml`.
+
+### Removing a message from the 'Holding Pen'
+
+The reason a message is in the holding pen is because the email can't be automatically associated with the request it is responding to. The email needs to be moved from the holding pen to the request it belongs with.
+
+First, log into the admin interface at `/admin`. You will see messages that are in the 'holding pen' under the title ‘Put misdelivered responses with the right request’. Click on the chevron to see the individual messages.
+
+If you click on a message in the holding pen, you may see a guess made by Alaveteli as to which request the message belongs to. Check this request. If it isn't the right one, or if Alaveteli hasn't made any guesses, you will need to look at the `To:` address of the raw email and the contents of the mail in order to figure out which request it belongs to. You can browse and search requests in the admin interface under the 'Requests' menu item.
+
+Once you have identified the request the message belongs to, you need to go back to the holding pen message page. Paste the request `id` or `url_title` into the box under 'Actions' in 'Incoming Message'. The request `id` can be found in the request URL in the admin interface - it is the part after `/show/`. In the admin request URL `/admin/request/show/118`, the request `id` is `118`. The `url_title` can be found in the request URL in the main interface - it is the part after `/request/`. In the URL `/request/documents_relating_to_meeting`, it is `documents_relating_to_meeting`. Then click on 'Redeliver to another request'.
+
+The message will now be associated with the correct request and will appear on the public request page.
+
+### Editing and uploading public body email addresses
+
+
+
+### Banning a user
+
+<<<<<<< HEAD
+You may wish to completely ban a user from the website (such as a spammer or troll for example). You need to log into the admin interface at `/admin`. On the top row of links, locate and click on ‘Users’.
+=======
+You may wish to completely ban a user from the website (such as a spammer or troll for example). You need to log into the admin interface at `admin`. On the top row of links, locate and click on ‘Users’.
+>>>>>>> 5ad8992... Use 'admin interface' instead of 'admin tool'
+
+Find the user you wish to ban on the list and click on their name. Once on the user page, select ‘edit’.
+
+Enter some text in the in the ‘Ban text’ box to explain why they have been banned.  Please be aware, this is publicly viewable from the users' account. Then click on save and the user will be banned.
+
+### Deleting a request
+
+You can delete a request entirely using the admin interface. You will mainly only need to do this if someone has posted private information. Go to the admin page for the request by searching or browsing in the 'Requests' section of the admin interface. In the first section, click the 'Edit metadata' button. At the bottom of the next page, click the red 'Destroy request entirely' button.
+
+### Hiding a request
+
+You can hide an entire request from the admin interface. Log in to the
+admin interface at `/admin`. On the top row of links, locate and click on
+'Requests'. Search or browse to find the admin page for the request you
+want to hide. You can also go directly to this page by following an
+'admin' link from the public request page. You can hide a request in one
+of two ways.
+
+  * <strong>Hiding a vexatious or non-FOI request and notifying the
+    requester</strong>
+    Scroll down to the 'actions' section of the request
+    admin page. Select one of the options next to 'Hide the request and
+    notify the user:' and customise the text of the email that will be
+    sent to the user to let them know what you've done. When you're
+    ready, click the 'Hide request' button.
+  * <strong>Hiding a request or making it only visible to the
+    requester without notifying the requester</strong>
+    In the 'Request metadata' section of the request
+    admin page, click 'Edit metadata'. Change the 'Prominence' value to
+    'requester_only' to only allow the requester to view the request, or
+    to 'hidden' to hide the request from everyone except site admins.
+    When you're ready, click 'Save changes' at the bottom of the 'Edit
+    metadata' section. No email will be sent to the requester to notify
+    them of what you've done.
+
+### Hiding an incoming or outgoing message
+
+You may need to hide a particular incoming or outgoing message from a
+public request page, perhaps because someone has included personal
+information in it. You can do this from the message's page in the admin
+interface. You can get to a message's admin page either by following the
+links from the "Outgoing messages" or "Incoming messages" sections of
+the request's admin page, or directly from the public request page by
+clicking on the 'admin' link on the message itself. Once you are on the
+message's admin page, you can change it's prominence. Set the prominence
+to 'hidden' to hide it from everyone except site admins, or to
+'requester_only' to allow it to be viewed by the requester (and by site
+admins). If you can, add some text in the box 'Reason for prominence'.
+This will be displayed as part of the information that will appear on
+the request page where the message used to be, telling people that it
+has been hidden.
+
+### Editing an outgoing message
+
+You may find there is a need to edit an outgoing message because the requester has accidentally included personal information that they don't want to be published on the site. You can either follow one of the 'admin' links from the public request page on the site, or find the request from the admin interface by searching under 'Requests'.
+
+Scroll down to the 'Outgoing Messages' section, and click on 'Edit'.
+
+Then on the next page you will be able to edit the message accordingly and save it. The edited version will then appear on the Alaveteli website, although an unedited version will have been sent to the authority.
+
+
+### Hiding certain text from a request using censor rules
+
+Censor rules can be attached to a request or to a user. These rules define bits of text
 to be removed (either from the request (and all associated files e.g. incoming
 message attachments) or from all requests associated with a user), and some
 replacement text. In binary files, the replacement text will always be a series
@@ -301,24 +439,23 @@ hanging the application altogether), so please:
 * Restrict your use of them to cases that can't otherwise be easily covered.
 * Keep them as simple and specific as possible.
 
-## Administrator privileges
+<strong>To attach a censor rule to a request</strong>, go to the admin page for the
+request, scroll to the bottom of the page, and click the "New censor
+rule (for this request only)" button. On the following page, enter the
+text that you want to replace e.g. 'some private info', the text you
+wish to replace it with e.g. '[private info has been hidden]', and a
+comment letting other admins know why you have hidden the information.
 
-The administrative interface is at the URL `/admin`.
+<strong>To attach a censor rule to a user</strong>, so that it will be applied to all
+requests that the user has made, go to the user page in the admin
+interface. You can do this either by clicking on the admin heading
+'Users' and browsing or searching to find the user you want, or by
+following an 'admin' link for the user from the public interface. One
+you are on the admin page for the user, scroll to the bottom of the page
+and click the 'New censor rule' button. On the following page, enter the
+text that you want to replace e.g. 'my real name is Bruce Wayne', the
+text you wish to replace it with e.g. '[personal information has been
+hidden]', and a comment letting other admins know why you have hidden
+the information.
 
-Only users with the `super` admin level can access the admin interface. Users
-create their own accounts in the usual way, and then administrators can give
-them `super` privileges.
 
-There is an emergency user account which can be accessed via
-`/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
-`ADMIN_PASSWORD`, which are set in `general.yml`.  To bootstrap the
-first `super` level accounts, you will need to log in as the emergency
-user. You can disable the emergency user account by setting `DISABLE_EMERGENCY_USER` to `true` in `general.yml`.
-
-Users with the superuser role also have extra privileges in the website
-front end, such as being able to categorise any request, being able to view
-items that have been hidden from the search, and being presented with "admin"
-links next to individual requests and comments in the front end.
-
-It is possible completely to override the administrator authentication by
-setting `SKIP_ADMIN_AUTH` to `true` in `general.yml`.
