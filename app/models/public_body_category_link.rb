@@ -12,6 +12,8 @@ class PublicBodyCategoryLink < ActiveRecord::Base
 
     belongs_to :public_body_category
     belongs_to :public_body_heading
+    validates_presence_of :public_body_category
+    validates_presence_of :public_body_heading
     validates :category_display_order, :numericality => { :only_integer => true,
                                                           :message => N_('Display order must be a number') }
 

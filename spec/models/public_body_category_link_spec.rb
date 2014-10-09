@@ -20,6 +20,18 @@ describe PublicBodyHeading, 'when validating' do
         category_link.category_display_order.should == PublicBodyCategoryLink.next_display_order(heading)
     end
 
+    it 'should be invalid without a category' do
+        category_link = PublicBodyCategoryLink.new
+        category_link.should_not be_valid
+        category_link.errors[:public_body_category].should == ["can't be blank"]
+    end
+
+    it 'should be invalid without a heading' do
+        category_link = PublicBodyCategoryLink.new
+        category_link.should_not be_valid
+        category_link.errors[:public_body_heading].should == ["can't be blank"]
+    end
+
 end
 
 describe PublicBodyCategoryLink, 'when setting a category display order' do
