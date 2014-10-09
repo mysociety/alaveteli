@@ -5,13 +5,17 @@ module CategoryAndHeadingMigrator
 
     # Load all the data from public_body_categories_[locale].rb files.
     def self.migrate_categories_and_headings
-        @first_locale = true
-        I18n.available_locales.each do |locale|
-            begin
-                load "public_body_categories_#{locale}.rb"
-            rescue MissingSourceFile
+        if PublicBodyCategory.count > 0
+            puts "PublicBodyCategories exist already, not migrating."
+        else
+            @first_locale = true
+            I18n.available_locales.each do |locale|
+                begin
+                    load "public_body_categories_#{locale}.rb"
+                rescue MissingSourceFile
+                end
+                @first_locale = false
             end
-            @first_locale = false
         end
     end
 
