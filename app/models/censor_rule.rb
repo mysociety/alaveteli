@@ -64,13 +64,11 @@ class CensorRule < ActiveRecord::Base
 
     def apply_to_text!(text)
         return nil if text.nil?
-        to_replace = regexp? ? make_regexp : self.text
         text.gsub!(to_replace, replacement)
     end
 
     def apply_to_binary!(binary)
         return nil if binary.nil?
-        to_replace = regexp? ? make_regexp : text
         binary.gsub!(to_replace) { |match| match.gsub(/./, 'x') }
     end
 
@@ -82,6 +80,12 @@ class CensorRule < ActiveRecord::Base
 
     def is_global?
         info_request_id.nil? && user_id.nil? && public_body_id.nil?
+    end
+
+    private
+
+    def to_replace
+        regexp? ? make_regexp : text
     end
 
 end
