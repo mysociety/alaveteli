@@ -42,26 +42,6 @@ class CensorRule < ActiveRecord::Base
                                       :user_id => nil,
                                       :public_body_id => nil } }
 
-    def require_user_request_or_public_body
-        if info_request.nil? && user.nil? && public_body.nil?
-            [:info_request, :user, :public_body].each do |a|
-                errors.add(a, "Rule must apply to an info request, a user or a body")
-            end
-        end
-    end
-
-    def require_valid_regexp
-        begin
-            make_regexp
-        rescue RegexpError => e
-            errors.add(:text, e.message)
-        end
-    end
-
-    def make_regexp
-        Regexp.new(text, Regexp::MULTILINE)
-    end
-
     def apply_to_text!(text)
         return nil if text.nil?
         text.gsub!(to_replace, replacement)
@@ -83,6 +63,26 @@ class CensorRule < ActiveRecord::Base
     end
 
     private
+
+    def require_user_request_or_public_body
+        if info_request.nil? && user.nil? && public_body.nil?
+            [:info_request, :user, :public_body].each do |a|
+                errors.add(a, "Rule must apply to an info request, a user or a body")
+            end
+        end
+    end
+
+    def require_valid_regexp
+        begin
+            make_regexp
+        rescue RegexpError => e
+            errors.add(:text, e.message)
+        end
+    end
+
+    def make_regexp
+        Regexp.new(text, Regexp::MULTILINE)
+    end
 
     def to_replace
         regexp? ? make_regexp : text
