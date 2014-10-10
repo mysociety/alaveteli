@@ -42,14 +42,14 @@ class CensorRule < ActiveRecord::Base
                                       :user_id => nil,
                                       :public_body_id => nil } }
 
-    def apply_to_text!(text)
-        return nil if text.nil?
-        text.gsub!(to_replace, replacement)
+    def apply_to_text!(text_to_censor)
+        return nil if text_to_censor.nil?
+        text_to_censor.gsub!(to_replace, replacement)
     end
 
-    def apply_to_binary!(binary)
-        return nil if binary.nil?
-        binary.gsub!(to_replace) { |match| match.gsub(/./, 'x') }
+    def apply_to_binary!(binary_to_censor)
+        return nil if binary_to_censor.nil?
+        binary_to_censor.gsub!(to_replace) { |match| match.gsub(/./, 'x') }
     end
 
     def for_admin_column
