@@ -252,7 +252,7 @@ Alaveteli::Application.routes.draw do
     ####
 
     #### AdminSpamAddresses controller
-    scope '/admin' do
+    scope '/admin', :as => 'admin' do
         resources :spam_addresses,
                   :controller => 'admin_spam_addresses',
                   :only => [:index, :create, :destroy]
