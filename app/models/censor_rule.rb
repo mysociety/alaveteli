@@ -26,22 +26,24 @@ class CensorRule < ActiveRecord::Base
     belongs_to :user
     belongs_to :public_body
 
-    # a flag to allow the require_user_request_or_public_body validation to be skipped
+    # a flag to allow the require_user_request_or_public_body
+    # validation to be skipped
     attr_accessor :allow_global
-    validate :require_user_request_or_public_body, :unless => proc{ |rule| rule.allow_global == true }
-    validate :require_valid_regexp, :if => proc{ |rule| rule.regexp? == true }
+
+    validate :require_user_request_or_public_body, :unless => proc { |rule| rule.allow_global == true }
+    validate :require_valid_regexp, :if => proc { |rule| rule.regexp? == true }
 
     validates_presence_of :text,
                           :replacement,
                           :last_edit_comment,
                           :last_edit_editor
 
-    scope :global, {:conditions => {:info_request_id => nil,
-                                    :user_id => nil,
-                                    :public_body_id => nil}}
+    scope :global, { :conditions => { :info_request_id => nil,
+                                      :user_id => nil,
+                                      :public_body_id => nil } }
 
     def require_user_request_or_public_body
-        if self.info_request.nil? && self.user.nil? && self.public_body.nil?
+        if info_request.nil? && user.nil? && public_body.nil?
             [:info_request, :user, :public_body].each do |a|
                 errors.add(a, "Rule must apply to an info request, a user or a body")
             end
@@ -50,41 +52,36 @@ class CensorRule < ActiveRecord::Base
 
     def require_valid_regexp
         begin
-            self.make_regexp()
+            make_regexp
         rescue RegexpError => e
             errors.add(:text, e.message)
         end
     end
 
     def make_regexp
-        return Regexp.new(self.text, Regexp::MULTILINE)
+        Regexp.new(text, Regexp::MULTILINE)
     end
 
     def apply_to_text!(text)
-        if text.nil?
-            return nil
-        end
-        to_replace = regexp? ? self.make_regexp() : self.text
-        text.gsub!(to_replace, self.replacement)
+        return nil if text.nil?
+        to_replace = regexp? ? make_regexp : self.text
+        text.gsub!(to_replace, replacement)
     end
 
     def apply_to_binary!(binary)
-        if binary.nil?
-            return nil
-        end
-        to_replace = regexp? ? self.make_regexp() : self.text
-        binary.gsub!(to_replace){ |match| match.gsub(/./, 'x') }
+        return nil if binary.nil?
+        to_replace = regexp? ? make_regexp : text
+        binary.gsub!(to_replace) { |match| match.gsub(/./, 'x') }
     end
 
     def for_admin_column
         self.class.content_columns.each do |column|
-          yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+          yield(column.human_name, send(column.name), column.type.to_s, column.name)
         end
     end
 
     def is_global?
-        return true if (info_request_id.nil? && user_id.nil? && public_body_id.nil?)
-        return false
+        info_request_id.nil? && user_id.nil? && public_body_id.nil?
     end
 
 end
