@@ -121,6 +121,9 @@
     <%= form_tag(show_user_url, :method => "get", :id=>"search_form") do %>
     <div>
         <%= text_field_tag(:user_query, params[:user_query], {:title => "type your search term here" }) %>
+        <%= select_tag :request_latest_status,
+                       options_from_collection_for_select(@request_states, 'value', 'text', params[:request_latest_status]),
+                       :prompt => _('Filter by Request Status (optional)') %>
         <% if @is_you %>
             <%= submit_tag(_("Search your contributions")) %>
         <% else %>

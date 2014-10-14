@@ -21,7 +21,8 @@ describe UserController, "when redirecting a show request to a canonical url" do
     it 'should not redirect a long canonical name that has a numerical suffix' do
         User.stub!(:find).with(:first, anything()).and_return(mock_model(User,
                                         :url_name => 'bob_smithbob_smithbob_smithbob_s_2',
-                                        :name => 'Bob Smith Bob Smith Bob Smith Bob Smith'))
+                                        :name => 'Bob Smith Bob Smith Bob Smith Bob Smith',
+                                        :info_requests => []))
         User.stub!(:find).with(:all, anything()).and_return([])
         get :show, :url_name => 'bob_smithbob_smithbob_smithbob_s_2'
         response.should be_success
@@ -105,6 +106,15 @@ describe UserController, "when showing a user" do
                    info_requests(:naughty_chicken_request),
                    info_requests(:another_boring_request),
                ]
+         end
+
+         it 'filters by the given request status' do
+             get :show, :url_name => 'bob_smith',
+                        :user_query => 'money',
+                        :request_latest_status => 'waiting_response'
+             assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ [
+                 info_requests(:naughty_chicken_request)
+             ]
          end
 
          it "should not show unconfirmed users" do
