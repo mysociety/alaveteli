@@ -132,14 +132,14 @@ class PublicBody < ActiveRecord::Base
     end
 
     def translated_versions=(translation_attrs)
-        def skip?(attrs)
-            valueless = attrs.inject({}) { |h, (k, v)| h[k] = v if v != '' and k != 'locale'; h } # because we want to fall back to alternative translations where there are empty values
-            return valueless.length == 0
+        def empty_translation?(attrs)
+            attrs_with_values = attrs.select{ |key, value| value != '' and key != 'locale' }
+            attrs_with_values.empty?
         end
 
         if translation_attrs.respond_to? :each_value    # Hash => updating
             translation_attrs.each_value do |attrs|
-                next if skip?(attrs)
+                next if empty_translation?(attrs)
                 t = translation_for(attrs[:locale]) || PublicBody::Translation.new
                 t.attributes = attrs
                 calculate_cached_fields(t)
@@ -147,7 +147,7 @@ class PublicBody < ActiveRecord::Base
             end
         else                                            # Array => creating
             translation_attrs.each do |attrs|
-                next if skip?(attrs)
+                next if empty_translation?(attrs)
                 new_translation = PublicBody::Translation.new(attrs)
                 calculate_cached_fields(new_translation)
                 translations << new_translation
@@ -335,8 +335,8 @@ class PublicBody < ActiveRecord::Base
         types = []
         first = true
         for tag in self.tags
-            if PublicBodyCategories::get().by_tag().include?(tag.name)
-                desc = PublicBodyCategories::get().singular_by_tag()[tag.name]
+            if PublicBodyCategory.get().by_tag().include?(tag.name)
+                desc = PublicBodyCategory.get().singular_by_tag()[tag.name]
                 if first
                     # terrible that Ruby/Rails doesn't have an equivalent of ucfirst
                     # (capitalize shockingly converts later characters to lowercase)

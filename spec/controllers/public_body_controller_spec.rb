@@ -7,6 +7,7 @@ describe PublicBodyController, "when showing a body" do
     render_views
 
     before(:each) do
+        PublicBodyCategory.stub!(:load_categories)
         load_raw_emails_data
         get_fixtures_xapian_index
     end
@@ -74,6 +75,10 @@ end
 
 describe PublicBodyController, "when listing bodies" do
     render_views
+
+    before(:each) do
+        PublicBodyCategory.stub!(:load_categories)
+    end
 
     it "should be successful" do
         get :list
@@ -204,16 +209,19 @@ describe PublicBodyController, "when listing bodies" do
         end
     end
 
-    it "should list a tagged thing on the appropriate list page, and others on the other page, and all still on the all page" do
-        load_test_categories
+    it "should list a tagged thing on the appropriate list page, and others on the other page,
+        and all still on the all page" do
+        category = FactoryGirl.create(:public_body_category)
+        heading = FactoryGirl.create(:public_body_heading)
+        PublicBodyCategoryLink.create(:public_body_heading_id => heading.id,
+                                      :public_body_category_id => category.id)
+        public_bodies(:humpadink_public_body).tag_string = category.category_tag
 
-        public_bodies(:humpadink_public_body).tag_string = "foo local_council"
-
-        get :list, :tag => "local_council"
+        get :list, :tag => category.category_tag
         response.should render_template('list')
         assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
-        assigns[:tag].should == "local_council"
-        assigns[:description].should == "in the category ‘Local councils’"
+        assigns[:tag].should == category.category_tag
+        assigns[:description].should == "in the category ‘#{category.title}’"
 
         get :list, :tag => "other"
         response.should render_template('list')

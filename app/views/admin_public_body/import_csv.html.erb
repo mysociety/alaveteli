@@ -76,7 +76,7 @@ Another One,another@example.com,Otro organismo,a_tag
 <hr>
 
 <p>Standard tags:
-    <% for category, description in PublicBodyCategories::get().by_tag() %>
+    <% for category, description in PublicBodyCategory.get().by_tag() %>
         <% if category != "other" %>
             <strong><%= category %></strong>=<%= description %>;
         <% end %>

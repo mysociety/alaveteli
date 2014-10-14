@@ -111,7 +111,7 @@ class PublicBodyController < ApplicationController
         if @tag.nil? || @tag == 'all'
             @tag = 'all'
         elsif @tag == 'other'
-            category_list = PublicBodyCategories.get.tags.map{ |c| %Q('#{ c }') }.join(",")
+            category_list = PublicBodyCategory.get.tags.map{ |c| %Q('#{ c }') }.join(",")
             where_condition += base_tag_condition + " AND has_tag_string_tags.name in (#{category_list})) = 0"
         elsif @tag.scan(/./mu).size == 1
             @tag = Unicode.upcase(@tag)
@@ -132,7 +132,7 @@ class PublicBodyController < ApplicationController
         elsif @tag.size == 1
             @description = _("beginning with ‘{{first_letter}}’", :first_letter => @tag)
         else
-            category_name = PublicBodyCategories.get.by_tag[@tag]
+            category_name = PublicBodyCategory.get.by_tag[@tag]
             if category_name.nil?
                 @description = _("matching the tag ‘{{tag_name}}’", :tag_name => @tag)
             else
