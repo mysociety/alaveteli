@@ -61,7 +61,6 @@ module Alaveteli
     config.action_dispatch.rack_cache = nil
 
     config.after_initialize do |app|
-       require 'routing_filters.rb'
        # Add a catch-all route to force routing errors to be handled by the application,
        # rather than by middleware.
        app.routes.append{ match '*path', :to => 'general#not_found' }
