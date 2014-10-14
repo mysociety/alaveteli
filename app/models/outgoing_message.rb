@@ -171,6 +171,35 @@ class OutgoingMessage < ActiveRecord::Base
         MySociety::Validate.contains_postcode?(body)
     end
 
+    def record_email_delivery(to_addrs, message_id, log_event_type = 'sent')
+        self.last_sent_at = Time.now
+        self.status = 'sent'
+        save!
+
+        log_event_type = "followup_#{ log_event_type }" if message_type == 'followup'
+
+        info_request.log_event(log_event_type, { :email => to_addrs,
+                                                 :outgoing_message_id => id,
+                                                 :smtp_message_id => message_id })
+        set_info_request_described_state
+    end
+
+    def sendable?
+        if status == 'ready'
+            if message_type == 'initial_request'
+                return true
+            elsif message_type == 'followup'
+                return true
+            else
+                raise "Message id #{id} has type '#{message_type}' which cannot be sent"
+            end
+        elsif status == 'sent'
+            raise "Message id #{id} has already been sent"
+        else
+            raise "Message id #{id} not in state for sending"
+        end
+    end
+
     # Deliver outgoing message
     # Note: You can test this from script/console with, say:
     # InfoRequest.find(1).outgoing_messages[0].send_message
@@ -302,6 +331,19 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     private
+
+    def set_info_request_described_state
+        if message_type == 'initial_request'
+            info_request.set_described_state('waiting_response')
+        elsif message_type == 'followup'
+            if info_request.described_state == 'waiting_clarification'
+                info_request.set_described_state('waiting_response')
+            end
+            if what_doing == 'internal_review'
+                info_request.set_described_state('internal_review')
+            end
+        end
+    end
 
     def set_default_letter
         self.body = get_default_message if body.nil?
