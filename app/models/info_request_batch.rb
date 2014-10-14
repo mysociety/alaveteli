@@ -46,7 +46,13 @@ class InfoRequestBatch < ActiveRecord::Base
             self.sent_at = Time.now
             self.save!
         end
-        created.each{ |info_request| info_request.outgoing_messages.first.send_message }
+        created.each do |info_request|
+            outgoing_message = info_request.outgoing_messages.first
+            
+            outgoing_message.sendable?
+            mail_message = OutgoingMailer.initial_request(outgoing_message.info_request, outgoing_message).deliver
+            outgoing_message.record_email_delivery(mail_message.to_addrs.join(', '), mail_message.message_id)
+        end
 
         return unrequestable
     end
