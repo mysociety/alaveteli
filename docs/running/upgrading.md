@@ -81,6 +81,10 @@ Major version increases (e.g. 0.1.2.4 &rarr; 0.2.0.0) will usually require furth
 
 Only major releases may remove existing functionality. You will be warned about the removal of functionality with a deprecation notice in a minor release prior to the major release that removes the functionality.
 
+## Series releases
+
+Special instructions will accompany series releases.
+
 ## Run the post-deploy script
 
 Unless you're [using Capistrano for deployment]({{site.baseurl}}docs/installing/deploy/),
