@@ -75,6 +75,12 @@ from Transifex and save it in the `locale/` folder.
 
 Minor releases will be backwards compatible with the current major release version.
 
+## Major releases
+
+Major version increases (e.g. 0.1.2.4 &rarr; 0.2.0.0) will usually require further action. You should read the [`CHANGES.md`](https://github.com/mysociety/alaveteli/blob/master/doc/CHANGES.md) document to see what's changed since your last deployment, paying special attention to anything in the "Upgrade notes" sections.
+
+Only major releases may remove existing functionality. You will be warned about the removal of functionality with a deprecation notice in a minor release prior to the major release that removes the functionality.
+
 ## Run the post-deploy script
 
 Unless you're [using Capistrano for deployment]({{site.baseurl}}docs/installing/deploy/),
