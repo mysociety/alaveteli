@@ -91,4 +91,3 @@ Unless you're [using Capistrano for deployment]({{site.baseurl}}docs/installing/
 you should always run the script `scripts/rails-post-deploy` after each
 deployment. This runs any database migrations for you, plus various other
 things that can be automated for deployment.
-
