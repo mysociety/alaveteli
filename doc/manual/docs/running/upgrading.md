@@ -59,15 +59,11 @@ other changes that might be needed to make the new code work.
 
 ## Patches
 
-Patch version increases (e.g. 1.2.3 &rarr; 1.2.**4**) should not require any further
-action on your part.
+Patch version increases (e.g. 0.1.2.3 &rarr; 0.1.2.**4**) should not require any further action on your part. They will be backwards compatible with the current minor release version.
 
 ## Minor version increases
 
-Minor version increases (e.g. 1.2.4 &rarr; 1.**3**.0) will usually require further
-action. You should read the [`CHANGES.md`](https://github.com/mysociety/alaveteli/blob/master/doc/CHANGES.md)
-document to see what's changed since your last deployment, paying special attention
-to anything in the "Upgrade notes" sections.
+Minor version increases (e.g. 0.1.2.4 &rarr; 0.1.**3**.0) will usually require further action. You should read the [`CHANGES.md`](https://github.com/mysociety/alaveteli/blob/master/doc/CHANGES.md) document to see what's changed since your last deployment, paying special attention to anything in the "Upgrade notes" sections.
 
 Any upgrade may include new translations strings, that is, new or altered messages
 to the user that need translating to your locale. You should visit Transifex
@@ -76,6 +72,8 @@ so means that any new words added to the Alaveteli source code will appear in
 your website in English by default. If your translations didn't make it to the
 latest release, you will need to download the updated `app.po` for your locale
 from Transifex and save it in the `locale/` folder.
+
+Minor releases will be backwards compatible with the current major release version.
 
 ## Run the post-deploy script
 
