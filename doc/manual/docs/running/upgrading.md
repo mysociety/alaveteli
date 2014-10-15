@@ -12,6 +12,24 @@ Upgrading Alaveteli
   This page describes how to keep your site up-to-date
 </p>
 
+## Alaveteli Version Numbers
+
+Alaveteli uses a shifted version of [semver](http://semver.org).
+
+- Series `W`
+- Major `X`
+- Minor `Y`
+- Patch `Z`
+
+At the time of writing the current release is `0.19.0.6`:
+
+- Series `0`
+- Major `19`
+- Minor `0`
+- Patch `6`
+
+Alaveteli will transition to the [semver](http://semver.org) specification when it reaches `1.0.0`.
+
 ## Master branch contains the latest stable release
 
 The developer team policy is that the `master` branch in git should always
