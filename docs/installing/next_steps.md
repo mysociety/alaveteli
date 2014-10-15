@@ -15,6 +15,10 @@ the test suite uses into your development database. You can do this with:
 
     script/load-sample-data
 
+You should then update the Xapian search index for the new data:
+
+    script/update-xapian-index
+
 ## Create a superuser account for yourself
 
 * Sign up for a new account on the site. You should receive a confirmation email. Click on the link in it to confirm the account.
