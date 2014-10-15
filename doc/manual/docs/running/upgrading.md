@@ -44,7 +44,7 @@ Upgrading may just require pulling in the latest code -- but it may also require
 other changes ("further action"). For this reason, for anything other than a
 *patch* (see below), always read the 
 [`CHANGES.md`](https://github.com/mysociety/alaveteli/blob/master/doc/CHANGES.md)
-document **before** doing an uprade. This way you'll be able to prepare for any
+document **before** doing an upgrade. This way you'll be able to prepare for any
 other changes that might be needed to make the new code work.
 
 ## How to upgrade the code
