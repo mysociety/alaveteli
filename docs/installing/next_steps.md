@@ -8,12 +8,16 @@ title: Next Steps
     OK, you've installed a copy of Alaveteli, and can see the site in a browser. What next?
 </p>
 
-## Load test data
+## Load sample data
 
 If you want some dummy data to play with, you can try loading the fixtures that
 the test suite uses into your development database. You can do this with:
 
     script/load-sample-data
+
+You should then update the Xapian search index for the new data:
+
+    script/update-xapian-index
 
 ## Create a superuser account for yourself
 
