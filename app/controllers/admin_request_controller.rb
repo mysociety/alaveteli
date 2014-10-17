@@ -37,7 +37,30 @@ class AdminRequestController < AdminController
 
     def resend
         @outgoing_message = OutgoingMessage.find(params[:outgoing_message_id])
-        @outgoing_message.resend_message
+        @outgoing_message.prepare_message_for_resend
+
+        mail_message = case @outgoing_message.message_type
+                       when 'initial_request'
+                           OutgoingMailer.initial_request(
+                               @outgoing_message.info_request,
+                               @outgoing_message
+                           ).deliver
+                       when 'followup'
+                           OutgoingMailer.followup(
+                               @outgoing_message.info_request,
+                               @outgoing_message,
+                               @outgoing_message.incoming_message_followup
+                           ).deliver
+                       else
+                           raise "Message id #{id} has type '#{message_type}' which cannot be resent"
+                       end
+
+        @outgoing_message.record_email_delivery(
+            mail_message.to_addrs.join(', '),
+            mail_message.message_id,
+            'resent'
+        )
+
         flash[:notice] = "Outgoing message resent"
         redirect_to admin_request_show_url(@outgoing_message.info_request)
     end
