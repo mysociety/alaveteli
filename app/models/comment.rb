@@ -28,7 +28,8 @@ class Comment < ActiveRecord::Base
 
     #validates_presence_of :user # breaks during construction of new ones :(
     validates_inclusion_of :comment_type, :in => [ 'request' ]
-    validate :body_of_comment
+    validate :check_body_has_content,
+             :check_body_uses_mixed_capitals
 
     after_save :event_xapian_update
 
@@ -79,13 +80,18 @@ class Comment < ActiveRecord::Base
 
     private
 
-    def body_of_comment
+    def check_body_has_content
         if body.empty? || body =~ /^\s+$/
             errors.add(:body, _("Please enter your annotation"))
         end
+    end
 
+    def check_body_uses_mixed_capitals
         unless MySociety::Validate.uses_mixed_capitals(body)
-            errors.add(:body, _('Please write your annotation using a mixture of capital and lower case letters. This makes it easier for others to read.'))
+            msg = 'Please write your annotation using a mixture of capital and ' \
+                  'lower case letters. This makes it easier for others to read.'
+            errors.add(:body, _(msg))
         end
     end
+
 end
