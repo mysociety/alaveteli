@@ -24,6 +24,8 @@ class ContactValidator
     private
 
     def email_format
-        errors.add(:email, _("Email doesn't look like a valid address")) unless MySociety::Validate.is_valid_email(self.email)
+        unless MySociety::Validate.is_valid_email(email)
+            errors.add(:email, _("Email doesn't look like a valid address"))
+        end
     end
 end
