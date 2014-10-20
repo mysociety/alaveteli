@@ -33,6 +33,28 @@ class PostRedirect < ActiveRecord::Base
 
     after_initialize :generate_token
 
+
+    # Makes a random token, suitable for using in URLs e.g confirmation
+    # messages.
+    def self.generate_random_token
+        MySociety::Util.generate_token
+    end
+
+    # Used by (rspec) test code only
+    def self.get_last_post_redirect
+        # TODO: yeuch - no other easy way of getting the token so we can check
+        # the redirect URL, as it is by definition opaque to the controller
+        # apart from in the place that it redirects to.
+        post_redirects = PostRedirect.find_by_sql("select * from post_redirects order by id desc limit 1")
+        post_redirects.size.should == 1
+        return post_redirects[0]
+    end
+
+    # Called from cron job delete-old-things
+    def self.delete_old_post_redirects
+        PostRedirect.delete_all "updated_at < (now() - interval '2 months')"
+    end
+
     # We store YAML version of POST parameters in the database
     def post_params=(params)
         self.post_params_yaml = params.to_yaml
@@ -56,26 +78,6 @@ class PostRedirect < ActiveRecord::Base
     def local_part_uri
         self.uri.match(/^http:\/\/.+?(\/[^#]+)/)
         return $1
-    end
-
-    # Makes a random token, suitable for using in URLs e.g confirmation messages.
-    def self.generate_random_token
-        MySociety::Util.generate_token
-    end
-
-    # Used by (rspec) test code only
-    def self.get_last_post_redirect
-        # TODO: yeuch - no other easy way of getting the token so we can check
-        # the redirect URL, as it is by definition opaque to the controller
-        # apart from in the place that it redirects to.
-        post_redirects = PostRedirect.find_by_sql("select * from post_redirects order by id desc limit 1")
-        post_redirects.size.should == 1
-        return post_redirects[0]
-    end
-
-    # Called from cron job delete-old-things
-    def self.delete_old_post_redirects
-        PostRedirect.delete_all "updated_at < (now() - interval '2 months')"
     end
 
     private
