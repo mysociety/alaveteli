@@ -41,9 +41,9 @@ class ChangeEmailValidator
         check_email_is_present_and_valid(:old_email)
 
         if errors[:old_email].blank?
-            if old_email.downcase != logged_in_user.email.downcase
+            if !email_belongs_to_user?(old_email)
                 errors.add(:old_email, _("Old email address isn't the same as the address of the account you are logged in with"))
-            elsif (!changing_email) && (!logged_in_user.has_this_password?(password))
+            elsif !changing_email && !correct_password?
                 if errors[:password].blank?
                     errors.add(:password, _("Password is not correct"))
                 end
@@ -57,6 +57,14 @@ class ChangeEmailValidator
         if !send(email).blank? && !MySociety::Validate.is_valid_email(send(email))
             errors.add(email, _("#{ email.to_s.humanize } doesn't look like a valid address"))
         end
+    end
+
+    def email_belongs_to_user?(email)
+        email.downcase == logged_in_user.email.downcase
+    end
+
+    def correct_password?
+        logged_in_user.has_this_password?(password)
     end
 
 end
