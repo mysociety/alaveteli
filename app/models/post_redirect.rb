@@ -31,7 +31,8 @@ class PostRedirect < ActiveRecord::Base
     # Optional, does a login confirm before redirect for use in email links.
     belongs_to :user
 
-    after_initialize :generate_token
+    after_initialize :generate_token,
+                     :generate_email_token
 
     # Makes a random token, suitable for using in URLs e.g confirmation
     # messages.
@@ -81,17 +82,15 @@ class PostRedirect < ActiveRecord::Base
 
     private
 
+    # The token is used to return you to what you are doing after the login
+    # form.
     def generate_token
-        # The token is used to return you to what you are doing after the login
-        # form.
-        unless token
-            self.token = PostRedirect.generate_random_token
-        end
+        self.token = PostRedirect.generate_random_token unless token
+    end
 
-        # There is a separate token to use in the URL if we send a confirmation
-        # email.
-        unless email_token
-            self.email_token = PostRedirect.generate_random_token
-        end
+    # There is a separate token to use in the URL if we send a confirmation
+    # email.
+    def generate_email_token
+        self.email_token = PostRedirect.generate_random_token unless email_token
     end
 end
