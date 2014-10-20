@@ -60,15 +60,18 @@ class Comment < ActiveRecord::Base
         text.html_safe
     end
 
-    # When posting a new comment, use this to check user hasn't double submitted.
+    # When posting a new comment, use this to check user hasn't double
+    # submitted.
     def self.find_existing(info_request_id, body)
         # TODO: can add other databases here which have regexp_replace
         if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
             # Exclude spaces from the body comparison using regexp_replace
-            Comment.find(:first, :conditions => [ "info_request_id = ? and regexp_replace(body, '[[:space:]]', '', 'g') = regexp_replace(?, '[[:space:]]', '', 'g')", info_request_id, body ])
+            regex_replace_sql = "regexp_replace(body, '[[:space:]]', '', 'g') = regexp_replace(?, '[[:space:]]', '', 'g')"
+            Comment.where(["info_request_id = ? AND #{ regex_replace_sql }", info_request_id, body ]).first
         else
-            # For other databases (e.g. SQLite) not the end of the world being space-sensitive for this check
-            Comment.find(:first, :conditions => [ "info_request_id = ? and body = ?", info_request_id, body ])
+            # For other databases (e.g. SQLite) not the end of the world being
+            # space-sensitive for this check
+            Comment.where(:info_request_id => info_request_id, :body => body).first
         end
     end
 
