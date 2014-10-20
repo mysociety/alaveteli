@@ -33,6 +33,21 @@ class Comment < ActiveRecord::Base
 
     after_save :event_xapian_update
 
+    # When posting a new comment, use this to check user hasn't double
+    # submitted.
+    def self.find_existing(info_request_id, body)
+        # TODO: can add other databases here which have regexp_replace
+        if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
+            # Exclude spaces from the body comparison using regexp_replace
+            regex_replace_sql = "regexp_replace(body, '[[:space:]]', '', 'g') = regexp_replace(?, '[[:space:]]', '', 'g')"
+            Comment.where(["info_request_id = ? AND #{ regex_replace_sql }", info_request_id, body ]).first
+        else
+            # For other databases (e.g. SQLite) not the end of the world being
+            # space-sensitive for this check
+            Comment.where(:info_request_id => info_request_id, :body => body).first
+        end
+    end
+
     def body
         ret = read_attribute(:body)
         return ret if ret.nil?
@@ -58,21 +73,6 @@ class Comment < ActiveRecord::Base
         text = MySociety::Format.make_clickable(text, :contract => 1)
         text = text.gsub(/\n/, '<br>')
         text.html_safe
-    end
-
-    # When posting a new comment, use this to check user hasn't double
-    # submitted.
-    def self.find_existing(info_request_id, body)
-        # TODO: can add other databases here which have regexp_replace
-        if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
-            # Exclude spaces from the body comparison using regexp_replace
-            regex_replace_sql = "regexp_replace(body, '[[:space:]]', '', 'g') = regexp_replace(?, '[[:space:]]', '', 'g')"
-            Comment.where(["info_request_id = ? AND #{ regex_replace_sql }", info_request_id, body ]).first
-        else
-            # For other databases (e.g. SQLite) not the end of the world being
-            # space-sensitive for this check
-            Comment.where(:info_request_id => info_request_id, :body => body).first
-        end
     end
 
     def for_admin_column
