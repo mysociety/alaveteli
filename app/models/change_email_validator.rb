@@ -38,9 +38,7 @@ class ChangeEmailValidator
     private
 
     def password_and_format_of_email
-        if !old_email.blank? && !MySociety::Validate.is_valid_email(old_email)
-            errors.add(:old_email, _("Old email doesn't look like a valid address"))
-        end
+        check_email_is_present_and_valid(:old_email)
 
         if errors[:old_email].blank?
             if old_email.downcase != logged_in_user.email.downcase
@@ -52,8 +50,13 @@ class ChangeEmailValidator
             end
         end
 
-        if !new_email.blank? && !MySociety::Validate.is_valid_email(new_email)
-            errors.add(:new_email, _("New email doesn't look like a valid address"))
+        check_email_is_present_and_valid(:new_email)
+    end
+
+    def check_email_is_present_and_valid(email)
+        if !send(email).blank? && !MySociety::Validate.is_valid_email(send(email))
+            errors.add(email, _("#{ email.to_s.humanize } doesn't look like a valid address"))
         end
     end
+
 end
