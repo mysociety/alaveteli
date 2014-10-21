@@ -61,6 +61,110 @@ class User < ActiveRecord::Base
         :terms => [ [ :variety, 'V', "variety" ] ],
         :if => :indexed_by_search?
 
+    # Return user given login email, password and other form parameters (e.g. name)
+    #
+    # The specific_user_login parameter says that login as a particular user is
+    # expected, so no parallel registration form is being displayed.
+    def self.authenticate_from_form(params, specific_user_login = false)
+        params[:email].strip!
+
+        if specific_user_login
+            auth_fail_message = _("Either the email or password was not recognised, please try again.")
+        else
+            auth_fail_message = _("Either the email or password was not recognised, please try again. Or create a new account using the form on the right.")
+        end
+
+        user = self.find_user_by_email(params[:email])
+        if user
+            # There is user with email, check password
+            if !user.has_this_password?(params[:password])
+                user.errors.add(:base, auth_fail_message)
+            end
+        else
+            # No user of same email, make one (that we don't save in the database)
+            # for the forms code to use.
+            user = User.new(params)
+            # deliberately same message as above so as not to leak whether registered
+            user.errors.add(:base, auth_fail_message)
+        end
+        user
+    end
+
+    # Case-insensitively find a user from their email
+    def self.find_user_by_email(email)
+        return self.find(:first, :conditions => [ 'lower(email) = lower(?)', email ] )
+    end
+
+    # The "internal admin" is a special user for internal use.
+    def self.internal_admin_user
+        u = User.find_by_email(AlaveteliConfiguration::contact_email)
+        if u.nil?
+            password = PostRedirect.generate_random_token
+            u = User.new(
+                :name => 'Internal admin user',
+                :email => AlaveteliConfiguration::contact_email,
+                :password => password,
+                :password_confirmation => password
+            )
+            u.save!
+        end
+
+        return u
+    end
+
+    def self.owns_every_request?(user)
+      !user.nil? && user.owns_every_request?
+    end
+
+    # Can the user see every request, response, and outgoing message, even hidden ones?
+    def self.view_hidden?(user)
+      !user.nil? && user.super?
+    end
+
+    # Should the user be kept logged into their own account
+    # if they follow a /c/ redirect link belonging to another user?
+    def self.stay_logged_in_on_redirect?(user)
+      !user.nil? && user.super?
+    end
+
+    # Used for default values of last_daily_track_email
+    def self.random_time_in_last_day
+        earliest_time = Time.now() - 1.day
+        latest_time = Time.now
+        return earliest_time + rand(latest_time - earliest_time).seconds
+    end
+
+    # Alters last_daily_track_email for every user, so alerts will be sent
+    # spread out fairly evenly throughout the day, balancing load on the
+    # server. This is intended to be called by hand from the Ruby console.  It
+    # will mean quite a few users may get more than one email alert the day you
+    # do it, so have a care and run it rarely.
+    #
+    # This SQL statement is useful for seeing how spread out users are at the moment:
+    # select extract(hour from last_daily_track_email) as h, count(*) from users group by extract(hour from last_daily_track_email) order by h;
+    def self.spread_alert_times_across_day
+        for user in self.find(:all)
+            user.last_daily_track_email = User.random_time_in_last_day
+            user.save!
+        end
+        nil # so doesn't print all users on console
+    end
+
+    def self.encrypted_password(password, salt)
+        string_to_hash = password + salt # TODO: need to add a secret here too?
+        Digest::SHA1.hexdigest(string_to_hash)
+    end
+
+    def self.record_bounce_for_email(email, message)
+        user = User.find_user_by_email(email)
+        return false if user.nil?
+
+        if user.email_bounced_at.nil?
+            user.record_bounce(message)
+        end
+        return true
+    end
+
     def created_at_numeric
         # format it here as no datetime support in Xapian's value ranges
         return self.created_at.strftime("%Y%m%d%H%M%S")
@@ -115,40 +219,6 @@ class User < ActiveRecord::Base
         name
     end
 
-    # Return user given login email, password and other form parameters (e.g. name)
-    #
-    # The specific_user_login parameter says that login as a particular user is
-    # expected, so no parallel registration form is being displayed.
-    def User.authenticate_from_form(params, specific_user_login = false)
-        params[:email].strip!
-
-        if specific_user_login
-            auth_fail_message = _("Either the email or password was not recognised, please try again.")
-        else
-            auth_fail_message = _("Either the email or password was not recognised, please try again. Or create a new account using the form on the right.")
-        end
-
-        user = self.find_user_by_email(params[:email])
-        if user
-            # There is user with email, check password
-            if !user.has_this_password?(params[:password])
-                user.errors.add(:base, auth_fail_message)
-            end
-        else
-            # No user of same email, make one (that we don't save in the database)
-            # for the forms code to use.
-            user = User.new(params)
-            # deliberately same message as above so as not to leak whether registered
-            user.errors.add(:base, auth_fail_message)
-        end
-        user
-    end
-
-    # Case-insensitively find a user from their email
-    def User.find_user_by_email(email)
-        return self.find(:first, :conditions => [ 'lower(email) = lower(?)', email ] )
-    end
-
     # When name is changed, also change the url name
     def name=(name)
         write_attribute(:name, name)
@@ -190,23 +260,6 @@ class User < ActiveRecord::Base
         return MailHandler.address_from_name_and_email(self.name, self.email)
     end
 
-    # The "internal admin" is a special user for internal use.
-    def User.internal_admin_user
-        u = User.find_by_email(AlaveteliConfiguration::contact_email)
-        if u.nil?
-            password = PostRedirect.generate_random_token
-            u = User.new(
-                :name => 'Internal admin user',
-                :email => AlaveteliConfiguration::contact_email,
-                :password => password,
-                :password_confirmation => password
-            )
-            u.save!
-        end
-
-        return u
-    end
-
     # Returns list of requests which the user hasn't described (and last
     # changed more than a day ago)
     def get_undescribed_requests
@@ -236,21 +289,6 @@ class User < ActiveRecord::Base
     # Does this user have extraordinary powers?
     def super?
         self.admin_level == 'super'
-    end
-
-    def User.owns_every_request?(user)
-      !user.nil? && user.owns_every_request?
-    end
-
-    # Can the user see every request, response, and outgoing message, even hidden ones?
-    def User.view_hidden?(user)
-      !user.nil? && user.super?
-    end
-
-    # Should the user be kept logged into their own account
-    # if they follow a /c/ redirect link belonging to another user?
-    def User.stay_logged_in_on_redirect?(user)
-      !user.nil? && user.super?
     end
 
     # Does the user get "(admin)" links on each page on the main site?
@@ -322,29 +360,6 @@ class User < ActiveRecord::Base
             self.profile_photo = new_profile_photo
             self.save
         end
-    end
-
-    # Used for default values of last_daily_track_email
-    def User.random_time_in_last_day
-        earliest_time = Time.now() - 1.day
-        latest_time = Time.now
-        return earliest_time + rand(latest_time - earliest_time).seconds
-    end
-
-    # Alters last_daily_track_email for every user, so alerts will be sent
-    # spread out fairly evenly throughout the day, balancing load on the
-    # server. This is intended to be called by hand from the Ruby console.  It
-    # will mean quite a few users may get more than one email alert the day you
-    # do it, so have a care and run it rarely.
-    #
-    # This SQL statement is useful for seeing how spread out users are at the moment:
-    # select extract(hour from last_daily_track_email) as h, count(*) from users group by extract(hour from last_daily_track_email) order by h;
-    def User.spread_alert_times_across_day
-        for user in self.find(:all)
-            user.last_daily_track_email = User.random_time_in_last_day
-            user.save!
-        end
-        nil # so doesn't print all users on console
     end
 
     # Return about me text for display as HTML
@@ -419,22 +434,6 @@ class User < ActiveRecord::Base
         if MySociety::Validate.is_valid_email(self.name)
             errors.add(:name, _("Please enter your name, not your email address, in the name field."))
         end
-    end
-
-    ## Class methods
-    def User.encrypted_password(password, salt)
-        string_to_hash = password + salt # TODO: need to add a secret here too?
-        Digest::SHA1.hexdigest(string_to_hash)
-    end
-
-    def User.record_bounce_for_email(email, message)
-        user = User.find_user_by_email(email)
-        return false if user.nil?
-
-        if user.email_bounced_at.nil?
-            user.record_bounce(message)
-        end
-        return true
     end
 
     def purge_in_cache
