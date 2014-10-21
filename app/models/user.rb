@@ -62,6 +62,9 @@ class User < ActiveRecord::Base
 
     after_initialize :set_defaults
 
+    after_save :purge_in_cache
+    after_update :reindex_referencing_models
+
     def created_at_numeric
         # format it here as no datetime support in Xapian's value ranges
         return self.created_at.strftime("%Y%m%d%H%M%S")
@@ -72,7 +75,6 @@ class User < ActiveRecord::Base
     end
 
     # requested_by: and commented_by: search queries also need updating after save
-    after_update :reindex_referencing_models
     def reindex_referencing_models
         return if no_xapian_reindex == true
 
@@ -439,7 +441,6 @@ class User < ActiveRecord::Base
         return true
     end
 
-    after_save(:purge_in_cache)
     def purge_in_cache
         if self.name_changed?
             self.info_requests.each {|x| x.purge_in_cache}
