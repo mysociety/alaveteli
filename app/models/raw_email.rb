@@ -17,7 +17,6 @@ class RawEmail < ActiveRecord::Base
     has_one :incoming_message
 
     def directory
-        request_id = incoming_message.info_request.id.to_s
         if request_id.empty?
             raise "Failed to find the id number of the associated request: has it been saved?"
         end
@@ -31,7 +30,6 @@ class RawEmail < ActiveRecord::Base
     end
 
     def filepath
-        incoming_message_id = incoming_message.id.to_s
         if incoming_message_id.empty?
             raise "Failed to find the id number of the associated incoming message: has it been saved?"
         end
@@ -52,6 +50,13 @@ class RawEmail < ActiveRecord::Base
         File.delete(filepath)
     end
 
+    private
+
+    def request_id
+        incoming_message.info_request.id.to_s
+    end
+
+    def incoming_message_id
+        incoming_message.id.to_s
+    end
 end
-
-
