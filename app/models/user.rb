@@ -28,11 +28,7 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
     strip_attributes!
 
-    validates_presence_of :email, :message => _("Please enter your email address")
-
-    validates_presence_of :name, :message => _("Please enter your name")
-
-    validates_presence_of :hashed_password, :message => _("Please enter a password")
+    attr_accessor :password_confirmation, :no_xapian_reindex
 
     has_many :info_requests, :order => 'created_at desc'
     has_many :user_info_request_sent_alerts
@@ -43,9 +39,10 @@ class User < ActiveRecord::Base
     has_many :censor_rules, :order => 'created_at desc'
     has_many :info_request_batches, :order => 'created_at desc'
 
-    attr_accessor :password_confirmation, :no_xapian_reindex
+    validates_presence_of :email, :message => _("Please enter your email address")
+    validates_presence_of :name, :message => _("Please enter your name")
+    validates_presence_of :hashed_password, :message => _("Please enter a password")
     validates_confirmation_of :password, :message => _("Please enter the same password twice")
-
     validates_inclusion_of :admin_level, :in => [
         'none',
         'super',
@@ -53,17 +50,16 @@ class User < ActiveRecord::Base
 
     validate :email_and_name_are_valid
 
+    after_initialize :set_defaults
+    after_save :purge_in_cache
+    after_update :reindex_referencing_models
+
     acts_as_xapian :texts => [ :name, :about_me ],
         :values => [
              [ :created_at_numeric, 1, "created_at", :number ] # for sorting
         ],
         :terms => [ [ :variety, 'V', "variety" ] ],
         :if => :indexed_by_search?
-
-    after_initialize :set_defaults
-
-    after_save :purge_in_cache
-    after_update :reindex_referencing_models
 
     def created_at_numeric
         # format it here as no datetime support in Xapian's value ranges
