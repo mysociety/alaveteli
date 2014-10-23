@@ -15,21 +15,36 @@ describe AdminPublicBodyChangeRequestsController, 'updating a change request' do
 
     before do
         @change_request = FactoryGirl.create(:add_body_request)
-        post :update, { :id => @change_request.id,
-                        :response => 'Thanks but no',
-                        :subject => 'Your request' }
     end
 
     it 'should close the change request' do
+        post :update, { :id => @change_request.id }
         PublicBodyChangeRequest.find(@change_request.id).is_open.should == false
     end
 
-    it 'should send a response email to the user who requested the change' do
-        deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 1
-        mail = deliveries[0]
-        mail.subject.should == 'Your request'
-        mail.to.should == [@change_request.get_user_email]
-        mail.body.should =~ /Thanks but no/
+    context 'when a response and subject are passed' do
+
+      it 'should send a response email to the user who requested the change' do
+          post :update, { :id => @change_request.id,
+                          :response => 'Thanks but no',
+                          :subject => 'Your request' }
+          deliveries = ActionMailer::Base.deliveries
+          deliveries.size.should == 1
+          mail = deliveries[0]
+          mail.subject.should == 'Your request'
+          mail.to.should == [@change_request.get_user_email]
+          mail.body.should =~ /Thanks but no/
+      end
+
     end
+
+    context 'when no response or subject are passed' do
+
+      it 'should send a response email to the user who requested the change' do
+          post :update, { :id => @change_request.id }
+          deliveries = ActionMailer::Base.deliveries
+          deliveries.size.should == 0
+      end
+    end
+
 end
