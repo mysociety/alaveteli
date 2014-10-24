@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-09-13 06:04+0000\n"
+"PO-Revision-Date: 2014-10-07 08:34+0000\n"
 "Last-Translator: pere <pere-transifex@hungry.com>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -816,7 +816,7 @@ msgid "Everything that you enter on this page\\n                will be <strong>
 msgstr "Alt du skriver inn på denne sida\\n                vil bli <strong>vist offentlig</strong> på\\n                denne tjenesten for all framtid (<a href=\"{{url}}\">hvorfor?</a>)."
 
 msgid "FOI"
-msgstr "Innsynsforespørsel (Offentlighetslova)"
+msgstr "innsynsforespørsel etter Offentlighetsloven"
 
 msgid "FOI email address for {{public_body}}"
 msgstr "postmottaket hos {{public_body}}"
@@ -950,7 +950,7 @@ msgstr[0] "Fant {{count}} offentlig myndighet {{description}}"
 msgstr[1] "Fant {{count}} offentlige myndigheter {{description}}"
 
 msgid "Freedom of Information"
-msgstr "Innsynsforespørsel (Offentlighetslova)"
+msgstr "innsynsforespørsel etter Offentlighetsloven"
 
 msgid "Freedom of Information Act"
 msgstr "Offentlighetsloven"
@@ -1690,7 +1690,7 @@ msgid "Please <strong>go to the following requests</strong>, and let us\\n      
 msgstr "Vær så snill å <strong>besøk de følgende forespørslene</strong>,\\n og la oss vite om det var informasjon i de siste svarete på dem."
 
 msgid "Please <strong>only</strong> write messages directly relating to your request {{request_link}}. If you would like to ask for information that was not in your original request, then <a href=\"{{new_request_link}}\">file a new request</a>."
-msgstr "Vennligst <strong>bare</strong> skriv om ting som direkte relaterer seg til din henvendelse {{request_link}}. Om du vil spørre om informasjon som ikke var i opprinnelig henvendelse <a href=\"{{new_request_link}}\">lag en ny henvendelse</a>."
+msgstr "Vennligst <strong>bare</strong> skriv om ting som direkte relaterer seg til din henvendelse {{request_link}}. Om du vil spørre om informasjon som ikke var i den opprinnelige henvendelsen, <a href=\"{{new_request_link}}\">lag en ny henvendelse</a>."
 
 msgid "Please ask for environmental information only"
 msgstr "Vær så snill å kun spørre om miljøinformasjon"
@@ -2545,7 +2545,7 @@ msgid "The search index is currently offline, so we can't show the Freedom of In
 msgstr "Søke-indeksen er ikke tilgjengelig, så vi kan ikke vise innsynsbegjæringen til denne personen"
 
 msgid "The {{site_name}} team."
-msgstr "{{site_name}} teamet."
+msgstr "{{site_name}}-gjengen."
 
 msgid "Then you can cancel the alert."
 msgstr "Så kan du kanselere varslingen."
@@ -2667,10 +2667,10 @@ msgid "They have been given the following explanation:"
 msgstr "De har fått følgende forklaring:"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
-msgstr "De har ikke svart på din innsynsforespørsel i henhold til {{law_used_short}} om «{{title}}» innen kort tid, som er det som normalt kreves i følge lovverket."
+msgstr "De har ikke svart på din {{law_used_short}} om «{{title}}» innen kort tid, som er det som normalt kreves i følge lovverket."
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, \\nas required by law"
-msgstr "De har ikke svart på din {{law_used_short}} forespørsel {{title}}, \\ n som kreves i lovverket."
+msgstr "De har ikke svart på din {{law_used_short}} om «{{title}}», \\nslik det kreves i følge lovverket"
 
 msgid "Things to do with this request"
 msgstr "Hva kan man gjøre med denne henvendelsen?"
@@ -3229,7 +3229,7 @@ msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\"
 msgstr ""
 
 msgid "You are currently receiving notification of new activity on your wall by email."
-msgstr "Du mottar e-post varsel om ny aktivitet på veggen din."
+msgstr "Du mottar e-postvarsel om ny aktivitet på veggen din."
 
 msgid "You are following all new successful responses"
 msgstr "Du følger all nye vellykkede svar"
@@ -3726,7 +3726,7 @@ msgid "the requester"
 msgstr "henvenderen"
 
 msgid "the {{site_name}} team"
-msgstr "{{site_name}} teamet"
+msgstr "{{site_name}}-gjengen"
 
 msgid "to read"
 msgstr "skal lese lese"

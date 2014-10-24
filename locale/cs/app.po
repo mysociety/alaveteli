@@ -14,15 +14,15 @@
 # josefpospisil <josef.pospisil@laststar.eu>, 2012
 # Jiří Vírava <appukonrad@gmail.com>, 2012
 # louisecrow <louise@mysociety.org>, 2012-2013
-# louisecrow <louise@mysociety.org>, 2013
+# louisecrow <louise@mysociety.org>, 2013-2014
 # louisecrow <louise@mysociety.org>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:47+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2014-10-24 17:30+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -331,7 +331,7 @@ msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>neměli</strong> požadované informace."
 
 msgid "?"
-msgstr ""
+msgstr "?"
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "<a href=\"{{request_url}}\">Odpověď</a> v konverzaci týkající se <em>{{request_title}}</em> byla odeslána instituci {{public_body_name}} uživatelem {{info_request_user}} dne {{date}}."
@@ -787,7 +787,7 @@ msgid "Disclosure log URL"
 msgstr "Disclosure log URL"
 
 msgid "Do not fill in this field"
-msgstr ""
+msgstr "Toto pole nevyplňujte"
 
 msgid "Don't have a superuser account yet?"
 msgstr "Nemáte ještě vytvořen \"superuser\" přístup?"
@@ -1477,16 +1477,16 @@ msgstr "Vzneste novou žádost"
 
 msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
 msgstr ""
-"Vzneste nový <br/>\n"
-"dotaz podle zákona<br/>\n"
+"Zjistěte pomocí zákona<br/>\n"
 "o svobodném přístupu<br/>\n"
-"k informacím"
+"k informacím<br/>\n"
+"co dělají státní instituce"
 
 msgid "Make a request"
 msgstr "Vzneste dotaz"
 
 msgid "Make a request &raquo;"
-msgstr ""
+msgstr "Vzneste dotaz &raquo;"
 
 msgid "Make a request to these authorities"
 msgstr "Vzneste dotaz na tyto instituce"
@@ -1997,7 +1997,7 @@ msgid "Public Bodies"
 msgstr "Veřejné instituce"
 
 msgid "Public Body"
-msgstr ""
+msgstr "Instituce"
 
 msgid "Public Body Statistics"
 msgstr "Statistika veřejných institucí"
@@ -2012,7 +2012,7 @@ msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Instituce od {{start_count}} do {{end_count}} z {{total_count}}"
 
 msgid "Public authority statistics"
-msgstr ""
+msgstr "Statistiky veřejných institucí"
 
 msgid "Public authority – {{name}}"
 msgstr "Veřejná instituce – {{name}}"
@@ -2242,7 +2242,7 @@ msgid "Respond to request"
 msgstr "Odpovědět na dotaz"
 
 msgid "Respond to the FOI request '{{request}}' made by {{user}}"
-msgstr ""
+msgstr "Odpověď na žádost o informace '{{request}}' vznesená {{user}}"
 
 msgid "Respond using the web"
 msgstr "Odpovězte na internetových stránkách"
@@ -3088,7 +3088,7 @@ msgid "Unable to send follow up message to {{username}}"
 msgstr "Nelze poslat odpověď uživateli {{username}}"
 
 msgid "Unclassified or hidden requests are not counted."
-msgstr ""
+msgstr "Nezařazené a skryté žádosti nejsou zahrnuty."
 
 msgid "Unexpected search result type "
 msgstr "Neočekávané výsledky vyhledávání "

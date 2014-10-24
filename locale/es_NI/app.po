@@ -3,22 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# David Cabo <david.cabo@gmail.com>, 2011-2013
-# fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
 # gaba <gabelula@gmail.com>, 2012
-# gaba <gabelula@gmail.com>, 2012
+# louisecrow <louise@mysociety.org>, 2014
 # skenaja <alex@alexskene.com>, 2011
 # vickyanderica <victoria@access-info.org>, 2011
 # Victor Diaz <victor.diaz@cwpanama.net>, 2014
-# vickyanderica <victoria@access-info.org>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-09-19 15:18+0000\n"
-"Last-Translator: Victor Diaz <victor.diaz@cwpanama.net>\n"
+"PO-Revision-Date: 2014-09-22 14:16+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Spanish (Nicaragua) (http://www.transifex.com/projects/p/alaveteli/language/es_NI/)\n"
 "Language: es_NI\n"
 "MIME-Version: 1.0\n"
