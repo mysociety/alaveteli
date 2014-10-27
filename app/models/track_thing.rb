@@ -25,12 +25,13 @@ require 'set'
 # TODO: TrackThing looks like a good candidate for single table inheritance
 
 class TrackThing < ActiveRecord::Base
-    TRACK_TYPES = ['request_updates',
-                   'all_new_requests',
-                   'all_successful_requests',
-                   'public_body_updates',
-                   'user_updates',
-                   'search_query']
+    # { TRACK_TYPE => DESCRIPTION }
+    TRACK_TYPES = { 'request_updates'         => _('Individual requests'),
+                    'all_new_requests'        => _('Many requests'),
+                    'all_successful_requests' => _('Many requests'),
+                    'public_body_updates'     => _('Public authorities'),
+                    'user_updates'            => _('People'),
+                    'search_query'            => _('Search queries') }
 
     TRACK_MEDIUMS = %w(email_daily feed)
 
@@ -42,7 +43,7 @@ class TrackThing < ActiveRecord::Base
 
     validates_presence_of :track_query
     validates_presence_of :track_type
-    validates_inclusion_of :track_type, :in => TRACK_TYPES
+    validates_inclusion_of :track_type, :in => TRACK_TYPES.keys
     validates_inclusion_of :track_medium, :in => TRACK_MEDIUMS
 
     # When constructing a new track, use this to avoid duplicates / double
@@ -55,19 +56,7 @@ class TrackThing < ActiveRecord::Base
     end
 
     def self.track_type_description(track_type)
-        if track_type == 'request_updates'
-            _("Individual requests")
-        elsif track_type == 'all_new_requests' || track_type == "all_successful_requests"
-            _("Many requests")
-        elsif track_type == 'public_body_updates'
-            _("Public authorities")
-        elsif track_type == 'user_updates'
-            _("People")
-        elsif track_type == 'search_query'
-            _("Search queries")
-        else
-            raise "internal error " << track_type
-        end
+        TRACK_TYPES.fetch(track_type) { raise "internal error #{ track_type }" }
     end
 
     def self.create_track_for_request(info_request)
