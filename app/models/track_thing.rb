@@ -164,30 +164,21 @@ class TrackThing < ActiveRecord::Base
         end
     end
 
-    # Return hash of text parameters describing the request etc.
+    # Return hash of text parameters based on the track_type describing the
+    # request etc.
     def params
-        if @params.nil?
-            if track_type == 'request_updates'
-                @params = request_updates_params
-            elsif track_type == 'all_new_requests'
-                @params = all_new_requests_params
-            elsif track_type == 'all_successful_requests'
-                @params = all_successful_requests_params
-            elsif track_type == 'public_body_updates'
-                @params = public_body_updates_params
-            elsif track_type == 'user_updates'
-                @params = user_updates_params
-            elsif track_type == 'search_query'
-                @params = search_query_params
-              else
-                raise "unknown tracking type #{ track_type }"
-            end
-        end
-
-        @params
+        @params ||= params_for(track_type)
     end
 
     private
+
+    def params_for(track_type)
+        if respond_to?("#{ track_type }_params", true)
+            send("#{ track_type }_params")
+        else
+            raise "unknown tracking type #{ track_type }"
+        end
+    end
 
     def request_updates_params
         { # Website
