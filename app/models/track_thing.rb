@@ -25,6 +25,15 @@ require 'set'
 # TODO: TrackThing looks like a good candidate for single table inheritance
 
 class TrackThing < ActiveRecord::Base
+    TRACK_TYPES = ['request_updates',
+                   'all_new_requests',
+                   'all_successful_requests',
+                   'public_body_updates',
+                   'user_updates',
+                   'search_query']
+
+    TRACK_MEDIUMS = %w(email_daily feed)
+
     belongs_to :info_request
     belongs_to :public_body
     belongs_to :tracking_user, :class_name => 'User'
@@ -33,18 +42,8 @@ class TrackThing < ActiveRecord::Base
 
     validates_presence_of :track_query
     validates_presence_of :track_type
-    validates_inclusion_of :track_type, :in => [
-        'request_updates',
-        'all_new_requests',
-        'all_successful_requests',
-        'public_body_updates',
-        'user_updates',
-        'search_query'
-    ]
-    validates_inclusion_of :track_medium, :in => [
-        'email_daily',
-        'feed'
-    ]
+    validates_inclusion_of :track_type, :in => TRACK_TYPES
+    validates_inclusion_of :track_medium, :in => TRACK_MEDIUMS
 
     # When constructing a new track, use this to avoid duplicates / double posting
     def self.find_existing(tracking_user, track)
