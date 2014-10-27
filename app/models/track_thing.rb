@@ -47,14 +47,14 @@ class TrackThing < ActiveRecord::Base
     ]
 
     # When constructing a new track, use this to avoid duplicates / double posting
-    def TrackThing.find_existing(tracking_user, track)
+    def self.find_existing(tracking_user, track)
         if tracking_user.nil?
             return nil
         end
         return TrackThing.find(:first, :conditions => [ 'tracking_user_id = ? and track_query = ? and track_type = ?', tracking_user.id, track.track_query, track.track_type ] )
     end
 
-    def TrackThing.track_type_description(track_type)
+    def self.track_type_description(track_type)
         if track_type == 'request_updates'
             _("Individual requests")
         elsif track_type == 'all_new_requests' || track_type == "all_successful_requests"
@@ -70,7 +70,7 @@ class TrackThing < ActiveRecord::Base
         end
     end
 
-    def TrackThing.create_track_for_request(info_request)
+    def self.create_track_for_request(info_request)
         track_thing = TrackThing.new
         track_thing.track_type = 'request_updates'
         track_thing.info_request = info_request
@@ -78,21 +78,21 @@ class TrackThing < ActiveRecord::Base
         return track_thing
     end
 
-    def TrackThing.create_track_for_all_new_requests
+    def self.create_track_for_all_new_requests
         track_thing = TrackThing.new
         track_thing.track_type = 'all_new_requests'
         track_thing.track_query = "variety:sent"
         return track_thing
     end
 
-    def TrackThing.create_track_for_all_successful_requests
+    def self.create_track_for_all_successful_requests
         track_thing = TrackThing.new
         track_thing.track_type = 'all_successful_requests'
         track_thing.track_query = 'variety:response (status:successful OR status:partially_successful)'
         return track_thing
     end
 
-    def TrackThing.create_track_for_public_body(public_body, event_type = nil)
+    def self.create_track_for_public_body(public_body, event_type = nil)
         track_thing = TrackThing.new
         track_thing.track_type = 'public_body_updates'
         track_thing.public_body = public_body
@@ -104,7 +104,7 @@ class TrackThing < ActiveRecord::Base
         return track_thing
     end
 
-    def TrackThing.create_track_for_user(user)
+    def self.create_track_for_user(user)
         track_thing = TrackThing.new
         track_thing.track_type = 'user_updates'
         track_thing.tracked_user = user
@@ -112,7 +112,7 @@ class TrackThing < ActiveRecord::Base
         return track_thing
     end
 
-    def TrackThing.create_track_for_search_query(query, variety_postfix = nil)
+    def self.create_track_for_search_query(query, variety_postfix = nil)
         track_thing = TrackThing.new
         track_thing.track_type = 'search_query'
         if !(query =~ /variety:/)
