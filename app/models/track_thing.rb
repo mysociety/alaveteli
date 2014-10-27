@@ -46,6 +46,14 @@ class TrackThing < ActiveRecord::Base
         'feed'
     ]
 
+    # When constructing a new track, use this to avoid duplicates / double posting
+    def TrackThing.find_existing(tracking_user, track)
+        if tracking_user.nil?
+            return nil
+        end
+        return TrackThing.find(:first, :conditions => [ 'tracking_user_id = ? and track_query = ? and track_type = ?', tracking_user.id, track.track_query, track.track_type ] )
+    end
+
     def TrackThing.track_type_description(track_type)
         if track_type == 'request_updates'
             _("Individual requests")
@@ -59,34 +67,6 @@ class TrackThing < ActiveRecord::Base
             _("Search queries")
         else
             raise "internal error " + track_type
-        end
-    end
-    def track_type_description
-        TrackThing.track_type_description(self.track_type)
-    end
-
-    def track_query_description
-        filter_description = query_filter_description('(variety:sent OR variety:followup_sent OR variety:response OR variety:comment)',
-                                    :no_query => N_("all requests or comments"),
-                                    :query => N_("all requests or comments matching text '{{query}}'"))
-        return filter_description if filter_description
-        filter_description = query_filter_description('(latest_status:successful OR latest_status:partially_successful)',
-                                    :no_query => N_("requests which are successful"),
-                                    :query => N_("requests which are successful matching text '{{query}}'"))
-        return filter_description if filter_description
-        return _("anything matching text '{{query}}'", :query => track_query)
-    end
-
-    # Return a readable query description for queries involving commonly used filter clauses
-    def query_filter_description(string, options)
-        parsed_query = track_query.gsub(string, '')
-        if parsed_query != track_query
-            parsed_query.strip!
-            if parsed_query.empty?
-                _(options[:no_query])
-            else
-                _(options[:query], :query => parsed_query)
-            end
         end
     end
 
@@ -152,6 +132,35 @@ class TrackThing < ActiveRecord::Base
         # nicer and more generic.  It will need to do some clever
         # parsing of the query to do this nicely
         return track_thing
+    end
+
+    def track_type_description
+        TrackThing.track_type_description(self.track_type)
+    end
+
+    def track_query_description
+        filter_description = query_filter_description('(variety:sent OR variety:followup_sent OR variety:response OR variety:comment)',
+                                    :no_query => N_("all requests or comments"),
+                                    :query => N_("all requests or comments matching text '{{query}}'"))
+        return filter_description if filter_description
+        filter_description = query_filter_description('(latest_status:successful OR latest_status:partially_successful)',
+                                    :no_query => N_("requests which are successful"),
+                                    :query => N_("requests which are successful matching text '{{query}}'"))
+        return filter_description if filter_description
+        return _("anything matching text '{{query}}'", :query => track_query)
+    end
+
+    # Return a readable query description for queries involving commonly used filter clauses
+    def query_filter_description(string, options)
+        parsed_query = track_query.gsub(string, '')
+        if parsed_query != track_query
+            parsed_query.strip!
+            if parsed_query.empty?
+                _(options[:no_query])
+            else
+                _(options[:query], :query => parsed_query)
+            end
+        end
     end
 
     # Return hash of text parameters describing the request etc.
@@ -284,13 +293,6 @@ class TrackThing < ActiveRecord::Base
         return @params
     end
 
-    # When constructing a new track, use this to avoid duplicates / double posting
-    def TrackThing.find_existing(tracking_user, track)
-        if tracking_user.nil?
-            return nil
-        end
-        return TrackThing.find(:first, :conditions => [ 'tracking_user_id = ? and track_query = ? and track_type = ?', tracking_user.id, track.track_query, track.track_type ] )
-    end
 end
 
 
