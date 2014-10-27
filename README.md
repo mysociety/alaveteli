@@ -1,4 +1,4 @@
-# Alaveteli за България
+# Питай ги
 
 [![Build Status](https://travis-ci.org/obshtestvo/alaveteli-bulgaria.svg?branch=master)](https://travis-ci.org/obshtestvo/alaveteli-bulgaria)
 
