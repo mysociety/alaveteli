@@ -17,6 +17,3 @@
 class MailServerLogDone < ActiveRecord::Base
     has_many :mail_server_logs
 end
-
-
-
