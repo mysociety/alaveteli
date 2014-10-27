@@ -168,124 +168,17 @@ class TrackThing < ActiveRecord::Base
     def params
         if @params.nil?
             if track_type == 'request_updates'
-                @params = {
-                    # Website
-                    :verb_on_page => _("Follow this request"),
-                    :verb_on_page_already => _("You are already following this request"),
-                    # Email
-                    :title_in_email => _("New updates for the request '{{request_title}}'",
-                                        :request_title => info_request.title.html_safe),
-                    :title_in_rss => _("New updates for the request '{{request_title}}'",
-                                        :request_title => info_request.title),
-                    # Authentication
-                    :web => _("To follow the request '{{request_title}}'",
-                                :request_title => info_request.title),
-                    :email => _("Then you will be updated whenever the request '{{request_title}}' is updated.",
-                                :request_title => info_request.title),
-                    :email_subject => _("Confirm you want to follow the request '{{request_title}}'",
-                                :request_title => info_request.title),
-                    # RSS sorting
-                    :feed_sortby => 'newest'
-                }
+                @params = request_updates_params
             elsif track_type == 'all_new_requests'
-                @params = {
-                    # Website
-                    :verb_on_page => _("Follow all new requests"),
-                    :verb_on_page_already => _("You are already following new requests"),
-                    # Email
-                    :title_in_email => _("New Freedom of Information requests"),
-                    :title_in_rss => _("New Freedom of Information requests"),
-                    # Authentication
-                    :web => _("To follow new requests"),
-                    :email => _("Then you will be following all new FOI requests."),
-                    :email_subject => _("Confirm you want to follow new requests"),
-                    # RSS sorting
-                    :feed_sortby => 'newest'
-                }
+                @params = all_new_requests_params
             elsif track_type == 'all_successful_requests'
-                @params = {
-                    # Website
-                    :verb_on_page => _("Follow new successful responses"),
-                    :verb_on_page_already => _("You are following all new successful responses"),
-                    # Email
-                    :title_in_email => _("Successful Freedom of Information requests"),
-                    :title_in_rss => _("Successful Freedom of Information requests"),
-                    # Authentication
-                    :web => _("To follow all successful requests"),
-                    :email => _("Then you will be notified whenever an FOI request succeeds."),
-                    :email_subject => _("Confirm you want to follow all successful FOI requests"),
-                    # RSS sorting - used described date, as newest would give a
-                    # date for responses possibly days before description, so
-                    # wouldn't appear at top of list when description (known
-                    # success) causes match.
-                    :feed_sortby => 'described'
-                }
+                @params = all_successful_requests_params
             elsif track_type == 'public_body_updates'
-                @params = {
-                    # Website
-                    :verb_on_page => _("Follow requests to {{public_body_name}}",
-                                        :public_body_name => public_body.name),
-                    :verb_on_page_already => _("You are already following requests to {{public_body_name}}",
-                                        :public_body_name => public_body.name),
-                    # Email
-                    :title_in_email => _("{{foi_law}} requests to '{{public_body_name}}'",
-                                        :foi_law => public_body.law_only_short,
-                                        :public_body_name => public_body.name),
-                    :title_in_rss => _("{{foi_law}} requests to '{{public_body_name}}'",
-                                        :foi_law => public_body.law_only_short,
-                                        :public_body_name => public_body.name),
-                    # Authentication
-                    :web => _("To follow requests made using {{site_name}} to the public authority '{{public_body_name}}'",
-                                :site_name => AlaveteliConfiguration.site_name,
-                                :public_body_name => public_body.name),
-                    :email => _("Then you will be notified whenever someone requests something or gets a response from '{{public_body_name}}'.",
-                                :public_body_name => public_body.name),
-                    :email_subject => _("Confirm you want to follow requests to '{{public_body_name}}'",
-                                :public_body_name => public_body.name),
-                    # RSS sorting
-                    :feed_sortby => 'newest'
-                }
+                @params = public_body_updates_params
             elsif track_type == 'user_updates'
-                @params = {
-                    # Website
-                    :verb_on_page => _("Follow this person"),
-                    :verb_on_page_already => _("You are already following this person"),
-                    # Email
-                    :title_in_email => _("FOI requests by '{{user_name}}'",
-                                        :user_name => tracked_user.name.html_safe),
-                    :title_in_rss => _("FOI requests by '{{user_name}}'",
-                                        :user_name => tracked_user.name),
-                    # Authentication
-                    :web => _("To follow requests by '{{user_name}}'",
-                                :user_name => tracked_user.name),
-                    :email => _("Then you will be notified whenever '{{user_name}}' requests something or gets a response.",
-                                :user_name => tracked_user.name),
-                    :email_subject => _("Confirm you want to follow requests by '{{user_name}}'",
-                                :user_name => tracked_user.name),
-                    # RSS sorting
-                    :feed_sortby => 'newest'
-                }
+                @params = user_updates_params
             elsif track_type == 'search_query'
-                @params = {
-                    # Website
-                    :verb_on_page => _("Follow things matching this search"),
-                    :verb_on_page_already => _("You are already following things matching this search"),
-                    # Email
-                    :title_in_email => _("Requests or responses matching your saved search"),
-                    :title_in_rss => _("Requests or responses matching your saved search"),
-                    # Authentication
-                    :web => _("To follow requests and responses matching your search"),
-                    :email => _("Then you will be notified whenever a new request or response matches your search."),
-                    :email_subject => _("Confirm you want to follow new requests or responses matching your search"),
-                    # RSS sorting - TODO: hmmm, we don't really know which to use
-                    # here for sorting. Might be a query term (e.g. 'cctv'), in
-                    # which case newest is good, or might be something like
-                    # all refused requests in which case want to sort by
-                    # described (when we discover criteria is met). Rather
-                    # conservatively am picking described, as that will make
-                    # things appear in feed more than the should, rather than less.
-                    :feed_sortby => 'described'
-                }
+                @params = search_query_params
               else
                 raise "unknown tracking type #{ track_type }"
             end
@@ -293,4 +186,132 @@ class TrackThing < ActiveRecord::Base
 
         @params
     end
+
+    private
+
+    def request_updates_params
+        { # Website
+          :verb_on_page => _("Follow this request"),
+          :verb_on_page_already => _("You are already following this request"),
+          # Email
+          :title_in_email => _("New updates for the request '{{request_title}}'",
+                               :request_title => info_request.title.html_safe),
+          :title_in_rss => _("New updates for the request '{{request_title}}'",
+                             :request_title => info_request.title),
+          # Authentication
+          :web => _("To follow the request '{{request_title}}'",
+                    :request_title => info_request.title),
+          :email => _("Then you will be updated whenever the request '{{request_title}}' is updated.",
+                      :request_title => info_request.title),
+          :email_subject => _("Confirm you want to follow the request '{{request_title}}'",
+                              :request_title => info_request.title),
+          # RSS sorting
+          :feed_sortby => 'newest'
+        }
+    end
+
+    def all_new_requests_params
+        { # Website
+          :verb_on_page => _("Follow all new requests"),
+          :verb_on_page_already => _("You are already following new requests"),
+          # Email
+          :title_in_email => _("New Freedom of Information requests"),
+          :title_in_rss => _("New Freedom of Information requests"),
+          # Authentication
+          :web => _("To follow new requests"),
+          :email => _("Then you will be following all new FOI requests."),
+          :email_subject => _("Confirm you want to follow new requests"),
+          # RSS sorting
+          :feed_sortby => 'newest'
+        }
+    end
+
+    def all_successful_requests_params
+        { # Website
+          :verb_on_page => _("Follow new successful responses"),
+          :verb_on_page_already => _("You are following all new successful responses"),
+          # Email
+          :title_in_email => _("Successful Freedom of Information requests"),
+          :title_in_rss => _("Successful Freedom of Information requests"),
+          # Authentication
+          :web => _("To follow all successful requests"),
+          :email => _("Then you will be notified whenever an FOI request succeeds."),
+          :email_subject => _("Confirm you want to follow all successful FOI requests"),
+          # RSS sorting - used described date, as newest would give a
+          # date for responses possibly days before description, so
+          # wouldn't appear at top of list when description (known
+          # success) causes match.
+          :feed_sortby => 'described'
+        }
+    end
+
+    def public_body_updates_params
+        { # Website
+          :verb_on_page => _("Follow requests to {{public_body_name}}",
+                             :public_body_name => public_body.name),
+          :verb_on_page_already => _("You are already following requests to {{public_body_name}}",
+                                     :public_body_name => public_body.name),
+          # Email
+          :title_in_email => _("{{foi_law}} requests to '{{public_body_name}}'",
+                               :foi_law => public_body.law_only_short,
+                               :public_body_name => public_body.name),
+          :title_in_rss => _("{{foi_law}} requests to '{{public_body_name}}'",
+                             :foi_law => public_body.law_only_short,
+                             :public_body_name => public_body.name),
+          # Authentication
+          :web => _("To follow requests made using {{site_name}} to the public authority '{{public_body_name}}'",
+                    :site_name => AlaveteliConfiguration.site_name,
+                    :public_body_name => public_body.name),
+          :email => _("Then you will be notified whenever someone requests something or gets a response from '{{public_body_name}}'.",
+                      :public_body_name => public_body.name),
+          :email_subject => _("Confirm you want to follow requests to '{{public_body_name}}'",
+                              :public_body_name => public_body.name),
+          # RSS sorting
+          :feed_sortby => 'newest'
+        }
+    end
+
+    def user_updates_params
+        { # Website
+          :verb_on_page => _("Follow this person"),
+          :verb_on_page_already => _("You are already following this person"),
+          # Email
+          :title_in_email => _("FOI requests by '{{user_name}}'",
+                               :user_name => tracked_user.name.html_safe),
+          :title_in_rss => _("FOI requests by '{{user_name}}'",
+                             :user_name => tracked_user.name),
+          # Authentication
+          :web => _("To follow requests by '{{user_name}}'",
+                    :user_name => tracked_user.name),
+          :email => _("Then you will be notified whenever '{{user_name}}' requests something or gets a response.",
+                      :user_name => tracked_user.name),
+          :email_subject => _("Confirm you want to follow requests by '{{user_name}}'",
+                              :user_name => tracked_user.name),
+          # RSS sorting
+          :feed_sortby => 'newest'
+        }
+    end
+
+    def search_query_params
+        { # Website
+          :verb_on_page => _("Follow things matching this search"),
+          :verb_on_page_already => _("You are already following things matching this search"),
+          # Email
+          :title_in_email => _("Requests or responses matching your saved search"),
+          :title_in_rss => _("Requests or responses matching your saved search"),
+          # Authentication
+          :web => _("To follow requests and responses matching your search"),
+          :email => _("Then you will be notified whenever a new request or response matches your search."),
+          :email_subject => _("Confirm you want to follow new requests or responses matching your search"),
+          # RSS sorting - TODO: hmmm, we don't really know which to use
+          # here for sorting. Might be a query term (e.g. 'cctv'), in
+          # which case newest is good, or might be something like
+          # all refused requests in which case want to sort by
+          # described (when we discover criteria is met). Rather
+          # conservatively am picking described, as that will make
+          # things appear in feed more than the should, rather than less.
+          :feed_sortby => 'described'
+        }
+    end
+
 end
