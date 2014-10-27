@@ -25,16 +25,14 @@ require 'set'
 # TODO: TrackThing looks like a good candidate for single table inheritance
 
 class TrackThing < ActiveRecord::Base
-    belongs_to :tracking_user, :class_name => 'User'
-    validates_presence_of :track_query
-    validates_presence_of :track_type
-
     belongs_to :info_request
     belongs_to :public_body
+    belongs_to :tracking_user, :class_name => 'User'
     belongs_to :tracked_user, :class_name => 'User'
-
     has_many :track_things_sent_emails
 
+    validates_presence_of :track_query
+    validates_presence_of :track_type
     validates_inclusion_of :track_type, :in => [
         'request_updates',
         'all_new_requests',
@@ -43,7 +41,6 @@ class TrackThing < ActiveRecord::Base
         'user_updates',
         'search_query'
     ]
-
     validates_inclusion_of :track_medium, :in => [
         'email_daily',
         'feed'
