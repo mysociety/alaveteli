@@ -45,10 +45,13 @@ class TrackThing < ActiveRecord::Base
     validates_inclusion_of :track_type, :in => TRACK_TYPES
     validates_inclusion_of :track_medium, :in => TRACK_MEDIUMS
 
-    # When constructing a new track, use this to avoid duplicates / double posting
+    # When constructing a new track, use this to avoid duplicates / double
+    # posting
     def self.find_existing(tracking_user, track)
         return nil if tracking_user.nil?
-        TrackThing.find(:first, :conditions => [ 'tracking_user_id = ? and track_query = ? and track_type = ?', tracking_user.id, track.track_query, track.track_type ] )
+        where(:tracking_user_id => tracking_user.id,
+              :track_query => track.track_query,
+              :track_type => track.track_type).first
     end
 
     def self.track_type_description(track_type)
