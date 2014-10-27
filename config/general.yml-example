@@ -1,6 +1,9 @@
 # general.yml-example:
 # Example values for the "general" config file.
 #
+# Documentation on configuring Alaveteli is available at
+# http://alaveteli.org/docs/customising/
+#
 # Configuration parameters, in YAML syntax.
 #
 # Copy this file to one called "general.yml" in the same directory.  Or
