@@ -48,10 +48,8 @@ class TrackThing < ActiveRecord::Base
 
     # When constructing a new track, use this to avoid duplicates / double posting
     def self.find_existing(tracking_user, track)
-        if tracking_user.nil?
-            return nil
-        end
-        return TrackThing.find(:first, :conditions => [ 'tracking_user_id = ? and track_query = ? and track_type = ?', tracking_user.id, track.track_query, track.track_type ] )
+        return nil if tracking_user.nil?
+        TrackThing.find(:first, :conditions => [ 'tracking_user_id = ? and track_query = ? and track_type = ?', tracking_user.id, track.track_query, track.track_type ] )
     end
 
     def self.track_type_description(track_type)
@@ -66,7 +64,7 @@ class TrackThing < ActiveRecord::Base
         elsif track_type == 'search_query'
             _("Search queries")
         else
-            raise "internal error " + track_type
+            raise "internal error " << track_type
         end
     end
 
@@ -74,48 +72,48 @@ class TrackThing < ActiveRecord::Base
         track_thing = TrackThing.new
         track_thing.track_type = 'request_updates'
         track_thing.info_request = info_request
-        track_thing.track_query = "request:" + info_request.url_title
-        return track_thing
+        track_thing.track_query = "request:#{ info_request.url_title }"
+        track_thing
     end
 
     def self.create_track_for_all_new_requests
         track_thing = TrackThing.new
         track_thing.track_type = 'all_new_requests'
         track_thing.track_query = "variety:sent"
-        return track_thing
+        track_thing
     end
 
     def self.create_track_for_all_successful_requests
         track_thing = TrackThing.new
         track_thing.track_type = 'all_successful_requests'
         track_thing.track_query = 'variety:response (status:successful OR status:partially_successful)'
-        return track_thing
+        track_thing
     end
 
     def self.create_track_for_public_body(public_body, event_type = nil)
         track_thing = TrackThing.new
         track_thing.track_type = 'public_body_updates'
         track_thing.public_body = public_body
-        query = "requested_from:" + public_body.url_name
+        query = "requested_from:#{ public_body.url_name }"
         if InfoRequestEvent.enumerate_event_types.include?(event_type)
-            query += " variety:" + event_type
+            query += " variety:#{ event_type }"
         end
         track_thing.track_query = query
-        return track_thing
+        track_thing
     end
 
     def self.create_track_for_user(user)
         track_thing = TrackThing.new
         track_thing.track_type = 'user_updates'
         track_thing.tracked_user = user
-        track_thing.track_query = "requested_by:" + user.url_name + " OR commented_by:" + user.url_name
-        return track_thing
+        track_thing.track_query = "requested_by:#{ user.url_name } OR commented_by: #{ user.url_name }"
+        track_thing
     end
 
     def self.create_track_for_search_query(query, variety_postfix = nil)
         track_thing = TrackThing.new
         track_thing.track_type = 'search_query'
-        if !(query =~ /variety:/)
+        unless query =~ /variety:/
             case variety_postfix
             when "requests"
                 query += " variety:sent"
@@ -131,11 +129,11 @@ class TrackThing < ActiveRecord::Base
         # Should also update "params" to make the list_description
         # nicer and more generic.  It will need to do some clever
         # parsing of the query to do this nicely
-        return track_thing
+        track_thing
     end
 
     def track_type_description
-        TrackThing.track_type_description(self.track_type)
+        TrackThing.track_type_description(track_type)
     end
 
     def track_query_description
@@ -143,14 +141,17 @@ class TrackThing < ActiveRecord::Base
                                     :no_query => N_("all requests or comments"),
                                     :query => N_("all requests or comments matching text '{{query}}'"))
         return filter_description if filter_description
+
         filter_description = query_filter_description('(latest_status:successful OR latest_status:partially_successful)',
                                     :no_query => N_("requests which are successful"),
                                     :query => N_("requests which are successful matching text '{{query}}'"))
         return filter_description if filter_description
-        return _("anything matching text '{{query}}'", :query => track_query)
+
+        _("anything matching text '{{query}}'", :query => track_query)
     end
 
-    # Return a readable query description for queries involving commonly used filter clauses
+    # Return a readable query description for queries involving commonly used
+    # filter clauses
     def query_filter_description(string, options)
         parsed_query = track_query.gsub(string, '')
         if parsed_query != track_query
@@ -166,28 +167,27 @@ class TrackThing < ActiveRecord::Base
     # Return hash of text parameters describing the request etc.
     def params
         if @params.nil?
-            if self.track_type == 'request_updates'
+            if track_type == 'request_updates'
                 @params = {
                     # Website
-
                     :verb_on_page => _("Follow this request"),
                     :verb_on_page_already => _("You are already following this request"),
                     # Email
                     :title_in_email => _("New updates for the request '{{request_title}}'",
-                                        :request_title => self.info_request.title.html_safe),
+                                        :request_title => info_request.title.html_safe),
                     :title_in_rss => _("New updates for the request '{{request_title}}'",
-                                        :request_title => self.info_request.title),
+                                        :request_title => info_request.title),
                     # Authentication
                     :web => _("To follow the request '{{request_title}}'",
-                                :request_title => self.info_request.title),
+                                :request_title => info_request.title),
                     :email => _("Then you will be updated whenever the request '{{request_title}}' is updated.",
-                                :request_title => self.info_request.title),
+                                :request_title => info_request.title),
                     :email_subject => _("Confirm you want to follow the request '{{request_title}}'",
-                                :request_title => self.info_request.title),
+                                :request_title => info_request.title),
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
-            elsif self.track_type == 'all_new_requests'
+            elsif track_type == 'all_new_requests'
                 @params = {
                     # Website
                     :verb_on_page => _("Follow all new requests"),
@@ -202,7 +202,7 @@ class TrackThing < ActiveRecord::Base
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
-            elsif self.track_type == 'all_successful_requests'
+            elsif track_type == 'all_successful_requests'
                 @params = {
                     # Website
                     :verb_on_page => _("Follow new successful responses"),
@@ -220,52 +220,52 @@ class TrackThing < ActiveRecord::Base
                     # success) causes match.
                     :feed_sortby => 'described'
                 }
-            elsif self.track_type == 'public_body_updates'
+            elsif track_type == 'public_body_updates'
                 @params = {
                     # Website
                     :verb_on_page => _("Follow requests to {{public_body_name}}",
-                                        :public_body_name => self.public_body.name),
+                                        :public_body_name => public_body.name),
                     :verb_on_page_already => _("You are already following requests to {{public_body_name}}",
-                                        :public_body_name => self.public_body.name),
+                                        :public_body_name => public_body.name),
                     # Email
                     :title_in_email => _("{{foi_law}} requests to '{{public_body_name}}'",
-                                        :foi_law => self.public_body.law_only_short,
-                                        :public_body_name => self.public_body.name),
+                                        :foi_law => public_body.law_only_short,
+                                        :public_body_name => public_body.name),
                     :title_in_rss => _("{{foi_law}} requests to '{{public_body_name}}'",
-                                        :foi_law => self.public_body.law_only_short,
-                                        :public_body_name => self.public_body.name),
+                                        :foi_law => public_body.law_only_short,
+                                        :public_body_name => public_body.name),
                     # Authentication
                     :web => _("To follow requests made using {{site_name}} to the public authority '{{public_body_name}}'",
-                                :site_name => AlaveteliConfiguration::site_name,
-                                :public_body_name => self.public_body.name),
+                                :site_name => AlaveteliConfiguration.site_name,
+                                :public_body_name => public_body.name),
                     :email => _("Then you will be notified whenever someone requests something or gets a response from '{{public_body_name}}'.",
-                                :public_body_name => self.public_body.name),
+                                :public_body_name => public_body.name),
                     :email_subject => _("Confirm you want to follow requests to '{{public_body_name}}'",
-                                :public_body_name => self.public_body.name),
+                                :public_body_name => public_body.name),
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
-            elsif self.track_type == 'user_updates'
+            elsif track_type == 'user_updates'
                 @params = {
                     # Website
                     :verb_on_page => _("Follow this person"),
                     :verb_on_page_already => _("You are already following this person"),
                     # Email
                     :title_in_email => _("FOI requests by '{{user_name}}'",
-                                        :user_name => self.tracked_user.name.html_safe),
+                                        :user_name => tracked_user.name.html_safe),
                     :title_in_rss => _("FOI requests by '{{user_name}}'",
-                                        :user_name => self.tracked_user.name),
+                                        :user_name => tracked_user.name),
                     # Authentication
                     :web => _("To follow requests by '{{user_name}}'",
-                                :user_name=> self.tracked_user.name),
+                                :user_name => tracked_user.name),
                     :email => _("Then you will be notified whenever '{{user_name}}' requests something or gets a response.",
-                                :user_name => self.tracked_user.name),
+                                :user_name => tracked_user.name),
                     :email_subject => _("Confirm you want to follow requests by '{{user_name}}'",
-                                :user_name => self.tracked_user.name),
+                                :user_name => tracked_user.name),
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
-            elsif self.track_type == 'search_query'
+            elsif track_type == 'search_query'
                 @params = {
                     # Website
                     :verb_on_page => _("Follow things matching this search"),
@@ -287,12 +287,10 @@ class TrackThing < ActiveRecord::Base
                     :feed_sortby => 'described'
                 }
               else
-                raise "unknown tracking type " + self.track_type
+                raise "unknown tracking type #{ track_type }"
             end
         end
-        return @params
+
+        @params
     end
-
 end
-
-
