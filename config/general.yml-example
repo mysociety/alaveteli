@@ -19,7 +19,7 @@ FORCE_SSL: true
 
 # ISO country code of country currrently deployed in
 # (http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-ISO_COUNTRY_CODE: GB
+ISO_COUNTRY_CODE: BG
 
 # This is the timezone that times and dates are displayed in
 # If not set defaults to UTC.
@@ -33,7 +33,7 @@ TWITTER_USERNAME: 'whatdotheyknow'
 TWITTER_WIDGET_ID: ''
 
 # Locales we wish to support in this app, space-delimited
-AVAILABLE_LOCALES: 'en es'
+AVAILABLE_LOCALES: 'bg en es'
 DEFAULT_LOCALE: 'en'
 USE_DEFAULT_BROWSER_LANGUAGE: true
 
