@@ -31,34 +31,11 @@ class PostRedirect < ActiveRecord::Base
     # Optional, does a login confirm before redirect for use in email links.
     belongs_to :user
 
-    after_initialize :generate_token
+    after_initialize :generate_token,
+                     :generate_email_token
 
-    # We store YAML version of POST parameters in the database
-    def post_params=(params)
-        self.post_params_yaml = params.to_yaml
-    end
-    def post_params
-        if self.post_params_yaml.nil?
-            return {}
-        end
-        YAML.load(self.post_params_yaml)
-    end
-
-    # We store YAML version of textual "reason for redirect" parameters
-    def reason_params=(reason_params)
-        self.reason_params_yaml = reason_params.to_yaml
-    end
-    def reason_params
-        YAML.load(self.reason_params_yaml)
-    end
-
-    # Extract just local path part, without domain or #
-    def local_part_uri
-        self.uri.match(/^http:\/\/.+?(\/[^#]+)/)
-        return $1
-    end
-
-    # Makes a random token, suitable for using in URLs e.g confirmation messages.
+    # Makes a random token, suitable for using in URLs e.g confirmation
+    # messages.
     def self.generate_random_token
         MySociety::Util.generate_token
     end
@@ -70,27 +47,50 @@ class PostRedirect < ActiveRecord::Base
         # apart from in the place that it redirects to.
         post_redirects = PostRedirect.find_by_sql("select * from post_redirects order by id desc limit 1")
         post_redirects.size.should == 1
-        return post_redirects[0]
+        post_redirects[0]
     end
 
     # Called from cron job delete-old-things
     def self.delete_old_post_redirects
-        PostRedirect.delete_all "updated_at < (now() - interval '2 months')"
+        PostRedirect.delete_all("updated_at < (now() - interval '2 months')")
+    end
+
+    # We store YAML version of POST parameters in the database
+    def post_params=(params)
+        self.post_params_yaml = params.to_yaml
+    end
+
+    def post_params
+        return {} if post_params_yaml.nil?
+        YAML.load(post_params_yaml)
+    end
+
+    # We store YAML version of textual "reason for redirect" parameters
+    def reason_params=(reason_params)
+        self.reason_params_yaml = reason_params.to_yaml
+    end
+
+    def reason_params
+        YAML.load(reason_params_yaml)
+    end
+
+    # Extract just local path part, without domain or #
+    def local_part_uri
+        uri.match(/^http:\/\/.+?(\/[^#]+)/)
+        $1
     end
 
     private
 
+    # The token is used to return you to what you are doing after the login
+    # form.
     def generate_token
-        # The token is used to return you to what you are doing after the login form.
-        if not self.token
-            self.token = PostRedirect.generate_random_token
-        end
-        # There is a separate token to use in the URL if we send a confirmation email.
-        if not self.email_token
-            self.email_token = PostRedirect.generate_random_token
-        end
+        self.token = PostRedirect.generate_random_token unless token
+    end
+
+    # There is a separate token to use in the URL if we send a confirmation
+    # email.
+    def generate_email_token
+        self.email_token = PostRedirect.generate_random_token unless email_token
     end
 end
-
-
-
