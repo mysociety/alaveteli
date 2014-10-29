@@ -49,7 +49,7 @@ GEM
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
     arel (3.0.3)
-    bootstrap-sass (3.2.0.2)
+    bootstrap-sass (3.3.0.0)
       sass (~> 3.2)
     builder (3.0.4)
     capistrano (2.15.5)
