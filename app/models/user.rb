@@ -421,9 +421,9 @@ class User < ActiveRecord::Base
         if self.email != "" && !MySociety::Validate.is_valid_email(self.email)
             errors.add(:email, _("Please enter a valid email address"))
         end
-        unless name_valid?(self.name)
-            errors.add(:name, _("Please enter your name, not your email address, in the name field."))
-        end
+        # unless name_valid?(self.name)
+        #     errors.add(:name, _("Please enter your name, not your email address, in the name field."))
+        # end
     end
 
     ## Class methods

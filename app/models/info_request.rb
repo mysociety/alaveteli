@@ -533,14 +533,16 @@ public
                 :title => 'Holding pen',
                 :described_state => 'waiting_response',
                 :awaiting_description => false,
-                :prominence  => 'backpage'
+                :prominence  => 'backpage',
+                :address => 'test'
             )
             om = OutgoingMessage.new({
                 :status => 'ready',
                 :message_type => 'initial_request',
                 :body => 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
                 :last_sent_at => Time.now(),
-                :what_doing => 'normal_sort'
+                :what_doing => 'normal_sort',
+                :address => 'test'
 
             })
             ir.outgoing_messages << om
