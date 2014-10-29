@@ -21,6 +21,19 @@
  @include grid-row($behavior: nest);
 }
 
+#select_authority_help {
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    @include grid-column(6);
+    @include ie8 {
+      padding-right: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 26.188em;
+    }
+  }
+}
+
 /* /new/[body_name] page */
 #request_header {
   @include grid-row;
