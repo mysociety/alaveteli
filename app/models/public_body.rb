@@ -247,7 +247,7 @@ class PublicBody < ActiveRecord::Base
               unless %w(version last_edit_editor last_edit_comment updated_at).include?(c.name)
                 from = previous.send(c.name)
                 to = self.send(c.name)
-                memo << { :name => c.human_name, :from => from, :to => to } if from != to
+                memo << { :name => self.class.human_attribute_name(c), :from => from, :to => to } if from != to
               end
               memo
             }
@@ -705,7 +705,7 @@ class PublicBody < ActiveRecord::Base
 
     def for_admin_column
         self.class.content_columns.map{|c| c unless %w(name last_edit_comment).include?(c.name)}.compact.each do |column|
-            yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+            yield(self.class.human_attribute_name column, self.send(column.name), column.type.to_s, column.name)
         end
     end
 
