@@ -1,5 +1,6 @@
 /* ...
 *= require_self
+*= require bootstrap_and_overrides
 *= require main
 *= require custom
 *= require jquery-ui/datepicker

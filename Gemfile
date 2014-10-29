@@ -42,6 +42,7 @@ gem 'will_paginate'
 gem 'xapian-full-alaveteli', '~> 1.2.9.5'
 gem 'xml-simple', :require => 'xmlsimple'
 gem 'zip'
+gem 'twitter-bootstrap-rails'
 
 # Gems related to internationalisation
 gem 'fast_gettext'

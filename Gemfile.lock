@@ -243,7 +243,7 @@ GEM
     ruby-ole (1.2.11.7)
     rvm-capistrano (1.5.4)
       capistrano (~> 2.15.4)
-    sass (3.4.6)
+    sass (3.4.5)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -288,6 +288,11 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    twitter-bootstrap-rails (2.2.8)
+      actionpack (>= 3.1)
+      execjs
+      rails (>= 3.1)
+      railties (>= 3.1)
     tzinfo (0.3.42)
     uglifier (2.5.3)
       execjs (>= 0.3.0)
@@ -358,6 +363,7 @@ DEPENDENCIES
   syslog_protocol
   therubyracer
   thin
+  twitter-bootstrap-rails
   uglifier (>= 1.0.3)
   unicode
   unidecoder

@@ -32,3 +32,4 @@ webrat.log
 /public/assets
 .ruby-version
 .vagrant
+.idea/
