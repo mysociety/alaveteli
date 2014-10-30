@@ -3,12 +3,12 @@
 
     <% if @xapian_requests.results.any? %>
       <h3><%= _("Possibly related requests:") %></h3> 
-    <% end %>
 
-    <% @xapian_requests.results.each do |result| %>
-      <%= render :partial => 'request/request_listing_short_via_event',
-                 :locals => { :event => result[:model],
-                              :info_request => result[:model].info_request } %>
+      <% @xapian_requests.results.each do |result| %>
+        <%= render :partial => 'request/request_listing_short_via_event',
+                   :locals => { :event => result[:model],
+                                :info_request => result[:model].info_request } %>
+      <% end %>
     <% end %>
 
     <p>
