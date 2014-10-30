@@ -249,7 +249,7 @@ GEM
     ruby-ole (1.2.11.7)
     rvm-capistrano (1.5.4)
       capistrano (~> 2.15.4)
-    sass (3.4.6)
+    sass (3.4.5)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
