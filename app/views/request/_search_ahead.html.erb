@@ -1,6 +1,5 @@
-<div id="request_search_ahead_results">
-  <% unless @xapian_requests.nil? %>
-
+<% unless @xapian_requests.nil? %>
+  <div id="request_search_ahead_results">
     <% if @xapian_requests.results.any? %>
       <h3><%= _("Possibly related requests:") %></h3> 
 
@@ -16,6 +15,5 @@
           </a>
       </p>
     <% end %>
-
-  <% end %>
-</div>
+  </div>
+<% end %>
