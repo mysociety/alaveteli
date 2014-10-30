@@ -100,6 +100,20 @@ class CommentController < ApplicationController
         end
     end
 
+    def create_track_thing
+        @track_thing = TrackThing.create_track_for_request(@info_request)
+    end
+
+    # Are comments disabled on this request?
+    #
+    # There is no “add comment” link when comments are disabled, so users should
+    # not usually hit this unless they are explicitly attempting to avoid the comment block
+    def reject_unless_comments_allowed
+        unless @info_request.comments_allowed?
+            redirect_to request_url(@info_request), :notice => "Comments are not allowed on this request"
+        end
+    end
+
     # Banned from adding comments?
     def reject_if_user_banned
         if authenticated_user && !authenticated_user.can_make_comments?

@@ -77,7 +77,7 @@ class Comment < ActiveRecord::Base
 
     def for_admin_column
         self.class.content_columns.each do |column|
-            yield(column.human_name, send(column.name), column.type.to_s, column.name)
+            yield(self.class.human_attribute_name column, self.send(column.name), column.type.to_s, column.name)
         end
     end
 

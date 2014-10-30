@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminPublicBodyHeadingsController do
+describe AdminPublicBodyHeadingsController, :type => :controller do
 
     context 'when showing the form for a new public body category' do
         it 'should assign a new public body heading to the view' do

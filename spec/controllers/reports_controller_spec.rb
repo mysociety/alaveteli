@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ReportsController, "when reporting a request when not logged in" do
+describe ReportsController, "when reporting a request when not logged in", :type => :controller do
     it "should only allow logged-in users to report requests" do
         post :create, :request_id => info_requests(:badger_request).url_title, :reason => "my reason"
 
@@ -9,7 +9,7 @@ describe ReportsController, "when reporting a request when not logged in" do
     end
 end
 
-describe ReportsController, "when reporting a request (logged in)" do
+describe ReportsController, "when reporting a request (logged in)", :type => :controller do
     render_views
 
     before do
@@ -77,7 +77,7 @@ describe ReportsController, "when reporting a request (logged in)" do
     end
 end
 
-describe ReportsController, "#new_report_request" do
+describe ReportsController, "#new_report_request", :type => :controller do
     let(:info_request) { mock_model(InfoRequest, :url_title => "foo") }
     before :each do
         InfoRequest.should_receive(:find_by_url_title!).with("foo").and_return(info_request)

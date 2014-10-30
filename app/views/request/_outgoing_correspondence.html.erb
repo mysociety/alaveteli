@@ -4,8 +4,9 @@
   <%- else %>
     <%= render :partial => 'request/restricted_correspondence', :locals => {:message => outgoing_message } %>
     <h2>
-      <%= _("From:") %> <%= @info_request.user_name %><br>
-      <br><%= simple_date(info_request_event.created_at) %>
+      <%= _("From:") %> <%= @info_request.user_name %>
+      <br><br><%= simple_date(info_request_event.created_at) %>
+      <br><br><%= outgoing_message.address %>
     </h2>
     <%= render :partial => 'bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
     <p class="event_actions">

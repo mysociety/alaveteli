@@ -55,7 +55,7 @@ describe GeneralController, 'when getting the blog feed' do
 
 end
 
-describe GeneralController, "when showing the frontpage" do
+describe GeneralController, "when showing the frontpage", :type => :controller do
 
     render_views
 
@@ -129,7 +129,7 @@ describe GeneralController, "when showing the frontpage" do
 end
 
 
-describe GeneralController, 'when using xapian search' do
+describe GeneralController, 'when using xapian search', :type => :controller do
 
     render_views
 

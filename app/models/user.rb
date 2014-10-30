@@ -408,7 +408,7 @@ class User < ActiveRecord::Base
         end.compact
       end
       columns.each do |column|
-        yield(column.human_name, send(column.name), column.type.to_s, column.name)
+        yield(self.class.human_attribute_name column, self.send(column.name), column.type.to_s, column.name)
       end
     end
 
@@ -442,5 +442,10 @@ class User < ActiveRecord::Base
         info_requests.each { |x| x.purge_in_cache } if name_changed?
     end
 
+    private
+
+    def name_valid?(name)
+        name =~ /[[:word:]]+\s+[[:word:]]+\s+[[:word:]]+/
+    end
 end
 

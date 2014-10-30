@@ -10,6 +10,7 @@ gem 'charlock_holmes'
 gem 'dynamic_form'
 gem 'exception_notification'
 gem 'fancybox-rails'
+gem 'fastercsv', '>=1.5.5'
 gem 'foundation-rails'
 gem 'jquery-rails', '~> 3.0.4'
 gem 'jquery-ui-rails'
@@ -34,6 +35,7 @@ gem 'will_paginate'
 gem 'xapian-full-alaveteli', '~> 1.2.9.5'
 gem 'xml-simple', :require => 'xmlsimple'
 gem 'zip'
+gem 'twitter-bootstrap-rails'
 
 # Gems related to internationalisation
 gem 'fast_gettext'
@@ -63,6 +65,7 @@ group :test do
   gem 'coveralls', :require => false
   gem 'webrat'
   gem 'nokogiri'
+  gem 'rspec-activemodel-mocks'
 end
 
 group :test, :development do
@@ -73,6 +76,7 @@ end
 
 group :development do
   gem 'capistrano'
+  gem 'rvm-capistrano'
   gem 'mailcatcher'
   gem 'quiet_assets'
   gem 'rdoc'

@@ -1,0 +1,25 @@
+<% @title = _('Change your email address used on {{site_name}}', :site_name => site_name) %>
+
+<% raise _('internal error') if not @user %>
+
+<div id="change_address">
+
+<%= form_tag({:action => "signchangeaddress"}, {:id => "signchangeaddress_form"}) do %>
+    <%= foi_error_messages_for :signchangeaddress %>
+
+    <div class="form_note">
+    <h1> <% _('Change your address used on {{site_name}}', :site_name => site_name) %></h1>
+    </div>
+
+    <p>
+    <label class="form_label" for="signchangeaddress"> <%= _('Address:')%></label>
+    <%= text_field 'signchangeaddress', 'address', { :size => 20, :value => @user.address } %>
+    </p>
+
+    <div class="form_button">
+    <%= hidden_field_tag 'submitted_signchangeaddress_do', 1 %>
+    <%= submit_tag _("Change address on {{site_name}}", :site_name=>site_name) %>
+    </div>
+<% end %>
+
+</div>

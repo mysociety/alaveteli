@@ -28,6 +28,14 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequest do
 
+    it 'has "requester_only" default prominence' do
+        request = InfoRequest.new(:title => 'abcde',
+                                  :public_body => public_bodies(:geraldine_public_body),
+                                  :user_id => 1)
+        request.save!
+        request.prominence.should eq 'requester_only'
+    end
+
     describe 'when validating' do
 
         it 'should accept a summary with ascii characters' do
@@ -175,7 +183,7 @@ describe InfoRequest do
         end
 
         it "should have a sensible incoming name and email" do
-            @info_request.incoming_name_and_email.should == "Bob Smith <" + @info_request.incoming_email + ">"
+            @info_request.incoming_name_and_email.should == "Bob James Smith <" + @info_request.incoming_email + ">"
         end
 
         it "should have a sensible recipient name and email" do
@@ -1140,7 +1148,8 @@ describe InfoRequest do
                                  :external_user_name => 'Example User',
                                  :title => 'Some request or other',
                                  :described_state => 'partially_successful',
-                                 :public_body => pb)
+                                 :public_body => pb,
+                                 :prominence => 'normal')
             ir.save!
             pb.info_requests_successful_count.should == (old_successful_count + 1)
             ir.described_state = 'not_held'

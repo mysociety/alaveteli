@@ -1,7 +1,8 @@
 /* ...
 *= require_self
+*= require bootstrap_and_overrides
 *= require main
 *= require custom
-*= require jquery.ui.datepicker
-*= require jquery.ui.tabs
+*= require jquery-ui/datepicker
+*= require jquery-ui/tabs
 */

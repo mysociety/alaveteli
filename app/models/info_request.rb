@@ -543,14 +543,16 @@ public
                 :title => 'Holding pen',
                 :described_state => 'waiting_response',
                 :awaiting_description => false,
-                :prominence  => 'backpage'
+                :prominence  => 'backpage',
+                :address => 'test'
             )
             om = OutgoingMessage.new({
                 :status => 'ready',
                 :message_type => 'initial_request',
                 :body => 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
                 :last_sent_at => Time.now(),
-                :what_doing => 'normal_sort'
+                :what_doing => 'normal_sort',
+                :address => 'test'
 
             })
             ir.outgoing_messages << om
@@ -951,6 +953,7 @@ public
     end
 
     def InfoRequest.create_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
+        info_request_atts[:address] = outgoing_message_atts[:address]
         info_request = new(info_request_atts)
         default_message_params = {
             :status => 'ready',
@@ -1260,7 +1263,7 @@ public
 
     def for_admin_column
       self.class.content_columns.map{|c| c unless %w(title url_title).include?(c.name) }.compact.each do |column|
-        yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+        yield(self.class.human_attribute_name column, self.send(column.name), column.type.to_s, column.name)
       end
     end
 

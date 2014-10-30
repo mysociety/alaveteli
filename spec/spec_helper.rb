@@ -5,6 +5,7 @@ require 'spork'
 #require 'spork/ext/ruby-debug'
 require 'simplecov'
 require 'coveralls'
+
 # Generate coverage locally in html as well as in coveralls.io
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
     SimpleCov::Formatter::HTMLFormatter,
@@ -99,11 +100,11 @@ Spork.prefork do
 
     # Turn routing-filter off in functional and unit tests as per
     # https://github.com/svenfuchs/routing-filter/blob/master/README.markdown#testing
-    config.before(:each) do
+    config.before(:each) do |example|
       RoutingFilter.active = false if [:controller, :helper, :model].include? example.metadata[:type]
     end
 
-    config.after(:each) do
+    config.after(:each) do |example|
       RoutingFilter.active = true if [:controller, :helper, :model].include? example.metadata[:type]
     end
 

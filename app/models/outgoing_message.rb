@@ -73,7 +73,7 @@ class OutgoingMessage < ActiveRecord::Base
 
     # How the default letter starts and ends
     def get_salutation
-        if info_request.is_batch_request_template?
+        if self.info_request.is_batch_request_template?
             return OutgoingMessage.placeholder_salutation
         end
 
@@ -88,6 +88,18 @@ class OutgoingMessage < ActiveRecord::Base
             return OutgoingMessage.default_salutation(info_request.public_body)
         end
         salutation = _("Dear {{public_body_name}},", :public_body_name => ret)
+    end
+
+    def OutgoingMessage.default_salutation(public_body)
+        _("Dear {{public_body_name}},", :public_body_name => public_body.name)
+    end
+
+    def OutgoingMessage.placeholder_salutation
+        _("Dear [Authority name],")
+    end
+
+    def OutgoingMessage.fill_in_salutation(body, public_body)
+        body.gsub(placeholder_salutation, default_salutation(public_body))
     end
 
     def get_signoff
@@ -274,7 +286,7 @@ class OutgoingMessage < ActiveRecord::Base
 
     def for_admin_column
         self.class.content_columns.each do |column|
-            yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+            yield(self.class.human_attribute_name column, self.send(column.name), column.type.to_s, column.name)
         end
     end
 

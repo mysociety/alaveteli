@@ -492,6 +492,15 @@ msgstr ""
 msgid "Ask us to update the email address for {{public_body_name}}"
 msgstr ""
 
+msgid "Ask us to add an authority"
+msgstr ""
+
+msgid "Ask us to update FOI email"
+msgstr ""
+
+msgid "Ask us to update the email address for {{public_body_name}}"
+msgstr ""
+
 msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
 "Al final de esta página, escribe una respuesta intentando convencerles de que lo escaneen\n"
@@ -517,6 +526,9 @@ msgstr "Esperando revisión interna."
 
 msgid "Awaiting response."
 msgstr "Esperant resposta."
+
+msgid "Batch created by {{info_request_user}} on {{date}}."
+msgstr ""
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr ""
@@ -610,6 +622,9 @@ msgstr "Busque erratas si ha copiado la dirección."
 
 msgid "Check you haven't included any <strong>personal information</strong>."
 msgstr "Comprova que no has inclòs <strong>cap informació personal</strong>."
+
+msgid "Choose a reason"
+msgstr ""
 
 msgid "Choose a reason"
 msgstr ""
@@ -747,6 +762,9 @@ msgstr "Benvolgut {{public_body_name}},"
 msgid "Dear {{user_name}},"
 msgstr "Benvolgut {{user_name}},"
 
+msgid "Dear {{user_name}},"
+msgstr ""
+
 msgid "Default locale"
 msgstr ""
 
@@ -829,6 +847,9 @@ msgstr "La dirección de correo no parece válida"
 
 msgid "Email me future updates to this request"
 msgstr "Vull rebre emails amb les actualitzacions d'aquesta sol·licitud"
+
+msgid "Email:"
+msgstr ""
 
 msgid "Email:"
 msgstr ""
@@ -1506,6 +1527,9 @@ msgstr "Fes una sol·licitud a aquest organisme"
 msgid "Make an {{law_used_short}} request"
 msgstr ""
 
+msgid "Make an {{law_used_short}} request"
+msgstr ""
+
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Hacer una solicitud {{law_used_short}} a '{{public_body_name}}'"
 
@@ -1913,6 +1937,9 @@ msgstr "Sisplau inicia sessió o dóna d'alta un nou compte."
 msgid "Please tell us more:"
 msgstr ""
 
+msgid "Please tell us more:"
+msgstr ""
+
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Por favor escribe un mensaje y/o escoje un fichero conteniendo su respuesta."
 
@@ -2303,6 +2330,9 @@ msgstr "Cerca aportacions d'aquesta persona"
 msgid "Search for the authorities you'd like information from:"
 msgstr ""
 
+msgid "Search for the authorities you'd like information from:"
+msgstr ""
+
 msgid "Search for words in:"
 msgstr "Buscar palabras en:"
 
@@ -2393,6 +2423,9 @@ msgstr "Mostrant"
 
 msgid "Sign in"
 msgstr "Inicia sessió"
+
+msgid "Sign in as the emergency user"
+msgstr ""
 
 msgid "Sign in as the emergency user"
 msgstr ""
@@ -3109,9 +3142,6 @@ msgstr "No se pudo enviar la respuesta a {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr ""
 
-msgid "Unexpected search result type "
-msgstr "Se encontró un tipo de resultado inesperado "
-
 msgid "Unfortunately we don't know the FOI\\nemail address for that authority, so we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
 "Desgraciadamente no tenemos la dirección\n"
@@ -3172,6 +3202,9 @@ msgstr ""
 msgid "User|About me"
 msgstr "User|About me"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
@@ -3179,6 +3212,9 @@ msgid "User|Ban text"
 msgstr "User|Ban text"
 
 msgid "User|Can make batch requests"
+msgstr ""
+
+msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3596,6 +3632,9 @@ msgstr "Correu:"
 msgid "Your email doesn't look like a valid address"
 msgstr ""
 
+msgid "Your email doesn't look like a valid address"
+msgstr ""
+
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr "Tu respuesta no ha sido enviada porque esta solicitud ha sido bloqueada para evitar spam. Por favor <a href=\"{{url}}\">contáctanos</a> si realmente quieres enviar una respuesta."
 
@@ -3691,6 +3730,11 @@ msgid_plural "Your {{count}} batch requests"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "Your {{count}} batch requests"
+msgid_plural "Your {{count}} batch requests"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "Your {{site_name}} email alert"
 msgstr "Tu alerta en {{site_name}}"
 
@@ -3702,6 +3746,9 @@ msgstr "Salutacions,"
 
 msgid "Yours,"
 msgstr "Salutacions,"
+
+msgid "[Authority URL will be inserted here]"
+msgstr ""
 
 msgid "[Authority URL will be inserted here]"
 msgstr ""
@@ -3729,6 +3776,12 @@ msgstr ""
 
 msgid "all requests"
 msgstr "totes les sol·licituds"
+
+msgid "all requests or comments"
+msgstr ""
+
+msgid "all requests or comments matching text '{{query}}'"
+msgstr ""
 
 msgid "all requests or comments"
 msgstr ""
@@ -4082,6 +4135,12 @@ msgstr "{{user_name}} envió un mensaje a {{public_body}}"
 
 msgid "{{user_name}} sent a request to {{public_body}}"
 msgstr "{{user_name}} envió una solicitud a {{public_body}}"
+
+msgid "{{user_name}} would like a new authority added to {{site_name}}"
+msgstr ""
+
+msgid "{{user_name}} would like the email address for {{public_body_name}} to be updated"
+msgstr ""
 
 msgid "{{user_name}} would like a new authority added to {{site_name}}"
 msgstr ""

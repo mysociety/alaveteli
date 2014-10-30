@@ -1997,7 +1997,7 @@ msgid "Public Bodies"
 msgstr "Veřejné instituce"
 
 msgid "Public Body"
-msgstr ""
+msgstr "Public Body"
 
 msgid "Public Body Statistics"
 msgstr "Statistika veřejných institucí"
@@ -3090,9 +3090,6 @@ msgstr "Nelze poslat odpověď uživateli {{username}}"
 msgid "Unclassified or hidden requests are not counted."
 msgstr ""
 
-msgid "Unexpected search result type "
-msgstr "Neočekávané výsledky vyhledávání "
-
 msgid "Unfortunately we don't know the FOI\\nemail address for that authority, so we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it out."
 msgstr ""
 "Bohužel nemáme e-mailovou adresu této instituce\n"
@@ -3153,6 +3150,9 @@ msgstr "Uživatelé nemohou obvykle vznášet hromadné dotazy na více instituc
 msgid "User|About me"
 msgstr "User | O mně"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "User | Úroveň admin"
 
@@ -3161,6 +3161,9 @@ msgstr "User | Zakázat text"
 
 msgid "User|Can make batch requests"
 msgstr "Uživatel|Může vznášet hromadné dotazy"
+
+msgid "User|Dob"
+msgstr ""
 
 msgid "User|Email"
 msgstr "User | E-mail"

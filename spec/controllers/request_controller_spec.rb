@@ -34,7 +34,7 @@ describe RequestController, "when listing recent requests" do
 
 end
 
-describe RequestController, "when changing things that appear on the request page" do
+describe RequestController, "when changing things that appear on the request page", :type => :controller do
     render_views
 
     it "should purge the downstream cache when mail is received" do
@@ -60,13 +60,13 @@ describe RequestController, "when changing things that appear on the request pag
     end
     it "should purge the downstream cache when the authority data is changed" do
         ir = info_requests(:fancy_dog_request)
-        ir.public_body.name = "Something new"
+        ir.public_body.name = "Something really new"
         ir.public_body.save!
         PurgeRequest.all().map{|x| x.model_id}.should =~ ir.public_body.info_requests.map{|x| x.id}
     end
     it "should purge the downstream cache when the user name is changed" do
         ir = info_requests(:fancy_dog_request)
-        ir.user.name = "Something new"
+        ir.user.name = "Something really new"
         ir.user.save!
         PurgeRequest.all().map{|x| x.model_id}.should =~ ir.user.info_requests.map{|x| x.id}
     end
@@ -100,7 +100,7 @@ describe RequestController, "when changing things that appear on the request pag
     end
 end
 
-describe RequestController, "when showing one request" do
+describe RequestController, "when showing one request", :type => :controller do
     render_views
 
     before(:each) do
@@ -946,7 +946,7 @@ describe RequestController, "when searching for an authority" do
     end
 end
 
-describe RequestController, "when creating a new request" do
+describe RequestController, "when creating a new request", :type => :controller do
     render_views
 
     before do
@@ -1201,7 +1201,7 @@ describe RequestController, "when making a new request" do
 
 end
 
-describe RequestController, "when viewing an individual response for reply/followup" do
+describe RequestController, "when viewing an individual response for reply/followup", :type => :controller do
     render_views
 
     before(:each) do
@@ -1780,7 +1780,7 @@ describe RequestController, "when classifying an information request" do
 
 end
 
-describe RequestController, "when sending a followup message" do
+describe RequestController, "when sending a followup message", :type => :controller do
     render_views
 
     before(:each) do
@@ -1870,7 +1870,7 @@ end
 # TODO: Stuff after here should probably be in request_mailer_spec.rb - but then
 # it can't check the URLs in the emails I don't think, ugh.
 
-describe RequestController, "sending overdue request alerts" do
+describe RequestController, "sending overdue request alerts", :type => :controller do
     render_views
 
     before(:each) do
@@ -2023,7 +2023,7 @@ describe RequestController, "sending overdue request alerts" do
 
 end
 
-describe RequestController, "sending unclassified new response reminder alerts" do
+describe RequestController, "sending unclassified new response reminder alerts", :type => :controller do
     render_views
 
     before(:each) do
@@ -2053,7 +2053,7 @@ describe RequestController, "sending unclassified new response reminder alerts" 
 
 end
 
-describe RequestController, "clarification required alerts" do
+describe RequestController, "clarification required alerts", :type => :controller do
     render_views
     before(:each) do
         load_raw_emails_data
@@ -2106,7 +2106,7 @@ describe RequestController, "clarification required alerts" do
 
 end
 
-describe RequestController, "comment alerts" do
+describe RequestController, "comment alerts", :type => :controller do
     render_views
     before(:each) do
         load_raw_emails_data
@@ -2185,7 +2185,7 @@ describe RequestController, "comment alerts" do
 
 end
 
-describe RequestController, "when viewing comments" do
+describe RequestController, "when viewing comments", :type => :controller do
     render_views
     before(:each) do
         load_raw_emails_data
@@ -2212,18 +2212,20 @@ describe RequestController, "when viewing comments" do
 end
 
 
-describe RequestController, "authority uploads a response from the web interface" do
+describe RequestController, "authority uploads a response from the web interface", :type => :controller do
     render_views
 
     before(:each) do
         # domain after the @ is used for authentication of FOI officers, so to test it
         # we need a user which isn't at localhost.
-        @normal_user = User.new(:name => "Mr. Normal", :email => "normal-user@flourish.org",
-                                      :password => PostRedirect.generate_random_token)
+        @normal_user = User.new(:name => "Somebody Quite Normal", :email => "normal-user@flourish.org",
+                                      :password => PostRedirect.generate_random_token,
+                                      :address => "Law Street")
         @normal_user.save!
 
         @foi_officer_user = User.new(:name => "The Geraldine Quango", :email => "geraldine-requests@localhost",
-                                      :password => PostRedirect.generate_random_token)
+                                      :password => PostRedirect.generate_random_token,
+                                      :address => "Law Street")
         @foi_officer_user.save!
     end
 
@@ -2320,7 +2322,7 @@ describe RequestController, "when showing JSON version for API" do
 
 end
 
-describe RequestController, "when doing type ahead searches" do
+describe RequestController, "when doing type ahead searches", :type => :controller do
     render_views
 
     before :each do
@@ -2382,7 +2384,7 @@ describe RequestController, "when doing type ahead searches" do
     end
 end
 
-describe RequestController, "when showing similar requests" do
+describe RequestController, "when showing similar requests", :type => :controller do
     render_views
 
     before do
@@ -2448,7 +2450,7 @@ describe RequestController, "when caching fragments" do
 
 end
 
-describe RequestController, "#new_batch" do
+describe RequestController, "#new_batch", :type => :controller do
 
     context "when batch requests is enabled" do
 
@@ -2590,7 +2592,7 @@ describe RequestController, "#new_batch" do
 
 end
 
-describe RequestController, "#select_authorities" do
+describe RequestController, "#select_authorities", :type => :controller do
 
     context "when batch requests is enabled" do
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminPublicBodyCategoriesController do
+describe AdminPublicBodyCategoriesController, :type => :controller do
     context 'when showing the index of categories and headings' do
         render_views
 

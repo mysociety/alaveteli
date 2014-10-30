@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe AdminPublicBodyController, "when showing the index of public bodies" do
+describe AdminPublicBodyController, "when showing the index of public bodies", :type => :controller do
     render_views
 
     it "shows the index page" do
@@ -19,7 +19,7 @@ describe AdminPublicBodyController, "when showing the index of public bodies" do
 
 end
 
-describe AdminPublicBodyController, "when showing a public body" do
+describe AdminPublicBodyController, "when showing a public body", :type => :controller do
     render_views
 
     it "shows a public body" do
@@ -37,7 +37,7 @@ describe AdminPublicBodyController, "when showing a public body" do
 
 end
 
-describe AdminPublicBodyController, 'when showing the form for a new public body' do
+describe AdminPublicBodyController, 'when showing the form for a new public body', :type => :controller do
 
     it 'should assign a new public body to the view' do
         get :new
@@ -64,7 +64,7 @@ describe AdminPublicBodyController, 'when showing the form for a new public body
 
 end
 
-describe AdminPublicBodyController, "when creating a public body" do
+describe AdminPublicBodyController, "when creating a public body", :type => :controller do
     render_views
 
     it "creates a new public body in one locale" do
@@ -143,7 +143,7 @@ describe AdminPublicBodyController, "when creating a public body" do
 
 end
 
-describe AdminPublicBodyController, "when editing a public body" do
+describe AdminPublicBodyController, "when editing a public body", :type => :controller do
     render_views
 
     it "edits a public body" do
@@ -181,7 +181,7 @@ describe AdminPublicBodyController, "when editing a public body" do
 
 end
 
-describe AdminPublicBodyController, "when updating a public body" do
+describe AdminPublicBodyController, "when updating a public body", :type => :controller do
     render_views
 
     it "saves edits to a public body" do
@@ -258,7 +258,72 @@ describe AdminPublicBodyController, "when updating a public body" do
     end
 end
 
-describe AdminPublicBodyController, "when destroying a public body" do
+describe AdminPublicBodyController, "when destroying a public body", :type => :controller do
+    render_views
+
+    it "saves edits to a public body in another locale" do
+        I18n.with_locale(:es) do
+            pb = PublicBody.find(id=3)
+            pb.name.should == "El Department for Humpadinking"
+            post :update, {
+                :id => 3,
+                :public_body => {
+                    :name => "Department for Humpadinking",
+                    :short_name => "",
+                    :tag_string => "some tags",
+                    :request_email => 'edited@localhost',
+                    :last_edit_comment => 'From test code',
+                    :translated_versions => {
+                        3 => {:locale => "es",
+                              :name => "Renamed",
+                              :short_name => "",
+                              :request_email => 'edited@localhost'}
+                        }
+                    }
+                }
+            request.flash[:notice].should include('successful')
+        end
+
+        pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
+        I18n.with_locale(:es) do
+           pb.name.should == "Renamed"
+        end
+        I18n.with_locale(:en) do
+           pb.name.should == "Department for Humpadinking"
+        end
+    end
+
+    context 'when the body is being updated as a result of a change request' do
+
+        before do
+            @change_request = FactoryGirl.create(:update_body_request)
+            post :update, { :id => @change_request.public_body_id,
+                            :public_body => { :name => "New Quango",
+                                              :short_name => "",
+                                              :request_email => 'newquango@localhost',
+                                              :last_edit_comment => 'From test code' },
+                            :change_request_id => @change_request.id,
+                            :subject => 'Body update',
+                            :response => 'Done.'}
+        end
+
+        it 'should send a response to the requesting user' do
+            deliveries = ActionMailer::Base.deliveries
+            deliveries.size.should == 1
+            mail = deliveries[0]
+            mail.subject.should == 'Body update'
+            mail.to.should == [@change_request.get_user_email]
+            mail.body.should =~ /Done./
+        end
+
+        it 'should mark the change request as closed' do
+            PublicBodyChangeRequest.find(@change_request.id).is_open.should be_false
+        end
+
+    end
+end
+
+describe AdminPublicBodyController, "when destroying a public body", :type => :controller do
     render_views
 
     it "does not destroy a public body that has associated requests" do
@@ -278,7 +343,7 @@ describe AdminPublicBodyController, "when destroying a public body" do
 
 end
 
-describe AdminPublicBodyController, "when assigning public body tags" do
+describe AdminPublicBodyController, "when assigning public body tags", :type => :controller do
     render_views
 
     it "mass assigns tags" do
@@ -291,7 +356,7 @@ describe AdminPublicBodyController, "when assigning public body tags" do
     end
 end
 
-describe AdminPublicBodyController, "when importing a csv" do
+describe AdminPublicBodyController, "when importing a csv", :type => :controller do
     render_views
 
     describe 'when handling a GET request' do
@@ -370,7 +435,7 @@ describe AdminPublicBodyController, "when importing a csv" do
     end
 end
 
-describe AdminPublicBodyController, "when administering public bodies and paying attention to authentication" do
+describe AdminPublicBodyController, "when administering public bodies and paying attention to authentication", :type => :controller do
 
     render_views
 
@@ -492,4 +557,3 @@ describe AdminPublicBodyController, "when administering public bodies and paying
 
     end
 end
-

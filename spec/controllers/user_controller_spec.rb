@@ -30,7 +30,7 @@ describe UserController, "when redirecting a show request to a canonical url" do
 
 end
 
-describe UserController, "when showing a user" do
+describe UserController, "when showing a user", :type => :controller do
 
     before(:each) do
         @user = FactoryGirl.create(:user)
@@ -87,7 +87,7 @@ describe UserController, "when showing a user" do
 
 end
 
-describe UserController, "when showing a user" do
+describe UserController, "when showing a user", :type => :controller do
 
     context 'when using fixture data' do
 
@@ -128,7 +128,7 @@ describe UserController, "when showing a user" do
 
 end
 
-describe UserController, "when signing in" do
+describe UserController, "when signing in", :type => :controller do
     render_views
 
     before do
@@ -278,7 +278,7 @@ describe UserController, "when signing in" do
 
 end
 
-describe UserController, "when signing up" do
+describe UserController, "when signing up", :type => :controller do
     render_views
 
     before do
@@ -287,22 +287,32 @@ describe UserController, "when signing up" do
     end
 
     it "should be an error if you type the password differently each time" do
-        post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
-            :password => 'sillypassword', :password_confirmation => 'sillypasswordtwo' }
+        post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Kind Person',
+            :password => 'sillypassword', :password_confirmation => 'sillypasswordtwo',
+            :address => 'Maple str' }
         }
         assigns[:user_signup].errors[:password].should == ['Please enter the same password twice']
     end
 
     it "should be an error to sign up with a misformatted email" do
-        post :signup, { :user_signup => { :email => 'malformed-email', :name => 'Mr Malformed',
-            :password => 'sillypassword', :password_confirmation => 'sillypassword' }
+        post :signup, { :user_signup => { :email => 'malformed-email', :name => 'Mr May Malformed',
+            :password => 'sillypassword', :password_confirmation => 'sillypassword',
+            :address => 'Maple str' }
         }
         assigns[:user_signup].errors[:email].should_not be_nil
     end
 
-    it "should send confirmation mail if you fill in the form right" do
-        post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
+    it "should be an error to sign up without address" do
+        post :signup, { :user_signup => { :email => 'malformed-email', :name => 'Mr May Malformed',
             :password => 'sillypassword', :password_confirmation => 'sillypassword' }
+        }
+        assigns[:user_signup].errors[:address].should_not be_nil
+    end
+
+    it "should send confirmation mail if you fill in the form right" do
+        post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Kind Person',
+            :password => 'sillypassword', :password_confirmation => 'sillypassword',
+            :address => 'Maple str' }
         }
         response.should render_template('confirm')
 
@@ -313,9 +323,9 @@ describe UserController, "when signing up" do
 
     it "should send confirmation mail in other languages or different locales" do
         session[:locale] = "es"
-        post :signup, {:user_signup => { :email => 'new@localhost', :name => 'New Person',
+        post :signup, {:user_signup => { :email => 'new@localhost', :name => 'New Kind Person',
             :password => 'sillypassword', :password_confirmation => 'sillypassword',
-           }
+            :address => 'Maple Street' }
         }
         response.should render_template('confirm')
 
@@ -325,8 +335,8 @@ describe UserController, "when signing up" do
     end
 
     it "should send special 'already signed up' mail if you fill the form in with existing registered email" do
-        post :signup, { :user_signup => { :email => 'silly@localhost', :name => 'New Person',
-            :password => 'sillypassword', :password_confirmation => 'sillypassword' }
+        post :signup, { :user_signup => { :email => 'silly@localhost', :name => 'New Kind Person',
+            :password => 'sillypassword', :password_confirmation => 'sillypassword', :address => 'Maple str' }
         }
         response.should render_template('confirm')
 
@@ -350,7 +360,7 @@ describe UserController, "when signing up" do
     # TODO: need to do bob@localhost signup and check that sends different email
 end
 
-describe UserController, "when signing out" do
+describe UserController, "when signing out", :type => :controller do
     render_views
 
     it "should log you out and redirect to the home page" do
@@ -369,7 +379,7 @@ describe UserController, "when signing out" do
 
 end
 
-describe UserController, "when sending another user a message" do
+describe UserController, "when sending another user a message", :type => :controller do
     render_views
 
     it "should redirect to signin page if you go to the contact form and aren't signed in" do
@@ -398,7 +408,7 @@ describe UserController, "when sending another user a message" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
         mail = deliveries[0]
-        mail.body.should include("Bob Smith has used #{AlaveteliConfiguration::site_name} to send you the message below")
+        mail.body.should include("Bob James Smith has used #{AlaveteliConfiguration::site_name} to send you the message below")
         mail.body.should include("Just a test!")
         #mail.to_addrs.first.to_s.should == users(:silly_name_user).name_and_email # TODO: fix some nastiness with quoting name_and_email
         mail.from_addrs.first.to_s.should == users(:bob_smith_user).email
@@ -406,7 +416,7 @@ describe UserController, "when sending another user a message" do
 
 end
 
-describe UserController, "when changing password" do
+describe UserController, "when changing password", :type => :controller do
     render_views
 
     it "should show the email form when not logged in" do
@@ -476,7 +486,7 @@ describe UserController, "when changing password" do
 
 end
 
-describe UserController, "when changing email address" do
+describe UserController, "when changing email address", :type => :controller do
     render_views
 
     it "should require login" do
@@ -621,7 +631,7 @@ describe UserController, "when changing email address" do
     end
 end
 
-describe UserController, "when using profile photos" do
+describe UserController, "when using profile photos", :type => :controller do
     render_views
 
     before do
@@ -683,12 +693,12 @@ describe UserController, "when showing JSON version for API" do
         u.class.to_s.should == 'Hash'
 
         u['url_name'].should == 'bob_smith'
-        u['name'].should == 'Bob Smith'
+        u['name'].should == 'Bob James Smith'
     end
 
 end
 
-describe UserController, "when viewing the wall" do
+describe UserController, "when viewing the wall", :type => :controller do
     render_views
 
     before(:each) do

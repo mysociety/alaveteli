@@ -1,7 +1,7 @@
 # coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe InfoRequestBatchController, "when showing a request" do
+describe InfoRequestBatchController, "when showing a request", :type => :controller do
 
     before do
         @first_public_body = FactoryGirl.create(:public_body)

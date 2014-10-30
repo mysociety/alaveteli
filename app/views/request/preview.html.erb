@@ -24,6 +24,9 @@
                   <%=h(@info_request.public_body.name)%>
                 <% end %>
                 <br><strong><%= _('Subject:') %></strong> <%=h @info_request.email_subject_request %>
+
+                <strong><%= _("Address:") %></strong> <%= @outgoing_message.address %>
+                <%= o.hidden_field(:address) %>
             </p>
 
             <div class="correspondence_text">

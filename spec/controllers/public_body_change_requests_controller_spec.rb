@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe PublicBodyChangeRequestsController, "making a new change request" do
+describe PublicBodyChangeRequestsController, "making a new change request", :type => :controller do
 
     it "should show the form" do
         get :new
@@ -10,7 +10,7 @@ describe PublicBodyChangeRequestsController, "making a new change request" do
 
 end
 
-describe PublicBodyChangeRequestsController, "creating a change request" do
+describe PublicBodyChangeRequestsController, "creating a change request", :type => :controller do
 
     context 'when handling a request for a new authority' do
 

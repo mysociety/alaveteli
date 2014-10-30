@@ -6,13 +6,13 @@
   <div id="blog">
     <% @blog_items.each do |item| %>
       <div class="blog_post">
-          <h2 id="<%= Time.parse(item['pubDate'][0]).to_i %>"><a href="<%=item['link'][0]%>"><%=h item['title'][0] %></a></h2>
-          <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", :date=>simple_date(Time.parse(item['pubDate'][0])), :author=> item['creator'] ? item['creator'][0] : item['author'][0]) %></p>
+          <h2 id="<%= Time.parse(item['updated'][0]).to_i %>"><a href="<%=item['link'][0]['href']%>"><%=h item['title'][0] %></a></h2>
+          <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", :date=>simple_date(Time.parse(item['updated'][0])), :author=> item['author'] ? item['author'][0]['name'][0] : @author) %></p>
           <div>
             <% if item['encoded'] %>
               <%= raw item['encoded'][0] %>
-            <% elsif item['description'] %>
-              <%= raw item['description'][0] %>
+            <% elsif item['summary'] %>
+              <%= raw item['summary'][0] %>
             <% end %>
           </div>
           <p><em>

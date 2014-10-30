@@ -20,7 +20,6 @@ FactoryGirl.define do
                 body 'I want a review'
                 what_doing 'internal_review'
             end
-
         end
 
         # FIXME: This here because OutgoingMessage has an after_initialize,

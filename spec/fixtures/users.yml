@@ -25,7 +25,7 @@
 
 bob_smith_user:
   id: "1"
-  name: Bob Smith
+  name: Bob James Smith
   url_name: bob_smith
   email: bob@localhost
   salt: "-6116981980.392287733335677"
@@ -38,10 +38,11 @@ bob_smith_user:
   locale: 'en'
   about_me: 'I like making requests about fancy dogs and naughty chickens and stuff.'
   receive_email_alerts: true
+  address: Abby Park Street
 silly_name_user:
   id: "2"
-  name: "Silly <em>Name</em>"
-  url_name: silly_emnameem
+  name: Silly Stupid Name
+  url_name: silly_name
   email: silly@localhost
   salt: "-6116981980.392287733335677"
   hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
@@ -53,9 +54,10 @@ silly_name_user:
   locale: 'en'
   about_me: ''
   receive_email_alerts: true
+  address: Bay Avenue
 admin_user:
   id: "3"
-  name: Joe Admin
+  name: Joe Howard Admin
   url_name: joe_admin
   email: joe@localhost
   salt: "-6116981980.392287733335677"
@@ -68,10 +70,11 @@ admin_user:
   locale: ''
   about_me: ''
   receive_email_alerts: true
+  address: Central Street
 unconfirmed_user:
   id: "4"
-  name: "Unconfirmed"
-  url_name: unconfirmed
+  name: Really Unconfirmed User
+  url_name: really_user
   email: unconfirmed@localhost
   salt: "-6116981980.392287733335677"
   hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
@@ -82,10 +85,11 @@ unconfirmed_user:
   ban_text: ''
   about_me: ''
   receive_email_alerts: true
+  address: Delta Street
 robin_user:
   id: 5
-  name: Robin Houston
-  url_name: robin_houston
+  name: Robin Houston Hood
+  url_name: robin_hood
   email: robin@localhost
   salt: "-6116981980.392287733335677"
   hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
@@ -96,10 +100,11 @@ robin_user:
   ban_text: ''
   about_me: 'I am the best'
   receive_email_alerts: true
+  address: Empire Avenue
 another_user:
   id: 6
-  name: Another User
-  url_name: another_user
+  name: Just Another User
+  url_name: just_user
   email: another@localhost
   salt: "-6116981980.392287733335677"
   hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
@@ -110,3 +115,4 @@ another_user:
   ban_text: ''
   about_me: 'Just another user'
   receive_email_alerts: true
+  address: Forest Street

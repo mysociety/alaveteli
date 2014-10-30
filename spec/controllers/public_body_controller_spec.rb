@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 require 'nokogiri'
 
-describe PublicBodyController, "when showing a body" do
+describe PublicBodyController, "when showing a body", :type => :controller do
     render_views
 
     before(:each) do
@@ -73,7 +73,7 @@ describe PublicBodyController, "when showing a body" do
     end
 end
 
-describe PublicBodyController, "when listing bodies" do
+describe PublicBodyController, "when listing bodies", :type => :controller do
     render_views
 
     before(:each) do
@@ -354,7 +354,7 @@ describe PublicBodyController, "when showing public body statistics" do
 
 end
 
-describe PublicBodyController, "when converting data for graphing" do
+describe PublicBodyController, "when converting data for graphing", :type => :controller do
 
     before(:each) do
         @raw_count_data = PublicBody.get_request_totals(n=3,
@@ -441,7 +441,7 @@ describe PublicBodyController, "when converting data for graphing" do
 end
 
 
-describe PublicBodyController, "when doing type ahead searches" do
+describe PublicBodyController, "when doing type ahead searches", :type => :controller do
 
     render_views
 

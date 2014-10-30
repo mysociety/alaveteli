@@ -13,11 +13,16 @@ class ApiController < ApplicationController
             :id => @request.id,
             :url => make_url("request", @request.url_title),
             :title => @request.title,
+
             :created_at => @request.created_at,
             :updated_at => @request.updated_at,
+
             :status => @request.calculate_status,
+
             :public_body_url => make_url("body", @request.public_body.url_name),
+
             :request_email => @request.incoming_email,
+
             :request_text => @request.last_event_forming_initial_request.outgoing_message.body,
         }
         if @request.user
@@ -34,7 +39,8 @@ class ApiController < ApplicationController
             :public_body_id => @public_body.id,
             :described_state => "waiting_response",
             :external_user_name => json["external_user_name"],
-            :external_url => json["external_url"]
+            :external_url => json["external_url"],
+            :address => 'tmp_address'
         )
 
         outgoing_message = OutgoingMessage.new(
@@ -43,7 +49,8 @@ class ApiController < ApplicationController
             :body => json["body"],
             :last_sent_at => Time.now(),
             :what_doing => 'normal_sort',
-            :info_request => request
+            :info_request => request,
+            :address => 'tmp_address'
         )
         request.outgoing_messages << outgoing_message
 

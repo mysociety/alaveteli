@@ -1,4 +1,5 @@
 require 'bundler/capistrano'
+require 'rvm/capistrano'
 
 set :stage, 'staging' unless exists? :stage
 
@@ -12,10 +13,17 @@ set :branch, configuration['branch']
 set :git_enable_submodules, true
 set :deploy_to, configuration['deploy_to']
 set :user, configuration['user']
+if configuration.has_key? 'password'
+  set :password, configuration['password']
+end
 set :use_sudo, false
 set :rails_env, configuration['rails_env']
+set :rvm_type, :system
 
-server configuration['server'], :app, :web, :db, :primary => true
+unless configuration.has_key? 'port'
+  configuration['port'] = 22
+end
+server configuration['server'], :app, :web, :db, :primary => true, :port => configuration['port']
 
 namespace :themes do
   task :install do

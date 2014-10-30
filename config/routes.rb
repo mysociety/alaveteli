@@ -87,6 +87,7 @@ Alaveteli::Application.routes.draw do
 
     match '/profile/change_password' => 'user#signchangepassword', :as => :signchangepassword
     match '/profile/change_email' => 'user#signchangeemail', :as => :signchangeemail
+    match '/profile/change_address' => 'user#signchangeaddress', :as => :signchangeaddress
 
     match '/profile/set_photo' => 'user#set_profile_photo', :as => :set_profile_photo
     match '/profile/clear_photo' => 'user#clear_profile_photo', :as => :clear_profile_photo
@@ -267,6 +268,14 @@ Alaveteli::Application.routes.draw do
     match '/admin/censor/edit/:id' => 'admin_censor_rule#edit', :as => :admin_rule_edit
     match '/admin/censor/update/:id' => 'admin_censor_rule#update', :as => :admin_rule_update
     match '/admin/censor/destroy/:censor_rule_id' => 'admin_censor_rule#destroy', :as => :admin_rule_destroy
+    ####
+
+    #### AdminSpamAddresses controller
+    scope '/admin' do
+        resources :spam_addresses,
+                  :controller => 'admin_spam_addresses',
+                  :only => [:index, :create, :destroy]
+    end
     ####
 
     #### AdminSpamAddresses controller

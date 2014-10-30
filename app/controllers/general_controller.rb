@@ -31,7 +31,7 @@ class GeneralController < ApplicationController
             content = quietly_try_to_open(@feed_url)
             if !content.empty?
                 @data = XmlSimple.xml_in(content)
-                @channel = @data['channel'][0]
+                @author = @data['author'][0]['name'][0]
                 @blog_items = @channel.fetch('item') { [] }
                 @feed_autodetect = [{:url => @feed_url, :title => "#{site_name} blog"}]
             end

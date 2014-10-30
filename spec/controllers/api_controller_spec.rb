@@ -1,7 +1,7 @@
 # coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe ApiController, "when using the API" do
+describe ApiController, "when using the API", :type => :controller do
 
     describe 'checking API keys' do
         before do
@@ -442,6 +442,18 @@ describe ApiController, "when using the API" do
             # essentially just be a matter of copying the code that
             # assigns them and changing assignment to an equality
             # check, which does not really test anything at all.
+    end
+
+    it 'should show information about an external request' do
+        info_request = info_requests(:external_request)
+        get :show_request,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :id => info_request.id
+
+        response.should be_success
+        assigns[:request].id.should == info_request.id
+        r = ActiveSupport::JSON.decode(response.body)
+        r["title"].should == info_request.title
         end
 
         it 'should show information about an external request' do

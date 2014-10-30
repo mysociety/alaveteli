@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe AdminUserController, "when administering users" do
+describe AdminUserController, "when administering users", :type => :controller do
     render_views
   
     it "shows the index/list page" do
@@ -45,7 +45,7 @@ describe AdminUserController, "when updating a user" do
 
 end
 
-describe AdminUserController do
+describe AdminUserController, :type => :controller do
 
     describe :modify_comment_visibility do
 

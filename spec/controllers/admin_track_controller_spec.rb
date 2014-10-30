@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe AdminTrackController, "when administering tracks" do
+describe AdminTrackController, "when administering tracks", :type => :controller do
     render_views
   
     it "shows the list page" do

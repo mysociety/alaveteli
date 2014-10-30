@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe CommentController, "when commenting on a request" do
+describe CommentController, "when commenting on a request", :type => :controller do
     render_views
 
     it "should give an error and render 'new' template when body text is just some whitespace" do

@@ -88,7 +88,7 @@ describe TrackController, "when unsubscribing from a track" do
 
 end
 
-describe TrackController, "when sending alerts for a track" do
+describe TrackController, "when sending alerts for a track", :type => :controller do
     render_views
 
     before(:each) do
@@ -159,7 +159,7 @@ describe TrackController, "when sending alerts for a track" do
     end
 end
 
-describe TrackController, "when viewing RSS feed for a track" do
+describe TrackController, "when viewing RSS feed for a track", :type => :controller do
     render_views
 
     before(:each) do
@@ -201,7 +201,7 @@ describe TrackController, "when viewing RSS feed for a track" do
 
 end
 
-describe TrackController, "when viewing JSON version of a track feed" do
+describe TrackController, "when viewing JSON version of a track feed", :type => :controller do
 
     render_views
 
@@ -243,7 +243,7 @@ describe TrackController, "when viewing JSON version of a track feed" do
 
 end
 
-describe TrackController, "when tracking a public body" do
+describe TrackController, "when tracking a public body", :type => :controller do
 
     render_views
 

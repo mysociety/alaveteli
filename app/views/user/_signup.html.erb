@@ -27,6 +27,11 @@
     </div>
 
     <p>
+        <label class="form_label" for="user_signup_address"> <%= _('Your address:')%></label>
+        <%= text_field 'user_signup', 'address', { :size => 20, :tabindex => 70, :autocomplete => "off" } %>
+    </p>
+
+    <p>
         <label class="form_label" for="user_signup_password"> <%= _('Password:')%></label>
         <%= password_field 'user_signup', 'password', { :size => 15, :tabindex => 80, :autocomplete => "off" } %>
     </p>

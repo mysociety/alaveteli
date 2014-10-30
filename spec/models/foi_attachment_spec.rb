@@ -39,9 +39,9 @@ describe FoiAttachment do
         main = im.get_main_body_text_part
         orig_body = main.body
         main.delete_cached_file!
-        lambda {
+        expect lambda {
             im.get_main_body_text_part.body
-        }.should_not raise_error(Errno::ENOENT)
+        }.not_to raise_error(Errno::ENOENT)
         main.delete_cached_file!
         main = im.get_main_body_text_part
         main.body.should == orig_body

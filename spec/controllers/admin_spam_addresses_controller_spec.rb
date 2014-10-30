@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AdminSpamAddressesController do
+describe AdminSpamAddressesController, :type => :controller do
     render_views
     before { basic_auth_login @request }
 

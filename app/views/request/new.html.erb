@@ -140,7 +140,20 @@
             <label class="form_label" for="outgoing_message_body"><%= _('Your request:') %></label>
             <%= o.text_area :body, :rows => 20, :cols => 60 %>
         </p>
+        <p>
+            <label class="form_label" for="typeahead_search"><%= _('Your address:') %></label>
+            <%= o.text_field :address,
+                             :size => 50,
+                             :id =>"typeahead_search",
+                             :value => @user.address if @user %>
+        </p>
         <% end %>
+
+        <div id="request_header_subject">
+            <p>
+
+            </p>
+        </div>
 
         <% if !@user %>
             <p class="form_note">
@@ -187,7 +200,7 @@
             </p>
         <% end %>
 
-        </div>
+    </div>
 <% end %>
 <% if @batch %>
   <%= javascript_include_tag 'new-request.js' %>

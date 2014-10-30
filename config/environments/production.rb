@@ -22,9 +22,11 @@ Alaveteli::Application.configure do
   config.active_support.deprecation = :notify
 
   if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
-    middleware.use ExceptionNotifier,
-      :sender_address => AlaveteliConfiguration::exception_notifications_from,
-      :exception_recipients => AlaveteliConfiguration::exception_notifications_to
+    middleware.use ExceptionNotification::Rack,
+        :email => {
+          :sender_address => AlaveteliConfiguration::exception_notifications_from,
+          :exception_recipients => AlaveteliConfiguration::exception_notifications_to
+        }
   end
 
   require 'rack/ssl'
@@ -40,7 +42,7 @@ Alaveteli::Application.configure do
   # config.assets.css_compressor = :yui
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs.
   config.assets.digest = true
