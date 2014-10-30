@@ -9,10 +9,13 @@
                    :locals => { :event => result[:model],
                                 :info_request => result[:model].info_request } %>
       <% end %>
+
+      <p>
+          <a id="body-site-search-link">
+            <%= _("Search in their website for this information &rarr;") %>
+          </a>
+      </p>
     <% end %>
 
-    <p>
-        <a id="body-site-search-link"><%= _("Or search in their website for this information.") %></a>
-    </p>
   <% end %>
 </div>
