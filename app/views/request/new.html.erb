@@ -4,7 +4,9 @@
           // Avoid triggering too often (on each keystroke) by using the debounce jQuery plugin:
           // http://benalman.com/projects/jquery-throttle-debounce-plugin/
           $("#typeahead_search").keypress($.debounce( 300, function() {
-              $("#typeahead_response").load("<%= search_ahead_url %>?q="+encodeURI(this.value)+"&requested_from=<%= @info_request.public_body.url_name %>", function() {
+              $("#typeahead_response").load("<%= search_ahead_url %>?q="+encodeURI(this.value)+
+                                            "&requested_from=<%= @info_request.public_body.url_name %>"+
+                                            "&per_page=3", function() {
                   // When following links in typeahead results, open new tab/window
                   $("#typeahead_response a").attr("target","_blank");
 
