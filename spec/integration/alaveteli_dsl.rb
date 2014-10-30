@@ -64,5 +64,14 @@ def close_request(request)
     request.save!
 end
 
+def cache_directories_exist?(request)
+    cache_path = File.join(Rails.root, 'cache', 'views')
+    paths = [File.join(cache_path, 'request', request.request_dirs)]
+    I18n.available_locales.each do |locale|
+        paths << File.join(cache_path, locale.to_s, 'request', request.request_dirs)
+    end
+    paths.any?{ |path| File.exist?(path) }
+end
+
 
 

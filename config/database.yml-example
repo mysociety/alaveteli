@@ -3,7 +3,8 @@
 
 development:
   adapter: postgresql
-  database: foi_development
+  template: template_utf8
+  database: alaveteli_development
   username: <username>
   password: <password>
   host: localhost
@@ -14,7 +15,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   adapter: postgresql
-  database: foi_test
+  template: template_utf8
+  database: alaveteli_test
   username: <username>
   password: <password>
   host: localhost
@@ -24,9 +26,9 @@ test:
 
 production:
   adapter: postgresql
-  database: foi_production
+  template: template_utf8
+  database: alaveteli_production
   username: <username>
   password: <password>
   host: localhost
   port: 5432
-

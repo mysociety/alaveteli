@@ -31,7 +31,7 @@ module Alaveteli
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    I18n.config.enforce_available_locales = false
+    I18n.config.enforce_available_locales = true
 
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
@@ -61,7 +61,6 @@ module Alaveteli
     config.action_dispatch.rack_cache = nil
 
     config.after_initialize do |app|
-       require 'routing_filters.rb'
        # Add a catch-all route to force routing errors to be handled by the application,
        # rather than by middleware.
        app.routes.append{ match '*path', :to => 'general#not_found' }
@@ -69,6 +68,7 @@ module Alaveteli
 
     config.autoload_paths << "#{Rails.root.to_s}/lib/mail_handler"
     config.autoload_paths << "#{Rails.root.to_s}/lib/attachment_to_html"
+    config.autoload_paths << "#{Rails.root.to_s}/lib/health_checks"
 
     # See Rails::Configuration for more options
     ENV['RECAPTCHA_PUBLIC_KEY'] = ::AlaveteliConfiguration::recaptcha_public_key
@@ -111,7 +111,10 @@ module Alaveteli
                                  'print.css',
                                  'admin.css',
                                  'ie6.css',
-                                 'ie7.css']
+                                 'ie7.css',
+                                 'responsive/print.css',
+                                 'responsive/application-lte-ie7.css',
+                                 'responsive/application-ie8.css']
 
      config.sass.load_paths += [
        "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/components",

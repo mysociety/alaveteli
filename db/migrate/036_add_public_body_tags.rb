@@ -11,7 +11,7 @@ class AddPublicBodyTags < ActiveRecord::Migration
         end
 
         # MySQL cannot index text blobs like this
-        # XXX perhaps should change :name to be a :string
+        # TODO: perhaps should change :name to be a :string
         if ActiveRecord::Base.connection.adapter_name != "MySQL"
             add_index :public_body_tags, [:public_body_id, :name], :unique => true
         end

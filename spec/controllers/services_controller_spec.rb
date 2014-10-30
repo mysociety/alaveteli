@@ -2,7 +2,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require 'fakeweb'
 
-describe ServicesController, "when returning a message for people in other countries" do
+describe ServicesController, "when returning a message for people in other countries", :type => :controller do
 
     render_views
 

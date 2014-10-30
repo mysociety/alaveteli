@@ -16,7 +16,7 @@ Alaveteli::Application.routes.draw do
     match '/blog' => 'general#blog', :as => :blog
     match '/search' => 'general#search_redirect', :as => :search_redirect
     match '/search/all' => 'general#search_redirect', :as => :search_redirect
-    # XXX combined is the search query, and then if sorted a "/newest" at the end.
+    # `combined` is the search query, and then if sorted a "/newest" at the end.
     # Couldn't find a way to do this in routes which also picked up multiple other slashes
     # and dots and other characters that can appear in search query. So we sort it all
     # out in the controller.
@@ -61,6 +61,8 @@ Alaveteli::Application.routes.draw do
     match '/request/:url_title/download' => 'request#download_entire_request', :as => :download_entire_request
     ####
 
+    resources :health_checks, :only => [:index]
+
     resources :request, :only => [] do
         resource :report, :only => [:new, :create]
     end
@@ -72,7 +74,8 @@ Alaveteli::Application.routes.draw do
     # Use /user/XXXX for things that anyone can see about that user.
     # Note that /profile isn't indexed by search (see robots.txt)
     match '/profile/sign_in' => 'user#signin', :as => :signin
-    match '/profile/sign_up' => 'user#signup', :as => :signup
+    match '/profile/sign_up' => 'user#signup', :as => :signup, :via => :post
+    match '/profile/sign_up' => 'user#signin', :via => :get
     match '/profile/sign_out' => 'user#signout', :as => :signout
 
     match '/c/:email_token' => 'user#confirm', :as => :confirm
@@ -131,7 +134,7 @@ Alaveteli::Application.routes.draw do
     match '/:feed/list/:view' => 'track#track_list', :as => :track_list, :view => nil, :feed => /(track|feed)/
     match '/:feed/body/:url_name' => 'track#track_public_body', :as => :track_public_body, :feed => /(track|feed)/
     match '/:feed/user/:url_name' => 'track#track_user', :as => :track_user, :feed => /(track|feed)/
-    # XXX :format doesn't work. See hacky code in the controller that makes up for this.
+    # TODO: :format doesn't work. See hacky code in the controller that makes up for this.
     match '/:feed/search/:query_array' => 'track#track_search_query',
           :as => :track_search,
           :feed => /(track|feed)/,
@@ -177,6 +180,24 @@ Alaveteli::Application.routes.draw do
     match '/admin/body/destroy/:id' => 'admin_public_body#destroy', :as => :admin_body_destroy
     match '/admin/body/import_csv' => 'admin_public_body#import_csv', :as => :admin_body_import_csv
     match '/admin/body/mass_tag_add' => 'admin_public_body#mass_tag_add', :as => :admin_body_mass_tag_add
+    ####
+
+    #### AdminPublicBodyCategory controller
+    scope '/admin', :as => 'admin' do
+        resources :categories,
+                  :controller => 'admin_public_body_categories'
+    end
+    ####
+
+    #### AdminPublicBodyHeading controller
+    scope '/admin', :as => 'admin'  do
+        resources :headings,
+                  :controller => 'admin_public_body_headings',
+                  :except => [:index] do
+                      post 'reorder', :on => :collection
+                      post 'reorder_categories', :on => :member
+        end
+    end
     ####
 
     #### AdminPublicBodyChangeRequest controller
@@ -257,11 +278,20 @@ Alaveteli::Application.routes.draw do
     end
     ####
 
+    #### AdminSpamAddresses controller
+    scope '/admin', :as => 'admin' do
+        resources :spam_addresses,
+                  :controller => 'admin_spam_addresses',
+                  :only => [:index, :create, :destroy]
+    end
+    ####
+
     #### Api controller
     match '/api/v2/request.json' => 'api#create_request', :as => :api_create_request, :via => :post
 
     match '/api/v2/request/:id.json' => 'api#show_request', :as => :api_show_request, :via => :get
     match '/api/v2/request/:id.json' => 'api#add_correspondence', :as => :api_add_correspondence, :via => :post
+    match '/api/v2/request/:id/update.json' => 'api#update_state', :as => :api_update_state, :via => :post
 
     match '/api/v2/body/:id/request_events.:feed_type' => 'api#body_request_events', :as => :api_body_request_events, :feed_type => '^(json|atom)$'
     ####

@@ -158,13 +158,13 @@ describe User, " when indexing requests by user they are from" do
 
     it "should not get confused searching for requests when one user has a name which has same stem as another" do
         bob_smith_user = users(:bob_smith_user)
-        bob_smith_user.name = "John Lion King"
-        bob_smith_user.url_name.should == 'john_lion_king'
+        bob_smith_user.name = "John King"
+        bob_smith_user.url_name.should == 'john_king'
         bob_smith_user.save!
 
         silly_user = users(:silly_name_user)
-        silly_user.name = "John King Kong"
-        silly_user.url_name.should == 'john_king_kong'
+        silly_user.name = "John K"
+        silly_user.url_name.should == 'john_k'
         silly_user.save!
 
         naughty_chicken_request = info_requests(:naughty_chicken_request)
@@ -173,7 +173,7 @@ describe User, " when indexing requests by user they are from" do
 
         update_xapian_index
 
-        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:john_king_kong", :limit => 100)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:john_k", :limit => 100)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == info_request_events(:silly_outgoing_message_event)
     end
@@ -188,15 +188,15 @@ describe User, " when indexing requests by user they are from" do
 
         # change the URL name of the body
         u= users(:bob_smith_user)
-        u.name = 'Robert George Smith'
+        u.name = 'Robert Smith'
         u.save!
-        u.url_name.should == 'robert_george_smith'
+        u.url_name.should == 'robert_smith'
         update_xapian_index
 
         # check we get results expected
         xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:bob_smith", :limit => 100)
         xapian_object.results.size.should == 0
-        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:robert_george_smith",
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:robert_smith",
             :sort_by_prefix => 'created_at', :sort_by_ascending => true, :limit => 100)
         models_found_after = xapian_object.results.map { |x| x[:model] }
         models_found_before.should == models_found_after
@@ -210,27 +210,27 @@ describe User, " when indexing comments by user they are by" do
     end
 
     it "should find requests from the user" do
-        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_name", :limit => 100)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_emnameem", :limit => 100)
         xapian_object.results.size.should == 1
     end
 
     it "should update index correctly when URL name of user changes" do
         # initial search
-        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_name", :limit => 100)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_emnameem", :limit => 100)
         xapian_object.results.size.should == 1
         models_found_before = xapian_object.results.map { |x| x[:model] }
 
         # change the URL name of the body
         u = users(:silly_name_user)
-        u.name = 'Silly Name User'
+        u.name = 'Silly Name'
         u.save!
-        u.url_name.should == 'silly_name_user'
+        u.url_name.should == 'silly_name'
         update_xapian_index
 
         # check we get results expected
-        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_name", :limit => 100)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_emnameem", :limit => 100)
         xapian_object.results.size.should == 0
-        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_name_user", :limit => 100)
+        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_name", :limit => 100)
         xapian_object.results.size.should == 1
         models_found_after = xapian_object.results.map { |x| x[:model] }
 
@@ -380,23 +380,63 @@ describe ActsAsXapian::Search, "#words_to_highlight" do
 
     it "should return a list of words used in the search" do
         s = ActsAsXapian::Search.new([PublicBody], "albatross words", :limit => 100)
-        s.words_to_highlight.should == ["albatross", "words"]
+        s.words_to_highlight.should == ["albatross", "word"]
     end
 
     it "should remove any operators" do
         s = ActsAsXapian::Search.new([PublicBody], "albatross words tag:mice", :limit => 100)
-        s.words_to_highlight.should == ["albatross", "words"]
+        s.words_to_highlight.should == ["albatross", "word"]
     end
 
-    # This is the current behaviour but it seems a little simplistic to me
     it "should separate punctuation" do
         s = ActsAsXapian::Search.new([PublicBody], "The doctor's patient", :limit => 100)
-        s.words_to_highlight.should == ["The", "doctor", "s", "patient"]
+        s.words_to_highlight.should == ["the", "doctor", "patient"].sort
     end
 
     it "should handle non-ascii characters" do
         s = ActsAsXapian::Search.new([PublicBody], "adatigénylés words tag:mice", :limit => 100)
-        s.words_to_highlight.should == ["adatigénylés", "words"]
+        s.words_to_highlight.should == ["adatigénylé", "word"]
+    end
+
+    it "should ignore stopwords" do
+        s = ActsAsXapian::Search.new([PublicBody], "department of humpadinking", :limit => 100)
+        s.words_to_highlight.should_not include('of')
+    end
+
+    it "uses stemming" do
+        s = ActsAsXapian::Search.new([PublicBody], 'department of humpadinking', :limit => 100)
+        s.words_to_highlight.should == ["depart", "humpadink"]
+    end
+
+    it "doesn't stem proper nouns" do
+        s = ActsAsXapian::Search.new([PublicBody], 'department of Humpadinking', :limit => 1)
+        s.words_to_highlight.should == ["depart", "humpadinking"]
+    end
+
+    it "includes the original search terms if requested" do
+        s = ActsAsXapian::Search.new([PublicBody], 'boring', :limit => 1)
+        s.words_to_highlight(:include_original => true).should == ['bore', 'boring']
+    end
+
+    it "does not return duplicate terms" do
+        s = ActsAsXapian::Search.new([PublicBody], 'boring boring', :limit => 1)
+        s.words_to_highlight.should == ['bore']
+    end
+
+    context 'the :regex option' do
+
+        it 'wraps each words in a regex that matches the full word' do
+            expected = [/\b(albatross)\b/iu]
+            s = ActsAsXapian::Search.new([PublicBody], 'Albatross', :limit => 1)
+            s.words_to_highlight(:regex => true).should == expected
+        end
+
+        it 'wraps each stem in a regex' do
+            expected = [/\b(depart)\w*\b/iu]
+            s = ActsAsXapian::Search.new([PublicBody], 'department', :limit => 1)
+            s.words_to_highlight(:regex => true).should == expected
+        end
+
     end
 
 end

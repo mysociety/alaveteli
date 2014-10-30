@@ -75,7 +75,7 @@ class InfoRequestEvent < ActiveRecord::Base
         :values => [
                      [ :created_at, 0, "range_search", :date ], # for QueryParser range searches e.g. 01/01/2008..14/01/2008
                      [ :created_at_numeric, 1, "created_at", :number ], # for sorting
-                     [ :described_at_numeric, 2, "described_at", :number ], # XXX using :number for lack of :datetime support in Xapian values
+                     [ :described_at_numeric, 2, "described_at", :number ], # TODO: using :number for lack of :datetime support in Xapian values
                      [ :request, 3, "request_collapse", :string ],
                      [ :request_title_collapse, 4, "request_title_collapse", :string ],
                    ],
@@ -174,7 +174,7 @@ class InfoRequestEvent < ActiveRecord::Base
     end
 
     def get_clipped_response_efficiently
-        # XXX this ugly code is an attempt to not always load all the
+        # TODO: this ugly code is an attempt to not always load all the
         # columns for an incoming message, which can be *very* large
         # (due to all the cached text).  We care particularly in this
         # case because it's called for every search result on a page
@@ -266,7 +266,7 @@ class InfoRequestEvent < ActiveRecord::Base
 
     # We store YAML version of parameters in the database
     def params=(params)
-        # XXX should really set these explicitly, and stop storing them in
+        # TODO: should really set these explicitly, and stop storing them in
         # here, but keep it for compatibility with old way for now
         if not params[:incoming_message_id].nil?
             self.incoming_message_id = params[:incoming_message_id]
@@ -392,7 +392,7 @@ class InfoRequestEvent < ActiveRecord::Base
             :outgoing_message_id => self.outgoing_message_id,
             :comment_id => self.comment_id,
 
-            # XXX would be nice to add links here, but alas the
+            # TODO: would be nice to add links here, but alas the
             # code to make them is in views only. See views/request/details.html.erb
             # perhaps can call with @template somehow
         }

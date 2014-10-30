@@ -37,7 +37,30 @@ class AdminRequestController < AdminController
 
     def resend
         @outgoing_message = OutgoingMessage.find(params[:outgoing_message_id])
-        @outgoing_message.resend_message
+        @outgoing_message.prepare_message_for_resend
+
+        mail_message = case @outgoing_message.message_type
+                       when 'initial_request'
+                           OutgoingMailer.initial_request(
+                               @outgoing_message.info_request,
+                               @outgoing_message
+                           ).deliver
+                       when 'followup'
+                           OutgoingMailer.followup(
+                               @outgoing_message.info_request,
+                               @outgoing_message,
+                               @outgoing_message.incoming_message_followup
+                           ).deliver
+                       else
+                           raise "Message id #{id} has type '#{message_type}' which cannot be resent"
+                       end
+
+        @outgoing_message.record_email_delivery(
+            mail_message.to_addrs.join(', '),
+            mail_message.message_id,
+            'resent'
+        )
+
         flash[:notice] = "Outgoing message resent"
         redirect_to admin_request_show_url(@outgoing_message.info_request)
     end
@@ -100,7 +123,8 @@ class AdminRequestController < AdminController
         @info_request.fully_destroy
         # expire cached files
         expire_for_request(@info_request)
-        flash[:notice] = "Request #{url_title} has been completely destroyed. Email of user who made request: " + user.email
+        email = user.try(:email) ? user.email : 'This request is external so has no associated user'
+        flash[:notice] = "Request #{ url_title } has been completely destroyed. Email of user who made request: #{ email }"
         redirect_to admin_request_list_url
     end
 
@@ -199,7 +223,7 @@ class AdminRequestController < AdminController
         end
 
         # Bejeeps, look, sometimes a URL is something that belongs in a controller, jesus.
-        # XXX hammer this square peg into the round MVC hole
+        # TODO: hammer this square peg into the round MVC hole
         post_redirect = PostRedirect.new(
             :uri => upload_response_url(:url_title => info_request.url_title),
             :user_id => user.id)
@@ -253,7 +277,7 @@ class AdminRequestController < AdminController
         end
         info_request_event.described_state = 'waiting_clarification'
         info_request_event.calculated_state = 'waiting_clarification'
-        # XXX deliberately don't update described_at so doesn't reenter search?
+        # TODO: deliberately don't update described_at so doesn't reenter search?
         info_request_event.save!
 
         flash[:notice] = "Old response marked as having been a clarification"

@@ -1,0 +1,24 @@
+# VirtualHost for HTTPS requests
+<VirtualHost *:443>
+  ServerName www.example.com
+
+  ErrorLog /var/log/apache2/alaveteli_error.log
+  CustomLog /var/log/apache2/alaveteli_access.log combined
+
+  ProxyRequests       Off
+  ProxyPreserveHost   On
+  ProxyPass           /       http://localhost:80/
+  ProxyPassReverse    /       http://localhost:80/
+  RequestHeader       set X-Forwarded-Proto 'https'
+
+  SSLEngine on
+  SSLProtocol all -SSLv2
+  SSLCipherSuite ALL:!ADH:!EXPORT:!SSLv2:RC4+RSA:+HIGH:+MEDIUM
+
+  SSLCertificateFile /etc/ssl/certs/www.example.com.cert
+  SSLCertificateKeyFile /etc/ssl/private/www.example.com.key
+  # SSLCertificateChainFile /etc/ssl/sub.class2.server.ca.pem
+  # SSLCACertificateFile /etc/ssl/ca.pem
+
+  SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
+</VirtualHost>

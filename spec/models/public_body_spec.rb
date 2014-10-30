@@ -493,7 +493,7 @@ describe PublicBody, " when loading CSV files" do
 
         PublicBody.count.should == original_count + 3
 
-        # XXX Not sure why trying to do a I18n.with_locale fails here. Seems related to
+        # TODO: Not sure why trying to do a I18n.with_locale fails here. Seems related to
         # the way categories are loaded every time from the PublicBody class. For now we just
         # test some translation was done.
         body = PublicBody.find_by_name('North West Fake Authority')
@@ -546,6 +546,71 @@ CSV
         errors.should include("error: line 3: Url name URL name is already taken for authority 'Foobar Test'")
     end
 
+    it "should handle active record validation errors" do
+        csv = <<-CSV
+#name,request_email,short_name
+Foobar,a@example.com,foobar
+Foobar Test,b@example.com,foobar
+CSV
+
+        csv_contents = normalize_string_to_utf8(csv)
+        errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin') # true means dry run
+
+        errors.should include("error: line 3: Url name URL name is already taken for authority 'Foobar Test'")
+    end
+
+    it 'has a default list of fields to import' do
+        expected_fields = [
+            ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
+            ['short_name', '(i18n)'],
+            ['request_email', '(i18n)'],
+            ['notes', '(i18n)'],
+            ['publication_scheme', '(i18n)'],
+            ['disclosure_log', '(i18n)'],
+            ['home_page', ''],
+            ['tag_string', '(tags separated by spaces)'],
+        ]
+
+        expect(PublicBody.csv_import_fields).to eq(expected_fields)
+    end
+
+    it 'allows you to override the default list of fields to import' do
+        old_csv_import_fields = PublicBody.csv_import_fields.clone
+        expected_fields = [
+            ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
+            ['short_name', '(i18n)'],
+        ]
+
+        PublicBody.csv_import_fields = expected_fields
+
+        expect(PublicBody.csv_import_fields).to eq(expected_fields)
+
+        # Reset our change so that we don't affect other specs
+        PublicBody.csv_import_fields = old_csv_import_fields
+    end
+
+    it 'allows you to append to the default list of fields to import' do
+        old_csv_import_fields = PublicBody.csv_import_fields.clone
+        expected_fields = [
+            ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
+            ['short_name', '(i18n)'],
+            ['request_email', '(i18n)'],
+            ['notes', '(i18n)'],
+            ['publication_scheme', '(i18n)'],
+            ['disclosure_log', '(i18n)'],
+            ['home_page', ''],
+            ['tag_string', '(tags separated by spaces)'],
+            ['a_new_field', ''],
+        ]
+
+        PublicBody.csv_import_fields << ['a_new_field', '']
+
+        expect(PublicBody.csv_import_fields).to eq(expected_fields)
+
+        # Reset our change so that we don't affect other specs
+        PublicBody.csv_import_fields = old_csv_import_fields
+    end
+
 end
 
 describe PublicBody do
@@ -590,6 +655,20 @@ describe PublicBody do
 
         it 'should remove simple tags from notes' do
             @public_body.notes_without_html.should == 'some notes'
+        end
+
+    end
+
+    describe :site_administration? do
+
+        it 'is true when the body has the site_administration tag' do
+            p = FactoryGirl.build(:public_body, :tag_string => 'site_administration')
+            p.site_administration?.should be_true
+        end
+
+        it 'is false when the body does not have the site_administration tag' do
+            p = FactoryGirl.build(:public_body)
+            p.site_administration?.should be_false
         end
 
     end

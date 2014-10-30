@@ -189,14 +189,6 @@ class ApplicationController < ActionController::Base
         return File.join(File.split(path).map{|x| x[0...max_file_length]})
     end
 
-    def foi_fragment_cache_all_for_request(info_request)
-        # return stub path so admin can expire it
-        first_three_digits = info_request.id.to_s()[0..2]
-        path = "views/request/#{first_three_digits}/#{info_request.id}"
-        foi_cache_path = File.expand_path(File.join(File.dirname(__FILE__), '../../cache'))
-        return File.join(foi_cache_path, path)
-    end
-
     def foi_fragment_cache_exists?(key_path)
         return File.exists?(key_path)
     end
@@ -278,10 +270,10 @@ class ApplicationController < ActionController::Base
 
         session[:post_redirect_token] = post_redirect.token
 
-        # XXX what is the built in Ruby URI munging function that can do this
+        # TODO: what is the built in Ruby URI munging function that can do this
         # choice of & vs. ? more elegantly than this dumb if statement?
         if uri.include?("?")
-            # XXX This looks odd. What would a fragment identifier be doing server-side?
+            # TODO: This looks odd. What would a fragment identifier be doing server-side?
             #     But it also looks harmless, so I’ll leave it just in case.
             if uri.include?("#")
                 uri.sub!("#", "&post_redirect=1#")

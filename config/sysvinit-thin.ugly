@@ -1,0 +1,69 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          application-thin-!!(*= $site *)!!
+# Required-Start:    $local_fs $network
+# Required-Stop:     $local_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Starts the Thin app server for the "!!(*= $site *)!!" site
+# Description:       The Thin app server for the "!!(*= $site *)!!" site
+### END INIT INFO
+
+# This example sysvinit script is based on the helpful example here:
+# http://richard.wallman.org.uk/2010/02/howto-deploy-a-catalyst-application-using-fastcgi-and-nginx/
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+NAME=!!(*= $site *)!!
+SITE_HOME=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!
+DESC="Alaveteli app server"
+USER=!!(*= $user *)!!
+RAILS_ENV=!!(*= $rails_env *)!!
+
+set -e
+
+# Check that the Daemon can be run
+su -l -c "cd $SITE_HOME && bundle exec thin --version &> /dev/null || exit 0" $USER
+
+start_daemon() {
+  echo -n "Starting $DESC: "
+  cd "$SITE_HOME" && bundle exec thin \
+    --environment=$RAILS_ENV \
+    --user="$USER" \
+    --group="$USER" \
+    --address=127.0.0.1 \
+    --daemonize \
+    --quiet \
+    start || true
+  echo "$NAME."
+}
+
+stop_daemon() {
+  echo -n "Stopping $DESC: "
+  cd "$SITE_HOME" && bundle exec thin --quiet stop || true
+  echo "$NAME."
+}
+
+restart_daemon() {
+  echo -n "Restarting $DESC: "
+  cd "$SITE_HOME" && bundle exec thin --onebyone --quiet restart || true
+  echo "$NAME."
+}
+
+case "$1" in
+  start)
+    start_daemon
+    ;;
+  stop)
+    stop_daemon
+    ;;
+  reload|restart|force-reload)
+    restart_daemon
+    ;;
+  *)
+    N=/etc/init.d/$NAME
+    echo "Usage: $N {start|stop|reload|restart|force-reload}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0

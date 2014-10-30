@@ -5,32 +5,32 @@
 # Email: hello@mysociety.org. WWW: http://www.mysociety.org/
 
 PATH=/usr/local/bin:/usr/bin:/bin
-MAILTO=cron-!!(*= $site *)!!@mysociety.org
+MAILTO=!!(*= $mailto *)!!
 
 # Every 5 minutes
-*/5 * * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $vhost_dir *)!!/change-xapian-database.lock "!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/update-xapian-index verbose=true" >> !!(*= $vhost_dir *)!!/logs/update-xapian-index.log || echo "stalled?"
+*/5 * * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/change-xapian-database.lock "!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/update-xapian-index verbose=true" >> !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/log/update-xapian-index.log || echo "stalled?"
 # Every 10 minutes
-5,15,25,35,45,55 * * * * !!(*= $user *)!! /etc/init.d/foi-alert-tracks check
-5,15,25,35,45,55 * * * * !!(*= $user *)!! /etc/init.d/foi-purge-varnish check
-0,10,20,30,40,50 * * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $vhost_dir *)!!/send-batch-requests.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/send-batch-requests || echo "stalled?"
+5,15,25,35,45,55 * * * * !!(*= $user *)!! /etc/init.d/!!(*= $site *)!!-alert-tracks check
+5,15,25,35,45,55 * * * * !!(*= $user *)!! /etc/init.d/!!(*= $site *)!!-purge-varnish check
+0,10,20,30,40,50 * * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/send-batch-requests.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/send-batch-requests || echo "stalled?"
 
 # Once an hour
-09 * * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $vhost_dir *)!!/alert-comment-on-request.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-comment-on-request || echo "stalled?"
+09 * * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/alert-comment-on-request.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-comment-on-request || echo "stalled?"
 
 # Only root can read the log files
-31 * * * * root run-with-lockfile -n !!(*= $vhost_dir *)!!/load-mail-server-logs.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/load-mail-server-logs || echo "stalled?"
+31 * * * * root !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/load-mail-server-logs.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/load-mail-server-logs || echo "stalled?"
 
 # Once a day, early morning
-23 4 * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $vhost_dir *)!!/delete-old-things.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/delete-old-things || echo "stalled?"
-0 6 * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $vhost_dir *)!!/alert-overdue-requests.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-overdue-requests || echo "stalled?"
-0 7 * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $vhost_dir *)!!/alert-new-response-reminders.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-new-response-reminders || echo "stalled?"
-0 8 * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $vhost_dir *)!!/alert-not-clarified-request.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-not-clarified-request || echo "stalled?"
-2 4 * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $vhost_dir *)!!/check-recent-requests-sent.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/check-recent-requests-sent || echo "stalled?"
-45 3 * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $vhost_dir *)!!/stop-new-responses-on-old-requests.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/stop-new-responses-on-old-requests || echo "stalled?"
-55 4 * * * !!(*= $user *)!! run-with-lockfile -n !!(*= $vhost_dir *)!!/update-public-body-stats.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/update-public-body-stats || echo "stalled?"
+23 4 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/delete-old-things.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/delete-old-things || echo "stalled?"
+0 6 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/alert-overdue-requests.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-overdue-requests || echo "stalled?"
+0 7 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/alert-new-response-reminders.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-new-response-reminders || echo "stalled?"
+0 8 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/alert-not-clarified-request.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-not-clarified-request || echo "stalled?"
+2 4 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/check-recent-requests-sent.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/check-recent-requests-sent || echo "stalled?"
+45 3 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/stop-new-responses-on-old-requests.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/stop-new-responses-on-old-requests || echo "stalled?"
+55 4 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/update-public-body-stats.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/update-public-body-stats || echo "stalled?"
 
 # Only root can restart apache
-31 1 * * * root run-with-lockfile -n !!(*= $vhost_dir *)!!/change-xapian-database.lock "!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/compact-xapian-database production" || echo "stalled?"
+31 1 * * * root !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/change-xapian-database.lock "!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/compact-xapian-database production" || echo "stalled?"
 
 
 # Once a day on all servers
@@ -38,7 +38,7 @@ MAILTO=cron-!!(*= $site *)!!@mysociety.org
 48 2 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/user-use-graph
 
 # Once a year :)
-0 0 1 11 * !!(*= $user *)!! /bin/echo "A year has passed, please update the bank holidays for the Freedom of Information site, thank you."
+0 0 1 11 * !!(*= $user *)!! /bin/echo "A year has passed, please update the public holidays for the Freedom of Information site, thank you."
 
 
 

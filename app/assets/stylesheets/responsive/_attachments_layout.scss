@@ -61,6 +61,14 @@
   }
 }
 
-
+#wrapper_google_embed iframe {
+  min-height: 400px;
+  @include respond-min($main_menu-mobile_menu_cutoff ){
+    min-height: 800px;
+    @include lte-ie7{
+      height:800px !important;
+    }
+  }
+}
 
 

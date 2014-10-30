@@ -4,8 +4,6 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-require "public_body_categories"
-
 class AdminPublicBodyController < AdminController
     def index
         list

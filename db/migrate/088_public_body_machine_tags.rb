@@ -3,7 +3,7 @@ class PublicBodyMachineTags < ActiveRecord::Migration
         add_column :public_body_tags, :value, :text
 
         # MySQL cannot index text blobs like this
-        # XXX perhaps should change :name/:value to be a :string
+        # TODO: perhaps should change :name/:value to be a :string
         if ActiveRecord::Base.connection.adapter_name != "MySQL"
             add_index :public_body_tags, :name
         end

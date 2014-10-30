@@ -6,7 +6,7 @@
         </li>
 
         <li class="<%= 'selected' if params[:controller] == 'request' and !['new', 'select_authority'].include?(params[:action]) %>">
-          <%= link_to _("View requests"), request_list_successful_path %>
+          <%= link_to _("Browse requests"), request_list_successful_path %>
         </li>
 
         <li class="<%= 'selected' if params[:controller] == 'public_body' %>">

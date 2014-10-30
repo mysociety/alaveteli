@@ -1,13 +1,6 @@
-# Work around bug in Debian Squeeze - see https://github.com/mysociety/alaveteli/pull/297#issuecomment-4101012
-if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.strip =~ /^(squeeze.*|6\.0\.[45])$/
-    if File.exist? "/lib/libuuid.so.1"
-        require 'dl'
-        DL::dlopen('/lib/libuuid.so.1')
-    end
-end
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.18'
+gem 'rails', '3.2.19'
 
 gem 'pg'
 
@@ -72,6 +65,7 @@ group :test do
   gem 'coveralls', :require => false
   gem 'webrat'
   gem 'nokogiri'
+  gem 'rspec-activemodel-mocks'
 end
 
 group :test, :development do
@@ -84,6 +78,7 @@ group :development do
   gem 'capistrano'
   gem 'rvm-capistrano'
   gem 'mailcatcher'
+  gem 'quiet_assets'
   gem 'rdoc'
 end
 

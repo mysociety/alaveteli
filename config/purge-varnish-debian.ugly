@@ -13,10 +13,12 @@
 # !!(*= $daemon_name *)!! Start the Alaveteli email purge-varnish daemon
 
 NAME=!!(*= $daemon_name *)!!
-DAEMON=!!(*= $vhost_dir *)!!/alaveteli/script/runner
+DAEMON=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/runner
 DAEMON_ARGS="--daemon PurgeRequest.purge_all_loop"
-PIDFILE=!!(*= $vhost_dir *)!!/purge-varnish.pid
-LOGFILE=!!(*= $vhost_dir *)!!/logs/purge-varnish.log
+PIDDIR=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/tmp/pids
+PIDFILE=$PIDDIR/!!(*= $daemon_name *)!!.pid
+LOGDIR=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/log
+LOGFILE=$LOGDIR/!!(*= $daemon_name *)!!.log
 DUSER=!!(*= $user *)!!
 # Set RAILS_ENV - not needed if using config/rails_env.rb
 # RAILS_ENV=your_rails_env
@@ -29,10 +31,14 @@ trap "" 1
 export PIDFILE LOGFILE
 
 quietly_start_daemon() {
+    mkdir -p {$LOGDIR,$PIDDIR}
+    chown $DUSER:$DUSER {$LOGDIR,$PIDDIR}
     /sbin/start-stop-daemon --quiet --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS
 }
 
 start_daemon() {
+    mkdir -p {$LOGDIR,$PIDDIR}
+    chown $DUSER:$DUSER {$LOGDIR,$PIDDIR}
     /sbin/start-stop-daemon --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS
 }
 

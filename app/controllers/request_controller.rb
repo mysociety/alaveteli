@@ -181,7 +181,7 @@ class RequestController < ApplicationController
         end
 
         @filters = params.merge(:latest_status => @view)
-        @title = _("View and search requests")
+        @title = _('Browse and search requests')
 
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
         @track_thing = TrackThing.create_track_for_search_query(InfoRequestEvent.make_query_from_params(@filters))
@@ -304,7 +304,7 @@ class RequestController < ApplicationController
         end
 
         # See if the exact same request has already been submitted
-        # XXX this check should theoretically be a validation rule in the
+        # TODO: this check should theoretically be a validation rule in the
         # model, except we really want to pass @existing_request to the view so
         # it can link to it.
         @existing_request = InfoRequest.find_existing(params[:info_request][:title], params[:info_request][:public_body_id], params[:outgoing_message][:body])
@@ -359,8 +359,21 @@ class RequestController < ApplicationController
         end
         # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
         @info_request.save!
-        # XXX send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
-        @outgoing_message.send_message
+
+        # TODO: Sending the message needs the database id, so we send after
+        # saving, which isn't ideal if the request broke here.
+        if @outgoing_message.sendable?
+            mail_message = OutgoingMailer.initial_request(
+                @outgoing_message.info_request,
+                @outgoing_message
+            ).deliver
+
+            @outgoing_message.record_email_delivery(
+                mail_message.to_addrs.join(', '),
+                mail_message.message_id
+            )
+        end
+
         flash[:notice] = _("<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>
             <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't
             replied by then.</p>
@@ -537,7 +550,7 @@ class RequestController < ApplicationController
         elsif @info_request_event.is_outgoing_message?
             redirect_to outgoing_message_url(@info_request_event.outgoing_message), :status => :moved_permanently
         else
-            # XXX maybe there are better URLs for some events than this
+            # TODO: maybe there are better URLs for some events than this
             redirect_to request_url(@info_request_event.info_request), :status => :moved_permanently
         end
     end
@@ -662,13 +675,27 @@ class RequestController < ApplicationController
                 end
 
                 # Send a follow up message
-                @outgoing_message.send_message
+                @outgoing_message.sendable?
+
+                mail_message = OutgoingMailer.followup(
+                    @outgoing_message.info_request,
+                    @outgoing_message,
+                    @outgoing_message.incoming_message_followup
+                ).deliver
+
+                @outgoing_message.record_email_delivery(
+                    mail_message.to_addrs.join(', '),
+                    mail_message.message_id
+                )
+
                 @outgoing_message.save!
+
                 if @outgoing_message.what_doing == 'internal_review'
                     flash[:notice] = _("Your internal review request has been sent on its way.")
                 else
                     flash[:notice] = _("Your follow up message has been sent on its way.")
                 end
+
                 redirect_to request_url(@info_request)
             end
         else

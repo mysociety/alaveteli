@@ -5,6 +5,7 @@ require 'spork'
 #require 'spork/ext/ruby-debug'
 require 'simplecov'
 require 'coveralls'
+
 # Generate coverage locally in html as well as in coveralls.io
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
     SimpleCov::Formatter::HTMLFormatter,
@@ -99,11 +100,11 @@ Spork.prefork do
 
     # Turn routing-filter off in functional and unit tests as per
     # https://github.com/svenfuchs/routing-filter/blob/master/README.markdown#testing
-    config.before(:each) do
+    config.before(:each) do |example|
       RoutingFilter.active = false if [:controller, :helper, :model].include? example.metadata[:type]
     end
 
-    config.after(:each) do
+    config.after(:each) do |example|
       RoutingFilter.active = true if [:controller, :helper, :model].include? example.metadata[:type]
     end
 
@@ -123,7 +124,7 @@ Spork.prefork do
     end
   end
 
-  # XXX No idea what namespace/class/module to put this in
+  # TODO: No idea what namespace/class/module to put this in
   # Create a clean xapian index based on the fixture files and the raw_email data.
   def create_fixtures_xapian_index
       load_raw_emails_data
@@ -199,14 +200,6 @@ Spork.prefork do
   ensure
       I18n.fallbacks = original_fallbacks
       I18n.default_locale = original_default_locale
-  end
-
-  def load_test_categories
-      PublicBodyCategories.add(:en, [
-          "Local and regional",
-              [ "local_council", "Local councils", "a local council" ],
-          "Miscellaneous",
-              [ "other", "Miscellaneous", "miscellaneous" ],])
   end
 
   def basic_auth_login(request, username = nil, password = nil)

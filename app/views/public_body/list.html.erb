@@ -7,7 +7,7 @@
     </li>
     </ul>
     <% first_row = true %>
-    <% for row in PublicBodyCategories::get().with_headings() %>
+    <% for row in PublicBodyCategory.get().with_headings() %>
         <% if row.instance_of?(Array) %>
             <li>
             <%= link_to_unless (@tag == row[0]), row[1], list_public_bodies_path(:tag => row[0]) %>

@@ -1,3 +1,8 @@
+<% if AlaveteliConfiguration::public_body_statistics_page %>
+  <p>
+    <%= link_to _('Public authority statistics'), public_bodies_statistics_path %>
+  </p>
+<% end %>
 <p>
   <%= link_to _('Are we missing a public authority?'), help_requesting_path + '#missing_body' %>
 </p>

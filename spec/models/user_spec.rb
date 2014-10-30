@@ -306,7 +306,7 @@ describe User, " when making name and email address" do
     end
 end
 
-# XXX not finished
+# TODO: not finished
 describe User, "when setting a profile photo" do
     before do
         @user = User.new

@@ -70,7 +70,7 @@ module MailHandler
         # note re. charset: TMail always tries to convert email bodies
         # to UTF8 by default, so normally it should already be that.
         text = ''
-        # XXX - tell all these command line tools to return utf-8
+        # TODO: - tell all these command line tools to return utf-8
         if content_type == 'text/plain'
             text += body + "\n\n"
         else
@@ -151,7 +151,7 @@ module MailHandler
                     body = entry.get_input_stream.read
                 rescue
                     # move to next attachment silently if there were problems
-                    # XXX really should reduce this to specific exceptions?
+                    # TODO: really should reduce this to specific exceptions?
                     # e.g. password protected
                     next
                 end

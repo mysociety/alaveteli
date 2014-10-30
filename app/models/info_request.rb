@@ -115,6 +115,16 @@ class InfoRequest < ActiveRecord::Base
         states
     end
 
+    # Subset of states accepted via the API
+    def self.allowed_incoming_states
+        [
+            'waiting_response',
+            'rejected',
+            'successful',
+            'partially_successful'
+        ]
+    end
+
     # Possible reasons that a request could be reported for administrator attention
     def report_reasons
         [_("Contains defamatory material"),
@@ -387,16 +397,16 @@ public
 
 
     # When constructing a new request, use this to check user hasn't double submitted.
-    # XXX could have a date range here, so say only check last month's worth of new requests. If somebody is making
+    # TODO: could have a date range here, so say only check last month's worth of new requests. If somebody is making
     # repeated requests, say once a quarter for time information, then might need to do that.
-    # XXX this *should* also check outgoing message joined to is an initial
+    # TODO: this *should* also check outgoing message joined to is an initial
     # request (rather than follow up)
     def InfoRequest.find_existing(title, public_body_id, body)
         return InfoRequest.find(:first, :conditions => [ "title = ? and public_body_id = ? and outgoing_messages.body = ?", title, public_body_id, body ], :include => [ :outgoing_messages ] )
     end
 
     def find_existing_outgoing_message(body)
-        # XXX can add other databases here which have regexp_replace
+        # TODO: can add other databases here which have regexp_replace
         if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
             # Exclude spaces from the body comparison using regexp_replace
             return self.outgoing_messages.find(:first, :conditions => [ "regexp_replace(outgoing_messages.body, '[[:space:]]', '', 'g') = regexp_replace(?, '[[:space:]]', '', 'g')", body ])
@@ -660,7 +670,7 @@ public
                     event.last_described_at = Time.now()
                     event.save!
                 end
-                if event.last_described_at.nil? # XXX actually maybe this isn't needed
+                if event.last_described_at.nil? # TODO: actually maybe this isn't needed
                     event.last_described_at = Time.now()
                     event.save!
                 end
@@ -715,7 +725,7 @@ public
                 elsif event.event_type == 'resent'
                     last_sent = event
                 elsif expecting_clarification and event.event_type == 'followup_sent'
-                    # XXX this needs to cope with followup_resent, which it doesn't.
+                    # TODO: this needs to cope with followup_resent, which it doesn't.
                     # Not really easy to do, and only affects cases where followups
                     # were resent after a clarification.
                     last_sent = event
@@ -1039,6 +1049,19 @@ public
 
     def InfoRequest.download_zip_dir()
         File.join(Rails.root, "cache", "zips", "#{Rails.env}")
+    end
+
+    def foi_fragment_cache_directories
+        # return stub path so admin can expire it
+        directories = []
+        path = File.join("request", request_dirs)
+        foi_cache_path = File.expand_path(File.join(Rails.root, 'cache', 'views'))
+        directories << File.join(foi_cache_path, path)
+        I18n.available_locales.each do |locale|
+            directories << File.join(foi_cache_path, locale.to_s, path)
+        end
+
+        directories
     end
 
     def request_dirs

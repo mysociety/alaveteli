@@ -3,10 +3,11 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 require 'nokogiri'
 
-describe PublicBodyController, "when showing a body" do
+describe PublicBodyController, "when showing a body", :type => :controller do
     render_views
 
     before(:each) do
+        PublicBodyCategory.stub!(:load_categories)
         load_raw_emails_data
         get_fixtures_xapian_index
     end
@@ -72,8 +73,12 @@ describe PublicBodyController, "when showing a body" do
     end
 end
 
-describe PublicBodyController, "when listing bodies" do
+describe PublicBodyController, "when listing bodies", :type => :controller do
     render_views
+
+    before(:each) do
+        PublicBodyCategory.stub!(:load_categories)
+    end
 
     it "should be successful" do
         get :list
@@ -184,6 +189,11 @@ describe PublicBodyController, "when listing bodies" do
         assigns[:public_bodies].should == [ public_bodies(:geraldine_public_body) ]
     end
 
+    it "should support simple searching of bodies by short_name" do
+        get :list, :public_body_query => 'DfH'
+        assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
+    end
+
     it "should support simple searching of bodies by notes" do
         get :list, :public_body_query => 'Albatross'
         assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
@@ -199,16 +209,19 @@ describe PublicBodyController, "when listing bodies" do
         end
     end
 
-    it "should list a tagged thing on the appropriate list page, and others on the other page, and all still on the all page" do
-        load_test_categories
+    it "should list a tagged thing on the appropriate list page, and others on the other page,
+        and all still on the all page" do
+        category = FactoryGirl.create(:public_body_category)
+        heading = FactoryGirl.create(:public_body_heading)
+        PublicBodyCategoryLink.create(:public_body_heading_id => heading.id,
+                                      :public_body_category_id => category.id)
+        public_bodies(:humpadink_public_body).tag_string = category.category_tag
 
-        public_bodies(:humpadink_public_body).tag_string = "foo local_council"
-
-        get :list, :tag => "local_council"
+        get :list, :tag => category.category_tag
         response.should render_template('list')
         assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
-        assigns[:tag].should == "local_council"
-        assigns[:description].should == "in the category ‘Local councils’"
+        assigns[:tag].should == category.category_tag
+        assigns[:description].should == "in the category ‘#{category.title}’"
 
         get :list, :tag => "other"
         response.should render_template('list')
@@ -287,6 +300,23 @@ describe PublicBodyController, "when asked to export public bodies as CSV" do
         all_data[1].length.should == 11
     end
 
+    it "only includes visible bodies" do
+        get :list_all_csv
+        all_data = CSV.parse(response.body)
+        all_data.any?{ |row| row.include?('Internal admin authority') }.should be_false
+    end
+
+    it "does not include site_administration bodies" do
+        FactoryGirl.create(:public_body,
+                           :name => 'Site Admin Body',
+                           :tag_string => 'site_administration')
+
+        get :list_all_csv
+
+        all_data = CSV.parse(response.body)
+        all_data.any?{ |row| row.include?('Site Admin Body') }.should be_false
+    end
+
 end
 
 describe PublicBodyController, "when showing public body statistics" do
@@ -324,7 +354,7 @@ describe PublicBodyController, "when showing public body statistics" do
 
 end
 
-describe PublicBodyController, "when converting data for graphing" do
+describe PublicBodyController, "when converting data for graphing", :type => :controller do
 
     before(:each) do
         @raw_count_data = PublicBody.get_request_totals(n=3,
@@ -411,7 +441,7 @@ describe PublicBodyController, "when converting data for graphing" do
 end
 
 
-describe PublicBodyController, "when doing type ahead searches" do
+describe PublicBodyController, "when doing type ahead searches", :type => :controller do
 
     render_views
 

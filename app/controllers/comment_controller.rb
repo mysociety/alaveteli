@@ -21,7 +21,7 @@ class CommentController < ApplicationController
         end
 
         if params[:comment]
-            # XXX this check should theoretically be a validation rule in the model
+            # TODO: this check should theoretically be a validation rule in the model
             @existing_comment = Comment.find_existing(@info_request.id, params[:comment][:body])
         else
             # Default to subscribing to request when first viewing form
@@ -83,6 +83,20 @@ class CommentController < ApplicationController
             @info_request = InfoRequest.find_by_url_title!(params[:url_title])
         else
             raise "Unknown type #{ params[:type] }"
+        end
+    end
+
+    def create_track_thing
+        @track_thing = TrackThing.create_track_for_request(@info_request)
+    end
+
+    # Are comments disabled on this request?
+    #
+    # There is no “add comment” link when comments are disabled, so users should
+    # not usually hit this unless they are explicitly attempting to avoid the comment block
+    def reject_unless_comments_allowed
+        unless @info_request.comments_allowed?
+            redirect_to request_url(@info_request), :notice => "Comments are not allowed on this request"
         end
     end
 

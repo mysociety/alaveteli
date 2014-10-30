@@ -155,6 +155,23 @@ describe InfoRequest do
 
     end
 
+    describe 'when managing the cache directories' do
+        before do
+            @info_request = info_requests(:fancy_dog_request)
+        end
+
+        it 'should return the default locale cache path without locale parts' do
+            default_locale_path = File.join(Rails.root, 'cache', 'views', 'request', '101', '101')
+            @info_request.foi_fragment_cache_directories.include?(default_locale_path).should == true
+        end
+
+        it 'should return the cache path for any other locales' do
+            other_locale_path =  File.join(Rails.root, 'cache', 'views', 'es', 'request', '101', '101')
+            @info_request.foi_fragment_cache_directories.include?(other_locale_path).should == true
+        end
+
+    end
+
     describe " when emailing" do
 
         before do
@@ -839,9 +856,11 @@ describe InfoRequest do
             context "a series of events on a request" do
                 it "should have sensible events after the initial request has been made" do
                     # An initial request is sent
-                    # The logic that changes the status when a message is sent is mixed up
-                    # in OutgoingMessage#send_message. So, rather than extract it (or call it)
-                    # let's just duplicate what it does here for the time being.
+                    # FIXME: The logic that changes the status when a message
+                    # is sent is mixed up in
+                    # OutgoingMessage#record_email_delivery. So, rather than
+                    # extract it (or call it) let's just duplicate what it does
+                    # here for the time being.
                     request.log_event('sent', {})
                     request.set_described_state('waiting_response')
 
@@ -910,7 +929,8 @@ describe InfoRequest do
                     request.log_event("status_update", {})
                     request.set_described_state("waiting_response")
                     # A normal follow up is sent
-                    # This is normally done in OutgoingMessage#send_message
+                    # This is normally done in
+                    # OutgoingMessage#record_email_delivery
                     request.log_event('followup_sent', {})
                     request.set_described_state('waiting_response')
 

@@ -8,9 +8,10 @@
     <% end %>
   </h3>
    <%= _("{{site_name}} users have made {{number_of_requests}} requests, including:",
-    :site_name => site_name, :number_of_requests => InfoRequest.visible.count) %>
+    :site_name => site_name,
+    :number_of_requests => number_with_delimiter(InfoRequest.visible.count)) %>
     <ul>
-      <% for event in @request_events %>
+      <% @request_events.each do |event| %>
         <li>
           <% if @request_events_all_successful %>
             <%= _("{{public_body_link}} answered a request about",

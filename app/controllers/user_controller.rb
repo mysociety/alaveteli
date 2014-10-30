@@ -46,16 +46,31 @@ class UserController < ApplicationController
         @is_you = !@user.nil? && @user.id == @display_user.id
 
         # Use search query for this so can collapse and paginate easily
-        # XXX really should just use SQL query here rather than Xapian.
+        # TODO: really should just use SQL query here rather than Xapian.
         if @show_requests
             begin
+
+                request_states = @display_user.info_requests.pluck(:described_state).uniq
+
+                option_item = Struct.new(:value, :text)
+                @request_states = request_states.map do |state|
+                   option_item.new(state, InfoRequest.get_status_description(state))
+                end
+
                 requests_query = 'requested_by:' + @display_user.url_name
                 comments_query = 'commented_by:' + @display_user.url_name
                 if !params[:user_query].nil?
                     requests_query += " " + params[:user_query]
                     comments_query += " " + params[:user_query]
                     @match_phrase = _("{{search_results}} matching '{{query}}'", :search_results => "", :query => params[:user_query])
+
+                    unless params[:request_latest_status].blank?
+                        requests_query << ' latest_status:' << params[:request_latest_status]
+                        comments_query << ' latest_status:' << params[:request_latest_status]
+                        @match_phrase << _(" filtered by status: '{{status}}'", :status => params[:request_latest_status])
+                    end
                 end
+
                 @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
                 @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
 
@@ -102,11 +117,11 @@ class UserController < ApplicationController
         @is_you = !@user.nil? && @user.id == @display_user.id
         feed_results = Set.new
         # Use search query for this so can collapse and paginate easily
-        # XXX really should just use SQL query here rather than Xapian.
+        # TODO: really should just use SQL query here rather than Xapian.
         begin
             requests_query = 'requested_by:' + @display_user.url_name
             comments_query = 'commented_by:' + @display_user.url_name
-            # XXX combine these as OR query
+            # TODO: combine these as OR query
             @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
             @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
         rescue
@@ -121,7 +136,7 @@ class UserController < ApplicationController
         if @is_you
             @track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc')
             for track_thing in @track_things
-                # XXX factor out of track_mailer.rb
+                # TODO: factor out of track_mailer.rb
                 xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], track_thing.track_query,
                     :sort_by_prefix => 'described_at',
                     :sort_by_ascending => true,
@@ -199,7 +214,7 @@ class UserController < ApplicationController
         work_out_post_redirect
         @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
         # Make the user and try to save it
-        @user_signup = User.new(params[:user_signup])
+        @user_signup = User.new(user_params(:user_signup))
         error = false
         if @request_from_foreign_country && !verify_recaptcha
             flash.now[:error] = _("There was an error with the words you entered, please try again.")
@@ -262,7 +277,7 @@ class UserController < ApplicationController
         end
     end
 
-    # Change password (XXX and perhaps later email) - requires email authentication
+    # Change password (TODO: and perhaps later email) - requires email authentication
     def signchangepassword
         if @user and ((not session[:user_circumstance]) or (session[:user_circumstance] != "change_password"))
             # Not logged in via email, so send confirmation
@@ -288,7 +303,7 @@ class UserController < ApplicationController
                     :reason_params => {
                         :web => "",
                         :email => _("Then you can change your password on {{site_name}}",:site_name=>site_name),
-                        :email_subject => _("Change your password {{site_name}}",:site_name=>site_name)
+                        :email_subject => _("Change your password on {{site_name}}",:site_name=>site_name)
                     },
                     :circumstance => "change_password" # special login that lets you change your password
                 )
@@ -629,6 +644,10 @@ class UserController < ApplicationController
     end
 
     private
+
+    def user_params(key = :user)
+        params[key].slice(:name, :email, :password, :password_confirmation)
+    end
 
     def is_modal_dialog
         (params[:modal].to_i != 0)

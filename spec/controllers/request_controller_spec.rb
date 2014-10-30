@@ -34,7 +34,7 @@ describe RequestController, "when listing recent requests" do
 
 end
 
-describe RequestController, "when changing things that appear on the request page" do
+describe RequestController, "when changing things that appear on the request page", :type => :controller do
     render_views
 
     it "should purge the downstream cache when mail is received" do
@@ -77,7 +77,7 @@ describe RequestController, "when changing things that appear on the request pag
         PurgeRequest.all().count.should == 0
     end
     it "should purge the downstream cache when censor rules have changed" do
-        # XXX really, CensorRules should execute expiry logic as part
+        # TODO: really, CensorRules should execute expiry logic as part
         # of the after_save of the model. Currently this is part of
         # the AdminCensorRuleController logic, so must be tested from
         # there. Leaving this stub test in place as a reminder
@@ -100,7 +100,7 @@ describe RequestController, "when changing things that appear on the request pag
     end
 end
 
-describe RequestController, "when showing one request" do
+describe RequestController, "when showing one request", :type => :controller do
     render_views
 
     before(:each) do
@@ -643,7 +643,7 @@ describe RequestController, "when showing one request" do
             ir = info_requests(:fancy_dog_request)
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
 
-            # XXX this is horrid, but don't know a better way.  If we
+            # TODO: this is horrid, but don't know a better way.  If we
             # don't do this, the info_request_event to which the
             # info_request is attached still uses the unmodified
             # version from the fixture.
@@ -900,7 +900,7 @@ describe RequestController, "when handling prominence" do
 
 end
 
-# XXX do this for invalid ids
+# TODO: do this for invalid ids
 #  it "should render 404 file" do
 #    response.should render_template("#{Rails.root}/public/404.html")
 #    response.headers["Status"].should == "404 Not Found"
@@ -923,7 +923,6 @@ describe RequestController, "when searching for an authority" do
     end
 
     it "should return matching bodies" do
-
         session[:user_id] = @user.id
         get :select_authority, :query => "Quango"
 
@@ -947,7 +946,7 @@ describe RequestController, "when searching for an authority" do
     end
 end
 
-describe RequestController, "when creating a new request" do
+describe RequestController, "when creating a new request", :type => :controller do
     render_views
 
     before do
@@ -1004,7 +1003,18 @@ describe RequestController, "when creating a new request" do
         post :new, params
         post_redirect = PostRedirect.get_last_post_redirect
         response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
-        # post_redirect.post_params.should == params # XXX get this working. there's a : vs '' problem amongst others
+        # post_redirect.post_params.should == params # TODO: get this working. there's a : vs '' problem amongst others
+    end
+
+    it 'redirects to the frontpage if the action is sent the invalid
+        public_body param' do
+        post :new, :info_request => { :public_body => @body.id,
+                                      :title => 'Why Geraldine?',
+                                      :tag_string => '' },
+                   :outgoing_message => { :body => 'This is a silly letter.' },
+                   :submitted_new_request => 1,
+                   :preview => 1
+        response.should redirect_to frontpage_url
     end
 
     it "should show preview when input is good" do
@@ -1191,7 +1201,7 @@ describe RequestController, "when making a new request" do
 
 end
 
-describe RequestController, "when viewing an individual response for reply/followup" do
+describe RequestController, "when viewing an individual response for reply/followup", :type => :controller do
     render_views
 
     before(:each) do
@@ -1770,7 +1780,7 @@ describe RequestController, "when classifying an information request" do
 
 end
 
-describe RequestController, "when sending a followup message" do
+describe RequestController, "when sending a followup message", :type => :controller do
     render_views
 
     before(:each) do
@@ -1793,7 +1803,7 @@ describe RequestController, "when sending a followup message" do
         session[:user_id] = users(:bob_smith_user).id
         post :show_response, :outgoing_message => { :body => "", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
 
-        # XXX how do I check the error message here?
+        # TODO: how do I check the error message here?
         response.should render_template('show_response')
     end
 
@@ -1817,7 +1827,15 @@ describe RequestController, "when sending a followup message" do
 
         # make the followup
         session[:user_id] = users(:bob_smith_user).id
-        post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+
+        post :show_response,
+             :outgoing_message => {
+                 :body => "What a useless response! You suck.",
+                 :what_doing => 'normal_sort'
+             },
+             :id => info_requests(:fancy_dog_request).id,
+             :incoming_message_id => incoming_messages(:useless_incoming_message),
+             :submitted_followup => 1
 
         # check it worked
         deliveries = ActionMailer::Base.deliveries
@@ -1843,16 +1861,16 @@ describe RequestController, "when sending a followup message" do
 
         # second time should give an error
         post :show_response, :outgoing_message => { :body => "Stop repeating yourself!", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
-        # XXX how do I check the error message here?
+        # TODO: how do I check the error message here?
         response.should render_template('show_response')
     end
 
 end
 
-# XXX Stuff after here should probably be in request_mailer_spec.rb - but then
+# TODO: Stuff after here should probably be in request_mailer_spec.rb - but then
 # it can't check the URLs in the emails I don't think, ugh.
 
-describe RequestController, "sending overdue request alerts" do
+describe RequestController, "sending overdue request alerts", :type => :controller do
     render_views
 
     before(:each) do
@@ -1878,7 +1896,7 @@ describe RequestController, "sending overdue request alerts" do
         mail_token = $2
 
         session[:user_id].should be_nil
-        controller.test_code_redirect_by_email_token(mail_token, self) # XXX hack to avoid having to call User controller for email link
+        controller.test_code_redirect_by_email_token(mail_token, self) # TODO: hack to avoid having to call User controller for email link
         session[:user_id].should == info_requests(:naughty_chicken_request).user.id
 
         response.should render_template('show_response')
@@ -1935,7 +1953,7 @@ describe RequestController, "sending overdue request alerts" do
         mail_token = $2
 
         session[:user_id].should be_nil
-        controller.test_code_redirect_by_email_token(mail_token, self) # XXX hack to avoid having to call User controller for email link
+        controller.test_code_redirect_by_email_token(mail_token, self) # TODO: hack to avoid having to call User controller for email link
         session[:user_id].should == info_requests(:naughty_chicken_request).user.id
 
         response.should render_template('show_response')
@@ -1972,7 +1990,15 @@ describe RequestController, "sending overdue request alerts" do
                                                :info_request_id => chicken_request.id,
                                                :body => 'Some text',
                                                :what_doing => 'normal_sort')
-        outgoing_message.send_message
+
+        outgoing_message.sendable?
+        mail_message = OutgoingMailer.followup(
+            outgoing_message.info_request,
+            outgoing_message,
+            outgoing_message.incoming_message_followup
+        ).deliver
+        outgoing_message.record_email_delivery(mail_message.to_addrs.join(', '), mail_message.message_id)
+
         outgoing_message.save!
 
         chicken_request = InfoRequest.find(chicken_request.id)
@@ -1997,7 +2023,7 @@ describe RequestController, "sending overdue request alerts" do
 
 end
 
-describe RequestController, "sending unclassified new response reminder alerts" do
+describe RequestController, "sending unclassified new response reminder alerts", :type => :controller do
     render_views
 
     before(:each) do
@@ -2017,17 +2043,17 @@ describe RequestController, "sending unclassified new response reminder alerts" 
         mail_token = $2
 
         session[:user_id].should be_nil
-        controller.test_code_redirect_by_email_token(mail_token, self) # XXX hack to avoid having to call User controller for email link
+        controller.test_code_redirect_by_email_token(mail_token, self) # TODO: hack to avoid having to call User controller for email link
         session[:user_id].should == info_requests(:fancy_dog_request).user.id
 
         response.should render_template('show')
         assigns[:info_request].should == info_requests(:fancy_dog_request)
-        # XXX should check anchor tag here :) that it goes to last new response
+        # TODO: should check anchor tag here :) that it goes to last new response
     end
 
 end
 
-describe RequestController, "clarification required alerts" do
+describe RequestController, "clarification required alerts", :type => :controller do
     render_views
     before(:each) do
         load_raw_emails_data
@@ -2053,7 +2079,7 @@ describe RequestController, "clarification required alerts" do
         mail_token = $2
 
         session[:user_id].should be_nil
-        controller.test_code_redirect_by_email_token(mail_token, self) # XXX hack to avoid having to call User controller for email link
+        controller.test_code_redirect_by_email_token(mail_token, self) # TODO: hack to avoid having to call User controller for email link
         session[:user_id].should == info_requests(:fancy_dog_request).user.id
 
         response.should render_template('show_response')
@@ -2080,7 +2106,7 @@ describe RequestController, "clarification required alerts" do
 
 end
 
-describe RequestController, "comment alerts" do
+describe RequestController, "comment alerts", :type => :controller do
     render_views
     before(:each) do
         load_raw_emails_data
@@ -2159,7 +2185,7 @@ describe RequestController, "comment alerts" do
 
 end
 
-describe RequestController, "when viewing comments" do
+describe RequestController, "when viewing comments", :type => :controller do
     render_views
     before(:each) do
         load_raw_emails_data
@@ -2186,7 +2212,7 @@ describe RequestController, "when viewing comments" do
 end
 
 
-describe RequestController, "authority uploads a response from the web interface" do
+describe RequestController, "authority uploads a response from the web interface", :type => :controller do
     render_views
 
     before(:each) do
@@ -2296,7 +2322,7 @@ describe RequestController, "when showing JSON version for API" do
 
 end
 
-describe RequestController, "when doing type ahead searches" do
+describe RequestController, "when doing type ahead searches", :type => :controller do
     render_views
 
     before :each do
@@ -2358,7 +2384,7 @@ describe RequestController, "when doing type ahead searches" do
     end
 end
 
-describe RequestController, "when showing similar requests" do
+describe RequestController, "when showing similar requests", :type => :controller do
     render_views
 
     before do
@@ -2424,7 +2450,7 @@ describe RequestController, "when caching fragments" do
 
 end
 
-describe RequestController, "#new_batch" do
+describe RequestController, "#new_batch", :type => :controller do
 
     context "when batch requests is enabled" do
 
@@ -2566,7 +2592,7 @@ describe RequestController, "#new_batch" do
 
 end
 
-describe RequestController, "#select_authorities" do
+describe RequestController, "#select_authorities", :type => :controller do
 
     context "when batch requests is enabled" do
 

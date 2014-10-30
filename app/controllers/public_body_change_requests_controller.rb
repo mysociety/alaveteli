@@ -1,5 +1,7 @@
 class PublicBodyChangeRequestsController < ApplicationController
 
+    before_filter :catch_spam, :only => [:create]
+
     def create
         @change_request = PublicBodyChangeRequest.from_params(params[:public_body_change_request], @user)
         if @change_request.save
@@ -23,6 +25,16 @@ class PublicBodyChangeRequestsController < ApplicationController
         else
             @title = _('Ask us to add an authority')
         end
-
     end
+
+    private
+
+    def catch_spam
+        if params[:public_body_change_request].key?(:comment)
+            unless params[:public_body_change_request][:comment].empty?
+                redirect_to frontpage_url
+            end
+        end
+    end
+
 end

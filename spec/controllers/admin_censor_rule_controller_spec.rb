@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe AdminCensorRuleController, "when making censor rules from the admin interface" do
+describe AdminCensorRuleController, "when making censor rules from the admin interface", :type => :controller do
     render_views
     before { basic_auth_login @request }
   

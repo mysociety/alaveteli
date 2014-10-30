@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe AdminRequestController, "when administering requests" do
+describe AdminRequestController, "when administering requests", :type => :controller do
     render_views
     before { basic_auth_login @request }
 
@@ -60,11 +60,17 @@ describe AdminRequestController, "when administering requests" do
             get :fully_destroy, { :id => info_request }
         end
 
+        it 'uses a different flash message to avoid trying to fetch a non existent user record' do
+            info_request = info_requests(:external_request)
+            post :fully_destroy, { :id => info_request.id }
+            request.flash[:notice].should include('external')
+        end
+
     end
 
 end
 
-describe AdminRequestController, "when administering the holding pen" do
+describe AdminRequestController, "when administering the holding pen", :type => :controller do
     render_views
     before(:each) do
         basic_auth_login @request

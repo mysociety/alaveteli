@@ -23,26 +23,35 @@ namespace :config_files do
 
     desc 'Convert Debian .ugly init script in config to a form suitable for installing in /etc/init.d'
     task :convert_init_script => :environment do
-        example = 'rake config_files:convert_init_script DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli SCRIPT_FILE=config/alert-tracks-debian.ugly '
-        check_for_env_vars(['DEPLOY_USER', 'VHOST_DIR', 'SCRIPT_FILE'], example)
+        example = 'rake config_files:convert_init_script DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli SITE=alaveteli SCRIPT_FILE=config/alert-tracks-debian.ugly'
+        check_for_env_vars(['DEPLOY_USER',
+                            'VHOST_DIR',
+                            'SCRIPT_FILE'], example)
 
-        deploy_user = ENV['DEPLOY_USER']
-        vhost_dir = ENV['VHOST_DIR']
-        script_file = ENV['SCRIPT_FILE']
+        replacements = {
+            :user => ENV['DEPLOY_USER'],
+            :vhost_dir => ENV['VHOST_DIR'],
+            :vcspath => ENV.fetch('VCSPATH') { 'alaveteli' },
+            :site => ENV.fetch('SITE') { 'foi' },
+            :rails_env => ENV.fetch('RAILS_ENV') { 'development' }
+        }
 
-        replacements = { :user => deploy_user,
-                         :vhost_dir => vhost_dir }
+        # Use the filename for the $daemon_name ugly variable
+        daemon_name = File.basename(ENV['SCRIPT_FILE'], '-debian.ugly')
+        replacements.update(:daemon_name => "#{ replacements[:site] }-#{ daemon_name }")
 
-        daemon_name = File.basename(script_file, '-debian.ugly')
-        replacements.update(:daemon_name => "foi-#{daemon_name}")
-        converted = convert_ugly(script_file, replacements)
-        rails_env_file = File.expand_path(File.join(Rails.root, 'config', 'rails_env.rb'))
-        if !File.exists?(rails_env_file)
+        # Generate the template for potential further processing
+        converted = convert_ugly(ENV['SCRIPT_FILE'], replacements)
+
+        # gsub the RAILS_ENV in to the generated template if its not set by the
+        # hard coded config file
+        unless File.exists?("#{ Rails.root }/config/rails_env.rb")
             converted.each do |line|
                 line.gsub!(/^#\s*RAILS_ENV=your_rails_env/, "RAILS_ENV=#{Rails.env}")
                 line.gsub!(/^#\s*export RAILS_ENV/, "export RAILS_ENV")
             end
         end
+
         converted.each do |line|
             puts line
         end
@@ -50,7 +59,7 @@ namespace :config_files do
 
     desc 'Convert Debian .ugly crontab file in config to a form suitable for installing in /etc/cron.d'
     task :convert_crontab => :environment do
-        example = 'rake config_files:convert_crontab DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli SITE=alaveteli CRONTAB=config/crontab-example'
+        example = 'rake config_files:convert_crontab DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli SITE=alaveteli CRONTAB=config/crontab-example MAILTO=cron-alaveteli@example.org'
         check_for_env_vars(['DEPLOY_USER',
                             'VHOST_DIR',
                             'VCSPATH',
@@ -60,7 +69,8 @@ namespace :config_files do
             :user => ENV['DEPLOY_USER'],
             :vhost_dir => ENV['VHOST_DIR'],
             :vcspath => ENV['VCSPATH'],
-            :site => ENV['SITE']
+            :site => ENV['SITE'],
+            :mailto => ENV.fetch('MAILTO') { "cron-#{ ENV['SITE'] }@mysociety.org" }
         }
         convert_ugly(ENV['CRONTAB'], replacements).each do |line|
             puts line

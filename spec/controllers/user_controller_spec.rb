@@ -1,7 +1,7 @@
 # coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-# XXX Use route_for or params_from to check /c/ links better
+# TODO: Use route_for or params_from to check /c/ links better
 # http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/ControllerExampleGroup.html
 describe UserController, "when redirecting a show request to a canonical url" do
 
@@ -21,7 +21,8 @@ describe UserController, "when redirecting a show request to a canonical url" do
     it 'should not redirect a long canonical name that has a numerical suffix' do
         User.stub!(:find).with(:first, anything()).and_return(mock_model(User,
                                         :url_name => 'bob_smithbob_smithbob_smithbob_s_2',
-                                        :name => 'Bob Smith Bob Smith Bob Smith Bob Smith'))
+                                        :name => 'Bob Smith Bob Smith Bob Smith Bob Smith',
+                                        :info_requests => []))
         User.stub!(:find).with(:all, anything()).and_return([])
         get :show, :url_name => 'bob_smithbob_smithbob_smithbob_s_2'
         response.should be_success
@@ -29,7 +30,7 @@ describe UserController, "when redirecting a show request to a canonical url" do
 
 end
 
-describe UserController, "when showing a user" do
+describe UserController, "when showing a user", :type => :controller do
 
     before(:each) do
         @user = FactoryGirl.create(:user)
@@ -86,7 +87,7 @@ describe UserController, "when showing a user" do
 
 end
 
-describe UserController, "when showing a user" do
+describe UserController, "when showing a user", :type => :controller do
 
     context 'when using fixture data' do
 
@@ -107,6 +108,15 @@ describe UserController, "when showing a user" do
                ]
          end
 
+         it 'filters by the given request status' do
+             get :show, :url_name => 'bob_smith',
+                        :user_query => 'money',
+                        :request_latest_status => 'waiting_response'
+             assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ [
+                 info_requests(:naughty_chicken_request)
+             ]
+         end
+
          it "should not show unconfirmed users" do
              begin
                  get :show, :url_name => "unconfirmed_user"
@@ -118,7 +128,7 @@ describe UserController, "when showing a user" do
 
 end
 
-describe UserController, "when signing in" do
+describe UserController, "when signing in", :type => :controller do
     render_views
 
     before do
@@ -268,7 +278,7 @@ describe UserController, "when signing in" do
 
 end
 
-describe UserController, "when signing up" do
+describe UserController, "when signing up", :type => :controller do
     render_views
 
     before do
@@ -337,10 +347,20 @@ describe UserController, "when signing up" do
         deliveries[0].body.should match(/when\s+you\s+already\s+have\s+an/)
     end
 
-    # XXX need to do bob@localhost signup and check that sends different email
+    it 'accepts only whitelisted parameters' do
+      post :signup, { :user_signup => { :email => 'silly@localhost',
+                                        :name => 'New Person',
+                                        :password => 'sillypassword',
+                                        :password_confirmation => 'sillypassword',
+                                        :admin_level => 'super' } }
+
+      expect(assigns(:user_signup).admin_level).to eq('none')
+    end
+
+    # TODO: need to do bob@localhost signup and check that sends different email
 end
 
-describe UserController, "when signing out" do
+describe UserController, "when signing out", :type => :controller do
     render_views
 
     it "should log you out and redirect to the home page" do
@@ -359,7 +379,7 @@ describe UserController, "when signing out" do
 
 end
 
-describe UserController, "when sending another user a message" do
+describe UserController, "when sending another user a message", :type => :controller do
     render_views
 
     it "should redirect to signin page if you go to the contact form and aren't signed in" do
@@ -390,13 +410,13 @@ describe UserController, "when sending another user a message" do
         mail = deliveries[0]
         mail.body.should include("Bob James Smith has used #{AlaveteliConfiguration::site_name} to send you the message below")
         mail.body.should include("Just a test!")
-        #mail.to_addrs.first.to_s.should == users(:silly_name_user).name_and_email # XXX fix some nastiness with quoting name_and_email
+        #mail.to_addrs.first.to_s.should == users(:silly_name_user).name_and_email # TODO: fix some nastiness with quoting name_and_email
         mail.from_addrs.first.to_s.should == users(:bob_smith_user).email
     end
 
 end
 
-describe UserController, "when changing password" do
+describe UserController, "when changing password", :type => :controller do
     render_views
 
     it "should show the email form when not logged in" do
@@ -466,7 +486,7 @@ describe UserController, "when changing password" do
 
 end
 
-describe UserController, "when changing email address" do
+describe UserController, "when changing email address", :type => :controller do
     render_views
 
     it "should require login" do
@@ -611,7 +631,7 @@ describe UserController, "when changing email address" do
     end
 end
 
-describe UserController, "when using profile photos" do
+describe UserController, "when using profile photos", :type => :controller do
     render_views
 
     before do
@@ -661,7 +681,7 @@ describe UserController, "when using profile photos" do
         @user.profile_photo.should_not be_nil
     end
 
-    # XXX todo check the two stage javascript cropping (above only tests one stage non-javascript one)
+    # TODO: todo check the two stage javascript cropping (above only tests one stage non-javascript one)
 end
 
 describe UserController, "when showing JSON version for API" do
@@ -678,7 +698,7 @@ describe UserController, "when showing JSON version for API" do
 
 end
 
-describe UserController, "when viewing the wall" do
+describe UserController, "when viewing the wall", :type => :controller do
     render_views
 
     before(:each) do

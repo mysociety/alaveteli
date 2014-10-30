@@ -16,7 +16,7 @@ cd `dirname $0`
 cd ../
 source commonlib/shlib/deployfns
 
-# XXX this is nasty :)
+# TODO: this is nasty :)
 OPTION_FOI_DB_HOST=`grep "host:" config/database.yml | head --lines=1 | cut -d ":" -f 2`
 OPTION_FOI_DB_PORT=`grep "port:" config/database.yml | head --lines=1 | cut -d ":" -f 2`
 OPTION_FOI_DB_NAME=`grep "database:" config/database.yml | head --lines=1 | cut -d ":" -f 2`
