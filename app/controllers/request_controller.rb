@@ -900,10 +900,16 @@ class RequestController < ApplicationController
 
     # Type ahead search
     def search_typeahead
-        # Since acts_as_xapian doesn't support the Partial match flag, we work around it
-        # by making the last work a wildcard, which is quite the same
-        query = params[:q]
-        @xapian_requests = perform_search_typeahead(query, InfoRequestEvent)
+        # Since acts_as_xapian doesn't support the Partial match flag, we work
+        # around it by making the last word a wildcard, which is quite the same
+        @query = ''
+
+        if params.key?(:requested_from)
+            @query << "requested_from:#{ params[:requested_from] } "
+        end
+
+        @query << params[:q]
+        @xapian_requests = perform_search_typeahead(@query, InfoRequestEvent)
         render :partial => "request/search_ahead"
     end
 

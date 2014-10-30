@@ -2380,6 +2380,12 @@ describe RequestController, "when doing type ahead searches" do
         get :search_typeahead, :q => "dog -chicken"
         assigns[:xapian_requests].results.size.should == 1
     end
+
+    it 'can filter search results by public body' do
+        get :search_typeahead, :q => 'boring', :requested_from => 'dfh'
+        expect(assigns[:query]).to eq('requested_from:dfh boring')
+    end
+
 end
 
 describe RequestController, "when showing similar requests" do
