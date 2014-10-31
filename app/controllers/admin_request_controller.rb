@@ -170,8 +170,59 @@ class AdminRequestController < AdminController
         post_redirect.save!
         url = confirm_url(:email_token => post_redirect.email_token)
 
-        flash[:notice] = ("Send \"#{name}\" &lt;<a href=\"mailto:#{email}\">#{email}</a>&gt; this URL: <a href=\"#{url}\">#{url}</a> - it will log them in and let them upload a response to this request.").html_safe
+        flash[:notice] = ("Send \"#{CGI.escapeHTML(name)}\" &lt;<a href=\"mailto:#{email}\">#{email}</a>&gt; this URL: <a href=\"#{url}\">#{url}</a> - it will log them in and let them upload a response to this request.").html_safe
         redirect_to admin_request_url(info_request)
+    end
+
+    def show_raw_email
+        @raw_email = RawEmail.find(params[:id])
+        # For the holding pen, try to guess where it should be ...
+        @holding_pen = false
+        if (@raw_email.incoming_message.info_request == InfoRequest.holding_pen_request && !@raw_email.incoming_message.empty_from_field?)
+            @holding_pen = true
+
+            # 1. Use domain of email to try and guess which public body it
+            # is associated with, so we can display that.
+            email = @raw_email.incoming_message.from_email
+            domain = PublicBody.extract_domain_from_email(email)
+
+            if domain.nil?
+                @public_bodies = []
+            else
+                @public_bodies = PublicBody.find(:all, :order => "name",
+                    :conditions => [ "lower(request_email) like lower('%'||?||'%')", domain ])
+            end
+
+            # 2. Match the email address in the message without matching the hash
+            @info_requests =  InfoRequest.guess_by_incoming_email(@raw_email.incoming_message)
+
+            # 3. Give a reason why it's in the holding pen
+            last_event = InfoRequestEvent.find_by_incoming_message_id(@raw_email.incoming_message.id)
+            @rejected_reason = last_event.params[:rejected_reason] || "unknown reason"
+        end
+    end
+
+    def download_raw_email
+        @raw_email = RawEmail.find(params[:id])
+
+        response.content_type = 'message/rfc822'
+        render :text => @raw_email.data
+    end
+
+    # used so due dates get fixed
+    def mark_event_as_clarification
+        info_request_event = InfoRequestEvent.find(params[:info_request_event_id])
+        if info_request_event.event_type != 'response'
+            raise Exception("can only mark responses as requires clarification")
+        end
+        info_request_event.described_state = 'waiting_clarification'
+        info_request_event.calculated_state = 'waiting_clarification'
+        # TODO: deliberately don't update described_at so doesn't reenter search?
+        info_request_event.save!
+
+        flash[:notice] = "Old response marked as having been a clarification"
+        redirect_to admin_request_show_url(info_request_event.info_request)
+>>>>>>> a5442c6... Fix XSS opportunity
     end
 
     def hide
