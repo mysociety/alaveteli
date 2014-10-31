@@ -62,12 +62,13 @@ describe "When errors occur" do
            response.body.should match(%Q(invalid value for Integer))
         end
 
-        it 'should url encode params' do
-          get ('/%d3')
-          response.should render_template('general/exception_caught')
-          response.code.should == '404'
-          response.body.should match("Sorry, we couldn't find that page")
-        end
+        # it 'should url encode params' do
+        #   get ('/%d3')
+        #   response.should render_template('general/exception_caught')
+        #   response.code.should == '404'
+        #   response.body.should match("Sorry, we couldn't find that page")
+        # end
+
 
         it "should render a 500 for general errors using the general/exception_caught template" do
             InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
