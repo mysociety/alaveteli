@@ -6,13 +6,14 @@
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
+# Pinar Dag <pinar.dag@dagmedya.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:46+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2014-09-26 19:07+0000\n"
+"Last-Translator: Pinar Dag <pinar.dag@dagmedya.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/alaveteli/language/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -60,7 +61,7 @@ msgid " >> "
 msgstr ""
 
 msgid " Advise on how to <strong>best clarify</strong> the request."
-msgstr ""
+msgstr "En iyi isteğin nasıl olacağını netleyiniz."
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr ""
