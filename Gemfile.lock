@@ -180,6 +180,10 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rack-utf8_sanitizer (1.2.3)
+      bundler (~> 1.0)
+      rack (~> 1.0)
+      railties (= 3.2.21)
     rails (3.2.21)
       actionmailer (= 3.2.21)
       actionpack (= 3.2.21)
@@ -319,6 +323,7 @@ DEPENDENCIES
   pg
   quiet_assets
   rack
+  rack-utf8_sanitizer
   rails (= 3.2.21)
   rails-i18n
   rake (= 0.9.2.2)
