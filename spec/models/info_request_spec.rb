@@ -824,7 +824,7 @@ describe InfoRequest do
             im = mock_model(IncomingMessage,
                             :subject => nil,
                             :valid_to_reply_to? => true)
-            subject = ir.email_subject_followup im
+            subject = ir.email_subject_followup(:incoming_message => im, :html => false)
             subject.should match(/^Re: Freedom of Information request.*fancy dog/)
         end
 

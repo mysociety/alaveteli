@@ -292,13 +292,18 @@ public
     end
 
     # Subject lines for emails about the request
-    def email_subject_request
-        _('{{law_used_full}} request - {{title}}',:law_used_full=>self.law_used_full,:title=>self.title.html_safe)
+    def email_subject_request(opts = {})
+        html = opts.fetch(:html, true)
+        _('{{law_used_full}} request - {{title}}',
+            :law_used_full => self.law_used_full,
+            :title => (html ? title : title.html_safe))
     end
 
-    def email_subject_followup(incoming_message = nil)
+    def email_subject_followup(opts = {})
+        incoming_message = opts.fetch(:incoming_message, nil)
+        html = opts.fetch(:html, true)
         if incoming_message.nil? || !incoming_message.valid_to_reply_to? || !incoming_message.subject
-            'Re: ' + self.email_subject_request
+            'Re: ' + self.email_subject_request(:html => html)
         else
             if incoming_message.subject.match(/^Re:/i)
                 incoming_message.subject

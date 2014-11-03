@@ -23,7 +23,7 @@
                 <% else %>
                   <%=h(@info_request.public_body.name)%>
                 <% end %>
-                <br><strong><%= _('Subject:') %></strong> <%=h @info_request.email_subject_request %>
+                <br><strong><%= _('Subject:') %></strong> <%= @info_request.email_subject_request %>
             </p>
 
             <div class="correspondence_text">
