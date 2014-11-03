@@ -7,7 +7,7 @@ end
 def quietly_try_to_open(url)
     begin
         result = open(url).read.strip
-    rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ECONNRESET
+    rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ECONNRESET, Timeout::Error
         Rails.logger.warn("Unable to open third-party URL #{url}")
         result = ""
     end
