@@ -221,7 +221,6 @@ Alaveteli::Application.routes.draw do
     end
     match '/admin/request/edit/:id' => 'admin_request#edit', :as => :admin_request_edit
     match '/admin/request/update/:id' => 'admin_request#update', :as => :admin_request_update
-    match '/admin/request/destroy/:id' => 'admin_request#fully_destroy', :as => :admin_request_destroy
     match '/admin/request/edit_comment/:id' => 'admin_request#edit_comment', :as => :admin_request_edit_comment
     match '/admin/request/update_comment/:id' => 'admin_request#update_comment', :as => :admin_request_update_comment
     match '/admin/request/move_request' => 'admin_request#move_request', :as => :admin_request_move_request

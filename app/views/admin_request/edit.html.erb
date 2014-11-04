@@ -51,7 +51,7 @@
 
 <div class="well">
 
-<%= form_tag admin_request_destroy_path(@info_request) do %>
+<%= form_tag admin_request_path(@info_request), :method => :delete do %>
     <p>
     <strong>This is permanent and irreversible!</strong> <%= submit_tag 'Destroy request entirely', :class => 'btn btn-danger' %>
     <br>Use it mainly if someone posts private information, e.g. made a Data Protection request. It

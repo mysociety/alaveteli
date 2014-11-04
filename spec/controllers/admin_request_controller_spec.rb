@@ -57,12 +57,12 @@ describe AdminRequestController, "when administering requests" do
         it 'expires the file cache for that request' do
             info_request = info_requests(:badger_request)
             @controller.should_receive(:expire_for_request).with(info_request)
-            get :fully_destroy, { :id => info_request }
+            get :destroy, { :id => info_request }
         end
 
         it 'uses a different flash message to avoid trying to fetch a non existent user record' do
             info_request = info_requests(:external_request)
-            post :fully_destroy, { :id => info_request.id }
+            post :destroy, { :id => info_request.id }
             request.flash[:notice].should include('external')
         end
 

@@ -79,7 +79,7 @@ class AdminRequestController < AdminController
         end
     end
 
-    def fully_destroy
+    def destroy
         @info_request = InfoRequest.find(params[:id])
 
         user = @info_request.user
