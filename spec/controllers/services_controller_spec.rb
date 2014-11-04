@@ -54,6 +54,7 @@ describe ServicesController, "when returning a message for people in other count
         it "should return the 'another country' message if the service responds OK" do
             config = MySociety::Config.load_default()
             config['ISO_COUNTRY_CODE'] = "DE"
+            config['GEOIP_DATABASE'] = ""
             AlaveteliConfiguration.stub!(:gaze_url).and_return('http://denmark.com')
             FakeWeb.register_uri(:get, %r|denmark.com|, :body => "DK")
             get :other_country_message
@@ -61,18 +62,24 @@ describe ServicesController, "when returning a message for people in other count
             response.body.should == 'Hello! We have an  <a href="/help/alaveteli?country_name=Deutschland">important message</a> for visitors outside Deutschland'
         end
         it "should default to no message if the country_from_ip domain doesn't exist" do
+            config = MySociety::Config.load_default()
+            config['GEOIP_DATABASE'] = ""
             AlaveteliConfiguration.stub!(:gaze_url).and_return('http://12123sdf14qsd.com')
             get :other_country_message
             response.should be_success
             response.body.should == ''
         end
         it "should default to no message if the country_from_ip service doesn't exist" do
+            config = MySociety::Config.load_default()
+            config['GEOIP_DATABASE'] = ""
             AlaveteliConfiguration.stub!(:gaze_url).and_return('http://www.google.com')
             get :other_country_message
             response.should be_success
             response.body.should == ''
         end
         it "should default to no message if the country_from_ip service returns an error" do
+            config = MySociety::Config.load_default()
+            config['GEOIP_DATABASE'] = ""
             FakeWeb.register_uri(:get, %r|500.com|, :body => "Error", :status => ["500", "Error"])
             AlaveteliConfiguration.stub!(:gaze_url).and_return('http://500.com')
             get :other_country_message
