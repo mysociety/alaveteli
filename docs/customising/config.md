@@ -505,13 +505,16 @@ THEME_URLS:
       Details for the 
       <a href="{{site.baseurl}}docs/glossary/#emergency" class="glossary__link">emergency user</a>.
       <p>
-        This is useful for "bootstrapping" your
-        site: create a new user (using regular sign up on the site)
-        log in as the emergency user, promote the new account,
-        then disable the emergency user.
+        This is useful for creating the initial admin users for your site:
+        <ul>
+          <li>Create a new user (using regular sign up on the site)</li>
+          <li>Log in as the emergency user</li>
+          <li>Promote the new account</li>
+          <li>Disable the emergency user</li>
+        </ul>
       </p>
       <p>
-        For details of this processs, see
+        For details of this process, see
         <a href="{{site.baseurl}}docs/installing/next_steps/#create-a-superuser-admin-account">creating
           a superuser account</a>.
       </p>
