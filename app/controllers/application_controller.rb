@@ -424,10 +424,8 @@ class ApplicationController < ActionController::Base
 
     def country_from_ip
         country = ""
-        if !AlaveteliConfiguration::geoip_database.empty?
-            if File.file?(AlaveteliConfiguration::geoip_database)
-                country = GeoIP.new(AlaveteliConfiguration::geoip_database).country(request.remote_ip).country_code2
-            end
+        if File.file?(AlaveteliConfiguration::geoip_database)
+            country = GeoIP.new(AlaveteliConfiguration::geoip_database).country(request.remote_ip).country_code2
         elsif !AlaveteliConfiguration::gaze_url.empty?
             begin
                 country = quietly_try_to_open("#{AlaveteliConfiguration::gaze_url}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
