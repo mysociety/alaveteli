@@ -39,6 +39,7 @@ module AlaveteliConfiguration
             :FRONTPAGE_PUBLICBODY_EXAMPLES => '',
             :GA_CODE => '',
             :GAZE_URL => '',
+            :GEOIP_DATABASE => '/usr/share/GeoIP/GeoIP.dat',
             :HTML_TO_PDF_COMMAND => '',
             :INCLUDE_DEFAULT_LOCALE_IN_URLS => true,
             :INCOMING_EMAIL_DOMAIN => 'localhost',
