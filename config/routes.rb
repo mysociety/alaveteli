@@ -171,13 +171,11 @@ Alaveteli::Application.routes.draw do
     #### AdminPublicBody controller
     scope '/admin', :as => 'admin' do
         resources :bodies,
-                  :except => [:create, :update, :edit, :destroy],
+                  :except => [:create, :destroy],
                   :controller => 'admin_public_body' do
         end
     end
     match '/admin/missing_scheme' => 'admin_public_body#missing_scheme', :as => :admin_body_missing
-    match '/admin/body/edit/:id' => 'admin_public_body#edit', :as => :admin_body_edit
-    match '/admin/body/update/:id' => 'admin_public_body#update', :as => :admin_body_update
     match '/admin/body/create' => 'admin_public_body#create', :as => :admin_body_create
     match '/admin/body/destroy/:id' => 'admin_public_body#destroy', :as => :admin_body_destroy
     match '/admin/body/import_csv' => 'admin_public_body#import_csv', :as => :admin_body_import_csv

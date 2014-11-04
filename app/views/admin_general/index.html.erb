@@ -205,7 +205,7 @@
             <%= form_tag admin_change_request_update_path(@change_request), :class => "form form-horizontal" do %>
               <%= submit_tag 'Close', :class => "btn btn-danger" %>
             <%= link_to("Close and respond", admin_change_request_edit_path(@change_request), :class => 'btn') %>
-            <%= link_to("Make update", admin_body_edit_path(@change_request.public_body, :change_request_id => @change_request.id), :class => 'btn btn-primary') %>
+            <%= link_to("Make update", edit_admin_body_path(@change_request.public_body, :change_request_id => @change_request.id), :class => 'btn btn-primary') %>
             <% end %>
           <% end %>
       </div>
