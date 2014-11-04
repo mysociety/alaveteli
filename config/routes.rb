@@ -174,9 +174,10 @@ Alaveteli::Application.routes.draw do
                   :controller => 'admin_public_body' do
                     get 'missing_scheme', :on => :collection
                     post 'mass_tag_add', :on => :collection
+                    get 'import_csv', :on => :collection
+                    post 'import_csv', :on => :collection
         end
     end
-    match '/admin/body/import_csv' => 'admin_public_body#import_csv', :as => :admin_body_import_csv
     ####
 
     #### AdminPublicBodyCategory controller
