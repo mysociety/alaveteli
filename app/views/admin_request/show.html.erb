@@ -116,7 +116,9 @@
       FOI officer upload URL
     </label>
     <div class="controls">
-      <%= link_to 'Generate URL', admin_request_generate_upload_url_path(@info_request), :class => "btn" %>
+      <%= form_tag generate_upload_url_admin_request_path(@info_request), :class => "form form-inline" do %>
+        <%= submit_tag "Generate URL", :class => "btn"  %>
+      <% end %>
       <p class="help-block">(see also option to generate URLs for individual incoming messages below)</p>
     </div>
   </div>

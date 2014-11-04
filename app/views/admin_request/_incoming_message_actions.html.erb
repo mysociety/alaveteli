@@ -18,7 +18,10 @@
  <div class="control-group">
   <label class="control-label">Generate FOI officer upload URL</label>
   <div class="controls">
-   <%= link_to 'Generate and take me there', admin_request_generate_upload_url_path(incoming_message.info_request, :incoming_message_id => incoming_message.id), :class => "btn" %>
+    <%= form_tag generate_upload_url_admin_request_path(incoming_message.info_request), :class => "form form-inline" do %>
+     <%= hidden_field_tag 'incoming_message_id', incoming_message.id, :id => nil %>
+      <%= submit_tag "Generate and take me there", :class => "btn"  %>
+    <% end %>
   </div>
  </div>
 
