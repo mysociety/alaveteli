@@ -182,21 +182,6 @@ class AdminRequestController < AdminController
         render :text => @raw_email.data
     end
 
-    # used so due dates get fixed
-    def mark_event_as_clarification
-        info_request_event = InfoRequestEvent.find(params[:info_request_event_id])
-        if info_request_event.event_type != 'response'
-            raise Exception("can only mark responses as requires clarification")
-        end
-        info_request_event.described_state = 'waiting_clarification'
-        info_request_event.calculated_state = 'waiting_clarification'
-        # TODO: deliberately don't update described_at so doesn't reenter search?
-        info_request_event.save!
-
-        flash[:notice] = "Old response marked as having been a clarification"
-        redirect_to admin_request_url(info_request_event.info_request)
-    end
-
     def hide
         ActiveRecord::Base.transaction do
             subject = params[:subject]

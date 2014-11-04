@@ -223,7 +223,6 @@ Alaveteli::Application.routes.draw do
         end
     end
     match '/admin/request/download_raw_email/:id' => 'admin_request#download_raw_email', :as => :admin_request_download_raw_email
-    match '/admin/request/mark_event_as_clarification' => 'admin_request#mark_event_as_clarification', :as => :admin_request_clarification
     ####
 
     #### AdminComment controller
@@ -241,6 +240,13 @@ Alaveteli::Application.routes.draw do
                   :only => [:show]
     end
     ####
+
+    #### AdminInfoRequestEvent controller
+    scope '/admin', :as => 'admin' do
+        resources :info_request_events,
+                  :controller => 'admin_info_request_event',
+                  :only => [:update]
+    end
 
     #### AdminIncomingMessage controller
     match '/admin/incoming/destroy' => 'admin_incoming_message#destroy', :as => :admin_incoming_destroy
