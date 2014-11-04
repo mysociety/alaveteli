@@ -136,6 +136,7 @@ GEM
       railties (>= 3.1.0)
       sass (>= 3.2.0)
     fssm (0.2.10)
+    geoip (1.6.1)
     gettext (2.3.9)
       locale
       text
@@ -345,6 +346,7 @@ DEPENDENCIES
   fancybox-rails (~> 0.2.1)
   fast_gettext (~> 0.7.0)
   foundation-rails (~> 5.2.1.0)
+  geoip (~> 1.6.1)
   gettext (~> 2.3.9)
   gettext_i18n_rails (~> 0.9.4)
   globalize3!
