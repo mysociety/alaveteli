@@ -1,6 +1,6 @@
 <fieldset class="form-horizontal">
  <legend>Actions</legend>
- <%= form_tag admin_incoming_redeliver_path, :class => "form form-inline" do %>
+ <%= form_tag  redeliver_admin_incoming_message_path(incoming_message), :class => "form form-inline" do %>
  <div class="control-group">
   <label class="control-label" for="url_title_<%= incoming_message.id %>">Redeliver message to one or more other requests</label>
   <div class="controls">
@@ -9,7 +9,6 @@
       <% else %>
         <%= text_field_tag 'url_title', "", { :size => 20, :id => "url_title_#{incoming_message.id}" } %>
       <% end %>
-      <%= hidden_field_tag 'redeliver_incoming_message_id', incoming_message.id, :id => nil %>
       <%= submit_tag "Redeliver to another request", :class => "btn" %>
       <p class="help-block"><code>id</code> or <code>url_title</code>; you can supply more than one, separated by commas</p>
   </div>
@@ -32,7 +31,7 @@
     </div>
   </div>
 
- <%= form_tag admin_incoming_destroy_path, :class => "form form-inline" do %>
+ <%= form_tag admin_incoming_message_path(incoming_message), :method => 'delete', :class => "form form-inline" do %>
   <div class="control-group">
    <label class="control-label" for="destroy_message_<%= incoming_message.id %>">Destroy message</label>
    <div class="controls">

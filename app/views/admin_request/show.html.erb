@@ -279,7 +279,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#incoming_<%=incoming_message.id%>" data-toggle="collapse" data-parent="#incoming_messages"><%= chevron_right %></a>
-        <%= link_to admin_incoming_edit_path(incoming_message) do %>
+        <%= link_to edit_admin_incoming_message_path(incoming_message) do %>
           <%=incoming_message.id%>
           --
           <%= h(incoming_message.mail_from) %>

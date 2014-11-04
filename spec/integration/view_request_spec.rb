@@ -33,7 +33,7 @@ describe "When viewing requests" do
             # Admin makes the incoming message requester only
             post_data = {:incoming_message => {:prominence => 'hidden',
                                                :prominence_reason => 'boring'}}
-            admin.post_via_redirect "/admin/incoming/update/#{info_request.incoming_messages.first.id}", post_data
+            admin.put_via_redirect "/admin/incoming_messages/#{info_request.incoming_messages.first.id}", post_data
             admin.response.should be_success
 
             cache_directories_exist?(info_request).should be_false

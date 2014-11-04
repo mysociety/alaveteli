@@ -250,10 +250,13 @@ Alaveteli::Application.routes.draw do
     end
 
     #### AdminIncomingMessage controller
-    match '/admin/incoming/destroy' => 'admin_incoming_message#destroy', :as => :admin_incoming_destroy
-    match '/admin/incoming/redeliver' => 'admin_incoming_message#redeliver', :as => :admin_incoming_redeliver
-    match '/admin/incoming/edit/:id' => 'admin_incoming_message#edit', :as => :admin_incoming_edit
-    match '/admin/incoming/update/:id' => 'admin_incoming_message#update', :as => :admin_incoming_update
+    scope '/admin', :as => 'admin' do
+        resources :incoming_messages,
+                  :controller => 'admin_incoming_message',
+                  :only => [:edit, :update, :destroy] do
+                      post 'redeliver', :on => :member
+        end
+    end
     ####
 
     #### AdminOutgoingMessage controller

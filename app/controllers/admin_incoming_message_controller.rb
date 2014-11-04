@@ -27,7 +27,7 @@ class AdminIncomingMessageController < AdminController
     end
 
     def destroy
-        @incoming_message = IncomingMessage.find(params[:incoming_message_id])
+        @incoming_message = IncomingMessage.find(params[:id])
         @info_request = @incoming_message.info_request
         incoming_message_id = @incoming_message.id
 
@@ -41,7 +41,7 @@ class AdminIncomingMessageController < AdminController
     end
 
     def redeliver
-        incoming_message = IncomingMessage.find(params[:redeliver_incoming_message_id])
+        incoming_message = IncomingMessage.find(params[:id])
         message_ids = params[:url_title].split(",").each {|x| x.strip}
         previous_request = incoming_message.info_request
         destination_request = nil

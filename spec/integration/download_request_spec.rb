@@ -56,7 +56,7 @@ describe 'when making a zipfile available' do
                 admin = login(FactoryGirl.create(:admin_user))
                 post_data = {:incoming_message => {:prominence => 'requester_only',
                                                    :prominence_reason => 'boring'}}
-                admin.post_via_redirect "/en/admin/incoming/update/#{info_request.incoming_messages.first.id}", post_data
+                admin.put_via_redirect "/en/admin/incoming_messages/#{info_request.incoming_messages.first.id}", post_data
                 admin.response.should be_success
 
                 # Admin retains the requester only things
@@ -104,7 +104,7 @@ describe 'when making a zipfile available' do
                 post_data = {:outgoing_message => {:prominence => 'requester_only',
                                                    :prominence_reason => 'boring',
                                                    :body => 'Some information please'}}
-                admin.post_via_redirect "/en/admin/outgoing/update/#{info_request.outgoing_messages.first.id}", post_data
+                admin.put_via_redirect "/en/admin/outgoing/update/#{info_request.outgoing_messages.first.id}", post_data
                 admin.response.should be_success
 
                 # Admin retains the requester only things
@@ -237,7 +237,7 @@ describe 'when making a zipfile available' do
                 admin = login(FactoryGirl.create(:admin_user))
                 post_data = {:incoming_message => {:prominence => 'requester_only',
                                                    :prominence_reason => 'boring'}}
-                admin.post_via_redirect "/en/admin/incoming/update/#{info_request.incoming_messages.first.id}", post_data
+                admin.put_via_redirect "/en/admin/incoming_messages/#{info_request.incoming_messages.first.id}", post_data
                 admin.response.should be_success
 
                 # Admin retains the requester only things

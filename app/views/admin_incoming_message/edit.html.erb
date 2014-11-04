@@ -2,7 +2,7 @@
 <%= render :partial => 'actions', :locals => { :incoming_message => @incoming_message } %>
 <fieldset class="form-horizontal">
   <legend>Prominence</legend>
-  <%= form_tag admin_incoming_update_path(@incoming_message), :class => "form form-inline"  do %>
+  <%= form_tag admin_incoming_message_path(@incoming_message), :method => 'put', :class => "form form-inline"  do %>
 
     <div class="control-group">
       <label class="control-label" for="incoming_message_prominence"> Prominence</label>
