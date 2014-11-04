@@ -51,7 +51,7 @@ class AdminPublicBodyController < AdminController
                     @change_request.send_response(params[:subject], response_text)
                 end
                 flash[:notice] = 'PublicBody was successfully created.'
-                redirect_to admin_body_show_url(@public_body)
+                redirect_to admin_body_url(@public_body)
             else
                 render :action => 'new'
             end
@@ -87,7 +87,7 @@ class AdminPublicBodyController < AdminController
                     @change_request.send_response(params[:subject], params[:response])
                 end
                 flash[:notice] = 'PublicBody was successfully updated.'
-                redirect_to admin_body_show_url(@public_body)
+                redirect_to admin_body_url(@public_body)
             else
                 render :action => 'edit'
             end
@@ -101,7 +101,7 @@ class AdminPublicBodyController < AdminController
 
             if public_body.info_requests.size > 0
                 flash[:notice] = "There are requests associated with the authority, so can't destroy it"
-                redirect_to admin_body_show_url(public_body)
+                redirect_to admin_body_url(public_body)
                 return
             end
 

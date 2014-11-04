@@ -26,7 +26,7 @@ module AdminHelper
 
   def public_body_both_links(public_body)
       link_to(eye, public_body_path(public_body), :title => "view authority on public website") + " " +
-          link_to(h(public_body.name), admin_body_show_path(public_body), :title => "view full details")
+          link_to(h(public_body.name), admin_body_path(public_body), :title => "view full details")
   end
 
   def user_both_links(user)
