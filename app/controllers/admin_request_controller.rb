@@ -118,8 +118,8 @@ class AdminRequestController < AdminController
     end
 
     # change user or public body of a request magically
-    def move_request
-        info_request = InfoRequest.find(params[:info_request_id])
+    def move
+        info_request = InfoRequest.find(params[:id])
         if params[:commit] == 'Move request to user' && !params[:user_url_name].blank?
             old_user = info_request.user
             destination_user = User.find_by_url_name(params[:user_url_name])

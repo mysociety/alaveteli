@@ -2,8 +2,7 @@
 
 <h1><%=@title%></h1>
 
-<%= form_tag admin_request_move_request_path, { :class => "form form-horizontal" } do %>
-  <%= hidden_field_tag 'info_request_id', @info_request.id %>
+<%= form_tag move_admin_request_path(@info_request), { :class => "form form-horizontal" } do %>
   <div class="accordion" id="info_request">
     <div class="accordion-group">
       <div class="accordion-heading">

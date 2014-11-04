@@ -217,13 +217,13 @@ Alaveteli::Application.routes.draw do
         resources :requests,
                   :controller => 'admin_request',
                   :except => [:new, :create] do
+                      post 'move', :on => :member
         end
     end
     match '/admin/request/edit/:id' => 'admin_request#edit', :as => :admin_request_edit
     match '/admin/request/update/:id' => 'admin_request#update', :as => :admin_request_update
     match '/admin/request/edit_comment/:id' => 'admin_request#edit_comment', :as => :admin_request_edit_comment
     match '/admin/request/update_comment/:id' => 'admin_request#update_comment', :as => :admin_request_update_comment
-    match '/admin/request/move_request' => 'admin_request#move_request', :as => :admin_request_move_request
     match '/admin/request/generate_upload_url/:id' => 'admin_request#generate_upload_url', :as => :admin_request_generate_upload_url
     match '/admin/request/show_raw_email/:id' => 'admin_request#show_raw_email', :as => :admin_request_show_raw_email
     match '/admin/request/download_raw_email/:id' => 'admin_request#download_raw_email', :as => :admin_request_download_raw_email
