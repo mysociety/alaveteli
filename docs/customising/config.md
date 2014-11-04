@@ -512,7 +512,7 @@ THEME_URLS:
       </p>
       <p>
         For details of this processs, see
-        <a href="{{site.baseurl}}docs/installing/next_steps/#create-a-superuser-account-for-yourself">creating
+        <a href="{{site.baseurl}}docs/installing/next_steps/#create-a-superuser-admin-account">creating
           a superuser account</a>.
       </p>
     <div class="more-info">
