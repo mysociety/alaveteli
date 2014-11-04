@@ -172,11 +172,11 @@ Alaveteli::Application.routes.draw do
     scope '/admin', :as => 'admin' do
         resources :bodies,
                   :controller => 'admin_public_body' do
+                    get 'missing_scheme', :on => :collection
+                    post 'mass_tag_add', :on => :collection
         end
     end
-    match '/admin/missing_scheme' => 'admin_public_body#missing_scheme', :as => :admin_body_missing
     match '/admin/body/import_csv' => 'admin_public_body#import_csv', :as => :admin_body_import_csv
-    match '/admin/body/mass_tag_add' => 'admin_public_body#mass_tag_add', :as => :admin_body_mass_tag_add
     ####
 
     #### AdminPublicBodyCategory controller

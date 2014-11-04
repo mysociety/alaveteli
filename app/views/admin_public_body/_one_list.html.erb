@@ -31,7 +31,7 @@
   <% end %>
 </div>
 
-<%= form_tag(admin_body_mass_tag_add_url, :method => "post", :class => "form form-inline" ) do %>
+<%= form_tag(mass_tag_add_admin_bodies_path, :method => "post", :class => "form form-inline" ) do %>
     <p>
        <%= text_field_tag 'new_tag', params[:new_tag], { :size => 15, :id => "mass_add_tag_new_tag_" + table_name } %>
        <%= hidden_field_tag(:query, params[:query], { :id => "mass_add_tag_query_" + table_name } ) %>
