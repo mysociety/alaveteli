@@ -183,9 +183,9 @@
       <div id="new-authorities" class="accordion-body collapse">
             <% for @change_request in @new_body_requests %>
               <%= render :partial => 'change_request_summary'%>
-              <%= form_tag admin_change_request_update_path(@change_request), :class => "form form-horizontal" do %>
+              <%= form_tag admin_change_request_path(@change_request), :method => 'put', :class => "form form-horizontal" do %>
                 <%= submit_tag 'Close', :class => "btn btn-danger" %>
-                <%= link_to("Close and respond", admin_change_request_edit_path(@change_request), :class => 'btn') %>
+                <%= link_to("Close and respond", edit_admin_change_request_path(@change_request), :class => 'btn') %>
                 <%= link_to("Add authority", new_admin_body_path(:change_request_id => @change_request.id), :class => 'btn btn-primary') %>
               <% end %>
 
@@ -202,9 +202,9 @@
       <div id="update-authorities" class="accordion-body collapse">
         <% for @change_request in @body_update_requests %>
             <%= render :partial => 'change_request_summary' %>
-            <%= form_tag admin_change_request_update_path(@change_request), :class => "form form-horizontal" do %>
+            <%= form_tag admin_change_request_path(@change_request), :class => "form form-horizontal", :method => 'put' do %>
               <%= submit_tag 'Close', :class => "btn btn-danger" %>
-            <%= link_to("Close and respond", admin_change_request_edit_path(@change_request), :class => 'btn') %>
+            <%= link_to("Close and respond", edit_admin_change_request_path(@change_request), :class => 'btn') %>
             <%= link_to("Make update", edit_admin_body_path(@change_request.public_body, :change_request_id => @change_request.id), :class => 'btn btn-primary') %>
             <% end %>
           <% end %>

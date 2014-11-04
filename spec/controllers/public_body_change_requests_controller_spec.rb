@@ -28,6 +28,7 @@ describe PublicBodyChangeRequestsController, "creating a change request" do
 
         it "should send an email to the site contact address" do
             post :create, {:public_body_change_request => @change_request_params}
+            change_request_id = assigns[:change_request].id
             deliveries = ActionMailer::Base.deliveries
             deliveries.size.should == 1
             mail = deliveries[0]
@@ -37,8 +38,8 @@ describe PublicBodyChangeRequestsController, "creating a change request" do
             mail.body.should include('new_body@example.com')
             mail.body.should include('New Body')
             mail.body.should include("Please")
-            mail.body.should include('http://test.host/admin/bodies/new?change_request_id=')
-            mail.body.should include('http://test.host/admin/change_request/edit/')
+            mail.body.should include("http://test.host/admin/bodies/new?change_request_id=#{change_request_id}")
+            mail.body.should include("http://test.host/admin/change_requests/#{change_request_id}/edit")
         end
 
         it 'should show a notice' do
@@ -83,6 +84,7 @@ describe PublicBodyChangeRequestsController, "creating a change request" do
 
         it 'should send an email to the site contact address' do
             post :create, {:public_body_change_request => @change_request_params}
+            change_request_id = assigns[:change_request].id
             deliveries = ActionMailer::Base.deliveries
             deliveries.size.should == 1
             mail = deliveries[0]
@@ -92,8 +94,8 @@ describe PublicBodyChangeRequestsController, "creating a change request" do
             mail.body.should include('new_body@example.com')
             mail.body.should include(@public_body.name)
             mail.body.should include("Please")
-            mail.body.should include("http://test.host/admin/bodies/#{@public_body.id}/edit?change_request_id=")
-            mail.body.should include('http://test.host/admin/change_request/edit/')
+            mail.body.should include("http://test.host/admin/bodies/#{@public_body.id}/edit?change_request_id=#{change_request_id}")
+            mail.body.should include("http://test.host/admin/change_requests/#{change_request_id}/edit")
         end
 
         it 'should show a notice' do
