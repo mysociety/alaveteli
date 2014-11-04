@@ -219,11 +219,11 @@ Alaveteli::Application.routes.draw do
                   :except => [:new, :create] do
                       post 'move', :on => :member
                       post 'generate_upload_url', :on => :member
+                      post 'hide', :on => :member
         end
     end
     match '/admin/request/download_raw_email/:id' => 'admin_request#download_raw_email', :as => :admin_request_download_raw_email
     match '/admin/request/mark_event_as_clarification' => 'admin_request#mark_event_as_clarification', :as => :admin_request_clarification
-    match '/admin/request/hide/:id' => 'admin_request#hide_request', :as => :admin_request_hide
     ####
 
     #### AdminComment controller

@@ -91,7 +91,7 @@ describe AdminRequestController, "when administering the holding pen" do
 
         it "hides requests and sends a notification email that it has done so" do
             ir = info_requests(:fancy_dog_request)
-            post :hide_request, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
+            post :hide, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
             ir.reload
             ir.prominence.should == "requester_only"
             ir.described_state.should == "vexatious"
@@ -104,7 +104,7 @@ describe AdminRequestController, "when administering the holding pen" do
         it 'expires the file cache for the request' do
             ir = info_requests(:fancy_dog_request)
             @controller.should_receive(:expire_for_request).with(ir)
-            post :hide_request, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
+            post :hide, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
         end
 
         describe 'when hiding an external request' do
@@ -125,7 +125,7 @@ describe AdminRequestController, "when administering the holding pen" do
             end
 
             def make_request(params=@default_params)
-                post :hide_request, params
+                post :hide, params
             end
 
             it 'should redirect the the admin page for the request' do

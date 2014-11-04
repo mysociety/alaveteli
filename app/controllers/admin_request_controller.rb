@@ -197,7 +197,7 @@ class AdminRequestController < AdminController
         redirect_to admin_request_url(info_request_event.info_request)
     end
 
-    def hide_request
+    def hide
         ActiveRecord::Base.transaction do
             subject = params[:subject]
             explanation = params[:explanation]
