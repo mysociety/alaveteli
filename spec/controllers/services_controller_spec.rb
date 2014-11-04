@@ -53,14 +53,15 @@ describe ServicesController, "when returning a message for people in other count
 
     before (:each) do
       FakeWeb.clean_registry
+      config = use_gaze_instead_of_geoip_db!
     end
 
     after (:each) do
       FakeWeb.clean_registry
+      MySociety::Config.load_default
     end
 
     it "should return the 'another country' message if the service responds OK" do
-      config = MySociety::Config.load_default
       config['ISO_COUNTRY_CODE'] = "DE"
       allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('http://denmark.com')
       FakeWeb.register_uri(:get, %r|denmark.com|, :body => "DK")
@@ -76,6 +77,7 @@ describe ServicesController, "when returning a message for people in other count
       expect(response.body).to eq('')
     end
 
+
     it "should default to no message if the country_from_ip service doesn't exist" do
       allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('http://www.google.com')
       get :other_country_message
@@ -83,7 +85,7 @@ describe ServicesController, "when returning a message for people in other count
       expect(response.body).to eq('')
     end
 
-    it "should default to no message and log the error with url if the country_from_ip service returns an error" do
+    it "should default to no message and log the error with url if the country_from_ip service returns an error" do       config = MySociety::Config.load_default()
       FakeWeb.register_uri(:get, %r|500.com|, :body => "Error", :status => ["500", "Error"])
       allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('http://500.com')
       expect(Rails.logger).to receive(:warn).with /500\.com.*500 Error/
