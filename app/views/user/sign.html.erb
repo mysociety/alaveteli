@@ -33,8 +33,8 @@
             </p>
         <% end %>
         <div id="left_half">
-            <h1><%= _('Sign in') %></h1>
-            <%= render :partial => 'signin', :locals => { :sign_in_as_existing_user => false } %>
+            <h1><%= _('Sign up') %></h1>
+            <%= render :partial => 'signup' %>
         </div>
 
         <div id="middle_strip">
@@ -42,8 +42,8 @@
         </div>
 
         <div id="right_half">
-            <h1><%= _('Sign up') %></h1>
-            <%= render :partial => 'signup' %>
+            <h1><%= _('Sign in') %></h1>
+            <%= render :partial => 'signin', :locals => { :sign_in_as_existing_user => false } %>
         </div>
 
         <div style="clear:both"></div>
