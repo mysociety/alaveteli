@@ -47,7 +47,7 @@
   <div class="control-group">
    <label class="control-label">Inspect email</label>
    <div class="controls">
-     <%= link_to "View raw email", admin_request_show_raw_email_path(incoming_message.raw_email_id), :class => "btn" %>
+     <%= link_to "View raw email", admin_raw_email_path(incoming_message.raw_email_id), :class => "btn" %>
    </div>
   </div>
  <% end %>

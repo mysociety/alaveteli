@@ -37,9 +37,9 @@
               <tr>
                 <td>
                   <% if message.get_body_for_quoting.strip.size == 0 %>
-                      <%= link_to "(no body)", admin_request_show_raw_email_path(message.raw_email_id) %>
+                      <%= link_to "(no body)", admin_raw_email_path(message.raw_email_id) %>
                   <% else %>
-                      <%= link_to excerpt(message.get_body_for_quoting, "", :radius => 60), admin_request_show_raw_email_path(message.raw_email_id) %>
+                      <%= link_to excerpt(message.get_body_for_quoting, "", :radius => 60), admin_raw_email_path(message.raw_email_id) %>
                   <% end %>
                 </td>
                 <td class="span2">

@@ -1,5 +1,5 @@
 <%= render :partial => 'intro', :locals => {:incoming_message => @incoming_message } %>
-<%= render :partial => 'admin_request/incoming_message_actions', :locals => { :incoming_message => @incoming_message } %>
+<%= render :partial => 'actions', :locals => { :incoming_message => @incoming_message } %>
 <fieldset class="form-horizontal">
   <legend>Prominence</legend>
   <%= form_tag admin_incoming_update_path(@incoming_message), :class => "form form-inline"  do %>
