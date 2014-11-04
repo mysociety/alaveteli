@@ -259,7 +259,7 @@ Definitions
         </li>
         <li>
           Disable the emergency user by setting
-          <code><a href="{{site.baseurl}}docs/customising/config/#disable_emergency_user">DISABLE_EMERGENCY_USER</a> = false</code>
+          <code><a href="{{site.baseurl}}docs/customising/config/#disable_emergency_user">DISABLE_EMERGENCY_USER:</a> false</code>
         </li>
       </ul>
     </div>
