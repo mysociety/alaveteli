@@ -245,8 +245,8 @@
           <tbody>
             <tr>
               <td colspan="2">
-                <%= form_tag admin_request_resend_path, :class => "admin-table-form" do %>
-                  <%= hidden_field_tag 'outgoing_message_id', outgoing_message.id %>
+                <%= form_tag admin_outgoing_resend_path, :class => "admin-table-form" do %>
+                  <%= hidden_field_tag 'id', outgoing_message.id %>
                   <%= submit_tag "Resend", :class => "btn" %>
                 <% end %>
               </td>

@@ -213,7 +213,6 @@ Alaveteli::Application.routes.draw do
     ####
 
     #### AdminRequest controller
-    match '/admin/request/resend' => 'admin_request#resend', :as => :admin_request_resend
     scope '/admin', :as => 'admin' do
         resources :requests,
                   :controller => 'admin_request',
@@ -244,6 +243,7 @@ Alaveteli::Application.routes.draw do
     match '/admin/outgoing/edit/:id' => 'admin_outgoing_message#edit', :as => :admin_outgoing_edit
     match '/admin/outgoing/destroy/:id' => 'admin_outgoing_message#destroy', :as => :admin_outgoing_destroy
     match '/admin/outgoing/update/:id' => 'admin_outgoing_message#update', :as => :admin_outgoing_update
+    match '/admin/outgoing/resend/:id' => 'admin_outgoing_message#resend', :as => :admin_outgoing_resend
     ####
 
     #### AdminUser controller
