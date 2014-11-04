@@ -221,8 +221,6 @@ Alaveteli::Application.routes.draw do
                       post 'generate_upload_url', :on => :member
         end
     end
-    match '/admin/request/edit/:id' => 'admin_request#edit', :as => :admin_request_edit
-    match '/admin/request/update/:id' => 'admin_request#update', :as => :admin_request_update
     match '/admin/request/show_raw_email/:id' => 'admin_request#show_raw_email', :as => :admin_request_show_raw_email
     match '/admin/request/download_raw_email/:id' => 'admin_request#download_raw_email', :as => :admin_request_download_raw_email
     match '/admin/request/mark_event_as_clarification' => 'admin_request#mark_event_as_clarification', :as => :admin_request_clarification

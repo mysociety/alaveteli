@@ -2,7 +2,7 @@
 
 <%= error_messages_for 'info_request' %>
 
-<%= form_tag admin_request_update_path(@info_request) do %>
+<%= form_tag admin_request_path(@info_request), :method => :put do %>
 
    <p><label for="info_request_title"><strong>Title</strong></label> (warning: editing this will break URLs right now)<br/>
    <%= text_field 'info_request', 'title', :size => 50  %></p>
