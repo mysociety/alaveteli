@@ -504,9 +504,19 @@ DEBUG_RECORD_MEMORY: false
 # ---
 USE_GHOSTSCRIPT_COMPRESSION: false
 
-# Alateveli uses mySociety's gazeteer service to determine country from
-# incoming IP address (this lets us suggest an Alaveteli in the user's country
-# if one exists). You shouldn't normally need to change this.
+# Alaveteli uses a GeoIP database to determine the country from the IP address
+# of an HTTP request to the site (this lets us suggest an Alaveteli in the user's
+# country if one exists). You shouldn't need to change this if you have the
+# geoip-database package installed as specified in the config/packages files.
+#
+# GEOIP_DATABASE - String (default: /usr/share/GeoIP/GeoIP.dat)
+#
+# ---
+GEOIP_DATABASE: /usr/share/GeoIP/GeoIP.dat
+
+# In the absence of a GeoIP database (see above), Alateveli can use Gaze,
+# mySociety's gazeteer, to determine the country from the IP address of an HTTP
+# request to the site. You shouldn't normally need to change this.
 #
 # GAZE_URL - String (default: http://gaze.mysociety.org)
 #
