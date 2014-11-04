@@ -5,16 +5,16 @@
         <div class="accordion-group">
           <div class="accordion-heading">
             <%= check_box_tag 'comment_ids[]', comment.id %>
-  
+
             <a href="#comment_<%= comment.id %>" data-toggle="collapse" data-parent="#comments"><%= chevron_right %></a>
-  
-            <%= link_to admin_request_edit_comment_path(comment) do %>
+
+            <%= link_to edit_admin_comment_path(comment) do %>
               #<%= comment.id %>
               --
               <%= h(comment.user.name) %>
               <%= admin_value(comment.created_at) %>
             <% end %>
-  
+
             <%= comment_visibility(comment) %>
 
             <blockquote class="incoming-message">

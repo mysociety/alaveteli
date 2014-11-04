@@ -93,30 +93,6 @@ class AdminRequestController < AdminController
         redirect_to admin_requests_url
     end
 
-    def edit_comment
-        @comment = Comment.find(params[:id])
-    end
-
-    def update_comment
-        @comment = Comment.find(params[:id])
-
-        old_body = @comment.body
-        old_visible = @comment.visible
-        @comment.visible = params[:comment][:visible] == "true" ? true : false
-
-        if @comment.update_attributes(params[:comment])
-            @comment.info_request.log_event("edit_comment",
-                { :comment_id => @comment.id, :editor => admin_current_user(),
-                    :old_body => old_body, :body => @comment.body,
-                    :old_visible => old_visible, :visible => @comment.visible,
-                })
-            flash[:notice] = 'Comment successfully updated.'
-            redirect_to admin_request_url(@comment.info_request)
-        else
-            render :action => 'edit_comment'
-        end
-    end
-
     # change user or public body of a request magically
     def move
         info_request = InfoRequest.find(params[:id])

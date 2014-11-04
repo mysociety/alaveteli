@@ -223,12 +223,18 @@ Alaveteli::Application.routes.draw do
     end
     match '/admin/request/edit/:id' => 'admin_request#edit', :as => :admin_request_edit
     match '/admin/request/update/:id' => 'admin_request#update', :as => :admin_request_update
-    match '/admin/request/edit_comment/:id' => 'admin_request#edit_comment', :as => :admin_request_edit_comment
-    match '/admin/request/update_comment/:id' => 'admin_request#update_comment', :as => :admin_request_update_comment
     match '/admin/request/show_raw_email/:id' => 'admin_request#show_raw_email', :as => :admin_request_show_raw_email
     match '/admin/request/download_raw_email/:id' => 'admin_request#download_raw_email', :as => :admin_request_download_raw_email
     match '/admin/request/mark_event_as_clarification' => 'admin_request#mark_event_as_clarification', :as => :admin_request_clarification
     match '/admin/request/hide/:id' => 'admin_request#hide_request', :as => :admin_request_hide
+    ####
+
+    #### AdminComment controller
+    scope '/admin', :as => 'admin' do
+        resources :comments,
+                  :controller => 'admin_comment',
+                  :only => [:edit, :update]
+    end
     ####
 
     #### AdminIncomingMessage controller
