@@ -220,9 +220,9 @@ Alaveteli::Application.routes.draw do
                       post 'move', :on => :member
                       post 'generate_upload_url', :on => :member
                       post 'hide', :on => :member
+
         end
     end
-    match '/admin/request/download_raw_email/:id' => 'admin_request#download_raw_email', :as => :admin_request_download_raw_email
     ####
 
     #### AdminComment controller

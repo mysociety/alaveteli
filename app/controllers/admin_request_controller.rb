@@ -175,13 +175,6 @@ class AdminRequestController < AdminController
         redirect_to admin_request_url(info_request)
     end
 
-    def download_raw_email
-        @raw_email = RawEmail.find(params[:id])
-
-        response.content_type = 'message/rfc822'
-        render :text => @raw_email.data
-    end
-
     def hide
         ActiveRecord::Base.transaction do
             subject = params[:subject]

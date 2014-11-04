@@ -57,7 +57,7 @@
 
 <h2>Raw email</h2>
 
-<p><%= link_to "Download", admin_request_download_raw_email_path(@raw_email) %></p>
+<p><%= link_to "Download",  admin_raw_email_path(@raw_email, :format => 'txt') %></p>
 
 <pre><%=h(@raw_email.data).gsub(/\n/, '<br>').html_safe %></pre>
 
