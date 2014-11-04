@@ -20,8 +20,7 @@
       </div>
 
       <% if @public_body.info_requests.empty? %>
-        <%= form_tag(admin_body_destroy_path(@public_body), :class => "form form-inline") do %>
-         <%= hidden_field_tag(:public_body_id, { :value => @public_body.id } ) %>
+        <%= form_tag(admin_body_path(@public_body), :class => "form form-inline", :method => 'delete') do %>
          <%= submit_tag _("Destroy {{name}}", :name => @public_body.name), :class => "btn btn-danger" %> (this is permanent!)
         <% end %>
       <% end %>
