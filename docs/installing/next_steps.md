@@ -39,6 +39,12 @@ directory Alaveteli was installed into.
 * You should receive the request email - try replying to it. Your response email should appear in Alaveteli. Not working? Take a look at our [troubleshooting tips]({{ site.baseurl}}docs/installing/manual_install/#troubleshooting). If that doesn't sort it out, [get in touch]({{ site.baseurl}}community/) on the project mailing list or IRC
 for help.
 
+## Import Public Authorities
+
+Alaveteli can import a list of public authorities and their contact email addresses from a CSV file.
+
+You can find the uploader in under the "Authorities" tab of the admin section, or go straight to `/admin/body/import_csv`.
+
 ## Start thinking about customising Alaveteli
 
 Check out [our guide]({{ site.baseurl}}docs/customising/).
