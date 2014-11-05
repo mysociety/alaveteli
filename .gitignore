@@ -30,3 +30,9 @@ webrat.log
 /db/development_structure.sql
 /db/structure.sql
 /public/assets
+<<<<<<< HEAD
+=======
+.ruby-version
+.vagrant
+.idea/
+>>>>>>> 0cc0f4e... Update compass in order to match the images from the theme
