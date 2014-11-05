@@ -153,9 +153,7 @@ server (use `restart` rather than `start` if it's already running):
 Your site will be running at the public URL again, which is of the form
 `http://your-ec2-hostname.eu-west-1.compute.amazonaws.com`.
 
-If you have any problems or questions, please ask on the [Alaveteli Google
-Group](https://groups.google.com/forum/#!forum/alaveteli-dev) or [report an
-issue](https://github.com/mysociety/alaveteli/issues?state=open).
+If you have any problems or questions, please ask on the [Alaveteli developer mailing list](https://groups.google.com/forum/#!forum/alaveteli-dev) or [report an issue](https://github.com/mysociety/alaveteli/issues?state=open).
 
 
 ##What next?
