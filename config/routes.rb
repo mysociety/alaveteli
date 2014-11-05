@@ -155,6 +155,7 @@ Alaveteli::Application.routes.draw do
     match '/help/api' => 'help#api', :as => :help_api
     match '/help/credits' => 'help#credits', :as => :help_credits
     match '/help/:action' => 'help#action', :as => :help_general
+    match '/help' => 'help#index'
     ####
 
     #### Holiday controller
