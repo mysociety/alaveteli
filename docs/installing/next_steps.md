@@ -64,7 +64,7 @@ emergency user access to the admin. On the command line shell, edit
 
 * It's important that you change the emergency user's password (and, ideally,
   the username too) from the values Alavateli ships with, because they are
-  potentially public and hence insecure. In `general.yml`, change
+  public and hence insecure. In `general.yml`, change
   [`ADMIN_PASSWORD`]({{site.baseurl}}docs/customising/config/#admin_password)
   (and maybe [`ADMIN_USERNAME`]({{site.baseurl}}docs/customising/config/#admin_username)
   too) to new, unique values.
