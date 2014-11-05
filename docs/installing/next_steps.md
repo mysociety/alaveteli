@@ -113,7 +113,7 @@ follow the steps described in the previous section.
   email should appear in Alaveteli. Not working? Take a look at our
   [troubleshooting tips]({{ site.baseurl}}docs/installing/manual_install/#troubleshooting).
   If that doesn't sort it out, [get in touch]({{ site.baseurl}}community/) on
-  the project mailing list or IRC for help.
+  the [developer mailing list](https://groups.google.com/forum/#!forum/alaveteli-dev) or [IRC](http://www.irc.mysociety.org/) for help.
 
 ## Start thinking about customising Alaveteli
 
