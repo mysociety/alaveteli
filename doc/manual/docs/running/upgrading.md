@@ -12,6 +12,23 @@ Upgrading Alaveteli
   This page describes how to keep your site up-to-date
 </p>
 
+## How to upgrade the code
+
+* If you're using Capistrano for deployment,
+  simply [deploy the code]({{site.baseurl}}docs/installing/deploy/#usage):
+  set the repo and branch in `deploy.yml` to be the version you want.
+  We recommend you set this to the explicit tag name (for example,
+  `0.18`, and not `master`) so there's no risk of you accidentally deploying
+  a new version before you're aware it's been released.
+* otherwise, you can simply upgrade by running `git pull`
+
+## Run the post-deploy script
+
+Unless you're [using Capistrano for deployment]({{site.baseurl}}docs/installing/deploy/),
+you should always run the script `scripts/rails-post-deploy` after each
+deployment. This runs any database migrations for you, plus various other
+things that can be automated for deployment.
+
 ## Alaveteli Version Numbers
 
 Alaveteli uses a shifted version of [semver](http://semver.org).
@@ -47,16 +64,6 @@ other changes ("further action"). For this reason, for anything other than a
 document **before** doing an upgrade. This way you'll be able to prepare for any
 other changes that might be needed to make the new code work.
 
-## How to upgrade the code
-
-* If you're using Capistrano for deployment,
-  simply [deploy the code]({{site.baseurl}}docs/installing/deploy/#usage):
-  set the repo and branch in `deploy.yml` to be the version you want. 
-  We recommend you set this to the explicit tag name (for example, 
-  `0.18`, and not `master`) so there's no risk of you accidentally deploying
-  a new version before you're aware it's been released.
-* otherwise, you can simply upgrade by running `git pull`
-
 ## Patches
 
 Patch version increases (e.g. 0.1.2.3 &rarr; 0.1.2.**4**) should not require any further action on your part. They will be backwards compatible with the current minor release version.
@@ -85,9 +92,4 @@ Only major releases may remove existing functionality. You will be warned about 
 
 Special instructions will accompany series releases.
 
-## Run the post-deploy script
 
-Unless you're [using Capistrano for deployment]({{site.baseurl}}docs/installing/deploy/),
-you should always run the script `scripts/rails-post-deploy` after each
-deployment. This runs any database migrations for you, plus various other
-things that can be automated for deployment.
