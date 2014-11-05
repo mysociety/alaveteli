@@ -28,7 +28,7 @@ will be using your own admin account instead.
 
 First, in the browser:
 
-* Go to `/en/profile/sign_in` and create a user by signing up.
+* Go to `/profile/sign_in` and create a user by signing up.
 * Check your email and confirm your account.
 * Go to `/admin?emergency=1`, log in with the username and password specificied in
   [`ADMIN_USERNAME`]({{site.baseurl}}docs/customising/config/#admin_username)
