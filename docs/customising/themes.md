@@ -189,3 +189,7 @@ necessary.
 ## Adding or overriding models and controllers
 
 If you need to extend the behaviour of Alaveteli at the controller or model level, see `alavetelitheme/lib/controller_patches.rb` and `alavetelitheme/lib/model_patches.rb` for examples.
+
+## Working with themes
+
+You can use [`script/switch-theme.rb`](https://github.com/mysociety/alaveteli/blob/master/script/switch-theme.rb) to set the current theme if you are working with multiple themes. This might be useful for switching between the default `alavetelitheme` and your own fork.
