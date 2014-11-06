@@ -233,7 +233,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#outgoing_<%=outgoing_message.id%>" data-toggle="collapse" data-parent="#outgoing_messages"><%= chevron_right %></a>
-        <%= link_to admin_outgoing_edit_path(outgoing_message) do %>
+        <%= link_to edit_admin_outgoing_message_path(outgoing_message) do %>
           #<%= outgoing_message.id %> -- <%= outgoing_message.status.humanize %> <%= outgoing_message.message_type.humanize %>
         <% end %>
         <blockquote>
@@ -245,8 +245,7 @@
           <tbody>
             <tr>
               <td colspan="2">
-                <%= form_tag admin_outgoing_resend_path, :class => "admin-table-form" do %>
-                  <%= hidden_field_tag 'id', outgoing_message.id %>
+                <%= form_tag resend_admin_outgoing_message_path(outgoing_message), :class => "admin-table-form" do %>
                   <%= submit_tag "Resend", :class => "btn" %>
                 <% end %>
               </td>

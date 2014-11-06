@@ -260,10 +260,13 @@ Alaveteli::Application.routes.draw do
     ####
 
     #### AdminOutgoingMessage controller
-    match '/admin/outgoing/edit/:id' => 'admin_outgoing_message#edit', :as => :admin_outgoing_edit
-    match '/admin/outgoing/destroy/:id' => 'admin_outgoing_message#destroy', :as => :admin_outgoing_destroy
-    match '/admin/outgoing/update/:id' => 'admin_outgoing_message#update', :as => :admin_outgoing_update
-    match '/admin/outgoing/resend/:id' => 'admin_outgoing_message#resend', :as => :admin_outgoing_resend
+    scope '/admin', :as => 'admin' do
+        resources :outgoing_messages,
+                :controller => 'admin_outgoing_message',
+                :only => [:edit, :update, :destroy] do
+                    post 'resend', :on => :member
+        end
+    end
     ####
 
     #### AdminUser controller

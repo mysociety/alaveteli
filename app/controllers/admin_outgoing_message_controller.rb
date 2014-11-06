@@ -5,7 +5,7 @@ class AdminOutgoingMessageController < AdminController
     end
 
     def destroy
-        @outgoing_message = OutgoingMessage.find(params[:outgoing_message_id])
+        @outgoing_message = OutgoingMessage.find(params[:id])
         @info_request = @outgoing_message.info_request
         outgoing_message_id = @outgoing_message.id
 

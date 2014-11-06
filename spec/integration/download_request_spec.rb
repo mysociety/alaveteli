@@ -104,7 +104,7 @@ describe 'when making a zipfile available' do
                 post_data = {:outgoing_message => {:prominence => 'requester_only',
                                                    :prominence_reason => 'boring',
                                                    :body => 'Some information please'}}
-                admin.put_via_redirect "/en/admin/outgoing/update/#{info_request.outgoing_messages.first.id}", post_data
+                admin.put_via_redirect "/en/admin/outgoing_messages/#{info_request.outgoing_messages.first.id}", post_data
                 admin.response.should be_success
 
                 # Admin retains the requester only things
@@ -285,7 +285,7 @@ describe 'when making a zipfile available' do
                 post_data = {:outgoing_message => {:prominence => 'requester_only',
                                                    :prominence_reason => 'boring',
                                                    :body => 'Some information please'}}
-                admin.post_via_redirect "/en/admin/outgoing/update/#{info_request.outgoing_messages.first.id}", post_data
+                admin.put_via_redirect "/en/admin/outgoing_messages/#{info_request.outgoing_messages.first.id}", post_data
                 admin.response.should be_success
 
                 # Admin retains the requester only things
