@@ -92,4 +92,20 @@ Only major releases may remove existing functionality. You will be warned about 
 
 Special instructions will accompany series releases.
 
+## Deprecation Notices
 
+You may start to see deprecation notices in your application log. They will look like:
+
+    DEPRECATION WARNING: Object#id will be deprecated; use Object#object_id
+
+Deprecation notices allow us to communicate with you that some functionality will change or be removed in a later release of Alaveteli.
+
+### What to do if you see a deprecation notice
+
+You will usually see a deprecation notice if you have been using functionality in your theme that is now due to change or be removed. The notice should give you a fair explanation of what to do about it. Usually it will be changing or removing methods. The [changelog](https://github.com/mysociety/alaveteli/blob/rails-3-develop/doc/CHANGES.md) will include more detailed information about the deprecation and how to make the necessary changes.
+
+If you're ever unsure, don't hesitate to ask in the [developer mailing list](https://groups.google.com/group/alaveteli-dev) or [Alaveteli IRC channel](http://www.irc.mysociety.org/).
+
+### When will the change take place?
+
+We introduce deprecation notices in a **minor** release. The following **major** release will make the change unless otherwise stated in the deprecation notice.
