@@ -73,8 +73,8 @@ emergency user access to the admin. On the command line shell, edit
   user you've just created.
   Set [`DISABLE_EMERGENCY_USER`]({{site.baseurl}}docs/customising/config/#disable_emergency_user)
   to `true`.
-* To apply these changes, restart the service -- as the `ubuntu` user,
-  do `sudo service alaveteli restart`
+* To apply these changes restart the service as a user with root privileges:
+  `sudo service alaveteli restart`
 
 You can use the same process (logged in as your admin account) to add or remove
 superuser admin status to any users that are subsequently added to your site.
