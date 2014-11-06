@@ -30,13 +30,10 @@ First, in the browser:
 
 * Go to `/profile/sign_in` and create a user by signing up.
 * Check your email and confirm your account.
-* Go to `/admin?emergency=1`, log in with the username and password specificied in
+* Go to `/admin?emergency=1`, log in with the username and password you specified in
   [`ADMIN_USERNAME`]({{site.baseurl}}docs/customising/config/#admin_username)
-  and 
-  [`ADMIN_PASSWORD`]({{site.baseurl}}docs/customising/config/#admin_password).
-  These might be `adminxxxx` and `passwordx`, but may be different
-  depending on how you installed -- to check, you need to log in to the server's
-  command line shell and look inside `/var/www/alaveteli/alaveteli/config/general.yml`.
+  and [`ADMIN_PASSWORD`]({{site.baseurl}}docs/customising/config/#admin_password).
+  You can find these settings in `config/general.yml`.
 * You're now on the Alaveteli admin page.
 * Click on **Users**  (in the navigation menu across the top of the page), and
   click on your name in the list of users. On *that* page,  click **Edit**.
