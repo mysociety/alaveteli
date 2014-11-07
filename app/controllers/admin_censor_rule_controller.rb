@@ -5,11 +5,12 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminCensorRuleController < AdminController
+
     def new
-        if params[:info_request_id]
-            @info_request = InfoRequest.find(params[:info_request_id])
+        if params[:request_id]
+            @info_request = InfoRequest.find(params[:request_id])
             @censor_rule = @info_request.censor_rules.build
-            @form_url = admin_info_request_censor_rules_path(@info_request)
+            @form_url = admin_request_censor_rules_path(@info_request)
         end
 
         if params[:user_id]
@@ -17,18 +18,14 @@ class AdminCensorRuleController < AdminController
             @censor_rule = @censor_user.censor_rules.build
             @form_url = admin_user_censor_rules_path(@censor_user)
         end
-
-        @censor_rule ||= CensorRule.new
-        @form_url ||= admin_rule_create_path
     end
 
     def create
         params[:censor_rule][:last_edit_editor] = admin_current_user
-
-        if params[:info_request_id]
-            @info_request = InfoRequest.find(params[:info_request_id])
+        if params[:request_id]
+            @info_request = InfoRequest.find(params[:request_id])
             @censor_rule = @info_request.censor_rules.build(params[:censor_rule])
-            @form_url = admin_info_request_censor_rules_path(@info_request)
+            @form_url = admin_request_censor_rules_path(@info_request)
         end
 
         if params[:user_id]
@@ -36,9 +33,6 @@ class AdminCensorRuleController < AdminController
             @censor_rule = @censor_user.censor_rules.build(params[:censor_rule])
             @form_url = admin_user_censor_rules_path(@censor_user)
         end
-
-        @censor_rule ||= CensorRule.new(params[:censor_rule])
-        @form_url ||= admin_rule_create_path
 
         if @censor_rule.save
             if !@censor_rule.info_request.nil?
@@ -55,8 +49,6 @@ class AdminCensorRuleController < AdminController
                 redirect_to admin_request_url(@censor_rule.info_request)
             elsif !@censor_rule.user.nil?
                 redirect_to admin_user_url(@censor_rule.user)
-            else
-                raise "internal error"
             end
         else
             render :action => 'new'
@@ -95,7 +87,7 @@ class AdminCensorRuleController < AdminController
     end
 
     def destroy
-        @censor_rule = CensorRule.find(params[:censor_rule_id])
+        @censor_rule = CensorRule.find(params[:id])
         info_request = @censor_rule.info_request
         user = @censor_rule.user
 

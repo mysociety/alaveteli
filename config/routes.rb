@@ -221,6 +221,10 @@ Alaveteli::Application.routes.draw do
                       post 'move', :on => :member
                       post 'generate_upload_url', :on => :member
                       post 'hide', :on => :member
+                      resources :censor_rules,
+                                :controller => 'admin_censor_rule',
+                                :only => [:new, :create],
+                                :name_prefix => 'request_'
 
         end
     end
@@ -280,6 +284,10 @@ Alaveteli::Application.routes.draw do
                     post 'login_as', :on => :member
                     post 'clear_profile_photo', :on => :member
                     post 'modify_comment_visibility', :on => :collection
+                    resources :censor_rules,
+                              :controller => 'admin_censor_rule',
+                              :only => [:new, :create],
+                              :name_prefix => 'user_'
         end
     end
     ####
@@ -293,30 +301,11 @@ Alaveteli::Application.routes.draw do
     ####
 
     #### AdminCensorRule controller
-    match '/admin/censor/new' => 'admin_censor_rule#new', :as => :admin_rule_new
-    match '/admin/censor/create' => 'admin_censor_rule#create', :as => :admin_rule_create
-    match '/admin/censor/edit/:id' => 'admin_censor_rule#edit', :as => :admin_rule_edit
-    match '/admin/censor/update/:id' => 'admin_censor_rule#update', :as => :admin_rule_update
-    match '/admin/censor/destroy/:censor_rule_id' => 'admin_censor_rule#destroy', :as => :admin_rule_destroy
-
     scope '/admin', :as => 'admin' do
-        resources :info_requests, :only => [] do
-            resources :censor_rules,
-                      :controller => 'admin_censor_rule',
-                      :only => [:new, :create],
-                      :name_prefix => 'info_request_'
-        end
+        resources :censor_rules,
+                  :controller => 'admin_censor_rule',
+                  :except => [:index, :new, :create]
     end
-
-    scope '/admin', :as => 'admin' do
-        resources :users, :only => [] do
-            resources :censor_rules,
-                      :controller => 'admin_censor_rule',
-                      :only => [:new, :create],
-                      :name_prefix => 'user_'
-        end
-    end
-    ####
 
     #### AdminSpamAddresses controller
     scope '/admin', :as => 'admin' do
