@@ -277,7 +277,6 @@ Alaveteli::Application.routes.draw do
                     get 'banned', :on => :collection
                     get 'show_bounce_message', :on => :member
                     post 'clear_bounce', :on => :member
-                    post 'destroy_track', :on => :member
                     post 'login_as', :on => :member
                     post 'clear_profile_photo', :on => :member
                     post 'modify_comment_visibility', :on => :collection
@@ -286,7 +285,11 @@ Alaveteli::Application.routes.draw do
     ####
 
     #### AdminTrack controller
-    match '/admin/track/list' => 'admin_track#list', :as => :admin_track_list
+    scope '/admin', :as => 'admin' do
+        resources :tracks,
+            :controller => 'admin_track',
+            :only => [:index, :destroy]
+    end
     ####
 
     #### AdminCensorRule controller

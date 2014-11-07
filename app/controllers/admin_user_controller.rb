@@ -55,13 +55,6 @@ class AdminUserController < AdminController
         @admin_user = User.find(params[:id])
     end
 
-    def destroy_track
-        track_thing = TrackThing.find(params[:track_id].to_i)
-        track_thing.destroy
-        flash[:notice] = 'Track destroyed'
-        redirect_to admin_user_url(track_thing.tracking_user)
-    end
-
     def clear_bounce
         user = User.find(params[:id])
         user.email_bounced_at = nil
