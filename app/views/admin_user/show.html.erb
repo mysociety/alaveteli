@@ -48,11 +48,13 @@
   </tbody>
 </table>
 
-
+<div class="btn-toolbar">
 <%= link_to 'Edit', edit_admin_user_path(@admin_user), :class => "btn btn-primary" %>
 <%= link_to 'Public page', user_path(@admin_user), :class => "btn" %>
-<%= link_to "Log in as #{@admin_user.name} (also confirms their email)", admin_user_login_as_path(@admin_user), :class => "btn btn-info" %>
-
+</div>
+<%= form_tag login_as_admin_user_path(@admin_user), :class => "form form-horizontal" do %>
+  <%= submit_tag "Log in as #{@admin_user.name} (also confirms their email)", :class => "btn btn-info" %>
+<% end %>
 <hr>
 
 <h2>Track things</h2>

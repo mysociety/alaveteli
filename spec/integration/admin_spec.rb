@@ -18,7 +18,7 @@ describe "When administering the site" do
 
     it 'does not allow a non-admin user to login as another user' do
         robin = login(:robin_user)
-        robin.get_via_redirect "/en/admin/user/login_as/#{users(:bob_smith_user).id}"
+        robin.post_via_redirect "/en/admin/users/#{users(:bob_smith_user).id}/login_as"
         robin.response.should be_success
         robin.session[:user_id].should_not == users(:bob_smith_user).id
     end
