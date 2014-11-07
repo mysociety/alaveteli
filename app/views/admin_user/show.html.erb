@@ -38,7 +38,7 @@
             <%=h admin_value(value)%>
           <% end %>
           <% if column_name == 'email_bounced_at' && !@admin_user.email_bounced_at.nil? %>
-            <%= form_tag admin_user_clear_bounce_path(@admin_user), :class => "form form-inline" do %>
+            <%= form_tag clear_bounce_admin_user_path(@admin_user), :class => "form form-inline" do %>
               <input type="submit" name="action" value="Clear bounce" class="btn btn-info">
             <% end %>
           <% end %>
