@@ -54,7 +54,7 @@ class AdminCensorRuleController < AdminController
             if !@censor_rule.info_request.nil?
                 redirect_to admin_request_url(@censor_rule.info_request)
             elsif !@censor_rule.user.nil?
-                redirect_to admin_user_show_url(@censor_rule.user)
+                redirect_to admin_user_url(@censor_rule.user)
             else
                 raise "internal error"
             end
@@ -85,7 +85,7 @@ class AdminCensorRuleController < AdminController
             if !@censor_rule.info_request.nil?
                 redirect_to admin_request_url(@censor_rule.info_request)
             elsif !@censor_rule.user.nil?
-                redirect_to admin_user_show_url(@censor_rule.user)
+                redirect_to admin_user_url(@censor_rule.user)
             else
                 raise "internal error"
             end
@@ -114,7 +114,7 @@ class AdminCensorRuleController < AdminController
         if !info_request.nil?
             redirect_to admin_request_url(info_request)
         elsif !user.nil?
-            redirect_to admin_user_show_url(user)
+            redirect_to admin_user_url(user)
         else
             raise "internal error"
         end

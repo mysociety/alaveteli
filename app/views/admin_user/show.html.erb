@@ -49,7 +49,7 @@
 </table>
 
 
-<%= link_to 'Edit', admin_user_edit_path(@admin_user), :class => "btn btn-primary" %>
+<%= link_to 'Edit', edit_admin_user_path(@admin_user), :class => "btn btn-primary" %>
 <%= link_to 'Public page', user_path(@admin_user), :class => "btn" %>
 <%= link_to "Log in as #{@admin_user.name} (also confirms their email)", admin_user_login_as_path(@admin_user), :class => "btn btn-info" %>
 

@@ -1,11 +1,11 @@
 <h1><%=@title%></h1>
 
-<%= form_tag admin_user_update_path(@admin_user), :class => "form form-horizontal" do %>
+<%= form_tag admin_user_path(@admin_user), :method => 'put', :class => "form form-horizontal" do %>
   <%= render :partial => 'form' %>
   <div class="form-actions">
     <%= submit_tag 'Save', :accesskey => 's', :class => "btn btn-primary" %>
   </div>
 <% end %>
 
-<%= link_to 'Show', admin_user_show_path(@admin_user), :class => "btn" %>
-<%= link_to 'List all', admin_user_list_path, :class => "btn" %>
+<%= link_to 'Show', admin_user_path(@admin_user), :class => "btn" %>
+<%= link_to 'List all', admin_users_path, :class => "btn" %>
