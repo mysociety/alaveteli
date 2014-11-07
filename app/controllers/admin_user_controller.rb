@@ -46,7 +46,7 @@ class AdminUserController < AdminController
         end
     end
 
-    def list_banned
+    def banned
         @banned_users = User.paginate :order => "name", :page => params[:page], :per_page => 100,
             :conditions =>  ["ban_text <> ''"]
     end
