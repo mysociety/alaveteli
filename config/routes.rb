@@ -275,9 +275,9 @@ Alaveteli::Application.routes.draw do
                 :controller => 'admin_user',
                 :except => [:new, :create, :destroy] do
                     get 'banned', :on => :collection
+                    get 'show_bounce_message', :on => :member
         end
     end
-    match '/admin/user/show_bounce_message/:id' => 'admin_user#show_bounce_message', :as => :admin_user_show_bounce
     match '/admin/user/clear_bounce/:id' => 'admin_user#clear_bounce', :as => :admin_user_clear_bounce
     match '/admin/user/destroy_track' => 'admin_user#destroy_track', :as => :admin_user_destroy_track
     match '/admin/user/login_as/:id' => 'admin_user#login_as', :as => :admin_user_login_as
