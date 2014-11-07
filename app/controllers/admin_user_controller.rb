@@ -83,10 +83,6 @@ class AdminUserController < AdminController
     def clear_profile_photo
         @admin_user = User.find(params[:id])
 
-        if !request.post?
-            raise "Can only clear profile photo from POST request"
-        end
-
         if @admin_user.profile_photo
             @admin_user.profile_photo.destroy
         end

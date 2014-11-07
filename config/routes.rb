@@ -279,10 +279,9 @@ Alaveteli::Application.routes.draw do
                     post 'clear_bounce', :on => :member
                     post 'destroy_track', :on => :member
                     post 'login_as', :on => :member
-
+                    post 'clear_profile_photo', :on => :member
         end
     end
-    match '/admin/user/clear_profile_photo/:id' => 'admin_user#clear_profile_photo', :as => :admin_clear_profile_photo
     match '/admin/user/modify_comment_visibility/:id' => 'admin_user#modify_comment_visibility', :as => 'admin_user_modify_comment_visibility'
     ####
 
