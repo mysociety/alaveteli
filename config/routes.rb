@@ -280,9 +280,9 @@ Alaveteli::Application.routes.draw do
                     post 'destroy_track', :on => :member
                     post 'login_as', :on => :member
                     post 'clear_profile_photo', :on => :member
+                    post 'modify_comment_visibility', :on => :collection
         end
     end
-    match '/admin/user/modify_comment_visibility/:id' => 'admin_user#modify_comment_visibility', :as => 'admin_user_modify_comment_visibility'
     ####
 
     #### AdminTrack controller
