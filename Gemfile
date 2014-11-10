@@ -24,7 +24,7 @@ gem 'rails-i18n'
 gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 # :require avoids "already initialized constant" warnings
 gem 'rmagick', :require => 'RMagick'
-gem 'ruby-msg', '~> 1.5.0'
+gem 'ruby-msg', '~> 1.5.0',  :git => 'git://github.com/mysociety/ruby-msg.git'
 gem "statistics2", "~> 0.54"
 gem 'syslog_protocol'
 gem 'thin'
@@ -48,7 +48,7 @@ gem 'unidecoder'
 group :assets do
   gem 'bootstrap-sass'
   gem 'sass-rails', '~> 3.2.3'
-  gem 'compass-rails'
+  gem 'compass-rails', '2.0.0'
   gem 'coffee-rails', "~> 3.2.1"
   gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer'
