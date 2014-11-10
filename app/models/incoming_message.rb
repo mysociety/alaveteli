@@ -693,8 +693,10 @@ class IncomingMessage < ActiveRecord::Base
         self.reload
 
         # get the main body part from the set of attachments we just created,
-        # not from the self.foi_attachments association - some of the total set of
-        # self.foi_attachments may now be obsolete
+        # not from the self.foi_attachments association - some of the total set
+        # of self.foi_attachments may now be obsolete. Sometimes (e.g. when
+        # parsing mail from Apple Mail) we can end up with less attachments
+        # because the hexdigest of an attachment is identical.
         main_part = get_main_body_text_part(attachments)
         # we don't use get_main_body_text_internal, as we want to avoid charset
         # conversions, since /usr/bin/uudecode needs to deal with those.
