@@ -214,6 +214,17 @@ Spork.prefork do
       password = AlaveteliConfiguration::admin_password if password.nil?
       request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
   end
+
+  def use_gaze_instead_of_geoip_db(config = {})
+      config['GEOIP_DATABASE'] = ''
+      config
+  end
+
+  def use_gaze_instead_of_geoip_db!
+      config = MySociety::Config.load_default
+      use_gaze_instead_of_geoip_db(config)
+  end
+
 end
 
 Spork.each_run do
