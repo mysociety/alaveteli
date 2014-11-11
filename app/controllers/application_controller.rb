@@ -8,7 +8,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'open-uri'
-require 'geoip'
 
 class ApplicationController < ActionController::Base
     class PermissionDenied < StandardError
