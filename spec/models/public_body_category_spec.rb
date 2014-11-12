@@ -62,4 +62,18 @@ describe PublicBodyCategory do
             PublicBodyCategory.new(:email => existing.category_tag).should_not be_valid
         end
     end
+
+    it 'should delete the links to category headings when deleted' do
+        heading = FactoryGirl.create(:public_body_heading)
+        category = FactoryGirl.create(:public_body_category)
+        category.add_to_heading(heading)
+
+        link = category.public_body_category_links.first
+        link.should_not be_nil
+
+        category.destroy()
+
+        expect { link.reload() }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
 end
