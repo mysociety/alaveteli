@@ -91,9 +91,9 @@ class Comment < ActiveRecord::Base
 
     def check_body_uses_mixed_capitals
         unless MySociety::Validate.uses_mixed_capitals(body)
-            msg = 'Please write your annotation using a mixture of capital and ' \
-                  'lower case letters. This makes it easier for others to read.'
-            errors.add(:body, _(msg))
+            msg = _('Please write your annotation using a mixture of capital and ' \
+                    'lower case letters. This makes it easier for others to read.')
+            errors.add(:body, msg)
         end
     end
 
