@@ -49,9 +49,9 @@
 </div>
 
 <div id="select_authority_help">
-  <p class="info"><%= _("Can&rsquo;t find an authority?") %></p>
+  <p class="info"><%= _("Can't find the one you want?") %></p>
   <p class="actions">
-    <%= raw _('<a href="{{browse_url}}">Browse all</a> or <a href="{{add_url}}">ask us to add one</a>',
+    <%= raw _('<a href="{{browse_url}}">Browse all</a> or <a href="{{add_url}}">ask us to add one</a>.',
               :browse_url => list_public_bodies_default_path.html_safe,
               :add_url => help_requesting_path(:anchor => 'missing_body')
              ).html_safe %>
