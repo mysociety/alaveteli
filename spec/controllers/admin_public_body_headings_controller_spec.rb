@@ -104,16 +104,19 @@ describe AdminPublicBodyHeadingsController do
             @heading = FactoryGirl.create(:public_body_heading)
         end
 
-        it "does not destroy a public body heading that has associated categories" do
+        it "destroys a public body heading that has associated categories" do
             category = FactoryGirl.create(:public_body_category)
             link = FactoryGirl.create(:public_body_category_link,
                                       :public_body_category => category,
                                       :public_body_heading => @heading,
                                       :category_display_order => 0)
             n = PublicBodyHeading.count
+            n_links = PublicBodyCategoryLink.count
+
             post :destroy, { :id => @heading.id }
-            response.should redirect_to(edit_admin_heading_path(@heading))
-            PublicBodyHeading.count.should == n
+            response.should redirect_to(admin_categories_path)
+            PublicBodyHeading.count.should == n - 1
+            PublicBodyCategoryLink.count.should == n_links - 1
         end
 
         it "destroys an empty public body heading" do
