@@ -19,7 +19,7 @@ gem 'memcache-client'
 gem 'net-http-local', :platforms => [:ruby_18, :ruby_19]
 gem 'net-purge'
 gem 'rack'
-gem 'rack-utf8_sanitizer', :platforms => :ruby_19
+gem 'rack-utf8_sanitizer', :platforms => [:ruby_19, :ruby_20, :ruby_21]
 gem 'rake', '0.9.2.2'
 gem 'rails-i18n'
 gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
