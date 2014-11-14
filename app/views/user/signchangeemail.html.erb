@@ -23,7 +23,7 @@
 
     <p>
     <label class="form_label" for="signchangeemail_password"> <%= _('Your password:')%></label>
-    <%= password_field 'signchangeemail', 'password', { :size => 15 } %>
+    <%= password_field 'signchangeemail', 'password', { :size => 15, :autocomplete => 'off' } %>
     </p>
 
     <p class="form_note">
