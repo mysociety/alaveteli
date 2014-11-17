@@ -182,6 +182,14 @@ describe AdminPublicBodyCategoriesController do
             pbc = PublicBodyCategory.find(category.id)
             pbc.category_tag.should == "renamed"
         end
+
+        it "redirects to the edit page after a successful update" do
+            post :update, { :id => @category.id,
+                            :public_body_category => { :title => "Renamed" } }
+
+            expect(response).to redirect_to(edit_admin_category_path(@category))
+        end
+
     end
 
     context 'when destroying a public body category' do

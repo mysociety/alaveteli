@@ -102,6 +102,14 @@ describe AdminPublicBodyHeadingsController do
                heading.name.should == @name
             end
         end
+
+        it "redirects to the edit page after a successful update" do
+            post :update, { :id => @heading.id,
+                            :public_body_heading => { :name => "Renamed" } }
+
+            expect(response).to redirect_to(edit_admin_heading_path(@heading))
+        end
+
     end
 
     context 'when destroying a public body heading' do

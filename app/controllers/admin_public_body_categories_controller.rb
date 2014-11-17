@@ -51,7 +51,7 @@ class AdminPublicBodyCategoriesController < AdminController
                 end
             end
 
-            render :action => 'edit'
+            redirect_to edit_admin_category_path(@category)
         end
     end
 

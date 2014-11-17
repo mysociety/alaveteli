@@ -11,7 +11,8 @@ class AdminPublicBodyHeadingsController < AdminController
             if @heading.update_attributes(params[:public_body_heading])
                 flash[:notice] = 'Category heading was successfully updated.'
             end
-            render :action => 'edit'
+
+            redirect_to edit_admin_heading_path(@heading)
         end
     end
 
