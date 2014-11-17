@@ -6,6 +6,7 @@ describe AdminPublicBodyCategoriesController do
 
         it 'shows the index page' do
             get :index
+            expect(response).to be_success
         end
     end
 
