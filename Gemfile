@@ -7,7 +7,7 @@ if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.s
 end
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.20'
+gem 'rails', '3.2.21'
 
 gem 'pg'
 
