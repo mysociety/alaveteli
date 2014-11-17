@@ -82,14 +82,21 @@ describe AdminPublicBodyCategoriesController do
 
         render_views
 
-        it "edits a public body category" do
+        it "finds the requested category" do
             get :edit, :id => @category.id
+            expect(assigns[:category]).to eq(@category)
+        end
+
+        it "renders the edit template" do
+            get :edit, :id => @category.id
+            expect(assigns[:category]).to render_template('edit')
         end
 
         it "edits a public body in another locale" do
-            get :edit, {:id => @category.id, :locale => :en}
+            get :edit, { :id => @category.id, :locale => :en }
 
-            # When editing a body, the controller returns all available translations
+            # When editing a body, the controller returns all available
+            # translations
             assigns[:category].find_translation_by_locale("es").title.should == 'Los category'
             response.should render_template('edit')
         end

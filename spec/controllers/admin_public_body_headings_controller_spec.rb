@@ -54,8 +54,14 @@ describe AdminPublicBodyHeadingsController do
 
         render_views
 
-        it "edits a public body heading" do
+        it "finds the requested heading" do
             get :edit, :id => @heading.id
+            expect(assigns[:heading]).to eq(@heading)
+        end
+
+        it "renders the edit template" do
+            get :edit, :id => @heading.id
+            expect(assigns[:heading]).to render_template('edit')
         end
     end
 
