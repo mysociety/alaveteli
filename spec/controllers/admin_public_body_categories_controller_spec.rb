@@ -15,6 +15,12 @@ describe AdminPublicBodyCategoriesController do
             get :new
             assigns[:category].should be_a(PublicBodyCategory)
         end
+
+        it 'renders the new template' do
+            get :new
+            expect(response).to render_template('new')
+        end
+
     end
 
     context 'when creating a public body category' do

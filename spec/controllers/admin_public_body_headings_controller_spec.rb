@@ -7,6 +7,11 @@ describe AdminPublicBodyHeadingsController do
             get :new
             assigns[:heading].should be_a(PublicBodyHeading)
         end
+
+        it 'renders the new template' do
+            get :new
+            expect(response).to render_template('new')
+        end
     end
 
     context 'when creating a public body heading' do
