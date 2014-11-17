@@ -51,7 +51,6 @@ describe AdminPublicBodyCategoriesController do
             category.public_body_headings.should == [heading]
         end
 
-
         it 'creates a new public body category with multiple locales' do
             n = PublicBodyCategory.count
             post :create, {
@@ -76,6 +75,12 @@ describe AdminPublicBodyCategoriesController do
 
             response.should redirect_to(admin_categories_path)
         end
+
+        it "renders the form if creating the record was unsuccessful" do
+            post :create, :public_body_category => { :title => '' }
+            expect(response).to render_template('new')
+        end
+
     end
 
     context 'when editing a public body category' do

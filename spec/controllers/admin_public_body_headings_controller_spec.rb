@@ -50,6 +50,12 @@ describe AdminPublicBodyHeadingsController do
 
             response.should redirect_to(admin_categories_path)
         end
+
+        it "renders the form if creating the record was unsuccessful" do
+            post :create, :public_body_heading => { :name => '' }
+            expect(response).to render_template('new')
+        end
+
     end
 
     context 'when editing a public body heading' do
