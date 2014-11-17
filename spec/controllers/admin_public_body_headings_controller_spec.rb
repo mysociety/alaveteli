@@ -110,6 +110,13 @@ describe AdminPublicBodyHeadingsController do
             expect(response).to redirect_to(edit_admin_heading_path(@heading))
         end
 
+        it "re-renders the edit form after an unsuccessful update" do
+            post :update, { :id => @heading.id,
+                            :public_body_heading => { :name => '' } }
+
+            expect(response).to render_template('edit')
+        end
+
     end
 
     context 'when destroying a public body heading' do

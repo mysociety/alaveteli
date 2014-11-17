@@ -190,6 +190,13 @@ describe AdminPublicBodyCategoriesController do
             expect(response).to redirect_to(edit_admin_category_path(@category))
         end
 
+        it "re-renders the edit form after an unsuccessful update" do
+            post :update, { :id => @category.id,
+                            :public_body_category => { :title => '' } }
+
+            expect(response).to render_template('edit')
+        end
+
     end
 
     context 'when destroying a public body category' do
