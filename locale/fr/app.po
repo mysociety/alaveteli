@@ -47,28 +47,28 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
-msgstr "Ceci apparaîtra sur votre profil  {{site_name}}, pour permettre  \\n aux autres de s'impliquer dans ce que vous faites."
+msgstr " Ceci apparaîtra sur votre profil  {{site_name}}, pour permettre  \\n aux autres de s'impliquer dans ce que vous faites."
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
-msgstr "(<strong>aucune garantie</strong> politique, lire notre <a href=\"{{url}}\">politique de modération</a>)"
+msgstr " (<strong>aucune garantie</strong> politique, lire notre <a href=\"{{url}}\">politique de modération</a>)"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
-msgstr "(<strong>patience</strong>, surtout pour les fichiers volumineux, cela peut prendre un moment !)"
+msgstr " (<strong>patience</strong>, surtout pour les fichiers volumineux, cela peut prendre un moment !)"
 
 msgid " (you)"
 msgstr " (vous)"
 
 msgid " - view and make Freedom of Information requests"
-msgstr "- voir et créer des demandes d'accès aux informations "
+msgstr " - voir et créer des demandes d'accès aux informations "
 
 msgid " - wall"
-msgstr "-mur"
+msgstr " -mur"
 
 msgid " < "
-msgstr "<"
+msgstr " < "
 
 msgid " << "
-msgstr "<<"
+msgstr " << "
 
 msgid " <strong>Note:</strong>\\n    We will send you an email. Follow the instructions in it to change\\n    your password."
 msgstr ""
@@ -144,7 +144,7 @@ msgid "(hide)"
 msgstr "(Afficher)"
 
 msgid "(or <a href=\"{{url}}\">sign in</a>)"
-msgstr "1. Sélectionner les autorités"
+msgstr ""
 
 msgid "(show)"
 msgstr "(Afficher)"
@@ -474,13 +474,13 @@ msgid "Attachment (optional):"
 msgstr "Pièce jointe (optionnel):"
 
 msgid "Attachment:"
-msgstr "Pièce jointe"
+msgstr "Pièce jointe:"
 
 msgid "Authority email:"
-msgstr "adresse email de l'autorité"
+msgstr "Adresse email de l'autorité:"
 
 msgid "Authority:"
-msgstr "Autorité"
+msgstr "Autorité:"
 
 msgid "Awaiting classification."
 msgstr "En attente de classement."
