@@ -28,6 +28,7 @@ For example:
 
 ## Upgrade Notes
 
+* Public body categories will now be stored in the database rather than being read directly from the `lib/public_body_categories_LOCALE` files. **Once you have upgraded, run `script/migrate-public-body-categories`to import the contents of the files into the database. All further changes will then need to be made via the administrative interface.** You can then remove any `pubic_body_categories_[locale].rb` files from your theme.  If your theme has any calls to `PublicBodyCategories` methods outside these files, you should update them to call the corresponding method on `PublicBodyCategory` instead.
 * `OutgoingMessage#send_message` has been removed. We now perform email deliveries outside of the model layer in three steps:
 
 Example:
@@ -58,7 +59,6 @@ See https://github.com/mysociety/alaveteli/pull/1889 for the full changes and fe
   rather than only as a database constraint. If you have added a `CensorRule` in
   your theme, you will now have to satisfy the additional validations on the
   `:replacement`, `:last_edit_comment` and `:last_edit_editor` attributes.
-* Public body categories will now be stored in the database rather than being read directly from the `lib/public_body_categories_LOCALE` files. Once you have upgraded, run `script/migrate-public-body-categories`to import the contents of the files into the database. All further changes will then need to be made via the administrative interface. You can then remove any `pubic_body_categories_[locale].rb` files from your theme.  If your theme has any calls to `PublicBodyCategories` methods outside these files, you should update them to call the corresponding method on `PublicBodyCategory` instead.
 * `CensorRule#require_user_request_or_public_body`, `CensorRule#make_regexp` and
   `CensorRule#require_valid_regexp` have become private methods. If you override
   them in your theme, ensure they are preceded by the `private` keyword.
