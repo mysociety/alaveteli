@@ -69,6 +69,71 @@ describe AdminCensorRuleController do
 
     end
 
+    describe 'DELETE destroy' do
+
+        before(:each) do
+            @censor_rule = FactoryGirl.create(:global_censor_rule)
+        end
+
+        it 'finds the correct censor rule to destroy' do
+            pending("Assign the CensorRule to an instance variable")
+            # TODO: Replace :censor_rule_id with :id
+            delete :destroy, :censor_rule_id => @censor_rule.id
+            # TODO: Assign the CensorRule to an instance variable
+            expect(assigns[:censor_rule]).to eq(@censor_rule)
+        end
+
+        it 'raises an error after destroying the rule' do
+            expect {
+                delete :destroy, :censor_rule_id => @censor_rule.id
+            }.to raise_error 'internal error'
+        end
+
+        it 'confirms the censor rule is destroyed in all cases' do
+            pending("This actually raises an internal error anyway")
+            delete :destroy, :censor_rule_id => @censor_rule.id
+            msg = 'CensorRule was successfully destroyed.'
+            expect(flash[:notice]).to eq(msg)
+        end
+
+        context 'a CensorRule with an associated InfoRequest' do
+
+            before(:each) do
+                @censor_rule = FactoryGirl.create(:info_request_censor_rule)
+            end
+
+            it 'purges the cache for the info request' do
+                @controller.should_receive(:expire_for_request).with(@censor_rule.info_request)
+                delete :destroy, :censor_rule_id => @censor_rule.id
+            end
+
+            it 'redirects to the associated info request' do
+                delete :destroy, :censor_rule_id => @censor_rule.id
+                expect(response).to redirect_to(admin_request_show_path(@censor_rule.info_request))
+            end
+
+        end
+
+        context 'a CensorRule with an associated User' do
+
+            before(:each) do
+                @censor_rule = FactoryGirl.create(:user_censor_rule)
+            end
+
+            it 'purges the cache for the user' do
+                @controller.should_receive(:expire_requests_for_user).with(@censor_rule.user)
+                delete :destroy, :censor_rule_id => @censor_rule.id
+            end
+
+            it 'redirects to the associated info request' do
+                delete :destroy, :censor_rule_id => @censor_rule.id
+                expect(response).to redirect_to(admin_user_show_path(@censor_rule.user))
+            end
+
+        end
+
+    end
+
 end
 
 describe AdminCensorRuleController, "when making censor rules from the admin interface" do
