@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-10-07 08:34+0000\n"
+"PO-Revision-Date: 2014-11-04 21:35+0000\n"
 "Last-Translator: pere <pere-transifex@hungry.com>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -580,7 +580,7 @@ msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{
 msgstr ""
 
 msgid "Clarify your FOI request - "
-msgstr "Klargjør din innsynsforespørsel -"
+msgstr "Klargjør din innsynsforespørsel - "
 
 msgid "Classify an FOI response from "
 msgstr "Klassifiser ett innsynsvar fra"
@@ -589,7 +589,7 @@ msgid "Clear photo"
 msgstr "Slett bilde"
 
 msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal\\nreview, asking them to find out why response to the request has been so slow."
-msgstr "Trykk på linken nedenfor for  å sende en melding til {{public_body_name}} for å be om svar på henvendelsen. Du kan ha behov for be om en gjennomgang \\n hos dem om hvorfor det tar så lang tid å få svar på henvendelsen."
+msgstr "Trykk på linken nedenfor for  å sende en melding til {{public_body_name}} for å be om svar på henvendelsen. Du kan vurdere å be dem om en gjennomgang av hvorfor det tar så lang tid å få svar på henvendelsen."
 
 msgid "Click on the link below to send a message to {{public_body}} reminding them to reply to your request."
 msgstr "Klikk på  lenken under for å sende en melding til {{public_body}} og minne dem på å besvare forespørselen."
@@ -706,7 +706,7 @@ msgid "Defunct."
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
-msgstr "Forsinket svar på din innsynsforespørsel -"
+msgstr "Forsinket svar på din innsynsforespørsel - "
 
 msgid "Delayed."
 msgstr "Forsinket."
@@ -2667,7 +2667,7 @@ msgid "They have been given the following explanation:"
 msgstr "De har fått følgende forklaring:"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
-msgstr "De har ikke svart på din {{law_used_short}} om «{{title}}» innen kort tid, som er det som normalt kreves i følge lovverket."
+msgstr "De har ikke svart på din {{law_used_short}} om «{{title}}» innen kort tid, som er det som normalt kreves i følge lovverket"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, \\nas required by law"
 msgstr "De har ikke svart på din {{law_used_short}} om «{{title}}», \\nslik det kreves i følge lovverket"
