@@ -46,6 +46,29 @@ describe AdminCensorRuleController do
 
     end
 
+    describe 'GET edit' do
+
+        before(:each) do
+            @censor_rule = FactoryGirl.create(:global_censor_rule)
+        end
+
+        it 'returns a successful response' do
+            get :edit, :id => @censor_rule.id
+            expect(response).to be_success
+        end
+
+        it 'renders the correct template' do
+            get :edit, :id => @censor_rule.id
+            expect(response).to render_template('edit')
+        end
+
+        it 'finds the correct censor rule to edit' do
+            get :edit, :id => @censor_rule.id
+            expect(assigns[:censor_rule]).to eq(@censor_rule)
+        end
+
+    end
+
 end
 
 describe AdminCensorRuleController, "when making censor rules from the admin interface" do
