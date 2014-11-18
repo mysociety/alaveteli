@@ -7,7 +7,6 @@ describe PublicBodyController, "when showing a body" do
     render_views
 
     before(:each) do
-        PublicBodyCategory.stub!(:load_categories)
         load_raw_emails_data
         get_fixtures_xapian_index
     end
@@ -75,10 +74,6 @@ end
 
 describe PublicBodyController, "when listing bodies" do
     render_views
-
-    before(:each) do
-        PublicBodyCategory.stub!(:load_categories)
-    end
 
     it "should be successful" do
         get :list
