@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminCensorRuleController do
+    before(:each) { basic_auth_login(@request) }
 
     describe 'GET new' do
 
@@ -40,6 +41,116 @@ describe AdminCensorRuleController do
             it 'does not find a user if no user_id param is supplied' do
                 get :new
                 expect(assigns[:censor_user]).to be_nil
+            end
+
+        end
+
+    end
+
+    describe 'POST create' do
+
+        before(:each) do
+            @censor_rule_params = FactoryGirl.build(:global_censor_rule).serializable_hash
+            # last_edit_editor gets set in the controller
+            @censor_rule_params.delete(:last_edit_editor)
+        end
+
+        it 'sets the last_edit_editor to the current admin' do
+            post :create, :censor_rule => @censor_rule_params
+            expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
+        end
+
+        context 'successfully saving the censor rule' do
+
+            before(:each) do
+                CensorRule.any_instance.stub(:save).and_return(true)
+            end
+
+            it 'persists the censor rule' do
+                pending("This raises an internal error in most cases")
+                post :create, :censor_rule => @censor_rule_params
+                expect(assigns[:censor_rule]).to be_persisted
+            end
+
+            it 'confirms the censor rule is created' do
+                pending("This raises an internal error in most cases")
+                post :create, :censor_rule => @censor_rule_params
+                msg = 'CensorRule was successfully created.'
+                expect(flash[:notice]).to eq(msg)
+            end
+
+            it 'raises an error after creating the rule' do
+                expect {
+                    post :create, :censor_rule => @censor_rule_params
+                }.to raise_error 'internal error'
+            end
+
+            context 'a CensorRule with an associated InfoRequest' do
+
+                before(:each) do
+                    @censor_rule_params = FactoryGirl.build(:info_request_censor_rule).serializable_hash
+                    # last_edit_editor gets set in the controller
+                    @censor_rule_params.delete(:last_edit_editor)
+                end
+
+                it 'purges the cache for the info request' do
+                    censor_rule = CensorRule.new(@censor_rule_params)
+                    @controller.should_receive(:expire_for_request).
+                        with(censor_rule.info_request)
+
+                    post :create, :censor_rule => @censor_rule_params
+                end
+
+                it 'redirects to the associated info request' do
+                    post :create, :censor_rule => @censor_rule_params
+                    expect(response).to redirect_to(
+                        admin_request_show_path(assigns[:censor_rule].info_request)
+                    )
+                end
+
+            end
+
+            context 'a CensorRule with an associated User' do
+
+                before(:each) do
+                    @censor_rule_params = FactoryGirl.build(:user_censor_rule).serializable_hash
+                    # last_edit_editor gets set in the controller
+                    @censor_rule_params.delete(:last_edit_editor)
+                end
+
+                 it 'purges the cache for the info request' do
+                    censor_rule = CensorRule.new(@censor_rule_params)
+                    @controller.should_receive(:expire_requests_for_user).
+                        with(censor_rule.user)
+
+                    post :create, :censor_rule => @censor_rule_params
+                end
+
+                it 'redirects to the associated info request' do
+                    post :create, :censor_rule => @censor_rule_params
+                    expect(response).to redirect_to(
+                        admin_user_show_path(assigns[:censor_rule].user)
+                    )
+                end
+
+            end
+
+        end
+
+        context 'unsuccessfully saving the censor rule' do
+
+            before(:each) do
+                CensorRule.any_instance.stub(:save).and_return(false)
+            end
+
+            it 'does not persist the censor rule' do
+                post :create, :censor_rule => @censor_rule_params
+                expect(assigns[:censor_rule]).to be_new_record
+            end
+
+            it 'renders the form' do
+                post :create, :censor_rule => @censor_rule_params
+                expect(response).to render_template('new')
             end
 
         end
