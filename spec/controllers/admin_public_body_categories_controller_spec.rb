@@ -6,6 +6,7 @@ describe AdminPublicBodyCategoriesController do
 
         it 'shows the index page' do
             get :index
+            expect(response).to be_success
         end
     end
 
@@ -14,6 +15,12 @@ describe AdminPublicBodyCategoriesController do
             get :new
             assigns[:category].should be_a(PublicBodyCategory)
         end
+
+        it 'renders the new template' do
+            get :new
+            expect(response).to render_template('new')
+        end
+
     end
 
     context 'when creating a public body category' do
@@ -44,7 +51,6 @@ describe AdminPublicBodyCategoriesController do
             category.public_body_headings.should == [heading]
         end
 
-
         it 'creates a new public body category with multiple locales' do
             n = PublicBodyCategory.count
             post :create, {
@@ -69,6 +75,12 @@ describe AdminPublicBodyCategoriesController do
 
             response.should redirect_to(admin_categories_path)
         end
+
+        it "renders the form if creating the record was unsuccessful" do
+            post :create, :public_body_category => { :title => '' }
+            expect(response).to render_template('new')
+        end
+
     end
 
     context 'when editing a public body category' do
@@ -82,14 +94,21 @@ describe AdminPublicBodyCategoriesController do
 
         render_views
 
-        it "edits a public body category" do
+        it "finds the requested category" do
             get :edit, :id => @category.id
+            expect(assigns[:category]).to eq(@category)
+        end
+
+        it "renders the edit template" do
+            get :edit, :id => @category.id
+            expect(assigns[:category]).to render_template('edit')
         end
 
         it "edits a public body in another locale" do
-            get :edit, {:id => @category.id, :locale => :en}
+            get :edit, { :id => @category.id, :locale => :en }
 
-            # When editing a body, the controller returns all available translations
+            # When editing a body, the controller returns all available
+            # translations
             assigns[:category].find_translation_by_locale("es").title.should == 'Los category'
             response.should render_template('edit')
         end
@@ -161,7 +180,9 @@ describe AdminPublicBodyCategoriesController do
             body = FactoryGirl.create(:public_body, :tag_string => @tag)
             post :update, { :id => @category.id,
                             :public_body_category => { :category_tag => "renamed" } }
-            request.flash[:notice].should include('can\'t')
+                            
+            msg = "There are authorities associated with this category, so the tag can't be renamed"
+            request.flash[:error].should == msg
             pbc = PublicBodyCategory.find(@category.id)
             pbc.category_tag.should == @tag
         end
@@ -175,6 +196,21 @@ describe AdminPublicBodyCategoriesController do
             pbc = PublicBodyCategory.find(category.id)
             pbc.category_tag.should == "renamed"
         end
+
+        it "redirects to the edit page after a successful update" do
+            post :update, { :id => @category.id,
+                            :public_body_category => { :title => "Renamed" } }
+
+            expect(response).to redirect_to(edit_admin_category_path(@category))
+        end
+
+        it "re-renders the edit form after an unsuccessful update" do
+            post :update, { :id => @category.id,
+                            :public_body_category => { :title => '' } }
+
+            expect(response).to render_template('edit')
+        end
+
     end
 
     context 'when destroying a public body category' do

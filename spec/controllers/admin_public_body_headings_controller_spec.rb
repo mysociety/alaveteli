@@ -7,6 +7,11 @@ describe AdminPublicBodyHeadingsController do
             get :new
             assigns[:heading].should be_a(PublicBodyHeading)
         end
+
+        it 'renders the new template' do
+            get :new
+            expect(response).to render_template('new')
+        end
     end
 
     context 'when creating a public body heading' do
@@ -45,6 +50,12 @@ describe AdminPublicBodyHeadingsController do
 
             response.should redirect_to(admin_categories_path)
         end
+
+        it "renders the form if creating the record was unsuccessful" do
+            post :create, :public_body_heading => { :name => '' }
+            expect(response).to render_template('new')
+        end
+
     end
 
     context 'when editing a public body heading' do
@@ -54,8 +65,14 @@ describe AdminPublicBodyHeadingsController do
 
         render_views
 
-        it "edits a public body heading" do
+        it "finds the requested heading" do
             get :edit, :id => @heading.id
+            expect(assigns[:heading]).to eq(@heading)
+        end
+
+        it "renders the edit template" do
+            get :edit, :id => @heading.id
+            expect(assigns[:heading]).to render_template('edit')
         end
     end
 
@@ -96,6 +113,21 @@ describe AdminPublicBodyHeadingsController do
                heading.name.should == @name
             end
         end
+
+        it "redirects to the edit page after a successful update" do
+            post :update, { :id => @heading.id,
+                            :public_body_heading => { :name => "Renamed" } }
+
+            expect(response).to redirect_to(edit_admin_heading_path(@heading))
+        end
+
+        it "re-renders the edit form after an unsuccessful update" do
+            post :update, { :id => @heading.id,
+                            :public_body_heading => { :name => '' } }
+
+            expect(response).to render_template('edit')
+        end
+
     end
 
     context 'when destroying a public body heading' do
