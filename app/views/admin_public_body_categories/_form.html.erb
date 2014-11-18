@@ -44,16 +44,23 @@ end
   </div>
 </div>
 
-<% if PublicBody.find_by_tag(@category.category_tag).count == 0 or @category.errors.messages.keys.include?(:category_tag) %>
-    <h3>Common Fields</h3>
+<h3>Common Fields</h3>
 
-    <div class="control-group">
-      <label for="public_body_category_category_tag" class="control-label">Category tag</label>
-      <div class="controls">
-        <%= f.text_field :category_tag, :class => "span4" %>
-      </div>
-    </div>
-<% end %>
+<div class="control-group">
+    <label for="public_body_category_category_tag" class="control-label">Category tag</label>
+    <div class="controls">
+        <% if PublicBody.find_by_tag(@category.category_tag).count == 0 or
+               @category.errors.messages.keys.include?(:category_tag) %>
+            <%= f.text_field :category_tag, :class => "span4" %>
+        <% else %>
+            <%= f.text_field :category_tag, :class => "span4", :disabled => true %>
+            <span class="help-block">
+                This Category already has authorities assigned to it so the tags
+                cannot be modified.
+            </span>
+        <% end %>
+  </div>
+</div>
 
 <h3>Headings</h3>
 <div class="control-group">
