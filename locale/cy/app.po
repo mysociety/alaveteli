@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-28 14:21+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-11-18 10:47+0000\n"
+"PO-Revision-Date: 2014-11-18 10:48+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -103,8 +103,14 @@ msgstr "Rydych chi eisoes yn derbyn diweddariadau am y cais drwy ebost."
 msgid " You will also be emailed updates about the request."
 msgstr "Byddwch chi'n derbyn diweddariadau am y cais drwy ebost hefyd."
 
+msgid " filtered by status: '{{status}}'"
+msgstr ""
+
 msgid " when you send this message."
 msgstr " pan fyddwch chi'n anfon y neges hon"
+
+msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Ystadegau troseddu ar lefel ward ar gyfer Cymru'"
@@ -556,9 +562,6 @@ msgstr "Newid eich cyfrinair"
 msgid "Change your password on {{site_name}}"
 msgstr "Newid eich cyfrinair ar {{site_name}}"
 
-msgid "Charity registration"
-msgstr "Elusen gofrestredig"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Gwiriwch am gamgymeriadau os ydych wedi teipio neu wedi copïo y cyfeiriad."
 
@@ -730,6 +733,9 @@ msgstr "Log datgelu"
 msgid "Disclosure log URL"
 msgstr "URL log datgelu"
 
+msgid "Display order must be a number"
+msgstr ""
+
 msgid "Do not fill in this field"
 msgstr "Peidiwch â llenwi'r maes hwn"
 
@@ -832,6 +838,9 @@ msgstr "Ceisiadau Rhyddid Gwybodaeth {{start_count}} i {{end_count}} o {{total_c
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "Mae ar Ymateb Rhyddid Gwybodaeth angen gweinyddu ({{reason}}) - {{title}}"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Methu trosi delwedd i PNG"
 
@@ -841,11 +850,14 @@ msgstr "Methwyd trosi delwedd i'r maint cywir: yn {{cols}} x {{rows}}, angen {{w
 msgid "Filter"
 msgstr "Hidlo"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr "Yn gyntaf, a lwyddodd eich ceisiadau eraill?"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
-msgstr "Yn gyntaf, teipiwch <strong>enw awdurdod cyhoeddus yn y DU</strong> yr hoffech gael gwybodaeth ganddo. (Yn anffodus, nid yw'r enw Cymraeg yn ein system ar gyfer pob awdurdod.)<strong>Yn ôl y gyfraith, mae'n rhaid iddynt ymateb</strong> (<a href=\"{{url}}\">pam?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
+msgstr ""
 
 msgid "Foi attachment"
 msgstr "Atodiad FoI"
@@ -1469,9 +1481,6 @@ msgstr "Rheol sensro newydd"
 msgid "New e-mail:"
 msgstr "Cyfeiriad ebost newydd:"
 
-msgid "New email doesn't look like a valid address"
-msgstr "Dydy'r cyfeiriad ebost newydd ddim yn edrych yn ddilys"
-
 msgid "New password:"
 msgstr "Cyfrinair newydd:"
 
@@ -1564,9 +1573,6 @@ msgstr "Hen e-bost:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Nid yw'r hen gyfeiriad e-bost yr un fath â chyfeiriad y cyfrif yr ydych wedi logio i mewn iddo"
-
-msgid "Old email doesn't look like a valid address"
-msgstr "Nid yw'r hen e-bost yn edrych fel cyfeiriad dilys"
 
 msgid "On this page"
 msgstr "Ar y dudalen hon"
@@ -1937,8 +1943,17 @@ msgstr "Cyrff cyhoeddus â'r nifer fwyaf o geisiadau llwyddiannus"
 msgid "Public body"
 msgstr "Corff cyhoeddus"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
 msgstr "Cais am newid y corff cyhoeddus"
+
+msgid "Public body heading"
+msgstr ""
 
 msgid "Public notes"
 msgstr "Nodiadau cyhoeddus"
@@ -1948,6 +1963,18 @@ msgstr "Tudalen gyhoeddus"
 
 msgid "Public page not available"
 msgstr "Tudalen gyhoeddus ddim ar gael"
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
+msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
 msgstr "PublicBodyChangeRequest | Yn agored"
@@ -1969,6 +1996,12 @@ msgstr "PublicBodyChangeRequest |ebost Defnyddiwr"
 
 msgid "PublicBodyChangeRequest|User name"
 msgstr "PublicBodyChangeRequest |Enw Defnyddiwr"
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
+msgstr ""
 
 msgid "PublicBody|Api key"
 msgstr "PublicBody|Allwedd api"
@@ -2223,9 +2256,6 @@ msgstr "Chwilio eich cyfraniadau"
 msgid "See bounce message"
 msgstr "Gweler neges bownsio"
 
-msgid "Select one to see more information about the authority."
-msgstr "Dewiswch un i weld rhagor o wybodaeth am yr awdurdod."
-
 msgid "Select the authorities to write to"
 msgstr "Dewiswch yr awdurdodau i ysgrifennu atynt"
 
@@ -2380,6 +2410,9 @@ msgstr "Cyflwyno statws ac anfon neges"
 msgid "Subscribe to blog"
 msgstr "Tanysgrifio i flog"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Ceisiadau Rhyddid Gwybodaeth llwyddiannus"
 
@@ -2397,6 +2430,12 @@ msgstr "Tabl o statws"
 
 msgid "Table of varieties"
 msgstr "Tabl o fathau"
+
+msgid "Tag can't be blank"
+msgstr ""
+
+msgid "Tag is already taken"
+msgstr ""
 
 msgid "Tags"
 msgstr "Tagiau"
@@ -2487,6 +2526,24 @@ msgstr "Nid yw'r e-bost anfonoch, ar ran {{public_body}}, at {{user}} i ymateb i
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Mae'r bariau gwall a ddangosir yn gyfyngau hyder 95% ar gyfer y gyfran sylfaenol damcaniaethol (h.y. un y byddech chi'n cael drwy wneud nifer anfeidrol o geisiadau drwy'r safle hwn i'r awdurdod hwnnw). Mewn geiriau eraill, holl geisiadau presennol ac yn y dyfodol i'r awdurdod drwy'r safle hwn yw'r boblogaeth sy'n cael ei samplo, yn hytrach na, dyweder, yr holl geisiadau sydd wedi cael eu gwneud i'r corff cyhoeddus mewn unrhyw fodd."
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
+msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Nid yw'r dudalen yn bodoli. Pethau y gallwch roi cynnig arnynt yn awr:"
@@ -2806,6 +2863,9 @@ msgstr "Mae'r defnyddiwr hwn wedi ei wahardd o {{site_name}} "
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Nid oedd hyn yn bosibl gan fod cyfrif sydd eisoes yn defnyddio'r cyfeiriad e-bost {{email}}."
 
+msgid "Title can't be blank"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "I ganslo'r rhybuddion hyn"
 
@@ -3039,6 +3099,9 @@ msgstr "User|Cadarhawyd e-bost"
 
 msgid "User|Hashed password"
 msgstr "User|Cyfrinair stwnsh"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "User|Trac e-bost dyddiol olaf"
@@ -3607,6 +3670,9 @@ msgstr "Mae display_status yn gweithio'n unig ar gyfer negeseuon sy'n dod i mewn
 msgid "during term time"
 msgstr "yn ystod amser tymor"
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "golygu testun amdanoch chi"
 
@@ -3743,6 +3809,9 @@ msgstr "i anfon neges ddilynol."
 
 msgid "to {{public_body}}"
 msgstr "i {{public_body}} "
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "rheswm anhysbys "

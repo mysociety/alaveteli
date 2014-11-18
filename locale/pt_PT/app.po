@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:50+0000\n"
+"POT-Creation-Date: 2014-11-18 10:47+0000\n"
+"PO-Revision-Date: 2014-11-18 10:48+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/alaveteli/language/pt_PT/)\n"
 "Language: pt_PT\n"
@@ -109,8 +109,14 @@ msgstr " Você já está recebendo e-mails de atualização sobre o pedido."
 msgid " You will also be emailed updates about the request."
 msgstr "Você também receberá atualizações por e-mail sobre esse pedido."
 
+msgid " filtered by status: '{{status}}'"
+msgstr ""
+
 msgid " when you send this message."
 msgstr "quando você enviar esta mensagem."
+
+msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Estatísticas de crimes por bairro na cidade de São Paulo'"
@@ -580,9 +586,6 @@ msgstr "Alterar a sua senha"
 msgid "Change your password on {{site_name}}"
 msgstr "Alterar a sua senha em {{site_name}}"
 
-msgid "Charity registration"
-msgstr "Registro de ONG"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Verifique se há erros se você digitou ou copiou o endereço."
 
@@ -754,6 +757,9 @@ msgstr ""
 msgid "Disclosure log URL"
 msgstr ""
 
+msgid "Display order must be a number"
+msgstr ""
+
 msgid "Do not fill in this field"
 msgstr ""
 
@@ -856,6 +862,9 @@ msgstr "Pedidos de informação: de {{start_count}} a {{end_count}} de {{total_c
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "Respostas ao PAI requer acesso de administrador ({{reason}}) - {{title}}"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Erro ao converter a imagem para PNG"
 
@@ -865,13 +874,14 @@ msgstr "Erro ao tentar converter a imagem para o tamanho correto: no {{cols}}x{{
 msgid "Filter"
 msgstr "Filtro"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr ""
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
-"Primeiro, insira o <strong>nome da autoridade pública brasileira</strong> da qual você gostaria de receber informação. <strong>Por lei, eles são obrigados a responder</strong>\n"
-"           (<a href=\"{{url}}\">por quê?</a>)."
 
 msgid "Foi attachment"
 msgstr "Anexo do pedido"
@@ -1502,9 +1512,6 @@ msgstr ""
 msgid "New e-mail:"
 msgstr "Novo e-mail:"
 
-msgid "New email doesn't look like a valid address"
-msgstr "O novo e-mail não parece um endereço válido"
-
 msgid "New password:"
 msgstr "Nova senha:"
 
@@ -1597,9 +1604,6 @@ msgstr "E-mail antigo:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "O endereço de e-mail antigo não é o mesmo do endereço da conta pela qual você está logado"
-
-msgid "Old email doesn't look like a valid address"
-msgstr "O email antigo não parece ser um endereço válido"
 
 msgid "On this page"
 msgstr "Nesta página"
@@ -1970,7 +1974,16 @@ msgstr ""
 msgid "Public body"
 msgstr "Órgão público"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -1980,6 +1993,18 @@ msgid "Public page"
 msgstr ""
 
 msgid "Public page not available"
+msgstr ""
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
@@ -2001,6 +2026,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2254,9 +2285,6 @@ msgstr "Buscar suas contribuições"
 msgid "See bounce message"
 msgstr ""
 
-msgid "Select one to see more information about the authority."
-msgstr "Selecionar para ver mais informações sobre este órgão público."
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2409,6 +2437,9 @@ msgstr ""
 msgid "Subscribe to blog"
 msgstr "Assine o blog"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Solicitações de acesso a informação concluídas"
 
@@ -2426,6 +2457,12 @@ msgstr "Tabela de situações"
 
 msgid "Table of varieties"
 msgstr "Tabela de variedades"
+
+msgid "Tag can't be blank"
+msgstr ""
+
+msgid "Tag is already taken"
+msgstr ""
 
 msgid "Tags"
 msgstr ""
@@ -2517,6 +2554,24 @@ msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to r
 msgstr "O email que você, em nome de {{public_body}}, enviou para {{user}} para responder a um Pedido de Informação não foi entregue."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
+msgstr ""
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2837,6 +2892,9 @@ msgstr "Este usuário foi banido do {{site_name}}"
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Isto não foi possível porque já existe uma conta usando o email {{email}}"
 
+msgid "Title can't be blank"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "Cancelar estes alertas"
 
@@ -3072,6 +3130,9 @@ msgstr "Usuário | Email confirmado"
 
 msgid "User|Hashed password"
 msgstr "Usuário | senha Hashed"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "Usuário | Último e-mail"
@@ -3644,6 +3705,9 @@ msgstr "display_status somente funciona para mensagem recebidas e enviadas neste
 msgid "during term time"
 msgstr "durante o período letivo"
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "altere o texto sobre você"
 
@@ -3780,6 +3844,9 @@ msgstr "enviar uma mensagem de acompanhamento."
 
 msgid "to {{public_body}}"
 msgstr "para {{public_body}}"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "razão desconhecida"

@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:48+0000\n"
+"POT-Creation-Date: 2014-11-18 10:47+0000\n"
+"PO-Revision-Date: 2014-11-18 10:48+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/alaveteli/language/ar/)\n"
 "Language: ar\n"
@@ -97,8 +97,14 @@ msgstr " يجري حصولكم على رسالةٍ إلكترونية  تتضم�
 msgid " You will also be emailed updates about the request."
 msgstr "سنمدكم أيضاً برسالةٍ إلكترونية تتضمن مستجدات متعلقة بطلبكم."
 
+msgid " filtered by status: '{{status}}'"
+msgstr ""
+
 msgid " when you send this message."
 msgstr " عندما تقومون ببعث هذه الرسالة ."
+
+msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "إحصائيات الجريمة ب\"ويلز\" حسب مقياس \"وارد\" التفاضلي "
@@ -550,9 +556,6 @@ msgstr "تغيير كلمة السر"
 msgid "Change your password on {{site_name}}"
 msgstr "تغيير كلمة السر على{{site_name}}"
 
-msgid "Charity registration"
-msgstr "تسجيل خيري"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr ".تحقق من عدم وجود أخطاء إذا كتبت أو نسخت العنوان"
 
@@ -724,6 +727,9 @@ msgstr "سجل الكشف"
 msgid "Disclosure log URL"
 msgstr ""
 
+msgid "Display order must be a number"
+msgstr ""
+
 msgid "Do not fill in this field"
 msgstr ""
 
@@ -826,6 +832,9 @@ msgstr "مطالب لحرية النفاذ للمعلومة {{start_count}} ل {
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "رد حرية النفاذ للمعلومة يتطلف مشرفا ({{reason}}) - {{title}}"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "لم نتمكن من تحوبل الصورة الى PNG"
 
@@ -835,10 +844,13 @@ msgstr ""
 msgid "Filter"
 msgstr "فلترة"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr ""
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 
 msgid "Foi attachment"
@@ -1465,9 +1477,6 @@ msgstr ""
 msgid "New e-mail:"
 msgstr "رسالة إلكترونية جديدة:"
 
-msgid "New email doesn't look like a valid address"
-msgstr "الرسالة الالكترونية الجديدة لاتبدو كعنوان صالح"
-
 msgid "New password:"
 msgstr "كلمة العبور الجديدة:"
 
@@ -1560,9 +1569,6 @@ msgstr "رسالة إلكترونية قديمة:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "عنوان بريدكم الإلكتروني القديم يختلف عن عنوان الحساب الذي تمّ تسجيل دخولكم به"
-
-msgid "Old email doesn't look like a valid address"
-msgstr "الرسالة الالكترونية القديمة لاتبدو كعنوان صالح"
 
 msgid "On this page"
 msgstr "في هذه الصفحة"
@@ -1933,7 +1939,16 @@ msgstr ""
 msgid "Public body"
 msgstr "الهيكل العامّ"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -1943,6 +1958,18 @@ msgid "Public page"
 msgstr ""
 
 msgid "Public page not available"
+msgstr ""
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
@@ -1964,6 +1991,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2221,9 +2254,6 @@ msgstr "البحث عن مساهماتك"
 msgid "See bounce message"
 msgstr ""
 
-msgid "Select one to see more information about the authority."
-msgstr "اختر واحدا لرؤية معلومات اكثر على السلطة"
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2380,6 +2410,9 @@ msgstr ""
 msgid "Subscribe to blog"
 msgstr "الاشتراك في المدونة"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "مطالب حرية النفاذ للمعلومة ناجحة"
 
@@ -2397,6 +2430,12 @@ msgstr "جدول الحالات"
 
 msgid "Table of varieties"
 msgstr "جدول الخيارات"
+
+msgid "Tag can't be blank"
+msgstr ""
+
+msgid "Tag is already taken"
+msgstr ""
 
 msgid "Tags"
 msgstr ""
@@ -2486,6 +2525,24 @@ msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to r
 msgstr "البريد الالكتروني الذي, ارسلته عوضا عن {{public_body}} الى\\n{{user}} للرد على {{ law_used_short}}\\n لم يقع ارسال الطلب."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
+msgstr ""
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2812,6 +2869,9 @@ msgstr "تم منع هذا المستخدم من {{site_name}} "
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "هذا الطلب غير ممكن اذ يوجد حساب اخر يستعمل \\nنفس البريد الالكتروني {{email}}."
 
+msgid "Title can't be blank"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "لالغاء اشارات التنبيه"
 
@@ -3044,6 +3104,9 @@ msgid "User|Email confirmed"
 msgstr "المستخدم|تم تأكيد البريد الالكتروني"
 
 msgid "User|Hashed password"
+msgstr ""
+
+msgid "User|Identity card number"
 msgstr ""
 
 msgid "User|Last daily track email"
@@ -3619,6 +3682,9 @@ msgstr "عرض_الحالة غير ممكن حاليا الا بالنسبة ل�
 msgid "during term time"
 msgstr "في الوقت المحدد"
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "غير النص المتعلق بك"
 
@@ -3755,6 +3821,9 @@ msgstr "لبعث رسالة متابعة"
 
 msgid "to {{public_body}}"
 msgstr "الى {{public_body}}"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "سبب مجهول"

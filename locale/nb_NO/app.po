@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-11-04 21:35+0000\n"
-"Last-Translator: pere <pere-transifex@hungry.com>\n"
+"POT-Creation-Date: 2014-11-18 10:47+0000\n"
+"PO-Revision-Date: 2014-11-18 10:48+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
@@ -102,8 +102,14 @@ msgstr "Du mottar allerede oppdateringer om denne forespørselen på e-post."
 msgid " You will also be emailed updates about the request."
 msgstr "Vi vil også motta oppdateringer om denne forespørselen på e-post."
 
+msgid " filtered by status: '{{status}}'"
+msgstr ""
+
 msgid " when you send this message."
 msgstr " når du sender denne meldinen."
+
+msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Kriminalitetsstatistikk på bydelsnivå for Oslo'"
@@ -558,9 +564,6 @@ msgstr "Bytt passordet ditt"
 msgid "Change your password on {{site_name}}"
 msgstr "Bytt passordet ditt på {{site_name}}"
 
-msgid "Charity registration"
-msgstr "Veledighetsregistrering"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Sjekk at det ikke er skrivefeil dersom du skrev inn eller kopierte adressen"
 
@@ -734,6 +737,9 @@ msgstr "Utleveringslogg"
 msgid "Disclosure log URL"
 msgstr ""
 
+msgid "Display order must be a number"
+msgstr ""
+
 msgid "Do not fill in this field"
 msgstr ""
 
@@ -836,6 +842,9 @@ msgstr "Innsynshenvendelser {{start_count}} til {{end_count}} av {{total_count}}
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr ""
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Klarte ikke å konvertere bilde til PNG"
 
@@ -845,11 +854,14 @@ msgstr ""
 msgid "Filter"
 msgstr "Filter"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr ""
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
-msgstr "Først, skriv inn <strong>navnet på en norsk offentlig myndighet</strong> som du\\n           vil ha informasjon fra. <strong>Loven sier at de må svare deg</strong>\\n           (<a href=\"{{url}}\">hvorfor?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
+msgstr ""
 
 msgid "Foi attachment"
 msgstr "Innsynsbegjæring vedlegg"
@@ -1473,9 +1485,6 @@ msgstr "Ny sensurregel"
 msgid "New e-mail:"
 msgstr "Ny e-post-adresse:"
 
-msgid "New email doesn't look like a valid address"
-msgstr "Ny e-postadresse ser ikke ut til å være en gyldig adresse."
-
 msgid "New password:"
 msgstr "Nytt passord:"
 
@@ -1568,9 +1577,6 @@ msgstr "Gammel e-post-adresse:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Gammel e-postadresse er ikke samme som adressen som kontoen du er innlogget med"
-
-msgid "Old email doesn't look like a valid address"
-msgstr "Gammel e-postadresse ser ikke ut til å være en gyldig adresse"
 
 msgid "On this page"
 msgstr "På denne siden"
@@ -1941,7 +1947,16 @@ msgstr ""
 msgid "Public body"
 msgstr "Offentlig kropp"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -1952,6 +1967,18 @@ msgstr "Offentlig side"
 
 msgid "Public page not available"
 msgstr "Offentlig side er ikke tilgjengelig"
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
+msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
 msgstr ""
@@ -1972,6 +1999,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2225,9 +2258,6 @@ msgstr "Søk i dine bidrag"
 msgid "See bounce message"
 msgstr "See sprett (bounce) melding"
 
-msgid "Select one to see more information about the authority."
-msgstr "Velg en for å se mer informasjon om myndigheten"
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2380,6 +2410,9 @@ msgstr "Oppdater, og send melding"
 msgid "Subscribe to blog"
 msgstr "Abboner på blogg"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Vellykket innsynshenvendelse"
 
@@ -2397,6 +2430,12 @@ msgstr "Tabell over statuser"
 
 msgid "Table of varieties"
 msgstr "Tabell over typer"
+
+msgid "Tag can't be blank"
+msgstr ""
+
+msgid "Tag is already taken"
+msgstr ""
 
 msgid "Tags"
 msgstr "Tagger"
@@ -2486,6 +2525,24 @@ msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to r
 msgstr "E-posten som du, på vegne av {{public_body}}, har sendt til\\n{{user}} for å svare på en {{law_used_short}}-henvendelse, har ikke blitt levert."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
+msgstr ""
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2802,6 +2859,9 @@ msgstr "Denne brukeren er sperret ute fra {{site_name}}"
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Dette var ikke mulig da det allerede er en konto som bruker epostadressen {{email}}."
 
+msgid "Title can't be blank"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "For å avbryte varslingen."
 
@@ -3035,6 +3095,9 @@ msgstr "Bruker|E-post bekreftet"
 
 msgid "User|Hashed password"
 msgstr "Bruker|Hashet passord"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "Bruker|Siste daglige track e-post"
@@ -3600,6 +3663,9 @@ msgstr "vis status virker foreløpig kun for innkommende og utgående meldinger"
 msgid "during term time"
 msgstr ""
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "rediger tekst om deg"
 
@@ -3736,6 +3802,9 @@ msgstr "for å sende en oppfølgningsmelding."
 
 msgid "to {{public_body}}"
 msgstr "til {{public_body}}"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "ukjent grunn "

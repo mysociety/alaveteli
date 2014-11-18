@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-10-12 10:24+0000\n"
-"Last-Translator: zejn <zejn@kiberpipa.org>\n"
+"POT-Creation-Date: 2014-11-18 10:47+0000\n"
+"PO-Revision-Date: 2014-11-18 10:48+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/alaveteli/language/sl/)\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -91,8 +91,14 @@ msgstr "Že prejemate e-poštna obvestila o tem zahtevku."
 msgid " You will also be emailed updates about the request."
 msgstr "Prejeli boste tudi e-poštna obvestila o zahtevku."
 
+msgid " filtered by status: '{{status}}'"
+msgstr ""
+
 msgid " when you send this message."
 msgstr "ko pošljete to sporočilo."
+
+msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Statistika kaznivih dejanj po okoliših za Wales' "
@@ -544,9 +550,6 @@ msgstr "Spremenite vaše geslo"
 msgid "Change your password on {{site_name}}"
 msgstr "Spremenite vaše geslo na {{site_name}}"
 
-msgid "Charity registration"
-msgstr "Prijava dobrodelne organizacije"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Če ste naslov prekopirali ali vtipkali, ga preglejte za tipkarske napake."
 
@@ -718,6 +721,9 @@ msgstr "Dnevnik razkritij"
 msgid "Disclosure log URL"
 msgstr "URL za dnevnik razkritij"
 
+msgid "Display order must be a number"
+msgstr ""
+
 msgid "Do not fill in this field"
 msgstr "Ne izpolnjujte tega polja"
 
@@ -820,6 +826,9 @@ msgstr "Zahtevki od {{start_count}} do {{end_count}} od {{total_count}} skupaj"
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "Odgovor na zahtevek za IJZ zahteva administratorja ({{reason}}) - {{title}}"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Napaka pri pretvorbi slike v zapis PNG"
 
@@ -829,11 +838,14 @@ msgstr "Napaka pri pretvarjanju slike v ustrezno velikost: je {{cols}}x{{rows}} 
 msgid "Filter"
 msgstr "Filtriraj"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr "Najprej, so bili vaši drugi zahtevki uspešni?"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
-msgstr "Najprej vpišite <strong>ime slovenskega javnega organa</strong>, od katerega želite zahtevati informacije. <strong>Zakon jih obvezuje k odgovoru</strong>\\n (<a href=\"{{url}}\">zakaj?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
+msgstr ""
 
 msgid "Foi attachment"
 msgstr "Priloga IJZ"
@@ -1457,9 +1469,6 @@ msgstr "Novo pravilo za cenzuro"
 msgid "New e-mail:"
 msgstr "Nov e-poštni naslov:"
 
-msgid "New email doesn't look like a valid address"
-msgstr "Nov e-poštni naslov ne izgleda veljaven"
-
 msgid "New password:"
 msgstr "Novo geslo:"
 
@@ -1552,9 +1561,6 @@ msgstr "Star e-poštni naslov:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Stari e-poštni naslov ni isti, kot je ta, s katerim ste prijavljeni"
-
-msgid "Old email doesn't look like a valid address"
-msgstr "Stari e-poštni naslov ni veljaven"
 
 msgid "On this page"
 msgstr "Na tej strani"
@@ -1925,8 +1931,17 @@ msgstr "Javni organi z največ ugodenimi zahtevki"
 msgid "Public body"
 msgstr "Javni organ"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
 msgstr "Zahtevek za spremembo javnega organa"
+
+msgid "Public body heading"
+msgstr ""
 
 msgid "Public notes"
 msgstr "Javne opombe"
@@ -1936,6 +1951,18 @@ msgstr "Javna stran"
 
 msgid "Public page not available"
 msgstr "Javna stran ni na voljo"
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
+msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
 msgstr "Zahtevek za spremembo javnega organa|Je odprt"
@@ -1957,6 +1984,12 @@ msgstr "Zahtevek za spremembo javnega organa|E-pošta uporabnika"
 
 msgid "PublicBodyChangeRequest|User name"
 msgstr "Zahtevek za spremembo javnega organa|Uporabniško ime"
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
+msgstr ""
 
 msgid "PublicBody|Api key"
 msgstr "PublicBody|Api key"
@@ -2211,9 +2244,6 @@ msgstr "Iščite po vaših prispevkih"
 msgid "See bounce message"
 msgstr "Poglejte sporočilo o nedostavi"
 
-msgid "Select one to see more information about the authority."
-msgstr "Izberite en javni organ, da bi dobili več informacij o njem."
-
 msgid "Select the authorities to write to"
 msgstr "Izberite naslovne organe"
 
@@ -2368,6 +2398,9 @@ msgstr "Shrani status in odpošlji sporočilo"
 msgid "Subscribe to blog"
 msgstr "Naroči se na blog"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Ugodeni zahtevki za informacije javnega značaja"
 
@@ -2385,6 +2418,12 @@ msgstr "Preglednica stanj"
 
 msgid "Table of varieties"
 msgstr "Preglednica tipov"
+
+msgid "Tag can't be blank"
+msgstr ""
+
+msgid "Tag is already taken"
+msgstr ""
 
 msgid "Tags"
 msgstr "Značke"
@@ -2475,6 +2514,24 @@ msgstr "E-pošta, ki ste jo v imenu {{public_body}} poslali {{user}} \\nkot odgo
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Prikazan graf napake predstavlja 95% interval zaupanja na vzorcu, pridobljenim z zahtevki, narejenimi preko tega portala in torej ne upošteva zahtevkov, ki so bili narejeni preko drugih možnih načinov."
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
+msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Stran ne obstaja. Kaj lahko storite:"
@@ -2794,6 +2851,9 @@ msgstr "Temu uporabniku je bil onemogočen dostop do {{site_name}}"
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Tega ni bilo možno narediti, ker že obstaja uporabnik z e-poštnim naslovom {{email}}."
 
+msgid "Title can't be blank"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "Za preklic teh opozoril"
 
@@ -3027,6 +3087,9 @@ msgstr "User|Email confirmed"
 
 msgid "User|Hashed password"
 msgstr "User|Hashed password"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "User|Last daily track email"
@@ -3595,6 +3658,9 @@ msgstr "display_status trenutno deluje le za dohodna in odhodna sporočila"
 msgid "during term time"
 msgstr "med obdobjem"
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "uredi vaš opis"
 
@@ -3731,6 +3797,9 @@ msgstr "da pošljete odziv"
 
 msgid "to {{public_body}}"
 msgstr "za {{public_body}}"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "neznan razlog"

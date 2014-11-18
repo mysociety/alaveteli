@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:49+0000\n"
+"POT-Creation-Date: 2014-11-18 10:47+0000\n"
+"PO-Revision-Date: 2014-11-18 10:48+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/projects/p/alaveteli/language/fr_CA/)\n"
 "Language: fr_CA\n"
@@ -105,8 +105,14 @@ msgstr "Il est déjà prévu que vous receviez des mises à jour par courriel co
 msgid " You will also be emailed updates about the request."
 msgstr "Vous recevrez aussi des mises à jour par courriel concernant cette demande."
 
+msgid " filtered by status: '{{status}}'"
+msgstr ""
+
 msgid " when you send this message."
 msgstr "quand vous envoyez ce message."
+
+msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Document statistique sur la criminalité de 2001 à 2013'"
@@ -558,9 +564,6 @@ msgstr "Changer votre mot de passe"
 msgid "Change your password on {{site_name}}"
 msgstr "Changer votre mot de passe sur {{site_name}}"
 
-msgid "Charity registration"
-msgstr "Organisme de bienfaisance"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Vérifiez s'il y a des erreurs si vous avez tapé ou copié l'adresse."
 
@@ -732,6 +735,9 @@ msgstr "Disclosure log"
 msgid "Disclosure log URL"
 msgstr "Disclosure log URL"
 
+msgid "Display order must be a number"
+msgstr ""
+
 msgid "Do not fill in this field"
 msgstr ""
 
@@ -834,6 +840,9 @@ msgstr "Demandes d'accès aux documents de {{start_count}} à {{end_count}} sur 
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "La réponse à la demande d'accès aux documents nécessite l'attention d'un administrateur ({{reason}}) - {{title}}"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Nous n'avons pas pu convertir l'image au format PNG."
 
@@ -843,11 +852,14 @@ msgstr "Nous n'avons pas pu changer les dimensions de l'image: at {{cols}}x{{row
 msgid "Filter"
 msgstr "Filtre"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr "Premièrement, est-ce que vos autres demandes ont réussi?"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
-msgstr "Commencez par écrire le <strong>nom de l'organisme</strong> à \\n   solliciter ou consultez la <a href=\"/body/list/all\">liste exhaustive</a> des organismes. <strong>Légalement, celui-ci est tenu de répondre</strong>.\\n   (<a href=\"{{url}}\">Pourquoi?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
+msgstr ""
 
 msgid "Foi attachment"
 msgstr "Foi attachment"
@@ -1469,9 +1481,6 @@ msgstr "Une nouvelle règle de censure"
 msgid "New e-mail:"
 msgstr "Nouveau courriel:"
 
-msgid "New email doesn't look like a valid address"
-msgstr "Le nouveau courriel ne semble pas être une adresse valide"
-
 msgid "New password:"
 msgstr "Nouveau mot de passe:"
 
@@ -1564,9 +1573,6 @@ msgstr "Ancien courriel:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "L'ancienne adresse courriel n'est pas la même que l'adresse avec laquelle vous êtes identifié dans le compte."
-
-msgid "Old email doesn't look like a valid address"
-msgstr "L'ancienne adresse courriel ne semble pas être une adresse courriel"
 
 msgid "On this page"
 msgstr "Sur cette page"
@@ -1937,7 +1943,16 @@ msgstr "Organismes publics avec les plus de réponses positives"
 msgid "Public body"
 msgstr "Public body"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -1948,6 +1963,18 @@ msgstr "Public page"
 
 msgid "Public page not available"
 msgstr "Public page not available"
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
+msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
 msgstr ""
@@ -1968,6 +1995,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2221,9 +2254,6 @@ msgstr "Chercher dans vos demandes"
 msgid "See bounce message"
 msgstr "Voir le message de rebond"
 
-msgid "Select one to see more information about the authority."
-msgstr "Cliquez sur un des organismes pour obtenir plus de détails."
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2376,6 +2406,9 @@ msgstr "Envoyer le message"
 msgid "Subscribe to blog"
 msgstr "S'abonner au blog"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Demandes d'accès aux documents réussies"
 
@@ -2393,6 +2426,12 @@ msgstr "Tableau des statuts"
 
 msgid "Table of varieties"
 msgstr "Tableau des variétés "
+
+msgid "Tag can't be blank"
+msgstr ""
+
+msgid "Tag is already taken"
+msgstr ""
 
 msgid "Tags"
 msgstr "Tags"
@@ -2483,6 +2522,24 @@ msgstr "Le message que vous avez envoyé au nom de {{public_body}} à \\n{{user}
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr " "
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
+msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "La page n'existe pas. Vous pouvez essayer de :"
@@ -2796,6 +2853,9 @@ msgstr "Cet utilisateur a été banni de {{site_name}}"
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Cela est impossible: un compte existant utilise déjà \\n l'adresse courriel {{email}}."
 
+msgid "Title can't be blank"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "Pour annuler ces alertes"
 
@@ -3029,6 +3089,9 @@ msgstr "User|Email confirmed"
 
 msgid "User|Hashed password"
 msgstr "User|Hashed password"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "User|Last daily track email"
@@ -3594,6 +3657,9 @@ msgstr "display_status n'est valide que pour les messages entrant et sortant pou
 msgid "during term time"
 msgstr "***during term time"
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "modifiez votre description personnelle"
 
@@ -3730,6 +3796,9 @@ msgstr "pour envoyer un message de suivi."
 
 msgid "to {{public_body}}"
 msgstr "à {{public_body}}"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "raison inconnue"

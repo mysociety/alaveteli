@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:48+0000\n"
+"POT-Creation-Date: 2014-11-18 10:47+0000\n"
+"PO-Revision-Date: 2014-11-18 10:48+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/projects/p/alaveteli/language/id/)\n"
 "Language: id\n"
@@ -108,8 +108,14 @@ msgstr " Update tentang permintaan tersebut sudah dikirimkan ke email Anda."
 msgid " You will also be emailed updates about the request."
 msgstr " Anda juga akan dikirimkan email berisi update tentang permintaan."
 
+msgid " filtered by status: '{{status}}'"
+msgstr ""
+
 msgid " when you send this message."
 msgstr " saat Anda mengirim pesan ini."
+
+msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Statistik Kriminal berdasarkan tingkat penjara untuk Wales'"
@@ -624,9 +630,6 @@ msgstr "Mengubah kode sandi Anda"
 msgid "Change your password on {{site_name}}"
 msgstr "Mengubah kode sandi Anda di{{site_name}}"
 
-msgid "Charity registration"
-msgstr "Pendaftaran Amal"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Memeriksa kesalahan jika Anda mengetikkan atau menyalin alamat tersebut."
 
@@ -802,6 +805,9 @@ msgstr "Pembukaan log"
 msgid "Disclosure log URL"
 msgstr "Pembukaan riwayat URL"
 
+msgid "Display order must be a number"
+msgstr ""
+
 msgid "Do not fill in this field"
 msgstr ""
 
@@ -912,6 +918,9 @@ msgstr "Permintaan FOI {{start_count}} sampai{{end_count}} dari{{total_count}}"
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "Jawaban permintaan membutuhkan {{{reason}}} - {{title}}"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Failed to convert image to a PNG"
 
@@ -921,14 +930,14 @@ msgstr "Tidak berhasil mengubah gambar ke ukuran yang tepat: pada {{cols}}x{{row
 msgid "Filter"
 msgstr "Filter"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr ""
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
-"Pertama, ketik <strong>nama dari otoritas public Kerajaan Inggris </strong> Anda\n"
-"           ingin informasi dari. <strong>Berdasarkan undang-undang, mereka harus merespon </strong>\n"
-"           (<a href=\"{{url}}\">mengapa?</a>)."
 
 msgid "Foi attachment"
 msgstr "Lampiran permintaan"
@@ -1597,9 +1606,6 @@ msgstr "Peraturan sensor baru"
 msgid "New e-mail:"
 msgstr "Email baru:"
 
-msgid "New email doesn't look like a valid address"
-msgstr "Email baru tidak tampak seperti alamat yang valid"
-
 msgid "New password:"
 msgstr "Kode sandi baru:"
 
@@ -1692,9 +1698,6 @@ msgstr "Email lama:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Alamat email lama tidak sama dengan alamat akun yang Anda gunakan untuk masuk"
-
-msgid "Old email doesn't look like a valid address"
-msgstr "Email lama tidak terlihat seperti alamat yang valid"
 
 msgid "On this page"
 msgstr "Di halaman ini"
@@ -2076,7 +2079,16 @@ msgstr ""
 msgid "Public body"
 msgstr "Badan publik"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -2087,6 +2099,18 @@ msgstr "Halaman publik"
 
 msgid "Public page not available"
 msgstr "Halaman publik tidak ada"
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
+msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
 msgstr ""
@@ -2107,6 +2131,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2364,9 +2394,6 @@ msgstr "Cari kontribusi Anda"
 msgid "See bounce message"
 msgstr "Lihan pesan kembali"
 
-msgid "Select one to see more information about the authority."
-msgstr "Pilih satu untuk melihat lebih banyak informasi tentang otoritas terkait."
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2524,6 +2551,9 @@ msgstr "Kirim status dan kirim pesan"
 msgid "Subscribe to blog"
 msgstr "Berlangganan kepada blog"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Permintaan Freedom of Information yang berhasil"
 
@@ -2541,6 +2571,12 @@ msgstr "Tabel status"
 
 msgid "Table of varieties"
 msgstr "Tabel jenis"
+
+msgid "Tag can't be blank"
+msgstr ""
+
+msgid "Tag is already taken"
+msgstr ""
 
 msgid "Tags"
 msgstr "Label"
@@ -2643,6 +2679,24 @@ msgstr ""
 "permintaan belum terkirim."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
+msgstr ""
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2981,6 +3035,9 @@ msgstr ""
 "Hal ini tidak memungkinkan karena sudah ada akun yang menggunakan \n"
 "alamat email ini {{email}}."
 
+msgid "Title can't be blank"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "Untuk membatalkan tanda notifikasi"
 
@@ -3223,6 +3280,9 @@ msgstr "User|Email confirmed"
 
 msgid "User|Hashed password"
 msgstr "User|Hashed password"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "User|Last daily track email"
@@ -3829,6 +3889,9 @@ msgstr "display_status saat ini hanya bisa untuk pesan masuk dan keluar"
 msgid "during term time"
 msgstr "dalam jangka waktu"
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "rubah teks tentang anda"
 
@@ -3971,6 +4034,9 @@ msgstr "untuk mengirimkan pesan tindak lanjut."
 
 msgid "to {{public_body}}"
 msgstr "kepada {{public_body}}"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "alasan tidak diketahui "

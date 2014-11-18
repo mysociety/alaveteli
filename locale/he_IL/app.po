@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-10-01 11:21+0000\n"
-"Last-Translator: Nir Hirshman <nirshman99@gmail.com>\n"
+"POT-Creation-Date: 2014-11-18 10:47+0000\n"
+"PO-Revision-Date: 2014-11-18 10:48+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -103,8 +103,14 @@ msgstr "כתובת הדוא\"ל רשומה לקבלת עדכונים על הבק
 msgid " You will also be emailed updates about the request."
 msgstr "תקבלו גם עדכונים בדוא\"ל על הבקשה."
 
+msgid " filtered by status: '{{status}}'"
+msgstr ""
+
 msgid " when you send this message."
 msgstr "כאשר אתם שולחים הודעה זו."
+
+msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'סטטיסטיקות פשע מפורטות בדרום תל-אביב'"
@@ -558,9 +564,6 @@ msgstr "שינוי סיסמה"
 msgid "Change your password on {{site_name}}"
 msgstr "שנה סיסמתך ב {{site_name}}"
 
-msgid "Charity registration"
-msgstr "רישום צדקה"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "אם הקלדתם או העתקתם את הכתובת תוכלו לבדוק טעויות"
 
@@ -735,6 +738,9 @@ msgstr "יומן גילוי נאות"
 msgid "Disclosure log URL"
 msgstr "כתובת יומן גילוי נאות"
 
+msgid "Display order must be a number"
+msgstr ""
+
 msgid "Do not fill in this field"
 msgstr ""
 
@@ -837,6 +843,9 @@ msgstr "בקשות לקבלת מידע {{start_count}} עד {{end_count}} מתו
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "התגובה דורשת התערבות מנהל  ({{reason}}) - {{title}}"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "המרת הקובץ לפורמט PNG נכשלה"
 
@@ -846,11 +855,14 @@ msgstr "המרת התמונה לגודל המתאים נכשלה: ל-  {{cols}}x
 msgid "Filter"
 msgstr "סינון"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr "קודם כל, האם שאר הבקשות שהגשתם הצליחו?"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
-msgstr "ראשית, הקלידו את <strong>שם הגוף הממשלתי </strong>, ממנו ברצונכם לקבל מידע.\\n  <strong>לפי החלטת הממשלה, עליהם למסור תגובה</strong> (<a href=\"{{url}}\">מדוע?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
+msgstr ""
 
 msgid "Foi attachment"
 msgstr "מסמך מצורף"
@@ -1472,9 +1484,6 @@ msgstr "חוק צנזור חדש"
 msgid "New e-mail:"
 msgstr "דואר אלקטרוני חדש:"
 
-msgid "New email doesn't look like a valid address"
-msgstr "הדואר האלקטרוני החדש לא נראה תקין"
-
 msgid "New password:"
 msgstr "סיסמה חדשה:"
 
@@ -1567,9 +1576,6 @@ msgstr "אימייל ישן:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "כתובת הדוא\"ל הקודמת לא תואמת לכתובת החשבון שלכם"
-
-msgid "Old email doesn't look like a valid address"
-msgstr "כתובת הדוא\"ל הקודמת לא תקינה"
 
 msgid "On this page"
 msgstr "בעמוד הזה"
@@ -1940,7 +1946,16 @@ msgstr ""
 msgid "Public body"
 msgstr "גוף ציבורי"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -1951,6 +1966,18 @@ msgstr "דף ציבורי"
 
 msgid "Public page not available"
 msgstr "הדף הציבורי לא זמין"
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
+msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
 msgstr ""
@@ -1971,6 +1998,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2224,9 +2257,6 @@ msgstr "חפש בין התוספות שלך"
 msgid "See bounce message"
 msgstr "ראו הודעת תגובה"
 
-msgid "Select one to see more information about the authority."
-msgstr "בחרו את אחד הגופים מן הרשימה על מנת לקבל עליו מידע נוסף."
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2379,6 +2409,9 @@ msgstr "רשמו מצב ושלחו הודעה"
 msgid "Subscribe to blog"
 msgstr "הירשמו לבלוג"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "בקשות מידע שנענו"
 
@@ -2396,6 +2429,12 @@ msgstr "טבלת סטטוסים"
 
 msgid "Table of varieties"
 msgstr "טבלת משתנים"
+
+msgid "Tag can't be blank"
+msgstr ""
+
+msgid "Tag is already taken"
+msgstr ""
 
 msgid "Tags"
 msgstr "תגיות"
@@ -2485,6 +2524,24 @@ msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to r
 msgstr "הדוא\"ל ששלחתם בשם {{public_body}}, ל-{{user}} כדי להגיב על בקשת {{law_used_short}} לא נשלח."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
+msgstr ""
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2799,6 +2856,9 @@ msgstr "המשתמש הזה נחסם מהאתר {{site_name}}"
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "לא ניתן ליצור חשבון מכיוון שיש כבר חשבון קיים עם כתובת המייל {{email}}."
 
+msgid "Title can't be blank"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "לבטל את ההתראות הללו"
 
@@ -3032,6 +3092,9 @@ msgstr "User|Email confirmed"
 
 msgid "User|Hashed password"
 msgstr "User|Hashed password"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "User|Last daily track email"
@@ -3606,6 +3669,9 @@ msgstr "display_status עובד רק לגבי הצעות המתקבלות ונש
 msgid "during term time"
 msgstr "במהלך התקופה"
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "ערכו את הטקסט עליכם"
 
@@ -3742,6 +3808,9 @@ msgstr "לשלוח הודעת מעקב."
 
 msgid "to {{public_body}}"
 msgstr "אל {{public_body}}"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "סיבה לא ידוע"

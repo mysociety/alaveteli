@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:49+0000\n"
+"POT-Creation-Date: 2014-11-18 10:47+0000\n"
+"PO-Revision-Date: 2014-11-18 10:48+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/alaveteli/language/hu_HU/)\n"
 "Language: hu_HU\n"
@@ -99,8 +99,14 @@ msgstr " E-mailben már tájékoztattuk az igényléssel kapcsolatos fejleménye
 msgid " You will also be emailed updates about the request."
 msgstr " E-mailben is tájékoztatjuk az igényléssel kapcsolatos fejleményekről. "
 
+msgid " filtered by status: '{{status}}'"
+msgstr ""
+
 msgid " when you send this message."
 msgstr " részére, így a címzett megismerheti azt."
+
+msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'A kiskereki oktatási intézmények 2010-es évi ételszállítási szerződései'."
@@ -594,9 +600,6 @@ msgstr "Jelszavam módosítása "
 msgid "Change your password on {{site_name}}"
 msgstr "{{site_name}} jelszó módosítása"
 
-msgid "Charity registration"
-msgstr "Jótékonysági szervezet regisztrációja "
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Ha beírta vagy másolta a címet, ellenőrizze, hogy helyes-e. "
 
@@ -772,6 +775,9 @@ msgstr "Közzétételi napló"
 msgid "Disclosure log URL"
 msgstr ""
 
+msgid "Display order must be a number"
+msgstr ""
+
 msgid "Do not fill in this field"
 msgstr ""
 
@@ -882,6 +888,9 @@ msgstr "közérdekűadat-igénylések: {{start_count}} - {{end_count}}, összese
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "A közérdekűadat-igénylés megválaszolásához adminisztrátori beavatkozás szükséges ({{reason}}) - {{title}}"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Nem sikerült a kép PNG formátumba való átalakítása "
 
@@ -891,14 +900,14 @@ msgstr "Nem sikerült a képet a megfelelő méretre alakítani: {{cols}}x{{rows
 msgid "Filter"
 msgstr "Szűrő"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr ""
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
-"Először is keresse ki a KiMitTud adatbázisából azt az <strong>adatgazdát</strong>, amelyiktől \n"
-"           információt szeretne kérni. <strong>A vonatkozó jogszabály értelmében az adatgazdának kötelező válaszolnia.</strong>\n"
-"          <a href=\"{{url}}\">... Miért?</a><br/>Írja be a keresett adatgazda nevét, vagy nevének (ismert) részletét az alábbi mezőbe!"
 
 msgid "Foi attachment"
 msgstr "Közérdekűadat-igénylés melléklete"
@@ -1570,9 +1579,6 @@ msgstr ""
 msgid "New e-mail:"
 msgstr "Új e-mail: "
 
-msgid "New email doesn't look like a valid address"
-msgstr "Az új e-mail cím nem tűnik érvényes címnek "
-
 msgid "New password:"
 msgstr "Új jelszó: "
 
@@ -1665,9 +1671,6 @@ msgstr "Régi e-mail: "
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "A régi e-mail cím nem egyezik meg a bejelentkezéshez használt fiókhoz rendelt e-mail címmel "
-
-msgid "Old email doesn't look like a valid address"
-msgstr "A régi e-mail cím nem tűnik érvényes címnek "
 
 msgid "On this page"
 msgstr "Ezen az oldalon "
@@ -2051,7 +2054,16 @@ msgstr ""
 msgid "Public body"
 msgstr "Adatgazda"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -2061,6 +2073,18 @@ msgid "Public page"
 msgstr ""
 
 msgid "Public page not available"
+msgstr ""
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
@@ -2082,6 +2106,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2340,9 +2370,6 @@ msgstr "Keresés az adatigényléseimben"
 msgid "See bounce message"
 msgstr ""
 
-msgid "Select one to see more information about the authority."
-msgstr "Válassza ki a keresett adatgazdát az alábbi listából!"
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2501,6 +2528,9 @@ msgstr ""
 msgid "Subscribe to blog"
 msgstr "Feliratkozás a blogra "
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Sikeres közérdekűadat-igénylések "
 
@@ -2518,6 +2548,12 @@ msgstr "Állapottáblázat"
 
 msgid "Table of varieties"
 msgstr "Választéktáblázat"
+
+msgid "Tag can't be blank"
+msgstr ""
+
+msgid "Tag is already taken"
+msgstr ""
 
 msgid "Tags"
 msgstr ""
@@ -2620,6 +2656,24 @@ msgstr ""
 "igénylésre vonatkozóan, nem lehetett kézbesíteni. "
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
+msgstr ""
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2961,6 +3015,9 @@ msgstr ""
 "Ez nem lehetséges, mert \n"
 "ezzel a(z) {{email}} e-mail címmel már létezik fiók. "
 
+msgid "Title can't be blank"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "Ha törölni szeretné ezeket az értesítőket "
 
@@ -3203,6 +3260,9 @@ msgstr "User|Email confirmed"
 
 msgid "User|Hashed password"
 msgstr "User|Hashed password"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "User|Last daily track email"
@@ -3806,6 +3866,9 @@ msgstr "display_status csak az éppen most beérkező és kimenő üzenetek eset
 msgid "during term time"
 msgstr "szorgalmi időszakban "
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "bemutatkozás módosítása "
 
@@ -3948,6 +4011,9 @@ msgstr "nyomon követési üzenet küldése céljából. "
 
 msgid "to {{public_body}}"
 msgstr "{{public_body}} részére "
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "ismeretlen ok "
