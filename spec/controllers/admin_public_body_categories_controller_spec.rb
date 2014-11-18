@@ -180,7 +180,9 @@ describe AdminPublicBodyCategoriesController do
             body = FactoryGirl.create(:public_body, :tag_string => @tag)
             post :update, { :id => @category.id,
                             :public_body_category => { :category_tag => "renamed" } }
-            request.flash[:notice].should include('can\'t')
+                            
+            msg = "There are authorities associated with this category, so the tag can't be renamed"
+            request.flash[:error].should == msg
             pbc = PublicBodyCategory.find(@category.id)
             pbc.category_tag.should == @tag
         end

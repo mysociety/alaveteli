@@ -22,7 +22,7 @@ class AdminPublicBodyCategoriesController < AdminController
 
         I18n.with_locale(I18n.default_locale) do
             if params[:public_body_category][:category_tag] && PublicBody.find_by_tag(@category.category_tag).count > 0 && @category.category_tag != params[:public_body_category][:category_tag]
-                flash[:notice] = 'There are authorities associated with this category, so the tag can\'t be renamed'
+                flash[:error] = "There are authorities associated with this category, so the tag can't be renamed"
                 render :action => 'edit'
             else
                 if params[:headings]
