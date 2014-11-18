@@ -16,6 +16,7 @@
 # David Cabo <david.cabo@gmail.com>, 2013
 # louisecrow <louise@mysociety.org>, 2013
 # louisecrow <louise@mysociety.org>, 2013
+# mikaclau@gmail.com <mikaclau@gmail.com>, 2014
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
 # radhouane fazai <radhouanef@gmail.com>, 2013
@@ -26,6 +27,7 @@
 # sebbacon <seb.bacon@gmail.com>, 2012
 # Benoît Simard <contact@bsimard.com>, 2013
 # skenaja <alex@alexskene.com>, 2011
+# Stephen Abbott Pugh <stephendabbott@gmail.com>, 2014
 # teymour <tanguim@gmail.com>, 2011
 # teymour <tanguim@gmail.com>, 2011
 # vickyanderica <victoria@access-info.org>, 2011
@@ -35,8 +37,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:46+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2014-11-13 13:28+0000\n"
+"Last-Translator: mikaclau@gmail.com <mikaclau@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/alaveteli/language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -63,10 +65,10 @@ msgid " - wall"
 msgstr "-mur"
 
 msgid " < "
-msgstr ""
+msgstr "<"
 
 msgid " << "
-msgstr ""
+msgstr "<<"
 
 msgid " <strong>Note:</strong>\\n    We will send you an email. Follow the instructions in it to change\\n    your password."
 msgstr ""
@@ -80,10 +82,10 @@ msgid " <strong>Summarise</strong> the content of any information returned. "
 msgstr " <strong>Résumez</strong>le contenu de toute  information transmise. "
 
 msgid " > "
-msgstr ""
+msgstr ">"
 
 msgid " >> "
-msgstr ""
+msgstr ">>"
 
 msgid " Advise on how to <strong>best clarify</strong> the request."
 msgstr "Conseils pour rendre la demande <strong>plus claire</strong>."
@@ -139,13 +141,13 @@ msgid "'{{link_to_user}}', a person"
 msgstr "{{link_to_user}}', une personne"
 
 msgid "(hide)"
-msgstr ""
+msgstr "(Afficher)"
 
 msgid "(or <a href=\"{{url}}\">sign in</a>)"
-msgstr ""
+msgstr "1. Sélectionner les autorités"
 
 msgid "(show)"
-msgstr ""
+msgstr "(Afficher)"
 
 msgid "*unknown*"
 msgstr "*unknown*"
@@ -160,7 +162,7 @@ msgid "1. Select an authority"
 msgstr "1. Choisissez une administration"
 
 msgid "1. Select authorities"
-msgstr ""
+msgstr "1. Sélectionner les autorités"
 
 msgid "2. Ask for Information"
 msgstr "2. Demandez une information publique"
@@ -310,7 +312,7 @@ msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>n'avait pas </strong> les informations demandées."
 
 msgid "?"
-msgstr ""
+msgstr "?"
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Un <a href=\"{{request_url}}\">suivi</a> à <em>{{request_title}}</em> a été envoyé à {{public_body_name}} par {{info_request_user}} le {{date}}."
@@ -367,7 +369,7 @@ msgid "Add an annotation to your request with choice quotes, or\\n              
 msgstr "Ajouter une annotation à votre demande avec des citations de choix, ou \\n  un <strong> résumé de réponse</strong>."
 
 msgid "Add authority - {{public_body_name}}"
-msgstr ""
+msgstr "Ajouter l'autorité - {{public_body_name}}"
 
 msgid "Add the authority:"
 msgstr ""
@@ -457,13 +459,13 @@ msgid "Ask for <strong>specific</strong> documents or information, this site is 
 msgstr "Demandez des documents ou des <strong>informations spécifiques</strong>, ce site ne convient pas pour des renseignements d'ordre général."
 
 msgid "Ask us to add an authority"
-msgstr ""
+msgstr "Demander l'ajout d'un autorité"
 
 msgid "Ask us to update FOI email"
-msgstr ""
+msgstr "Demande de mettre ajour FOI email"
 
 msgid "Ask us to update the email address for {{public_body_name}}"
-msgstr ""
+msgstr "Demande de mise a jour d'adresses email {{public_body_name}}"
 
 msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr "Au bas de cette page, écrire une réponse à leur essayant de les persuader de le numériser (<a href=\"{{url}}\">plus de détails</a>)."
@@ -475,10 +477,10 @@ msgid "Attachment:"
 msgstr "Pièce jointe"
 
 msgid "Authority email:"
-msgstr ""
+msgstr "adresse email de l'autorité"
 
 msgid "Authority:"
-msgstr ""
+msgstr "Autorité"
 
 msgid "Awaiting classification."
 msgstr "En attente de classement."
@@ -490,7 +492,7 @@ msgid "Awaiting response."
 msgstr "Réponse en attente"
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Groupe creé par {{info_request_user}} le {{date}}"
 
 msgid "Beginning with"
 msgstr "Commence par"
@@ -583,7 +585,7 @@ msgid "Check you haven't included any <strong>personal information</strong>."
 msgstr "Vérifier que vous n'avez pas inclus d'informations personnelles"
 
 msgid "Choose a reason"
-msgstr ""
+msgstr "Choisi la raison"
 
 msgid "Choose your profile photo"
 msgstr "Choisissez votre photo de profil"

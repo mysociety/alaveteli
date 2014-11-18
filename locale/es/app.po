@@ -20,8 +20,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-10-27 15:31+0000\n"
-"Last-Translator: gaba <gabelula@gmail.com>\n"
+"PO-Revision-Date: 2014-10-29 20:01+0000\n"
+"Last-Translator: vdiaz <vdiaz@antai.gob.pa>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/alaveteli/language/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgid " > "
 msgstr ">"
 
 msgid " >> "
-msgstr ""
+msgstr ">>"
 
 msgid " Advise on how to <strong>best clarify</strong> the request."
 msgstr " Consejo sobre cómo <strong>aclarar lo mejor posible</strong> la solicitud."
@@ -3457,22 +3457,22 @@ msgid "You are no longer following <a href=\"{{successful_requests_url}}\">succe
 msgstr ""
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_authority}}', a public authority."
-msgstr ""
+msgstr "Usted ahora está <a href=\"{{wall_url_user}}\"> siguiendo</a> actualizaciones relacionadas con  '{{link_to_authority}}', esta institución publica."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_request}}', a request."
-msgstr ""
+msgstr "Usted ahora está <a href=\"{{wall_url_user}}\"> siguiendo</a> actualizaciones relacionadas con '{{link_to_request}}', esta solicitud. "
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_user}}', a person."
-msgstr ""
+msgstr "Usted ahora está <a href=\"{{wall_url_user}}\"> siguiendo</a> actualizaciones relacionadas con '{{link_to_user}}', esta  persona."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>."
-msgstr ""
+msgstr "Usted ahora está <a href=\"{{wall_url_user}}\"> siguiendo </a> actualizaciones relacionadas con <a href=\"{{new_requests_url}}\">solicitudes nuevas</a>."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>."
-msgstr ""
+msgstr "Usted ahora está <a href=\"{{wall_url_user}}\"> siguiendo</a> actualizaciones relacionadas con <a href=\"{{search_url}}\">esta búsqueda</a>."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
-msgstr ""
+msgstr "Usted ahora está <a href=\"{{wall_url_user}}\"> siguiendo </a> actualizaciones sobre <a href=\"{{successful_requests_url}}\"> solicitudes exitosas </a>."
 
 msgid "You can <strong>complain</strong> by"
 msgstr "Puede <strong>apelar</strong>"
@@ -3521,7 +3521,7 @@ msgid "You may <strong>include attachments</strong>. If you would like to attach
 msgstr "Puede <strong>adjuntar ficheros</strong>. Si quiere adjuntar un fichero demasiado grande para el correo, puede utilizar el siguiente formulario."
 
 msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please send it to us:"
-msgstr ""
+msgstr "Usted podría encontrar uno en el sitio web de la institución, o llamando a la misma para solicitarlo. Si logra encontrar uno,  por favor re enviar a nosotros:"
 
 msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
@@ -3574,7 +3574,7 @@ msgid "You will now be emailed updates about '{{link_to_authority}}', a public a
 msgstr "Ahora estará recibiendo por correo electrónico actualizaciones sobre '{{link_to_authority}}', la institución pública."
 
 msgid "You will now be emailed updates about '{{link_to_request}}', a request."
-msgstr ""
+msgstr "Desde ahora se le enviará por correo electrónico las actualizaciones  de '{{link_to_request}}', esta solicitud."
 
 msgid "You will now be emailed updates about '{{link_to_user}}', a person."
 msgstr "Se le estarán enviando correos con actualizaciones relacionadas  '{{link_to_user}}', esta persona."
@@ -3583,10 +3583,10 @@ msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this sea
 msgstr "Se le estarán enviando actualizaciones relacionadas <a href=\"{{search_url}}\">esta búsqueda</a>. "
 
 msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
-msgstr ""
+msgstr "Desde ahora se le enviarán por correo electrónico todas las actualizaciones acerca de<a href=\"{{successful_requests_url}}\">solicitudes exitosas</a>."
 
 msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>."
-msgstr ""
+msgstr "Desde ahora se le enviaran por correo electrónico todas las actualizaciones acerca de<a href=\"{{new_requests_url}}\">nuevas solicitudes </a>."
 
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
 msgstr ""
@@ -3792,7 +3792,7 @@ msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "y te sugeriremos <strong>qué hacer a continuación</strong>"
 
 msgid "anything matching text '{{query}}'"
-msgstr ""
+msgstr "cualquier texto que coincida '{{query}}'"
 
 msgid "are long overdue."
 msgstr "están muy retrasados."
@@ -3924,7 +3924,7 @@ msgid "requests which are successful"
 msgstr "solicitudes exitosas"
 
 msgid "requests which are successful matching text '{{query}}'"
-msgstr ""
+msgstr "texto que coincide con las solicitudes exitosas '{{query}}'"
 
 msgid "response as needing administrator attention. Take a look, and reply to this\\nemail to let them know what you are going to do about it."
 msgstr ""
