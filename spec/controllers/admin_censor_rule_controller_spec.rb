@@ -180,6 +180,132 @@ describe AdminCensorRuleController do
 
     end
 
+    describe 'PUT update' do
+
+        before(:each) do
+            @censor_rule = FactoryGirl.create(:global_censor_rule)
+        end
+
+        it 'finds the correct censor rule to edit' do
+            put :update, :id => @censor_rule.id,
+                         :censor_rule => { :text => 'different text' }
+
+            expect(assigns[:censor_rule]).to eq(@censor_rule)
+        end
+
+        it 'sets the last_edit_editor to the current admin' do
+            put :update, :id => @censor_rule.id,
+                         :censor_rule => { :text => 'different text' }
+
+            expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
+        end
+
+        context 'successfully saving the censor rule' do
+
+            before(:each) do
+                CensorRule.any_instance.stub(:save).and_return(true)
+            end
+
+            it 'updates the censor rule' do
+                pending("This raises an internal error in most cases")
+                put :update, :id => @censor_rule.id,
+                             :censor_rule => { :text => 'different text' }
+                @censor_rule.reload
+                expect(@censor_rule.text).to eq('different text')
+            end
+
+            it 'confirms the censor rule is updated' do
+                pending("This raises an internal error in most cases")
+                put :update, :id => @censor_rule.id,
+                             :censor_rule => { :text => 'different text' }
+
+                msg = 'CensorRule was successfully updated.'
+                expect(flash[:notice]).to eq(msg)
+            end
+
+            it 'raises an error after updating the rule' do
+                expect {
+                    put :update, :id => @censor_rule.id,
+                                 :censor_rule => { :text => 'different text' }
+                }.to raise_error 'internal error'
+            end
+
+            context 'a CensorRule with an associated InfoRequest' do
+
+                before(:each) do
+                    @censor_rule = FactoryGirl.create(:info_request_censor_rule)
+                end
+
+                 it 'purges the cache for the info request' do
+                    @controller.should_receive(:expire_for_request).
+                        with(@censor_rule.info_request)
+
+                    put :update, :id => @censor_rule.id,
+                                 :censor_rule => { :text => 'different text' }
+                end
+
+                it 'redirects to the associated info request' do
+                    put :update, :id => @censor_rule.id,
+                                 :censor_rule => { :text => 'different text' }
+
+                    expect(response).to redirect_to(
+                        admin_request_show_path(assigns[:censor_rule].info_request)
+                    )
+                end
+
+            end
+
+            context 'a CensorRule with an associated User' do
+
+                before(:each) do
+                    @censor_rule = FactoryGirl.create(:user_censor_rule)
+                end
+
+                 it 'purges the cache for the info request' do
+                    @controller.should_receive(:expire_requests_for_user).
+                        with(@censor_rule.user)
+
+                    put :update, :id => @censor_rule.id,
+                                 :censor_rule => { :text => 'different text' }
+                end
+
+                it 'redirects to the associated info request' do
+                    put :update, :id => @censor_rule.id,
+                                 :censor_rule => { :text => 'different text' }
+
+                    expect(response).to redirect_to(
+                        admin_user_show_path(assigns[:censor_rule].user)
+                    )
+                end
+
+            end
+
+        end
+
+        context 'unsuccessfully saving the censor rule' do
+
+            before(:each) do
+                CensorRule.any_instance.stub(:save).and_return(false)
+            end
+
+            it 'does not update the censor rule' do
+                put :update, :id => @censor_rule.id,
+                             :censor_rule => { :text => 'different text' }
+                @censor_rule.reload
+                expect(@censor_rule.text).to eq('some text to redact')
+            end
+
+            it 'renders the form' do
+                put :update, :id => @censor_rule.id,
+                             :censor_rule => { :text => 'different text' }
+
+                expect(response).to render_template('edit')
+            end
+
+        end
+
+    end
+
     describe 'DELETE destroy' do
 
         before(:each) do
