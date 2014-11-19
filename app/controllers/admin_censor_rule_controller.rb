@@ -12,6 +12,8 @@ class AdminCensorRuleController < AdminController
         if params[:user_id]
             @censor_user = User.find(params[:user_id])
         end
+
+        @censor_rule ||= CensorRule.new
     end
 
     def create

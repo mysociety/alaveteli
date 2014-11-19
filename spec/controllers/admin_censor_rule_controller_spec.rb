@@ -10,6 +10,11 @@ describe AdminCensorRuleController do
             expect(response).to be_success
         end
 
+        it 'initializes a new censor rule' do
+            get :new
+            expect(assigns[:censor_rule]).to be_new_record
+        end
+
         it 'renders the correct template' do
             get :new
             expect(response).to render_template('new')
