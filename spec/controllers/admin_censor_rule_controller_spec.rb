@@ -94,6 +94,54 @@ describe AdminCensorRuleController do
             expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
         end
 
+        context 'info_request_id param' do
+
+            it 'finds an info request if the info_request_id param is supplied' do
+                info_request = FactoryGirl.create(:info_request)
+                post :create, :info_request_id => info_request.id,
+                              :censor_rule => @censor_rule_params
+                expect(assigns[:info_request]).to eq(info_request)
+            end
+
+            it 'associates the info request with the new censor rule' do
+                info_request = FactoryGirl.create(:info_request)
+                post :create, :info_request_id => info_request.id,
+                              :censor_rule => @censor_rule_params
+                expect(assigns[:censor_rule].info_request).to eq(info_request)
+            end
+
+
+            it 'does not find an info request if no info_request_id param is supplied' do
+                post :create, :censor_rule => @censor_rule_params
+                expect(assigns[:info_request]).to be_nil
+            end
+
+        end
+
+        context 'user_id param' do
+
+            it 'finds a user if the user_id param is supplied' do
+                user = FactoryGirl.create(:user)
+                post :create, :user_id => user.id,
+                              :censor_rule => @censor_rule_params
+                expect(assigns[:censor_user]).to eq(user)
+            end
+
+            it 'associates the user with the new censor rule' do
+                user = FactoryGirl.create(:user)
+                post :create, :user_id => user.id,
+                              :censor_rule => @censor_rule_params
+                expect(assigns[:censor_rule].user).to eq(user)
+            end
+
+
+            it 'does not find a user if no user_id param is supplied' do
+                post :create, :censor_rule => @censor_rule_params
+                expect(assigns[:censor_user]).to be_nil
+            end
+
+        end
+
         context 'successfully saving the censor rule' do
 
             before(:each) do

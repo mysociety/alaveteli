@@ -23,16 +23,31 @@ class AdminCensorRuleController < AdminController
     end
 
     def create
-        params[:censor_rule][:last_edit_editor] = admin_current_user()
-        @censor_rule = CensorRule.new(params[:censor_rule])
+        params[:censor_rule][:last_edit_editor] = admin_current_user
+
+        if params[:info_request_id]
+            @info_request = InfoRequest.find(params[:info_request_id])
+            @censor_rule = @info_request.censor_rules.build(params[:censor_rule])
+        end
+
+        if params[:user_id]
+            @censor_user = User.find(params[:user_id])
+            @censor_rule = @censor_user.censor_rules.build(params[:censor_rule])
+        end
+
+        @censor_rule ||= CensorRule.new(params[:censor_rule])
+
         if @censor_rule.save
             if !@censor_rule.info_request.nil?
                 expire_for_request(@censor_rule.info_request)
             end
+
             if !@censor_rule.user.nil?
                 expire_requests_for_user(@censor_rule.user)
             end
+
             flash[:notice] = 'CensorRule was successfully created.'
+
             if !@censor_rule.info_request.nil?
                 redirect_to admin_request_show_url(@censor_rule.info_request)
             elsif !@censor_rule.user.nil?
