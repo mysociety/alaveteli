@@ -95,19 +95,22 @@ class AdminCensorRuleController < AdminController
     end
 
     def destroy
-        censor_rule = CensorRule.find(params[:censor_rule_id])
-        info_request = censor_rule.info_request
-        user = censor_rule.user
+        @censor_rule = CensorRule.find(params[:censor_rule_id])
+        info_request = @censor_rule.info_request
+        user = @censor_rule.user
 
-        censor_rule.destroy
-        if !info_request.nil?
+        @censor_rule.destroy
+
+        unless info_request.nil?
             expire_for_request(info_request)
         end
-        if !user.nil?
+
+        unless user.nil?
             expire_requests_for_user(user)
         end
 
         flash[:notice] = "CensorRule was successfully destroyed."
+
         if !info_request.nil?
             redirect_to admin_request_show_url(info_request)
         elsif !user.nil?

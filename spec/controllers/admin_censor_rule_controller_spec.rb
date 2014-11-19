@@ -412,10 +412,9 @@ describe AdminCensorRuleController do
         end
 
         it 'finds the correct censor rule to destroy' do
-            pending("Assign the CensorRule to an instance variable")
+            pending("This raises an internal error in most cases")
             # TODO: Replace :censor_rule_id with :id
             delete :destroy, :censor_rule_id => @censor_rule.id
-            # TODO: Assign the CensorRule to an instance variable
             expect(assigns[:censor_rule]).to eq(@censor_rule)
         end
 
