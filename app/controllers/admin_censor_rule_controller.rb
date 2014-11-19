@@ -28,14 +28,17 @@ class AdminCensorRuleController < AdminController
         if params[:info_request_id]
             @info_request = InfoRequest.find(params[:info_request_id])
             @censor_rule = @info_request.censor_rules.build(params[:censor_rule])
+            @form_url = admin_info_request_censor_rules_path(@info_request)
         end
 
         if params[:user_id]
             @censor_user = User.find(params[:user_id])
             @censor_rule = @censor_user.censor_rules.build(params[:censor_rule])
+            @form_url = admin_user_censor_rules_path(@censor_user)
         end
 
         @censor_rule ||= CensorRule.new(params[:censor_rule])
+        @form_url ||= admin_rule_create_path
 
         if @censor_rule.save
             if !@censor_rule.info_request.nil?

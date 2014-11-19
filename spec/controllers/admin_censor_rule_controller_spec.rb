@@ -94,6 +94,11 @@ describe AdminCensorRuleController do
             expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
         end
 
+        it 'sets the URL for the form to POST to' do
+            post :create, :censor_rule => @censor_rule_params
+            expect(assigns[:form_url]).to eq(admin_rule_create_path)
+        end
+
         context 'info_request_id param' do
 
             it 'finds an info request if the info_request_id param is supplied' do
@@ -110,6 +115,12 @@ describe AdminCensorRuleController do
                 expect(assigns[:censor_rule].info_request).to eq(info_request)
             end
 
+            it 'sets the URL for the form to POST to' do
+                info_request = FactoryGirl.create(:info_request)
+                post :create, :info_request_id => info_request.id,
+                              :censor_rule => @censor_rule_params
+                expect(assigns[:form_url]).to eq(admin_info_request_censor_rules_path(info_request))
+            end
 
             it 'does not find an info request if no info_request_id param is supplied' do
                 post :create, :censor_rule => @censor_rule_params
@@ -134,6 +145,12 @@ describe AdminCensorRuleController do
                 expect(assigns[:censor_rule].user).to eq(user)
             end
 
+            it 'sets the URL for the form to POST to' do
+                user = FactoryGirl.create(:user)
+                post :create, :user_id => user.id,
+                              :censor_rule => @censor_rule_params
+                expect(assigns[:form_url]).to eq(admin_user_censor_rules_path(user))
+            end
 
             it 'does not find a user if no user_id param is supplied' do
                 post :create, :censor_rule => @censor_rule_params
