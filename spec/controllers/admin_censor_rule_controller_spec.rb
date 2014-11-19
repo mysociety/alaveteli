@@ -20,6 +20,11 @@ describe AdminCensorRuleController do
             expect(response).to render_template('new')
         end
 
+        it 'sets the URL for the form to POST to' do
+            get :new
+            expect(assigns[:form_url]).to eq(admin_rule_create_path)
+        end
+
         context 'info_request_id param' do
 
             it 'finds an info request if the info_request_id param is supplied' do
@@ -32,6 +37,12 @@ describe AdminCensorRuleController do
                 info_request = FactoryGirl.create(:info_request)
                 get :new, :info_request_id => info_request.id
                 expect(assigns[:censor_rule].info_request).to eq(info_request)
+            end
+
+            it 'sets the URL for the form to POST to' do
+                info_request = FactoryGirl.create(:info_request)
+                get :new, :info_request_id => info_request.id
+                expect(assigns[:form_url]).to eq(admin_info_request_censor_rules_path(info_request))
             end
 
             it 'does not find an info request if no info_request_id param is supplied' do
@@ -53,6 +64,12 @@ describe AdminCensorRuleController do
                 user = FactoryGirl.create(:user)
                 get :new, :user_id => user.id
                 expect(assigns[:censor_rule].user).to eq(user)
+            end
+
+            it 'sets the URL for the form to POST to' do
+                user = FactoryGirl.create(:user)
+                get :new, :user_id => user.id
+                expect(assigns[:form_url]).to eq(admin_user_censor_rules_path(user))
             end
 
             it 'does not find a user if no user_id param is supplied' do
