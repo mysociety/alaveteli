@@ -28,6 +28,12 @@ describe AdminCensorRuleController do
                 expect(assigns[:info_request]).to eq(info_request)
             end
 
+            it 'associates the info request with the new censor rule' do
+                info_request = FactoryGirl.create(:info_request)
+                get :new, :info_request_id => info_request.id
+                expect(assigns[:censor_rule].info_request).to eq(info_request)
+            end
+
             it 'does not find an info request if no info_request_id param is supplied' do
                 get :new
                 expect(assigns[:info_request]).to be_nil
@@ -41,6 +47,12 @@ describe AdminCensorRuleController do
                 user = FactoryGirl.create(:user)
                 get :new, :user_id => user.id
                 expect(assigns[:censor_user]).to eq(user)
+            end
+
+            it 'associates the user with the new censor rule' do
+                user = FactoryGirl.create(:user)
+                get :new, :user_id => user.id
+                expect(assigns[:censor_rule].user).to eq(user)
             end
 
             it 'does not find a user if no user_id param is supplied' do

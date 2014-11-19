@@ -8,9 +8,11 @@ class AdminCensorRuleController < AdminController
     def new
         if params[:info_request_id]
             @info_request = InfoRequest.find(params[:info_request_id])
+            @censor_rule = @info_request.censor_rules.build
         end
         if params[:user_id]
             @censor_user = User.find(params[:user_id])
+            @censor_rule = @censor_user.censor_rules.build
         end
 
         @censor_rule ||= CensorRule.new
