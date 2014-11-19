@@ -214,15 +214,21 @@ describe AdminPublicBodyCategoriesController do
     end
 
     context 'when destroying a public body category' do
-
-        it "destroys a public body category" do
+        it "destroys empty public body categories" do
             pbc = PublicBodyCategory.create(:title => "Empty Category", :category_tag => "empty", :description => "-")
             n = PublicBodyCategory.count
             post :destroy, { :id => pbc.id }
             response.should redirect_to(admin_categories_path)
             PublicBodyCategory.count.should == n - 1
         end
+
+        it "destroys non-empty public body categories" do
+            authority = FactoryGirl.create(:public_body)
+            pbc = PublicBodyCategory.create(:title => "In-Use Category", :category_tag => "empty", :description => "-", :authorities => [authority])
+            n = PublicBodyCategory.count
+            post :destroy, { :id => pbc.id }
+            response.should redirect_to(admin_categories_path)
+            PublicBodyCategory.count.should == n - 1
+        end
     end
-
-
 end
