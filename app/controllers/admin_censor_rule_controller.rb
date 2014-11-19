@@ -68,16 +68,20 @@ class AdminCensorRuleController < AdminController
     end
 
     def update
-        params[:censor_rule][:last_edit_editor] = admin_current_user()
+        params[:censor_rule][:last_edit_editor] = admin_current_user
         @censor_rule = CensorRule.find(params[:id])
+
         if @censor_rule.update_attributes(params[:censor_rule])
-            if !@censor_rule.info_request.nil?
+            unless @censor_rule.info_request.nil?
                 expire_for_request(@censor_rule.info_request)
             end
-            if !@censor_rule.user.nil?
+
+            unless @censor_rule.user.nil?
                 expire_requests_for_user(@censor_rule.user)
             end
+
             flash[:notice] = 'CensorRule was successfully updated.'
+
             if !@censor_rule.info_request.nil?
                 redirect_to admin_request_show_url(@censor_rule.info_request)
             elsif !@censor_rule.user.nil?
