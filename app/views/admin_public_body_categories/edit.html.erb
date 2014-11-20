@@ -23,7 +23,8 @@
           <%= form_for @category, :url => admin_category_path(@category), :method => 'delete', :class => "form form-inline" do |f| %>
               <%= f.submit "Destroy #{ @category.title }",
                            :title => @category.title,
-                           :class => "btn btn-danger" %>
+                           :class => "btn btn-danger",
+                           :confirm => 'Are you sure?' %>
               <span class="help-block">
                 Destroying a category does not destroy the public authorities
                 associated with the category.
