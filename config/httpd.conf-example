@@ -43,6 +43,13 @@ RewriteMap escape int:escape
 RewriteCond %{DOCUMENT_ROOT}/views_cache/request/$2/$1/${escape:$3} -f
 RewriteRule ^/request/((\d{1,3})\d*)/(response/\d+/attach/(html/)?\d+/.+) /views_cache/request/$2/$1/${escape:$3} [L]
 
+# Don't allow anything to execute from the cache
+<Directory "/var/www/alaveteli/public/views_cache">
+    Options -ExecCGI  
+    SetHandler default-handler
+    AllowOverride None
+</Directory>
+
 
 <IfModule mod_passenger.c>
  # Set this to something like 100 if you have memory leak issues
@@ -69,3 +76,4 @@ RewriteRule ^/request/((\d{1,3})\d*)/(response/\d+/attach/(html/)?\d+/.+) /views
     AddOutputFilterByType DEFLATE font/opentype font/truetype font/eot
     AddOutputFilterByType DEFLATE image/svg+xml
 </IFModule>
+
