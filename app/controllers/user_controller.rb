@@ -260,16 +260,8 @@ class UserController < ApplicationController
         do_post_redirect post_redirect
     end
 
-    # Logout form
-    def _do_signout
-        session[:user_id] = nil
-        session[:user_circumstance] = nil
-        session[:remember_me] = false
-        session[:using_admin] = nil
-        session[:admin_name] = nil
-    end
     def signout
-        self._do_signout
+        clear_session_credentials
         if params[:r]
             redirect_to params[:r]
         else
