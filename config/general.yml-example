@@ -174,10 +174,11 @@ GA_CODE: ''
 
 # If you want to override *all* the public body request emails with your own
 # email so that request emails that would normally go to the public body
-# go to you, then uncomment below and fill in your email.
+# go to you, then change the value below to your email.
 # Useful for a staging server to play with the whole process of sending requests
-# without inadvertently sending an email to a real authority
-#OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: test-email@foo.com
+# without inadvertently sending an email to a real authority.
+# Leave blank ('') to send requests to the real authority emails.
+OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: ''
 
 # Search path for external commandline utilities (such as pdftohtml, pdftk, unrtf)
 UTILITY_SEARCH_PATH: ["/usr/bin", "/usr/local/bin"]
