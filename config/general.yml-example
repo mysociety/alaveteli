@@ -172,12 +172,22 @@ VARNISH_HOST: localhost
 # Adding a value here will enable Google Analytics on all non-admin pages for non-admin users.
 GA_CODE: ''
 
-# If you want to override *all* the public body request emails with your own
-# email so that request emails that would normally go to the public body
-# go to you, then uncomment below and fill in your email.
-# Useful for a staging server to play with the whole process of sending requests
-# without inadvertently sending an email to a real authority
-#OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: test-email@foo.com
+
+# If you want to override all the public body request emails with your own
+# email address so that request emails that would normally go to the public
+# body go to you, use this setting. This is useful for a staging server, so you
+# can play with the whole process of sending requests without inadvertently
+# sending an email to a real authority.
+# Leave blank ('') to send requests to the real authority emails.
+#
+# OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS - String (default: nil)
+#
+# Examples:
+#
+#   OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: test-email@example.com
+#
+# ---
+OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: ''
 
 # Search path for external commandline utilities (such as pdftohtml, pdftk, unrtf)
 UTILITY_SEARCH_PATH: ["/usr/bin", "/usr/local/bin"]
