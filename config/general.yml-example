@@ -571,6 +571,7 @@ GA_CODE: ''
 # body go to you, use this setting. This is useful for a staging server, so you
 # can play with the whole process of sending requests without inadvertently
 # sending an email to a real authority.
+# Leave blank ('') to send requests to the real authority emails.
 #
 # OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS - String (default: nil)
 #
@@ -579,7 +580,7 @@ GA_CODE: ''
 #   OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: test-email@example.com
 #
 # ---
-# OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: test-email@example.com
+OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: ''
 
 # Search path for external commandline utilities (such as pdftohtml, pdftk,
 # unrtf)
