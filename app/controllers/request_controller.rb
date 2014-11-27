@@ -770,12 +770,13 @@ class RequestController < ApplicationController
         get_attachment_internal(false)
         return unless @attachment
 
-        # Prevent spam to magic request address. Note that the binary
-        # subsitution method used depends on the content type
-        @incoming_message.binary_mask_stuff!(@attachment.body, @attachment.content_type)
 
         # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
         response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) || 'application/octet-stream'
+
+        # Prevent spam to magic request address. Note that the binary
+        # subsitution method used depends on the content type
+        @incoming_message.apply_masks!(@attachment.body, @attachment.content_type)
 
         render :text => @attachment.body
     end
@@ -804,10 +805,9 @@ class RequestController < ApplicationController
                 :body_prefix => render_to_string(:partial => "request/view_html_prefix")
             }
         )
-
-        @incoming_message.html_mask_stuff!(html)
-
         response.content_type = 'text/html'
+        @incoming_message.apply_masks!(html, response.content_type)
+
         render :text => html
     end
 

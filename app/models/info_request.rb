@@ -1153,6 +1153,22 @@ public
         return binary
     end
 
+    # Masks we apply to text associated with this request convert email addresses
+    # we know about into textual descriptions of them
+    def masks
+        masks = [{ :to_replace => incoming_email,
+                   :replacement =>  _('[FOI #{{request}} email]',
+                                      :request => id.to_s) },
+                 { :to_replace => AlaveteliConfiguration::contact_email,
+                   :replacement => _("[{{site_name}} contact email]",
+                                     :site_name => AlaveteliConfiguration::site_name)} ]
+        if public_body.is_followupable?
+            masks << { :to_replace => public_body.request_email,
+                       :replacement => _("[{{public_body}} request email]",
+                                         :public_body => public_body.short_or_long_name) }
+        end
+     end
+
     def is_owning_user?(user)
         !user.nil? && (user.id == user_id || user.owns_every_request?)
     end
