@@ -29,4 +29,24 @@ describe AdminHolidaysController do
         end
 
     end
-end
+
+    describe :edit do
+
+        before do
+            @holiday = FactoryGirl.create(:holiday)
+        end
+
+        it 'renders the edit template' do
+            get :edit, :id => @holiday.id
+            expect(response).to render_template('edit')
+        end
+
+        it 'gets the holiday in the id param' do
+            get :edit, :id => @holiday.id
+            assigns[:holiday].should == @holiday
+        end
+
+
+    end
+
+ end
