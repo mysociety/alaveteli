@@ -4,6 +4,11 @@ class AdminHolidaysController < AdminController
         get_all_holidays
     end
 
+
+    def edit
+        @holiday = Holiday.find(params[:id])
+    end
+
     private
 
     def get_all_holidays
