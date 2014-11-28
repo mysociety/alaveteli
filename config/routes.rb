@@ -200,6 +200,21 @@ Alaveteli::Application.routes.draw do
     end
     ####
 
+    #### AdminHoliday controller
+    scope '/admin', :as => 'admin' do
+        resources :holidays,
+                  :controller => 'admin_holidays'
+    end
+    ####
+
+    #### AdminHolidayImports controller
+    scope '/admin', :as => 'admin' do
+      resources :holiday_imports,
+                :controller => 'admin_holiday_imports',
+                :only => [:new, :create]
+    end
+    ####
+
     #### AdminPublicBodyChangeRequest controller
     match '/admin/change_request/edit/:id' => 'admin_public_body_change_requests#edit', :as => :admin_change_request_edit
     match '/admin/change_request/update/:id' => 'admin_public_body_change_requests#update', :as => :admin_change_request_update
