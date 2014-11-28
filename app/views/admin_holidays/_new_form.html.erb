@@ -1,8 +1,8 @@
 <table class="table table-striped table-condensed">
   <tbody>
     <tr>
-      <td><%= form_for(holiday, :url => admin_holidays_path, :html => { :class => 'form-inline new-holiday-form'}) do |f| -%>
-        <%= render :partial => 'form', :locals => { :f => f, :holiday => holiday, :context => :new } %>
+      <td><%= form_for(@holiday, :url => admin_holidays_path, :html => { :class => 'form-inline new-holiday-form'}) do |f| -%>
+        <%= render :partial => 'form', :locals => { :f => f, :holiday => @holiday, :context => :new } %>
       <% end %>
       </td>
    </tr>
