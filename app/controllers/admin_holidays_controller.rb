@@ -9,11 +9,29 @@ class AdminHolidaysController < AdminController
         @holiday = Holiday.find(params[:id])
     end
 
+    def update
+        @holiday = Holiday.find(params[:id])
+        if @holiday.update_attributes(holiday_params)
+            flash[:notice] = 'Holiday successfully updated.'
+            redirect_to admin_holidays_path
+        else
+            render :edit
+        end
+    end
+
     private
 
     def get_all_holidays
         @holidays_by_year = Holiday.all.group_by { |holiday| holiday.day.year }
         @years = @holidays_by_year.keys.sort.reverse
+    end
+
+    def holiday_params(key = :holiday)
+        if params[key]
+            params[key].slice(:description, 'day(1i)', 'day(2i)', 'day(3i)')
+        else
+            {}
+        end
     end
 
 end
