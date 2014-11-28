@@ -19,6 +19,13 @@ class AdminHolidaysController < AdminController
         end
     end
 
+    def destroy
+        @holiday = Holiday.find(params[:id])
+        @holiday.destroy
+        notice = "Holiday successfully destroyed"
+        redirect_to admin_holidays_path, :notice => notice
+    end
+
     private
 
     def get_all_holidays
