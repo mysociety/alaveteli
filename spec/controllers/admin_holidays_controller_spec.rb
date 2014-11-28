@@ -34,18 +34,54 @@ describe AdminHolidaysController do
 
         before do
             @holiday = FactoryGirl.create(:holiday)
+            get :edit, :id => @holiday.id
         end
 
         it 'renders the edit template' do
-            get :edit, :id => @holiday.id
             expect(response).to render_template('edit')
         end
 
         it 'gets the holiday in the id param' do
-            get :edit, :id => @holiday.id
             assigns[:holiday].should == @holiday
         end
 
+    end
+
+    describe :update do
+
+        before do
+            @holiday = FactoryGirl.create(:holiday, :day => Date.new(2010, 1, 1),
+                                                    :description => "Test Holiday")
+            put :update, :id => @holiday.id, :holiday => { :description => 'New Test Holiday' }
+        end
+
+        it 'gets the holiday in the id param' do
+            assigns[:holiday].should == @holiday
+        end
+
+        it 'updates the holiday' do
+            holiday = Holiday.find(@holiday.id).description.should == 'New Test Holiday'
+        end
+
+        it 'shows the admin a success message' do
+            flash[:notice].should == 'Holiday successfully updated.'
+        end
+
+        it 'redirects to the index' do
+            response.should redirect_to admin_holidays_path
+        end
+
+        context 'when there are errors' do
+
+            before do
+                Holiday.any_instance.stub(:update_attributes).and_return(false)
+                put :update, :id => @holiday.id, :holiday => { :description => 'New Test Holiday' }
+            end
+
+            it 'renders the edit template' do
+                expect(response).to render_template('edit')
+            end
+        end
 
     end
 
