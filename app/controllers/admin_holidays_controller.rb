@@ -6,6 +6,11 @@ class AdminHolidaysController < AdminController
 
     def new
         @holiday = Holiday.new
+        if request.xhr?
+            render :partial => 'new_form'
+        else
+            render :action => 'new'
+        end
     end
 
     def create
@@ -20,6 +25,11 @@ class AdminHolidaysController < AdminController
 
     def edit
         @holiday = Holiday.find(params[:id])
+        if request.xhr?
+            render :partial => 'edit_form'
+        else
+            render :action => 'edit'
+        end
     end
 
     def update

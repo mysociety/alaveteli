@@ -7,4 +7,5 @@
 //= require admin/bootstrap-tab
 //= require admin/admin
 //= require admin/category-order
+//= require admin/holidays
 //= require jquery_ujs
