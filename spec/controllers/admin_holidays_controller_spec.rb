@@ -85,4 +85,29 @@ describe AdminHolidaysController do
 
     end
 
+    describe :destroy do
+
+        before(:each) do
+             @holiday = FactoryGirl.create(:holiday)
+             delete :destroy, :id => @holiday.id
+         end
+
+         it 'finds the holiday to destroy' do
+             assigns(:holiday).should == @holiday
+         end
+
+         it 'destroys the holiday' do
+             assigns(:holiday).should be_destroyed
+         end
+
+         it 'tells the admin the holiday has been destroyed' do
+             msg = "Holiday successfully destroyed"
+             flash[:notice].should == msg
+         end
+
+         it 'redirects to the index action' do
+             expect(response).to redirect_to(admin_holidays_path)
+         end
+    end
+
  end
