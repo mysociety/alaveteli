@@ -50,11 +50,11 @@ Example:
     end
 
 See https://github.com/mysociety/alaveteli/pull/1889 for the full changes and feel free to ask on the [developer mailing list](https://groups.google.com/forum/#!forum/alaveteli-dev) if this change causes a problem.
-
-* An `admin` prefix has been added to the `:spam_addresses` resources. If you have used one of these paths in your theme, prefix the named route helper with `admin_`.
 * `MTA_LOG_PATH` now has a default value of `'/var/log/exim4/exim-mainlog-*'`. Check that your `MTA_LOG_PATH` setting is configured to the path where your mail logs are stored.
 * `MAX_REQUESTS_PER_USER_PER_DAY` now has a default value of `6`. If you do not have a value set in `config/general.yml` you will need to set it to match your existing configuration. If you do not a `MAX_REQUESTS_PER_USER_PER_DAY` limit, set the value to an empty string (`''`).
-* `INCOMING_EMAIL_PREFIX` now has a default of `'foi+'`. If you do not have a value set in `config/general.yml` you will need to set it to match your existing configuration. If you do not want an `INCOMING_EMAIL_PREFIX`, set the value to an empty string (`''`).
+* `INCOMING_EMAIL_PREFIX` now has a default of `'foi+'`. If you do not have a value set in `config/general.yml` you will need to set it to match your existing configuration. If you do not want an `INCOMING_EMAIL_PREFIX`,  set the value to an empty string (`''`, the previous default).
+
+* An `admin` prefix has been added to the `:spam_addresses` resources. If you have used one of these paths in your theme, prefix the named route helper with `admin_`.
 * `CensorRule` now validates the presence of all attributes at the model layer,
   rather than only as a database constraint. If you have added a `CensorRule` in
   your theme, you will now have to satisfy the additional validations on the
