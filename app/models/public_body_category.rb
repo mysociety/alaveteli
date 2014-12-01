@@ -22,6 +22,7 @@ class PublicBodyCategory < ActiveRecord::Base
     validates_uniqueness_of :category_tag, :message => N_('Tag is already taken')
     validates_presence_of :title, :message => N_("Title can't be blank")
     validates_presence_of :category_tag, :message => N_("Tag can't be blank")
+    validates_presence_of :description, :message => N_("Description can't be blank")
 
     def self.get
         locale = I18n.locale.to_s || default_locale.to_s || ""
