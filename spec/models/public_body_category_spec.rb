@@ -61,5 +61,11 @@ describe PublicBodyCategory do
             existing = FactoryGirl.create(:public_body_category)
             PublicBodyCategory.new(:email => existing.category_tag).should_not be_valid
         end
+
+        it 'should require a description' do
+            category = PublicBodyCategory.new
+            category.should_not be_valid
+            category.errors[:description].should == ["Description can't be blank"]
+        end
     end
 end
