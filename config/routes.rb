@@ -268,6 +268,24 @@ Alaveteli::Application.routes.draw do
     match '/admin/censor/edit/:id' => 'admin_censor_rule#edit', :as => :admin_rule_edit
     match '/admin/censor/update/:id' => 'admin_censor_rule#update', :as => :admin_rule_update
     match '/admin/censor/destroy/:censor_rule_id' => 'admin_censor_rule#destroy', :as => :admin_rule_destroy
+
+    scope '/admin', :as => 'admin' do
+        resources :info_requests, :only => [] do
+            resources :censor_rules,
+                      :controller => 'admin_censor_rule',
+                      :only => [:new, :create],
+                      :name_prefix => 'info_request_'
+        end
+    end
+
+    scope '/admin', :as => 'admin' do
+        resources :users, :only => [] do
+            resources :censor_rules,
+                      :controller => 'admin_censor_rule',
+                      :only => [:new, :create],
+                      :name_prefix => 'user_'
+        end
+    end
     ####
 
     #### AdminSpamAddresses controller

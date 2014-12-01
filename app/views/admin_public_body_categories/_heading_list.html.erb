@@ -1,9 +1,12 @@
 <div class="accordion" id="category_list">
-  <% for heading in category_headings %>
-    <div class="accordion-group" data-id="headings_<%=heading.id%>">
+  <% category_headings.each do |heading| %>
+    <div class="accordion-group" data-id="headings_<%= heading.id %>">
       <div class="accordion-heading accordion-toggle row">
         <span class="item-title span6">
-          <a href="#heading_<%=heading.id%>_categories" data-toggle="collapse" data-parent="#categories" ><%= chevron_right %></a>
+          <a href="#heading_<%= heading.id %>_categories" data-toggle="collapse" data-parent="#categories">
+            <span class="badge"><%= heading.public_body_categories.size %></span>
+            <%= chevron_right %>
+          </a>
           <strong><%= link_to(heading.name, edit_admin_heading_path(heading), :title => "view full details") %></strong>
         </span>
       </div>
