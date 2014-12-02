@@ -6,15 +6,16 @@
 # David Cabo <david.cabo@gmail.com>, 2012,2014
 # ecapfri <ecapfri@yahoo.es>, 2012
 # ecapfri <ecapfri@yahoo.es>, 2012
+# louisecrow <louise@mysociety.org>, 2014
 # mmtarres <mmtarres@gmail.com>, 2012
 # mmtarres <mmtarres@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"PO-Revision-Date: 2014-12-02 12:48+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/alaveteli/language/ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -106,9 +107,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr " quan enviares aquest missatge."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Estadístiques de crims per comarca a Catalunya'"
@@ -765,6 +763,9 @@ msgstr "Endarrerit."
 msgid "Delivery error"
 msgstr "Error en el lliurament"
 
+msgid "Description can't be blank"
+msgstr ""
+
 msgid "Destroy {{name}}"
 msgstr ""
 
@@ -915,7 +916,7 @@ msgid "First, did your other requests succeed?"
 msgstr ""
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "Primero, escribe el <strong>nombre de la institución</strong> a la que quieres pedir información. <strong>Están obligados a responder</strong> (<a href=\"{{url}}\">¿por qué?</a>)."
 
 msgid "Foi attachment"
 msgstr ""
@@ -1581,6 +1582,9 @@ msgstr ""
 msgid "New e-mail:"
 msgstr "Nueva dirección:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "La nueva dirección no parece válida"
+
 msgid "New password:"
 msgstr "Nueva contraseña:"
 
@@ -1673,6 +1677,9 @@ msgstr "Correo antiguo:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "La dirección de correo antigua no es con la que has abierto tu sesión actual"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "La dirección de correo antigua no parece válida"
 
 msgid "On this page"
 msgstr "En aquesta pàgina"

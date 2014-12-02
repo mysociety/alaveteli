@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"PO-Revision-Date: 2014-12-02 11:26+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/projects/p/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
 "MIME-Version: 1.0\n"
@@ -96,9 +96,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr "當您傳送此訊息時。"
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr ""
@@ -701,6 +698,9 @@ msgid "Delayed."
 msgstr ""
 
 msgid "Delivery error"
+msgstr ""
+
+msgid "Description can't be blank"
 msgstr ""
 
 msgid "Destroy {{name}}"
@@ -1466,6 +1466,9 @@ msgstr ""
 msgid "New e-mail:"
 msgstr ""
 
+msgid "New email doesn't look like a valid address"
+msgstr ""
+
 msgid "New password:"
 msgstr ""
 
@@ -1557,6 +1560,9 @@ msgid "Old e-mail:"
 msgstr ""
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
+msgstr ""
+
+msgid "Old email doesn't look like a valid address"
 msgstr ""
 
 msgid "On this page"

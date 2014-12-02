@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
 "PO-Revision-Date: 2011-10-09 01:10+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,9 +92,6 @@ msgid " filtered by status: '{{status}}'"
 msgstr ""
 
 msgid " when you send this message."
-msgstr ""
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
 msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
@@ -698,6 +695,9 @@ msgid "Delayed."
 msgstr ""
 
 msgid "Delivery error"
+msgstr ""
+
+msgid "Description can't be blank"
 msgstr ""
 
 msgid "Destroy {{name}}"
@@ -1464,6 +1464,9 @@ msgstr ""
 msgid "New e-mail:"
 msgstr ""
 
+msgid "New email doesn't look like a valid address"
+msgstr ""
+
 msgid "New password:"
 msgstr ""
 
@@ -1555,6 +1558,9 @@ msgid "Old e-mail:"
 msgstr ""
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
+msgstr ""
+
+msgid "Old email doesn't look like a valid address"
 msgstr ""
 
 msgid "On this page"

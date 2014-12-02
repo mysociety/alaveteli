@@ -5,14 +5,15 @@
 # Translators:
 # David Cabo <david.cabo@gmail.com>, 2012
 # sroberto <ertoba@yahoo.es>, 2012
+# louisecrow <louise@mysociety.org>, 2014
 # sroberto <ertoba@yahoo.es>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"PO-Revision-Date: 2014-12-02 12:50+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/alaveteli/language/eu/)\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
@@ -101,9 +102,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr " Mezu hau bidali duzunean."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Espainiako krimen estatistika, eskualdeka'"
@@ -733,6 +731,9 @@ msgstr "Atzeratuta."
 msgid "Delivery error"
 msgstr "Akatsa ematean"
 
+msgid "Description can't be blank"
+msgstr ""
+
 msgid "Destroy {{name}}"
 msgstr ""
 
@@ -878,7 +879,7 @@ msgid "First, did your other requests succeed?"
 msgstr ""
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "Lehenbizi, idatz ezazu informazioa eskatu nahi diozun <strong>erakundearen izena</strong>. <strong>Erantzuna eman behar dute</strong> (<a href=\"{{url}}\">zergatik?</a>)."
 
 msgid "Foi attachment"
 msgstr ""
@@ -1510,6 +1511,9 @@ msgstr ""
 msgid "New e-mail:"
 msgstr "Helbide berria:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "La nueva dirección no parece válida"
+
 msgid "New password:"
 msgstr "Pasahitza berria:"
 
@@ -1602,6 +1606,9 @@ msgstr "Helbide zaharra:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Helbide zahar hau ez da oraingo saioa irekitzeko erabili duzuna"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "La dirección de correo antigua no parece válida"
 
 msgid "On this page"
 msgstr "Orrialde honetan"

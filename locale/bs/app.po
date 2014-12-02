@@ -7,15 +7,16 @@
 # BORIS <brkanboris@gmail.com>, 2011
 # BORIS <brkanboris@gmail.com>, 2011
 # Krule <armin@pasalic.com.ba>, 2011
+# louisecrow <louise@mysociety.org>, 2014
 # vedad <vedadtrbonja@hotmail.com>, 2011
 # vedad <vedadtrbonja@hotmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"PO-Revision-Date: 2014-12-02 11:54+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Bosnian (http://www.transifex.com/projects/p/alaveteli/language/bs/)\n"
 "Language: bs\n"
 "MIME-Version: 1.0\n"
@@ -110,9 +111,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr " kada pošaljete ovu poruku."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr ""
@@ -750,6 +748,9 @@ msgstr "Odgođen"
 
 msgid "Delivery error"
 msgstr "Greška u isporuci"
+
+msgid "Description can't be blank"
+msgstr ""
 
 msgid "Destroy {{name}}"
 msgstr ""
@@ -1564,6 +1565,9 @@ msgstr ""
 msgid "New e-mail:"
 msgstr "Novi e-mail:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "Novi e-mail ne izgleda kao validna adresa"
+
 msgid "New password:"
 msgstr "Novi password:"
 
@@ -1656,6 +1660,9 @@ msgstr "Stari e-mail:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Stara e-mail adresa nije ista kao adresa računa na koji ste prijavljeni"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "Stari e-mail ne izgleda kao validna adresa"
 
 msgid "On this page"
 msgstr "Na ovoj stranici"

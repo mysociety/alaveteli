@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-14 14:45+0000\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
 "PO-Revision-Date: 2014-11-18 19:29+0200\n"
 "Last-Translator: Stephen Abbott Pugh <stephendabbott@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,6 +88,9 @@ msgid " You are already being emailed updates about the request."
 msgstr ""
 
 msgid " You will also be emailed updates about the request."
+msgstr ""
+
+msgid " filtered by status: '{{status}}'"
 msgstr ""
 
 msgid " when you send this message."
@@ -543,9 +546,6 @@ msgstr ""
 msgid "Change your password on {{site_name}}"
 msgstr ""
 
-msgid "Charity registration"
-msgstr ""
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr ""
 
@@ -699,6 +699,9 @@ msgstr ""
 msgid "Delivery error"
 msgstr ""
 
+msgid "Description can't be blank"
+msgstr ""
+
 msgid "Destroy {{name}}"
 msgstr ""
 
@@ -715,6 +718,9 @@ msgid "Disclosure log"
 msgstr ""
 
 msgid "Disclosure log URL"
+msgstr ""
+
+msgid "Display order must be a number"
 msgstr ""
 
 msgid "Do not fill in this field"
@@ -819,6 +825,9 @@ msgstr "ATI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "ATI response requires admin ({{reason}}) - {{title}}"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr ""
 
@@ -826,6 +835,9 @@ msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {
 msgstr ""
 
 msgid "Filter"
+msgstr ""
+
+msgid "Filter by Request Status (optional)"
 msgstr ""
 
 msgid "First, did your other requests succeed?"
@@ -1922,7 +1934,16 @@ msgstr ""
 msgid "Public body"
 msgstr ""
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -1932,6 +1953,18 @@ msgid "Public page"
 msgstr ""
 
 msgid "Public page not available"
+msgstr ""
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
@@ -1953,6 +1986,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2206,9 +2245,6 @@ msgstr ""
 msgid "See bounce message"
 msgstr ""
 
-msgid "Select one to see more information about the authority."
-msgstr ""
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2361,6 +2397,9 @@ msgstr ""
 msgid "Subscribe to blog"
 msgstr ""
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Successful access to information requests"
 
@@ -2377,6 +2416,12 @@ msgid "Table of statuses"
 msgstr ""
 
 msgid "Table of varieties"
+msgstr ""
+
+msgid "Tag can't be blank"
+msgstr ""
+
+msgid "Tag is already taken"
 msgstr ""
 
 msgid "Tags"
@@ -2467,6 +2512,24 @@ msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to r
 msgstr ""
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
+msgstr ""
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2781,6 +2844,9 @@ msgstr ""
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr ""
 
+msgid "Title can't be blank"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr ""
 
@@ -3013,6 +3079,9 @@ msgid "User|Email confirmed"
 msgstr ""
 
 msgid "User|Hashed password"
+msgstr ""
+
+msgid "User|Identity card number"
 msgstr ""
 
 msgid "User|Last daily track email"
@@ -3576,6 +3645,9 @@ msgstr ""
 msgid "during term time"
 msgstr ""
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr ""
 
@@ -3711,6 +3783,9 @@ msgid "to send a follow up message."
 msgstr ""
 
 msgid "to {{public_body}}"
+msgstr ""
+
+msgid "type your search term here"
 msgstr ""
 
 msgid "unknown reason "

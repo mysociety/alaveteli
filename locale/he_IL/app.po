@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# louisecrow <louise@mysociety.org>, 2014
 # Nir Hirshman <nirshman99@gmail.com>, 2013-2014
 # Nir Hirshman <nirshman99@gmail.com>, 2013
 # Ram Ezrach <ram.ezrach@gmail.com>, 2013
@@ -21,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"PO-Revision-Date: 2014-12-02 12:51+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -108,9 +109,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr "כאשר אתם שולחים הודעה זו."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'סטטיסטיקות פשע מפורטות בדרום תל-אביב'"
@@ -720,6 +718,9 @@ msgstr "מעוכב."
 msgid "Delivery error"
 msgstr "שגיאה בשליחה"
 
+msgid "Description can't be blank"
+msgstr ""
+
 msgid "Destroy {{name}}"
 msgstr "השמד {{name}}"
 
@@ -862,7 +863,7 @@ msgid "First, did your other requests succeed?"
 msgstr "קודם כל, האם שאר הבקשות שהגשתם הצליחו?"
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "ראשית, הקלידו את <strong>שם הגוף הממשלתי </strong> שממנו ברצונכם לקבל מידע.\\n  <strong>לפי חוק, עליהם להגיב</strong> (<a href=\"{{url}}\">למה?</a>)."
 
 msgid "Foi attachment"
 msgstr "מסמך מצורף"
@@ -1484,6 +1485,9 @@ msgstr "חוק צנזור חדש"
 msgid "New e-mail:"
 msgstr "דואר אלקטרוני חדש:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "הדואר האלקטרוני החדש לא נראה תקין"
+
 msgid "New password:"
 msgstr "סיסמה חדשה:"
 
@@ -1576,6 +1580,9 @@ msgstr "אימייל ישן:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "כתובת הדוא\"ל הקודמת לא תואמת לכתובת החשבון שלכם"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "כתובת הדוא\"ל הקודמת לא תקינה"
 
 msgid "On this page"
 msgstr "בעמוד הזה"

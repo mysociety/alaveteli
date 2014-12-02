@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"PO-Revision-Date: 2014-12-02 11:28+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/alaveteli/language/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -103,9 +103,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr "wenn Sie diese Nachricht senden. "
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "´Kriminalitätsrate auf Länderebene´"
@@ -737,6 +734,9 @@ msgstr "Verzögert."
 
 msgid "Delivery error"
 msgstr "Übertragungsfehler"
+
+msgid "Description can't be blank"
+msgstr ""
 
 msgid "Destroy {{name}}"
 msgstr ""
@@ -1522,6 +1522,9 @@ msgstr ""
 msgid "New e-mail:"
 msgstr "Neue Email:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "Die neue Email-Adresse scheint ungültig"
+
 msgid "New password:"
 msgstr "Neues Passwort:"
 
@@ -1614,6 +1617,9 @@ msgstr "Alte Emailadresse: "
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Die alte Email-Adresse stimmt nicht mit der Adresse des Kontos, über welches Sie eingeloggt sind überein"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "Alte Email sieht nicht nach gültiger Adresse aus"
 
 msgid "On this page"
 msgstr "Auf dieser Seite"

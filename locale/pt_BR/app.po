@@ -25,6 +25,7 @@
 # leandrosalvador <leandrosalvador@gmail.com>, 2013
 # lianelira <lianelira@gmail.com>, 2011
 # lianelira <lianelira@gmail.com>, 2011
+# louisecrow <louise@mysociety.org>, 2014
 # luisleao <luis.leao@gmail.com>, 2011
 # luisleao <luis.leao@gmail.com>, 2011
 # Nitai <Nitaibezerra@gmail.com>, 2012
@@ -43,9 +44,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"PO-Revision-Date: 2014-12-02 12:53+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/alaveteli/language/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -130,9 +131,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr "quando você enviar esta mensagem."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Estatísticas de crimes por bairro na cidade de São Paulo'"
@@ -755,6 +753,9 @@ msgstr "Atrasado."
 msgid "Delivery error"
 msgstr "Erro de entrega"
 
+msgid "Description can't be blank"
+msgstr ""
+
 msgid "Destroy {{name}}"
 msgstr ""
 
@@ -898,6 +899,8 @@ msgstr ""
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
+"Primeiro, insira o <strong>nome da autoridade pública brasileira</strong> da qual você gostaria de receber informação. <strong>Por lei, eles são obrigados a responder</strong>\n"
+"           (<a href=\"{{url}}\">por quê?</a>)."
 
 msgid "Foi attachment"
 msgstr "Anexo do pedido"
@@ -1528,6 +1531,9 @@ msgstr ""
 msgid "New e-mail:"
 msgstr "Novo e-mail:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "O novo e-mail não parece um endereço válido"
+
 msgid "New password:"
 msgstr "Nova senha:"
 
@@ -1620,6 +1626,9 @@ msgstr "E-mail antigo:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "O endereço de e-mail antigo não é o mesmo do endereço da conta pela qual você está logado"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "O email antigo não parece ser um endereço válido"
 
 msgid "On this page"
 msgstr "Nesta página"

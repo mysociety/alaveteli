@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"PO-Revision-Date: 2014-12-02 12:49+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -108,9 +108,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr " pan fyddwch chi'n anfon y neges hon"
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Ystadegau troseddu ar lefel ward ar gyfer Cymru'"
@@ -715,6 +712,9 @@ msgstr "Hwyr."
 msgid "Delivery error"
 msgstr "Methiant cyflwyno"
 
+msgid "Description can't be blank"
+msgstr ""
+
 msgid "Destroy {{name}}"
 msgstr "Dinistrio {{name}}"
 
@@ -857,7 +857,7 @@ msgid "First, did your other requests succeed?"
 msgstr "Yn gyntaf, a lwyddodd eich ceisiadau eraill?"
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "Yn gyntaf, teipiwch <strong>enw awdurdod cyhoeddus yn y DU</strong> yr hoffech gael gwybodaeth ganddo.  <strong>Yn ôl y gyfraith, mae'n rhaid iddynt ymateb</strong> (<a href=\"{{url}}\">pam?</a>)."
 
 msgid "Foi attachment"
 msgstr "Atodiad FoI"
@@ -1481,6 +1481,9 @@ msgstr "Rheol sensro newydd"
 msgid "New e-mail:"
 msgstr "Cyfeiriad ebost newydd:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "Dydy'r cyfeiriad ebost newydd ddim yn edrych yn ddilys"
+
 msgid "New password:"
 msgstr "Cyfrinair newydd:"
 
@@ -1573,6 +1576,9 @@ msgstr "Hen e-bost:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Nid yw'r hen gyfeiriad e-bost yr un fath â chyfeiriad y cyfrif yr ydych wedi logio i mewn iddo"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "Nid yw'r hen e-bost yn edrych fel cyfeiriad dilys"
 
 msgid "On this page"
 msgstr "Ar y dudalen hon"

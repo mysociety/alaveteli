@@ -6,6 +6,7 @@
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
+# louisecrow <louise@mysociety.org>, 2014
 # radhouane fazai <radhouanef@gmail.com>, 2013-2014
 # radhouane fazai <radhouanef@gmail.com>, 2013
 # radhouane fazai <radhouanef@gmail.com>, 2013
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"PO-Revision-Date: 2014-12-02 11:52+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/alaveteli/language/ar/)\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -102,9 +103,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr " عندما تقومون ببعث هذه الرسالة ."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "إحصائيات الجريمة ب\"ويلز\" حسب مقياس \"وارد\" التفاضلي "
@@ -708,6 +706,9 @@ msgstr "مؤجل"
 
 msgid "Delivery error"
 msgstr "خطأ ارسال"
+
+msgid "Description can't be blank"
+msgstr ""
 
 msgid "Destroy {{name}}"
 msgstr ""
@@ -1477,6 +1478,9 @@ msgstr ""
 msgid "New e-mail:"
 msgstr "رسالة إلكترونية جديدة:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "الرسالة الالكترونية الجديدة لاتبدو كعنوان صالح"
+
 msgid "New password:"
 msgstr "كلمة العبور الجديدة:"
 
@@ -1569,6 +1573,9 @@ msgstr "رسالة إلكترونية قديمة:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "عنوان بريدكم الإلكتروني القديم يختلف عن عنوان الحساب الذي تمّ تسجيل دخولكم به"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "الرسالة الالكترونية القديمة لاتبدو كعنوان صالح"
 
 msgid "On this page"
 msgstr "في هذه الصفحة"

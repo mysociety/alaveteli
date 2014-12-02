@@ -4,15 +4,16 @@
 #
 # Translators:
 # Antonella <anapolitano@gmail.com>, 2014
+# louisecrow <louise@mysociety.org>, 2014
 # Marco Giustini <info@marcogiustini.info>, 2013
 # Marco Giustini <info@marcogiustini.info>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"PO-Revision-Date: 2014-12-02 12:52+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/alaveteli/language/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -97,9 +98,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr "quando invii questo messaggio."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Statistiche sul crimine in Lombardia al livello di guardia'"
@@ -710,6 +708,9 @@ msgstr "In attesa"
 msgid "Delivery error"
 msgstr "Errore di invio"
 
+msgid "Description can't be blank"
+msgstr ""
+
 msgid "Destroy {{name}}"
 msgstr "Cancella {{name}}"
 
@@ -852,7 +853,7 @@ msgid "First, did your other requests succeed?"
 msgstr "Innanzitutto, le tue altre richieste hanno ricevuto risposta?"
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "Per prima cosa, digita il <strong>nome di una autorità pubblica italiana</strong> a cui vuoi \\n           chiedere informazioni. <strong>Per legge, ti devono rispondere</strong>\\n           (<a href=\"{{url}}\">perchè?</a>)."
 
 msgid "Foi attachment"
 msgstr "Allegato"
@@ -1474,6 +1475,9 @@ msgstr ""
 msgid "New e-mail:"
 msgstr "Nuova email:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "La nuova email non sembra essere un indirizzo valido"
+
 msgid "New password:"
 msgstr "Nuova password"
 
@@ -1566,6 +1570,9 @@ msgstr "Vecchia email:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Il vecchio indirizzo email non è lo stesso corrispondente all'account con cui hai effettuato l'accesso"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "Il vecchio indirizzo non risulta essere valido"
 
 msgid "On this page"
 msgstr "Su questa pagina"
@@ -3569,9 +3576,7 @@ msgid "[{{site_name}} contact email]"
 msgstr "[{{site_name}} email]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
-"\n"
-"\\n\\n[ {{site_name}} nota: Il testo qui sopra ha problemi di codice, alcuni caratteri non riconosciuti sono stati rimossi. ]"
+msgstr "\\n\\n\\n[ {{site_name}} nota: Il testo qui sopra ha problemi di codice, alcuni caratteri non riconosciuti sono stati rimossi. ]"
 
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
 msgstr "un titolo di una riga relativo all'informazione che vuoi richiedere, \\n\t\t\tper esempio,"

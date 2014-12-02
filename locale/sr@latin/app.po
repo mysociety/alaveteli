@@ -6,6 +6,7 @@
 # Goran Rakic <grakic@devbase.net>, 2013
 # Goran Vučković <vucko@acm.org>, 2013
 # Srdjan Krstic <krledmno1@gmail.com>, 2013
+# louisecrow <louise@mysociety.org>, 2014
 # Srdjan Krstic <krledmno1@gmail.com>, 2013
 # Valon <vbrestovci@gmail.com>, 2011-2012
 # Valon <vbrestovci@gmail.com>, 2012
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"PO-Revision-Date: 2014-12-02 12:54+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/alaveteli/language/sr@latin/)\n"
 "Language: sr@latin\n"
 "MIME-Version: 1.0\n"
@@ -106,9 +107,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr " kada pošaljete ovu poruku."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "„Statistika krivičnih dela po mesnim zajednicama u Beogradu“"
@@ -719,6 +717,9 @@ msgstr "Odložen"
 msgid "Delivery error"
 msgstr "Greška u isporuci"
 
+msgid "Description can't be blank"
+msgstr ""
+
 msgid "Destroy {{name}}"
 msgstr "Uništi {{name}}"
 
@@ -867,7 +868,7 @@ msgid "First, did your other requests succeed?"
 msgstr "Prvo: da li su Vaši ostali zahtevi uspeli?"
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "Prvo unesite <strong>ime ustanove</strong> od koje\\n tražite informacije. <strong>Po zakonu oni su obavezni da odgovore</strong>\\n (<a href=\"{{url}}\">Zašto?</a>)."
 
 msgid "Foi attachment"
 msgstr "Prilog"
@@ -1495,6 +1496,9 @@ msgstr "Novo pravilo cenzure"
 msgid "New e-mail:"
 msgstr "Novi e-mail:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "Novi e-mail ne izgleda kao validna adresa"
+
 msgid "New password:"
 msgstr "Nova lozinka:"
 
@@ -1587,6 +1591,9 @@ msgstr "Stari e-mail:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Stara e-mail adresa nije ista kao adresa profila na koji ste prijavljeni"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "Stari e-mail ne izgleda kao validna adresa"
 
 msgid "On this page"
 msgstr "Na ovoj stranici"

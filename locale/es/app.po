@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-25 19:01+0000\n"
-"Last-Translator: vdiaz <vdiaz@antai.gob.pa>\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"PO-Revision-Date: 2014-12-02 12:49+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/alaveteli/language/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -106,9 +106,6 @@ msgstr "filtrar por estatus: '{{status}}'"
 
 msgid " when you send this message."
 msgstr "cuando envíe este mensaje."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr "\"#{ email.to_s.humanize } no parece una dirección de correo electrónico valida\""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Estadísticas de crímenes por región en España'"
@@ -764,6 +761,9 @@ msgstr "Retrasado."
 msgid "Delivery error"
 msgstr "Error en la entrega"
 
+msgid "Description can't be blank"
+msgstr ""
+
 msgid "Destroy {{name}}"
 msgstr "Borrar {{name}}"
 
@@ -914,7 +914,7 @@ msgid "First, did your other requests succeed?"
 msgstr "Antes de nada, ¿tus otras solicitudes tuvieron éxito?"
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "Primero, escribe el <strong>nombre de la institución</strong> a la que quieres pedir información. <strong>Están obligados a responder</strong> (<a href=\"{{url}}\">¿por qué?</a>)."
 
 msgid "Foi attachment"
 msgstr "Respuesta adjunta"
@@ -1582,6 +1582,9 @@ msgstr "Nueva regla de censura"
 msgid "New e-mail:"
 msgstr "Nueva dirección:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "La nueva dirección no parece válida"
+
 msgid "New password:"
 msgstr "Nueva contraseña:"
 
@@ -1674,6 +1677,9 @@ msgstr "Correo antiguo:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "La dirección de correo antigua no es con la que has abierto tu sesión actual"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "La dirección de correo antigua no parece válida"
 
 msgid "On this page"
 msgstr "En esta página"

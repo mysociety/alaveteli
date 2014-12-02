@@ -9,6 +9,7 @@
 # bresta <bresta@gmail.com>, 2011
 # driton <dritoni.h@gmail.com>, 2011
 # Hana Huntova <>, 2012
+# louisecrow <louise@mysociety.org>, 2014
 # Valon <vbrestovci@gmail.com>, 2011
 # Valon <vbrestovci@gmail.com>, 2011-2012
 # Valon <vbrestovci@gmail.com>, 2011
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"PO-Revision-Date: 2014-12-02 12:54+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/projects/p/alaveteli/language/sq/)\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
@@ -114,9 +115,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr " kur e dërgoni këtë mesazh."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Statistikat e krimit në nivel komune'"
@@ -757,6 +755,9 @@ msgstr "Vonuar."
 msgid "Delivery error"
 msgstr "Gabim gjatë dorëzimit"
 
+msgid "Description can't be blank"
+msgstr ""
+
 msgid "Destroy {{name}}"
 msgstr ""
 
@@ -908,6 +909,9 @@ msgstr ""
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
+"Së pari, shkruaj <strong>emrin e autoritetit publik</strong> prej të\n"
+"           <br>cilit kërkon informata. <strong>Sipas ligjit, ata duhet të\"\n"
+"           përgjigjen</strong> (<a href=\"{{url}}\">pse?</a>)."
 
 msgid "Foi attachment"
 msgstr "Shtojca QDP"
@@ -1558,6 +1562,9 @@ msgstr ""
 msgid "New e-mail:"
 msgstr "Email i ri:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "Email adresa e re nuk duket si një adresë e vlefshme"
+
 msgid "New password:"
 msgstr "Fjalëkalim i ri:"
 
@@ -1650,6 +1657,9 @@ msgstr "Emali i vjetër:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Adresa e emailit të vjetër nuk është e njëjtë me adresën e llogarisë me të cilën jeni kyçur për momentin"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "Email adresa e vjetër nuk duket si një adresë e vlefshme"
 
 msgid "On this page"
 msgstr "Në këtë faqe"

@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-20 12:10+0000\n"
-"Last-Translator: Hana Huntova <>\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"PO-Revision-Date: 2014-12-02 11:57+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -111,9 +111,6 @@ msgstr "filtrováno podle stavu: '{{status}}'"
 
 msgid " when you send this message."
 msgstr " když tuto zprávu pošlete."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr "\"#{ email.to_s.humanize } nevypadá jako platná adresa\""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "\"Statistiky kriminality pro Liberecký kraj.\""
@@ -770,6 +767,9 @@ msgstr "Zpoždění."
 
 msgid "Delivery error"
 msgstr "Chyba při doručení"
+
+msgid "Description can't be blank"
+msgstr ""
 
 msgid "Destroy {{name}}"
 msgstr "Zrušit {{name}}"
@@ -1570,6 +1570,9 @@ msgstr "Nové pravidlo "
 msgid "New e-mail:"
 msgstr "Nový e-mail:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "Nový email není platná adresa"
+
 msgid "New password:"
 msgstr "Nové heslo:"
 
@@ -1662,6 +1665,9 @@ msgstr "Původní e-mail"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Původní e-mailová adresa není shodná s adresou účtu, do kterého jste se přihlásili"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "Původní email nevypadá jako platná adresa"
 
 msgid "On this page"
 msgstr "Na této stránce"

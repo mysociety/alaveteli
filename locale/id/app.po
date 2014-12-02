@@ -11,14 +11,15 @@
 # Agung Riyadi <ariadi01@gmail.com>, 2012
 # bobo7e836b32124642a5 <bobo@airputih.org>, 2012
 # bobo7e836b32124642a5 <bobo@airputih.org>, 2012
+# louisecrow <louise@mysociety.org>, 2014
 # Agung Riyadi <ariadi01@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"PO-Revision-Date: 2014-12-02 12:51+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/projects/p/alaveteli/language/id/)\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -113,9 +114,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr " saat Anda mengirim pesan ini."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Statistik Kriminal berdasarkan tingkat penjara untuk Wales'"
@@ -787,6 +785,9 @@ msgstr "Tertunda."
 msgid "Delivery error"
 msgstr "Kesalahan pengiriman"
 
+msgid "Description can't be blank"
+msgstr ""
+
 msgid "Destroy {{name}}"
 msgstr "Menghapus {{name}}"
 
@@ -938,6 +939,9 @@ msgstr ""
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
+"Pertama, ketik <strong>nama dari otoritas public Kerajaan Inggris </strong> Anda\n"
+"           ingin informasi dari. <strong>Berdasarkan undang-undang, mereka harus merespon </strong>\n"
+"           (<a href=\"{{url}}\">mengapa?</a>)."
 
 msgid "Foi attachment"
 msgstr "Lampiran permintaan"
@@ -1606,6 +1610,9 @@ msgstr "Peraturan sensor baru"
 msgid "New e-mail:"
 msgstr "Email baru:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "Email baru tidak tampak seperti alamat yang valid"
+
 msgid "New password:"
 msgstr "Kode sandi baru:"
 
@@ -1698,6 +1705,9 @@ msgstr "Email lama:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Alamat email lama tidak sama dengan alamat akun yang Anda gunakan untuk masuk"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "Email lama tidak terlihat seperti alamat yang valid"
 
 msgid "On this page"
 msgstr "Di halaman ini"
