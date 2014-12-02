@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-02 11:15+0000\n"
-"PO-Revision-Date: 2014-12-02 12:53+0000\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/alaveteli/language/sl/)\n"
 "Language: sl\n"
@@ -701,9 +701,6 @@ msgstr "Pozen."
 msgid "Delivery error"
 msgstr "Napaka pri dostavi"
 
-msgid "Description can't be blank"
-msgstr ""
-
 msgid "Destroy {{name}}"
 msgstr "Uniči {{name}}"
 
@@ -721,9 +718,6 @@ msgstr "Dnevnik razkritij"
 
 msgid "Disclosure log URL"
 msgstr "URL za dnevnik razkritij"
-
-msgid "Display order must be a number"
-msgstr ""
 
 msgid "Do not fill in this field"
 msgstr "Ne izpolnjujte tega polja"
@@ -2426,12 +2420,6 @@ msgstr "Preglednica stanj"
 msgid "Table of varieties"
 msgstr "Preglednica tipov"
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr "Značke"
 
@@ -2857,9 +2845,6 @@ msgstr "Temu uporabniku je bil onemogočen dostop do {{site_name}}"
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Tega ni bilo možno narediti, ker že obstaja uporabnik z e-poštnim naslovom {{email}}."
-
-msgid "Title can't be blank"
-msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "Za preklic teh opozoril"

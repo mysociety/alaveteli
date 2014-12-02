@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-02 11:15+0000\n"
-"PO-Revision-Date: 2014-12-02 11:28+0000\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/alaveteli/language/de/)\n"
 "Language: de\n"
@@ -735,9 +735,6 @@ msgstr "Verzögert."
 msgid "Delivery error"
 msgstr "Übertragungsfehler"
 
-msgid "Description can't be blank"
-msgstr ""
-
 msgid "Destroy {{name}}"
 msgstr ""
 
@@ -756,9 +753,6 @@ msgid "Disclosure log"
 msgstr ""
 
 msgid "Disclosure log URL"
-msgstr ""
-
-msgid "Display order must be a number"
 msgstr ""
 
 msgid "Do not fill in this field"
@@ -2482,12 +2476,6 @@ msgstr "Statusliste"
 msgid "Table of varieties"
 msgstr ""
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr ""
 
@@ -2918,9 +2906,6 @@ msgstr "Dieser Nutzer wurde von {{site_name}} entfernt"
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Dieser Vorgang war nicht möglich, da bereits ein Nutzerkonto mit der Email-Adresse {{email}} besteht."
-
-msgid "Title can't be blank"
-msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "Um diese Benachrichtigungen zu löschen"

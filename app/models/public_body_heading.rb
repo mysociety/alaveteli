@@ -16,10 +16,10 @@ class PublicBodyHeading < ActiveRecord::Base
 
     translates :name
 
-    validates_uniqueness_of :name, :message => N_('Name is already taken')
-    validates_presence_of :name, :message => N_('Name can\'t be blank')
+    validates_uniqueness_of :name, :message => 'Name is already taken'
+    validates_presence_of :name, :message => 'Name can\'t be blank'
     validates :display_order, :numericality => { :only_integer => true,
-                                                 :message => N_('Display order must be a number') }
+                                                 :message => 'Display order must be a number' }
 
     before_validation :on => :create do
         unless self.display_order

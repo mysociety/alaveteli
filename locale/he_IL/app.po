@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-02 11:15+0000\n"
-"PO-Revision-Date: 2014-12-02 12:51+0000\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
@@ -718,9 +718,6 @@ msgstr "מעוכב."
 msgid "Delivery error"
 msgstr "שגיאה בשליחה"
 
-msgid "Description can't be blank"
-msgstr ""
-
 msgid "Destroy {{name}}"
 msgstr "השמד {{name}}"
 
@@ -738,9 +735,6 @@ msgstr "יומן גילוי נאות"
 
 msgid "Disclosure log URL"
 msgstr "כתובת יומן גילוי נאות"
-
-msgid "Display order must be a number"
-msgstr ""
 
 msgid "Do not fill in this field"
 msgstr ""
@@ -2437,12 +2431,6 @@ msgstr "טבלת סטטוסים"
 msgid "Table of varieties"
 msgstr "טבלת משתנים"
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr "תגיות"
 
@@ -2862,9 +2850,6 @@ msgstr "המשתמש הזה נחסם מהאתר {{site_name}}"
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "לא ניתן ליצור חשבון מכיוון שיש כבר חשבון קיים עם כתובת המייל {{email}}."
-
-msgid "Title can't be blank"
-msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "לבטל את ההתראות הללו"

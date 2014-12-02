@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-02 11:15+0000\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
 "PO-Revision-Date: 2014-11-18 19:29+0200\n"
 "Last-Translator: Stephen Abbott Pugh <stephendabbott@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -699,9 +699,6 @@ msgstr ""
 msgid "Delivery error"
 msgstr ""
 
-msgid "Description can't be blank"
-msgstr ""
-
 msgid "Destroy {{name}}"
 msgstr ""
 
@@ -718,9 +715,6 @@ msgid "Disclosure log"
 msgstr ""
 
 msgid "Disclosure log URL"
-msgstr ""
-
-msgid "Display order must be a number"
 msgstr ""
 
 msgid "Do not fill in this field"
@@ -2418,12 +2412,6 @@ msgstr ""
 msgid "Table of varieties"
 msgstr ""
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr ""
 
@@ -2842,9 +2830,6 @@ msgid "This user has been banned from {{site_name}} "
 msgstr ""
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
-msgstr ""
-
-msgid "Title can't be blank"
 msgstr ""
 
 msgid "To cancel these alerts"

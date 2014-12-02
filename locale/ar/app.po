@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-02 11:15+0000\n"
-"PO-Revision-Date: 2014-12-02 11:52+0000\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/alaveteli/language/ar/)\n"
 "Language: ar\n"
@@ -707,9 +707,6 @@ msgstr "مؤجل"
 msgid "Delivery error"
 msgstr "خطأ ارسال"
 
-msgid "Description can't be blank"
-msgstr ""
-
 msgid "Destroy {{name}}"
 msgstr ""
 
@@ -726,9 +723,6 @@ msgid "Disclosure log"
 msgstr "سجل الكشف"
 
 msgid "Disclosure log URL"
-msgstr ""
-
-msgid "Display order must be a number"
 msgstr ""
 
 msgid "Do not fill in this field"
@@ -2438,12 +2432,6 @@ msgstr "جدول الحالات"
 msgid "Table of varieties"
 msgstr "جدول الخيارات"
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr ""
 
@@ -2875,9 +2863,6 @@ msgstr "تم منع هذا المستخدم من {{site_name}} "
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "هذا الطلب غير ممكن اذ يوجد حساب اخر يستعمل \\nنفس البريد الالكتروني {{email}}."
-
-msgid "Title can't be blank"
-msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "لالغاء اشارات التنبيه"

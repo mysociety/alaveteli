@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-02 11:15+0000\n"
-"PO-Revision-Date: 2014-12-02 12:52+0000\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -715,9 +715,6 @@ msgstr "Forsinket."
 msgid "Delivery error"
 msgstr "Leveringsfeil"
 
-msgid "Description can't be blank"
-msgstr ""
-
 msgid "Destroy {{name}}"
 msgstr "Fjern {{name}}"
 
@@ -736,9 +733,6 @@ msgid "Disclosure log"
 msgstr "Utleveringslogg"
 
 msgid "Disclosure log URL"
-msgstr ""
-
-msgid "Display order must be a number"
 msgstr ""
 
 msgid "Do not fill in this field"
@@ -2438,12 +2432,6 @@ msgstr "Tabell over statuser"
 msgid "Table of varieties"
 msgstr "Tabell over typer"
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr "Tagger"
 
@@ -2865,9 +2853,6 @@ msgstr "Denne brukeren er sperret ute fra {{site_name}}"
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Dette var ikke mulig da det allerede er en konto som bruker epostadressen {{email}}."
-
-msgid "Title can't be blank"
-msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "For å avbryte varslingen."

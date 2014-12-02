@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-02 11:15+0000\n"
-"PO-Revision-Date: 2014-12-02 12:51+0000\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/projects/p/alaveteli/language/id/)\n"
 "Language: id\n"
@@ -785,9 +785,6 @@ msgstr "Tertunda."
 msgid "Delivery error"
 msgstr "Kesalahan pengiriman"
 
-msgid "Description can't be blank"
-msgstr ""
-
 msgid "Destroy {{name}}"
 msgstr "Menghapus {{name}}"
 
@@ -805,9 +802,6 @@ msgstr "Pembukaan log"
 
 msgid "Disclosure log URL"
 msgstr "Pembukaan riwayat URL"
-
-msgid "Display order must be a number"
-msgstr ""
 
 msgid "Do not fill in this field"
 msgstr ""
@@ -2582,12 +2576,6 @@ msgstr "Tabel status"
 msgid "Table of varieties"
 msgstr "Tabel jenis"
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr "Label"
 
@@ -3044,9 +3032,6 @@ msgid "This was not possible because there is already an account using \\nthe em
 msgstr ""
 "Hal ini tidak memungkinkan karena sudah ada akun yang menggunakan \n"
 "alamat email ini {{email}}."
-
-msgid "Title can't be blank"
-msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "Untuk membatalkan tanda notifikasi"

@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-02 11:15+0000\n"
-"PO-Revision-Date: 2014-12-02 12:49+0000\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
@@ -712,9 +712,6 @@ msgstr "Hwyr."
 msgid "Delivery error"
 msgstr "Methiant cyflwyno"
 
-msgid "Description can't be blank"
-msgstr ""
-
 msgid "Destroy {{name}}"
 msgstr "Dinistrio {{name}}"
 
@@ -732,9 +729,6 @@ msgstr "Log datgelu"
 
 msgid "Disclosure log URL"
 msgstr "URL log datgelu"
-
-msgid "Display order must be a number"
-msgstr ""
 
 msgid "Do not fill in this field"
 msgstr "Peidiwch â llenwi'r maes hwn"
@@ -2437,12 +2431,6 @@ msgstr "Tabl o statws"
 msgid "Table of varieties"
 msgstr "Tabl o fathau"
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr "Tagiau"
 
@@ -2868,9 +2856,6 @@ msgstr "Mae'r defnyddiwr hwn wedi ei wahardd o {{site_name}} "
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Nid oedd hyn yn bosibl gan fod cyfrif sydd eisoes yn defnyddio'r cyfeiriad e-bost {{email}}."
-
-msgid "Title can't be blank"
-msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "I ganslo'r rhybuddion hyn"

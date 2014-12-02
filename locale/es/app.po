@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-02 11:15+0000\n"
-"PO-Revision-Date: 2014-12-02 12:49+0000\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/alaveteli/language/es/)\n"
 "Language: es\n"
@@ -761,9 +761,6 @@ msgstr "Retrasado."
 msgid "Delivery error"
 msgstr "Error en la entrega"
 
-msgid "Description can't be blank"
-msgstr ""
-
 msgid "Destroy {{name}}"
 msgstr "Borrar {{name}}"
 
@@ -781,9 +778,6 @@ msgstr "Registro de declaraciones"
 
 msgid "Disclosure log URL"
 msgstr "URL del registro de declaraciones"
-
-msgid "Display order must be a number"
-msgstr ""
 
 msgid "Do not fill in this field"
 msgstr "No escriba en este espacio"
@@ -2556,12 +2550,6 @@ msgstr "Tabla de estados"
 msgid "Table of varieties"
 msgstr "Tabla de tipos de objetos"
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -3021,9 +3009,6 @@ msgid "This was not possible because there is already an account using \\nthe em
 msgstr ""
 "No es posible porque ya existe una cuenta usando la dirección \n"
 "de correo {{email}}."
-
-msgid "Title can't be blank"
-msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "Cancelar estas alertas"

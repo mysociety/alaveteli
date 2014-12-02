@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-02 11:15+0000\n"
-"PO-Revision-Date: 2014-12-02 11:57+0000\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/alaveteli/language/cs/)\n"
 "Language: cs\n"
@@ -768,9 +768,6 @@ msgstr "Zpoždění."
 msgid "Delivery error"
 msgstr "Chyba při doručení"
 
-msgid "Description can't be blank"
-msgstr ""
-
 msgid "Destroy {{name}}"
 msgstr "Zrušit {{name}}"
 
@@ -788,9 +785,6 @@ msgstr "Disclosure log"
 
 msgid "Disclosure log URL"
 msgstr "Disclosure log URL"
-
-msgid "Display order must be a number"
-msgstr "Pořadí musí být vyjádřeno číslem"
 
 msgid "Do not fill in this field"
 msgstr "Toto pole nevyplňujte"
@@ -2541,12 +2535,6 @@ msgstr "Tabulka stavů"
 msgid "Table of varieties"
 msgstr "Tabulka možností"
 
-msgid "Tag can't be blank"
-msgstr "Tag nemůže zůstat prázdný"
-
-msgid "Tag is already taken"
-msgstr "Tag je již obsazen"
-
 msgid "Tags"
 msgstr "Tagy"
 
@@ -2998,9 +2986,6 @@ msgid "This was not possible because there is already an account using \\nthe em
 msgstr ""
 "Nepodařilo se, protože už jeden účet  \n"
 "používá e-mailovou adresu {{email}}."
-
-msgid "Title can't be blank"
-msgstr "Název nemůže zůstat prázdný"
 
 msgid "To cancel these alerts"
 msgstr "Pro zrušení těchto upozornění"

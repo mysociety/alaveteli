@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-02 11:15+0000\n"
-"PO-Revision-Date: 2014-12-02 12:52+0000\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Macedonian (Macedonia) (http://www.transifex.com/projects/p/alaveteli/language/mk_MK/)\n"
 "Language: mk_MK\n"
@@ -699,9 +699,6 @@ msgstr "Одложен."
 msgid "Delivery error"
 msgstr "Грешка при испорака"
 
-msgid "Description can't be blank"
-msgstr ""
-
 msgid "Destroy {{name}}"
 msgstr "Уништи {{name}}"
 
@@ -719,9 +716,6 @@ msgstr "Дневник на објави"
 
 msgid "Disclosure log URL"
 msgstr "URL на дневник на објави"
-
-msgid "Display order must be a number"
-msgstr ""
 
 msgid "Do not fill in this field"
 msgstr ""
@@ -2418,12 +2412,6 @@ msgstr "Табела од статуси"
 msgid "Table of varieties"
 msgstr "Табела од разноличности"
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr "Тагови"
 
@@ -2843,9 +2831,6 @@ msgstr "Овој корисник има забрана за пристап до
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Ова не е возможно бидејќи веќе постои сметка која ја користи \\nоваа адреса за е-пошта {{email}}."
-
-msgid "Title can't be blank"
-msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "За да ги откажете овие предупредувања"
