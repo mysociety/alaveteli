@@ -22,5 +22,13 @@ module RoutingFilter
               prepend_segment!(result, locale) if prepend_locale?(locale)
           end
       end
+
+      # Reset the locale pattern when the locales are set.
+      class << self
+          def locales=(locales)
+            @@locales_pattern = nil
+            @@locales = locales.map(&:to_sym)
+          end
+      end
   end
 end

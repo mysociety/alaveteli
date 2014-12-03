@@ -346,6 +346,12 @@ describe 'when getting attachment attributes' do
         attributes[0][:body].is_utf8?.should == true
     end
 
+    it 'should get multiple attachments from a multipart mail with text and HTML alternatives, which should be UTF-8' do
+        mail = get_fixture_mail('apple-mail-with-attachments.email')
+        attributes = MailHandler.get_attachment_attributes(mail)
+        attributes.length.should == 7
+    end
+
     it 'should expand a mail attached as text' do
         # Note that this spec will only pass using Tmail in the timezone set as datetime headers
         # are rendered out in the local time - using the Mail gem this is not necessary

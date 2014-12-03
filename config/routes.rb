@@ -61,6 +61,8 @@ Alaveteli::Application.routes.draw do
     match '/request/:url_title/download' => 'request#download_entire_request', :as => :download_entire_request
     ####
 
+    resources :health_checks, :only => [:index]
+
     resources :request, :only => [] do
         resource :report, :only => [:new, :create]
     end
@@ -153,6 +155,7 @@ Alaveteli::Application.routes.draw do
     match '/help/api' => 'help#api', :as => :help_api
     match '/help/credits' => 'help#credits', :as => :help_credits
     match '/help/:action' => 'help#action', :as => :help_general
+    match '/help' => 'help#index'
     ####
 
     #### Holiday controller
@@ -177,6 +180,24 @@ Alaveteli::Application.routes.draw do
     match '/admin/body/destroy/:id' => 'admin_public_body#destroy', :as => :admin_body_destroy
     match '/admin/body/import_csv' => 'admin_public_body#import_csv', :as => :admin_body_import_csv
     match '/admin/body/mass_tag_add' => 'admin_public_body#mass_tag_add', :as => :admin_body_mass_tag_add
+    ####
+
+    #### AdminPublicBodyCategory controller
+    scope '/admin', :as => 'admin' do
+        resources :categories,
+                  :controller => 'admin_public_body_categories'
+    end
+    ####
+
+    #### AdminPublicBodyHeading controller
+    scope '/admin', :as => 'admin'  do
+        resources :headings,
+                  :controller => 'admin_public_body_headings',
+                  :except => [:index] do
+                      post 'reorder', :on => :collection
+                      post 'reorder_categories', :on => :member
+        end
+    end
     ####
 
     #### AdminPublicBodyChangeRequest controller
@@ -247,10 +268,28 @@ Alaveteli::Application.routes.draw do
     match '/admin/censor/edit/:id' => 'admin_censor_rule#edit', :as => :admin_rule_edit
     match '/admin/censor/update/:id' => 'admin_censor_rule#update', :as => :admin_rule_update
     match '/admin/censor/destroy/:censor_rule_id' => 'admin_censor_rule#destroy', :as => :admin_rule_destroy
+
+    scope '/admin', :as => 'admin' do
+        resources :info_requests, :only => [] do
+            resources :censor_rules,
+                      :controller => 'admin_censor_rule',
+                      :only => [:new, :create],
+                      :name_prefix => 'info_request_'
+        end
+    end
+
+    scope '/admin', :as => 'admin' do
+        resources :users, :only => [] do
+            resources :censor_rules,
+                      :controller => 'admin_censor_rule',
+                      :only => [:new, :create],
+                      :name_prefix => 'user_'
+        end
+    end
     ####
 
     #### AdminSpamAddresses controller
-    scope '/admin' do
+    scope '/admin', :as => 'admin' do
         resources :spam_addresses,
                   :controller => 'admin_spam_addresses',
                   :only => [:index, :create, :destroy]

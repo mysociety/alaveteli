@@ -51,19 +51,11 @@ Another One,another@example.com,Otro organismo,a_tag
     </pre>
 
     <p><strong>Supported fields:</strong>
-      <ul>
-        <li>
-          <code>name</code> (i18n)
-          <strong>Existing records cannot be renamed</strong>
-        </li>
-        <li><code>short_name</code> (i18n)</li>
-        <li><code>request_email</code> (i18n)</li>
-        <li><code>notes</code> (i18n)</li>
-        <li><code>publication_scheme</code> (i18n)</li>
-        <li><code>disclosure_log</code> (i18n)</li>
-        <li><code>home_page</code></li>
-        <li><code>tag_string</code> (tags separated by spaces)</li>
-      </ul>
+        <ul>
+            <% PublicBody.csv_import_fields.each do |field, notes| %>
+                <li><code><%= field %></code> <%= sanitize(notes) %></li>
+            <% end %>
+        </ul>
     </p>
 
     <p><strong>Note:</strong> Choose <strong>dry run</strong> to test, without
@@ -84,7 +76,7 @@ Another One,another@example.com,Otro organismo,a_tag
 <hr>
 
 <p>Standard tags:
-    <% for category, description in PublicBodyCategories::get().by_tag() %>
+    <% for category, description in PublicBodyCategory.get().by_tag() %>
         <% if category != "other" %>
             <strong><%= category %></strong>=<%= description %>;
         <% end %>

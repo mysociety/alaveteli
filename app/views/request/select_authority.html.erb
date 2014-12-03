@@ -1,60 +1,60 @@
 <script type="text/javascript">
-    $(document).ready(function(){
-        $("#authority_preview").hide();
-
-        // Avoid triggering too often (on each keystroke) by using the debounce jQuery plugin:
+    $(document).ready(function() {
+        // Avoid triggering too often (on each keystroke) by using the debounce
+        // jQuery plugin:
         // http://benalman.com/projects/jquery-throttle-debounce-plugin/
         $("#query").keypress($.debounce( 300, function() {
             // Do a type ahead search and display results
-            $("#typeahead_response").load("<%=search_ahead_bodies_url%>?query="+encodeURI(this.value), function() {
-              $("#authority_preview").hide();   // Hide the preview, since results have changed
-
-            });
+            $("#typeahead_response").load("<%= search_ahead_bodies_url %>?query="+encodeURI(this.value));
         }));
-        // We're using the existing body list: we intercept the clicks on the titles to
-        // display a preview on the right hand side of the screen
-        $("#typeahead_response .head a").live('click', function() {
-            $("#authority_preview").load(this.href+" #public_body_show", function() {
-                $("#authority_preview").show();
-    $(window).scrollTop($("#banner").height());
-                $("#authority_preview #header_right").hide();
-                location.hash = '#header_left';
-            });
-            return false;
-        });
     });
 </script>
 
 <% @title = _("Select the authority to write to")  %>
 
-  <h1 style="clear: left"><%= _('1. Select an authority') %></h1>
+<h1 style="clear: left"><%= _('1. Select an authority') %></h1>
 
-  <div id="authority_selection">
-    <%= form_tag({:controller => "request", :action => "select_authority"}, {:id => "search_form", :method => "get"}) do %>
-       <div>
-           <p>
-           <%= _('First, type in the <strong>name of the UK public authority</strong> you\'d
-           like information from. <strong>By law, they have to respond</strong>
-           (<a href="{{url}}">why?</a>).', :url => (help_about_path + "#whybother_them").html_safe) %>
-           </p>
-           <%= text_field_tag 'query', params[:query], { :size => 30, :title => "type your search term here" } %>
-           <%= hidden_field_tag 'bodies', 1 %>
-           <%= submit_tag _('Search') %>
-       </div>
-       <% if AlaveteliConfiguration.allow_batch_requests && @user && @user.can_make_batch_requests? %>
-         <div id="batch_request_link">
-          <p>
-            <%= _('Or make a <a href="{{url}}">batch request</a> to <strong>multiple authorities</strong> at once.', :url => select_authorities_path) %>
-          </p>
-         </div>
-        <% end %>
-    <% end %>
+<div id="authority_selection">
+  <%= form_tag select_authority_path, { :id => 'search_form', :method => 'get' } do %>
+    <div>
+      <p>
+        <%= _(%Q(First, type in the <strong>name of the UK public authority</strong> you'd
+        like information from. <strong>By law, they have to respond</strong>
+        (<a href="{{url}}">why?</a>).), :url => (help_about_path(:anchor => 'whybother_them')).html_safe) %>
+      </p>
 
-    <div id="typeahead_response">
-      <%= render :partial => 'public_body/search_ahead' %>
+      <%= text_field_tag :query,
+                         params[:query],
+                         { :size => 30,
+                           :title => _('type your search term here'),
+                           :placeholder => _('e.g. Ministry of Defence') } %>
+      <%= hidden_field_tag :bodies, 1 %>
+      <%= submit_tag _('Search') %>
     </div>
+
+    <% if AlaveteliConfiguration.allow_batch_requests && @user && @user.can_make_batch_requests? %>
+      <div id="batch_request_link">
+        <p>
+          <%= _('Or make a <a href="{{url}}">batch request</a> to <strong>multiple authorities</strong> at once.',
+                :url => select_authorities_path) %>
+        </p>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div id="typeahead_response">
+    <%= render :partial => 'public_body/search_ahead' %>
   </div>
 
-  <div id="authority_preview">
-  </div>
+</div>
 
+<div id="select_authority_help">
+  <p class="info"><%= _("Can't find the one you want?") %></p>
+  <p class="actions">
+    <%= raw _('<a href="{{browse_url}}">Browse all</a> or <a href="{{add_url}}">ask us to add one</a>.',
+              :browse_url => list_public_bodies_default_path.html_safe,
+              :add_url => help_requesting_path(:anchor => 'missing_body')
+             ).html_safe %>
+  </p>
+
+</div>

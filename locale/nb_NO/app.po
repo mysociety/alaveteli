@@ -10,6 +10,7 @@
 # gorm <gormer@gmail.com>, 2013-2014
 # gorm <gormer@gmail.com>, 2013
 # atluxity <atluxity@1kb.no>, 2014
+# louisecrow <louise@mysociety.org>, 2014
 # oeyrvin <oeyrvin@hagan.no>, 2014
 # oeyrvin <oeyrvin@hagan.no>, 2014
 # pere <pere-transifex@hungry.com>, 2013
@@ -18,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-10-07 08:34+0000\n"
-"Last-Translator: pere <pere-transifex@hungry.com>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
@@ -101,6 +102,9 @@ msgstr "Du mottar allerede oppdateringer om denne forespørselen på e-post."
 
 msgid " You will also be emailed updates about the request."
 msgstr "Vi vil også motta oppdateringer om denne forespørselen på e-post."
+
+msgid " filtered by status: '{{status}}'"
+msgstr ""
 
 msgid " when you send this message."
 msgstr " når du sender denne meldinen."
@@ -558,9 +562,6 @@ msgstr "Bytt passordet ditt"
 msgid "Change your password on {{site_name}}"
 msgstr "Bytt passordet ditt på {{site_name}}"
 
-msgid "Charity registration"
-msgstr "Veledighetsregistrering"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Sjekk at det ikke er skrivefeil dersom du skrev inn eller kopierte adressen"
 
@@ -580,7 +581,7 @@ msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{
 msgstr ""
 
 msgid "Clarify your FOI request - "
-msgstr "Klargjør din innsynsforespørsel -"
+msgstr "Klargjør din innsynsforespørsel - "
 
 msgid "Classify an FOI response from "
 msgstr "Klassifiser ett innsynsvar fra"
@@ -589,7 +590,7 @@ msgid "Clear photo"
 msgstr "Slett bilde"
 
 msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal\\nreview, asking them to find out why response to the request has been so slow."
-msgstr "Trykk på linken nedenfor for  å sende en melding til {{public_body_name}} for å be om svar på henvendelsen. Du kan ha behov for be om en gjennomgang \\n hos dem om hvorfor det tar så lang tid å få svar på henvendelsen."
+msgstr "Trykk på linken nedenfor for  å sende en melding til {{public_body_name}} for å be om svar på henvendelsen. Du kan vurdere å be dem om en gjennomgang av hvorfor det tar så lang tid å få svar på henvendelsen."
 
 msgid "Click on the link below to send a message to {{public_body}} reminding them to reply to your request."
 msgstr "Klikk på  lenken under for å sende en melding til {{public_body}} og minne dem på å besvare forespørselen."
@@ -706,7 +707,7 @@ msgid "Defunct."
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
-msgstr "Forsinket svar på din innsynsforespørsel -"
+msgstr "Forsinket svar på din innsynsforespørsel - "
 
 msgid "Delayed."
 msgstr "Forsinket."
@@ -836,6 +837,9 @@ msgstr "Innsynshenvendelser {{start_count}} til {{end_count}} av {{total_count}}
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr ""
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Klarte ikke å konvertere bilde til PNG"
 
@@ -845,10 +849,13 @@ msgstr ""
 msgid "Filter"
 msgstr "Filter"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr ""
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
 msgstr "Først, skriv inn <strong>navnet på en norsk offentlig myndighet</strong> som du\\n           vil ha informasjon fra. <strong>Loven sier at de må svare deg</strong>\\n           (<a href=\"{{url}}\">hvorfor?</a>)."
 
 msgid "Foi attachment"
@@ -1570,7 +1577,7 @@ msgid "Old email address isn't the same as the address of the account you are lo
 msgstr "Gammel e-postadresse er ikke samme som adressen som kontoen du er innlogget med"
 
 msgid "Old email doesn't look like a valid address"
-msgstr "Gammel e-postadresse ser ikke ut til å være en gyldig adresse"
+msgstr "Gammel epost ser ikke ut til å være en gyldig adresse"
 
 msgid "On this page"
 msgstr "På denne siden"
@@ -1941,7 +1948,16 @@ msgstr ""
 msgid "Public body"
 msgstr "Offentlig kropp"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -1952,6 +1968,18 @@ msgstr "Offentlig side"
 
 msgid "Public page not available"
 msgstr "Offentlig side er ikke tilgjengelig"
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
+msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
 msgstr ""
@@ -1972,6 +2000,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2225,9 +2259,6 @@ msgstr "Søk i dine bidrag"
 msgid "See bounce message"
 msgstr "See sprett (bounce) melding"
 
-msgid "Select one to see more information about the authority."
-msgstr "Velg en for å se mer informasjon om myndigheten"
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2380,6 +2411,9 @@ msgstr "Oppdater, og send melding"
 msgid "Subscribe to blog"
 msgstr "Abboner på blogg"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Vellykket innsynshenvendelse"
 
@@ -2486,6 +2520,24 @@ msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to r
 msgstr "E-posten som du, på vegne av {{public_body}}, har sendt til\\n{{user}} for å svare på en {{law_used_short}}-henvendelse, har ikke blitt levert."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
+msgstr ""
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2667,7 +2719,7 @@ msgid "They have been given the following explanation:"
 msgstr "De har fått følgende forklaring:"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
-msgstr "De har ikke svart på din {{law_used_short}} om «{{title}}» innen kort tid, som er det som normalt kreves i følge lovverket."
+msgstr "De har ikke svart på din {{law_used_short}} om «{{title}}» innen kort tid, som er det som normalt kreves i følge lovverket"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, \\nas required by law"
 msgstr "De har ikke svart på din {{law_used_short}} om «{{title}}», \\nslik det kreves i følge lovverket"
@@ -3035,6 +3087,9 @@ msgstr "Bruker|E-post bekreftet"
 
 msgid "User|Hashed password"
 msgstr "Bruker|Hashet passord"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "Bruker|Siste daglige track e-post"
@@ -3600,6 +3655,9 @@ msgstr "vis status virker foreløpig kun for innkommende og utgående meldinger"
 msgid "during term time"
 msgstr ""
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "rediger tekst om deg"
 
@@ -3736,6 +3794,9 @@ msgstr "for å sende en oppfølgningsmelding."
 
 msgid "to {{public_body}}"
 msgstr "til {{public_body}}"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "ukjent grunn "

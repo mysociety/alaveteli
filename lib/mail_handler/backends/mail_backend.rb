@@ -248,6 +248,9 @@ module MailHandler
 
             # Choose the best part from alternatives
             def choose_best_alternative(mail)
+                if mail.parts.any?(&:multipart?)
+                    return mail.parts.detect(&:multipart?)
+                end
                 if mail.html_part
                     return mail.html_part
                 elsif mail.text_part
@@ -261,6 +264,7 @@ module MailHandler
             # wherever there is an alternative, and then count the returned
             # leaves and assign url_part values to them
             def get_attachment_leaves(mail)
+                # TODO: Most of these methods are modifying in place! :(
                 expand_and_normalize_parts(mail, mail)
                 leaves = _get_attachment_leaves_recursive(mail, nil, mail)
                 mail.count_parts_count = 0

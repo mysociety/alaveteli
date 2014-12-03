@@ -11,6 +11,9 @@
     @include lte-ie7 {
       width: 27.125em;
     }
+    #query {
+      width: 80%;
+    }
   }
 }
 
@@ -18,41 +21,19 @@
  @include grid-row($behavior: nest);
 }
 
-#authority_preview {
+#select_authority_help {
   @include grid-column(12);
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
     @include grid-column(6);
-    margin-top:-67px;
-    @include ie8{
+    @include ie8 {
       padding-right: 0.9375em;
     }
     @include lte-ie7 {
       width: 26.188em;
     }
   }
-
-  /* Hide some elements of the public body that aren't appropriate in this
-  context */
-  #list-filter, h2.foi_results, .public-body-name-prefix {
-    display: none;
-  }
-
-  /* Compact request list for viewing in authority preview column */
-  .request_left, #header_left {
-    @include grid-column(12, $collapse: true);
-  }
-
-  .request_right {
-    @include grid-column(12, $collapse: true);
-  }
-
-  span.desc {
-    background:none;
-    line-height:18px;
-    padding: 0;
-  }
-
 }
+
 /* /new/[body_name] page */
 #request_header {
   @include grid-row;

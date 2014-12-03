@@ -7,13 +7,6 @@
 class AdminGeneralController < AdminController
 
     def index
-        # ensure we have a trailing slash
-        current_uri = request.env['REQUEST_URI']
-        if params[:suppress_redirect].nil? && !(current_uri =~ /\/$/)
-            redirect_to admin_general_index_url + "/"
-            return
-        end
-
         # Overview counts of things
         @public_body_count = PublicBody.count
 

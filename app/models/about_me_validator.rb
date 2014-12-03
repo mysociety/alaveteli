@@ -21,7 +21,7 @@ class AboutMeValidator
     private
 
     def length_of_about_me
-        if !self.about_me.blank? && self.about_me.size > 500
+        if !about_me.blank? && about_me.size > 500
             errors.add(:about_me, _("Please keep it shorter than 500 characters"))
         end
     end

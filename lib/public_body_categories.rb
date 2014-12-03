@@ -1,60 +1,11 @@
-# lib/public_body_categories.rb:
-# Categorisations of public bodies.
-#
-# Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
-# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
-
+# Allow the PublicBodyCategory model to be addressed using the same syntax
+# as the old PublicBodyCategories class without needing to rename everything,
+# make sure we're not going to break any themes
 class PublicBodyCategories
 
-    attr_reader :with_description,
-                :with_headings,
-                :tags,
-                :by_tag,
-                :singular_by_tag,
-                :by_heading,
-                :headings
-
-    def initialize(categories)
-        @with_headings = categories
-        # Arranged in different ways for different sorts of displaying
-        @with_description = @with_headings.select() { |a| a.instance_of?(Array) }
-        @tags = @with_description.map() { |a| a[0] }
-        @by_tag = Hash[*@with_description.map() { |a| a[0..1] }.flatten]
-        @singular_by_tag = Hash[*@with_description.map() { |a| [a[0],a[2]] }.flatten]
-        @by_heading = {}
-        heading = nil
-        @headings = []
-        @with_headings.each do |row|
-            if ! row.instance_of?(Array)
-                heading = row
-                @headings << row
-                @by_heading[row] = []
-            else
-                @by_heading[heading] << row[0]
-            end
-        end
+    def self.method_missing(method, *args, &block)
+        warn 'Use of PublicBodyCategories is deprecated and will be removed in release 0.21. Please use PublicBodyCategory instead.'
+        PublicBodyCategory.send(method, *args, &block)
     end
 
-
-    def PublicBodyCategories.get
-        load_categories if @@CATEGORIES.empty?
-        @@CATEGORIES[I18n.locale.to_s] || @@CATEGORIES[I18n.default_locale.to_s] || PublicBodyCategories.new([])
-    end
-
-    # Called from the data files themselves
-    def PublicBodyCategories.add(locale, categories)
-        @@CATEGORIES[locale.to_s] = PublicBodyCategories.new(categories)
-    end
-
-    private
-    @@CATEGORIES = {}
-
-    def PublicBodyCategories.load_categories()
-        I18n.available_locales.each do |locale|
-            begin
-                load "public_body_categories_#{locale}.rb"
-            rescue MissingSourceFile
-            end
-        end
-    end
 end

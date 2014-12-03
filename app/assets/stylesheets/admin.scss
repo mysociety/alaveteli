@@ -27,13 +27,16 @@ body.admin {
 }
 
 .admin {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
 
   @import "compass/css3";
   @import "bootstrap";
 
   #main {
+    margin-bottom: 50px;
     padding-top: 50px;
-
   }
 
   .form-inline {
@@ -47,6 +50,9 @@ body.admin {
 
   .accordion-group {
    border: none;
+   div {
+       clear: both;
+   }
   }
   .accordion-heading {
     .btn {
@@ -102,6 +108,15 @@ body.admin {
   #outgoing_message_body,
   #comment_body {
     width: 750px;
+  }
+
+  .save-notice {
+    display: inline-block;
+    padding-left: 1em;
+  }
+
+  .category-list-item {
+    padding: 3px 0;
   }
 
 }

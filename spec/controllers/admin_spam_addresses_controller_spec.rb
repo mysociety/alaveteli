@@ -37,7 +37,7 @@ describe AdminSpamAddressesController do
         it 'redirects to the index action if successful' do
             SpamAddress.any_instance.stub(:save).and_return(true)
             post :create, :spam_address => spam_params
-            expect(response).to redirect_to(spam_addresses_path)
+            expect(response).to redirect_to(admin_spam_addresses_path)
         end
 
         it 'notifies the admin the spam address has been created' do
@@ -83,7 +83,7 @@ describe AdminSpamAddressesController do
         end
 
         it 'redirects to the index action' do
-            expect(response).to redirect_to(spam_addresses_path)
+            expect(response).to redirect_to(admin_spam_addresses_path)
         end
 
     end

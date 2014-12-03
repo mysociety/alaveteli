@@ -90,17 +90,32 @@ end
 
 describe 'when validating rules' do
 
-    it 'should be invalid without text' do
+    it 'must have the text to redact' do
         censor_rule = CensorRule.new
-        censor_rule.valid?.should == false
-        censor_rule.errors[:text].should == ["can't be blank"]
+        expect(censor_rule).to have(1).error_on(:text)
+        expect(censor_rule.errors[:text]).to eql(["can't be blank"])
+    end
+
+    it 'must have a replacement' do
+      expect(CensorRule.new).to have(1).error_on(:replacement)
+    end
+
+    it 'must have a last_edit_editor' do
+      expect(CensorRule.new).to have(1).error_on(:last_edit_editor)
+    end
+
+    it 'must have a last_edit_comment' do
+      expect(CensorRule.new).to have(1).error_on(:last_edit_comment)
     end
 
     describe 'when validating a regexp rule' do
 
         before do
             @censor_rule = CensorRule.new(:regexp => true,
-                                          :text => '*')
+                                          :text => '*',
+                                          :replacement => '---',
+                                          :last_edit_comment => 'test',
+                                          :last_edit_editor => 'rspec')
         end
 
         it 'should try to create a regexp from the text' do
@@ -133,7 +148,10 @@ describe 'when validating rules' do
     describe 'when the allow_global flag has been set' do
 
         before do
-            @censor_rule = CensorRule.new(:text => 'some text')
+            @censor_rule = CensorRule.new(:text => 'some text',
+                                          :replacement => '---',
+                                          :last_edit_comment => 'test',
+                                          :last_edit_editor => 'rspec')
             @censor_rule.allow_global = true
         end
 
@@ -146,7 +164,10 @@ describe 'when validating rules' do
     describe 'when the allow_global flag has not been set' do
 
         before do
-            @censor_rule = CensorRule.new(:text => '/./')
+            @censor_rule = CensorRule.new(:text => '/./',
+                                          :replacement => '---',
+                                          :last_edit_comment => 'test',
+                                          :last_edit_editor => 'rspec')
         end
 
         it 'should not allow a global text censor rule (without user_id, request_id or public_body_id)' do

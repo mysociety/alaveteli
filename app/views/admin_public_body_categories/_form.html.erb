@@ -1,0 +1,73 @@
+<%= error_messages_for 'category' %>
+
+<!--[form:public_body_category]-->
+
+<div id="div-locales">
+  <ul class="locales nav nav-tabs">
+  <% I18n.available_locales.each_with_index do |locale, i| %>
+    <li><a href="#div-locale-<%=locale.to_s%>" data-toggle="tab" ><%=locale_name(locale.to_s) || "Default locale"%></a></li>
+  <% end %>
+  </ul>
+  <div class="tab-content">
+<%
+    I18n.available_locales.each do |locale|
+        if locale==I18n.default_locale  # The default locale is submitted as part of the bigger object...
+            prefix = 'public_body_category'
+            object = @category
+        else                            # ...but additional locales go "on the side"
+            prefix = "public_body_category[translated_versions][]"
+            object = @category.new_record? ?
+                        PublicBodyCategory::Translation.new :
+                        @category.find_translation_by_locale(locale.to_s) || PublicBodyCategory::Translation.new
+        end
+%>
+    <%= fields_for prefix, object do |t| %>
+    <div class="tab-pane" id="div-locale-<%=locale.to_s%>">
+        <div class="control-group">
+            <%= t.hidden_field :locale, :value => locale.to_s %>
+            <label for="<%= form_tag_id(t.object_name, :title, locale) %>" class="control-label">Title</label>
+            <div class="controls">
+                <%= t.text_field :title, :id => form_tag_id(t.object_name, :title, locale), :class => "span4" %>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="<%= form_tag_id(t.object_name, :description, locale) %>" class="control-label">Description</label>
+            <div class="controls">
+                <%= t.text_field :description, :id => form_tag_id(t.object_name, :description, locale), :class => "span4" %>
+            </div>
+        </div>
+    </div>
+    <%
+    end
+end
+%>
+  </div>
+</div>
+
+<h3>Common Fields</h3>
+
+<div class="control-group">
+    <label for="public_body_category_category_tag" class="control-label">Category tag</label>
+    <div class="controls">
+        <% if PublicBody.find_by_tag(@category.category_tag).count == 0 or
+               @category.errors.messages.keys.include?(:category_tag) %>
+            <%= f.text_field :category_tag, :class => "span4" %>
+        <% else %>
+            <%= f.text_field :category_tag, :class => "span4", :disabled => true %>
+            <span class="help-block">
+                This Category already has authorities assigned to it so the tags
+                cannot be modified.
+            </span>
+        <% end %>
+  </div>
+</div>
+
+<h3>Headings</h3>
+<div class="control-group">
+    <% PublicBodyHeading.all.each do |heading| %>
+        <div class="span3">
+            &nbsp;<%= check_box_tag "headings[heading_#{heading.id}]", heading.id, heading_is_selected?(heading) %> <label for="headings_heading_<%= heading.id %>" class="control-label"><%= heading.name %></label>
+        </div>
+    <% end %>
+</div>
+<!--[eoform:public_body_category]-->

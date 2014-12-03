@@ -5,14 +5,15 @@
 # Translators:
 # David Cabo <david.cabo@gmail.com>, 2012
 # sroberto <ertoba@yahoo.es>, 2012
+# louisecrow <louise@mysociety.org>, 2014
 # sroberto <ertoba@yahoo.es>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/alaveteli/language/eu/)\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
@@ -95,6 +96,9 @@ msgstr " Eskabideari buruzko gaurkotzeak jasotzen ari zara posta elektronikoan."
 
 msgid " You will also be emailed updates about the request."
 msgstr "Eskabide honi buruzko gaurkotzeak jasoko dituzu posta elektronikoan."
+
+msgid " filtered by status: '{{status}}'"
+msgstr ""
 
 msgid " when you send this message."
 msgstr " Mezu hau bidali duzunean."
@@ -574,9 +578,6 @@ msgstr "Aldatu zure pasahitza"
 msgid "Change your password on {{site_name}}"
 msgstr "Aldatu zure pasahitza {{site_name}}-an"
 
-msgid "Charity registration"
-msgstr "GKEren erregistroa"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Helbidea kopiatu baldin baduzu, bila ezazu akatsak."
 
@@ -853,6 +854,9 @@ msgstr "Eskabideak {{start_count}}-tik {{end_count}}-ra, {{total_count}} guztira
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr ""
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Irudia PNG formatura bihurtzean huts egin da"
 
@@ -862,10 +866,13 @@ msgstr "Irudia behar bezalako tamainera bihurtzean huts egin da:: {{cols}}x{{row
 msgid "Filter"
 msgstr "Iragazi"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr ""
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
 msgstr "Lehenbizi, idatz ezazu informazioa eskatu nahi diozun <strong>erakundearen izena</strong>. <strong>Erantzuna eman behar dute</strong> (<a href=\"{{url}}\">zergatik?</a>)."
 
 msgid "Foi attachment"
@@ -1499,7 +1506,7 @@ msgid "New e-mail:"
 msgstr "Helbide berria:"
 
 msgid "New email doesn't look like a valid address"
-msgstr "Helbide berriak ez du baliagarria ematen"
+msgstr "La nueva dirección no parece válida"
 
 msgid "New password:"
 msgstr "Pasahitza berria:"
@@ -1595,7 +1602,7 @@ msgid "Old email address isn't the same as the address of the account you are lo
 msgstr "Helbide zahar hau ez da oraingo saioa irekitzeko erabili duzuna"
 
 msgid "Old email doesn't look like a valid address"
-msgstr "Helbide zaharrak ez du ematen baliagarria denik"
+msgstr "La dirección de correo antigua no parece válida"
 
 msgid "On this page"
 msgstr "Orrialde honetan"
@@ -1968,7 +1975,16 @@ msgstr ""
 msgid "Public body"
 msgstr ""
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -1978,6 +1994,18 @@ msgid "Public page"
 msgstr ""
 
 msgid "Public page not available"
+msgstr ""
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
@@ -1999,6 +2027,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2257,9 +2291,6 @@ msgstr "Bilatu zure ekarpenak"
 msgid "See bounce message"
 msgstr ""
 
-msgid "Select one to see more information about the authority."
-msgstr "Aukera ezazu bat erakunde honi buruzko informazio gehiago ikusteko"
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2414,6 +2445,9 @@ msgstr ""
 msgid "Subscribe to blog"
 msgstr "Blogaren harpidetza eman"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Arrakasta izan duten informaziorako sarbidearen eskabideak"
 
@@ -2526,6 +2560,24 @@ msgstr ""
 "{{user}}-ri  {{law_used_short}} eskabidearen erantzuna bezala, ez da eman."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
+msgstr ""
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -3081,6 +3133,9 @@ msgstr "User|Email confirmed"
 
 msgid "User|Hashed password"
 msgstr "User|Hashed password"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "User|Last daily track email"
@@ -3659,6 +3714,9 @@ msgstr "display_status-ek orain sarrerako eta irteerako mezuekin bakarrik funtzi
 msgid "during term time"
 msgstr "eskola aldian"
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "zeuri buruzko testua editatu"
 
@@ -3797,6 +3855,9 @@ msgstr "jarraipen mezua bidali."
 
 msgid "to {{public_body}}"
 msgstr "{{public_body}}-ri"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "arrazoi ezezaguna"

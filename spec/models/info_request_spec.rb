@@ -848,9 +848,11 @@ describe InfoRequest do
             context "a series of events on a request" do
                 it "should have sensible events after the initial request has been made" do
                     # An initial request is sent
-                    # The logic that changes the status when a message is sent is mixed up
-                    # in OutgoingMessage#send_message. So, rather than extract it (or call it)
-                    # let's just duplicate what it does here for the time being.
+                    # FIXME: The logic that changes the status when a message
+                    # is sent is mixed up in
+                    # OutgoingMessage#record_email_delivery. So, rather than
+                    # extract it (or call it) let's just duplicate what it does
+                    # here for the time being.
                     request.log_event('sent', {})
                     request.set_described_state('waiting_response')
 
@@ -919,7 +921,8 @@ describe InfoRequest do
                     request.log_event("status_update", {})
                     request.set_described_state("waiting_response")
                     # A normal follow up is sent
-                    # This is normally done in OutgoingMessage#send_message
+                    # This is normally done in
+                    # OutgoingMessage#record_email_delivery
                     request.log_event('followup_sent', {})
                     request.set_described_state('waiting_response')
 

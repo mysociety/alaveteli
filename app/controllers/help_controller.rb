@@ -11,6 +11,10 @@ class HelpController < ApplicationController
     before_filter :long_cache
     before_filter :catch_spam, :only => [:contact]
 
+    def index
+        redirect_to help_about_path
+    end
+
     def unhappy
         @info_request = nil
         if params[:url_title]

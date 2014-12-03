@@ -19,15 +19,17 @@
 class PurgeRequest < ActiveRecord::Base
     def self.purge_all
         done_something = false
-        for item in PurgeRequest.all()
+
+        PurgeRequest.all.each do |item|
             item.purge
             done_something = true
         end
-        return done_something
+
+        done_something
     end
 
+    # Run purge_all in an endless loop, sleeping when there is nothing to do
     def self.purge_all_loop
-        # Run purge_all in an endless loop, sleeping when there is nothing to do
         while true
             sleep_seconds = 1
             while !purge_all
@@ -39,13 +41,8 @@ class PurgeRequest < ActiveRecord::Base
     end
 
     def purge
-        config = MySociety::Config.load_default()
-        varnish_url = config['VARNISH_HOST']
-        result = quietly_try_to_purge(varnish_url, self.url)
-        self.delete()
+        config = MySociety::Config.load_default
+        result = quietly_try_to_purge(config['VARNISH_HOST'], url)
+        delete
     end
 end
-
-
-
-

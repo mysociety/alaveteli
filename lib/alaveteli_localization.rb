@@ -7,6 +7,7 @@ class AlaveteliLocalization
             I18n.locale = default_locale
             I18n.available_locales = available_locales.map { |locale_name| locale_name.to_sym }
             I18n.default_locale = default_locale
+            RoutingFilter::Conditionallyprependlocale.locales = available_locales
         end
 
         def set_default_text_domain(name, path)

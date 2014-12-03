@@ -1,5 +1,12 @@
 /* Styles for pages in making a new request */
 
+/* /select_authority page */
+#select_authority_help {
+  .info {
+    font-style: italic;
+  }
+}
+
 /* /new/[body_name] page */
 .new_info_request {
   label {

@@ -1,3 +1,68 @@
+# Version 0.20
+
+## Highlighted Features
+
+* Upgrade compass-rails to version 2.0.0 (Louise Crow, Вальо)
+* Added a fix to ensure attachments are rendered for emails sent with Apple Mail (Gareth Rees)
+* Removed the authority preview from `/select_authority`. Clicking an authority now goes straight to the authority page (Gareth Rees)
+* Allow closure of a change request without sending an email (Louise Crow)
+* The sidebar in `app/views/public_body/show.html.erb` has been extracted to `app/views/public_body/_more_info.html.erb` to make overriding it in a theme easier (Gareth Rees)
+* Allow resetting of the locale pattern on the locale routing filter (Louise Crow)
+* Added filtering to the requests displayed on the user profile page (Gareth Rees)
+* Add a Health Check page (Gareth Rees)
+* Add a user interface for managing Public Body Categories (Liz Conlan, Louise Crow)
+* Improve `CensorRule` validations. Please see Upgrade Notes if you have added or modified a `CensorRule` in your theme (Gareth Rees)
+* Stop the `/blog` page throwing an exception if a correctly configured blog has no posts (Gareth Rees)
+* Fixed a CSS issue with the authority preview container (Louise Crow)
+* Sensible default values have been added to some configuration parameters. See upgrade notes for additional instruction (Gareth Rees)
+* `general.yml-example` now contains full documentation and examples (Gareth Rees)
+* CSV Import fields (for `/admin/body/import_csv`) are now configurable. This is useful if your theme adds additional attributes to `PublicBody` (Steven Day)
+
+For example:
+
+      # YOUR_THEME/lib/model_patches.rb
+      # Extra fields can be appended to `csv_import_fields` in the format:
+      # ['ATTRIBUTE_NAME', 'HELP_TEXT_DISPLAYED_IN_ADMIN_UI']
+      #
+      PublicBody.csv_import_fields << ['twitter_username', 'Do not include the @']
+
+## Upgrade Notes
+
+* Public body categories will now be stored in the database rather than being read directly from the `lib/public_body_categories_LOCALE` files. **Once you have upgraded, run `script/migrate-public-body-categories`to import the contents of the files into the database. All further changes will then need to be made via the administrative interface.** You can then remove any `pubic_body_categories_[locale].rb` files from your theme.  If your theme has any calls to `PublicBodyCategories` methods outside these files, you should update them to call the corresponding method on `PublicBodyCategory` instead.
+* `OutgoingMessage#send_message` has been removed. We now perform email deliveries outside of the model layer in three steps:
+
+Example:
+
+    # Check the message is sendable
+    if @outgoing_message.sendable?
+
+        # Deliver the email
+        mail_message = OutgoingMailer.initial_request(
+            @outgoing_message.info_request,
+            @outgoing_message
+        ).deliver
+
+        # Record the email delivery
+        @outgoing_message.record_email_delivery(
+            mail_message.to_addrs.join(', '),
+            mail_message.message_id
+        )
+    end
+
+See https://github.com/mysociety/alaveteli/pull/1889 for the full changes and feel free to ask on the [developer mailing list](https://groups.google.com/forum/#!forum/alaveteli-dev) if this change causes a problem.
+* `MTA_LOG_PATH` now has a default value of `'/var/log/exim4/exim-mainlog-*'`. Check that your `MTA_LOG_PATH` setting is configured to the path where your mail logs are stored.
+* `MAX_REQUESTS_PER_USER_PER_DAY` now has a default value of `6`. If you do not have a value set in `config/general.yml` you will need to set it to match your existing configuration. If you do not a `MAX_REQUESTS_PER_USER_PER_DAY` limit, set the value to an empty string (`''`).
+* `INCOMING_EMAIL_PREFIX` now has a default of `'foi+'`. If you do not have a value set in `config/general.yml` you will need to set it to match your existing configuration. If you do not want an `INCOMING_EMAIL_PREFIX`,  set the value to an empty string (`''`, the previous default).
+
+* An `admin` prefix has been added to the `:spam_addresses` resources. If you have used one of these paths in your theme, prefix the named route helper with `admin_`.
+* `CensorRule` now validates the presence of all attributes at the model layer,
+  rather than only as a database constraint. If you have added a `CensorRule` in
+  your theme, you will now have to satisfy the additional validations on the
+  `:replacement`, `:last_edit_comment` and `:last_edit_editor` attributes.
+* `CensorRule#require_user_request_or_public_body`, `CensorRule#make_regexp` and
+  `CensorRule#require_valid_regexp` have become private methods. If you override
+  them in your theme, ensure they are preceded by the `private` keyword.
+
 # Version 0.19
 
 ## Highlighted Features
@@ -58,11 +123,11 @@ candidate:
 
 * Install `lockfile-progs` so that the `run-with-lockfile` shell script can be
   used instead of the C program
-* Use responsive stylesheets in `config/general.yml`:  
+* Use responsive stylesheets in `config/general.yml`:
   `RESPONSIVE_STYLING: true`. If you don't currently use responsive styling,
   and you don't want to get switched over just set `RESPONSIVE_STYLING: false`
   and the fixed-width stylesheets will be used as before.
-* Allow access to public body stats page if desired in `config/general/yml`:  
+* Allow access to public body stats page if desired in `config/general/yml`:
   `PUBLIC_BODY_STATISTICS_PAGE: true`
 * Run migrations to define track_things constraint correctly (Robin Houston) and
   add additional index for `event_type` on `info_request_events` (Steven Day)

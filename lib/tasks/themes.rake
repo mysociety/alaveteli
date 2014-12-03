@@ -65,6 +65,8 @@ namespace :themes do
         result.push usage_tag(ALAVETELI_VERSION)
         hotfix_match = /^(\d+\.\d+\.\d+)(\.\d+)+/.match(ALAVETELI_VERSION)
         result.push usage_tag(hotfix_match[1]) if hotfix_match
+        minor_match = /^(\d+\.\d+)(\.\d+)+/.match(ALAVETELI_VERSION)
+        result.push usage_tag(minor_match[1]) if minor_match
         result
     end
 

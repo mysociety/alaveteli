@@ -22,15 +22,15 @@
 
 class Holiday < ActiveRecord::Base
 
-    def Holiday.holidays
-        @@holidays ||= self.all.collect { |h| h.day }.to_set
+    def self.holidays
+        @@holidays ||= all.collect { |h| h.day }.to_set
     end
 
-    def Holiday.weekend_or_holiday?(date)
+    def self.weekend_or_holiday?(date)
         date.wday == 0 || date.wday == 6 || Holiday.holidays.include?(date)
     end
 
-    def Holiday.due_date_from(start_date, days, type_of_days)
+    def self.due_date_from(start_date, days, type_of_days)
         case type_of_days
         when "working"
             Holiday.due_date_from_working_days(start_date, days)
@@ -44,14 +44,14 @@ class Holiday < ActiveRecord::Base
     # Calculate the date on which a request made on a given date falls due when
     # days are given in working days
     # i.e. it is due by the end of that day.
-    def Holiday.due_date_from_working_days(start_date, working_days)
+    def self.due_date_from_working_days(start_date, working_days)
         # convert date/times into dates
         start_date = start_date.to_date
 
-        # Count forward the number of working days. We start with today as "day zero". The
-        # first of the full working days is the next day. We return the
-        # date of the last of the number of working days.
-
+        # Count forward the number of working days. We start with today as "day
+        # zero". The first of the full working days is the next day. We return
+        # the date of the last of the number of working days.
+        #
         # This response for example of a public authority complains that we had
         # it wrong.  We didn't (even thought I changed the code for a while,
         # it's changed back now). A day is a day, our lawyer tells us.
@@ -71,9 +71,9 @@ class Holiday < ActiveRecord::Base
 
     # Calculate the date on which a request made on a given date falls due when
     # the days are given in calendar days (rather than working days)
-    # If the due date falls on a weekend or a holiday then the due date is the next
-    # weekday that isn't a holiday.
-    def Holiday.due_date_from_calendar_days(start_date, days)
+    # If the due date falls on a weekend or a holiday then the due date is the
+    # next weekday that isn't a holiday.
+    def self.due_date_from_calendar_days(start_date, days)
         # convert date/times into dates
         start_date = start_date.to_date
 
