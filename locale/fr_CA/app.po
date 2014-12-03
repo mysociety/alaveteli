@@ -7,6 +7,7 @@
 # Bbear <borisjf@post.harvard.edu>, 2011
 # Benoît Simard <contact@bsimard.com>, 2013
 # David Cabo <david.cabo@gmail.com>, 2013
+# louisecrow <louise@mysociety.org>, 2014
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
 # radhouane fazai <radhouanef@gmail.com>, 2013
@@ -21,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/projects/p/alaveteli/language/fr_CA/)\n"
 "Language: fr_CA\n"
 "MIME-Version: 1.0\n"
@@ -110,9 +111,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr "quand vous envoyez ce message."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Document statistique sur la criminalité de 2001 à 2013'"
@@ -735,9 +733,6 @@ msgstr "Disclosure log"
 msgid "Disclosure log URL"
 msgstr "Disclosure log URL"
 
-msgid "Display order must be a number"
-msgstr ""
-
 msgid "Do not fill in this field"
 msgstr ""
 
@@ -859,7 +854,7 @@ msgid "First, did your other requests succeed?"
 msgstr "Premièrement, est-ce que vos autres demandes ont réussi?"
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "Commencer par écrire le <strong>nom de l'organisme</strong> à \\n   solliciter. <strong>Légalement, elle est obligée de répondre </strong>.\\n   (<a href=\"{{url}}\">Pourquoi?</a>)."
 
 msgid "Foi attachment"
 msgstr "Foi attachment"
@@ -1481,6 +1476,9 @@ msgstr "Une nouvelle règle de censure"
 msgid "New e-mail:"
 msgstr "Nouveau courriel:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "Le nouveau courriel ne semble pas être une adresse valide"
+
 msgid "New password:"
 msgstr "Nouveau mot de passe:"
 
@@ -1573,6 +1571,9 @@ msgstr "Ancien courriel:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "L'ancienne adresse courriel n'est pas la même que l'adresse avec laquelle vous êtes identifié dans le compte."
+
+msgid "Old email doesn't look like a valid address"
+msgstr "L'ancienne adresse courriel ne semble pas être une adresse courriel"
 
 msgid "On this page"
 msgstr "Sur cette page"
@@ -2427,12 +2428,6 @@ msgstr "Tableau des statuts"
 msgid "Table of varieties"
 msgstr "Tableau des variétés "
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr "Tags"
 
@@ -2852,9 +2847,6 @@ msgstr "Cet utilisateur a été banni de {{site_name}}"
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Cela est impossible: un compte existant utilise déjà \\n l'adresse courriel {{email}}."
-
-msgid "Title can't be blank"
-msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "Pour annuler ces alertes"

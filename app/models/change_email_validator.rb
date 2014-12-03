@@ -55,8 +55,18 @@ class ChangeEmailValidator
 
     def check_email_is_present_and_valid(email)
         if !send(email).blank? && !MySociety::Validate.is_valid_email(send(email))
-            errors.add(email, _("#{ email.to_s.humanize } doesn't look like a valid address"))
+            msg_string = check_email_is_present_and_valid_msg_string(email)
+            errors.add(email, msg_string)
         end
+    end
+
+    def check_email_is_present_and_valid_msg_string(email)
+      case email.to_sym
+      when :old_email then _("Old email doesn't look like a valid address")
+      when :new_email then _("New email doesn't look like a valid address")
+      else
+        raise "Unsupported email type #{ email }"
+      end
     end
 
     def email_belongs_to_user?(email)

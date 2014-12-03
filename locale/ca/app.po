@@ -6,15 +6,16 @@
 # David Cabo <david.cabo@gmail.com>, 2012,2014
 # ecapfri <ecapfri@yahoo.es>, 2012
 # ecapfri <ecapfri@yahoo.es>, 2012
+# louisecrow <louise@mysociety.org>, 2014
 # mmtarres <mmtarres@gmail.com>, 2012
 # mmtarres <mmtarres@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/alaveteli/language/ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -106,9 +107,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr " quan enviares aquest missatge."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Estadístiques de crims per comarca a Catalunya'"
@@ -783,9 +781,6 @@ msgstr ""
 msgid "Disclosure log URL"
 msgstr ""
 
-msgid "Display order must be a number"
-msgstr ""
-
 msgid "Do not fill in this field"
 msgstr ""
 
@@ -915,7 +910,7 @@ msgid "First, did your other requests succeed?"
 msgstr ""
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "Primero, escribe el <strong>nombre de la institución</strong> a la que quieres pedir información. <strong>Están obligados a responder</strong> (<a href=\"{{url}}\">¿por qué?</a>)."
 
 msgid "Foi attachment"
 msgstr ""
@@ -1581,6 +1576,9 @@ msgstr ""
 msgid "New e-mail:"
 msgstr "Nueva dirección:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "La nueva dirección no parece válida"
+
 msgid "New password:"
 msgstr "Nueva contraseña:"
 
@@ -1673,6 +1671,9 @@ msgstr "Correo antiguo:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "La dirección de correo antigua no es con la que has abierto tu sesión actual"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "La dirección de correo antigua no parece válida"
 
 msgid "On this page"
 msgstr "En aquesta pàgina"
@@ -2547,12 +2548,6 @@ msgstr "Tabla de estados"
 msgid "Table of varieties"
 msgstr "Tabla de tipos de objetos"
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr ""
 
@@ -3011,9 +3006,6 @@ msgid "This was not possible because there is already an account using \\nthe em
 msgstr ""
 "No es posible porque ya existe una cuenta usando la dirección \n"
 "de correo {{email}}."
-
-msgid "Title can't be blank"
-msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "Cancelar estas alertas"

@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# louisecrow <louise@mysociety.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Macedonian (Macedonia) (http://www.transifex.com/projects/p/alaveteli/language/mk_MK/)\n"
 "Language: mk_MK\n"
 "MIME-Version: 1.0\n"
@@ -94,9 +95,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr " кога ќе ја испратите оваа порака."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Криминална статистика по области за Македонија'"
@@ -719,9 +717,6 @@ msgstr "Дневник на објави"
 msgid "Disclosure log URL"
 msgstr "URL на дневник на објави"
 
-msgid "Display order must be a number"
-msgstr ""
-
 msgid "Do not fill in this field"
 msgstr ""
 
@@ -843,7 +838,7 @@ msgid "First, did your other requests succeed?"
 msgstr "Прво, дали другите ваши барања беа успешни?"
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "Прво, внесете <strong>име на надлежниот орган во МК</strong> од кој\\n           ви треба информација. <strong>Според закон, тие мора да одговорат</strong>\\n           (<a href=\"{{url}}\">зошто?</a>)."
 
 msgid "Foi attachment"
 msgstr "Прилог за барањето за слободен пристап"
@@ -1465,6 +1460,9 @@ msgstr "Ново правило за цензура"
 msgid "New e-mail:"
 msgstr "Нова е-пошта:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "Не е валидна новата адреса за е-пошта"
+
 msgid "New password:"
 msgstr "Нова лозинка:"
 
@@ -1557,6 +1555,9 @@ msgstr "Стара е-пошта:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Старата адреса за е-пошта не е иста со онаа која се користи за профилот со кој сте најавени"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "Старата адреса за е-пошта не е валидна адреса"
 
 msgid "On this page"
 msgstr "На оваа страна"
@@ -2411,12 +2412,6 @@ msgstr "Табела од статуси"
 msgid "Table of varieties"
 msgstr "Табела од разноличности"
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr "Тагови"
 
@@ -2836,9 +2831,6 @@ msgstr "Овој корисник има забрана за пристап до
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Ова не е возможно бидејќи веќе постои сметка која ја користи \\nоваа адреса за е-пошта {{email}}."
-
-msgid "Title can't be blank"
-msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "За да ги откажете овие предупредувања"

@@ -12,6 +12,7 @@
 # Cosmin Pojoranu <cosmin@funkycitizens.org>, 2013
 # Elena Calistru <calistru.elena@gmail.com>, 2013
 # Elena Calistru <calistru.elena@gmail.com>, 2013
+# louisecrow <louise@mysociety.org>, 2014
 # paul.chioveanu <paul_kimmy@yahoo.com>, 2013
 # paul.chioveanu <paul_kimmy@yahoo.com>, 2013
 # paul.chioveanu <paul_kimmy@yahoo.com>, 2013
@@ -23,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
 "MIME-Version: 1.0\n"
@@ -110,9 +111,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr "când trimiți acest mesaj."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Bugetul pentru anul 2012 alocat transporturilor la Consiliul Județean Mureș'"
@@ -735,9 +733,6 @@ msgstr "Disclosure log"
 msgid "Disclosure log URL"
 msgstr "Disclosure log URL"
 
-msgid "Display order must be a number"
-msgstr ""
-
 msgid "Do not fill in this field"
 msgstr ""
 
@@ -859,7 +854,7 @@ msgid "First, did your other requests succeed?"
 msgstr ""
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "Mai întâi, introdu <strong>numele autorității publice</strong> de la care ai \\n avea nevoie de informații. <strong>Potrivit legii, trebuie să îți răspundă</strong>\\n (<a href=\"{{url}}\">de ce?</a>)."
 
 msgid "Foi attachment"
 msgstr "Ataşament solicitare"
@@ -1484,6 +1479,9 @@ msgstr "Nouă regulă de cenzurare"
 msgid "New e-mail:"
 msgstr "E-mail nou:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "Noul e-mail nu pare a fi o adresă validă"
+
 msgid "New password:"
 msgstr "Parola nouă:"
 
@@ -1576,6 +1574,9 @@ msgstr "Emailul vechi:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Emailul vechi nu este acelaşi cu adresa contului în care sunteţi logat."
+
+msgid "Old email doesn't look like a valid address"
+msgstr "Email-ul vechi nu pare a fi o adresă validă"
 
 msgid "On this page"
 msgstr "Pe această pagină"
@@ -2432,12 +2433,6 @@ msgstr "Tabelul stărilor"
 msgid "Table of varieties"
 msgstr "Tabelul varietăţilor"
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr "Etichete"
 
@@ -2860,9 +2855,6 @@ msgstr "Acest utilizator a fost blocat pentru {{site_name}} "
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Acest lucru nu a fost posibil pentru că există deja un cont care utilizează\\nadresa de email {{email}}."
-
-msgid "Title can't be blank"
-msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "Pentru a anula aceste alerte"

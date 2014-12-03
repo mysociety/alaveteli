@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/alaveteli/language/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -97,9 +97,6 @@ msgid " filtered by status: '{{status}}'"
 msgstr ""
 
 msgid " when you send this message."
-msgstr ""
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
 msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
@@ -721,9 +718,6 @@ msgid "Disclosure log"
 msgstr ""
 
 msgid "Disclosure log URL"
-msgstr ""
-
-msgid "Display order must be a number"
 msgstr ""
 
 msgid "Do not fill in this field"
@@ -1469,6 +1463,9 @@ msgstr ""
 msgid "New e-mail:"
 msgstr ""
 
+msgid "New email doesn't look like a valid address"
+msgstr ""
+
 msgid "New password:"
 msgstr ""
 
@@ -1560,6 +1557,9 @@ msgid "Old e-mail:"
 msgstr ""
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
+msgstr ""
+
+msgid "Old email doesn't look like a valid address"
 msgstr ""
 
 msgid "On this page"
@@ -2415,12 +2415,6 @@ msgstr ""
 msgid "Table of varieties"
 msgstr ""
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr ""
 
@@ -2839,9 +2833,6 @@ msgid "This user has been banned from {{site_name}} "
 msgstr ""
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
-msgstr ""
-
-msgid "Title can't be blank"
 msgstr ""
 
 msgid "To cancel these alerts"

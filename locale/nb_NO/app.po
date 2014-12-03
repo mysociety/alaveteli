@@ -10,6 +10,7 @@
 # gorm <gormer@gmail.com>, 2013-2014
 # gorm <gormer@gmail.com>, 2013
 # atluxity <atluxity@1kb.no>, 2014
+# louisecrow <louise@mysociety.org>, 2014
 # oeyrvin <oeyrvin@hagan.no>, 2014
 # oeyrvin <oeyrvin@hagan.no>, 2014
 # pere <pere-transifex@hungry.com>, 2013
@@ -18,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
@@ -107,9 +108,6 @@ msgstr ""
 
 msgid " when you send this message."
 msgstr " når du sender denne meldinen."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "'Kriminalitetsstatistikk på bydelsnivå for Oslo'"
@@ -737,9 +735,6 @@ msgstr "Utleveringslogg"
 msgid "Disclosure log URL"
 msgstr ""
 
-msgid "Display order must be a number"
-msgstr ""
-
 msgid "Do not fill in this field"
 msgstr ""
 
@@ -861,7 +856,7 @@ msgid "First, did your other requests succeed?"
 msgstr ""
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "Først, skriv inn <strong>navnet på en norsk offentlig myndighet</strong> som du\\n           vil ha informasjon fra. <strong>Loven sier at de må svare deg</strong>\\n           (<a href=\"{{url}}\">hvorfor?</a>)."
 
 msgid "Foi attachment"
 msgstr "Innsynsbegjæring vedlegg"
@@ -1485,6 +1480,9 @@ msgstr "Ny sensurregel"
 msgid "New e-mail:"
 msgstr "Ny e-post-adresse:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "Ny e-postadresse ser ikke ut til å være en gyldig adresse."
+
 msgid "New password:"
 msgstr "Nytt passord:"
 
@@ -1577,6 +1575,9 @@ msgstr "Gammel e-post-adresse:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Gammel e-postadresse er ikke samme som adressen som kontoen du er innlogget med"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "Gammel epost ser ikke ut til å være en gyldig adresse"
 
 msgid "On this page"
 msgstr "På denne siden"
@@ -2431,12 +2432,6 @@ msgstr "Tabell over statuser"
 msgid "Table of varieties"
 msgstr "Tabell over typer"
 
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
-
 msgid "Tags"
 msgstr "Tagger"
 
@@ -2858,9 +2853,6 @@ msgstr "Denne brukeren er sperret ute fra {{site_name}}"
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Dette var ikke mulig da det allerede er en konto som bruker epostadressen {{email}}."
-
-msgid "Title can't be blank"
-msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "For å avbryte varslingen."

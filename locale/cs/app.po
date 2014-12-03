@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 10:47+0000\n"
-"PO-Revision-Date: 2014-11-18 10:48+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
-msgstr " Toto se objeví na vašem profilu na stránkách {{site_name}}, abyste mohli svůj dotaz snadno sdílet s ostaními."
+msgstr "Toto se objeví na vašem profilu na stránkách {{site_name}}, abyste mohli svůj dotaz snadno sdílet s ostaními."
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
 msgstr " (<strong>Tento prostor neslouží politickým debatám,</strong> přečtěte si <a href=\"{{url}}\">Pravidla diskuze</a>.)"
@@ -107,13 +107,10 @@ msgid " You will also be emailed updates about the request."
 msgstr " Aktualizace týkající se tohoto dotazu vám budou také zaslány e-mailem."
 
 msgid " filtered by status: '{{status}}'"
-msgstr ""
+msgstr "filtrováno podle stavu: '{{status}}'"
 
 msgid " when you send this message."
 msgstr " když tuto zprávu pošlete."
-
-msgid "\"#{ email.to_s.humanize } doesn't look like a valid address\""
-msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "\"Statistiky kriminality pro Liberecký kraj.\""
@@ -789,9 +786,6 @@ msgstr "Disclosure log"
 msgid "Disclosure log URL"
 msgstr "Disclosure log URL"
 
-msgid "Display order must be a number"
-msgstr ""
-
 msgid "Do not fill in this field"
 msgstr "Toto pole nevyplňujte"
 
@@ -902,7 +896,7 @@ msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "Odpověď vyžaduje zásah administrátora -  ({{reason}}) - {{title}}"
 
 msgid "Failed"
-msgstr ""
+msgstr "Nezdařilo se"
 
 msgid "Failed to convert image to a PNG"
 msgstr "Nepodařilo se konvertovat obrázek do PNG. "
@@ -914,13 +908,13 @@ msgid "Filter"
 msgstr "Filtr"
 
 msgid "Filter by Request Status (optional)"
-msgstr ""
+msgstr "Filtrovat dle stavu žádosti (nepovinné)"
 
 msgid "First, did your other requests succeed?"
 msgstr "Můžete prosím doplnit informace o Vašich ostatních žádostech? Uspěli jste?"
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "Nejdříve zadejte <strong>název instituce</strong>, od které požadujete informace. \\n        <strong>Podle zákona vám musí odpovědět</strong>.\\n        (<a href=\"{{url}}\">Proč?</a>)."
 
 msgid "Foi attachment"
 msgstr "Příloha k dotazu"
@@ -1105,7 +1099,7 @@ msgid "Here is the message you wrote, in case you would like to copy the text an
 msgstr "Zde je zpráva, kterou jste napsali, pokud si chcete uložit kopii. "
 
 msgid "Hi! We need your help. The person who made the following request\\n    hasn't told us whether or not it was successful. Would you mind taking\\n    a moment to read it and help us keep the place tidy for everyone?\\n    Thanks."
-msgstr "Haló! Potřebujeme vaši pomoc. Osoba, která vznesla tento dotaz nám nesdělila, jestli byla zodpovězena úspěšně. Můžete si dotaz i odpověď přečíst a pomoci nám tak udržovat stránky přehledné? Děkujeme."
+msgstr "Haló! Potřebujeme vaši pomoc. Osoba, která vznesla tento dotaz nám nesdělila, jestli byl zodpovězen úspěšně. Můžete si dotaz i odpověď přečíst a pomoci nám tak udržovat stránky přehledné? Děkujeme."
 
 msgid "Hide request"
 msgstr "Skrýt dotaz"
@@ -1570,6 +1564,9 @@ msgstr "Nové pravidlo "
 msgid "New e-mail:"
 msgstr "Nový e-mail:"
 
+msgid "New email doesn't look like a valid address"
+msgstr "Nový email není platná adresa"
+
 msgid "New password:"
 msgstr "Nové heslo:"
 
@@ -1663,6 +1660,9 @@ msgstr "Původní e-mail"
 msgid "Old email address isn't the same as the address of the account you are logged in with"
 msgstr "Původní e-mailová adresa není shodná s adresou účtu, do kterého jste se přihlásili"
 
+msgid "Old email doesn't look like a valid address"
+msgstr "Původní email nevypadá jako platná adresa"
+
 msgid "On this page"
 msgstr "Na této stránce"
 
@@ -1688,7 +1688,7 @@ msgid "Only the authority can reply to this request, but there is no \"From\" ad
 msgstr "Pouze instituce může odpovědět na váš dotaz, ale v políčku \"Od\" není žádná adresa "
 
 msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr "Nebo vzneste <a href=\"{{url}}\">batch request</a> to <strong>na více institucí</strong> najednou."
+msgstr "Nebo vzneste <a href=\"{{url}}\">hromadný dotaz</a> to <strong>na více institucí</strong> najednou."
 
 msgid "Or search in their website for this information."
 msgstr "Nebo prohledejte tuto informaci na jejich internetových stránkách."
@@ -2040,16 +2040,16 @@ msgid "Public body"
 msgstr "Instituce"
 
 msgid "Public body category"
-msgstr ""
+msgstr "Druh instituce"
 
 msgid "Public body category link"
-msgstr ""
+msgstr "Odkaz na druh instituce"
 
 msgid "Public body change request"
 msgstr "Žádost o změnu instituce"
 
 msgid "Public body heading"
-msgstr ""
+msgstr "Název instituce"
 
 msgid "Public notes"
 msgstr "Poznámka (viditelná pro všechny)"
@@ -2061,16 +2061,16 @@ msgid "Public page not available"
 msgstr "Stránku nelze načíst"
 
 msgid "PublicBodyCategoryLink|Category display order"
-msgstr ""
+msgstr "Odkaz na druh instituce|Pořadí zobrazení"
 
 msgid "PublicBodyCategory|Category tag"
-msgstr ""
+msgstr "Druh instituce|Tag"
 
 msgid "PublicBodyCategory|Description"
-msgstr ""
+msgstr "Druh instituce|Popis"
 
 msgid "PublicBodyCategory|Title"
-msgstr ""
+msgstr "Druh instituce|Název"
 
 msgid "PublicBodyChangeRequest|Is open"
 msgstr "ŽádostOZměnuInstituce otevřena"
@@ -2094,10 +2094,10 @@ msgid "PublicBodyChangeRequest|User name"
 msgstr "ŽádostOZměnuInstituce|Uživatelské jméno"
 
 msgid "PublicBodyHeading|Display order"
-msgstr ""
+msgstr "Název instituce|Pořadí zobrazení"
 
 msgid "PublicBodyHeading|Name"
-msgstr ""
+msgstr "Instituce|Název"
 
 msgid "PublicBody|Api key"
 msgstr "PublicBody | Název ??"
@@ -2515,7 +2515,7 @@ msgid "Subscribe to blog"
 msgstr "Sledujte náš blog"
 
 msgid "Success"
-msgstr ""
+msgstr "Úspěch"
 
 msgid "Successful Freedom of Information requests"
 msgstr "Kompletně zodpovězený dotaz"
@@ -2534,12 +2534,6 @@ msgstr "Tabulka stavů"
 
 msgid "Table of varieties"
 msgstr "Tabulka možností"
-
-msgid "Tag can't be blank"
-msgstr ""
-
-msgid "Tag is already taken"
-msgstr ""
 
 msgid "Tags"
 msgstr "Tagy"
@@ -2644,22 +2638,22 @@ msgid "The error bars shown are 95% confidence intervals for the hypothesized un
 msgstr "Vymezení chyby ukazuje 95% interval spolehlivosti pro hypotetický podkladový poměr (tj. ten, který byste získali tím, že položíte nekonečný počet žádostí prostřednictvím těchto stránek této instituci). Jinými slovy, výběr vzorku předpokládá všechny současné i budoucí dotazy vznášené prostřednictvím této stránky, spíše než, řekněme, všechny žádosti, které byly provedeny na veřejný subjekt jakýmkoliv dalším způsobem."
 
 msgid "The last incoming message was created in the last day"
-msgstr ""
+msgstr "Poslední příchozí zpráva byla vytvořena během posledních 24 hodin"
 
 msgid "The last incoming message was created over a day ago"
-msgstr ""
+msgstr "Poslední příchozí zpráva byla vytvořena před více než 24 hodinami"
 
 msgid "The last outgoing message was created in the last day"
-msgstr ""
+msgstr "Poslední odchozí zpráva byla vytvořena během posledních 24 hodin"
 
 msgid "The last outgoing message was created over a day ago"
-msgstr ""
+msgstr "Poslední odchozí zpráva byla vytvořena před více než 24 hodinami"
 
 msgid "The last user was created in the last day"
-msgstr ""
+msgstr "Poslední uživatelský účet byl vytvořen během posledních 24 hodin"
 
 msgid "The last user was created over a day ago"
-msgstr ""
+msgstr "Poslední uživatelský účet byl vytvořen před více než 24 hodinami"
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Stránka neexistuje. Zkuste toto:"
@@ -2993,9 +2987,6 @@ msgstr ""
 "Nepodařilo se, protože už jeden účet  \n"
 "používá e-mailovou adresu {{email}}."
 
-msgid "Title can't be blank"
-msgstr ""
-
 msgid "To cancel these alerts"
 msgstr "Pro zrušení těchto upozornění"
 
@@ -3236,7 +3227,7 @@ msgid "User|Hashed password"
 msgstr "User | Zařazené heslo"
 
 msgid "User|Identity card number"
-msgstr ""
+msgstr "Uživatel|Číslo ID"
 
 msgid "User|Last daily track email"
 msgstr "User | Poslední denně sledovaný e-mail ??"
@@ -3848,7 +3839,7 @@ msgid "during term time"
 msgstr "během období"
 
 msgid "e.g. Ministry of Defence"
-msgstr ""
+msgstr "např. Ministerstvo obrany"
 
 msgid "edit text about you"
 msgstr "upravte text o sobě"
@@ -3990,7 +3981,7 @@ msgid "to {{public_body}}"
 msgstr "pro instituci {{public_body}}"
 
 msgid "type your search term here"
-msgstr ""
+msgstr "zadejte hledaný termín"
 
 msgid "unknown reason "
 msgstr "neznámé důvody"
@@ -4145,7 +4136,7 @@ msgid "{{username}} left an annotation:"
 msgstr "{{username}} zanechal poznámku:"
 
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
-msgstr "{{user}} ({{user_admin_link}}) vznesl tento {{law_used_full}} dotaz (<a href=\"{{request_admin_url}}\">admin</a>) na instuci {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
+msgstr "{{user}} ({{user_admin_link}}) vznesl tento {{law_used_full}}  (<a href=\"{{request_admin_url}}\">admin</a>) na instituci {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
 msgid "{{user}} made this {{law_used_full}} request"
-msgstr "{{user}} vložil tuto {{law_used_full}} "
+msgstr "{{user}} vznesl tento {{law_used_full}} "

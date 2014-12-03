@@ -15,7 +15,7 @@ class PublicBodyCategoryLink < ActiveRecord::Base
     validates_presence_of :public_body_category
     validates_presence_of :public_body_heading
     validates :category_display_order, :numericality => { :only_integer => true,
-                                                          :message => N_('Display order must be a number') }
+                                                          :message => 'Display order must be a number' }
 
     before_validation :on => :create do
         unless self.category_display_order

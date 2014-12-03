@@ -19,10 +19,10 @@ class PublicBodyCategory < ActiveRecord::Base
     has_many :public_body_headings, :through => :public_body_category_links
 
     translates :title, :description
-    validates_uniqueness_of :category_tag, :message => N_('Tag is already taken')
-    validates_presence_of :title, :message => N_("Title can't be blank")
-    validates_presence_of :category_tag, :message => N_("Tag can't be blank")
-    validates_presence_of :description, :message => N_("Description can't be blank")
+    validates_uniqueness_of :category_tag, :message => 'Tag is already taken'
+    validates_presence_of :title, :message => "Title can't be blank"
+    validates_presence_of :category_tag, :message => "Tag can't be blank"
+    validates_presence_of :description, :message => "Description can't be blank"
 
     def self.get
         locale = I18n.locale.to_s || default_locale.to_s || ""
