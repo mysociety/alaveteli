@@ -12,6 +12,7 @@
 # Cosmin Pojoranu <cosmin@funkycitizens.org>, 2013
 # Elena Calistru <calistru.elena@gmail.com>, 2013
 # Elena Calistru <calistru.elena@gmail.com>, 2013
+# louisecrow <louise@mysociety.org>, 2014
 # paul.chioveanu <paul_kimmy@yahoo.com>, 2013
 # paul.chioveanu <paul_kimmy@yahoo.com>, 2013
 # paul.chioveanu <paul_kimmy@yahoo.com>, 2013
@@ -23,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:49+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
 "MIME-Version: 1.0\n"
@@ -104,6 +105,9 @@ msgstr "Ţi s-au trimis deja prin e-mail actualizări referitoare la solicitare.
 
 msgid " You will also be emailed updates about the request."
 msgstr "Vei primi prin email noutăți legate de cererea ta."
+
+msgid " filtered by status: '{{status}}'"
+msgstr ""
 
 msgid " when you send this message."
 msgstr "când trimiți acest mesaj."
@@ -558,9 +562,6 @@ msgstr "Modificaţi parola"
 msgid "Change your password on {{site_name}}"
 msgstr "Modifică-ţi parola pe {{site_name}}"
 
-msgid "Charity registration"
-msgstr "Înregistrare ONG"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Verificaţi greşeli, dacă aţi tastat sau aţi copiat adresa."
 
@@ -834,6 +835,9 @@ msgstr "Solicitări de informații de la  {{start_count}} la {{end_count}} din {
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "Răspunsul  la solicitare necesită ({{reason}}) - {{title}} administratorului"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Eroare la convertirea imaginii în PNG"
 
@@ -843,10 +847,13 @@ msgstr "Eroare la conversia imaginii la mărimea corectă: la {{cols}}x{{rows}},
 msgid "Filter"
 msgstr "Filtrare"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr ""
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
 msgstr "Mai întâi, introdu <strong>numele autorității publice</strong> de la care ai \\n avea nevoie de informații. <strong>Potrivit legii, trebuie să îți răspundă</strong>\\n (<a href=\"{{url}}\">de ce?</a>)."
 
 msgid "Foi attachment"
@@ -1569,7 +1576,7 @@ msgid "Old email address isn't the same as the address of the account you are lo
 msgstr "Emailul vechi nu este acelaşi cu adresa contului în care sunteţi logat."
 
 msgid "Old email doesn't look like a valid address"
-msgstr "Emailul vechi nu pare a fi o adresă validă"
+msgstr "Email-ul vechi nu pare a fi o adresă validă"
 
 msgid "On this page"
 msgstr "Pe această pagină"
@@ -1940,7 +1947,16 @@ msgstr ""
 msgid "Public body"
 msgstr "Autoritate publică"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -1951,6 +1967,18 @@ msgstr "Pagina publică"
 
 msgid "Public page not available"
 msgstr "Pagină publica indisponibilă"
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
+msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
 msgstr ""
@@ -1971,6 +1999,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2225,9 +2259,6 @@ msgstr "Caută contribuţia ta"
 msgid "See bounce message"
 msgstr "Vezi mesajul întors"
 
-msgid "Select one to see more information about the authority."
-msgstr "Selectaţi una pentru a vedea informaţii despre această autoritate"
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2381,6 +2412,9 @@ msgstr "Transmite statusul și trimite mesaj"
 msgid "Subscribe to blog"
 msgstr "Înscriere pentru blog"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Solicitări de acces la informații care au fost făcute cu succes"
 
@@ -2487,6 +2521,24 @@ msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to r
 msgstr "Email-ul trimis din partea {{public_body}}, către\\n{{user}} ca răspuns la {{law_used_short}}\\nsolicitare nu a fost transmis."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
+msgstr ""
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -3037,6 +3089,9 @@ msgstr "Utilizator|Email confirmat"
 
 msgid "User|Hashed password"
 msgstr "Utilizator|Parola criptată"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "Utilizator|Ultima urmărire zilnica email"
@@ -3602,6 +3657,9 @@ msgstr "afişarea stării  funcţionează numai pentru mesajele primite sau trim
 msgid "during term time"
 msgstr "pe perioada termenului"
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "editează textul despre tine"
 
@@ -3738,6 +3796,9 @@ msgstr "a transmite un mesaj de urmărire"
 
 msgid "to {{public_body}}"
 msgstr "către {{public_body}}"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "motiv necunoscut"

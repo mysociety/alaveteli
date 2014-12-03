@@ -1,11 +1,11 @@
 <% @title = _('New censor rule') %>
 
-<h1><%=@title%></h1>
+<h1><%= @title %></h1>
 
-<%= form_tag admin_rule_create_path, :class => "form form-horizontal" do %>
+<%= form_for @censor_rule, :url => @form_url, :class => "form form-horizontal" do %>
   <%= render :partial => 'form', :locals => { :info_request => @info_request, :user => @censor_user } %>
+
   <div class="form-actions">
     <%= submit_tag "Create", :class => "btn btn-primary" %>
   </div>
 <% end %>
-

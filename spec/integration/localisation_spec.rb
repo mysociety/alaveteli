@@ -24,14 +24,29 @@ describe "when generating urls" do
         response.should_not contain @home_link_regex
     end
 
-    it 'should redirect requests for a public body in a locale to the canonical name in that locale' do
-        get('/es/body/dfh')
-        response.should redirect_to "/es/body/edfh"
-    end
+    context 'when handling public body requests' do
 
-    it 'should remember a filter view when redirecting a public body request to the canonical name' do
-        get('/es/body/tgq/successful')
-        response.should redirect_to "/es/body/etgq/successful"
+        before do
+            AlaveteliLocalization.set_locales(available_locales='es en', default_locale='en')
+            body = FactoryGirl.create(:public_body, :short_name => 'english_short')
+            I18n.with_locale(:es) do
+                body.short_name = 'spanish_short'
+                body.save!
+            end
+        end
+
+        it 'should redirect requests for a public body in a locale to the
+            canonical name in that locale' do
+            get('/es/body/english_short')
+            response.should redirect_to "/es/body/spanish_short"
+        end
+
+        it 'should remember a filter view when redirecting a public body
+            request to the canonical name' do
+            AlaveteliLocalization.set_locales(available_locales='es en', default_locale='en')
+            get('/es/body/english_short/successful')
+            response.should redirect_to "/es/body/spanish_short/successful"
+        end
     end
 
     describe 'when there is more than one locale' do

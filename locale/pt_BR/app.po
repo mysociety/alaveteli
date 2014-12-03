@@ -25,6 +25,7 @@
 # leandrosalvador <leandrosalvador@gmail.com>, 2013
 # lianelira <lianelira@gmail.com>, 2011
 # lianelira <lianelira@gmail.com>, 2011
+# louisecrow <louise@mysociety.org>, 2014
 # luisleao <luis.leao@gmail.com>, 2011
 # luisleao <luis.leao@gmail.com>, 2011
 # Nitai <Nitaibezerra@gmail.com>, 2012
@@ -43,9 +44,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:47+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/alaveteli/language/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -124,6 +125,9 @@ msgstr " Você já está recebendo e-mails de atualização sobre o pedido."
 
 msgid " You will also be emailed updates about the request."
 msgstr "Você também receberá atualizações por e-mail sobre esse pedido."
+
+msgid " filtered by status: '{{status}}'"
+msgstr ""
 
 msgid " when you send this message."
 msgstr "quando você enviar esta mensagem."
@@ -596,9 +600,6 @@ msgstr "Alterar a sua senha"
 msgid "Change your password on {{site_name}}"
 msgstr "Alterar a sua senha em {{site_name}}"
 
-msgid "Charity registration"
-msgstr "Registro de ONG"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Verifique se há erros se você digitou ou copiou o endereço."
 
@@ -872,6 +873,9 @@ msgstr "Pedidos de informação: de {{start_count}} a {{end_count}} de {{total_c
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "Respostas ao PAI requer acesso de administrador ({{reason}}) - {{title}}"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Erro ao converter a imagem para PNG"
 
@@ -881,10 +885,13 @@ msgstr "Erro ao tentar converter a imagem para o tamanho correto: no {{cols}}x{{
 msgid "Filter"
 msgstr "Filtro"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr ""
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "Primeiro, insira o <strong>nome da autoridade pública brasileira</strong> da qual você gostaria de receber informação. <strong>Por lei, eles são obrigados a responder</strong>\n"
 "           (<a href=\"{{url}}\">por quê?</a>)."
@@ -1986,7 +1993,16 @@ msgstr ""
 msgid "Public body"
 msgstr "Órgão público"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -1996,6 +2012,18 @@ msgid "Public page"
 msgstr ""
 
 msgid "Public page not available"
+msgstr ""
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
@@ -2017,6 +2045,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2270,9 +2304,6 @@ msgstr "Buscar suas contribuições"
 msgid "See bounce message"
 msgstr ""
 
-msgid "Select one to see more information about the authority."
-msgstr "Selecionar para ver mais informações sobre este órgão público."
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2425,6 +2456,9 @@ msgstr ""
 msgid "Subscribe to blog"
 msgstr "Assine o blog"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Solicitações de acesso a informação concluídas"
 
@@ -2533,6 +2567,24 @@ msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to r
 msgstr "O email que você, em nome de {{public_body}}, enviou para {{user}} para responder a um Pedido de Informação não foi entregue."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
+msgstr ""
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -3088,6 +3140,9 @@ msgstr "Usuário | Email confirmado"
 
 msgid "User|Hashed password"
 msgstr "Usuário | senha Hashed"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "Usuário | Último e-mail"
@@ -3660,6 +3715,9 @@ msgstr "display_status somente funciona para mensagem recebidas e enviadas neste
 msgid "during term time"
 msgstr "durante o período letivo"
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "altere o texto sobre você"
 
@@ -3796,6 +3854,9 @@ msgstr "enviar uma mensagem de acompanhamento."
 
 msgid "to {{public_body}}"
 msgstr "para {{public_body}}"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "razão desconhecida"

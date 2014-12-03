@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# louisecrow <louise@mysociety.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:46+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Macedonian (Macedonia) (http://www.transifex.com/projects/p/alaveteli/language/mk_MK/)\n"
 "Language: mk_MK\n"
 "MIME-Version: 1.0\n"
@@ -88,6 +89,9 @@ msgstr " Веќе ви се испратени новости за барање�
 
 msgid " You will also be emailed updates about the request."
 msgstr " Исто така ќе ви бидат испратени новости за барањето по е-пошта."
+
+msgid " filtered by status: '{{status}}'"
+msgstr ""
 
 msgid " when you send this message."
 msgstr " кога ќе ја испратите оваа порака."
@@ -542,9 +546,6 @@ msgstr "Променете ја лозинката"
 msgid "Change your password on {{site_name}}"
 msgstr "Променете ја лозинката на {{site_name}}"
 
-msgid "Charity registration"
-msgstr "Регистрација на добротворна органзиација"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Проверете за грешки доколку ја впишавте или копиравте адресата."
 
@@ -818,6 +819,9 @@ msgstr "Барања за слободен пристап до информац�
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "Одговор на барање за слободен пристап до информации бара администрирање ({{reason}}) - {{title}}"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Неуспешно конвертирање на фотографија во PNG формат"
 
@@ -827,10 +831,13 @@ msgstr "Неуспешно конвертирање на фотографија 
 msgid "Filter"
 msgstr "Филтрирај"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr "Прво, дали другите ваши барања беа успешни?"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
 msgstr "Прво, внесете <strong>име на надлежниот орган во МК</strong> од кој\\n           ви треба информација. <strong>Според закон, тие мора да одговорат</strong>\\n           (<a href=\"{{url}}\">зошто?</a>)."
 
 msgid "Foi attachment"
@@ -1921,7 +1928,16 @@ msgstr "Јавни институции со најмногу успешни б�
 msgid "Public body"
 msgstr "Јавна институција"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -1932,6 +1948,18 @@ msgstr "Јавна страна"
 
 msgid "Public page not available"
 msgstr "Јавната страна не е достапна"
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
+msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
 msgstr ""
@@ -1952,6 +1980,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2205,9 +2239,6 @@ msgstr "Пребарајте ги вашите придонеси"
 msgid "See bounce message"
 msgstr "Видете ја одбиената порака"
 
-msgid "Select one to see more information about the authority."
-msgstr "Изберете имател за да видите повеќе информации."
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2360,6 +2391,9 @@ msgstr "Испратете статус и испратете порака"
 msgid "Subscribe to blog"
 msgstr "Претплатете се на блогот"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Успешно барање за слободен пристап до информации"
 
@@ -2467,6 +2501,24 @@ msgstr "Е-поштата која вие, во име на {{public_body}}, ј�
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Баровите за грешка од дијаграмот се 95% интервали на доверба за претпоставената основна пропорција (т.е. она што ќе се добие со пласирање бесконечен број на барања преку овој сајт до тој имател). Со други зборови, популацијата која е примерокот е составена од моментални и идни баратели до имателот преку овој сајт, наместо, да речеме, сите барања кои биле направени до јавната институција по секоја цена."
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
+msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Страната не постои. Работи кои може да ги пробате:"
@@ -3018,6 +3070,9 @@ msgstr "User|Е-пошта потврдена"
 
 msgid "User|Hashed password"
 msgstr "User|Хаширани лозинки"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "User|Последна е-пошта од дневно следење"
@@ -3599,6 +3654,9 @@ msgstr "display_status моментално работи само за прим�
 msgid "during term time"
 msgstr "за време на терминот"
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "изменете го текстот за вас"
 
@@ -3735,6 +3793,9 @@ msgstr "да испратите реакција."
 
 msgid "to {{public_body}}"
 msgstr "за {{public_body}}"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "непозната причина "

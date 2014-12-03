@@ -61,7 +61,6 @@ module Alaveteli
     config.action_dispatch.rack_cache = nil
 
     config.after_initialize do |app|
-       require 'routing_filters.rb'
        # Add a catch-all route to force routing errors to be handled by the application,
        # rather than by middleware.
        app.routes.append{ match '*path', :to => 'general#not_found' }
@@ -69,6 +68,7 @@ module Alaveteli
 
     config.autoload_paths << "#{Rails.root.to_s}/lib/mail_handler"
     config.autoload_paths << "#{Rails.root.to_s}/lib/attachment_to_html"
+    config.autoload_paths << "#{Rails.root.to_s}/lib/health_checks"
 
     # See Rails::Configuration for more options
     ENV['RECAPTCHA_PUBLIC_KEY'] = ::AlaveteliConfiguration::recaptcha_public_key

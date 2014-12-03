@@ -10,7 +10,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.19'
+ALAVETELI_VERSION = '0.20.0.0'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
@@ -44,7 +44,6 @@ require 'world_foi_websites.rb'
 require 'alaveteli_external_command.rb'
 require 'quiet_opener.rb'
 require 'mail_handler'
-require 'public_body_categories'
 require 'ability'
 require 'normalize_string'
 require 'alaveteli_file_types'
@@ -54,6 +53,9 @@ require 'theme'
 require 'xapian_queries'
 require 'date_quarter'
 require 'public_body_csv'
+require 'category_and_heading_migrator'
+require 'public_body_categories'
+require 'routing_filters'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)
@@ -62,3 +64,4 @@ AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
 if Rails.env == 'test' and ActiveRecord::Base.configurations['test']['constraint_disabling'] == false
   require 'no_constraint_disabling'
 end
+

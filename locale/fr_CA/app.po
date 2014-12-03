@@ -7,6 +7,7 @@
 # Bbear <borisjf@post.harvard.edu>, 2011
 # Benoît Simard <contact@bsimard.com>, 2013
 # David Cabo <david.cabo@gmail.com>, 2013
+# louisecrow <louise@mysociety.org>, 2014
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
 # radhouane fazai <radhouanef@gmail.com>, 2013
@@ -21,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:49+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/projects/p/alaveteli/language/fr_CA/)\n"
 "Language: fr_CA\n"
 "MIME-Version: 1.0\n"
@@ -104,6 +105,9 @@ msgstr "Il est déjà prévu que vous receviez des mises à jour par courriel co
 
 msgid " You will also be emailed updates about the request."
 msgstr "Vous recevrez aussi des mises à jour par courriel concernant cette demande."
+
+msgid " filtered by status: '{{status}}'"
+msgstr ""
 
 msgid " when you send this message."
 msgstr "quand vous envoyez ce message."
@@ -558,9 +562,6 @@ msgstr "Changer votre mot de passe"
 msgid "Change your password on {{site_name}}"
 msgstr "Changer votre mot de passe sur {{site_name}}"
 
-msgid "Charity registration"
-msgstr "Organisme de bienfaisance"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Vérifiez s'il y a des erreurs si vous avez tapé ou copié l'adresse."
 
@@ -834,6 +835,9 @@ msgstr "Demandes d'accès aux documents de {{start_count}} à {{end_count}} sur 
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "La réponse à la demande d'accès aux documents nécessite l'attention d'un administrateur ({{reason}}) - {{title}}"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Nous n'avons pas pu convertir l'image au format PNG."
 
@@ -843,11 +847,14 @@ msgstr "Nous n'avons pas pu changer les dimensions de l'image: at {{cols}}x{{row
 msgid "Filter"
 msgstr "Filtre"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr "Premièrement, est-ce que vos autres demandes ont réussi?"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
-msgstr "Commencez par écrire le <strong>nom de l'organisme</strong> à \\n   solliciter ou consultez la <a href=\"/body/list/all\">liste exhaustive</a> des organismes. <strong>Légalement, celui-ci est tenu de répondre</strong>.\\n   (<a href=\"{{url}}\">Pourquoi?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
+msgstr "Commencer par écrire le <strong>nom de l'organisme</strong> à \\n   solliciter. <strong>Légalement, elle est obligée de répondre </strong>.\\n   (<a href=\"{{url}}\">Pourquoi?</a>)."
 
 msgid "Foi attachment"
 msgstr "Foi attachment"
@@ -1937,7 +1944,16 @@ msgstr "Organismes publics avec les plus de réponses positives"
 msgid "Public body"
 msgstr "Public body"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -1948,6 +1964,18 @@ msgstr "Public page"
 
 msgid "Public page not available"
 msgstr "Public page not available"
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
+msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
 msgstr ""
@@ -1968,6 +1996,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2221,9 +2255,6 @@ msgstr "Chercher dans vos demandes"
 msgid "See bounce message"
 msgstr "Voir le message de rebond"
 
-msgid "Select one to see more information about the authority."
-msgstr "Cliquez sur un des organismes pour obtenir plus de détails."
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2376,6 +2407,9 @@ msgstr "Envoyer le message"
 msgid "Subscribe to blog"
 msgstr "S'abonner au blog"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Demandes d'accès aux documents réussies"
 
@@ -2483,6 +2517,24 @@ msgstr "Le message que vous avez envoyé au nom de {{public_body}} à \\n{{user}
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr " "
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
+msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "La page n'existe pas. Vous pouvez essayer de :"
@@ -3029,6 +3081,9 @@ msgstr "User|Email confirmed"
 
 msgid "User|Hashed password"
 msgstr "User|Hashed password"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "User|Last daily track email"
@@ -3594,6 +3649,9 @@ msgstr "display_status n'est valide que pour les messages entrant et sortant pou
 msgid "during term time"
 msgstr "***during term time"
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "modifiez votre description personnelle"
 
@@ -3730,6 +3788,9 @@ msgstr "pour envoyer un message de suivi."
 
 msgid "to {{public_body}}"
 msgstr "à {{public_body}}"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "raison inconnue"

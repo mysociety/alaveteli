@@ -546,6 +546,58 @@ CSV
         errors.should include("error: line 3: Url name URL name is already taken for authority 'Foobar Test'")
     end
 
+    it 'has a default list of fields to import' do
+        expected_fields = [
+            ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
+            ['short_name', '(i18n)'],
+            ['request_email', '(i18n)'],
+            ['notes', '(i18n)'],
+            ['publication_scheme', '(i18n)'],
+            ['disclosure_log', '(i18n)'],
+            ['home_page', ''],
+            ['tag_string', '(tags separated by spaces)'],
+        ]
+
+        expect(PublicBody.csv_import_fields).to eq(expected_fields)
+    end
+
+    it 'allows you to override the default list of fields to import' do
+        old_csv_import_fields = PublicBody.csv_import_fields.clone
+        expected_fields = [
+            ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
+            ['short_name', '(i18n)'],
+        ]
+
+        PublicBody.csv_import_fields = expected_fields
+
+        expect(PublicBody.csv_import_fields).to eq(expected_fields)
+
+        # Reset our change so that we don't affect other specs
+        PublicBody.csv_import_fields = old_csv_import_fields
+    end
+
+    it 'allows you to append to the default list of fields to import' do
+        old_csv_import_fields = PublicBody.csv_import_fields.clone
+        expected_fields = [
+            ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
+            ['short_name', '(i18n)'],
+            ['request_email', '(i18n)'],
+            ['notes', '(i18n)'],
+            ['publication_scheme', '(i18n)'],
+            ['disclosure_log', '(i18n)'],
+            ['home_page', ''],
+            ['tag_string', '(tags separated by spaces)'],
+            ['a_new_field', ''],
+        ]
+
+        PublicBody.csv_import_fields << ['a_new_field', '']
+
+        expect(PublicBody.csv_import_fields).to eq(expected_fields)
+
+        # Reset our change so that we don't affect other specs
+        PublicBody.csv_import_fields = old_csv_import_fields
+    end
+
 end
 
 describe PublicBody do

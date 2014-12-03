@@ -8,13 +8,8 @@ describe AdminGeneralController do
         before { basic_auth_login @request }
 
         it "should render the front page" do
-            get :index, :suppress_redirect => 1
-            response.should render_template('index')
-        end
-
-        it "should redirect to include trailing slash" do
             get :index
-            response.should redirect_to admin_general_index_url(:trailing_slash => true)
+            response.should render_template('index')
         end
 
     end

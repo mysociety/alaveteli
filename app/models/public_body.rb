@@ -49,7 +49,12 @@ class PublicBody < ActiveRecord::Base
     attr_accessor :no_xapian_reindex
 
     has_tag_string
-    before_save :set_api_key, :set_default_publication_scheme
+
+    before_save :set_api_key,
+                :set_default_publication_scheme,
+                :set_first_letter
+    after_save :purge_in_cache
+    after_update :reindex_requested_from
 
     # Every public body except for the internal admin one is visible
     scope :visible, lambda {
@@ -59,6 +64,36 @@ class PublicBody < ActiveRecord::Base
     }
 
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
+
+    # Default fields available for importing from CSV, in the format
+    # [field_name, 'short description of field (basic html allowed)']
+    cattr_accessor :csv_import_fields do
+        [
+            ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
+            ['short_name', '(i18n)'],
+            ['request_email', '(i18n)'],
+            ['notes', '(i18n)'],
+            ['publication_scheme', '(i18n)'],
+            ['disclosure_log', '(i18n)'],
+            ['home_page', ''],
+            ['tag_string', '(tags separated by spaces)'],
+        ]
+    end
+
+    acts_as_xapian :texts => [ :name, :short_name, :notes ],
+        :values => [
+             [ :created_at_numeric, 1, "created_at", :number ] # for sorting
+        ],
+        :terms => [ [ :variety, 'V', "variety" ],
+                [ :tag_array_for_search, 'U', "tag" ]
+        ]
+
+    acts_as_versioned
+    self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
+    self.non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
+    self.non_versioned_columns << 'info_requests_count' << 'info_requests_visible_classified_count'
+    self.non_versioned_columns << 'info_requests_not_held_count' << 'info_requests_overdue'
+    self.non_versioned_columns << 'info_requests_overdue_count'
 
     # Public: Search for Public Bodies whose name, short_name, request_email or
     # tags contain the given query
@@ -117,14 +152,14 @@ class PublicBody < ActiveRecord::Base
     end
 
     def translated_versions=(translation_attrs)
-        def skip?(attrs)
-            valueless = attrs.inject({}) { |h, (k, v)| h[k] = v if v != '' and k != 'locale'; h } # because we want to fall back to alternative translations where there are empty values
-            return valueless.length == 0
+        def empty_translation?(attrs)
+            attrs_with_values = attrs.select{ |key, value| value != '' and key != 'locale' }
+            attrs_with_values.empty?
         end
 
         if translation_attrs.respond_to? :each_value    # Hash => updating
             translation_attrs.each_value do |attrs|
-                next if skip?(attrs)
+                next if empty_translation?(attrs)
                 t = translation_for(attrs[:locale]) || PublicBody::Translation.new
                 t.attributes = attrs
                 calculate_cached_fields(t)
@@ -132,7 +167,7 @@ class PublicBody < ActiveRecord::Base
             end
         else                                            # Array => creating
             translation_attrs.each do |attrs|
-                next if skip?(attrs)
+                next if empty_translation?(attrs)
                 new_translation = PublicBody::Translation.new(attrs)
                 calculate_cached_fields(new_translation)
                 translations << new_translation
@@ -174,7 +209,6 @@ class PublicBody < ActiveRecord::Base
     end
 
     # Set the first letter, which is used for faster queries
-    before_save(:set_first_letter)
     def set_first_letter
         PublicBody.set_first_letter(self)
     end
@@ -221,13 +255,6 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
-    acts_as_versioned
-    self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
-    self.non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
-    self.non_versioned_columns << 'info_requests_count' << 'info_requests_visible_classified_count'
-    self.non_versioned_columns << 'info_requests_not_held_count' << 'info_requests_overdue'
-    self.non_versioned_columns << 'info_requests_overdue_count'
-
     class Version
 
         def last_edit_comment_for_html_display
@@ -258,13 +285,6 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
-    acts_as_xapian :texts => [ :name, :short_name, :notes ],
-        :values => [
-             [ :created_at_numeric, 1, "created_at", :number ] # for sorting
-        ],
-        :terms => [ [ :variety, 'V', "variety" ],
-                [ :tag_array_for_search, 'U', "tag" ]
-        ]
     def created_at_numeric
         # format it here as no datetime support in Xapian's value ranges
         return self.created_at.strftime("%Y%m%d%H%M%S")
@@ -276,7 +296,6 @@ class PublicBody < ActiveRecord::Base
     # if the URL name has changed, then all requested_from: queries
     # will break unless we update index for every event for every
     # request linked to it
-    after_update :reindex_requested_from
     def reindex_requested_from
         if self.changes.include?('url_name')
             for info_request in self.info_requests
@@ -320,8 +339,8 @@ class PublicBody < ActiveRecord::Base
         types = []
         first = true
         for tag in self.tags
-            if PublicBodyCategories::get().by_tag().include?(tag.name)
-                desc = PublicBodyCategories::get().singular_by_tag()[tag.name]
+            if PublicBodyCategory.get().by_tag().include?(tag.name)
+                desc = PublicBodyCategory.get().singular_by_tag()[tag.name]
                 if first
                     # terrible that Ruby/Rails doesn't have an equivalent of ucfirst
                     # (capitalize shockingly converts later characters to lowercase)
@@ -477,7 +496,10 @@ class PublicBody < ActiveRecord::Base
                         next
                     end
 
-                    field_list = ['name', 'short_name', 'request_email', 'notes', 'publication_scheme', 'disclosure_log', 'home_page', 'tag_string']
+                    field_list = []
+                    self.csv_import_fields.each do |field_name, field_notes|
+                        field_list.push field_name
+                    end
 
                     if public_body = bodies_by_name[name]   # Existing public body
                         available_locales.each do |locale|
@@ -662,7 +684,6 @@ class PublicBody < ActiveRecord::Base
         }
     end
 
-    after_save(:purge_in_cache)
     def purge_in_cache
         self.info_requests.each {|x| x.purge_in_cache}
     end

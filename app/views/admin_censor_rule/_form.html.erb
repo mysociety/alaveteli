@@ -4,11 +4,9 @@
   <%=_("Applies to")%>
   <% unless info_request.nil? %>
     <%= request_both_links(info_request) %>
-    <%= hidden_field 'censor_rule', 'info_request_id', { :value => info_request.id } %>
   <% end %>
   <% unless user.nil? %>
     <%= user_both_links(user) %>
-    <%= hidden_field 'censor_rule', 'user_id', { :value => user.id } %>
 <% end %>
 </div>
 

@@ -10,7 +10,7 @@ class AdminSpamAddressesController < AdminController
 
         if @spam_address.save
             notice = "#{ @spam_address.email } has been added to the spam addresses list"
-            redirect_to spam_addresses_path, :notice => notice
+            redirect_to admin_spam_addresses_path, :notice => notice
         else
             @spam_addresses = SpamAddress.all
             render :index
@@ -21,7 +21,7 @@ class AdminSpamAddressesController < AdminController
         @spam_address = SpamAddress.find(params[:id])
         @spam_address.destroy
         notice = "#{ @spam_address.email } has been removed from the spam addresses list"
-        redirect_to spam_addresses_path, :notice => notice
+        redirect_to admin_spam_addresses_path, :notice => notice
     end
 
 end

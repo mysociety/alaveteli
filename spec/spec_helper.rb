@@ -201,14 +201,6 @@ Spork.prefork do
       I18n.default_locale = original_default_locale
   end
 
-  def load_test_categories
-      PublicBodyCategories.add(:en, [
-          "Local and regional",
-              [ "local_council", "Local councils", "a local council" ],
-          "Miscellaneous",
-              [ "other", "Miscellaneous", "miscellaneous" ],])
-  end
-
   def basic_auth_login(request, username = nil, password = nil)
       username = AlaveteliConfiguration::admin_username if username.nil?
       password = AlaveteliConfiguration::admin_password if password.nil?

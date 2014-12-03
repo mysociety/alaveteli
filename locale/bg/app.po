@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-09-01 10:10+0000\n"
-"Last-Translator: Valentin Laskov <laskov@festa.bg>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/alaveteli/language/bg/)\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -93,6 +93,9 @@ msgstr " Вие вече получавате имейли с новостите
 
 msgid " You will also be emailed updates about the request."
 msgstr " Вие също ще получавате имейли с новостите относно заявлението."
+
+msgid " filtered by status: '{{status}}'"
+msgstr ""
 
 msgid " when you send this message."
 msgstr " когато изпратите това съобщение."
@@ -547,9 +550,6 @@ msgstr "Промяна на паролата Ви"
 msgid "Change your password on {{site_name}}"
 msgstr "Промяна на паролата Ви в {{site_name}}"
 
-msgid "Charity registration"
-msgstr "Регистрация на фондацията"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Проверете за грешки ако сте написали или копирали адреса."
 
@@ -823,6 +823,9 @@ msgstr "Заявления за ДдИ {{start_count}} до {{end_count}} от {
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "Отговорът за ДдИ изисква администратор ({{reason}}) - {{title}}"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Неуспех при конвертиране на изображението в PNG"
 
@@ -832,10 +835,13 @@ msgstr "Неуспех при конвертирането на изображе
 msgid "Filter"
 msgstr "Филтър"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr "Първо, успешни ли бяга другите Ви заявления?"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
 msgstr "Първо, напишете <strong>името на публичния орган,</strong> от който\\n искате информация. <strong>По закон, те трябва да отговорят</strong>\\n  (<a href=\"{{url}}\">ето защо</a>)."
 
 msgid "Foi attachment"
@@ -1926,7 +1932,16 @@ msgstr "Публични органи с най-много успешни зая
 msgid "Public body"
 msgstr "Публичен орган"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -1937,6 +1952,18 @@ msgstr "Публична страница"
 
 msgid "Public page not available"
 msgstr "Публичната страница не е достъпна"
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
+msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
 msgstr ""
@@ -1958,6 +1985,12 @@ msgstr "PublicBodyChangeRequest|Имейл на потребител"
 
 msgid "PublicBodyChangeRequest|User name"
 msgstr "PublicBodyChangeRequest|Име на потребител"
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
+msgstr ""
 
 msgid "PublicBody|Api key"
 msgstr ""
@@ -2210,9 +2243,6 @@ msgstr "Търсене в допринесеното от Вас"
 msgid "See bounce message"
 msgstr "Вижте върнатото съобщение"
 
-msgid "Select one to see more information about the authority."
-msgstr "Изберете някой, за да видите повече информация за органа."
-
 msgid "Select the authorities to write to"
 msgstr "Изберете органите, на които ще пишете"
 
@@ -2365,6 +2395,9 @@ msgstr ""
 msgid "Subscribe to blog"
 msgstr "Абониране за блога"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Успешни Заявления за Достъп до информация"
 
@@ -2471,6 +2504,24 @@ msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to r
 msgstr "Имейлът, който Вие изпратихте от името на {{public_body}}, до\\n{{user}} в отговор на заявление за {{law_used_short}}\\nне беше доставено."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
+msgstr ""
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -3018,6 +3069,9 @@ msgstr "User|Имейлът потвърден"
 
 msgid "User|Hashed password"
 msgstr "User|Криптирана парола"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr ""
@@ -3580,6 +3634,9 @@ msgstr "display_status засега работи само за входящи и
 msgid "during term time"
 msgstr "през периода време"
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "редактиране на  текста за Вас"
 
@@ -3716,6 +3773,9 @@ msgstr "да изпратите пояснително съобщение."
 
 msgid "to {{public_body}}"
 msgstr "дo {{public_body}}"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "непозната причина "

@@ -38,6 +38,35 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries.clear
     end
 
+    it "should parse attachments from mails sent with apple mail" do
+        ir = info_requests(:fancy_dog_request)
+        ir.incoming_messages.size.should == 1
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 0
+        receive_incoming_mail('apple-mail-with-attachments.email', 'dummy@localhost')
+        ir.incoming_messages.size.should == 1
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 1
+        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
+        last_event.params[:rejected_reason].should == "Could not identify the request from the email address"
+
+        im = IncomingMessage.last
+        # Check that the attachments haven't been somehow loaded from a
+        # previous test run
+        im.foi_attachments.size.should == 0
+
+        # Trace where attachments first get loaded:
+        # TODO: Ideally this should be 3, but some html parts from Apple Mail
+        # are being treated like attachments
+        im.extract_attachments!
+        im.foi_attachments.size.should == 6
+
+        # Clean up
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.to.should == [ AlaveteliConfiguration::contact_email ]
+        deliveries.clear
+    end
+
     it "should store mail in holding pen and send to admin when the from email is empty and only authorites can reply" do
         ir = info_requests(:fancy_dog_request)
         ir.allow_new_responses_from = 'authority_only'

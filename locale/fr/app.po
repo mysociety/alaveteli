@@ -15,7 +15,8 @@
 # Claire, 2013
 # David Cabo <david.cabo@gmail.com>, 2013
 # louisecrow <louise@mysociety.org>, 2013
-# louisecrow <louise@mysociety.org>, 2013
+# louisecrow <louise@mysociety.org>, 2013-2014
+# mikaclau@gmail.com <mikaclau@gmail.com>, 2014
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
 # radhouane fazai <radhouanef@gmail.com>, 2013
@@ -26,6 +27,7 @@
 # sebbacon <seb.bacon@gmail.com>, 2012
 # Benoît Simard <contact@bsimard.com>, 2013
 # skenaja <alex@alexskene.com>, 2011
+# Stephen Abbott Pugh <stephendabbott@gmail.com>, 2014
 # teymour <tanguim@gmail.com>, 2011
 # teymour <tanguim@gmail.com>, 2011
 # vickyanderica <victoria@access-info.org>, 2011
@@ -34,9 +36,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:46+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/alaveteli/language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -63,10 +65,10 @@ msgid " - wall"
 msgstr "-mur"
 
 msgid " < "
-msgstr ""
+msgstr "<"
 
 msgid " << "
-msgstr ""
+msgstr "<<"
 
 msgid " <strong>Note:</strong>\\n    We will send you an email. Follow the instructions in it to change\\n    your password."
 msgstr ""
@@ -80,10 +82,10 @@ msgid " <strong>Summarise</strong> the content of any information returned. "
 msgstr " <strong>Résumez</strong>le contenu de toute  information transmise. "
 
 msgid " > "
-msgstr ""
+msgstr ">"
 
 msgid " >> "
-msgstr ""
+msgstr ">>"
 
 msgid " Advise on how to <strong>best clarify</strong> the request."
 msgstr "Conseils pour rendre la demande <strong>plus claire</strong>."
@@ -120,6 +122,9 @@ msgstr "Un courriel vous a déjà été envoyé au sujet de cette demande."
 msgid " You will also be emailed updates about the request."
 msgstr "Vous recevrez également des courriels d'avancées liées à votre demande."
 
+msgid " filtered by status: '{{status}}'"
+msgstr ""
+
 msgid " when you send this message."
 msgstr "quand vous envoyez ce message."
 
@@ -139,13 +144,13 @@ msgid "'{{link_to_user}}', a person"
 msgstr "{{link_to_user}}', une personne"
 
 msgid "(hide)"
-msgstr ""
+msgstr "(Afficher)"
 
 msgid "(or <a href=\"{{url}}\">sign in</a>)"
-msgstr ""
+msgstr "1. Sélectionner les autorités"
 
 msgid "(show)"
-msgstr ""
+msgstr "(Afficher)"
 
 msgid "*unknown*"
 msgstr "*unknown*"
@@ -160,7 +165,7 @@ msgid "1. Select an authority"
 msgstr "1. Choisissez une administration"
 
 msgid "1. Select authorities"
-msgstr ""
+msgstr "1. Sélectionner les autorités"
 
 msgid "2. Ask for Information"
 msgstr "2. Demandez une information publique"
@@ -310,7 +315,7 @@ msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>n'avait pas </strong> les informations demandées."
 
 msgid "?"
-msgstr ""
+msgstr "?"
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Un <a href=\"{{request_url}}\">suivi</a> à <em>{{request_title}}</em> a été envoyé à {{public_body_name}} par {{info_request_user}} le {{date}}."
@@ -367,7 +372,7 @@ msgid "Add an annotation to your request with choice quotes, or\\n              
 msgstr "Ajouter une annotation à votre demande avec des citations de choix, ou \\n  un <strong> résumé de réponse</strong>."
 
 msgid "Add authority - {{public_body_name}}"
-msgstr ""
+msgstr "Ajouter l'autorité - {{public_body_name}}"
 
 msgid "Add the authority:"
 msgstr ""
@@ -457,13 +462,13 @@ msgid "Ask for <strong>specific</strong> documents or information, this site is 
 msgstr "Demandez des documents ou des <strong>informations spécifiques</strong>, ce site ne convient pas pour des renseignements d'ordre général."
 
 msgid "Ask us to add an authority"
-msgstr ""
+msgstr "Demander l'ajout d'un autorité"
 
 msgid "Ask us to update FOI email"
-msgstr ""
+msgstr "Demande de mettre ajour FOI email"
 
 msgid "Ask us to update the email address for {{public_body_name}}"
-msgstr ""
+msgstr "Demande de mise a jour d'adresses email {{public_body_name}}"
 
 msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr "Au bas de cette page, écrire une réponse à leur essayant de les persuader de le numériser (<a href=\"{{url}}\">plus de détails</a>)."
@@ -475,10 +480,10 @@ msgid "Attachment:"
 msgstr "Pièce jointe"
 
 msgid "Authority email:"
-msgstr ""
+msgstr "adresse email de l'autorité"
 
 msgid "Authority:"
-msgstr ""
+msgstr "Autorité"
 
 msgid "Awaiting classification."
 msgstr "En attente de classement."
@@ -490,7 +495,7 @@ msgid "Awaiting response."
 msgstr "Réponse en attente"
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Groupe creé par {{info_request_user}} le {{date}}"
 
 msgid "Beginning with"
 msgstr "Commence par"
@@ -573,9 +578,6 @@ msgstr "Modifier votre mot de passe"
 msgid "Change your password on {{site_name}}"
 msgstr "Modifier votre mot de passe pour le site {{site_name}}"
 
-msgid "Charity registration"
-msgstr "Organisme de bienfaisance"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Vérifier les erreurs si vous avez tapé ou copié l'adresse."
 
@@ -583,7 +585,7 @@ msgid "Check you haven't included any <strong>personal information</strong>."
 msgstr "Vérifier que vous n'avez pas inclus d'informations personnelles"
 
 msgid "Choose a reason"
-msgstr ""
+msgstr "Choisi la raison"
 
 msgid "Choose your profile photo"
 msgstr "Choisissez votre photo de profil"
@@ -849,6 +851,9 @@ msgstr "Demandes DAI {{start_count}} à {{end_count}} sur {{total_count}}"
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "Réponse necessitant  l'administration ({{reason}}) - {{title}}"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Nous n'avons pas pu convertir l'image au format PNG."
 
@@ -858,10 +863,13 @@ msgstr "Nous n'avons pas pu changer les dimensions de l'image: at {{cols}}x{{row
 msgid "Filter"
 msgstr "Filtrer"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr "Tout d'abord, est-ce que vos autres demandes ont pu aboutir ?"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
 msgstr "Commencer par écrire le  <strong>nom de l'organisme Tunisien</strong>  à \\n   solliciter. <strong>Légalement , Ils sont obligés de répondre </strong>\\n   (<a href=\"{{url}}\">pourquoi?</a>)."
 
 msgid "Foi attachment"
@@ -1952,7 +1960,16 @@ msgstr "Organismes publics ayant le plus de requêtes réussies"
 msgid "Public body"
 msgstr "Organisme public"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -1963,6 +1980,18 @@ msgstr "Paque publique "
 
 msgid "Public page not available"
 msgstr "Page publique indisponible"
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
+msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
 msgstr ""
@@ -1983,6 +2012,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2236,9 +2271,6 @@ msgstr "Chercher vos contributions"
 msgid "See bounce message"
 msgstr "Voir le message de rebond"
 
-msgid "Select one to see more information about the authority."
-msgstr "Sélectionnez pour obtenir plus d'informations sur l'autorité."
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2391,6 +2423,9 @@ msgstr "Soumettre statut et envoyer un message"
 msgid "Subscribe to blog"
 msgstr "S'abonner au blog"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Demande d'accès à l'information réussie"
 
@@ -2498,6 +2533,24 @@ msgstr "Le message que vous , au nom de {{public_body}}, avez envoyé à \\n{{us
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Les barres d'erreurs affichées sont précises à 95% pour les proportions sous-jacentes supposées (i.e. celles que vous obtiendriez en effectuant un nombre infini de requêtes via ce site aux autorités). En d'autres mots, la population échantillonnée concerne toute les requêtes futures et actuelles aux autorités via ce site plutôt que, par exemple, toutes les requêtes effectuées aux organismes publics par tous les moyens."
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
+msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "La page n'existe pas . Vous pouvez essayer de :"
@@ -3044,6 +3097,9 @@ msgstr "User|Email confirmed"
 
 msgid "User|Hashed password"
 msgstr "User|Hashed password"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "User|Last daily track email"
@@ -3606,6 +3662,9 @@ msgstr "display_status n'est valide que pour les messages entrant et sortant pou
 msgid "during term time"
 msgstr "pendant l'année scolaire"
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "modifier  votre description personnelle"
 
@@ -3742,6 +3801,9 @@ msgstr "Pour envoyer un message de  suivi ."
 
 msgid "to {{public_body}}"
 msgstr "à {{public_body}}"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "raison inconnue"

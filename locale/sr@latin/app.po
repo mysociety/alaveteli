@@ -6,6 +6,7 @@
 # Goran Rakic <grakic@devbase.net>, 2013
 # Goran Vučković <vucko@acm.org>, 2013
 # Srdjan Krstic <krledmno1@gmail.com>, 2013
+# louisecrow <louise@mysociety.org>, 2014
 # Srdjan Krstic <krledmno1@gmail.com>, 2013
 # Valon <vbrestovci@gmail.com>, 2011-2012
 # Valon <vbrestovci@gmail.com>, 2012
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-08-26 14:47+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/alaveteli/language/sr@latin/)\n"
 "Language: sr@latin\n"
 "MIME-Version: 1.0\n"
@@ -100,6 +101,9 @@ msgstr "Već ste se prijavili da primate novosti u vezi zahteva."
 
 msgid " You will also be emailed updates about the request."
 msgstr "Novosti u vezi zahteva će Vam takođe biti poslate i putem e-pošte."
+
+msgid " filtered by status: '{{status}}'"
+msgstr ""
 
 msgid " when you send this message."
 msgstr " kada pošaljete ovu poruku."
@@ -560,9 +564,6 @@ msgstr "Promenite Vašu lozinku"
 msgid "Change your password on {{site_name}}"
 msgstr "Promenite Vašu lozinku na {{site_name}}"
 
-msgid "Charity registration"
-msgstr "Registracija fondacije"
-
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Proverite ima li grešaka ako ste ukucali ili kopirali adresu."
 
@@ -842,6 +843,9 @@ msgstr "ZOSPIOJ zahtevi {{start_count}} do {{end_count}} od ukupno {{total_count
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "Odgovor na Zahtev za slobodan pristup informacijama od javnog značaja zahteva administratorsku dozvolu  -  ({{reason}}) - {{title}}"
 
+msgid "Failed"
+msgstr ""
+
 msgid "Failed to convert image to a PNG"
 msgstr "Neuspela konverzija slike u PNG format"
 
@@ -851,10 +855,13 @@ msgstr "Nismo uspeli da konvertujemo sliku u odgovarajuću veličinu:  {{cols}}x
 msgid "Filter"
 msgstr "Filtriraj"
 
+msgid "Filter by Request Status (optional)"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr "Prvo: da li su Vaši ostali zahtevi uspeli?"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
 msgstr "Prvo unesite <strong>ime ustanove</strong> od koje\\n tražite informacije. <strong>Po zakonu oni su obavezni da odgovore</strong>\\n (<a href=\"{{url}}\">Zašto?</a>)."
 
 msgid "Foi attachment"
@@ -1484,7 +1491,7 @@ msgid "New e-mail:"
 msgstr "Novi e-mail:"
 
 msgid "New email doesn't look like a valid address"
-msgstr "Novi e-mail ne izgleda kao ispravna adresa"
+msgstr "Novi e-mail ne izgleda kao validna adresa"
 
 msgid "New password:"
 msgstr "Nova lozinka:"
@@ -1580,7 +1587,7 @@ msgid "Old email address isn't the same as the address of the account you are lo
 msgstr "Stara e-mail adresa nije ista kao adresa profila na koji ste prijavljeni"
 
 msgid "Old email doesn't look like a valid address"
-msgstr "Stari e-mail ne izgleda kao ispravna adresa"
+msgstr "Stari e-mail ne izgleda kao validna adresa"
 
 msgid "On this page"
 msgstr "Na ovoj stranici"
@@ -1962,7 +1969,16 @@ msgstr "Javne ustanove sa najviše uspešnih zahteva"
 msgid "Public body"
 msgstr "Javna ustanova"
 
+msgid "Public body category"
+msgstr ""
+
+msgid "Public body category link"
+msgstr ""
+
 msgid "Public body change request"
+msgstr ""
+
+msgid "Public body heading"
 msgstr ""
 
 msgid "Public notes"
@@ -1973,6 +1989,18 @@ msgstr "Javna strana"
 
 msgid "Public page not available"
 msgstr "Javna strana nije raspoloživa"
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr ""
+
+msgid "PublicBodyCategory|Category tag"
+msgstr ""
+
+msgid "PublicBodyCategory|Description"
+msgstr ""
+
+msgid "PublicBodyCategory|Title"
+msgstr ""
 
 msgid "PublicBodyChangeRequest|Is open"
 msgstr ""
@@ -1993,6 +2021,12 @@ msgid "PublicBodyChangeRequest|User email"
 msgstr ""
 
 msgid "PublicBodyChangeRequest|User name"
+msgstr ""
+
+msgid "PublicBodyHeading|Display order"
+msgstr ""
+
+msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2249,9 +2283,6 @@ msgstr "Tražite Vaše doprinose"
 msgid "See bounce message"
 msgstr "Postavite poruku u slučaju odbijanja"
 
-msgid "Select one to see more information about the authority."
-msgstr "Odaberite jedan da biste videli više informacija o ustanovi."
-
 msgid "Select the authorities to write to"
 msgstr ""
 
@@ -2411,6 +2442,9 @@ msgstr "Upiši status i pošalji poruku"
 msgid "Subscribe to blog"
 msgstr "Pretplatiti se na blog"
 
+msgid "Success"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Uspešni Zahtevi za slobodan pristup informacijama od javnog značaja"
 
@@ -2529,6 +2563,24 @@ msgstr "Poruka koju ste, u ime ustanove '{{public_body}}', poslali podnosiocu\\n
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
 msgstr "Prikazani histogrami grešaka su na bazi intervala poverenja od 95% c za pretpostavljenu proporciju (tj. onu koja bi se dobila za beskonačan broj poruka poslat toj ustanovi). Drugim rečima, uzorak koji se uzima su svi sadašnji i budući zahtevi ustanovi kroz ovaj sajt, a ne svi zahtevi koji su bili podneti bilo kojim metodom.."
+
+msgid "The last incoming message was created in the last day"
+msgstr ""
+
+msgid "The last incoming message was created over a day ago"
+msgstr ""
+
+msgid "The last outgoing message was created in the last day"
+msgstr ""
+
+msgid "The last outgoing message was created over a day ago"
+msgstr ""
+
+msgid "The last user was created in the last day"
+msgstr ""
+
+msgid "The last user was created over a day ago"
+msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Stranica ne postoji. Stvari koje sada možete probati:"
@@ -3102,6 +3154,9 @@ msgstr "User|E-mail potvrđen"
 
 msgid "User|Hashed password"
 msgstr "User|Hash lozinke"
+
+msgid "User|Identity card number"
+msgstr ""
 
 msgid "User|Last daily track email"
 msgstr "User|Poslednji email dnevnog praćenja"
@@ -3692,6 +3747,9 @@ msgstr "display_status trenutno radi samo za odlazne i dolazne poruke"
 msgid "during term time"
 msgstr "u toku polugodišta"
 
+msgid "e.g. Ministry of Defence"
+msgstr ""
+
 msgid "edit text about you"
 msgstr "promenite tekst o Vama"
 
@@ -3828,6 +3886,9 @@ msgstr "poslati reakciju."
 
 msgid "to {{public_body}}"
 msgstr "za {{public_body}}"
+
+msgid "type your search term here"
+msgstr ""
 
 msgid "unknown reason "
 msgstr "nepoznat razlog "

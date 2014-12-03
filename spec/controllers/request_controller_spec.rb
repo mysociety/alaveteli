@@ -1827,7 +1827,15 @@ describe RequestController, "when sending a followup message" do
 
         # make the followup
         session[:user_id] = users(:bob_smith_user).id
-        post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+
+        post :show_response,
+             :outgoing_message => {
+                 :body => "What a useless response! You suck.",
+                 :what_doing => 'normal_sort'
+             },
+             :id => info_requests(:fancy_dog_request).id,
+             :incoming_message_id => incoming_messages(:useless_incoming_message),
+             :submitted_followup => 1
 
         # check it worked
         deliveries = ActionMailer::Base.deliveries
@@ -1982,7 +1990,15 @@ describe RequestController, "sending overdue request alerts" do
                                                :info_request_id => chicken_request.id,
                                                :body => 'Some text',
                                                :what_doing => 'normal_sort')
-        outgoing_message.send_message
+
+        outgoing_message.sendable?
+        mail_message = OutgoingMailer.followup(
+            outgoing_message.info_request,
+            outgoing_message,
+            outgoing_message.incoming_message_followup
+        ).deliver
+        outgoing_message.record_email_delivery(mail_message.to_addrs.join(', '), mail_message.message_id)
+
         outgoing_message.save!
 
         chicken_request = InfoRequest.find(chicken_request.id)

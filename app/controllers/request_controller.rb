@@ -365,8 +365,21 @@ class RequestController < ApplicationController
         end
         # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
         @info_request.save!
-        # TODO: send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
-        @outgoing_message.send_message
+
+        # TODO: Sending the message needs the database id, so we send after
+        # saving, which isn't ideal if the request broke here.
+        if @outgoing_message.sendable?
+            mail_message = OutgoingMailer.initial_request(
+                @outgoing_message.info_request,
+                @outgoing_message
+            ).deliver
+
+            @outgoing_message.record_email_delivery(
+                mail_message.to_addrs.join(', '),
+                mail_message.message_id
+            )
+        end
+
         flash[:notice] = _("<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>
             <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't
             replied by then.</p>
@@ -668,13 +681,27 @@ class RequestController < ApplicationController
                 end
 
                 # Send a follow up message
-                @outgoing_message.send_message
+                @outgoing_message.sendable?
+
+                mail_message = OutgoingMailer.followup(
+                    @outgoing_message.info_request,
+                    @outgoing_message,
+                    @outgoing_message.incoming_message_followup
+                ).deliver
+
+                @outgoing_message.record_email_delivery(
+                    mail_message.to_addrs.join(', '),
+                    mail_message.message_id
+                )
+
                 @outgoing_message.save!
+
                 if @outgoing_message.what_doing == 'internal_review'
                     flash[:notice] = _("Your internal review request has been sent on its way.")
                 else
                     flash[:notice] = _("Your follow up message has been sent on its way.")
                 end
+
                 redirect_to request_url(@info_request)
             end
         else
