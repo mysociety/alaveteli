@@ -1,19 +1,33 @@
 <% unless @batch %>
   <script type="text/javascript">
       $(document).ready(function(){
-          // Avoid triggering too often (on each keystroke) by using the debounce jQuery plugin:
+          // Avoid triggering too often (on each keystroke) by using the
+          // debounce jQuery plugin:
           // http://benalman.com/projects/jquery-throttle-debounce-plugin/
           $("#typeahead_search").keypress($.debounce( 300, function() {
-              $("#typeahead_response").load("<%=search_ahead_url%>?q="+encodeURI(this.value), function() {
-                  // When following links in typeahead results, open new tab/window
-                  $("#typeahead_response a").attr("target","_blank");
+              if ( $('#request_search_ahead_results').text().trim().length > 0) {
+                  $('#typeahead_response').slideUp('fast');
+              }
 
-                  // Update the public body site search link
-                  $("#body-site-search-link").attr("href", "http://www.google.com/#q="+encodeURI($("#typeahead_search").val())+
-                                                  "+site:<%= @info_request.public_body.calculated_home_page %>");
+              $("#typeahead_response").load("<%= search_ahead_url %>?q="+encodeURI(this.value)+
+                                            "&requested_from=<%= @info_request.public_body.url_name %>"+
+                                            "&per_page=3", function() {
+
+                  if ( $('#request_search_ahead_results').text().trim().length > 0) {
+                      $('#typeahead_response').hide().slideDown('fast');
+
+                      // When following links in typeahead results, open new
+                      // tab/window
+                      $("#typeahead_response a").attr("target","_blank");
+                      
+                      // Update the public body site search link
+                      $("#body-site-search-link").attr("href", "http://www.google.com/#q="+encodeURI($("#typeahead_search").val())+
+                                                      "+site:<%= @info_request.public_body.calculated_home_page %>");
+                      
+                      $('.close-button').click(function() { $(this).parent().hide() });
+                  }
               });
           }));
-
       });
   </script>
 <% end %>

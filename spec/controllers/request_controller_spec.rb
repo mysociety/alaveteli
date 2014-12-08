@@ -2380,6 +2380,23 @@ describe RequestController, "when doing type ahead searches" do
         get :search_typeahead, :q => "dog -chicken"
         assigns[:xapian_requests].results.size.should == 1
     end
+
+    it 'can filter search results by public body' do
+        get :search_typeahead, :q => 'boring', :requested_from => 'dfh'
+        expect(assigns[:query]).to eq('requested_from:dfh boring')
+    end
+
+    it 'defaults to 25 results per page' do
+        get :search_typeahead, :q => 'boring'
+        expect(assigns[:per_page]).to eq(25)
+    end
+
+    it 'can limit the number of searches returned' do
+        get :search_typeahead, :q => 'boring', :per_page => '1'
+        expect(assigns[:per_page]).to eq(1)
+        expect(assigns[:xapian_requests].results.size).to eq(1)
+    end
+
 end
 
 describe RequestController, "when showing similar requests" do
