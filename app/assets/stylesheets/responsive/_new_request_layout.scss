@@ -3,6 +3,7 @@
 /* /select_authority page */
 #authority_selection {
   @include grid-column($columns: 12, $collapse: true);
+  @include grid-column(8);
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     @include ie8{
       padding-right: 0.9375em;
@@ -22,7 +23,7 @@
   #authority_search_ahead_results,
   .cant_find_results {
     @include respond-min( $main_menu-mobile_menu_cutoff ){
-      @include grid-column(6);
+      @include grid-column(12);
     }
   }
 }
@@ -34,7 +35,7 @@
 #select_authority_help {
   @include grid-column(12);
   @include respond-min( $main_menu-mobile_menu_cutoff ) {
-    @include grid-column(6);
+    @include grid-column(4);
     @include ie8 {
       padding-right: 0.9375em;
     }
