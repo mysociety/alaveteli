@@ -59,7 +59,6 @@ describe "When errors occur" do
            response.should render_template('general/exception_caught')
            response.code.should == '404'
            response.body.should match("Sorry, we couldn't find that page")
-           response.body.should match(%Q(invalid value for Integer))
         end
 
         # it 'should handle non utf-8 parameters' do
@@ -76,7 +75,6 @@ describe "When errors occur" do
             InfoRequest.stub!(:find_by_url_title!).and_raise("An example error")
             get("/request/example")
             response.should render_template('general/exception_caught')
-            response.body.should match('An example error')
             response.code.should == "500"
         end
 
@@ -111,7 +109,6 @@ describe "When errors occur" do
             get("/es/request/example")
             response.should render_template('general/exception_caught')
             response.body.should match('Lo sentimos, hubo un problema procesando esta página')
-            response.body.should match('An example error')
         end
 
         it "should render a 403 with text body for attempts at directory listing for attachments" do

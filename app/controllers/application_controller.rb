@@ -17,6 +17,9 @@ class ApplicationController < ActionController::Base
     # assign our own handler method for non-local exceptions
     rescue_from Exception, :with => :render_exception
 
+    # Add some security-related headers (see config/initializers/secure_headers.rb)
+    ensure_security_headers
+
     # Standard headers, footers and navigation for whole site
     layout "default"
     include FastGettext::Translation # make functions like _, n_, N_ etc available)

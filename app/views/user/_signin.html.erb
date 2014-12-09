@@ -14,7 +14,7 @@
 
     <p>
     <label class="form_label" for="user_signin_password"><%= _('Password:')%></label>
-    <%= password_field 'user_signin', 'password', { :size => 15, :tabindex => 20 } %>
+    <%= password_field 'user_signin', 'password', { :size => 15, :tabindex => 20, :autocomplete => 'off' } %>
     </p>
 
     <p class="form_note">
