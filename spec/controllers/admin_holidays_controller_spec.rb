@@ -30,6 +30,21 @@ describe AdminHolidaysController do
 
     end
 
+    describe :new do
+
+        before do
+            get :new
+        end
+
+        it 'renders the new template' do
+            expect(response).to render_template('new')
+        end
+
+        it 'creates a new holiday' do
+            assigns[:holiday].should_not be_nil
+        end
+
+    end
     describe :edit do
 
         before do
