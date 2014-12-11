@@ -7,7 +7,7 @@ class AdminHolidaysController < AdminController
     def new
         @holiday = Holiday.new
         if request.xhr?
-            render :partial => 'new_form'
+            render :partial => 'new_form', :locals => { :holiday => @holiday }
         else
             render :action => 'new'
         end
@@ -49,11 +49,34 @@ class AdminHolidaysController < AdminController
         redirect_to admin_holidays_path, :notice => notice
     end
 
+    def prepare_import
+        @holiday_import = HolidayImport.new(holiday_import_params)
+        @holiday_import.populate if @holiday_import.valid?
+    end
+
+    def import
+        @holiday_import = HolidayImport.new(holiday_import_params)
+        if @holiday_import.save
+            notice = "Holidays successfully imported"
+            redirect_to admin_holidays_path, :notice => notice
+        else
+            render :prepare_import
+        end
+    end
+
     private
 
     def get_all_holidays
         @holidays_by_year = Holiday.all.group_by { |holiday| holiday.day.year }
         @years = @holidays_by_year.keys.sort.reverse
+    end
+
+    def holiday_import_params(key = :holiday_import)
+        if params[key]
+            params[key].slice(:holidays_attributes, :start_year, :end_year, :source, :ical_feed_url)
+        else
+            {}
+        end
     end
 
     def holiday_params(key = :holiday)

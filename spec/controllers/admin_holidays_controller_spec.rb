@@ -189,4 +189,12 @@ describe AdminHolidaysController do
          end
     end
 
+    describe :prepare_import do
+
+        it 'renders the prepare_import template' do
+            get :prepare_import
+            expect(response).to render_template('prepare_import')
+        end
+    end
+
  end

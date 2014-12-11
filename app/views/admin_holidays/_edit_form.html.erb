@@ -1,6 +1,6 @@
 <td>
   <%= form_for(@holiday, :url => admin_holiday_path(@holiday), :html => { :class => 'form-inline edit-holiday-form'}) do |f| -%>
-    <%= render :partial => 'form', :locals => { :f => f, :holiday => @holiday } %>
+    <%= render :partial => 'form', :locals => { :f => f, :holiday => @holiday, :context => :edit } %>
   <% end %>
 
   <div class="holiday-destroy ">
