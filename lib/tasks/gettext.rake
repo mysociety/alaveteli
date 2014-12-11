@@ -11,11 +11,7 @@ namespace :gettext do
 
   desc "Update pot/po files for a theme."
   task :find_theme => :environment do
-    theme = ENV['THEME']
-    unless theme
-        puts "Usage: Specify an Alaveteli-theme with THEME=[theme directory name]"
-        exit(0)
-    end
+    theme = find_theme(ENV['THEME'])
     load_gettext
     msgmerge = Rails.application.config.gettext_i18n_rails.msgmerge
     msgmerge ||= %w[--sort-output --no-location --no-wrap]
@@ -30,18 +26,21 @@ namespace :gettext do
 
     desc 'Rewrite theme .po files into a consistent msgmerge format'
     task :clean_theme do
-        theme = ENV['THEME']
-        unless theme
-            puts "Usage: Specify an Alaveteli-theme with THEME=[theme directory name]"
-            exit(0)
-        end
-
+        theme = find_theme(ENV['THEME'])
         load_gettext
 
         Dir.glob("#{ theme_locale_path(theme) }/*/app.po") do |po_file|
             GetText::msgmerge(po_file, po_file, 'alaveteli',
                               :msgmerge => [:sort_output, :no_location, :no_wrap])
         end
+   end
+
+   def find_theme(theme)
+       unless theme
+           puts "Usage: Specify an Alaveteli-theme with THEME=[theme directory name]"
+           exit(0)
+       end
+       theme
    end
 
    def theme_files_to_translate(theme)
