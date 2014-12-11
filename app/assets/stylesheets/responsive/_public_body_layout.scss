@@ -8,3 +8,52 @@
     @include grid-column(12);
     margin-top: 0.5em;
 }
+
+.authority__header {
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+    @include grid-column(12);
+}
+
+.authority__body {
+    .request_left,
+    .request_right {
+        float: none;
+        width: auto;
+    }
+    .desc {
+        padding-left: 0;
+    }
+    .request_listing .bottomline {
+        padding-bottom: 0.5em;
+    }
+}
+
+.authority__body__foi-results {
+    @include grid-column(12);
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+        @include grid-column(8);
+    }
+}
+
+.authority__body__sidebar {
+    @include grid-column(12);
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+        @include grid-column(4);
+    }
+}
+
+.authority__header__action-bar {
+    font-size: 0;
+    padding: 8px 0;
+}
+
+.action-bar__make-request,
+.action-bar__follow,
+.action-bar__follow-button,
+.action-bar__follower-count {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 16px;
+    margin-right: 1em;
+}
