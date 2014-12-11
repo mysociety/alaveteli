@@ -80,6 +80,10 @@ body.admin {
    }
   }
 
+  .fieldWithErrors input{
+    border: 1px solid #ff0c11;
+  }
+
   body.admin blockquote p {
    font-size: 13px;
    display: inline;
