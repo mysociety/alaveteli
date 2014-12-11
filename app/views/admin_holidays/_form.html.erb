@@ -1,0 +1,22 @@
+<%= error_messages_for 'holiday' %>
+
+<div class="holiday-description">
+  <% if holiday.new_record? %>
+    <%= f.text_field :description, :class => 'input', :placeholder => 'Enter description here' %>
+  <% else %>
+    <%= f.text_field :description, :class => 'input' %>
+  <% end %>
+</div>
+
+<div class="holiday-day">
+  <%= f.date_select :day, { :use_month_numbers => true }, { :class => "day_select" } %>
+</div>
+<div class="holiday-buttons">
+  <% if context == :import %>
+    <%= f.submit "Remove", :class => 'btn remove-holiday' %>
+  <% else %>
+    <%= link_to("Cancel", admin_holidays_path, :class => 'btn') %>
+    <%= f.submit "Save", :class => 'btn btn-warning' %>
+<% end %>
+</div>
+

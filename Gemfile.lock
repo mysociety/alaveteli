@@ -125,7 +125,10 @@ GEM
       tilt
     highline (1.6.19)
     hike (1.2.3)
+    holidays (1.0.8)
     i18n (0.6.11)
+    icalendar (1.4.3)
+    iso_country_codes (0.6.1)
     journey (1.0.4)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
@@ -310,6 +313,9 @@ DEPENDENCIES
   gettext
   gettext_i18n_rails
   globalize3!
+  holidays
+  icalendar (= 1.4.3)
+  iso_country_codes
   jquery-rails (~> 3.0.4)
   jquery-ui-rails
   json

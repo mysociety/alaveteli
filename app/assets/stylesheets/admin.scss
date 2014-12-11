@@ -80,6 +80,10 @@ body.admin {
    }
   }
 
+  .fieldWithErrors input{
+    border: 1px solid #ff0c11;
+  }
+
   body.admin blockquote p {
    font-size: 13px;
    display: inline;
@@ -117,6 +121,39 @@ body.admin {
 
   .category-list-item {
     padding: 3px 0;
+  }
+
+  /* Holidays */
+  .day_select {
+    width: 75px;
+  }
+
+  .day_select{
+    width: 75px;
+  }
+
+  .holiday-description, .holiday-day, .holiday-buttons, .holiday-destroy {
+    padding: 6px 4px;
+  }
+
+  .holiday-description, .holiday-day, .holiday-buttons{
+    display: inline-block;
+  }
+
+  .holiday-description {
+    width: 300px;
+  }
+  .holiday-day {
+    width: 240px;
+    text-align: center;
+  }
+  .holiday-buttons{
+    width: 200px;
+    text-align: right;
+  }
+
+  #import_start_year, #import_end_year {
+    width: 75px;
   }
 
 }
