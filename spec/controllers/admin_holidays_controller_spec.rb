@@ -45,6 +45,45 @@ describe AdminHolidaysController do
         end
 
     end
+
+    describe :create do
+
+        before do
+            @holiday_params = { :description => "New Year's Day",
+                                'day(1i)' => '2010',
+                                'day(2i)' => '1',
+                                'day(3i)' => '1' }
+            post :create, :holiday => @holiday_params
+        end
+
+        it 'creates a new holiday' do
+            assigns(:holiday).description.should == @holiday_params[:description]
+            assigns(:holiday).day.should == Date.new(2010, 1, 1)
+            assigns(:holiday).should be_persisted
+        end
+
+        it 'shows the admin a success message' do
+            flash[:notice].should == 'Holiday successfully created.'
+        end
+
+        it 'redirects to the index' do
+            response.should redirect_to admin_holidays_path
+        end
+
+        context 'when there are errors' do
+
+            before do
+                Holiday.any_instance.stub(:save).and_return(false)
+                post :create, :holiday => @holiday_params
+            end
+
+            it 'renders the new template' do
+                expect(response).to render_template('new')
+            end
+        end
+
+    end
+
     describe :edit do
 
         before do

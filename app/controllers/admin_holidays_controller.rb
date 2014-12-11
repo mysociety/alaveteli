@@ -8,6 +8,15 @@ class AdminHolidaysController < AdminController
         @holiday = Holiday.new
     end
 
+    def create
+        @holiday = Holiday.new(holiday_params)
+        if @holiday.save
+            notice = "Holiday successfully created."
+            redirect_to admin_holidays_path, :notice => notice
+        else
+            render :new
+        end
+    end
 
     def edit
         @holiday = Holiday.find(params[:id])
