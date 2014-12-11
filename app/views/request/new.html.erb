@@ -36,92 +36,94 @@
 <% else %>
   <% @title = _("Make an {{law_used_short}} request to '{{public_body_name}}'",:law_used_short=>h(@info_request.law_used_short),:public_body_name=>h(@info_request.public_body.name))  %>
 <% end %>
-    <h1><%= _('Make a request') %></h1>
+  <div id="request_header">
+    <div id="request_header_body">
+      <h1><%= _('Make a request') %></h1>
 
-    <% if @existing_request %>
+      <% if @existing_request %>
+        <div class="errorExplanation" id="errorExplanation"><ul>
+        <li>
+         <%= _('{{existing_request_user}} already
+        created the same request on {{date}}. You can either view the <a href="{{existing_request}}">existing request</a>,
+        or edit the details below to make a new but similar request.',:existing_request_user=>user_or_you_capital_link(@existing_request.user), :date=>simple_date(@existing_request.created_at), :existing_request=>request_path(@existing_request)) %>
+        </li>
+        </ul></div>
+      <% end %>
+      <% if @existing_batch %>
       <div class="errorExplanation" id="errorExplanation"><ul>
       <li>
-       <%= _('{{existing_request_user}} already
-      created the same request on {{date}}. You can either view the <a href="{{existing_request}}">existing request</a>,
-      or edit the details below to make a new but similar request.',:existing_request_user=>user_or_you_capital_link(@existing_request.user), :date=>simple_date(@existing_request.created_at), :existing_request=>request_path(@existing_request)) %>
+       <%= _('You already created the same batch of requests on {{date}}.   You can either view the <a href="{{existing_batch}}">existing batch</a>, or edit the details below to make a new but similar batch of requests.', :date=>simple_date(@existing_batch.created_at), :existing_batch=>info_request_batch_path(@existing_batch)) %>
       </li>
       </ul></div>
-    <% end %>
-    <% if @existing_batch %>
-    <div class="errorExplanation" id="errorExplanation"><ul>
-    <li>
-     <%= _('You already created the same batch of requests on {{date}}.   You can either view the <a href="{{existing_batch}}">existing batch</a>, or edit the details below to make a new but similar batch of requests.', :date=>simple_date(@existing_batch.created_at), :existing_batch=>info_request_batch_path(@existing_batch)) %>
-    </li>
-    </ul></div>
-    <% end %>
+      <% end %>
 
-    <%= foi_error_messages_for :info_request, :outgoing_message %>
+      <%= foi_error_messages_for :info_request, :outgoing_message %>
 
-    <%= form_for(@info_request, :url => (@batch ? new_batch_path : new_request_path), :html => { :id => 'write_form' }  ) do |f| %>
-
-    <div id="request_header">
-        <div id="request_header_body">
-            <% if @batch %>
-                <label class="form_label"><%= _('To:') %></label>
-                <span id="to_public_body">
-                  <%= _("Your selected authorities") %>
-                  <span class="batch_public_body_toggle" data-hidetext="<%= _("(hide)") %>" data-showtext="<%= _("(show)") %>"><a class="toggle-message"></a></span>
-                </span>
-
-                <div class="batch_public_body_list">
-                  <ul>
-                  <% @public_bodies.each do |public_body| %>
-                    <li><%= public_body.name %></li>
-                  <% end %>
-                  </ul>
-                </div>
-
-            <% else %>
-              <p id="to_public_body"><span class="to_public_body_label">To:</span>
-                <%=h(@info_request.public_body.name)%>
-              </p>
-            <% end %>
-
-            <% unless @batch %>
-              <% if @info_request.public_body.has_notes? %>
-                <div id="request_header_text">
-                  <p><%= @info_request.public_body.notes_as_html.html_safe %></p>
-                </div>
-              <% end %>
-
-              <% if @info_request.public_body.override_request_email %>
-                <div class="warning">
-                  <%= _("<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority.", :email => @info_request.public_body.override_request_email) %>
-                </div>
-              <% end %>
-
-              <% if @info_request.public_body.eir_only? %>
-                <h3><%= _('Please ask for environmental information only') %></h3>
-
-                <p><%= _('The Freedom of Information Act <strong>does not apply</strong> to') %> <%=h(@info_request.public_body.name)%>.
-                <%= _('However, you have the right to request environmental
-            information under a different law') %> (<a href="/help/requesting#eir">explanation</a>).
-                <%= _('This covers a very wide spectrum of information about the state of
-            the <strong>natural and built environment</strong>, such as:') %>
-
-                <ul>
-                <li><%= _('Air, water, soil, land, flora and fauna (including how these effect
-            human beings)') %></li>
-                <li><%= _('Information on emissions and discharges (e.g. noise, energy,
-            radiation, waste materials)') %></li>
-                <li><%= _('Human health and safety') %></li>
-                <li><%= _('Cultural sites and built structures (as they may be affected by the
-            environmental factors listed above)') %></li>
-                <li><%= _('Plans and administrative measures that affect these matters') %></li>
-                </ul>
-
-                <p><%= _('Please only request information that comes under those categories, <strong>do not waste your
-            time</strong> or the time of the public authority by requesting unrelated information.') %></p>
-            <% end %>
-          <% end %>
-        </div>
+      <%= form_for(@info_request, :url => (@batch ? new_batch_path : new_request_path), :html => { :id => 'write_form' }  ) do |f| %>
+      </div>
     </div>
     <div class="request_body">
+        <div id="request_body_header">
+          <% if @info_request.public_body.override_request_email %>
+            <div class="warning">
+              <%= _("<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority.", :email => @info_request.public_body.override_request_email) %>
+            </div>
+          <% end %>
+
+          <% if @batch %>
+              <label class="form_label"><%= _('To:') %></label>
+              <span id="to_public_body">
+                <%= _("Your selected authorities") %>
+                <span class="batch_public_body_toggle" data-hidetext="<%= _("(hide)") %>" data-showtext="<%= _("(show)") %>"><a class="toggle-message"></a></span>
+              </span>
+
+              <div class="batch_public_body_list">
+                <ul>
+                <% @public_bodies.each do |public_body| %>
+                  <li><%= public_body.name %></li>
+                <% end %>
+                </ul>
+              </div>
+
+          <% else %>
+            <p id="to_public_body"><span class="to_public_body_label">To:</span>
+              <%=h(@info_request.public_body.name)%>
+            </p>
+          <% end %>
+
+          <% unless @batch %>
+            <% if @info_request.public_body.has_notes? %>
+              <div id="request_header_text">
+                <p><%= @info_request.public_body.notes_as_html.html_safe %></p>
+              </div>
+            <% end %>
+
+            <% if @info_request.public_body.eir_only? %>
+              <h3><%= _('Please ask for environmental information only') %></h3>
+
+              <p><%= _('The Freedom of Information Act <strong>does not apply</strong> to') %> <%=h(@info_request.public_body.name)%>.
+              <%= _('However, you have the right to request environmental
+          information under a different law') %> (<a href="/help/requesting#eir">explanation</a>).
+              <%= _('This covers a very wide spectrum of information about the state of
+          the <strong>natural and built environment</strong>, such as:') %>
+
+              <ul>
+              <li><%= _('Air, water, soil, land, flora and fauna (including how these effect
+          human beings)') %></li>
+              <li><%= _('Information on emissions and discharges (e.g. noise, energy,
+          radiation, waste materials)') %></li>
+              <li><%= _('Human health and safety') %></li>
+              <li><%= _('Cultural sites and built structures (as they may be affected by the
+          environmental factors listed above)') %></li>
+              <li><%= _('Plans and administrative measures that affect these matters') %></li>
+              </ul>
+
+              <p><%= _('Please only request information that comes under those categories, <strong>do not waste your
+          time</strong> or the time of the public authority by requesting unrelated information.') %></p>
+          <% end %>
+        <% end %>
+      </div>
+
       <div id="request_advice">
         <p>
           <% if @info_request.public_body.info_requests.size > 0 %>

@@ -107,6 +107,10 @@
   @include grid-row($behavior: nest);
 }
 
+#request_body_header {
+  @include grid-column(12);
+}
+
 /* Advice sits on right hand side */
 #request_advice, .preview-advice {
   @include grid-column(12);
