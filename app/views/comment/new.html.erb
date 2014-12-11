@@ -1,4 +1,5 @@
-<% @title = "Make an annotation on '" + h(@info_request.title) + "'" %>
+<% @title = _("Add an annotation to &ldquo;{{request_title}}&rdquo;",
+              :request_title => h(@info_request.title)) %>
 
 <% if @existing_comment %>
     <div class="errorExplanation" id="errorExplanation"><ul>
@@ -12,8 +13,8 @@
 <%= foi_error_messages_for :comment %>
 
 <h1>
-  <%= _("Add an annotation to &ldquo;{{request_link}}&rdquo;",
-        :request_link => request_link(@info_request)) %>
+  <%= _("Add an annotation to &ldquo;{{request_title}}&rdquo;",
+        :request_title => request_link(@info_request)) %>
 </h1>
 
 <p>
