@@ -28,6 +28,22 @@ namespace :gettext do
      )
    end
 
+    desc 'Rewrite theme .po files into a consistent msgmerge format'
+    task :clean_theme do
+        theme = ENV['THEME']
+        unless theme
+            puts "Usage: Specify an Alaveteli-theme with THEME=[theme directory name]"
+            exit(0)
+        end
+
+        load_gettext
+
+        Dir.glob("#{ theme_locale_path(theme) }/*/app.po") do |po_file|
+            GetText::msgmerge(po_file, po_file, 'alaveteli',
+                              :msgmerge => [:sort_output, :no_location, :no_wrap])
+        end
+   end
+
    def theme_files_to_translate(theme)
        Dir.glob("{lib/themes/#{theme}/lib}/**/*.{rb,erb}")
    end
