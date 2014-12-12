@@ -241,81 +241,126 @@ describe AdminCensorRuleController do
 
     describe 'GET edit' do
 
-        before(:each) do
-            @censor_rule = FactoryGirl.create(:global_censor_rule)
+        context 'a CensorRule with an associated InfoRequest' do
+
+            before(:each) do
+                @censor_rule = FactoryGirl.create(:info_request_censor_rule)
+            end
+
+            it 'returns a successful response' do
+                get :edit, :id => @censor_rule.id
+                expect(response).to be_success
+            end
+
+            it 'renders the correct template' do
+                get :edit, :id => @censor_rule.id
+                expect(response).to render_template('edit')
+            end
+
+            it 'finds the correct censor rule to edit' do
+                get :edit, :id => @censor_rule.id
+                expect(assigns[:censor_rule]).to eq(@censor_rule)
+            end
+
         end
 
-        it 'returns a successful response' do
-            get :edit, :id => @censor_rule.id
-            expect(response).to be_success
+        context 'a CensorRule with an associated User' do
+
+            before(:each) do
+                @censor_rule = FactoryGirl.create(:user_censor_rule)
+            end
+
+            it 'returns a successful response' do
+                get :edit, :id => @censor_rule.id
+                expect(response).to be_success
+            end
+
+            it 'renders the correct template' do
+                get :edit, :id => @censor_rule.id
+                expect(response).to render_template('edit')
+            end
+
+            it 'finds the correct censor rule to edit' do
+                get :edit, :id => @censor_rule.id
+                expect(assigns[:censor_rule]).to eq(@censor_rule)
+            end
+
         end
 
-        it 'renders the correct template' do
-            get :edit, :id => @censor_rule.id
-            expect(response).to render_template('edit')
-        end
+        context 'when editing a global rule' do
 
-        it 'finds the correct censor rule to edit' do
-            get :edit, :id => @censor_rule.id
-            expect(assigns[:censor_rule]).to eq(@censor_rule)
+            before(:each) do
+                @censor_rule = FactoryGirl.create(:global_censor_rule)
+            end
+
+            it 'shows an error notice' do
+                get :edit, :id => @censor_rule.id
+                flash[:notice].should == 'Only user and request censor rules can be edited'
+            end
+
+            it 'redirects to the admin index' do
+                get :edit, :id => @censor_rule.id
+                expect(response).to redirect_to(admin_general_index_path)
+            end
+
         end
 
     end
 
     describe 'PUT update' do
 
-        before(:each) do
-            @censor_rule = FactoryGirl.create(:global_censor_rule)
-        end
-
-        it 'finds the correct censor rule to edit' do
-            put :update, :id => @censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
-
-            expect(assigns[:censor_rule]).to eq(@censor_rule)
-        end
-
-        it 'sets the last_edit_editor to the current admin' do
-            put :update, :id => @censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
-
-            expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
-        end
-
-        context 'successfully saving the censor rule' do
+        context 'a global CensorRule' do
 
             before(:each) do
-                CensorRule.any_instance.stub(:save).and_return(true)
+                @censor_rule = FactoryGirl.create(:global_censor_rule)
             end
 
-            it 'updates the censor rule' do
-                pending("This raises an internal error in most cases")
+            it 'shows an error notice' do
+                get :edit, :id => @censor_rule.id
+                flash[:notice].should == 'Only user and request censor rules can be edited'
+            end
+
+            it 'redirects to the admin index' do
+                get :edit, :id => @censor_rule.id
+                expect(response).to redirect_to(admin_general_index_path)
+            end
+
+        end
+
+        context 'a CensorRule with an associated InfoRequest' do
+
+            before(:each) do
+                @censor_rule = FactoryGirl.create(:info_request_censor_rule)
+            end
+
+            it 'finds the correct censor rule to edit' do
                 put :update, :id => @censor_rule.id,
                              :censor_rule => { :text => 'different text' }
-                @censor_rule.reload
-                expect(@censor_rule.text).to eq('different text')
+
+                expect(assigns[:censor_rule]).to eq(@censor_rule)
             end
 
-            it 'confirms the censor rule is updated' do
-                pending("This raises an internal error in most cases")
+            it 'sets the last_edit_editor to the current admin' do
                 put :update, :id => @censor_rule.id,
                              :censor_rule => { :text => 'different text' }
 
-                msg = 'CensorRule was successfully updated.'
-                expect(flash[:notice]).to eq(msg)
+                expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
             end
 
-            it 'raises an error after updating the rule' do
-                expect {
+            context 'successfully saving the censor rule' do
+
+                it 'updates the censor rule' do
                     put :update, :id => @censor_rule.id,
                                  :censor_rule => { :text => 'different text' }
-                }.to raise_error 'internal error'
-            end
+                    @censor_rule.reload
+                    expect(@censor_rule.text).to eq('different text')
+                end
 
-            context 'a CensorRule with an associated InfoRequest' do
-
-                before(:each) do
-                    @censor_rule = FactoryGirl.create(:info_request_censor_rule)
+                it 'confirms the censor rule is updated' do
+                    put :update, :id => @censor_rule.id,
+                                 :censor_rule => { :text => 'different text' }
+                    msg = 'CensorRule was successfully updated.'
+                    expect(flash[:notice]).to eq(msg)
                 end
 
                  it 'purges the cache for the info request' do
@@ -380,6 +425,7 @@ describe AdminCensorRuleController do
                              :censor_rule => { :text => 'different text' }
 
                 expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
+
             end
 
 
@@ -438,11 +484,30 @@ describe AdminCensorRuleController do
                 end
 
              end
+
         end
 
     end
 
     describe 'DELETE destroy' do
+
+        context 'a global CensorRule' do
+
+            before(:each) do
+                @censor_rule = FactoryGirl.create(:global_censor_rule)
+            end
+
+            it 'shows an error notice' do
+                get :edit, :id => @censor_rule.id
+                flash[:notice].should == 'Only user and request censor rules can be edited'
+            end
+
+            it 'redirects to the admin index' do
+                get :edit, :id => @censor_rule.id
+                expect(response).to redirect_to(admin_general_index_path)
+            end
+
+        end
 
         context 'a CensorRule with an associated InfoRequest' do
 
@@ -521,6 +586,5 @@ describe AdminCensorRuleController, "when making censor rules from the admin int
         }
         PurgeRequest.all().first.model_id.should == ir.id
     end
-
 
 end
