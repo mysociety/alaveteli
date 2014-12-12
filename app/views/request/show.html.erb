@@ -37,7 +37,7 @@
                     :user => request_user_link(@info_request, _('An anonymous user')),
                     :law_used_full => h(@info_request.law_used_full),
                     :user_admin_link => user_admin_link_for_request(@info_request, _('external'), _('admin')),
-                    :request_admin_url => admin_request_show_url(@info_request),
+                    :request_admin_url => admin_request_url(@info_request),
                     :public_body_link => public_body_link(@info_request.public_body),
                     :public_body_admin_url => admin_body_show_url(@info_request.public_body)) %>
         <% else %>

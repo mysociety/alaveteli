@@ -14,7 +14,7 @@ class AdminOutgoingMessageController < AdminController
             { :editor => admin_current_user(), :deleted_outgoing_message_id => outgoing_message_id })
 
         flash[:notice] = 'Outgoing message successfully destroyed.'
-        redirect_to admin_request_show_url(@info_request)
+        redirect_to admin_request_url(@info_request)
     end
 
     def update

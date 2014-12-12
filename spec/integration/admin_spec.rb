@@ -39,7 +39,7 @@ describe "When administering the site" do
         post_params = {'redeliver_incoming_message_id' => new_im.id,
                        'url_title' => ir.url_title}
         admin.post '/en/admin/incoming/redeliver', post_params
-        admin.response.location.should == 'http://www.example.com/en/admin/request/show/101'
+        admin.response.location.should == 'http://www.example.com/en/admin/requests/101'
         ir = InfoRequest.find_by_url_title(ir.url_title)
         ir.incoming_messages.length.should == 2
 
@@ -67,7 +67,7 @@ describe "When administering the site" do
         ir1.incoming_messages.length.should == 2
         ir2.reload
         ir2.incoming_messages.length.should == 2
-        admin.response.location.should == 'http://www.example.com/en/admin/request/show/106'
+        admin.response.location.should == 'http://www.example.com/en/admin/requests/106'
         InfoRequest.holding_pen_request.incoming_messages.length.should == 0
     end
 

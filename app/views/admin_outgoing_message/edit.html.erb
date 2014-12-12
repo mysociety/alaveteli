@@ -36,8 +36,8 @@
 <% end %>
 
 <p>
-<%= link_to 'Show', admin_request_show_path(@outgoing_message.info_request) %> |
-<%= link_to 'List all', admin_request_list_path %>
+<%= link_to 'Show', admin_request_path(@outgoing_message.info_request) %> |
+<%= link_to 'List all', admin_requests_path %>
 </p>
 
 <%= form_tag admin_outgoing_destroy_path do %>

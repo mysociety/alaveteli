@@ -20,7 +20,7 @@ class AdminIncomingMessageController < AdminController
                                                     :prominence_reason => @incoming_message.prominence_reason)
             expire_for_request(@incoming_message.info_request)
             flash[:notice] = 'Incoming message successfully updated.'
-            redirect_to admin_request_show_url(@incoming_message.info_request)
+            redirect_to admin_request_url(@incoming_message.info_request)
         else
             render :action => 'edit'
         end
@@ -37,7 +37,7 @@ class AdminIncomingMessageController < AdminController
         # expire cached files
         expire_for_request(@info_request)
         flash[:notice] = 'Incoming message successfully destroyed.'
-        redirect_to admin_request_show_url(@info_request)
+        redirect_to admin_request_url(@info_request)
     end
 
     def redeliver
@@ -54,7 +54,7 @@ class AdminIncomingMessageController < AdminController
                 end
                 if destination_request.nil?
                     flash[:error] = "Failed to find destination request '" + m + "'"
-                    return redirect_to admin_request_show_url(previous_request)
+                    return redirect_to admin_request_url(previous_request)
                 end
 
                 raw_email_data = incoming_message.raw_email.data
@@ -74,7 +74,7 @@ class AdminIncomingMessageController < AdminController
             expire_for_request(previous_request)
             incoming_message.fully_destroy
         end
-        redirect_to admin_request_show_url(destination_request)
+        redirect_to admin_request_url(destination_request)
     end
 
 end

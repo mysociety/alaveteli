@@ -130,7 +130,7 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
 
             it 'should redirect to the admin info request view' do
                 make_request
-                response.should redirect_to admin_request_show_url(@incoming.info_request)
+                response.should redirect_to admin_request_url(@incoming.info_request)
             end
 
             it 'should show a message that the incoming message has been updated' do

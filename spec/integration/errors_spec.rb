@@ -131,7 +131,7 @@ describe "When errors occur" do
 
             it 'should show a full trace for general errors' do
                 InfoRequest.stub!(:find).and_raise("An example error")
-                get("/admin/request/show/333")
+                get("/admin/requests/333")
                 response.body.should have_selector('div[id=traces]')
                 response.body.should match('An example error')
             end

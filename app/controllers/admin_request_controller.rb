@@ -8,11 +8,6 @@ require 'ostruct'
 
 class AdminRequestController < AdminController
     def index
-        list
-        render :action => 'list'
-    end
-
-    def list
         @query = params[:query]
         if @query
             info_requests = InfoRequest.where(["lower(title) like lower('%'||?||'%')", @query])
@@ -108,7 +103,7 @@ class AdminRequestController < AdminController
             # expire cached files
             expire_for_request(@info_request)
             flash[:notice] = 'Request successfully updated.'
-            redirect_to admin_request_show_url(@info_request)
+            redirect_to admin_request_url(@info_request)
         else
             render :action => 'edit'
         end
@@ -125,7 +120,7 @@ class AdminRequestController < AdminController
         expire_for_request(@info_request)
         email = user.try(:email) ? user.email : 'This request is external so has no associated user'
         flash[:notice] = "Request #{ url_title } has been completely destroyed. Email of user who made request: #{ email }"
-        redirect_to admin_request_list_url
+        redirect_to admin_requests_url
     end
 
     def edit_comment
@@ -146,7 +141,7 @@ class AdminRequestController < AdminController
                     :old_visible => old_visible, :visible => @comment.visible,
                 })
             flash[:notice] = 'Comment successfully updated.'
-            redirect_to admin_request_show_url(@comment.info_request)
+            redirect_to admin_request_url(@comment.info_request)
         else
             render :action => 'edit_comment'
         end
@@ -172,7 +167,7 @@ class AdminRequestController < AdminController
                 info_request.reindex_request_events
                 flash[:notice] = "Message has been moved to new user"
             end
-            redirect_to admin_request_show_url(info_request)
+            redirect_to admin_request_url(info_request)
         elsif params[:commit] == 'Move request to authority' && !params[:public_body_url_name].blank?
             old_public_body = info_request.public_body
             destination_public_body = PublicBody.find_by_url_name(params[:public_body_url_name])
@@ -191,10 +186,10 @@ class AdminRequestController < AdminController
                 flash[:notice] = "Request has been moved to new body"
             end
 
-            redirect_to admin_request_show_url(info_request)
+            redirect_to admin_request_url(info_request)
         else
             flash[:error] = "Please enter the user or authority to move the request to"
-            redirect_to admin_request_show_url(info_request)
+            redirect_to admin_request_url(info_request)
         end
     end
 
@@ -218,7 +213,7 @@ class AdminRequestController < AdminController
 
         if !info_request.public_body.is_foi_officer?(user)
             flash[:notice] = user.email + " is not an email at the domain @" + info_request.public_body.foi_officer_domain_required + ", so won't be able to upload."
-            redirect_to admin_request_show_url(info_request)
+            redirect_to admin_request_url(info_request)
             return
         end
 
@@ -231,7 +226,7 @@ class AdminRequestController < AdminController
         url = confirm_url(:email_token => post_redirect.email_token)
 
         flash[:notice] = ("Send \"#{name}\" &lt;<a href=\"mailto:#{email}\">#{email}</a>&gt; this URL: <a href=\"#{url}\">#{url}</a> - it will log them in and let them upload a response to this request.").html_safe
-        redirect_to admin_request_show_url(info_request)
+        redirect_to admin_request_url(info_request)
     end
 
     def show_raw_email
@@ -281,7 +276,7 @@ class AdminRequestController < AdminController
         info_request_event.save!
 
         flash[:notice] = "Old response marked as having been a clarification"
-        redirect_to admin_request_show_url(info_request_event.info_request)
+        redirect_to admin_request_url(info_request_event.info_request)
     end
 
     def hide_request
@@ -314,7 +309,7 @@ class AdminRequestController < AdminController
             end
             # expire cached files
             expire_for_request(info_request)
-            redirect_to admin_request_show_url(info_request)
+            redirect_to admin_request_url(info_request)
         end
     end
 

@@ -213,10 +213,13 @@ Alaveteli::Application.routes.draw do
     ####
 
     #### AdminRequest controller
-    match '/admin/request' => 'admin_request#index', :as => :admin_request_index
-    match '/admin/request/list' => 'admin_request#list', :as => :admin_request_list
-    match '/admin/request/show/:id' => 'admin_request#show', :as => :admin_request_show
     match '/admin/request/resend' => 'admin_request#resend', :as => :admin_request_resend
+    scope '/admin', :as => 'admin' do
+        resources :requests,
+                  :controller => 'admin_request',
+                  :except => [:new, :create] do
+        end
+    end
     match '/admin/request/edit/:id' => 'admin_request#edit', :as => :admin_request_edit
     match '/admin/request/update/:id' => 'admin_request#update', :as => :admin_request_update
     match '/admin/request/destroy/:id' => 'admin_request#fully_destroy', :as => :admin_request_destroy

@@ -21,7 +21,7 @@ module AdminHelper
 
   def request_both_links(info_request)
       link_to(eye, request_path(info_request), :title => "view request on public website") + " " +
-          link_to(info_request.title, admin_request_show_path(info_request), :title => "view full details")
+          link_to(info_request.title, admin_request_path(info_request), :title => "view full details")
   end
 
   def public_body_both_links(public_body)
