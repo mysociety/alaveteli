@@ -6,6 +6,8 @@
 
 class AdminCensorRuleController < AdminController
 
+    before_filter :set_editor, :only => [:create, :update]
+
     def new
         if params[:request_id]
             @info_request = InfoRequest.find(params[:request_id])
@@ -21,7 +23,6 @@ class AdminCensorRuleController < AdminController
     end
 
     def create
-        params[:censor_rule][:last_edit_editor] = admin_current_user
         if params[:request_id]
             @info_request = InfoRequest.find(params[:request_id])
             @censor_rule = @info_request.censor_rules.build(params[:censor_rule])
@@ -60,7 +61,6 @@ class AdminCensorRuleController < AdminController
     end
 
     def update
-        params[:censor_rule][:last_edit_editor] = admin_current_user
         @censor_rule = CensorRule.find(params[:id])
 
         if @censor_rule.update_attributes(params[:censor_rule])
@@ -114,5 +114,8 @@ class AdminCensorRuleController < AdminController
 
     private
 
+    def set_editor
+        params[:censor_rule][:last_edit_editor] = admin_current_user
+    end
 end
 
