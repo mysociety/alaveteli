@@ -36,19 +36,14 @@ class AdminCensorRuleController < AdminController
         end
 
         if @censor_rule.save
-            if !@censor_rule.info_request.nil?
-                expire_for_request(@censor_rule.info_request)
-            end
-
-            if !@censor_rule.user.nil?
-                expire_requests_for_user(@censor_rule.user)
-            end
 
             flash[:notice] = 'CensorRule was successfully created.'
 
-            if !@censor_rule.info_request.nil?
+            if @censor_rule.info_request
+                expire_for_request(@censor_rule.info_request)
                 redirect_to admin_request_url(@censor_rule.info_request)
-            elsif !@censor_rule.user.nil?
+            elsif @censor_rule.user
+                expire_requests_for_user(@censor_rule.user)
                 redirect_to admin_user_url(@censor_rule.user)
             end
         else
@@ -64,23 +59,19 @@ class AdminCensorRuleController < AdminController
         @censor_rule = CensorRule.find(params[:id])
 
         if @censor_rule.update_attributes(params[:censor_rule])
-            unless @censor_rule.info_request.nil?
-                expire_for_request(@censor_rule.info_request)
-            end
-
-            unless @censor_rule.user.nil?
-                expire_requests_for_user(@censor_rule.user)
-            end
 
             flash[:notice] = 'CensorRule was successfully updated.'
 
-            if !@censor_rule.info_request.nil?
+            if @censor_rule.info_request
+                expire_for_request(@censor_rule.info_request)
                 redirect_to admin_request_url(@censor_rule.info_request)
-            elsif !@censor_rule.user.nil?
+            elsif @censor_rule.user
+                expire_requests_for_user(@censor_rule.user)
                 redirect_to admin_user_url(@censor_rule.user)
             else
                 raise "internal error"
             end
+
         else
             render :action => 'edit'
         end
@@ -93,23 +84,18 @@ class AdminCensorRuleController < AdminController
 
         @censor_rule.destroy
 
-        unless info_request.nil?
-            expire_for_request(info_request)
-        end
-
-        unless user.nil?
-            expire_requests_for_user(user)
-        end
-
         flash[:notice] = "CensorRule was successfully destroyed."
 
-        if !info_request.nil?
+        if info_request
+            expire_for_request(info_request)
             redirect_to admin_request_url(info_request)
-        elsif !user.nil?
+        elsif user
+            expire_requests_for_user(user) if user
             redirect_to admin_user_url(user)
         else
             raise "internal error"
         end
+
      end
 
     private
