@@ -7,7 +7,7 @@ class AdminHolidaysController < AdminController
     def new
         @holiday = Holiday.new
         if request.xhr?
-            render :partial => 'new_form'
+            render :partial => 'new_form', :locals => { :holiday => @holiday }
         else
             render :action => 'new'
         end

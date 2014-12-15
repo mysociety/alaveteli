@@ -1,0 +1,81 @@
+<% @title = "Create holidays from suggestions or iCal feed" %>
+<h1><%= @title %></h1>
+
+<%= form_for( @holiday_import, :as => 'holiday_import', :url => '', :method => 'get', :html => { :class => 'form-horizontal form-inline' }) do |f| %>
+  <% if @holiday_import.holidays.empty? %>
+    <%= error_messages_for 'holiday_import', :header_message => 'There was a problem with these import settings' %>
+  <% end %>
+  <legend>Import settings</legend>
+  <div>
+    <div class="control-group">
+      <label class="control-label">Choose the years to import holidays for</label>
+      <div class="controls">
+        <label for="import_start_year" class="inline">Start year:</label>
+        <%= f.select :start_year, (Time.now.year)..(Time.now.year + 5) %>
+        <label for="import_end_year" class="inline">End year:</label>
+        <%= f.select :end_year, (Time.now.year)..(Time.now.year + 5) %>
+      </div>
+    </div>
+
+    <div class="control-group">
+       <label class="control-label">Import from built-in suggestions or iCal feed</label>
+       <div class="controls">
+         <label class="radio inline">
+           <%= f.radio_button :source, "suggestions" %>Built-in suggestions
+         </label>
+         <label class="radio inline">
+            <%= f.radio_button :source, "feed" %>iCal feed
+          </label>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label">iCal feed URL:</label>
+      <div class="controls">
+      <%= f.text_field 'ical_feed_url' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <input type="submit" value="Show holidays" class="btn btn-primary">
+    </div>
+
+  </div>
+<% end %>
+
+<% if @holiday_import.populated %>
+  <h2>Holidays to import</h2>
+
+  <table class="table table-striped table-condensed">
+    <tbody>
+      <tr>
+        <td>
+          <% if @holiday_import.holidays.empty? %>
+            <% if @holiday_import.source == 'suggestions' %>
+             Sorry, we don't have any built-in suggestions for holiday days in <%= @holiday_import.suggestions_country_name %>.
+            <% else %>
+            Sorry, we couldn't find any holidays in that iCal feed.
+            <% end %>
+          <% else %>
+            <%= form_for( @holiday_import, :as => 'holiday_import', :url => admin_holiday_imports_path, :html => { :class => 'form-inline' } ) do |f| -%>
+              <%= error_messages_for 'holiday_import' %>
+              <legend>
+                <% if @holiday_import.source == 'suggestions' %>
+                  Suggested holidays for <%= @holiday_import.suggestions_country_name %> (<%= @holiday_import.period %>)
+                <% else %>
+                  Holidays from feed (<%= @holiday_import.period %>)
+                <% end %>
+              </legend>
+                <%= f.fields_for :holidays do |holiday_fields| %>
+                   <div class="import-holiday-info">
+                     <%= render :partial => 'admin_holidays/form', :locals => {:f => holiday_fields, :context => :import, :holiday => holiday_fields.object } %>
+                  </div>
+                <% end%>
+              <%= f.submit "Import", :class => 'btn btn-warning' %>
+            <% end %>
+          <% end %>
+       </td>
+     </tr>
+    </tbody>
+  </table>
+<% end %>

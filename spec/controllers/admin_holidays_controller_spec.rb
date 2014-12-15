@@ -51,7 +51,8 @@ describe AdminHolidaysController do
         end
 
         it 'creates a new holiday' do
-            assigns[:holiday].should be_an_instance_of(Holiday)
+            get :new
+            assigns[:holiday].should be_instance_of(Holiday)
         end
 
     end
