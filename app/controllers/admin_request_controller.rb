@@ -4,9 +4,8 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-require 'ostruct'
-
 class AdminRequestController < AdminController
+
     def index
         list
         render :action => 'list'

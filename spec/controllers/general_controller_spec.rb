@@ -126,6 +126,35 @@ describe GeneralController, "when showing the frontpage" do
 
     end
 
+    describe 'when handling logged-in users' do
+
+        before do
+            @user = FactoryGirl.create(:user)
+            session[:user_id] = @user.id
+        end
+
+        it 'should set a time to live on a non "remember me" session' do
+            get :frontpage
+            response.body.should match @user.name
+            session[:ttl].should be_within(1).of(Time.now)
+        end
+
+        it 'should not set a time to live on a "remember me" session' do
+            session[:remember_me] = true
+            get :frontpage
+            response.body.should match @user.name
+            session[:ttl].should be_nil
+        end
+
+        it 'should end a logged-in session whose ttl has expired' do
+            session[:ttl] = Time.now - 4.hours
+            get :frontpage
+            response.should redirect_to signin_path
+            session[:user_id].should be_nil
+        end
+
+    end
+
 end
 
 

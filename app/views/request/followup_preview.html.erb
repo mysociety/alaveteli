@@ -3,7 +3,7 @@
 <div id="followup">
 
 <%= form_for(@outgoing_message, :html => { :id => 'preview_form' }, :url => (@incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => @incoming_message.id)) + "#followup" ) do |o| %>
-    
+
     <% if @internal_review %>
         <h1><%= _('Now preview your message asking for an internal review') %></h1>
     <% else %>
@@ -20,7 +20,7 @@
         <div class="correspondence" id="outgoing-0">
             <p class="preview_subject">
                 <strong><%= _('To:') %></strong> <%=h OutgoingMailer.name_for_followup(@info_request, @incoming_message) %>
-                <br><strong><%= _('Subject:') %></strong> <%=h OutgoingMailer.subject_for_followup(@info_request, @outgoing_message) %>
+                <br><strong><%= _('Subject:') %></strong> <%= OutgoingMailer.subject_for_followup(@info_request, @outgoing_message, :html => true) %>
             </p>
 
             <div class="correspondence_text">

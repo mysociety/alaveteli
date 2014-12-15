@@ -52,17 +52,6 @@ class IncomingMessage < ActiveRecord::Base
 
     has_prominence
 
-    # See binary_mask_stuff function below. It just test for inclusion
-    # in this hash, not the value of the right hand side.
-    DoNotBinaryMask = {
-        'image/tiff' => 1,
-        'image/gif' => 1,
-        'image/jpeg' => 1,
-        'image/png' => 1,
-        'image/bmp' => 1,
-        'application/zip' => 1,
-    }
-
     # Given that there are in theory many info request events, a convenience method for
     # getting the response event
     def response_event
@@ -218,111 +207,10 @@ class IncomingMessage < ActiveRecord::Base
         end
     end
 
-    # Converts email addresses we know about into textual descriptions of them
-    def mask_special_emails!(text)
-        # TODO: can later display some of these special emails as actual emails,
-        # if they are public anyway.  For now just be precautionary and only
-        # put in descriptions of them in square brackets.
-        if self.info_request.public_body.is_followupable?
-            text.gsub!(self.info_request.public_body.request_email, _("[{{public_body}} request email]", :public_body => self.info_request.public_body.short_or_long_name))
-        end
-        text.gsub!(self.info_request.incoming_email, _('[FOI #{{request}} email]', :request => self.info_request.id.to_s) )
-        text.gsub!(AlaveteliConfiguration::contact_email, _("[{{site_name}} contact email]", :site_name => AlaveteliConfiguration::site_name) )
-    end
-
-    # Replaces all email addresses in (possibly binary data) with equal length alternative ones.
-    # Also replaces censor items
-    def binary_mask_stuff!(text, content_type)
-        # See if content type is one that we mask - things like zip files and
-        # images may get broken if we try to. We err on the side of masking too
-        # much, as many unknown types will really be text.
-        if DoNotBinaryMask.include?(content_type)
-            return
-        end
-
-        # Special cases for some content types
-        if content_type == 'application/pdf'
-            uncompressed_text = nil
-            uncompressed_text = AlaveteliExternalCommand.run("pdftk", "-", "output", "-", "uncompress", :stdin_string => text)
-            # if we managed to uncompress the PDF...
-            if !uncompressed_text.nil? && !uncompressed_text.empty?
-                # then censor stuff (making a copy so can compare again in a bit)
-                censored_uncompressed_text = uncompressed_text.dup
-                self._binary_mask_stuff_internal!(censored_uncompressed_text)
-                # if the censor rule removed something...
-                if censored_uncompressed_text != uncompressed_text
-                    # then use the altered file (recompressed)
-                    recompressed_text = nil
-                    if AlaveteliConfiguration::use_ghostscript_compression == true
-                        command = ["gs", "-sDEVICE=pdfwrite", "-dCompatibilityLevel=1.4", "-dPDFSETTINGS=/screen", "-dNOPAUSE", "-dQUIET", "-dBATCH", "-sOutputFile=-", "-"]
-                    else
-                        command = ["pdftk", "-", "output", "-", "compress"]
-                    end
-                    recompressed_text = AlaveteliExternalCommand.run(*(command + [{:stdin_string=>censored_uncompressed_text}]))
-                    if recompressed_text.nil? || recompressed_text.empty?
-                        # buggy versions of pdftk sometimes fail on
-                        # compression, I don't see it's a disaster in
-                        # these cases to save an uncompressed version?
-                        recompressed_text = censored_uncompressed_text
-                        logger.warn "Unable to compress PDF; problem with your pdftk version?"
-                    end
-                    if !recompressed_text.nil? && !recompressed_text.empty?
-                        text.replace recompressed_text
-                    end
-                end
-            end
-            return
-        end
-
-        self._binary_mask_stuff_internal!(text)
-    end
-
-    # Used by binary_mask_stuff - replace text in place
-    def _binary_mask_stuff_internal!(text)
-        # Keep original size, so can check haven't resized it
-        orig_size = text.mb_chars.size
-
-        # Replace ASCII email addresses...
-        text.gsub!(MySociety::Validate.email_find_regexp) do |email|
-            email.gsub(/[^@.]/, 'x')
-        end
-
-        # And replace UCS-2 ones (for Microsoft Office documents)...
-        # Find emails, by finding them in parts of text that have ASCII
-        # equivalents to the UCS-2
-        ascii_chars = text.gsub(/\0/, "")
-        emails = ascii_chars.scan(MySociety::Validate.email_find_regexp)
-
-        # Convert back to UCS-2, making a mask at the same time
-        if String.method_defined?(:encode)
-            emails.map! do |email|
-                # We want the ASCII representation of UCS-2
-                [email[0].encode('UTF-16LE').force_encoding('US-ASCII'),
-                 email[0].gsub(/[^@.]/, 'x').encode('UTF-16LE').force_encoding('US-ASCII')]
-            end
-        else
-            emails.map! {|email| [
-                    Iconv.conv('ucs-2le', 'ascii', email[0]),
-                    Iconv.conv('ucs-2le', 'ascii', email[0].gsub(/[^@.]/, 'x'))
-            ] }
-        end
-
-        # Now search and replace the UCS-2 email with the UCS-2 mask
-        for email, mask in emails
-            text.gsub!(email, mask)
-        end
-
-        # Replace censor items
-        self.info_request.apply_censor_rules_to_binary!(text)
-
-        raise "internal error in binary_mask_stuff" if text.mb_chars.size != orig_size
-        return text
-    end
-
-    # Removes censored stuff from from HTML conversion of downloaded binaries
-    def html_mask_stuff!(html)
-        self.mask_special_emails!(html)
-        self.remove_privacy_sensitive_things!(html)
+    def apply_masks!(text, content_type)
+        mask_options = { :censor_rules => info_request.applicable_censor_rules,
+                         :masks => info_request.masks }
+        AlaveteliTextMasker.apply_masks!(text, content_type, mask_options)
     end
 
     # Lotus notes quoting yeuch!
@@ -344,26 +232,6 @@ class IncomingMessage < ActiveRecord::Base
 
         return text
 
-    end
-
-    # Remove emails, mobile phones and other details FOI officers ask us to remove.
-    def remove_privacy_sensitive_things!(text)
-        # Remove any email addresses - we don't want bounce messages to leak out
-        # either the requestor's email address or the request's response email
-        # address out onto the internet
-        text.gsub!(MySociety::Validate.email_find_regexp, "[email address]")
-
-        # Mobile phone numbers
-        # http://www.whatdotheyknow.com/request/failed_test_purchases_off_licenc#incoming-1013
-        # http://www.whatdotheyknow.com/request/selective_licensing_statistics_i#incoming-550
-        # http://www.whatdotheyknow.com/request/common_purpose_training_graduate#incoming-774
-        text.gsub!(/(Mobile|Mob)([\s\/]*(Fax|Tel))*\s*:?[\s\d]*\d/, "[mobile number]")
-
-        # Remove WhatDoTheyKnow signup links
-        text.gsub!(/http:\/\/#{AlaveteliConfiguration::domain}\/c\/[^\s]+/, "[WDTK login link]")
-
-        # Remove things from censor rules
-        self.info_request.apply_censor_rules_to_text!(text)
     end
 
 
@@ -465,9 +333,8 @@ class IncomingMessage < ActiveRecord::Base
             raise "main body text more than 1 MB, need to implement clipping like for attachment text, or there is some other MIME decoding problem or similar"
         end
 
-        # remove emails for privacy/anti-spam reasons
-        self.mask_special_emails!(text)
-        self.remove_privacy_sensitive_things!(text)
+        # apply masks for this message
+        apply_masks!(text, 'text/html')
 
         # Remove existing quoted sections
         folded_quoted_text = self.remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
@@ -735,7 +602,14 @@ class IncomingMessage < ActiveRecord::Base
         text = MySociety::Format.simplify_angle_bracketed_urls(text)
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
-        text.gsub!(/\[(email address|mobile number)\]/, '[<a href="/help/officers#mobiles">\1</a>]')
+
+        # add a helpful link to email addresses and mobile numbers removed
+        # by apply_masks!
+        email_pattern = Regexp.escape(_("email address"))
+        mobile_pattern = Regexp.escape(_("mobile number"))
+        text.gsub!(/\[(#{email_pattern}|#{mobile_pattern})\]/,
+                  '[<a href="/help/officers#mobiles">\1</a>]')
+
         if collapse_quoted_sections
             text = text.gsub(/(\s*FOLDED_QUOTED_SECTION\s*)+/m, "FOLDED_QUOTED_SECTION")
             text.strip!
@@ -773,8 +647,8 @@ class IncomingMessage < ActiveRecord::Base
     # Returns text version of attachment text
     def get_attachment_text_full
         text = self._get_attachment_text_internal
-        self.mask_special_emails!(text)
-        self.remove_privacy_sensitive_things!(text)
+        apply_masks!(text, 'text/html')
+
         # This can be useful for memory debugging
         #STDOUT.puts 'xxx '+ MySociety::DebugHelpers::allocated_string_size_around_gc
 
