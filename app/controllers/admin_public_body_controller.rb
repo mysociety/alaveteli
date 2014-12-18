@@ -5,69 +5,9 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminPublicBodyController < AdminController
+
     def index
-        list
-        render :action => 'list'
-    end
-
-    def _lookup_query_internal
-        @locale = self.locale_from_params()
-        underscore_locale = @locale.gsub '-', '_'
-        I18n.with_locale(@locale) do
-            @query = params[:query]
-            if @query == ""
-                @query = nil
-            end
-            @page = params[:page]
-            if @page == ""
-                @page = nil
-            end
-            @public_bodies = PublicBody.joins(:translations).where(@query.nil? ? "public_body_translations.locale = '#{underscore_locale}'" :
-                                ["(lower(public_body_translations.name) like lower('%'||?||'%') or
-                                 lower(public_body_translations.short_name) like lower('%'||?||'%') or
-                                 lower(public_body_translations.request_email) like lower('%'||?||'%' )) AND (public_body_translations.locale = '#{underscore_locale}')", @query, @query, @query]).paginate :order => "public_body_translations.name", :page => @page, :per_page => 100
-        end
-        @public_bodies_by_tag = PublicBody.find_by_tag(@query)
-    end
-
-    def list
-        self._lookup_query_internal
-    end
-
-    def mass_tag_add
-        self._lookup_query_internal
-
-        if params[:new_tag] and params[:new_tag] != ""
-            if params[:table_name] == 'exact'
-                bodies = @public_bodies_by_tag
-            elsif params[:table_name] == 'substring'
-                bodies = @public_bodies
-            else
-                raise "Unknown table_name " + params[:table_name]
-            end
-            for body in bodies
-                body.add_tag_if_not_already_present(params[:new_tag])
-            end
-            flash[:notice] = "Added tag to table of bodies."
-        end
-
-        redirect_to admin_body_list_url(:query => @query, :page => @page)
-    end
-
-    def missing_scheme
-        # There might be a way to do this in ActiveRecord, but I can't find it
-        @public_bodies = PublicBody.find_by_sql("
-            SELECT a.id, a.name, a.url_name, COUNT(*) AS howmany
-              FROM public_bodies a JOIN info_requests r ON a.id = r.public_body_id
-             WHERE a.publication_scheme = ''
-             GROUP BY a.id, a.name, a.url_name
-             ORDER BY howmany DESC
-             LIMIT 20
-        ")
-        @stats = {
-          "total" => PublicBody.count,
-          "entered" => PublicBody.count(:conditions => "publication_scheme != ''")
-        }
+        lookup_query
     end
 
     def show
@@ -111,7 +51,7 @@ class AdminPublicBodyController < AdminController
                     @change_request.send_response(params[:subject], response_text)
                 end
                 flash[:notice] = 'PublicBody was successfully created.'
-                redirect_to admin_body_show_url(@public_body)
+                redirect_to admin_body_url(@public_body)
             else
                 render :action => 'new'
             end
@@ -147,7 +87,7 @@ class AdminPublicBodyController < AdminController
                     @change_request.send_response(params[:subject], params[:response])
                 end
                 flash[:notice] = 'PublicBody was successfully updated.'
-                redirect_to admin_body_show_url(@public_body)
+                redirect_to admin_body_url(@public_body)
             else
                 render :action => 'edit'
             end
@@ -161,15 +101,51 @@ class AdminPublicBodyController < AdminController
 
             if public_body.info_requests.size > 0
                 flash[:notice] = "There are requests associated with the authority, so can't destroy it"
-                redirect_to admin_body_show_url(public_body)
+                redirect_to admin_body_url(public_body)
                 return
             end
 
             public_body.tag_string = ""
             public_body.destroy
             flash[:notice] = "PublicBody was successfully destroyed."
-            redirect_to admin_body_list_url
+            redirect_to admin_bodies_url
         end
+    end
+
+    def mass_tag_add
+        lookup_query
+
+        if params[:new_tag] and params[:new_tag] != ""
+            if params[:table_name] == 'exact'
+                bodies = @public_bodies_by_tag
+            elsif params[:table_name] == 'substring'
+                bodies = @public_bodies
+            else
+                raise "Unknown table_name " + params[:table_name]
+            end
+            for body in bodies
+                body.add_tag_if_not_already_present(params[:new_tag])
+            end
+            flash[:notice] = "Added tag to table of bodies."
+        end
+
+        redirect_to admin_bodies_url(:query => @query, :page => @page)
+    end
+
+    def missing_scheme
+        # There might be a way to do this in ActiveRecord, but I can't find it
+        @public_bodies = PublicBody.find_by_sql("
+            SELECT a.id, a.name, a.url_name, COUNT(*) AS howmany
+              FROM public_bodies a JOIN info_requests r ON a.id = r.public_body_id
+             WHERE a.publication_scheme = ''
+             GROUP BY a.id, a.name, a.url_name
+             ORDER BY howmany DESC
+             LIMIT 20
+        ")
+        @stats = {
+          "total" => PublicBody.count,
+          "entered" => PublicBody.count(:conditions => "publication_scheme != ''")
+        }
     end
 
     def import_csv
@@ -249,6 +225,26 @@ class AdminPublicBodyController < AdminController
         csv_contents = File.read(tempfile_path)
         File.delete(tempfile_path)
         return csv_contents
+    end
+
+    def lookup_query
+        @locale = self.locale_from_params()
+        underscore_locale = @locale.gsub '-', '_'
+        I18n.with_locale(@locale) do
+            @query = params[:query]
+            if @query == ""
+                @query = nil
+            end
+            @page = params[:page]
+            if @page == ""
+                @page = nil
+            end
+            @public_bodies = PublicBody.joins(:translations).where(@query.nil? ? "public_body_translations.locale = '#{underscore_locale}'" :
+                                ["(lower(public_body_translations.name) like lower('%'||?||'%') or
+                                 lower(public_body_translations.short_name) like lower('%'||?||'%') or
+                                 lower(public_body_translations.request_email) like lower('%'||?||'%' )) AND (public_body_translations.locale = '#{underscore_locale}')", @query, @query, @query]).paginate :order => "public_body_translations.name", :page => @page, :per_page => 100
+        end
+        @public_bodies_by_tag = PublicBody.find_by_tag(@query)
     end
 
 end

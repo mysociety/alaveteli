@@ -8,10 +8,10 @@
 
 <div class="btn-toolbar">
   <div class="btn-group">
-    <%= link_to 'New public authority', admin_body_new_path, :class => "btn btn-primary" %>
+    <%= link_to 'New public authority', new_admin_body_path, :class => "btn btn-primary" %>
   </div>
   <div class="btn-group">
-    <%= link_to 'Import from CSV file', admin_body_import_csv_path, :class => "btn btn-warning" %>
+    <%= link_to 'Import from CSV file', import_csv_admin_bodies_path, :class => "btn btn-warning" %>
   </div>
 </div>
 
@@ -19,7 +19,7 @@
    <%= text_field_tag 'query', params[:query], { :size => 30, :class => "input-large search-query" } %>
    <%= submit_tag "Search", :class => "btn" %>
     <% if !@query.nil? %>
-      <%= link_to 'Show all', admin_body_list_path, :class => "btn" %>
+      <%= link_to 'Show all', admin_bodies_path, :class => "btn" %>
     <% end %><br>
  (substring search in names and emails; exact match of tags)
 <% end %>

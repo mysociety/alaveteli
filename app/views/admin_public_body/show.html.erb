@@ -45,7 +45,7 @@
     </tr>
   </tbody>
 </table>
-<%= link_to _("Edit"), admin_body_edit_path(@public_body), :class => "btn btn-primary" %>
+<%= link_to _("Edit"), edit_admin_body_path(@public_body), :class => "btn btn-primary" %>
 <% unless @public_body.url_name.nil? %>
   <%=link_to _("Public page"), public_body_path(@public_body), :class => "btn" %>
 <% else %>

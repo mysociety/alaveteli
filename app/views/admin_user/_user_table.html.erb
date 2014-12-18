@@ -7,7 +7,7 @@
       <% if user.admin_level == "super" %>
           <span class="label">superuser</span>
       <% end %>
-        <%= link_to("#{h(user.name)}", admin_user_show_path(user))%>
+        <%= link_to("#{h(user.name)}", admin_user_path(user))%>
         <%= link_to("(#{h(user.email)})", "mailto:#{h(user.email)}")%>
        </span>
        <span class="item-metadata">

@@ -58,7 +58,7 @@ class RequestMailer < ApplicationMailer
         user = set_by || info_request.user
         @reported_by = user
         @url = request_url(info_request)
-        @admin_url = admin_request_show_url(info_request)
+        @admin_url = admin_request_url(info_request)
         @info_request = info_request
         @message = message
 

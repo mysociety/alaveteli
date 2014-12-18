@@ -31,7 +31,7 @@
                                 <tr>
                                     <td><strong>Authority:</strong></td>
                                     <td>
-                                        <%= link_to(info_request.public_body.name, admin_body_show_path(info_request.public_body)) %>
+                                        <%= link_to(info_request.public_body.name, admin_body_path(info_request.public_body)) %>
                                     </td>
                                 </tr>
                                 <tr>
@@ -52,12 +52,12 @@
 </p>
 
 <div>
-    <%= render :partial => 'incoming_message_actions', :locals => { :incoming_message => @raw_email.incoming_message } %>
+    <%= render :partial => 'admin_incoming_message/actions', :locals => { :incoming_message => @raw_email.incoming_message } %>
 </div>
 
 <h2>Raw email</h2>
 
-<p><%= link_to "Download", admin_request_download_raw_email_path(@raw_email) %></p>
+<p><%= link_to "Download",  admin_raw_email_path(@raw_email, :format => 'txt') %></p>
 
 <pre><%=h(@raw_email.data).gsub(/\n/, '<br>').html_safe %></pre>
 

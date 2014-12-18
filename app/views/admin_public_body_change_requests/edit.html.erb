@@ -1,6 +1,6 @@
 <h1><%=@title%></h1>
 
-<%= form_tag admin_change_request_update_path(@change_request), :class => "form form-horizontal" do %>
+<%= form_tag admin_change_request_path(@change_request), :method => 'put', :class => "form form-horizontal" do %>
   <%= render :partial => 'admin_public_body_change_requests/response'%>
   <div class="form-actions">
     <%= submit_tag 'Close', :accesskey => 'c', :class => "btn btn-primary" %>

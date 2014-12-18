@@ -2,13 +2,13 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminUserController, "when administering users" do
     render_views
-  
-    it "shows the index/list page" do
+
+    it "shows the index page" do
         get :index
     end
 
     it "searches for 'bob'" do
-        get :list, :query => "bob"
+        get :index, :query => "bob"
         assigns[:admin_users].should == [ users(:bob_smith_user) ]
     end
 
@@ -51,7 +51,7 @@ describe AdminUserController do
 
         before(:each) do
             @user = FactoryGirl.create(:user)
-            request.env["HTTP_REFERER"] = admin_user_show_path(@user)
+            request.env["HTTP_REFERER"] = admin_user_path(@user)
         end
 
         it 'redirects to the page the admin was previously on' do
@@ -61,7 +61,7 @@ describe AdminUserController do
                                                :comment_ids => comment.id,
                                                :hide_selected => 'hidden' }
 
-            response.should redirect_to(admin_user_show_path(@user))
+            response.should redirect_to(admin_user_path(@user))
         end
 
         it 'sets the given comments visibility to hidden' do

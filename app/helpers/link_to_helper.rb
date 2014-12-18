@@ -116,7 +116,7 @@ module LinkToHelper
         if request.is_external?
             external_text || (request.external_user_name || _("Anonymous user")) + " (external)"
         else
-            link_to(internal_text || request.user.name, admin_user_show_url(request.user))
+            link_to(internal_text || request.user.name, admin_user_url(request.user))
         end
     end
 
@@ -178,7 +178,7 @@ module LinkToHelper
     end
 
     def user_admin_link(user, name="admin", cls=nil)
-      link_to name, admin_user_show_url(user), :class => cls
+      link_to name, admin_user_url(user), :class => cls
     end
 
     # Tracks. feed can be 'track' or 'feed'

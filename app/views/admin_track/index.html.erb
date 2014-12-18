@@ -14,7 +14,7 @@
 <h2>Current top tracks:</h2>
 <ol>
 <% for row in @popular %>
-  <li><%= link_to row['title'], admin_request_show_path(row['info_request_id']) %> (<%= row['count'] %> people following)</li>
+  <li><%= link_to row['title'], admin_request_path(row['info_request_id']) %> (<%= row['count'] %> people following)</li>
 <% end %>
 </ol>
 

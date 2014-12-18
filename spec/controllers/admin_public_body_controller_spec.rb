@@ -272,7 +272,7 @@ describe AdminPublicBodyController, "when destroying a public body" do
     it "destroys a public body" do
         n = PublicBody.count
         post :destroy, { :id => public_bodies(:forlorn_public_body).id }
-        response.should redirect_to(:controller=>'admin_public_body', :action=>'list')
+        response.should redirect_to admin_bodies_path
         PublicBody.count.should == n - 1
     end
 
@@ -286,7 +286,7 @@ describe AdminPublicBodyController, "when assigning public body tags" do
         n = PublicBody.joins(:translations).where([condition, "en"]).count
         post :mass_tag_add, { :new_tag => "department", :table_name => "substring" }
         request.flash[:notice].should == "Added tag to table of bodies."
-        response.should redirect_to(:action=>'list')
+        response.should redirect_to admin_bodies_path
         PublicBody.find_by_tag("department").count.should == n
     end
 end
