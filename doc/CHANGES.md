@@ -1,3 +1,29 @@
+# rails-3-develop
+
+## Highlighted Features
+
+* State changing admin actions are now restricted to PUT or POST methods
+  to protect against CSRF attacks, and now use more standard RESTful
+  routing.
+* Global request forgery protection is now used
+* The dynamic list of possibly related requests for a new request is now
+  limited to requests to the same authority and capped at three requests
+* Some standard security headers are added by default
+* New rake task for cleaning theme translations - `rake
+  gettext:clean_theme`
+* A TTL is enforced on session cookies
+* There's a new admin interface for adding public holidays for the site,
+  to be used in calculating request due dates.
+* Autocomplete has been turned off on password fields
+* Some interface phrases have been grouped together for easier
+  translation
+
+## Upgrade notes
+
+* Admin route names have been standardised so if you have overridden
+  templates that refer to admin routes, check the original templates to
+  see if these need to be changed.
+
 # Version 0.20
 
 ## Highlighted Features
