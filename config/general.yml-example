@@ -174,7 +174,7 @@ REPLY_LATE_AFTER_DAYS: 20
 REPLY_VERY_LATE_AFTER_DAYS: 40
 SPECIAL_REPLY_VERY_LATE_AFTER_DAYS: 60
 
-# The WORKING_OR_CALENDAR_DAYS setting can be either "working" (the default) or 
+# The WORKING_OR_CALENDAR_DAYS setting can be either "working" (the default) or
 # "calendar", and determines which days are counted when calculating whether a
 # request is officially late.
 #
@@ -195,7 +195,7 @@ WORKING_OR_CALENDAR_DAYS: working
 # *Warning:* this is slow — don't use in production!
 #
 # FRONTPAGE_PUBLICBODY_EXAMPLES - String semicolon-separated list of public
-#                                 bodies (default: nil) 
+#                                 bodies (default: nil)
 #
 # Examples:
 #

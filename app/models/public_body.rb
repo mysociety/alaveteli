@@ -454,11 +454,12 @@ class PublicBody < ActiveRecord::Base
                 # of updating them
                 bodies_by_name = {}
                 set_of_existing = Set.new()
+                internal_admin_body_id = PublicBody.internal_admin_body.id
                 I18n.with_locale(I18n.default_locale) do
-                    bodies = (tag.nil? || tag.empty?) ? PublicBody.find(:all) : PublicBody.find_by_tag(tag)
+                    bodies = (tag.nil? || tag.empty?) ? PublicBody.find(:all, :include => :translations) : PublicBody.find_by_tag(tag)
                     for existing_body in bodies
                         # Hide InternalAdminBody from import notes
-                        next if existing_body.id == PublicBody.internal_admin_body.id
+                        next if existing_body.id == internal_admin_body_id
 
                         bodies_by_name[existing_body.name] = existing_body
                         set_of_existing.add(existing_body.name)
