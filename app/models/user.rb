@@ -264,11 +264,9 @@ class User < ActiveRecord::Base
     # Returns list of requests which the user hasn't described (and last
     # changed more than a day ago)
     def get_undescribed_requests
-        info_requests.find(
-            :all,
-            :conditions => [ 'awaiting_description = ? and ' + InfoRequest.last_event_time_clause + ' < ?',
-                true, Time.now() - 1.day
-            ]
+        info_requests.where(
+            "awaiting_description = ? and #{ InfoRequest.last_event_time_clause } < ?",
+            true, 1.day.ago
         )
     end
 

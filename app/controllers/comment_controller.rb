@@ -10,7 +10,6 @@ class CommentController < ApplicationController
     before_filter :create_track_thing, :only => [ :new ]
     before_filter :reject_unless_comments_allowed, :only => [ :new ]
     before_filter :reject_if_user_banned, :only => [ :new ]
-    protect_from_forgery :only => [ :new ]
 
     def new
         if params[:comment]

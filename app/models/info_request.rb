@@ -1366,9 +1366,9 @@ public
     end
 
     def InfoRequest.find_in_state(state)
-        find(:all, :select => '*, ' + last_event_time_clause + ' as last_event_time',
-                   :conditions => ["described_state = ?", state],
-                   :order => "last_event_time")
+        select("*, #{ last_event_time_clause } as last_event_time").
+            where(:described_state => state).
+                order('last_event_time')
     end
 
     private
