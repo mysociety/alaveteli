@@ -62,6 +62,9 @@ Rails::Initializer.run do |config|
   # Only load the plugins named here, by default all plugins in vendor/plugins are loaded
   # config.plugins = %W( exception_notification ssl_requirement )
 
+  # Allow some extra tags to be whitelisted in the 'sanitize' helper method
+  config.action_view.sanitized_allowed_tags
+
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{Rails.root}/extras )
 
