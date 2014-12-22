@@ -596,6 +596,18 @@ describe RequestController, "when showing one request" do
             response.status.should == 303
         end
 
+        it "should sanitise HTML attachments" do
+            incoming_message = FactoryGirl.create(:incoming_message_with_html_attachment)
+            get :get_attachment, :incoming_message_id => incoming_message.id,
+                                 :id => incoming_message.info_request.id,
+                                 :part => 2,
+                                 :file_name => 'interesting.html',
+                                 :skip_cache => 1
+            response.body.should_not match("script")
+            response.body.should_not match("interesting")
+            response.body.should match('dull')
+        end
+
         it "should censor attachments downloaded as binary" do
             ir = info_requests(:fancy_dog_request)
 
