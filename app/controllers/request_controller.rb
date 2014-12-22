@@ -732,6 +732,10 @@ class RequestController < ApplicationController
         # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
         response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) || 'application/octet-stream'
 
+        if response.content_type == 'text/html'
+            @attachment.body = ActionController::Base.helpers.sanitize(@attachment.body)
+        end
+
         render :text => @attachment.body
     end
 
