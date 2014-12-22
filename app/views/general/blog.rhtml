@@ -26,9 +26,9 @@
           <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", :date=>simple_date(Time.parse(item['pubDate'][0])), :author=>item['creator']) %></p>
           <div>
             <% if item['encoded'] %>
-              <%= raw item['encoded'] %>
+              <%= sanitize(raw item['encoded']) %>
             <% elsif item['description'] %>
-              <%= raw item['description'] %>
+              <%= sanitize(raw item['description']) %>
             <% end %>
           </div>
           <p><em>
