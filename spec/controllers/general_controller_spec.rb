@@ -53,6 +53,18 @@ describe GeneralController, 'when getting the blog feed' do
         end
     end
 
+    context 'when the blog has entries' do
+
+        render_views
+
+        it 'should escape any javascript from the entries' do
+            controller.stub!(:quietly_try_to_open).and_return(load_file_fixture("blog_feed.atom"))
+            get :blog
+            response.body.should_not include('<script>alert("exciting!")</script>')
+        end
+
+    end
+
 end
 
 describe GeneralController, "when showing the frontpage" do
