@@ -54,8 +54,6 @@ Alaveteli::Application.routes.draw do
     match '/request/:id/response/:incoming_message_id' => 'request#show_response', :as => :show_response
     match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'request#get_attachment_as_html', :format => false, :as => :get_attachment_as_html
     match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'request#get_attachment', :format => false, :as => :get_attachment
-    match '/request/:id/widget' => 'request#widget', :as => :widget
-    match '/request/:id/widget/create' => 'request#create_widget', :as => :create_widget
 
     match '/request_event/:info_request_event_id' => 'request#show_request_event', :as => :info_request_event
 
@@ -67,6 +65,7 @@ Alaveteli::Application.routes.draw do
 
     resources :request, :only => [] do
         resource :report, :only => [:new, :create]
+        resource :widget, :only => [:new, :show, :update]
     end
 
     resources :info_request_batch, :only => :show

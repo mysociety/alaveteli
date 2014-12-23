@@ -75,11 +75,9 @@
             </div>
           </a>
         <% else %>
-          <a href="<%= url_for :controller => 'track', :action => 'widget_vote', :info_request_id => @info_request %>" target="_blank">
-            <div id="alawidget-button">
-              <%= _('I also want to know!') %>
-            </div>
-          </a>
+          <%= form_tag request_widget_url(@info_request), :method => 'put', :target => '_blank' do %>
+            <%= submit_tag _('I also want to know!'), :id => "alawidget-button" %>
+          <% end %>
         <% end %>
       <% end %>
     </div>
