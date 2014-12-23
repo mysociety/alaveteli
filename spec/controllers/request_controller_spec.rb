@@ -2660,7 +2660,7 @@ describe RequestController, "#select_authorities" do
 
             end
 
-            context 'when asked for JSON', :focus => true do
+            context 'when asked for JSON' do
 
                 it 'should be successful' do
                     get :select_authorities, {:public_body_query => "Quan", :format => 'json'}, {:user_id => @user.id}
