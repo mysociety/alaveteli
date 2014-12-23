@@ -8,7 +8,7 @@ require 'securerandom'
 
 class WidgetsController < ApplicationController
 
-    before_filter :find_info_request
+    before_filter :check_widget_config, :find_info_request
 
     def show
         medium_cache
@@ -38,6 +38,12 @@ class WidgetsController < ApplicationController
 
     def find_info_request
         @info_request = InfoRequest.find(params[:request_id])
+    end
+
+    def check_widget_config
+        unless AlaveteliConfiguration::enable_widgets
+            raise ActiveRecord::RecordNotFound.new("Page not enabled")
+        end
     end
 
 end

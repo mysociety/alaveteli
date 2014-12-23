@@ -9,6 +9,7 @@ describe WidgetsController do
 
         before do
             @info_request = FactoryGirl.create(:info_request)
+            AlaveteliConfiguration.stub!(:enable_widgets).and_return(true)
         end
 
         it 'should render the widget template' do
@@ -45,6 +46,16 @@ describe WidgetsController do
 
         end
 
+        context 'when widgets are not enabled' do
+
+            it 'should return a 404' do
+                AlaveteliConfiguration.stub!(:enable_widgets).and_return(false)
+                lambda{ get :show, :request_id => @info_request.id }.should
+                    raise_error(ActiveRecord::RecordNotFound)
+            end
+
+        end
+
 
     end
 
@@ -52,6 +63,7 @@ describe WidgetsController do
 
         before do
             @info_request = FactoryGirl.create(:info_request)
+            AlaveteliConfiguration.stub!(:enable_widgets).and_return(true)
         end
 
         it 'should render the create widget template' do
@@ -64,12 +76,23 @@ describe WidgetsController do
             assigns[:info_request].should == @info_request
         end
 
+        context 'when widgets are not enabled' do
+
+            it 'should return a 404' do
+                AlaveteliConfiguration.stub!(:enable_widgets).and_return(false)
+                lambda{ get :new, :request_id => @info_request.id }.should
+                    raise_error(ActiveRecord::RecordNotFound)
+            end
+
+        end
+
     end
 
     describe :update do
 
         before do
             @info_request = FactoryGirl.create(:info_request)
+            AlaveteliConfiguration.stub!(:enable_widgets).and_return(true)
         end
 
         it 'should find the info request' do
@@ -101,6 +124,16 @@ describe WidgetsController do
                 request.cookies['widget_vote'] = @cookie_value
                 get :update, :request_id => @info_request.id
                 @info_request.widget_votes.where(:cookie => @cookie_value).size.should == 1
+            end
+
+        end
+
+        context 'when widgets are not enabled' do
+
+            it 'should raise ActiveRecord::RecordNotFound' do
+                AlaveteliConfiguration.stub!(:enable_widgets).and_return(false)
+                lambda{ get :update, :request_id => @info_request.id }.should
+                    raise_error(ActiveRecord::RecordNotFound)
             end
 
         end
