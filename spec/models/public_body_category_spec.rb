@@ -2,12 +2,8 @@
 #
 # Table name: public_body_categories
 #
-#  id            :integer        not null, primary key
-#  locale        :string
-#  title         :text           not null
-#  category_tag  :text           not null
-#  description   :text           not null
-#  display_order :integer
+#  id           :integer          not null, primary key
+#  category_tag :text             not null
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

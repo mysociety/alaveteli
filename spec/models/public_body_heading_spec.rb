@@ -2,9 +2,7 @@
 #
 # Table name: public_body_headings
 #
-#  id            :integer        not null, primary key
-#  locale        :string
-#  name          :text           not null
+#  id            :integer          not null, primary key
 #  display_order :integer
 #
 
