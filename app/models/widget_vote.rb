@@ -15,4 +15,5 @@ class WidgetVote < ActiveRecord::Base
 
   attr_accessible :cookie
   validates :cookie, :length => { :is => 20 }
+  validates_uniqueness_of :cookie, :scope => :info_request_id
 end

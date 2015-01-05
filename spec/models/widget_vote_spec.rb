@@ -32,6 +32,22 @@ describe WidgetVote do
             widget_vote.should be_valid
         end
 
+        it 'enforces uniqueness of cookie per info request' do
+            info_request = FactoryGirl.create(:info_request)
+            widget_vote = info_request.widget_votes.create(:cookie => 'x' * 20)
+            duplicate_vote = info_request.widget_votes.build(:cookie => 'x' * 20)
+            duplicate_vote.should_not be_valid
+            duplicate_vote.errors[:cookie].should == ["has already been taken"]
+        end
+
+        it 'allows the same cookie to be used across info requests' do
+            info_request = FactoryGirl.create(:info_request)
+            second_info_request = FactoryGirl.create(:info_request)
+            widget_vote = info_request.widget_votes.create(:cookie => 'x' * 20)
+            second_request_vote = second_info_request.widget_votes.build(:cookie => 'x' * 20)
+            second_request_vote.should be_valid
+        end
+
     end
 
 end
