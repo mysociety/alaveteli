@@ -38,8 +38,8 @@ describe HolidayImport do
 
     it 'defaults to importing holidays for the current year' do
         holiday_import = HolidayImport.new
-        holiday_import.start_year.should == 2014
-        holiday_import.end_year.should == 2014
+        holiday_import.start_year.should == Time.now.year
+        holiday_import.end_year.should == Time.now.year
     end
 
     it 'allows the start and end year to be set' do
@@ -112,7 +112,9 @@ describe HolidayImport do
 
         before do
             @holiday_import = HolidayImport.new(:source => 'feed',
-                                                :ical_feed_url => 'http://www.example.com')
+                                                :ical_feed_url => 'http://www.example.com',
+                                                :start_year => 2014,
+                                                :end_year => 2014)
         end
 
         it 'should populate holidays from the feed that are between the dates' do
