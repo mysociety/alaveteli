@@ -32,6 +32,11 @@ describe WidgetsController do
             assigns[:status].should == @info_request.calculate_status
         end
 
+        it 'should not send an x-frame-options header' do
+            get :show, :request_id => @info_request.id
+            response.headers["X-Frame-Options"].should be_nil
+        end
+
         context 'for a non-logged-in user' do
 
             context 'if no widget-vote cookie is set' do
