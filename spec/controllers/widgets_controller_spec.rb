@@ -61,6 +61,16 @@ describe WidgetsController do
 
         end
 
+        context "when the request's prominence is not 'normal'" do
+
+            it 'should return a 403' do
+                @info_request.prominence = 'hidden'
+                @info_request.save!
+                get :show, :request_id => @info_request.id
+                response.code.should == "403"
+            end
+
+        end
 
     end
 
@@ -87,6 +97,17 @@ describe WidgetsController do
                 AlaveteliConfiguration.stub!(:enable_widgets).and_return(false)
                 lambda{ get :new, :request_id => @info_request.id }.should
                     raise_error(ActiveRecord::RecordNotFound)
+            end
+
+        end
+
+        context "when the request's prominence is not 'normal'" do
+
+            it 'should return a 403' do
+                @info_request.prominence = 'hidden'
+                @info_request.save!
+                get :show, :request_id => @info_request.id
+                response.code.should == "403"
             end
 
         end
@@ -139,6 +160,17 @@ describe WidgetsController do
                 AlaveteliConfiguration.stub!(:enable_widgets).and_return(false)
                 lambda{ get :update, :request_id => @info_request.id }.should
                     raise_error(ActiveRecord::RecordNotFound)
+            end
+
+        end
+
+        context "when the request's prominence is not 'normal'" do
+
+            it 'should return a 403' do
+                @info_request.prominence = 'hidden'
+                @info_request.save!
+                get :show, :request_id => @info_request.id
+                response.code.should == "403"
             end
 
         end

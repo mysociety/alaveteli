@@ -8,7 +8,7 @@ require 'securerandom'
 
 class WidgetsController < ApplicationController
 
-    before_filter :check_widget_config, :find_info_request
+    before_filter :check_widget_config, :find_info_request, :check_prominence
     skip_before_filter :set_x_frame_options_header, :only => [:show]
 
     def show
@@ -44,6 +44,12 @@ class WidgetsController < ApplicationController
     def check_widget_config
         unless AlaveteliConfiguration::enable_widgets
             raise ActiveRecord::RecordNotFound.new("Page not enabled")
+        end
+    end
+
+    def check_prominence
+        unless @info_request.prominence == 'normal'
+            render :nothing => true, :status => :forbidden
         end
     end
 
