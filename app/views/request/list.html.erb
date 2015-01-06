@@ -8,6 +8,7 @@
   <h2><%= _("Follow these requests") %></h2>
   <% if @track_thing %>
       <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
+      <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'main' } %>
   <% end %>
 </div>
 
