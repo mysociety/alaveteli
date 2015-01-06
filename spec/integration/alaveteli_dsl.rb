@@ -33,15 +33,16 @@ def login(user)
     sess.reset!
     sess.extend(AlaveteliDsl)
 
-    if user.is_a? User
-        u = user
-    else
-        u = users(user)
-    end
+    u = user.is_a?(User) ? user : users(user)
+
     sess.visit signin_path
-    sess.fill_in "Your e-mail:", :with => u.email
-    sess.fill_in "Password:", :with => "jonespassword"
-    sess.click_button "Sign in"
+
+    sess.within '#signin_form' do
+        sess.fill_in "Your e-mail:", :with => u.email
+        sess.fill_in "Password:", :with => "jonespassword"
+        sess.click_button "Sign in"
+    end
+
     assert sess.session[:user_id] == u.id
   end
 end
