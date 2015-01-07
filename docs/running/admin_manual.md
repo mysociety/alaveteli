@@ -7,11 +7,22 @@ title: Administrator's guide
 
 <p class="lead">
   What is it like running an Alaveteli site? This guide explains what you can
-  expect, and the types of problem that you might encounter. It includes
-  examples of how mySociety manages their own <a href="/docs/glossary/#foi"
+  expect, and the types of problem that you might encounter. At mySociety,
+  we've been running our own <a href="/docs/glossary/#foi"
   class="glossary__link">Freedom of Information</a> site, <a
-  href="https://www.whatdotheyknow.com">whatdotheyknow.com</a>.
+  href="https://www.whatdotheyknow.com">whatdotheyknow.com</a>, since 2008,
+  so we've included lots of examples from our own experience.
+  
 </p>
+
+<div class="attention-box helpful-hint">
+  <p>
+    <b>Before you start...</b>
+    This admin guide assumes your Alaveteli site is already up and running.
+    If it's not, you need to follow the steps for
+    <a href="{{ site.baseurl }}docs/getting_started/">getting started with Alaveteli</a>.
+  </p>
+</div>
 
 In this guide:
 
@@ -55,7 +66,8 @@ times.
 
 Administration tasks can be split into [**maintenance**]({{ site.baseurl }}docs/running/admin_manual/#maintenance) and [**user support**]({{ site.baseurl }}docs/running/admin_manual/#user-support).
 The boundaries of these tasks is in fact quite blurred; the main distinction is
-that the former happen exclusively through the web admin interface, whereas the
+that the former happen exclusively through the web 
+<a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>, whereas the
 latter are mediated by email directly with end users (but often result in
 actions through the web admin interface).
 
@@ -308,17 +320,24 @@ line, and piping the contents of that file into the mail handling script. e.g.
 
 ### Administrator privileges and accessing the admin interface
 
-The administrative interface is at the URL `/admin`.
+The 
+<a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">administrative interface</a>
+is at the URL `/admin`.
 
-Only users with the `super` admin level can access the admin interface. Users
-create their own accounts in the usual way, and then administrators can give
-them `super` privileges.
+Only users with the
+<a href="{{ site.baseurl }}docs/glossary/#super" class="glossary__link">super</a>
+admin level can access the admin interface. To make a new administrator,
+create a user account in the usual way (signing in using the web front-end),
+and then have an existing administrator to grant them *super* privileges.
 
-There is an emergency user account which can be accessed via
-`/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
+Obviously, you can't do this for the very first administrator on a brand
+new Alavetlei installation. So there is an emergency user account which can be
+accessed via `/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
 `ADMIN_PASSWORD`, which are set in `general.yml`.  To bootstrap the
 first `super` level accounts, you will need to log in as the emergency
-user. You can disable the emergency user account by setting `DISABLE_EMERGENCY_USER` to `true` in `general.yml`.
+user. When you have granted *super* privileges to at least one existing user,
+you can disable the emergency user account by setting `DISABLE_EMERGENCY_USER`
+to `true` in `general.yml`.
 
 Users with the superuser role also have extra privileges in the website
 front end, such as being able to categorise any request, being able to view
