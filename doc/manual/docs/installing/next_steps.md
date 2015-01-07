@@ -14,7 +14,9 @@ Alaveteli ships with an
 <a href="{{site.baseurl}}docs/glossary/#emergency" class="glossary__link">emergency user</a>
 that has access to the admin. So when you've just created a new site, you
 should sign up to create your own account, then log into admin as the emergency
-user to promote your new account to be an administrator with *super* privileges.
+user to promote your new account to be an administrator with
+<a href="{{ site.baseurl }}docs/glossary/#super" class="glossary__link">super</a>
+privilege.
 
 As soon as that's done, disable the emergency user, because you don't need to
 use it any more: you've superseded it with your new admin account.
