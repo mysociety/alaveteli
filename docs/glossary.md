@@ -16,6 +16,7 @@ Definitions
 
 <ul class="definitions">
   <li><a href="#alaveteli">Alaveteli</a></li>
+  <li><a href="#admin">admin interface</a></li>
   <li><a href="#agnostic">asker agnostic</a></li>
   <li><a href="#authority">authority</a></li>
   <li><a href="#blackhole">black hole</a></li>
@@ -42,6 +43,7 @@ Definitions
   <li><a href="#sass">Sass</a></li>
   <li><a href="#staging">staging site</a></li>
   <li><a href="#state">state</a></li>
+  <li><a href="#super">superuser</a></li>
   <li><a href="#theme">theme</a></li>
 </ul>
 
@@ -73,6 +75,40 @@ Definitions
           where
           <a href="http://en.wikipedia.org/wiki/Anders_Chydenius">an early FOI campaigner</a>
           once worked.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="admin">admin interface</a> (also: admin)
+  </dt>
+  <dd>
+    The <strong>admin interface</strong> allows users who have
+    <a href="{{ site.baseurl }}docs/glossary/#super" class="glossary__link">super</a>
+    administrator privilege to manage some aspects of how your
+    Alaveteli site runs.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          You can access your installation's <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>
+          at <code>/admin</code>.
+        </li>
+        <li>
+          To grant a user admin privilege, log into the admin and change
+          their <em>Admin level</em> to "super" (or revoke the privilege
+          by changing it to "none").
+        </li>
+        <li>
+          On a newly-installed Alaveteli system, you can grant yourself
+          admin privilege by using the 
+          <a href="{{ site.baseurl }}docs/glossary/#emergency" class="glossary__link">emergency
+          user</a>.
+        </li>
+        <li>
+          For lots more about running an Alaveteli site, see the
+          <a href="{{ site.baseurl }}running/admin_manual">adminstrator's guide</a>.
         </li>
       </ul>
     </div>
@@ -266,7 +302,7 @@ Definitions
   </dd>
 
   <dt>
-    <a name="foi">Freedom of Information</a> (also FOI)
+    <a name="foi">Freedom of Information</a> (also: FOI)
   </dt>
   <dd>
     <strong>Freedom of information</strong> laws allow access by the general public
@@ -287,7 +323,7 @@ Definitions
   </dd>
 
   <dt>
-    <a name="git">git</a> (also github,  git repository, and git repo)
+    <a name="git">git</a> (also: github,  git repository, and git repo)
   </dt>
   <dd>
     We use a popular source code control system called <strong>git</strong>. This
@@ -617,7 +653,7 @@ Definitions
   </dd>
 
   <dt>
-    <a name="rails">Ruby on Rails</a> (also Rails)
+    <a name="rails">Ruby on Rails</a> (also: Rails)
   </dt>
   <dd>
     Alaveteli is written in the Ruby programming language, using
@@ -715,6 +751,31 @@ Definitions
         </li>
         <li>
           to customise or add your own states, see <a href="{{ site.baseurl }}docs/customising/themes/#customising-the-request-states">Customising the request states</a>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="super">superuser</a> (also: super privilege)
+  </dt>
+  <dd>
+    A <strong>superuser</strong> is a user with full privilege to use all
+    features of the
+    <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          To grant a user admin privilege, log into the admin and change
+          their <em>Admin level</em> to "super" (or revoke the privilege
+          by changing it to "none").
+        </li>
+        <li>
+          On a newly-installed Alaveteli system, you can grant yourself
+          admin privilege by using the 
+          <a href="{{ site.baseurl }}docs/glossary/#emergency" class="glossary__link">emergency
+          user</a>.
         </li>
       </ul>
     </div>
