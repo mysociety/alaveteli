@@ -760,8 +760,8 @@ Definitions
     <a name="super">superuser</a> (also: super privilege)
   </dt>
   <dd>
-    A <strong>superuser</strong> is a user with full privilege to use all
-    features of the
+    A <strong>superuser</strong> is an Alaveteli user who has been granted
+    the privilege to use all features of the
     <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>.
     <div class="more-info">
       <p>More information:</p>
