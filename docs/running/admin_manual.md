@@ -7,11 +7,22 @@ title: Administrator's guide
 
 <p class="lead">
   What is it like running an Alaveteli site? This guide explains what you can
-  expect, and the types of problem that you might encounter. It includes
-  examples of how mySociety manages their own <a href="/docs/glossary/#foi"
+  expect, and the types of problem that you might encounter. At mySociety,
+  we've been running our own <a href="/docs/glossary/#foi"
   class="glossary__link">Freedom of Information</a> site, <a
-  href="https://www.whatdotheyknow.com">whatdotheyknow.com</a>.
+  href="https://www.whatdotheyknow.com">whatdotheyknow.com</a>, since 2008,
+  so we've included lots of examples from our own experience.
+  
 </p>
+
+<div class="attention-box helpful-hint">
+  <p>
+    <b>Before you start...</b>
+    This admin guide assumes your Alaveteli site is already up and running.
+    If it's not, you need to follow the steps for
+    <a href="{{ site.baseurl }}docs/getting_started/">getting started with Alaveteli</a>.
+  </p>
+</div>
 
 In this guide:
 
@@ -55,7 +66,8 @@ times.
 
 Administration tasks can be split into [**maintenance**]({{ site.baseurl }}docs/running/admin_manual/#maintenance) and [**user support**]({{ site.baseurl }}docs/running/admin_manual/#user-support).
 The boundaries of these tasks is in fact quite blurred; the main distinction is
-that the former happen exclusively through the web admin interface, whereas the
+that the former happen exclusively through the web 
+<a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>, whereas the
 latter are mediated by email directly with end users (but often result in
 actions through the web admin interface).
 
