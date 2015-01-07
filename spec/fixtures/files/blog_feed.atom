@@ -29,7 +29,7 @@
         <guid isPermaLink="false">http://www.example.com/?id=333</guid>
         <description><![CDATA[An example post [...]]]></description>
             <content:encoded><![CDATA[<h3>A blog post</h3>
-<p>Example post</p>
+<p>Example post</p><script>alert("exciting!")</script>
 ]]></content:encoded>
             <wfw:commentRss>http://www.example.com/feed/</wfw:commentRss>
         <slash:comments>2</slash:comments>
