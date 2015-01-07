@@ -211,7 +211,7 @@ class TrackController < ApplicationController
             track_thing.destroy
         end
 
-        redirect_to params[:r]
+        redirect_to URI.parse(params[:r]).path
     end
 
 

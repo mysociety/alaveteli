@@ -16,6 +16,11 @@ FactoryGirl.define do
             filename 'interesting.rtf'
             body { load_file_fixture('interesting.rtf') }
         end
+        factory :html_attachment do
+            content_type 'text/html'
+            filename 'interesting.html'
+            body { load_file_fixture('interesting.html') }
+        end
     end
 
 end

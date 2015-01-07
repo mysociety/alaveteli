@@ -26,6 +26,14 @@ FactoryGirl.define do
             end
         end
 
+        factory :incoming_message_with_html_attachment do
+            after_create do |incoming_message, evaluator|
+                FactoryGirl.create(:html_attachment,
+                                   :incoming_message => incoming_message,
+                                   :url_part_number => 2)
+            end
+        end
+
         factory :incoming_message_with_attachments do
             # foi_attachments_count is declared as an ignored attribute and available in
             # attributes on the factory, as well as the callback via the evaluator

@@ -256,7 +256,7 @@ class UserController < ApplicationController
     def signout
         clear_session_credentials
         if params[:r]
-            redirect_to params[:r]
+            redirect_to URI.parse(params[:r]).path
         else
             redirect_to :controller => "general", :action => "frontpage"
         end
@@ -596,7 +596,7 @@ class UserController < ApplicationController
         end
         @user.receive_email_alerts = params[:receive_email_alerts]
         @user.save!
-        redirect_to params[:came_from]
+        redirect_to URI.parse(params[:came_from]).path
     end
 
     private
