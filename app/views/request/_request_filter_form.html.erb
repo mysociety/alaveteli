@@ -5,7 +5,7 @@
                    ["successful", _("successful requests")],
                    ["unsuccessful", _("unsuccessful requests")],
                    ["awaiting", _("unresolved requests")]] %>
-    <% for status, label in statuses %>
+    <% statuses.each do |status, label| %>
       <% if params[:view] != status %>
         <% if params[:controller] == "public_body" %>
           <%= link_to label, url_for(:controller => "public_body", :action => "show", :view => status, :url_name => @public_body.url_name) + "?" + request.query_string + '#results' %>
