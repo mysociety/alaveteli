@@ -1073,6 +1073,16 @@ describe RequestController, "when creating a new request" do
         response.redirect_url.should =~ /request\/why_is_your_quango_called_gerald\/new$/
     end
 
+    it "sets the request_sent flash to true if successful" do
+        session[:user_id] = @user.id
+        post :new, :info_request => { :public_body_id => @body.id,
+            :title => "Why is your quango called Geraldine?", :tag_string => "" },
+            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+            :submitted_new_request => 1, :preview => 0
+
+        expect(flash[:request_sent]).to be_true
+    end
+
     it "should give an error if the same request is submitted twice" do
         session[:user_id] = @user.id
 
