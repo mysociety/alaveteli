@@ -102,7 +102,7 @@ Definitions
         </li>
         <li>
           On a newly-installed Alaveteli system, you can grant yourself
-          admin privilege by using the 
+          admin privilege by using the
           <a href="{{ site.baseurl }}docs/glossary/#emergency" class="glossary__link">emergency
           user</a>.
         </li>
@@ -285,7 +285,7 @@ Definitions
         <li>
           The username and password are defined by the configuration settings
           <code><a href="{{site.baseurl}}docs/customising/config/#admin_username">ADMIN_USERNAME</a></code>
-          and 
+          and
           <code><a href="{{site.baseurl}}docs/customising/config/#admin_password">ADMIN_PASSWORD</a></code>.
         </li>
         <li>
@@ -773,7 +773,7 @@ Definitions
         </li>
         <li>
           On a newly-installed Alaveteli system, you can grant yourself
-          admin privilege by using the 
+          admin privilege by using the
           <a href="{{ site.baseurl }}docs/glossary/#emergency" class="glossary__link">emergency
           user</a>.
         </li>
