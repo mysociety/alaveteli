@@ -12,6 +12,7 @@
       </p>
 
         <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
+        <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'sidebar' } %>
         <%= render :partial => 'more_info', :locals => { :public_body => @public_body } %>
     </div>
 
@@ -91,7 +92,8 @@
             <a name="results"></a>
 
             <% if  @public_body.info_requests.size > 4 %>
-                <%= render :partial => 'request/request_filter_form' %>
+                <%= render :partial => 'request/request_search_form',
+                           :locals => { :after_form_fields => render(:partial => 'request/request_filter_form') } %>
             <% end %>
         <% end %>
 
