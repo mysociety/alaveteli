@@ -29,7 +29,7 @@ available time.
 
 You can get a feeling for how things might turn out by reading [how an
 Alaveteli was set up in
-Spain]({{ site.baseurl }}2012/04/16/a-right-to-know-site-for-spain/)
+Spain](https://www.mysociety.org/2012/04/16/a-right-to-know-site-for-spain/)
 (remember that this was with an experienced developer in charge). You will also
 need to think about how you will run the website; a successful Alaveteli
 requires lots of ongoing effort to moderate and publicise (see Step 6 and Step
@@ -158,7 +158,7 @@ If you email possible supporters asking for help, in addition to helping make
 your job easier, it will also help you identify eager people who might be
 interested in helping you maintain and run the website. We have written [a
 blog post about
-this]({{ site.baseurl }}2011/07/29/you-need-volunteers-to-make-your-website-work/).
+this](https://www.mysociety.org/2011/07/29/you-need-volunteers-to-make-your-website-work/).
 
 The admin interface includes a page where you can upload a CSV file (that's a
 file containing comma-separated values) to create or edit authorities. CSV is a
@@ -347,7 +347,7 @@ This will be easier to do with a small team of people sharing jobs. Hopefully
 you have been lucky enough to get funding to pay people to do these tasks.
 However, you are also likely to have to rely on volunteers. We've written [a
 blog post about the importance of
-volunteers]({{ site.baseurl }}2011/07/29/you-need-volunteers-to-make-your-website-work/), which you should read.
+volunteers](https://www.mysociety.org/2011/07/29/you-need-volunteers-to-make-your-website-work/), which you should read.
 
 You'll need to set up a group email address for all the people who will manage
 the website. All site user queries will go here, as will automatic
