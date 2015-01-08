@@ -26,7 +26,7 @@ title: About
         <div class="about__column">
             <p>Groups who want to set up an Alaveteli website should note that its success depends on more than just deploying the software: it requires constant maintenance to ensure requests are successfully dealt with (whether from technical, usability or legal points of view).  The project will therefore also develop a set of best practices for the human side of a successful FOI website. To start with, we have <a href="https://www.mysociety.org/2011/07/29/you-need-volunteers-to-make-your-website-work/">a blog post describing the importance of volunteers</a>.
             </p>
-            <p>The software started life as <a href="https://www.whatdotheyknow.com">WhatDoTheyKnow</a>, a website produced by <a href="https://mysociety.org/">mySociety</a> for making FOI requests in the UK. Its history and background are described <a href="https://www.whatdotheyknow.com/help/credits">over there</a>. The development of Alaveteli is currently managed by <a href="https://twitter.com/crowbot">Louise Crow of mySociety</a>.</p>
+            <p>The software started life as <a href="https://www.whatdotheyknow.com">WhatDoTheyKnow</a>, a website produced by <a href="https://mysociety.org/">mySociety</a> for making FOI requests in the UK. Its history and background are described <a href="https://www.whatdotheyknow.com/help/credits">over there</a>. The development of Alaveteli is currently managed by <a href="https://www.mysociety.org/about/team/louise-crow/">Louise Crow of mySociety</a>.</p>
         </div>
     </div>
 </div>
