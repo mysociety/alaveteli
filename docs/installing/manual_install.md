@@ -351,7 +351,12 @@ Example `development` section of `config/database.yml`:
 Make sure that the user specified in `database.yml` exists, and has full
 permissions on these databases.
 
-As the user needs the ability to turn off constraints whilst running the tests they also need to be a superuser. If you don't want your database user to be a superuser, you can add this line to the `test` section in `database.yml` (as seen in `config/database.yml-example`):
+As the user needs the ability to turn off constraints whilst running the tests
+they also need to be a superuser (clarification: a <em>Postgres</em> superuser,
+not an Alaveteli
+<a href="{{ site.baseurl }}docs/glossary/#super" class="glossary__link">superuser</a>).
+If you don't want your database user to be a superuser, you can add this line
+to the `test` section in `database.yml` (as seen in `config/database.yml-example`):
 
     constraint_disabling: false
 

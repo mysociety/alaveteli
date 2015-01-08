@@ -320,17 +320,24 @@ line, and piping the contents of that file into the mail handling script. e.g.
 
 ### Administrator privileges and accessing the admin interface
 
-The administrative interface is at the URL `/admin`.
+The 
+<a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">administrative interface</a>
+is at the URL `/admin`.
 
-Only users with the `super` admin level can access the admin interface. Users
-create their own accounts in the usual way, and then administrators can give
-them `super` privileges.
+Only users with the
+<a href="{{ site.baseurl }}docs/glossary/#super" class="glossary__link">super</a>
+admin level can access the admin interface. To make a new administrator,
+create a user account in the usual way (signing in using the web front-end),
+and then have an existing administrator to grant them *super* privileges.
 
-There is an emergency user account which can be accessed via
-`/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
+Obviously, you can't do this for the very first administrator on a brand
+new Alavetlei installation. So there is an emergency user account which can be
+accessed via `/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
 `ADMIN_PASSWORD`, which are set in `general.yml`.  To bootstrap the
 first `super` level accounts, you will need to log in as the emergency
-user. You can disable the emergency user account by setting `DISABLE_EMERGENCY_USER` to `true` in `general.yml`.
+user. When you have granted *super* privileges to at least one existing user,
+you can disable the emergency user account by setting `DISABLE_EMERGENCY_USER`
+to `true` in `general.yml`.
 
 Users with the superuser role also have extra privileges in the website
 front end, such as being able to categorise any request, being able to view
