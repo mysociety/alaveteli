@@ -12,6 +12,14 @@ describe ServicesController, "when returning a message for people in other count
         @old_locale = FastGettext.locale()
     end
 
+    it 'keeps the flash' do
+        # Make two get requests to simulate the flash getting swept after the
+        # first response.
+        get :other_country_message, nil, nil, :some_flash_key => 'abc'
+        get :other_country_message
+        expect(flash[:some_flash_key]).to eq('abc')
+    end
+
     it "should show no alaveteli message when in the deployed country" do
         config = MySociety::Config.load_default()
         config['ISO_COUNTRY_CODE'] = "DE"

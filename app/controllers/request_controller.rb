@@ -37,6 +37,7 @@ class RequestController < ApplicationController
         end
         if !params[:query].nil?
             query = params[:query]
+            flash[:search_params] = params.slice(:query, :bodies, :page)
             @xapian_requests = perform_search_typeahead(query, PublicBody)
         end
         medium_cache
@@ -122,7 +123,6 @@ class RequestController < ApplicationController
             # Track corresponding to this page
             @track_thing = TrackThing.create_track_for_request(@info_request)
             @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
-
 
             respond_to do |format|
                 format.html { @has_json = true; render :template => 'request/show'}

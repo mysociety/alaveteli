@@ -55,6 +55,8 @@ class PublicBodyController < ApplicationController
                 @xapian_requests = nil
             end
 
+            flash.keep(:search_params)
+
             @track_thing = TrackThing.create_track_for_public_body(@public_body)
             @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
@@ -349,6 +351,7 @@ class PublicBodyController < ApplicationController
         # Since acts_as_xapian doesn't support the Partial match flag, we work around it
         # by making the last work a wildcard, which is quite the same
         query = params[:query]
+        flash[:search_params] = params.slice(:query, :bodies, :page)
         @xapian_requests = perform_search_typeahead(query, PublicBody)
         render :partial => "public_body/search_ahead"
     end

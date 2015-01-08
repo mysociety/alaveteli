@@ -956,6 +956,20 @@ describe RequestController, "when searching for an authority" do
             }.should_not raise_error(StandardError)
         end
     end
+
+    it "remembers the search params" do
+        session[:user_id] = @user.id
+        search_params = {
+            'query'  => 'Quango',
+            'page'   => '1',
+            'bodies' => '1'
+        }
+
+        get :select_authority, search_params
+
+        expect(flash[:search_params]).to eq(search_params)
+    end
+
 end
 
 describe RequestController, "when creating a new request" do
