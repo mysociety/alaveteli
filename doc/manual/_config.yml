@@ -5,7 +5,14 @@ permalink: pretty
 markdown: kramdown
 url: http://code.alaveteli.org
 exclude:
+  - Gemfile
+  - Gemfile.lock
+  - Gruntfile.js
+  - README.md
+  - alaveteli-doc-master.txt
   - node_modules
+  - package.json
   - script
+  - vendor
 gems:
   - jekyll-redirect-from
