@@ -3,3 +3,8 @@
 #foi_results_section {
     @include grid-column(12);
 }
+
+.back-to-results {
+    @include grid-column(12);
+    margin-top: 0.5em;
+}
