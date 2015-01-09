@@ -170,7 +170,7 @@ GEM
     paper_trail (2.7.2)
       activerecord (~> 3.0)
       railties (~> 3.0)
-    pg (0.15.1)
+    pg (0.17.1)
     polyglot (0.3.5)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
@@ -204,7 +204,7 @@ GEM
     rbx-require-relative (0.0.9)
     rdoc (3.12.2)
       json (~> 1.4)
-    recaptcha (0.3.5)
+    recaptcha (0.3.6)
     ref (1.0.5)
     rest-client (1.6.7)
       mime-types (>= 1.16)
@@ -323,7 +323,7 @@ DEPENDENCIES
   net-purge
   newrelic_rpm
   nokogiri
-  pg
+  pg (~> 0.17.1)
   quiet_assets
   rack
   rails (= 3.2.21)
