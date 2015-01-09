@@ -244,13 +244,8 @@ class RequestController < ApplicationController
                                                       :body => params[:outgoing_message][:body],
                                                       :public_bodies => @public_bodies,
                                                       :user => authenticated_user)
-        flash[:notice] = _("<p>Your {{law_used_full}} requests will be <strong>sent</strong> shortly!</p>
-            <p><strong>We will email you</strong> when they have been sent.
-            We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't
-            replied by then.</p>
-            <p>If you write about these requests (for example in a forum or a blog) please link to this page.</p>",
-            :law_used_full=>@info_request.law_used_full,
-            :late_number_of_days => AlaveteliConfiguration::reply_late_after_days)
+
+        flash[:batch_sent] = true
         redirect_to info_request_batch_path(@info_request_batch)
     end
 

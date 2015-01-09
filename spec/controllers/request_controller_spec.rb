@@ -2564,10 +2564,9 @@ describe RequestController, "#new_batch" do
                     assigns[:existing_batch].should_not be_nil
                 end
 
-                it 'should display a success notice' do
+                it 'sets the batch_sent flash to true' do
                     make_request
-                    notice_text = "<p>Your Freedom of Information requests will be <strong>sent</strong> shortly!"
-                    flash[:notice].should match notice_text
+                    expect(flash[:batch_sent]).to be_true
                 end
 
             end
