@@ -4,6 +4,12 @@ baseurl: /
 permalink: pretty
 markdown: kramdown
 url: http://code.alaveteli.org
+defaults:
+  -
+    scope:
+      path: es
+    values:
+      locale: es
 exclude:
   - Gemfile
   - Gemfile.lock
