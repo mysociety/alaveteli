@@ -1,4 +1,4 @@
-<% if @highlight_words.nil? 
+<% if @highlight_words.nil?
       @highlight_words = []
    end %>
 
@@ -34,5 +34,8 @@
             <%= _("Added on {{date}}", :date => simple_date(public_body.created_at)) %>.
         </span>
     </span>
+    <div class="make-request-quick-button">
+        <a class="link_button_green" href="#">Make a request</a>
+    </div>
 </div>
 
