@@ -210,16 +210,6 @@ class InfoRequest < ActiveRecord::Base
 
     OLD_AGE_IN_DAYS = 21.days
 
-    def after_initialize
-        if self.described_state.nil?
-            self.described_state = 'waiting_response'
-        end
-        # FOI or EIR?
-        if !self.public_body.nil? && self.public_body.eir_only?
-            self.law_used = 'eir'
-        end
-    end
-
     def visible_comments
         self.comments.find(:all, :conditions => 'visible')
     end
