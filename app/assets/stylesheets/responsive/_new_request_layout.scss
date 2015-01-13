@@ -140,6 +140,10 @@
 
 }
 
+#outgoing_message_body {
+  width: 100%;
+}
+
 /* Message preview */
 .message-preview {
   @include grid-row($behavior: nest);
