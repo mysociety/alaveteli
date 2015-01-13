@@ -1,0 +1,19 @@
+<div id="notice">
+  <p>
+    <%= _("Your {{law_used_full}} request has been <strong>sent on its way</strong>!",
+          :law_used_full => @info_request.law_used_full) %>
+  </p>
+
+  <p>
+    <%= _("<strong>We will email you</strong> when there is a response, or after " \
+          "{{late_number_of_days}} working days if the authority still hasn't " \
+          "replied by then.",
+          :late_number_of_days => AlaveteliConfiguration.reply_late_after_days) %>
+  </p>
+
+  <p>
+    <%= _("If you write about this request (for example in a forum or a blog) " \
+          "please link to this page, and add an annotation below telling people " \
+          "about your writing.") %>
+  </p>
+</div>

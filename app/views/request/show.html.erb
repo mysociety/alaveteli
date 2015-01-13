@@ -2,6 +2,11 @@
                 :title => h(@info_request.title),
                 :public_body => (@info_request.public_body.name)) %>
 
+<% if flash[:request_sent] %>
+  <%= render :partial => 'request_sent',
+             :locals => { :info_request => @info_request } %>
+<% end %>
+
 <% if @info_request.prominence == 'hidden' %>
     <p id="hidden_request">
     <%= _('This request has prominence \'hidden\'. You can only see it because you are logged
