@@ -37,6 +37,7 @@ class RequestController < ApplicationController
         end
         if !params[:query].nil?
             query = params[:query]
+            flash[:search_params] = params.slice(:query, :bodies, :page)
             @xapian_requests = perform_search_typeahead(query, PublicBody)
         end
         medium_cache

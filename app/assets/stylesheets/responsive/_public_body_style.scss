@@ -1,4 +1,14 @@
 /* Style for public body pages */
+
+.back-to-results {
+  .message {
+    margin-top: 0.5em;
+    padding: 0.5em 0.8em;
+    background-color: #fff;
+    background-color: rgba(0,0,0,0.1);
+  }
+}
+
 .public-body-name-prefix {
   color:#888;
   font-size: 1.3em;
