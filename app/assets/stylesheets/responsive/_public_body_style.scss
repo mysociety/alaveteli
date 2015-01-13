@@ -6,11 +6,19 @@
         padding: 0.5em 0.8em;
         background-color: #fff;
         background-color: rgba(0,0,0,0.1);
+        a {
+            text-decoration: none;
+        }
     }
 }
 
 .authority__header {
     border-bottom: 1px solid #e9e9e9;
+}
+
+.authority__header__subtitle {
+    font-size: 1.2em;
+    color: #666;
 }
 
 .authority__header__action-bar {
@@ -48,4 +56,21 @@
         }
 
     }
+}
+
+.authority__body__sidebar__links {
+    a {
+        display: inline-block;
+        margin-bottom: 0.5em;
+    }
+}
+
+#list-filter {
+    margin-bottom: 3em;
+}
+
+#filter_requests_form label.title {
+    display: block;
+    width: auto;
+    margin-bottom: 0.3em;
 }
