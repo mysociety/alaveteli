@@ -18,19 +18,7 @@ module AlaveteliExternalCommand
                 opts = args.pop
             end
 
-            if program_name =~ %r(^/)
-                program_path = program_name
-            else
-                found = false
-                AlaveteliConfiguration::utility_search_path.each do |d|
-                    program_path = File.join(d, program_name)
-                    if File.file? program_path and File.executable? program_path
-                        found = true
-                        break
-                    end
-                end
-                 raise "Could not find #{program_name} in any of #{AlaveteliConfiguration::utility_search_path.join(', ')}" if !found
-            end
+            program_path = find_program(program_name)
 
             xc = ExternalCommand.new(program_path, *args)
             if opts.has_key? :append_to
@@ -59,6 +47,19 @@ module AlaveteliExternalCommand
                 else
                     return xc.out
                 end
+            end
+        end
+
+        def find_program(program_name)
+            if program_name =~ %r(^/)
+                return program_name
+            else
+                search_path = AlaveteliConfiguration::utility_search_path
+                search_path.each do |d|
+                    program_path = File.join(d, program_name)
+                    return program_name if File.file? program_path and File.executable? program_path
+                end
+                raise "Could not find #{program_name} in any of #{search_path.join(', ')}"
             end
         end
     end
