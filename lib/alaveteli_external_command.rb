@@ -9,13 +9,14 @@ module AlaveteliExternalCommand
         # :binary_output - boolean flag for treating the output as binary or text (only significant
         #                  ruby 1.9 and above)
         # :memory_limit - maximum amount of memory (in bytes) available to the process
+        # :timeout - maximum amount of time (in s) to allow the process to run for
         def run(program_name, *args)
             # Run an external program, and return its output.
             # Standard error is suppressed unless the program
             # fails (i.e. returns a non-zero exit status).
             opts = {}
-            if !args.empty? && args[-1].is_a?(Hash)
-                opts = args.pop
+            if !args.empty? && args.last.is_a?(Hash)
+                opts = args.last
             end
 
             program_path = find_program(program_name)
