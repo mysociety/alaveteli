@@ -1,27 +1,6 @@
 ---
-author: Myf
-comments: true
 date: 2013-06-12 14:54:07+00:00
-layout: post
 slug: '454'
 title: Alaveteli gets an upgrade
-wordpress_id: 454
-categories:
-- Development
+redirect_to: https://www.mysociety.org/2013/06/04/alaveteli-gets-an-upgrade/
 ---
-
-{% include image.html url="/assets/img/2319053387_eb231d4a60_z.jpg" description="Brass Band Serenade by .sashi - http://www.flickr.com/photos/sashimanek/2319053387/" width="658" %}
-
-Today, we are using the phrase "Alaveteli upgrade" rather a lot - and not just because it's such a great tongue-twister. It's also a notable milestone for our open-source community.
-
-[Alaveteli](http://www.alaveteli.org/) is our software for running Freedom of Information websites. The [code](https://github.com/mysociety/alaveteli/) can be deployed by people in other countries who wish to set up a site like our original UK one, [WhatDoTheyKnow](http://www.whatdotheyknow.com). If you're a developer who would like to use the platform in your own country, it makes several things easier for you.
-
-Alaveteli will now be using the Rails 3 series - the series we were previously relying on, 2, has become obsolete. One benefit is that we're fully supported by the core Rails team for security patches. But, more significant to our aim of sharing our software with organisations around the world, it makes Alaveteli easier to use and easier to contribute to. It's more straightforward to install, dependencies are up-to-date, code is clearer, and there's good test coverage - all things that will really help developers get their sites up and running without a problem.
-
-Rails cognoscenti will be aware that series 4.0 is imminent - and that we've only upgraded to 3.1 when 3.2 is available. We will be upgrading further in due course - it seemed sensible to progress in smaller steps. But meanwhile, we're happy with this upgrade! The bulk of the work was done by Henare Degan and Matthew Landauer of the [Open Australia Foundation](http://www.openaustraliafoundation.org.au/), as volunteers - and we are immensely grateful to them. Thanks, guys.
-
-[Find the Alaveteli code here](https://github.com/mysociety/alaveteli/) - or read our [guide to getting started](/docs/getting_started).
-
-**This entry is cross-posted from the [main mySociety blog](http://www.mysociety.org/2013/06/04/alaveteli-gets-an-upgrade/).**
-
-_Image credit: [Sashi Manek](http://www.flickr.com/photos/sashimanek/2319053387/) (cc)_
