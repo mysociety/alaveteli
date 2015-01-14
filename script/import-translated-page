@@ -1,0 +1,146 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'pathname'
+
+class LineProcessor
+  MATCHERS = {
+    :layout => /^layout:\s*(\S*)$/i,
+    :single_line_redirect => /^redirect_\w+:\s*\S+$/i,
+    :base_url => /\{\{\s*site\.baseurl\s*\}\}(\S+)/i,
+    :asset_url => /\{\{\s*site\.baseurl\s*\}\}[^assets]\S*/i
+  }
+
+  attr_reader :line, :options
+
+  def initialize(line, options = {})
+    @line = line
+    @options = options
+  end
+
+  def process
+    @line = use_locale_layout
+    @line = remove_single_line_redirects
+    @line = replace_site_baseurl
+    @line
+  end
+
+  def english?
+    options[:lang] == 'en'
+  end
+
+  private
+
+  def use_locale_layout
+    return line if english?
+    match = line.match(MATCHERS[:layout])
+
+    if match
+      "layout: #{ options[:lang] }/#{ match[1] }"
+    else
+      line
+    end
+  end
+
+  def remove_single_line_redirects
+    return line if english?
+    match = line.match(MATCHERS[:single_line_redirect])
+
+    if match
+      ''
+    else
+      line
+    end
+  end
+
+  def replace_site_baseurl
+    line.gsub(MATCHERS[:base_url]) do |match|
+      new_match = match =~ MATCHERS[:asset_url]
+      if new_match
+        match.gsub(/\{\{\s?site.baseurl\s?\}\}/, '{{ page.baseurl }}/')
+      else
+        match
+      end
+    end
+  end
+
+end
+
+class UnsupportedMatchChecker
+  UNSUPPORTED_MATCHERS = {
+    :multi_line_redirect => /^redirect_\w+:(\s*-{1}\s*.*)+$/i,
+    :include_template => /\{\%\s*include/i
+  }
+
+  attr_reader :warnings
+
+  def initialize(file_contents, file_name = 'File')
+    @warnings = []
+    UNSUPPORTED_MATCHERS.each do |name, regex|
+      if file_contents =~ regex
+        @warnings << "WARNING: #{ file_name } contains #{ name } which cannot be processed"
+      end
+    end
+  end
+end
+
+options = {}
+optionparser = OptionParser.new do |opts|
+  opts.banner = "Usage: #{ __FILE__ } [options] source_file"
+
+  opts.on("--force", "Ignore warnings and continue processing the source_file") do |f|
+    options[:force] = f
+  end
+
+  opts.on("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+
+  opts.on("--in-place", "Write the processed text back to the source_file") do |p|
+    options[:in_place] = p
+  end
+
+  opts.on("-l", "--lang=LANG", "Two-letter language code of the source_file") do |s|
+    options[:lang] = s.downcase
+  end
+
+  opts.on("-o", "--output-file=FILE", "File to write the processed text to") do |o|
+    options[:output_file] = o
+  end
+end
+optionparser.parse!
+
+unless ARGV.length == 1
+  puts optionparser.help
+  exit 1
+end
+
+source_file = ARGV.shift
+
+if options[:in_place]
+  options[:output_file] = source_file
+end
+
+unless options[:force]
+  source_file_contents = File.read(source_file)
+  source_file_path = Pathname.new(source_file).realpath
+  warnings = UnsupportedMatchChecker.new(source_file_contents, source_file_path).warnings
+  if warnings.any?
+    puts warnings
+    puts "Use --force to ignore warnings and continue processing the file"
+    exit 1
+  end
+end
+
+new_contents = []
+
+File.readlines(source_file).map do |line|
+  new_contents << LineProcessor.new(line, options).process
+end
+
+if options[:output_file]
+  File.open(options[:output_file], 'w') { |f| f.puts(new_contents) }
+else
+  puts(new_contents)
+end
