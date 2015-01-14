@@ -7,7 +7,7 @@ title: Redacting Sensitive Information
 
 In some countries, local requirements mean that requests need to contain personal information such as the address or ID number of the person asking for information. Usually requesters do not want this information to be displayed to the general public.
 
-Alaveteli has some ability to deal with this through the use of <a href="{{site.baseurl}}docs/glossary/#censor-rule" class="glossary__link">Censor Rules</a>.
+Alaveteli has some ability to deal with this through the use of <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">Censor Rules</a>.
 
 The [theme](https://github.com/mysociety/derechoapreguntar-theme) we'll use as an example requires a National Identity Card Number and what's known as General Law in Nicaragua (Date of Birth, Domicile, Occupation and Marital Status).
 
@@ -30,13 +30,13 @@ When a request is made the user's ID Number is now added to the footer of the ou
 
 ![Outgoing Message with ID Number]({{ site.baseurl }}assets/img/redaction-outgoing-message-with-id-number.png)
 
-At this point we haven't added any <a href="{{site.baseurl}}docs/glossary/#censor-rule" class="glossary__link">Censor Rules</a>. When the authority replies it is unlikely that the responder will remove the quoted section of the email:
+At this point we haven't added any <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">Censor Rules</a>. When the authority replies it is unlikely that the responder will remove the quoted section of the email:
 
 ![ID Number in Quoted Section]({{ site.baseurl }}assets/img/redaction-id-number-in-quoted-section.png)
 
-We could add a <a href="{{site.baseurl}}docs/glossary/#censor-rule" class="glossary__link">Censor Rule</a> for the individual request, but as every request will contain a user's ID Number its better to add some code to do do it automatically.
+We could add a <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">Censor Rule</a> for the individual request, but as every request will contain a user's ID Number its better to add some code to do do it automatically.
 
-To illustrate this we'll patch the `User` model with a callback that creates a <a href="{{site.baseurl}}docs/glossary/#censor-rule" class="glossary__link">Censor Rule</a> when the user is created and updated.
+To illustrate this we'll patch the `User` model with a callback that creates a <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">Censor Rule</a> when the user is created and updated.
 
     # THEME_ROOT/lib/model_patches.rb
     User.class_eval do
@@ -54,7 +54,7 @@ To illustrate this we'll patch the `User` model with a callback that creates a <
       end
     end
 
-You can see the new <a href="{{site.baseurl}}docs/glossary/#censor-rule" class="glossary__link">Censor Rule</a> in the admin interface:
+You can see the new <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">Censor Rule</a> in the admin interface:
 
 ![Automatically added Censor Rule]({{ site.baseurl }}assets/img/redaction-automatically-added-id-number-censor-rule.png)
 
@@ -66,9 +66,9 @@ It also gets redacted if the public body use the ID Number in the main email bod
 
 ![ID Number redacted in main body]({{ site.baseurl }}assets/img/redaction-id-number-in-main-body-redacted.png)
 
-A <a href="{{site.baseurl}}docs/glossary/#censor-rule" class="glossary__link">censor rule</a> added to a user only gets applied to correspondence on requests created by that user. It does not get applied to annotations made by the user.
+A <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">censor rule</a> added to a user only gets applied to correspondence on requests created by that user. It does not get applied to annotations made by the user.
 
-**Warning:** Redaction in this way requires the sensitive text to be in exactly the same format as the <a href="{{site.baseurl}}docs/glossary/#censor-rule" class="glossary__link">Censor Rule</a>. If it differs even slightly, the redaction can fail. If the public body was to remove the hyphens from the number it would not be redacted:
+**Warning:** Redaction in this way requires the sensitive text to be in exactly the same format as the <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">Censor Rule</a>. If it differs even slightly, the redaction can fail. If the public body was to remove the hyphens from the number it would not be redacted:
 
 ![ID Number not redacted in main body]({{ site.baseurl }}assets/img/redaction-id-number-in-main-body-not-redacted.png)
 
@@ -102,7 +102,7 @@ Note that the information is now contained in a specially formatted block of tex
 
 ![Outgoing message with general law]({{ site.baseurl }}assets/img/redaction-outgoing-message-with-general-law.png)
 
-This allows a <a href="{{site.baseurl}}docs/glossary/#censor-rule" class="glossary__link">Censor Rule</a> to match the special formatting and remove anything contained within. This <a href="{{site.baseurl}}docs/glossary/#censor-rule" class="glossary__link">Censor Rule</a> is global, so it will act on matches in all requests.
+This allows a <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">Censor Rule</a> to match the special formatting and remove anything contained within. This <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">Censor Rule</a> is global, so it will act on matches in all requests.
 
     # THEME_ROOT/lib/censor_rules.rb
     # If not already created, make a CensorRule that hides personal information
@@ -126,7 +126,7 @@ In this case the authority has revealed the user's Date of Birth and Domicile:
 
 ![Address outside formatted block]({{ site.baseurl }}assets/img/redaction-address-outside-fence.png)
 
-Its really difficult to add a <a href="{{site.baseurl}}docs/glossary/#censor-rule" class="glossary__link">Censor Rule</a> to remove this type of information. One suggestion might be to remove all mentions of the user's Date of Birth, but you would have to account for [every type of date format](http://en.wikipedia.org/wiki/Calendar_date#Date_format). Likewise, you could redact all occurrences of the user's Domicile, but if they a question about their local area (very likely) the request would become unintelligible.
+Its really difficult to add a <a href="{{ page.baseurl }}/docs/glossary/#censor-rule" class="glossary__link">Censor Rule</a> to remove this type of information. One suggestion might be to remove all mentions of the user's Date of Birth, but you would have to account for [every type of date format](http://en.wikipedia.org/wiki/Calendar_date#Date_format). Likewise, you could redact all occurrences of the user's Domicile, but if they a question about their local area (very likely) the request would become unintelligible.
 
 ![Censor Rule to redact a user's Domicile]({{ site.baseurl }}assets/img/redaction-domicile-censor-rule.png)
 
