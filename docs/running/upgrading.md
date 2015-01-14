@@ -8,14 +8,14 @@ Upgrading Alaveteli
 <p class="lead">
   Alaveteli is under active development &mdash; don&rsquo;t let the
   version you&rsquo;re running get too far behind our latest
-  <a href="{{site.baseurl}}docs/glossary/#release" class="glossary__link">release</a>.
+  <a href="{{ page.baseurl }}/docs/glossary/#release" class="glossary__link">release</a>.
   This page describes how to keep your site up to date.
 </p>
 
 ## How to upgrade the code
 
 * If you're using Capistrano for deployment,
-  simply [deploy the code]({{site.baseurl}}docs/installing/deploy/#usage):
+  simply [deploy the code]({{ page.baseurl }}/docs/installing/deploy/#usage):
   set the repo and branch in `deploy.yml` to be the version you want.
   We recommend you set this to the explicit tag name (for example,
   `0.18`, and not `master`) so there's no risk of you accidentally deploying
@@ -24,7 +24,7 @@ Upgrading Alaveteli
 
 ## Run the post-deploy script
 
-Unless you're [using Capistrano for deployment]({{site.baseurl}}docs/installing/deploy/),
+Unless you're [using Capistrano for deployment]({{ page.baseurl }}/docs/installing/deploy/),
 you should always run the script `scripts/rails-post-deploy` after each
 deployment. This runs any database migrations for you, plus various other
 things that can be automated for deployment.
@@ -55,7 +55,7 @@ version numbering when it reaches `1.0.0`.
 The developer team policy is that the `master` branch in git should always
 contain the latest stable release -- so you'll be up to date if you pull from
 the `master` branch. However, on your
-<a href="{{site.baseurl}}docs/glossary/#production" class="glossary__link">production
+<a href="{{ page.baseurl }}/docs/glossary/#production" class="glossary__link">production
 site</a>, you should know precisely what version you're running, and deploy
 Alaveteli from a [*specific* release
 tag](https://github.com/mysociety/alaveteli/releases).
