@@ -16,10 +16,10 @@ title: For developers
   reasons, we recommend the use of [Varnish](https://www.varnish-cache.org).
 
 * To help you understand what the code is doing, read this [high-level
-  overview]({{ site.baseurl }}docs/developers/overview/), which includes a diagram of
+  overview]({{ page.baseurl }}/docs/developers/overview/), which includes a diagram of
   the models and how they are related.
 
-* See the [API documentation]({{ site.baseurl }}docs/developers/api/) for how to get
+* See the [API documentation]({{ page.baseurl }}/docs/developers/api/) for how to get
   data into or out of Alaveteli.
 
 * If you need to change or add strings in the interface, see our [guidelines
@@ -40,23 +40,23 @@ title: For developers
 * Installing the software is a little involved, though it's getting easier. If
   you stick to Debian or Ubuntu, it should be possible to get a running version
   within a few hours. If you've got your own server, run the
-  [installation script]({{ site.baseurl }}docs/installing/script/), or follow the
+  [installation script]({{ page.baseurl }}/docs/installing/script/), or follow the
   instructions for a
-  [manual installation]({{ site.baseurl }}docs/installing/manual_install/).
-  Alternatively, there's an [Alaveteli EC2 AMI]({{ site.baseurl }}docs/installing/ami/)
+  [manual installation]({{ page.baseurl }}/docs/installing/manual_install/).
+  Alternatively, there's an [Alaveteli EC2 AMI]({{ page.baseurl }}/docs/installing/ami/)
   that might help you get up and running quickly.
-  [Get in touch]({{ site.baseurl }}community/) on the project mailing list or IRC
+  [Get in touch]({{ page.baseurl }}/community/) on the project mailing list or IRC
   for help.
 
 * A standard initial step for customising your deployment is [writing a
-  theme]({{ site.baseurl }}docs/customising/themes/). **If you only read one thing,
+  theme]({{ page.baseurl }}/docs/customising/themes/). **If you only read one thing,
   it should be this!**
 
 * Like many Ruby on Rails sites, the software is not hugely performant (see
   [these notes about performance issues](https://github.com/mysociety/alaveteli/wiki/Performance-issues) gathered over time with
   WhatDoTheyKnow). The site will run on a server with 512MB RAM but at least
   2GB is recommended. Deployment behind [Varnish](https://www.varnish-cache.org) is also fairly essential. See
-  [production server best practices]({{site.baseurl}}docs/running/server/) for more.
+  [production server best practices]({{ page.baseurl }}/docs/running/server/) for more.
 
 * There's a number of [proposals for enhancements](https://github.com/mysociety/alaveteli/wiki/Proposals-for-enhancements),
   such as more user-focused features, but see also...
@@ -76,7 +76,7 @@ title: For developers
   used in the
   past](https://www.mysociety.org/2009/09/17/whatdotheyknow-growing-pains-and-ruby-memory-leaks/) might be useful.
 
-* If you're coding on a mac, see these [MacOS X installation notes]({{ site.baseurl }}docs/installing/macos/). <!-- [[OS X Quickstart]] -->
+* If you're coding on a mac, see these [MacOS X installation notes]({{ page.baseurl }}/docs/installing/macos/). <!-- [[OS X Quickstart]] -->
 
 * We try to adhere to similar good practice across all our projects: see
   [mysociety.github.io](http://mysociety.github.io/) for things like our
