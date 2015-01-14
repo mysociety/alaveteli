@@ -9,7 +9,7 @@ title: Installation script
   If you prefer to use your own server, we've provided an installation script which does most of the work for you.
 </p>
 
-Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing/).
+Note that there are [other ways to install Alaveteli]({{ page.baseurl }}/docs/installing/).
 
 ## Installing with the installation script
 
@@ -69,7 +69,7 @@ The server will also be configured to accept replies to information request emai
 
 ##What next?
 
-Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
+Check out the [next steps]({{ page.baseurl }}/docs/installing/next_steps/).
 
 
 
