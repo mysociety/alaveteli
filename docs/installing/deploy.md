@@ -9,13 +9,13 @@ title: Deploying
   Although you can install Alaveteli and just change it when you need it, we
   recommend you adopt a way of <strong>deploying</strong> it automatically,
   especially on your
-  <a href="{{ site.baseurl }}docs/glossary/#production" class="glossary__link">production server</a>.
+  <a href="{{ page.baseurl }}/docs/glossary/#production" class="glossary__link">production server</a>.
   Alaveteli provides a deployment mechanism using Capistrano.
 </p>
 
 ## Why deploy?
 
-Although you can [install Alaveteli]({{ site.baseurl }}docs/installing/) in a number
+Although you can [install Alaveteli]({{ page.baseurl }}/docs/installing/) in a number
 of ways, once you're running, sooner or later you'll need to make changes to
 the site. A common example is updating your site when we issue a new release.
 
@@ -28,13 +28,13 @@ changes or copying files by hand, so your site will be down for the shortest
 possible time.
 
 We **strongly recommend** you use the deployment mechanism for your
-<a href="{{ site.baseurl }}docs/glossary/#production" class="glossary__link">production server</a>
+<a href="{{ page.baseurl }}/docs/glossary/#production" class="glossary__link">production server</a>
 and, if you're running one, your
-<a href="{{ site.baseurl }}docs/glossary/#staging" class="glossary__link">staging server</a> too.
+<a href="{{ page.baseurl }}/docs/glossary/#staging" class="glossary__link">staging server</a> too.
 
 ## Capistrano
 
-<a href="{{site.baseurl}}docs/glossary/#capistrano" class="glossary__link">Capistrano</a>
+<a href="{{ page.baseurl }}/docs/glossary/#capistrano" class="glossary__link">Capistrano</a>
 is included as part of Alaveteli as a standard deployment system.
 
 The basic principle of Capistrano is that you execute `cap [do-something]`
@@ -68,7 +68,7 @@ and thereafter you'll be able to deploy very easily (see [usage, below](#usage))
 
 First, on the server:
 
-* [install Alaveteli]({{ site.baseurl }}docs/installing/)
+* [install Alaveteli]({{ page.baseurl }}/docs/installing/)
 * give the Unix user that runs Alaveteli the ability to ssh to your server. Either give them a password or, preferably, set up ssh keys for them so they can ssh from your local machine to the server:
    * to give them a password (if they don't already have one) - `sudo passwd [UNIX-USER]`. Store this password securely on your local machine e.g in a password manager
    * to set up ssh keys for them, follow the instructions in the [capistrano documentation](http://capistranorb.com/documentation/getting-started/authentication-and-authorisation/). There's no need to set up ssh keys to the git repository as it is public.
@@ -135,8 +135,8 @@ Now, back on your local machine:
 * make sure you're still in the Alaveteli repo (if not, `cd` back into it)
 * run `cap -S stage=staging  deploy:update_code` to get a code checkout on the server.
 * create a deployment directory on the server by running *one* of these commands:
-   * `cap deploy` if you're deploying a <a href="{{site.baseurl}}docs/glossary/#staging" class="glossary__link">staging site</a>, or...
-   * `cap -S stage=production deploy` for <a href="{{site.baseurl}}docs/glossary/#production" class="glossary__link">production</a>
+   * `cap deploy` if you're deploying a <a href="{{ page.baseurl }}/docs/glossary/#staging" class="glossary__link">staging site</a>, or...
+   * `cap -S stage=production deploy` for <a href="{{ page.baseurl }}/docs/glossary/#production" class="glossary__link">production</a>
 
 Back on the server:
 
@@ -155,7 +155,7 @@ Back on the server:
   If you're using Exim as your MTA, edit `etc/exim4/conf.d/04_alaveteli_options`
   to update the `ALAVETELI_HOME` variable to the new Alaveteli path. Restart the MTA after you've made these changes.
 
-* You will also need to update the path to Alaveteli in your [init scripts]({{site.baseurl}}docs/installing/manual_install/#cron-jobs-and-init-scripts).
+* You will also need to update the path to Alaveteli in your [init scripts]({{ page.baseurl }}/docs/installing/manual_install/#cron-jobs-and-init-scripts).
   You should have a script for running the alert tracks
   (`/etc/init.d/foi-alert-tracks`), and possibly scripts for purging the
   varnish cache (`/etc/init.d/foi-purge-varnish`), and restarting the
