@@ -1,0 +1,93 @@
+---
+layout: es/default
+---
+ <meta charset="utf-8">
+
+<div class="page-wrapper">
+<div class="page">
+  {% capture url_parts %} {{ page.url | remove: "/index.html" | replace:'/'," " }}{% endcapture %}
+  {% assign parts = url_parts | split: ' ' %}
+  {% assign previous="" %}
+  <ul class="breadcrumb">
+    {% if num_parts == "-1" %}
+    {% elsif num_parts == "0" %}
+      <li><a href="/">Inicio</a></li>
+    {% else %}
+      <li><a href="/">Inicio</a></li>
+      {% if page.slug == null %}
+          {% for part in parts %}
+            {% capture previous %}{{ previous }}/{{ part }}{% endcapture %}
+            <li><a href="{{ previous }}/">{{ part | capitalize | replace:'_'," " }}</a></li>
+            {% capture url_parts %}{{ url_parts | remove_first:part }}{% endcapture %}
+          {% endfor %}
+      {% else %}
+        <li><a href="/blog/">Blog</a></li>
+      {% endif %}
+    {% endif %}
+  </ul>
+
+    <div class="main-content-column">
+      <main role="main" class="main-content">
+        {{ content }}
+      </main>
+    </div>
+    <div class="secondary-content-column">
+      <nav class="sidebar">
+        <ul>
+          <li>{% include feedback_form.html %}</li>
+          <li>
+            <gcse:searchbox-only></gcse:searchbox-only>
+
+          </li>
+          <li><a href="{{ page.baseurl }}/about/">Información</a></li>
+          <li><a href="{{ page.baseurl }}/docs/">Documentación</a>
+            <ul>
+              <li><a href="{{ page.baseurl }}/docs/glossary/">Glosario</a></li>
+            </uL>
+          </li>
+          <li><a href="{{ page.baseurl }}/docs/getting_started/">Primeros pasos</a></li>
+          <li><a href="{{ page.baseurl }}/docs/installing/">Instalación</a>
+            <ul>
+              <li><a href="{{ page.baseurl }}/docs/installing/script/">Script de instalación</a></li>
+              <li><a href="{{ page.baseurl }}/docs/installing/vagrant/">Vagrant</a></li>
+              <li><a href="{{ page.baseurl }}/docs/installing/ami/">AMI de Alaveteli para EC2</a></li>
+              <li><a href="{{ page.baseurl }}/docs/installing/manual_install/">Instalación manual</a></li>
+              <li><a href="{{ page.baseurl }}/docs/installing/deploy/">Implementación</a></li>
+              <li><a href="{{ page.baseurl }}/docs/installing/email/">MTA (servidor de correo)</a></li>
+              <li><a href="{{ page.baseurl }}/docs/installing/next_steps/">Próximos pasos</a></li>
+            </ul>
+          </li>
+          <li><a href="{{ page.baseurl }}/docs/customising/">Personalización</a>
+            <ul>
+              <li><a href="{{ page.baseurl }}/docs/customising/config/">Configuración</a></li>
+              <li><a href="{{ page.baseurl }}/docs/customising/themes/">Temas</a></li>
+              <li><a href="{{ page.baseurl }}/docs/customising/translation/">Traducción</a></li>
+              <li><a href="{{ page.baseurl }}/docs/customising/states/">Estados de solicitud</a></li>
+            </ul>
+          </li>
+          <li><a href="{{ page.baseurl }}/docs/running/">Ejecución</a>
+            <ul>
+              <li><a href="{{ page.baseurl }}/docs/running/admin_manual/">Manual de administración</a></li>
+              <li><a href="{{ page.baseurl }}/docs/running/redaction">Redacción</a></li>
+              <li><a href="{{ page.baseurl }}/docs/running/security/">Seguridad y mantenimiento</a></li>
+              <li><a href="{{ page.baseurl }}/docs/running/server/">Requisitos del servidor</a></li>
+              <li><a href="{{ page.baseurl }}/docs/running/upgrading/">Actualización</a></li>
+            </ul>
+          </li>
+          <li><a href="{{ page.baseurl }}/docs/developers/">Para desarrolladores</a>
+            <ul>
+              <li><a href="{{ page.baseurl }}/docs/developers/overview/">Vista general de alto nivel</a></li>
+              <li><a href="{{ page.baseurl }}/docs/developers/directory_structure/">Estructura de directorios</a></li>
+              <li><a href="{{ page.baseurl }}/docs/developers/i18n/">Internacionalización</a></li>
+              <li><a href="{{ page.baseurl }}/docs/developers/api/">API</a></li>
+            </ul>
+          </li>
+          <li><a href="{{ page.baseurl }}/community/">Comunidad</a>
+          </li>
+          <li><a href="https://www.mysociety.org/category/alaveteli/">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+</div>
