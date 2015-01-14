@@ -6,7 +6,7 @@ title: Welcome
   <div class="container">
     <h1><span>Run your own</span> Freedom of Information website</h1>
     <p>Alaveteli helps you lower the barriers that prevent citizens asking questions of those in power</p>
-    <p class="action-buttons"><a href="{{ site.baseurl }}docs/getting_started/" class="button">Get started</a> <a href="{{ site.baseurl }}docs/" class="button">Learn more</a></p>
+    <p class="action-buttons"><a href="{{ page.baseurl }}/docs/getting_started/" class="button">Get started</a> <a href="{{ page.baseurl }}/docs/" class="button">Learn more</a></p>
   </div>
 </div>
 
@@ -38,7 +38,7 @@ title: Welcome
         <div class="what-is-alaveteli__international-reach-position">
             <div class="what-is-alaveteli__international-reach">
                 <p class="message">Alaveteli has helped citizens make over <strong>200,000 Freedom of Information requests</strong> in <strong>18 jurisdictions</strong></p>
-                <p><a href="{{ site.baseurl }}deployments/">See all deployments</a></p>
+                <p><a href="{{ page.baseurl }}/deployments/">See all deployments</a></p>
             </div>
         </div>
     </div>
@@ -124,7 +124,7 @@ title: Welcome
     <div class="get-started__grid-unit get-started__grid-unit--wide">
         <div class="get-started__item get-started__item--primary">
             <p>From team members to maintenance, our get started guide will walk you through the process of planning, starting and running your own Alaveteli website</p>
-            <p><a href="{{ site.baseurl }}docs/getting_started/" class="button">Get started</a></p>
+            <p><a href="{{ page.baseurl }}/docs/getting_started/" class="button">Get started</a></p>
         </div>
     </div><!--
     --><div class="get-started__grid-unit">
@@ -138,7 +138,7 @@ title: Welcome
         <div class="get-started__item get-started__item">
             <h3>Speak to us</h3>
             <p>Need some help? Tell us about your plans</p>
-            <p class="push-top"><a href="{{ site.baseurl }}community/" class="button">Get in touch</a></p>
+            <p class="push-top"><a href="{{ page.baseurl }}/community/" class="button">Get in touch</a></p>
         </div>
     </div>
   </div>
