@@ -25,7 +25,7 @@ ask us about hosting.
 ## Cron jobs
 
 Don't forget to set up the cron jobs as outlined in the
-[installation instructions]({{ site.baseurl }}docs/installing/manual_install/).
+[installation instructions]({{ page.baseurl }}/docs/installing/manual_install/).
 
 ## Webserver configuration
 
@@ -34,7 +34,7 @@ We recommend running your site behind
 [Passenger](https://www.phusionpassenger.com) or [Nginx](http://wiki.nginx.org/Main) + [Thin](http://code.macournoyer.com/thin/).
 
 If you're using Passenger, refer to the
-[installation instructions]({{ site.baseurl }}docs/installing/manual_install/)
+[installation instructions]({{ page.baseurl }}/docs/installing/manual_install/)
 regarding `PassengerMaxPoolSize`, which you should
 experiment with to match your available RAM. It is very unlikely that you'll
 ever need a pool larger than [Passenger's
@@ -47,23 +47,23 @@ Alaveteli ships with a
 
 ## Security
 
-You _must_ change all key-related [config settings]({{ site.baseurl }}docs/customising/config/)
+You _must_ change all key-related [config settings]({{ page.baseurl }}/docs/customising/config/)
 in `general.yml` from their default values. This includes (but may not be limited to!)
 these settings:
 
-* [`INCOMING_EMAIL_SECRET`]({{ site.baseurl }}docs/customising/config/#incoming_email_secret)
-* [`ADMIN_USERNAME`]({{ site.baseurl }}docs/customising/config/#admin_username)
-* [`ADMIN_PASSWORD`]({{ site.baseurl }}docs/customising/config/#admin_password)
-* [`COOKIE_STORE_SESSION_SECRET`]({{ site.baseurl }}docs/customising/config/#cookie_store_session_secret)
-* [`RECAPTCHA_PUBLIC_KEY`]({{ site.baseurl }}docs/customising/config/#recaptcha_public_key)
-* [`RECAPTCHA_PRIVATE_KEY`]({{ site.baseurl }}docs/customising/config/#recaptcha_private_key)
+* [`INCOMING_EMAIL_SECRET`]({{ page.baseurl }}/docs/customising/config/#incoming_email_secret)
+* [`ADMIN_USERNAME`]({{ page.baseurl }}/docs/customising/config/#admin_username)
+* [`ADMIN_PASSWORD`]({{ page.baseurl }}/docs/customising/config/#admin_password)
+* [`COOKIE_STORE_SESSION_SECRET`]({{ page.baseurl }}/docs/customising/config/#cookie_store_session_secret)
+* [`RECAPTCHA_PUBLIC_KEY`]({{ page.baseurl }}/docs/customising/config/#recaptcha_public_key)
+* [`RECAPTCHA_PRIVATE_KEY`]({{ page.baseurl }}/docs/customising/config/#recaptcha_private_key)
 
 You should consider running the admin part of the site over HTTPS. This can be
 achieved with rewrite rules that redirect URLs beginning with `/admin`.
 
 ## Email configuration
 
-See the [configuration for exim or postfix]({{ site.baseurl }}docs/installing/email/) for
+See the [configuration for exim or postfix]({{ page.baseurl }}/docs/installing/email/) for
 setting up your Mail Transfer Agent (MTA). It is possible to use other MTAs &mdash;
 if you use a different one, the documentation there should provide you with
 enough information to get started. If this applies to you, please add to the
@@ -77,7 +77,7 @@ deliverability of your email:
   href="http://wiki.asrg.sp.am/wiki/Feedback_loop_links_for_some_email_providers">feedback loops</a> with the main email providers
   (Hotmail and Yahoo! are recommended)
 * Especially if deploying from Amazon EC2, use an external SMTP relay for
-  sending outgoing mail. See [Alaveteli EC2 AMI]( {{ site.baseurl }}docs/installing/ami/)
+  sending outgoing mail. See [Alaveteli EC2 AMI]( {{ page.baseurl }}/docs/installing/ami/)
   for more suggestions.
 
 ## Backup
@@ -85,7 +85,7 @@ deliverability of your email:
 Most of the data for the site lives in the production database. The exception
 is the raw incoming email data, which is stored on the filesystem, as specified
 in the setting
-[`RAW_EMAILS_LOCATION`]({{ site.baseurl }}docs/customising/config/#raw_emails_location)
+[`RAW_EMAILS_LOCATION`]({{ page.baseurl }}/docs/customising/config/#raw_emails_location)
 setting in `config/general.yml`.
 
 Refer to the [Postgres
