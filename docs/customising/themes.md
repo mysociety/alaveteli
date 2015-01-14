@@ -13,7 +13,7 @@ title: Themes
 </p>
 
 When you customise your Alaveteli site, there is a lot you can change just
-by editing the [config settings]({{ site.baseurl }}docs/customising/config/).
+by editing the [config settings]({{ page.baseurl }}/docs/customising/config/).
 But if you want to change the way the site looks, or add more specific
 behaviour, you'll need to make a **theme**.
 
@@ -116,15 +116,15 @@ We try to encapsulate all site-specific functionality in one of these
 places:
 
 * **site configuration**<br>
-  use the [config settings]({{ site.baseurl }}docs/customising/config/)
+  use the [config settings]({{ page.baseurl }}/docs/customising/config/)
   for example, the name of your site, the available languages, and so on.
   You change these by editing `config/general.yml`.
 * **data**<br>
   for example, the public authorities to whom requests should be addressed,
   and the tags and categories for grouping them. You control all this
   through the
-  <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin
-  interface</a>: see the [admin manual]({{ site.baseurl }}docs/running/admin_manual).
+  <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin
+  interface</a>: see the [admin manual]({{ page.baseurl }}/docs/running/admin_manual).
 * **a theme**<br>
   installed in `lib/themes`.
   The page you're reading now is all about what you can do in a theme.
@@ -198,7 +198,7 @@ then that will appear instead of the core "about us" file.
 
 Alaveteli uses Rails' [asset pipeline](http://guides.rubyonrails.org/asset_pipeline.html)
 to convert and compress stylesheets written in
-<a href="{{ site.baseurl }}docs/glossary/#sass" class="glossary__link">Sass</a>
+<a href="{{ page.baseurl }}/docs/glossary/#sass" class="glossary__link">Sass</a>
 into minified concatenated CSS. Assets are stored in core Alaveteli under
 `app/assets` -- in `fonts`, `images`, `javascripts` and `stylesheets`. The
 default theme has corresponding asset directories in `alavetelitheme/assets`
@@ -210,7 +210,7 @@ site instead of the logo from `app/assets/images/logo.png`.
 ### Changing the colour scheme
 
 Alaveteli uses a set of basic
-<a href="{{ site.baseurl }}docs/glossary/#sass" class="glossary__link">Sass</a>
+<a href="{{ page.baseurl }}/docs/glossary/#sass" class="glossary__link">Sass</a>
 modules to define the layout for the site on different device sizes, and some
 basic styling. These modules are in `app/assets/stylesheets/responsive`. The
 colours and fonts are added in the theme -- `alavetelitheme` defines them in
@@ -254,10 +254,10 @@ for details.
 ## Customising the request states
 
 As mentioned above, if you can possibly live with the
-[default Alaveteli request statuses]({{ site.baseurl }}docs/customising/states/),
+[default Alaveteli request statuses]({{ page.baseurl }}/docs/customising/states/),
 it would be good to do so.  You can set how many days must pass before
 a request is considered "overdue" in the main site config file &mdash;
-see [`REPLY_LATE_AFTER_DAYS`]({{ site.baseurl }}docs/customising/config/#reply_late_after_days).
+see [`REPLY_LATE_AFTER_DAYS`]({{ page.baseurl }}/docs/customising/config/#reply_late_after_days).
 
 If you can't live with the states as they are, there's a very basic way to add
 to them (we're working on this, so it will be improved over time). Currently,
