@@ -18,11 +18,11 @@ title: Next Steps
 ## Create a superuser admin account
 
 Alaveteli ships with an
-<a href="{{site.baseurl}}docs/glossary/#emergency" class="glossary__link">emergency user</a>
+<a href="{{ page.baseurl }}/docs/glossary/#emergency" class="glossary__link">emergency user</a>
 that has access to the admin. So when you've just created a new site, you
 should sign up to create your own account, then log into admin as the emergency
 user to promote your new account to be an administrator with
-<a href="{{ site.baseurl }}docs/glossary/#super" class="glossary__link">super</a>
+<a href="{{ page.baseurl }}/docs/glossary/#super" class="glossary__link">super</a>
 privilege.
 
 As soon as that's done, disable the emergency user, because you don't need to
@@ -40,8 +40,8 @@ First, in the browser:
 * Go to `/profile/sign_in` and create a user by signing up.
 * Check your email and confirm your account.
 * Go to `/admin?emergency=1`, log in with the username and password you specified in
-  [`ADMIN_USERNAME`]({{site.baseurl}}docs/customising/config/#admin_username)
-  and [`ADMIN_PASSWORD`]({{site.baseurl}}docs/customising/config/#admin_password).
+  [`ADMIN_USERNAME`]({{ page.baseurl }}/docs/customising/config/#admin_username)
+  and [`ADMIN_PASSWORD`]({{ page.baseurl }}/docs/customising/config/#admin_password).
   You can find these settings in `config/general.yml`.
 * You're now on the Alaveteli admin page.
 * Click on **Users**  (in the navigation menu across the top of the page), and
@@ -71,13 +71,13 @@ emergency user access to the admin. On the command line shell, edit
 * It's important that you change the emergency user's password (and, ideally,
   the username too) from the values Alavateli ships with, because they are
   public and hence insecure. In `general.yml`, change
-  [`ADMIN_PASSWORD`]({{site.baseurl}}docs/customising/config/#admin_password)
-  (and maybe [`ADMIN_USERNAME`]({{site.baseurl}}docs/customising/config/#admin_username)
+  [`ADMIN_PASSWORD`]({{ page.baseurl }}/docs/customising/config/#admin_password)
+  (and maybe [`ADMIN_USERNAME`]({{ page.baseurl }}/docs/customising/config/#admin_username)
   too) to new, unique values.
 * Additionally, you can totally disable the emergency user. Under normal
   operation you don't need it, because from now on you'll be using the admin
   user you've just created.
-  Set [`DISABLE_EMERGENCY_USER`]({{site.baseurl}}docs/customising/config/#disable_emergency_user)
+  Set [`DISABLE_EMERGENCY_USER`]({{ page.baseurl }}/docs/customising/config/#disable_emergency_user)
   to `true`.
 * To apply these changes restart the service as a user with root privileges:
   `sudo service alaveteli restart`
@@ -117,8 +117,8 @@ follow the steps described in the previous section.
 
 * You should receive the request email -- try replying to it. Your response
   email should appear in Alaveteli. Not working? Take a look at our
-  [troubleshooting tips]({{ site.baseurl}}docs/installing/manual_install/#troubleshooting).
-  If that doesn't sort it out, [get in touch]({{ site.baseurl}}community/) on
+  [troubleshooting tips]({{ page.baseurl }}/docs/installing/manual_install/#troubleshooting).
+  If that doesn't sort it out, [get in touch]({{ page.baseurl }}/community/) on
   the [developer mailing list](https://groups.google.com/forum/#!forum/alaveteli-dev) or [IRC](http://www.irc.mysociety.org/) for help.
 
 ## Import Public Authorities
@@ -126,7 +126,7 @@ follow the steps described in the previous section.
 Alaveteli can import a list of public authorities and their contact email addresses from a CSV file.
 
 Follow the instructions for
-[uploading public authority data]({{ site.baseurl }}docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data).
+[uploading public authority data]({{ page.baseurl }}/docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data).
 
 ## Set the amount of time authorities will be given to respond to requests
 
@@ -135,13 +135,13 @@ have a certain number of days in order to respond to requests. Alaveteli
 helps requesters by reminding them when their request is overdue for a
 response according to the law. You can set the number of days an
 authority is given to respond to a request in the
-[`REPLY_LATE_AFTER_DAYS`]({{site.baseurl}}docs/customising/config/#reply_late_after_days),
-[`REPLY_VERY_LATE_AFTER_DAYS`]({{site.baseurl}}docs/customising/config/#reply_very_late_after_days)
+[`REPLY_LATE_AFTER_DAYS`]({{ page.baseurl }}/docs/customising/config/#reply_late_after_days),
+[`REPLY_VERY_LATE_AFTER_DAYS`]({{ page.baseurl }}/docs/customising/config/#reply_very_late_after_days)
 and
-[`SPECIAL_REPLY_VERY_LATE_AFTER_DAYS`]({{site.baseurl}}docs/customising/config/#special_reply_very_late_after_days)
+[`SPECIAL_REPLY_VERY_LATE_AFTER_DAYS`]({{ page.baseurl }}/docs/customising/config/#special_reply_very_late_after_days)
 options in `config/general.yml`. Most laws specify that the days are
 either working days, or calendar days. You can set this using the
-[`WORKING_OR_CALENDAR_DAYS`]({{site.baseurl}}docs/customising/config/#working_or_calendar_days)
+[`WORKING_OR_CALENDAR_DAYS`]({{ page.baseurl }}/docs/customising/config/#working_or_calendar_days)
 option in `config/general.yml`.
 
 ## Add some public holidays
@@ -152,11 +152,11 @@ Interface introduced in Alaveteli version 0.21
 
 Alaveteli calculates the due dates of requests taking account of the
 public holidays you enter into the admin interface. If you have set the
-[`WORKING_OR_CALENDAR_DAYS`]({{site.baseurl}}docs/customising/config/#working_or_calendar_days)
+[`WORKING_OR_CALENDAR_DAYS`]({{ page.baseurl }}/docs/customising/config/#working_or_calendar_days)
 setting for Alaveteli to `working`, the date when a response to a
 request is officially overdue will be calculated in days that are not
 weekends or public holidays. If you have set
-[`WORKING_OR_CALENDAR_DAYS`]({{site.baseurl}}docs/customising/config/#working_or_calendar_days)
+[`WORKING_OR_CALENDAR_DAYS`]({{ page.baseurl }}/docs/customising/config/#working_or_calendar_days)
 to `calendar`, the date will be calculated in calendar days, but if the
 due date falls on a public holiday or weekend day, then the due date is
 considered to be the next week day that isn't a holiday.
@@ -168,6 +168,4 @@ Holiday" button, or you can create multiple holidays at once using the
 
 ## Start thinking about customising Alaveteli
 
-Check out [our guide]({{ site.baseurl}}docs/customising/).
-
-
+Check out [our guide]({{ page.baseurl }}/docs/customising/).
