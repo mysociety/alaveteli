@@ -8,7 +8,8 @@ title: Administrator's guide
 <p class="lead">
   What is it like running an Alaveteli site? This guide explains what you can
   expect, and the types of problem that you might encounter. It includes
-  examples of how mySociety manages their own <a href="/docs/glossary/#foi"
+  examples of how mySociety manages their own
+  <a href="{{ page.baseurl }}/docs/glossary/#foi"
   class="glossary__link">Freedom of Information</a> site, <a
   href="https://www.whatdotheyknow.com">whatdotheyknow.com</a>.
 </p>
@@ -57,7 +58,7 @@ WhatDoTheyKnow usually has about 3 active volunteers at any one time managing
 the support, plus a few other less active people who help out at different
 times.
 
-Administration tasks can be split into [**maintenance**]({{ site.baseurl }}docs/running/admin_manual/#maintenance) and [**user support**]({{ site.baseurl }}docs/running/admin_manual/#user-support).
+Administration tasks can be split into [**maintenance**]({{ page.baseurl }}/docs/running/admin_manual/#maintenance) and [**user support**]({{ page.baseurl }}/docs/running/admin_manual/#user-support).
 The boundaries of these tasks is in fact quite blurred; the main distinction is
 that the former happen exclusively through the web admin interface, whereas the
 latter are mediated by email directly with end users (but often result in
@@ -312,13 +313,13 @@ line, and piping the contents of that file into the mail handling script. e.g.
 
 ### Administrator privileges and accessing the admin interface
 
-The <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">administrative interface</a>
+The <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">administrative interface</a>
 is at the URL `/admin`. Only users who are
-<a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">administrators</a>
+<a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">administrators</a>
 can access the admin interface.
 
 To make a user an administrator on a brand new site,
-[follow these steps]({{ site.baseurl }}docs/installing/next_steps/#create-a-superuser-admin-account).
+[follow these steps]({{ page.baseurl }}/docs/installing/next_steps/#create-a-superuser-admin-account).
 
 If you're already an administrator, you can grant other users administrator
 privilege too. Go to `/admin/users` or click on **Users** at the top of
@@ -336,9 +337,9 @@ have extra privileges in the main website front end. Administrators can:
 <div class="attention-box warning">
   It is possible completely to override the administrator authentication by
   setting
-  <code><a href="{{ site.baseurl }}docs/customising/config/#skip_admin_auth">SKIP_ADMIN_AUTH</a></code>
+  <code><a href="{{ page.baseurl }}/docs/customising/config/#skip_admin_auth">SKIP_ADMIN_AUTH</a></code>
   to <code>true</code> in <code>general.yml</code>. Never do this, unless you
-  are working on a <a href="{{ site.baseurl }}docs/glossary/#development"
+  are working on a <a href="{{ page.baseurl }}/docs/glossary/#development"
   class="glossary__link">development</a> server.
 </div>
 
