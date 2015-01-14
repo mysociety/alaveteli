@@ -16,10 +16,10 @@ title: About
 </div>
 <div class="container clearfix">
     <h2>What next?</h2>
-    <h3>Take a look at <a href="{{ site.baseurl }}docs/">our documentation</a></h3>
+    <h3>Take a look at <a href="{{ page.baseurl }}/docs/">our documentation</a></h3>
     <div class="grid-row content-in-columns">
         <div class="about__column">
-            <p>Non-technical audiences should start with our <a href="{{ site.baseurl }}docs/getting_started/">Getting Started guide</a>. Developers might want to start with <a href="{{ site.baseurl }}docs/developers/">the technical overview</a>.</p>
+            <p>Non-technical audiences should start with our <a href="{{ page.baseurl }}/docs/getting_started/">Getting Started guide</a>. Developers might want to start with <a href="{{ page.baseurl }}/docs/developers/">the technical overview</a>.</p>
             <p>If you are an organisation who wants to use Alaveteli in your jurisdiction, join our <a href="http://groups.google.com/group/alaveteli-users">Google group for users of Alaveteli</a> and introduce yourself. If you’re a developer who is interested in collaborating on the software, please send a message to our <a href="https://groups.google.com/group/alaveteli-dev">dev mailing list</a>.</p>
             <p>Currently, customising a new site using Alaveteli requires technical know-how. We are working to change this over the next few months. We also have resources to support a small number of new websites as hosted services.</p>
         </div>
