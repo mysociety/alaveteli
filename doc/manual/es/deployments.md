@@ -1,31 +1,32 @@
 ---
-layout: landing
-title: Deployments
-redirect_from: /about/where-has-alaveteli-been-installed/
+layout: es/landing
+title: Implementaciones
 ---
+<meta charset="utf-8">
+
 <div class="deployments__intro">
     <div class="container">
-    <h1>20+ languages, 18 jurisdictions
-    <span>200,000 requests for information</span></h1>
-    <p>Alaveteli can help open up government in any country,
-in any language, and within any legislation</p>
+    <h1>Más de 20 idiomas, 18 jurisdicciones
+    <span>200.000 solicitudes de información</span></h1>
+    <p>Alaveteli puede colaborar en la transparencia del gobierno en cualquier país,
+en cualquier idioma y dentro de cualquier marco legal</p>
     </div>
 </div>
 
 <div class="deployments__content">
     <div class="container">
-        <h2>Deployments of Alaveteli</h2>
+        <h2>Implementaciones de Alaveteli</h2>
         <div class="deployments__list--featured">
             <div class="grid-row">
             <div class="deployments__unit--major">
                     <div class="deployment--major">
                         <img src="{{ site.baseurl }}assets/img/what-do-they-know.jpg" class="deployment__screenshot" />
                         <h3 class="deployment__title">WhatDoTheyKnow</h3>
-                        <p class="deployment__country">United Kingdom</p>
+                        <p class="deployment__country">Reino Unido</p>
                         <p class="deployment__link"><a href="https://www.whatdotheyknow.com/">https://www.whatdotheyknow.com/</a></p>
                         <div class="deployment__description">
-                            <p>Alaveteli started life as <a href="https://www.whatdotheyknow.com">WhatDoTheyKnow</a>, a website produced by <a href="https://mysociety.org/">mySociety</a> for making FOI requests in the UK.</p>
-                            <p>Around 15% to 20% of requests to UK Central Government are made through WhatDoTheyKnow.com.</p>
+                            <p>Alaveteli cobró vida con <a href="https://www.whatdotheyknow.com">WhatDoTheyKnow</a>, un sitio web producido por <a href="https://mysociety.org/">mySociety</a> para realizar solicitudes de información pública en el Reino Unido.</p>
+                            <p>A través de WhatDoTheyKnow.com se llevan a cabo entre un 15% y un 20% de las solicitudes recibidas por el gobierno central de Reino Unido.</p>
                         </div>
                     </div>
                 </div><!--
@@ -33,11 +34,11 @@ in any language, and within any legislation</p>
                     <div class="deployment--major">
                         <img src="{{ site.baseurl }}assets/img/ki-mit-tud.jpg" class="deployment__screenshot" />
                         <h3 class="deployment__title">Ki Mit Tud</h3>
-                        <p class="deployment__country">Hungary</p>
+                        <p class="deployment__country">Hungría</p>
                         <p class="deployment__link"><a href="http://kimittud.atlatszo.hu/">http://kimittud.atlatszo.hu/</a></p>
                         <div class="deployment__description">
-                            <p>Hungarians have a right, enshrined in their law, to demand information from any tax-funded body. Ki Mit Tud (“Who Knows What?”) radically simplifies that process for the citizen.</p>
-                            <p>Using the Alaveteli platform, Ki Mit Tud was launched in May 2012, and within its first year had processed over 1,000 freedom of information requests.</p>
+                            <p>Las leyes de Hungría reconocen el derecho de la población húngara a exigir información a cualquier organismo financiado con impuestos. Ki Mit Tud («¿Quién sabe qué?») simplifica radicalmente este proceso para los ciudadanos.</p>
+                            <p>Ki Mit Tud se lanzó utilizando la plataforma Alaveteli en mayo de 2012 y durante su primer año procesó más de 1.000 solicitudes de información pública.</p>
                         </div>
                     </div>
                 </div><!--
@@ -45,23 +46,23 @@ in any language, and within any legislation</p>
                       <div class="deployment--major">
                           <img src="{{ site.baseurl }}assets/img/fyi.jpg" class="deployment__screenshot" />
                           <h3 class="deployment__title">FYI </h3>
-                          <p class="deployment__country">New Zealand</p>
+                          <p class="deployment__country">Nueva Zelanda</p>
                           <p class="deployment__link"><a href="https://fyi.org.nz/">https://fyi.org.nz/</a></p>
                           <div class="deployment__description">
-                              <p>New Zealand’s public sector is reportedly among the least corrupt in the world. Nonetheless, Open New Zealand, the organisation behind FYI, believe that a Freedom of Information site can bring benefits.</p>
-                              <p>Like all Alaveteli installs, FYI simplifies the whole process of submitting a request - and publishes requests and their responses online, for all to see. </p>
+                              <p>El sector público neozelandés se halla dentro de los menos corruptos a nivel mundial. Sin embargo, Open New Zealand, la organización que se halla detrás de FYI, considera que un sitio web de información pública puede proporcionar ciertos beneficios.</p>
+                              <p>FYI, al igual que todas las implementaciones de Alaveteli, simplifica el proceso total de envío de solicitudes y las publica junto con sus respuestas en línea, a la vista de todo el mundo. </p>
                           </div>
                       </div>
                   </div><!--
                   --><div class="deployments__unit--major">
                     <div class="deployment--major">
                         <img src="{{ site.baseurl }}assets/img/tu-derecho-a-saber.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Tu Derecho A Saber</h3>
-                        <p class="deployment__country">Spain</p>
+                        <h3 class="deployment__title">Tu derecho a saber</h3>
+                        <p class="deployment__country">España</p>
                         <p class="deployment__link"><a href="http://tuderechoasaber.es/ ">http://tuderechoasaber.es/ </a></p>
                         <div class="deployment__description">
-                            <p>Tu Derecho A Saber was launched in 2012, before Spain had passed a Freedom of Information act, and against a background of political dissent.</p>
-                            <p>Spain now has its Right to Know, but Tu Derecho A Saber remains an example of how you can run a site based on Alaveteli, even if your jurisdiction has no such laws in place.</p>
+                            <p>Tu derecho a saber se lanzó en 2012, antes de que España hubiese aceptado la Ley de Transparencia y frente a un entorno de discrepancia política.</p>
+                            <p>España tiene ahora su derecho a saber, pero la plataforma Tu derecho a saber se mantiene como ejemplo de cómo gestionar un sitio basado en Alaveteli, incluso cuando la jurisdicción no dispone de ninguna ley que lo apoye.</p>
                         </div>
                     </div>
                 </div><!--
@@ -69,11 +70,11 @@ in any language, and within any legislation</p>
                     <div class="deployment--major">
                         <img src="{{ site.baseurl }}assets/img/ask-the-eu.jpg" class="deployment__screenshot" />
                         <h3 class="deployment__title">Ask the EU</h3>
-                        <p class="deployment__country">Europe</p>
+                        <p class="deployment__country">Europa</p>
                         <p class="deployment__link"><a href="http://www.asktheeu.org/">http://www.asktheeu.org/</a></p>
                         <div class="deployment__description">
-                            <p>AskTheEU doesn’t just cover one country: in theory, it serves over 500 million people: the whole of Europe.</p>
-                            <p>AskTheEU processes requests for any of the European Union bodies, and the site is translated into several languages. It is run by Access Info Europe, in Madrid.</p>
+                            <p>AskTheEU no da soporte a un solo país, sino que ofrece sus servicios a más de 500 millones de personas: a toda Europa.</p>
+                            <p>AskTheEU procesa solicitudes para todos los organismos que forman parte de la Unión Europea y está traducido a diversos idiomas. Access Info Europe (Madrid) se encarga de su gestión.</p>
                         </div>
                     </div>
                 </div><!--
@@ -85,8 +86,8 @@ in any language, and within any legislation</p>
                 <div class="deployments__unit--minor">
                     <div class="deployment--minor">
                         <img src="{{ site.baseurl }}assets/img/queremos-saber.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Queremos Saber</h3>
-                        <p class="deployment__country">Brazil</p>
+                        <h3 class="deployment__title">Queremos saber</h3>
+                        <p class="deployment__country">Brasil</p>
                         <p class="deployment__link"><a href="http://queremossaber.org.br/">http://queremossaber.org.br/</a></p>
                     </div>
                 </div><!--
@@ -94,7 +95,7 @@ in any language, and within any legislation</p>
                     <div class="deployment--minor">
                         <img src="{{ site.baseurl }}assets/img/ukraine.jpg" class="deployment__screenshot" />
                         <h3 class="deployment__title">Доступ до правди</h3>
-                        <p class="deployment__country">Ukraine</p>
+                        <p class="deployment__country">Ucrania</p>
                         <p class="deployment__link"><a href="https://dostup.pravda.com.ua/">https://dostup.pravda.com.ua/</a></p>
                     </div>
                 </div><!--
@@ -102,7 +103,7 @@ in any language, and within any legislation</p>
                     <div class="deployment--minor">
                         <img src="{{ site.baseurl }}assets/img/informace-pro-vsechny.jpg" class="deployment__screenshot" />
                         <h3 class="deployment__title">Info Pro Všechny</h3>
-                        <p class="deployment__country">Czech Republic</p>
+                        <p class="deployment__country">República Checa</p>
                         <p class="deployment__link"><a href="http://www.infoprovsechny.cz/">http://www.infoprovsechny.cz/</a></p>
                     </div>
                 </div><!--
@@ -117,7 +118,7 @@ in any language, and within any legislation</p>
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
                         <img src="{{ site.baseurl }}assets/img/que-sabes.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Que Sabes</h3>
+                        <h3 class="deployment__title">Qué sabes</h3>
                         <p class="deployment__country">Uruguay</p>
                         <p class="deployment__link"><a href="http://www.quesabes.org/">http://www.quesabes.org/</a></p>
                     </div>
@@ -126,7 +127,7 @@ in any language, and within any legislation</p>
                     <div class="deployment--minor">
                         <img src="{{ site.baseurl }}assets/img/marsoum-41.jpg" class="deployment__screenshot" />
                         <h3 class="deployment__title">Marsoum 41</h3>
-                        <p class="deployment__country">Tunisia</p>
+                        <p class="deployment__country">Túnez</p>
                         <p class="deployment__link"><a href="http://www.marsoum41.org/en">http://www.marsoum41.org/en</a></p>
                     </div>
                 </div><!--
@@ -134,7 +135,7 @@ in any language, and within any legislation</p>
                     <div class="deployment--minor">
                         <img src="{{ site.baseurl }}assets/img/nu-va-suparati.jpg" class="deployment__screenshot" />
                         <h3 class="deployment__title">Nu Vă Supărați</h3>
-                        <p class="deployment__country">Romania</p>
+                        <p class="deployment__country">Rumanía</p>
                         <p class="deployment__link"><a href="http://nuvasuparati.info/">http://nuvasuparati.info/ </a></p>
                     </div>
                 </div><!--
@@ -159,7 +160,7 @@ in any language, and within any legislation</p>
                     <div class="deployment--minor">
                         <img src="{{ site.baseurl }}assets/img/je-veux-savoir.jpg" class="deployment__screenshot" />
                         <h3 class="deployment__title">Je Veux Savoir</h3>
-                        <p class="deployment__country">Canada</p>
+                        <p class="deployment__country">Canadá</p>
                         <p class="deployment__link"><a href="http://www.jeveuxsavoir.org/">http://www.jeveuxsavoir.org/</a></p>
                     </div>
                 </div><!--
@@ -187,25 +188,25 @@ in any language, and within any legislation</p>
 
 <div class="get-started">
   <div class="container">
-    <h2>Get started</h2>
+    <h2>Primeros pasos</h2>
     <div class="get-started__grid-unit get-started__grid-unit--wide">
         <div class="get-started__item get-started__item--primary">
-            <p>From team members to maintenance, our get started guide will walk you through the process of planning, starting and running your own Alaveteli website</p>
-            <p><a href="{{ page.baseurl }}/docs/getting_started/" class="button">Get started</a></p>
+            <p>Desde los miembros del equipo hasta los encargados de mantenimiento, nuestra guía de inicio recorre todo el proceso de planificación, inicio y gestión de su propio sitio web basado en Alaveteli</p>
+            <p><a href="{{ page.baseurl }}/docs/getting_started/" class="button">Primeros pasos</a></p>
         </div>
     </div><!--
     --><div class="get-started__grid-unit">
         <div class="get-started__item get-started__item">
-            <h3>Get the code</h3>
-            <p>Alaveteli is open source and available to view, download and modify on GitHub</p>
+            <h3>Obtenga el código</h3>
+            <p>Alaveteli es de código abierto y está disponible para su consulta, descarga y modificación en GitHub</p>
             <p><a href="https://github.com/mysociety/alaveteli/" class="button">Github</a></p>
         </div>
     </div><!--
     --><div class="get-started__grid-unit">
         <div class="get-started__item get-started__item">
-            <h3>Speak to us</h3>
-            <p>Need some help? Tell us about your plans</p>
-            <p class="push-top"><a href="{{ page.baseurl }}/community" class="button">Get in touch</a></p>
+            <h3>Hable con nosotros</h3>
+            <p>¿Necesita ayuda? Coméntenos sus planes</p>
+            <p class="push-top"><a href="{{ page.baseurl }}/community" class="button">Póngase en contacto</a></p>
         </div>
     </div>
   </div>
