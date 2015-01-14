@@ -7,9 +7,14 @@ url: http://code.alaveteli.org
 defaults:
   -
     scope:
+      path: .
+    values:
+      baseurl: /
+  -
+    scope:
       path: es
     values:
-      locale: es
+      baseurl: /es
 exclude:
   - Gemfile
   - Gemfile.lock
