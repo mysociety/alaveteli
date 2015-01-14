@@ -8,10 +8,10 @@ title: Vagrant
   <a href="https://www.vagrantup.com">Vagrant</a> provides an easy method to set
   up virtual development environments We bundle an example Vagrantfile in the
   repository, which runs the
-  <a href="{{ site.baseurl}}docs/installing/script/">install script</a> for you.
+  <a href="{{ page.baseurl}}/docs/installing/script/">install script</a> for you.
 </p>
 
-Note that this is just one of [several ways to install Alaveteli]({{ site.baseurl }}docs/installing/).
+Note that this is just one of [several ways to install Alaveteli]({{ page.baseurl }}/docs/installing/).
 
 The included steps will use vagrant to create a development environment
 where you can run the test suite and the development server, and make
@@ -75,7 +75,7 @@ for full instructions on using Vagrant.
 
 ## What next?
 
-Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
+Check out the [next steps]({{ page.baseurl }}/docs/installing/next_steps/).
 
 ## Customizing the Vagrant instance
 
