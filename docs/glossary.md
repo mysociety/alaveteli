@@ -66,14 +66,14 @@ Definitions
   </dt>
   <dd>
     The <strong>admin interface</strong> allows users who have
-    <a href="{{ site.baseurl }}docs/glossary/#super" class="glossary__link">super</a>
+    <a href="{{ page.baseurl }}/docs/glossary/#super" class="glossary__link">super</a>
     administrator privilege to manage some aspects of how your
     Alaveteli site runs.
     <div class="more-info">
       <p>More information:</p>
       <ul>
         <li>
-          You can access your installation's <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>
+          You can access your installation's <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin interface</a>
           at <code>/admin</code>.
         </li>
         <li>
@@ -83,13 +83,12 @@ Definitions
         </li>
         <li>
           On a newly-installed Alaveteli system, you can grant yourself
-          admin privilege by using the
-          <a href="{{ site.baseurl }}docs/glossary/#emergency" class="glossary__link">emergency
+          <a href="{{ page.baseurl }}/docs/glossary/#emergency" class="glossary__link">emergency
           user</a>.
         </li>
         <li>
           For lots more about running an Alaveteli site, see the
-          <a href="{{ site.baseurl }}running/admin_manual">adminstrator's guide</a>.
+          <a href="{{ page.baseurl }}/running/admin_manual">adminstrator's guide</a>.
         </li>
       </ul>
     </div>
@@ -235,7 +234,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>
+          <a href="{{ page.baseurl }}/docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>
         </li>
         <li>The wikipedia page on <a href="http://en.wikipedia.org/wiki/Bounce_message">bounce messages</a>
         </li>
@@ -253,7 +252,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          how to <a href="{{ site.baseurl }}docs/installing/deploy/">deploy Alaveteli</a> (and why it's
+          how to <a href="{{ page.baseurl }}/docs/installing/deploy/">deploy Alaveteli</a> (and why it's
           a good idea)
         </li>
         <li>
@@ -312,7 +311,7 @@ Definitions
       <ul>
         <li>
           see the
-          <a href="{{ site.baseurl }}docs/running/admin_manual/">admin manual</a>
+          <a href="{{ page.baseurl }}/docs/running/admin_manual/">admin manual</a>
           for more about censor rules
         </li>
         <li>
@@ -329,7 +328,7 @@ Definitions
   </dt>
   <dd>
     A <strong>dev server</strong> is one that is running your Alaveteli site
-    so you can <a href="{{ site.baseurl }}docs/customising/">customise it</a>, experiment
+    so you can <a href="{{ page.baseurl }}/docs/customising/">customise it</a>, experiment
     with different settings, and test that it does what you expect.
     This is different from a
     <a href="#production" class="glossary__link">production server</a>, which is the one your
@@ -441,7 +440,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          See the <a href="{{ site.baseurl }}docs/installing/">installation instructions</a> which will
+          See the <a href="{{ page.baseurl }}/docs/installing/">installation instructions</a> which will
           clone the Alaveteli repo.
         </li>
         <li>
@@ -473,7 +472,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          See more <a href="{{ site.baseurl }}docs/running/holding_pen">about
+          See more <a href="{{ page.baseurl }}/docs/running/holding_pen">about
           the holding pen</a>, including why messages end up there, and
           instructions on what to do with them.
         </li>
@@ -563,7 +562,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          see these instructions for <a href="{{ site.baseurl }}docs/installing/email/">configuring your MTA</a>
+          see these instructions for <a href="{{ page.baseurl }}/docs/installing/email/">configuring your MTA</a>
           (examples are for exim4 and postfix, two of the most common)
         </li>
       </ul>
@@ -584,7 +583,7 @@ Definitions
         <li>
           use the <code>agent_enabled:</code> setting in the
           the <code>newrelic.yml</code> config file to enable the New Relic analytics.
-          See the <a href="{{ site.baseurl }}docs/installing/manual_install/">manual installation</a> instructions.
+          See the <a href="{{ page.baseurl }}/docs/installing/manual_install/">manual installation</a> instructions.
         </li>
         <li>
           see also the New Relic Ruby Agent <a href="https://github.com/newrelic/rpm">github repo</a> and
@@ -613,11 +612,11 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          See <a href="{{ site.baseurl }}docs/customising/translation/">translating
+          See <a href="{{ page.baseurl }}/docs/customising/translation/">translating
           Alaveteli</a> for an overview from a translator's point of view.
         </li>
         <li>
-          See <a href="{{ site.baseurl }}docs/developers/i18n/">Internationalising
+          See <a href="{{ page.baseurl }}/docs/developers/i18n/">Internationalising
           Alaveteli</a> for more technical details.
         </li>
         <li>
@@ -660,7 +659,7 @@ Definitions
     <p>
       You should never need to edit code directly on your production server.
       We strongly recommend you use Alaveteli's
-      <a href="{{ site.baseurl }}docs/installing/deploy/">deployment mechanism</a>
+      <a href="{{ page.baseurl }}/docs/installing/deploy/">deployment mechanism</a>
       (using Capistrano) to make changes to your production site.
     </p>
   </dd>
@@ -747,7 +746,7 @@ Definitions
       <ul>
         <li>
           see the
-          <a href="{{ site.baseurl }}docs/running/admin_manual/">admin manual</a>
+          <a href="{{ page.baseurl }}/docs/running/admin_manual/">admin manual</a>
           for more about how and when you may need to redact information
         </li>
         <li>
@@ -868,7 +867,7 @@ Definitions
           <a href="http://rubyonrails.org/">Ruby on Rails</a> website
         </li>
         <li>
-          Alavateli's <a href="{{ site.baseurl }}docs/developers/directory_structure/">directory structure</a>
+          Alavateli's <a href="{{ page.baseurl }}/docs/developers/directory_structure/">directory structure</a>
           is influenced by its use of Ruby on Rails
         </li>
       </ul>
@@ -894,7 +893,7 @@ Definitions
           <a href="http://sass-lang.com">Sass website</a>
         </li>
         <li>
-          more about <a href="{{ site.baseurl }}docs/customising/themes/#changing-the-colour-scheme">changing
+          more about <a href="{{ page.baseurl }}/docs/customising/themes/#changing-the-colour-scheme">changing
           your colour scheme</a>, which uses Sass
         </li>
       </ul>
@@ -950,7 +949,7 @@ Definitions
     <p>
       You should never need to edit code directly on your production or staging servers.
       We strongly recommend you use Alaveteli's
-      <a href="{{ site.baseurl }}docs/installing/deploy/">deployment mechanism</a>
+      <a href="{{ page.baseurl }}/docs/installing/deploy/">deployment mechanism</a>
       (using Capistrano) to make changes to these sites.
     </p>
   </dd>
@@ -972,15 +971,15 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          <a href="{{ site.baseurl }}docs/customising/states/">example states for WhatDoTheyKnow</a>
+          <a href="{{ page.baseurl }}/docs/customising/states/">example states for WhatDoTheyKnow</a>
           (Alaveteli site running in the UK)
         </li>
         <li>
-          for comparison, <a href="{{ site.baseurl }}docs/customising/states_informatazyrtare/">example states for InformataZyrtare</a>
+          for comparison, <a href="{{ page.baseurl }}/docs/customising/states_informatazyrtare/">example states for InformataZyrtare</a>
           (Alaveteli site running in Kosovo)
         </li>
         <li>
-          to customise or add your own states, see <a href="{{ site.baseurl }}docs/customising/themes/#customising-the-request-states">Customising the request states</a>
+          to customise or add your own states, see <a href="{{ page.baseurl }}/docs/customising/themes/#customising-the-request-states">Customising the request states</a>
         </li>
       </ul>
     </div>
@@ -992,11 +991,11 @@ Definitions
   <dd>
     A <strong>superuser</strong>, or <strong>administrator</strong>, is an
     Alaveteli user who has been granted the privilege to use all features of the
-    <a href="{{ site.baseurl }}docs/glossary/#admin"
+    <a href="{{ page.baseurl }}/docs/glossary/#admin"
     class="glossary__link">admin interface</a>.
     <p>
       The only way to access the admin without being an Alaveteli superuser
-      is as the <a href="{{ site.baseurl }}docs/glossary/#emergency"
+      is as the <a href="{{ page.baseurl }}/docs/glossary/#emergency"
       class="glossary__link">emergency user</a>, which should be disabled in
       normal operation.
     </p>
@@ -1011,7 +1010,7 @@ Definitions
         <li>
           On a newly-installed Alaveteli system, you can grant yourself
           admin privilege by using the
-          <a href="{{ site.baseurl }}docs/glossary/#emergency" class="glossary__link">emergency
+          <a href="{{ page.baseurl }}/docs/glossary/#emergency" class="glossary__link">emergency
           user</a>.
         </li>
       </ul>
