@@ -13,7 +13,7 @@ title: States of requests (InformataZyrtare)
 </p>
 
 The request states are defined in the Alaveteli code, and we recommend you use
-them (provided they match the <a href="{{ site.baseurl }}docs/glossary/#foi"
+them (provided they match the <a href="{{ page.baseurl }}/docs/glossary/#foi"
 class="glossary__link">FOI law</a> in your own jurisdiction).
 
 ## InformataZyrtare.org (Kosovo) example
@@ -29,7 +29,7 @@ facilitates this by allowing you to customise the states that are used.
 
 This example is to show clearly that you can use different states depending on
 your local requirements, and how that might look. See [Customising the request
-states]({{ site.baseurl }}docs/customising/themes/) for details on how to do this.
+states]({{ page.baseurl }}/docs/customising/themes/) for details on how to do this.
 
 ### States used by InformataZyrtare but not WDTK
 
@@ -39,13 +39,13 @@ states]({{ site.baseurl }}docs/customising/themes/) for details on how to do thi
 
 ### States used by WDTK but not InformataZyrtare
 
-   * <a href="{{ site.baseurl }}docs/customising/states/#awaiting_description">awaiting_description</a>
-   * <a href="{{ site.baseurl }}docs/customising/states/#gone_postal">gone_postal</a>
-   * <a href="{{ site.baseurl }}docs/customising/states/#internal_review">internal_review</a>
-   * <a href="{{ site.baseurl }}docs/customising/states/#user_withdrawn">user_withdrawn</a>
-   * <a href="{{ site.baseurl }}docs/customising/states/#waiting_response_very_overdue">waiting_response_very_overdue</a>
+   * <a href="{{ page.baseurl }}/docs/customising/states/#awaiting_description">awaiting_description</a>
+   * <a href="{{ page.baseurl }}/docs/customising/states/#gone_postal">gone_postal</a>
+   * <a href="{{ page.baseurl }}/docs/customising/states/#internal_review">internal_review</a>
+   * <a href="{{ page.baseurl }}/docs/customising/states/#user_withdrawn">user_withdrawn</a>
+   * <a href="{{ page.baseurl }}/docs/customising/states/#waiting_response_very_overdue">waiting_response_very_overdue</a>
 
-For more details, see all the [states used by WhatDoTheyKnow]({{site.baseurl}}docs/customising/states/) for details.
+For more details, see all the [states used by WhatDoTheyKnow]({{ page.baseurl }}/docs/customising/states/) for details.
 
 
 ---
@@ -54,7 +54,7 @@ For more details, see all the [states used by WhatDoTheyKnow]({{site.baseurl}}do
 
 ### Details of InformataZytare states
 
-The states which aren't represented on [WDTK's states]({{ site.baseurl }}docs/customising/states/) are described
+The states which aren't represented on [WDTK's states]({{ page.baseurl }}/docs/customising/states/) are described
 in a little more detail here:
 
 <ul class="definitions">
