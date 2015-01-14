@@ -10,12 +10,12 @@ title: Manual installation
     The following instructions describe the step-by-step process for
     installing Alaveteli. <em>You don't necessarily need to do it this
     way:</em> it's usually easier to use the
-    <a href="{{ site.baseurl }}docs/installing/script/">installation script</a>
+    <a href="{{ page.baseurl }}/docs/installing/script/">installation script</a>
     or the
-    <a href="{{ site.baseurl }}docs/installing/ami/">Amazon EC2 AMI</a>.
+    <a href="{{ page.baseurl }}/docs/installing/ami/">Amazon EC2 AMI</a>.
 </p>
 
-Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing/).
+Note that there are [other ways to install Alaveteli]({{ page.baseurl }}/docs/installing/).
 
 <div class="attention-box">
   <ul>
@@ -30,7 +30,7 @@ Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/ins
 
 These instructions assume a 64-bit version of Debian 6 (Wheezy), Debian 7 (Squeeze)
 or Ubuntu 12.04 LTS (Precise). Debian is the best supported deployment platform. We also
-have instructions for [installing on MacOS]({{ site.baseurl }}docs/installing/macos/).
+have instructions for [installing on MacOS]({{ page.baseurl }}/docs/installing/macos/).
 
 ### Set the locale
 
@@ -309,7 +309,7 @@ Then create the databases:
 You will need to set up an email server – or Mail Transfer Agent (MTA) – to
 send and receive emails.
 
-Full configuration for an MTA is beyond the scope of this document -- see the guide for [configuring the Exim4 or Postfix MTAs]({{ site.baseurl }}docs/installing/email/).
+Full configuration for an MTA is beyond the scope of this document -- see the guide for [configuring the Exim4 or Postfix MTAs]({{ page.baseurl }}/docs/installing/email/).
 
 Note that in development mode mail is handled by [`mailcatcher`](http://mailcatcher.me/) by default so
 that you can see the mails in a browser. Start mailcatcher by running `bundle exec mailcatcher` in the application directory.
@@ -354,7 +354,7 @@ permissions on these databases.
 As the user needs the ability to turn off constraints whilst running the tests
 they also need to be a superuser (clarification: a <em>Postgres</em> superuser,
 not an Alaveteli
-<a href="{{ site.baseurl }}docs/glossary/#super" class="glossary__link">superuser</a>).
+<a href="{{ page.baseurl }}/docs/glossary/#super" class="glossary__link">superuser</a>).
 If you don't want your database user to be a superuser, you can add this line
 to the `test` section in `database.yml` (as seen in `config/database.yml-example`):
 
@@ -362,9 +362,9 @@ to the `test` section in `database.yml` (as seen in `config/database.yml-example
 
 ### general.yml
 
-We have a full [guide to Alaveteli configuration]({{ site.baseurl }}docs/customising/config/) which covers all the settings in `config/general.yml`.
+We have a full [guide to Alaveteli configuration]({{ page.baseurl }}/docs/customising/config/) which covers all the settings in `config/general.yml`.
 
-_Note:_ If you are setting up Alaveteli to run in production, set the [`STAGING_SITE`]({{ site.baseurl }}docs/customising/config/#staging_site) variable to `0` in `/var/www/alaveteli/config/general.yml` now.
+_Note:_ If you are setting up Alaveteli to run in production, set the [`STAGING_SITE`]({{ page.baseurl }}/docs/customising/config/#staging_site) variable to `0` in `/var/www/alaveteli/config/general.yml` now.
 
     STAGING_SITE: 0
 
@@ -558,7 +558,7 @@ Start the application:
 
 One of the cron jobs refers to a script at `/etc/init.d/alaveteli-alert-tracks`. This
 is an init script, which can be generated from the
-`config/alert-tracks-debian.ugly` template. This script sends out emails to users subscribed to updates from the site – known as [`tracks`]({{ site.baseurl }}docs/installing/email/#tracks-mail) – when there is something new matching their interests.
+`config/alert-tracks-debian.ugly` template. This script sends out emails to users subscribed to updates from the site – known as [`tracks`]({{ page.baseurl }}/docs/installing/email/#tracks-mail) – when there is something new matching their interests.
 
 **Template Variables:**
 
@@ -817,11 +817,11 @@ front of Varnish. If you're already using Apache as a web server you could
 simply use Apache as the SSL terminator.
 
 We have some [production server best practice
-notes]({{ site.baseurl}}docs/running/server/).
+notes]({{ page.baseurl }}/docs/running/server/).
 
 ## What next?
 
-Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
+Check out the [next steps]({{ page.baseurl }}/docs/installing/next_steps/).
 
 ## Troubleshooting
 
@@ -833,7 +833,7 @@ Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
 
     If there are failures here, something has gone wrong with the preceding
     steps (see the next section for a common problem and workaround). You might
-    be able to move on to the [next steps]({{ site.baseurl }}docs/installing/next_steps/), depending on how serious they are, but
+    be able to move on to the [next steps]({{ page.baseurl }}/docs/installing/next_steps/), depending on how serious they are, but
     ideally you should try to find out what's gone wrong.
 
 
@@ -850,7 +850,7 @@ You should then be able to run the tests. Don't forget to restore <code>config/r
 
 *   **Incoming emails aren't appearing in my Alaveteli install**
 
-    See the [general email troubleshooting guide]({{ site.baseurl }}docs/installing/email#general-email-troubleshooting).
+    See the [general email troubleshooting guide]({{ page.baseurl }}/docs/installing/email#general-email-troubleshooting).
 
 *   **Various tests fail with "*Your PostgreSQL connection does not support
     unescape_bytea. Try upgrading to pg 0.9.0 or later.*"**
