@@ -29,7 +29,7 @@ gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 gem 'rmagick', '~> 2.13.2', :require => 'RMagick'
 gem 'ruby-msg', '~> 1.5.0',  :git => 'git://github.com/mysociety/ruby-msg.git'
 gem 'secure_headers', '~> 1.3.4'
-gem "statistics2", "~> 0.54"
+gem 'statistics2', '~> 0.54'
 gem 'syslog_protocol', '~> 0.9.2'
 gem 'thin', '~> 1.5.1'
 gem 'vpim', '~> 13.11.11' 
@@ -53,7 +53,7 @@ group :assets do
   gem 'bootstrap-sass', '~> 2.3.1.2'
   gem 'sass-rails', '~> 3.2.3'
   gem 'compass-rails', '2.0.0'
-  gem 'coffee-rails', "~> 3.2.1"
+  gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer', '~> 0.12.0'
 end
@@ -87,4 +87,3 @@ group :debug do
   gem 'debugger', '~> 1.6.0', :platforms => :ruby_19
   gem 'annotate', '~> 2.5.0'
 end
-
