@@ -1,19 +1,46 @@
-<div id="notice">
-  <p>
-    <%= _("Your {{law_used_full}} request has been <strong>sent on its way</strong>!",
-          :law_used_full => @info_request.law_used_full) %>
-  </p>
+<div id="content">
+  <div class="request-sent-message">
+    <h1>
+      <%= _("Your {{law_used_full}} request has been sent",
+            :law_used_full => @info_request.law_used_full) %>
+    </h1>
+    <div class="request-sent-message__row">
+      <div class="request-sent-message__column-1">
+        <p class="subtitle">
+          <%= _("<strong>We will email you</strong> when there is a response, or after " \
+                "{{late_number_of_days}} working days if the authority still hasn't " \
+                "replied by then.",
+                :late_number_of_days => AlaveteliConfiguration.reply_late_after_days) %>
+        </p>
 
-  <p>
-    <%= _("<strong>We will email you</strong> when there is a response, or after " \
-          "{{late_number_of_days}} working days if the authority still hasn't " \
-          "replied by then.",
-          :late_number_of_days => AlaveteliConfiguration.reply_late_after_days) %>
-  </p>
+        <h2><%= _("Share your request") %></h2>
+        <p>Insert sharing stuff here</p>
 
-  <p>
-    <%= _("If you write about this request (for example in a forum or a blog) " \
-          "please link to this page, and add an annotation below telling people " \
-          "about your writing.") %>
-  </p>
+        <h2><%= _("Keep your request up to date") %></h2>
+        <p>
+          <%= _("If you write about this request (for example in a forum or a blog) " \
+                "please link to this page, and add an annotation below telling people " \
+                "about your writing.") %>
+        </p>
+      </div>
+      <div class="request-sent-message__column-2">
+        <div class="what-next">
+          <h2><%= _("What next?") %></h2>
+          <ul class="what-next__list">
+            <li>
+              <a href="#"><%= _("Change how you'd like to be notified of changes " \
+              "to your request") %></a>
+            </li>
+            <li>
+              <a href="#"><%= _("View other requests to $authority_name$") %></a>
+            </li>
+            <li>
+              <a href="#"><%= _("Help us classify requests that haven't " \
+              "been updated") %></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
