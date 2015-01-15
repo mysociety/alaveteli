@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2014-12-12 21:11+0000\n"
+"Last-Translator: Valentin Laskov <laskov@festa.bg>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/alaveteli/language/bg/)\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -95,7 +95,7 @@ msgid " You will also be emailed updates about the request."
 msgstr " Вие също ще получавате имейли с новостите относно заявлението."
 
 msgid " filtered by status: '{{status}}'"
-msgstr ""
+msgstr " филтрирано по статус: '{{status}}'"
 
 msgid " when you send this message."
 msgstr " когато изпратите това съобщение."
@@ -824,7 +824,7 @@ msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "Отговорът за ДдИ изисква администратор ({{reason}}) - {{title}}"
 
 msgid "Failed"
-msgstr ""
+msgstr "Провалено"
 
 msgid "Failed to convert image to a PNG"
 msgstr "Неуспех при конвертиране на изображението в PNG"
@@ -836,7 +836,7 @@ msgid "Filter"
 msgstr "Филтър"
 
 msgid "Filter by Request Status (optional)"
-msgstr ""
+msgstr "Филтър по статус на заявлението (незадълж.)"
 
 msgid "First, did your other requests succeed?"
 msgstr "Първо, успешни ли бяга другите Ви заявления?"
@@ -2396,7 +2396,7 @@ msgid "Subscribe to blog"
 msgstr "Абониране за блога"
 
 msgid "Success"
-msgstr ""
+msgstr "Успех"
 
 msgid "Successful Freedom of Information requests"
 msgstr "Успешни Заявления за Достъп до информация"
@@ -2507,22 +2507,22 @@ msgid "The error bars shown are 95% confidence intervals for the hypothesized un
 msgstr ""
 
 msgid "The last incoming message was created in the last day"
-msgstr ""
+msgstr "Последното получено съобщение е било създадено в последния ден"
 
 msgid "The last incoming message was created over a day ago"
-msgstr ""
+msgstr "Последното получено съобщение е било създадено преди повече от един ден"
 
 msgid "The last outgoing message was created in the last day"
-msgstr ""
+msgstr "Последното изпратено съобщение е било създадено в последния ден"
 
 msgid "The last outgoing message was created over a day ago"
-msgstr ""
+msgstr "Последното изпратено съобщение е било създадено преди повече от един ден"
 
 msgid "The last user was created in the last day"
-msgstr ""
+msgstr "Последният потребител е бил създаден през последния ден"
 
 msgid "The last user was created over a day ago"
-msgstr ""
+msgstr "Последният потребител е бил създаден преди повече от един ден"
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Страницата не съществува. Това, което може да опитате сега:"
@@ -3635,7 +3635,7 @@ msgid "during term time"
 msgstr "през периода време"
 
 msgid "e.g. Ministry of Defence"
-msgstr ""
+msgstr "т. е. Министерство на отбраната"
 
 msgid "edit text about you"
 msgstr "редактиране на  текста за Вас"

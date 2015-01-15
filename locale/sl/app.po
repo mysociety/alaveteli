@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2014-12-07 10:07+0000\n"
+"Last-Translator: zejn <zejn@kiberpipa.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/alaveteli/language/sl/)\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
-msgstr "To bo prikazano na profilu {{site_name}}, da vam bodo drugi lažje pomagali pri vašem delu."
+msgstr "To bo prikazano na strani {{site_name}}, da vam bodo drugi lažje pomagali pri vašem delu."
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
 msgstr "(<strong>brez</strong> politikantstva, preberite naš <a href=\"{{url}}\">pravilnik moderiranja</a>)"
@@ -93,7 +93,7 @@ msgid " You will also be emailed updates about the request."
 msgstr "Prejeli boste tudi e-poštna obvestila o zahtevku."
 
 msgid " filtered by status: '{{status}}'"
-msgstr ""
+msgstr "filtrirano po stanju: '{{status}}'"
 
 msgid " when you send this message."
 msgstr "ko pošljete to sporočilo."
@@ -822,7 +822,7 @@ msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "Odgovor na zahtevek za IJZ zahteva administratorja ({{reason}}) - {{title}}"
 
 msgid "Failed"
-msgstr ""
+msgstr "Neuspešno"
 
 msgid "Failed to convert image to a PNG"
 msgstr "Napaka pri pretvorbi slike v zapis PNG"
@@ -834,7 +834,7 @@ msgid "Filter"
 msgstr "Filtriraj"
 
 msgid "Filter by Request Status (optional)"
-msgstr ""
+msgstr "Filtriraj po statusu zahteve (opcijsko)"
 
 msgid "First, did your other requests succeed?"
 msgstr "Najprej, so bili vaši drugi zahtevki uspešni?"
@@ -2400,7 +2400,7 @@ msgid "Subscribe to blog"
 msgstr "Naroči se na blog"
 
 msgid "Success"
-msgstr ""
+msgstr "Uspešno"
 
 msgid "Successful Freedom of Information requests"
 msgstr "Ugodeni zahtevki za informacije javnega značaja"
@@ -2511,22 +2511,22 @@ msgid "The error bars shown are 95% confidence intervals for the hypothesized un
 msgstr "Prikazan graf napake predstavlja 95% interval zaupanja na vzorcu, pridobljenim z zahtevki, narejenimi preko tega portala in torej ne upošteva zahtevkov, ki so bili narejeni preko drugih možnih načinov."
 
 msgid "The last incoming message was created in the last day"
-msgstr ""
+msgstr "Zadnje dohodno sporočilo je bilo ustvarjeno danes"
 
 msgid "The last incoming message was created over a day ago"
-msgstr ""
+msgstr "Zadnje dohodno sporočilo je bilo ustvarjeno pred več kot enim dnevom"
 
 msgid "The last outgoing message was created in the last day"
-msgstr ""
+msgstr "Zadnje odhodno sporočilo je bilo ustvarjeno danes"
 
 msgid "The last outgoing message was created over a day ago"
-msgstr ""
+msgstr "Zadnje odhodno sporočilo je bilo ustvarjeno pred več kot enim dnevom"
 
 msgid "The last user was created in the last day"
-msgstr ""
+msgstr "Zadnji uporabnik je bil ustvarjen danes"
 
 msgid "The last user was created over a day ago"
-msgstr ""
+msgstr "Zadnji uporabnik je bil ustvarjen pred več kot enim dnevom"
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Stran ne obstaja. Kaj lahko storite:"
@@ -3081,7 +3081,7 @@ msgid "User|Hashed password"
 msgstr "User|Hashed password"
 
 msgid "User|Identity card number"
-msgstr ""
+msgstr "Uporabnik|Številka identifikacijske kartice"
 
 msgid "User|Last daily track email"
 msgstr "User|Last daily track email"
@@ -3651,7 +3651,7 @@ msgid "during term time"
 msgstr "med obdobjem"
 
 msgid "e.g. Ministry of Defence"
-msgstr ""
+msgstr "npr. Ministrstvo za obrambo"
 
 msgid "edit text about you"
 msgstr "uredi vaš opis"
@@ -3791,7 +3791,7 @@ msgid "to {{public_body}}"
 msgstr "za {{public_body}}"
 
 msgid "type your search term here"
-msgstr ""
+msgstr "vpišite iskalne besede"
 
 msgid "unknown reason "
 msgstr "neznan razlog"
