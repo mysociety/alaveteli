@@ -28,6 +28,7 @@ Definitions
   <li><a href="#foi">freedom of information</a></li>
   <li><a href="#git">git</a></li>
   <li><a href="#holding_pen">holding pen</a></li>
+  <li><a href="#i18n">internationalisation</a></li>
   <li><a href="#newrelic">New Relic</a></li>
   <li><a href="#mta">MTA</a></li>
   <li><a href="#po">.po files</a></li>
@@ -372,6 +373,47 @@ Definitions
         <li>
           see the <a href="{{ site.baseurl }}docs/running/admin_manual/">admin manual</a> for
           information on dealing with emails in the holding pen
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="i18n">internationalisation</a> (also: i18n)
+  </dt>
+  <dd>
+    <strong>Internationalisation</strong> is the way Alaveteli adapts the
+    way it presents text based on the language or languages that your website
+    supports. It's sometimes abbreviated as <em>i18n</em> (because there are
+    18 letters between i and n).
+    <p>
+      Often you don't need to worry about the details of how this is done 
+      because once you've configured your site's
+      <code><a href="{{ site.baseurl }}docs/customising/config/#default_locale">DEFAULT_LOCALE</a></code>
+      Alaveteli takes care of it for you.
+      But when you do need to work on i18n (for example, if you're customising
+      your site by 
+      <a href="{{ site.baseurl }}docs/customising/translation/">translating</a> it, or 
+      <a href="{{ site.baseurl }}docs/running/admin_manual/#editing-and-uploading-public-body-email-addresses">uploading names</a>
+      of the public bodies in more than one language) at the very least you may
+      need to know the language codes you're site is using.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          More about <a href="{{ site.baseurl }}docs/developers/i18n/">internationalising Alaveteli</a>
+        </li>
+        <li>
+          See mySociety's
+          <a href="http://mysociety.github.io/internationalization.html">i18n guidelines</a> for developers
+        </li>
+        <li>
+          <a href="http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">List of language codes</a>
+        </li>
+        <li>
+          For more about i18n in software generally, see
+          the <a href="http://en.wikipedia.org/wiki/Internationalization_and_localization">i18n Wikipedia article</a>.
         </li>
       </ul>
     </div>

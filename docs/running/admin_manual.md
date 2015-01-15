@@ -7,22 +7,11 @@ title: Administrator's guide
 
 <p class="lead">
   What is it like running an Alaveteli site? This guide explains what you can
-  expect, and the types of problem that you might encounter. At mySociety,
-  we've been running our own <a href="/docs/glossary/#foi"
+  expect, and the types of problem that you might encounter. It includes
+  examples of how mySociety manages their own <a href="/docs/glossary/#foi"
   class="glossary__link">Freedom of Information</a> site, <a
-  href="https://www.whatdotheyknow.com">whatdotheyknow.com</a>, since 2008,
-  so we've included lots of examples from our own experience.
-  
+  href="https://www.whatdotheyknow.com">whatdotheyknow.com</a>.
 </p>
-
-<div class="attention-box helpful-hint">
-  <p>
-    <b>Before you start...</b>
-    This admin guide assumes your Alaveteli site is already up and running.
-    If it's not, you need to follow the steps for
-    <a href="{{ site.baseurl }}docs/getting_started/">getting started with Alaveteli</a>.
-  </p>
-</div>
 
 In this guide:
 
@@ -66,8 +55,7 @@ times.
 
 Administration tasks can be split into [**maintenance**]({{ site.baseurl }}docs/running/admin_manual/#maintenance) and [**user support**]({{ site.baseurl }}docs/running/admin_manual/#user-support).
 The boundaries of these tasks is in fact quite blurred; the main distinction is
-that the former happen exclusively through the web 
-<a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>, whereas the
+that the former happen exclusively through the web admin interface, whereas the
 latter are mediated by email directly with end users (but often result in
 actions through the web admin interface).
 
@@ -320,24 +308,17 @@ line, and piping the contents of that file into the mail handling script. e.g.
 
 ### Administrator privileges and accessing the admin interface
 
-The 
-<a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">administrative interface</a>
-is at the URL `/admin`.
+The administrative interface is at the URL `/admin`.
 
-Only users with the
-<a href="{{ site.baseurl }}docs/glossary/#super" class="glossary__link">super</a>
-admin level can access the admin interface. To make a new administrator,
-create a user account in the usual way (signing in using the web front-end),
-and then have an existing administrator to grant them *super* privileges.
+Only users with the `super` admin level can access the admin interface. Users
+create their own accounts in the usual way, and then administrators can give
+them `super` privileges.
 
-Obviously, you can't do this for the very first administrator on a brand
-new Alavetlei installation. So there is an emergency user account which can be
-accessed via `/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
+There is an emergency user account which can be accessed via
+`/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
 `ADMIN_PASSWORD`, which are set in `general.yml`.  To bootstrap the
 first `super` level accounts, you will need to log in as the emergency
-user. When you have granted *super* privileges to at least one existing user,
-you can disable the emergency user account by setting `DISABLE_EMERGENCY_USER`
-to `true` in `general.yml`.
+user. You can disable the emergency user account by setting `DISABLE_EMERGENCY_USER` to `true` in `general.yml`.
 
 Users with the superuser role also have extra privileges in the website
 front end, such as being able to categorise any request, being able to view
@@ -360,6 +341,135 @@ Once you have identified the request the message belongs to, you need to go back
 The message will now be associated with the correct request and will appear on the public request page.
 
 ### Editing and uploading public body email addresses
+
+You can edit the email address of a public body by navigating to it
+in the admin interface (go to **Authorities**, find the body you want to
+update, and click on **edit**). But it's also possible to
+edit multiple public bodies at the same time by uploading a file 
+containing the data in comma-separated values (CSV) format.
+
+The upload feature is useful &mdash; especially when an Alaveteli site is first
+set up &mdash; because it's common to collect all the contact details for the
+public bodies in a spreadsheet. Alaveteli's upload feature makes it easy to
+initially load these values into the site. It also lets you update them if they
+change. To use the values in the the spreadsheet to update the bodies on your
+site, export ("save as") the spreadsheet as a CSV file. This is the file you
+can upload.
+
+The first line of your CSV file should start with `#` (this indicates that
+this line does not contain data) and must list the column names for the data
+that follows on the subsequent lines. Column names must:
+
+   * be on the first line
+   * match expected names *exactly* (see table below)
+   * appear in the same order as corresponding items in the lines of data that follow
+
+Most spreadsheet programs will produce a suitable CSV file for you, provided
+that you carefully specify correct titles at the top of each column. Be sure to
+use names exactly as shown &mdash; if Alaveteli encounters an
+unrecognised column name, the import will fail.
+
+<table>
+  <tr>
+    <th>column</th>
+    <th>i18n<br>suffix?</th>
+    <th>notes</th>
+  </tr>
+  <tr>
+    <td>name</td>
+    <td><em>yes</em></td>
+    <td>cannot be a duplicate of an existing name</td>
+  </tr>
+  <tr>
+    <td>short_name</td>
+    <td><em>yes</em></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>request_email</td>
+    <td><em>yes</em></td>
+    <td>the email to which requests are sent</td>
+  </tr>
+  <tr>
+    <td>notes</td>
+    <td><em>yes</em></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>publication_scheme</td>
+    <td><em>yes</em></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>disclosure_log</td>
+    <td><em>yes</em></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>home_page</td>
+    <td>no</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>tag_string</td>
+    <td>no</td>
+    <td>separated tags with spaces</td>
+  </tr>
+</table>
+
+   * Existing records cannot be renamed by uploading: if you need to do this,
+     use the admin interface to edit the existing record first, and change
+     its name in the web interface.
+   * Columns with "i18n suffix" can accept
+     <a href="{{ site.baseurl }}docs/glossary/#i18n" class="glossary__link">internationalised</a>
+     names. Add a full stop followed by the language code, for example:
+     `name.es` for Spanish (`es`). This **must** be a locale you've declared in
+     [`AVAILABLE_LOCALES`]({{ site.baseurl }}docs/customising/config/#available_locales).
+     If you don't specify an i18n suffix, the default language for your site is
+     assumed.
+   * You can specify a blank entry in the CSV file by having no character
+     between commas.
+   * If a entry contains a comma (such as `Comma, Inc`), enclose it in
+     double quotes.
+
+For example:
+
+    #name,short_name,short_name-es,request_email
+    XYZ Library Inc.,XYZ Library,XYX Biblioteca,info@xyz.example.com
+    Placeville Town Council,,Ayuntamiento de Placeville,placeville@example.com
+    "Comma, Inc.",Comma,,comma@example.com
+
+To upload a CSV file, log into the admin and click on **Authorities**. Click on 
+**Import from CSV file**, and choose the file you've prepared. 
+
+Specifiy **What to do with existing tags?** with one of these options:
+
+   * *Replace existing tags with new ones* <br/>
+     Tags on matched records will be removed, and replaces with the ones in
+     your CSV file.
+   
+   * *Add new tags to existing ones* <br/>
+     Use this option if you want to keep existing tags and add the new ones
+     in your CVS file to the authorities in the database.
+
+You can add a **Tag to add entries to / alter entries for**. This tag will
+be applied to every body that is imported from your CSV file.
+
+We always recommend you click **Dry run** first -- this will upload the file and
+report the changes it will make in the database, *without actually changing
+the data*. Check the report: it shows what changes have been accepted.
+
+The dry run will report all the changes that were made, followed by a 
+message like this:
+
+    Dry run was successful, real run would do as above.
+
+If you see nothing above that line, it means the dry run has resulted in no
+proposed changes.
+
+If everything was OK when you ran the dry run, click **Upload** instead. This 
+will repeat the process, but this time it will make the changes to your
+site's database.
 
 
 
