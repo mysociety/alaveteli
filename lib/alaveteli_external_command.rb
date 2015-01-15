@@ -36,21 +36,30 @@ module AlaveteliExternalCommand
             if opts.has_key? :memory_limit
                 xc.memory_limit = opts[:memory_limit]
             end
+
+
             xc.run(opts[:stdin_string] || "", opts[:env] || {})
 
             if !xc.exited
                 # Crash or timeout
-                $stderr.puts("#{program_name} #{args.join(' ')}:exited abnormally")
+                if xc.timed_out
+                    $stderr.puts(%Q[Command "#{program_name} #{args.join(' ')}" timed out at #{opts[:timeout]}s])
+                else
+                    $stderr.puts(%Q[Command ""#{program_name} #{args.join(' ')}" exited abnormally])
+                end
+                $stderr.print(xc.err)
                 return nil
+
             elsif xc.status != 0
                 # Error
-                $stderr.puts("Error from #{program_name} #{args.join(' ')}:")
+                $stderr.puts(%Q[Error from command "#{program_name} #{args.join(' ')}":])
                 $stderr.print(xc.err)
                 return nil
             else
                 if opts.has_key? :append_to
                     opts[:append_to] << "\n\n"
                 else
+
                     return xc.out
                 end
             end
