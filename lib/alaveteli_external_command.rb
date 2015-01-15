@@ -5,6 +5,7 @@ module AlaveteliExternalCommand
         # Final argument can be a hash of options.
         # Valid options are:
         # :append_to - string to append the output of the process to
+        # :append_errors_to - string to append the errors produced by the process to
         # :stdin_string - stdin string to pass to the process
         # :binary_output - boolean flag for treating the output as binary or text encoded with
         #                   the default external encoding (only significant in ruby 1.9 and above)
@@ -12,6 +13,7 @@ module AlaveteliExternalCommand
         #                   the default external encoding (only significant in ruby 1.9 and above)
         # :memory_limit - maximum amount of memory (in bytes) available to the process
         # :timeout - maximum amount of time (in s) to allow the process to run for
+        # :env - hash of environment variables to set for the process
         def run(program_name, *args)
             # Run an external program, and return its output.
             # Standard error is suppressed unless the program
@@ -22,23 +24,8 @@ module AlaveteliExternalCommand
             end
 
             program_path = find_program(program_name)
-
             xc = ExternalCommand.new(program_path, *args)
-            if opts.has_key? :append_to
-                xc.out = opts[:append_to]
-            end
-            if opts.has_key? :binary_output
-                xc.binary_output = opts[:binary_output]
-            end
-            if opts.has_key? :binary_input
-                xc.binary_input = opts[:binary_input]
-            end
-            if opts.has_key? :memory_limit
-                xc.memory_limit = opts[:memory_limit]
-            end
-
-
-            xc.run(opts[:stdin_string] || "", opts[:env] || {})
+            xc.run
 
             if !xc.exited
                 # Crash or timeout
