@@ -6,8 +6,10 @@ module AlaveteliExternalCommand
         # Valid options are:
         # :append_to - string to append the output of the process to
         # :stdin_string - stdin string to pass to the process
-        # :binary_output - boolean flag for treating the output as binary or text (only significant
-        #                  ruby 1.9 and above)
+        # :binary_output - boolean flag for treating the output as binary or text encoded with
+        #                   the default external encoding (only significant in ruby 1.9 and above)
+        # :binary_input - boolean flag for treating the input as binary or as text encoded with
+        #                   the default external encoding (only significant in ruby 1.9 and above)
         # :memory_limit - maximum amount of memory (in bytes) available to the process
         # :timeout - maximum amount of time (in s) to allow the process to run for
         def run(program_name, *args)
@@ -26,7 +28,10 @@ module AlaveteliExternalCommand
                 xc.out = opts[:append_to]
             end
             if opts.has_key? :binary_output
-                xc.binary_mode = opts[:binary_output]
+                xc.binary_output = opts[:binary_output]
+            end
+            if opts.has_key? :binary_input
+                xc.binary_input = opts[:binary_input]
             end
             if opts.has_key? :memory_limit
                 xc.memory_limit = opts[:memory_limit]
