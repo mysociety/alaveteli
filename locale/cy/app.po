@@ -9,7 +9,7 @@
 # baragouiner <graham.craig@gmail.com>, 2013
 # baragouiner <graham.craig@gmail.com>, 2013
 # Huw Waters <huwwaters@gmail.com>, 2013
-# Huw Waters <huwwaters@gmail.com>, 2013
+# Huw Waters <huwwaters@gmail.com>, 2013,2015
 # hywelm <hywelm.jones@talk21.com>, 2013
 # hywelm <hywelm.jones@talk21.com>, 2013
 # hywelm <hywelm.jones@talk21.com>, 2013
@@ -22,8 +22,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2015-01-06 14:10+0000\n"
+"Last-Translator: Huw Waters <huwwaters@gmail.com>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -833,7 +833,7 @@ msgid "FOI response requires admin ({{reason}}) - {{title}}"
 msgstr "Mae ar Ymateb Rhyddid Gwybodaeth angen gweinyddu ({{reason}}) - {{title}}"
 
 msgid "Failed"
-msgstr ""
+msgstr "Methwyd"
 
 msgid "Failed to convert image to a PNG"
 msgstr "Methu trosi delwedd i PNG"
@@ -2411,7 +2411,7 @@ msgid "Subscribe to blog"
 msgstr "Tanysgrifio i flog"
 
 msgid "Success"
-msgstr ""
+msgstr "Llwyddiant"
 
 msgid "Successful Freedom of Information requests"
 msgstr "Ceisiadau Rhyddid Gwybodaeth llwyddiannus"

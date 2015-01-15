@@ -4,7 +4,7 @@
 #
 # Translators:
 # Jiří Vírava <appukonrad@gmail.com>, 2012
-# Hana Huntova <>, 2012-2014
+# Hana Huntova <>, 2012-2015
 # Jana Kneschke <>, 2012-2013
 # janakneschke <jana.kneschke@gmail.com>, 2013
 # janakneschke <jana.kneschke@gmail.com>, 2012-2013
@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2015-01-05 17:00+0000\n"
+"Last-Translator: Hana Huntova <>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -588,7 +588,7 @@ msgid "Change password on {{site_name}}"
 msgstr "Změňte heslo na stránkách {{site_name}}"
 
 msgid "Change profile photo"
-msgstr "Změňte své profilové foto"
+msgstr "Změňte profilové foto"
 
 msgid "Change the text about you on your profile at {{site_name}}"
 msgstr "Změňte text svého profilu na stránkách {{site_name}}"
@@ -3719,7 +3719,7 @@ msgstr[2] "Vašich {{count}} dotazů"
 
 msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
-msgstr[0] "Váš {{count}} poznámka"
+msgstr[0] "Vaše {{count}} poznámka"
 msgstr[1] "Vaše {{count}} poznámky"
 msgstr[2] "Vašich {{count}} poznámek"
 
@@ -3878,7 +3878,7 @@ msgid "is <strong>waiting for your clarification</strong>."
 msgstr "<strong>čeká na vaše vysvětlení</strong>."
 
 msgid "just to see how it works"
-msgstr "abychom věděli jak to funguje"
+msgstr "můžete si tak otestovat, že systém funguje"
 
 msgid "left an annotation"
 msgstr "zanechal poznámku"
