@@ -19,6 +19,7 @@ GIT
 GIT
   remote: git://github.com/technoweenie/acts_as_versioned.git
   revision: 63b1fc8529d028fae632fe80ec0cb25df56cd76b
+  ref: 63b1fc8529d028
   specs:
     acts_as_versioned (0.6.0)
       activerecord (>= 3.0.9)
@@ -291,64 +292,64 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_versioned!
-  annotate
-  bootstrap-sass
-  capistrano
-  charlock_holmes
+  annotate (~> 2.5.0)
+  bootstrap-sass (~> 2.3.1.2)
+  capistrano (~> 2.15.4)
+  charlock_holmes (~> 0.6.9.4)
   coffee-rails (~> 3.2.1)
   compass-rails (= 2.0.0)
   coveralls
-  debugger
-  dynamic_form
-  exception_notification
+  debugger (~> 1.6.0)
+  dynamic_form (~> 1.1.4)
+  exception_notification (~> 3.0.1)
   factory_girl_rails (~> 1.7)
-  fakeweb
-  fancybox-rails
-  fast_gettext
-  foundation-rails
-  gettext
-  gettext_i18n_rails
+  fakeweb (~> 1.3.0)
+  fancybox-rails (~> 0.2.1)
+  fast_gettext (~> 0.7.0)
+  foundation-rails (~> 5.2.1.0)
+  gettext (~> 2.3.9)
+  gettext_i18n_rails (~> 0.9.4)
   globalize3!
-  holidays
+  holidays (~> 1.0.8)
   icalendar (= 1.4.3)
-  iso_country_codes
+  iso_country_codes (~> 0.6.1)
   jquery-rails (~> 3.0.4)
-  jquery-ui-rails
+  jquery-ui-rails (~> 4.1.0)
   json (~> 1.8.1)
-  locale
-  mahoro
-  mailcatcher
-  memcache-client
-  net-http-local
-  net-purge
+  locale (~> 2.0.8)
+  mahoro (~> 0.4)
+  mailcatcher (~> 0.5.11)
+  memcache-client (~> 1.8.5)
+  net-http-local (~> 0.1.2)
+  net-purge (~> 0.1.0)
   newrelic_rpm
-  nokogiri
+  nokogiri (~> 1.5.9)
   pg (~> 0.17.1)
-  quiet_assets
-  rack
+  quiet_assets (~> 1.0.2)
+  rack (~> 1.4.5)
   rails (= 3.2.21)
-  rails-i18n
+  rails-i18n (~> 0.7.3)
   rake (= 0.9.2.2)
-  rdoc
+  rdoc (~> 3.12.2)
   recaptcha (~> 0.3.1)
-  rmagick
-  routing-filter
-  rspec-rails
-  ruby-debug
+  rmagick (~> 2.13.2)
+  routing-filter (~> 0.3.1)
+  rspec-rails (~> 2.13.2)
+  ruby-debug (~> 0.10.4)
   ruby-msg (~> 1.5.0)!
   sass-rails (~> 3.2.3)
-  secure_headers
-  spork-rails
+  secure_headers (~> 1.3.4)
+  spork-rails (~> 3.2.1)
   statistics2 (~> 0.54)
-  syslog_protocol
-  therubyracer
-  thin
+  syslog_protocol (~> 0.9.2)
+  therubyracer (~> 0.12.0)
+  thin (~> 1.5.1)
   uglifier (>= 1.0.3)
-  unicode
-  unidecoder
-  vpim
-  webrat
-  will_paginate
+  unicode (~> 0.4.4)
+  unidecoder (~> 1.1.2)
+  vpim (~> 13.11.11)
+  webrat (~> 0.7.3)
+  will_paginate (~> 3.0.5)
   xapian-full-alaveteli (~> 1.2.9.5)
-  xml-simple
-  zip
+  xml-simple (~> 1.1.2)
+  zip (~> 2.0.2)
