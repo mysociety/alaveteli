@@ -18,9 +18,11 @@
 
         <h2><%= _("Keep your request up to date") %></h2>
         <p>
-          <%= _("If you write about this request (for example in a forum or a blog) " \
-                "please link to this page, and add an annotation below telling people " \
-                "about your writing.") %>
+          <%= _('If you write about this request ' \
+                '(for example in a forum or a blog) ' \
+                'please link to this page, and <a href="{{url}}">add an ' \
+                'annotation</a> below telling people ' \
+                'about your writing.', :url => new_comment_url(:url_title => @info_request.url_title).html_safe) %>
         </p>
       </div>
       <div class="request-sent-message__column-2">
@@ -32,11 +34,11 @@
               "to your request") %></a>
             </li>
             <li>
-              <a href="#"><%= _("View other requests to $authority_name$") %></a>
+              <%= link_to _("View other requests to {{public_body}}", :public_body => @info_request.public_body.name), public_body_path(@info_request.public_body) %>
             </li>
             <li>
-              <a href="#"><%= _("Help us classify requests that haven't " \
-              "been updated") %></a>
+              <%= link_to _("Help us classify requests that haven't " \
+              "been updated"), categorise_play_path %>
             </li>
           </ul>
         </div>
