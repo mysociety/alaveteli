@@ -153,7 +153,7 @@ class PublicBody < ActiveRecord::Base
 
     def translated_versions=(translation_attrs)
         def empty_translation?(attrs)
-            attrs_with_values = attrs.select{ |key, value| value != '' and key != 'locale' }
+            attrs_with_values = attrs.select{ |key, value| value != '' and key.to_s != 'locale' }
             attrs_with_values.empty?
         end
 
