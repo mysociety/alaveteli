@@ -10,7 +10,7 @@
   </ul>
   <div class="tab-content">
 <%
-    for locale in I18n.available_locales do
+    I18n.available_locales.each do |locale|
         if locale==I18n.default_locale  # The default locale is submitted as part of the bigger object...
             prefix = 'public_body'
             object = @public_body
