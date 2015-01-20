@@ -19,9 +19,9 @@ describe 'Editing a Public Body' do
 
     it 'can add a translation for a single locale' do
         expect(@body.find_translation_by_locale('fr')).to be_nil
-        
+
         @admin.visit admin_body_edit_path(@body)
-        @admin.fill_in 'public_body_translated_versions__name__fr', :with => 'New Quango FR'
+        @admin.fill_in 'public_body_translations_attributes_fr_name__fr', :with => 'New Quango FR'
         @admin.click_button 'Save'
 
         pb = PublicBody.find_by_name('New Quango')
@@ -30,17 +30,17 @@ describe 'Editing a Public Body' do
         end
     end
 
-    it 'can add a translation for multiple locales' do
+    it 'can add a translation for multiple locales', :focus => true do
         # Add FR translation
         expect(@body.find_translation_by_locale('fr')).to be_nil
         @admin.visit admin_body_edit_path(@body)
-        @admin.fill_in 'public_body_translated_versions__name__fr', :with => 'New Quango FR'
+        @admin.fill_in 'public_body_translations_attributes_fr_name__fr', :with => 'New Quango FR'
         @admin.click_button 'Save'
 
         # Add ES translation
         expect(@body.find_translation_by_locale('es')).to be_nil
-        @admin.visit admin_body_edit_path(@body)        
-        @admin.fill_in 'public_body_translated_versions__name__es', :with => 'New Quango ES'
+        @admin.visit admin_body_edit_path(@body)
+        @admin.fill_in 'public_body_translations_attributes_es_name__es', :with => 'New Quango ES'
         @admin.click_button 'Save'
 
         pb = PublicBody.find_by_name('New Quango')
