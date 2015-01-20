@@ -9,52 +9,21 @@
   <% end %>
   </ul>
   <div class="tab-content">
-<% I18n.available_locales.each do |locale| %>
-    <% context = public_body_form_object(@public_body, locale) %>
-
-    <%= fields_for context[:prefix], context[:object] do |t| %>
-    <div class="tab-pane" id="div-locale-<%=locale.to_s%>">
-      <div class="control-group">
-        <%= t.hidden_field :locale, :value => locale.to_s %>
-        <label for="<%= form_tag_id(t.object_name, :name, locale) %>" class="control-label">Name</label>
-        <div class="controls">
-          <%= t.text_field :name, :id => form_tag_id(t.object_name, :name, locale), :class => "span4" %>
-        </div>
-      </div>
-      <div class="control-group">
-        <label for="<%= form_tag_id(t.object_name, :short_name, locale) %>", class="control-label"><%=_("Short name")%></label>
-        <div class="controls">
-          <%= t.text_field :short_name, :id => form_tag_id(t.object_name, :short_name, locale), :class => "span2"  %>
-          <p class="help-block"><%=_("Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect")%></p>
-        </div>
-      </div>
-      <div class="control-group">
-        <label for="<%= form_tag_id(t.object_name, :request_email, locale) %>" class="control-label"><%=_("Request email")%></label>
-        <div class="controls">
-          <%= t.text_field :request_email, :id => form_tag_id(t.object_name, :request_email, locale), :class => "span3" %>
-          <p class="help-block"><%=_("set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA")%></p>
-        </div>
-      </div>
-      <div class="control-group">
-        <label for="<%= form_tag_id(t.object_name, :publication_scheme, locale) %>" class="control-label"><%=_("Publication scheme URL")%></label>
-        <div class="controls">
-          <%= t.text_field :publication_scheme, :size => 60, :id => form_tag_id(t.object_name, :publication_scheme, locale), :class => "span3" %>
-        </div>
-      </div>
-      <div class="control-group">
-        <label for="<%= form_tag_id(t.object_name, :notes, locale) %>" class="control-label"><%=_("Public notes")%></label>
-        <div class="controls">
-          <%= t.text_area :notes, :rows => 3, :id => form_tag_id(t.object_name, :notes, locale), :class => "span6" %>
-          <p class="help-block">
-            HTML, for users to consider when making FOI requests to the authority
-          </p>
-        </div>
-      </div>
-    </div>
+  <% I18n.available_locales.each do |locale| %>
+      <% context = public_body_form_object(@public_body, locale) %>
+      <% if locale.to_s == I18n.default_locale.to_s %>
+        <%= fields_for('public_body', context[:object]) do |t| %>
+          <%= render :partial => 'locale_fields', :locals => {:t => t, :locale => locale}%>
+        <% end %>
+      <% else %>
+        <%= f.fields_for(context[:prefix], context[:object], :child_index => locale) do |t| %>
+          <%= render :partial => 'locale_fields' , :locals => {:t => t, :locale => locale}%>
+        <% end %>
+      <% end %>
   <% end %>
-<% end %>
   </div>
 </div>
+
 
 <h3>Common Fields</h3>
 <div class="control-group">

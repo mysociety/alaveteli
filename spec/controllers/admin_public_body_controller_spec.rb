@@ -88,11 +88,13 @@ describe AdminPublicBodyController, "when creating a public body" do
                               :tag_string => "blah",
                               :request_email => 'newquango@localhost',
                               :last_edit_comment => 'From test code',
-                :translated_versions => [{ :locale => "es",
-                                           :name => "Mi Nuevo Quango",
-                                           :short_name => "",
-                                           :request_email => 'newquango@localhost' }]
-                }
+                              :translations_attributes => {
+                                  'es' => { :locale => "es",
+                                            :name => "Mi Nuevo Quango",
+                                            :short_name => "",
+                                            :request_email => 'newquango@localhost' }
+                              }
+            }
         }
         PublicBody.count.should == n + 1
 
@@ -209,16 +211,18 @@ describe AdminPublicBodyController, "when updating a public body" do
                 :tag_string => "some tags",
                 :request_email => 'edited@localhost',
                 :last_edit_comment => 'From test code',
-                :translations_attributes => [
-                    { :locale => "es",
-                      :name => "El Department for Humpadinking",
-                      :short_name => "",
-                      :request_email => 'edited@localhost' }
-                ]
+                :translations_attributes => {
+                    'es' => { :locale => "es",
+                              :name => "El Department for Humpadinking",
+                              :short_name => "",
+                              :request_email => 'edited@localhost' }
+                }
             }
         }
 
         request.flash[:notice].should include('successful')
+
+        pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
 
         I18n.with_locale(:es) do
            expect(pb.name).to eq('El Department for Humpadinking')
@@ -238,20 +242,22 @@ describe AdminPublicBodyController, "when updating a public body" do
                 :tag_string => "some tags",
                 :request_email => 'edited@localhost',
                 :last_edit_comment => 'From test code',
-                :translations_attributes => [
-                    { :locale => "es",
-                      :name => "El Department for Humpadinking",
-                      :short_name => "",
-                      :request_email => 'edited@localhost' },
-                    { :locale => "fr",
-                      :name => "Le Department for Humpadinking",
-                      :short_name => "",
-                      :request_email => 'edited@localhost' }
-                ]
+                :translations_attributes => {
+                    'es' => { :locale => "es",
+                              :name => "El Department for Humpadinking",
+                              :short_name => "",
+                              :request_email => 'edited@localhost' },
+                    'fr' => { :locale => "fr",
+                              :name => "Le Department for Humpadinking",
+                              :short_name => "",
+                              :request_email => 'edited@localhost' }
+                }
             }
         }
 
         request.flash[:notice].should include('successful')
+
+        pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
 
         I18n.with_locale(:es) do
            expect(pb.name).to eq('El Department for Humpadinking')
@@ -266,7 +272,7 @@ describe AdminPublicBodyController, "when updating a public body" do
         pb = public_bodies(:humpadink_public_body)
         pb_es = pb.translation_for(:es)
 
-        post :update, {
+        put :update, {
             :id => pb.id,
             :public_body => {
                 :name => "Department for Humpadinking",
@@ -274,24 +280,24 @@ describe AdminPublicBodyController, "when updating a public body" do
                 :tag_string => "some tags",
                 :request_email => 'edited@localhost',
                 :last_edit_comment => 'From test code',
-                :translations_attributes => [
+                :translations_attributes => {
                     # Update existing translation
-                    { :locale => "es",
-                      :name => "Renamed Department for Humpadinking",
-                      :short_name => "",
-                      :request_email => 'edited@localhost' },
+                    'es' => { :locale => "es",
+                              :name => "Renamed Department for Humpadinking",
+                              :short_name => "",
+                              :request_email => 'edited@localhost' },
                     # Add new translation
-                    { :locale => "fr",
-                      :name => "Le Department for Humpadinking",
-                      :short_name => "",
-                      :request_email => 'edited@localhost' }
-                ]
+                    'fr' => { :locale => "fr",
+                              :name => "Le Department for Humpadinking",
+                              :short_name => "",
+                              :request_email => 'edited@localhost' }
+                }
             }
         }
 
-        pb.reload
-
         request.flash[:notice].should include('successful')
+
+        pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
 
         I18n.with_locale(:es) do
            expect(pb.name).to eq('Renamed Department for Humpadinking')
@@ -300,6 +306,7 @@ describe AdminPublicBodyController, "when updating a public body" do
         I18n.with_locale(:fr) do
            expect(pb.name).to eq('Le Department for Humpadinking')
         end
+
     end
 
     it "saves edits to a public body in another locale" do
@@ -314,11 +321,11 @@ describe AdminPublicBodyController, "when updating a public body" do
                     :tag_string => "some tags",
                     :request_email => 'edited@localhost',
                     :last_edit_comment => 'From test code',
-                    :translated_versions => {
-                        3 => {:locale => "es",
-                              :name => "Renamed",
-                              :short_name => "",
-                              :request_email => 'edited@localhost'}
+                    :translations_attributes => {
+                        'es' => { :locale => "es",
+                                  :name => "Renamed",
+                                  :short_name => "",
+                                  :request_email => 'edited@localhost' }
                         }
                     }
                 }
@@ -326,11 +333,13 @@ describe AdminPublicBodyController, "when updating a public body" do
         end
 
         pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
+
         I18n.with_locale(:es) do
-           pb.name.should == "Renamed"
+           expect(pb.name).to eq('Renamed')
         end
+
         I18n.with_locale(:en) do
-           pb.name.should == "Department for Humpadinking"
+           expect(pb.name).to eq('Department for Humpadinking')
         end
 
     end

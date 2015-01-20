@@ -27,11 +27,11 @@ describe AdminPublicBodyHelper do
 
         context 'in an alternative locale' do
 
-            it 'provides the prefix public_body[translated_versions][]' do
+            it 'provides the prefix :translations' do
                 public_body = FactoryGirl.build(:public_body)
                 locale = :es
                 prefix = public_body_form_object(public_body, locale)[:prefix]
-                expect(prefix).to eq('public_body[translated_versions][]')
+                expect(prefix).to eq(:translations)
             end
 
             context 'when the PublicBody is new' do
