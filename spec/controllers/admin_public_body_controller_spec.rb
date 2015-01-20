@@ -196,6 +196,112 @@ describe AdminPublicBodyController, "when updating a public body" do
         pb.name.should == "Renamed"
     end
 
+    it 'adds a new translation' do
+        pb = public_bodies(:humpadink_public_body)
+        pb.translation_for(:es).destroy
+        pb.reload
+
+        post :update, {
+            :id => pb.id,
+            :public_body => {
+                :name => "Department for Humpadinking",
+                :short_name => "",
+                :tag_string => "some tags",
+                :request_email => 'edited@localhost',
+                :last_edit_comment => 'From test code',
+                :translations_attributes => [
+                    { :locale => "es",
+                      :name => "El Department for Humpadinking",
+                      :short_name => "",
+                      :request_email => 'edited@localhost' }
+                ]
+            }
+        }
+
+        request.flash[:notice].should include('successful')
+
+        I18n.with_locale(:es) do
+           expect(pb.name).to eq('El Department for Humpadinking')
+        end
+    end
+
+    it 'adds new translations' do
+        pb = public_bodies(:humpadink_public_body)
+        pb.translation_for(:es).destroy
+        pb.reload
+
+        post :update, {
+            :id => pb.id,
+            :public_body => {
+                :name => "Department for Humpadinking",
+                :short_name => "",
+                :tag_string => "some tags",
+                :request_email => 'edited@localhost',
+                :last_edit_comment => 'From test code',
+                :translations_attributes => [
+                    { :locale => "es",
+                      :name => "El Department for Humpadinking",
+                      :short_name => "",
+                      :request_email => 'edited@localhost' },
+                    { :locale => "fr",
+                      :name => "Le Department for Humpadinking",
+                      :short_name => "",
+                      :request_email => 'edited@localhost' }
+                ]
+            }
+        }
+
+        request.flash[:notice].should include('successful')
+
+        I18n.with_locale(:es) do
+           expect(pb.name).to eq('El Department for Humpadinking')
+        end
+
+        I18n.with_locale(:fr) do
+           expect(pb.name).to eq('Le Department for Humpadinking')
+        end
+    end
+
+    it 'updates an existing translation and adds a third translation' do
+        pb = public_bodies(:humpadink_public_body)
+        pb_es = pb.translation_for(:es)
+
+        post :update, {
+            :id => pb.id,
+            :public_body => {
+                :name => "Department for Humpadinking",
+                :short_name => "",
+                :tag_string => "some tags",
+                :request_email => 'edited@localhost',
+                :last_edit_comment => 'From test code',
+                :translations_attributes => [
+                    # Update existing translation
+                    { :locale => "es",
+                      :name => "Renamed Department for Humpadinking",
+                      :short_name => "",
+                      :request_email => 'edited@localhost' },
+                    # Add new translation
+                    { :locale => "fr",
+                      :name => "Le Department for Humpadinking",
+                      :short_name => "",
+                      :request_email => 'edited@localhost' }
+                ]
+            }
+        }
+
+        pb.reload
+
+        request.flash[:notice].should include('successful')
+
+        I18n.with_locale(:es) do
+           expect(pb.name).to eq('Renamed Department for Humpadinking')
+        end
+
+        I18n.with_locale(:fr) do
+           expect(pb.name).to eq('Le Department for Humpadinking')
+        end
+    end
+
     it "saves edits to a public body in another locale" do
         I18n.with_locale(:es) do
             pb = PublicBody.find(id=3)
@@ -226,6 +332,7 @@ describe AdminPublicBodyController, "when updating a public body" do
         I18n.with_locale(:en) do
            pb.name.should == "Department for Humpadinking"
         end
+
     end
 
     context 'when the body is being updated as a result of a change request' do
