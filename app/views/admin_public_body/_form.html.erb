@@ -4,23 +4,27 @@
 
 <div id="div-locales">
   <ul class="locales nav nav-tabs">
-  <% I18n.available_locales.each_with_index do |locale, i| %>
-    <li><a href="#div-locale-<%=locale.to_s%>" data-toggle="tab" ><%=locale_name(locale.to_s) || _("Default locale")%></a></li>
-  <% end %>
+    <% @public_body.translations.each_with_index do |translation, i| %>
+      <li>
+        <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab" >
+          <%= locale_name(translation.locale.to_s) || _("Default locale") %>
+        </a>
+      </li>
+    <% end %>
   </ul>
+
   <div class="tab-content">
-  <% I18n.available_locales.each do |locale| %>
-      <% context = public_body_form_object(@public_body, locale) %>
-      <% if locale.to_s == I18n.default_locale.to_s %>
-        <%= fields_for('public_body', context[:object]) do |t| %>
-          <%= render :partial => 'locale_fields', :locals => {:t => t, :locale => locale}%>
+    <% @public_body.translations.each do |translation| %>
+      <% if translation.locale.to_s == I18n.default_locale.to_s %>
+        <%= fields_for('public_body', @public_body) do |t| %>
+          <%= render :partial => 'locale_fields', :locals => { :t => t, :locale => translation.locale } %>
         <% end %>
       <% else %>
-        <%= f.fields_for(context[:prefix], context[:object], :child_index => locale) do |t| %>
-          <%= render :partial => 'locale_fields' , :locals => {:t => t, :locale => locale}%>
+        <%= f.fields_for(:translations, translation, :child_index => translation.locale) do |t| %>
+          <%= render :partial => 'locale_fields' , :locals => { :t => t, :locale => translation.locale } %>
         <% end %>
       <% end %>
-  <% end %>
+    <% end %>
   </div>
 </div>
 
