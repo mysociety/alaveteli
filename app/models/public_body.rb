@@ -166,6 +166,11 @@ class PublicBody < ActiveRecord::Base
                 t.save!
             end
         else                                            # Array => creating
+            warn "[DEPRECATION] PublicBody#translations_attributes= " \
+                        "will no longer accept an Array as of release 0.22. " \
+                        "Use Hash arguments instead. See " \
+                        "spec/models/public_body_spec.rb for more details"
+
             translation_attrs.each do |attrs|
                 next if empty_translation?(attrs)
                 new_translation = PublicBody::Translation.new(attrs)
