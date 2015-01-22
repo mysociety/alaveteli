@@ -387,14 +387,27 @@ Definitions
     <a name="holding_pen">holding pen</a>
   </dt>
   <dd>
-    The <strong>holding pen</strong> is the conceptual place where responses that
-    could not be delivered are held. They need attention from a administrator.
+    The <strong>holding pen</strong> is the conceptual place where responses
+    that could not be delivered are held. They need attention from an
+    <a href="#super" class="glossary__link">administrator</a>.
+    <p>
+      In fact, the holding pen is really a special "sticky" <a href="#request"
+      class="glossary__link">request</a> that only exists to accept unmatched
+      responses. Whenever Alaveteli receives an email but can't work out which
+      request it is a response to, it attaches it to the holding pen instead.
+    </p>
     <div class="more-info">
       <p>More information:</p>
       <ul>
         <li>
-          see the <a href="{{ site.baseurl }}docs/running/admin_manual/">admin manual</a> for
+          See the <a href="{{ site.baseurl }}docs/running/admin_manual/#removing-a-message-from-the-holding-pen">admin manual</a> for
           information on dealing with emails in the holding pen
+        </li>
+        <li>
+          The most common reason for a response to be in the holding pen is that
+          an <a href="#authority" class="glossary__link">authority</a> replied
+          to a request with the wrong email address (for example, by copying
+          the email address incorrectly).
         </li>
       </ul>
     </div>
