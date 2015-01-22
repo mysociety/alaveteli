@@ -31,7 +31,7 @@ Definitions
   <li><a href="#holding_pen">holding pen</a></li>
   <li><a href="#i18n">internationalisation</a></li>
   <li><a href="#newrelic">New Relic</a></li>
-  <li><a href="#mta">MTA</a></li>
+  <li><a href="#mta">Mail Transfer Agent</a></li>
   <li><a href="#po">.po files</a></li>
   <li><a href="#production">production site</a></li>
   <li><a href="#publish">publish</a></li>
@@ -455,10 +455,10 @@ Definitions
   </dd>
 
   <dt>
-    <a name="mta">MTA</a> (Mail Transfer Agent)
+    <a name="mta">Mail Transfer Agent</a> (MTA)
   </dt>
   <dd>
-    A <strong>Mail Tranfer Agent</strong> is the the program which actually sends
+    A <strong>Mail Transfer Agent</strong> is the the program which actually sends
     and receives email. Alaveteli sends email on behalf of its users, and processes
     the <a href="#response" class="glossary__link">responses</a> and replies it receives.
     All this email goes through the MTA, which is a seperate service on your system.
