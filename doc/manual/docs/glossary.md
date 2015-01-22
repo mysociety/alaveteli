@@ -24,15 +24,18 @@ Definitions
   <li><a href="#capistrano">Capistrano</a></li>
   <li><a href="#censor-rule">censor rule</a></li>
   <li><a href="#development">development site</a></li>
+  <li><a href="#disclosure-log">disclosure log</a></li>
   <li><a href="#emergency">emergency user</a></li>
   <li><a href="#foi">freedom of information</a></li>
   <li><a href="#git">git</a></li>
   <li><a href="#holding_pen">holding pen</a></li>
+  <li><a href="#i18n">internationalisation</a></li>
   <li><a href="#newrelic">New Relic</a></li>
   <li><a href="#mta">MTA</a></li>
   <li><a href="#po">.po files</a></li>
   <li><a href="#production">production site</a></li>
   <li><a href="#publish">publish</a></li>
+  <li><a href="#publication-scheme">publication scheme</a></li>
   <li><a href="#recaptcha">recaptcha</a></li>
   <li><a href="#redact">redacting</a></li>
   <li><a href="#regexp">regular expression</a></li>
@@ -102,7 +105,7 @@ Definitions
         </li>
         <li>
           On a newly-installed Alaveteli system, you can grant yourself
-          admin privilege by using the 
+          admin privilege by using the
           <a href="{{ site.baseurl }}docs/glossary/#emergency" class="glossary__link">emergency
           user</a>.
         </li>
@@ -268,6 +271,26 @@ Definitions
   </dd>
 
   <dt>
+    <a name="disclosure-log">disclosure log</a>
+  </dt>
+  <dd>
+    Some <a href="#authority" class="glossary__link">authorities</a> routinely
+    publish their responses to <a href="#foi" class="glossary__link">Freedom of
+    Information</a> requests online. This collection of responses is called a
+    <strong>disclosure log</strong>, and if an authority has such a log on its
+    website, you can add the URL so Alaveteli can link to it.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          You can add a disclosure log URL by
+          <a href="{{ site.baseurl }}docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data">updating authority data</a> in the admin.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
     <a name="emergency">emergency user</a>
   </dt>
   <dd>
@@ -285,7 +308,7 @@ Definitions
         <li>
           The username and password are defined by the configuration settings
           <code><a href="{{site.baseurl}}docs/customising/config/#admin_username">ADMIN_USERNAME</a></code>
-          and 
+          and
           <code><a href="{{site.baseurl}}docs/customising/config/#admin_password">ADMIN_PASSWORD</a></code>.
         </li>
         <li>
@@ -372,6 +395,47 @@ Definitions
         <li>
           see the <a href="{{ site.baseurl }}docs/running/admin_manual/">admin manual</a> for
           information on dealing with emails in the holding pen
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="i18n">internationalisation</a> (also: i18n)
+  </dt>
+  <dd>
+    <strong>Internationalisation</strong> is the way Alaveteli adapts the
+    way it presents text based on the language or languages that your website
+    supports. It's sometimes abbreviated as <em>i18n</em> (because there are
+    18 letters between i and n).
+    <p>
+      Often you don't need to worry about the details of how this is done 
+      because once you've configured your site's
+      <code><a href="{{ site.baseurl }}docs/customising/config/#default_locale">DEFAULT_LOCALE</a></code>
+      Alaveteli takes care of it for you.
+      But when you do need to work on i18n (for example, if you're customising
+      your site by 
+      <a href="{{ site.baseurl }}docs/customising/translation/">translating</a> it, or 
+      <a href="{{ site.baseurl }}docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data">uploading names</a>
+      of the public bodies in more than one language) at the very least you may
+      need to know the language codes you're site is using.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          More about <a href="{{ site.baseurl }}docs/developers/i18n/">internationalising Alaveteli</a>
+        </li>
+        <li>
+          See mySociety's
+          <a href="http://mysociety.github.io/internationalization.html">i18n guidelines</a> for developers
+        </li>
+        <li>
+          <a href="http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">List of language codes</a>
+        </li>
+        <li>
+          For more about i18n in software generally, see
+          the <a href="http://en.wikipedia.org/wiki/Internationalization_and_localization">i18n Wikipedia article</a>.
         </li>
       </ul>
     </div>
@@ -498,6 +562,29 @@ Definitions
     easy for people to find, read, link to, and share the request and the
     information provided in response.
   </dd>
+
+  <dt>
+    <a name="publication-scheme">publication scheme</a>
+  </dt>
+  <dd>
+    Some <a href="#authority" class="glossary__link">authorities</a> have a
+    <strong>publication scheme</strong> which makes it clear what information
+    is readily available from them under <a href="#foi"
+    class="glossary__link">Freedom of Information</a> law, and how people can
+    get it. This may be a requirement for their compliance with the law, or it
+    may simply be good practice. If an authority has published such a scheme on
+    its website, you can add the URL so Alaveteli can link to it.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          You can add a publication scheme URL by
+          <a href="{{ site.baseurl }}docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data">updating authority data</a> in the admin.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
 
   <dt>
     <a name="recaptcha">recaptcha</a>
@@ -773,7 +860,7 @@ Definitions
         </li>
         <li>
           On a newly-installed Alaveteli system, you can grant yourself
-          admin privilege by using the 
+          admin privilege by using the
           <a href="{{ site.baseurl }}docs/glossary/#emergency" class="glossary__link">emergency
           user</a>.
         </li>
