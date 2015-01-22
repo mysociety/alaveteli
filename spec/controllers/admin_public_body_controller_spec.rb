@@ -44,6 +44,15 @@ describe AdminPublicBodyController, 'when showing the form for a new public body
         assigns[:public_body].should be_a(PublicBody)
     end
 
+    it "builds new translations for all locales" do
+        get :new
+
+        translations = assigns[:public_body].translations.map{ |t| t.locale.to_s }.sort
+        available = I18n.available_locales.map{ |l| l.to_s }.sort
+
+        expect(translations).to eq(available)
+    end
+
     context 'when passed a change request id as a param' do
         render_views
 
@@ -159,6 +168,12 @@ describe AdminPublicBodyController, "when editing a public body" do
         assigns[:public_body].find_translation_by_locale("es").name.should == 'El Department for Humpadinking'
         assigns[:public_body].name.should == 'Department for Humpadinking'
         response.should render_template('edit')
+    end
+
+    it "builds new translations if the body does not already have a translation in the specified locale" do
+        public_body = FactoryGirl.create(:public_body)
+        get :edit, :id => public_body.id
+        expect(assigns[:public_body].translations.map(&:locale)).to include(:fr)
     end
 
     context 'when passed a change request id as a param' do
