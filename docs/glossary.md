@@ -857,12 +857,19 @@ Definitions
   </dd>
 
   <dt>
-    <a name="super">superuser</a> (also: super privilege)
+    <a name="super">superuser</a> (also: super privilege, administrator)
   </dt>
   <dd>
-    A <strong>superuser</strong> is an Alaveteli user who has been granted
-    the privilege to use all features of the
-    <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>.
+    A <strong>superuser</strong>, or <strong>administrator</strong>, is an
+    Alaveteli user who has been granted the privilege to use all features of the
+    <a href="{{ site.baseurl }}docs/glossary/#admin"
+    class="glossary__link">admin interface</a>.
+    <p>
+      The only way to access the admin without being an Alaveteli superuser
+      is as the <a href="{{ site.baseurl }}docs/glossary/#emergency"
+      class="glossary__link">emergency user</a>, which should be disabled in
+      normal operation.
+    </p>
     <div class="more-info">
       <p>More information:</p>
       <ul>
