@@ -4,9 +4,9 @@
 
 <div id="div-locales">
   <ul class="locales nav nav-tabs">
-    <% @public_body.translations.each_with_index do |translation, i| %>
+    <% @public_body.translations.each do |translation| %>
       <li>
-        <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab" >
+        <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab">
           <%= locale_name(translation.locale.to_s) || _("Default locale") %>
         </a>
       </li>
@@ -27,7 +27,6 @@
     <% end %>
   </div>
 </div>
-
 
 <h3>Common Fields</h3>
 <div class="control-group">
