@@ -505,12 +505,13 @@ Definitions
     <a name="po"><code>.po</code> file</a> (and <code>.pot</code> file)
   </dt>
   <dd>
-    These are the files needed by the gettext mechanism Alaveteli uses for
-    localisation. A <code>.pot</code> file is effectively a list of all the
-    strings in the application that need translating. Each <code>.po</code>
-    file contains the mapping between those strings, used as keys, and their
-    translations for one particular language. The key is called the
-    <em>msgid</em>, and its corresponding translation is the <em>msgstr</em>.
+    These are the files needed by the <code>gettext</code> mechanism Alaveteli
+    uses for localisation. A <code>.pot</code> file is effectively a list of
+    all the strings in the application that need translating. Each
+    <code>.po</code> file contains the mapping between those strings, used as
+    keys, and their translations for one particular language. The key is called
+    the <em>msgid</em>, and its corresponding translation is the
+    <em>msgstr</em>.
     <div class="more-info">
       <p>More information:</p>
       <ul>
@@ -526,6 +527,11 @@ Definitions
           Alaveteli is on the  <a href="https://www.transifex.net/projects/p/alaveteli/">Transifex</a>
           website, which lets translators work on Alaveteli in a browser, without needing
           to worry about this underlying structure.
+        </li>
+        <li>
+          See more about the 
+          <a href="https://www.gnu.org/software/gettext/"><code>gettext</code>
+          system</a>.
         </li>
       </ul>
     </div>
