@@ -258,7 +258,7 @@ class PublicBody < ActiveRecord::Base
         elsif !has_request_email?
             return 'bad_contact'
         else
-            raise "requestable_failure_reason called with type that has no reason"
+            raise "not_requestable_reason called with type that has no reason"
         end
     end
 

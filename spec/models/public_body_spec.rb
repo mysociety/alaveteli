@@ -1054,7 +1054,7 @@ describe PublicBody do
         end
 
         it 'should raise an error if the body is not defunct, FOI applies and has an email address' do
-            expected_error = "requestable_failure_reason called with type that has no reason"
+            expected_error = "not_requestable_reason called with type that has no reason"
             lambda{ @body.not_requestable_reason }.should raise_error(expected_error)
         end
 
