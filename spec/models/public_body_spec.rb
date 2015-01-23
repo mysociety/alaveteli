@@ -960,3 +960,105 @@ describe PublicBody, 'when asked for popular bodies' do
     end
 
 end
+
+describe PublicBody do
+
+    describe :is_requestable? do
+
+        before do
+            @body = PublicBody.new(:request_email => 'test@example.com')
+        end
+
+        it 'should return false if the body is defunct' do
+            @body.stub!(:defunct?).and_return true
+            @body.is_requestable?.should == false
+        end
+
+        it 'should return false if FOI does not apply' do
+            @body.stub!(:not_apply?).and_return true
+            @body.is_requestable?.should == false
+        end
+
+        it 'should return false if request_email is nil' do
+            @body.request_email = nil
+            @body.is_requestable?.should == false
+        end
+
+        it 'should return false if the request email is "blank"' do
+            @body.request_email = 'blank'
+            @body.is_requestable?.should == false
+        end
+
+        it 'should return false if the request email is an empty string' do
+            @body.request_email = ''
+            @body.is_requestable?.should == false
+        end
+
+        it 'should return true if the request email is an email address' do
+            @body.is_requestable?.should == true
+        end
+
+    end
+
+    describe :is_followupable? do
+
+        before do
+            @body = PublicBody.new(:request_email => 'test@example.com')
+        end
+
+        it 'should return false if request_email is nil' do
+            @body.request_email = nil
+            @body.is_requestable?.should == false
+        end
+
+        it 'should return false if the request email is "blank"' do
+            @body.request_email = "blank"
+            @body.is_requestable?.should == false
+        end
+
+        it 'should return false if the request email is an empty string' do
+            @body.request_email = ""
+            @body.is_requestable?.should == false
+        end
+
+        it 'should return true if the request email is an email address' do
+            @body.is_requestable?.should == true
+        end
+
+    end
+
+    describe :not_requestable_reason do
+
+        before do
+            @body = PublicBody.new(:request_email => 'test@example.com')
+        end
+
+        it 'should return "defunct" if the body is defunct' do
+            @body.stub!(:defunct?).and_return true
+            @body.not_requestable_reason.should == 'defunct'
+        end
+
+        it 'should return "not_apply" if FOI does not apply' do
+            @body.stub!(:not_apply?).and_return true
+            @body.not_requestable_reason.should == 'not_apply'
+        end
+
+        it 'should return "bad_contact" if the email is "blank"' do
+            @body.request_email = 'blank'
+            @body.not_requestable_reason.should == 'bad_contact'
+        end
+
+        it 'should return "bad_contact" if the email is an empty string' do
+            @body.request_email = ''
+            @body.not_requestable_reason.should == 'bad_contact'
+        end
+
+        it 'should raise an error if the body is not defunct, FOI applies and has an email address' do
+            expected_error = "requestable_failure_reason called with type that has no reason"
+            lambda{ @body.not_requestable_reason }.should raise_error(expected_error)
+        end
+
+    end
+
+end
+
