@@ -336,8 +336,7 @@ class PublicBody < ActiveRecord::Base
 
     # Use tags to describe what type of thing this is
     def type_of_authority(html = false)
-        first = true
-        types = tags.map do |tag|
+        types = tags.each_with_index.map do |tag, index|
             if PublicBodyCategory.get().by_tag().include?(tag.name)
                 desc = PublicBodyCategory.get().singular_by_tag()[tag.name]
 
@@ -349,6 +348,7 @@ class PublicBody < ActiveRecord::Base
                     # TODO: this should call proper route helpers, but is in model sigh
                     desc = '<a href="/body/list/' + tag.name + '">' + desc + '</a>'
                 end
+
                 desc
             end
         end
