@@ -1,6 +1,10 @@
-<% if @highlight_words.nil?
-      @highlight_words = []
-   end %>
+<%
+  if @highlight_words.nil?
+    @highlight_words = []
+  end
+
+  request_link = false unless defined?(request_link)
+%>
 
 <div class="body_listing">
 	<span class="head">
