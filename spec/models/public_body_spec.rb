@@ -893,6 +893,28 @@ describe PublicBody do
             @body.has_request_email?.should == true
         end
     end
+
+    describe :special_not_requestable_reason do
+
+        before do
+            @body = PublicBody.new
+        end
+
+        it 'should return true if the body is defunct' do
+            @body.stub!(:defunct?).and_return(true)
+            @body.special_not_requestable_reason?.should == true
+        end
+
+        it 'should return true if FOI does not apply' do
+            @body.stub!(:not_apply?).and_return(true)
+            @body.special_not_requestable_reason?.should == true
+        end
+
+        it 'should return false if the body is not defunct and FOI applies' do
+            @body.special_not_requestable_reason?.should == false
+        end
+    end
+
 end
 
 describe PublicBody, " when override all public body request emails set" do

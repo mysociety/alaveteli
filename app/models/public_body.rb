@@ -262,6 +262,11 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
+    def special_not_requestable_reason?
+        self.defunct? || self.not_apply?
+    end
+
+
     class Version
 
         def last_edit_comment_for_html_display

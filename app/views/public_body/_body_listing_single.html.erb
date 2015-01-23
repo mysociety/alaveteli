@@ -25,7 +25,7 @@
             <%= _("Added on {{date}}", :date => simple_date(public_body.created_at)) %>.
         </span>
         <br>
-        <% if !public_body.is_requestable? && public_body.not_requestable_reason != 'bad_contact' %>
+        <% if public_body.special_not_requestable_reason? %>
            <% if public_body.not_requestable_reason == 'not_apply' %>
            <%= _('FOI law does not apply to this authority.')%>
            <% elsif public_body.not_requestable_reason == 'defunct' %>
@@ -33,12 +33,11 @@
            <% end %>
         <% end %>
     </span>
-    <% if @include_request_link_in_authority_listing %>
-      <% if public_body.is_requestable? || public_body.not_requestable_reason == 'bad_contact' %>
-        <div class="make-request-quick-button">
-          <%= link_to _("Make a request"), new_request_to_body_path(:url_name => public_body.url_name), :class => "link_button_green" %>
-        </div>
-      <% end %>
+
+    <% if request_link && !public_body.special_not_requestable_reason? %>
+      <div class="make-request-quick-button">
+        <%= link_to _("Make a request"), new_request_to_body_path(:url_name => public_body.url_name), :class => "link_button_green" %>
+      </div>
     <% end %>
 </div>
 
