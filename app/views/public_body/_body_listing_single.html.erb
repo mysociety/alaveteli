@@ -16,12 +16,14 @@
         <% end %>
         <br>
     <% end %>
-	</span>
+  </span>
     <span class="bottomline">
         <%= n_('{{count}} request made.', '{{count}} requests made.', public_body.info_requests.size,
         :count => public_body.info_requests.size) %>
         <% if !public_body.is_requestable? && public_body.not_requestable_reason != 'bad_contact' %>
-            <% if public_body.not_requestable_reason == 'defunct' %>
+            <% if public_body.not_requestable_reason == 'not_apply' %>
+            <%= _('FOI law does not apply to this authority.')%>
+            <% elsif public_body.not_requestable_reason == 'defunct' %>
                 <%= _('Defunct.') %>
             <% end %>
         <% else %>
