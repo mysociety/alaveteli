@@ -338,7 +338,7 @@ class PublicBody < ActiveRecord::Base
     def type_of_authority(html = false)
         types = []
         first = true
-        for tag in self.tags
+        tags.each do |tag|
             if PublicBodyCategory.get().by_tag().include?(tag.name)
                 desc = PublicBodyCategory.get().singular_by_tag()[tag.name]
                 if first
