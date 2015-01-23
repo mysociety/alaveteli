@@ -237,24 +237,16 @@ class PublicBody < ActiveRecord::Base
 
     # Can an FOI (etc.) request be made to this body?
     def is_requestable?
-        if self.defunct?
-            return false
-        end
-        if self.not_apply?
-            return false
-        end
-        if self.request_email.nil?
-            return false
-        end
-        return !self.request_email.empty? && self.request_email != 'blank'
+        has_request_email? && !defunct? && !not_apply?
     end
 
     # Strict superset of is_requestable?
     def is_followupable?
-        if self.request_email.nil?
-            return false
-        end
-        return !self.request_email.empty? && self.request_email != 'blank'
+        has_request_email?
+    end
+
+    def has_request_email?
+       !request_email.blank? && request_email != 'blank'
     end
 
     # Also used as not_followable_reason
@@ -263,7 +255,7 @@ class PublicBody < ActiveRecord::Base
             return 'defunct'
         elsif self.not_apply?
             return 'not_apply'
-        elsif self.request_email.nil? or self.request_email.empty? or self.request_email == 'blank'
+        elsif !has_request_email?
             return 'bad_contact'
         else
             raise "requestable_failure_reason called with type that has no reason"

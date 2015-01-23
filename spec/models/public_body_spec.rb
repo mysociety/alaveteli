@@ -1008,21 +1008,21 @@ describe PublicBody do
 
         it 'should return false if request_email is nil' do
             @body.request_email = nil
-            @body.is_requestable?.should == false
+            @body.is_followupable?.should == false
         end
 
         it 'should return false if the request email is "blank"' do
-            @body.request_email = "blank"
-            @body.is_requestable?.should == false
+            @body.request_email = 'blank'
+            @body.is_followupable?.should == false
         end
 
         it 'should return false if the request email is an empty string' do
-            @body.request_email = ""
-            @body.is_requestable?.should == false
+            @body.request_email = ''
+            @body.is_followupable?.should == false
         end
 
         it 'should return true if the request email is an email address' do
-            @body.is_requestable?.should == true
+            @body.is_followupable?.should == true
         end
 
     end
