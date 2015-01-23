@@ -354,15 +354,11 @@ class PublicBody < ActiveRecord::Base
                 types.push(desc)
             end
         end
-        if types.size > 0
-            ret = types[0, types.size - 1].join(", ")
-            if types.size > 1
-                ret = ret + " and "
-            end
-            ret = ret + types[-1]
-            return ret.html_safe
+
+        if types.any?
+            types.to_sentence(:last_word_connector => ' and ').html_safe
         else
-            return _("A public authority")
+            _("A public authority")
         end
     end
 
