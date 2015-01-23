@@ -37,6 +37,17 @@ describe PublicBody do
       expect(public_body.type_of_authority).to eq('A public authority')
     end
 
+    it 'handles Unicode' do
+      category = FactoryGirl.create(:public_body_category, :category_tag => 'spec',
+                                                           :description => 'ünicode category')
+      heading = FactoryGirl.create(:public_body_heading)
+      heading.add_category(category)
+      public_body = FactoryGirl.create(:public_body, :tag_string => 'spec')
+
+
+      expect(public_body.type_of_authority).to eq('Ünicode category')
+    end
+
     context 'when associated with one category' do
 
       it 'returns the capitalised category description' do
