@@ -99,6 +99,12 @@
                 </div>
               <% end %>
 
+              <% if @info_request.public_body.override_request_email %>
+                <div class="warning">
+                  <%= _("<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority.", :email => @info_request.public_body.override_request_email) %>
+                </div>
+              <% end %>
+
               <% if @info_request.public_body.eir_only? %>
                 <h3><%= _('Please ask for environmental information only') %></h3>
 
