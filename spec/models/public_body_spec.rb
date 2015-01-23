@@ -868,6 +868,31 @@ describe PublicBody do
 
     end
 
+    describe :has_request_email? do
+
+        before do
+            @body = PublicBody.new(:request_email => 'test@example.com')
+        end
+
+        it 'should return false if request_email is nil' do
+            @body.request_email = nil
+            @body.has_request_email?.should == false
+        end
+
+        it 'should return false if the request email is "blank"' do
+            @body.request_email = 'blank'
+            @body.has_request_email?.should == false
+        end
+
+        it 'should return false if the request email is an empty string' do
+            @body.request_email = ''
+            @body.has_request_email?.should == false
+        end
+
+        it 'should return true if the request email is an email address' do
+            @body.has_request_email?.should == true
+        end
+    end
 end
 
 describe PublicBody, " when override all public body request emails set" do
@@ -979,18 +1004,8 @@ describe PublicBody do
             @body.is_requestable?.should == false
         end
 
-        it 'should return false if request_email is nil' do
-            @body.request_email = nil
-            @body.is_requestable?.should == false
-        end
-
-        it 'should return false if the request email is "blank"' do
-            @body.request_email = 'blank'
-            @body.is_requestable?.should == false
-        end
-
-        it 'should return false if the request email is an empty string' do
-            @body.request_email = ''
+        it 'should return false there is no request_email' do
+            @body.stub!(:has_request_email?).and_return false
             @body.is_requestable?.should == false
         end
 
@@ -1006,18 +1021,8 @@ describe PublicBody do
             @body = PublicBody.new(:request_email => 'test@example.com')
         end
 
-        it 'should return false if request_email is nil' do
-            @body.request_email = nil
-            @body.is_followupable?.should == false
-        end
-
-        it 'should return false if the request email is "blank"' do
-            @body.request_email = 'blank'
-            @body.is_followupable?.should == false
-        end
-
-        it 'should return false if the request email is an empty string' do
-            @body.request_email = ''
+        it 'should return false there is no request_email' do
+            @body.stub!(:has_request_email?).and_return false
             @body.is_followupable?.should == false
         end
 
@@ -1043,13 +1048,9 @@ describe PublicBody do
             @body.not_requestable_reason.should == 'not_apply'
         end
 
-        it 'should return "bad_contact" if the email is "blank"' do
-            @body.request_email = 'blank'
-            @body.not_requestable_reason.should == 'bad_contact'
-        end
 
-        it 'should return "bad_contact" if the email is an empty string' do
-            @body.request_email = ''
+        it 'should return "bad_contact" there is no request_email' do
+            @body.stub!(:has_request_email?).and_return false
             @body.not_requestable_reason.should == 'bad_contact'
         end
 
