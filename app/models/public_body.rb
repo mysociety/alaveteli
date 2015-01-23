@@ -235,7 +235,7 @@ class PublicBody < ActiveRecord::Base
         return self.has_tag?('defunct')
     end
 
-    # Can an FOI (etc.) request be made to this body, and if not why not?
+    # Can an FOI (etc.) request be made to this body?
     def is_requestable?
         if self.defunct?
             return false
@@ -248,6 +248,7 @@ class PublicBody < ActiveRecord::Base
         end
         return !self.request_email.empty? && self.request_email != 'blank'
     end
+
     # Strict superset of is_requestable?
     def is_followupable?
         if self.request_email.nil?
@@ -255,6 +256,7 @@ class PublicBody < ActiveRecord::Base
         end
         return !self.request_email.empty? && self.request_email != 'blank'
     end
+
     # Also used as not_followable_reason
     def not_requestable_reason
         if self.defunct?
