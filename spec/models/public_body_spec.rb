@@ -48,6 +48,18 @@ describe PublicBody do
       expect(public_body.type_of_authority).to eq('Ünicode category')
     end
 
+    it 'constructs the correct string if there are tags which are not categories' do
+        heading = FactoryGirl.create(:public_body_heading)
+        3.times do |i|
+          category = FactoryGirl.create(:public_body_category, :category_tag => "spec_#{i}",
+                                                               :description => "spec category #{i}")
+          heading.add_category(category)
+        end
+        public_body = FactoryGirl.create(:public_body, :tag_string => 'spec_0 spec_2 unknown')
+
+        expect(public_body.type_of_authority).to eq('Spec category 0 and spec category 2')
+    end
+
     context 'when associated with one category' do
 
       it 'returns the capitalised category description' do
