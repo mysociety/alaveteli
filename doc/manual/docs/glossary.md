@@ -15,13 +15,15 @@ Definitions
 -----------
 
 <ul class="definitions">
-  <li><a href="#alaveteli">Alaveteli</a></li>
   <li><a href="#admin">admin interface</a></li>
+  <li><a href="#advanced-search">advanced search</a></li>
+  <li><a href="#alaveteli">Alaveteli</a></li>
   <li><a href="#agnostic">asker agnostic</a></li>
   <li><a href="#authority">authority</a></li>
   <li><a href="#blackhole">black hole</a></li>
   <li><a href="#bounce-message">bounce message</a></li>
   <li><a href="#capistrano">Capistrano</a></li>
+  <li><a href="#category">category</a></li>
   <li><a href="#censor-rule">censor rule</a></li>
   <li><a href="#development">development site</a></li>
   <li><a href="#disclosure-log">disclosure log</a></li>
@@ -47,41 +49,13 @@ Definitions
   <li><a href="#staging">staging site</a></li>
   <li><a href="#state">state</a></li>
   <li><a href="#super">superuser</a></li>
+  <li><a href="#tag">tag</a></li>
   <li><a href="#theme">theme</a></li>
+  <li><a href="#wdtk">WhatDoTheyKnow</a></li>
 </ul>
 
 
 <dl class="glossary">
-
-  <dt>
-    <a name="alaveteli">Alaveteli</a>
-  </dt>
-  <dd>
-    <strong>Alaveteli</strong> is the name of the open source software platform created
-    by <a href="https://www.mysociety.org">mySociety</a> for submitting,
-    managing and archiving Freedom of Information requests.
-    <p>
-      It grew from the successful FOI UK project
-      <a href="https://www.whatdotheyknow.com">WhatDoTheyKnow</a>.
-      We use the name <em>Alaveteli</em> to distinguish the software
-      that runs the platform from any specific website that it is powering.
-    </p>
-    <div class="more-info">
-      <p>More information:</p>
-      <ul>
-        <li>
-          The Alaveteli website is at <a href="http://www.alaveteli.org">www.alaveteli.org</a>
-        </li>
-        <li>
-          The name "Alaveteli" comes from
-          <a href="http://en.wikipedia.org/wiki/Alaveteli,_Finland">Alaveteli in Finland</a>
-          where
-          <a href="http://en.wikipedia.org/wiki/Anders_Chydenius">an early FOI campaigner</a>
-          once worked.
-        </li>
-      </ul>
-    </div>
-  </dd>
 
   <dt>
     <a name="admin">admin interface</a> (also: admin)
@@ -118,6 +92,61 @@ Definitions
   </dd>
 
   <dt>
+    <a name="advanced-search">advanced search</a>
+  </dt>
+  <dd>
+    Alaveteli's <strong>advanced search</strong> lets users search using
+    more complex criteria than just words. This includes Boolean operators,
+    date ranges, and specific indexes such as <code>status:</code>, 
+    <code>requested_by:</code>, <code>status:</code> and so on.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          Advanced search is available on your Alaveteli site at
+          <code>/advancedsearch</code>. That page shows suggestions and examples
+          of the searches that are supported.
+        </li>
+        <li>
+          For more about constructing complex queries, see
+          <a href="http://xapian.org/docs/queryparser.html">Xapian
+          search parser</a>.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="alaveteli">Alaveteli</a>
+  </dt>
+  <dd>
+    <strong>Alaveteli</strong> is the name of the open source software platform created
+    by <a href="https://www.mysociety.org">mySociety</a> for submitting,
+    managing and archiving Freedom of Information requests.
+    <p>
+      It grew from the successful FOI UK project
+      <a href="#wdtk" class="glossary__link">WhatDoTheyKnow</a>.
+      We use the name <em>Alaveteli</em> to distinguish the software
+      that runs the platform from any specific website that it is powering.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          The Alaveteli website is at <a href="http://www.alaveteli.org">www.alaveteli.org</a>
+        </li>
+        <li>
+          The name "Alaveteli" comes from
+          <a href="http://en.wikipedia.org/wiki/Alaveteli,_Finland">Alaveteli in Finland</a>
+          where
+          <a href="http://en.wikipedia.org/wiki/Anders_Chydenius">an early FOI campaigner</a>
+          once worked.
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
     <a name="agnostic">asker agnostic</a>
   </dt>
   <dd>
@@ -147,7 +176,8 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          An administrator can add, edit, or remove authorities in the admin
+          An <a href="#super" class="glossary__link">administrator</a>
+          can add, edit, or remove authorities in the admin.
         </li>
         <li>
           Authorities are usually, but not always, public bodies that are obliged by the local
@@ -156,6 +186,10 @@ Definitions
           we add some authorites to our <a href="https://www.whatdotheyknow.com">WhaDoTheyKnow</a>
           site that are not subject to FoI law, but which have either voluntarily submitted themselves
           to it, or which we believe should be accountable in this way.
+        </li>
+        <li>
+          You can organise your authorities using
+          <a href="{{ site.baseurl }}docs/running/categories_and_tags/">categories and tags</a>.
         </li>
       </ul>
     </div>
@@ -221,6 +255,30 @@ Definitions
         <li>
          The <a href="http://capistranorb.com/">Capistrano website</a> has thorough documentation
          about the tool
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="category">category</a>
+  </dt>
+  <dd>
+    You can arrange your <a href="#authority" class="glossary__link">authorities</a>
+    into <strong>categories</strong> so that they are easier for your users
+    to find. For example, you might put all different schools into the
+    "School" category, and universities into "Universities". You can also
+    group categories under headings (such as "Education").
+    <p>
+      Use <a href="#tag" class="glossary__link">tags</a> to associate
+      authorities with specific categories.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          More about
+      <a href="{{ site.baseurl }}docs/running/categories_and_tags/">categories and tags</a>
         </li>
       </ul>
     </div>
@@ -907,6 +965,50 @@ Definitions
       <ul>
         <li>
       <a href="{{ site.baseurl }}docs/customising/themes/">about themes</a>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="tag">tag</a>
+  </dt>
+  <dd>
+    A <strong>tag</strong> is a keyword added to an
+    <a href="#authority" class="glossary__link">authority</a>. Tags
+    are searchable, so can be useful to help users find authorities based
+    by topic or even unique data (for example, in the
+    <a href="#wdtk" class="glossary__link">WhatDoTheyKnow</a> we tag every
+    registered charity with its official charity number). You can also use
+    tags to assign authorities to
+    <a href="#category" class="glossary__link">categories</a>.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          More about
+      <a href="{{ site.baseurl }}docs/running/categories_and_tags/">categories and tags</a>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="wdtk">WhatDoTheyKnow</a>
+  </dt>
+  <dd>
+    The website <strong>WhatDoTheyKnow</strong>.com is the UK installation of
+    Alaveteli, run by <a href="http://mysociety.org">mySociety</a>.
+    <p>
+      In fact, WhatDoTheyKnow predates Alaveteli because the site started in
+      2008, and was the foundation of the redeployable, customisable
+      Alaveteli plattorm released in 2011.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          <a href="http://www.whatdotheyknow.com">WhatDoTheyKnow.com</a>
         </li>
       </ul>
     </div>
