@@ -308,25 +308,35 @@ line, and piping the contents of that file into the mail handling script. e.g.
 
 ### Administrator privileges and accessing the admin interface
 
-The administrative interface is at the URL `/admin`.
+The <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">administrative interface</a>
+is at the URL `/admin`. Only users who are
+<a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">administrators</a>
+can access the admin interface. 
 
-Only users with the `super` admin level can access the admin interface. Users
-create their own accounts in the usual way, and then administrators can give
-them `super` privileges.
+To make a user an administrator on a brand new site,
+[follow these steps]({{ site.baseurl }}docs/installing/next_steps/#create-a-superuser-admin-account).
 
-There is an emergency user account which can be accessed via
-`/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
-`ADMIN_PASSWORD`, which are set in `general.yml`.  To bootstrap the
-first `super` level accounts, you will need to log in as the emergency
-user. You can disable the emergency user account by setting `DISABLE_EMERGENCY_USER` to `true` in `general.yml`.
+If you're already an administrator, you can grant other users administrator
+privilege too. Go to `/admin/users` or click on **Users** at the top of
+the admin. Find the user in the list, and click on the name to see the user
+details. On that page, click **Edit**. Change the *Admin level* to “super” and
+click **Save**.
 
-Users with the superuser role also have extra privileges in the website
-front end, such as being able to categorise any request, being able to view
-items that have been hidden from the search, and being presented with "admin"
-links next to individual requests and comments in the front end.
+As well having access to the admin interface, users who are administrators also
+have extra privileges in the main website front end. Administrators can:
 
-It is possible completely to override the administrator authentication by
-setting `SKIP_ADMIN_AUTH` to `true` in `general.yml`.
+   * categorise any request
+   * view items that have been hidden from the search
+   * follow "admin" links that appear next to individual requests and comments
+
+<div class="attention-box warning">
+  It is possible completely to override the administrator authentication by
+  setting
+  <code><a href="{{ site.baseurl }}docs/customising/config/#skip_admin_auth">SKIP_ADMIN_AUTH</a></code>
+  to <code>true</code> in <code>general.yml</code>. Never do this, unless you
+  are working on a <a href="{{ site.baseurl }}docs/glossary/#development"
+  class="glossary__link">development</a> server.
+</div>
 
 ### Removing a message from the 'Holding Pen'
 
