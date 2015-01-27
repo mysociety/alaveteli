@@ -46,6 +46,7 @@ Definitions
   <li><a href="#response">response</a></li>
   <li><a href="#rails">Ruby&nbsp;on&nbsp;Rails</a></li>
   <li><a href="#sass">Sass</a></li>
+  <li><a href="#spam-address-list">spam address list</a></li>
   <li><a href="#staging">staging site</a></li>
   <li><a href="#state">state</a></li>
   <li><a href="#super">superuser</a></li>
@@ -861,6 +862,33 @@ Definitions
         <li>
           more about <a href="{{ site.baseurl }}docs/customising/themes/#changing-the-colour-scheme">changing
           your colour scheme</a>, which uses Sass
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="spam-address-list">spam address list</a>
+  </dt>
+  <dd>
+    Alaveteli maintains a <strong>spam address list</strong>. Any incoming message to an email
+    address on that list will be rejected and won't appear in the admin.
+    <p>
+      This is mainly for email addresses whose messages are ending up
+      in the <a href="#holding_pen" class="glossary__link">holding pen</a>, because
+      those are typically addresses that can be safely ignored as they do not
+      relate to an active <a href="#request" class="glossary__link">request</a>.
+    </p>
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          To add addresses to the spam address list , see
+          <a href="{{ site.baseurl }}docs/running/admin_manual/#rejecting-spam-that-arrives-in-the-holding-pen">Rejecting
+          spam that arrives in the holding pen</a>.
+        </li>
+        <li>
+          The spam address list is available on your site at <code>/admin/spam_addresses</code>.
         </li>
       </ul>
     </div>
