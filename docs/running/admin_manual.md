@@ -368,16 +368,14 @@ address due to a cut-and-paste mistake) and the nature of the lifecycle of
 requests means they don't typically get used for spam until they are
 effectively dead.
 
-The easiest way to add such an email address to the spam address list is to do
-so from the incoming message itself. In the admin interface, go to the holding
-pen (click on **Requests** and then **Holding pen**). Under *Incoming Messages*
-click on the message that is spam. Under *Actions*, click on the **Mark as
-spam** button that appears by the `To:` email address.
-
 You can see the spam address list (that is, all known spam-target email
-addresses) by going to the admin interface at `/admin/spam_addresses`. As an
-alternative to using the **Mark as spam** button on the message itself, you can
-manually add any email address there and click **Add spam address**.
+addresses) by going to the admin interface at `/admin/spam_addresses`.
+
+To add an email address, copy it from the incoming message (you may need to
+click the **View raw email** button to see the `To:` address). Go to
+`/admin/spam_addresses` (there is a link under *Actions* on the Incoming
+Message display), paste the email address into the text input field and click
+**Add spam address**.
 
 You can remove any address from the list by clicking the **Remove** button
 next to it. Of course, this won't restore any messages that have been 
