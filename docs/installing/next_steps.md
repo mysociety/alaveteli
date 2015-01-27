@@ -8,6 +8,13 @@ title: Next Steps
     OK, you've installed a copy of Alaveteli, and can see the site in a browser. What next?
 </p>
 
+   * [Create a superuser admin account](#create-a-superuser-admin-account)
+   * [Load sample data](#load-sample-data)
+   * [Test out the request process](#test-out-the-request-process)
+   * [Import Public Authorities](#import-public-authorities)
+   
+
+
 ## Create a superuser admin account
 
 Alaveteli ships with an
@@ -118,7 +125,8 @@ follow the steps described in the previous section.
 
 Alaveteli can import a list of public authorities and their contact email addresses from a CSV file.
 
-You can find the uploader in under the "Authorities" tab of the admin section, or go straight to `/admin/body/import_csv`.
+Follow the instructions for
+[uploading public authority data]({{ site.baseurl }}docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data).
 
 ## Start thinking about customising Alaveteli
 
