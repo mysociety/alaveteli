@@ -338,17 +338,70 @@ have extra privileges in the main website front end. Administrators can:
   class="glossary__link">development</a> server.
 </div>
 
-### Removing a message from the 'Holding Pen'
+### Removing a message from the holding pen
 
-The reason a message is in the holding pen is because the email can't be automatically associated with the request it is responding to. The email needs to be moved from the holding pen to the request it belongs with.
+Alaveteli puts incoming messages (that is,
+<a href="{{ site.baseurl }}docs/glossary/#reponse" class="glossary__link">responses</a>)
+into the 
+<a href="{{ site.baseurl }}docs/glossary/#holding_pen" class="glossary__link">holding pen</a>
+if their `To:` email addresses can't automatically be associated with a
+<a href="{{ site.baseurl }}docs/glossary/#reponse" class="glossary__link">request</a>.
 
-First, log into the admin interface at `/admin`. You will see messages that are in the 'holding pen' under the title ‘Put misdelivered responses with the right request’. Click on the chevron to see the individual messages.
+The two most common reasons for this are:
 
-If you click on a message in the holding pen, you may see a guess made by Alaveteli as to which request the message belongs to. Check this request. If it isn't the right one, or if Alaveteli hasn't made any guesses, you will need to look at the `To:` address of the raw email and the contents of the mail in order to figure out which request it belongs to. You can browse and search requests in the admin interface under the 'Requests' menu item.
+   * the request has closed
+   * the email address was wrongly spelled (for example, the sender missed the last
+     character off the email address when they copied it)
 
-Once you have identified the request the message belongs to, you need to go back to the holding pen message page. Paste the request `id` or `url_title` into the box under 'Actions' in 'Incoming Message'. The request `id` can be found in the request URL in the admin interface - it is the part after `/show/`. In the admin request URL `/admin/request/show/118`, the request `id` is `118`. The `url_title` can be found in the request URL in the main interface - it is the part after `/request/`. In the URL `/request/documents_relating_to_meeting`, it is `documents_relating_to_meeting`. Then click on 'Redeliver to another request'.
+When this happens, the messages wait in the holding pen until an administrator
+redelivers them to the correct request, or else deletes them.
 
-The message will now be associated with the correct request and will appear on the public request page.
+To do this, log into the
+The <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>
+at `/admin`. If there are any messages in the holding pen, you'll see this
+message under the title *Things to do*:
+
+> Put misdelivered responses with the right request
+
+Click on that message &mdash; you'll see a list of all the messages that need
+your attention. Click on any one of them to see the details.
+
+When you inspect a message, you may see a guess made by Alaveteli as to which
+request the message belongs to. Check this request. If the guess is right
+&mdash; the incoming email really is a response to that request &mdash; 
+the request's *title_url* will already be in the input box: click the
+**Redeliver to another request** button.
+
+If there is not a guess, or Alaveteli's guess is wrong, look at the  `To:`
+address of the raw email and the contents of the message itself. You need
+to figure out which request it belongs to. You can browse and search
+requests in the admin interface by clicking **Requests** at the top of the
+admin. When you have found the correct request, copy either its *id* or
+its *url_title*.
+
+<div class="attention-box info">
+  <p><strong>How to find a request's <em>id</em> or <em>url_title</em></strong></p>
+  <p>
+    A request's <em>id</em> is the number after <code>/show/</code> in the
+    admin interface's URL when you are looking at that request.
+    For example, if the URL is <code>/admin/request/show/118</code>, then the
+    <em>id</em> is <code>118</code>.
+  </p>
+  <p>
+    A request's <em>url_title</em> is the part after <code>/request/</code>
+    in your Alaveteli site's URL when you are looking at that request.
+    In the URL <code>/request/how_many_vehicles</code>, the 
+    <em>url_title</em> is <code>how_many_vehicles</code>.
+  </p>
+</div>
+
+Once you have identified the request the message belongs to, return to the
+holding pen message page. Find the incoming message's "Actions" and paste the
+request *id* or *url_title* into the text input. Click on the **Redeliver to
+another request** button.
+
+The message will now be associated with the correct request. It is no longer
+in the holding pen, and is shown instead on the public request page.
 
 ### Creating, changing and uploading public authority data
 
