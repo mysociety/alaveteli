@@ -13,12 +13,15 @@ require 'forwardable'
 
 class PublicBodyCategory < ActiveRecord::Base
     attr_accessible :locale, :category_tag, :title, :description,
-                    :translated_versions, :display_order
+                    :translated_versions, :translations_attributes,
+                    :display_order
 
     has_many :public_body_category_links, :dependent => :destroy
     has_many :public_body_headings, :through => :public_body_category_links
 
     translates :title, :description
+    accepts_nested_attributes_for :translations, :reject_if => :empty_translation_in_params?
+
     validates_uniqueness_of :category_tag, :message => 'Tag is already taken'
     validates_presence_of :title, :message => "Title can't be blank"
     validates_presence_of :category_tag, :message => "Tag can't be blank"
@@ -67,25 +70,44 @@ class PublicBodyCategory < ActiveRecord::Base
     end
 
     def translated_versions=(translation_attrs)
-        def empty_translation?(attrs)
-            attrs_with_values = attrs.select{ |key, value| value != '' and key != 'locale' }
-            attrs_with_values.empty?
-        end
-        if translation_attrs.respond_to? :each_value    # Hash => updating
-            translation_attrs.each_value do |attrs|
-                next if empty_translation?(attrs)
-                t = translation_for(attrs[:locale]) || PublicBodyCategory::Translation.new
-                t.attributes = attrs
-                t.save!
-            end
-        else                                            # Array => creating
-            translation_attrs.each do |attrs|
-                next if empty_translation?(attrs)
-                new_translation = PublicBodyCategory::Translation.new(attrs)
-                translations << new_translation
-            end
+        warn "[DEPRECATION] PublicBodyCategory#translated_versions= will be replaced " \
+             "by PublicBodyCategory#translations_attributes= as of release 0.22"
+        self.translations_attributes = translation_attrs
+    end
+
+    def ordered_translations
+        translations.sort_by { |t| I18n.available_locales.index(t.locale) }
+    end
+
+    def build_all_translations
+        I18n.available_locales.each do |locale|
+            translations.build(:locale => locale) unless translations.detect{ |t| t.locale == locale }
         end
     end
+
+    private
+
+    def empty_translation_in_params?(attributes)
+        attrs_with_values = attributes.select do |key, value|
+            value != '' and key.to_s != 'locale'
+        end
+        attrs_with_values.empty? 
+    end
+
 end
 
+PublicBodyCategory::Translation.class_eval do
+  with_options :if => :required_attribute_submitted? do |required|
+    required.validates :title, :presence => { :message => _("Title can't be blank") }
+    required.validates :description, :presence => { :message => _("Description can't be blank") }
+  end
 
+  private
+
+  def required_attribute_submitted?
+    PublicBodyCategory.required_translated_attributes.compact.any? do |attribute|
+      !read_attribute(attribute).blank?
+    end
+  end
+
+end
