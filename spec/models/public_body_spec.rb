@@ -28,6 +28,116 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+describe PublicBody do
+
+    describe :translations_attributes= do
+
+        context 'translation_attrs is a Hash' do
+
+            it 'takes the correct code path for a Hash' do
+                attrs = {}
+                attrs.should_receive(:each_value)
+                PublicBody.new().translations_attributes = attrs
+            end
+
+            it 'updates an existing translation' do
+                body = public_bodies(:geraldine_public_body)
+                translation = body.translation_for(:es)
+                params = { translation.id => { :locale => 'es',
+                                                      :name => 'Renamed' } }
+
+                body.translations_attributes = params
+                I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
+            end
+
+            it 'updates an existing translation and creates a new translation' do
+                body = public_bodies(:geraldine_public_body)
+                translation = body.translation_for(:es)
+
+                expect(body.translations.size).to eq(2)
+
+                body.translations_attributes = {
+                    translation.id => {
+                        :locale => 'es',
+                        :name => 'Renamed'
+                    },
+                    :new_translation => {
+                        :locale => 'fr',
+                        :name => 'Le Geraldine Quango'
+                    }
+                }
+
+                expect(body.translations.size).to eq(3)
+                I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
+                I18n.with_locale(:fr) { expect(body.name).to eq('Le Geraldine Quango') }
+            end
+
+            it 'skips empty translations' do
+                body = public_bodies(:geraldine_public_body)
+                translation = body.translation_for(:es)
+
+                expect(body.translations.size).to eq(2)
+
+                body.translations_attributes = {
+                    translation.id => {
+                        :locale => 'es',
+                        :name => 'Renamed'
+                    },
+                    :empty_translation => {
+                        :locale => 'es'
+                    }
+                }
+
+                expect(body.translations.size).to eq(2)
+            end
+
+        end
+
+        context 'translation_attrs is an Array' do
+
+            it 'takes the correct code path for an Array' do
+                attrs = []
+                attrs.should_receive(:each)
+                PublicBody.new().translations_attributes = attrs
+            end
+
+            it 'creates a new translation' do
+                body = public_bodies(:geraldine_public_body)
+                body.translation_for(:es).destroy
+                body.reload
+
+                expect(body.translations.size).to eq(1)
+
+                body.translations_attributes = [ {
+                        :locale => 'es',
+                        :name => 'Renamed'
+                    }
+                ]
+
+                expect(body.translations.size).to eq(2)
+                I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
+            end
+
+            it 'skips empty translations' do
+                body = public_bodies(:geraldine_public_body)
+                body.translation_for(:es).destroy
+                body.reload
+
+                expect(body.translations.size).to eq(1)
+
+                body.translations_attributes = [
+                    { :locale => 'empty' }
+                ]
+
+                expect(body.translations.size).to eq(1)
+            end
+
+        end
+
+    end
+
+end
+
 describe PublicBody, " using tags" do
     before do
         @public_body = PublicBody.new(:name => 'Aardvark Monitoring Service',
