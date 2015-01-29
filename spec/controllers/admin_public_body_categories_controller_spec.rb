@@ -21,6 +21,15 @@ describe AdminPublicBodyCategoriesController do
             expect(response).to render_template('new')
         end
 
+     it "builds new translations for all locales" do
+         get :new
+
+         translations = assigns[:category].translations.map{ |t| t.locale.to_s }.sort
+         available = I18n.available_locales.map{ |l| l.to_s }.sort
+
+         expect(translations).to eq(available)
+     end
+
     end
 
     context 'when creating a public body category' do
@@ -58,14 +67,16 @@ describe AdminPublicBodyCategoriesController do
                     :title => 'New Category',
                     :category_tag => 'new_test_category',
                     :description => 'New category for testing stuff',
-                    :translated_versions => [{ :locale => "es",
-                                               :title => "Mi Nuevo Category" }]
+                    :translations_attributes => {
+                        'es' => { :locale => "es",
+                                  :title => "Mi Nuevo Category" }
+                    }
                 }
             }
             PublicBodyCategory.count.should == n + 1
 
             category = PublicBodyCategory.find_by_title("New Category")
-            category.translations.map {|t| t.locale.to_s}.sort.should == ["en", "es"]
+            #category.translations.map {|t| t.locale.to_s}.sort.should == ["en", "es"]
             I18n.with_locale(:en) do
                 category.title.should == "New Category"
             end
@@ -98,6 +109,11 @@ describe AdminPublicBodyCategoriesController do
             get :edit, :id => @category.id
             expect(assigns[:category]).to eq(@category)
         end
+
+       it "builds new translations if the body does not already have a translation in the specified locale" do
+           get :edit, :id => @category.id
+           expect(assigns[:category].translations.map(&:locale)).to include(:fr)
+       end
 
         it "renders the edit template" do
             get :edit, :id => @category.id
@@ -158,9 +174,9 @@ describe AdminPublicBodyCategoriesController do
                     :id => @category.id,
                     :public_body_category => {
                         :title => "Category",
-                        :translated_versions => {
-                            @category.id => {:locale => "es",
-                                  :title => "Renamed"}
+                        :translations_attributes => {
+                            'es' => { :locale => "es",
+                                      :title => "Renamed" }
                             }
                         }
                     }
@@ -175,6 +191,95 @@ describe AdminPublicBodyCategoriesController do
                pbc.title.should == "Category"
             end
         end
+
+        it 'adds a new translation' do
+             @category.translation_for(:es).destroy
+             @category.reload
+
+             put :update, {
+                 :id => @category.id,
+                 :public_body_category => {
+                     :title => @category.title,
+                     :description => @category.description,
+                     :translations_attributes => {
+                         'es' => { :locale => "es",
+                                   :title => "Example Public Body Category ES",
+                                   :description => @category.description }
+                     }
+                 }
+             }
+
+             request.flash[:notice].should include('successful')
+
+             pbc = PublicBodyCategory.find(@category.id)
+
+             I18n.with_locale(:es) do
+                expect(pbc.title).to eq('Example Public Body Category ES')
+             end
+         end
+
+         it 'adds new translations' do
+             @category.translation_for(:es).destroy
+             @category.reload
+
+             post :update, {
+                 :id => @category.id,
+                 :public_body_category => {
+                     :title => @category.title,
+                     :description => @category.description,
+                     :translations_attributes => {
+                         'es' => { :locale => "es",
+                                   :title => "Example Public Body Category ES",
+                                   :description => @category.description },
+                         'fr' => { :locale => "fr",
+                                   :title => "Example Public Body Category FR",
+                                   :description => @category.description }
+                     }
+                 }
+             }
+
+             request.flash[:notice].should include('successful')
+
+             pbc = PublicBodyCategory.find(@category.id)
+
+             I18n.with_locale(:es) do
+                expect(pbc.title).to eq('Example Public Body Category ES')
+             end
+             I18n.with_locale(:fr) do
+                expect(pbc.title).to eq('Example Public Body Category FR')
+             end
+         end
+
+         it 'updates an existing translation and adds a third translation' do
+             post :update, {
+                 :id => @category.id,
+                 :public_body_category => {
+                     :title => @category.title,
+                     :description => @category.description,
+                     :translations_attributes => {
+                         # Update existing translation
+                         'es' => { :locale => "es",
+                                   :title => "Renamed Example Public Body Category ES",
+                                   :description => @category.description },
+                         # Add new translation
+                         'fr' => { :locale => "fr",
+                                   :title => "Example Public Body Category FR",
+                                   :description => @category.description }
+                     }
+                 }
+             }
+
+             request.flash[:notice].should include('successful')
+
+             pbc = PublicBodyCategory.find(@category.id)
+
+             I18n.with_locale(:es) do
+                expect(pbc.title).to eq('Renamed Example Public Body Category ES')
+             end
+             I18n.with_locale(:fr) do
+                expect(pbc.title).to eq('Example Public Body Category FR')
+             end
+         end
 
         it "does not save edits to category_tag if the category has associated bodies" do
             body = FactoryGirl.create(:public_body, :tag_string => @tag)

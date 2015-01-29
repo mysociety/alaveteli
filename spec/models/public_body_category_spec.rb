@@ -64,4 +64,64 @@ describe PublicBodyCategory do
             category.errors[:description].should == ["Description can't be blank"]
         end
     end
+
+    describe :translations_attributes= do
+
+        context 'translation_attrs is a Hash' do
+
+            it 'takes the correct code path for a Hash' do
+                attrs = {}
+                attrs.should_receive(:each_value)
+                PublicBodyCategory.new().translations_attributes = attrs
+            end
+
+            it 'updates an existing translation' do
+                category = FactoryGirl.create(:public_body_category)
+                params = { 'es' => { :locale => 'es',
+                                     :title => 'Renamed' } }
+
+                category.translations_attributes = params
+                I18n.with_locale(:es) { expect(category.title).to eq('Renamed') }
+            end
+
+            it 'updates an existing translation and creates a new translation' do
+                category = FactoryGirl.create(:public_body_category)
+                category.translations.create(:locale => 'es',
+                                             :title => 'Los Category',
+                                             :description => 'ES Description')
+
+                expect(category.translations.size).to eq(2)
+
+                category.translations_attributes = {
+                    'es' => { :locale => 'es',
+                              :title => 'Renamed' },
+                    'fr' => { :locale => 'fr',
+                              :title => 'Le Category' }
+                }
+
+                expect(category.translations.size).to eq(3)
+                I18n.with_locale(:es) { expect(category.title).to eq('Renamed') }
+                I18n.with_locale(:fr) { expect(category.title).to eq('Le Category') }
+            end
+
+            it 'skips empty translations' do
+                category = FactoryGirl.create(:public_body_category)
+                category.translations.create(:locale => 'es',
+                                             :title => 'Los Category',
+                                             :description => 'ES Description')
+
+                expect(category.translations.size).to eq(2)
+
+                category.translations_attributes = {
+                    'es' => { :locale => 'es',
+                              :title => 'Renamed' },
+                    'fr' => { :locale => 'fr' }
+                }
+
+                expect(category.translations.size).to eq(2)
+            end
+
+        end
+    end
+
 end

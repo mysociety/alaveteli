@@ -7,11 +7,17 @@ class AdminPublicBodyCategoriesController < AdminController
 
     def new
         @category = PublicBodyCategory.new
+        I18n.available_locales.each do |locale|
+            @category.translations.build(:locale => locale)
+        end
         render :formats => [:html]
     end
 
     def edit
         @category = PublicBodyCategory.find(params[:id])
+        I18n.available_locales.each do |locale|
+            @category.translations.find_or_initialize_by_locale(locale)
+        end
         @tagged_public_bodies = PublicBody.find_by_tag(@category.category_tag)
     end
 

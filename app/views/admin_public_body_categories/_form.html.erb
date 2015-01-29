@@ -4,43 +4,27 @@
 
 <div id="div-locales">
   <ul class="locales nav nav-tabs">
-  <% I18n.available_locales.each_with_index do |locale, i| %>
-    <li><a href="#div-locale-<%=locale.to_s%>" data-toggle="tab" ><%=locale_name(locale.to_s) || "Default locale"%></a></li>
-  <% end %>
+    <% @category.translations.each do |translation| %>
+      <li>
+        <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab" >
+          <%= locale_name(translation.locale.to_s) || _("Default locale") %>
+        </a>
+      </li>
+    <% end %>
   </ul>
+
   <div class="tab-content">
-<%
-    I18n.available_locales.each do |locale|
-        if locale==I18n.default_locale  # The default locale is submitted as part of the bigger object...
-            prefix = 'public_body_category'
-            object = @category
-        else                            # ...but additional locales go "on the side"
-            prefix = "public_body_category[translated_versions][]"
-            object = @category.new_record? ?
-                        PublicBodyCategory::Translation.new :
-                        @category.find_translation_by_locale(locale.to_s) || PublicBodyCategory::Translation.new
-        end
-%>
-    <%= fields_for prefix, object do |t| %>
-    <div class="tab-pane" id="div-locale-<%=locale.to_s%>">
-        <div class="control-group">
-            <%= t.hidden_field :locale, :value => locale.to_s %>
-            <label for="<%= form_tag_id(t.object_name, :title, locale) %>" class="control-label">Title</label>
-            <div class="controls">
-                <%= t.text_field :title, :id => form_tag_id(t.object_name, :title, locale), :class => "span4" %>
-            </div>
-        </div>
-        <div class="control-group">
-            <label for="<%= form_tag_id(t.object_name, :description, locale) %>" class="control-label">Description</label>
-            <div class="controls">
-                <%= t.text_field :description, :id => form_tag_id(t.object_name, :description, locale), :class => "span4" %>
-            </div>
-        </div>
-    </div>
-    <%
-    end
-end
-%>
+    <% @category.translations.each do |translation| %>
+      <% if translation.locale.to_s == I18n.default_locale.to_s %>
+        <%= fields_for 'public_body_category', @category do |t| %>
+          <%= render :partial => 'locale_fields', :locals => { :t => t, :locale => translation.locale } %>
+        <% end %>
+      <% else %>
+        <%= f.fields_for(:translations, translation, :child_index => translation.locale) do |t| %>
+          <%= render :partial => 'locale_fields' , :locals => { :t => t, :locale => translation.locale } %>
+        <% end %>
+      <% end %>
+    <% end %>
   </div>
 </div>
 
