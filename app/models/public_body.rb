@@ -167,9 +167,11 @@ class PublicBody < ActiveRecord::Base
             end
         else                                            # Array => creating
             warn "[DEPRECATION] PublicBody#translations_attributes= " \
-                        "will no longer accept an Array as of release 0.22. " \
-                        "Use Hash arguments instead. See " \
-                        "spec/models/public_body_spec.rb for more details"
+                 "will no longer accept an Array as of release 0.22. " \
+                 "Use Hash arguments instead. See " \
+                 "spec/models/public_body_spec.rb and " \
+                 "app/views/admin_public_body/_form.html.erb for more " \
+                 "details."
 
             translation_attrs.each do |attrs|
                 next if empty_translation?(attrs)
@@ -178,6 +180,12 @@ class PublicBody < ActiveRecord::Base
                 translations << new_translation
             end
         end
+    end
+
+    def translated_versions=(translation_attrs)
+        warn "[DEPRECATION] PublicBody#translated_versions= will be replaced " \
+             "by PublicBody#translations_attributes= as of release 0.22"
+        self.translations_attributes = translation_attrs
     end
 
     def set_default_publication_scheme
