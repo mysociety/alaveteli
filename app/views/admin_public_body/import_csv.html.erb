@@ -80,11 +80,15 @@ Another One,another@example.com,Otro organismo,a_tag
 
 <hr>
 
-<p>Standard tags:
-    <% for category, description in PublicBodyCategory.get().by_tag() %>
-        <% if category != "other" %>
-            <strong><%= category %></strong>=<%= description %>;
-        <% end %>
+<div id="standard-tags">
+  <h2>Standard tags:</h2>
+
+  <ul>
+    <% PublicBodyCategory.get().by_tag().each do |category, description| %>
+      <% if category != "other" %>
+        <li><strong><%= category %></strong>=<%= description %></li>
+      <% end %>
     <% end %>
-    </p>
+  </ul>
+</div>
 
