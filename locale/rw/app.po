@@ -4,13 +4,15 @@
 #
 # Translators:
 # Clarisse Umutesi Mwitegereze <clarisse@mediae.org>, 2014
+# mySociety <transifex@mysociety.org>, 2015
+# Stephen Abbott Pugh <stephendabbott@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2014-12-16 13:04+0000\n"
-"Last-Translator: Clarisse Umutesi Mwitegereze <clarisse@mediae.org>\n"
+"PO-Revision-Date: 2015-01-29 13:38+0000\n"
+"Last-Translator: mySociety <transifex@mysociety.org>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/projects/p/alaveteli/language/rw/)\n"
 "Language: rw\n"
 "MIME-Version: 1.0\n"
@@ -838,7 +840,7 @@ msgid "First, did your other requests succeed?"
 msgstr "Icya mbere, ibindi bibazo byawe byarasubijwe?"
 
 msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr "Icya mbere, andika <strong>izina ry'umuyobozi w'ubwongereza</strong> wifuza\\n ko yaguha amakuru. <strong>Mu mategeko, bagomba gusubiza</strong>\\n (<a href=\"{{url}}\">why?</a>)."
+msgstr "Utangira, andika <strong>izina ry’ikigo mu Rwanda</strong> wifuza\\n gusaba amakuru. <strong>Amategeko ategeka ibigo gutanga amakuru</strong>\\n (<a href=\"{{url}}\">impamvu?</a>)."
 
 msgid "Foi attachment"
 msgstr "Umugereka w'ubwisanzure bwo kumenya amakuru"
@@ -1350,7 +1352,7 @@ msgid "Long overdue."
 msgstr "Cyararengeranye cyane."
 
 msgid "Made between"
-msgstr "Byakozwe hagati"
+msgstr "Byakozwe hagati ya"
 
 msgid "Mail server log"
 msgstr "Kwinjira muri imeli mbikamakuru"
@@ -1380,7 +1382,7 @@ msgid "Make a new FOI request"
 msgstr "Tanga ikibazo gishya cy'ubwisanzure bwo kumenya amakuru"
 
 msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "Tanga ikibazo gishya ku<br/>\\n  <strong>cy'ubwizanzure<span>bwo</span><br/>\\n  kumenya amakuru<br/>\\n  </strong>"
+msgstr "Tanga ikibazo gishya kijyanye<br/>\\n  <strong>n’ubwisanzure<span>bwo</span><br/>\\n  kumenya amakuru<br/>\\n  </strong>"
 
 msgid "Make a request"
 msgstr "Tanga ikibazo"
@@ -2217,7 +2219,7 @@ msgid "Search in"
 msgstr "Shaka muri"
 
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
-msgstr "Shaka ibibazo birenga<br/>\\n  <strong>{{number_of_requests}} </strong> <span>n'abayobozi</span><br/>\\n  <strong>{{number_of_authorities}} </strong>"
+msgstr "Shakisha<br/>\\n Ibibazo bigera kuri <strong>{{number_of_requests}} </strong><br/>\\n <span>Ubuyobozi busaga</span>  <strong>{{number_of_authorities}} </strong>"
 
 msgid "Search queries"
 msgstr "Shaka ibibazo"
@@ -3346,7 +3348,7 @@ msgid "You may be able to find\\n    one on their website, or by phoning them up
 msgstr "Ushobora kugira iyo ubona\\n    ku rubuga rwabo cyangwa se ubahamagaye kuri telefoni ukababaza. Ni ubasha\\n    kuyibona, turagusabye <a href=\"{{url}}\">uyitwoherereze</a>."
 
 msgid "You may be able to find\\none on their website, or by phoning them up and asking. If you manage\\nto find one, then please <a href=\"{{help_url}}\">send it to us</a>."
-msgstr "Ushobora kugira iyo ubona\\nku rubuga rwabo cyangwa se ubahamagaye kuri telefoni ukababaza. Ni ubasha\\nkuyibona, turagusabye <a href=\"{{url}}\">uyitwoherereze</a>."
+msgstr "Ushobora kugira iyo ubona\\nku rubuga rwabo cyangwa se ubahamagaye kuri telefoni ukababaza. Ni ubasha\\nkuyibona, turagusabye <a href=\"{{help_url}}\">uyitwoherereze</a>."
 
 msgid "You need to be logged in to change the text about you on your profile."
 msgstr "Ugomba kuba winjiye kugirango ubashe guhindura amagambo ari mu mwirondoro wawe."
@@ -3562,10 +3564,10 @@ msgid "alaveteli_foi:The software that runs {{site_name}}"
 msgstr "alaveteli_foi:Porogaramu ikoresha {{site_name}}"
 
 msgid "all requests"
-msgstr "ibibazo byoze"
+msgstr "ibibazo byose"
 
 msgid "all requests or comments"
-msgstr "ibibazo byoze  n'ibitekerezo"
+msgstr "ibibazo byose  n'ibitekerezo"
 
 msgid "all requests or comments matching text '{{query}}'"
 msgstr "ibibazo byose n'ibitekerezo bihuye na '{{query}}'"
@@ -3577,7 +3579,7 @@ msgid "an anonymous user"
 msgstr "umuntu ukoresha urubuga utazwi"
 
 msgid "and"
-msgstr "kandi"
+msgstr "na"
 
 msgid "and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgstr "kandi uvugurure irangamimerere uko bikwiye. Ahari <strong>ushobora</strong> kuba wifuza gufasha ukora ibyo?"
