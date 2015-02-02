@@ -469,8 +469,8 @@ describe PublicBody, " when loading CSV files" do
         errors, notes = PublicBody.import_csv(new_tags_file, 'fake', 'replace', false, 'someadmin') # false means real run
 
         # Check tags were added successfully
-        PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == ['aTag']
-        PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['aTag']
+        PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == ['aTag', 'fake']
+        PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['aTag', 'fake']
         PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
     end
 
