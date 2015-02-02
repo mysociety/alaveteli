@@ -478,7 +478,8 @@ class PublicBody < ActiveRecord::Base
                 end
 
                 set_of_importing = Set.new()
-                field_names = { 'name'=>1, 'request_email'=>2 }     # Default values in case no field list is given
+                # Default values in case no field list is given
+                field_names = { 'name' => 1, 'request_email' => 2 }
                 line = 0
 
                 CSV.foreach(csv_filename) do |row|
@@ -492,7 +493,7 @@ class PublicBody < ActiveRecord::Base
                     end
 
                     fields = {}
-                    field_names.each{|name, i| fields[name] = row[i]}
+                    field_names.each{ |name, i| fields[name] = row[i] }
 
                     yield line, fields if block_given?
 
