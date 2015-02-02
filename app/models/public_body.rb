@@ -422,6 +422,17 @@ class PublicBody < ActiveRecord::Base
         has_tag?('site_administration')
     end
 
+
+    # Read an attribute value (without using locale fallbacks if the attribute is translated)
+    def read_attribute_value(name, locale)
+      if PublicBody.translates.include?(name.to_sym)
+          globalize.stash.contains?(locale, name) ? globalize.stash.read(locale, name) : translation_for(locale).send(name)
+      else
+          self.send(name)
+      end
+    end
+
+
     class ImportCSVDryRun < StandardError
     end
 
@@ -521,8 +532,8 @@ class PublicBody < ActiveRecord::Base
                                             end
                                         end
                                     end
+                                    if !localized_value.nil? and public_body.read_attribute_value(field_name, locale) != localized_value
 
-                                    if !localized_value.nil? and public_body.send(field_name) != localized_value
                                         changed[field_name] = "#{public_body.send(field_name)}: #{localized_value}"
                                         public_body.send("#{field_name}=", localized_value)
                                     end
@@ -549,7 +560,7 @@ class PublicBody < ActiveRecord::Base
                                         localized_value = "#{localized_value} #{tag}" unless tag.empty?
                                     end
 
-                                    if !localized_value.nil? and public_body.send(field_name) != localized_value
+                                    if !localized_value.nil? and public_body.read_attribute_value(field_name, locale) != localized_value
                                         changed[field_name] = localized_value
                                         public_body.send("#{field_name}=", localized_value)
                                     end
@@ -792,6 +803,19 @@ class PublicBody < ActiveRecord::Base
     end
 
     private
+
+    # Read an attribute value (without using locale fallbacks if the attribute is translated)
+    def read_attribute_value(name, locale)
+      if self.class.translates.include?(name.to_sym)
+          if globalize.stash.contains?(locale, name)
+              globalize.stash.read(locale, name)
+          else
+              translation_for(locale).send(name)
+          end
+      else
+          send(name)
+      end
+    end
 
     def request_email_if_requestable
         # Request_email can be blank, meaning we don't have details

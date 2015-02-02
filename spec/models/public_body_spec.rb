@@ -598,6 +598,22 @@ CSV
         PublicBody.csv_import_fields = old_csv_import_fields
     end
 
+    it "should import translations for fields whose values are the same as the default locale's" do
+        original_count = PublicBody.count
+
+        csv_contents = load_file_fixture("multiple-locales-same-name.csv")
+
+        errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin', ['en', 'es']) # true means dry run
+        errors.should == []
+        notes.size.should == 3
+        notes[0..1].should == [
+            "line 2: creating new authority 'Test' (locale: en):\n\t{\"name\":\"Test\",\"request_email\":\"test@test.es\",\"home_page\":\"http://www.test.es/\",\"tag_string\":\"37\"}",
+            "line 2: creating new authority 'Test' (locale: es):\n\t{\"name\":\"Test\"}",
+        ]
+        notes[2].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
+
+        PublicBody.count.should == original_count
+    end
 end
 
 describe PublicBody do
