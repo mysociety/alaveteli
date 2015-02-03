@@ -9,6 +9,8 @@ require 'open-uri'
 
 class GeneralController < ApplicationController
 
+    MAX_RESULTS = 500
+
     # New, improved front page!
     def frontpage
         medium_cache
@@ -124,10 +126,17 @@ class GeneralController < ApplicationController
             end
         end
 
+        @page = get_search_page_from_params
+
         # Query each type separately for separate display (TODO: we are calling
         # perform_search multiple times and it clobbers per_page for each one,
         # so set as separate var)
         requests_per_page = params[:requests_per_page] ? params[:requests_per_page].to_i : 25
+
+        # Later pages are very expensive to load
+        if @page > MAX_RESULTS / requests_per_page
+            raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / requests_per_page}.")
+        end
 
         @this_page_hits = @total_hits = @xapian_requests_hits = @xapian_bodies_hits = @xapian_users_hits = 0
         if @requests
@@ -157,6 +166,8 @@ class GeneralController < ApplicationController
             @total_hits += @xapian_users.matches_estimated
             @request_for_spelling = @xapian_users
         end
+
+        @show_no_more_than = (@xapian_requests.matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @xapian_requests.matches_estimated
 
         # Spelling and highight words are same for all three queries
         @highlight_words = @request_for_spelling.words_to_highlight(:regex => true, :include_original => true)
