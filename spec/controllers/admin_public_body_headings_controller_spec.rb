@@ -8,6 +8,15 @@ describe AdminPublicBodyHeadingsController do
             assigns[:heading].should be_a(PublicBodyHeading)
         end
 
+        it "builds new translations for all locales" do
+            get :new
+
+            translations = assigns[:heading].translations.map{ |t| t.locale.to_s }.sort
+            available = I18n.available_locales.map{ |l| l.to_s }.sort
+
+            expect(translations).to eq(available)
+        end
+
         it 'renders the new template' do
             get :new
             expect(response).to render_template('new')
@@ -33,8 +42,10 @@ describe AdminPublicBodyHeadingsController do
             post :create, {
                 :public_body_heading => {
                     :name => 'New Heading',
-                    :translated_versions => [{ :locale => "es",
-                                               :name => "Mi Nuevo Heading" }]
+                    :translations_attributes => {
+                      'es' => { :locale => "es",
+                                :name => "Mi Nuevo Heading" }
+                    }
                 }
             }
             PublicBodyHeading.count.should == n + 1
@@ -70,6 +81,11 @@ describe AdminPublicBodyHeadingsController do
             expect(assigns[:heading]).to eq(@heading)
         end
 
+        it "builds new translations if the body does not already have a translation in the specified locale" do
+            get :edit, :id => @heading.id
+            expect(assigns[:heading].translations.map(&:locale)).to include(:fr)
+        end
+
         it "renders the edit template" do
             get :edit, :id => @heading.id
             expect(assigns[:heading]).to render_template('edit')
@@ -96,9 +112,9 @@ describe AdminPublicBodyHeadingsController do
                     :id => @heading.id,
                     :public_body_heading => {
                         :name => @name,
-                        :translated_versions => {
-                            @heading.id => {:locale => "es",
-                                            :name => "Renamed"}
+                        :translations_attributes => {
+                            'es' => { :locale => "es",
+                                      :name => "Renamed" }
                             }
                         }
                     }
@@ -111,6 +127,85 @@ describe AdminPublicBodyHeadingsController do
             end
             I18n.with_locale(:en) do
                heading.name.should == @name
+            end
+        end
+
+        it 'adds a new translation' do
+             put :update, {
+                 :id => @heading.id,
+                 :public_body_heading => {
+                     :name => @heading.name,
+                     :translations_attributes => {
+                         'es' => { :locale => "es",
+                                   :name => "Example Public Body Heading ES"}
+                     }
+                 }
+             }
+
+             request.flash[:notice].should include('successful')
+
+             pbh = PublicBodyHeading.find(@heading.id)
+
+             I18n.with_locale(:es) do
+                expect(pbh.name).to eq('Example Public Body Heading ES')
+             end
+         end
+
+        it 'adds new translations' do
+            post :update, {
+                :id => @heading.id,
+                :public_body_heading => {
+                    :name => @heading.name,
+                    :translations_attributes => {
+                        'es' => { :locale => "es",
+                                  :name => "Example Public Body Heading ES" },
+                        'fr' => { :locale => "fr",
+                                  :name => "Example Public Body Heading FR" },
+                    }
+                }
+            }
+
+            request.flash[:notice].should include('successful')
+
+            pbh = PublicBodyHeading.find(@heading.id)
+
+            I18n.with_locale(:es) do
+               expect(pbh.name).to eq('Example Public Body Heading ES')
+            end
+            I18n.with_locale(:fr) do
+               expect(pbh.name).to eq('Example Public Body Heading FR')
+            end
+        end
+
+        it 'updates an existing translation and adds a third translation' do
+            @heading.translations.create(:locale => 'es',
+                                         :name => 'Example Public Body Heading ES')
+            @heading.reload
+
+            post :update, {
+                :id => @heading.id,
+                :public_body_heading => {
+                    :name => @heading.name,
+                    :translations_attributes => {
+                        # Update existing translation
+                        'es' => { :locale => "es",
+                                  :name => "Renamed Example Public Body Heading ES" },
+                        # Add new translation
+                        'fr' => { :locale => "fr",
+                                  :name => "Example Public Body Heading FR" }
+                    }
+                }
+            }
+
+            request.flash[:notice].should include('successful')
+
+            pbh = PublicBodyHeading.find(@heading.id)
+
+            I18n.with_locale(:es) do
+               expect(pbh.name).to eq('Renamed Example Public Body Heading ES')
+            end
+            I18n.with_locale(:fr) do
+               expect(pbh.name).to eq('Example Public Body Heading FR')
             end
         end
 

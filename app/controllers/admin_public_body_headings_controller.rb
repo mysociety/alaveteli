@@ -2,6 +2,9 @@ class AdminPublicBodyHeadingsController < AdminController
 
     def edit
         @heading = PublicBodyHeading.find(params[:id])
+        I18n.available_locales.each do |locale|
+            @heading.translations.find_or_initialize_by_locale(locale)
+        end
         render :formats => [:html]
     end
 
@@ -37,6 +40,9 @@ class AdminPublicBodyHeadingsController < AdminController
 
     def new
         @heading = PublicBodyHeading.new
+        I18n.available_locales.each do |locale|
+            @heading.translations.build(:locale => locale)
+        end
         render :formats => [:html]
     end
 
