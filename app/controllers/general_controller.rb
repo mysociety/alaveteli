@@ -138,11 +138,10 @@ class GeneralController < ApplicationController
             raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / requests_per_page}.")
         end
 
-        @this_page_hits = @total_hits = @xapian_requests_hits = @xapian_bodies_hits = @xapian_users_hits = 0
+        @total_hits = @xapian_requests_hits = @xapian_bodies_hits = @xapian_users_hits = 0
         if @requests
             @xapian_requests = perform_search([InfoRequestEvent], @query, @sortby, 'request_collapse', requests_per_page)
             @requests_per_page = @per_page
-            @this_page_hits += @xapian_requests.results.size
             @xapian_requests_hits = @xapian_requests.results.size
             @xapian_requests_total_hits = @xapian_requests.matches_estimated
             @total_hits += @xapian_requests.matches_estimated
@@ -152,7 +151,6 @@ class GeneralController < ApplicationController
         if @bodies
             @xapian_bodies = perform_search([PublicBody], @query, @sortby, nil, 5)
             @bodies_per_page = @per_page
-            @this_page_hits += @xapian_bodies.results.size
             @xapian_bodies_hits = @xapian_bodies.results.size
             @xapian_bodies_total_hits = @xapian_bodies.matches_estimated
             @total_hits += @xapian_bodies.matches_estimated
@@ -162,7 +160,6 @@ class GeneralController < ApplicationController
         if @users
             @xapian_users = perform_search([User], @query, @sortby, nil, 5)
             @users_per_page = @per_page
-            @this_page_hits += @xapian_users.results.size
             @xapian_users_hits = @xapian_users.results.size
             @xapian_users_total_hits = @xapian_users.matches_estimated
             @total_hits += @xapian_users.matches_estimated
