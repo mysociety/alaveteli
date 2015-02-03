@@ -1,19 +1,49 @@
 class AdminPublicBodyHeadingsController < AdminController
 
+    def new
+        @heading = PublicBodyHeading.new
+        @heading.build_all_translations
+    end
+
+    def create
+        I18n.with_locale(I18n.default_locale) do
+            @heading = PublicBodyHeading.new(params[:public_body_heading])
+            if @heading.save
+                flash[:notice] = 'Heading was successfully created.'
+                redirect_to admin_categories_url
+            else
+                @heading.build_all_translations
+                render :action => 'new'
+            end
+        end
+    end
+
     def edit
         @heading = PublicBodyHeading.find(params[:id])
-        render :formats => [:html]
+        @heading.build_all_translations
     end
 
     def update
+        @heading = PublicBodyHeading.find(params[:id])
+
         I18n.with_locale(I18n.default_locale) do
-            @heading = PublicBodyHeading.find(params[:id])
             if @heading.update_attributes(params[:public_body_heading])
-                flash[:notice] = 'Category heading was successfully updated.'
+                flash[:notice] = 'Heading was successfully updated.'
                 redirect_to edit_admin_heading_path(@heading)
             else
+                @heading.build_all_translations
                 render :action => 'edit'
             end
+        end
+    end
+
+    def destroy
+        @locale = self.locale_from_params
+        I18n.with_locale(@locale) do
+            heading = PublicBodyHeading.find(params[:id])
+            heading.destroy
+            flash[:notice] = "Heading was successfully destroyed."
+            redirect_to admin_categories_url
         end
     end
 
@@ -32,33 +62,6 @@ class AdminPublicBodyHeadingsController < AdminController
             render :nothing => true, :status => :ok and return
         else
             render :text => transaction[:error], :status => :unprocessable_entity
-        end
-    end
-
-    def new
-        @heading = PublicBodyHeading.new
-        render :formats => [:html]
-    end
-
-    def create
-        I18n.with_locale(I18n.default_locale) do
-            @heading = PublicBodyHeading.new(params[:public_body_heading])
-            if @heading.save
-                flash[:notice] = 'Category heading was successfully created.'
-                redirect_to admin_categories_url
-            else
-                render :action => 'new'
-            end
-        end
-    end
-
-    def destroy
-        @locale = self.locale_from_params()
-        I18n.with_locale(@locale) do
-            heading = PublicBodyHeading.find(params[:id])
-            heading.destroy
-            flash[:notice] = "Category heading was successfully destroyed."
-            redirect_to admin_categories_url
         end
     end
 
