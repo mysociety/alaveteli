@@ -200,7 +200,7 @@
           <% end %>
         </div>
 
-        <%= will_paginate WillPaginate::Collection.new(@page, @requests_per_page, @xapian_requests.matches_estimated) %>
+        <%= will_paginate WillPaginate::Collection.new(@page, @requests_per_page, @show_no_more_than) %>
       </div>
     <% end %>
 <% end %>
