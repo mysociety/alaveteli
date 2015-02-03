@@ -160,7 +160,7 @@
           <% end %>
         </div>
 
-        <%= will_paginate WillPaginate::Collection.new(@page, @bodies_per_page, @xapian_bodies.matches_estimated) %>
+        <%= will_paginate WillPaginate::Collection.new(@page, @bodies_per_page, @max_bodies) %>
       </div>
        <% elsif @variety_postfix == 'bodies' %>
           <p><%= raw(_('<a href="{{browse_url}}">Browse all</a> or <a href="{{add_url}}">ask us to add one</a>.', :browse_url => list_public_bodies_default_path.html_safe, :add_url => (help_requesting_path + '#missing_body').html_safe)) %></p>
@@ -179,7 +179,7 @@
             <%= render :partial => 'user/user_listing_single', :locals => { :display_user => result[:model] } %>
           <% end %>
         </div>
-        <%= will_paginate WillPaginate::Collection.new(@page, @users_per_page, @xapian_users.matches_estimated) %>
+        <%= will_paginate WillPaginate::Collection.new(@page, @users_per_page, @max_users) %>
 
       </div>
     <% end %>
@@ -199,7 +199,7 @@
           <% end %>
         </div>
 
-        <%= will_paginate WillPaginate::Collection.new(@page, @requests_per_page, @xapian_requests.matches_estimated) %>
+        <%= will_paginate WillPaginate::Collection.new(@page, @requests_per_page, @max_requests) %>
       </div>
     <% end %>
 <% end %>

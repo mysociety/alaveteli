@@ -9,6 +9,8 @@ require 'open-uri'
 
 class GeneralController < ApplicationController
 
+    MAX_RESULTS = 500
+
     # New, improved front page!
     def frontpage
         medium_cache
@@ -124,10 +126,17 @@ class GeneralController < ApplicationController
             end
         end
 
+        @page = get_search_page_from_params
+
         # Query each type separately for separate display (TODO: we are calling
         # perform_search multiple times and it clobbers per_page for each one,
         # so set as separate var)
         requests_per_page = params[:requests_per_page] ? params[:requests_per_page].to_i : 25
+
+        # Later pages are very expensive to load
+        if @page > MAX_RESULTS / requests_per_page
+            raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / requests_per_page}.")
+        end
 
         @this_page_hits = @total_hits = @xapian_requests_hits = @xapian_bodies_hits = @xapian_users_hits = 0
         if @requests
@@ -138,6 +147,7 @@ class GeneralController < ApplicationController
             @xapian_requests_total_hits = @xapian_requests.matches_estimated
             @total_hits += @xapian_requests.matches_estimated
             @request_for_spelling = @xapian_requests
+            @max_requests = (@xapian_requests.matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @xapian_requests.matches_estimated
         end
         if @bodies
             @xapian_bodies = perform_search([PublicBody], @query, @sortby, nil, 5)
@@ -147,6 +157,7 @@ class GeneralController < ApplicationController
             @xapian_bodies_total_hits = @xapian_bodies.matches_estimated
             @total_hits += @xapian_bodies.matches_estimated
             @request_for_spelling = @xapian_bodies
+            @max_bodies = (@xapian_bodies.matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @xapian_bodies.matches_estimated
         end
         if @users
             @xapian_users = perform_search([User], @query, @sortby, nil, 5)
@@ -156,6 +167,7 @@ class GeneralController < ApplicationController
             @xapian_users_total_hits = @xapian_users.matches_estimated
             @total_hits += @xapian_users.matches_estimated
             @request_for_spelling = @xapian_users
+            @max_users = (@xapian_users.matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @xapian_users.matches_estimated
         end
 
         # Spelling and highight words are same for all three queries
