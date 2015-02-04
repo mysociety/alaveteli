@@ -336,33 +336,29 @@ class PublicBody < ActiveRecord::Base
 
     # Use tags to describe what type of thing this is
     def type_of_authority(html = false)
-        types = []
-        first = true
-        for tag in self.tags
+        types = tags.each_with_index.map do |tag, index|
             if PublicBodyCategory.get().by_tag().include?(tag.name)
                 desc = PublicBodyCategory.get().singular_by_tag()[tag.name]
-                if first
-                    # terrible that Ruby/Rails doesn't have an equivalent of ucfirst
-                    # (capitalize shockingly converts later characters to lowercase)
-                    desc = desc[0,1].capitalize + desc[1,desc.size]
-                    first = false
+
+                if index.zero?
+                    desc = desc.sub(/\S/) { |m| Unicode.upcase(m) }
                 end
+
                 if html
                     # TODO: this should call proper route helpers, but is in model sigh
                     desc = '<a href="/body/list/' + tag.name + '">' + desc + '</a>'
                 end
-                types.push(desc)
+
+                desc
             end
         end
-        if types.size > 0
-            ret = types[0, types.size - 1].join(", ")
-            if types.size > 1
-                ret = ret + " and "
-            end
-            ret = ret + types[-1]
-            return ret.html_safe
+
+        types.compact!
+
+        if types.any?
+            types.to_sentence(:last_word_connector => ' and ').html_safe
         else
-            return _("A public authority")
+            _("A public authority")
         end
     end
 
