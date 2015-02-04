@@ -59,7 +59,8 @@ describe AdminPublicBodyCategoriesController do
                     :category_tag => 'new_test_category',
                     :description => 'New category for testing stuff',
                     :translated_versions => [{ :locale => "es",
-                                               :title => "Mi Nuevo Category" }]
+                                               :title => "Mi Nuevo Category",
+                                               :description => "ES Description" }]
                 }
             }
             PublicBodyCategory.count.should == n + 1
@@ -88,6 +89,7 @@ describe AdminPublicBodyCategoriesController do
             @category = FactoryGirl.create(:public_body_category)
             I18n.with_locale('es') do
                 @category.title = 'Los category'
+                @category.description = 'ES Description'
                 @category.save!
             end
         end
@@ -126,6 +128,7 @@ describe AdminPublicBodyCategoriesController do
             @tag = @category.category_tag
             I18n.with_locale('es') do
                 @category.title = 'Los category'
+                @category.description = 'ES Description'
                 @category.save!
             end
         end
