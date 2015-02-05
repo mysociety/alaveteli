@@ -24,26 +24,25 @@
 
     <div id="sign_together">
         <% if !@post_redirect.nil? %>
-            <p id="sign_in_reason">
+            <h1 id="sign_in_reason">
                 <% if @post_redirect.reason_params[:web].empty? %>
-                    <%= _('Please sign in or make a new account.') %>
+                    <%= _('Please create an account or sign in') %>
                 <% else %>
-                    <%= _('{{reason}}, please sign in or make a new account.', :reason => @post_redirect.reason_params[:web]) %>
+                    <%= _('{{reason}}, create an account or sign in', :reason => @post_redirect.reason_params[:web]) %>
                 <% end %>
-            </p>
+            </h1>
         <% end %>
         <div id="left_half">
-            <h1><%= _('Sign up') %></h1>
+            <h2><%= _('Create a new account') %></h2>
             <%= render :partial => 'signup' %>
         </div>
 
-        <div id="middle_strip">
-            <%= _('- or -') %>
-        </div>
-
         <div id="right_half">
-            <h1><%= _('Sign in') %></h1>
+          <div class="sign-in-wrapper">
+            <p class="pretitle"><%= _('Got an account?') %></p>
+            <h2><%= _('Sign in') %></h2>
             <%= render :partial => 'signin', :locals => { :sign_in_as_existing_user => false } %>
+          </div>
         </div>
 
         <div style="clear:both"></div>
