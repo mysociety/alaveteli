@@ -18,7 +18,7 @@ describe 'Editing a Public Body' do
     end
 
     it 'can edit the default locale' do
-        @admin.visit admin_body_edit_path(@body)
+        @admin.visit edit_admin_body_path(@body)
         @admin.fill_in 'public_body_name__en', :with => 'New Quango EN'
         @admin.click_button 'Save'
 
@@ -29,7 +29,7 @@ describe 'Editing a Public Body' do
     it 'can add a translation for a single locale' do
         expect(@body.find_translation_by_locale('fr')).to be_nil
 
-        @admin.visit admin_body_edit_path(@body)
+        @admin.visit edit_admin_body_path(@body)
         @admin.fill_in 'public_body_translations_attributes_fr_name__fr', :with => 'New Quango FR'
         @admin.click_button 'Save'
 
@@ -40,19 +40,19 @@ describe 'Editing a Public Body' do
     end
 
     it 'can add a translation for multiple locales', :focus => true do
-        @admin.visit admin_body_edit_path(@body)
+        @admin.visit edit_admin_body_path(@body)
         @admin.fill_in 'public_body_name__en', :with => 'New Quango EN'
         @admin.click_button 'Save'
 
         # Add FR translation
         expect(@body.find_translation_by_locale('fr')).to be_nil
-        @admin.visit admin_body_edit_path(@body)
+        @admin.visit edit_admin_body_path(@body)
         @admin.fill_in 'public_body_translations_attributes_fr_name__fr', :with => 'New Quango FR'
         @admin.click_button 'Save'
 
         # Add ES translation
         expect(@body.find_translation_by_locale('es')).to be_nil
-        @admin.visit admin_body_edit_path(@body)
+        @admin.visit edit_admin_body_path(@body)
         @admin.fill_in 'public_body_translations_attributes_es_name__es', :with => 'New Quango ES'
         @admin.click_button 'Save'
 
