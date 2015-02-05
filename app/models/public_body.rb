@@ -64,6 +64,7 @@ class PublicBody < ActiveRecord::Base
     }
 
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
+    accepts_nested_attributes_for :translations
 
     # Default fields available for importing from CSV, in the format
     # [field_name, 'short description of field (basic html allowed)']
@@ -151,12 +152,11 @@ class PublicBody < ActiveRecord::Base
         translations
     end
 
-    def translated_versions=(translation_attrs)
+    def translations_attributes=(translation_attrs)
         def empty_translation?(attrs)
-            attrs_with_values = attrs.select{ |key, value| value != '' and key != 'locale' }
+            attrs_with_values = attrs.select{ |key, value| value != '' and key.to_s != 'locale' }
             attrs_with_values.empty?
         end
-
         if translation_attrs.respond_to? :each_value    # Hash => updating
             translation_attrs.each_value do |attrs|
                 next if empty_translation?(attrs)
@@ -166,6 +166,13 @@ class PublicBody < ActiveRecord::Base
                 t.save!
             end
         else                                            # Array => creating
+            warn "[DEPRECATION] PublicBody#translations_attributes= " \
+                 "will no longer accept an Array as of release 0.22. " \
+                 "Use Hash arguments instead. See " \
+                 "spec/models/public_body_spec.rb and " \
+                 "app/views/admin_public_body/_form.html.erb for more " \
+                 "details."
+
             translation_attrs.each do |attrs|
                 next if empty_translation?(attrs)
                 new_translation = PublicBody::Translation.new(attrs)
@@ -173,6 +180,12 @@ class PublicBody < ActiveRecord::Base
                 translations << new_translation
             end
         end
+    end
+
+    def translated_versions=(translation_attrs)
+        warn "[DEPRECATION] PublicBody#translated_versions= will be replaced " \
+             "by PublicBody#translations_attributes= as of release 0.22"
+        self.translations_attributes = translation_attrs
     end
 
     def set_default_publication_scheme
