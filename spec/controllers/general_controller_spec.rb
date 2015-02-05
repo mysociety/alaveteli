@@ -291,4 +291,10 @@ describe GeneralController, 'when using xapian search' do
         response.body.should include('Track this search')
     end
 
+    it 'should not show high page offsets as these are extremely slow to generate' do
+        lambda {
+            get :search, :combined => 'bob/all', :page => 25
+        }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+
 end
