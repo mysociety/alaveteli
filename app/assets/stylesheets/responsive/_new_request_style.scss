@@ -64,8 +64,6 @@
 }
 
 .advice-panel {
-  background-color: #f4f4f4;
-  padding: 1.5em;
   margin-bottom: 1.5em;
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     margin-bottom: 0;
