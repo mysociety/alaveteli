@@ -39,30 +39,22 @@
         <% end %>
         </p>
 
-        <% if !@public_body.special_not_requestable_reason? %>
-            <% if @public_body.has_notes? %>
-                <p><%= @public_body.notes_as_html.html_safe %></p>
-            <% end %>
-            <% if @public_body.eir_only? %>
-                <p><%= _('You can only request information about the environment from this authority.')%></p>
-            <% end %>
-        <% else %>
-            <% if @public_body.not_requestable_reason == 'not_apply' %>
-                <p><%= _('Freedom of Information law does not apply to this authority, so you cannot make
-                a request to it.')%></p>
-            <% elsif @public_body.not_requestable_reason == 'defunct' %>
-                <p><%= _('This authority no longer exists, so you cannot make a request to it.')%></p>
-            <% end %>
-        <% end %>
-
         <div id="stepwise_make_request">
-            <% if @public_body.is_requestable? %>
-                <%= link_to _("Make a request to this authority"), new_request_to_body_path(:url_name => @public_body.url_name), :class => "link_button_green" %>
+          <% if @public_body.has_notes? %>
+            <%= @public_body.notes_as_html.html_safe %>
+          <% end %>
+
+          <% if @public_body.is_requestable? %>
+            <% if @public_body.eir_only? %>
+              <p><%= _('You can only request information about the environment from this authority.')%></p>
             <% end %>
 
-            <% if @public_body.has_notes? %>
-                <%= @public_body.notes_as_html.html_safe %>
-            <% end %>
+            <%= link_to _("Make a request to this authority"),
+                        new_request_to_body_path(:url_name => @public_body.url_name),
+                        :class => "link_button_green" %>
+          <% else %>
+            <p><%= public_body_not_requestable_reasons(@public_body).first %></p>
+          <% end %>
         </div>
     </div>
 
