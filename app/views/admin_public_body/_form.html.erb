@@ -4,66 +4,27 @@
 
 <div id="div-locales">
   <ul class="locales nav nav-tabs">
-  <% I18n.available_locales.each_with_index do |locale, i| %>
-    <li><a href="#div-locale-<%=locale.to_s%>" data-toggle="tab" ><%=locale_name(locale.to_s) || _("Default locale")%></a></li>
-  <% end %>
+    <% @public_body.translations.each do |translation| %>
+      <li>
+        <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab">
+          <%= locale_name(translation.locale.to_s) || _("Default locale") %>
+        </a>
+      </li>
+    <% end %>
   </ul>
+
   <div class="tab-content">
-<%
-    for locale in I18n.available_locales do
-        if locale==I18n.default_locale  # The default locale is submitted as part of the bigger object...
-            prefix = 'public_body'
-            object = @public_body
-        else                            # ...but additional locales go "on the side"
-            prefix = "public_body[translated_versions][]"
-            object = @public_body.new_record? ?
-                        PublicBody::Translation.new :
-                        @public_body.find_translation_by_locale(locale.to_s) || PublicBody::Translation.new
-        end
-%>
-    <%= fields_for prefix, object do |t| %>
-    <div class="tab-pane" id="div-locale-<%=locale.to_s%>">
-      <div class="control-group">
-        <%= t.hidden_field :locale, :value => locale.to_s %>
-        <label for="<%= form_tag_id(t.object_name, :name, locale) %>" class="control-label">Name</label>
-        <div class="controls">
-          <%= t.text_field :name, :id => form_tag_id(t.object_name, :name, locale), :class => "span4" %>
-        </div>
-      </div>
-      <div class="control-group">
-        <label for="<%= form_tag_id(t.object_name, :short_name, locale) %>", class="control-label"><%=_("Short name")%></label>
-        <div class="controls">
-          <%= t.text_field :short_name, :id => form_tag_id(t.object_name, :short_name, locale), :class => "span2"  %>
-          <p class="help-block"><%=_("Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect")%></p>
-        </div>
-      </div>
-      <div class="control-group">
-        <label for="<%= form_tag_id(t.object_name, :request_email, locale) %>" class="control-label"><%=_("Request email")%></label>
-        <div class="controls">
-          <%= t.text_field :request_email, :id => form_tag_id(t.object_name, :request_email, locale), :class => "span3" %>
-          <p class="help-block"><%=_("set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA")%></p>
-        </div>
-      </div>
-      <div class="control-group">
-        <label for="<%= form_tag_id(t.object_name, :publication_scheme, locale) %>" class="control-label"><%=_("Publication scheme URL")%></label>
-        <div class="controls">
-          <%= t.text_field :publication_scheme, :size => 60, :id => form_tag_id(t.object_name, :publication_scheme, locale), :class => "span3" %>
-        </div>
-      </div>
-      <div class="control-group">
-        <label for="<%= form_tag_id(t.object_name, :notes, locale) %>" class="control-label"><%=_("Public notes")%></label>
-        <div class="controls">
-          <%= t.text_area :notes, :rows => 3, :id => form_tag_id(t.object_name, :notes, locale), :class => "span6" %>
-          <p class="help-block">
-            HTML, for users to consider when making FOI requests to the authority
-          </p>
-        </div>
-      </div>
-    </div>
-<%
-        end
-    end
-%>
+    <% @public_body.translations.each do |translation| %>
+      <% if translation.locale.to_s == I18n.default_locale.to_s %>
+        <%= fields_for('public_body', @public_body) do |t| %>
+          <%= render :partial => 'locale_fields', :locals => { :t => t, :locale => translation.locale } %>
+        <% end %>
+      <% else %>
+        <%= f.fields_for(:translations, translation, :child_index => translation.locale) do |t| %>
+          <%= render :partial => 'locale_fields' , :locals => { :t => t, :locale => translation.locale } %>
+        <% end %>
+      <% end %>
+    <% end %>
   </div>
 </div>
 
