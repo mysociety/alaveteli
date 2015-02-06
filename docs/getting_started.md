@@ -216,17 +216,8 @@ often less. But complicated workflows might take a bit longer.
 
 The default help pages in Alaveteli are taken from WhatDoTheyKnow, and are
 therefore relevant only to the UK. You should take these pages as inspiration,
-but review their content with a view to your jurisdiction. The important pages
-to translate are:
-
-* [About](https://github.com/mysociety/alaveteli/blob/master/app/views/help/about.rhtml): why the website exists, why it works, etc
-* [contact](https://github.com/mysociety/alaveteli/blob/master/app/views/help/contact.rhtml): how to get in touch
-* [credits](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.rhtml): who is involved in the site.  Importantly, includes a section on how users can help the project.
-* [officers](https://github.com/mysociety/alaveteli/blob/master/app/views/help/officers.rhtml): information for the officers who deal with FOI at authorities.  They get a link to this page in emails that the site sends them.
-* [privacy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/privacy.rhtml): privacy policy, plus information making it clear that requests are going to appear on the internet.  Let users know if they are allowed to use pseudonyms in your jurisdiction.
-* [requesting](https://github.com/mysociety/alaveteli/blob/master/app/views/help/requesting.rhtml): the main help page about making requests.  How it works, how to decide who to write to, what they can expect in terms of responses, how to make appeals, etc.
-* [unhappy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.rhtml): users are taken to this page after a request that has been somehow unsuccessful (e.g. the request has been refused, or the authority is insisting on a postal request).  The page should encourage them to keep going, e.g. by starting a new request or addressing it to a different body.
-* [why email](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_why_they_should_reply_by_email.rhtml): a snippet of information that explains why users should insist on replies by email.  This is displayed next to requests that have "gone postal".
+but review their content with a view to your jurisdiction. See [the documentation on Alaveteli's themes]({{ site.baseurl }}docs/customising/themes/#customising-the-help-pages) for details
+on which pages are important, and what content they need to have.
 
 The help pages contain some HTML. Your tech person should be able to advise on
 this.
