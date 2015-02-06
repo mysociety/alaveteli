@@ -207,6 +207,8 @@ The important pages to customise and translate are listed here. We note where Al
 
 * [why email](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_why_they_should_reply_by_email.html.erb): a snippet of information that explains why users should insist on replies by email.  This is displayed next to requests that have ["gone postal"]({{ site.baseurl }}docs/customising/states/#gone_postal) - where the authority has asked for the user's physical address so that they can reply with a paper response.
 
+* [sidebar](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_sidebar.html.erb): a menu for the help pages with a link to each one. You should customise this so that it includes any extra help pages you add, and doesn't include any you remove.
+
 You can add your own help pages to your site by replacing the default
 pages in your theme with your own versions, using a locale suffix for
 each page to indicate what language the page is written in. No locale
