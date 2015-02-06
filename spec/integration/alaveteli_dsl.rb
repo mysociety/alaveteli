@@ -21,7 +21,7 @@ module AlaveteliDsl
     response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
     follow_redirect!
     response.should render_template("user/sign")
-    response.body.should match(/To send your FOI request, please sign in or make a new account./)
+    response.body.should match(/To send your FOI request, create an account or sign in/)
   end
 
 end

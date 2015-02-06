@@ -5,35 +5,36 @@
 
     <!--<h2><%= _('If you\'re new to {{site_name}}', :site_name=>site_name)%></h2>-->
 
-    <p>
-        <label class="form_label" for="user_signup_email"><%= _('Your e-mail:')%></label>
-        <%= text_field 'user_signup', 'email', { :size => 20, :tabindex => 60 } %>
-    </p>
-    <div class="form_item_note">
-        <%= _('We will not reveal your email address to anybody unless you or
-        the law tell us to (<a href="{{url}}">details</a>). ', :url => help_privacy_path) %>
-    </div>
+
 
     <p>
         <label class="form_label" for="user_signup_name"> <%= _('Your name:')%></label>
-        <%= text_field 'user_signup', 'name', { :size => 20, :tabindex => 70, :autocomplete => "off" } %>
+        <%= text_field 'user_signup', 'name', { :size => 20, :tabindex => 10, :autocomplete => "off" } %>
     </p>
     <div class="form_item_note">
          <%= _('Your <strong>name will appear publicly</strong>
         (<a href="{{why_url}}">why?</a>)
-        on this website and in search engines. If you
-        are thinking of using a pseudonym, please
-        <a href="{{help_url}}">read this first</a>.', :why_url => (help_privacy_path+"#public_request").html_safe, :help_url => (help_privacy_path+"#real_name").html_safe) %>
+        on this website and in search engines.
+        <a href="{{help_url}}">Thinking of using a pseudonym?</a>', :why_url => (help_privacy_path+"#public_request").html_safe, :help_url => (help_privacy_path+"#real_name").html_safe) %>
+    </div>
+
+    <p>
+        <label class="form_label" for="user_signup_email"><%= _('Your e-mail:')%></label>
+        <%= text_field 'user_signup', 'email', { :size => 20, :tabindex => 20 } %>
+    </p>
+    <div class="form_item_note">
+        <%= _('We will not reveal your email address to anybody unless <a href="{{url}}">you or
+        the law tell us to</a>. ', :url => help_privacy_path) %>
     </div>
 
     <p>
         <label class="form_label" for="user_signup_password"> <%= _('Password:')%></label>
-        <%= password_field 'user_signup', 'password', { :size => 15, :tabindex => 80, :autocomplete => "off" } %>
+        <%= password_field 'user_signup', 'password', { :size => 15, :tabindex => 30, :autocomplete => "off" } %>
     </p>
 
     <p>
-        <label class="form_label" for="user_signup_password_confirmation"> <%= _('Password: (again)')%></label>
-        <%= password_field 'user_signup', 'password_confirmation', { :size => 15, :tabindex => 90, :autocomplete => "off" } %>
+        <label class="form_label" for="user_signup_password_confirmation"> <%= _('Confirm password:')%></label>
+        <%= password_field 'user_signup', 'password_confirmation', { :size => 15, :tabindex => 40, :autocomplete => "off" } %>
     </p>
 
     <% if @request_from_foreign_country %>
@@ -43,7 +44,7 @@
     <div class="form_button">
         <%= hidden_field_tag 'token', params[:token], {:id => 'signup_token' } %>
         <%= hidden_field_tag :modal, params[:modal], {:id => 'signup_modal' } %>
-        <%= submit_tag _('Sign up'), :tabindex => 100 %>
+        <%= submit_tag _('Sign up'), :tabindex => 50 %>
     </div>
 
 <% end %>
