@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2015-01-30 10:40+0000\n"
+"PO-Revision-Date: 2015-02-03 16:31+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Spanish (Nicaragua) (http://www.transifex.com/projects/p/alaveteli/language/es_NI/)\n"
 "Language: es_NI\n"
@@ -1532,7 +1532,7 @@ msgid "Message sent using {{site_name}} contact form, "
 msgstr "Mensaje enviado usando {{site_name}}, "
 
 msgid "Missing contact details for '"
-msgstr "Faltan datos de contacto para '"
+msgstr "No contamos con los datos de contacto de '"
 
 msgid "More about this authority"
 msgstr "Más información sobre este organismo"
@@ -2232,10 +2232,10 @@ msgid "Reporting a request notifies the site administrators. They will respond a
 msgstr "Al reportar una solicitud se le notifica a los administradores del sitio. Ellos responderán lo antes posible."
 
 msgid "Request an internal review"
-msgstr "Pida una revisión interna"
+msgstr "Pregunta por tu Solicitud"
 
 msgid "Request an internal review from {{person_or_body}}"
-msgstr "Pedir una revisión interna a {{person_or_body}}"
+msgstr "Pregunta por tu solicitud al contacto en {{person_or_body}}"
 
 msgid "Request email"
 msgstr "Email para solicitudes"
@@ -3165,16 +3165,13 @@ msgid "Unexpected search result type "
 msgstr "Se encontró un tipo de resultado inesperado "
 
 msgid "Unfortunately we don't know the FOI\\nemail address for that authority, so we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr ""
-"Desgraciadamente no tenemos la dirección\n"
-"de correo para este organismo, así que no podemos validarlo.\n"
-"Por favor <a href=\"{{url}}\">contáctenos</a> para arreglarlo."
+msgstr "Desgraciadamente no tenemos la dirección de correo para este organismo, así que no podemos validarlo. Por favor <a href=\"{{url}}\">contáctenos</a> para arreglarlo."
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr "Lamentablemente, no tenemos una dirección que funcione para {{public_body_names}}."
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
-msgstr "Desgraciadamente, no tenemos una dirección de correo válida para"
+msgstr "No disponemos de una dirección de correo válida para"
 
 msgid "Unknown"
 msgstr "Desconocido"
