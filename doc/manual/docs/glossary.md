@@ -269,6 +269,10 @@ Definitions
     to find. For example, you might put all different schools into the
     "School" category, and universities into "Universities". You can also
     group categories under headings (such as "Education").
+   <p>
+     These categories and headings appear on the list of public authorities that
+     is displayed on your site.
+   </p>
     <p>
       Use <a href="#tag" class="glossary__link">tags</a> to associate
       authorities with specific categories.
