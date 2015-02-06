@@ -191,7 +191,7 @@ your jurisdiction.
 
 The important pages to customise and translate are listed here. We note where Alaveteli links to these pages (sometimes to anchors for particular sections within the pages) or takes users directly to them.
 
-* [About](https://github.com/mysociety/alaveteli/blob/master/app/views/help/about.html.erb): why the website exists, why it works, etc
+* [About](https://github.com/mysociety/alaveteli/blob/master/app/views/help/about.html.erb): why the website exists, why it works, etc. When a user starts to make a request in Alaveteli, they are referred to the section here on [why authorities should respond to requests](https://github.com/mysociety/alaveteli/blob/master/app/views/help/about.html.erb#L29).
 
 * [contact](https://github.com/mysociety/alaveteli/blob/master/app/views/help/contact.html.erb): how to get in touch
 
