@@ -40,11 +40,11 @@ and headings on
 In this example, "Emergency services" is a heading which contains the categories
 "Police forces" and "Fire & rescue services".
 
-Tags are simply searchable words that you can add to an authority. Nominate one
-or more tags for each category: any authority which has such a tag is
-automatically assigned to the category. For example, if the tag `police` is
-associated with the category "Police forces", any authority which has the tag
-`police` will appear in that category.
+Tags are simply searchable words that you can add to an authority. Nominate a
+tags for each category: any authority which has such a tag is automatically
+assigned to the category. For example, if the tag `police` is associated with
+the category "Police forces", any authority which has the tag `police` will
+appear in that category.
 
 Make sure you choose good category headings and names, because they help your find the specific authorities they are looking for. 
 
