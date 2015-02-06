@@ -193,7 +193,9 @@ The important pages to customise and translate are listed here. We note where Al
 
 * [About](https://github.com/mysociety/alaveteli/blob/master/app/views/help/about.html.erb): why the website exists, why it works, etc
 * [contact](https://github.com/mysociety/alaveteli/blob/master/app/views/help/contact.html.erb): how to get in touch
-* [credits](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.html.erb): who is involved in the site.  Importantly, includes a section on how users can help the project.
+
+* [credits](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.html.erb): who is involved in the site.  Importantly, includes [a section](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.html.erb#L71) on how users can help the project. Users are referred to this section if they categorise all the requests in the [categorisation game]({{ site.baseurl }}docs/glossary/#categorisation-game).
+
 * [officers](https://github.com/mysociety/alaveteli/blob/master/app/views/help/officers.html.erb): information for the officers who deal with FOI at authorities.  They get a link to this page in emails that the site sends them.
 * [privacy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/privacy.html.erb): privacy policy, plus information making it clear that requests are going to appear on the internet.  Let users know if they are allowed to use pseudonyms in your jurisdiction.
 * [requesting](https://github.com/mysociety/alaveteli/blob/master/app/views/help/requesting.html.erb): the main help page about making requests.  How it works, how to decide who to write to, what they can expect in terms of responses, how to make appeals, etc.
