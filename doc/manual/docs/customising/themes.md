@@ -198,6 +198,15 @@ your jurisdiction. The important pages to customise and translate are:
 * [unhappy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.html.erb): users are taken to this page after a request that has been somehow unsuccessful (e.g. the request has been refused, or the authority is insisting on a postal request).  The page should encourage them to keep going, e.g. by starting a new request or addressing it to a different body.
 * [why email](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_why_they_should_reply_by_email.html.erb): a snippet of information that explains why users should insist on replies by email.  This is displayed next to requests that have "gone postal".
 
+You can add your own help pages to your site by replacing the default
+pages in your theme with your own versions, using a locale suffix for
+each page to indicate what language the page is written in. No locale
+suffix is needed for pages written for the [default locale]({{ site.baseurl }}docs/customising/config/#default_locale) for the site.
+For example, [alavetelitheme contains help
+pages](https://github.com/mysociety/alavetelitheme/tree/master/lib/views/help)
+for the default 'en' locale and an example Spanish 'about' page.
+
+
 ## Adding new pages in the navigation
 
 `alavetelitheme/lib/config/custom-routes.rb` allows you to extend the base routes in
