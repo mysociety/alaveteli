@@ -192,13 +192,17 @@ your jurisdiction.
 The important pages to customise and translate are listed here. We note where Alaveteli links to these pages (sometimes to anchors for particular sections within the pages) or takes users directly to them.
 
 * [About](https://github.com/mysociety/alaveteli/blob/master/app/views/help/about.html.erb): why the website exists, why it works, etc
+
 * [contact](https://github.com/mysociety/alaveteli/blob/master/app/views/help/contact.html.erb): how to get in touch
 
 * [credits](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.html.erb): who is involved in the site.  Importantly, includes [a section](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.html.erb#L71) on how users can help the project. Users are referred to this section if they categorise all the requests in the [categorisation game]({{ site.baseurl }}docs/glossary/#categorisation-game).
 
 * [officers](https://github.com/mysociety/alaveteli/blob/master/app/views/help/officers.html.erb): information for the officers who deal with FOI at authorities.  They get a link to this page in emails that the site sends them.
+
 * [privacy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/privacy.html.erb): privacy policy, plus information making it clear that requests are going to appear on the internet.  Let users know if they are allowed to use pseudonyms in your jurisdiction.
-* [requesting](https://github.com/mysociety/alaveteli/blob/master/app/views/help/requesting.html.erb): the main help page about making requests.  How it works, how to decide who to write to, what they can expect in terms of responses, how to make appeals, etc.
+
+* [requesting](https://github.com/mysociety/alaveteli/blob/master/app/views/help/requesting.html.erb): the main help page about making requests.  How it works, how to decide who to write to, what they can expect in terms of responses, how to make appeals, etc. Users are referred to the [section on how quickly a response to their request should arrive](https://github.com/mysociety/alaveteli/blob/master/app/views/help/requesting.html.erb#L125) when their request is overdue for a response. They are referred to the [section on what to do if the Alaveteli site isn't showing the authority they want to request information](https://github.com/mysociety/alaveteli/blob/master/app/views/help/requesting.html.erb#L30) from the page that allows them to list and search authorities.
+
 * [unhappy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.html.erb): users are taken to this page after a request that has been somehow unsuccessful (e.g. the request has been refused, or the authority is insisting on a postal request).  The page should encourage them to keep going, e.g. by starting a new request or addressing it to a different body. In particular users are referred to the [section on using other means](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.html.erb#L83) to get their question answered. If the user has requested an internal review of their request, they are referred to [the section on this page](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.html.erb#L28) that describes the law relating to how long a review should take.
 
 * [why email](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_why_they_should_reply_by_email.html.erb): a snippet of information that explains why users should insist on replies by email.  This is displayed next to requests that have "gone postal".
