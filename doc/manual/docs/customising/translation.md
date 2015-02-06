@@ -161,6 +161,13 @@ This will be the job of the technical people on your team (or
 even mySociety's release manager). If translators aren't technical, they can
 use Transifex without needing to worry about this.
 
+## The help pages
+
+As the help pages for Alaveteli contain lots of text, they're translated
+outside Transifex, by translating each whole help page and replacing it
+in the theme that Alaveteli is using, so that it overrides the default
+page. See the [guide to Alaveteli's themes]({{ site.baseurl }}docs/customising/themes/#customising-the-help-pages) for more
+information on this.
 
 ## Developers and internationalisation
 
