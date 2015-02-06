@@ -22,6 +22,7 @@ Definitions
   <li><a href="#blackhole">black hole</a></li>
   <li><a href="#bounce-message">bounce message</a></li>
   <li><a href="#capistrano">Capistrano</a></li>
+  <li><a href="#categorisation-game">categorisation game</a></li>
   <li><a href="#censor-rule">censor rule</a></li>
   <li><a href="#development">development site</a></li>
   <li><a href="#disclosure-log">disclosure log</a></li>
@@ -221,6 +222,21 @@ Definitions
         <li>
          The <a href="http://capistranorb.com/">Capistrano website</a> has thorough documentation
          about the tool
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="categorisation-game">categorisation game</a>
+  </dt>
+  <dd>
+   The categorisation game is a way that users of an Alaveteli site  can help the site stay current and accurate by updating the status of old requests where the original requester has never said whether the authority responded with the information or not.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          the categorisation game on the <a href="http://demo.alaveteli.org/categorise/play">demo Alaveteli site</a>.
         </li>
       </ul>
     </div>
