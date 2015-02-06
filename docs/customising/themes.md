@@ -205,7 +205,7 @@ The important pages to customise and translate are listed here. We note where Al
 
 * [unhappy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.html.erb): users are taken to this page after a request that has been somehow unsuccessful (e.g. the request has been refused, or the authority is insisting on a postal request).  The page should encourage them to keep going, e.g. by starting a new request or addressing it to a different body. In particular users are referred to the [section on using other means](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.html.erb#L83) to get their question answered. If the user has requested an internal review of their request, they are referred to [the section on this page](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.html.erb#L28) that describes the law relating to how long a review should take.
 
-* [why email](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_why_they_should_reply_by_email.html.erb): a snippet of information that explains why users should insist on replies by email.  This is displayed next to requests that have "gone postal".
+* [why email](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_why_they_should_reply_by_email.html.erb): a snippet of information that explains why users should insist on replies by email.  This is displayed next to requests that have ["gone postal"]({{ site.baseurl }}docs/customising/states/#gone_postal) - where the authority has asked for the user's physical address so that they can reply with a paper response.
 
 You can add your own help pages to your site by replacing the default
 pages in your theme with your own versions, using a locale suffix for
