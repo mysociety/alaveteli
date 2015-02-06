@@ -182,8 +182,12 @@ unused).
 
 ## Customising the help pages
 
- The important pages
-to translate are:
+If you're running Alaveteli in another language, you'll want to show
+your users localised versions of the help pages. Even if you're running
+the site in English, the default help pages in Alaveteli are taken from
+WhatDoTheyKnow, and are therefore relevant only to the UK. You should
+take these pages as inspiration, but review their content with a view to
+your jurisdiction. The important pages to customise and translate are:
 
 * [About](https://github.com/mysociety/alaveteli/blob/master/app/views/help/about.html.erb): why the website exists, why it works, etc
 * [contact](https://github.com/mysociety/alaveteli/blob/master/app/views/help/contact.html.erb): how to get in touch
