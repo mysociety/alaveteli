@@ -463,6 +463,52 @@ should also consider implementing (or increasing) the anti-spam measures
 running in your 
 <a href="{{ site.baseurl }}docs/glossary/#mta" class="glossary__link">MTA</a>.
 
+### Rejecting spam that arrives in the holding pen
+
+Alaveteli maintains a 
+<a href="{{ site.baseurl }}docs/glossary/#spam-address-list" class="glossary__link">spam address list</a>.
+Any incoming message to an email  address on that list will be rejected and
+won't appear in the admin.
+
+If you see spam messages in the
+<a href="{{ site.baseurl }}docs/glossary/#holding_pen" class="glossary__link">holding pen</a>,
+check if they are being sent to a *specific* email address. If they are, that
+email address has become a "spam-target" and you should add it to the spam
+address list. Thereafter, Alaveteli will automatically reject any messages that
+come into that address.
+
+An email address that is not associated with a request (that is, one whose
+messages end up in the holding pen) becomes a spam-target once it's been
+harvested by spammers. It may no longer be valid because the request to which
+it belonged has closed, or it may have been mis-spelled in a manual reply.
+Our experience from running
+<a href="{{ site.baseurl }}docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>
+is that you can safely dismiss incoming email to such addresses once they have
+been targetted in this way. Legitimate emails that arrive in the holding pen
+tend to be unique errors (for example, missing the last character of the email
+address due to a cut-and-paste mistake) and the nature of the lifecycle of
+requests means they don't typically get used for spam until they are
+effectively dead.
+
+You can see the spam address list (that is, all known spam-target email
+addresses) by going to the admin interface at `/admin/spam_addresses`.
+
+To add an email address, copy it from the incoming message (you may need to
+click the **View raw email** button to see the `To:` address). Go to
+`/admin/spam_addresses` (there is a link under *Actions* on the Incoming
+Message display), paste the email address into the text input field and click
+**Add spam address**.
+
+You can remove any address from the list by clicking the **Remove** button
+next to it. Of course, this won't restore any messages that have been 
+rejected, but Alaveteli will not reject any new messages that are sent to
+this address.
+
+Note that if you are seeing consistent spam email in your holding pen, you
+should also consider implementing (or increasing) the anti-spam measures
+running in your 
+<a href="{{ site.baseurl }}docs/glossary/#mta" class="glossary__link">MTA</a>.
+
 ### Creating, changing and uploading public authority data
 
 There are three ways to change public authority data on your site:
