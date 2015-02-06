@@ -185,14 +185,14 @@ unused).
  The important pages
 to translate are:
 
-* [About](https://github.com/mysociety/alaveteli/blob/master/app/views/help/about.rhtml): why the website exists, why it works, etc
-* [contact](https://github.com/mysociety/alaveteli/blob/master/app/views/help/contact.rhtml): how to get in touch
-* [credits](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.rhtml): who is involved in the site.  Importantly, includes a section on how users can help the project.
-* [officers](https://github.com/mysociety/alaveteli/blob/master/app/views/help/officers.rhtml): information for the officers who deal with FOI at authorities.  They get a link to this page in emails that the site sends them.
-* [privacy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/privacy.rhtml): privacy policy, plus information making it clear that requests are going to appear on the internet.  Let users know if they are allowed to use pseudonyms in your jurisdiction.
-* [requesting](https://github.com/mysociety/alaveteli/blob/master/app/views/help/requesting.rhtml): the main help page about making requests.  How it works, how to decide who to write to, what they can expect in terms of responses, how to make appeals, etc.
-* [unhappy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.rhtml): users are taken to this page after a request that has been somehow unsuccessful (e.g. the request has been refused, or the authority is insisting on a postal request).  The page should encourage them to keep going, e.g. by starting a new request or addressing it to a different body.
-* [why email](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_why_they_should_reply_by_email.rhtml): a snippet of information that explains why users should insist on replies by email.  This is displayed next to requests that have "gone postal".
+* [About](https://github.com/mysociety/alaveteli/blob/master/app/views/help/about.html.erb): why the website exists, why it works, etc
+* [contact](https://github.com/mysociety/alaveteli/blob/master/app/views/help/contact.html.erb): how to get in touch
+* [credits](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.html.erb): who is involved in the site.  Importantly, includes a section on how users can help the project.
+* [officers](https://github.com/mysociety/alaveteli/blob/master/app/views/help/officers.html.erb): information for the officers who deal with FOI at authorities.  They get a link to this page in emails that the site sends them.
+* [privacy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/privacy.html.erb): privacy policy, plus information making it clear that requests are going to appear on the internet.  Let users know if they are allowed to use pseudonyms in your jurisdiction.
+* [requesting](https://github.com/mysociety/alaveteli/blob/master/app/views/help/requesting.html.erb): the main help page about making requests.  How it works, how to decide who to write to, what they can expect in terms of responses, how to make appeals, etc.
+* [unhappy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.html.erb): users are taken to this page after a request that has been somehow unsuccessful (e.g. the request has been refused, or the authority is insisting on a postal request).  The page should encourage them to keep going, e.g. by starting a new request or addressing it to a different body.
+* [why email](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_why_they_should_reply_by_email.html.erb): a snippet of information that explains why users should insist on replies by email.  This is displayed next to requests that have "gone postal".
 
 ## Adding new pages in the navigation
 
