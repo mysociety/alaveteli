@@ -408,37 +408,50 @@ in the holding pen, and is shown instead on the public request page.
 
 Alaveteli maintains a 
 <a href="{{ site.baseurl }}docs/glossary/#spam-address-list" class="glossary__link">spam address list</a>.
-Any incoming message to an email  address on that list will be rejected and
-won't appear in the admin.
+Any incoming message to an email address on that list
+*that would otherwise be put in the holding pen* will be rejected and won't
+appear in the admin.
 
 If you see spam messages in the
 <a href="{{ site.baseurl }}docs/glossary/#holding_pen" class="glossary__link">holding pen</a>,
 check if they are being sent to a *specific* email address. If they are, that
 email address has become a "spam-target" and you should add it to the spam
 address list. Thereafter, Alaveteli will automatically reject any messages that
-come into that address.
+come to that address.
 
 An email address that is not associated with a request (that is, one whose
 messages end up in the holding pen) becomes a spam-target once it's been
-harvested by spammers. It may no longer be valid because the request to which
-it belonged has closed, or it may have been mis-spelled in a manual reply.
+harvested by spammers. There are several reasons why such an invalid address
+might exist &mdash; perhaps it was mis-spelled in a manual reply, for example.
 Our experience from running
 <a href="{{ site.baseurl }}docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>
 is that you can safely dismiss incoming email to such addresses once they have
-been targetted in this way. Legitimate emails that arrive in the holding pen
+been targeted in this way. Legitimate emails that arrive in the holding pen
 tend to be unique errors (for example, missing the last character of the email
 address due to a cut-and-paste mistake) and the nature of the lifecycle of
 requests means they don't typically get used for spam until they are
 effectively dead.
 
-You can see the spam address list (that is, all known spam-target email
-addresses) by going to the admin interface at `/admin/spam_addresses`.
+To add an email address to the spam address list you need to copy it from an
+incoming message and paste it into the spam addresss list. The easiest way to
+do this is to click on **Summary** at the top of any admin page, and then click
+on **Put misdelivered responses with the right requests** to see the contents
+of the holding pen.
 
-To add an email address, copy it from the incoming message (you may need to
-click the **View raw email** button to see the `To:` address). Go to
-`/admin/spam_addresses` (there is a link under *Actions* on the Incoming
-Message display), paste the email address into the text input field and click
-**Add spam address**.
+<div class="attention-box info">
+  If there are no messages in the holding pen, Alaveteli won't show you this
+  link. Great &mdash; there are no misdelivered responses needing your
+  attention right now!
+</div>
+
+Inside the holding pen, you'll see the list of emails awaiting attention
+&mdash; click on an email's subject line to see the whole message and its
+details. Copy the `To:` email address, then click on the **Spam Addresses**
+link under *Actions*. Paste the email address into the text input and click the
+**Add Spam Address** button.
+
+You can see the spam address list (that is, all known spam-target email
+addresses) at any time by going to the admin interface at `/admin/spam_addresses`.
 
 You can remove any address from the list by clicking the **Remove** button
 next to it. Of course, this won't restore any messages that have been 
