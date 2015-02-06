@@ -788,7 +788,7 @@ Definitions
         </li>
         <li>
           We try to coordinate releases with any active translation work too.
-          See <a href="http://localhost:4000/docs/customising/translation/">translating
+          See <a href="{{ site.baseurl }}docs/customising/translation/">translating
           Alaveteli</a> for more information.
         </li>
         <li>
