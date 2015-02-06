@@ -99,9 +99,6 @@
 
 #typeahead_response .close-button {
   float: right;
-
-.request_body {
-  @include grid-row($behavior: nest);
 }
 
 .request_body {
