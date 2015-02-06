@@ -7,13 +7,14 @@
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # vanja <vanja@gong.hr>, 2013
 # vanja <vanja@gong.hr>, 2013
+# Žana Počuča <zana.fakin@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2015-02-06 13:55+0000\n"
+"Last-Translator: Žana Počuča <zana.fakin@gmail.com>\n"
 "Language-Team: Croatian (http://www.transifex.com/projects/p/alaveteli/language/hr/)\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -687,7 +688,7 @@ msgid "Considered by administrators as vexatious and hidden from site."
 msgstr ""
 
 msgid "Contact {{recipient}}"
-msgstr ""
+msgstr "Kontakt {{recipient}}"
 
 msgid "Contact {{site_name}}"
 msgstr "Kontakt {{site_name}}"
@@ -696,7 +697,7 @@ msgid "Contains defamatory material"
 msgstr ""
 
 msgid "Contains personal information"
-msgstr ""
+msgstr "Sadrži osobne podatke"
 
 msgid "Could not identify the request from the email address"
 msgstr "Nismo mogli prepoznati zahtjev sa e-mail adrese"
@@ -720,16 +721,16 @@ msgid "Date:"
 msgstr "Datum:"
 
 msgid "Dear [Authority name],"
-msgstr ""
+msgstr "Poštovani [Authority name],"
 
 msgid "Dear {{name}},"
-msgstr ""
+msgstr "Poštovani {{name}},"
 
 msgid "Dear {{public_body_name}},"
 msgstr "Poštovani {{public_body_name}},"
 
 msgid "Dear {{user_name}},"
-msgstr ""
+msgstr "Poštovani {{user_name}},"
 
 msgid "Default locale"
 msgstr ""
@@ -756,7 +757,7 @@ msgid "Did you mean: {{correction}}"
 msgstr "Da li ste mislili: {{correction}}"
 
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
-msgstr ""
+msgstr "Izjava o odricanju odgovornosti: Ova poruka i svaki odgovor bit će objavljen na internetu. Naša politika zaštite privatnosti i autorskih prava:"
 
 msgid "Disclosure log"
 msgstr ""
@@ -765,13 +766,13 @@ msgid "Disclosure log URL"
 msgstr ""
 
 msgid "Do not fill in this field"
-msgstr ""
+msgstr "Ne popunjavajte ovo polje"
 
 msgid "Don't have a superuser account yet?"
 msgstr ""
 
 msgid "Don't want to address your message to {{person_or_body}}?  You can also write to:"
-msgstr ""
+msgstr "Ne želite poruku poslati na adresu {{person_or_body}}? Možete pisati i:"
 
 msgid "Done"
 msgstr "Završeno"

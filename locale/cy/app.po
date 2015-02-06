@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2015-01-06 14:10+0000\n"
+"PO-Revision-Date: 2015-02-02 13:00+0000\n"
 "Last-Translator: Huw Waters <huwwaters@gmail.com>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
@@ -1944,16 +1944,16 @@ msgid "Public body"
 msgstr "Corff cyhoeddus"
 
 msgid "Public body category"
-msgstr ""
+msgstr "Categori corff cyhoeddus"
 
 msgid "Public body category link"
-msgstr ""
+msgstr "Dolen categori corff cyhoeddus"
 
 msgid "Public body change request"
 msgstr "Cais am newid y corff cyhoeddus"
 
 msgid "Public body heading"
-msgstr ""
+msgstr "Pennawd corff cyhoeddus"
 
 msgid "Public notes"
 msgstr "Nodiadau cyhoeddus"
@@ -1965,16 +1965,16 @@ msgid "Public page not available"
 msgstr "Tudalen gyhoeddus ddim ar gael"
 
 msgid "PublicBodyCategoryLink|Category display order"
-msgstr ""
+msgstr "DolenCategoriCorffCyhoeddus|Trefn dangos categori"
 
 msgid "PublicBodyCategory|Category tag"
-msgstr ""
+msgstr "CategoriCorffCyhoeddus|Tag categori"
 
 msgid "PublicBodyCategory|Description"
-msgstr ""
+msgstr "CategoriCorffCyhoeddus|Disgrifiad"
 
 msgid "PublicBodyCategory|Title"
-msgstr ""
+msgstr "CategoriCorffCyhoeddus|Teitl"
 
 msgid "PublicBodyChangeRequest|Is open"
 msgstr "PublicBodyChangeRequest | Yn agored"
@@ -1998,10 +1998,10 @@ msgid "PublicBodyChangeRequest|User name"
 msgstr "PublicBodyChangeRequest |Enw Defnyddiwr"
 
 msgid "PublicBodyHeading|Display order"
-msgstr ""
+msgstr "PennawdCorffCyhoeddus|Trefn dangos"
 
 msgid "PublicBodyHeading|Name"
-msgstr ""
+msgstr "PennawdCorffCyhoeddus|Enw"
 
 msgid "PublicBody|Api key"
 msgstr "PublicBody|Allwedd api"
