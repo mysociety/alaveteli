@@ -1,10 +1,10 @@
 <% if @incoming_message.nil? || !@incoming_message.valid_to_reply_to? %>
-    <% @title = _("Unable to send follow up message to {{username}}",:username=>OutgoingMailer.name_for_followup(@info_request, nil)) %>
+    <% @title = _("Unable to send follow up message to {{username}}", :username => OutgoingMailer.name_for_followup(@info_request, nil)) %>
 <% else %>
-    <% @title = _("Unable to send a reply to {{username}}",:username=>OutgoingMailer.name_for_followup(@info_request, @incoming_message)) %>
+    <% @title = _("Unable to send a reply to {{username}}", :username => OutgoingMailer.name_for_followup(@info_request, @incoming_message)) %>
 <% end %>
 
-<h1><%=@title%></h1>
+<h1><%= @title %></h1>
 
 <% if @reason == 'not_apply' %>
     <!-- we should never get here, but just in case give a sensible message -->
@@ -21,7 +21,7 @@
     an email which will go to the right place, please <a href="{{url}}">send it to us</a>.', :url => help_contact_path.html_safe) %>
     </p>
 <% elsif @reason == 'bad_contact' %>
-    <p><%= _('We do not have a working {{law_used_full}} address for {{public_body_name}}.',:law_used_full=>h(@info_request.law_used_full),:public_body_name=>h(@info_request.public_body.name)) %> <%= _('You may be able to find
+    <p><%= _('We do not have a working {{law_used_full}} address for {{public_body_name}}.', :law_used_full => h(@info_request.law_used_full), :public_body_name => h(@info_request.public_body.name)) %> <%= _('You may be able to find
     one on their website, or by phoning them up and asking. If you manage
     to find one, then please <a href="{{url}}">send it to us</a>.', :url => help_contact_path.html_safe) %>
     </p>
