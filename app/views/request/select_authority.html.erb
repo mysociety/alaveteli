@@ -18,7 +18,7 @@
   <%= form_tag select_authority_path, { :id => 'search_form', :method => 'get' } do %>
     <div>
       <p>
-        <%= _(%Q(First, type in the <strong>name of the UK public authority</strong> you'd
+        <%= _(%Q(First, type in the <strong>name of the public authority</strong> you'd
         like information from.)) %>
         <% if AlaveteliConfiguration.authority_must_respond %>
             <%= _(%Q(<strong>By law, they have to respond</strong> (<a href="{{url}}">why?</a>).),
