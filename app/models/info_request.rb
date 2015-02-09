@@ -748,7 +748,6 @@ public
     # This is a long stop - even with UK public interest test extensions, 40
     # days is a very long time.
     def date_very_overdue_after
-        last_sent = last_event_forming_initial_request
         if self.public_body.is_school?
             # schools have 60 working days maximum (even over a long holiday)
             Holiday.due_date_from(self.date_initial_request_last_sent_at, AlaveteliConfiguration::special_reply_very_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
