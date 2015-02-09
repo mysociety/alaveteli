@@ -21,12 +21,12 @@
     an email which will go to the right place, please <a href="{{url}}">send it to us</a>.', :url => help_contact_path.html_safe) %>
     </p>
 <% elsif @reason == 'bad_contact' %>
-    <p><%= _('We do not have a working {{law_used_full}} address for {{public_body_name}}.', :law_used_full => h(@info_request.law_used_full), :public_body_name => h(@info_request.public_body.name)) %> <%= _('You may be able to find
+    <p><%= _('We do not have a working {{law_used_full}} address for {{public_body_name}}.', :law_used_full => @info_request.law_used_full, :public_body_name => @info_request.public_body.name) %> <%= _('You may be able to find
     one on their website, or by phoning them up and asking. If you manage
     to find one, then please <a href="{{url}}">send it to us</a>.', :url => help_contact_path.html_safe) %>
     </p>
 <% elsif @reason == 'external' %>
-    <p><%= _("Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf.", :public_body_name => h(@info_request.public_body.name)) %>
+    <p><%= _("Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf.", :public_body_name => @info_request.public_body.name) %>
     </p>
 <% else %>
     <% raise _("unknown reason ") + @reason %>
