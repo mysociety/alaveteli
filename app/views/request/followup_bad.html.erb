@@ -8,17 +8,17 @@
 
 <% if @reason == 'not_apply' %>
     <!-- we should never get here, but just in case give a sensible message -->
-    <p><%= _('Freedom of Information law no longer applies to') %> <%=h @info_request.public_body.name %>.
+    <p><%= _('Freedom of Information law no longer applies to {{public_body_name}}.', :public_body_name => @info_request.public_body.name) %>
     <%= _('From the request page, try replying to a particular message, rather than sending
     a general followup. If you need to make a general followup, and know
     an email which will go to the right place, please <a href="{{url}}">send it to us</a>.', :url => help_contact_path.html_safe) %>
     </p>
 <% elsif @reason == 'defunct' %>
     <!-- we should never get here, but just in case give a sensible message -->
-    <p><%=h @info_request.public_body.name %> <%= _('no longer exists. If you are trying to make
+    <p><%= _('{{public_body_name}} no longer exists. If you are trying to make
     From the request page, try replying to a particular message, rather than sending
     a general followup. If you need to make a general followup, and know
-    an email which will go to the right place, please <a href="{{url}}">send it to us</a>.', :url => help_contact_path.html_safe) %>
+    an email which will go to the right place, please <a href="{{url}}">send it to us</a>.', :url => help_contact_path.html_safe, :public_body_name => @info_request.public_body.name) %>
     </p>
 <% elsif @reason == 'bad_contact' %>
     <p><%= _('We do not have a working {{law_used_full}} address for {{public_body_name}}.', :law_used_full => @info_request.law_used_full, :public_body_name => @info_request.public_body.name) %> <%= _('You may be able to find
