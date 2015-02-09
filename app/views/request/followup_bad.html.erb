@@ -15,8 +15,7 @@
     </p>
 <% elsif @reason == 'defunct' %>
     <!-- we should never get here, but just in case give a sensible message -->
-    <p><%= _('{{public_body_name}} no longer exists. If you are trying to make
-    From the request page, try replying to a particular message, rather than sending
+    <p><%= _('{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending
     a general followup. If you need to make a general followup, and know
     an email which will go to the right place, please <a href="{{url}}">send it to us</a>.', :url => help_contact_path.html_safe, :public_body_name => @info_request.public_body.name) %>
     </p>
