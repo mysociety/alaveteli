@@ -187,11 +187,9 @@ class InfoRequest < ActiveRecord::Base
 
     @@custom_states_loaded = false
     begin
-        if !Rails.env.test?
-            require 'customstates'
-            include InfoRequestCustomStates
-            @@custom_states_loaded = true
-        end
+        require 'customstates'
+        include InfoRequestCustomStates
+        @@custom_states_loaded = true
     rescue MissingSourceFile, NameError
     end
 

@@ -16,11 +16,9 @@ class RequestController < ApplicationController
 
     @@custom_states_loaded = false
     begin
-        if !Rails.env.test?
-            require 'customstates'
-            include RequestControllerCustomStates
-            @@custom_states_loaded = true
-        end
+        require 'customstates'
+        include RequestControllerCustomStates
+        @@custom_states_loaded = true
     rescue MissingSourceFile, NameError
     end
 
