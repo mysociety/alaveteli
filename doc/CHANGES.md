@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Added a new `AUTHORITY_MUST_RESPOND` configuration variable. Set this to
+  `true` If authorities must respond by law. Set to `false` otherwise. It
+  defaults to `true`. At the moment this just tweaks some UI text.
 * State changing admin actions are now restricted to PUT or POST methods
   to protect against CSRF attacks, and now use more standard RESTful
   routing.

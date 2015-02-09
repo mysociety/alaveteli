@@ -154,6 +154,11 @@ USE_DEFAULT_BROWSER_LANGUAGE: true
 # ---
 INCLUDE_DEFAULT_LOCALE_IN_URLS: true
 
+# Are authorities required to respond by law?
+#
+# AUTHORITY_MUST_RESPOND: Boolean (default: true)
+AUTHORITY_MUST_RESPOND: true
+
 # The REPLY...AFTER_DAYS settings define how many days must have passed before
 # an answer to a request is officially late. The SPECIAL case is for some types
 # of authority (for example: in the UK, schools) which are granted a bit longer
