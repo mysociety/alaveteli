@@ -39,9 +39,14 @@ end
 
 describe AdminPublicBodyController, 'when showing the form for a new public body' do
 
+    it 'responds successfully' do
+        get :new
+        expect(response).to be_success
+    end
+
     it 'should assign a new public body to the view' do
         get :new
-        assigns[:public_body].should be_a(PublicBody)
+        expect(assigns(:public_body)).to be_new_record
     end
 
     it "builds new translations for all locales" do
@@ -51,6 +56,11 @@ describe AdminPublicBodyController, 'when showing the form for a new public body
         available = I18n.available_locales.map{ |l| l.to_s }.sort
 
         expect(translations).to eq(available)
+    end
+
+    it 'renders the new template' do
+        get :new
+        expect(response).to render_template('new')
     end
 
     context 'when passed a change request id as a param' do
@@ -76,51 +86,127 @@ end
 describe AdminPublicBodyController, "when creating a public body" do
     render_views
 
-    it "creates a new public body in one locale" do
-        n = PublicBody.count
-        post :create, { :public_body => { :name => "New Quango",
-                                          :short_name => "",
-                                          :tag_string => "blah",
-                                          :request_email => 'newquango@localhost',
-                                          :last_edit_comment => 'From test code' } }
-        PublicBody.count.should == n + 1
+    context 'on success' do
 
-        body = PublicBody.find_by_name("New Quango")
-        response.should redirect_to(:controller=>'admin_public_body', :action=>'show', :id=>body.id)
+        before(:each) do
+          @params = { :public_body => { :name => 'New Quango',
+                                        :short_name => 'nq',
+                                        :request_email => 'newquango@localhost',
+                                        :tag_string => 'spec',
+                                        :last_edit_comment => 'From test code' } }
+        end
+
+        it 'creates a new body in the default locale' do
+            # FIXME: Can't call PublicBody.destroy_all because database
+            # database contstraints prevent them being deleted.
+            existing = PublicBody.count
+            expected = existing + 1
+            expect {
+              post :create, @params
+            }.to change{ PublicBody.count }.from(existing).to(expected)
+        end
+
+        it 'notifies the admin that the body was created' do
+            post :create, @params
+            expect(flash[:notice]).to eq('PublicBody was successfully created.')
+        end
+
+        it 'redirects to the admin page of the body' do
+            post :create, @params
+            expect(response).to redirect_to(admin_body_show_path(assigns(:public_body)))
+        end
+
     end
 
-    it "creates a new public body with multiple locales" do
-        n = PublicBody.count
-        post :create, {
-            :public_body => { :name => "New Quango",
-                              :short_name => "",
-                              :tag_string => "blah",
-                              :request_email => 'newquango@localhost',
-                              :last_edit_comment => 'From test code',
-                              :translations_attributes => {
-                                  'es' => { :locale => "es",
-                                            :name => "Mi Nuevo Quango",
-                                            :short_name => "",
-                                            :request_email => 'newquango@localhost' }
-                              }
-            }
-        }
-        PublicBody.count.should == n + 1
+    context 'on success for multiple locales' do
 
-        body = PublicBody.find_by_name("New Quango")
-        body.translations.map {|t| t.locale.to_s}.sort.should == ["en", "es"]
-        I18n.with_locale(:en) do
-            body.name.should == "New Quango"
-            body.url_name.should == "new_quango"
-            body.first_letter.should == "N"
-        end
-        I18n.with_locale(:es) do
-            body.name.should == "Mi Nuevo Quango"
-            body.url_name.should == "mi_nuevo_quango"
-            body.first_letter.should == "M"
+        before(:each) do
+          @params = { :public_body => { :name => 'New Quango',
+                                        :short_name => 'nq',
+                                        :request_email => 'newquango@localhost',
+                                        :tag_string => 'spec',
+                                        :last_edit_comment => 'From test code',
+                                        :translations_attributes => {
+                                          'es' => { :locale => 'es',
+                                                    :name => 'Los Quango' }
+                                        } } }
         end
 
-        response.should redirect_to(:controller=>'admin_public_body', :action=>'show', :id=>body.id)
+        it 'saves the body' do
+          # FIXME: Can't call PublicBody.destroy_all because database
+          # database contstraints prevent them being deleted.
+          existing = PublicBody.count
+          expected = existing + 1
+            expect {
+              post :create, @params
+            }.to change{ PublicBody.count }.from(existing).to(expected)
+        end
+
+        it 'saves the default locale translation' do
+            post :create, @params
+
+            body = PublicBody.find_by_name('New Quango')
+
+            I18n.with_locale(:en) do
+                expect(body.name).to eq('New Quango')
+            end
+        end
+
+        it 'saves the alternative locale translation' do
+            post :create, @params
+
+            body = PublicBody.find_by_name('New Quango')
+
+            I18n.with_locale(:es) do
+                expect(body.name).to eq('Los Quango')
+            end
+        end
+
+    end
+
+    context 'on failure' do
+
+        it 'renders the form if creating the record was unsuccessful' do
+            post :create, :public_body => { :name => '',
+                                            :translations_attributes => {} }
+            expect(response).to render_template('new')
+        end
+
+        it 'is rebuilt with the given params' do
+            post :create, :public_body => { :name => '',
+                                            :request_email => 'newquango@localhost',
+                                            :translations_attributes => {} }
+            expect(assigns(:public_body).request_email).to eq('newquango@localhost')
+        end
+
+    end
+
+    context 'on failure for multiple locales' do
+
+        before(:each) do
+            @params = { :public_body => { :name => '',
+                                          :request_email => 'newquango@localhost',
+                                          :translations_attributes => {
+                                            'es' => { :locale => 'es',
+                                                      :name => 'Los Quango' }
+                                          } } }
+        end
+        
+        it 'is rebuilt with the default locale translation' do
+            post :create, @params
+            expect(assigns(:public_body)).to_not be_persisted
+            expect(assigns(:public_body).request_email).to eq('newquango@localhost')
+        end
+
+        it 'is rebuilt with the alternative locale translation' do
+            post :create, @params
+
+            expect(assigns(:public_body)).to_not be_persisted
+            I18n.with_locale(:es) do
+                expect(assigns(:public_body).name).to eq('Los Quango')
+            end
+        end
+
     end
 
     context 'when the body is being created as a result of a change request' do
@@ -157,10 +243,34 @@ end
 describe AdminPublicBodyController, "when editing a public body" do
     render_views
 
-    it "edits a public body" do
-        get :edit, :id => 2
+    before do
+        @body = FactoryGirl.create(:public_body)
+        I18n.with_locale('es') do
+            @body.name = 'Los Body'
+            @body.save!
+        end
     end
 
+    it 'responds successfully' do
+        get :edit, :id => @body.id
+        expect(response).to be_success
+    end
+
+    it 'finds the requested body' do
+        get :edit, :id => @body.id
+        expect(assigns[:public_body]).to eq(@body)
+    end
+
+    it 'builds new translations if the body does not already have a translation in the specified locale' do
+        get :edit, :id => @body.id
+        expect(assigns[:public_body].translations.map(&:locale)).to include(:fr)
+    end
+
+    it 'renders the edit template' do
+        get :edit, :id => @body.id
+        expect(response).to render_template('edit')
+    end
+  
     it "edits a public body in another locale" do
         get :edit, {:id => 3, :locale => :en}
 
@@ -168,12 +278,6 @@ describe AdminPublicBodyController, "when editing a public body" do
         assigns[:public_body].find_translation_by_locale("es").name.should == 'El Department for Humpadinking'
         assigns[:public_body].name.should == 'Department for Humpadinking'
         response.should render_template('edit')
-    end
-
-    it "builds new translations if the body does not already have a translation in the specified locale" do
-        public_body = FactoryGirl.create(:public_body)
-        get :edit, :id => public_body.id
-        expect(assigns[:public_body].translations.map(&:locale)).to include(:fr)
     end
 
     context 'when passed a change request id as a param' do
@@ -201,159 +305,200 @@ end
 describe AdminPublicBodyController, "when updating a public body" do
     render_views
 
-    it "saves edits to a public body" do
-        public_bodies(:humpadink_public_body).name.should == "Department for Humpadinking"
-        post :update, { :id => 3, :public_body => { :name => "Renamed",
-                                                    :short_name => "",
-                                                    :tag_string => "some tags",
-                                                    :request_email => 'edited@localhost',
-                                                    :last_edit_comment => 'From test code' } }
-        request.flash[:notice].should include('successful')
-        pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
-        pb.name.should == "Renamed"
+    before do
+        @body = FactoryGirl.create(:public_body)
+        I18n.with_locale('es') do
+            @body.name = 'Los Quango'
+            @body.save!
+        end
+
+        @params = { :id => @body.id,
+                    :public_body => { :name => 'Renamed',
+                                      :short_name => @body.short_name,
+                                      :request_email => @body.request_email,
+                                      :tag_string => @body.tag_string,
+                                      :last_edit_comment => 'From test code',
+                                      :translations_attributes => {
+                                        'es' => { :id => @body.translation_for(:es).id,
+                                                  :locale => 'es',
+                                                  :title => @body.name(:es) }
+                                      } } }
     end
 
-    it 'adds a new translation' do
-        pb = public_bodies(:humpadink_public_body)
-        pb.translation_for(:es).destroy
-        pb.reload
-
-        post :update, {
-            :id => pb.id,
-            :public_body => {
-                :name => "Department for Humpadinking",
-                :short_name => "",
-                :tag_string => "some tags",
-                :request_email => 'edited@localhost',
-                :last_edit_comment => 'From test code',
-                :translations_attributes => {
-                    'es' => { :locale => "es",
-                              :name => "El Department for Humpadinking",
-                              :short_name => "",
-                              :request_email => 'edited@localhost' }
-                }
-            }
-        }
-
-        request.flash[:notice].should include('successful')
-
-        pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
-
-        I18n.with_locale(:es) do
-           expect(pb.name).to eq('El Department for Humpadinking')
-        end
+    it 'finds the heading to update' do
+        post :update, @params
+        expect(assigns(:heading)).to eq(@heading)
     end
 
-    it 'adds new translations' do
-        pb = public_bodies(:humpadink_public_body)
-        pb.translation_for(:es).destroy
-        pb.reload
+    context 'on success' do
 
-        post :update, {
-            :id => pb.id,
-            :public_body => {
-                :name => "Department for Humpadinking",
-                :short_name => "",
-                :tag_string => "some tags",
-                :request_email => 'edited@localhost',
-                :last_edit_comment => 'From test code',
-                :translations_attributes => {
-                    'es' => { :locale => "es",
-                              :name => "El Department for Humpadinking",
-                              :short_name => "",
-                              :request_email => 'edited@localhost' },
-                    'fr' => { :locale => "fr",
-                              :name => "Le Department for Humpadinking",
-                              :short_name => "",
-                              :request_email => 'edited@localhost' }
-                }
-            }
-        }
-
-        request.flash[:notice].should include('successful')
-
-        pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
-
-        I18n.with_locale(:es) do
-           expect(pb.name).to eq('El Department for Humpadinking')
+        it 'saves edits to a public body heading' do
+            post :update, @params
+            body = PublicBody.find(@body.id)
+            expect(body.name).to eq('Renamed')
         end
 
-        I18n.with_locale(:fr) do
-           expect(pb.name).to eq('Le Department for Humpadinking')
-        end
-    end
-
-    it 'updates an existing translation and adds a third translation' do
-        pb = public_bodies(:humpadink_public_body)
-
-        put :update, {
-            :id => pb.id,
-            :public_body => {
-                :name => "Department for Humpadinking",
-                :short_name => "",
-                :tag_string => "some tags",
-                :request_email => 'edited@localhost',
-                :last_edit_comment => 'From test code',
-                :translations_attributes => {
-                    # Update existing translation
-                    'es' => { :locale => "es",
-                              :name => "Renamed Department for Humpadinking",
-                              :short_name => "",
-                              :request_email => 'edited@localhost' },
-                    # Add new translation
-                    'fr' => { :locale => "fr",
-                              :name => "Le Department for Humpadinking",
-                              :short_name => "",
-                              :request_email => 'edited@localhost' }
-                }
-            }
-        }
-
-        request.flash[:notice].should include('successful')
-
-        pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
-
-        I18n.with_locale(:es) do
-           expect(pb.name).to eq('Renamed Department for Humpadinking')
+        it 'notifies the admin that the body was updated' do
+            post :update, @params
+            expect(flash[:notice]).to eq('PublicBody was successfully updated.')
         end
 
-        I18n.with_locale(:fr) do
-           expect(pb.name).to eq('Le Department for Humpadinking')
+        it 'redirects to the admin body page' do
+            post :update, @params
+            expect(response).to redirect_to(admin_body_show_path(@body))
         end
 
     end
 
-    it "saves edits to a public body in another locale" do
-        I18n.with_locale(:es) do
-            pb = PublicBody.find(id=3)
-            pb.name.should == "El Department for Humpadinking"
-            post :update, {
-                :id => 3,
-                :public_body => {
-                    :name => "Department for Humpadinking",
-                    :short_name => "",
-                    :tag_string => "some tags",
-                    :request_email => 'edited@localhost',
-                    :last_edit_comment => 'From test code',
-                    :translations_attributes => {
-                        'es' => { :locale => "es",
-                                  :name => "Renamed",
-                                  :short_name => "",
-                                  :request_email => 'edited@localhost' }
-                        }
-                    }
-                }
-            request.flash[:notice].should include('successful')
+    context 'on success for multiple locales' do
+
+        it 'saves edits to a public body heading in another locale' do
+            @body.name(:es).should == 'Los Quango'
+            post :update, :id => @body.id,
+                          :public_body => {
+                              :name => @body.name(:en),
+                              :translations_attributes => {
+                                'es' => { :id => @body.translation_for(:es).id,
+                                          :locale => 'es',
+                                          :name => 'Renamed' }
+                              }
+                          }
+
+            body = PublicBody.find(@body.id)
+            expect(body.name(:es)).to eq('Renamed')
+            expect(body.name(:en)).to eq(@body.name(:en))
         end
 
-        pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
+        it 'adds a new translation' do
+             @body.translation_for(:es).destroy
+             @body.reload
 
-        I18n.with_locale(:es) do
-           expect(pb.name).to eq('Renamed')
+             put :update, {
+                 :id => @body.id,
+                 :public_body => {
+                     :name => @body.name(:en),
+                     :translations_attributes => {
+                         'es' => { :locale => "es",
+                                   :name => "Example Public Body ES" }
+                     }
+                 }
+             }
+
+             request.flash[:notice].should include('successful')
+
+             body = PublicBody.find(@body.id)
+
+             I18n.with_locale(:es) do
+                expect(body.name).to eq('Example Public Body ES')
+             end
+         end
+
+         it 'adds new translations' do
+             @body.translation_for(:es).destroy
+             @body.reload
+
+             post :update, {
+                 :id => @body.id,
+                 :public_body => {
+                     :name => @body.name(:en),
+                     :translations_attributes => {
+                         'es' => { :locale => "es",
+                                   :name => "Example Public Body ES" },
+                         'fr' => { :locale => "fr",
+                                   :name => "Example Public Body FR" }
+                     }
+                 }
+             }
+
+             request.flash[:notice].should include('successful')
+
+             body = PublicBody.find(@body.id)
+
+             I18n.with_locale(:es) do
+                expect(body.name).to eq('Example Public Body ES')
+             end
+             I18n.with_locale(:fr) do
+                expect(body.name).to eq('Example Public Body FR')
+             end
+         end
+
+         it 'updates an existing translation and adds a third translation' do
+             post :update, {
+                 :id => @body.id,
+                 :public_body => {
+                     :name => @body.name(:en),
+                     :translations_attributes => {
+                         # Update existing translation
+                         'es' => { :id => @body.translation_for(:es).id,
+                                   :locale => "es",
+                                   :name => "Renamed Example Public Body ES" },
+                         # Add new translation
+                         'fr' => { :locale => "fr",
+                                   :name => "Example Public Body FR" }
+                     }
+                 }
+             }
+
+             request.flash[:notice].should include('successful')
+
+             body = PublicBody.find(@body.id)
+
+             I18n.with_locale(:es) do
+                expect(body.name).to eq('Renamed Example Public Body ES')
+             end
+             I18n.with_locale(:fr) do
+                expect(body.name).to eq('Example Public Body FR')
+             end
+         end
+
+    end
+
+    context 'on failure' do
+
+        it 'renders the form if creating the record was unsuccessful' do
+            post :update, :id => @body.id,
+                          :public_body => {
+                            :name => '',
+                            :translations_attributes => {}
+                          }
+            expect(response).to render_template('edit')
         end
 
-        I18n.with_locale(:en) do
-           expect(pb.name).to eq('Department for Humpadinking')
+        it 'is rebuilt with the given params' do
+            post :update, :id => @body.id,
+                          :public_body => {
+                            :name => '',
+                            :request_email => 'updated@localhost',
+                            :translations_attributes => {}
+                          }
+            expect(assigns(:public_body).request_email).to eq('updated@localhost')
+        end
+
+    end
+
+    context 'on failure for multiple locales' do
+
+        before(:each) do
+            @params = { :id => @body.id,
+                        :public_body => { :name => '',
+                                          :translations_attributes => {
+                                            'es' => { :id => @body.translation_for(:es).id,
+                                                      :locale => 'es',
+                                                      :name => 'Mi Nuevo Body' }
+                                          } } }
+        end
+
+        it 'is rebuilt with the default locale translation' do
+            post :update, @params
+            expect(assigns(:public_body).name(:en)).to eq('')
+        end
+
+        it 'is rebuilt with the alternative locale translation' do
+            post :update, @params
+
+            I18n.with_locale(:es) do
+                expect(assigns(:public_body).name).to eq('Mi Nuevo Body')
+            end
         end
 
     end
