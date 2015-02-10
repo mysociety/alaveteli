@@ -57,7 +57,9 @@ class AdminPublicBodyHeadingsController < AdminController
                 redirect_to admin_categories_url
             else
                 I18n.available_locales.each do |locale|
-                    translation_params = params[:public_body_heading][:translations_attributes].fetch(locale, nil)
+                    translation_params = params[:public_body_heading].
+                      fetch(:translations_attributes, {}).
+                        fetch(locale, nil)
                     if translation_params
                       @heading.translations.build(translation_params)
                     else
