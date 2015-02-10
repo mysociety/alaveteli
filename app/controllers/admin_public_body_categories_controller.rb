@@ -57,6 +57,9 @@ class AdminPublicBodyCategoriesController < AdminController
                     flash[:notice] = 'Category was successfully updated.'
                     redirect_to edit_admin_category_path(@category)
                 else
+                    I18n.available_locales.each do |locale|
+                        @category.translations.find_or_initialize_by_locale(locale)
+                    end
                     render :action => 'edit'
                 end
             end
@@ -66,6 +69,7 @@ class AdminPublicBodyCategoriesController < AdminController
     def create
         I18n.with_locale(I18n.default_locale) do
             @category = PublicBodyCategory.new(params[:public_body_category])
+
             if @category.save
                 if params[:headings]
                     params[:headings].values.each do |heading_id|
@@ -75,6 +79,14 @@ class AdminPublicBodyCategoriesController < AdminController
                 flash[:notice] = 'Category was successfully created.'
                 redirect_to admin_categories_path
             else
+                I18n.available_locales.each do |locale|
+                    translation_params = params[:public_body_category][:translations_attributes].fetch(locale, nil)
+                    if translation_params
+                      @category.translations.build(translation_params)
+                    else
+                      @category.translations.build(:locale => locale)
+                    end
+                end
                 render :action => 'new'
             end
         end
