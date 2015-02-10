@@ -367,6 +367,12 @@ message under the title *Things to do*:
 Click on that message &mdash; you'll see a list of all the messages that need
 your attention. Click on any one of them to see the details.
 
+<div class="attention-box helpful-hint">
+  If the message does not belong to any request, you can delete it instead.
+  Simply click on the <strong>Destroy Message</strong> button instead of
+  redelivering it.
+</div>
+
 When you inspect a message, you may see a guess made by Alaveteli as to which
 request the message belongs to. Check this request. If the guess is right
 &mdash; the incoming email really is a response to that request &mdash; 
@@ -403,6 +409,7 @@ another request** button.
 
 The message will now be associated with the correct request. It is no longer
 in the holding pen, and is shown instead on the public request page.
+
 
 ### Rejecting spam that arrives in the holding pen
 
