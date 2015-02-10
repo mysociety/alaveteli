@@ -80,7 +80,9 @@ class AdminPublicBodyCategoriesController < AdminController
                 redirect_to admin_categories_path
             else
                 I18n.available_locales.each do |locale|
-                    translation_params = params[:public_body_category][:translations_attributes].fetch(locale, nil)
+                    translation_params = params[:public_body_category].
+                      fetch(:translations_attributes, {}).
+                        fetch(locale, nil)
                     if translation_params
                       @category.translations.build(translation_params)
                     else
