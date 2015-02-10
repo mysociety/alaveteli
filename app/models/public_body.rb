@@ -64,7 +64,7 @@ class PublicBody < ActiveRecord::Base
     }
 
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
-    accepts_nested_attributes_for :translations
+    accepts_nested_attributes_for :translations, :reject_if => :empty_translation_in_params?
 
     # Default fields available for importing from CSV, in the format
     # [field_name, 'short description of field (basic html allowed)']
@@ -152,33 +152,15 @@ class PublicBody < ActiveRecord::Base
         translations
     end
 
-    def translations_attributes=(translation_attrs)
-        def empty_translation?(attrs)
-            attrs_with_values = attrs.select{ |key, value| value != '' and key.to_s != 'locale' }
-            attrs_with_values.empty?
-        end
-        if translation_attrs.respond_to? :each_value    # Hash => updating
-            translation_attrs.each_value do |attrs|
-                next if empty_translation?(attrs)
-                t = translation_for(attrs[:locale]) || PublicBody::Translation.new
-                t.attributes = attrs
-                calculate_cached_fields(t)
-                t.save!
-            end
-        else                                            # Array => creating
-            warn "[DEPRECATION] PublicBody#translations_attributes= " \
-                 "will no longer accept an Array as of release 0.22. " \
-                 "Use Hash arguments instead. See " \
-                 "spec/models/public_body_spec.rb and " \
-                 "app/views/admin_public_body/_form.html.erb for more " \
-                 "details."
+    def ordered_translations
+        translations.
+          select { |t| I18n.available_locales.include?(t.locale) }.
+            sort_by { |t| I18n.available_locales.index(t.locale) }
+    end
 
-            translation_attrs.each do |attrs|
-                next if empty_translation?(attrs)
-                new_translation = PublicBody::Translation.new(attrs)
-                calculate_cached_fields(new_translation)
-                translations << new_translation
-            end
+    def build_all_translations
+        I18n.available_locales.each do |locale|
+            translations.build(:locale => locale) unless translations.detect{ |t| t.locale == locale }
         end
     end
 
@@ -789,6 +771,13 @@ class PublicBody < ActiveRecord::Base
       else
           send(name)
       end
+    end
+
+    def empty_translation_in_params?(attributes)
+        attrs_with_values = attributes.select do |key, value|
+            value != '' and key.to_s != 'locale'
+        end
+        attrs_with_values.empty?
     end
 
     def request_email_if_requestable
