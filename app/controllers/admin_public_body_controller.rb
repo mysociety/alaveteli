@@ -118,6 +118,14 @@ class AdminPublicBodyController < AdminController
                 flash[:notice] = 'PublicBody was successfully created.'
                 redirect_to admin_body_show_url(@public_body)
             else
+                I18n.available_locales.each do |locale|
+                    translation_params = params[:public_body][:translations_attributes].fetch(locale, nil)
+                    if translation_params
+                      @public_body.translations.build(translation_params)
+                    else
+                      @public_body.translations.build(:locale => locale)
+                    end
+                end
                 render :action => 'new'
             end
         end
@@ -159,6 +167,9 @@ class AdminPublicBodyController < AdminController
                 flash[:notice] = 'PublicBody was successfully updated.'
                 redirect_to admin_body_show_url(@public_body)
             else
+                I18n.available_locales.each do |locale|
+                    @public_body.translations.find_or_initialize_by_locale(locale)
+                end
                 render :action => 'edit'
             end
         end
