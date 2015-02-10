@@ -446,7 +446,7 @@ describe PublicBody, " when loading CSV files" do
         PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
 
         # Import again to check the 'add' tag functionality works
-        new_tags_file = load_file_fixture('fake-authority-add-tags.rb')
+        new_tags_file = load_file_fixture('fake-authority-add-tags.csv')
         errors, notes = PublicBody.import_csv(new_tags_file, '', 'add', false, 'someadmin') # false means real run
 
         # Check tags were added successfully
@@ -465,7 +465,7 @@ describe PublicBody, " when loading CSV files" do
         PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
 
         # Import again to check the 'replace' tag functionality works
-        new_tags_file = load_file_fixture('fake-authority-add-tags.rb')
+        new_tags_file = load_file_fixture('fake-authority-add-tags.csv')
         errors, notes = PublicBody.import_csv(new_tags_file, 'fake', 'replace', false, 'someadmin') # false means real run
 
         # Check tags were added successfully
