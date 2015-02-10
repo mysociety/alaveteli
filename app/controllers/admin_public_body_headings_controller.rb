@@ -15,6 +15,9 @@ class AdminPublicBodyHeadingsController < AdminController
                 flash[:notice] = 'Category heading was successfully updated.'
                 redirect_to edit_admin_heading_path(@heading)
             else
+                I18n.available_locales.each do |locale|
+                    @heading.translations.find_or_initialize_by_locale(locale)
+                end
                 render :action => 'edit'
             end
         end
@@ -53,6 +56,14 @@ class AdminPublicBodyHeadingsController < AdminController
                 flash[:notice] = 'Category heading was successfully created.'
                 redirect_to admin_categories_url
             else
+                I18n.available_locales.each do |locale|
+                    translation_params = params[:public_body_heading][:translations_attributes].fetch(locale, nil)
+                    if translation_params
+                      @heading.translations.build(translation_params)
+                    else
+                      @heading.translations.build(:locale => locale)
+                    end
+                end
                 render :action => 'new'
             end
         end
