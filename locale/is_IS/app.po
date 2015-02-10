@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2015-02-06 11:33+0000\n"
+"PO-Revision-Date: 2015-02-08 00:28+0000\n"
 "Last-Translator: Páll Hilmarsson <pallih@kaninka.net>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/projects/p/alaveteli/language/is_IS/)\n"
 "Language: is_IS\n"
@@ -614,55 +614,55 @@ msgid "Confirm you want to follow requests by '{{user_name}}'"
 msgstr "Staðfestu að þú viljir fylgjast með beiðnum frá '{{user_name}}'"
 
 msgid "Confirm you want to follow requests to '{{public_body_name}}'"
-msgstr ""
+msgstr "Staðfestu að þú viljir fylgjast með beiðnum til '{{public_body_name}}'"
 
 msgid "Confirm you want to follow the request '{{request_title}}'"
-msgstr ""
+msgstr "Staðfestu að þú viljir fylgjast með beiðninni '{{request_title}}'"
 
 msgid "Confirm your FOI request to {{public_body_name}}"
-msgstr ""
+msgstr "Staðfestu beiðni þína til {{public_body_name}}"
 
 msgid "Confirm your account on {{site_name}}"
-msgstr ""
+msgstr "Staðfestu reikning þinn hjá {{site_name}}"
 
 msgid "Confirm your annotation to {{info_request_title}}"
 msgstr ""
 
 msgid "Confirm your email address"
-msgstr ""
+msgstr "Staðfestu netfangið þitt"
 
 msgid "Confirm your new email address on {{site_name}}"
-msgstr ""
+msgstr "Staðfestu nýtt netfang þitt fyrir {{site_name}}"
 
 msgid "Considered by administrators as not an FOI request and hidden from site."
-msgstr ""
+msgstr "Metið af stjórnendum sem ógild upplýsingabeiðni og er falin á vefnum."
 
 msgid "Considered by administrators as vexatious and hidden from site."
 msgstr ""
 
 msgid "Contact {{recipient}}"
-msgstr ""
+msgstr "Hafa samband við {{recipient}}"
 
 msgid "Contact {{site_name}}"
-msgstr ""
+msgstr "Hafa samband við {{site_name}}"
 
 msgid "Contains defamatory material"
 msgstr ""
 
 msgid "Contains personal information"
-msgstr ""
+msgstr "Inniheldur persónulegar upplýsingar"
 
 msgid "Could not identify the request from the email address"
 msgstr ""
 
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
-msgstr ""
+msgstr "Kannast ekki við myndsniðið sem þú sendir. Við styðjum PNG, JPEG, GIF og mörg önnur algeng myndsnið."
 
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
 
 msgid "Crop your profile photo"
-msgstr ""
+msgstr "Sníddu myndina af þér"
 
 msgid "Cultural sites and built structures (as they may be affected by the\\n            environmental factors listed above)"
 msgstr ""
@@ -680,7 +680,7 @@ msgid "Dear {{name}},"
 msgstr ""
 
 msgid "Dear {{public_body_name}},"
-msgstr ""
+msgstr "Ágæta {{public_body_name}},"
 
 msgid "Dear {{user_name}},"
 msgstr ""
@@ -689,25 +689,25 @@ msgid "Default locale"
 msgstr ""
 
 msgid "Defunct."
-msgstr ""
+msgstr "Úrelt."
 
 msgid "Delayed response to your FOI request - "
 msgstr ""
 
 msgid "Delayed."
-msgstr ""
+msgstr "Seinkað."
 
 msgid "Delivery error"
 msgstr ""
 
 msgid "Destroy {{name}}"
-msgstr ""
+msgstr "Eyða {{name}}"
 
 msgid "Details of request '"
 msgstr ""
 
 msgid "Did you mean: {{correction}}"
-msgstr ""
+msgstr "Áttirðu við: {{correction}}"
 
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
 msgstr ""
@@ -719,10 +719,10 @@ msgid "Disclosure log URL"
 msgstr ""
 
 msgid "Do not fill in this field"
-msgstr ""
+msgstr "Ekki fylla út þennan reit"
 
 msgid "Don't have a superuser account yet?"
-msgstr ""
+msgstr "Ekki með stjórnenda aðgang?"
 
 msgid "Don't want to address your message to {{person_or_body}}?  You can also write to:"
 msgstr ""
@@ -734,40 +734,40 @@ msgid "Done &gt;&gt;"
 msgstr ""
 
 msgid "Download a zip file of all correspondence"
-msgstr ""
+msgstr "Sæktu zip skrá með öllum samskiptum"
 
 msgid "Download original attachment"
-msgstr ""
+msgstr "Sækja upprunalegt viðhengi"
 
 msgid "EIR"
 msgstr ""
 
 msgid "Edit"
-msgstr ""
+msgstr "Breyta"
 
 msgid "Edit and add <strong>more details</strong> to the message above,\\n                explaining why you are dissatisfied with their response."
 msgstr ""
 
 msgid "Edit text about you"
-msgstr ""
+msgstr "Breyttu textanum um þig"
 
 msgid "Edit this request"
-msgstr ""
+msgstr "Breyta þessari beiðni"
 
 msgid "Either the email or password was not recognised, please try again."
-msgstr ""
+msgstr "Annað hvort netfangið eða lykilorðið fannst ekki, vinsamlegast reyndu aftur."
 
 msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the right."
-msgstr ""
+msgstr "Annað hvort netfangið eða lykilorðið fannst ekki, vinsamlegast reyndu aftur, eða stofnaðu nýjan reikning hér til hægri."
 
 msgid "Email doesn't look like a valid address"
-msgstr ""
+msgstr "Netfangið lítur ekki út fyrir að vera gilt"
 
 msgid "Email me future updates to this request"
 msgstr ""
 
 msgid "Email:"
-msgstr ""
+msgstr "Netfang:"
 
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr ""
@@ -824,16 +824,16 @@ msgid "Failed"
 msgstr ""
 
 msgid "Failed to convert image to a PNG"
-msgstr ""
+msgstr "Gat ekki breytt mynd yfir í PNG"
 
 msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
 msgstr ""
 
 msgid "Filter"
-msgstr ""
+msgstr "Sía"
 
 msgid "Filter by Request Status (optional)"
-msgstr ""
+msgstr "Sía eftir stöðu beiðnar (valkvætt)"
 
 msgid "First, did your other requests succeed?"
 msgstr ""
@@ -970,13 +970,13 @@ msgid "Freedom of information requests to"
 msgstr ""
 
 msgid "From"
-msgstr ""
+msgstr "Frá"
 
 msgid "From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
 
 msgid "From:"
-msgstr ""
+msgstr "Frá:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr ""
@@ -1009,7 +1009,7 @@ msgid "Hello, {{username}}!"
 msgstr ""
 
 msgid "Help"
-msgstr ""
+msgstr "Hjálp"
 
 msgid "Here <strong>described</strong> means when a user selected a status for the request, and\\nthe most recent event had its status updated to that value. <strong>calculated</strong> is then inferred by\\n{{site_name}} for intermediate events, which weren't given an explicit\\ndescription by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
 msgstr ""
@@ -1021,7 +1021,7 @@ msgid "Hi! We need your help. The person who made the following request\\n    ha
 msgstr ""
 
 msgid "Hide request"
-msgstr ""
+msgstr "Fela beiðni"
 
 msgid "Holiday"
 msgstr ""
@@ -1039,7 +1039,7 @@ msgid "Home page"
 msgstr ""
 
 msgid "Home page of authority"
-msgstr ""
+msgstr "Heimasíða stjórnvalds"
 
 msgid "However, you have the right to request environmental\\n            information under a different law"
 msgstr ""
@@ -1060,13 +1060,13 @@ msgid "I don't like these ones &mdash; give me some more!"
 msgstr ""
 
 msgid "I don't want to do any more tidying now!"
-msgstr ""
+msgstr "Nenni ekki að hreinsa meira til núna!"
 
 msgid "I like this request"
-msgstr ""
+msgstr "Mér líkar þessi beiðni"
 
 msgid "I would like to <strong>withdraw this request</strong>"
-msgstr ""
+msgstr "Ég vil <strong>draga þessa beiðni til baka</strong>"
 
 msgid "I'm still <strong>waiting</strong> for my information\\n                <small>(maybe you got an acknowledgement)</small>"
 msgstr ""
@@ -1300,16 +1300,16 @@ msgid "Joined in"
 msgstr ""
 
 msgid "Joined {{site_name}} in"
-msgstr ""
+msgstr "Skráði sig á {{site_name}} "
 
 msgid "Just one more thing"
-msgstr ""
+msgstr "Eitt enn"
 
 msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 
 msgid "Keywords"
-msgstr ""
+msgstr "Lykilorð"
 
 msgid "Last authority viewed: "
 msgstr ""
@@ -1321,10 +1321,10 @@ msgid "Let us know what you were doing when this message\\nappeared and your bro
 msgstr ""
 
 msgid "Link to this"
-msgstr ""
+msgstr "Tengdu á þetta"
 
 msgid "List of all authorities (CSV)"
-msgstr ""
+msgstr "Listi yfir öll stjórnvöld (CSV)"
 
 msgid "Listing FOI requests"
 msgstr ""
@@ -1378,13 +1378,13 @@ msgid "Make a new EIR request"
 msgstr ""
 
 msgid "Make a new FOI request"
-msgstr ""
+msgstr "Sendu nýja upplýsingabeiðni"
 
 msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
 msgstr ""
 
 msgid "Make a request"
-msgstr ""
+msgstr "Útbúa upplýsingabeiðni"
 
 msgid "Make a request &raquo;"
 msgstr ""
@@ -1426,7 +1426,7 @@ msgid "More about this authority"
 msgstr ""
 
 msgid "More requests..."
-msgstr ""
+msgstr "Fleiri beiðnir..."
 
 msgid "More similar requests"
 msgstr ""
@@ -1435,7 +1435,7 @@ msgid "More successful requests..."
 msgstr ""
 
 msgid "My profile"
-msgstr ""
+msgstr "Um mig"
 
 msgid "My request has been <strong>refused</strong>"
 msgstr ""
@@ -1444,7 +1444,7 @@ msgid "My requests"
 msgstr "Mínar beiðnir"
 
 msgid "My wall"
-msgstr ""
+msgstr "Veggurinn minn"
 
 msgid "Name can't be blank"
 msgstr ""
@@ -1849,7 +1849,7 @@ msgid "Posted on {{date}} by {{author}}"
 msgstr ""
 
 msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
-msgstr ""
+msgstr "Knúið af <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 
 msgid "Prefer not to receive emails?"
 msgstr ""
@@ -2276,7 +2276,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Set your profile photo"
-msgstr ""
+msgstr "Veldu mynd af þér"
 
 msgid "Short name"
 msgstr ""
@@ -2300,13 +2300,13 @@ msgid "Sign in as the emergency user"
 msgstr ""
 
 msgid "Sign in or make a new account"
-msgstr ""
+msgstr "Skráðu þig inn eða búðu til reikning"
 
 msgid "Sign in or sign up"
 msgstr ""
 
 msgid "Sign out"
-msgstr ""
+msgstr "Útskrá"
 
 msgid "Sign up"
 msgstr ""
@@ -3110,7 +3110,7 @@ msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr ""
 
 msgid "View authorities"
-msgstr ""
+msgstr "Skoða stjórnvöld"
 
 msgid "View email"
 msgstr ""
@@ -3909,7 +3909,7 @@ msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr ""
 
 msgid "{{user_name}} sent a request to {{public_body}}"
-msgstr ""
+msgstr "{{user_name}} sendi upplýsingabeiðni til {{public_body}}"
 
 msgid "{{user_name}} would like a new authority added to {{site_name}}"
 msgstr ""
@@ -3918,7 +3918,7 @@ msgid "{{user_name}} would like the email address for {{public_body_name}} to be
 msgstr ""
 
 msgid "{{username}} left an annotation:"
-msgstr ""
+msgstr "{{username}} skildi eftir athugasemd:"
 
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr ""
