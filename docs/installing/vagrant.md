@@ -66,7 +66,7 @@ below, this is `1234`), and issue the `kill` command:
             1234
             $ kill -2 1234
 
-Alternatively, you can stop down the whole VM without deleting it with the
+Alternatively, you can shut down the whole VM without deleting it with the
 command <code>vagrant&nbsp;halt</code>
 on the host command line. To start it up again, go to step 2, above &mdash; it
 won't take so long this time, because the files are already in place.
