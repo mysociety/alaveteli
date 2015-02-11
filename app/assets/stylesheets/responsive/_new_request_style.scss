@@ -61,3 +61,32 @@
   color: #0000EE;
   font-size: 0.9em;
 }
+
+/* Request sent page */
+.request-sent-message {
+  border-bottom: 1px solid #e9e9e9;
+  font-size: 1em;
+  h1 {
+  }
+}
+
+.request-sent-message__column-1 {
+  h2 {
+    font-size: 1em;
+  }
+}
+
+.what-next {
+  background-color: #e6e8d6;
+  background-color: rgba(255,255,255, 0.4);
+  padding: 0.5em 1.5em 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.what-next__list {
+  list-style: none outside none;
+  padding-left: 0;
+  li {
+    margin-bottom: 0.5em;
+  }
+}
