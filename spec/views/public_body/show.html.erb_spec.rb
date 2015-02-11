@@ -59,38 +59,6 @@ describe "public_body/show" do
         response.should match "The search index is currently offline"
     end
 
-    it "should link to Charity Commission site if we have numbers to do so" do
-        @pb.stub!(:has_tag?).and_return(true)
-        @pb.stub!(:get_tag_values).and_return(['98765', '12345'])
-
-        render
-        response.should have_selector("div#header_right") do
-            have_selector "a", :href => /charity-commission.gov.uk.*RegisteredCharityNumber=98765$/
-        end
-        response.should have_selector("div#header_right") do
-            have_selector "a", :href => /www.charity-commission.gov.uk.*RegisteredCharityNumber=12345$/
-        end
-    end
-
-    it "should link to Scottish Charity Regulator site if we have an SC number" do
-        @pb.stub!(:has_tag?).and_return(true)
-        @pb.stub!(:get_tag_values).and_return(['SC1234'])
-
-        render
-        response.should have_selector("div#header_right") do
-            have_selector "a", :href => /www.oscr.org.uk.*id=SC1234$/
-        end
-    end
-
-
-    it "should not link to Charity Commission site if we don't have number" do
-        render
-        response.should have_selector("div#header_right") do
-            have_selector "a", :href => /charity-commission.gov.uk/
-        end
-    end
-
-
 end
 
 def mock_event
