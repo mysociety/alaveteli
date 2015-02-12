@@ -15,7 +15,7 @@ describe AttachmentToHTML::Adapters::PDF do
             adapter = AttachmentToHTML::Adapters::PDF.new(attachment, :tmpdir => '/tmp')
             adapter.tmpdir.should == '/tmp'
         end
-  
+
     end
 
     describe :title do
@@ -23,7 +23,14 @@ describe AttachmentToHTML::Adapters::PDF do
         it 'uses the attachment filename for the title' do
             adapter.title.should == attachment.display_filename
         end
- 
+
+        it 'returns the title encoded as UTF-8' do
+            if RUBY_VERSION.to_f >= 1.9
+                adapter.title.encoding.should == Encoding.find('UTF-8')
+            end
+        end
+
+
     end
 
     describe :body do
@@ -36,6 +43,12 @@ describe AttachmentToHTML::Adapters::PDF do
             adapter = AttachmentToHTML::Adapters::PDF.new(attachment, :tmpdir => '/tmp')
             Dir.should_receive(:chdir).with('/tmp').and_call_original
             adapter.body
+        end
+
+        it 'returns the body encoded as UTF-8' do
+            if RUBY_VERSION.to_f >= 1.9
+                adapter.body.encoding.should == Encoding.find('UTF-8')
+            end
         end
 
     end
