@@ -125,15 +125,19 @@ You can load extra stylesheets and javascript files by adding them to `lib/theme
 
 ## Adding your own categories for public bodies
 
-Categories are implemented in Alaveteli using tags. Specific tags can be
-used to group authorities together as a category. Categories themselves
-are grouped under category headings on the side of the "View
-authorities" page. You can create, edit and reorder categories and
-category headings in the admin interface, from the "Categories" admin
-menu item. You can apply the category tags you have created to
-authorities under the "Authorities" admin menu item. For an authority to
-appear under a category, the category's "category tag" must be one of
-the tags applied to the authority.
+You should add
+<a href="{{ site.baseurl }}docs/glossary/#category" class="glossary__link">categories</a>
+for the authorities on your site -- Alaveteli will display the authorities grouped
+by categories if you have set any up. Alaveteli uses
+<a href="{{ site.baseurl }}docs/glossary/#tag" class="glossary__link">tags</a>
+to assign authorities to the right categories, but you should add tags anyway
+because they are also used by the site's search facility. Together, categories
+and tags help your users find the right authority for their request.
+
+You can set all this up using the
+<a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>.
+See [more about categories and tags]({{ site.baseurl }}docs/running/categories_and_tags/)
+for details.
 
 ## Customising the request states
 
