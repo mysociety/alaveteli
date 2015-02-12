@@ -47,7 +47,7 @@ the category "Police forces", any authority which has the tag `police` will
 appear in that category.
 
 Make sure you choose good category headings and names, because they help your
-find the specific authorities they are looking for.
+users find the specific authorities they are looking for.
 
 <div class="attention-box info">
   Try to use simple but descriptive words for tags. Tags cannot contain spaces
