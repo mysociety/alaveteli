@@ -21,6 +21,62 @@ You don't need to be a programmer in order to make simple changes, but you will
 need to be confident enough to copy and change some files. If you're not sure
 about this, [ask for help](/community/)!
 
+<div class="attention-box info">
+  A theme is the way you tell Alaveteli which parts of your site look and behave
+  differently from the core site. These differences are implemented as a
+  collection of files (separate from the core Alaveteli source code), which
+  Alaveteli uses to override its default code.
+</div>
+
+<div class="attention-box warning">
+  When you customise Alaveteli, you should <strong>always use this
+  theme mechanism</strong> instead of editing the core Alaveteli files. If you
+  do not &mdash; that is, if you make custom changes to the main Alaveteli
+  source code &mdash; you may not be able to update your site with newer
+  Alaveteli code (new features and occassional bugfixes).
+</div>
+
+
+## Your theme is a separate repo
+
+
+We use
+<a href="{{ site.baseurl }}docs/glossary/#git" class="glossary__link">git</a>
+to manage Alaveteli's source code, and Alaveteli expects your theme to be in
+a git repository of its own.
+
+Although you *can* start customising your site on your
+<a href="{{ site.baseurl }}docs/glossary/#development" class="glossary__link">development server</a>
+by playing with the `alavetelitheme` theme that Alaveteli ships with, we recommend
+you make it into your own repo as soon as you can. If you're seriously customising
+&mdash; and certainly before you can deploy to a
+<a href="{{ site.baseurl }}docs/glossary/#production" class="glossary__link">production server</a> &mdash;
+you must do this. Make sure you choose a unique name for your theme (and hence its
+repo). If your site is `abcexample.com`, we suggest you call your theme
+`abcexample-theme`.
+
+Alaveteli's `themes:install` rake task, which installs themes, works by
+getting the git repo from the URL specified in the config setting
+[`THEME_URLS`]({{ site.baseurl }}docs/customising/config/#theme_urls). This is
+why your theme must be in its own git repo.
+
+One way to create your own theme is to fork the `alavetelitheme` theme from
+[https://github.com/mysociety/alavetelitheme](https://github.com/mysociety/alavetelitheme)
+(giving it your own theme name), edit it or add files, and deploy it with `themes:install`.
+
+<div class="attention-box helpful-hint">
+  Here's an example of a complex theme in action: see the theme repo at
+  <a href="https://github.com/mysociety/whatdotheyknow-theme">https://github.com/mysociety/whatdotheyknow-theme</a>.
+  This is the theme for UK's Alaveteli instance
+  <a href="{{ site.baseurl}}docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>.
+  You can see it
+  <a href="https://www.whatdotheyknow.com">deployed on the WhatDoTheyKnow website</a>.
+  This happens because the WhatDoTheyKnow server has this setting in <code>config/general.yml</code>:
+  </p>
+  <pre><code>THEME_URLS:
+  - 'git://github.com/mysociety/whatdotheyknow-theme.git'</code></pre>
+</div>
+
 ## What you might want to change
 
 The most common requirement is to brand the site: at a minimum,
