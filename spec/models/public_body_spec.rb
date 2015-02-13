@@ -681,90 +681,96 @@ describe PublicBody, " when loading CSV files" do
 
       end
 
-      context 'with an existing body' do
+      context 'with an existing body without tags' do
+
+        before do
+            @body = FactoryGirl.create(:public_body)
+        end
 
         it 'appends when no tag_string is specified' do
-          body = FactoryGirl.create(:public_body)
           csv = <<-CSV.strip_heredoc
           #id,request_email,name,tag_string,home_page
-          #{ body.id },#{ body.request_email },"#{ body.name }",,#{ body.home_page }
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }",,#{ @body.home_page }
           CSV
 
           # csv, tag, tag_behaviour, dry_run, editor
           PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
 
           expected = []
-          expect(PublicBody.find(body.id).tag_array_for_search).to eq(expected)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
         end
 
         it 'appends when a tag_string is specified' do
-          body = FactoryGirl.create(:public_body)
           csv = <<-CSV.strip_heredoc
           #id,request_email,name,tag_string,home_page
-          #{ body.id },#{ body.request_email },"#{ body.name }",new_tag,#{ body.home_page }
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }",new_tag,#{ @body.home_page }
           CSV
 
           # csv, tag, tag_behaviour, dry_run, editor
           PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
 
           expected = %W(new_tag)
-          expect(PublicBody.find(body.id).tag_array_for_search).to eq(expected)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
         end
 
         it 'replaces when no tag_string is specified' do
-          body = FactoryGirl.create(:public_body)
           csv = <<-CSV.strip_heredoc
           #id,request_email,name,tag_string,home_page
-          #{ body.id },#{ body.request_email },"#{ body.name }",,#{ body.home_page }
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }",,#{ @body.home_page }
           CSV
 
           # csv, tag, tag_behaviour, dry_run, editor
           PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
 
           expected = []
-          expect(PublicBody.find(body.id).tag_array_for_search).to eq(expected)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
         end
 
         it 'replaces when a tag_string is specified' do
-          body = FactoryGirl.create(:public_body)
           csv = <<-CSV.strip_heredoc
           #id,request_email,name,tag_string,home_page
-          #{ body.id },#{ body.request_email },"#{ body.name }",new_tag,#{ body.home_page }
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }",new_tag,#{ @body.home_page }
           CSV
 
           # csv, tag, tag_behaviour, dry_run, editor
           PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
 
           expected = %W(new_tag)
-          expect(PublicBody.find(body.id).tag_array_for_search).to eq(expected)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+    end
+
+    describe 'with an existing body with tags' do
+
+        before do
+            @body = FactoryGirl.create(:public_body, :tag_string => 'first_tag second_tag')
         end
 
         it 'created with tags, different tags in csv, add tags' do
-          body = FactoryGirl.create(:public_body, :tag_string => 'first_tag second_tag')
           csv = <<-CSV.strip_heredoc
           #id,request_email,name,tag_string,home_page
-          #{ body.id },#{ body.request_email },"#{ body.name }","first_tag new_tag",#{ body.home_page }
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }","first_tag new_tag",#{ @body.home_page }
           CSV
 
           # csv, tag, tag_behaviour, dry_run, editor
           PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
 
           expected = %W(first_tag new_tag second_tag)
-          expect(PublicBody.find(body.id).tag_array_for_search).to eq(expected)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
         end
 
         it 'created with tags, different tags in csv, replace' do
-          body = FactoryGirl.create(:public_body, :tag_string => 'first_tag second_tag')
           csv = <<-CSV.strip_heredoc
           #id,request_email,name,tag_string,home_page
-          #{ body.id },#{ body.request_email },"#{ body.name }","first_tag new_tag",#{ body.home_page }
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }","first_tag new_tag",#{ @body.home_page }
           CSV
 
           # csv, tag, tag_behaviour, dry_run, editor
           PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
 
           expected = %W(first_tag new_tag)
-          expect(PublicBody.find(body.id).tag_array_for_search).to eq(expected)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
         end
 
       end
