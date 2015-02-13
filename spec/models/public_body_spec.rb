@@ -518,7 +518,7 @@ describe PublicBody, " when loading CSV files" do
           expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
         end
 
-        it 'replaces with the import tag when a tag_string is specified' do
+        it 'replaces with the import tag and tag_string when a tag_string is specified' do
           csv = <<-CSV.strip_heredoc
           #id,request_email,name,tag_string,home_page
           ,q@localhost,Quango,first_tag second_tag,http://example.org
@@ -527,7 +527,7 @@ describe PublicBody, " when loading CSV files" do
           # csv, tag, tag_behaviour, dry_run, editor
           PublicBody.import_csv(csv, 'imported', 'replace', false, 'someadmin')
 
-          expected = %W(imported)
+          expected = %W(first_tag imported second_tag)
           expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
         end
 
