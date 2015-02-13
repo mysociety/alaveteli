@@ -73,11 +73,10 @@ module AttachmentToHTML
 
                     html = AlaveteliExternalCommand.run("pdftohtml",
                       "-nodrm", "-zoom", "1.0", "-stdout", "-enc", "UTF-8",
-                      "-noframes", tempfile.path, :timeout => 30
+                      "-noframes", tempfile.path, :timeout => 30, :binary_output => false
                     )
 
                     cleanup_tempfile(tempfile)
-
                     html
                 end
             end
