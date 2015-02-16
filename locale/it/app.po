@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2015-02-16 15:20+0000\n"
+"PO-Revision-Date: 2015-02-16 16:22+0000\n"
 "Last-Translator: Antonella <anapolitano@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/alaveteli/language/it/)\n"
 "Language: it\n"
@@ -2086,7 +2086,7 @@ msgid "Read about <a href=\"{{advanced_search_url}}\">advanced search operators<
 msgstr "Leggi informazioni su <a href=\"{{advanced_search_url}}\">operatori di ricerca avanzati</a> in inglese"
 
 msgid "Read blog"
-msgstr "Leggi il blog"
+msgstr "Blog"
 
 msgid "Received an error message, such as delivery failure."
 msgstr "Ricevuto messaggio di errore di spedizione."
