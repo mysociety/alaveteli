@@ -6,6 +6,7 @@ production:
   user: deploy
   rails_env: production
   deploy_to: /srv/www/alaveteli_production
+  daemon_name: alaveteli
 staging:
   repository: git://github.com/mysociety/alaveteli.git
   branch: develop
@@ -13,3 +14,4 @@ staging:
   user: deploy
   rails_env: production
   deploy_to: /srv/www/alaveteli_staging
+  daemon_name: alaveteli_staging
