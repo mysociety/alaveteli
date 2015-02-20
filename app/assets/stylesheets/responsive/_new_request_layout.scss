@@ -238,6 +238,16 @@ div.batch_public_body_toggle {
       margin-bottom: 1em;
     }
   }
+
+  .share-link img {
+    display:block;
+    margin: 1em auto;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      display: inline-block;
+      margin: inherit;
+    }
+  }
+
 }
 
 .request-sent-message__row {
