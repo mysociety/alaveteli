@@ -48,10 +48,6 @@
           <h2><%= _("What next?") %></h2>
           <ul class="what-next__list">
             <li>
-              <a href="#"><%= _("Change how you'd like to be notified of changes " \
-              "to your request") %></a>
-            </li>
-            <li>
               <%= link_to _("View other requests to {{public_body}}", :public_body => @info_request.public_body.name), public_body_path(@info_request.public_body) %>
             </li>
             <li>
