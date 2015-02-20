@@ -54,10 +54,13 @@
 .action-bar__follow,
 .action-bar__follow-button,
 .action-bar__follower-count {
+  vertical-align: top;
+  font-size: 16px;
+  margin: 1em 0;
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
     display: inline-block;
-    vertical-align: top;
-    font-size: 16px;
-    margin-right: 1em;
+    margin:0 1em 0 0;
+  }
 }
 
 .list-filter-item {
