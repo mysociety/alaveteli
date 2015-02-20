@@ -231,7 +231,12 @@ div.batch_public_body_toggle {
 .request-sent-message {
   margin-top: 1em;
   h1 {
-    margin-bottom: 1em;
+    font-size: 1.3em;
+    margin-top: 0;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      font-size: 2em;
+      margin-bottom: 1em;
+    }
   }
 }
 
