@@ -256,8 +256,10 @@ div.batch_public_body_toggle {
 
 .request-sent-message__column-1 {
   @include grid-column(12);
+  margin-bottom: 1em;
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     @include grid-column($columns:8);
+    margin-bottom: 0;
     @include ie8{
       padding-right: 0.9375em;
     }
