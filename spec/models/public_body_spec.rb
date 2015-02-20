@@ -868,6 +868,53 @@ describe PublicBody do
 
     end
 
+    describe :has_request_email? do
+
+        before do
+            @body = PublicBody.new(:request_email => 'test@example.com')
+        end
+
+        it 'should return false if request_email is nil' do
+            @body.request_email = nil
+            @body.has_request_email?.should == false
+        end
+
+        it 'should return false if the request email is "blank"' do
+            @body.request_email = 'blank'
+            @body.has_request_email?.should == false
+        end
+
+        it 'should return false if the request email is an empty string' do
+            @body.request_email = ''
+            @body.has_request_email?.should == false
+        end
+
+        it 'should return true if the request email is an email address' do
+            @body.has_request_email?.should == true
+        end
+    end
+
+    describe :special_not_requestable_reason do
+
+        before do
+            @body = PublicBody.new
+        end
+
+        it 'should return true if the body is defunct' do
+            @body.stub!(:defunct?).and_return(true)
+            @body.special_not_requestable_reason?.should == true
+        end
+
+        it 'should return true if FOI does not apply' do
+            @body.stub!(:not_apply?).and_return(true)
+            @body.special_not_requestable_reason?.should == true
+        end
+
+        it 'should return false if the body is not defunct and FOI applies' do
+            @body.special_not_requestable_reason?.should == false
+        end
+    end
+
 end
 
 describe PublicBody, " when override all public body request emails set" do
@@ -960,3 +1007,81 @@ describe PublicBody, 'when asked for popular bodies' do
     end
 
 end
+
+describe PublicBody do
+
+    describe :is_requestable? do
+
+        before do
+            @body = PublicBody.new(:request_email => 'test@example.com')
+        end
+
+        it 'should return false if the body is defunct' do
+            @body.stub!(:defunct?).and_return true
+            @body.is_requestable?.should == false
+        end
+
+        it 'should return false if FOI does not apply' do
+            @body.stub!(:not_apply?).and_return true
+            @body.is_requestable?.should == false
+        end
+
+        it 'should return false there is no request_email' do
+            @body.stub!(:has_request_email?).and_return false
+            @body.is_requestable?.should == false
+        end
+
+        it 'should return true if the request email is an email address' do
+            @body.is_requestable?.should == true
+        end
+
+    end
+
+    describe :is_followupable? do
+
+        before do
+            @body = PublicBody.new(:request_email => 'test@example.com')
+        end
+
+        it 'should return false there is no request_email' do
+            @body.stub!(:has_request_email?).and_return false
+            @body.is_followupable?.should == false
+        end
+
+        it 'should return true if the request email is an email address' do
+            @body.is_followupable?.should == true
+        end
+
+    end
+
+    describe :not_requestable_reason do
+
+        before do
+            @body = PublicBody.new(:request_email => 'test@example.com')
+        end
+
+        it 'should return "defunct" if the body is defunct' do
+            @body.stub!(:defunct?).and_return true
+            @body.not_requestable_reason.should == 'defunct'
+        end
+
+        it 'should return "not_apply" if FOI does not apply' do
+            @body.stub!(:not_apply?).and_return true
+            @body.not_requestable_reason.should == 'not_apply'
+        end
+
+
+        it 'should return "bad_contact" there is no request_email' do
+            @body.stub!(:has_request_email?).and_return false
+            @body.not_requestable_reason.should == 'bad_contact'
+        end
+
+        it 'should raise an error if the body is not defunct, FOI applies and has an email address' do
+            expected_error = "not_requestable_reason called with type that has no reason"
+            lambda{ @body.not_requestable_reason }.should raise_error(expected_error)
+        end
+
+    end
+
+end
+

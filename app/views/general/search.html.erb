@@ -1,7 +1,5 @@
 <% @show_tips = @xapian_requests.nil? || (@total_hits == 0) %>
 
-<% @include_request_link_in_authority_listing = true %>
-
 <%= render :partial => 'localised_datepicker'  %>
 
 <% if @query.nil? %>
@@ -157,7 +155,9 @@
 
         <div class="results_block">
           <% for result in @xapian_bodies.results %>
-            <%= render :partial => 'public_body/body_listing_single', :locals => { :public_body => result[:model] }  %>
+            <%= render :partial => 'public_body/body_listing_single',
+                       :locals => { :public_body => result[:model],
+                                    :request_link => true }  %>
           <% end %>
         </div>
 

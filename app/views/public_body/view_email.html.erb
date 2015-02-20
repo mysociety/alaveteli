@@ -24,7 +24,7 @@
 </p>
 
 <p>
-    <% if @public_body.is_requestable? || @public_body.not_requestable_reason != 'bad_contact' %>
+    <% if @public_body.has_request_email? %>
         <%=  raw(_('If the address is wrong, or you know a better address, please <a href="{{url}}">contact us</a>.', :url => help_contact_path.html_safe)) %>
     <% else %>
        <%= raw(_(' If you know the address to use, then please <a href="{{url}}">send it to us</a>.
