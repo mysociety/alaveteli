@@ -10,7 +10,9 @@
 }
 
 .authority__header {
-    margin-bottom: 1em;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      margin-bottom: 1em;
+    }
     @include grid-column(12);
 }
 
