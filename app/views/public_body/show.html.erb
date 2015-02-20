@@ -101,12 +101,11 @@
                 <% end %>
             <% end %>
         <% else %>
-            <h2 class="foi_results">
-            <% if @public_body.eir_only? %>
-                <%= pluralize(@public_body.info_requests.size, "Environmental Information Regulations request made using this site") %>
+            <% unless @page_desc.blank? %>
+              <h2 class="foi_results">
+                <%= @page_desc %>
+              </h2>
             <% end %>
-            <%= @page_desc %>
-            </h2>
             <a name="results"></a>
 
             <% if  @public_body.info_requests.size > 4 %>
