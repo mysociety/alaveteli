@@ -215,7 +215,10 @@ each page to indicate what language the page is written in. No locale
 suffix is needed for pages written for the [default locale]({{ site.baseurl }}docs/customising/config/#default_locale) for the site.
 For example, [alavetelitheme contains help
 pages](https://github.com/mysociety/alavetelitheme/tree/master/lib/views/help)
-for the default 'en' locale and an example Spanish 'about' page.
+for the default 'en' locale and an example Spanish 'about' page. If no
+help page exists in the theme for a particular page in the locale that
+the site is being viewed in, the default help page in English will be
+shown.
 
 
 ## Adding new pages in the navigation
