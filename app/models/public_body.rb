@@ -453,8 +453,6 @@ class PublicBody < ActiveRecord::Base
     def self.import_csv_from_file(csv_filename, tag, tag_behaviour, dry_run, editor, available_locales = [])
         errors = []
         notes = []
-        available_locales = [I18n.default_locale] if available_locales.empty?
-
         begin
             ActiveRecord::Base.transaction do
                 # Use the default locale when retrieving existing bodies; otherwise
@@ -475,8 +473,17 @@ class PublicBody < ActiveRecord::Base
                 end
 
                 set_of_importing = Set.new()
-                field_names = { 'name'=>1, 'request_email'=>2 }     # Default values in case no field list is given
+                # Default values in case no field list is given
+                field_names = { 'name' => 1, 'request_email' => 2 }
                 line = 0
+
+                import_options = {:field_names => field_names,
+                                  :available_locales => available_locales,
+                                  :tag => tag,
+                                  :tag_behaviour => tag_behaviour,
+                                  :editor => editor,
+                                  :notes => notes,
+                                  :errors => errors }
 
                 CSV.foreach(csv_filename) do |row|
                     line = line + 1
@@ -489,7 +496,7 @@ class PublicBody < ActiveRecord::Base
                     end
 
                     fields = {}
-                    field_names.each{|name, i| fields[name] = row[i]}
+                    field_names.each{ |name, i| fields[name] = row[i] }
 
                     yield line, fields if block_given?
 
@@ -505,83 +512,11 @@ class PublicBody < ActiveRecord::Base
                         next
                     end
 
-                    field_list = []
-                    self.csv_import_fields.each do |field_name, field_notes|
-                        field_list.push field_name
-                    end
+                    public_body = bodies_by_name[name] || PublicBody.new(:name => "",
+                                                                         :short_name => "",
+                                                                         :request_email => "")
 
-                    if public_body = bodies_by_name[name]   # Existing public body
-                        available_locales.each do |locale|
-                            I18n.with_locale(locale) do
-                                changed = ActiveSupport::OrderedHash.new
-                                field_list.each do |field_name|
-                                    localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
-                                    localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]
-
-                                    # Tags are a special case, as we support adding to the field, not just setting a new value
-                                    if localized_field_name == 'tag_string'
-                                        if localized_value.nil?
-                                            localized_value = tag unless tag.empty?
-                                        else
-                                            if tag_behaviour == 'add'
-                                                localized_value = "#{localized_value} #{tag}" unless tag.empty?
-                                                localized_value = "#{localized_value} #{public_body.tag_string}"
-                                            end
-                                        end
-                                    end
-
-                                    if !localized_value.nil? and public_body.send(field_name) != localized_value
-                                        changed[field_name] = "#{public_body.send(field_name)}: #{localized_value}"
-                                        public_body.send("#{field_name}=", localized_value)
-                                    end
-                                end
-
-                                unless changed.empty?
-                                    notes.push "line #{line.to_s}: updating authority '#{name}' (locale: #{locale}):\n\t#{changed.to_json}"
-                                    public_body.last_edit_editor = editor
-                                    public_body.last_edit_comment = 'Updated from spreadsheet'
-                                    public_body.save!
-                                end
-                            end
-                        end
-                    else # New public body
-                        public_body = PublicBody.new(:name=>"", :short_name=>"", :request_email=>"")
-                        available_locales.each do |locale|
-                            I18n.with_locale(locale) do
-                                changed = ActiveSupport::OrderedHash.new
-                                field_list.each do |field_name|
-                                    localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
-                                    localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]
-
-                                    if localized_field_name == 'tag_string' and tag_behaviour == 'add'
-                                        localized_value = "#{localized_value} #{tag}" unless tag.empty?
-                                    end
-
-                                    if !localized_value.nil? and public_body.send(field_name) != localized_value
-                                        changed[field_name] = localized_value
-                                        public_body.send("#{field_name}=", localized_value)
-                                    end
-                                end
-
-                                unless changed.empty?
-                                    notes.push "line #{line.to_s}: creating new authority '#{name}' (locale: #{locale}):\n\t#{changed.to_json}"
-                                    public_body.publication_scheme = public_body.publication_scheme || ""
-                                    public_body.last_edit_editor = editor
-                                    public_body.last_edit_comment = 'Created from spreadsheet'
-
-                                    begin
-                                        public_body.save!
-                                    rescue ActiveRecord::RecordInvalid
-                                        public_body.errors.full_messages.each do |msg|
-                                            errors.push "error: line #{ line }: #{ msg } for authority '#{ name }'"
-                                        end
-                                        next
-                                    end
-                                end
-                            end
-                        end
-                    end
-
+                    public_body.import_values_from_csv_row(row, line, name, import_options)
                     set_of_importing.add(name)
                 end
 
@@ -601,6 +536,77 @@ class PublicBody < ActiveRecord::Base
         end
 
         return [errors, notes]
+    end
+
+    def self.localized_csv_field_name(locale, field_name)
+        (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
+    end
+
+
+    # import values from a csv row (that may include localized columns)
+    def import_values_from_csv_row(row, line, name, options)
+        is_new = new_record?
+        edit_info = if is_new
+            { :action => "creating new authority",
+              :comment => 'Created from spreadsheet' }
+        else
+            { :action => "updating authority",
+              :comment => 'Updated from spreadsheet' }
+        end
+        locales = options[:available_locales]
+        locales = [I18n.default_locale] if locales.empty?
+        locales.each do |locale|
+            I18n.with_locale(locale) do
+                changed = set_locale_fields_from_csv_row(is_new, locale, row, options)
+                unless changed.empty?
+                    options[:notes].push "line #{ line }: #{ edit_info[:action] } '#{ name }' (locale: #{ locale }):\n\t#{ changed.to_json }"
+                    self.last_edit_comment = edit_info[:comment]
+                    self.publication_scheme = publication_scheme || ""
+                    self.last_edit_editor = options[:editor]
+
+                    begin
+                        save!
+                    rescue ActiveRecord::RecordInvalid
+                        errors.full_messages.each do |msg|
+                            options[:errors].push "error: line #{ line }: #{ msg } for authority '#{ name }'"
+                        end
+                        next
+                    end
+                end
+            end
+        end
+    end
+
+    # Sets attribute values for a locale from a csv row
+    def set_locale_fields_from_csv_row(is_new, locale, row, options)
+        changed = ActiveSupport::OrderedHash.new
+        csv_field_names = options[:field_names]
+        csv_import_fields.each do |field_name, field_notes|
+            localized_field_name = self.class.localized_csv_field_name(locale, field_name)
+            column = csv_field_names[localized_field_name]
+            value = column && row[column]
+            # Tags are a special case, as we support adding to the field, not just setting a new value
+            if field_name == 'tag_string'
+                new_tags = [value, options[:tag]].select{ |new_tag| !new_tag.blank? }
+                if new_tags.empty?
+                    value = nil
+                else
+                    value = new_tags.join(" ")
+                    value = "#{value} #{tag_string}"if options[:tag_behaviour] == 'add'
+                end
+
+            end
+
+            if value and read_attribute_value(field_name, locale) != value
+                if is_new
+                    changed[field_name] = value
+                else
+                    changed[field_name] = "#{read_attribute_value(field_name, locale)}: #{value}"
+                end
+                assign_attributes({ field_name => value })
+            end
+        end
+        changed
     end
 
     # Does this user have the power of FOI officer for this body?
@@ -800,6 +806,19 @@ class PublicBody < ActiveRecord::Base
     end
 
     private
+
+    # Read an attribute value (without using locale fallbacks if the attribute is translated)
+    def read_attribute_value(name, locale)
+      if self.class.translates.include?(name.to_sym)
+          if globalize.stash.contains?(locale, name)
+              globalize.stash.read(locale, name)
+          else
+              translation_for(locale).send(name)
+          end
+      else
+          send(name)
+      end
+    end
 
     def request_email_if_requestable
         # Request_email can be blank, meaning we don't have details

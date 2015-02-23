@@ -654,7 +654,7 @@ describe PublicBody, " when loading CSV files" do
         PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
 
         # Import again to check the 'add' tag functionality works
-        new_tags_file = load_file_fixture('fake-authority-add-tags.rb')
+        new_tags_file = load_file_fixture('fake-authority-add-tags.csv')
         errors, notes = PublicBody.import_csv(new_tags_file, '', 'add', false, 'someadmin') # false means real run
 
         # Check tags were added successfully
@@ -673,13 +673,282 @@ describe PublicBody, " when loading CSV files" do
         PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
 
         # Import again to check the 'replace' tag functionality works
-        new_tags_file = load_file_fixture('fake-authority-add-tags.rb')
+        new_tags_file = load_file_fixture('fake-authority-add-tags.csv')
         errors, notes = PublicBody.import_csv(new_tags_file, 'fake', 'replace', false, 'someadmin') # false means real run
 
         # Check tags were added successfully
-        PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == ['aTag']
-        PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['aTag']
+        PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == ['aTag', 'fake']
+        PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['aTag', 'fake']
         PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
+    end
+
+
+    context 'when the import tag is set' do
+
+      context 'with a new body' do
+
+        it 'appends the import tag when no tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, 'imported', 'add', false, 'someadmin')
+
+          expected = %W(imported)
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+        it 'appends the import tag when a tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,first_tag second_tag,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, 'imported', 'add', false, 'someadmin')
+
+          expected = %W(first_tag imported second_tag)
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+        it 'replaces with the import tag when no tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, 'imported', 'replace', false, 'someadmin')
+
+          expected = %W(imported)
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+        it 'replaces with the import tag and tag_string when a tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,first_tag second_tag,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, 'imported', 'replace', false, 'someadmin')
+
+          expected = %W(first_tag imported second_tag)
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+      end
+
+      context 'an existing body without tags' do
+
+        before do
+            @body = FactoryGirl.create(:public_body, :name => 'Existing Body')
+        end
+
+        it 'will not import if there is an existing body without the tag' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }",,#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          errors, notes = PublicBody.import_csv(csv, 'imported', 'add', false, 'someadmin')
+
+          expected = %W(imported)
+          errors.should include("error: line 2: Name Name is already taken for authority 'Existing Body'")
+        end
+
+      end
+
+      context 'an existing body with tags' do
+
+        before do
+            @body = FactoryGirl.create(:public_body, :tag_string => 'imported first_tag second_tag')
+        end
+
+        it 'created with tags, different tags in csv, add import tag' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }","first_tag new_tag",#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, 'imported', 'add', false, 'someadmin')
+          expected = %W(first_tag imported new_tag second_tag)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+        it 'created with tags, different tags in csv, replace import tag' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }","first_tag new_tag",#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, 'imported', 'replace', false, 'someadmin')
+
+          expected = %W(first_tag imported new_tag)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+      end
+
+    end
+
+    context 'when the import tag is not set' do
+
+      context 'with a new body' do
+
+        it 'it is empty if no tag_string is set' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
+
+          expected = []
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+        it 'uses the specified tag_string' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,first_tag,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
+
+          expected = %W(first_tag)
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+        it 'replaces with empty if no tag_string is set' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
+
+          expected = []
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+        it 'replaces with the specified tag_string' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,first_tag,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
+
+          expected = %W(first_tag)
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+      end
+
+      context 'with an existing body without tags' do
+
+        before do
+            @body = FactoryGirl.create(:public_body)
+        end
+
+        it 'appends when no tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }",,#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
+
+          expected = []
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+        it 'appends when a tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }",new_tag,#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
+
+          expected = %W(new_tag)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+        it 'replaces when no tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }",,#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
+
+          expected = []
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+        it 'replaces when a tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }",new_tag,#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
+
+          expected = %W(new_tag)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+    end
+
+    describe 'with an existing body with tags' do
+
+        before do
+            @body = FactoryGirl.create(:public_body, :tag_string => 'first_tag second_tag')
+        end
+
+        it 'created with tags, different tags in csv, add tags' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }","first_tag new_tag",#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
+
+          expected = %W(first_tag new_tag second_tag)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+        it 'created with tags, different tags in csv, replace' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }","first_tag new_tag",#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
+
+          expected = %W(first_tag new_tag)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+      end
+
     end
 
     it "should create bodies with names in multiple locales" do
@@ -806,6 +1075,22 @@ CSV
         PublicBody.csv_import_fields = old_csv_import_fields
     end
 
+    it "should import translations for fields whose values are the same as the default locale's" do
+        original_count = PublicBody.count
+
+        csv_contents = load_file_fixture("multiple-locales-same-name.csv")
+
+        errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin', ['en', 'es']) # true means dry run
+        errors.should == []
+        notes.size.should == 3
+        notes[0..1].should == [
+            "line 2: creating new authority 'Test' (locale: en):\n\t{\"name\":\"Test\",\"request_email\":\"test@test.es\",\"home_page\":\"http://www.test.es/\",\"tag_string\":\"37\"}",
+            "line 2: creating new authority 'Test' (locale: es):\n\t{\"name\":\"Test\"}",
+        ]
+        notes[2].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
+
+        PublicBody.count.should == original_count
+    end
 end
 
 describe PublicBody do
