@@ -22,7 +22,13 @@ RAILS_ENV=!!(*= $rails_env *)!!
 set -e
 
 # Check that the Daemon can be run
-su -l -c "cd $SITE_HOME && bundle exec thin --version &> /dev/null || exit 0" $USER
+CURRENT_USER=$(whoami)
+if [ "$CURRENT_USER" = "$USER" ]
+  then
+    cd $SITE_HOME && bundle exec thin --version > /dev/null 2>&1 || exit 0
+  else
+    su -l -c "cd $SITE_HOME && bundle exec thin --version &> /dev/null || exit 0" $USER
+fi
 
 start_daemon() {
   echo -n "Starting $DESC: "
