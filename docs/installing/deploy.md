@@ -175,7 +175,7 @@ for the config that you've set up).
 Ensure you've got a `config/deploy.yml` file with the correct settings for your
 site. If there are other people in your team who need to deploy, you'll need to
 share it with them too -- it might be a good idea to keep the latest
-version in a [Gist](http://gist.github.com/).
+version in a private [Gist](http://gist.github.com/).
 
 * to deploy to staging, just run `cap deploy`
 * to deploy to production, run `cap -S stage=production deploy`
