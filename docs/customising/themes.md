@@ -194,3 +194,14 @@ If you need to extend the behaviour of Alaveteli at the controller or model leve
 ## Working with themes
 
 You can use [`script/switch-theme.rb`](https://github.com/mysociety/alaveteli/blob/master/script/switch-theme.rb) to set the current theme if you are working with multiple themes. This might be useful for switching between the default `alavetelitheme` and your own fork.
+
+## Testing your theme
+
+You can add tests for the changes in functionality that are implemented
+in your theme. These use <a href="http://rspec.info/">rspec</a>, as does the main Alaveteli test suite.
+They should be put in the `spec` directory of your theme. They are run
+separately from the main Alaveteli tests by executing the following command in the directory in which Alaveteli is installed (substituting your theme directory for `alavetelitheme`):
+
+    bundle exec rspec lib/themes/alavetelitheme/spec
+
+You can see some example tests in the <a href="https://github.com/mysociety/whatdotheyknow-theme/tree/master/spec">whatdotheyknow-theme</a>.
