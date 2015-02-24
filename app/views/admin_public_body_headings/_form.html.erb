@@ -4,7 +4,7 @@
 
 <div id="div-locales">
   <ul class="locales nav nav-tabs">
-    <% @heading.translations.each do |translation| %>
+    <% @heading.translations.select{ |t| I18n.available_locales.include?(t.locale) }.sort_by{ |t| I18n.available_locales.index(t.locale) }.each do |translation| %>
       <li>
         <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab" >
           <%= locale_name(translation.locale.to_s) || _("Default locale") %>
@@ -13,7 +13,7 @@
     <% end %>
   </ul>
   <div class="tab-content">
-    <% @heading.translations.each do |translation| %>
+    <% @heading.translations.select{ |t| I18n.available_locales.include?(t.locale) }.sort_by{ |t| I18n.available_locales.index(t.locale) }.each do |translation| %>
       <% if translation.locale.to_s == I18n.default_locale.to_s %>
         <%= fields_for 'public_body_heading', @heading do |t| %>
           <%= render :partial => 'locale_fields', :locals => { :t => t, :locale => translation.locale } %>

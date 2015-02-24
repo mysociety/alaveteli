@@ -16,7 +16,20 @@ class AdminPublicBodyHeadingsController < AdminController
                 redirect_to edit_admin_heading_path(@heading)
             else
                 I18n.available_locales.each do |locale|
-                    @heading.translations.find_or_initialize_by_locale(locale)
+                  if locale == I18n.default_locale
+                    next
+                  end
+
+                  next if @heading.translations.map(&:locale).include?(locale)
+
+                  translation_params = params[:public_body_heading].
+                    fetch(:translations_attributes, {}).
+                      fetch(locale, nil)
+
+                  if !@heading.translations.where(:locale => locale).first && translation_params
+                    @heading.translations.build(translation_params)
+                  end
+
                 end
                 render :action => 'edit'
             end
@@ -57,13 +70,17 @@ class AdminPublicBodyHeadingsController < AdminController
                 redirect_to admin_categories_url
             else
                 I18n.available_locales.each do |locale|
+                    if locale == I18n.default_locale
+                      @heading.translations.build(:locale => locale)
+                      next
+                    end
+
                     translation_params = params[:public_body_heading].
                       fetch(:translations_attributes, {}).
                         fetch(locale, nil)
-                    if translation_params
+
+                    if !@heading.translations.where(:locale => locale).first && translation_params
                       @heading.translations.build(translation_params)
-                    else
-                      @heading.translations.build(:locale => locale)
                     end
                 end
                 render :action => 'new'
