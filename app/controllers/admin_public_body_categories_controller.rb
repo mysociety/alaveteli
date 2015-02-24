@@ -58,7 +58,19 @@ class AdminPublicBodyCategoriesController < AdminController
                     redirect_to edit_admin_category_path(@category)
                 else
                     I18n.available_locales.each do |locale|
-                        @category.translations.find_or_initialize_by_locale(locale)
+                        if locale == I18n.default_locale
+                          next
+                        end
+
+                        next if @category.translations.map(&:locale).include?(locale)
+
+                        translation_params = params[:public_body_category].
+                          fetch(:translations_attributes, {}).
+                            fetch(locale, nil)
+
+                        if !@category.translations.where(:locale => locale).first && translation_params
+                          @category.translations.build(translation_params)
+                        end
                     end
                     render :action => 'edit'
                 end
@@ -80,13 +92,17 @@ class AdminPublicBodyCategoriesController < AdminController
                 redirect_to admin_categories_path
             else
                 I18n.available_locales.each do |locale|
+                    if locale == I18n.default_locale
+                      @category.translations.build(:locale => locale)
+                      next
+                    end
+
                     translation_params = params[:public_body_category].
                       fetch(:translations_attributes, {}).
                         fetch(locale, nil)
-                    if translation_params
+
+                    if !@category.translations.where(:locale => locale).first && translation_params
                       @category.translations.build(translation_params)
-                    else
-                      @category.translations.build(:locale => locale)
                     end
                 end
                 render :action => 'new'
