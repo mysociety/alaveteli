@@ -2,6 +2,9 @@ class AdminPublicBodyHeadingsController < AdminController
 
     def edit
         @heading = PublicBodyHeading.find(params[:id])
+        I18n.available_locales.each do |locale|
+            @heading.translations.find_or_initialize_by_locale(locale)
+        end
         render :formats => [:html]
     end
 
@@ -12,6 +15,22 @@ class AdminPublicBodyHeadingsController < AdminController
                 flash[:notice] = 'Category heading was successfully updated.'
                 redirect_to edit_admin_heading_path(@heading)
             else
+                I18n.available_locales.each do |locale|
+                  if locale == I18n.default_locale
+                    next
+                  end
+
+                  next if @heading.translations.map(&:locale).include?(locale)
+
+                  translation_params = params[:public_body_heading].
+                    fetch(:translations_attributes, {}).
+                      fetch(locale, nil)
+
+                  if !@heading.translations.where(:locale => locale).first && translation_params
+                    @heading.translations.build(translation_params)
+                  end
+
+                end
                 render :action => 'edit'
             end
         end
@@ -37,6 +56,9 @@ class AdminPublicBodyHeadingsController < AdminController
 
     def new
         @heading = PublicBodyHeading.new
+        I18n.available_locales.each do |locale|
+            @heading.translations.build(:locale => locale)
+        end
         render :formats => [:html]
     end
 
@@ -47,6 +69,20 @@ class AdminPublicBodyHeadingsController < AdminController
                 flash[:notice] = 'Category heading was successfully created.'
                 redirect_to admin_categories_url
             else
+                I18n.available_locales.each do |locale|
+                    if locale == I18n.default_locale
+                      @heading.translations.build(:locale => locale)
+                      next
+                    end
+
+                    translation_params = params[:public_body_heading].
+                      fetch(:translations_attributes, {}).
+                        fetch(locale, nil)
+
+                    if !@heading.translations.where(:locale => locale).first && translation_params
+                      @heading.translations.build(translation_params)
+                    end
+                end
                 render :action => 'new'
             end
         end

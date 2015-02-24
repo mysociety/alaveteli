@@ -63,4 +63,62 @@ describe PublicBodyHeading do
             PublicBodyHeading.next_display_order.should == 1
         end
     end
+
+    describe :translations_attributes= do
+
+        context 'translation_attrs is a Hash' do
+
+            it 'takes the correct code path for a Hash' do
+                attrs = {}
+                attrs.should_receive(:each_value)
+                PublicBodyHeading.new().translations_attributes = attrs
+            end
+
+            it 'updates an existing translation' do
+                heading = FactoryGirl.create(:public_body_heading)
+                params = { 'es' => { :locale => 'es',
+                                     :name => 'Renamed' } }
+
+                heading.translations_attributes = params
+                I18n.with_locale(:es) { expect(heading.name).to eq('Renamed') }
+            end
+
+            it 'updates an existing translation and creates a new translation' do
+                heading = FactoryGirl.create(:public_body_heading)
+                heading.translations.create(:locale => 'es',
+                                            :name => 'Los Heading')
+
+                expect(heading.translations.size).to eq(2)
+
+                heading.translations_attributes = {
+                    'es' => { :locale => 'es',
+                              :name => 'Renamed' },
+                    'fr' => { :locale => 'fr',
+                              :name => 'Le Heading' }
+                }
+
+                expect(heading.translations.size).to eq(3)
+                I18n.with_locale(:es) { expect(heading.name).to eq('Renamed') }
+                I18n.with_locale(:fr) { expect(heading.name).to eq('Le Heading') }
+            end
+
+            it 'skips empty translations' do
+                heading = FactoryGirl.create(:public_body_heading)
+                heading.translations.create(:locale => 'es',
+                                            :name => 'Los Heading')
+
+                expect(heading.translations.size).to eq(2)
+
+                heading.translations_attributes = {
+                    'es' => { :locale => 'es',
+                              :name => 'Los Heading' },
+                    'fr' => { :locale => 'fr' }
+                }
+
+                expect(heading.translations.size).to eq(2)
+            end
+
+        end
+    end
+
 end

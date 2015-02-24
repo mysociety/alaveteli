@@ -10,12 +10,15 @@ require 'forwardable'
 
 class PublicBodyCategory < ActiveRecord::Base
     attr_accessible :locale, :category_tag, :title, :description,
-                    :translated_versions, :display_order
+                    :translated_versions, :translations_attributes,
+                    :display_order
 
     has_many :public_body_category_links, :dependent => :destroy
     has_many :public_body_headings, :through => :public_body_category_links
 
     translates :title, :description
+    accepts_nested_attributes_for :translations
+
     validates_uniqueness_of :category_tag, :message => 'Tag is already taken'
     validates_presence_of :title, :message => "Title can't be blank"
     validates_presence_of :category_tag, :message => "Tag can't be blank"
@@ -63,9 +66,9 @@ class PublicBodyCategory < ActiveRecord::Base
         translations
     end
 
-    def translated_versions=(translation_attrs)
+    def translations_attributes=(translation_attrs)
         def empty_translation?(attrs)
-            attrs_with_values = attrs.select{ |key, value| value != '' and key != 'locale' }
+            attrs_with_values = attrs.select{ |key, value| value != '' and key.to_s != 'locale' }
             attrs_with_values.empty?
         end
         if translation_attrs.respond_to? :each_value    # Hash => updating
@@ -76,12 +79,24 @@ class PublicBodyCategory < ActiveRecord::Base
                 t.save!
             end
         else                                            # Array => creating
+            warn "[DEPRECATION] PublicBodyCategory#translations_attributes= " \
+                 "will no longer accept an Array as of release 0.22. " \
+                 "Use Hash arguments instead. See " \
+                 "spec/models/public_body_category_spec.rb and " \
+                 "app/views/admin_public_body_categories/_form.html.erb for more " \
+                 "details."
             translation_attrs.each do |attrs|
                 next if empty_translation?(attrs)
                 new_translation = PublicBodyCategory::Translation.new(attrs)
                 translations << new_translation
             end
         end
+    end
+
+    def translated_versions=(translation_attrs)
+        warn "[DEPRECATION] PublicBodyCategory#translated_versions= will be replaced " \
+             "by PublicBodyCategory#translations_attributes= as of release 0.22"
+        self.translations_attributes = translation_attrs
     end
 end
 
