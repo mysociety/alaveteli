@@ -460,6 +460,12 @@ class UserController < ApplicationController
             return
         end
         if !params[:submitted_draft_profile_photo].nil?
+            if @user.banned?
+              flash[:error]= _('Banned users cannot edit their profile')
+              redirect_to set_profile_photo_path
+              return
+            end
+
             # check for uploaded image
             file_name = nil
             file_content = nil
@@ -567,6 +573,12 @@ class UserController < ApplicationController
             @about_me = AboutMeValidator.new(params[:about_me])
             render :action => 'set_profile_about_me'
             return
+        end
+
+        if @user.banned?
+          flash[:error] = _('Banned users cannot edit their profile')
+          redirect_to set_profile_about_me_path
+          return
         end
 
         @about_me = AboutMeValidator.new(params[:about_me])
