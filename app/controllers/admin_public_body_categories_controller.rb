@@ -83,6 +83,8 @@ class AdminPublicBodyCategoriesController < AdminController
             @category = PublicBodyCategory.new(params[:public_body_category])
 
             if @category.save
+                # FIXME: This can't handle failure (e.g. if a PublicBodyHeading
+                # doesn't exist)
                 if params[:headings]
                     params[:headings].values.each do |heading_id|
                         PublicBodyHeading.find(heading_id).add_category(@category)
