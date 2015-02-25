@@ -81,64 +81,124 @@ describe AdminPublicBodyCategoriesController do
 
     end
 
-    context 'when creating a public body category' do
-        it "creates a new public body category in one locale" do
-            n = PublicBodyCategory.count
-            post :create, {
-                :public_body_category => {
-                    :title => 'New Category',
-                    :category_tag => 'new_test_category',
-                    :description => 'New category for testing stuff'
-                 }
-            }
-            PublicBodyCategory.count.should == n + 1
+    describe :create do
 
-            category = PublicBodyCategory.find_by_title("New Category")
-            response.should redirect_to(admin_categories_path)
-        end
+        context 'on success' do
 
-        it "saves the public body category's heading associations" do
-            heading = FactoryGirl.create(:public_body_heading)
-            category_attributes = FactoryGirl.attributes_for(:public_body_category)
-            post :create, {
-                    :public_body_category => category_attributes,
-                    :headings => {"heading_#{heading.id}" => heading.id}
-            }
-            request.flash[:notice].should include('successful')
-            category = PublicBodyCategory.find_by_title(category_attributes[:title])
-            category.public_body_headings.should == [heading]
-        end
+            it 'creates a new category in the default locale' do
+                PublicBodyCategory.destroy_all
+                params = FactoryGirl.attributes_for(:public_body_category)
 
-        it 'creates a new public body category with multiple locales' do
-            n = PublicBodyCategory.count
-            post :create, {
-                :public_body_category => {
-                    :title => 'New Category',
-                    :category_tag => 'new_test_category',
-                    :description => 'New category for testing stuff',
-                    :translations_attributes => {
-                        'es' => { :locale => "es",
-                                  :title => "Mi Nuevo Category" }
-                    }
-                }
-            }
-            PublicBodyCategory.count.should == n + 1
-
-            category = PublicBodyCategory.find_by_title("New Category")
-            #category.translations.map {|t| t.locale.to_s}.sort.should == ["en", "es"]
-            I18n.with_locale(:en) do
-                category.title.should == "New Category"
-            end
-            I18n.with_locale(:es) do
-                category.title.should == "Mi Nuevo Category"
+                expect {
+                  post :create, :public_body_category => params
+                }.to change{ PublicBodyCategory.count }.from(0).to(1)
             end
 
-            response.should redirect_to(admin_categories_path)
+            it "saves the public body category's heading associations" do
+                heading = FactoryGirl.create(:public_body_heading)
+                params = FactoryGirl.attributes_for(:public_body_category)
+
+                post :create, :public_body_category => params,
+                              :headings => { "heading_#{ heading.id }" => heading.id }
+
+                category = PublicBodyCategory.where(:title => params[:title]).first
+                expect(category.public_body_headings).to eq([heading])
+            end
+
+            it 'notifies the admin that the category was created' do
+                params = FactoryGirl.attributes_for(:public_body_category)
+                post :create, :public_body_category => params
+                expect(flash[:notice]).to eq('Category was successfully created.')
+            end
+
+            it 'redirects to the categories index' do
+                params = FactoryGirl.attributes_for(:public_body_category)
+                post :create, :public_body_category => params
+                expect(response).to redirect_to(admin_categories_path)
+            end
+
         end
 
-        it "renders the form if creating the record was unsuccessful" do
-            post :create, :public_body_category => { :title => '' }
-            expect(response).to render_template('new')
+        context 'on success for multiple locales' do
+
+            before(:each) do
+              PublicBodyCategory.destroy_all
+              @params = { :title => 'New Category',
+                          :category_tag => 'new_test_category',
+                          :description => 'New category for testing stuff',
+                          :translations_attributes => {
+                            'es' => { :locale => 'es',
+                                      :title => 'Mi Nuevo Category' }
+                          } }
+            end
+
+            it 'saves the category' do
+                expect {
+                  post :create, :public_body_category => @params
+                }.to change{ PublicBodyCategory.count }.from(0).to(1)
+            end
+
+            it 'saves the default locale translation' do
+                post :create, :public_body_category => @params
+
+                category = PublicBodyCategory.where(:title => 'New Category').first
+
+                I18n.with_locale(:en) do
+                    expect(category.title).to eq('New Category')
+                end
+            end
+
+            it 'saves the alternative locale translation' do
+                post :create, :public_body_category => @params
+
+                category = PublicBodyCategory.where(:title => 'New Category').first
+
+                I18n.with_locale(:es) do
+                    expect(category.title).to eq('Mi Nuevo Category')
+                end
+            end
+
+        end
+
+        context 'on failure' do
+
+            it 'renders the form if creating the record was unsuccessful' do
+                post :create, :public_body_category => { :title => '' }
+                expect(response).to render_template('new')
+            end
+
+            it 'is rebuilt with the given params' do
+                post :create, :public_body_category => { :title => 'Need a description' }
+                expect(assigns(:category).title).to eq('Need a description')
+            end
+
+        end
+
+        context 'on failure for multiple locales' do
+
+            before(:each) do
+                @params = { :title => 'Need a description',
+                            :category_tag => 'new_test_category',
+                            :description => nil,
+                            :translations_attributes => {
+                              'es' => { :locale => 'es',
+                                        :title => 'Mi Nuevo Category' }
+                            } }
+            end
+            
+            it 'is rebuilt with the default locale translation' do
+                post :create, :public_body_category => @params
+                expect(assigns(:category).title).to eq('Need a description')
+            end
+
+            it 'is rebuilt with the alternative locale translation' do
+                post :create, :public_body_category => @params
+
+                I18n.with_locale(:es) do
+                    expect(assigns(:category).title).to eq('Mi Nuevo Category')
+                end
+            end
+
         end
 
     end
