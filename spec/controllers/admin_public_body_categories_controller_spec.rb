@@ -1,13 +1,56 @@
 require 'spec_helper'
 
 describe AdminPublicBodyCategoriesController do
-    context 'when showing the index of categories and headings' do
-        render_views
 
-        it 'shows the index page' do
+    describe :index do
+
+        it 'responds successfully' do
             get :index
             expect(response).to be_success
         end
+
+        it 'uses the current locale by default' do
+            get :index
+            expect(assigns(:locale)).to eq(I18n.locale.to_s)
+        end
+
+        it 'sets the locale if the show_locale param is passed' do
+            get :index, :show_locale => 'es'
+            expect(assigns(:locale)).to eq('es')
+        end
+
+        it 'finds all category headings' do
+            PublicBodyHeading.destroy_all
+
+            headings = [FactoryGirl.create(:public_body_heading),
+                        FactoryGirl.create(:public_body_heading)]
+
+            get :index
+
+            expect(assigns(:category_headings)).to eq(headings)
+        end
+
+        it 'finds all categories without their headings' do
+            PublicBodyHeading.destroy_all
+            PublicBodyCategory.destroy_all
+
+            without_heading = FactoryGirl.create(:public_body_category)
+
+            heading = FactoryGirl.create(:public_body_heading)
+            with_heading = FactoryGirl.create(:public_body_category)
+            PublicBodyCategoryLink.create!(:public_body_heading_id => heading.id,
+                                           :public_body_category_id => with_heading.id)
+
+
+            get :index
+            expect(assigns(:without_heading)).to eq([without_heading])
+        end
+
+        it 'renders the index template' do
+            get :index
+            expect(response).to render_template('index')
+        end
+
     end
 
     context 'when showing the form for a new public body category' do
