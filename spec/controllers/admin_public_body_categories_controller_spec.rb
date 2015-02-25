@@ -143,7 +143,8 @@ describe AdminPublicBodyCategoriesController do
 
     end
 
-    context 'when editing a public body category' do
+    describe :edit do
+
         before do
             @category = FactoryGirl.create(:public_body_category)
             I18n.with_locale('es') do
@@ -152,31 +153,41 @@ describe AdminPublicBodyCategoriesController do
             end
         end
 
-        render_views
+        it 'responds successfully' do
+            get :edit, :id => @category.id
+            expect(response).to be_success
+        end
 
-        it "finds the requested category" do
+        it 'finds the requested category' do
             get :edit, :id => @category.id
             expect(assigns[:category]).to eq(@category)
         end
 
-       it "builds new translations if the body does not already have a translation in the specified locale" do
-           get :edit, :id => @category.id
-           expect(assigns[:category].translations.map(&:locale)).to include(:fr)
-       end
+        it 'builds new translations if the body does not already have a translation in the specified locale' do
+            get :edit, :id => @category.id
+            expect(assigns[:category].translations.map(&:locale)).to include(:fr)
+        end
 
-        it "renders the edit template" do
+        it 'finds the public bodies tagged with the category tag' do
+            # FIXME: I wanted to call PublicBody.destroy_all here so that we
+            # have a known DB state, but the constraints were preventing the
+            # deletion of the fixture data
+            FactoryGirl.create(:public_body, :tag_string => 'wont_be_found')
+
+            category = FactoryGirl.create(:public_body_category, :category_tag => 'spec')          
+            expected_bodies = [FactoryGirl.create(:public_body, :tag_string => 'spec'),
+                               FactoryGirl.create(:public_body, :tag_string => 'spec')]
+
+            get :edit, :id => category.id
+
+            expect(assigns(:tagged_public_bodies)).to eq(expected_bodies)
+        end
+
+        it 'renders the edit template' do
             get :edit, :id => @category.id
             expect(assigns[:category]).to render_template('edit')
         end
 
-        it "edits a public body in another locale" do
-            get :edit, { :id => @category.id, :locale => :en }
-
-            # When editing a body, the controller returns all available
-            # translations
-            assigns[:category].find_translation_by_locale("es").title.should == 'Los category'
-            response.should render_template('edit')
-        end
     end
 
     context 'when updating a public body category' do

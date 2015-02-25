@@ -18,6 +18,7 @@ class AdminPublicBodyCategoriesController < AdminController
         I18n.available_locales.each do |locale|
             @category.translations.find_or_initialize_by_locale(locale)
         end
+
         @tagged_public_bodies = PublicBody.find_by_tag(@category.category_tag)
     end
 
