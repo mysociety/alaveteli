@@ -10,7 +10,6 @@ class AdminPublicBodyCategoriesController < AdminController
         I18n.available_locales.each do |locale|
             @category.translations.build(:locale => locale)
         end
-        render :formats => [:html]
     end
 
     def edit
