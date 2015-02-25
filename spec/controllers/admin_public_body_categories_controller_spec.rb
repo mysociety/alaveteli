@@ -53,25 +53,31 @@ describe AdminPublicBodyCategoriesController do
 
     end
 
-    context 'when showing the form for a new public body category' do
-        it 'should assign a new public body category to the view' do
+    describe :new do
+
+        it 'responds successfully' do
             get :new
-            assigns[:category].should be_a(PublicBodyCategory)
+            expect(response).to be_success
         end
 
-        it 'renders the new template' do
+        it 'builds a new PublicBodyCategory' do
             get :new
-            expect(response).to render_template('new')
+            expect(assigns(:category)).to be_new_record
         end
 
-     it "builds new translations for all locales" do
-         get :new
+       it 'builds new translations for all locales' do
+           get :new
 
-         translations = assigns[:category].translations.map{ |t| t.locale.to_s }.sort
-         available = I18n.available_locales.map{ |l| l.to_s }.sort
+           translations = assigns(:category).translations.map{ |t| t.locale.to_s }.sort
+           available = I18n.available_locales.map{ |l| l.to_s }.sort
 
-         expect(translations).to eq(available)
-     end
+           expect(translations).to eq(available)
+       end
+
+       it 'renders the new template' do
+           get :new
+           expect(response).to render_template('new')
+       end
 
     end
 
