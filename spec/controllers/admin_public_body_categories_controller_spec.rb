@@ -367,22 +367,59 @@ describe AdminPublicBodyCategoriesController do
 
     end
 
-    context 'when destroying a public body category' do
-        it "destroys empty public body categories" do
-            pbc = PublicBodyCategory.create(:title => "Empty Category", :category_tag => "empty", :description => "-")
-            n = PublicBodyCategory.count
-            post :destroy, { :id => pbc.id }
-            response.should redirect_to(admin_categories_path)
-            PublicBodyCategory.count.should == n - 1
+    describe :destroy do
+
+        it 'uses the current locale by default' do
+            category = FactoryGirl.create(:public_body_category)
+            post :destroy, :id => category.id
+            expect(assigns(:locale)).to eq(I18n.locale.to_s)
         end
 
-        it "destroys non-empty public body categories" do
-            authority = FactoryGirl.create(:public_body)
-            pbc = PublicBodyCategory.create(:title => "In-Use Category", :category_tag => "empty", :description => "-", :authorities => [authority])
-            n = PublicBodyCategory.count
-            post :destroy, { :id => pbc.id }
-            response.should redirect_to(admin_categories_path)
-            PublicBodyCategory.count.should == n - 1
+        it 'sets the locale if the show_locale param is passed' do
+            category = FactoryGirl.create(:public_body_category)
+            post :destroy, :id => category.id, :show_locale => 'es'
+            expect(assigns(:locale)).to eq('es')
         end
+
+        it 'destroys empty public body categories' do
+            PublicBodyCategory.destroy_all
+
+            category = FactoryGirl.create(:public_body_category)
+            
+            expect{
+              post :destroy, :id => category.id
+            }.to change{ PublicBodyCategory.count }.from(1).to(0)
+        end
+
+        it 'destroys non-empty public body categories' do
+            PublicBodyCategory.destroy_all
+
+            # FIXME: Couldn't create the PublicBodyCategory with a Factory
+            # because #authorities= doesn't exist?
+            # undefined method `authorities=' for 
+            # #<PublicBodyCategory:0x7f55cbb84f70>
+            authority = FactoryGirl.create(:public_body)
+            category = PublicBodyCategory.create(:title => "In-Use Category",
+                                                 :category_tag => "empty",
+                                                 :description => "-",
+                                                 :authorities => [authority])
+
+            expect{
+              post :destroy, :id => category.id
+            }.to change{ PublicBodyCategory.count }.from(1).to(0)
+        end
+
+        it 'notifies the admin that the category was destroyed' do
+            category = FactoryGirl.create(:public_body_category)
+            post :destroy, :id => category.id
+            expect(flash[:notice]).to eq('Category was successfully destroyed.')
+        end
+
+        it 'redirects to the categories index' do
+            category = FactoryGirl.create(:public_body_category)
+            post :destroy, :id => category.id
+            expect(response).to redirect_to(admin_categories_path)
+        end
+
     end
 end
