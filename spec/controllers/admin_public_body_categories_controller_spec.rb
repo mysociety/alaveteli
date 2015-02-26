@@ -240,7 +240,7 @@ describe AdminPublicBodyCategoriesController do
 
             get :edit, :id => category.id
 
-            expect(assigns(:tagged_public_bodies)).to eq(expected_bodies)
+            expect(assigns(:tagged_public_bodies).sort).to eq(expected_bodies.sort)
         end
 
         it 'renders the edit template' do
