@@ -49,11 +49,6 @@ class PublicBodyCategory < ActiveRecord::Base
         PublicBodyCategory.find_by_sql(sql)
     end
 
-    # Called from the old-style public_body_categories_[locale].rb data files
-    def self.add(locale, data_list)
-        CategoryAndHeadingMigrator.add_categories_and_headings_from_list(locale, data_list)
-    end
-
     # Convenience methods for creating/editing translations via forms
     def find_translation_by_locale(locale)
         translations.find_by_locale(locale)
