@@ -250,7 +250,7 @@ describe AdminPublicBodyCategoriesController do
 
     end
 
-    context 'when updating a public body category' do
+    describe :update do
 
         before do
             @heading = FactoryGirl.create(:public_body_heading)
@@ -266,174 +266,280 @@ describe AdminPublicBodyCategoriesController do
             end
         end
 
-        render_views
+        it 'finds the category to update' do
+            post :update, :id => @category.id,
+                          :public_body_category => @category.serializable_hash
+            expect(assigns(:category)).to eq(@category)
+        end
 
-        it "saves edits to a public body category" do
-            post :update, { :id => @category.id,
-                            :public_body_category => { :title => "Renamed" } }
-            request.flash[:notice].should include('successful')
-            pbc = PublicBodyCategory.find(@category.id)
-            pbc.title.should == "Renamed"
+        it 'finds the public bodies tagged with the category tag' do
+            # FIXME: I wanted to call PublicBody.destroy_all here so that we
+            # have a known DB state, but the constraints were preventing the
+            # deletion of the fixture data
+            FactoryGirl.create(:public_body, :tag_string => 'wont_be_found')
+
+            category = FactoryGirl.create(:public_body_category, :category_tag => 'spec')          
+            expected_bodies = [FactoryGirl.create(:public_body, :tag_string => 'spec'),
+                               FactoryGirl.create(:public_body, :tag_string => 'spec')]
+
+            post :update, :id => category.id,
+                          :public_body_category => category.serializable_hash
+
+            expect(assigns(:tagged_public_bodies)).to eq(expected_bodies)
         end
 
         it "saves edits to a public body category's heading associations" do
-            @category.public_body_headings.should == [@heading]
+            # We already have a heading from the before block. Here we're going
+            # to update to a new heading.
             heading = FactoryGirl.create(:public_body_heading)
+
             post :update, { :id => @category.id,
-                            :public_body_category => { :title => "Renamed" },
-                            :headings => {"heading_#{heading.id}" => heading.id} }
-            request.flash[:notice].should include('successful')
-            pbc = PublicBodyCategory.find(@category.id)
-            pbc.public_body_headings.should == [heading]
+                            :public_body_category => { :title => 'Renamed' },
+                            :headings => { "heading_#{ heading.id }" => heading.id } }
+
+            category = PublicBodyCategory.find(@category.id)
+            expect(category.public_body_headings).to eq([heading])
         end
 
-        it "saves edits to a public body category in another locale" do
-            I18n.with_locale(:es) do
-                @category.title.should == 'Los category'
-                post :update, {
-                    :id => @category.id,
-                    :public_body_category => {
-                        :title => "Category",
-                        :translations_attributes => {
-                            'es' => { :locale => "es",
-                                      :title => "Renamed" }
+        context 'when the category has associated bodies' do
+
+            it 'does not save edits to category_tag' do
+                body = FactoryGirl.create(:public_body, :tag_string => @tag)
+
+                post :update, :id => @category.id,
+                              :public_body_category => { :category_tag => 'Renamed' }
+                            
+
+                category = PublicBodyCategory.find(@category.id)
+                expect(category.category_tag).to eq(@tag)
+            end
+
+            it 'notifies the user that the category_tag could not be updated' do
+                body = FactoryGirl.create(:public_body, :tag_string => @tag)
+                msg = %Q(There are authorities associated with this category,
+                         so the tag can't be renamed).squish
+  
+                post :update, :id => @category.id,
+                              :public_body_category => { :category_tag => 'Renamed' }
+                              
+                expect(flash[:error]).to eq(msg)                              
+            end
+
+            it 'renders the edit action' do
+                body = FactoryGirl.create(:public_body, :tag_string => @tag)
+
+                post :update, :id => @category.id,
+                              :public_body_category => { :category_tag => 'Renamed' }
+
+                expect(response).to render_template('edit')
+            end
+
+        end
+
+        context 'on success' do
+
+            it 'saves edits to a public body category' do
+                post :update, :id => @category.id,
+                              :public_body_category => { :title => 'Renamed' }
+
+                category = PublicBodyCategory.find(@category.id)
+                expect(category.title).to eq('Renamed')
+            end
+
+            it 'notifies the admin that the category was created' do
+                post :update, :id => @category.id,
+                              :public_body_category => { :title => 'Renamed' }
+                expect(flash[:notice]).to eq('Category was successfully updated.')
+            end
+
+            it 'redirects to the category edit page' do
+                post :update, :id => @category.id,
+                              :public_body_category => { :title => 'Renamed' }
+                expect(response).to redirect_to(edit_admin_category_path(@category))
+            end
+
+            it 'saves edits to category_tag if the category has no associated bodies' do
+                category = FactoryGirl.create(:public_body_category, :category_tag => 'empty')
+
+                post :update, { :id => category.id,
+                                :public_body_category => { :category_tag => 'Renamed' } }
+
+                category = PublicBodyCategory.find(category.id)
+                expect(category.category_tag).to eq('Renamed')
+            end
+            
+        end
+
+        context 'on success for multiple locales' do
+
+            it "saves edits to a public body category in another locale" do
+                I18n.with_locale(:es) do
+                    @category.title.should == 'Los category'
+                    post :update, {
+                        :id => @category.id,
+                        :public_body_category => {
+                            :title => "Category",
+                            :translations_attributes => {
+                                'es' => { :locale => "es",
+                                          :title => 'Renamed' }
+                                }
                             }
                         }
-                    }
-                request.flash[:notice].should include('successful')
+                    request.flash[:notice].should include('successful')
+                end
+
+                pbc = PublicBodyCategory.find(@category.id)
+                I18n.with_locale(:es) do
+                   pbc.title.should == 'Renamed'
+                end
+                I18n.with_locale(:en) do
+                   pbc.title.should == "Category"
+                end
             end
 
-            pbc = PublicBodyCategory.find(@category.id)
-            I18n.with_locale(:es) do
-               pbc.title.should == "Renamed"
+            it 'adds a new translation' do
+                 @category.translation_for(:es).destroy
+                 @category.reload
+
+                 put :update, {
+                     :id => @category.id,
+                     :public_body_category => {
+                         :title => @category.title,
+                         :description => @category.description,
+                         :translations_attributes => {
+                             'es' => { :locale => "es",
+                                       :title => "Example Public Body Category ES",
+                                       :description => @category.description }
+                         }
+                     }
+                 }
+
+                 request.flash[:notice].should include('successful')
+
+                 pbc = PublicBodyCategory.find(@category.id)
+
+                 I18n.with_locale(:es) do
+                    expect(pbc.title).to eq('Example Public Body Category ES')
+                 end
+             end
+
+             it 'adds new translations' do
+                 @category.translation_for(:es).destroy
+                 @category.reload
+
+                 post :update, {
+                     :id => @category.id,
+                     :public_body_category => {
+                         :title => @category.title,
+                         :description => @category.description,
+                         :translations_attributes => {
+                             'es' => { :locale => "es",
+                                       :title => "Example Public Body Category ES",
+                                       :description => @category.description },
+                             'fr' => { :locale => "fr",
+                                       :title => "Example Public Body Category FR",
+                                       :description => @category.description }
+                         }
+                     }
+                 }
+
+                 request.flash[:notice].should include('successful')
+
+                 pbc = PublicBodyCategory.find(@category.id)
+
+                 I18n.with_locale(:es) do
+                    expect(pbc.title).to eq('Example Public Body Category ES')
+                 end
+                 I18n.with_locale(:fr) do
+                    expect(pbc.title).to eq('Example Public Body Category FR')
+                 end
+             end
+
+             it 'updates an existing translation and adds a third translation' do
+                 post :update, {
+                     :id => @category.id,
+                     :public_body_category => {
+                         :title => @category.title,
+                         :description => @category.description,
+                         :translations_attributes => {
+                             # Update existing translation
+                             'es' => { :locale => "es",
+                                       :title => "Renamed Example Public Body Category ES",
+                                       :description => @category.description },
+                             # Add new translation
+                             'fr' => { :locale => "fr",
+                                       :title => "Example Public Body Category FR",
+                                       :description => @category.description }
+                         }
+                     }
+                 }
+
+                 request.flash[:notice].should include('successful')
+
+                 pbc = PublicBodyCategory.find(@category.id)
+
+                 I18n.with_locale(:es) do
+                    expect(pbc.title).to eq('Renamed Example Public Body Category ES')
+                 end
+                 I18n.with_locale(:fr) do
+                    expect(pbc.title).to eq('Example Public Body Category FR')
+                 end
+             end
+
+            it "redirects to the edit page after a successful update" do
+                post :update, { :id => @category.id,
+                                :public_body_category => { :title => 'Renamed' } }
+
+                expect(response).to redirect_to(edit_admin_category_path(@category))
             end
-            I18n.with_locale(:en) do
-               pbc.title.should == "Category"
+
+        end
+
+        context 'on failure' do
+
+            it 'renders the form if creating the record was unsuccessful' do
+                post :update, :id => @category.id,
+                              :public_body_category => { :title => '' }
+
+                expect(response).to render_template('edit')
             end
+
+            it 'is rebuilt with the given params' do
+                post :update, :id => @category.id,
+                              :public_body_category => { :title => 'Need a description',
+                                                         :description => '' }
+                expect(assigns(:category).title).to eq('Need a description')
+            end
+
         end
 
-        it 'adds a new translation' do
-             @category.translation_for(:es).destroy
-             @category.reload
+        context 'on failure for multiple locales' do
 
-             put :update, {
-                 :id => @category.id,
-                 :public_body_category => {
-                     :title => @category.title,
-                     :description => @category.description,
-                     :translations_attributes => {
-                         'es' => { :locale => "es",
-                                   :title => "Example Public Body Category ES",
-                                   :description => @category.description }
-                     }
-                 }
-             }
+            before(:each) do
+                @params = { :title => 'Need a description',
+                            :category_tag => 'new_test_category',
+                            :description => nil,
+                            :translations_attributes => {
+                              'es' => { :locale => 'es',
+                                        :title => 'Mi Nuevo Category' }
+                            } }
+            end
 
-             request.flash[:notice].should include('successful')
+            it 'is rebuilt with the default locale translation' do
+                post :update, :id => @category.id,
+                              :public_body_category => @params
+                expect(assigns(:category).title).to eq('Need a description')
+            end
 
-             pbc = PublicBodyCategory.find(@category.id)
+            it 'is rebuilt with the alternative locale translation' do
+                post :update, :id => @category.id,
+                              :public_body_category => @params
 
-             I18n.with_locale(:es) do
-                expect(pbc.title).to eq('Example Public Body Category ES')
-             end
-         end
+                I18n.with_locale(:es) do
+                    expect(assigns(:category).title).to eq('Mi Nuevo Category')
+                end
+            end
 
-         it 'adds new translations' do
-             @category.translation_for(:es).destroy
-             @category.reload
-
-             post :update, {
-                 :id => @category.id,
-                 :public_body_category => {
-                     :title => @category.title,
-                     :description => @category.description,
-                     :translations_attributes => {
-                         'es' => { :locale => "es",
-                                   :title => "Example Public Body Category ES",
-                                   :description => @category.description },
-                         'fr' => { :locale => "fr",
-                                   :title => "Example Public Body Category FR",
-                                   :description => @category.description }
-                     }
-                 }
-             }
-
-             request.flash[:notice].should include('successful')
-
-             pbc = PublicBodyCategory.find(@category.id)
-
-             I18n.with_locale(:es) do
-                expect(pbc.title).to eq('Example Public Body Category ES')
-             end
-             I18n.with_locale(:fr) do
-                expect(pbc.title).to eq('Example Public Body Category FR')
-             end
-         end
-
-         it 'updates an existing translation and adds a third translation' do
-             post :update, {
-                 :id => @category.id,
-                 :public_body_category => {
-                     :title => @category.title,
-                     :description => @category.description,
-                     :translations_attributes => {
-                         # Update existing translation
-                         'es' => { :locale => "es",
-                                   :title => "Renamed Example Public Body Category ES",
-                                   :description => @category.description },
-                         # Add new translation
-                         'fr' => { :locale => "fr",
-                                   :title => "Example Public Body Category FR",
-                                   :description => @category.description }
-                     }
-                 }
-             }
-
-             request.flash[:notice].should include('successful')
-
-             pbc = PublicBodyCategory.find(@category.id)
-
-             I18n.with_locale(:es) do
-                expect(pbc.title).to eq('Renamed Example Public Body Category ES')
-             end
-             I18n.with_locale(:fr) do
-                expect(pbc.title).to eq('Example Public Body Category FR')
-             end
-         end
-
-        it "does not save edits to category_tag if the category has associated bodies" do
-            body = FactoryGirl.create(:public_body, :tag_string => @tag)
-            post :update, { :id => @category.id,
-                            :public_body_category => { :category_tag => "renamed" } }
-                            
-            msg = "There are authorities associated with this category, so the tag can't be renamed"
-            request.flash[:error].should == msg
-            pbc = PublicBodyCategory.find(@category.id)
-            pbc.category_tag.should == @tag
-        end
-
-
-        it "save edits to category_tag if the category has no associated bodies" do
-            category = PublicBodyCategory.create(:title => "Empty Category", :category_tag => "empty", :description => "-")
-            post :update, { :id => category.id,
-                            :public_body_category => { :category_tag => "renamed" } }
-            request.flash[:notice].should include('success')
-            pbc = PublicBodyCategory.find(category.id)
-            pbc.category_tag.should == "renamed"
-        end
-
-        it "redirects to the edit page after a successful update" do
-            post :update, { :id => @category.id,
-                            :public_body_category => { :title => "Renamed" } }
-
-            expect(response).to redirect_to(edit_admin_category_path(@category))
-        end
-
-        it "re-renders the edit form after an unsuccessful update" do
-            post :update, { :id => @category.id,
-                            :public_body_category => { :title => '' } }
-
-            expect(response).to render_template('edit')
         end
 
     end
