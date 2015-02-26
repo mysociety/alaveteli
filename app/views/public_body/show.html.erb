@@ -33,10 +33,6 @@
             <%= _('You can only request information about the environment from this authority.')%>
           </p>
         <% end %>
-
-        <%= link_to _("Make a request to this authority"),
-                    new_request_to_body_path(:url_name => @public_body.url_name),
-                    :class => "link_button_green" %>
       <% else %>
         <p class="authority__header__notes">
           <%= public_body_not_requestable_reasons(@public_body).first %>
@@ -52,6 +48,7 @@
                 :count => @public_body.info_requests.size) %>
         </div>
     <% end %>
+
     <div class="authority__header__action-bar">
         <div class="action-bar__make-request">
             <% if @public_body.is_requestable? || @public_body.not_requestable_reason == 'bad_contact' %>
@@ -60,33 +57,29 @@
                 <%= @public_body.notes_as_html.html_safe %>
             <% end %>
 
-        <div class="action-bar__follow">
-            <% follower_count = TrackThing.count(:all, :conditions => ["public_body_id = ?", @public_body.id]) %>
-            <div class="action-bar__follow-button">
-              <% if @existing_track %>
-                  <%= @track_thing.params[:verb_on_page_already] %>
-                <%= (link_to _("(unsubscribe)"), {:controller => 'track', :action => 'update', :track_id => @existing_track.id, :track_medium => "delete", :r => request.fullpath}) %>
-              <% else %>
-                  <div class="feed_link">
-                      <%= link_to _("Follow"), do_track_path(@track_thing), :class => "link_button_green" %>
-                  </div>
-              <% end %>
+            <div class="action-bar__follow">
+                <% follower_count = TrackThing.count(:all, :conditions => ["public_body_id = ?", @public_body.id]) %>
+                <div class="action-bar__follow-button">
+                  <% if @existing_track %>
+                      <%= @track_thing.params[:verb_on_page_already] %>
+                    <%= (link_to _("(unsubscribe)"), {:controller => 'track', :action => 'update', :track_id => @existing_track.id, :track_medium => "delete", :r => request.fullpath}) %>
+                  <% else %>
+                      <div class="feed_link">
+                          <%= link_to _("Follow"), do_track_path(@track_thing), :class => "link_button_green" %>
+                      </div>
+                  <% end %>
 
-            </div>
-            <div class="action-bar__follower-count">
-                <%= n_("{{count}} follower",
-                    "{{count}} followers",
-                    follower_count,
-                    :count => content_tag(:span, follower_count, :id => "follow_count")) %>
+                </div>
+                <div class="action-bar__follower-count">
+                    <%= n_("{{count}} follower",
+                        "{{count}} followers",
+                        follower_count,
+                        :count => content_tag(:span, follower_count, :id => "follow_count")) %>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
 
 <div class="authority__body">
     <div class="authority__body__foi-results">
