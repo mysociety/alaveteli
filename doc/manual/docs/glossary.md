@@ -24,6 +24,7 @@ Definitions
   <li><a href="#bounce-message">bounce message</a></li>
   <li><a href="#capistrano">Capistrano</a></li>
   <li><a href="#category">category</a></li>
+  <li><a href="#categorisation-game">categorisation game</a></li>
   <li><a href="#censor-rule">censor rule</a></li>
   <li><a href="#development">development site</a></li>
   <li><a href="#disclosure-log">disclosure log</a></li>
@@ -98,7 +99,7 @@ Definitions
   <dd>
     Alaveteli's <strong>advanced search</strong> lets users search using
     more complex criteria than just words. This includes Boolean operators,
-    date ranges, and specific indexes such as <code>status:</code>, 
+    date ranges, and specific indexes such as <code>status:</code>,
     <code>requested_by:</code>, <code>status:</code> and so on.
     <div class="more-info">
       <p>More information:</p>
@@ -278,12 +279,19 @@ Definitions
       Use <a href="#tag" class="glossary__link">tags</a> to associate
       authorities with specific categories.
     </p>
+        More about
+    <a href="{{ site.baseurl }}docs/running/categories_and_tags/">categories and tags</a>
+</dd>
+  <dt>
+    <a name="categorisation-game">categorisation game</a>
+  </dt>
+  <dd>
+   The categorisation game is a way that users of an Alaveteli site  can help the site stay current and accurate by updating the status of old requests where the original requester has never said whether the authority responded with the information or not.
     <div class="more-info">
       <p>More information:</p>
       <ul>
         <li>
-          More about
-      <a href="{{ site.baseurl }}docs/running/categories_and_tags/">categories and tags</a>
+          the categorisation game on the <a href="http://demo.alaveteli.org/categorise/play">demo Alaveteli site</a>.
         </li>
       </ul>
     </div>
@@ -485,13 +493,13 @@ Definitions
     supports. It's sometimes abbreviated as <em>i18n</em> (because there are
     18 letters between i and n).
     <p>
-      Often you don't need to worry about the details of how this is done 
+      Often you don't need to worry about the details of how this is done
       because once you've configured your site's
       <code><a href="{{ site.baseurl }}docs/customising/config/#default_locale">DEFAULT_LOCALE</a></code>
       Alaveteli takes care of it for you.
       But when you do need to work on i18n (for example, if you're customising
-      your site by 
-      <a href="{{ site.baseurl }}docs/customising/translation/">translating</a> it, or 
+      your site by
+      <a href="{{ site.baseurl }}docs/customising/translation/">translating</a> it, or
       <a href="{{ site.baseurl }}docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data">uploading names</a>
       of the public bodies in more than one language) at the very least you may
       need to know the language codes you're site is using.
@@ -592,7 +600,7 @@ Definitions
           to worry about this underlying structure.
         </li>
         <li>
-          See more about the 
+          See more about the
           <a href="https://www.gnu.org/software/gettext/"><code>gettext</code>
           system</a>.
         </li>
