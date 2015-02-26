@@ -56,26 +56,25 @@
             <% elsif @public_body.has_notes? %>
                 <%= @public_body.notes_as_html.html_safe %>
             <% end %>
+        </div>
+        <div class="action-bar__follow">
+            <% follower_count = TrackThing.count(:all, :conditions => ["public_body_id = ?", @public_body.id]) %>
+            <div class="action-bar__follow-button">
+              <% if @existing_track %>
+                  <%= @track_thing.params[:verb_on_page_already] %>
+                <%= (link_to _("(unsubscribe)"), {:controller => 'track', :action => 'update', :track_id => @existing_track.id, :track_medium => "delete", :r => request.fullpath}) %>
+              <% else %>
+                  <div class="feed_link">
+                      <%= link_to _("Follow"), do_track_path(@track_thing), :class => "link_button_green" %>
+                  </div>
+              <% end %>
 
-            <div class="action-bar__follow">
-                <% follower_count = TrackThing.count(:all, :conditions => ["public_body_id = ?", @public_body.id]) %>
-                <div class="action-bar__follow-button">
-                  <% if @existing_track %>
-                      <%= @track_thing.params[:verb_on_page_already] %>
-                    <%= (link_to _("(unsubscribe)"), {:controller => 'track', :action => 'update', :track_id => @existing_track.id, :track_medium => "delete", :r => request.fullpath}) %>
-                  <% else %>
-                      <div class="feed_link">
-                          <%= link_to _("Follow"), do_track_path(@track_thing), :class => "link_button_green" %>
-                      </div>
-                  <% end %>
-
-                </div>
-                <div class="action-bar__follower-count">
-                    <%= n_("{{count}} follower",
-                        "{{count}} followers",
-                        follower_count,
-                        :count => content_tag(:span, follower_count, :id => "follow_count")) %>
-                </div>
+            </div>
+            <div class="action-bar__follower-count">
+                <%= n_("{{count}} follower",
+                    "{{count}} followers",
+                    follower_count,
+                    :count => content_tag(:span, follower_count, :id => "follow_count")) %>
             </div>
         </div>
     </div>
