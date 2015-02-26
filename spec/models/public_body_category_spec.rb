@@ -69,9 +69,32 @@ describe PublicBodyCategory do
         end
     end
 
+    describe :save do
+
+      it 'saves translations' do
+          category = FactoryGirl.build(:public_body_category)
+          category.translations_attributes = { :es => { :locale => 'es',
+                                                        :title => 'El Category',
+                                                        :description => 'Spanish description' } }
+
+          category.save
+          expect(PublicBodyCategory.find(category.id).translations.size).to eq(2)
+      end
+
+    end
+
     describe :translations_attributes= do
 
         context 'translation_attrs is a Hash' do
+
+            it 'does not persist translations' do
+                category = FactoryGirl.create(:public_body_category)
+                category.translations_attributes = { :es => { :locale => 'es',
+                                                              :title => 'El Category',
+                                                              :description => 'Spanish description' } }
+
+                expect(PublicBodyCategory.find(category.id).translations.size).to eq(1)
+            end
 
             it 'takes the correct code path for a Hash' do
                 attrs = {}

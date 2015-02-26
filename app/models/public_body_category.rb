@@ -79,7 +79,6 @@ class PublicBodyCategory < ActiveRecord::Base
                 next if empty_translation?(attrs)
                 t = translation_for(attrs[:locale]) || PublicBodyCategory::Translation.new
                 t.attributes = attrs
-                t.save!
             end
         else                                            # Array => creating
             warn "[DEPRECATION] PublicBodyCategory#translations_attributes= " \
