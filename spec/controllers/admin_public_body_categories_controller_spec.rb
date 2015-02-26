@@ -128,7 +128,8 @@ describe AdminPublicBodyCategoriesController do
                           :description => 'New category for testing stuff',
                           :translations_attributes => {
                             'es' => { :locale => 'es',
-                                      :title => 'Mi Nuevo Category' }
+                                      :title => 'Mi Nuevo Category',
+                                      :description => 'ES Description' }
                           } }
             end
 
@@ -182,7 +183,8 @@ describe AdminPublicBodyCategoriesController do
                             :description => nil,
                             :translations_attributes => {
                               'es' => { :locale => 'es',
-                                        :title => 'Mi Nuevo Category' }
+                                        :title => 'Mi Nuevo Category',
+                                        :description => 'ES Description' }
                             } }
             end
             
@@ -209,6 +211,7 @@ describe AdminPublicBodyCategoriesController do
             @category = FactoryGirl.create(:public_body_category)
             I18n.with_locale('es') do
                 @category.title = 'Los category'
+                @category.description = 'ES Description'
                 @category.save!
             end
         end
@@ -262,6 +265,7 @@ describe AdminPublicBodyCategoriesController do
             @tag = @category.category_tag
             I18n.with_locale('es') do
                 @category.title = 'Los category'
+                @category.description = 'ES Description'
                 @category.save!
             end
         end
@@ -381,7 +385,8 @@ describe AdminPublicBodyCategoriesController do
                             :title => "Category",
                             :translations_attributes => {
                                 'es' => { :locale => "es",
-                                          :title => 'Renamed' }
+                                          :title => 'Renamed',
+                                          :description => 'ES Description' }
                                 }
                             }
                         }
@@ -521,7 +526,8 @@ describe AdminPublicBodyCategoriesController do
                             :description => nil,
                             :translations_attributes => {
                               'es' => { :locale => 'es',
-                                        :title => 'Mi Nuevo Category' }
+                                        :title => 'Mi Nuevo Category',
+                                        :description => 'ES Description' }
                             } }
             end
 

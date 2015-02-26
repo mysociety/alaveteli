@@ -67,6 +67,13 @@ describe PublicBodyCategory do
             category.should_not be_valid
             category.errors[:description].should == ["Description can't be blank"]
         end
+
+        it 'validates the translations' do
+            category = FactoryGirl.build(:public_body_category)
+            translation = category.translations.build
+            expect(category).to_not be_valid
+        end
+
     end
 
     describe :save do
@@ -150,5 +157,21 @@ describe PublicBodyCategory do
 
         end
     end
+
+end
+
+describe PublicBodyCategory::Translation do
+
+  it 'requires a title' do
+    translation = PublicBodyCategory::Translation.new
+    translation.valid?
+    expect(translation.errors[:title]).to eq(["Title can't be blank"])
+  end
+
+  it 'requires a description' do
+    translation = PublicBodyCategory::Translation.new
+    translation.valid?
+    expect(translation.errors[:description]).to eq(["Description can't be blank"])
+  end
 
 end

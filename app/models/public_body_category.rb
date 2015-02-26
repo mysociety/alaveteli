@@ -102,4 +102,7 @@ class PublicBodyCategory < ActiveRecord::Base
     end
 end
 
-
+PublicBodyCategory::Translation.class_eval do
+  validates_presence_of :title, :message => _("Title can't be blank")
+  validates_presence_of :description, :message => _("Description can't be blank")
+end
