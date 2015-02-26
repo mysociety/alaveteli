@@ -583,10 +583,23 @@ width:40%;
 width:26em;
 }
 
+#request_form {
+width: 63.6666%;
+margin-right: 3%;
+float: left;
+}
+
 #request_advice {
 float:right;
-width:250px;
+width:30.3333%;
 margin-top:1em;
+}
+
+.advice-panel {
+    ul {
+        list-style: none outside none;
+        padding-left: 0 !important;
+    }
 }
 
 #select_authority_help {
@@ -613,20 +626,18 @@ padding-top:0.5em;
 padding-bottom:1em;
 }
 
+#request_header_subject {
+    .form_item_note {
+        margin-top: 0.5em;
+    }
+}
+
 #request_form label,label.form_label {
-display:block;
-float:left;
-clear:none;
-width:100px;
-text-align:left;
-margin:2px 0 0;
-padding:0 10px 0 0;
+    display: block;
 }
 
 .form_item_note,.form_note {
-width:34em;
-margin-left:110px;
-font-size:1em;
+
 }
 
 .form_item_note {
@@ -634,7 +645,7 @@ margin-top:-1em;
 }
 
 .form_button {
-margin:0 0 0 9em;
+margin:0;
 }
 
 p#sign_in_reason, p#superuser_message {
@@ -895,7 +906,6 @@ margin:0 1.2em 0 0.9em;
 
 #request_header_text,#request_search_ahead_results {
 font-size:0.9em;
-margin-left:11em;
 }
 
 div.feed_link img,div.act_link img {
@@ -965,20 +975,15 @@ float:left;
 }
 
 #request_header_text {
-margin-left:110px;
-width: 30em;
 border-radius:3px;
 -moz-border-radius:3px;
-margin-top: 10px;
+margin: 10px 10px 0;
 background-color:#D5FFD8;
 border-color:#1EFF38;
 border-style:solid;
 border-width:1px;
 padding:0.5em;
-
 font-style: italic;
-
-
 }
 
 #request_header_text h3 {
