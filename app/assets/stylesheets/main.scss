@@ -661,7 +661,6 @@ p#superuser_message {
 clear:none;
 margin-bottom:1em;
 float:none;
-margin-top:20px;
 width:auto;
 }
 
@@ -683,8 +682,16 @@ margin-left:25%;
 
 #signup .form_item_note,#signin .form_note {
 font-size:0.9em;
-margin-left:11.5em;
-width:inherit;
+margin-top: 0.5em;
+}
+
+.sign-in-wrapper {
+    overflow: hidden;
+    padding: 1em 1.5em 1.5em;
+    background-color: #f4f4f4;
+    h2 {
+        margin-top: 0.2em;
+    }
 }
 
 div.controller_help dt a,div.controller_help h1 a,div#help_unhappy h1 a.hover_a {
@@ -1246,13 +1253,19 @@ font-style:italic;
 color:#444;
 }
 
-#sign_together h1 {
-width:320px;
-text-align:center;
+
+#sign_together {
+    #left_half {
+        width: 63.666%;
+        margin-right: 3%;
+    }
+    #right_half {
+        width: 33.333%;
+    }
 }
 
-#sign_together .form_button {
-margin-left:10.5em;
+.pretitle {
+    margin-bottom: 0;
 }
 
 form input[type=text],form input[type=password] {
