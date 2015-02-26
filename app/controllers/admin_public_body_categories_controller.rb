@@ -49,6 +49,8 @@ class AdminPublicBodyCategoriesController < AdminController
                     end
 
                     added_headings.each do |heading_id|
+                        # FIXME: This can't handle failure (e.g. if a
+                        # PublicBodyHeading doesn't exist)
                         PublicBodyHeading.find(heading_id).add_category(@category)
                     end
                 end
