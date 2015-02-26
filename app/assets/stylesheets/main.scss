@@ -185,11 +185,8 @@ margin:18px 0 36px;
 }
 
 #stepwise_make_request {
-color:#222;
 font-size:1.1em;
 text-align:left;
-width:412px;
-margin:0 14em 40px 0;
 }
 
 #stepwise_make_request_view_email {
@@ -905,34 +902,6 @@ div.feed_link img,div.act_link img {
 border:none;
 vertical-align:middle;
 text-decoration:none;
-}
-
-#follow_box {
-
- padding: 4px;
-}
-
-#follow_box .feed_link {
- text-align: center;
-}
-
-#follow_count {
- color: #93278F;
- font-family: 'DeliciousBold', Arial, sans-serif;
- font-weight: 700;
- font-size: 60px;
- line-height: 60px;
- text-align: right;
- float: left;
- margin-top: -15px;
- margin-right: 5px;
-}
-.follow_count {
- clear:both;
-}
-
-#follow_box h2 {
- margin: 0;
 }
 
 h2,dt {
@@ -1816,4 +1785,101 @@ text-decoration:none;
 .batch_public_body_toggle {
   color: #0000EE;
   font-size: 0.9em;
+}
+
+.back-to-results {
+    margin-top: 0.5em;
+}
+
+.authority__header {
+    border-bottom: 1px solid #e9e9e9;
+    margin-bottom: 1em;
+}
+
+.authority__header__subtitle {
+    font-size: 1.2em;
+    color: #666;
+}
+
+.authority__body {
+    overflow: hidden;
+}
+
+.authority__body__foi-results {
+    width: 63.666%;
+    float: left;
+    margin-right: 3%;
+}
+
+.authority__body__sidebar {
+    width: 33.333%;
+    float: left;
+}
+
+.authority__header__action-bar {
+    font-size: 0;
+    padding: 16px 0;
+    margin-top: 8px;
+    border-top: 1px solid #e9e9e9;
+}
+
+.action-bar__make-request,
+.action-bar__follow,
+.action-bar__follow-button,
+.action-bar__follower-count {
+    vertical-align: top;
+    font-size: 16px;
+    display: inline-block;
+    margin:0 1em 0 0;
+    .feed_link {
+        padding: 0;
+    }
+}
+
+.list-filter-item {
+    .title {
+        display: inline;
+        font-size: 1em;
+        font-weight: normal;
+    }
+}
+
+.list-filter-item {
+    ul {
+        list-style: none outside none;
+        margin: 0;
+        padding: 0;
+    }
+    li {
+        display: inline-block;
+        &:after {
+            content:' | ';
+            display: inline-block;
+            color: #ccc; //Unsupported browsers will ignore the rgba declaration below
+            color: rgba(0,0,0,0.1);
+        }
+        &:last-child {
+            &:after {
+                content: '';
+            }
+        }
+
+    }
+}
+
+.authority__body__sidebar__links {
+    a {
+        display: inline-block;
+        margin-bottom: 0.5em;
+    }
+}
+
+#list-filter {
+    margin-bottom: 3em;
+}
+
+#filter_requests_form label.title {
+    display: block;
+    width: auto;
+    margin-bottom: 0.3em;
 }
