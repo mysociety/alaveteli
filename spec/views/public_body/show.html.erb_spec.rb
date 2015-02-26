@@ -7,7 +7,7 @@ describe "public_body/show" do
                          :short_name => 'tq',
                          :url_name => 'testquango',
                          :notes => '',
-                         :type_of_authority => 'A public body',
+                         :tags => [],
                          :eir_only? => nil,
                          :info_requests => [1, 2, 3, 4], # out of sync with Xapian
                          :publication_scheme => '',

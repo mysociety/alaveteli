@@ -32,4 +32,30 @@ module PublicBodyHelper
     reasons.compact
   end
 
+  # Use tags to describe what type of authority a PublicBody is.
+  #
+  # public_body - Instance of a PublicBody
+  #
+  # Returns a string
+  def type_of_authority(public_body)
+      types = public_body.tags.each_with_index.map do |tag, index|
+          if PublicBodyCategory.get().by_tag().include?(tag.name)
+              desc = PublicBodyCategory.get().singular_by_tag()[tag.name]
+
+              if index.zero?
+                  desc = desc.sub(/\S/) { |m| Unicode.upcase(m) }
+              end
+              link_to(desc, list_public_bodies_path(tag.name))
+          end
+      end
+
+      types.compact!
+
+      if types.any?
+          types.to_sentence(:last_word_connector => ' and ').html_safe
+      else
+          _("A public authority")
+      end
+  end
+
 end
