@@ -88,14 +88,14 @@ you can duplicate `alivetelitheme` (in `lib/themes/`) and change its name.
 
 The most common requirement is to brand the site: at a minimum,
 [inserting your own logo](#changing-the-logo) and
-[colour scheme](#changing-the-colour-scheme). You should also 
+[colour scheme](#changing-the-colour-scheme). You should also
 [add the categories](#adding-your-own-categories-for-authorities)
 that authorities can appear in (you can see these as groupings on the left-hand
 side of the [View authorities](https://www.whatdotheyknow.com/body/list/all) page
 on <a href="{{ site.baseurl }}docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>).
 You may also want to
 [tweak the different states](#customising-the-request-states) that a request can
-go through. 
+go through.
 
 There may also be other things you want to customise -- talk to us on the
 developer's mailing list to discuss what you need. We're happy to help work out
@@ -148,7 +148,7 @@ want to customise.  We recommend you make a copy, rename it, and
 use that as the basis for your own theme.
 
 <div class="attention-box info">
-  The 
+  The
   <code><a href="{{ site.baseurl }}docs/customising/config/#theme_urls">THEME_URLS</a></code>
   setting allows you to specifiy more than one theme &mdash; but
   normally you only need one.
@@ -220,12 +220,12 @@ edit them in your version of this file in your own theme.
 
 ### Changing other styling
 
-To change other styling, you can add to or edit the styles in 
-`lib/themes/alavetelitheme/assets/stylesheets/responsive/custom.scss`. 
+To change other styling, you can add to or edit the styles in
+`lib/themes/alavetelitheme/assets/stylesheets/responsive/custom.scss`.
 Styles defined here will override those in the sass modules in
 `app/assets/stylesheets/responsive` as they will be imported last by
 `app/assets/stylesheets/responsive/all.scss`. However, if you want to
-substantially change the way a particular part of the site is laid out, 
+substantially change the way a particular part of the site is laid out,
 you may want to override one of the core Sass modules. You could override the
 layout of the front page, for example, by copying
 `app/assets/stylesheets/responsive/_frontpage_layout.scss` to
@@ -319,3 +319,14 @@ you can use
 [`script/switch-theme.rb`](https://github.com/mysociety/alaveteli/blob/master/script/switch-theme.rb)
 to set the current theme if you are working with multiple themes. This can be
 useful for switching between the default `alavetelitheme` and your own fork.
+
+## Testing your theme
+
+You can add tests for the changes in functionality that are implemented
+in your theme. These use <a href="http://rspec.info/">rspec</a>, as does the main Alaveteli test suite.
+They should be put in the `spec` directory of your theme. They are run
+separately from the main Alaveteli tests by executing the following command in the directory in which Alaveteli is installed (substituting your theme directory for `alavetelitheme`):
+
+    bundle exec rspec lib/themes/alavetelitheme/spec
+
+You can see some example tests in the <a href="https://github.com/mysociety/whatdotheyknow-theme/tree/master/spec">whatdotheyknow-theme</a>.
