@@ -83,6 +83,13 @@ class AdminPublicBodyCategoriesController < AdminController
     def create
         I18n.with_locale(I18n.default_locale) do
             @category = PublicBodyCategory.new(params[:public_body_category])
+            # Build a translation for the default locale as it isn't available
+            # until the parent record is persisted. I'm not sure whether this is
+            # a Globalize issue, or the way we're building translations in
+            # PublicBodyCategory#translations_attributes=
+            @category.translations.build(:locale => I18n.default_locale,
+                                         :title => params[:public_body_category][:title],
+                                         :description => params[:public_body_category][:description])
 
             if @category.save
                 # FIXME: This can't handle failure (e.g. if a PublicBodyHeading
@@ -95,20 +102,6 @@ class AdminPublicBodyCategoriesController < AdminController
                 flash[:notice] = 'Category was successfully created.'
                 redirect_to admin_categories_path
             else
-                I18n.available_locales.each do |locale|
-                    if locale == I18n.default_locale
-                      @category.translations.build(:locale => locale)
-                      next
-                    end
-
-                    translation_params = params[:public_body_category].
-                      fetch(:translations_attributes, {}).
-                        fetch(locale, nil)
-
-                    if !@category.translations.where(:locale => locale).first && translation_params
-                      @category.translations.build(translation_params)
-                    end
-                end
                 render :action => 'new'
             end
         end
