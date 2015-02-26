@@ -32,7 +32,7 @@
         <h1><%=h(@public_body.name)%></h1>
 
         <p class="subtitle">
-        <%=@public_body.type_of_authority(true)%><% if not @public_body.short_name.empty? %>,
+        <%= @public_body.type_of_authority %><% if not @public_body.short_name.empty? %>,
         <%= _('also called {{public_body_short_name}}', :public_body_short_name =>  h(@public_body.short_name))%><% end %>
         <% if !@user.nil? && @user.admin_page_links? %>
         (<%= link_to _("admin"), admin_body_path(@public_body) %>)

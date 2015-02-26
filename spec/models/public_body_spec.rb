@@ -45,7 +45,7 @@ describe PublicBody do
       public_body = FactoryGirl.create(:public_body, :tag_string => 'spec')
 
 
-      expect(public_body.type_of_authority).to eq('Ünicode category')
+      expect(public_body.type_of_authority).to eq('<a href="/body/list/spec">Ünicode category</a>')
     end
 
     it 'constructs the correct string if there are tags which are not categories' do
@@ -56,44 +56,12 @@ describe PublicBody do
           heading.add_category(category)
         end
         public_body = FactoryGirl.create(:public_body, :tag_string => 'spec_0 spec_2 unknown')
-
-        expect(public_body.type_of_authority).to eq('Spec category 0 and spec category 2')
+        expected = '<a href="/body/list/spec_0">Spec category 0</a> and <a href="/body/list/spec_2">spec category 2</a>'
+        expect(public_body.type_of_authority).to eq(expected)
     end
+
 
     context 'when associated with one category' do
-
-      it 'returns the capitalised category description' do
-        category = FactoryGirl.create(:public_body_category, :category_tag => 'spec',
-                                                             :description => 'spec category')
-        heading = FactoryGirl.create(:public_body_heading)
-        heading.add_category(category)
-        public_body = FactoryGirl.create(:public_body, :tag_string => 'spec')
-
-        expect(public_body.type_of_authority).to eq('Spec category')
-      end
-
-    end
-
-    context 'when associated with several categories' do
-
-      it 'joins the category descriptions and capitalizes the first letter' do
-        heading = FactoryGirl.create(:public_body_heading)
-        3.times do |i|
-          category = FactoryGirl.create(:public_body_category, :category_tag => "spec_#{i}",
-                                                               :description => "spec category #{i}")
-          heading.add_category(category)
-        end
-        public_body = FactoryGirl.create(:public_body, :tag_string => 'spec_0 spec_1 spec_2')
-
-        description = 'Spec category 0, spec category 1 and spec category 2'
-        expect(public_body.type_of_authority).to eq(description)
-      end
-
-    end
-
-    context 'when the html parameter is true' do
-
-      context 'when associated with one category' do
 
         it 'returns the description wrapped in an anchor tag' do
           category = FactoryGirl.create(:public_body_category, :category_tag => 'spec',
@@ -103,12 +71,11 @@ describe PublicBody do
           public_body = FactoryGirl.create(:public_body, :tag_string => 'spec')
 
           anchor = %Q(<a href="/body/list/spec">Spec category</a>)
-          expect(public_body.type_of_authority(true)).to eq(anchor)
+          expect(public_body.type_of_authority).to eq(anchor)
         end
+    end
 
-      end
-
-      context 'when associated with several categories' do
+    context 'when associated with several categories' do
 
         it 'joins the category descriptions and capitalizes the first letter' do
           heading = FactoryGirl.create(:public_body_heading)
@@ -127,10 +94,8 @@ describe PublicBody do
             %Q(<a href="/body/list/spec_2">spec category 2</a>)
           ].join('')
 
-          expect(public_body.type_of_authority(true)).to eq(description)
+          expect(public_body.type_of_authority).to eq(description)
         end
-
-      end
 
     end
 
