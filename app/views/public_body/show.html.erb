@@ -20,6 +20,7 @@
         <% end %>
     </p>
 
+    <% if @public_body.has_notes? || @public_body.eir_only? || @public_body.special_not_requestable_reason? %>
     <div id="stepwise_make_request">
       <% if @public_body.has_notes? %>
         <p class="authority__header__notes">
@@ -33,12 +34,13 @@
             <%= _('You can only request information about the environment from this authority.')%>
           </p>
         <% end %>
-      <% elsif @public_body.not_requestable_reason != 'bad_contact' %>
+      <% elsif @public_body.special_not_requestable_reason? %>
         <p class="authority__header__notes">
           <%= public_body_not_requestable_reasons(@public_body).first %>
         </p>
       <% end %>
     </div>
+    <% end %>
 
     <% if @public_body.info_requests.size > 0 %>
         <div class="authority__header__stats">
