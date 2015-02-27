@@ -23,7 +23,13 @@ class AdminPublicBodyCategoriesController < AdminController
 
     def update
         @category = PublicBodyCategory.find(params[:id])
+
+        I18n.available_locales.each do |locale|
+            @category.translations.find_or_initialize_by_locale(locale)
+        end
+
         @tagged_public_bodies = PublicBody.find_by_tag(@category.category_tag)
+
         heading_ids = []
 
         I18n.with_locale(I18n.default_locale) do
