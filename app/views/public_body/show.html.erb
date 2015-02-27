@@ -55,9 +55,7 @@
         <div class="action-bar__make-request">
             <% if @public_body.is_requestable? || @public_body.not_requestable_reason == 'bad_contact' %>
                 <%= link_to _("Make a request to this authority"), new_request_to_body_path(:url_name => @public_body.url_name), :class => "link_button_green" %>
-            <% elsif @public_body.has_notes? %>
-                <%= @public_body.notes_as_html.html_safe %>
-            <% end %>
+           <% end %>
         </div>
         <div class="action-bar__follow">
             <% follower_count = TrackThing.count(:all, :conditions => ["public_body_id = ?", @public_body.id]) %>
