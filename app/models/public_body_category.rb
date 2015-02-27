@@ -87,6 +87,17 @@ class PublicBodyCategory < ActiveRecord::Base
 end
 
 PublicBodyCategory::Translation.class_eval do
-  validates_presence_of :title, :message => _("Title can't be blank")
-  validates_presence_of :description, :message => _("Description can't be blank")
+  with_options :if => :required_attribute_submitted? do |required|
+    required.validates :title, :presence => { :message => _("Title can't be blank") }
+    required.validates :description, :presence => { :message => _("Description can't be blank") }
+  end
+
+  private
+
+  def required_attribute_submitted?
+    PublicBodyCategory.required_translated_attributes.compact.any? do |attribute|
+      !read_attribute(attribute).blank?
+    end
+  end
+
 end

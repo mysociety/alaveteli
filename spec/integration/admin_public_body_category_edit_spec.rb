@@ -35,14 +35,12 @@ describe 'Editing a Public Body Category' do
 
     it 'can add a translation for multiple locales' do
         # Add FR translation
-        expect(@category.find_translation_by_locale('fr')).to be_nil
         @admin.visit edit_admin_category_path(@category)
         @admin.fill_in 'public_body_category_translations_attributes_fr_title__fr', :with => 'New Category FR'
         @admin.fill_in 'public_body_category_translations_attributes_fr_description__fr', :with => 'FR Description'
         @admin.click_button 'Save'
 
         # Add ES translation
-        expect(@category.find_translation_by_locale('es')).to be_nil
         @admin.visit edit_admin_category_path(@category)
         @admin.fill_in 'public_body_category_translations_attributes_es_title__es', :with => 'New Category ES'
         @admin.fill_in 'public_body_category_translations_attributes_es_description__es', :with => 'ES Description'

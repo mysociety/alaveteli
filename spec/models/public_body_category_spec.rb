@@ -174,14 +174,25 @@ end
 
 describe PublicBodyCategory::Translation do
 
-  it 'requires a title' do
+  it 'requires a locale' do
     translation = PublicBodyCategory::Translation.new
+    translation.valid?
+    expect(translation.errors[:locale]).to eq(["can't be blank"])
+  end
+
+  it 'is valid if no required attributes are assigned' do
+    translation = PublicBodyCategory::Translation.new(:locale => I18n.default_locale)
+    expect(translation).to be_valid
+  end
+
+  it 'requires a title if another required attribute is assigned' do
+    translation = PublicBodyCategory::Translation.new(:description => 'spec')
     translation.valid?
     expect(translation.errors[:title]).to eq(["Title can't be blank"])
   end
 
-  it 'requires a description' do
-    translation = PublicBodyCategory::Translation.new
+  it 'requires a description if another required attribute is assigned' do
+    translation = PublicBodyCategory::Translation.new(:title => 'spec')
     translation.valid?
     expect(translation.errors[:description]).to eq(["Description can't be blank"])
   end
