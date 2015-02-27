@@ -21,7 +21,7 @@ module PublicBodyHelper
 
     unless public_body.has_request_email?
       # Make the authority appear requestable to encourage users to help find
-      # the authroty's email address
+      # the authority's email address
       msg = link_to _("Make a request to this authority"),
                       new_request_to_body_path(:url_name => public_body.url_name),
                       :class => "link_button_green"

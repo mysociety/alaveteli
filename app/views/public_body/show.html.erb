@@ -33,7 +33,7 @@
             <%= _('You can only request information about the environment from this authority.')%>
           </p>
         <% end %>
-      <% else %>
+      <% elsif @public_body.not_requestable_reason != 'bad_contact' %>
         <p class="authority__header__notes">
           <%= public_body_not_requestable_reasons(@public_body).first %>
         </p>
