@@ -59,21 +59,6 @@ class AdminPublicBodyCategoriesController < AdminController
                     flash[:notice] = 'Category was successfully updated.'
                     redirect_to edit_admin_category_path(@category)
                 else
-                    I18n.available_locales.each do |locale|
-                        if locale == I18n.default_locale
-                          next
-                        end
-
-                        next if @category.translations.map(&:locale).include?(locale)
-
-                        translation_params = params[:public_body_category].
-                          fetch(:translations_attributes, {}).
-                            fetch(locale, nil)
-
-                        if !@category.translations.where(:locale => locale).first && translation_params
-                          @category.translations.build(translation_params)
-                        end
-                    end
                     render :action => 'edit'
                 end
             end
