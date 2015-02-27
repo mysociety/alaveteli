@@ -51,12 +51,11 @@ There are several reasons why a message might end up in the holding pen:
   letter of the email address when they copy-and-paste it. Or if they copy
   it manually and simply get it wrong.
   
-* **the message is sent to multiple (valid) email addresses**<br>
+* **the message is sent to multiple (valid) email addresses and one bad one**<br>
   Sometimes an officer working for an authority may attempt to send email using
-  a collection of email addresses for you site. When this happens &mdash;
-  an incoming email is addressed to *more than one* valid email addresses &mdash;
-  Alaveteli will direct it into the holding pen because it cannot decide
-  which, if any, is the correct one.
+  a collection of email addresses for your site. This is allowed, and the
+  response will be sent to each of them. However, if any of those addresses
+  are wrong (even just one), the response will go into the holding pen.
 
 * **there's something unusual about the way it was sent**<br>
   For example, if it was delivered here because the address is in the `Bcc:`
@@ -67,12 +66,22 @@ There are several reasons why a message might end up in the holding pen:
   have misunderstood how the addresses are formed, or due to a deliberate 
   attempt to send spam.
 
+* **the response has been rejected and rejections are set to go to the holding pen**<br>
+  Incoming mail that is correctly addressed but not accepted for the request
+  goes into the holding pen if the request's `handle_rejected_responses`
+  behaviour is set to `holding_pen` (rather than bouncing the email back to
+  the sender, or simply deleting it). Responses may be rejected for various
+  reasons &mdash; for example, if a response is sent from an unrecognised 
+  email address for a request whose *Allow new responses from* setting is
+  `authority_only`.
+  
 ## What to do: redeliver or delete
 
 You need to be an
 <a href="{{ site.baseurl }}docs/glossary/#super" class="glossary__link">administrator</a>
-to modify the holding pen. There are two things you can do to a message in the
-holding pen:
+to modify the holding pen.
+
+There are two things you can do to a message in the holding pen:
 
   * **find the right request, and redeliver the message**<br>
     Alaveteli tries to guess the right request to help you, so sometimes
@@ -84,7 +93,8 @@ holding pen:
 For instructions, see
 [removing a message from the holding pen]({{ site.baseurl }}docs/running/admin_manual/#removing-a-message-from-the-holding-pen).
 
-If the message is clearly spam, you can also add its `To:` email address to Alaveteli's
+If the `To:` address does not belong to a valid request and the message is
+clearly spam you can add that email address to Alaveteli's
 <a href="{{site.baseurl}}#spam-address-list" class="glossary__link">spam address list</a>.
 Subsequent messages to that address will be automatically rejected &mdash; for
 instructions see
