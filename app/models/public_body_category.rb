@@ -20,7 +20,7 @@ class PublicBodyCategory < ActiveRecord::Base
     has_many :public_body_headings, :through => :public_body_category_links
 
     translates :title, :description
-    accepts_nested_attributes_for :translations
+    accepts_nested_attributes_for :translations, :reject_if => :empty_translation_in_params?
 
     validates_uniqueness_of :category_tag, :message => 'Tag is already taken'
     validates_presence_of :title, :message => "Title can't be blank"
@@ -69,37 +69,21 @@ class PublicBodyCategory < ActiveRecord::Base
         translations
     end
 
-    def translations_attributes=(translation_attrs)
-        def empty_translation?(attrs)
-            attrs_with_values = attrs.select{ |key, value| value != '' and key.to_s != 'locale' }
-            attrs_with_values.empty?
-        end
-        if translation_attrs.respond_to? :each_value    # Hash => updating
-            translation_attrs.each_value do |attrs|
-                next if empty_translation?(attrs)
-                t = translation_for(attrs[:locale]) || PublicBodyCategory::Translation.new
-                t.attributes = attrs
-            end
-        else                                            # Array => creating
-            warn "[DEPRECATION] PublicBodyCategory#translations_attributes= " \
-                 "will no longer accept an Array as of release 0.22. " \
-                 "Use Hash arguments instead. See " \
-                 "spec/models/public_body_category_spec.rb and " \
-                 "app/views/admin_public_body_categories/_form.html.erb for more " \
-                 "details."
-            translation_attrs.each do |attrs|
-                next if empty_translation?(attrs)
-                new_translation = PublicBodyCategory::Translation.new(attrs)
-                translations << new_translation
-            end
-        end
-    end
-
     def translated_versions=(translation_attrs)
         warn "[DEPRECATION] PublicBodyCategory#translated_versions= will be replaced " \
              "by PublicBodyCategory#translations_attributes= as of release 0.22"
         self.translations_attributes = translation_attrs
     end
+
+    private
+
+    def empty_translation_in_params?(attributes)
+        attrs_with_values = attributes.select do |key, value|
+            value != '' and key.to_s != 'locale'
+        end
+        attrs_with_values.empty? 
+    end
+
 end
 
 PublicBodyCategory::Translation.class_eval do

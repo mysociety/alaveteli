@@ -525,7 +525,8 @@ describe AdminPublicBodyCategoriesController do
                             :category_tag => 'new_test_category',
                             :description => nil,
                             :translations_attributes => {
-                              'es' => { :locale => 'es',
+                              'es' => { :id => @category.translation_for(:es).id,
+                                        :locale => 'es',
                                         :title => 'Mi Nuevo Category',
                                         :description => 'ES Description' }
                             } }
