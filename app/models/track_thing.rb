@@ -231,8 +231,7 @@ class TrackThing < ActiveRecord::Base
         { # Website
           :verb_on_page => _("Follow requests to {{public_body_name}}",
                              :public_body_name => public_body.name),
-          :verb_on_page_already => _("You are already following requests to {{public_body_name}}",
-                                     :public_body_name => public_body.name),
+          :verb_on_page_already => _("Following"),
           # Email
           :title_in_email => _("{{foi_law}} requests to '{{public_body_name}}'",
                                :foi_law => public_body.law_only_short,

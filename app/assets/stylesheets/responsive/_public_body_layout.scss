@@ -8,3 +8,66 @@
     @include grid-column(12);
     margin-top: 0.5em;
 }
+
+.authority__header {
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      margin-bottom: 1em;
+    }
+    @include grid-column(12);
+}
+
+.authority__body {
+    .request_left,
+    .request_right {
+        float: none;
+        width: auto;
+    }
+    .desc {
+        padding-left: 0;
+    }
+    .request_listing .bottomline {
+        padding-bottom: 0.5em;
+    }
+}
+
+.authority__body__foi-results {
+    @include grid-column(12);
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+        @include grid-column(8);
+    }
+}
+
+.authority__body__sidebar {
+    @include grid-column(12);
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+        @include grid-column(4);
+    }
+}
+
+.authority__header__action-bar {
+    font-size: 0;
+    padding: 16px 0;
+    margin-top: 8px;
+}
+
+.action-bar__make-request,
+.action-bar__follow,
+.action-bar__follow-button,
+.action-bar__follower-count {
+  vertical-align: top;
+  font-size: 16px;
+  margin: 1em 0;
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    display: inline-block;
+    margin:0 1em 0 0;
+  }
+}
+
+
+.list-filter-item {
+    .title {
+        display: inline;
+        font-size: 1em;
+        font-weight: normal;
+    }
+}

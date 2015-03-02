@@ -58,6 +58,9 @@ class PublicBodyController < ApplicationController
             flash.keep(:search_params)
 
             @track_thing = TrackThing.create_track_for_public_body(@public_body)
+            if @user
+                @existing_track = TrackThing.find_existing(@user, @track_thing)
+            end
             @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
             respond_to do |format|

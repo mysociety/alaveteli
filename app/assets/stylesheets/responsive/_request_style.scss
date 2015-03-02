@@ -3,12 +3,29 @@
 div.correspondence {
   border: 1px solid #ccc;
   margin: 0 0 1em;
-  padding: 0.5em 1em 0 0.5em;
+  padding: 1em;
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    padding: 1.5em;
+  }
 
   h2 {
     text-align:right;
     font-size:1em;
   }
+}
+
+.preview_subject,
+.preview_to {
+  font-weight: bold;
+  strong {
+    font-weight: normal;
+    display: block;
+    color: #777;
+  }
+}
+
+.preview_subject {
+  margin-bottom: 1.5em;
 }
 
 div.comment_in_request {
@@ -30,7 +47,7 @@ div.comment_in_request {
   margin-bottom: 1em;
 }
 
-.correspondence_text,.comment_in_request_text {
+.comment_in_request_text {
   margin:0 1.2em 0 0.9em;
 }
 

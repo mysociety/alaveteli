@@ -29,15 +29,23 @@
 #to_public_body {
   font-weight: bold;
   font-size: 1.3em;
+  margin-bottom: 0.5em;
+}
+
+.to_public_body_label {
+  color: #777;
+  font-weight: normal;
+}
+
+#request_header {
+  border-bottom: 1px solid #ccc; //Unsupported browsers will ignore the rgba declaration below
+  border-color: rgba(0,0,0,0.1);
+  margin-bottom: 2em;
 }
 
 #request_header_text {
-  border-radius:3px;
-  background-color: lighten(#62b356, 23%);
-  padding:0 1em;
-  margin-bottom: 1.5em;
-  margin-top: 1.5em;
   overflow: hidden;
+  font-size: 0.875em;
   h3 {
    font-size: 1em;
   }
@@ -45,13 +53,52 @@
 }
 
 #request_advice {
+  margin-bottom: 1.5em;
+  font-size: 0.875em;
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    font-size: 1em;
+  }
+  .advice-panel {
+      margin-top: 1.5em;
+  }
+}
+
+.advice-panel {
+  margin-bottom: 1.5em;
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    margin-bottom: 0;
+  }
   ul {
     margin:0 auto;
-
+    list-style: none outside none;
+    padding: 0;
     li {
       margin:0 0 1em;
     }
   }
+}
+
+#request_search_ahead_results {
+   background-color: #f4f4f4;
+   padding: 1.5em;
+   margin-bottom: 1.5em;
+   h2 {
+    font-size: 1em;
+    font-weight: normal;
+   }
+}
+
+
+input#reedit_button {
+  background-color: transparent;
+  color: #2688dc;
+  text-decoration: underline;
+    &:hover,
+    &:active,
+    &:focus {
+        color: #333333;
+    }
+    border: none;
 }
 
 
