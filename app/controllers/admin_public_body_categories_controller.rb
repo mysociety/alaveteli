@@ -7,27 +7,17 @@ class AdminPublicBodyCategoriesController < AdminController
 
     def new
         @category = PublicBodyCategory.new
-        I18n.available_locales.each do |locale|
-            @category.translations.build(:locale => locale)
-        end
+        @category.create_all_translations
     end
 
     def edit
         @category = PublicBodyCategory.find(params[:id])
-        I18n.available_locales.each do |locale|
-            @category.translations.find_or_initialize_by_locale(locale)
-        end
-
+        @category.create_all_translations
         @tagged_public_bodies = PublicBody.find_by_tag(@category.category_tag)
     end
 
     def update
         @category = PublicBodyCategory.find(params[:id])
-
-        I18n.available_locales.each do |locale|
-            @category.translations.find_or_initialize_by_locale(locale)
-        end
-
         @tagged_public_bodies = PublicBody.find_by_tag(@category.category_tag)
 
         heading_ids = []
@@ -65,6 +55,7 @@ class AdminPublicBodyCategoriesController < AdminController
                     flash[:notice] = 'Category was successfully updated.'
                     redirect_to edit_admin_category_path(@category)
                 else
+                    @category.create_all_translations
                     render :action => 'edit'
                 end
             end
@@ -74,14 +65,6 @@ class AdminPublicBodyCategoriesController < AdminController
     def create
         I18n.with_locale(I18n.default_locale) do
             @category = PublicBodyCategory.new(params[:public_body_category])
-            # Build a translation for the default locale as it isn't available
-            # until the parent record is persisted. I'm not sure whether this is
-            # a Globalize issue, or the way we're building translations in
-            # PublicBodyCategory#translations_attributes=
-            @category.translations.build(:locale => I18n.default_locale,
-                                         :title => params[:public_body_category][:title],
-                                         :description => params[:public_body_category][:description])
-
             if @category.save
                 # FIXME: This can't handle failure (e.g. if a PublicBodyHeading
                 # doesn't exist)
@@ -93,6 +76,7 @@ class AdminPublicBodyCategoriesController < AdminController
                 flash[:notice] = 'Category was successfully created.'
                 redirect_to admin_categories_path
             else
+                @category.create_all_translations
                 render :action => 'new'
             end
         end

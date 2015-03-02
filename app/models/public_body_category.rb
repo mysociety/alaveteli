@@ -75,6 +75,16 @@ class PublicBodyCategory < ActiveRecord::Base
         self.translations_attributes = translation_attrs
     end
 
+    def ordered_translations
+        translations.sort_by{ |t| I18n.available_locales.index(t.locale) }
+    end
+
+    def create_all_translations
+        I18n.available_locales.each do |locale|
+            translations.build(:locale => locale) unless translations.detect{ |t| t.locale == locale }
+        end
+    end
+
     private
 
     def empty_translation_in_params?(attributes)
