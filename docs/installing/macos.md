@@ -96,8 +96,9 @@ Create a `foi` user from the command line, like this:
 
     createuser -s -P foi
 
-_Note:_ Leaving the password blank will cause great confusion if you're new to
-PostgreSQL.
+_Note:_ After running this command you will be prompted to set a
+password for the user. Don't leave it blank if you are new to
+PostgreSQL, or it could be difficult to set later for you.
 
 We'll create a template for our Alaveteli databases:
 
