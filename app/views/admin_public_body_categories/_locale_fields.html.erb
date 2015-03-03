@@ -1,0 +1,15 @@
+<div class="tab-pane" id="div-locale-<%=locale.to_s%>">
+    <div class="control-group">
+        <%= t.hidden_field :locale, :value => locale.to_s %>
+        <label for="<%= form_tag_id(t.object_name, :title, locale) %>" class="control-label">Title</label>
+        <div class="controls">
+            <%= t.text_field :title, :id => form_tag_id(t.object_name, :title, locale), :class => "span4" %>
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="<%= form_tag_id(t.object_name, :description, locale) %>" class="control-label">Description</label>
+        <div class="controls">
+            <%= t.text_field :description, :id => form_tag_id(t.object_name, :description, locale), :class => "span4" %>
+        </div>
+    </div>
+</div>

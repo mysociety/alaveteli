@@ -4,37 +4,20 @@
 
 <div id="div-locales">
   <ul class="locales nav nav-tabs">
-  <% I18n.available_locales.each_with_index do |locale, i| %>
-    <li><a href="#div-locale-<%=locale.to_s%>" data-toggle="tab" ><%=locale_name(locale.to_s) || "Default locale"%></a></li>
-  <% end %>
+    <% @heading.ordered_translations.each do |translation| %>
+      <li>
+        <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab" >
+          <%= locale_name(translation.locale.to_s) || _("Default locale") %>
+        </a>
+      </li>
+    <% end %>
   </ul>
   <div class="tab-content">
-<%
-    for locale in I18n.available_locales do
-        if locale==I18n.default_locale  # The default locale is submitted as part of the bigger object...
-            prefix = 'public_body_heading'
-            object = @heading
-        else                            # ...but additional locales go "on the side"
-            prefix = "public_body_heading[translated_versions][]"
-            object = @heading.new_record? ?
-                        PublicBodyHeading::Translation.new :
-                        @heading.find_translation_by_locale(locale.to_s) || PublicBodyHeading::Translation.new
-        end
-%>
-    <%= fields_for prefix, object do |t| %>
-    <div class="tab-pane" id="div-locale-<%=locale.to_s%>">
-        <div class="control-group">
-            <%= t.hidden_field :locale, :value => locale.to_s %>
-            <label for="<%= form_tag_id(t.object_name, :name, locale) %>" class="control-label">Name</label>
-            <div class="controls">
-                <%= t.text_field :name, :id => form_tag_id(t.object_name, :name, locale), :class => "span4" %>
-            </div>
-        </div>
-    </div>
-    <%
-    end
-end
-%>
+    <% @heading.ordered_translations.each do |translation| %>
+      <%= f.fields_for(:translations, translation, :child_index => translation.locale) do |t| %>
+        <%= render :partial => 'locale_fields', :locals => { :t => t, :locale => translation.locale } %>
+      <% end %>
+    <% end %>
   </div>
 </div>
 
