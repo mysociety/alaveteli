@@ -67,7 +67,8 @@ There are several reasons why a message might end up in the holding pen:
   the sender, or simply deleting it). Responses may be rejected for various
   reasons &mdash; for example, if a response is sent from an unrecognised 
   email address for a request whose *Allow new responses from* setting is
-  `authority_only`.
+  `authority_only`. See instructions on
+  [how to manage requests]({{site.baseurl}}docs/running/requests/) for details.
   
 ## What to do: redeliver or delete
 
