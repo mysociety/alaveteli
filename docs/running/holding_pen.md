@@ -50,12 +50,6 @@ There are several reasons why a message might end up in the holding pen:
   for example if the person at the authority accidentally loses the first
   letter of the email address when they copy-and-paste it. Or if they copy
   it manually and simply get it wrong.
-  
-* **the message is sent to multiple (valid) email addresses and one bad one**<br>
-  Sometimes an officer working for an authority may attempt to send email using
-  a collection of email addresses for your site. This is allowed, and the
-  response will be sent to each of them. However, if any of those addresses
-  are wrong (even just one), the response will go into the holding pen.
 
 * **there's something unusual about the way it was sent**<br>
   For example, if it was delivered here because the address is in the `Bcc:`
