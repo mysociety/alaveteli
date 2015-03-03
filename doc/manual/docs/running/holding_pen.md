@@ -56,9 +56,9 @@ There are several reasons why a message might end up in the holding pen:
   field, and is not the `To:` address.
 
 * **a partial email address may have been guessed**<br>
-  This may be because someone has guessed an email address either because they
-  have misunderstood how the addresses are formed, or due to a deliberate 
-  attempt to send spam.
+  Someone guesses an email address which Alaveteli doesn't recognise. Perhaps
+  they have misunderstood how the addresses are formed, or maybe it's a
+  deliberate attempt to send spam.
 
 * **the response has been rejected and rejections are set to go to the holding pen**<br>
   Incoming mail that is correctly addressed but not accepted for the request
