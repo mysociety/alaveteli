@@ -471,8 +471,9 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          See the <a href="{{ site.baseurl }}docs/running/admin_manual/#removing-a-message-from-the-holding-pen">admin manual</a> for
-          information on dealing with emails in the holding pen
+          See more <a href="{{ site.baseurl }}docs/running/holding_pen">about
+          the holding pen</a>, including why messages end up there, and
+          instructions on what to do with them.
         </li>
         <li>
           The most common reason for a response to be in the holding pen is that
