@@ -1,31 +1,60 @@
 # rails-3-develop
 
 ## Highlighted Features
-
+* Lots of improvements in the process of making a new
+  request (Martin Wright, Gareth Rees, Louise Crow):
+  * Removal of confusing AJAX results in `/select_authority`.
+  * Better layout of search/filtering options on the authority pages.
+  * Better layout of the authority pages on smaller screens.
+  * The dynamic list of possibly related requests for a new request
+    is now limited to requests to the same authority and capped at
+    three requests
+  * 'Create a new account' option now more prominent than 'Sign in' on `/sign_in`
+  * Better options for sharing your request on social media, and other
+    actions to take once the request is made.
+* Some general security improvements:
+  * State changing admin actions are now restricted to PUT or POST methods
+    to protect against CSRF attacks, and now use more standard RESTful
+    routing (Louise Crow).
+  * Global request forgery protection is now used (Gareth Rees).
+  * Some standard security headers are added by default (Louise Crow).
+  * A TTL is enforced on session cookies (Louise Crow).
 * Added a new `AUTHORITY_MUST_RESPOND` configuration variable. Set this to
   `true` If authorities must respond by law. Set to `false` otherwise. It
-  defaults to `true`. At the moment this just tweaks some UI text.
-* State changing admin actions are now restricted to PUT or POST methods
-  to protect against CSRF attacks, and now use more standard RESTful
-  routing.
-* Global request forgery protection is now used
-* The dynamic list of possibly related requests for a new request is now
-  limited to requests to the same authority and capped at three requests
-* Some standard security headers are added by default
+  defaults to `true`. At the moment this just tweaks some UI text (Gareth Rees).
 * New rake task for cleaning theme translations - `rake
-  gettext:clean_theme`
-* A TTL is enforced on session cookies
+  gettext:clean_theme` (Gareth Rees).
 * There's a new admin interface for adding public holidays for the site,
-  to be used in calculating request due dates.
-* Autocomplete has been turned off on password fields
+  to be used in calculating request due dates. Documentation for using
+  this interface is available at
+  http://alaveteli.org/docs/installing/next_steps/#add-some-public-holidays (Louise Crow).
 * Some interface phrases have been grouped together for easier
-  translation
+  translation (Gareth Rees, Louise Crow).
+* Now using the bootstrap js files from the bootstrap-sass gem.
+* Confusing 'web analytics' section of admin pages removed (Henare Degan)
+* Banned users can no longer update their profile (Gareth Rees).
+* The code that removes email addresses and mobile phone numbers from
+  the public view of requests an responses has been refactored, and the
+  text that's used to replace the email addresses and phone numbers can
+  now be translated (Louise Crow).
+* Fixed a bug with the CSV import of authorities which have the same
+  name in multiple locales (Louise Crow).
 
 ## Upgrade notes
 
 * Admin route names have been standardised so if you have overridden
   templates that refer to admin routes, check the original templates to
   see if these need to be changed.
+* If you override the `app/views/user/_signin.html.erb` or
+  `app/view/user/_signup.html.erb` templates, check the tabindex order
+  is still sensible - the order of the elements on the page has changed
+  - signup now appears on the left.
+* If you override the application stylesheets rather than adding to them
+  using a `custom.css` or `custom.scss` file, check that your
+  stylesheets still order elements correctly in the
+  `app/views/request/select_authority.html.erb`,
+  `app/views/public_body/show.html.erb` and
+  `app/views/request/new.html.erb`.
 
 # Version 0.20
 
