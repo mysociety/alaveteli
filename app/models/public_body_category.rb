@@ -99,12 +99,14 @@ class PublicBodyCategory < ActiveRecord::Base
 end
 
 PublicBodyCategory::Translation.class_eval do
-  with_options :if => :required_attribute_submitted? do |required|
+  with_options :if => lambda { |t| !t.default_locale? && t.required_attribute_submitted? } do |required|
     required.validates :title, :presence => { :message => _("Title can't be blank") }
     required.validates :description, :presence => { :message => _("Description can't be blank") }
   end
 
-  private
+  def default_locale?
+      locale == I18n.default_locale
+  end
 
   def required_attribute_submitted?
     PublicBodyCategory.required_translated_attributes.compact.any? do |attribute|

@@ -74,6 +74,17 @@ describe PublicBodyCategory do
             expect(category).to_not be_valid
         end
 
+        it 'uses the base model validation for the default locale' do
+          category = PublicBodyCategory.new
+          translation = category.translations.build(:locale => 'en',
+                                                    :description => 'No title')
+          category.valid?
+          translation.valid?
+
+          expect(category).to have(1).error_on(:title)
+          expect(translation).to have(0).errors_on(:title)
+        end
+
     end
 
     describe :save do
