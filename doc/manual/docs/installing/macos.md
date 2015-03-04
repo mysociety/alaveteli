@@ -71,7 +71,7 @@ Read `rvm notes` and `rvm requirements` carefully for further instructions. Then
 The `mahoro` and `pg` gems require special installation commands. Rubygems must be downgraded to 1.6.2 to avoid deprecation warnings when running tests.
 
     rvm 1.8.7
-    gem update --system 1.6.2
+    gem update --system  2.1.11
     gem install mahoro -- --with-ldflags="-L/usr/local/Cellar/libmagic/5.09/lib" --with-cppflags="-I/usr/local/Cellar/libmagic/5.09/include"
     env ARCHFLAGS="-arch x86_64" gem install pg
 
