@@ -112,18 +112,11 @@ Then create the databases:
 
 ### Clone Alaveteli
 
-We don't want to vendor Rails, as it causes problems locally.
-
     git clone https://github.com/mysociety/alaveteli.git
     cd alaveteli
     git submodule init
-
-    sed -i~ 's/\\&#91;submodule "vendor\/rails"\\&#93;//' .git/config
-
-    sed -i~ 's/url = git:\/\/github.com\/rails\/rails.git//' .git/config
     git submodule update
 
-**Note:** Due to Markdown bugs, the first `sed` command above does not display properly if it appears in blockquote.
 
 ### Configure Alaveteli
 
