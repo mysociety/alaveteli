@@ -10,26 +10,6 @@ require 'spec_helper'
 
 describe PublicBodyHeading do
 
-    context 'when loading the data' do
-
-        before do
-            PublicBodyCategory.add(:en, [
-                  "Local and regional",
-                      [ "local_council", "Local councils", "a local council" ],
-                  "Miscellaneous",
-                      [ "other", "Miscellaneous", "miscellaneous" ],])
-        end
-
-        it 'should use the display_order field to preserve the original data order' do
-            headings = PublicBodyHeading.all
-            headings[0].name.should eq 'Local and regional'
-            headings[0].display_order.should eq 0
-            headings[1].name.should eq 'Miscellaneous'
-            headings[1].display_order.should eq 1
-        end
-
-    end
-
     context 'when validating' do
 
         it 'should require a name' do
