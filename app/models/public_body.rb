@@ -345,35 +345,6 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
-
-    # Use tags to describe what type of thing this is
-    def type_of_authority(html = false)
-        types = tags.each_with_index.map do |tag, index|
-            if PublicBodyCategory.get().by_tag().include?(tag.name)
-                desc = PublicBodyCategory.get().singular_by_tag()[tag.name]
-
-                if index.zero?
-                    desc = desc.sub(/\S/) { |m| Unicode.upcase(m) }
-                end
-
-                if html
-                    # TODO: this should call proper route helpers, but is in model sigh
-                    desc = '<a href="/body/list/' + tag.name + '">' + desc + '</a>'
-                end
-
-                desc
-            end
-        end
-
-        types.compact!
-
-        if types.any?
-            types.to_sentence(:last_word_connector => ' and ').html_safe
-        else
-            _("A public authority")
-        end
-    end
-
     # Guess home page from the request email, or use explicit override, or nil
     # if not known.
     def calculated_home_page
