@@ -41,6 +41,8 @@
   name in multiple locales (Louise Crow).
 * No longer need to restart webserver when compacting Xapian database (Gareth
   Rees).
+* `config/deploy.yml` now accepts a `daemon_name` parameter so that Capistrano
+  can deploy multiple Alaveteli instances on the same host (Gareth Rees).
 
 ## Upgrade notes
 
@@ -60,6 +62,11 @@
 * [Regenerate your crontab](http://alaveteli.org/docs/installing/manual_install/#generate-crontab)
   so that compacting the Xapian database only restarts the application, rather
   than the webserver. This requires the [appropriate SysVinit script](http://alaveteli.org/docs/installing/manual_install/#generate-application-daemon) to be installed.
+* Alaveteli daemons must be executable by the app owner in a Capistrano setup.
+  In a regular setup, the permissions should be `rwxr-xr-- root:alaveteli`.
+* `config/sysvinit-thin.ugly` has been improved. Regenerate it with
+  `rake config_files:convert_init_script`. See [the documentation](http://alaveteli.org/docs/installing/manual_install/#generate-application-daemon)
+  for more information.
 
 # Version 0.20
 
