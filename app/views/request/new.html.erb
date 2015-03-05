@@ -70,9 +70,9 @@
 
       <%= foi_error_messages_for :info_request, :outgoing_message %>
 
-      <% if @info_request.public_body.override_request_email %>
+      <% if !AlaveteliConfiguration::override_all_public_body_request_emails.blank? %>
         <div class="warning">
-          <%= _("<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority.", :email => @info_request.public_body.override_request_email) %>
+          <%= _("<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority.", :email => AlaveteliConfiguration::override_all_public_body_request_emails) %>
         </div>
       <% end %>
 
