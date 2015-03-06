@@ -1,4 +1,3 @@
-
 <% if @category.errors.any? %>
   <ul>
   <% @category.errors.each do |attr, message| %>
@@ -35,8 +34,14 @@
 
   <div class="tab-content">
     <% @category.ordered_translations.each do |translation| %>
-      <%= f.fields_for(:translations, translation, :child_index => translation.locale) do |t| %>
-        <%= render :partial => 'locale_fields' , :locals => { :t => t, :locale => translation.locale } %>
+      <% if translation.locale.to_s == I18n.default_locale.to_s %>
+        <%= fields_for('public_body_category', @category) do |t| %>
+          <%= render :partial => 'locale_fields', :locals => { :t => t, :locale => translation.locale } %>
+        <% end %>
+      <% else %>
+        <%= f.fields_for(:translations, translation, :child_index => translation.locale) do |t| %>
+          <%= render :partial => 'locale_fields', :locals => { :t => t, :locale => translation.locale } %>
+        <% end %>
       <% end %>
     <% end %>
   </div>

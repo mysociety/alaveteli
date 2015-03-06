@@ -12,7 +12,7 @@ describe 'Editing a Public Body Category' do
 
     it 'can edit the default locale' do
         @admin.visit edit_admin_category_path(@category)
-        @admin.fill_in 'public_body_category_translations_attributes_en_title__en', :with => 'New Category EN'
+        @admin.fill_in 'public_body_category_title__en', :with => 'New Category EN'
         @admin.click_button 'Save'
 
         @category.reload
