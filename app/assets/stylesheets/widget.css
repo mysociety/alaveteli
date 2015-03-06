@@ -76,6 +76,7 @@ a:active {
     font-size: 0.875em;
     line-height: 1.1em;
     color: #555;
+    text-transform: capitalize;
 }
 
 .alaveteli-widget__left {
