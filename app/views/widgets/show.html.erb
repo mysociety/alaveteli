@@ -11,37 +11,37 @@
         <div class="alaveteli-widget__status <%= @info_request.calculate_status %>">
           <p class="alaveteli-widget__status__status-label">Status</p>
           <% if @info_request.awaiting_description %>
-            <%= _('UNKNOWN STATUS') %>
+            <%= _('Unknown Status') %>
           <% elsif @status == 'waiting_response' %>
-            <%= _('WAITING RESPONSE') %>
+            <%= _('Waiting Response') %>
           <% elsif @status == 'waiting_response_overdue' %>
-            <%= _('WAITING RESPONSE') %>
+            <%= _('Waiting Response') %>
           <% elsif @status == 'waiting_response_very_overdue' %>
-            <%= _('WAITING RESPONSE') %>
+            <%= _('Waiting Response') %>
           <% elsif @status == 'not_held' %>
-            <%= _('NOT HELD') %>
+            <%= _('Not Held') %>
           <% elsif @status == 'rejected' %>
-            <%= _('REJECTED') %>
+            <%= _('Rejected') %>
           <% elsif @status == 'successful' %>
-            <%= _('SUCCESSFUL') %>
+            <%= _('Successful') %>
           <% elsif @status == 'partially_successful' %>
-            <%= _('PARTIAL SUCCESS') %>
+            <%= _('Partial Success') %>
           <% elsif @status == 'waiting_clarification' %>
-            <%= _('WAITING CLARIFICATION') %>
+            <%= _('Waiting Clarification') %>
           <% elsif @status == 'gone_postal' %>
-            <%= _('GONE POSTAL') %>
+            <%= _('Gone Postal') %>
           <% elsif @status == 'internal_review' %>
-            <%= _('INTERNAL REVIEW') %>
+            <%= _('Internal Review') %>
           <% elsif @status == 'error_message' %>
-            <%= _('ERROR MESSAGE') %>
+            <%= _('Error Message') %>
           <% elsif @status == 'requires_admin' %>
-            <%= _('REQUIRES ADMIN') %>
+            <%= _('Requires Admin') %>
           <% elsif @status == 'user_withdrawn' %>
-            <%= _('USER WITHDRAWN') %>
+            <%= _('User Withdrawn') %>
           <% elsif @status == 'attention_requested' %>
-            <%= _('ATTENTION REQUESTED') %>
+            <%= _('Attention Requested') %>
           <% elsif @status == 'vexatious' %>
-            <%= _('VEXATIOUS') %>
+            <%= _('Vexatious') %>
           <% else %>
             <%= render :partial => 'general/custom_state_descriptions', :locals => { :status => @status } %>
           <% end %>
