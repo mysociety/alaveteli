@@ -36,10 +36,6 @@ body {
     font-size: 1em;
 }
 
-a {
-
-}
-
 a:hover,
 a:focus,
 a:active {
@@ -95,6 +91,7 @@ a:active {
 .alaveteli-widget__count {
     font-size: 55px;
     line-height: 55px;
+    text-align: center;
 }
 
 .alaveteli-widget__bottom a {
