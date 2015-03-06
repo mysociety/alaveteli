@@ -4,14 +4,26 @@
     <%= t.hidden_field :locale, :value => locale.to_s %>
     <label for="<%= form_tag_id(t.object_name, :name, locale) %>" class="control-label">Name</label>
     <div class="controls">
+      <% if t.object.errors[:name].any? %>
+      <span class="fieldWithErrors">
+      <% end %>
       <%= t.text_field :name, :id => form_tag_id(t.object_name, :name, locale), :class => "span4" %>
+      <% if t.object.errors[:name].any? %>
+      </span>
+      <% end %>
     </div>
   </div>
 
   <div class="control-group">
     <label for="<%= form_tag_id(t.object_name, :short_name, locale) %>" class="control-label"><%=_("Short name")%></label>
     <div class="controls">
+      <% if t.object.errors[:short_name].any? %>
+      <span class="fieldWithErrors">
+      <% end %>
       <%= t.text_field :short_name, :id => form_tag_id(t.object_name, :short_name, locale), :class => "span2"  %>
+      <% if t.object.errors[:short_name].any? %>
+      </span>
+      <% end %>
       <p class="help-block">
         <%=_("Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect")%>
       </p>
@@ -21,7 +33,13 @@
   <div class="control-group">
     <label for="<%= form_tag_id(t.object_name, :request_email, locale) %>" class="control-label"><%=_("Request email")%></label>
     <div class="controls">
+      <% if t.object.errors[:short_name].any? %>
+      <span class="fieldWithErrors">
+      <% end %>
       <%= t.text_field :request_email, :id => form_tag_id(t.object_name, :request_email, locale), :class => "span3" %>
+      <% if t.object.errors[:request_email].any? %>
+      </span>
+      <% end %>
       <p class="help-block">
         <%=_("set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA")%>
       </p>

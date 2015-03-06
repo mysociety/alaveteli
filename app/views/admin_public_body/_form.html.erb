@@ -1,4 +1,23 @@
-<%= error_messages_for 'public_body' %>
+<% if @public_body.errors.any? %>
+  <ul>
+  <% @public_body.errors.each do |attr, message| %>
+    <% unless attr.to_s.starts_with?('translation') %>
+    <li><%= message %></li>
+    <% end %>
+  <% end %>
+  </ul>
+<% end %>
+
+<% @public_body.ordered_translations.each do |translation| %>
+  <% if translation.errors.any? %>
+    <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
+    <ul>
+    <% translation.errors.each do |attr, message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  <% end %>
+<% end %>
 
 <!--[form:public_body]-->
 
