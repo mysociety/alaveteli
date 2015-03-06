@@ -49,9 +49,11 @@
       </div>
       <div class="alaveteli-widget__people-count">
       <% count = TrackThing.count(:all, :conditions => ["info_request_id = ?", @info_request.id]) + 1 + WidgetVote.count(:all, :conditions => ["info_request_id = ?", @info_request.id]) %>
-         <%= n_('<div class="alaveteli-widget__count">{{count}}</div> <div class="alaveteli-widget__people">person wants to know</div>', '<div class="alaveteli-widget__count">{{count}}</div> <div class="alaveteli-widget__people">people want to know</div>', count, :count => count) %>
+         <%= n_('<div class="alaveteli-widget__count">{{count}}</div> person wants to know', '<div class="alaveteli-widget__count">{{count}}</div> people want to know', count, :count => count) %>
       </div>
     </div>
+
+
     <%
       if @user
         existing_track = TrackThing.find_existing(@user, @track_thing)

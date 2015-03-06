@@ -89,14 +89,11 @@ a:active {
   top: 44px;
   width: 100px;
   text-align: center;
-
+  line-height: 1.3em;
 }
 .alaveteli-widget__count {
     font-size: 55px;
-}
-
-.alaveteli-widget__people {
-    line-height: 1.3em;
+    line-height: 55px;
 }
 
 .alaveteli-widget__bottom a {
