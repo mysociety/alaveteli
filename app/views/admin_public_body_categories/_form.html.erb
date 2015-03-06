@@ -25,7 +25,11 @@
   <ul class="locales nav nav-tabs">
     <% @category.ordered_translations.each do |translation| %>
       <li>
-        <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab" >
+        <% css_class = '' %>
+        <% if (translation.locale.to_s == I18n.default_locale.to_s && @category.errors.any?) || translation.errors.any? %>
+          <% css_class = 'tabWithErrors' %>
+        <% end %>
+        <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab" class=<%= css_class %>>
           <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
         </a>
       </li>

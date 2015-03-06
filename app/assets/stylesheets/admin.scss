@@ -127,5 +127,10 @@ body.admin {
     }
   }
 
+  .tabWithErrors {
+    border-color: red !important;
+    border-bottom-color: transparent !important;
+  }
+
 }
 
