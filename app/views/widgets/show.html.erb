@@ -9,6 +9,7 @@
           <%= link_to @info_request.title, request_path(@info_request), :target => "_top" %>
         </div>
         <div class="alaveteli-widget__status <%= @info_request.calculate_status %>">
+          <p class="alaveteli-widget__status__status-label">Status</p>
           <% if @info_request.awaiting_description %>
             <%= _('UNKNOWN STATUS') %>
           <% elsif @status == 'waiting_response' %>
