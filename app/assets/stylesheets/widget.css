@@ -83,21 +83,19 @@ a:active {
     width: 145px;
 }
 
+.alaveteli-widget__people-count {
+  position: absolute;
+  left: 192px;
+  top: 44px;
+  width: 100px;
+  text-align: center;
+
+}
 .alaveteli-widget__count {
-    position: absolute;
-    left: 192px;
-    top: 44px;
-    width: 100px;
     font-size: 55px;
-    text-align: center;
 }
 
 .alaveteli-widget__people {
-    position: absolute;
-    left: 192px;
-    top: 83px;
-    width: 100px;
-    text-align: center;
     line-height: 1.3em;
 }
 
