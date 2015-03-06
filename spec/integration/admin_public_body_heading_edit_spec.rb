@@ -12,7 +12,7 @@ describe 'Editing a Public Body Heading' do
 
     it 'can edit the default locale' do
         @admin.visit edit_admin_heading_path(@heading)
-        @admin.fill_in 'public_body_heading_translations_attributes_en_name__en', :with => 'New Heading EN'
+        @admin.fill_in 'public_body_heading_name__en', :with => 'New Heading EN'
         @admin.click_button 'Save'
 
         @heading.reload
