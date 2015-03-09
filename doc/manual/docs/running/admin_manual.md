@@ -34,8 +34,8 @@ In this guide:
       <li><a href="#rejecting-spam-that-arrives-in-the-holding-pen">Rejecting spam that arrives in the holding pen</a></li>
       <li><a href="#creating-changing-and-uploading-public-authority-data">Creating, changing and uploading public authority data</a></li>
       <li><a href="#banning-a-user">Banning a user</a></li>
-      <li><a href="#deleting-a-request">Deleting a request</a></li>
       <li><a href="#hiding-a-request">Hiding a request</a></li>
+      <li><a href="#deleting-a-request">Deleting a request</a></li>
       <li><a href="#hiding-an-incoming-or-outgoing-message">Hiding an incoming or outgoing message</a></li>
       <li><a href="#editing-an-outgoing-message">Editing an outgoing message</a></li>
       <li><a href="#hiding-certain-text-from-a-request-using-censor-rules">Hiding certain text from a request</a></li>
@@ -684,35 +684,25 @@ Find the user you wish to ban on the list and click on their name. Once on the u
 
 Enter some text in the in the ‘Ban text’ box to explain why they have been banned.  Please be aware, this is publicly viewable from the users' account. Then click on save and the user will be banned.
 
-### Deleting a request
-
-You can delete a request entirely using the admin interface. You will mainly only need to do this if someone has posted private information. Go to the admin page for the request by searching or browsing in the 'Requests' section of the admin interface. In the first section, click the 'Edit metadata' button. At the bottom of the next page, click the red 'Destroy request entirely' button.
-
 ### Hiding a request
 
-You can hide an entire request from the admin interface. Log in to the
-admin interface at `/admin`. On the top row of links, locate and click on
-'Requests'. Search or browse to find the admin page for the request you
-want to hide. You can also go directly to this page by following an
-'admin' link from the public request page. You can hide a request in one
-of two ways.
+If a request contains vexatious or inappropriate content, is libellous, or is
+not a valid
+<a href="{{ site.baseurl }}docs/glossary/#foi" class="glossary__link">Freedom of Information</a>
+request at all, you may want to hide it. A hidden request is still visible to
+you and the other administrators, and (optionally) the requester themselves.
+For instructions, see
+[hiding a request]({{ site.baseurl }}docs/running/requests/#hiding-a-request).
 
-  * <strong>Hiding a vexatious or non-FOI request and notifying the
-    requester</strong>
-    Scroll down to the 'actions' section of the request
-    admin page. Select one of the options next to 'Hide the request and
-    notify the user:' and customise the text of the email that will be
-    sent to the user to let them know what you've done. When you're
-    ready, click the 'Hide request' button.
-  * <strong>Hiding a request or making it only visible to the
-    requester without notifying the requester</strong>
-    In the 'Request metadata' section of the request
-    admin page, click 'Edit metadata'. Change the 'Prominence' value to
-    'requester_only' to only allow the requester to view the request, or
-    to 'hidden' to hide the request from everyone except site admins.
-    When you're ready, click 'Save changes' at the bottom of the 'Edit
-    metadata' section. No email will be sent to the requester to notify
-    them of what you've done.
+Responses to a hidden request will be accepted in the normal way, but because
+they are added to the request's page, they too will be hidden.
+
+### Deleting a request
+
+You can delete a request from the site. For instructions, see 
+[deleting a request]({{ site.baseurl }}docs/running/requests/#deleteing-a-request).
+
+Responses to a deleted request will be sent to the holding pen.
 
 ### Hiding an incoming or outgoing message
 
