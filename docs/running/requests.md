@@ -23,6 +23,13 @@ Usually this process runs without needing any intervention from an
 administrator. But sometimes you'll want to change some aspect of the request,
 or the way Alaveteli is handling it.
 
+<ul class="toc">
+  <li><a href="#what-state-is-the-request-in">What state is the request in?</a></li>
+  <li><a href="#changing-things-about-a-request">Changing things about a request</a></li>
+  <li><a href="#hiding-a-request">Hiding a request</a></li>
+  <li><a href="#deleting-a-request">Deleting a request</a></li>
+</ul>
+
 ## What state is the request in?
 
 Every request moves through a series of 
@@ -208,5 +215,71 @@ Click the **Edit metadata** button.
     </td>
   </tr>
 </table>
+
+## Hiding a request
+
+You can hide an entire request. Typically you do this if it's not a valid
+Freedom of Information request (for example, a request for personal
+information), or if it is vexatious.
+
+Go to the <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>,
+click on **Requests**, then click on the title of the request you want. You can
+hide it in one of two ways:
+
+   * [Hide the request and notify the requester](#hide-the-request-and-notify-the-requester)
+   * [Hide the request without notifying the requester](#hide-the-request-without-notifying-the-requester)
+
+Responses to a hidden request will be accepted in the normal way, but because
+they are added to the request's page, they too will be hidden.
+
+### Hide the request and notify the requester
+
+Scroll down to the *Actions* section of the request's admin page.
+Choose one of the options next to **Hide the request and notify the user:**
+
+   * Not a valid FOI request
+   * A vexatious request
+
+Choosing one of these will reveal an email form. Customise the text of the
+email that will be sent to the user, letting them know what you've done. When
+you're ready, click the **Hide request** button.
+
+### Hide the request without notifying the requester
+
+<div class="attention-box helpful-hint">
+  As well as hiding the request from everyone, you can also use this method if
+  you want to make the request only visible to the requester.
+</div>
+  
+In the *Request metadata* section of the request's admin page, click the
+**Edit metadata** button. Change the *Prominence* value to one of these:
+
+  * `requester_only`: only the requester can view the request
+  * `hidden`: nobody can see the request, except administrators.
+
+<div class="attention-box warning">
+  If you want to hide the request, do not chooose  <code>backpage</code>
+  as the prominence. The <code>backpage</code> option stops the request
+  appearing in lists and searches so that it is effectively only visible
+  to anyone who has its URL &mdash; but it <em>does not hide</em> the request.
+</div>
+
+When you're ready, click the **Save changes** button at the bottom of the
+*Edit metadata* section. No email will be sent to the requester to notify
+them of what you've done.
+
+
+## Deleting a request
+
+You can delete a request entirely. Typically, you only need to do this if
+someone has posted private information. 
+
+Go to the <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>,
+click on **Requests**, then click on the title of the request you want to delete. 
+Click the **Edit metadata** button. Click on the red **Destroy request entirely**
+button.
+
+Responses to a deleted request will be sent to the
+<a href="{{ site.baseurl }}docs/glossary/#holding_pen" class="glossary__link">holding pen</a>.
 
 
