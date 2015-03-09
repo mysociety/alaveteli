@@ -39,6 +39,8 @@
   now be translated (Louise Crow).
 * Fixed a bug with the CSV import of authorities which have the same
   name in multiple locales (Louise Crow).
+* No longer need to restart webserver when compacting Xapian database (Gareth
+  Rees).
 
 ## Upgrade notes
 
@@ -55,6 +57,9 @@
   `app/views/request/select_authority.html.erb`,
   `app/views/public_body/show.html.erb` and
   `app/views/request/new.html.erb`.
+* [Regenerate your crontab](http://alaveteli.org/docs/installing/manual_install/#generate-crontab)
+  so that compacting the Xapian database only restarts the application, rather
+  than the webserver. This requires the [appropriate SysVinit script](http://alaveteli.org/docs/installing/manual_install/#generate-application-daemon) to be installed.
 
 # Version 0.20
 

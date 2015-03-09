@@ -21,6 +21,7 @@ MAILTO=!!(*= $mailto *)!!
 31 * * * * root !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/load-mail-server-logs.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/load-mail-server-logs || echo "stalled?"
 
 # Once a day, early morning
+31 1 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/change-xapian-database.lock "!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/compact-xapian-database production !!(*= $site *)!!" || echo "stalled?"
 23 4 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/delete-old-things.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/delete-old-things || echo "stalled?"
 0 6 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/alert-overdue-requests.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-overdue-requests || echo "stalled?"
 0 7 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/alert-new-response-reminders.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-new-response-reminders || echo "stalled?"
@@ -28,10 +29,6 @@ MAILTO=!!(*= $mailto *)!!
 2 4 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/check-recent-requests-sent.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/check-recent-requests-sent || echo "stalled?"
 45 3 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/stop-new-responses-on-old-requests.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/stop-new-responses-on-old-requests || echo "stalled?"
 55 4 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/update-public-body-stats.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/update-public-body-stats || echo "stalled?"
-
-# Only root can restart apache
-31 1 * * * root !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/change-xapian-database.lock "!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/compact-xapian-database production" || echo "stalled?"
-
 
 # Once a day on all servers
 43 2 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/request-creation-graph
