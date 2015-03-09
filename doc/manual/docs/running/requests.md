@@ -272,12 +272,19 @@ them of what you've done.
 ## Deleting a request
 
 You can delete a request entirely. Typically, you only need to do this if
-someone has posted private information. 
+someone has posted private information.  If you delete a request, any responses that it has already received will be
+destroyed as well.
+
+<div class="attention-box warning">
+  Deleting a request destroys it. There is no &ldquo;undo&rdquo; operation.
+  If you're not sure you want to do this, perhaps you should
+  <a href="#hiding-a-request">hide the request</a> instead.
+</div>
 
 Go to the <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>,
 click on **Requests**, then click on the title of the request you want to delete. 
 Click the **Edit metadata** button. Click on the red **Destroy request entirely**
-button.
+button at the bottom of the page.
 
 Responses to a deleted request will be sent to the
 <a href="{{ site.baseurl }}docs/glossary/#holding_pen" class="glossary__link">holding pen</a>.
