@@ -994,24 +994,6 @@ Definitions
   </dd>
 
   <dt>
-    <a name="theme">theme</a>
-  </dt>
-  <dd>
-    A <strong>theme</strong> is the collection of changes to the templates
-    and the code that causes the site to look or behave differently from the
-    default. Typically you'll need a theme to make Alaveteli show your own
-    brand.
-    <div class="more-info">
-      <p>More information:</p>
-      <ul>
-        <li>
-      <a href="{{ site.baseurl }}docs/customising/themes/">about themes</a>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
     <a name="tag">tag</a>
   </dt>
   <dd>
@@ -1033,6 +1015,26 @@ Definitions
       </ul>
     </div>
   </dd>
+
+
+  <dt>
+    <a name="theme">theme</a>
+  </dt>
+  <dd>
+    A <strong>theme</strong> is the collection of changes to the templates
+    and the code that causes the site to look or behave differently from the
+    default. Typically you'll need a theme to make Alaveteli show your own
+    brand.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+      <a href="{{ site.baseurl }}docs/customising/themes/">about themes</a>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
 
   <dt>
     <a name="wdtk">WhatDoTheyKnow</a>
