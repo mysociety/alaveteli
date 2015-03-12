@@ -238,7 +238,7 @@ metadata** section, there is a line which shows the authority. Click the
 that you want to send the request to.
 
 <div class="attention-box info">
-Users, requests and authorities all have <strong>url_names</strong>. This can be found in the metadata section of their admin page. The url_name makes up the last part of the URL for their public page. So, for a request with the url_name &ldquo;example_request&rdquo;, the public page URL will be <code>/request/example_request</code>.
+Users, requests and authorities all have <strong>url_names</strong>. This can be found in the metadata section of their admin page. The <code>url_name</code> makes up the last part of the URL for their public page. So, for a request with the <code>url_name</code> &ldquo;example_request&rdquo;, the public page URL will be <code>/request/example_request</code>.
 </div>
 
 Now click the **Move request to
