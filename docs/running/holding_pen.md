@@ -60,6 +60,10 @@ There are several reasons why a message might end up in the holding pen:
   they have misunderstood how the addresses are formed, or maybe it's a
   deliberate attempt to send spam.
 
+* **the response is to a request that has been deleted**<br>
+  If you [delete a request]({{ site.baseurl }}docs/running/requests/#deleting-a-request),
+  Alaveteli cannot deliver responses to it.
+
 * **the response has been rejected and rejections are set to go to the holding pen**<br>
   Incoming mail that is correctly addressed but not accepted for the request
   goes into the holding pen if the request's `handle_rejected_responses`
@@ -67,7 +71,8 @@ There are several reasons why a message might end up in the holding pen:
   the sender, or simply deleting it). Responses may be rejected for various
   reasons &mdash; for example, if a response is sent from an unrecognised 
   email address for a request whose *Allow new responses from* setting is
-  `authority_only`.
+  `authority_only`. See instructions on
+  [how to manage requests]({{site.baseurl}}docs/running/requests/) for details.
   
 ## What to do: redeliver or delete
 

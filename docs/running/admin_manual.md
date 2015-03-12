@@ -36,8 +36,8 @@ In this guide:
       <li><a href="#banning-a-user">Banning a user</a></li>
       <li><a href="#allowing-a-user-to-make-more-requests">Allowing a user to make more requests</a></li>
       <li><a href="#batch-requests">Batch requests</a></li>
-      <li><a href="#deleting-a-request">Deleting a request</a></li>
       <li><a href="#hiding-a-request">Hiding a request</a></li>
+      <li><a href="#deleting-a-request">Deleting a request</a></li>
       <li><a href="#hiding-an-incoming-or-outgoing-message">Hiding an incoming or outgoing message</a></li>
       <li><a href="#editing-an-outgoing-message">Editing an outgoing message</a></li>
       <li><a href="#hiding-certain-text-from-a-request-using-censor-rules">Hiding certain text from a request</a></li>
@@ -314,7 +314,7 @@ line, and piping the contents of that file into the mail handling script. e.g.
 The <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">administrative interface</a>
 is at the URL `/admin`. Only users who are
 <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">administrators</a>
-can access the admin interface. 
+can access the admin interface.
 
 To make a user an administrator on a brand new site,
 [follow these steps]({{ site.baseurl }}docs/installing/next_steps/#create-a-superuser-admin-account).
@@ -345,7 +345,7 @@ have extra privileges in the main website front end. Administrators can:
 
 Alaveteli puts incoming messages (that is,
 <a href="{{ site.baseurl }}docs/glossary/#reponse" class="glossary__link">responses</a>)
-into the 
+into the
 <a href="{{ site.baseurl }}docs/glossary/#holding_pen" class="glossary__link">holding pen</a>
 if their `To:` email addresses can't automatically be associated with a
 <a href="{{ site.baseurl }}docs/glossary/#reponse" class="glossary__link">request</a>.
@@ -377,7 +377,7 @@ your attention. Click on any one of them to see the details.
 
 When you inspect a message, you may see a guess made by Alaveteli as to which
 request the message belongs to. Check this request. If the guess is right
-&mdash; the incoming email really is a response to that request &mdash; 
+&mdash; the incoming email really is a response to that request &mdash;
 the request's *title_url* will already be in the input box: click the
 **Redeliver to another request** button.
 
@@ -399,7 +399,7 @@ its *url_title*.
   <p>
     A request's <em>url_title</em> is the part after <code>/request/</code>
     in your Alaveteli site's URL when you are looking at that request.
-    In the URL <code>/request/how_many_vehicles</code>, the 
+    In the URL <code>/request/how_many_vehicles</code>, the
     <em>url_title</em> is <code>how_many_vehicles</code>.
   </p>
 </div>
@@ -415,7 +415,7 @@ in the holding pen, and is shown instead on the public request page.
 
 ### Rejecting spam that arrives in the holding pen
 
-Alaveteli maintains a 
+Alaveteli maintains a
 <a href="{{ site.baseurl }}docs/glossary/#spam-address-list" class="glossary__link">spam address list</a>.
 Any incoming message to an email address on that list
 *that would otherwise be put in the holding pen* will be rejected and won't
@@ -463,13 +463,13 @@ You can see the spam address list (that is, all known spam-target email
 addresses) at any time by going to the admin interface at `/admin/spam_addresses`.
 
 You can remove any address from the list by clicking the **Remove** button
-next to it. Of course, this won't restore any messages that have been 
+next to it. Of course, this won't restore any messages that have been
 rejected, but Alaveteli will not reject any new messages that are sent to
 this address.
 
 Note that if you are seeing consistent spam email in your holding pen, you
 should also consider implementing (or increasing) the anti-spam measures
-running in your 
+running in your
 <a href="{{ site.baseurl }}docs/glossary/#mta" class="glossary__link">MTA</a>.
 
 ### Creating, changing and uploading public authority data
@@ -582,7 +582,7 @@ unrecognised column name, the import will fail.
      this, use the admin interface to edit the existing record first, and
      change its name in the web interface.
    * If the authority already exists (the `name` matches an existing authority's
-     name exactly), a blank entry leaves the existing value for that column 
+     name exactly), a blank entry leaves the existing value for that column
      unchanged &mdash; that is, that item of data on your site will not be
      changed. This means you only really need to include data you want to
      update.
@@ -597,7 +597,7 @@ unrecognised column name, the import will fail.
      between commas.
    * If an entry contains a comma, enclose it in double quotes like this:
      `"Comma, Inc"`.
-   * If an entry contains any double quotes, you must replace each of 
+   * If an entry contains any double quotes, you must replace each of
      them with two (so `"` becomes `""`) and also enclose the whole entry in
      double quotes like this: `"In ""quotes"""` (which will be imported as `In
      "quotes"`).
@@ -614,15 +614,15 @@ data (one line for each authority):
 Note that, if Ejemplo Town Council already exists on the site, the blank entry
 for `short_name` will leave the existing value for that column unchanged.
 
-To upload a CSV file, log into the admin and click on **Authorities**. Click on 
-**Import from CSV file**, and choose the file you've prepared. 
+To upload a CSV file, log into the admin and click on **Authorities**. Click on
+**Import from CSV file**, and choose the file you've prepared.
 
 Specify **What to do with existing tags?** with one of these options:
 
    * *Replace existing tags with new ones* <br/>
      For each authority being updated, all existing tags will be removed, and
      replaced with the ones in your CSV file.
-   
+
    * *Add new tags to existing ones* <br/>
      Existing tags will be left unchanged, and the tags in your CSV file will
      be added to them.
@@ -640,7 +640,7 @@ you really uploaded this data, followed by a message like this:
 If you see nothing above that line, it means the dry run has resulted in no
 proposed changes.
 
-If everything was OK when you ran the dry run, click **Upload** instead. This 
+If everything was OK when you ran the dry run, click **Upload** instead. This
 will repeat the process, but this time it will make the changes to your
 site's database.
 
@@ -714,35 +714,25 @@ This does not allow anyone to make batch requests yet. You must still enable thi
 
 If you've enabled batch requests for a user, when they start to make a request, in addition to the box where they can select an authority, they will see a link to "make a batch request". When the request is sent, Alaveteli will make a request page for this request for each authority, as if the user had made individual requests.
 
-### Deleting a request
-
-You can delete a request entirely using the admin interface. You will mainly only need to do this if someone has posted private information. Go to the admin page for the request by searching or browsing in the 'Requests' section of the admin interface. In the first section, click the 'Edit metadata' button. At the bottom of the next page, click the red 'Destroy request entirely' button.
-
 ### Hiding a request
 
-You can hide an entire request from the admin interface. Log in to the
-admin interface at `/admin`. On the top row of links, locate and click on
-'Requests'. Search or browse to find the admin page for the request you
-want to hide. You can also go directly to this page by following an
-'admin' link from the public request page. You can hide a request in one
-of two ways.
+If a request contains vexatious or inappropriate content, is libellous, or is
+not a valid
+<a href="{{ site.baseurl }}docs/glossary/#foi" class="glossary__link">Freedom of Information</a>
+request at all, you may want to hide it. A hidden request is still visible to
+you and the other administrators, and (optionally) the requester themselves.
+For instructions, see
+[hiding a request]({{ site.baseurl }}docs/running/requests/#hiding-a-request).
 
-  * <strong>Hiding a vexatious or non-FOI request and notifying the
-    requester</strong>
-    Scroll down to the 'actions' section of the request
-    admin page. Select one of the options next to 'Hide the request and
-    notify the user:' and customise the text of the email that will be
-    sent to the user to let them know what you've done. When you're
-    ready, click the 'Hide request' button.
-  * <strong>Hiding a request or making it only visible to the
-    requester without notifying the requester</strong>
-    In the 'Request metadata' section of the request
-    admin page, click 'Edit metadata'. Change the 'Prominence' value to
-    'requester_only' to only allow the requester to view the request, or
-    to 'hidden' to hide the request from everyone except site admins.
-    When you're ready, click 'Save changes' at the bottom of the 'Edit
-    metadata' section. No email will be sent to the requester to notify
-    them of what you've done.
+Responses to a hidden request will be accepted in the normal way, but because
+they are added to the request's page, they too will be hidden.
+
+### Deleting a request
+
+You can delete a request from the site. For instructions, see
+[deleting a request]({{ site.baseurl }}docs/running/requests/#deleteing-a-request).
+
+Responses to a deleted request will be sent to the holding pen.
 
 ### Hiding an incoming or outgoing message
 
