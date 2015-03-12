@@ -6,10 +6,10 @@ Upgrading Alaveteli
 ====================
 
 <p class="lead">
-  Alaveteli is under active development &mdash; don't let the
-  version you're running get too far behind our latest
+  Alaveteli is under active development &mdash; don&rsquo;t let the
+  version you&rsquo;re running get too far behind our latest
   <a href="{{site.baseurl}}docs/glossary/#release" class="glossary__link">release</a>.
-  This page describes how to keep your site up-to-date
+  This page describes how to keep your site up to date.
 </p>
 
 ## How to upgrade the code
@@ -29,23 +29,26 @@ you should always run the script `scripts/rails-post-deploy` after each
 deployment. This runs any database migrations for you, plus various other
 things that can be automated for deployment.
 
-## Alaveteli Version Numbers
+<div class="attention-box info">
+  You don't need to run the script if you're using Capistrano, because the
+  deployment mechanism automatically runs it for you.
+</div>
 
-Alaveteli uses a shifted version of [semver](http://semver.org).
+## Alaveteli version numbers
 
-- Series `W`
-- Major `X`
-- Minor `Y`
-- Patch `Z`
+Alaveteli uses a &ldquo;shifted&rdquo; version of [semver](http://semver.org)
+(just as [Rails version numbering](http://guides.rubyonrails.org/maintenance_policy.html)
+does). This means that version numbers are of the form: `SERIES.MAJOR.MINOR.PATCH`.
 
-At the time of writing the current release is `0.19.0.6`:
+At the time of writing, the current release is `0.19.0.6`:
 
 - Series `0`
 - Major `19`
 - Minor `0`
 - Patch `6`
 
-Alaveteli will transition to the [semver](http://semver.org) specification when it reaches `1.0.0`.
+We'll use the [semver](http://semver.org) specification for Alaveteli's
+version numbering when it reaches `1.0.0`.
 
 ## Master branch contains the latest stable release
 
@@ -92,7 +95,7 @@ Only major releases may remove existing functionality. You will be warned about 
 
 Special instructions will accompany series releases.
 
-## Deprecation Notices
+## Deprecation notices
 
 You may start to see deprecation notices in your application log. They will look like:
 
