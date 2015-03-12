@@ -57,6 +57,32 @@ but also notices if anything has happened since it was last described and
 sets its "awaiting description" status appropriately.
 
 
+## Old requests (6+ months without activity)
+
+If there is no activity on a request for six months, Alaveteli automatically
+changes that request's **Allow new responses from...** setting to `authority_only`.
+Any responses will be rejected unless they are from the authority to which the
+request was originally made.
+
+If a further six months pass with no activity, that is, a year has passed
+without any updates, the request's **Allow new responses from...** setting
+becomes `nobody`. All responses to this request will be rejected. The request
+is effectively closed.
+
+By default, any rejected responses will be bounced with a message that explains
+that the request has been closed because it is old, with a suggestion that the
+sender can email your site's administrators directly.
+
+You can can stop this behaviour by changing the **Allow new responses from...**
+setting back to `normal` at any time. Alternatively, you can change the way
+rejected messages are handled (for example, sending such responses to the
+holding pen instead of bouncing them) with the request's **Handle rejected
+responses** setting.
+
+See [changing things about a request](#changing-things-about-a-request) below
+for how to change these settings.
+
+
 ## Changing things about a request
 
 To change any of these settings, go to the 
@@ -129,8 +155,14 @@ Click the **Edit metadata** button.
           <code>nobody</code>: no responses are allowed on this request
         </li>
       </ul>
-      Any response from a sender who has been disallowed by this
-      setting will be rejected (see next entry).
+      <p>
+        Any response from a sender who has been disallowed by this
+        setting will be rejected (see next entry).
+      </p>
+      <p>
+        This setting may change automatically when
+        <a href="#old-requests-6-months-without-activity">the request gets old</a>.
+      </p>
     </td>
   </tr>
   <tr>
