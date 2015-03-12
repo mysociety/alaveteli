@@ -26,6 +26,7 @@ or the way Alaveteli is handling it.
 <ul class="toc">
   <li><a href="#what-state-is-the-request-in">What state is the request in?</a></li>
   <li><a href="#changing-things-about-a-request">Changing things about a request</a></li>
+<li><a href="#resending-a-request-or-sending-it-to-a-different-authority">Sending a request to a different authority</a></li>
   <li><a href="#hiding-a-request">Hiding a request</a></li>
   <li><a href="#deleting-a-request">Deleting a request</a></li>
 </ul>
@@ -215,6 +216,30 @@ Click the **Edit metadata** button.
     </td>
   </tr>
 </table>
+
+## Resending a request or sending it to a different authority
+
+To resend a request, go to
+the <a href="{{ site.baseurl }}docs/glossary/#admin"
+class="glossary__link">admin interface</a>, click on **Requests**, then
+click on the name of the request you want to change. Go to the **Outgoing messages** heading. Click the chevron next to the first outgoing message - the initial request. A panel of information about that message will be revealed. Click on the **Resend** button.
+
+To send a request to a different authority, go to
+the <a href="{{ site.baseurl }}docs/glossary/#admin"
+class="glossary__link">admin interface</a>, click on **Requests**, then
+click on the name of the request you want to change. In the **Request
+metadata** section, there is a line which shows the authority. Click the
+**move...** button next to it. Enter the **url_name** of the authority
+that you want to send the request to.
+
+<div class="attention-box info">
+Users, requests and authorities all have <strong>url_names</strong>. This can be found in the metadata section of their admin page. The <strong>url_name</strong> makes up the last part of the URL for their public page. So, for a request with the <strong>url_name</strong> &ldquo;example_request&rdquo;, the public page URL will be <code>/request/example_request</code>.
+</div>
+
+Now click the **Move request to
+authority** button. You will see a notice at the top of the page telling
+you that the request has been moved. You can now resend the request as above.
+
 
 ## Hiding a request
 

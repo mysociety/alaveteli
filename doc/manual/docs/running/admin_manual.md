@@ -36,6 +36,7 @@ In this guide:
       <li><a href="#banning-a-user">Banning a user</a></li>
       <li><a href="#allowing-a-user-to-make-more-requests">Allowing a user to make more requests</a></li>
       <li><a href="#batch-requests">Batch requests</a></li>
+      <li><a href="#resending-a-request-or-sending-it-to-a-different-authority">Resending a request or sending it to a different authority</a></li>
       <li><a href="#hiding-a-request">Hiding a request</a></li>
       <li><a href="#deleting-a-request">Deleting a request</a></li>
       <li><a href="#hiding-an-incoming-or-outgoing-message">Hiding an incoming or outgoing message</a></li>
