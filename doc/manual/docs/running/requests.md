@@ -227,7 +227,7 @@ change the authority on the request and then resend it to the correct authority.
 To resend a request, go to
 the <a href="{{ site.baseurl }}docs/glossary/#admin"
 class="glossary__link">admin interface</a>, click on **Requests**, then
-click on the name of the request you want to change. Go to the **Outgoing messages** heading. Click the chevron next to the first outgoing message - the initial request. A panel of information about that message will be revealed. Click on the **Resend** button.
+click on the name of the request you want to change. Go to the **Outgoing messages** heading. Click the chevron next to the first outgoing message, which is the initial request. A panel of information about that message will appear. Click on the **Resend** button.
 
 To send a request to a different authority, go to
 the <a href="{{ site.baseurl }}docs/glossary/#admin"
