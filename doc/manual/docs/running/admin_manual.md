@@ -34,6 +34,8 @@ In this guide:
       <li><a href="#rejecting-spam-that-arrives-in-the-holding-pen">Rejecting spam that arrives in the holding pen</a></li>
       <li><a href="#creating-changing-and-uploading-public-authority-data">Creating, changing and uploading public authority data</a></li>
       <li><a href="#banning-a-user">Banning a user</a></li>
+      <li><a href="#allowing-a-user-to-make-more-requests">Allowing a user to make more requests</a></li>
+      <li><a href="#batch-requests">Batch requests</a></li>
       <li><a href="#deleting-a-request">Deleting a request</a></li>
       <li><a href="#hiding-a-request">Hiding a request</a></li>
       <li><a href="#hiding-an-incoming-or-outgoing-message">Hiding an incoming or outgoing message</a></li>
@@ -683,6 +685,34 @@ You may wish to completely ban a user from the website (such as a spammer or tro
 Find the user you wish to ban on the list and click on their name. Once on the user page, select ‘edit’.
 
 Enter some text in the in the ‘Ban text’ box to explain why they have been banned.  Please be aware, this is publicly viewable from the users' account. Then click on save and the user will be banned.
+
+### Allowing a user to make more requests
+
+Alaveteli has a config setting <code><a href="{{ site.baseurl }}docs/customising/config/#max_requests_per_user_per_day">MAX_REQUESTS_PER_USER_PER_DAY</a></code>, which determines the maximum number of requests that a normal user can make in a day. If they try to make more than this number of requests within a 24 hour period, they will see a message telling them that they have hit the limit, and encouraging them to use the contact form if they feel they have a good reason to ask for the request limit to be lifted.
+
+To lift the request limit for a particular user, go to the <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>, click on **Users**, then click on the name of the user you want to lift the request limit for. Click the **Edit** button. Tick the checkbox **No rate limit**, and click the **Save** button.
+
+### Batch requests
+
+Sometimes a user may want to send the same request to more than one authority, which we call a batch request. By default, Alaveteli does not allow users to make batch requests.
+
+<div class="attention-box info">
+<p>We believe that batch requests can be abused &mdash; users can send poorly thought-out or vexatious requests, which will annoy authorities and damage the reputation of your site. However, well thought-out batch requests can be an extremely useful tool in collecting comparative data sets across types of authority, for example, all police forces.</p>
+<p>
+We recommend that you enable batch requesting for users who you notice making the same good request to multiple authorities.
+</p>
+<p>
+Users can choose which authorities to include in a batch requests. They  can even send a request to <em>every single authority</em> on your site. Only give this power to users that you trust.
+</p>
+</div>
+
+To enable batch requests on your site, first you must set
+<code><a href="{{ site.baseurl }}docs/customising/config/#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>
+to <code>true</code> in <code>general.yml</code>.
+
+This does not allow anyone to make batch requests yet. You must still enable this for each user on an individual basis. To do this, go to the <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>, click on **Users**, then click on the name of the user who wants to make batch requests. Click the **Edit** button. Tick the checkbox **Can make batch requests**, and click the **Save** button.
+
+If you've enabled batch requests for a user, when they start to make a request, in addition to the box where they can select an authority, they will see a link to "make a batch request". When the request is sent, Alaveteli will make a request page for this request for each authority, as if the user had made individual requests.
 
 ### Deleting a request
 
