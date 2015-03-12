@@ -276,7 +276,7 @@ spreadsheet. The help pages need to have one copy saved for each language; your
 tech person will put them in the right place.
 
 The web interface translations are managed and collaborated via a website
-called Transifex. This website allows teams of translators to collaborate in
+called <a href="{{ site.baseurl }}docs/glossary/#transifex" class="glossary__link">Transifex</a>. This website allows teams of translators to collaborate in
 one place, using a fairly easy interface.
 
 The Alaveteli page on Transifex is at

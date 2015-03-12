@@ -53,6 +53,7 @@ Definitions
   <li><a href="#super">superuser</a></li>
   <li><a href="#tag">tag</a></li>
   <li><a href="#theme">theme</a></li>
+  <li><a href="#transifex">Transifex</a></li>
   <li><a href="#wdtk">WhatDoTheyKnow</a></li>
 </ul>
 
@@ -596,7 +597,7 @@ Definitions
           Alaveteli</a> for more technical details.
         </li>
         <li>
-          Alaveteli is on the  <a href="https://www.transifex.net/projects/p/alaveteli/">Transifex</a>
+          Alaveteli is on the  <a href="https://www.transifex.com/projects/p/alaveteli/">Transifex</a>
           website, which lets translators work on Alaveteli in a browser, without needing
           to worry about this underlying structure.
         </li>
@@ -994,24 +995,6 @@ Definitions
   </dd>
 
   <dt>
-    <a name="theme">theme</a>
-  </dt>
-  <dd>
-    A <strong>theme</strong> is the collection of changes to the templates
-    and the code that causes the site to look or behave differently from the
-    default. Typically you'll need a theme to make Alaveteli show your own
-    brand.
-    <div class="more-info">
-      <p>More information:</p>
-      <ul>
-        <li>
-      <a href="{{ site.baseurl }}docs/customising/themes/">about themes</a>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
     <a name="tag">tag</a>
   </dt>
   <dd>
@@ -1033,6 +1016,42 @@ Definitions
       </ul>
     </div>
   </dd>
+
+
+  <dt>
+    <a name="theme">theme</a>
+  </dt>
+  <dd>
+    A <strong>theme</strong> is the collection of changes to the templates
+    and the code that causes the site to look or behave differently from the
+    default. Typically you'll need a theme to make Alaveteli show your own
+    brand.
+   <div class="more-info">
+   <p>More information:</p>
+     <ul>
+       <li>
+        <a href="{{ site.baseurl }}docs/customising/themes/">about themes</a>
+      </li>
+    </ul>
+   </div>
+   </dd>
+  <dt>
+
+    <a name="transifex">Transifex</a>
+  </dt>
+  <dd>
+
+    <a href="https://www.transifex.com/">Transifex</a> is a website that helps translators add translations for software projects.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          The Transifex project for Alaveteli is at <a href="https://www.transifex.com/projects/p/alaveteli">https://www.transifex.com/projects/p/alaveteli</a>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
 
   <dt>
     <a name="wdtk">WhatDoTheyKnow</a>
