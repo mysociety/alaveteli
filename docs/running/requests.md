@@ -25,8 +25,9 @@ or the way Alaveteli is handling it.
 
 <ul class="toc">
   <li><a href="#what-state-is-the-request-in">What state is the request in?</a></li>
+  <li><a href="#old-requests-6-months-without-activity">Old requests (6+ months without activity)</a></li>
   <li><a href="#changing-things-about-a-request">Changing things about a request</a></li>
-<li><a href="#resending-a-request-or-sending-it-to-a-different-authority">Resending a request or sending a request to a different authority</a></li>
+  <li><a href="#resending-a-request-or-sending-it-to-a-different-authority">Resending a request or sending a request to a different authority</a></li>
   <li><a href="#hiding-a-request">Hiding a request</a></li>
   <li><a href="#deleting-a-request">Deleting a request</a></li>
 </ul>
