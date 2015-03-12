@@ -730,7 +730,7 @@ they are added to the request's page, they too will be hidden.
 ### Deleting a request
 
 You can delete a request from the site. For instructions, see
-[deleting a request]({{ site.baseurl }}docs/running/requests/#deleteing-a-request).
+[deleting a request]({{ site.baseurl }}docs/running/requests/#deleting-a-request).
 
 Responses to a deleted request will be sent to the holding pen.
 
