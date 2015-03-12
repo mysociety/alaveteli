@@ -688,9 +688,17 @@ Enter some text in the in the ‘Ban text’ box to explain why they have been b
 
 ### Allowing a user to make more requests
 
-Alaveteli has a config setting <code><a href="{{ site.baseurl }}docs/customising/config/#max_requests_per_user_per_day">MAX_REQUESTS_PER_USER_PER_DAY</a></code>, which determines the maximum number of requests that a normal user can make in a day. If they try to make more than this number of requests within a 24 hour period, they will see a message telling them that they have hit the limit, and encouraging them to use the contact form if they feel they have a good reason to ask for the request limit to be lifted.
+Alaveteli has a config setting <code><a href="{{ site.baseurl }}docs/customising/config/#max_requests_per_user_per_day">MAX_REQUESTS_PER_USER_PER_DAY</a></code>,
+which determines the maximum number of requests that a normal user can
+make in a day. If they try to make more than this number of requests
+within a 24 hour period, they will see a message telling them that they
+have hit the limit, and encouraging them to use the contact form if they
+feel they have a good reason to ask for the request limit to be lifted.
 
-To lift the request limit for a particular user, go to the <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>, click on **Users**, then click on the name of the user you want to lift the request limit for. Click the **Edit** button. Tick the checkbox **No rate limit**, and click the **Save** button.
+To lift the request limit for a particular user, go to the <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin
+interface</a>, click on **Users**, then click on the name of the user
+you want to lift the request limit for. Click the **Edit** button. Tick
+the checkbox **No rate limit**, and click the **Save** button.
 
 ### Batch requests
 
@@ -710,9 +718,25 @@ To enable batch requests on your site, first you must set
 <code><a href="{{ site.baseurl }}docs/customising/config/#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>
 to <code>true</code> in <code>general.yml</code>.
 
-This does not allow anyone to make batch requests yet. You must still enable this for each user on an individual basis. To do this, go to the <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>, click on **Users**, then click on the name of the user who wants to make batch requests. Click the **Edit** button. Tick the checkbox **Can make batch requests**, and click the **Save** button.
+This does not allow anyone to make batch requests yet. You must still
+enable this for each user on an individual basis. To do this, go to the
+<a href="{{ site.baseurl }}docs/glossary/#admin"
+class="glossary__link">admin interface</a>, click on **Users**, then
+click on the name of the user who wants to make batch requests. Click
+the **Edit** button. Tick the checkbox **Can make batch requests**, and
+click the **Save** button.
 
-If you've enabled batch requests for a user, when they start to make a request, in addition to the box where they can select an authority, they will see a link to "make a batch request". When the request is sent, Alaveteli will make a request page for this request for each authority, as if the user had made individual requests.
+If you've enabled batch requests for a user, when they start to make a
+request, in addition to the box where they can select an authority, they
+will see a link to "make a batch request". When the request is sent,
+Alaveteli will make a request page for this request for each authority,
+as if the user had made individual requests.
+
+### Resending a request or sending it to a different authority
+
+If you have corrected the email address for an authority, you may want to resend an existing request to that authority to the new email address. Alternatively, a user may send a request to the wrong authority. In that situation, you may want to change the authority on the request and then resend it to the correct authority. For instructions, see
+[resending a request or sending it to a different authority]({{ site.baseurl }}docs/running/requests/#resending-a-request-or-sending-it-to-a-different-authority).
+
 
 ### Hiding a request
 
