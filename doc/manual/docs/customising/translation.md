@@ -48,13 +48,13 @@ translators a chance to catch up -- read the rest of this page for details.
 ## Alaveteli's translations
 
 You don't need to be a programmer to translate Alaveteli -- we use an external
-website called Transifex to help manage translations. This makes it easy for
+website called <a href="{{ site.baseurl }}docs/glossary/#transifex" class="glossary__link">Transifex</a> to help manage translations. This makes it easy for
 translators to get to work, but it does mean you (or your technical team)
 need to do a little extra work to get those translations back into Alaveteli
 when they are ready.
 
 The Transifex project is at
-[https://www.transifex.net/projects/p/alaveteli](https://www.transifex.net/projects/p/alaveteli)
+[https://www.transifex.com/projects/p/alaveteli](https://www.transifex.com/projects/p/alaveteli)
 -- you'll probably want an account there (ask on the mailing list). It has a
 fairly easy-to-use interface for contributing translations.
 

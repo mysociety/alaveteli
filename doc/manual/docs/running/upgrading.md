@@ -76,7 +76,7 @@ Patch version increases (e.g. 0.1.2.3 &rarr; 0.1.2.**4**) should not require any
 Minor version increases (e.g. 0.1.2.4 &rarr; 0.1.**3**.0) will usually require further action. You should read the [`CHANGES.md`](https://github.com/mysociety/alaveteli/blob/master/doc/CHANGES.md) document to see what's changed since your last deployment, paying special attention to anything in the "Upgrade notes" sections.
 
 Any upgrade may include new translations strings, that is, new or altered messages
-to the user that need translating to your locale. You should visit Transifex
+to the user that need translating to your locale. You should visit <a href="{{ site.baseurl }}docs/glossary/#transifex" class="glossary__link">Transifex</a>
 and try to get your translation up to 100% on each new release. Failure to do
 so means that any new words added to the Alaveteli source code will appear in
 your website in English by default. If your translations didn't make it to the
