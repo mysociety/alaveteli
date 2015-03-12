@@ -36,6 +36,7 @@ In this guide:
       <li><a href="#banning-a-user">Banning a user</a></li>
       <li><a href="#allowing-a-user-to-make-more-requests">Allowing a user to make more requests</a></li>
       <li><a href="#batch-requests">Batch requests</a></li>
+      <li><a href="#resending-a-request-or-sending-it-to-a-different-authority">Resending a request or sending it to a different authority</a></li>
       <li><a href="#hiding-a-request">Hiding a request</a></li>
       <li><a href="#deleting-a-request">Deleting a request</a></li>
       <li><a href="#hiding-an-incoming-or-outgoing-message">Hiding an incoming or outgoing message</a></li>
@@ -734,7 +735,11 @@ as if the user had made individual requests.
 
 ### Resending a request or sending it to a different authority
 
-If you have corrected the email address for an authority, you may want to resend an existing request to that authority to the new email address. Alternatively, a user may send a request to the wrong authority. In that situation, you may want to change the authority on the request and then resend it to the correct authority. For instructions, see
+If you have corrected the email address for an authority, you can resend
+an existing request to that authority to the new email address. Alternatively,
+a user may send a request to the wrong authority. In that situation, you can
+change the authority on the request and then resend it to the correct authority.
+For instructions, see
 [resending a request or sending it to a different authority]({{ site.baseurl }}docs/running/requests/#resending-a-request-or-sending-it-to-a-different-authority).
 
 
