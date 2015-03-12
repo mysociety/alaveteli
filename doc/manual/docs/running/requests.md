@@ -11,29 +11,38 @@ title: Managing requests
   <a href="{{ site.baseurl }}docs/glossary/#request" class="glossary__link">request</a>.
   As an 
   <a href="{{ site.baseurl }}docs/glossary/#super" class="glossary__link">administrator</a>,
-  there are some things about that request you can change once it's been created.
+  there are some things about that request you can change once it&rsquo;s been created.
 </p>
 
 A request is automatically created when a user submits and (where necessary)
-confirms it. Alaveteli sends it to the authority responsible and handles any
+confirms it. Alaveteli sends it to the
+<a href="{{ site.baseurl }}docs/glossary/#authority" class="glossary__link">authority</a>
+responsible and handles any
 <a href="{{ site.baseurl }}docs/glossary/#response" class="glossary__link">responses</a>.
 Usually this process runs without needing any intervention from an
-administrator. But sometimes you'll want to change some aspect of the
-request, or the way Alaveteli is handling it.
+administrator. But sometimes you'll want to change some aspect of the request,
+or the way Alaveteli is handling it.
+
+<ul class="toc">
+  <li><a href="#what-state-is-the-request-in">What state is the request in?</a></li>
+  <li><a href="#changing-things-about-a-request">Changing things about a request</a></li>
+  <li><a href="#hiding-a-request">Hiding a request</a></li>
+  <li><a href="#deleting-a-request">Deleting a request</a></li>
+</ul>
 
 ## What state is the request in?
 
 Every request moves through a series of 
 <a href="{{ site.baseurl }}docs/glossary/#state" class="glossary__link">states</a>,
-indicating its progress. Usually a new request will be in the `waiting_response`
-state until something happens to change that &mdash; for example, a response is
-received.
+indicating its progress. Usually a new request will be in the
+`waiting_response` state until something happens to change that &mdash; for
+example, a response is received.
 
 However, states can't always be set automatically, because they require a
 decision to be made on what kind of answer the authority provided in the
 response. For states like this, Alaveteli invites the original requester to
-describe its state &mdash; for example, when a response is received they can
-change the state to `successful`, `partially_successful` or `not_held` (if the
+describe it &mdash; for example, when a response is received they can change
+the state to `successful`, `partially_successful` or `not_held` (if the
 authority replied to say they don't have the information requested).
 
 <div class="attention-box info">
@@ -48,7 +57,6 @@ sets its "awaiting description" status appropriately.
 
 
 ## Changing things about a request
-
 
 To change any of these settings, go to the 
 <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>,
@@ -69,10 +77,10 @@ Click the **Edit metadata** button.
       Title
     </td>
     <td>
-      The title is shown on the request's page, but is also used in the URL
-      (the text is changed to lower case, punctuation is removed and, if
-      necessary, a number is added for disambiguation &mdash; this is called
-      the "slug").
+      The <em>title</em> is shown on the request&rsquo;s page, but is also used
+      in the URL (the text is changed to lower case, punctuation is removed
+      and, if necessary, a number is added for disambiguation &mdash; this is
+      called the &ldquo;slug&rdquo;).
       <p>
         Note that changing the title changes the URL, because the slug changes
         &mdash; this means any links to the <em>old</em> URL will no longer
@@ -129,15 +137,16 @@ Click the **Edit metadata** button.
       What happens to rejected responses?
     </td>
     <td>
-      The <strong>Handle rejected responses...</strong> setting specificies what happens
-      to responses that are not allowed (see previous entry):
+      The <strong>Handle rejected responses...</strong> setting specificies
+      what happens to responses that are not allowed (see previous entry):
       <ul>
         <li>
           <code>bounce</code>: responses are sent back to their sender
         </li>
         <li>
           <code>holding pen</code>: responses are put in the
-          <a href="{{ site.baseurl }}docs/glossary/#holding_pen" class="glossary__link">holding pen</a> for an administrator to deal with
+          <a href="{{ site.baseurl }}docs/glossary/#holding_pen" class="glossary__link">holding pen</a>
+          for an administrator to deal with
         </li>
         <li>
           <code>blackhole</code>: responses are destroyed by being sent to a
@@ -175,8 +184,10 @@ Click the **Edit metadata** button.
     <td>
       The <strong>Are comments allowed?</strong> setting simply you choose to 
       allow or forbid annotations and comments on this request.
-      <!-- are existing comments deleted? -->
-      <br>
+      <p>
+        Note that this won&rsquo;t hide any annotations that have already
+        been left on the reques &mdash; it only prevents users adding new ones.
+      </p>
     </td>
   </tr>
   <tr>
@@ -194,15 +205,88 @@ Click the **Edit metadata** button.
         are very many in the database.
       </p>
       <p>
-        Although it's a little more complex than tags on requests,
+        Although it&rsquo;s a little more complex than tags on requests,
         <a href="{{ site.baseurl }}docs/glossary/#category" class="glossary__link">categories</a>
         also use tags:
         see 
-        <a href="{{ site.baseurl }}docs/running/categories_and_tags/">more about tags</a> for a little
-        more information.
+        <a href="{{ site.baseurl }}docs/running/categories_and_tags/">more about tags</a>
+        for a little more information.
       </p>
     </td>
   </tr>
 </table>
+
+## Hiding a request
+
+You can hide an entire request. Typically you do this if it's not a valid
+Freedom of Information request (for example, a request for personal
+information), or if it is vexatious.
+
+Go to the <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>,
+click on **Requests**, then click on the title of the request you want. You can
+hide it in one of two ways:
+
+   * [Hide the request and notify the requester](#hide-the-request-and-notify-the-requester)
+   * [Hide the request without notifying the requester](#hide-the-request-without-notifying-the-requester)
+
+Responses to a hidden request will be accepted in the normal way, but because
+they are added to the request's page, they too will be hidden.
+
+### Hide the request and notify the requester
+
+Scroll down to the *Actions* section of the request's admin page.
+Choose one of the options next to **Hide the request and notify the user:**
+
+   * Not a valid FOI request
+   * A vexatious request
+
+Choosing one of these will reveal an email form. Customise the text of the
+email that will be sent to the user, letting them know what you've done. When
+you're ready, click the **Hide request** button.
+
+### Hide the request without notifying the requester
+
+<div class="attention-box helpful-hint">
+  As well as hiding the request from everyone, you can also use this method if
+  you want to make the request only visible to the requester.
+</div>
+  
+In the *Request metadata* section of the request's admin page, click the
+**Edit metadata** button. Change the *Prominence* value to one of these:
+
+  * `requester_only`: only the requester can view the request
+  * `hidden`: nobody can see the request, except administrators.
+
+<div class="attention-box warning">
+  If you want to hide the request, do not chooose  <code>backpage</code>
+  as the prominence. The <code>backpage</code> option stops the request
+  appearing in lists and searches so that it is effectively only visible
+  to anyone who has its URL &mdash; but it <em>does not hide</em> the request.
+</div>
+
+When you're ready, click the **Save changes** button at the bottom of the
+*Edit metadata* section. No email will be sent to the requester to notify
+them of what you've done.
+
+
+## Deleting a request
+
+You can delete a request entirely. Typically, you only need to do this if
+someone has posted private information.  If you delete a request, any responses that it has already received will be
+destroyed as well.
+
+<div class="attention-box warning">
+  Deleting a request destroys it. There is no &ldquo;undo&rdquo; operation.
+  If you're not sure you want to do this, perhaps you should
+  <a href="#hiding-a-request">hide the request</a> instead.
+</div>
+
+Go to the <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>,
+click on **Requests**, then click on the title of the request you want to delete. 
+Click the **Edit metadata** button. Click on the red **Destroy request entirely**
+button at the bottom of the page.
+
+Responses to a deleted request will be sent to the
+<a href="{{ site.baseurl }}docs/glossary/#holding_pen" class="glossary__link">holding pen</a>.
 
 
