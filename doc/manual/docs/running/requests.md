@@ -26,7 +26,7 @@ or the way Alaveteli is handling it.
 <ul class="toc">
   <li><a href="#what-state-is-the-request-in">What state is the request in?</a></li>
   <li><a href="#changing-things-about-a-request">Changing things about a request</a></li>
-<li><a href="#resending-a-request-or-sending-it-to-a-different-authority">Sending a request to a different authority</a></li>
+<li><a href="#resending-a-request-or-sending-it-to-a-different-authority">Resending a request or sending a request to a different authority</a></li>
   <li><a href="#hiding-a-request">Hiding a request</a></li>
   <li><a href="#deleting-a-request">Deleting a request</a></li>
 </ul>
@@ -218,6 +218,11 @@ Click the **Edit metadata** button.
 </table>
 
 ## Resending a request or sending it to a different authority
+
+If you have corrected the email address for an authority, you can resend
+an existing request to that authority to the new email address. Alternatively,
+a user may send a request to the wrong authority. In that situation, you can
+change the authority on the request and then resend it to the correct authority.
 
 To resend a request, go to
 the <a href="{{ site.baseurl }}docs/glossary/#admin"
