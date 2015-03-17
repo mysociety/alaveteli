@@ -36,7 +36,7 @@ class LanguageNames
             'kw'	=> 'Kernewek',
             'co'	=> 'corsu',
             'cr'	=> 'ᓀᐦᐃᔭᐍᐏᐣ',
-            'hr'	=> 'hrvatski',
+            'hr'	=> 'Hrvatski',
             'cs'	=> 'česky',
             'da'	=> 'dansk',
             'dv'	=> 'ދިވެހި',
