@@ -1,20 +1,43 @@
-<%= error_messages_for 'public_body' %>
+<% if @public_body.errors.any? %>
+  <ul>
+  <% @public_body.errors.each do |attr, message| %>
+    <% unless attr.to_s.starts_with?('translation') %>
+    <li><%= message %></li>
+    <% end %>
+  <% end %>
+  </ul>
+<% end %>
+
+<% @public_body.ordered_translations.each do |translation| %>
+  <% if translation.errors.any? %>
+    <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
+    <ul>
+    <% translation.errors.each do |attr, message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  <% end %>
+<% end %>
 
 <!--[form:public_body]-->
 
 <div id="div-locales">
   <ul class="locales nav nav-tabs">
-    <% @public_body.translations.each do |translation| %>
+    <% @public_body.ordered_translations.each do |translation| %>
       <li>
-        <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab">
-          <%= locale_name(translation.locale.to_s) || _("Default locale") %>
+        <% css_class = '' %>
+        <% if (translation.locale.to_s == I18n.default_locale.to_s && @public_body.errors.any?) || translation.errors.any? %>
+          <% css_class = 'tabWithErrors' %>
+        <% end %>
+        <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab" class=<%= css_class %>>
+          <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
         </a>
       </li>
     <% end %>
   </ul>
 
   <div class="tab-content">
-    <% @public_body.translations.each do |translation| %>
+    <% @public_body.ordered_translations.each do |translation| %>
       <% if translation.locale.to_s == I18n.default_locale.to_s %>
         <%= fields_for('public_body', @public_body) do |t| %>
           <%= render :partial => 'locale_fields', :locals => { :t => t, :locale => translation.locale } %>

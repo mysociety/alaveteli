@@ -119,5 +119,18 @@ body.admin {
     padding: 3px 0;
   }
 
+  .fieldWithErrors {
+    display:block;
+    padding:0.2em;
+    textarea, input {
+      border:solid 1px Red !important;
+    }
+  }
+
+  .tabWithErrors {
+    border-color: red !important;
+    border-bottom-color: transparent !important;
+  }
+
 }
 

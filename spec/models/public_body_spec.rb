@@ -30,105 +30,80 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PublicBody do
 
-    describe :translations_attributes= do
+  describe :translations_attributes= do
 
-        context 'translation_attrs is a Hash' do
+      context 'translation_attrs is a Hash' do
 
-            it 'takes the correct code path for a Hash' do
-                attrs = {}
-                attrs.should_receive(:each_value)
-                PublicBody.new().translations_attributes = attrs
-            end
+          it 'does not persist translations' do
+              body = FactoryGirl.create(:public_body)
+              body.translations_attributes = { :es => { :locale => 'es',
+                                                        :name => 'El Body' } }
 
-            it 'updates an existing translation' do
-                body = public_bodies(:geraldine_public_body)
-                translation = body.translation_for(:es)
-                params = { 'es' => { :locale => 'es',
-                                     :name => 'Renamed' } }
+              expect(PublicBody.find(body.id).translations.size).to eq(1)
+          end
 
-                body.translations_attributes = params
-                I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
-            end
+          it 'creates a new translation' do
+              body = FactoryGirl.create(:public_body)
+              body.translations_attributes = { :es => { :locale => 'es',
+                                                        :name => 'El Body' } }
+              body.save
+              body.reload
+              expect(body.name(:es)).to eq('El Body')
+          end
 
-            it 'updates an existing translation and creates a new translation' do
-                body = public_bodies(:geraldine_public_body)
-                translation = body.translation_for(:es)
+          it 'updates an existing translation' do
+              body = FactoryGirl.create(:public_body)
+              body.translations_attributes = { 'es' => { :locale => 'es',
+                                                         :name => 'El Body' } }
+              body.save
 
-                expect(body.translations.size).to eq(2)
+              body.translations_attributes = { 'es' => { :id => body.translation_for(:es).id,
+                                                         :locale => 'es',
+                                                         :name => 'Renamed' } }
+              body.save
+              expect(body.name(:es)).to eq('Renamed')
+          end
 
-                body.translations_attributes = {
-                    'es' => { :locale => 'es',
-                              :name => 'Renamed' },
-                    'fr' => { :locale => 'fr',
-                              :name => 'Le Geraldine Quango' }
-                }
+          it 'updates an existing translation and creates a new translation' do
+              body = FactoryGirl.create(:public_body)
+              body.translations.create(:locale => 'es',
+                                       :name => 'El Body')
 
-                expect(body.translations.size).to eq(3)
-                I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
-                I18n.with_locale(:fr) { expect(body.name).to eq('Le Geraldine Quango') }
-            end
+              expect(body.translations.size).to eq(2)
 
-            it 'skips empty translations' do
-                body = public_bodies(:geraldine_public_body)
-                translation = body.translation_for(:es)
+              body.translations_attributes = {
+                  'es' => { :id => body.translation_for(:es).id,
+                            :locale => 'es',
+                            :name => 'Renamed' },
+                  'fr' => { :locale => 'fr',
+                            :name => 'Le Body' }
+              }
 
-                expect(body.translations.size).to eq(2)
+              expect(body.translations.size).to eq(3)
+              I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
+              I18n.with_locale(:fr) { expect(body.name).to eq('Le Body') }
+          end
 
-                body.translations_attributes = {
-                    'es' => { :locale => 'es',
-                              :name => 'Renamed' },
-                    'fr' => { :locale => 'fr' }
-                }
+          it 'skips empty translations' do
+              body = FactoryGirl.create(:public_body)
+              body.translations.create(:locale => 'es',
+                                       :name => 'El Body')
 
-                expect(body.translations.size).to eq(2)
-            end
+              expect(body.translations.size).to eq(2)
 
-        end
+              body.translations_attributes = {
+                  'es' => { :id => body.translation_for(:es).id,
+                            :locale => 'es',
+                            :name => 'Renamed' },
+                  'fr' => { :locale => 'fr' }
+              }
 
-        context 'translation_attrs is an Array' do
-
-            it 'takes the correct code path for an Array' do
-                attrs = []
-                attrs.should_receive(:each)
-                PublicBody.new().translations_attributes = attrs
-            end
-
-            it 'creates a new translation' do
-                body = public_bodies(:geraldine_public_body)
-                body.translation_for(:es).destroy
-                body.reload
-
-                expect(body.translations.size).to eq(1)
-
-                body.translations_attributes = [ {
-                        :locale => 'es',
-                        :name => 'Renamed'
-                    }
-                ]
-
-                expect(body.translations.size).to eq(2)
-                I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
-            end
-
-            it 'skips empty translations' do
-                body = public_bodies(:geraldine_public_body)
-                body.translation_for(:es).destroy
-                body.reload
-
-                expect(body.translations.size).to eq(1)
-
-                body.translations_attributes = [
-                    { :locale => 'empty' }
-                ]
-
-                expect(body.translations.size).to eq(1)
-            end
-
-        end
-
-    end
-
+              expect(body.translations.size).to eq(2)
+          end
+      end
+  end
 end
+
 
 describe PublicBody, " using tags" do
     before do
@@ -852,5 +827,20 @@ describe PublicBody, 'when asked for popular bodies' do
         AlaveteliConfiguration.stub!(:frontpage_publicbody_examples).and_return('')
         PublicBody.popular_bodies('he-IL').should == [public_bodies(:humpadink_public_body)]
     end
+
+end
+
+describe PublicBody::Translation do
+
+  it 'requires a locale' do
+    translation = PublicBody::Translation.new
+    translation.valid?
+    expect(translation.errors[:locale]).to eq(["can't be blank"])
+  end
+
+  it 'is valid if all required attributes are assigned' do
+    translation = PublicBody::Translation.new(:locale => I18n.default_locale)
+    expect(translation).to be_valid
+  end
 
 end

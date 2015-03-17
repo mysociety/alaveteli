@@ -7,17 +7,39 @@ class AdminPublicBodyCategoriesController < AdminController
 
     def new
         @category = PublicBodyCategory.new
-        render :formats => [:html]
+        @category.build_all_translations
+    end
+
+    def create
+        I18n.with_locale(I18n.default_locale) do
+            @category = PublicBodyCategory.new(params[:public_body_category])
+            if @category.save
+                # FIXME: This can't handle failure (e.g. if a PublicBodyHeading
+                # doesn't exist)
+                if params[:headings]
+                    params[:headings].values.each do |heading_id|
+                        PublicBodyHeading.find(heading_id).add_category(@category)
+                    end
+                end
+                flash[:notice] = 'Category was successfully created.'
+                redirect_to admin_categories_path
+            else
+                @category.build_all_translations
+                render :action => 'new'
+            end
+        end
     end
 
     def edit
         @category = PublicBodyCategory.find(params[:id])
+        @category.build_all_translations
         @tagged_public_bodies = PublicBody.find_by_tag(@category.category_tag)
     end
 
     def update
         @category = PublicBodyCategory.find(params[:id])
         @tagged_public_bodies = PublicBody.find_by_tag(@category.category_tag)
+
         heading_ids = []
 
         I18n.with_locale(I18n.default_locale) do
@@ -43,6 +65,8 @@ class AdminPublicBodyCategoriesController < AdminController
                     end
 
                     added_headings.each do |heading_id|
+                        # FIXME: This can't handle failure (e.g. if a
+                        # PublicBodyHeading doesn't exist)
                         PublicBodyHeading.find(heading_id).add_category(@category)
                     end
                 end
@@ -51,25 +75,9 @@ class AdminPublicBodyCategoriesController < AdminController
                     flash[:notice] = 'Category was successfully updated.'
                     redirect_to edit_admin_category_path(@category)
                 else
+                    @category.build_all_translations
                     render :action => 'edit'
                 end
-            end
-        end
-    end
-
-    def create
-        I18n.with_locale(I18n.default_locale) do
-            @category = PublicBodyCategory.new(params[:public_body_category])
-            if @category.save
-                if params[:headings]
-                    params[:headings].values.each do |heading_id|
-                        PublicBodyHeading.find(heading_id).add_category(@category)
-                    end
-                end
-                flash[:notice] = 'Category was successfully created.'
-                redirect_to admin_categories_path
-            else
-                render :action => 'new'
             end
         end
     end
