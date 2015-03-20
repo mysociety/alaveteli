@@ -30,16 +30,16 @@ module AlaveteliExternalCommand
             if !xc.exited
                 # Crash or timeout
                 if xc.timed_out
-                    $stderr.puts(%Q[Command "#{program_name} #{args.join(' ')}" timed out at #{opts[:timeout]}s])
+                    $stderr.puts(%Q[External Command: "#{program_name} #{args.join(' ')}" timed out at #{opts[:timeout]}s])
                 else
-                    $stderr.puts(%Q[Command ""#{program_name} #{args.join(' ')}" exited abnormally])
+                    $stderr.puts(%Q[External Command: "#{program_name} #{args.join(' ')}" exited abnormally])
                 end
                 $stderr.print(xc.err)
                 return nil
 
             elsif xc.status != 0
                 # Error
-                $stderr.puts(%Q[Error from command "#{program_name} #{args.join(' ')}":])
+                $stderr.puts(%Q[External Command: Error from command "#{program_name} #{args.join(' ')}":])
                 $stderr.print(xc.err)
                 return nil
             else
