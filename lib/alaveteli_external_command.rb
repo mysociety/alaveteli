@@ -18,6 +18,9 @@ module AlaveteliExternalCommand
             # Run an external program, and return its output.
             # Standard error is suppressed unless the program
             # fails (i.e. returns a non-zero exit status).
+            # If the program fails, returns nil and writes any error to stderr.
+            # TODO: calling code should be able to specify error stream - may want to log it or
+            # otherwise act upon it.
             opts = {}
             if !args.empty? && args.last.is_a?(Hash)
                 opts = args.last
@@ -25,7 +28,12 @@ module AlaveteliExternalCommand
 
             program_path = find_program(program_name)
             xc = ExternalCommand.new(program_path, *args)
-            xc.run
+            begin
+                xc.run
+            rescue ExternalCommand::ChildUnterminated => e
+                $stderr.puts(e.message)
+                return nil
+            end
 
             if !xc.exited
                 # Crash or timeout
