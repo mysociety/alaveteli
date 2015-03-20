@@ -23,10 +23,7 @@ class AdminPublicBodyController < AdminController
 
     def new
         @public_body = PublicBody.new
-
-        I18n.available_locales.each do |locale|
-            @public_body.translations.build(:locale => locale)
-        end
+        @public_body.build_all_translations
 
         if params[:change_request_id]
             @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
@@ -58,6 +55,7 @@ class AdminPublicBodyController < AdminController
                 flash[:notice] = 'PublicBody was successfully created.'
                 redirect_to admin_body_url(@public_body)
             else
+                @public_body.build_all_translations
                 render :action => 'new'
             end
         end
@@ -65,10 +63,7 @@ class AdminPublicBodyController < AdminController
 
     def edit
         @public_body = PublicBody.find(params[:id])
-
-        I18n.available_locales.each do |locale|
-            @public_body.translations.find_or_initialize_by_locale(locale)
-        end
+        @public_body.build_all_translations
 
         if params[:change_request_id]
             @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
@@ -99,6 +94,7 @@ class AdminPublicBodyController < AdminController
                 flash[:notice] = 'PublicBody was successfully updated.'
                 redirect_to admin_body_url(@public_body)
             else
+                @public_body.build_all_translations
                 render :action => 'edit'
             end
         end
