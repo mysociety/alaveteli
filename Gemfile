@@ -32,7 +32,7 @@ gem 'secure_headers', '~> 1.3.4'
 gem 'statistics2', '~> 0.54'
 gem 'syslog_protocol', '~> 0.9.2'
 gem 'thin', '~> 1.5.1'
-gem 'vpim', '~> 13.11.11' 
+gem 'vpim', '~> 13.11.11'
 gem 'will_paginate', '~> 3.0.5'
 # when 1.2.9 is released by the maintainer, we can stop using this fork:
 gem 'xapian-full-alaveteli', '~> 1.2.9.5'
