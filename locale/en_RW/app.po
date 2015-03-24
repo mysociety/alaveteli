@@ -852,9 +852,8 @@ msgstr ""
 msgid "First, did your other requests succeed?"
 msgstr ""
 
-#, fuzzy
 msgid "First, type in the <strong>name of the public authority</strong> you'd\\n        like information from."
-msgstr "First, type in the <strong>name of the public authority in Rwanda</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
+msgstr "First, type in the <strong>name of the public authority in Rwanda</strong> you'd\\n        like information from."
 
 msgid "Foi attachment"
 msgstr "ATI attachment"
@@ -963,9 +962,8 @@ msgstr "Access to information law does not apply to this authority, so you canno
 msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
 msgstr "Access to information law no longer applies to this authority. Follow up messages to existing requests are sent to "
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
-msgstr "Access to information law no longer applies to"
+msgstr "Access to information law no longer applies to {{public_body_name}}."
 
 msgid "Freedom of Information requests made"
 msgstr "Access to information requests made"
@@ -1896,9 +1894,8 @@ msgstr ""
 msgid "Preview your public request"
 msgstr ""
 
-#, fuzzy
 msgid "Preview your request"
-msgstr "Clarify your ATI request - "
+msgstr ""
 
 msgid "Profile photo"
 msgstr ""
@@ -2286,13 +2283,11 @@ msgstr ""
 msgid "Share on Facebook"
 msgstr ""
 
-#, fuzzy
 msgid "Share your batch request"
-msgstr "Clarify your ATI request - "
+msgstr "Share your batch request "
 
-#, fuzzy
 msgid "Share your request"
-msgstr "Clarify your ATI request - "
+msgstr "Share your request"
 
 msgid "Short name"
 msgstr ""
@@ -3122,9 +3117,8 @@ msgstr ""
 msgid "View email"
 msgstr ""
 
-#, fuzzy
 msgid "View other requests to {{public_body}}"
-msgstr "Confirm your ATI request to {{public_body_name}}"
+msgstr "View other requests to {{public_body}}"
 
 msgid "Waiting clarification."
 msgstr ""
@@ -3649,9 +3643,8 @@ msgstr ""
 msgid "edit text about you"
 msgstr ""
 
-#, fuzzy
 msgid "email address"
-msgstr "View ATI email address"
+msgstr "email address"
 
 msgid "even during holidays"
 msgstr ""

@@ -806,9 +806,8 @@ msgstr "ATI"
 msgid "FOI email address for {{public_body}}"
 msgstr "ATI email address for {{public_body}}"
 
-#, fuzzy
 msgid "FOI law does not apply to this authority."
-msgstr "Make a request to this agency"
+msgstr "ATI law does not apply to this agency."
 
 msgid "FOI request – {{title}}"
 msgstr "ATI request – {{title}}"
@@ -843,19 +842,17 @@ msgstr ""
 msgid "Find an authority"
 msgstr "Select the agency to write to"
 
-#, fuzzy
 msgid "Find the authorities"
-msgstr "View agencies"
+msgstr "Find the agencies"
 
 msgid "Find the authorities to write to"
-msgstr ""
+msgstr "Find the agencies to write to"
 
 msgid "First, did your other requests succeed?"
 msgstr ""
 
-#, fuzzy
 msgid "First, type in the <strong>name of the public authority</strong> you'd\\n        like information from."
-msgstr "First, search the <strong>name of the Ugandan public agency </strong> you would\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
+msgstr "First, search the <strong>name of the Ugandan public agency </strong> you would\\n           like information from. "
 
 msgid "Foi attachment"
 msgstr ""
@@ -938,9 +935,8 @@ msgstr "Follow ups and new responses to this request have been stopped to preven
 msgid "Follow us on twitter"
 msgstr ""
 
-#, fuzzy
 msgid "Following"
-msgstr "Follow up"
+msgstr ""
 
 msgid "Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf."
 msgstr ""
@@ -965,9 +961,8 @@ msgstr "Access to Information law does not apply to this agency, so you cannot m
 msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
 msgstr "Access to Information law no longer applies to this agency. Follow up messages to existing requests are sent to "
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
-msgstr "Access to Information law no longer applies to"
+msgstr "Access to Information law no longer applies to {{public_body_name}}."
 
 msgid "Freedom of Information requests made"
 msgstr "Access to Information requests made"
@@ -1431,9 +1426,8 @@ msgstr "Make and browse Access to Information (ATI) requests"
 msgid "Many requests"
 msgstr ""
 
-#, fuzzy
 msgid "Matching authorities"
-msgstr "View agencies"
+msgstr "Matching agencies"
 
 msgid "Message"
 msgstr ""
@@ -1899,9 +1893,8 @@ msgstr ""
 msgid "Preview your public request"
 msgstr ""
 
-#, fuzzy
 msgid "Preview your request"
-msgstr "Clarify your ATI request - "
+msgstr ""
 
 msgid "Profile photo"
 msgstr ""
@@ -2289,13 +2282,11 @@ msgstr ""
 msgid "Share on Facebook"
 msgstr ""
 
-#, fuzzy
 msgid "Share your batch request"
-msgstr "Clarify your ATI request - "
+msgstr "
 
-#, fuzzy
 msgid "Share your request"
-msgstr "3. Now check your request"
+msgstr ""
 
 msgid "Short name"
 msgstr ""
@@ -3125,9 +3116,8 @@ msgstr "View agencies"
 msgid "View email"
 msgstr ""
 
-#, fuzzy
 msgid "View other requests to {{public_body}}"
-msgstr "View ATI email address for {{public_body_name}}"
+msgstr ""
 
 msgid "Waiting clarification."
 msgstr ""
@@ -3517,9 +3507,8 @@ msgstr ""
 msgid "Your request:"
 msgstr ""
 
-#, fuzzy
 msgid "Your requests will be <strong>sent</strong> shortly!"
-msgstr "A response will be sent <strong>by post</strong>"
+msgstr ""
 
 msgid "Your response to an FOI request was not delivered"
 msgstr "Your response to an ATI request was not delivered"
@@ -3653,9 +3642,8 @@ msgstr ""
 msgid "edit text about you"
 msgstr ""
 
-#, fuzzy
 msgid "email address"
-msgstr "View ATI email address"
+msgstr ""
 
 msgid "even during holidays"
 msgstr ""
