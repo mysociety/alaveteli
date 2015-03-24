@@ -6,6 +6,7 @@
 # Aled Powell <cymrodor@gmail.com>, 2014
 # skenaja <alex@alexskene.com>, 2011-2012
 # baragouiner <graham.craig@gmail.com>, 2013
+# Gareth Rees <gareth@mysociety.org>, 2015
 # baragouiner <graham.craig@gmail.com>, 2013
 # baragouiner <graham.craig@gmail.com>, 2013
 # Huw Waters <huwwaters@gmail.com>, 2013
@@ -22,8 +23,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2015-02-02 13:00+0000\n"
-"Last-Translator: Huw Waters <huwwaters@gmail.com>\n"
+"PO-Revision-Date: 2015-03-17 09:53+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -3599,7 +3600,7 @@ msgid "all requests or comments"
 msgstr "pob cais neu sylwadau"
 
 msgid "all requests or comments matching text '{{query}}'"
-msgstr "pob cais neu sylw sy'n matsio testun '{{ymholiad}}'"
+msgstr "pob cais neu sylw sy'n matsio testun '{{query}}'"
 
 msgid "also called {{public_body_short_name}}"
 msgstr "a elwir hefyd yn {{public_body_short_name}} "
@@ -3620,7 +3621,7 @@ msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "a byddwn yn awgrymu <strong>beth i'w wneud nesaf</strong>"
 
 msgid "anything matching text '{{query}}'"
-msgstr "testun yn cyfateb unrhyw beth '{{ymholiad}}'"
+msgstr "testun yn cyfateb unrhyw beth '{{query}}'"
 
 msgid "are long overdue."
 msgstr "yn ddyledus ers tro"
@@ -3749,7 +3750,7 @@ msgid "requests which are successful"
 msgstr "ceisiadau sy'n llwyddiannus"
 
 msgid "requests which are successful matching text '{{query}}'"
-msgstr "ceisiadau sy'n destun paru llwyddiannus '{{ymholiad}}'"
+msgstr "ceisiadau sy'n destun paru llwyddiannus '{{query}}'"
 
 msgid "response as needing administrator attention. Take a look, and reply to this\\nemail to let them know what you are going to do about it."
 msgstr "ymateb sydd angen sylw gweinyddwr. Cymerwch olwg, ac ymatebwch i'r e-bost hwn i roi gwybod iddynt beth yr ydych yn mynd i'w wneud am y peth."
@@ -3923,7 +3924,7 @@ msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - cais Rhyddid Gwybodaeth i {{public_body}} "
 
 msgid "{{title}} - a batch request"
-msgstr "{{Title}} - cais swp"
+msgstr "{{title}} - cais swp"
 
 msgid "{{user_name}} (Account suspended)"
 msgstr "{{user_name}} (Ataliwyd y cyfrif)"

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Aleksandar Krstić <krsta1987@gmail.com>, 2015
 # Goran Rakic <grakic@devbase.net>, 2013
 # Goran Vučković <vucko@acm.org>, 2013
 # Srdjan Krstic <krledmno1@gmail.com>, 2013
@@ -17,8 +18,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2015-02-27 13:20+0000\n"
+"Last-Translator: Aleksandar Krstić <krsta1987@gmail.com>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/alaveteli/language/sr@latin/)\n"
 "Language: sr@latin\n"
 "MIME-Version: 1.0\n"
@@ -124,13 +125,13 @@ msgid "'{{link_to_user}}', a person"
 msgstr "'{{link_to_user}}', osoba"
 
 msgid "(hide)"
-msgstr ""
+msgstr "(sakrij)"
 
 msgid "(or <a href=\"{{url}}\">sign in</a>)"
 msgstr ""
 
 msgid "(show)"
-msgstr ""
+msgstr "(Prikaži)"
 
 msgid "*unknown*"
 msgstr "*nepoznat*"
