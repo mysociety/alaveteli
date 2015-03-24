@@ -1,4 +1,4 @@
-# rails-3-develop
+# Version 0.21
 
 ## Highlighted Features
 * Lots of improvements in the process of making a new
