@@ -231,7 +231,7 @@ msgstr "<p>{{site_name}} wird gerade überarbeitet. Sie können ausschließlich 
 msgid "<small>If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way.</small>\\n</p>"
 msgstr "Sollten Sie eine webbasierten Emailanbieter oder ´Junk-mail´ Filter nutzen, prüfen Sie Ihren Spamordner. Es kommt vor, dass unsere Nachrichten dort landen. "
 
-msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
+msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No!</a>"
 msgstr ""
 "<strong> Kann ich Informationen zu meiner eigenen Person anfragen?</strong>\n"
 "<span class=\"whitespace other\" title=\"Tab\">»</span><span class=\"whitespace other\" title=\"Tab\">»</span><span class=\"whitespace other\" title=\"Tab\">»</span><a href=\"{{url}}\">Nein! (Weitere Informationen)</a>"
@@ -296,7 +296,7 @@ msgstr ""
 "<strong>Note:</strong>\n"
 "    Es wird eine Email an Ihre neue Emailadresse versendet. Folgen Sie den darin angegebenen Schritten, um die Änderung Ihrer Emailadresse zu bestätigen."
 
-msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"{{url}}\">click here</a>."
+msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
 msgstr "<strong>Privacy note:</strong> Falls Sie Informationen zu Ihrer eingenen Person erfragen wollen <a href=\"{{url}}\">Klicken Sie hier</a>."
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
@@ -395,7 +395,7 @@ msgstr "Tipps zur erweiterten Suchanfrage"
 msgid "Advise on whether the <strong>refusal is legal</strong>, and how to complain about it if not."
 msgstr "Beratung zur <strong>Rechtsgültigkeit der Ablehnung</strong> und wie Sie dagene angehen können."
 
-msgid "Air, water, soil, land, flora and fauna (including how these effect\\n            human beings)"
+msgid "Air, water, soil, land, flora and fauna (including how these effect\\n      human beings)"
 msgstr "Luft, Wasser, Erde, Land, Flora und Fauna (einschliesslich deren Einfluss auf den Menschen)"
 
 msgid "All of the information requested has been received"
@@ -699,7 +699,7 @@ msgstr ""
 msgid "Crop your profile photo"
 msgstr "Bearbeiten Sie Ihr Profilbild"
 
-msgid "Cultural sites and built structures (as they may be affected by the\\n            environmental factors listed above)"
+msgid "Cultural sites and built structures (as they may be affected by the\\n      environmental factors listed above)"
 msgstr "Kulturelle Seiten und erstellte Strukturen (da diese durch die oben gelisteten Umweltfaktoren beeinträchtigt sein könnten)"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
@@ -790,7 +790,7 @@ msgstr ""
 msgid "Edit text about you"
 msgstr "Profiltext ändern"
 
-msgid "Edit this request"
+msgid "Edit your request"
 msgstr "Anfrage bearbeiten"
 
 msgid "Either the email or password was not recognised, please try again."
@@ -832,12 +832,12 @@ msgstr "Details Verlaufsübersicht"
 msgid "Event {{id}}"
 msgstr ""
 
-msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"{{url}}\">why?</a>)."
+msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n          will be <strong>displayed publicly</strong> on\\n          this website <a href=\"{{url}}\">forever</a>"
 msgstr ""
 "Jegliche auf dieser Seite eingegebene Information, inklusive <strong>Ihrem Namen</strong>, ⏎  wird\n"
 "                permanent auf dieser Internetseite <strong>veröffentlicht</strong>(<a href=\"{{url}}\"> Warum?</a>)."
 
-msgid "Everything that you enter on this page\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"{{url}}\">why?</a>)."
+msgid "Everything that you enter on this page\\n          will be <strong>displayed publicly</strong> on\\n          this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 "Jegliche auf dieser Seite eingegebene Information wird\n"
 "                permanent auf dieser Internetseite <strong>veröffentlicht</strong>(<a href=\"{{url}}\"> Warum?</a>)."
@@ -988,7 +988,7 @@ msgstr ""
 msgid "Freedom of Information Act"
 msgstr ""
 
-msgid "Freedom of Information law does not apply to this authority, so you cannot make\\n                a request to it."
+msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr ""
 
 msgid "Freedom of Information law no longer applies to"
@@ -1084,7 +1084,7 @@ msgstr ""
 msgid "Home page of authority"
 msgstr "Offizielle Homepage der Behörde"
 
-msgid "However, you have the right to request environmental\\n            information under a different law"
+msgid "However, you have the right to request environmental\\n      information under a different law"
 msgstr "Nichtsdestrotrotz sind Sie berechtigt Umweltanfragen auf Basis eines anderen Gesetzes zu stellen"
 
 msgid "Human health and safety"
@@ -1163,7 +1163,7 @@ msgstr ""
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
 msgstr "Falls Sie der Antragsteller sind, <a href=\"{{url}}\">loggen Sie sich ein</a>, um die Anfrage anzusehen."
 
-msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"{{url}}\">read this first</a>."
+msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>."
 msgstr ""
 "Wenn Sie ein Pseudonym als Benutzername verwenden möchten,\n"
 "                bitte <a href=\"{{url}}\">lesen Sie hier</a>."
@@ -1326,7 +1326,7 @@ msgstr "InfoRequest|Url title"
 msgid "Information not held."
 msgstr "Information nicht verfügbr"
 
-msgid "Information on emissions and discharges (e.g. noise, energy,\\n            radiation, waste materials)"
+msgid "Information on emissions and discharges (e.g. noise, energy,\\n      radiation, waste materials)"
 msgstr ""
 "Informationen bzg. Emissionen und Ablagerungen (e.g. Lärm, Energie,\n"
 "            Strahlung, Abfallmaterialien)"
@@ -1358,7 +1358,7 @@ msgstr "{{site_name}} beigetreten am"
 msgid "Just one more thing"
 msgstr ""
 
-msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"{{url}}\">why?</a>)."
+msgid "<a href=\"{{url}}\">Keep it <strong>focused</strong></a>, you'll be more likely to get what you want."
 msgstr "Machen Sie es <strong>kurz und bündig</strong>, die Wahrscheinlichkeit die gewünschten Informationen zu erhalten ist somit größer(<a href=\"{{url}}\">Warum?</a>)."
 
 msgid "Keywords"
@@ -1687,7 +1687,7 @@ msgstr "falsches Passwort"
 msgid "Password:"
 msgstr "Passwort:"
 
-msgid "Password: (again)"
+msgid "Confirm password:"
 msgstr "Passwort: (nochmal eingeben)"
 
 msgid "Paste this link into emails, tweets, and anywhere else:"
@@ -1831,7 +1831,7 @@ msgstr "Bitte bleiben Sie unter 500 Zeichen"
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
 msgstr "Bitte halten Sie die Zusammenfassung kurz, wie in der Betreffzeile einer E-Mail. Sie können eine Phrase, sondern als ein ganzer Satz."
 
-msgid "Please only request information that comes under those categories, <strong>do not waste your\\n            time</strong> or the time of the public authority by requesting unrelated information."
+msgid "Please only request information that comes under those categories, <strong>do not waste your\\n      time</strong> or the time of the public authority by requesting unrelated information."
 msgstr "Bitte fragen Sie ausschliesslich auf diese Kategorien zutreffende Informationen an. <strong>Verschwenden Sie nicht Ihre⏎Zeit</strong> oder die Zeit der Behörde, indem Sie nicht zutreffende Informationen anfragen."
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
@@ -1846,7 +1846,7 @@ msgstr "Bitte unterschreiben Sie unten mit Ihrem Namen oder ändern Sie Ihre \"{
 msgid "Please sign in as "
 msgstr "Anmelden als"
 
-msgid "Please sign in or make a new account."
+msgid "Please create an account or sign in"
 msgstr ""
 
 msgid "Please tell us more:"
@@ -1876,7 +1876,7 @@ msgstr "Bitte nutzen Sie eine Mischung aus Groß- und Kleinschreibung für Ihre 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Weisen Sie auf ähnliche, evtl. nütziche Informationen, Kampagnen oder Foren hin"
 
-msgid "Possibly related requests:"
+msgid "Possible related requests"
 msgstr "Eventuell ähnliche Anfrage:"
 
 msgid "Post annotation"
@@ -2301,10 +2301,10 @@ msgstr "Suchen Sie Ihre Beiträge"
 msgid "See bounce message"
 msgstr ""
 
-msgid "Select the authorities to write to"
+msgid "Find the authorities to write to"
 msgstr ""
 
-msgid "Select the authority to write to"
+msgid "Find an authority"
 msgstr "Wählen Sie die zu kontaktierende Behörde"
 
 msgid "Send a followup"
@@ -2780,7 +2780,7 @@ msgstr ""
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Diese Behörde existiert nichtmehr. Es ist folglich nicht möglich eine Anfrage zu stellen. "
 
-msgid "This covers a very wide spectrum of information about the state of\\n            the <strong>natural and built environment</strong>, such as:"
+msgid "This covers a very wide spectrum of information about the state of\\n      the <strong>natural and built environment</strong>, such as:"
 msgstr ""
 
 msgid "This external request has been hidden"
@@ -3224,7 +3224,7 @@ msgstr ""
 "        &ndash;\n"
 "<span class=\"whitespace other\" title=\"Tab\">»</span>falls Sie {{user_link}} sind, bitte <a href=\"{{url}}\">melden Sich an</a> und lassen es uns wissen. "
 
-msgid "We will not reveal your email address to anybody unless you or\\n        the law tell us to (<a href=\"{{url}}\">details</a>). "
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or\\n        the law tell us to</a>. "
 msgstr "Ohne Ihre Zustimmung oder gesetzliche Vorschrift werden wir Ihre Email-Adresse zu keinem Zeitpunkt veröffentlichen. (<a href=\"{{url}}\">details</a>) "
 
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
@@ -3496,7 +3496,7 @@ msgstr ""
 msgid "You've now cleared your profile photo"
 msgstr "Sie haben Ihr Profilbild nun gelöscht"
 
-msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please\\n        <a href=\"{{help_url}}\">read this first</a>."
+msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines.\\n        <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr ""
 "Ihr <strong>Name wird öffentlich</strong> \n"
 "        (<a href=\"{{why_url}}\">warum?</a>)\n"
@@ -3542,7 +3542,7 @@ msgstr "Ihre Nachricht wird in <strong>Suchmaschinen</strong> angezeigt werden"
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Ihr Name und Ihr Kommentar wird in <strong>Suchmaschinen</strong>.angezeigt werden. "
 
-msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"{{url}}\">details</a>)."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n                        (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Ihr Name, Ihre Anfrage und alle Antworten werden in <strong>Suchmaschinen</strong> angezeigt werden\n"
 "        (<a href=\"{{url}}\">Details</a>)."
@@ -3640,7 +3640,7 @@ msgstr ""
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
 msgstr "\\n\\n[ {{site_name}} Anmerkung: Der obenstehende Text war schlecht kodiert und merkwürdige Zeichen wurden entfernt. ]"
 
-msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
+msgid "A one line summary of the information you are requesting, \\n\t\t\te.g."
 msgstr ""
 "Einzeilige Zusammenfassung der von Ihnen angefragten Information, \n"
 "<span class=\"whitespace other\" title=\"Tab\">»</span><span class=\"whitespace other\" title=\"Tab\">»</span><span class=\"whitespace other\" title=\"Tab\">»</span>e.g."
@@ -3917,7 +3917,7 @@ msgid_plural "{{count}} requests made."
 msgstr[0] "{{count}} Anfragen gestellt."
 msgstr[1] "{{count}} Anfragen gestellt."
 
-msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
+msgid "{{existing_request_user}} already\\n            created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n            or edit the details below to make a new but similar request."
 msgstr ""
 "{{existing_request_user}} already\n"
 "      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\n"
@@ -3956,7 +3956,7 @@ msgstr ""
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} hat eine Antwort an {{user_name}} gesendet"
 
-msgid "{{reason}}, please sign in or make a new account."
+msgid "{{reason}}, create an account or sign in"
 msgstr ""
 
 msgid "{{search_results}} matching '{{query}}'"
