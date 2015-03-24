@@ -85,15 +85,15 @@ class PublicBodyCategory < ActiveRecord::Base
         attrs_with_values = attributes.select do |key, value|
             value != '' and key.to_s != 'locale'
         end
-        attrs_with_values.empty? 
+        attrs_with_values.empty?
     end
 
 end
 
 PublicBodyCategory::Translation.class_eval do
   with_options :if => lambda { |t| !t.default_locale? && t.required_attribute_submitted? } do |required|
-    required.validates :title, :presence => { :message => _("Title can't be blank") }
-    required.validates :description, :presence => { :message => _("Description can't be blank") }
+    required.validates :title, :presence => { :message => "Title can't be blank" }
+    required.validates :description, :presence => { :message => "Description can't be blank" }
   end
 
   def default_locale?
