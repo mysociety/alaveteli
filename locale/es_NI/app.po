@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2015-02-10 15:27+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2015-03-23 14:19+0000\n"
+"Last-Translator: jbaezni <jbaezni@gmail.com>\n"
 "Language-Team: Spanish (Nicaragua) (http://www.transifex.com/projects/p/alaveteli/language/es_NI/)\n"
 "Language: es_NI\n"
 "MIME-Version: 1.0\n"
@@ -259,7 +259,7 @@ msgstr "<strong><code>status:</code></strong> para filtrar en función del estad
 
 msgid "<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \\n    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\\n    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr ""
-"<strong><code>tag:salud</code></strong> para buscar todos los organismos públicos o solicitudes con la etiqueta dada. Puedes incluir múltiples etiquetas, \n"
+"<strong><code>tag:salud</code></strong> para buscar todos los Entidades Públicas o solicitudes con la etiqueta dada. Puedes incluir múltiples etiquetas, \n"
 "    y valores, e.g. <code>tag:salud AND tag:financial_transaction:335633</code>. Por defecto, basta con que cualquiera de las etiquetas\n"
 "    esté presente, añade <code>AND</code> explícitamente si sólo quiere resultados con todas ellas presentes."
 
@@ -281,7 +281,7 @@ msgstr ""
 "un conocimiento profundo del comportamiento de los usuarios de {{site_name}}. El cómo, \n"
 "por qué y por quién se clasifican las solicitudes no es trivial, y se producen fallos\n"
 "humanos y decisiones discutibles. Necesitas también comprender las leyes de acceso a la\n"
-"información, y cómo son utilizadas por los organismos públicos. Necesitas por último ser\n"
+"información, y cómo son utilizadas por los Entidades públicas . Necesitas por último ser\n"
 "un buen estadista. Por favor <a href=\"{{contact_path}}\">contacta con nosotros</a>\n"
 "si tiene cualquier duda."
 
@@ -419,10 +419,10 @@ msgid "All of the information requested has been received"
 msgstr "Toda la informacion solicitada ha sido recibida"
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
-msgstr "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
+msgstr "Todas las opciones a continuación pueden usar un <strong> Estado </ strong> o <strong> ultimos estado </ strong> antes de los dos puntos. Por ejemplo, <strong> Estado: no hecho </ strong> mostrara solicitudes que <em> alguna vez </ em> hayan sido marcadas como no hechas; <strong> ultimos estados: no hecho </ strong> mostrara solamente solocitudes que  <em> actualmente son </ em> marcadas como no hechas"
 
 msgid "All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent."
-msgstr "All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent."
+msgstr "Todas las opciones a continuación pueden usar <strong>variedad</strong> o <strong>ultima variedad</strong> antes de los dos puntos. Por ejemplo, <strong>variedad:enviado</strong> mostrara solicitudes que alguna vez <em>hayan</em>  sido enviadas; <strong> ultima variedad: enviado</strong>mostrara solamente solicitudes que actualmente son <em>son</em> marcadas como enviadas"
 
 msgid "Also called {{other_name}}."
 msgstr "También conocido como {{other_name}}."
@@ -474,7 +474,7 @@ msgid "Applies to"
 msgstr "Aplicable a"
 
 msgid "Are we missing a public authority?"
-msgstr "¿Nos falta algún organismo público?"
+msgstr "¿Nos falta algún entidad pública?"
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "¿Posee el copyright de alguna información de esta página?"
@@ -530,7 +530,7 @@ msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for
 msgstr "Explora <a href='{{url}}'>otras solicitudes</a> a '{{public_body_name}}' para ver ejemplos de cómo redactar tu solicitud."
 
 msgid "Browse all authorities..."
-msgstr "Explore otros organismos públicos..."
+msgstr "Explore otros Entidades públicas..."
 
 msgid "Browse and search requests"
 msgstr "Ver y buscar solicitudes"
@@ -1003,7 +1003,7 @@ msgstr "¿Has olvidado tu contraseña?"
 msgid "Found {{count}} public authority {{description}}"
 msgid_plural "Found {{count}} public authorities {{description}}"
 msgstr[0] "Encontrado {{count}} organismo públicos {{description}}"
-msgstr[1] "Encontrados {{count}} organismos públicos {{description}}"
+msgstr[1] "Encontrados {{count}} Entidades públicas {{description}}"
 
 msgid "Freedom of Information"
 msgstr "acceso a la información"
@@ -1439,10 +1439,10 @@ msgid "Listing FOI requests"
 msgstr "Mostrando solicitudes de información"
 
 msgid "Listing public authorities"
-msgstr "Mostrando organismos públicos"
+msgstr "Mostrando Entidades públicas"
 
 msgid "Listing public authorities matching '{{query}}'"
-msgstr "Mostrando organismos públicos que contienen '{{query}}'"
+msgstr "Mostrando Entidades públicas que contienen '{{query}}'"
 
 msgid "Listing tracks"
 msgstr "Mostrando suscripciones"
@@ -2020,13 +2020,13 @@ msgid "Public Body Statistics"
 msgstr "Estadísticas de la Institución Pública "
 
 msgid "Public authorities"
-msgstr "Organismos públicos"
+msgstr "Entidades públicas"
 
 msgid "Public authorities - {{description}}"
-msgstr "Organismos públicos - {{description}}"
+msgstr "Entidades públicas - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
-msgstr "Organismos públicos {{start_count}} a {{end_count}} de {{total_count}}"
+msgstr "Entidades públicas {{start_count}} a {{end_count}} de {{total_count}}"
 
 msgid "Public authority statistics"
 msgstr "Estadísticas de la Autoridad"
@@ -2041,13 +2041,13 @@ msgid "Public bodies with most overdue requests"
 msgstr "Instituciones Públicas con más solicitudes vencidas"
 
 msgid "Public bodies with the fewest successful requests"
-msgstr "Los organismos públicos con el menor número de solicitudes exitosas"
+msgstr "Las Entidades públicas con el menor número de solicitudes exitosas"
 
 msgid "Public bodies with the most requests"
-msgstr "Los organismos públicos con más solicitudes"
+msgstr "Los Entidades públicas con más solicitudes"
 
 msgid "Public bodies with the most successful requests"
-msgstr "Los organismos públicos con las peticiones de mayor satisfacción "
+msgstr "Los Entidades públicas con las peticiones de mayor satisfacción "
 
 msgid "Public body"
 msgstr "Autoridad/Organismo Publico"
@@ -2328,7 +2328,7 @@ msgid "Search"
 msgstr "Buscar"
 
 msgid "Search Freedom of Information requests, public authorities and users"
-msgstr "Buscar solicitudes de información, organismos públicos y usuarios"
+msgstr "Buscar solicitudes de información, Entidades públicas y usuarios"
 
 msgid "Search contributions by this person"
 msgstr "Buscar aportaciones de esta persona"
@@ -2816,7 +2816,7 @@ msgid "There is <strong>more than one person</strong> who uses this site and has
 msgstr "Hay <strong>más de una persona</strong> que utiliza esta web y tiene este nombre. Una de ellas se muestra a continuación, puede que te refieras a una distinta:"
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
-msgstr "Hay un límite en el número de solicitudes que puedes hacer en un día, porque no queremos que los organismos públicos reciban un número exagerado de solicitudes mal formuladas. Si necesitas que el límite no se aplique en tu caso, por favor <a href='{{help_contact_path}}'>contacta con nosotros</a>."
+msgstr "Hay un límite en el número de solicitudes que puedes hacer en un día, porque no queremos que los Entidades públicas reciban un número exagerado de solicitudes mal formuladas. Si necesitas que el límite no se aplique en tu caso, por favor <a href='{{help_contact_path}}'>contacta con nosotros</a>."
 
 msgid "There is nothing to display yet."
 msgstr "No hay nada que mostrar aún."
@@ -2917,7 +2917,7 @@ msgid "This message is hidden, so that only you, the requester, can see it. {{re
 msgstr "Este mensaje está oculto, por lo que sólo usted y el solicitante lo pueden ver. {{reason}}"
 
 msgid "This page of public body statistics is currently experimental, so there are some caveats that should be borne in mind:"
-msgstr "Esta página de estadísticas de organismos públicos es actualmente una prueba, por lo que hay algunas advertencias que deben tenerse en cuenta:"
+msgstr "Esta página de estadísticas de Entidades públicas es actualmente una prueba, por lo que hay algunas advertencias que deben tenerse en cuenta:"
 
 msgid "This particular request is finished:"
 msgstr "Esta solicitud está cerrada:"
@@ -3288,7 +3288,7 @@ msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Ver solicitudes de acceso a información hechas por {{user_name}}:"
 
 msgid "View authorities"
-msgstr "Ver organismos públicos"
+msgstr "Ver Entidades públicas"
 
 msgid "View email"
 msgstr "Ver correo"
@@ -4106,7 +4106,7 @@ msgid "{{site_name}} blog and tweets"
 msgstr "{{site_name}} blog y tweets"
 
 msgid "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
-msgstr "{{site_name}} incluye solicitudes a {{number_of_authorities}} organismos públicos, incluyendo:"
+msgstr "{{site_name}} incluye solicitudes a {{number_of_authorities}} Entidades públicas, incluyendo:"
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr "{{site_name}} envía nuevas solicitudes a <strong>{{request_email}}</strong> para este organismo."
