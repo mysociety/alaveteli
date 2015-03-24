@@ -3928,36 +3928,3 @@ msgstr ""
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "1. Select an authority"
-#~ msgstr "1. Select an agency"
-
-#~ msgid "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
-#~ msgstr "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the agency still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
-
-#~ msgid "Follow this authority"
-#~ msgstr "Follow this agency"
-
-#~ msgid "For an unknown reason, it is not possible to make a request to this authority."
-#~ msgstr "For an unknown reason, it is not possible to make a request to this agency."
-
-#~ msgid "Freedom of information requests to"
-#~ msgstr "Access to Information requests to"
-
-#~ msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
-#~ msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
-#~ msgstr[0] "Search within the {{count}} Access to Information requests to {{public_body_name}}"
-#~ msgstr[1] "Search within the {{count}} Access to Information requests made to {{public_body_name}}"
-
-#~ msgid "Special note for this authority!"
-#~ msgstr "Special note for this agency!"
-
-#~ msgid "{{count}} Freedom of Information request to {{public_body_name}}"
-#~ msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
-#~ msgstr[0] "{{count}} Access to Information request to {{public_body_name}}"
-#~ msgstr[1] "{{count}} Access to Information requests to {{public_body_name}}"
-
-#~ msgid "{{count}} person is following this authority"
-#~ msgid_plural "{{count}} people are following this authority"
-#~ msgstr[0] "{{count}} person is following this agency"
-#~ msgstr[1] "{{count}} people are following this agency"

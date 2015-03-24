@@ -3929,19 +3929,3 @@ msgstr ""
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "2. Ask for Information"
-#~ msgstr "2. Ask for information"
-
-#~ msgid "Freedom of information requests to"
-#~ msgstr "Access to information requests to"
-
-#~ msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
-#~ msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
-#~ msgstr[0] "Search within the {{count}} access to information requests to {{public_body_name}}"
-#~ msgstr[1] "Search within the {{count}} Access to Information requests made to {{public_body_name}}"
-
-#~ msgid "{{count}} Freedom of Information request to {{public_body_name}}"
-#~ msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
-#~ msgstr[0] "{{count}} Access to information request to {{public_body_name}}"
-#~ msgstr[1] "{{count}} Access to information requests to {{public_body_name}}"
