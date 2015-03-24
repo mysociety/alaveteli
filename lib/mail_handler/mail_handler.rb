@@ -78,7 +78,9 @@ module MailHandler
             tempfile.binmode
             tempfile.print body
             tempfile.flush
-            default_params = { :append_to => text, :binary_output => false }
+            default_params = { :append_to => text,
+                               :binary_output => false,
+                               :timeout => 1200 }
             if content_type == 'application/vnd.ms-word'
                 AlaveteliExternalCommand.run("wvText", tempfile.path, tempfile.path + ".txt",
                                              { :memory_limit => 536870912,  :timeout => 120 } )

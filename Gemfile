@@ -21,6 +21,7 @@ gem 'mahoro', '~> 0.4'
 gem 'memcache-client', '~> 1.8.5'
 gem 'net-http-local', '~> 0.1.2', :platforms => [:ruby_18, :ruby_19]
 gem 'net-purge', '~> 0.1.0'
+gem 'open4', '~> 1.3.4'
 gem 'rack', '~> 1.4.5'
 gem 'rake', '0.9.2.2'
 gem 'rails-i18n', '~> 0.7.3'

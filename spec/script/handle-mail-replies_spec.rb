@@ -3,9 +3,9 @@ require "external_command"
 
 def mail_reply_test(email_filename)
     Dir.chdir Rails.root do
-        xc = ExternalCommand.new("script/handle-mail-replies", "--test")
-        xc.run(load_file_fixture(email_filename))
-
+        xc = ExternalCommand.new("script/handle-mail-replies", "--test",
+                                 :stdin_string => load_file_fixture(email_filename))
+        xc.run
         xc.err.should == ""
         return xc
     end
@@ -13,8 +13,9 @@ end
 
 describe "When filtering" do
     it "should not fail when not in test mode" do
-        xc = ExternalCommand.new("script/handle-mail-replies")
-        xc.run(load_file_fixture("track-response-exim-bounce.email"))
+        xc = ExternalCommand.new("script/handle-mail-replies",
+                                 { :stdin_string => load_file_fixture("track-response-exim-bounce.email") })
+        xc.run
         xc.err.should == ""
     end
 
