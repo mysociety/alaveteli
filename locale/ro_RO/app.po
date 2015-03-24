@@ -13,6 +13,7 @@
 # Elena Calistru <calistru.elena@gmail.com>, 2013
 # Elena Calistru <calistru.elena@gmail.com>, 2013
 # louisecrow <louise@mysociety.org>, 2014
+# louisecrow <louise@mysociety.org>, 2014
 # paul.chioveanu <paul_kimmy@yahoo.com>, 2013
 # paul.chioveanu <paul_kimmy@yahoo.com>, 2013
 # paul.chioveanu <paul_kimmy@yahoo.com>, 2013
@@ -22,10 +23,10 @@
 # Cosmin Pojoranu <cosmin@funkycitizens.org>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"PO-Revision-Date: 2015-03-24 11:11+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -250,9 +251,8 @@ msgstr "<strong>Toate informaţiile</strong> au fost trimise"
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Orice altceva</strong>, cum ar fi: clarificări, precizări, mulţumiri "
 
-#, fuzzy
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
-msgstr "<strong> Pot să solicit informaţii despre mine însumi?</strong>\\n\t\t\t<a href=\"{{url}}\">Nu! (Click aici pentur detalii)</a>"
+msgstr ""
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need \\na good internal knowledge of user behaviour on {{site_name}}. How, \\nwhy and by whom requests are categorised is not straightforward, and there will\\nbe user error and ambiguity. You will also need to understand FOI law, and the\\nway authorities use it. Plus you'll need to be an elite statistician.  Please\\n<a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr "<strong>Caveat emptor!</strong> Pentru a folosi aceste date corect, vei avea nevoie de \\na o bună cunoaștere a comportamentului utilizatorului pe {{site_name}}.  Modul de împărțire a solicitărilor pe categorii este complicat și pot exista\\n erori sau ambiguități. De asemenea, va trebui să înțelegi legea accesului la informații și \\nmodul în care autoritățile o folosesc. În plus, trebuie să fii un bun statistician. Te rugăm\\n<a href=\"{{contact_path}}\">să ne contactezi</a> pentru întrebări."
@@ -347,9 +347,8 @@ msgstr ""
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr ""
 
-#, fuzzy
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
-msgstr "Confirmă-ţi adnotarea la  {{info_request_title}}"
+msgstr ""
 
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr "Adaugă o adnotaţie la solicitarea ta cu citatele alese de tine sau \\n un <strong>rezumat al răspunsului</strong>."
@@ -678,9 +677,8 @@ msgstr "Nu se poate identifica cererea de la această adresă de email"
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Nu se poate prelua imaginea pe care aţi încarcat-o. PNG, JPEG, GIF și multe alte formate de imagini sunt acceptate."
 
-#, fuzzy
 msgid "Create a new account"
-msgstr "Intrare in cont sau creare un cont nou"
+msgstr ""
 
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
@@ -724,9 +722,8 @@ msgstr "Eroare de livrare"
 msgid "Destroy {{name}}"
 msgstr "Distruge {{name}}"
 
-#, fuzzy
 msgid "Details of request &ldquo;{{request_title}}&rdquo;"
-msgstr "Actualizări noi la cererea '{{request_title}}'"
+msgstr ""
 
 msgid "Did you mean: {{correction}}"
 msgstr "Aţi vrut să spuneţi:  {{correction}}"
@@ -827,9 +824,8 @@ msgstr "solicitare de acces la informații"
 msgid "FOI email address for {{public_body}}"
 msgstr "Adresa de email pentru solicitare {{public_body}}"
 
-#, fuzzy
 msgid "FOI law does not apply to this authority."
-msgstr "Urmăriţi această autoritate"
+msgstr ""
 
 msgid "FOI request – {{title}}"
 msgstr "Solicitare de informații – {{title}}"
@@ -864,9 +860,8 @@ msgstr ""
 msgid "Find an authority"
 msgstr "Selectaţi autoritatea căreia să îi scrieţi"
 
-#, fuzzy
 msgid "Find the authorities"
-msgstr "Vezi autorităţi"
+msgstr ""
 
 msgid "Find the authorities to write to"
 msgstr ""
@@ -874,9 +869,8 @@ msgstr ""
 msgid "First, did your other requests succeed?"
 msgstr ""
 
-#, fuzzy
 msgid "First, type in the <strong>name of the public authority</strong> you'd\\n        like information from."
-msgstr "Mai întâi, introdu <strong>numele autorității publice</strong> de la care ai \\n avea nevoie de informații. <strong>Potrivit legii, trebuie să îți răspundă</strong>\\n (<a href=\"{{url}}\">de ce?</a>)."
+msgstr ""
 
 msgid "Foi attachment"
 msgstr "Ataşament solicitare"
@@ -959,9 +953,8 @@ msgstr "Urmăririle si noile răspunsuri la această cerere au fost stopate pent
 msgid "Follow us on twitter"
 msgstr "Urmăriţi-ne pe Twitter"
 
-#, fuzzy
 msgid "Following"
-msgstr "Urmăreşte"
+msgstr ""
 
 msgid "Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf."
 msgstr "Follow up-urile nu pot fi trimise pentru această solicitare, pentru că a fost făcută extern și publicată aici de către {{public_body_name}} din partea celui care a făcut solicitarea."
@@ -987,9 +980,8 @@ msgstr "Legea accesului la informații de interes public nu se aplică acestei a
 msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
 msgstr "Legislaţia Libertăţii de Informare nu se mai  aplică la aceasta autoritate. Urmăririle aferente mesajelor existente sunt trimise către"
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
-msgstr "Legislaţia Libertăţii de Informare nu se mai  aplică la "
+msgstr ""
 
 msgid "Freedom of Information requests made"
 msgstr "Cereri \"Libertatea de informare\" făcute"
@@ -1455,9 +1447,8 @@ msgstr "Faceţi şi vizualizaţi solicitări de acces la informații"
 msgid "Many requests"
 msgstr "Multe cereri"
 
-#, fuzzy
 msgid "Matching authorities"
-msgstr "Vezi autorităţi"
+msgstr ""
 
 msgid "Message"
 msgstr "Mesaj"
@@ -1714,12 +1705,11 @@ msgstr ""
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Vă rugăm <a href=\"{{url}}\"> staţi în legătură</a>  cu noi, ca să o rezolvăm."
 
-#, fuzzy
 msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
 msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] "Vă rugăm <strong>răspundeţi la întrebarea de mai sus</strong>  asftel încât să ştim dacă "
-msgstr[1] "Vă rugăm <strong>răspundeţi la întrebarea de mai sus</strong>  asftel încât să ştim dacă "
-msgstr[2] "Vă rugăm <strong>răspundeţi la întrebarea de mai sus</strong>  asftel încât să ştim dacă "
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Please <strong>go to the following requests</strong>, and let us\\n        know if there was information in the recent responses to them."
 msgstr "Te rugăm <strong>accesează aceste solicitări</strong>, și anunță-ne\\n dacă au fost transmise informații prin ultimele răspunsuri la acestea."
@@ -1925,9 +1915,8 @@ msgstr "Previzualizează mesajul tău"
 msgid "Preview your public request"
 msgstr "Previzualizează solicitarea ta publică"
 
-#, fuzzy
 msgid "Preview your request"
-msgstr "Previzualizează solicitarea ta publică"
+msgstr ""
 
 msgid "Profile photo"
 msgstr "Poza profil"
@@ -2127,9 +2116,8 @@ msgstr "Prima dată rezultatele recent descrise"
 msgid "Refused."
 msgstr "Refuzat"
 
-#, fuzzy
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
-msgstr "Ține-mă minte</label> (rămâi înregistrat pentru mai mult timp;\\n nu folosi atunci când accesezi de la un computer public)"
+msgstr ""
 
 msgid "Report abuse"
 msgstr "Raportare abuz"
@@ -2260,9 +2248,8 @@ msgstr "Caută cuvinte în:"
 msgid "Search in"
 msgstr "Caută în"
 
-#, fuzzy
 msgid "Search in their website for this information &rarr;"
-msgstr "Sau căutaţi în site-ul lor această informaţie."
+msgstr ""
 
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 msgstr "Caută prin<br/>\\n <strong>{{number_of_requests}} solicitări</strong> <span>şi</span><br/>\\n <strong>{{number_of_authorities}} autorităţi</strong>"
@@ -2318,13 +2305,11 @@ msgstr "Alege poza de profil"
 msgid "Share on Facebook"
 msgstr ""
 
-#, fuzzy
 msgid "Share your batch request"
-msgstr "Fă propria ta solicitare"
+msgstr ""
 
-#, fuzzy
 msgid "Share your request"
-msgstr "Fă propria ta solicitare"
+msgstr ""
 
 msgid "Short name"
 msgstr "Nume scurt"
@@ -2878,9 +2863,8 @@ msgstr "Acest utilizator a fost blocat pentru {{site_name}} "
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Acest lucru nu a fost posibil pentru că există deja un cont care utilizează\\nadresa de email {{email}}."
 
-#, fuzzy
 msgid "To"
-msgstr "Către:"
+msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "Pentru a anula aceste alerte"
@@ -3005,9 +2989,8 @@ msgstr "TrackThing|Track type"
 msgid "Turn off email alerts"
 msgstr "Opriţi alertele prin email"
 
-#, fuzzy
 msgid "Tweet it"
-msgstr "Plasează pe Tweet acestă cerere"
+msgstr ""
 
 msgid "Tweet this request"
 msgstr "Plasează pe Tweet acestă cerere"
@@ -3159,9 +3142,8 @@ msgstr "Vezi autorităţi"
 msgid "View email"
 msgstr "Vezi email"
 
-#, fuzzy
 msgid "View other requests to {{public_body}}"
-msgstr "Urmăriţi cererile către {{public_body_name}}"
+msgstr ""
 
 msgid "Waiting clarification."
 msgstr "Aşteaptă clarificare"
@@ -3202,12 +3184,11 @@ msgstr "Nu îţi vom dezvălui adresa de email nimănui în afara cazurilor în 
 msgid "We will not reveal your email addresses to anybody unless you\\nor the law tell us to."
 msgstr "Nu îţi vom dezvălui adresa de email nimănui în afara cazurilor în care tu\\nsau legislaţia specificaţi altfel."
 
-#, fuzzy
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
-msgstr[0] "şi actualizaţi corespunzător  starea. Poate <strong>aţi dori</strong> un ajutor în acest scop?"
-msgstr[1] "şi actualizaţi corespunzător  starea. Poate <strong>aţi dori</strong> un ajutor în acest scop?"
-msgstr[2] "şi actualizaţi corespunzător  starea. Poate <strong>aţi dori</strong> un ajutor în acest scop?"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "We're waiting for {{user}} to read a recent response and update the status."
 msgid_plural "We're waiting for {{user}} to read recent responses and update the status."
@@ -3554,9 +3535,8 @@ msgstr "Solicitarea ta a fost numită {{info_request}}. Permiţând tuturor să 
 msgid "Your request:"
 msgstr "Solicitarea ta:"
 
-#, fuzzy
 msgid "Your requests will be <strong>sent</strong> shortly!"
-msgstr "Cererea a fost <strong>refuzată</strong> de către"
+msgstr ""
 
 msgid "Your response to an FOI request was not delivered"
 msgstr "Răspunsul tău la o solicitare de acces la informații nu a fost livrat"
@@ -3588,9 +3568,8 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#, fuzzy
 msgid "Your {{law_used_full}} request has been sent"
-msgstr "cerere {{law_used_full}}  - {{title}}"
+msgstr ""
 
 msgid "Your {{site_name}} email alert"
 msgstr "Alerta ta prin email de la {{site_name}}"
@@ -3694,9 +3673,8 @@ msgstr ""
 msgid "edit text about you"
 msgstr "editează textul despre tine"
 
-#, fuzzy
 msgid "email address"
-msgstr "Adresă de email pentru intrare"
+msgstr ""
 
 msgid "even during holidays"
 msgstr "chiar şi pe perioada vacanţelor"
@@ -3859,12 +3837,11 @@ msgstr "ce este aceasta?"
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} solicitări de acces la informații găsite"
 
-#, fuzzy
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"
-msgstr[0] "{{count}}  cerere"
-msgstr[1] "{{count}} cereri"
-msgstr[2] "{{count}} solicitări"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "{{count}} request"
 msgid_plural "{{count}} requests"
@@ -3905,9 +3882,8 @@ msgstr "{{public_body_link}} a răspuns la o solicitare despre"
 msgid "{{public_body_link}} was sent a request about"
 msgstr "{{public_body_link}} a primit o solicitare despre"
 
-#, fuzzy
 msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-msgstr "De la pagina solicitării, încearcă să răspunzi unui mesaj particular, mai curând decât să trimiţi\\n un follow up general. Dacă ai nevoie să faci un follow up general şi ştii\\n un email care ar merge în locul potrivit, te rugăm <a href=\"{{url}}\">să ni-l trimiţi</a>."
+msgstr ""
 
 msgid "{{public_body_name}} only:"
 msgstr "numai {{public_body_name}} :"
@@ -3984,84 +3960,5 @@ msgstr "{{user}} ({{user_admin_link}}) a făcut această cerere {{law_used_full}
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} a făcut această cerere {{law_used_full}} "
 
-#, fuzzy
 msgid "« Back to search results"
-msgstr "Top rezultate căutare:"
-
-#~ msgid "- or -"
-#~ msgstr "- sau -"
-
-#~ msgid "1. Select an authority"
-#~ msgstr "1. Selectează o autoritate"
-
-#~ msgid "2. Ask for Information"
-#~ msgstr "2. Solicită o informație"
-
-#~ msgid "3. Now check your request"
-#~ msgstr "3. Verifică solicitarea făcută"
-
-#~ msgid "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
-#~ msgstr "<p>Solicitarea ta {{law_used_full}} a fost <strong>transmisă</strong>!</p>\\n <p><strong>Vei primi un email</strong> când există un răspuns sau după {{late_number_of_days}} zile lucrătoare dacă autoritatea \\n încă nu a răspuns până atunci.</p>\\n <p>Dacă scrii despre această solicitare (de exemplu pe un forum sau pe un blog) te rugăm să faci referință către această pagină și adaugă o\\n adnotare mai jos pentru a spune oamenilor despre ce ai scris.</p>"
-
-#~ msgid "Add an annotation"
-#~ msgstr "Adaugă o adnotare."
-
-#~ msgid "Default locale"
-#~ msgstr "Default locale"
-
-#~ msgid "Details of request '"
-#~ msgstr "Detaliile cererii"
-
-#~ msgid "For an unknown reason, it is not possible to make a request to this authority."
-#~ msgstr "Pentru motive necunoscute, nu este posibil să facem o cerere către această autoritate."
-
-#~ msgid "Freedom of information requests to"
-#~ msgstr "Cereri \"Libertatea de informare\" făcute  către"
-
-#~ msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
-#~ msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
-#~ msgstr[0] "Caută printre cele {{count}} până la  {{public_body_name}} cereri FOI"
-#~ msgstr[1] "Caută printre cele {{count}} până la  {{public_body_name}} cereri FOI făcute"
-#~ msgstr[2] "Caută printre cele {{count}} solicitări de acces la informații făcute către {{public_body_name}} "
-
-#~ msgid "Special note for this authority!"
-#~ msgstr "O notă specială pentru această autoritate!"
-
-#~ msgid "Technical details"
-#~ msgstr "Detalii tehnice"
-
-#~ msgid "Unknown"
-#~ msgstr "Necunoscut"
-
-#~ msgid "We're waiting for"
-#~ msgstr "Aşteptăm"
-
-#~ msgid "We're waiting for someone to read"
-#~ msgstr "Aşteptăm ca cineva să citească"
-
-#~ msgid "You are already following requests to {{public_body_name}}"
-#~ msgstr "Deja urmărești solicitările către {{public_body_name}}"
-
-#~ msgid "and update the status."
-#~ msgstr "şi actualizaţi starea"
-
-#~ msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-#~ msgstr "nu mai există. Dacă încerci să faci\\n De la pagina solicitării, încearcă să răspunzi unui mesaj particular, mai curând decât să trimiți\\n  un follow up general. Dacă vrei să trimiți un follow up general și știi\\n un email care va duce către locul potrivit, te rugăm<a href=\"{{url}}\">trimite-ni-l</a>."
-
-#~ msgid "to read"
-#~ msgstr "a citi"
-
-#~ msgid "useful information."
-#~ msgstr "informaţii utile"
-
-#~ msgid "{{count}} Freedom of Information request to {{public_body_name}}"
-#~ msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
-#~ msgstr[0] "{{count}} cereri FOI până la {{public_body_name}}"
-#~ msgstr[1] "{{count}} cereri FOI până  {{public_body_name}}"
-#~ msgstr[2] "{{count}} solicitări de acces la informaţii către  {{public_body_name}} "
-
-#~ msgid "{{count}} person is following this authority"
-#~ msgid_plural "{{count}} people are following this authority"
-#~ msgstr[0] "{{count}} persoană  urmăreşte această autoritate"
-#~ msgstr[1] "{{count}} persoane  urmăresc această autoritate"
-#~ msgstr[2] "{{count}} persoane  urmăresc această autoritate"
+msgstr ""

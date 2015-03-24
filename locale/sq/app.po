@@ -10,16 +10,17 @@
 # driton <dritoni.h@gmail.com>, 2011
 # Hana Huntova <>, 2012
 # louisecrow <louise@mysociety.org>, 2014
+# louisecrow <louise@mysociety.org>, 2014
 # Valon <vbrestovci@gmail.com>, 2011
 # Valon <vbrestovci@gmail.com>, 2011-2012
 # Valon <vbrestovci@gmail.com>, 2011
 # Valon <vbrestovci@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"PO-Revision-Date: 2015-03-24 11:14+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/projects/p/alaveteli/language/sq/)\n"
 "Language: sq\n"
@@ -272,11 +273,8 @@ msgstr "<strong>Të gjitha informatat</strong> janë dërguar"
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Diçka tjetër,</strong> p.sh. sqarim, falënderim"
 
-#, fuzzy
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
-"<strong> A mund të kërkoj informatë për veten time?</strong>\n"
-"<span class=\"whitespace other\" title=\"Tab\">»</span><span class=\"whitespace other\" title=\"Tab\">»</span><span class=\"whitespace other\" title=\"Tab\">»</span><a href=\"{{url}}\">Jo! (Kliko këtu për detaje)</a>"
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need \\na good internal knowledge of user behaviour on {{site_name}}. How, \\nwhy and by whom requests are categorised is not straightforward, and there will\\nbe user error and ambiguity. You will also need to understand FOI law, and the\\nway authorities use it. Plus you'll need to be an elite statistician.  Please\\n<a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr ""
@@ -383,9 +381,8 @@ msgstr ""
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr ""
 
-#, fuzzy
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
-msgstr "Konfirmo shënimin tënd për {{info_request_title}}"
+msgstr ""
 
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr ""
@@ -722,9 +719,8 @@ msgstr "Nuk mund ta identifikoj kërkesën nga email adresa"
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Fajlli i imazhit të cilin e ngarkove nuk u kuptua. Llojet që përkrahen nga sistemi janë: PNG, JPEG, GIF si dhe shumë formate tjera të zakonshme."
 
-#, fuzzy
 msgid "Create a new account"
-msgstr "Kyçu ose krijo një llogari të re"
+msgstr ""
 
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
@@ -768,9 +764,8 @@ msgstr "Gabim gjatë dorëzimit"
 msgid "Destroy {{name}}"
 msgstr ""
 
-#, fuzzy
 msgid "Details of request &ldquo;{{request_title}}&rdquo;"
-msgstr "Aktualizime të reja për kërkesën '{{request_title}}'"
+msgstr ""
 
 msgid "Did you mean: {{correction}}"
 msgstr "Mos mendove këtë: {{correction}}"
@@ -879,9 +874,8 @@ msgstr "QDP"
 msgid "FOI email address for {{public_body}}"
 msgstr "Adresa e emailit për Informatë Zyrtare për {{public_body}}"
 
-#, fuzzy
 msgid "FOI law does not apply to this authority."
-msgstr "Përcjell aktivitetin e këtij autoriteti"
+msgstr ""
 
 msgid "FOI request – {{title}}"
 msgstr ""
@@ -916,9 +910,8 @@ msgstr ""
 msgid "Find an authority"
 msgstr "Përzgjedh autoritetin"
 
-#, fuzzy
 msgid "Find the authorities"
-msgstr "Shiko autoritetet"
+msgstr ""
 
 msgid "Find the authorities to write to"
 msgstr ""
@@ -926,12 +919,8 @@ msgstr ""
 msgid "First, did your other requests succeed?"
 msgstr ""
 
-#, fuzzy
 msgid "First, type in the <strong>name of the public authority</strong> you'd\\n        like information from."
 msgstr ""
-"Së pari, shkruaj <strong>emrin e autoritetit publik</strong> prej të\n"
-"           <br>cilit kërkon informata. <strong>Sipas ligjit, ata duhet të\"\n"
-"           përgjigjen</strong> (<a href=\"{{url}}\">pse?</a>)."
 
 msgid "Foi attachment"
 msgstr "Shtojca QDP"
@@ -1014,9 +1003,8 @@ msgstr "Mesazhet vazhduese dhe përgjigjet e reja në këtë kërkesë janë sto
 msgid "Follow us on twitter"
 msgstr "Na përcjell në twitter"
 
-#, fuzzy
 msgid "Following"
-msgstr "Ndiq"
+msgstr ""
 
 msgid "Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf."
 msgstr ""
@@ -1043,9 +1031,8 @@ msgstr ""
 msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
 msgstr "Ligjit mbi qasje në dokumente publike nuk aplikohet më për këtë autoritet. Follow up mesazhet ndaj kërkesave ekzistuese dërgohen te "
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
-msgstr "Ligji për qasje në dokumente publike nuk aplikohet më për"
+msgstr ""
 
 msgid "Freedom of Information requests made"
 msgstr "Kërkesat e bëra për informata zyrtare"
@@ -1536,9 +1523,8 @@ msgstr "Bëj dhe shfleto kërkesa për Informata Zyrtare"
 msgid "Many requests"
 msgstr "Shumë kërkesa"
 
-#, fuzzy
 msgid "Matching authorities"
-msgstr "Shiko autoritetet"
+msgstr ""
 
 msgid "Message"
 msgstr "Porosia"
@@ -1795,11 +1781,10 @@ msgstr ""
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Të lutem <a href=\"{{url}}\">na kontakto</a> që neve ta rregullojme ate."
 
-#, fuzzy
 msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
 msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] "Të lutem <strong> përgjigju pyetjes së mësipërme</strong> që ne të dimë nëse"
-msgstr[1] "Të lutem <strong> përgjigju pyetjes së mësipërme</strong> që ne të dimë nëse"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Please <strong>go to the following requests</strong>, and let us\\n        know if there was information in the recent responses to them."
 msgstr ""
@@ -2014,9 +1999,8 @@ msgstr "Shiko mesazhin tënd"
 msgid "Preview your public request"
 msgstr "Shiko kërkesën tënde publike"
 
-#, fuzzy
 msgid "Preview your request"
-msgstr "Shiko kërkesën tënde publike"
+msgstr ""
 
 msgid "Profile photo"
 msgstr "Fotografia e profilit"
@@ -2216,11 +2200,8 @@ msgstr "Rezultatet e përshkruara së fundi radhiti të parat"
 msgid "Refused."
 msgstr "Refuzuar."
 
-#, fuzzy
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr ""
-"Më mbaj mend </label> (të mban të kyçur më gjatë\n"
-"   mos e përdor në kompjuter publik) "
 
 msgid "Report abuse"
 msgstr "Raporto abuzim"
@@ -2351,9 +2332,8 @@ msgstr "Kërko fjalë në:"
 msgid "Search in"
 msgstr "Kërko në"
 
-#, fuzzy
 msgid "Search in their website for this information &rarr;"
-msgstr "Ose kërko në ueb faqen e tyre për këtë informacion."
+msgstr ""
 
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 msgstr ""
@@ -2411,13 +2391,11 @@ msgstr "Vendos fotografinë e profilit tënd"
 msgid "Share on Facebook"
 msgstr ""
 
-#, fuzzy
 msgid "Share your batch request"
-msgstr "Bëj kërkesën tënde"
+msgstr ""
 
-#, fuzzy
 msgid "Share your request"
-msgstr "Bëj kërkesën tënde"
+msgstr ""
 
 msgid "Short name"
 msgstr ""
@@ -2988,9 +2966,8 @@ msgstr ""
 "Kjo nuk ishte e mundur sepse egziston një llogari duke\n"
 "përdorur këtë adresë të emailit {{email}}."
 
-#, fuzzy
 msgid "To"
-msgstr "Për:"
+msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "Për të anuluar njoftimet"
@@ -3117,9 +3094,8 @@ msgstr "TrackThing |Track type"
 msgid "Turn off email alerts"
 msgstr "Ndali lajmrimet me email"
 
-#, fuzzy
 msgid "Tweet it"
-msgstr "Tweeto këtë kërkesë"
+msgstr ""
 
 msgid "Tweet this request"
 msgstr "Tweeto këtë kërkesë"
@@ -3271,9 +3247,8 @@ msgstr "Shiko autoritetet"
 msgid "View email"
 msgstr "Shiko adresën e emailit"
 
-#, fuzzy
 msgid "View other requests to {{public_body}}"
-msgstr "{{user_name}} dërgoi një kërkesë për {{public_body}}"
+msgstr ""
 
 msgid "Waiting clarification."
 msgstr "Duke pritur sqarim."
@@ -3320,11 +3295,10 @@ msgstr "Ne nuk do ta zbulojmë adresën e emailit tënd askujt, përveç nëse j
 msgid "We will not reveal your email addresses to anybody unless you\\nor the law tell us to."
 msgstr "Ne nuk do t'ja zbulojmë adresën e emailit tënd askujt, përveç nëse ti e lejon këtë."
 
-#, fuzzy
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
-msgstr[0] "dhe aktualizo statusin në përputhje me rrethanat. Ndoshta <strong>ti</strong> mund të ndihmosh duke vepruar kështu?"
-msgstr[1] "dhe aktualizo statusin në përputhje me rrethanat. Ndoshta <strong>ti</strong> mund të ndihmosh duke vepruar kështu?"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "We're waiting for {{user}} to read a recent response and update the status."
 msgid_plural "We're waiting for {{user}} to read recent responses and update the status."
@@ -3693,9 +3667,8 @@ msgstr "Kërkesa yte qe emëruar {{info_request}}. Nëse i lejoni të tjerër ta
 msgid "Your request:"
 msgstr "Kërkesa yte:"
 
-#, fuzzy
 msgid "Your requests will be <strong>sent</strong> shortly!"
-msgstr "Kërkesa u <strong>refuzua</strong> nga"
+msgstr ""
 
 msgid "Your response to an FOI request was not delivered"
 msgstr "Përgjigja juaj në kërkesën për QDP nuk është dorëzuar"
@@ -3726,9 +3699,8 @@ msgid_plural "Your {{count}} batch requests"
 msgstr[0] ""
 msgstr[1] ""
 
-#, fuzzy
 msgid "Your {{law_used_full}} request has been sent"
-msgstr "Kërkesë për {{law_used_full}} - {{title}}"
+msgstr ""
 
 msgid "Your {{site_name}} email alert"
 msgstr "Njoftimet tuaja me email në {{site_name}}"
@@ -3834,9 +3806,8 @@ msgstr ""
 msgid "edit text about you"
 msgstr "edito tekstin në lidhje me ty"
 
-#, fuzzy
 msgid "email address"
-msgstr "Shiko adresën e emailit për Informata Zyrtare"
+msgstr ""
 
 msgid "even during holidays"
 msgstr "madje edhe gjatë pushimeve"
@@ -4001,11 +3972,10 @@ msgstr "Çfarë është ajo?"
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} Kërkesa për informata zyrtare u gjetën"
 
-#, fuzzy
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"
-msgstr[0] "{{count}} kërkesë"
-msgstr[1] "{{count}} kërkesa"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} request"
 msgid_plural "{{count}} requests"
@@ -4047,12 +4017,8 @@ msgstr ""
 msgid "{{public_body_link}} was sent a request about"
 msgstr ""
 
-#, fuzzy
 msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 msgstr ""
-"Nga faqja e kërkesës, provo të përgjigjesh në një mesazh të caktuar, më parë se të\n"
-"    shkruash një përgjigje të përgjithshme. Nëse të duhet të shkruash përgjigje të përgjithshme, dhe e di\n"
-"    emailin ku duhet ta drejtosh, atëherë të lutem <a href=\"{{url}}\">dërgoje te ne</a>."
 
 msgid "{{public_body_name}} only:"
 msgstr "Vetëm për {{public_body_name}}:"
@@ -4129,77 +4095,5 @@ msgstr "{{user}} ({{user_admin_link}}) bëri këtë  kërkesë (<a href=\"{{requ
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} bëri këtë kërkesë"
 
-#, fuzzy
 msgid "« Back to search results"
-msgstr "Rezultatet e kërkimeve më të shpeshta:"
-
-#~ msgid "- or -"
-#~ msgstr "- apo -"
-
-#~ msgid "1. Select an authority"
-#~ msgstr "1. Zgjedh një autoritet"
-
-#~ msgid "2. Ask for Information"
-#~ msgstr "2. Kërko informata"
-
-#~ msgid "3. Now check your request"
-#~ msgstr "3. Kontrollo kërkesën tënde"
-
-#~ msgid "Add an annotation"
-#~ msgstr "Shto një shënim"
-
-#~ msgid "Details of request '"
-#~ msgstr "Detajet e kërkesës"
-
-#~ msgid "For an unknown reason, it is not possible to make a request to this authority."
-#~ msgstr "Për një arsye të panjohur, nuk është e mundur për të bërë një kërkesë tek ky autoritet."
-
-#~ msgid "Freedom of information requests to"
-#~ msgstr "Kërkesa për informata zyrtare për"
-
-#~ msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
-#~ msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
-#~ msgstr[0] "Kërko brenda {{count}} kërkesave për informata zyrtare në {{public_body_name}}"
-#~ msgstr[1] "Kërko brenda {{count}} kërkesave për informata zyrtare të bëra në {{public_body_name}}"
-
-#~ msgid "Special note for this authority!"
-#~ msgstr "Shënim i veçantë për këtë autoritet!"
-
-#~ msgid "Technical details"
-#~ msgstr "Detajet teknike"
-
-#~ msgid "Unknown"
-#~ msgstr "I/e panjohur"
-
-#~ msgid "We're waiting for"
-#~ msgstr "Po presim që"
-
-#~ msgid "We're waiting for someone to read"
-#~ msgstr "Jemi në pritje që dikush ta lexoj"
-
-#~ msgid "You are already following requests to {{public_body_name}}"
-#~ msgstr "Tashmë je duke i përcjellë kërkesat për {{public_body_name}} "
-
-#~ msgid "and update the status."
-#~ msgstr "dhe aktualizo statusin."
-
-#~ msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-#~ msgstr ""
-#~ "nuk ekziston më. Nëse je duke u përpjekur për të bërë\n"
-#~ "    Prej faqes së kërkesës, provo ti përgjigjesh një mesazhi të veçant, në vend se të dërgosh një mesazh vazhdues. Nëse keni nevojë të bëni një mesazh prëcjellës të përgjithshëm dhe e di një adresë të emailit që do të shkon ne vendin e duhur, të lutem <a href=\"{{url}}\">na e dërgo</a>."
-
-#~ msgid "to read"
-#~ msgstr "të lexoj"
-
-#~ msgid "useful information."
-#~ msgstr "informata të dobishëme."
-
-#~ msgid "{{count}} Freedom of Information request to {{public_body_name}}"
-#~ msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
-#~ msgstr[0] "{{count}} Kërkesë për informata zyrtare për {{public_body_name}}"
-#~ msgstr[1] "{{count}} Kërkesa për informata zyrtare për {{public_body_name}}"
-
-#~ msgid "{{count}} person is following this authority"
-#~ msgid_plural "{{count}} people are following this authority"
-#~ msgstr[0] "{{count}}person po përcjell këtë autoritet"
-#~ msgstr[1] "{{count}}persona po përcjellin këtë autoritet"
+msgstr ""

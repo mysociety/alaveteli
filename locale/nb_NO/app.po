@@ -12,17 +12,18 @@
 # atluxity <atluxity@1kb.no>, 2014
 # Kjetil Torgrim Homme <kjetilho@ifi.uio.no>, 2015
 # louisecrow <louise@mysociety.org>, 2014
+# louisecrow <louise@mysociety.org>, 2014
 # oeyrvin <oeyrvin@hagan.no>, 2014
 # oeyrvin <oeyrvin@hagan.no>, 2014
 # pere <pere-transifex@hungry.com>, 2013
 # pere <pere-transifex@hungry.com>, 2013-2015
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-01-06 11:39+0000\n"
-"Last-Translator: pere <pere-transifex@hungry.com>\n"
+"PO-Revision-Date: 2015-03-24 11:15+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/alaveteli/language/nb_NO/)\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
@@ -248,9 +249,8 @@ msgstr "<strong>All informasjonen</strong> har blitt sendt"
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Noe annet</strong>, som for eksempel oppklaringer, spørsmål, takk"
 
-#, fuzzy
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
-msgstr "<strong> Kan jeg be om informasjon om meg personlig?</strong>\\n\t\t\t<a href=\"{{url}}\">NEI! (klikk her for detaljer)</a>"
+msgstr ""
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need \\na good internal knowledge of user behaviour on {{site_name}}. How, \\nwhy and by whom requests are categorised is not straightforward, and there will\\nbe user error and ambiguity. You will also need to understand FOI law, and the\\nway authorities use it. Plus you'll need to be an elite statistician.  Please\\n<a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr "<strong>Advarsel!</strong> For å bruke disse dataene ordentlig, vil du trenge \\n god kunnskap om  brukeradferd på {{site_name}}. Hvordan,\\n hvorfor, og av hvem henvendelser er kategorisert er ikke bare enkelt, og det vil \\n være brukerfeil og uklarheter. Du vil også ha behov for å forstå offentlighetslovgivningen og måten\\n myndighetene bruker den. Og du må være en dyktig statistiker.  <a href=\"{{contact_path}}\">Kontakt oss</a> gjerne med spørsmål."
@@ -285,9 +285,8 @@ msgstr "<strong>Takk</strong> myndigheten eller "
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
 msgstr ""
 
-#, fuzzy
 msgid "<strong>We will email you</strong> when they have been sent. We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't replied by then."
-msgstr "<p>Dine {{law_used_full}}-henvendelser vil bli <strong>sent</strong> straks!</p>\\n<p><strong>Vi vil send deg e-post</strong> når de er sendt.\\n  Vi vil også sende deg e-post når det kommer svar for en av dem, eller etter {{late_number_of_days}} arbeidsdager hvis myndighetene fortsatt ikke har svart innen da.</p>\\n<p>Hvis du skriver om disse henvendelsene (for eksempel i et forum eller en blogg), vær så snill å lenk til denne siden.</p>"
+msgstr ""
 
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>hadde ikke</strong> informasjonen du ba om."
@@ -346,9 +345,8 @@ msgstr "ActsAsXapian::ActsAsXapianJob|Action"
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr "ActsAsXapian::ActsAsXapianJob|Model"
 
-#, fuzzy
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
-msgstr "Bekreft din merknad til {{info_request_title}}"
+msgstr ""
 
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr "Legg til en kommentar til henvendelsen med utvalgte sitater, eller\\n <strong> gi en oppsummering av svaret.</strong>"
@@ -677,9 +675,8 @@ msgstr "Kunne ikke finne henvendelsen ut fra e-post-adressen"
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Klarer ikke å lese inn bilde-filen du lastet opp. Vi støtter PNG, JPEG, GIF og mange andre vanlige bilde-formater."
 
-#, fuzzy
 msgid "Create a new account"
-msgstr "Logg inn eller lag en ny konto"
+msgstr ""
 
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr "Opprettet av {{info_request_user}} den {{date}}."
@@ -723,9 +720,8 @@ msgstr "Leveringsfeil"
 msgid "Destroy {{name}}"
 msgstr "Fjern {{name}}"
 
-#, fuzzy
 msgid "Details of request &ldquo;{{request_title}}&rdquo;"
-msgstr "Nye oppdateringer for henvendelsen '{{request_title}}'"
+msgstr ""
 
 msgid "Did you mean: {{correction}}"
 msgstr "Mente du: "
@@ -826,9 +822,8 @@ msgstr "innsyn etter Offentlighetsloven"
 msgid "FOI email address for {{public_body}}"
 msgstr "postmottaket hos {{public_body}}"
 
-#, fuzzy
 msgid "FOI law does not apply to this authority."
-msgstr "Lag en henvendelse til denne myndigheten"
+msgstr ""
 
 msgid "FOI request – {{title}}"
 msgstr "Innsynshenvendelse – {{title}}"
@@ -863,9 +858,8 @@ msgstr "Filtrer etter henvendelsestatus (valgfri)"
 msgid "Find an authority"
 msgstr "Velg myndighet å skrive til"
 
-#, fuzzy
 msgid "Find the authorities"
-msgstr "Vis myndigheter"
+msgstr ""
 
 msgid "Find the authorities to write to"
 msgstr "Velg myndighetene å skrive til"
@@ -873,9 +867,8 @@ msgstr "Velg myndighetene å skrive til"
 msgid "First, did your other requests succeed?"
 msgstr "For det første, lyktes dine andre henvendelser?"
 
-#, fuzzy
 msgid "First, type in the <strong>name of the public authority</strong> you'd\\n        like information from."
-msgstr "Først, skriv inn <strong>navnet på en norsk offentlig myndighet</strong> som du\\n           vil ha informasjon fra. <strong>Loven sier at de må svare deg</strong>\\n           (<a href=\"{{url}}\">hvorfor?</a>)."
+msgstr ""
 
 msgid "Foi attachment"
 msgstr "Innsynsbegjæring vedlegg"
@@ -958,9 +951,8 @@ msgstr "Oppfølgingsbeskjeder og nye svar på denne henvendelsen er stanset for 
 msgid "Follow us on twitter"
 msgstr "Følg oss på twitter"
 
-#, fuzzy
 msgid "Following"
-msgstr "Følg"
+msgstr ""
 
 msgid "Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf."
 msgstr "Oppfølginger kan ikke sendes for denne henvendelsen, da den ble gjort eksternt, og publisert her av {{public_body_name}} på innsenders vegne."
@@ -985,9 +977,8 @@ msgstr "Offentlighetsloven gjelder ikke for denne etaten, så du kan ikke sende 
 msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
 msgstr "Offentlighetsloven gjelder ikke lenger for denne myndigheten. Oppfølgingsbeskjeder til nåværende henvendelser blir sendt til"
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
-msgstr "Offentlighetsloven gjelder ikke lenger for"
+msgstr ""
 
 msgid "Freedom of Information requests made"
 msgstr "Innsynshenvendelser utført"
@@ -1451,9 +1442,8 @@ msgstr "Lag og bla igjennom innsynsbegjæringer."
 msgid "Many requests"
 msgstr "Mange henvendelser"
 
-#, fuzzy
 msgid "Matching authorities"
-msgstr "Vis myndigheter"
+msgstr ""
 
 msgid "Message"
 msgstr "Melding"
@@ -1710,11 +1700,10 @@ msgstr "Vennligst <a href=\"{{url}}\">kontakt oss</a> dersom du har spørsmål."
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "<a href=\"{{url}}\">Ta kontakt</a> med oss slik at vi kan fikse det."
 
-#, fuzzy
 msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
 msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] "Vennligst <strong>svar på spørsmålet ovenfor</strong> så vi vet om "
-msgstr[1] "Vennligst <strong>svar på spørsmålet ovenfor</strong> så vi vet om "
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Please <strong>go to the following requests</strong>, and let us\\n        know if there was information in the recent responses to them."
 msgstr "Vær så snill å <strong>besøk de følgende henvendelsene</strong>,\\n og la oss vite om det var informasjon i de siste svarene i dem."
@@ -1920,9 +1909,8 @@ msgstr "Forhåndsvis meldingen"
 msgid "Preview your public request"
 msgstr "Forhåndsvis henvendelsen din"
 
-#, fuzzy
 msgid "Preview your request"
-msgstr "Forhåndsvis henvendelsen din"
+msgstr ""
 
 msgid "Profile photo"
 msgstr "Profilbilde"
@@ -2122,9 +2110,8 @@ msgstr "Nylige beskrevne resultater først"
 msgid "Refused."
 msgstr "Avslått"
 
-#, fuzzy
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
-msgstr "Husk meg</label> (holder deg innlogget lenger;\\n    må ikke brukes på offentlige datamaskiner) "
+msgstr ""
 
 msgid "Report abuse"
 msgstr "Meld misbruk"
@@ -2255,9 +2242,8 @@ msgstr "Søk for ord i:"
 msgid "Search in"
 msgstr "Søk i"
 
-#, fuzzy
 msgid "Search in their website for this information &rarr;"
-msgstr "Eller søk på nettsiden deres etter denne informasjonen."
+msgstr ""
 
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 msgstr "Søk blant <br/>\\n <strong>{{number_of_requests}} henvendelser</strong> <span>og</span><br/>\\n <strong>{{number_of_authorities}} myndigheter</strong>"
@@ -2312,13 +2298,11 @@ msgstr "Velg ditt profil-bilde"
 msgid "Share on Facebook"
 msgstr ""
 
-#, fuzzy
 msgid "Share your batch request"
-msgstr "Lag en bunthenvendelse"
+msgstr ""
 
-#, fuzzy
 msgid "Share your request"
-msgstr "Lag din egen henvendelse"
+msgstr ""
 
 msgid "Short name"
 msgstr "Kortnavn"
@@ -2871,9 +2855,8 @@ msgstr "Denne brukeren er sperret ute fra {{site_name}}"
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Dette var ikke mulig da det allerede er en konto som bruker e-postadressen {{email}}."
 
-#, fuzzy
 msgid "To"
-msgstr "Til:"
+msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "For å avbryte varslingen."
@@ -2998,9 +2981,8 @@ msgstr "TrackThing|Track type"
 msgid "Turn off email alerts"
 msgstr "Skru av e-postvarsling"
 
-#, fuzzy
 msgid "Tweet it"
-msgstr "Tvitre om henvendelsen"
+msgstr ""
 
 msgid "Tweet this request"
 msgstr "Tvitre om henvendelsen"
@@ -3152,9 +3134,8 @@ msgstr "Vis myndigheter"
 msgid "View email"
 msgstr "Les e-post"
 
-#, fuzzy
 msgid "View other requests to {{public_body}}"
-msgstr "Følg begjæringer til {{public_body_name}}"
+msgstr ""
 
 msgid "Waiting clarification."
 msgstr "Venter avklaring"
@@ -3198,11 +3179,10 @@ msgstr "Vi kommer ikke dele e-post-adressen din med noen, med mindre du eller en
 msgid "We will not reveal your email addresses to anybody unless you\\nor the law tell us to."
 msgstr "Vi kommer ikke dele e-post-adressene dine med noen, med mindre du eller en domstol ber oss om det."
 
-#, fuzzy
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
-msgstr[0] "og oppdater status tilsvarende. Kanskje <strong>du</strong> vil like å hjelpe til med det?"
-msgstr[1] "og oppdater status tilsvarende. Kanskje <strong>du</strong> vil like å hjelpe til med det?"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "We're waiting for {{user}} to read a recent response and update the status."
 msgid_plural "We're waiting for {{user}} to read recent responses and update the status."
@@ -3548,9 +3528,8 @@ msgstr "Din henvendelse ble kalt {{info_request}}. Ved å la alle vite hvorvidt 
 msgid "Your request:"
 msgstr "Henvendelsen:"
 
-#, fuzzy
 msgid "Your requests will be <strong>sent</strong> shortly!"
-msgstr "Innsynsbegjæringen ble <strong>avslått</strong> av "
+msgstr ""
 
 msgid "Your response to an FOI request was not delivered"
 msgstr "Ditt svar til en innsynsbegjæring ble ikke levert"
@@ -3579,9 +3558,8 @@ msgid_plural "Your {{count}} batch requests"
 msgstr[0] "Din {{count}} bunthenvendelse"
 msgstr[1] "Dine {{count}} bunthenvendelser"
 
-#, fuzzy
 msgid "Your {{law_used_full}} request has been sent"
-msgstr "{{law_used_full}} - {{title}}"
+msgstr ""
 
 msgid "Your {{site_name}} email alert"
 msgstr "Ditt e-postvarsel fra {{site_name}}"
@@ -3685,9 +3663,8 @@ msgstr "f.eks. Forsvarsdepartementet"
 msgid "edit text about you"
 msgstr "rediger tekst om deg"
 
-#, fuzzy
 msgid "email address"
-msgstr "Inngående e-postadresse"
+msgstr ""
 
 msgid "even during holidays"
 msgstr "t.o.m. under helligdager"
@@ -3850,11 +3827,10 @@ msgstr "hva er det?"
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} innsynsbegjæringer funnet"
 
-#, fuzzy
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"
-msgstr[0] "{{count}} henvendelse"
-msgstr[1] "{{count}} henvendelser"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} request"
 msgid_plural "{{count}} requests"
@@ -3971,99 +3947,5 @@ msgstr "{{user}} ({{user_admin_link}}) laget denne {{law_used_full}} henvendelse
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} sendte denne henvendelsen om {{law_used_full}}"
 
-#, fuzzy
 msgid "« Back to search results"
-msgstr "Beste søketreff:"
-
-#~ msgid "- or -"
-#~ msgstr "- eller -"
-
-#~ msgid "1. Select an authority"
-#~ msgstr "1. Velg en myndighet"
-
-#~ msgid "1. Select authorities"
-#~ msgstr "1. Velg myndigheter"
-
-#~ msgid "2. Ask for Information"
-#~ msgstr "2. Be om innsyn"
-
-#~ msgid "3. Now check your request"
-#~ msgstr "3. Se over henvendelsen din nå"
-
-#~ msgid "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
-#~ msgstr ""
-#~ "<p>Din {{law_used_full}}-henvendelsen har blitt <strong>sendt avgårde</strong>!</p>\\n\n"
-#~ "<p><strong>Vi vil kontakte deg med e-post</strong> når det kommer et svar, eller etter {{late_number_of_days}} arbeidsdager, om myndigheten ikke har svart innen da.</p>\\n\n"
-#~ "<p>Hvis du skriver om denne henvendelsen (for eksempel i et forum eller en blogg), så er det fint om du lenker til denne siden, og legger til en kommentar under som forteller folk om det du har skrevet."
-
-#~ msgid "Add an annotation"
-#~ msgstr "Legg til en merknad"
-
-#~ msgid "Default locale"
-#~ msgstr "Forvalgt locale"
-
-#~ msgid "Details of request '"
-#~ msgstr "Detaljer for henvendelse '"
-
-#~ msgid "Follow this authority"
-#~ msgstr "Følg myndighet"
-
-#~ msgid "For an unknown reason, it is not possible to make a request to this authority."
-#~ msgstr "Uvisst av hvilken grunn er det ikke mulig å sende en henvendelse til denne myndigheten."
-
-#~ msgid "Freedom of information requests to"
-#~ msgstr "Innsynshenvendelser til"
-
-#~ msgid "PublicBodyCategory|Description"
-#~ msgstr "PublicBodyCategory|Description"
-
-#~ msgid "PublicBodyCategory|Title"
-#~ msgstr "PublicBodyCategory|Title"
-
-#~ msgid "PublicBodyHeading|Name"
-#~ msgstr "PublicBodyHeading|Name"
-
-#~ msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
-#~ msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
-#~ msgstr[0] "Søk i {{count}} innsynshenvendelse etter offentlighetsloven sendt til {{public_body_name}}"
-#~ msgstr[1] "Søk i {{count}} innsynshenvendelser etter offentlighetsloven sendt til {{public_body_name}}"
-
-#~ msgid "Special note for this authority!"
-#~ msgstr "Spesiell merknad for denne myndigheten!"
-
-#~ msgid "Technical details"
-#~ msgstr "Tekniske detaljer"
-
-#~ msgid "Unknown"
-#~ msgstr "Ukjent"
-
-#~ msgid "User|Identity card number"
-#~ msgstr "User|Identity card number"
-
-#~ msgid "We're waiting for"
-#~ msgstr "Vi venter på"
-
-#~ msgid "We're waiting for someone to read"
-#~ msgstr "Vi venter på at noen leser"
-
-#~ msgid "You are already following requests to {{public_body_name}}"
-#~ msgstr "Du følger allerede henvendelser til {{public_body_name}}"
-
-#~ msgid "and update the status."
-#~ msgstr "og oppdater statusen"
-
-#~ msgid "to read"
-#~ msgstr "skal lese lese"
-
-#~ msgid "useful information."
-#~ msgstr "nyttig informasjon."
-
-#~ msgid "{{count}} Freedom of Information request to {{public_body_name}}"
-#~ msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
-#~ msgstr[0] "{{count}} innsynshenvendelse til {{public_body_name}}"
-#~ msgstr[1] "{{count}} innsynshenvendelser til {{public_body_name}}"
-
-#~ msgid "{{count}} person is following this authority"
-#~ msgid_plural "{{count}} people are following this authority"
-#~ msgstr[0] "{{count}} person følger denne myndigheten"
-#~ msgstr[1] "{{count}} personer følger denne myndigheten"
+msgstr ""

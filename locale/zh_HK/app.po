@@ -7,10 +7,10 @@
 # caxekis <caxekis@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"PO-Revision-Date: 2015-03-24 11:09+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/projects/p/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
@@ -661,9 +661,8 @@ msgstr ""
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr ""
 
-#, fuzzy
 msgid "Create a new account"
-msgstr "登入或註冊"
+msgstr ""
 
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
@@ -809,9 +808,8 @@ msgstr ""
 msgid "FOI email address for {{public_body}}"
 msgstr ""
 
-#, fuzzy
 msgid "FOI law does not apply to this authority."
-msgstr "向此部門或機構提出要求"
+msgstr ""
 
 msgid "FOI request – {{title}}"
 msgstr ""
@@ -1895,9 +1893,8 @@ msgstr ""
 msgid "Preview your public request"
 msgstr ""
 
-#, fuzzy
 msgid "Preview your request"
-msgstr "編輯此要求"
+msgstr ""
 
 msgid "Profile photo"
 msgstr ""
@@ -2097,9 +2094,8 @@ msgstr ""
 msgid "Refused."
 msgstr ""
 
-#, fuzzy
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
-msgstr "記住我</label> (請勿用於公用電腦)"
+msgstr ""
 
 msgid "Report abuse"
 msgstr ""
@@ -2285,13 +2281,11 @@ msgstr ""
 msgid "Share on Facebook"
 msgstr ""
 
-#, fuzzy
 msgid "Share your batch request"
-msgstr "為報告此要求"
+msgstr ""
 
-#, fuzzy
 msgid "Share your request"
-msgstr "編輯此要求"
+msgstr ""
 
 msgid "Short name"
 msgstr ""
@@ -3922,15 +3916,3 @@ msgstr ""
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "- or -"
-#~ msgstr "- 或 -"
-
-#~ msgid "1. Select an authority"
-#~ msgstr "1. 選擇部門及機構"
-
-#~ msgid "2. Ask for Information"
-#~ msgstr "2. 索取資料"
-
-#~ msgid "3. Now check your request"
-#~ msgstr "3. 請檢查您的要求"

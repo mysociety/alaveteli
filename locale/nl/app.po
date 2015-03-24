@@ -8,10 +8,10 @@
 # Infwolf <infwolf@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"PO-Revision-Date: 2015-03-24 11:11+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/alaveteli/language/nl/)\n"
 "Language: nl\n"
@@ -332,9 +332,8 @@ msgstr ""
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr ""
 
-#, fuzzy
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
-msgstr "Bevestig uw aantekening  {{info_request_title}}"
+msgstr ""
 
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr ""
@@ -846,9 +845,8 @@ msgstr ""
 msgid "Find an authority"
 msgstr ""
 
-#, fuzzy
 msgid "Find the authorities"
-msgstr "Overheidsinstanties"
+msgstr ""
 
 msgid "Find the authorities to write to"
 msgstr ""
@@ -966,9 +964,8 @@ msgstr "Wet Openbaarheid Bestuur is niet van toepassing op deze instantie, u kun
 msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
 msgstr ""
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
-msgstr "Wet Openbaarheid Bestuur is niet meer van toepassing op"
+msgstr ""
 
 msgid "Freedom of Information requests made"
 msgstr "Wet Openbaarheid Bestuur verzoeken van"
@@ -1432,9 +1429,8 @@ msgstr ""
 msgid "Many requests"
 msgstr ""
 
-#, fuzzy
 msgid "Matching authorities"
-msgstr "Overheidsinstanties"
+msgstr ""
 
 msgid "Message"
 msgstr ""
@@ -1900,9 +1896,8 @@ msgstr ""
 msgid "Preview your public request"
 msgstr ""
 
-#, fuzzy
 msgid "Preview your request"
-msgstr "3. Controleer nu uw verzoek"
+msgstr ""
 
 msgid "Profile photo"
 msgstr ""
@@ -2290,13 +2285,11 @@ msgstr ""
 msgid "Share on Facebook"
 msgstr ""
 
-#, fuzzy
 msgid "Share your batch request"
-msgstr "3. Controleer nu uw verzoek"
+msgstr ""
 
-#, fuzzy
 msgid "Share your request"
-msgstr "3. Controleer nu uw verzoek"
+msgstr ""
 
 msgid "Short name"
 msgstr ""
@@ -3126,9 +3119,8 @@ msgstr ""
 msgid "View email"
 msgstr ""
 
-#, fuzzy
 msgid "View other requests to {{public_body}}"
-msgstr "{{title}} - een Wet Openbaarheid Bestuur verzoek aan {{public_body}}"
+msgstr ""
 
 msgid "Waiting clarification."
 msgstr ""
@@ -3518,9 +3510,8 @@ msgstr ""
 msgid "Your request:"
 msgstr ""
 
-#, fuzzy
 msgid "Your requests will be <strong>sent</strong> shortly!"
-msgstr "Een reactie zal <strong>per post</ strong> worden verzonden"
+msgstr ""
 
 msgid "Your response to an FOI request was not delivered"
 msgstr ""
@@ -3654,9 +3645,8 @@ msgstr ""
 msgid "edit text about you"
 msgstr ""
 
-#, fuzzy
 msgid "email address"
-msgstr "Bevestig uw email adres"
+msgstr ""
 
 msgid "even during holidays"
 msgstr ""
@@ -3941,28 +3931,3 @@ msgstr ""
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "- or -"
-#~ msgstr "- of -"
-
-#~ msgid "1. Select an authority"
-#~ msgstr "1. Selecteer een instantie"
-
-#~ msgid "2. Ask for Information"
-#~ msgstr "2. Vraag om informatie"
-
-#~ msgid "Add an annotation"
-#~ msgstr "Voeg een aantekening toe"
-
-#~ msgid "Freedom of information requests to"
-#~ msgstr "Wet Openbaarheid Bestuur verzoek aan"
-
-#~ msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
-#~ msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
-#~ msgstr[0] "Zoek binnen de {{count}} Wet Openbaarheid Bestuur gedane verzoek aan {{public_body_name}}"
-#~ msgstr[1] "Zoek binnen de {{count}} Wet Openbaarheid Bestuur gedane verzoeken aan {{public_body_name}}"
-
-#~ msgid "{{count}} Freedom of Information request to {{public_body_name}}"
-#~ msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
-#~ msgstr[0] "{{count}} Wet Openbaarheid Bestuur verzoek aan {{public_body_name}}"
-#~ msgstr[1] "{{count}} Wet Openbaarheid Bestuur verzoeken aan {{public_body_name}}"

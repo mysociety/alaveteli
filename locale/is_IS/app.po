@@ -7,11 +7,11 @@
 # Páll Hilmarsson <pallih@kaninka.net>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-02-25 12:09+0000\n"
-"Last-Translator: Páll Hilmarsson <pallih@kaninka.net>\n"
+"PO-Revision-Date: 2015-03-24 11:10+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/projects/p/alaveteli/language/is_IS/)\n"
 "Language: is_IS\n"
 "MIME-Version: 1.0\n"
@@ -235,9 +235,8 @@ msgstr "<strong>Allar upplýsingarnar</strong> hafa verið sendar"
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr ""
 
-#, fuzzy
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
-msgstr "<strong> Get ég beðið um upplýsingar um sjálfa(n) mig?</strong>\\n⇥⇥⇥<a href=\"{{url}}\">Nei! (Smelltu hér fyrir útskýringu)</a>"
+msgstr ""
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need \\na good internal knowledge of user behaviour on {{site_name}}. How, \\nwhy and by whom requests are categorised is not straightforward, and there will\\nbe user error and ambiguity. You will also need to understand FOI law, and the\\nway authorities use it. Plus you'll need to be an elite statistician.  Please\\n<a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr ""
@@ -332,9 +331,8 @@ msgstr ""
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr ""
 
-#, fuzzy
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
-msgstr "Staðfestu athugasemd þína við {{info_request_title}}"
+msgstr ""
 
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr ""
@@ -663,9 +661,8 @@ msgstr ""
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Kannast ekki við myndsniðið sem þú sendir. Við styðjum PNG, JPEG, GIF og mörg önnur algeng myndsnið."
 
-#, fuzzy
 msgid "Create a new account"
-msgstr "Skráðu þig inn eða búðu til reikning"
+msgstr ""
 
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
@@ -811,9 +808,8 @@ msgstr "Upplýsingabeiðni"
 msgid "FOI email address for {{public_body}}"
 msgstr ""
 
-#, fuzzy
 msgid "FOI law does not apply to this authority."
-msgstr "Senda upplýsingabeiðni á þetta stjórnvald"
+msgstr ""
 
 msgid "FOI request – {{title}}"
 msgstr "Upplýsingabeiðni– {{title}}"
@@ -848,9 +844,8 @@ msgstr "Sía eftir stöðu beiðnar (valkvætt)"
 msgid "Find an authority"
 msgstr ""
 
-#, fuzzy
 msgid "Find the authorities"
-msgstr "Skoða stjórnvöld"
+msgstr ""
 
 msgid "Find the authorities to write to"
 msgstr ""
@@ -858,9 +853,8 @@ msgstr ""
 msgid "First, did your other requests succeed?"
 msgstr ""
 
-#, fuzzy
 msgid "First, type in the <strong>name of the public authority</strong> you'd\\n        like information from."
-msgstr "Byrjaðu á að skrifa in <strong>nafn stjórnvaldsins</strong> sem þú \\n vilt fá upplýsingar frá. <strong>Samkvæmt lögum þá er þeim skylt að svara</strong>\\n (<a href=\"{{url}}\">af hverju?</a>)."
+msgstr ""
 
 msgid "Foi attachment"
 msgstr ""
@@ -943,9 +937,8 @@ msgstr ""
 msgid "Follow us on twitter"
 msgstr ""
 
-#, fuzzy
 msgid "Following"
-msgstr "Fylgjast með"
+msgstr ""
 
 msgid "Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf."
 msgstr ""
@@ -970,9 +963,8 @@ msgstr ""
 msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
 msgstr ""
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
-msgstr "{{count}} upplýsingabeiðni til {{public_body_name}}"
+msgstr ""
 
 msgid "Freedom of Information requests made"
 msgstr ""
@@ -1436,9 +1428,8 @@ msgstr ""
 msgid "Many requests"
 msgstr ""
 
-#, fuzzy
 msgid "Matching authorities"
-msgstr "Skoða stjórnvöld"
+msgstr ""
 
 msgid "Message"
 msgstr "Skilaboð"
@@ -1904,9 +1895,8 @@ msgstr ""
 msgid "Preview your public request"
 msgstr "Farðu yfir beiðnina þína"
 
-#, fuzzy
 msgid "Preview your request"
-msgstr "Farðu yfir beiðnina þína"
+msgstr ""
 
 msgid "Profile photo"
 msgstr ""
@@ -2238,9 +2228,8 @@ msgstr ""
 msgid "Search in"
 msgstr "Leita í"
 
-#, fuzzy
 msgid "Search in their website for this information &rarr;"
-msgstr "Eða leitaðu á vef þeirra að þessum upplýsingum."
+msgstr ""
 
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 msgstr "Leitaðu í <br/>\\n<strong>{{number_of_requests}} upplýsingabeiðnum</strong> <span>og</span><br/>\\n <strong>{{number_of_authorities}} stjórnvöldum</strong>"
@@ -2295,13 +2284,11 @@ msgstr "Veldu mynd af þér"
 msgid "Share on Facebook"
 msgstr ""
 
-#, fuzzy
 msgid "Share your batch request"
-msgstr "Búðu til þína eigin upplýsingabeiðni"
+msgstr ""
 
-#, fuzzy
 msgid "Share your request"
-msgstr "Búðu til þína eigin upplýsingabeiðni"
+msgstr ""
 
 msgid "Short name"
 msgstr "Stutt nafn"
@@ -2852,9 +2839,8 @@ msgstr ""
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr ""
 
-#, fuzzy
 msgid "To"
-msgstr "Til:"
+msgstr ""
 
 msgid "To cancel these alerts"
 msgstr ""
@@ -3132,9 +3118,8 @@ msgstr "Skoða stjórnvöld"
 msgid "View email"
 msgstr ""
 
-#, fuzzy
 msgid "View other requests to {{public_body}}"
-msgstr "Fylgjast með beiðnum til {{public_body_name}}"
+msgstr ""
 
 msgid "Waiting clarification."
 msgstr ""
@@ -3524,9 +3509,8 @@ msgstr ""
 msgid "Your request:"
 msgstr "Beiðnin þín:"
 
-#, fuzzy
 msgid "Your requests will be <strong>sent</strong> shortly!"
-msgstr "Beiðninni var <strong>hafnað</strong>"
+msgstr ""
 
 msgid "Your response to an FOI request was not delivered"
 msgstr ""
@@ -3555,9 +3539,8 @@ msgid_plural "Your {{count}} batch requests"
 msgstr[0] ""
 msgstr[1] ""
 
-#, fuzzy
 msgid "Your {{law_used_full}} request has been sent"
-msgstr "{{law_used_full}} beiðni - {{title}}"
+msgstr ""
 
 msgid "Your {{site_name}} email alert"
 msgstr ""
@@ -3661,9 +3644,8 @@ msgstr "t.d. Menntamálaráðuneyti"
 msgid "edit text about you"
 msgstr ""
 
-#, fuzzy
 msgid "email address"
-msgstr "Sjá netfang"
+msgstr ""
 
 msgid "even during holidays"
 msgstr ""
@@ -3826,11 +3808,10 @@ msgstr ""
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} upplýsingabeiðnir fundust"
 
-#, fuzzy
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"
-msgstr[0] "{{count}} beiðni"
-msgstr[1] "{{count}} beiðnir"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} request"
 msgid_plural "{{count}} requests"
@@ -3947,41 +3928,5 @@ msgstr ""
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} sendi þessa {{law_used_full}} beiðni"
 
-#, fuzzy
 msgid "« Back to search results"
-msgstr "Bestu leitarniðurstöður:"
-
-#~ msgid "- or -"
-#~ msgstr "- eða -"
-
-#~ msgid "1. Select an authority"
-#~ msgstr "1. Veldu stjórnvald"
-
-#~ msgid "1. Select authorities"
-#~ msgstr "1. Veljið stjórnvöld"
-
-#~ msgid "2. Ask for Information"
-#~ msgstr "2. Biðjið um upplýsingar"
-
-#~ msgid "3. Now check your request"
-#~ msgstr "3. Farðu yfir beiðnina"
-
-#~ msgid "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
-#~ msgstr "<p> {{law_used_full} beiðnin þín hefur verið <strong>send af stað</strong>!</p>\\\\n<p><strong>Við sendum þér tölvupóst</strong> þegar svar hefur borist, eða eftir {{late_number_of_days}} virka daga ef stjórnvaldið hefur ekki\\\\n svarað þá.</p>\\\\n<p>Ef þú skrifar um þessa beiðni (t.d. á spjallborði eða bloggsíðu), tengdu þá á þessa síðu og bættu við\\\\n athugasemd fyrir neðan til að segja öðrum frá því sem þú skrifar</p>"
-
-#~ msgid "Add an annotation"
-#~ msgstr "Bæta við athugasemd"
-
-#~ msgid "Follow this authority"
-#~ msgstr "Fylgjast með þessu stjórnvaldi"
-
-#~ msgid "Freedom of information requests to"
-#~ msgstr "Upplýsingabeiðni til"
-
-#~ msgid "Technical details"
-#~ msgstr "Tæknilegar upplýsingar"
-
-#~ msgid "{{count}} person is following this authority"
-#~ msgid_plural "{{count}} people are following this authority"
-#~ msgstr[0] "{{count}} notandi er að fylgjast með þessu stjórnvaldi"
-#~ msgstr[1] "{{count}} notendur eru að fylgjast með þessu stjórnvaldi"
+msgstr ""

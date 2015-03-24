@@ -9,10 +9,10 @@
 # Juha-Matti Santala <juhamattisantala@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"PO-Revision-Date: 2015-03-24 10:53+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/alaveteli/language/fi/)\n"
 "Language: fi\n"
@@ -3932,9 +3932,3 @@ msgstr ""
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "- or -"
-#~ msgstr "- tai -"
-
-#~ msgid "2. Ask for Information"
-#~ msgstr "2. Pyydä tietoja"

@@ -10,10 +10,10 @@
 # John Cross <mrjohncross@googlemail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"PO-Revision-Date: 2015-03-24 10:53+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: English (Ireland) (http://www.transifex.com/projects/p/alaveteli/language/en_IE/)\n"
 "Language: en_IE\n"

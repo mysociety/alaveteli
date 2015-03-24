@@ -5,13 +5,14 @@
 # Translators:
 # Kjetil Torgrim Homme <kjetilho@ifi.uio.no>, 2015
 # pere <pere-transifex@hungry.com>, 2015
+# pere <pere-transifex@hungry.com>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-01-04 22:43+0000\n"
-"Last-Translator: Kjetil Torgrim Homme <kjetilho@ifi.uio.no>\n"
+"PO-Revision-Date: 2015-03-24 10:53+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Norwegian Nynorsk (http://www.transifex.com/projects/p/alaveteli/language/nn/)\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
@@ -852,9 +853,8 @@ msgstr ""
 msgid "Find an authority"
 msgstr ""
 
-#, fuzzy
 msgid "Find the authorities"
-msgstr "1. Vel myndigheiter"
+msgstr ""
 
 msgid "Find the authorities to write to"
 msgstr ""
@@ -1437,9 +1437,8 @@ msgstr ""
 msgid "Many requests"
 msgstr ""
 
-#, fuzzy
 msgid "Matching authorities"
-msgstr "1. Vel myndigheiter"
+msgstr ""
 
 msgid "Message"
 msgstr ""
@@ -1905,9 +1904,8 @@ msgstr ""
 msgid "Preview your public request"
 msgstr ""
 
-#, fuzzy
 msgid "Preview your request"
-msgstr "3. Sjå over førespurnaden din no"
+msgstr ""
 
 msgid "Profile photo"
 msgstr ""
@@ -2295,13 +2293,11 @@ msgstr ""
 msgid "Share on Facebook"
 msgstr ""
 
-#, fuzzy
 msgid "Share your batch request"
-msgstr "3. Sjå over førespurnaden din no"
+msgstr ""
 
-#, fuzzy
 msgid "Share your request"
-msgstr "3. Sjå over førespurnaden din no"
+msgstr ""
 
 msgid "Short name"
 msgstr ""
@@ -3943,12 +3939,3 @@ msgstr ""
 
 msgid "« Back to search results"
 msgstr ""
-
-#~ msgid "- or -"
-#~ msgstr "- eller -"
-
-#~ msgid "1. Select an authority"
-#~ msgstr "1. Vel ei myndigheit"
-
-#~ msgid "2. Ask for Information"
-#~ msgstr "2. Be om innsyn"

@@ -10,10 +10,10 @@
 # Anh Phan <vietnamesel10n@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"PO-Revision-Date: 2015-03-24 10:53+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/projects/p/alaveteli/language/vi/)\n"
 "Language: vi\n"
@@ -1896,9 +1896,8 @@ msgstr ""
 msgid "Preview your public request"
 msgstr ""
 
-#, fuzzy
 msgid "Preview your request"
-msgstr "Đây là yêu cầu khó"
+msgstr ""
 
 msgid "Profile photo"
 msgstr ""
@@ -3505,9 +3504,8 @@ msgstr ""
 msgid "Your request:"
 msgstr ""
 
-#, fuzzy
 msgid "Your requests will be <strong>sent</strong> shortly!"
-msgstr "Một phản hồi sẽ được gửi <strong>bằng bài đăng</strong>"
+msgstr ""
 
 msgid "Your response to an FOI request was not delivered"
 msgstr ""

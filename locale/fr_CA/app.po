@@ -8,6 +8,7 @@
 # Benoît Simard <contact@bsimard.com>, 2013
 # David Cabo <david.cabo@gmail.com>, 2013
 # louisecrow <louise@mysociety.org>, 2014
+# louisecrow <louise@mysociety.org>, 2014
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2013
 # radhouane fazai <radhouanef@gmail.com>, 2013
@@ -20,10 +21,10 @@
 # vickyanderica <victoria@access-info.org>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: version 0.0.1\n"
+"Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"PO-Revision-Date: 2015-03-24 11:14+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/projects/p/alaveteli/language/fr_CA/)\n"
 "Language: fr_CA\n"
@@ -250,9 +251,8 @@ msgstr "<strong>Toutes les informations</strong> ont été envoyées"
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Autre chose</strong>, comme clarifier, inciter et remercier"
 
-#, fuzzy
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
-msgstr "<strong>Puis-je demander des informations sur moi-même?</strong>\\n\t\t\t<a href=\"{{url}}\">Non! (cliquez ici pour plus de détails)</a>"
+msgstr ""
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need \\na good internal knowledge of user behaviour on {{site_name}}. How, \\nwhy and by whom requests are categorised is not straightforward, and there will\\nbe user error and ambiguity. You will also need to understand FOI law, and the\\nway authorities use it. Plus you'll need to be an elite statistician.  Please\\n<a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr "<strong>Soyez attentifs!</strong> Pour utiliser ces données de façon responsable, vous devez \\n avoir une bonne connaissance du comportement des utilisateurs de {{site_name}}. Comment, \\n pourquoi et par qui les demandes sont catégorisées n'est pas explicité. Vous aurez également besoin de comprendre la loi relative aux demandes d'accès aux documents et la \\n façon dont les organismes publics la suivent. Veuillez \\n<a href=\"{{contact_path}}\">nous contacter </a> si vous avez des questions."
@@ -347,9 +347,8 @@ msgstr "ActsAsXapian::ActsAsXapianJob|Action"
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr "ActsAsXapian::ActsAsXapianJob|Model"
 
-#, fuzzy
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
-msgstr "Confirmer votre annotation à {{info_request_title}}"
+msgstr ""
 
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr "Ajouter une annotation à votre demande avec des citations ou \\n  un <strong> résumé de la réponse</strong>."
@@ -678,9 +677,8 @@ msgstr "Impossible d'identifier la demande à partir de l'adresse courriel"
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Nous ne pouvons utiliser le fichier image que vous nous avez soumis. Nous acceptons les fichiers PNG, JPEG et GIF, ainsi qu'un grand nombre d'autres formats communément utilisés."
 
-#, fuzzy
 msgid "Create a new account"
-msgstr "Se connecter ou créer un nouveau compte"
+msgstr ""
 
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
@@ -724,9 +722,8 @@ msgstr "Erreur lors de l'envoi"
 msgid "Destroy {{name}}"
 msgstr "Détruire {{name}}"
 
-#, fuzzy
 msgid "Details of request &ldquo;{{request_title}}&rdquo;"
-msgstr "Nouvelles mises à jour pour la demande '{{request_title}}'"
+msgstr ""
 
 msgid "Did you mean: {{correction}}"
 msgstr "Vouliez-vous dire {{correction}} ?"
@@ -827,9 +824,8 @@ msgstr "Demande d'accès aux documents"
 msgid "FOI email address for {{public_body}}"
 msgstr "Courriel pour demander l'accès à un document à {{public_body}}"
 
-#, fuzzy
 msgid "FOI law does not apply to this authority."
-msgstr "Faire une demande à cet organisme"
+msgstr ""
 
 msgid "FOI request – {{title}}"
 msgstr "Demande d'accès aux documents – {{title}}"
@@ -864,9 +860,8 @@ msgstr ""
 msgid "Find an authority"
 msgstr "Sélectionner un organisme pour lui écrire "
 
-#, fuzzy
 msgid "Find the authorities"
-msgstr "Voir les organismes"
+msgstr ""
 
 msgid "Find the authorities to write to"
 msgstr ""
@@ -874,9 +869,8 @@ msgstr ""
 msgid "First, did your other requests succeed?"
 msgstr "Premièrement, est-ce que vos autres demandes ont réussi?"
 
-#, fuzzy
 msgid "First, type in the <strong>name of the public authority</strong> you'd\\n        like information from."
-msgstr "Commencer par écrire le <strong>nom de l'organisme</strong> à \\n   solliciter. <strong>Légalement, elle est obligée de répondre </strong>.\\n   (<a href=\"{{url}}\">Pourquoi?</a>)."
+msgstr ""
 
 msgid "Foi attachment"
 msgstr "Foi attachment"
@@ -959,9 +953,8 @@ msgstr "Les messages de suivi et les nouvelles réponses à cette demande ont é
 msgid "Follow us on twitter"
 msgstr "Suivez-nous sur Twitter"
 
-#, fuzzy
 msgid "Following"
-msgstr "Suivre"
+msgstr ""
 
 msgid "Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf."
 msgstr "Il est impossible d'envoyer des messages de suivi pour cette demande, elle n'a pas été complétée via le site. Elle a été publiée ici par {{public_body_name}} à la demande du demandeur."
@@ -986,9 +979,8 @@ msgstr "Le droit d'accès aux documents ne s'applique pas à cet organisme. Vous
 msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
 msgstr "Le droit d'accès aux documents ne s'applique plus à cet organisme. Les messages de suivi pour les demandes existantes sont envoyés à"
 
-#, fuzzy
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
-msgstr "Le droit d'accès aux documents ne s'applique plus à"
+msgstr ""
 
 msgid "Freedom of Information requests made"
 msgstr "Les demandes d'accès aux documents faites"
@@ -1452,9 +1444,8 @@ msgstr "Envoyer et rechercher des demandes d'accès aux documents"
 msgid "Many requests"
 msgstr "Beaucoup de demandes"
 
-#, fuzzy
 msgid "Matching authorities"
-msgstr "Voir les organismes"
+msgstr ""
 
 msgid "Message"
 msgstr "Message"
@@ -1711,11 +1702,10 @@ msgstr "N'hésitez pas à nous <a href=\"{{url}}\">contacter</a> si vous avez de
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Veuillez <a href=\"{{url}}\">nous contacter </a> afin que nous puissions le corriger."
 
-#, fuzzy
 msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
 msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
-msgstr[0] "Veuillez <strong>répondre à la question ci-dessus</strong> pour que l'on sache si "
-msgstr[1] "Veuillez <strong>répondre à la question ci-dessus</strong> pour que l'on sache si "
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Please <strong>go to the following requests</strong>, and let us\\n        know if there was information in the recent responses to them."
 msgstr "Veuillez <strong> aller aux demandes suivantes </strong> et dites-\\nnous si les réponses contiennent l'information demandée."
@@ -1921,9 +1911,8 @@ msgstr "Prévisualiser votre message"
 msgid "Preview your public request"
 msgstr "Prévisualiser votre demande "
 
-#, fuzzy
 msgid "Preview your request"
-msgstr "Prévisualiser votre demande "
+msgstr ""
 
 msgid "Profile photo"
 msgstr "Photo de profil"
@@ -2123,9 +2112,8 @@ msgstr "Les résultats récemment décrits en premier "
 msgid "Refused."
 msgstr "Refusé."
 
-#, fuzzy
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
-msgstr "Se rappeler du mot de passe </label> (vous permet de rester connecté;\\n    à ne pas utiliser sur un ordinateur public) "
+msgstr ""
 
 msgid "Report abuse"
 msgstr "Signaler un abus"
@@ -2256,9 +2244,8 @@ msgstr "Rechercher des mots dans:"
 msgid "Search in"
 msgstr "Rechercher dans"
 
-#, fuzzy
 msgid "Search in their website for this information &rarr;"
-msgstr "Ou faites une recherche sur leur site web pour obtenir cette information."
+msgstr ""
 
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 msgstr "Rechercher parmi<br/>\\n  <strong>{{number_of_requests}} demandes</strong> <span>et</span><br/>\\n  <strong>{{number_of_authorities}} organismes</strong>"
@@ -2313,13 +2300,11 @@ msgstr "Définir votre photo de profil"
 msgid "Share on Facebook"
 msgstr ""
 
-#, fuzzy
 msgid "Share your batch request"
-msgstr "Faites votre propre demande"
+msgstr ""
 
-#, fuzzy
 msgid "Share your request"
-msgstr "Faites votre propre demande"
+msgstr ""
 
 msgid "Short name"
 msgstr "Abréviation "
@@ -2870,9 +2855,8 @@ msgstr "Cet utilisateur a été banni de {{site_name}}"
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Cela est impossible: un compte existant utilise déjà \\n l'adresse courriel {{email}}."
 
-#, fuzzy
 msgid "To"
-msgstr "Destinataire:"
+msgstr ""
 
 msgid "To cancel these alerts"
 msgstr "Pour annuler ces alertes"
@@ -2997,9 +2981,8 @@ msgstr "TrackThing|Track type"
 msgid "Turn off email alerts"
 msgstr "Désactiver les alertes par courriel"
 
-#, fuzzy
 msgid "Tweet it"
-msgstr "Partager cette demande d'information sur Twitter"
+msgstr ""
 
 msgid "Tweet this request"
 msgstr "Partager cette demande d'information sur Twitter"
@@ -3151,9 +3134,8 @@ msgstr "Voir les organismes"
 msgid "View email"
 msgstr "Voir le courriel"
 
-#, fuzzy
 msgid "View other requests to {{public_body}}"
-msgstr "Suivre les demandes faites à  {{public_body_name}}"
+msgstr ""
 
 msgid "Waiting clarification."
 msgstr "En attente de clarification"
@@ -3194,11 +3176,10 @@ msgstr "Nous ne communiquerons pas votre adresse courriel sauf si vous nous y au
 msgid "We will not reveal your email addresses to anybody unless you\\nor the law tell us to."
 msgstr "Nous ne communiquerons pas vos adresses courriel sauf si vous nous y autorisez ou si la loi nous y oblige"
 
-#, fuzzy
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
-msgstr[0] "et mettre à jour le statut en conséquent. Peut-être que <strong>vous</strong> aimeriez nous aider de cette façon?"
-msgstr[1] "et mettre à jour le statut en conséquent. Peut-être que <strong>vous</strong> aimeriez nous aider de cette façon?"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "We're waiting for {{user}} to read a recent response and update the status."
 msgid_plural "We're waiting for {{user}} to read recent responses and update the status."
@@ -3544,9 +3525,8 @@ msgstr "Votre demande est intitulée  {{info_request}}. En laissant les autres u
 msgid "Your request:"
 msgstr "Votre demande:"
 
-#, fuzzy
 msgid "Your requests will be <strong>sent</strong> shortly!"
-msgstr "La demande est <strong>rejetée</strong> par"
+msgstr ""
 
 msgid "Your response to an FOI request was not delivered"
 msgstr "Votre réponse n'a pas été délivrée"
@@ -3575,9 +3555,8 @@ msgid_plural "Your {{count}} batch requests"
 msgstr[0] ""
 msgstr[1] ""
 
-#, fuzzy
 msgid "Your {{law_used_full}} request has been sent"
-msgstr "{{law_used_full}} - {{title}}"
+msgstr ""
 
 msgid "Your {{site_name}} email alert"
 msgstr "Votre alerte courriel de {{site_name}}"
@@ -3684,9 +3663,8 @@ msgstr ""
 msgid "edit text about you"
 msgstr "modifiez votre description personnelle"
 
-#, fuzzy
 msgid "email address"
-msgstr "Adresse du courrier entrant"
+msgstr ""
 
 msgid "even during holidays"
 msgstr "même pendant les vacances"
@@ -3849,11 +3827,10 @@ msgstr "Qu'est-ce que c'est?"
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} demandes d'accès aux documents trouvées"
 
-#, fuzzy
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"
-msgstr[0] "{{count}} demande"
-msgstr[1] "{{count}} demandes"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} request"
 msgid_plural "{{count}} requests"
@@ -3892,9 +3869,8 @@ msgstr "{{public_body_link}} a répondu à une demande au sujet de"
 msgid "{{public_body_link}} was sent a request about"
 msgstr "{{public_body_link}} a reçu une demande au sujet de"
 
-#, fuzzy
 msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-msgstr "Sur la page de demande, essayez de répondre à un message particulier, plutôt que d'envoyer \\n un message de suivi général. Si vous avez besoin de faire un suivi général et vous connaissez \\ n l'adresse courriel pour qu'il se rende à destination, veuillez <a href=\"{{url}}\">nous l'envoyer </a>."
+msgstr ""
 
 msgid "{{public_body_name}} only:"
 msgstr "{{public_body_name}} uniquement:"
@@ -3971,84 +3947,5 @@ msgstr "{{user}} ({{user_admin_link}}) a fait cette demande (<a href=\"{{request
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "Cette demande a été faite par {{user}} "
 
-#, fuzzy
 msgid "« Back to search results"
-msgstr "Résultats les plus pertinents :"
-
-#~ msgid "- or -"
-#~ msgstr "- ou -"
-
-#~ msgid "1. Select an authority"
-#~ msgstr "1. Choisissez un organisme gouvernemental"
-
-#~ msgid "2. Ask for Information"
-#~ msgstr "2. Demandez une information"
-
-#~ msgid "3. Now check your request"
-#~ msgstr "3. Vérifiez votre demande"
-
-#~ msgid "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
-#~ msgstr "<p>Votre demande a été <strong>envoyée</strong>!</p>\\n<p><strong>Nous vous enverrons un courriel</strong> lorsque nous recevrons une réponse ou lorsque le délai de {{late_number_of_days}} jours calendriers  sera \\n écoulé.</p>\\nSi vous souhaitez écrire au sujet de cette demande (par exemple dans un forum ou un blog), veuillez ajouter un lien vers cette page et ajouter une \\n annotation (voir ci-dessous) pour en informer les autres utilisateurs.</p>"
-
-#~ msgid "Add an annotation"
-#~ msgstr "Ajouter une annotation"
-
-#~ msgid "Default locale"
-#~ msgstr "Localisation par défaut"
-
-#~ msgid "Details of request '"
-#~ msgstr "Détails de la demande '"
-
-#~ msgid "Follow this authority"
-#~ msgstr "Suivre cet organisme gouvernemental"
-
-#~ msgid "For an unknown reason, it is not possible to make a request to this authority."
-#~ msgstr "Pour des raisons inconnues, il est impossible d'envoyer des demandes à cet organisme."
-
-#~ msgid "Freedom of information requests to"
-#~ msgstr "Les demandes d'accès aux documents faites"
-
-#~ msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
-#~ msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
-#~ msgstr[0] "Cherchez parmi la {{count}} demande faite à {{public_body_name}}"
-#~ msgstr[1] "Cherchez parmi les {{count}} demandes faites à {{public_body_name}}"
-
-#~ msgid "Special note for this authority!"
-#~ msgstr "Remarque spéciale pour cet organisme!"
-
-#~ msgid "Technical details"
-#~ msgstr "Détails techniques:"
-
-#~ msgid "Unknown"
-#~ msgstr "Inconnu"
-
-#~ msgid "We're waiting for"
-#~ msgstr "Nous attendons que"
-
-#~ msgid "We're waiting for someone to read"
-#~ msgstr "Nous attendons qu'une personne lise"
-
-#~ msgid "You are already following requests to {{public_body_name}}"
-#~ msgstr "Vous suivez déjà les demandes à {{public_body_name}}"
-
-#~ msgid "and update the status."
-#~ msgstr "et mettre à jour le statut"
-
-#~ msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-#~ msgstr "n'existe plus. Si vous tentez de faire \\n à partir de la page des demandes, essayez de répondre à un message en particulier plutôt que d'envoyer \\n un message général de suivi. Si vous devez faire un message général de suivi et que vous connaissez \\n l'adresse courriel appropriée, merci <a href=\"{{url}}\">de nous l'envoyer</a>."
-
-#~ msgid "to read"
-#~ msgstr "à lire "
-
-#~ msgid "useful information."
-#~ msgstr "information utile."
-
-#~ msgid "{{count}} Freedom of Information request to {{public_body_name}}"
-#~ msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
-#~ msgstr[0] "{{count}} demande d'accès aux documents à {{public_body_name}}"
-#~ msgstr[1] "{{count}} demandes d'accès aux documents à {{public_body_name}}"
-
-#~ msgid "{{count}} person is following this authority"
-#~ msgid_plural "{{count}} people are following this authority"
-#~ msgstr[0] "{{count}} personne suit cet organisme public"
-#~ msgstr[1] "{{count}} personnes suivent cet organisme public "
+msgstr ""
