@@ -2283,7 +2283,7 @@ msgid "Share on Facebook"
 msgstr ""
 
 msgid "Share your batch request"
-msgstr "
+msgstr ""
 
 msgid "Share your request"
 msgstr ""
