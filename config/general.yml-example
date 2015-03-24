@@ -416,7 +416,7 @@ READ_ONLY: ''
 #   STAGING_SITE: 0
 #
 # ---
-STAGING_SITE: 0
+STAGING_SITE: 1
 
 # Recaptcha, for detecting humans. Get keys here:
 # http://recaptcha.net/whyrecaptcha.html
