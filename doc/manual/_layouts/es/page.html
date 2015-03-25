@@ -5,7 +5,7 @@ layout: es/default
 
 <div class="page-wrapper">
 <div class="page">
-  {% capture url_parts %} {{ page.url | remove: "/index.html" | replace:'/'," " }}{% endcapture %}
+  {% capture url_parts %} {{ page.url | remove: "/index.html" | remove: "/es" | replace:'/'," " }}{% endcapture %}
   {% assign parts = url_parts | split: ' ' %}
   {% assign previous="" %}
   <ul class="breadcrumb">
