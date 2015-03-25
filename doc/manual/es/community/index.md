@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: es/page
 title: Comunidad
 ---
 <meta charset="utf-8">
