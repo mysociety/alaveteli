@@ -106,6 +106,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 ### Behaviour settings and switches:
 
 <code><a href="#new_response_reminder_after_days">NEW_RESPONSE_REMINDER_AFTER_DAYS</a></code>
+<br> <code><a href="#authority_must_respond">AUTHORITY_MUST_RESPOND</a></code>
 <br> <code><a href="#max_requests_per_user_per_day">MAX_REQUESTS_PER_USER_PER_DAY</a></code>
 <br> <code><a href="#override_all_public_body_request_emails">OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS</a></code>
 <br> <code><a href="#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>
@@ -824,6 +825,25 @@ EXCEPTION_NOTIFICATIONS_TO:
  - robin@example.com
  - seb@example.com
 </pre>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+
+  <dt>
+    <a name="authority_must_respond"><code>AUTHORITY_MUST_RESPOND</code></a>
+  </dt>
+  <dd>
+    <div class="attention-box info">
+      Introduced in Alaveteli version 0.21
+    </div>
+     Set this to <code>true</code> if authorities must respond by law. Set to <code>false</code> otherwise. It defaults to <code>true</code>. At the moment this just controls the display of some UI text telling users that the authority must respond to them by law.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>AUTHORITY_MUST_RESPOND: true</code>
         </li>
       </ul>
     </div>
