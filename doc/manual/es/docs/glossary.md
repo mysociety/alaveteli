@@ -257,7 +257,7 @@ Definiciones
         </li>
         <li>
           Para desactivar el usuario de emergencia, configure la opción
-          <code><a href="{{site.baseurl}}docs/customising/config/#disable_emergency_user">DISABLE_EMERGENCY_USER:</a> true</code>.
+          <code><a href="{{ page.baseurl }}/docs/customising/config/#disable_emergency_user">DISABLE_EMERGENCY_USER:</a> true</code>.
         </li>
       </ul>
     </div>

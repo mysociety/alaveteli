@@ -23,7 +23,7 @@ scripts will create you a Vagrant VM based on the server edition of
 Ubuntu 12.04 LTS that contains everything you need to work on Alaveteli.
 
 1.  Get a copy of Alaveteli from
-    <a href="{{ site.baseurl }}docs/glossary/#git" class="glossary__link">GitHub</a>:
+    <a href="{{ page.baseurl }}/docs/glossary/#git" class="glossary__link">GitHub</a>:
 
             # on your machine
             $ git clone git@github.com:mysociety/alaveteli.git

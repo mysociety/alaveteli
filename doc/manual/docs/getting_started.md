@@ -216,7 +216,7 @@ often less. But complicated workflows might take a bit longer.
 
 The default help pages in Alaveteli are taken from WhatDoTheyKnow, and are
 therefore relevant only to the UK. You should take these pages as inspiration,
-but review their content with a view to your jurisdiction. See [the documentation on Alaveteli's themes]({{ site.baseurl }}docs/customising/themes/#customising-the-help-pages) for details
+but review their content with a view to your jurisdiction. See [the documentation on Alaveteli's themes]({{ page.baseurl }}/docs/customising/themes/#customising-the-help-pages) for details
 on which pages are important, and what content they need to have.
 
 The help pages contain some HTML. Your tech person should be able to advise on
@@ -276,7 +276,7 @@ spreadsheet. The help pages need to have one copy saved for each language; your
 tech person will put them in the right place.
 
 The web interface translations are managed and collaborated via a website
-called <a href="{{ site.baseurl }}docs/glossary/#transifex" class="glossary__link">Transifex</a>. This website allows teams of translators to collaborate in
+called <a href="{{ page.baseurl }}/docs/glossary/#transifex" class="glossary__link">Transifex</a>. This website allows teams of translators to collaborate in
 one place, using a fairly easy interface.
 
 The Alaveteli page on Transifex is at
