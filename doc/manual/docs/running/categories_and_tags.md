@@ -19,6 +19,10 @@ title: Categories & tags
 
 ## Categories & category headings
 
+<div class="attention-box info">
+Admin interface introduced in Alaveteli version 0.21
+</div>
+
 Alaveteli lets you organise your authorities into *categories*. Categories can
 themselves belong to *category headings*. For example, some of the categories
 and headings on
