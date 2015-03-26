@@ -192,7 +192,7 @@ Definitions
         </li>
         <li>
           You can organise your authorities using
-          <a href="{{ site.baseurl }}docs/running/categories_and_tags/">categories and tags</a>.
+          <a href="{{ page.baseurl }}/docs/running/categories_and_tags/">categories and tags</a>.
         </li>
       </ul>
     </div>
@@ -211,12 +211,12 @@ Definitions
       <ul>
         <li>
           Use the config setting
-          <code><a href="{{site.baseurl}}docs/customising/config/#blackhole_prefix">BLACKHOLE_PREFIX</a></code>
+          <code><a href="{{ page.baseurl }}/docs/customising/config/#blackhole_prefix">BLACKHOLE_PREFIX</a></code>
           to specify what this email address looks like.
         </li>
         <li>
           Conversely, see
-          <code><a href="{{site.baseurl}}docs/customising/config/#contact_email">CONTACT_EMAIL</a></code>
+          <code><a href="{{ page.baseurl }}/docs/customising/config/#contact_email">CONTACT_EMAIL</a></code>
           to specify the email address to which users' emails (such as support
           enquiries) will be delivered.
         </li>
@@ -281,7 +281,7 @@ Definitions
       authorities with specific categories.
     </p>
         More about
-    <a href="{{ site.baseurl }}docs/running/categories_and_tags/">categories and tags</a>
+    <a href="{{ page.baseurl }}/docs/running/categories_and_tags/">categories and tags</a>
 </dd>
   <dt>
     <a name="categorisation-game">categorisation game</a>
@@ -337,7 +337,7 @@ Definitions
     which is used for testing code before it goes live.
     <p>
       On your dev server, you should set
-      <code><a href="{{site.baseurl}}docs/customising/config/#staging_site">STAGING_SITE</a></code>
+      <code><a href="{{ page.baseurl }}/docs/customising/config/#staging_site">STAGING_SITE</a></code>
       to <code>1</code>.
     </p>
   </dd>
@@ -356,7 +356,7 @@ Definitions
       <ul>
         <li>
           You can add a disclosure log URL by
-          <a href="{{ site.baseurl }}docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data">updating authority data</a> in the admin.
+          <a href="{{ page.baseurl }}/docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data">updating authority data</a> in the admin.
         </li>
       </ul>
     </div>
@@ -379,18 +379,18 @@ Definitions
       <ul>
         <li>
           The username and password are defined by the configuration settings
-          <code><a href="{{site.baseurl}}docs/customising/config/#admin_username">ADMIN_USERNAME</a></code>
+          <code><a href="{{ page.baseurl }}/docs/customising/config/#admin_username">ADMIN_USERNAME</a></code>
           and
-          <code><a href="{{site.baseurl}}docs/customising/config/#admin_password">ADMIN_PASSWORD</a></code>.
+          <code><a href="{{ page.baseurl }}/docs/customising/config/#admin_password">ADMIN_PASSWORD</a></code>.
         </li>
         <li>
           For an example of using the emergency user, see
-          <a href="{{site.baseurl}}docs/installing/next_steps/#create-a-superuser-account-for-yourself">creating
+          <a href="{{ page.baseurl }}/docs/installing/next_steps/#create-a-superuser-account-for-yourself">creating
             a superuser account</a>.
         </li>
         <li>
           Disable the emergency user by setting
-          <code><a href="{{site.baseurl}}docs/customising/config/#disable_emergency_user">DISABLE_EMERGENCY_USER:</a> true</code>
+          <code><a href="{{ page.baseurl }}/docs/customising/config/#disable_emergency_user">DISABLE_EMERGENCY_USER:</a> true</code>
         </li>
       </ul>
     </div>
@@ -520,12 +520,12 @@ Definitions
     <p>
       Often you don't need to worry about the details of how this is done
       because once you've configured your site's
-      <code><a href="{{ site.baseurl }}docs/customising/config/#default_locale">DEFAULT_LOCALE</a></code>
+      <code><a href="{{ page.baseurl }}/docs/customising/config/#default_locale">DEFAULT_LOCALE</a></code>
       Alaveteli takes care of it for you.
       But when you do need to work on i18n (for example, if you're customising
       your site by
-      <a href="{{ site.baseurl }}docs/customising/translation/">translating</a> it, or
-      <a href="{{ site.baseurl }}docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data">uploading names</a>
+      <a href="{{ page.baseurl }}/docs/customising/translation/">translating</a> it, or
+      <a href="{{ page.baseurl }}/docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data">uploading names</a>
       of the public bodies in more than one language) at the very least you may
       need to know the language codes you're site is using.
     </p>
@@ -533,7 +533,7 @@ Definitions
       <p>More information:</p>
       <ul>
         <li>
-          More about <a href="{{ site.baseurl }}docs/developers/i18n/">internationalising Alaveteli</a>
+          More about <a href="{{ page.baseurl }}/docs/developers/i18n/">internationalising Alaveteli</a>
         </li>
         <li>
           See mySociety's
@@ -648,7 +648,7 @@ Definitions
       example, caching is enabled, and debugging switched off.
       <a href="#rails" class="glossary__link">Rails</a> has a "production mode" which does
       this for you: set
-      <code><a href="{{site.baseurl}}docs/customising/config/#staging_site">STAGING_SITE</a></code>
+      <code><a href="{{ page.baseurl }}/docs/customising/config/#staging_site">STAGING_SITE</a></code>
       to <code>0</code>. Note that if you <em>change</em> this setting after you've
       deployed, the <code>rails_env.rb</code> file that enables Rails's production
       mode won't be created until you run <code>rails-post-deploy</code>.
@@ -694,7 +694,7 @@ Definitions
       <ul>
         <li>
           You can add a publication scheme URL by
-          <a href="{{ site.baseurl }}docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data">updating authority data</a> in the admin.
+          <a href="{{ page.baseurl }}/docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data">updating authority data</a> in the admin.
         </li>
       </ul>
     </div>
@@ -715,9 +715,9 @@ Definitions
       <ul>
         <li>
           use the config settings
-          <code><a href="{{site.baseurl}}docs/customising/config/#recaptcha_public_key">RECAPTCHA_PUBLIC_KEY</a></code>
+          <code><a href="{{ page.baseurl }}/docs/customising/config/#recaptcha_public_key">RECAPTCHA_PUBLIC_KEY</a></code>
           and
-          <code><a href="{{site.baseurl}}docs/customising/config/#recaptcha_private_key">RECAPTCHA_PRIVATE_KEY</a></code>
+          <code><a href="{{ page.baseurl }}/docs/customising/config/#recaptcha_private_key">RECAPTCHA_PRIVATE_KEY</a></code>
           to set this up.
         </li>
         <li>
@@ -821,11 +821,11 @@ Definitions
         </li>
         <li>
           We try to coordinate releases with any active translation work too.
-          See <a href="{{ site.baseurl }}docs/customising/translation/">translating
+          See <a href="{{ page.baseurl }}/docs/customising/translation/">translating
           Alaveteli</a> for more information.
         </li>
         <li>
-          We encourage you use the <a href="{{site.baseurl}}docs/installing/deploy/">deployment
+          We encourage you use the <a href="{{ page.baseurl }}/docs/installing/deploy/">deployment
           mechanism</a>, which makes it easier to keep your production server up-to-date.
         </li>
       </ul>
@@ -917,7 +917,7 @@ Definitions
       <ul>
         <li>
           To add addresses to the spam address list , see
-          <a href="{{ site.baseurl }}docs/running/admin_manual/#rejecting-spam-that-arrives-in-the-holding-pen">Rejecting
+          <a href="{{ page.baseurl }}/docs/running/admin_manual/#rejecting-spam-that-arrives-in-the-holding-pen">Rejecting
           spam that arrives in the holding pen</a>.
         </li>
         <li>
@@ -939,7 +939,7 @@ Definitions
     site your users visit running with live data.
     <p>
       On your staging server, you should set
-      <code><a href="{{site.baseurl}}docs/customising/config/#staging_site">STAGING_SITE</a></code>
+      <code><a href="{{ page.baseurl }}/docs/customising/config/#staging_site">STAGING_SITE</a></code>
       to <code>1</code>.
     </p>
     <p>
@@ -1034,7 +1034,7 @@ Definitions
       <ul>
         <li>
           More about
-      <a href="{{ site.baseurl }}docs/running/categories_and_tags/">categories and tags</a>
+      <a href="{{ page.baseurl }}/docs/running/categories_and_tags/">categories and tags</a>
         </li>
       </ul>
     </div>
@@ -1053,7 +1053,7 @@ Definitions
    <p>More information:</p>
      <ul>
        <li>
-        <a href="{{ site.baseurl }}docs/customising/themes/">about themes</a>
+        <a href="{{ page.baseurl }}/docs/customising/themes/">about themes</a>
       </li>
     </ul>
    </div>

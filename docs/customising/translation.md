@@ -48,7 +48,7 @@ translators a chance to catch up -- read the rest of this page for details.
 ## Alaveteli's translations
 
 You don't need to be a programmer to translate Alaveteli -- we use an external
-website called <a href="{{ site.baseurl }}docs/glossary/#transifex" class="glossary__link">Transifex</a> to help manage translations. This makes it easy for
+website called <a href="{{ page.baseurl }}/docs/glossary/#transifex" class="glossary__link">Transifex</a> to help manage translations. This makes it easy for
 translators to get to work, but it does mean you (or your technical team)
 need to do a little extra work to get those translations back into Alaveteli
 when they are ready.
@@ -166,7 +166,7 @@ use Transifex without needing to worry about this.
 As the help pages for Alaveteli contain lots of text, they're translated
 outside Transifex, by translating each whole help page and replacing it
 in the theme that Alaveteli is using, so that it overrides the default
-page. See the [guide to Alaveteli's themes]({{ site.baseurl }}docs/customising/themes/#customising-the-help-pages) for more
+page. See the [guide to Alaveteli's themes]({{ page.baseurl }}/docs/customising/themes/#customising-the-help-pages) for more
 information on this.
 
 ## Developers and internationalisation
