@@ -128,6 +128,46 @@ Alaveteli can import a list of public authorities and their contact email addres
 Follow the instructions for
 [uploading public authority data]({{ site.baseurl }}docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data).
 
+## Set the amount of time authorities will be given to respond to requests
+
+In most countries that have a Freedom of Information law, authorities
+have a certain number of days in order to respond to requests. Alaveteli
+helps requesters by reminding them when their request is overdue for a
+response according to the law. You can set the number of days an
+authority is given to respond to a request in the
+[`REPLY_LATE_AFTER_DAYS`]({{site.baseurl}}docs/customising/config/#reply_late_after_days),
+[`REPLY_VERY_LATE_AFTER_DAYS`]({{site.baseurl}}docs/customising/config/#reply_very_late_after_days)
+and
+[`SPECIAL_REPLY_VERY_LATE_AFTER_DAYS`]({{site.baseurl}}docs/customising/config/#special_reply_very_late_after_days)
+options in `config/general.yml`. Most laws specify that the days are
+either working days, or calendar days. You can set this using the
+[`WORKING_OR_CALENDAR_DAYS`]({{site.baseurl}}docs/customising/config/#working_or_calendar_days)
+option in `config/general.yml`.
+
+## Add some public holidays
+
+<div class="attention-box info">
+Interface introduced in Alaveteli version 0.21
+</div>
+
+Alaveteli calculates the due dates of requests taking account of the
+public holidays you enter into the admin interface. If you have set the
+[`WORKING_OR_CALENDAR_DAYS`]({{site.baseurl}}docs/customising/config/#working_or_calendar_days)
+setting for Alaveteli to `working`, the date when a response to a
+request is officially overdue will be calculated in days that are not
+weekends or public holidays. If you have set
+[`WORKING_OR_CALENDAR_DAYS`]({{site.baseurl}}docs/customising/config/#working_or_calendar_days)
+to `calendar`, the date will be calculated in calendar days, but if the
+due date falls on a public holiday or weekend day, then the due date is
+considered to be the next week day that isn't a holiday.
+
+To add public holidays, go to the "Holidays" tab of the admin interface.
+From here you can either add each holiday day by hand, using the "New
+Holiday" button, or you can create multiple holidays at once using the
+"Create holidays from suggestions or iCal feed" button.
+
 ## Start thinking about customising Alaveteli
 
 Check out [our guide]({{ site.baseurl}}docs/customising/).
+
+
