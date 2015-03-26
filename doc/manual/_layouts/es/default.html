@@ -50,6 +50,14 @@
   <header class="site-header">
     <div class="container">
       <a href="{{ page.baseurl }}" class="site-title"><h1>Alaveteli</h1></a>
+      <div id="lang-switcher" class="ui-dropdown-list">
+        <p class="ui-dropdown-list-trigger es">
+          <strong class="current-locale">ES</strong>
+        </p>
+        <ul class="available-languages">
+          <li><a href="/" title="" class="en">EN</a></li>
+        </ul>
+      </div>
       <div class="nav-position">
         <nav role="navigation" class="site-nav nav-collapse">
           <ul>
@@ -174,5 +182,12 @@
        });
     </script>
     <script src="{{ site.baseurl }}assets/scripts/how-it-works-slides.js"></script>
+    <script>
+       jQuery('#lang-switcher').find('.ui-dropdown-list-trigger').each(function() {
+         jQuery(this).click(function(){
+           jQuery(this).parent().toggleClass('active');
+         });
+       });
+     </script>
   </body>
 </html>
