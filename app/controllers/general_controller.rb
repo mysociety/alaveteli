@@ -15,6 +15,11 @@ class GeneralController < ApplicationController
     def frontpage
         medium_cache
         @locale = self.locale_from_params()
+        successful_query = InfoRequestEvent.make_query_from_params( :latest_status => ['successful'] )
+        @track_thing = TrackThing.create_track_for_search_query(successful_query)
+        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'),
+                               :title => _('Successful requests'),
+                               :has_json => true } ]
     end
 
     # Display blog entries
