@@ -8,17 +8,17 @@ title: Managing requests
 
 <p class="lead">
   Alaveteli makes it easy for a user to make a
-  <a href="{{ site.baseurl }}docs/glossary/#request" class="glossary__link">request</a>.
+  <a href="{{ page.baseurl }}/docs/glossary/#request" class="glossary__link">request</a>.
   As an 
-  <a href="{{ site.baseurl }}docs/glossary/#super" class="glossary__link">administrator</a>,
+  <a href="{{ page.baseurl }}/docs/glossary/#super" class="glossary__link">administrator</a>,
   there are some things about that request you can change once it&rsquo;s been created.
 </p>
 
 A request is automatically created when a user submits and (where necessary)
 confirms it. Alaveteli sends it to the
-<a href="{{ site.baseurl }}docs/glossary/#authority" class="glossary__link">authority</a>
+<a href="{{ page.baseurl }}/docs/glossary/#authority" class="glossary__link">authority</a>
 responsible and handles any
-<a href="{{ site.baseurl }}docs/glossary/#response" class="glossary__link">responses</a>.
+<a href="{{ page.baseurl }}/docs/glossary/#response" class="glossary__link">responses</a>.
 Usually this process runs without needing any intervention from an
 administrator. But sometimes you'll want to change some aspect of the request,
 or the way Alaveteli is handling it.
@@ -35,7 +35,7 @@ or the way Alaveteli is handling it.
 ## What state is the request in?
 
 Every request moves through a series of 
-<a href="{{ site.baseurl }}docs/glossary/#state" class="glossary__link">states</a>,
+<a href="{{ page.baseurl }}/docs/glossary/#state" class="glossary__link">states</a>,
 indicating its progress. Usually a new request will be in the
 `waiting_response` state until something happens to change that &mdash; for
 example, a response is received.
@@ -87,7 +87,7 @@ for how to change these settings.
 ## Changing things about a request
 
 To change any of these settings, go to the 
-<a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>,
+<a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin interface</a>,
 click on **Requests**, then click on the title of the request you want to affect. 
 Click the **Edit metadata** button.
 
@@ -179,12 +179,12 @@ Click the **Edit metadata** button.
         </li>
         <li>
           <code>holding pen</code>: responses are put in the
-          <a href="{{ site.baseurl }}docs/glossary/#holding_pen" class="glossary__link">holding pen</a>
+          <a href="{{ page.baseurl }}/docs/glossary/#holding_pen" class="glossary__link">holding pen</a>
           for an administrator to deal with
         </li>
         <li>
           <code>blackhole</code>: responses are destroyed by being sent to a
-          <a href="{{ site.baseurl }}docs/glossary/#blackhole" class="glossary__link">black hole</a>
+          <a href="{{ page.baseurl }}/docs/glossary/#blackhole" class="glossary__link">black hole</a>
         </li>
       </ul>
     </td>
@@ -194,7 +194,7 @@ Click the **Edit metadata** button.
       What state is it in?
     </td>
     <td>
-      See <a href="{{ site.baseurl }}docs/customising/states/">more about
+      See <a href="{{ page.baseurl }}/docs/customising/states/">more about
       request states</a>, which can be customised for your installation.
       <p>
         You can force the state of the request by choosing it explicitly.
@@ -240,10 +240,10 @@ Click the **Edit metadata** button.
       </p>
       <p>
         Although it&rsquo;s a little more complex than tags on requests,
-        <a href="{{ site.baseurl }}docs/glossary/#category" class="glossary__link">categories</a>
+        <a href="{{ page.baseurl }}/docs/glossary/#category" class="glossary__link">categories</a>
         also use tags:
         see 
-        <a href="{{ site.baseurl }}docs/running/categories_and_tags/">more about tags</a>
+        <a href="{{ page.baseurl }}/docs/running/categories_and_tags/">more about tags</a>
         for a little more information.
       </p>
     </td>
@@ -258,12 +258,12 @@ a user may send a request to the wrong authority. In that situation, you can
 change the authority on the request and then resend it to the correct authority.
 
 To resend a request, go to
-the <a href="{{ site.baseurl }}docs/glossary/#admin"
+the <a href="{{ page.baseurl }}/docs/glossary/#admin"
 class="glossary__link">admin interface</a>, click on **Requests**, then
 click on the name of the request you want to change. Go to the **Outgoing messages** heading. Click the chevron next to the first outgoing message, which is the initial request. A panel of information about that message will appear. Click on the **Resend** button.
 
 To send a request to a different authority, go to
-the <a href="{{ site.baseurl }}docs/glossary/#admin"
+the <a href="{{ page.baseurl }}/docs/glossary/#admin"
 class="glossary__link">admin interface</a>, click on **Requests**, then
 click on the name of the request you want to change. In the **Request
 metadata** section, there is a line which shows the authority. Click the
@@ -285,7 +285,7 @@ You can hide an entire request. Typically you do this if it's not a valid
 Freedom of Information request (for example, a request for personal
 information), or if it is vexatious.
 
-Go to the <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>,
+Go to the <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin interface</a>,
 click on **Requests**, then click on the title of the request you want. You can
 hide it in one of two ways:
 
@@ -344,12 +344,12 @@ destroyed as well.
   <a href="#hiding-a-request">hide the request</a> instead.
 </div>
 
-Go to the <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>,
+Go to the <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin interface</a>,
 click on **Requests**, then click on the title of the request you want to delete. 
 Click the **Edit metadata** button. Click on the red **Destroy request entirely**
 button at the bottom of the page.
 
 Responses to a deleted request will be sent to the
-<a href="{{ site.baseurl }}docs/glossary/#holding_pen" class="glossary__link">holding pen</a>.
+<a href="{{ page.baseurl }}/docs/glossary/#holding_pen" class="glossary__link">holding pen</a>.
 
 
