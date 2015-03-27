@@ -102,6 +102,14 @@ describe GeneralController, "when showing the frontpage" do
         end
     end
 
+    it 'should generate a feed URL for successful requests' do
+        get :frontpage
+        assigns[:feed_autodetect].size.should == 1
+        successful_request_feed = assigns[:feed_autodetect].first
+        successful_request_feed[:title].should == 'Successful requests'
+    end
+
+
     it "should render the front page with default language and ignore the browser setting" do
         config = MySociety::Config.load_default()
         config['USE_DEFAULT_BROWSER_LANGUAGE'] = false
