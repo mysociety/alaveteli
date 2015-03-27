@@ -105,9 +105,10 @@ input.use-datepicker[type=text] {
     width: 100%;
     text-align: center;
     display: block;
-    font-size: 16px;
+    font-size: 14px;
     padding: 0.5em 0.75em;
     border-bottom: 1px solid #ccc;
+    text-decoration: none;
     @include respond-min( 20em ){
       display: inline-block;
       border-right: 1px solid #ccc;
@@ -125,6 +126,7 @@ input.use-datepicker[type=text] {
     }
   }
   span {
+    font-weight: bold;
     background-color: #f4f4f4;
     //older browsers will just see a flat background, new browsers will see an indent
     -webkit-box-shadow: inset 0 2px 5px 1px rgba(0, 0, 0, 0.1);
