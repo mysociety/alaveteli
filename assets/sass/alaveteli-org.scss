@@ -98,11 +98,13 @@ h3 {
     @media (min-width: 47.5em) {
         position: absolute;
         top: 0.4em;
-        left: 180px;
+        right: 80px;
+    }
+    @media (min-width: 52.5em) {
+        right: 160px;
     }
     @media (min-width: $large-screen) {
-        left: 240px;
-        top: 0.35em;
+        top: 0;
     }
 }
 
@@ -897,8 +899,8 @@ h6:hover .header-link {
 /* ui-dropdown-list */
 .ui-dropdown-list {
   position: absolute;
-  left: 160px;
-  top: 0.8em;
+  left: 175px;
+  top: 0.55em;
 }
 
 p.ui-dropdown-list-trigger {
@@ -931,7 +933,7 @@ p.ui-dropdown-list-trigger {
 	display: block;
 	width: 46px;
 	cursor: pointer;
-	padding: 6px 8px;
+	padding: 5px 8px;
 	font-size: 13px;
 	line-height: 13px;
 	color: #fff;
