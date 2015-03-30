@@ -15,11 +15,8 @@ if [ -x /usr/bin/xapian-compact ];
         echo >&2 "Didn't compact Xapian database because there was an existing database at $XAPIAN_DB_DIR/$RAILS_ENV.new"
         exit 1
       else
-        OWNER=$(stat -c %U "$XAPIAN_DB_DIR/$RAILS_ENV")
         export XAPIAN_DB_DIR RAILS_ENV
-        su "$OWNER" <<SU
-commonlib/bin/output-on-error xapian-compact "\$XAPIAN_DB_DIR/\$RAILS_ENV" "\$XAPIAN_DB_DIR/\$RAILS_ENV.new"
-SU
+        commonlib/bin/output-on-error xapian-compact "$XAPIAN_DB_DIR/$RAILS_ENV" "$XAPIAN_DB_DIR/$RAILS_ENV.new"
         mv "$XAPIAN_DB_DIR/$RAILS_ENV" "$XAPIAN_DB_DIR/$RAILS_ENV.tmp"
         mv "$XAPIAN_DB_DIR/$RAILS_ENV.new" "$XAPIAN_DB_DIR/$RAILS_ENV"
         rm -rf "$XAPIAN_DB_DIR/$RAILS_ENV.tmp"

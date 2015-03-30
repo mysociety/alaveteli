@@ -1,4 +1,4 @@
-# rails-3-develop
+# Version 0.21
 
 ## Highlighted Features
 * Lots of improvements in the process of making a new
@@ -55,10 +55,12 @@
   - signup now appears on the left.
 * If you override the application stylesheets rather than adding to them
   using a `custom.css` or `custom.scss` file, check that your
-  stylesheets still order elements correctly in the
+  stylesheets still order elements correctly in the templates
   `app/views/request/select_authority.html.erb`,
   `app/views/public_body/show.html.erb` and
-  `app/views/request/new.html.erb`.
+  `app/views/request/new.html.erb`. Also, if you use the application
+  stylesheets, but have overridden any of these templates or their partials, check to see
+  if you need to update the order of elements in the templates.
 * [Regenerate your crontab](http://alaveteli.org/docs/installing/manual_install/#generate-crontab)
   so that compacting the Xapian database only restarts the application, rather
   than the webserver. This requires the [appropriate SysVinit script](http://alaveteli.org/docs/installing/manual_install/#generate-application-daemon) to be installed.
@@ -67,6 +69,8 @@
 * `config/sysvinit-thin.ugly` has been improved. Regenerate it with
   `rake config_files:convert_init_script`. See [the documentation](http://alaveteli.org/docs/installing/manual_install/#generate-application-daemon)
   for more information.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running rails-post-deploy.
 
 # Version 0.20
 
