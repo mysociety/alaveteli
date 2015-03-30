@@ -15,7 +15,7 @@
 # hywelm <hywelm.jones@talk21.com>, 2013
 # hywelm <hywelm.jones@talk21.com>, 2013
 # louisecrow <louise@mysociety.org>, 2013
-# louisecrow <louise@mysociety.org>, 2013-2014
+# louisecrow <louise@mysociety.org>, 2013-2015
 # PerryX <wyeboy@gmail.com>, 2013
 # PerryX <wyeboy@gmail.com>, 2013
 msgid ""
@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-03-24 11:07+0000\n"
+"PO-Revision-Date: 2015-03-27 14:31+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
@@ -2189,7 +2189,7 @@ msgid "Respond to request"
 msgstr "Ymateb i gais"
 
 msgid "Respond to the FOI request '{{request}}' made by {{user}}"
-msgstr "Ymateb i'r cais rhyddid gwybodaeth '{{cais}}' a wnaed gan {{defnyddiwr}}"
+msgstr "Ymateb i'r cais rhyddid gwybodaeth '{{request}}' a wnaed gan {{user}}"
 
 msgid "Respond using the web"
 msgstr "Ymateb trwy ddefnyddio'r we"
