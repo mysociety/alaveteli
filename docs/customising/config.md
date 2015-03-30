@@ -106,11 +106,11 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 ### Behaviour settings and switches:
 
 <code><a href="#new_response_reminder_after_days">NEW_RESPONSE_REMINDER_AFTER_DAYS</a></code>
+<br> <code><a href="#authority_must_respond">AUTHORITY_MUST_RESPOND</a></code>
 <br> <code><a href="#max_requests_per_user_per_day">MAX_REQUESTS_PER_USER_PER_DAY</a></code>
 <br> <code><a href="#override_all_public_body_request_emails">OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS</a></code>
 <br> <code><a href="#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>
 <br> <code><a href="#public_body_list_fallback_to_default_locale">PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE</a></code>
-<br> <code><a href="#cache_fragments">CACHE_FRAGMENTS</a></code>
 
 ### External public services:
 
@@ -126,6 +126,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <br> <code><a href="#use_mailcatcher_in_development">USE_MAILCATCHER_IN_DEVELOPMENT</a></code>
 <br> <code><a href="#use_ghostscript_compression">USE_GHOSTSCRIPT_COMPRESSION</a></code>
 <br> <code><a href="#html_to_pdf_command">HTML_TO_PDF_COMMAND</a></code>
+<br> <code><a href="#cache_fragments">CACHE_FRAGMENTS</a></code>
 
 
 ---
@@ -189,6 +190,195 @@ indentation correct. If in doubt, look at the examples already in the file, and 
   </dd>
 
   <dt>
+    <a name="force_registration_on_new_request"><code>FORCE_REGISTRATION_ON_NEW_REQUEST</code></a>
+  </dt>
+  <dd>
+    Does a user needs to sign in to start the New Request process?
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>FORCE_REGISTRATION_ON_NEW_REQUEST: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="theme_urls"><code>THEME_URLS</code></a>
+  </dt>
+  <dd>
+    URLs of <a href="{{ site.baseurl }}docs/customising/themes/">themes</a> to download and use
+    (when running the <code>rails-post-deploy</code> script). The earlier in the list means
+    the templates have a higher priority.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <pre>
+THEME_URLS:
+ - 'git://github.com/mysociety/alavetelitheme.git'
+</pre>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="theme_branch"><code>THEME_BRANCH</code></a>
+  </dt>
+  <dd>
+    When <code>rails-post-deploy</code> installs the <a href="{{ site.baseurl }}docs/customising/themes/">themes</a>,
+    it will try the theme branch first, but only if you've set <code>THEME_BRANCH</code>
+    to be true. If the branch doesn't exist it will fall back to using a tagged version
+    specific to your installed alaveteli version, and if that doesn't exist it will
+    back to <code>master</code>.
+    <p>
+        The default theme is the "Alaveteli" theme. This gets installed automatically when
+        <code>rails-post-deploy</code> runs.
+    </p>
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>THEME_BRANCH: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="frontpage_publicbody_examples"><code>FRONTPAGE_PUBLICBODY_EXAMPLES</code></a>
+  </dt>
+  <dd>
+    Specify which public bodies you want to be listed as examples on the home page,
+    using their <code>short_names</code>.
+    If you want more than one, separate them with semicolons.
+    Comment this out if you want this to be auto-generated.
+    <p>
+      <strong>Warning</strong>: this is slow &mdash; don't use in production!
+    </p>
+    <div class="more-info">
+      <p>Examples:</p>
+      <ul class="examples">
+        <li>
+            <code>FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'</code>
+        </li>
+        <li>
+            <code>FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq;foo;bar'</code>
+        </li>
+        <li>
+            <code># FRONTPAGE_PUBLICBODY_EXAMPLES: </code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="public_body_statistics_page"><code>PUBLIC_BODY_STATISTICS_PAGE</code></a> &amp;
+    <a name="minimum_requests_for_statistics"><code>MINIMUM_REQUESTS_FOR_STATISTICS</code></a>
+  </dt>
+  <dd>
+      If <strong>PUBLIC_BODY_STATISTICS_PAGE</strong> is set to true, Alaveteli will make a
+      page of statistics on the performance of public bodies (which you can see at
+      <code>/body_statistics</code>).
+      The page will only consider public bodies that have had at least the number of requests
+      set by <strong>MINIMUM_REQUESTS_FOR_STATISTICS</strong>.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>PUBLIC_BODY_STATISTICS_PAGE: false</code>
+        </li>
+        <li>
+            <code>MINIMUM_REQUESTS_FOR_STATISTICS: 50</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="responsive_styling"><code>RESPONSIVE_STYLING</code></a>
+  </dt>
+  <dd>
+
+     Use the responsive base stylesheets and templates, rather than
+     those that only render the site at a fixed width. These
+     stylesheets are currently experimental but will become the default
+     in the future. They allow the site to render nicely on mobile
+     devices as well as larger screens. Currently the fixed width
+     stylesheets are used by default.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>RESPONSIVE_STYLING: true</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="read_only"><code>READ_ONLY</code></a>
+  </dt>
+  <dd>
+      If present, <strong>READ_ONLY</strong> puts the site in read-only mode,
+      and uses the text as reason (whole paragraph). Please use a read-only database
+      user as well, as it only checks in a few obvious places.
+    <div class="more-info">
+      <p>Examples:</p>
+      <ul class="examples">
+        <li>
+            Typically, you do <strong>not</strong> want to run your site in
+            read-only mode &mdash; so set <strong>READ_ONLY</strong> to be
+            an empty string.
+            <br>
+            <code>
+                READ_ONLY: ''
+            </code>
+        </li>
+        <li>
+            <code>
+                READ_ONLY: 'The site is not currently accepting requests while we move the server.'
+            </code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="staging_site"><code>STAGING_SITE</code></a>
+  </dt>
+  <dd>
+     Is this a
+     <a href="{{site.baseurl}}docs/glossary/#staging" class="glossary__link">staging</a> or
+     <a href="{{site.baseurl}}docs/glossary/#development" class="glossary__link">development</a> site?
+     If not, it's a live <a href="{{site.baseurl}}docs/glossary/#production" class="glossary__link">production</a>
+     site. This setting controls whether or not the <code>rails-post-deploy</code>
+     script will create the file <code>config/rails_env.rb</code> file to force
+     Rails into production environment.
+    <div class="more-info">
+      <p>Examples:</p>
+      <ul class="examples">
+        <li>
+            For staging or development:
+            <p>
+              <code>STAGING_SITE: 1</code>
+            </p>
+        </li>
+        <li>
+            For production:
+            <p>
+              <code>STAGING_SITE: 0</code>
+            </p>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
     <a name="iso_country_code"><code>ISO_COUNTRY_CODE</code></a>
   </dt>
   <dd>
@@ -216,40 +406,6 @@ indentation correct. If in doubt, look at the examples already in the file, and 
       <ul class="examples">
         <li>
             <code>TIME_ZONE: Australia/Sydney</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="blog_feed"><code>BLOG_FEED</code></a>
-  </dt>
-  <dd>
-    These feeds are displayed accordingly on the Alaveteli "blog" page: <!-- TODO -->
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>BLOG_FEED: 'https://www.mysociety.org/category/projects/whatdotheyknow/feed/'</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="twitter_username"><code>TWITTER_USERNAME</code></a>
-    <a name="twitter_widget_id"><code>TWITTER_WIDGET_ID</code></a>
-  </dt>
-  <dd>
-    If you want a twitter feed displayed on the "blog" page, provide the widget ID and username.
-    <div class="more-info">
-      <p>Examples:</p>
-      <ul class="examples">
-        <li>
-            <code>TWITTER_USERNAME: WhatDoTheyKnow</code>
-        </li>
-        <li>
-            <code>TWITTER_WIDGET_ID: '833549204689320031'</code>
         </li>
       </ul>
     </div>
@@ -342,159 +498,6 @@ indentation correct. If in doubt, look at the examples already in the file, and 
   </dd>
 
   <dt>
-    <a name="frontpage_publicbody_examples"><code>FRONTPAGE_PUBLICBODY_EXAMPLES</code></a>
-  </dt>
-  <dd>
-    Specify which public bodies you want to be listed as examples on the home page,
-    using their <code>short_names</code>.
-    If you want more than one, separate them with semicolons.
-    Comment this out if you want this to be auto-generated.
-    <p>
-      <strong>Warning</strong>: this is slow &mdash; don't use in production!
-    </p>
-    <div class="more-info">
-      <p>Examples:</p>
-      <ul class="examples">
-        <li>
-            <code>FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'</code>
-        </li>
-        <li>
-            <code>FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq;foo;bar'</code>
-        </li>
-        <li>
-            <code># FRONTPAGE_PUBLICBODY_EXAMPLES: </code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="theme_urls"><code>THEME_URLS</code></a>
-  </dt>
-  <dd>
-    URLs of <a href="{{ site.baseurl }}docs/customising/themes/">themes</a> to download and use
-    (when running the <code>rails-post-deploy</code> script). The earlier in the list means
-    the templates have a higher priority.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <pre>
-THEME_URLS:
- - 'git://github.com/mysociety/alavetelitheme.git'
-</pre>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="theme_branch"><code>THEME_BRANCH</code></a>
-  </dt>
-  <dd>
-    When <code>rails-post-deploy</code> installs the <a href="{{ site.baseurl }}docs/customising/themes/">themes</a>,
-    it will try the theme branch first, but only if you've set <code>THEME_BRANCH</code>
-    to be true. If the branch doesn't exist it will fall back to using a tagged version
-    specific to your installed alaveteli version, and if that doesn't exist it will
-    back to <code>master</code>.
-    <p>
-        The default theme is the "Alaveteli" theme. This gets installed automatically when
-        <code>rails-post-deploy</code> runs.
-    </p>
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>THEME_BRANCH: false</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="force_registration_on_new_request"><code>FORCE_REGISTRATION_ON_NEW_REQUEST</code></a>
-  </dt>
-  <dd>
-    Does a user needs to sign in to start the New Request process?
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>FORCE_REGISTRATION_ON_NEW_REQUEST: false</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-
-  <dt>
-    <a name="incoming_email_domain"><code>INCOMING_EMAIL_DOMAIN</code></a>
-  </dt>
-  <dd>
-    Your email domain for incoming mail.  See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>INCOMING_EMAIL_DOMAIN: 'localhost'</code>
-        </li>
-        <li>
-            <code>INCOMING_EMAIL_DOMAIN: 'foifa.com'</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="incoming_email_prefix"><code>INCOMING_EMAIL_PREFIX</code></a>
-  </dt>
-  <dd>
-      An optional prefix to help you distinguish FOI requests.  See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>INCOMING_EMAIL_PREFIX: ''</code>
-        </li>
-        <li>
-            <code>INCOMING_EMAIL_PREFIX: 'foi+'</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-
-  <dt>
-    <a name="incoming_email_secret"><code>INCOMING_EMAIL_SECRET</code></a>
-  </dt>
-  <dd>
-     Used for hash in request email address.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>INCOMING_EMAIL_SECRET: '11ae 4e3b 70ff c001 3682 4a51 e86d ef5f'</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="blackhole_prefix"><code>BLACKHOLE_PREFIX</code></a>
-  </dt>
-  <dd>
-      Used as envelope from at the incoming email domain for cases where you don't care about failure.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>BLACKHOLE_PREFIX: 'do-not-reply-to-this-address'</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
     <a name="admin_username"><code>ADMIN_USERNAME</code></a>
     &amp;
     <a name="admin_password"><code>ADMIN_PASSWORD</code></a>
@@ -502,7 +505,7 @@ THEME_URLS:
     <a name="disable_emergency_user"><code>DISABLE_EMERGENCY_USER</code></a>
   </dt>
   <dd>
-      Details for the 
+      Details for the
       <a href="{{site.baseurl}}docs/glossary/#emergency" class="glossary__link">emergency user</a>.
       <p>
         This is useful for creating the initial admin users for your site:
@@ -545,6 +548,72 @@ THEME_URLS:
       <ul class="examples">
         <li>
             <code>SKIP_ADMIN_AUTH: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="incoming_email_domain"><code>INCOMING_EMAIL_DOMAIN</code></a>
+  </dt>
+  <dd>
+    Your email domain for incoming mail.  See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>INCOMING_EMAIL_DOMAIN: 'localhost'</code>
+        </li>
+        <li>
+            <code>INCOMING_EMAIL_DOMAIN: 'foifa.com'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="incoming_email_prefix"><code>INCOMING_EMAIL_PREFIX</code></a>
+  </dt>
+  <dd>
+      An optional prefix to help you distinguish FOI requests.  See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>INCOMING_EMAIL_PREFIX: ''</code>
+        </li>
+        <li>
+            <code>INCOMING_EMAIL_PREFIX: 'foi+'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="incoming_email_secret"><code>INCOMING_EMAIL_SECRET</code></a>
+  </dt>
+  <dd>
+     Used for hash in request email address.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>INCOMING_EMAIL_SECRET: '11ae 4e3b 70ff c001 3682 4a51 e86d ef5f'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="blackhole_prefix"><code>BLACKHOLE_PREFIX</code></a>
+  </dt>
+  <dd>
+      Used as envelope from at the incoming email domain for cases where you don't care about failure.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>BLACKHOLE_PREFIX: 'do-not-reply-to-this-address'</code>
         </li>
       </ul>
     </div>
@@ -606,208 +675,6 @@ THEME_URLS:
   </dd>
 
   <dt>
-    <a name="cookie_store_session_secret"><code>COOKIE_STORE_SESSION_SECRET</code></a>
-  </dt>
-  <dd>
-     Secret key for signing cookie_store sessions. Make it long and random.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>COOKIE_STORE_SESSION_SECRET: 'uIngVC238Jn9NsaQizMNf89pliYmDBFugPjHS2JJmzOp8'</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="read_only"><code>READ_ONLY</code></a>
-  </dt>
-  <dd>
-      If present, <strong>READ_ONLY</strong> puts the site in read-only mode,
-      and uses the text as reason (whole paragraph). Please use a read-only database
-      user as well, as it only checks in a few obvious places.
-    <div class="more-info">
-      <p>Examples:</p>
-      <ul class="examples">
-        <li>
-            Typically, you do <strong>not</strong> want to run your site in
-            read-only mode &mdash; so set <strong>READ_ONLY</strong> to be
-            an empty string.
-            <br>
-            <code>
-                READ_ONLY: ''
-            </code>
-        </li>
-        <li>
-            <code>
-                READ_ONLY: 'The site is not currently accepting requests while we move the server.'
-            </code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="staging_site"><code>STAGING_SITE</code></a>
-  </dt>
-  <dd>
-     Is this a
-     <a href="{{site.baseurl}}docs/glossary/#staging" class="glossary__link">staging</a> or
-     <a href="{{site.baseurl}}docs/glossary/#development" class="glossary__link">development</a> site?
-     If not, it's a live <a href="{{site.baseurl}}docs/glossary/#production" class="glossary__link">production</a>
-     site. This setting controls whether or not the <code>rails-post-deploy</code>
-     script will create the file <code>config/rails_env.rb</code> file to force
-     Rails into production environment.
-    <div class="more-info">
-      <p>Examples:</p>
-      <ul class="examples">
-        <li>
-            For staging or development:
-            <p>
-              <code>STAGING_SITE: 1</code>
-            </p>
-        </li>
-        <li>
-            For production:
-            <p>
-              <code>STAGING_SITE: 0</code>
-            </p>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-      <a name="recaptcha_public_key"><code>RECAPTCHA_PUBLIC_KEY</code></a> &amp;
-      <a name="recaptcha_private_key"><code>RECAPTCHA_PRIVATE_KEY</code></a>
-  </dt>
-  <dd>
-     Recaptcha, for detecting humans. Get keys here:
-     <a href="http://recaptcha.net/whyrecaptcha.html">http://recaptcha.net/whyrecaptcha.html</a>
-
-    <div class="more-info">
-      <p>Examples:</p>
-      <ul class="examples">
-        <li>
-            <code>RECAPTCHA_PUBLIC_KEY: '7HoPjGBBBBBBBBBkmj78HF9PjjaisQ893'</code>
-        </li>
-        <li>
-            <code>RECAPTCHA_PRIVATE_KEY: '7HjPjGBBBBBCBBBpuTy8a33sgnGG7A'</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="new_response_reminder_after_days"><code>NEW_RESPONSE_REMINDER_AFTER_DAYS</code></a>
-  </dt>
-  <dd>
-       Number of days after which to send a 'new response reminder'.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>NEW_RESPONSE_REMINDER_AFTER_DAYS: [3, 10, 24]</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="debug_record_memory"><code>DEBUG_RECORD_MEMORY</code></a>
-  </dt>
-  <dd>
-     For debugging memory problems.  If true, Alaveteli logs
-     the memory use increase of the Ruby process due to the
-     request (Linux only).  Since Ruby never returns memory to the OS, if the
-     existing process previously served a larger request, this won't
-     show any consumption for the later request.
-
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>DEBUG_RECORD_MEMORY: false</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-
-  <dt>
-    <a name="use_ghostscript_compression"><code>USE_GHOSTSCRIPT_COMPRESSION</code></a>
-  </dt>
-  <dd>
-    Currently we default to using pdftk to compress PDFs.  You can
-    optionally try Ghostscript, which should do a better job of
-    compression.  Some versions of pdftk are buggy with respect to
-    compression, in which case Alaveteli doesn't recompress the PDFs at
-    all and logs a warning message "Unable to compress PDF" &mdash; which would
-    be another reason to try this setting.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>USE_GHOSTSCRIPT_COMPRESSION: true</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-
-  <dt>
-    <a name="gaze_url"><code>GAZE_URL</code></a>
-  </dt>
-  <dd>
-      Alateveli uses mySociety's gazeteer service to determine country from incoming
-      IP address (this lets us suggest an Alaveteli in their country, if one exists).
-      You shouldn't normally need to change this.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>GAZE_URL: http://gaze.mysociety.org</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="forward_nonbounce_responses_to"><code>FORWARD_NONBOUNCE_RESPONSES_TO</code></a>
-  </dt>
-  <dd>
-     The email address to which non-bounce responses should be forwarded. See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>FORWARD_NONBOUNCE_RESPONSES_TO: user-support@example.com</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="html_to_pdf_command"><code>HTML_TO_PDF_COMMAND</code></a>
-  </dt>
-  <dd>
-    Path to a program that converts an HTML page in a file to PDF.  It
-    should take two arguments: the URL, and a path to an output file.
-    A static binary of <a href="http://wkhtmltopdf.org">wkhtmltopdf</a> is recommended.
-    If the command is not present, a text-only version will be rendered
-    instead.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf-amd64</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
     <a name="exception_notifications_from"><code>EXCEPTION_NOTIFICATIONS_FROM</code></a> &amp;
     <a name="exception_notifications_to"><code>EXCEPTION_NOTIFICATIONS_TO</code></a>
   </dt>
@@ -830,98 +697,19 @@ EXCEPTION_NOTIFICATIONS_TO:
   </dd>
 
   <dt>
-    <a name="max_requests_per_user_per_day"><code>MAX_REQUESTS_PER_USER_PER_DAY</code></a>
+    <a name="forward_nonbounce_responses_to"><code>FORWARD_NONBOUNCE_RESPONSES_TO</code></a>
   </dt>
   <dd>
-      This rate limiting can be turned off per-user via the admin interface.
+     The email address to which non-bounce responses should be forwarded. See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>MAX_REQUESTS_PER_USER_PER_DAY: 6</code>
+            <code>FORWARD_NONBOUNCE_RESPONSES_TO: user-support@example.com</code>
         </li>
       </ul>
     </div>
   </dd>
-
-  <dt>
-    <a name="varnish_host"><code>VARNISH_HOST</code></a>
-  </dt>
-  <dd>
-      If you're running behind Varnish, it might help to set this to
-      work out where to send purge requests.
-      Otherwise, don't set it.
-    <div class="more-info">
-      <p>Examples:</p>
-      <ul class="examples">
-        <li>
-            <code>VARNISH_HOST: null</code>
-        </li>
-        <li>
-            <code>VARNISH_HOST: localhost</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="ga_code"><code>GA_CODE</code> (GA=Google Analytics)</a>
-  </dt>
-  <dd>
-      Adding a value here will enable Google Analytics on all non-admin pages for non-admin users.
-    <div class="more-info">
-      <p>Examples:</p>
-      <ul class="examples">
-        <li>
-            <code>GA_CODE: ''</code>
-        </li>
-        <li>
-            <code>GA_CODE: 'AB-8222142-14'</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-
-  <dt>
-    <a name="override_all_public_body_request_emails"><code>OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS</code></a>
-  </dt>
-  <dd>
-    If you want to override <strong>all</strong> the public body request emails with
-    your own email address so that request emails that would normally go to the public body
-    go to you, use this setting.
-    This is useful for a staging server, so you can play with the whole process of sending requests
-    without inadvertently sending an email to a real authority.
-    <div class="more-info">
-      <p>Examples:</p>
-      <ul class="examples">
-        <li>
-            <code>OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: test-email@foo.com</code>
-        </li>
-        <li>
-            If you don't want this behaviour, comment the setting out
-            <br>
-            <code># OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS:</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="utility_search_path"><code>UTILITY_SEARCH_PATH</code></a>
-  </dt>
-  <dd>
-      Search path for external command-line utilities (such as pdftohtml, pdftk, unrtf).
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>UTILITY_SEARCH_PATH: ["/usr/bin", "/usr/local/bin"]</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
 
   <dt>
     <a name="mta_log_path"><code>MTA_LOG_PATH</code></a>
@@ -956,99 +744,90 @@ EXCEPTION_NOTIFICATIONS_TO:
   </dd>
 
   <dt>
-    <a name="donation_url"><code>DONATION_URL</code></a>
+    <a name="cookie_store_session_secret"><code>COOKIE_STORE_SESSION_SECRET</code></a>
   </dt>
   <dd>
-      URL where people can donate to the organisation running the site. If set,
-      this will be included in the message people see when their request is
-      successful.
+     Secret key for signing cookie_store sessions. Make it long and random.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>DONATION_URL: "https://www.mysociety.org/donate/"</code>
+            <code>COOKIE_STORE_SESSION_SECRET: 'uIngVC238Jn9NsaQizMNf89pliYmDBFugPjHS2JJmzOp8'</code>
         </li>
       </ul>
     </div>
   </dd>
 
   <dt>
-    <a name="public_body_statistics_page"><code>PUBLIC_BODY_STATISTICS_PAGE</code></a> &amp;
-    <a name="minimum_requests_for_statistics"><code>MINIMUM_REQUESTS_FOR_STATISTICS</code></a>
+      <a name="recaptcha_public_key"><code>RECAPTCHA_PUBLIC_KEY</code></a> &amp;
+      <a name="recaptcha_private_key"><code>RECAPTCHA_PRIVATE_KEY</code></a>
   </dt>
   <dd>
-      If <strong>PUBLIC_BODY_STATISTICS_PAGE</strong> is set to true, Alaveteli will make a
-      page of statistics on the performance of public bodies (which you can see at
-      <code>/body_statistics</code>).
-      The page will only consider public bodies that have had at least the number of requests
-      set by <strong>MINIMUM_REQUESTS_FOR_STATISTICS</strong>.
+     Recaptcha, for detecting humans. Get keys here:
+     <a href="http://recaptcha.net/whyrecaptcha.html">http://recaptcha.net/whyrecaptcha.html</a>
 
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul class="examples">
         <li>
-            <code>PUBLIC_BODY_STATISTICS_PAGE: false</code>
+            <code>RECAPTCHA_PUBLIC_KEY: '7HoPjGBBBBBBBBBkmj78HF9PjjaisQ893'</code>
         </li>
         <li>
-            <code>MINIMUM_REQUESTS_FOR_STATISTICS: 50</code>
+            <code>RECAPTCHA_PRIVATE_KEY: '7HjPjGBBBBBCBBBpuTy8a33sgnGG7A'</code>
         </li>
       </ul>
     </div>
   </dd>
 
   <dt>
-    <a name="public_body_list_fallback_to_default_locale"><code>PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE</code></a>
+    <a name="gaze_url"><code>GAZE_URL</code></a>
   </dt>
   <dd>
-     If you would like the public body list page to include bodies that have no translation
-     in the current locale (but which do have a translation in the default locale), set this to true.
+      Alateveli uses mySociety's gazeteer service to determine country from incoming
+      IP address (this lets us suggest an Alaveteli in their country, if one exists).
+      You shouldn't normally need to change this.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE: false</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-
-  <dt>
-    <a name="use_mailcatcher_in_development"><code>USE_MAILCATCHER_IN_DEVELOPMENT</code></a>
-  </dt>
-  <dd>
-      <!-- TODO check mailcatcher URL -->
-     If true, while in development mode, try to send mail by SMTP to port
-     1025 (the port the <a href="http://mailcatcher.me">mailcatcher</a> listens on by default):
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>USE_MAILCATCHER_IN_DEVELOPMENT: true</code>
+            <code>GAZE_URL: http://gaze.mysociety.org</code>
         </li>
       </ul>
     </div>
   </dd>
 
   <dt>
-    <a name="cache_fragments"><code>CACHE_FRAGMENTS</code></a>
+    <a name="ga_code"><code>GA_CODE</code> (GA=Google Analytics)</a>
   </dt>
   <dd>
-      Use memcached to cache HTML fragments for better performance.
-      This will only have an effect in environments where
-      <code>config.action_controller.perform_caching</code> is set to true
-
+      Adding a value here will enable Google Analytics on all non-admin pages for non-admin users.
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul class="examples">
         <li>
-            <code>CACHE_FRAGMENTS: true</code>
+            <code>GA_CODE: ''</code>
+        </li>
+        <li>
+            <code>GA_CODE: 'AB-8222142-14'</code>
         </li>
       </ul>
     </div>
   </dd>
 
-
+  <dt>
+    <a name="utility_search_path"><code>UTILITY_SEARCH_PATH</code></a>
+  </dt>
+  <dd>
+      Search path for external command-line utilities (such as pdftohtml, pdftk, unrtf).
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>UTILITY_SEARCH_PATH: ["/usr/bin", "/usr/local/bin"]</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
 
   <dt>
     <a name="shared_files_path"><code>SHARED_FILES_PATH</code></a>
@@ -1070,7 +849,6 @@ EXCEPTION_NOTIFICATIONS_TO:
       </ul>
     </div>
   </dd>
-
 
   <dt>
     <a name="shared_files"><code>SHARED_FILES</code></a> &
@@ -1111,6 +889,78 @@ SHARED_DIRECTORIES:
   </dd>
 
   <dt>
+    <a name="new_response_reminder_after_days"><code>NEW_RESPONSE_REMINDER_AFTER_DAYS</code></a>
+  </dt>
+  <dd>
+       Number of days after which to send a 'new response reminder'.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>NEW_RESPONSE_REMINDER_AFTER_DAYS: [3, 10, 24]</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="authority_must_respond"><code>AUTHORITY_MUST_RESPOND</code></a>
+  </dt>
+  <dd>
+    <div class="attention-box info">
+      Introduced in Alaveteli version 0.21
+    </div>
+     Set this to <code>true</code> if authorities must respond by law. Set to <code>false</code> otherwise. It defaults to <code>true</code>. At the moment this just controls the display of some UI text telling users that the authority must respond to them by law.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>AUTHORITY_MUST_RESPOND: true</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="max_requests_per_user_per_day"><code>MAX_REQUESTS_PER_USER_PER_DAY</code></a>
+  </dt>
+  <dd>
+      This rate limiting can be turned off per-user via the admin interface.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>MAX_REQUESTS_PER_USER_PER_DAY: 6</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="override_all_public_body_request_emails"><code>OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS</code></a>
+  </dt>
+  <dd>
+    If you want to override <strong>all</strong> the public body request emails with
+    your own email address so that request emails that would normally go to the public body
+    go to you, use this setting.
+    This is useful for a staging server, so you can play with the whole process of sending requests
+    without inadvertently sending an email to a real authority.
+    <div class="more-info">
+      <p>Examples:</p>
+      <ul class="examples">
+        <li>
+            <code>OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: test-email@foo.com</code>
+        </li>
+        <li>
+            If you don't want this behaviour, comment the setting out
+            <br>
+            <code># OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS:</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
     <a name="allow_batch_requests"><code>ALLOW_BATCH_REQUESTS</code></a>
   </dt>
   <dd>
@@ -1128,22 +978,182 @@ SHARED_DIRECTORIES:
   </dd>
 
   <dt>
-    <a name="responsive_styling"><code>RESPONSIVE_STYLING</code></a>
+    <a name="public_body_list_fallback_to_default_locale"><code>PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE</code></a>
   </dt>
   <dd>
+     If you would like the public body list page to include bodies that have no translation
+     in the current locale (but which do have a translation in the default locale), set this to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
 
-     Use the responsive base stylesheets and templates, rather than
-     those that only render the site at a fixed width. These
-     stylesheets are currently experimental but will become the default
-     in the future. They allow the site to render nicely on mobile
-     devices as well as larger screens. Currently the fixed width
-     stylesheets are used by default.
+  <dt>
+    <a name="blog_feed"><code>BLOG_FEED</code></a>
+  </dt>
+  <dd>
+    These feeds are displayed accordingly on the Alaveteli "blog" page: <!-- TODO -->
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>BLOG_FEED: 'https://www.mysociety.org/category/projects/whatdotheyknow/feed/'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="twitter_username"><code>TWITTER_USERNAME</code></a>
+    <a name="twitter_widget_id"><code>TWITTER_WIDGET_ID</code></a>
+  </dt>
+  <dd>
+    If you want a twitter feed displayed on the "blog" page, provide the widget ID and username.
+    <div class="more-info">
+      <p>Examples:</p>
+      <ul class="examples">
+        <li>
+            <code>TWITTER_USERNAME: WhatDoTheyKnow</code>
+        </li>
+        <li>
+            <code>TWITTER_WIDGET_ID: '833549204689320031'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="donation_url"><code>DONATION_URL</code></a>
+  </dt>
+  <dd>
+      URL where people can donate to the organisation running the site. If set,
+      this will be included in the message people see when their request is
+      successful.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>DONATION_URL: "https://www.mysociety.org/donate/"</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="debug_record_memory"><code>DEBUG_RECORD_MEMORY</code></a>
+  </dt>
+  <dd>
+     For debugging memory problems.  If true, Alaveteli logs
+     the memory use increase of the Ruby process due to the
+     request (Linux only).  Since Ruby never returns memory to the OS, if the
+     existing process previously served a larger request, this won't
+     show any consumption for the later request.
 
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>RESPONSIVE_STYLING: true</code>
+            <code>DEBUG_RECORD_MEMORY: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="varnish_host"><code>VARNISH_HOST</code></a>
+  </dt>
+  <dd>
+      If you're running behind Varnish, it might help to set this to
+      work out where to send purge requests.
+      Otherwise, don't set it.
+    <div class="more-info">
+      <p>Examples:</p>
+      <ul class="examples">
+        <li>
+            <code>VARNISH_HOST: null</code>
+        </li>
+        <li>
+            <code>VARNISH_HOST: localhost</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="use_mailcatcher_in_development"><code>USE_MAILCATCHER_IN_DEVELOPMENT</code></a>
+  </dt>
+  <dd>
+      <!-- TODO check mailcatcher URL -->
+     If true, while in development mode, try to send mail by SMTP to port
+     1025 (the port the <a href="http://mailcatcher.me">mailcatcher</a> listens on by default):
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>USE_MAILCATCHER_IN_DEVELOPMENT: true</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="use_ghostscript_compression"><code>USE_GHOSTSCRIPT_COMPRESSION</code></a>
+  </dt>
+  <dd>
+    Currently we default to using pdftk to compress PDFs.  You can
+    optionally try Ghostscript, which should do a better job of
+    compression.  Some versions of pdftk are buggy with respect to
+    compression, in which case Alaveteli doesn't recompress the PDFs at
+    all and logs a warning message "Unable to compress PDF" &mdash; which would
+    be another reason to try this setting.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>USE_GHOSTSCRIPT_COMPRESSION: true</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="html_to_pdf_command"><code>HTML_TO_PDF_COMMAND</code></a>
+  </dt>
+  <dd>
+    Path to a program that converts an HTML page in a file to PDF.  It
+    should take two arguments: the URL, and a path to an output file.
+    A static binary of <a href="http://wkhtmltopdf.org">wkhtmltopdf</a> is recommended.
+    If the command is not present, a text-only version will be rendered
+    instead.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf-amd64</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+
+  <dt>
+    <a name="cache_fragments"><code>CACHE_FRAGMENTS</code></a>
+  </dt>
+  <dd>
+      Use memcached to cache HTML fragments for better performance.
+      This will only have an effect in environments where
+      <code>config.action_controller.perform_caching</code> is set to true
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>CACHE_FRAGMENTS: true</code>
         </li>
       </ul>
     </div>
