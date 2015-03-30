@@ -57,3 +57,11 @@
 #advanced-search-tips{
   @include grid-column(12);
 }
+
+.list-filter-item {
+    .title {
+        display: inline;
+        font-size: 1em;
+        font-weight: normal;
+    }
+}

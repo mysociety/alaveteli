@@ -14,7 +14,7 @@
           <%= link_to label, url_for(:controller => "request", :action => "list", :view => status) + "?" + request.query_string + '#results' %>
         <% end %>
       <% else %>
-        <%= label %>
+        <span><%= label %></span>
       <% end %>
       </li>
     <% end %>
