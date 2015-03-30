@@ -13,7 +13,7 @@
 <%= @change_request.notes %>
 
 <%= _('Add the authority:') %>
-<%= admin_body_new_url(:change_request_id => @change_request.id, :only_path => false ) %>
+<%= new_admin_body_url(:change_request_id => @change_request.id, :only_path => false ) %>
 
 <%= _('Close the request and respond:') %>
-<%= admin_change_request_edit_url(:id => @change_request.id, :only_path => false ) %>
+<%= edit_admin_change_request_url(@change_request, :only_path => false ) %>

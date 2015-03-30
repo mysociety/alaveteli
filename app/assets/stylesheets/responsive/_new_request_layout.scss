@@ -3,8 +3,9 @@
 /* /select_authority page */
 #authority_selection {
   @include grid-column($columns: 12, $collapse: true);
+
   @include respond-min( $main_menu-mobile_menu_cutoff ){
-    @include grid-column($columns: 6, $collapse: true);
+    @include grid-column(8, $collapse: true);
     @include ie8{
       padding-right: 0.9375em;
     }
@@ -15,16 +16,27 @@
       width: 80%;
     }
   }
+  .authority_search_ahead_results_container {
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-row($behavior: nest);
+    }
+  }
+  #authority_search_ahead_results,
+  .cant_find_results {
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-column(12);
+    }
+  }
 }
 
 .new_info_request{
- @include grid-row($behavior: nest);
+ @include grid-row();
 }
 
 #select_authority_help {
-  @include grid-column(12);
+  @include grid-column(12, $collapse: true);
   @include respond-min( $main_menu-mobile_menu_cutoff ) {
-    @include grid-column(6);
+    @include grid-column(4);
     @include ie8 {
       padding-right: 0.9375em;
     }
@@ -32,14 +44,41 @@
       width: 26.188em;
     }
   }
+
+  /* Hide some elements of the public body that aren't appropriate in this
+  context */
+  #list-filter, h2.foi_results, .public-body-name-prefix {
+    display: none;
+  }
+
+  /* Compact request list for viewing in authority preview column */
+  .request_left, #header_left {
+    @include grid-column(12, $collapse: true);
+  }
+
+  .request_right {
+    @include grid-column(12, $collapse: true);
+  }
+
+  span.desc {
+    background:none;
+    line-height:18px;
+    padding: 0;
+  }
+
+  .typeahead_response {
+    @include grid-row($behavior: nest);
+  }
+
+
 }
 
 /* /new/[body_name] page */
 #request_header {
-  @include grid-row;
+  @include grid-row($behavior: nest);
 
   /* Restrict width of form elements on wide screens */
-    #request_header_body, #request_header_subject, #typeahead_response  {
+    #request_header_body, #request_header_subject, #typeahead_response {
     @include grid-column(12);
     @include respond-min( $main_menu-mobile_menu_cutoff ){
       @include grid-column($columns:8, $last-column:true);
@@ -58,12 +97,23 @@
   }
 }
 
-/* Advice sits on right hand side */
-#request_advice {
+#typeahead_response .close-button {
+  float: right;
+}
 
+.request_body {
+  @include grid-row($behavior: nest);
+}
+
+#request_body_header {
+  @include grid-column(12);
+}
+
+/* Advice sits on right hand side */
+#request_advice, .preview-advice {
   @include grid-column(12);
   @include respond-min( $main_menu-mobile_menu_cutoff ){
-    @include grid-column($columns:4, $push: 8);
+    @include grid-column($columns:4, $push:8, $last-column:true);
     @include ie8{
       padding-left: 0.9375em;
     }
@@ -74,10 +124,9 @@
 }
 
 #request_form {
-
   @include grid-column(12);
   @include respond-min( $main_menu-mobile_menu_cutoff ){
-    @include grid-column($columns:8, $pull: 4);
+    @include grid-column($columns:8, $pull:4);
     @include ie8{
       padding-right: 0.9375em;
     }
@@ -88,9 +137,27 @@
 
 }
 
-#preview_form {
-  @include grid-column(12);
+#outgoing_message_body {
+  width: 100%;
 }
+
+/* Message preview */
+.message-preview {
+  @include grid-row($behavior: nest);
+}
+
+.preview-pane {
+    @include grid-column(12);
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-column($columns:8, $pull:4);
+      @include ie8{
+        padding-right: 0.9375em;
+      }
+      @include lte-ie7 {
+        width: 36.813em;
+      }
+    }
+  }
 
 
 /* Batch request page*/
@@ -160,6 +227,57 @@ div.batch_public_body_toggle {
   margin-left: 110px;
 }
 
+/* Request sent page */
+.request-sent-message {
+  margin-top: 1em;
+  h1 {
+    font-size: 1.3em;
+    margin-top: 0;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      font-size: 2em;
+      margin-bottom: 1em;
+    }
+  }
 
+  .share-link img {
+    display:block;
+    margin: 1em auto;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      display: inline-block;
+      margin: inherit;
+    }
+  }
 
+}
 
+.request-sent-message__row {
+  @include grid-row($behavior: nest);
+}
+
+.request-sent-message__column-1 {
+  @include grid-column(12);
+  margin-bottom: 1em;
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:8);
+    margin-bottom: 0;
+    @include ie8{
+      padding-right: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 36.813em;
+    }
+  }
+}
+
+.request-sent-message__column-2 {
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:4);
+    @include ie8{
+      padding-left: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 17.438em;
+    }
+  }
+}

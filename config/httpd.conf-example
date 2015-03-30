@@ -34,7 +34,7 @@
         # Passenger's default MaxPoolSize is 6. At the time of writing
         # normal instances of Alaveteli seem to take 150-200MB per
         # process, so we've set this conservatively at 3. Read the guides
-        # above to tune this for your system 
+        # above to tune this for your system
         PassengerMaxPoolSize 3
 
         # The RAILS_ENV that the app is running in. This can be any of
@@ -97,6 +97,11 @@
     #
     # The condition means that the rule will fire only if the cached
     # file exists.
+    #
+    # The second condition-rule pair handles the same transformation for
+    # files served from a non-default locale, 'cy'. You will need one
+    # set of rules for each non-default locale.
+
     RewriteMap escape int:escape
     RewriteCond %{DOCUMENT_ROOT}/views_cache/request/$2/$1/${escape:$3} -f
     RewriteRule ^/request/((\d{1,3})\d*)/(response/\d+/attach/(html/)?\d+/.+) /views_cache/request/$2/$1/${escape:$3} [L]

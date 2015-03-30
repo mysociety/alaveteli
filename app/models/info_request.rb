@@ -187,11 +187,9 @@ class InfoRequest < ActiveRecord::Base
 
     @@custom_states_loaded = false
     begin
-        if !Rails.env.test?
-            require 'customstates'
-            include InfoRequestCustomStates
-            @@custom_states_loaded = true
-        end
+        require 'customstates'
+        include InfoRequestCustomStates
+        @@custom_states_loaded = true
     rescue MissingSourceFile, NameError
     end
 
@@ -209,16 +207,6 @@ class InfoRequest < ActiveRecord::Base
     end
 
     OLD_AGE_IN_DAYS = 21.days
-
-    def after_initialize
-        if self.described_state.nil?
-            self.described_state = 'waiting_response'
-        end
-        # FOI or EIR?
-        if !self.public_body.nil? && self.public_body.eir_only?
-            self.law_used = 'eir'
-        end
-    end
 
     def visible_comments
         self.comments.find(:all, :conditions => 'visible')
@@ -292,13 +280,18 @@ public
     end
 
     # Subject lines for emails about the request
-    def email_subject_request
-        _('{{law_used_full}} request - {{title}}',:law_used_full=>self.law_used_full,:title=>self.title.html_safe)
+    def email_subject_request(opts = {})
+        html = opts.fetch(:html, true)
+        _('{{law_used_full}} request - {{title}}',
+            :law_used_full => self.law_used_full,
+            :title => (html ? title : title.html_safe))
     end
 
-    def email_subject_followup(incoming_message = nil)
+    def email_subject_followup(opts = {})
+        incoming_message = opts.fetch(:incoming_message, nil)
+        html = opts.fetch(:html, true)
         if incoming_message.nil? || !incoming_message.valid_to_reply_to? || !incoming_message.subject
-            'Re: ' + self.email_subject_request
+            'Re: ' + self.email_subject_request(:html => html)
         else
             if incoming_message.subject.match(/^Re:/i)
                 incoming_message.subject
@@ -753,7 +746,6 @@ public
     # This is a long stop - even with UK public interest test extensions, 40
     # days is a very long time.
     def date_very_overdue_after
-        last_sent = last_event_forming_initial_request
         if self.public_body.is_school?
             # schools have 60 working days maximum (even over a long holiday)
             Holiday.due_date_from(self.date_initial_request_last_sent_at, AlaveteliConfiguration::special_reply_very_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
@@ -1148,6 +1140,22 @@ public
         return binary
     end
 
+    # Masks we apply to text associated with this request convert email addresses
+    # we know about into textual descriptions of them
+    def masks
+        masks = [{ :to_replace => incoming_email,
+                   :replacement =>  _('[FOI #{{request}} email]',
+                                      :request => id.to_s) },
+                 { :to_replace => AlaveteliConfiguration::contact_email,
+                   :replacement => _("[{{site_name}} contact email]",
+                                     :site_name => AlaveteliConfiguration::site_name)} ]
+        if public_body.is_followupable?
+            masks << { :to_replace => public_body.request_email,
+                       :replacement => _("[{{public_body}} request email]",
+                                         :public_body => public_body.short_or_long_name) }
+        end
+     end
+
     def is_owning_user?(user)
         !user.nil? && (user.id == user_id || user.owns_every_request?)
     end
@@ -1345,9 +1353,9 @@ public
     end
 
     def InfoRequest.find_in_state(state)
-        find(:all, :select => '*, ' + last_event_time_clause + ' as last_event_time',
-                   :conditions => ["described_state = ?", state],
-                   :order => "last_event_time")
+        select("*, #{ last_event_time_clause } as last_event_time").
+            where(:described_state => state).
+                order('last_event_time')
     end
 
     private

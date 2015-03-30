@@ -2,7 +2,7 @@
 
 <%= error_messages_for 'outgoing_message' %>
 
-<%= form_tag admin_outgoing_update_path(@outgoing_message) do %>
+<%= form_tag admin_outgoing_message_path(@outgoing_message), :method => 'put' do %>
   <div class="control-group">
     <label class="control-label" for="outgoing_message_prominence"> Prominence</label>
     <div class="controls">
@@ -36,13 +36,12 @@
 <% end %>
 
 <p>
-<%= link_to 'Show', admin_request_show_path(@outgoing_message.info_request) %> |
-<%= link_to 'List all', admin_request_list_path %>
+<%= link_to 'Show', admin_request_path(@outgoing_message.info_request) %> |
+<%= link_to 'List all', admin_requests_path %>
 </p>
 
-<%= form_tag admin_outgoing_destroy_path do %>
+<%= form_tag admin_outgoing_message_path(@outgoing_message), :method => 'delete' do %>
   <div>
-      <%= hidden_field_tag 'outgoing_message_id', @outgoing_message.id %>
       <%= submit_tag "Destroy outgoing message", :class => "btn btn-danger", :confirm => "This is permanent! Are you sure?" %>
   </div>
 <% end %>

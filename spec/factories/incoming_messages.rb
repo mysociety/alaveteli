@@ -10,6 +10,9 @@ FactoryGirl.define do
             FactoryGirl.create(:body_text,
                                :incoming_message => incoming_message,
                                :url_part_number => 1)
+
+            incoming_message.raw_email.incoming_message = incoming_message
+            incoming_message.raw_email.data = "somedata"
         end
 
         factory :plain_incoming_message do

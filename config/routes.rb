@@ -169,17 +169,15 @@ Alaveteli::Application.routes.draw do
     ####
 
     #### AdminPublicBody controller
-    match '/admin/missing_scheme' => 'admin_public_body#missing_scheme', :as => :admin_body_missing
-    match '/admin/body' => 'admin_public_body#index', :as => :admin_body_index
-    match '/admin/body/list' => 'admin_public_body#list', :as => :admin_body_list
-    match '/admin/body/show/:id' => 'admin_public_body#show', :as => :admin_body_show
-    match '/admin/body/new' => 'admin_public_body#new', :as => :admin_body_new
-    match '/admin/body/edit/:id' => 'admin_public_body#edit', :as => :admin_body_edit
-    match '/admin/body/update/:id' => 'admin_public_body#update', :as => :admin_body_update
-    match '/admin/body/create' => 'admin_public_body#create', :as => :admin_body_create
-    match '/admin/body/destroy/:id' => 'admin_public_body#destroy', :as => :admin_body_destroy
-    match '/admin/body/import_csv' => 'admin_public_body#import_csv', :as => :admin_body_import_csv
-    match '/admin/body/mass_tag_add' => 'admin_public_body#mass_tag_add', :as => :admin_body_mass_tag_add
+    scope '/admin', :as => 'admin' do
+        resources :bodies,
+                  :controller => 'admin_public_body' do
+                    get 'missing_scheme', :on => :collection
+                    post 'mass_tag_add', :on => :collection
+                    get 'import_csv', :on => :collection
+                    post 'import_csv', :on => :collection
+        end
+    end
     ####
 
     #### AdminPublicBodyCategory controller
@@ -200,9 +198,27 @@ Alaveteli::Application.routes.draw do
     end
     ####
 
+    #### AdminHoliday controller
+    scope '/admin', :as => 'admin' do
+        resources :holidays,
+                  :controller => 'admin_holidays'
+    end
+    ####
+
+    #### AdminHolidayImports controller
+    scope '/admin', :as => 'admin' do
+      resources :holiday_imports,
+                :controller => 'admin_holiday_imports',
+                :only => [:new, :create]
+    end
+    ####
+
     #### AdminPublicBodyChangeRequest controller
-    match '/admin/change_request/edit/:id' => 'admin_public_body_change_requests#edit', :as => :admin_change_request_edit
-    match '/admin/change_request/update/:id' => 'admin_public_body_change_requests#update', :as => :admin_change_request_update
+    scope '/admin', :as => 'admin'  do
+        resources :change_requests,
+                  :controller => 'admin_public_body_change_requests',
+                  :only => [:edit, :update]
+    end
     ####
 
     #### AdminGeneral controller
@@ -213,80 +229,98 @@ Alaveteli::Application.routes.draw do
     ####
 
     #### AdminRequest controller
-    match '/admin/request' => 'admin_request#index', :as => :admin_request_index
-    match '/admin/request/list' => 'admin_request#list', :as => :admin_request_list
-    match '/admin/request/show/:id' => 'admin_request#show', :as => :admin_request_show
-    match '/admin/request/resend' => 'admin_request#resend', :as => :admin_request_resend
-    match '/admin/request/edit/:id' => 'admin_request#edit', :as => :admin_request_edit
-    match '/admin/request/update/:id' => 'admin_request#update', :as => :admin_request_update
-    match '/admin/request/destroy/:id' => 'admin_request#fully_destroy', :as => :admin_request_destroy
-    match '/admin/request/edit_comment/:id' => 'admin_request#edit_comment', :as => :admin_request_edit_comment
-    match '/admin/request/update_comment/:id' => 'admin_request#update_comment', :as => :admin_request_update_comment
-    match '/admin/request/move_request' => 'admin_request#move_request', :as => :admin_request_move_request
-    match '/admin/request/generate_upload_url/:id' => 'admin_request#generate_upload_url', :as => :admin_request_generate_upload_url
-    match '/admin/request/show_raw_email/:id' => 'admin_request#show_raw_email', :as => :admin_request_show_raw_email
-    match '/admin/request/download_raw_email/:id' => 'admin_request#download_raw_email', :as => :admin_request_download_raw_email
-    match '/admin/request/mark_event_as_clarification' => 'admin_request#mark_event_as_clarification', :as => :admin_request_clarification
-    match '/admin/request/hide/:id' => 'admin_request#hide_request', :as => :admin_request_hide
+    scope '/admin', :as => 'admin' do
+        resources :requests,
+                  :controller => 'admin_request',
+                  :except => [:new, :create] do
+                      post 'move', :on => :member
+                      post 'generate_upload_url', :on => :member
+                      post 'hide', :on => :member
+                      resources :censor_rules,
+                                :controller => 'admin_censor_rule',
+                                :only => [:new, :create],
+                                :name_prefix => 'request_'
+
+        end
+    end
     ####
 
+    #### AdminComment controller
+    scope '/admin', :as => 'admin' do
+        resources :comments,
+                  :controller => 'admin_comment',
+                  :only => [:edit, :update]
+    end
+    ####
+
+    #### AdminRawEmail controller
+    scope '/admin', :as => 'admin' do
+        resources :raw_emails,
+                  :controller => 'admin_raw_email',
+                  :only => [:show]
+    end
+    ####
+
+    #### AdminInfoRequestEvent controller
+    scope '/admin', :as => 'admin' do
+        resources :info_request_events,
+                  :controller => 'admin_info_request_event',
+                  :only => [:update]
+    end
+
     #### AdminIncomingMessage controller
-    match '/admin/incoming/destroy' => 'admin_incoming_message#destroy', :as => :admin_incoming_destroy
-    match '/admin/incoming/redeliver' => 'admin_incoming_message#redeliver', :as => :admin_incoming_redeliver
-    match '/admin/incoming/edit/:id' => 'admin_incoming_message#edit', :as => :admin_incoming_edit
-    match '/admin/incoming/update/:id' => 'admin_incoming_message#update', :as => :admin_incoming_update
+    scope '/admin', :as => 'admin' do
+        resources :incoming_messages,
+                  :controller => 'admin_incoming_message',
+                  :only => [:edit, :update, :destroy] do
+                      post 'redeliver', :on => :member
+        end
+    end
     ####
 
     #### AdminOutgoingMessage controller
-    match '/admin/outgoing/edit/:id' => 'admin_outgoing_message#edit', :as => :admin_outgoing_edit
-    match '/admin/outgoing/destroy/:id' => 'admin_outgoing_message#destroy', :as => :admin_outgoing_destroy
-    match '/admin/outgoing/update/:id' => 'admin_outgoing_message#update', :as => :admin_outgoing_update
+    scope '/admin', :as => 'admin' do
+        resources :outgoing_messages,
+                :controller => 'admin_outgoing_message',
+                :only => [:edit, :update, :destroy] do
+                    post 'resend', :on => :member
+        end
+    end
     ####
 
     #### AdminUser controller
-    match '/admin/user' => 'admin_user#index', :as => :admin_user_index
-    match '/admin/user/list' => 'admin_user#list', :as => :admin_user_list
-    match '/admin/user/banned' => 'admin_user#list_banned', :as => :admin_user_list_banned
-    match '/admin/user/show/:id' => 'admin_user#show', :as => :admin_user_show
-    match '/admin/user/edit/:id' => 'admin_user#edit', :as => :admin_user_edit
-    match '/admin/user/show_bounce_message/:id' => 'admin_user#show_bounce_message', :as => :admin_user_show_bounce
-    match '/admin/user/update/:id' => 'admin_user#update', :as => :admin_user_update
-    match '/admin/user/clear_bounce/:id' => 'admin_user#clear_bounce', :as => :admin_user_clear_bounce
-    match '/admin/user/destroy_track' => 'admin_user#destroy_track', :as => :admin_user_destroy_track
-    match '/admin/user/login_as/:id' => 'admin_user#login_as', :as => :admin_user_login_as
-    match '/admin/user/clear_profile_photo/:id' => 'admin_user#clear_profile_photo', :as => :admin_clear_profile_photo
-    match '/admin/user/modify_comment_visibility/:id' => 'admin_user#modify_comment_visibility', :as => 'admin_user_modify_comment_visibility'
+    scope '/admin', :as => 'admin' do
+        resources :users,
+                :controller => 'admin_user',
+                :except => [:new, :create, :destroy] do
+                    get 'banned', :on => :collection
+                    get 'show_bounce_message', :on => :member
+                    post 'clear_bounce', :on => :member
+                    post 'login_as', :on => :member
+                    post 'clear_profile_photo', :on => :member
+                    post 'modify_comment_visibility', :on => :collection
+                    resources :censor_rules,
+                              :controller => 'admin_censor_rule',
+                              :only => [:new, :create],
+                              :name_prefix => 'user_'
+        end
+    end
     ####
 
     #### AdminTrack controller
-    match '/admin/track/list' => 'admin_track#list', :as => :admin_track_list
+    scope '/admin', :as => 'admin' do
+        resources :tracks,
+            :controller => 'admin_track',
+            :only => [:index, :destroy]
+    end
     ####
 
     #### AdminCensorRule controller
-    match '/admin/censor/new' => 'admin_censor_rule#new', :as => :admin_rule_new
-    match '/admin/censor/create' => 'admin_censor_rule#create', :as => :admin_rule_create
-    match '/admin/censor/edit/:id' => 'admin_censor_rule#edit', :as => :admin_rule_edit
-    match '/admin/censor/update/:id' => 'admin_censor_rule#update', :as => :admin_rule_update
-    match '/admin/censor/destroy/:censor_rule_id' => 'admin_censor_rule#destroy', :as => :admin_rule_destroy
-
     scope '/admin', :as => 'admin' do
-        resources :info_requests, :only => [] do
-            resources :censor_rules,
-                      :controller => 'admin_censor_rule',
-                      :only => [:new, :create],
-                      :name_prefix => 'info_request_'
-        end
+        resources :censor_rules,
+                  :controller => 'admin_censor_rule',
+                  :except => [:index, :new, :create]
     end
-
-    scope '/admin', :as => 'admin' do
-        resources :users, :only => [] do
-            resources :censor_rules,
-                      :controller => 'admin_censor_rule',
-                      :only => [:new, :create],
-                      :name_prefix => 'user_'
-        end
-    end
-    ####
 
     #### AdminSpamAddresses controller
     scope '/admin', :as => 'admin' do

@@ -97,7 +97,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # The bundle install fails unless you have quite a large amount of
   # memory; insist on 1.5GiB:
   config.vm.provider "virtualbox" do |vb|
+    host = RbConfig::CONFIG['host_os']
+    # Give VM access to all cpu cores on the host
+    if host =~ /darwin/
+      cpus = `sysctl -n hw.ncpu`.to_i
+    elsif host =~ /linux/
+      cpus = `nproc`.to_i
+    else # sorry Windows folks, I can't help you
+      cpus = 1
+    end
+
     vb.customize ["modifyvm", :id, "--memory", ALAVETELI_MEMORY]
+    vb.customize ["modifyvm", :id, "--cpus", cpus]
   end
 
   # Fetch and run the install script:

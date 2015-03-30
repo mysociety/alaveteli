@@ -9,15 +9,15 @@
 # Kjetil Torgrim Homme <kjetilho@ifi.uio.no>, 2015
 # louisecrow <louise@mysociety.org>, 2014
 # oeyrvin <oeyrvin@hagan.no>, 2014
-# pere <pere-transifex@hungry.com>, 2013
+# pere <pere-transifex@hungry.com>, 2013,2015
 # pere <pere-transifex@hungry.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2015-02-11 20:49+0000\n"
-"Last-Translator: pere <pere-transifex@hungry.com>\n"
+"POT-Creation-Date: 2015-03-24 10:21+0000\n"
+"PO-Revision-Date: 2015-03-24 11:12+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/alaveteli/language/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -133,29 +133,25 @@ msgstr "*ukjent*"
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ",\\n\\n\\n\\nMed vennlig hilsen,\\n\\n{{user_name}}"
 
-msgid "- or -"
-msgstr "- eller -"
-
-msgid "1. Select an authority"
-msgstr "1. Velg en myndighet"
-
-msgid "1. Select authorities"
-msgstr "1. Velg myndigheter"
-
-msgid "2. Ask for Information"
-msgstr "2. Be om innsyn"
-
-msgid "3. Now check your request"
-msgstr "3. Se over henvendelsen din nå"
-
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Bla i gjennom alle</a> eller <a href=\"{{add_url}}\">be oss om å legge til en ny</a>."
 
 msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"{{url}}\">Legg til merknad</a> (for å hjelpe innsender eller andre)"
 
+msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
+msgstr "<strong>Personverns OBS</strong> Om du ønsker å spørre om personlig informasjon om\\n    deg selv <a href=\"{{url}}\">klikk her</a>."
+
+msgid "<a href=\"{{url}}\">Keep it <strong>focused</strong></a>, you'll be more likely to get what you want."
+msgstr "Hold det <strong>fokusert</strong>, du har større sjanser for å få det du vil ha (<a href=\"{{url}}\">hvorfor?</a>)."
+
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Logg inn</a> for å endre passord, abonnementer og mer (kun {{user_name}})"
+
+msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>."
+msgstr ""
+"Hvis du vurderer å bruke et pseudonym,\\n er det fint om du\n"
+"<a href=\"{{url}}\">leser dette først</a>."
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Alt er ferdig!  Tusen takk for hjelpen.</p><p>Det er <a href=\"{{helpus_url}}\">flere ting du kan gjøre</a> for å hjelpe  {{site_name}}.</p>"
@@ -205,22 +201,13 @@ msgstr "<p>Du trenger ikke ta med e-postadressen i henvendelsen for å få et sv
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
 msgstr "<p>Din henvendelse inneholder et <strong>postnummer</strong>.  Med mindre det er direkte relevant for temaet i din henvendelse, vær så snill å fjern enhver adresse da den vil <strong>være offentlig tilgjengelig på Internettet</strong>.</p>"
 
-msgid "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
-msgstr ""
-"<p>Din {{law_used_full}}-henvendelsen har blitt <strong>sendt avgårde</strong>!</p>\\n\n"
-"<p><strong>Vi vil kontakte deg med e-post</strong> når det kommer et svar, eller etter {{late_number_of_days}} arbeidsdager, om myndigheten ikke har svart innen da.</p>\\n\n"
-"<p>Hvis du skriver om denne henvendelsen (for eksempel i et forum eller en blogg), så er det fint om du lenker til denne siden, og legger til en kommentar under som forteller folk om det du har skrevet."
-
-msgid "<p>Your {{law_used_full}} requests will be <strong>sent</strong> shortly!</p>\\n            <p><strong>We will email you</strong> when they have been sent.\\n            We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't\\n            replied by then.</p>\\n            <p>If you write about these requests (for example in a forum or a blog) please link to this page.</p>"
-msgstr "<p>Dine {{law_used_full}}-henvendelser vil bli <strong>sent</strong> straks!</p>\\n<p><strong>Vi vil send deg e-post</strong> når de er sendt.\\n  Vi vil også sende deg e-post når det kommer svar for en av dem, eller etter {{late_number_of_days}} arbeidsdager hvis myndighetene fortsatt ikke har svart innen da.</p>\\n<p>Hvis du skriver om disse henvendelsene (for eksempel i et forum eller en blogg), vær så snill å lenk til denne siden.</p>"
-
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>Det utføres vedlikehold på {{site_name}}. Du kan bare se på eksisterende henvendelser. Du kan ikke opprette nye, legge til oppfølgingshenvendelser, notater eller endre på data.</p> <p>{{read_only}}</p>"
 
 msgid "<small>If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way.</small>\\n</p>"
 msgstr "<small>Bruker du web-basert e-post eller har \"spam-filter\", sjekk også din\\nsøppel/spam-e-postfolder. Det hender at meldingene våre blir behandlet som spam.</small>\\n</p>"
 
-msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
+msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No!</a>"
 msgstr "<strong> Kan jeg be om informasjon om meg personlig?</strong>\\n\t\t\t<a href=\"{{url}}\">NEI! (klikk her for detaljer)</a>"
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
@@ -256,6 +243,9 @@ msgstr "<strong>All informasjonen</strong> har blitt sendt"
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Noe annet</strong>, som for eksempel oppklaringer, spørsmål, takk"
 
+msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
+msgstr ""
+
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need \\na good internal knowledge of user behaviour on {{site_name}}. How, \\nwhy and by whom requests are categorised is not straightforward, and there will\\nbe user error and ambiguity. You will also need to understand FOI law, and the\\nway authorities use it. Plus you'll need to be an elite statistician.  Please\\n<a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr "<strong>Advarsel!</strong> For å bruke disse dataene ordentlig, vil du trenge \\n god kunnskap om  brukeradferd på {{site_name}}. Hvordan,\\n hvorfor, og av hvem henvendelser er kategorisert er ikke bare enkelt, og det vil \\n være brukerfeil og uklarheter. Du vil også ha behov for å forstå offentlighetslovgivningen og måten\\n myndighetene bruker den. Og du må være en dyktig statistiker.  <a href=\"{{contact_path}}\">Kontakt oss</a> gjerne med spørsmål."
 
@@ -274,9 +264,6 @@ msgstr "<strong>Merk:</strong> Du sender en beskjed til deg selv, vi anter at de
 msgid "<strong>Note:</strong>\\n    We will send an email to your new email address. Follow the\\n    instructions in it to confirm changing your email."
 msgstr "<strong>Merk:</strong>\\n    Vi kommer til å sende en e-post til din nye e-postadresse. Følg\\n    instruksjonene i den e-posten for å bekrefte at du ønsker å bytte e-postadresse."
 
-msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"{{url}}\">click here</a>."
-msgstr "<strong>Personverns OBS</strong> Om du ønsker å spørre om personlig informasjon om\\n    deg selv <a href=\"{{url}}\">klikk her</a>."
-
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
 msgstr "<strong>Personverns OBS:</strong> Ditt bilde vil være offentlig tlgjengelig på hele Internettet.\\n    uavhengig om du gjør noe på {{site_name}}."
 
@@ -288,6 +275,12 @@ msgstr "<strong>Noe av informasjonen</strong> ble sendt"
 
 msgid "<strong>Thank</strong> the public authority or "
 msgstr "<strong>Takk</strong> myndigheten eller "
+
+msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
+msgstr ""
+
+msgid "<strong>We will email you</strong> when they have been sent. We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't replied by then."
+msgstr ""
 
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>hadde ikke</strong> informasjonen du ba om."
@@ -312,6 +305,9 @@ msgstr "Komplett historie for min innsynshenvendelse og all korrespondanse er ti
 
 msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "En ny henvendelse, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, ble sendt til {{public_body_name}} av {{info_request_user}} den {{date}}."
+
+msgid "A one line summary of the information you are requesting, \\n\t\t\te.g."
+msgstr "en linjes oppsummering av informasjonen du spør om, \\n\t\t\tf.eks.."
 
 msgid "A public authority"
 msgstr "En offentlig myndighet"
@@ -343,8 +339,8 @@ msgstr "ActsAsXapian::ActsAsXapianJob|Action"
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr "ActsAsXapian::ActsAsXapianJob|Model"
 
-msgid "Add an annotation"
-msgstr "Legg til en merknad"
+msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
+msgstr ""
 
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr "Legg til en kommentar til henvendelsen med utvalgte sitater, eller\\n <strong> gi en oppsummering av svaret.</strong>"
@@ -373,7 +369,7 @@ msgstr "Avansert søketips"
 msgid "Advise on whether the <strong>refusal is legal</strong>, and how to complain about it if not."
 msgstr "Råd om hvorvidt <strong>avvisningen er lovlig</strong>, og hvordan du eventuelt kan klage."
 
-msgid "Air, water, soil, land, flora and fauna (including how these effect\\n            human beings)"
+msgid "Air, water, soil, land, flora and fauna (including how these effect\\n      human beings)"
 msgstr "Luft, vann, jord, flora og fauna (inkludert hvordan disse påvirker\\n mennesker)"
 
 msgid "All of the information requested has been received"
@@ -471,6 +467,9 @@ msgstr "Vemter på behandling av klage."
 
 msgid "Awaiting response."
 msgstr "Venter på svar."
+
+msgid "Banned users cannot edit their profile"
+msgstr ""
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Bunt opprettet av {{info_request_user}} den {{date}}."
@@ -610,6 +609,9 @@ msgstr "Kommentar|Lokalisering"
 msgid "Comment|Visible"
 msgstr "Kommentar|Synlig"
 
+msgid "Confirm password:"
+msgstr "Passord: (igjen)"
+
 msgid "Confirm you want to follow all successful FOI requests"
 msgstr "Bekreft at du ønsker å følge alle vellykkede innsynshenvendelser"
 
@@ -667,13 +669,16 @@ msgstr "Kunne ikke finne henvendelsen ut fra e-post-adressen"
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Klarer ikke å lese inn bilde-filen du lastet opp. Vi støtter PNG, JPEG, GIF og mange andre vanlige bilde-formater."
 
+msgid "Create a new account"
+msgstr ""
+
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr "Opprettet av {{info_request_user}} den {{date}}."
 
 msgid "Crop your profile photo"
 msgstr "Beskjær ditt profilbilde"
 
-msgid "Cultural sites and built structures (as they may be affected by the\\n            environmental factors listed above)"
+msgid "Cultural sites and built structures (as they may be affected by the\\n      environmental factors listed above)"
 msgstr "Vern av kulturminner og rett til miljøinformasjon "
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
@@ -694,9 +699,6 @@ msgstr "Kjære {{public_body_name}},"
 msgid "Dear {{user_name}},"
 msgstr "Kjære {{user_name}},"
 
-msgid "Default locale"
-msgstr "Forvalgt locale"
-
 msgid "Defunct."
 msgstr "Nedlagt."
 
@@ -712,8 +714,8 @@ msgstr "Leveringsfeil"
 msgid "Destroy {{name}}"
 msgstr "Fjern {{name}}"
 
-msgid "Details of request '"
-msgstr "Detaljer for henvendelse '"
+msgid "Details of request &ldquo;{{request_title}}&rdquo;"
+msgstr ""
 
 msgid "Did you mean: {{correction}}"
 msgstr "Mente du: "
@@ -760,7 +762,7 @@ msgstr "Rediger og legg til <strong>flere detaljer</strong> i meldingen over,\\n
 msgid "Edit text about you"
 msgstr "Rediget teksten om deg"
 
-msgid "Edit this request"
+msgid "Edit your request"
 msgstr "Rediger denne henvendelsen"
 
 msgid "Either the email or password was not recognised, please try again."
@@ -802,10 +804,10 @@ msgstr "Logg over hendelser"
 msgid "Event {{id}}"
 msgstr "Hendelse {{id}}"
 
-msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"{{url}}\">why?</a>)."
+msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n          will be <strong>displayed publicly</strong> on\\n          this website <a href=\"{{url}}\">forever</a>"
 msgstr "Alt som du skriver inn på denne tjenesten, inkludert <strong>navnet ditt</strong>,\\n vil bli <strong>vist offentlig</strong> på\\ndenne tjenesten for alltid (<a href=\"{{url}}\">hvorfor?</a>)."
 
-msgid "Everything that you enter on this page\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"{{url}}\">why?</a>)."
+msgid "Everything that you enter on this page\\n          will be <strong>displayed publicly</strong> on\\n          this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr "Alt du skriver inn på denne sida\\n                vil bli <strong>vist offentlig</strong> på\\n                denne tjenesten for all framtid (<a href=\"{{url}}\">hvorfor?</a>)."
 
 msgid "FOI"
@@ -813,6 +815,9 @@ msgstr "innsyn etter Offentlighetsloven"
 
 msgid "FOI email address for {{public_body}}"
 msgstr "postmottaket hos {{public_body}}"
+
+msgid "FOI law does not apply to this authority."
+msgstr ""
 
 msgid "FOI request – {{title}}"
 msgstr "Innsynshenvendelse – {{title}}"
@@ -844,11 +849,20 @@ msgstr "Filter"
 msgid "Filter by Request Status (optional)"
 msgstr "Filtrer etter henvendelsestatus (valgfri)"
 
+msgid "Find an authority"
+msgstr "Velg myndighet å skrive til"
+
+msgid "Find the authorities"
+msgstr ""
+
+msgid "Find the authorities to write to"
+msgstr "Velg myndighetene å skrive til"
+
 msgid "First, did your other requests succeed?"
 msgstr "For det første, lyktes dine andre henvendelser?"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr "Først, skriv inn <strong>navnet på en norsk offentlig myndighet</strong> som du\\n           vil ha informasjon fra. <strong>Loven sier at de må svare deg</strong>\\n           (<a href=\"{{url}}\">hvorfor?</a>)."
+msgid "First, type in the <strong>name of the public authority</strong> you'd\\n        like information from."
+msgstr ""
 
 msgid "Foi attachment"
 msgstr "Innsynsbegjæring vedlegg"
@@ -892,9 +906,6 @@ msgstr "Følg denne typen henvendelser"
 msgid "Follow things matching this search"
 msgstr "Følg ting som treffes av dette søket"
 
-msgid "Follow this authority"
-msgstr "Følg myndighet"
-
 msgid "Follow this link to see the request:"
 msgstr "Følg denne lenken for å se henvendelsen:"
 
@@ -934,11 +945,11 @@ msgstr "Oppfølgingsbeskjeder og nye svar på denne henvendelsen er stanset for 
 msgid "Follow us on twitter"
 msgstr "Følg oss på twitter"
 
+msgid "Following"
+msgstr ""
+
 msgid "Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf."
 msgstr "Oppfølginger kan ikke sendes for denne henvendelsen, da den ble gjort eksternt, og publisert her av {{public_body_name}} på innsenders vegne."
-
-msgid "For an unknown reason, it is not possible to make a request to this authority."
-msgstr "Uvisst av hvilken grunn er det ikke mulig å sende en henvendelse til denne myndigheten."
 
 msgid "Forgotten your password?"
 msgstr "Glemt passordet?"
@@ -954,14 +965,14 @@ msgstr "innsyn etter Offentlighetsloven"
 msgid "Freedom of Information Act"
 msgstr "Offentlighetsloven"
 
-msgid "Freedom of Information law does not apply to this authority, so you cannot make\\n                a request to it."
+msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Offentlighetsloven gjelder ikke for denne etaten, så du kan ikke sende dem en\\n innsynshenvendelse."
-
-msgid "Freedom of Information law no longer applies to"
-msgstr "Offentlighetsloven gjelder ikke lenger for"
 
 msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
 msgstr "Offentlighetsloven gjelder ikke lenger for denne myndigheten. Oppfølgingsbeskjeder til nåværende henvendelser blir sendt til"
+
+msgid "Freedom of Information law no longer applies to {{public_body_name}}."
+msgstr ""
 
 msgid "Freedom of Information requests made"
 msgstr "Innsynshenvendelser utført"
@@ -975,9 +986,6 @@ msgstr "Innsynshenvendelser utført av deg"
 msgid "Freedom of Information requests made using this site"
 msgstr "Innsynshenvendelser utført med denne tjenesten"
 
-msgid "Freedom of information requests to"
-msgstr "Innsynshenvendelser til"
-
 msgid "From"
 msgstr "Fra"
 
@@ -989,6 +997,9 @@ msgstr "Fra:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "SKRIV GRUNNENE FOR HVORFOR DU KLAGER HER"
+
+msgid "Got an account?"
+msgstr ""
 
 msgid "Handled by post."
 msgstr "Håndtert av post."
@@ -1020,6 +1031,9 @@ msgstr "Hei, {{username}}!"
 msgid "Help"
 msgstr "Hjelp"
 
+msgid "Help us classify requests that haven't been updated"
+msgstr ""
+
 msgid "Here <strong>described</strong> means when a user selected a status for the request, and\\nthe most recent event had its status updated to that value. <strong>calculated</strong> is then inferred by\\n{{site_name}} for intermediate events, which weren't given an explicit\\ndescription by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
 msgstr "Her betyr <strong>beskrevet</strong> når en bruker klargjør hvor i prosessen saken er kommet, og \\n hva som senest førte frem til det. <strong>Beregnet</strong> viser til forhold utledet av {{site_name}}, som ikke kom fra \\n  brukerens beskrivelse. Se <a href=\"{{search_path}}\">søketips</a> for beskrivelse av dette."
 
@@ -1050,7 +1064,7 @@ msgstr "Hjemmeside"
 msgid "Home page of authority"
 msgstr "Hjemmesida til myndigheten"
 
-msgid "However, you have the right to request environmental\\n            information under a different law"
+msgid "However, you have the right to request environmental\\n      information under a different law"
 msgstr "Dog har du rett til å spørre om miljøinformasjon i følge en annen lov"
 
 msgid "Human health and safety"
@@ -1125,11 +1139,6 @@ msgstr "Hvis du er innsenderen, så kan du  <a href=\"{{url}}\">logge inn</a> fo
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
 msgstr "Hvis du er innsenderen, så kan det hende du må <a href=\"{{url}}\">logge inn</a> for å se på henvendelsen."
 
-msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"{{url}}\">read this first</a>."
-msgstr ""
-"Hvis du vurderer å bruke et pseudonym,\\n er det fint om du\n"
-"<a href=\"{{url}}\">leser dette først</a>."
-
 msgid "If you are {{user_link}}, please"
 msgstr "Hvis du er {{user_link}}, vennligst"
 
@@ -1159,6 +1168,12 @@ msgstr "Om du bruker web-basert e-post eller har «søppel-e-post»-filtere, sje
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr "Dersom du vil ha utestegningen opphevet kan du, på høflig vis,\\n<a href=\"/help/contact\">kontakte oss</a>.\\n"
+
+msgid "If you write about these requests (for example in a forum or a blog) please link to this page."
+msgstr ""
+
+msgid "If you write about this request (for example in a forum or a blog) please link to this page, and <a href=\"{{url}}\">add an annotation</a> below telling people about your writing."
+msgstr ""
 
 msgid "If you're new to {{site_name}}"
 msgstr "Hvis du er ny på "
@@ -1286,7 +1301,7 @@ msgstr "InfoRequest|Url title"
 msgid "Information not held."
 msgstr "Har ikke informasjonen."
 
-msgid "Information on emissions and discharges (e.g. noise, energy,\\n            radiation, waste materials)"
+msgid "Information on emissions and discharges (e.g. noise, energy,\\n      radiation, waste materials)"
 msgstr "Informasjon om utslipp (for eksempel støy, energi,\\n stråling, avfall)"
 
 msgid "Internal review request"
@@ -1316,8 +1331,11 @@ msgstr "Ble med {{site_name}} i"
 msgid "Just one more thing"
 msgstr "Bare en ting til"
 
-msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"{{url}}\">why?</a>)."
-msgstr "Hold det <strong>fokusert</strong>, du har større sjanser for å få det du vil ha (<a href=\"{{url}}\">hvorfor?</a>)."
+msgid "Keep your request up to date"
+msgstr ""
+
+msgid "Keep your requests up to date"
+msgstr ""
 
 msgid "Keywords"
 msgstr "Nøkkelord"
@@ -1415,11 +1433,11 @@ msgstr "Lag en {{law_used_short}} henvendelse til '{{public_body_name}}'"
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Lag og bla igjennom innsynshenvendelser"
 
-msgid "Make your own request"
-msgstr "Lag din egen henvendelse"
-
 msgid "Many requests"
 msgstr "Mange henvendelser"
+
+msgid "Matching authorities"
+msgstr ""
 
 msgid "Message"
 msgstr "Melding"
@@ -1598,9 +1616,6 @@ msgstr "Kun myndigheten kan svare på denne henvendelsen, men det er ikke noen \
 msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
 msgstr "Eller lag en <a href=\"{{url}}\">bunthenvendelse</a> til <strong>flere myndigheter</strong> på en gang."
 
-msgid "Or search in their website for this information."
-msgstr "Eller søk på nettsiden deres etter denne informasjonen."
-
 msgid "Original request sent"
 msgstr "Opprinnelig henvendelse sendt"
 
@@ -1643,9 +1658,6 @@ msgstr "Passordet er ikke riktig"
 msgid "Password:"
 msgstr "Passord:"
 
-msgid "Password: (again)"
-msgstr "Passord: (igjen)"
-
 msgid "Paste this link into emails, tweets, and anywhere else:"
 msgstr "Lim denne lenken inn i e-poster, tvitringer og andre steder:"
 
@@ -1682,8 +1694,10 @@ msgstr "Vennligst <a href=\"{{url}}\">kontakt oss</a> dersom du har spørsmål."
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "<a href=\"{{url}}\">Ta kontakt</a> med oss slik at vi kan fikse det."
 
-msgid "Please <strong>answer the question above</strong> so we know whether the "
-msgstr "Vennligst <strong>svar på spørsmålet ovenfor</strong> så vi vet om "
+msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
+msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Please <strong>go to the following requests</strong>, and let us\\n        know if there was information in the recent responses to them."
 msgstr "Vær så snill å <strong>besøk de følgende henvendelsene</strong>,\\n og la oss vite om det var informasjon i de siste svarene i dem."
@@ -1717,6 +1731,9 @@ msgstr "Vennligst klikk på linken nedenfor for å bekrefte at du ønsker \\nå 
 
 msgid "Please click on the link below to confirm your email address."
 msgstr "Vennligst klikk på lenken under for å bekrefte din e-post-adresse."
+
+msgid "Please create an account or sign in"
+msgstr "Logg inn eller lag en ny konto."
 
 msgid "Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway."
 msgstr "Vennligst beskriv hva henvendelsen angår i tittelfeltet. Du trenger ikke skrive at det gjelder en innsynshenvendelse, det legger vi til automatisk."
@@ -1784,7 +1801,7 @@ msgstr "Hold det kortere enn 500 tegn"
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
 msgstr "Vennligst hold oppsummeringen kort, som tittelfeltet i en e-post. Du kan bruke en noen få ord i stedet for en hel setning."
 
-msgid "Please only request information that comes under those categories, <strong>do not waste your\\n            time</strong> or the time of the public authority by requesting unrelated information."
+msgid "Please only request information that comes under those categories, <strong>do not waste your\\n      time</strong> or the time of the public authority by requesting unrelated information."
 msgstr "Vær så snill og kun spør om informasjon som hører under disse kategoriene, <strong>kast ikke\\nbort tiden din</strong> eller tiden til den offentlige myndigheten ved å spørre om urelatert informasjon."
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
@@ -1798,9 +1815,6 @@ msgstr "Vær så snill å signer på slutten med ditt navn, eller endre «{{sign
 
 msgid "Please sign in as "
 msgstr "Logg deg inn som "
-
-msgid "Please sign in or make a new account."
-msgstr "Logg inn eller lag en ny konto."
 
 msgid "Please tell us more:"
 msgstr "Fortell oss mer:"
@@ -1829,7 +1843,7 @@ msgstr "Vennligst bruk store og små bokstaver i din beskjed. Da blir det enkler
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Referer til <strong>relatert informasjon</strong>, kampanjer eller forum som kan være til nytte."
 
-msgid "Possibly related requests:"
+msgid "Possible related requests"
 msgstr "Mulig relatert henvendelse:"
 
 msgid "Post annotation"
@@ -1888,6 +1902,9 @@ msgstr "Forhåndsvis meldingen"
 
 msgid "Preview your public request"
 msgstr "Forhåndsvis henvendelsen din"
+
+msgid "Preview your request"
+msgstr ""
 
 msgid "Profile photo"
 msgstr "Profilbilde"
@@ -1967,12 +1984,6 @@ msgstr "PublicBodyCategoryLink|Category display order"
 msgid "PublicBodyCategory|Category tag"
 msgstr "PublicBodyCategory|Category tag"
 
-msgid "PublicBodyCategory|Description"
-msgstr "PublicBodyCategory|Description"
-
-msgid "PublicBodyCategory|Title"
-msgstr "PublicBodyCategory|Title"
-
 msgid "PublicBodyChangeRequest|Is open"
 msgstr "PublicBodyChangeRequest|Is open"
 
@@ -1996,9 +2007,6 @@ msgstr "PublicBodyChangeRequest|User name"
 
 msgid "PublicBodyHeading|Display order"
 msgstr "PublicBodyHeading|Display order"
-
-msgid "PublicBodyHeading|Name"
-msgstr "PublicBodyHeading|Name"
 
 msgid "PublicBody|Api key"
 msgstr "PublicBody|Api key"
@@ -2096,8 +2104,8 @@ msgstr "Nylige beskrevne resultater først"
 msgid "Refused."
 msgstr "Avslått"
 
-msgid "Remember me</label> (keeps you signed in longer;\\n    do not use on a public computer) "
-msgstr "Husk meg</label> (holder deg innlogget lenger;\\n    må ikke brukes på offentlige datamaskiner) "
+msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
+msgstr ""
 
 msgid "Report abuse"
 msgstr "Meld misbruk"
@@ -2228,6 +2236,9 @@ msgstr "Søk for ord i:"
 msgid "Search in"
 msgstr "Søk i"
 
+msgid "Search in their website for this information &rarr;"
+msgstr ""
+
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 msgstr "Søk blant <br/>\\n <strong>{{number_of_requests}} henvendelser</strong> <span>og</span><br/>\\n <strong>{{number_of_authorities}} myndigheter</strong>"
 
@@ -2240,22 +2251,11 @@ msgstr "Søkeresultater"
 msgid "Search the site to find what you were looking for."
 msgstr "Søk siden for å finne det du leter etter."
 
-msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
-msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
-msgstr[0] "Søk i {{count}} innsynshenvendelse etter offentlighetsloven sendt til {{public_body_name}}"
-msgstr[1] "Søk i {{count}} innsynshenvendelser etter offentlighetsloven sendt til {{public_body_name}}"
-
 msgid "Search your contributions"
 msgstr "Søk i dine bidrag"
 
 msgid "See bounce message"
 msgstr "See sprett (bounce) melding"
-
-msgid "Select the authorities to write to"
-msgstr "Velg myndighetene å skrive til"
-
-msgid "Select the authority to write to"
-msgstr "Velg myndighet å skrive til"
 
 msgid "Send a followup"
 msgstr "Send en oppfølgning"
@@ -2288,6 +2288,15 @@ msgstr[1] "Sent til {{authority_count}} myndigheter av {{info_request_user}} den
 
 msgid "Set your profile photo"
 msgstr "Velg ditt profil-bilde"
+
+msgid "Share on Facebook"
+msgstr ""
+
+msgid "Share your batch request"
+msgstr ""
+
+msgid "Share your request"
+msgstr ""
 
 msgid "Short name"
 msgstr "Kortnavn"
@@ -2370,9 +2379,6 @@ msgstr "Spam-adresse"
 msgid "SpamAddress|Email"
 msgstr "SpamAddress|Email"
 
-msgid "Special note for this authority!"
-msgstr "Spesiell merknad for denne myndigheten!"
-
 msgid "Start your own blog"
 msgstr "Start din egen blogg"
 
@@ -2432,9 +2438,6 @@ msgstr "Tagger (space separert):"
 
 msgid "Tags:"
 msgstr "Tagger:"
-
-msgid "Technical details"
-msgstr "Tekniske detaljer"
 
 msgid "Thank you for helping us keep the site tidy!"
 msgstr "Takk for at du hjelper oss med å holde tjenesten ryddig!"
@@ -2725,7 +2728,7 @@ msgstr "Ting du følger"
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Denne myndigheten er slettet, og kan ikke kontaktes."
 
-msgid "This covers a very wide spectrum of information about the state of\\n            the <strong>natural and built environment</strong>, such as:"
+msgid "This covers a very wide spectrum of information about the state of\\n      the <strong>natural and built environment</strong>, such as:"
 msgstr "Dette dekker et svært bredt spekter av informasjon om tilstanden til \\n<strong> berørt natur og bebygde områder</ strong>, som for eksempel:"
 
 msgid "This external request has been hidden"
@@ -2846,6 +2849,9 @@ msgstr "Denne brukeren er sperret ute fra {{site_name}}"
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Dette var ikke mulig da det allerede er en konto som bruker e-postadressen {{email}}."
 
+msgid "To"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "For å avbryte varslingen."
 
@@ -2948,9 +2954,6 @@ msgstr "Idag"
 msgid "Too many requests"
 msgstr "For mange henvendelser"
 
-msgid "Top search results:"
-msgstr "Beste søketreff:"
-
 msgid "Track thing"
 msgstr "Følg ting"
 
@@ -2971,6 +2974,9 @@ msgstr "TrackThing|Track type"
 
 msgid "Turn off email alerts"
 msgstr "Skru av e-postvarsling"
+
+msgid "Tweet it"
+msgstr ""
 
 msgid "Tweet this request"
 msgstr "Tvitre om henvendelsen"
@@ -3007,9 +3013,6 @@ msgstr "Desverre har vi ikke en fungerende adresse for "
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr "Beklageligvis har vi ikke en fungerende  {{info_request_law_used_full}}-adresse for"
-
-msgid "Unknown"
-msgstr "Ukjent"
 
 msgid "Unsubscribe"
 msgstr "Meld deg av"
@@ -3080,9 +3083,6 @@ msgstr "Bruker|E-post bekreftet"
 msgid "User|Hashed password"
 msgstr "Bruker|Hashet passord"
 
-msgid "User|Identity card number"
-msgstr "User|Identity card number"
-
 msgid "User|Last daily track email"
 msgstr "Bruker|Siste daglige track e-post"
 
@@ -3128,6 +3128,9 @@ msgstr "Vis myndigheter"
 msgid "View email"
 msgstr "Les e-post"
 
+msgid "View other requests to {{public_body}}"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "Venter avklaring"
 
@@ -3161,7 +3164,7 @@ msgstr ""
 "informasjon/dokumenter eller ikke\\n &ndash;\\n\n"
 "om du er {{user_link}}, vennligst <a href=\"{{url}}\">logg inn</a> og gi alle beskjed."
 
-msgid "We will not reveal your email address to anybody unless you or\\n        the law tell us to (<a href=\"{{url}}\">details</a>). "
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or\\n        the law tell us to</a>. "
 msgstr "Vi vil aldri gi ut e-post adressen din til noen uten at du eller\\n        retten ber oss om det (<a href=\"{{url}}\">detaljer</a>). "
 
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
@@ -3170,11 +3173,15 @@ msgstr "Vi kommer ikke dele e-post-adressen din med noen, med mindre du eller en
 msgid "We will not reveal your email addresses to anybody unless you\\nor the law tell us to."
 msgstr "Vi kommer ikke dele e-post-adressene dine med noen, med mindre du eller en domstol ber oss om det."
 
-msgid "We're waiting for"
-msgstr "Vi venter på"
+msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
+msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
+msgstr[0] ""
+msgstr[1] ""
 
-msgid "We're waiting for someone to read"
-msgstr "Vi venter på at noen leser"
+msgid "We're waiting for {{user}} to read a recent response and update the status."
+msgid_plural "We're waiting for {{user}} to read recent responses and update the status."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "We've sent an email to your new email address. You'll need to click the link in\\nit before your email address will be changed."
 msgstr "Vi har sent en mail til den nye e-post adressen din. Du må klikke på lenken i\\nden før e-post adressen din blir byttet."
@@ -3196,6 +3203,9 @@ msgstr "Hva slags informasjon er utlevert?"
 
 msgid "What information has been requested?"
 msgstr "Hva slags informasjon er forespurt?"
+
+msgid "What next?"
+msgstr ""
 
 msgid "When you get there, please update the status to say if the response \\ncontains any useful information."
 msgstr "Når du kommer dit, vær så snill å oppdatere statusen til å fortelle om svaret inneholdt noe nyttig informasjon."
@@ -3244,9 +3254,6 @@ msgstr "Du har allerede laget samme bunt med henvendelser den {{date}}  Du kan e
 
 msgid "You are already following new requests"
 msgstr "Du følger allerede nye henvendelser"
-
-msgid "You are already following requests to {{public_body_name}}"
-msgstr "Du følger allerede henvendelser til {{public_body_name}}"
 
 msgid "You are already following things matching this search"
 msgstr "Du følger allerede ting som treffer på dette søket"
@@ -3431,7 +3438,7 @@ msgstr "Du følger ingenting."
 msgid "You've now cleared your profile photo"
 msgstr "Du har nå slettet profil-bildet ditt"
 
-msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please\\n        <a href=\"{{help_url}}\">read this first</a>."
+msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines.\\n        <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr "<strong>Navnet ditt vil vises offentlig</strong>\\n        (<a href=\"{{why_url}}\">hvorfor?</a>)\\n        på denne nettsiden og i søkemotorer. Om du\\n vurderer å bruke et pseudonym,\\n er det fint om du <a href=\"{{help_url}}\">leser dette først</a>."
 
 msgid "Your annotations"
@@ -3473,7 +3480,7 @@ msgstr "Meldingen din vil vises i <strong>søkemotorer</strong> som f.eks. Googl
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Ditt navn og merknad vil dukke opp i <strong>søkemotorer</strong>."
 
-msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"{{url}}\">details</a>)."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n                        (<a href=\"{{url}}\">details</a>)."
 msgstr "Ditt navn, henvendelse og alle svar vil vises i <strong>søkemotorer</stronG>\\n        (<a href=\"{{url}}\">detaljer</a>)."
 
 msgid "Your name:"
@@ -3515,6 +3522,9 @@ msgstr "Din henvendelse ble kalt {{info_request}}. Ved å la alle vite hvorvidt 
 msgid "Your request:"
 msgstr "Henvendelsen:"
 
+msgid "Your requests will be <strong>sent</strong> shortly!"
+msgstr ""
+
 msgid "Your response to an FOI request was not delivered"
 msgstr "Ditt svar til en innsynshenvendelse ble ikke levert"
 
@@ -3541,6 +3551,9 @@ msgid "Your {{count}} batch requests"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] "Din {{count}} bunthenvendelse"
 msgstr[1] "Dine {{count}} bunthenvendelser"
+
+msgid "Your {{law_used_full}} request has been sent"
+msgstr ""
 
 msgid "Your {{site_name}} email alert"
 msgstr "Ditt e-postvarsel fra {{site_name}}"
@@ -3569,9 +3582,6 @@ msgstr "[{{site_name}} e-post-kontakt]"
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
 msgstr "\\n\\n[ {{site_name}} NB: Teksten over var feil enkodet, og har fått rare tegn fjernet. ]"
 
-msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
-msgstr "en linjes oppsummering av informasjonen du spør om, \\n\t\t\tf.eks.."
-
 msgid "admin"
 msgstr "administrator"
 
@@ -3595,12 +3605,6 @@ msgstr "en anonym bruker"
 
 msgid "and"
 msgstr "og"
-
-msgid "and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
-msgstr "og oppdater status tilsvarende. Kanskje <strong>du</strong> vil like å hjelpe til med det?"
-
-msgid "and update the status."
-msgstr "og oppdater statusen"
 
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "så skal vi foreslå hva du <strong>kan gjøre videre</strong>"
@@ -3653,6 +3657,9 @@ msgstr "f.eks. Forsvarsdepartementet"
 msgid "edit text about you"
 msgstr "rediger tekst om deg"
 
+msgid "email address"
+msgstr ""
+
 msgid "even during holidays"
 msgstr "t.o.m. under helligdager"
 
@@ -3704,6 +3711,9 @@ msgstr "meldinger fra myndigheter"
 msgid "messages from users"
 msgstr "meldinger fra brukere"
 
+msgid "mobile number"
+msgstr ""
+
 msgid "move..."
 msgstr "flytt..."
 
@@ -3712,9 +3722,6 @@ msgstr "nye henvendelser"
 
 msgid "no later than"
 msgstr "ikke senere enn"
-
-msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-msgstr "finnes ikke lenger. Fra henvendelses-siden, forsøk å svare på en bestemt melding i stedet for å sende en generell oppfølging. Hvis du trenger å lage en generell oppføling og vet en e-postadresse som vil gå til riktig sted, vær så snill å <a href=\"{{url}}\">send den til oss</a>."
 
 msgid "normally"
 msgstr "vanligvis"
@@ -3778,9 +3785,6 @@ msgstr "henvenderen"
 msgid "the {{site_name}} team"
 msgstr "{{site_name}}-gjengen"
 
-msgid "to read"
-msgstr "skal lese lese"
-
 msgid "to send a follow up message."
 msgstr "for å sende en oppfølgningsmelding."
 
@@ -3808,9 +3812,6 @@ msgstr "meld deg av alle"
 msgid "unsuccessful requests"
 msgstr "mislykkede henvendelser"
 
-msgid "useful information."
-msgstr "nyttig informasjon."
-
 msgid "users"
 msgstr "brukere"
 
@@ -3820,15 +3821,10 @@ msgstr "hva er det?"
 msgid "{{count}} FOI requests found"
 msgstr "{{count}} innsynshenvendelser funnet"
 
-msgid "{{count}} Freedom of Information request to {{public_body_name}}"
-msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
-msgstr[0] "{{count}} innsynshenvendelse til {{public_body_name}}"
-msgstr[1] "{{count}} innsynshenvendelser til {{public_body_name}}"
-
-msgid "{{count}} person is following this authority"
-msgid_plural "{{count}} people are following this authority"
-msgstr[0] "{{count}} person følger denne myndigheten"
-msgstr[1] "{{count}} personer følger denne myndigheten"
+msgid "{{count}} follower"
+msgid_plural "{{count}} followers"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} request"
 msgid_plural "{{count}} requests"
@@ -3840,7 +3836,7 @@ msgid_plural "{{count}} requests made."
 msgstr[0] "{{count}} henvendelse laget."
 msgstr[1] "{{count}} henvendelser laget."
 
-msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
+msgid "{{existing_request_user}} already\\n            created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n            or edit the details below to make a new but similar request."
 msgstr "{{existing_request_user}} har allerede laget samme henvendelse den {{date}}. Du kan enten se på den <a href=\"{{existing_request}}\">eksisterende henvendelsen</a>, eller redigere detaljene under for å lage en ny men lignende henvendelse."
 
 msgid "{{foi_law}} requests to '{{public_body_name}}'"
@@ -3867,6 +3863,9 @@ msgstr "{{public_body_link}} svarte på en henvendelse om"
 msgid "{{public_body_link}} was sent a request about"
 msgstr "{{public_body_link}} fikk tilsendt en henvendelse om"
 
+msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgstr ""
+
 msgid "{{public_body_name}} only:"
 msgstr "Bare {{public_body_name}} (myndighet):"
 
@@ -3876,7 +3875,7 @@ msgstr "{{public_body}} has spurt deg om å forklare deler av {{law_used}} henve
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} sendte et svar til {{user_name}}"
 
-msgid "{{reason}}, please sign in or make a new account."
+msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, vennligst logg inn eller lag en ny konto."
 
 msgid "{{search_results}} matching '{{query}}'"
@@ -3941,3 +3940,6 @@ msgstr "{{user}} ({{user_admin_link}}) laget denne {{law_used_full}} henvendelse
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} sendte denne henvendelsen om {{law_used_full}}"
+
+msgid "« Back to search results"
+msgstr ""

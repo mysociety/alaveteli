@@ -4,7 +4,7 @@
 <div class="row">
   <div class="span8">
     <div id="public_body_form">
-      <%= form_for @public_body, :as => :public_body, :url => admin_body_create_path, :html => {:class => "form form-horizontal"} do |f| %>
+      <%= form_for @public_body, :as => :public_body, :url => admin_bodies_path, :html => {:class => "form form-horizontal"} do |f| %>
           <%= render :partial => 'form', :locals => {:f => f} %>
 
 
@@ -14,7 +14,7 @@
         <% end %>
         <div class="row">
           <div class="span8 well">
-              <%= link_to 'List all', admin_body_list_path, :class => "btn" %>
+              <%= link_to 'List all', admin_bodies_path, :class => "btn" %>
           </div>
         </div>
     </div>

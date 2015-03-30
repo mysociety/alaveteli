@@ -369,3 +369,21 @@ describe User, "when calculating if a user has exceeded the request limit" do
 
 
 end
+
+describe User do
+
+  describe :banned? do
+
+    it 'is banned if the user has ban_text' do
+      user = FactoryGirl.build(:user, :ban_text => 'banned')
+      expect(user).to be_banned
+    end
+
+    it 'is not banned if the user has no ban_text' do
+      user = FactoryGirl.build(:user, :ban_text => '')
+      expect(user).to_not be_banned
+    end
+
+  end
+
+end

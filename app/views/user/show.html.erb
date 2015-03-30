@@ -34,6 +34,7 @@
      <% if !@track_thing.nil? %>
        <h2><%= _('Track this person')%></h2>
        <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
+       <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'sidebar' } %>
      <% end %>
      <% if !@xapian_requests.nil? %>
        <h2><%= _('On this page')%></h2>
@@ -66,7 +67,7 @@
     <p class="subtitle">
        <%= _('Joined {{site_name}} in', :site_name=>site_name) %> <%= @display_user.created_at.year %>
         <% if !@user.nil? && @user.admin_page_links? %>
-        (<%= link_to "admin", admin_user_show_path(@display_user) %>)
+        (<%= link_to "admin", admin_user_path(@display_user) %>)
         <% end %>
     </p>
 
@@ -77,7 +78,7 @@
         <% end %>
     </p>
 
-    <% if @display_user.public_banned? %>
+    <% if @display_user.banned? %>
         <div id="user_public_banned">
             <p>
                 <strong>

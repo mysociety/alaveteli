@@ -2,19 +2,20 @@
 #
 # Table name: public_body_headings
 #
-#  id            :integer        not null, primary key
-#  name          :text           not null
+#  id            :integer          not null, primary key
 #  display_order :integer
 #
 
 class PublicBodyHeading < ActiveRecord::Base
-    attr_accessible :name, :display_order, :translated_versions
+    attr_accessible :locale, :name, :display_order, :translated_versions,
+                    :translations_attributes
 
     has_many :public_body_category_links, :dependent => :destroy
     has_many :public_body_categories, :order => :category_display_order, :through => :public_body_category_links
     default_scope order('display_order ASC')
 
     translates :name
+    accepts_nested_attributes_for :translations, :reject_if => :empty_translation_in_params?
 
     validates_uniqueness_of :name, :message => 'Name is already taken'
     validates_presence_of :name, :message => 'Name can\'t be blank'
@@ -37,24 +38,20 @@ class PublicBodyHeading < ActiveRecord::Base
     end
 
     def translated_versions=(translation_attrs)
-        def empty_translation?(attrs)
-            attrs_with_values = attrs.select{ |key, value| value != '' and key != 'locale' }
-            attrs_with_values.empty?
-        end
+        warn "[DEPRECATION] PublicBodyHeading#translated_versions= will be replaced " \
+             "by PublicBodyHeading#translations_attributes= as of release 0.22"
+        self.translations_attributes = translation_attrs
+    end
 
-        if translation_attrs.respond_to? :each_value    # Hash => updating
-            translation_attrs.each_value do |attrs|
-                next if empty_translation?(attrs)
-                t = translation_for(attrs[:locale]) || PublicBodyHeading::Translation.new
-                t.attributes = attrs
-                t.save!
-            end
-        else                                            # Array => creating
-            translation_attrs.each do |attrs|
-                next if empty_translation?(attrs)
-                new_translation = PublicBodyHeading::Translation.new(attrs)
-                translations << new_translation
-            end
+    def ordered_translations
+        translations.
+          select { |t| I18n.available_locales.include?(t.locale) }.
+            sort_by { |t| I18n.available_locales.index(t.locale) }
+    end
+
+    def build_all_translations
+        I18n.available_locales.each do |locale|
+            translations.build(:locale => locale) unless translations.detect{ |t| t.locale == locale }
         end
     end
 
@@ -70,6 +67,15 @@ class PublicBodyHeading < ActiveRecord::Base
         else
             0
         end
+    end
+
+    private
+
+    def empty_translation_in_params?(attributes)
+        attrs_with_values = attributes.select do |key, value|
+            value != '' and key.to_s != 'locale'
+        end
+        attrs_with_values.empty? 
     end
 
 end

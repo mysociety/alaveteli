@@ -19,6 +19,7 @@ module AlaveteliConfiguration
             :ADMIN_PASSWORD => '',
             :ADMIN_USERNAME => '',
             :ALLOW_BATCH_REQUESTS => false,
+            :AUTHORITY_MUST_RESPOND => true,
             :AVAILABLE_LOCALES => '',
             :BLACKHOLE_PREFIX => 'do-not-reply-to-this-address',
             :BLOG_FEED => '',

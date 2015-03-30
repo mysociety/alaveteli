@@ -17,7 +17,7 @@
     <p class="event_actions">
         <% if !comment.id.nil? %>
             <% if !@user.nil? && @user.admin_page_links? %>
-                <%= link_to "Admin", admin_request_edit_comment_path(comment) %> |
+                <%= link_to "Admin", edit_admin_comment_path(comment) %> |
             <% end %>
             <%= link_to "Link to this", comment_path(comment), :class => "link_to_this" %>
             <!-- | <%= link_to _('Report abuse'), comment_path(comment) %> -->

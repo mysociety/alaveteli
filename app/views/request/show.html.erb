@@ -2,6 +2,11 @@
                 :title => h(@info_request.title),
                 :public_body => (@info_request.public_body.name)) %>
 
+<% if flash[:request_sent] %>
+  <%= render :partial => 'request_sent',
+             :locals => { :info_request => @info_request } %>
+<% end %>
+
 <% if @info_request.prominence == 'hidden' %>
     <p id="hidden_request">
     <%= _('This request has prominence \'hidden\'. You can only see it because you are logged
@@ -37,9 +42,9 @@
                     :user => request_user_link(@info_request, _('An anonymous user')),
                     :law_used_full => h(@info_request.law_used_full),
                     :user_admin_link => user_admin_link_for_request(@info_request, _('external'), _('admin')),
-                    :request_admin_url => admin_request_show_url(@info_request),
+                    :request_admin_url => admin_request_url(@info_request),
                     :public_body_link => public_body_link(@info_request.public_body),
-                    :public_body_admin_url => admin_body_show_url(@info_request.public_body)) %>
+                    :public_body_admin_url => admin_body_url(@info_request.public_body)) %>
         <% else %>
             <%= _('{{user}} made this {{law_used_full}} request',
             :user=>request_user_link(@info_request, _('An anonymous user')),
@@ -51,19 +56,20 @@
     <p id="request_status" class="request_icon_line icon_<%= @info_request.calculate_status %>">
     <% if @info_request.awaiting_description %>
         <% if @is_owning_user && !@info_request.is_external? && !@render_to_file %>
-            <%= _('Please <strong>answer the question above</strong> so we know whether the ')%>
-            <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'recent response contains', 'recent responses contain') %> <%= _('useful information.') %>
+          <%= n_('Please <strong>answer the question above</strong> so we know whether the recent response contains useful information.',
+                 'Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information.',
+                 @new_responses_count) %>
         <% else %>
             <%= _('This request has an <strong>unknown status</strong>.') %>
             <% if @old_unclassified %>
-              <%= _('We\'re waiting for someone to read') %>
-              <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'a recent response', 'recent responses') %>
-              <%= _('and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?') %>
+              <%= n_("We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?",
+                     "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?",
+                     @new_responses_count) %>
             <% else %>
-            <%=  _('We\'re waiting for') %>
-              <%= user_link_for_request(@info_request) %> <%= _('to read') %>
-              <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'a recent response', 'recent responses') %>
-              <%= _('and update the status.') %>
+              <%= n_("We're waiting for {{user}} to read a recent response and update the status.",
+                     "We're waiting for {{user}} to read recent responses and update the status.",
+                     @new_responses_count,
+                     :user => user_link_for_request(@info_request)) %>
             <% end %>
         <% end %>
     <% elsif @status == 'waiting_response' %>

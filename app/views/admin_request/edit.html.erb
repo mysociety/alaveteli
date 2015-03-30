@@ -2,7 +2,7 @@
 
 <%= error_messages_for 'info_request' %>
 
-<%= form_tag admin_request_update_path(@info_request) do %>
+<%= form_tag admin_request_path(@info_request), :method => :put do %>
 
    <p><label for="info_request_title"><strong>Title</strong></label> (warning: editing this will break URLs right now)<br/>
    <%= text_field 'info_request', 'title', :size => 50  %></p>
@@ -43,15 +43,15 @@
 <% end %>
 
 <p>
-<%= link_to 'Show', admin_request_show_path(@info_request) %> |
-<%= link_to 'List all', admin_request_list_path %>
+<%= link_to 'Show', admin_request_path(@info_request) %> |
+<%= link_to 'List all', admin_requests_path %>
 </p>
 
 <hr>
 
 <div class="well">
 
-<%= form_tag admin_request_destroy_path(@info_request) do %>
+<%= form_tag admin_request_path(@info_request), :method => :delete do %>
     <p>
     <strong>This is permanent and irreversible!</strong> <%= submit_tag 'Destroy request entirely', :class => 'btn btn-danger' %>
     <br>Use it mainly if someone posts private information, e.g. made a Data Protection request. It

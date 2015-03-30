@@ -1,6 +1,63 @@
 # coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+describe UserController do
+
+  describe :set_profile_photo do
+
+    context 'user is banned' do
+
+      before(:each) do
+        @user = FactoryGirl.create(:user, :ban_text => 'Causing trouble')
+        session[:user_id] = @user.id
+        @uploadedfile = fixture_file_upload("/files/parrot.png")
+
+        post :set_profile_photo, :id => @user.id,
+                                 :file => @uploadedfile,
+                                 :submitted_draft_profile_photo => 1,
+                                 :automatically_crop => 1
+      end
+
+      it 'redirects to the profile page' do
+        expect(response).to redirect_to(set_profile_photo_path)
+      end
+
+      it 'renders an error message' do
+        msg = 'Banned users cannot edit their profile'
+        expect(flash[:error]).to eq(msg)
+      end
+
+    end
+
+  end
+
+  describe :set_profile_about_me do
+
+    context 'user is banned' do
+
+      before(:each) do
+        @user = FactoryGirl.create(:user, :ban_text => 'Causing trouble')
+        session[:user_id] = @user.id
+
+        post :set_profile_about_me, :submitted_about_me => '1',
+                                    :about_me => 'Bad stuff'
+      end
+
+      it 'redirects to the profile page' do
+        expect(response).to redirect_to(set_profile_about_me_path)
+      end
+
+      it 'renders an error message' do
+        msg = 'Banned users cannot edit their profile'
+        expect(flash[:error]).to eq(msg)
+      end
+
+    end
+
+  end
+
+end
+
 # TODO: Use route_for or params_from to check /c/ links better
 # http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/ControllerExampleGroup.html
 describe UserController, "when redirecting a show request to a canonical url" do

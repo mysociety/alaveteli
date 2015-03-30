@@ -57,12 +57,12 @@ describe AdminRequestController, "when administering requests" do
         it 'expires the file cache for that request' do
             info_request = info_requests(:badger_request)
             @controller.should_receive(:expire_for_request).with(info_request)
-            get :fully_destroy, { :id => info_request }
+            get :destroy, { :id => info_request }
         end
 
         it 'uses a different flash message to avoid trying to fetch a non existent user record' do
             info_request = info_requests(:external_request)
-            post :fully_destroy, { :id => info_request.id }
+            post :destroy, { :id => info_request.id }
             request.flash[:notice].should include('external')
         end
 
@@ -76,34 +76,6 @@ describe AdminRequestController, "when administering the holding pen" do
         basic_auth_login @request
         load_raw_emails_data
     end
-
-    it "shows a rejection reason for an incoming message from an invalid address" do
-        ir = info_requests(:fancy_dog_request)
-        ir.allow_new_responses_from = 'authority_only'
-        ir.handle_rejected_responses = 'holding_pen'
-        ir.save!
-        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "frob@nowhere.com")
-        get :show_raw_email, :id => InfoRequest.holding_pen_request.get_last_public_response.raw_email.id
-        response.should contain "Only the authority can reply to this request"
-    end
-
-    it "guesses a misdirected request" do
-        ir = info_requests(:fancy_dog_request)
-        ir.handle_rejected_responses = 'holding_pen'
-        ir.allow_new_responses_from = 'authority_only'
-        ir.save!
-        mail_to = "request-#{ir.id}-asdfg@example.com"
-        receive_incoming_mail('incoming-request-plain.email', mail_to)
-        interesting_email = InfoRequest.holding_pen_request.get_last_public_response.raw_email.id
-        # now we add another message to the queue, which we're not interested in
-        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "")
-        InfoRequest.holding_pen_request.incoming_messages.length.should == 2
-        get :show_raw_email, :id => interesting_email
-        response.should contain "Could not identify the request"
-        assigns[:info_requests][0].should == ir
-    end
-
-
 
     it "shows a suitable default 'your email has been hidden' message" do
         ir = info_requests(:fancy_dog_request)
@@ -119,7 +91,7 @@ describe AdminRequestController, "when administering the holding pen" do
 
         it "hides requests and sends a notification email that it has done so" do
             ir = info_requests(:fancy_dog_request)
-            post :hide_request, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
+            post :hide, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
             ir.reload
             ir.prominence.should == "requester_only"
             ir.described_state.should == "vexatious"
@@ -132,7 +104,7 @@ describe AdminRequestController, "when administering the holding pen" do
         it 'expires the file cache for the request' do
             ir = info_requests(:fancy_dog_request)
             @controller.should_receive(:expire_for_request).with(ir)
-            post :hide_request, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
+            post :hide, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
         end
 
         describe 'when hiding an external request' do
@@ -153,7 +125,7 @@ describe AdminRequestController, "when administering the holding pen" do
             end
 
             def make_request(params=@default_params)
-                post :hide_request, params
+                post :hide, params
             end
 
             it 'should redirect the the admin page for the request' do

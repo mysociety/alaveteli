@@ -330,6 +330,8 @@ class Wad
   end
 
   def s3_configure
+    return log "ENV['S3_CREDENTIALS'] not present." unless ENV['S3_CREDENTIALS']
+
     Presss.config = {
       :region => s3_region,
       :bucket_name => s3_bucket_name,
@@ -424,7 +426,7 @@ class Wad
   end
 
   def self.setup
-    new.setup
+    ENV['S3_CREDENTIALS'] ? new.setup : new.install_bundle
   end
 end
 

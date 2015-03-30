@@ -14,6 +14,7 @@ set :deploy_to, configuration['deploy_to']
 set :user, configuration['user']
 set :use_sudo, false
 set :rails_env, configuration['rails_env']
+set :daemon_name, configuration.fetch('daemon_name', 'alaveteli')
 
 server configuration['server'], :app, :web, :db, :primary => true
 
@@ -35,9 +36,9 @@ end
 namespace :deploy do
 
   [:start, :stop, :restart].each do |t|
-    desc "#{t.to_s.capitalize} Alaveteli service defined in /etc/init.d/alaveteli"
+    desc "#{t.to_s.capitalize} Alaveteli service defined in /etc/init.d/"
     task t, :roles => :app, :except => { :no_release => true } do
-      run "/etc/init.d/alaveteli #{t}"
+      run "service #{ daemon_name } #{ t }"
     end
   end
 

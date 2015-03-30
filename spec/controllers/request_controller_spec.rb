@@ -956,6 +956,20 @@ describe RequestController, "when searching for an authority" do
             }.should_not raise_error(StandardError)
         end
     end
+
+    it "remembers the search params" do
+        session[:user_id] = @user.id
+        search_params = {
+            'query'  => 'Quango',
+            'page'   => '1',
+            'bodies' => '1'
+        }
+
+        get :select_authority, search_params
+
+        expect(flash[:search_params]).to eq(search_params)
+    end
+
 end
 
 describe RequestController, "when creating a new request" do
@@ -1071,6 +1085,16 @@ describe RequestController, "when creating a new request" do
         # This test uses an explicit path because it's relied in
         # Google Analytics goals:
         response.redirect_url.should =~ /request\/why_is_your_quango_called_gerald\/new$/
+    end
+
+    it "sets the request_sent flash to true if successful" do
+        session[:user_id] = @user.id
+        post :new, :info_request => { :public_body_id => @body.id,
+            :title => "Why is your quango called Geraldine?", :tag_string => "" },
+            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+            :submitted_new_request => 1, :preview => 0
+
+        expect(flash[:request_sent]).to be_true
     end
 
     it "should give an error if the same request is submitted twice" do
@@ -2392,6 +2416,23 @@ describe RequestController, "when doing type ahead searches" do
         get :search_typeahead, :q => "dog -chicken"
         assigns[:xapian_requests].results.size.should == 1
     end
+
+    it 'can filter search results by public body' do
+        get :search_typeahead, :q => 'boring', :requested_from => 'dfh'
+        expect(assigns[:query]).to eq('requested_from:dfh boring')
+    end
+
+    it 'defaults to 25 results per page' do
+        get :search_typeahead, :q => 'boring'
+        expect(assigns[:per_page]).to eq(25)
+    end
+
+    it 'can limit the number of searches returned' do
+        get :search_typeahead, :q => 'boring', :per_page => '1'
+        expect(assigns[:per_page]).to eq(1)
+        expect(assigns[:xapian_requests].results.size).to eq(1)
+    end
+
 end
 
 describe RequestController, "when showing similar requests" do
@@ -2442,7 +2483,7 @@ describe RequestController, "when caching fragments" do
                                                  :info_request_id => 132,
                                                  :id => 44,
                                                  :get_attachments_for_display => nil,
-                                                 :html_mask_stuff! => nil,
+                                                 :apply_masks! => nil,
                                                  :user_can_view? => true,
                                                  :all_can_view? => true)
         attachment = FactoryGirl.build(:body_text, :filename => long_name)
@@ -2537,10 +2578,9 @@ describe RequestController, "#new_batch" do
                     assigns[:existing_batch].should_not be_nil
                 end
 
-                it 'should display a success notice' do
+                it 'sets the batch_sent flash to true' do
                     make_request
-                    notice_text = "<p>Your Freedom of Information requests will be <strong>sent</strong> shortly!"
-                    flash[:notice].should match notice_text
+                    expect(flash[:batch_sent]).to be_true
                 end
 
             end
@@ -2655,7 +2695,7 @@ describe RequestController, "#select_authorities" do
 
             end
 
-            context 'when asked for JSON', :focus => true do
+            context 'when asked for JSON' do
 
                 it 'should be successful' do
                     get :select_authorities, {:public_body_query => "Quan", :format => 'json'}, {:user_id => @user.id}

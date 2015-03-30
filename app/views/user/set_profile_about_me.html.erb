@@ -17,8 +17,12 @@
     </div>
 
     <p>
-    <label class="form_label" for="set_profile_about_me"><%= _('About you:')%></label>
-    <%= f.text_area :about_me, :rows => 5, :cols => 55 %>
+      <label class="form_label" for="set_profile_about_me">
+        <%= _('About you:')%>
+      </label>
+      <% about_me_opts = { :rows => 5, :cols => 55 } %>
+      <% about_me_opts.merge!({ :disabled => 'disabled' }) if @user.banned? %>
+      <%= f.text_area :about_me, about_me_opts %>
     </p>
 
     <div class="form_note">

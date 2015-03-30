@@ -2,46 +2,13 @@
 #
 # Table name: public_body_categories
 #
-#  id            :integer        not null, primary key
-#  locale        :string
-#  title         :text           not null
-#  category_tag  :text           not null
-#  description   :text           not null
-#  display_order :integer
+#  id           :integer          not null, primary key
+#  category_tag :text             not null
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PublicBodyCategory do
-    describe 'when loading the data' do
-        it 'should use the display_order field to preserve the original data order' do
-            PublicBodyCategory.add(:en, [
-                "Local and regional",
-                    [ "local_council", "Local councils", "a local council" ],
-                "Miscellaneous",
-                    [ "other", "Miscellaneous", "miscellaneous" ],
-                    [ "aardvark", "Aardvark", "daft test"],])
-
-            headings = PublicBodyHeading.all
-            cat_group1 = headings[0].public_body_categories
-            cat_group1.count.should eq 1
-            cat_group1[0].title.should eq "Local councils"
-
-            cat_group2 = headings[1].public_body_categories
-            cat_group2.count.should eq 2
-            cat_group2[0].title.should eq "Miscellaneous"
-            cat_group2[0].public_body_category_links.where(
-                :public_body_heading_id => headings[1].id).
-                    first.
-                    category_display_order.should eq 0
-
-            cat_group2[1].title.should eq "Aardvark"
-            cat_group2[1].public_body_category_links.where(
-                :public_body_heading_id => headings[1].id).
-                    first.
-                    category_display_order.should eq 1
-        end
-    end
 
     context 'when validating' do
 
@@ -67,5 +34,145 @@ describe PublicBodyCategory do
             category.should_not be_valid
             category.errors[:description].should == ["Description can't be blank"]
         end
+
+        it 'validates the translations' do
+            category = FactoryGirl.build(:public_body_category)
+            translation = category.translations.build
+            expect(category).to_not be_valid
+        end
+
+        it 'uses the base model validation for the default locale' do
+          category = PublicBodyCategory.new
+          translation = category.translations.build(:locale => 'en',
+                                                    :description => 'No title')
+          category.valid?
+          translation.valid?
+
+          expect(category).to have(1).error_on(:title)
+          expect(translation).to have(0).errors_on(:title)
+        end
+
     end
+
+    describe :save do
+
+      it 'saves translations' do
+          category = FactoryGirl.build(:public_body_category)
+          category.translations_attributes = { :es => { :locale => 'es',
+                                                        :title => 'El Category',
+                                                        :description => 'Spanish description' } }
+
+          category.save
+          expect(PublicBodyCategory.find(category.id).translations.size).to eq(2)
+      end
+
+    end
+
+    describe :translations_attributes= do
+
+        context 'translation_attrs is a Hash' do
+
+            it 'does not persist translations' do
+                category = FactoryGirl.create(:public_body_category)
+                category.translations_attributes = { :es => { :locale => 'es',
+                                                              :title => 'El Category',
+                                                              :description => 'Spanish description' } }
+
+                expect(PublicBodyCategory.find(category.id).translations.size).to eq(1)
+            end
+
+            it 'creates a new translation' do
+                category = FactoryGirl.create(:public_body_category)
+                category.translations_attributes = { :es => { :locale => 'es',
+                                                              :title => 'El Category',
+                                                              :description => 'Spanish description' } }
+                category.save
+                category.reload
+                expect(category.title(:es)).to eq('El Category')
+            end
+
+            it 'updates an existing translation' do
+                category = FactoryGirl.create(:public_body_category)
+                category.translations_attributes = { 'es' => { :locale => 'es',
+                                                               :title => 'Name',
+                                                               :description => 'Desc' } }
+                category.save
+
+                category.translations_attributes = { 'es' => { :id => category.translation_for(:es).id,
+                                                               :locale => 'es',
+                                                               :title => 'Renamed',
+                                                               :description => 'Desc' } }
+                category.save
+                expect(category.title(:es)).to eq('Renamed')
+            end
+
+            it 'updates an existing translation and creates a new translation' do
+                category = FactoryGirl.create(:public_body_category)
+                category.translations.create(:locale => 'es',
+                                             :title => 'Los Category',
+                                             :description => 'ES Description')
+
+                expect(category.translations.size).to eq(2)
+
+                category.translations_attributes = {
+                    'es' => { :id => category.translation_for(:es).id,
+                              :locale => 'es',
+                              :title => 'Renamed' },
+                    'fr' => { :locale => 'fr',
+                              :title => 'Le Category' }
+                }
+
+                expect(category.translations.size).to eq(3)
+                I18n.with_locale(:es) { expect(category.title).to eq('Renamed') }
+                I18n.with_locale(:fr) { expect(category.title).to eq('Le Category') }
+            end
+
+            it 'skips empty translations' do
+                category = FactoryGirl.create(:public_body_category)
+                category.translations.create(:locale => 'es',
+                                             :title => 'Los Category',
+                                             :description => 'ES Description')
+
+                expect(category.translations.size).to eq(2)
+
+                category.translations_attributes = {
+                    'es' => { :id => category.translation_for(:es).id,
+                              :locale => 'es',
+                              :title => 'Renamed' },
+                    'fr' => { :locale => 'fr' }
+                }
+
+                expect(category.translations.size).to eq(2)
+            end
+
+        end
+    end
+
+end
+
+describe PublicBodyCategory::Translation do
+
+  it 'requires a locale' do
+    translation = PublicBodyCategory::Translation.new
+    translation.valid?
+    expect(translation.errors[:locale]).to eq(["can't be blank"])
+  end
+
+  it 'is valid if no required attributes are assigned' do
+    translation = PublicBodyCategory::Translation.new(:locale => I18n.default_locale)
+    expect(translation).to be_valid
+  end
+
+  it 'requires a title if another required attribute is assigned' do
+    translation = PublicBodyCategory::Translation.new(:description => 'spec')
+    translation.valid?
+    expect(translation.errors[:title]).to eq(["Title can't be blank"])
+  end
+
+  it 'requires a description if another required attribute is assigned' do
+    translation = PublicBodyCategory::Translation.new(:title => 'spec')
+    translation.valid?
+    expect(translation.errors[:description]).to eq(["Description can't be blank"])
+  end
+
 end

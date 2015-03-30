@@ -1,5 +1,10 @@
-<% @title = _("Details of request '") + h(@info_request.title) + "'" %>
-<h1><%= _("Details of request '") + request_link(@info_request) + "'" %></h1>
+<% @title = _("Details of request &ldquo;{{request_title}}&rdquo;",
+              :request_title => h(@info_request.title)) %>
+
+<h1>
+  <%= _("Details of request &ldquo;{{request_title}}&rdquo;",
+        :request_title => request_link(@info_request)) %>
+</h1>
 
 <h2><%= _('Event history') %></h2>
 

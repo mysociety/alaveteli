@@ -102,6 +102,14 @@ describe GeneralController, "when showing the frontpage" do
         end
     end
 
+    it 'should generate a feed URL for successful requests' do
+        get :frontpage
+        assigns[:feed_autodetect].size.should == 1
+        successful_request_feed = assigns[:feed_autodetect].first
+        successful_request_feed[:title].should == 'Successful requests'
+    end
+
+
     it "should render the front page with default language and ignore the browser setting" do
         config = MySociety::Config.load_default()
         config['USE_DEFAULT_BROWSER_LANGUAGE'] = false
@@ -134,6 +142,35 @@ describe GeneralController, "when showing the frontpage" do
         it "should use our test PO files rather than the application one" do
             get :frontpage, :locale => 'es'
             response.body.should match /XOXO/
+        end
+
+    end
+
+    describe 'when handling logged-in users' do
+
+        before do
+            @user = FactoryGirl.create(:user)
+            session[:user_id] = @user.id
+        end
+
+        it 'should set a time to live on a non "remember me" session' do
+            get :frontpage
+            response.body.should match @user.name
+            session[:ttl].should be_within(1).of(Time.now)
+        end
+
+        it 'should not set a time to live on a "remember me" session' do
+            session[:remember_me] = true
+            get :frontpage
+            response.body.should match @user.name
+            session[:ttl].should be_nil
+        end
+
+        it 'should end a logged-in session whose ttl has expired' do
+            session[:ttl] = Time.now - 4.hours
+            get :frontpage
+            response.should redirect_to signin_path
+            session[:user_id].should be_nil
         end
 
     end

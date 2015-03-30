@@ -15,7 +15,7 @@
         <td><%=h censor_rule.send(column) %></td>
       <% end %>
       <td>
-        <%= link_to "Edit", admin_rule_edit_path(censor_rule) %>
+        <%= link_to "Edit", edit_admin_censor_rule_path(censor_rule) %>
       </td>
     </tr>
   <% end %>
@@ -25,7 +25,7 @@
 <% end %>
 
 <% if defined? info_request %>
-  <%= link_to "New censor rule", new_admin_info_request_censor_rule_path(info_request), :class => "btn btn-info" %>
+  <%= link_to "New censor rule", new_admin_request_censor_rule_path(info_request), :class => "btn btn-info" %>
   <span class="label label-info">for this request only</span>
 <% end %>
 

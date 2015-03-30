@@ -209,13 +209,15 @@ echo $DONE_MSG
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
   echo -n "Creating /etc/init.d/$SITE... "
   (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' SCRIPT_FILE=config/sysvinit-thin.ugly" "$UNIX_USER") > /etc/init.d/"$SITE"
-  chmod a+rx /etc/init.d/"$SITE"
+  chgrp "$UNIX_USER" /etc/init.d/"$SITE"
+  chmod 754 /etc/init.d/"$SITE"
   echo $DONE_MSG
 fi
 
 echo -n "Creating /etc/init.d/$SITE-alert-tracks... "
-(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.ugly" "$UNIX_USER") > /etc/init.d/$SITE-alert-tracks
-chmod a+rx /etc/init.d/$SITE-alert-tracks
+(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.ugly" "$UNIX_USER") > /etc/init.d/"$SITE-alert-tracks"
+chgrp "$UNIX_USER" /etc/init.d/"$SITE-alert-tracks"
+chmod 754 /etc/init.d/"$SITE-alert-tracks"
 echo $DONE_MSG
 
 if [ $DEFAULT_SERVER = true ] && [ x != x$EC2_HOSTNAME ]

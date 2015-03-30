@@ -1,7 +1,5 @@
 <% @show_tips = @xapian_requests.nil? || (@total_hits == 0) %>
 
-<% @include_request_link_in_authority_listing = true %>
-
 <%= render :partial => 'localised_datepicker'  %>
 
 <% if @query.nil? %>
@@ -131,6 +129,7 @@
   <div id="header_right">
     <h2><%= _('Track this search')%></h2>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
+    <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'main' } %>
   </div>
 <% end %>
 
@@ -156,7 +155,9 @@
 
         <div class="results_block">
           <% for result in @xapian_bodies.results %>
-            <%= render :partial => 'public_body/body_listing_single', :locals => { :public_body => result[:model] }  %>
+            <%= render :partial => 'public_body/body_listing_single',
+                       :locals => { :public_body => result[:model],
+                                    :request_link => true }  %>
           <% end %>
         </div>
 

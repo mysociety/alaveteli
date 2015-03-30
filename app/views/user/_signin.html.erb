@@ -9,27 +9,30 @@
 
     <p>
     <label class="form_label" for="user_signin_email"><%= _('Your e-mail:')%></label>
-    <%= text_field 'user_signin', 'email', { :size => 20, :tabindex => 10 } %>
+    <%= text_field 'user_signin', 'email', { :size => 20, :tabindex => 60 } %>
     </p>
 
     <p>
     <label class="form_label" for="user_signin_password"><%= _('Password:')%></label>
-    <%= password_field 'user_signin', 'password', { :size => 15, :tabindex => 20 } %>
+    <%= password_field 'user_signin', 'password', { :size => 15, :tabindex => 70, :autocomplete => 'off' } %>
     </p>
 
     <p class="form_note">
-    <%= link_to _('Forgotten your password?'), signchangepassword_path + "?pretoken=" + h(params[:token]), :tabindex => 30 %>
+    <%= link_to _('Forgotten your password?'), signchangepassword_path(:pretoken => h(params[:token])), :tabindex => 80 %>
     </p>
 
     <p class="form_checkbox">
-    <%= check_box_tag 'remember_me', "1", false, :tabindex => 40 %>
-    <label for="remember_me"><%= _('Remember me</label> (keeps you signed in longer;
-    do not use on a public computer) ')%></p>
+      <%= check_box_tag 'remember_me', "1", false, :tabindex => 90 %>
+
+      <label for="remember_me">
+        <%= _('Remember me (keeps you signed in longer; do not use on a public computer)') %>
+      </label>
+    </p>
 
     <div class="form_button">
     <%= hidden_field_tag 'token', params[:token], {:id => 'signin_token' } %>
     <%= hidden_field_tag :modal, params[:modal], {:id => 'signin_modal' } %>
-    <%= submit_tag _('Sign in'), :tabindex => 50 %>
+    <%= submit_tag _('Sign in'), :tabindex => 100 %>
     </div>
 <% end %>
 
