@@ -18,6 +18,7 @@ There's also an Alaveteli-specific stylesheet, so do:
 
     sass --update --style=compressed assets/sass/alaveteli-org.scss:assets/css/alaveteli-org.css
 
+You can use `--watch` instead of `--update` to continually monitor for changes.
 
 ## Viewing locally manually
 
