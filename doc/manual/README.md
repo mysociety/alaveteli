@@ -1,7 +1,7 @@
 # Alaveteli documentation (github pages)
 
 The `gh-branch` contains the Alaveteli documentation that is hosted
-as GitHub Pages, and available at <http://www.alaveteli.org/docs>
+as GitHub Pages, and available at <http://www.alaveteli.org>
 
 The mySociety documentation "github pages" sites share the same styling.
 It comes from the 
