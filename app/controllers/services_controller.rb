@@ -5,6 +5,8 @@ require 'open-uri'
 class ServicesController < ApplicationController
 
     def other_country_message
+        flash.keep
+
         text = ""
         iso_country_code = AlaveteliConfiguration::iso_country_code.downcase
         if country_from_ip.downcase != iso_country_code

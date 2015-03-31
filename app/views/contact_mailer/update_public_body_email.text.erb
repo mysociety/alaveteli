@@ -10,7 +10,7 @@
 <%= @change_request.notes %>
 
 <%= _('Update the address:') %>
-<%= admin_body_edit_path(@change_request.public_body, :change_request_id => @change_request.id, :only_path => false) %>
+<%= edit_admin_body_path(@change_request.public_body, :change_request_id => @change_request.id, :only_path => false) %>
 
 <%= _('Close the request and respond:') %>
-<%= admin_change_request_edit_url(:id => @change_request.id, :only_path => false ) %>
+<%= edit_admin_change_request_url(@change_request, :only_path => false ) %>

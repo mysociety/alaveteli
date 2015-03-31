@@ -4,12 +4,13 @@
 #
 # Translators:
 # louisecrow <louise@mysociety.org>, 2014
+# louisecrow <louise@mysociety.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"POT-Creation-Date: 2015-03-24 10:21+0000\n"
+"PO-Revision-Date: 2015-03-24 11:14+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Macedonian (Macedonia) (http://www.transifex.com/projects/p/alaveteli/language/mk_MK/)\n"
 "Language: mk_MK\n"
@@ -126,29 +127,23 @@ msgstr "*непознат*"
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
 msgstr ",\\n\\n\\n\\nВаш,\\n\\n{{user_name}}"
 
-msgid "- or -"
-msgstr "- или -"
-
-msgid "1. Select an authority"
-msgstr "1. Изберете имател на информација"
-
-msgid "1. Select authorities"
-msgstr ""
-
-msgid "2. Ask for Information"
-msgstr "2. Побарајте информација"
-
-msgid "3. Now check your request"
-msgstr "3. Проверете го вашето барање"
-
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Прелистајте ги сите</a> или <a href=\"{{add_url}}\">побарајте ние да додадеме</a>."
 
 msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"{{url}}\">Додајте белешка</a> (за да му помогнете на барателот или на другите)"
 
+msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
+msgstr "<strong>Забелешка за приватност:</strong> Ако сакате да побарате приватни информации за\\n    себе, тогаш <a href=\"{{url}}\">кликнете тука</a>."
+
+msgid "<a href=\"{{url}}\">Keep it <strong>focused</strong></a>, you'll be more likely to get what you want."
+msgstr "Барањето треба да е <strong>фокусирано</strong>, со што ќе Ви се зголемат шансите да го добиете тоа што го сакате (<a href=\"{{url}}\">зошто?</a>)."
+
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Најавете се</a> за да ја промените лозинка, претплатата и друго (само {{user_name}})"
+
+msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>."
+msgstr "Ако размилувате да употребите псевдоним,\\n                Ве молиме<a href=\"{{url}}\">прочитајте го прво ова</a>."
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Готово! Благодариме за вашата помош.</p><p>Постојат <a href=\"{{helpus_url}}\">повеќе работи кои може да ги направите</a> за да помогнете {{site_name}}.</p>"
@@ -198,19 +193,13 @@ msgstr "<p>Нема потреба од вклучување на вашата �
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
 msgstr "<p>Вашето барање содржи <strong>поштенски број</strong>. Ве молиме тргнете било каква адреса, освен ако директно се однесува на барањето, бидејќи <strong>ќе се појави јавно на интернет</strong>.</p>"
 
-msgid "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
-msgstr "<p>Вашето {{law_used_full}} барање е <strong>испратено</strong>!</p>\\n            <p><strong>Ќе ви испратиме е-пошта</strong> кога ќе има одговор или после {{late_number_of_days}} работни дена доколку имателот се уште нема\\n            одговорено до тогаш.</p>\\n            <p>Ако пишувате за ова барање (на пример на форум или блог) ве молам направете врска со оваа страница и додадете\\n            белешка подолу каде што ќе кажете на корисниците за што пишувате. </p>"
-
-msgid "<p>Your {{law_used_full}} requests will be <strong>sent</strong> shortly!</p>\\n            <p><strong>We will email you</strong> when they have been sent.\\n            We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't\\n            replied by then.</p>\\n            <p>If you write about these requests (for example in a forum or a blog) please link to this page.</p>"
-msgstr ""
-
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>{{site_name}} во моментов се ажурира. Можете да ги прегледате само постоечките барања. Не може да креирате нови барања, да реплицирате или да додавате белешки или на било кој начин да ја менувате базата на податоци.</p> <p>{{read_only}}</p>"
 
 msgid "<small>If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way.</small>\\n</p>"
 msgstr "<small>Доколку користите веб-базирана е-пошта или пак имате \"junk mail\" филтри, проверете го и вашето\\nсандаче за спам пораки. Понекогаш, нашите пораки се означени како спам пораки.</small>\\n</p>"
 
-msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
+msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No!</a>"
 msgstr "<strong> Дали може да побарам информации за себе?</strong>\\n\t\t\t<a href=\"{{url}}\">Не! (Кликнете тука за детали)</a>"
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
@@ -246,6 +235,9 @@ msgstr "<strong>Сите информации</strong> се испратени"
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Уште нешто</strong>, како што е појаснување, потсетување, заблагодарување"
 
+msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
+msgstr ""
+
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need \\na good internal knowledge of user behaviour on {{site_name}}. How, \\nwhy and by whom requests are categorised is not straightforward, and there will\\nbe user error and ambiguity. You will also need to understand FOI law, and the\\nway authorities use it. Plus you'll need to be an elite statistician.  Please\\n<a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr "<strong>Внимание!</strong> За да ги користите овие податоци на чесен начин, ќе ви биде потребно \\nдобро познавање за однесувањето на корисниците на {{site_name}}. Како, \\nзошто и од кого барањата кои се категоризирани не се јасни и ќе\\nпостои човечка грешка и двосмисленост. Исто така ќе треба да го разберете законот за слободен пристап до информации од јавен карактер, како и\\nначинот на кои имателите на информации го користат. Дополнително, ќе треба да бидете елитен статистичар.  Ве молиме\\n<a href=\"{{contact_path}}\">контактирајте не</a> доколку имате прашања."
 
@@ -264,9 +256,6 @@ msgstr "<strong>Забелешка:</strong> Испраќате е-пошта д
 msgid "<strong>Note:</strong>\\n    We will send an email to your new email address. Follow the\\n    instructions in it to confirm changing your email."
 msgstr "<strong>Забелешка:</strong>\\n    Ќе испратиме е-пошта до вашата нова адреса за е-пошта. Следете ги\\n    насоките во неа за да го потврдите менувањето на адресата."
 
-msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"{{url}}\">click here</a>."
-msgstr "<strong>Забелешка за приватност:</strong> Ако сакате да побарате приватни информации за\\n    себе, тогаш <a href=\"{{url}}\">кликнете тука</a>."
-
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
 msgstr "<strong>Забелешка за приватност:</strong> Вашата фотографија ќе биде јавно прикажана на интернет,\\n    секогаш кога ќе сакате нешто да направите на {{site_name}}."
 
@@ -278,6 +267,12 @@ msgstr "<strong>Некои од информациите</strong> беа исп�
 
 msgid "<strong>Thank</strong> the public authority or "
 msgstr "<strong>Заблагодарете</strong> му се ја имателот или "
+
+msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
+msgstr ""
+
+msgid "<strong>We will email you</strong> when they have been sent. We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't replied by then."
+msgstr ""
 
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>ја немаше</strong> бараната информација."
@@ -302,6 +297,9 @@ msgstr "Целосна историја за моето барање и сите
 
 msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Ново барање, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, беше пратено до {{public_body_name}} од {{info_request_user}} на {{date}}."
+
+msgid "A one line summary of the information you are requesting, \\n\t\t\te.g."
+msgstr "резиме во еден ред за информацијата која ја барате, \\n\t\t\tна пр."
 
 msgid "A public authority"
 msgstr "Имател на информација"
@@ -333,8 +331,8 @@ msgstr "ActsAsXapian::ActsAsXapianJob|Акција"
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr "ActsAsXapian::ActsAsXapianJob|Модел"
 
-msgid "Add an annotation"
-msgstr "Додадете белешка"
+msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
+msgstr ""
 
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr "Додадете белешка на вашето барање со избрани цитати, или\\n                 <strong>резиме на одговорот</strong>."
@@ -363,7 +361,7 @@ msgstr "Препораки за напредно пребарување"
 msgid "Advise on whether the <strong>refusal is legal</strong>, and how to complain about it if not."
 msgstr "Советувај ако <strong>одбивањето е легално</strong> и како да се пожалите доколку не е."
 
-msgid "Air, water, soil, land, flora and fauna (including how these effect\\n            human beings)"
+msgid "Air, water, soil, land, flora and fauna (including how these effect\\n      human beings)"
 msgstr "Воздух, вода, почва, земјиште, флора и фауна (вклучувајќи и каков ефект имаат овие\\n            на човечките суштества)"
 
 msgid "All of the information requested has been received"
@@ -461,6 +459,9 @@ msgstr "Се чека внатрешна ревизија."
 
 msgid "Awaiting response."
 msgstr "Се чека одговор."
+
+msgid "Banned users cannot edit their profile"
+msgstr ""
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr ""
@@ -600,6 +601,9 @@ msgstr "Comment|Locale"
 msgid "Comment|Visible"
 msgstr "Comment|Visible"
 
+msgid "Confirm password:"
+msgstr "Лозинка: (повторно)"
+
 msgid "Confirm you want to follow all successful FOI requests"
 msgstr "Потврдете дека сакате да ги следите сите успешни барања за слободен пристап до информации од јавен карактер"
 
@@ -657,13 +661,16 @@ msgstr "Не може да се идентификува барањето од �
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Форматот на фотографијата е непознат. Поддржани се PNG, JPEG, GIF и многу други чести формати за фотографија."
 
+msgid "Create a new account"
+msgstr ""
+
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
 
 msgid "Crop your profile photo"
 msgstr "Исечете ја вашата фотографија за профил"
 
-msgid "Cultural sites and built structures (as they may be affected by the\\n            environmental factors listed above)"
+msgid "Cultural sites and built structures (as they may be affected by the\\n      environmental factors listed above)"
 msgstr "Културни знаменитости и изградени објекти (кои може да се засегнати од\\n            факторите наведени погоре)"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
@@ -684,9 +691,6 @@ msgstr "Драг {{public_body_name}},\\n\\nВрз основа на член 4 
 msgid "Dear {{user_name}},"
 msgstr ""
 
-msgid "Default locale"
-msgstr "Зададено место"
-
 msgid "Defunct."
 msgstr "Мртов."
 
@@ -702,8 +706,8 @@ msgstr "Грешка при испорака"
 msgid "Destroy {{name}}"
 msgstr "Уништи {{name}}"
 
-msgid "Details of request '"
-msgstr "Детали за барањето '"
+msgid "Details of request &ldquo;{{request_title}}&rdquo;"
+msgstr ""
 
 msgid "Did you mean: {{correction}}"
 msgstr "Дали мислевте: {{correction}}"
@@ -750,7 +754,7 @@ msgstr "Уредете и додајте <strong>повеќе детали</stro
 msgid "Edit text about you"
 msgstr "Уредете го текстот за вас"
 
-msgid "Edit this request"
+msgid "Edit your request"
 msgstr "Уредете го ова барање"
 
 msgid "Either the email or password was not recognised, please try again."
@@ -792,10 +796,10 @@ msgstr "Детали за историја на настани"
 msgid "Event {{id}}"
 msgstr "Настан {{id}}"
 
-msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"{{url}}\">why?</a>)."
+msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n          will be <strong>displayed publicly</strong> on\\n          this website <a href=\"{{url}}\">forever</a>"
 msgstr "Се што ќе внесете на оваа страница, вклучувајќи го и <strong>вашето име</strong>,\\n                ќе биде <strong>јавно прикажано</strong> засекогаш на\\n                оваа интернет-страна (<a href=\"{{url}}\">зошто?</a>)."
 
-msgid "Everything that you enter on this page\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"{{url}}\">why?</a>)."
+msgid "Everything that you enter on this page\\n          will be <strong>displayed publicly</strong> on\\n          this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr "Се што ќе внесете на оваа страница\\n                ќе биде <strong>јавно прикажано</strong> засекогаш на\\n                оваа интернет-страна (<a href=\"{{url}}\">зошто?</a>)."
 
 msgid "FOI"
@@ -803,6 +807,9 @@ msgstr "Слободен пристап до информации од јаве�
 
 msgid "FOI email address for {{public_body}}"
 msgstr "Адреса за е-пошта за слободен пристап до информации на {{public_body}}"
+
+msgid "FOI law does not apply to this authority."
+msgstr ""
 
 msgid "FOI request – {{title}}"
 msgstr "Барање за слободен пристап до информации – {{title}}"
@@ -834,11 +841,20 @@ msgstr "Филтрирај"
 msgid "Filter by Request Status (optional)"
 msgstr ""
 
+msgid "Find an authority"
+msgstr "Изберете имател до кој ќе пишете"
+
+msgid "Find the authorities"
+msgstr ""
+
+msgid "Find the authorities to write to"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr "Прво, дали другите ваши барања беа успешни?"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr "Прво, внесете <strong>име на надлежниот орган во МК</strong> од кој\\n           ви треба информација. <strong>Според закон, тие мора да одговорат</strong>\\n           (<a href=\"{{url}}\">зошто?</a>)."
+msgid "First, type in the <strong>name of the public authority</strong> you'd\\n        like information from."
+msgstr ""
 
 msgid "Foi attachment"
 msgstr "Прилог за барањето за слободен пристап"
@@ -882,9 +898,6 @@ msgstr "Следете ги овие барања"
 msgid "Follow things matching this search"
 msgstr "Следете ги активностите кои одговараат на ова пребарување"
 
-msgid "Follow this authority"
-msgstr "Следете го овој надлежен орган"
-
 msgid "Follow this link to see the request:"
 msgstr "Следете ја оваа врска за да го видите барањето:"
 
@@ -924,11 +937,11 @@ msgstr "Реакциите и новите одговори на ова бара
 msgid "Follow us on twitter"
 msgstr "Следи не на twitter"
 
+msgid "Following"
+msgstr ""
+
 msgid "Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf."
 msgstr "Реакција за ова барање не може да се испрати, бидејќи беше направено надворешно, а објавено тука од {{public_body_name}} во име на барателот."
-
-msgid "For an unknown reason, it is not possible to make a request to this authority."
-msgstr "Од непознати причини, не може да се направи барање до овој имател."
 
 msgid "Forgotten your password?"
 msgstr "Ја заборавивте лозинката?"
@@ -944,14 +957,14 @@ msgstr "Слободен пристап до информации"
 msgid "Freedom of Information Act"
 msgstr "Закон за слободен пристап до информации"
 
-msgid "Freedom of Information law does not apply to this authority, so you cannot make\\n                a request to it."
+msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Законот за Слободен пристап до информации не се однесува за овој имател, затоа не можете да направите\\n                барање до нив."
-
-msgid "Freedom of Information law no longer applies to"
-msgstr "Законот за Слободен пристап до информации повеќе не се однесува на"
 
 msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
 msgstr "Законот за Слободен пристап до информации не се однесува за овој имател. Надоврзаните пораки на барањето се праќаат до "
+
+msgid "Freedom of Information law no longer applies to {{public_body_name}}."
+msgstr ""
 
 msgid "Freedom of Information requests made"
 msgstr "Направени се барања за слободен пристап до информации"
@@ -965,9 +978,6 @@ msgstr "Барања за слободен пристап до информац�
 msgid "Freedom of Information requests made using this site"
 msgstr "Барања за слободен пристап до информации направени преку оваа страна"
 
-msgid "Freedom of information requests to"
-msgstr "Барања за слободен пристап до информации до"
-
 msgid "From"
 msgstr "Од"
 
@@ -979,6 +989,9 @@ msgstr "Од:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ДАДЕТЕ ДЕТАЛИ ЗА ВАЖАТА ЖАЛБА ТУКА"
+
+msgid "Got an account?"
+msgstr ""
 
 msgid "Handled by post."
 msgstr "Решено по пошта."
@@ -1010,6 +1023,9 @@ msgstr "Здраво, {{username}}!"
 msgid "Help"
 msgstr "Помош"
 
+msgid "Help us classify requests that haven't been updated"
+msgstr ""
+
 msgid "Here <strong>described</strong> means when a user selected a status for the request, and\\nthe most recent event had its status updated to that value. <strong>calculated</strong> is then inferred by\\n{{site_name}} for intermediate events, which weren't given an explicit\\ndescription by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
 msgstr "Овде зборот <strong>опишано</strong> значи кога корисник има одбрано статус за барањето и\\nстатусот на последната новост ја има таа вредност. Зборот <strong>пресметано</strong> е претставен од страна на\\n{{site_name}} за посредни настани, за кои не беше експлицитно даден\\nопис од страна на корисник. Погледни ги <a href=\"{{search_path}}\">советите за пребарување</a> за описите на статусите."
 
@@ -1040,7 +1056,7 @@ msgstr "Почетна страна"
 msgid "Home page of authority"
 msgstr "Почетна страна на имателот"
 
-msgid "However, you have the right to request environmental\\n            information under a different law"
+msgid "However, you have the right to request environmental\\n      information under a different law"
 msgstr "Секако, вие имате право да побарате информации\\n            за животната средина под друг закон"
 
 msgid "Human health and safety"
@@ -1115,9 +1131,6 @@ msgstr "Ако сте вие барателот, тогаш <a href=\"{{url}}\">
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
 msgstr "Ако сте вие барателот, тогаш <a href=\"{{url}}\">најавете се</a> за да го видите барањето."
 
-msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"{{url}}\">read this first</a>."
-msgstr "Ако размилувате да употребите псевдоним,\\n                Ве молиме<a href=\"{{url}}\">прочитајте го прво ова</a>."
-
 msgid "If you are {{user_link}}, please"
 msgstr "Ако сте {{user_link}}, Ве молиме"
 
@@ -1147,6 +1160,12 @@ msgstr "Ако користите веб-базирана е-пошта или �
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr "Ако сакате да ја тргнеме оваа забрана, тогаш може учтиво да не\\n<a href=\"/help/contact\">контактирате</a> со што ќе ги наведете причините.\\n"
+
+msgid "If you write about these requests (for example in a forum or a blog) please link to this page."
+msgstr ""
+
+msgid "If you write about this request (for example in a forum or a blog) please link to this page, and <a href=\"{{url}}\">add an annotation</a> below telling people about your writing."
+msgstr ""
 
 msgid "If you're new to {{site_name}}"
 msgstr "Ако сте нов корисник на {{site_name}}"
@@ -1274,7 +1293,7 @@ msgstr "InfoRequest|Url title"
 msgid "Information not held."
 msgstr "Информациите не се чуваат."
 
-msgid "Information on emissions and discharges (e.g. noise, energy,\\n            radiation, waste materials)"
+msgid "Information on emissions and discharges (e.g. noise, energy,\\n      radiation, waste materials)"
 msgstr "Информации за емисиите и испуштањата (на пр. шум, енергија,\\n            радијација, отпадни материјали)"
 
 msgid "Internal review request"
@@ -1304,8 +1323,11 @@ msgstr "Почнавте да го користите {{site_name}} на"
 msgid "Just one more thing"
 msgstr "Само уште една работа"
 
-msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"{{url}}\">why?</a>)."
-msgstr "Барањето треба да е <strong>фокусирано</strong>, со што ќе Ви се зголемат шансите да го добиете тоа што го сакате (<a href=\"{{url}}\">зошто?</a>)."
+msgid "Keep your request up to date"
+msgstr ""
+
+msgid "Keep your requests up to date"
+msgstr ""
 
 msgid "Keywords"
 msgstr "Клучни зборови"
@@ -1403,11 +1425,11 @@ msgstr "Поднесете {{law_used_short}} барање до '{{public_body_n
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Поднесете и прелистајте барања за слободен пристап до информации"
 
-msgid "Make your own request"
-msgstr "Поднесете свое барање"
-
 msgid "Many requests"
 msgstr "Повеќе барања"
+
+msgid "Matching authorities"
+msgstr ""
 
 msgid "Message"
 msgstr "Порака"
@@ -1586,9 +1608,6 @@ msgstr "Само имателот може да одговори на ова б�
 msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
 msgstr ""
 
-msgid "Or search in their website for this information."
-msgstr "Или пребарајте ја нивната веб-страна за овие информации."
-
 msgid "Original request sent"
 msgstr "Оригиналното барање е испратено"
 
@@ -1631,9 +1650,6 @@ msgstr "Лозинката не е точна"
 msgid "Password:"
 msgstr "Лозинка:"
 
-msgid "Password: (again)"
-msgstr "Лозинка: (повторно)"
-
 msgid "Paste this link into emails, tweets, and anywhere else:"
 msgstr "Вметнете ја оваа врска во пораките, твитовите и на сите други места:"
 
@@ -1670,8 +1686,10 @@ msgstr "Ве молиме <a href=\"{{url}}\">контактирајте не</a
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Ве молиме <a href=\"{{url}}\">стапете во контакт</a> со нас за да може да го поправиме."
 
-msgid "Please <strong>answer the question above</strong> so we know whether the "
-msgstr "Ве молиме <strong>одговорете го прашањето погоре</strong> за да знаеме дали да"
+msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
+msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Please <strong>go to the following requests</strong>, and let us\\n        know if there was information in the recent responses to them."
 msgstr "Ве молиме <strong>одете до следниве барања</strong> и известете не\\n        ако постои информација кај последните барања до нив."
@@ -1705,6 +1723,9 @@ msgstr "Ве молиме кликнете на врската подолу за
 
 msgid "Please click on the link below to confirm your email address."
 msgstr "Ве молиме кликнете на врската подолу за да ја потврдите адресата за е-пошта."
+
+msgid "Please create an account or sign in"
+msgstr "Ве молиме најавете се или креирајте нова лозинка."
 
 msgid "Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway."
 msgstr "Ве молиме во насловот опишете за што се работи вашето барање. Нема потреба да кажете дека се работи за барање за слободен пристап, ние тоа го додаваме секако."
@@ -1772,7 +1793,7 @@ msgstr "Ве молам држете се до должина од 500 букв�
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
 msgstr "Ве молиме за кратко резиме, како наслов на е-пошта. Може да користите фраза, наместо цела реченица."
 
-msgid "Please only request information that comes under those categories, <strong>do not waste your\\n            time</strong> or the time of the public authority by requesting unrelated information."
+msgid "Please only request information that comes under those categories, <strong>do not waste your\\n      time</strong> or the time of the public authority by requesting unrelated information."
 msgstr "Ве молиме барајте само информации кои спаѓаат во овие категории, <strong>не го губете вашето\\n            време</strong> или времето на имателот барајќи нерелевантни информации."
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
@@ -1786,9 +1807,6 @@ msgstr "Ве молиме најавете се на дното со вашет�
 
 msgid "Please sign in as "
 msgstr "Ве молиме најавете се како "
-
-msgid "Please sign in or make a new account."
-msgstr "Ве молиме најавете се или креирајте нова лозинка."
 
 msgid "Please tell us more:"
 msgstr ""
@@ -1817,7 +1835,7 @@ msgstr "Ве молиме напишете ја вашата порака упо
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Посочете <strong>поврзани информации</strong>, кампањи или форуми кои може да се корисни."
 
-msgid "Possibly related requests:"
+msgid "Possible related requests"
 msgstr "Можни поврзани информации:"
 
 msgid "Post annotation"
@@ -1876,6 +1894,9 @@ msgstr "Прегледајте ги своите пораки"
 
 msgid "Preview your public request"
 msgstr "Прегледајте го своето јавно барање"
+
+msgid "Preview your request"
+msgstr ""
 
 msgid "Profile photo"
 msgstr "Фотографија од профил"
@@ -1955,12 +1976,6 @@ msgstr ""
 msgid "PublicBodyCategory|Category tag"
 msgstr ""
 
-msgid "PublicBodyCategory|Description"
-msgstr ""
-
-msgid "PublicBodyCategory|Title"
-msgstr ""
-
 msgid "PublicBodyChangeRequest|Is open"
 msgstr ""
 
@@ -1983,9 +1998,6 @@ msgid "PublicBodyChangeRequest|User name"
 msgstr ""
 
 msgid "PublicBodyHeading|Display order"
-msgstr ""
-
-msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2084,8 +2096,8 @@ msgstr "Прво се прикажуваат резултатите кои се 
 msgid "Refused."
 msgstr "Одбиено."
 
-msgid "Remember me</label> (keeps you signed in longer;\\n    do not use on a public computer) "
-msgstr "Запомни ме</label> (останувате подолго време најавени;\\n    не го употребувајте на јавен компјутер) "
+msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
+msgstr ""
 
 msgid "Report abuse"
 msgstr "Пријавете злоупотреба"
@@ -2216,6 +2228,9 @@ msgstr "Пребарајте зборови во:"
 msgid "Search in"
 msgstr "Пребарајте во"
 
+msgid "Search in their website for this information &rarr;"
+msgstr ""
+
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 msgstr "Пребарајте<br/>\\n  <strong>{{number_of_requests}} барања</strong> <span>и</span><br/>\\n  <strong>{{number_of_authorities}} иматели</strong>"
 
@@ -2228,22 +2243,11 @@ msgstr "Резултати од пребарување"
 msgid "Search the site to find what you were looking for."
 msgstr "Пребарајте го сајтот за да го најдете тоа што го барате."
 
-msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
-msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
-msgstr[0] "Пребарајте во рамки на {{count}} барање за слободен пристап до информации до {{public_body_name}}"
-msgstr[1] "Пребарај во рамки на {{count}} барањата за слободен пристап до информации направени до {{public_body_name}}"
-
 msgid "Search your contributions"
 msgstr "Пребарајте ги вашите придонеси"
 
 msgid "See bounce message"
 msgstr "Видете ја одбиената порака"
-
-msgid "Select the authorities to write to"
-msgstr ""
-
-msgid "Select the authority to write to"
-msgstr "Изберете имател до кој ќе пишете"
 
 msgid "Send a followup"
 msgstr "Испратете реакција"
@@ -2276,6 +2280,15 @@ msgstr[1] ""
 
 msgid "Set your profile photo"
 msgstr "Поставете фотографија за профилот"
+
+msgid "Share on Facebook"
+msgstr ""
+
+msgid "Share your batch request"
+msgstr ""
+
+msgid "Share your request"
+msgstr ""
 
 msgid "Short name"
 msgstr "Кратко име"
@@ -2358,9 +2371,6 @@ msgstr ""
 msgid "SpamAddress|Email"
 msgstr ""
 
-msgid "Special note for this authority!"
-msgstr "Специјална белешка за овој имател!"
-
 msgid "Start your own blog"
 msgstr "Почнете сопствен блог"
 
@@ -2420,9 +2430,6 @@ msgstr "Тагови (одвоени со празно место):"
 
 msgid "Tags:"
 msgstr "Тагови:"
-
-msgid "Technical details"
-msgstr "Технички детали"
 
 msgid "Thank you for helping us keep the site tidy!"
 msgstr "Ви благодариме што помагате да го одржиме сајтот уреден!"
@@ -2711,7 +2718,7 @@ msgstr "Работи кои ги следите"
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Имателот не постои повеќе, затоа не може да направите барање до него."
 
-msgid "This covers a very wide spectrum of information about the state of\\n            the <strong>natural and built environment</strong>, such as:"
+msgid "This covers a very wide spectrum of information about the state of\\n      the <strong>natural and built environment</strong>, such as:"
 msgstr "Ова покрива широк спектар од информации за состојбата на\\n            <strong>околината</strong>, како што се:"
 
 msgid "This external request has been hidden"
@@ -2832,6 +2839,9 @@ msgstr "Овој корисник има забрана за пристап до
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Ова не е возможно бидејќи веќе постои сметка која ја користи \\nоваа адреса за е-пошта {{email}}."
 
+msgid "To"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "За да ги откажете овие предупредувања"
 
@@ -2934,9 +2944,6 @@ msgstr "Денес"
 msgid "Too many requests"
 msgstr "Премногу барања"
 
-msgid "Top search results:"
-msgstr "За да пребарувате барања:"
-
 msgid "Track thing"
 msgstr "Следете го предметот"
 
@@ -2957,6 +2964,9 @@ msgstr "TrackThing|Следи тип"
 
 msgid "Turn off email alerts"
 msgstr "Исклучете ги предупредувањата преку е-пошта"
+
+msgid "Tweet it"
+msgstr ""
 
 msgid "Tweet this request"
 msgstr "Твитнете за ова барање"
@@ -2998,9 +3008,6 @@ msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\n
 msgstr ""
 "За жал, немаме исправна {{info_request_law_used_full}}\n"
 "адреса за"
-
-msgid "Unknown"
-msgstr "Непознат"
 
 msgid "Unsubscribe"
 msgstr "Откажи претплата"
@@ -3071,9 +3078,6 @@ msgstr "User|Е-пошта потврдена"
 msgid "User|Hashed password"
 msgstr "User|Хаширани лозинки"
 
-msgid "User|Identity card number"
-msgstr ""
-
 msgid "User|Last daily track email"
 msgstr "User|Последна е-пошта од дневно следење"
 
@@ -3119,6 +3123,9 @@ msgstr "Видете ги имателите"
 msgid "View email"
 msgstr "Видете е-пошта"
 
+msgid "View other requests to {{public_body}}"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "Се чека појаснување."
 
@@ -3149,7 +3156,7 @@ msgstr "Немаме исправна {{public_body_name}} адреса за {{l
 msgid "We don't know whether the most recent response to this request contains\\n    information or not\\n        &ndash;\\n\tif you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Не знаеме дали последниот одговор на ова барање содржи\\n информации или не\\n &ndash;\\n\tако сте вие {{user_link}} Ве молиме <a href=\"{{url}}\">најавете се</a> и известете ги сите."
 
-msgid "We will not reveal your email address to anybody unless you or\\n        the law tell us to (<a href=\"{{url}}\">details</a>). "
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or\\n        the law tell us to</a>. "
 msgstr "Нема да ја откриеме вашата адреса за е-пошта на никого освен ако вие\\nили законот не не натера да го направиме тоа (<a href=\"{{url}}\">детали</a>). "
 
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
@@ -3158,11 +3165,15 @@ msgstr "Нема да ја откриеме вашата адреса за е-п
 msgid "We will not reveal your email addresses to anybody unless you\\nor the law tell us to."
 msgstr "Нема да ја откриеме вашата адреса за е-пошта на никого, освен ако вие\\nили законот не не натера да го направиме тоа."
 
-msgid "We're waiting for"
-msgstr "Чекаме за"
+msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
+msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
+msgstr[0] ""
+msgstr[1] ""
 
-msgid "We're waiting for someone to read"
-msgstr "Чекаме некој да прочита"
+msgid "We're waiting for {{user}} to read a recent response and update the status."
+msgid_plural "We're waiting for {{user}} to read recent responses and update the status."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "We've sent an email to your new email address. You'll need to click the link in\\nit before your email address will be changed."
 msgstr ""
@@ -3186,6 +3197,9 @@ msgstr "Кои информации се објавени?"
 
 msgid "What information has been requested?"
 msgstr "Кои информации се побарани?"
+
+msgid "What next?"
+msgstr ""
 
 msgid "When you get there, please update the status to say if the response \\ncontains any useful information."
 msgstr "Кога ќе стигнете таму, ве молиме ажурирајте го статусот за да известите дали одговорот\\nсодржи корисни информации."
@@ -3236,9 +3250,6 @@ msgstr ""
 
 msgid "You are already following new requests"
 msgstr "Веќе ги следите новите барања"
-
-msgid "You are already following requests to {{public_body_name}}"
-msgstr "Веќе ги следите барања до '{{public_body_name}}'"
 
 msgid "You are already following things matching this search"
 msgstr "Веќе ги следите новите работи кои одговараат на ова пребарување"
@@ -3434,7 +3445,7 @@ msgstr "Не следите ништо."
 msgid "You've now cleared your profile photo"
 msgstr "Ја избришавте сликата од профилот"
 
-msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please\\n        <a href=\"{{help_url}}\">read this first</a>."
+msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines.\\n        <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr "Вашето <strong>име ќе биде јавно прикажано</strong>\\n (<a href=\"{{why_url}}\">зошто?</a>)\\n на оваа веб-страна и на интернет пребарувачите. Ако\\n размислувате за употреба на псевдоним, ве молиме\\n <a href=\"{{help_url}}\">прво прочитајте го ова</a>."
 
 msgid "Your annotations"
@@ -3476,7 +3487,7 @@ msgstr "Вашата порака ќе се појави во <strong>интер
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Вашето име и белешка ќе се појават во <strong>интернет пребарувачите</strong>."
 
-msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"{{url}}\">details</a>)."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n                        (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Вашето име, барање и секој одговор ќе се појават кај <strong>интернет пребарувачите</strong>\n"
 "        (<a href=\"{{url}}\">детали</a>)."
@@ -3520,6 +3531,9 @@ msgstr "Вашето барање беше наречено {{info_request}}. С
 msgid "Your request:"
 msgstr "Вашето барање:"
 
+msgid "Your requests will be <strong>sent</strong> shortly!"
+msgstr ""
+
 msgid "Your response to an FOI request was not delivered"
 msgstr "Вашиот одговор на барањето не е доставен"
 
@@ -3546,6 +3560,9 @@ msgid "Your {{count}} batch requests"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "Your {{law_used_full}} request has been sent"
+msgstr ""
 
 msgid "Your {{site_name}} email alert"
 msgstr "Вашите предупредувања по е-пошта за {{site_name}}"
@@ -3574,9 +3591,6 @@ msgstr "[{{site_name}} контакт е-пошта]"
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
 msgstr "\\n\\n[ Белешка од {{site_name}}: Текстот погоре беше лошо енкодиран, па се отстранија сите чудни карактери. ]"
 
-msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
-msgstr "резиме во еден ред за информацијата која ја барате, \\n\t\t\tна пр."
-
 msgid "admin"
 msgstr "администратор"
 
@@ -3600,12 +3614,6 @@ msgstr "анонимен корисник"
 
 msgid "and"
 msgstr "и"
-
-msgid "and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
-msgstr "и ажурирајте го статусот соодветно. Можеби <strong>вие</strong> сакате да помогнете правејќи го тоа?"
-
-msgid "and update the status."
-msgstr "и ажурирање на статусот."
 
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "и ние ќе предложиме <strong>што да се прави следно</strong>"
@@ -3660,6 +3668,9 @@ msgstr ""
 msgid "edit text about you"
 msgstr "изменете го текстот за вас"
 
+msgid "email address"
+msgstr ""
+
 msgid "even during holidays"
 msgstr "и за време на празници"
 
@@ -3711,6 +3722,9 @@ msgstr "пораки од имателите"
 msgid "messages from users"
 msgstr "пораки од корисниците"
 
+msgid "mobile number"
+msgstr ""
+
 msgid "move..."
 msgstr "помести..."
 
@@ -3719,9 +3733,6 @@ msgstr ""
 
 msgid "no later than"
 msgstr "најдоцна до"
-
-msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-msgstr "веќе не постои. Ако сакате да го направите тоа\\n од страницата со барања, обидете се да одговорите на конкретна порака, наместо да пратите\\n реакција. Ако е потребно да пратите реакција и ја знете адресата на е-пошта\\n за да стигне до правото место, Ве молиме <a href=\"{{url}}\">испратете ни ја и нам</a>."
 
 msgid "normally"
 msgstr "вообичаено"
@@ -3785,9 +3796,6 @@ msgstr "барателот"
 msgid "the {{site_name}} team"
 msgstr "тимот на {{site_name}}"
 
-msgid "to read"
-msgstr "за читање"
-
 msgid "to send a follow up message."
 msgstr "да испратите реакција."
 
@@ -3815,9 +3823,6 @@ msgstr "откажете претплата од сите"
 msgid "unsuccessful requests"
 msgstr "неуспешни барања"
 
-msgid "useful information."
-msgstr "корисна информација."
-
 msgid "users"
 msgstr "корисници"
 
@@ -3827,15 +3832,10 @@ msgstr "што е тоа?"
 msgid "{{count}} FOI requests found"
 msgstr "пронајдени се {{count}} барања за слободен пристап до информации од јавен карактерznačaja"
 
-msgid "{{count}} Freedom of Information request to {{public_body_name}}"
-msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
-msgstr[0] "{{count}} барање за слободен пристап до информации до {{public_body_name}}"
-msgstr[1] "{{count}} барања за слободен пристап до информации до {{public_body_name}}"
-
-msgid "{{count}} person is following this authority"
-msgid_plural "{{count}} people are following this authority"
-msgstr[0] "{{count}} корисник го следи овој имател"
-msgstr[1] "{{count}} корисници го следат овој имател"
+msgid "{{count}} follower"
+msgid_plural "{{count}} followers"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} request"
 msgid_plural "{{count}} requests"
@@ -3847,7 +3847,7 @@ msgid_plural "{{count}} requests made."
 msgstr[0] "{{count}} барање е поднесено."
 msgstr[1] "{{count}} барања се поднесени."
 
-msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
+msgid "{{existing_request_user}} already\\n            created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n            or edit the details below to make a new but similar request."
 msgstr "{{existing_request_user}} веќе\\n го има поднесено истото барање на ден {{date}}. Можете да го погледнете <a href=\"{{existing_request}}\">постоечкото барање</a>,\\n или да ги промените деталите и да направите ново, слично барање."
 
 msgid "{{foi_law}} requests to '{{public_body_name}}'"
@@ -3874,6 +3874,9 @@ msgstr "{{public_body_link}} даде одговор за"
 msgid "{{public_body_link}} was sent a request about"
 msgstr "{{public_body_link}} прими барање за"
 
+msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgstr ""
+
 msgid "{{public_body_name}} only:"
 msgstr "само {{public_body_name}}:"
 
@@ -3883,7 +3886,7 @@ msgstr "{{public_body}} побара да го дообјасните вашет
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} испрати порака до {{user_name}}"
 
-msgid "{{reason}}, please sign in or make a new account."
+msgid "{{reason}}, create an account or sign in"
 msgstr "{{reason}}, Ве молиме најавете се или креирајте нов профил."
 
 msgid "{{search_results}} matching '{{query}}'"
@@ -3950,3 +3953,6 @@ msgstr "{{user}} ({{user_admin_link}}) го поднесе ова барање �
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} го поднесе ова барање за {{law_used_full}}"
+
+msgid "« Back to search results"
+msgstr ""

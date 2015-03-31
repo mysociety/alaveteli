@@ -1,9 +1,0 @@
-<% @title = 'Banned users' %>
-
-<h1><%=@title%></h1>
-
-<p><%= link_to 'List all', admin_user_list_path %></p>
-
-<%= render :partial => 'user_table', :locals => { :users => @banned_users, :banned_column => true } %>
-
-

@@ -10,18 +10,15 @@ require 'open-uri'
 
 class RequestController < ApplicationController
     before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
-    protect_from_forgery :only => [ :new, :show_response, :describe_state, :upload_response ] # See ActionController::RequestForgeryProtection for details
     before_filter :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
     MAX_RESULTS = 500
     PER_PAGE = 25
 
     @@custom_states_loaded = false
     begin
-        if !Rails.env.test?
-            require 'customstates'
-            include RequestControllerCustomStates
-            @@custom_states_loaded = true
-        end
+        require 'customstates'
+        include RequestControllerCustomStates
+        @@custom_states_loaded = true
     rescue MissingSourceFile, NameError
     end
 
@@ -38,6 +35,7 @@ class RequestController < ApplicationController
         end
         if !params[:query].nil?
             query = params[:query]
+            flash[:search_params] = params.slice(:query, :bodies, :page)
             @xapian_requests = perform_search_typeahead(query, PublicBody)
         end
         medium_cache
@@ -123,7 +121,6 @@ class RequestController < ApplicationController
             # Track corresponding to this page
             @track_thing = TrackThing.create_track_for_request(@info_request)
             @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
-
 
             respond_to do |format|
                 format.html { @has_json = true; render :template => 'request/show'}
@@ -246,13 +243,8 @@ class RequestController < ApplicationController
                                                       :body => params[:outgoing_message][:body],
                                                       :public_bodies => @public_bodies,
                                                       :user => authenticated_user)
-        flash[:notice] = _("<p>Your {{law_used_full}} requests will be <strong>sent</strong> shortly!</p>
-            <p><strong>We will email you</strong> when they have been sent.
-            We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't
-            replied by then.</p>
-            <p>If you write about these requests (for example in a forum or a blog) please link to this page.</p>",
-            :law_used_full=>@info_request.law_used_full,
-            :late_number_of_days => AlaveteliConfiguration::reply_late_after_days)
+
+        flash[:batch_sent] = true
         redirect_to info_request_batch_path(@info_request_batch)
     end
 
@@ -380,12 +372,7 @@ class RequestController < ApplicationController
             )
         end
 
-        flash[:notice] = _("<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>
-            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't
-            replied by then.</p>
-            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an
-            annotation below telling people about your writing.</p>",:law_used_full=>@info_request.law_used_full,
-            :late_number_of_days => AlaveteliConfiguration::reply_late_after_days)
+        flash[:request_sent] = true
         redirect_to show_new_request_path(:url_title => @info_request.url_title)
     end
 
@@ -770,13 +757,13 @@ class RequestController < ApplicationController
         get_attachment_internal(false)
         return unless @attachment
 
-        # Prevent spam to magic request address. Note that the binary
-        # subsitution method used depends on the content type
-        @incoming_message.binary_mask_stuff!(@attachment.body, @attachment.content_type)
 
         # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
         response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) || 'application/octet-stream'
 
+        # Prevent spam to magic request address. Note that the binary
+        # subsitution method used depends on the content type
+        @incoming_message.apply_masks!(@attachment.body, @attachment.content_type)
         if response.content_type == 'text/html'
             @attachment.body = ActionController::Base.helpers.sanitize(@attachment.body)
         end
@@ -808,10 +795,9 @@ class RequestController < ApplicationController
                 :body_prefix => render_to_string(:partial => "request/view_html_prefix")
             }
         )
-
-        @incoming_message.html_mask_stuff!(html)
-
         response.content_type = 'text/html'
+        @incoming_message.apply_masks!(html, response.content_type)
+
         render :text => html
     end
 
@@ -845,7 +831,15 @@ class RequestController < ApplicationController
         end
 
         # check filename in URL matches that in database (use a censor rule if you want to change a filename)
-        raise ActiveRecord::RecordNotFound.new("please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'") if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
+        if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
+            msg = 'please use same filename as original file has, display: '
+            msg += "'#{ @attachment.display_filename }' "
+            msg += 'old_display: '
+            msg += "'#{ @attachment.old_display_filename }' "
+            msg += 'original: '
+            msg += "'#{ @original_filename }'"
+            raise ActiveRecord::RecordNotFound.new(msg)
+        end
 
         @attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,
                 :incoming_message_id => @incoming_message.id, :part => @part_number,
@@ -904,10 +898,18 @@ class RequestController < ApplicationController
 
     # Type ahead search
     def search_typeahead
-        # Since acts_as_xapian doesn't support the Partial match flag, we work around it
-        # by making the last work a wildcard, which is quite the same
-        query = params[:q]
-        @xapian_requests = perform_search_typeahead(query, InfoRequestEvent)
+        # Since acts_as_xapian doesn't support the Partial match flag, we work
+        # around it by making the last word a wildcard, which is quite the same
+        @query = ''
+
+        if params.key?(:requested_from)
+            @query << "requested_from:#{ params[:requested_from] } "
+        end
+
+        @per_page = (params.fetch(:per_page) { 25 }).to_i
+
+        @query << params[:q]
+        @xapian_requests = perform_search_typeahead(@query, InfoRequestEvent, @per_page)
         render :partial => "request/search_ahead"
     end
 

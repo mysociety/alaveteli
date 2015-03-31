@@ -6,13 +6,14 @@
 # David Cabo <david.cabo@gmail.com>, 2012
 # sroberto <ertoba@yahoo.es>, 2012
 # louisecrow <louise@mysociety.org>, 2014
+# louisecrow <louise@mysociety.org>, 2014
 # sroberto <ertoba@yahoo.es>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-02 13:14+0000\n"
-"PO-Revision-Date: 2014-12-02 13:17+0000\n"
+"POT-Creation-Date: 2015-03-24 10:21+0000\n"
+"PO-Revision-Date: 2015-03-24 11:10+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/alaveteli/language/eu/)\n"
 "Language: eu\n"
@@ -140,29 +141,23 @@ msgstr ""
 "\n"
 "{{user_name}}"
 
-msgid "- or -"
-msgstr "- edo -"
-
-msgid "1. Select an authority"
-msgstr "1. Aukera ezazu erakunde publiko bat"
-
-msgid "1. Select authorities"
-msgstr ""
-
-msgid "2. Ask for Information"
-msgstr "2. Eskatu informazioa"
-
-msgid "3. Now check your request"
-msgstr "3. Berrikusi zure eskabidea"
-
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Guztiak ikusi</a> o <a href=\"{{add_url}}\">eskatu beste bat gehitzeko</a>."
 
 msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
 msgstr "<a href=\"{{url}}\">Gehitu azalpenen bat</a> (eskatzaileari edo besteei laguntzearren)"
 
+msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
+msgstr "<strong>Pribatutasun oharra:</strong> Zeure buruaz informazio pribatua eskatu nahi izanez gero, orduan <a href=\"{{url}}\">jarraitu esteka honi</a>."
+
+msgid "<a href=\"{{url}}\">Keep it <strong>focused</strong></a>, you'll be more likely to get what you want."
+msgstr "Izan zaitez <strong>konkretua</strong>, nahi duzuna lortzeko aukera gehiago izango duzu (<a href=\"{{url}}\">zergatik?</a>)."
+
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Ireki saioa</a> zure pasahitza aldatzeko, inskribatzeko... ({{user_name}} bakarrik)"
+
+msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>."
+msgstr "Goitizena erabili nahi izanez gero, mesedez <a href=\"{{url}}\">lehenago irakur ezazu hau</a>."
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Eginda dago! Eskerrik asko zure laguntzagatik.</p> {{site_name}} laguntzeko<p>badaude<a href=\"{{helpus_url}}\">egin ditzakezun gauza gehiago</a>.</p>"
@@ -220,12 +215,6 @@ msgstr "<p>Eskabidean ez duzu zure posta elektronikoaren helbidea sartu behar, e
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
 msgstr "<p>Zure eskabideak <strong>posta kodea</strong> dakar. Eskabidearekin zerikusi zuzena izan ezean, mesedez ezaba ezazu edozein helbide, ya que <strong>Interneten guztion eskura</strong> egongo da eta.</p>"
 
-msgid "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
-msgstr ""
-
-msgid "<p>Your {{law_used_full}} requests will be <strong>sent</strong> shortly!</p>\\n            <p><strong>We will email you</strong> when they have been sent.\\n            We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't\\n            replied by then.</p>\\n            <p>If you write about these requests (for example in a forum or a blog) please link to this page.</p>"
-msgstr ""
-
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>{{site_name}} mantenuan ari da. Dauden eskabideak soilik ikus daitezke. Ezin da eskabide berria sortu, iruzkinak gehitu, erantzunak bidali edo data basea eraldatuko duten beste eragiketarik egin.</p> <p>{{read_only}}</p>"
 
@@ -234,7 +223,7 @@ msgstr ""
 "<small>Web posta erabiltzen baduzu eta \"anti spam\" iragazkiak baldin badizutu, mesedez begira ezazu zure spam zorroan. Batzuetan, gure mezuak honela markatzen dira, akatsez.</small>\n"
 "</p>"
 
-msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
+msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No!</a>"
 msgstr ""
 "<strong> Neure buruaz eska dezaket informazioa?</strong>\n"
 "\t\t\t<a href=\"{{url}}\">Ez! (sakatu hemen xehetasun gehiagorako)</a>"
@@ -272,6 +261,9 @@ msgstr "<strong>Informazio guztia</strong> bidalita dago."
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>Besterik</strong>, hala nola argitu, galdetu, eskertu"
 
+msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
+msgstr ""
+
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need \\na good internal knowledge of user behaviour on {{site_name}}. How, \\nwhy and by whom requests are categorised is not straightforward, and there will\\nbe user error and ambiguity. You will also need to understand FOI law, and the\\nway authorities use it. Plus you'll need to be an elite statistician.  Please\\n<a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr "<strong>Kontuz!</strong> Datu hauek modu fidagarrian erabiltzeko, {{site_name}} orrialdeko erabiltzaileen jokabidea jakin behar duzu. Eskabideak nola, zergatik eta nork sailkatzen dituen ez da huskeria, giza hutsuneak eta erabaki eztabaidagarriak ematen dira. Informaziorako sarbidearen legeak ere ulertu behar dituzu eta nola erabiltzen dituzten erakunde publikoek. Azkenik, estatista ona izan behar duzu. Mesedez, edozein zalantza izatekotan, <a href=\"{{contact_path}}\">jar zaitez harremanetan</a> gurekin."
 
@@ -294,9 +286,6 @@ msgstr ""
 "<strong>Oharra:</strong>\n"
 "    Posta bat bidaliko dugu posta helbide berrira. Jarraitu argibideei helbide berria egiaztatzeko."
 
-msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"{{url}}\">click here</a>."
-msgstr "<strong>Pribatutasun oharra:</strong> Zeure buruaz informazio pribatua eskatu nahi izanez gero, orduan <a href=\"{{url}}\">jarraitu esteka honi</a>."
-
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
 msgstr ""
 
@@ -308,6 +297,12 @@ msgstr " <strong>Informazioaren zati bat</strong> bidalita dago."
 
 msgid "<strong>Thank</strong> the public authority or "
 msgstr "<strong>Eman eskerrak</strong> erakunde publikoari edo "
+
+msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
+msgstr ""
+
+msgid "<strong>We will email you</strong> when they have been sent. We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't replied by then."
+msgstr ""
 
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>ez zeukan</strong> eskatutako informazioa."
@@ -332,6 +327,9 @@ msgstr ""
 
 msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
+
+msgid "A one line summary of the information you are requesting, \\n\t\t\te.g."
+msgstr "Eskatzen duzun informazioaren laburpena, lerro batean, adibidez"
 
 msgid "A public authority"
 msgstr "Erakunde publikoa"
@@ -363,8 +361,8 @@ msgstr ""
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr ""
 
-msgid "Add an annotation"
-msgstr "Gehitu iruzkina"
+msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
+msgstr ""
 
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr "Gehitu zure eskabideari buruzko iruzkina, aipamen aukeratuekin edo <strong>erantzunaren laburpenarekin</strong>."
@@ -393,7 +391,7 @@ msgstr "Bilaketa aurreratuaren laguntza"
 msgid "Advise on whether the <strong>refusal is legal</strong>, and how to complain about it if not."
 msgstr "<strong>Ezeztapena legezkoa den</strong> argitzeko aholkua, eta nola apelatu legezkoa ez bada."
 
-msgid "Air, water, soil, land, flora and fauna (including how these effect\\n            human beings)"
+msgid "Air, water, soil, land, flora and fauna (including how these effect\\n      human beings)"
 msgstr "Airea, ura, lurra, flora eta fauna (gizakiengan dituen ondorioak barne)"
 
 msgid "All of the information requested has been received"
@@ -493,6 +491,9 @@ msgstr "Barneko berrikusketaren zain."
 
 msgid "Awaiting response."
 msgstr "Erantzunaren zain."
+
+msgid "Banned users cannot edit their profile"
+msgstr ""
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr ""
@@ -632,6 +633,9 @@ msgstr "Comment|Locale"
 msgid "Comment|Visible"
 msgstr "Comment|Visible"
 
+msgid "Confirm password:"
+msgstr "Pasahitza: (berriro)"
+
 msgid "Confirm you want to follow all successful FOI requests"
 msgstr ""
 
@@ -689,13 +693,16 @@ msgstr "Ezin izan dugu eskabidea zehaztu helbide elektronikoaren arabera"
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
 msgstr "Ezin dugu prozesatu igo duzun irudia. PNG, JPEG, GIF edo beste irudi formatu orokorrak erabil ditzakezu."
 
+msgid "Create a new account"
+msgstr ""
+
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
 
 msgid "Crop your profile photo"
 msgstr "Moztu zure profilaren argazkia"
 
-msgid "Cultural sites and built structures (as they may be affected by the\\n            environmental factors listed above)"
+msgid "Cultural sites and built structures (as they may be affected by the\\n      environmental factors listed above)"
 msgstr "(Aldez aurretik aipatu diren eragile ingurunekoek jada kutsatuta egon daitezkeen) kultura guneak eta eraikinak"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
@@ -716,9 +723,6 @@ msgstr "{{public_body_name}} agurgarria,"
 msgid "Dear {{user_name}},"
 msgstr ""
 
-msgid "Default locale"
-msgstr ""
-
 msgid "Defunct."
 msgstr ""
 
@@ -734,8 +738,8 @@ msgstr "Akatsa ematean"
 msgid "Destroy {{name}}"
 msgstr ""
 
-msgid "Details of request '"
-msgstr "Eskabidearen xehetasunak '"
+msgid "Details of request &ldquo;{{request_title}}&rdquo;"
+msgstr ""
 
 msgid "Did you mean: {{correction}}"
 msgstr "{{correction}} esan nahi al duzu?"
@@ -782,7 +786,7 @@ msgstr "Editatu eta gehitu <strong>xehetasun gehiago</strong> aurreko mezuari, z
 msgid "Edit text about you"
 msgstr "Editatu zuri buruzko testua"
 
-msgid "Edit this request"
+msgid "Edit your request"
 msgstr "Editatu eskabide hau"
 
 msgid "Either the email or password was not recognised, please try again."
@@ -824,13 +828,13 @@ msgstr "Gertaera historia"
 msgid "Event {{id}}"
 msgstr ""
 
-msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"{{url}}\">why?</a>)."
+msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n          will be <strong>displayed publicly</strong> on\\n          this website <a href=\"{{url}}\">forever</a>"
 msgstr ""
 "Orrialde honetan idatziko duzun guztia, <strong>zure izena</strong> barne, \n"
 "                <strong>irakurleen eskuragarri</strong> egongo da betiko\n"
 "                (<a href=\"{{url}}\">¿por qué?</a>)."
 
-msgid "Everything that you enter on this page\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"{{url}}\">why?</a>)."
+msgid "Everything that you enter on this page\\n          will be <strong>displayed publicly</strong> on\\n          this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr "Orrialde honetan idatziko duzun guztia <strong>irakurleen eskuragarri</strong> egongo da betiko (<a href=\"{{url}}\">¿por qué?</a>)."
 
 msgid "FOI"
@@ -838,6 +842,9 @@ msgstr "FOI"
 
 msgid "FOI email address for {{public_body}}"
 msgstr " {{public_body}}-rako posta helbidea"
+
+msgid "FOI law does not apply to this authority."
+msgstr ""
 
 msgid "FOI request – {{title}}"
 msgstr ""
@@ -869,11 +876,20 @@ msgstr "Iragazi"
 msgid "Filter by Request Status (optional)"
 msgstr ""
 
+msgid "Find an authority"
+msgstr "Aukera ezazu idatziko diozun erakundea"
+
+msgid "Find the authorities"
+msgstr ""
+
+msgid "Find the authorities to write to"
+msgstr ""
+
 msgid "First, did your other requests succeed?"
 msgstr ""
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
-msgstr "Lehenbizi, idatz ezazu informazioa eskatu nahi diozun <strong>erakundearen izena</strong>. <strong>Erantzuna eman behar dute</strong> (<a href=\"{{url}}\">zergatik?</a>)."
+msgid "First, type in the <strong>name of the public authority</strong> you'd\\n        like information from."
+msgstr ""
 
 msgid "Foi attachment"
 msgstr ""
@@ -917,9 +933,6 @@ msgstr "Jarraitu eskabide hauei"
 msgid "Follow things matching this search"
 msgstr ""
 
-msgid "Follow this authority"
-msgstr "Jarraitu erakunde honi"
-
 msgid "Follow this link to see the request:"
 msgstr "Jarraitu esteka honi eskabidea ikusteko:"
 
@@ -959,11 +972,11 @@ msgstr "Eskabide honen erantzun berriak blokeatu dira, spama saihesteko. Mesedez
 msgid "Follow us on twitter"
 msgstr "Jarrai iezaguzu Twitterren"
 
-msgid "Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf."
+msgid "Following"
 msgstr ""
 
-msgid "For an unknown reason, it is not possible to make a request to this authority."
-msgstr "Ez dakigun arrazoia dela eta, erakunde honi eskabidea egitea ezinezkoa da."
+msgid "Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf."
+msgstr ""
 
 msgid "Forgotten your password?"
 msgstr "Zure pasahitza ahaztu al duzu?"
@@ -979,14 +992,14 @@ msgstr "Informaziorako sarbidea"
 msgid "Freedom of Information Act"
 msgstr "Informaziorako Sarbidearen Legea"
 
-msgid "Freedom of Information law does not apply to this authority, so you cannot make\\n                a request to it."
+msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "Informaziorako Sarbidearen Legea ez zaio erakunde honi aplikatzen, horregatik ezin diozu informazio eskabidea bidali."
-
-msgid "Freedom of Information law no longer applies to"
-msgstr "Informaziorako Sarbidearen Legea jada ez zaio _________-ri aplikatzen."
 
 msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
 msgstr "Informaziorako Sarbidearen Legea jada ez zaio erakunde honi aplikatzen. Dauden eskabideei jarraitzeko mezuak _________-ra bidaltzen dira."
+
+msgid "Freedom of Information law no longer applies to {{public_body_name}}."
+msgstr ""
 
 msgid "Freedom of Information requests made"
 msgstr "Egindako informaziorako sarbidearen eskabideak"
@@ -1000,9 +1013,6 @@ msgstr "Zuk egindako informazio eskabideak"
 msgid "Freedom of Information requests made using this site"
 msgstr "Web honek egin dituen informaziorako sarbidearen eskabideak"
 
-msgid "Freedom of information requests to"
-msgstr "_______-ra egin diren informazio eskabideak"
-
 msgid "From"
 msgstr ""
 
@@ -1014,6 +1024,9 @@ msgstr "Nondik:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ZEHAZTU HEMEN ZURE KEXA"
+
+msgid "Got an account?"
+msgstr ""
 
 msgid "Handled by post."
 msgstr "Posta arruntaren bidez bidalita"
@@ -1044,6 +1057,9 @@ msgstr "Kaixo, {{username}}!"
 
 msgid "Help"
 msgstr "Laguntza"
+
+msgid "Help us classify requests that haven't been updated"
+msgstr ""
 
 msgid "Here <strong>described</strong> means when a user selected a status for the request, and\\nthe most recent event had its status updated to that value. <strong>calculated</strong> is then inferred by\\n{{site_name}} for intermediate events, which weren't given an explicit\\ndescription by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
 msgstr ""
@@ -1078,7 +1094,7 @@ msgstr ""
 msgid "Home page of authority"
 msgstr "Erakundearen webgunea"
 
-msgid "However, you have the right to request environmental\\n            information under a different law"
+msgid "However, you have the right to request environmental\\n      information under a different law"
 msgstr "Aldiz, inguruneari buruzko informazioa eskatzeko eskubidea daukazu, beste lege baten arabera"
 
 msgid "Human health and safety"
@@ -1157,9 +1173,6 @@ msgstr ""
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
 msgstr "Eskabidea zurea baldin bada, <a href=\"{{url}}\">saio bat zabaldu</a> ahal duzu ikusteko."
 
-msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"{{url}}\">read this first</a>."
-msgstr "Goitizena erabili nahi izanez gero, mesedez <a href=\"{{url}}\">lehenago irakur ezazu hau</a>."
-
 msgid "If you are {{user_link}}, please"
 msgstr "Zu {{user_link}} baldin bazara, mesedez"
 
@@ -1189,6 +1202,12 @@ msgstr "Web posta erabiltzen baduzu edo \"spamaren kontrako\" iragazkiak badituz
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr "Blokeoa ezabatu nahi izanez gero, jar zaitez gurekin <a href=\"/help/contact\">harremanetan</a>, zure arrazoiak azalduz.\\n"
+
+msgid "If you write about these requests (for example in a forum or a blog) please link to this page."
+msgstr ""
+
+msgid "If you write about this request (for example in a forum or a blog) please link to this page, and <a href=\"{{url}}\">add an annotation</a> below telling people about your writing."
+msgstr ""
 
 msgid "If you're new to {{site_name}}"
 msgstr " {{site_name}}-ean berria bazara"
@@ -1316,7 +1335,7 @@ msgstr "InfoRequest|Url title"
 msgid "Information not held."
 msgstr "Informazioa ez dago eskuragarri."
 
-msgid "Information on emissions and discharges (e.g. noise, energy,\\n            radiation, waste materials)"
+msgid "Information on emissions and discharges (e.g. noise, energy,\\n      radiation, waste materials)"
 msgstr "Emisioei buruzko informazioa (adibidez zarata, energia, erradiazioa, hondakin materialak...)"
 
 msgid "Internal review request"
@@ -1346,8 +1365,11 @@ msgstr "{{site_name}}-ean erregistratua"
 msgid "Just one more thing"
 msgstr ""
 
-msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"{{url}}\">why?</a>)."
-msgstr "Izan zaitez <strong>konkretua</strong>, nahi duzuna lortzeko aukera gehiago izango duzu (<a href=\"{{url}}\">zergatik?</a>)."
+msgid "Keep your request up to date"
+msgstr ""
+
+msgid "Keep your requests up to date"
+msgstr ""
 
 msgid "Keywords"
 msgstr "Hitz gakoak"
@@ -1448,10 +1470,10 @@ msgstr "Egin eizaiozu {{law_used_short}} eskabidea '{{public_body_name}}'-ri"
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Egin ezazu informazio eskabide bat edo ikus itzazu jadanik eginda daudenak"
 
-msgid "Make your own request"
-msgstr "Egin nire eskabidea"
-
 msgid "Many requests"
+msgstr ""
+
+msgid "Matching authorities"
 msgstr ""
 
 msgid "Message"
@@ -1631,9 +1653,6 @@ msgstr "Erakundeak bakarrik erantzun diezaioke eskabide honi, baina ez dago \"Fr
 msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
 msgstr ""
 
-msgid "Or search in their website for this information."
-msgstr "EDO bila ezazu informazio hau haren web orrialdean."
-
 msgid "Original request sent"
 msgstr "Eskabide originala bidalita"
 
@@ -1676,9 +1695,6 @@ msgstr "Pasahitza ez da zuzena"
 msgid "Password:"
 msgstr "Pasahitza:"
 
-msgid "Password: (again)"
-msgstr "Pasahitza: (berriro)"
-
 msgid "Paste this link into emails, tweets, and anywhere else:"
 msgstr "Itsatsi esteka hau posta elektronikoan, tweetean edo beste edozein lekutan:"
 
@@ -1715,8 +1731,10 @@ msgstr ""
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Mesedez, jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a>, hau konpon dezagun."
 
-msgid "Please <strong>answer the question above</strong> so we know whether the "
-msgstr "Mesedez, <strong>erantzun iezaiozu aurreko galderari</strong>, guk jakin dezagun ea"
+msgid "Please <strong>answer the question above</strong> so we know whether the recent response contains useful information."
+msgid_plural "Please <strong>answer the question above</strong> so we know whether the recent responses contain useful information."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Please <strong>go to the following requests</strong>, and let us\\n        know if there was information in the recent responses to them."
 msgstr "Mesedez <strong>joan zaitez hurrengo eskabidera</strong>, eta jakinarazi ea informazioa zegoen jasotako azken erantzunetan."
@@ -1752,6 +1770,9 @@ msgstr ""
 
 msgid "Please click on the link below to confirm your email address."
 msgstr "Mesedez sakatu ondoko estekan zure helbide elektronikoa baieztatzeko."
+
+msgid "Please create an account or sign in"
+msgstr ""
 
 msgid "Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway."
 msgstr "Mesedez, deskriba ezazu hobeto izenburuan zure eskabidearen gaia. Bide batez, ez da aipatu behar informazio eskabidea denik, hori geuk gehitzen diogu."
@@ -1819,7 +1840,7 @@ msgstr "Mesedez, muga ezazu zure mezua 500 karakteretan"
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
 msgstr "Mesedez, laburpenak laburra izan behar du, gutun elektroniko baten gaia bezalakoa."
 
-msgid "Please only request information that comes under those categories, <strong>do not waste your\\n            time</strong> or the time of the public authority by requesting unrelated information."
+msgid "Please only request information that comes under those categories, <strong>do not waste your\\n      time</strong> or the time of the public authority by requesting unrelated information."
 msgstr "Mesedez, eska ezazu kategoria hauetako informazioa soilik, <strong>ez galdu zure denbora </strong> edo erakunde publikoarena zerikusirik ez duen infomazioa eskatzen."
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
@@ -1833,9 +1854,6 @@ msgstr "Mesedez, beheko aldean sinatu zure izenarekin, edo aldatu sinadura \"{{s
 
 msgid "Please sign in as "
 msgstr "Mesedez, ireki saioa ___________  bezala"
-
-msgid "Please sign in or make a new account."
-msgstr ""
 
 msgid "Please tell us more:"
 msgstr ""
@@ -1864,7 +1882,7 @@ msgstr "Mesedez, idatz ezazu zure mezua hizki larri eta xehe erabiliz, irakurket
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Aipa itzazu baliagarriak izan daitezkeen <strong>lotutako informazioa</strong>, ekimenak edo foroak."
 
-msgid "Possibly related requests:"
+msgid "Possible related requests"
 msgstr "Agian lotuta dauden eskabideak:"
 
 msgid "Post annotation"
@@ -1923,6 +1941,9 @@ msgstr "Berrikusi zure mezua"
 
 msgid "Preview your public request"
 msgstr "Berrikusi zure eskabide argitaratua"
+
+msgid "Preview your request"
+msgstr ""
 
 msgid "Profile photo"
 msgstr ""
@@ -2002,12 +2023,6 @@ msgstr ""
 msgid "PublicBodyCategory|Category tag"
 msgstr ""
 
-msgid "PublicBodyCategory|Description"
-msgstr ""
-
-msgid "PublicBodyCategory|Title"
-msgstr ""
-
 msgid "PublicBodyChangeRequest|Is open"
 msgstr ""
 
@@ -2030,9 +2045,6 @@ msgid "PublicBodyChangeRequest|User name"
 msgstr ""
 
 msgid "PublicBodyHeading|Display order"
-msgstr ""
-
-msgid "PublicBodyHeading|Name"
 msgstr ""
 
 msgid "PublicBody|Api key"
@@ -2131,10 +2143,8 @@ msgstr "Lehenbizi deskribatu berri diren emaitzak"
 msgid "Refused."
 msgstr "Ez da onartu."
 
-msgid "Remember me</label> (keeps you signed in longer;\\n    do not use on a public computer) "
+msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr ""
-"Gogora nazazu</label> (saioa irekita mantentzen du;\n"
-"    ez erabili aukera hau ordenagailu publiko batean) "
 
 msgid "Report abuse"
 msgstr "Salatu gehiegikeria"
@@ -2265,6 +2275,9 @@ msgstr "Bilatu hitzak hemen:"
 msgid "Search in"
 msgstr "Bilatu"
 
+msgid "Search in their website for this information &rarr;"
+msgstr ""
+
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 msgstr ""
 "Bilatu<br/>\n"
@@ -2280,22 +2293,11 @@ msgstr "Bilaketaren emaitzak"
 msgid "Search the site to find what you were looking for."
 msgstr "Bilatu web honetan bilatzen ari zarena aurkitzeko."
 
-msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
-msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
-msgstr[0] "Bilatu ______-ri egindako {{count}} informazio eskabidean {{public_body_name}}"
-msgstr[1] "Bilatu ______-ri egindako {{count}} informazio eskabideetan {{public_body_name}}"
-
 msgid "Search your contributions"
 msgstr "Bilatu zure ekarpenak"
 
 msgid "See bounce message"
 msgstr ""
-
-msgid "Select the authorities to write to"
-msgstr ""
-
-msgid "Select the authority to write to"
-msgstr "Aukera ezazu idatziko diozun erakundea"
 
 msgid "Send a followup"
 msgstr "Bidali erantzuna"
@@ -2328,6 +2330,15 @@ msgstr[1] ""
 
 msgid "Set your profile photo"
 msgstr "Aldatu profilaren argazkia"
+
+msgid "Share on Facebook"
+msgstr ""
+
+msgid "Share your batch request"
+msgstr ""
+
+msgid "Share your request"
+msgstr ""
 
 msgid "Short name"
 msgstr ""
@@ -2412,9 +2423,6 @@ msgstr ""
 msgid "SpamAddress|Email"
 msgstr ""
 
-msgid "Special note for this authority!"
-msgstr "Erakunde horri buruzko ohar berezia!"
-
 msgid "Start your own blog"
 msgstr "Sortu zeure bloga"
 
@@ -2474,9 +2482,6 @@ msgstr "Hitz gakoak (espazio batez bananduak):"
 
 msgid "Tags:"
 msgstr "Hitz gakoak:"
-
-msgid "Technical details"
-msgstr "Xehetasun teknikoak"
 
 msgid "Thank you for helping us keep the site tidy!"
 msgstr "Eskerrik asko web hau ordenean mantentzen laguntzeagatik!"
@@ -2777,7 +2782,7 @@ msgstr ""
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Erakunde hau jadanik ez da existitzen, ezin da informazio eskabiderik egin."
 
-msgid "This covers a very wide spectrum of information about the state of\\n            the <strong>natural and built environment</strong>, such as:"
+msgid "This covers a very wide spectrum of information about the state of\\n      the <strong>natural and built environment</strong>, such as:"
 msgstr "Honek <strong>ingurune naturala eta hiritartuaren</strong> egoerari buruzko informazio zabala dakar, esaterako:"
 
 msgid "This external request has been hidden"
@@ -2900,6 +2905,9 @@ msgstr "Erabiltzaile hau {{site_name}}-tik kanporatuta dago. "
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Ezinezkoa da, {{email}} helbidea erabiltzen ari den beste kontu bat dagoelako."
 
+msgid "To"
+msgstr ""
+
 msgid "To cancel these alerts"
 msgstr "Baliogabetu alerta hauek"
 
@@ -3002,9 +3010,6 @@ msgstr "Gaur"
 msgid "Too many requests"
 msgstr ""
 
-msgid "Top search results:"
-msgstr "Emaitzarik onenak:"
-
 msgid "Track thing"
 msgstr ""
 
@@ -3024,6 +3029,9 @@ msgid "TrackThing|Track type"
 msgstr "TrackThing|Track type"
 
 msgid "Turn off email alerts"
+msgstr ""
+
+msgid "Tweet it"
 msgstr ""
 
 msgid "Tweet this request"
@@ -3061,9 +3069,6 @@ msgstr ""
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr "Zoritxarrez ez dugu posta helbide baliagarria honentzat: {{info_request_law_used_full}}"
-
-msgid "Unknown"
-msgstr "Ezezaguna"
 
 msgid "Unsubscribe"
 msgstr ""
@@ -3134,9 +3139,6 @@ msgstr "User|Email confirmed"
 msgid "User|Hashed password"
 msgstr "User|Hashed password"
 
-msgid "User|Identity card number"
-msgstr ""
-
 msgid "User|Last daily track email"
 msgstr "User|Last daily track email"
 
@@ -3182,6 +3184,9 @@ msgstr "Ikusi erakunde publikoak"
 msgid "View email"
 msgstr "Ikusi posta"
 
+msgid "View other requests to {{public_body}}"
+msgstr ""
+
 msgid "Waiting clarification."
 msgstr "Azalpenaren zain."
 
@@ -3215,7 +3220,7 @@ msgstr ""
 "        &ndash;\n"
 "\tzu {{user_link}} ez bazara, mesedez <a href=\"{{url}}\">ireki saioa </a> eta jakinarazi."
 
-msgid "We will not reveal your email address to anybody unless you or\\n        the law tell us to (<a href=\"{{url}}\">details</a>). "
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or\\n        the law tell us to</a>. "
 msgstr "Ez diogu inori emango zure posta helbidea, zeuk esan edo legeak behartzen bagaitu izan ezik (<a href=\"{{url}}\">informazio gehiago</a>). "
 
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
@@ -3224,11 +3229,15 @@ msgstr "Ez diogu inori emango zure posta helbidea, zeuk esan edo legeak behartze
 msgid "We will not reveal your email addresses to anybody unless you\\nor the law tell us to."
 msgstr "Ez diogu inori emango zure posta helbidea, zeuk esan edo legeak behartzen bagaitu izan ezik."
 
-msgid "We're waiting for"
-msgstr "______-ren zain gaude"
+msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
+msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
+msgstr[0] ""
+msgstr[1] ""
 
-msgid "We're waiting for someone to read"
-msgstr "Norbaitek irakur dezan itxaroten ari gara"
+msgid "We're waiting for {{user}} to read a recent response and update the status."
+msgid_plural "We're waiting for {{user}} to read recent responses and update the status."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "We've sent an email to your new email address. You'll need to click the link in\\nit before your email address will be changed."
 msgstr "Email bat bidali dugu zure posta helbide berrira. Bertan dagoen estekari jarraitu behar diozu zure poste helbidea gaurkotu dadin."
@@ -3249,6 +3258,9 @@ msgid "What information has been released?"
 msgstr "Zein da eskatu duzun informazioa?"
 
 msgid "What information has been requested?"
+msgstr ""
+
+msgid "What next?"
 msgstr ""
 
 msgid "When you get there, please update the status to say if the response \\ncontains any useful information."
@@ -3297,9 +3309,6 @@ msgid "You already created the same batch of requests on {{date}}.   You can eit
 msgstr ""
 
 msgid "You are already following new requests"
-msgstr ""
-
-msgid "You are already following requests to {{public_body_name}}"
 msgstr ""
 
 msgid "You are already following things matching this search"
@@ -3491,7 +3500,7 @@ msgstr ""
 msgid "You've now cleared your profile photo"
 msgstr "Zure profilaren argazkia ezabatu duzu"
 
-msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please\\n        <a href=\"{{help_url}}\">read this first</a>."
+msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines.\\n        <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr ""
 "Web honetan eta bilatzaile motoreetan <strong>zure izena agerian egongo da </strong> \n"
 "        (<a href=\"{{why_url}}\">zergatik?</a>). Goitizena erabiltzeko asmoa baldin baduzu, mesedez  \n"
@@ -3536,7 +3545,7 @@ msgstr "Zure mezua <strong>bilatzaileetan</strong> agertuko da."
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Zure izena eta iruzkina <strong>bilatzaileetan</strong> agertuko dira."
 
-msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"{{url}}\">details</a>)."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n                        (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Zure izena, eskabidea eta edozein erantzun <strong>bilatzaileetan </strong> agertuko dira\n"
 "        (<a href=\"{{url}}\">xehetasunak</a>)."
@@ -3580,6 +3589,9 @@ msgstr "Zure eskabidearen izenburua  {{info_request}} zen. Jakinarazi informazio
 msgid "Your request:"
 msgstr "Zure eskabidea:"
 
+msgid "Your requests will be <strong>sent</strong> shortly!"
+msgstr ""
+
 msgid "Your response to an FOI request was not delivered"
 msgstr ""
 
@@ -3606,6 +3618,9 @@ msgid "Your {{count}} batch requests"
 msgid_plural "Your {{count}} batch requests"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "Your {{law_used_full}} request has been sent"
+msgstr ""
 
 msgid "Your {{site_name}} email alert"
 msgstr "Zure alerta {{site_name}}-ean"
@@ -3634,9 +3649,6 @@ msgstr ""
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
 msgstr "\\n\\n[ {{site_name}} Oharra: Aurreko testuak ez zeukan kode egokirik, horregatik hainbat karaktere arrotz ezabatu dira. ]"
 
-msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
-msgstr "Eskatzen duzun informazioaren laburpena, lerro batean, adibidez"
-
 msgid "admin"
 msgstr "admin"
 
@@ -3660,12 +3672,6 @@ msgstr ""
 
 msgid "and"
 msgstr "eta"
-
-msgid "and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
-msgstr "eta haren egoera gaurkotu. Agian <strong>zuk</strong> lagundu ahal diguzu egiten."
-
-msgid "and update the status."
-msgstr "eta egoera gaurkotu."
 
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "eta <strong>jarraian zer egin</strong> iradokiko dizugu."
@@ -3720,6 +3726,9 @@ msgstr ""
 msgid "edit text about you"
 msgstr "zeuri buruzko testua editatu"
 
+msgid "email address"
+msgstr ""
+
 msgid "even during holidays"
 msgstr "oporretan ere bai"
 
@@ -3771,6 +3780,9 @@ msgstr "erakundeetako mezua"
 msgid "messages from users"
 msgstr "erabiltzaileen mezuak"
 
+msgid "mobile number"
+msgstr ""
+
 msgid "move..."
 msgstr ""
 
@@ -3779,11 +3791,6 @@ msgstr ""
 
 msgid "no later than"
 msgstr "______ baino beranduago ez"
-
-msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-msgstr ""
-"ez da existitzen. \n"
-"Eskabidearen orrialdetik saia zaitez mezu zehatz bati erantzuten, eskabide osoari orokorrean erantzun baino. Hala egin behar izanez gero eta helbide elektroniko baliagarria baldin baduzu, mesedez <a href=\"{{url}}\">bidal iezaguzu</a>."
 
 msgid "normally"
 msgstr "normalean"
@@ -3847,9 +3854,6 @@ msgstr ""
 msgid "the {{site_name}} team"
 msgstr "{{site_name}}-ko taldea"
 
-msgid "to read"
-msgstr "irakurri"
-
 msgid "to send a follow up message."
 msgstr "jarraipen mezua bidali."
 
@@ -3877,9 +3881,6 @@ msgstr "ezeztatu harpidetza guztiak"
 msgid "unsuccessful requests"
 msgstr "arrakastarik gabeko eskabideak"
 
-msgid "useful information."
-msgstr "informa baliagarria."
-
 msgid "users"
 msgstr "erabiltzaileak"
 
@@ -3889,13 +3890,8 @@ msgstr "Zer da hau?"
 msgid "{{count}} FOI requests found"
 msgstr "aurkitutako {{count}} informazio eskabide"
 
-msgid "{{count}} Freedom of Information request to {{public_body_name}}"
-msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
-msgstr[0] "_____ {{count}} -ri egindako informazio eskabidea {{public_body_name}}"
-msgstr[1] "_______ {{count}} -ri egindako informazio eskabideak {{public_body_name}}"
-
-msgid "{{count}} person is following this authority"
-msgid_plural "{{count}} people are following this authority"
+msgid "{{count}} follower"
+msgid_plural "{{count}} followers"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -3909,7 +3905,7 @@ msgid_plural "{{count}} requests made."
 msgstr[0] "{{count}} eskabidea bidalita."
 msgstr[1] "{{count}} eskabideak bidalita."
 
-msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
+msgid "{{existing_request_user}} already\\n            created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n            or edit the details below to make a new but similar request."
 msgstr ""
 "{{existing_request_user}}-k eskabide bera bidali du {{date}} egunean. <a href=\"{{existing_request}}\">dagoen eskabidea</a> ikus dezakezu,\n"
 "      edo jarraian zurea editatu ahal duzu, aurrekoaren antzeko eskabide bat bidaltzeko."
@@ -3938,6 +3934,9 @@ msgstr ""
 msgid "{{public_body_link}} was sent a request about"
 msgstr ""
 
+msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgstr ""
+
 msgid "{{public_body_name}} only:"
 msgstr "{{public_body_name}} bakarrik:"
 
@@ -3947,7 +3946,7 @@ msgstr ""
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}}-k {{user_name}}-ri erantzun dio."
 
-msgid "{{reason}}, please sign in or make a new account."
+msgid "{{reason}}, create an account or sign in"
 msgstr ""
 
 msgid "{{search_results}} matching '{{query}}'"
@@ -4014,3 +4013,6 @@ msgstr "{{user}}-k ({{user_admin_link}}) {{law_used_full}} eskabidea  (<a href=\
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}}-k {{law_used_full}} eskabidea egin zuen"
+
+msgid "« Back to search results"
+msgstr ""

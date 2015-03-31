@@ -30,105 +30,80 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PublicBody do
 
-    describe :translations_attributes= do
+  describe :translations_attributes= do
 
-        context 'translation_attrs is a Hash' do
+      context 'translation_attrs is a Hash' do
 
-            it 'takes the correct code path for a Hash' do
-                attrs = {}
-                attrs.should_receive(:each_value)
-                PublicBody.new().translations_attributes = attrs
-            end
+          it 'does not persist translations' do
+              body = FactoryGirl.create(:public_body)
+              body.translations_attributes = { :es => { :locale => 'es',
+                                                        :name => 'El Body' } }
 
-            it 'updates an existing translation' do
-                body = public_bodies(:geraldine_public_body)
-                translation = body.translation_for(:es)
-                params = { 'es' => { :locale => 'es',
-                                     :name => 'Renamed' } }
+              expect(PublicBody.find(body.id).translations.size).to eq(1)
+          end
 
-                body.translations_attributes = params
-                I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
-            end
+          it 'creates a new translation' do
+              body = FactoryGirl.create(:public_body)
+              body.translations_attributes = { :es => { :locale => 'es',
+                                                        :name => 'El Body' } }
+              body.save
+              body.reload
+              expect(body.name(:es)).to eq('El Body')
+          end
 
-            it 'updates an existing translation and creates a new translation' do
-                body = public_bodies(:geraldine_public_body)
-                translation = body.translation_for(:es)
+          it 'updates an existing translation' do
+              body = FactoryGirl.create(:public_body)
+              body.translations_attributes = { 'es' => { :locale => 'es',
+                                                         :name => 'El Body' } }
+              body.save
 
-                expect(body.translations.size).to eq(2)
+              body.translations_attributes = { 'es' => { :id => body.translation_for(:es).id,
+                                                         :locale => 'es',
+                                                         :name => 'Renamed' } }
+              body.save
+              expect(body.name(:es)).to eq('Renamed')
+          end
 
-                body.translations_attributes = {
-                    'es' => { :locale => 'es',
-                              :name => 'Renamed' },
-                    'fr' => { :locale => 'fr',
-                              :name => 'Le Geraldine Quango' }
-                }
+          it 'updates an existing translation and creates a new translation' do
+              body = FactoryGirl.create(:public_body)
+              body.translations.create(:locale => 'es',
+                                       :name => 'El Body')
 
-                expect(body.translations.size).to eq(3)
-                I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
-                I18n.with_locale(:fr) { expect(body.name).to eq('Le Geraldine Quango') }
-            end
+              expect(body.translations.size).to eq(2)
 
-            it 'skips empty translations' do
-                body = public_bodies(:geraldine_public_body)
-                translation = body.translation_for(:es)
+              body.translations_attributes = {
+                  'es' => { :id => body.translation_for(:es).id,
+                            :locale => 'es',
+                            :name => 'Renamed' },
+                  'fr' => { :locale => 'fr',
+                            :name => 'Le Body' }
+              }
 
-                expect(body.translations.size).to eq(2)
+              expect(body.translations.size).to eq(3)
+              I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
+              I18n.with_locale(:fr) { expect(body.name).to eq('Le Body') }
+          end
 
-                body.translations_attributes = {
-                    'es' => { :locale => 'es',
-                              :name => 'Renamed' },
-                    'fr' => { :locale => 'fr' }
-                }
+          it 'skips empty translations' do
+              body = FactoryGirl.create(:public_body)
+              body.translations.create(:locale => 'es',
+                                       :name => 'El Body')
 
-                expect(body.translations.size).to eq(2)
-            end
+              expect(body.translations.size).to eq(2)
 
-        end
+              body.translations_attributes = {
+                  'es' => { :id => body.translation_for(:es).id,
+                            :locale => 'es',
+                            :name => 'Renamed' },
+                  'fr' => { :locale => 'fr' }
+              }
 
-        context 'translation_attrs is an Array' do
-
-            it 'takes the correct code path for an Array' do
-                attrs = []
-                attrs.should_receive(:each)
-                PublicBody.new().translations_attributes = attrs
-            end
-
-            it 'creates a new translation' do
-                body = public_bodies(:geraldine_public_body)
-                body.translation_for(:es).destroy
-                body.reload
-
-                expect(body.translations.size).to eq(1)
-
-                body.translations_attributes = [ {
-                        :locale => 'es',
-                        :name => 'Renamed'
-                    }
-                ]
-
-                expect(body.translations.size).to eq(2)
-                I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
-            end
-
-            it 'skips empty translations' do
-                body = public_bodies(:geraldine_public_body)
-                body.translation_for(:es).destroy
-                body.reload
-
-                expect(body.translations.size).to eq(1)
-
-                body.translations_attributes = [
-                    { :locale => 'empty' }
-                ]
-
-                expect(body.translations.size).to eq(1)
-            end
-
-        end
-
-    end
-
+              expect(body.translations.size).to eq(2)
+          end
+      end
+  end
 end
+
 
 describe PublicBody, " using tags" do
     before do
@@ -548,7 +523,7 @@ describe PublicBody, " when loading CSV files" do
         PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
 
         # Import again to check the 'add' tag functionality works
-        new_tags_file = load_file_fixture('fake-authority-add-tags.rb')
+        new_tags_file = load_file_fixture('fake-authority-add-tags.csv')
         errors, notes = PublicBody.import_csv(new_tags_file, '', 'add', false, 'someadmin') # false means real run
 
         # Check tags were added successfully
@@ -567,13 +542,282 @@ describe PublicBody, " when loading CSV files" do
         PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
 
         # Import again to check the 'replace' tag functionality works
-        new_tags_file = load_file_fixture('fake-authority-add-tags.rb')
+        new_tags_file = load_file_fixture('fake-authority-add-tags.csv')
         errors, notes = PublicBody.import_csv(new_tags_file, 'fake', 'replace', false, 'someadmin') # false means real run
 
         # Check tags were added successfully
-        PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == ['aTag']
-        PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['aTag']
+        PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == ['aTag', 'fake']
+        PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['aTag', 'fake']
         PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
+    end
+
+
+    context 'when the import tag is set' do
+
+      context 'with a new body' do
+
+        it 'appends the import tag when no tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, 'imported', 'add', false, 'someadmin')
+
+          expected = %W(imported)
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+        it 'appends the import tag when a tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,first_tag second_tag,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, 'imported', 'add', false, 'someadmin')
+
+          expected = %W(first_tag imported second_tag)
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+        it 'replaces with the import tag when no tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, 'imported', 'replace', false, 'someadmin')
+
+          expected = %W(imported)
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+        it 'replaces with the import tag and tag_string when a tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,first_tag second_tag,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, 'imported', 'replace', false, 'someadmin')
+
+          expected = %W(first_tag imported second_tag)
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+      end
+
+      context 'an existing body without tags' do
+
+        before do
+            @body = FactoryGirl.create(:public_body, :name => 'Existing Body')
+        end
+
+        it 'will not import if there is an existing body without the tag' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }",,#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          errors, notes = PublicBody.import_csv(csv, 'imported', 'add', false, 'someadmin')
+
+          expected = %W(imported)
+          errors.should include("error: line 2: Name Name is already taken for authority 'Existing Body'")
+        end
+
+      end
+
+      context 'an existing body with tags' do
+
+        before do
+            @body = FactoryGirl.create(:public_body, :tag_string => 'imported first_tag second_tag')
+        end
+
+        it 'created with tags, different tags in csv, add import tag' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }","first_tag new_tag",#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, 'imported', 'add', false, 'someadmin')
+          expected = %W(first_tag imported new_tag second_tag)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+        it 'created with tags, different tags in csv, replace import tag' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }","first_tag new_tag",#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, 'imported', 'replace', false, 'someadmin')
+
+          expected = %W(first_tag imported new_tag)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+      end
+
+    end
+
+    context 'when the import tag is not set' do
+
+      context 'with a new body' do
+
+        it 'it is empty if no tag_string is set' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
+
+          expected = []
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+        it 'uses the specified tag_string' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,first_tag,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
+
+          expected = %W(first_tag)
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+        it 'replaces with empty if no tag_string is set' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
+
+          expected = []
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+        it 'replaces with the specified tag_string' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          ,q@localhost,Quango,first_tag,http://example.org
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
+
+          expected = %W(first_tag)
+          expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
+        end
+
+      end
+
+      context 'with an existing body without tags' do
+
+        before do
+            @body = FactoryGirl.create(:public_body)
+        end
+
+        it 'appends when no tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }",,#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
+
+          expected = []
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+        it 'appends when a tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }",new_tag,#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
+
+          expected = %W(new_tag)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+        it 'replaces when no tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }",,#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
+
+          expected = []
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+        it 'replaces when a tag_string is specified' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }",new_tag,#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
+
+          expected = %W(new_tag)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+    end
+
+    describe 'with an existing body with tags' do
+
+        before do
+            @body = FactoryGirl.create(:public_body, :tag_string => 'first_tag second_tag')
+        end
+
+        it 'created with tags, different tags in csv, add tags' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }","first_tag new_tag",#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
+
+          expected = %W(first_tag new_tag second_tag)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+        it 'created with tags, different tags in csv, replace' do
+          csv = <<-CSV.strip_heredoc
+          #id,request_email,name,tag_string,home_page
+          #{ @body.id },#{ @body.request_email },"#{ @body.name }","first_tag new_tag",#{ @body.home_page }
+          CSV
+
+          # csv, tag, tag_behaviour, dry_run, editor
+          PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
+
+          expected = %W(first_tag new_tag)
+          expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
+        end
+
+      end
+
     end
 
     it "should create bodies with names in multiple locales" do
@@ -700,6 +944,22 @@ CSV
         PublicBody.csv_import_fields = old_csv_import_fields
     end
 
+    it "should import translations for fields whose values are the same as the default locale's" do
+        original_count = PublicBody.count
+
+        csv_contents = load_file_fixture("multiple-locales-same-name.csv")
+
+        errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin', ['en', 'es']) # true means dry run
+        errors.should == []
+        notes.size.should == 3
+        notes[0..1].should == [
+            "line 2: creating new authority 'Test' (locale: en):\n\t{\"name\":\"Test\",\"request_email\":\"test@test.es\",\"home_page\":\"http://www.test.es/\",\"tag_string\":\"37\"}",
+            "line 2: creating new authority 'Test' (locale: es):\n\t{\"name\":\"Test\"}",
+        ]
+        notes[2].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/
+
+        PublicBody.count.should == original_count
+    end
 end
 
 describe PublicBody do
@@ -760,6 +1020,53 @@ describe PublicBody do
             p.site_administration?.should be_false
         end
 
+    end
+
+    describe :has_request_email? do
+
+        before do
+            @body = PublicBody.new(:request_email => 'test@example.com')
+        end
+
+        it 'should return false if request_email is nil' do
+            @body.request_email = nil
+            @body.has_request_email?.should == false
+        end
+
+        it 'should return false if the request email is "blank"' do
+            @body.request_email = 'blank'
+            @body.has_request_email?.should == false
+        end
+
+        it 'should return false if the request email is an empty string' do
+            @body.request_email = ''
+            @body.has_request_email?.should == false
+        end
+
+        it 'should return true if the request email is an email address' do
+            @body.has_request_email?.should == true
+        end
+    end
+
+    describe :special_not_requestable_reason do
+
+        before do
+            @body = PublicBody.new
+        end
+
+        it 'should return true if the body is defunct' do
+            @body.stub!(:defunct?).and_return(true)
+            @body.special_not_requestable_reason?.should == true
+        end
+
+        it 'should return true if FOI does not apply' do
+            @body.stub!(:not_apply?).and_return(true)
+            @body.special_not_requestable_reason?.should == true
+        end
+
+        it 'should return false if the body is not defunct and FOI applies' do
+            @body.special_not_requestable_reason?.should == false
+        end
     end
 
 end
@@ -852,5 +1159,97 @@ describe PublicBody, 'when asked for popular bodies' do
         AlaveteliConfiguration.stub!(:frontpage_publicbody_examples).and_return('')
         PublicBody.popular_bodies('he-IL').should == [public_bodies(:humpadink_public_body)]
     end
+
+end
+
+describe PublicBody do
+
+    describe :is_requestable? do
+
+        before do
+            @body = PublicBody.new(:request_email => 'test@example.com')
+        end
+
+        it 'should return false if the body is defunct' do
+            @body.stub!(:defunct?).and_return true
+            @body.is_requestable?.should == false
+        end
+
+        it 'should return false if FOI does not apply' do
+            @body.stub!(:not_apply?).and_return true
+            @body.is_requestable?.should == false
+        end
+
+        it 'should return false there is no request_email' do
+            @body.stub!(:has_request_email?).and_return false
+            @body.is_requestable?.should == false
+        end
+
+        it 'should return true if the request email is an email address' do
+            @body.is_requestable?.should == true
+        end
+
+    end
+
+    describe :is_followupable? do
+
+        before do
+            @body = PublicBody.new(:request_email => 'test@example.com')
+        end
+
+        it 'should return false there is no request_email' do
+            @body.stub!(:has_request_email?).and_return false
+            @body.is_followupable?.should == false
+        end
+
+        it 'should return true if the request email is an email address' do
+            @body.is_followupable?.should == true
+        end
+
+    end
+
+    describe :not_requestable_reason do
+
+        before do
+            @body = PublicBody.new(:request_email => 'test@example.com')
+        end
+
+        it 'should return "defunct" if the body is defunct' do
+            @body.stub!(:defunct?).and_return true
+            @body.not_requestable_reason.should == 'defunct'
+        end
+
+        it 'should return "not_apply" if FOI does not apply' do
+            @body.stub!(:not_apply?).and_return true
+            @body.not_requestable_reason.should == 'not_apply'
+        end
+
+
+        it 'should return "bad_contact" there is no request_email' do
+            @body.stub!(:has_request_email?).and_return false
+            @body.not_requestable_reason.should == 'bad_contact'
+        end
+
+        it 'should raise an error if the body is not defunct, FOI applies and has an email address' do
+            expected_error = "not_requestable_reason called with type that has no reason"
+            lambda{ @body.not_requestable_reason }.should raise_error(expected_error)
+        end
+
+    end
+
+end
+
+describe PublicBody::Translation do
+
+  it 'requires a locale' do
+    translation = PublicBody::Translation.new
+    translation.valid?
+    expect(translation.errors[:locale]).to eq(["can't be blank"])
+  end
+
+  it 'is valid if all required attributes are assigned' do
+    translation = PublicBody::Translation.new(:locale => I18n.default_locale)
+    expect(translation).to be_valid
+  end
 
 end

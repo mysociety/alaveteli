@@ -9,8 +9,7 @@ load "format.rb"
 load "debug_helpers.rb"
 load "util.rb"
 
-# Application version
-ALAVETELI_VERSION = '0.20.0.7'
+ALAVETELI_VERSION = '0.21.0.0'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
@@ -53,9 +52,8 @@ require 'theme'
 require 'xapian_queries'
 require 'date_quarter'
 require 'public_body_csv'
-require 'category_and_heading_migrator'
-require 'public_body_categories'
 require 'routing_filters'
+require 'alaveteli_text_masker'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)

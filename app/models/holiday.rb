@@ -22,6 +22,8 @@
 
 class Holiday < ActiveRecord::Base
 
+    validates_presence_of :day
+
     def self.holidays
         @@holidays ||= all.collect { |h| h.day }.to_set
     end

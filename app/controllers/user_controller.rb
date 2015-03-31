@@ -7,14 +7,7 @@
 require 'set'
 
 class UserController < ApplicationController
-
     layout :select_layout
-
-    protect_from_forgery :only => [ :contact,
-                                    :set_profile_photo,
-                                    :signchangeemail,
-                                    :clear_profile_photo,
-                                    :set_profile_about_me ] # See ActionController::RequestForgeryProtection for details
 
     # Show page about a user
     def show
@@ -260,16 +253,8 @@ class UserController < ApplicationController
         do_post_redirect post_redirect
     end
 
-    # Logout form
-    def _do_signout
-        session[:user_id] = nil
-        session[:user_circumstance] = nil
-        session[:remember_me] = false
-        session[:using_admin] = nil
-        session[:admin_name] = nil
-    end
     def signout
-        self._do_signout
+        clear_session_credentials
         if params[:r]
             redirect_to URI.parse(params[:r]).path
         else
@@ -475,6 +460,12 @@ class UserController < ApplicationController
             return
         end
         if !params[:submitted_draft_profile_photo].nil?
+            if @user.banned?
+              flash[:error]= _('Banned users cannot edit their profile')
+              redirect_to set_profile_photo_path
+              return
+            end
+
             # check for uploaded image
             file_name = nil
             file_content = nil
@@ -582,6 +573,12 @@ class UserController < ApplicationController
             @about_me = AboutMeValidator.new(params[:about_me])
             render :action => 'set_profile_about_me'
             return
+        end
+
+        if @user.banned?
+          flash[:error] = _('Banned users cannot edit their profile')
+          redirect_to set_profile_about_me_path
+          return
         end
 
         @about_me = AboutMeValidator.new(params[:about_me])

@@ -423,127 +423,50 @@ describe IncomingMessage, " checking validity to reply to with real emails" do
 
 end
 
+
 describe IncomingMessage, " when censoring data" do
 
-    before(:each) do
-        @test_data = "There was a mouse called Stilton, he wished that he was blue."
+     before(:each) do
+         @test_data = "There was a mouse called Stilton, he wished that he was blue."
 
-        @im = incoming_messages(:useless_incoming_message)
+         @im = incoming_messages(:useless_incoming_message)
 
-        @censor_rule_1 = CensorRule.new()
-        @censor_rule_1.text = "Stilton"
-        @censor_rule_1.replacement = "Jarlsberg"
-        @censor_rule_1.last_edit_editor = "unknown"
-        @censor_rule_1.last_edit_comment = "none"
-        @im.info_request.censor_rules << @censor_rule_1
+         @censor_rule_1 = CensorRule.new()
+         @censor_rule_1.text = "Stilton"
+         @censor_rule_1.replacement = "Jarlsberg"
+         @censor_rule_1.last_edit_editor = "unknown"
+         @censor_rule_1.last_edit_comment = "none"
+         @im.info_request.censor_rules << @censor_rule_1
 
-        @censor_rule_2 = CensorRule.new()
-        @censor_rule_2.text = "blue"
-        @censor_rule_2.replacement = "yellow"
-        @censor_rule_2.last_edit_editor = "unknown"
-        @censor_rule_2.last_edit_comment = "none"
-        @im.info_request.censor_rules << @censor_rule_2
+         @censor_rule_2 = CensorRule.new()
+         @censor_rule_2.text = "blue"
+         @censor_rule_2.replacement = "yellow"
+         @censor_rule_2.last_edit_editor = "unknown"
+         @censor_rule_2.last_edit_comment = "none"
+         @im.info_request.censor_rules << @censor_rule_2
 
-        @regex_censor_rule = CensorRule.new()
-        @regex_censor_rule.text = 'm[a-z][a-z][a-z]e'
-        @regex_censor_rule.regexp = true
-        @regex_censor_rule.replacement = 'cat'
-        @regex_censor_rule.last_edit_editor = 'unknown'
-        @regex_censor_rule.last_edit_comment = 'none'
-        @im.info_request.censor_rules << @regex_censor_rule
-        load_raw_emails_data
-    end
+         @regex_censor_rule = CensorRule.new()
+         @regex_censor_rule.text = 'm[a-z][a-z][a-z]e'
+         @regex_censor_rule.regexp = true
+         @regex_censor_rule.replacement = 'cat'
+         @regex_censor_rule.last_edit_editor = 'unknown'
+         @regex_censor_rule.last_edit_comment = 'none'
+         @im.info_request.censor_rules << @regex_censor_rule
+         load_raw_emails_data
+     end
 
-    it "should do nothing to a JPEG" do
-        data = @test_data.dup
-        @im.binary_mask_stuff!(data, "image/jpeg")
-        data.should == @test_data
-    end
+     it "should replace censor text" do
+         data = "There was a mouse called Stilton, he wished that he was blue."
+         @im.apply_masks!(data, "application/vnd.ms-word")
+         data.should == "There was a xxxxx called xxxxxxx, he wished that he was xxxx."
+     end
 
-    it "should replace censor text in Word documents" do
-        data = @test_data.dup
-        @im.binary_mask_stuff!(data, "application/vnd.ms-word")
-        data.should == "There was a xxxxx called xxxxxxx, he wished that he was xxxx."
-    end
-
-    it "should replace ASCII email addresses in Word documents" do
-        orig_data = "His email was foo@bar.com"
-        data = orig_data.dup
-        @im.binary_mask_stuff!(data, "application/vnd.ms-word")
-        data.should == "His email was xxx@xxx.xxx"
-    end
-
-    it "should replace UCS-2 addresses in Word documents" do
-        orig_data = "His email was f\000o\000o\000@\000b\000a\000r\000.\000c\000o\000m\000, indeed"
-        data = orig_data.dup
-        @im.binary_mask_stuff!(data, "application/vnd.ms-word")
-        data.should == "His email was x\000x\000x\000@\000x\000x\000x\000.\000x\000x\000x\000, indeed"
-    end
-
-    it 'should handle multibyte characters correctly' do
-        orig_data = 'á'
-        data = orig_data.dup
-        @regex_censor_rule = CensorRule.new()
-        @regex_censor_rule.text = 'á'
-        @regex_censor_rule.regexp = true
-        @regex_censor_rule.replacement = 'cat'
-        @regex_censor_rule.last_edit_editor = 'unknown'
-        @regex_censor_rule.last_edit_comment = 'none'
-        @im.info_request.censor_rules << @regex_censor_rule
-        lambda{ @im.binary_mask_stuff!(data, "text/plain") }.should_not raise_error
-    end
-
-    def pdf_replacement_test(use_ghostscript_compression)
-        config = MySociety::Config.load_default()
-        previous = config['USE_GHOSTSCRIPT_COMPRESSION']
-        config['USE_GHOSTSCRIPT_COMPRESSION'] = use_ghostscript_compression
-        orig_pdf = load_file_fixture('tfl.pdf')
-        pdf = orig_pdf.dup
-
-        orig_text = MailHandler.get_attachment_text_one_file('application/pdf', pdf)
-        orig_text.should match(/foi@tfl.gov.uk/)
-
-        @im.binary_mask_stuff!(pdf, "application/pdf")
-
-        masked_text = MailHandler.get_attachment_text_one_file('application/pdf', pdf)
-        masked_text.should_not match(/foi@tfl.gov.uk/)
-        masked_text.should match(/xxx@xxx.xxx.xx/)
-        config['USE_GHOSTSCRIPT_COMPRESSION'] = previous
-    end
-
-    it "should replace everything in PDF files using pdftk" do
-        pdf_replacement_test(false)
-    end
-
-    it "should replace everything in PDF files using ghostscript" do
-        pdf_replacement_test(true)
-    end
-
-    it "should not produce zero length output if pdftk silently fails" do
-        orig_pdf = load_file_fixture('psni.pdf')
-        pdf = orig_pdf.dup
-        @im.binary_mask_stuff!(pdf, "application/pdf")
-        pdf.should_not == ""
-    end
-
-    it "should apply censor rules to HTML files" do
-        data = @test_data.dup
-        @im.html_mask_stuff!(data)
-        data.should == "There was a cat called Jarlsberg, he wished that he was yellow."
-    end
-
-    it "should apply hard-coded privacy rules to HTML files" do
-        data = "http://#{AlaveteliConfiguration::domain}/c/cheese"
-        @im.html_mask_stuff!(data)
-        data.should == "[WDTK login link]"
-    end
-
-    it "should apply censor rules to From: addresses" do
-        @im.stub!(:mail_from).and_return("Stilton Mouse")
-        @im.stub!(:last_parsed).and_return(Time.now)
-        safe_mail_from = @im.safe_mail_from
-        safe_mail_from.should == "Jarlsberg Mouse"
-    end
+     it "should apply censor rules to From: addresses" do
+         @im.stub!(:mail_from).and_return("Stilton Mouse")
+         @im.stub!(:last_parsed).and_return(Time.now)
+         safe_mail_from = @im.safe_mail_from
+         safe_mail_from.should == "Jarlsberg Mouse"
+     end
 
 end
 
@@ -565,15 +488,16 @@ describe IncomingMessage, " when censoring whole users" do
 
     it "should apply censor rules to HTML files" do
         data = @test_data.dup
-        @im.html_mask_stuff!(data)
+        @im.apply_masks!(data, 'text/html')
         data.should == "There was a mouse called Gorgonzola, he wished that he was blue."
     end
 
     it "should replace censor text to Word documents" do
         data = @test_data.dup
-        @im.binary_mask_stuff!(data, "application/vnd.ms-word")
+        @im.apply_masks!(data, "application/vnd.ms-word")
         data.should == "There was a mouse called xxxxxxx, he wished that he was blue."
     end
+
 end
 
 
@@ -767,6 +691,19 @@ describe IncomingMessage, "when extracting attachments" do
 
           im._get_attachment_text_internal.valid_encoding?.should be_true
        end
+    end
+
+end
+
+describe IncomingMessage, 'when getting the body of a message for html display' do
+
+    it 'should replace any masked email addresses with a link to the help page' do
+        incoming_message = IncomingMessage.new
+        body_text = 'there was an [email address] here'
+        incoming_message.stub!(:get_main_body_text_folded).and_return(body_text)
+        incoming_message.stub!(:get_main_body_text_unfolded).and_return(body_text)
+        expected = 'there was an [<a href="/help/officers#mobiles">email address</a>] here'
+        incoming_message.get_body_for_html_display.should == expected
     end
 
 end

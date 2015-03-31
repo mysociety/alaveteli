@@ -2,12 +2,12 @@ require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe "public_body/show" do
     before do
-        @pb = mock_model(PublicBody, 
-                         :name => 'Test Quango', 
+        @pb = mock_model(PublicBody,
+                         :name => 'Test Quango',
                          :short_name => 'tq',
-                         :url_name => 'testquango', 
+                         :url_name => 'testquango',
                          :notes => '',
-                         :type_of_authority => 'A public body',
+                         :tags => [],
                          :eir_only? => nil,
                          :info_requests => [1, 2, 3, 4], # out of sync with Xapian
                          :publication_scheme => '',
@@ -15,6 +15,7 @@ describe "public_body/show" do
                          :calculated_home_page => '')
         @pb.stub!(:override_request_email).and_return(nil)
         @pb.stub!(:is_requestable?).and_return(true)
+        @pb.stub!(:special_not_requestable_reason?).and_return(false)
         @pb.stub!(:has_notes?).and_return(false)
         @pb.stub!(:has_tag?).and_return(false)
         @xap = mock(ActsAsXapian::Search, :matches_estimated => 2)
@@ -43,7 +44,7 @@ describe "public_body/show" do
 
     it "should tell total number of requests" do
         render
-        response.should match "4 Freedom of Information requests"
+        response.should match "4 requests"
     end
 
     it "should cope with no results" do
@@ -58,44 +59,12 @@ describe "public_body/show" do
         response.should match "The search index is currently offline"
     end
 
-    it "should link to Charity Commission site if we have numbers to do so" do
-        @pb.stub!(:has_tag?).and_return(true)
-        @pb.stub!(:get_tag_values).and_return(['98765', '12345'])
-
-        render
-        response.should have_selector("div#header_right") do
-            have_selector "a", :href => /charity-commission.gov.uk.*RegisteredCharityNumber=98765$/
-        end
-        response.should have_selector("div#header_right") do
-            have_selector "a", :href => /www.charity-commission.gov.uk.*RegisteredCharityNumber=12345$/
-        end
-    end 
-
-    it "should link to Scottish Charity Regulator site if we have an SC number" do
-        @pb.stub!(:has_tag?).and_return(true)
-        @pb.stub!(:get_tag_values).and_return(['SC1234'])
-
-        render
-        response.should have_selector("div#header_right") do
-            have_selector "a", :href => /www.oscr.org.uk.*id=SC1234$/
-        end
-    end 
-
-
-    it "should not link to Charity Commission site if we don't have number" do
-        render
-        response.should have_selector("div#header_right") do
-            have_selector "a", :href => /charity-commission.gov.uk/
-        end
-    end 
-
-
 end
 
-def mock_event 
-    return mock_model(InfoRequestEvent, 
-        :info_request => mock_model(InfoRequest, 
-            :title => 'Title', 
+def mock_event
+    return mock_model(InfoRequestEvent,
+        :info_request => mock_model(InfoRequest,
+            :title => 'Title',
             :url_title => 'title',
             :display_status => 'waiting_response',
             :calculate_status => 'waiting_response',

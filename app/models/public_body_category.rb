@@ -2,23 +2,23 @@
 #
 # Table name: public_body_categories
 #
-#  id            :integer        not null, primary key
-#  title         :text           not null
-#  category_tag  :text           not null
-#  description   :text           not null
-#  display_order :integer
+#  id           :integer          not null, primary key
+#  category_tag :text             not null
 #
 
 require 'forwardable'
 
 class PublicBodyCategory < ActiveRecord::Base
     attr_accessible :locale, :category_tag, :title, :description,
-                    :translated_versions, :display_order
+                    :translated_versions, :translations_attributes,
+                    :display_order
 
     has_many :public_body_category_links, :dependent => :destroy
     has_many :public_body_headings, :through => :public_body_category_links
 
     translates :title, :description
+    accepts_nested_attributes_for :translations, :reject_if => :empty_translation_in_params?
+
     validates_uniqueness_of :category_tag, :message => 'Tag is already taken'
     validates_presence_of :title, :message => "Title can't be blank"
     validates_presence_of :category_tag, :message => "Tag can't be blank"
@@ -52,11 +52,6 @@ class PublicBodyCategory < ActiveRecord::Base
         PublicBodyCategory.find_by_sql(sql)
     end
 
-    # Called from the old-style public_body_categories_[locale].rb data files
-    def self.add(locale, data_list)
-        CategoryAndHeadingMigrator.add_categories_and_headings_from_list(locale, data_list)
-    end
-
     # Convenience methods for creating/editing translations via forms
     def find_translation_by_locale(locale)
         translations.find_by_locale(locale)
@@ -67,25 +62,48 @@ class PublicBodyCategory < ActiveRecord::Base
     end
 
     def translated_versions=(translation_attrs)
-        def empty_translation?(attrs)
-            attrs_with_values = attrs.select{ |key, value| value != '' and key != 'locale' }
-            attrs_with_values.empty?
-        end
-        if translation_attrs.respond_to? :each_value    # Hash => updating
-            translation_attrs.each_value do |attrs|
-                next if empty_translation?(attrs)
-                t = translation_for(attrs[:locale]) || PublicBodyCategory::Translation.new
-                t.attributes = attrs
-                t.save!
-            end
-        else                                            # Array => creating
-            translation_attrs.each do |attrs|
-                next if empty_translation?(attrs)
-                new_translation = PublicBodyCategory::Translation.new(attrs)
-                translations << new_translation
-            end
+        warn "[DEPRECATION] PublicBodyCategory#translated_versions= will be replaced " \
+             "by PublicBodyCategory#translations_attributes= as of release 0.22"
+        self.translations_attributes = translation_attrs
+    end
+
+    def ordered_translations
+        translations.
+          select { |t| I18n.available_locales.include?(t.locale) }.
+            sort_by { |t| I18n.available_locales.index(t.locale) }
+    end
+
+    def build_all_translations
+        I18n.available_locales.each do |locale|
+            translations.build(:locale => locale) unless translations.detect{ |t| t.locale == locale }
         end
     end
+
+    private
+
+    def empty_translation_in_params?(attributes)
+        attrs_with_values = attributes.select do |key, value|
+            value != '' and key.to_s != 'locale'
+        end
+        attrs_with_values.empty?
+    end
+
 end
 
+PublicBodyCategory::Translation.class_eval do
+  with_options :if => lambda { |t| !t.default_locale? && t.required_attribute_submitted? } do |required|
+    required.validates :title, :presence => { :message => "Title can't be blank" }
+    required.validates :description, :presence => { :message => "Description can't be blank" }
+  end
 
+  def default_locale?
+      locale == I18n.default_locale
+  end
+
+  def required_attribute_submitted?
+    PublicBodyCategory.required_translated_attributes.compact.any? do |attribute|
+      !read_attribute(attribute).blank?
+    end
+  end
+
+end

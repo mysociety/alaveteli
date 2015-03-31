@@ -35,7 +35,7 @@
         </dt>
         <dd>
            <%= _('To do that please send a private email to ') %><%=h(@postal_email_name)%>
-            &lt;<%=link_to h(@postal_email), "mailto:" + @postal_email%>&gt;
+            &lt;<%=mail_to h(@postal_email) %>&gt;
       <%= _('containing your postal address, and asking them to reply to this request.
             Or you could phone them.') %>
 

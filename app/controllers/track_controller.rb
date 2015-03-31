@@ -6,9 +6,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackController < ApplicationController
-
-    protect_from_forgery # See ActionController::RequestForgeryProtection for details
-
     before_filter :medium_cache
 
     # Track all updates to a particular request

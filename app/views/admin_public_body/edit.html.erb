@@ -3,7 +3,7 @@
 <div class="row">
   <div class="span8">
     <div id="public_body_form">
-      <%= form_for @public_body, :url => admin_body_update_path(@public_body), :html => { :class => "form form-horizontal" } do |f| %>
+      <%= form_for @public_body, :url => admin_body_path(@public_body),  :method => 'put', :html => { :class => "form form-horizontal" } do |f| %>
           <%= render :partial => 'form', :locals => {:f => f} %>
           <div class="form-actions">
             <%= f.submit 'Save', :accesskey => 's', :class => "btn btn-success" %></p>
@@ -13,15 +13,14 @@
       <div class="row">
         <div class="span8">
           <div class="well">
-            <%= link_to 'Show', admin_body_show_path(@public_body), :class => "btn" %>
-            <%= link_to 'List all', admin_body_list_path, :class => "btn" %>
+            <%= link_to 'Show', admin_bodies_path(@public_body), :class => "btn" %>
+            <%= link_to 'List all', admin_bodies_path, :class => "btn" %>
           </div>
         </div>
       </div>
 
       <% if @public_body.info_requests.empty? %>
-        <%= form_tag(admin_body_destroy_path(@public_body), :class => "form form-inline") do %>
-         <%= hidden_field_tag(:public_body_id, { :value => @public_body.id } ) %>
+        <%= form_tag(admin_body_path(@public_body), :class => "form form-inline", :method => 'delete') do %>
          <%= submit_tag _("Destroy {{name}}", :name => @public_body.name), :class => "btn btn-danger" %> (this is permanent!)
         <% end %>
       <% end %>

@@ -1,0 +1,42 @@
+<% if @query.nil? %>
+  <% @title = _('Listing public authorities') %>
+<% else %>
+  <% @title = _("Listing public authorities matching '{{query}}'", :query => @query ) %>
+<% end %>
+
+<h1><%=@title%></h1>
+
+<div class="btn-toolbar">
+  <div class="btn-group">
+    <%= link_to 'New public authority', new_admin_body_path, :class => "btn btn-primary" %>
+  </div>
+  <div class="btn-group">
+    <%= link_to 'Import from CSV file', import_csv_admin_bodies_path, :class => "btn btn-warning" %>
+  </div>
+</div>
+
+<%= form_tag({}, :method => "get", :class => "form form-search") do %>
+   <%= text_field_tag 'query', params[:query], { :size => 30, :class => "input-large search-query" } %>
+   <%= submit_tag "Search", :class => "btn" %>
+    <% if !@query.nil? %>
+      <%= link_to 'Show all', admin_bodies_path, :class => "btn" %>
+    <% end %><br>
+ (substring search in names and emails; exact match of tags)
+<% end %>
+
+
+<% if @public_bodies_by_tag.size > 0 %>
+    <h2>Exact tag matches (<%= @public_bodies_by_tag.size %> total)</h2>
+    <%= render :partial => 'one_list', :locals => { :bodies => @public_bodies_by_tag, :table_name => 'exact' } %>
+<% end %>
+
+<% if @public_bodies.size > 0 %>
+    <% if @query.nil? %>
+        <h2>All authorities</h2>
+    <% else %>
+        <h2>Substring search matches (<%= @public_bodies.total_entries %> total)</h2>
+    <% end %>
+    <%= render :partial => 'one_list', :locals => { :bodies => @public_bodies, :table_name => 'substring' } %>
+<% end %>
+
+<%= will_paginate(@public_bodies, :class => "paginator") %>

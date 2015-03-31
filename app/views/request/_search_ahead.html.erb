@@ -1,14 +1,20 @@
-<div id="request_search_ahead_results">
-  <% if !@xapian_requests.nil? %>
-    <% if @xapian_requests.results.size > 0 %>
-      <h3><%= _("Possibly related requests:") %></h3> 
-    <% end %>
-    <% for result in @xapian_requests.results %>
-      <%= render :partial => 'request/request_listing_short_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
-    <% end %>
+<% unless @xapian_requests.nil? %>
+<% if @xapian_requests.results.any? %>
+  <div id="request_search_ahead_results">
+      <span class="close-button">X</span>
+      <h2><%= _("Possible related requests") %></h2>
+      <% @xapian_requests.results.each do |result| %>
+        <%= render :partial => 'request/request_listing_short_via_event',
+                   :locals => { :event => result[:model],
+                                :info_request => result[:model].info_request } %>
+      <% end %>
 
-    <p>
-        <a id="body-site-search-link"><%= _("Or search in their website for this information.") %></a>
-    </p>
-  <% end %>
-</div>
+      <p>
+          <a id="body-site-search-link">
+            <%= _("Search in their website for this information &rarr;") %>
+          </a>
+      </p>
+
+    </div>
+ <% end %>
+<% end %>

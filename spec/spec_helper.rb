@@ -18,6 +18,7 @@ SimpleCov.start('rails') do
     add_filter  'lib/has_tag_string'
     add_filter  'lib/acts_as_xapian'
     add_filter  'lib/themes'
+    add_filter  '.bundle'
 end
 
 Spork.prefork do

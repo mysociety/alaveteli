@@ -1,0 +1,4 @@
+--- 
+:output_files: 
+- tmp/brakeman.html
+- tmp/brakeman.json

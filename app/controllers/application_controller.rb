@@ -14,8 +14,13 @@ class ApplicationController < ActionController::Base
     end
     class RouteNotFound < StandardError
     end
+    protect_from_forgery
+
     # assign our own handler method for non-local exceptions
     rescue_from Exception, :with => :render_exception
+
+    # Add some security-related headers (see config/initializers/secure_headers.rb)
+    ensure_security_headers
 
     # Standard headers, footers and navigation for whole site
     layout "default"
@@ -27,6 +32,8 @@ class ApplicationController < ActionController::Base
     before_filter :check_in_post_redirect
     before_filter :session_remember_me
     before_filter :set_vary_header
+    before_filter :validate_session_timestamp
+    after_filter  :persist_session_timestamp
 
     def set_vary_header
         response.headers['Vary'] = 'Cookie'
@@ -116,6 +123,29 @@ class ApplicationController < ActionController::Base
               request.env['rack.session.options'][:expire_after] = nil
           end
         end
+    end
+
+    # Set a TTL for non "remember me" sessions so that the cookie
+    # is not replayable forever
+    SESSION_TTL = 3.hours
+    def validate_session_timestamp
+        if session[:user_id] && session.key?(:ttl) && session[:ttl] < SESSION_TTL.ago
+            clear_session_credentials
+            redirect_to signin_path
+        end
+    end
+
+    def persist_session_timestamp
+        session[:ttl] = Time.now if session[:user_id] && !session[:remember_me]
+    end
+
+    # Logout form
+    def clear_session_credentials
+        session[:user_id] = nil
+        session[:user_circumstance] = nil
+        session[:remember_me] = false
+        session[:using_admin] = nil
+        session[:admin_name] = nil
     end
 
     def render_exception(exception)

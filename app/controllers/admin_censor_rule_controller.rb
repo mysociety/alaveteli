@@ -5,11 +5,15 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminCensorRuleController < AdminController
+
+    before_filter :set_editor, :only => [:create, :update]
+    before_filter :find_and_check_rule, :only => [:edit, :update, :destroy]
+
     def new
-        if params[:info_request_id]
-            @info_request = InfoRequest.find(params[:info_request_id])
+        if params[:request_id]
+            @info_request = InfoRequest.find(params[:request_id])
             @censor_rule = @info_request.censor_rules.build
-            @form_url = admin_info_request_censor_rules_path(@info_request)
+            @form_url = admin_request_censor_rules_path(@info_request)
         end
 
         if params[:user_id]
@@ -17,18 +21,13 @@ class AdminCensorRuleController < AdminController
             @censor_rule = @censor_user.censor_rules.build
             @form_url = admin_user_censor_rules_path(@censor_user)
         end
-
-        @censor_rule ||= CensorRule.new
-        @form_url ||= admin_rule_create_path
     end
 
     def create
-        params[:censor_rule][:last_edit_editor] = admin_current_user
-
-        if params[:info_request_id]
-            @info_request = InfoRequest.find(params[:info_request_id])
+        if params[:request_id]
+            @info_request = InfoRequest.find(params[:request_id])
             @censor_rule = @info_request.censor_rules.build(params[:censor_rule])
-            @form_url = admin_info_request_censor_rules_path(@info_request)
+            @form_url = admin_request_censor_rules_path(@info_request)
         end
 
         if params[:user_id]
@@ -37,26 +36,16 @@ class AdminCensorRuleController < AdminController
             @form_url = admin_user_censor_rules_path(@censor_user)
         end
 
-        @censor_rule ||= CensorRule.new(params[:censor_rule])
-        @form_url ||= admin_rule_create_path
-
         if @censor_rule.save
-            if !@censor_rule.info_request.nil?
-                expire_for_request(@censor_rule.info_request)
-            end
-
-            if !@censor_rule.user.nil?
-                expire_requests_for_user(@censor_rule.user)
-            end
 
             flash[:notice] = 'CensorRule was successfully created.'
 
-            if !@censor_rule.info_request.nil?
-                redirect_to admin_request_show_url(@censor_rule.info_request)
-            elsif !@censor_rule.user.nil?
-                redirect_to admin_user_show_url(@censor_rule.user)
-            else
-                raise "internal error"
+            if @censor_rule.info_request
+                expire_for_request(@censor_rule.info_request)
+                redirect_to admin_request_url(@censor_rule.info_request)
+            elsif @censor_rule.user
+                expire_requests_for_user(@censor_rule.user)
+                redirect_to admin_user_url(@censor_rule.user)
             end
         else
             render :action => 'new'
@@ -64,63 +53,55 @@ class AdminCensorRuleController < AdminController
     end
 
     def edit
-        @censor_rule = CensorRule.find(params[:id])
     end
 
     def update
-        params[:censor_rule][:last_edit_editor] = admin_current_user
-        @censor_rule = CensorRule.find(params[:id])
-
         if @censor_rule.update_attributes(params[:censor_rule])
-            unless @censor_rule.info_request.nil?
-                expire_for_request(@censor_rule.info_request)
-            end
-
-            unless @censor_rule.user.nil?
-                expire_requests_for_user(@censor_rule.user)
-            end
 
             flash[:notice] = 'CensorRule was successfully updated.'
 
-            if !@censor_rule.info_request.nil?
-                redirect_to admin_request_show_url(@censor_rule.info_request)
-            elsif !@censor_rule.user.nil?
-                redirect_to admin_user_show_url(@censor_rule.user)
-            else
-                raise "internal error"
+            if @censor_rule.info_request
+                expire_for_request(@censor_rule.info_request)
+                redirect_to admin_request_url(@censor_rule.info_request)
+            elsif @censor_rule.user
+                expire_requests_for_user(@censor_rule.user)
+                redirect_to admin_user_url(@censor_rule.user)
             end
+
         else
             render :action => 'edit'
         end
     end
 
     def destroy
-        @censor_rule = CensorRule.find(params[:censor_rule_id])
         info_request = @censor_rule.info_request
         user = @censor_rule.user
-
         @censor_rule.destroy
-
-        unless info_request.nil?
-            expire_for_request(info_request)
-        end
-
-        unless user.nil?
-            expire_requests_for_user(user)
-        end
 
         flash[:notice] = "CensorRule was successfully destroyed."
 
-        if !info_request.nil?
-            redirect_to admin_request_show_url(info_request)
-        elsif !user.nil?
-            redirect_to admin_user_show_url(user)
-        else
-            raise "internal error"
+        if info_request
+            expire_for_request(info_request)
+            redirect_to admin_request_url(info_request)
+        elsif user
+            expire_requests_for_user(user) if user
+            redirect_to admin_user_url(user)
         end
+
      end
 
     private
 
+    def set_editor
+        params[:censor_rule][:last_edit_editor] = admin_current_user
+    end
+
+    def find_and_check_rule
+        @censor_rule = CensorRule.find(params[:id])
+        unless (@censor_rule.user || @censor_rule.info_request)
+            flash[:notice] = 'Only user and request censor rules can be edited'
+            redirect_to admin_general_index_path
+        end
+    end
 end
 

@@ -11,7 +11,9 @@
 <%= form_tag 'set_photo', :id => 'set_draft_profile_photo_form', :multipart => true do %>
     <p>
 	    <label class="form_label" for="file_1"><%= _('Photo of you:')%></label>
-        <%= file_field_tag :file, :size => 35, :id => 'file_1' %>
+      <% file_opts = { :size => 35, :id => 'file_1' } %>
+      <% file_opts.merge!({ :disabled => true }) if @user.banned? %>
+      <%= file_field_tag :file, file_opts %>
     </p>
 
 <ul>

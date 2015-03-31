@@ -10,6 +10,7 @@
         :count => follower_count) %>
     </p>
      <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user && @info_request.user == @user, :location => 'sidebar' } %>
+     <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'sidebar' } %>
    </div>
     <% if @info_request.described_state != "attention_requested" %>
     <h2><%= _('Offensive? Unsuitable?') %></h2>

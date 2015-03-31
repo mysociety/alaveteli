@@ -3,12 +3,12 @@ require "external_command"
 
 def mailin_test(email_filename)
     Dir.chdir Rails.root do
-        xc = ExternalCommand.new("script/mailin")
+
         mail = load_file_fixture(email_filename)
         ir = info_requests(:other_request)
         mail.gsub!('EMAIL_TO', ir.incoming_email)
         mail.gsub!('EMAIL_FROM', 'responder@localhost')
-        xc.run(mail)
+        xc = ExternalCommand.new("script/mailin", :stdin_string => mail).run
         xc.err.should == ""
         return xc
     end

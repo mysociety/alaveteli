@@ -427,8 +427,7 @@ describe RequestMailer, 'requires_admin' do
 
     it 'body should contain the full admin URL' do
         mail = RequestMailer.requires_admin(@info_request).deliver
-
-        mail.body.should include('http://test.host/en/admin/request/show/123')
+        mail.body.should include('http://test.host/en/admin/requests/123')
     end
 
     it "body should contain the message from the user" do

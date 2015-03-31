@@ -12,13 +12,10 @@
              <%= submit_tag _("Search") %>
       <% end %>
   </li>
-  </ul>  
+  </ul>
  <% else %>
   <h1><%= _("Sorry, there was a problem processing this page") %></h1>
   <p><%= _('You have found a bug.  Please <a href="{{contact_url}}">contact us</a> to tell us about the problem', :contact_url => help_contact_path) %></p>
 
  <% end %>
-  <h2><%= _('Technical details') %></h2>
-  <p><strong><%= h(@exception_class ? @exception_class : _("Unknown")) %></strong></p>
-  <p><strong><%= h(@exception_message) %></strong></p>
 </div>

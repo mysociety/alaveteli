@@ -2,8 +2,7 @@
 
 <h1><%=@title%></h1>
 
-<%= form_tag admin_request_move_request_path, { :class => "form form-horizontal" } do %>
-  <%= hidden_field_tag 'info_request_id', @info_request.id %>
+<%= form_tag move_admin_request_path(@info_request), { :class => "form form-horizontal" } do %>
   <div class="accordion" id="info_request">
     <div class="accordion-group">
       <div class="accordion-heading">
@@ -16,7 +15,7 @@
           <thead>
             <tr>
               <td colspan="2">
-                 <%= link_to 'Edit metadata', admin_request_edit_path(@info_request), :class => "btn" %>
+                 <%= link_to 'Edit metadata', edit_admin_request_path(@info_request), :class => "btn" %>
               </td>
             </tr>
           </thead>
@@ -101,7 +100,7 @@
           <tfoot>
             <tr>
               <td colspan="2">
-                 <%= link_to 'Edit metadata', admin_request_edit_path(@info_request), :class => "btn" %>
+                 <%= link_to 'Edit metadata', edit_admin_request_path(@info_request), :class => "btn" %>
               </td>
             </tr>
           </tfoot>
@@ -117,11 +116,13 @@
       FOI officer upload URL
     </label>
     <div class="controls">
-      <%= link_to 'Generate URL', admin_request_generate_upload_url_path(@info_request), :class => "btn" %>
+      <%= form_tag generate_upload_url_admin_request_path(@info_request), :class => "form form-inline" do %>
+        <%= submit_tag "Generate URL", :class => "btn"  %>
+      <% end %>
       <p class="help-block">(see also option to generate URLs for individual incoming messages below)</p>
     </div>
   </div>
-  <%= form_tag admin_request_hide_path(@info_request), :class => "form form-inline", :id => "hide_request_form", 'data-info-request-id' => @info_request.id.to_s do %>
+  <%= form_tag hide_admin_request_path(@info_request), :class => "form form-inline", :id => "hide_request_form", 'data-info-request-id' => @info_request.id.to_s do %>
     <div class="control-group">
       <% if  @info_request.is_external? %>
         <label class="control-label">Hide the request:</label>
@@ -191,8 +192,7 @@
             <tr>
               <td>
                 <% if info_request_event.described_state != 'waiting_clarification' and info_request_event.event_type == 'response' %>
-                  <%= form_tag admin_request_clarification_path, :class => "form form-inline admin-table-form admin-inline-form" do %>
-                    <%= hidden_field_tag 'info_request_event_id', info_request_event.id, :id => nil %>
+                  <%= form_tag admin_info_request_event_path(info_request_event), :method => 'put', :class => "form form-inline admin-table-form admin-inline-form" do %>
                     <%= submit_tag "Was clarification request", :class => "btn btn-mini btn-primary" %>
                   <% end %>
                 <% end %>
@@ -233,7 +233,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#outgoing_<%=outgoing_message.id%>" data-toggle="collapse" data-parent="#outgoing_messages"><%= chevron_right %></a>
-        <%= link_to admin_outgoing_edit_path(outgoing_message) do %>
+        <%= link_to edit_admin_outgoing_message_path(outgoing_message) do %>
           #<%= outgoing_message.id %> -- <%= outgoing_message.status.humanize %> <%= outgoing_message.message_type.humanize %>
         <% end %>
         <blockquote>
@@ -245,8 +245,7 @@
           <tbody>
             <tr>
               <td colspan="2">
-                <%= form_tag admin_request_resend_path, :class => "admin-table-form" do %>
-                  <%= hidden_field_tag 'outgoing_message_id', outgoing_message.id %>
+                <%= form_tag resend_admin_outgoing_message_path(outgoing_message), :class => "admin-table-form" do %>
                   <%= submit_tag "Resend", :class => "btn" %>
                 <% end %>
               </td>
@@ -279,7 +278,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#incoming_<%=incoming_message.id%>" data-toggle="collapse" data-parent="#incoming_messages"><%= chevron_right %></a>
-        <%= link_to admin_incoming_edit_path(incoming_message) do %>
+        <%= link_to edit_admin_incoming_message_path(incoming_message) do %>
           <%=incoming_message.id%>
           --
           <%= h(incoming_message.mail_from) %>
@@ -296,7 +295,7 @@
           <thead>
             <tr>
               <td colspan="2" class="well">
-                <%= render :partial => 'incoming_message_actions', :locals => { :incoming_message => incoming_message } %>
+                <%= render :partial => 'admin_incoming_message/actions', :locals => { :incoming_message => incoming_message } %>
               </td>
             </tr>
           </thead>

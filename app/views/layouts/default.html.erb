@@ -20,9 +20,13 @@
         <% end %>
 
         <%= javascript_include_tag "application" %>
+
         <% if @profile_photo_javascript %>
             <%= javascript_include_tag "profile-photos" %>
             <%= stylesheet_link_tag "jquery.Jcrop.css" %>
+        <% end %>
+        <% if is_admin? %>
+          <%= javascript_include_tag "bootstrap-dropdown" %>
         <% end %>
 
         <% if @feed_autodetect %>

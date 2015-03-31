@@ -207,7 +207,7 @@ class User < ActiveRecord::Base
         if not name.nil?
             name.strip!
         end
-        if public_banned?
+        if banned?
             # Use interpolation to return a string rather than a SafeBuffer so that
             # gsub can be called on it until we upgrade to Rails 3.2. The name returned
             # is not marked as HTML safe so will be escaped automatically in views. We
@@ -264,11 +264,9 @@ class User < ActiveRecord::Base
     # Returns list of requests which the user hasn't described (and last
     # changed more than a day ago)
     def get_undescribed_requests
-        info_requests.find(
-            :all,
-            :conditions => [ 'awaiting_description = ? and ' + InfoRequest.last_event_time_clause + ' < ?',
-                true, Time.now() - 1.day
-            ]
+        info_requests.where(
+            "awaiting_description = ? and #{ InfoRequest.last_event_time_clause } < ?",
+            true, 1.day.ago
         )
     end
 
@@ -296,10 +294,18 @@ class User < ActiveRecord::Base
     def admin_page_links?
         super?
     end
+
     # Is it public that they are banned?
-    def public_banned?
-        !ban_text.empty?
+    def banned?
+      !ban_text.empty?
     end
+
+    def public_banned?
+      warn %q([DEPRECATION] User#public_banned? will be replaced with
+              User#banned? as of 0.22).squish
+      banned?
+    end
+
     # Various ways the user can be banned, and text to describe it if failed
     def can_file_requests?
         ban_text.empty? && !exceeded_limit?
