@@ -153,20 +153,25 @@ Interface introduced in Alaveteli version 0.21
 </div>
 
 Alaveteli calculates the due dates of requests taking account of the
-public holidays you enter into the admin interface. If you have set the
+public holidays you enter into the admin interface.
+
+If you have set the
 [`WORKING_OR_CALENDAR_DAYS`]({{site.baseurl}}docs/customising/config/#working_or_calendar_days)
 setting for Alaveteli to `working`, the date when a response to a
 request is officially overdue will be calculated in days that are not
-weekends or public holidays. If you have set
+weekends or public holidays.
+
+If you have set
 [`WORKING_OR_CALENDAR_DAYS`]({{site.baseurl}}docs/customising/config/#working_or_calendar_days)
 to `calendar`, the date will be calculated in calendar days, but if the
 due date falls on a public holiday or weekend day, then the due date is
 considered to be the next week day that isn't a holiday.
 
-To add public holidays, go to the "Holidays" tab of the admin interface.
-From here you can either add each holiday day by hand, using the "New
-Holiday" button, or you can create multiple holidays at once using the
-"Create holidays from suggestions or iCal feed" button.
+To add public holidays, go to the
+<a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>
+and click on **Holidays**. From here you can either add each day of holiday by
+hand, using the **New Holiday** button, or you can create multiple holidays at
+once using the **Create holidays from suggestions or iCal feed** button.
 
 ## Start thinking about customising Alaveteli
 
