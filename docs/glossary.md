@@ -503,7 +503,7 @@ Definitions
         <li>
           See more about
           <a href="{{ site.baseurl }}docs/installing/next_steps/#add-some-public-holidays">adding
-          public holidays</a>. It's possible to load dates from an iCal
+          public holidays</a>. It's possible to load dates from an iCalendar
           feed or accept Alaveteli's suggestions.
         </li>
       </ul>
