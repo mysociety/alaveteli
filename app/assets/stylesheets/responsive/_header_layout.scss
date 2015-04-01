@@ -131,25 +131,22 @@
   }
   form{
         @include grid-row;
-        padding-right: 1em;
+        padding: 1em 1em 0;
         @include lte-ie7 {
            display: inline;
         }
     }
     input{
         @include grid-column($columns:9);
-        margin:0;
+        margin-right:0;
         @include lte-ie7 {
           width: 10.063em;
         }
     }
-    label{
+    button[type="submit"]{
         @include prefix-postfix-base;
-        @include grid-column($columns:3,$float:left);
+        @include grid-column($columns:3,$float:right);
         border:none;
-        img{
-            max-width: 100%;
-        }
         @include lte-ie7 {
            width: 2.125em;
         }
