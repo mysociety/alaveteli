@@ -26,6 +26,11 @@
               <img src="/assets/search.png" alt="Search:">
             </label>
               <%= text_field_tag 'query', params[:query], { :id => "navigation_search_button", :title => "type your search term here" } %>
+              <button type="submit">
+                <span class="visually-hidden">
+                  Submit Search
+                </span>
+              </button>
           </form>
         </li>
     </ul>
