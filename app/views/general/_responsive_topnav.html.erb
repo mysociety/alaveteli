@@ -25,7 +25,7 @@
             <label class="visually-hidden" for="navigation_search_button">
               Search
             </label>
-              <%= text_field_tag 'query', params[:query], { :id => "navigation_search_button", :title => "type your search term here" } %>
+              <%= text_field_tag 'query', params[:query], { :id => "navigation_search_button", :type => "search", :title => "type your search term here" } %>
               <button type="submit">
                 <span class="visually-hidden">
                   Submit Search
