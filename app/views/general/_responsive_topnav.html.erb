@@ -22,8 +22,8 @@
 
         <li id="navigation_search">
           <form id="navigation_search_form" method="post" action="<%= search_redirect_path %>">
-            <label for="navigation_search_button">
-              <img src="/assets/search.png" alt="Search:">
+            <label class="visually-hidden" for="navigation_search_button">
+              Search
             </label>
               <%= text_field_tag 'query', params[:query], { :id => "navigation_search_button", :title => "type your search term here" } %>
               <button type="submit">
