@@ -12,7 +12,9 @@ title: Next Steps
    * [Load sample data](#load-sample-data)
    * [Test out the request process](#test-out-the-request-process)
    * [Import Public Authorities](#import-public-authorities)
-   
+   * [Set the amount of time [...] to respond to requests](#set-the-amount-of-time-authorities-will-be-given-to-respond-to-requests)
+   * [Add some public holidays](#add-some-public-holidays)
+   * [Start thinking about customising Alaveteli](#start-thinking-about-customising-alaveteli)
 
 
 ## Create a superuser admin account
