@@ -135,6 +135,9 @@
         @include lte-ie7 {
            display: inline;
         }
+        @include respond-min( $main_menu-mobile_menu_cutoff ){
+          padding-top: 0;
+        }
     }
     input{
         @include grid-column($columns:9);
