@@ -172,7 +172,7 @@ To add public holidays, go to the
 <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>
 and click on **Holidays**. From here you can either add each day of holiday by
 hand, using the **New Holiday** button, or you can create multiple holidays at
-once using the **Create holidays from suggestions or iCal feed** button.
+once using the **Create holidays from suggestions or iCalendar feed** button.
 
 ## Start thinking about customising Alaveteli
 
