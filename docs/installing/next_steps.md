@@ -153,7 +153,8 @@ Interface introduced in Alaveteli version 0.21
 </div>
 
 Alaveteli calculates the due dates of requests taking account of the
-public holidays you enter into the admin interface.
+<a href="{{ site.baseurl }}docs/glossary/#holiday" class="glossary__link">public holidays</a>
+you enter into the admin interface.
 
 If you have set the
 [`WORKING_OR_CALENDAR_DAYS`]({{site.baseurl}}docs/customising/config/#working_or_calendar_days)

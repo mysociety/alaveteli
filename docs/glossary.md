@@ -32,6 +32,7 @@ Definitions
   <li><a href="#foi">freedom of information</a></li>
   <li><a href="#git">git</a></li>
   <li><a href="#holding_pen">holding pen</a></li>
+  <li><a href="#holiday">holiday</a></li>
   <li><a href="#i18n">internationalisation</a></li>
   <li><a href="#newrelic">New Relic</a></li>
   <li><a href="#mta">Mail Transfer Agent</a></li>
@@ -481,6 +482,29 @@ Definitions
           an <a href="#authority" class="glossary__link">authority</a> replied
           to a request with the wrong email address (for example, by copying
           the email address incorrectly).
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="holiday">holidays</a>
+  </dt>
+  <dd>
+    Alaveteli needs to know about <strong>public holidays</strong> because
+    they affect the calculation that determines when a
+    <a href="#response" class="glossary__link">response</a> is overdue.
+    Public holidays are different all around the world, so Alaveteli lets
+    you specify the dates for the jurisdiction relevant to your
+    site in the <a href="#admin" class="glossary__link">admin interface.</a> 
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          See more about
+          <a href="{{ site.baseurl }}docs/installing/next_steps/#add-some-public-holidays">adding
+          public holidays</a>. It's possible to load dates from an iCal
+          feed or accept Alaveteli's suggestions.
         </li>
       </ul>
     </div>
