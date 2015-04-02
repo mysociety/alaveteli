@@ -25,7 +25,7 @@ config/httpd.conf
 config/general*.yml
 config/deploy.yml.*
 .sass-cache
-alaveteli.sublime*
+alaveteli*.sublime*
 webrat.log
 /.rbenv-version
 /db/development_structure.sql
