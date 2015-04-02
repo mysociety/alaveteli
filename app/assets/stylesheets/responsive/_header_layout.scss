@@ -140,7 +140,7 @@
         }
     }
     input{
-        @include grid-column($columns:9);
+        @include grid-column($columns:10);
         margin-right:0;
         @include lte-ie7 {
           width: 10.063em;
@@ -148,7 +148,7 @@
     }
     button[type="submit"]{
         @include prefix-postfix-base;
-        @include grid-column($columns:3,$float:right);
+        @include grid-column($columns:2,$float:right);
         border:none;
         @include lte-ie7 {
            width: 2.125em;
