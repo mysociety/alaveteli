@@ -42,7 +42,8 @@ module AttachmentToHTML
             private
 
             def parse_body
-                match = convert.match(/<body[^>]*>(.*?)<\/body>/mi)
+                conversion = convert
+                match = conversion ? conversion.match(/<body[^>]*>(.*?)<\/body>/mi) : nil
                 match ? match[1] : ''
             end
 
