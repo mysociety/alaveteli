@@ -71,6 +71,11 @@ describe AttachmentToHTML::Adapters::PDF do
             adapter.success?.should be_false
         end
 
+        it 'is not successful if convert returns nil' do
+            adapter.stub(:convert).and_return(nil)
+            adapter.success?.should be_false
+        end
+
         it 'is not successful if the body contains more than 50 images' do
             # Sometimes pdftohtml extracts images incorrectly, resulting
             # in thousands of PNGs being created for one image. This creates
