@@ -291,7 +291,7 @@ GEM
       rack (>= 1.0)
       rack-test (>= 0.5.3)
     will_paginate (3.0.5)
-    xapian-full-alaveteli (1.2.9.5)
+    xapian-full-alaveteli (1.2.9.6)
     xml-simple (1.1.2)
     zip (2.0.2)
 
@@ -360,6 +360,6 @@ DEPENDENCIES
   vpim (~> 13.11.11)
   webrat (~> 0.7.3)
   will_paginate (~> 3.0.5)
-  xapian-full-alaveteli (~> 1.2.9.5)
+  xapian-full-alaveteli (~> 1.2.9.6)
   xml-simple (~> 1.1.2)
   zip (~> 2.0.2)
