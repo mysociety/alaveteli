@@ -2242,7 +2242,7 @@ msgid "Request an internal review"
 msgstr "Pregunta por tu Solicitud"
 
 msgid "Request an internal review from {{person_or_body}}"
-msgstr "Pregunta por tu solicitud al contacto en {{person_or_body}}"
+msgstr "Pregunta por tu solicitud al contacto en el {{person_or_body}}"
 
 msgid "Request email"
 msgstr "Email para solicitudes"
