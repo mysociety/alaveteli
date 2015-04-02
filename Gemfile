@@ -35,7 +35,7 @@ gem 'thin', '~> 1.5.1'
 gem 'vpim', '~> 13.11.11'
 gem 'will_paginate', '~> 3.0.5'
 # when 1.2.9 is released by the maintainer, we can stop using this fork:
-gem 'xapian-full-alaveteli', '~> 1.2.9.6'
+gem 'xapian-full-alaveteli', '~> 1.2.9.7'
 gem 'xml-simple', '~> 1.1.2', :require => 'xmlsimple'
 gem 'zip', '~> 2.0.2'
 
