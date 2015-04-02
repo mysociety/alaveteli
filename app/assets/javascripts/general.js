@@ -34,12 +34,12 @@ $(document).ready(function() {
     box.width(location.length + " em");
     box.find('input').val(location).attr('size', location.length + " em");
     box.show();
-    box.find('input').select();
     box.position({
       my: "right center",
       at: "left bottom",
       of:  this,
       collision: "fit" });
+    box.find('input').select();
     return false;
   });
 
