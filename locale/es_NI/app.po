@@ -3987,7 +3987,7 @@ msgstr "la dirección de contacto de {{public_body}}"
 #. Send a public reply to...
 #. Don't want to address your message to... ?
 msgid "the main FOI contact at {{public_body}}"
-msgstr "el contacto en {{public_body}}"
+msgstr "al contacto en {{public_body}}"
 
 msgid "the requester"
 msgstr "el solicitante"
