@@ -23,12 +23,12 @@
         <li id="navigation_search">
           <form id="navigation_search_form" method="post" action="<%= search_redirect_path %>" role="search">
             <label class="visually-hidden" for="navigation_search_button">
-              Search
+              <%= _("Search") %>
             </label>
-              <%= text_field_tag 'query', params[:query], { :id => "navigation_search_button", :type => "search", :placeholder => "Search", :title => "type your search term here" } %>
+              <%= text_field_tag 'query', params[:query], { :id => "navigation_search_button", :type => "search", :placeholder => _("Search"), :title => _("type your search term here") } %>
               <button type="submit">
                 <span class="visually-hidden">
-                  Submit Search
+                  <%= _("Submit Search") %>
                 </span>
               </button>
           </form>
