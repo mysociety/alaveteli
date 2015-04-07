@@ -5,7 +5,7 @@ redirect_from: /about/where-has-alaveteli-been-installed/
 ---
 <div class="deployments__intro">
     <div class="container">
-    <h1>20+ languages, 18 jurisdictions
+    <h1>20+ languages, 19 jurisdictions
     <span>200,000 requests for information</span></h1>
     <p>Alaveteli can help open up government in any country,
 in any language, and within any legislation</p>
