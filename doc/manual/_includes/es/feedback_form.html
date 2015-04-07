@@ -1,0 +1,32 @@
+ <meta charset="utf-8">
+<form id="feedback_form">
+  <h3>Miniencuesta</h3>
+  <div id="form_elements">
+    <p>¿Ha encontrado lo que buscaba en esta página?</p>
+    <ul>
+      <li>
+        <label>
+          <input id="found_yes" name="found" type="radio" class="field radio" value="Yes" tabindex="1" onclick="$('#feedback-further-details').hide()"/>Sí
+        </label>
+      </li>
+      <li>
+      <label>
+        <input id="found_no" name="found" type="radio" class="field radio" value="No" tabindex="2" onclick="$('#feedback-further-details').show()"/>No
+      </label>
+      </li>
+    </ul>
+    <div id="feedback-further-details" hidden>
+      <p>
+        <label for="looking_for">¿Qué estaba buscando?</label><br/>
+        <input id="id_looking_for" name="looking_for" />
+      </p>
+    </div>
+    <input id="url" name="url" type="hidden" />
+    <input type="hidden" name="question_no" value="1">
+  </div>
+
+  <p id="result"></p>
+  <input type="submit" value="Enviar"/>
+  <a href="" id="hide_survey">ocultar</a>
+
+</form>

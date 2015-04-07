@@ -114,11 +114,11 @@ help with this. The minimum spec for running a low traffic website is
 latest Debian Wheezy (7) or Squeeze (6) 64-bit or Ubuntu precise (12.04)
 as the operating system. Rackspace offer suitable cloud servers, which
 start out at around $25 / month. Then your tech person should follow the
-[installation documentation]({{ site.baseurl }}docs/installing/).
+[installation documentation]({{ page.baseurl }}/docs/installing/).
 
 Alternatively, you could use Amazon Web Services. This has the
 added advantage that you can use our preconfigured [Alaveteli EC2
-AMI]({{ site.baseurl }}docs/installing/ami/) to get you
+AMI]({{ page.baseurl }}/docs/installing/ami/) to get you
 started almost instantly. However, it's more expensive than Rackspace,
 especially if you want more RAM.
 
@@ -189,7 +189,7 @@ custom homepage, different fonts, etc; however, the more you customise the
 site, the harder it is to upgrade in the future; and you'll need a developer
 and/or designer to help do these customisations. We call the custom set of
 colours, fonts, logos etc a "theme"; there are some notes for developers about
-[writing a theme]({{ site.baseurl }}docs/customising/themes/). You
+[writing a theme]({{ page.baseurl }}/docs/customising/themes/). You
 might spend anywhere between 1 and 15 days on this.
 
 ### Legislative differences
@@ -216,7 +216,7 @@ often less. But complicated workflows might take a bit longer.
 
 The default help pages in Alaveteli are taken from WhatDoTheyKnow, and are
 therefore relevant only to the UK. You should take these pages as inspiration,
-but review their content with a view to your jurisdiction. See [the documentation on Alaveteli's themes]({{ site.baseurl }}docs/customising/themes/#customising-the-help-pages) for details
+but review their content with a view to your jurisdiction. See [the documentation on Alaveteli's themes]({{ page.baseurl }}/docs/customising/themes/#customising-the-help-pages) for details
 on which pages are important, and what content they need to have.
 
 The help pages contain some HTML. Your tech person should be able to advise on
@@ -229,7 +229,7 @@ that you'll be sending out in response to common user queries and
 administrative tasks -- for example, an email that you send to IT departments
 asking them to whitelist emails from your Alaveteli website (if your emails are
 being marked as spam). See the
-[Administrator's Manual]({{ site.baseurl }}docs/running/admin_manual/) for details
+[Administrator's Manual]({{ page.baseurl }}/docs/running/admin_manual/) for details
 on some of the common administrative tasks. There is a list of the
 standard emails used by WhatDoTheyKnow on the
 [FOI Wiki](http://foiwiki.com/foiwiki/index.php/Common_WhatDoTheyKnow_support_responses).
@@ -276,7 +276,7 @@ spreadsheet. The help pages need to have one copy saved for each language; your
 tech person will put them in the right place.
 
 The web interface translations are managed and collaborated via a website
-called <a href="{{ site.baseurl }}docs/glossary/#transifex" class="glossary__link">Transifex</a>. This website allows teams of translators to collaborate in
+called <a href="{{ page.baseurl }}/docs/glossary/#transifex" class="glossary__link">Transifex</a>. This website allows teams of translators to collaborate in
 one place, using a fairly easy interface.
 
 The Alaveteli page on Transifex is at
@@ -303,7 +303,7 @@ review the untranslated strings.
 ## Step five: Test drive the site
 
 For launch, the tech person should review the [Production Server Best
-Practices]({{ site.baseurl }}docs/running/server/).
+Practices]({{ page.baseurl }}/docs/running/server/).
 
 A low-key launch, where you tell just a few trusted people about the site, is a
 very good idea. You can then track how things work, and gauge the responses of

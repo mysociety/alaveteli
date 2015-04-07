@@ -13,7 +13,7 @@ The Alaveteli Community
 
 We actively help people set up and run Alaveteli instances all around the
 world. Alaveteli is more than just software, it's also a community of people
-who care enough about <a href="{{ site.baseurl}}docs/glossary/#foi"
+who care enough about <a href="{{ page.baseurl }}/docs/glossary/#foi"
 class="glossary__link">Freedom of Information</a> to build and run sites to benefit
 the public.
 
@@ -64,6 +64,6 @@ The [Alaveteli software is on github](https://github.com/mysociety/alaveteli) an
 Although asking a human is great, often what you want to know can be
 found in the documentation:
 
-* [this documentation]({{ site.baseurl }}docs/) &mdash; always the first place to look
+* [this documentation]({{ page.baseurl }}/docs/) &mdash; always the first place to look
 * [the dev wiki](https://github.com/mysociety/alaveteli/wiki) &mdash; informal or specific notes
 * [docs in the repo](https://github.com/mysociety/alaveteli/tree/rails-3-develop/doc) (although we're slowly phasing these out in favour of the docs you're reading now)

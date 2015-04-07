@@ -10,28 +10,28 @@ title: Installation from AMI
   EC2. This is handy if you just want to evaluate Alaveteli, for example.
 </p>
 
-Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing/).
+Note that there are [other ways to install Alaveteli]({{ page.baseurl }}/docs/installing/).
 
 ## Installing from our AMI
 
 To help you try out Alaveteli, we have created an AMI with a basic installation
 of Alaveteli, which you can use to create a running server on an Amazon EC2
 instance. This creates an instance that runs as a
-<a href="{{ site.baseurl }}docs/glossary/#development" class="glossary__link">development site</a>.
+<a href="{{ page.baseurl }}/docs/glossary/#development" class="glossary__link">development site</a>.
 If you want to use this for a 
-<a href="{{ site.baseurl }}docs/glossary/#production" class="glossary__link">production site</a>,
+<a href="{{ page.baseurl }}/docs/glossary/#production" class="glossary__link">production site</a>,
 you must
-[change the configuration]({{ site.baseurl }}docs/customising/config/#staging_site).
+[change the configuration]({{ page.baseurl }}/docs/customising/config/#staging_site).
 
 <div class="attention-box">
   <p>
     <strong>What's in the AMI?</strong>
     The AMI gives you exactly the same thing as the 
-    <a href="{{ site.baseurl}}docs/installing/script/">installation script</a>
+    <a href="{{ page.baseurl }}/docs/installing/script/">installation script</a>
     does. You get an Alaveteli website powered by Rails running the Thin
     application server under nginx, using a postgreSQL database. All this
     running on Amazon's EC2 servers, ready to be
-    <a href="{{ site.baseurl }}docs/customising/">configured and customised</a>.
+    <a href="{{ page.baseurl }}/docs/customising/">configured and customised</a>.
   </p>
 </div>
 
@@ -132,7 +132,7 @@ When you log into your instance's command line shell, you must do so as the
 the code is actually owned by (and runs as) the `alaveteli` user.
 
 You will need to 
-[customise the site's configuration]({{ site.baseurl }}docs/customising/config/).
+[customise the site's configuration]({{ page.baseurl }}/docs/customising/config/).
 Do this by logging into your EC2 server and editing the `general.yml`
 configuration file.
 
@@ -158,4 +158,4 @@ If you have any problems or questions, please ask on the [Alaveteli developer ma
 
 ##What next?
 
-Check out the [next steps]({{ site.baseurl }}docs/installing/next_steps/).
+Check out the [next steps]({{ page.baseurl }}/docs/installing/next_steps/).

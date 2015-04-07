@@ -13,7 +13,7 @@ title: Themes
 </p>
 
 When you customise your Alaveteli site, there is a lot you can change just
-by editing the [config settings]({{ site.baseurl }}docs/customising/config/).
+by editing the [config settings]({{ page.baseurl }}/docs/customising/config/).
 But if you want to change the way the site looks, or add more specific
 behaviour, you'll need to make a **theme**.
 
@@ -46,23 +46,23 @@ about this, [ask for help](/community/)!
 
 
 We use
-<a href="{{ site.baseurl }}docs/glossary/#git" class="glossary__link">git</a>
+<a href="{{ page.baseurl }}/docs/glossary/#git" class="glossary__link">git</a>
 to manage Alaveteli's source code, and Alaveteli expects your theme to be in
 a git repository of its own.
 
 Although you *can* start customising your site on your
-<a href="{{ site.baseurl }}docs/glossary/#development" class="glossary__link">development server</a>
+<a href="{{ page.baseurl }}/docs/glossary/#development" class="glossary__link">development server</a>
 by playing with the `alavetelitheme` theme that Alaveteli ships with, we recommend
 you make it into your own repo as soon as you can. If you're seriously customising
 &mdash; and certainly before you can deploy to a
-<a href="{{ site.baseurl }}docs/glossary/#production" class="glossary__link">production server</a> &mdash;
+<a href="{{ page.baseurl }}/docs/glossary/#production" class="glossary__link">production server</a> &mdash;
 you must do this. Make sure you choose a unique name for your theme (and hence its
 repo). If your site is `abcexample.com`, we suggest you call your theme
 something like `abcexample-theme`.
 
 Alaveteli's `themes:install` rake task, which installs themes, works by
 getting the git repo from the URL specified in the config setting
-[`THEME_URLS`]({{ site.baseurl }}docs/customising/config/#theme_urls). This is
+[`THEME_URLS`]({{ page.baseurl }}/docs/customising/config/#theme_urls). This is
 why your theme must be in its own git repo.
 
 One way to create your own theme is to fork the `alavetelitheme` theme from
@@ -75,7 +75,7 @@ you can duplicate `alivetelitheme` (in `lib/themes/`) and change its name.
   Here's an example of a complex theme in action: see the theme repo at
   <a href="https://github.com/mysociety/whatdotheyknow-theme">https://github.com/mysociety/whatdotheyknow-theme</a>.
   This is the theme for UK's Alaveteli instance
-  <a href="{{ site.baseurl}}docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>.
+  <a href="{{ page.baseurl }}/docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>.
   You can see it
   <a href="https://www.whatdotheyknow.com">deployed on the WhatDoTheyKnow website</a>.
   This happens because the WhatDoTheyKnow server has this setting in <code>config/general.yml</code>:
@@ -92,7 +92,7 @@ The most common requirement is to brand the site: at a minimum,
 [add the categories](#adding-your-own-categories-for-authorities)
 that authorities can appear in (you can see these as groupings on the left-hand
 side of the [View authorities](https://www.whatdotheyknow.com/body/list/all) page
-on <a href="{{ site.baseurl }}docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>).
+on <a href="{{ page.baseurl }}/docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>).
 You may also want to
 [tweak the different states](#customising-the-request-states) that a request can
 go through.
@@ -116,15 +116,15 @@ We try to encapsulate all site-specific functionality in one of these
 places:
 
 * **site configuration**<br>
-  use the [config settings]({{ site.baseurl }}docs/customising/config/)
+  use the [config settings]({{ page.baseurl }}/docs/customising/config/)
   for example, the name of your site, the available languages, and so on.
   You change these by editing `config/general.yml`.
 * **data**<br>
   for example, the public authorities to whom requests should be addressed,
   and the tags and categories for grouping them. You control all this
   through the
-  <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin
-  interface</a>: see the [admin manual]({{ site.baseurl }}docs/running/admin_manual).
+  <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin
+  interface</a>: see the [admin manual]({{ page.baseurl }}/docs/running/admin_manual).
 * **a theme**<br>
   installed in `lib/themes`.
   The page you're reading now is all about what you can do in a theme.
@@ -140,7 +140,7 @@ You can also install the theme by hand, by running:
     bundle exec rake themes:install
 
 This installs whichever theme is specified by the
-[`THEME_URLS`]({{ site.baseurl }}docs/customising/config/#theme_urls)
+[`THEME_URLS`]({{ page.baseurl }}/docs/customising/config/#theme_urls)
 setting.
 
 The sample theme contains examples for nearly everything you might
@@ -149,7 +149,7 @@ use that as the basis for your own theme.
 
 <div class="attention-box info">
   The
-  <code><a href="{{ site.baseurl }}docs/customising/config/#theme_urls">THEME_URLS</a></code>
+  <code><a href="{{ page.baseurl }}/docs/customising/config/#theme_urls">THEME_URLS</a></code>
   setting allows you to specifiy more than one theme &mdash; but
   normally you only need one.
 </div>
@@ -180,7 +180,7 @@ own, for your own users.
 
 The core templates define the layout and user interface of an Alaveteli site.
 They are in `app/views/` and use
-<a href="{{ site.baseurl }}" class="glossary__link">Rails</a>'
+<a href="{{ page.baseurl }}/" class="glossary__link">Rails</a>'
 ERB syntax. For example, the template for the home page lives at
 `app/views/general/frontpage.html.erb`, and the template for the "about us"
 page is at `app/views/help/about.html.erb`.
@@ -198,7 +198,7 @@ then that will appear instead of the core "about us" file.
 
 Alaveteli uses Rails' [asset pipeline](http://guides.rubyonrails.org/asset_pipeline.html)
 to convert and compress stylesheets written in
-<a href="{{ site.baseurl }}docs/glossary/#sass" class="glossary__link">Sass</a>
+<a href="{{ page.baseurl }}/docs/glossary/#sass" class="glossary__link">Sass</a>
 into minified concatenated CSS. Assets are stored in core Alaveteli under
 `app/assets` -- in `fonts`, `images`, `javascripts` and `stylesheets`. The
 default theme has corresponding asset directories in `alavetelitheme/assets`
@@ -210,7 +210,7 @@ site instead of the logo from `app/assets/images/logo.png`.
 ### Changing the colour scheme
 
 Alaveteli uses a set of basic
-<a href="{{ site.baseurl }}docs/glossary/#sass" class="glossary__link">Sass</a>
+<a href="{{ page.baseurl }}/docs/glossary/#sass" class="glossary__link">Sass</a>
 modules to define the layout for the site on different device sizes, and some
 basic styling. These modules are in `app/assets/stylesheets/responsive`. The
 colours and fonts are added in the theme -- `alavetelitheme` defines them in
@@ -238,26 +238,26 @@ You can load extra stylesheets and javascript files by adding them to
 ## Adding your own categories for authorities
 
 You should add
-<a href="{{ site.baseurl }}docs/glossary/#category" class="glossary__link">categories</a>
+<a href="{{ page.baseurl }}/docs/glossary/#category" class="glossary__link">categories</a>
 for the authorities on your site -- Alaveteli will display the authorities grouped
 by categories if you have set any up. Alaveteli uses
-<a href="{{ site.baseurl }}docs/glossary/#tag" class="glossary__link">tags</a>
+<a href="{{ page.baseurl }}/docs/glossary/#tag" class="glossary__link">tags</a>
 to assign authorities to the right categories, but you should add tags anyway
 because they are also used by the site's search facility. Together, categories
 and tags help your users find the right authority for their request.
 
 You can set all this up using the
-<a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>.
-See [more about categories and tags]({{ site.baseurl }}docs/running/categories_and_tags/)
+<a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin interface</a>.
+See [more about categories and tags]({{ page.baseurl }}/docs/running/categories_and_tags/)
 for details.
 
 ## Customising the request states
 
 As mentioned above, if you can possibly live with the
-[default Alaveteli request statuses]({{ site.baseurl }}docs/customising/states/),
+[default Alaveteli request statuses]({{ page.baseurl }}/docs/customising/states/),
 it would be good to do so.  You can set how many days must pass before
 a request is considered "overdue" in the main site config file &mdash;
-see [`REPLY_LATE_AFTER_DAYS`]({{ site.baseurl }}docs/customising/config/#reply_late_after_days).
+see [`REPLY_LATE_AFTER_DAYS`]({{ page.baseurl }}/docs/customising/config/#reply_late_after_days).
 
 If you can't live with the states as they are, there's a very basic way to add
 to them (we're working on this, so it will be improved over time). Currently,
@@ -313,24 +313,24 @@ The important pages to customise and translate are listed here. We note where Al
 
 * [contact](https://github.com/mysociety/alaveteli/blob/master/app/views/help/contact.html.erb): how to get in touch
 
-* [credits](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.html.erb): who is involved in the site.  Importantly, includes [a section](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.html.erb#L71) on how users can help the project. Users are referred to this section if they categorise all the requests in the [categorisation game]({{ site.baseurl }}docs/glossary/#categorisation-game).
+* [credits](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.html.erb): who is involved in the site.  Importantly, includes [a section](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.html.erb#L71) on how users can help the project. Users are referred to this section if they categorise all the requests in the [categorisation game]({{ page.baseurl }}/docs/glossary/#categorisation-game).
 
 * [officers](https://github.com/mysociety/alaveteli/blob/master/app/views/help/officers.html.erb): information for the officers who deal with FOI at authorities.  They get a link to this page in emails that the site sends them.
 
-* [privacy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/privacy.html.erb): privacy policy, plus information making it clear that requests are going to appear on the internet.  Let users know if they are allowed to use pseudonyms in your jurisdiction. Users are referred to the [section on this page](https://github.com/mysociety/alaveteli/blob/master/app/views/help/privacy.html.erb#L114) about what to do if the authority says they only have a paper copy of the information requested if the user classifies their request as ['gone postal']({{ site.baseurl }}docs/customising/states/#gone_postal).
+* [privacy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/privacy.html.erb): privacy policy, plus information making it clear that requests are going to appear on the internet.  Let users know if they are allowed to use pseudonyms in your jurisdiction. Users are referred to the [section on this page](https://github.com/mysociety/alaveteli/blob/master/app/views/help/privacy.html.erb#L114) about what to do if the authority says they only have a paper copy of the information requested if the user classifies their request as ['gone postal']({{ page.baseurl }}/docs/customising/states/#gone_postal).
 
 * [requesting](https://github.com/mysociety/alaveteli/blob/master/app/views/help/requesting.html.erb): the main help page about making requests.  How it works, how to decide who to write to, what they can expect in terms of responses, how to make appeals, etc. Users are referred to the [section on how quickly a response to their request should arrive](https://github.com/mysociety/alaveteli/blob/master/app/views/help/requesting.html.erb#L125) when their request is overdue for a response. They are referred to the [section on what to do if the Alaveteli site isn't showing the authority they want to request information](https://github.com/mysociety/alaveteli/blob/master/app/views/help/requesting.html.erb#L30) from the page that allows them to list and search authorities.
 
 * [unhappy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.html.erb): users are taken to this page after a request that has been somehow unsuccessful (e.g. the request has been refused, or the authority is insisting on a postal request).  The page should encourage them to keep going, e.g. by starting a new request or addressing it to a different body. In particular users are referred to the [section on using other means](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.html.erb#L83) to get their question answered. If the user has requested an internal review of their request, they are referred to [the section on this page](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.html.erb#L28) that describes the law relating to how long a review should take.
 
-* [why email](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_why_they_should_reply_by_email.html.erb): a snippet of information that explains why users should insist on replies by email.  This is displayed next to requests that have ["gone postal"]({{ site.baseurl }}docs/customising/states/#gone_postal) - where the authority has asked for the user's physical address so that they can reply with a paper response.
+* [why email](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_why_they_should_reply_by_email.html.erb): a snippet of information that explains why users should insist on replies by email.  This is displayed next to requests that have ["gone postal"]({{ page.baseurl }}/docs/customising/states/#gone_postal) - where the authority has asked for the user's physical address so that they can reply with a paper response.
 
 * [sidebar](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_sidebar.html.erb): a menu for the help pages with a link to each one. You should customise this so that it includes any extra help pages you add, and doesn't include any you remove.
 
 You can add your own help pages to your site by replacing the default
 pages in your theme with your own versions, using a locale suffix for
 each page to indicate what language the page is written in. No locale
-suffix is needed for pages written for the [default locale]({{ site.baseurl }}docs/customising/config/#default_locale) for the site.
+suffix is needed for pages written for the [default locale]({{ page.baseurl }}/docs/customising/config/#default_locale) for the site.
 For example, [alavetelitheme contains help
 pages](https://github.com/mysociety/alavetelitheme/tree/master/lib/views/help)
 for the default 'en' locale and an example Spanish 'about' page. If no
@@ -355,7 +355,7 @@ level, see `alavetelitheme/lib/controller_patches.rb` and
 ## Quickly switching between themes
 
 On your
-<a href="{{ site.baseurl }}docs/glossary/#development" class="glossary__link">development server</a>,
+<a href="{{ page.baseurl }}/docs/glossary/#development" class="glossary__link">development server</a>,
 you can use
 [`script/switch-theme.rb`](https://github.com/mysociety/alaveteli/blob/master/script/switch-theme.rb)
 to set the current theme if you are working with multiple themes. This can be

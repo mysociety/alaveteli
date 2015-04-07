@@ -1,11 +1,29 @@
 safe: true
-pygments: true
+highlighter: pygments
 baseurl: /
 permalink: pretty
 markdown: kramdown
 url: http://code.alaveteli.org
+defaults:
+  -
+    scope:
+      path: .
+    values:
+      baseurl: /
+  -
+    scope:
+      path: es
+    values:
+      baseurl: /es
 exclude:
+  - Gemfile
+  - Gemfile.lock
+  - Gruntfile.js
+  - README.md
+  - alaveteli-doc-master.txt
   - node_modules
+  - package.json
   - script
+  - vendor
 gems:
   - jekyll-redirect-from

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ page.title }} | Alaveteli | mySociety</title>
+    <link rel="stylesheet" href="{{ site.baseurl }}assets/css/global.css">
+    <link rel="stylesheet" href="{{ site.baseurl }}assets/css/alaveteli-org.css">
+    <link href="/atom.xml" rel="alternate" title="Alaveteli" type="application/atom+xml">
+    <link rel="icon" type="image/png" href="{{ site.baseurl }}assets/img/favicon.png" />
+    <meta name="viewport" content="initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <script src="{{ site.baseurl }}assets/scripts/modernizr.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="{{ site.baseurl }}assets/scripts/respond.js"></script>
+    <![endif]-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ site.baseurl }}assets/scripts/jquery.cookie.js"></script>
+    <script src="{{ site.baseurl }}assets/scripts/feedback-form.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-24633320-1', 'alaveteli.org');
+      ga('send', 'pageview');
+
+        (function() {
+          var cx = '017774751021845757815:coockvcxkjm';
+          var gcse = document.createElement('script');
+          gcse.type = 'text/javascript';
+          gcse.async = true;
+          gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+              '//www.google.com/cse/cse.js?cx=' + cx;
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(gcse, s);
+        })();
+
+
+    </script>
+  </head>
+  <body>
+
+  <div class="ms-header">
+    <nav class="ms-header__row">
+       <a class="ms-header__logo" href="https://www.mysociety.org">mySociety</a>
+    </nav>
+  </div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="{{ page.baseurl }}" class="site-title"><h1>Alaveteli</h1></a>
+      <div id="lang-switcher" class="ui-dropdown-list">
+        <p class="ui-dropdown-list-trigger es">
+          <strong class="current-locale">ES</strong>
+        </p>
+        <ul class="available-languages">
+          <li><a href="{{ page.url | remove: "/es" }}" title="" class="en">EN</a></li>
+        </ul>
+      </div>
+      <div class="nav-position">
+        <nav role="navigation" class="site-nav nav-collapse">
+          <ul>
+            <li><a href="{{ page.baseurl }}/about/">Información</a></li>
+            <li><a href="{{ page.baseurl }}/docs/getting_started/">Primeros pasos</a></li>
+            <li><a href="{{ page.baseurl }}/docs/">Documentación</a></li>
+            <li><a href="https://www.mysociety.org/category/alaveteli/">Blog</a></li>
+            <li><a href="{{ page.baseurl }}/community/">Contacto</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+    {{ content }}
+
+  <footer class="site-footer">
+      <div class="container">
+        <div class="column">
+          <h3>mySociety</h3>
+          <ul>
+            <li><a href="http://www.mysociety.org/helpus/">Colabore con nosotros</a></li>
+            <li><a href="http://www.mysociety.org/about/">Nosotros</a></li>
+            <li><a href="https://www.mysociety.org/projects/">Nuestros proyectos</a>
+            <li><a href="http://www.mysociety.org/about/team/">Nuestro equipo</a></li>
+            <li><a href="http://www.mysociety.org/contact/">Contacto</a></li>
+            <li><a href="http://www.mysociety.org/donate/">Donaciones</a></li>
+          </ul>
+        </div>
+        <div class="column central">
+          <h3>Nuestras aplicaciones</h3>
+          <ul>
+            <li><a href="http://www.fixmystreet.com/">FixMyStreet</a></li>
+            <li><a href="https://www.writetothem.com/">WriteToThem</a></li>
+            <li><a href="https://www.whatdotheyknow.com/">WhatDoTheyKnow</a></li>
+            <li><a href="http://www.theyworkforyou.com/">TheyWorkForYou</a></li>
+            <li><a href="http://www.fixmytransport.com/">FixMyTransport</a></li>
+            <li><a href="http://www.alaveteli.org/">Alaveteli</a></li>
+            <li><a href="http://www.pombola.org/">Pombola</a></li>
+            <li><a href="http://popit.poplus.org/">PopIt</a></li>
+            <li><a href="http://sayit.mysociety.org/">SayIt</a></li>
+            <li><a href="http://mapit.poplus.org/">MapIt</a></li>
+          </ul>
+        </div>
+        <div class="column">
+          <h3>Conexiones</h3>
+          <ul>
+            <li><a href="https://groups.google.com/group/alaveteli-users">Lista de correo</a></li>
+            <li><a href="https://groups.google.com/group/alaveteli-dev">Lista de correo para desarrolladores</a></li>
+            <li><a href="https://github.com/mysociety/alaveteli">GitHub</a></li>
+            <li><a href="http://www.irc.mysociety.org/">IRC</a></li>
+            <li><a href="https://twitter.com/alaveteli">Twitter</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="{{ site.baseurl }}assets/scripts/responsive-nav.min.js"></script>
+    <script>
+      var nav = responsiveNav(".nav-collapse");
+    </script>
+    <script src="{{ site.baseurl }}assets/scripts/svgeezy.js"></script>
+    <script>
+      svgeezy.init('nocheck', 'png'); // this will tell the plugin to not check images with a class of 'nocheck'
+    </script>
+    <script>
+      function replace_str(base, replacement) {
+        return base + replacement; // FIXME TODO should replace %s
+      }
+
+      $(function(){
+
+        $('.reveal-on-click dd').hide();
+        $('.reveal-on-click dt').on('click', function(){
+          // $(this).find('+ dd').toggle();
+          var $dd = $(this).find('+ dd');
+          if ($dd.is(':visible')) {
+            $(this).removeClass('revealed');
+            $dd.slideUp();
+          } else {
+            $(this).addClass('revealed');
+            $dd.slideDown();
+          }
+        });
+
+        var reveal_all_text = {'reveal': 'Show all ', 'hide': 'Collapse all '}; // TODO add %s
+
+        $('dl.reveal-on-click').each(function(){
+          $(this).before("<div class='reveal-all revealed'>&nbsp;</div>");
+        });
+        $('.reveal-all').on('click', function(){
+          console.log("reveal all clicked");
+          var $dl = $(this).find('+ dl.reveal-on-click');
+          var noun = $dl.data('reveal-noun');
+          if ($(this).hasClass('revealed')) {
+            console.log("hiding all");
+            $dl.find('dt').removeClass('revealed');
+            $dl.find('dd').slideUp();
+            $(this).removeClass('revealed');
+            $(this).text(replace_str(reveal_all_text['reveal'], noun));
+          } else {
+            console.log("showing all");
+            $dl.find('dt').addClass('revealed');
+            $dl.find('dd').slideDown();
+            $(this).addClass('revealed');
+            $(this).text(replace_str(reveal_all_text['hide'], noun));
+          }
+        });
+        $('.reveal-all').trigger('click');
+      });
+      // Anchor links for the headings
+       $(function() {
+         return $("h1, h2, h3, h4, h5, h6").each(function(i, el) {
+           var $el, icon, id;
+           $el = $(el);
+           id = $el.attr('id');
+           if (id) {
+             return $el.append($("<a />").addClass("header-link").attr("href", "#" + id).html('#'));
+           }
+         });
+       });
+    </script>
+    <script src="{{ site.baseurl }}assets/scripts/how-it-works-slides.js"></script>
+    <script>
+       jQuery('#lang-switcher').find('.ui-dropdown-list-trigger').each(function() {
+         jQuery(this).click(function(){
+           jQuery(this).parent().toggleClass('active');
+         });
+       });
+     </script>
+  </body>
+</html>
