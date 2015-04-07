@@ -1,6 +1,7 @@
 ---
 layout: landing
 title: Deployments
+redirect_from: /about/where-has-alaveteli-been-installed/
 ---
 <div class="deployments__intro">
     <div class="container">

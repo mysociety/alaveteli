@@ -12,38 +12,85 @@ title: Translation
 	it. This page explains how.
 </p>
 
+## Alaveteli already contains translations!
+
+Alaveteli ships ready to run in a number of different languages.
+If Alaveteli has already been translated into the language (or languages) you
+need, you just need to configure it -- see
+[`AVAILABLE_LOCALES`]({{ site.baseurl }}docs/customising/config/#available_locales).
+
+[Look in the `locale/` directory](https://github.com/mysociety/alaveteli/tree/master/locale)
+to see what translations are already available. Some are complete
+translations of the site. Others are only partial -- either because the translations
+have not been finished yet, or else because the translators have not updated the
+texts since developers changed or added text on the site.
+
+There are two reasons the translations may need more work before you can use them:
+
+* **the language you want is not one of those we already have** <br> In this
+  case, there will be no entry in ``locale/`` for it, because nobody has yet
+  translated Alaveteli into your language. See the rest of this page to learn
+  how to add a new translation.
+
+* **the translation for your language is incomplete, or lagging behind** <br>
+  This might simply be because it is a work in progress. Furthermore, sometimes
+  an incomplete translation already covers all the areas of the site you need
+  anyway. Of course, you can add to a partial translation, but it's a good idea
+  to check with us first, since we'll probably know who is working on the
+  current translation and what state it's in.
+
+Translators are members of the Alaveteli
+[community]({{site.baseurl}}community/), and often work separately from the
+developers. This means translations can lag a little behind the code. However,
+our release process includes a "translation freeze", which gives the
+translators a chance to catch up -- read the rest of this page for details.
+
 ## Alaveteli's translations
 
-The software translations are implemented using GNU gettext, and the resource
-files are managed in Transifex.
+You don't need to be a programmer to translate Alaveteli -- we use an external
+website called <a href="{{ site.baseurl }}docs/glossary/#transifex" class="glossary__link">Transifex</a> to help manage translations. This makes it easy for
+translators to get to work, but it does mean you (or your technical team)
+need to do a little extra work to get those translations back into Alaveteli
+when they are ready.
 
 The Transifex project is at
-[https://www.transifex.net/projects/p/alaveteli](https://www.transifex.net/projects/p/alaveteli) -- you'll probably want an account there (ask on the mailing
-list). It has a fairly easy-to-use interface for contributing translations.
+[https://www.transifex.com/projects/p/alaveteli](https://www.transifex.com/projects/p/alaveteli)
+-- you'll probably want an account there (ask on the mailing list). It has a
+fairly easy-to-use interface for contributing translations.
 
-There are three roles in the translation process, and each one is described
-below: **translator**, **developer**, and **release manager**. You probably only
-need to know about the one that applies to you.
+Alaveteli localises strings using GNU gettext and
+<a href="{{site.baseurl}}docs/glossary/#po" class="glossary__link"><code>.pot</code> &amp; <code>.po</code> files</a>.
+If you're a developer, you should read
+[internationalising Alaveteli]({{ site.baseurl }}docs/developers/i18n/).
 
-## Translation process: translator's view
+
+## What a translator needs to do
 
 **If you're just working on translating Alaveteli into a language you know, then
 this section is for you.**
+
+> Remember that Alaveteli
+> [already comes with some translations](#alaveteli-already-contains-translations),
+> so check first that you really need to do this. Maybe someone has already
+> translated Alaveteli into the language you need!
 
 When a developer adds a new feature to the user interface in Alaveteli, they
 use some code to mark sentences or words ("strings") that they think will need
 to be translated.
 
-When the Alaveteli release manager is planning a release, they will upload a
-template containing all the strings to be translated (called a POT) to
-Transifex. This causes your own translations in Transifex to be updated with
+When the Alaveteli
+<a href="{{site.baseurl}}docs/glossary/#release" class="glossary__link">release manager</a>
+is planning a release, they will upload a
+template containing all the strings to be translated (called a
+<a href="{{site.baseurl}}docs/glossary/#po" class="glossary__link"><code>.pot</code> file</a>)
+to Transifex. This causes your own translations in Transifex to be updated with
 the latest strings.
 
 When you visit Transifex, it will prompt you to fill out values for all new
 strings, and all strings that have been modified. In the case where a string
 has only been slightly modified, such as with punctuation ("Hello" has become
 "Hello!"), Transifex will suggest a suitable translation for you (look for the
-"suggestions" tab under the source string).
+*Suggestions* tab under the source string).
 
 In order for this feature to work properly, the release manager has to download
 your translations, run a program that inserts the suggestions, and then upload
@@ -59,11 +106,12 @@ The release manager will also give you a **translation deadline**. After this
 date, you can continue to contribute new translations, but they won't make it
 into the release.
 
+
 ### General notes on translation in Transifex
 
 Some strings will have comments attached to them from the Alaveteli
 application developers about the context in which the text appears in the
-application — these comments will appear under the 'Details' tab for the text
+application — these comments will appear under the *Details* tab for the text
 in Transifex.
 
 Some strings will have **placeholders** in them to indicate that Alaveteli
@@ -104,19 +152,31 @@ they do not appear on the site anywhere at the moment, and when they do, they
 will only be used in the admin interface. If you do translate them, only
 translate the text that comes *after* the `|`.
 
-## Translation process: developers' view
 
-**If you're writing new code for Alaveteli, then you're a developer, and you
+## How the translations get into Alaveteli
+
+In order to get the translated strings from Transifex into Alaveteli, follow
+the instructions in these [deployment notes]({{ site.baseurl }}docs/developers/i18n/#deployment-notes).
+This will be the job of the technical people on your team (or
+even mySociety's release manager). If translators aren't technical, they can
+use Transifex without needing to worry about this.
+
+## The help pages
+
+As the help pages for Alaveteli contain lots of text, they're translated
+outside Transifex, by translating each whole help page and replacing it
+in the theme that Alaveteli is using, so that it overrides the default
+page. See the [guide to Alaveteli's themes]({{ site.baseurl }}docs/customising/themes/#customising-the-help-pages) for more
+information on this.
+
+## Developers and internationalisation
+
+If you're writing new code for Alaveteli, then you're a developer, and you
 need to understand how to make any text you add easy for translators to work
-with.**
+with -- see the page about
+[internationalising Alaveteli]({{site.baseurl}}docs/developers/i18n/).
 
-Please read our [internationalisation
-guide](http://mysociety.github.io/internationalization.html) for our advice on
-using strings that will need translation. This applies across all mySociety
-projects, not just Alaveteli.
+If you are a developer or translator actively working on internationalising
+Alaveteli code, you should talk to us to find out when the next release is due,
+so your translations can be prepared in time to be included in it.
 
-The release manager will enforce a translation freeze just before a new release
-is cut. During such time, you must not introduce new strings to the code if
-your work is due for inclusion in this release. This is necessary to allow
-translators time to complete and check their translations against all the known
-strings.

@@ -32,8 +32,9 @@ layout: default
     <div class="secondary-content-column">
       <nav class="sidebar">
         <ul>
+          <li>{% include feedback_form.html %}</li>
           <li>
-            <!-- <gcse:searchbox-only></gcse:searchbox-only> -->
+            <gcse:searchbox-only></gcse:searchbox-only>
 
           </li>
           <li><a href="{{ site.baseurl }}about/">About</a></li>
@@ -46,10 +47,12 @@ layout: default
           <li><a href="{{ site.baseurl }}docs/installing/">Installing</a>
             <ul>
               <li><a href="{{ site.baseurl }}docs/installing/script/">Install script</a></li>
+              <li><a href="{{ site.baseurl }}docs/installing/vagrant/">Vagrant</a></li>
               <li><a href="{{ site.baseurl }}docs/installing/ami/">Alaveteli AMI for EC2</a></li>
               <li><a href="{{ site.baseurl }}docs/installing/manual_install/">Manual Install</a></li>
               <li><a href="{{ site.baseurl }}docs/installing/deploy/">Deploying</a></li>
               <li><a href="{{ site.baseurl }}docs/installing/email/">MTA (email)</a></li>
+              <li><a href="{{ site.baseurl }}docs/installing/next_steps/">Next steps</a></li>
             </ul>
           </li>
           <li><a href="{{ site.baseurl }}docs/customising/">Customising</a>
@@ -57,20 +60,26 @@ layout: default
               <li><a href="{{ site.baseurl }}docs/customising/config/">Configuration</a></li>
               <li><a href="{{ site.baseurl }}docs/customising/themes/">Themes</a></li>
               <li><a href="{{ site.baseurl }}docs/customising/translation/">Translation</a></li>
+              <li><a href="{{ site.baseurl }}docs/customising/states/">Request states</a></li>
             </ul>
           </li>
           <li><a href="{{ site.baseurl }}docs/running/">Running</a>
             <ul>
               <li><a href="{{ site.baseurl }}docs/running/admin_manual/">Admin manual</a></li>
+              <li><a href="{{ site.baseurl }}docs/running/requests/">Managing requests</a></li>
+              <li><a href="{{ site.baseurl }}docs/running/holding_pen/">The holding pen</a></li>
+              <li><a href="{{ site.baseurl }}docs/running/categories_and_tags/">Categories &amp; tags</a></li>
+              <li><a href="{{ site.baseurl }}docs/running/redaction">Redaction</a></li>
+              <li><a href="{{ site.baseurl }}docs/running/security/">Security &amp; Maintenance</a></li>
               <li><a href="{{ site.baseurl }}docs/running/server/">Server checklist</a></li>
               <li><a href="{{ site.baseurl }}docs/running/upgrading/">Upgrading</a></li>
-              <li><a href="{{ site.baseurl }}docs/running/states/">Request states</a></li>
             </ul>
           </li>
           <li><a href="{{ site.baseurl }}docs/developers/">For developers</a>
             <ul>
               <li><a href="{{ site.baseurl }}docs/developers/overview/">High-level overview</a></li>
               <li><a href="{{ site.baseurl }}docs/developers/directory_structure/">Directory structure</a></li>
+              <li><a href="{{ site.baseurl }}docs/developers/i18n/">Internationalisation</a></li>
               <li><a href="{{ site.baseurl }}docs/developers/api/">API</a></li>
             </ul>
           </li>
@@ -81,7 +90,7 @@ layout: default
                     </li>
                 </ul>
           </li>
-          <li><a href="{{ site.baseurl }}blog/">Blog</a></li>
+          <li><a href="https://www.mysociety.org/category/alaveteli/">Blog</a></li>
         </ul>
       </nav>
     </div>

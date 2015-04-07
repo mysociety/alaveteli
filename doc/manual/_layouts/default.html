@@ -13,6 +13,9 @@
     <!--[if lt IE 9]>
       <script src="{{ site.baseurl }}assets/scripts/respond.js"></script>
     <![endif]-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ site.baseurl }}assets/scripts/jquery.cookie.js"></script>
+    <script src="{{ site.baseurl }}assets/scripts/feedback-form.js"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -37,7 +40,6 @@
     </script>
   </head>
   <body>
-
   <div class="ms-header">
     <nav class="ms-header__row">
        <a class="ms-header__logo" href="https://www.mysociety.org">mySociety</a>
@@ -53,7 +55,7 @@
             <li><a href="{{ site.baseurl }}about/">About</a></li>
             <li><a href="{{ site.baseurl }}docs/getting_started/">Get started</a></li>
             <li><a href="{{ site.baseurl }}docs/">Documentation</a></li>
-            <li><a href="{{ site.baseurl }}blog/">Blog</a></li>
+            <li><a href="https://www.mysociety.org/category/alaveteli/">Blog</a></li>
             <li><a href="{{ site.baseurl }}community/">Contact</a></li>
           </ul>
         </nav>
@@ -94,7 +96,8 @@
         <div class="column">
           <h3>Connect</h3>
           <ul>
-            <li><a href="https://groups.google.com/group/alaveteli-dev">Mailing list</a></li>
+            <li><a href="https://groups.google.com/group/alaveteli-users">Mailing list</a></li>
+            <li><a href="https://groups.google.com/group/alaveteli-dev">Developer Mailing list</a></li>
             <li><a href="https://github.com/mysociety/alaveteli">GitHub</a></li>
             <li><a href="http://www.irc.mysociety.org/">IRC</a></li>
             <li><a href="https://twitter.com/alaveteli">Twitter</a></li>
@@ -157,6 +160,17 @@
         });
         $('.reveal-all').trigger('click');
       });
+      // Anchor links for the headings
+       $(function() {
+         return $("h1, h2, h3, h4, h5, h6").each(function(i, el) {
+           var $el, icon, id;
+           $el = $(el);
+           id = $el.attr('id');
+           if (id) {
+             return $el.append($("<a />").addClass("header-link").attr("href", "#" + id).html('#'));
+           }
+         });
+       });
     </script>
     <script src="{{ site.baseurl }}assets/scripts/how-it-works-slides.js"></script>
   </body>
