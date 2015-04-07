@@ -74,7 +74,7 @@ describe PublicBodyHelper do
                                                                :description => "spec category #{i}")
           heading.add_category(category)
         end
-        public_body = FactoryGirl.create(:public_body, :tag_string => 'spec_0 spec_2 unknown')
+        public_body = FactoryGirl.create(:public_body, :tag_string => 'unknown spec_0 spec_2')
         expected = '<a href="/body/list/spec_0">Spec category 0</a> and <a href="/body/list/spec_2">spec category 2</a>'
         expect(type_of_authority(public_body)).to eq(expected)
     end

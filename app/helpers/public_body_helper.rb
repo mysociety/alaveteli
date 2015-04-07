@@ -38,12 +38,13 @@ module PublicBodyHelper
   #
   # Returns a string
   def type_of_authority(public_body)
-      types = public_body.tags.each_with_index.map do |tag, index|
+      first = true
+      types = public_body.tags.each.map do |tag|
           if PublicBodyCategory.get().by_tag().include?(tag.name)
               desc = PublicBodyCategory.get().singular_by_tag()[tag.name]
-
-              if index.zero?
+              if first
                   desc = desc.sub(/\S/) { |m| Unicode.upcase(m) }
+                  first = false
               end
               link_to(desc, list_public_bodies_path(tag.name))
           end
