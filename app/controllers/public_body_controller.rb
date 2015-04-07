@@ -9,9 +9,17 @@ require 'confidence_intervals'
 require 'tempfile'
 
 class PublicBodyController < ApplicationController
+
+    MAX_RESULTS = 500
     # TODO: tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
     def show
         long_cache
+        @page = get_search_page_from_params
+        requests_per_page = 25
+        # Later pages are very expensive to load
+        if @page > MAX_RESULTS / requests_per_page
+            raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / requests_per_page}.")
+        end
         if MySociety::Format.simplify_url_part(params[:url_name], 'body') != params[:url_name]
             redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'body'), :status => :moved_permanently
             return
@@ -45,7 +53,7 @@ class PublicBodyController < ApplicationController
             # TODO: really should just use SQL query here rather than Xapian.
             sortby = "described"
             begin
-                @xapian_requests = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
+                @xapian_requests = perform_search([InfoRequestEvent], query, sortby, 'request_collapse', requests_per_page)
                 if (@page > 1)
                     @page_desc = " (page " + @page.to_s + ")"
                 else

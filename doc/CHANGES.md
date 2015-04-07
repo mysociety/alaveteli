@@ -48,7 +48,9 @@
 
 * Admin route names have been standardised so if you have overridden
   templates that refer to admin routes, check the original templates to
-  see if these need to be changed.
+  see if these need to be changed. URLs in rreviously sent admin emails about
+  requested changes to authorities will need to be tweaked to work - from
+  `admin/body/new?change_request_id=n` to `admin/bodies/new?change_request_id=n`
 * If you override the `app/views/user/_signin.html.erb` or
   `app/view/user/_signup.html.erb` templates, check the tabindex order
   is still sensible - the order of the elements on the page has changed
