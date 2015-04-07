@@ -82,6 +82,13 @@ describe PublicBodyController, "when showing a body" do
         expect(flash[:search_params]).to eq(search_params)
     end
 
+
+    it 'should not show high page offsets as these are extremely slow to generate' do
+        lambda {
+            get :show, { :url_name => 'dfh', :view => 'all', :page => 25 }
+        }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+
 end
 
 describe PublicBodyController, "when listing bodies" do
