@@ -224,6 +224,10 @@ h3 {
     }
 }
 
+.hero .action-buttons {
+  max-width: 28em;
+}
+
 .what-is-alaveteli {
     @extend %full-width-section;
     position: relative;
