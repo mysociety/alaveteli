@@ -8,14 +8,14 @@ Upgrading Alaveteli
 <p class="lead">
   Alaveteli is under active development &mdash; don&rsquo;t let the
   version you&rsquo;re running get too far behind our latest
-  <a href="{{site.baseurl}}docs/glossary/#release" class="glossary__link">release</a>.
+  <a href="{{ page.baseurl }}/docs/glossary/#release" class="glossary__link">release</a>.
   This page describes how to keep your site up to date.
 </p>
 
 ## How to upgrade the code
 
 * If you're using Capistrano for deployment,
-  simply [deploy the code]({{site.baseurl}}docs/installing/deploy/#usage):
+  simply [deploy the code]({{ page.baseurl }}/docs/installing/deploy/#usage):
   set the repo and branch in `deploy.yml` to be the version you want.
   We recommend you set this to the explicit tag name (for example,
   `0.18`, and not `master`) so there's no risk of you accidentally deploying
@@ -24,7 +24,7 @@ Upgrading Alaveteli
 
 ## Run the post-deploy script
 
-Unless you're [using Capistrano for deployment]({{site.baseurl}}docs/installing/deploy/),
+Unless you're [using Capistrano for deployment]({{ page.baseurl }}/docs/installing/deploy/),
 you should always run the script `scripts/rails-post-deploy` after each
 deployment. This runs any database migrations for you, plus various other
 things that can be automated for deployment.
@@ -55,7 +55,7 @@ version numbering when it reaches `1.0.0`.
 The developer team policy is that the `master` branch in git should always
 contain the latest stable release -- so you'll be up to date if you pull from
 the `master` branch. However, on your
-<a href="{{site.baseurl}}docs/glossary/#production" class="glossary__link">production
+<a href="{{ page.baseurl }}/docs/glossary/#production" class="glossary__link">production
 site</a>, you should know precisely what version you're running, and deploy
 Alaveteli from a [*specific* release
 tag](https://github.com/mysociety/alaveteli/releases).
@@ -76,7 +76,7 @@ Patch version increases (e.g. 0.1.2.3 &rarr; 0.1.2.**4**) should not require any
 Minor version increases (e.g. 0.1.2.4 &rarr; 0.1.**3**.0) will usually require further action. You should read the [`CHANGES.md`](https://github.com/mysociety/alaveteli/blob/master/doc/CHANGES.md) document to see what's changed since your last deployment, paying special attention to anything in the "Upgrade notes" sections.
 
 Any upgrade may include new translations strings, that is, new or altered messages
-to the user that need translating to your locale. You should visit <a href="{{ site.baseurl }}docs/glossary/#transifex" class="glossary__link">Transifex</a>
+to the user that need translating to your locale. You should visit <a href="{{ page.baseurl }}/docs/glossary/#transifex" class="glossary__link">Transifex</a>
 and try to get your translation up to 100% on each new release. Failure to do
 so means that any new words added to the Alaveteli source code will appear in
 your website in English by default. If your translations didn't make it to the

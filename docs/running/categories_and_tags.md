@@ -8,12 +8,12 @@ title: Categories & tags
 <p class="lead">
   
   Use tags to arrange
-  <a href="{{ site.baseurl }}docs/glossary/#authority"
+  <a href="{{ page.baseurl }}/docs/glossary/#authority"
   class="glossary__link">authorities</a> into categories, or to associate
   related authorities with each other. This helps your users find the right
   authority for the 
-  <a href="{{ site.baseurl }}docs/glossary/#request" class="glossary__link">request</a>
-  (or <a href="{{ site.baseurl }}docs/glossary/#response" class="glossary__link">response</a>)
+  <a href="{{ page.baseurl }}/docs/glossary/#request" class="glossary__link">request</a>
+  (or <a href="{{ page.baseurl }}/docs/glossary/#response" class="glossary__link">response</a>)
   they are interested in.
 </p>
 
@@ -26,7 +26,7 @@ Admin interface introduced in Alaveteli version 0.20
 Alaveteli lets you organise your authorities into *categories*. Categories can
 themselves belong to *category headings*. For example, some of the categories
 and headings on
-<a href="{{ site.baseurl }}docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>'s
+<a href="{{ page.baseurl }}/docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>'s
 <a href="https://www.whatdotheyknow.com/body/list/all">View  authorities</a> page look like this:
 
 >  * **Media and culture**
@@ -57,7 +57,7 @@ users find the specific authorities they are looking for.
   Try to use simple but descriptive words for tags. Tags cannot contain spaces
   (use an underscore if you need to, <code>like_this</code>).
   Remember that tags will be seen and used by the public (for example, in the
-  <a href="{{ site.baseurl }}docs/glossary/#advanced-search" class="glossary__link">advanced search</a>).
+  <a href="{{ page.baseurl }}/docs/glossary/#advanced-search" class="glossary__link">advanced search</a>).
 </div>
 
 ### Adding a new category
@@ -113,7 +113,7 @@ of these tags.
     <td>
       This is a test/dummy authority. It is not displayed to the public on your
       main site, and it is not included when you 
-      <a href="{{ site.baseurl }}docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data">export authorities in CSV format</a>.
+      <a href="{{ page.baseurl }}/docs/running/admin_manual/#creating-changing-and-uploading-public-authority-data">export authorities in CSV format</a>.
     </td>
   </tr>
   <tr>
@@ -130,7 +130,7 @@ of these tags.
       <code>not_apply</code>
     </td>
     <td>
-      <a href="{{ site.baseurl }}docs/glossary/#foi" class="glossary__link">Freedom of Information</a>
+      <a href="{{ page.baseurl }}/docs/glossary/#foi" class="glossary__link">Freedom of Information</a>
       law does not apply to this authority: new requests cannot be sent to an
       authority with this tag.
     </td>
@@ -142,7 +142,7 @@ of these tags.
     <td>
       <em>Custom example:</em> (see below)<br>
       On our UK installation of Alaveteli,
-      <a href="{{ site.baseurl }}docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>,
+      <a href="{{ page.baseurl }}/docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>,
       this tag indicates that the authority is subject to an alternative law
       (Environment Information Regulations, rather than the Freedom of
       Information), which means Alaveteli must change the wording of these
@@ -155,7 +155,7 @@ of these tags.
     </td>
     <td>
       <em>Custom example:</em> (see below)<br>
-      <a href="{{ site.baseurl }}docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>
+      <a href="{{ page.baseurl }}/docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>
       applies a different definition of "late" if an authority has the <code>school</code> tag.
     </td>
   </tr>
@@ -169,10 +169,10 @@ categories.
 If you are a developer, and you want to add special behaviour to your site
 based on your own tags, you need to add custom code, which should probably go
 in your own
-<a href="{{ site.baseurl}}docs/glossary/#theme" class="glossary__link">theme</a>.
+<a href="{{ page.baseurl }}/docs/glossary/#theme" class="glossary__link">theme</a>.
 For example, in the UK, schools are granted special concession in the law to allow for
 requests that are made out of term-time. Alaveteli handles this by using the
-[`SPECIAL_REPLY_VERY_LATE_AFTER_DAYS`]({{ site.baseurl }}docs/customising/config/#special_reply_very_late_after_days)
+[`SPECIAL_REPLY_VERY_LATE_AFTER_DAYS`]({{ page.baseurl }}/docs/customising/config/#special_reply_very_late_after_days)
 config value if the authority has the `school` tag.
 See
 [`is_school?`](https://github.com/mysociety/alaveteli/blob/f0bbeb4abf4bf07e5cfb46668f39bbff72ed7210/app/models/public_body.rb#L391)
@@ -183,7 +183,7 @@ for the source code.
 ## Searching with tags
 
 Alaveteli's
-<a href="{{ site.baseurl }}docs/glossary/#advanced-search" class="glossary__link">advanced search</a>
+<a href="{{ page.baseurl }}/docs/glossary/#advanced-search" class="glossary__link">advanced search</a>
 feature (which is available to all your users) can search for specific tags. So
 if you add useful tags and publicise them, your users can use them to find
 related authorities. For example, see the <a
@@ -191,7 +191,7 @@ href="https://www.whatdotheyknow.com/advancedsearch">advanced search on
 WhatDoTheyKnow</a> to see this at work.
 
 You can add reference numbers or specific values to tags using a colon. On
-<a href="{{ site.baseurl }}docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>
+<a href="{{ page.baseurl }}/docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>
 we tag all authorities that are charities with the tag `charity:123456` (where
 123456 is the authority's registered charity number).
 

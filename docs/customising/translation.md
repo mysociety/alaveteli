@@ -17,7 +17,7 @@ title: Translation
 Alaveteli ships ready to run in a number of different languages.
 If Alaveteli has already been translated into the language (or languages) you
 need, you just need to configure it -- see
-[`AVAILABLE_LOCALES`]({{ site.baseurl }}docs/customising/config/#available_locales).
+[`AVAILABLE_LOCALES`]({{ page.baseurl }}/docs/customising/config/#available_locales).
 
 [Look in the `locale/` directory](https://github.com/mysociety/alaveteli/tree/master/locale)
 to see what translations are already available. Some are complete
@@ -40,7 +40,7 @@ There are two reasons the translations may need more work before you can use the
   current translation and what state it's in.
 
 Translators are members of the Alaveteli
-[community]({{site.baseurl}}community/), and often work separately from the
+[community]({{ page.baseurl }}/community/), and often work separately from the
 developers. This means translations can lag a little behind the code. However,
 our release process includes a "translation freeze", which gives the
 translators a chance to catch up -- read the rest of this page for details.
@@ -48,7 +48,7 @@ translators a chance to catch up -- read the rest of this page for details.
 ## Alaveteli's translations
 
 You don't need to be a programmer to translate Alaveteli -- we use an external
-website called <a href="{{ site.baseurl }}docs/glossary/#transifex" class="glossary__link">Transifex</a> to help manage translations. This makes it easy for
+website called <a href="{{ page.baseurl }}/docs/glossary/#transifex" class="glossary__link">Transifex</a> to help manage translations. This makes it easy for
 translators to get to work, but it does mean you (or your technical team)
 need to do a little extra work to get those translations back into Alaveteli
 when they are ready.
@@ -59,9 +59,9 @@ The Transifex project is at
 fairly easy-to-use interface for contributing translations.
 
 Alaveteli localises strings using GNU gettext and
-<a href="{{site.baseurl}}docs/glossary/#po" class="glossary__link"><code>.pot</code> &amp; <code>.po</code> files</a>.
+<a href="{{ page.baseurl }}/docs/glossary/#po" class="glossary__link"><code>.pot</code> &amp; <code>.po</code> files</a>.
 If you're a developer, you should read
-[internationalising Alaveteli]({{ site.baseurl }}docs/developers/i18n/).
+[internationalising Alaveteli]({{ page.baseurl }}/docs/developers/i18n/).
 
 
 ## What a translator needs to do
@@ -79,10 +79,10 @@ use some code to mark sentences or words ("strings") that they think will need
 to be translated.
 
 When the Alaveteli
-<a href="{{site.baseurl}}docs/glossary/#release" class="glossary__link">release manager</a>
+<a href="{{ page.baseurl }}/docs/glossary/#release" class="glossary__link">release manager</a>
 is planning a release, they will upload a
 template containing all the strings to be translated (called a
-<a href="{{site.baseurl}}docs/glossary/#po" class="glossary__link"><code>.pot</code> file</a>)
+<a href="{{ page.baseurl }}/docs/glossary/#po" class="glossary__link"><code>.pot</code> file</a>)
 to Transifex. This causes your own translations in Transifex to be updated with
 the latest strings.
 
@@ -156,7 +156,7 @@ translate the text that comes *after* the `|`.
 ## How the translations get into Alaveteli
 
 In order to get the translated strings from Transifex into Alaveteli, follow
-the instructions in these [deployment notes]({{ site.baseurl }}docs/developers/i18n/#deployment-notes).
+the instructions in these [deployment notes]({{ page.baseurl }}/docs/developers/i18n/#deployment-notes).
 This will be the job of the technical people on your team (or
 even mySociety's release manager). If translators aren't technical, they can
 use Transifex without needing to worry about this.
@@ -166,7 +166,7 @@ use Transifex without needing to worry about this.
 As the help pages for Alaveteli contain lots of text, they're translated
 outside Transifex, by translating each whole help page and replacing it
 in the theme that Alaveteli is using, so that it overrides the default
-page. See the [guide to Alaveteli's themes]({{ site.baseurl }}docs/customising/themes/#customising-the-help-pages) for more
+page. See the [guide to Alaveteli's themes]({{ page.baseurl }}/docs/customising/themes/#customising-the-help-pages) for more
 information on this.
 
 ## Developers and internationalisation
@@ -174,7 +174,7 @@ information on this.
 If you're writing new code for Alaveteli, then you're a developer, and you
 need to understand how to make any text you add easy for translators to work
 with -- see the page about
-[internationalising Alaveteli]({{site.baseurl}}docs/developers/i18n/).
+[internationalising Alaveteli]({{ page.baseurl }}/docs/developers/i18n/).
 
 If you are a developer or translator actively working on internationalising
 Alaveteli code, you should talk to us to find out when the next release is due,

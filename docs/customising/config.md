@@ -14,7 +14,7 @@ title: Configuration
 
 The alaveteli code ships with an example configuration file: `config/general.yml-example`.
 
-As part of the [installation process]({{ site.baseurl }}docs/installing/ ), the
+As part of the [installation process]({{ page.baseurl }}/docs/installing/ ), the
 example file gets copied to `config/general.yml`. You **must** edit this file to
 suit your needs.
 
@@ -208,7 +208,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
     <a name="theme_urls"><code>THEME_URLS</code></a>
   </dt>
   <dd>
-    URLs of <a href="{{ site.baseurl }}docs/customising/themes/">themes</a> to download and use
+    URLs of <a href="{{ page.baseurl }}/docs/customising/themes/">themes</a> to download and use
     (when running the <code>rails-post-deploy</code> script). The earlier in the list means
     the templates have a higher priority.
     <div class="more-info">
@@ -228,7 +228,7 @@ THEME_URLS:
     <a name="theme_branch"><code>THEME_BRANCH</code></a>
   </dt>
   <dd>
-    When <code>rails-post-deploy</code> installs the <a href="{{ site.baseurl }}docs/customising/themes/">themes</a>,
+    When <code>rails-post-deploy</code> installs the <a href="{{ page.baseurl }}/docs/customising/themes/">themes</a>,
     it will try the theme branch first, but only if you've set <code>THEME_BRANCH</code>
     to be true. If the branch doesn't exist it will fall back to using a tagged version
     specific to your installed alaveteli version, and if that doesn't exist it will
@@ -353,9 +353,9 @@ THEME_URLS:
   </dt>
   <dd>
      Is this a
-     <a href="{{site.baseurl}}docs/glossary/#staging" class="glossary__link">staging</a> or
-     <a href="{{site.baseurl}}docs/glossary/#development" class="glossary__link">development</a> site?
-     If not, it's a live <a href="{{site.baseurl}}docs/glossary/#production" class="glossary__link">production</a>
+     <a href="{{ page.baseurl }}/docs/glossary/#staging" class="glossary__link">staging</a> or
+     <a href="{{ page.baseurl }}/docs/glossary/#development" class="glossary__link">development</a> site?
+     If not, it's a live <a href="{{ page.baseurl }}/docs/glossary/#production" class="glossary__link">production</a>
      site. This setting controls whether or not the <code>rails-post-deploy</code>
      script will create the file <code>config/rails_env.rb</code> file to force
      Rails into production environment.
@@ -506,7 +506,7 @@ THEME_URLS:
   </dt>
   <dd>
       Details for the
-      <a href="{{site.baseurl}}docs/glossary/#emergency" class="glossary__link">emergency user</a>.
+      <a href="{{ page.baseurl }}/docs/glossary/#emergency" class="glossary__link">emergency user</a>.
       <p>
         This is useful for creating the initial admin users for your site:
         <ul>
@@ -518,7 +518,7 @@ THEME_URLS:
       </p>
       <p>
         For details of this process, see
-        <a href="{{site.baseurl}}docs/installing/next_steps/#create-a-superuser-admin-account">creating
+        <a href="{{ page.baseurl }}/docs/installing/next_steps/#create-a-superuser-admin-account">creating
           a superuser account</a>.
       </p>
     <div class="more-info">
@@ -557,7 +557,7 @@ THEME_URLS:
     <a name="incoming_email_domain"><code>INCOMING_EMAIL_DOMAIN</code></a>
   </dt>
   <dd>
-    Your email domain for incoming mail.  See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
+    Your email domain for incoming mail.  See also  <a href="{{ page.baseurl }}/docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
@@ -575,7 +575,7 @@ THEME_URLS:
     <a name="incoming_email_prefix"><code>INCOMING_EMAIL_PREFIX</code></a>
   </dt>
   <dd>
-      An optional prefix to help you distinguish FOI requests.  See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
+      An optional prefix to help you distinguish FOI requests.  See also  <a href="{{ page.baseurl }}/docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
@@ -625,7 +625,7 @@ THEME_URLS:
     <a name="contact_name"><code>CONTACT_NAME</code></a>
   </dt>
   <dd>
-      Email "from" details.  See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
+      Email "from" details.  See also  <a href="{{ page.baseurl }}/docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
     <div class="more-info">
       <p>Examples:</p>
       <ul class="examples">
@@ -644,7 +644,7 @@ THEME_URLS:
     <a name="track_sender_name"><code>TRACK_SENDER_NAME</code></a>
   </dt>
   <dd>
-      Email "from" details for track messages.  See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
+      Email "from" details for track messages.  See also  <a href="{{ page.baseurl }}/docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
     <div class="more-info">
       <p>Examples:</p>
       <ul class="examples">
@@ -700,7 +700,7 @@ EXCEPTION_NOTIFICATIONS_TO:
     <a name="forward_nonbounce_responses_to"><code>FORWARD_NONBOUNCE_RESPONSES_TO</code></a>
   </dt>
   <dd>
-     The email address to which non-bounce responses should be forwarded. See also  <a href="{{ site.baseurl }}docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
+     The email address to which non-bounce responses should be forwarded. See also  <a href="{{ page.baseurl }}/docs/installing/email#how-alaveteli-handles-email">How Alaveteli handles email</a>.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">

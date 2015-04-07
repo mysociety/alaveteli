@@ -8,7 +8,8 @@ title: Administrator's guide
 <p class="lead">
   What is it like running an Alaveteli site? This guide explains what you can
   expect, and the types of problem that you might encounter. It includes
-  examples of how mySociety manages their own <a href="/docs/glossary/#foi"
+  examples of how mySociety manages their own
+  <a href="{{ page.baseurl }}/docs/glossary/#foi"
   class="glossary__link">Freedom of Information</a> site, <a
   href="https://www.whatdotheyknow.com">whatdotheyknow.com</a>.
 </p>
@@ -57,7 +58,7 @@ WhatDoTheyKnow usually has about 3 active volunteers at any one time managing
 the support, plus a few other less active people who help out at different
 times.
 
-Administration tasks can be split into [**maintenance**]({{ site.baseurl }}docs/running/admin_manual/#maintenance) and [**user support**]({{ site.baseurl }}docs/running/admin_manual/#user-support).
+Administration tasks can be split into [**maintenance**]({{ page.baseurl }}/docs/running/admin_manual/#maintenance) and [**user support**]({{ page.baseurl }}/docs/running/admin_manual/#user-support).
 The boundaries of these tasks is in fact quite blurred; the main distinction is
 that the former happen exclusively through the web admin interface, whereas the
 latter are mediated by email directly with end users (but often result in
@@ -312,13 +313,13 @@ line, and piping the contents of that file into the mail handling script. e.g.
 
 ### Administrator privileges and accessing the admin interface
 
-The <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">administrative interface</a>
+The <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">administrative interface</a>
 is at the URL `/admin`. Only users who are
-<a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">administrators</a>
+<a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">administrators</a>
 can access the admin interface.
 
 To make a user an administrator on a brand new site,
-[follow these steps]({{ site.baseurl }}docs/installing/next_steps/#create-a-superuser-admin-account).
+[follow these steps]({{ page.baseurl }}/docs/installing/next_steps/#create-a-superuser-admin-account).
 
 If you're already an administrator, you can grant other users administrator
 privilege too. Go to `/admin/users` or click on **Users** at the top of
@@ -336,20 +337,20 @@ have extra privileges in the main website front end. Administrators can:
 <div class="attention-box warning">
   It is possible completely to override the administrator authentication by
   setting
-  <code><a href="{{ site.baseurl }}docs/customising/config/#skip_admin_auth">SKIP_ADMIN_AUTH</a></code>
+  <code><a href="{{ page.baseurl }}/docs/customising/config/#skip_admin_auth">SKIP_ADMIN_AUTH</a></code>
   to <code>true</code> in <code>general.yml</code>. Never do this, unless you
-  are working on a <a href="{{ site.baseurl }}docs/glossary/#development"
+  are working on a <a href="{{ page.baseurl }}/docs/glossary/#development"
   class="glossary__link">development</a> server.
 </div>
 
 ### Removing a message from the holding pen
 
 Alaveteli puts incoming messages (that is,
-<a href="{{ site.baseurl }}docs/glossary/#reponse" class="glossary__link">responses</a>)
+<a href="{{ page.baseurl }}/docs/glossary/#reponse" class="glossary__link">responses</a>)
 into the
-<a href="{{ site.baseurl }}docs/glossary/#holding_pen" class="glossary__link">holding pen</a>
+<a href="{{ page.baseurl }}/docs/glossary/#holding_pen" class="glossary__link">holding pen</a>
 if their `To:` email addresses can't automatically be associated with a
-<a href="{{ site.baseurl }}docs/glossary/#reponse" class="glossary__link">request</a>.
+<a href="{{ page.baseurl }}/docs/glossary/#reponse" class="glossary__link">request</a>.
 
 The two most common reasons for this are:
 
@@ -361,7 +362,7 @@ When this happens, the messages wait in the holding pen until an administrator
 redelivers them to the correct request, or else deletes them.
 
 To do this, log into the
-The <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin interface</a>
+The <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin interface</a>
 at `/admin`. If there are any messages in the holding pen, you'll see this
 message under the title *Things to do*:
 
@@ -417,13 +418,13 @@ in the holding pen, and is shown instead on the public request page.
 ### Rejecting spam that arrives in the holding pen
 
 Alaveteli maintains a
-<a href="{{ site.baseurl }}docs/glossary/#spam-address-list" class="glossary__link">spam address list</a>.
+<a href="{{ page.baseurl }}/docs/glossary/#spam-address-list" class="glossary__link">spam address list</a>.
 Any incoming message to an email address on that list
 *that would otherwise be put in the holding pen* will be rejected and won't
 appear in the admin.
 
 If you see spam messages in the
-<a href="{{ site.baseurl }}docs/glossary/#holding_pen" class="glossary__link">holding pen</a>,
+<a href="{{ page.baseurl }}/docs/glossary/#holding_pen" class="glossary__link">holding pen</a>,
 check if they are being sent to a *specific* email address. If they are, that
 email address has become a "spam-target" and you should add it to the spam
 address list. Thereafter, Alaveteli will automatically reject any messages that
@@ -434,7 +435,7 @@ messages end up in the holding pen) becomes a spam-target once it's been
 harvested by spammers. There are several reasons why such an invalid address
 might exist &mdash; perhaps it was mis-spelled in a manual reply, for example.
 Our experience from running
-<a href="{{ site.baseurl }}docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>
+<a href="{{ page.baseurl }}/docs/glossary/#wdtk" class="glossary__link">WhatDoTheyKnow</a>
 is that you can safely dismiss incoming email to such addresses once they have
 been targeted in this way. Legitimate emails that arrive in the holding pen
 tend to be unique errors (for example, missing the last character of the email
@@ -471,7 +472,7 @@ this address.
 Note that if you are seeing consistent spam email in your holding pen, you
 should also consider implementing (or increasing) the anti-spam measures
 running in your
-<a href="{{ site.baseurl }}docs/glossary/#mta" class="glossary__link">MTA</a>.
+<a href="{{ page.baseurl }}/docs/glossary/#mta" class="glossary__link">MTA</a>.
 
 ### Creating, changing and uploading public authority data
 
@@ -554,7 +555,7 @@ unrecognised column name, the import will fail.
     <td><em>yes</em></td>
     <td>
       The URL of the authority's
-      <a href="{{ site.baseurl }}docs/glossary/#publication-scheme" class="glossary__link">publication scheme</a>,
+      <a href="{{ page.baseurl }}/docs/glossary/#publication-scheme" class="glossary__link">publication scheme</a>,
       if they have one
     </td>
   </tr>
@@ -563,7 +564,7 @@ unrecognised column name, the import will fail.
     <td><em>yes</em></td>
     <td>
       The URL of the authority's
-      <a href="{{ site.baseurl }}docs/glossary/#disclosure-log" class="glossary__link">disclosure log</a>,
+      <a href="{{ page.baseurl }}/docs/glossary/#disclosure-log" class="glossary__link">disclosure log</a>,
       if they have one
     </td>
   </tr>
@@ -588,10 +589,10 @@ unrecognised column name, the import will fail.
      changed. This means you only really need to include data you want to
      update.
    * Columns with "i18n suffix" can accept
-     <a href="{{ site.baseurl }}docs/glossary/#i18n" class="glossary__link">internationalised</a>
+     <a href="{{ page.baseurl }}/docs/glossary/#i18n" class="glossary__link">internationalised</a>
      names. Add a full stop followed by the language code, for example:
      `name.es` for Spanish (`es`). This *must* be a locale you've declared in
-     [`AVAILABLE_LOCALES`]({{ site.baseurl }}docs/customising/config/#available_locales).
+     [`AVAILABLE_LOCALES`]({{ page.baseurl }}/docs/customising/config/#available_locales).
      If you don't specify an i18n suffix, the default language for your site is
      assumed.
    * You can specify a blank entry in the CSV file by having no character
@@ -689,14 +690,14 @@ Enter some text in the in the ‘Ban text’ box to explain why they have been b
 
 ### Allowing a user to make more requests
 
-Alaveteli has a config setting <code><a href="{{ site.baseurl }}docs/customising/config/#max_requests_per_user_per_day">MAX_REQUESTS_PER_USER_PER_DAY</a></code>,
+Alaveteli has a config setting <code><a href="{{ page.baseurl }}/docs/customising/config/#max_requests_per_user_per_day">MAX_REQUESTS_PER_USER_PER_DAY</a></code>,
 which determines the maximum number of requests that a normal user can
 make in a day. If they try to make more than this number of requests
 within a 24 hour period, they will see a message telling them that they
 have hit the limit, and encouraging them to use the contact form if they
 feel they have a good reason to ask for the request limit to be lifted.
 
-To lift the request limit for a particular user, go to the <a href="{{ site.baseurl }}docs/glossary/#admin" class="glossary__link">admin
+To lift the request limit for a particular user, go to the <a href="{{ page.baseurl }}/docs/glossary/#admin" class="glossary__link">admin
 interface</a>, click on **Users**, then click on the name of the user
 you want to lift the request limit for. Click the **Edit** button. Tick
 the checkbox **No rate limit**, and click the **Save** button.
@@ -716,12 +717,12 @@ Users can choose which authorities to include in a batch requests. They  can eve
 </div>
 
 To enable batch requests on your site, first you must set
-<code><a href="{{ site.baseurl }}docs/customising/config/#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>
+<code><a href="{{ page.baseurl }}/docs/customising/config/#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>
 to <code>true</code> in <code>general.yml</code>.
 
 This does not allow anyone to make batch requests yet. You must still
 enable this for each user on an individual basis. To do this, go to the
-<a href="{{ site.baseurl }}docs/glossary/#admin"
+<a href="{{ page.baseurl }}/docs/glossary/#admin"
 class="glossary__link">admin interface</a>, click on **Users**, then
 click on the name of the user who wants to make batch requests. Click
 the **Edit** button. Tick the checkbox **Can make batch requests**, and
@@ -740,18 +741,18 @@ an existing request to that authority to the new email address. Alternatively,
 a user may send a request to the wrong authority. In that situation, you can
 change the authority on the request and then resend it to the correct authority.
 For instructions, see
-[resending a request or sending it to a different authority]({{ site.baseurl }}docs/running/requests/#resending-a-request-or-sending-it-to-a-different-authority).
+[resending a request or sending it to a different authority]({{ page.baseurl }}/docs/running/requests/#resending-a-request-or-sending-it-to-a-different-authority).
 
 
 ### Hiding a request
 
 If a request contains vexatious or inappropriate content, is libellous, or is
 not a valid
-<a href="{{ site.baseurl }}docs/glossary/#foi" class="glossary__link">Freedom of Information</a>
+<a href="{{ page.baseurl }}/docs/glossary/#foi" class="glossary__link">Freedom of Information</a>
 request at all, you may want to hide it. A hidden request is still visible to
 you and the other administrators, and (optionally) the requester themselves.
 For instructions, see
-[hiding a request]({{ site.baseurl }}docs/running/requests/#hiding-a-request).
+[hiding a request]({{ page.baseurl }}/docs/running/requests/#hiding-a-request).
 
 Responses to a hidden request will be accepted in the normal way, but because
 they are added to the request's page, they too will be hidden.
@@ -759,7 +760,7 @@ they are added to the request's page, they too will be hidden.
 ### Deleting a request
 
 You can delete a request from the site. For instructions, see
-[deleting a request]({{ site.baseurl }}docs/running/requests/#deleting-a-request).
+[deleting a request]({{ page.baseurl }}/docs/running/requests/#deleting-a-request).
 
 Responses to a deleted request will be sent to the holding pen.
 

@@ -11,7 +11,7 @@ title: Installing on MacOS X
   help.
 </p>
 
-Note that there are [other ways to install Alaveteli]({{ site.baseurl }}docs/installing/).
+Note that there are [other ways to install Alaveteli]({{ page.baseurl }}/docs/installing/).
 
 ## MacOS X 10.7
 
@@ -84,7 +84,7 @@ As of August 22, 2012 or earlier, you can install `mahoro` in Ruby 1.9.3 on OS X
 
 ## Alaveteli
 
-The following is mostly from [the manual installation process]({{ site.baseurl}}docs/installing/manual_install).
+The following is mostly from [the manual installation process]({{ page.baseurl }}/docs/installing/manual_install).
 
 ### Configure database
 

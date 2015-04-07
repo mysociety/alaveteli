@@ -1,7 +1,7 @@
 # Alaveteli documentation (github pages)
 
 The `gh-branch` contains the Alaveteli documentation that is hosted
-as GitHub Pages, and available at <http://www.alaveteli.org/docs>
+as GitHub Pages, and available at <http://www.alaveteli.org>
 
 The mySociety documentation "github pages" sites share the same styling.
 It comes from the 
@@ -18,6 +18,7 @@ There's also an Alaveteli-specific stylesheet, so do:
 
     sass --update --style=compressed assets/sass/alaveteli-org.scss:assets/css/alaveteli-org.css
 
+You can use `--watch` instead of `--update` to continually monitor for changes.
 
 ## Viewing locally manually
 
@@ -74,4 +75,19 @@ node_modules/.bin/bower install
 ```
 
 Then use bower to install a new library and add it to the `Gruntfile.js`.
+
+## Linking to other pages
+
+Use `page.baseurl` to link to another page inside the repository.
+
+    <a href="{{ page.baseurl }}/english/path/to/page">Some Page</a>
+
+`page.baseurl` captures the current locale and inserts it in to the path if the
+user is not in the default locale (`EN`). Only use `site.baseurl` for linking
+to pages or assets that do not have a translation.
+
+_NOTE:_ `page.baseurl` does not include a trailing slash, so you must add this
+after the liquid tags (`}}/`). On the other hand, `site.baseurl` _is_ a slash,
+which is why you see the next part of the path hard up against the liquid tags
+(`}}assets`).
 

@@ -98,11 +98,13 @@ h3 {
     @media (min-width: 47.5em) {
         position: absolute;
         top: 0.4em;
-        left: 180px;
+        right: 80px;
+    }
+    @media (min-width: 52.5em) {
+        right: 160px;
     }
     @media (min-width: $large-screen) {
-        left: 240px;
-        top: 0.35em;
+        top: 0;
     }
 }
 
@@ -891,4 +893,92 @@ h6:hover .header-link {
   input {
     margin-right: 4px;
   }
+}
+
+/* LANGUAGE SWITCHER */
+/* ui-dropdown-list */
+.ui-dropdown-list {
+  position: absolute;
+  left: 175px;
+  top: 0.55em;
+}
+
+p.ui-dropdown-list-trigger {
+	margin-top: 0;
+}
+
+.ui-dropdown-list-trigger .current-locale {
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 3.5px;
+	position: relative;
+	z-index: 999;
+}
+
+.ui-dropdown-list-trigger .current-locale:after {
+  color: #fff;
+	display: block;
+  position: absolute;
+	content: '';
+  right: 5px;
+  top: 10px;
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid #fff;
+}
+
+.ui-dropdown-list-trigger .current-locale,
+.ui-dropdown-list .available-languages a {
+	display: block;
+	width: 46px;
+	cursor: pointer;
+	padding: 5px 8px;
+	font-size: 13px;
+	line-height: 13px;
+	color: #fff;
+	font-weight: normal;
+}
+
+.ui-dropdown-list .available-languages {
+  display: none;
+  position: absolute;
+	top: 25px;
+	margin-top: 0;
+	padding: 0;
+	z-index: 1000;
+}
+
+.ui-dropdown-list li {
+	list-style-type: none;
+}
+
+.ui-dropdown-list .available-languages a,
+.ui-dropdown-list .available-languages a:link,
+.ui-dropdown-list .available-languages a:visited {
+	display: block;
+	background-color: $colour_black;
+}
+
+.ui-dropdown-list .available-languages a:hover,
+.ui-dropdown-list .available-languages a:focus {
+	border-bottom: none;
+	color: #fff;
+}
+
+.no-js .ui-dropdown-list .available-languages,
+.ui-dropdown-list.active .available-languages {
+	display: block;
+}
+
+.ui-dropdown-list.active .current-locale {
+  background-color: darken($colour_brand, 10%);
+  border-color: darken($colour_brand, 20%);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+	color: #fff;
+}
+
+.ui-dropdown-list.active .current-locale:after {
+	border-top-color: #fff;
 }

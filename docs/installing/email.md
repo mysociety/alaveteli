@@ -36,17 +36,17 @@ Parts of this address are controlled with options in
 
 If there is some error inside Rails while processing an email,  an exit code `75` is returned to the MTA by the `script/mailin` script. Postfix and Exim (and maybe others) take this  as a signal for the MTA to try again later. Additionally, a stacktrace is emailed to `CONTACT_EMAIL`.
 
-[Production]({{ site.baseurl }}/docs/glossary/#production) installs of Alaveteli should make a backup copy of emails sent to the special addresses. You can configure your chosen MTA to backup these in a separate mailbox.
+[Production]({{ page.baseurl }}//docs/glossary/#production) installs of Alaveteli should make a backup copy of emails sent to the special addresses. You can configure your chosen MTA to backup these in a separate mailbox.
 
 ### Transactional mail
 
 Alaveteli also sends emails to users about their requests – letting them know when someone has replied to them, or prompting them to take further action.
 
-Configure the address that these messages are sent from in the [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email) option in `config/general.yml`:
+Configure the address that these messages are sent from in the [`CONTACT_EMAIL`]({{ page.baseurl }}/docs/customising/config/#contact_email) option in `config/general.yml`:
 
     CONTACT_EMAIL = 'team@example.com'
 
-The address in [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) is also visible in various places on the site so that users can get in touch with the team that runs the site.
+The address in [`CONTACT_EMAIL`]({{ page.baseurl }}/docs/customising/config/#contact_email) is also visible in various places on the site so that users can get in touch with the team that runs the site.
 
 You must configure your MTA to deliver mail sent to these addresses to the administrators of your site so that they can respond to it.
 
@@ -54,23 +54,23 @@ You must configure your MTA to deliver mail sent to these addresses to the admin
 
 Users subscribed to updates from the site – known as `tracks` – receive emails when there is something new of interest to them on the site.
 
-Configure the address that these messages are sent from in the [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email) option in `config/general.yml`:
+Configure the address that these messages are sent from in the [`TRACK_SENDER_EMAIL`]({{ page.baseurl }}/docs/customising/config/#track_sender_email) option in `config/general.yml`:
 
     TRACK_SENDER_EMAIL = 'track@example.com'
 
 ### Automatic bounce handling (optional)
 
-As [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) and [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email) appear in the `From:` header of emails sent from Alaveteli, they sometimes receive reply emails, including <a href="{{ site.baseurl }}docs/glossary/#bounce-message">bounce messages</a> and ‘out of office’ notifications.
+As [`CONTACT_EMAIL`]({{ page.baseurl }}/docs/customising/config/#contact_email) and [`TRACK_SENDER_EMAIL`]({{ page.baseurl }}/docs/customising/config/#track_sender_email) appear in the `From:` header of emails sent from Alaveteli, they sometimes receive reply emails, including <a href="{{ page.baseurl }}/docs/glossary/#bounce-message">bounce messages</a> and ‘out of office’ notifications.
 
 Alaveteli provides a script (`script/handle-mail-replies`) that handles bounce messages and ‘out of office’ notifications and forwards genuine mails to your administrators.
 
 It also prevents further track emails being sent to a user email address that appears to have a permanent delivery problem.
 
-To make use of automatic bounce-message handling, set [`TRACK_SENDER_EMAIL`]({{ site.baseurl }}docs/customising/config/#track_sender_email) and [`CONTACT_EMAIL`]({{ site.baseurl }}docs/customising/config/#contact_email) to an address that you will filter through `script/handle-mail-replies`. Messages that are not bounces or out-of-office autoreplies will be forwarded to [`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ site.baseurl }}docs/customising/config/#forward_nonbounce_responses_to), which you should set to a mail alias that points at your list of site administrators.
+To make use of automatic bounce-message handling, set [`TRACK_SENDER_EMAIL`]({{ page.baseurl }}/docs/customising/config/#track_sender_email) and [`CONTACT_EMAIL`]({{ page.baseurl }}/docs/customising/config/#contact_email) to an address that you will filter through `script/handle-mail-replies`. Messages that are not bounces or out-of-office autoreplies will be forwarded to [`FORWARD_NONBOUNCE_RESPONSES_TO`]({{ page.baseurl }}/docs/customising/config/#forward_nonbounce_responses_to), which you should set to a mail alias that points at your list of site administrators.
 
-See the MTA-specific instructions for how to do this for [exim]({{ site.baseurl }}docs/installing/email#filter-incoming-messages-to-admin-addresses) and [postfix]({{ site.baseurl }}docs/installing/email#filter-incoming-messages-to-site-admin-addresses).
+See the MTA-specific instructions for how to do this for [exim]({{ page.baseurl }}/docs/installing/email#filter-incoming-messages-to-admin-addresses) and [postfix]({{ page.baseurl }}/docs/installing/email#filter-incoming-messages-to-site-admin-addresses).
 
-_Note:_ Bounce handling is not applied to [request emails]({{ site.baseurl }}docs/installing/email#request-mail). Bounce messages from authorities get added to the request page so that the user can see what has happened. Users can ask site admins for help redelivering the request if necessary.
+_Note:_ Bounce handling is not applied to [request emails]({{ page.baseurl }}/docs/installing/email#request-mail). Bounce messages from authorities get added to the request page so that the user can see what has happened. Users can ask site admins for help redelivering the request if necessary.
 
 
 ---
@@ -142,7 +142,7 @@ In `/etc/postfix/main.cf` update the `mydestination` line (which determines what
     mydestination = example.com, localhost.localdomain, localhost
 
 <div class="attention-box">
-This guide assumes you have set <a href="{{ site.baseurl }}docs/customising/config/#incoming_email_prefix"><code>INCOMING_EMAIL_PREFIX</code></a> to <code>foi+</code> in <code>config/general.yml</code>
+This guide assumes you have set <a href="{{ page.baseurl }}/docs/customising/config/#incoming_email_prefix"><code>INCOMING_EMAIL_PREFIX</code></a> to <code>foi+</code> in <code>config/general.yml</code>
 </div>
 
 Pipe all incoming mail where the `To:` address starts with `foi+` to the `alaveteli` pipe (`/var/www/alaveteli/script/mailin`, as specified in `/etc/postfix/master.cf` at the start of this section):
@@ -201,7 +201,7 @@ To set up recipient groups for the `postmaster@`, `team@` and `user-support@` em
 
 #### Discard unwanted incoming email
 
-Configure postfix to discard any messages sent to the [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix) address, whose default value is `do-not-reply-to-this-address`:
+Configure postfix to discard any messages sent to the [`BLACKHOLE_PREFIX`]({{ page.baseurl }}/docs/customising/config/#blackhole_prefix) address, whose default value is `do-not-reply-to-this-address`:
 
     cat >> /etc/aliases <<EOF
     # We use this for envelope from for some messages where
@@ -209,21 +209,21 @@ Configure postfix to discard any messages sent to the [`BLACKHOLE_PREFIX`]({{ si
     do-not-reply-to-this-address:        /dev/null
     EOF
 
-If you have set [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix) address, replace `do-not-reply-to-this-address` with the address you have configured.
+If you have set [`BLACKHOLE_PREFIX`]({{ page.baseurl }}/docs/customising/config/#blackhole_prefix) address, replace `do-not-reply-to-this-address` with the address you have configured.
 
 #### Filter incoming messages to site admin addresses
 
-You can make use of Alaveteli's [automatic bounce handling]({{site.baseurl}}docs/installing/email/#automatic-bounce-handling-optional) to filter bounces sent to [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email)
-and [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email).
+You can make use of Alaveteli's [automatic bounce handling]({{ page.baseurl }}/docs/installing/email/#automatic-bounce-handling-optional) to filter bounces sent to [`TRACK_SENDER_EMAIL`]({{ page.baseurl }}/docs/customising/config/#track_sender_email)
+and [`CONTACT_EMAIL`]({{ page.baseurl }}/docs/customising/config/#contact_email).
 
 
 <div class="attention-box">
 This guide assumes you have set the following in <code>config/general.yml</code>:
 
   <ul>
-    <li><a href="{{site.baseurl}}docs/customising/config/#contact_email">CONTACT_EMAIL</a>: <code>user-support@example.com</code></li>
-    <li><a href="{{site.baseurl}}docs/customising/config/#track_sender_email">TRACK_SENDER_EMAIL</a>: <code>user-support@example.com</code></li>
-    <li><a href="{{site.baseurl}}docs/customising/config/#forward_nonbounce_responses_to">FORWARD_NONBOUNCE_RESPONSES_TO</a>: <code>team@example.com</code></li>
+    <li><a href="{{ page.baseurl }}/docs/customising/config/#contact_email">CONTACT_EMAIL</a>: <code>user-support@example.com</code></li>
+    <li><a href="{{ page.baseurl }}/docs/customising/config/#track_sender_email">TRACK_SENDER_EMAIL</a>: <code>user-support@example.com</code></li>
+    <li><a href="{{ page.baseurl }}/docs/customising/config/#forward_nonbounce_responses_to">FORWARD_NONBOUNCE_RESPONSES_TO</a>: <code>team@example.com</code></li>
   </ul>
 
 Change the examples below to the addresses you have configured.
@@ -257,8 +257,8 @@ each day), it's good to have them in their own directory.
 
 You'll also need to tell Alaveteli where the log files are stored and that they're in postfix
 format. Update
-[`MTA_LOG_PATH`]({{ site.baseurl }}docs/customising/config/#mta_log_path) and
-[`MTA_LOG_TYPE`]({{ site.baseurl }}docs/customising/config/#mta_log_type) in `config/general.yml`:
+[`MTA_LOG_PATH`]({{ page.baseurl }}/docs/customising/config/#mta_log_path) and
+[`MTA_LOG_TYPE`]({{ page.baseurl }}/docs/customising/config/#mta_log_type) in `config/general.yml`:
 
     MTA_LOG_PATH: '/var/log/mail/mail.log-*'
     MTA_LOG_TYPE: "postfix"
@@ -340,7 +340,7 @@ delivery report email using the `mail` command on a new server:
     apt-get install mailutils
 
 If emails are not being received by your Alaveteli install, we have some
-more troubleshooting tips for incoming mail in [general email troubleshooting]({{ site.baseurl }}docs/installing/email#general-email-troubleshooting).
+more troubleshooting tips for incoming mail in [general email troubleshooting]({{ page.baseurl }}/docs/installing/email#general-email-troubleshooting).
 
 
 
@@ -460,7 +460,7 @@ To set up recipient groups for the `team@` and `user-support@` email addresses a
 
 #### Discard unwanted incoming email
 
-Configure exim to discard any messages sent to the [`BLACKHOLE_PREFIX`]({{ site.baseurl }}docs/customising/config/#blackhole_prefix) address, whose default value is `do-not-reply-to-this-address`
+Configure exim to discard any messages sent to the [`BLACKHOLE_PREFIX`]({{ page.baseurl }}/docs/customising/config/#blackhole_prefix) address, whose default value is `do-not-reply-to-this-address`
 
     cat >> /var/www/alaveteli/config/aliases <<EOF
     # We use this for envelope from for some messages where
@@ -472,16 +472,16 @@ _Note:_ Replace `/var/www/alaveteli` with the correct path to alaveteli if requi
 
 #### Filter incoming messages to admin addresses
 
-You can make use of Alaveteli's [automatic bounce handling]({{site.baseurl}}docs/installing/email/#automatic-bounce-handling-optional) to filter bounces sent to [`TRACK_SENDER_EMAIL`]({{site.baseurl}}docs/customising/config/#track_sender_email)
-and [`CONTACT_EMAIL`]({{site.baseurl}}docs/customising/config/#contact_email).
+You can make use of Alaveteli's [automatic bounce handling]({{ page.baseurl }}/docs/installing/email/#automatic-bounce-handling-optional) to filter bounces sent to [`TRACK_SENDER_EMAIL`]({{ page.baseurl }}/docs/customising/config/#track_sender_email)
+and [`CONTACT_EMAIL`]({{ page.baseurl }}/docs/customising/config/#contact_email).
 
 <div class="attention-box">
 This guide assumes you have set the following in <code>config/general.yml</code>:
 
   <ul>
-    <li><a href="{{site.baseurl}}docs/customising/config/#contact_email">CONTACT_EMAIL</a>: <code>user-support@example.com</code></li>
-    <li><a href="{{site.baseurl}}docs/customising/config/#track_sender_email">TRACK_SENDER_EMAIL</a>: <code>user-support@example.com</code></li>
-    <li><a href="{{site.baseurl}}docs/customising/config/#forward_nonbounce_responses_to">FORWARD_NONBOUNCE_RESPONSES_TO</a>: <code>team@example.com</code></li>
+    <li><a href="{{ page.baseurl }}/docs/customising/config/#contact_email">CONTACT_EMAIL</a>: <code>user-support@example.com</code></li>
+    <li><a href="{{ page.baseurl }}/docs/customising/config/#track_sender_email">TRACK_SENDER_EMAIL</a>: <code>user-support@example.com</code></li>
+    <li><a href="{{ page.baseurl }}/docs/customising/config/#forward_nonbounce_responses_to">FORWARD_NONBOUNCE_RESPONSES_TO</a>: <code>team@example.com</code></li>
   </ul>
 
 Change the examples below to the addresses you have configured.
@@ -493,7 +493,7 @@ Change the `user-support` line in `/var/www/alaveteli/config/aliases`:
 
 #### Logging
 
-You’ll need to tell Alaveteli where the log files are stored and that they’re in exim format. Update [`MTA_LOG_PATH`]({{ site.baseurl }}docs/customising/config/#mta_log_path) and [`MTA_LOG_TYPE`]({{ site.baseurl }}docs/customising/config/#mta_log_type) in `config/general.yml`:
+You’ll need to tell Alaveteli where the log files are stored and that they’re in exim format. Update [`MTA_LOG_PATH`]({{ page.baseurl }}/docs/customising/config/#mta_log_path) and [`MTA_LOG_TYPE`]({{ page.baseurl }}/docs/customising/config/#mta_log_type) in `config/general.yml`:
 
     MTA_LOG_PATH: '/var/log/exim4/exim-mainlog-*'
     MTA_LOG_TYPE: 'exim'
@@ -557,8 +557,8 @@ First, you need to check that your MTA is delivering relevant
 incoming emails to the `script/mailin` command.  There are various
 ways of setting your MTA up to do this; we have documented
 one way of doing it
-[in Exim]({{ site.baseurl }}docs/installing/email/#example-setup-on-exim4), including [a command you can use]({{ site.baseurl }}docs/installing/email/#troubleshooting-exim) to check that the email
-routing is set up correctly. We've also documented one way of setting up [Postfix]({{ site.baseurl }}docs/installing/email/#example-setup-on-postfix), with a similar [debugging command]({{ site.baseurl }}docs/installing/email/#troubleshooting-postfix).
+[in Exim]({{ page.baseurl }}/docs/installing/email/#example-setup-on-exim4), including [a command you can use]({{ page.baseurl }}/docs/installing/email/#troubleshooting-exim) to check that the email
+routing is set up correctly. We've also documented one way of setting up [Postfix]({{ page.baseurl }}/docs/installing/email/#example-setup-on-postfix), with a similar [debugging command]({{ page.baseurl }}/docs/installing/email/#troubleshooting-postfix).
 
 Second, you need to test that the mailin script itself is working
 correctly, by running it from the command line, First, find a
