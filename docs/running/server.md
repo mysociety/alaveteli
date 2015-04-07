@@ -26,16 +26,14 @@ ask us about hosting.
 
 Don't forget to set up the cron jobs as outlined in the
 [installation instructions]({{ site.baseurl }}docs/installing/manual_install/).
-As of October 2011, they rely on a small program created by mySociety called
-`run-with-lockfile`. A discussion of where the source for this can be found,
-and possible alternatives, lives in
-[Alaveteli issue #112](https://github.com/mysociety/alaveteli/issues/112).
 
 ## Webserver configuration
 
 We recommend running your site behind
 [Apache](https://httpd.apache.org) +
-[Passenger](https://www.phusionpassenger.com). Refer to the
+[Passenger](https://www.phusionpassenger.com) or [Nginx](http://wiki.nginx.org/Main) + [Thin](http://code.macournoyer.com/thin/).
+
+If you're using Passenger, refer to the
 [installation instructions]({{ site.baseurl }}docs/installing/manual_install/)
 regarding `PassengerMaxPoolSize`, which you should
 experiment with to match your available RAM. It is very unlikely that you'll

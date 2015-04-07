@@ -45,7 +45,7 @@ title: For developers
   [manual installation]({{ site.baseurl }}docs/installing/manual_install/).
   Alternatively, there's an [Alaveteli EC2 AMI]({{ site.baseurl }}docs/installing/ami/)
   that might help you get up and running quickly.
-  [Get in touch](http://www.alaveteli.org/contact/) on the project mailing list or IRC
+  [Get in touch]({{ site.baseurl }}community/) on the project mailing list or IRC
   for help.
 
 * A standard initial step for customising your deployment is [writing a
@@ -53,10 +53,10 @@ title: For developers
   it should be this!**
 
 * Like many Ruby on Rails sites, the software is not hugely performant (see
-  some notes about [[performance issues]] gathered over time with
+  [these notes about performance issues](https://github.com/mysociety/alaveteli/wiki/Performance-issues) gathered over time with
   WhatDoTheyKnow). The site will run on a server with 512MB RAM but at least
   2GB is recommended. Deployment behind [Varnish](https://www.varnish-cache.org) is also fairly essential. See
-  [[Production Server Best Practices]] for more.
+  [production server best practices]({{site.baseurl}}docs/running/server/) for more.
 
 * There's a number of [proposals for enhancements](https://github.com/mysociety/alaveteli/wiki/Proposals-for-enhancements),
   such as more user-focused features, but see also...

@@ -71,7 +71,7 @@ Read `rvm notes` and `rvm requirements` carefully for further instructions. Then
 The `mahoro` and `pg` gems require special installation commands. Rubygems must be downgraded to 1.6.2 to avoid deprecation warnings when running tests.
 
     rvm 1.8.7
-    gem update --system 1.6.2
+    gem update --system  2.1.11
     gem install mahoro -- --with-ldflags="-L/usr/local/Cellar/libmagic/5.09/lib" --with-cppflags="-I/usr/local/Cellar/libmagic/5.09/include"
     env ARCHFLAGS="-arch x86_64" gem install pg
 
@@ -88,32 +88,36 @@ The following is mostly from [the manual installation process]({{ site.baseurl}}
 
 ### Configure database
 
-Creates Alaveteli databases and an `foi` user with password `foi`.
+Create a database for your Mac user as homebrew doesn't create one by default:
 
-    echo "CREATE DATABASE foi_development encoding = 'UTF8';
-    CREATE DATABASE foi_test encoding = 'UTF8';
-    CREATE USER foi WITH CREATEUSER;
-    ALTER USER foi WITH PASSWORD 'foi';
-    ALTER USER foi WITH CREATEDB;
-    GRANT ALL PRIVILEGES ON DATABASE foi_development TO foi;
-    GRANT ALL PRIVILEGES ON DATABASE foi_test TO foi;
-    ALTER DATABASE foi_development OWNER TO foi;
-    ALTER DATABASE foi_test OWNER TO foi;" | psql -h localhost template1
+    createdb
+
+Create a `foi` user from the command line, like this:
+
+    createuser -s -P foi
+
+_Note:_ After running this command you will be prompted to set a
+password for the user. Don't leave it blank if you are new to
+PostgreSQL, or it could be difficult to set later for you.
+
+We'll create a template for our Alaveteli databases:
+
+    createdb -T template0 -E UTF-8 template_utf8
+    echo "update pg_database set datistemplate=true where datname='template_utf8';" | psql
+
+Then create the databases:
+
+    createdb -T template_utf8 -O foi alaveteli_production
+    createdb -T template_utf8 -O foi alaveteli_test
+    createdb -T template_utf8 -O foi alaveteli_development
 
 ### Clone Alaveteli
-
-We don't want to vendor Rails, as it causes problems locally.
 
     git clone https://github.com/mysociety/alaveteli.git
     cd alaveteli
     git submodule init
-
-    sed -i~ 's/\\&#91;submodule "vendor\/rails"\\&#93;//' .git/config
-
-    sed -i~ 's/url = git:\/\/github.com\/rails\/rails.git//' .git/config
     git submodule update
 
-**Note:** Due to Markdown bugs, the first `sed` command above does not display properly if it appears in blockquote.
 
 ### Configure Alaveteli
 

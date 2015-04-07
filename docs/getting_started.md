@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Getting started
+redirect_from: /getting_started/
 ---
 
 # Getting started with Alaveteli
@@ -28,7 +29,7 @@ available time.
 
 You can get a feeling for how things might turn out by reading [how an
 Alaveteli was set up in
-Spain]({{ site.baseurl }}2012/04/16/a-right-to-know-site-for-spain/)
+Spain](https://www.mysociety.org/2012/04/16/a-right-to-know-site-for-spain/)
 (remember that this was with an experienced developer in charge). You will also
 need to think about how you will run the website; a successful Alaveteli
 requires lots of ongoing effort to moderate and publicise (see Step 6 and Step
@@ -107,12 +108,13 @@ You'll need to find a tech person who knows about hosting websites using Apache
 and Linux. They don't need to know Ruby on Rails, but it would be a huge
 advantage if they do.
 
-You'll also need to source a server. You should ask your tech person to help
-with this. The minimum spec for running a low traffic website is 512MB RAM and
-a 20GB disk. 2GB RAM would be ideal. We recommend Debian Squeeze 64-bit as the
-operating system, though any sort of Linux should do. Rackspace offer suitable
-cloud servers, which start out at around $25 / month. Then your tech person
-should follow the [installation documentation]({{ site.baseurl }}docs/installing/).
+You'll also need to source a server. You should ask your tech person to
+help with this. The minimum spec for running a low traffic website is
+512MB RAM and a 20GB disk. 2GB RAM would be ideal. We recommend the
+latest Debian Wheezy (7) or Squeeze (6) 64-bit or Ubuntu precise (12.04)
+as the operating system. Rackspace offer suitable cloud servers, which
+start out at around $25 / month. Then your tech person should follow the
+[installation documentation]({{ site.baseurl }}docs/installing/).
 
 Alternatively, you could use Amazon Web Services. This has the
 added advantage that you can use our preconfigured [Alaveteli EC2
@@ -139,7 +141,7 @@ can see what requests look like to them.
 When trying things out, you need to wear several hats -- as a site
 administrator, an ordinary site user, and as a public authority. This can get
 confusing with several email addresses, so one quick and easy way to manage
-this is to use a throwaway email service like http://mailinator.com.
+this is to use a throwaway email service like [Mailinator](http://mailinator.com).
 
 <a name="step-2"> </a>
 
@@ -156,7 +158,7 @@ If you email possible supporters asking for help, in addition to helping make
 your job easier, it will also help you identify eager people who might be
 interested in helping you maintain and run the website. We have written [a
 blog post about
-this]({{ site.baseurl }}2011/07/29/you-need-volunteers-to-make-your-website-work/).
+this](https://www.mysociety.org/2011/07/29/you-need-volunteers-to-make-your-website-work/).
 
 The admin interface includes a page where you can upload a CSV file (that's a
 file containing comma-separated values) to create or edit authorities. CSV is a
@@ -214,17 +216,8 @@ often less. But complicated workflows might take a bit longer.
 
 The default help pages in Alaveteli are taken from WhatDoTheyKnow, and are
 therefore relevant only to the UK. You should take these pages as inspiration,
-but review their content with a view to your jurisdiction. The important pages
-to translate are:
-
-* [About](https://github.com/mysociety/alaveteli/blob/master/app/views/help/about.rhtml): why the website exists, why it works, etc
-* [contact](https://github.com/mysociety/alaveteli/blob/master/app/views/help/contact.rhtml): how to get in touch
-* [credits](https://github.com/mysociety/alaveteli/blob/master/app/views/help/credits.rhtml): who is involved in the site.  Importantly, includes a section on how users can help the project.
-* [officers](https://github.com/mysociety/alaveteli/blob/master/app/views/help/officers.rhtml): information for the officers who deal with FOI at authorities.  They get a link to this page in emails that the site sends them.
-* [privacy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/privacy.rhtml): privacy policy, plus information making it clear that requests are going to appear on the internet.  Let users know if they are allowed to use pseudonyms in your jurisdiction.
-* [requesting](https://github.com/mysociety/alaveteli/blob/master/app/views/help/requesting.rhtml): the main help page about making requests.  How it works, how to decide who to write to, what they can expect in terms of responses, how to make appeals, etc.
-* [unhappy](https://github.com/mysociety/alaveteli/blob/master/app/views/help/unhappy.rhtml): users are taken to this page after a request that has been somehow unsuccessful (e.g. the request has been refused, or the authority is insisting on a postal request).  The page should encourage them to keep going, e.g. by starting a new request or addressing it to a different body.
-* [why email](https://github.com/mysociety/alaveteli/blob/master/app/views/help/_why_they_should_reply_by_email.rhtml): a snippet of information that explains why users should insist on replies by email.  This is displayed next to requests that have "gone postal".
+but review their content with a view to your jurisdiction. See [the documentation on Alaveteli's themes]({{ site.baseurl }}docs/customising/themes/#customising-the-help-pages) for details
+on which pages are important, and what content they need to have.
 
 The help pages contain some HTML. Your tech person should be able to advise on
 this.
@@ -283,7 +276,7 @@ spreadsheet. The help pages need to have one copy saved for each language; your
 tech person will put them in the right place.
 
 The web interface translations are managed and collaborated via a website
-called Transifex. This website allows teams of translators to collaborate in
+called <a href="{{ site.baseurl }}docs/glossary/#transifex" class="glossary__link">Transifex</a>. This website allows teams of translators to collaborate in
 one place, using a fairly easy interface.
 
 The Alaveteli page on Transifex is at
@@ -345,7 +338,7 @@ This will be easier to do with a small team of people sharing jobs. Hopefully
 you have been lucky enough to get funding to pay people to do these tasks.
 However, you are also likely to have to rely on volunteers. We've written [a
 blog post about the importance of
-volunteers]({{ site.baseurl }}2011/07/29/you-need-volunteers-to-make-your-website-work/), which you should read.
+volunteers](https://www.mysociety.org/2011/07/29/you-need-volunteers-to-make-your-website-work/), which you should read.
 
 You'll need to set up a group email address for all the people who will manage
 the website. All site user queries will go here, as will automatic

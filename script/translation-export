@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+TOP_DIR="$(dirname "$0")/.."
+cd "$TOP_DIR"
+
+REPO="$(basename "$PWD")"
+SHA="$(git rev-parse --short HEAD)"
+TIMESTAMP=$(date '+%FT%T')
+FILENAME="${REPO}_${SHA}_${TIMESTAMP}.tar"
+
+tar -cvf "$FILENAME" _includes/*.html
+tar -uvf "$FILENAME" _layouts/*.html
+tar -uvf "$FILENAME" $(ls -1 community/*.md)
+tar -uvf "$FILENAME" $(find docs -type f -name "*.md")
+tar -uvf "$FILENAME"  --exclude README.md $(ls -1 *.md)
+
+gzip "$FILENAME"

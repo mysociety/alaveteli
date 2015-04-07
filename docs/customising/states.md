@@ -6,16 +6,16 @@ title: States of requests
 # Request states
 
 <p class="lead">
-  A <a href="{{site.baseurl}}docs/glossary/#request" class="glossary">request</a>
+  A <a href="{{site.baseurl}}docs/glossary/#request" class="glossary__link">request</a>
   passes through different <strong>states</strong> as it is processed. These may
   vary from one jurisdiction to another.
 </p>
 
 The request states are defined in the Alaveteli code, and we recommend you use
 them (provided they match the <a href="{{ site.baseurl }}docs/glossary/#foi"
-class="glossary">FOI law</a> in your own jurisdiction). But if you do need to
+class="glossary__link">FOI law</a> in your own jurisdiction). But if you do need to
 customise them, you can &mdash; see
-<a href="{{ site.baseurl }}docs/customising/themes/">Customising the request states</a> for details.
+<a href="{{ site.baseurl }}docs/customising/themes/#customising-the-request-states">Customising the request states</a> for details.
 
 ## WhatDoTheyKnow example
 
@@ -24,7 +24,7 @@ may be in any of the states described below.
 
 Note that your site doesn't need to use the same states as WhatDoTheyKnow does. For example,
 Kosovo's instance uses slightly different states: see
-[this comparison of their differences]({{ site.baseurl }}docs/running/states_informatazyrtare/).
+[this comparison of their differences]({{ site.baseurl }}docs/customising/states_informatazyrtare/).
 
 ### States
 

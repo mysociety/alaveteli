@@ -22,7 +22,7 @@ these ways:
 
 * Look for the RSS feed links.
 * Examine the `<link rel="alternate" type="application/atom+xml">` tag in the head of the HTML.
-* Add `/feed` to the start of another URL. 
+* Add `/feed` to the start of another URL.
 
 Note that even complicated search queries have Atom feeds. You can do all sorts
 of things with them, such as query by authority, by file type, by date range,
@@ -73,9 +73,13 @@ as follows:
   * as form variable `json`:
     * `direction` - either `request` (from the user - might be a followup, reminder, etc) or `response` (from the authority)
     * `body` - the message itself
+    * `state` - optional, allows the authority to include an updated request `state` value when sending an update. Allowable values: `waiting_response`, `rejected`, `successful` and `partially_successful`. Only used in the `response` direction
     * `sent_at` - ISO-8601 formatted time that the correspondence was sent
   * (optionally) the variable `attachments` as `multipart/form-data`:
     * attachments to the correspondence.  Attachments can only be attached to messages in the `response` direction
+* `/api/v2/request/<id>/update.json` - POST a new state for the request:
+  * as form variable `json`:
+    * `state` - the user's assessment of the `state` of a request that has received a response from the authority. Allowable values: `waiting_response`, `rejected`, `successful` and `partially_successful`. Should only be used for the user's feedback, an authority wishing to update the request `state` should use `/api/v2/request/<id>.json` instead
 
 
 
