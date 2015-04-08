@@ -127,7 +127,7 @@ GEM
       tilt
     highline (1.6.19)
     hike (1.2.3)
-    holidays (1.0.8)
+    holidays (1.2.0)
     i18n (0.6.11)
     icalendar (1.4.3)
     iso_country_codes (0.6.1)
@@ -318,7 +318,7 @@ DEPENDENCIES
   gettext (~> 2.3.9)
   gettext_i18n_rails (~> 0.9.4)
   globalize3!
-  holidays (~> 1.0.8)
+  holidays (~> 1.2.0)
   icalendar (= 1.4.3)
   iso_country_codes (~> 0.6.1)
   jquery-rails (~> 3.0.4)
