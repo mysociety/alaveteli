@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-04-07 18:17+0000\n"
-"Last-Translator: jbaezni <jbaezni@gmail.com>\n"
+"PO-Revision-Date: 2015-04-08 10:16+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Spanish (Nicaragua) (http://www.transifex.com/projects/p/alaveteli/language/es_NI/)\n"
 "Language: es_NI\n"
 "MIME-Version: 1.0\n"
@@ -1173,7 +1173,7 @@ msgid "I'm still <strong>waiting</strong> for the internal review"
 msgstr "Todavía estoy <strong>esperando</strong> por mi solicitud (puede que haya obtenido un acuse de recibo)"
 
 msgid "I'm waiting for an <strong>internal review</strong> response"
-msgstr "Estoy esperando por una respuesta de la <strong>revisión interna</strong>"
+msgstr "Estoy preguntando por mi solicitud de información"
 
 msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr "Me han pedido que <strong>aclare</strong> mi solicitud"
@@ -2925,7 +2925,7 @@ msgid "This page of public body statistics is currently experimental, so there a
 msgstr "Esta página de estadísticas de Entidades públicas es actualmente una prueba, por lo que hay algunas advertencias que deben tenerse en cuenta:"
 
 msgid "This particular request is finished:"
-msgstr "Esta solicitud está cerrada:"
+msgstr "Esta solicitud está resuelta según la entidad:"
 
 msgid "This person has made no Freedom of Information requests using this site."
 msgstr "Esta persona no ha realizado solicitudes de información usando esta web."
