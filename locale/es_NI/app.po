@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-04-08 13:38+0000\n"
+"PO-Revision-Date: 2015-04-09 04:33+0000\n"
 "Last-Translator: jbaezni <jbaezni@gmail.com>\n"
 "Language-Team: Spanish (Nicaragua) (http://www.transifex.com/projects/p/alaveteli/language/es_NI/)\n"
 "Language: es_NI\n"
@@ -71,7 +71,7 @@ msgid " Advise on how to <strong>best clarify</strong> the request."
 msgstr "Consejo sobre como <strong>aclarar lo mejor posible</strong> la solicitud."
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
-msgstr "Ideas sobre que <strong>otra información</strong> puede solicitar a la institución pública."
+msgstr "Ideas sobre que <strong>otra información</strong> puede solicitar a la entidad pública."
 
 msgid " If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
 msgstr "Si conoce la dirección a utilizar, por favor <a href=\"{{url}}\">enviárnosla</a>.\\n Puede que la encuentre en la página web de la institución, o llamándoles por teléfono y preguntando."
@@ -107,13 +107,13 @@ msgid " when you send this message."
 msgstr "cuando envíe este mensaje."
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr "'Estadísticas de crímenes por región en España'"
+msgstr "'Estadísticas de crímenes por región en Nicaragua'"
 
 msgid "'Pollution levels over time for the River Tyne'"
-msgstr "'Niveles históricos de contaminación en el río Ebro'"
+msgstr "'Niveles históricos de contaminación en el Lago de Nicaragua'"
 
 msgid "'{{link_to_authority}}', a public authority"
-msgstr "'{{link_to_authority}}', una institución pública"
+msgstr "'{{link_to_authority}}', una entidad pública"
 
 msgid "'{{link_to_request}}', a request"
 msgstr "'{{link_to_request}}', una solicitud de acceso a la información"
@@ -2344,7 +2344,7 @@ msgid "Search contributions by this person"
 msgstr "Buscar aportaciones de esta persona"
 
 msgid "Search for the authorities you'd like information from:"
-msgstr "Busque las Instituciones Públicas a las cuales desea solicitarle información :"
+msgstr "Busque las Entidades Públicas a las cuales desea solicitarle información :"
 
 msgid "Search for words in:"
 msgstr "Buscar palabras en:"
@@ -2624,13 +2624,13 @@ msgid "The accounts have been left as they previously were."
 msgstr "Las cuentas se han dejado tal y como estaban anteriormente."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)"
-msgstr "El organismo <strong>no tiene</strong> la información <small>(tal vez dicen quién la tiene)"
+msgstr "La entidad <strong>no tiene</strong> la información <small>(tal vez dicen quién la tiene)"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "El correo electronico de la autoridad no parece una dirección válida"
 
 msgid "The authority only has a <strong>paper copy</strong> of the information."
-msgstr "El organismo sólo tiene una <strong>copia en papel</strong> de la información."
+msgstr "La entidad sólo tiene una <strong>copia en papel</strong> de la información."
 
 msgid "The authority say that they <strong>need a postal\\n            address</strong>, not just an email, for it to be a valid FOI request"
 msgstr ""
@@ -2680,7 +2680,7 @@ msgid "The percentages are calculated with respect to the total number of reques
 msgstr "Los porcentajes se calculan con respecto al número total de solicitudes, que incluye peticiones no válidas; Este es un problema identificado que se solucionará en una versión posterior."
 
 msgid "The public authority does not have the information requested"
-msgstr "El organismo no tiene la información solicitada"
+msgstr "La entidad no tiene la información solicitada"
 
 msgid "The public authority would like part of the request explained"
 msgstr "El organismo ha pedido una aclaración a parte de la solicitud"
@@ -2731,7 +2731,7 @@ msgstr ""
 "            haber respondido"
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests that have been made to this authority."
-msgstr "El motor de búsqueda no está accesible en estos momentos: no podemos mostrar las solicitudes de información realizadas a este organismo."
+msgstr "El motor de búsqueda no está accesible en estos momentos: no podemos mostrar las solicitudes de información realizadas a esta entidad."
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
 msgstr "El motor de búsqueda no está accesible en estos momentos: no podemos mostrar las solicitudes de información que ha hecho esta persona"
@@ -2873,7 +2873,7 @@ msgid "Things you're following"
 msgstr "Pedidos que estas siguiendo"
 
 msgid "This authority no longer exists, so you cannot make a request to it."
-msgstr "Este organismo ya no existe, no pueden realizarse solicitudes de información."
+msgstr "Esta entidad ya no existe, no pueden realizarse solicitudes de información."
 
 msgid "This covers a very wide spectrum of information about the state of\\n      the <strong>natural and built environment</strong>, such as:"
 msgstr ""
@@ -3518,7 +3518,7 @@ msgstr ""
 "de la solicitud. Consulte <a href=\"{{api_path}}\">la documentación de nuestro API</a>."
 
 msgid "You can only request information about the environment from this authority."
-msgstr "Solo puede solicitar información medioambiental a esta institución"
+msgstr "Solo puede solicitar información medioambiental a esta entidad."
 
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr "Tienes una nueva respuesta a la solicitud {{law_used_full}} "
