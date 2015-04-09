@@ -5,7 +5,7 @@
   :number_of_requests => number_with_delimiter(InfoRequest.visible.count),
   :number_of_authorities => number_with_delimiter(PublicBody.visible.count)) %>
 </h2>
-<form id="search_form" method="post" action="<%= search_redirect_path %>">
+<form id="search_form" method="get" action="<%= search_redirect_path %>">
   <div>
     <input id="query" type="text" size="30" name="query" title="type your search term here" >
     <input type="submit" value="<%= _('Search') %>">
