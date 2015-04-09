@@ -17,7 +17,20 @@ Alaveteli::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.delivery_method = :sendmail # so is queued, rather than giving immediate errors
+
+  config.action_mailer.delivery_method = AlaveteliConfiguration::mailer_delivery_method.to_sym
+
+  if AlaveteliConfiguration::mailer_delivery_method.to_sym == :smtp
+    config.action_mailer.smtp_settings = {
+      :address => AlaveteliConfiguration::mailer_address,
+      :port => AlaveteliConfiguration.mailer_port,
+      :domain => AlaveteliConfiguration.mailer_domain,
+      :user_name => AlaveteliConfiguration.mailer_user_name,
+      :password => AlaveteliConfiguration.mailer_password,
+      :authentication => AlaveteliConfiguration.mailer_authentication,
+      :enable_starttls_auto => AlaveteliConfiguration.mailer_enable_starttls_auto
+    }
+  end
 
   config.active_support.deprecation = :notify
 
