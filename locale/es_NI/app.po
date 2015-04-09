@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-04-09 04:33+0000\n"
+"PO-Revision-Date: 2015-04-09 13:40+0000\n"
 "Last-Translator: jbaezni <jbaezni@gmail.com>\n"
 "Language-Team: Spanish (Nicaragua) (http://www.transifex.com/projects/p/alaveteli/language/es_NI/)\n"
 "Language: es_NI\n"
@@ -1166,11 +1166,11 @@ msgstr "Me gustaría <strong>retirar esta solicitud</strong>"
 
 msgid "I'm still <strong>waiting</strong> for my information\\n                <small>(maybe you got an acknowledgement)</small>"
 msgstr ""
-"Todavía estoy <strong>esperando</strong> por mi solicitud\n"
+"Todavía estoy <strong>esperando</strong> por mi información\n"
 "                <small>(puede que haya obtenido un acuse de recibo)</small>"
 
 msgid "I'm still <strong>waiting</strong> for the internal review"
-msgstr "Todavía estoy <strong>esperando</strong> por mi solicitud (puede que haya obtenido un acuse de recibo)"
+msgstr "Todavía estoy <strong>esperando</strong> por mi información (puede que haya obtenido un acuse de recibo)"
 
 msgid "I'm waiting for an <strong>internal review</strong> response"
 msgstr "Estoy preguntando por mi solicitud de información"
@@ -2644,7 +2644,7 @@ msgid "The classification of requests (e.g. to say whether they were successful 
 msgstr "La clasificación de las solicitudes (por ejemplo, para decir si tuvieron éxito o no) se realiza manualmente por los usuarios y los administradores del sitio, lo que significa que están sujetos a error."
 
 msgid "The contact email address for FOI requests to the authority."
-msgstr "La dirección de correo electrónico de contacto de las Autoridades para hacer una solicitud de información pública."
+msgstr "La dirección de correo electrónico de contacto de las entidades para hacer una solicitud de información pública."
 
 msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to reply to an {{law_used_short}}\\nrequest has not been delivered."
 msgstr ""
@@ -3944,7 +3944,7 @@ msgid "please sign in as "
 msgstr "por favor abra una sesión como "
 
 msgid "requesting an internal review"
-msgstr "pidiendo una revisión interna"
+msgstr "pidiendo una revisión de la información"
 
 msgid "requests"
 msgstr "solicitudes"
