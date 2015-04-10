@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
     end
     class RouteNotFound < StandardError
     end
-    protect_from_forgery
+    protect_from_forgery :if => :user?
+    skip_before_filter :verify_authenticity_token, :unless => :user?
 
     # assign our own handler method for non-local exceptions
     rescue_from Exception, :with => :render_exception
@@ -246,6 +247,16 @@ class ApplicationController < ActionController::Base
     end
 
     private
+
+    def user?
+        !session[:user_id].nil?
+    end
+
+    def form_authenticity_token
+        if user?
+            session[:_csrf_token] ||= SecureRandom.base64(32)
+        end
+    end
 
     # Check the user is logged in
     def authenticated?(reason_params)
