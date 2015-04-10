@@ -77,7 +77,30 @@ in any language, and within any legislation</p>
                         </div>
                     </div>
                 </div><!--
-            -->
+                --><div class="deployments__unit--major">
+                    <div class="deployment--major">
+                        <img src="{{ site.baseurl }}assets/img/ukraine.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Доступ до правди</h3>
+                        <p class="deployment__country">Ukraine</p>
+                        <p class="deployment__link"><a href="https://dostup.pravda.com.ua/">https://dostup.pravda.com.ua/</a></p>
+                        <div class="deployment__description">
+                            <p>The NGO <a href="http://centreua.org/en/">CentreUA</a> launched Ukraine’s dostup.pravda in 2014, against the background of revolution and severe unrest in the country.</p>
+                            <p>It very quickly amassed thousands of requests, providing a source of information for citizens in uncertain times. Under such circumstances, Alaveteli really comes into its own.</p>
+                        </div>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--major">
+                    <div class="deployment--major">
+                        <img src="{{ site.baseurl }}assets/img/informace-pro-vsechny.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Info Pro Všechny</h3>
+                        <p class="deployment__country">Czech Republic</p>
+                        <p class="deployment__link"><a href="http://www.infoprovsechny.cz/">http://www.infoprovsechny.cz/</a></p>
+                        <div class="deployment__description">
+                            <p>Infoprovsechny gives citizens of the Czech Republic easy access to their rights under the country's 1999 Freedom of Information Act.</p>
+                            <p>Giving access to nearly 12,000 public authorities, the site has been instrumental in several high-profile TV news stories. It was started in 2012 with a grant from the Open Society Foundation.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="deployments__list--minor">
@@ -88,22 +111,6 @@ in any language, and within any legislation</p>
                         <h3 class="deployment__title">Queremos Saber</h3>
                         <p class="deployment__country">Brazil</p>
                         <p class="deployment__link"><a href="http://queremossaber.org.br/">http://queremossaber.org.br/</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/ukraine.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Доступ до правди</h3>
-                        <p class="deployment__country">Ukraine</p>
-                        <p class="deployment__link"><a href="https://dostup.pravda.com.ua/">https://dostup.pravda.com.ua/</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/informace-pro-vsechny.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Info Pro Všechny</h3>
-                        <p class="deployment__country">Czech Republic</p>
-                        <p class="deployment__link"><a href="http://www.infoprovsechny.cz/">http://www.infoprovsechny.cz/</a></p>
                     </div>
                 </div><!--
                 --><div class="deployments__unit--minor">
