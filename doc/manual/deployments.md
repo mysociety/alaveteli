@@ -214,7 +214,7 @@ in any language, and within any legislation</p>
     <div class="get-started__grid-unit get-started__grid-unit--wide">
         <div class="get-started__item get-started__item--primary">
             <p>From team members to maintenance, our get started guide will walk you through the process of planning, starting and running your own Alaveteli website</p>
-            <p><a href="{{ site.baseurl }}docs/getting_started/" class="button">Get started</a></p>
+            <p><a href="{{ page.baseurl }}/docs/getting_started/" class="button">Get started</a></p>
         </div>
     </div><!--
     --><div class="get-started__grid-unit">
@@ -228,7 +228,7 @@ in any language, and within any legislation</p>
         <div class="get-started__item get-started__item">
             <h3>Speak to us</h3>
             <p>Need some help? Tell us about your plans</p>
-            <p class="push-top"><a href="{{ site.baseurl }}community" class="button">Get in touch</a></p>
+            <p class="push-top"><a href="{{ page.baseurl }}/community" class="button">Get in touch</a></p>
         </div>
     </div>
   </div>
