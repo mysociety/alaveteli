@@ -51,6 +51,10 @@
   see if these need to be changed. URLs in rreviously sent admin emails about
   requested changes to authorities will need to be tweaked to work - from
   `admin/body/new?change_request_id=n` to `admin/bodies/new?change_request_id=n`
+* CSRF protection is now used by default on forms using 'POST', and as a result, the navbar and front page
+  search forms have been converted to use 'GET' rather than 'POST'. If you override `/app/views/general/_frontpage_search_box.html.erb`, `app/views/general/header.html.erb` or `app/views/general/_responsive_topnav.html.erb`, you should update the search forms in your templates to use 'GET'. Any forms of your own
+  that use the 'POST' method should be generated in Rails or otherwise include a CSRF token. If
+  they don't, logged-in users will be logged out when they use them. 
 * If you override the `app/views/user/_signin.html.erb` or
   `app/view/user/_signup.html.erb` templates, check the tabindex order
   is still sensible - the order of the elements on the page has changed
