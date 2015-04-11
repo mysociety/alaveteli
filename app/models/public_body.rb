@@ -775,7 +775,7 @@ class PublicBody < ActiveRecord::Base
 
     def empty_translation_in_params?(attributes)
         attrs_with_values = attributes.select do |key, value|
-            value != '' and key.to_s != 'locale'
+            !value.blank? and key.to_s != 'locale'
         end
         attrs_with_values.empty?
     end
