@@ -9,7 +9,7 @@ end
 
 describe 'when creating a mail object from raw data' do
 
-    it "should be able to parse a large email without raising an exception", :focus => true do
+    it "should be able to parse a large email without raising an exception" do
         m = Mail.new
         m.add_file(:filename => "attachment.data", :content => "a" * (8 * 1024 * 1024))
         raw_email = "From jamis_buck@byu.edu Mon May  2 16:07:05 2005\r\n#{m.to_s}"
@@ -22,7 +22,7 @@ describe 'when creating a mail object from raw data' do
         mail.multipart?.should == true
     end
 
-    it "should not fail on invalid byte sequence in content-disposition header", :focus => true do
+    it "should not fail on invalid byte sequence in content-disposition header" do
       part = Mail::Part.new("Content-Disposition: inline; filename=a\xB8z\r\n\r\nThis is the body text.")
       lambda { part.inline? }.should_not raise_error
     end
