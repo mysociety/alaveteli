@@ -3,10 +3,6 @@
 div.correspondence {
   border: 1px solid #ccc;
   margin: 0 0 1em;
-  padding: 1em;
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
-    padding: 1.5em;
-  }
 
   h2 {
     text-align:right;
@@ -31,7 +27,6 @@ div.correspondence {
 div.comment_in_request {
   border: 1px dotted #ccc;
   margin:0 0 1em 3em;
-  padding:0 0.5em;
 
   h2 {
     font-size:1em;
@@ -42,9 +37,9 @@ div.comment_in_request {
 }
 
 .event_actions {
+  margin-bottom: 0;
   text-align:right;
   line-height: 1em;
-  margin-bottom: 1em;
 }
 
 .comment_in_request_text {
@@ -64,7 +59,6 @@ div.comment_in_request {
   height:36px;
   float:left;
   vertical-align:middle;
-  margin-top: 0.5em;
   margin-right:0.5em;
 }
 
@@ -90,7 +84,6 @@ a img.attachment_image {
   border-radius:3px;
   -moz-border-radius:3px;
   margin:1em 0;
-  padding:0.5em 1em;
 }
 
 .describe_state_form {
