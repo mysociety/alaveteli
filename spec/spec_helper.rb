@@ -124,13 +124,6 @@ Spork.prefork do
     end
   end
 
-  # TODO: No idea what namespace/class/module to put this in
-  # Create a clean xapian index based on the fixture files and the raw_email data.
-  def create_fixtures_xapian_index
-      load_raw_emails_data
-      rebuild_xapian_index
-  end
-
   # Use the before create job hook to simulate a race condition with
   # another process by creating an acts_as_xapian_job record for the
   # same model:
