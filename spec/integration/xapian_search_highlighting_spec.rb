@@ -3,6 +3,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe 'highlighting search results' do
     include HighlightHelper
 
+    before do
+        get_fixtures_xapian_index
+    end
+
     it 'ignores stopwords' do
         phrase = 'department of humpadinking'
         search = ActsAsXapian::Search.new([PublicBody], phrase, :limit => 1)
