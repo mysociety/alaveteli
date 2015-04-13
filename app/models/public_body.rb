@@ -774,10 +774,7 @@ class PublicBody < ActiveRecord::Base
     end
 
     def empty_translation_in_params?(attributes)
-        attrs_with_values = attributes.select do |key, value|
-            value != '' and key.to_s != 'locale'
-        end
-        attrs_with_values.empty?
+        attributes.select { |k, v| !v.blank? && k.to_s != 'locale' }.empty?
     end
 
     def request_email_if_requestable
