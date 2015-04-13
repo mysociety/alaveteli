@@ -5,7 +5,7 @@ redirect_from: /about/where-has-alaveteli-been-installed/
 ---
 <div class="deployments__intro">
     <div class="container">
-    <h1>20+ languages, 18 jurisdictions
+    <h1>20+ languages, 19 jurisdictions
     <span>200,000 requests for information</span></h1>
     <p>Alaveteli can help open up government in any country,
 in any language, and within any legislation</p>
@@ -77,7 +77,30 @@ in any language, and within any legislation</p>
                         </div>
                     </div>
                 </div><!--
-            -->
+                --><div class="deployments__unit--major">
+                    <div class="deployment--major">
+                        <img src="{{ site.baseurl }}assets/img/ukraine.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Доступ до правди</h3>
+                        <p class="deployment__country">Ukraine</p>
+                        <p class="deployment__link"><a href="https://dostup.pravda.com.ua/">https://dostup.pravda.com.ua/</a></p>
+                        <div class="deployment__description">
+                            <p>The NGO <a href="http://centreua.org/en/">CentreUA</a> launched Ukraine’s dostup.pravda in 2014, against the background of revolution and severe unrest in the country.</p>
+                            <p>It very quickly amassed thousands of requests, providing a source of information for citizens in uncertain times. Under such circumstances, Alaveteli really comes into its own.</p>
+                        </div>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--major">
+                    <div class="deployment--major">
+                        <img src="{{ site.baseurl }}assets/img/informace-pro-vsechny.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Info Pro Všechny</h3>
+                        <p class="deployment__country">Czech Republic</p>
+                        <p class="deployment__link"><a href="http://www.infoprovsechny.cz/">http://www.infoprovsechny.cz/</a></p>
+                        <div class="deployment__description">
+                            <p>Infoprovsechny gives citizens of the Czech Republic easy access to their rights under the country's 1999 Freedom of Information Act.</p>
+                            <p>Giving access to nearly 12,000 public authorities, the site has been instrumental in several high-profile TV news stories. It was started in 2012 with a grant from the Open Society Foundation.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="deployments__list--minor">
@@ -88,22 +111,6 @@ in any language, and within any legislation</p>
                         <h3 class="deployment__title">Queremos Saber</h3>
                         <p class="deployment__country">Brazil</p>
                         <p class="deployment__link"><a href="http://queremossaber.org.br/">http://queremossaber.org.br/</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/ukraine.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Доступ до правди</h3>
-                        <p class="deployment__country">Ukraine</p>
-                        <p class="deployment__link"><a href="https://dostup.pravda.com.ua/">https://dostup.pravda.com.ua/</a></p>
-                    </div>
-                </div><!--
-                --><div class="deployments__unit--minor">
-                    <div class="deployment--minor">
-                        <img src="{{ site.baseurl }}assets/img/informace-pro-vsechny.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Info Pro Všechny</h3>
-                        <p class="deployment__country">Czech Republic</p>
-                        <p class="deployment__link"><a href="http://www.infoprovsechny.cz/">http://www.infoprovsechny.cz/</a></p>
                     </div>
                 </div><!--
                 --><div class="deployments__unit--minor">
@@ -177,6 +184,22 @@ in any language, and within any legislation</p>
                         <h3 class="deployment__title">Da Zanamo Svi</h3>
                         <p class="deployment__country">Serbia</p>
                         <p class="deployment__link"><a href="http://daznamosvi.rs/sr">http://daznamosvi.rs/sr</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/sobanukirwa.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Sobunakirwa</h3>
+                        <p class="deployment__country">Rwanda</p>
+                        <p class="deployment__link"><a href="https://sobanukirwa.rw/">https://sobanukirwa.rw/</a></p>
+                    </div>
+                </div><!--
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/diritto-di-sapere.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">Diritto Di Sapere</h3>
+                        <p class="deployment__country">Italy</p>
+                        <p class="deployment__link"><a href="https://chiedi.dirittodisapere.it/">https://chiedi.dirittodisapere.it/</a></p>
                     </div>
                 </div>
             </div>
