@@ -98,3 +98,11 @@ textarea{
     padding-right: 0.9375em;
   }
 }
+
+box {
+  padding: .75em 1em;
+
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    padding: .75em 1.5em;
+  }
+}
