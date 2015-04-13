@@ -1313,4 +1313,20 @@ describe InfoRequest do
 
 
     end
+
+    describe 'when destroying a message' do
+
+        it 'can destroy a request with comments and censor rules' do
+            info_request = FactoryGirl.create(:info_request)
+            censor_rule = FactoryGirl.create(:censor_rule, :info_request => info_request)
+            comment = FactoryGirl.create(:comment, :info_request => info_request)
+            info_request.reload
+            info_request.fully_destroy
+
+            InfoRequest.where(:id => info_request.id).should be_empty
+            CensorRule.where(:id => censor_rule.id).should be_empty
+            Comment.where(:id => comment.id).should be_empty
+        end
+
+    end
 end

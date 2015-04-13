@@ -918,6 +918,9 @@ public
         end
         outgoing_messages.each { |a| a.destroy }
         incoming_messages.each { |a| a.destroy }
+        comments.each { |comment| comment.destroy }
+        censor_rules.each{ |censor_rule| censor_rule.destroy }
+
         destroy
     end
 
