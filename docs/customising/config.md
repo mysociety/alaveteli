@@ -731,7 +731,7 @@ EXCEPTION_NOTIFICATIONS_TO:
     <a name="mta_log_type"><code>MTA_LOG_TYPE</code></a>
   </dt>
   <dd>
-      Are you using "exim" or "postfix" for your Mail Transfer Agnt (MTA)?
+      Are you using "exim" or "postfix" for your Mail Transfer Agent (MTA)?
 
     <div class="more-info">
       <p>Example:</p>
