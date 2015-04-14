@@ -787,11 +787,11 @@ RESPONSIVE_STYLING: true
 #
 # As a string this is coerced into a symbol in config/environments/production.rb
 #
-# MAILER_DELIVERY_METHOD - String (default: sendmail)
+# PRODUCTION_MAILER_DELIVERY_METHOD - String (default: sendmail)
 #
 # Examples:
 #
-# MAILER_DELIVERY_METHOD: smtp
+# PRODUCTION_MAILER_DELIVERY_METHOD: smtp
 # SMTP_MAILER_ADDRESS: smtp.gmail.com
 # SMTP_MAILER_PORT: 587
 # SMTP_MAILER_DOMAIN: example.com
@@ -800,5 +800,5 @@ RESPONSIVE_STYLING: true
 # SMTP_MAILER_AUTHENTICATION: 'plain'
 # SMTP_MAILER_ENABLE_STARTTLS_AUTO: true
 # ---
-MAILER_DELIVERY_METHOD: sendmail
+PRODUCTION_MAILER_DELIVERY_METHOD: sendmail
 

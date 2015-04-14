@@ -18,9 +18,9 @@ Alaveteli::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.delivery_method = AlaveteliConfiguration::mailer_delivery_method.to_sym
+  config.action_mailer.delivery_method = AlaveteliConfiguration::production_mailer_delivery_method.to_sym
 
-  if AlaveteliConfiguration::mailer_delivery_method.to_sym == :smtp
+  if AlaveteliConfiguration::production_mailer_delivery_method.to_sym == :smtp
     config.action_mailer.smtp_settings = {
       :address => AlaveteliConfiguration::smtp_mailer_address,
       :port => AlaveteliConfiguration.smtp_mailer_port,
