@@ -776,10 +776,10 @@ ALLOW_BATCH_REQUESTS: false
 # ---
 RESPONSIVE_STYLING: true
 
-# Define the mailer deliver method to be used only in the Production environment
-# By default, use the sendmail.
+# Define the mailer delivery method to be used only in the production environment.
+# By default, use sendmail.
 #
-#The list of accepted options are available in the Rails ActionMailer configuration
+# The list of accepted options are available in the Rails ActionMailer configuration
 # documentation: http://guides.rubyonrails.org/action_mailer_basics.html#example-action-mailer-configuration
 #
 # The most common alternative is to use 'smtp'
