@@ -22,13 +22,13 @@ Alaveteli::Application.configure do
 
   if AlaveteliConfiguration::mailer_delivery_method.to_sym == :smtp
     config.action_mailer.smtp_settings = {
-      :address => AlaveteliConfiguration::mailer_address,
-      :port => AlaveteliConfiguration.mailer_port,
-      :domain => AlaveteliConfiguration.mailer_domain,
-      :user_name => AlaveteliConfiguration.mailer_user_name,
-      :password => AlaveteliConfiguration.mailer_password,
-      :authentication => AlaveteliConfiguration.mailer_authentication,
-      :enable_starttls_auto => AlaveteliConfiguration.mailer_enable_starttls_auto
+      :address => AlaveteliConfiguration::smtp_mailer_address,
+      :port => AlaveteliConfiguration.smtp_mailer_port,
+      :domain => AlaveteliConfiguration.smtp_mailer_domain,
+      :user_name => AlaveteliConfiguration.smtp_mailer_user_name,
+      :password => AlaveteliConfiguration.smtp_mailer_password,
+      :authentication => AlaveteliConfiguration.smtp_mailer_authentication,
+      :enable_starttls_auto => AlaveteliConfiguration.smtp_mailer_enable_starttls_auto
     }
   end
 

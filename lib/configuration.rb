@@ -46,6 +46,7 @@ module AlaveteliConfiguration
             :INCOMING_EMAIL_PREFIX => 'foi+',
             :INCOMING_EMAIL_SECRET => 'dummysecret',
             :ISO_COUNTRY_CODE => 'GB',
+            :MAILER_DELIVERY_METHOD => 'sendmail',
             :MINIMUM_REQUESTS_FOR_STATISTICS => 100,
             :MAX_REQUESTS_PER_USER_PER_DAY => 6,
             :MTA_LOG_PATH => '/var/log/exim4/exim-mainlog-*',
@@ -63,6 +64,13 @@ module AlaveteliConfiguration
             :RESPONSIVE_STYLING => true,
             :SITE_NAME => 'Alaveteli',
             :SKIP_ADMIN_AUTH => false,
+            :SMTP_MAILER_ADDRESS => '',
+            :SMTP_MAILER_PORT => 587,
+            :SMTP_MAILER_DOMAIN => '',
+            :SMTP_MAILER_USER_NAME =>  '',
+            :SMTP_MAILER_PASSWORD => '',
+            :SMTP_MAILER_AUTHENTICATION => 'plain',
+            :SMTP_MAILER_ENABLE_STARTTLS_AUTO => true,
             :SPECIAL_REPLY_VERY_LATE_AFTER_DAYS => 60,
             :THEME_BRANCH => false,
             :THEME_URL => "",
@@ -77,15 +85,7 @@ module AlaveteliConfiguration
             :USE_MAILCATCHER_IN_DEVELOPMENT => true,
             :UTILITY_SEARCH_PATH => ["/usr/bin", "/usr/local/bin"],
             :VARNISH_HOST => '',
-            :WORKING_OR_CALENDAR_DAYS => 'working',
-            :MAILER_DELIVERY_METHOD => 'sendmail',
-            :MAILER_ADDRESS => '',
-            :MAILER_PORT => 587,
-            :MAILER_DOMAIN => '',
-            :MAILER_USER_NAME =>  '',
-            :MAILER_PASSWORD => '',
-            :MAILER_AUTHENTICATION => 'plain',
-            :MAILER_ENABLE_STARTTLS_AUTO => true
+            :WORKING_OR_CALENDAR_DAYS => 'working'
           }
     end
 
