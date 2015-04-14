@@ -1,3 +1,10 @@
+# rails-3-develop
+
+## Highlighted Features
+* There is experimental support for using an STMP server, rather than sendmail,
+  for outgoing mail. There is not yet any ability to retry if the SMTP server is 
+  unavailable. 
+
 # Version 0.21
 
 ## Highlighted Features
