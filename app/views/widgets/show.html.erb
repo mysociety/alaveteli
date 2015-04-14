@@ -10,41 +10,7 @@
         </div>
         <div class="alaveteli-widget__status <%= @info_request.calculate_status %>">
           <p class="alaveteli-widget__status__status-label">Status</p>
-          <% if @info_request.awaiting_description %>
-            <%= _('Unknown Status') %>
-          <% elsif @status == 'waiting_response' %>
-            <%= _('Waiting Response') %>
-          <% elsif @status == 'waiting_response_overdue' %>
-            <%= _('Waiting Response') %>
-          <% elsif @status == 'waiting_response_very_overdue' %>
-            <%= _('Waiting Response') %>
-          <% elsif @status == 'not_held' %>
-            <%= _('Not Held') %>
-          <% elsif @status == 'rejected' %>
-            <%= _('Rejected') %>
-          <% elsif @status == 'successful' %>
-            <%= _('Successful') %>
-          <% elsif @status == 'partially_successful' %>
-            <%= _('Partial Success') %>
-          <% elsif @status == 'waiting_clarification' %>
-            <%= _('Waiting Clarification') %>
-          <% elsif @status == 'gone_postal' %>
-            <%= _('Gone Postal') %>
-          <% elsif @status == 'internal_review' %>
-            <%= _('Internal Review') %>
-          <% elsif @status == 'error_message' %>
-            <%= _('Error Message') %>
-          <% elsif @status == 'requires_admin' %>
-            <%= _('Requires Admin') %>
-          <% elsif @status == 'user_withdrawn' %>
-            <%= _('User Withdrawn') %>
-          <% elsif @status == 'attention_requested' %>
-            <%= _('Attention Requested') %>
-          <% elsif @status == 'vexatious' %>
-            <%= _('Vexatious') %>
-          <% else %>
-            <%= render :partial => 'general/custom_state_descriptions', :locals => { :status => @status } %>
-          <% end %>
+          <%= status_description(@info_request) %>
         </div>
       </div>
       <div class="alaveteli-widget__people-count">
