@@ -4,6 +4,9 @@
 * There is experimental support for using an STMP server, rather than sendmail,
   for outgoing mail. There is not yet any ability to retry if the SMTP server is 
   unavailable. 
+* HTML 'widgets' advertising requests can be displayed on other sites in iframes.
+  If 'ENABLE_WIDGETS' is set to true in `general.yml` (the default is false), a link
+  to the widget code will appear in the right hand sidebar of a request page.
 
 # Version 0.21
 
