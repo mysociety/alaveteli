@@ -52,6 +52,7 @@ module AlaveteliConfiguration
             :MTA_LOG_TYPE => 'exim',
             :NEW_RESPONSE_REMINDER_AFTER_DAYS => [3, 10, 24],
             :OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS => '',
+            :PRODUCTION_MAILER_DELIVERY_METHOD => 'sendmail',
             :PUBLIC_BODY_STATISTICS_PAGE => false,
             :PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE => false,
             :RAW_EMAILS_LOCATION => 'files/raw_emails',
@@ -63,6 +64,13 @@ module AlaveteliConfiguration
             :RESPONSIVE_STYLING => true,
             :SITE_NAME => 'Alaveteli',
             :SKIP_ADMIN_AUTH => false,
+            :SMTP_MAILER_ADDRESS => '',
+            :SMTP_MAILER_PORT => 587,
+            :SMTP_MAILER_DOMAIN => '',
+            :SMTP_MAILER_USER_NAME =>  '',
+            :SMTP_MAILER_PASSWORD => '',
+            :SMTP_MAILER_AUTHENTICATION => 'plain',
+            :SMTP_MAILER_ENABLE_STARTTLS_AUTO => true,
             :SPECIAL_REPLY_VERY_LATE_AFTER_DAYS => 60,
             :THEME_BRANCH => false,
             :THEME_URL => "",
@@ -77,9 +85,9 @@ module AlaveteliConfiguration
             :USE_MAILCATCHER_IN_DEVELOPMENT => true,
             :UTILITY_SEARCH_PATH => ["/usr/bin", "/usr/local/bin"],
             :VARNISH_HOST => '',
-            :WORKING_OR_CALENDAR_DAYS => 'working',
+            :WORKING_OR_CALENDAR_DAYS => 'working'
           }
-      end
+    end
 
   def AlaveteliConfiguration.method_missing(name)
     key = name.to_s.upcase

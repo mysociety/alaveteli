@@ -775,3 +775,30 @@ ALLOW_BATCH_REQUESTS: false
 #
 # ---
 RESPONSIVE_STYLING: true
+
+# Define the mailer delivery method to be used only in the production environment.
+# By default, use sendmail.
+#
+# The list of accepted options are available in the Rails ActionMailer configuration
+# documentation: http://guides.rubyonrails.org/action_mailer_basics.html#example-action-mailer-configuration
+#
+# The most common alternative is to use 'smtp'
+# If you choose to use an external SMTP service then you will need to also include the SMTP configuration settings.
+#
+# As a string this is coerced into a symbol in config/environments/production.rb
+#
+# PRODUCTION_MAILER_DELIVERY_METHOD - String (default: sendmail)
+#
+# Examples:
+#
+# PRODUCTION_MAILER_DELIVERY_METHOD: smtp
+# SMTP_MAILER_ADDRESS: smtp.gmail.com
+# SMTP_MAILER_PORT: 587
+# SMTP_MAILER_DOMAIN: example.com
+# SMTP_MAILER_USER_NAME: jane322
+# SMTP_MAILER_PASSWORD: supersecretpassword
+# SMTP_MAILER_AUTHENTICATION: 'plain'
+# SMTP_MAILER_ENABLE_STARTTLS_AUTO: true
+# ---
+PRODUCTION_MAILER_DELIVERY_METHOD: sendmail
+
