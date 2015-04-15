@@ -7,6 +7,12 @@
 * HTML 'widgets' advertising requests can be displayed on other sites in iframes.
   If 'ENABLE_WIDGETS' is set to true in `general.yml` (the default is false), a link
   to the widget code will appear in the right hand sidebar of a request page.
+* Capistrano now caches themes (Henare Degan).
+
+## Upgrade Notes
+
+* Capistrano now caches themes in `shared/themes`. Run the `deploy:setup` task
+  to create the shared directory before making a new code deploy. 
 
 # Version 0.21
 
