@@ -5,7 +5,7 @@
         <%=
             image_tag "https://chart.googleapis.com/chart?chs=250x125&cht=gom&chd=t:#{@percentage}",
                       :size => "250x125",
-                      :alt => "#{@percentage}% of requests have been categorised",
+                      :alt => "A chart showing #{@percentage}% of requests have been categorised",
                       :title => "#{@percentage}% of requests have been categorised"
         %>
         <br><%=pluralize(@missing, 'request')%> left to categorise / <%=@total %> total
