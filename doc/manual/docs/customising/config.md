@@ -90,6 +90,14 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <br> <code><a href="#forward_nonbounce_responses_to">FORWARD_NONBOUNCE_RESPONSES_TO</a></code>
 <br> <code><a href="#mta_log_path">MTA_LOG_PATH</a></code>
 <br> <code><a href="#mta_log_type">MTA_LOG_TYPE</a></code>
+<br> <code><a href="#production_mailer_delivery_method">PRODUCTION_MAILER_DELIVERY_METHOD</a></code>
+<br> <code><a href="#smtp_mailer_address">SMTP_MAILER_ADDRESS</a></code>
+<br> <code><a href="#smtp_mailer_port">SMTP_MAILER_PORT</a></code>
+<br> <code><a href="#smtp_mailer_domain">SMTP_MAILER_DOMAIN</a></code>
+<br> <code><a href="#smtp_mailer_user_name">SMTP_MAILER_USER_NAME</a></code>
+<br> <code><a href="#smtp_mailer_password">SMTP_MAILER_PASSWORD</a></code>
+<br> <code><a href="#smtp_mailer_authentication">SMTP_MAILER_AUTHENTICATION</a></code>
+<br> <code><a href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a></code>
 
 ### General admin (keys, paths, back-end services):
 
@@ -742,6 +750,156 @@ EXCEPTION_NOTIFICATIONS_TO:
       </ul>
     </div>
   </dd>
+
+  <dt>
+    <a name="production_mailer_delivery_method"><code>PRODUCTION_MAILER
+_DELIVERY_METHOD</code></a>
+  </dt>
+  <dd>
+      What delivery method is being
+      used for outgoing emails in production? The default value is
+      <code>sendmail</code>, but there is experimental support for <code>smtp</code>.
+      If you want to use an external SMTP server to send email, then you will
+also need to include SMTP configuration settings:
+<a
+href="#smtp_mailer_address">SMTP_MAILER_ADDRESS</a>, <a
+href="#smtp_mailer_port">SMTP_MAILER_PORT</a>, <a
+href="#smtp_mailer_domain">SMTP_MAILER_DOMAIN</a>, <a
+href="#smtp_mailer_user_name">SMTP_MAILER_USER_NAME</a>,       <a
+href="#smtp_mailer_password">SMTP_MAILER_PASSWORD</a>, <a
+href="#smtp_mailer_authentication">SMTP_MAILER_AUTHENTICATION</a> and <a
+href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>PRODUCTION_MAILER_DELIVERY_METHOD: "sendmail"</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <code><a name="smtp_mailer_address">SMTP_MAILER_ADDRESS</a></code>
+  </dt>
+  <dd>
+      Set this to <code>localhost</code> to use a local SMTP server, or the remote address of your
+      SMTP server. Only required if <a href="#production_mailer_delivery_method"><code>PRODUCTION_MAILER_DELIVERY_METHOD</code></a> is set to <code>smtp</code>.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>SMTP_MAILER_ADDRESS: "smtp.gmail.com"</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <code><a name="smtp_mailer_port">SMTP_MAILER_PORT</a></code>
+  </dt>
+  <dd>
+    On the off chance that your mail server doesn't run on port 25, you can change it. Only required if <a href="#production_mailer_delivery_method"><code>PRODUCTION_MAILER_DELIVERY_METHOD</code></a> is set to <code>smtp</code>.
+
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>SMTP_MAILER_PORT: 25</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <code><a name="smtp_mailer_domain">SMTP_MAILER_DOMAIN</a></code>
+  </dt>
+  <dd>
+    If you need to specify a HELO domain, you can do it here. Only required if <a href="#production_mailer_delivery_method"><code>PRODUCTION_MAILER_DELIVERY_METHOD</code></a> is set to <code>smtp</code>.
+
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>SMTP_MAILER_DOMAIN: gmail.com</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <code><a name="smtp_mailer_user_name">SMTP_MAILER_USER_NAME</a></code>
+  </dt>
+  <dd>
+    If your mail server requires authentication, set the username in this setting. Only required if <a href="#production_mailer_delivery_method"><code>PRODUCTION_MAILER_DELIVERY_METHOD</code></a> is set to <code>smtp</code>.
+
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>SMTP_MAILER_USER_NAME: alaveteli</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <code><a name="smtp_mailer_password">SMTP_MAILER_PASSWORD</a></code>
+  </dt>
+  <dd>
+    If your mail server requires authentication, set the password in this setting. Only required if <a href="#production_mailer_delivery_method"><code>PRODUCTION_MAILER_DELIVERY_METHOD</code></a> is set to <code>smtp</code>.
+
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>SMTP_MAILER_PASSWORD: supersecretpassword</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <code><a name="smtp_mailer_authentication">SMTP_MAILER_AUTHENTICATION</a></code>
+  </dt>
+  <dd>
+    If your mail server requires authentication, you need to specify the authentication type here. This is one of <code>plain</code>, <code>login</code>, <code>cram_md5</code>. Only required if <a href="#production_mailer_delivery_method"><code>PRODUCTION_MAILER_DELIVERY_METHOD</code></a> is set to <code>smtp</code>.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>SMTP_MAILER_AUTHENTICATION: plain</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <code><a name="smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a></code>
+  </dt>
+  <dd>
+   Set this to false if there is a problem with your server certificate that you cannot resolve. Only required if <a href="#production_mailer_delivery_method"><code>PRODUCTION_MAILER_DELIVERY_METHOD</code></a> is set to <code>smtp</code>.
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>SMTP_MAILER_ENABLE_STARTTLS_AUTO: true</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+
+
+
 
   <dt>
     <a name="cookie_store_session_secret"><code>COOKIE_STORE_SESSION_SECRET</code></a>
