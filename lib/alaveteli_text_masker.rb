@@ -51,7 +51,7 @@ module AlaveteliTextMasker
                     # compression, I don't see it's a disaster in
                     # these cases to save an uncompressed version?
                     recompressed_text = censored_uncompressed_text
-                    logger.warn "Unable to compress PDF; problem with your pdftk version?"
+                    Rails.logger.warn "Unable to compress PDF; problem with your pdftk version?"
                 end
                 if !recompressed_text.blank?
                     text.replace recompressed_text
