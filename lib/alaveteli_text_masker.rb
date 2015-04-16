@@ -64,7 +64,7 @@ module AlaveteliTextMasker
         else
             command = ["pdftk", "-", "output", "-", "compress"]
         end
-        AlaveteliExternalCommand.run(*(command + [{:stdin_string=>text}]))
+        AlaveteliExternalCommand.run(*(command + [ :stdin_string => text ]))
     end
 
     # Replace text in place
