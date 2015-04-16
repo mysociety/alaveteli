@@ -59,13 +59,12 @@ module AlaveteliTextMasker
     end
 
     def compress_pdf(censored_uncompressed_text)
-        recompressed_text = nil
         if AlaveteliConfiguration::use_ghostscript_compression == true
             command = ["gs", "-sDEVICE=pdfwrite", "-dCompatibilityLevel=1.4", "-dPDFSETTINGS=/screen", "-dNOPAUSE", "-dQUIET", "-dBATCH", "-sOutputFile=-", "-"]
         else
             command = ["pdftk", "-", "output", "-", "compress"]
         end
-        recompressed_text = AlaveteliExternalCommand.run(*(command + [{:stdin_string=>censored_uncompressed_text}]))
+        AlaveteliExternalCommand.run(*(command + [{:stdin_string=>censored_uncompressed_text}]))
     end
 
     # Replace text in place
