@@ -28,9 +28,7 @@ module AlaveteliTextMasker
     end
 
     def apply_pdf_masks!(text, options = {})
-        uncompressed_text = nil
-        uncompressed_text = AlaveteliExternalCommand.run("pdftk", "-", "output", "-", "uncompress",
-                                                         :stdin_string => text)
+        uncompressed_text = uncompress_pdf(text)
         # if we managed to uncompress the PDF...
         if !uncompressed_text.blank?
             # then censor stuff (making a copy so can compare again in a bit)
@@ -39,13 +37,7 @@ module AlaveteliTextMasker
             # if the censor rule removed something...
             if censored_uncompressed_text != uncompressed_text
                 # then use the altered file (recompressed)
-                recompressed_text = nil
-                if AlaveteliConfiguration::use_ghostscript_compression == true
-                    command = ["gs", "-sDEVICE=pdfwrite", "-dCompatibilityLevel=1.4", "-dPDFSETTINGS=/screen", "-dNOPAUSE", "-dQUIET", "-dBATCH", "-sOutputFile=-", "-"]
-                else
-                    command = ["pdftk", "-", "output", "-", "compress"]
-                end
-                recompressed_text = AlaveteliExternalCommand.run(*(command + [{:stdin_string=>censored_uncompressed_text}]))
+                recompressed_text = compress_pdf(censored_uncompressed_text)
                 if recompressed_text.blank?
                     # buggy versions of pdftk sometimes fail on
                     # compression, I don't see it's a disaster in
@@ -61,6 +53,20 @@ module AlaveteliTextMasker
     end
 
     private
+
+    def uncompress_pdf(text)
+        AlaveteliExternalCommand.run("pdftk", "-", "output", "-", "uncompress", :stdin_string => text)
+    end
+
+    def compress_pdf(censored_uncompressed_text)
+        recompressed_text = nil
+        if AlaveteliConfiguration::use_ghostscript_compression == true
+            command = ["gs", "-sDEVICE=pdfwrite", "-dCompatibilityLevel=1.4", "-dPDFSETTINGS=/screen", "-dNOPAUSE", "-dQUIET", "-dBATCH", "-sOutputFile=-", "-"]
+        else
+            command = ["pdftk", "-", "output", "-", "compress"]
+        end
+        recompressed_text = AlaveteliExternalCommand.run(*(command + [{:stdin_string=>censored_uncompressed_text}]))
+    end
 
     # Replace text in place
     def apply_binary_masks!(text, options = {})
