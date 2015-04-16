@@ -92,6 +92,23 @@ describe AlaveteliTextMasker do
             pdf.should_not == ""
         end
 
+        it 'should keep the uncensored original if uncompression of a PDF fails' do
+            orig_pdf = load_file_fixture('tfl.pdf')
+            pdf = orig_pdf.dup
+            stub!(:uncompress_pdf).and_return nil
+            apply_masks!(pdf, "application/pdf")
+            pdf.should == orig_pdf
+        end
+
+        it 'should use the uncompressed PDF text if re-compression of a compressed PDF fails' do
+            orig_pdf = load_file_fixture('tfl.pdf')
+            pdf = orig_pdf.dup
+            stub!(:uncompress_pdf).and_return "something about foi@tfl.gov.uk"
+            stub!(:compress_pdf).and_return nil
+            apply_masks!(pdf, "application/pdf")
+            pdf.should match "something about xxx@xxx.xxx.xx"
+        end
+
         it "should apply hard-coded privacy rules to HTML files" do
             data = "http://test.host/c/cheese"
             apply_masks!(data, 'text/html')
