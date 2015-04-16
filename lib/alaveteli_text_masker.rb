@@ -59,7 +59,7 @@ module AlaveteliTextMasker
     end
 
     def compress_pdf(text)
-        if AlaveteliConfiguration::use_ghostscript_compression == true
+        if AlaveteliConfiguration::use_ghostscript_compression
             command = ["gs", "-sDEVICE=pdfwrite", "-dCompatibilityLevel=1.4", "-dPDFSETTINGS=/screen", "-dNOPAUSE", "-dQUIET", "-dBATCH", "-sOutputFile=-", "-"]
         else
             command = ["pdftk", "-", "output", "-", "compress"]
