@@ -2,7 +2,12 @@
 
 <div id="game_sidebar">
     <p style="text-align: center">
-        <img width=250 height=125 src="http://chart.apis.google.com/chart?chs=250x125&cht=gom&chd=t:<%=@percentage%>" alt="<%=@percentage%>% of requests have been categorised">
+        <%=
+            image_tag "https://chart.googleapis.com/chart?chs=250x125&cht=gom&chd=t:#{@percentage}",
+                      :size => "250x125",
+                      :alt => "A chart showing #{@percentage}% of requests have been categorised",
+                      :title => "#{@percentage}% of requests have been categorised"
+        %>
         <br><%=pluralize(@missing, 'request')%> left to categorise / <%=@total %> total
     </p>
     <h2>Top recent players</h2>
