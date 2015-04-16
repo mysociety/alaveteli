@@ -904,21 +904,24 @@ public
 
     # Completely delete this request and all objects depending on it
     def fully_destroy
-        self.track_things.each do |track_thing|
+        track_things.each do |track_thing|
             track_thing.track_things_sent_emails.each { |a| a.destroy }
             track_thing.destroy
         end
-        self.user_info_request_sent_alerts.each { |a| a.destroy }
-        self.info_request_events.each do |info_request_event|
+        user_info_request_sent_alerts.each { |a| a.destroy }
+        info_request_events.each do |info_request_event|
             info_request_event.track_things_sent_emails.each { |a| a.destroy }
             info_request_event.destroy
         end
-        self.mail_server_logs.each do |mail_server_log|
+        mail_server_logs.each do |mail_server_log|
             mail_server_log.destroy
         end
-        self.outgoing_messages.each { |a| a.destroy }
-        self.incoming_messages.each { |a| a.destroy }
-        self.destroy
+        outgoing_messages.each { |a| a.destroy }
+        incoming_messages.each { |a| a.destroy }
+        comments.each { |comment| comment.destroy }
+        censor_rules.each{ |censor_rule| censor_rule.destroy }
+
+        destroy
     end
 
     # Called by incoming_email - and used to be called to generate separate
