@@ -72,7 +72,7 @@ sub vcl_recv {
     }
    
     # Ignore Cookies on images...
-    if (req.url ~ "\.(png|gif|jpg|jpeg|swf|css|js|rdf|ico|txt)(\?.*|)$") {
+    if (req.url ~ "\.(png|gif|jpg|jpeg|swf|css|js|rdf|ico)(\?.*|)$") {
         remove req.http.Cookie;
         return (lookup);
     }
