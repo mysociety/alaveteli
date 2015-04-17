@@ -54,4 +54,14 @@ Alaveteli::Application.configure do
       Bullet.add_footer = true
     end
   end
+
+  if AlaveteliConfiguration.use_rack_insight_in_development
+    config.middleware.insert_before ::WhatDoTheyKnow::StripEmptySessions,
+                                    Rack::Insight::App,
+                                    :secret_key => AlaveteliConfiguration.rack_insight_secret_key,
+                                    :database_path => AlaveteliConfiguration.rack_insight_database_path,
+                                    :password => nil,
+                                    :ip_masks => false
+  end
+
 end
