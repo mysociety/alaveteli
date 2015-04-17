@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-04-16 14:49+0000\n"
+"PO-Revision-Date: 2015-04-17 03:06+0000\n"
 "Last-Translator: jbaezni <jbaezni@gmail.com>\n"
 "Language-Team: Spanish (Nicaragua) (http://www.transifex.com/projects/p/alaveteli/language/es_NI/)\n"
 "Language: es_NI\n"
@@ -630,9 +630,7 @@ msgid "Clear photo"
 msgstr "Borrar foto"
 
 msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal\\nreview, asking them to find out why response to the request has been so slow."
-msgstr ""
-"Haz click en el siguiente enlace para mandar un mensaje a {{public_body_name}} pidiendo que respondan a tu solicitud. Puedes pedir una revisión\n"
-"interna, preguntándoles por qué se ha demorado tanto su respuesta."
+msgstr "Haz click en el siguiente enlace para mandar un mensaje a {{public_body_name}} pidiendo que respondan a tu solicitud. Puedes preguntar por tu solicitud."
 
 msgid "Click on the link below to send a message to {{public_body}} reminding them to reply to your request."
 msgstr "Haz click en el siguiente enlace para enviar un mensaje a {{public_body}} recordándoles que deben responder a tu solicitud."
@@ -858,7 +856,7 @@ msgid "Event {{id}}"
 msgstr "Evento {{id}}"
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n          will be <strong>displayed publicly</strong> on\\n          this website <a href=\"{{url}}\">forever</a>"
-msgstr "Todo lo que escribas en esta página, incluyendo <strong>tu nombre</strong>, estará <strong>disponible públicamente</strong> en está web para siempre (<a href=\"{{url}}\">¿por qué?</a>)."
+msgstr "Todo lo que escribas en esta página, incluyendo <strong>tu nombre</strong>, estará <strong>disponible públicamente</strong> en está web (<a href=\"{{url}}\">¿por qué?</a>)."
 
 msgid "Everything that you enter on this page\\n          will be <strong>displayed publicly</strong> on\\n          this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
@@ -1055,7 +1053,7 @@ msgid "From:"
 msgstr "De:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
-msgstr "DETALLA TU QUEJA AQUÍ"
+msgstr "DETALLA TU PREGUNTA AQUÍ"
 
 msgid "Got an account?"
 msgstr "¿Tienes una cuenta?"
@@ -1398,10 +1396,10 @@ msgstr ""
 "        radiación, materiales de desecho...)"
 
 msgid "Internal review request"
-msgstr "Solicitud de revisión interna"
+msgstr "Pregunta por tu solicitud de información"
 
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr "Solicitud de revisión interna enviada a {{public_body_name}} por {{info_request_user}} en {{date}}."
+msgstr "Pregunta por tu solicitud de información enviada a {{public_body_name}} por {{info_request_user}} en {{date}}."
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "¿Es {{email_address}} la dirección incorrecta para solicitudes {{type_of_request}} a {{public_body_name}}? Si es así, por favor contáctenos usando el siguiente formulario:"
@@ -1668,7 +1666,7 @@ msgid "Now preview your follow up"
 msgstr "Ahora revisa tu mensaje"
 
 msgid "Now preview your message asking for an internal review"
-msgstr "Ahora revisa tu mensaje pidiendo una revisión interna"
+msgstr "Ahora revisa tu mensaje donde preguntas por tu solicitud"
 
 msgid "Number of requests"
 msgstr "Cantidad de solicitudes"
@@ -1904,7 +1902,7 @@ msgid "Please enter your password"
 msgstr "Por favor, introduce tu contraseña"
 
 msgid "Please give details explaining why you want a review"
-msgstr "Por favor, explica por qué quiere una revisión"
+msgstr "Por favor, escribe tu pregunta"
 
 msgid "Please keep it shorter than 500 characters"
 msgstr "Por favor, limite tu mensaje a 500 carácteres"
@@ -3299,7 +3297,7 @@ msgid "Waiting clarification."
 msgstr "Esperando aclaración."
 
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
-msgstr "Esperando una <strong>revisión interna</strong> por parte de {{public_body_link}} de cómo han respondido a esta solicitud."
+msgstr "Esperando <strong>respuesta</strong> por parte de {{public_body_link}} de cómo han tramitado esta solicitud."
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
 msgstr "Esperando que la entidad informe cómo ha gestionado mi solicitud de información "
@@ -3667,7 +3665,7 @@ msgid "Your follow up message has been sent on its way."
 msgstr "Tu mensaje está en camino."
 
 msgid "Your internal review request has been sent on its way."
-msgstr "Tu solicitud de revisión interna está en camino."
+msgstr "Tu pregunta por tu solicitud de información está en camino."
 
 msgid "Your message has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Tu mensaje ha sido enviado. Gracias por escribir, nos pondremos en contacto contigo pronto."
