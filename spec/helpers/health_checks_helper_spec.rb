@@ -10,6 +10,11 @@ describe HealthChecksHelper do
             expect(check_status(check)).to include('red')
         end
 
+        it 'sets style to a blank string if ok' do
+            check = double(:message => '', :ok? => true)
+            expect(check_status(check)).to include('style=""')
+        end
+
     end
 
 end
