@@ -55,4 +55,12 @@ Alaveteli::Application.configure do
                                     :ip_masks => false
   end
 
+  if AlaveteliConfiguration.use_bullet_in_development
+    config.after_initialize do
+      Bullet.enable = true
+      Bullet.bullet_logger = true
+      Bullet.console = true
+      Bullet.add_footer = true
+    end
+  end
 end

@@ -686,6 +686,14 @@ USE_MAILCATCHER_IN_DEVELOPMENT: true
 # ---
 USE_RACK_INSIGHT_IN_DEVELOPMENT: false
 
+# Bullet is a tool to help to kill N+1 queries and unused eager loading
+# https://github.com/flyerhzm/bullet
+#
+# USE_BULLET_IN_DEVELOPMENT - Boolean (default: false)
+#
+# ---
+USE_BULLET_IN_DEVELOPMENT: false
+
 # Use memcached to cache HTML fragments for better performance. This will
 # only have an effect in environments where
 # config.action_controller.perform_caching is set to true
