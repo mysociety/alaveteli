@@ -60,6 +60,9 @@ GEM
     bootstrap-sass (2.3.1.2)
       sass (~> 3.2)
     builder (3.0.4)
+    bullet (4.14.6)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.9.0)
     capistrano (2.15.4)
       highline
       net-scp (>= 1.0.0)
@@ -285,6 +288,7 @@ GEM
       multi_json (~> 1.0, >= 1.0.2)
     unicode (0.4.4)
     unidecoder (1.1.2)
+    uniform_notifier (1.9.0)
     vpim (13.11.11)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
@@ -302,6 +306,7 @@ DEPENDENCIES
   acts_as_versioned!
   annotate (~> 2.5.0)
   bootstrap-sass (~> 2.3.1.2)
+  bullet (~> 4.14.6)
   capistrano (~> 2.15.4)
   charlock_holmes (~> 0.6.9.4)
   coffee-rails (~> 3.2.1)
