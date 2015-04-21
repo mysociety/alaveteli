@@ -13,7 +13,6 @@ describe "public_body/show" do
                          :publication_scheme => '',
                          :disclosure_log => '',
                          :calculated_home_page => '')
-        @pb.stub!(:override_request_email).and_return(nil)
         @pb.stub!(:is_requestable?).and_return(true)
         @pb.stub!(:special_not_requestable_reason?).and_return(false)
         @pb.stub!(:has_notes?).and_return(false)

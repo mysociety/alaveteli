@@ -577,17 +577,11 @@ class PublicBody < ActiveRecord::Base
         return self.request_email_domain
     end
 
-    # Returns nil if configuration variable not set
-    def override_request_email
-        e = AlaveteliConfiguration::override_all_public_body_request_emails
-        e if e != ""
-    end
-
     def request_email
-        if override_request_email
-            override_request_email
-        else
+        if AlaveteliConfiguration::override_all_public_body_request_emails.blank? || read_attribute(:request_email).blank?
             read_attribute(:request_email)
+        else
+            AlaveteliConfiguration::override_all_public_body_request_emails
         end
     end
 

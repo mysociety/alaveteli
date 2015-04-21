@@ -1237,6 +1237,33 @@ describe PublicBody do
 
     end
 
+    describe :request_email do
+        context "when the email is set" do
+            subject(:public_body) { FactoryGirl.create(:public_body, :request_email => "request@example.com") }
+
+            it "should return the set email address" do
+                expect(public_body.request_email).to eq("request@example.com")
+            end
+
+            it "should return a different email address when overridden in configuration" do
+                AlaveteliConfiguration.stub!(:override_all_public_body_request_emails).and_return("tester@example.com")
+                expect(public_body.request_email).to eq("tester@example.com")
+            end
+        end
+
+        context "when no email is set" do
+            subject(:public_body) { FactoryGirl.create(:public_body, :request_email => "") }
+
+            it "should return a blank email address" do
+                expect(public_body.request_email).to be_blank
+            end
+
+            it "should still return a blank email address when overridden in configuration" do
+                AlaveteliConfiguration.stub!(:override_all_public_body_request_emails).and_return("tester@example.com")
+                expect(public_body.request_email).to be_blank
+            end
+        end
+    end
 end
 
 describe PublicBody::Translation do
