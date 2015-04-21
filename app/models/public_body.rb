@@ -578,7 +578,7 @@ class PublicBody < ActiveRecord::Base
     end
 
     def request_email
-        if AlaveteliConfiguration::override_all_public_body_request_emails.blank?
+        if AlaveteliConfiguration::override_all_public_body_request_emails.blank? || read_attribute(:request_email).blank?
             read_attribute(:request_email)
         else
             AlaveteliConfiguration::override_all_public_body_request_emails

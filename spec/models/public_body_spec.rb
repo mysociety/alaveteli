@@ -1258,9 +1258,9 @@ describe PublicBody do
                 expect(public_body.request_email).to be_blank
             end
 
-            it "should return a different email address when overridden in configuration" do
+            it "should still return a blank email address when overridden in configuration" do
                 AlaveteliConfiguration.stub!(:override_all_public_body_request_emails).and_return("tester@example.com")
-                expect(public_body.request_email).to eq("tester@example.com")
+                expect(public_body.request_email).to be_blank
             end
         end
     end
