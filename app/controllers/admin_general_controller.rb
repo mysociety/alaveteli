@@ -23,8 +23,7 @@ class AdminGeneralController < AdminController
         @requires_admin_requests = InfoRequest.find_in_state('requires_admin')
         @error_message_requests = InfoRequest.find_in_state('error_message')
         @attention_requests = InfoRequest.find_in_state('attention_requested')
-        @blank_contacts = PublicBody.find(:all, :conditions => ["request_email = ''"],
-                                                :order => "updated_at")
+        @blank_contacts = PublicBody.where(:request_email => "").order(:updated_at)
         @old_unclassified = InfoRequest.find_old_unclassified(:limit => 20,
                                                               :conditions => ["prominence = 'normal'"])
         @holding_pen_messages = InfoRequest.holding_pen_request.incoming_messages
