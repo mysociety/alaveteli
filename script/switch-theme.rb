@@ -129,5 +129,5 @@ STDERR.puts """Switched to #{requested_theme}!
 You will need to:
   1. restart any development server you have running.
   2. run: bundle exec rake assets:clean
-  3. run: bundle exec rake assets:precompile
+  3. run: bundle exec rake assets:precompile (if running in production mode)
 """
