@@ -806,7 +806,7 @@ public
         if outgoing_messages.empty? # mainly for use with incomplete fixtures
             return ""
         end
-        excerpt = self.outgoing_messages[0].get_text_for_indexing
+        excerpt = self.outgoing_messages.first.get_text_for_indexing
         return excerpt
     end
 
