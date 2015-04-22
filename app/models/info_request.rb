@@ -1394,8 +1394,9 @@ public
             # this should only happen on Model.exists?() call. It can be safely ignored.
             # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/
         end
+
         # FOI or EIR?
-        if !self.public_body.nil? && self.public_body.eir_only?
+        if new_record? && public_body && public_body.eir_only?
             self.law_used = 'eir'
         end
     end

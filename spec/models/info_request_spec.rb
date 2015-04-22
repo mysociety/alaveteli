@@ -28,6 +28,26 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequest do
 
+    describe :new do
+
+        it 'sets the default law used' do
+            expect(InfoRequest.new().law_used).to eq('foi')
+        end
+
+        it 'sets the default law used if a body is eir-only' do
+            body = FactoryGirl.create(:public_body, :tag_string => 'eir_only')
+            expect(body.info_requests.build.law_used).to eq('eir')
+        end
+
+        it 'does not try to set the law used for existing requests' do
+            info_request = FactoryGirl.create(:info_request)
+            body = FactoryGirl.create(:public_body, :tag_string => 'eir_only')
+            info_request.update_attributes(:public_body_id => body.id)
+            InfoRequest.any_instance.should_not_receive(:law_used=).and_call_original
+            InfoRequest.find(info_request.id)
+        end
+    end
+
     describe :move_to_public_body do
 
         context 'with no options' do
@@ -117,7 +137,6 @@ describe InfoRequest do
           end
 
         end
-
     end
 
     describe 'when validating' do
@@ -134,7 +153,7 @@ describe InfoRequest do
             info_request.errors[:title].should be_empty
         end
 
-        it 'should not accept a summary with no ascii or unicode characters' do
+         it 'should not accept a summary with no ascii or unicode characters' do
             info_request = InfoRequest.new(:title => '55555')
             info_request.valid?
             info_request.errors[:title].should_not be_empty
