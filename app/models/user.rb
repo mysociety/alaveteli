@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
     has_one :profile_photo
     has_many :censor_rules, :order => 'created_at desc'
     has_many :info_request_batches, :order => 'created_at desc'
+    has_many :request_classifications
 
     validates_presence_of :email, :message => _("Please enter your email address")
     validates_presence_of :name, :message => _("Please enter your name")
