@@ -28,7 +28,7 @@ describe WidgetVote do
         end
 
         it 'is valid with a cookie and info request' do
-            widget_vote = FactoryGirl.create(:info_request).widget_votes.build(:cookie => 'x' * 20)
+            widget_vote = FactoryGirl.create(:widget_vote)
             widget_vote.should be_valid
         end
 
