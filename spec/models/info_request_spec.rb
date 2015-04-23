@@ -1221,6 +1221,7 @@ describe InfoRequest do
     describe InfoRequest, "when constructing a list of requests by query" do
 
         before(:each) do
+            load_raw_emails_data
             get_fixtures_xapian_index
         end
 
