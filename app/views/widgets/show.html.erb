@@ -8,9 +8,9 @@
         <div class="alaveteli-widget__title">
           <%= link_to @info_request.title, request_path(@info_request), :target => "_top" %>
         </div>
-        <div class="alaveteli-widget__status <%= @info_request.calculate_status %>">
+        <div class="alaveteli-widget__status <%= @status %>">
           <p class="alaveteli-widget__status__status-label">Status</p>
-          <%= status_description(@info_request) %>
+          <%= status_description(@info_request, @status) %>
         </div>
       </div>
       <div class="alaveteli-widget__people-count">

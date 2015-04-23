@@ -1,6 +1,5 @@
 module WidgetHelper
-    def status_description(info_request)
-        status = info_request.calculate_status
+    def status_description(info_request, status)
         case status
         when 'waiting_classification'
             _('Awaiting classification')

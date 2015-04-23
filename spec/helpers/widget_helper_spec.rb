@@ -4,27 +4,24 @@ describe WidgetHelper do
 
     include WidgetHelper
 
-    describe :status_description do 
-    	
-    	before do
-    		@info_request = FactoryGirl.build(:info_request)
-    	end
+    describe :status_description do
 
-    	it 'should return "Awaiting classification" for "waiting_classification' do
-    		@info_request.stub!(:calculate_status).and_return("waiting_classification")
-    		expect(status_description(@info_request)).to eq('Awaiting classification')
-    	end
+        before do
+            @info_request = FactoryGirl.build(:info_request)
+        end
 
-    	it 'should call theme_display_status for a theme status' do
-    		@info_request.stub!(:calculate_status).and_return("special_status")
-    		@info_request.stub!(:theme_display_status).and_return("Special status")
-    		expect(status_description(@info_request)).to eq('Special status')
-    	end	
+        it 'should return "Awaiting classification" for "waiting_classification' do
+            expect(status_description(@info_request, 'waiting_classification')).to eq('Awaiting classification')
+        end
 
-    	it 'should return unknown for an unknown status' do 
-    		@info_request.stub!(:calculate_status).and_return("special_status")
-    		expect(status_description(@info_request)).to eq('Unknown')
-    	end
+        it 'should call theme_display_status for a theme status' do
+            @info_request.stub!(:theme_display_status).and_return("Special status")
+            expect(status_description(@info_request, 'special_status')).to eq('Special status')
+        end
+
+        it 'should return unknown for an unknown status' do
+            expect(status_description(@info_request, 'special_status')).to eq('Unknown')
+        end
 
     end
 
