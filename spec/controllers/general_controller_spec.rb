@@ -169,7 +169,6 @@ describe GeneralController, "when showing the frontpage" do
         it 'should end a logged-in session whose ttl has expired' do
             session[:ttl] = Time.now - 4.hours
             get :frontpage
-            response.should redirect_to signin_path
             session[:user_id].should be_nil
         end
 

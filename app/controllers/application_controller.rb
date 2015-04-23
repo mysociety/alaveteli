@@ -132,7 +132,6 @@ class ApplicationController < ActionController::Base
     def validate_session_timestamp
         if session[:user_id] && session.key?(:ttl) && session[:ttl] < SESSION_TTL.ago
             clear_session_credentials
-            redirect_to signin_path
         end
     end
 
