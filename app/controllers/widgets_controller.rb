@@ -15,6 +15,7 @@ class WidgetsController < ApplicationController
         medium_cache
         @track_thing = TrackThing.create_track_for_request(@info_request)
         @status = @info_request.calculate_status
+        @count = @info_request.track_things.count + @info_request.widget_votes.count + 1
         unless @user or cookies[:widget_vote]
           cookies.permanent[:widget_vote] = SecureRandom.hex(10)
         end
