@@ -19,18 +19,13 @@
     </div>
 
 
-    <%
-      if @user
-        existing_track = TrackThing.find_existing(@user, @track_thing)
-      end
-    %>
     <div class="alaveteli-widget__bottom">
       <% if @info_request.user && @info_request.user == @user %>
         <div class="alaveteli-widget__button alaveteli-widget__button--down">
           <%= _('This is your request') %>
         </div>
-      <% elsif existing_track %>
-        <a href="<%= url_for :controller => 'track', :action => 'update', :track_id => existing_track.id, :track_medium => "delete", :r => request.fullpath %>">
+      <% elsif @existing_track %>
+        <a href="<%= url_for :controller => 'track', :action => 'update', :track_id => @existing_track.id, :track_medium => "delete", :r => request.fullpath %>">
           <div class="alaveteli-widget__button--down">
             <%= _('You are tracking this request') %>
           </div>
