@@ -803,11 +803,20 @@ public
 
     # Text from the the initial request, for use in summary display
     def initial_request_text
-        if outgoing_messages.empty? # mainly for use with incomplete fixtures
-            return ""
-        end
-        excerpt = self.outgoing_messages[0].get_text_for_indexing
-        return excerpt
+        message = outgoing_messages.first
+        return nil if message.nil?
+
+        text = message.raw_body.strip
+        text.gsub!(/(?:\n\s*){2,}/, "\n\n") # remove excess linebreaks that unnecessarily space it out
+
+        # Remove things from censor rules
+        text = apply_censor_rules_to_text!(text)
+
+        # Remove salutation
+        text.sub!(/Dear .+,/, "")
+
+        # Remove email addresses from display/index etc.
+        remove_privacy_sensitive_things(text)
     end
 
     # Returns index of last event which is described or nil if none described.
@@ -1362,6 +1371,11 @@ public
     end
 
     private
+
+    # We hide emails from display in outgoing messages.
+    def remove_privacy_sensitive_things(text)
+        text.gsub(MySociety::Validate.email_find_regexp, "[email address]")
+    end
 
     def set_defaults
         begin
