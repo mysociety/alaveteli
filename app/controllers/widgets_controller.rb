@@ -32,7 +32,7 @@ class WidgetsController < ApplicationController
 
     # Track interest in a request from a non-logged in user
     def update
-        if not @user and cookies[:widget_vote]
+        if !@user && cookies[:widget_vote]
             @info_request.widget_votes.
                 where(:cookie => cookies[:widget_vote]).
                     first_or_create
