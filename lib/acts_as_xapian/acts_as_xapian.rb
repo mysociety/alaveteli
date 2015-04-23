@@ -487,46 +487,48 @@ module ActsAsXapian
         # date ranges or similar. Use this for cheap highlighting with
         # TextHelper::highlight, and excerpt.
         def words_to_highlight(opts = {})
-          default_opts = { :include_original => false, :regex => false }
-          opts = default_opts.merge(opts)
+            default_opts = { :include_original => false, :regex => false }
+            opts = default_opts.merge(opts)
 
-          # Reject all prefixes other than Z, which we know is reserved for stems
-          terms = query.terms.reject { |t| t.term.first.match(/^[A-Y]$/) }
-          # Collect the stems including the Z prefix
-          raw_stems = terms.map { |t| t.term if t.term.start_with?('Z') }.compact.uniq.sort
-          # Collect stems, chopping the Z prefix off
-          stems = raw_stems.map { |t| t[1..-1] }.compact.sort
-          # Collect the non-stem terms
-          words = terms.map { |t| t.term unless t.term.start_with?('Z') }.compact.sort
+            # Reject all prefixes other than Z, which we know is reserved for stems
+            terms = query.terms.reject { |t| t.term.first.match(/^[A-Y]$/) }
+            # Collect the stems including the Z prefix
+            raw_stems = terms.map { |t| t.term if t.term.start_with?('Z') }.compact.uniq.sort
+            # Collect stems, chopping the Z prefix off
+            stems = raw_stems.map { |t| t[1..-1] }.compact.sort
+            # Collect the non-stem terms
+            words = terms.map { |t| t.term unless t.term.start_with?('Z') }.compact.sort
 
-          # Add the unstemmed words from the original query
-          # Sometimes stems can be unhelpful with the :regex option, for example
-          # stemming 'boring' results in us trying to highlight 'bore'.
-          if opts[:include_original]
-            raw_stems.each do |raw_stem|
-              words << ActsAsXapian.query_parser.unstem(raw_stem).uniq
+            # Add the unstemmed words from the original query
+            # Sometimes stems can be unhelpful with the :regex option, for example
+            # stemming 'boring' results in us trying to highlight 'bore'.
+            if opts[:include_original]
+                raw_stems.each do |raw_stem|
+                    words << ActsAsXapian.query_parser.unstem(raw_stem).uniq
+                end
+
+                words = words.any? ? words.flatten.uniq : []
             end
 
-            words = words.any? ? words.flatten.uniq : []
-          end
+            if opts[:regex]
+                stems.map! { |w| /\b(#{ correctly_encode(w) })\w*\b/iu }
+                words.map! { |w| /\b(#{ correctly_encode(w) })\b/iu }
+            end
 
-          if opts[:regex]
-            stems.map! { |w| /\b(#{ w })\w*\b/iu }
-            words.map! { |w| /\b(#{ w })\b/iu }
-          end
-
-          if RUBY_VERSION.to_f >= 1.9
-              (stems + words).map! do |term|
-                  term.is_a?(String) ? term.force_encoding('UTF-8') : term
-              end
-          else
-              stems + words
-          end
+            (stems + words).map! do |term|
+                term.is_a?(String) ? correctly_encode(term) : term
+            end
         end
 
         # Text for lines in log file
         def log_description
             "Search: " + self.query_string
+        end
+
+        private
+
+        def correctly_encode(w)
+            RUBY_VERSION.to_f >= 1.9 ? w.force_encoding('UTF-8') : w
         end
 
     end

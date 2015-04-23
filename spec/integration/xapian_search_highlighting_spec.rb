@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe 'highlighting search results' do
@@ -38,6 +40,15 @@ describe 'highlighting search results' do
         matches = search.words_to_highlight(:regex => true, :include_original => true)
 
         highlight_matches(phrase, matches).should == '<mark>boring</mark>'
+    end
+
+    it 'handles macrons correctly' do
+        phrase = 'Māori'
+
+        search = ActsAsXapian::Search.new([PublicBody], phrase, :limit => 1)
+        matches = search.words_to_highlight(:regex => true, :include_original => true)
+
+        highlight_matches(phrase, matches).should == '<mark>Māori</mark>'
     end
 
 end
