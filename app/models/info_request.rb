@@ -804,7 +804,7 @@ public
     # Text from the the initial request, for use in summary display
     def initial_request_text
         message = outgoing_messages.first
-        return nil if message.nil?
+        return '' if message.nil?
 
         text = message.raw_body.strip
         text.gsub!(/(?:\n\s*){2,}/, "\n\n") # remove excess linebreaks that unnecessarily space it out
