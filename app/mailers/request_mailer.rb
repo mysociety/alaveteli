@@ -64,7 +64,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => user.name_and_email,
              :to => contact_from_name_and_email,
-             :subject => _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title).html_safe)
+             :subject => _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title.html_safe))
     end
 
     # Tell the requester that a new response has arrived

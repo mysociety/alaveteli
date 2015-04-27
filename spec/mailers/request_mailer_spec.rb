@@ -423,7 +423,7 @@ describe RequestMailer, 'requires_admin' do
                                 :name => 'Bruce Jones')
         @info_request = mock_model(InfoRequest, :user => user,
                                                 :described_state => 'error_message',
-                                                :title => 'Test request',
+                                                :title => "It's a Test request",
                                                 :url_title => 'test_request',
                                                 :law_used_short => 'FOI',
                                                 :id => 123)
@@ -439,4 +439,7 @@ describe RequestMailer, 'requires_admin' do
         mail.body.should include 'Something has gone wrong'
     end
 
+    it 'should not create HTML entities in the subject line' do
+        expect(RequestMailer.requires_admin(@info_request).subject).to eq "FOI response requires admin (error_message) - It's a Test request"
+    end
 end
