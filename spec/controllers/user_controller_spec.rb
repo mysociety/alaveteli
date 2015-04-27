@@ -76,12 +76,9 @@ describe UserController, "when redirecting a show request to a canonical url" do
   end
 
   it 'should not redirect a long canonical name that has a numerical suffix' do
-    allow(User).to receive(:find).with(:first, anything).and_return(mock_model(User,
-                                                                   :url_name => 'bob_smithbob_smithbob_smithbob_s_2',
-                                                                   :name => 'Bob Smith Bob Smith Bob Smith Bob Smith',
-                                                                   :info_requests => []))
-    allow(User).to receive(:find).with(:all, anything).and_return([])
-    get :show, :url_name => 'bob_smithbob_smithbob_smithbob_s_2'
+    user = FactoryGirl.create(:user, :name => 'Bob Smith Bob Smith Bob Smith Bob Smith')
+    second_user = FactoryGirl.create(:user, :name => 'Bob Smith Bob Smith Bob Smith Bob Smith')
+    get :show, :url_name => 'bob_smith_bob_smith_bob_smith_bo_2'
     expect(response).to be_success
   end
 
