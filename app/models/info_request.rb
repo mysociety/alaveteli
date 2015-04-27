@@ -803,11 +803,8 @@ public
 
     # Text from the the initial request, for use in summary display
     def initial_request_text
-        if outgoing_messages.empty? # mainly for use with incomplete fixtures
-            return ""
-        end
-        excerpt = self.outgoing_messages[0].get_text_for_indexing
-        return excerpt
+        return '' if outgoing_messages.empty? # mainly for use with incomplete fixtures
+        outgoing_messages.first.get_text_for_indexing
     end
 
     # Returns index of last event which is described or nil if none described.
