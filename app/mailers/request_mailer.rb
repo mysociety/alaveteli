@@ -209,7 +209,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
-             :subject => (_("Some notes have been added to your FOI request - ") + info_request.title).html_safe)
+             :subject => _("Some notes have been added to your FOI request - ") + info_request.title.html_safe)
     end
 
     # Class function, called by script/mailin with all incoming responses.

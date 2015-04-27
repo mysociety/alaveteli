@@ -471,3 +471,10 @@ describe RequestMailer, "comment_on_alert" do
         expect(mail.subject).to eq "Somebody added a note to your FOI request - Here's a request"
     end
 end
+
+describe RequestMailer, "comment_on_alert_plural" do
+    it 'should not create HTML entities in the subject line' do
+        mail = RequestMailer.comment_on_alert_plural(FactoryGirl.create(:info_request, :title => "Here's a request"), 2, FactoryGirl.create(:comment))
+        expect(mail.subject).to eq "Some notes have been added to your FOI request - Here's a request"
+    end
+end
