@@ -64,7 +64,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => user.name_and_email,
              :to => contact_from_name_and_email,
-             :subject => _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title).html_safe)
+             :subject => _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title.html_safe))
     end
 
     # Tell the requester that a new response has arrived
@@ -80,7 +80,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
-             :subject => (_("New response to your FOI request - ") + info_request.title).html_safe,
+             :subject => _("New response to your FOI request - ") + info_request.title.html_safe,
              :charset => "UTF-8",
              # not much we can do if the user's email is broken
              :reply_to => contact_from_name_and_email)
@@ -105,7 +105,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => user.name_and_email,
-             :subject => (_("Delayed response to your FOI request - ") + info_request.title).html_safe)
+             :subject => _("Delayed response to your FOI request - ") + info_request.title.html_safe)
     end
 
     # Tell the requester that the public body is very late in replying
@@ -125,7 +125,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => user.name_and_email,
-             :subject => (_("You're long overdue a response to your FOI request - ") + info_request.title).html_safe)
+             :subject => _("You're long overdue a response to your FOI request - ") + info_request.title.html_safe)
     end
 
     # Tell the requester that they need to say if the new response
@@ -183,7 +183,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
-             :subject => (_("Clarify your FOI request - ") + info_request.title).html_safe)
+             :subject => _("Clarify your FOI request - ") + info_request.title.html_safe)
     end
 
     # Tell requester that somebody add an annotation to their request
@@ -197,7 +197,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
-             :subject => (_("Somebody added a note to your FOI request - ") + info_request.title).html_safe)
+             :subject => _("Somebody added a note to your FOI request - ") + info_request.title.html_safe)
     end
     def comment_on_alert_plural(info_request, count, earliest_unalerted_comment)
         @count, @info_request = count, info_request
@@ -209,7 +209,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
-             :subject => (_("Some notes have been added to your FOI request - ") + info_request.title).html_safe)
+             :subject => _("Some notes have been added to your FOI request - ") + info_request.title.html_safe)
     end
 
     # Class function, called by script/mailin with all incoming responses.
