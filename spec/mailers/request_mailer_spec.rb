@@ -450,3 +450,10 @@ describe RequestMailer, "overdue_alert" do
         expect(mail.subject).to eq "Delayed response to your FOI request - Here's a request"
     end
 end
+
+describe RequestMailer, "very_overdue_alert" do
+    it 'should not create HTML entities in the subject line' do
+        mail = RequestMailer.very_overdue_alert(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:user))
+        expect(mail.subject).to eq "You're long overdue a response to your FOI request - Here's a request"
+    end
+end

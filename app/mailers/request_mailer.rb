@@ -125,7 +125,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => user.name_and_email,
-             :subject => (_("You're long overdue a response to your FOI request - ") + info_request.title).html_safe)
+             :subject => _("You're long overdue a response to your FOI request - ") + info_request.title.html_safe)
     end
 
     # Tell the requester that they need to say if the new response
