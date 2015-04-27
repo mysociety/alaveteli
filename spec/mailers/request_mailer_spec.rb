@@ -1,6 +1,8 @@
 # encoding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+# TODO: Combine all these separate "describe" blocks to tidy things up
+
 describe RequestMailer, " when receiving incoming mail" do
     before(:each) do
         load_raw_emails_data
