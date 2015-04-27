@@ -80,7 +80,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
-             :subject => (_("New response to your FOI request - ") + info_request.title).html_safe,
+             :subject => _("New response to your FOI request - ") + info_request.title.html_safe,
              :charset => "UTF-8",
              # not much we can do if the user's email is broken
              :reply_to => contact_from_name_and_email)

@@ -411,6 +411,10 @@ describe RequestMailer, 'when sending a new response email' do
     @mail = RequestMailer.new_response(@info_request, @incoming_message)
   end
 
+  it 'should not create HTML entities in the subject line' do
+    mail = RequestMailer.new_response(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:incoming_message))
+    expect(mail.subject).to eq "New response to your FOI request - Here's a request"
+  end
 end
 
 describe RequestMailer, 'requires_admin' do
