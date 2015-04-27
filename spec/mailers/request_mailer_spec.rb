@@ -464,3 +464,10 @@ describe RequestMailer, "not_clarified_alert" do
         expect(mail.subject).to eq "Clarify your FOI request - Here's a request"
     end
 end
+
+describe RequestMailer, "comment_on_alert" do
+    it 'should not create HTML entities in the subject line' do
+        mail = RequestMailer.comment_on_alert(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:comment))
+        expect(mail.subject).to eq "Somebody added a note to your FOI request - Here's a request"
+    end
+end
