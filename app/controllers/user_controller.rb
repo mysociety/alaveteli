@@ -13,29 +13,20 @@ class UserController < ApplicationController
     # Show page about a user
     def show
         long_cache
-        if MySociety::Format.simplify_url_part(params[:url_name], 'user') != params[:url_name]
+
+        unless MySociety::Format.simplify_url_part(params[:url_name], 'user') == params[:url_name]
             redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'user'), :status => :moved_permanently
             return
         end
-        if params[:view].nil?
-            @show_requests = true
-            @show_profile = true
-            @show_batches = false
-        elsif params[:view] == 'profile'
-            @show_profile = true
-            @show_requests = false
-            @show_batches = false
-        elsif params[:view] == 'requests'
-            @show_profile = false
-            @show_requests = true
-            @show_batches = true
-        end
 
-        @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
-        if not @display_user
-            raise ActiveRecord::RecordNotFound.new("user not found, url_name=" + params[:url_name])
-        end
-        @same_name_users = User.find(:all, :conditions => [ "name ilike ? and email_confirmed = ? and id <> ?", @display_user.name, true, @display_user.id ], :order => "created_at")
+        set_view_instance_variables
+
+        # Rails 4 syntax would be: User.find_by(url_name: url_name, email_confirmed: true)
+        @display_user = User.find_by_url_name_and_email_confirmed(url_name, true)
+        raise ActiveRecord::RecordNotFound.new('User not found, url_name=' + params[:url_name]) unless @display_user
+
+        @same_name_users = User.where('name ilike ? and email_confirmed = ? and id <> ?',
+                                      @display_user.name, true, @display_user.id).order(:created_at)
 
         @is_you = !@user.nil? && @user.id == @display_user.id
 
@@ -613,6 +604,22 @@ class UserController < ApplicationController
     end
 
     private
+
+    def set_view_instance_variables
+        if params[:view].nil?
+            @show_requests = true
+            @show_profile = true
+            @show_batches = false
+        elsif params[:view] == 'profile'
+            @show_profile = true
+            @show_requests = false
+            @show_batches = false
+        elsif params[:view] == 'requests'
+            @show_profile = false
+            @show_requests = true
+            @show_batches = true
+        end
+    end
 
     def user_params(key = :user)
         params[key].slice(:name, :email, :password, :password_confirmation)
