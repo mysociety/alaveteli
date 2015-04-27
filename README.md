@@ -60,3 +60,11 @@ If you want to contribute an enhancement or a fix:
 Looking for the latest stable release? It's on the
 [master branch](https://github.com/mysociety/alaveteli/tree/master).
 
+We have some more notes for developers [on the project site](http://alaveteli.org/docs/developers/).
+
+## Examples
+
+* [WhatDoTheyKnow](https://www.whatdotheyknow.com)
+* [KiMitTud](http://kimittud.atlatszo.hu)
+* [Informace Pro Všechny](http://www.infoprovsechny.cz)
+* [fyi.org.nz](https://fyi.org.nz)
