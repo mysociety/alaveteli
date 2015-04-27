@@ -165,6 +165,11 @@ class User < ActiveRecord::Base
     return true
   end
 
+  def self.find_similar_named_users(user)
+    User.where('name ilike ? and email_confirmed = ? and id <> ?',
+                user.name, true, user.id).order(:created_at)
+  end
+
   def created_at_numeric
     # format it here as no datetime support in Xapian's value ranges
     created_at.strftime("%Y%m%d%H%M%S")
