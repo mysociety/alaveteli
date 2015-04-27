@@ -9,6 +9,9 @@
 ._*
 .DS_Store
 .autotest
+.ruby-version
+.rbenv-version
+.rvmrc
 *#*#
 TAGS
 /lib/themes
