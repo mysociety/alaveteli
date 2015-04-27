@@ -183,7 +183,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
-             :subject => (_("Clarify your FOI request - ") + info_request.title).html_safe)
+             :subject => _("Clarify your FOI request - ") + info_request.title.html_safe)
     end
 
     # Tell requester that somebody add an annotation to their request
