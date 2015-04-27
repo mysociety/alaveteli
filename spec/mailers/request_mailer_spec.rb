@@ -443,3 +443,10 @@ describe RequestMailer, 'requires_admin' do
         expect(RequestMailer.requires_admin(@info_request).subject).to eq "FOI response requires admin (error_message) - It's a Test request"
     end
 end
+
+describe RequestMailer, "overdue_alert" do
+    it 'should not create HTML entities in the subject line' do
+        mail = RequestMailer.overdue_alert(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:user))
+        expect(mail.subject).to eq "Delayed response to your FOI request - Here's a request"
+    end
+end

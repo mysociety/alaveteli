@@ -105,7 +105,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => user.name_and_email,
-             :subject => (_("Delayed response to your FOI request - ") + info_request.title).html_safe)
+             :subject => _("Delayed response to your FOI request - ") + info_request.title.html_safe)
     end
 
     # Tell the requester that the public body is very late in replying
