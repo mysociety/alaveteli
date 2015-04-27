@@ -13,22 +13,20 @@ class UserController < ApplicationController
     # Show page about a user
     def show
         long_cache
+        set_view_instance_variables
 
         unless MySociety::Format.simplify_url_part(params[:url_name], 'user') == params[:url_name]
             redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'user'), :status => :moved_permanently
             return
         end
 
-        set_view_instance_variables
-
         # Rails 4 syntax would be: User.find_by(url_name: url_name, email_confirmed: true)
-        @display_user = User.find_by_url_name_and_email_confirmed(url_name, true)
+        @display_user = User.find_by_url_name_and_email_confirmed(params[:url_name], true)
         raise ActiveRecord::RecordNotFound.new('User not found, url_name=' + params[:url_name]) unless @display_user
 
-        @same_name_users = User.where('name ilike ? and email_confirmed = ? and id <> ?',
-                                      @display_user.name, true, @display_user.id).order(:created_at)
+        @same_name_users = User.find_similar_named_users(@display_user)
 
-        @is_you = !@user.nil? && @user.id == @display_user.id
+        @is_you = @user.try(:id) == @display_user.id
 
         # Use search query for this so can collapse and paginate easily
         # TODO: really should just use SQL query here rather than Xapian.
