@@ -57,4 +57,12 @@ $(document).ready(function() {
      $('#everypage').hide();
    }
 
+  // "Create widget" page
+  $("#widgetbox").select()
+  // Chrome workaround
+  $("widgetbox").mouseup(function() {
+    // Prevent further mouseup intervention
+    $this.unbind("mouseup");
+    return false;
+  });
 })

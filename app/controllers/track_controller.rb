@@ -214,6 +214,4 @@ class TrackController < ApplicationController
         redirect_to URI.parse(params[:r]).path
     end
 
-
 end
-

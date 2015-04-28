@@ -802,3 +802,11 @@ RESPONSIVE_STYLING: true
 # ---
 PRODUCTION_MAILER_DELIVERY_METHOD: sendmail
 
+# If ENABLE_WIDGETS is set to true, Alaveteli will allow the embedding of a
+# 'widget' linking to a request on other sites. This widget will record
+# how many people click on an 'I also want to know' button.
+#
+# ENABLE_WIDGETS - Boolean (default: false)
+#
+# ---
+ENABLE_WIDGETS: false

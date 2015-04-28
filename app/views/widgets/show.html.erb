@@ -1,0 +1,48 @@
+<head>
+  <%= stylesheet_link_tag "widget" %>
+</head>
+<body>
+  <div class="alaveteli-widget">
+    <div class="alaveteli-widget__top">
+      <div class="alaveteli-widget__left">
+        <div class="alaveteli-widget__title">
+          <%= link_to @info_request.title, request_path(@info_request), :target => "_top" %>
+        </div>
+        <div class="alaveteli-widget__status <%= @status %>">
+          <p class="alaveteli-widget__status__status-label">Status</p>
+          <%= status_description(@info_request, @status) %>
+        </div>
+      </div>
+      <div class="alaveteli-widget__people-count">
+         <%= n_('<div class="alaveteli-widget__count">{{count}}</div> person wants to know', '<div class="alaveteli-widget__count">{{count}}</div> people want to know', @count, :count => @count) %>
+      </div>
+    </div>
+
+
+    <div class="alaveteli-widget__bottom">
+      <% if @info_request.user && @info_request.user == @user %>
+        <div class="alaveteli-widget__button alaveteli-widget__button--down">
+          <%= _('This is your request') %>
+        </div>
+      <% elsif @existing_track %>
+        <a href="<%= url_for :controller => 'track', :action => 'update', :track_id => @existing_track.id, :track_medium => "delete", :r => request.fullpath %>">
+          <div class="alaveteli-widget__button--down">
+            <%= _('You are tracking this request') %>
+          </div>
+        </a>
+      <% else %>
+        <% if @user %>
+          <a href="<%= url_for do_track_path(@track_thing) %>" target="_blank">
+            <div class="alaveteli-widget__button">
+              <%= _('I also want to know!') %>
+            </div>
+          </a>
+        <% else %>
+          <%= form_tag request_widget_url(@info_request), :method => 'put', :target => '_blank' do %>
+            <%= submit_tag _('I also want to know!'), :class => 'alaveteli-widget__button' %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</body>

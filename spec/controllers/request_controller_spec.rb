@@ -2764,4 +2764,3 @@ describe RequestController, "#select_authorities" do
     end
 
 end
-
