@@ -18,6 +18,38 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+describe OutgoingMessage do
+
+    describe :body do
+
+        it 'caches the body text' do
+            attrs = { :status => 'ready',
+                      :message_type => 'initial_request',
+                      :body => 'abc',
+                      :what_doing => 'normal_sort' }
+            message = FactoryGirl.create(:outgoing_message, attrs)
+            message.update_attribute(:body, 'xyz')
+            expect(message.body).to eq('abc')
+        end
+
+    end
+
+    describe :body! do
+
+        it 'reloads the body text' do
+            attrs = { :status => 'ready',
+                      :message_type => 'initial_request',
+                      :body => 'abc',
+                      :what_doing => 'normal_sort' }
+            message = FactoryGirl.create(:outgoing_message, attrs)
+            message.update_attribute(:body, 'xyz')
+            expect(message.body!).to eq('xyz')
+        end
+
+    end
+
+end
+
 describe OutgoingMessage, " when making an outgoing message" do
 
     before do
