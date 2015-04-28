@@ -43,7 +43,7 @@ start_daemon() {
 }
 
 stop_daemon() {
-    /sbin/start-stop-daemon --stop --oknodo --pidfile "$PIDFILE"
+    /sbin/start-stop-daemon --stop --oknodo --retry 5 --pidfile "$PIDFILE"
 }
 
 restart() { stop; start; }
