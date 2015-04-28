@@ -119,6 +119,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <br> <code><a href="#override_all_public_body_request_emails">OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS</a></code>
 <br> <code><a href="#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>
 <br> <code><a href="#public_body_list_fallback_to_default_locale">PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE</a></code>
+<br> <code><a href="#enable_widgets">ENABLE_WIDGETS</a></code>
 
 ### External public services:
 
@@ -1146,6 +1147,22 @@ SHARED_DIRECTORIES:
       <ul class="examples">
         <li>
             <code>PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="enable_widgets"><code>ENABLE_WIDGETS</code></a>
+  </dt>
+  <dd>
+     If you would like to give users the opportunity to insert HTML 'widgets' into their other websites, advertising the
+     requests they've made in Alaveteli, set this to true. A link to add a widget will appear in the sidebar of each request page. Users following the link can preview the widget for that request, and cut and paste the HTML to produce the widget into their own site.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>ENABLE_WIDGETS: false</code>
         </li>
       </ul>
     </div>
