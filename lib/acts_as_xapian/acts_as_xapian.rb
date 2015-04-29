@@ -189,19 +189,22 @@ module ActsAsXapian
             @@query_parser.add_boolean_prefix("model", "M")
             @@query_parser.add_boolean_prefix("modelid", "I")
             if options[:terms]
-              for term in options[:terms]
-                  raise "Use a single capital letter for term code" if not term[1].match(/^[A-Z]$/)
-                  raise "M and I are reserved for use as the model/id term" if term[1] == "M" or term[1] == "I"
-                  raise "model and modelid are reserved for use as the model/id prefixes" if term[2] == "model" or term[2] == "modelid"
-                  raise "Z is reserved for stemming terms" if term[1] == "Z"
-                  raise "Already have code '" + term[1] + "' in another model but with different prefix '" + @@terms_by_capital[term[1]] + "'" if @@terms_by_capital.include?(term[1]) && @@terms_by_capital[term[1]] != term[2]
-                  @@terms_by_capital[term[1]] = term[2]
-                  # TODO: use boolean here so doesn't stem our URL names in WhatDoTheyKnow
-                  # If making acts_as_xapian generic, would really need to make the :terms have
-                  # another option that lets people choose non-boolean for terms that need it
-                  # (i.e. searching explicitly within a free text field)
-                  @@query_parser.add_boolean_prefix(term[2], term[1])
-              end
+                options[:terms].each do |method, term_code, prefix|
+                    raise "Use a single capital letter for term code" if not term_code.match(/^[A-Z]$/)
+                    raise "M and I are reserved for use as the model/id term" if term_code == "M" || term_code == "I"
+                    raise "model and modelid are reserved for use as the model/id prefixes" if prefix == "model" || prefix == "modelid"
+                    raise "Z is reserved for stemming terms" if term_code == "Z"
+                    if @@terms_by_capital.include?(term_code) && @@terms_by_capital[term_code] != prefix
+                        raise "Already have code '#{term_code}' in another model but with different prefix " \
+                              "'#{@@terms_by_capital[term_code]}'"
+                    end
+                    @@terms_by_capital[term_code] = prefix
+                    # TODO: use boolean here so doesn't stem our URL names in WhatDoTheyKnow
+                    # If making acts_as_xapian generic, would really need to make the :terms have
+                    # another option that lets people choose non-boolean for terms that need it
+                    # (i.e. searching explicitly within a free text field)
+                    @@query_parser.add_boolean_prefix(prefix, term_code)
+                end
             end
             if options[:values]
               for value in options[:values]
