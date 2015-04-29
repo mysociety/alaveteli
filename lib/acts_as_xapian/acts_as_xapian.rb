@@ -623,7 +623,7 @@ module ActsAsXapian
             begin
                 ActiveRecord::Base.transaction do
                     begin
-                        job = ActsAsXapianJob.find(id, :lock =>true)
+                        job = ActsAsXapianJob.find(id, :lock => true)
                     rescue ActiveRecord::RecordNotFound => e
                         # This could happen if while we are working the model
                         # was updated a second time by another process. In that case
