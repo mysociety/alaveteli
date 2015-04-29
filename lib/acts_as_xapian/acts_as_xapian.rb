@@ -183,10 +183,7 @@ module ActsAsXapian
         @@values_by_prefix = {}
         @@value_ranges_store = []
 
-        for init_value_pair in @@init_values
-            classname = init_value_pair[0]
-            options = init_value_pair[1]
-
+        @@init_values.each do |classname, options|
             # go through the various field types, and tell query parser about them,
             # and error check them - i.e. check for consistency between models
             @@query_parser.add_boolean_prefix("model", "M")
