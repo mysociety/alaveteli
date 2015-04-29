@@ -618,8 +618,7 @@ module ActsAsXapian
             raise "aborting incremental index update while full index rebuild happens; found existing " + new_path
         end
 
-        ids_to_refresh = ActsAsXapianJob.find(:all).map() { |i| i.id }
-        for id in ids_to_refresh
+        ActsAsXapianJob.pluck(:id).each do |id|
             job = nil
             begin
                 ActiveRecord::Base.transaction do
