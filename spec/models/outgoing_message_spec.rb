@@ -18,6 +18,76 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+describe OutgoingMessage do
+
+    describe :initialize do
+
+        it 'does not censor the #body' do
+          attrs = { :status => 'ready',
+                    :message_type => 'initial_request',
+                    :body => 'abc',
+                    :what_doing => 'normal_sort' }
+
+          message = FactoryGirl.create(:outgoing_message, attrs)
+
+          OutgoingMessage.any_instance.should_not_receive(:body).and_call_original
+          OutgoingMessage.find(message.id)
+        end
+
+    end
+
+    describe :body do
+
+        it 'returns the body attribute' do
+            attrs = { :status => 'ready',
+                      :message_type => 'initial_request',
+                      :body => 'abc',
+                      :what_doing => 'normal_sort' }
+
+            message = FactoryGirl.build(:outgoing_message, attrs)
+            expect(message.body).to eq('abc')
+        end
+
+        it 'strips the body of leading and trailing whitespace' do
+            attrs = { :status => 'ready',
+                      :message_type => 'initial_request',
+                      :body => ' abc ',
+                      :what_doing => 'normal_sort' }
+
+            message = FactoryGirl.build(:outgoing_message, attrs)
+            expect(message.body).to eq('abc')
+        end
+
+        it 'removes excess linebreaks that unnecessarily space it out' do
+            attrs = { :status => 'ready',
+                      :message_type => 'initial_request',
+                      :body => "ab\n\nc\n\n",
+                      :what_doing => 'normal_sort' }
+
+            message = FactoryGirl.build(:outgoing_message, attrs)
+            expect(message.body).to eq("ab\n\nc")
+        end
+
+        it 'applies censor rules to the text' do
+            rules = [FactoryGirl.build(:censor_rule, :text => 'secret'),
+                     FactoryGirl.build(:censor_rule, :text => 'sensitive')]
+            InfoRequest.any_instance.stub(:censor_rules).and_return(rules)
+
+            attrs = { :status => 'ready',
+                      :message_type => 'initial_request',
+                      :body => 'This sensitive text contains secret info!',
+                      :what_doing => 'normal_sort' }
+
+            message = FactoryGirl.build(:outgoing_message, attrs)
+
+            expected = 'This [REDACTED] text contains [REDACTED] info!'
+            expect(message.body).to eq(expected)
+        end
+
+    end
+
+end
+
 describe OutgoingMessage, " when making an outgoing message" do
 
     before do
@@ -152,27 +222,6 @@ describe OutgoingMessage, " when making an outgoing message" do
             @outgoing_message.indexed_by_search?.should be_true
         end
 
-    end
-end
-
-
-describe OutgoingMessage, " when censoring data" do
-
-    before do
-        @om = outgoing_messages(:useless_outgoing_message)
-
-        @censor_rule = CensorRule.new()
-        @censor_rule.text = "dog"
-        @censor_rule.replacement = "cat"
-        @censor_rule.last_edit_editor = "unknown"
-        @censor_rule.last_edit_comment = "none"
-
-        @om.info_request.censor_rules << @censor_rule
-    end
-
-    it "should apply censor rules to outgoing messages" do
-        @om.read_attribute(:body).should match(/fancy dog/)
-        @om.body.should match(/fancy cat/)
     end
 end
 
