@@ -164,16 +164,13 @@ module ActsAsXapian
         @@query_parser.stemming_strategy = Xapian::QueryParser::STEM_SOME
         @@query_parser.database = @@db
         @@query_parser.default_op = Xapian::Query::OP_AND
-        begin
-            @@query_parser.set_max_wildcard_expansion(1000)
-        rescue NoMethodError
-            # The set_max_wildcard_expansion method was introduced in Xapian 1.2.7,
-            # so may legitimately not be available.
-            #
-            # Large installations of Alaveteli should consider
-            # upgrading, because uncontrolled wildcard expansion
-            # can crash the whole server: see http://trac.xapian.org/ticket/350
-        end
+        # The set_max_wildcard_expansion method was introduced in Xapian 1.2.7,
+        # so may legitimately not be available.
+        #
+        # Large installations of Alaveteli should consider
+        # upgrading, because uncontrolled wildcard expansion
+        # can crash the whole server: see http://trac.xapian.org/ticket/350
+        @@query_parser.set_max_wildcard_expansion(1000) if @@query_parser.respond_to? :set_max_wildcard_expansion
 
         @@stopper = Xapian::SimpleStopper.new
         @@stopper.add("and")
