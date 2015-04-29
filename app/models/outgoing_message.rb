@@ -141,21 +141,17 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     def body
-        ret = read_attribute(:body)
-        if ret.nil?
-            return ret
-        end
+        text = read_attribute(:body).dup
+        return text if text.nil?
 
-        ret = ret.dup
-        ret.strip!
-        ret.gsub!(/(?:\n\s*){2,}/, "\n\n") # remove excess linebreaks that unnecessarily space it out
+        text = clean_text(text)
 
         # Remove things from censor rules
         unless info_request.nil?
-            self.info_request.apply_censor_rules_to_text!(ret)
+            self.info_request.apply_censor_rules_to_text!(text)
         end
 
-        ret
+        text
     end
 
     def raw_body
@@ -331,6 +327,11 @@ class OutgoingMessage < ActiveRecord::Base
         if what_doing.nil? || !['new_information', 'internal_review', 'normal_sort'].include?(what_doing)
             errors.add(:what_doing_dummy, _('Please choose what sort of reply you are making.'))
         end
+    end
+
+    # remove excess linebreaks that unnecessarily space it out
+    def clean_text(text)
+        text.strip.gsub(/(?:\n\s*){2,}/, "\n\n")
     end
 end
 
