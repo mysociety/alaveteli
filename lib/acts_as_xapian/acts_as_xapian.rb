@@ -189,34 +189,36 @@ module ActsAsXapian
             @@query_parser.add_boolean_prefix("model", "M")
             @@query_parser.add_boolean_prefix("modelid", "I")
             init_terms(options[:terms]) if options[:terms]
-            if options[:values]
-              for value in options[:values]
-                  raise "Value index '"+value[1].to_s+"' must be an integer, is " + value[1].class.to_s if value[1].class != 1.class
-                  raise "Already have value index '" + value[1].to_s + "' in another model but with different prefix '" + @@values_by_number[value[1]].to_s + "'" if @@values_by_number.include?(value[1]) && @@values_by_number[value[1]] != value[2]
+            init_values(options[:values]) if options[:values]
+        end
+    end
 
-                  # date types are special, mark them so the first model they're seen for
-                  if !@@values_by_number.include?(value[1])
-                      if value[3] == :date
-                          value_range = Xapian::DateValueRangeProcessor.new(value[1])
-                      elsif value[3] == :string
-                          value_range = Xapian::StringValueRangeProcessor.new(value[1])
-                      elsif value[3] == :number
-                          value_range = Xapian::NumberValueRangeProcessor.new(value[1])
-                      else
-                          raise "Unknown value type '" + value[3].to_s + "'"
-                      end
+    def ActsAsXapian.init_values(values)
+        for value in options[:values]
+            raise "Value index '"+value[1].to_s+"' must be an integer, is " + value[1].class.to_s if value[1].class != 1.class
+            raise "Already have value index '" + value[1].to_s + "' in another model but with different prefix '" + @@values_by_number[value[1]].to_s + "'" if @@values_by_number.include?(value[1]) && @@values_by_number[value[1]] != value[2]
 
-                      @@query_parser.add_valuerangeprocessor(value_range)
+             # date types are special, mark them so the first model they're seen for
+            if !@@values_by_number.include?(value[1])
+                if value[3] == :date
+                    value_range = Xapian::DateValueRangeProcessor.new(value[1])
+                elsif value[3] == :string
+                    value_range = Xapian::StringValueRangeProcessor.new(value[1])
+                elsif value[3] == :number
+                    value_range = Xapian::NumberValueRangeProcessor.new(value[1])
+                else
+                    raise "Unknown value type '" + value[3].to_s + "'"
+                end
 
-                      # stop it being garbage collected, as
-                      # add_valuerangeprocessor ref is outside Ruby's GC
-                      @@value_ranges_store.push(value_range)
-                  end
+                @@query_parser.add_valuerangeprocessor(value_range)
 
-                  @@values_by_number[value[1]] = value[2]
-                  @@values_by_prefix[value[2]] = value[1]
-              end
+                # stop it being garbage collected, as
+                # add_valuerangeprocessor ref is outside Ruby's GC
+                @@value_ranges_store.push(value_range)
             end
+
+            @@values_by_number[value[1]] = value[2]
+            @@values_by_prefix[value[2]] = value[1]
         end
     end
 
