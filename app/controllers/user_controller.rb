@@ -9,16 +9,12 @@ require 'set'
 
 class UserController < ApplicationController
     layout :select_layout
+    before_filter :normalize_url_name, only: :show
 
     # Show page about a user
     def show
         long_cache
         set_view_instance_variables
-
-        unless MySociety::Format.simplify_url_part(params[:url_name], 'user') == params[:url_name]
-            redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'user'), :status => :moved_permanently
-            return
-        end
 
         # Rails 4 syntax would be: User.find_by(url_name: url_name, email_confirmed: true)
         @display_user = User.find_by_url_name_and_email_confirmed(params[:url_name], true)
@@ -602,6 +598,12 @@ class UserController < ApplicationController
     end
 
     private
+
+    def normalize_url_name
+        unless MySociety::Format.simplify_url_part(params[:url_name], 'user') == params[:url_name]
+            redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'user'), :status => :moved_permanently
+        end
+    end
 
     def set_view_instance_variables
         if params[:view].nil?
