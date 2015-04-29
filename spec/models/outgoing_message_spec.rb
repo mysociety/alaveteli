@@ -68,20 +68,37 @@ describe OutgoingMessage do
             expect(message.body).to eq("ab\n\nc")
         end
 
-        it 'applies censor rules to the text' do
-            rules = [FactoryGirl.build(:censor_rule, :text => 'secret'),
-                     FactoryGirl.build(:censor_rule, :text => 'sensitive')]
-            InfoRequest.any_instance.stub(:censor_rules).and_return(rules)
-
+        it "applies the associated request's censor rules to the text" do
             attrs = { :status => 'ready',
                       :message_type => 'initial_request',
                       :body => 'This sensitive text contains secret info!',
                       :what_doing => 'normal_sort' }
-
             message = FactoryGirl.build(:outgoing_message, attrs)
+
+            rules = [FactoryGirl.build(:censor_rule, :text => 'secret'),
+                     FactoryGirl.build(:censor_rule, :text => 'sensitive')]
+            InfoRequest.any_instance.stub(:censor_rules).and_return(rules)
 
             expected = 'This [REDACTED] text contains [REDACTED] info!'
             expect(message.body).to eq(expected)
+        end
+
+        it "applies the given censor rules to the text" do
+            attrs = { :status => 'ready',
+                      :message_type => 'initial_request',
+                      :body => 'This sensitive text contains secret info!',
+                      :what_doing => 'normal_sort' }
+            message = FactoryGirl.build(:outgoing_message, attrs)
+
+            request_rules = [FactoryGirl.build(:censor_rule, :text => 'secret'),
+                             FactoryGirl.build(:censor_rule, :text => 'sensitive')]
+            InfoRequest.any_instance.stub(:censor_rules).and_return(request_rules)
+
+            censor_rules = [FactoryGirl.build(:censor_rule, :text => 'text'),
+                            FactoryGirl.build(:censor_rule, :text => 'contains')]
+
+            expected = 'This sensitive [REDACTED] [REDACTED] secret info!'
+            expect(message.body(:censor_rules => censor_rules)).to eq(expected)
         end
 
     end
@@ -127,6 +144,7 @@ describe OutgoingMessage, " when making an outgoing message" do
         info_request = mock_model(InfoRequest, :public_body => public_body,
                                                :url_title => 'a_test_title',
                                                :title => 'A test title',
+                                               :applicable_censor_rules => [],
                                                :apply_censor_rules_to_text! => nil,
                                                :is_batch_request_template? => false)
         outgoing_message = OutgoingMessage.new({
