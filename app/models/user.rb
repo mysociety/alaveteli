@@ -304,13 +304,13 @@ class User < ActiveRecord::Base
 
     # Is it public that they are banned?
     def banned?
-      !ban_text.empty?
+        !ban_text.empty?
     end
 
     def public_banned?
-      warn %q([DEPRECATION] User#public_banned? will be replaced with
-              User#banned? as of 0.22).squish
-      banned?
+        warn %q([DEPRECATION] User#public_banned? will be replaced with
+                User#banned? as of 0.22).squish
+        banned?
     end
 
     # Various ways the user can be banned, and text to describe it if failed
