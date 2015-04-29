@@ -233,8 +233,12 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     # Returns text for indexing / text display
-    def get_text_for_indexing(strip_salutation = true)
-        text = body.strip
+    def get_text_for_indexing(strip_salutation = true, opts = {})
+        if opts.empty?
+            text = body.strip
+        else
+            text = body(opts).strip
+        end
 
         # Remove salutation
         text.sub!(/Dear .+,/, "") if strip_salutation
