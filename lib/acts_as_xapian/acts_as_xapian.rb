@@ -615,7 +615,7 @@ module ActsAsXapian
         # Abort if full rebuild is going on
         new_path = ActsAsXapian.db_path + ".new"
         if File.exist?(new_path)
-            raise "aborting incremental index update while full index rebuild happens; found existing " + new_path
+            raise "aborting incremental index update while full index rebuild happens; found existing #{new_path}"
         end
 
         ActsAsXapianJob.pluck(:id).each do |id|
