@@ -306,7 +306,7 @@ class User < ActiveRecord::Base
 
     # Is it public that they are banned?
     def banned?
-      !ban_text.empty?
+        !ban_text.empty?
     end
 
     # Various ways the user can be banned, and text to describe it if failed

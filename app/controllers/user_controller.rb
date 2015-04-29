@@ -9,6 +9,7 @@ require 'set'
 
 class UserController < ApplicationController
     layout :select_layout
+    # NOTE: Rails 4 syntax: change before_filter to before_action
     before_filter :normalize_url_name, only: :show
 
     # Show page about a user
@@ -16,7 +17,7 @@ class UserController < ApplicationController
         long_cache
         set_view_instance_variables
 
-        # Rails 4 syntax would be: User.find_by(url_name: url_name, email_confirmed: true)
+        # NOTE: Rails 4 syntax: User.find_by(url_name: url_name, email_confirmed: true)
         @display_user = User.find_by_url_name_and_email_confirmed(params[:url_name], true)
         raise ActiveRecord::RecordNotFound.new('User not found, url_name=' + params[:url_name]) unless @display_user
 
