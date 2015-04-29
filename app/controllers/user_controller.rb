@@ -27,40 +27,34 @@ class UserController < ApplicationController
         # Use search query for this so can collapse and paginate easily
         # TODO: really should just use SQL query here rather than Xapian.
         if @show_requests
-            begin
+            request_states = @display_user.info_requests.pluck(:described_state).uniq
 
-                request_states = @display_user.info_requests.pluck(:described_state).uniq
+            option_item = Struct.new(:value, :text)
+            @request_states = request_states.map do |state|
+              option_item.new(state, InfoRequest.get_status_description(state))
+            end
 
-                option_item = Struct.new(:value, :text)
-                @request_states = request_states.map do |state|
-                   option_item.new(state, InfoRequest.get_status_description(state))
-                end
+            requests_query = 'requested_by:' + @display_user.url_name
+            comments_query = 'commented_by:' + @display_user.url_name
+            if !params[:user_query].nil?
+              requests_query += " " + params[:user_query]
+              comments_query += " " + params[:user_query]
+              @match_phrase = _("{{search_results}} matching '{{query}}'", :search_results => "", :query => params[:user_query])
 
-                requests_query = 'requested_by:' + @display_user.url_name
-                comments_query = 'commented_by:' + @display_user.url_name
-                if !params[:user_query].nil?
-                    requests_query += " " + params[:user_query]
-                    comments_query += " " + params[:user_query]
-                    @match_phrase = _("{{search_results}} matching '{{query}}'", :search_results => "", :query => params[:user_query])
+              unless params[:request_latest_status].blank?
+                requests_query << ' latest_status:' << params[:request_latest_status]
+                comments_query << ' latest_status:' << params[:request_latest_status]
+                @match_phrase << _(" filtered by status: '{{status}}'", :status => params[:request_latest_status])
+              end
+            end
 
-                    unless params[:request_latest_status].blank?
-                        requests_query << ' latest_status:' << params[:request_latest_status]
-                        comments_query << ' latest_status:' << params[:request_latest_status]
-                        @match_phrase << _(" filtered by status: '{{status}}'", :status => params[:request_latest_status])
-                    end
-                end
+            @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
+            @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
 
-                @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
-                @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
-
-                if (@page > 1)
-                    @page_desc = " (page " + @page.to_s + ")"
-                else
-                    @page_desc = ""
-                end
-            rescue
-                @xapian_requests = nil
-                @xapian_comments = nil
+            if (@page > 1)
+              @page_desc = " (page " + @page.to_s + ")"
+            else
+              @page_desc = ""
             end
 
             # Track corresponding to this page
