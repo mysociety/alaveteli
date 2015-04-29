@@ -194,20 +194,23 @@ module ActsAsXapian
     end
 
     def ActsAsXapian.init_values(values)
-        for value in options[:values]
-            raise "Value index '"+value[1].to_s+"' must be an integer, is " + value[1].class.to_s if value[1].class != 1.class
-            raise "Already have value index '" + value[1].to_s + "' in another model but with different prefix '" + @@values_by_number[value[1]].to_s + "'" if @@values_by_number.include?(value[1]) && @@values_by_number[value[1]] != value[2]
-
-             # date types are special, mark them so the first model they're seen for
-            if !@@values_by_number.include?(value[1])
-                if value[3] == :date
-                    value_range = Xapian::DateValueRangeProcessor.new(value[1])
-                elsif value[3] == :string
-                    value_range = Xapian::StringValueRangeProcessor.new(value[1])
-                elsif value[3] == :number
-                    value_range = Xapian::NumberValueRangeProcessor.new(value[1])
+        values.each do |method, index, prefix, value_type|
+            raise "Value index '#{index}' must be an Integer, is #{index.class}" unless index.is_a? Integer
+            if @@values_by_number.include?(index) && @@values_by_number[index] != prefix
+                raise "Already have value index '#{index}' in another model " \
+                      "but with different prefix '#{@@values_by_number[index]}'"
+            end
+            # date types are special, mark them so the first model they're seen for
+            unless @@values_by_number.include?(index)
+                case value_type
+                when :date
+                    value_range = Xapian::DateValueRangeProcessor.new(index)
+                when :string
+                    value_range = Xapian::StringValueRangeProcessor.new(index)
+                when :number
+                    value_range = Xapian::NumberValueRangeProcessor.new(index)
                 else
-                    raise "Unknown value type '" + value[3].to_s + "'"
+                    raise "Unknown value type '#{value_type}'"
                 end
 
                 @@query_parser.add_valuerangeprocessor(value_range)
@@ -217,8 +220,8 @@ module ActsAsXapian
                 @@value_ranges_store.push(value_range)
             end
 
-            @@values_by_number[value[1]] = value[2]
-            @@values_by_prefix[value[2]] = value[1]
+            @@values_by_number[index] = prefix
+            @@values_by_prefix[prefix] = index
         end
     end
 
