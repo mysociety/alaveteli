@@ -141,7 +141,7 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     def body
-        text = read_attribute(:body).dup
+        text = raw_body.dup
         return text if text.nil?
 
         text = clean_text(text)
