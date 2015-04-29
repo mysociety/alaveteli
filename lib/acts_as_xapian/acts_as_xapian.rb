@@ -632,30 +632,7 @@ module ActsAsXapian
                         #STDERR.puts("job with #{id} vanished under foot") if verbose
                         next
                     end
-                    STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s} #{Time.now.to_s}") if verbose
-
-                    begin
-                        if job.action == 'update'
-                            # TODO: Index functions may reference other models, so we could eager load here too?
-                            model = job.model.constantize.find(job.model_id) # :include => cls.constantize.xapian_options[:include]
-                            model.xapian_index
-                        elsif job.action == 'destroy'
-                            # Make dummy model with right id, just for destruction
-                            model = job.model.constantize.new
-                            model.id = job.model_id
-                            model.xapian_destroy
-                        else
-                            raise "unknown ActsAsXapianJob action '" + job.action + "'"
-                        end
-                    rescue ActiveRecord::RecordNotFound => e
-                        # this can happen if the record was hand deleted in the database
-                        job.action = 'destroy'
-                        retry
-                    end
-                    if flush
-                        ActsAsXapian.writable_db.flush
-                    end
-                    job.destroy
+                    run_job(job, flush, verbose)
                 end
             rescue => detail
                 # print any error, and carry on so other things are indexed
@@ -666,6 +643,33 @@ module ActsAsXapian
         # reopens it and recreates the environment every time we don't need to do further cleanup
         ActsAsXapian.writable_db.flush
         ActsAsXapian.writable_db.close
+    end
+
+    def ActsAsXapian.run_job(job, flush, verbose)
+        STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s} #{Time.now.to_s}") if verbose
+
+        begin
+            if job.action == 'update'
+                # TODO: Index functions may reference other models, so we could eager load here too?
+                model = job.model.constantize.find(job.model_id) # :include => cls.constantize.xapian_options[:include]
+                model.xapian_index
+            elsif job.action == 'destroy'
+                # Make dummy model with right id, just for destruction
+                model = job.model.constantize.new
+                model.id = job.model_id
+                model.xapian_destroy
+            else
+                raise "unknown ActsAsXapianJob action '#{job.action}'"
+            end
+        rescue ActiveRecord::RecordNotFound => e
+            # this can happen if the record was hand deleted in the database
+            job.action = 'destroy'
+            retry
+        end
+        if flush
+            ActsAsXapian.writable_db.flush
+        end
+        job.destroy
     end
 
     def ActsAsXapian._is_xapian_db(path)
