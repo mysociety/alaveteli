@@ -609,7 +609,7 @@ module ActsAsXapian
         # we have the info from acts_as_xapian.
         model_classes = ActsAsXapianJob.pluck("DISTINCT model").map { |a| a.constantize }
         # If there are no models in the queue, then nothing to do
-        return if model_classes.size == 0
+        return if model_classes.empty?
 
         ActsAsXapian.writable_init
         # Abort if full rebuild is going on
