@@ -88,14 +88,14 @@ describe HolidayImport do
 
     describe 'when populating a set of holidays to import from suggestions' do
 
-        before do
-            holidays = [ { :date => Date.new(2014, 1, 1), :name => "New Year's Day", :regions => [:gb] } ]
+        it 'should populate holidays from the suggestions' do
+            holidays = [ { :date => Date.new(2014, 1, 1),
+                           :name => "New Year's Day",
+                           :regions => [:gb] } ]
             Holidays.stub!(:between).and_return(holidays)
             @holiday_import = HolidayImport.new(:source => 'suggestions')
             @holiday_import.populate
-        end
 
-        it 'should populate holidays from the suggestions' do
             @holiday_import.holidays.size.should == 1
             holiday = @holiday_import.holidays.first
             holiday.description.should == "New Year's Day"
@@ -103,6 +103,13 @@ describe HolidayImport do
         end
 
         it 'should return a flag that it has been populated' do
+            holidays = [ { :date => Date.new(2014, 1, 1),
+                           :name => "New Year's Day",
+                           :regions => [:gb] } ]
+            Holidays.stub!(:between).and_return(holidays)
+            @holiday_import = HolidayImport.new(:source => 'suggestions')
+            @holiday_import.populate
+
             @holiday_import.populated.should == true
         end
 
