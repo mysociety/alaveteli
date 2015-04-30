@@ -84,10 +84,14 @@ class HolidayImport
     end
 
     def populate_from_suggestions
-        holiday_info = Holidays.between(start_date, end_date, @country_code.to_sym, :observed)
-        holiday_info.each do |holiday_info_hash|
-            holidays << Holiday.new(:description => holiday_info_hash[:name],
-                                    :day => holiday_info_hash[:date])
+        begin
+            holiday_info = Holidays.between(start_date, end_date, @country_code.to_sym, :observed)
+            holiday_info.each do |holiday_info_hash|
+                holidays << Holiday.new(:description => holiday_info_hash[:name],
+                                        :day => holiday_info_hash[:date])
+            end
+        rescue Holidays::UnknownRegionError
+            []
         end
     end
 end
