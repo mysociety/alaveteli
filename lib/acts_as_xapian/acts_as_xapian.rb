@@ -164,16 +164,13 @@ module ActsAsXapian
         @@query_parser.stemming_strategy = Xapian::QueryParser::STEM_SOME
         @@query_parser.database = @@db
         @@query_parser.default_op = Xapian::Query::OP_AND
-        begin
-            @@query_parser.set_max_wildcard_expansion(1000)
-        rescue NoMethodError
-            # The set_max_wildcard_expansion method was introduced in Xapian 1.2.7,
-            # so may legitimately not be available.
-            #
-            # Large installations of Alaveteli should consider
-            # upgrading, because uncontrolled wildcard expansion
-            # can crash the whole server: see http://trac.xapian.org/ticket/350
-        end
+        # The set_max_wildcard_expansion method was introduced in Xapian 1.2.7,
+        # so may legitimately not be available.
+        #
+        # Large installations of Alaveteli should consider
+        # upgrading, because uncontrolled wildcard expansion
+        # can crash the whole server: see http://trac.xapian.org/ticket/350
+        @@query_parser.set_max_wildcard_expansion(1000) if @@query_parser.respond_to? :set_max_wildcard_expansion
 
         @@stopper = Xapian::SimpleStopper.new
         @@stopper.add("and")
@@ -186,57 +183,64 @@ module ActsAsXapian
         @@values_by_prefix = {}
         @@value_ranges_store = []
 
-        for init_value_pair in @@init_values
-            classname = init_value_pair[0]
-            options = init_value_pair[1]
-
+        @@init_values.each do |classname, options|
             # go through the various field types, and tell query parser about them,
             # and error check them - i.e. check for consistency between models
             @@query_parser.add_boolean_prefix("model", "M")
             @@query_parser.add_boolean_prefix("modelid", "I")
-            if options[:terms]
-              for term in options[:terms]
-                  raise "Use a single capital letter for term code" if not term[1].match(/^[A-Z]$/)
-                  raise "M and I are reserved for use as the model/id term" if term[1] == "M" or term[1] == "I"
-                  raise "model and modelid are reserved for use as the model/id prefixes" if term[2] == "model" or term[2] == "modelid"
-                  raise "Z is reserved for stemming terms" if term[1] == "Z"
-                  raise "Already have code '" + term[1] + "' in another model but with different prefix '" + @@terms_by_capital[term[1]] + "'" if @@terms_by_capital.include?(term[1]) && @@terms_by_capital[term[1]] != term[2]
-                  @@terms_by_capital[term[1]] = term[2]
-                  # TODO: use boolean here so doesn't stem our URL names in WhatDoTheyKnow
-                  # If making acts_as_xapian generic, would really need to make the :terms have
-                  # another option that lets people choose non-boolean for terms that need it
-                  # (i.e. searching explicitly within a free text field)
-                  @@query_parser.add_boolean_prefix(term[2], term[1])
-              end
+            init_terms(options[:terms]) if options[:terms]
+            init_values(options[:values]) if options[:values]
+        end
+    end
+
+    def ActsAsXapian.init_values(values)
+        values.each do |method, index, prefix, value_type|
+            raise "Value index '#{index}' must be an Integer, is #{index.class}" unless index.is_a? Integer
+            if @@values_by_number.include?(index) && @@values_by_number[index] != prefix
+                raise "Already have value index '#{index}' in another model " \
+                      "but with different prefix '#{@@values_by_number[index]}'"
             end
-            if options[:values]
-              for value in options[:values]
-                  raise "Value index '"+value[1].to_s+"' must be an integer, is " + value[1].class.to_s if value[1].class != 1.class
-                  raise "Already have value index '" + value[1].to_s + "' in another model but with different prefix '" + @@values_by_number[value[1]].to_s + "'" if @@values_by_number.include?(value[1]) && @@values_by_number[value[1]] != value[2]
+            # date types are special, mark them so the first model they're seen for
+            unless @@values_by_number.include?(index)
+                case value_type
+                when :date
+                    value_range = Xapian::DateValueRangeProcessor.new(index)
+                when :string
+                    value_range = Xapian::StringValueRangeProcessor.new(index)
+                when :number
+                    value_range = Xapian::NumberValueRangeProcessor.new(index)
+                else
+                    raise "Unknown value type '#{value_type}'"
+                end
 
-                  # date types are special, mark them so the first model they're seen for
-                  if !@@values_by_number.include?(value[1])
-                      if value[3] == :date
-                          value_range = Xapian::DateValueRangeProcessor.new(value[1])
-                      elsif value[3] == :string
-                          value_range = Xapian::StringValueRangeProcessor.new(value[1])
-                      elsif value[3] == :number
-                          value_range = Xapian::NumberValueRangeProcessor.new(value[1])
-                      else
-                          raise "Unknown value type '" + value[3].to_s + "'"
-                      end
+                @@query_parser.add_valuerangeprocessor(value_range)
 
-                      @@query_parser.add_valuerangeprocessor(value_range)
-
-                      # stop it being garbage collected, as
-                      # add_valuerangeprocessor ref is outside Ruby's GC
-                      @@value_ranges_store.push(value_range)
-                  end
-
-                  @@values_by_number[value[1]] = value[2]
-                  @@values_by_prefix[value[2]] = value[1]
-              end
+                # stop it being garbage collected, as
+                # add_valuerangeprocessor ref is outside Ruby's GC
+                @@value_ranges_store.push(value_range)
             end
+
+            @@values_by_number[index] = prefix
+            @@values_by_prefix[prefix] = index
+        end
+    end
+
+    def ActsAsXapian.init_terms(terms)
+        terms.each do |method, term_code, prefix|
+            raise "Use a single capital letter for term code" if not term_code.match(/^[A-Z]$/)
+            raise "M and I are reserved for use as the model/id term" if term_code == "M" || term_code == "I"
+            raise "model and modelid are reserved for use as the model/id prefixes" if prefix == "model" || prefix == "modelid"
+            raise "Z is reserved for stemming terms" if term_code == "Z"
+            if @@terms_by_capital.include?(term_code) && @@terms_by_capital[term_code] != prefix
+                raise "Already have code '#{term_code}' in another model but with different prefix " \
+                      "'#{@@terms_by_capital[term_code]}'"
+            end
+            @@terms_by_capital[term_code] = prefix
+            # TODO: use boolean here so doesn't stem our URL names in WhatDoTheyKnow
+            # If making acts_as_xapian generic, would really need to make the :terms have
+            # another option that lets people choose non-boolean for terms that need it
+            # (i.e. searching explicitly within a free text field)
+            @@query_parser.add_boolean_prefix(prefix, term_code)
         end
     end
 
@@ -613,24 +617,23 @@ module ActsAsXapian
         # Before calling writable_init we have to make sure every model class has been initialized.
         # i.e. has had its class code loaded, so acts_as_xapian has been called inside it, and
         # we have the info from acts_as_xapian.
-        model_classes = ActsAsXapianJob.find_by_sql("select model from acts_as_xapian_jobs group by model").map {|a| a.model.constantize}
+        model_classes = ActsAsXapianJob.pluck("DISTINCT model").map { |a| a.constantize }
         # If there are no models in the queue, then nothing to do
-        return if model_classes.size == 0
+        return if model_classes.empty?
 
         ActsAsXapian.writable_init
         # Abort if full rebuild is going on
         new_path = ActsAsXapian.db_path + ".new"
         if File.exist?(new_path)
-            raise "aborting incremental index update while full index rebuild happens; found existing " + new_path
+            raise "aborting incremental index update while full index rebuild happens; found existing #{new_path}"
         end
 
-        ids_to_refresh = ActsAsXapianJob.find(:all).map() { |i| i.id }
-        for id in ids_to_refresh
+        ActsAsXapianJob.pluck(:id).each do |id|
             job = nil
             begin
                 ActiveRecord::Base.transaction do
                     begin
-                        job = ActsAsXapianJob.find(id, :lock =>true)
+                        job = ActsAsXapianJob.find(id, :lock => true)
                     rescue ActiveRecord::RecordNotFound => e
                         # This could happen if while we are working the model
                         # was updated a second time by another process. In that case
@@ -639,30 +642,7 @@ module ActsAsXapian
                         #STDERR.puts("job with #{id} vanished under foot") if verbose
                         next
                     end
-                    STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s} #{Time.now.to_s}") if verbose
-
-                    begin
-                        if job.action == 'update'
-                            # TODO: Index functions may reference other models, so we could eager load here too?
-                            model = job.model.constantize.find(job.model_id) # :include => cls.constantize.xapian_options[:include]
-                            model.xapian_index
-                        elsif job.action == 'destroy'
-                            # Make dummy model with right id, just for destruction
-                            model = job.model.constantize.new
-                            model.id = job.model_id
-                            model.xapian_destroy
-                        else
-                            raise "unknown ActsAsXapianJob action '" + job.action + "'"
-                        end
-                    rescue ActiveRecord::RecordNotFound => e
-                        # this can happen if the record was hand deleted in the database
-                        job.action = 'destroy'
-                        retry
-                    end
-                    if flush
-                        ActsAsXapian.writable_db.flush
-                    end
-                    job.destroy
+                    run_job(job, flush, verbose)
                 end
             rescue => detail
                 # print any error, and carry on so other things are indexed
@@ -673,6 +653,33 @@ module ActsAsXapian
         # reopens it and recreates the environment every time we don't need to do further cleanup
         ActsAsXapian.writable_db.flush
         ActsAsXapian.writable_db.close
+    end
+
+    def ActsAsXapian.run_job(job, flush, verbose)
+        STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s} #{Time.now.to_s}") if verbose
+
+        begin
+            if job.action == 'update'
+                # TODO: Index functions may reference other models, so we could eager load here too?
+                model = job.model.constantize.find(job.model_id) # :include => cls.constantize.xapian_options[:include]
+                model.xapian_index
+            elsif job.action == 'destroy'
+                # Make dummy model with right id, just for destruction
+                model = job.model.constantize.new
+                model.id = job.model_id
+                model.xapian_destroy
+            else
+                raise "unknown ActsAsXapianJob action '#{job.action}'"
+            end
+        rescue ActiveRecord::RecordNotFound => e
+            # this can happen if the record was hand deleted in the database
+            job.action = 'destroy'
+            retry
+        end
+        if flush
+            ActsAsXapian.writable_db.flush
+        end
+        job.destroy
     end
 
     def ActsAsXapian._is_xapian_db(path)
