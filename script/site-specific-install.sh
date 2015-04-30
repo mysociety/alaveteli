@@ -180,6 +180,9 @@ postfix reload
 
 install_website_packages
 
+# Give the unix user membership of the adm group so that they can read the mail log files
+usermod -a -G adm "$UNIX_USER"
+
 # Make the PostgreSQL user a superuser to avoid the irritating error:
 #   PG::Error: ERROR:  permission denied: "RI_ConstraintTrigger_16564" is a system trigger
 # This is only needed for loading the sample data, so the superuser
