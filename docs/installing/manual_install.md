@@ -225,9 +225,12 @@ Refresh the sources after adding the extra repositories:
 
 ### Create Alaveteli User
 
-Create a new linux user to run the Alaveteli application.
+Create a new linux user to run the Alaveteli application. Add them to the 'adm' group
+so that they can read the mail log files.
 
     adduser --quiet --disabled-password --gecos "Alaveteli" alaveteli
+    usermod -a -G adm alaveteli
+
 
 ## Get Alaveteli
 
