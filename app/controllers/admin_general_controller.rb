@@ -35,7 +35,10 @@ class AdminGeneralController < AdminController
                                includes(:public_body, :user).
                                  new_body_requests.
                                    open
-        @body_update_requests = PublicBodyChangeRequest.body_update_requests.open
+        @body_update_requests = PublicBodyChangeRequest.
+                                  includes(:public_body, :user).
+                                    body_update_requests.
+                                      open
     end
 
     def timeline
