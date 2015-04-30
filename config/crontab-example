@@ -16,9 +16,7 @@ MAILTO=!!(*= $mailto *)!!
 
 # Once an hour
 09 * * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/alert-comment-on-request.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/alert-comment-on-request || echo "stalled?"
-
-# Only root can read the log files
-31 * * * * root !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/load-mail-server-logs.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/load-mail-server-logs || echo "stalled?"
+31 * * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/load-mail-server-logs.lock !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/load-mail-server-logs || echo "stalled?"
 
 # Once a day, early morning
 31 1 * * * !!(*= $user *)!! !!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/commonlib/bin/run-with-lockfile.sh -n !!(*= $vhost_dir *)!!/change-xapian-database.lock "!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!/script/compact-xapian-database production !!(*= $site *)!!" || echo "stalled?"
