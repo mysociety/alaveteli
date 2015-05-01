@@ -1359,6 +1359,30 @@ public
                 order('last_event_time')
     end
 
+    def move_to_public_body(destination_public_body, opts = {})
+        old_body = public_body
+        editor = opts.fetch(:editor)
+
+        attrs = { :public_body => destination_public_body }
+
+        if destination_public_body
+          attrs.merge!({
+            :law_used => destination_public_body.law_only_short.downcase
+          })
+        end
+
+        if update_attributes(attrs)
+            log_event('move_request',
+                      :editor => editor,
+                      :public_body_url_name => public_body.url_name,
+                      :old_public_body_url_name => old_body.url_name)
+
+            reindex_request_events
+
+            public_body
+        end
+    end
+
     private
 
     def set_defaults
