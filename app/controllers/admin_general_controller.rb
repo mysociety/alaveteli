@@ -30,7 +30,10 @@ class AdminGeneralController < AdminController
                                   select { |pb| !pb.defunct? }
         @old_unclassified = InfoRequest.find_old_unclassified(:limit => 20,
                                                               :conditions => ["prominence = 'normal'"])
-        @holding_pen_messages = InfoRequest.holding_pen_request.incoming_messages
+        @holding_pen_messages = InfoRequest.
+                                  includes(:incoming_messages => :raw_email).
+                                    holding_pen_request.
+                                      incoming_messages
         @new_body_requests = PublicBodyChangeRequest.
                                includes(:public_body, :user).
                                  new_body_requests.
