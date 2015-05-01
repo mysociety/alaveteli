@@ -114,21 +114,14 @@ class AdminRequestController < AdminController
             end
             redirect_to admin_request_url(info_request)
         elsif params[:commit] == 'Move request to authority' && !params[:public_body_url_name].blank?
-            old_public_body = info_request.public_body
             destination_public_body = PublicBody.find_by_url_name(params[:public_body_url_name])
-            if destination_public_body.nil?
-                flash[:error] = "Couldn't find public body '" + params[:public_body_url_name] + "'"
-            else
-                info_request.public_body = destination_public_body
-                info_request.save!
-                info_request.log_event("move_request", {
-                        :editor => admin_current_user(),
-                        :old_public_body_url_name => old_public_body.url_name,
-                        :public_body_url_name => destination_public_body.url_name
-                })
 
-                info_request.reindex_request_events
-                flash[:notice] = "Request has been moved to new body"
+            if info_request.move_to_public_body(destination_public_body,
+                                                :editor => admin_current_user,
+                                                :reindex => true)
+              flash[:notice] = "Request has been moved to new body"
+            else
+              flash[:error] = "Couldn't find public body '#{ params[:public_body_url_name] }'"
             end
 
             redirect_to admin_request_url(info_request)
