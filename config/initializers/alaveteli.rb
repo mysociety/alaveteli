@@ -35,7 +35,6 @@ end
 
 
 # Load monkey patches and other things from lib/
-require 'ruby19.rb'
 require 'activesupport_cache_extensions.rb'
 require 'use_spans_for_errors.rb'
 require 'activerecord_errors_extensions.rb'
