@@ -60,7 +60,8 @@ module Alaveteli
     config.time_zone = ::AlaveteliConfiguration::time_zone
 
     # Set the cache to use a memcached backend
-    config.cache_store = :mem_cache_store, { :namespace => AlaveteliConfiguration::domain }
+    config.cache_store = :mem_cache_store,
+                        { :namespace => "#{AlaveteliConfiguration::domain}_#{RUBY_VERSION}" }
     config.action_dispatch.rack_cache = nil
 
     config.after_initialize do |app|
