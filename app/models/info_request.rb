@@ -1383,6 +1383,15 @@ public
         end
     end
 
+    # The DateTime of the last InfoRequestEvent belonging to the InfoRequest
+    # Only available if the last_event_time attribute has been set. This is
+    # currentlt only set through .find_in_state
+    #
+    # Returns a DateTime
+    def last_event_time
+        attributes['last_event_time'].try(:to_datetime)
+    end
+
     private
 
     def set_defaults
