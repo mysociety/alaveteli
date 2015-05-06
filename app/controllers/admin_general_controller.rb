@@ -24,7 +24,7 @@ class AdminGeneralController < AdminController
         @error_message_requests = InfoRequest.find_in_state('error_message')
         @attention_requests = InfoRequest.find_in_state('attention_requested')
         @blank_contacts = PublicBody.
-                            includes(:tags).
+                            includes(:tags, :translations).
                               where(:request_email => "").
                                 order(:updated_at).
                                   select { |pb| !pb.defunct? }
