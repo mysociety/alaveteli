@@ -339,19 +339,20 @@ class PublicBody < ActiveRecord::Base
 
     # Are all requests to this body under the Environmental Information Regulations?
     def eir_only?
-        return self.has_tag?('eir_only')
+        has_tag?('eir_only')
     end
+
     def law_only_short
-        if self.eir_only?
-            return "EIR"
-        else
-            return "FOI"
-        end
+        eir_only? ? 'EIR' : 'FOI'
     end
 
     # Schools are allowed more time in holidays, so we change some wordings
     def is_school?
-        return self.has_tag?('school')
+        has_tag?('school')
+    end
+
+    def site_administration?
+        has_tag?('site_administration')
     end
 
     # The "internal admin" is a special body for internal use.
@@ -377,10 +378,6 @@ class PublicBody < ActiveRecord::Base
         else
             raise "Multiple public bodies (#{matching_pbs.length}) found with url_name 'internal_admin_authority'"
         end
-    end
-
-    def site_administration?
-        has_tag?('site_administration')
     end
 
     class ImportCSVDryRun < StandardError
