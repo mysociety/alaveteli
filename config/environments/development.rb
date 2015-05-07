@@ -46,4 +46,21 @@ Alaveteli::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
+  if AlaveteliConfiguration.use_rack_insight_in_development
+    config.middleware.insert_before ::WhatDoTheyKnow::StripEmptySessions,
+                                    Rack::Insight::App,
+                                    :secret_key => AlaveteliConfiguration.rack_insight_secret_key,
+                                    :database_path => AlaveteliConfiguration.rack_insight_database_path,
+                                    :password => nil,
+                                    :ip_masks => false
+  end
+
+  if AlaveteliConfiguration.use_bullet_in_development
+    config.after_initialize do
+      Bullet.enable = true
+      Bullet.bullet_logger = true
+      Bullet.console = true
+      Bullet.add_footer = true
+    end
+  end
 end

@@ -70,7 +70,9 @@ group :test do
 end
 
 group :test, :development do
+  gem 'bullet', '~> 4.14.6'
   gem 'factory_girl_rails', '~> 1.7'
+  gem 'rack-insight', '~> 0.6.3'
   gem 'rspec-rails', '~> 2.13.2'
   gem 'spork-rails', '~> 3.2.1'
 end
