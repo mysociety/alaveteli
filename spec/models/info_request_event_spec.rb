@@ -30,6 +30,12 @@ describe InfoRequestEvent do
             ire.params.should == example_params
         end
 
+        it "should restore UTF8-heavy params stored under ruby 1.8 as UTF-8" do
+            ire = InfoRequestEvent.new
+            utf8_params = "--- \n:foo: !binary |\n  0KLQvtCz0LDRiCDR\n"
+            ire.params_yaml = utf8_params
+            ire.params[:foo].encoding.to_s.should == 'UTF-8' if ire.params[:foo].respond_to?(:encoding)
+        end
     end
 
     describe 'when deciding if it is indexed by search' do
