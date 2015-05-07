@@ -28,6 +28,117 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequest do
 
+    describe :new do
+
+        it 'sets the default law used' do
+            expect(InfoRequest.new().law_used).to eq('foi')
+        end
+
+        it 'sets the default law used if a body is eir-only' do
+            body = FactoryGirl.create(:public_body, :tag_string => 'eir_only')
+            expect(body.info_requests.build.law_used).to eq('eir')
+        end
+
+        it 'does not try to set the law used for existing requests' do
+            info_request = FactoryGirl.create(:info_request)
+            body = FactoryGirl.create(:public_body, :tag_string => 'eir_only')
+            info_request.update_attributes(:public_body_id => body.id)
+            InfoRequest.any_instance.should_not_receive(:law_used=).and_call_original
+            InfoRequest.find(info_request.id)
+        end
+    end
+
+    describe :move_to_public_body do
+
+        context 'with no options' do
+
+          it 'requires an :editor option' do
+              request = FactoryGirl.create(:info_request)
+              new_body = FactoryGirl.create(:public_body)
+              expect {
+                  request.move_to_public_body(new_body)
+              }.to raise_error IndexError
+          end
+
+        end
+
+        context 'with the :editor option' do
+
+          it 'moves the info request to the new public body' do
+              request = FactoryGirl.create(:info_request)
+              new_body = FactoryGirl.create(:public_body)
+              user = FactoryGirl.create(:user)
+              request.move_to_public_body(new_body, :editor => user)
+              request.reload
+              expect(request.public_body).to eq(new_body)
+          end
+
+          it 'logs the move' do
+              request = FactoryGirl.create(:info_request)
+              old_body = request.public_body
+              new_body = FactoryGirl.create(:public_body)
+              user = FactoryGirl.create(:user)
+              request.move_to_public_body(new_body, :editor => user)
+              request.reload
+              event = request.info_request_events.last
+
+              expect(event.event_type).to eq('move_request')
+              expect(event.params[:editor]).to eq(user)
+              expect(event.params[:public_body_url_name]).to eq(new_body.url_name)
+              expect(event.params[:old_public_body_url_name]).to eq(old_body.url_name)
+          end
+
+          it 'updates the law_used to the new body law' do
+              request = FactoryGirl.create(:info_request)
+              new_body = FactoryGirl.create(:public_body, :tag_string => 'eir_only')
+              user = FactoryGirl.create(:user)
+              request.move_to_public_body(new_body, :editor => user)
+              request.reload
+              expect(request.law_used).to eq('eir')
+          end
+
+          it 'returns the new public body' do
+              request = FactoryGirl.create(:info_request)
+              new_body = FactoryGirl.create(:public_body)
+              user = FactoryGirl.create(:user)
+              expect(request.move_to_public_body(new_body, :editor => user)).to eq(new_body)
+          end
+
+          it 'retains the existing body if the new body does not exist' do
+              request = FactoryGirl.create(:info_request)
+              user = FactoryGirl.create(:user)
+              existing_body = request.public_body
+              request.move_to_public_body(nil, :editor => user)
+              request.reload
+              expect(request.public_body).to eq(existing_body)
+          end
+
+          it 'returns nil if the body cannot be updated' do
+              request = FactoryGirl.create(:info_request)
+              user = FactoryGirl.create(:user)
+              expect(request.move_to_public_body(nil, :editor => user)).to eq(nil)
+          end
+
+          it 'reindexes the info request' do
+              request = FactoryGirl.create(:info_request)
+              new_body = FactoryGirl.create(:public_body)
+              user = FactoryGirl.create(:user)
+              reindex_job = ActsAsXapian::ActsAsXapianJob.
+                where(:model => 'InfoRequestEvent').
+                  delete_all
+
+              request.move_to_public_body(new_body, :editor => user)
+              request.reload
+
+              reindex_job = ActsAsXapian::ActsAsXapianJob.
+                where(:model => 'InfoRequestEvent').
+                  last
+              expect(reindex_job.model_id).to eq(request.info_request_events.last.id)
+          end
+
+        end
+    end
+
     describe 'when validating' do
 
         it 'should accept a summary with ascii characters' do
@@ -42,7 +153,7 @@ describe InfoRequest do
             info_request.errors[:title].should be_empty
         end
 
-        it 'should not accept a summary with no ascii or unicode characters' do
+         it 'should not accept a summary with no ascii or unicode characters' do
             info_request = InfoRequest.new(:title => '55555')
             info_request.valid?
             info_request.errors[:title].should_not be_empty
