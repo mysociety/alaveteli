@@ -279,9 +279,15 @@ class InfoRequestEvent < ActiveRecord::Base
         end
         self.params_yaml = params.to_yaml
     end
+
     def params
-        YAML.load(self.params_yaml)
+        param_hash = YAML.load(params_yaml)
+        param_hash.each do |key, value|
+            param_hash[key] = value.force_encoding('UTF-8') if value.respond_to?(:force_encoding)
+        end
+        param_hash
     end
+
     def params_yaml_as_html
         ret = ''
         # split out parameters into old/new diffs, and other ones
