@@ -189,7 +189,7 @@ in any language, and within any legislation</p>
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
                         <img src="{{ site.baseurl }}assets/img/sobanukirwa.jpg" class="deployment__screenshot" />
-                        <h3 class="deployment__title">Sobunakirwa</h3>
+                        <h3 class="deployment__title">Sobanukirwa</h3>
                         <p class="deployment__country">Rwanda</p>
                         <p class="deployment__link"><a href="https://sobanukirwa.rw/">https://sobanukirwa.rw/</a></p>
                     </div>
