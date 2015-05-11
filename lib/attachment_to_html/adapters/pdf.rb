@@ -71,10 +71,10 @@ module AttachmentToHTML
 
                 @converted ||= Dir.chdir(tmpdir) do
                     tempfile = create_tempfile(text)
-
                     html = AlaveteliExternalCommand.run("pdftohtml",
                       "-nodrm", "-zoom", "1.0", "-stdout", "-enc", "UTF-8",
-                      "-noframes", tempfile.path, :timeout => 30, :binary_output => false
+                      "-noframes", "./#{File.basename(tempfile.path)}",
+                      :timeout => 30, :binary_output => false
                     )
 
                     cleanup_tempfile(tempfile)
