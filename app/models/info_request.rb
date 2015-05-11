@@ -921,7 +921,7 @@ public
     # Called by incoming_email - and used to be called to generate separate
     # envelope from address until we abandoned it.
     def magic_email(prefix_part)
-        raise "id required to make magic" if not self.id
+        raise "id required to create a magic email" if not self.id
         return InfoRequest.magic_email_for_id(prefix_part, self.id)
     end
 
