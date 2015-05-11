@@ -38,6 +38,12 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries.clear
     end
 
+    it "puts messages with a malformed To: in the holding pen" do
+        request = FactoryGirl.create(:info_request)
+        receive_incoming_mail('incoming-request-plain.email', 'asdfg')
+        expect(InfoRequest.holding_pen_request.incoming_messages).to have(1).item
+    end
+
     it "should parse attachments from mails sent with apple mail" do
         ir = info_requests(:fancy_dog_request)
         ir.incoming_messages.size.should == 1
