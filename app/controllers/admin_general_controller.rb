@@ -7,18 +7,6 @@
 class AdminGeneralController < AdminController
 
     def index
-        # Overview counts of things
-        @public_body_count = PublicBody.count
-
-        @info_request_count = InfoRequest.count
-        @outgoing_message_count = OutgoingMessage.count
-        @incoming_message_count = IncomingMessage.count
-
-        @user_count = User.count
-        @track_thing_count = TrackThing.count
-
-        @comment_count = Comment.count
-
         # Tasks to do
         @requires_admin_requests = InfoRequest.find_in_state('requires_admin')
         @error_message_requests = InfoRequest.find_in_state('error_message')
