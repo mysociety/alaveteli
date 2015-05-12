@@ -35,6 +35,15 @@ class ApplicationController < ActionController::Base
     before_filter :set_vary_header
     before_filter :validate_session_timestamp
     after_filter  :persist_session_timestamp
+    before_filter :deprecation_notice
+
+    def deprecation_notice
+        if RUBY_VERSION.to_f >= 1.9
+            ActiveSupport::Deprecation.warn "[DEPRECATION] You are using Ruby 1.8. This will not be supported " \
+                                    "as of Alaveteli release 0.23. Please upgrade your ruby version."
+        end
+    end
+
 
     def set_vary_header
         response.headers['Vary'] = 'Cookie'
