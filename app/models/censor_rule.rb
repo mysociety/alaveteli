@@ -42,6 +42,11 @@ class CensorRule < ActiveRecord::Base
                                       :user_id => nil,
                                       :public_body_id => nil } }
 
+    def apply_to_text(text_to_censor)
+        return nil if text_to_censor.nil?
+        text_to_censor.gsub(to_replace, replacement)
+    end
+
     def apply_to_text!(text_to_censor)
         return nil if text_to_censor.nil?
         text_to_censor.gsub!(to_replace, replacement)

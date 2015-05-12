@@ -804,8 +804,9 @@ public
 
     # Text from the the initial request, for use in summary display
     def initial_request_text
-        return '' if outgoing_messages.empty? # mainly for use with incomplete fixtures
-        outgoing_messages.first.get_text_for_indexing
+        return '' if outgoing_messages.empty?
+        body_opts = { :censor_rules => applicable_censor_rules }
+        outgoing_messages.first.try(:get_text_for_indexing, true, body_opts) or ''
     end
 
     # Returns index of last event which is described or nil if none described.

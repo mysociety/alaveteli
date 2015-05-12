@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
     factory :info_request do
-        title "Example Title"
+        sequence(:title) { |n| "Example Title #{n}" }
         public_body
         user
 
