@@ -184,6 +184,24 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries.clear
     end
 
+    it "discards rejected responses with a malformed From: when set to bounce" do
+        ir = info_requests(:fancy_dog_request)
+        ir.allow_new_responses_from = 'nobody'
+        ir.handle_rejected_responses = 'bounce'
+        ir.save!
+        ir.incoming_messages.size.should == 1
+
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "")
+        ir.incoming_messages.size.should == 1
+
+        last_event = ir.info_request_events.last
+        last_event.params[:rejected_reason].should =~ /there is no "From" address/
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 0
+        deliveries.clear
+    end
+
     it "should send all new responses to holding pen if a request is marked to do so" do
         # mark request as anti-spam
         ir = info_requests(:fancy_dog_request)
