@@ -461,7 +461,11 @@ public
             # If its not allowing responses, handle the message
             if !allow
                 if self.handle_rejected_responses == 'bounce'
-                    RequestMailer.stopped_responses(self, email, raw_email_data).deliver if !is_external?
+                    if MailHandler.get_from_address(email).nil?
+                        log_event('response', :rejected_reason => _('Could not return the message to the sender because there is no "From" address'))
+                    else
+                        RequestMailer.stopped_responses(self, email, raw_email_data).deliver if !is_external?
+                    end
                 elsif self.handle_rejected_responses == 'holding_pen'
                     InfoRequest.holding_pen_request.receive(email, raw_email_data, false, reason)
                 elsif self.handle_rejected_responses == 'blackhole'
