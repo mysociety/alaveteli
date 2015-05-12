@@ -88,21 +88,35 @@ describe HolidayImport do
 
     describe 'when populating a set of holidays to import from suggestions' do
 
-        before do
-            holidays = [ { :date => Date.new(2014, 1, 1), :name => "New Year's Day", :regions => [:gb] } ]
+        it 'should populate holidays from the suggestions' do
+            holidays = [ { :date => Date.new(2014, 1, 1),
+                           :name => "New Year's Day",
+                           :regions => [:gb] } ]
             Holidays.stub!(:between).and_return(holidays)
             @holiday_import = HolidayImport.new(:source => 'suggestions')
             @holiday_import.populate
-        end
 
-        it 'should populate holidays from the suggestions' do
             @holiday_import.holidays.size.should == 1
             holiday = @holiday_import.holidays.first
             holiday.description.should == "New Year's Day"
             holiday.day.should == Date.new(2014, 1, 1)
         end
 
+        it 'returns an empty array for an unknown country code' do
+            AlaveteliConfiguration.stub(:iso_country_code).and_return('UNKNOWN_COUNTRY_CODE')
+            @holiday_import = HolidayImport.new(:source => 'suggestions')
+            @holiday_import.populate
+            expect(@holiday_import.holidays).to be_empty
+        end
+
         it 'should return a flag that it has been populated' do
+            holidays = [ { :date => Date.new(2014, 1, 1),
+                           :name => "New Year's Day",
+                           :regions => [:gb] } ]
+            Holidays.stub!(:between).and_return(holidays)
+            @holiday_import = HolidayImport.new(:source => 'suggestions')
+            @holiday_import.populate
+
             @holiday_import.populated.should == true
         end
 
