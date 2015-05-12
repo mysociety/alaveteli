@@ -427,6 +427,7 @@ public
 
     # A new incoming email to this request
     def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = "")
+        # Is this request allowing responses?
         if !override_stop_new_responses
             allow = nil
             reason = nil
@@ -457,6 +458,7 @@ public
                 raise "Unknown allow_new_responses_from '" + self.allow_new_responses_from + "'"
             end
 
+            # If its not allowing responses, handle the message
             if !allow
                 if self.handle_rejected_responses == 'bounce'
                     RequestMailer.stopped_responses(self, email, raw_email_data).deliver if !is_external?
