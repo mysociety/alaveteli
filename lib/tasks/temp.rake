@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 namespace :temp do
 
     desc 'Rewrite cached HTML attachment headers to use responsive CSS'
@@ -70,4 +71,38 @@ EOF
 
     end
 
+    desc 'Look for broken UTF-8 text in IncomingMessage cached_attachment_text_clipped'
+    task :find_broken_cached_utf8 => :environment do
+        PublicBody.find_each do |public_body|
+            begin
+                public_body.name.split(' ')
+            rescue
+                puts "Bad encoding in public_body #{public_body.id} #{public_body.name}"
+                public_body.name = public_body.name.force_encoding("cp1252").encode('UTF-8').gsub('’', "'")
+                public_body.last_edit_editor = 'system'
+                public_body.last_edit_comment = 'Broken utf-8 encoding fixed by temp:find_broken_cached_utf8'
+                public_body.save!
+                public_body.name.split(' ')
+                puts "Fixed #{public_body.id}"
+            end
+        end
+
+        IncomingMessage.find_each do |incoming_message|
+            begin
+                incoming_message.get_attachment_text_full.split(' ')
+                incoming_message.get_attachment_text_clipped.split(' ')
+                incoming_message.get_main_body_text_folded.split(' ')
+                incoming_message.get_main_body_text_unfolded.split(' ')
+            rescue ArgumentError => e
+                puts "Bad encoding in incoming message #{incoming_message.id}"
+                incoming_message.clear_in_database_caches!
+                incoming_message.get_attachment_text_full.split(' ')
+                incoming_message.get_attachment_text_clipped.split(' ')
+                incoming_message.get_main_body_text_folded.split(' ')
+                incoming_message.get_main_body_text_unfolded.split(' ')
+                puts "Fixed #{incoming_message.id}"
+            end
+        end
+
+    end
 end
