@@ -777,7 +777,14 @@ public
     end
 
     def public_response_events
-        self.info_request_events.select{|e| e.response? && e.incoming_message.all_can_view? }
+        condition = <<-SQL
+        info_request_events.event_type = ?
+        AND incoming_messages.prominence = ?
+        SQL
+
+        info_request_events.
+          joins(:incoming_message).
+            where(condition, 'response', 'normal')
     end
 
     # The last public response is the default one people might want to reply to
@@ -1382,6 +1389,15 @@ public
 
             public_body
         end
+    end
+
+    # The DateTime of the last InfoRequestEvent belonging to the InfoRequest
+    # Only available if the last_event_time attribute has been set. This is
+    # currentlt only set through .find_in_state
+    #
+    # Returns a DateTime
+    def last_event_time
+        attributes['last_event_time'].try(:to_datetime)
     end
 
     private

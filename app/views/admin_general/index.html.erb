@@ -2,17 +2,10 @@
 
 <div class="row">
   <div class="span12">
-    <h1><%=@title%></h1>
-
-    <ul>
-      <li><%=@public_body_count%> public authorities</li>
-      <li>
-        <%=@info_request_count%> requests, <%=@outgoing_message_count%> outgoing messages,
-        <%=@incoming_message_count%> incoming messages
-      </li>
-      <li><%=@user_count%> users, <%=@track_thing_count%> tracked things</li>
-      <li><%=@comment_count%> annotations</li>
-    </ul>
+    <h1><%= @title %></h1>
+    <p>
+      <%= link_to 'Summary stats have moved →', admin_stats_path %>
+    </p>
   </div>
 </div>
 
@@ -28,8 +21,14 @@
   <% if @holding_pen_messages.size > 0 %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" href="#holding-pen" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@holding_pen_messages.size%></span><%= chevron_right %> Put misdelivered responses with the right request</a>
+        <a class="accordion-toggle" href="#holding-pen" data-toggle="collapse" data-parent="things-to-do">
+          <span class="label label-important">
+            <%= @holding_pen_messages.size %>
+          </span>
+          <%= chevron_right %> Put misdelivered responses with the right request
+        </a>
       </div>
+
       <div id="holding-pen" class="accordion-body collapse">
         <table class="table table-striped table-condensed">
           <tbody>
@@ -39,11 +38,13 @@
                   <% if message.get_body_for_quoting.strip.size == 0 %>
                       <%= link_to "(no body)", admin_raw_email_path(message.raw_email_id) %>
                   <% else %>
-                      <%= link_to excerpt(message.get_body_for_quoting, "", :radius => 60), admin_raw_email_path(message.raw_email_id) %>
+                      <%= link_to admin_raw_email_path(message.raw_email_id) do %>
+                        <%= excerpt(message.get_body_for_quoting, "", :radius => 60) %>
+                      <% end %>
                   <% end %>
                 </td>
                 <td class="span2">
-                  <%=simple_date(message.sent_at)%>
+                  <%= simple_date(message.sent_at) %>
                 </td>
               </tr>
             <% end %>
@@ -67,7 +68,7 @@
                   <%= request_both_links(@request) %>
                 </td>
                 <td class="span2">
-                  <%=simple_date(@request.info_request_events.last.created_at)%>
+                  <%= simple_date(@request.last_event_time) %>
                 </td>
               </tr>
             <% end %>
@@ -92,7 +93,7 @@
                   <%= request_both_links(@request) %>
                 </td>
                 <td class="span2">
-                  <%=simple_date(@request.info_request_events.last.created_at)%>
+                  <%= simple_date(@request.last_event_time) %>
                 </td>
               </tr>
             <% end %>
@@ -116,7 +117,7 @@
                   <%= request_both_links(@request) %>
                 </td>
                 <td class="span2">
-                  <%=simple_date(@request.info_request_events.last.created_at)%>
+                  <%= simple_date(@request.last_event_time) %>
                 </td>
               </tr>
             <% end %>
@@ -178,18 +179,33 @@
   <% if @new_body_requests.size > 0 %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" href="#new-authorities" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%= @new_body_requests.size %></span><%= chevron_right %> Add new authorities</a>
+        <a class="accordion-toggle" href="#new-authorities" data-toggle="collapse" data-parent="things-to-do">
+          <span class="label label-important">
+            <%= @new_body_requests.size %>
+          </span>
+          <%= chevron_right %> Add new authorities
+        </a>
       </div>
-      <div id="new-authorities" class="accordion-body collapse">
-            <% for @change_request in @new_body_requests %>
-              <%= render :partial => 'change_request_summary'%>
-              <%= form_tag admin_change_request_path(@change_request), :method => 'put', :class => "form form-horizontal" do %>
-                <%= submit_tag 'Close', :class => "btn btn-danger" %>
-                <%= link_to("Close and respond", edit_admin_change_request_path(@change_request), :class => 'btn') %>
-                <%= link_to("Add authority", new_admin_body_path(:change_request_id => @change_request.id), :class => 'btn btn-primary') %>
-              <% end %>
 
-            <% end %>
+      <div id="new-authorities" class="accordion-body collapse">
+        <% for @change_request in @new_body_requests %>
+          <%= render :partial => 'change_request_summary'%>
+
+          <%= form_tag admin_change_request_path(@change_request),
+                :method => 'put',
+                :class => "form form-horizontal" do %>
+
+             <%= submit_tag 'Close', :class => "btn btn-danger" %>
+
+             <%= link_to "Close and respond",
+                   edit_admin_change_request_path(@change_request),
+                   :class => 'btn' %>
+
+             <%= link_to "Add authority",
+                   new_admin_body_path(:change_request_id => @change_request.id),
+                   :class => 'btn btn-primary' %>
+          <% end %>
+        <% end %>
       </div>
     </div>
   <% end %>
@@ -197,17 +213,34 @@
   <% if @body_update_requests.size > 0 %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" href="#update-authorities" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%= @body_update_requests.size %></span><%= chevron_right %> Update authorities</a>
+        <a class="accordion-toggle" href="#update-authorities" data-toggle="collapse" data-parent="things-to-do">
+          <span class="label label-important">
+            <%= @body_update_requests.size %>
+          </span>
+          <%= chevron_right %> Update authorities
+        </a>
       </div>
+
       <div id="update-authorities" class="accordion-body collapse">
         <% for @change_request in @body_update_requests %>
-            <%= render :partial => 'change_request_summary' %>
-            <%= form_tag admin_change_request_path(@change_request), :class => "form form-horizontal", :method => 'put' do %>
-              <%= submit_tag 'Close', :class => "btn btn-danger" %>
-            <%= link_to("Close and respond", edit_admin_change_request_path(@change_request), :class => 'btn') %>
-            <%= link_to("Make update", edit_admin_body_path(@change_request.public_body, :change_request_id => @change_request.id), :class => 'btn btn-primary') %>
-            <% end %>
+          <%= render :partial => 'change_request_summary' %>
+
+          <%= form_tag admin_change_request_path(@change_request),
+                :class => "form form-horizontal",
+                :method => 'put' do %>
+
+            <%= submit_tag 'Close', :class => "btn btn-danger" %>
+
+            <%= link_to "Close and respond",
+                  edit_admin_change_request_path(@change_request),
+                  :class => 'btn' %>
+
+            <%= link_to "Make update",
+                  edit_admin_body_path(@change_request.public_body,
+                                       :change_request_id => @change_request.id),
+                  :class => 'btn btn-primary' %>
           <% end %>
+        <% end %>
       </div>
     </div>
   <% end %>

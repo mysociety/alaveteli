@@ -658,17 +658,22 @@ describe InfoRequest do
 
         before do
             Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
-            @mock_comment_event = mock_model(InfoRequestEvent, :created_at => Time.now - 23.days,
-                                                               :event_type => 'comment',
-                                                               :response? => false)
-            mock_incoming_message = mock_model(IncomingMessage, :all_can_view? => true)
-            @mock_response_event = mock_model(InfoRequestEvent, :created_at => Time.now - 22.days,
-                                                                :event_type => 'response',
-                                                                :response? => true,
-                                                                :incoming_message => mock_incoming_message)
-            @info_request = InfoRequest.new(:prominence => 'normal',
-                                            :awaiting_description => true,
-                                            :info_request_events => [@mock_response_event, @mock_comment_event])
+            @info_request = FactoryGirl.create(:info_request,
+                                               :prominence => 'normal',
+                                               :awaiting_description => true)
+            @comment_event = FactoryGirl.create(:info_request_event,
+                                                :created_at => Time.now - 23.days,
+                                                :event_type => 'comment',
+                                                :info_request => @info_request)
+            @incoming_message = FactoryGirl.create(:incoming_message,
+                                                   :prominence => 'normal',
+                                                   :info_request => @info_request)
+            @response_event = FactoryGirl.create(:info_request_event,
+                                                 :info_request => @info_request,
+                                                 :created_at => Time.now - 22.days,
+                                                 :event_type => 'response',
+                                                 :incoming_message => @incoming_message)
+            @info_request.update_attribute(:awaiting_description, true)
         end
 
         it 'should return false if it is the holding pen' do
@@ -682,7 +687,7 @@ describe InfoRequest do
         end
 
         it 'should return false if its last response event occurred less than 21 days ago' do
-            @mock_response_event.stub!(:created_at).and_return(Time.now - 20.days)
+            @response_event.update_attribute(:created_at, Time.now - 20.days)
             @info_request.is_old_unclassified?.should be_false
         end
 
