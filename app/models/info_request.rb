@@ -427,6 +427,7 @@ public
 
     # A new incoming email to this request
     def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = "")
+        # Is this request allowing responses?
         if !override_stop_new_responses
             allow = nil
             reason = nil
@@ -457,9 +458,15 @@ public
                 raise "Unknown allow_new_responses_from '" + self.allow_new_responses_from + "'"
             end
 
+            # If its not allowing responses, handle the message
             if !allow
                 if self.handle_rejected_responses == 'bounce'
-                    RequestMailer.stopped_responses(self, email, raw_email_data).deliver if !is_external?
+                    if MailHandler.get_from_address(email).nil?
+                        # do nothing – can't bounce the mail as there's no
+                        # address to send it to
+                    else
+                        RequestMailer.stopped_responses(self, email, raw_email_data).deliver if !is_external?
+                    end
                 elsif self.handle_rejected_responses == 'holding_pen'
                     InfoRequest.holding_pen_request.receive(email, raw_email_data, false, reason)
                 elsif self.handle_rejected_responses == 'blackhole'
@@ -921,7 +928,7 @@ public
     # Called by incoming_email - and used to be called to generate separate
     # envelope from address until we abandoned it.
     def magic_email(prefix_part)
-        raise "id required to make magic" if not self.id
+        raise "id required to create a magic email" if not self.id
         return InfoRequest.magic_email_for_id(prefix_part, self.id)
     end
 
