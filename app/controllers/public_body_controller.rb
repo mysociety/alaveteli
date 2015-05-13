@@ -48,11 +48,10 @@ class PublicBodyController < ApplicationController
 
             @number_of_visible_requests = @public_body.info_requests.visible.count
 
-            top_url = frontpage_url
             @searched_to_send_request = false
             referrer = request.env['HTTP_REFERER']
 
-            if !referrer.nil? && referrer.match(%r{^#{top_url}search/.*/bodies$})
+            if !referrer.nil? && referrer.match(%r{^#{frontpage_url}search/.*/bodies$})
                 @searched_to_send_request = true
             end
 
