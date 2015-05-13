@@ -179,7 +179,7 @@ class PublicBody < ActiveRecord::Base
         raise "Two bodies with the same historical URL name: #{name}" if old.size > 1
         return unless old.size == 1
         # does acts_as_versioned provide a method that returns the current version?
-        return PublicBody.find(old.first)
+        PublicBody.find(old.first)
     end
 
     # Set the first letter, which is used for faster queries
