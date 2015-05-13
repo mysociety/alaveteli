@@ -169,11 +169,12 @@ class PublicBody < ActiveRecord::Base
         # locales) return any of them
         return found.first if found.size >= 1
 
-        # If none found, then search the history of short names
-        old = PublicBody::Version.find_all_by_url_name(name)
-        # Find unique public bodies in it
-        old = old.map { |x| x.public_body_id }
-        old = old.uniq
+        # If none found, then search the history of short names and find unique
+        # public bodies in it
+        old = PublicBody::Version.
+                  where(:url_name => name).
+                    pluck('DISTINCT public_body_id')
+
         # Maybe return the first one, so we show something relevant,
         # rather than throwing an error?
         raise "Two bodies with the same historical URL name: #{name}" if old.size > 1
