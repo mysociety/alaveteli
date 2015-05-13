@@ -196,9 +196,6 @@ describe RequestMailer, " when receiving incoming mail" do
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "")
         ir.incoming_messages.size.should == 1
 
-        last_event = ir.info_request_events.last
-        last_event.params[:rejected_reason].should =~ /there is no "From" address/
-
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 0
         deliveries.clear
