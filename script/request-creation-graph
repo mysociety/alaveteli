@@ -51,6 +51,12 @@ function grab_data {
 
 # rather nastily, work out the cumulative heights in reverse, so can plot impulses on top of each other
 grab_data "where (1 = 1)" $SOURCEA
+if [ ! -s $SOURCEA ] ; then
+    # No data yet, skip graphing
+    echo "warning: no data to graph, skipping task"
+    exit
+fi
+
 grab_data "where described_state not in ('waiting_response')" $SOURCEB
 grab_data "where described_state not in ('waiting_response', 'waiting_clarification')" $SOURCEC
 grab_data "where described_state not in ('waiting_response', 'waiting_clarification', 'not_held')" $SOURCED
