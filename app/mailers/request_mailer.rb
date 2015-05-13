@@ -234,8 +234,9 @@ class RequestMailer < ApplicationMailer
     def requests_matching_email(email)
         # We deliberately don't use Envelope-to here, so ones that are BCC
         # drop into the holding pen for checking.
+        addresses = ((email.to || []) + (email.cc || [])).compact
         reply_info_requests = [] # TODO: should be set?
-        for address in (email.to || []) + (email.cc || [])
+        addresses.each do |address|
             reply_info_request = InfoRequest.find_by_incoming_email(address)
             reply_info_requests.push(reply_info_request) if reply_info_request
         end
