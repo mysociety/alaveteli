@@ -16,22 +16,28 @@ class PublicBodyController < ApplicationController
         long_cache
         @page = get_search_page_from_params
         requests_per_page = 25
+
         # Later pages are very expensive to load
         if @page > MAX_RESULTS / requests_per_page
             raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / requests_per_page}.")
         end
+
         if MySociety::Format.simplify_url_part(params[:url_name], 'body') != params[:url_name]
             redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'body'), :status => :moved_permanently
             return
         end
+
         @locale = locale_from_params
+
         I18n.with_locale(@locale) do
             @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
             raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
+
             if @public_body.url_name.nil?
                 redirect_to :back
                 return
             end
+
             # If found by historic name, or alternate locale name, redirect to new name
             if  @public_body.url_name != params[:url_name]
                 redirect_to :url_name => @public_body.url_name
@@ -45,12 +51,16 @@ class PublicBodyController < ApplicationController
             top_url = frontpage_url
             @searched_to_send_request = false
             referrer = request.env['HTTP_REFERER']
+
             if !referrer.nil? && referrer.match(%r{^#{top_url}search/.*/bodies$})
                 @searched_to_send_request = true
             end
+
             @view = params[:view]
+
             query = InfoRequestEvent.make_query_from_params(params.merge(:latest_status => @view))
             query += " requested_from:#{@public_body.url_name}"
+
             # Use search query for this so can collapse and paginate easily
             # TODO: really should just use SQL query here rather than Xapian.
             sortby = "described"
@@ -68,10 +78,14 @@ class PublicBodyController < ApplicationController
             flash.keep(:search_params)
 
             @track_thing = TrackThing.create_track_for_public_body(@public_body)
+
             if @user
                 @existing_track = TrackThing.find_existing(@user, @track_thing)
             end
-            @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
+
+            @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'),
+                                   :title => @track_thing.params[:title_in_rss],
+                                   :has_json => true } ]
 
             respond_to do |format|
                 format.html { @has_json = true; render :template => "public_body/show"}
