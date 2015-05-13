@@ -66,7 +66,7 @@ class PublicBodyController < ApplicationController
             begin
                 @xapian_requests = perform_search([InfoRequestEvent], query, sortby, 'request_collapse', requests_per_page)
                 if (@page > 1)
-                    @page_desc = " (page " + @page.to_s + ")"
+                    @page_desc = " (page #{ @page })"
                 else
                     @page_desc = ""
                 end
