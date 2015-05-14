@@ -1,6 +1,6 @@
 <%
-  if @user
-    existing_track = TrackThing.find_existing(@user, track_thing)
+  existing_track = local_assigns.fetch(:existing_track) do
+    TrackThing.find_existing(@user, track_thing) if @user
   end
 %>
 
