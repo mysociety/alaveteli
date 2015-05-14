@@ -39,16 +39,13 @@ module PublicBodyHelper
   #
   # Returns a String
   def type_of_authority(public_body)
-      first = true
-
       categories = PublicBodyCategory.
                      where(:category_tag => public_body.tag_string.split)
 
-      types = categories.map do |category|
+      types = categories.each_with_index.map do |category, index|
           desc = category.description
-          if first
+          if index.zero?
               desc = desc.sub(/\S/) { |m| Unicode.upcase(m) }
-              first = false
           end
           link_to(desc, list_public_bodies_path(category.category_tag))
       end
