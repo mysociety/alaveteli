@@ -103,7 +103,7 @@ end
 
 describe "convert_string_to_utf8_or_binary" do
 
-    describe "when passed uniterpretable character data" do
+    describe "when passed uninterpretable character data" do
 
         it "should return it as a binary string" do
 
