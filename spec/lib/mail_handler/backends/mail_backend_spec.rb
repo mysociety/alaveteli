@@ -37,6 +37,15 @@ describe MailHandler::Backends::MailBackend do
             get_part_file_name(part).should be_nil
         end
 
+        it 'turns an invalid UTF-8 name into a valid one' do
+            mail = get_fixture_mail('non-utf8-filename.email')
+            part = mail.attachments.first
+            filename = get_part_file_name(part)
+            if filename.respond_to?(:valid_encoding)
+               filename.valid_encoding?.should == true
+            end
+        end
+
     end
 
     describe :get_part_body do

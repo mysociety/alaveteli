@@ -76,9 +76,12 @@ def convert_string_to_utf8(s, suggested_character_encoding=nil)
     begin
         result = normalize_string_to_utf8 s, suggested_character_encoding
     rescue EncodingNormalizationError
-        result = s.force_encoding("utf-8").encode("utf-8", :invalid => :replace,
-                                   :undef => :replace,
-                                   :replace => "") if String.method_defined?(:encode)
+        result = s
+        if String.method_defined?(:encode)
+            result = s.force_encoding("utf-8").encode("utf-8", :invalid => :replace,
+                                                               :undef => :replace,
+                                                               :replace => "")
+        end
     end
     result
 end
