@@ -60,7 +60,6 @@
            <% end %>
         </div>
         <div class="action-bar__follow">
-            <% follower_count = TrackThing.count(:all, :conditions => ["public_body_id = ?", @public_body.id]) %>
               <div class="action-bar__follow-button">
               <% if @existing_track %>
                 <%= (link_to _("Unsubscribe"), {:controller => 'track', :action => 'update', :track_id => @existing_track.id, :track_medium => "delete", :r => request.fullpath}, :class => "link_button_green") %>
@@ -74,8 +73,8 @@
             <div class="action-bar__follower-count">
                 <%= n_("{{count}} follower",
                     "{{count}} followers",
-                    follower_count,
-                    :count => content_tag(:span, follower_count, :id => "follow_count")) %>
+                    @follower_count,
+                    :count => content_tag(:span, @follower_count, :id => "follow_count")) %>
             </div>
         </div>
     </div>

@@ -82,6 +82,8 @@ class PublicBodyController < ApplicationController
                 @existing_track = TrackThing.find_existing(@user, @track_thing)
             end
 
+            @follower_count = TrackThing.count(:all, :conditions => ["public_body_id = ?", @public_body.id])
+
             @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'),
                                    :title => @track_thing.params[:title_in_rss],
                                    :has_json => true } ]
