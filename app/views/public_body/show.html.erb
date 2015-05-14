@@ -11,35 +11,37 @@
 <% end %>
 
 <div class="authority__header">
-    <h1><%=h(@public_body.name)%></h1>
+    <h1><%= h(@public_body.name) %></h1>
     <p class="authority__header__subtitle">
-        <%= type_of_authority(@public_body) %><% if not @public_body.short_name.empty? %>,
-        <%= _('also called {{public_body_short_name}}', :public_body_short_name =>  h(@public_body.short_name))%><% end %>
-        <% if !@user.nil? && @user.admin_page_links? %>
-        (<%= link_to _("admin"), admin_body_path(@public_body) %>)
+        <%= type_of_authority(@public_body) %><% unless @public_body.short_name.empty? %>,
+        <%= _('also called {{public_body_short_name}}', :public_body_short_name => h(@public_body.short_name)) %>
+        <% end %>
+
+        <% if @user && @user.admin_page_links? %>
+            (<%= link_to _("admin"), admin_body_path(@public_body) %>)
         <% end %>
     </p>
 
     <% if @public_body.has_notes? || @public_body.eir_only? || @public_body.special_not_requestable_reason? %>
-    <div id="stepwise_make_request">
-      <% if @public_body.has_notes? %>
-        <p class="authority__header__notes">
-          <%= @public_body.notes_as_html.html_safe %>
-        </p>
-      <% end %>
-
-      <% if @public_body.is_requestable? %>
-        <% if @public_body.eir_only? %>
+      <div id="stepwise_make_request">
+        <% if @public_body.has_notes? %>
           <p class="authority__header__notes">
-            <%= _('You can only request information about the environment from this authority.')%>
+            <%= @public_body.notes_as_html.html_safe %>
           </p>
         <% end %>
-      <% elsif @public_body.special_not_requestable_reason? %>
-        <p class="authority__header__notes">
-          <%= public_body_not_requestable_reasons(@public_body).first %>
-        </p>
-      <% end %>
-    </div>
+
+        <% if @public_body.is_requestable? %>
+          <% if @public_body.eir_only? %>
+            <p class="authority__header__notes">
+              <%= _('You can only request information about the environment from this authority.')%>
+            </p>
+          <% end %>
+        <% elsif @public_body.special_not_requestable_reason? %>
+          <p class="authority__header__notes">
+            <%= public_body_not_requestable_reasons(@public_body).first %>
+          </p>
+        <% end %>
+      </div>
     <% end %>
 
     <% if @number_of_visible_requests > 0 %>
