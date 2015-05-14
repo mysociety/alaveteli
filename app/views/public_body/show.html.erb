@@ -83,7 +83,7 @@
 
 <div class="authority__body">
     <div class="authority__body__foi-results">
-        <% if @number_of_visible_requests == 0 %>
+        <% if @number_of_visible_requests.zero? %>
             <% if @public_body.is_requestable? or @public_body.not_requestable_reason != 'defunct' %>
                 <% if @public_body.eir_only? %>
                     <h2><%= _('Environmental Information Regulations requests made using this site') %></h2>
@@ -106,9 +106,8 @@
             <% end %>
         <% end %>
 
-        <% if !@xapian_requests.nil? %>
-
-            <% for result in @xapian_requests.results %>
+        <% if @xapian_requests %>
+            <% @xapian_requests.results.each do |result| %>
                 <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
             <% end %>
 
