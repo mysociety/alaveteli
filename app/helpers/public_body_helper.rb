@@ -50,8 +50,6 @@ module PublicBodyHelper
           link_to(desc, list_public_bodies_path(category.category_tag))
       end
 
-      types.compact!
-
       if types.any?
           types.to_sentence(:last_word_connector => ' and ').html_safe
       else
