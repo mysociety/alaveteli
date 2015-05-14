@@ -160,14 +160,14 @@ class PublicBody < ActiveRecord::Base
 
     # like find_by_url_name but also search historic url_name if none found
     def self.find_by_url_name_with_historic(name)
+        # If many bodies are found (usually because the url_name is the same
+        # across locales) return any of them.
         found = joins(:translations).
                   where("public_body_translations.url_name = ?", name).
                     readonly(false).
-                      all
+                      first
 
-        # If many bodies are found (usually because the url_name is the same across
-        # locales) return any of them
-        return found.first if found.size >= 1
+        return found if found
 
         # If none found, then search the history of short names and find unique
         # public bodies in it
