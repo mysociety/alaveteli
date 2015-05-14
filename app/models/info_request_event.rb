@@ -327,7 +327,7 @@ class InfoRequestEvent < ActiveRecord::Base
 
 
     def is_incoming_message?
-        !self.incoming_message_selective_columns("incoming_messages.id").nil?
+        !incoming_message.nil?
     end
 
     def is_outgoing_message?
