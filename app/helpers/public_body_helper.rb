@@ -37,7 +37,7 @@ module PublicBodyHelper
   #
   # public_body - Instance of a PublicBody
   #
-  # Returns a string
+  # Returns a String
   def type_of_authority(public_body)
       first = true
       types = public_body.tags.each.map do |tag|
