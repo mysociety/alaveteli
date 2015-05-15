@@ -707,3 +707,15 @@ describe IncomingMessage, 'when getting the body of a message for html display' 
     end
 
 end
+
+describe IncomingMessage, 'when getting clipped attachment text' do
+
+    it 'should clip to characters not bytes' do
+        incoming_message = FactoryGirl.build(:incoming_message)
+        # This character is 2 bytes so the string should get sliced unless
+        # we are handling multibyte chars correctly
+        multibyte_string = "å" * 500002
+        incoming_message.stub!(:_get_attachment_text_internal).and_return(multibyte_string)
+        incoming_message.get_attachment_text_clipped.length.should == 500002
+    end
+end
