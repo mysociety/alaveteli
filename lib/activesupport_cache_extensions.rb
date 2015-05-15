@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # lib/activesupport_cache_extensions.rb:
 # Extensions / fixes to ActiveSupport::Cache
 #

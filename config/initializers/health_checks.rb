@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Rails.application.config.after_initialize do
     user_last_created = HealthChecks::Checks::DaysAgoCheck.new(
                          :failure_message => _('The last user was created over a day ago'),

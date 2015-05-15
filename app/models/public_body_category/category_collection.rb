@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # replicate original file-based PublicBodyCategories functionality
 class PublicBodyCategory::CategoryCollection
     include Enumerable

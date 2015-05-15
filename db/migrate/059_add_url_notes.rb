@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddUrlNotes < ActiveRecord::Migration
     def self.up
         add_column :public_bodies, :home_page, :text, :null => false, :default => ""

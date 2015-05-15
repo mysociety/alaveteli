@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AdminIncomingMessageController < AdminController
 
     def edit

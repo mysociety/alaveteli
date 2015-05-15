@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ExpandStopNewResponses < ActiveRecord::Migration
     def self.up
         add_column :info_requests, :allow_new_responses_from, :string

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddCensorRulesIndices < ActiveRecord::Migration
   def self.up
     add_index :censor_rules, :info_request_id

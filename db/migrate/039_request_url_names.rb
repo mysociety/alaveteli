@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RequestUrlNames < ActiveRecord::Migration
     def self.up
         add_column :info_requests, :url_title, :text

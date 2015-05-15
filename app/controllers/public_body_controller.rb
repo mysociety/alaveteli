@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- encoding : utf-8 -*-
 # app/controllers/public_body_controller.rb:
 # Show information about a public body.
 #

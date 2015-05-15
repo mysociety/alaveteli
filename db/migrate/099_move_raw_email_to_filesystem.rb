@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class MoveRawEmailToFilesystem < ActiveRecord::Migration
     def self.up
         batch_size = 10

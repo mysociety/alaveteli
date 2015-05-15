@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # models/track_mailer.rb:
 # Emails which go to users who are tracking things.
 #

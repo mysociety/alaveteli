@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module HealthChecksHelper
 
     def check_status(check)

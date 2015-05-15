@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Rebuild the current xapian index
 def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = true)
     if dropfirst

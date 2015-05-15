@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddDefaultShortNameToPublicBodies < ActiveRecord::Migration
 
   def up

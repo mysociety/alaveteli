@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # models/info_request_batch_mailer.rb:
 # Emails relating to user accounts. e.g. Confirming a new account
 #

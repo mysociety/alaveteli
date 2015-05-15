@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddPublicationScheme < ActiveRecord::Migration
     def self.up
         add_column :public_bodies, :publication_scheme, :text, :null => false, :default => ""

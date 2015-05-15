@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateCategoryTranslationTables < ActiveRecord::Migration
     class PublicBodyCategory < ActiveRecord::Base
         translates :title, :description

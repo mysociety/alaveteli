@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddProfilePhoto < ActiveRecord::Migration
     def self.up
         create_table :profile_photos do |t|

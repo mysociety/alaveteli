@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AdminPublicBodyHeadingsController < AdminController
 
     def new

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddStatisticsToPublicBody < ActiveRecord::Migration
   def self.up
     add_column :public_bodies, :info_requests_successful_count, :integer

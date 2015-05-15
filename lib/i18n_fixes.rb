@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Some of the monkeypatches in this file should possibly be submitted
 # as patches, but most are here because they should go away when we
 # upgrade to Rails 3.x

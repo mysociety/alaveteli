@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module AttachmentToHTML
     module Adapters
         class CouldNotConvert

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'iconv' unless String.method_defined?(:encode)
 require 'charlock_holmes'
 

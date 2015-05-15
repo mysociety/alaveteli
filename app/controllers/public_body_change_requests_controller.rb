@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class PublicBodyChangeRequestsController < ApplicationController
 
     before_filter :catch_spam, :only => [:create]

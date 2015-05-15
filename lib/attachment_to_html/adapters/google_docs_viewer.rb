@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module AttachmentToHTML
     module Adapters
         # Renders the attachment in a Google Docs Viewer

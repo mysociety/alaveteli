@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'view'
 
 Dir[File.dirname(__FILE__) + '/adapters/*.rb'].each do |file|

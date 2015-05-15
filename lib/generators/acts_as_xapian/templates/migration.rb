@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateActsAsXapian < ActiveRecord::Migration
   def self.up
     create_table :acts_as_xapian_jobs do |t|

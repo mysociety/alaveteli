@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # -*- coding: utf-8 -*-
 class WorldFOIWebsites
     def self.world_foi_websites

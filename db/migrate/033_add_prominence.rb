@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddProminence < ActiveRecord::Migration
     def self.up
         add_column :info_requests, :prominence, :string, :null => false, :default => 'normal'

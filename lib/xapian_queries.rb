@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module XapianQueries
 
     # These methods take some filter criteria expressed in a hash and convert them

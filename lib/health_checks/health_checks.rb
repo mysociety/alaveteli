@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'health_checkable'
 
 Dir[File.dirname(__FILE__) + '/checks/*.rb'].each do |file|

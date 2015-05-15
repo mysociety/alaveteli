@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddResponseTypeToIncomingMessage < ActiveRecord::Migration
   def self.up
     add_column :incoming_messages, :user_classified, :boolean, :default => false

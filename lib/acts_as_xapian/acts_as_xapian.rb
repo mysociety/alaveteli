@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 # acts_as_xapian/lib/acts_as_xapian.rb:
 # Xapian full text search in Ruby on Rails.
 #

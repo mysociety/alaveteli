@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'mail'
 require 'mapi/msg'
 require 'mapi/convert'

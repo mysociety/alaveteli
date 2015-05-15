@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # lib/has_tag_string.rb:
 # Lets a model have tags, represented as space separate strings in a public
 # interface, but stored in the database as keys. Each tag can have a value

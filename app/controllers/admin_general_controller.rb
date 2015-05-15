@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/admin_controller.rb:
 # Controller for main admin pages.
 #

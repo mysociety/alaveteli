@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # In order to work around the problem of the database use not having
 # the permission to disable referential integrity when loading fixtures,
 # we redefine disable_referential_integrity so that it doesn't try to
