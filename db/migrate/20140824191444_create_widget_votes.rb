@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateWidgetVotes < ActiveRecord::Migration
   def change
     create_table :widget_votes do |t|

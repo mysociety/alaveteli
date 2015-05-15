@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddPublicBodyTags < ActiveRecord::Migration
     def self.up
         create_table :public_body_tags do |t|

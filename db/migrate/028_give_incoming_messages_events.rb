@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # TODO: If this one fails with errors about described_state on save, then you need
 # to temporarily modify the model for InfoRequestEvents to remove this part:
 #    validates_inclusion_of :described_state, :in => [ 

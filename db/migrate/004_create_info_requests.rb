@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateInfoRequests < ActiveRecord::Migration
   def self.up
     create_table :info_requests do |t|

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/widget_controller.rb:
 # Handle widgets, if enabled
 #

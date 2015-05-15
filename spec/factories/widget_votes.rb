@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'securerandom'
 FactoryGirl.define do
   factory :widget_vote do

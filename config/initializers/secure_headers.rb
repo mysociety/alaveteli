@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 ::SecureHeaders::Configuration.configure do |config|
 
     # https://tools.ietf.org/html/rfc6797

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- encoding : utf-8 -*-
 # controllers/application.rb:
 # Parent class of all controllers in FOI site. Filters added to this controller
 # apply to all controllers in the application. Likewise, all the methods added

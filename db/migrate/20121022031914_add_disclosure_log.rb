@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddDisclosureLog < ActiveRecord::Migration
     def self.up
         add_column :public_bodies, :disclosure_log, :text, :null => false, :default => ""

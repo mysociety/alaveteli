@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 #DO NOT MODIFY! AUTOMATICALLY GENERATED FILE!
 _('Acts as xapian/acts as xapian job')
 _('ActsAsXapian::ActsAsXapianJob|Action')

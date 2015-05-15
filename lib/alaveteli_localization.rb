@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AlaveteliLocalization
     class << self
         def set_locales(available_locales, default_locale)

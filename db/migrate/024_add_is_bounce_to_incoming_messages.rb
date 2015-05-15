@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddIsBounceToIncomingMessages < ActiveRecord::Migration
   def self.up
     add_column :incoming_messages, :is_bounce, :boolean, :default => false

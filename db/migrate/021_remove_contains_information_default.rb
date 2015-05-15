@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RemoveContainsInformationDefault < ActiveRecord::Migration
   def self.up
         change_column :incoming_messages, :contains_information, :boolean, :default => nil

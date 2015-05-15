@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: info_requests

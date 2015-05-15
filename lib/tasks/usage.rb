@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Usage
 
     def usage_message message

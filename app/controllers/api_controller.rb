@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ApiController < ApplicationController
     before_filter :check_api_key
     before_filter :check_external_request,

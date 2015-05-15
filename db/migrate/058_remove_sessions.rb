@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RemoveSessions < ActiveRecord::Migration
     def self.up
         drop_table :sessions

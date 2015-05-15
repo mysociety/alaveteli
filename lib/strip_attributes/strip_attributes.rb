@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module StripAttributes
   # Strips whitespace from model fields and leaves nil values as nil.
   # TODO: this differs from official StripAttributes, as it doesn't make blank cells null.

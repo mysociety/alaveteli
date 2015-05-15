@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/admin_user_controller.rb:
 # Controller for viewing user accounts from the admin interface.
 #

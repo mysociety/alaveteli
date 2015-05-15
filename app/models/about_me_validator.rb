@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # models/about_me_validator.rb:
 # Validates editing about me text on user profile pages.
 #

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module AdminHelper
   def icon(name)
     content_tag(:i, "", :class => "icon-#{name}")

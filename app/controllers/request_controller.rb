@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# -*- encoding : utf-8 -*-
 # app/controllers/request_controller.rb:
 # Show information about one particular request.
 #

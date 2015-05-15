@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddLawUsed < ActiveRecord::Migration
     def self.up
         add_column :info_requests, :law_used, :string, :null => false, :default => 'foi'
