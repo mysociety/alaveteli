@@ -29,7 +29,7 @@ class UserController < ApplicationController
     # TODO: really should just use SQL query here rather than Xapian.
     if @show_requests
 
-      request_states = @display_user.info_requests.pluck(:described_state).uniq
+      request_states = assign_request_states(@display_user)
 
       option_item = Struct.new(:value, :text)
       @request_states = request_states.map do |state|
@@ -672,6 +672,14 @@ class UserController < ApplicationController
     url = confirm_url(:email_token => post_redirect.email_token)
     UserMailer.already_registered(user, post_redirect.reason_params, url).deliver
     render :action => 'confirm' # must be same as for send_confirmation_mail above to avoid leak of presence of email in db
+  end
+
+  def assign_request_states(display_user)
+    option_item = Struct.new(:value, :text)
+
+    display_user.info_requests.pluck(:described_state).uniq.map do |state|
+      option_item.new(state, InfoRequest.get_status_description(state))
+    end
   end
 
 end
