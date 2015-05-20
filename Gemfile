@@ -82,6 +82,8 @@ group :development do
   gem 'pry', '~> 0.9.6'
   gem 'quiet_assets', '~> 1.0.2'
   gem 'rdoc', '~> 3.12.2'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :debug do
