@@ -1015,21 +1015,13 @@ public
 
     def InfoRequest.count_old_unclassified(extra_params={})
         params = old_unclassified_params(extra_params)
-        if extra_params[:conditions]
-            condition_string = extra_params[:conditions].shift
-            params[:conditions][0] += " AND #{condition_string}"
-            params[:conditions] += extra_params[:conditions]
-        end
+        add_conditions_from_extra_params(params, extra_params)
         count(:all, params)
     end
 
     def InfoRequest.get_random_old_unclassified(limit, extra_params)
         params = old_unclassified_params({})
-        if extra_params[:conditions]
-            condition_string = extra_params[:conditions].shift
-            params[:conditions][0] += " AND #{condition_string}"
-            params[:conditions] += extra_params[:conditions]
-        end
+        add_conditions_from_extra_params(params, extra_params)
         params[:limit] = limit
         params[:order] = "random()"
         find(:all, params)
@@ -1044,11 +1036,7 @@ public
             params[:order] = extra_params[:order]
             params.delete(:select)
         end
-        if extra_params[:conditions]
-            condition_string = extra_params[:conditions].shift
-            params[:conditions][0] += " AND #{condition_string}"
-            params[:conditions] += extra_params[:conditions]
-        end
+        add_conditions_from_extra_params(params, extra_params)
         find(:all, params)
     end
 
@@ -1434,6 +1422,14 @@ public
         end
         if !self.title.nil? && self.title =~ /^(FOI|Freedom of Information)\s*requests?$/i
             errors.add(:title, _('Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway.'))
+        end
+    end
+
+    def add_conditions_from_extra_params(params, extra_params)
+        if extra_params[:conditions]
+            condition_string = extra_params[:conditions].shift
+            params[:conditions][0] += " AND #{condition_string}"
+            params[:conditions] += extra_params[:conditions]
         end
     end
 end
