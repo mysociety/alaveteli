@@ -64,7 +64,6 @@ class PublicBody < ActiveRecord::Base
     }
 
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
-    accepts_nested_attributes_for :translations, :reject_if => :empty_translation_in_params?
 
     # Default fields available for importing from CSV, in the format
     # [field_name, 'short description of field (basic html allowed)']
@@ -124,11 +123,6 @@ class PublicBody < ActiveRecord::Base
                        uniq
     end
 
-    # Convenience methods for creating/editing translations via forms
-    def find_translation_by_locale(locale)
-        self.translations.find_by_locale(locale)
-    end
-
     # TODO: - Don't like repeating this!
     def calculate_cached_fields(t)
         PublicBody.set_first_letter(t)
@@ -146,28 +140,6 @@ class PublicBody < ActiveRecord::Base
                 instance.first_letter = first_letter
             end
         end
-    end
-
-    def translated_versions
-        translations
-    end
-
-    def ordered_translations
-        translations.
-          select { |t| I18n.available_locales.include?(t.locale) }.
-            sort_by { |t| I18n.available_locales.index(t.locale) }
-    end
-
-    def build_all_translations
-        I18n.available_locales.each do |locale|
-            translations.build(:locale => locale) unless translations.detect{ |t| t.locale == locale }
-        end
-    end
-
-    def translated_versions=(translation_attrs)
-        warn "[DEPRECATION] PublicBody#translated_versions= will be replaced " \
-             "by PublicBody#translations_attributes= as of release 0.22"
-        self.translations_attributes = translation_attrs
     end
 
     def set_default_publication_scheme
@@ -762,10 +734,6 @@ class PublicBody < ActiveRecord::Base
       else
           send(name)
       end
-    end
-
-    def empty_translation_in_params?(attributes)
-        attributes.select { |k, v| !v.blank? && k.to_s != 'locale' }.empty?
     end
 
     def request_email_if_requestable
