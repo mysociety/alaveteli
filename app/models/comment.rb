@@ -82,6 +82,10 @@ class Comment < ActiveRecord::Base
         end
     end
 
+    def first_three_words
+        body.split.first(3).join(' ')
+    end
+
     private
 
     def check_body_has_content
