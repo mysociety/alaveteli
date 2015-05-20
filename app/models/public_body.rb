@@ -95,6 +95,8 @@ class PublicBody < ActiveRecord::Base
     self.non_versioned_columns << 'info_requests_not_held_count' << 'info_requests_overdue'
     self.non_versioned_columns << 'info_requests_overdue_count'
 
+    include Translatable
+
     # Public: Search for Public Bodies whose name, short_name, request_email or
     # tags contain the given query
     #

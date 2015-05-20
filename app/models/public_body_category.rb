@@ -24,6 +24,8 @@ class PublicBodyCategory < ActiveRecord::Base
     validates_presence_of :category_tag, :message => "Tag can't be blank"
     validates_presence_of :description, :message => "Description can't be blank"
 
+    include Translatable
+
     def self.get
         locale = I18n.locale.to_s || default_locale.to_s || ""
         categories = CategoryCollection.new

@@ -28,6 +28,8 @@ class PublicBodyHeading < ActiveRecord::Base
         end
     end
 
+    include Translatable
+
     def add_category(category)
         unless public_body_categories.include?(category)
             public_body_categories << category
