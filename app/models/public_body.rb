@@ -32,6 +32,10 @@ require 'securerandom'
 require 'set'
 
 class PublicBody < ActiveRecord::Base
+    include AdminColumn
+
+    @non_admin_columns = %w(name last_edit_comment)
+
     strip_attributes!
 
     validates_presence_of :name, :message => N_("Name can't be blank")
@@ -645,12 +649,6 @@ class PublicBody < ActiveRecord::Base
 
     def purge_in_cache
         self.info_requests.each {|x| x.purge_in_cache}
-    end
-
-    def for_admin_column
-        self.class.content_columns.map{|c| c unless %w(name last_edit_comment).include?(c.name)}.compact.each do |column|
-            yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
-        end
     end
 
     def self.where_clause_for_stats(minimum_requests, total_column)

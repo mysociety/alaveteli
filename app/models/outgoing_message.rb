@@ -26,6 +26,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class OutgoingMessage < ActiveRecord::Base
+    include AdminColumn
     extend MessageProminence
     include Rails.application.routes.url_helpers
     include LinkToHelper
@@ -281,12 +282,6 @@ class OutgoingMessage < ActiveRecord::Base
 
     def purge_in_cache
         info_request.purge_in_cache
-    end
-
-    def for_admin_column
-        self.class.content_columns.each do |column|
-            yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
-        end
     end
 
     def xapian_reindex_after_update

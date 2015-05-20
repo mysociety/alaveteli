@@ -23,6 +23,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class CensorRule < ActiveRecord::Base
+    include AdminColumn
     belongs_to :info_request
     belongs_to :user
     belongs_to :public_body
@@ -56,12 +57,6 @@ class CensorRule < ActiveRecord::Base
     def apply_to_binary!(binary_to_censor)
         return nil if binary_to_censor.nil?
         binary_to_censor.gsub!(to_replace) { |match| match.gsub(/./, 'x') }
-    end
-
-    def for_admin_column
-        self.class.content_columns.each do |column|
-          yield(column.human_name, send(column.name), column.type.to_s, column.name)
-        end
     end
 
     def is_global?

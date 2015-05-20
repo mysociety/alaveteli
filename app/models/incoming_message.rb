@@ -38,6 +38,7 @@ require 'zip/zip'
 require 'iconv' unless String.method_defined?(:encode)
 
 class IncomingMessage < ActiveRecord::Base
+    include AdminColumn
     extend MessageProminence
     belongs_to :info_request
     validates_presence_of :info_request
@@ -754,13 +755,6 @@ class IncomingMessage < ActiveRecord::Base
     def IncomingMessage.get_all_file_extensions
         return AlaveteliFileTypes.all_extensions.join(" ")
     end
-
-    def for_admin_column
-        self.class.content_columns.each do |column|
-            yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
-        end
-    end
-
 end
 
 

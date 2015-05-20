@@ -21,6 +21,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class Comment < ActiveRecord::Base
+    include AdminColumn
     strip_attributes!
 
     belongs_to :user
@@ -74,12 +75,6 @@ class Comment < ActiveRecord::Base
         text = MySociety::Format.make_clickable(text, :contract => 1)
         text = text.gsub(/\n/, '<br>')
         text.html_safe
-    end
-
-    def for_admin_column
-        self.class.content_columns.each do |column|
-            yield(column.human_name, send(column.name), column.type.to_s, column.name)
-        end
     end
 
     private
