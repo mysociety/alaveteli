@@ -22,7 +22,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class InfoRequestEvent < ActiveRecord::Base
-
+    include AdminColumn
     extend XapianQueries
 
     belongs_to :info_request
@@ -419,11 +419,4 @@ class InfoRequestEvent < ActiveRecord::Base
 
         return ret
     end
-
-  def for_admin_column
-    self.class.content_columns.each do |column|
-      yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
-    end
-  end
-
 end

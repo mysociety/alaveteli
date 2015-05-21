@@ -28,7 +28,10 @@
 require 'digest/sha1'
 
 class InfoRequest < ActiveRecord::Base
+    include AdminColumn
     include Rails.application.routes.url_helpers
+
+    @non_admin_columns = %w(title url_title)
 
     strip_attributes!
 
@@ -1281,13 +1284,6 @@ public
         end
         PublicBody.set_callback(:save, :after, :purge_in_cache)
     end
-
-    def for_admin_column
-      self.class.content_columns.map{|c| c unless %w(title url_title).include?(c.name) }.compact.each do |column|
-        yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
-      end
-    end
-
 
     # Get requests that have similar important terms
     def similar_requests(limit=10)
