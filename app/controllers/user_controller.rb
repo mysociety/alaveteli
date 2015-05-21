@@ -22,39 +22,8 @@ class UserController < ApplicationController
 
         @is_you = @user.try(:id) == @display_user.id
 
-        # Use search query for this so can collapse and paginate easily
-        # TODO: really should just use SQL query here rather than Xapian.
-        if @show_requests
-            @request_states = assign_request_states(@display_user)
+        set_show_request if @show_requests
 
-            requests_query = 'requested_by:' + @display_user.url_name
-            comments_query = 'commented_by:' + @display_user.url_name
-            unless params[:user_query].nil?
-              requests_query += " " + params[:user_query]
-              comments_query += " " + params[:user_query]
-              @match_phrase = _("{{search_results}} matching '{{query}}'", :search_results => "", :query => params[:user_query])
-
-              unless params[:request_latest_status].blank?
-                requests_query << ' latest_status:' << params[:request_latest_status]
-                comments_query << ' latest_status:' << params[:request_latest_status]
-                @match_phrase << _(" filtered by status: '{{status}}'", :status => params[:request_latest_status])
-              end
-            end
-
-            @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
-            @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
-
-            if (@page > 1)
-                @page_desc = " (page " + @page.to_s + ")"
-            else
-                @page_desc = ""
-            end
-
-            # Track corresponding to this page
-            @track_thing = TrackThing.create_track_for_user(@display_user)
-            @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
-
-        end
         # All tracks for the user
         if @is_you
             @track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc')
@@ -671,5 +640,35 @@ class UserController < ApplicationController
         # NOTE: Rails 4 syntax: User.find_by(url_name: url_name, email_confirmed: true)
         User.find_by_url_name_and_email_confirmed(params[:url_name], true)
         raise ActiveRecord::RecordNotFound.new('User not found, url_name=' + params[:url_name]) unless @display_user
+    end
+
+    def set_show_request
+        # Use search query for this so can collapse and paginate easily
+        # TODO: really should just use SQL query here rather than Xapian.
+
+        @request_states = assign_request_states(@display_user)
+
+        requests_query = 'requested_by:' + @display_user.url_name
+        comments_query = 'commented_by:' + @display_user.url_name
+        unless params[:user_query].nil?
+          requests_query += " " + params[:user_query]
+          comments_query += " " + params[:user_query]
+          @match_phrase = _("{{search_results}} matching '{{query}}'", :search_results => "", :query => params[:user_query])
+
+          unless params[:request_latest_status].blank?
+            requests_query << ' latest_status:' << params[:request_latest_status]
+            comments_query << ' latest_status:' << params[:request_latest_status]
+            @match_phrase << _(" filtered by status: '{{status}}'", :status => params[:request_latest_status])
+          end
+        end
+
+        @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
+        @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
+
+        @page_desc = (@page > 1) ? " (page " + @page.to_s + ")" : ""
+
+        # Track corresponding to this page
+        @track_thing = TrackThing.create_track_for_user(@display_user)
+        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
     end
 end
