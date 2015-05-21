@@ -635,8 +635,9 @@ class UserController < ApplicationController
 
   def set_display_user
     # NOTE: Rails 4 syntax: User.find_by(url_name: url_name, email_confirmed: true)
-    User.find_by_url_name_and_email_confirmed(params[:url_name], true)
-    raise ActiveRecord::RecordNotFound.new('User not found, url_name=' + params[:url_name]) unless @display_user
+    display_user = User.find_by_url_name_and_email_confirmed(params[:url_name], true)
+    raise ActiveRecord::RecordNotFound.new('User not found, url_name=' + params[:url_name]) unless display_user
+    display_user
   end
 
   def set_show_requests
