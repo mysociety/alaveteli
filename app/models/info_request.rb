@@ -197,19 +197,6 @@ class InfoRequest < ActiveRecord::Base
     rescue MissingSourceFile, NameError
     end
 
-    # only check on create, so existing models with mixed case are allowed
-    def validate_on_create
-        if !self.title.nil? && !MySociety::Validate.uses_mixed_capitals(self.title, 10)
-            errors.add(:title, _('Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.'))
-        end
-        if !self.title.nil? && title.size > 200
-            errors.add(:title, _('Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence.'))
-        end
-        if !self.title.nil? && self.title =~ /^(FOI|Freedom of Information)\s*requests?$/i
-            errors.add(:title, _('Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway.'))
-        end
-    end
-
     OLD_AGE_IN_DAYS = 21.days
 
     def visible_comments
