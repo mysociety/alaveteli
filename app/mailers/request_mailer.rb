@@ -269,7 +269,7 @@ class RequestMailer < ApplicationMailer
     end
 
     # Send email alerts for overdue requests
-    def self.alert_overdue_requests()
+    def self.alert_overdue_requests
         info_requests = InfoRequest.find(:all,
             :conditions => [
                 "described_state = 'waiting_response'
@@ -373,8 +373,8 @@ class RequestMailer < ApplicationMailer
 
     # Send email alerts for requests which need clarification. Goes out 3 days
     # after last update of event.
-    def self.alert_not_clarified_request()
-        info_requests = InfoRequest.find(:all, :conditions => [ "awaiting_description = ? and described_state = 'waiting_clarification' and info_requests.updated_at < ?", false, Time.now() - 3.days ], :include => [ :user ], :order => "info_requests.id" )
+    def self.alert_not_clarified_request
+        info_requests = InfoRequest.find(:all, :conditions => [ "awaiting_description = ? and described_state = 'waiting_clarification' and info_requests.updated_at < ?", false, Time.now - 3.days ], :include => [ :user ], :order => "info_requests.id" )
         for info_request in info_requests
             alert_event_id = info_request.get_last_public_response_event_id
             last_response_message = info_request.get_last_public_response
@@ -401,7 +401,7 @@ class RequestMailer < ApplicationMailer
     end
 
     # Send email alert to request submitter for new comments on the request.
-    def self.alert_comment_on_request()
+    def self.alert_comment_on_request
 
         # We only check comments made in the last month - this means if the
         # cron jobs broke for more than a month events would be lost, but no

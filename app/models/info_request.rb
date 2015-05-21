@@ -553,7 +553,7 @@ public
                 :status => 'ready',
                 :message_type => 'initial_request',
                 :body => 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
-                :last_sent_at => Time.now(),
+                :last_sent_at => Time.now,
                 :what_doing => 'normal_sort'
 
             })
@@ -669,11 +669,11 @@ public
             if !curr_state.nil? && event.event_type == 'response'
                 if event.calculated_state != curr_state
                     event.calculated_state = curr_state
-                    event.last_described_at = Time.now()
+                    event.last_described_at = Time.now
                     event.save!
                 end
                 if event.last_described_at.nil? # TODO: actually maybe this isn't needed
-                    event.last_described_at = Time.now()
+                    event.last_described_at = Time.now
                     event.save!
                 end
                 curr_state = nil
@@ -685,7 +685,7 @@ public
                 # indexed.
                 if event.calculated_state != event.described_state
                     event.calculated_state = event.described_state
-                    event.last_described_at = Time.now()
+                    event.last_described_at = Time.now
                     event.save!
                 end
 
@@ -702,7 +702,7 @@ public
                 # case there is a preceding response that the described state should be applied to.
                 if event.calculated_state != event.described_state
                     event.calculated_state = event.described_state
-                    event.last_described_at = Time.now()
+                    event.last_described_at = Time.now
                     event.save!
                 end
             end
@@ -995,20 +995,20 @@ public
           LIMIT 1)"
     end
 
-    def InfoRequest.last_public_response_clause()
+    def InfoRequest.last_public_response_clause
         join_clause = "incoming_messages.id = info_request_events.incoming_message_id
                        AND incoming_messages.prominence = 'normal'"
         last_event_time_clause('response', 'incoming_messages', join_clause)
     end
 
     def InfoRequest.old_unclassified_params(extra_params, include_last_response_time=false)
-        last_response_created_at = last_public_response_clause()
+        last_response_created_at = last_public_response_clause
         age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
         params = { :conditions => ["awaiting_description = ?
                                     AND #{last_response_created_at} < ?
                                     AND url_title != 'holding_pen'
                                     AND user_id IS NOT NULL",
-                                    true, Time.now() - age] }
+                                    true, Time.now - age] }
         if include_last_response_time
             params[:select] = "*, #{last_response_created_at} AS last_response_time"
             params[:order] = 'last_response_time'
@@ -1055,7 +1055,7 @@ public
         find(:all, params)
     end
 
-    def InfoRequest.download_zip_dir()
+    def InfoRequest.download_zip_dir
         File.join(Rails.root, "cache", "zips", "#{Rails.env}")
     end
 
@@ -1073,7 +1073,7 @@ public
     end
 
     def request_dirs
-        first_three_digits = id.to_s()[0..2]
+        first_three_digits = id.to_s[0..2]
         File.join(first_three_digits.to_s, id.to_s)
     end
 
@@ -1082,7 +1082,7 @@ public
     end
 
     def make_zip_cache_path(user)
-        cache_file_dir = File.join(InfoRequest.download_zip_dir(),
+        cache_file_dir = File.join(InfoRequest.download_zip_dir,
                                    "download",
                                    request_dirs,
                                    last_update_hash)
@@ -1255,7 +1255,7 @@ public
                                        :model => self.class.base_class.to_s,
                                        :model_id => self.id)
             end
-            req.save()
+            req.save
         end
     end
 
@@ -1411,7 +1411,7 @@ public
                 self.described_state = 'waiting_response'
             end
         rescue ActiveModel::MissingAttributeError
-            # this should only happen on Model.exists?() call. It can be safely ignored.
+            # this should only happen on Model.exists? call. It can be safely ignored.
             # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/
         end
 

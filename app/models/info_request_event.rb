@@ -326,9 +326,17 @@ class InfoRequestEvent < ActiveRecord::Base
     end
 
 
-    def is_incoming_message?()  not self.incoming_message_selective_columns("incoming_messages.id").nil?  end
-    def is_outgoing_message?()  not self.outgoing_message.nil?  end
-    def is_comment?()           not self.comment.nil?           end
+    def is_incoming_message?
+        !self.incoming_message_selective_columns("incoming_messages.id").nil?
+    end
+
+    def is_outgoing_message?
+        !self.outgoing_message.nil?
+    end
+
+    def is_comment?
+        !self.comment.nil?
+    end
 
     # Display version of status
     def display_status

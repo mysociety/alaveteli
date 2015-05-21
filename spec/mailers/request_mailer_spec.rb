@@ -301,7 +301,7 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
                                       ORDER BY created_at desc LIMIT 1) < ?
                                  AND url_title != 'holding_pen'
                                  AND user_id IS NOT NULL".split(' ').join(' '),
-                                 true, Time.now() - 7.days ]
+                                 true, Time.now - 7.days ]
 
         # compare the query string ignoring any spacing differences
         InfoRequest.should_receive(:find) do |all, query_params|

@@ -16,7 +16,7 @@ describe SpamAddress do
     describe :new do
 
         it 'requres an email address' do
-            SpamAddress.new().should_not be_valid
+            SpamAddress.new.should_not be_valid
             SpamAddress.new(:email => 'spam@example.org').should be_valid
         end
 

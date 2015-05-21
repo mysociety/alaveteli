@@ -651,17 +651,17 @@ describe AdminPublicBodyController, "when administering public bodies and paying
     render_views
 
     before do
-        config = MySociety::Config.load_default()
+        config = MySociety::Config.load_default
         config['SKIP_ADMIN_AUTH'] = false
         basic_auth_login @request
     end
     after do
-        config = MySociety::Config.load_default()
+        config = MySociety::Config.load_default
         config['SKIP_ADMIN_AUTH'] = true
     end
 
     def setup_emergency_credentials(username, password)
-        config = MySociety::Config.load_default()
+        config = MySociety::Config.load_default
         config['SKIP_ADMIN_AUTH'] = false
         config['ADMIN_USERNAME'] = username
         config['ADMIN_PASSWORD'] = password
@@ -678,7 +678,7 @@ describe AdminPublicBodyController, "when administering public bodies and paying
     end
 
     it "skips admin authorisation when SKIP_ADMIN_AUTH set" do
-        config = MySociety::Config.load_default()
+        config = MySociety::Config.load_default
         config['SKIP_ADMIN_AUTH'] = true
         @request.env["HTTP_AUTHORIZATION"] = ""
         n = PublicBody.count
@@ -758,7 +758,7 @@ describe AdminPublicBodyController, "when administering public bodies and paying
         end
 
         it 'returns the REMOTE_USER value from the request environment when skipping admin auth' do
-            config = MySociety::Config.load_default()
+            config = MySociety::Config.load_default
             config['SKIP_ADMIN_AUTH'] = true
             @request.env["HTTP_AUTHORIZATION"] = ""
             @request.env["REMOTE_USER"] = "i_am_admin"

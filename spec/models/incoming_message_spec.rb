@@ -263,7 +263,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
         incoming_message = InfoRequest.holding_pen_request.incoming_messages[0]
 
         # This will raise an error if the bug in TMail hasn't been fixed
-        incoming_message.get_body_for_html_display()
+        incoming_message.get_body_for_html_display
     end
 
 
@@ -282,7 +282,7 @@ end
 describe IncomingMessage, " display attachments" do
 
     it "should not show slashes in filenames" do
-        foi_attachment = FoiAttachment.new()
+        foi_attachment = FoiAttachment.new
         # http://www.whatdotheyknow.com/request/post_commercial_manager_librarie#incoming-17233
         foi_attachment.filename = "FOI/09/066 RESPONSE TO FOI REQUEST RECEIVED 21st JANUARY 2009.txt"
         expected_display_filename = foi_attachment.filename.gsub(/\//, " ")
@@ -290,7 +290,7 @@ describe IncomingMessage, " display attachments" do
     end
 
     it "should not show slashes in subject generated filenames" do
-        foi_attachment = FoiAttachment.new()
+        foi_attachment = FoiAttachment.new
         # http://www.whatdotheyknow.com/request/post_commercial_manager_librarie#incoming-17233
         foi_attachment.within_rfc822_subject = "FOI/09/066 RESPONSE TO FOI REQUEST RECEIVED 21st JANUARY 2009"
         foi_attachment.content_type = 'text/plain'
@@ -312,20 +312,20 @@ describe IncomingMessage, " folding quoted parts of emails" do
 
     it 'should fold a plain text lotus notes quoted part correctly' do
         text = "FOI Team\n\n\nInfo Requester <xxx@whatdotheyknow.com>=20\nSent by: Info Requester <request-bounce-xxxxx@whatdotheyknow.com>\n06/03/08 10:00\nPlease respond to\nInfo Requester <request-xxxx@whatdotheyknow.com>"
-        @incoming_message = IncomingMessage.new()
+        @incoming_message = IncomingMessage.new
         @incoming_message.stub_chain(:info_request, :user_name).and_return("Info Requester")
         @incoming_message.remove_lotus_quoting(text).should match(/FOLDED_QUOTED_SECTION/)
     end
 
     it 'should not error when trying to fold lotus notes quoted parts on a request with no user_name' do
         text = "hello"
-        @incoming_message = IncomingMessage.new()
+        @incoming_message = IncomingMessage.new
         @incoming_message.stub_chain(:info_request, :user_name).and_return(nil)
         @incoming_message.remove_lotus_quoting(text).should == 'hello'
     end
 
     it "cope with [ in user names properly" do
-        @incoming_message = IncomingMessage.new()
+        @incoming_message = IncomingMessage.new
         @incoming_message.stub_chain(:info_request, :user_name).and_return("Sir [ Bobble")
         # this gives a warning if [ is in the name
         text = @incoming_message.remove_lotus_quoting("Sir [ Bobble \nSent by: \n")
@@ -357,7 +357,7 @@ describe IncomingMessage, " checking validity to reply to" do
         MailHandler.stub!(:get_from_address).and_return(email)
         MailHandler.stub!(:empty_return_path?).with(@mail).and_return(empty_return_path)
         MailHandler.stub!(:get_auto_submitted).with(@mail).and_return(autosubmitted)
-        @incoming_message = IncomingMessage.new()
+        @incoming_message = IncomingMessage.new
         @incoming_message.stub!(:mail).and_return(@mail)
         @incoming_message._calculate_valid_to_reply_to.should == result
     end
@@ -431,21 +431,21 @@ describe IncomingMessage, " when censoring data" do
 
          @im = incoming_messages(:useless_incoming_message)
 
-         @censor_rule_1 = CensorRule.new()
+         @censor_rule_1 = CensorRule.new
          @censor_rule_1.text = "Stilton"
          @censor_rule_1.replacement = "Jarlsberg"
          @censor_rule_1.last_edit_editor = "unknown"
          @censor_rule_1.last_edit_comment = "none"
          @im.info_request.censor_rules << @censor_rule_1
 
-         @censor_rule_2 = CensorRule.new()
+         @censor_rule_2 = CensorRule.new
          @censor_rule_2.text = "blue"
          @censor_rule_2.replacement = "yellow"
          @censor_rule_2.last_edit_editor = "unknown"
          @censor_rule_2.last_edit_comment = "none"
          @im.info_request.censor_rules << @censor_rule_2
 
-         @regex_censor_rule = CensorRule.new()
+         @regex_censor_rule = CensorRule.new
          @regex_censor_rule.text = 'm[a-z][a-z][a-z]e'
          @regex_censor_rule.regexp = true
          @regex_censor_rule.replacement = 'cat'
@@ -477,7 +477,7 @@ describe IncomingMessage, " when censoring whole users" do
 
         @im = incoming_messages(:useless_incoming_message)
 
-        @censor_rule_1 = CensorRule.new()
+        @censor_rule_1 = CensorRule.new
         @censor_rule_1.text = "Stilton"
         @censor_rule_1.replacement = "Gorgonzola"
         @censor_rule_1.last_edit_editor = "unknown"
@@ -534,7 +534,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
         im.stub!(:mail).and_return(mail)
         ir = info_requests(:fancy_dog_request)
 
-        @censor_rule = CensorRule.new()
+        @censor_rule = CensorRule.new
         @censor_rule.text = "moo"
         @censor_rule.replacement = "bah"
         @censor_rule.last_edit_editor = "unknown"

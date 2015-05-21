@@ -40,41 +40,41 @@ describe RequestController, "when changing things that appear on the request pag
     it "should purge the downstream cache when mail is received" do
         ir = info_requests(:fancy_dog_request)
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
-        PurgeRequest.all().first.model_id.should == ir.id
+        PurgeRequest.all.first.model_id.should == ir.id
     end
     it "should purge the downstream cache when a comment is added" do
         ir = info_requests(:fancy_dog_request)
         new_comment = info_requests(:fancy_dog_request).add_comment('I also love making annotations.', users(:bob_smith_user))
-        PurgeRequest.all().first.model_id.should == ir.id
+        PurgeRequest.all.first.model_id.should == ir.id
     end
     it "should purge the downstream cache when a followup is made" do
         session[:user_id] = users(:bob_smith_user).id
         ir = info_requests(:fancy_dog_request)
         post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => ir.id, :submitted_followup => 1
-        PurgeRequest.all().first.model_id.should == ir.id
+        PurgeRequest.all.first.model_id.should == ir.id
     end
     it "should purge the downstream cache when the request is categorised" do
         ir = info_requests(:fancy_dog_request)
         ir.set_described_state('waiting_clarification')
-        PurgeRequest.all().first.model_id.should == ir.id
+        PurgeRequest.all.first.model_id.should == ir.id
     end
     it "should purge the downstream cache when the authority data is changed" do
         ir = info_requests(:fancy_dog_request)
         ir.public_body.name = "Something new"
         ir.public_body.save!
-        PurgeRequest.all().map{|x| x.model_id}.should =~ ir.public_body.info_requests.map{|x| x.id}
+        PurgeRequest.all.map{|x| x.model_id}.should =~ ir.public_body.info_requests.map{|x| x.id}
     end
     it "should purge the downstream cache when the user name is changed" do
         ir = info_requests(:fancy_dog_request)
         ir.user.name = "Something new"
         ir.user.save!
-        PurgeRequest.all().map{|x| x.model_id}.should =~ ir.user.info_requests.map{|x| x.id}
+        PurgeRequest.all.map{|x| x.model_id}.should =~ ir.user.info_requests.map{|x| x.id}
     end
     it "should not purge the downstream cache when non-visible user details are changed" do
         ir = info_requests(:fancy_dog_request)
         ir.user.hashed_password = "some old hash"
         ir.user.save!
-        PurgeRequest.all().count.should == 0
+        PurgeRequest.all.count.should == 0
     end
     it "should purge the downstream cache when censor rules have changed" do
         # TODO: really, CensorRules should execute expiry logic as part
@@ -86,17 +86,17 @@ describe RequestController, "when changing things that appear on the request pag
         ir = info_requests(:fancy_dog_request)
         ir.prominence = 'hidden'
         ir.save!
-        PurgeRequest.all().first.model_id.should == ir.id
+        PurgeRequest.all.first.model_id.should == ir.id
     end
     it "should not create more than one entry for any given resource" do
         ir = info_requests(:fancy_dog_request)
         ir.prominence = 'hidden'
         ir.save!
-        PurgeRequest.all().count.should == 1
+        PurgeRequest.all.count.should == 1
         ir = info_requests(:fancy_dog_request)
         ir.prominence = 'hidden'
         ir.save!
-        PurgeRequest.all().count.should == 1
+        PurgeRequest.all.count.should == 1
     end
 end
 
@@ -611,7 +611,7 @@ describe RequestController, "when showing one request" do
         it "should censor attachments downloaded as binary" do
             ir = info_requests(:fancy_dog_request)
 
-            censor_rule = CensorRule.new()
+            censor_rule = CensorRule.new
             censor_rule.text = "Second"
             censor_rule.replacement = "Mouse"
             censor_rule.last_edit_editor = "unknown"
@@ -632,7 +632,7 @@ describe RequestController, "when showing one request" do
         it "should censor with rules on the user (rather than the request)" do
             ir = info_requests(:fancy_dog_request)
 
-            censor_rule = CensorRule.new()
+            censor_rule = CensorRule.new
             censor_rule.text = "Second"
             censor_rule.replacement = "Mouse"
             censor_rule.last_edit_editor = "unknown"
@@ -675,7 +675,7 @@ describe RequestController, "when showing one request" do
                 s.should contain /hello world.txt/m
             end
 
-            censor_rule = CensorRule.new()
+            censor_rule = CensorRule.new
             # Note that the censor rule applies to the original filename,
             # not the display_filename:
             censor_rule.text = "hello-world.txt"
@@ -1471,7 +1471,7 @@ describe RequestController, "when classifying an information request" do
 
             it 'should record a classification' do
                 event = mock_model(InfoRequestEvent)
-                @dog_request.stub!(:log_event).with("status_update", anything()).and_return(event)
+                @dog_request.stub!(:log_event).with("status_update", anything).and_return(event)
                 RequestClassification.should_receive(:create!).with(:user_id => @admin_user.id,
                                                                     :info_request_event_id => event.id)
                 post_status('rejected')
@@ -1915,7 +1915,7 @@ describe RequestController, "sending overdue request alerts" do
 
     it "should send an overdue alert mail to creators of overdue requests" do
         chicken_request = info_requests(:naughty_chicken_request)
-        chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 30.days
+        chicken_request.outgoing_messages[0].last_sent_at = Time.now - 30.days
         chicken_request.outgoing_messages[0].save!
 
         RequestMailer.alert_overdue_requests
@@ -1941,7 +1941,7 @@ describe RequestController, "sending overdue request alerts" do
 
     it "should include clause for schools when sending an overdue alert mail to creators of overdue requests" do
         chicken_request = info_requests(:naughty_chicken_request)
-        chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 30.days
+        chicken_request.outgoing_messages[0].last_sent_at = Time.now - 30.days
         chicken_request.outgoing_messages[0].save!
 
         chicken_request.public_body.tag_string = "school"
@@ -1972,7 +1972,7 @@ describe RequestController, "sending overdue request alerts" do
 
     it "should send a very overdue alert mail to creators of very overdue requests" do
         chicken_request = info_requests(:naughty_chicken_request)
-        chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 60.days
+        chicken_request.outgoing_messages[0].last_sent_at = Time.now - 60.days
         chicken_request.outgoing_messages[0].save!
 
         RequestMailer.alert_overdue_requests
@@ -1998,7 +1998,7 @@ describe RequestController, "sending overdue request alerts" do
 
     it "should not resend alerts to people who've already received them" do
         chicken_request = info_requests(:naughty_chicken_request)
-        chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 60.days
+        chicken_request.outgoing_messages[0].last_sent_at = Time.now - 60.days
         chicken_request.outgoing_messages[0].save!
         RequestMailer.alert_overdue_requests
         chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
@@ -2011,7 +2011,7 @@ describe RequestController, "sending overdue request alerts" do
     it 'should send alerts for requests where the last event forming the initial request is a followup
         being sent following a request for clarification' do
         chicken_request = info_requests(:naughty_chicken_request)
-        chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 60.days
+        chicken_request.outgoing_messages[0].last_sent_at = Time.now - 60.days
         chicken_request.outgoing_messages[0].save!
         RequestMailer.alert_overdue_requests
         chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
@@ -2048,7 +2048,7 @@ describe RequestController, "sending overdue request alerts" do
         chicken_mails.size.should == 1
 
         # Make the followup older
-        outgoing_message.last_sent_at = Time.now() - 60.days
+        outgoing_message.last_sent_at = Time.now - 60.days
         outgoing_message.save!
 
         # Now it should be alerted on

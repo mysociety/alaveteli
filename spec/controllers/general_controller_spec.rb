@@ -112,7 +112,7 @@ describe GeneralController, "when showing the frontpage" do
 
 
     it "should render the front page with default language and ignore the browser setting" do
-        config = MySociety::Config.load_default()
+        config = MySociety::Config.load_default
         config['USE_DEFAULT_BROWSER_LANGUAGE'] = false
         accept_language = "en-GB,en-US;q=0.8,en;q=0.6"
         request.env['HTTP_ACCEPT_LANGUAGE'] = accept_language
@@ -123,7 +123,7 @@ describe GeneralController, "when showing the frontpage" do
     end
 
     it "should render the front page with browser-selected language when there's no default set" do
-        config = MySociety::Config.load_default()
+        config = MySociety::Config.load_default
         config['USE_DEFAULT_BROWSER_LANGUAGE'] = true
         accept_language = "es-ES,en-GB,en-US;q=0.8,en;q=0.6"
         request.env['HTTP_ACCEPT_LANGUAGE'] = accept_language

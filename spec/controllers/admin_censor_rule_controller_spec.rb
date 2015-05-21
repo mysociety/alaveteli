@@ -585,7 +585,7 @@ describe AdminCensorRuleController, "when making censor rules from the admin int
                          :replacement => "tofu",
                          :last_edit_comment => "none"
         }
-        PurgeRequest.all().first.model_id.should == ir.id
+        PurgeRequest.all.first.model_id.should == ir.id
     end
 
 end
