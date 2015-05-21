@@ -28,10 +28,8 @@ class UserController < ApplicationController
         if @is_you
             @track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc')
             @track_things_grouped = @track_things.group_by(&:track_type)
-        end
 
-        # Requests you need to describe
-        if @is_you
+            # Requests you need to describe
             @undescribed_requests = @display_user.get_undescribed_requests
         end
 
