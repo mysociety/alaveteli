@@ -14,17 +14,15 @@ class AdminCommentController < AdminController
     def update
         @comment = Comment.find(params[:id])
 
-        old_body = @comment.body
-        old_visible = @comment.visible
         @comment.visible = params[:comment][:visible] == "true" ? true : false
 
         if @comment.update_attributes(params[:comment])
             @comment.info_request.log_event("edit_comment",
                 { :comment_id => @comment.id,
                   :editor => admin_current_user(),
-                  :old_body => old_body,
+                  :old_body => @comment.body_was,
                   :body => @comment.body,
-                  :old_visible => old_visible,
+                  :old_visible => @comment.visible_was,
                   :visible => @comment.visible,
                 })
             flash[:notice] = 'Comment successfully updated.'

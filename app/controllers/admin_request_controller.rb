@@ -37,15 +37,6 @@ class AdminRequestController < AdminController
     def update
         @info_request = InfoRequest.find(params[:id])
 
-        old_title = @info_request.title
-        old_prominence = @info_request.prominence
-        old_described_state = @info_request.described_state
-        old_awaiting_description = @info_request.awaiting_description
-        old_allow_new_responses_from = @info_request.allow_new_responses_from
-        old_handle_rejected_responses = @info_request.handle_rejected_responses
-        old_tag_string = @info_request.tag_string
-        old_comments_allowed = @info_request.comments_allowed
-
         @info_request.title = params[:info_request][:title]
         @info_request.prominence = params[:info_request][:prominence]
         @info_request.awaiting_description = params[:info_request][:awaiting_description] == "true" ? true : false
@@ -58,14 +49,14 @@ class AdminRequestController < AdminController
             @info_request.save!
             @info_request.log_event("edit",
                 { :editor => admin_current_user(),
-                    :old_title => old_title, :title => @info_request.title,
-                    :old_prominence => old_prominence, :prominence => @info_request.prominence,
-                    :old_described_state => old_described_state, :described_state => params[:info_request][:described_state],
-                    :old_awaiting_description => old_awaiting_description, :awaiting_description => @info_request.awaiting_description,
-                    :old_allow_new_responses_from => old_allow_new_responses_from, :allow_new_responses_from => @info_request.allow_new_responses_from,
-                    :old_handle_rejected_responses => old_handle_rejected_responses, :handle_rejected_responses => @info_request.handle_rejected_responses,
-                    :old_tag_string => old_tag_string, :tag_string => @info_request.tag_string,
-                    :old_comments_allowed => old_comments_allowed, :comments_allowed => @info_request.comments_allowed
+                    :old_title => @info_request.title_was, :title => @info_request.title,
+                    :old_prominence => @info_request.prominence_was, :prominence => @info_request.prominence,
+                    :old_described_state => @info_request.described_state_was, :described_state => params[:info_request][:described_state],
+                    :old_awaiting_description => @info_request.awaiting_description_was, :awaiting_description => @info_request.awaiting_description,
+                    :old_allow_new_responses_from => @info_request.allow_new_responses_from_was, :allow_new_responses_from => @info_request.allow_new_responses_from,
+                    :old_handle_rejected_responses => @info_request.handle_rejected_responses_was, :handle_rejected_responses => @info_request.handle_rejected_responses,
+                    :old_tag_string => @info_request.tag_string_was, :tag_string => @info_request.tag_string,
+                    :old_comments_allowed => @info_request.comments_allowed_was, :comments_allowed => @info_request.comments_allowed
                 })
             if @info_request.described_state != params[:info_request][:described_state]
                 @info_request.set_described_state(params[:info_request][:described_state])
@@ -97,7 +88,6 @@ class AdminRequestController < AdminController
     def move
         info_request = InfoRequest.find(params[:id])
         if params[:commit] == 'Move request to user' && !params[:user_url_name].blank?
-            old_user = info_request.user
             destination_user = User.find_by_url_name(params[:user_url_name])
             if destination_user.nil?
                 flash[:error] = "Couldn't find user '" + params[:user_url_name] + "'"
@@ -106,7 +96,7 @@ class AdminRequestController < AdminController
                 info_request.save!
                 info_request.log_event("move_request", {
                         :editor => admin_current_user(),
-                        :old_user_url_name => old_user.url_name,
+                        :old_user_url_name => info_request.user_was.url_name,
                         :user_url_name => destination_user.url_name
                 })
 

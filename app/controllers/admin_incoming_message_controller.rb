@@ -7,17 +7,15 @@ class AdminIncomingMessageController < AdminController
 
     def update
         @incoming_message = IncomingMessage.find(params[:id])
-        old_prominence = @incoming_message.prominence
-        old_prominence_reason = @incoming_message.prominence_reason
         @incoming_message.prominence = params[:incoming_message][:prominence]
         @incoming_message.prominence_reason = params[:incoming_message][:prominence_reason]
         if @incoming_message.save
             @incoming_message.info_request.log_event('edit_incoming',
                                                     :incoming_message_id => @incoming_message.id,
                                                     :editor => admin_current_user(),
-                                                    :old_prominence => old_prominence,
+                                                    :old_prominence => @incoming_message.prominence_was,
                                                     :prominence => @incoming_message.prominence,
-                                                    :old_prominence_reason => old_prominence_reason,
+                                                    :old_prominence_reason => @incoming_message.prominence_reason_was,
                                                     :prominence_reason => @incoming_message.prominence_reason)
             expire_for_request(@incoming_message.info_request)
             flash[:notice] = 'Incoming message successfully updated.'

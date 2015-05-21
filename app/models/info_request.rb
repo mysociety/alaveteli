@@ -589,7 +589,6 @@ public
     # described_state should always indicate the current state of the request, as described
     # by the request owner (or, in some other cases an admin or other user)
     def set_described_state(new_state, set_by = nil, message = "")
-        old_described_state = described_state
         ActiveRecord::Base.transaction do
             self.awaiting_description = false
             last_event = self.info_request_events.last
@@ -1371,7 +1370,6 @@ public
     end
 
     def move_to_public_body(destination_public_body, opts = {})
-        old_body = public_body
         editor = opts.fetch(:editor)
 
         attrs = { :public_body => destination_public_body }
@@ -1386,7 +1384,7 @@ public
             log_event('move_request',
                       :editor => editor,
                       :public_body_url_name => public_body.url_name,
-                      :old_public_body_url_name => old_body.url_name)
+                      :old_public_body_url_name => public_body_was.url_name)
 
             reindex_request_events
 
