@@ -48,9 +48,9 @@ class UserController < ApplicationController
             @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
 
             if (@page > 1)
-              @page_desc = " (page " + @page.to_s + ")"
+                @page_desc = " (page " + @page.to_s + ")"
             else
-              @page_desc = ""
+                @page_desc = ""
             end
 
             # Track corresponding to this page
