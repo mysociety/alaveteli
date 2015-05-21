@@ -17,10 +17,7 @@ class UserController < ApplicationController
         long_cache
         set_view_instance_variables
 
-        # NOTE: Rails 4 syntax: User.find_by(url_name: url_name, email_confirmed: true)
-        @display_user = User.find_by_url_name_and_email_confirmed(params[:url_name], true)
-        raise ActiveRecord::RecordNotFound.new('User not found, url_name=' + params[:url_name]) unless @display_user
-
+        @display_user = set_display_user
         @same_name_users = User.find_similar_named_users(@display_user)
 
         @is_you = @user.try(:id) == @display_user.id
@@ -79,10 +76,7 @@ class UserController < ApplicationController
     # Show the user's wall
     def wall
         long_cache
-        @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
-        if not @display_user
-            raise ActiveRecord::RecordNotFound.new("user not found, url_name=" + params[:url_name])
-        end
+        @display_user = set_display_user
         @is_you = !@user.nil? && @user.id == @display_user.id
         feed_results = Set.new
         # Use search query for this so can collapse and paginate easily
@@ -522,10 +516,7 @@ class UserController < ApplicationController
     # actual profile photo of a user
     def get_profile_photo
         long_cache
-        @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
-        if !@display_user
-            raise ActiveRecord::RecordNotFound.new("user not found, url_name=" + params[:url_name])
-        end
+        @display_user = set_display_user
         if !@display_user.profile_photo
             raise ActiveRecord::RecordNotFound.new("user has no profile photo, url_name=" + params[:url_name])
 
@@ -676,5 +667,9 @@ class UserController < ApplicationController
         end
     end
 
+    def set_display_user
+        # NOTE: Rails 4 syntax: User.find_by(url_name: url_name, email_confirmed: true)
+        User.find_by_url_name_and_email_confirmed(params[:url_name], true)
+        raise ActiveRecord::RecordNotFound.new('User not found, url_name=' + params[:url_name]) unless @display_user
+    end
 end
-
