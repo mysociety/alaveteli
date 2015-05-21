@@ -138,7 +138,7 @@ class PublicBody < ActiveRecord::Base
     end
 
     # Set the first letter on a public body or translation
-    def PublicBody.set_first_letter(instance)
+    def self.set_first_letter(instance)
         unless instance.name.nil? or instance.name.empty?
             # we use a regex to ensure it works with utf-8/multi-byte
             first_letter = Unicode.upcase instance.name.scan(/^./mu)[0]
@@ -334,7 +334,7 @@ class PublicBody < ActiveRecord::Base
     end
 
     # The "internal admin" is a special body for internal use.
-    def PublicBody.internal_admin_body
+    def self.internal_admin_body
         # Use find_by_sql to avoid the search being specific to a
         # locale, since url_name is a translated field:
         sql = "SELECT * FROM public_bodies WHERE url_name = 'internal_admin_authority'"
@@ -567,7 +567,7 @@ class PublicBody < ActiveRecord::Base
 
     # Return the domain part of an email address, canonicalised and with common
     # extra UK Government server name parts removed.
-    def PublicBody.extract_domain_from_email(email)
+    def self.extract_domain_from_email(email)
         email =~ /@(.*)/
         if $1.nil?
             return nil

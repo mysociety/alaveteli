@@ -26,7 +26,7 @@ class MailServerLog < ActiveRecord::Base
     # Doesn't do anything if file hasn't been modified since it was last loaded.
     # Note: If you do use rotated log files (rather than files named by date), at some
     # point old loaded log lines will get deleted in the database.
-    def MailServerLog.load_file(file_name)
+    def self.load_file(file_name)
         is_gz = file_name.include?(".gz")
         file_name_db = is_gz ? file_name.gsub(".gz", "") : file_name
 
@@ -63,7 +63,7 @@ class MailServerLog < ActiveRecord::Base
     end
 
     # Scan the file
-    def MailServerLog.load_exim_log_data(f, done)
+    def self.load_exim_log_data(f, done)
         order = 0
         f.each do |line|
             order = order + 1
@@ -79,7 +79,7 @@ class MailServerLog < ActiveRecord::Base
         end
     end
 
-    def MailServerLog.load_postfix_log_data(f, done)
+    def self.load_postfix_log_data(f, done)
         order = 0
         emails = scan_for_postfix_queue_ids(f)
         # Go back to the beginning of the file
@@ -100,7 +100,7 @@ class MailServerLog < ActiveRecord::Base
         end
     end
 
-    def MailServerLog.scan_for_postfix_queue_ids(f)
+    def self.scan_for_postfix_queue_ids(f)
         result = {}
         f.each do |line|
             emails = email_addresses_on_line(line)
@@ -112,7 +112,7 @@ class MailServerLog < ActiveRecord::Base
     end
 
     # Retuns nil if there is no queue id
-    def MailServerLog.extract_postfix_queue_id_from_syslog_line(line)
+    def self.extract_postfix_queue_id_from_syslog_line(line)
         # Assume the log file was written using syslog and parse accordingly
         m = SyslogProtocol.parse("<13>" + line).content.match(/^\S+: (\S+):/)
         m[1] if m
@@ -120,13 +120,13 @@ class MailServerLog < ActiveRecord::Base
 
     # We also check the email prefix so that we could, for instance, separately handle a staging and production
     # instance running on the same server with different email prefixes.
-    def MailServerLog.email_addresses_on_line(line)
+    def self.email_addresses_on_line(line)
         prefix = Regexp::quote(AlaveteliConfiguration::incoming_email_prefix)
         domain = Regexp::quote(AlaveteliConfiguration::incoming_email_domain)
         line.scan(/#{prefix}request-[^\s]+@#{domain}/).sort.uniq
     end
 
-    def MailServerLog.request_sent?(ir)
+    def self.request_sent?(ir)
         case(AlaveteliConfiguration::mta_log_type.to_sym)
         when :exim
             request_exim_sent?(ir)
@@ -138,7 +138,7 @@ class MailServerLog < ActiveRecord::Base
     end
 
     # Look at the log for a request and check that an email was delivered
-    def MailServerLog.request_exim_sent?(ir)
+    def self.request_exim_sent?(ir)
         # Look for line showing request was sent
         found = false
         ir.mail_server_logs.each do |mail_server_log|
@@ -157,7 +157,7 @@ class MailServerLog < ActiveRecord::Base
         found
     end
 
-    def MailServerLog.request_postfix_sent?(ir)
+    def self.request_postfix_sent?(ir)
         # dsn=2.0.0 is the magic word that says that postfix delivered the email
         # See http://tools.ietf.org/html/rfc3464
         ir.mail_server_logs.any? { |l| l.line.include?("dsn=2.0.0") }
@@ -174,7 +174,7 @@ class MailServerLog < ActiveRecord::Base
     # NB: There can be several emails involved in a request. This just checks that
     # at least one of them has been succesfully sent.
     #
-    def MailServerLog.check_recent_requests_have_been_sent
+    def self.check_recent_requests_have_been_sent
         # Get all requests sent for from 2 to 10 days ago. The 2 day gap is
         # because we load mail server log lines via cron at best an hour after they
         # are made)

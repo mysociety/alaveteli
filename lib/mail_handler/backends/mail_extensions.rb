@@ -38,7 +38,7 @@ module Mail
     # Can be removed when we no longer support Ruby 1.8
     class Ruby18
 
-        def Ruby18.b_value_decode(str)
+        def self.b_value_decode(str)
             match = str.match(/\=\?(.+)?\?[Bb]\?(.+)?\?\=/m)
             if match
                 encoding = match[1]
@@ -56,7 +56,7 @@ module Mail
             str
         end
 
-        def Ruby18.q_value_decode(str)
+        def self.q_value_decode(str)
           match = str.match(/\=\?(.+)?\?[Qq]\?(.+)?\?\=/m)
           if match
               encoding = match[1]
@@ -76,7 +76,7 @@ module Mail
 
         private
 
-        def Ruby18.fix_encoding(encoding)
+        def self.fix_encoding(encoding)
             case encoding.upcase
             when 'UTF8'
                 'UTF-8'
@@ -87,7 +87,7 @@ module Mail
     end
     class Ruby19
 
-        def Ruby19.b_value_decode(str)
+        def self.b_value_decode(str)
           match = str.match(/\=\?(.+)?\?[Bb]\?(.+)?\?\=/m)
           if match
             charset = match[1]
