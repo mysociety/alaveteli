@@ -29,7 +29,7 @@ class UserController < ApplicationController
 
             requests_query = 'requested_by:' + @display_user.url_name
             comments_query = 'commented_by:' + @display_user.url_name
-            if !params[:user_query].nil?
+            unless params[:user_query].nil?
               requests_query += " " + params[:user_query]
               comments_query += " " + params[:user_query]
               @match_phrase = _("{{search_results}} matching '{{query}}'", :search_results => "", :query => params[:user_query])
@@ -92,8 +92,8 @@ class UserController < ApplicationController
             @xapian_comments = nil
         end
 
-        feed_results += @xapian_requests.results.map {|x| x[:model]} if !@xapian_requests.nil?
-        feed_results += @xapian_comments.results.map {|x| x[:model]} if !@xapian_comments.nil?
+        feed_results += @xapian_requests.results.map {|x| x[:model]} unless @xapian_requests.nil?
+        feed_results += @xapian_comments.results.map {|x| x[:model]} unless @xapian_comments.nil?
 
         # All tracks for the user
         if @is_you
@@ -126,7 +126,7 @@ class UserController < ApplicationController
         if session.instance_variable_get(:@dbman)
             if not session.instance_variable_get(:@dbman).instance_variable_get(:@original)
                 # try and set them if we don't
-                if !params[:again]
+                unless params[:again]
                     redirect_to signin_url(:r => params[:r], :again => 1)
                     return
                 end
@@ -145,7 +145,7 @@ class UserController < ApplicationController
             render :action => 'sign'
             return
         else
-            if !@post_redirect.nil?
+            unless @post_redirect.nil?
                 @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name] ? true : false)
             end
             if @post_redirect.nil? || @user_signin.errors.size > 0
@@ -211,7 +211,7 @@ class UserController < ApplicationController
             return
         end
 
-        if !User.stay_logged_in_on_redirect?(@user) || post_redirect.circumstance == "login_as"
+        unless User.stay_logged_in_on_redirect?(@user) || post_redirect.circumstance == "login_as"
             @user = post_redirect.user
             @user.email_confirmed = true
             @user.save!
@@ -310,7 +310,7 @@ class UserController < ApplicationController
             return
         end
 
-        if !params[:submitted_signchangeemail_do]
+        unless params[:submitted_signchangeemail_do]
             render :action => 'signchangeemail'
             return
         end
@@ -321,7 +321,7 @@ class UserController < ApplicationController
         @signchangeemail = ChangeEmailValidator.new(validator_params)
         @signchangeemail.logged_in_user = @user
 
-        if !@signchangeemail.valid?
+        unless @signchangeemail.valid?
             render :action => 'signchangeemail'
             return
         end
@@ -373,7 +373,7 @@ class UserController < ApplicationController
         @recipient_user = User.find(params[:id])
 
         # Banned from messaging users?
-        if !authenticated_user.nil? && !authenticated_user.can_contact_other_users?
+        unless authenticated_user.nil? && !authenticated_user.can_contact_other_users?
             @details = authenticated_user.can_fail_html
             render :template => 'user/banned'
             return
@@ -429,7 +429,7 @@ class UserController < ApplicationController
             redirect_to frontpage_url
             return
         end
-        if !params[:submitted_draft_profile_photo].nil?
+        if params[:submitted_draft_profile_photo].present?
             if @user.banned?
               flash[:error]= _('Banned users cannot edit their profile')
               redirect_to set_profile_photo_path
@@ -439,14 +439,14 @@ class UserController < ApplicationController
             # check for uploaded image
             file_name = nil
             file_content = nil
-            if !params[:file].nil?
+            unless params[:file].nil?
                 file_name = params[:file].original_filename
                 file_content = params[:file].read
             end
 
             # validate it
             @draft_profile_photo = ProfilePhoto.new(:data => file_content, :draft => true)
-            if !@draft_profile_photo.valid?
+            unless @draft_profile_photo.valid?
                 # error page (uses @profile_photo's error fields in view to show errors)
                 render :template => 'user/set_draft_profile_photo'
                 return
@@ -465,7 +465,7 @@ class UserController < ApplicationController
 
             render :template => 'user/set_crop_profile_photo'
             return
-        elsif !params[:submitted_crop_profile_photo].nil?
+        elsif params[:submitted_crop_profile_photo].present?
             # crop the draft photo according to jquery parameters and set it as the users photo
             draft_profile_photo = ProfilePhoto.find(params[:draft_profile_photo_id])
             @profile_photo = ProfilePhoto.new(:data => draft_profile_photo.data, :draft => false,
@@ -473,7 +473,7 @@ class UserController < ApplicationController
             @user.set_profile_photo(@profile_photo)
             draft_profile_photo.destroy
 
-            if !@user.get_about_me_for_html_display.empty?
+            unless @user.get_about_me_for_html_display.empty?
                 flash[:notice] = _("Thank you for updating your profile photo")
                 redirect_to user_url(@user)
             else
@@ -487,7 +487,7 @@ class UserController < ApplicationController
     end
 
     def clear_profile_photo
-        if !request.post?
+        unless request.post?
             raise "Can only clear profile photo from POST request"
         end
 
@@ -517,7 +517,7 @@ class UserController < ApplicationController
     def get_profile_photo
         long_cache
         @display_user = set_display_user
-        if !@display_user.profile_photo
+        unless @display_user.profile_photo
             raise ActiveRecord::RecordNotFound.new("user has no profile photo, url_name=" + params[:url_name])
 
         end
@@ -534,7 +534,7 @@ class UserController < ApplicationController
             return
         end
 
-        if !params[:submitted_about_me]
+        unless params[:submitted_about_me]
             params[:about_me] = {}
             params[:about_me][:about_me] = @user.about_me
             @about_me = AboutMeValidator.new(params[:about_me])
@@ -549,7 +549,7 @@ class UserController < ApplicationController
         end
 
         @about_me = AboutMeValidator.new(params[:about_me])
-        if !@about_me.valid?
+        unless @about_me.valid?
             render :action => 'set_profile_about_me'
             return
         end
