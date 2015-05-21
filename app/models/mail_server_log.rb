@@ -68,14 +68,7 @@ class MailServerLog < ActiveRecord::Base
         f.each do |line|
             order = order + 1
             emails = email_addresses_on_line(line)
-            for email in emails
-                info_request = InfoRequest.find_by_incoming_email(email)
-                if info_request
-                    info_request.mail_server_logs.create!(:line => line, :order => order, :mail_server_log_done => done)
-                else
-                    puts "Warning: Could not find request with email #{email}"
-                end
-            end
+            create_mail_server_logs(emails, line, order, done)
         end
     end
 
@@ -88,14 +81,7 @@ class MailServerLog < ActiveRecord::Base
             order = order + 1
             queue_id = extract_postfix_queue_id_from_syslog_line(line)
             if emails.has_key?(queue_id)
-                emails[queue_id].each do |email|
-                    info_request = InfoRequest.find_by_incoming_email(email)
-                    if info_request
-                        info_request.mail_server_logs.create!(:line => line, :order => order, :mail_server_log_done => done)
-                    else
-                        puts "Warning: Could not find request with email #{email}"
-                    end                    
-                end
+                create_mail_server_logs(emails[queue_id], line, order, done)
             end
         end
     end
@@ -193,7 +179,17 @@ class MailServerLog < ActiveRecord::Base
         ok
     end
 
+    private
+
+    def self.create_mail_server_logs(emails, line, order, done)
+        emails.each do |email|
+            info_request = InfoRequest.find_by_incoming_email(email)
+            if info_request
+                info_request.mail_server_logs.create!(:line => line, :order => order, :mail_server_log_done => done)
+            else
+                puts "Warning: Could not find request with email #{email}"
+            end
+        end
+    end
+
 end
-
-
-
