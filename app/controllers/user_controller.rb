@@ -177,7 +177,7 @@ class UserController < ApplicationController
             return
         else
             if !@post_redirect.nil?
-                @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name] ? true : false)
+                @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name])
             end
             if @post_redirect.nil? || @user_signin.errors.size > 0
                 # Failed to authenticate
@@ -188,7 +188,7 @@ class UserController < ApplicationController
                 if @user_signin.email_confirmed
                     session[:user_id] = @user_signin.id
                     session[:user_circumstance] = nil
-                    session[:remember_me] = params[:remember_me] ? true : false
+                    session[:remember_me] = !!params[:remember_me]
 
                     if is_modal_dialog
                         render :action => 'signin_successful'
