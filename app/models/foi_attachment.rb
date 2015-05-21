@@ -244,36 +244,32 @@ class FoiAttachment < ActiveRecord::Base
     # The full list of supported types can be found at
     #   https://docs.google.com/support/bin/answer.py?hl=en&answer=1189935
     def has_google_docs_viewer?
-        return !! {
-            "application/pdf" => true, # .pdf
-            "image/tiff" => true, # .tiff
+        [
+            "application/pdf", # .pdf
+            "image/tiff", # .tiff
 
-            "application/vnd.ms-word" => true, # .doc
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => true, # .docx
+            "application/vnd.ms-word", # .doc
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document", # .docx
 
-            "application/vnd.ms-powerpoint" => true, # .ppt
-            "application/vnd.openxmlformats-officedocument.presentationml.presentation" => true, # .pptx
+            "application/vnd.ms-powerpoint", # .ppt
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation", # .pptx
 
-            "application/vnd.ms-excel" => true, # .xls
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" => true, # .xlsx
-
-        } [self.content_type]
+            "application/vnd.ms-excel", # .xls
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", # .xlsx
+        ].include?(content_type)
     end
 
     # Whether this type has a "View as HTML"
     def has_body_as_html?
-        return (
-            !!{
-                "text/plain" => true,
-                "application/rtf" => true,
-            }[self.content_type] or
-            self.has_google_docs_viewer?
-        )
+        [
+            "text/plain",
+            "application/rtf",
+        ].include?(content_type) || has_google_docs_viewer?
     end
 
     # Name of type of attachment type - only valid for things that has_body_as_html?
     def name_of_content_type
-        return {
+        {
             "text/plain" => "Text file",
             'application/rtf' => "RTF file",
 
