@@ -1,33 +1,23 @@
 # -*- encoding : utf-8 -*-
 class AdminOutgoingMessageController < AdminController
+    before_filter :set_outgoing_message, :only => [:edit, :update, :destroy, :resend]
 
     def edit
-        @outgoing_message = OutgoingMessage.find(params[:id])
     end
 
     def destroy
-        @outgoing_message = OutgoingMessage.find(params[:id])
-        @info_request = @outgoing_message.info_request
-        outgoing_message_id = @outgoing_message.id
-
         @outgoing_message.fully_destroy
         @outgoing_message.info_request.log_event("destroy_outgoing",
-            { :editor => admin_current_user(), :deleted_outgoing_message_id => outgoing_message_id })
+            { :editor => admin_current_user(), :deleted_outgoing_message_id => @outgoing_message.id })
 
-        flash[:notice] = 'Outgoing message successfully destroyed.'
-        redirect_to admin_request_url(@info_request)
+        redirect_to admin_request_url(@outgoing_message.info_request), :notice => 'Outgoing message successfully destroyed.'
     end
 
     def update
-        @outgoing_message = OutgoingMessage.find(params[:id])
-
         old_body = @outgoing_message.body
         old_prominence = @outgoing_message.prominence
         old_prominence_reason = @outgoing_message.prominence_reason
-        @outgoing_message.prominence = params[:outgoing_message][:prominence]
-        @outgoing_message.prominence_reason = params[:outgoing_message][:prominence_reason]
-        @outgoing_message.body = params[:outgoing_message][:body]
-        if @outgoing_message.save
+        if @outgoing_message.update_attributes(outgoing_message_params)
             @outgoing_message.info_request.log_event("edit_outgoing",
                 { :outgoing_message_id => @outgoing_message.id,
                   :editor => admin_current_user(),
@@ -37,16 +27,14 @@ class AdminOutgoingMessageController < AdminController
                   :old_prominence_reason => old_prominence_reason,
                   :prominence => @outgoing_message.prominence,
                   :prominence_reason => @outgoing_message.prominence_reason })
-            flash[:notice] = 'Outgoing message successfully updated.'
             expire_for_request(@outgoing_message.info_request)
-            redirect_to admin_request_url(@outgoing_message.info_request)
+            redirect_to admin_request_url(@outgoing_message.info_request), :notice => 'Outgoing message successfully updated.'
         else
-            render :action => 'edit'
+            render :edit
         end
     end
 
     def resend
-        @outgoing_message = OutgoingMessage.find(params[:id])
         @outgoing_message.prepare_message_for_resend
 
         mail_message = case @outgoing_message.message_type
@@ -71,9 +59,21 @@ class AdminOutgoingMessageController < AdminController
             'resent'
         )
 
-        flash[:notice] = "Outgoing message resent"
-        redirect_to admin_request_url(@outgoing_message.info_request)
+        redirect_to admin_request_url(@outgoing_message.info_request), :notice => "Outgoing message resent"
     end
 
+    private
+
+    def set_outgoing_message
+        @outgoing_message = OutgoingMessage.find(params[:id])
+    end
+
+    def outgoing_message_params
+        if params[:outgoing_message]
+            params[:outgoing_message].slice(:prominence, :prominence_reason, :body)
+        else
+            {}
+        end
+    end
 
 end

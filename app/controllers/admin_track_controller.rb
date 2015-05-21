@@ -21,10 +21,7 @@ class AdminTrackController < AdminController
     def destroy
         track_thing = TrackThing.find(params[:id].to_i)
         track_thing.destroy
-        flash[:notice] = 'Track destroyed'
-        redirect_to admin_user_url(track_thing.tracking_user)
+        redirect_to admin_user_url(track_thing.tracking_user), :notice => 'Track destroyed'
     end
-
-    private
 
 end

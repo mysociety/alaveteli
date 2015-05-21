@@ -6,14 +6,14 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminRawEmailController < AdminController
+    before_filter :set_raw_email, :only => [:show]
 
     def show
-        @raw_email = RawEmail.find(params[:id])
         respond_to do |format|
             format.html do
                 # For the holding pen, try to guess where it should be ...
                 @holding_pen = false
-                if (@raw_email.incoming_message.info_request == InfoRequest.holding_pen_request && !@raw_email.incoming_message.empty_from_field?)
+                if @raw_email.incoming_message.info_request == InfoRequest.holding_pen_request && !@raw_email.incoming_message.empty_from_field?
                     @holding_pen = true
 
                     # 1. Use domain of email to try and guess which public body it
@@ -41,6 +41,12 @@ class AdminRawEmailController < AdminController
                 render :text => @raw_email.data
             end
         end
+    end
+
+    private
+
+    def set_raw_email
+        @raw_email = RawEmail.find(params[:id])
     end
 
 end

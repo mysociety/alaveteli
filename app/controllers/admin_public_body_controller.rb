@@ -53,11 +53,10 @@ class AdminPublicBodyController < AdminController
                     @change_request.close!
                     @change_request.send_response(params[:subject], response_text)
                 end
-                flash[:notice] = 'PublicBody was successfully created.'
-                redirect_to admin_body_url(@public_body)
+                redirect_to admin_body_url(@public_body), :notice => 'PublicBody was successfully created.'
             else
                 @public_body.build_all_translations
-                render :action => 'new'
+                render :new
             end
         end
     end
@@ -92,11 +91,10 @@ class AdminPublicBodyController < AdminController
                     @change_request.close!
                     @change_request.send_response(params[:subject], params[:response])
                 end
-                flash[:notice] = 'PublicBody was successfully updated.'
-                redirect_to admin_body_url(@public_body)
+                redirect_to admin_body_url(@public_body), :notice => 'PublicBody was successfully updated.'
             else
                 @public_body.build_all_translations
-                render :action => 'edit'
+                render :edit
             end
         end
     end
@@ -107,15 +105,13 @@ class AdminPublicBodyController < AdminController
             public_body = PublicBody.find(params[:id])
 
             if public_body.info_requests.size > 0
-                flash[:notice] = "There are requests associated with the authority, so can't destroy it"
-                redirect_to admin_body_url(public_body)
+                redirect_to admin_body_url(public_body), :notice => "There are requests associated with the authority, so can't destroy it"
                 return
             end
 
             public_body.tag_string = ""
             public_body.destroy
-            flash[:notice] = "PublicBody was successfully destroyed."
-            redirect_to admin_bodies_url
+            redirect_to admin_bodies_url, :notice => "PublicBody was successfully destroyed."
         end
     end
 
@@ -128,7 +124,7 @@ class AdminPublicBodyController < AdminController
             elsif params[:table_name] == 'substring'
                 bodies = @public_bodies
             else
-                raise "Unknown table_name " + params[:table_name]
+                raise "Unknown table_name #{params[:table_name]}"
             end
             for body in bodies
                 body.add_tag_if_not_already_present(params[:new_tag])

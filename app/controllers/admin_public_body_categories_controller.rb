@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class AdminPublicBodyCategoriesController < AdminController
+    before_filter :set_public_body_category, :only => [:edit, :update]
+
     def index
         @locale = self.locale_from_params
         @category_headings = PublicBodyHeading.all
@@ -22,31 +24,27 @@ class AdminPublicBodyCategoriesController < AdminController
                         PublicBodyHeading.find(heading_id).add_category(@category)
                     end
                 end
-                flash[:notice] = 'Category was successfully created.'
-                redirect_to admin_categories_path
+                redirect_to admin_categories_path, :notice => 'Category was successfully created.'
             else
                 @category.build_all_translations
-                render :action => 'new'
+                render :new
             end
         end
     end
 
     def edit
-        @category = PublicBodyCategory.find(params[:id])
         @category.build_all_translations
         @tagged_public_bodies = PublicBody.find_by_tag(@category.category_tag)
     end
 
     def update
-        @category = PublicBodyCategory.find(params[:id])
         @tagged_public_bodies = PublicBody.find_by_tag(@category.category_tag)
 
         heading_ids = []
 
         I18n.with_locale(I18n.default_locale) do
             if params[:public_body_category][:category_tag] && PublicBody.find_by_tag(@category.category_tag).count > 0 && @category.category_tag != params[:public_body_category][:category_tag]
-                flash[:error] = "There are authorities associated with this category, so the tag can't be renamed"
-                render :action => 'edit'
+                render :edit, :error => "There are authorities associated with this category, so the tag can't be renamed"
             else
                 if params[:headings]
                     heading_ids = params[:headings].values
@@ -55,11 +53,10 @@ class AdminPublicBodyCategoriesController < AdminController
 
                     unless removed_headings.empty?
                         # remove the link objects
-                        deleted_links = PublicBodyCategoryLink.where(
+                        PublicBodyCategoryLink.where(
                             :public_body_category_id => @category.id,
                             :public_body_heading_id => [removed_headings]
-                        )
-                        deleted_links.delete_all
+                        ).delete_all
 
                         #fix the category object
                         @category.public_body_heading_ids = heading_ids
@@ -73,23 +70,27 @@ class AdminPublicBodyCategoriesController < AdminController
                 end
 
                 if @category.update_attributes(params[:public_body_category])
-                    flash[:notice] = 'Category was successfully updated.'
-                    redirect_to edit_admin_category_path(@category)
+                    redirect_to edit_admin_category_path(@category), :notice => 'Category was successfully updated.'
                 else
                     @category.build_all_translations
-                    render :action => 'edit'
+                    render :edit
                 end
             end
         end
     end
 
     def destroy
-        @locale = self.locale_from_params
-        I18n.with_locale(@locale) do
+        I18n.with_locale(locale_from_params) do
             category = PublicBodyCategory.find(params[:id])
             category.destroy
-            flash[:notice] = "Category was successfully destroyed."
-            redirect_to admin_categories_path
+            redirect_to admin_categories_path, :notice => "Category was successfully destroyed."
         end
     end
+
+    private
+
+    def set_public_body_category
+        @category = PublicBodyCategory.find(params[:id])
+    end
+
 end

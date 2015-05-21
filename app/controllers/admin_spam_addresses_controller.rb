@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class AdminSpamAddressesController < AdminController
+    before_filter :set_spam_address, :only => [:destroy]
 
     def index
         @spam_addresses = SpamAddress.all
@@ -10,8 +11,7 @@ class AdminSpamAddressesController < AdminController
         @spam_address = SpamAddress.new(params[:spam_address])
 
         if @spam_address.save
-            notice = "#{ @spam_address.email } has been added to the spam addresses list"
-            redirect_to admin_spam_addresses_path, :notice => notice
+            redirect_to admin_spam_addresses_path, :notice => "#{@spam_address.email} has been added to the spam addresses list"
         else
             @spam_addresses = SpamAddress.all
             render :index
@@ -19,10 +19,14 @@ class AdminSpamAddressesController < AdminController
     end
 
     def destroy
-        @spam_address = SpamAddress.find(params[:id])
         @spam_address.destroy
-        notice = "#{ @spam_address.email } has been removed from the spam addresses list"
-        redirect_to admin_spam_addresses_path, :notice => notice
+        redirect_to admin_spam_addresses_path, :notice => "#{@spam_address.email} has been removed from the spam addresses list"
+    end
+
+    private
+
+    def set_spam_address
+        @spam_address = SpamAddress.find(params[:id])
     end
 
 end
