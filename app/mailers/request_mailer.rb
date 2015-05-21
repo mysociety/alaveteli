@@ -100,10 +100,7 @@ class RequestMailer < ApplicationMailer
         @url = confirm_url(:email_token => post_redirect.email_token)
         @info_request = info_request
 
-        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-                'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF')
-
+        auto_generated_headers
         mail(:from => contact_from_name_and_email,
              :to => user.name_and_email,
              :subject => _("Delayed response to your FOI request - ") + info_request.title.html_safe)
@@ -120,10 +117,7 @@ class RequestMailer < ApplicationMailer
         @url = confirm_url(:email_token => post_redirect.email_token)
         @info_request = info_request
 
-        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-                'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF')
-
+        auto_generated_headers
         mail(:from => contact_from_name_and_email,
              :to => user.name_and_email,
              :subject => _("You're long overdue a response to your FOI request - ") + info_request.title.html_safe)
@@ -142,10 +136,7 @@ class RequestMailer < ApplicationMailer
         @incoming_message = incoming_message
         @info_request = info_request
 
-        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-                'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF')
-
+        auto_generated_headers
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
              :subject => _("Was the response you got to your FOI request any good?"))
@@ -156,10 +147,7 @@ class RequestMailer < ApplicationMailer
         @url = request_url(info_request)
         @info_request = info_request
 
-        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-                'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF')
-
+        auto_generated_headers
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
              :subject => _("Someone has updated the status of your request"))
@@ -178,10 +166,7 @@ class RequestMailer < ApplicationMailer
         @incoming_message = incoming_message
         @info_request = info_request
 
-        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-                'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF')
-
+        auto_generated_headers
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
              :subject => _("Clarify your FOI request - ") + info_request.title.html_safe)
@@ -192,10 +177,7 @@ class RequestMailer < ApplicationMailer
         @comment, @info_request = comment, info_request
         @url = comment_url(comment)
 
-        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-                'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF')
-
+        auto_generated_headers
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
              :subject => _("Somebody added a note to your FOI request - ") + info_request.title.html_safe)
@@ -204,10 +186,7 @@ class RequestMailer < ApplicationMailer
         @count, @info_request = count, info_request
         @url = comment_url(earliest_unalerted_comment)
 
-        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-                'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF')
-
+        auto_generated_headers
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
              :subject => _("Some notes have been added to your FOI request - ") + info_request.title.html_safe)
@@ -468,7 +447,15 @@ class RequestMailer < ApplicationMailer
         end
     end
 
+    private
+
+    def auto_generated_headers
+        headers({
+            'Return-Path' => blackhole_email,
+            'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
+            'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
+            'X-Auto-Response-Suppress' => 'OOF',
+        })
+    end
 
 end
-
-
