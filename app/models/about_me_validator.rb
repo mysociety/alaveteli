@@ -10,20 +10,11 @@ class AboutMeValidator
 
     attr_accessor :about_me
 
-    # TODO: Switch to built in validations
-    validate :length_of_about_me
+    validates_length_of :about_me, :maximum => 500, :message => _("Please keep it shorter than 500 characters")
 
     def initialize(attributes = {})
         attributes.each do |name, value|
             send("#{name}=", value)
-        end
-    end
-
-    private
-
-    def length_of_about_me
-        if !about_me.blank? && about_me.size > 500
-            errors.add(:about_me, _("Please keep it shorter than 500 characters"))
         end
     end
 end
