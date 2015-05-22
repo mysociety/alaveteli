@@ -6,17 +6,14 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminCommentController < AdminController
+    before_filter :set_comment, :only => [:edit, :update]
 
     def edit
-        @comment = Comment.find(params[:id])
     end
 
     def update
-        @comment = Comment.find(params[:id])
-
         old_body = @comment.body
         old_visible = @comment.visible
-        @comment.visible = params[:comment][:visible] == "true" ? true : false
 
         if @comment.update_attributes(params[:comment])
             @comment.info_request.log_event("edit_comment",
@@ -27,11 +24,16 @@ class AdminCommentController < AdminController
                   :old_visible => old_visible,
                   :visible => @comment.visible,
                 })
-            flash[:notice] = 'Comment successfully updated.'
-            redirect_to admin_request_url(@comment.info_request)
+            redirect_to admin_request_url(@comment.info_request), :notice => 'Comment successfully updated.'
         else
-            render :action => 'edit'
+            render :edit
         end
+    end
+
+    private
+
+    def set_comment
+        @comment = Comment.find(params[:id])
     end
 
 end
