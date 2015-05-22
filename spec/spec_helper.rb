@@ -167,8 +167,6 @@ Spork.prefork do
   def with_hidden_and_successful_requests
     external = info_requests(:external_request)
     chicken = info_requests(:naughty_chicken_request)
-    old_external_prominence = external.prominence
-    old_chicken_described_state = chicken.described_state
     begin
       external.prominence = 'hidden'
       external.save!
@@ -176,9 +174,9 @@ Spork.prefork do
       chicken.save!
       yield
     ensure
-      external.prominence = old_external_prominence
+      external.prominence = external.prominence_was
       external.save!
-      chicken.described_state = old_chicken_described_state
+      chicken.described_state = chicken.described_state_was
       chicken.save!
     end
   end

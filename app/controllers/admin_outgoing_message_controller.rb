@@ -21,9 +21,6 @@ class AdminOutgoingMessageController < AdminController
     def update
         @outgoing_message = OutgoingMessage.find(params[:id])
 
-        old_body = @outgoing_message.body
-        old_prominence = @outgoing_message.prominence
-        old_prominence_reason = @outgoing_message.prominence_reason
         @outgoing_message.prominence = params[:outgoing_message][:prominence]
         @outgoing_message.prominence_reason = params[:outgoing_message][:prominence_reason]
         @outgoing_message.body = params[:outgoing_message][:body]
@@ -31,10 +28,10 @@ class AdminOutgoingMessageController < AdminController
             @outgoing_message.info_request.log_event("edit_outgoing",
                 { :outgoing_message_id => @outgoing_message.id,
                   :editor => admin_current_user(),
-                  :old_body => old_body,
+                  :old_body => @outgoing_message.body_was,
                   :body => @outgoing_message.body,
-                  :old_prominence => old_prominence,
-                  :old_prominence_reason => old_prominence_reason,
+                  :old_prominence => @outgoing_message.prominence_was,
+                  :old_prominence_reason => @outgoing_message.prominence_reason_was,
                   :prominence => @outgoing_message.prominence,
                   :prominence_reason => @outgoing_message.prominence_reason })
             flash[:notice] = 'Outgoing message successfully updated.'
