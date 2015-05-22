@@ -61,4 +61,16 @@ describe FoiAttachment do
 
     end
 
+    describe :has_body_as_html? do
+
+        it 'should be true for a pdf attachment' do
+            FactoryGirl.build(:pdf_attachment).has_body_as_html?.should be_true
+        end
+
+        it 'should be false for an html attachment' do
+            FactoryGirl.build(:html_attachment).has_body_as_html?.should be_false
+        end
+
+    end
+
 end
