@@ -18,16 +18,14 @@ class UserController < ApplicationController
     set_view_instance_variables
 
     @display_user = set_display_user
-
     @same_name_users = User.find_similar_named_users(@display_user)
-
-    @is_you = @user.try(:id) == @display_user.id
+    @is_you = current_user_is_display_user
 
     set_show_requests if @show_requests
 
     if @is_you
       # All tracks for the user
-      @track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc')
+      @track_things = @track_things = TrackThing.where(tracking_user: @display_user, track_medium: 'email_daily').order('created_at desc')
       @track_things_grouped = @track_things.group_by(&:track_type)
 
       # Requests you need to describe
@@ -45,7 +43,7 @@ class UserController < ApplicationController
   def wall
     long_cache
     @display_user = set_display_user
-    @is_you = !@user.nil? && @user.id == @display_user.id
+    @is_you = current_user_is_display_user
     feed_results = Set.new
     # Use search query for this so can collapse and paginate easily
     # TODO: really should just use SQL query here rather than Xapian.
@@ -664,5 +662,9 @@ class UserController < ApplicationController
     # Track corresponding to this page
     @track_thing = TrackThing.create_track_for_user(@display_user)
     @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
+  end
+
+  def current_user_is_display_user
+    @user.try(:id) == @display_user.id
   end
 end
