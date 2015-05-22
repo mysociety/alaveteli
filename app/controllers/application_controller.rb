@@ -206,7 +206,7 @@ class ApplicationController < ActionController::Base
     def foi_fragment_cache_part_path(param)
         path = url_for(param)
         id = param['id'] || param[:id]
-        first_three_digits = id.to_s()[0..2]
+        first_three_digits = id.to_s[0..2]
         path = path.sub("/request/", "/request/" + first_three_digits + "/")
         return path
     end

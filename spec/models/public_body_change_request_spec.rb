@@ -22,7 +22,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe PublicBodyChangeRequest, 'when validating' do
 
     it 'should not be valid without a public body name' do
-        change_request = PublicBodyChangeRequest.new()
+        change_request = PublicBodyChangeRequest.new
         change_request.valid?.should be_false
         change_request.errors[:public_body_name].should == ['Please enter the name of the authority']
     end

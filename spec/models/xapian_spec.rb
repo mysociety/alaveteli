@@ -102,7 +102,7 @@ describe PublicBody, " when indexing requests by body they are to" do
     end
 
     # if you index via the Xapian TermGenerator, it ignores terms of this length,
-    # this checks we're using Document:::add_term() instead
+    # this checks we're using Document:::add_term instead
     it "should work with URL names that are longer than 64 characters" do
         # change the URL name of the body
         body = public_bodies(:geraldine_public_body)

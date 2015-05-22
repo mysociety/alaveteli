@@ -24,7 +24,7 @@ class PublicBodyController < ApplicationController
             redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'body'), :status => :moved_permanently
             return
         end
-        @locale = self.locale_from_params()
+        @locale = locale_from_params
         I18n.with_locale(@locale) do
             @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
             raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
@@ -83,7 +83,7 @@ class PublicBodyController < ApplicationController
         @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
         raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
 
-        I18n.with_locale(self.locale_from_params()) do
+        I18n.with_locale(locale_from_params) do
             if params[:submitted_view_email]
                 if verify_recaptcha
                     flash.discard(:error)
@@ -106,7 +106,7 @@ class PublicBodyController < ApplicationController
 
         @tag = params[:tag]
 
-        @locale = self.locale_from_params
+        @locale = locale_from_params
         underscore_locale = @locale.gsub '-', '_'
         underscore_default_locale = I18n.default_locale.to_s.gsub '-', '_'
 

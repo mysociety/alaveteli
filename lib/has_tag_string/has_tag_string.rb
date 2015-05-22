@@ -152,7 +152,7 @@ module HasTagString
     ######################################################################
     # Main entry point, add has_tag_string to your model.
     module HasMethods
-        def has_tag_string()
+        def has_tag_string
             has_many :tags, :conditions => "model = '" + self.to_s + "'", :foreign_key => "model_id", :class_name => 'HasTagString::HasTagStringTag'
 
             include InstanceMethods

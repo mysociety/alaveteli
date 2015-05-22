@@ -387,7 +387,7 @@ class PublicBody < ActiveRecord::Base
                 # matching names won't work afterwards, and we'll create new bodies instead
                 # of updating them
                 bodies_by_name = {}
-                set_of_existing = Set.new()
+                set_of_existing = Set.new
                 internal_admin_body_id = PublicBody.internal_admin_body.id
                 I18n.with_locale(I18n.default_locale) do
                     bodies = (tag.nil? || tag.empty?) ? PublicBody.find(:all, :include => :translations) : PublicBody.find_by_tag(tag)
@@ -400,7 +400,7 @@ class PublicBody < ActiveRecord::Base
                     end
                 end
 
-                set_of_importing = Set.new()
+                set_of_importing = Set.new
                 # Default values in case no field list is given
                 field_names = { 'name' => 1, 'request_email' => 2 }
                 line = 0

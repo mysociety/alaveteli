@@ -137,10 +137,10 @@ module ActsAsXapian
         prepare_environment
 
         # We need to reopen the database each time, so Xapian gets changes to it.
-        # Calling reopen() does not always pick up changes for reasons that I can
+        # Calling reopen does not always pick up changes for reasons that I can
         # only speculate about at the moment. (It is easy to reproduce this by
-        # changing the code below to use reopen() rather than open() followed by
-        # close(), and running rake spec.)
+        # changing the code below to use reopen rather than open followed by
+        # close, and running rake spec.)
         if !@@db.nil?
             @@db.close
         end
@@ -260,7 +260,7 @@ module ActsAsXapian
         # for indexing
         @@writable_db = Xapian::WritableDatabase.new(full_path, Xapian::DB_CREATE_OR_OPEN)
         @@enquire = Xapian::Enquire.new(@@writable_db)
-        @@term_generator = Xapian::TermGenerator.new()
+        @@term_generator = Xapian::TermGenerator.new
         @@term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING, 0)
         @@term_generator.database = @@writable_db
         @@term_generator.stemmer = @@stemmer
@@ -336,7 +336,7 @@ module ActsAsXapian
                         delay *= 2
                         delay = MSET_MAX_DELAY if delay > MSET_MAX_DELAY
 
-                        ActsAsXapian.db.reopen()
+                        ActsAsXapian.db.reopen
                         retry
                     else
                         raise
@@ -559,7 +559,7 @@ module ActsAsXapian
                 matches = ActsAsXapian.enquire.mset(0, 100, 100) # TODO: so this whole method will only work with 100 docs
 
                 # Get set of relevant terms for those documents
-                selection = Xapian::RSet.new()
+                selection = Xapian::RSet.new
                 iter = matches._begin
                 while not iter.equals(matches._end)
                     selection.add_document(iter)

@@ -60,7 +60,7 @@ describe AlaveteliTextMasker do
         end
 
         def pdf_replacement_test(use_ghostscript_compression)
-            config = MySociety::Config.load_default()
+            config = MySociety::Config.load_default
             previous = config['USE_GHOSTSCRIPT_COMPRESSION']
             config['USE_GHOSTSCRIPT_COMPRESSION'] = use_ghostscript_compression
             orig_pdf = load_file_fixture('tfl.pdf')

@@ -14,19 +14,19 @@ class PublicBodyCategory::CategoryCollection
     end
 
     def with_description
-        @categories.select() { |a| a.instance_of?(Array) }
+        @categories.select { |a| a.instance_of?(Array) }
     end
 
     def tags
-        tags = with_description.map() { |a| a[0] }
+        tags = with_description.map { |a| a[0] }
     end
 
     def by_tag
-        Hash[*with_description.map() { |a| a[0..1] }.flatten]
+        Hash[*with_description.map { |a| a[0..1] }.flatten]
     end
 
     def singular_by_tag
-        Hash[*with_description.map() { |a| [a[0],a[2]] }.flatten]
+        Hash[*with_description.map { |a| [a[0],a[2]] }.flatten]
     end
 
     def by_heading

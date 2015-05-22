@@ -42,7 +42,7 @@ class ApiController < ApplicationController
             :status => 'ready',
             :message_type => 'initial_request',
             :body => json["body"],
-            :last_sent_at => Time.now(),
+            :last_sent_at => Time.now,
             :what_doing => 'normal_sort',
             :info_request => request
         )

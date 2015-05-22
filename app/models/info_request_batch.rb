@@ -70,7 +70,7 @@ class InfoRequestBatch < ActiveRecord::Base
         info_request
     end
 
-    def InfoRequestBatch.send_batches()
+    def InfoRequestBatch.send_batches
         find_each(:conditions => "sent_at IS NULL") do |info_request_batch|
             unrequestable = info_request_batch.create_batch!
             mail_message = InfoRequestBatchMailer.batch_sent(info_request_batch,

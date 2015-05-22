@@ -14,7 +14,7 @@ class AdminIncomingMessageController < AdminController
         if @incoming_message.save
             @incoming_message.info_request.log_event('edit_incoming',
                                                     :incoming_message_id => @incoming_message.id,
-                                                    :editor => admin_current_user(),
+                                                    :editor => admin_current_user,
                                                     :old_prominence => old_prominence,
                                                     :prominence => @incoming_message.prominence,
                                                     :old_prominence_reason => old_prominence_reason,
@@ -34,7 +34,7 @@ class AdminIncomingMessageController < AdminController
 
         @incoming_message.fully_destroy
         @incoming_message.info_request.log_event("destroy_incoming",
-            { :editor => admin_current_user(), :deleted_incoming_message_id => incoming_message_id })
+            { :editor => admin_current_user, :deleted_incoming_message_id => incoming_message_id })
         # expire cached files
         expire_for_request(@info_request)
         flash[:notice] = 'Incoming message successfully destroyed.'
@@ -64,7 +64,7 @@ class AdminIncomingMessageController < AdminController
 
                 incoming_message_id = incoming_message.id
                 incoming_message.info_request.log_event("redeliver_incoming", {
-                                                            :editor => admin_current_user(),
+                                                            :editor => admin_current_user,
                                                             :destination_request => destination_request.id,
                                                             :deleted_incoming_message_id => incoming_message_id
                                                         })

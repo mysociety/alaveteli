@@ -36,7 +36,7 @@ module MailHandler
     module Backends
         module MailBackend
 
-            def backend()
+            def backend
                 'Mail'
             end
 

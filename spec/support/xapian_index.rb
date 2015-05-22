@@ -23,7 +23,7 @@ end
 
 # Copy the xapian index created in create_fixtures_xapian_index to a temporary
 # copy at the same level and point xapian at the copy
-def get_fixtures_xapian_index()
+def get_fixtures_xapian_index
     # Create a base index for the fixtures if not already created
     $existing_xapian_db ||= create_fixtures_xapian_index
     # Store whatever the xapian db path is originally

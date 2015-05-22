@@ -31,7 +31,7 @@ describe InfoRequest do
     describe :new do
 
         it 'sets the default law used' do
-            expect(InfoRequest.new().law_used).to eq('foi')
+            expect(InfoRequest.new.law_used).to eq('foi')
         end
 
         it 'sets the default law used if a body is eir-only' do

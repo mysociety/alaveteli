@@ -114,7 +114,7 @@ describe OutgoingMessage, " when making an outgoing message" do
             :status => 'ready',
             :message_type => 'initial_request',
             :body => 'This request contains a foo@bar.com email address',
-            :last_sent_at => Time.now(),
+            :last_sent_at => Time.now,
             :what_doing => 'normal_sort'
         })
     end
