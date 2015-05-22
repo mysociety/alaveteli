@@ -197,10 +197,6 @@ class User < ActiveRecord::Base
         (locale || I18n.locale).to_s
     end
 
-    def visible_comments
-        comments.find(:all, :conditions => 'visible')
-    end
-
     # Don't display any leading/trailing spaces
     # TODO: we have strip_attributes! now, so perhaps this can be removed (might
     # be still needed for existing cases)
