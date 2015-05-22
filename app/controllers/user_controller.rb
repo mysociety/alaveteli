@@ -91,7 +91,7 @@ class UserController < ApplicationController
     @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
     # make sure we have cookies
     if session.instance_variable_get(:@dbman)
-      if not session.instance_variable_get(:@dbman).instance_variable_get(:@original)
+      unless session.instance_variable_get(:@dbman).instance_variable_get(:@original)
         # try and set them if we don't
         unless params[:again]
           redirect_to signin_url(:r => params[:r], :again => 1)
@@ -107,7 +107,7 @@ class UserController < ApplicationController
       return
     end
 
-    if not params[:user_signin]
+    unless params[:user_signin]
       # First time page is shown
       render :action => 'sign'
       return
@@ -208,7 +208,7 @@ class UserController < ApplicationController
 
     if params[:submitted_signchangepassword_send_confirm]
       # They've entered the email, check it is OK and user exists
-      if not MySociety::Validate.is_valid_email(params[:signchangepassword][:email])
+      unless MySociety::Validate.is_valid_email(params[:signchangepassword][:email])
         flash[:error] = _("That doesn't look like a valid email address. Please check you have typed it correctly.")
         render :action => 'signchangepassword_send_confirm'
         return
@@ -237,7 +237,7 @@ class UserController < ApplicationController
       end
 
       render :action => 'signchangepassword_confirm'
-    elsif not @user
+    elsif @user.nil?
       # Not logged in, prompt for email
       render :action => 'signchangepassword_send_confirm'
     else
@@ -247,9 +247,7 @@ class UserController < ApplicationController
       if params[:submitted_signchangepassword_do]
         @user.password = params[:user][:password]
         @user.password_confirmation = params[:user][:password_confirmation]
-        if not @user.valid?
-          render :action => 'signchangepassword'
-        else
+        if @user.valid?
           @user.save!
           flash[:notice] = _("Your password has been changed.")
           if params[:pretoken] and not params[:pretoken].empty?
@@ -258,6 +256,8 @@ class UserController < ApplicationController
           else
             redirect_to user_url(@user)
           end
+        else
+          render :action => 'signchangepassword'
         end
       else
         render :action => 'signchangepassword'
@@ -267,14 +267,12 @@ class UserController < ApplicationController
 
   # Change your email
   def signchangeemail
-    if not authenticated?(
+    # "authenticated?" has done the redirect to signin page for us
+    return unless authenticated?(
         :web => _("To change your email address used on {{site_name}}",:site_name=>site_name),
         :email => _("Then you can change your email address used on {{site_name}}",:site_name=>site_name),
         :email_subject => _("Change your email address used on {{site_name}}",:site_name=>site_name)
       )
-      # "authenticated?" has done the redirect to signin page for us
-      return
-    end
 
     unless params[:submitted_signchangeemail_do]
       render :action => 'signchangeemail'
@@ -348,14 +346,13 @@ class UserController < ApplicationController
     # You *must* be logged into send a message to another user. (This is
     # partly to avoid spam, and partly to have some equanimity of openess
     # between the two users)
-    if not authenticated?(
+    #
+    # "authenticated?" has done the redirect to signin page for us
+    return unless authenticated?(
         :web => _("To send a message to ") + CGI.escapeHTML(@recipient_user.name),
         :email => _("Then you can send a message to ") + @recipient_user.name + ".",
         :email_subject => _("Send a message to ") + @recipient_user.name
       )
-      # "authenticated?" has done the redirect to signin page for us
-      return
-    end
 
     if params[:submitted_contact_form]
       params[:contact][:name] = @user.name
@@ -586,9 +583,8 @@ class UserController < ApplicationController
   # Decide where we are going to redirect back to after signin/signup, and record that
   def work_out_post_redirect
     # Redirect to front page later if nothing else specified
-    if not params[:r] and not params[:token]
-      params[:r] = "/"
-    end
+    params[:r] = "/" if params[:r].nil? && params[:token].nil?
+
     # The explicit "signin" link uses this to specify where to go back to
     if params[:r]
       @post_redirect = PostRedirect.new(:uri => params[:r], :post_params => {},
