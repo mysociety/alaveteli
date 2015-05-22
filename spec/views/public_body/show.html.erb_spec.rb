@@ -30,6 +30,7 @@ describe "public_body/show" do
         assign(:xapian_requests, @xap)
         assign(:page, 1)
         assign(:per_page, 10)
+        assign(:number_of_visible_requests, 4)
     end
 
     it "should be successful" do
@@ -48,7 +49,7 @@ describe "public_body/show" do
     end
 
     it "should cope with no results" do
-        @pb.stub!(:info_requests).and_return([])
+        assign(:number_of_visible_requests, 0)
         render
         response.should have_selector('p', :content => "Nobody has made any Freedom of Information requests")
     end
