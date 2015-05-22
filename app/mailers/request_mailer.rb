@@ -101,7 +101,7 @@ class RequestMailer < ApplicationMailer
         @info_request = info_request
 
         auto_generated_headers
-        mail_user_with_info_request_title(user, info_request, _("Delayed response to your FOI request - "))
+        mail_user_with_info_request_title(user, _("Delayed response to your FOI request - "), info_request)
     end
 
     # Tell the requester that the public body is very late in replying
@@ -116,7 +116,7 @@ class RequestMailer < ApplicationMailer
         @info_request = info_request
 
         auto_generated_headers
-        mail_user_with_info_request_title(user, info_request, _("You're long overdue a response to your FOI request - "))
+        mail_user_with_info_request_title(user, _("You're long overdue a response to your FOI request - "), info_request)
     end
 
     # Tell the requester that they need to say if the new response
@@ -159,7 +159,7 @@ class RequestMailer < ApplicationMailer
         @info_request = info_request
 
         auto_generated_headers
-        mail_user_with_info_request_title(info_request.user, info_request, _("Clarify your FOI request - "))
+        mail_user_with_info_request_title(info_request.user, _("Clarify your FOI request - "), info_request)
     end
 
     # Tell requester that somebody add an annotation to their request
@@ -168,14 +168,14 @@ class RequestMailer < ApplicationMailer
         @url = comment_url(comment)
 
         auto_generated_headers
-        mail_user_with_info_request_title(info_request.user, info_request, _("Somebody added a note to your FOI request - "))
+        mail_user_with_info_request_title(info_request.user, _("Somebody added a note to your FOI request - "), info_request)
     end
     def comment_on_alert_plural(info_request, count, earliest_unalerted_comment)
         @count, @info_request = count, info_request
         @url = comment_url(earliest_unalerted_comment)
 
         auto_generated_headers
-        mail_user_with_info_request_title(info_request.user, info_request, _("Some notes have been added to your FOI request - "))
+        mail_user_with_info_request_title(info_request.user, _("Some notes have been added to your FOI request - "), info_request)
     end
 
     # Class function, called by script/mailin with all incoming responses.
@@ -444,7 +444,7 @@ class RequestMailer < ApplicationMailer
         })
     end
 
-    def mail_user_with_info_request_title(user, info_request, subject)
+    def mail_user_with_info_request_title(user, subject, info_request)
         mail_user(user, subject + info_request.title.html_safe)
     end
 
