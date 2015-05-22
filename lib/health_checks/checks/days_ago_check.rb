@@ -20,7 +20,7 @@ module HealthChecks
                 "#{ super }: #{ subject.call }"
             end
 
-            def check
+            def ok?
                 subject.call >= days.days.ago
             end
 

@@ -32,24 +32,10 @@ describe HealthChecks::HealthCheckable do
 
     end
 
-    describe :check do
-
-        it 'is intended to be overridden by the includer' do
-            expect{ @subject.check }.to raise_error(NotImplementedError)
-        end
-
-    end
-
     describe :ok? do
 
-        it 'returns true if the check was successful' do
-            @subject.stub(:check => true)
-            expect(@subject.ok?).to be_true
-        end
-
-        it 'returns false if the check failed' do
-            @subject.stub(:check => false)
-            expect(@subject.ok?).to be_false
+        it 'is intended to be overridden by the includer' do
+            expect{ @subject.ok? }.to raise_error(NotImplementedError)
         end
 
     end
@@ -93,7 +79,7 @@ describe HealthChecks::HealthCheckable do
         context 'if the check succeeds' do
 
             before(:each) do
-                @subject.stub(:check => true)
+                @subject.stub(:ok? => true)
             end
 
             it 'returns the default success message' do
@@ -110,7 +96,7 @@ describe HealthChecks::HealthCheckable do
         context 'if the check fails' do
 
             before(:each) do
-                @subject.stub(:check => false)
+                @subject.stub(:ok? => false)
             end
 
             it 'returns the default failure message' do

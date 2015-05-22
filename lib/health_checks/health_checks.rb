@@ -32,7 +32,7 @@ module HealthChecks
     private
 
     def assert_valid_check(check)
-        check.respond_to?(:check)
+        check.respond_to?(:ok?)
     end
 
 end
