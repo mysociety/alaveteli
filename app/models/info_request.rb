@@ -1425,7 +1425,7 @@ public
         end
     end
 
-    def add_conditions_from_extra_params(params, extra_params)
+    def self.add_conditions_from_extra_params(params, extra_params)
         if extra_params[:conditions]
             condition_string = extra_params[:conditions].shift
             params[:conditions][0] += " AND #{condition_string}"
