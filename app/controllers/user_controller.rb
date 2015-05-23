@@ -36,7 +36,6 @@ class UserController < ApplicationController
       format.html { @has_json = true }
       format.json { render :json => @display_user.json_for_api }
     end
-
   end
 
   # Show the user's wall
@@ -64,7 +63,7 @@ class UserController < ApplicationController
     # All tracks for the user
     if @is_you
       @track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc')
-      for track_thing in @track_things
+      @track_things.each do |track_thing|
         # TODO: factor out of track_mailer.rb
         xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], track_thing.track_query,
                                                  :sort_by_prefix => 'described_at',
@@ -92,48 +91,36 @@ class UserController < ApplicationController
     if session.instance_variable_get(:@dbman)
       unless session.instance_variable_get(:@dbman).instance_variable_get(:@original)
         # try and set them if we don't
-        unless params[:again]
-          redirect_to signin_url(:r => params[:r], :again => 1)
-          return
-        end
-        render :action => 'no_cookies'
-        return
+        return redirect_to signin_url(:r => params[:r], :again => 1) unless params[:again]
+        return render :action => 'no_cookies'
       end
     end
     # remove "cookie setting attempt has happened" parameter if there is one and cookies worked
-    if params[:again]
-      redirect_to signin_url(:r => params[:r], :again => nil)
-      return
-    end
+    return redirect_to signin_url(:r => params[:r], :again => nil) if params[:again]
 
-    unless params[:user_signin]
-      # First time page is shown
-      render :action => 'sign'
-      return
-    else
-      unless @post_redirect.nil?
+    # First time page is shown
+    return render :action => 'sign' unless params[:user_signin]
+
+    if @post_redirect.present?
         @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name])
-      end
-      if @post_redirect.nil? || @user_signin.errors.size > 0
-        # Failed to authenticate
-        render :action => 'sign'
-        return
-      else
-        # Successful login
-        if @user_signin.email_confirmed
-          session[:user_id] = @user_signin.id
-          session[:user_circumstance] = nil
-          session[:remember_me] = params[:remember_me] ? true : false
+    end
+    if @post_redirect.nil? || @user_signin.errors.size > 0
+      # Failed to authenticate
+      render :action => 'sign'
+    else
+      # Successful login
+      if @user_signin.email_confirmed
+        session[:user_id] = @user_signin.id
+        session[:user_circumstance] = nil
+        session[:remember_me] = params[:remember_me] ? true : false
 
-          if is_modal_dialog
-            render :action => 'signin_successful'
-          else
-            do_post_redirect @post_redirect
-          end
+        if is_modal_dialog
+          render :action => 'signin_successful'
         else
-          send_confirmation_mail @user_signin
+          do_post_redirect @post_redirect
         end
-        return
+      else
+        send_confirmation_mail @user_signin
       end
     end
   end
