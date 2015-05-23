@@ -10,7 +10,7 @@ require 'set'
 class UserController < ApplicationController
   layout :select_layout
   # NOTE: Rails 4 syntax: change before_filter to before_action
-  before_filter :normalize_url_name, only: :show
+  before_filter :normalize_url_name, :only => :show
 
   # Show page about a user
   def show
@@ -28,7 +28,6 @@ class UserController < ApplicationController
         where(:tracking_user_id => @display_user, :track_medium => 'email_daily').
           order('created_at desc')
       @track_things_grouped = @track_things.group_by(&:track_type)
-
       # Requests you need to describe
       @undescribed_requests = @display_user.get_undescribed_requests
     end
@@ -473,7 +472,7 @@ class UserController < ApplicationController
   def get_profile_photo
     long_cache
     @display_user = set_display_user
-    if !@display_user.profile_photo
+    unless @display_user.profile_photo
       raise ActiveRecord::RecordNotFound.new("user has no profile photo, url_name=" + params[:url_name])
     end
 
@@ -563,7 +562,7 @@ class UserController < ApplicationController
   end
 
   def is_modal_dialog
-    (params[:modal].to_i != 0)
+    params[:modal].to_i != 0
   end
 
   # when logging in through a modal iframe, don't display chrome around the content
@@ -581,8 +580,8 @@ class UserController < ApplicationController
       @post_redirect = PostRedirect.new(:uri => params[:r], :post_params => {},
                                         :reason_params => {
                                           :web => "",
-                                          :email => _("Then you can sign in to {{site_name}}",:site_name=>site_name),
-                                          :email_subject => _("Confirm your account on {{site_name}}",:site_name=>site_name)
+                                          :email => _("Then you can sign in to {{site_name}}", :site_name => site_name),
+                                          :email_subject => _("Confirm your account on {{site_name}}", :site_name => site_name)
       })
       @post_redirect.save!
       params[:token] = @post_redirect.token
