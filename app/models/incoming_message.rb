@@ -422,7 +422,8 @@ class IncomingMessage < ActiveRecord::Base
         if String.method_defined?(:encode)
             begin
                 # Test if it's good UTF-8
-                text.encode('utf-8')
+                text = text.encode('utf-8')
+                fail Encoding::InvalidByteSequenceError if (text.respond_to?(:valid_encoding?) && text.valid_encoding? == false)
             rescue Encoding::UndefinedConversionError, Encoding::InvalidByteSequenceError
                 source_charset = 'utf-8' if source_charset.nil?
                 # strip out anything that isn't UTF-8
