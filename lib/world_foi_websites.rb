@@ -78,7 +78,11 @@ class WorldFOIWebsites
                               {:name => "Слободен пристап",
                                   :country_name => "Република Македонија",
                                   :country_iso_code => "MK",
-                                  :url => "http://www.slobodenpristap.mk/"}
+                                  :url => "http://www.slobodenpristap.mk/"},
+                              {:name => "Imamo pravo znati",
+                                  :country_name => "Republika Hrvatska",
+                                  :country_iso_code => "HR",
+                                  :url => "http://imamopravoznati.org/"}
                               ]
         return world_foi_websites
     end
