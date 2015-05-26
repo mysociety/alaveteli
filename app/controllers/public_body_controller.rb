@@ -40,6 +40,8 @@ class PublicBodyController < ApplicationController
 
             set_last_body(@public_body)
 
+            @number_of_visible_requests = @public_body.info_requests.visible.count
+
             top_url = frontpage_url
             @searched_to_send_request = false
             referrer = request.env['HTTP_REFERER']

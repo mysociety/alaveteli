@@ -42,12 +42,12 @@
     </div>
     <% end %>
 
-    <% if @public_body.info_requests.size > 0 %>
+    <% if @number_of_visible_requests > 0 %>
         <div class="authority__header__stats">
             <%= n_('{{count}} request',
                 '{{count}} requests',
-                @public_body.info_requests.size,
-                :count => @public_body.info_requests.size) %>
+                @number_of_visible_requests,
+                :count => @number_of_visible_requests) %>
         </div>
     <% end %>
 
@@ -81,7 +81,7 @@
 
 <div class="authority__body">
     <div class="authority__body__foi-results">
-        <% if @public_body.info_requests.size == 0 %>
+        <% if @number_of_visible_requests == 0 %>
             <% if @public_body.is_requestable? or @public_body.not_requestable_reason != 'defunct' %>
                 <% if @public_body.eir_only? %>
                     <h2><%= _('Environmental Information Regulations requests made using this site') %></h2>
@@ -99,7 +99,7 @@
             <% end %>
             <a name="results"></a>
 
-            <% if  @public_body.info_requests.size > 4 %>
+            <% if @number_of_visible_requests > 4 %>
                 <%= render :partial => 'request/request_filter_form' %>
             <% end %>
         <% end %>
@@ -132,7 +132,7 @@
     </div>
 
     <div class="authority__body__sidebar">
-        <% if  @public_body.info_requests.size > 4 %>
+        <% if @number_of_visible_requests > 4 %>
             <%= render :partial => 'request/request_search_form' %>
         <% end %>
         <%= render :partial => 'more_info', :locals => { :public_body => @public_body } %>
