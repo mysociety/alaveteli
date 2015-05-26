@@ -198,7 +198,9 @@ class User < ActiveRecord::Base
     end
 
     def visible_comments
-        comments.find(:all, :conditions => 'visible')
+        warn %q([DEPRECATION] User#visible_comments will be replaced with
+                User#comments.visible as of 0.23).squish
+        comments.visible
     end
 
     # Don't display any leading/trailing spaces

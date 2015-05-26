@@ -200,7 +200,9 @@ class InfoRequest < ActiveRecord::Base
     OLD_AGE_IN_DAYS = 21.days
 
     def visible_comments
-        self.comments.find(:all, :conditions => 'visible')
+        warn %q([DEPRECATION] InfoRequest#visible_comments will be replaced with
+        InfoRequest#comments.visible as of 0.23).squish
+        comments.visible
     end
 
     # If the URL name has changed, then all request: queries will break unless

@@ -173,7 +173,7 @@
             <% end %>
         <% else %>
             <h2 id="annotations">
-                <%= @is_you ? n_('Your {{count}} annotation', 'Your {{count}} annotations', @display_user.visible_comments.size, :count => @display_user.visible_comments.size) : n_("This person's {{count}} annotation", "This person's {{count}} annotations", @display_user.visible_comments.size, :count => @display_user.visible_comments.size) %>
+                <%= @is_you ? n_('Your {{count}} annotation', 'Your {{count}} annotations', @display_user.comments.visible.size, :count => @display_user.comments.visible.size) : n_("This person's {{count}} annotation", "This person's {{count}} annotations", @display_user.comments.visible.size, :count => @display_user.comments.visible.size) %>
                   <!-- matches_estimated <%=@xapian_comments.matches_estimated%> -->
                 <%= @page_desc %>
             </h2>
@@ -182,7 +182,7 @@
                 <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
             <% end %>
 
-            <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.visible_comments.size) %>
+            <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.comments.visible.size) %>
         <% end %>
     <% end %>
 
