@@ -726,7 +726,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # Search all info requests for
-    def IncomingMessage.find_all_unknown_mime_types
+    def self.find_all_unknown_mime_types
         for incoming_message in IncomingMessage.find(:all)
             for attachment in incoming_message.get_attachments_for_display
                 raise "internal error incoming_message " + incoming_message.id.to_s if attachment.content_type.nil?
@@ -752,7 +752,7 @@ class IncomingMessage < ActiveRecord::Base
         return ret.keys.join(" ")
     end
     # Return space separated list of all file extensions known
-    def IncomingMessage.get_all_file_extensions
+    def self.get_all_file_extensions
         return AlaveteliFileTypes.all_extensions.join(" ")
     end
 end

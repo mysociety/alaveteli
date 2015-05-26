@@ -39,7 +39,7 @@ module ActsAsXapian
     ######################################################################
     # Module level variables
     # TODO: must be some kind of cattr_accessor that can do this better
-    def ActsAsXapian.bindings_available
+    def self.bindings_available
         $acts_as_xapian_bindings_available
     end
     class NoXapianRubyBindingsError < StandardError
@@ -58,40 +58,40 @@ module ActsAsXapian
         $acts_as_xapian_class_var_init = true
     end
 
-    def ActsAsXapian.db
+    def self.db
         @@db
     end
-    def ActsAsXapian.db_path=(db_path)
+    def self.db_path=(db_path)
         @@db_path = db_path
     end
-    def ActsAsXapian.db_path
+    def self.db_path
         @@db_path
     end
-    def ActsAsXapian.writable_db
+    def self.writable_db
         @@writable_db
     end
-    def ActsAsXapian.stemmer
+    def self.stemmer
         @@stemmer
     end
-    def ActsAsXapian.term_generator
+    def self.term_generator
         @@term_generator
     end
-    def ActsAsXapian.enquire
+    def self.enquire
         @@enquire
     end
-    def ActsAsXapian.query_parser
+    def self.query_parser
         @@query_parser
     end
-    def ActsAsXapian.values_by_prefix
+    def self.values_by_prefix
         @@values_by_prefix
     end
-    def ActsAsXapian.config
+    def self.config
       @@config
     end
 
     ######################################################################
     # Initialisation
-    def ActsAsXapian.init(classname = nil, options = nil)
+    def self.init(classname = nil, options = nil)
         if not classname.nil?
             # store class and options for use later, when we open the db in readable_init
             @@init_values.push([classname,options])
@@ -99,7 +99,7 @@ module ActsAsXapian
     end
 
     # Reads the config file (if any) and sets up the path to the database we'll be using
-    def ActsAsXapian.prepare_environment
+    def self.prepare_environment
       return unless @@db_path.nil?
 
       # barf if we can't figure out the environment
@@ -130,7 +130,7 @@ module ActsAsXapian
     # Opens / reopens the db for reading
     # TODO: we perhaps don't need to rebuild database and enquire and queryparser -
     # but db.reopen wasn't enough by itself, so just do everything it's easier.
-    def ActsAsXapian.readable_init
+    def self.readable_init
         raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed") unless ActsAsXapian.bindings_available
         raise "acts_as_xapian hasn't been called in any models" if @@init_values.empty?
 
@@ -157,7 +157,7 @@ module ActsAsXapian
     end
 
     # Make a new query parser
-    def ActsAsXapian.init_query_parser
+    def self.init_query_parser
         # for queries
         @@query_parser = Xapian::QueryParser.new
         @@query_parser.stemmer = @@stemmer
@@ -193,7 +193,7 @@ module ActsAsXapian
         end
     end
 
-    def ActsAsXapian.init_values(values)
+    def self.init_values(values)
         values.each do |method, index, prefix, value_type|
             raise "Value index '#{index}' must be an Integer, is #{index.class}" unless index.is_a? Integer
             if @@values_by_number.include?(index) && @@values_by_number[index] != prefix
@@ -225,7 +225,7 @@ module ActsAsXapian
         end
     end
 
-    def ActsAsXapian.init_terms(terms)
+    def self.init_terms(terms)
         terms.each do |method, term_code, prefix|
             raise "Use a single capital letter for term code" if not term_code.match(/^[A-Z]$/)
             raise "M and I are reserved for use as the model/id term" if term_code == "M" || term_code == "I"
@@ -244,7 +244,7 @@ module ActsAsXapian
         end
     end
 
-    def ActsAsXapian.writable_init(suffix = "")
+    def self.writable_init(suffix = "")
         raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed") unless ActsAsXapian.bindings_available
         raise "acts_as_xapian hasn't been called in any models" if @@init_values.empty?
 
@@ -611,7 +611,7 @@ module ActsAsXapian
     # flush your changes. Specifying flush will reduce performance, but make
     # sure that each index update is definitely saved to disk before
     # logging in the database that it has been.
-    def ActsAsXapian.update_index(flush = false, verbose = false)
+    def self.update_index(flush = false, verbose = false)
         # STDOUT.puts("start of ActsAsXapian.update_index") if verbose
 
         # Before calling writable_init we have to make sure every model class has been initialized.
@@ -655,7 +655,7 @@ module ActsAsXapian
         ActsAsXapian.writable_db.close
     end
 
-    def ActsAsXapian.run_job(job, flush, verbose)
+    def self.run_job(job, flush, verbose)
         STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s} #{Time.now.to_s}") if verbose
 
         begin
@@ -682,7 +682,7 @@ module ActsAsXapian
         job.destroy
     end
 
-    def ActsAsXapian._is_xapian_db(path)
+    def self._is_xapian_db(path)
         is_db = File.exist?(File.join(path, "iamflint")) || File.exist?(File.join(path, "iamchert"))
         return is_db
     end
@@ -694,7 +694,7 @@ module ActsAsXapian
     # happens (i.e. while the .new database is there) - any index update jobs
     # are left in the database, and will run after the rebuild has finished.
 
-    def ActsAsXapian.rebuild_index(model_classes, verbose = false, terms = true, values = true, texts = true, safe_rebuild = true)
+    def self.rebuild_index(model_classes, verbose = false, terms = true, values = true, texts = true, safe_rebuild = true)
         #raise "when rebuilding all, please call as first and only thing done in process / task" if not ActsAsXapian.writable_db.nil?
         prepare_environment
 
@@ -755,7 +755,7 @@ module ActsAsXapian
         @@db_path = old_path
     end
 
-    def ActsAsXapian._rebuild_index_safely(model_classes, verbose, terms, values, texts)
+    def self._rebuild_index_safely(model_classes, verbose, terms, values, texts)
         batch_size = 1000
         for model_class in model_classes
             model_class_count = model_class.count

@@ -32,7 +32,7 @@ module HasTagString
 
         # Parses a text version of one single tag, such as "a:b" and returns
         # the name and value, with nil for value if there isn't one.
-        def HasTagStringTag.split_tag_into_name_value(tag)
+        def self.split_tag_into_name_value(tag)
             sections = tag.split(/:/)
             name = sections[0]
             if sections[1]
