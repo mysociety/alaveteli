@@ -3,12 +3,18 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ActsAsXapian::Search do
 
-    before :all do
-        # make sure an index exists
-        ActsAsXapian.update_index
-    end
-
     describe "#words_to_highlight" do
+
+        before :all do
+            # make sure an index exists
+            @alice = FactoryGirl.create(:public_body, :name => 'alice')
+            ActsAsXapian.update_index
+        end
+
+        after :all do
+            @alice.destroy
+            ActsAsXapian.update_index
+        end
 
         it "should return a list of words used in the search" do
             s = ActsAsXapian::Search.new([PublicBody], "albatross words", :limit => 100)
@@ -80,6 +86,12 @@ describe ActsAsXapian::Search do
             ActsAsXapian.update_index
         end
 
+        after :all do
+            @alice.destroy
+            @bob.destroy
+            ActsAsXapian.update_index
+        end
+
         it 'returns a UTF-8 encoded string' do
             s = ActsAsXapian::Search.new([PublicBody], "alece", :limit => 100)
             s.spelling_correction.should == "alice"
@@ -91,12 +103,6 @@ describe ActsAsXapian::Search do
         it 'handles non-ASCII characters' do
             s = ActsAsXapian::Search.new([PublicBody], "bobby", :limit => 100)
             s.spelling_correction.should == "bôbby"
-        end
-
-        after :all do
-            @alice.destroy
-            @bob.destroy
-            ActsAsXapian.update_index
         end
 
     end
