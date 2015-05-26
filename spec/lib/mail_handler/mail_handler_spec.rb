@@ -158,6 +158,16 @@ describe 'when asked for all the addresses a mail has been sent to' do
         mail = MailHandler.mail_from_raw_email(mail_data)
         MailHandler.get_all_addresses(mail).should == ["request-5555-xxxxxxxx@whatdotheyknow.com"]
     end
+
+    it 'should not return invalid addresses' do
+        mail_data = load_file_fixture('autoresponse-header.email')
+        mail_data.gsub!('To: FOI Person <EMAIL_TO>',
+                        'To: <request-5555-xxxxxxxx>')
+        mail = MailHandler.mail_from_raw_email(mail_data)
+        MailHandler.get_all_addresses(mail).should == []
+    end
+
+
 end
 
 describe 'when asked for auto_submitted' do

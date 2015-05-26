@@ -123,7 +123,7 @@ module MailHandler
                 envelope_to = mail['envelope-to'] ? [mail['envelope-to'].value.to_s] : []
                 ((mail.to || []) +
                 (mail.cc || []) +
-                (envelope_to || [])).uniq
+                (envelope_to || [])).compact.uniq
             end
 
             def empty_return_path?(mail)
