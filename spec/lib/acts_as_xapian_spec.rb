@@ -72,4 +72,33 @@ describe ActsAsXapian::Search do
         end
     end
 
+    describe :spelling_correction do
+
+        before :all do
+            @alice = FactoryGirl.create(:public_body, :name => 'alice')
+            @bob = FactoryGirl.create(:public_body, :name => 'bôbby')
+            ActsAsXapian.update_index
+        end
+
+        it 'returns a UTF-8 encoded string' do
+            s = ActsAsXapian::Search.new([PublicBody], "alece", :limit => 100)
+            s.spelling_correction.should == "alice"
+            if s.spelling_correction.respond_to? :encoding
+                s.spelling_correction.encoding.to_s.should == 'UTF-8'
+            end
+        end
+
+        it 'handles non-ASCII characters' do
+            s = ActsAsXapian::Search.new([PublicBody], "bobby", :limit => 100)
+            s.spelling_correction.should == "bôbby"
+        end
+
+        after :all do
+            @alice.destroy
+            @bob.destroy
+            ActsAsXapian.update_index
+        end
+
+    end
+
 end
