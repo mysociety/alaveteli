@@ -844,7 +844,7 @@ module ActsAsXapian
                     raise "Only Time or Date types supported by acts_as_xapian for :date fields, got " + value.class.to_s
                 end
             elsif type == :boolean
-                !!value
+                value ? true : false
             else
                 # Arrays are for terms which require multiple of them, e.g. tags
                 if value.kind_of?(Array)
