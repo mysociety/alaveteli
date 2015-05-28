@@ -40,11 +40,26 @@ class RawEmail < ActiveRecord::Base
 
     def data=(d)
         FileUtils.mkdir_p(directory) unless File.exists?(directory)
-        File.atomic_write(filepath) { |file| file.write(d) }
+        File.atomic_write(filepath) do |file|
+            file.binmode
+            file.write(d)
+        end
     end
 
     def data
-        File.open(filepath, "r").read
+        File.open(filepath, "rb").read
+    end
+
+    def data_as_text
+        text = data
+        if text.respond_to?(:encoding)
+            text = text.encode("UTF-8", :invalid => :replace,
+                                        :undef => :replace,
+                                        :replace => "")
+        else
+            text = Iconv.conv('UTF-8//IGNORE', 'UTF-8', text)
+        end
+        text
     end
 
     def destroy_file_representation!
