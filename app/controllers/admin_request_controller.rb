@@ -48,11 +48,11 @@ class AdminRequestController < AdminController
 
         @info_request.title = params[:info_request][:title]
         @info_request.prominence = params[:info_request][:prominence]
-        @info_request.awaiting_description = params[:info_request][:awaiting_description] == "true" ? true : false
+        @info_request.awaiting_description = params[:info_request][:awaiting_description] == "true"
         @info_request.allow_new_responses_from = params[:info_request][:allow_new_responses_from]
         @info_request.handle_rejected_responses = params[:info_request][:handle_rejected_responses]
         @info_request.tag_string = params[:info_request][:tag_string]
-        @info_request.comments_allowed = params[:info_request][:comments_allowed] == "true" ? true : false
+        @info_request.comments_allowed = params[:info_request][:comments_allowed] == "true"
 
         if @info_request.valid?
             @info_request.save!

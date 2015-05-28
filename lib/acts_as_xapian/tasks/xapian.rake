@@ -9,7 +9,7 @@ namespace :xapian do
     # "verbose=true" to print model name as it is run.
     desc 'Updates Xapian search index with changes to models since last call'
     task :update_index => :environment do
-        ActsAsXapian.update_index(ENV['flush'] ? true : false, ENV['verbose'] ? true : false)
+        ActsAsXapian.update_index(ENV['flush'], ENV['verbose'])
     end
 
     # Parameters - specify 'models="PublicBody User"' to say which models

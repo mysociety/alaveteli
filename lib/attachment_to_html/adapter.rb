@@ -41,7 +41,7 @@ module AttachmentToHTML
     end
 
     def contains_images?
-      !!body.match(/<img[^>]*>/mi)
+      body.match(/<img[^>]*>/mi)
     end
 
     def create_tempfile(text)
