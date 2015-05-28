@@ -5,7 +5,7 @@
 
     <% if !TrackThing.find_existing(@user, track_thing) && (!@user || @info_request.user != @user) %>
     <p>
-        <%= check_box_tag 'subscribe_to_request', "1", params[:subscribe_to_request] ? true : false %> <label for="subscribe_to_request"><%= _('Email me future updates to this request') %></label>
+        <%= check_box_tag 'subscribe_to_request', "1", params[:subscribe_to_request] %> <label for="subscribe_to_request"><%= _('Email me future updates to this request') %></label>
     </p>
     <% end %>
 

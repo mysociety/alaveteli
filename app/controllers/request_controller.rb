@@ -96,12 +96,12 @@ class RequestController < ApplicationController
             set_last_request(@info_request)
 
             # assign variables from request parameters
-            @collapse_quotes = params[:unfold] ? false : true
+            @collapse_quotes = !params[:unfold]
             # Don't allow status update on external requests, otherwise accept param
             if @info_request.is_external?
                 @update_status = false
             else
-                @update_status = params[:update_status] ? true : false
+                @update_status = params[:update_status]
             end
 
             assign_variables_for_show_template(@info_request)
@@ -566,9 +566,9 @@ class RequestController < ApplicationController
         @info_request = InfoRequest.find(params[:id].to_i)
         set_last_request(@info_request)
 
-        @collapse_quotes = params[:unfold] ? false : true
+        @collapse_quotes = !params[:unfold]
         @is_owning_user = @info_request.is_owning_user?(authenticated_user)
-        @gone_postal = params[:gone_postal] ? true : false
+        @gone_postal = params[:gone_postal]
         if !@is_owning_user
             @gone_postal = false
         end
