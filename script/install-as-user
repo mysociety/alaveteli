@@ -87,6 +87,12 @@ RANDOM_EMAIL_SECRET=$(random_alphanumerics 32)
 RANDOM_EMERGENCY_PASSWORD=$(random_alphanumerics 10)
 RANDOM_COOKIE_SECRET=$(random_alphanumerics 100)
 
+if [ $DEVELOPMENT_INSTALL = true ]; then
+    STAGING_SITE="0"
+else
+    STAGING_SITE="1"
+fi
+
 if ! [ -f config/general.yml ]
 then
     sed -r \
@@ -115,6 +121,7 @@ then
         -e "s,^( *THEME_BRANCH:).*,\\1 'develop'," \
         -e "s,^( *USE_MAILCATCHER_IN_DEVELOPMENT:).*,\\1 false," \
         -e "s,^( *BUNDLE_PATH:).*,\\1 $HOME/bundle/," \
+        -e "s,^( *STAGING_SITE:).*,\\1 '$STAGING_SITE'," \
         config/general.yml-example > config/general.yml
 fi
 
