@@ -59,5 +59,8 @@
 
 <p><%= link_to "Download",  admin_raw_email_path(@raw_email, :format => 'txt') %></p>
 
-<pre><%=h(@raw_email.data).gsub(/\n/, '<br>').html_safe %></pre>
+<h2>Preview</h2>
+
+For an exact rendering of this email, use the "Download" link.
+<pre><%=h(@raw_email.data_as_text).gsub(/\n/, '<br>').html_safe %></pre>
 
