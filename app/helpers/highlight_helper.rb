@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module HighlightHelper
     include ERB::Util
 
