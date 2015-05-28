@@ -103,7 +103,7 @@ end
 
 describe "convert_string_to_utf8_or_binary" do
 
-    describe "when passed uniterpretable character data" do
+    describe "when passed uninterpretable character data" do
 
         it "should return it as a binary string" do
 
@@ -144,6 +144,61 @@ describe "convert_string_to_utf8_or_binary" do
         it "should correctly convert it to UTF-8 if unlabelled" do
 
             converted = convert_string_to_utf8_or_binary gb_18030_spam_string
+
+            converted.should start_with("贵公司负责人")
+
+            if String.method_defined?(:encode)
+                converted.encoding.to_s.should == 'UTF-8'
+            end
+        end
+
+    end
+
+end
+
+describe "convert_string_to_utf8" do
+
+    describe "when passed uninterpretable character data" do
+
+        it "should return it as a utf8 string" do
+
+            converted = convert_string_to_utf8 random_string
+            converted.should == random_string
+
+            if String.method_defined?(:encode)
+                converted.encoding.to_s.should == 'UTF-8'
+            end
+
+            converted = convert_string_to_utf8 random_string,'UTF-8'
+            converted.should == random_string
+
+            if String.method_defined?(:encode)
+                converted.encoding.to_s.should == 'UTF-8'
+            end
+
+        end
+    end
+
+    describe "when passed unlabelled Windows 1252 data" do
+
+        it "should correctly convert it to UTF-8" do
+
+            converted = convert_string_to_utf8 windows_1252_string
+
+            converted.should ==  "DASH – DASH"
+
+            if String.method_defined?(:encode)
+                converted.encoding.to_s.should == 'UTF-8'
+            end
+        end
+
+    end
+
+    describe "when passed GB 18030 data" do
+
+        it "should correctly convert it to UTF-8 if unlabelled" do
+
+            converted = convert_string_to_utf8 gb_18030_spam_string
 
             converted.should start_with("贵公司负责人")
 

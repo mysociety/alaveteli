@@ -73,6 +73,20 @@ def convert_string_to_utf8_or_binary(s, suggested_character_encoding=nil)
     result
 end
 
+def convert_string_to_utf8(s, suggested_character_encoding=nil)
+    begin
+        result = normalize_string_to_utf8 s, suggested_character_encoding
+    rescue EncodingNormalizationError
+        result = s
+        if String.method_defined?(:encode)
+            result = s.force_encoding("utf-8").encode("utf-8", :invalid => :replace,
+                                                               :undef => :replace,
+                                                               :replace => "")
+        end
+    end
+    result
+end
+
 def log_text_details(message, text)
     if String.method_defined?(:encode)
         STDERR.puts "#{message}, we have text: #{text}, of class #{text.class} and encoding #{text.encoding}"
