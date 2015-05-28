@@ -142,4 +142,21 @@ DOC
 
     end
 
+    describe :address_from_name_and_email do
+
+        it 'returns an address string' do
+            expected = 'Test User <test@example.com>'
+            address_from_name_and_email('Test User', 'test@example.com').should == expected
+        end
+
+        it 'does not change the name passed to it' do
+            original = "brønn"
+            name = original.dup
+            address_from_name_and_email(name, 'test@example.com')
+            name.should == original
+        end
+
+    end
+
+
 end
