@@ -11,7 +11,7 @@ title: Seguridad y mantenimiento
 
 ## Nuevas funcionalidades
 
-Solo la [última rama de desarrollo](https://github.com/mysociety/alaveteli/tree/rails-3-develop/) recibe nuevas funcionalidades, que se ofrecerán en la próxima actualización principal.
+Solo la [última rama de desarrollo](https://github.com/mysociety/alaveteli/tree/develop/) recibe nuevas funcionalidades, que se ofrecerán en la próxima actualización principal.
 
 ## Soluciones de errores
 
