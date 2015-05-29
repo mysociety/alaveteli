@@ -202,6 +202,14 @@ in any language, and within any legislation</p>
                         <p class="deployment__link"><a href="https://chiedi.dirittodisapere.it/">https://chiedi.dirittodisapere.it/</a></p>
                     </div>
                 </div>
+                --><div class="deployments__unit--minor">
+                    <div class="deployment--minor">
+                        <img src="{{ site.baseurl }}assets/img/accessinfohk.jpg" class="deployment__screenshot" />
+                        <h3 class="deployment__title">accessinfo.hk</h3>
+                        <p class="deployment__country">Hong Kong</p>
+                        <p class="deployment__link"><a href="https://accessinfo.hk/">https://accessinfo.hk/</a></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
