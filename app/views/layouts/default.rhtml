@@ -40,6 +40,24 @@
             <meta name="robots" content="noindex, nofollow">
         <% end %>
 
+	<% if @title %>
+		<meta property="og:title" content="<%=@title%>" />
+		<meta property="og:type" content="article" />
+		<!-- Only for requests pages
+		<meta property="article:published_time" content="$request->createdDate->iso8601" />
+		<meta property="article:modified_time" content="$request->updatedDate->iso8601" />
+		<meta property="article:author:username" content="$request->username" />
+		-->
+	<% else %>
+		<meta property="og:title" content="<%= _('Make and browse Freedom of Information (FOI) requests') %>" />
+		<meta property="og:type" content="website" />
+	<% end %>
+	<!--<meta property="og:description" content="$request->requestText->substring(...)" />-->
+	<meta property="og:site_name" content="<%= site_name %>" />
+	<meta property="og:locale" content="<%= I18n.locale %>" />
+	<meta property="og:url" content="$request->URL" />
+	<!--<meta property="og:image" content="http://www.whatdotheyknow.com/alavetelitheme/images/logo-trans.png?1343343155" />-->
+
         <%= render :partial => 'general/before_head_end' %>
     </head>
     <body class="<%= 'front' if params[:action] == 'frontpage' %>">
