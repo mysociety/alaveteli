@@ -64,4 +64,4 @@ Aunque consultar a otras personas es magnífico, a menudo lo que desea saber pue
 
 * [esta documentación]({{ page.baseurl }}/docs/): los documentos a consultar siempre en primer lugar
 * [la wiki para desarrolladores](https://github.com/mysociety/alaveteli/wiki): anotaciones informales o específicas
-* [documentos del repositorio](https://github.com/mysociety/alaveteli/tree/rails-3-develop/doc) (aunque los estamos eliminando gradualmente para sustituirlos por los documentos que está leyendo actualmente)
+* [documentos del repositorio](https://github.com/mysociety/alaveteli/tree/develop/doc) (aunque los estamos eliminando gradualmente para sustituirlos por los documentos que está leyendo actualmente)

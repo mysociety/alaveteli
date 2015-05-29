@@ -27,14 +27,12 @@ title: Para desarrolladores
   donde encontrará notas sobre nuestro uso de `gettext`.
 
 * Utilizamos el [modelo de ramas de flujo
-  de git](http://nvie.com/posts/a-successful-git-branching-model/) con un pequeño cambio:
-  actualmente nuestra rama `develop` se denomina `rails-3-develop`, por lo que
+  de git](http://nvie.com/posts/a-successful-git-branching-model/)
   la última versión de desarrollo siempre se halla en la
-  [rama 
-  rails-3-develop](https://github.com/mysociety/alaveteli/tree/rails-3-develop). La última
+  [rama develop](https://github.com/mysociety/alaveteli/). La última
   versión estable se encuentra siempre en la [rama
-  maestra](https://github.com/mysociety/alaveteli). Si tiene previsto colaborar en
-  la elaboración del software, es posible que las [extensiones de flujo de 
+  maestra](https://github.com/mysociety/alaveteli/tree/master). Si tiene previsto colaborar en
+  la elaboración del software, es posible que las [extensiones de flujo de
   git](https://github.com/nvie/gitflow) le resultes prácticas.
 
 * La instalación del software es un tanto compleja, pero poco a poco se vuelve más sencilla.

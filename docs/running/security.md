@@ -11,7 +11,7 @@ title: Security & Maintenance
 
 ## New Features
 
-Only the [latest development branch](https://github.com/mysociety/alaveteli/tree/rails-3-develop/) gets new features which will be released in the next main release.
+Only the [latest development branch](https://github.com/mysociety/alaveteli/tree/develop/) gets new features which will be released in the next main release.
 
 ## Bug Fixes
 

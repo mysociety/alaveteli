@@ -66,4 +66,4 @@ found in the documentation:
 
 * [this documentation]({{ page.baseurl }}/docs/) &mdash; always the first place to look
 * [the dev wiki](https://github.com/mysociety/alaveteli/wiki) &mdash; informal or specific notes
-* [docs in the repo](https://github.com/mysociety/alaveteli/tree/rails-3-develop/doc) (although we're slowly phasing these out in favour of the docs you're reading now)
+* [docs in the repo](https://github.com/mysociety/alaveteli/tree/develop/doc) (although we're slowly phasing these out in favour of the docs you're reading now)

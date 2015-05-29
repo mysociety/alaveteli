@@ -104,7 +104,7 @@ Las advertencias sobre características obsoletas nos permiten comunicarle que a
 
 ### Qué hacer al ver una advertencia sobre características obsoletas
 
-Normalmente verá una advertencia sobre características obsoletas si ha estado utilizando una funcionalidad en su tema que se va a modificar o eliminar próximamente. La advertencia debería proporcionarle suficientes explicaciones sobre qué hacer con ella. En general se trata siempre de eliminar o modificar métodos. El [registro de cambios](https://github.com/mysociety/alaveteli/blob/rails-3-develop/doc/CHANGES.md) incluirá información más detallada sobre características obsoletas y sobre cómo llevar a cabo las modificaciones pertinentes.
+Normalmente verá una advertencia sobre características obsoletas si ha estado utilizando una funcionalidad en su tema que se va a modificar o eliminar próximamente. La advertencia debería proporcionarle suficientes explicaciones sobre qué hacer con ella. En general se trata siempre de eliminar o modificar métodos. El [registro de cambios](https://github.com/mysociety/alaveteli/blob/develop/doc/CHANGES.md) incluirá información más detallada sobre características obsoletas y sobre cómo llevar a cabo las modificaciones pertinentes.
 
 Si tiene alguna consulta, no dude en preguntar en la [lista de correo de desarrollo](https://groups.google.com/group/alaveteli-dev) o en [el canal IRC de Alaveteli](http://www.irc.mysociety.org/).
 
