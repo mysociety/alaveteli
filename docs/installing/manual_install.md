@@ -241,10 +241,10 @@ Create the target directory and clone the Alaveteli source code in to this direc
       --branch master \
       https://github.com/mysociety/alaveteli.git /var/www/alaveteli
 
-This clones the master branch which always contains the latest stable release. If you want to try out the latest (possibly buggy) code you can switch to the `rails-3-develop` branch.
+This clones the master branch which always contains the latest stable release. If you want to try out the latest (possibly buggy) code you can switch to the `develop` branch.
 
     pushd /var/www/alaveteli
-    sudo -u alaveteli git checkout rails-3-develop
+    sudo -u alaveteli git checkout develop
     sudo -u alaveteli git submodule update
     popd
 

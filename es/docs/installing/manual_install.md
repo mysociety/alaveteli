@@ -241,10 +241,10 @@ Cree el directorio de destino y clone el código fuente de Alaveteli en este dir
       --branch master \
       https://github.com/mysociety/alaveteli.git /var/www/alaveteli
 
-Estos comandos clonan la rama maestra, que siempre contiene la última versión estable. Si desea probar el código más reciente (con posibles errores), puede cambiar a la rama `rails-3-develop`.
+Estos comandos clonan la rama maestra, que siempre contiene la última versión estable. Si desea probar el código más reciente (con posibles errores), puede cambiar a la rama `develop`.
 
     pushd /var/www/alaveteli
-    sudo -u alaveteli git checkout rails-3-develop
+    sudo -u alaveteli git checkout develop
     sudo -u alaveteli git submodule update
     popd
 
