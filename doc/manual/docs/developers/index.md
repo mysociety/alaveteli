@@ -27,13 +27,11 @@ title: For developers
   ), which include notes about our use of `gettext`.
 
 * We use the [git flow branching
-  model](http://nvie.com/posts/a-successful-git-branching-model/), with a small
-  change: currently our `develop` branch is called `rails-3-develop`, which
-  means that the latest development version is always found on the
-  [rails-3-develop
-  branch](https://github.com/mysociety/alaveteli/tree/rails-3-develop). The
+  model](http://nvie.com/posts/a-successful-git-branching-model/),
+  the latest development version is always found on the
+  [develop branch](https://github.com/mysociety/alaveteli). The
   latest stable version is always on the [master
-  branch](https://github.com/mysociety/alaveteli). If you plan to collaborate
+  branch](https://github.com/mysociety/alaveteli/tree/master). If you plan to collaborate
   on the software, you may find the [git flow
   extensions](https://github.com/nvie/gitflow) useful.
 
