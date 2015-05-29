@@ -480,7 +480,7 @@ Example:
 `rm public/download`
 * This release upgrades the assumed version of Ubuntu from lucid (10.04) to precise (12.04)
 * This release upgrades rubygems in config/packages - version 1.8.15 is available from squeeze-backports on Debian or by default in Ubuntu precise. This upgrade may result in "invalid date format in specification:" errors - these should be fixable by manually deleting the gems specs that are being referenced in the error and re-running rails-post-deploy
-* If you would like to have a public body statistics page (this will be publicly available), set the `PUBLIC_BODY_STATISTICS_PAGE` param in general.yml to `true`. You should also add a new cron job based on the one in config/crontab-example `https://github.com/mysociety/alaveteli/blob/rails-3-develop/config/crontab-example#L29` to update the public body stats each day.
+* If you would like to have a public body statistics page (this will be publicly available), set the `PUBLIC_BODY_STATISTICS_PAGE` param in general.yml to `true`. You should also add a new cron job based on the one in config/crontab-example `https://github.com/mysociety/alaveteli/blob/develop/config/crontab-example#L29` to update the public body stats each day.
 * If you would like the public body list page to include bodies that have no translation in the current locale, but do have a translation in the default locale, add a `PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE` param set to `true` to your config/general.yml file.
 
 
