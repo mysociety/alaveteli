@@ -368,11 +368,11 @@ module MailHandler
                     raise "invalid email " + email + " passed to address_from_name_and_email"
                 end
                 if name.nil?
-                    return Mail::Address.new(email).to_s
+                    return Mail::Address.new(email.dup).to_s
                 end
                 address = Mail::Address.new
-                address.display_name = name
-                address.address = email
+                address.display_name = name.dup
+                address.address = email.dup
                 address.to_s
             end
 

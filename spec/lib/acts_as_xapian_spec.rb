@@ -6,14 +6,15 @@ describe ActsAsXapian::Search do
     describe "#words_to_highlight" do
 
         before :all do
+            get_fixtures_xapian_index
             # make sure an index exists
             @alice = FactoryGirl.create(:public_body, :name => 'alice')
-            ActsAsXapian.update_index
+            update_xapian_index
         end
 
         after :all do
             @alice.destroy
-            ActsAsXapian.update_index
+            update_xapian_index
         end
 
         it "should return a list of words used in the search" do
@@ -81,15 +82,16 @@ describe ActsAsXapian::Search do
     describe :spelling_correction do
 
         before :all do
+            get_fixtures_xapian_index
             @alice = FactoryGirl.create(:public_body, :name => 'alice')
             @bob = FactoryGirl.create(:public_body, :name => 'bôbby')
-            ActsAsXapian.update_index
+            update_xapian_index
         end
 
         after :all do
             @alice.destroy
             @bob.destroy
-            ActsAsXapian.update_index
+            update_xapian_index
         end
 
         it 'returns a UTF-8 encoded string' do
