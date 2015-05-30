@@ -57,6 +57,12 @@ GEM
     annotate (2.5.0)
       rake
     arel (3.0.3)
+    better_errors (2.1.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (2.3.1.2)
       sass (~> 3.2)
     builder (3.0.4)
@@ -94,6 +100,7 @@ GEM
       simplecov (>= 0.7)
       thor
     daemons (1.1.9)
+    debug_inspector (0.0.2)
     debugger (1.6.0)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
@@ -305,6 +312,8 @@ PLATFORMS
 DEPENDENCIES
   acts_as_versioned!
   annotate (~> 2.5.0)
+  better_errors
+  binding_of_caller
   bootstrap-sass (~> 2.3.1.2)
   bullet (~> 4.14.6)
   capistrano (~> 2.15.4)
