@@ -201,7 +201,7 @@ in any language, and within any legislation</p>
                         <p class="deployment__country">Italy</p>
                         <p class="deployment__link"><a href="https://chiedi.dirittodisapere.it/">https://chiedi.dirittodisapere.it/</a></p>
                     </div>
-                </div>
+                </div><!--
                 --><div class="deployments__unit--minor">
                     <div class="deployment--minor">
                         <img src="{{ site.baseurl }}assets/img/accessinfohk.jpg" class="deployment__screenshot" />
