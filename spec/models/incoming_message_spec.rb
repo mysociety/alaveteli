@@ -503,6 +503,20 @@ end
 
 describe IncomingMessage, " when uudecoding bad messages" do
 
+    it "decodes a valid uuencoded attachment" do
+        mail = get_fixture_mail('simple-uuencoded-attachment.email')
+        im = incoming_messages(:useless_incoming_message)
+        im.stub!(:mail).and_return(mail)
+        im.extract_attachments!
+
+        im.reload
+        attachments = im.foi_attachments
+        attachments.size.should == 2
+        attachments[1].filename.should == 'Happy.txt'
+        attachments[1].body.should == "Happy today for to be one of peace and serene time.\n"
+        im.get_attachments_for_display.size.should == 1
+    end
+
     it "should be able to do it at all" do
         mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
         im = incoming_messages(:useless_incoming_message)
