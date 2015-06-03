@@ -102,8 +102,44 @@ describe PublicBody do
           end
       end
   end
-end
 
+  describe :set_api_key do
+
+    it 'generates and sets an API key' do
+      SecureRandom.stub(:base64).and_return('APIKEY')
+      body = PublicBody.new
+      body.set_api_key
+      expect(body.api_key).to eq('APIKEY')
+    end
+
+    it 'does not overwrite an existing API key' do
+      SecureRandom.stub(:base64).and_return('APIKEY')
+      body = PublicBody.new(:api_key => 'EXISTING')
+      body.set_api_key
+      expect(body.api_key).to eq('EXISTING')
+    end
+
+  end
+
+  describe :set_api_key! do
+
+    it 'generates and sets an API key' do
+      SecureRandom.stub(:base64).and_return('APIKEY')
+      body = PublicBody.new
+      body.set_api_key!
+      expect(body.api_key).to eq('APIKEY')
+    end
+
+    it 'overwrites an existing API key' do
+      SecureRandom.stub(:base64).and_return('APIKEY')
+      body = PublicBody.new(:api_key => 'EXISTING')
+      body.set_api_key!
+      expect(body.api_key).to eq('APIKEY')
+    end
+
+  end
+
+end
 
 describe PublicBody, " using tags" do
     before do
