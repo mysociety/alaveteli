@@ -186,14 +186,6 @@ class PublicBody < ActiveRecord::Base
                        uniq
     end
 
-    # TODO: - Don't like repeating this!
-    def calculate_cached_fields(t)
-        PublicBody.set_first_letter(t)
-        short_long_name = t.name
-        short_long_name = t.short_name if t.short_name and !t.short_name.empty?
-        t.url_name = MySociety::Format.simplify_url_part(short_long_name, 'body')
-    end
-
     # Set the first letter on a public body or translation
     def self.set_first_letter(instance)
         unless instance.name.nil? or instance.name.empty?
@@ -715,6 +707,16 @@ class PublicBody < ActiveRecord::Base
             end
         end
         return bodies
+    end
+
+    def calculate_cached_fields(t)
+        warn %q([DEPRECATION] PublicBody#calculate_cached_fields will be removed
+        in 0.23).squish
+
+        PublicBody.set_first_letter(t)
+        short_long_name = t.name
+        short_long_name = t.short_name if t.short_name and !t.short_name.empty?
+        t.url_name = MySociety::Format.simplify_url_part(short_long_name, 'body')
     end
 
     private
