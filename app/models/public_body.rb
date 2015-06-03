@@ -82,13 +82,15 @@ class PublicBody < ActiveRecord::Base
     }
 
     acts_as_versioned
-    acts_as_xapian :texts => [ :name, :short_name, :notes ],
-        :values => [
-             [ :created_at_numeric, 1, "created_at", :number ] # for sorting
-        ],
-        :terms => [ [ :variety, 'V', "variety" ],
-                [ :tag_array_for_search, 'U', "tag" ]
-        ]
+    acts_as_xapian :texts => [:name, :short_name, :notes],
+                   :values => [
+                       # for sorting
+                       [:created_at_numeric, 1, "created_at", :number]
+                   ],
+                   :terms => [
+                       [:variety, 'V', "variety"],
+                       [:tag_array_for_search, 'U', "tag"]
+                   ]
     has_tag_string
     strip_attributes!
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
