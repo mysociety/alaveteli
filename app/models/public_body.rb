@@ -186,12 +186,6 @@ class PublicBody < ActiveRecord::Base
                        uniq
     end
 
-    def set_default_publication_scheme
-      # Make sure publication_scheme gets the correct default value.
-      # (This would work automatically, were publication_scheme not a translated attribute)
-      self.publication_scheme = "" if self.publication_scheme.nil?
-    end
-
     def set_api_key
       self.api_key = SecureRandom.base64(33) if self.api_key.nil?
     end
@@ -694,6 +688,21 @@ class PublicBody < ActiveRecord::Base
             end
         end
         return bodies
+    end
+
+    # TODO: This could be removed by updating the default value (to '') of the 
+    # `publication_scheme` column in the `public_body_translations` table.
+    #
+    # TODO: Can't actually deprecate this because spec/script/mailin_spec.rb:28
+    # fails due to the deprecation notice output
+    def set_default_publication_scheme
+      # warn %q([DEPRECATION] PublicBody#set_default_publication_scheme will
+      # become a private method in 0.23).squish
+
+      # Make sure publication_scheme gets the correct default value.
+      # (This would work automatically, were publication_scheme not a
+      # translated attribute)
+      self.publication_scheme = "" if publication_scheme.nil?
     end
 
     # Set the first letter on a public body or translation
