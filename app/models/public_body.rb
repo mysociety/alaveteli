@@ -34,45 +34,11 @@ require 'set'
 class PublicBody < ActiveRecord::Base
     include AdminColumn
 
+    class ImportCSVDryRun < StandardError ; end
+
     @non_admin_columns = %w(name last_edit_comment)
 
-    strip_attributes!
-
-    validates_presence_of :name, :message => N_("Name can't be blank")
-    validates_presence_of :url_name, :message => N_("URL name can't be blank")
-
-    validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :allow_blank => true
-    validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
-    validates_uniqueness_of :name, :message => N_("Name is already taken")
-
-    validate :request_email_if_requestable
-
-    has_many :info_requests, :order => 'created_at desc'
-    has_many :track_things, :order => 'created_at desc'
-    has_many :censor_rules, :order => 'created_at desc'
     attr_accessor :no_xapian_reindex
-
-    has_tag_string
-
-    before_save :set_api_key,
-                :set_default_publication_scheme
-    after_save :purge_in_cache
-    after_update :reindex_requested_from
-
-
-    # Every public body except for the internal admin one is visible
-    scope :visible, lambda {
-        {
-            :conditions => "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
-        }
-    }
-
-    translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
-
-    include PublicBodyDerivedFields
-    class Translation
-        include PublicBodyDerivedFields
-    end
 
     # Default fields available for importing from CSV, in the format
     # [field_name, 'short description of field (basic html allowed)']
@@ -89,6 +55,33 @@ class PublicBody < ActiveRecord::Base
         ]
     end
 
+    has_many :info_requests, :order => 'created_at desc'
+    has_many :track_things, :order => 'created_at desc'
+    has_many :censor_rules, :order => 'created_at desc'
+
+    validates_presence_of :name, :message => N_("Name can't be blank")
+    validates_presence_of :url_name, :message => N_("URL name can't be blank")
+
+    validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :allow_blank => true
+    validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
+    validates_uniqueness_of :name, :message => N_("Name is already taken")
+
+    validate :request_email_if_requestable
+
+    before_save :set_api_key,
+                :set_default_publication_scheme
+    after_save :purge_in_cache
+    after_update :reindex_requested_from
+
+
+    # Every public body except for the internal admin one is visible
+    scope :visible, lambda {
+        {
+            :conditions => "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
+        }
+    }
+
+    acts_as_versioned
     acts_as_xapian :texts => [ :name, :short_name, :notes ],
         :values => [
              [ :created_at_numeric, 1, "created_at", :number ] # for sorting
@@ -96,15 +89,72 @@ class PublicBody < ActiveRecord::Base
         :terms => [ [ :variety, 'V', "variety" ],
                 [ :tag_array_for_search, 'U', "tag" ]
         ]
+    has_tag_string
+    strip_attributes!
+    translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
-    acts_as_versioned
+    # Cannot be grouped at top as it depends on the `translates` macro
+    include Translatable
+
+    # Cannot be grouped at top as it depends on the `translates` macro
+    include PublicBodyDerivedFields
+
+    # Cannot be grouped at top as it depends on the `translates` macro
+    class Translation
+        include PublicBodyDerivedFields
+    end
+
     self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
     self.non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
     self.non_versioned_columns << 'info_requests_count' << 'info_requests_visible_classified_count'
     self.non_versioned_columns << 'info_requests_not_held_count' << 'info_requests_overdue'
     self.non_versioned_columns << 'info_requests_overdue_count'
 
-    include Translatable
+    # Cannot be defined directly under `include` statements as this is opening
+    # the PublicBody::Version class dynamically defined by  the
+    # `acts_as_versioned` macro.
+    #
+    # TODO: acts_as_versioned accepts an extend parameter [1] so these methods
+    # could be extracted to a module:
+    #
+    #    acts_as_versioned :extend => PublicBodyVersionExtensions
+    #
+    # This includes the module in both the parent class (PublicBody) and the
+    # Version class (PublicBody::Version), so the behaviour is slightly
+    # different to opening up PublicBody::Version.
+    #
+    # We could add an `extend_version_class` option pretty trivially by
+    # following the pattern for the existing `extend` option.
+    #
+    # [1] http://git.io/vIetK
+    class Version
+      def last_edit_comment_for_html_display
+        text = self.last_edit_comment.strip
+        text = CGI.escapeHTML(text)
+        text = MySociety::Format.make_clickable(text)
+        text = text.gsub(/\n/, '<br>')
+        return text
+      end
+
+      def compare(previous = nil)
+        if previous.nil?
+          yield([])
+        else
+          v = self
+          changes = self.class.content_columns.inject([]) {|memo, c|
+            unless %w(version last_edit_editor last_edit_comment updated_at).include?(c.name)
+              from = previous.send(c.name)
+              to = self.send(c.name)
+              memo << { :name => c.human_name, :from => from, :to => to } if from != to
+            end
+            memo
+          }
+          changes.each do |change|
+            yield(change)
+          end
+        end
+      end
+    end
 
     # Public: Search for Public Bodies whose name, short_name, request_email or
     # tags contain the given query
@@ -230,37 +280,6 @@ class PublicBody < ActiveRecord::Base
         self.defunct? || self.not_apply?
     end
 
-
-    class Version
-
-        def last_edit_comment_for_html_display
-            text = self.last_edit_comment.strip
-            text = CGI.escapeHTML(text)
-            text = MySociety::Format.make_clickable(text)
-            text = text.gsub(/\n/, '<br>')
-            return text
-        end
-
-        def compare(previous = nil)
-          if previous.nil?
-            yield([])
-          else
-            v = self
-            changes = self.class.content_columns.inject([]) {|memo, c|
-              unless %w(version last_edit_editor last_edit_comment updated_at).include?(c.name)
-                from = previous.send(c.name)
-                to = self.send(c.name)
-                memo << { :name => c.human_name, :from => from, :to => to } if from != to
-              end
-              memo
-            }
-            changes.each do |change|
-              yield(change)
-            end
-          end
-        end
-    end
-
     def created_at_numeric
         # format it here as no datetime support in Xapian's value ranges
         return self.created_at.strftime("%Y%m%d%H%M%S")
@@ -334,9 +353,6 @@ class PublicBody < ActiveRecord::Base
         else
             raise "Multiple public bodies (#{matching_pbs.length}) found with url_name 'internal_admin_authority'"
         end
-    end
-
-    class ImportCSVDryRun < StandardError
     end
 
     # Import from a string in CSV format.
