@@ -694,6 +694,9 @@ class PublicBody < ActiveRecord::Base
         return bodies
     end
 
+    # Methods to privatise
+    # --------------------------------------------------------------------------
+
     # TODO: This could be removed by updating the default value (to '') of the 
     # `publication_scheme` column in the `public_body_translations` table.
     #
@@ -708,6 +711,9 @@ class PublicBody < ActiveRecord::Base
       # translated attribute)
       self.publication_scheme = "" if publication_scheme.nil?
     end
+
+    # Methods to remove
+    # --------------------------------------------------------------------------
 
     # Set the first letter on a public body or translation
     def self.set_first_letter(instance)
