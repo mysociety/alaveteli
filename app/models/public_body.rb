@@ -229,6 +229,21 @@ class PublicBody < ActiveRecord::Base
         has_tag?('defunct')
     end
 
+    # Are all requests to this body under the Environmental Information
+    # Regulations?
+    def eir_only?
+        has_tag?('eir_only')
+    end
+
+    # Schools are allowed more time in holidays, so we change some wordings
+    def is_school?
+        has_tag?('school')
+    end
+
+    def site_administration?
+        has_tag?('site_administration')
+    end
+
     # Can an FOI (etc.) request be made to this body?
     def is_requestable?
         has_request_email? && !defunct? && !not_apply?
@@ -269,6 +284,10 @@ class PublicBody < ActiveRecord::Base
         "authority"
     end
 
+    def law_only_short
+        eir_only? ? 'EIR' : 'FOI'
+    end
+
     # Guess home page from the request email, or use explicit override, or nil
     # if not known.
     def calculated_home_page
@@ -277,24 +296,6 @@ class PublicBody < ActiveRecord::Base
         elsif request_email_domain
             "http://www.#{request_email_domain}"
         end
-    end
-
-    # Are all requests to this body under the Environmental Information Regulations?
-    def eir_only?
-        has_tag?('eir_only')
-    end
-
-    def law_only_short
-        eir_only? ? 'EIR' : 'FOI'
-    end
-
-    # Schools are allowed more time in holidays, so we change some wordings
-    def is_school?
-        has_tag?('school')
-    end
-
-    def site_administration?
-        has_tag?('site_administration')
     end
 
     # The "internal admin" is a special body for internal use.
