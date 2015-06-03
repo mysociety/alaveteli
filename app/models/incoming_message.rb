@@ -505,7 +505,7 @@ class IncomingMessage < ActiveRecord::Base
         # Find any uudecoded things buried in it, yeuchly
         uus = text.scan(/^begin.+^`\n^end\n/m)
         attachments = []
-        for uu in uus
+        uus.each do |uu|
             # Decode the string
             content = nil
             tempfile = Tempfile.new('foiuu')
@@ -523,7 +523,7 @@ class IncomingMessage < ActiveRecord::Base
                 content_type = 'application/octet-stream'
             end
             hexdigest = Digest::MD5.hexdigest(content)
-            attachment = self.foi_attachments.find_or_create_by_hexdigest(hexdigest)
+            attachment = foi_attachments.find_or_create_by_hexdigest(hexdigest)
             attachment.update_attributes(:filename => filename,
                                          :content_type => content_type,
                                          :body => content,
@@ -531,7 +531,7 @@ class IncomingMessage < ActiveRecord::Base
             attachment.save!
             attachments << attachment
         end
-        return attachments
+        attachments
     end
 
     def get_attachments_for_display
