@@ -530,6 +530,20 @@ describe IncomingMessage, " when uudecoding bad messages" do
         im.get_attachments_for_display.size.should == 1
     end
 
+    it "decodes an attachment where the uudecode program reports a 'No end line' error" do
+        # See https://github.com/mysociety/alaveteli/issues/2508
+        mail = get_fixture_mail('incoming-request-bad-uuencoding-2.email')
+        im = incoming_messages(:useless_incoming_message)
+        im.stub!(:mail).and_return(mail)
+        im.extract_attachments!
+
+        im.reload
+        attachments = im.foi_attachments
+        attachments.size.should == 2
+        attachments[1].filename.should == 'ResponseT5741 15.doc'
+        im.get_attachments_for_display.size.should == 1
+    end
+
     it "should still work when parsed from the raw email" do
         raw_email = load_file_fixture 'inline-uuencode.email'
         mail = MailHandler.mail_from_raw_email(raw_email)

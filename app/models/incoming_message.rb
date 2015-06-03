@@ -507,12 +507,7 @@ class IncomingMessage < ActiveRecord::Base
         attachments = []
         uus.each do |uu|
             # Decode the string
-            content = nil
-            tempfile = Tempfile.new('foiuu')
-            tempfile.print uu
-            tempfile.flush
-            content = AlaveteliExternalCommand.run("uudecode", "-o", "/dev/stdout", tempfile.path)
-            tempfile.close
+            content = uu.sub(/\Abegin \d+ [^\n]*\n/, '').unpack('u').first
             # Make attachment type from it, working out filename and mime type
             filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
             calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(filename, content)
