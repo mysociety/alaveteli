@@ -508,10 +508,6 @@ class PublicBody < ActiveRecord::Base
         our_domain == user_domain
     end
 
-    def foi_officer_domain_required
-        request_email_domain
-    end
-
     def request_email
         if AlaveteliConfiguration::override_all_public_body_request_emails.blank? || read_attribute(:request_email).blank?
             read_attribute(:request_email)
@@ -524,6 +520,8 @@ class PublicBody < ActiveRecord::Base
     def request_email_domain
         PublicBody.extract_domain_from_email(request_email)
     end
+
+    alias_method :foi_officer_domain_required, :request_email_domain
 
     # Return the domain part of an email address, canonicalised and with common
     # extra UK Government server name parts removed.
