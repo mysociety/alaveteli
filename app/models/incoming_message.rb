@@ -521,8 +521,7 @@ class IncomingMessage < ActiveRecord::Base
             attachment = foi_attachments.find_or_create_by_hexdigest(hexdigest)
             attachment.update_attributes(:filename => filename,
                                          :content_type => content_type,
-                                         :body => content,
-                                         :display_size => "0K")
+                                         :body => content)
             attachment.save!
             attachments << attachment
         end

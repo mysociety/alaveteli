@@ -541,6 +541,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
         attachments = im.foi_attachments
         attachments.size.should == 2
         attachments[1].filename.should == 'ResponseT5741 15.doc'
+        attachments[1].display_size.should == '123K'
         im.get_attachments_for_display.size.should == 1
     end
 
