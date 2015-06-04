@@ -68,8 +68,8 @@ class PublicBody < ActiveRecord::Base
 
     validate :request_email_if_requestable
 
-    before_save :set_api_key,
-                :set_default_publication_scheme
+    before_save :set_api_key
+    before_save :set_default_publication_scheme
     after_save :purge_in_cache
     after_update :reindex_requested_from
 
