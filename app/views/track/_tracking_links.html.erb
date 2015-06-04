@@ -1,25 +1,23 @@
 <%
-    if @user
-        existing_track = TrackThing.find_existing(@user, track_thing)
-    end
+  existing_track = local_assigns.fetch(:existing_track) do
+    TrackThing.find_existing(@user, track_thing) if @user
+  end
 %>
 
 <% if own_request %>
-    <p><%= _('This is your own request, so you will be automatically emailed when new responses arrive.')%></p>
+  <p><%= _('This is your own request, so you will be automatically emailed when new responses arrive.')%></p>
 <% elsif existing_track %>
-    <p><%= track_thing.params[:verb_on_page_already] %></p>
-    <div class="feed_link feed_link_<%=location%>">
-  <%= link_to _("Unsubscribe"), {:controller => 'track', :action => 'update', :track_id => existing_track.id, :track_medium => "delete", :r => request.fullpath}, :class => "link_button_green" %>
-    </div>
+  <p><%= track_thing.params[:verb_on_page_already] %></p>
+
+  <div class="feed_link feed_link_<%= location %>">
+    <%= link_to _("Unsubscribe"), { :controller => 'track', :action => 'update', :track_id => existing_track.id, :track_medium => "delete", :r => request.fullpath }, :class => "link_button_green" %>
+  </div>
 <% elsif track_thing %>
-    <div class="feed_link feed_link_<%=location%>">
-     <% if defined?(follower_count) && follower_count > 0 %>
-        <%= link_to _("I like this request"), do_track_path(track_thing), :class => "link_button_green" %>
-     <% else %>
-        <%= link_to _("Follow"), do_track_path(track_thing), :class => "link_button_green" %>
-     <% end %>
-    </div>
+  <div class="feed_link feed_link_<%= location %>">
+    <% if defined?(follower_count) && follower_count > 0 %>
+      <%= link_to _("I like this request"), do_track_path(track_thing), :class => "link_button_green" %>
+    <% else %>
+      <%= link_to _("Follow"), do_track_path(track_thing), :class => "link_button_green" %>
+    <% end %>
+  </div>
 <% end %>
-
-
-
