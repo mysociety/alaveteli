@@ -6,8 +6,8 @@ end %>
   <div class="request_left">
       <span class="head">
         <% if event.is_incoming_message? %>
-            <%= link_to highlight_words(event.info_request.title, @highlight_words), incoming_message_path(event.incoming_message_selective_columns("incoming_messages.id")) %>
-        <% elsif event.is_outgoing_message? and event.event_type == 'followup_sent' %>
+            <%= link_to highlight_words(event.info_request.title, @highlight_words), incoming_message_path(event.incoming_message) %>
+        <% elsif event.is_outgoing_message? && event.event_type == 'followup_sent' %>
             <%= link_to highlight_words(event.info_request.title, @highlight_words), outgoing_message_path(event.outgoing_message) %>
         <% elsif event.is_comment? %>
             <%= link_to highlight_words(event.info_request.title, @highlight_words), comment_path(event.comment) %>
