@@ -37,21 +37,18 @@ module PublicBodyHelper
   #
   # public_body - Instance of a PublicBody
   #
-  # Returns a string
+  # Returns a String
   def type_of_authority(public_body)
-      first = true
-      types = public_body.tags.each.map do |tag|
-          if PublicBodyCategory.get.by_tag.include?(tag.name)
-              desc = PublicBodyCategory.get.singular_by_tag[tag.name]
-              if first
-                  desc = desc.sub(/\S/) { |m| Unicode.upcase(m) }
-                  first = false
-              end
-              link_to(desc, list_public_bodies_path(tag.name))
-          end
-      end
+      categories = PublicBodyCategory.
+                     where(:category_tag => public_body.tag_string.split)
 
-      types.compact!
+      types = categories.each_with_index.map do |category, index|
+          desc = category.description
+          if index.zero?
+              desc = desc.sub(/\S/) { |m| Unicode.upcase(m) }
+          end
+          link_to(desc, list_public_bodies_path(category.category_tag))
+      end
 
       if types.any?
           types.to_sentence(:last_word_connector => ' and ').html_safe

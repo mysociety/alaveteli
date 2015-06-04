@@ -160,25 +160,27 @@ class PublicBody < ActiveRecord::Base
 
     # like find_by_url_name but also search historic url_name if none found
     def self.find_by_url_name_with_historic(name)
-        found = PublicBody.find(:all,
-                                :conditions => ["public_body_translations.url_name=?", name],
-                                :joins => :translations,
-                                :readonly => false)
-        # If many bodies are found (usually because the url_name is the same across
-        # locales) return any of them
-        return found.first if found.size >= 1
+        # If many bodies are found (usually because the url_name is the same
+        # across locales) return any of them.
+        found = joins(:translations).
+                  where("public_body_translations.url_name = ?", name).
+                    readonly(false).
+                      first
 
-        # If none found, then search the history of short names
-        old = PublicBody::Version.find_all_by_url_name(name)
-        # Find unique public bodies in it
-        old = old.map { |x| x.public_body_id }
-        old = old.uniq
+        return found if found
+
+        # If none found, then search the history of short names and find unique
+        # public bodies in it
+        old = PublicBody::Version.
+                  where(:url_name => name).
+                    pluck('DISTINCT public_body_id')
+
         # Maybe return the first one, so we show something relevant,
         # rather than throwing an error?
         raise "Two bodies with the same historical URL name: #{name}" if old.size > 1
         return unless old.size == 1
         # does acts_as_versioned provide a method that returns the current version?
-        return PublicBody.find(old.first)
+        PublicBody.find(old.first)
     end
 
     # Set the first letter, which is used for faster queries
