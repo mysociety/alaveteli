@@ -31,10 +31,13 @@ describe AlaveteliTextMasker do
                 data.should == "There was a xxxxx called xxxxxxx, he wished that he was xxxx."
             end
 
-            it 'should handle multibyte characters correctly' do
+            it 'should handle multibyte characters in binary file types as binary data' do
                 data = 'á mouse'
+                if String.method_defined?(:encode)
+                    data = data.force_encoding("ASCII-8BIT")
+                end
                 @regex_censor_rule.text = 'á'
-                apply_masks!(data, "application/octet-stream", :censor_rules => @censor_rules).should == 'x mouse'
+                apply_masks!(data, "application/octet-stream", :censor_rules => @censor_rules).should == 'xx mouse'
             end
 
             it "should apply censor rules to HTML files" do
