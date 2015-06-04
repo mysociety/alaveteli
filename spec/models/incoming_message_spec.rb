@@ -503,6 +503,20 @@ end
 
 describe IncomingMessage, " when uudecoding bad messages" do
 
+    it "decodes a valid uuencoded attachment" do
+        mail = get_fixture_mail('simple-uuencoded-attachment.email')
+        im = incoming_messages(:useless_incoming_message)
+        im.stub!(:mail).and_return(mail)
+        im.extract_attachments!
+
+        im.reload
+        attachments = im.foi_attachments
+        attachments.size.should == 2
+        attachments[1].filename.should == 'Happy.txt'
+        attachments[1].body.should == "Happy today for to be one of peace and serene time.\n"
+        im.get_attachments_for_display.size.should == 1
+    end
+
     it "should be able to do it at all" do
         mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
         im = incoming_messages(:useless_incoming_message)
@@ -513,6 +527,21 @@ describe IncomingMessage, " when uudecoding bad messages" do
         attachments = im.foi_attachments
         attachments.size.should == 2
         attachments[1].filename.should == 'moo.txt'
+        im.get_attachments_for_display.size.should == 1
+    end
+
+    it "decodes an attachment where the uudecode program reports a 'No end line' error" do
+        # See https://github.com/mysociety/alaveteli/issues/2508
+        mail = get_fixture_mail('incoming-request-bad-uuencoding-2.email')
+        im = incoming_messages(:useless_incoming_message)
+        im.stub!(:mail).and_return(mail)
+        im.extract_attachments!
+
+        im.reload
+        attachments = im.foi_attachments
+        attachments.size.should == 2
+        attachments[1].filename.should == 'ResponseT5741 15.doc'
+        attachments[1].display_size.should == '123K'
         im.get_attachments_for_display.size.should == 1
     end
 
