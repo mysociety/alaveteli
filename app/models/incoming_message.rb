@@ -506,14 +506,9 @@ class IncomingMessage < ActiveRecord::Base
         # Find any uudecoded things buried in it, yeuchly
         uus = text.scan(/^begin.+^`\n^end\n/m)
         attachments = []
-        for uu in uus
+        uus.each do |uu|
             # Decode the string
-            content = nil
-            tempfile = Tempfile.new('foiuu')
-            tempfile.print uu
-            tempfile.flush
-            content = AlaveteliExternalCommand.run("uudecode", "-o", "/dev/stdout", tempfile.path)
-            tempfile.close
+            content = uu.sub(/\Abegin \d+ [^\n]*\n/, '').unpack('u').first
             # Make attachment type from it, working out filename and mime type
             filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
             calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(filename, content)
@@ -524,15 +519,14 @@ class IncomingMessage < ActiveRecord::Base
                 content_type = 'application/octet-stream'
             end
             hexdigest = Digest::MD5.hexdigest(content)
-            attachment = self.foi_attachments.find_or_create_by_hexdigest(hexdigest)
+            attachment = foi_attachments.find_or_create_by_hexdigest(hexdigest)
             attachment.update_attributes(:filename => filename,
                                          :content_type => content_type,
-                                         :body => content,
-                                         :display_size => "0K")
+                                         :body => content)
             attachment.save!
             attachments << attachment
         end
-        return attachments
+        attachments
     end
 
     def get_attachments_for_display
