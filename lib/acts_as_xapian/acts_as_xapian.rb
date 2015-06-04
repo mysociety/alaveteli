@@ -648,7 +648,7 @@ module ActsAsXapian
                         if job.action == 'update'
                             # TODO: Index functions may reference other models, so we could eager load here too?
                             model = job.model.constantize.find(job.model_id) # :include => cls.constantize.xapian_options[:include]
-                            model.xapian_index unless (model.id == 1404333 && job.model == 'InfoRequestEvent')
+                            model.xapian_index
                         elsif job.action == 'destroy'
                             # Make dummy model with right id, just for destruction
                             model = job.model.constantize.new
