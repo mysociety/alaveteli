@@ -139,7 +139,7 @@ class PublicBody < ActiveRecord::Base
 
     # Set the first letter on a public body or translation
     def PublicBody.set_first_letter(instance)
-        unless instance.name.nil? or instance.name.empty?
+        unless instance.name.blank?
             # we use a regex to ensure it works with utf-8/multi-byte
             first_letter = Unicode.upcase instance.name.scan(/^./mu)[0]
             # check against the actual value for this locale, not a fallback.
