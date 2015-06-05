@@ -226,11 +226,13 @@ describe PublicBody, " when making up the URL name" do
 
     it 'should remove spaces, and make lower case' do
         @public_body.name = 'Some Authority'
+        @public_body.valid?
         @public_body.url_name.should == 'some_authority'
     end
 
     it 'should not allow a numeric name' do
         @public_body.name = '1234'
+        @public_body.valid?
         @public_body.url_name.should == 'body'
     end
 end
@@ -286,15 +288,15 @@ describe PublicBody, " when saving" do
         first letter in the default locale' do
         existing = FactoryGirl.create(:public_body, :first_letter => 'T', :name => 'Test body')
         I18n.with_locale(:es) { existing.update_attributes :name => existing.name }
-        PublicBody::Translation
-            .where(["public_body_id = ? AND locale = ?", existing.id, :es])
+        PublicBody::Translation \
+            .where(["public_body_id = ? AND locale = ?", existing.id, :es]) \
             .pluck('first_letter').first.should == 'T'
     end
 
-    it 'should create a url_name for a translation', :focus => true do
+    it 'should create a url_name for a translation' do
         existing = FactoryGirl.create(:public_body, :first_letter => 'T', :short_name => 'Test body')
         I18n.with_locale(:es) do
-            existing.update_attributes :short_name => 'Prueba'
+            existing.update_attributes :short_name => 'Prueba', :name => 'Prueba body'
             existing.url_name.should == 'prueba'
         end
     end
@@ -366,14 +368,14 @@ describe PublicBody, "when searching" do
 
         # create history with short name "mouse" twice in it
         body.short_name = 'Mouse'
-        body.url_name.should == 'mouse'
         body.save!
+        body.url_name.should == 'mouse'
         body.request_email = 'dummy@localhost'
         body.save!
         # but a different name now
         body.short_name = 'Stilton'
-        body.url_name.should == 'stilton'
         body.save!
+        body.url_name.should == 'stilton'
 
         # try and find by it
         body = PublicBody.find_by_url_name_with_historic('mouse')
