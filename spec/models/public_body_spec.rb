@@ -291,6 +291,14 @@ describe PublicBody, " when saving" do
             .pluck('first_letter').first.should == 'T'
     end
 
+    it 'should create a url_name for a translation', :focus => true do
+        existing = FactoryGirl.create(:public_body, :first_letter => 'T', :short_name => 'Test body')
+        I18n.with_locale(:es) do
+            existing.update_attributes :short_name => 'Prueba'
+            existing.url_name.should == 'prueba'
+        end
+    end
+
     it "should not save if the url_name is already taken" do
         existing = FactoryGirl.create(:public_body)
         pb = PublicBody.new(existing.attributes)
