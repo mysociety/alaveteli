@@ -282,6 +282,15 @@ describe PublicBody, " when saving" do
         pb.first_letter.should == 'Å'
     end
 
+    it 'should save the first letter of a translation, even when it is the same as the
+        first letter in the default locale' do
+        existing = FactoryGirl.create(:public_body, :first_letter => 'T', :name => 'Test body')
+        I18n.with_locale(:es) { existing.update_attributes :name => existing.name }
+        PublicBody::Translation.
+            where(:public_body_id => existing.id, :locale => :es).
+            pluck('first_letter').first.should == 'T'
+    end
+
     it "should not save if the url_name is already taken" do
         existing = FactoryGirl.create(:public_body)
         pb = PublicBody.new(existing.attributes)
