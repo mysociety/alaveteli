@@ -7,7 +7,7 @@ describe PublicBodyHelper do
   describe :public_body_not_requestable_reasons do
 
     before do
-      @body = FactoryGirl.build(:public_body)
+      @body = FactoryGirl.create(:public_body)
     end
 
     it 'returns an empty array if there are no reasons' do

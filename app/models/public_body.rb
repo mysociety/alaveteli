@@ -51,10 +51,10 @@ class PublicBody < ActiveRecord::Base
     has_tag_string
 
     before_save :set_api_key,
-                :set_default_publication_scheme,
-                :set_first_letter
+                :set_default_publication_scheme
     after_save :purge_in_cache
     after_update :reindex_requested_from
+
 
     # Every public body except for the internal admin one is visible
     scope :visible, lambda {
@@ -65,7 +65,10 @@ class PublicBody < ActiveRecord::Base
 
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
     accepts_nested_attributes_for :translations, :reject_if => :empty_translation_in_params?
-
+    include PublicBodyDerivedFields
+    class Translation
+        include PublicBodyDerivedFields
+    end
     # Default fields available for importing from CSV, in the format
     # [field_name, 'short description of field (basic html allowed)']
     cattr_accessor :csv_import_fields do
@@ -129,25 +132,6 @@ class PublicBody < ActiveRecord::Base
         self.translations.find_by_locale(locale)
     end
 
-    # TODO: - Don't like repeating this!
-    def calculate_cached_fields(t)
-        PublicBody.set_first_letter(t)
-        short_long_name = t.name
-        short_long_name = t.short_name if t.short_name and !t.short_name.empty?
-        t.url_name = MySociety::Format.simplify_url_part(short_long_name, 'body')
-    end
-
-    # Set the first letter on a public body or translation
-    def PublicBody.set_first_letter(instance)
-        unless instance.name.nil? or instance.name.empty?
-            # we use a regex to ensure it works with utf-8/multi-byte
-            first_letter = Unicode.upcase instance.name.scan(/^./mu)[0]
-            if first_letter != instance.first_letter
-                instance.first_letter = first_letter
-            end
-        end
-    end
-
     def translated_versions
         translations
     end
@@ -203,10 +187,7 @@ class PublicBody < ActiveRecord::Base
         return PublicBody.find(old.first)
     end
 
-    # Set the first letter, which is used for faster queries
-    def set_first_letter
-        PublicBody.set_first_letter(self)
-    end
+
 
     # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
     def not_apply?
@@ -298,32 +279,6 @@ class PublicBody < ActiveRecord::Base
                     info_request_event.xapian_mark_needs_index
                 end
             end
-        end
-    end
-
-    # When name or short name is changed, also change the url name
-    def short_name=(short_name)
-        globalize.write(Globalize.locale, :short_name, short_name)
-        self[:short_name] = short_name
-        self.update_url_name
-    end
-
-    def name=(name)
-        globalize.write(Globalize.locale, :name, name)
-        self[:name] = name
-        self.update_url_name
-    end
-
-    def update_url_name
-        self.url_name = MySociety::Format.simplify_url_part(self.short_or_long_name, 'body')
-    end
-
-    # Return the short name if present, or else long name
-    def short_or_long_name
-        if self.short_name.nil? || self.short_name.empty?   # 'nil' can happen during construction
-            self.name.nil? ? "" : self.name
-        else
-            self.short_name
         end
     end
 
