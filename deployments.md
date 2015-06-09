@@ -108,8 +108,7 @@ in any language, and within any legislation</p>
                         <p class="deployment__country">Croatia</p>
                         <p class="deployment__link"><a href="http://imamopravoznati.org/">http://imamopravoznati.org/</a></p>
                         <div class="deployment__description">
-                            <p>Imamo pravo znati (We Have Right To Know) represents 20th instalation of free open source Alaveteli software, the aim of which is to empower citizens anywhere in the world by publishing the permanent online archive of information requests and their responses, now thanks to <a href="http://codeforcroatia.org">Code for Croatia</a> a HrOpen expert group and <a href="http://gong.hr">GONG</a> Croatians have easier path to free public information.</p>
-                            <p>Thanks to public body dataset published as open data by Croatian ombudsman, Imamo pravo znati gives access to nearly 6,000 public authorities on all levels: national, regional and local.</p>
+                            <p>Imamo pravo znati (We Have Right To Know) represents 20th instalation of free open source Alaveteli software, the aim of which is to empower citizens anywhere in the world by publishing the permanent online archive of information requests and their responses, now thanks to <a href="http://codeforcroatia.org">Code for Croatia</a> a HrOpen expert group and <a href="http://gong.hr">GONG</a> Croatians have easier path to free public information from nearly 6,000 public authorities.</p>
                         </div>
                     </div>
                 </div>
