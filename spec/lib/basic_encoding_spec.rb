@@ -160,17 +160,16 @@ describe "convert_string_to_utf8" do
 
     describe "when passed uninterpretable character data" do
 
-        it "should return it as a utf8 string" do
+        it "should return it as a valid utf8 string with non-utf8 characters removed" do
 
             converted = convert_string_to_utf8 random_string
-            converted.should == random_string
 
             if String.method_defined?(:encode)
                 converted.encoding.to_s.should == 'UTF-8'
+                converted.valid_encoding?.should == true
             end
 
             converted = convert_string_to_utf8 random_string,'UTF-8'
-            converted.should == random_string
 
             if String.method_defined?(:encode)
                 converted.encoding.to_s.should == 'UTF-8'
