@@ -374,9 +374,8 @@ class IncomingMessage < ActiveRecord::Base
             text = "[ Email has no body, please see attachments ]"
             source_charset = "utf-8"
         else
-            # by default, the body (coming from an foi_attachment) should have been converted to utf-8
-            text = part.body
-            source_charset = part.charset
+            # whatever kind of attachment it is, get the UTF-8 encoded text
+            text = part.body_as_text.string
             if part.content_type == 'text/html'
                 # e.g. http://www.whatdotheyknow.com/request/35/response/177
                 # TODO: This is a bit of a hack as it is calling a
@@ -405,8 +404,11 @@ class IncomingMessage < ActiveRecord::Base
             end
         end
 
-        # If text hasn't been converted, we sanitise it.
-        text = _sanitize_text(text)
+        # Add an annotation if the text had to be scrubbed
+        if part.body_as_text.scrubbed?
+            text += _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
+                          :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli'))
+        end
         # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
         text = text.gsub(/\r\n/, "\n")
 
