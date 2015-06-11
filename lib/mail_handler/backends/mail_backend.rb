@@ -68,7 +68,7 @@ module MailHandler
                 part_file_name = part_file_name.nil? ? nil : part_file_name.dup
                 if part_file_name
                     part_file_name = CGI.unescape(part_file_name)
-                    part_file_name = convert_string_to_utf8(part_file_name, part.charset)
+                    part_file_name = convert_string_to_utf8(part_file_name, part.charset).string
                 end
                 part_file_name
             end

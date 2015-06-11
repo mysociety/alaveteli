@@ -73,13 +73,18 @@ def convert_string_to_utf8_or_binary(s, suggested_character_encoding=nil)
     result
 end
 
+class StringConversionResult < Struct.new(:string, :scrubbed)
+  alias_method :scrubbed?, :scrubbed
+end
+
 def convert_string_to_utf8(s, suggested_character_encoding=nil)
     begin
         result = normalize_string_to_utf8 s, suggested_character_encoding
+        StringConversionResult.new(result, false)
     rescue EncodingNormalizationError
         result = scrub(s)
+        StringConversionResult.new(result, true)
     end
-    result
 end
 
 def scrub(string)
