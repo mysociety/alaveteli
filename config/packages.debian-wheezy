@@ -25,7 +25,6 @@ rake
 ruby-dev
 ruby1.9.3
 rubygems
-sharutils
 sqlite3
 tnef
 unrtf
