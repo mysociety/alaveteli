@@ -329,6 +329,8 @@ AdWords to charities in lots of countries around the world. You'll find these
 an incredibly useful resource for driving traffic to your site. It's well worth
 setting yourself up as a charity if only to take advantage of this programme.
 
+For more ideas, see this [blog post about promoting your Alaveteli site](https://www.mysociety.org/2015/06/02/ten-ways-to-promote-alaveteli-sites/).
+
 <a name="step-7"> </a>
 
 ## Step seven: Maintain the website
