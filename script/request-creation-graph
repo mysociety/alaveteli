@@ -17,11 +17,7 @@ cd `dirname $0`
 cd ../
 source commonlib/shlib/deployfns
 
-# TODO: this is nasty :)
-OPTION_FOI_DB_HOST=`grep "host:" config/database.yml | head --lines=1 | cut -d ":" -f 2`
-OPTION_FOI_DB_PORT=`grep "port:" config/database.yml | head --lines=1 | cut -d ":" -f 2`
-OPTION_FOI_DB_NAME=`grep "database:" config/database.yml | head --lines=1 | cut -d ":" -f 2`
-OPTION_FOI_DB_USER=`grep "username:" config/database.yml | head --lines=1 | cut -d ":" -f 2`
+read OPTION_FOI_DB_HOST OPTION_FOI_DB_PORT OPTION_FOI_DB_NAME OPTION_FOI_DB_USER <<<$(ruby -r yaml -e 'db = YAML::load(STDIN.read); pr = db["production"]; puts pr["host"], pr["port"], pr["database"], pr["username"]' < config/database.yml)
 
 SOURCEA=/tmp/foi-creation-rate-graph-data-$RANDOM$RANDOM
 SOURCEB=/tmp/foi-creation-rate-graph-data-$RANDOM$RANDOM
