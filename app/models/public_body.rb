@@ -469,6 +469,7 @@ class PublicBody < ActiveRecord::Base
                     self.last_edit_comment = edit_info[:comment]
                     self.publication_scheme = publication_scheme || ""
                     self.last_edit_editor = options[:editor]
+                    self.first_letter = ""
 
                     begin
                         save!
