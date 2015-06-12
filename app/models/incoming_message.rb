@@ -615,16 +615,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     def _get_attachment_text_internal
-        text = self._extract_text
-
-        # Remove any bad characters
-        if String.method_defined?(:encode)
-            # handle "problematic" encoding
-            text.encode!('UTF-16', 'UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
-            text.encode('UTF-8', 'UTF-16')
-        else
-            Iconv.conv('utf-8//IGNORE', 'utf-8', text)
-        end
+        convert_string_to_utf8(_extract_text, 'UTF-8').string
     end
 
     # Returns text for indexing
