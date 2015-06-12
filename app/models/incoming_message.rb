@@ -561,7 +561,7 @@ class IncomingMessage < ActiveRecord::Base
         # because the hexdigest of an attachment is identical.
         main_part = get_main_body_text_part(attachments)
         # we don't use get_main_body_text_internal, as we want to avoid charset
-        # conversions, since /usr/bin/uudecode needs to deal with those.
+        # conversions, since _uudecode_and_save_attachments needs to deal with those.
         # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
         if !main_part.nil?
             uudecoded_attachments = _uudecode_and_save_attachments(main_part.body)
