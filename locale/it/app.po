@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-03-24 11:13+0000\n"
+"PO-Revision-Date: 2015-05-05 12:32+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/alaveteli/language/it/)\n"
 "Language: it\n"
@@ -2161,7 +2161,7 @@ msgid "Requests are considered successful if they were classified as either 'Suc
 msgstr "Le risposte alle richieste sono considerate soddisfacenti se sono state classificate come \"Soddisfacenti\" o \"Parzialmente Soddisfacenti\"."
 
 msgid "Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
-msgstr "Richieste non rispondenti alla legge sull'accesso non sono considerate valide (a href=\"/help/about\">per maggiori dettagli</a>)."
+msgstr "Richieste non rispondenti alla legge sull'accesso non sono considerate valide (<a href=\"/help/about\">per maggiori dettagli</a>)."
 
 msgid "Requests or responses matching your saved search"
 msgstr "Richieste o risposte che soddisfano la tua ricerca"
