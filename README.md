@@ -1,6 +1,6 @@
 # Welcome to Alaveteli!
 
-[![Build Status](https://secure.travis-ci.org/mysociety/alaveteli.png)](http://travis-ci.org/mysociety/alaveteli) [![Dependency Status](https://gemnasium.com/mysociety/alaveteli.png)](https://gemnasium.com/mysociety/alaveteli) [![Coverage Status](https://coveralls.io/repos/mysociety/alaveteli/badge.png?branch=rails-3-develop)](https://coveralls.io/r/mysociety/alaveteli) [![Code Climate](https://codeclimate.com/github/mysociety/alaveteli.png)](https://codeclimate.com/github/mysociety/alaveteli)
+[![Build Status](https://secure.travis-ci.org/mysociety/alaveteli.png)](http://travis-ci.org/mysociety/alaveteli) [![Dependency Status](https://gemnasium.com/mysociety/alaveteli.png)](https://gemnasium.com/mysociety/alaveteli) [![Coverage Status](https://coveralls.io/repos/mysociety/alaveteli/badge.png?branch=develop)](https://coveralls.io/r/mysociety/alaveteli) [![Code Climate](https://codeclimate.com/github/mysociety/alaveteli.png)](https://codeclimate.com/github/mysociety/alaveteli)
 [![Installability: Gold](http://img.shields.io/badge/installability-gold-ffd700.svg "Installability: Gold")](http://mysociety.github.io/installation-standards.html)
 
 This is an open source project to create a standard, internationalised
@@ -52,10 +52,10 @@ If you find what looks like a bug:
 If you want to contribute an enhancement or a fix:
 
 * Fork the project on GitHub.
-* Make a topic branch from the rails-3-develop branch.
+* Make a topic branch from the develop branch.
 * Make your changes with tests.
 * Commit the changes without making changes to any files that aren't related to your enhancement or fix.
-* Send a pull request against the rails-3-develop branch.
+* Send a pull request against the develop branch.
 
 Looking for the latest stable release? It's on the
 [master branch](https://github.com/mysociety/alaveteli/tree/master).

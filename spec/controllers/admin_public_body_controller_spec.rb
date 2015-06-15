@@ -129,7 +129,8 @@ describe AdminPublicBodyController, "when creating a public body" do
                                         :last_edit_comment => 'From test code',
                                         :translations_attributes => {
                                           'es' => { :locale => 'es',
-                                                    :name => 'Los Quango' }
+                                                    :name => 'Los Quango',
+                                                    :short_name => 'lq' }
                                         } } }
         end
 
@@ -160,6 +161,8 @@ describe AdminPublicBodyController, "when creating a public body" do
 
             I18n.with_locale(:es) do
                 expect(body.name).to eq('Los Quango')
+                expect(body.url_name).to eq('lq')
+                expect(body.first_letter).to eq('L')
             end
         end
 

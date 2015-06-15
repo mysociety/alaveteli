@@ -55,10 +55,10 @@ class PublicBody < ActiveRecord::Base
     has_tag_string
 
     before_save :set_api_key,
-                :set_default_publication_scheme,
-                :set_first_letter
+                :set_default_publication_scheme
     after_save :purge_in_cache
     after_update :reindex_requested_from
+
 
     # Every public body except for the internal admin one is visible
     scope :visible, lambda {
@@ -68,6 +68,11 @@ class PublicBody < ActiveRecord::Base
     }
 
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
+
+    include PublicBodyDerivedFields
+    class Translation
+        include PublicBodyDerivedFields
+    end
 
     # Default fields available for importing from CSV, in the format
     # [field_name, 'short description of field (basic html allowed)']
@@ -160,31 +165,30 @@ class PublicBody < ActiveRecord::Base
 
     # like find_by_url_name but also search historic url_name if none found
     def self.find_by_url_name_with_historic(name)
-        found = PublicBody.find(:all,
-                                :conditions => ["public_body_translations.url_name=?", name],
-                                :joins => :translations,
-                                :readonly => false)
-        # If many bodies are found (usually because the url_name is the same across
-        # locales) return any of them
-        return found.first if found.size >= 1
+        # If many bodies are found (usually because the url_name is the same
+        # across locales) return any of them.
+        found = joins(:translations).
+                  where("public_body_translations.url_name = ?", name).
+                    readonly(false).
+                      first
 
-        # If none found, then search the history of short names
-        old = PublicBody::Version.find_all_by_url_name(name)
-        # Find unique public bodies in it
-        old = old.map { |x| x.public_body_id }
-        old = old.uniq
+        return found if found
+
+        # If none found, then search the history of short names and find unique
+        # public bodies in it
+        old = PublicBody::Version.
+                  where(:url_name => name).
+                    pluck('DISTINCT public_body_id')
+
         # Maybe return the first one, so we show something relevant,
         # rather than throwing an error?
         raise "Two bodies with the same historical URL name: #{name}" if old.size > 1
         return unless old.size == 1
         # does acts_as_versioned provide a method that returns the current version?
-        return PublicBody.find(old.first)
+        PublicBody.find(old.first)
     end
 
-    # Set the first letter, which is used for faster queries
-    def set_first_letter
-        PublicBody.set_first_letter(self)
-    end
+
 
     # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
     def not_apply?
@@ -276,32 +280,6 @@ class PublicBody < ActiveRecord::Base
                     info_request_event.xapian_mark_needs_index
                 end
             end
-        end
-    end
-
-    # When name or short name is changed, also change the url name
-    def short_name=(short_name)
-        globalize.write(Globalize.locale, :short_name, short_name)
-        self[:short_name] = short_name
-        self.update_url_name
-    end
-
-    def name=(name)
-        globalize.write(Globalize.locale, :name, name)
-        self[:name] = name
-        self.update_url_name
-    end
-
-    def update_url_name
-        self.url_name = MySociety::Format.simplify_url_part(self.short_or_long_name, 'body')
-    end
-
-    # Return the short name if present, or else long name
-    def short_or_long_name
-        if self.short_name.nil? || self.short_name.empty?   # 'nil' can happen during construction
-            self.name.nil? ? "" : self.name
-        else
-            self.short_name
         end
     end
 

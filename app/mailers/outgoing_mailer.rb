@@ -70,7 +70,7 @@ class OutgoingMailer < ApplicationMailer
     # Subject to use for followup
     def self.subject_for_followup(info_request, outgoing_message, options = {})
         if outgoing_message.what_doing == 'internal_review'
-            return "Internal review of " + info_request.email_subject_request(:html => options[:html])
+            return _("Internal review of {{email_subject}}", :email_subject => info_request.email_subject_request(:html => options[:html]))
         else
             return info_request.email_subject_followup(:incoming_message => outgoing_message.incoming_message_followup,
                                                        :html => options[:html])
