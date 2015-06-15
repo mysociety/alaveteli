@@ -9,7 +9,7 @@
 # janakneschke <jana.kneschke@gmail.com>, 2013
 # janakneschke <jana.kneschke@gmail.com>, 2012-2013
 # janakneschke <jana.kneschke@gmail.com>, 2013
-# Jiří Vírava <appukonrad@gmail.com>, 2012
+# Jiří Vírava <appukonrad@gmail.com>, 2012,2015
 # josefpospisil <josef.pospisil@laststar.eu>, 2012
 # josefpospisil <josef.pospisil@laststar.eu>, 2012
 # Jiří Vírava <appukonrad@gmail.com>, 2012
@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-03-24 11:11+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2015-05-07 06:40+0000\n"
+"Last-Translator: Jiří Vírava <appukonrad@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/alaveteli/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -521,7 +521,7 @@ msgid "Awaiting response."
 msgstr "Čeká se na odpověď."
 
 msgid "Banned users cannot edit their profile"
-msgstr ""
+msgstr "Blokovaní uživatelé nemohou upravovat svůj profil"
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Dávka vytvořena {{info_request_user}} dne {{date}}."
@@ -722,7 +722,7 @@ msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and 
 msgstr "Nahraný soubor nebyl rozeznán. Jsou podporovány soubory s koncovkou PNG, JPEG, GIF a další. "
 
 msgid "Create a new account"
-msgstr ""
+msgstr "Vytvořit nový účet"
 
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr "Vytvořeno {{info_request_user}} dne {{date}}."
@@ -886,7 +886,7 @@ msgid "FOI email address for {{public_body}}"
 msgstr "E-mailová adresa podatelny pro instituci {{public_body}}"
 
 msgid "FOI law does not apply to this authority."
-msgstr ""
+msgstr "Na tento úřad se FOI zákon se nevztahuje."
 
 msgid "FOI request – {{title}}"
 msgstr "Žádost – {{title}}"
@@ -922,7 +922,7 @@ msgid "Find an authority"
 msgstr "Vyberte instituci, které chcete napsat"
 
 msgid "Find the authorities"
-msgstr ""
+msgstr "Najít úřady"
 
 msgid "Find the authorities to write to"
 msgstr "Vyberte instituce, kterým chcete napsat"
@@ -1071,7 +1071,7 @@ msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ZDE UPŘESNĚTE DETAILY VAŠÍ STÍŽNOSTI"
 
 msgid "Got an account?"
-msgstr ""
+msgstr "Máte účet?"
 
 msgid "Handled by post."
 msgstr "Vyřizováno poštou."
@@ -1532,7 +1532,7 @@ msgid "Many requests"
 msgstr "Mnoho dotazů"
 
 msgid "Matching authorities"
-msgstr ""
+msgstr "Odpovídající úřady"
 
 msgid "Message"
 msgstr "Zpráva"
@@ -2007,7 +2007,7 @@ msgid "Preview your public request"
 msgstr "Náhled vašeho dotazu"
 
 msgid "Preview your request"
-msgstr ""
+msgstr "Náhled vaší žádosti"
 
 msgid "Profile photo"
 msgstr "Profilová fotografie"
@@ -2397,13 +2397,13 @@ msgid "Set your profile photo"
 msgstr "Nastavte své profilové foto"
 
 msgid "Share on Facebook"
-msgstr ""
+msgstr "Sdílet na Facebooku"
 
 msgid "Share your batch request"
 msgstr ""
 
 msgid "Share your request"
-msgstr ""
+msgstr "Sdílet vaší žádost"
 
 msgid "Short name"
 msgstr "Krátké jméno"
@@ -3361,7 +3361,7 @@ msgid "What information has been requested?"
 msgstr "Jaká informace byla požadována?"
 
 msgid "What next?"
-msgstr ""
+msgstr "Co bude dál?"
 
 msgid "When you get there, please update the status to say if the response \\ncontains any useful information."
 msgstr ""
@@ -3850,7 +3850,7 @@ msgid "edit text about you"
 msgstr "upravte text o sobě"
 
 msgid "email address"
-msgstr ""
+msgstr "emailová adresa"
 
 msgid "even during holidays"
 msgstr "i během dovolené"
@@ -3904,7 +3904,7 @@ msgid "messages from users"
 msgstr "zprávy od uživatelů"
 
 msgid "mobile number"
-msgstr ""
+msgstr "mobilní číslo"
 
 msgid "move..."
 msgstr "přesunout..."
@@ -4139,4 +4139,4 @@ msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} vznesl tento {{law_used_full}} "
 
 msgid "« Back to search results"
-msgstr ""
+msgstr "« Zpět na výsledky hledání"
