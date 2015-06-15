@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-03-24 11:10+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/alaveteli/language/eu/)\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
@@ -156,8 +156,13 @@ msgstr "Izan zaitez <strong>konkretua</strong>, nahi duzuna lortzeko aukera gehi
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Ireki saioa</a> zure pasahitza aldatzeko, inskribatzeko... ({{user_name}} bakarrik)"
 
-msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>."
-msgstr "Goitizena erabili nahi izanez gero, mesedez <a href=\"{{url}}\">lehenago irakur ezazu hau</a>."
+msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
+msgstr ""
+
+msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
+msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Eginda dago! Eskerrik asko zure laguntzagatik.</p> {{site_name}} laguntzeko<p>badaude<a href=\"{{helpus_url}}\">egin ditzakezun gauza gehiago</a>.</p>"
@@ -483,11 +488,20 @@ msgstr ""
 msgid "Authority:"
 msgstr ""
 
+msgid "Awaiting clarification"
+msgstr ""
+
+msgid "Awaiting classification"
+msgstr ""
+
 msgid "Awaiting classification."
 msgstr "Sailkatzeko zain."
 
 msgid "Awaiting internal review."
 msgstr "Barneko berrikusketaren zain."
+
+msgid "Awaiting response"
+msgstr ""
 
 msgid "Awaiting response."
 msgstr "Erantzunaren zain."
@@ -696,6 +710,9 @@ msgstr "Ezin dugu prozesatu igo duzun irudia. PNG, JPEG, GIF edo beste irudi for
 msgid "Create a new account"
 msgstr ""
 
+msgid "Create a widget for this request"
+msgstr ""
+
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
 
@@ -724,6 +741,9 @@ msgid "Dear {{user_name}},"
 msgstr ""
 
 msgid "Defunct."
+msgstr ""
+
+msgid "Delayed"
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
@@ -1028,6 +1048,9 @@ msgstr "ZEHAZTU HEMEN ZURE KEXA"
 msgid "Got an account?"
 msgstr ""
 
+msgid "Handled by post"
+msgstr ""
+
 msgid "Handled by post."
 msgstr "Posta arruntaren bidez bidalita"
 
@@ -1099,6 +1122,9 @@ msgstr "Aldiz, inguruneari buruzko informazioa eskatzeko eskubidea daukazu, best
 
 msgid "Human health and safety"
 msgstr "Osasuna eta segurtasuna"
+
+msgid "I also want to know!"
+msgstr ""
 
 msgid "I am asking for <strong>new information</strong>"
 msgstr "<strong>Informazio berria</strong> eskatzen ari naiz"
@@ -1338,6 +1364,12 @@ msgstr "Informazioa ez dago eskuragarri."
 msgid "Information on emissions and discharges (e.g. noise, energy,\\n      radiation, waste materials)"
 msgstr "Emisioei buruzko informazioa (adibidez zarata, energia, erradiazioa, hondakin materialak...)"
 
+msgid "Internal review"
+msgstr ""
+
+msgid "Internal review of {{email_subject}}"
+msgstr ""
+
 msgid "Internal review request"
 msgstr "Barneko berrikusketa egiteko eskabidea"
 
@@ -1408,6 +1440,9 @@ msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr "Ireki ezazu saio bat {{info_request_title}}-eko ZIP fitxategia deskargatzeko"
 
 msgid "Log into the admin interface"
+msgstr ""
+
+msgid "Long overdue"
 msgstr ""
 
 msgid "Long overdue."
@@ -1518,6 +1553,9 @@ msgstr "Izena ezin da hutsik utzi"
 msgid "Name is already taken"
 msgstr "Izen hori beste norbait erabiltzen ari da"
 
+msgid "Needs admin attention"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Informaziorako Sarbidearen eskabide berriak"
 
@@ -1585,6 +1623,12 @@ msgid "Not a valid FOI request"
 msgstr ""
 
 msgid "Not a valid request"
+msgstr ""
+
+msgid "Not an FOI request"
+msgstr ""
+
+msgid "Not held"
 msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
@@ -1685,6 +1729,9 @@ msgstr "OutgoingMessage|Status"
 
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
+
+msgid "Partial success"
+msgstr ""
 
 msgid "Partially successful."
 msgstr "Arrakasta partziala."
@@ -2143,6 +2190,9 @@ msgstr "Lehenbizi deskribatu berri diren emaitzak"
 msgid "Refused."
 msgstr "Ez da onartu."
 
+msgid "Rejected"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr ""
 
@@ -2268,9 +2318,6 @@ msgstr "Pertsona honen ekarpenak bilatu"
 
 msgid "Search for the authorities you'd like information from:"
 msgstr ""
-
-msgid "Search for words in:"
-msgstr "Bilatu hitzak hemen:"
 
 msgid "Search in"
 msgstr "Bilatu"
@@ -2441,6 +2488,9 @@ msgstr "Gaia:"
 msgid "Submit"
 msgstr "Bidali"
 
+msgid "Submit Search"
+msgstr ""
+
 msgid "Submit request"
 msgstr ""
 
@@ -2456,8 +2506,14 @@ msgstr "Blogaren harpidetza eman"
 msgid "Success"
 msgstr ""
 
+msgid "Successful"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Arrakasta izan duten informaziorako sarbidearen eskabideak"
+
+msgid "Successful requests"
+msgstr ""
 
 msgid "Successful."
 msgstr "Arrakastatsua."
@@ -2806,6 +2862,9 @@ msgstr ""
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Hauxe da zure eskabidea, horregatik erantzun berriak heltzen direnean automatikoki emailak jasoko dituzu."
 
+msgid "This is your request"
+msgstr ""
+
 msgid "This message has been hidden."
 msgstr ""
 
@@ -3070,7 +3129,13 @@ msgstr ""
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr "Zoritxarrez ez dugu posta helbide baliagarria honentzat: {{info_request_law_used_full}}"
 
+msgid "Unknown"
+msgstr ""
+
 msgid "Unsubscribe"
+msgstr ""
+
+msgid "Unusual response"
 msgstr ""
 
 msgid "Unusual response."
@@ -3281,6 +3346,15 @@ msgstr "Nori eska diezaioket informazioa?"
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr ""
 
+msgid "Widget vote"
+msgstr ""
+
+msgid "WidgetVote|Cookie"
+msgstr ""
+
+msgid "Withdrawn"
+msgstr ""
+
 msgid "Withdrawn by the requester."
 msgstr "Eskatzaileak kendu du."
 
@@ -3378,6 +3452,9 @@ msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a 
 msgstr ""
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are tracking this request"
 msgstr ""
 
 msgid "You can <strong>complain</strong> by"
@@ -3519,6 +3596,9 @@ msgid "Your e-mail:"
 msgstr "Zure helbide elektronikoa:"
 
 msgid "Your email doesn't look like a valid address"
+msgstr ""
+
+msgid "Your email:"
 msgstr ""
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."

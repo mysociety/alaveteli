@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 #DO NOT MODIFY! AUTOMATICALLY GENERATED FILE!
 _('Acts as xapian/acts as xapian job')
 _('ActsAsXapian::ActsAsXapianJob|Action')
@@ -150,4 +149,6 @@ _('User|Salt')
 _('User|Url name')
 _('User info request sent alert')
 _('UserInfoRequestSentAlert|Alert type')
+_('Widget vote')
+_('WidgetVote|Cookie')
 #DO NOT MODIFY! AUTOMATICALLY GENERATED FILE!

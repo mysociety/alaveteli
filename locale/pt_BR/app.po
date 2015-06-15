@@ -45,9 +45,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-03-24 11:13+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/alaveteli/language/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -185,8 +185,13 @@ msgstr "Mantenha seu pedido <strong>focado,</strong> você terá mais chances de
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Acesse aqui</a> para alterar sua senha, acompanhamento de pedidos e mais (apenas para {{user_name}})"
 
-msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>."
-msgstr "Se você está pensando em usar um pseudônimo, por favor, <a href=\"{{url}}\">leia isso primeiro</a> ."
+msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
+msgstr ""
+
+msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
+msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Tudo certo! Muito obrigado por sua ajuda.</p><p>Existem <a href=\"{{helpus_url}}\">mais coisas que você pode fazer</a> para ajudar o {{site_name}}.</p>"
@@ -505,11 +510,20 @@ msgstr ""
 msgid "Authority:"
 msgstr ""
 
+msgid "Awaiting clarification"
+msgstr ""
+
+msgid "Awaiting classification"
+msgstr ""
+
 msgid "Awaiting classification."
 msgstr "Aguardando classificação."
 
 msgid "Awaiting internal review."
 msgstr "Aguardando revisão."
+
+msgid "Awaiting response"
+msgstr ""
 
 msgid "Awaiting response."
 msgstr "Aguardando resposta."
@@ -718,6 +732,9 @@ msgstr "Não podemos entender o arquivo da imagem que você enviou. PNG, JPEG, G
 msgid "Create a new account"
 msgstr ""
 
+msgid "Create a widget for this request"
+msgstr ""
+
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
 
@@ -746,6 +763,9 @@ msgid "Dear {{user_name}},"
 msgstr ""
 
 msgid "Defunct."
+msgstr ""
+
+msgid "Delayed"
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
@@ -1047,6 +1067,9 @@ msgstr "DÊ DETALHES SOBRE SUA QUEIXA AQUI"
 msgid "Got an account?"
 msgstr ""
 
+msgid "Handled by post"
+msgstr ""
+
 msgid "Handled by post."
 msgstr "Encaminhado por correio."
 
@@ -1121,6 +1144,9 @@ msgstr "Entretanto, você tem o direito de requisitar informação ambiental por
 
 msgid "Human health and safety"
 msgstr "Saúde e segurança"
+
+msgid "I also want to know!"
+msgstr ""
 
 msgid "I am asking for <strong>new information</strong>"
 msgstr "Estou pedindo <strong>novas informações</strong>"
@@ -1356,6 +1382,12 @@ msgstr "Não possui as informações."
 msgid "Information on emissions and discharges (e.g. noise, energy,\\n      radiation, waste materials)"
 msgstr "Informações sobre emissões e descargas (ex. ruído, energia, radiação, rejeitos)"
 
+msgid "Internal review"
+msgstr ""
+
+msgid "Internal review of {{email_subject}}"
+msgstr ""
+
 msgid "Internal review request"
 msgstr "Pedido de revisão"
 
@@ -1427,6 +1459,9 @@ msgstr "Faça o login para baixar o arquivo compactado de {{info_request_title}}
 
 msgid "Log into the admin interface"
 msgstr "Entre na interface administrativa"
+
+msgid "Long overdue"
+msgstr ""
 
 msgid "Long overdue."
 msgstr "Muito atrasado."
@@ -1536,6 +1571,9 @@ msgstr "Nome não pode estar em branco"
 msgid "Name is already taken"
 msgstr "Nome já foi utilizado"
 
+msgid "Needs admin attention"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Novos pedidos de informação"
 
@@ -1603,6 +1641,12 @@ msgid "Not a valid FOI request"
 msgstr ""
 
 msgid "Not a valid request"
+msgstr ""
+
+msgid "Not an FOI request"
+msgstr ""
+
+msgid "Not held"
 msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
@@ -1703,6 +1747,9 @@ msgstr "OutgoingMessage | Situação"
 
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage | O que fazer"
+
+msgid "Partial success"
+msgstr ""
 
 msgid "Partially successful."
 msgstr "Concluída parcialmente."
@@ -2159,6 +2206,9 @@ msgstr "Resultados descritos recentemente primeiro"
 msgid "Refused."
 msgstr "Recusado."
 
+msgid "Rejected"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr ""
 
@@ -2284,9 +2334,6 @@ msgstr "Busque contribuições feitas por esta pessoa"
 
 msgid "Search for the authorities you'd like information from:"
 msgstr ""
-
-msgid "Search for words in:"
-msgstr "Busca por palavras em:"
 
 msgid "Search in"
 msgstr "Procurar em"
@@ -2452,6 +2499,9 @@ msgstr "Assunto:"
 msgid "Submit"
 msgstr "Enviar"
 
+msgid "Submit Search"
+msgstr ""
+
 msgid "Submit request"
 msgstr ""
 
@@ -2467,8 +2517,14 @@ msgstr "Assine o blog"
 msgid "Success"
 msgstr ""
 
+msgid "Successful"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Solicitações de acesso a informação concluídas"
+
+msgid "Successful requests"
+msgstr ""
 
 msgid "Successful."
 msgstr "Concluída."
@@ -2811,6 +2867,9 @@ msgstr ""
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Esse é o seu próprio pedido, então você vai receber um email automaticamente quando uma nova resposta chegar."
 
+msgid "This is your request"
+msgstr ""
+
 msgid "This message has been hidden."
 msgstr ""
 
@@ -3077,8 +3136,14 @@ msgstr ""
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr "Infelizmente, nós não temos um email válido de "
 
+msgid "Unknown"
+msgstr ""
+
 msgid "Unsubscribe"
 msgstr "Desinscrever-se"
+
+msgid "Unusual response"
+msgstr ""
 
 msgid "Unusual response."
 msgstr "Outra resposta."
@@ -3285,6 +3350,15 @@ msgstr "De que órgãos públicos posso solicitar informações?"
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr ""
 
+msgid "Widget vote"
+msgstr ""
+
+msgid "WidgetVote|Cookie"
+msgstr ""
+
+msgid "Withdrawn"
+msgstr ""
+
 msgid "Withdrawn by the requester."
 msgstr "Removida pelo solicitante."
 
@@ -3382,6 +3456,9 @@ msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a 
 msgstr ""
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are tracking this request"
 msgstr ""
 
 msgid "You can <strong>complain</strong> by"
@@ -3522,6 +3599,9 @@ msgid "Your e-mail:"
 msgstr "Seu e-mail:"
 
 msgid "Your email doesn't look like a valid address"
+msgstr ""
+
+msgid "Your email:"
 msgstr ""
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."

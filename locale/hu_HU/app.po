@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-03-24 11:12+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/alaveteli/language/hu_HU/)\n"
 "Language: hu_HU\n"
 "MIME-Version: 1.0\n"
@@ -161,10 +161,13 @@ msgstr "Fogalmazzon <strong>lényegre törően</strong>, hogy biztosan azt kapja
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Jelentkezzen be</a> a jelszó módosításához, a feliratkozáshoz stb. (csak {{user_name}}) "
 
-msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>."
+msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
 msgstr ""
-"Amenniyben álnevet kíván használni,\n"
-"kérjük olvassa el előbb az ezzel kapcsolatos <a href=\"{{url}}\">tudnivalókat</a>!"
+
+msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
+msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Kész! Köszönjük segítségét.</p><p>Különféle <a href=\"{{helpus_url}}\">módokon tud</a> segítséget nyújtani a {{site_name}} számára.</p> "
@@ -505,11 +508,20 @@ msgstr ""
 msgid "Authority:"
 msgstr ""
 
+msgid "Awaiting clarification"
+msgstr ""
+
+msgid "Awaiting classification"
+msgstr ""
+
 msgid "Awaiting classification."
 msgstr "Besorolásra vár"
 
 msgid "Awaiting internal review."
 msgstr "Belső felülvizsgálatra vár"
+
+msgid "Awaiting response"
+msgstr ""
 
 msgid "Awaiting response."
 msgstr "Válaszra vár"
@@ -720,6 +732,9 @@ msgstr "Nem értelmezhető az ön által feltöltött képfájl. A PNG, JPEG, GI
 msgid "Create a new account"
 msgstr ""
 
+msgid "Create a widget for this request"
+msgstr ""
+
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
 
@@ -750,6 +765,9 @@ msgid "Dear {{user_name}},"
 msgstr ""
 
 msgid "Defunct."
+msgstr ""
+
+msgid "Delayed"
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
@@ -1064,6 +1082,9 @@ msgstr "ITT ÍRJA LE PANASZÁNAK RÉSZLETEIT "
 msgid "Got an account?"
 msgstr ""
 
+msgid "Handled by post"
+msgstr ""
+
 msgid "Handled by post."
 msgstr "Postai úton kézbesítve"
 
@@ -1142,6 +1163,9 @@ msgstr ""
 
 msgid "Human health and safety"
 msgstr "Emberi egészség és biztonság "
+
+msgid "I also want to know!"
+msgstr ""
 
 msgid "I am asking for <strong>new information</strong>"
 msgstr "<strong>Új információt</strong> kérek "
@@ -1400,6 +1424,12 @@ msgstr ""
 "Emisszióra és kibocsátásra (pl. zaj, energia,\n"
 "            sugárzás, hulladékok) vonatkozó információ "
 
+msgid "Internal review"
+msgstr ""
+
+msgid "Internal review of {{email_subject}}"
+msgstr ""
+
 msgid "Internal review request"
 msgstr "Belső felülvizsgálatot kért"
 
@@ -1476,6 +1506,9 @@ msgstr "Jelentkezzen be, hogy a {{info_request_title}} tárgyú adatigénylési 
 
 msgid "Log into the admin interface"
 msgstr "Bejelentkezés az adminisztrátori interfészre"
+
+msgid "Long overdue"
+msgstr ""
 
 msgid "Long overdue."
 msgstr "Régóta lejárt"
@@ -1587,6 +1620,9 @@ msgstr "Név nem lehet üres "
 msgid "Name is already taken"
 msgstr "Név már foglalt "
 
+msgid "Needs admin attention"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Új közérdekűadat-igénylések "
 
@@ -1654,6 +1690,12 @@ msgid "Not a valid FOI request"
 msgstr ""
 
 msgid "Not a valid request"
+msgstr ""
+
+msgid "Not an FOI request"
+msgstr ""
+
+msgid "Not held"
 msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
@@ -1754,6 +1796,9 @@ msgstr "OutgoingMessage|Status"
 
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
+
+msgid "Partial success"
+msgstr ""
 
 msgid "Partially successful."
 msgstr "Részben teljesítette"
@@ -2223,6 +2268,9 @@ msgstr "Elöl a legutóbb ismertetett eredmények "
 msgid "Refused."
 msgstr "El lett utasítva"
 
+msgid "Rejected"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr ""
 
@@ -2348,9 +2396,6 @@ msgstr "Keresés a felhasználó igényléseiben, hozzászólásaiban"
 
 msgid "Search for the authorities you'd like information from:"
 msgstr ""
-
-msgid "Search for words in:"
-msgstr "Szavak keresése a következőben: "
 
 msgid "Search in"
 msgstr "Keresés a következőben: "
@@ -2525,6 +2570,9 @@ msgstr "Tárgy: "
 msgid "Submit"
 msgstr "Mehet"
 
+msgid "Submit Search"
+msgstr ""
+
 msgid "Submit request"
 msgstr ""
 
@@ -2540,8 +2588,14 @@ msgstr "Feliratkozás a blogra "
 msgid "Success"
 msgstr ""
 
+msgid "Successful"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Sikeres közérdekűadat-igénylések "
+
+msgid "Successful requests"
+msgstr ""
 
 msgid "Successful."
 msgstr "Sikeres"
@@ -2906,6 +2960,9 @@ msgstr ""
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Ez az ön saját igénylése, így automatikusan e-mail üzenetet kap, ha válasz érkezik. "
 
+msgid "This is your request"
+msgstr ""
+
 msgid "This message has been hidden."
 msgstr ""
 
@@ -3189,8 +3246,14 @@ msgstr ""
 "Sajnos nem ismerjük a következő adatgazda működő {{info_request_law_used_full}}\n"
 "címét: "
 
+msgid "Unknown"
+msgstr ""
+
 msgid "Unsubscribe"
 msgstr "Leiratkozás"
+
+msgid "Unusual response"
+msgstr ""
 
 msgid "Unusual response."
 msgstr "Szokatlan válasz"
@@ -3413,6 +3476,15 @@ msgstr "Kitől igényelhetek információt? "
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr ""
 
+msgid "Widget vote"
+msgstr ""
+
+msgid "WidgetVote|Cookie"
+msgstr ""
+
+msgid "Withdrawn"
+msgstr ""
+
 msgid "Withdrawn by the requester."
 msgstr "Az igénylő visszavonta. "
 
@@ -3510,6 +3582,9 @@ msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a 
 msgstr ""
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are tracking this request"
 msgstr ""
 
 msgid "You can <strong>complain</strong> by"
@@ -3663,6 +3738,9 @@ msgid "Your e-mail:"
 msgstr "Az ön e-mail címe: "
 
 msgid "Your email doesn't look like a valid address"
+msgstr ""
+
+msgid "Your email:"
 msgstr ""
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."

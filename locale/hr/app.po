@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-05-04 17:02+0000\n"
-"Last-Translator: Miroslav Schlossberg\n"
+"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/projects/p/alaveteli/language/hr/)\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -160,8 +160,14 @@ msgstr "<a href=\"{{url}}\">Držite se <strong>suštine</strong></a>, lakše će
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Prijavite se</a> da biste promijenili lozinku, pretplatu ili drugo ({{user_name}} only)"
 
-msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>."
-msgstr "<a href=\"{{url}}\">Razmišljate li o korištenju pseudonima?</a>"
+msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
+msgstr ""
+
+msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
+msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Završeno! Hvala Vam na pomoći.</p><p>Postoji <a href=\"{{helpus_url}}\">više stvari koje možete učiniti </a> da biste pomogli {{site_name}}.</p>"
@@ -484,11 +490,20 @@ msgstr "E-pošta službenika za informiranje:"
 msgid "Authority:"
 msgstr "Tijelo javne vlasti:"
 
+msgid "Awaiting clarification"
+msgstr ""
+
+msgid "Awaiting classification"
+msgstr ""
+
 msgid "Awaiting classification."
 msgstr "Čeka klasifikaciju."
 
 msgid "Awaiting internal review."
 msgstr "Čeka odgovor na požurnicu."
+
+msgid "Awaiting response"
+msgstr ""
 
 msgid "Awaiting response."
 msgstr "Čeka odgovor."
@@ -697,6 +712,9 @@ msgstr "Pogrešan format datoteke. Molimo Vas unesite: PNG, JPEG, GIF, ili neke 
 msgid "Create a new account"
 msgstr "Izradi novi račun"
 
+msgid "Create a widget for this request"
+msgstr ""
+
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr "Izradio/la {{info_request_user}} dana {{date}}."
 
@@ -729,6 +747,9 @@ msgstr "Poštovani {{user_name}},"
 
 msgid "Defunct."
 msgstr "Defunkc."
+
+msgid "Delayed"
+msgstr ""
 
 msgid "Delayed response to your FOI request - "
 msgstr "Odgovor na Vaš PPI zahtjev kasni  - "
@@ -1034,6 +1055,9 @@ msgstr "OVDJE IZNESITE DETALJE POŽURNICE"
 msgid "Got an account?"
 msgstr "Imate li račun?"
 
+msgid "Handled by post"
+msgstr ""
+
 msgid "Handled by post."
 msgstr "Riješen poštom."
 
@@ -1102,6 +1126,9 @@ msgstr "Ipak, imate pravo tražiti informacije o okolišu\\n pozivajući se na d
 
 msgid "Human health and safety"
 msgstr "Zdravlje i sigurnost ljudi"
+
+msgid "I also want to know!"
+msgstr ""
 
 msgid "I am asking for <strong>new information</strong>"
 msgstr "Molim za <strong>nove informacije</strong>"
@@ -1355,6 +1382,12 @@ msgstr "Ne posjedujemo informacije."
 msgid "Information on emissions and discharges (e.g. noise, energy,\\n      radiation, waste materials)"
 msgstr "Informacije o emisijama i ispuštanjima u okoliš (npr. buka, energija,\\n zračenje, otpadni materijali)"
 
+msgid "Internal review"
+msgstr ""
+
+msgid "Internal review of {{email_subject}}"
+msgstr ""
+
 msgid "Internal review request"
 msgstr "Zahtjev za požurnicom"
 
@@ -1429,6 +1462,9 @@ msgstr "Prijavite se da preuzmete zip datoteku {{info_request_title}}"
 
 msgid "Log into the admin interface"
 msgstr "Prijavite se u administratorsko sučelje"
+
+msgid "Long overdue"
+msgstr ""
 
 msgid "Long overdue."
 msgstr "Kašnjenja"
@@ -1535,6 +1571,9 @@ msgstr "Ime ne može ostati prazno"
 msgid "Name is already taken"
 msgstr "Ime se već koristi"
 
+msgid "Needs admin attention"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Novi zahtjevi za pristup informacijama"
 
@@ -1603,6 +1642,12 @@ msgstr "Zahtjev za pravo na pristup informacijama nije valjan."
 
 msgid "Not a valid request"
 msgstr "Zahtjev nije valjan"
+
+msgid "Not an FOI request"
+msgstr ""
+
+msgid "Not held"
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Uzmite u obzir da podnositelj zahtjeva neće biti obaviješten o Vašoj pribilješci, jer je zahtjev u njegovo ime objavljen od strane {{public_body_name}}."
@@ -1702,6 +1747,9 @@ msgstr "Odlazna poruka|Status"
 
 msgid "OutgoingMessage|What doing"
 msgstr "Odlazna poruka|Što radi"
+
+msgid "Partial success"
+msgstr ""
 
 msgid "Partially successful."
 msgstr "Djelomično uspješno."
@@ -2168,6 +2216,9 @@ msgstr "Nedavno opisani rezultati prvi"
 msgid "Refused."
 msgstr "Odbijen."
 
+msgid "Rejected"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Zapamti me (ostajete dulje prijavljeni; ne koristite na javnim računalima)"
 
@@ -2293,9 +2344,6 @@ msgstr "Pretražite doprinose od strane ove osobe"
 
 msgid "Search for the authorities you'd like information from:"
 msgstr "Pretražite tijela javne vlasti od kojih biste željeli informacije:"
-
-msgid "Search for words in:"
-msgstr "Tražite riječi u:"
 
 msgid "Search in"
 msgstr "Pretražite u"
@@ -2467,6 +2515,9 @@ msgstr "Predmet:"
 msgid "Submit"
 msgstr "Predajte"
 
+msgid "Submit Search"
+msgstr ""
+
 msgid "Submit request"
 msgstr "Predajte zahtjev"
 
@@ -2482,8 +2533,14 @@ msgstr "Pretplatiti se na blog"
 msgid "Success"
 msgstr "Uspješno"
 
+msgid "Successful"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Uspješni zahtjevi za pristup informacijama"
+
+msgid "Successful requests"
+msgstr ""
 
 msgid "Successful."
 msgstr "Uspješan."
@@ -2835,6 +2892,9 @@ msgstr "Ovo je prva verzija."
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Ovo je Vaš zahtjev, bit ćete automatski obaviješteni e-poštom kada stignu novi odgovori."
 
+msgid "This is your request"
+msgstr ""
+
 msgid "This message has been hidden."
 msgstr "Ova je poruka skrivena."
 
@@ -3114,8 +3174,14 @@ msgstr ""
 "Nažalost, ne posjedujemo ispravnu {{info_request_law_used_full}}\n"
 "adresu za"
 
+msgid "Unknown"
+msgstr ""
+
 msgid "Unsubscribe"
 msgstr "Odjavite pretplatu"
+
+msgid "Unusual response"
+msgstr ""
 
 msgid "Unusual response."
 msgstr "Neobičan odgovor."
@@ -3330,6 +3396,15 @@ msgstr "Od koga mogu tražiti informacije?"
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr "Zašto ovaj zahtjev smatrate neodgovarajućim?"
 
+msgid "Widget vote"
+msgstr ""
+
+msgid "WidgetVote|Cookie"
+msgstr ""
+
+msgid "Withdrawn"
+msgstr ""
+
 msgid "Withdrawn by the requester."
 msgstr "Povučeno od strane podnositelja zahtjeva."
 
@@ -3428,6 +3503,9 @@ msgstr "Sada <a href=\"{{wall_url_user}}\">pratite</a> ažuriranja o <a href=\"{
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr "Sada <a href=\"{{wall_url_user}}\">pratite</a> ažuriranja o <a href=\"{{successful_requests_url}}\">uspješnim zahtjevima</a>."
+
+msgid "You are tracking this request"
+msgstr ""
 
 msgid "You can <strong>complain</strong> by"
 msgstr "Možete se <strong>žaliti</strong> tako što ćete"
@@ -3571,6 +3649,9 @@ msgstr "Vaša e-pošta:"
 
 msgid "Your email doesn't look like a valid address"
 msgstr "Vaša adresa e-pošte ne izgleda valjanom.  "
+
+msgid "Your email:"
+msgstr ""
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr "Vaš odgovor nije poslan jer je ovaj zahtjev zaustavljen kako bi se spriječila neželjena pošta. Molimo <a href=\"{{url}}\">kontaktirajte nas</a> ako stvarno želite poslati odgovor ovom tijelu."
