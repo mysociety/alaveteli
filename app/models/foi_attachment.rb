@@ -70,8 +70,8 @@ class FoiAttachment < ActiveRecord::Base
             delay = 1
             begin
                 binary_data = File.open(self.filepath, "rb" ){ |file| file.read }
-                if self.content_type =~ /^text/
-                    @cached_body = convert_string_to_utf8_or_binary(binary_data, 'UTF-8')
+                if text_type?
+                    @cached_body = convert_string_to_utf8(binary_data, 'UTF-8')
                 else
                     @cached_body = binary_data
                 end
@@ -92,6 +92,7 @@ class FoiAttachment < ActiveRecord::Base
         end
         return @cached_body
     end
+
 
     # List of DSN codes taken from RFC 3463
     # http://tools.ietf.org/html/rfc3463
@@ -292,6 +293,12 @@ class FoiAttachment < ActiveRecord::Base
         attachment_url = opts.fetch(:attachment_url, nil)
         to_html_opts = opts.merge(:tmpdir => dir, :attachment_url => attachment_url)
         AttachmentToHTML.to_html(self, to_html_opts)
+    end
+
+    private
+
+    def text_type?
+        AlaveteliTextMasker::TextMask.include?(content_type)
     end
 
 end

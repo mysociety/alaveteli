@@ -79,12 +79,16 @@ def convert_string_to_utf8(s, suggested_character_encoding=nil)
     rescue EncodingNormalizationError
         result = s
         if String.method_defined?(:encode)
-            result = s.force_encoding("utf-8").encode("utf-8", :invalid => :replace,
-                                                               :undef => :replace,
-                                                               :replace => "")
+            result = scrub(s.force_encoding("utf-8"))
+        else
+            result = Iconv.conv('UTF-8//IGNORE', 'UTF-8', s)
         end
     end
     result
+end
+
+def scrub(string)
+    string.valid_encoding? ? string : string.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
 end
 
 def log_text_details(message, text)
