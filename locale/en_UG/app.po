@@ -1578,10 +1578,6 @@ msgstr "Not a valid ATI request"
 msgid "Not a valid request"
 msgstr ""
 
-#, fuzzy
-msgid "Not an FOI request"
-msgstr "Not a valid ATI request"
-
 msgid "Not held"
 msgstr ""
 
@@ -2459,10 +2455,6 @@ msgstr ""
 msgid "Successful Freedom of Information requests"
 msgstr "Successful Access to Information requests"
 
-#, fuzzy
-msgid "Successful requests"
-msgstr "Successful Access to Information requests"
-
 msgid "Successful."
 msgstr ""
 
@@ -2798,10 +2790,6 @@ msgstr ""
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr ""
 
-#, fuzzy
-msgid "This is your request"
-msgstr "To send your ATI request"
-
 msgid "This message has been hidden."
 msgstr ""
 
@@ -3069,10 +3057,6 @@ msgstr ""
 
 msgid "Unsubscribe"
 msgstr ""
-
-#, fuzzy
-msgid "Unusual response"
-msgstr "Upload ATI response"
 
 msgid "Unusual response."
 msgstr ""

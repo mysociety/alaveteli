@@ -1579,10 +1579,6 @@ msgstr "Not a valid ATI request"
 msgid "Not a valid request"
 msgstr ""
 
-#, fuzzy
-msgid "Not an FOI request"
-msgstr "Not a valid ATI request"
-
 msgid "Not held"
 msgstr ""
 
@@ -2460,10 +2456,6 @@ msgstr ""
 msgid "Successful Freedom of Information requests"
 msgstr "Successful access to information requests"
 
-#, fuzzy
-msgid "Successful requests"
-msgstr "Successful access to information requests"
-
 msgid "Successful."
 msgstr ""
 
@@ -2799,10 +2791,6 @@ msgstr ""
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr ""
 
-#, fuzzy
-msgid "This is your request"
-msgstr "Share your request"
-
 msgid "This message has been hidden."
 msgstr ""
 
@@ -3070,10 +3058,6 @@ msgstr ""
 
 msgid "Unsubscribe"
 msgstr ""
-
-#, fuzzy
-msgid "Unusual response"
-msgstr "Upload ATI response"
 
 msgid "Unusual response."
 msgstr ""
@@ -3388,10 +3372,6 @@ msgstr ""
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr ""
 
-#, fuzzy
-msgid "You are tracking this request"
-msgstr "Share your batch request "
-
 msgid "You can <strong>complain</strong> by"
 msgstr ""
 
@@ -3523,10 +3503,6 @@ msgstr "Your email:"
 
 msgid "Your email doesn't look like a valid address"
 msgstr ""
-
-#, fuzzy
-msgid "Your email:"
-msgstr "Your email:"
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr ""
