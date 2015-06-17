@@ -27,7 +27,7 @@ gem 'rake', '0.9.2.2'
 gem 'rails-i18n', '~> 0.7.3'
 gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 # :require avoids "already initialized constant" warnings
-gem 'rmagick', '~> 2.13.2', :require => 'RMagick'
+gem 'rmagick', '~> 2.13.2', :git => 'https://github.com/mysociety/rmagick.git', :branch => 'debian-jessie'
 gem 'ruby-msg', '~> 1.5.0',  :git => 'git://github.com/mysociety/ruby-msg.git'
 gem 'secure_headers', '~> 1.3.4'
 gem 'statistics2', '~> 0.54'
