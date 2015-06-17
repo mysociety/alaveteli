@@ -113,10 +113,9 @@ module Alaveteli
                                  'fancybox.js']
     # ... while these are individual files that can't easily be
     # grouped:
-    config.assets.precompile += ['jquery.Jcrop.css',
+    config.assets.precompile += ['jquery.Jcrop.min.css',
                                  'excanvas.min.js',
                                  'select-authorities.js',
-                                 'jquery_ujs.js',
                                  'new-request.js',
                                  'fonts.css',
                                  'print.css',
