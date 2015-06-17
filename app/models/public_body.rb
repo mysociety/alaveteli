@@ -34,45 +34,11 @@ require 'set'
 class PublicBody < ActiveRecord::Base
     include AdminColumn
 
+    class ImportCSVDryRun < StandardError ; end
+
     @non_admin_columns = %w(name last_edit_comment)
 
-    strip_attributes!
-
-    validates_presence_of :name, :message => N_("Name can't be blank")
-    validates_presence_of :url_name, :message => N_("URL name can't be blank")
-
-    validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :allow_blank => true
-    validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
-    validates_uniqueness_of :name, :message => N_("Name is already taken")
-
-    validate :request_email_if_requestable
-
-    has_many :info_requests, :order => 'created_at desc'
-    has_many :track_things, :order => 'created_at desc'
-    has_many :censor_rules, :order => 'created_at desc'
     attr_accessor :no_xapian_reindex
-
-    has_tag_string
-
-    before_save :set_api_key,
-                :set_default_publication_scheme
-    after_save :purge_in_cache
-    after_update :reindex_requested_from
-
-
-    # Every public body except for the internal admin one is visible
-    scope :visible, lambda {
-        {
-            :conditions => "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
-        }
-    }
-
-    translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
-
-    include PublicBodyDerivedFields
-    class Translation
-        include PublicBodyDerivedFields
-    end
 
     # Default fields available for importing from CSV, in the format
     # [field_name, 'short description of field (basic html allowed)']
@@ -89,22 +55,108 @@ class PublicBody < ActiveRecord::Base
         ]
     end
 
-    acts_as_xapian :texts => [ :name, :short_name, :notes ],
-        :values => [
-             [ :created_at_numeric, 1, "created_at", :number ] # for sorting
-        ],
-        :terms => [ [ :variety, 'V', "variety" ],
-                [ :tag_array_for_search, 'U', "tag" ]
-        ]
+    has_many :info_requests, :order => 'created_at desc'
+    has_many :track_things, :order => 'created_at desc'
+    has_many :censor_rules, :order => 'created_at desc'
+
+    validates_presence_of :name, :message => N_("Name can't be blank")
+    validates_presence_of :url_name, :message => N_("URL name can't be blank")
+
+    validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :allow_blank => true
+    validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
+    validates_uniqueness_of :name, :message => N_("Name is already taken")
+
+    validate :request_email_if_requestable
+
+    before_save :set_api_key!, :unless => :api_key
+    before_save :set_default_publication_scheme
+    after_save :purge_in_cache
+    after_update :reindex_requested_from
+
+
+    # Every public body except for the internal admin one is visible
+    scope :visible, lambda {
+        {
+            :conditions => "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
+        }
+    }
 
     acts_as_versioned
+    acts_as_xapian :texts => [:name, :short_name, :notes],
+                   :values => [
+                       # for sorting
+                       [:created_at_numeric, 1, "created_at", :number]
+                   ],
+                   :terms => [
+                       [:variety, 'V', "variety"],
+                       [:tag_array_for_search, 'U', "tag"]
+                   ]
+    has_tag_string
+    strip_attributes!
+    translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
+
+    # Cannot be grouped at top as it depends on the `translates` macro
+    include Translatable
+
+    # Cannot be grouped at top as it depends on the `translates` macro
+    include PublicBodyDerivedFields
+
+    # Cannot be grouped at top as it depends on the `translates` macro
+    class Translation
+        include PublicBodyDerivedFields
+    end
+
     self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
     self.non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
     self.non_versioned_columns << 'info_requests_count' << 'info_requests_visible_classified_count'
     self.non_versioned_columns << 'info_requests_not_held_count' << 'info_requests_overdue'
     self.non_versioned_columns << 'info_requests_overdue_count'
 
-    include Translatable
+    # Cannot be defined directly under `include` statements as this is opening
+    # the PublicBody::Version class dynamically defined by  the
+    # `acts_as_versioned` macro.
+    #
+    # TODO: acts_as_versioned accepts an extend parameter [1] so these methods
+    # could be extracted to a module:
+    #
+    #    acts_as_versioned :extend => PublicBodyVersionExtensions
+    #
+    # This includes the module in both the parent class (PublicBody) and the
+    # Version class (PublicBody::Version), so the behaviour is slightly
+    # different to opening up PublicBody::Version.
+    #
+    # We could add an `extend_version_class` option pretty trivially by
+    # following the pattern for the existing `extend` option.
+    #
+    # [1] http://git.io/vIetK
+    class Version
+      def last_edit_comment_for_html_display
+        text = self.last_edit_comment.strip
+        text = CGI.escapeHTML(text)
+        text = MySociety::Format.make_clickable(text)
+        text = text.gsub(/\n/, '<br>')
+        return text
+      end
+
+      def compare(previous = nil)
+        if previous.nil?
+          yield([])
+        else
+          v = self
+          changes = self.class.content_columns.inject([]) {|memo, c|
+            unless %w(version last_edit_editor last_edit_comment updated_at).include?(c.name)
+              from = previous.send(c.name)
+              to = self.send(c.name)
+              memo << { :name => c.human_name, :from => from, :to => to } if from != to
+            end
+            memo
+          }
+          changes.each do |change|
+            yield(change)
+          end
+        end
+      end
+    end
 
     # Public: Search for Public Bodies whose name, short_name, request_email or
     # tags contain the given query
@@ -134,33 +186,12 @@ class PublicBody < ActiveRecord::Base
                        uniq
     end
 
-    # TODO: - Don't like repeating this!
-    def calculate_cached_fields(t)
-        PublicBody.set_first_letter(t)
-        short_long_name = t.name
-        short_long_name = t.short_name if t.short_name and !t.short_name.empty?
-        t.url_name = MySociety::Format.simplify_url_part(short_long_name, 'body')
-    end
-
-    # Set the first letter on a public body or translation
-    def self.set_first_letter(instance)
-        unless instance.name.nil? or instance.name.empty?
-            # we use a regex to ensure it works with utf-8/multi-byte
-            first_letter = Unicode.upcase instance.name.scan(/^./mu)[0]
-            if first_letter != instance.first_letter
-                instance.first_letter = first_letter
-            end
-        end
-    end
-
-    def set_default_publication_scheme
-      # Make sure publication_scheme gets the correct default value.
-      # (This would work automatically, were publication_scheme not a translated attribute)
-      self.publication_scheme = "" if self.publication_scheme.nil?
-    end
-
     def set_api_key
-      self.api_key = SecureRandom.base64(33) if self.api_key.nil?
+        set_api_key! if api_key.nil?
+    end
+
+    def set_api_key!
+        self.api_key = SecureRandom.base64(33)
     end
 
     # like find_by_url_name but also search historic url_name if none found
@@ -188,15 +219,29 @@ class PublicBody < ActiveRecord::Base
         PublicBody.find(old.first)
     end
 
-
-
     # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
     def not_apply?
-        return self.has_tag?('not_apply')
+        has_tag?('not_apply')
     end
+
     # If tagged "defunct", then the authority no longer exists at all
     def defunct?
-        return self.has_tag?('defunct')
+        has_tag?('defunct')
+    end
+
+    # Are all requests to this body under the Environmental Information
+    # Regulations?
+    def eir_only?
+        has_tag?('eir_only')
+    end
+
+    # Schools are allowed more time in holidays, so we change some wordings
+    def is_school?
+        has_tag?('school')
+    end
+
+    def site_administration?
+        has_tag?('site_administration')
     end
 
     # Can an FOI (etc.) request be made to this body?
@@ -215,100 +260,45 @@ class PublicBody < ActiveRecord::Base
 
     # Also used as not_followable_reason
     def not_requestable_reason
-        if self.defunct?
-            return 'defunct'
-        elsif self.not_apply?
-            return 'not_apply'
+        if defunct?
+            'defunct'
+        elsif not_apply?
+            'not_apply'
         elsif !has_request_email?
-            return 'bad_contact'
+            'bad_contact'
         else
             raise "not_requestable_reason called with type that has no reason"
         end
     end
 
     def special_not_requestable_reason?
-        self.defunct? || self.not_apply?
-    end
-
-
-    class Version
-
-        def last_edit_comment_for_html_display
-            text = self.last_edit_comment.strip
-            text = CGI.escapeHTML(text)
-            text = MySociety::Format.make_clickable(text)
-            text = text.gsub(/\n/, '<br>')
-            return text
-        end
-
-        def compare(previous = nil)
-          if previous.nil?
-            yield([])
-          else
-            v = self
-            changes = self.class.content_columns.inject([]) {|memo, c|
-              unless %w(version last_edit_editor last_edit_comment updated_at).include?(c.name)
-                from = previous.send(c.name)
-                to = self.send(c.name)
-                memo << { :name => c.human_name, :from => from, :to => to } if from != to
-              end
-              memo
-            }
-            changes.each do |change|
-              yield(change)
-            end
-          end
-        end
+        defunct? || not_apply?
     end
 
     def created_at_numeric
         # format it here as no datetime support in Xapian's value ranges
-        return self.created_at.strftime("%Y%m%d%H%M%S")
+        created_at.strftime("%Y%m%d%H%M%S")
     end
+
     def variety
-        return "authority"
-    end
-
-    # if the URL name has changed, then all requested_from: queries
-    # will break unless we update index for every event for every
-    # request linked to it
-    def reindex_requested_from
-        if self.changes.include?('url_name')
-            for info_request in self.info_requests
-
-                for info_request_event in info_request.info_request_events
-                    info_request_event.xapian_mark_needs_index
-                end
-            end
-        end
-    end
-
-    # Guess home page from the request email, or use explicit override, or nil
-    # if not known.
-    def calculated_home_page
-        if home_page && !home_page.empty?
-            home_page[URI::regexp(%w(http https))] ? home_page : "http://#{home_page}"
-        elsif request_email_domain
-            "http://www.#{request_email_domain}"
-        end
-    end
-
-    # Are all requests to this body under the Environmental Information Regulations?
-    def eir_only?
-        has_tag?('eir_only')
+        "authority"
     end
 
     def law_only_short
         eir_only? ? 'EIR' : 'FOI'
     end
 
-    # Schools are allowed more time in holidays, so we change some wordings
-    def is_school?
-        has_tag?('school')
-    end
-
-    def site_administration?
-        has_tag?('site_administration')
+    # Guess home page from the request email, or use explicit override, or nil
+    # if not known.
+    #
+    # TODO: PublicBody#calculated_home_page would be a good candidate to cache
+    # in an instance variable
+    def calculated_home_page
+        if home_page && !home_page.empty?
+            home_page[URI::regexp(%w(http https))] ? home_page : "http://#{home_page}"
+        elsif request_email_domain
+            "http://www.#{request_email_domain}"
+        end
     end
 
     # The "internal admin" is a special body for internal use.
@@ -334,9 +324,6 @@ class PublicBody < ActiveRecord::Base
         else
             raise "Multiple public bodies (#{matching_pbs.length}) found with url_name 'internal_admin_authority'"
         end
-    end
-
-    class ImportCSVDryRun < StandardError
     end
 
     # Import from a string in CSV format.
@@ -518,16 +505,10 @@ class PublicBody < ActiveRecord::Base
     # Does this user have the power of FOI officer for this body?
     def is_foi_officer?(user)
         user_domain = user.email_domain
-        our_domain = self.request_email_domain
+        our_domain = request_email_domain
 
-        if user_domain.nil? or our_domain.nil?
-            return false
-        end
-
-        return our_domain == user_domain
-    end
-    def foi_officer_domain_required
-        return self.request_email_domain
+        return false if user_domain.nil? or our_domain.nil?
+        our_domain == user_domain
     end
 
     def request_email
@@ -540,11 +521,15 @@ class PublicBody < ActiveRecord::Base
 
     # Domain name of the request email
     def request_email_domain
-        return PublicBody.extract_domain_from_email(self.request_email)
+        PublicBody.extract_domain_from_email(request_email)
     end
+
+    alias_method :foi_officer_domain_required, :request_email_domain
 
     # Return the domain part of an email address, canonicalised and with common
     # extra UK Government server name parts removed.
+    #
+    # TODO: Extract to library class
     def self.extract_domain_from_email(email)
         email =~ /@(.*)/
         if $1.nil?
@@ -562,45 +547,53 @@ class PublicBody < ActiveRecord::Base
         return ret
     end
 
+    # TODO: Could this be defined as `sorted_versions.reverse`?
     def reverse_sorted_versions
-        self.versions.sort { |a,b| b.version <=> a.version }
+        versions.sort { |a,b| b.version <=> a.version }
     end
+
     def sorted_versions
-        self.versions.sort { |a,b| a.version <=> b.version }
+        versions.sort { |a,b| a.version <=> b.version }
     end
 
     def has_notes?
-        return !self.notes.nil? && self.notes != ""
+        !notes.nil? && notes != ""
     end
+
+    # TODO: Deprecate this method. Its only used in a couple of views so easy to
+    # update to just call PublicBody#notes
     def notes_as_html
-        self.notes
+        notes
     end
 
     def notes_without_html
-        # assume notes are reasonably behaved HTML, so just use simple regexp on this
-        @notes_without_html ||= (self.notes.nil? ? '' : self.notes.gsub(/<\/?[^>]*>/, ""))
+        # assume notes are reasonably behaved HTML, so just use simple regexp
+        # on this
+        @notes_without_html ||= (notes.nil? ? '' : notes.gsub(/<\/?[^>]*>/, ""))
     end
 
     def json_for_api
-        return {
-            :id => self.id,
-            :url_name => self.url_name,
-            :name => self.name,
-            :short_name => self.short_name,
-            # :request_email  # we hide this behind a captcha, to stop people doing bulk requests easily
-            :created_at => self.created_at,
-            :updated_at => self.updated_at,
-            # don't add the history as some edit comments contain sensitive information
+        {
+            :id => id,
+            :url_name => url_name,
+            :name => name,
+            :short_name => short_name,
+            # :request_email  # we hide this behind a captcha, to stop people
+            # doing bulk requests easily
+            :created_at => created_at,
+            :updated_at => updated_at,
+            # don't add the history as some edit comments contain sensitive
+            # information
             # :version, :last_edit_editor, :last_edit_comment
-            :home_page => self.calculated_home_page,
-            :notes => self.notes,
-            :publication_scheme => self.publication_scheme,
-            :tags => self.tag_array,
+            :home_page => calculated_home_page,
+            :notes => notes,
+            :publication_scheme => publication_scheme,
+            :tags => tag_array,
         }
     end
 
     def purge_in_cache
-        self.info_requests.each {|x| x.purge_in_cache}
+        info_requests.each { |x| x.purge_in_cache }
     end
 
     def self.where_clause_for_stats(minimum_requests, total_column)
@@ -673,6 +666,7 @@ class PublicBody < ActiveRecord::Base
             'y_max' => 100,
             'totals' => original_totals}
     end
+
     def self.popular_bodies(locale)
         # get some example searches and public bodies to display
         # either from config, or based on a (slow!) query if not set
@@ -697,6 +691,70 @@ class PublicBody < ActiveRecord::Base
             end
         end
         return bodies
+    end
+
+    # Methods to privatise
+    # --------------------------------------------------------------------------
+
+    # TODO: This could be removed by updating the default value (to '') of the 
+    # `publication_scheme` column in the `public_body_translations` table.
+    #
+    # TODO: Can't actually deprecate this because spec/script/mailin_spec.rb:28
+    # fails due to the deprecation notice output
+    def set_default_publication_scheme
+      # warn %q([DEPRECATION] PublicBody#set_default_publication_scheme will
+      # become a private method in 0.23).squish
+
+      # Make sure publication_scheme gets the correct default value.
+      # (This would work automatically, were publication_scheme not a
+      # translated attribute)
+      self.publication_scheme = "" if publication_scheme.nil?
+    end
+
+    # if the URL name has changed, then all requested_from: queries
+    # will break unless we update index for every event for every
+    # request linked to it
+    #
+    # TODO: Can't actually deprecate this because spec/script/mailin_spec.rb:28
+    # fails due to the deprecation notice output
+    def reindex_requested_from
+        # warn %q([DEPRECATION] PublicBody#reindex_requested_from will become a
+        # private method in 0.23).squish
+
+        if changes.include?('url_name')
+            info_requests.each do |info_request|
+                info_request.info_request_events.each do |info_request_event|
+                    info_request_event.xapian_mark_needs_index
+                end
+            end
+        end
+    end
+
+    # Methods to remove
+    # --------------------------------------------------------------------------
+
+    # Set the first letter on a public body or translation
+    def self.set_first_letter(instance)
+        warn %q([DEPRECATION] PublicBody.set_first_letter will be removed
+        in 0.23).squish
+
+        unless instance.name.nil? or instance.name.empty?
+            # we use a regex to ensure it works with utf-8/multi-byte
+            first_letter = Unicode.upcase instance.name.scan(/^./mu)[0]
+            if first_letter != instance.first_letter
+                instance.first_letter = first_letter
+            end
+        end
+    end
+
+    def calculate_cached_fields(t)
+        warn %q([DEPRECATION] PublicBody#calculate_cached_fields will be removed
+        in 0.23).squish
+
+        PublicBody.set_first_letter(t)
+        short_long_name = t.name
+        short_long_name = t.short_name if t.short_name and !t.short_name.empty?
+        t.url_name = MySociety::Format.simplify_url_part(short_long_name, 'body')
     end
 
     private
