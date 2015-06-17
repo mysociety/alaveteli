@@ -38,7 +38,7 @@ ttf-bitstream-vera
 unrtf
 unzip
 uuid-dev
-wkhtmltopdf-static
+wkhtmltopdf-static | wkhtmltopdf
 wv
 xapian-tools
 #xlhtml
