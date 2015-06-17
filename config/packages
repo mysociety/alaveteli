@@ -28,9 +28,9 @@ python-yaml
 rake (>= 0.9.2.2)
 rdoc | rdoc1.8
 ruby
-ruby1.8
-ruby1.8-dev
-rubygems (>= 1.8.15)
+ruby1.8 | ruby2.1
+ruby1.8-dev | ruby2.1-dev
+rubygems (>= 1.8.15) | ruby
 sharutils
 sqlite3
 tnef (>= 1.4.5)
