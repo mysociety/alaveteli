@@ -5,6 +5,10 @@
 # Email: hello@mysociety.org. WWW: http://www.mysociety.org/
 
 PATH=/usr/local/bin:/usr/bin:/bin
+# Uncomment the following line if running under rbenv - we want this cron to run
+# in the context of the ruby version defined for the site
+# PATH=/home/!!(*= $user *)!!/.rbenv/shims:/usr/local/bin:/usr/bin:/bin
+
 MAILTO=!!(*= $mailto *)!!
 
 # Every 5 minutes
