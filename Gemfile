@@ -21,6 +21,7 @@ gem 'mahoro', '~> 0.4'
 gem 'memcache-client', '~> 1.8.5'
 gem 'net-http-local', '~> 0.1.2', :platforms => [:ruby_18, :ruby_19]
 gem 'net-purge', '~> 0.1.0'
+gem 'nokogiri', '~> 1.5.9'
 gem 'open4', '~> 1.3.4'
 gem 'rack', '~> 1.4.6'
 if RUBY_VERSION.to_f >= 1.9
@@ -69,7 +70,6 @@ group :test do
   gem 'fakeweb', '~> 1.3.0'
   gem 'coveralls', :require => false
   gem 'webrat', '~> 0.7.3'
-  gem 'nokogiri', '~> 1.5.9'
 end
 
 group :test, :development do
