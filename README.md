@@ -68,3 +68,5 @@ We have some more notes for developers [on the project site](http://alaveteli.or
 * [KiMitTud](http://kimittud.atlatszo.hu)
 * [Informace Pro Všechny](http://www.infoprovsechny.cz)
 * [fyi.org.nz](https://fyi.org.nz)
+
+See more at [alaveteli.org](http://alaveteli.org/deployments/).
