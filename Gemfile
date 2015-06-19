@@ -22,7 +22,7 @@ gem 'memcache-client', '~> 1.8.5'
 gem 'net-http-local', '~> 0.1.2', :platforms => [:ruby_18, :ruby_19]
 gem 'net-purge', '~> 0.1.0'
 gem 'open4', '~> 1.3.4'
-gem 'rack', '~> 1.4.5'
+gem 'rack', '~> 1.4.6'
 if RUBY_VERSION.to_f >= 1.9
   gem 'rack-utf8_sanitizer', '~> 1.3.0'
 end
