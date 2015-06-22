@@ -24,9 +24,7 @@ gem 'net-purge', '~> 0.1.0'
 gem 'nokogiri', '~> 1.5.9'
 gem 'open4', '~> 1.3.4'
 gem 'rack', '~> 1.4.6'
-if RUBY_VERSION.to_f >= 1.9
-  gem 'rack-utf8_sanitizer', '~> 1.3.0'
-end
+gem 'rack-utf8_sanitizer', '~> 1.3.0', :platforms => :ruby_19
 gem 'rake', '0.9.2.2'
 gem 'rails-i18n', '~> 0.7.3'
 gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'

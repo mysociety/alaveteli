@@ -85,7 +85,7 @@ module Alaveteli
     config.middleware.insert_before ::ActionDispatch::Cookies, WhatDoTheyKnow::StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
 
     # Strip non-UTF-8 request parameters
-    if RUBY_VERSION.to_f >= 1.9
+    if RUBY_VERSION == '1.9.3'
         config.middleware.insert 0, Rack::UTF8Sanitizer
     end
 
