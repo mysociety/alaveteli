@@ -24,9 +24,9 @@
 * Capistrano now caches themes in `shared/themes`. Run the `deploy:setup` task
   to create the shared directory before making a new code deploy.
 * If you handle attachment text in your theme, note that:
-    * FoiAttachment#body will always return a binary encoded string
-    * FoiAttachment#body_as_text will always return a UTF-8 encoded string
-    * FoiAttachment#default_body will return a UTF-8 encoded string for text
+    * `FoiAttachment#body` will always return a binary encoded string
+    * `FoiAttachment#body_as_text` will always return a UTF-8 encoded string
+    * `FoiAttachment#default_body` will return a UTF-8 encoded string for text
       content types, and a binary encoded string for all other types.
 
 # Version 0.21
