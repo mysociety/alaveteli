@@ -2,17 +2,32 @@
 
 ## Highlighted Features
 * There is experimental support for using an STMP server, rather than sendmail,
-  for outgoing mail. There is not yet any ability to retry if the SMTP server is 
-  unavailable. 
+  for outgoing mail. There is not yet any ability to retry if the SMTP server is
+  unavailable.
 * HTML 'widgets' advertising requests can be displayed on other sites in iframes.
   If 'ENABLE_WIDGETS' is set to true in `general.yml` (the default is false), a link
   to the widget code will appear in the right hand sidebar of a request page.
 * Capistrano now caches themes (Henare Degan).
+* Upgrades and fixes for security announcements CVE-2015-3225, CVE-2015-3227 and
+  CVE-2015-1840 (Louise Crow).
+* Attachment text conversion to UTF-8 is now handled in a clearer way by the
+  `FoiAttachment` model. Censor rules are applied with the appropriate encoding
+  (Louise Crow).
+* A rake task `temp:fix_invalid_utf8` has been added to help people migrating an
+  Alaveteli install from ruby 1.8.7 to a later ruby version (Louise Crow).
+* An example wrapper script, `config/run-with-rbenv-path` has been added to run
+  the mail scripts using the ruby version set by `rbenv`. Example code for this
+  has also been added to the daemon and cron example files.
 
 ## Upgrade Notes
 
 * Capistrano now caches themes in `shared/themes`. Run the `deploy:setup` task
-  to create the shared directory before making a new code deploy. 
+  to create the shared directory before making a new code deploy.
+* If you handle attachment text in your theme, note that:
+    * FoiAttachment#body will always return a binary encoded string
+    * FoiAttachment#body_as_text will always return a UTF-8 encoded string
+    * FoiAttachment#default_body will return a UTF-8 encoded string for text
+      content types, and a binary encoded string for all other types.
 
 # Version 0.21
 
