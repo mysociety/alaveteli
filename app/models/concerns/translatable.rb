@@ -29,12 +29,6 @@ module Translatable
     end
   end
 
-  def translated_versions=(translation_attrs)
-      warn "[DEPRECATION] #{self.class.name}#translated_versions= will be replaced " \
-           "by #{self.class.name}#translations_attributes= as of release 0.22"
-      self.translations_attributes = translation_attrs
-  end
-
   private
 
   def empty_translation_in_params?(attributes)
