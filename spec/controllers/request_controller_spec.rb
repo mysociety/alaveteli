@@ -608,7 +608,7 @@ describe RequestController, "when showing one request" do
             response.body.should match('dull')
         end
 
-        it "should censor attachments downloaded as binary" do
+        it "should censor attachments downloaded directly" do
             ir = info_requests(:fancy_dog_request)
 
             censor_rule = CensorRule.new
@@ -623,7 +623,7 @@ describe RequestController, "when showing one request" do
 
                 get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
                 response.content_type.should == "text/plain"
-                response.should contain "xxxxxx hello"
+                response.should contain "Mouse hello"
             ensure
                 ir.censor_rules.clear
             end
@@ -645,7 +645,7 @@ describe RequestController, "when showing one request" do
 
                 get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => 'hello world.txt', :skip_cache => 1
                 response.content_type.should == "text/plain"
-                response.should contain "xxxxxx hello"
+                response.should contain "Mouse hello"
             ensure
                 ir.user.censor_rules.clear
             end
