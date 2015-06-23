@@ -21,6 +21,22 @@ namespace :config_files do
         converted_lines
     end
 
+    desc 'Convert wrapper example in config to a form suitable for running mail handling scripts with rbenv'
+    task :convert_wrapper => :environment do
+        example = 'rake config_files:convert_wrapper DEPLOY_USER=deploy SCRIPT_FILE=config/run-with-rbenv-path.example'
+        check_for_env_vars(['DEPLOY_USER',
+                            'SCRIPT_FILE'], example)
+
+        replacements = {
+            :user => ENV['DEPLOY_USER'],
+        }
+
+        # Generate the template for potential further processing
+        convert_ugly(ENV['SCRIPT_FILE'], replacements).each do |line|
+            puts line
+        end
+    end
+
     desc 'Convert Debian example init script in config to a form suitable for installing in /etc/init.d'
     task :convert_init_script => :environment do
         example = 'rake config_files:convert_init_script DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli SITE=alaveteli SCRIPT_FILE=config/alert-tracks-debian.example'
