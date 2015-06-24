@@ -24,6 +24,10 @@ DUSER=!!(*= $user *)!!
 # RAILS_ENV=your_rails_env
 # export RAILS_ENV
 
+# Uncomment the following line if running under rbenv - we want this daemon to run
+# in the context of the ruby version defined for the site
+# PATH=/home/!!(*= $user *)!!/.rbenv/shims:/usr/local/bin:/usr/bin:/bin
+
 trap "" 1
 
 export PIDFILE LOGFILE

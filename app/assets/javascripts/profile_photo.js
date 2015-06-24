@@ -1,49 +1,59 @@
-// Remember to invoke within jQuery(window).load(...)
-// If you don't, Jcrop may not initialize properly
-jQuery(window).load(function(){
-    // The size of the initial selection (largest, centreted rectangle)
-    var w = jQuery('#profile_photo_cropbox').width();
-    var h = jQuery('#profile_photo_cropbox').height();
-    var t = 0;
-    var l = 0;
-    var initial;
-    if (h < w) {
-        initial = h;
-        l = (w - initial) / 2;
-    } else {
-        initial = w;
-        t = (h - initial) / 2;
-    }
+(function($) {
 
-    jQuery('#profile_photo_cropbox').Jcrop({
-        onChange: showPreview,
-        onSelect: showPreview,
-        aspectRatio: 1,
-        setSelect: [ l, t, initial, initial ]
-    });
+    $(function(){
 
-});
+        // The size of the initial selection (largest, centreted rectangle)
+        var w = jQuery('#profile_photo_cropbox').width();
+        var h = jQuery('#profile_photo_cropbox').height();
+        var t = 0;
+        var l = 0;
+        var initial;
+        if (h < w) {
+            initial = h;
+            l = (w - initial) / 2;
+        } else {
+            initial = w;
+            t = (h - initial) / 2;
+        }
 
-// Our simple event handler, called from onChange and onSelect
-// event handlers, as per the Jcrop invocation above
-function showPreview(coords)
-{
-    if (parseInt(coords.w) > 0)
-    {
-        var rx = 100 / coords.w;
-        var ry = 100 / coords.h;
+        var jcrop_api;
+        var bounds, boundx, boundy;
 
-        jQuery('#profile_photo_preview').css({
-            width: Math.round(rx * jQuery('#profile_photo_cropbox').width()) + 'px',
-            height: Math.round(ry * jQuery('#profile_photo_cropbox').height()) + 'px',
-            marginLeft: '-' + Math.round(rx * coords.x) + 'px',
-            marginTop: '-' + Math.round(ry * coords.y) + 'px'
+        $('#profile_photo_cropbox').Jcrop({
+            onChange: showPreview,
+            onSelect: showPreview,
+            aspectRatio: 1
+        },function(){
+            jcrop_api = this;
+            bounds = jcrop_api.getBounds();
+            boundx = bounds[0];
+            boundy = bounds[1];
         });
 
-        $('#x').val(coords.x);
-        $('#y').val(coords.y);
-        $('#w').val(coords.w);
-        $('#h').val(coords.h);
-    }
-}
+        jcrop_api.setSelect([ l, t, initial, initial ]);
+
+        function showPreview(coords)
+        {
+            if (parseInt(coords.w) > 0)
+            {
+                var rx = 100 / coords.w;
+                var ry = 100 / coords.h;
+
+                $('#profile_photo_preview').css({
+                    width: Math.round(rx * boundx) + 'px',
+                    height: Math.round(ry * boundy) + 'px',
+                    marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+                    marginTop: '-' + Math.round(ry * coords.y) + 'px'
+                });
+
+                $('#x').val(coords.x);
+                $('#y').val(coords.y);
+                $('#w').val(coords.w);
+                $('#h').val(coords.h);
+            }
+        };
+
+    });
+
+}(jQuery));
 

@@ -8,7 +8,7 @@ OUTPUT=$(mktemp -t foi-mailin-output-XXXXXXXX)
 # Read the email message from stdin, and write it to the file $INPUT
 cat >"$INPUT"
 
-cd "$(dirname "$0")"/..
+cd "$(dirname "${BASH_SOURCE[0]}")"/..
 source commonlib/shlib/deployfns
 
 read_conf config/general

@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "When handling bad requests" do
 
-    if RUBY_VERSION.to_f >= 1.9
+    if RUBY_VERSION == '1.9.3'
 
         it 'should return a 404 for GET requests to a malformed request URL' do
             get 'request/228%85'

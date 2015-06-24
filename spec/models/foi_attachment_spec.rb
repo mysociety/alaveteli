@@ -50,6 +50,80 @@ describe FoiAttachment do
 
     end
 
+    describe :body do
+
+        it 'returns a binary encoded string when newly created' do
+            foi_attachment = FactoryGirl.create(:body_text)
+            if String.method_defined?(:encode)
+                expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
+            end
+        end
+
+
+        it 'returns a binary encoded string when saved' do
+            foi_attachment = FactoryGirl.create(:body_text)
+            foi_attachment = FoiAttachment.find(foi_attachment)
+            if String.method_defined?(:encode)
+                expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
+            end
+        end
+
+    end
+
+    describe :body_as_text do
+
+        it 'has a valid UTF-8 string when newly created' do
+            foi_attachment = FactoryGirl.create(:body_text)
+            if String.method_defined?(:encode)
+                expect(foi_attachment.body_as_text.string.encoding.to_s).to eq('UTF-8')
+                expect(foi_attachment.body_as_text.string.valid_encoding?).to be_true
+            end
+        end
+
+        it 'has a valid UTF-8 string when saved' do
+            foi_attachment = FactoryGirl.create(:body_text)
+            foi_attachment = FoiAttachment.find(foi_attachment)
+            if String.method_defined?(:encode)
+                expect(foi_attachment.body_as_text.string.encoding.to_s).to eq('UTF-8')
+                expect(foi_attachment.body_as_text.string.valid_encoding?).to be_true
+            end
+        end
+
+
+        it 'has a true scrubbed? value if the body has been coerced to valid UTF-8' do
+            foi_attachment = FactoryGirl.create(:body_text)
+            foi_attachment.body = "\x0FX\x1C\x8F\xA4\xCF\xF6\x8C\x9D\xA7\x06\xD9\xF7\x90lo"
+            expect(foi_attachment.body_as_text.scrubbed?).to be_true
+        end
+
+        it 'has a false scrubbed? value if the body has not been coerced to valid UTF-8' do
+            foi_attachment = FactoryGirl.create(:body_text)
+            foi_attachment.body = "κόσμε"
+            expect(foi_attachment.body_as_text.scrubbed?).to be_false
+        end
+
+    end
+
+    describe :default_body do
+
+        it 'returns valid UTF-8 for a text attachment' do
+            foi_attachment = FactoryGirl.create(:body_text)
+            if String.method_defined?(:encode)
+                expect(foi_attachment.default_body.encoding.to_s).to eq('UTF-8')
+                expect(foi_attachment.default_body.valid_encoding?).to be_true
+            end
+        end
+
+        it 'returns binary for a PDF attachment' do
+            foi_attachment = FactoryGirl.create(:pdf_attachment)
+            if String.method_defined?(:encode)
+                expect(foi_attachment.default_body.encoding.to_s).to eq('ASCII-8BIT')
+            end
+        end
+
+    end
+
+
     describe :ensure_filename! do
 
         it 'should create a filename for an instance with a blank filename' do

@@ -4,6 +4,16 @@
 
 ## Highlighted Features
 
+* Upgrades and fixes for security announcements CVE-2015-3225, CVE-2015-3227 and
+  CVE-2015-1840 (Louise Crow).
+* Attachment text conversion to UTF-8 is now handled in a clearer way by the
+  `FoiAttachment` model. Censor rules are applied with the appropriate encoding
+  (Louise Crow).
+* A rake task `temp:fix_invalid_utf8` has been added to help people migrating an
+  Alaveteli install from ruby 1.8.7 to a later ruby version (Louise Crow).
+* An example wrapper script, `config/run-with-rbenv-path` has been added to run
+  the mail scripts using the ruby version set by `rbenv`. Example code for this
+  has also been added to the daemon and cron example files.
 * Remove dependency on tools provided by sharutils package (Gareth Rees).
 * Use rack-utf8_sanitizer to handle badly-formed UTF-8 in request URI and
   headers (Louise Crow).
@@ -84,6 +94,11 @@
 * Add the ttf-bitstream-vera package to provide Vera.ttf to the cron jobs.
 * Alaveteli no longer requires the sharutils package.
 * Remember to `rake db:migrate` and `git submodule update`
+* If you handle attachment text in your theme, note that:
+    * `FoiAttachment#body` will always return a binary encoded string
+    * `FoiAttachment#body_as_text` will always return a UTF-8 encoded string
+    * `FoiAttachment#default_body` will return a UTF-8 encoded string for text
+      content types, and a binary encoded string for all other types.
 
 ### Changed Templates
 
