@@ -73,18 +73,27 @@ def convert_string_to_utf8_or_binary(s, suggested_character_encoding=nil)
     result
 end
 
+class StringConversionResult < Struct.new(:string, :scrubbed)
+  alias_method :scrubbed?, :scrubbed
+end
+
 def convert_string_to_utf8(s, suggested_character_encoding=nil)
     begin
         result = normalize_string_to_utf8 s, suggested_character_encoding
+        StringConversionResult.new(result, false)
     rescue EncodingNormalizationError
-        result = s
-        if String.method_defined?(:encode)
-            result = s.force_encoding("utf-8").encode("utf-8", :invalid => :replace,
-                                                               :undef => :replace,
-                                                               :replace => "")
-        end
+        result = scrub(s)
+        StringConversionResult.new(result, true)
     end
-    result
+end
+
+def scrub(string)
+    if String.method_defined?(:encode)
+        string = string.force_encoding("utf-8")
+        string.valid_encoding? ? string : string.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
+    else
+        Iconv.conv('UTF-8//IGNORE', 'UTF-8', string)
+    end
 end
 
 def log_text_details(message, text)

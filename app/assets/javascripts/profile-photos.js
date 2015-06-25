@@ -1,3 +1,3 @@
 // ...
-//= require jquery.Jcrop
+//= require jquery.Jcrop.min
 //= require profile_photo

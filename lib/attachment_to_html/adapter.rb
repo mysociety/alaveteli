@@ -61,7 +61,7 @@ module AttachmentToHTML
     end
 
     def attachment_body
-      @attachment_body ||= attachment.body
+      @attachment_body ||= attachment.default_body
     end
   end
 end

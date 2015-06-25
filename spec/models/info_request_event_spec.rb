@@ -111,8 +111,7 @@ describe InfoRequestEvent do
     describe "should know" do
 
         it "that it's an incoming message" do
-            event = InfoRequestEvent.new
-            event.stub!(:incoming_message_selective_columns).and_return(1)
+            event = InfoRequestEvent.new(:incoming_message => mock_model(IncomingMessage))
             event.is_incoming_message?.should be_true
             event.is_outgoing_message?.should be_false
             event.is_comment?.should be_false

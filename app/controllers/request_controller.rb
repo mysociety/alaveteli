@@ -763,12 +763,12 @@ class RequestController < ApplicationController
 
         # Prevent spam to magic request address. Note that the binary
         # subsitution method used depends on the content type
-        @incoming_message.apply_masks!(@attachment.body, @attachment.content_type)
+        body = @attachment.default_body
+        @incoming_message.apply_masks!(body, @attachment.content_type)
         if response.content_type == 'text/html'
-            @attachment.body = ActionController::Base.helpers.sanitize(@attachment.body)
+            body = ActionController::Base.helpers.sanitize(body)
         end
-
-        render :text => @attachment.body
+        render :text => body
     end
 
     def get_attachment_as_html

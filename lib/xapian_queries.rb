@@ -77,10 +77,10 @@ module XapianQueries
     end
 
     def make_query_from_params(params)
-        query = params[:query] || "" if query.nil?
+        query = params.fetch(:query) { '' }
         query += get_date_range_from_params(params)
         query += get_request_variety_from_params(params)
         query += get_status_from_params(params)
-        return query
+        query
     end
 end

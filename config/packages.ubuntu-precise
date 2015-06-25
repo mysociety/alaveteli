@@ -24,7 +24,6 @@ ruby-bundler
 ruby1.9.1
 ruby1.9.1-dev
 rubygems
-sharutils
 sqlite3
 tnef
 ttf-bitstream-vera

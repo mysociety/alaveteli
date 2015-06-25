@@ -8,6 +8,21 @@ module AlaveteliTextMasker
                         'image/bmp',
                         'application/zip' ]
 
+    TextMask = [ 'text/css',
+                 'text/csv',
+                 'text/html',
+                 'text/plain',
+                 'text/rfc822-headers',
+                 'text/rtf',
+                 'text/tab-separated-values',
+                 'text/x-c',
+                 'text/x-diff',
+                 'text/x-fortran',
+                 'text/x-mail',
+                 'text/xml',
+                 'text/x-pascal',
+                 'text/x-vcard' ]
+
     # Replaces all email addresses in (possibly binary) data
     # Also applies custom masks and censor items
     def apply_masks!(text, content_type, options = {})
@@ -19,7 +34,7 @@ module AlaveteliTextMasker
         case content_type
             when *DoNotBinaryMask
                 # do nothing
-            when 'text/html'
+            when *TextMask
                 apply_text_masks!(text, options)
             when 'application/pdf'
                 apply_pdf_masks!(text, options)
@@ -79,7 +94,7 @@ module AlaveteliTextMasker
     # Replace text in place
     def apply_binary_masks!(text, options = {})
         # Keep original size, so can check haven't resized it
-        orig_size = text.mb_chars.size
+        orig_size = text.size
 
         # Replace ASCII email addresses...
         text.gsub!(MySociety::Validate.email_find_regexp) do |email|
@@ -114,7 +129,7 @@ module AlaveteliTextMasker
         # Replace censor items
         censor_rules = options[:censor_rules] || []
         censor_rules.each{ |censor_rule| censor_rule.apply_to_binary!(text) }
-        raise "internal error in apply_binary_masks!" if text.mb_chars.size != orig_size
+        raise "internal error in apply_binary_masks!" if text.size != orig_size
         return text
     end
 

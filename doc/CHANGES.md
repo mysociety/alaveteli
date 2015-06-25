@@ -2,17 +2,32 @@
 
 ## Highlighted Features
 * There is experimental support for using an STMP server, rather than sendmail,
-  for outgoing mail. There is not yet any ability to retry if the SMTP server is 
-  unavailable. 
+  for outgoing mail. There is not yet any ability to retry if the SMTP server is
+  unavailable.
 * HTML 'widgets' advertising requests can be displayed on other sites in iframes.
   If 'ENABLE_WIDGETS' is set to true in `general.yml` (the default is false), a link
   to the widget code will appear in the right hand sidebar of a request page.
 * Capistrano now caches themes (Henare Degan).
+* Upgrades and fixes for security announcements CVE-2015-3225, CVE-2015-3227 and
+  CVE-2015-1840 (Louise Crow).
+* Attachment text conversion to UTF-8 is now handled in a clearer way by the
+  `FoiAttachment` model. Censor rules are applied with the appropriate encoding
+  (Louise Crow).
+* A rake task `temp:fix_invalid_utf8` has been added to help people migrating an
+  Alaveteli install from ruby 1.8.7 to a later ruby version (Louise Crow).
+* An example wrapper script, `config/run-with-rbenv-path` has been added to run
+  the mail scripts using the ruby version set by `rbenv`. Example code for this
+  has also been added to the daemon and cron example files.
 
 ## Upgrade Notes
 
 * Capistrano now caches themes in `shared/themes`. Run the `deploy:setup` task
-  to create the shared directory before making a new code deploy. 
+  to create the shared directory before making a new code deploy.
+* If you handle attachment text in your theme, note that:
+    * `FoiAttachment#body` will always return a binary encoded string
+    * `FoiAttachment#body_as_text` will always return a UTF-8 encoded string
+    * `FoiAttachment#default_body` will return a UTF-8 encoded string for text
+      content types, and a binary encoded string for all other types.
 
 # Version 0.21
 
@@ -480,7 +495,7 @@ Example:
 `rm public/download`
 * This release upgrades the assumed version of Ubuntu from lucid (10.04) to precise (12.04)
 * This release upgrades rubygems in config/packages - version 1.8.15 is available from squeeze-backports on Debian or by default in Ubuntu precise. This upgrade may result in "invalid date format in specification:" errors - these should be fixable by manually deleting the gems specs that are being referenced in the error and re-running rails-post-deploy
-* If you would like to have a public body statistics page (this will be publicly available), set the `PUBLIC_BODY_STATISTICS_PAGE` param in general.yml to `true`. You should also add a new cron job based on the one in config/crontab-example `https://github.com/mysociety/alaveteli/blob/rails-3-develop/config/crontab-example#L29` to update the public body stats each day.
+* If you would like to have a public body statistics page (this will be publicly available), set the `PUBLIC_BODY_STATISTICS_PAGE` param in general.yml to `true`. You should also add a new cron job based on the one in config/crontab-example `https://github.com/mysociety/alaveteli/blob/develop/config/crontab-example#L29` to update the public body stats each day.
 * If you would like the public body list page to include bodies that have no translation in the current locale, but do have a translation in the default locale, add a `PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE` param set to `true` to your config/general.yml file.
 
 

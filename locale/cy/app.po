@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-03-27 14:31+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
@@ -155,8 +155,15 @@ msgstr "Cadwch at <strong>y prif bwynt</strong>. Byddwch yn fwy tebygol o gael b
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Mewngofnodi</a> i newid cyfrinair, tanysgrifiadau a mwy ({{user_name}} yn unig)"
 
-msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>."
-msgstr "Os ydych yn ystyried defnyddio ffugenw, <a href=\"{{url}}\">darllenwch hwn yn gyntaf</a> os gwelwch yn dda."
+msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
+msgstr ""
+
+msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
+msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Wedi gorffen! Diolch yn fawr am eich help.</p><p>Mae <a href=\"{{helpus_url}}\">rhagor o bethau i'w wneud</a> er mwyn helpu {{site_name}}.</p>"
@@ -464,11 +471,20 @@ msgstr "Ebost awdurdod:"
 msgid "Authority:"
 msgstr "Awdurdod:"
 
+msgid "Awaiting clarification"
+msgstr ""
+
+msgid "Awaiting classification"
+msgstr ""
+
 msgid "Awaiting classification."
 msgstr "Yn aros am gael ei ddosbarthu."
 
 msgid "Awaiting internal review."
 msgstr "Yn aros am adolygiad mewnol."
+
+msgid "Awaiting response"
+msgstr ""
 
 msgid "Awaiting response."
 msgstr "Yn aros am ymateb."
@@ -677,6 +693,9 @@ msgstr "Methwyd â deall y ffeil ddelwedd yr ydych yn llwytho i fyny. Cefnogir P
 msgid "Create a new account"
 msgstr ""
 
+msgid "Create a widget for this request"
+msgstr ""
+
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr "Crëwyd gan {{info_request_user}} ar {{date}}."
 
@@ -706,6 +725,9 @@ msgstr "Annwyl {{user_name}},"
 
 msgid "Defunct."
 msgstr "Wedi darfod."
+
+msgid "Delayed"
+msgstr ""
 
 msgid "Delayed response to your FOI request - "
 msgstr "Ymateb hwyr i'ch cais Rh.G. -"
@@ -1008,6 +1030,9 @@ msgstr "RHOWCH FANYLION AM EICH CWYN YMA"
 msgid "Got an account?"
 msgstr ""
 
+msgid "Handled by post"
+msgstr ""
+
 msgid "Handled by post."
 msgstr "Wedi ei drin gan bost."
 
@@ -1076,6 +1101,9 @@ msgstr "Fodd bynnag, mae gennych yr hawl i ofyn am wybodaeth amgylcheddol dan gy
 
 msgid "Human health and safety"
 msgstr "Iechyd dynol a diogelwch"
+
+msgid "I also want to know!"
+msgstr ""
 
 msgid "I am asking for <strong>new information</strong>"
 msgstr "Rwyf yn gofyn am <strong>wybodaeth newydd</strong>"
@@ -1311,6 +1339,12 @@ msgstr "Gwybodaeth heb ei gadw."
 msgid "Information on emissions and discharges (e.g. noise, energy,\\n      radiation, waste materials)"
 msgstr "Gwybodaeth am allyriadau a gollyngiadau (ee sŵn, ynni, ymbelydredd, deunyddiau gwastraff)"
 
+msgid "Internal review"
+msgstr ""
+
+msgid "Internal review of {{email_subject}}"
+msgstr ""
+
 msgid "Internal review request"
 msgstr "Cais am adolygiad mewnol"
 
@@ -1382,6 +1416,9 @@ msgstr "Mewngofnodi i lawrlwytho ffeil zip o {{info_request_title}} "
 
 msgid "Log into the admin interface"
 msgstr "Logio i mewn i'r rhyngwyneb gweinyddu"
+
+msgid "Long overdue"
+msgstr ""
 
 msgid "Long overdue."
 msgstr "Yn hwyr iawn"
@@ -1488,6 +1525,9 @@ msgstr "Ni all yr enw fod yn wag"
 msgid "Name is already taken"
 msgstr "Mae'r enw wedi'i ddefnyddio'n barod"
 
+msgid "Needs admin attention"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Ceisiadau Rhyddid Gwybodaeth newydd"
 
@@ -1556,6 +1596,12 @@ msgstr "Ddim yn gais Rhyddid Gwybodaeth dilys"
 
 msgid "Not a valid request"
 msgstr "Dim yn gais dilys"
+
+msgid "Not an FOI request"
+msgstr ""
+
+msgid "Not held"
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Noder na fydd y ceisydd yn cael gwybod am eich anodi, oherwydd i'r cais gael ei gyhoeddi gan {{public_body_name}} ar eu rhan."
@@ -1655,6 +1701,9 @@ msgstr "OutgoingMessage|Statws"
 
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|Beth sy'n digwydd"
+
+msgid "Partial success"
+msgstr ""
 
 msgid "Partially successful."
 msgstr "Rhannol lwyddiannus."
@@ -2113,6 +2162,9 @@ msgstr "Canlyniadau a ddisgrifiwyd yn ddiweddar yn gyntaf"
 msgid "Refused."
 msgstr "Gwrthodwyd."
 
+msgid "Rejected"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr ""
 
@@ -2238,9 +2290,6 @@ msgstr "Chwilio cyfraniadau gan y person hwn"
 
 msgid "Search for the authorities you'd like information from:"
 msgstr "Chwiliwch am yr awdurdodau hoffech gael wybodaeth ganddynt:"
-
-msgid "Search for words in:"
-msgstr "Chwilio am eiriau yn:"
 
 msgid "Search in"
 msgstr "Chwilio mewn"
@@ -2408,6 +2457,9 @@ msgstr "Pwnc:"
 msgid "Submit"
 msgstr "Cyflwyno"
 
+msgid "Submit Search"
+msgstr ""
+
 msgid "Submit request"
 msgstr "Cyflwyno'r cais"
 
@@ -2423,8 +2475,14 @@ msgstr "Tanysgrifio i flog"
 msgid "Success"
 msgstr "Llwyddiant"
 
+msgid "Successful"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Ceisiadau Rhyddid Gwybodaeth llwyddiannus"
+
+msgid "Successful requests"
+msgstr ""
 
 msgid "Successful."
 msgstr "Llwyddiannus."
@@ -2763,6 +2821,9 @@ msgstr "Dyma'r fersiwn gyntaf."
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Dyma'ch eich cais eich hun, felly byddwch yn cael e-bost yn awtomatig pan fydd ymatebion newydd yn cyrraedd."
 
+msgid "This is your request"
+msgstr ""
+
 msgid "This message has been hidden."
 msgstr "Mae'r neges hon wedi cael ei chuddio."
 
@@ -3029,8 +3090,14 @@ msgstr "Yn anffodus, nid oes gennym cyfeiriad cywir ar gyfer {{public_body_names
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr "Yn anffodus, nid oes gennym cyfeiriad {{info_request_law_used_full}} sy'n gweithio ar gyfer"
 
+msgid "Unknown"
+msgstr ""
+
 msgid "Unsubscribe"
 msgstr "Dad-danysgrifio"
+
+msgid "Unusual response"
+msgstr ""
 
 msgid "Unusual response."
 msgstr "Ymateb anarferol."
@@ -3241,6 +3308,15 @@ msgstr "Gan bwy y gallaf ofyn cael y wybodaeth?"
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr "Am ba reswm penodol ydych yn ystyried y cais yn anaddas?"
 
+msgid "Widget vote"
+msgstr ""
+
+msgid "WidgetVote|Cookie"
+msgstr ""
+
+msgid "Withdrawn"
+msgstr ""
+
 msgid "Withdrawn by the requester."
 msgstr "Fe'i tynnwyd yn ôl gan y ceisydd."
 
@@ -3339,6 +3415,9 @@ msgstr "Rydych yn awr <a href=\"{{wall_url_user}}\">yn dilyn</a> diweddariadau a
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr "Rydych yn awr <a href=\"{{wall_url_user}}\">yn dilyn</a> diweddariadau am <a href=\"{{successful_requests_url}}\"> geisiadau llwyddiannus</a>."
+
+msgid "You are tracking this request"
+msgstr ""
 
 msgid "You can <strong>complain</strong> by"
 msgstr "Gallwch <strong>gwyno</strong> drwy"
@@ -3471,6 +3550,9 @@ msgstr "Eich cyfeiriad e-bost:"
 
 msgid "Your email doesn't look like a valid address"
 msgstr "Dyw'ch ebost ddim yn edrych fel cyfeiriad cywir."
+
+msgid "Your email:"
+msgstr ""
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr "Nid yw eich neges ddilynol wedi cael ei hanfon gan fod y cais hwn wedi cael ei stopio i atal spam. <a href=\"{{url}}\"> Cysylltwch â ni </a> os ydych wir eisiau anfon neges ddilynol."

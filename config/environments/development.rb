@@ -32,7 +32,7 @@ Alaveteli::Application.configure do
   # MemoryProfiler.start :string_debug => true, :delay => 10
 
   # Print deprecation notices to the Rails logger
-  config.active_support.deprecation = :log
+  config.active_support.deprecation = :stderr
 
   # Do not compress assets
   config.assets.compress = false

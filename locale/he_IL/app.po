@@ -12,7 +12,7 @@
 # rshlo <r@roishlomi.com>, 2013
 # Yair Uziel <yair.uziel@gmail.com>, 2013-2014
 # Yair Uziel <yair.uziel@gmail.com>, 2013
-# yehuda <yehudab@gmail.com>, 2013-2014
+# yehuda <yehudab@gmail.com>, 2013-2015
 # yehuda <yehudab@gmail.com>, 2013
 # yoniYalovitsky <yoni@yalovitsky.com>, 2013
 # yoniYalovitsky <yoni@yalovitsky.com>, 2013
@@ -23,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-03-24 11:15+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -156,8 +156,13 @@ msgstr "הקפידו על בקשה <strong>ממוקדת</strong>, כך תוכל�
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">היכנסו</a> כדי לשנות סיסמה, מנויים וכדומה. (רק {{user_name}})"
 
-msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>."
-msgstr "אם אתם שוקלים שימוש בזהות בדויה, /n אנא <a href=\"{{url}}\">קיראו זאת קודם</a>."
+msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
+msgstr ""
+
+msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
+msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>זה הכל! תודה על עזרתכם.</p><p>ישנם <a href=\"{{helpus_url}}\">כמה דברים נוספים</a> שתוכלו לעשות כדי לעזור ל-{{site_name}}.</p>"
@@ -467,11 +472,20 @@ msgstr ""
 msgid "Authority:"
 msgstr ""
 
+msgid "Awaiting clarification"
+msgstr ""
+
+msgid "Awaiting classification"
+msgstr ""
+
 msgid "Awaiting classification."
 msgstr "ממתין לסיווג."
 
 msgid "Awaiting internal review."
 msgstr "ממתין לביקורת פנימית."
+
+msgid "Awaiting response"
+msgstr ""
 
 msgid "Awaiting response."
 msgstr "ממתין לתשובה."
@@ -680,6 +694,9 @@ msgstr "קובץ התמונה שהעלתם לא נתמך. ניתן להעלות 
 msgid "Create a new account"
 msgstr ""
 
+msgid "Create a widget for this request"
+msgstr ""
+
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
 
@@ -712,6 +729,9 @@ msgstr ""
 
 msgid "Defunct."
 msgstr "מבוטל."
+
+msgid "Delayed"
+msgstr ""
 
 msgid "Delayed response to your FOI request - "
 msgstr "עיכוב בתגובה לבקשה"
@@ -1012,6 +1032,9 @@ msgstr "ספקו פרטים על התלונה שלכם כאן"
 msgid "Got an account?"
 msgstr ""
 
+msgid "Handled by post"
+msgstr ""
+
 msgid "Handled by post."
 msgstr "טופל בפוסט."
 
@@ -1080,6 +1103,9 @@ msgstr "לעומת זאת, יש לכם את הזכות לבקש מידע סבי�
 
 msgid "Human health and safety"
 msgstr "בריאות ובטחון הציבור"
+
+msgid "I also want to know!"
+msgstr ""
 
 msgid "I am asking for <strong>new information</strong>"
 msgstr "אני מבקש <strong>מידע חדש</strong>"
@@ -1315,6 +1341,12 @@ msgstr "המידע לא נמסר."
 msgid "Information on emissions and discharges (e.g. noise, energy,\\n      radiation, waste materials)"
 msgstr "מידע על אתרי והשלכת פסולת (כגון רעש, אנרגיה,\\n           קרינה, חומרים מתכלים)"
 
+msgid "Internal review"
+msgstr ""
+
+msgid "Internal review of {{email_subject}}"
+msgstr ""
+
 msgid "Internal review request"
 msgstr "בקשת בדיקה פנימית"
 
@@ -1386,6 +1418,9 @@ msgstr "יש להיכנס למערכת כדי להוריד קובץ זיפ של 
 
 msgid "Log into the admin interface"
 msgstr "התחבר לממשק הניהול"
+
+msgid "Long overdue"
+msgstr ""
 
 msgid "Long overdue."
 msgstr "הבקשה מתעכבת מאוד."
@@ -1492,6 +1527,9 @@ msgstr "חובה למלא שם"
 msgid "Name is already taken"
 msgstr "השם כבר תפוס"
 
+msgid "Needs admin attention"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "בקשות חדשות למידע"
 
@@ -1559,6 +1597,12 @@ msgid "Not a valid FOI request"
 msgstr "בקשת מידע לא תקפה"
 
 msgid "Not a valid request"
+msgstr ""
+
+msgid "Not an FOI request"
+msgstr ""
+
+msgid "Not held"
 msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
@@ -1659,6 +1703,9 @@ msgstr "OutgoingMessage|Status"
 
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What מתבצע"
+
+msgid "Partial success"
+msgstr ""
 
 msgid "Partially successful."
 msgstr "הבקשה התקבלה בחלקה."
@@ -2115,6 +2162,9 @@ msgstr "תוצאות אחרונות מופיעות ראשונות"
 msgid "Refused."
 msgstr "סורב"
 
+msgid "Rejected"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr ""
 
@@ -2240,9 +2290,6 @@ msgstr "חפש תוספות של אדם זה"
 
 msgid "Search for the authorities you'd like information from:"
 msgstr ""
-
-msgid "Search for words in:"
-msgstr "חיפוש אחר המילים ב:"
 
 msgid "Search in"
 msgstr "חפש ב- "
@@ -2408,6 +2455,9 @@ msgstr "נושא:"
 msgid "Submit"
 msgstr "שלח"
 
+msgid "Submit Search"
+msgstr ""
+
 msgid "Submit request"
 msgstr ""
 
@@ -2423,8 +2473,14 @@ msgstr "הירשמו לבלוג"
 msgid "Success"
 msgstr ""
 
+msgid "Successful"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "בקשות מידע שנענו"
+
+msgid "Successful requests"
+msgstr ""
 
 msgid "Successful."
 msgstr "עבר בהצלחה."
@@ -2761,6 +2817,9 @@ msgstr "זוהי הגרסה הראשונה"
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "זו בקשה שלכם, כך שתקבלו דוא\"ל מייד כשיגיעו תגובות חדשות."
 
+msgid "This is your request"
+msgstr ""
+
 msgid "This message has been hidden."
 msgstr ""
 
@@ -3023,8 +3082,14 @@ msgstr ""
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr "לצערנו, אין לנו כתובת פעילה לחוק {{info_request_law_used_full}}\\n עבור"
 
+msgid "Unknown"
+msgstr ""
+
 msgid "Unsubscribe"
 msgstr "בטל הרשמה"
+
+msgid "Unusual response"
+msgstr ""
 
 msgid "Unusual response."
 msgstr "תגובה מוזרה"
@@ -3231,6 +3296,15 @@ msgstr "ממי ניתן לבקש מידע?"
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr ""
 
+msgid "Widget vote"
+msgstr ""
+
+msgid "WidgetVote|Cookie"
+msgstr ""
+
+msgid "Withdrawn"
+msgstr ""
+
 msgid "Withdrawn by the requester."
 msgstr "בוטל על-ידי מגיש הבקשה"
 
@@ -3328,6 +3402,9 @@ msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a 
 msgstr ""
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are tracking this request"
 msgstr ""
 
 msgid "You can <strong>complain</strong> by"
@@ -3464,6 +3541,9 @@ msgstr "הדוא\"ל שלכם:"
 msgid "Your email doesn't look like a valid address"
 msgstr ""
 
+msgid "Your email:"
+msgstr ""
+
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr "הודעת המעקב שלכם לא נשלחה, כי היא זוהתה כדואר זבל. <a href=\"{{url}}\">נא צרו איתנו קשר</a>אם אתם באמת מעוניינים לשלוח אותה."
 
@@ -3572,7 +3652,7 @@ msgstr ""
 "\n"
 "בתודה מראש על טיפולכם המסור בבקשה זו,\n"
 "\n"
-"הסדנא לידע ציבורי (ע״ר)"
+"הסדנא לידע ציבורי, ע.ר. 580536878, ת.ד. 52033, תל אביב,"
 
 msgid "Yours sincerely,"
 msgstr ""
@@ -3580,7 +3660,7 @@ msgstr ""
 "\n"
 "בתודה מראש על טיפולכם המסור בבקשה זו,\n"
 "\n"
-"הסדנא לידע ציבורי (ע״ר)"
+"הסדנא לידע ציבורי, ע.ר. 580536878, ת.ד. 52033, תל אביב,"
 
 msgid "Yours,"
 msgstr "בהוקרה,"

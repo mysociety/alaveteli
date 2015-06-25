@@ -62,19 +62,18 @@ class FoiAttachment < ActiveRecord::Base
         }
         update_display_size!
         @cached_body = d
+        if String.method_defined?(:encode)
+            @cached_body = @cached_body.force_encoding("ASCII-8BIT")
+        end
     end
 
+    # raw body, encoded as binary
     def body
         if @cached_body.nil?
             tries = 0
             delay = 1
             begin
-                binary_data = File.open(self.filepath, "rb" ){ |file| file.read }
-                if self.content_type =~ /^text/
-                    @cached_body = convert_string_to_utf8_or_binary(binary_data, 'UTF-8')
-                else
-                    @cached_body = binary_data
-                end
+                @cached_body = File.open(filepath, "rb" ){ |file| file.read }
             rescue Errno::ENOENT
                 # we've lost our cached attachments for some reason.  Reparse them.
                 if tries > BODY_MAX_TRIES
@@ -91,6 +90,17 @@ class FoiAttachment < ActiveRecord::Base
             end
         end
         return @cached_body
+    end
+
+    # body as UTF-8 text, with scrubbing of invalid chars if needed
+    def body_as_text
+        convert_string_to_utf8(body, 'UTF-8')
+    end
+
+    # for text types, the scrubbed UTF-8 text. For all other types, the
+    # raw binary
+    def default_body
+        text_type? ? body_as_text.string : body
     end
 
     # List of DSN codes taken from RFC 3463
@@ -292,6 +302,12 @@ class FoiAttachment < ActiveRecord::Base
         attachment_url = opts.fetch(:attachment_url, nil)
         to_html_opts = opts.merge(:tmpdir => dir, :attachment_url => attachment_url)
         AttachmentToHTML.to_html(self, to_html_opts)
+    end
+
+    private
+
+    def text_type?
+        AlaveteliTextMasker::TextMask.include?(content_type)
     end
 
 end

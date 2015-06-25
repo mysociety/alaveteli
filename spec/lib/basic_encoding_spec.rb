@@ -160,21 +160,24 @@ describe "convert_string_to_utf8" do
 
     describe "when passed uninterpretable character data" do
 
-        it "should return it as a utf8 string" do
+        it "should return it as a valid utf8 string with non-utf8 characters removed
+            and mark it as scrubbed" do
 
             converted = convert_string_to_utf8 random_string
-            converted.should == random_string
 
             if String.method_defined?(:encode)
-                converted.encoding.to_s.should == 'UTF-8'
+                converted.string.encoding.to_s.should == 'UTF-8'
+                converted.string.valid_encoding?.should == true
             end
+            converted.scrubbed?.should == true
 
             converted = convert_string_to_utf8 random_string,'UTF-8'
-            converted.should == random_string
 
             if String.method_defined?(:encode)
-                converted.encoding.to_s.should == 'UTF-8'
+                converted.string.encoding.to_s.should == 'UTF-8'
+                converted.string.valid_encoding?.should == true
             end
+            converted.scrubbed?.should == true
 
         end
     end
@@ -185,11 +188,13 @@ describe "convert_string_to_utf8" do
 
             converted = convert_string_to_utf8 windows_1252_string
 
-            converted.should ==  "DASH – DASH"
+            converted.string.should ==  "DASH – DASH"
 
             if String.method_defined?(:encode)
-                converted.encoding.to_s.should == 'UTF-8'
+                converted.string.encoding.to_s.should == 'UTF-8'
             end
+            converted.scrubbed?.should == false
+
         end
 
     end
@@ -200,11 +205,12 @@ describe "convert_string_to_utf8" do
 
             converted = convert_string_to_utf8 gb_18030_spam_string
 
-            converted.should start_with("贵公司负责人")
+            converted.string.should start_with("贵公司负责人")
 
             if String.method_defined?(:encode)
-                converted.encoding.to_s.should == 'UTF-8'
+                converted.string.encoding.to_s.should == 'UTF-8'
             end
+            converted.scrubbed?.should == false
         end
 
     end

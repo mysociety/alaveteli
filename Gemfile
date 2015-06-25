@@ -12,7 +12,7 @@ gem 'exception_notification', '~> 3.0.1'
 gem 'fancybox-rails', '~> 0.2.1'
 gem 'foundation-rails', '~> 5.2.1.0'
 gem 'icalendar', '1.4.3'
-gem 'jquery-rails', '~> 3.0.4'
+gem 'jquery-rails', '~> 3.1.3'
 gem 'jquery-ui-rails', '~> 4.1.0'
 gem 'json', '~> 1.8.1'
 gem 'holidays', '~> 1.2.0'
@@ -21,8 +21,10 @@ gem 'mahoro', '~> 0.4'
 gem 'memcache-client', '~> 1.8.5'
 gem 'net-http-local', '~> 0.1.2', :platforms => [:ruby_18, :ruby_19]
 gem 'net-purge', '~> 0.1.0'
+gem 'nokogiri', '~> 1.5.9'
 gem 'open4', '~> 1.3.4'
-gem 'rack', '~> 1.4.5'
+gem 'rack', '~> 1.4.6'
+gem 'rack-utf8_sanitizer', '~> 1.3.0', :platforms => :ruby_19
 gem 'rake', '0.9.2.2'
 gem 'rails-i18n', '~> 0.7.3'
 gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
@@ -66,7 +68,6 @@ group :test do
   gem 'fakeweb', '~> 1.3.0'
   gem 'coveralls', :require => false
   gem 'webrat', '~> 0.7.3'
-  gem 'nokogiri', '~> 1.5.9'
 end
 
 group :test, :development do
