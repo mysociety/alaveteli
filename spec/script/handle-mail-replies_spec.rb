@@ -13,11 +13,22 @@ def mail_reply_test(email_filename)
 end
 
 describe "When filtering" do
-    it "should not fail when not in test mode" do
-        xc = ExternalCommand.new("script/handle-mail-replies",
-                                 { :stdin_string => load_file_fixture("track-response-exim-bounce.email") })
-        xc.run
-        xc.err.should == ""
+
+    describe "when not in test mode" do
+
+        it "should not fail handling a bounce mail" do
+            xc = ExternalCommand.new("script/handle-mail-replies",
+                                     { :stdin_string => load_file_fixture("track-response-exim-bounce.email") })
+            xc.run
+            xc.err.should == ""
+        end
+
+        it 'should not fail handling a UTF8 encoded mail' do
+            xc = ExternalCommand.new("script/handle-mail-replies",
+                                     { :stdin_string => load_file_fixture("russian.email") })
+            xc.run
+            xc.err.should == ""
+        end
     end
 
     it "should detect an Exim bounce" do
