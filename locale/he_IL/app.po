@@ -12,7 +12,7 @@
 # rshlo <r@roishlomi.com>, 2013
 # Yair Uziel <yair.uziel@gmail.com>, 2013-2014
 # Yair Uziel <yair.uziel@gmail.com>, 2013
-# yehuda <yehudab@gmail.com>, 2013-2014
+# yehuda <yehudab@gmail.com>, 2013-2015
 # yehuda <yehudab@gmail.com>, 2013
 # yoniYalovitsky <yoni@yalovitsky.com>, 2013
 # yoniYalovitsky <yoni@yalovitsky.com>, 2013
@@ -24,8 +24,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-03-24 11:15+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"PO-Revision-Date: 2015-04-13 17:02+0000\n"
+"Last-Translator: yehuda <yehudab@gmail.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -3572,7 +3572,7 @@ msgstr ""
 "\n"
 "בתודה מראש על טיפולכם המסור בבקשה זו,\n"
 "\n"
-"הסדנא לידע ציבורי (ע״ר)"
+"הסדנא לידע ציבורי, ע.ר. 580536878, ת.ד. 52033, תל אביב,"
 
 msgid "Yours sincerely,"
 msgstr ""
@@ -3580,7 +3580,7 @@ msgstr ""
 "\n"
 "בתודה מראש על טיפולכם המסור בבקשה זו,\n"
 "\n"
-"הסדנא לידע ציבורי (ע״ר)"
+"הסדנא לידע ציבורי, ע.ר. 580536878, ת.ד. 52033, תל אביב,"
 
 msgid "Yours,"
 msgstr "בהוקרה,"
