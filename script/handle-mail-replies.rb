@@ -168,7 +168,7 @@ def is_oof?(message)
 end
 
 def forward_on(raw_message)
-    IO.popen("/usr/sbin/sendmail -i #{AlaveteliConfiguration::forward_nonbounce_responses_to}", "w") do |f|
+    IO.popen("/usr/sbin/sendmail -i #{AlaveteliConfiguration::forward_nonbounce_responses_to}", "wb") do |f|
         f.write(raw_message);
         f.close;
     end
