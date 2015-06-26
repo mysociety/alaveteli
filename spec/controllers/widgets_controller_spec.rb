@@ -53,7 +53,7 @@ describe WidgetsController do
 
         context 'when widgets are not enabled' do
 
-            it 'should return a 404' do
+            it 'raises ActiveRecord::RecordNotFound' do
                 AlaveteliConfiguration.stub!(:enable_widgets).and_return(false)
                 lambda{ get :show, :request_id => @info_request.id }.should
                     raise_error(ActiveRecord::RecordNotFound)
@@ -93,7 +93,7 @@ describe WidgetsController do
 
         context 'when widgets are not enabled' do
 
-            it 'should return a 404' do
+            it 'raises ActiveRecord::RecordNotFound' do
                 AlaveteliConfiguration.stub!(:enable_widgets).and_return(false)
                 lambda{ get :new, :request_id => @info_request.id }.should
                     raise_error(ActiveRecord::RecordNotFound)
@@ -156,7 +156,7 @@ describe WidgetsController do
 
         context 'when widgets are not enabled' do
 
-            it 'should raise ActiveRecord::RecordNotFound' do
+            it 'raises ActiveRecord::RecordNotFound' do
                 AlaveteliConfiguration.stub!(:enable_widgets).and_return(false)
                 lambda{ put :update, :request_id => @info_request.id }.should
                     raise_error(ActiveRecord::RecordNotFound)
