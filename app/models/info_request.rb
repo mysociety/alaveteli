@@ -53,7 +53,7 @@ class InfoRequest < ActiveRecord::Base
     has_many :info_request_events, :order => 'created_at'
     has_many :user_info_request_sent_alerts
     has_many :track_things, :order => 'created_at desc'
-    has_many :widget_votes
+    has_many :widget_votes, :dependent => :destroy
     has_many :comments, :order => 'created_at'
     has_many :censor_rules, :order => 'created_at desc'
     has_many :mail_server_logs, :order => 'mail_server_log_done_id'

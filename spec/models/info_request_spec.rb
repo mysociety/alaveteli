@@ -154,6 +154,13 @@ describe InfoRequest do
             @info_request.destroy
         end
 
+        it 'destroys associated widget_votes' do
+            @info_request.save
+            @info_request.widget_votes.create(:cookie => 'x' * 20)
+            @info_request.destroy
+            expect(WidgetVote.where(:info_request_id => @info_request.id)).to be_empty
+        end
+
     end
 
     describe :fully_destroy do
