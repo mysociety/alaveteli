@@ -139,6 +139,39 @@ describe InfoRequest do
         end
     end
 
+    describe :destroy do
+
+        before do
+            @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
+                                            :external_user_name => 'Example User',
+                                            :title => 'Some request or other',
+                                            :public_body => public_bodies(:geraldine_public_body))
+        end
+
+        it "should call update_counter_cache" do
+            @info_request.save!
+            @info_request.should_receive(:update_counter_cache)
+            @info_request.destroy
+        end
+
+    end
+
+    describe :fully_destroy do
+
+        it 'can destroy a request with comments and censor rules' do
+            info_request = FactoryGirl.create(:info_request)
+            censor_rule = FactoryGirl.create(:censor_rule, :info_request => info_request)
+            comment = FactoryGirl.create(:comment, :info_request => info_request)
+            info_request.reload
+            info_request.fully_destroy
+
+            InfoRequest.where(:id => info_request.id).should be_empty
+            CensorRule.where(:id => censor_rule.id).should be_empty
+            Comment.where(:id => comment.id).should be_empty
+        end
+
+    end
+
     describe 'when validating' do
 
         it 'should accept a summary with ascii characters' do
@@ -1228,22 +1261,7 @@ describe InfoRequest do
 
     end
 
-    describe 'when destroying an info_request' do
 
-        before do
-            @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
-                                            :external_user_name => 'Example User',
-                                            :title => 'Some request or other',
-                                            :public_body => public_bodies(:geraldine_public_body))
-        end
-
-        it "should call update_counter_cache" do
-            @info_request.save!
-            @info_request.should_receive(:update_counter_cache)
-            @info_request.destroy
-        end
-
-    end
 
     describe 'when changing a described_state' do
 
@@ -1428,22 +1446,6 @@ describe InfoRequest do
             results.include?(info_requests(:fancy_dog_request)).should == true
         end
 
-
     end
 
-    describe 'when destroying a message' do
-
-        it 'can destroy a request with comments and censor rules' do
-            info_request = FactoryGirl.create(:info_request)
-            censor_rule = FactoryGirl.create(:censor_rule, :info_request => info_request)
-            comment = FactoryGirl.create(:comment, :info_request => info_request)
-            info_request.reload
-            info_request.fully_destroy
-
-            InfoRequest.where(:id => info_request.id).should be_empty
-            CensorRule.where(:id => censor_rule.id).should be_empty
-            Comment.where(:id => comment.id).should be_empty
-        end
-
-    end
 end
