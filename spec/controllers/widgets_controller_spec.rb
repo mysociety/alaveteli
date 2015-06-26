@@ -5,7 +5,7 @@ describe WidgetsController do
 
     include LinkToHelper
 
-    describe "#show" do
+    describe 'GET show' do
 
         before do
             @info_request = FactoryGirl.create(:info_request)
@@ -74,7 +74,7 @@ describe WidgetsController do
 
     end
 
-    describe "#new" do
+    describe 'GET new' do
 
         before do
             @info_request = FactoryGirl.create(:info_request)
@@ -114,7 +114,7 @@ describe WidgetsController do
 
     end
 
-    describe :update do
+    describe 'PUT update' do
 
         before do
             @info_request = FactoryGirl.create(:info_request)
