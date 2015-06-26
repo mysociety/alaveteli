@@ -32,6 +32,28 @@ describe WidgetsController do
             assigns[:status].should == @info_request.calculate_status
         end
 
+        it 'assigns the count of follows the request has' do
+            TrackThing.delete_all
+            WidgetVote.delete_all
+
+            track = TrackThing.create_track_for_request(@info_request)
+            track.track_medium = 'email_daily'
+            track.tracking_user = FactoryGirl.create(:user)
+            track.save!
+
+            3.times do
+                @info_request.widget_votes.create(:cookie => SecureRandom.hex(10))
+            end
+
+            get :show, :request_id => @info_request.id
+
+            # Count should be 5
+            # 1 for the request's owning user
+            # 1 track thing
+            # 3 widget votes
+            expect(assigns[:count]).to eq(5)
+        end
+
         it 'should not send an x-frame-options header' do
             get :show, :request_id => @info_request.id
             response.headers["X-Frame-Options"].should be_nil
