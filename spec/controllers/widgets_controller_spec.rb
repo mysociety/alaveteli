@@ -122,12 +122,12 @@ describe WidgetsController do
         end
 
         it 'should find the info request' do
-            get :update, :request_id => @info_request.id
+            put :update, :request_id => @info_request.id
             assigns[:info_request].should == @info_request
         end
 
         it 'should redirect to the track path for the info request' do
-            get :update, :request_id => @info_request.id
+            put :update, :request_id => @info_request.id
             track_thing = TrackThing.create_track_for_request(@info_request)
             expect(response).to redirect_to(do_track_path(track_thing))
         end
@@ -141,14 +141,14 @@ describe WidgetsController do
             it 'should create a widget vote if none exists for the info request and cookie' do
                 @info_request.widget_votes.where(:cookie => @cookie_value).size.should == 0
                 request.cookies['widget_vote'] = @cookie_value
-                get :update, :request_id => @info_request.id
+                put :update, :request_id => @info_request.id
                 @info_request.widget_votes.where(:cookie => @cookie_value).size.should == 1
             end
 
             it 'should not create a widget vote if one exists for the info request and cookie' do
                 @info_request.widget_votes.create(:cookie => @cookie_value)
                 request.cookies['widget_vote'] = @cookie_value
-                get :update, :request_id => @info_request.id
+                put :update, :request_id => @info_request.id
                 @info_request.widget_votes.where(:cookie => @cookie_value).size.should == 1
             end
 
@@ -158,7 +158,7 @@ describe WidgetsController do
 
             it 'should raise ActiveRecord::RecordNotFound' do
                 AlaveteliConfiguration.stub!(:enable_widgets).and_return(false)
-                lambda{ get :update, :request_id => @info_request.id }.should
+                lambda{ put :update, :request_id => @info_request.id }.should
                     raise_error(ActiveRecord::RecordNotFound)
             end
 
@@ -169,7 +169,7 @@ describe WidgetsController do
             it 'should return a 403' do
                 @info_request.prominence = 'hidden'
                 @info_request.save!
-                get :show, :request_id => @info_request.id
+                put :show, :request_id => @info_request.id
                 response.code.should == "403"
             end
 
