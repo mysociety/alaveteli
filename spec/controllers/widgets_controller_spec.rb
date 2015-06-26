@@ -37,16 +37,70 @@ describe WidgetsController do
             response.headers["X-Frame-Options"].should be_nil
         end
 
-        context 'for a non-logged-in user' do
+        context 'for a non-logged-in user with a tracking cookie' do
 
-            context 'if no widget-vote cookie is set' do
+            it 'finds existing votes' do
+                vote = FactoryGirl.create(:widget_vote,
+                                          :info_request => @info_request,
+                                          :cookie => '0300fd3e1177127cebff')
+                request.cookies['widget_vote'] = vote.cookie
+                get :show, :request_id => @info_request.id
+                expect(assigns[:existing_vote]).to be_true
+            end
 
-                it 'should set a widget-vote cookie' do
-                    cookies[:widget_vote].should be_nil
-                    get :show, :request_id => @info_request.id
-                    cookies[:widget_vote].should_not be_nil
-                end
+            it 'will not find any existing votes if none exist' do
+                WidgetVote.delete_all
+                request.cookies['widget_vote'] = '0300fd3e1177127cebff'
+                get :show, :request_id => @info_request.id
+                expect(assigns[:existing_vote]).to be_false
+            end
 
+        end
+
+        context 'for a non-logged-in user without a tracking cookie' do
+
+            it 'will not find any existing votes' do
+                request.cookies['widget_vote'] = nil
+                get :show, :request_id => @info_request.id
+                expect(assigns[:existing_vote]).to be_false
+            end
+
+            it 'should set a widget-vote cookie' do
+                cookies[:widget_vote].should be_nil
+                get :show, :request_id => @info_request.id
+                cookies[:widget_vote].should_not be_nil
+            end
+
+        end
+
+        context 'for a logged in user with tracks' do
+
+            it 'looks for an existing vote' do
+                TrackThing.delete_all
+                vote = FactoryGirl.create(:widget_vote,
+                                          :info_request => @info_request,
+                                          :cookie => '0300fd3e1177127cebff')
+                session[:user_id] = @info_request.user.id
+                request.cookies['widget_vote'] = '0300fd3e1177127cebff'
+
+                get :show, :request_id => @info_request.id
+
+                expect(assigns[:existing_vote]).to be_true
+            end
+
+        end
+
+        context 'for a logged in user without tracks' do
+
+            it 'will not find any existing votes if none exist' do
+                TrackThing.delete_all
+                WidgetVote.delete_all
+                session[:user_id] = @info_request.user.id
+                request.cookies['widget_vote'] = '0300fd3e1177127cebff'
+
+                get :show, :request_id => @info_request.id
+
+                expect(assigns[:existing_vote]).to be_false
             end
 
         end
@@ -68,6 +122,17 @@ describe WidgetsController do
                 @info_request.save!
                 get :show, :request_id => @info_request.id
                 response.code.should == "403"
+            end
+
+            it 'does not look for an existing vote' do
+                vote = FactoryGirl.create(:widget_vote,
+                                          :info_request => @info_request,
+                                          :cookie => '0300fd3e1177127cebff')
+                session[:user_id] = @info_request.user.id
+
+                get :show, :request_id => @info_request.id
+
+                expect(assigns[:existing_vote]).to be_false
             end
 
         end
