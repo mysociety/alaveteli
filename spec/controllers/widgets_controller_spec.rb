@@ -39,6 +39,12 @@ describe WidgetsController do
 
         context 'for a non-logged-in user with a tracking cookie' do
 
+            it 'will not find existing tracks' do
+                request.cookies['widget_vote'] = '0300fd3e1177127cebff'
+                get :show, :request_id => @info_request.id
+                expect(assigns[:existing_track]).to be_nil
+            end
+
             it 'finds existing votes' do
                 vote = FactoryGirl.create(:widget_vote,
                                           :info_request => @info_request,
@@ -59,6 +65,12 @@ describe WidgetsController do
 
         context 'for a non-logged-in user without a tracking cookie' do
 
+            it 'will not find existing tracks' do
+                request.cookies['widget_vote'] = nil
+                get :show, :request_id => @info_request.id
+                expect(assigns[:existing_track]).to be_nil
+            end
+
             it 'will not find any existing votes' do
                 request.cookies['widget_vote'] = nil
                 get :show, :request_id => @info_request.id
@@ -75,6 +87,33 @@ describe WidgetsController do
 
         context 'for a logged in user with tracks' do
 
+            it 'finds the existing track thing' do
+                user = FactoryGirl.create(:user)
+                track = TrackThing.create_track_for_request(@info_request)
+                track.track_medium = 'email_daily'
+                track.tracking_user = user
+                track.save!
+                session[:user_id] = user.id
+
+                get :show, :request_id => @info_request.id
+
+                expect(assigns[:existing_track]).to eq(track)
+            end
+
+        end
+
+        context 'for a logged in user without tracks' do
+
+            it 'does not find existing track things' do
+                TrackThing.delete_all
+                user = FactoryGirl.create(:user)
+                session[:user_id] = user.id
+
+                get :show, :request_id => @info_request.id
+
+                expect(assigns[:existing_track]).to be_nil
+            end
+
             it 'looks for an existing vote' do
                 TrackThing.delete_all
                 vote = FactoryGirl.create(:widget_vote,
@@ -87,10 +126,6 @@ describe WidgetsController do
 
                 expect(assigns[:existing_vote]).to be_true
             end
-
-        end
-
-        context 'for a logged in user without tracks' do
 
             it 'will not find any existing votes if none exist' do
                 TrackThing.delete_all
