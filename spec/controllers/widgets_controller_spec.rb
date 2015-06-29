@@ -62,7 +62,7 @@ describe WidgetsController do
         context 'for a non-logged-in user with a tracking cookie' do
 
             it 'will not find existing tracks' do
-                request.cookies['widget_vote'] = '0300fd3e1177127cebff'
+                request.cookies['widget_vote'] = mock_cookie
                 get :show, :request_id => @info_request.id
                 expect(assigns[:existing_track]).to be_nil
             end
@@ -70,7 +70,7 @@ describe WidgetsController do
             it 'finds existing votes' do
                 vote = FactoryGirl.create(:widget_vote,
                                           :info_request => @info_request,
-                                          :cookie => '0300fd3e1177127cebff')
+                                          :cookie => mock_cookie)
                 request.cookies['widget_vote'] = vote.cookie
                 get :show, :request_id => @info_request.id
                 expect(assigns[:existing_vote]).to be_true
@@ -78,7 +78,7 @@ describe WidgetsController do
 
             it 'will not find any existing votes if none exist' do
                 WidgetVote.delete_all
-                request.cookies['widget_vote'] = '0300fd3e1177127cebff'
+                request.cookies['widget_vote'] = mock_cookie
                 get :show, :request_id => @info_request.id
                 expect(assigns[:existing_vote]).to be_false
             end
@@ -134,9 +134,9 @@ describe WidgetsController do
                 TrackThing.delete_all
                 vote = FactoryGirl.create(:widget_vote,
                                           :info_request => @info_request,
-                                          :cookie => '0300fd3e1177127cebff')
+                                          :cookie => mock_cookie)
                 session[:user_id] = @info_request.user.id
-                request.cookies['widget_vote'] = '0300fd3e1177127cebff'
+                request.cookies['widget_vote'] = mock_cookie
 
                 get :show, :request_id => @info_request.id
 
@@ -147,7 +147,7 @@ describe WidgetsController do
                 TrackThing.delete_all
                 WidgetVote.delete_all
                 session[:user_id] = @info_request.user.id
-                request.cookies['widget_vote'] = '0300fd3e1177127cebff'
+                request.cookies['widget_vote'] = mock_cookie
 
                 get :show, :request_id => @info_request.id
 
@@ -178,7 +178,7 @@ describe WidgetsController do
             it 'does not look for an existing vote' do
                 vote = FactoryGirl.create(:widget_vote,
                                           :info_request => @info_request,
-                                          :cookie => '0300fd3e1177127cebff')
+                                          :cookie => mock_cookie)
                 session[:user_id] = @info_request.user.id
 
                 get :show, :request_id => @info_request.id
@@ -251,19 +251,19 @@ describe WidgetsController do
         context 'for a non-logged-in user without a tracking cookie' do
 
             it 'sets a tracking cookie' do
-                SecureRandom.stub!(:hex).and_return('0300fd3e1177127cebff')
+                SecureRandom.stub!(:hex).and_return(mock_cookie)
                 put :update, :request_id => @info_request.id
-                expect(cookies[:widget_vote]).to eq('0300fd3e1177127cebff')
+                expect(cookies[:widget_vote]).to eq(mock_cookie)
             end
 
             it 'creates a widget vote' do
-                SecureRandom.stub!(:hex).and_return('0300fd3e1177127cebff')
+                SecureRandom.stub!(:hex).and_return(mock_cookie)
 
                 put :update, :request_id => @info_request.id
 
                 votes = @info_request.
                             widget_votes.
-                                where(:cookie => '0300fd3e1177127cebff')
+                                where(:cookie => mock_cookie)
 
                 expect(votes).to have(1).item
             end
@@ -273,16 +273,16 @@ describe WidgetsController do
         context 'for a non-logged-in user with a tracking cookie' do
 
             it 'retains the existing tracking cookie' do
-                request.cookies['widget_vote'] = '0300fd3e1177127cebff'
+                request.cookies['widget_vote'] = mock_cookie
                 put :update, :request_id => @info_request.id
-                expect(cookies[:widget_vote]).to eq('0300fd3e1177127cebff')
+                expect(cookies[:widget_vote]).to eq(mock_cookie)
             end
 
             it 'creates a widget vote' do
-                request.cookies['widget_vote'] = '0300fd3e1177127cebff'
+                request.cookies['widget_vote'] = mock_cookie
                 votes = @info_request.
                             widget_votes.
-                                where(:cookie => '0300fd3e1177127cebff')
+                                where(:cookie => mock_cookie)
 
                 put :update, :request_id => @info_request.id
 
@@ -316,3 +316,6 @@ describe WidgetsController do
 
 end
 
+def mock_cookie
+    '0300fd3e1177127cebff'
+end

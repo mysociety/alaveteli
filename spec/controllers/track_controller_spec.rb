@@ -8,10 +8,10 @@ describe TrackController do
         it 'clears widget votes for the request' do
             AlaveteliConfiguration.stub!(:enable_widgets).and_return(true)
             @info_request = FactoryGirl.create(:info_request)
-            @info_request.widget_votes.create(:cookie => '0300fd3e1177127cebff')
+            @info_request.widget_votes.create(:cookie => mock_cookie)
 
             session[:user_id] = FactoryGirl.create(:user).id
-            request.cookies['widget_vote'] = '0300fd3e1177127cebff'
+            request.cookies['widget_vote'] = mock_cookie
 
             get :track_request, :url_title => @info_request.url_title, :feed => 'track'
 
