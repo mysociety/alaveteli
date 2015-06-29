@@ -44,7 +44,7 @@
             </div>
           </a>
         <% else %>
-          <%= form_tag request_widget_url(@info_request), :method => 'put', :target => '_blank' do %>
+          <%= form_tag request_widget_votes_url(@info_request), :method => 'post', :target => '_blank' do %>
             <%= submit_tag _('I also want to know!'), :class => 'alaveteli-widget__button' %>
           <% end %>
         <% end %>

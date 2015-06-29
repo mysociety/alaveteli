@@ -5,8 +5,6 @@
 # Copyright (c) 2014 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-require 'securerandom'
-
 class WidgetsController < ApplicationController
 
     before_filter :check_widget_config, :find_info_request, :check_prominence
@@ -36,25 +34,6 @@ class WidgetsController < ApplicationController
 
     def new
         long_cache
-    end
-
-    # Track interest in a request from a non-logged in user
-    def update
-        unless @user      
-          cookie = cookies[:widget_vote]
-        
-          if cookie.nil?
-              cookies.permanent[:widget_vote] = SecureRandom.hex(10)
-              cookie = cookies[:widget_vote]
-          end 
-        
-          @info_request.widget_votes.
-              where(:cookie => cookie).
-                  first_or_create
-        end
-
-        track_thing = TrackThing.create_track_for_request(@info_request)
-        redirect_to do_track_path(track_thing), status => :temporary_redirect
     end
 
     private

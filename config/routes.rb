@@ -65,7 +65,8 @@ Alaveteli::Application.routes.draw do
 
     resources :request, :only => [] do
         resource :report, :only => [:new, :create]
-        resource :widget, :only => [:new, :show, :update]
+        resource :widget, :only => [:new, :show]
+        resources :widget_votes, :only => [:create]
     end
 
     resources :info_request_batch, :only => :show
