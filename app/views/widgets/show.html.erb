@@ -25,11 +25,12 @@
           <%= _('This is your request') %>
         </div>
       <% elsif @existing_track %>
-        <a href="<%= url_for :controller => 'track', :action => 'update', :track_id => @existing_track.id, :track_medium => "delete", :r => request.fullpath %>">
+        <%= link_to update_url(:track_id => @existing_track.id, :track_medium => "delete", :r => show_user_profile_url(:url_name => @user.url_name)), :target => '_top',
+          :class => 'alaveteli-widget__bottom__action alaveteli-widget__button--unsubscribe' do %>
           <div class="alaveteli-widget__button alaveteli-widget__button--down">
-            <%= _('You are tracking this request') %>
+            <%= _('Unsubscribe') %>
           </div>
-        </a>
+        <% end %>
       <% elsif @existing_vote %>
         <%= link_to track_request_url(:url_title => @info_request.url_title, :feed => 'track'), :target => '_top' do %>
           <div class="alaveteli-widget__button alaveteli-widget__button--down">
