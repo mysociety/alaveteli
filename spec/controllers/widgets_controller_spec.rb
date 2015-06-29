@@ -254,24 +254,17 @@ describe WidgetsController do
             expect(response).to redirect_to(do_track_path(track_thing))
         end
 
-        context 'when there is no logged-in user and a widget vote cookie' do
+        context 'for a non-logged-in user with a tracking cookie' do
 
-            before do
-                @cookie_value = 'x' * 20
-            end
+            it 'creates a widget vote' do
+                request.cookies['widget_vote'] = '0300fd3e1177127cebff'
+                votes = @info_request.
+                            widget_votes.
+                                where(:cookie => '0300fd3e1177127cebff')
 
-            it 'should create a widget vote if none exists for the info request and cookie' do
-                @info_request.widget_votes.where(:cookie => @cookie_value).size.should == 0
-                request.cookies['widget_vote'] = @cookie_value
                 put :update, :request_id => @info_request.id
-                @info_request.widget_votes.where(:cookie => @cookie_value).size.should == 1
-            end
 
-            it 'should not create a widget vote if one exists for the info request and cookie' do
-                @info_request.widget_votes.create(:cookie => @cookie_value)
-                request.cookies['widget_vote'] = @cookie_value
-                put :update, :request_id => @info_request.id
-                @info_request.widget_votes.where(:cookie => @cookie_value).size.should == 1
+                expect(votes).to have(1).item
             end
 
         end
