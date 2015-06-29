@@ -26,7 +26,7 @@
         </div>
       <% elsif @existing_track %>
         <a href="<%= url_for :controller => 'track', :action => 'update', :track_id => @existing_track.id, :track_medium => "delete", :r => request.fullpath %>">
-          <div class="alaveteli-widget__button--down">
+          <div class="alaveteli-widget__button alaveteli-widget__button--down">
             <%= _('You are tracking this request') %>
           </div>
         </a>
