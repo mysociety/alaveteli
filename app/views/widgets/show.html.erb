@@ -39,11 +39,11 @@
         <% end %>
       <% else %>
         <% if @user %>
-          <a href="<%= url_for do_track_path(@track_thing) %>" target="_blank">
+          <%= link_to do_track_path(@track_thing), :target => '_blank' do %>
             <div class="alaveteli-widget__button">
               <%= _('I also want to know!') %>
             </div>
-          </a>
+          <% end %>
         <% else %>
           <%= form_tag request_widget_votes_url(@info_request), :method => 'post', :target => '_blank' do %>
             <%= submit_tag _('I also want to know!'), :class => 'alaveteli-widget__button' %>
