@@ -30,6 +30,12 @@
             <%= _('You are tracking this request') %>
           </div>
         </a>
+      <% elsif @existing_vote %>
+        <%= link_to track_request_url(:url_title => @info_request.url_title, :feed => 'track'), :target => '_top' do %>
+          <div class="alaveteli-widget__button alaveteli-widget__button--down">
+            <%= _('Sign in to track this request') %>
+          </div>
+        <% end %>
       <% else %>
         <% if @user %>
           <a href="<%= url_for do_track_path(@track_thing) %>" target="_blank">
