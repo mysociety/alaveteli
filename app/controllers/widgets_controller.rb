@@ -38,14 +38,14 @@ class WidgetsController < ApplicationController
 
     private
 
-    def find_info_request
-        @info_request = InfoRequest.find(params[:request_id])
-    end
-
     def check_widget_config
         unless AlaveteliConfiguration::enable_widgets
             raise ActiveRecord::RecordNotFound.new("Page not enabled")
         end
+    end
+
+    def find_info_request
+        @info_request = InfoRequest.find(params[:request_id])
     end
 
     def check_prominence
