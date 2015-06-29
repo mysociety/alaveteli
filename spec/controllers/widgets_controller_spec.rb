@@ -99,12 +99,6 @@ describe WidgetsController do
                 expect(assigns[:existing_vote]).to be_false
             end
 
-            it 'should set a widget-vote cookie' do
-                cookies[:widget_vote].should be_nil
-                get :show, :request_id => @info_request.id
-                cookies[:widget_vote].should_not be_nil
-            end
-
         end
 
         context 'for a logged in user with tracks' do
@@ -254,7 +248,35 @@ describe WidgetsController do
             expect(response).to redirect_to(do_track_path(track_thing))
         end
 
+        context 'for a non-logged-in user without a tracking cookie' do
+
+            it 'sets a tracking cookie' do
+                SecureRandom.stub!(:hex).and_return('0300fd3e1177127cebff')
+                put :update, :request_id => @info_request.id
+                expect(cookies[:widget_vote]).to eq('0300fd3e1177127cebff')
+            end
+
+            it 'creates a widget vote' do
+                SecureRandom.stub!(:hex).and_return('0300fd3e1177127cebff')
+
+                put :update, :request_id => @info_request.id
+
+                votes = @info_request.
+                            widget_votes.
+                                where(:cookie => '0300fd3e1177127cebff')
+
+                expect(votes).to have(1).item
+            end
+
+        end
+
         context 'for a non-logged-in user with a tracking cookie' do
+
+            it 'retains the existing tracking cookie' do
+                request.cookies['widget_vote'] = '0300fd3e1177127cebff'
+                put :update, :request_id => @info_request.id
+                expect(cookies[:widget_vote]).to eq('0300fd3e1177127cebff')
+            end
 
             it 'creates a widget vote' do
                 request.cookies['widget_vote'] = '0300fd3e1177127cebff'
