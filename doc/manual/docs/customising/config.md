@@ -79,6 +79,9 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <code><a href="#incoming_email_domain">INCOMING_EMAIL_DOMAIN</a></code>
 <br> <code><a href="#incoming_email_prefix">INCOMING_EMAIL_PREFIX</a></code>
 <br> <code><a href="#incoming_email_secret">INCOMING_EMAIL_SECRET</a></code>
+<br> <code><a href="#incoming_email_spam_action">INCOMING_EMAIL_SPAM_ACTION</a></code>
+<br> <code><a href="#incoming_email_spam_header">INCOMING_EMAIL_SPAM_HEADER</a></code>
+<br> <code><a href="#incoming_email_spam_threshold">INCOMING_EMAIL_SPAM_THRESHOLD</a></code>
 <br> <code><a href="#blackhole_prefix">BLACKHOLE_PREFIX</a></code>
 <br> <code><a href="#contact_email">CONTACT_EMAIL</a></code>
 <br> <code><a href="#contact_name">CONTACT_NAME</a></code>
@@ -609,6 +612,54 @@ THEME_URLS:
       <ul class="examples">
         <li>
             <code>INCOMING_EMAIL_SECRET: '11ae 4e3b 70ff c001 3682 4a51 e86d ef5f'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="incoming_email_spam_action"><code>INCOMING_EMAIL_SPAM_ACTION</code></a>
+    <a name="incoming_email_spam_header"><code>INCOMING_EMAIL_SPAM_HEADER</code></a>
+      &amp;
+    <a name="incoming_email_spam_threshold"><code>INCOMING_EMAIL_SPAM_THRESHOLD</code></a>
+  </dt>
+  <dd>
+
+    <div class="attention-box">
+      <p>
+        Introduced in Alaveteli 0.22.2.0
+      </p>
+    </div>
+
+    <p>
+      Filter incoming mail that looks like spam. Spam can be redirected to the
+      holding pen or discarded.
+    </p>
+
+    <p>
+      If you filter incoming emails through a spam detector like SpamAssassin,
+      you can configure Alaveteli to filter messages with a high spam score.
+    </p>
+
+    <p>
+      This feature requires the messages to contain a header with a numeric
+      spam score, and <strong>INCOMING_EMAIL_SPAM_ACTION</strong>,
+      <strong>INCOMING_EMAIL_SPAM_HEADER</strong> and
+      <strong>INCOMING_EMAIL_SPAM_THRESHOLD</strong> to be configured before
+      the filtering will take effect.
+    </p>
+
+    <div class="more-info">
+      <p>Examples:</p>
+      <ul class="examples">
+        <li>
+            <code>INCOMING_EMAIL_SPAM_ACTION: 'discard'</code>
+        </li>
+        <li>
+            <code>INCOMING_EMAIL_SPAM_HEADER: 'X-mySociety-Spam-Score'</code>
+        </li>
+        <li>
+            <code>INCOMING_EMAIL_SPAM_THRESHOLD: 20</code>
         </li>
       </ul>
     </div>
