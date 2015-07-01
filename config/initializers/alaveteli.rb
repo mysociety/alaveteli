@@ -55,6 +55,7 @@ require 'date_quarter'
 require 'public_body_csv'
 require 'routing_filters'
 require 'alaveteli_text_masker'
+require 'database_collation'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)
