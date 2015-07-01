@@ -198,6 +198,57 @@ describe PublicBodyController, "when listing bodies" do
     assigns[:description].should == ""
   end
 
+  it 'list bodies in collate order according to the locale with the fallback set' do
+    AlaveteliConfiguration.stub(:public_body_list_fallback_to_default_locale).
+      and_return(true)
+
+    DatabaseCollation.stub(:supports?).
+      with(an_instance_of(String)).
+        and_return(true)
+
+    get :list, :locale => 'en_GB'
+    expect(assigns[:sql].to_s).to include('COLLATE')
+  end
+
+  it 'list bodies in default order according to the locale with the fallback set' do
+    AlaveteliConfiguration.stub(:public_body_list_fallback_to_default_locale).
+      and_return(true)
+
+    DatabaseCollation.stub(:supports?).
+      with(an_instance_of(String)).
+        and_return(false)
+
+    get :list, :locale => 'unknown'
+
+    expect(assigns[:sql].to_s).to_not include('COLLATE')
+  end
+
+  it 'list bodies in collate order according to the locale' do
+    AlaveteliConfiguration.stub(:public_body_list_fallback_to_default_locale).
+      and_return(false)
+
+    DatabaseCollation.stub(:supports?).
+      with(an_instance_of(String)).
+        and_return(true)
+
+    get :list, :locale => 'en_GB'
+
+    expect(assigns[:public_bodies].to_sql).to include('COLLATE')
+  end
+
+  it 'list bodies in alphabetical order according to the locale' do
+    AlaveteliConfiguration.stub(:public_body_list_fallback_to_default_locale).
+      and_return(false)
+
+    DatabaseCollation.stub(:supports?).
+      with(an_instance_of(String)).
+        and_return(false)
+
+    get :list, :locale => 'unknown'
+
+    expect(assigns[:public_bodies].to_sql).to_not include('COLLATE')
+  end
+
   it "should support simple searching of bodies by title" do
     get :list, :public_body_query => 'quango'
     assigns[:public_bodies].should == [ public_bodies(:geraldine_public_body) ]
