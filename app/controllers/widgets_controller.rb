@@ -15,6 +15,7 @@ class WidgetsController < ApplicationController
         @track_thing = TrackThing.create_track_for_request(@info_request)
         @status = @info_request.calculate_status
         @count = @info_request.track_things.count + @info_request.widget_votes.count + 1
+        @user_owns_request = @info_request.user && @info_request.user == @user
 
         @existing_track =
             if @user

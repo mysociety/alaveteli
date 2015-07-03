@@ -22,7 +22,7 @@
 
 
     <div class="alaveteli-widget__bottom">
-      <% if @info_request.user && @info_request.user == @user %>
+      <% if @user_owns_request %>
         <div class="alaveteli-widget__button alaveteli-widget__button--down">
           <%= _('This is your request') %>
         </div>

@@ -54,6 +54,18 @@ describe WidgetsController do
             expect(assigns[:count]).to eq(5)
         end
 
+        it 'sets user_owns_request to true if the user owns the request' do
+            session[:user_id] = @info_request.user.id
+            get :show, :request_id => @info_request.id
+            expect(assigns[:user_owns_request]).to be_true
+        end
+
+        it 'sets user_owns_request to false if the user does not own the request' do
+            session[:user_id] = FactoryGirl.create(:user).id
+            get :show, :request_id => @info_request.id
+            expect(assigns[:user_owns_request]).to be_false
+        end
+
         it 'should not send an x-frame-options header' do
             get :show, :request_id => @info_request.id
             response.headers["X-Frame-Options"].should be_nil
