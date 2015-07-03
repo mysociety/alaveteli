@@ -14,7 +14,9 @@
         </div>
       </div>
       <div class="alaveteli-widget__people-count">
-         <%= n_('<div class="alaveteli-widget__count">{{count}}</div> person wants to know', '<div class="alaveteli-widget__count">{{count}}</div> people want to know', @count, :count => @count) %>
+        <%= n_('<div class="alaveteli-widget__count">{{count}}</div> person wants to know',
+               '<div class="alaveteli-widget__count">{{count}}</div> people want to know',
+               @count, :count => @count) %>
       </div>
     </div>
 
