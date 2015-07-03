@@ -39,17 +39,15 @@
             <%= _('Sign in to track this request') %>
           </div>
         <% end %>
+      <% elsif @user %>
+        <%= link_to do_track_path(@track_thing), :target => '_top' do %>
+          <div class="alaveteli-widget__button">
+            <%= _('I also want to know!') %>
+          </div>
+        <% end %>
       <% else %>
-        <% if @user %>
-          <%= link_to do_track_path(@track_thing), :target => '_top' do %>
-            <div class="alaveteli-widget__button">
-              <%= _('I also want to know!') %>
-            </div>
-          <% end %>
-        <% else %>
-          <%= form_tag request_widget_votes_url(@info_request), :method => 'post', :target => '_top' do %>
-            <%= submit_tag _('I also want to know!'), :class => 'alaveteli-widget__button' %>
-          <% end %>
+        <%= form_tag request_widget_votes_url(@info_request), :method => 'post', :target => '_top' do %>
+          <%= submit_tag _('I also want to know!'), :class => 'alaveteli-widget__button' %>
         <% end %>
       <% end %>
     </div>
