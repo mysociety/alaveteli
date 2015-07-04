@@ -139,6 +139,42 @@ describe PublicBody do
 
   end
 
+  describe  'when generating json for the api' do
+    before do
+        @public_body = PublicBody.new(:name => 'Marmot Appreciation Society',
+                                      :short_name => 'MAS',
+                                      :request_email => 'marmots@flourish.org',
+                                      :last_edit_editor => 'test',
+                                      :last_edit_comment => '',
+                                      :info_requests_count => 10,
+                                      :info_requests_successful_count => 2,
+                                      :info_requests_not_held_count   => 2,
+                                      :info_requests_overdue_count    => 3,
+                                      :info_requests_visible_classified_count => 3)
+    end
+
+    it 'should return info about request counts' do
+      @public_body.json_for_api.should == { :name => 'Marmot Appreciation Society',
+                                            :notes => "",
+                                            :publication_scheme => "",
+                                            :short_name => "MAS",
+                                            :tags => [],
+                                            :updated_at => nil,
+                                            :url_name => "mas",
+                                            :created_at => nil,
+                                            :home_page => "http://www.flourish.org",
+                                            :id => nil,
+                                            :info => {
+                                              :requests_count => 10,
+                                              :requests_successful_count => 2,
+                                              :requests_not_held_count   => 2,
+                                              :requests_overdue_count    => 3,
+                                              :requests_visible_classified_count => 3,
+                                            }
+                                          }
+    end
+  end
+
 end
 
 describe PublicBody, " using tags" do
