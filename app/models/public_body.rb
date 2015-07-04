@@ -589,6 +589,13 @@ class PublicBody < ActiveRecord::Base
             :notes => notes,
             :publication_scheme => publication_scheme,
             :tags => tag_array,
+            :info => {
+                :requests_count => info_requests_count,
+                :requests_successful_count => info_requests_successful_count,
+                :requests_not_held_count   => info_requests_not_held_count,
+                :requests_overdue_count    => info_requests_overdue_count,
+                :requests_visible_classified_count => info_requests_visible_classified_count
+            },
         }
     end
 
@@ -696,7 +703,7 @@ class PublicBody < ActiveRecord::Base
     # Methods to privatise
     # --------------------------------------------------------------------------
 
-    # TODO: This could be removed by updating the default value (to '') of the 
+    # TODO: This could be removed by updating the default value (to '') of the
     # `publication_scheme` column in the `public_body_translations` table.
     #
     # TODO: Can't actually deprecate this because spec/script/mailin_spec.rb:28
