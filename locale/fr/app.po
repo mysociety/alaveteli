@@ -14,6 +14,7 @@
 # Claire, 2013
 # Claire, 2013
 # David Cabo <david.cabo@gmail.com>, 2013
+# Gareth Rees <gareth@mysociety.org>, 2015
 # louisecrow <louise@mysociety.org>, 2013
 # louisecrow <louise@mysociety.org>, 2013-2014
 # mikaclau@gmail.com <mikaclau@gmail.com>, 2014-2015
@@ -37,7 +38,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-15 16:29+0000\n"
-"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"PO-Revision-Date: 2015-06-24 09:25+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/alaveteli/language/fr/)\n"
 "Language: fr\n"
@@ -491,7 +492,7 @@ msgid "Awaiting clarification"
 msgstr ""
 
 msgid "Awaiting classification"
-msgstr ""
+msgstr "En attente de classement"
 
 msgid "Awaiting classification."
 msgstr "En attente de classement."
@@ -500,10 +501,10 @@ msgid "Awaiting internal review."
 msgstr "En attente d'examen interne."
 
 msgid "Awaiting response"
-msgstr ""
+msgstr "Réponse en attente"
 
 msgid "Awaiting response."
-msgstr "Réponse en attente"
+msgstr "Réponse en attente."
 
 msgid "Banned users cannot edit their profile"
 msgstr "Les utilisateurs bloqués ne peuvent pas modifier leur profil"
@@ -743,13 +744,13 @@ msgid "Defunct."
 msgstr "Inactif."
 
 msgid "Delayed"
-msgstr ""
+msgstr "En retard"
 
 msgid "Delayed response to your FOI request - "
 msgstr "Retards de réponse à votre demande d'accès"
 
 msgid "Delayed."
-msgstr "En retard"
+msgstr "En retard."
 
 msgid "Delivery error"
 msgstr "Erreur lors de l'envoi"
@@ -1045,7 +1046,7 @@ msgid "Got an account?"
 msgstr "Vous avez un compte?"
 
 msgid "Handled by post"
-msgstr ""
+msgstr "Envoyé par voie postale"
 
 msgid "Handled by post."
 msgstr "Envoyé par voie postale."
@@ -1432,10 +1433,10 @@ msgid "Log into the admin interface"
 msgstr "Se connecter a l'interface Admin"
 
 msgid "Long overdue"
-msgstr ""
+msgstr "En retard depuis longtemps"
 
 msgid "Long overdue."
-msgstr "En retard depuis longtemps"
+msgstr "En retard depuis longtemps."
 
 msgid "Made between"
 msgstr "Fait entre"
@@ -2486,13 +2487,13 @@ msgid "Success"
 msgstr "Réussite"
 
 msgid "Successful"
-msgstr ""
+msgstr "Réussi"
 
 msgid "Successful Freedom of Information requests"
 msgstr "Demande d'accès à l'information réussie"
 
 msgid "Successful requests"
-msgstr ""
+msgstr "Demandes qui ont abouti"
 
 msgid "Successful."
 msgstr "Réussi."
@@ -3101,7 +3102,7 @@ msgid "Unsubscribe"
 msgstr "désabonner"
 
 msgid "Unusual response"
-msgstr ""
+msgstr "Réponse inattendue"
 
 msgid "Unusual response."
 msgstr "Réponse inattendue."
@@ -3552,7 +3553,7 @@ msgid "Your email doesn't look like a valid address"
 msgstr "Votre e-mail ne ressemble pas à une adresse valide"
 
 msgid "Your email:"
-msgstr ""
+msgstr "Votre courriel:"
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr "Votre suivi n'a pas été envoyé parce que cette demande a été arrêté afin de prévenir le spam. Veuillez <a href=\"{{url}}\">nous contacter</a>si vous voulez vraiment envoyer un message de suivi."

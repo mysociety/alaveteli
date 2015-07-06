@@ -7,14 +7,14 @@
 # caxekis <caxekis@gmail.com>, 2013
 # caxekis <caxekis@gmail.com>, 2013
 # beckymak <makpowan@gmail.com>, 2015
-# spions kwong <kwong.mpi@gmail.com>, 2015
+# spions kwong, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-15 16:29+0000\n"
-"PO-Revision-Date: 2015-06-15 16:30+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2015-06-28 00:41+0000\n"
+"Last-Translator: spions kwong\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/projects/p/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +86,7 @@ msgid " Suggest <strong>where else</strong> the requester might find the informa
 msgstr ""
 
 msgid " What are you investigating using Freedom of Information? "
-msgstr "你透過《公開資料守則》調查甚麼事情？"
+msgstr "你希望透過《公開資料守則》了解甚麼事情？"
 
 msgid " You are already being emailed updates about the request."
 msgstr "有關索取資料要求的更新已電郵給你。"
@@ -438,7 +438,7 @@ msgid "Ask us to add an authority"
 msgstr ""
 
 msgid "Ask us to update FOI email"
-msgstr ""
+msgstr "要求我們更新相關公開資料主任的電郵"
 
 msgid "Ask us to update the email address for {{public_body_name}}"
 msgstr ""
@@ -489,7 +489,7 @@ msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word y
 msgstr ""
 
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
-msgstr ""
+msgstr "瀏覽其他向 '{{public_body_name}}' 提出的 <a href='{{url}}'>索取資料要求</a>，以作為例子，助你組織你的索取資料要求。"
 
 msgid "Browse all authorities..."
 msgstr "列出所有部門及機構"
@@ -2649,7 +2649,7 @@ msgid "Then you can change your email address used on {{site_name}}"
 msgstr ""
 
 msgid "Then you can change your password on {{site_name}}"
-msgstr ""
+msgstr "然後你可以更改你在 {{site_name}} 網站的密碼"
 
 msgid "Then you can classify the FOI response you have got from "
 msgstr ""
@@ -3093,43 +3093,43 @@ msgid "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Li
 msgstr ""
 
 msgid "User"
-msgstr ""
+msgstr "使用者"
 
 msgid "User info request sent alert"
 msgstr ""
 
 msgid "User – {{name}}"
-msgstr ""
+msgstr "使用者 － {{name}}"
 
 msgid "UserInfoRequestSentAlert|Alert type"
 msgstr ""
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
-msgstr ""
+msgstr "使用者不能同一時間向多個部門或機構提出索取資料要求。原因是我們不希望部門或機構被大量索取資料要求影響其正常運作。如果你認為有充份理由需要向多個部門及／或機構提出相同的索取資料要求，請 <a href=\"{{url}}\">聯絡我們</a>。"
 
 msgid "User|About me"
-msgstr ""
+msgstr "使用者｜關於自己"
 
 msgid "User|Admin level"
-msgstr ""
+msgstr "使用者｜管理等級"
 
 msgid "User|Ban text"
-msgstr ""
+msgstr "使用者｜封禁字眼"
 
 msgid "User|Can make batch requests"
-msgstr ""
+msgstr "使用者｜可以同時向多個部門提出索取資料要求"
 
 msgid "User|Email"
-msgstr ""
+msgstr "使用者｜電郵"
 
 msgid "User|Email bounce message"
-msgstr ""
+msgstr "使用者｜電郵退回訊息"
 
 msgid "User|Email bounced at"
-msgstr ""
+msgstr "使用者｜電郵退回於"
 
 msgid "User|Email confirmed"
-msgstr ""
+msgstr "使用者｜電郵已確認"
 
 msgid "User|Hashed password"
 msgstr ""
@@ -3144,10 +3144,10 @@ msgid "User|Name"
 msgstr ""
 
 msgid "User|No limit"
-msgstr ""
+msgstr "使用者｜沒有限制"
 
 msgid "User|Receive email alerts"
-msgstr ""
+msgstr "使用者｜接收電郵提示"
 
 msgid "User|Salt"
 msgstr ""
@@ -3156,10 +3156,10 @@ msgid "User|Url name"
 msgstr ""
 
 msgid "Version {{version}}"
-msgstr ""
+msgstr "第 {{version}} 版本"
 
 msgid "Vexatious"
-msgstr ""
+msgstr "困擾的"
 
 msgid "View FOI email address"
 msgstr ""
@@ -3180,10 +3180,10 @@ msgid "View email"
 msgstr "檢視電郵"
 
 msgid "View other requests to {{public_body}}"
-msgstr ""
+msgstr "查閱其他向{{public_body}}作出的查詢"
 
 msgid "Waiting clarification."
-msgstr ""
+msgstr "正在等候澄清。"
 
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr ""
@@ -3665,10 +3665,10 @@ msgid "and"
 msgstr "及"
 
 msgid "and we'll suggest <strong>what to do next</strong>"
-msgstr ""
+msgstr "而我們亦會建議 <strong>下一步的行動</strong>"
 
 msgid "anything matching text '{{query}}'"
-msgstr ""
+msgstr "任何符合 '{{query}}' 的文字"
 
 msgid "are long overdue."
 msgstr "已經超過時限。"
@@ -3677,22 +3677,22 @@ msgid "at"
 msgstr "於"
 
 msgid "authorities"
-msgstr ""
+msgstr "政府部門或公營機構"
 
 msgid "beginning with ‘{{first_letter}}’"
-msgstr ""
+msgstr "以 ‘{{first_letter}}’ 開始"
 
 msgid "but followupable"
-msgstr ""
+msgstr "但可以跟進"
 
 msgid "by"
-msgstr ""
+msgstr "由"
 
 msgid "by <strong>{{date}}</strong>"
-msgstr ""
+msgstr "在 <strong>{{date}}</strong> 或之前"
 
 msgid "by {{user_link_absolute}}"
-msgstr ""
+msgstr "由 {{user_link_absolute}}"
 
 msgid "comments"
 msgstr "意見"
@@ -3710,31 +3710,31 @@ msgid "during term time"
 msgstr ""
 
 msgid "e.g. Ministry of Defence"
-msgstr ""
+msgstr "例如：保安局"
 
 msgid "edit text about you"
-msgstr ""
+msgstr "修改關於你的資料"
 
 msgid "email address"
-msgstr ""
+msgstr "電郵地址"
 
 msgid "even during holidays"
-msgstr ""
+msgstr "即使是公眾假期"
 
 msgid "everything"
-msgstr ""
+msgstr "全部"
 
 msgid "external"
-msgstr ""
+msgstr "外部"
 
 msgid "has reported an"
-msgstr ""
+msgstr "已報告一項"
 
 msgid "have delayed."
-msgstr ""
+msgstr "已經出現延誤。"
 
 msgid "hide quoted sections"
-msgstr ""
+msgstr "隱藏已引用的部份"
 
 msgid "in term time"
 msgstr ""
@@ -3743,13 +3743,13 @@ msgid "in the category ‘{{category_name}}’"
 msgstr ""
 
 msgid "internal error"
-msgstr ""
+msgstr "內部錯誤"
 
 msgid "internal reviews"
-msgstr ""
+msgstr "部門覆檢"
 
 msgid "is <strong>waiting for your clarification</strong>."
-msgstr ""
+msgstr "正在 <strong>等待你澄清某些事項</strong>。"
 
 msgid "just to see how it works"
 msgstr ""
@@ -3758,7 +3758,7 @@ msgid "left an annotation"
 msgstr ""
 
 msgid "made."
-msgstr ""
+msgstr "已經作出。"
 
 msgid "matching the tag ‘{{tag_name}}’"
 msgstr ""
@@ -3779,16 +3779,16 @@ msgid "new requests"
 msgstr ""
 
 msgid "no later than"
-msgstr ""
+msgstr "不遲於"
 
 msgid "normally"
-msgstr ""
+msgstr "正常地"
 
 msgid "not requestable due to: {{reason}}"
 msgstr ""
 
 msgid "please sign in as "
-msgstr ""
+msgstr "請登入為"
 
 msgid "requesting an internal review"
 msgstr ""
@@ -3806,7 +3806,7 @@ msgid "response as needing administrator attention. Take a look, and reply to th
 msgstr ""
 
 msgid "send a follow up message"
-msgstr ""
+msgstr "發出一項跟進訊息"
 
 msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
 msgstr ""
@@ -3838,34 +3838,34 @@ msgid "the main FOI contact at {{public_body}}"
 msgstr ""
 
 msgid "the requester"
-msgstr ""
+msgstr "索取資料人士"
 
 msgid "the {{site_name}} team"
-msgstr ""
+msgstr "{{site_name}}網站團隊"
 
 msgid "to send a follow up message."
-msgstr ""
+msgstr "發出一項跟進訊息。"
 
 msgid "to {{public_body}}"
-msgstr ""
+msgstr "給{{public_body}}"
 
 msgid "type your search term here"
-msgstr ""
+msgstr "在這裡輸入你的搜尋文字"
 
 msgid "unknown reason "
 msgstr "不明原因"
 
 msgid "unknown status "
-msgstr ""
+msgstr "未知狀態"
 
 msgid "unresolved requests"
-msgstr ""
+msgstr "尚未解決的要求"
 
 msgid "unsubscribe"
-msgstr ""
+msgstr "取消訂閱"
 
 msgid "unsubscribe all"
-msgstr ""
+msgstr "全部取消訂閱"
 
 msgid "unsuccessful requests"
 msgstr "失敗案件"
@@ -3874,10 +3874,10 @@ msgid "users"
 msgstr "用戶"
 
 msgid "what's that?"
-msgstr ""
+msgstr "這是甚麼？"
 
 msgid "{{count}} FOI requests found"
-msgstr ""
+msgstr "找到 {{count}} 宗要求"
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"

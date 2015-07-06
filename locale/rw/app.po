@@ -4,6 +4,7 @@
 #
 # Translators:
 # Clarisse Umutesi Mwitegereze <clarisse@mediae.org>, 2014-2015
+# Gareth Rees <gareth@mysociety.org>, 2015
 # mySociety <transifex@mysociety.org>, 2015
 # Stephen Abbott Pugh <stephendabbott@gmail.com>, 2015
 msgid ""
@@ -11,7 +12,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-15 16:29+0000\n"
-"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"PO-Revision-Date: 2015-06-24 09:26+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/projects/p/alaveteli/language/rw/)\n"
 "Language: rw\n"
@@ -461,7 +462,7 @@ msgid "Awaiting clarification"
 msgstr ""
 
 msgid "Awaiting classification"
-msgstr ""
+msgstr "Gitegereje gushyingurwa"
 
 msgid "Awaiting classification."
 msgstr "Gitegereje gushyingurwa."
@@ -470,10 +471,10 @@ msgid "Awaiting internal review."
 msgstr "Gitegereje isuzuma."
 
 msgid "Awaiting response"
-msgstr ""
+msgstr "Gitegereje igisubizo"
 
 msgid "Awaiting response."
-msgstr "Gitegereje igisubizo"
+msgstr "Gitegereje igisubizo."
 
 msgid "Banned users cannot edit their profile"
 msgstr "Abantu baciwe ku rubuga ntibashobora guhindura ibibaranga"
@@ -713,7 +714,7 @@ msgid "Defunct."
 msgstr "Ntikora."
 
 msgid "Delayed"
-msgstr ""
+msgstr "Cyakerewe"
 
 msgid "Delayed response to your FOI request - "
 msgstr "Ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru cyatinze gusubizwa -"
@@ -1015,7 +1016,7 @@ msgid "Got an account?"
 msgstr "Ufite konti?"
 
 msgid "Handled by post"
-msgstr ""
+msgstr "Byoherejwe n'iposita"
 
 msgid "Handled by post."
 msgstr "Byoherejwe n'iposita."
@@ -1402,7 +1403,7 @@ msgid "Log into the admin interface"
 msgstr "Injira mu rubuga rw'abayobozi"
 
 msgid "Long overdue"
-msgstr ""
+msgstr "Cyararengeranye cyane"
 
 msgid "Long overdue."
 msgstr "Cyararengeranye cyane."
@@ -2456,13 +2457,13 @@ msgid "Success"
 msgstr "Byasubijwe"
 
 msgid "Successful"
-msgstr ""
+msgstr "Cyarasubijwe"
 
 msgid "Successful Freedom of Information requests"
 msgstr "Ibibazo by'ubwisanzure bwo kumenya amakuru byasubijwe"
 
 msgid "Successful requests"
-msgstr ""
+msgstr "Ibibazo byasubijwe"
 
 msgid "Successful."
 msgstr "Cyarasubijwe."
@@ -3065,13 +3066,13 @@ msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\n
 msgstr "Ku bw'amahirwe make, ntabwo dufite {{info_request_law_used_full}}\\naderesi ikora ya"
 
 msgid "Unknown"
-msgstr ""
+msgstr "Ntizwi"
 
 msgid "Unsubscribe"
 msgstr "Kwiyandukuza"
 
 msgid "Unusual response"
-msgstr ""
+msgstr "Igisubizo kidasanzwe"
 
 msgid "Unusual response."
 msgstr "Igisubizo kidasanzwe."
@@ -3522,7 +3523,7 @@ msgid "Your email doesn't look like a valid address"
 msgstr "Imeli yawe isa nk'itabaho"
 
 msgid "Your email:"
-msgstr ""
+msgstr "Ubutumwa bwohererejwe urubuga:"
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
 msgstr "Ubutumwa bwawe bwo gukurikirana iki kibazo bwahagaritswe mu rwego rwo kwirinda sipamu. Turagusaba <a href=\"{{url}}\">kutwandikita</a> niba koko wifuza kwohereza ubutumw bwo gukurikirana."
