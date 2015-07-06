@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# arne <arne.semsrott@okfn.de>, 2015
 # David Cabo <david.cabo@gmail.com>, 2012
 # FOI Monkey <>, 2012
 # KerstiRu <kersti@access-info.org>, 2011
@@ -15,8 +16,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-15 16:29+0000\n"
-"PO-Revision-Date: 2015-06-15 16:30+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"PO-Revision-Date: 2015-07-01 09:20+0000\n"
+"Last-Translator: arne <arne.semsrott@okfn.de>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/alaveteli/language/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +76,7 @@ msgstr ""
 "        Sie können die Adresse wahrscheinlich auf der Webseite oder durch einen Anruf bei der Behörde herausfinden. "
 
 msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
-msgstr "Fügen Sie relevanten Links ein, z.B. zu einer Kampagnenseite, Ihrem Blog oder Twitterkonto. Die Links werden aktiviert widergegeben. z.B."
+msgstr "Fügen Sie relevante Links ein, z.B. zu einer Kampagnenseite, Ihrem Blog oder Twitterkonto. Die Links werden anklickbar sein. z.B."
 
 msgid " Link to the information requested, if it is <strong>already available</strong> on the Internet. "
 msgstr " Link zur angefragten Information,falls bereits online <strong>verfügbar</strong>. "

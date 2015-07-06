@@ -1,6 +1,27 @@
 # -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+describe TrackController do
+
+    describe 'GET track_request' do
+
+        it 'clears widget votes for the request' do
+            AlaveteliConfiguration.stub!(:enable_widgets).and_return(true)
+            @info_request = FactoryGirl.create(:info_request)
+            @info_request.widget_votes.create(:cookie => mock_cookie)
+
+            session[:user_id] = FactoryGirl.create(:user).id
+            request.cookies['widget_vote'] = mock_cookie
+
+            get :track_request, :url_title => @info_request.url_title, :feed => 'track'
+
+            expect(@info_request.widget_votes).to be_empty
+        end
+
+    end
+
+end
+
 describe TrackController, "when making a new track on a request" do
     before(:each) do
         @ir = mock_model(InfoRequest, :url_title => 'myrequest',

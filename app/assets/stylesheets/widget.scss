@@ -90,14 +90,19 @@ a:active {
   text-align: center;
   line-height: 1.3em;
 }
+
 .alaveteli-widget__count {
     font-size: 55px;
     line-height: 55px;
     text-align: center;
 }
 
-.alaveteli-widget__bottom a {
-    text-decoration: none;
+.alaveteli-widget__bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 72%;
+  padding: 1em 0 0.9em 1em;
 }
 
 .alaveteli-widget__button {
@@ -106,4 +111,3 @@ a:active {
     left: 16px;
     text-align: center;
 }
-
