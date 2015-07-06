@@ -1,13 +1,25 @@
 <% if FastGettext.default_available_locales.length > 1 && !params.empty? %>
-  <div id="user_locale_switcher">
-    <div class="btn-group">
-      <% FastGettext.default_available_locales.each do |possible_locale| %>
-        <% if possible_locale == FastGettext.locale %>
-          <a href="#" class="btn disabled"><%= locale_name(possible_locale) %></a>
-        <% else %>
-          <a href="<%= url_for params.merge(:locale => possible_locale) %>" class="btn"><%= locale_name(possible_locale) %></a>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
+ <% locales = { :current => FastGettext.locale, :available => [] } %>
+
+ <% FastGettext.default_available_locales.each do |possible_locale| %>
+   <% if possible_locale == FastGettext.locale %>
+     <% locales[:current] = possible_locale %>
+   <% else %>
+     <% locales[:available] << possible_locale %>
+   <% end %>
+ <% end %>
+
+ <div id="user_locale_switcher" class="locale-list">
+   <p class="locale-list-trigger <% locales[:current] %>">
+     <strong class="current-locale"><%= locale_name(locales[:current]) %></strong>
+   </p>
+
+   <ul class="available-languages">
+     <% locales[:available].each do |locale| %>
+       <li class="available-languages__item">
+         <%= link_to locale_name(locale), url_for(params.merge(:locale => locale)) %>
+       </li>
+     <% end %>
+   </ul>
+ </div>
 <% end %>
