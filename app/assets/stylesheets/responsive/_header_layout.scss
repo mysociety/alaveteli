@@ -188,18 +188,46 @@
   }
 }
 
-#user_locale_switcher {
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
+.locale-list {
+  border-bottom: 1px solid #e9e9e9;
+
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
     position: absolute;
     right: 0;
     top: 0;
+    border: 0;
   }
-  a{
+
+  a,
+  .locale-list-trigger {
     display: block;
     padding: 0.5em 1em;
-    @include respond-min( $main_menu-mobile_menu_cutoff ){
+
+    @include respond-min( $main_menu-mobile_menu_cutoff ) {
       display: inline-block;
     }
   }
+}
 
+.locale-list-trigger {
+  margin-bottom: 0;
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    display: inline;
+  }
+}
+
+.available-languages {
+  list-style: none outside none;
+  margin:0;
+  padding: 0;
+
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    display: inline;
+  }
+
+  li {
+    @include respond-min( $main_menu-mobile_menu_cutoff ) {
+      display: inline-block;
+    }
+  }
 }
