@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # models/changeemail_validator.rb:
 # Validates email change form submissions.
 #

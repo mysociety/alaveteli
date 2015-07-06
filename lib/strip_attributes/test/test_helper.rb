@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'test/unit'
 require 'rubygems'
 require 'active_record'
@@ -9,7 +10,7 @@ require "#{PLUGIN_ROOT}/init"
 
 class ActiveRecord::Base
   alias_method :save, :valid?
-  def self.columns()
+  def self.columns
     @columns ||= []
   end
 

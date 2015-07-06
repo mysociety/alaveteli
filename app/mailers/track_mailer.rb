@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # models/track_mailer.rb:
 # Emails which go to users who are tracking things.
 #
@@ -38,7 +39,7 @@ class TrackMailer < ApplicationMailer
     #   User.find(:all, :conditions => [ "last_daily_track_email < ?", Time.now - 1.day ]).size
     def self.alert_tracks
         done_something = false
-        now = Time.now()
+        now = Time.now
         one_week_ago = now - 7.days
         User.find_each(:conditions => [ "last_daily_track_email < ?",
                                          now - 1.day ]) do |user|

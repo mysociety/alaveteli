@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/globalize/globalize.git
+  remote: https://github.com/globalize/globalize.git
   revision: 5fd95f2389dff13c9368fb2e08c96c8a48798c72
   ref: 5fd95f2389dff1
   specs:
@@ -9,7 +9,7 @@ GIT
       paper_trail (~> 2)
 
 GIT
-  remote: git://github.com/mysociety/ruby-msg.git
+  remote: https://github.com/mysociety/ruby-msg.git
   revision: 44526e009d13673ab9ff5a23491c4c6119e2fa79
   specs:
     ruby-msg (1.5.2)
@@ -17,7 +17,7 @@ GIT
       vpim (>= 0.360)
 
 GIT
-  remote: git://github.com/technoweenie/acts_as_versioned.git
+  remote: https://github.com/technoweenie/acts_as_versioned.git
   revision: 63b1fc8529d028fae632fe80ec0cb25df56cd76b
   ref: 63b1fc8529d028
   specs:
@@ -60,6 +60,9 @@ GEM
     bootstrap-sass (2.3.1.2)
       sass (~> 3.2)
     builder (3.0.4)
+    bullet (4.14.6)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.9.0)
     capistrano (2.15.4)
       highline
       net-scp (>= 1.0.0)
@@ -127,12 +130,12 @@ GEM
       tilt
     highline (1.6.19)
     hike (1.2.3)
-    holidays (1.0.8)
+    holidays (1.2.0)
     i18n (0.6.11)
     icalendar (1.4.3)
     iso_country_codes (0.6.1)
     journey (1.0.4)
-    jquery-rails (3.0.4)
+    jquery-rails (3.1.3)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (4.1.0)
@@ -168,7 +171,7 @@ GEM
     net-ssh (2.6.7)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    newrelic_rpm (3.11.1.284)
+    newrelic_rpm (3.12.0.288)
     nokogiri (1.5.9)
     open4 (1.3.4)
     paper_trail (2.7.2)
@@ -182,7 +185,7 @@ GEM
       slop (~> 3.4)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
-    rack (1.4.5)
+    rack (1.4.6)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-protection (1.5.0)
@@ -191,6 +194,8 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rack-utf8_sanitizer (1.3.0)
+      rack (~> 1.0)
     rails (3.2.21)
       actionmailer (= 3.2.21)
       actionpack (= 3.2.21)
@@ -216,7 +221,7 @@ GEM
     ref (1.0.5)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rmagick (2.13.2)
+    rmagick (2.14.0)
     routing-filter (0.3.1)
       actionpack
     rspec-core (2.13.1)
@@ -241,7 +246,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    secure_headers (1.3.4)
+    secure_headers (2.0.2)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
@@ -285,13 +290,14 @@ GEM
       multi_json (~> 1.0, >= 1.0.2)
     unicode (0.4.4)
     unidecoder (1.1.2)
+    uniform_notifier (1.9.0)
     vpim (13.11.11)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
     will_paginate (3.0.5)
-    xapian-full-alaveteli (1.2.9.5)
+    xapian-full-alaveteli (1.2.9.7)
     xml-simple (1.1.2)
     zip (2.0.2)
 
@@ -302,6 +308,7 @@ DEPENDENCIES
   acts_as_versioned!
   annotate (~> 2.5.0)
   bootstrap-sass (~> 2.3.1.2)
+  bullet (~> 4.14.6)
   capistrano (~> 2.15.4)
   charlock_holmes (~> 0.6.9.4)
   coffee-rails (~> 3.2.1)
@@ -318,10 +325,10 @@ DEPENDENCIES
   gettext (~> 2.3.9)
   gettext_i18n_rails (~> 0.9.4)
   globalize3!
-  holidays (~> 1.0.8)
+  holidays (~> 1.2.0)
   icalendar (= 1.4.3)
   iso_country_codes (~> 0.6.1)
-  jquery-rails (~> 3.0.4)
+  jquery-rails (~> 3.1.3)
   jquery-ui-rails (~> 4.1.0)
   json (~> 1.8.1)
   locale (~> 2.0.8)
@@ -336,19 +343,20 @@ DEPENDENCIES
   pg (~> 0.17.1)
   pry (~> 0.9.6)
   quiet_assets (~> 1.0.2)
-  rack (~> 1.4.5)
+  rack (~> 1.4.6)
+  rack-utf8_sanitizer (~> 1.3.0)
   rails (= 3.2.21)
   rails-i18n (~> 0.7.3)
   rake (= 0.9.2.2)
   rdoc (~> 3.12.2)
   recaptcha (~> 0.3.1)
-  rmagick (~> 2.13.2)
+  rmagick (~> 2.14.0)
   routing-filter (~> 0.3.1)
   rspec-rails (~> 2.13.2)
   ruby-debug (~> 0.10.4)
   ruby-msg (~> 1.5.0)!
   sass-rails (~> 3.2.3)
-  secure_headers (~> 1.3.4)
+  secure_headers (~> 2.0.2)
   spork-rails (~> 3.2.1)
   statistics2 (~> 0.54)
   syslog_protocol (~> 0.9.2)
@@ -360,6 +368,6 @@ DEPENDENCIES
   vpim (~> 13.11.11)
   webrat (~> 0.7.3)
   will_paginate (~> 3.0.5)
-  xapian-full-alaveteli (~> 1.2.9.5)
+  xapian-full-alaveteli (~> 1.2.9.7)
   xml-simple (~> 1.1.2)
   zip (~> 2.0.2)

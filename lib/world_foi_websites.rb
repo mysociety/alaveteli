@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- encoding : utf-8 -*-
 class WorldFOIWebsites
     def self.world_foi_websites
         world_foi_websites = [
@@ -77,7 +77,15 @@ class WorldFOIWebsites
                               {:name => "Слободен пристап",
                                   :country_name => "Република Македонија",
                                   :country_iso_code => "MK",
-                                  :url => "http://www.slobodenpristap.mk/"}
+                                  :url => "http://www.slobodenpristap.mk/"},
+                              {:name => "Imamo pravo znati",
+                                  :country_name => "Republika Hrvatska",
+                                  :country_iso_code => "HR",
+                                  :url => "http://imamopravoznati.org/"},
+                              {:name => "РосОтвет",
+                                  :country_name => "Россия",
+                                  :country_iso_code => "RU",
+                                  :url => "http://rosotvet.ru/"}
                               ]
         return world_foi_websites
     end

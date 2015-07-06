@@ -144,7 +144,7 @@
           <% if @info_request.public_body.info_requests.size > 0 %>
               <%= _("Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request.", :public_body_name=>h(@info_request.public_body.name), :url=>public_body_path(@info_request.public_body)) %>
           <% else %>
-              <%= _("Browse <a href='{{url}}'>other requests</a> for examples of how to word your request.", :url=>request_list_url) %>
+              <%= _("Browse <a href='{{url}}'>other requests</a> for examples of how to word your request.", :url=>request_list_successful_url) %>
           <% end %>
         </p>
       <% end %>
@@ -156,7 +156,7 @@
           this website <a href="{{url}}">forever</a>', :url => (help_privacy_path+"#public_request").html_safe)) %>.
         </p>
         <p>
-          <%= raw(_('<a href="{{url}}">Thinking of using a pseudonym?</a>.', :url => (help_privacy_path+"#real_name").html_safe)) %>
+          <%= raw(_('<a href="{{url}}">Thinking of using a pseudonym?</a>', :url => (help_privacy_path+"#real_name").html_safe)) %>
         </p>
       <% else %>
         <p>

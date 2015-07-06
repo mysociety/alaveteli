@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddMoreUrlNames < ActiveRecord::Migration
     def self.up
         add_column :users, :url_name, :text

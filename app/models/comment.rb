@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: comments
@@ -20,6 +21,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class Comment < ActiveRecord::Base
+    include AdminColumn
     strip_attributes!
 
     belongs_to :user
@@ -30,6 +32,8 @@ class Comment < ActiveRecord::Base
     validates_inclusion_of :comment_type, :in => [ 'request' ]
     validate :check_body_has_content,
              :check_body_uses_mixed_capitals
+
+    scope :visible, where(:visible => true)
 
     after_save :event_xapian_update
 
@@ -57,10 +61,6 @@ class Comment < ActiveRecord::Base
         ret
     end
 
-    def raw_body
-        read_attribute(:body)
-    end
-
     # So when takes changes it updates, or when made invisble it vanishes
     def event_xapian_update
         info_request_events.each { |event| event.xapian_mark_needs_index }
@@ -73,12 +73,6 @@ class Comment < ActiveRecord::Base
         text = MySociety::Format.make_clickable(text, :contract => 1)
         text = text.gsub(/\n/, '<br>')
         text.html_safe
-    end
-
-    def for_admin_column
-        self.class.content_columns.each do |column|
-            yield(column.human_name, send(column.name), column.type.to_s, column.name)
-        end
     end
 
     private

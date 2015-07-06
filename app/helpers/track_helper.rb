@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module TrackHelper
 
     def already_subscribed_notice(track_thing)

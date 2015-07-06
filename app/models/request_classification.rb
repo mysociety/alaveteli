@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: request_classifications
@@ -15,7 +16,7 @@ class RequestClassification < ActiveRecord::Base
     # return classification instances representing the top n
     # users, with a 'cnt' attribute representing the number
     # of classifications the user has made.
-    def RequestClassification.league_table(size, conditions=[])
+    def self.league_table(size, conditions=[])
         find(:all, :select => 'user_id, count(*) as cnt',
                                          :conditions => conditions,
                                          :group => 'user_id',

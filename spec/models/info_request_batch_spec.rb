@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: info_request_batches
@@ -80,7 +81,7 @@ describe InfoRequestBatch, "when finding an existing batch" do
     end
 end
 
-describe InfoRequestBatch, "when creating a batch", :focus => true do
+describe InfoRequestBatch, "when creating a batch" do
 
     before do
         @title = 'A test title'

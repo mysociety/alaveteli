@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RemoveComplaintEmail < ActiveRecord::Migration
     def self.up
         remove_column :public_body_versions, :complaint_email

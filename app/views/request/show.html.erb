@@ -22,7 +22,7 @@
 
 
 <% if ( @update_status || @info_request.awaiting_description ) && ! @info_request.is_external? %>
-    <div class="describe_state_form" id="describe_state_form_1">
+    <div class="describe_state_form box" id="describe_state_form_1">
     <%= render :partial => 'describe_state', :locals => { :id_suffix => "1" } %>
     </div>
 <% end %>
@@ -146,7 +146,7 @@
     <% end %>
 
     <% if @info_request.awaiting_description && ! @info_request.is_external? %>
-        <div class="describe_state_form" id="describe_state_form_2">
+        <div class="describe_state_form box" id="describe_state_form_2">
         <%= render :partial => 'describe_state', :locals => { :id_suffix => "2" } %>
         </div>
     <% end %>

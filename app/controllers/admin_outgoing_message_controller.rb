@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AdminOutgoingMessageController < AdminController
 
     def edit
@@ -11,7 +12,7 @@ class AdminOutgoingMessageController < AdminController
 
         @outgoing_message.fully_destroy
         @outgoing_message.info_request.log_event("destroy_outgoing",
-            { :editor => admin_current_user(), :deleted_outgoing_message_id => outgoing_message_id })
+            { :editor => admin_current_user, :deleted_outgoing_message_id => outgoing_message_id })
 
         flash[:notice] = 'Outgoing message successfully destroyed.'
         redirect_to admin_request_url(@info_request)
@@ -29,7 +30,7 @@ class AdminOutgoingMessageController < AdminController
         if @outgoing_message.save
             @outgoing_message.info_request.log_event("edit_outgoing",
                 { :outgoing_message_id => @outgoing_message.id,
-                  :editor => admin_current_user(),
+                  :editor => admin_current_user,
                   :old_body => old_body,
                   :body => @outgoing_message.body,
                   :old_prominence => old_prominence,

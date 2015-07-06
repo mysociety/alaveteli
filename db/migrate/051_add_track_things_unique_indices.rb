@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddTrackThingsUniqueIndices < ActiveRecord::Migration
     def self.up
         add_index :track_things, [:tracking_user_id, :track_query], :unique => true

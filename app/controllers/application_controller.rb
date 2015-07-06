@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- encoding : utf-8 -*-
 # controllers/application.rb:
 # Parent class of all controllers in FOI site. Filters added to this controller
 # apply to all controllers in the application. Likewise, all the methods added
@@ -206,7 +206,7 @@ class ApplicationController < ActionController::Base
     def foi_fragment_cache_part_path(param)
         path = url_for(param)
         id = param['id'] || param[:id]
-        first_three_digits = id.to_s()[0..2]
+        first_three_digits = id.to_s[0..2]
         path = path.sub("/request/", "/request/" + first_three_digits + "/")
         return path
     end

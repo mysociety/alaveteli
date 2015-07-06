@@ -5,10 +5,10 @@ jQuery ->
         )
     $('.accordion-body').on('shown', ->
         $(@).prev().find('i').first().removeClass().addClass('icon-chevron-down'))
-    $('.toggle-hidden').live('click', ->
+    $('body').on('.toggle-hidden', 'click', ->
         $(@).parents('td').find('div:hidden').show()
         false)
-    $('#request_hidden_user_explanation_reasons input').live('click', ->
+    $('#request_hidden_user_explanation_reasons').on('click', 'input', ->
         $('#request_hidden_user_subject, #request_hidden_user_explanation, #request_hide_button').show()
         info_request_id = $('#hide_request_form').attr('data-info-request-id')
         reason = $(this).val()

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateHolidays < ActiveRecord::Migration
   def self.up
     create_table :holidays do |t|

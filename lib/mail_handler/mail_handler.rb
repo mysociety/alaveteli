@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Handles the parsing of email
 require 'tmpdir'
 
@@ -133,7 +134,7 @@ module MailHandler
                 begin
                     zip_file = Zip::ZipFile.open(tempfile.path)
                     text += get_attachment_text_from_zip_file(zip_file)
-                    zip_file.close()
+                    zip_file.close
                 rescue
                     $stderr.puts("Error processing zip file: #{$!.inspect}")
                 end

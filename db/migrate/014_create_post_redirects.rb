@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreatePostRedirects < ActiveRecord::Migration
   def self.up
     create_table :post_redirects do |t|

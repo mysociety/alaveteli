@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # acts_as_xapian/init.rb:
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.

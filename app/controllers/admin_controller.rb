@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # controllers/admin.rb:
 # All admin controllers are dervied from this.
 #

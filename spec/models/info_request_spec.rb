@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: info_requests
@@ -28,6 +28,117 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequest do
 
+    describe :new do
+
+        it 'sets the default law used' do
+            expect(InfoRequest.new.law_used).to eq('foi')
+        end
+
+        it 'sets the default law used if a body is eir-only' do
+            body = FactoryGirl.create(:public_body, :tag_string => 'eir_only')
+            expect(body.info_requests.build.law_used).to eq('eir')
+        end
+
+        it 'does not try to set the law used for existing requests' do
+            info_request = FactoryGirl.create(:info_request)
+            body = FactoryGirl.create(:public_body, :tag_string => 'eir_only')
+            info_request.update_attributes(:public_body_id => body.id)
+            InfoRequest.any_instance.should_not_receive(:law_used=).and_call_original
+            InfoRequest.find(info_request.id)
+        end
+    end
+
+    describe :move_to_public_body do
+
+        context 'with no options' do
+
+          it 'requires an :editor option' do
+              request = FactoryGirl.create(:info_request)
+              new_body = FactoryGirl.create(:public_body)
+              expect {
+                  request.move_to_public_body(new_body)
+              }.to raise_error IndexError
+          end
+
+        end
+
+        context 'with the :editor option' do
+
+          it 'moves the info request to the new public body' do
+              request = FactoryGirl.create(:info_request)
+              new_body = FactoryGirl.create(:public_body)
+              user = FactoryGirl.create(:user)
+              request.move_to_public_body(new_body, :editor => user)
+              request.reload
+              expect(request.public_body).to eq(new_body)
+          end
+
+          it 'logs the move' do
+              request = FactoryGirl.create(:info_request)
+              old_body = request.public_body
+              new_body = FactoryGirl.create(:public_body)
+              user = FactoryGirl.create(:user)
+              request.move_to_public_body(new_body, :editor => user)
+              request.reload
+              event = request.info_request_events.last
+
+              expect(event.event_type).to eq('move_request')
+              expect(event.params[:editor]).to eq(user)
+              expect(event.params[:public_body_url_name]).to eq(new_body.url_name)
+              expect(event.params[:old_public_body_url_name]).to eq(old_body.url_name)
+          end
+
+          it 'updates the law_used to the new body law' do
+              request = FactoryGirl.create(:info_request)
+              new_body = FactoryGirl.create(:public_body, :tag_string => 'eir_only')
+              user = FactoryGirl.create(:user)
+              request.move_to_public_body(new_body, :editor => user)
+              request.reload
+              expect(request.law_used).to eq('eir')
+          end
+
+          it 'returns the new public body' do
+              request = FactoryGirl.create(:info_request)
+              new_body = FactoryGirl.create(:public_body)
+              user = FactoryGirl.create(:user)
+              expect(request.move_to_public_body(new_body, :editor => user)).to eq(new_body)
+          end
+
+          it 'retains the existing body if the new body does not exist' do
+              request = FactoryGirl.create(:info_request)
+              user = FactoryGirl.create(:user)
+              existing_body = request.public_body
+              request.move_to_public_body(nil, :editor => user)
+              request.reload
+              expect(request.public_body).to eq(existing_body)
+          end
+
+          it 'returns nil if the body cannot be updated' do
+              request = FactoryGirl.create(:info_request)
+              user = FactoryGirl.create(:user)
+              expect(request.move_to_public_body(nil, :editor => user)).to eq(nil)
+          end
+
+          it 'reindexes the info request' do
+              request = FactoryGirl.create(:info_request)
+              new_body = FactoryGirl.create(:public_body)
+              user = FactoryGirl.create(:user)
+              reindex_job = ActsAsXapian::ActsAsXapianJob.
+                where(:model => 'InfoRequestEvent').
+                  delete_all
+
+              request.move_to_public_body(new_body, :editor => user)
+              request.reload
+
+              reindex_job = ActsAsXapian::ActsAsXapianJob.
+                where(:model => 'InfoRequestEvent').
+                  last
+              expect(reindex_job.model_id).to eq(request.info_request_events.last.id)
+          end
+
+        end
+    end
+
     describe 'when validating' do
 
         it 'should accept a summary with ascii characters' do
@@ -42,7 +153,7 @@ describe InfoRequest do
             info_request.errors[:title].should be_empty
         end
 
-        it 'should not accept a summary with no ascii or unicode characters' do
+         it 'should not accept a summary with no ascii or unicode characters' do
             info_request = InfoRequest.new(:title => '55555')
             info_request.valid?
             info_request.errors[:title].should_not be_empty
@@ -547,17 +658,22 @@ describe InfoRequest do
 
         before do
             Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
-            @mock_comment_event = mock_model(InfoRequestEvent, :created_at => Time.now - 23.days,
-                                                               :event_type => 'comment',
-                                                               :response? => false)
-            mock_incoming_message = mock_model(IncomingMessage, :all_can_view? => true)
-            @mock_response_event = mock_model(InfoRequestEvent, :created_at => Time.now - 22.days,
-                                                                :event_type => 'response',
-                                                                :response? => true,
-                                                                :incoming_message => mock_incoming_message)
-            @info_request = InfoRequest.new(:prominence => 'normal',
-                                            :awaiting_description => true,
-                                            :info_request_events => [@mock_response_event, @mock_comment_event])
+            @info_request = FactoryGirl.create(:info_request,
+                                               :prominence => 'normal',
+                                               :awaiting_description => true)
+            @comment_event = FactoryGirl.create(:info_request_event,
+                                                :created_at => Time.now - 23.days,
+                                                :event_type => 'comment',
+                                                :info_request => @info_request)
+            @incoming_message = FactoryGirl.create(:incoming_message,
+                                                   :prominence => 'normal',
+                                                   :info_request => @info_request)
+            @response_event = FactoryGirl.create(:info_request_event,
+                                                 :info_request => @info_request,
+                                                 :created_at => Time.now - 22.days,
+                                                 :event_type => 'response',
+                                                 :incoming_message => @incoming_message)
+            @info_request.update_attribute(:awaiting_description, true)
         end
 
         it 'should return false if it is the holding pen' do
@@ -571,7 +687,7 @@ describe InfoRequest do
         end
 
         it 'should return false if its last response event occurred less than 21 days ago' do
-            @mock_response_event.stub!(:created_at).and_return(Time.now - 20.days)
+            @response_event.update_attribute(:created_at, Time.now - 20.days)
             @info_request.is_old_unclassified?.should be_false
         end
 
@@ -1312,6 +1428,22 @@ describe InfoRequest do
             results.include?(info_requests(:fancy_dog_request)).should == true
         end
 
+
+    end
+
+    describe 'when destroying a message' do
+
+        it 'can destroy a request with comments and censor rules' do
+            info_request = FactoryGirl.create(:info_request)
+            censor_rule = FactoryGirl.create(:censor_rule, :info_request => info_request)
+            comment = FactoryGirl.create(:comment, :info_request => info_request)
+            info_request.reload
+            info_request.fully_destroy
+
+            InfoRequest.where(:id => info_request.id).should be_empty
+            CensorRule.where(:id => censor_rule.id).should be_empty
+            Comment.where(:id => comment.id).should be_empty
+        end
 
     end
 end

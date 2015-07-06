@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ChangeRawEmailToBinary < ActiveRecord::Migration
     def self.up
         change_column :raw_emails, :data, :text, :null => true # allow null

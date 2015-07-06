@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module HealthChecks
     module Checks
         class DaysAgoCheck
@@ -19,7 +20,7 @@ module HealthChecks
                 "#{ super }: #{ subject.call }"
             end
 
-            def check
+            def ok?
                 subject.call >= days.days.ago
             end
 

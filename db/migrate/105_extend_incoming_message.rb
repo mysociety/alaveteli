@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ExtendIncomingMessage < ActiveRecord::Migration
     def self.up
         add_column :incoming_messages, :sent_at, :time

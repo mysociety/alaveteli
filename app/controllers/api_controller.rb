@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ApiController < ApplicationController
     before_filter :check_api_key
     before_filter :check_external_request,
@@ -41,7 +42,7 @@ class ApiController < ApplicationController
             :status => 'ready',
             :message_type => 'initial_request',
             :body => json["body"],
-            :last_sent_at => Time.now(),
+            :last_sent_at => Time.now,
             :what_doing => 'normal_sort',
             :info_request => request
         )

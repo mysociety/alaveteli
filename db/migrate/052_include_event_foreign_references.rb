@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class IncludeEventForeignReferences < ActiveRecord::Migration
     def self.up
         add_column :info_request_events, :incoming_message_id, :integer

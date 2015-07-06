@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: info_request_events
@@ -21,7 +22,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class InfoRequestEvent < ActiveRecord::Base
-
+    include AdminColumn
     extend XapianQueries
 
     belongs_to :info_request
@@ -278,9 +279,15 @@ class InfoRequestEvent < ActiveRecord::Base
         end
         self.params_yaml = params.to_yaml
     end
+
     def params
-        YAML.load(self.params_yaml)
+        param_hash = YAML.load(params_yaml)
+        param_hash.each do |key, value|
+            param_hash[key] = value.force_encoding('UTF-8') if value.respond_to?(:force_encoding)
+        end
+        param_hash
     end
+
     def params_yaml_as_html
         ret = ''
         # split out parameters into old/new diffs, and other ones
@@ -319,9 +326,17 @@ class InfoRequestEvent < ActiveRecord::Base
     end
 
 
-    def is_incoming_message?()  not self.incoming_message_selective_columns("incoming_messages.id").nil?  end
-    def is_outgoing_message?()  not self.outgoing_message.nil?  end
-    def is_comment?()           not self.comment.nil?           end
+    def is_incoming_message?
+        incoming_message_id? or (incoming_message if new_record?)
+    end
+
+    def is_outgoing_message?
+        outgoing_message_id? or (outgoing_message if new_record?)
+    end
+
+    def is_comment?
+        comment_id? or (comment if new_record?)
+    end
 
     # Display version of status
     def display_status
@@ -412,11 +427,4 @@ class InfoRequestEvent < ActiveRecord::Base
 
         return ret
     end
-
-  def for_admin_column
-    self.class.content_columns.each do |column|
-      yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
-    end
-  end
-
 end

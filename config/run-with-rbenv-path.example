@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# We want this script to run in the context of the ruby version defined for the site
+PATH=/home/!!(*= $user *)!!/.rbenv/shims:$PATH
+
+source "$1"
+
+exit $?

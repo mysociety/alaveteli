@@ -1,0 +1,109 @@
+/* CSS Mini Reset */
+
+html, body, div, form, fieldset, legend, label
+{
+ margin: 0;
+ padding: 0;
+}
+
+table
+{
+ border-collapse: collapse;
+ border-spacing: 0;
+}
+
+th, td
+{
+ text-align: left;
+ vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6, th, td, caption { font-weight:normal; }
+
+img { border: 0; }
+
+body {
+    background-color: #ffffff;
+    color: #333333;
+    padding: 0;
+    margin: 0;
+    font-family: "Helvetica Neue", Arial, Helvetica, Helmet, Freesans, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1.5em;
+    position: relative;
+    cursor: default;
+    font-size: 1em;
+}
+
+a:hover,
+a:focus,
+a:active {
+    color: #333;
+}
+
+.alaveteli-widget {
+    width: 318px;
+    height: 213px;
+    border: 1px solid #e9e9e9;
+    background: #e9e9e9 url("widget-base.png") top left no-repeat;
+    position: relative;
+    border: 1px solid #eee;
+}
+
+.alaveteli-widget__title {
+    position: absolute;
+    top: 1em;
+    left: 16px;
+    width: 160px;
+    height: 75px;
+    overflow: hidden;
+}
+
+.alaveteli-widget__status {
+    position: absolute;
+    top: 97px;
+    left: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.alaveteli-widget__status__status-label {
+    margin: 0;
+    font-weight: normal;
+    font-size: 0.875em;
+    line-height: 1.1em;
+    color: #555;
+    text-transform: capitalize;
+}
+
+.alaveteli-widget__left {
+    position: absolute;
+    width: 145px;
+}
+
+.alaveteli-widget__people-count {
+  position: absolute;
+  left: 192px;
+  top: 44px;
+  width: 100px;
+  text-align: center;
+  line-height: 1.3em;
+}
+.alaveteli-widget__count {
+    font-size: 55px;
+    line-height: 55px;
+    text-align: center;
+}
+
+.alaveteli-widget__bottom a {
+    text-decoration: none;
+}
+
+.alaveteli-widget__button {
+    position: absolute;
+    top: 173px;
+    left: 16px;
+    text-align: center;
+}
+

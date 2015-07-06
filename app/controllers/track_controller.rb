@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/track_controller.rb:
 # Publically visible email alerts and RSS - think an alert system crossed with
 # social bookmarking.
@@ -214,6 +215,4 @@ class TrackController < ApplicationController
         redirect_to URI.parse(params[:r]).path
     end
 
-
 end
-

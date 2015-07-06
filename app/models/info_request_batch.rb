@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: info_request_batches
@@ -21,7 +22,7 @@ class InfoRequestBatch < ActiveRecord::Base
     validates_presence_of :body
 
     #  When constructing a new batch, use this to check user hasn't double submitted.
-    def InfoRequestBatch.find_existing(user, title, body, public_body_ids)
+    def self.find_existing(user, title, body, public_body_ids)
         find(:first, :conditions => ['user_id = ?
                                       AND title = ?
                                       AND body = ?
@@ -69,7 +70,7 @@ class InfoRequestBatch < ActiveRecord::Base
         info_request
     end
 
-    def InfoRequestBatch.send_batches()
+    def self.send_batches
         find_each(:conditions => "sent_at IS NULL") do |info_request_batch|
             unrequestable = info_request_batch.create_batch!
             mail_message = InfoRequestBatchMailer.batch_sent(info_request_batch,

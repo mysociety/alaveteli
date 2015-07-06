@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddCensorTable < ActiveRecord::Migration
     def self.up
         create_table :censor_rules do |t|

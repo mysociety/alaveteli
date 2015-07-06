@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: post_redirects
@@ -65,11 +66,18 @@ describe PostRedirect, " when accessing values" do
     end
 
     it "should convert reason parameters into YAML and back successfully" do
-        pr = PostRedirect.new 
+        pr = PostRedirect.new
         example_reason_params = { :foo => 'this is stuff', :bar => 83, :humbug => "yikes!!!" }
         pr.reason_params = example_reason_params
         pr.reason_params_yaml.should == example_reason_params.to_yaml
         pr.reason_params.should == example_reason_params
+    end
+
+    it "should restore UTF8-heavy params stored under ruby 1.8 as UTF-8" do
+        pr = PostRedirect.new
+        utf8_params = "--- \n:foo: !binary |\n  0KLQvtCz0LDRiCDR\n"
+        pr.reason_params_yaml = utf8_params
+        pr.reason_params[:foo].encoding.to_s.should == 'UTF-8' if pr.reason_params[:foo].respond_to?(:encoding)
     end
 end
 

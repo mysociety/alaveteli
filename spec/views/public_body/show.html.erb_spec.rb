@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe "public_body/show" do
@@ -13,11 +14,11 @@ describe "public_body/show" do
                          :publication_scheme => '',
                          :disclosure_log => '',
                          :calculated_home_page => '')
-        @pb.stub!(:override_request_email).and_return(nil)
         @pb.stub!(:is_requestable?).and_return(true)
         @pb.stub!(:special_not_requestable_reason?).and_return(false)
         @pb.stub!(:has_notes?).and_return(false)
         @pb.stub!(:has_tag?).and_return(false)
+        @pb.stub!(:tag_string).and_return('')
         @xap = mock(ActsAsXapian::Search, :matches_estimated => 2)
         @xap.stub!(:results).and_return([
           { :model => mock_event },
@@ -30,6 +31,7 @@ describe "public_body/show" do
         assign(:xapian_requests, @xap)
         assign(:page, 1)
         assign(:per_page, 10)
+        assign(:number_of_visible_requests, 4)
     end
 
     it "should be successful" do
@@ -48,7 +50,7 @@ describe "public_body/show" do
     end
 
     it "should cope with no results" do
-        @pb.stub!(:info_requests).and_return([])
+        assign(:number_of_visible_requests, 0)
         render
         response.should have_selector('p', :content => "Nobody has made any Freedom of Information requests")
     end

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddStatsDenominator < ActiveRecord::Migration
   def up
     add_column :public_bodies, :info_requests_visible_classified_count, :integer

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AdminPublicBodyHeadingsController < AdminController
 
     def new
@@ -84,7 +85,7 @@ class AdminPublicBodyHeadingsController < AdminController
                 end
             end
         end
-        { :success => error.nil? ? true : false, :error => error }
+        { :success => error.nil?, :error => error }
     end
 
     def reorder_categories_for_heading(heading_id, categories)
@@ -105,7 +106,7 @@ class AdminPublicBodyHeadingsController < AdminController
                 end
             end
         end
-        { :success => error.nil? ? true : false, :error => error }
+        { :success => error.nil?, :error => error }
     end
 
 end

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # models/user_mailer.rb:
 # Emails relating to user accounts. e.g. Confirming a new account
 #

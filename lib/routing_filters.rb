@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module RoutingFilter
   class Conditionallyprependlocale < RoutingFilter::Locale
       # Override core Locale filter not to prepend locale path segment

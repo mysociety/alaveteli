@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-03-24 11:11+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/projects/p/alaveteli/language/id/)\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -170,10 +170,12 @@ msgstr "Tetap <strong>fokus</strong>, Anda akan lebih mungkin untuk mendapatkan 
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Daftar</a> untuk mengubah kode sandi, langganan dan lain-lain (hanya {{user_name}})"
 
-msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>."
+msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
 msgstr ""
-"Jika Anda mempertimbangkan untuk menggunakan nama samaran,\n"
-"                silakan <a href=\"{{url}}\">baca ini terlebih dahulu</a>."
+
+msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
+msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
+msgstr[0] ""
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Selesai! Terima kasih banyak untuk bantuan Anda.</p><p>Ada <a href=\"{{helpus_url}}\">lebih banyak hal-hal yang bisa Anda lakukan </a> untuk membantu{{site_name}}.</p>"
@@ -532,11 +534,20 @@ msgstr ""
 msgid "Authority:"
 msgstr ""
 
+msgid "Awaiting clarification"
+msgstr ""
+
+msgid "Awaiting classification"
+msgstr ""
+
 msgid "Awaiting classification."
 msgstr "Menunggu klasifikasi."
 
 msgid "Awaiting internal review."
 msgstr "Menunggu kajian internal."
+
+msgid "Awaiting response"
+msgstr ""
 
 msgid "Awaiting response."
 msgstr "Menunggu respon."
@@ -747,6 +758,9 @@ msgstr "Tidak dapat membaca file gambar yang Anda muat. PNG, JPEG, GIF dan berba
 msgid "Create a new account"
 msgstr ""
 
+msgid "Create a widget for this request"
+msgstr ""
+
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
 
@@ -777,6 +791,9 @@ msgid "Dear {{user_name}},"
 msgstr ""
 
 msgid "Defunct."
+msgstr ""
+
+msgid "Delayed"
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
@@ -1090,6 +1107,9 @@ msgstr "BERIKAN RINCIAN TENTANG KEBERATAN ANDA DI SINI"
 msgid "Got an account?"
 msgstr ""
 
+msgid "Handled by post"
+msgstr ""
+
 msgid "Handled by post."
 msgstr "Ditangani oleh pos."
 
@@ -1167,6 +1187,9 @@ msgstr ""
 
 msgid "Human health and safety"
 msgstr "Kesehatan dan keselamatan manusia"
+
+msgid "I also want to know!"
+msgstr ""
 
 msgid "I am asking for <strong>new information</strong>"
 msgstr "Saya meminta <strong>informasi baru</strong>"
@@ -1425,6 +1448,12 @@ msgstr ""
 "Informasi tentang emisi dan pembuangan (misalnya suara, energi,\n"
 "            radiasi, bahan limbah)"
 
+msgid "Internal review"
+msgstr ""
+
+msgid "Internal review of {{email_subject}}"
+msgstr ""
+
 msgid "Internal review request"
 msgstr "Permintaan kajian internal"
 
@@ -1501,6 +1530,9 @@ msgstr "Masuk untuk mengunduh file zip dari  {{info_request_title}}"
 
 msgid "Log into the admin interface"
 msgstr "Masuk ke tampilan admin"
+
+msgid "Long overdue"
+msgstr ""
 
 msgid "Long overdue."
 msgstr "Lama terlambat."
@@ -1611,6 +1643,9 @@ msgstr "Nama tidak bisa kosong"
 msgid "Name is already taken"
 msgstr "Nama sudah diambil"
 
+msgid "Needs admin attention"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Permintaan Freedom of Information baru"
 
@@ -1678,6 +1713,12 @@ msgid "Not a valid FOI request"
 msgstr "Permintaan FOI tidak valid"
 
 msgid "Not a valid request"
+msgstr ""
+
+msgid "Not an FOI request"
+msgstr ""
+
+msgid "Not held"
 msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
@@ -1778,6 +1819,9 @@ msgstr "OutgoingMessage|Status"
 
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
+
+msgid "Partial success"
+msgstr ""
 
 msgid "Partially successful."
 msgstr "Berhasil sebagian."
@@ -2244,6 +2288,9 @@ msgstr "Hasil yang baru dijelaskan dulu"
 msgid "Refused."
 msgstr "Ditolak."
 
+msgid "Rejected"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr ""
 
@@ -2369,9 +2416,6 @@ msgstr "Cari kontribusi oleh orang ini"
 
 msgid "Search for the authorities you'd like information from:"
 msgstr ""
-
-msgid "Search for words in:"
-msgstr "Cari kata dalam:"
 
 msgid "Search in"
 msgstr "Cari di"
@@ -2545,6 +2589,9 @@ msgstr "Subyek:"
 msgid "Submit"
 msgstr "Masukkan"
 
+msgid "Submit Search"
+msgstr ""
+
 msgid "Submit request"
 msgstr ""
 
@@ -2560,8 +2607,14 @@ msgstr "Berlangganan kepada blog"
 msgid "Success"
 msgstr ""
 
+msgid "Successful"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Permintaan Freedom of Information yang berhasil"
+
+msgid "Successful requests"
+msgstr ""
 
 msgid "Successful."
 msgstr "Berhasil."
@@ -2925,6 +2978,9 @@ msgstr "Ini merupakan versi pertama"
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Ini adalah permintaan Anda sendiri, sehingga Anda akan secara otomatis dikirimi email ketika respon baru diterima."
 
+msgid "This is your request"
+msgstr ""
+
 msgid "This message has been hidden."
 msgstr ""
 
@@ -3206,8 +3262,14 @@ msgstr ""
 "Sayangnya, kami tidak memiliki alamat {{info_request_law_used_full}}\n"
 "kerja untuk"
 
+msgid "Unknown"
+msgstr ""
+
 msgid "Unsubscribe"
 msgstr "Berhenti langganan"
+
+msgid "Unusual response"
+msgstr ""
 
 msgid "Unusual response."
 msgstr "Respon yang tidak biasa."
@@ -3430,6 +3492,15 @@ msgstr "Dari siapa saya dapat meminta informasi?"
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr ""
 
+msgid "Widget vote"
+msgstr ""
+
+msgid "WidgetVote|Cookie"
+msgstr ""
+
+msgid "Withdrawn"
+msgstr ""
+
 msgid "Withdrawn by the requester."
 msgstr "Ditarik oleh pemohon."
 
@@ -3527,6 +3598,9 @@ msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a 
 msgstr ""
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are tracking this request"
 msgstr ""
 
 msgid "You can <strong>complain</strong> by"
@@ -3682,6 +3756,9 @@ msgid "Your e-mail:"
 msgstr "Email Anda:"
 
 msgid "Your email doesn't look like a valid address"
+msgstr ""
+
+msgid "Your email:"
 msgstr ""
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."

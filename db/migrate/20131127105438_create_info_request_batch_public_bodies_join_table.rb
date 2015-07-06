@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateInfoRequestBatchPublicBodiesJoinTable < ActiveRecord::Migration
     def change
         create_table :info_request_batches_public_bodies, :id => false do |t|

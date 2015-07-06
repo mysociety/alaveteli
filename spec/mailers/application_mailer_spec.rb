@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 
@@ -13,7 +14,7 @@ describe ApplicationMailer do
         end
 
         def add_mail_methods(method_names)
-            method_names.each{ |method_name| ApplicationMailer.send(:define_method, method_name){ mail() } }
+            method_names.each{ |method_name| ApplicationMailer.send(:define_method, method_name){ mail } }
         end
 
         def remove_mail_methods(method_names)

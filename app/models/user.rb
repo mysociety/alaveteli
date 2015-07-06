@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
     has_one :profile_photo
     has_many :censor_rules, :order => 'created_at desc'
     has_many :info_request_batches, :order => 'created_at desc'
+    has_many :request_classifications
 
     validates_presence_of :email, :message => _("Please enter your email address")
     validates_presence_of :name, :message => _("Please enter your name")
@@ -197,7 +198,9 @@ class User < ActiveRecord::Base
     end
 
     def visible_comments
-        comments.find(:all, :conditions => 'visible')
+        warn %q([DEPRECATION] User#visible_comments will be replaced with
+                User#comments.visible as of 0.23).squish
+        comments.visible
     end
 
     # Don't display any leading/trailing spaces
@@ -299,12 +302,6 @@ class User < ActiveRecord::Base
     # Is it public that they are banned?
     def banned?
       !ban_text.empty?
-    end
-
-    def public_banned?
-      warn %q([DEPRECATION] User#public_banned? will be replaced with
-              User#banned? as of 0.22).squish
-      banned?
     end
 
     # Various ways the user can be banned, and text to describe it if failed

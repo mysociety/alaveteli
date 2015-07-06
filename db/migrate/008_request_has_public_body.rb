@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RequestHasPublicBody < ActiveRecord::Migration
   def self.up
     add_column :info_requests, :public_body_id, :integer

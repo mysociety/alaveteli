@@ -1,0 +1,5 @@
+languages:
+  Ruby: true
+  PHP: true
+exclude_paths:
+- "lib/strip_attributes/test/*"

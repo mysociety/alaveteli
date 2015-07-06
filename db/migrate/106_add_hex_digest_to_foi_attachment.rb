@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddHexDigestToFoiAttachment < ActiveRecord::Migration
     def self.up
         add_column :foi_attachments, :hexdigest, :string, :limit => 32

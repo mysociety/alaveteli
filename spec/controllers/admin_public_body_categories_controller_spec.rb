@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe AdminPublicBodyCategoriesController do
@@ -310,7 +311,7 @@ describe AdminPublicBodyCategoriesController do
             post :update, :id => category.id,
                           :public_body_category => category.serializable_hash.except(:title, :description)
 
-            expect(assigns(:tagged_public_bodies)).to eq(expected_bodies)
+            expect(assigns(:tagged_public_bodies)).to match_array(expected_bodies)
         end
 
         it "saves edits to a public body category's heading associations" do

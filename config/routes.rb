@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# -*- encoding : utf-8 -*-
 # config/routes.rb:
 # Mapping URLs to controllers for FOIFA.
 #
@@ -65,6 +65,7 @@ Alaveteli::Application.routes.draw do
 
     resources :request, :only => [] do
         resource :report, :only => [:new, :create]
+        resource :widget, :only => [:new, :show, :update]
     end
 
     resources :info_request_batch, :only => :show
@@ -142,6 +143,7 @@ Alaveteli::Application.routes.draw do
     match '/track/update/:track_id' => 'track#update', :as => :update
     match '/track/delete_all_type' => 'track#delete_all_type', :as => :delete_all_type
     match '/track/feed/:track_id' => 'track#atom_feed', :as => :atom_feed
+    match '/track/widget_vote/:info_request_id' => 'track#widget_vote', :as => :widget_vote
     ####
 
     #### Help controller
