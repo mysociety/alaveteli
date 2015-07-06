@@ -1,13 +1,9 @@
-# rails-3-develop
+# develop
+
+# Version 0.22
 
 ## Highlighted Features
-* There is experimental support for using an STMP server, rather than sendmail,
-  for outgoing mail. There is not yet any ability to retry if the SMTP server is
-  unavailable.
-* HTML 'widgets' advertising requests can be displayed on other sites in iframes.
-  If 'ENABLE_WIDGETS' is set to true in `general.yml` (the default is false), a link
-  to the widget code will appear in the right hand sidebar of a request page.
-* Capistrano now caches themes (Henare Degan).
+
 * Upgrades and fixes for security announcements CVE-2015-3225, CVE-2015-3227 and
   CVE-2015-1840 (Louise Crow).
 * Attachment text conversion to UTF-8 is now handled in a clearer way by the
@@ -18,16 +14,119 @@
 * An example wrapper script, `config/run-with-rbenv-path` has been added to run
   the mail scripts using the ruby version set by `rbenv`. Example code for this
   has also been added to the daemon and cron example files.
+* Remove dependency on tools provided by sharutils package (Gareth Rees).
+* Use rack-utf8_sanitizer to handle badly-formed UTF-8 in request URI and
+  headers (Louise Crow).
+* Correctly handle names with commas in ContactMailer (Louise Crow).
+* Various performance improvements in InfoRequestEvent (Gareth Rees).
+* Improve performance of PublicBodyController#show (Gareth Rees).
+* Various performance improvements in PublicBody (Gareth Rees).
+* General improvements to string encoding handling (Louise Crow).
+* Allow locale specific language names (Louise Crow).
+* Fix count of requests on authority page (Henare Degan).
+* Added Croatian Alaveteli to the list of world FOI websites
+  (Miroslav Schlossberg).
+* Various code duplication cleanup (James McKinney).
+* Improve error reporting on graph generation (Petter Reinholdtsen).
+* Admin summary page performance improvements (Gareth Rees).
+* Various performance improvements in InfoRequest (Gareth Rees).
+* Add missing ttf-bitstream-vera package (Petter Reinholdtsen).
+* Send mail import errors to exception notification address (Louise Crow).
+* Add bullet for tracking N+1 queries in development environment. Turn on by
+  setting `USE_BULLET_IN_DEVELOPMENT` to `true` (Gareth Rees).
+* Performance improvement when initializing InfoRequest instances (Gareth Rees).
+* root no longer required to read mail logs
+* Code quality improvements to ActsAsXapian (Louise Crow).
+* Don't put HTML entities in email subject lines (Henare Degan).
+* Defunct authorities are removed from the list of authorities with mising
+  emails on the admin summary page (Henare Degan).
+* Correctly encode words to highlight (Caleb Tutty).
+* The request email of a PublicBody with a blank request_email database
+  attribute will not be overridden by `OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS`
+  (Henare Degan).
+* Fixed a bug in the HealthChecksHelper when applying 'OK' style (Caleb Tutty).
+* Keep cookies from txt files in suggested Varnish configuration (Henare Degan).
+* Improvements to the Categorisation Game charts (Henare Degan).
+* Destroing an InfoRequest now destroys associated Comments and CensorRules
+  (Louise Crow).
+* There is experimental support for using an STMP server, rather than sendmail,
+  for outgoing mail. There is not yet any ability to retry if the SMTP server is 
+  unavailable (Caleb Tutty, Louise Crow).
+* HTML 'widgets' advertising requests can be displayed on other sites in iframes.
+  If `ENABLE_WIDGETS` is set to true in `general.yml` (the default is false), a link
+  to the widget code will appear in the right hand sidebar of a request page.
+  (Jody McIntyre, Louise Crow).
+* Capistrano now caches themes (Henare Degan).
+* Improve correspondence box padding (Luke Bacon).
+* Improve empty PublicBody translation rejection (Henare Degan).
+* New message attachment icons (Martin Wright).
+* Improve localisation (Louise Crow, Petter Reinholdtsen, Gorm Eriksen).
+* Update xapian-full-alaveteli for Ruby 2.1 compatibility (Louise Crow).
+* Improve header search form (Luke Bacon).
+* Fix 'link to this' button on touch devices (Luke Bacon).
 
 ## Upgrade Notes
 
+* **Version 0.22 is the last release to support Ruby 1.8.7.**
+
+  We have an evolving [upgrade guide](http://git.io/vLNg0) on the wiki, and
+  we're always available on the [alaveteli-dev mailing list](https://goo.gl/6u67Jg).
+* Ruby version files are ignored – these are delegated to people's development
+  or deployment environments. See https://goo.gl/01MCCi and e5180fa89.
+* Ensure all overridden Ruby source files have encoding specifier. See
+  576b58803.
+* Memcached namespace is now dependent on Ruby version. No action required.
 * Capistrano now caches themes in `shared/themes`. Run the `deploy:setup` task
-  to create the shared directory before making a new code deploy.
+  to create the shared directory before making a new code deploy. 
+* Example daemon files have been renamed (7af5e9d). You'll need to use the new
+  names in any scripts or documentation you've written.
+* Regenerate alert tracks and purge varnish daemons to get better stop daemon
+  handling.
+* Regenerate Varnish config so that cookies from txt files are not ignored.
+  See db2db066.
+* Regenerate the crontab so that root is no longer used to read mail logs.
+* Give the unix application user membership of the adm group so that they can
+  read the mail log files `usermod -a -G adm "$UNIX_USER"`
+* Remove summary stats from admin summary page. They're duplicated on
+  /admin/summary. No action required.
+* The default branch has been changed from `rails-3-develop` to `develop`. Use
+  of `rails-3-develop` will stop, and the branch will be removed at some point.
+* Add the ttf-bitstream-vera package to provide Vera.ttf to the cron jobs.
+* Alaveteli no longer requires the sharutils package.
+* Remember to `rake db:migrate` and `git submodule update`
 * If you handle attachment text in your theme, note that:
     * `FoiAttachment#body` will always return a binary encoded string
     * `FoiAttachment#body_as_text` will always return a UTF-8 encoded string
     * `FoiAttachment#default_body` will return a UTF-8 encoded string for text
       content types, and a binary encoded string for all other types.
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin_general/index.html.erb
+    app/views/admin_public_body/edit.html.erb
+    app/views/comment/_comment_form.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/help/unhappy.html.erb
+    app/views/public_body/show.html.erb
+    app/views/public_body_change_requests/new.html.erb
+    app/views/request/_act.html.erb
+    app/views/request/_followup.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_listing_via_event.html.erb
+    app/views/request/_request_search_form.html.erb
+    app/views/request/_resent_outgoing_correspondence.html.erb
+    app/views/request/new.html.erb
+    app/views/request/new_bad_contact.html.erb
+    app/views/request/show.html.erb
+    app/views/request_game/play.html.erb
+    app/views/track/_tracking_links.html.erb
+    app/views/user/_user_listing_single.html.erb
+    app/views/user/show.html.erb
 
 # Version 0.21
 

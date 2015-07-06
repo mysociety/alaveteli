@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+# Make sure incoming email will be deferred by your MTA.
+#
+# Exim
+# ----
+#
+# In /var/www/alaveteli/config/aliases, swap the filter to mailin to send to
+# the defer script.
+#
+#   # ^foi\\+.*: "|/home/vagrant/alaveteli/script/mailin"
+#   ^foi\\+.*: "|/home/vagrant/alaveteli/script/defer"
+#
+# If you have Alaveteli set up to filter messages to site admin addresses,
+# redirect that to the defer script too.
+#
+#   # user-support:     |/var/www/alaveteli/script/handle-mail-replies
+#   user-support:     |/var/www/alaveteli/script/defer
+#
+# Postfix
+# -------
+#
+# In /etc/postfix/master.cf, swap the filter to mailin to send to
+# the defer script.
+#
+#   # alaveteli unix - n n - 50 pipe flags=R user=alaveteli argv=/var/www/alaveteli/script/mailin
+#   alaveteli unix - n n - 50 pipe flags=R user=alaveteli argv=/var/www/alaveteli/script/defer
+#
+# If you have Alaveteli set up to filter messages to site admin addresses,
+# redirect that to the defer script too.
+#
+#   # alaveteli_replies unix  - n n - 50 pipe flags=R user=alaveteli argv=/var/www/alaveteli/script/handle-mail-replies
+#   alaveteli_replies unix - n n - 50 pipe flags=R user=alaveteli argv=/var/www/alaveteli/script/defer
+#
+# Reload postfix
+#
+#   postfix reload
+exit 75

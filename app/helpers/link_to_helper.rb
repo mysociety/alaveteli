@@ -241,32 +241,6 @@ module LinkToHelper
         link_to h(query), search_url(query)
     end
 
-    # Deprecated helper
-    # TODO: Remove in next release
-    def admin_url(relative_path)
-        warn "[DEPRECATION] admin_url is deprecated. Please remove it from your theme."
-        relative_path
-    end
-
-    # Deprecated helper
-    # TODO: Remove in next release
-    def main_url(relative_path, append = nil)
-        warn "[DEPRECATION] main_url is deprecated. Please remove it from your theme."
-        url_prefix = "http://" + AlaveteliConfiguration::domain
-        url = url_prefix + relative_path
-        if !append.nil?
-            begin
-                env = Rack::MockRequest.env_for(url)
-                req = Rack::Request.new(env)
-                req.path_info += append
-                url = req.url
-            rescue URI::InvalidURIError
-                # don't append to it
-            end
-        end
-        return url
-    end
-
     # About page URLs
     def about_url
         return help_general_url(:action => 'about')
