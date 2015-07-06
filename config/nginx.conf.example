@@ -22,7 +22,7 @@ server {
     access_log /var/log/nginx/alaveteli_access.log;
     error_log /var/log/nginx/alaveteli_error.log error;
 
-    try_files $uri/index.html $uri @alaveteli;
+    try_files /down.html $uri/index.html $uri @alaveteli;
 
 
     location /download {
