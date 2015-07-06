@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'open-uri'
 require 'net-purge'
 if RUBY_VERSION.to_f < 2.0

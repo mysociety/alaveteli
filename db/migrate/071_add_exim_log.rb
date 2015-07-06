@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddEximLog < ActiveRecord::Migration
     def self.up
         create_table :exim_logs do |t|

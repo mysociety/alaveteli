@@ -11,7 +11,7 @@ namespace :config_files do
                 var = $1.to_sym
                 replacement = replacements[var]
                 if replacement == nil
-                    raise "Unhandled variable in .ugly file: $#{var}"
+                    raise "Unhandled variable in example file: $#{var}"
                 else
                     replacements[var]
                 end
@@ -21,9 +21,25 @@ namespace :config_files do
         converted_lines
     end
 
-    desc 'Convert Debian .ugly init script in config to a form suitable for installing in /etc/init.d'
+    desc 'Convert wrapper example in config to a form suitable for running mail handling scripts with rbenv'
+    task :convert_wrapper => :environment do
+        example = 'rake config_files:convert_wrapper DEPLOY_USER=deploy SCRIPT_FILE=config/run-with-rbenv-path.example'
+        check_for_env_vars(['DEPLOY_USER',
+                            'SCRIPT_FILE'], example)
+
+        replacements = {
+            :user => ENV['DEPLOY_USER'],
+        }
+
+        # Generate the template for potential further processing
+        convert_ugly(ENV['SCRIPT_FILE'], replacements).each do |line|
+            puts line
+        end
+    end
+
+    desc 'Convert Debian example init script in config to a form suitable for installing in /etc/init.d'
     task :convert_init_script => :environment do
-        example = 'rake config_files:convert_init_script DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli SITE=alaveteli SCRIPT_FILE=config/alert-tracks-debian.ugly'
+        example = 'rake config_files:convert_init_script DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli SITE=alaveteli SCRIPT_FILE=config/alert-tracks-debian.example'
         check_for_env_vars(['DEPLOY_USER',
                             'VHOST_DIR',
                             'SCRIPT_FILE'], example)
@@ -37,7 +53,7 @@ namespace :config_files do
         }
 
         # Use the filename for the $daemon_name ugly variable
-        daemon_name = File.basename(ENV['SCRIPT_FILE'], '-debian.ugly')
+        daemon_name = File.basename(ENV['SCRIPT_FILE'], '-debian.example')
         replacements.update(:daemon_name => "#{ replacements[:site] }-#{ daemon_name }")
 
         # Generate the template for potential further processing
@@ -57,7 +73,7 @@ namespace :config_files do
         end
     end
 
-    desc 'Convert Debian .ugly crontab file in config to a form suitable for installing in /etc/cron.d'
+    desc 'Convert Debian example crontab file in config to a form suitable for installing in /etc/cron.d'
     task :convert_crontab => :environment do
         example = 'rake config_files:convert_crontab DEPLOY_USER=deploy VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli SITE=alaveteli CRONTAB=config/crontab-example MAILTO=cron-alaveteli@example.org'
         check_for_env_vars(['DEPLOY_USER',

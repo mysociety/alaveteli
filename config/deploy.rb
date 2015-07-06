@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'bundler/capistrano'
 
 set :stage, 'staging' unless exists? :stage
@@ -58,6 +59,7 @@ namespace :deploy do
       "#{release_path}/log" => "#{shared_path}/log",
       "#{release_path}/tmp/pids" => "#{shared_path}/tmp/pids",
       "#{release_path}/lib/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
+      "#{release_path}/lib/themes" => "#{shared_path}/themes",
     }
 
     # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
@@ -70,6 +72,7 @@ namespace :deploy do
     run "mkdir -p #{shared_path}/log"
     run "mkdir -p #{shared_path}/tmp/pids"
     run "mkdir -p #{shared_path}/xapiandbs"
+    run "mkdir -p #{shared_path}/themes"
   end
 end
 

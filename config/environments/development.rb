@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Alaveteli::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
@@ -46,4 +47,12 @@ Alaveteli::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
+  if AlaveteliConfiguration.use_bullet_in_development
+    config.after_initialize do
+      Bullet.enable = true
+      Bullet.bullet_logger = true
+      Bullet.console = true
+      Bullet.add_footer = true
+    end
+  end
 end

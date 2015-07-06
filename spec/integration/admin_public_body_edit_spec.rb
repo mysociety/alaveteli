@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
@@ -39,7 +40,7 @@ describe 'Editing a Public Body' do
         end
     end
 
-    it 'can add a translation for multiple locales', :focus => true do
+    it 'can add a translation for multiple locales' do
         @admin.visit edit_admin_body_path(@body)
         @admin.fill_in 'public_body_name__en', :with => 'New Quango EN'
         @admin.click_button 'Save'

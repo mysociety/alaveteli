@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddReasonsToPostRedirects < ActiveRecord::Migration
   def self.up
     add_column :post_redirects, :reason_params_yaml, :text

@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# -*- coding: utf-8 -*-
+# -*- encoding : utf-8 -*-
 
 # A simple script to swap around your Alaveteli themes when you're
 # hacking on Alaveteli.  By default this assumes that you have an
@@ -129,5 +129,5 @@ STDERR.puts """Switched to #{requested_theme}!
 You will need to:
   1. restart any development server you have running.
   2. run: bundle exec rake assets:clean
-  3. run: bundle exec rake assets:precompile
+  3. run: bundle exec rake assets:precompile (if running in production mode)
 """

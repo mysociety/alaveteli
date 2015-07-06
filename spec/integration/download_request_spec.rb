@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
@@ -143,7 +144,8 @@ describe 'when making a zipfile available' do
 
         it "should update the contents of the zipfile when the request changes" do
 
-            info_request = FactoryGirl.create(:info_request_with_incoming)
+            info_request = FactoryGirl.create(:info_request_with_incoming,
+                                              :title => 'Example Title')
             request_owner = login(info_request.user)
             inspect_zip_download(request_owner, info_request) do |zip|
                 zip.count.should == 1 # just the message

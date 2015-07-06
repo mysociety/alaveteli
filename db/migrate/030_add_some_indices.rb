@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddSomeIndices < ActiveRecord::Migration
     def self.up
         if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"

@@ -20,3 +20,8 @@
     <% end %>
     <%= link_to _("Start your own blog"), "http://wordpress.com/"%>
 </div>
+<% if AlaveteliConfiguration::enable_widgets %>
+  <div class="act_link">
+     <%= link_to _("Create a widget for this request"), new_request_widget_path(@info_request) %>
+  </div>
+<% end %>

@@ -5,6 +5,6 @@
 <p><%= _('Unfortunately, we do not have a working {{info_request_law_used_full}}
 address for', :info_request_law_used_full => @info_request.law_used_full) %> <%=h @info_request.public_body.name %>. <%= _('You may be able to find
 one on their website, or by phoning them up and asking. If you manage
-to find one, then please <a href="{{help_url}}">send it to us</a>.', :help_url => help_contact_path) %>
+to find one, then please <a href="{{help_url}}">send it to us</a>.', :help_url => new_change_request_path(:body => @info_request.public_body.url_name)) %>
 </p>
 

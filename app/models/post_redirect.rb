@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: post_redirects
@@ -71,7 +72,11 @@ class PostRedirect < ActiveRecord::Base
     end
 
     def reason_params
-        YAML.load(reason_params_yaml)
+        param_hash = YAML.load(reason_params_yaml)
+        param_hash.each do |key, value|
+            param_hash[key] = value.force_encoding('UTF-8') if value.respond_to?(:force_encoding)
+        end
+        param_hash
     end
 
     # Extract just local path part, without domain or #

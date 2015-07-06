@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module AlaveteliTextMasker
     extend self
     DoNotBinaryMask = [ 'image/tiff',
@@ -6,6 +7,21 @@ module AlaveteliTextMasker
                         'image/png',
                         'image/bmp',
                         'application/zip' ]
+
+    TextMask = [ 'text/css',
+                 'text/csv',
+                 'text/html',
+                 'text/plain',
+                 'text/rfc822-headers',
+                 'text/rtf',
+                 'text/tab-separated-values',
+                 'text/x-c',
+                 'text/x-diff',
+                 'text/x-fortran',
+                 'text/x-mail',
+                 'text/xml',
+                 'text/x-pascal',
+                 'text/x-vcard' ]
 
     # Replaces all email addresses in (possibly binary) data
     # Also applies custom masks and censor items
@@ -18,7 +34,7 @@ module AlaveteliTextMasker
         case content_type
             when *DoNotBinaryMask
                 # do nothing
-            when 'text/html'
+            when *TextMask
                 apply_text_masks!(text, options)
             when 'application/pdf'
                 apply_pdf_masks!(text, options)
@@ -28,9 +44,7 @@ module AlaveteliTextMasker
     end
 
     def apply_pdf_masks!(text, options = {})
-        uncompressed_text = nil
-        uncompressed_text = AlaveteliExternalCommand.run("pdftk", "-", "output", "-", "uncompress",
-                                                         :stdin_string => text)
+        uncompressed_text = uncompress_pdf(text)
         # if we managed to uncompress the PDF...
         if !uncompressed_text.blank?
             # then censor stuff (making a copy so can compare again in a bit)
@@ -39,19 +53,13 @@ module AlaveteliTextMasker
             # if the censor rule removed something...
             if censored_uncompressed_text != uncompressed_text
                 # then use the altered file (recompressed)
-                recompressed_text = nil
-                if AlaveteliConfiguration::use_ghostscript_compression == true
-                    command = ["gs", "-sDEVICE=pdfwrite", "-dCompatibilityLevel=1.4", "-dPDFSETTINGS=/screen", "-dNOPAUSE", "-dQUIET", "-dBATCH", "-sOutputFile=-", "-"]
-                else
-                    command = ["pdftk", "-", "output", "-", "compress"]
-                end
-                recompressed_text = AlaveteliExternalCommand.run(*(command + [{:stdin_string=>censored_uncompressed_text}]))
+                recompressed_text = compress_pdf(censored_uncompressed_text)
                 if recompressed_text.blank?
                     # buggy versions of pdftk sometimes fail on
                     # compression, I don't see it's a disaster in
                     # these cases to save an uncompressed version?
                     recompressed_text = censored_uncompressed_text
-                    logger.warn "Unable to compress PDF; problem with your pdftk version?"
+                    Rails.logger.warn "Unable to compress PDF; problem with your pdftk version?"
                 end
                 if !recompressed_text.blank?
                     text.replace recompressed_text
@@ -62,10 +70,31 @@ module AlaveteliTextMasker
 
     private
 
+    def uncompress_pdf(text)
+        AlaveteliExternalCommand.run("pdftk", "-", "output", "-", "uncompress", :stdin_string => text)
+    end
+
+    def compress_pdf(text)
+        if AlaveteliConfiguration::use_ghostscript_compression
+            command = ["gs",
+                       "-sDEVICE=pdfwrite",
+                       "-dCompatibilityLevel=1.4",
+                       "-dPDFSETTINGS=/screen",
+                       "-dNOPAUSE",
+                       "-dQUIET",
+                       "-dBATCH",
+                       "-sOutputFile=-",
+                       "-"]
+        else
+            command = ["pdftk", "-", "output", "-", "compress"]
+        end
+        AlaveteliExternalCommand.run(*(command + [ :stdin_string => text ]))
+    end
+
     # Replace text in place
     def apply_binary_masks!(text, options = {})
         # Keep original size, so can check haven't resized it
-        orig_size = text.mb_chars.size
+        orig_size = text.size
 
         # Replace ASCII email addresses...
         text.gsub!(MySociety::Validate.email_find_regexp) do |email|
@@ -100,7 +129,7 @@ module AlaveteliTextMasker
         # Replace censor items
         censor_rules = options[:censor_rules] || []
         censor_rules.each{ |censor_rule| censor_rule.apply_to_binary!(text) }
-        raise "internal error in apply_binary_masks!" if text.mb_chars.size != orig_size
+        raise "internal error in apply_binary_masks!" if text.size != orig_size
         return text
     end
 

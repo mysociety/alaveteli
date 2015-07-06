@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # This is a test of the monkey patches in timezone_fixes.rb
 
 # We use MailServerLogDone here just as a totally random model that has a datetime type.

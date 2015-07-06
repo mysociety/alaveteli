@@ -23,7 +23,7 @@ then
     SUBJ="Mail import error for $OPTION_DOMAIN"
     BODY="There was an error code $ERROR_CODE returned by the RequestMailer.receive command in script/mailin. See attached for details. This might be quite serious, such as the database was down, or might be an email with corrupt headers that Rails is choking on. We returned the email with an exit code 75, which for Exim at least instructs the MTA to try again later. A well configured installation of this code will separately have had Exim make a backup copy of the email in a separate mailbox, just in case."
     FROM="$OPTION_BLACKHOLE_PREFIX@$OPTION_INCOMING_EMAIL_DOMAIN"
-    /usr/bin/mutt -e "set use_envelope_from" -e "set envelope_from_address=$FROM" -s "$SUBJ" -a "$OUTPUT" "$INPUT" -- "$OPTION_FORWARD_NONBOUNCE_RESPONSES_TO" <<<"$BODY"
+    /usr/bin/mutt -e "set use_envelope_from" -e "set envelope_from_address=$FROM" -s "$SUBJ" -a "$OUTPUT" "$INPUT" -- "$OPTION_EXCEPTION_NOTIFICATIONS_TO" <<<"$BODY"
 
     # tell exim error was temporary, so try again later (no point bouncing message to authority)
     rm -f "$INPUT" "$OUTPUT"

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'rubygems'
 require 'spork'
 
@@ -122,13 +123,6 @@ Spork.prefork do
         last_gc_run = Time.now
       end
     end
-  end
-
-  # TODO: No idea what namespace/class/module to put this in
-  # Create a clean xapian index based on the fixture files and the raw_email data.
-  def create_fixtures_xapian_index
-      load_raw_emails_data
-      rebuild_xapian_index
   end
 
   # Use the before create job hook to simulate a race condition with

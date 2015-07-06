@@ -2,10 +2,10 @@
 # of Alaveteli.  See the vcl(7) man page for details on VCL syntax and
 # semantics.
 
-# 
+#
 # Default backend definition.  Set this to point to your content
 # server.  In this case, apache + Passenger running on port 80
-# 
+#
 
 backend default {
     .host = "127.0.0.1";
@@ -32,7 +32,7 @@ sub vcl_recv {
     # Sanitise X-Forwarded-For...
     remove req.http.X-Forwarded-For;
     set req.http.X-Forwarded-For = client.ip;
- 
+
     # Remove Google Analytics, has_js, and last-seen cookies
     set req.http.Cookie = regsuball(req.http.Cookie, "(^|;\s*)(__[a-z]+|has_js|has_seen_country_message|seen_foi2)=[^;]*", "");
 
@@ -50,14 +50,14 @@ sub vcl_recv {
             remove req.http.Accept-Encoding;
         }
     }
- 
+
     # Ignore empty cookies
     if (req.http.Cookie ~ "^\s*$") {
         remove req.http.Cookie;
     }
-    
+
     if (req.request != "GET" &&
-       req.request != "HEAD" && 
+       req.request != "HEAD" &&
        req.request != "POST" &&
        req.request != "PUT" &&
        req.request != "PURGE" &&
@@ -70,9 +70,9 @@ sub vcl_recv {
         /* We only deal with GET and HEAD by default, the rest get passed direct to backend */
         return (pass);
     }
-   
+
     # Ignore Cookies on images...
-    if (req.url ~ "\.(png|gif|jpg|jpeg|swf|css|js|rdf|ico|txt)(\?.*|)$") {
+    if (req.url ~ "\.(png|gif|jpg|jpeg|swf|css|js|rdf|ico)(\?.*|)$") {
         remove req.http.Cookie;
         return (lookup);
     }

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddDisplayOrderToCategoriesAndHeadings < ActiveRecord::Migration
   def up
       add_column :public_body_categories_public_body_headings, :category_display_order, :integer

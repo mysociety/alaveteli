@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'confidence_intervals'
 
 describe "ci_bounds" do

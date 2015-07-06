@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # This is a global array of route extensions. Alaveteli modules may add to it.
 # It is used by our config/routes.rb to decide which route extension files to load.
 $alaveteli_route_extensions = []

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module HealthChecks
     module HealthCheckable
 
@@ -12,12 +13,8 @@ module HealthChecks
             self.class.to_s
         end
 
-        def check
-            raise NotImplementedError
-        end
-
         def ok?
-            check ? true : false
+            raise NotImplementedError
         end
 
         def message

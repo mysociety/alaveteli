@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: info_request_events
@@ -30,6 +30,12 @@ describe InfoRequestEvent do
             ire.params.should == example_params
         end
 
+        it "should restore UTF8-heavy params stored under ruby 1.8 as UTF-8" do
+            ire = InfoRequestEvent.new
+            utf8_params = "--- \n:foo: !binary |\n  0KLQvtCz0LDRiCDR\n"
+            ire.params_yaml = utf8_params
+            ire.params[:foo].encoding.to_s.should == 'UTF-8' if ire.params[:foo].respond_to?(:encoding)
+        end
     end
 
     describe 'when deciding if it is indexed by search' do
@@ -105,8 +111,7 @@ describe InfoRequestEvent do
     describe "should know" do
 
         it "that it's an incoming message" do
-            event = InfoRequestEvent.new()
-            event.stub!(:incoming_message_selective_columns).and_return(1)
+            event = InfoRequestEvent.new(:incoming_message => mock_model(IncomingMessage))
             event.is_incoming_message?.should be_true
             event.is_outgoing_message?.should be_false
             event.is_comment?.should be_false

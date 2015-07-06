@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Monkeypatch! Use SPAN instead of DIV. 
 #
 # Rails core refuse to fix this properly, by making it an official option.

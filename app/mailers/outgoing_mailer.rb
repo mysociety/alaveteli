@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # models/outgoing_mailer.rb:
 # Emails which go to public bodies on behalf of users.
 #
@@ -40,7 +41,7 @@ class OutgoingMailer < ApplicationMailer
     # TODO: also OutgoingMessage.get_salutation
     # TODO: these look like they should be members of IncomingMessage, but logically they
     # need to work even when IncomingMessage is nil
-    def OutgoingMailer.name_and_email_for_followup(info_request, incoming_message_followup)
+    def self.name_and_email_for_followup(info_request, incoming_message_followup)
         if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
             return info_request.recipient_name_and_email
         else
@@ -50,7 +51,7 @@ class OutgoingMailer < ApplicationMailer
         end
     end
     # Used in the preview of followup
-    def OutgoingMailer.name_for_followup(info_request, incoming_message_followup)
+    def self.name_for_followup(info_request, incoming_message_followup)
         if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
             return info_request.public_body.name
         else
@@ -59,7 +60,7 @@ class OutgoingMailer < ApplicationMailer
         end
     end
     # Used when making list of followup places to remove duplicates
-    def OutgoingMailer.email_for_followup(info_request, incoming_message_followup)
+    def self.email_for_followup(info_request, incoming_message_followup)
         if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
             return info_request.recipient_email
         else
@@ -67,16 +68,16 @@ class OutgoingMailer < ApplicationMailer
         end
     end
     # Subject to use for followup
-    def OutgoingMailer.subject_for_followup(info_request, outgoing_message, options = {})
+    def self.subject_for_followup(info_request, outgoing_message, options = {})
         if outgoing_message.what_doing == 'internal_review'
-            return "Internal review of " + info_request.email_subject_request(:html => options[:html])
+            return _("Internal review of {{email_subject}}", :email_subject => info_request.email_subject_request(:html => options[:html]))
         else
             return info_request.email_subject_followup(:incoming_message => outgoing_message.incoming_message_followup,
                                                        :html => options[:html])
         end
     end
     # Whether we have a valid email address for a followup
-    def OutgoingMailer.is_followupable?(info_request, incoming_message_followup)
+    def self.is_followupable?(info_request, incoming_message_followup)
         if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
             return info_request.recipient_email_valid_for_followup?
         else
@@ -85,7 +86,7 @@ class OutgoingMailer < ApplicationMailer
         end
     end
     # Message-ID to use
-    def OutgoingMailer.id_for_message(outgoing_message)
+    def self.id_for_message(outgoing_message)
         message_id = "ogm-" + outgoing_message.id.to_s
         t = Time.now
         message_id += "+" + '%08x%05x-%04x' % [t.to_i, t.tv_usec, rand(0xffff)]

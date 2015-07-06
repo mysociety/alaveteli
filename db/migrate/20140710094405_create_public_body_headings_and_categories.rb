@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreatePublicBodyHeadingsAndCategories < ActiveRecord::Migration
     def up
         create_table :public_body_headings, :force => true do |t|

@@ -1,0 +1,15 @@
+<h1>Add a widget</h1>
+
+<p>
+To add a widget for <b><%= @info_request.title %></b>, copy and paste the
+following code to your web page:
+<textarea autofocus readonly rows='4' cols='60' id='widgetbox'>
+<iframe src='<%= request_widget_url(@info_request) %>' width='320' height='215' frameborder='0' marginwidth='0' marginheight='0'></iframe>
+</textarea>
+</p>
+
+<p>
+The widget will look like this:
+<br>
+<iframe src='<%= request_widget_url(@info_request) %>' width='320' height='215' frameborder='0' marginwidth='0' marginheight='0'></iframe>
+</p>

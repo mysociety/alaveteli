@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AdminSpamAddressesController < AdminController
 
     def index

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/user_controller.rb:
 # Show information about a user.
 #
@@ -176,7 +177,7 @@ class UserController < ApplicationController
             return
         else
             if !@post_redirect.nil?
-                @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name] ? true : false)
+                @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name])
             end
             if @post_redirect.nil? || @user_signin.errors.size > 0
                 # Failed to authenticate
@@ -372,7 +373,7 @@ class UserController < ApplicationController
         if (not session[:user_circumstance]) or (session[:user_circumstance] != "change_email")
             # don't store the password in the db
             params[:signchangeemail].delete(:password)
-            post_redirect = PostRedirect.new(:uri => signchangeemail_url(),
+            post_redirect = PostRedirect.new(:uri => signchangeemail_url,
                                              :post_params => params,
                                              :circumstance => "change_email" # special login that lets you change your email
             )
@@ -509,7 +510,7 @@ class UserController < ApplicationController
             else
                 flash[:notice] = _("<p>Thanks for updating your profile photo.</p>
                 <p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>")
-                redirect_to set_profile_about_me_url()
+                redirect_to set_profile_about_me_url
             end
         else
             render :template => 'user/set_draft_profile_photo'
@@ -595,7 +596,7 @@ class UserController < ApplicationController
         else
             flash[:notice] = _("<p>Thanks for changing the text about you on your profile.</p>
             <p><strong>Next...</strong> You can upload a profile photograph too.</p>")
-            redirect_to set_profile_photo_url()
+            redirect_to set_profile_photo_url
         end
     end
 

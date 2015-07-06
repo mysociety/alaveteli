@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # The PublicBody model class had a bug that meant the
 # translations for first_letter and publication_scheme
 # were not being correctly populated.
