@@ -63,6 +63,18 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
 
         end
 
+        it 'shouldn\'t do anything if no message_id is supplied' do
+            incoming_message = FactoryGirl.create(:incoming_message)
+            post :redeliver, :id => incoming_message.id,
+                             :url_title => ''
+            # It shouldn't delete this message
+            assert_equal IncomingMessage.exists?(incoming_message.id), true
+            # Should show an error to the user
+            assert_equal flash[:error], "You must supply at least one request to redeliver the message to."
+            response.should redirect_to admin_request_url(incoming_message.info_request)
+        end
+
+
     end
 
     describe 'when editing an incoming message' do

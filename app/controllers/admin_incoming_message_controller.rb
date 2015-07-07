@@ -46,6 +46,12 @@ class AdminIncomingMessageController < AdminController
         message_ids = params[:url_title].split(",").each {|x| x.strip}
         previous_request = incoming_message.info_request
         destination_request = nil
+
+        if message_ids.empty?
+            flash[:error] = "You must supply at least one request to redeliver the message to."
+            return redirect_to admin_request_url(previous_request)
+        end
+
         ActiveRecord::Base.transaction do
             for m in message_ids
                 if m.match(/^[0-9]+$/)
