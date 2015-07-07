@@ -5,9 +5,10 @@
   <label class="control-label" for="url_title_<%= incoming_message.id %>">Redeliver message to one or more other requests</label>
   <div class="controls">
       <% if @info_requests && @info_requests.size == 1 %>
-        <%= text_field_tag 'url_title', @info_requests[0].url_title, { :size => 20, :id => "url_title_#{incoming_message.id}" } %>
+        <%= text_field_tag 'url_title', @info_requests[0].url_title, { :size => 20, :id => "url_title_#{incoming_message.id}", :required => true } %>
       <% else %>
-        <%= text_field_tag 'url_title', "", { :size => 20, :id => "url_title_#{incoming_message.id}" } %>
+        <%= text_field_tag 'url_title', "", { :size => 20, :id => "url_title_#{incoming_message.id}",
+          :required => true } %>
       <% end %>
       <%= submit_tag "Redeliver to another request", :class => "btn" %>
       <p class="help-block"><code>id</code> or <code>url_title</code>; you can supply more than one, separated by commas</p>

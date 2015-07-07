@@ -63,6 +63,18 @@ describe AdminIncomingMessageController, "when administering incoming messages" 
 
         end
 
+        it 'shouldn\'t do anything if no message_id is supplied' do
+            incoming_message = incoming_messages(:useless_incoming_message)
+            post :redeliver, :id => incoming_message.id,
+                             :url_title => ''
+            # It shouldn't delete this message
+            assert_equal IncomingMessage.exists?(incoming_message.id), true
+            # Should show an error to the user
+            assert_equal flash[:error], "You must supply at least one message to redeliver"
+            response.should redirect_to admin_request_url(info_requests(:fancy_dog_request))
+        end
+
+
     end
 
     describe 'when editing an incoming message' do
