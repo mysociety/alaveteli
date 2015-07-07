@@ -17,7 +17,7 @@
 
     <%= fields_for :outgoing_message do |o| %>
 
-        <div class="correspondence" id="outgoing-0">
+        <div class="correspondence box" id="outgoing-0">
             <p class="preview_subject">
                 <strong><%= _('To:') %></strong> <%=h OutgoingMailer.name_for_followup(@info_request, @incoming_message) %>
                 <br><strong><%= _('Subject:') %></strong> <%= OutgoingMailer.subject_for_followup(@info_request, @outgoing_message, :html => true) %>
