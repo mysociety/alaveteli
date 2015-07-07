@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # models/request_mailer.rb:
 # Alerts relating to requests.
 #
@@ -64,7 +65,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => user.name_and_email,
              :to => contact_from_name_and_email,
-             :subject => _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title).html_safe)
+             :subject => _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title.html_safe))
     end
 
     # Tell the requester that a new response has arrived
@@ -80,7 +81,7 @@ class RequestMailer < ApplicationMailer
 
         mail(:from => contact_from_name_and_email,
              :to => info_request.user.name_and_email,
-             :subject => (_("New response to your FOI request - ") + info_request.title).html_safe,
+             :subject => _("New response to your FOI request - ") + info_request.title.html_safe,
              :charset => "UTF-8",
              # not much we can do if the user's email is broken
              :reply_to => contact_from_name_and_email)
@@ -99,13 +100,8 @@ class RequestMailer < ApplicationMailer
         @url = confirm_url(:email_token => post_redirect.email_token)
         @info_request = info_request
 
-        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-                'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF')
-
-        mail(:from => contact_from_name_and_email,
-             :to => user.name_and_email,
-             :subject => (_("Delayed response to your FOI request - ") + info_request.title).html_safe)
+        auto_generated_headers
+        mail_user_with_info_request_title(user, _("Delayed response to your FOI request - "), info_request)
     end
 
     # Tell the requester that the public body is very late in replying
@@ -119,13 +115,8 @@ class RequestMailer < ApplicationMailer
         @url = confirm_url(:email_token => post_redirect.email_token)
         @info_request = info_request
 
-        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-                'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF')
-
-        mail(:from => contact_from_name_and_email,
-             :to => user.name_and_email,
-             :subject => (_("You're long overdue a response to your FOI request - ") + info_request.title).html_safe)
+        auto_generated_headers
+        mail_user_with_info_request_title(user, _("You're long overdue a response to your FOI request - "), info_request)
     end
 
     # Tell the requester that they need to say if the new response
@@ -141,13 +132,8 @@ class RequestMailer < ApplicationMailer
         @incoming_message = incoming_message
         @info_request = info_request
 
-        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-                'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF')
-
-        mail(:from => contact_from_name_and_email,
-             :to => info_request.user.name_and_email,
-             :subject => _("Was the response you got to your FOI request any good?"))
+        auto_generated_headers
+        mail_user(info_request.user, _("Was the response you got to your FOI request any good?"))
     end
 
     # Tell the requester that someone updated their old unclassified request
@@ -155,13 +141,8 @@ class RequestMailer < ApplicationMailer
         @url = request_url(info_request)
         @info_request = info_request
 
-        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-                'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF')
-
-        mail(:from => contact_from_name_and_email,
-             :to => info_request.user.name_and_email,
-             :subject => _("Someone has updated the status of your request"))
+        auto_generated_headers
+        mail_user(info_request.user, _("Someone has updated the status of your request"))
     end
 
     # Tell the requester that they need to clarify their request
@@ -177,13 +158,8 @@ class RequestMailer < ApplicationMailer
         @incoming_message = incoming_message
         @info_request = info_request
 
-        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-                'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF')
-
-        mail(:from => contact_from_name_and_email,
-             :to => info_request.user.name_and_email,
-             :subject => (_("Clarify your FOI request - ") + info_request.title).html_safe)
+        auto_generated_headers
+        mail_user_with_info_request_title(info_request.user, _("Clarify your FOI request - "), info_request)
     end
 
     # Tell requester that somebody add an annotation to their request
@@ -191,25 +167,15 @@ class RequestMailer < ApplicationMailer
         @comment, @info_request = comment, info_request
         @url = comment_url(comment)
 
-        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-                'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF')
-
-        mail(:from => contact_from_name_and_email,
-             :to => info_request.user.name_and_email,
-             :subject => (_("Somebody added a note to your FOI request - ") + info_request.title).html_safe)
+        auto_generated_headers
+        mail_user_with_info_request_title(info_request.user, _("Somebody added a note to your FOI request - "), info_request)
     end
     def comment_on_alert_plural(info_request, count, earliest_unalerted_comment)
         @count, @info_request = count, info_request
         @url = comment_url(earliest_unalerted_comment)
 
-        headers('Return-Path' => blackhole_email, 'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
-                'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF')
-
-        mail(:from => contact_from_name_and_email,
-             :to => info_request.user.name_and_email,
-             :subject => (_("Some notes have been added to your FOI request - ") + info_request.title).html_safe)
+        auto_generated_headers
+        mail_user_with_info_request_title(info_request.user, _("Some notes have been added to your FOI request - "), info_request)
     end
 
     # Class function, called by script/mailin with all incoming responses.
@@ -268,7 +234,7 @@ class RequestMailer < ApplicationMailer
     end
 
     # Send email alerts for overdue requests
-    def self.alert_overdue_requests()
+    def self.alert_overdue_requests
         info_requests = InfoRequest.find(:all,
             :conditions => [
                 "described_state = 'waiting_response'
@@ -372,8 +338,8 @@ class RequestMailer < ApplicationMailer
 
     # Send email alerts for requests which need clarification. Goes out 3 days
     # after last update of event.
-    def self.alert_not_clarified_request()
-        info_requests = InfoRequest.find(:all, :conditions => [ "awaiting_description = ? and described_state = 'waiting_clarification' and info_requests.updated_at < ?", false, Time.now() - 3.days ], :include => [ :user ], :order => "info_requests.id" )
+    def self.alert_not_clarified_request
+        info_requests = InfoRequest.find(:all, :conditions => [ "awaiting_description = ? and described_state = 'waiting_clarification' and info_requests.updated_at < ?", false, Time.now - 3.days ], :include => [ :user ], :order => "info_requests.id" )
         for info_request in info_requests
             alert_event_id = info_request.get_last_public_response_event_id
             last_response_message = info_request.get_last_public_response
@@ -400,7 +366,7 @@ class RequestMailer < ApplicationMailer
     end
 
     # Send email alert to request submitter for new comments on the request.
-    def self.alert_comment_on_request()
+    def self.alert_comment_on_request
 
         # We only check comments made in the last month - this means if the
         # cron jobs broke for more than a month events would be lost, but no
@@ -467,7 +433,27 @@ class RequestMailer < ApplicationMailer
         end
     end
 
+    private
+
+    def auto_generated_headers
+        headers({
+            'Return-Path' => blackhole_email,
+            'Reply-To' => contact_from_name_and_email, # not much we can do if the user's email is broken
+            'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
+            'X-Auto-Response-Suppress' => 'OOF',
+        })
+    end
+
+    def mail_user_with_info_request_title(user, subject, info_request)
+        mail_user(user, subject + info_request.title.html_safe)
+    end
+
+    def mail_user(user, subject)
+        mail({
+            :from => contact_from_name_and_email,
+            :to => user.name_and_email,
+            :subject => subject,
+        })
+    end
 
 end
-
-

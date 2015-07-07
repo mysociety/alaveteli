@@ -1,4 +1,4 @@
-<div class="incoming correspondence <%= incoming_message.prominence %>" id="incoming-<%=incoming_message.id.to_s%>">
+<div class="incoming correspondence box <%= incoming_message.prominence %>" id="incoming-<%=incoming_message.id.to_s%>">
   <%- if not incoming_message.user_can_view?(@user) %>
     <%= render :partial => 'request/hidden_correspondence', :locals => { :message => incoming_message }%>
   <%- else %>

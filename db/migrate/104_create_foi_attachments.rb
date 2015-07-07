@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 class CreateFoiAttachments < ActiveRecord::Migration
     def self.up

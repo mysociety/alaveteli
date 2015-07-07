@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddDescribeStatusHistory < ActiveRecord::Migration
   def self.up
     add_column :info_request_events, :described_state, :string

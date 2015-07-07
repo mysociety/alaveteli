@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/admin_public_body_controller.rb:
 # Controller for editing public bodies from the admin interface.
 #
@@ -11,7 +12,7 @@ class AdminPublicBodyController < AdminController
     end
 
     def show
-        @locale = self.locale_from_params()
+        @locale = locale_from_params
         I18n.with_locale(@locale) do
             @public_body = PublicBody.find(params[:id])
             @info_requests = @public_body.info_requests.paginate :order => "created_at desc",
@@ -43,7 +44,7 @@ class AdminPublicBodyController < AdminController
             if params[:change_request_id]
                 @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
             end
-            params[:public_body][:last_edit_editor] = admin_current_user()
+            params[:public_body][:last_edit_editor] = admin_current_user
             @public_body = PublicBody.new(params[:public_body])
             if @public_body.save
                if @change_request
@@ -84,7 +85,7 @@ class AdminPublicBodyController < AdminController
             @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
         end
         I18n.with_locale(I18n.default_locale) do
-            params[:public_body][:last_edit_editor] = admin_current_user()
+            params[:public_body][:last_edit_editor] = admin_current_user
             @public_body = PublicBody.find(params[:id])
             if @public_body.update_attributes(params[:public_body])
                 if @change_request
@@ -101,7 +102,7 @@ class AdminPublicBodyController < AdminController
     end
 
     def destroy
-        @locale = self.locale_from_params()
+        @locale = locale_from_params
         I18n.with_locale(@locale) do
             public_body = PublicBody.find(params[:id])
 
@@ -158,7 +159,7 @@ class AdminPublicBodyController < AdminController
         @notes = ""
         @errors = ""
         if request.post?
-            dry_run_only = (params['commit'] == 'Upload' ? false : true)
+            dry_run_only = params['commit'] != 'Upload'
             # (FIXME: both of these cases could now be changed to use
             # PublicBody.import_csv_from_file.)
             # Read file from params
@@ -177,7 +178,7 @@ class AdminPublicBodyController < AdminController
                                                       params[:tag],
                                                       params[:tag_behaviour],
                                                       true,
-                                                      admin_current_user(),
+                                                      admin_current_user,
                                                       I18n.available_locales)
 
                 if errors.size == 0
@@ -191,7 +192,7 @@ class AdminPublicBodyController < AdminController
                                                               params[:tag],
                                                               params[:tag_behaviour],
                                                               false,
-                                                              admin_current_user(),
+                                                              admin_current_user,
                                                               I18n.available_locales)
                         if errors.size != 0
                             raise "dry run mismatched real run"
@@ -234,7 +235,7 @@ class AdminPublicBodyController < AdminController
     end
 
     def lookup_query
-        @locale = self.locale_from_params()
+        @locale = locale_from_params
         underscore_locale = @locale.gsub '-', '_'
         I18n.with_locale(@locale) do
             @query = params[:query]

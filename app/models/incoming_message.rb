@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: incoming_messages
@@ -38,6 +38,7 @@ require 'zip/zip'
 require 'iconv' unless String.method_defined?(:encode)
 
 class IncomingMessage < ActiveRecord::Base
+    include AdminColumn
     extend MessageProminence
     belongs_to :info_request
     validates_presence_of :info_request
@@ -371,41 +372,23 @@ class IncomingMessage < ActiveRecord::Base
     def _convert_part_body_to_text(part)
         if part.nil?
             text = "[ Email has no body, please see attachments ]"
-            source_charset = "utf-8"
         else
-            # by default, the body (coming from an foi_attachment) should have been converted to utf-8
-            text = part.body
-            source_charset = part.charset
+            # whatever kind of attachment it is, get the UTF-8 encoded text
+            text = part.body_as_text.string
             if part.content_type == 'text/html'
                 # e.g. http://www.whatdotheyknow.com/request/35/response/177
                 # TODO: This is a bit of a hack as it is calling a
                 # convert to text routine.  Could instead call a
                 # sanitize HTML one.
-
-                # If the text isn't UTF8, it means we had a problem
-                # converting it (invalid characters, etc), and we
-                # should instead tell elinks to respect the source
-                # charset
-                use_charset = "utf-8"
-                if String.method_defined?(:encode)
-                    begin
-                        text.encode('utf-8')
-                    rescue Encoding::UndefinedConversionError, Encoding::InvalidByteSequenceError
-                        use_charset = source_charset
-                    end
-                else
-                    begin
-                        text = Iconv.conv('utf-8', 'utf-8', text)
-                    rescue Iconv::IllegalSequence
-                        use_charset = source_charset
-                    end
-                end
-                text = MailHandler.get_attachment_text_one_file(part.content_type, text, use_charset)
+                text = MailHandler.get_attachment_text_one_file(part.content_type, text, "UTF-8")
             end
         end
 
-        # If text hasn't been converted, we sanitise it.
-        text = _sanitize_text(text)
+        # Add an annotation if the text had to be scrubbed
+        if part.body_as_text.scrubbed?
+            text += _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
+                          :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli'))
+        end
         # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
         text = text.gsub(/\r\n/, "\n")
 
@@ -415,50 +398,6 @@ class IncomingMessage < ActiveRecord::Base
         text = text.gsub(/ +/, " ")
 
         return text
-    end
-
-    def _sanitize_text(text)
-        if String.method_defined?(:encode)
-            begin
-                # Test if it's good UTF-8
-                text.encode('utf-8')
-            rescue Encoding::UndefinedConversionError, Encoding::InvalidByteSequenceError
-                source_charset = 'utf-8' if source_charset.nil?
-                # strip out anything that isn't UTF-8
-                begin
-                    text = text.encode("utf-8", :invalid => :replace,
-                                                :undef => :replace,
-                                                :replace => "") +
-                        _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
-                          :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli'))
-                rescue Encoding::UndefinedConversionError, Encoding::InvalidByteSequenceError
-                    if source_charset != "utf-8"
-                        source_charset = "utf-8"
-                        retry
-                    end
-                end
-            end
-        else
-            begin
-                # Test if it's good UTF-8
-                text = Iconv.conv('utf-8', 'utf-8', text)
-            rescue Iconv::IllegalSequence
-                # Text looks like unlabelled nonsense,
-                # strip out anything that isn't UTF-8
-                begin
-                    source_charset = 'utf-8' if source_charset.nil?
-                    text = Iconv.conv('utf-8//IGNORE', source_charset, text) +
-                        _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
-                          :site_name => AlaveteliConfiguration::site_name)
-                rescue Iconv::InvalidEncoding, Iconv::IllegalSequence, Iconv::InvalidCharacter
-                    if source_charset != "utf-8"
-                        source_charset = "utf-8"
-                        retry
-                    end
-                end
-            end
-        end
-        text
     end
 
     # Returns part which contains main body text, or nil if there isn't one,
@@ -560,7 +499,7 @@ class IncomingMessage < ActiveRecord::Base
         # because the hexdigest of an attachment is identical.
         main_part = get_main_body_text_part(attachments)
         # we don't use get_main_body_text_internal, as we want to avoid charset
-        # conversions, since /usr/bin/uudecode needs to deal with those.
+        # conversions, since _uudecode_and_save_attachments needs to deal with those.
         # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
         if !main_part.nil?
             uudecoded_attachments = _uudecode_and_save_attachments(main_part.body)
@@ -676,16 +615,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     def _get_attachment_text_internal
-        text = self._extract_text
-
-        # Remove any bad characters
-        if String.method_defined?(:encode)
-            # handle "problematic" encoding
-            text.encode!('UTF-16', 'UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
-            text.encode('UTF-8', 'UTF-16')
-        else
-            Iconv.conv('utf-8//IGNORE', 'utf-8', text)
-        end
+        convert_string_to_utf8(_extract_text, 'UTF-8').string
     end
 
     # Returns text for indexing
@@ -719,7 +649,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # Search all info requests for
-    def IncomingMessage.find_all_unknown_mime_types
+    def self.find_all_unknown_mime_types
         for incoming_message in IncomingMessage.find(:all)
             for attachment in incoming_message.get_attachments_for_display
                 raise "internal error incoming_message " + incoming_message.id.to_s if attachment.content_type.nil?
@@ -745,16 +675,9 @@ class IncomingMessage < ActiveRecord::Base
         return ret.keys.join(" ")
     end
     # Return space separated list of all file extensions known
-    def IncomingMessage.get_all_file_extensions
+    def self.get_all_file_extensions
         return AlaveteliFileTypes.all_extensions.join(" ")
     end
-
-    def for_admin_column
-        self.class.content_columns.each do |column|
-            yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
-        end
-    end
-
 end
 
 

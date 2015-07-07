@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/help_controller.rb:
 # Show information about one particular request.
 #

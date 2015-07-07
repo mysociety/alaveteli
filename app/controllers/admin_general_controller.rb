@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/admin_controller.rb:
 # Controller for main admin pages.
 #
@@ -7,29 +8,29 @@
 class AdminGeneralController < AdminController
 
     def index
-        # Overview counts of things
-        @public_body_count = PublicBody.count
-
-        @info_request_count = InfoRequest.count
-        @outgoing_message_count = OutgoingMessage.count
-        @incoming_message_count = IncomingMessage.count
-
-        @user_count = User.count
-        @track_thing_count = TrackThing.count
-
-        @comment_count = Comment.count
-
         # Tasks to do
         @requires_admin_requests = InfoRequest.find_in_state('requires_admin')
         @error_message_requests = InfoRequest.find_in_state('error_message')
         @attention_requests = InfoRequest.find_in_state('attention_requested')
-        @blank_contacts = PublicBody.find(:all, :conditions => ["request_email = ''"],
-                                                :order => "updated_at")
+        @blank_contacts = PublicBody.
+                            includes(:tags, :translations).
+                              where(:request_email => "").
+                                order(:updated_at).
+                                  select { |pb| !pb.defunct? }
         @old_unclassified = InfoRequest.find_old_unclassified(:limit => 20,
                                                               :conditions => ["prominence = 'normal'"])
-        @holding_pen_messages = InfoRequest.holding_pen_request.incoming_messages
-        @new_body_requests = PublicBodyChangeRequest.new_body_requests.open
-        @body_update_requests = PublicBodyChangeRequest.body_update_requests.open
+        @holding_pen_messages = InfoRequest.
+                                  includes(:incoming_messages => :raw_email).
+                                    holding_pen_request.
+                                      incoming_messages
+        @new_body_requests = PublicBodyChangeRequest.
+                               includes(:public_body, :user).
+                                 new_body_requests.
+                                   open
+        @body_update_requests = PublicBodyChangeRequest.
+                                  includes(:public_body, :user).
+                                    body_update_requests.
+                                      open
     end
 
     def timeline

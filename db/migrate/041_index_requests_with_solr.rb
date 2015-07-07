@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class IndexRequestsWithSolr < ActiveRecord::Migration
     def self.up
         add_column :info_requests, :solr_up_to_date, :boolean, :default => false, :null => false

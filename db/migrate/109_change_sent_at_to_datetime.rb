@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ChangeSentAtToDatetime < ActiveRecord::Migration
     def self.up
         remove_column :incoming_messages, :sent_at

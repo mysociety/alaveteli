@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
@@ -70,6 +71,7 @@ module Alaveteli
        app.routes.append{ match '*path', :to => 'general#not_found' }
     end
 
+    config.autoload_paths << "#{Rails.root.to_s}/app/models/concerns"
     config.autoload_paths << "#{Rails.root.to_s}/lib/mail_handler"
     config.autoload_paths << "#{Rails.root.to_s}/lib/attachment_to_html"
     config.autoload_paths << "#{Rails.root.to_s}/lib/health_checks"
@@ -81,6 +83,11 @@ module Alaveteli
     # Insert a bit of middleware code to prevent uneeded cookie setting.
     require "#{Rails.root}/lib/whatdotheyknow/strip_empty_sessions"
     config.middleware.insert_before ::ActionDispatch::Cookies, WhatDoTheyKnow::StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
+
+    # Strip non-UTF-8 request parameters
+    if RUBY_VERSION == '1.9.3'
+        config.middleware.insert 0, Rack::UTF8Sanitizer
+    end
 
     # Allow the generation of full URLs in emails
     config.action_mailer.default_url_options = { :host => AlaveteliConfiguration::domain }
@@ -106,10 +113,9 @@ module Alaveteli
                                  'fancybox.js']
     # ... while these are individual files that can't easily be
     # grouped:
-    config.assets.precompile += ['jquery.Jcrop.css',
+    config.assets.precompile += ['jquery.Jcrop.min.css',
                                  'excanvas.min.js',
                                  'select-authorities.js',
-                                 'jquery_ujs.js',
                                  'new-request.js',
                                  'fonts.css',
                                  'print.css',
@@ -117,6 +123,7 @@ module Alaveteli
                                  'ie6.css',
                                  'ie7.css',
                                  'bootstrap-dropdown.js',
+                                 'widget.css',
                                  'responsive/print.css',
                                  'responsive/application-lte-ie7.css',
                                  'responsive/application-ie8.css']

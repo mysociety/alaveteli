@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/admin_request_controller.rb:
 # Controller for viewing FOI requests from the admin interface.
 #
@@ -47,16 +48,16 @@ class AdminRequestController < AdminController
 
         @info_request.title = params[:info_request][:title]
         @info_request.prominence = params[:info_request][:prominence]
-        @info_request.awaiting_description = params[:info_request][:awaiting_description] == "true" ? true : false
+        @info_request.awaiting_description = params[:info_request][:awaiting_description] == "true"
         @info_request.allow_new_responses_from = params[:info_request][:allow_new_responses_from]
         @info_request.handle_rejected_responses = params[:info_request][:handle_rejected_responses]
         @info_request.tag_string = params[:info_request][:tag_string]
-        @info_request.comments_allowed = params[:info_request][:comments_allowed] == "true" ? true : false
+        @info_request.comments_allowed = params[:info_request][:comments_allowed] == "true"
 
         if @info_request.valid?
             @info_request.save!
             @info_request.log_event("edit",
-                { :editor => admin_current_user(),
+                { :editor => admin_current_user,
                     :old_title => old_title, :title => @info_request.title,
                     :old_prominence => old_prominence, :prominence => @info_request.prominence,
                     :old_described_state => old_described_state, :described_state => params[:info_request][:described_state],
@@ -104,7 +105,7 @@ class AdminRequestController < AdminController
                 info_request.user = destination_user
                 info_request.save!
                 info_request.log_event("move_request", {
-                        :editor => admin_current_user(),
+                        :editor => admin_current_user,
                         :old_user_url_name => old_user.url_name,
                         :user_url_name => destination_user.url_name
                 })
@@ -114,21 +115,14 @@ class AdminRequestController < AdminController
             end
             redirect_to admin_request_url(info_request)
         elsif params[:commit] == 'Move request to authority' && !params[:public_body_url_name].blank?
-            old_public_body = info_request.public_body
             destination_public_body = PublicBody.find_by_url_name(params[:public_body_url_name])
-            if destination_public_body.nil?
-                flash[:error] = "Couldn't find public body '" + params[:public_body_url_name] + "'"
-            else
-                info_request.public_body = destination_public_body
-                info_request.save!
-                info_request.log_event("move_request", {
-                        :editor => admin_current_user(),
-                        :old_public_body_url_name => old_public_body.url_name,
-                        :public_body_url_name => destination_public_body.url_name
-                })
 
-                info_request.reindex_request_events
-                flash[:notice] = "Request has been moved to new body"
+            if info_request.move_to_public_body(destination_public_body,
+                                                :editor => admin_current_user,
+                                                :reindex => true)
+              flash[:notice] = "Request has been moved to new body"
+            else
+              flash[:error] = "Couldn't find public body '#{ params[:public_body_url_name] }'"
             end
 
             redirect_to admin_request_url(info_request)
@@ -182,7 +176,7 @@ class AdminRequestController < AdminController
             info_request.prominence = "requester_only"
 
             info_request.log_event("hide", {
-                    :editor => admin_current_user(),
+                    :editor => admin_current_user,
                     :reason => params[:reason],
                     :subject => subject,
                     :explanation => explanation

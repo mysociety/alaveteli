@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-03-24 11:10+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/alaveteli/language/ar/)\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -150,8 +150,17 @@ msgstr ""
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr ""
 
-msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>."
+msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
 msgstr ""
+
+msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
+msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>انتهينا! شكراً جزيلاً على المساعدة.</p><p>هنالك <a href=\"{{helpus_url}}\">مزيدٌ من الأشياء التي يمكنكم القيام بها</a> لمساعدة {{site_name}}.</p>"
@@ -459,11 +468,20 @@ msgstr ""
 msgid "Authority:"
 msgstr ""
 
+msgid "Awaiting clarification"
+msgstr ""
+
+msgid "Awaiting classification"
+msgstr ""
+
 msgid "Awaiting classification."
 msgstr "في انتظار التّصنيف"
 
 msgid "Awaiting internal review."
 msgstr "في انتظار مراجعة داخلية"
+
+msgid "Awaiting response"
+msgstr ""
 
 msgid "Awaiting response."
 msgstr "في انتظار الرد"
@@ -672,6 +690,9 @@ msgstr "لم يقع التعرف على ملف الصور الذي حملته.و
 msgid "Create a new account"
 msgstr ""
 
+msgid "Create a widget for this request"
+msgstr ""
+
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
 
@@ -700,6 +721,9 @@ msgid "Dear {{user_name}},"
 msgstr ""
 
 msgid "Defunct."
+msgstr ""
+
+msgid "Delayed"
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
@@ -1005,6 +1029,9 @@ msgstr "قوموا بإعطاء تفاصيل عن شكواكم هنا"
 msgid "Got an account?"
 msgstr ""
 
+msgid "Handled by post"
+msgstr ""
+
 msgid "Handled by post."
 msgstr "تسلم بالبريد"
 
@@ -1073,6 +1100,9 @@ msgstr "However, you have the right to request environmental\\n            infor
 
 msgid "Human health and safety"
 msgstr "صحة الإنسان و سلامته "
+
+msgid "I also want to know!"
+msgstr ""
 
 msgid "I am asking for <strong>new information</strong>"
 msgstr "ارغب في الحصول على <strong>معلومات جديدة</strong>"
@@ -1308,6 +1338,12 @@ msgstr "معلومة غير معتمدة."
 msgid "Information on emissions and discharges (e.g. noise, energy,\\n      radiation, waste materials)"
 msgstr "معلومات عن الارسال والتصريف (مثل. ضجيج, طاقة,\\n            اشعاعات, بقايا النفايات)"
 
+msgid "Internal review"
+msgstr ""
+
+msgid "Internal review of {{email_subject}}"
+msgstr ""
+
 msgid "Internal review request"
 msgstr "مطلب المراجعة الداخلية "
 
@@ -1379,6 +1415,9 @@ msgstr "تسجيل الدخول لتحميل ملف مضغوط من {{info_reque
 
 msgid "Log into the admin interface"
 msgstr "سجل دخولك في مجال المشرف"
+
+msgid "Long overdue"
+msgstr ""
 
 msgid "Long overdue."
 msgstr "تأخير مطول"
@@ -1485,6 +1524,9 @@ msgstr "مكان الاسم لا يجب ان بظل فارغا"
 msgid "Name is already taken"
 msgstr "تم اخذ الاسم من قبل "
 
+msgid "Needs admin attention"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "مطالب جديدة لحرية النفاذ الى المعلومة"
 
@@ -1552,6 +1594,12 @@ msgid "Not a valid FOI request"
 msgstr ""
 
 msgid "Not a valid request"
+msgstr ""
+
+msgid "Not an FOI request"
+msgstr ""
+
+msgid "Not held"
 msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
@@ -1652,6 +1700,9 @@ msgstr "الرسائل الصادرة|الحالة"
 
 msgid "OutgoingMessage|What doing"
 msgstr "الرسائل الصادرة|ما العمل"
+
+msgid "Partial success"
+msgstr ""
 
 msgid "Partially successful."
 msgstr "ناجحة جزئيا."
@@ -2112,6 +2163,9 @@ msgstr "اظهار أحدث النتائج أولا"
 msgid "Refused."
 msgstr "مرفوض."
 
+msgid "Rejected"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr ""
 
@@ -2237,9 +2291,6 @@ msgstr "البحث عن مساهمات هذا الشخص"
 
 msgid "Search for the authorities you'd like information from:"
 msgstr ""
-
-msgid "Search for words in:"
-msgstr "البحث عن كلمات في :"
 
 msgid "Search in"
 msgstr "البحث في "
@@ -2409,6 +2460,9 @@ msgstr "موضوع"
 msgid "Submit"
 msgstr "اضف"
 
+msgid "Submit Search"
+msgstr ""
+
 msgid "Submit request"
 msgstr ""
 
@@ -2424,8 +2478,14 @@ msgstr "الاشتراك في المدونة"
 msgid "Success"
 msgstr ""
 
+msgid "Successful"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "مطالب حرية النفاذ للمعلومة ناجحة"
+
+msgid "Successful requests"
+msgstr ""
 
 msgid "Successful."
 msgstr "ناجح"
@@ -2766,6 +2826,9 @@ msgstr ""
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "هذا طلبك الشخصي, ستبعث لك رسالة الكترونية بصفة الية عندما يصل الرد الجديد."
 
+msgid "This is your request"
+msgstr ""
+
 msgid "This message has been hidden."
 msgstr ""
 
@@ -3036,8 +3099,14 @@ msgstr ""
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr "للأسف, لا نملك{{info_request_law_used_full}}\\nعنوانا صالحا ل"
 
+msgid "Unknown"
+msgstr ""
+
 msgid "Unsubscribe"
 msgstr "إلغاء الاشتراك"
+
+msgid "Unusual response"
+msgstr ""
 
 msgid "Unusual response."
 msgstr "اجابة غير مألوفة"
@@ -3252,6 +3321,15 @@ msgstr "ممن يمكنني طلب المعلومة؟"
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr ""
 
+msgid "Widget vote"
+msgstr ""
+
+msgid "WidgetVote|Cookie"
+msgstr ""
+
+msgid "Withdrawn"
+msgstr ""
+
 msgid "Withdrawn by the requester."
 msgstr "وقع سحبها من قبل صاحب الطلب"
 
@@ -3349,6 +3427,9 @@ msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a 
 msgstr ""
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are tracking this request"
 msgstr ""
 
 msgid "You can <strong>complain</strong> by"
@@ -3481,6 +3562,9 @@ msgid "Your e-mail:"
 msgstr "بريدك الالكتروني"
 
 msgid "Your email doesn't look like a valid address"
+msgstr ""
+
+msgid "Your email:"
 msgstr ""
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."

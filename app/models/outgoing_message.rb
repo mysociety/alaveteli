@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 # Schema version: 20131024114346
 #
@@ -25,6 +26,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class OutgoingMessage < ActiveRecord::Base
+    include AdminColumn
     extend MessageProminence
     include Rails.application.routes.url_helpers
     include LinkToHelper
@@ -140,22 +142,28 @@ class OutgoingMessage < ActiveRecord::Base
         end
     end
 
-    def body
-        ret = read_attribute(:body)
-        if ret.nil?
-            return ret
+    # Public: The body text of the OutgoingMessage. The text is cleaned and
+    # CensorRules are applied.
+    #
+    # options - Hash of options
+    #           :censor_rules - Array of CensorRules to apply. Defaults to the
+    #                           applicable_censor_rules of the associated
+    #                           InfoRequest. (optional)
+    #
+    # Returns a String
+    def body(options = {})
+        text = raw_body.dup
+        return text if text.nil?
+
+        text = clean_text(text)
+
+        # Use the given censor_rules; otherwise fetch them from the associated
+        # info_request
+        censor_rules = options.fetch(:censor_rules) do
+            info_request.try(:applicable_censor_rules) or []
         end
 
-        ret = ret.dup
-        ret.strip!
-        ret.gsub!(/(?:\n\s*){2,}/, "\n\n") # remove excess linebreaks that unnecessarily space it out
-
-        # Remove things from censor rules
-        unless info_request.nil?
-            self.info_request.apply_censor_rules_to_text!(ret)
-        end
-
-        ret
+        censor_rules.reduce(text) { |text, rule| rule.apply_to_text(text) }
     end
 
     def raw_body
@@ -227,8 +235,12 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     # Returns text for indexing / text display
-    def get_text_for_indexing(strip_salutation = true)
-        text = body.strip
+    def get_text_for_indexing(strip_salutation = true, opts = {})
+        if opts.empty?
+            text = body.strip
+        else
+            text = body(opts).strip
+        end
 
         # Remove salutation
         text.sub!(/Dear .+,/, "") if strip_salutation
@@ -270,12 +282,6 @@ class OutgoingMessage < ActiveRecord::Base
 
     def purge_in_cache
         info_request.purge_in_cache
-    end
-
-    def for_admin_column
-        self.class.content_columns.each do |column|
-            yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
-        end
     end
 
     def xapian_reindex_after_update
@@ -331,6 +337,11 @@ class OutgoingMessage < ActiveRecord::Base
         if what_doing.nil? || !['new_information', 'internal_review', 'normal_sort'].include?(what_doing)
             errors.add(:what_doing_dummy, _('Please choose what sort of reply you are making.'))
         end
+    end
+
+    # remove excess linebreaks that unnecessarily space it out
+    def clean_text(text)
+        text.strip.gsub(/(?:\n\s*){2,}/, "\n\n")
     end
 end
 

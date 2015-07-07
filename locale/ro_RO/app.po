@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-03-24 11:11+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
 "MIME-Version: 1.0\n"
@@ -158,8 +158,14 @@ msgstr "Fă o solicitare  <strong> la obiect</strong>, va fi mai probabil să ob
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Autentifică-te</a> pentru a-ţi schimba parola şi alte setări, inclusiv cele legate de abonare ({{user_name}} only)"
 
-msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>."
-msgstr "Dacă dorești să folosești un pseudonim,\\n te rugăm <a href=\"{{url}}\">să citești întâi asta</a>."
+msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
+msgstr ""
+
+msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
+msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Gata! Mulţumim de ajutor.</p><p>Apropo, sunt <a href=\"{{helpus_url}}\">o sumedenie de alte lucruri pe care le poţi face</a> pentru a ajuta {{site_name}}.</p>"
@@ -467,11 +473,20 @@ msgstr ""
 msgid "Authority:"
 msgstr ""
 
+msgid "Awaiting clarification"
+msgstr ""
+
+msgid "Awaiting classification"
+msgstr ""
+
 msgid "Awaiting classification."
 msgstr "Aşteaptă clasificarea."
 
 msgid "Awaiting internal review."
 msgstr "Aşteaptă revizuirea interna."
+
+msgid "Awaiting response"
+msgstr ""
 
 msgid "Awaiting response."
 msgstr "Aşteaptă răspunsul."
@@ -680,6 +695,9 @@ msgstr "Nu se poate prelua imaginea pe care aţi încarcat-o. PNG, JPEG, GIF și
 msgid "Create a new account"
 msgstr ""
 
+msgid "Create a widget for this request"
+msgstr ""
+
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
 
@@ -708,6 +726,9 @@ msgid "Dear {{user_name}},"
 msgstr ""
 
 msgid "Defunct."
+msgstr ""
+
+msgid "Delayed"
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
@@ -1010,6 +1031,9 @@ msgstr "DĂ DETALII DESPRE PLÂNGEREA TA AICI"
 msgid "Got an account?"
 msgstr ""
 
+msgid "Handled by post"
+msgstr ""
+
 msgid "Handled by post."
 msgstr "Înmânat prin poştă"
 
@@ -1080,6 +1104,9 @@ msgstr "Cu toate acestea, ai dreptul de a solicita informaţii \\nprivind mediul
 
 msgid "Human health and safety"
 msgstr "Sănătate şi asigurări"
+
+msgid "I also want to know!"
+msgstr ""
 
 msgid "I am asking for <strong>new information</strong>"
 msgstr "Solicit  <strong>noi informaţii</strong>"
@@ -1315,6 +1342,12 @@ msgstr "Informaţie nedeţinută"
 msgid "Information on emissions and discharges (e.g. noise, energy,\\n      radiation, waste materials)"
 msgstr "Informații legate de emisii și deversări (ex. zgomot, energie, \\n radiații, deșeuri)"
 
+msgid "Internal review"
+msgstr ""
+
+msgid "Internal review of {{email_subject}}"
+msgstr ""
+
 msgid "Internal review request"
 msgstr "Solicitare revizie intrenă"
 
@@ -1386,6 +1419,9 @@ msgstr "Logaţi-vă pentru a descărca un fişier .zip al  {{info_request_title}
 
 msgid "Log into the admin interface"
 msgstr "Conectare la interfaţa de administrare"
+
+msgid "Long overdue"
+msgstr ""
 
 msgid "Long overdue."
 msgstr "Aşteptat de mult timp"
@@ -1492,6 +1528,9 @@ msgstr "Campul Nume nu poate fi necompletat"
 msgid "Name is already taken"
 msgstr "Numele este deja folosit"
 
+msgid "Needs admin attention"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "O nouă solicitare de acces la informații"
 
@@ -1559,6 +1598,12 @@ msgid "Not a valid FOI request"
 msgstr "Nu este o solicitare de informații validă"
 
 msgid "Not a valid request"
+msgstr ""
+
+msgid "Not an FOI request"
+msgstr ""
+
+msgid "Not held"
 msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
@@ -1659,6 +1704,9 @@ msgstr "MesajTrimis|Status"
 
 msgid "OutgoingMessage|What doing"
 msgstr "MesajTrimis|Ce se întamplă"
+
+msgid "Partial success"
+msgstr ""
 
 msgid "Partially successful."
 msgstr "Parţial succes."
@@ -2116,6 +2164,9 @@ msgstr "Prima dată rezultatele recent descrise"
 msgid "Refused."
 msgstr "Refuzat"
 
+msgid "Rejected"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr ""
 
@@ -2241,9 +2292,6 @@ msgstr "Caută contribuţii de la această persoană"
 
 msgid "Search for the authorities you'd like information from:"
 msgstr ""
-
-msgid "Search for words in:"
-msgstr "Caută cuvinte în:"
 
 msgid "Search in"
 msgstr "Caută în"
@@ -2410,6 +2458,9 @@ msgstr "Subiect:"
 msgid "Submit"
 msgstr "Trimite"
 
+msgid "Submit Search"
+msgstr ""
+
 msgid "Submit request"
 msgstr ""
 
@@ -2425,8 +2476,14 @@ msgstr "Înscriere pentru blog"
 msgid "Success"
 msgstr ""
 
+msgid "Successful"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Solicitări de acces la informații care au fost făcute cu succes"
+
+msgid "Successful requests"
+msgstr ""
 
 msgid "Successful."
 msgstr "Succes"
@@ -2764,6 +2821,9 @@ msgstr "Aceasta este prima versiune."
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Aceasta este solicitarea proprie, aşa că ți se va comunica automat prin email când va sosi un răspuns."
 
+msgid "This is your request"
+msgstr ""
+
 msgid "This message has been hidden."
 msgstr ""
 
@@ -3028,8 +3088,14 @@ msgstr ""
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr "Din păcate, nu avem o adresă funcţională {{info_request_law_used_full}}\\npentru"
 
+msgid "Unknown"
+msgstr ""
+
 msgid "Unsubscribe"
 msgstr "Dezabonare"
+
+msgid "Unusual response"
+msgstr ""
 
 msgid "Unusual response."
 msgstr "Răspuns neobişnuit."
@@ -3238,6 +3304,15 @@ msgstr "De la cine aş puea cere informaţiile ?"
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr ""
 
+msgid "Widget vote"
+msgstr ""
+
+msgid "WidgetVote|Cookie"
+msgstr ""
+
+msgid "Withdrawn"
+msgstr ""
+
 msgid "Withdrawn by the requester."
 msgstr "Retras de către solicitant."
 
@@ -3335,6 +3410,9 @@ msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a 
 msgstr ""
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are tracking this request"
 msgstr ""
 
 msgid "You can <strong>complain</strong> by"
@@ -3467,6 +3545,9 @@ msgid "Your e-mail:"
 msgstr "Emailul tău:"
 
 msgid "Your email doesn't look like a valid address"
+msgstr ""
+
+msgid "Your email:"
 msgstr ""
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."

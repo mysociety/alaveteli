@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/holiday_controller.rb:
 # Calculate dates
 #

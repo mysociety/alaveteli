@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'mail'
 require 'mapi/msg'
 require 'mapi/convert'
@@ -35,7 +36,7 @@ module MailHandler
     module Backends
         module MailBackend
 
-            def backend()
+            def backend
                 'Mail'
             end
 
@@ -64,7 +65,12 @@ module MailHandler
             # Return a copy of the file name for the mail part
             def get_part_file_name(part)
                 part_file_name = part.filename
-                part_file_name.nil? ? nil : part_file_name.dup
+                part_file_name = part_file_name.nil? ? nil : part_file_name.dup
+                if part_file_name
+                    part_file_name = CGI.unescape(part_file_name)
+                    part_file_name = convert_string_to_utf8(part_file_name, part.charset).string
+                end
+                part_file_name
             end
 
             # Get the body of a mail part

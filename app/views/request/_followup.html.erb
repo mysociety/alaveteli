@@ -20,7 +20,7 @@
         </h2>
     <% end %>
 <% if @info_request.who_can_followup_to(incoming_message).count > 0 %>
-<div id="other_recipients">
+<div id="other_recipients" class="box">
   <%= _("Don't want to address your message to {{person_or_body}}?  You can also write to:", :person_or_body => name_for_followup) %>
   <ul>
 <% @info_request.who_can_followup_to(incoming_message).each do |name, email, id|  %>

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddCommentsAllowedToInfoRequest < ActiveRecord::Migration
   def self.up
     add_column :info_requests, :comments_allowed, :boolean, :null => false, :default => true

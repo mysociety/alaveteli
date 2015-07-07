@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 
 describe HealthChecks::Checks::DaysAgoCheck do
@@ -15,16 +16,16 @@ describe HealthChecks::Checks::DaysAgoCheck do
         expect(check.days).to eq(4)
     end
 
-    describe :check do
+    describe :ok? do
 
         it 'is successful if the subject is in the last day' do
             check = HealthChecks::Checks::DaysAgoCheck.new { Time.now }
-            expect(check.check).to be_true
+            expect(check.ok?).to be_true
         end
 
         it 'fails if the subject is over a day ago' do
             check = HealthChecks::Checks::DaysAgoCheck.new { 2.days.ago }
-            expect(check.check).to be_false
+            expect(check.ok?).to be_false
         end
 
     end

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.dirname(__FILE__) + '/../commonlib/rblib/config'
 
 # Load intial mySociety config
@@ -32,6 +33,7 @@ module AlaveteliConfiguration
             :DISABLE_EMERGENCY_USER => false,
             :DOMAIN => 'localhost:3000',
             :DONATION_URL => '',
+            :ENABLE_WIDGETS => false,
             :EXCEPTION_NOTIFICATIONS_FROM => 'errors@localhost',
             :EXCEPTION_NOTIFICATIONS_TO => 'user-support@localhost',
             :FORCE_REGISTRATION_ON_NEW_REQUEST => false,
@@ -52,6 +54,7 @@ module AlaveteliConfiguration
             :MTA_LOG_TYPE => 'exim',
             :NEW_RESPONSE_REMINDER_AFTER_DAYS => [3, 10, 24],
             :OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS => '',
+            :PRODUCTION_MAILER_DELIVERY_METHOD => 'sendmail',
             :PUBLIC_BODY_STATISTICS_PAGE => false,
             :PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE => false,
             :RAW_EMAILS_LOCATION => 'files/raw_emails',
@@ -63,6 +66,13 @@ module AlaveteliConfiguration
             :RESPONSIVE_STYLING => true,
             :SITE_NAME => 'Alaveteli',
             :SKIP_ADMIN_AUTH => false,
+            :SMTP_MAILER_ADDRESS => 'localhost',
+            :SMTP_MAILER_PORT => 25,
+            :SMTP_MAILER_DOMAIN => '',
+            :SMTP_MAILER_USER_NAME =>  '',
+            :SMTP_MAILER_PASSWORD => '',
+            :SMTP_MAILER_AUTHENTICATION => 'plain',
+            :SMTP_MAILER_ENABLE_STARTTLS_AUTO => true,
             :SPECIAL_REPLY_VERY_LATE_AFTER_DAYS => 60,
             :SURVEY_URL => '',
             :SEND_SURVEY_MAILS => true,
@@ -80,10 +90,11 @@ module AlaveteliConfiguration
             :UTILITY_SEARCH_PATH => ["/usr/bin", "/usr/local/bin"],
             :VARNISH_HOST => '',
             :WORKING_OR_CALENDAR_DAYS => 'working',
+            :USE_BULLET_IN_DEVELOPMENT => false
           }
-      end
+    end
 
-  def AlaveteliConfiguration.method_missing(name)
+  def self.method_missing(name)
     key = name.to_s.upcase
     if DEFAULTS.has_key?(key.to_sym)
       MySociety::Config.get(key, DEFAULTS[key.to_sym])

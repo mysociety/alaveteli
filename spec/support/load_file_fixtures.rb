@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 def file_fixture_name(file_name)
     return File.join(RSpec.configuration.fixture_path, "files", file_name)
 end

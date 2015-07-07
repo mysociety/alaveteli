@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-24 10:21+0000\n"
-"PO-Revision-Date: 2015-03-24 11:14+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/alaveteli/language/uk/)\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -160,10 +160,14 @@ msgstr "Конкретизуйте ваш запит, так ви маєте б�
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">Увійдіть</a>, щоб змінити пароль, підписку тощо (це стосується тільки користувача {{user_name}})"
 
-msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>."
+msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
 msgstr ""
-"Якщо ви збираєтесь використати псевдонім,\n"
-"                <a href=\"{{url}}\">прочитайте спершу це</a>."
+
+msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
+msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>Готово! Дякуємо за вашу допомогу.</p><p>За бажання ви можете <a href=\"{{helpus_url}}\">зробити більше</a>, щоб допомогти сайту.</p>"
@@ -500,11 +504,20 @@ msgstr ""
 msgid "Authority:"
 msgstr ""
 
+msgid "Awaiting clarification"
+msgstr ""
+
+msgid "Awaiting classification"
+msgstr ""
+
 msgid "Awaiting classification."
 msgstr "Статус не визначено."
 
 msgid "Awaiting internal review."
 msgstr "Очікує на внутрішню перевірку."
+
+msgid "Awaiting response"
+msgstr ""
 
 msgid "Awaiting response."
 msgstr "Очікує на відповідь"
@@ -715,6 +728,9 @@ msgstr "Неможливо завантажити файл. Підтримють
 msgid "Create a new account"
 msgstr ""
 
+msgid "Create a widget for this request"
+msgstr ""
+
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr ""
 
@@ -745,6 +761,9 @@ msgid "Dear {{user_name}},"
 msgstr ""
 
 msgid "Defunct."
+msgstr ""
+
+msgid "Delayed"
 msgstr ""
 
 msgid "Delayed response to your FOI request - "
@@ -1059,6 +1078,9 @@ msgstr "НАДАЙТЕ ДЕТАЛІ ЩОДО ВАШОЇ СКАРГИ ТУТ"
 msgid "Got an account?"
 msgstr ""
 
+msgid "Handled by post"
+msgstr ""
+
 msgid "Handled by post."
 msgstr "Надіслано звичайною поштою"
 
@@ -1133,6 +1155,9 @@ msgstr ""
 
 msgid "Human health and safety"
 msgstr "Здоров’я та безпека людей"
+
+msgid "I also want to know!"
+msgstr ""
 
 msgid "I am asking for <strong>new information</strong>"
 msgstr "Я прошу <strong>нову інформацію</strong>"
@@ -1386,6 +1411,12 @@ msgstr ""
 "Information on emissions and discharges (e.g. noise, energy,\n"
 "            radiation, waste materials)"
 
+msgid "Internal review"
+msgstr ""
+
+msgid "Internal review of {{email_subject}}"
+msgstr ""
+
 msgid "Internal review request"
 msgstr "Запит на внутрішню перевірку"
 
@@ -1462,6 +1493,9 @@ msgstr "Увійдіть в систему, щоб завантажити заа
 
 msgid "Log into the admin interface"
 msgstr "Увійти як адміністратор"
+
+msgid "Long overdue"
+msgstr ""
 
 msgid "Long overdue."
 msgstr "Прострочений."
@@ -1570,6 +1604,9 @@ msgstr "Ім’я/назва не може бути пустим"
 msgid "Name is already taken"
 msgstr "Це ім’я/назва вже використано"
 
+msgid "Needs admin attention"
+msgstr ""
+
 msgid "New Freedom of Information requests"
 msgstr "Нові запити"
 
@@ -1637,6 +1674,12 @@ msgid "Not a valid FOI request"
 msgstr ""
 
 msgid "Not a valid request"
+msgstr ""
+
+msgid "Not an FOI request"
+msgstr ""
+
+msgid "Not held"
 msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
@@ -1736,6 +1779,9 @@ msgid "OutgoingMessage|Status"
 msgstr ""
 
 msgid "OutgoingMessage|What doing"
+msgstr ""
+
+msgid "Partial success"
 msgstr ""
 
 msgid "Partially successful."
@@ -2197,6 +2243,9 @@ msgstr ""
 msgid "Refused."
 msgstr "Відмовлено"
 
+msgid "Rejected"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr ""
 
@@ -2321,9 +2370,6 @@ msgid "Search contributions by this person"
 msgstr "Пошук серед написаного цим користувачем"
 
 msgid "Search for the authorities you'd like information from:"
-msgstr ""
-
-msgid "Search for words in:"
 msgstr ""
 
 msgid "Search in"
@@ -2491,6 +2537,9 @@ msgstr "Тема:"
 msgid "Submit"
 msgstr "Відправити"
 
+msgid "Submit Search"
+msgstr ""
+
 msgid "Submit request"
 msgstr ""
 
@@ -2506,8 +2555,14 @@ msgstr ""
 msgid "Success"
 msgstr ""
 
+msgid "Successful"
+msgstr ""
+
 msgid "Successful Freedom of Information requests"
 msgstr "Успішні запити"
+
+msgid "Successful requests"
+msgstr ""
 
 msgid "Successful."
 msgstr "Успішний."
@@ -2849,6 +2904,9 @@ msgstr "Це перша версія."
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Це ваш власний запит, тому вас буде автоматично повідомлено, коли прибуде відповідь."
 
+msgid "This is your request"
+msgstr ""
+
 msgid "This message has been hidden."
 msgstr ""
 
@@ -3117,8 +3175,14 @@ msgstr ""
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
 msgstr "На жаль, ми не маємо адреси "
 
+msgid "Unknown"
+msgstr ""
+
 msgid "Unsubscribe"
 msgstr "Відписатися"
+
+msgid "Unusual response"
+msgstr ""
 
 msgid "Unusual response."
 msgstr "Незвичайна відповідь."
@@ -3335,6 +3399,15 @@ msgstr "Кому я можу надіслати інформаційний за�
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr ""
 
+msgid "Widget vote"
+msgstr ""
+
+msgid "WidgetVote|Cookie"
+msgstr ""
+
+msgid "Withdrawn"
+msgstr ""
+
 msgid "Withdrawn by the requester."
 msgstr "Автор запиту відмовився від нього."
 
@@ -3432,6 +3505,9 @@ msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a 
 msgstr ""
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+
+msgid "You are tracking this request"
 msgstr ""
 
 msgid "You can <strong>complain</strong> by"
@@ -3584,6 +3660,9 @@ msgid "Your e-mail:"
 msgstr "Електронна адреса:"
 
 msgid "Your email doesn't look like a valid address"
+msgstr ""
+
+msgid "Your email:"
 msgstr ""
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."

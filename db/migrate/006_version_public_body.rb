@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class VersionPublicBody < ActiveRecord::Migration
     def self.up
         PublicBody.create_versioned_table

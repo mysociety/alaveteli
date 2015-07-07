@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'csv'
 
 # Public: Generate a CSV representation of PublicBody instances

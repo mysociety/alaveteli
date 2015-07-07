@@ -25,6 +25,10 @@
         PassengerAppRoot /var/www/alaveteli
         PassengerResolveSymlinksInDocumentRoot on
 
+        # Uncomment the following line if you want to run Alaveteli
+        # with the ruby set by rbenv
+        # PassengerRuby /home/alaveteli/.rbenv/shims/ruby
+
         # See http://blog.phusion.nl/2013/03/12/tuning-phusion-passengers-concurrency-settings/
         # and http://blog.scoutapp.com/articles/2009/12/08/production-rails-tuning-with-passenger-passengermaxprocesses
         # for more information on tuning Passenger

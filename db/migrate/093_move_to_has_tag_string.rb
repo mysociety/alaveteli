@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class MoveToHasTagString < ActiveRecord::Migration
     def self.up
         rename_table :public_body_tags, :has_tag_string_tags

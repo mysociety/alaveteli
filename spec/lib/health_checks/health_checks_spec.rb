@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe HealthChecks do
@@ -6,7 +7,7 @@ describe HealthChecks do
     describe :add do
 
         it 'adds a check to the collection and returns the check' do
-            check = double('MockCheck', :check => true)
+            check = double('MockCheck', :ok? => true)
             expect(add(check)).to eq(check)
         end
 
@@ -20,8 +21,8 @@ describe HealthChecks do
     describe :all do
 
         it 'returns all the checks' do
-            check1 = double('MockCheck', :check => true)
-            check2 = double('AnotherCheck', :check => false)
+            check1 = double('MockCheck', :ok? => true)
+            check2 = double('AnotherCheck', :ok? => false)
             add(check1)
             add(check2)
             expect(all).to include(check1, check2)

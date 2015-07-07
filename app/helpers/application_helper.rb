@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/helpers/application_helper.rb:
 # Methods added to this helper will be available to all views (i.e. templates)
 # in the application.

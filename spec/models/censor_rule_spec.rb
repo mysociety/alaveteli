@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: censor_rules
@@ -17,6 +18,42 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+describe CensorRule do
+
+    describe :apply_to_text do
+
+        it 'applies the rule to the text' do
+            rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+            text = 'Some secret text'
+            expect(rule.apply_to_text(text)).to eq('Some [REDACTED] text')
+        end
+
+        it 'does not mutate the input' do
+            rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+            text = 'Some secret text'
+            rule.apply_to_text(text)
+            expect(text).to eq('Some secret text')
+        end
+
+        it 'returns the text if the rule is unmatched' do
+            rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+            text = 'Some text'
+            expect(rule.apply_to_text(text)).to eq('Some text')
+        end
+    end
+
+    describe :apply_to_text! do
+
+        it 'mutates the input' do
+            rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+            text = 'Some secret text'
+            rule.apply_to_text!(text)
+            expect(text).to eq('Some [REDACTED] text')
+        end
+
+    end
+end
+
 describe CensorRule, "substituting things" do
 
     describe 'when using a text rule' do
@@ -27,19 +64,35 @@ describe CensorRule, "substituting things" do
             @censor_rule.replacement = "hello"
         end
 
-        it 'should do basic text substitution' do
-            body = "I don't know why you say goodbye"
-            @censor_rule.apply_to_text!(body)
-            body.should == "I don't know why you say hello"
+        describe :apply_to_text do
+
+            it 'should do basic text substitution' do
+                body = "I don't know why you say goodbye"
+                @censor_rule.apply_to_text!(body)
+                body.should == "I don't know why you say hello"
+            end
+
         end
 
-        it 'should keep size same for binary substitution' do
-            body = "I don't know why you say goodbye"
-            orig_body = body.dup
-            @censor_rule.apply_to_binary!(body)
-            body.size.should == orig_body.size
-            body.should == "I don't know why you say xxxxxxx"
-            body.should_not == orig_body # be sure duplicated as expected
+        describe :apply_to_binary do
+
+            it 'should keep size same for binary substitution' do
+                body = "I don't know why you say goodbye"
+                orig_body = body.dup
+                @censor_rule.apply_to_binary!(body)
+                body.size.should == orig_body.size
+                body.should == "I don't know why you say xxxxxxx"
+                body.should_not == orig_body # be sure duplicated as expected
+            end
+
+            it 'should handle a UTF-8 rule and ASCII-8BIT text' do
+                body = "I don't know why you say g‘oodbye"
+                body.force_encoding("ASCII-8BIT") if String.method_defined?(:encode)
+                @censor_rule.text = 'g‘oodbye'
+                @censor_rule.apply_to_binary!(body)
+                body.should == "I don't know why you say xxxxxxxxxx"
+            end
+
         end
 
     end
@@ -81,6 +134,26 @@ Some public information
 xxxxxxxxx
 xxxxxxxxxxxxxxxxxxxxxxxx
 xxxxxxxxx
+BODY
+        end
+
+        it "handles a UTF-8 rule with ASCII-8BIT text" do
+            @censor_rule.text = "--PRIVATE.*--P‘RIVATE"
+            @body =
+<<BODY
+Some public information
+--PRIVATE
+Some private information
+--P‘RIVATE
+BODY
+            @body.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
+            @censor_rule.apply_to_binary!(@body)
+            @body.should ==
+<<BODY
+Some public information
+xxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxx
 BODY
         end
 

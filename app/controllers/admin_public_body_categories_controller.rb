@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AdminPublicBodyCategoriesController < AdminController
     def index
         @locale = self.locale_from_params

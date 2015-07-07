@@ -683,6 +683,14 @@ PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE: false
 # ---
 USE_MAILCATCHER_IN_DEVELOPMENT: true
 
+# Bullet is a tool to help to kill N+1 queries and unused eager loading
+# https://github.com/flyerhzm/bullet
+#
+# USE_BULLET_IN_DEVELOPMENT - Boolean (default: false)
+#
+# ---
+USE_BULLET_IN_DEVELOPMENT: false
+
 # Use memcached to cache HTML fragments for better performance. This will
 # only have an effect in environments where
 # config.action_controller.perform_caching is set to true
@@ -785,3 +793,38 @@ ALLOW_BATCH_REQUESTS: false
 #
 # ---
 RESPONSIVE_STYLING: true
+
+# Define the mailer delivery method to be used only in the production environment.
+# By default, use sendmail.
+#
+# The list of accepted options are available in the Rails ActionMailer configuration
+# documentation: http://guides.rubyonrails.org/action_mailer_basics.html#example-action-mailer-configuration
+#
+# The most common alternative is to use 'smtp'
+# If you choose to use an external SMTP service then you will need to also include the SMTP configuration settings.
+#
+# As a string this is coerced into a symbol in config/environments/production.rb
+#
+# PRODUCTION_MAILER_DELIVERY_METHOD - String (default: sendmail)
+#
+# Examples:
+#
+# PRODUCTION_MAILER_DELIVERY_METHOD: smtp
+# SMTP_MAILER_ADDRESS: smtp.gmail.com
+# SMTP_MAILER_PORT: 587
+# SMTP_MAILER_DOMAIN: example.com
+# SMTP_MAILER_USER_NAME: jane322
+# SMTP_MAILER_PASSWORD: supersecretpassword
+# SMTP_MAILER_AUTHENTICATION: 'plain'
+# SMTP_MAILER_ENABLE_STARTTLS_AUTO: true
+# ---
+PRODUCTION_MAILER_DELIVERY_METHOD: sendmail
+
+# If ENABLE_WIDGETS is set to true, Alaveteli will allow the embedding of a
+# 'widget' linking to a request on other sites. This widget will record
+# how many people click on an 'I also want to know' button.
+#
+# ENABLE_WIDGETS - Boolean (default: false)
+#
+# ---
+ENABLE_WIDGETS: false

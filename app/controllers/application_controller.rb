@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- encoding : utf-8 -*-
 # controllers/application.rb:
 # Parent class of all controllers in FOI site. Filters added to this controller
 # apply to all controllers in the application. Likewise, all the methods added
@@ -35,6 +35,17 @@ class ApplicationController < ActionController::Base
     before_filter :set_vary_header
     before_filter :validate_session_timestamp
     after_filter  :persist_session_timestamp
+    before_filter :deprecation_notice
+
+    def deprecation_notice
+        if RUBY_VERSION.to_f <= 1.9
+            ActiveSupport::Deprecation.warn "[DEPRECATION] You are using Ruby 1.8. This will not be supported " \
+                                    "as of Alaveteli release 0.23. Please upgrade your ruby version. See " \
+                                    "https://github.com/mysociety/alaveteli/wiki/Migrating-an-existing-Alaveteli-site-from-ruby-1.8.7 " \
+                                    "for upgrade advice."
+        end
+    end
+
 
     def set_vary_header
         response.headers['Vary'] = 'Cookie'
@@ -206,7 +217,7 @@ class ApplicationController < ActionController::Base
     def foi_fragment_cache_part_path(param)
         path = url_for(param)
         id = param['id'] || param[:id]
-        first_three_digits = id.to_s()[0..2]
+        first_three_digits = id.to_s[0..2]
         path = path.sub("/request/", "/request/" + first_three_digits + "/")
         return path
     end

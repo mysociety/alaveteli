@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ReportsController < ApplicationController
     def create
         @info_request = InfoRequest.find_by_url_title!(params[:request_id])

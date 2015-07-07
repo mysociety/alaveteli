@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/admin_censor_rule_controller.rb:
 # For modifying requests.
 #

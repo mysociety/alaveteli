@@ -2,34 +2,22 @@
 
 <div id="list-filter">
   <%= form_tag(request.path, :method => "get", :id=>"filter_requests_form") do %>
- <div class="list-filter-item">
-  <%= label_tag(:query, _("Keywords"), :class=>"form_label title") %>
-  <%= text_field_tag(:query, params[:query]) %> 
- </div>
-<% if false # don't think we want this, but leaving as an example %>
- <div class="list-filter-item">
-  <%= _("Search for words in:") %> <br/>
-  <% [["sent", _("messages from users")], 
-     ["response", _("messages from authorities")],
-     ["comment", _("comments")]].each_with_index do |item, index|
-     variety, title = item %>
-  
-   <%= check_box_tag "request_variety[]", variety, params[:request_variety].nil? ? true : params[:request_variety].include?(variety), :id => "request_variety_#{index}" %>
-   <%= label_tag("request_variety_#{index}", title) %> <br/>
+    <div class="list-filter-item">
+      <%= label_tag(:query, _("Keywords"), :class=>"form_label title") %>
+      <%= text_field_tag(:query, params[:query]) %>
+    </div>
+
+    <div class="list-filter-item">
+      <%= label_tag(:query, _("Made between"), :class=>"form_label title") %>
+      <%= text_field_tag(:request_date_after, params[:request_date_after], {:class => "use-datepicker", :size => 10}) %>&nbsp;&nbsp;
+      <%= label_tag(:query, _("and"), :class=>"form_label") %>
+      <%= text_field_tag(:request_date_before, params[:request_date_before], {:class => "use-datepicker", :size => 10}) %>
+    </div>
+
+    <%= after_form_fields if defined?(after_form_fields) -%>
+
+    <div class="list-filter-item">
+      <%= submit_tag(_("Search")) %>
+    </div>
   <% end %>
- </div>
-<% end %>
- <div class="list-filter-item">
-   <%= label_tag(:query, _("Made between"), :class=>"form_label title") %>
-   <%= text_field_tag(:request_date_after, params[:request_date_after], {:class => "use-datepicker", :size => 10}) %>&nbsp;&nbsp;
-   <%= label_tag(:query, _("and"), :class=>"form_label") %>
-   <%= text_field_tag(:request_date_before, params[:request_date_before], {:class => "use-datepicker", :size => 10}) %>
- </div>
-
-  <%= after_form_fields if defined?(after_form_fields) -%>
-
- <div class="list-filter-item">
-  <%= submit_tag(_("Search")) %>
- </div>
-<% end %>
 </div>

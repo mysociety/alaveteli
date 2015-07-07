@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "when using i18n" do
@@ -58,7 +58,7 @@ describe "gettext_interpolate" do
           result = gettext_interpolate(string, :a => "foo".html_safe)
           result.should == "Hello foo"
           result.should_not be_html_safe
-        end        
+        end
     end
 
     context "html safe string" do
@@ -74,6 +74,6 @@ describe "gettext_interpolate" do
           result = gettext_interpolate(string, :a => "foo&".html_safe)
           result.should == "Hello foo&"
           result.should be_html_safe
-        end        
+        end
     end
 end
