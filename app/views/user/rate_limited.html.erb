@@ -9,7 +9,7 @@
 <% if @info_request %>
     <p><%= _("Here is the message you wrote, in case you would like to copy the text and save it for later.") %></p>
     
-    <div class="correspondence">
+    <div class="correspondence box">
         <div class="correspondence_text"><%= @info_request.outgoing_messages[0].get_body_for_html_display %></div>
     </div>
 <% end %>
