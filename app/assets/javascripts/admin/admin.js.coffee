@@ -12,13 +12,13 @@ jQuery ->
         $('#request_hidden_user_subject, #request_hidden_user_explanation, #request_hide_button').show()
         info_request_id = $('#hide_request_form').attr('data-info-request-id')
         reason = $(this).val()
-        $('#request_hidden_user_explanation_field').attr("value", "[loading default text...]")
+        $('#request_hidden_user_explanation_field').val("[loading default text...]")
         $.ajax "/hidden_user_explanation?reason=" + reason + "&info_request_id=" + info_request_id,
           type: "GET"
           dataType: "text"
           error: (data, textStatus, jqXHR) ->
-            $('#request_hidden_user_explanation_field').attr("value", "Error: #{textStatus}")
+            $('#request_hidden_user_explanation_field').val("Error: #{textStatus}")
           success: (data, textStatus, jqXHR) ->
-            $('#request_hidden_user_explanation_field').attr("value", data)
+            $('#request_hidden_user_explanation_field').val(data)
       )
 
