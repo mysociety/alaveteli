@@ -447,7 +447,7 @@ Más adelante en este manual crearemos un demonio SysVinit para gestionar la apl
 
 ## Demonios y procesos cron
 
-Los scripts crontab e init utilizan el formato de archivo `.ugly`, que es un extraño formato
+Los scripts crontab e init utilizan el formato de archivo `ugly`, que es un extraño formato
 de plantillas utilizado por mySociety.
 
 El formato `ugly` utiliza una sustitución simple de variables. Una variable tiene este
@@ -510,7 +510,7 @@ Este ejemplo envía la salida cron al usuario local `alaveteli`. Modifique las v
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
       SITE=alaveteli \
-      SCRIPT_FILE=/var/www/alaveteli/config/sysvinit-passenger.ugly > /etc/init.d/alaveteli
+      SCRIPT_FILE=/var/www/alaveteli/config/sysvinit-passenger.example > /etc/init.d/alaveteli
     popd
 
     chown root:alaveteli /etc/init.d/alaveteli
@@ -540,7 +540,7 @@ Este ejemplo envía la salida cron al usuario local `alaveteli`. Modifique las v
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
       SITE=alaveteli \
-      SCRIPT_FILE=/var/www/alaveteli/config/sysvinit-thin.ugly > /etc/init.d/alaveteli
+      SCRIPT_FILE=/var/www/alaveteli/config/sysvinit-thin.example > /etc/init.d/alaveteli
     popd
 
     chown root:alaveteli /etc/init.d/alaveteli
@@ -554,7 +554,7 @@ Inicie la aplicación:
 
 Uno de los procesos cron hace referencia a un script en `/etc/init.d/alaveteli-alert-tracks`. Se trata
 de un script init, que puede generarse a partir de la plantilla
-`config/alert-tracks-debian.ugly`. Este script envía correos a usuarios suscritos a actualizaciones del sitio, denominados [`tracks`]({{ page.baseurl }}/docs/installing/email/#correo-de-tracks), cuando existe algo nuevo que concuerda con sus intererses.
+`config/alert-tracks-debian.example`. Este script envía correos a usuarios suscritos a actualizaciones del sitio, denominados [`tracks`]({{ page.baseurl }}/docs/installing/email/#correo-de-tracks), cuando existe algo nuevo que concuerda con sus intererses.
 
 **Variables de la plantilla:**
 
@@ -575,7 +575,7 @@ Este ejemplo envía la salida cron al usuario local `alaveteli`. Modifique las v
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
       SITE=alaveteli \
-      SCRIPT_FILE=/var/www/alaveteli/config/alert-tracks-debian.ugly > /etc/init.d/alaveteli-alert-tracks
+      SCRIPT_FILE=/var/www/alaveteli/config/alert-tracks-debian.example > /etc/init.d/alaveteli-alert-tracks
     popd
 
     chown root:alaveteli /etc/init.d/alaveteli-alert-tracks
@@ -587,7 +587,7 @@ Inicie el demonio de tracks de alerta:
 
 ### Genere el demonio de purga de Varnish
 
-`config/purge-varnish-debian.ugly` es un script init similar, que es opcional
+`config/purge-varnish-debian.example` es un script init similar, que es opcional
 e innecesario si elige no ejecutar su sitio con Varnish (más información a continuación). Notifica a Varnish sobre páginas en caché que necesitan ser purgadas de la caché de Varnish. No funcionará si Varnish no está instalado.
 
 **Variables de la plantilla:**
@@ -609,7 +609,7 @@ Este ejemplo envía la salida cron al usuario local `alaveteli`. Modifique las v
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
       SITE=alaveteli \
-      SCRIPT_FILE=/var/www/alaveteli/config/purge-varnish-debian.ugly > /etc/init.d/alaveteli-purge-varnish
+      SCRIPT_FILE=/var/www/alaveteli/config/purge-varnish-debian.example > /etc/init.d/alaveteli-purge-varnish
     popd
 
     chown root:alaveteli /etc/init.d/alaveteli-purge-varnish
