@@ -5,7 +5,7 @@ jQuery ->
         )
     $('.accordion-body').on('shown', ->
         $(@).prev().find('i').first().removeClass().addClass('icon-chevron-down'))
-    $('body').on('.toggle-hidden', 'click', ->
+    $('.toggle-hidden').on('click', ->
         $(@).parents('td').find('div:hidden').show()
         false)
     $('#request_hidden_user_explanation_reasons').on('click', 'input', ->
