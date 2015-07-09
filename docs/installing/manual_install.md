@@ -454,7 +454,7 @@ Later in this guide we'll actually create a SysVinit daemon to run the applicati
 
 ## Cron jobs and Daemons
 
-The crontab and init scripts use the `.ugly` file format, which is a strange
+The crontab and init scripts use the `ugly` file format, which is a strange
 templating format used by mySociety.
 
 The `ugly` format uses simple variable substitution. A variable looks like
@@ -517,7 +517,7 @@ useful to you. Change the variables to suit your installation.
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
       SITE=alaveteli \
-      SCRIPT_FILE=/var/www/alaveteli/config/sysvinit-passenger.ugly > /etc/init.d/alaveteli
+      SCRIPT_FILE=/var/www/alaveteli/config/sysvinit-passenger.example > /etc/init.d/alaveteli
     popd
 
     chown root:alaveteli /etc/init.d/alaveteli
@@ -547,7 +547,7 @@ useful to you. Change the variables to suit your installation.
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
       SITE=alaveteli \
-      SCRIPT_FILE=/var/www/alaveteli/config/sysvinit-thin.ugly > /etc/init.d/alaveteli
+      SCRIPT_FILE=/var/www/alaveteli/config/sysvinit-thin.example > /etc/init.d/alaveteli
     popd
 
     chown root:alaveteli /etc/init.d/alaveteli
@@ -561,7 +561,7 @@ Start the application:
 
 One of the cron jobs refers to a script at `/etc/init.d/alaveteli-alert-tracks`. This
 is an init script, which can be generated from the
-`config/alert-tracks-debian.ugly` template. This script sends out emails to users subscribed to updates from the site – known as [`tracks`]({{ page.baseurl }}/docs/installing/email/#tracks-mail) – when there is something new matching their interests.
+`config/alert-tracks-debian.example` template. This script sends out emails to users subscribed to updates from the site – known as [`tracks`]({{ page.baseurl }}/docs/installing/email/#tracks-mail) – when there is something new matching their interests.
 
 **Template Variables:**
 
@@ -582,7 +582,7 @@ useful to you. Change the variables to suit your installation.
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
       SITE=alaveteli \
-      SCRIPT_FILE=/var/www/alaveteli/config/alert-tracks-debian.ugly > /etc/init.d/alaveteli-alert-tracks
+      SCRIPT_FILE=/var/www/alaveteli/config/alert-tracks-debian.example > /etc/init.d/alaveteli-alert-tracks
     popd
 
     chown root:alaveteli /etc/init.d/alaveteli-alert-tracks
@@ -594,7 +594,7 @@ Start the alert tracks daemon:
 
 ### Generate varnish purge daemon
 
-`config/purge-varnish-debian.ugly` is a similar init script, which is optional
+`config/purge-varnish-debian.example` is a similar init script, which is optional
 and not required if you choose not to run your site behind Varnish (see below). It notifies Varnish of cached pages that need to be purged from Varnish's cache. It will not run if Varnish is not installed.
 
 **Template Variables:**
@@ -616,7 +616,7 @@ useful to you. Change the variables to suit your installation.
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
       SITE=alaveteli \
-      SCRIPT_FILE=/var/www/alaveteli/config/purge-varnish-debian.ugly > /etc/init.d/alaveteli-purge-varnish
+      SCRIPT_FILE=/var/www/alaveteli/config/purge-varnish-debian.example > /etc/init.d/alaveteli-purge-varnish
     popd
 
     chown root:alaveteli /etc/init.d/alaveteli-purge-varnish
