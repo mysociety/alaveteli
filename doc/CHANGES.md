@@ -1,5 +1,13 @@
 # develop
 
+## Highlighted Features
+
+* The [`json` API for public bodies](http://alaveteli.org/docs/developers/api/#json-structured-data)
+  now includes statistics on the number of requests, number of visible successful classified requests,
+  and number of successful, overdue, not held requests (Ross Jones).
+
+## Upgrade Notes
+
 # Version 0.22
 
 ## Highlighted Features
