@@ -8,7 +8,7 @@ development:
   username: <username>
   password: <password>
   host: localhost
-  port: 5432 # PostgreSQL 8.1 pretty please
+  port: 5432
 
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
