@@ -14,7 +14,7 @@ The Alaveteli Community
 We actively help people set up and run Alaveteli instances all around the
 world. Alaveteli is more than just software, it's also a community of people
 who care enough about <a href="{{ page.baseurl }}/docs/glossary/#foi"
-class="glossary__link">Freedom of Information</a> to build and run sites to benefit
+class="glossary__link">Freedom of Information</a> (FoI) to build and run sites to benefit
 the public.
 
 If you're just starting out, or you've already got your site up and running,
@@ -22,17 +22,32 @@ this page points you at the places you can find out more, ask questions, or
 just say hi.
 
 
-## Project mailing list
+## Project mailing lists
 
-Sign up for the <a href="https://groups.google.com/group/alaveteli-dev">Alaveteli project mailing list</a> &mdash; feel free to ask questions. Lots of helpful people are on it
-&mdash; not just mySociety staff but also people (like you!) running their own
-sites.
+We have two mailing lists (actually Google Groups). It's OK to sign up to both!
+
+* The <a href="https://groups.google.com/forum/#!forum/alaveteli-users">Alaveteli user
+  group</a> is where those of us already running FoI sites ask questions, make
+  announcements, encourage, sympathise, and welcome newcomers into the
+  community.
+  
+* The <a href="https://groups.google.com/forum/#!forum/alaveteli-dev">Alaveteli
+  mailing list for devs</a> where the technical things about Alaveteli, its
+  the codebase and related software get discussed. If you're planning on
+  contributing to the codebase or are involved in maintaining the systems
+  your site is running on, jump in here!
+
+In both cases, feel free to ask questions. Lots of helpful people are on these lists &mdash; not just mySociety staff but also people (like you!) running their own sites.
 
 The archives are a good source of information too. If you've got a problem, it's
 always worth checking to see if someone has already solved it.
 
-It you're just starting out, saying hello on the mailing list is a great way to
-begin <img src="{{ site.baseurl }}assets/img/icon_smile.gif" alt=":-)">
+So if you're just starting out, saying hello on the mailing list is a great way
+to begin <img src="{{ site.baseurl }}assets/img/icon_smile.gif" alt=":-)">
+
+  <a href="https://groups.google.com/forum/#!forum/alaveteli-users" class="button left">Alaveteli users mailing list<a>
+
+  <a href="https://groups.google.com/forum/#!forum/alaveteli-dev" class="button">Alaveteli for developers mailing list<a>
 
 ## mySociety international team
 
