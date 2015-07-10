@@ -76,7 +76,7 @@ class UserController < ApplicationController
             end
         end
 
-        @feed_results = Array(feed_results).sort {|x,y| y.created_at <=> x.created_at}.first(20)
+        @feed_results = feed_results.to_a.sort { |x, y| y.created_at <=> x.created_at }.first(20)
 
         respond_to do |format|
             format.html { @has_json = true }
