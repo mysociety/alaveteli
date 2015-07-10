@@ -11,12 +11,12 @@
 # sroberto <ertoba@yahoo.es>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-06 14:00+0000\n"
-"PO-Revision-Date: 2015-11-06 15:24+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
-"Language-Team: Basque (http://www.transifex.com/mysociety/alaveteli/language/eu/)\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
+"PO-Revision-Date: 2015-07-24 15:00+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"Language-Team: Basque (http://www.transifex.com/projects/p/alaveteli/language/eu/)\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -496,6 +496,13 @@ msgstr ""
 
 msgid "Beginning with"
 msgstr "___-ekin hasita"
+
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr ""
+"Bilatu<br/>\n"
+"          <strong>{{number_of_requests}} eskabide</strong> <span>eta</span><br/>\n"
+"          <strong>{{number_of_authorities}} erakunderen</strong> artean"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Kontsulta itzazu <a href='{{url}}'>beste eskabideak</a>, ikusteko nola idatz daitekeen zure eskabidea."
@@ -1027,6 +1034,9 @@ msgstr "Nondik:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ZEHAZTU HEMEN ZURE KEXA"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1471,16 +1481,13 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr ""
-"Bidali ezazu<br/>\n"
-"        <strong>Informazio<span></span><br/>\n"
-"        eskabide</strong> berria"
-
 msgid "Make a request"
 msgstr "Bidali eskabidea"
 
 msgid "Make a request &raquo;"
+msgstr ""
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -2469,6 +2476,10 @@ msgstr ""
 msgid "Start your own blog"
 msgstr "Sortu zeure bloga"
 
+#, fuzzy
+msgid "Start your own request"
+msgstr "Sortu zeure bloga"
+
 msgid "Stay up to date"
 msgstr "Egon zaitez egunean"
 
@@ -3265,6 +3276,9 @@ msgstr "Erakundeak zure eskabideari emandako erantzunaren barneko berrikusketa a
 
 msgid "Waiting for the public authority to reply"
 msgstr "Erakundearen erantzunaren zain"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Zure eskabideari emandako erantzuna behar bezalakoa izan da?"
@@ -4089,3 +4103,9 @@ msgstr "{{user}}-k {{law_used_full}} eskabidea egin zuen"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+#~ msgstr ""
+#~ "Bidali ezazu<br/>\n"
+#~ "        <strong>Informazio<span></span><br/>\n"
+#~ "        eskabide</strong> berria"

@@ -1,50 +1,24 @@
 /* Frontpage layout */
 
-#frontpage_splash {
-  @include grid-row($behavior: nest);
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
-    min-height: 375px;
+.homepage-hero {
+  padding: 2em 0 4em;
+  position: relative;
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    padding: 4em 0 4em;
   }
+}
 
-  #left_column {
-    @include grid-column(12);
-    @include respond-min( $main_menu-mobile_menu_cutoff ){
-      @include grid-column(8);
-      margin-top:66px;
-      @include ie8{
-        padding-right: 0.9375em;
-      }
-      @include lte-ie7{
-        width: 36.813em;
-      }
-    }
+.hero__intro {
+  @include grid-column(12);
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    @include grid-column(8);
   }
+}
 
-  #right_column {
-    @include grid-column(12);
-    @include respond-min( $main_menu-mobile_menu_cutoff ){
-      @include grid-column(4);
-      margin-top: 30px;
-      @include ie8{
-        padding-left: 0.9375em;
-      }
-      @include lte-ie7{
-        width: 17.438em;
-      }
-    }
-
-    input[type=text] {
-      width:180px;
-    }
-  }
-
-  #frontpage_splash #frontpage_search_box {
-    margin-bottom:30px;
-    margin-top:-10px;
-  }
-
-  #frontpage_right_to_know {
-    line-height:20px;
+.hero__new-request {
+  @include grid-column(12);
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    @include grid-column(4);
   }
 }
 

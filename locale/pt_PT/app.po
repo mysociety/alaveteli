@@ -29,12 +29,12 @@
 # Vítor Márcio Paiva de Sousa Baptista <vitor@vitorbaptista.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-06 14:00+0000\n"
-"PO-Revision-Date: 2015-11-06 15:25+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
-"Language-Team: Portuguese (Portugal) (http://www.transifex.com/mysociety/alaveteli/language/pt_PT/)\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
+"PO-Revision-Date: 2015-07-24 15:01+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/alaveteli/language/pt_PT/)\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -507,6 +507,10 @@ msgstr "Pedido criado por {{info_request_user}} em {{date}}."
 
 msgid "Beginning with"
 msgstr "Começar com"
+
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr "Pesquisar <br/>\\n <strong>{{number_of_requests}} pedidos</strong> <span>e</span> <br/>\\n <strong>{{number_of_authorities}} entidades públicas </strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Veja <a href=\"{{url}}\">outros pedidos</a> para exemplos de como escrever o seu."
@@ -1037,6 +1041,9 @@ msgstr "De:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "DÊ DETALHES SOBRE SUA QUEIXA AQUI"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr "Tem uma conta?"
 
@@ -1478,17 +1485,14 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr "Faça um novo Pedido de Informação Pública"
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr ""
-"Faça um novo<br/>\n"
-"        Pedido de<br/>\n"
-"        <strong>Informação</strong>"
-
 msgid "Make a request"
 msgstr "Criar uma solicitação"
 
 msgid "Make a request &raquo;"
 msgstr "Para um pedido &raquo;"
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
+msgstr ""
 
 msgid "Make a request to these authorities"
 msgstr "Faça um pedido a estas entidades"
@@ -2469,6 +2473,10 @@ msgstr ""
 msgid "Start your own blog"
 msgstr "Fazer seu próprio blog"
 
+#, fuzzy
+msgid "Start your own request"
+msgstr "Partilhe o seu pedido"
+
 msgid "Stay up to date"
 msgstr "Mantenha-se atualizado"
 
@@ -3259,6 +3267,9 @@ msgstr "Esperando para a autoridade pública completar uma revisão interna"
 
 msgid "Waiting for the public authority to reply"
 msgstr "Aguardando resposta do órgão público"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "A resposta ao seu pedido de acesso à informação foi satisfatória?"
@@ -4076,3 +4087,9 @@ msgstr "{{user}} fez esse pedido de {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "« Resultados da pesquisa"
+
+#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+#~ msgstr ""
+#~ "Faça um novo<br/>\n"
+#~ "        Pedido de<br/>\n"
+#~ "        <strong>Informação</strong>"

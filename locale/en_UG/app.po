@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-06 14:00+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2014-01-31 09:14+0000\n"
 "Last-Translator: Louise Crow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -465,6 +465,10 @@ msgstr ""
 
 msgid "Beginning with"
 msgstr ""
+
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} agencies </strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Browse <a href='{{url}}' target='_blank'>other requests</a> for examples of how to word your request."
@@ -993,6 +997,9 @@ msgstr ""
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr ""
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1428,13 +1435,13 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr "Make a new ATI request"
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "Make a new<br/>\\n  <strong>Access <span>to</span><br/>\\n  Information<br/>\\n  request</strong>"
-
 msgid "Make a request"
 msgstr ""
 
 msgid "Make a request &raquo;"
+msgstr ""
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -2416,6 +2423,10 @@ msgstr ""
 msgid "Start your own blog"
 msgstr ""
 
+#, fuzzy
+msgid "Start your own request"
+msgstr "Clarify your ATI request - "
+
 msgid "Stay up to date"
 msgstr ""
 
@@ -2625,6 +2636,10 @@ msgstr "The response to your request has been <strong>delayed</strong>. You can 
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
 msgstr "The response to your request has been <strong>delayed</strong>.  You can say that,\\n            by law, the agency should normally have responded\\n            <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+
+#, fuzzy
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr "The response to your request has been <strong>delayed</strong>.  You can say that,\\n            by law, the agency should normally have responded\\n            <strong>promptly</strong> and"
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "The response to your request is <strong>long overdue</strong>.   You can say that, by\\n            law, under all circumstances, the agency should have responded\\n            by now"
@@ -3198,6 +3213,9 @@ msgstr "Waiting for the public agency to complete an internal review of their ha
 
 msgid "Waiting for the public authority to reply"
 msgstr "Waiting for the public agency to reply"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Was the response you got to your ATI request any good?"
@@ -4005,3 +4023,6 @@ msgstr ""
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+#~ msgstr "Make a new<br/>\\n  <strong>Access <span>to</span><br/>\\n  Information<br/>\\n  request</strong>"

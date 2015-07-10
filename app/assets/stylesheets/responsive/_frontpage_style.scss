@@ -1,11 +1,32 @@
 /* Frontpage styles */
-#frontpage_splash {
-  h1, h2 {
-    font-weight: normal;
+.intro__title {
+  margin: 0;
+  font-size: 2em;
+  line-height: 1.142857143em;
+  margin-bottom: 0.428571429em; //18px
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    font-size: 2.625em;
   }
-  strong {
-    font-weight: bold;
+}
+
+.intro__description {
+  font-size: 1.125em;
+  line-height: 1.5em;
+}
+
+.intro__browse {
+  font-size: 1.3125em;
+  a {
+    font-weight: 600;
   }
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    font-size: 1.6875em;
+  }
+}
+
+.new-request__title {
+  font-size: 1.4375em;
+  margin: 0 0 0.5em;
 }
 
 #frontpage_examples {
