@@ -18,9 +18,9 @@
 # pere <pere-transifex@hungry.com>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:01+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/alaveteli/language/nb/)\n"
@@ -478,6 +478,10 @@ msgstr "Bunt opprettet av {{info_request_user}} den {{date}}."
 
 msgid "Beginning with"
 msgstr "Begynner med"
+
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr "Søk blant <br/>\\n <strong>{{number_of_requests}} henvendelser</strong> <span>og</span><br/>\\n <strong>{{number_of_authorities}} myndigheter</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Se på <a href='{{url}}'>andre henvendelser</a> for eksempler på hvordan du bør ordlegge henvendelsen."
@@ -1006,6 +1010,9 @@ msgstr "Fra:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "SKRIV GRUNNENE FOR HVORFOR DU KLAGER HER"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr "Har du en konto?"
 
@@ -1438,14 +1445,14 @@ msgstr "Lan en ny miljøinformasjonslov-henvendelse"
 msgid "Make a new FOI request"
 msgstr "Lag en ny innsynshenvendelse"
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "Lag en ny<br/>\\n <strong>henvendelse <span>om</span><br/>\\n  innsyn</strong>"
-
 msgid "Make a request"
 msgstr "Lag henvendelse"
 
 msgid "Make a request &raquo;"
 msgstr "Lag henvendelse &raquo;"
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
+msgstr ""
 
 msgid "Make a request to these authorities"
 msgstr "Lag en henvendelse til disse myndighetene"
@@ -2426,6 +2433,10 @@ msgstr "SpamAddress|Email"
 msgid "Start your own blog"
 msgstr "Start din egen blogg"
 
+#, fuzzy
+msgid "Start your own request"
+msgstr "Del henvendelsen din"
+
 msgid "Stay up to date"
 msgstr "Hold deg oppdatert"
 
@@ -3210,6 +3221,9 @@ msgstr "Venter på at myndigheten skal utføre klagebehandling på denne henvend
 
 msgid "Waiting for the public authority to reply"
 msgstr "Venter på svar fra myndigheten"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Fikk du et godt svar på innsynshenvendelsen din?"
@@ -4023,3 +4037,6 @@ msgstr "{{user}} sendte denne henvendelsen om {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "« Tilbake til søkeresultatene"
+
+#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+#~ msgstr "Lag en ny<br/>\\n <strong>henvendelse <span>om</span><br/>\\n  innsyn</strong>"

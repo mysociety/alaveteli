@@ -11,9 +11,9 @@
 # Valentin Laskov <laskov@festa.bg>, 2013-2014
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:02+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/alaveteli/language/bg/)\n"
@@ -471,6 +471,10 @@ msgstr "Размножено заявление, създадено от {{info_
 
 msgid "Beginning with"
 msgstr "Започващи с"
+
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr "Търсене измежду<br/>\\n <strong>{{number_of_requests}} заявления</strong> <span>и</span><br/>\\n  <strong>{{number_of_authorities}} органа</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Разгледайте <a href='{{url}}'>други запитвания</a> като примери за това как да опишете заявлението си."
@@ -999,6 +1003,9 @@ msgstr "От:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ТУК НАПИШЕТЕ ПОДРОБНОСТИ ЗА ВАШЕТО ОПЛАКВАНЕ"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1431,13 +1438,13 @@ msgstr "Ново заявление за околната среда"
 msgid "Make a new FOI request"
 msgstr "Ново заявление за ДдИ"
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "Създаване на ново<br/>\\n  <strong>Заявление <span>за</span><br/>\\n  Достъп до<br/>\\n  Информация</strong>"
-
 msgid "Make a request"
 msgstr "Създаване на заявление"
 
 msgid "Make a request &raquo;"
+msgstr ""
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -2419,6 +2426,10 @@ msgstr ""
 msgid "Start your own blog"
 msgstr "Започнете собствен блог"
 
+#, fuzzy
+msgid "Start your own request"
+msgstr "Започнете собствен блог"
+
 msgid "Stay up to date"
 msgstr "Бъди в час"
 
@@ -3201,6 +3212,9 @@ msgstr "Чака публичния орган да завърши вътреш�
 
 msgid "Waiting for the public authority to reply"
 msgstr "Очаква отговор на публичния орган"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Беше ли с нещо полезен отговорът на Вашето Заявление за ДдИ?"
@@ -4011,3 +4025,6 @@ msgstr "{{user}} отправи това {{law_used_full}} заявление"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+#~ msgstr "Създаване на ново<br/>\\n  <strong>Заявление <span>за</span><br/>\\n  Достъп до<br/>\\n  Информация</strong>"

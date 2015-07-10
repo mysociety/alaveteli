@@ -11,9 +11,9 @@
 # John Cross <mrjohncross@googlemail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 14:58+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: English (Ireland) (http://www.transifex.com/projects/p/alaveteli/language/en_IE/)\n"
@@ -470,6 +470,9 @@ msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr ""
 
 msgid "Beginning with"
+msgstr ""
+
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
 msgstr ""
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
@@ -999,6 +1002,9 @@ msgstr ""
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr ""
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1431,13 +1437,13 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr ""
-
 msgid "Make a request"
 msgstr ""
 
 msgid "Make a request &raquo;"
+msgstr ""
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -2419,6 +2425,9 @@ msgstr ""
 msgid "Start your own blog"
 msgstr ""
 
+msgid "Start your own request"
+msgstr ""
+
 msgid "Stay up to date"
 msgstr ""
 
@@ -3200,6 +3209,9 @@ msgid "Waiting for the public authority to complete an internal review of their 
 msgstr ""
 
 msgid "Waiting for the public authority to reply"
+msgstr ""
+
+msgid "Want to know something?"
 msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"

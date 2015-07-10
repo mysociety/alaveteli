@@ -18,9 +18,9 @@
 # Žana Počuča <zana.fakin@gmail.com>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:02+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/projects/p/alaveteli/language/hr/)\n"
@@ -499,6 +499,13 @@ msgstr "Seriju je napravio/la {{info_request_user}} dana {{date}}."
 
 msgid "Beginning with"
 msgstr "Počevši sa"
+
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr ""
+"Pretražite<br/>\n"
+"<strong>{{number_of_requests}} zahtjeva</strong> <span>i</span><br/>\n"
+"<strong>{{number_of_authorities}} tijela</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Pretražite <a href='{{url}}'>druge zahtjeve</a> radi primjera kako da sročite Vaš zahtjev."
@@ -1035,6 +1042,9 @@ msgstr "Od:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "OVDJE IZNESITE DETALJE POŽURNICE"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr "Imate li račun?"
 
@@ -1490,14 +1500,14 @@ msgstr "Napravite novi EIR zahtjev"
 msgid "Make a new FOI request"
 msgstr "Napravite novi zahtjev za pristup informacijama"
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "Podnesite novi<br/>\\n <strong>zahtjev <span>za</span><br/>\\n pristup<br/>\\n informacijama</strong>"
-
 msgid "Make a request"
 msgstr "Podnesite zahtjev"
 
 msgid "Make a request &raquo;"
 msgstr "Podnesite zahtjev &raquo;"
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
+msgstr ""
 
 msgid "Make a request to these authorities"
 msgstr "Podnesite zahtjev ovim tijelima javne vlasti"
@@ -2494,6 +2504,10 @@ msgstr "SpamAdresa|Epošta"
 msgid "Start your own blog"
 msgstr "Započnite Vaš blog"
 
+#, fuzzy
+msgid "Start your own request"
+msgstr "Podijelite svoj zahtjev"
+
 msgid "Stay up to date"
 msgstr "Budite u toku"
 
@@ -3308,6 +3322,9 @@ msgstr "Čeka se da nadležno tijelo požuri rješavanje zahtjeva."
 
 msgid "Waiting for the public authority to reply"
 msgstr "Čekamo odgovor tijela javne vlasti"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Je li odgovor koji ste dobili na Vaš zahtjev za pristup informacijama bio od koristi?"
@@ -4147,3 +4164,6 @@ msgstr "{{user}} je podnio/la ovaj zahtjev za {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "« Povratak na rezultate pretrage"
+
+#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+#~ msgstr "Podnesite novi<br/>\\n <strong>zahtjev <span>za</span><br/>\\n pristup<br/>\\n informacijama</strong>"
