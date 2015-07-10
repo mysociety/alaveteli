@@ -58,8 +58,8 @@ class UserController < ApplicationController
       @xapian_comments = nil
     end
 
-    feed_results += @xapian_requests.results.map {|x| x[:model]} unless @xapian_requests.nil?
-    feed_results += @xapian_comments.results.map {|x| x[:model]} unless @xapian_comments.nil?
+    feed_results += @xapian_requests.results.map {|x| x[:model]} if @xapian_requests
+    feed_results += @xapian_comments.results.map {|x| x[:model]} if @xapian_comments
 
     # All tracks for the user
     if @is_you
@@ -324,7 +324,7 @@ class UserController < ApplicationController
     @recipient_user = User.find(params[:id])
 
     # Banned from messaging users?
-    unless authenticated_user.nil? && !authenticated_user.can_contact_other_users?
+    if authenticated_user && !authenticated_user.can_contact_other_users?
       @details = authenticated_user.can_fail_html
       render :template => 'user/banned'
       return
@@ -630,7 +630,7 @@ class UserController < ApplicationController
 
     requests_query = 'requested_by:' + @display_user.url_name
     comments_query = 'commented_by:' + @display_user.url_name
-    unless params[:user_query].nil?
+    if params[:user_query]
       requests_query += " " + params[:user_query]
       comments_query += " " + params[:user_query]
       @match_phrase = _("{{search_results}} matching '{{query}}'", :search_results => "", :query => params[:user_query])
