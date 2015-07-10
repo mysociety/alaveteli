@@ -58,3 +58,36 @@
 
 
 }
+
+.icon-standalone {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+.bodies-list,
+.latest-requests {
+  h4 {
+    margin-top: 0;
+  }
+}
+
+.request-listing {
+  padding: 1em 0;
+}
+
+.request-listing__request-status-icon {
+  float: left;
+  margin-top: 0.3em;
+}
+
+.request-listing__request-body {
+  margin-left: 32px;
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.request-body__time-ago {
+  margin-top: 0.25em;
+}
