@@ -760,7 +760,6 @@ describe UserController, "when viewing the wall" do
     session[:user_id] = user.id
     get :wall, :url_name => user.url_name
     assigns[:feed_results][0].should_not == ire
-
     ire.created_at = Time.now
     ire.save!
     get :wall, :url_name => user.url_name
@@ -782,5 +781,12 @@ describe UserController, "when viewing the wall" do
     user.reload
     user.receive_email_alerts.should_not == true
   end
+
+    it 'should not show duplicate feed results' do
+        user = users(:silly_name_user)
+        session[:user_id] = user.id
+        get :wall, :url_name => user.url_name
+        assigns[:feed_results].uniq.should == assigns[:feed_results]
+    end
 
 end
