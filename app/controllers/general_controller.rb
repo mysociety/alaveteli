@@ -17,6 +17,7 @@ class GeneralController < ApplicationController
     medium_cache
     @locale = locale_from_params
     successful_query = InfoRequestEvent.make_query_from_params( :latest_status => ['successful'] )
+    @request_events, @request_events_all_successful = InfoRequest.recent_requests
     @track_thing = TrackThing.create_track_for_search_query(successful_query)
     @number_of_requests = InfoRequest.visible.count
     @number_of_authorities = PublicBody.visible.count
