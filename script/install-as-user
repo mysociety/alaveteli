@@ -129,6 +129,9 @@ sed -r \
 
 # create the template_utf8 template we'll use for our databases
 createdb -T template0 -E UTF-8 template_utf8
+echo "update pg_database set datistemplate=true datallowconn=false where datname='template_utf8';" > /tmp/update-template.sql
+sudo -u postgres psql -f /tmp/update-template.sql
+rm /tmp/update-template.sql
 
 for SUFFIX in production test development
 do
