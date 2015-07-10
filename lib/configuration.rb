@@ -80,6 +80,7 @@ module AlaveteliConfiguration
             :TIME_ZONE => "UTC",
             :TRACK_SENDER_EMAIL => 'contact@localhost',
             :TRACK_SENDER_NAME => 'Alaveteli',
+            :FACEBOOK_USERNAME => '',
             :TWITTER_USERNAME => '',
             :TWITTER_WIDGET_ID => false,
             :USE_DEFAULT_BROWSER_LANGUAGE => true,
