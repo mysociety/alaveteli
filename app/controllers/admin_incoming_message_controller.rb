@@ -48,7 +48,7 @@ class AdminIncomingMessageController < AdminController
         destination_request = nil
 
         if message_ids.empty?
-            flash[:error] = "You must supply at least one message to redeliver"
+            flash[:error] = "You must supply at least one request to redeliver the message to."
             return redirect_to admin_request_url(previous_request)
         end
 
