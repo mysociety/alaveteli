@@ -14,9 +14,9 @@
 # Victor Diaz <victor.diaz@cwpanama.net>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:00+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Spanish (Panama) (http://www.transifex.com/projects/p/alaveteli/language/es_PA/)\n"
@@ -480,6 +480,10 @@ msgstr ""
 
 msgid "Beginning with"
 msgstr "Comenzando por"
+
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr "Busque entre<br/>\\n <strong>{{number_of_requests}} solicitudes</strong> <span>y</span><br/>\\n <strong>{{number_of_authorities}} instituciones públicas</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Consulte <a href='{{url}}'>otras solicitudes</a> para ver cómo puede redactar su solicitud."
@@ -1008,6 +1012,9 @@ msgstr "De:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "DETALLE SU QUEJA AQUÍ"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1446,13 +1453,13 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr "Realizar una nueva solicitud de acceso a la Información "
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "Envíe una nueva<br/>\\n <strong>Solicitud de acceso <span>a la</span><br/>\\n información</strong>"
-
 msgid "Make a request"
 msgstr "Enviar solicitud"
 
 msgid "Make a request &raquo;"
+msgstr ""
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -2434,6 +2441,10 @@ msgstr ""
 msgid "Start your own blog"
 msgstr "Crear su propio blog"
 
+#, fuzzy
+msgid "Start your own request"
+msgstr "Crear su propio blog"
+
 msgid "Stay up to date"
 msgstr "Manténgase al día"
 
@@ -3216,6 +3227,9 @@ msgstr "Esperando que ls institución pública termine una revisión interna de 
 
 msgid "Waiting for the public authority to reply"
 msgstr "Esperando que la institución responda"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "¿Fue la respuesta a su solicitud satisfactoria?"
@@ -4026,3 +4040,6 @@ msgstr "{{user}} hizo esta solicitud de {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+#~ msgstr "Envíe una nueva<br/>\\n <strong>Solicitud de acceso <span>a la</span><br/>\\n información</strong>"

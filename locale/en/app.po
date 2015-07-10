@@ -5,9 +5,9 @@
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: English (http://www.transifex.com/projects/p/alaveteli/language/en/)\n"
@@ -465,6 +465,10 @@ msgstr "Batch created by {{info_request_user}} on {{date}}."
 
 msgid "Beginning with"
 msgstr "Beginning with"
+
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
@@ -993,6 +997,9 @@ msgstr "From:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr "Got an account?"
 
@@ -1425,14 +1432,14 @@ msgstr "Make a new EIR request"
 msgid "Make a new FOI request"
 msgstr "Make a new FOI request"
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-
 msgid "Make a request"
 msgstr "Make a request"
 
 msgid "Make a request &raquo;"
 msgstr "Make a request &raquo;"
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
+msgstr ""
 
 msgid "Make a request to these authorities"
 msgstr "Make a request to these authorities"
@@ -2413,6 +2420,10 @@ msgstr "SpamAddress|Email"
 msgid "Start your own blog"
 msgstr "Start your own blog"
 
+#, fuzzy
+msgid "Start your own request"
+msgstr "Share your request"
+
 msgid "Stay up to date"
 msgstr "Stay up to date"
 
@@ -3195,6 +3206,9 @@ msgstr "Waiting for the public authority to complete an internal review of their
 
 msgid "Waiting for the public authority to reply"
 msgstr "Waiting for the public authority to reply"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Was the response you got to your FOI request any good?"
@@ -4005,3 +4019,6 @@ msgstr "{{user}} made this {{law_used_full}} request"
 
 msgid "« Back to search results"
 msgstr "« Back to search results"
+
+#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+#~ msgstr "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"

@@ -44,9 +44,9 @@
 # Vítor Márcio Paiva de Sousa Baptista <vitor@vitorbaptista.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:02+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/alaveteli/language/pt_BR/)\n"
@@ -522,6 +522,10 @@ msgstr ""
 
 msgid "Beginning with"
 msgstr "Começar com"
+
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr "Pesquisar <br/> <strong>{{number_of_requests}} pedidos</strong> <span>e</span> <br/> <strong>{{number_of_authorities}} órgãos públicos </strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Veja <a href=\"{{url}}\">outros pedidos</a> para exemplos de como escrever o seu."
@@ -1050,6 +1054,9 @@ msgstr "De:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "DÊ DETALHES SOBRE SUA QUEIXA AQUI"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1488,16 +1495,13 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr ""
-"Faça um novo<br/>\n"
-"        Pedido de<br/>\n"
-"        <strong>Informação</strong>"
-
 msgid "Make a request"
 msgstr "Criar uma solicitação"
 
 msgid "Make a request &raquo;"
+msgstr ""
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -2479,6 +2483,10 @@ msgstr ""
 msgid "Start your own blog"
 msgstr "Fazer seu próprio blog"
 
+#, fuzzy
+msgid "Start your own request"
+msgstr "Fazer seu próprio blog"
+
 msgid "Stay up to date"
 msgstr "Mantenha-se atualizado"
 
@@ -3271,6 +3279,9 @@ msgstr "Esperando para a autoridade pública completar uma revisão interna"
 
 msgid "Waiting for the public authority to reply"
 msgstr "Aguardando resposta do órgão público"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "A resposta ao seu pedido de acesso à informação foi satisfatória?"
@@ -4091,3 +4102,9 @@ msgstr "{{user}} fez esse pedido de {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+#~ msgstr ""
+#~ "Faça um novo<br/>\n"
+#~ "        Pedido de<br/>\n"
+#~ "        <strong>Informação</strong>"

@@ -10,9 +10,9 @@
 # Stephen Abbott Pugh <stephendabbott@gmail.com>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:01+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/projects/p/alaveteli/language/rw/)\n"
@@ -470,6 +470,10 @@ msgstr "Urutonde rwakozwe na {{info_request_user}} kuwa {{date}}"
 
 msgid "Beginning with"
 msgstr "Duhereye kuri"
+
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr "Shakisha<br/>\\n Ibibazo bigera kuri <strong>{{number_of_requests}} </strong><br/>\\n <span>Ubuyobozi busaga</span>  <strong>{{number_of_authorities}} </strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Shaka <a href='{{url}}'>ibindi bibazo</a> ku ngero z'amagambo wakoresha mu kibazo cyawe."
@@ -998,6 +1002,9 @@ msgstr "Iva:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "TANGA IBISOBANURO KU KIREGO CYAWE HANO"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr "Ufite konti?"
 
@@ -1430,14 +1437,14 @@ msgstr "Tanga ikindi kibazo ku mategeko agenga ibidukikije"
 msgid "Make a new FOI request"
 msgstr "Tanga ikibazo gishya kirebana n'ubwisanzure bwo kumenya amakuru"
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "Tanga ikibazo gishya kijyanye<br/>\\n  <strong>n’ubwisanzure<span>bwo</span><br/>\\n  kumenya amakuru<br/>\\n  </strong>"
-
 msgid "Make a request"
 msgstr "Tanga ikibazo"
 
 msgid "Make a request &raquo;"
 msgstr "Tanga ikibazo &raquo;"
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
+msgstr ""
 
 msgid "Make a request to these authorities"
 msgstr "Baza ikibazo aba bayobozi"
@@ -2418,6 +2425,10 @@ msgstr "SpamAddress|Email"
 msgid "Start your own blog"
 msgstr "Tangira urubuga rwawe bwite"
 
+#, fuzzy
+msgid "Start your own request"
+msgstr "Sangiza ikibazo cyawe"
+
 msgid "Stay up to date"
 msgstr "Gezwaho amakuru yose"
 
@@ -3200,6 +3211,9 @@ msgstr "Gitegereje ko umuyobozi arangiza gukora isuzuma ry'uburyo bakemuye iki k
 
 msgid "Waiting for the public authority to reply"
 msgstr "Dutegereje ko umuyobozi asubiza"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Igisubizo wahawe ku kibazo cyawe cy'ubwisanzure bwo kumenya amakuru cyari cyiza?"
@@ -4010,3 +4024,6 @@ msgstr "{{user}} yatanze iki {{law_used_full}} kibazo"
 
 msgid "« Back to search results"
 msgstr "« Subira ku rutonde rw'ibyavuye mu ishakisha"
+
+#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+#~ msgstr "Tanga ikibazo gishya kijyanye<br/>\\n  <strong>n’ubwisanzure<span>bwo</span><br/>\\n  kumenya amakuru<br/>\\n  </strong>"
