@@ -18,9 +18,9 @@
 # Valon <vbrestovci@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:03+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/projects/p/alaveteli/language/sq/)\n"
@@ -519,6 +519,13 @@ msgstr ""
 
 msgid "Beginning with"
 msgstr "Duke filluar me"
+
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr ""
+"Gjej mbi<br/>\n"
+"          <strong>{{number_of_requests}} kërkesa</strong> <span>dhe</span><br/>\n"
+"          <strong>{{number_of_authorities}} autoritete publike</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Shfleto <a href='{{url}}'>kërkesa të tjera</a> për shembuj se si të formulosh kërkesën tënde."
@@ -1060,6 +1067,9 @@ msgstr "Prej:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "JEPI DETAJET PËR ANKESËN TËNDE KËTU"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1517,17 +1527,13 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr ""
-"Bëj një<br/>\n"
-"        <strong>kërkesë <span>të re për</span><br/>\n"
-"        informata<br/>\n"
-"        zyrtare</strong>"
-
 msgid "Make a request"
 msgstr "Bëj një kërkesë"
 
 msgid "Make a request &raquo;"
+msgstr ""
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -2523,6 +2529,10 @@ msgstr ""
 msgid "Start your own blog"
 msgstr "Nis blogun tënd"
 
+#, fuzzy
+msgid "Start your own request"
+msgstr "Nis blogun tënd"
+
 msgid "Stay up to date"
 msgstr "Qëndro i informuar rreth risive"
 
@@ -3327,6 +3337,9 @@ msgstr "Duke pritur që autoriteti publik të përfundoj rishikimin intern të t
 
 msgid "Waiting for the public authority to reply"
 msgstr "Duke pritur që autoriteti publik të përgjigjet"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "A ishte kërkesa e juaj për QDP e mirë?"
@@ -4175,3 +4188,10 @@ msgstr "{{user}} bëri këtë kërkesë"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+#~ msgstr ""
+#~ "Bëj një<br/>\n"
+#~ "        <strong>kërkesë <span>të re për</span><br/>\n"
+#~ "        informata<br/>\n"
+#~ "        zyrtare</strong>"

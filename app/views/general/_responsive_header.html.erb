@@ -33,3 +33,6 @@
   </div>
 </div>
 
+<% if params[:action] == 'frontpage' %>
+  <%= render :partial => "frontpage_hero" %>
+<% end %>

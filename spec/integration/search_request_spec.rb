@@ -31,7 +31,7 @@ describe "When searching" do
       user = FactoryGirl.create(:user)
       user_session = login(user)
       user_session.visit frontpage_path
-      user_session.fill_in "query", :with => 'test'
+      user_session.fill_in "navigation_search_button", :with => 'test'
       user_session.click_button "Search"
       user_session.response.body.should include(user.name)
     end

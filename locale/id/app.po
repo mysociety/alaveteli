@@ -17,9 +17,9 @@
 # Agung Riyadi <ariadi01@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:00+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/projects/p/alaveteli/language/id/)\n"
@@ -536,6 +536,13 @@ msgstr ""
 
 msgid "Beginning with"
 msgstr "Dimulai dengan"
+
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr ""
+"Cari lagi<br/>\n"
+"          <strong>{{number_of_requests}} permintaan</strong> <span>dan</span><br/>\n"
+"          <strong>{{number_of_authorities}} otoritas</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Melihat<a href='{{url}}'>permintaan lain</a> contohnya tentang bagaimana menyampaikan permintaan Anda."
@@ -1080,6 +1087,9 @@ msgstr "Dari:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "BERIKAN RINCIAN TENTANG KEBERATAN ANDA DI SINI"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1554,17 +1564,13 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr ""
-"Buat permintaan <br/>\n"
-"        <strong>Freedom <span>of</span><br/>\n"
-"        Information<br/>\n"
-"        yang baru</strong>"
-
 msgid "Make a request"
 msgstr "Buat permintaan"
 
 msgid "Make a request &raquo;"
+msgstr ""
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -2564,6 +2570,10 @@ msgstr ""
 msgid "Start your own blog"
 msgstr "Mulai blog Anda sendiri"
 
+#, fuzzy
+msgid "Start your own request"
+msgstr "Mulai blog Anda sendiri"
+
 msgid "Stay up to date"
 msgstr "Tetap dapatkan informasi terkini"
 
@@ -3394,6 +3404,9 @@ msgstr "Menunggu otoritas publik untuk menyelesaikan kajian internal mengenai pe
 
 msgid "Waiting for the public authority to reply"
 msgstr "Menunggu otoritas publik untuk membalas"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Apakah respon yang Anda terima atas permintaa FOI Anda berguna?"
@@ -4248,3 +4261,10 @@ msgstr "{{user}} membuat {{law_used_full}} permintaan ini"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+#~ msgstr ""
+#~ "Buat permintaan <br/>\n"
+#~ "        <strong>Freedom <span>of</span><br/>\n"
+#~ "        Information<br/>\n"
+#~ "        yang baru</strong>"

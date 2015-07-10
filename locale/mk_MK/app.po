@@ -8,9 +8,9 @@
 # louisecrow <louise@mysociety.org>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: alaveteli\n"
+"Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"POT-Creation-Date: 2015-07-27 14:25+0000\n"
 "PO-Revision-Date: 2015-07-24 15:03+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Macedonian (Macedonia) (http://www.transifex.com/projects/p/alaveteli/language/mk_MK/)\n"
@@ -468,6 +468,10 @@ msgstr ""
 
 msgid "Beginning with"
 msgstr "Започнувајќи со"
+
+#, fuzzy
+msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr "Пребарајте<br/>\\n  <strong>{{number_of_requests}} барања</strong> <span>и</span><br/>\\n  <strong>{{number_of_authorities}} иматели</strong>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "Прелистајте <a href='{{url}}'>други барања</a> за примери како да го формулирате вашето барање."
@@ -996,6 +1000,9 @@ msgstr "Од:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ДАДЕТЕ ДЕТАЛИ ЗА ВАЖАТА ЖАЛБА ТУКА"
 
+msgid "Get answers from the government and public sector"
+msgstr ""
+
 msgid "Got an account?"
 msgstr ""
 
@@ -1428,13 +1435,13 @@ msgstr ""
 msgid "Make a new FOI request"
 msgstr ""
 
-msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr "Направи ново<br/>\\n  <strong>Барање  за Слободен <span>пристап до</span><br/>\\n  информации</strong>"
-
 msgid "Make a request"
 msgstr "Поднесете барање"
 
 msgid "Make a request &raquo;"
+msgstr ""
+
+msgid "Make a request for information to a public authority: by law, they have to respond"
 msgstr ""
 
 msgid "Make a request to these authorities"
@@ -2416,6 +2423,10 @@ msgstr ""
 msgid "Start your own blog"
 msgstr "Почнете сопствен блог"
 
+#, fuzzy
+msgid "Start your own request"
+msgstr "Почнете сопствен блог"
+
 msgid "Stay up to date"
 msgstr "Останете во тек"
 
@@ -3203,6 +3214,9 @@ msgstr "Се чека имателот да ја заврши внатрешна
 
 msgid "Waiting for the public authority to reply"
 msgstr "Се чека имателот да одговори"
+
+msgid "Want to know something?"
+msgstr ""
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Дали одговорот што го добивте на вашето барање ви е од корист?"
@@ -4034,3 +4048,6 @@ msgstr "{{user}} го поднесе ова барање за {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr ""
+
+#~ msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
+#~ msgstr "Направи ново<br/>\\n  <strong>Барање  за Слободен <span>пристап до</span><br/>\\n  информации</strong>"
