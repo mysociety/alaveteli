@@ -1,4 +1,4 @@
-<% if @locales[:available].any? && !params.empty? %>
+<% if @locales[:available].any? %>
  <div id="user_locale_switcher" class="locale-list">
    <p class="locale-list-trigger <% @locales[:current] %>">
      <strong class="current-locale"><%= locale_name(@locales[:current]) %></strong>
