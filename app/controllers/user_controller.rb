@@ -26,7 +26,7 @@ class UserController < ApplicationController
     if @is_you
       # All tracks for the user
       @track_things = @track_things = TrackThing.
-        where(tracking_user_id: @display_user, track_medium: 'email_daily').
+        where(:tracking_user_id => @display_user, :track_medium => 'email_daily').
           order('created_at desc')
       @track_things_grouped = @track_things.group_by(&:track_type)
       # Requests you need to describe
