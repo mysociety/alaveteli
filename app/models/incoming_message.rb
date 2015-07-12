@@ -294,9 +294,11 @@ class IncomingMessage < ActiveRecord::Base
         # http://www.whatdotheyknow.com/request/123/response/192
         # http://www.whatdotheyknow.com/request/235/response/513
         # http://www.whatdotheyknow.com/request/445/response/743
+        # https://www.mimesbronn.no/request/innsyn_i_arkivplan
         original_message =
             '(' + '''----* This is a copy of the message, including all the headers. ----*''' +
             '|' + '''----*\s*Original Message\s*----*''' +
+            '|' + '''----*\s*Opprinnelig melding\s*----*''' +
             '|' + '''----*\s*Forwarded message.+----*''' +
             '|' + '''----*\s*Forwarded by.+----*''' +
             ')'
