@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* A `FACEBOOK_USERNAME` configuration option is now available (Gareth Rees).
 * The [`json` API for public bodies](http://alaveteli.org/docs/developers/api/#json-structured-data)
   now includes statistics on the number of requests, number of visible successful classified requests,
   and number of successful, overdue, not held requests (Ross Jones).
