@@ -609,7 +609,7 @@ class IncomingMessage < ActiveRecord::Base
         # Extract text from each attachment
         self.get_attachments_for_display.reduce(''){ |memo, attachment|
             memo += MailHandler.get_attachment_text_one_file(attachment.content_type,
-                                                             attachment.body,
+                                                             attachment.default_body,
                                                              attachment.charset)
         }
     end
