@@ -724,6 +724,32 @@ describe IncomingMessage, "when extracting attachments" do
 
 end
 
+describe IncomingMessage do
+
+  describe :_extract_text do
+
+    it 'does not generate incompatible character encodings' do
+      if String.respond_to?(:encode)
+        message = FactoryGirl.create(:incoming_message)
+        FactoryGirl.create(:body_text,
+                           :body => 'hí',
+                           :incoming_message => message,
+                           :url_part_number => 2)
+        FactoryGirl.create(:pdf_attachment,
+                           :body => load_file_fixture('pdf-with-utf8-characters.pdf'),
+                           :incoming_message => message,
+                           :url_part_number => 3)
+        message.reload
+
+        expect{ message._extract_text }.
+          to_not raise_error(Encoding::CompatibilityError)
+      end
+    end
+
+  end
+
+end
+
 describe IncomingMessage, 'when getting the body of a message for html display' do
 
     it 'should replace any masked email addresses with a link to the help page' do
