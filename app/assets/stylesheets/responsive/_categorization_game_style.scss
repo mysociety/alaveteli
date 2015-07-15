@@ -1,8 +1,7 @@
 /* Styling for categorisation game */
 #game_sidebar {
- font-size:0.9em;
- @include respond-min( $main_menu-mobile_menu_cutoff ){
+  font-size:0.9em;
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
     text-align: center;
   }
-
 }

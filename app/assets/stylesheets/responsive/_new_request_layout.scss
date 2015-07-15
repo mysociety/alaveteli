@@ -30,7 +30,7 @@
 }
 
 .new_info_request{
- @include grid-row();
+  @include grid-row();
 }
 
 #select_authority_help {
@@ -78,7 +78,7 @@
   @include grid-row($behavior: nest);
 
   /* Restrict width of form elements on wide screens */
-    #request_header_body, #request_header_subject, #typeahead_response {
+  #request_header_body, #request_header_subject, #typeahead_response {
     @include grid-column(12);
     @include respond-min( $main_menu-mobile_menu_cutoff ){
       @include grid-column($columns:8, $last-column:true);
@@ -92,8 +92,8 @@
   }
 
   span#to_public_body {
-     display:block;
-     margin-bottom:15px;
+    display:block;
+    margin-bottom:15px;
   }
 }
 
@@ -147,17 +147,17 @@
 }
 
 .preview-pane {
-    @include grid-column(12);
-    @include respond-min( $main_menu-mobile_menu_cutoff ){
-      @include grid-column($columns:8, $pull:4);
-      @include ie8{
-        padding-right: 0.9375em;
-      }
-      @include lte-ie7 {
-        width: 36.813em;
-      }
+  @include grid-column(12);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column($columns:8, $pull:4);
+    @include ie8{
+      padding-right: 0.9375em;
+    }
+    @include lte-ie7 {
+      width: 36.813em;
     }
   }
+}
 
 
 /* Batch request page*/
@@ -172,11 +172,11 @@ div.batch_public_body_toggle {
   .body_list {
     @include grid-column(12);
     @include respond-min( $main_menu-mobile_menu_cutoff ){
-       @include grid-column(5);
-     }
-     @include lte-ie7 {
-       width: 22.313em;
-     }
+      @include grid-column(5);
+    }
+    @include lte-ie7 {
+      width: 22.313em;
+    }
   }
 
   select {
@@ -207,9 +207,9 @@ div.batch_public_body_toggle {
   }
 
   #body_submission {
-   input[type='submit'] {
-     margin: 10px 0;
-     width:100%;
+    input[type='submit'] {
+      margin: 10px 0;
+      width:100%;
     }
   }
 

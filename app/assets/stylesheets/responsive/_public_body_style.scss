@@ -1,43 +1,43 @@
 /* Style for public body pages */
 
 .back-to-results {
-    .message {
-        margin-top: 0.5em;
-        padding: 0.5em 0.8em;
-        background-color: #fff;
-        background-color: rgba(0,0,0,0.1);
-        a {
-            text-decoration: none;
-        }
+  .message {
+    margin-top: 0.5em;
+    padding: 0.5em 0.8em;
+    background-color: #fff;
+    background-color: rgba(0,0,0,0.1);
+    a {
+      text-decoration: none;
     }
+  }
 }
 
 .authority__header {
-    border-bottom: 1px solid #e9e9e9;
+  border-bottom: 1px solid #e9e9e9;
 }
 
 .authority__header__subtitle {
-    font-size: 1.2em;
-    color: #666;
+  font-size: 1.2em;
+  color: #666;
 }
 
 .authority__header__action-bar {
-    border-top: 1px solid #e9e9e9;
+  border-top: 1px solid #e9e9e9;
 }
 
 .authority__body__sidebar {
-    h2 {
-        font-size: 1.2em;
-    }
-    h3 {
-        font-size: 1em;
-    }
+  h2 {
+    font-size: 1.2em;
+  }
+  h3 {
+    font-size: 1em;
+  }
 }
 
 
 .authority__body__sidebar__links {
-    a {
-        display: inline-block;
-        margin-bottom: 0.5em;
-    }
+  a {
+    display: inline-block;
+    margin-bottom: 0.5em;
+  }
 }
