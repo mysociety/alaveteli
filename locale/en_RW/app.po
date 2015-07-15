@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"POT-Creation-Date: 2015-07-15 16:20+0000\n"
 "PO-Revision-Date: 2014-11-18 19:29+0200\n"
 "Last-Translator: Stephen Abbott Pugh <stephendabbott@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2358,6 +2358,9 @@ msgid "Sign in or make a new account"
 msgstr ""
 
 msgid "Sign in or sign up"
+msgstr ""
+
+msgid "Sign in to track this request"
 msgstr ""
 
 msgid "Sign out"
