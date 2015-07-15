@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"POT-Creation-Date: 2015-07-15 16:20+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/p/alaveteli/language/cy/)\n"
@@ -3415,9 +3415,6 @@ msgstr "Rydych yn awr <a href=\"{{wall_url_user}}\">yn dilyn</a> diweddariadau a
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr "Rydych yn awr <a href=\"{{wall_url_user}}\">yn dilyn</a> diweddariadau am <a href=\"{{successful_requests_url}}\"> geisiadau llwyddiannus</a>."
-
-msgid "You are tracking this request"
-msgstr ""
 
 msgid "You can <strong>complain</strong> by"
 msgstr "Gallwch <strong>gwyno</strong> drwy"

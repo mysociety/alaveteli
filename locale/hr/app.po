@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"POT-Creation-Date: 2015-07-15 16:20+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/p/alaveteli/language/hr/)\n"
@@ -3503,9 +3503,6 @@ msgstr "Sada <a href=\"{{wall_url_user}}\">pratite</a> ažuriranja o <a href=\"{
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr "Sada <a href=\"{{wall_url_user}}\">pratite</a> ažuriranja o <a href=\"{{successful_requests_url}}\">uspješnim zahtjevima</a>."
-
-msgid "You are tracking this request"
-msgstr ""
 
 msgid "You can <strong>complain</strong> by"
 msgstr "Možete se <strong>žaliti</strong> tako što ćete"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"POT-Creation-Date: 2015-07-15 16:20+0000\n"
 "PO-Revision-Date: 2015-07-10 06:36+0000\n"
 "Last-Translator: Stephen Abbott Pugh <stephendabbott@gmail.com>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/p/alaveteli/language/rw/)\n"
@@ -3386,9 +3386,6 @@ msgstr "Ubu uri <a href=\"{{wall_url_user}}\">gukurikira</a> amavugurura kuri <a
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr "Ubu uri <a href=\"{{wall_url_user}}\">gukurikira</a> amavugurura ku <a href=\"{{successful_requests_url}}\">bibazo byasubijwe</a>."
-
-msgid "You are tracking this request"
-msgstr "Uri gukurikirana iki kibazo"
 
 msgid "You can <strong>complain</strong> by"
 msgstr "Ushobora <strong>gutanga ikirego</strong> kuri"

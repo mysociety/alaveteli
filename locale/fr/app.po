@@ -37,7 +37,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"POT-Creation-Date: 2015-07-15 16:20+0000\n"
 "PO-Revision-Date: 2015-07-07 09:12+0000\n"
 "Last-Translator: mikaclau@gmail.com <mikaclau@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/p/alaveteli/language/fr/)\n"
@@ -3416,9 +3416,6 @@ msgstr "Maintenant vous <a href=\"{{wall_url_user}}\">êtes en train de suivre d
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr "Maintenant vous <a href=\"{{wall_url_user}}\">êtes en train de suivre des</a>mise à jours sur <a href=\"{{successful_requests_url}}\">demandes réussies</a>."
-
-msgid "You are tracking this request"
-msgstr "Vous suivez cette demande"
 
 msgid "You can <strong>complain</strong> by"
 msgstr "Vous pouvez  <strong>vous plaindre</strong> en "

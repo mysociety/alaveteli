@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"POT-Creation-Date: 2015-07-15 16:20+0000\n"
 "PO-Revision-Date: 2015-07-08 13:19+0000\n"
 "Last-Translator: Kevin Brubeck Unhammer <unhammer+dill@mm.st>\n"
 "Language-Team: Norwegian Nynorsk (http://www.transifex.com/p/alaveteli/language/nn/)\n"
@@ -3408,9 +3408,6 @@ msgstr "Du <a href=\"{{wall_url_user}}\">følgjer no med på</a> oppdateringar o
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr "No <a href=\"{{wall_url_user}}\">følgjer du</a> oppdateringar om <a href=\"{{successful_requests_url}}\">vellukka førespurnader</a>."
-
-msgid "You are tracking this request"
-msgstr "Du held auge med denne førespurnaden"
 
 msgid "You can <strong>complain</strong> by"
 msgstr "Du kan <strong>klaga</strong> ved å"

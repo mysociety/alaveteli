@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-15 16:29+0000\n"
+"POT-Creation-Date: 2015-07-15 16:20+0000\n"
 "PO-Revision-Date: 2015-07-11 18:06+0000\n"
 "Last-Translator: jbaezni <jbaezni@gmail.com>\n"
 "Language-Team: Spanish (Nicaragua) (http://www.transifex.com/p/alaveteli/language/es_NI/)\n"
@@ -3575,9 +3575,6 @@ msgstr "Usted ahora está <a href=\"{{wall_url_user}}\"> siguiendo</a> actualiza
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
 msgstr "Usted ahora está <a href=\"{{wall_url_user}}\"> siguiendo </a> actualizaciones sobre <a href=\"{{successful_requests_url}}\"> solicitudes exitosas </a>."
-
-msgid "You are tracking this request"
-msgstr "Usted está siguiendo esta solicitud"
 
 msgid "You can <strong>complain</strong> by"
 msgstr "Puede <strong>apelar</strong>"
