@@ -24,9 +24,9 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-15 16:29+0000\n"
-"PO-Revision-Date: 2015-06-15 16:30+0000\n"
-"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
-"Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
+"PO-Revision-Date: 2015-07-06 17:17+0000\n"
+"Last-Translator: yehuda <yehudab@gmail.com>\n"
+"Language-Team: Hebrew (Israel) (http://www.transifex.com/p/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -106,7 +106,7 @@ msgid " You will also be emailed updates about the request."
 msgstr "תקבלו גם עדכונים בדוא\"ל על הבקשה."
 
 msgid " filtered by status: '{{status}}'"
-msgstr ""
+msgstr "מסונן ע״פ סטטוס: '{{status}}'"
 
 msgid " when you send this message."
 msgstr "כאשר אתם שולחים הודעה זו."
@@ -127,13 +127,13 @@ msgid "'{{link_to_user}}', a person"
 msgstr "'{{link_to_user}}', משתמש"
 
 msgid "(hide)"
-msgstr ""
+msgstr "(הסתר)"
 
 msgid "(or <a href=\"{{url}}\">sign in</a>)"
-msgstr ""
+msgstr "(או <a href=\"{{url}}\">התחברו</a>)"
 
 msgid "(show)"
-msgstr ""
+msgstr "(הצג)"
 
 msgid "*unknown*"
 msgstr "\"לא ידוע\""
@@ -157,12 +157,12 @@ msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and mor
 msgstr "<a href=\"{{url}}\">היכנסו</a> כדי לשנות סיסמה, מנויים וכדומה. (רק {{user_name}})"
 
 msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
-msgstr ""
+msgstr "<a href=\"{{url}}\">חושבים על שימוש בזהות בדויה?</a>"
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
 msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "אדם <div class=\"alaveteli-widget__count\">{{count}}</div> רוצה לדעת"
+msgstr[1] "<div class=\"alaveteli-widget__count\">{{count}}</div> אנשים רוצים לדעת"
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
 msgstr "<p>זה הכל! תודה על עזרתכם.</p><p>ישנם <a href=\"{{helpus_url}}\">כמה דברים נוספים</a> שתוכלו לעשות כדי לעזור ל-{{site_name}}.</p>"
@@ -257,7 +257,7 @@ msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>כל דבר נוסף</strong>, כמו להבהיר, לעודד, להודות"
 
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "<strong>לפי החוק, הם חייבים לענות</strong> (<a href=\"{{url}}\">למה?</a>)."
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need \\na good internal knowledge of user behaviour on {{site_name}}. How, \\nwhy and by whom requests are categorised is not straightforward, and there will\\nbe user error and ambiguity. You will also need to understand FOI law, and the\\nway authorities use it. Plus you'll need to be an elite statistician.  Please\\n<a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr "<strong>אזהרה!</strong> כדי להשתמש במידע זה בהגינות, תצטרכו \\na ידע פנימי טוב על התנהגות המשתמש ב- {{site_name}}. איך, \\nמדוע ועל-ידי מי מחולקות הבקשות לקטגוריות, אינו דבר מובן מאליו, וייתכנו\\nbe שגיאות משתמש ואי-בהירות. תצטרכו גם להבין את הנהלים והדרך \\nway בה משתמשות בהם הרשויות. בנוסף, תצטרכו להיות בעלי ידע בסטטיסטיקה. נא\\n<a href=\"{{contact_path}}\">צרו איתנו קשר</a>אם יש לכם שאלה."
@@ -290,10 +290,10 @@ msgid "<strong>Thank</strong> the public authority or "
 msgstr "<strong>הודו</strong> לרשות הציבורית או "
 
 msgid "<strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't replied by then."
-msgstr ""
+msgstr "<strong>אנחנו נשלח לכם דוא״ל</strong> כאשר תתקבל תשובה, או אחרי {{late_number_of_days}} ימי עבודה אם הרשות לא תשיב עד אז."
 
 msgid "<strong>We will email you</strong> when they have been sent. We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't replied by then."
-msgstr ""
+msgstr "<strong>אנחנו נשלח לכם דוא״ל</strong> אחרי שהן ישלחו. אנחנו גם נשלח לכם דוא״ל כאשר תתקבל תשובה לאחת מהן, או אחרי {{late_number_of_days}} ימי עבודה אם הרשויות לא יענו עליהן עד אז."
 
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>אין</strong> את המידע המבוקש."
@@ -353,7 +353,7 @@ msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr "מתנהג כמו Xapien::מתנהג כמו מטלת Xapien | מודל"
 
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
-msgstr ""
+msgstr "הוסיפו הערה ל&ldquo;{{request_title}}&rdquo;"
 
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
 msgstr "הוסיפו הערה לבקשה שלכם במרכאות, או \\n                 <strong>סיכום התגובה</strong>."
@@ -362,7 +362,7 @@ msgid "Add authority - {{public_body_name}}"
 msgstr "וסף רשות - {{public_body_name}}"
 
 msgid "Add the authority:"
-msgstr ""
+msgstr "הוסיפו את הרשות:"
 
 msgid "Added on {{date}}"
 msgstr "התווסף בתאריך {{date}}"
@@ -449,13 +449,13 @@ msgid "Ask for <strong>specific</strong> documents or information, this site is 
 msgstr "בקשו מסמכים או מידע <strong>מסוימים</strong>. אתר זה אינו מיועד לבקשות כלליות."
 
 msgid "Ask us to add an authority"
-msgstr ""
+msgstr "בקשו מאיתנו להוסיף רשות"
 
 msgid "Ask us to update FOI email"
-msgstr ""
+msgstr "בקשו מאיתנו לעדכן כתובת דוא״ל לבקשות חופש מידע"
 
 msgid "Ask us to update the email address for {{public_body_name}}"
-msgstr ""
+msgstr "בקשו מאיתנו לעדכן את כתובת הדוא״ל של {{public_body_name}}"
 
 msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
 msgstr "רשמו את התגובה שלכם בתחתית עמוד זה, ונסו לשכנע אותם לסרוק את זה \\n            (<a href=\"{{url}}\">more details</a>)."
@@ -467,16 +467,16 @@ msgid "Attachment:"
 msgstr "קובץ מצורף: "
 
 msgid "Authority email:"
-msgstr ""
+msgstr "דוא״ל הרשות:"
 
 msgid "Authority:"
-msgstr ""
+msgstr "רשות:"
 
 msgid "Awaiting clarification"
-msgstr ""
+msgstr "ממתין לבירור"
 
 msgid "Awaiting classification"
-msgstr ""
+msgstr "ממתין לסיווג"
 
 msgid "Awaiting classification."
 msgstr "ממתין לסיווג."
@@ -485,13 +485,13 @@ msgid "Awaiting internal review."
 msgstr "ממתין לביקורת פנימית."
 
 msgid "Awaiting response"
-msgstr ""
+msgstr "ממתין לתשובה"
 
 msgid "Awaiting response."
 msgstr "ממתין לתשובה."
 
 msgid "Banned users cannot edit their profile"
-msgstr ""
+msgstr "משתמשים חסומים אינם יכולים לעדכן את הפרופיל שלהם"
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr ""
@@ -1030,7 +1030,7 @@ msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ספקו פרטים על התלונה שלכם כאן"
 
 msgid "Got an account?"
-msgstr ""
+msgstr "יש לכם חשבון?"
 
 msgid "Handled by post"
 msgstr ""
@@ -2166,7 +2166,7 @@ msgid "Rejected"
 msgstr ""
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
-msgstr ""
+msgstr "זכור אותי (משאיר אתכם מחוברים לזמן רב יותר; אל תסמנו על מחשב ציבורי)"
 
 msgid "Report abuse"
 msgstr "דיווח על שימוש לרעה"
@@ -3236,7 +3236,7 @@ msgid "We don't know whether the most recent response to this request contains\\
 msgstr "איננו יודעים האם התגובה האחרונה לבקשה זו כוללת\\n    מידע או לא\\n        &ndash;\\n\tאם אתם {{user_link}} אנא <a href=\"{{url}}\">הכנסו למערכת</a> ועדכנו את כולם."
 
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or\\n        the law tell us to</a>. "
-msgstr "אנחנו לא נחשוף את כתובת המייל שלכם לאף אחד, אלא אם אתם אוn\\ החוק יבקשו זאת (<a href=\"{{url}}\">details</a>)."
+msgstr "אנחנו לא נחשוף את כתובת המייל שלכם לאף אחד, אלא אם <a href=\"{{url}}\">אתם או\\n החוק יבקשו זאת </a>. "
 
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr "אנחנו לא נחשוף את כתובת המייל שלכם לאף אחד, אלא אם אתם אוn\\ החוק יבקשו זאת"
