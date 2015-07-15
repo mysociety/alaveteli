@@ -19,16 +19,14 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackThingsSentEmail < ActiveRecord::Base
-    belongs_to :info_request_event
-    belongs_to :user
-    belongs_to :public_body
-    belongs_to :track_thing
+  belongs_to :info_request_event
+  belongs_to :user
+  belongs_to :public_body
+  belongs_to :track_thing
 
-    # Called from cron job delete-old-things
-    def self.delete_old_track_things_sent_email
-        TrackThingsSentEmail.delete_all "updated_at < (now() - interval '1 month')"
-    end
+  # Called from cron job delete-old-things
+  def self.delete_old_track_things_sent_email
+    TrackThingsSentEmail.delete_all "updated_at < (now() - interval '1 month')"
+  end
 
 end
-
-

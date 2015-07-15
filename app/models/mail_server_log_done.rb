@@ -16,5 +16,5 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class MailServerLogDone < ActiveRecord::Base
-    has_many :mail_server_logs
+  has_many :mail_server_logs
 end
