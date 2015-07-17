@@ -1,15 +1,13 @@
 <div class="footer" id="footer">
-    <div id="footer-nav">
-      <ul>
-          <li><%= link_to image_tag('logo.png'), frontpage_path, :id => 'logo' %></li>
-          <li><%= link_to _("Contact {{site_name}}", :site_name => site_name), help_contact_path %></li>
-          <% unless AlaveteliConfiguration::twitter_username.blank? %>
-            <li><a href="https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>"><%= _("Follow us on twitter") %></a></li>
-          <% end %>
+  <div id="footer-nav">
+    <ul>
+      <li><%= link_to image_tag('logo.png'), frontpage_path, :id => 'logo' %></li>
+      <li><%= link_to _("Contact {{site_name}}", :site_name => site_name), help_contact_path %></li>
+      <% unless AlaveteliConfiguration::twitter_username.blank? %>
+        <li><a href="https://twitter.com/<%= AlaveteliConfiguration::twitter_username %>"><%= _("Follow us on twitter") %></a></li>
+      <% end %>
 
-          <%= render :partial => 'general/responsive_credits' %>
-
-      </ul>
-
-    </div>
+      <%= render :partial => 'general/responsive_credits' %>
+    </ul>
+  </div>
 </div>
