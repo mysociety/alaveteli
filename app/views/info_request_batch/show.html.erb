@@ -7,28 +7,28 @@
 <div class="info_request_batch_intro">
   <h1><%= @title %></h1>
   <% if @info_request_batch.sent_at %>
-       <%= n_('Sent to one authority by {{info_request_user}} on {{date}}.', 'Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}.', @info_request_batch.info_requests.size, :authority_count=> @info_request_batch.info_requests.size, :info_request_user => user_link(@info_request_batch.user), :date => simple_date(@info_request_batch.sent_at)) %>
+    <%= n_('Sent to one authority by {{info_request_user}} on {{date}}.', 'Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}.', @info_request_batch.info_requests.size, :authority_count=> @info_request_batch.info_requests.size, :info_request_user => user_link(@info_request_batch.user), :date => simple_date(@info_request_batch.sent_at)) %>
 
-    </div>
-    <div class="results_section">
-       <div class="results_block">
-       <% @info_requests.each do |info_request| %>
-           <%= render :partial => 'request/request_listing_via_event', :locals => { :event => info_request.last_event_forming_initial_request } %>
-       <% end %>
-       </div>
-         <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @info_request_batch.info_requests.visible.count) %>
-   </div>
+</div>
+<div class="results_section">
+  <div class="results_block">
+    <% @info_requests.each do |info_request| %>
+      <%= render :partial => 'request/request_listing_via_event', :locals => { :event => info_request.last_event_forming_initial_request } %>
+    <% end %>
+  </div>
+  <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @info_request_batch.info_requests.visible.count) %>
+</div>
 
 <% else %>
-     <%= _('Created by {{info_request_user}} on {{date}}.', :info_request_user => user_link(@info_request_batch.user), :date => simple_date(@info_request_batch.created_at)) %>
-     <%= _('Requests will be sent to the following bodies:') %>
+  <%= _('Created by {{info_request_user}} on {{date}}.', :info_request_user => user_link(@info_request_batch.user), :date => simple_date(@info_request_batch.created_at)) %>
+  <%= _('Requests will be sent to the following bodies:') %>
+  </div>
+  <div class="results_section">
+    <div class="results_block">
+      <%= render :partial => 'public_body/body_listing', :locals => { :public_bodies => @public_bodies } %>
     </div>
-    <div class="results_section">
-      <div class="results_block">
-<%= render :partial => 'public_body/body_listing', :locals => { :public_bodies => @public_bodies } %>
-      </div>
-        <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @info_request_batch.public_bodies.count) %>
-    </div>
+    <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @info_request_batch.public_bodies.count) %>
+  </div>
 
 <% end %>
 
