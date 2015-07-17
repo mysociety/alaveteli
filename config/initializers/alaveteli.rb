@@ -63,4 +63,3 @@ AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
 if Rails.env == 'test' and ActiveRecord::Base.configurations['test']['constraint_disabling'] == false
   require 'no_constraint_disabling'
 end
-
