@@ -12,5 +12,5 @@ require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
 #   ENV['RAILS_ENV'] = 'production'
 rails_env_file = File.expand_path(File.join(File.dirname(__FILE__), 'rails_env.rb'))
 if File.exists?(rails_env_file)
-    require rails_env_file
+  require rails_env_file
 end

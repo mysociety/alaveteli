@@ -62,13 +62,13 @@ module Alaveteli
 
     # Set the cache to use a memcached backend
     config.cache_store = :mem_cache_store,
-                        { :namespace => "#{AlaveteliConfiguration::domain}_#{RUBY_VERSION}" }
+      { :namespace => "#{AlaveteliConfiguration::domain}_#{RUBY_VERSION}" }
     config.action_dispatch.rack_cache = nil
 
     config.after_initialize do |app|
-       # Add a catch-all route to force routing errors to be handled by the application,
-       # rather than by middleware.
-       app.routes.append{ match '*path', :to => 'general#not_found' }
+      # Add a catch-all route to force routing errors to be handled by the application,
+      # rather than by middleware.
+      app.routes.append{ match '*path', :to => 'general#not_found' }
     end
 
     config.autoload_paths << "#{Rails.root.to_s}/app/models/concerns"
@@ -86,7 +86,7 @@ module Alaveteli
 
     # Strip non-UTF-8 request parameters
     if RUBY_VERSION == '1.9.3'
-        config.middleware.insert 0, Rack::UTF8Sanitizer
+      config.middleware.insert 0, Rack::UTF8Sanitizer
     end
 
     # Allow the generation of full URLs in emails
@@ -128,10 +128,10 @@ module Alaveteli
                                  'responsive/application-lte-ie7.css',
                                  'responsive/application-ie8.css']
 
-     config.sass.load_paths += [
-       "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/components",
-       "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/"
-     ]
+    config.sass.load_paths += [
+      "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/components",
+      "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/"
+    ]
 
   end
 end
