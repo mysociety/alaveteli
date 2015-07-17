@@ -443,7 +443,7 @@ msgstr "Remarques"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "Les annotations sont là afin que toute personne, y compris vous, puissiez aider le demandeur avec leur demande. Par exemple:"
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Les remarques seront postées ici et seront <strong>pas</strong> envoyées  au {{public_body_name}}."
 
 msgid "Anonymous user"

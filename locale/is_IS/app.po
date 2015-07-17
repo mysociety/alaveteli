@@ -411,7 +411,7 @@ msgstr "Athugasemdir"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "Athugasemdir eru til þess að hver sem er, þar á meðal þú, getir aðstoða þann sem biður með beiðnina þeirra. Til dæmis:"
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Athugasemdir verða birtar hér en eru\\n <strong>ekki</strong> sendar til {{public_body_name}}."
 
 msgid "Anonymous user"

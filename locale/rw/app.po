@@ -413,7 +413,7 @@ msgstr "Ibisobanuro"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "Ibisobanuro bifasha buri wese, nawe urimo, kwunganira uwabajije ku kibazo afite. Urugero:"
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Ibisobanuro birashyirwa hano ku mugaragaro, kandi\\n        <strong>ntabwo</strong> bizohererezwa {{public_body_name}}."
 
 msgid "Anonymous user"

@@ -459,7 +459,7 @@ msgstr "Hozzászólások"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "A hozzászólásokkal bárki - önt is beleértve - segítséget nyújthat az igénylőnek az adatigényléshez. Például: "
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr ""
 "A hozzászólások nyilvánosan megjelennek, de azokat \n"
 "        <strong>nem</strong> küldjük el a(z) {{public_body_name}} részére. "

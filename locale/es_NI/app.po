@@ -461,7 +461,7 @@ msgstr "Comentarios"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "Los comentarios sirven para que cualquiera, incluído tú, pueda ayudar al creador de la solicitud. Por ejemplo:"
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr ""
 "Los comentarios se muestran públicamente aquí, y \n"
 "        <strong>no</strong> se envían a {{public_body_name}}."

@@ -465,7 +465,7 @@ msgstr "Shënimet"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "Shënimet shërbejne për të gjithë, duke përfshirë edhe ty, që të mund të ndihmoj kërkuesit me kërkesën e tyre. Për shembull:"
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr ""
 "Shënimet do të shfaqen publikisht këtu, dhe\n"
 "<strong>nuk</strong> dërgohen te {{public_body_name}}."

@@ -457,7 +457,7 @@ msgstr "Коментарі"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "Коментарі покликані допомагати авторам запитів. Наприклад:"
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr ""
 "Коментарі з’являються в публічному доступі, але\n"
 "        <strong>не</strong> надсилаються до розпорядника інформації."

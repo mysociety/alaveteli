@@ -429,7 +429,7 @@ msgstr "Napomene"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "Napomene služe da bilo ko, uključujući Vas, može da pomogne podnosiocu zahteva u vezi sa zahtevom. Na primer:"
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Napomene će biti objavljene ovde i\\n <strong>neće</strong> biti poslate ustanovi '{{public_body_name}}'."
 
 msgid "Anonymous user"

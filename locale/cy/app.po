@@ -426,7 +426,7 @@ msgstr "Anodiadau"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "Mae anodiadau fel y gall unrhywun, gan eich cynnwys chi, helpu i'r ceisydd â'u cais. Er enghraifft:"
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Bydd anodiadau yn cael eu postio yn gyhoeddus yma, ac <strong>nid ydynt</strong>yn cael eu hanfon i {{public_body_name}}."
 
 msgid "Anonymous user"
