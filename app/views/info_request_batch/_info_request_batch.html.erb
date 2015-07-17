@@ -1,15 +1,16 @@
 <div class="request_listing">
   <div class="request_left">
-      <span class="head">
-        <%= link_to highlight_words(info_request_batch.title, @highlight_words), info_request_batch_path(info_request_batch) %>
-      </span>
-      <div class="requester">
-              <%= _('Batch created by {{info_request_user}} on {{date}}.', :info_request_user => user_link_absolute(info_request_batch.user),:date=>simple_date(info_request_batch.created_at)) %>
-      </div>
+    <span class="head">
+      <%= link_to highlight_words(info_request_batch.title, @highlight_words), info_request_batch_path(info_request_batch) %>
+    </span>
+    <div class="requester">
+      <%= _('Batch created by {{info_request_user}} on {{date}}.', :info_request_user => user_link_absolute(info_request_batch.user),:date=>simple_date(info_request_batch.created_at)) %>
+    </div>
   </div>
+
   <div class="request_right">
     <span class="desc">
-        <%= excerpt(info_request_batch.body, '', :radius => 150) %>
+      <%= excerpt(info_request_batch.body, '', :radius => 150) %>
     </span>
   </div>
 </div>
