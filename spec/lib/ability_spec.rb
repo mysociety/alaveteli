@@ -49,4 +49,3 @@ describe Ability do
     end
   end
 end
-
