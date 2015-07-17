@@ -2,18 +2,18 @@
 <h1><%= @title %></h1>
 <p>
 
-    Alaveteli calculates the due dates of requests taking account of the
-    public holidays shown here. If you have set the
-    <code>WORKING_OR_CALENDAR_DAYS</code><a
+  Alaveteli calculates the due dates of requests taking account of the
+  public holidays shown here. If you have set the
+  <code>WORKING_OR_CALENDAR_DAYS</code><a
     href="http://alaveteli.org/docs/customising/config/#working_or_calendar_days"
     target="_blank">(docs)</a> setting for Alaveteli to
-    <code>working</code>, the date when a response to a request is
-    officially overdue will be calculated in days that are not weekends
-    or public holidays. If you have set
-    <code>WORKING_OR_CALENDAR_DAYS</code> to <code>calendar</code>, the
-    date will be calculated in calendar days, but if the due date falls
-    on a public holiday or weekend day, then the due date is considered
-    to be the next week day that isn't a holiday.
+  <code>working</code>, the date when a response to a request is
+  officially overdue will be calculated in days that are not weekends
+  or public holidays. If you have set
+  <code>WORKING_OR_CALENDAR_DAYS</code> to <code>calendar</code>, the
+  date will be calculated in calendar days, but if the due date falls
+  on a public holiday or weekend day, then the due date is considered
+  to be the next week day that isn't a holiday.
 
 </p>
 <div class="btn-toolbar">
@@ -27,15 +27,15 @@
 
 <div id="existing-holidays">
   <% @years.each do |year| %>
-  <h2><%= year %></h2>
-  <table class="table table-striped table-condensed">
-    <tbody>
-      <% @holidays_by_year[year].sort_by(&:day).each do |holiday| %>
-      <%= content_tag_for(:tr, holiday, prefix=nil, 'data-target' => edit_admin_holiday_path(holiday)) do %>
-        <%= render :partial => 'holiday', :locals => { :holiday => holiday }%>
-      <% end %>
-    <% end %>
-    </tbody>
-  </table>
+    <h2><%= year %></h2>
+    <table class="table table-striped table-condensed">
+      <tbody>
+        <% @holidays_by_year[year].sort_by(&:day).each do |holiday| %>
+          <%= content_tag_for(:tr, holiday, prefix=nil, 'data-target' => edit_admin_holiday_path(holiday)) do %>
+            <%= render :partial => 'holiday', :locals => { :holiday => holiday }%>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
   <% end %>
 </div>

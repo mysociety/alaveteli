@@ -1,44 +1,44 @@
 <div class="accordion" id="bodies">
-  <% for public_body in bodies %>
-    <div class="accordion-group">
-      <div class="accordion-heading accordion-toggle row">
-        <span class="item-title span6">
-          <a href="#body_<%=public_body.id%>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
-          <%= link_to(public_body.name, admin_body_path(public_body), :title => "view full details")%>
-        </span>
-        <span class="item-metadata span6">
-          <%= render :partial => 'tags', :locals => { :body => public_body} %>
-        </span>
-      </div>
-      <div id="body_<%=public_body.id%>" class="item-detail accordion-body collapse row">
-        <% public_body.for_admin_column do |name, value, type| %>
-          <div>
-            <span class="span6">
-              <b><%=name%></b>
-            </span>
-            <span class="span6">
-              <% if type == 'datetime' %>
-                <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
-                (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
-              <% else %>
-                <%= h value %>&nbsp;
-              <% end %>
-            </span>
-          </div>
-        <% end %>
-      </div>
+<% for public_body in bodies %>
+  <div class="accordion-group">
+    <div class="accordion-heading accordion-toggle row">
+      <span class="item-title span6">
+        <a href="#body_<%=public_body.id%>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
+        <%= link_to(public_body.name, admin_body_path(public_body), :title => "view full details")%>
+      </span>
+      <span class="item-metadata span6">
+        <%= render :partial => 'tags', :locals => { :body => public_body} %>
+      </span>
     </div>
-  <% end %>
+    <div id="body_<%=public_body.id%>" class="item-detail accordion-body collapse row">
+      <% public_body.for_admin_column do |name, value, type| %>
+        <div>
+          <span class="span6">
+            <b><%=name%></b>
+          </span>
+          <span class="span6">
+            <% if type == 'datetime' %>
+              <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
+              (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
+            <% else %>
+              <%= h value %>&nbsp;
+            <% end %>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
 </div>
 
 <%= form_tag(mass_tag_add_admin_bodies_path, :method => "post", :class => "form form-inline" ) do %>
-    <p>
-       <%= text_field_tag 'new_tag', params[:new_tag], { :size => 15, :id => "mass_add_tag_new_tag_" + table_name } %>
-       <%= hidden_field_tag(:query, params[:query], { :id => "mass_add_tag_query_" + table_name } ) %>
-       <%= hidden_field_tag(:page, params[:page], { :id => "mass_add_page_" + table_name } ) %>
-       <%= hidden_field_tag(:table_name, table_name, { :id => "mass_add_tag_table_name_" + table_name } ) %>
-       <%= submit_tag "Add tag to all", :class => "btn btn-primary" %>
-       (in table just above)
-    </p>
+  <p>
+    <%= text_field_tag 'new_tag', params[:new_tag], { :size => 15, :id => "mass_add_tag_new_tag_" + table_name } %>
+    <%= hidden_field_tag(:query, params[:query], { :id => "mass_add_tag_query_" + table_name } ) %>
+    <%= hidden_field_tag(:page, params[:page], { :id => "mass_add_page_" + table_name } ) %>
+    <%= hidden_field_tag(:table_name, table_name, { :id => "mass_add_tag_table_name_" + table_name } ) %>
+    <%= submit_tag "Add tag to all", :class => "btn btn-primary" %>
+    (in table just above)
+  </p>
 <% end %>
 

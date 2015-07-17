@@ -1,10 +1,10 @@
 <% if @public_body.errors.any? %>
   <ul>
-  <% @public_body.errors.each do |attr, message| %>
-    <% unless attr.to_s.starts_with?('translation') %>
-    <li><%= message %></li>
+    <% @public_body.errors.each do |attr, message| %>
+      <% unless attr.to_s.starts_with?('translation') %>
+        <li><%= message %></li>
+      <% end %>
     <% end %>
-  <% end %>
   </ul>
 <% end %>
 
@@ -12,9 +12,9 @@
   <% if translation.errors.any? %>
     <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
     <ul>
-    <% translation.errors.each do |attr, message| %>
-      <li><%= message %></li>
-    <% end %>
+      <% translation.errors.each do |attr, message| %>
+        <li><%= message %></li>
+      <% end %>
     </ul>
   <% end %>
 <% end %>
@@ -72,7 +72,7 @@
   <label for="public_body_last_edit_comment" class="control-label"><strong>Comment</strong> for this edit</label>
   <div class="controls">
     <%= f.text_area :last_edit_comment, :rows => 3, :class => "span6"  %></p>
-    <p class="help-block">put URL or other source of new info</p>
+  <p class="help-block">put URL or other source of new info</p>
   </div>
 </div>
 <% if @change_request %>

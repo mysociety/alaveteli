@@ -1,15 +1,15 @@
 <table class="table table-striped table-condensed">
-  <tbody>
-    <tr>
-      <td>
-        <b>Authority</b>
-      </td>
-      <td>
-        <%= @change_request.get_public_body_name %>
-      </td>
-    </tr>
+<tbody>
+  <tr>
+    <td>
+      <b>Authority</b>
+    </td>
+    <td>
+      <%= @change_request.get_public_body_name %>
+    </td>
+  </tr>
 
-    <% if @change_request.public_body %>
+  <% if @change_request.public_body %>
     <tr>
       <td>
         <b>Current address</b>
@@ -18,43 +18,43 @@
         <%= @change_request.public_body.request_email %>
       </td>
     </tr>
-    <% end %>
+  <% end %>
 
-    <tr>
-      <td>
-        <b>Suggested address</b>
-      </td>
-      <td>
-        <%= @change_request.public_body_email %>
-      </td>
-    </tr>
+  <tr>
+    <td>
+      <b>Suggested address</b>
+    </td>
+    <td>
+      <%= @change_request.public_body_email %>
+    </td>
+  </tr>
 
-    <tr>
-      <td>
-        <b>Source</b>
-      </td>
-      <td>
-        <%= @change_request.source_url %>
-      </td>
-    </tr>
+  <tr>
+    <td>
+      <b>Source</b>
+    </td>
+    <td>
+      <%= @change_request.source_url %>
+    </td>
+  </tr>
 
-     <tr>
-        <td>
-          <b>Requested by</b>
-        </td>
-        <td>
-          <%= @change_request.get_user_name %> (<%= @change_request.get_user_email %>)
-        </td>
-      </tr>
+  <tr>
+    <td>
+      <b>Requested by</b>
+    </td>
+    <td>
+      <%= @change_request.get_user_name %> (<%= @change_request.get_user_email %>)
+    </td>
+  </tr>
 
-    <tr>
-     <td>
-       <b>Requested on</b>
-     </td>
-     <td>
-         <%= I18n.l(@change_request.created_at, :format => "%e %B %Y %H:%M:%S") %>
-         (<%= "#{time_ago_in_words(@change_request.created_at)} ago" %>)
-     </td>
-   </tr>
-  </tbody>
+  <tr>
+    <td>
+      <b>Requested on</b>
+    </td>
+    <td>
+      <%= I18n.l(@change_request.created_at, :format => "%e %B %Y %H:%M:%S") %>
+      (<%= "#{time_ago_in_words(@change_request.created_at)} ago" %>)
+    </td>
+  </tr>
+</tbody>
 </table>

@@ -18,21 +18,21 @@
     </div>
 
     <div class="control-group">
-       <label class="control-label">Import from built-in suggestions or iCal feed</label>
-       <div class="controls">
-         <label class="radio inline">
-           <%= f.radio_button :source, "suggestions" %>Built-in suggestions
-         </label>
-         <label class="radio inline">
-            <%= f.radio_button :source, "feed" %>iCal feed
-          </label>
+      <label class="control-label">Import from built-in suggestions or iCal feed</label>
+      <div class="controls">
+        <label class="radio inline">
+          <%= f.radio_button :source, "suggestions" %>Built-in suggestions
+        </label>
+        <label class="radio inline">
+          <%= f.radio_button :source, "feed" %>iCal feed
+        </label>
       </div>
     </div>
 
     <div class="control-group">
       <label class="control-label">iCal feed URL:</label>
       <div class="controls">
-      <%= f.text_field 'ical_feed_url' %>
+        <%= f.text_field 'ical_feed_url' %>
       </div>
     </div>
 
@@ -52,9 +52,9 @@
         <td>
           <% if @holiday_import.holidays.empty? %>
             <% if @holiday_import.source == 'suggestions' %>
-             Sorry, we don't have any built-in suggestions for holiday days in <%= @holiday_import.suggestions_country_name %>.
+              Sorry, we don't have any built-in suggestions for holiday days in <%= @holiday_import.suggestions_country_name %>.
             <% else %>
-            Sorry, we couldn't find any holidays in that iCal feed.
+              Sorry, we couldn't find any holidays in that iCal feed.
             <% end %>
           <% else %>
             <%= form_for( @holiday_import, :as => 'holiday_import', :url => admin_holiday_imports_path, :html => { :class => 'form-inline' } ) do |f| -%>
@@ -66,16 +66,16 @@
                   Holidays from feed (<%= @holiday_import.period %>)
                 <% end %>
               </legend>
-                <%= f.fields_for :holidays do |holiday_fields| %>
-                   <div class="import-holiday-info">
-                     <%= render :partial => 'admin_holidays/form', :locals => {:f => holiday_fields, :context => :import, :holiday => holiday_fields.object } %>
-                  </div>
-                <% end%>
+              <%= f.fields_for :holidays do |holiday_fields| %>
+                <div class="import-holiday-info">
+                  <%= render :partial => 'admin_holidays/form', :locals => {:f => holiday_fields, :context => :import, :holiday => holiday_fields.object } %>
+                </div>
+              <% end%>
               <%= f.submit "Import", :class => 'btn btn-warning' %>
             <% end %>
           <% end %>
-       </td>
-     </tr>
+        </td>
+      </tr>
     </tbody>
   </table>
 <% end %>

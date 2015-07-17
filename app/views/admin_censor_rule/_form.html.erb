@@ -7,7 +7,7 @@
   <% end %>
   <% unless user.nil? %>
     <%= user_both_links(user) %>
-<% end %>
+  <% end %>
 </div>
 
 <div class="control-group">
@@ -55,18 +55,18 @@
     <div class="alert alert-info">
       <h3>Warning and notes:</h3>
       <p> This does replace text in binary files, but for
-      most formats only in a naive way. It works well on surprisingly many Word documents. Notably
-      it doesn't even do UCS-2 (unicode sometimes used in Word). There is also special code
-      which works on some PDFs. Please <strong>carefully check</strong> all attachments have
-      changed in the way you expect, and haven't become corrupted.
+        most formats only in a naive way. It works well on surprisingly many Word documents. Notably
+        it doesn't even do UCS-2 (unicode sometimes used in Word). There is also special code
+        which works on some PDFs. Please <strong>carefully check</strong> all attachments have
+        changed in the way you expect, and haven't become corrupted.
       </p>
       <p>You may need to manually rebuild the search index afterwards. You can redact
-      things by individual request or by user by adding the censor rule from the
-      appropriate page.  If you need to redact across a whole
-      authority, it will be easy enough to make code changes to add it, so do ask.
+        things by individual request or by user by adding the censor rule from the
+        appropriate page.  If you need to redact across a whole
+        authority, it will be easy enough to make code changes to add it, so do ask.
       </p>
       <p>
-         <strong>Regexp rules that are hard to process will really slow down request display.</strong> Please only use regexps if you really need to.
+        <strong>Regexp rules that are hard to process will really slow down request display.</strong> Please only use regexps if you really need to.
       </p>
     </div>
   </div>

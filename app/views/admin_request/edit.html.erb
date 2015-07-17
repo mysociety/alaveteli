@@ -4,61 +4,61 @@
 
 <%= form_tag admin_request_path(@info_request), :method => :put do %>
 
-   <p><label for="info_request_title"><strong>Title</strong></label> (warning: editing this will break URLs right now)<br/>
-   <%= text_field 'info_request', 'title', :size => 50  %></p>
+  <p><label for="info_request_title"><strong>Title</strong></label> (warning: editing this will break URLs right now)<br/>
+    <%= text_field 'info_request', 'title', :size => 50  %></p>
 
-   <p><label for="info_request_prominence"><strong>Prominence</strong></label>
-   <%= select( 'info_request', "prominence", [ "normal", "backpage", "requester_only", "hidden" ]) %>
-   (backpage means hidden from lists/search; hidden means completely hidden; super users can see anything)
-   </p>
-
-   <p>
-   <label for="info_request_allow_new_responses_from"><strong>Allow new responses</strong> from</label>
-   <%= select( 'info_request', "allow_new_responses_from", [ "anybody", "authority_only", "nobody" ] ) %>;
-   <label for="info_request_handle_rejected_responses"><strong>Handle rejected responses</strong> with</label>
-   <%= select( 'info_request', "handle_rejected_responses", [ "bounce", "holding_pen", "blackhole" ] ) %>
-   <br>
-   ('authority_only' means email From: domain of authority request email or any domain that has previously sent a response; 'nobody' also stops requester making followups; take care when using 'blackhole' which just drops mail)
-   </p>
-
-   <p><label for="info_request_described_state"><strong>Described state</strong></label>
-   <%= select( 'info_request', "described_state", InfoRequest.enumerate_states) %>
-    <label for="info_request_awaiting_description"><strong>Awaiting description</strong></label>
-   <%= select('info_request', "awaiting_description", [["Yes – needs state updating",true],["No – state is up to date",false]]) %>
-   <br/>(don't forget to change 'awaiting description' when you set described state)<br/>
-   </p>
-    <p><label for="info_request_comments_allowed"><strong>Are comments allowed?</strong></label>
-    <%= select('info_request', "comments_allowed", [["Yes – comments allowed", true], ["No – comments disabled", false]]) %>
-    </p>
-   <p><label for="info_request_tag_string"><strong>Tags</strong> <small>(space separated, can use key:value)</small></label><br/>
-   <%= text_field 'info_request', 'tag_string', :size => 60  %></p>
-
-   <p><%= submit_tag 'Save changes', :accesskey => 's', :class => 'btn btn-primary' %>
-   </p>
-
-  <p><strong>Note:</strong> To edit the actual request body text, click edit
-  next to the specific outgoing message.
+  <p><label for="info_request_prominence"><strong>Prominence</strong></label>
+    <%= select( 'info_request', "prominence", [ "normal", "backpage", "requester_only", "hidden" ]) %>
+    (backpage means hidden from lists/search; hidden means completely hidden; super users can see anything)
   </p>
+
+  <p>
+    <label for="info_request_allow_new_responses_from"><strong>Allow new responses</strong> from</label>
+    <%= select( 'info_request', "allow_new_responses_from", [ "anybody", "authority_only", "nobody" ] ) %>;
+    <label for="info_request_handle_rejected_responses"><strong>Handle rejected responses</strong> with</label>
+    <%= select( 'info_request', "handle_rejected_responses", [ "bounce", "holding_pen", "blackhole" ] ) %>
+    <br>
+    ('authority_only' means email From: domain of authority request email or any domain that has previously sent a response; 'nobody' also stops requester making followups; take care when using 'blackhole' which just drops mail)
+  </p>
+
+  <p><label for="info_request_described_state"><strong>Described state</strong></label>
+    <%= select( 'info_request', "described_state", InfoRequest.enumerate_states) %>
+    <label for="info_request_awaiting_description"><strong>Awaiting description</strong></label>
+    <%= select('info_request', "awaiting_description", [["Yes – needs state updating",true],["No – state is up to date",false]]) %>
+    <br/>(don't forget to change 'awaiting description' when you set described state)<br/>
+  </p>
+  <p><label for="info_request_comments_allowed"><strong>Are comments allowed?</strong></label>
+    <%= select('info_request', "comments_allowed", [["Yes – comments allowed", true], ["No – comments disabled", false]]) %>
+  </p>
+  <p><label for="info_request_tag_string"><strong>Tags</strong> <small>(space separated, can use key:value)</small></label><br/>
+    <%= text_field 'info_request', 'tag_string', :size => 60  %></p>
+
+  <p><%= submit_tag 'Save changes', :accesskey => 's', :class => 'btn btn-primary' %>
+</p>
+
+<p><strong>Note:</strong> To edit the actual request body text, click edit
+  next to the specific outgoing message.
+</p>
 
 <% end %>
 
 <p>
-<%= link_to 'Show', admin_request_path(@info_request) %> |
-<%= link_to 'List all', admin_requests_path %>
+  <%= link_to 'Show', admin_request_path(@info_request) %> |
+  <%= link_to 'List all', admin_requests_path %>
 </p>
 
 <hr>
 
 <div class="well">
 
-<%= form_tag admin_request_path(@info_request), :method => :delete do %>
+  <%= form_tag admin_request_path(@info_request), :method => :delete do %>
     <p>
-    <strong>This is permanent and irreversible!</strong> <%= submit_tag 'Destroy request entirely', :class => 'btn btn-danger' %>
+      <strong>This is permanent and irreversible!</strong> <%= submit_tag 'Destroy request entirely', :class => 'btn btn-danger' %>
     <br>Use it mainly if someone posts private information, e.g. made a Data Protection request. It
     destroys all responses and tracks as well.
     </p>
 
-<% end %>
+  <% end %>
 
 </div>
 

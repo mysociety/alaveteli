@@ -1,27 +1,27 @@
 <div class="tab-pane" id="div-locale-<%=locale.to_s%>">
-    <div class="control-group">
-        <%= t.hidden_field :locale, :value => locale.to_s %>
-        <label for="<%= form_tag_id(t.object_name, :title, locale) %>" class="control-label">Title</label>
-        <div class="controls">
-            <% if locale == I18n.default_locale && t.object.errors[:title].any? %>
-            <span class="fieldWithErrors">
-            <% end %>
-            <%= t.text_field :title, :id => form_tag_id(t.object_name, :title, locale), :class => "span4" %>
-            <% if locale == I18n.default_locale && t.object.errors[:title].any? %>
-            </span>
-            <%end %>
-        </div>
-    </div>
-    <div class="control-group">
-        <label for="<%= form_tag_id(t.object_name, :description, locale) %>" class="control-label">Description</label>
-        <div class="controls">
-            <% if locale == I18n.default_locale && t.object.errors[:description].any? %>
-            <span class="fieldWithErrors">
-            <% end %>
-            <%= t.text_field :description, :id => form_tag_id(t.object_name, :description, locale), :class => "span4" %>
-            <% if locale == I18n.default_locale && t.object.errors[:description].any? %>
-            </span>
-            <%end %>
-        </div>
-    </div>
+<div class="control-group">
+  <%= t.hidden_field :locale, :value => locale.to_s %>
+  <label for="<%= form_tag_id(t.object_name, :title, locale) %>" class="control-label">Title</label>
+  <div class="controls">
+    <% if locale == I18n.default_locale && t.object.errors[:title].any? %>
+      <span class="fieldWithErrors">
+      <% end %>
+      <%= t.text_field :title, :id => form_tag_id(t.object_name, :title, locale), :class => "span4" %>
+      <% if locale == I18n.default_locale && t.object.errors[:title].any? %>
+        </span>
+      <%end %>
+  </div>
+</div>
+<div class="control-group">
+  <label for="<%= form_tag_id(t.object_name, :description, locale) %>" class="control-label">Description</label>
+  <div class="controls">
+    <% if locale == I18n.default_locale && t.object.errors[:description].any? %>
+      <span class="fieldWithErrors">
+      <% end %>
+      <%= t.text_field :description, :id => form_tag_id(t.object_name, :description, locale), :class => "span4" %>
+      <% if locale == I18n.default_locale && t.object.errors[:description].any? %>
+        </span>
+      <%end %>
+  </div>
+</div>
 </div>
