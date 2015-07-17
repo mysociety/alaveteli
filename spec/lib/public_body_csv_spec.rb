@@ -93,7 +93,7 @@ describe PublicBodyCSV do
   describe :generate do
 
     it 'generates the csv' do
-      expected = <<-CSV
+      expected = <<-CSV.strip_heredoc
       Name,Short name,URL name,Home page,Publication scheme,Disclosure log,Notes,Created at,Updated at,Version
       Department for Humpadinking,DfH,dfh,http://www.localhost,"","",An albatross told me!!!,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,2
       Department of Loneliness,DoL,lonely,http://www.localhost,"","",A very lonely public body that no one has corresponded with,2011-01-26 14:11:02 UTC,2011-01-26 14:11:02 UTC,1
