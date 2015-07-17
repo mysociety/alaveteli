@@ -4,19 +4,19 @@
 
 <%= form_tag admin_comment_path(@comment), :method => 'put' do %>
 
-   <p><label for="comment_body">Body of annotation</label><br/>
-   <%= text_area 'comment', 'body', :rows => 10, :cols => 60  %></p>
+  <p><label for="comment_body">Body of annotation</label><br/>
+    <%= text_area 'comment', 'body', :rows => 10, :cols => 60  %></p>
 
-   <p><label for="comment_visible">Visible</label>
-   <%= select('comment', "visible", [["Yes – show comment",true],["No – hide comment",false]]) %>
-   </p>
+  <p><label for="comment_visible">Visible</label>
+    <%= select('comment', "visible", [["Yes – show comment",true],["No – hide comment",false]]) %>
+  </p>
 
 
   <p><%= submit_tag 'Save', :accesskey => 's' %></p>
 <% end %>
 
 <p>
-<%= link_to 'Show request', admin_request_path(@comment.info_request) %> |
-<%= link_to 'List all requests', admin_requests_path %>
+  <%= link_to 'Show request', admin_request_path(@comment.info_request) %> |
+  <%= link_to 'List all requests', admin_requests_path %>
 </p>
 

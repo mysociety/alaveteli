@@ -10,16 +10,16 @@
 
             <%= link_to edit_admin_comment_path(comment) do %>
               #<%= comment.id %>
-              --
-              <%= h(comment.user.name) %>
-              <%= admin_value(comment.created_at) %>
-            <% end %>
+            --
+            <%= h(comment.user.name) %>
+            <%= admin_value(comment.created_at) %>
+          <% end %>
 
-            <%= comment_visibility(comment) %>
+          <%= comment_visibility(comment) %>
 
-            <blockquote class="incoming-message">
-              <%= truncate(comment.body, :length => 400) %>
-            </blockquote>
+          <blockquote class="incoming-message">
+            <%= truncate(comment.body, :length => 400) %>
+          </blockquote>
           </div>
 
           <div id="comment_<%= comment.id %>" class="accordion-body collapse">
@@ -28,7 +28,7 @@
                 <tr>
                   <td colspan="2">
                     By <%= user_both_links(comment.user) %>
-                  </td>
+                </td>
                 </tr>
                 <% comment.for_admin_column do |name, value, type, column_name |%>
                   <tr>

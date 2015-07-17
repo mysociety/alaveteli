@@ -1,9 +1,9 @@
 <% for t in body.tags %>
   <span class="label label-info tag">
     <% if t.value %>
-        <%= link_to(h(t.name), list_public_bodies_path(:tag => t.name)) %>:<%= link_to(h(t.value), list_public_bodies_path(:tag => t.name_and_value)) %>
+      <%= link_to(h(t.name), list_public_bodies_path(:tag => t.name)) %>:<%= link_to(h(t.value), list_public_bodies_path(:tag => t.name_and_value)) %>
     <% else %>
-        <%= link_to(h(t.name), list_public_bodies_path(:tag => t.name)) %>
+      <%= link_to(h(t.name), list_public_bodies_path(:tag => t.name)) %>
     <% end %>
   </span>
 <% end %>

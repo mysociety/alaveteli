@@ -4,11 +4,11 @@
   <div class="span8">
     <div id="public_body_form">
       <%= form_for @public_body, :url => admin_body_path(@public_body),  :method => 'put', :html => { :class => "form form-horizontal" } do |f| %>
-          <%= render :partial => 'form', :locals => {:f => f} %>
-          <div class="form-actions">
-            <%= f.submit 'Save', :accesskey => 's', :class => "btn btn-success" %></p>
-          </div>
-        <% end %>
+        <%= render :partial => 'form', :locals => {:f => f} %>
+        <div class="form-actions">
+          <%= f.submit 'Save', :accesskey => 's', :class => "btn btn-success" %></p>
+        </div>
+      <% end %>
 
       <div class="row">
         <div class="span8">
@@ -21,7 +21,7 @@
 
       <% if @public_body.info_requests.empty? %>
         <%= form_tag(admin_body_path(@public_body), :class => "form form-inline", :method => 'delete') do %>
-         <%= submit_tag _("Destroy {{name}}", :name => @public_body.name), :class => "btn btn-danger" %> (this is permanent!)
+          <%= submit_tag _("Destroy {{name}}", :name => @public_body.name), :class => "btn btn-danger" %> (this is permanent!)
         <% end %>
       <% end %>
     </div>

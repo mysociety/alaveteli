@@ -1,29 +1,29 @@
 <div class="accordion" id="category_list">
-  <% category_headings.each do |heading| %>
-    <div class="accordion-group" data-id="headings_<%= heading.id %>">
-      <div class="accordion-heading accordion-toggle row">
-        <span class="item-title span6">
-          <a href="#heading_<%= heading.id %>_categories" data-toggle="collapse" data-parent="#categories">
-            <span class="badge"><%= heading.public_body_categories.size %></span>
-            <%= chevron_right %>
-          </a>
-          <strong><%= link_to(heading.name, edit_admin_heading_path(heading), :title => "view full details") %></strong>
-        </span>
-      </div>
+<% category_headings.each do |heading| %>
+  <div class="accordion-group" data-id="headings_<%= heading.id %>">
+    <div class="accordion-heading accordion-toggle row">
+      <span class="item-title span6">
+        <a href="#heading_<%= heading.id %>_categories" data-toggle="collapse" data-parent="#categories">
+          <span class="badge"><%= heading.public_body_categories.size %></span>
+          <%= chevron_right %>
+        </a>
+        <strong><%= link_to(heading.name, edit_admin_heading_path(heading), :title => "view full details") %></strong>
+      </span>
+    </div>
 
-      <div id="heading_<%= heading.id %>_categories" class="accordion-body collapse row ">
-        <div class="well">
-          <div class="span12" id="heading_<%= heading.id %>_category_list" class="category-list">
+    <div id="heading_<%= heading.id %>_categories" class="accordion-body collapse row ">
+      <div class="well">
+        <div class="span12" id="heading_<%= heading.id %>_category_list" class="category-list">
           <% heading.public_body_categories.each do |category| %>
             <%= render :partial => 'category_list_item', :locals => { :category => category, :heading => heading } %>
           <% end %>
-          </div>
+        </div>
 
-          <div class="form-actions save-panel">
+        <div class="form-actions save-panel">
           <%= link_to "Save", '#', :class => "btn btn-primary disabled save-order", "data-heading-id" => heading.id, "data-list-id" => "#heading_#{heading.id}_category_list", 'data-endpoint' => reorder_categories_admin_heading_path(heading) %><p class="save-notice" data-unsaved-text="There are unsaved changes to the order of categories." data-success-text="Changes saved." data-error-text="There was an error saving your changes: ">Drag and drop to change the order of categories.</p>
-          </div>
         </div>
       </div>
     </div>
-  <% end %>
+  </div>
+<% end %>
 </div>

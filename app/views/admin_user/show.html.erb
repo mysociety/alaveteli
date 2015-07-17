@@ -49,8 +49,8 @@
 </table>
 
 <div class="btn-toolbar">
-<%= link_to 'Edit', edit_admin_user_path(@admin_user), :class => "btn btn-primary" %>
-<%= link_to 'Public page', user_path(@admin_user), :class => "btn" %>
+  <%= link_to 'Edit', edit_admin_user_path(@admin_user), :class => "btn btn-primary" %>
+  <%= link_to 'Public page', user_path(@admin_user), :class => "btn" %>
 </div>
 <%= form_tag login_as_admin_user_path(@admin_user), :class => "form form-horizontal" do %>
   <%= submit_tag "Log in as #{@admin_user.name} (also confirms their email)", :class => "btn btn-info" %>
@@ -66,24 +66,24 @@
 
 <table class="table table-condensed table-striped">
   <tr>
-  <th>Id</th>
-  <% for column in PostRedirect.content_columns %>
-    <th><%= column.human_name %></th>
-  <% end %>
+    <th>Id</th>
+    <% for column in PostRedirect.content_columns %>
+      <th><%= column.human_name %></th>
+    <% end %>
   </tr>
 
-<% for post_redirect in @admin_user.post_redirects.find(:all, :order => 'created_at desc') %>
-  <tr class="<%= cycle('odd', 'even') %>">
-  <td><%=h post_redirect.id %></td>
-  <% for column in PostRedirect.content_columns.map { |c| c.name } %>
-    <% if column == 'email_token' %>
-     <td><%=link_to post_redirect.send(column), confirm_path(:email_token => post_redirect.send(column)) %></td>
-    <% else %>
-    <td><%=h post_redirect.send(column) %></td>
-    <% end %>
+  <% for post_redirect in @admin_user.post_redirects.find(:all, :order => 'created_at desc') %>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%=h post_redirect.id %></td>
+      <% for column in PostRedirect.content_columns.map { |c| c.name } %>
+        <% if column == 'email_token' %>
+          <td><%=link_to post_redirect.send(column), confirm_path(:email_token => post_redirect.send(column)) %></td>
+        <% else %>
+          <td><%=h post_redirect.send(column) %></td>
+        <% end %>
+      <% end %>
+    </tr>
   <% end %>
-  </tr>
-<% end %>
 </table>
 
 <hr>

@@ -36,11 +36,11 @@
               <tr>
                 <td>
                   <% if message.get_body_for_quoting.strip.size == 0 %>
-                      <%= link_to "(no body)", admin_raw_email_path(message.raw_email_id) %>
+                    <%= link_to "(no body)", admin_raw_email_path(message.raw_email_id) %>
                   <% else %>
-                      <%= link_to admin_raw_email_path(message.raw_email_id) do %>
-                        <%= excerpt(message.get_body_for_quoting, "", :radius => 60) %>
-                      <% end %>
+                    <%= link_to admin_raw_email_path(message.raw_email_id) do %>
+                      <%= excerpt(message.get_body_for_quoting, "", :radius => 60) %>
+                    <% end %>
                   <% end %>
                 </td>
                 <td class="span2">
@@ -82,7 +82,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" href="#attention-messages" data-toggle="collapse" data-parent="things-to-do"><span class="label label-important"><%=@attention_requests.size%></span><%= chevron_right %> Review requests marked by users as requiring your attention
-</a>
+        </a>
       </div>
       <div id="attention-messages" class="accordion-body collapse">
         <table class="table table-striped table-condensed">
@@ -160,14 +160,14 @@
         <table class="table table-striped table-condensed">
           <tbody>
             <% for @request in @old_unclassified %>
-                <tr>
-                  <td class="link">
-                    <%= request_both_links(@request) %>
-                  </td>
-                  <td class="span2">
-                    <%=simple_date(@request.get_last_public_response_event.created_at)%>
-                  </td>
-                </tr>
+              <tr>
+                <td class="link">
+                  <%= request_both_links(@request) %>
+                </td>
+                <td class="span2">
+                  <%=simple_date(@request.get_last_public_response_event.created_at)%>
+                </td>
+              </tr>
             <% end %>
           </tbody>
 
@@ -192,18 +192,18 @@
           <%= render :partial => 'change_request_summary'%>
 
           <%= form_tag admin_change_request_path(@change_request),
-                :method => 'put',
-                :class => "form form-horizontal" do %>
+            :method => 'put',
+            :class => "form form-horizontal" do %>
 
-             <%= submit_tag 'Close', :class => "btn btn-danger" %>
+            <%= submit_tag 'Close', :class => "btn btn-danger" %>
 
-             <%= link_to "Close and respond",
-                   edit_admin_change_request_path(@change_request),
-                   :class => 'btn' %>
+            <%= link_to "Close and respond",
+              edit_admin_change_request_path(@change_request),
+              :class => 'btn' %>
 
-             <%= link_to "Add authority",
-                   new_admin_body_path(:change_request_id => @change_request.id),
-                   :class => 'btn btn-primary' %>
+            <%= link_to "Add authority",
+              new_admin_body_path(:change_request_id => @change_request.id),
+              :class => 'btn btn-primary' %>
           <% end %>
         <% end %>
       </div>
@@ -226,21 +226,21 @@
           <%= render :partial => 'change_request_summary' %>
 
           <%= form_tag admin_change_request_path(@change_request),
-                :class => "form form-horizontal",
-                :method => 'put' do %>
+            :class => "form form-horizontal",
+            :method => 'put' do %>
 
             <%= submit_tag 'Close', :class => "btn btn-danger" %>
 
             <%= link_to "Close and respond",
-                  edit_admin_change_request_path(@change_request),
-                  :class => 'btn' %>
+              edit_admin_change_request_path(@change_request),
+              :class => 'btn' %>
 
             <%= link_to "Make update",
-                  edit_admin_body_path(@change_request.public_body,
-                                       :change_request_id => @change_request.id),
-                  :class => 'btn btn-primary' %>
-          <% end %>
-        <% end %>
+              edit_admin_body_path(@change_request.public_body,
+                                   :change_request_id => @change_request.id),
+                                   :class => 'btn btn-primary' %>
+                               <% end %>
+                             <% end %>
       </div>
     </div>
   <% end %>

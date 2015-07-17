@@ -1,9 +1,9 @@
 <div class="tab-pane" id="div-locale-<%=locale.to_s%>">
-    <div class="control-group">
-        <%= t.hidden_field :locale, :value => locale.to_s %>
-        <label for="<%= form_tag_id(t.object_name, :name, locale) %>" class="control-label">name</label>
-        <div class="controls">
-            <%= t.text_field :name, :id => form_tag_id(t.object_name, :name, locale), :class => "span4" %>
-        </div>
+  <div class="control-group">
+    <%= t.hidden_field :locale, :value => locale.to_s %>
+    <label for="<%= form_tag_id(t.object_name, :name, locale) %>" class="control-label">name</label>
+    <div class="controls">
+      <%= t.text_field :name, :id => form_tag_id(t.object_name, :name, locale), :class => "span4" %>
     </div>
+  </div>
 </div>
