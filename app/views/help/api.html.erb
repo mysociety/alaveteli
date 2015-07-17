@@ -8,81 +8,81 @@
     <dt>Introduction</dt>
     <dd>
       <p>This page explains how programmers can make other websites and software
-      interact with WhatDoTheyKnow via an "API".
+        interact with WhatDoTheyKnow via an "API".
       </p>
 
       <p>WhatDoTheyKnow does not have a full API yet, but we are gradually adding
-      lots of things that are similar in use to an API as they are requested.
+        lots of things that are similar in use to an API as they are requested.
       </p>
     </dd>
 
     <dt>Linking to new requests</dt>
     <dd>
       <p>To encourage your users to make links to a particular public authority, use URLs of the form
-      <%= link_to new_request_to_body_path(:url_name => "liverpool_city_council") , new_request_to_body_path(:url_name => "liverpool_city_council") %>.
-      These are the parameters you can add to those URLs, either in the URL or from a form.
+        <%= link_to new_request_to_body_path(:url_name => "liverpool_city_council") , new_request_to_body_path(:url_name => "liverpool_city_council") %>.
+        These are the parameters you can add to those URLs, either in the URL or from a form.
 
-      <ul>
+        <ul>
           <li> <strong>title</strong> - default summary of the new request.</li>
           <li> <strong>default_letter</strong> - default text of the body of the letter. The salutation (Dear...) and signoff (Yours...) are wrapped round this. </li>
           <li> <strong>body</strong> - as an alternative to default_letter, this sets the default entire text of the request, so you can customise the salutation and signoff. </li>
           <li> <strong>tags</strong> - space separated list of tags, so you can find and link up any requests made later, e.g. <em>openlylocal spending_id:12345</em>. The : indicates it is a machine tag. The values of machine tags may also include colons, useful for URIs.
-      </ul>
+        </ul>
     </dd>
 
     <dt>RSS (actually, Atom) feeds</dt>
     <dd>
       <p>There are Atom feeds on most pages which list FOI requests, which you can
-      use to get updates and links in XML format. Find the URL of the Atom feed in
-      one of these ways:
-      <ul>
+        use to get updates and links in XML format. Find the URL of the Atom feed in
+        one of these ways:
+        <ul>
           <li>Look for the <%= image_tag "feed-16.png", :alt => "RSS icon" %> RSS feed links.</li>
           <li>Examine the <code>&lt;link rel="alternate" type="application/atom+xml"&gt;</code> tag in the head of the HTML. </li>
           <li>Add <code>/feed</code> to the start of another URL.
-      </ul>
+        </ul>
 
-      <p>In particular, even complicated search queries have Atom feeds.
-      You can do all sorts of things with them, such as query by authority, by file
-      type, by date range, or by status. See the <a href="<%= advanced_search_path %>">advanced search
-      tips</a> for details.
+        <p>In particular, even complicated search queries have Atom feeds.
+          You can do all sorts of things with them, such as query by authority, by file
+          type, by date range, or by status. See the <a href="<%= advanced_search_path %>">advanced search
+            tips</a> for details.
     </dd>
 
     <dt>JSON structured data</dt>
     <dd>
       <p>Quite a few pages have JSON versions, which let you download information about
-      objects in a structured form. Find them by:
+        objects in a structured form. Find them by:
       </p>
       <ul>
-          <li>Adding <code>.json</code> to the end of the URL. </li>
-          <li>Look for the <code>&lt;link rel="alternate" type="application/json"&gt;</code> tag in the head of the HTML. </li>
+        <li>Adding <code>.json</code> to the end of the URL. </li>
+        <li>Look for the <code>&lt;link rel="alternate" type="application/json"&gt;</code> tag in the head of the HTML. </li>
       </ul>
 
       <p>Requests, users and authorities all have JSON versions containing basic
-      information about them. Every Atom feed has a JSON equivalent, containing
-      information about the list of events in the feed.
+        information about them. Every Atom feed has a JSON equivalent, containing
+        information about the list of events in the feed.
       </p>
     </dd>
 
     <dt>Spreadsheet of all authorities</dt>
     <dd>
       <p>
-      A spreadsheet file listing every body in WhatDoTheyKnow is available:
-      <%= link_to "all-authorities.csv", all_public_bodies_csv_path %>
+        A spreadsheet file listing every body in WhatDoTheyKnow is available:
+        <%= link_to "all-authorities.csv", all_public_bodies_csv_path %>
       </p>
 
     </dd>
 
 
-  <dt> 5. Write API </dt>
-  <dd>
+    <dt> 5. Write API </dt>
+    <dd>
       <p>
-      The write API is designed to be used by authorities to create their own requests in the system. The API is currently used by mySociety's <a href="https://github.com/mysociety/foi-register">FOI Register software</a> to support using Alaveteli as a disclosure log for all FOI activity at a particular public body. More technical information about the write API is available on the <a href="https://github.com/mysociety/alaveteli/wiki/API#write-api">Alaveteli wiki</a>.
+        The write API is designed to be used by authorities to create their own requests in the system. The API is currently used by mySociety's <a href="https://github.com/mysociety/foi-register">FOI Register software</a> to support using Alaveteli as a disclosure log for all FOI activity at a particular public body. More technical information about the write API is available on the <a href="https://github.com/mysociety/alaveteli/wiki/API#write-api">Alaveteli wiki</a>.
       </p>
-  </dd>
-</dl>
+    </dd>
+  </dl>
 
   <p>Please <a href="<%= help_contact_path %>">contact us</a> if you need an API feature that isn't there yet. It's
-  very much a work in progress, and we do add things when people ask us to.</p>
+    very much a work in progress, and we do add things when people ask us to.</p>
 
   <div id="hash_link_padding"></div>
 </div>
