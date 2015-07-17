@@ -441,7 +441,7 @@ msgstr "Iruzkinak"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "Iruzkinak oso baliagarriak dira, edozeinek, zuk barne, eskabidearen sortzaileari lagun diezaion. Adibidez:"
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr ""
 "Iruzkinak publikoki erakusten dira hemen, eta\n"
 "        <strong>ez</strong> dira {{public_body_name}}-ra bidaltzen."

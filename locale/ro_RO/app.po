@@ -428,7 +428,7 @@ msgstr "Adnotări"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "Adnotările sunt astfel făcute încât oricine, incusiv tu. , să poată ajuta solicitantul cu privire la cererea sa. De exemplu:"
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Adnotările vor fi făcute publice aici și\\n <strong>nu</strong> sunt trimise către {{public_body_name}}."
 
 msgid "Anonymous user"

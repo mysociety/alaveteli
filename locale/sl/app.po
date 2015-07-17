@@ -415,7 +415,7 @@ msgstr "Zaznamki"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "Zaznamki so namenjeni temu, da lahko kdorkoli pomaga prosilcu pri zahtevku, vključno z vami. Na primer:"
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Zaznamki bodo objavljeni tu in <strong>ne bodo poslani</strong> na {{public_body_name}}."
 
 msgid "Anonymous user"

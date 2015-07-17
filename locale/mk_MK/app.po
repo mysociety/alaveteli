@@ -411,7 +411,7 @@ msgstr "Белешки"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "Белешките се за сите, вклучувајќи ве и вас, да му помогнат на барателот со неговото барање. На пример:"
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Белешките ќе бидат јавно објавени тука и \\n        <strong>не се</strong> испратени до {{public_body_name}}."
 
 msgid "Anonymous user"

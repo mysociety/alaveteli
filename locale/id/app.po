@@ -485,7 +485,7 @@ msgstr "Anotasi"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "Anotasi adalah supaya semua orang, termasuk Anda, dapat membantu pemohon dengan permintaan mereka. Contohnya:"
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr ""
 "Anotasi akan dimuat secara terbuka di sini, dan\n"
 "        <strong>tidak</strong> dikirimkan ke{{public_body_name}}"

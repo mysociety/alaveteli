@@ -466,7 +466,7 @@ msgstr "Poznámky"
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
 msgstr "Poznámky jsou tu proto, aby kdokoliv, včetně vás, mohl pomoci tazateli s jeho dotazem. Například:"
 
-msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
+msgid "Annotations will be posted publicly here, and are <strong>not</strong> sent to {{public_body_name}}."
 msgstr ""
 "Poznámky zde budou veřejně k dispozici\n"
 "        <strong>a nebudou</strong> poslány {{public_body_name}}."
