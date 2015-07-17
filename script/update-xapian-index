@@ -2,4 +2,3 @@
 
 cd `dirname $0`
 bundle exec rake --silent xapian:update_index "$@"
-
