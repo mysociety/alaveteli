@@ -4,7 +4,7 @@
              :locals => { :after_form_fields => render(:partial => 'request/request_filter_form') } %>
 </div>
 
-<div id="header_right">
+<div id="header_right" class="sidebar">
   <h2><%= _("Follow these requests") %></h2>
   <% if @track_thing %>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>

@@ -126,7 +126,7 @@
       <% end %>
 </div>  <!-- header left -->
 <% if !@track_thing.nil? %>
-  <div id="header_right">
+  <div id="header_right" class="sidebar">
     <h2><%= _('Track this search')%></h2>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
     <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'main' } %>

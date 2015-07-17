@@ -1,0 +1,40 @@
+/* Display of sidebars */
+.sidebar {
+  h2 {
+    margin-top: 3.5em;
+    margin-bottom: 0.875em;
+  }
+  .link_button_green {
+    width: 100%;
+  }
+  .report-this-request {
+    width: 100%;
+  }
+}
+
+/* #follow_box .feed_link is here to override specificity in the request sidebar,
+   normally .feed_link should be enough */
+#follow_box .feed_link,
+.feed_link {
+  .link_button_green {
+    margin-bottom: 1em;
+  }
+}
+
+.authority__body__sidebar {
+  .feed_link_sidebar {
+    .link_button_green {
+      margin-top: 1em;
+    }
+  }
+}
+
+.request_short_listing {
+  time {
+    display: block;
+  }
+}
+
+.act_link {
+  margin-bottom: 0.5em;
+}
