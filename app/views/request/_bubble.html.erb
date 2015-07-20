@@ -1,37 +1,44 @@
-    <div class="correspondence_text">
-        <%  if not attachments.nil? and attachments.size > 0 %>
-            <div class="attachments">
-                <hr class="top">
-                <% attachments.each do |a| %>
-                    <p class="attachment">
-                        <%
-                            attachment_path = get_attachment_path(:id => incoming_message.info_request_id,
-                                    :incoming_message_id => incoming_message.id, :part => a.url_part_number,
-                                    :file_name => a.display_filename)
-                            attachment_as_html_path = get_attachment_as_html_path(:id => incoming_message.info_request_id,
-                                    :incoming_message_id => incoming_message.id, :part => a.url_part_number,
-                                    :file_name => a.display_filename + '.html')
-                        %>
-                        <% img_filename = "icon_" + a.content_type.sub('/', '_') + "_large.png"
-                        full_filename = File.expand_path(Rails.root.join('app', 'assets', 'images', img_filename))
-                        if File.exist?(full_filename) %>
-                            <%= link_to image_tag(img_filename, :class => "attachment_image", :alt => "Attachment"), attachment_path %>
-                        <% else %>
-                            <%= link_to image_tag("icon_unknown.png", :class => "attachment_image", :alt => "Attachment"), attachment_path %>
-                        <% end %>
-                        <strong><%= h a.display_filename %></strong>
-                        <br>
-                        <%= a.display_size %>
-                        <%= link_to "Download", attachment_path %>
-                        <% if a.has_body_as_html? && incoming_message.info_request.all_can_view? %>
-                            <%= link_to "View as HTML", attachment_as_html_path %>
-                        <% end %>
-                        <!-- (<%= a.content_type %>) -->
-                        <%= a.extra_note %>
-                    </p>
-                <% end %>
-                <hr class="bottom">
-            </div>
-        <% end %>
-        <p><%= body %></p>
+<div class="correspondence_text">
+  <%  if not attachments.nil? and attachments.size > 0 %>
+    <div class="attachments">
+      <hr class="top">
+
+      <% attachments.each do |a| %>
+        <p class="attachment">
+          <%
+              attachment_path = get_attachment_path(:id => incoming_message.info_request_id,
+                      :incoming_message_id => incoming_message.id, :part => a.url_part_number,
+                      :file_name => a.display_filename)
+              attachment_as_html_path = get_attachment_as_html_path(:id => incoming_message.info_request_id,
+                      :incoming_message_id => incoming_message.id, :part => a.url_part_number,
+                      :file_name => a.display_filename + '.html')
+          %>
+
+          <% img_filename = "icon_" + a.content_type.sub('/', '_') + "_large.png" %>
+          <% full_filename = File.expand_path(Rails.root.join('app', 'assets', 'images', img_filename)) %>
+          <% if File.exist?(full_filename) %>
+            <%= link_to image_tag(img_filename, :class => "attachment_image", :alt => "Attachment"), attachment_path %>
+          <% else %>
+            <%= link_to image_tag("icon_unknown.png", :class => "attachment_image", :alt => "Attachment"), attachment_path %>
+          <% end %>
+
+          <strong><%= h a.display_filename %></strong>
+          <br>
+
+          <%= a.display_size %>
+          <%= link_to "Download", attachment_path %>
+
+          <% if a.has_body_as_html? && incoming_message.info_request.all_can_view? %>
+            <%= link_to "View as HTML", attachment_as_html_path %>
+          <% end %>
+          <!-- (<%= a.content_type %>) -->
+          <%= a.extra_note %>
+        </p>
+      <% end %>
+
+      <hr class="bottom">
     </div>
+  <% end %>
+
+  <p><%= body %></p>
+</div>

@@ -5,55 +5,55 @@
     <% follower_count = TrackThing.count(:all, :conditions => ["info_request_id = ?", @info_request.id]) + 1 %>
     <p>
       <%= n_("There is {{count}} person following this request",
-        "There are {{count}} people following this request",
-        follower_count,
-        :count => follower_count) %>
+             "There are {{count}} people following this request",
+             follower_count,
+             :count => follower_count) %>
     </p>
-     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user && @info_request.user == @user, :location => 'sidebar' } %>
-     <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'sidebar' } %>
-   </div>
-    <% if @info_request.described_state != "attention_requested" %>
+    <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user && @info_request.user == @user, :location => 'sidebar' } %>
+    <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'sidebar' } %>
+  </div>
+
+  <% if @info_request.described_state != "attention_requested" %>
     <h2><%= _('Offensive? Unsuitable?') %></h2>
-      <% if @info_request.attention_requested %>
-        <% if @info_request.prominence == 'hidden' %>
-          <%# The eccentric formatting of the following string is in order that it be identical
-              to the corresponding string in request/show.html.erb %>
-          <p><%= _('This request has prominence \'hidden\'. You can only see it because you are logged
-    in as a super user.') %></p>
-        <% elsif @info_request.prominence == 'requester_only' %>
-          <%# The eccentric formatting of the following string is in order that it be identical
-              to the corresponding string in request/show.html.erb %>
-          <p><%= _('This request is hidden, so that only you the requester can see it. Please
-    <a href="{{url}}">contact us</a> if you are not sure why.', :url => help_requesting_path.html_safe) %></p>
-        <% else %>
-          <p><%= _('This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href="{{url}}">contact us</a>.', :url => help_requesting_path.html_safe) %></p>
-        <% end %>
-     <% else %>
+    <% if @info_request.attention_requested %>
+      <% if @info_request.prominence == 'hidden' %>
+        <p>
+          <%= _("This request has prominence 'hidden'. You can only see it " \
+                "because you are logged in as a super user.") %>
+        </p>
+      <% elsif @info_request.prominence == 'requester_only' %>
+        <%# The eccentric formatting of the following string is in order that it be identical
+          to the corresponding string in request/show.html.erb %>
+        <p><%= _('This request is hidden, so that only you the requester can see it. Please <a href="{{url}}">contact us</a> if you are not sure why.', :url => help_requesting_path.html_safe) %></p>
+      <% else %>
+        <p><%= _('This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href="{{url}}">contact us</a>.', :url => help_requesting_path.html_safe) %></p>
+      <% end %>
+    <% else %>
       <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %></p>
-       <p><%= _('If you believe this request is not suitable, you can report it for attention by the site administrators') %></p>
-       <%= link_to _("Report this request"), new_request_report_path(:request_id => @info_request.url_title) %>
+      <p><%= _('If you believe this request is not suitable, you can report it for attention by the site administrators') %></p>
+      <%= link_to _("Report this request"), new_request_report_path(:request_id => @info_request.url_title) %>
+    <% end %>
+  <% end %>
+
+  <%= render :partial => 'request/act' %>
+  <%= render :partial => 'request/next_actions' %>
+
+  <% cache_if_caching_fragments(@similar_cache_key, :expires_in => 1.day) do %>
+    <% xapian_similar, xapian_similar_more = @info_request.similar_requests %>
+    <% if !xapian_similar.nil? && xapian_similar.results.size > 0 %>
+      <h2><%= _('Similar requests')%></h2>
+      <% for result in xapian_similar.results %>
+        <%= render :partial => 'request/request_listing_short_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
+      <% end %>
+      <% if xapian_similar_more %>
+        <p><%= link_to _("More similar requests"), similar_request_path(@info_request.url_title) %></p>
       <% end %>
     <% end %>
-    <%= render :partial => 'request/act' %>
-    <%= render :partial => 'request/next_actions' %>
+  <% end %>
 
-    <% cache_if_caching_fragments(@similar_cache_key, :expires_in => 1.day) do %>
-      <% xapian_similar, xapian_similar_more = @info_request.similar_requests %>
-      <% if !xapian_similar.nil? && xapian_similar.results.size > 0 %>
-        <h2><%= _('Similar requests')%></h2>
-        <% for result in xapian_similar.results %>
-            <%= render :partial => 'request/request_listing_short_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
-        <% end %>
-        <% if xapian_similar_more %>
-            <p><%= link_to _("More similar requests"), similar_request_path(@info_request.url_title) %></p>
-        <% end %>
-      <% end %>
-    <% end %>
+  <p><%= link_to _('Event history details'), request_details_path(@info_request) %></p>
 
-    <p><%= link_to _('Event history details'), request_details_path(@info_request) %></p>
-
-    <!-- this link with this wording is here for legal reasons, discuss with
+  <!-- this link with this wording is here for legal reasons, discuss with
     board and our lawyer before changing or removing it -->
-    <p><small><%= link_to _('Are you the owner of any commercial copyright on this page?'), help_officers_path+"#copyright" %></small></p>
-
+  <p><small><%= link_to _('Are you the owner of any commercial copyright on this page?'), help_officers_path+"#copyright" %></small></p>
 </div>

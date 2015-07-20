@@ -1,12 +1,12 @@
 <%- if not incoming_message.user_can_view?(@user) %>
   <%= render :partial =>  'request/hidden_correspondence', :formats => 'text', :locals => { :message => incoming_message }%>
 <%- else %>
-<%= _('From:') %><% if incoming_message.specific_from_name? %> <%= incoming_message.safe_mail_from %><% end %><% if incoming_message.from_public_body? %>, <%= @info_request.public_body.name %><% end %>
-<%= _('To:') %> <% if @info_request.user_name %><%= @info_request.user_name %><% else %><%= "[#{_('An anonymous user')}]"%><% end %>
-<%= _('Date:') %> <%= simple_date(incoming_message.sent_at) %>
+  <%= _('From:') %><% if incoming_message.specific_from_name? %> <%= incoming_message.safe_mail_from %><% end %><% if incoming_message.from_public_body? %>, <%= @info_request.public_body.name %><% end %>
+  <%= _('To:') %> <% if @info_request.user_name %><%= @info_request.user_name %><% else %><%= "[#{_('An anonymous user')}]"%><% end %>
+  <%= _('Date:') %> <%= simple_date(incoming_message.sent_at) %>
 
   <%= incoming_message.get_body_for_quoting %>
   <% incoming_message.get_attachments_for_display.each do |a| %>
-<%= _('Attachment:') %> <%= a.display_filename %> (<%= a.display_size %>)
+    <%= _('Attachment:') %> <%= a.display_filename %> (<%= a.display_size %>)
   <% end %>
 <% end %>

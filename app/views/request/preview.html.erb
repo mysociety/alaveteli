@@ -3,52 +3,51 @@
 <% else %>
   <% @title = _("Preview new {{law_used_short}} request to '{{public_body_name}}", :law_used_short => h(@info_request.law_used_short), :public_body_name => h(@info_request.public_body.name)) %>
 <% end %>
+
 <%= form_for(@info_request, :url => (@batch ? new_batch_path : new_request_path), :html => { :id => 'preview_form' }  ) do |f| %>
+  <h1><%= _('Preview your request') %></h1>
 
-    <h1><%= _('Preview your request') %></h1>
-    <div class="message-preview">
-        <div class="preview-advice">
-            <div class="advice-panel">
-                <ul>
-                    <li><%= _('Check you haven\'t included any <strong>personal information</strong>.') %></li>
-                    <li><%= raw(_('Your name, request and any responses will appear in <strong>search engines</strong>
-                        (<a href="{{url}}">details</a>).', :url => (help_privacy_path+"#public_request").html_safe)) %>
-                    </li>
-                    <li><%= _('<a href="{{url}}">Do you want to request private information about yourself?</a>', :url => (help_requesting_path+"#data_protection").html_safe) %></li>
-                </ul>
+  <div class="message-preview">
+    <div class="preview-advice">
+      <div class="advice-panel">
+        <ul>
+          <li><%= _('Check you haven\'t included any <strong>personal information</strong>.') %></li>
+          <li><%= raw(_("Your name, request and any responses will appear in " \
+                        "<strong>search engines</strong> " \
+                        "(<a href=\"{{url}}\">details</a>).",
+                        :url => (help_privacy_path+"#public_request").html_safe)) %>
+          </li>
+          <li><%= _('<a href="{{url}}">Do you want to request private information about yourself?</a>', :url => (help_requesting_path+"#data_protection").html_safe) %></li>
+        </ul>
+      </div>
+    </div>
 
-            </div>
+    <div class="preview-pane">
+      <%= fields_for :outgoing_message do |o| %>
+        <div class="correspondence box" id="outgoing-0">
+          <p class="preview_to">
+            <strong><%= _('To') %></strong>
+            <% if @batch %>
+              <%= _("Your selected authorities")%>
+            <% else %>
+              <%=h(@info_request.public_body.name)%>
+            <% end %>
+
+          </p>
+          <p class="preview_subject">
+            <strong><%= _('Subject') %></strong> <%= @info_request.email_subject_request %>
+          </p>
+
+          <div class="correspondence_text">
+            <p><%= @outgoing_message.get_body_for_html_display %></p>
+            <%= o.hidden_field(:body) %>
+          </div>
+
+          <p class="event_actions"></p>
         </div>
-        <div class="preview-pane">
-        <%= fields_for :outgoing_message do |o| %>
+      <% end %>
 
-            <div class="correspondence box" id="outgoing-0">
-                <p class="preview_to">
-                    <strong><%= _('To') %></strong>
-                    <% if @batch %>
-                      <%= _("Your selected authorities")%>
-                    <% else %>
-                      <%=h(@info_request.public_body.name)%>
-                    <% end %>
-
-                </p>
-                <p class="preview_subject">
-                 <strong><%= _('Subject') %></strong> <%= @info_request.email_subject_request %>
-                </p>
-
-                <div class="correspondence_text">
-                    <p><%= @outgoing_message.get_body_for_html_display %></p>
-                    <%= o.hidden_field(:body) %>
-                </div>
-
-                <p class="event_actions">
-                </p>
-            </div>
-        <% end %>
-
-
-
-        <p>
+      <p>
         <%= f.hidden_field(:title) %>
         <% if @batch %>
           <% params[:public_body_ids].each do |public_body_id| %>
@@ -57,16 +56,17 @@
         <% else %>
           <%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
         <% end %>
+
         <%= f.hidden_field(:tag_string) %>
         <%= hidden_field_tag(:submitted_new_request, 1) %>
         <%= hidden_field_tag(:preview, 0 ) %>
         <%= submit_tag _("Edit your request"), :name => 'reedit', :id => 'reedit_button' %>
         <%= submit_tag _("Send request"), :name => 'submit', :id => 'submit_button' %>
-        </p>
+      </p>
 
-        <% if !@info_request.tag_string.empty? %>
-            <p><strong><%= _('Tags:') %></strong> <%=h @info_request.tag_string %></p>
-        <% end %>
-        </div>
+      <% if !@info_request.tag_string.empty? %>
+        <p><strong><%= _('Tags:') %></strong> <%=h @info_request.tag_string %></p>
+      <% end %>
     </div>
+  </div>
 <% end %>

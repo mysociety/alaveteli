@@ -1,33 +1,35 @@
 <% if @highlight_words.nil?
-      @highlight_words = []
+     @highlight_words = []
 end %>
 
 <div class="request_listing">
   <div class="request_left">
-      <span class="head">
-        <% if event.is_incoming_message? %>
-            <%= link_to highlight_words(event.info_request.title, @highlight_words), incoming_message_path(event.incoming_message) %>
-        <% elsif event.is_outgoing_message? && event.event_type == 'followup_sent' %>
-            <%= link_to highlight_words(event.info_request.title, @highlight_words), outgoing_message_path(event.outgoing_message) %>
-        <% elsif event.is_comment? %>
-            <%= link_to highlight_words(event.info_request.title, @highlight_words), comment_path(event.comment) %>
-        <% else %>
-            <%= link_to highlight_words(event.info_request.title, @highlight_words), request_path(event.info_request) %>
-        <% end %>
-      </span>
-      <div class="requester">
-        <%= event_description(event) %>
-      </div>
-      <span class="bottomline icon_<%= event.info_request.calculate_status %>">
-        <strong>
+    <span class="head">
+      <% if event.is_incoming_message? %>
+        <%= link_to highlight_words(event.info_request.title, @highlight_words), incoming_message_path(event.incoming_message) %>
+      <% elsif event.is_outgoing_message? && event.event_type == 'followup_sent' %>
+        <%= link_to highlight_words(event.info_request.title, @highlight_words), outgoing_message_path(event.outgoing_message) %>
+      <% elsif event.is_comment? %>
+        <%= link_to highlight_words(event.info_request.title, @highlight_words), comment_path(event.comment) %>
+      <% else %>
+        <%= link_to highlight_words(event.info_request.title, @highlight_words), request_path(event.info_request) %>
+      <% end %>
+    </span>
+
+    <div class="requester">
+      <%= event_description(event) %>
+    </div>
+
+    <span class="bottomline icon_<%= event.info_request.calculate_status %>">
+      <strong>
         <%= event.info_request.display_status(cached_value_ok=true) %>
-        </strong><br>
-      </span>
+      </strong><br>
+    </span>
   </div>
+
   <div class="request_right">
     <span class="desc">
-        <%= highlight_and_excerpt(event.search_text_main(true), @highlight_words, 150) %>
+      <%= highlight_and_excerpt(event.search_text_main(true), @highlight_words, 150) %>
     </span>
   </div>
 </div>
-
