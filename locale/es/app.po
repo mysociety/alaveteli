@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-15 16:20+0000\n"
+"POT-Creation-Date: 2015-07-20 12:13+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/p/alaveteli/language/es/)\n"
@@ -75,9 +75,6 @@ msgstr "Consejo sobre como <strong>aclarar lo mejor posible</strong> la solicitu
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr "Ideas sobre que <strong>otra información</strong> puede solicitar a la institución pública."
-
-msgid " If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
-msgstr "Si conoce la dirección a utilizar, por favor <a href=\"{{url}}\">enviárnosla</a>.\\n Puede que la encuentre en la página web de la institución, o llamándoles por teléfono y preguntando."
 
 msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
 msgstr "Incluya enlaces relevantes, como una página informativa, su blog o a\\n cuenta de twitter. Se convertirán en enlaces automáticamente. \\n Ejemplo:"
@@ -1272,6 +1269,9 @@ msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Si no lo has hecho ya, por favor escribe un mensaje a continuación informando al organismo público de que has retirado su solicitud. De lo contrario no sabrán que lo has hecho."
+
+msgid "If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>. You may be able to find the address on their website, or by phoning them up and asking."
+msgstr "Si conoce la dirección a utilizar, por favor <a href=\"{{url}}\">enviárnosla</a>.\\n Puede que la encuentre en la página web de la institución, o llamándoles por teléfono y preguntando."
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Si respondes a este mensaje irá directamente a {{user_name}}, que podrá entonces ver tu dirección de correo. Responde sólo si esto te parece aceptable."

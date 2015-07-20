@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-15 16:20+0000\n"
+"POT-Creation-Date: 2015-07-20 12:13+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/p/alaveteli/language/uk/)\n"
@@ -69,11 +69,6 @@ msgstr " Порадьте, як зробити запит <strong>більш з�
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr "Ідеї щодо того, які ще документи можна вимагати у розпорядника інформації."
-
-msgid " If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
-msgstr ""
-"Якщо вам відома адреса, яку можна використати, <a href=\"{{url}}\">надішліть її нам</a>.\n"
-" Ви можете знайти адресу на їхньому вебсайті або ж подзвонити і запитати."
 
 msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
 msgstr "Включіть доречні посилання (наприклад, на сторінку кампанії, ваш блог чи твіттер-акаунт). Вони будуть активними."
@@ -1260,6 +1255,11 @@ msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Якщо ви ще цього не зробили, напишіть, будь ласка, розпоряднику інформації повідомлення (нижче), про те, що ви відмовились від запиту. Інакше вони не знатимуть, що відповідати на нього вже не потрібно."
+
+msgid "If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>. You may be able to find the address on their website, or by phoning them up and asking."
+msgstr ""
+"Якщо вам відома адреса, яку можна використати, <a href=\"{{url}}\">надішліть її нам</a>.\n"
+" Ви можете знайти адресу на їхньому вебсайті або ж подзвонити і запитати."
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Попередження: якщо ви відповісте на це повідомлення, воно надійде прямо до користувача {{user_name}},\\n який дізнається вашу електронну адресу."
