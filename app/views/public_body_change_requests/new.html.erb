@@ -1,39 +1,43 @@
 <h1><%= @title %></h1>
-<%= foi_error_messages_for :change_request %>
-  <%= form_for(@change_request, :url => change_request_path)  do |f| %>
-<% if not @user %>
-  <p>
-    <label class="form_label" for="user_name">
-      <%= _("Your name:") %>
-    </label>
-    <%= f.text_field :user_name %>
-     <%= _('(or <a href="{{url}}">sign in</a>)', :url => signin_path(:r => request.fullpath)) %>
-  </p>
 
-  <p>
-    <label class="form_label" for="user_email">
-      <%= _("Your email:") %>
-    </label>
-    <%= f.text_field :user_email %>
-  </p>
-<% end %>
-<% if @change_request.public_body %>
-  <%= f.hidden_field :public_body_id %>
-<% else %>
-  <p>
-    <label class="form_label" for="public_body_name">
-      <%= _("Authority:") %>
-    </label>
-    <%= f.text_field :public_body_name %>
-  </p>
-<% end %>
+<%= foi_error_messages_for :change_request %>
+
+<%= form_for(@change_request, :url => change_request_path)  do |f| %>
+  <% if not @user %>
+    <p>
+      <label class="form_label" for="user_name">
+        <%= _("Your name:") %>
+      </label>
+      <%= f.text_field :user_name %>
+      <%= _('(or <a href="{{url}}">sign in</a>)', :url => signin_path(:r => request.fullpath)) %>
+    </p>
+
+    <p>
+      <label class="form_label" for="user_email">
+        <%= _("Your email:") %>
+      </label>
+      <%= f.text_field :user_email %>
+    </p>
+  <% end %>
+
+  <% if @change_request.public_body %>
+    <%= f.hidden_field :public_body_id %>
+  <% else %>
+    <p>
+      <label class="form_label" for="public_body_name">
+        <%= _("Authority:") %>
+      </label>
+      <%= f.text_field :public_body_name %>
+    </p>
+  <% end %>
+
   <p>
     <label class="form_label" for="public_body_email">
       <%= _("Authority email:") %>
     </label>
     <%= f.text_field :public_body_email %>
     <div class="form_item_note">
-    <%= _("The contact email address for FOI requests to the authority.") %>
+      <%= _("The contact email address for FOI requests to the authority.") %>
     </div>
   </p>
 
@@ -43,7 +47,10 @@
     </label>
     <%= f.text_field :source_url %>
     <div class="form_item_note">
-    <%= _("The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check.") %>
+      <%= _("The URL where you found the email address. This field is " \
+            "optional, but it would help us a lot if you can provide a link " \
+            "to a specific page on the authority's website that gives this " \
+            "address, as it will make it much easier for us to check.") %>
     </div>
   </p>
 
@@ -60,7 +67,7 @@
   </p>
 
   <div class="form_button">
-      <%= submit_tag _("Submit request") %>
+    <%= submit_tag _("Submit request") %>
   </div>
 
 <% end %>
