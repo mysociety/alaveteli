@@ -1,0 +1,227 @@
+body {
+    font-size: 10pt;
+}
+
+body,
+#wrapper,
+#banner_content,
+.row {
+    //remove all page width constraints
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    background-color: transparent !important;
+}
+
+// hide things we don't need
+.ms-header,
+#topnav,
+.rsp_menu_button,
+#user_locale_switcher,
+#logged_in_bar,
+.help-sidebar,
+.about__contact-links,
+.footer__final,
+#hash_link_padding,
+#right_column,
+#right_column_flip,
+.describe_state_form,
+#after_actions,
+.event_actions,
+.authority__body__sidebar,
+.list-filter-item,
+.authority__header__action-bar,
+.hero__learn-more,
+.learn-more-foi,
+#header_right,
+#user_profile_search form,
+#user_not_logged_in  {
+    display: none !important;
+}
+
+.only-show-for-print {
+    display: block;
+    visibility: visible;
+}
+
+.print-information {
+    //show when the page was printed and where from
+    font-size: 6pt;
+    color: gray;
+    margin: 0.5em 1.5em;
+    a {
+        word-break: break-all;
+    }
+}
+
+h1, h2, h3 {
+    page-break-after: avoid;
+}
+
+img {
+   max-width: 100% !important;
+}
+
+ul, img {
+   page-break-inside: avoid;
+}
+
+// We want to see where links are pointing, but not everywhere
+// so expand links in some places
+
+%expand-links {
+  a {
+    font-weight: 700;
+    text-decoration: none;
+    color: black;
+  }
+  a[href^=http]:after {
+    content:" (" attr(href) ")";
+    font-weight: normal;
+    color: lighten(black, 50%);
+    font-size: 0.875em;
+  }
+}
+
+// We want the site title to be on the printed design,
+// so we won't just hide all the banner contents
+#banner {
+    background-color: transparent;
+    .banner_site-title {
+        padding: 1em 0.9375rem 0;
+    }
+}
+
+
+// We don't need to show the logo here, just the site title
+.site-title__logo {
+    overflow: hidden;
+    text-indent: 0;
+    background-image: none;
+    width: auto;
+    height: auto;
+    color: black !important;
+}
+
+#footer {
+    background-color: transparent;
+    color: black;
+    margin-top: 0;
+    border-top: 1px solid #e9e9e9;
+    a {
+      font-weight: 700;
+      text-decoration: none;
+      color: black;
+    }
+    h2 {
+        color: black;
+    }
+}
+
+.footer__about {
+    width: 100%;
+}
+
+//Help pages
+.controller_help {
+    position: static;
+    margin-left: 0;
+    @extend %expand-links;
+    h1 a,
+    dt a {
+        display: none; // hide the hash links for linking to a title
+    }
+}
+
+//Request page
+#left_column,
+#left_column_flip {
+    width: 100%;
+}
+
+p.subtitle {
+    margin-bottom: 0.5em;
+}
+
+.request_icon_line {
+    padding-left: 0;
+    background-image: none !important;
+}
+
+.correspondence {
+    box-shadow: none !important;
+    background-color: transparent !important;
+    border: 1px solid #ccc !important;
+    border-top-width: 5px !important;
+    color: black !important;
+    margin-bottom: 2em !important;
+    @extend %expand-links;
+}
+
+.incoming.correspondence {
+  border-top-color: #777 !important;
+  margin-left: 3%;
+}
+
+.attachments {
+    margin-bottom: 1.5em;
+    img {
+        display: none;
+    }
+}
+
+// Authority page
+.authority__body__foi-results {
+    width: 100%;
+}
+
+.authority__header__stats {
+    margin-bottom: 1em;
+}
+
+// homepage
+.homepage-hero {
+    background-image: none;
+    background-color: transparent;
+    border-bottom: 1px solid #e9e9e9;
+    color: black;
+    text-align: center;
+    a {
+      font-weight: 700;
+      text-decoration: none;
+      color: black;
+    }
+}
+
+.hero__intro {
+    width: 100%;
+}
+
+.intro__title {
+    color: black;
+    text-shadow: none;
+}
+
+.hero__new-request {
+    display: none;
+}
+
+.steps__step-box {
+    background-color: #f4f4f4;
+    color: black;
+    border-color: #f4f4f4;
+    &:after {
+        border-top-color: #f4f4f4;
+    }
+}
+
+.latest-requests {
+    .button-secondary {
+        display: none;
+    }
+}
+
+.bodies-list strong a {
+    display: none;
+}
