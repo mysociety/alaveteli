@@ -76,12 +76,9 @@ describe UserController, "when redirecting a show request to a canonical url" do
     end
 
     it 'should not redirect a long canonical name that has a numerical suffix' do
-        User.stub!(:find).with(:first, anything).and_return(mock_model(User,
-                                        :url_name => 'bob_smithbob_smithbob_smithbob_s_2',
-                                        :name => 'Bob Smith Bob Smith Bob Smith Bob Smith',
-                                        :info_requests => []))
-        User.stub!(:find).with(:all, anything).and_return([])
-        get :show, :url_name => 'bob_smithbob_smithbob_smithbob_s_2'
+        user = FactoryGirl.create(:user, :name => 'Bob Smith Bob Smith Bob Smith Bob Smith')
+        second_user = FactoryGirl.create(:user, :name => 'Bob Smith Bob Smith Bob Smith Bob Smith')
+        get :show, :url_name => 'bob_smith_bob_smith_bob_smith_bo_2'
         response.should be_success
     end
 
@@ -760,7 +757,6 @@ describe UserController, "when viewing the wall" do
         session[:user_id] = user.id
         get :wall, :url_name => user.url_name
         assigns[:feed_results][0].should_not == ire
-
         ire.created_at = Time.now
         ire.save!
         get :wall, :url_name => user.url_name
@@ -781,6 +777,13 @@ describe UserController, "when viewing the wall" do
         get :set_receive_email_alerts, :receive_email_alerts => 'false', :came_from => "/"
         user.reload
         user.receive_email_alerts.should_not == true
+    end
+
+    it 'should not show duplicate feed results' do
+        user = users(:silly_name_user)
+        session[:user_id] = user.id
+        get :wall, :url_name => user.url_name
+        assigns[:feed_results].uniq.should == assigns[:feed_results]
     end
 
 end
