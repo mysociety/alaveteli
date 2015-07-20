@@ -1,4 +1,6 @@
 <% cache_if_caching_fragments("frontpage-#{@locale}", :expires_in => 5.minutes) do %>
+  <%= render :partial => "frontpage_how_it_works" %>
+
   <div id="frontpage_examples">
     <%= render :partial => "frontpage_bodies_list" %>
     <%= render :partial => "frontpage_requests_list" %>

@@ -55,8 +55,6 @@
       }
     }
   }
-
-
 }
 
 .icon-standalone {
@@ -90,4 +88,63 @@
 
 .request-body__time-ago {
   margin-top: 0.25em;
+}
+
+.homepage-how-it-works {
+  padding: 2em 0;
+  margin-bottom: 2em;
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    position: relative;
+    @include clearfix;
+    padding: 3em 0;
+  }
+}
+
+.homepage-how-it-works__hiw-content {
+  @include grid-column(12);
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    @include grid-column(10, $offset: 1);
+  }
+}
+
+.hiw__subtitle {
+  margin-top: 0;
+}
+
+.hiw__steps {
+  margin-bottom: 2em;
+}
+
+.steps__list {
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    position: relative;
+    @include clearfix;
+  }
+
+  li {
+    position: relative;
+    @include grid-column(11, $offset: 1);
+    @include respond-min($main_menu-mobile_menu_cutoff) {
+      @include grid-column(3, $offset: 1);
+      z-index: 2;
+    }
+  }
+}
+
+.steps__step-box {
+  position: relative;
+  margin-bottom: 1.5em;
+}
+
+.steps__step-number {
+  position: absolute;
+  left: -1.8em;
+  top: 0;
+  p {
+    margin: 0 auto;
+  }
+}
+
+.learn-more-foi {
+  @include grid-column(12);
 }
