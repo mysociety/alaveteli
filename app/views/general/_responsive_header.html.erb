@@ -1,6 +1,9 @@
 <div id="banner">
   <div id="banner_inner">
     <div id="banner_content">
+      <div class="only-show-for-print">
+        <p class="print-information">Printed from <%= request.original_url %> on <%= Time.zone.now.to_formatted_s(:long)  %></p>
+      </div>
       <div class="banner_site-title">
         <h1><%= link_to site_name, frontpage_path, :id => 'logo', :class => 'site-title__logo' %></h1>
       </div>

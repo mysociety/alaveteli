@@ -55,3 +55,8 @@ body:hover .visually-hidden a, body:hover .visually-hidden input, body:hover .vi
   text-indent: 150%;
   white-space: nowrap;
 }
+
+.only-show-for-print {
+  display: none;
+  visibility: hidden;
+}
