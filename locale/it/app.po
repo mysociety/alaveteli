@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-15 16:20+0000\n"
+"POT-Creation-Date: 2015-07-20 12:13+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Italian (http://www.transifex.com/p/alaveteli/language/it/)\n"
@@ -66,9 +66,6 @@ msgstr " Consiglia come <strong>chiarire meglio</strong> l'oggetto della richies
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr "Suggerimenti su <strong>quali altri documenti </strong> richiedere di cui l'amministrazione può essere in possesso."
-
-msgid " If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
-msgstr "Se sai quale indirizzo usare, per favore <a href=\"{{url}}\">inviacelo</a>.\\n Puoi trovare l'indirizzo sul loro sito o chiederlo per telefono."
 
 msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
 msgstr "Includi link rilevanti, per esempio alla pagina di una campagna, al tuo blog o al tuo account Twitter. I link diventeranno attivi."
@@ -1187,6 +1184,9 @@ msgstr "Se hai ricevuto l'email <strong>più di sei mesi fa</strong>, questo lin
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Se non lo hai già fatto, per favore scrivi un messaggio qui sotto, spiegando all'amministrazione che hai ritirato la tua richiesta. Se non lo fai, non ne saranno informati."
+
+msgid "If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>. You may be able to find the address on their website, or by phoning them up and asking."
+msgstr "Se sai quale indirizzo usare, per favore <a href=\"{{url}}\">inviacelo</a>.\\n Puoi trovare l'indirizzo sul loro sito o chiederlo per telefono."
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Se rispondi a questo messaggio, la tua email andrà direttamente a {{user_name}}, che visualizzerà il tuo indirizzo di posta. Rispondi solo se questo non è un problema per te. "

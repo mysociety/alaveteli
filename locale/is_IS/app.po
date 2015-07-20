@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-15 16:20+0000\n"
+"POT-Creation-Date: 2015-07-20 12:13+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/p/alaveteli/language/is_IS/)\n"
@@ -63,9 +63,6 @@ msgstr "Leiðbeiningar um hvernig best er að útskýra beiðnina."
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr "Hugmyndir um <strong>aðrar upplýsingar og gögn</strong> sem stofnunin gæti átt."
-
-msgid " If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
-msgstr "Ef þú veist hvaða heimilisfang skal notast við, vinsamlegast <a href=\"{{url}}\">sendið okkur það</a>.\\n Þú getur hugsanlega fundið heimilisfangið á vefnum hjá stofnuninni eða með því að hringja."
 
 msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
 msgstr "Látið fylgja með hlekki á vefsíður, blogg eða twitter sem tengjast beiðninni. Þeir verða tengdir svo fólk geti fræðst um beiðnina. \\ Til dæmis:"
@@ -1177,6 +1174,9 @@ msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr ""
+
+msgid "If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>. You may be able to find the address on their website, or by phoning them up and asking."
+msgstr "Ef þú veist hvaða heimilisfang skal notast við, vinsamlegast <a href=\"{{url}}\">sendið okkur það</a>.\\n Þú getur hugsanlega fundið heimilisfangið á vefnum hjá stofnuninni eða með því að hringja."
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr ""

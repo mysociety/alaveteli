@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-15 16:20+0000\n"
+"POT-Creation-Date: 2015-07-20 12:13+0000\n"
 "PO-Revision-Date: 2015-07-14 17:16+0000\n"
 "Last-Translator: pere <pere-transifex@hungry.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/p/alaveteli/language/nb/)\n"
@@ -73,9 +73,6 @@ msgstr "Råd om hvordan <strong>best klargjøre</strong> henvendelsen."
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr "Ideer om hvilke <strong>andre dokumenter å be om</strong> som etaten kan ha."
-
-msgid " If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
-msgstr "Hvis du vet adressen som kan brukes, vær så snill å <a href=\"{{url}}\">send den til oss</a>. Du finner kanskje adressen på deres nettsted eller ved å ringe dem opp og spørre."
 
 msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
 msgstr "Inkluder relevante lenker, som f.eks. din kampanjeside, blogg, Twitter-konto o.l. De vil vises som lenker her. \\n f.eks."
@@ -1187,6 +1184,9 @@ msgstr "Hvis du fikk e-posten <strong>mer enn seks måneder siden</strong>, så 
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Hvis du ikke allerede har gjort det, vær så snill å skriv en melding under som forteller myndigheten at du har trukket tilbake din henvendelse.  Ellers vil de ikke vite at den er trukket tilbake."
+
+msgid "If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>. You may be able to find the address on their website, or by phoning them up and asking."
+msgstr "Hvis du vet adressen som kan brukes, vær så snill å <a href=\"{{url}}\">send den til oss</a>. Du finner kanskje adressen på deres nettsted eller ved å ringe dem opp og spørre."
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Hvis du svarer på denne e-posten, så vil svaret gå direkte til {{user_name}}, som da vil få vite din riktige e-postadresse. Svar kun om dette er i orden."
