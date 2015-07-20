@@ -1,0 +1,47 @@
+<div class="homepage-how-it-works" id="learn-more">
+  <div class="row">
+    <div class="homepage-how-it-works__hiw-content">
+      <div class="hiw-content__headings">
+        <h2><%= _("How it works") %></h2>
+        <p class="hiw__subtitle">
+          <%= _("You have the <strong>right</strong> to request information " \
+                "from any publicly-funded body, and get answers. " \
+                "{{site_name}} helps you make a Freedom of Information " \
+                "request. It also publishes all requests online.",
+                :site_name => site_name) %>
+        </p>
+      </div>
+      <div class="hiw-content__steps">
+        <ol class="steps__list row">
+          <li>
+            <div class="steps__step-box">
+              <p><%= _("Use this site to make your request for information – we'll show you how.") %></p>
+            </div>
+            <div class="steps__step-number">
+              <p>1</p>
+            </div>
+          </li>
+          <li>
+            <div class="steps__step-box">
+              <p><%= _("We'll drop you an email as soon as your request gets a response.") %></p>
+            </div>
+            <div class="steps__step-number">
+              <p>2</p>
+            </div>
+          </li>
+          <li>
+            <div class="steps__step-box">
+              <p><%= _("We publish it all online. Great! Now you have your answer, and everybody else can access it too.") %></p>
+            </div>
+            <div class="steps__step-number">
+              <p>3</p>
+            </div>
+          </li>
+        </ol>
+        <div class="learn-more-foi">
+          <%= link_to _("Learn more &rarr;"), help_about_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
