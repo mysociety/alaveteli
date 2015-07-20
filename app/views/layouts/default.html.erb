@@ -1,140 +1,140 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
-    <head>
-        <meta charset="utf-8">
-        <%= csrf_meta_tags %>
+  <head>
+    <meta charset="utf-8">
+    <%= csrf_meta_tags %>
 
-        <title>
-        <% if @title %>
-            <%=@title%> - <%= site_name %>
-        <% else %>
-            <%= site_name %> - <%= _('Make and browse Freedom of Information (FOI) requests') %>
-        <% end %>
-        </title>
+    <title>
+      <% if @title %>
+        <%=@title%> - <%= site_name %>
+      <% else %>
+        <%= site_name %> - <%= _('Make and browse Freedom of Information (FOI) requests') %>
+      <% end %>
+    </title>
 
-        <%= render :partial => 'layouts/favicon' %>
+    <%= render :partial => 'layouts/favicon' %>
 
-        <%= render :partial => 'general/stylesheet_includes' %>
-        <% if is_admin? %>
-          <%= stylesheet_link_tag "admin", :title => "Main", :rel => "stylesheet" %>
-        <% end %>
+    <%= render :partial => 'general/stylesheet_includes' %>
+    <% if is_admin? %>
+      <%= stylesheet_link_tag "admin", :title => "Main", :rel => "stylesheet" %>
+    <% end %>
 
-        <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "application" %>
 
-        <% if @profile_photo_javascript %>
-            <%= javascript_include_tag "profile-photos" %>
-            <%= stylesheet_link_tag "jquery.Jcrop.min.css" %>
-        <% end %>
-        <% if is_admin? %>
-          <%= javascript_include_tag "bootstrap-dropdown" %>
-        <% end %>
+    <% if @profile_photo_javascript %>
+      <%= javascript_include_tag "profile-photos" %>
+      <%= stylesheet_link_tag "jquery.Jcrop.min.css" %>
+    <% end %>
+    <% if is_admin? %>
+      <%= javascript_include_tag "bootstrap-dropdown" %>
+    <% end %>
 
-        <% if @feed_autodetect %>
-            <% for feed in @feed_autodetect %>
-                <link rel="alternate" type="application/atom+xml" title="<%=h feed[:title] %>" href="<%=h feed[:url]%>">
-                <% if feed[:has_json] %>
-                    <link rel="alternate" type="application/json" title="JSON version of <%=h feed[:title] %>" href="<%=h feed[:url]%>.json">
-                <% end %>
-            <% end %>
+    <% if @feed_autodetect %>
+      <% for feed in @feed_autodetect %>
+        <link rel="alternate" type="application/atom+xml" title="<%=h feed[:title] %>" href="<%=h feed[:url]%>">
+        <% if feed[:has_json] %>
+          <link rel="alternate" type="application/json" title="JSON version of <%=h feed[:title] %>" href="<%=h feed[:url]%>.json">
         <% end %>
-        <% if @has_json %>
-            <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h url_for(request.params.merge(:format => 'json')) %>">
-        <% end %>
+      <% end %>
+    <% end %>
+    <% if @has_json %>
+      <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h url_for(request.params.merge(:format => 'json')) %>">
+    <% end %>
 
-        <% if @no_crawl %>
-            <meta name="robots" content="noindex, nofollow">
-        <% end %>
-        <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <% end %>
-        <%= render :partial => 'general/before_head_end' %>
-    </head>
-    <body class="<%= 'front' if params[:action] == 'frontpage' %>">
+    <% if @no_crawl %>
+      <meta name="robots" content="noindex, nofollow">
+    <% end %>
+    <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <% end %>
+    <%= render :partial => 'general/before_head_end' %>
+  </head>
+  <body class="<%= 'front' if params[:action] == 'frontpage' %>">
     <% if AlaveteliConfiguration::force_registration_on_new_request && !@user %>
-    <%= javascript_include_tag 'fancybox.js' %>
-    <script type="text/javascript">
+      <%= javascript_include_tag 'fancybox.js' %>
+      <script type="text/javascript">
         $(document).ready(function() {
-            $("#make-request-link").fancybox({
-                'modal': false,
-                'width': 950,
-                'height': 400,
-                'type': 'iframe',
-                'href': '/<%= FastGettext.locale %>/profile/sign_in?modal=1',
-                'onClosed': function() {
-                    // modal_signin_successful variable set by modal dialog box
-                    if (typeof modal_signin_successful != 'undefined' ) {
-                        window.location.href = '<%= select_authority_url %>';
-                    }
-                }
-            });
+          $("#make-request-link").fancybox({
+            'modal': false,
+            'width': 950,
+            'height': 400,
+            'type': 'iframe',
+            'href': '/<%= FastGettext.locale %>/profile/sign_in?modal=1',
+            'onClosed': function() {
+              // modal_signin_successful variable set by modal dialog box
+              if (typeof modal_signin_successful != 'undefined' ) {
+                window.location.href = '<%= select_authority_url %>';
+              }
+            }
+          });
         });
-    </script>
+      </script>
     <% end %>
 
-<% if is_admin? %>
-  <%= render :partial => 'admin_general/admin_navbar' %>
-<% end %>
-
-<div class="entirebody">
-    <% popup_banner = render(:partial => "general/popup_banner").strip %>
-    <% if popup_banner.present? and  ! @render_to_file %>
-    <div id="everypage" class="popup">
-      <span class="popup-content">
-      <%= raw popup_banner %>
-      </span>
-      <span class="popup-close"><a href="#top" ><%= _('Close') %></a></span>
-    </div>
+    <% if is_admin? %>
+      <%= render :partial => 'admin_general/admin_navbar' %>
     <% end %>
-    <div id="other-country-notice" class="popup">
-      <span class="popup-content">
-      </span>
-      <span class="popup-close"><a href="#top" ><%= _('Close') %></a></span>
-    </div>
-    <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
-        <%= render :partial => 'general/responsive_header' %>
-    <% else %>
-        <%= render :partial => 'general/header' %>
-    <% end %>
-    <div id="wrapper">
-        <div id="content">
-            <% if flash[:notice] %>
-                <div id="notice"><%= flash[:notice] %></div>
-            <% end %>
-            <% if flash[:error] %>
-                <div id="error"><%= flash[:error] %></div>
-            <% end %>
 
-            <div id="<%= controller.controller_name + "_" + controller.action_name %>" class="controller_<%= controller.controller_name %>">
-            <%= yield :layout %>
-            </div>
-            <div style="clear:both"></div>
+    <div class="entirebody">
+      <% popup_banner = render(:partial => "general/popup_banner").strip %>
+      <% if popup_banner.present? and  ! @render_to_file %>
+        <div id="everypage" class="popup">
+          <span class="popup-content">
+            <%= raw popup_banner %>
+          </span>
+          <span class="popup-close"><a href="#top" ><%= _('Close') %></a></span>
         </div>
-    </div>
-    <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
+      <% end %>
+      <div id="other-country-notice" class="popup">
+        <span class="popup-content">
+        </span>
+        <span class="popup-close"><a href="#top" ><%= _('Close') %></a></span>
+      </div>
+      <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
+        <%= render :partial => 'general/responsive_header' %>
+      <% else %>
+        <%= render :partial => 'general/header' %>
+      <% end %>
+      <div id="wrapper">
+        <div id="content">
+          <% if flash[:notice] %>
+            <div id="notice"><%= flash[:notice] %></div>
+          <% end %>
+          <% if flash[:error] %>
+            <div id="error"><%= flash[:error] %></div>
+          <% end %>
+
+          <div id="<%= controller.controller_name + "_" + controller.action_name %>" class="controller_<%= controller.controller_name %>">
+            <%= yield :layout %>
+          </div>
+          <div style="clear:both"></div>
+        </div>
+      </div>
+      <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
         <%= render :partial => 'general/responsive_footer' %>
-    <% else %>
+      <% else %>
         <%= render :partial => 'general/footer' %>
-    <% end %>
-
-</div>
-<div id="link_box"><span class="close-button">X</span>
-<%= _("Paste this link into emails, tweets, and anywhere else:") %>
-<br />
-<input type="text">
-</div>
-    <%
-      unless AlaveteliConfiguration::ga_code.empty? || (@user && @user.super?) %>
-        <script type="text/javascript">
-          var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-          document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        </script>
-        <script type="text/javascript">
-          var pageTracker = _gat._getTracker("<%= AlaveteliConfiguration::ga_code %>");
-          pageTracker._trackPageview();
-        </script>
-
       <% end %>
 
-      <%= render :partial => 'general/before_body_end' %>
-    </body>
+    </div>
+    <div id="link_box"><span class="close-button">X</span>
+      <%= _("Paste this link into emails, tweets, and anywhere else:") %>
+      <br />
+      <input type="text">
+    </div>
+    <%
+        unless AlaveteliConfiguration::ga_code.empty? || (@user && @user.super?) %>
+      <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+        var pageTracker = _gat._getTracker("<%= AlaveteliConfiguration::ga_code %>");
+        pageTracker._trackPageview();
+      </script>
+
+    <% end %>
+
+    <%= render :partial => 'general/before_body_end' %>
+  </body>
 </html>
