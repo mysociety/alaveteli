@@ -7,7 +7,6 @@ experimental, so there are some caveats that should be borne \
 in mind:") %></p>
 
   <ul>
-
     <li><%= _("The percentages are calculated with respect to \
 the total number of requests, which includes invalid \
 requests; this is a known problem that will be fixed in a \
@@ -34,7 +33,6 @@ say, all requests that have been made to the public body by \
 any means.") %></li>
 
     <li><%= _("Unclassified or hidden requests are not counted.") %></li>
-
   </ul>
 
   <p><%= _("These graphs were partly inspired by \
@@ -63,15 +61,14 @@ are due to him.") %></p>
           </tbody>
         </table>
       <% else %>
-          <%= _("There was no data calculated for this graph yet.") %>
+        <%= _("There was no data calculated for this graph yet.") %>
       <% end %>
     </div>
   <% end %>
 
-<script type="text/javascript">
-  var graphs_data = <%= @graph_list.to_json.html_safe %>;
-</script>
-<!--[if lte IE 8]><%= javascript_include_tag "excanvas.min.js" %><![endif]-->
-<%= javascript_include_tag "stats" %>
-
+  <script type="text/javascript">
+    var graphs_data = <%= @graph_list.to_json.html_safe %>;
+  </script>
+  <!--[if lte IE 8]><%= javascript_include_tag "excanvas.min.js" %><![endif]-->
+  <%= javascript_include_tag "stats" %>
 </div>

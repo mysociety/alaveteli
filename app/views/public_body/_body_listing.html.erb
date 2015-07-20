@@ -3,7 +3,7 @@
     <%= _("None found.")%>
   </p>
 <% else %>
-    <% for public_body in public_bodies %>
-        <%= render :partial => 'public_body/body_listing_single', :locals => { :public_body => public_body } %>
-    <% end %>
+  <% for public_body in public_bodies %>
+    <%= render :partial => 'public_body/body_listing_single', :locals => { :public_body => public_body } %>
+  <% end %>
 <% end %>

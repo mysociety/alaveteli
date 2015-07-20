@@ -1,15 +1,15 @@
 <h2><%= _('More about this authority')%></h2>
 
 <% if !public_body.calculated_home_page.nil? %>
-    <%= link_to _('Home page of authority'), public_body.calculated_home_page %><br>
+  <%= link_to _('Home page of authority'), public_body.calculated_home_page %><br>
 <% end %>
 
 <% if !public_body.publication_scheme.empty? %>
-    <%= link_to _('Publication scheme'), public_body.publication_scheme %><br>
+  <%= link_to _('Publication scheme'), public_body.publication_scheme %><br>
 <% end %>
 
 <% unless public_body.disclosure_log.empty? %>
-    <%= link_to _('Disclosure log'), public_body.disclosure_log %><br>
+  <%= link_to _('Disclosure log'), public_body.disclosure_log %><br>
 <% end %>
 
 <%= link_to _('View FOI email address'), view_public_body_email_path(public_body.url_name) %><br>

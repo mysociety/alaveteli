@@ -1,5 +1,4 @@
-
- <% if !@xapian_requests.nil? %>
+<% if !@xapian_requests.nil? %>
   <% if @xapian_requests.results.size > 0 %>
     <p><%= _('Matching authorities') %></p>
   <% else %>
@@ -9,10 +8,10 @@
     <div id="authority_search_ahead_results">
       <% for result in @xapian_requests.results %>
         <%= render :partial => 'public_body/body_listing_single',
-                   :locals => { :public_body => result[:model],
-                                :request_link => true } %>
+          :locals => { :public_body => result[:model],
+                       :request_link => true } %>
       <% end %>
     </div>
     <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_requests.matches_estimated), :params => {:controller=>"request", :action => "select_authority"} %>
- </div>
- <% end %>
+  </div>
+<% end %>
