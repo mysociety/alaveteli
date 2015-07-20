@@ -1,23 +1,26 @@
 <% @title = _("First, did your other requests succeed?") %>
 
-<h1><%=@title%></h1>
+<h1><%= @title %></h1>
 
-<p><%= _('Please select each of these requests in turn, and <strong>let everyone know</strong>
-if they are successful yet or not.') %>
+<p>
+  <%= _('Please select each of these requests in turn, and <strong>let ' \
+        'everyone know</strong> if they are successful yet or not.') %>
 </p>
 
 <ul>
-<% for undescribed_request in @undescribed_requests %>
-    <li><%=request_link(undescribed_request)%></li>
-<% end %>
+  <% for undescribed_request in @undescribed_requests %>
+    <li><%= request_link(undescribed_request) %></li>
+  <% end %>
 </ul>
 
 <p>
-   <%= _('When you\'re done, <strong>come back here</strong>, <a href="{{url}}">reload this page</a> and file your new request.', :url => request.fullpath.html_safe) %>
+  <%= _("When you're done, <strong>come back here</strong>, " \
+        "<a href=\"{{url}}\">reload this page</a> and file your new request.",
+        :url => request.fullpath.html_safe) %>
 </p>
 
 <p>
-    <%= _('Thanks very much for helping keep everything <strong>neat and organised</strong>.
-    We\'ll also, if you need it, give you advice on what to do next about each of your
-    requests.') %>
+  <%= _("Thanks very much for helping keep everything <strong>neat and " \
+        "organised</strong>. We'll also, if you need it, give you advice on " \
+        "what to do next about each of your requests.") %>
 </p>

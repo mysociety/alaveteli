@@ -1,56 +1,51 @@
 <% @title = _("Preview follow up to '") + h(@info_request.public_body.name) + "'" %>
 
 <div id="followup">
-
-<%= form_for(@outgoing_message, :html => { :id => 'preview_form' }, :url => (@incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => @incoming_message.id)) + "#followup" ) do |o| %>
+  <%= form_for(@outgoing_message, :html => { :id => 'preview_form' }, :url => (@incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => @incoming_message.id)) + "#followup" ) do |o| %>
 
     <% if @internal_review %>
-        <h1><%= _('Now preview your message asking for an internal review') %></h1>
+      <h1><%= _('Now preview your message asking for an internal review') %></h1>
     <% else %>
-        <h1><%= _('Now preview your follow up') %></h1>
+      <h1><%= _('Now preview your follow up') %></h1>
     <% end %>
 
     <ul>
-    <li><%= _('Check you haven\'t included any <strong>personal information</strong>.') %></li>
-    <li><%= _('Your message will appear in <strong>search engines</strong>') %></li>
+      <li><%= _('Check you haven\'t included any <strong>personal information</strong>.') %></li>
+      <li><%= _('Your message will appear in <strong>search engines</strong>') %></li>
     </ul>
 
     <%= fields_for :outgoing_message do |o| %>
+      <div class="correspondence box" id="outgoing-0">
+        <p class="preview_subject">
+          <strong><%= _('To:') %></strong> <%=h OutgoingMailer.name_for_followup(@info_request, @incoming_message) %>
+          <br>
+          <strong><%= _('Subject:') %></strong> <%= OutgoingMailer.subject_for_followup(@info_request, @outgoing_message, :html => true) %>
+        </p>
 
-        <div class="correspondence box" id="outgoing-0">
-            <p class="preview_subject">
-                <strong><%= _('To:') %></strong> <%=h OutgoingMailer.name_for_followup(@info_request, @incoming_message) %>
-                <br><strong><%= _('Subject:') %></strong> <%= OutgoingMailer.subject_for_followup(@info_request, @outgoing_message, :html => true) %>
-            </p>
-
-            <div class="correspondence_text">
-                <p><%= @outgoing_message.get_body_for_html_display %></p>
-                <%= o.hidden_field(:body) %>
-            </div>
-
-            <p class="event_actions"> 
-            </p>
+        <div class="correspondence_text">
+          <p><%= @outgoing_message.get_body_for_html_display %></p>
+          <%= o.hidden_field(:body) %>
         </div>
+
+        <p class="event_actions"></p>
+      </div>
     <% end %>
 
     <p>
-        <%= _('<strong>Privacy warning:</strong> Your message, and any response
-        to it, will be displayed publicly on this website.') %>
+      <%= _('<strong>Privacy warning:</strong> Your message, and any response ' \
+            'to it, will be displayed publicly on this website.') %>
 
-        <%= o.hidden_field(:what_doing) %>
+      <%= o.hidden_field(:what_doing) %>
     </p>
 
     <p>
-        <%= hidden_field_tag(:submitted_followup, 1) %>
-        <%= hidden_field_tag(:preview, 0 ) %>
-        <% if @internal_review_pass_on %>
-            <%= hidden_field_tag(:internal_review, 1 ) %>
-        <% end %>
-        <%= submit_tag _("Re-edit this message"), :name => 'reedit' %>
-        <%= submit_tag _("Send message"), :name => 'submit' %>
+      <%= hidden_field_tag(:submitted_followup, 1) %>
+      <%= hidden_field_tag(:preview, 0 ) %>
+      <% if @internal_review_pass_on %>
+        <%= hidden_field_tag(:internal_review, 1 ) %>
+      <% end %>
+      <%= submit_tag _("Re-edit this message"), :name => 'reedit' %>
+      <%= submit_tag _("Send message"), :name => 'submit' %>
     </p>
-
-<% end %>
-
+  <% end %>
 </div>
-

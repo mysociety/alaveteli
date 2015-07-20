@@ -1,21 +1,21 @@
 <div class="request_listing">
   <span class="head">
-      <%= link_to h(info_request.title), (@play_urls ? categorise_request_path(:url_title => info_request.url_title) : request_path(info_request)) %>
+    <%= link_to h(info_request.title), (@play_urls ? categorise_request_path(:url_title => info_request.url_title) : request_path(info_request)) %>
   </span>
 
   <span class="desc">
-      <%= excerpt(info_request.initial_request_text, "", :radius => 150) %>
+    <%= excerpt(info_request.initial_request_text, "", :radius => 150) %>
   </span>
 
   <span class="bottomline icon_<%= info_request.calculate_status %>">
-      <strong>
-        <%= info_request.display_status %>
-      </strong>
-      <br>
-      <%= _('Requested from {{public_body_name}} by {{info_request_user}} on {{date}}',
-            :public_body_name => public_body_link(info_request.public_body),
-            :info_request_user => user_link(info_request.user),
-            :date => simple_date(info_request.created_at)) %>
+    <strong>
+      <%= info_request.display_status %>
+    </strong>
+    <br>
+    <%= _('Requested from {{public_body_name}} by {{info_request_user}} on {{date}}',
+          :public_body_name => public_body_link(info_request.public_body),
+          :info_request_user => user_link(info_request.user),
+          :date => simple_date(info_request.created_at)) %>
   </span>
 </div>
 

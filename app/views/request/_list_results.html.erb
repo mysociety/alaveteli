@@ -1,12 +1,12 @@
-  <% @results = InfoRequest.request_list(@filters, @page, @per_page, @max_results) %>
-    <% if @results[:results].empty? %>
-        <p> <%= _('No requests of this sort yet.')%></p>
-    <% else %>
-        <h2 class="foi_results"><%= _('{{count}} FOI requests found', :count => @results[:matches_estimated]) %></h2>
-        <div class="results_block">
-          <% @results[:results].each do |result| %>
-            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result } %>
-          <% end %>
-        </div>
+<% @results = InfoRequest.request_list(@filters, @page, @per_page, @max_results) %>
+<% if @results[:results].empty? %>
+  <p> <%= _('No requests of this sort yet.')%></p>
+<% else %>
+  <h2 class="foi_results"><%= _('{{count}} FOI requests found', :count => @results[:matches_estimated]) %></h2>
+  <div class="results_block">
+    <% @results[:results].each do |result| %>
+      <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result } %>
     <% end %>
-  <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @results[:show_no_more_than]) %>
+  </div>
+<% end %>
+<%= will_paginate WillPaginate::Collection.new(@page, @per_page, @results[:show_no_more_than]) %>

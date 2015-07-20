@@ -1,113 +1,114 @@
 <% if @is_owning_user %>
 
-    <%= form_for(@info_request, :as => :incoming_message, :url => describe_state_url(:id => @info_request.id), :html => {:id => "describe_form_#{id_suffix}"}) do |f| %>
-        <h2><%= _('What best describes the status of this request now?') %></h2>
+  <%= form_for(@info_request, :as => :incoming_message, :url => describe_state_url(:id => @info_request.id), :html => {:id => "describe_form_#{id_suffix}"}) do |f| %>
+    <h2><%= _('What best describes the status of this request now?') %></h2>
 
-        <hr>
-	<h3><%= _('This request is still in progress:') %></h3>
-        <% if @info_request.described_state != 'internal_review' %>
-            <div>
-                <%= radio_button "incoming_message", "described_state", "waiting_response", :id => 'waiting_response' + id_suffix %>
-                <label for="waiting_response<%=id_suffix%>"><%= _('I\'m still <strong>waiting</strong> for my information
+    <hr>
+    <h3><%= _('This request is still in progress:') %></h3>
+    <% if @info_request.described_state != 'internal_review' %>
+      <div>
+        <%= radio_button "incoming_message", "described_state", "waiting_response", :id => 'waiting_response' + id_suffix %>
+        <label for="waiting_response<%=id_suffix%>"><%= _('I\'m still <strong>waiting</strong> for my information
                 <small>(maybe you got an acknowledgement)</small>') %></label>
-            </div>
-        <% end %>
-        <% if @info_request.described_state == 'internal_review' %>
-            <div>
-                <%= radio_button "incoming_message", "described_state", "internal_review", :id => 'internal_review' + id_suffix %>
-                <label for="internal_review<%=id_suffix%>"><%= _('I\'m still <strong>waiting</strong> for the internal review') %></label>
-            </div>
-        <% end %>
-
-        <% if @info_request.described_state != 'internal_review' %>
-            <div>
-                <%= radio_button "incoming_message", "described_state", "waiting_clarification", :id => 'waiting_clarification' + id_suffix %>
-                <label for="waiting_clarification<%=id_suffix%>"><%= _('I\'ve been asked to <strong>clarify</strong> my request') %></label>
-            </div>
-        <% end %>
-
-        <% if @update_status && @info_request.described_state != 'internal_review' %>
-            <div>
-                <%= radio_button "incoming_message", "described_state", "internal_review", :id => 'internal_review' + id_suffix %>
-                <label for="internal_review<%=id_suffix%>"><%= _('I\'m waiting for an <strong>internal review</strong> response') %></label>
-            </div>
-        <% end %>
-        
-        <div>
-            <%= radio_button "incoming_message", "described_state", "gone_postal", :id => 'gone_postal' + id_suffix %>
-            <label for="gone_postal<%=id_suffix%>"><%= _('They are going to reply <strong>by post</strong>') %></label>
-        </div>
-
-        <%= render :partial => 'general/custom_state_transitions_pending', :locals => {:id_suffix => id_suffix } %>
-
-        <hr>
-	<h3><%= _('This particular request is finished:') %></h3>
-
-        <% if @info_request.described_state == 'internal_review' %>
-            <p><%= _('The <strong>review has finished</strong> and overall:') %></p>
-        <% end %>
-
-        <div>
-            <%= radio_button "incoming_message", "described_state", "not_held", :id => 'not_held' + id_suffix %>
-            <label for="not_held<%=id_suffix%>"><%= _('They do <strong>not have</strong> the information <small>(maybe they say who does)</small>') %></label>
-        </div>
-        <div>
-            <%= radio_button "incoming_message", "described_state", "partially_successful", :id => 'partially_successful' + id_suffix %>
-            <label for="partially_successful<%=id_suffix%>"><%= _('I\'ve received <strong>some of the information</strong>') %> </label>
-        </div>
-        <div>
-            <%= radio_button "incoming_message", "described_state", "successful", :id => 'successful' + id_suffix %>
-            <label for="successful<%=id_suffix%>"><%= _('I\'ve received <strong>all the information') %></strong> </label>
-        </div>
-        <div>
-            <%= radio_button "incoming_message", "described_state", "rejected", :id => 'rejected' + id_suffix %>
-            <label for="rejected<%=id_suffix%>"><%= _('My request has been <strong>refused</strong>') %></label>
-        </div>
-
-        <%= render :partial => 'general/custom_state_transitions_complete', :locals => {:id_suffix => id_suffix } %>
-
-
-        <hr>
-	<h3><%= _('Other:') %></h3>
-
-        <div>
-           <%= radio_button "incoming_message", "described_state", "error_message", :id => 'error_message' + id_suffix %>
-            <label for="error_message<%=id_suffix%>">
-            <%= _('I\'ve received an <strong>error message</strong>') %> 
-            </label>
-        </div>
-
-        <% if @update_status %>
-          <div>
-             <%= radio_button "incoming_message", "described_state", "requires_admin", :id => 'requires_admin' + id_suffix %>
-              <label for="requires_admin<%=id_suffix%>">
-              <%= _('This request <strong>requires administrator attention</strong>') %> 
-              </label>
-          </div>
-        
-          <div>
-             <%= radio_button "incoming_message", "described_state", "user_withdrawn", :id => 'user_withdrawn' + id_suffix %>
-              <label for="user_withdrawn<%=id_suffix%>">
-              <%= _('I would like to <strong>withdraw this request</strong>') %> 
-              </label>
-          </div>
-        <% end %>
-        
-        <hr>
-
-        <p>
-        <%= hidden_field_tag 'last_info_request_event_id', @last_info_request_event_id, :id => 'last_info_request_event_id' + id_suffix %>
-        <%= submit_tag _("Submit status") %> (<%= _('and we\'ll suggest <strong>what to do next</strong>') %>)
-        </p>
+      </div>
     <% end %>
+    <% if @info_request.described_state == 'internal_review' %>
+      <div>
+        <%= radio_button "incoming_message", "described_state", "internal_review", :id => 'internal_review' + id_suffix %>
+        <label for="internal_review<%=id_suffix%>"><%= _('I\'m still <strong>waiting</strong> for the internal review') %></label>
+      </div>
+    <% end %>
+
+    <% if @info_request.described_state != 'internal_review' %>
+      <div>
+        <%= radio_button "incoming_message", "described_state", "waiting_clarification", :id => 'waiting_clarification' + id_suffix %>
+        <label for="waiting_clarification<%=id_suffix%>"><%= _('I\'ve been asked to <strong>clarify</strong> my request') %></label>
+      </div>
+    <% end %>
+
+    <% if @update_status && @info_request.described_state != 'internal_review' %>
+      <div>
+        <%= radio_button "incoming_message", "described_state", "internal_review", :id => 'internal_review' + id_suffix %>
+        <label for="internal_review<%=id_suffix%>"><%= _('I\'m waiting for an <strong>internal review</strong> response') %></label>
+      </div>
+    <% end %>
+
+    <div>
+      <%= radio_button "incoming_message", "described_state", "gone_postal", :id => 'gone_postal' + id_suffix %>
+      <label for="gone_postal<%=id_suffix%>"><%= _('They are going to reply <strong>by post</strong>') %></label>
+    </div>
+
+    <%= render :partial => 'general/custom_state_transitions_pending', :locals => {:id_suffix => id_suffix } %>
+
+    <hr>
+    <h3><%= _('This particular request is finished:') %></h3>
+
+    <% if @info_request.described_state == 'internal_review' %>
+      <p><%= _('The <strong>review has finished</strong> and overall:') %></p>
+    <% end %>
+
+    <div>
+      <%= radio_button "incoming_message", "described_state", "not_held", :id => 'not_held' + id_suffix %>
+      <label for="not_held<%=id_suffix%>"><%= _('They do <strong>not have</strong> the information <small>(maybe they say who does)</small>') %></label>
+    </div>
+    <div>
+      <%= radio_button "incoming_message", "described_state", "partially_successful", :id => 'partially_successful' + id_suffix %>
+      <label for="partially_successful<%=id_suffix%>"><%= _('I\'ve received <strong>some of the information</strong>') %> </label>
+    </div>
+    <div>
+      <%= radio_button "incoming_message", "described_state", "successful", :id => 'successful' + id_suffix %>
+      <label for="successful<%=id_suffix%>"><%= _('I\'ve received <strong>all the information') %></strong> </label>
+    </div>
+    <div>
+      <%= radio_button "incoming_message", "described_state", "rejected", :id => 'rejected' + id_suffix %>
+      <label for="rejected<%=id_suffix%>"><%= _('My request has been <strong>refused</strong>') %></label>
+    </div>
+
+    <%= render :partial => 'general/custom_state_transitions_complete', :locals => {:id_suffix => id_suffix } %>
+
+
+    <hr>
+    <h3><%= _('Other:') %></h3>
+
+    <div>
+      <%= radio_button "incoming_message", "described_state", "error_message", :id => 'error_message' + id_suffix %>
+      <label for="error_message<%=id_suffix%>">
+        <%= _('I\'ve received an <strong>error message</strong>') %> 
+      </label>
+    </div>
+
+    <% if @update_status %>
+      <div>
+        <%= radio_button "incoming_message", "described_state", "requires_admin", :id => 'requires_admin' + id_suffix %>
+        <label for="requires_admin<%=id_suffix%>">
+          <%= _('This request <strong>requires administrator attention</strong>') %> 
+        </label>
+      </div>
+
+      <div>
+        <%= radio_button "incoming_message", "described_state", "user_withdrawn", :id => 'user_withdrawn' + id_suffix %>
+        <label for="user_withdrawn<%=id_suffix%>">
+          <%= _('I would like to <strong>withdraw this request</strong>') %> 
+        </label>
+      </div>
+    <% end %>
+
+    <hr>
+
+    <p>
+      <%= hidden_field_tag 'last_info_request_event_id', @last_info_request_event_id, :id => 'last_info_request_event_id' + id_suffix %>
+      <%= submit_tag _("Submit status") %> (<%= _('and we\'ll suggest <strong>what to do next</strong>') %>)
+    </p>
+  <% end %>
 <% elsif @old_unclassified %>
-    <%= render :partial => 'request/other_describe_state', :locals => {:id_suffix => id_suffix } %>
+  <%= render :partial => 'request/other_describe_state', :locals => {:id_suffix => id_suffix } %>
 <% else %>
   <% if !@info_request.is_external? %>
-    <%=  _('We don\'t know whether the most recent response to this request contains
-    information or not
-        &ndash;
-	if you are {{user_link}} please <a href="{{url}}">sign in</a> and let everyone know.',:user_link=>user_link(@info_request.user), :url=>signin_url(:r => request.fullpath)) %>
+    <%=  _("We don't know whether the most recent response to this request " \
+           "contains information or not &ndash; if you are {{user_link}} " \
+           "please <a href=\"{{url}}\">sign in</a> and let everyone know.",
+           :user_link => user_link(@info_request.user),
+           :url => signin_url(:r => request.fullpath)) %>
   <% end %>
 <% end %>
 

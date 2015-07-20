@@ -4,6 +4,7 @@
       <%= _("Your {{law_used_full}} request has been sent",
             :law_used_full => @info_request.law_used_full) %>
     </h1>
+
     <div class="request-sent-message__row">
       <div class="request-sent-message__column-1">
         <p class="subtitle">
@@ -15,26 +16,27 @@
 
         <h2><%= _("Share your request") %></h2>
 
-           <%= link_to image_tag("next-step-twitter.png",
-                                 :alt => _("Tweet it"),
-                                 :width => "120",
-                                 :height => "37"),
-                       "https://twitter.com/intent/tweet?" << {
-                :url => request.url,
-                :via => AlaveteliConfiguration.twitter_username,
-                :text => "'#{ @info_request.title }'",
-                :related => _('alaveteli_foi:The software that runs {{site_name}}', :site_name => site_name)
-             }.to_query, :class => 'share-link' %>
+        <%= link_to image_tag("next-step-twitter.png",
+                              :alt => _("Tweet it"),
+                              :width => "120",
+                              :height => "37"),
+                              "https://twitter.com/intent/tweet?" << {
+                                :url => request.url,
+                                :via => AlaveteliConfiguration.twitter_username,
+                                :text => "'#{ @info_request.title }'",
+                                :related => _('alaveteli_foi:The software that runs {{site_name}}', :site_name => site_name)
+                              }.to_query, :class => 'share-link' %>
 
-           <%= link_to image_tag("next-step-facebook.png",
-                                 :alt => _("Share on Facebook"),
-                                 :width => "120",
-                                 :height => "37"),
-                      "https://www.facebook.com/sharer/sharer.php?" << {
-               :u => request.url
-             }.to_query, :class => 'share-link' %>
+        <%= link_to image_tag("next-step-facebook.png",
+                              :alt => _("Share on Facebook"),
+                              :width => "120",
+                              :height => "37"),
+                              "https://www.facebook.com/sharer/sharer.php?" << {
+                                :u => request.url
+                              }.to_query, :class => 'share-link' %>
 
         <h2><%= _("Keep your request up to date") %></h2>
+
         <p>
           <%= _('If you write about this request ' \
                 '(for example in a forum or a blog) ' \
@@ -43,16 +45,18 @@
                 'about your writing.', :url => new_comment_url(:url_title => @info_request.url_title).html_safe) %>
         </p>
       </div>
+
       <div class="request-sent-message__column-2">
         <div class="what-next">
           <h2><%= _("What next?") %></h2>
+
           <ul class="what-next__list">
             <li>
               <%= link_to _("View other requests to {{public_body}}", :public_body => @info_request.public_body.name), public_body_path(@info_request.public_body) %>
             </li>
             <li>
               <%= link_to _("Help us classify requests that haven't " \
-              "been updated"), categorise_play_path %>
+                            "been updated"), categorise_play_path %>
             </li>
           </ul>
         </div>
