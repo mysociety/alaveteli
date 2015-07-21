@@ -1043,7 +1043,7 @@ msgstr "Овде зборот <strong>опишано</strong> значи ког�
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Еве ја пораката која ја напишавте, во случај да сакате да го ископирате текстот и да го зачувате за подоцна."
 
-msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mindtaking a moment to read it and help us keep the place tidy for everyone? Thanks."
+msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Здраво! Ни треба вашата помош. Личноста која го напиша следново барање\\n    не не извести дали истото беше успешно. Дали може да одвоите време\\n    за да го прочитате и да ни помогнете да го одржиме местово уредно за сите?\\nВи благодариме."
 
 msgid "Hide request"
@@ -3578,7 +3578,7 @@ msgstr "Вашата лозинка е променета."
 msgid "Your password:"
 msgstr "Вашата лозинка:"
 
-msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Вашата фотографија ќе биде јавно прикажана <strong>на интернет</strong>,\\n што и да направите на системот {{site_name}}."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."

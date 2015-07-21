@@ -1110,7 +1110,7 @@ msgstr ""
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Innen kimásolhatja az üzenete szövegét, és elmentheti későbbre."
 
-msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mindtaking a moment to read it and help us keep the place tidy for everyone? Thanks."
+msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr ""
 "Üdvözöljük! Szükségünk van a segítségére. Az alábbi igénylést benyújtó személy\n"
 "    nem tájékoztatott bennünket, hogy az igénylése sikeres volt-e. Kérjük, vegye a fáradságot,\n"
@@ -3772,7 +3772,7 @@ msgstr "Jelszava módosult. "
 msgid "Your password:"
 msgstr "Az ön jelszava: "
 
-msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Profilképe az <strong>interneten</strong> nyilvánosan megjelenik, ha a {{site_name}} weboldalon valamilyen műveletet hajt végre."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."

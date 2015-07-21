@@ -1,7 +1,7 @@
 <%= form_for(@info_request, :as => :incoming_message, :url => describe_state_url(:id => @info_request.id), :html => {:id => "describe_form_#{id_suffix}"}) do |f| %>
   <h2>
-    <%= _("Hi! We need your help. The person who made the following request" \
-          " hasn't told us whether or not it was successful. Would you mind" \
+    <%= _("Hi! We need your help. The person who made the following request " \
+          "hasn't told us whether or not it was successful. Would you mind " \
           "taking a moment to read it and help us keep the place tidy for " \
           "everyone? Thanks.") %>
   </h2>

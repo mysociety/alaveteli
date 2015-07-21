@@ -1045,7 +1045,7 @@ msgstr "Ibi <strong>bigaragazwa hano</strong> bivuga ko iyo ukoresha urubuga yah
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Dore ubutumwa wanditse, niba ubyifuza, ushobora kububika kugirango uzabashe kongera kubukoresha ikindi gihe."
 
-msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mindtaking a moment to read it and help us keep the place tidy for everyone? Thanks."
+msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Mwiriwe! Dukeneye ubufasha bwanyu. Umuntu watanze iki kibazo\\n    ntiyatubwiye niba cyaroherejwe cyangwa kitaroherejwe. Ushobora kudufasha ugafata\\n    umwanya ukagisoma bityo bikadufasha gukora isuku ku rubuga?\\n    Murakoze."
 
 msgid "Hide request"
@@ -3558,7 +3558,7 @@ msgstr "Ijambobanga ryawe ryahinduwe."
 msgid "Your password:"
 msgstr "Ijambobanga ryawe:"
 
-msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Ifoto yawe izajya igaragara mu ruhame  <strong>kuri interineti</strong>,\\n    ni uzajya ugira icyo ukora kuri {{site_name}}."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."

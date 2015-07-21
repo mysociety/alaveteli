@@ -1131,7 +1131,7 @@ msgstr ""
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Berikut adalah pesan yang Anda tulis, jika Anda ingin menyalin teksnya dan menyimpannya untuk di kemudian hari."
 
-msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mindtaking a moment to read it and help us keep the place tidy for everyone? Thanks."
+msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr ""
 "Hai! Kami butuh bantuan Anda. Individu yang membuat permintaan berikut\n"
 "    belum memberitahu kami apakah berhasil atau tidak. Apakah Anda keberatan meluangkan\n"
@@ -3790,7 +3790,7 @@ msgstr "kode sandi Anda telah diganti."
 msgid "Your password:"
 msgstr "kode sandi aAnda:"
 
-msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Foto Anda akan ditampilkan secara terbuka <strong>di Internet</strong>,\\n di mana pun Anda melakukan sesuatu pada {{site_name}}."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."

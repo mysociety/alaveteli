@@ -1059,7 +1059,7 @@ msgstr "Ici, <strong>described_state</strong> fait référence au moment où un 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Voici le message que vous avez écrit, au cas où vous souhaiteriez copier le texte et l'enregistrer pour plus tard."
 
-msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mindtaking a moment to read it and help us keep the place tidy for everyone? Thanks."
+msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Bonjour! Nous avons besoin de votre aide. La personne qui a effectué cette demande \\n ne nous a pas dit si elle avait reçu une réponse. Veuillez prendre quelques minutes pour lire et nous aider à classer la demande .  \\n Merci."
 
 msgid "Hide request"
@@ -3572,7 +3572,7 @@ msgstr "Votre mot de passe a été changé."
 msgid "Your password:"
 msgstr "Votre mot de passe:"
 
-msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Votre photo apparaîtra publiquement <strong> sur Internet </strong>\\n chaque fois que vous changerez quelque chose sur {{site_name}}."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
