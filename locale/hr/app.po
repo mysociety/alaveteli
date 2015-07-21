@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-20 12:13+0000\n"
+"POT-Creation-Date: 2015-07-21 08:47+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/p/alaveteli/language/hr/)\n"
@@ -224,9 +224,6 @@ msgstr ""
 "<small>Ako koristite neke od mrežnih servisa e-pošte ili imate filtere za \"junk mail\", provjerite u Vašim \"bulk/spam\" folderima. Ponekad su naše poruke označene tako</small>\n"
 "</p>"
 
-msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No!</a>"
-msgstr "<strong>Mogu li zahtijevati informacije o sebi?</strong>\\n⇥⇥⇥<a href=\"{{url}}\">Ne!</a>"
-
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>commented_by:ivan_horvat</code></strong> da pretražujete bilješke koje je napisao Ivan Horvat, ime unesite kao u URL-u."
 
@@ -263,13 +260,16 @@ msgstr "<strong>Nešto drugo</strong>, poput objašnjenja, napomena, zahvalnica"
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>Prema zakonu, dužni su odgovoriti</strong> (<a href=\"{{url}}\">zašto?</a>)."
 
+msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
+msgstr "<strong>Mogu li zahtijevati informacije o sebi?</strong>\\n⇥⇥⇥<a href=\"{{url}}\">Ne!</a>"
+
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need \\na good internal knowledge of user behaviour on {{site_name}}. How, \\nwhy and by whom requests are categorised is not straightforward, and there will\\nbe user error and ambiguity. You will also need to understand FOI law, and the\\nway authorities use it. Plus you'll need to be an elite statistician.  Please\\n<a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr "<strong>Caveat emptor!</strong> Da biste koristili ove podatke na častan način, trebat ćete dobro interno znanje korisničkog ponašanja na {{site_name}}. Kako, zašto i tko kategorizira zahtjeve nije jednostavno pa će biti korisničkih pogrešaka i nejasnoća. Također, morate razumjeti Zakon o pravu na pristup informacijama i način na koji ga nadležna tijela koriste. Osim toga, morate biti vrhunski statističar. Molimo <a href=\"{{contact_path}}\">kontaktirajte nas</a> za sva pitanja."
 
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Objašnjenje</strong> je zatraženo"
 
-msgid "<strong>No response</strong> has been received\\n                <small>(maybe there's just an acknowledgement)</small>"
+msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
 msgstr ""
 "<strong>Nema odgovora</strong> je primljeno\n"
 "                <small>(možda postoji samo potvrda)</small>"
@@ -289,7 +289,7 @@ msgstr ""
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
 msgstr "<strong>Napomena o privatnosti:</strong> Vaša će fotografija biti javno prikazana na internetu,\\n gdje god nešto napravili na {{site_name}}."
 
-msgid "<strong>Privacy warning:</strong> Your message, and any response\\n        to it, will be displayed publicly on this website."
+msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
 msgstr "<strong>Upozorenje o privatnosti:</strong> Vaša poruka i bilo koji\\n odgovorcna nju, bit će javno prikazani na ovoj stranici."
 
 msgid "<strong>Some of the information</strong> has been sent "
@@ -364,7 +364,7 @@ msgstr "ActsAsXapian::ActsAsXapianJob|Model"
 msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
 msgstr "Dodajte bilješku za &ldquo;{{request_title}}&rdquo;"
 
-msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
+msgid "Add an annotation to your request with choice quotes, or a <strong>summary of the response</strong>."
 msgstr "Dodajte pribilješku Vašem zahtjevu sa izabranim navodima, ili\\n <strong>sažetak odgovora</strong>."
 
 msgid "Add authority - {{public_body_name}}"
@@ -391,7 +391,7 @@ msgstr "Savjeti za naprednu pretragu"
 msgid "Advise on whether the <strong>refusal is legal</strong>, and how to complain about it if not."
 msgstr "Savjet o tome je li<strong>odbijanje legalno</strong>, i o tome kako se žaliti ako nije."
 
-msgid "Air, water, soil, land, flora and fauna (including how these effect\\n      human beings)"
+msgid "Air, water, soil, land, flora and fauna (including how these effect human beings)"
 msgstr "Zrak, voda, tlo, kopno, flora i fauna (uključujući kako utječu\\n na ljudska bića)"
 
 msgid "All of the information requested has been received"
@@ -468,7 +468,7 @@ msgstr "Tražite nas da ažuriramo adresu službenika za informiranje"
 msgid "Ask us to update the email address for {{public_body_name}}"
 msgstr "Zatražite da ažuriramo adresu e-pošte za {{public_body_name}}"
 
-msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
+msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in (<a href=\"{{url}}\">more details</a>)."
 msgstr ""
 "Na dnu ove stranice, napišite im odgovor pokušavajući ih uvjeriti da ga pregledaju\n"
 "            (<a href=\"{{url}}\">Više informacija</a>)."
@@ -716,7 +716,7 @@ msgstr "Izradio/la {{info_request_user}} dana {{date}}."
 msgid "Crop your profile photo"
 msgstr "Smanjite sliku na Vašem profilu"
 
-msgid "Cultural sites and built structures (as they may be affected by the\\n      environmental factors listed above)"
+msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
 msgstr "Kulturne znamenitosti i izgrađene strukture (jer mogu biti pogođene\\n čimbenicima okoliša koji su navedeni gore)"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
@@ -800,10 +800,8 @@ msgstr "EIR"
 msgid "Edit"
 msgstr "Uredite"
 
-msgid "Edit and add <strong>more details</strong> to the message above,\\n                explaining why you are dissatisfied with their response."
+msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr ""
-"Uredite i dodajte <strong>više detalja</strong> na poruku iznad,\n"
-"                objašnjavajući zašto niste zadovoljni njihovim odgovorom."
 
 msgid "Edit text about you"
 msgstr "Uredite tekst o Vama"
@@ -829,7 +827,7 @@ msgstr "E-pošta:"
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
 msgstr "S razmacima unesite riječi koje želite naći, npr. <strong>climbing lane</strong>"
 
-msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"{{url}}\">contact us</a> if you need more)."
+msgid "Enter your response below. You may attach one file (use email, or <a href=\"{{url}}\">contact us</a> if you need more)."
 msgstr ""
 "Unesite odgovor dolje. Možete priložiti jedan dokument (koristite e-poštu, ili\n"
 "<a href=\"{{url}}\">nas kontaktirajte</a> ukoliko trebate više)."
@@ -852,11 +850,11 @@ msgstr "Detalji prikaza prošlih događanja"
 msgid "Event {{id}}"
 msgstr "Događaj {{id}}"
 
-msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n          will be <strong>displayed publicly</strong> on\\n          this website <a href=\"{{url}}\">forever</a>"
-msgstr "Sve što unesete na ovu stranicu, uključujući <strong>Vaše ime</strong>, bit će<strong>javno prikazano</strong> na ovoj internetskoj stranici <a href=\"{{url}}\">zauvijek</a>"
-
-msgid "Everything that you enter on this page\\n          will be <strong>displayed publicly</strong> on\\n          this website forever (<a href=\"{{url}}\">why?</a>)."
+msgid "Everything that you enter on this page will be <strong>displayed publicly</strong> on this website forever (<a href=\"{{url}}\">why?</a>)."
 msgstr "Sve što unesete na ovu stranicu bit će <strong>javno prikazano</strong> na ovoj mrežnoj stranici trajno (<a href=\"{{url}}\">zašto?</a>)."
+
+msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
+msgstr "Sve što unesete na ovu stranicu, uključujući <strong>Vaše ime</strong>, bit će<strong>javno prikazano</strong> na ovoj internetskoj stranici <a href=\"{{url}}\">zauvijek</a>"
 
 msgid "FOI"
 msgstr "PPI"
@@ -909,7 +907,7 @@ msgstr "Odaberite tijela javne vlasti kojima ćete pisati"
 msgid "First, did your other requests succeed?"
 msgstr "Prvo, jesu li Vaši ostali zahtjevi bili uspješni?"
 
-msgid "First, type in the <strong>name of the public authority</strong> you'd\\n        like information from."
+msgid "First, type in the <strong>name of the public authority</strong> you'd like information from."
 msgstr "Prvo, upišite <strong>ime tijela javne vlasti</strong> od kojeg\\n biste željeli dobiti informaciju."
 
 msgid "Foi attachment"
@@ -1038,7 +1036,7 @@ msgstr "Zahtjevi za pristup informacijama podneseni na ovoj stranici"
 msgid "From"
 msgstr "Od"
 
-msgid "From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgid "From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 msgstr "Na stranici sa zahtjevima pokušajte odgovarati na određenu poruku, radije nego napisati\\n općenitu dodatnu poruku. Ako morate napraviti općeniti upit i znate\\n adresu e-pošte koji će otići na pravo mjesto, molimo <a href=\"{{url}}\">pošaljite nama</a>."
 
 msgid "From:"
@@ -1092,7 +1090,7 @@ msgstr "Ovdje <strong>opisano</strong> znači da kada korisnik odabere status za
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Ovo je poruka koju ste napisali, ako je želite kopirati i pospremiti."
 
-msgid "Hi! We need your help. The person who made the following request\\n    hasn't told us whether or not it was successful. Would you mind taking\\n    a moment to read it and help us keep the place tidy for everyone?\\n    Thanks."
+msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mindtaking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Pozdrav, trebamo Vašu pomoć. Osoba koja je podnijela sljedeći zahtjev\\n nije nam rekla je li bio uspješan ili ne. Biste li mogli odvojiti\\n malo vremena da ga pročitate i da nam pomognete da održimo ovo mjesto urednim za sve?\\n Hvala."
 
 msgid "Hide request"
@@ -1116,7 +1114,7 @@ msgstr "Početna stranica"
 msgid "Home page of authority"
 msgstr "Službena stranica"
 
-msgid "However, you have the right to request environmental\\n      information under a different law"
+msgid "However, you have the right to request environmental information under a different law"
 msgstr "Ipak, imate pravo tražiti informacije o okolišu\\n pozivajući se na drugi zakon"
 
 msgid "Human health and safety"
@@ -1187,7 +1185,7 @@ msgstr ""
 "ili e-poštu o nečemu drugome {{user}}, onda molimo\n"
 "pošaljite nam e-poštu {{contact_email}} za pomoć."
 
-msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"{{url}}\">details</a>)."
+msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Ako niste zadovoljni odgovorom koji ste dobili od\\n tijela javne vlasti, imate pravo na\\n žalbu (<a href=\"{{url}}\">više informacija</a>)."
 
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
@@ -1211,7 +1209,7 @@ msgstr ""
 "ga</strong> s e-pošte.  Zatim <strong>nalijepite u Vaš pretraživač</strong>, na mjesto\n"
 "gdje biste ukucali adresu bilo koje druge mrežne stranice."
 
-msgid "If you can, scan in or photograph the response, and <strong>send us\\n                    a copy to upload</strong>."
+msgid "If you can, scan in or photograph the response, and <strong>send us a copy to upload</strong>."
 msgstr ""
 "Ako možete, skenirajte ili uslikajte odgovor, i <strong>pošaljite nam\n"
 "                    kopiju za slanje</strong>."
@@ -1379,7 +1377,7 @@ msgstr "ZahtjevZaInformacijom|Url naslov"
 msgid "Information not held."
 msgstr "Ne posjedujemo informacije."
 
-msgid "Information on emissions and discharges (e.g. noise, energy,\\n      radiation, waste materials)"
+msgid "Information on emissions and discharges (e.g. noise, energy, radiation, waste materials)"
 msgstr "Informacije o emisijama i ispuštanjima u okoliš (npr. buka, energija,\\n zračenje, otpadni materijali)"
 
 msgid "Internal review"
@@ -1911,13 +1909,13 @@ msgstr "Molimo da ne koristite više od 500 znakova"
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
 msgstr "Molimo da sažetak bude kratak, poput naslova e-pošte. Radije koristite frazu nego punu rečenicu."
 
-msgid "Please only request information that comes under those categories, <strong>do not waste your\\n      time</strong> or the time of the public authority by requesting unrelated information."
-msgstr "Molimo da zahtijevate samo informacije unutar tih kategorija, <strong>ne gubite\\n Vaše vrijeme</strong> ili vrijeme tijela javne vlasti tražeći nevezane informacije."
+msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
+msgstr ""
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Molim proslijedite ovo službeniku za informiranje."
 
-msgid "Please select each of these requests in turn, and <strong>let everyone know</strong>\\nif they are successful yet or not."
+msgid "Please select each of these requests in turn, and <strong>let everyone know</strong> if they are successful yet or not."
 msgstr ""
 "Molimo odaberite svaki pojedinačni zahtjev i <strong>dajte na znanje svima</strong>\n"
 "jesu li bili uspješni ili ne."
@@ -2601,7 +2599,7 @@ msgstr "Hvala na prijedlogu za ažuriranje adrese e-pošte službenika za inform
 msgid "Thanks very much - this will help others find useful stuff. We'll\\n            also, if you need it, give advice on what to do next about your\\n            requests."
 msgstr "Hvala - ovo će pomoći drugima da pronađu korisne stvari. Mi ćemo Vama također, ako zatrebate, pružiti savjet što raditi dalje s Vašim zahtjevima."
 
-msgid "Thanks very much for helping keep everything <strong>neat and organised</strong>.\\n    We'll also, if you need it, give you advice on what to do next about each of your\\n    requests."
+msgid "Thanks very much for helping keep everything <strong>neat and organised</strong>. We'll also, if you need it, give you advice on what to do next about each of your requests."
 msgstr ""
 "Hvala Vam što pomažete da sve bude<strong>čitko i organizirano</strong>. \n"
 "Mi ćemo Vama također, ako zatrebate, dati savjet što dalje raditi sa svakim od Vaših \n"
@@ -2622,7 +2620,7 @@ msgstr "URL na kojem ste pronašli adresu e-pošte. Polje nije obavezno, ali pom
 msgid "The accounts have been left as they previously were."
 msgstr "Korisnički računi nisu mijenjani"
 
-msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)"
+msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "Tijelo javne vlasti <strong>ne posjeduje</strong> informacije <small>(možda mogu reći tko posjeduje)"
 
 msgid "The authority email doesn't look like a valid address"
@@ -2631,7 +2629,7 @@ msgstr "Adresa e-pošte tijela javne vlasti ne izgleda kao valjana adresa"
 msgid "The authority only has a <strong>paper copy</strong> of the information."
 msgstr "Tijelo javne vlasti ima samo informaciju u <strong>papirnatom obliku</strong>."
 
-msgid "The authority say that they <strong>need a postal\\n            address</strong>, not just an email, for it to be a valid FOI request"
+msgid "The authority say that they <strong>need a postal address</strong>, not just an email, for it to be a valid FOI request"
 msgstr "Iz tijela javne vlasti kažu da im <strong>treba poštanska\\n adresa</strong>, ne samo adresa e-pošte, da bi zahtjev za pristup informacijama bio valjan"
 
 msgid "The authority would like to / has <strong>responded by post</strong> to this request."
@@ -2703,7 +2701,7 @@ msgstr "Zahtjev je <strong>uspješan</strong>."
 msgid "The request was refused by the public authority"
 msgstr "Tijelo javne vlasti je odbilo zahtjev"
 
-msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"{{url}}\">contact us</a> if you have any questions."
+msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
 msgstr ""
 "Zahtjev koji ste pokušali pregledati je uklonjen. Postoje\n"
 "razni razlozi zbog kojih smo to mogli uraditi, žao nam je ali ne možemo biti precizniji po tom pitanju. Molimo <a\n"
@@ -2712,10 +2710,10 @@ msgstr ""
 msgid "The requester has abandoned this request for some reason"
 msgstr "Podnositelj je iz nekog razloga odustao od ovog zahtjeva"
 
-msgid "The response to your request has been <strong>delayed</strong>.  You can say that,\\n            by law, the authority should normally have responded\\n            <strong>promptly</strong> and"
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "Odgovor na Vaš zahtjev <strong>kasni</strong>. Možete reći da je, po zakonu,\\n tijelo javne vlasti trebalo odgovoriti <strong>brzo</strong> i"
 
-msgid "The response to your request is <strong>long overdue</strong>.   You can say that, by\\n            law, under all circumstances, the authority should have responded\\n            by now"
+msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Odgovor na Vaš zahtjev <strong>kasni</strong>. Možete reći da po zakonu,\\n u svakom slučaju, tijelo javen vlasti trebalo odgovoriti do sada"
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests that have been made to this authority."
@@ -2864,7 +2862,7 @@ msgstr "Stavke koje pratite"
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Ovo tijelo javne vlasti više ne postoji, zato joj nije moguće podnijeti zahtjev. "
 
-msgid "This covers a very wide spectrum of information about the state of\\n      the <strong>natural and built environment</strong>, such as:"
+msgid "This covers a very wide spectrum of information about the state of the <strong>natural and built environment</strong>, such as:"
 msgstr ""
 "Ovo pokriva širok raspon informacija o stanju\n"
 "<strong>prirodnog i izgrađenog okoliša</strong>, kao:"
@@ -2955,7 +2953,7 @@ msgstr "Ovaj je zahtjev <strong>skriven</strong> sa stranice, jer ga administrat
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Ovaj je zahtjev <strong>prijavljen</strong> administratoru (možda je neprikladan ili se zahtijevaju osobne informacije)"
 
-msgid "This request has been <strong>withdrawn</strong> by the person who made it.\\n               There may be an explanation in the correspondence below."
+msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "Ovaj zahtjev je <strong>povučen</strong> od strane osobe koja ga je napravila.\\n Objašnjenje može biti niže u dopisu."
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
@@ -2970,12 +2968,12 @@ msgstr "Administrator je postavio ovaj zahtjev da \"ne dopušta nikome nove odgo
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "Ovaj je zahtjev dobio neobičan odgovor, te <strong>treba pregled</strong> od strane {{site_name}} tima."
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged\\n    in as a super user."
+msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
 msgstr ""
 "Ovaj je zahtjev inače skriven. Možete ga vidjeti jer ste prijavljeni \n"
 "    kao super korisnik."
 
-msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr ""
 "Ovaj je zahtjev skriven tako da ga samo Vi, kao podnositelj, možete vidjeti. Molimo\n"
 "<a href=\"{{url}}\">kontaktirajte nas</a> ako niste sigurni zašto."
@@ -3324,7 +3322,7 @@ msgstr "Ne posjedujemo ispravnu e-mail adresu službenika za informiranje ovog t
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Nemamo ispravnu {{law_used_full}} adresu za {{public_body_name}}."
 
-msgid "We don't know whether the most recent response to this request contains\\n    information or not\\n        &ndash;\\n\tif you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
+msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Ne znamo sadrži li najnoviji odgovor na ovaj zahtjev\\n informacije ili ne\\n &ndash;\\n ako ste {{user_link}} molimo <a href=\"{{url}}\">prijavite se</a> i ostavite ocjenu."
 
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or\\n        the law tell us to</a>. "
@@ -3379,7 +3377,7 @@ msgstr "Što dalje?"
 msgid "When you get there, please update the status to say if the response \\ncontains any useful information."
 msgstr "Kada ga pregledate, molimo ažurirajte status da nam kažete je li \\nodgovor sadržavao korisne informacije."
 
-msgid "When you receive the paper response, please help\\n            others find out what it says:"
+msgid "When you receive the paper response, please help others find out what it says:"
 msgstr ""
 "Kada dobijete printanu kopiju, molimo pomozite\n"
 "            drugima da saznaju njen sadržaj:"
@@ -3545,16 +3543,16 @@ msgstr ""
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Znate što je uzrok pogrešci i možete <strong>predložiti rješenje</strong>, poput ispravne adrese e-pošte."
 
-msgid "You may <strong>include attachments</strong>. If you would like to attach a\\n  file too large for email, use the form below."
+msgid "You may <strong>include attachments</strong>. If you would like to attach a file too large for email, use the form below."
 msgstr ""
 "Možete <strong>uključiti priloge</strong>. Ako želite priložiti dokument\n"
 "prevelik za e-poštu, koristite obrazac ispod."
 
+msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please <a href=\"{{url}}\">send it to us</a>."
+msgstr "Moguće je da je nađete\\n na njihovoj internetskoj stranici. Ako je uspijete naći, onda molimo\\n <a href=\"{{url}}\">da nam je pošaljete</a>."
+
 msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please send it to us:"
 msgstr "Možda ćete pronaći na njihovoj internetskoj stranici, ili ih možete nazvati i pitati. Ukoliko uspijete pronaći, molimo pošaljite nam:"
-
-msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send it to us</a>."
-msgstr "Moguće je da je nađete\\n na njihovoj internetskoj stranici. Ako je uspijete naći, onda molimo\\n <a href=\"{{url}}\">da nam je pošaljete</a>."
 
 msgid "You may be able to find\\none on their website, or by phoning them up and asking. If you manage\\nto find one, then please <a href=\"{{help_url}}\">send it to us</a>."
 msgstr ""
@@ -3579,7 +3577,7 @@ msgstr "Morate biti prijavljeni da biste administratoru mogli prijaviti zahtjev.
 msgid "You previously submitted that exact follow up message for this request."
 msgstr "Prethodno ste predali istu dodatnu poruku za ovaj zahtjev."
 
-msgid "You should have received a copy of the request by email, and you can respond\\n  by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
+msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr "Trebali biste primiti kopiju zahtjeva e-poštom. Možete <strong>odgovoriti</strong>\\n na tu e-poštu. Kako bi Vam bilo lakše, ovdje je adresa:"
 
 msgid "You want to <strong>give your postal address</strong> to the authority in private."
@@ -3674,7 +3672,7 @@ msgstr "Vaša poruka će se pojaviti u <strong>pretraživačima</strong>"
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Vaše ime i pribilješka će se pojaviti u <strong>pretraživačima</strong>."
 
-msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n                        (<a href=\"{{url}}\">details</a>)."
+msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
 msgstr "Vaše ime, zahtjev i sve poruke će se pojaviti u <strong>pretraživačima</strong>\\n (<a href=\"{{url}}\">detaljnije</a>)."
 
 msgid "Your name:"
@@ -3829,16 +3827,13 @@ msgstr "ali mogu se pratiti"
 msgid "by"
 msgstr "od strane"
 
-msgid "by <strong>{{date}}</strong>"
-msgstr "do <strong>{{date}}</strong>"
-
 msgid "by {{user_link_absolute}}"
 msgstr "od strane {{user_link_absolute}}"
 
 msgid "comments"
 msgstr "komentari"
 
-msgid "containing your postal address, and asking them to reply to this request.\\n            Or you could phone them."
+msgid "containing your postal address, and asking them to reply to this request. Or you could phone them."
 msgstr ""
 "s Vašom poštanskom adresom, tražite da odgovore na ovaj zahtjev.\n"
 "            Ili ih možete kontaktirati telefonom."
@@ -4040,7 +4035,7 @@ msgstr[0] "{{count}} zahtjev izrađen."
 msgstr[1] "{{count}} zahtjeva izrađeno."
 msgstr[2] "{{count}} zahtjeva izrađeno."
 
-msgid "{{existing_request_user}} already\\n            created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n            or edit the details below to make a new but similar request."
+msgid "{{existing_request_user}} already created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>, or edit the details below to make a new but similar request."
 msgstr "{{existing_request_user}} već je\\n izradio jednak zahtjev dana {{date}}. Možete vidjeti <a href=\"{{existing_request}}\">postojeći zahtjev</a>,\\n ili urediti detalje ispod kako biste napravili novi, ali sličan zahtjev."
 
 msgid "{{foi_law}} requests to '{{public_body_name}}'"
@@ -4067,7 +4062,7 @@ msgstr "{{public_body_link}} je odgovorio na zahtjev o"
 msgid "{{public_body_link}} was sent a request about"
 msgstr "Za {{public_body_link}} poslan je zahtjev o"
 
-msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
+msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 msgstr "{{public_body_name}} više ne postoji. Pokušajte odgovoriti na određenu poruku na stranici sa zahtjevima, radije nego da šaljete\\n općeniti upit. Ako morate poslati općeniti upit i znate\\n e-mail odgovarajućeg primatelja, molimo <a href=\"{{url}}\">pošaljite nam ga</a>."
 
 msgid "{{public_body_name}} only:"
@@ -4147,3 +4142,6 @@ msgstr "{{user}} je podnio/la ovaj zahtjev za {{law_used_full}}"
 
 msgid "« Back to search results"
 msgstr "« Povratak na rezultate pretrage"
+
+#~ msgid "by <strong>{{date}}</strong>"
+#~ msgstr "do <strong>{{date}}</strong>"
