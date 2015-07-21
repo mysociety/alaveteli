@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-21 08:47+0000\n"
+"POT-Creation-Date: 2015-07-21 09:18+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/p/alaveteli/language/cy/)\n"
@@ -2403,7 +2403,7 @@ msgstr "Mae rhai nodiadau wedi cael eu hychwanegu at eich cais Rhyddid Gwybodaet
 msgid "Some of the information requested has been received"
 msgstr "Mae peth o'r wybodaeth y gwnaed cais amdani wedi ei dderbyn."
 
-msgid "Some people who've made requests haven't let us know whether they were\\nsuccessful or not.  We need <strong>your</strong> help &ndash;\\nchoose one of these requests, read it, and let everyone know whether or not the\\ninformation has been provided. Everyone'll be exceedingly grateful."
+msgid "Some people who've made requests haven't let us know whether they were successful or not.  We need <strong>your</strong> help &ndash; choose one of these requests, read it, and let everyone know whether or not the information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Nid yw rhai pobl sydd wedi gwneud ceisiadau wedi rhoi gwybod i ni a oeddynt yn llwyddiannus ai peidio. Mae angen <strong>eich</strong> help - dewisiwch un o'r ceisiadau hyn, ei ddarllen, a gadael i bawb wybod a yw'r wybodaeth wedi cael ei darparu. Bydd pawb yn eithriadol o ddiolchgar."
 
 msgid "Somebody added a note to your FOI request - "
@@ -2529,7 +2529,7 @@ msgstr "Diolch i chi am ddiweddaru llun eich proffil"
 msgid "Thank you! We'll look into what happened and try and fix it up."
 msgstr "Diolch yn fawr! Byddwn yn ymchwilio i beth ddigwyddodd ac yn ceisio ei drwsio."
 
-msgid "Thanks for helping - your work will make it easier for everyone to find successful\\nresponses, and maybe even let us make league tables..."
+msgid "Thanks for helping - your work will make it easier for everyone to find successful responses, and maybe even let us make league tables..."
 msgstr "Diolch am helpu - bydd eich gwaith yn ei wneud yn haws i bawb ddod o hyd i geisiadau llwyddiannus, ac efallai hyd yn oed yn gadael i ni lunio tablau cynghrair ..."
 
 msgid "Thanks for your suggestion to add {{public_body_name}}. It's been added to the site here:"
