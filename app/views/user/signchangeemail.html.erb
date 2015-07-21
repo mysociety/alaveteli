@@ -3,39 +3,37 @@
 <% raise _('internal error') if not @user %>
 
 <div id="change_email">
-
-<%= form_tag({:action => "signchangeemail"}, {:id => "signchangeemail_form"}) do %>
+  <%= form_tag({:action => "signchangeemail"}, {:id => "signchangeemail_form"}) do %>
     <%= foi_error_messages_for :signchangeemail %>
 
     <div class="form_note">
-    <h1> <% _('Change your email address used on {{site_name}}', :site_name => site_name) %></h1>
+      <h1><% _('Change your email address used on {{site_name}}', :site_name => site_name) %></h1>
     </div>
 
     <p>
-    <label class="form_label" for="signchangeemail_old_email"> <%= _('Old e-mail:')%></label>
-    <%= text_field 'signchangeemail', 'old_email', { :size => 20 } %>
+      <label class="form_label" for="signchangeemail_old_email"><%= _('Old e-mail:') %></label>
+      <%= text_field 'signchangeemail', 'old_email', { :size => 20 } %>
     </p>
 
     <p>
-    <label class="form_label" for="signchangeemail_new_email"> <%= _('New e-mail:')%></label>
-    <%= text_field 'signchangeemail', 'new_email', { :size => 20 } %>
+      <label class="form_label" for="signchangeemail_new_email"><%= _('New e-mail:') %></label>
+      <%= text_field 'signchangeemail', 'new_email', { :size => 20 } %>
     </p>
 
     <p>
-    <label class="form_label" for="signchangeemail_password"> <%= _('Your password:')%></label>
-    <%= password_field 'signchangeemail', 'password', { :size => 15, :autocomplete => 'off' } %>
+      <label class="form_label" for="signchangeemail_password"><%= _('Your password:') %></label>
+      <%= password_field 'signchangeemail', 'password', { :size => 15, :autocomplete => 'off' } %>
     </p>
 
     <p class="form_note">
-     <%= _('<strong>Note:</strong>
-    We will send an email to your new email address. Follow the
-    instructions in it to confirm changing your email.')%>
+      <%= _('<strong>Note:</strong> We will send an email to your new email ' \
+            'address. Follow the instructions in it to confirm changing your ' \
+            'email.') %>
     </p>
 
     <div class="form_button">
-    <%= hidden_field_tag 'submitted_signchangeemail_do', 1 %>
-    <%= submit_tag _("Change email on {{site_name}}", :site_name=>site_name) %>
+      <%= hidden_field_tag 'submitted_signchangeemail_do', 1 %>
+      <%= submit_tag _("Change email on {{site_name}}", :site_name => site_name) %>
     </div>
-<% end %>
-
+  <% end %>
 </div>

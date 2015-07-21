@@ -1,19 +1,21 @@
 <% @title = h(@display_user.name) + _(" - wall") %>
+
 <div class="medium_column">
- <% if @is_you %>
-  <h2><%= _("My wall") %></h2>
-  <p><%= _('You can change the requests and users you are following on <a href="{{profile_url}}">your profile page</a>.', :profile_url => show_user_profile_path) %></p>
-  <%= render :partial => 'change_receive_email' %>
- <% else %>
-  <h2><%= _("This is <a href=\"{{profile_url}}\">{{user_name}}'s</a> wall", :profile_url => show_user_profile_path, :user_name => h(@display_user.name)) %></h2>
- <% end %>
-</div>
-<div id="user_profile_search">
- <% if !@feed_results.nil? and !@feed_results.empty? %>
-  <% for result in @feed_results %>
-   <%= render :partial => 'request/wall_listing', :locals => { :event => result, :info_request => result.info_request } %>
+  <% if @is_you %>
+    <h2><%= _("My wall") %></h2>
+    <p><%= _('You can change the requests and users you are following on <a href="{{profile_url}}">your profile page</a>.', :profile_url => show_user_profile_path) %></p>
+    <%= render :partial => 'change_receive_email' %>
+  <% else %>
+    <h2><%= _("This is <a href=\"{{profile_url}}\">{{user_name}}'s</a> wall", :profile_url => show_user_profile_path, :user_name => h(@display_user.name)) %></h2>
   <% end %>
- <% else %>
-  <p><%= _("There is nothing to display yet.") %></p>
- <% end %>
+</div>
+
+<div id="user_profile_search">
+  <% if !@feed_results.nil? and !@feed_results.empty? %>
+    <% for result in @feed_results %>
+      <%= render :partial => 'request/wall_listing', :locals => { :event => result, :info_request => result.info_request } %>
+    <% end %>
+  <% else %>
+    <p><%= _("There is nothing to display yet.") %></p>
+  <% end %>
 </div>

@@ -1,45 +1,43 @@
 <% @title = "Contact " + h(@recipient_user.name) %>
 
 <% if not @user %>
-    <% raise "You need to be logged in" %>
+  <% raise "You need to be logged in" %>
 <% end %>
 
 <%= foi_error_messages_for :contact %>
 
 <%= form_for :contact do |f| %>
+  <div class="form_note">
+    <h1><%= _("Contact {{recipient}}", :recipient => h(@recipient_user.name)) %></h1>
+  </div>
 
-    <div class="form_note">
-      <h1><%= _("Contact {{recipient}}", :recipient => h(@recipient_user.name)) %></h1>
-    </div>
+  <p>
+    <label class="form_label"><%= _("From") %>:</label>
+    <%= h(@user.name_and_email) %>
+  </p>
 
-    <p>
-        <label class="form_label"><%= _("From") %>:</label>
-        <%= h(@user.name_and_email) %>
-    </p>
+  <p>
+    <label class="form_label" for="contact_subject"><%= _("Subject") %>:</label>
+    <%= f.text_field :subject, :size => 50 %>
+  </p>
 
-    <p>
-        <label class="form_label" for="contact_subject"><%= _("Subject") %>:</label>
-        <%= f.text_field :subject, :size => 50 %>
-    </p>
+  <p>
+    <label class="form_label" for="contact_message"><%= _("Message") %>:</label>
+    <%= f.text_area :message, :rows => 10, :cols => 50 %>
+  </p>
 
-    <p>
-      <label class="form_label" for="contact_message"><%= _("Message") %>:</label>
-        <%= f.text_area :message, :rows => 10, :cols => 50 %>
-    </p>
+  <p class="form_note">
+    <% if @user == @recipient_user %>
+      <%= _("<strong>Note:</strong> You're sending a message to yourself, " \
+            "presumably to try out how it works.")%>
+    <% else %>
+      <%= _(' <strong>Privacy note:</strong> Your email address will be given to') %>
+      <%= user_link(@recipient_user) %><%= _(' when you send this message.')%>
+    <% end %>
+  </p>
 
-    <p class="form_note">
-        <% if @user == @recipient_user %>
-            <%= _('<strong>Note:</strong> You\'re sending a message to yourself, presumably
-            to try out how it works.')%>
-        <% else %>
-           <%= _(' <strong>Privacy note:</strong> Your email address will be given to')%>
-            <%= user_link(@recipient_user) %><%= _(' when you send this message.')%>
-        <% end %>
-    </p>
-
-    <div class="form_button">
-        <%= hidden_field_tag(:submitted_contact_form, { :value => 1 } ) %>
-        <%= submit_tag _("Send message") %>
-    </div>
-
+  <div class="form_button">
+    <%= hidden_field_tag(:submitted_contact_form, { :value => 1 } ) %>
+    <%= submit_tag _("Send message") %>
+  </div>
 <% end %>

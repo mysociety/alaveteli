@@ -5,238 +5,260 @@
 <% end %>
 
 <% if (@same_name_users.size >= 1) %>
-    <p><%= _('There is <strong>more than one person</strong> who uses this site and has this name.
-    One of them is shown below, you may mean a different one:')%> <% for @same_name_user in @same_name_users %>
-        <%= user_link(@same_name_user) %>
+  <p>
+    <%= _('There is <strong>more than one person</strong> who uses this site ' \
+          'and has this name. One of them is shown below, you may mean a ' \
+          'different one:')%>
+    <% for @same_name_user in @same_name_users %>
+      <%= user_link(@same_name_user) %>
     <% end %>
-<% end%>
+  </p>
+<% end %>
 
 <% if @show_profile && @is_you && @undescribed_requests.size > 0 %>
-    <div class="undescribed_requests">
-        <p><%= _('Please <strong>go to the following requests</strong>, and let us
-        know if there was information in the recent responses to them.')%></p>
-        <ul>
-        <% for undescribed_request in @undescribed_requests %>
-            <li><%=request_link(undescribed_request)%></li>
-        <% end %>
-        </ul>
-        <p>
-      <%= _('Thanks very much - this will help others find useful stuff. We\'ll
-            also, if you need it, give advice on what to do next about your
-            requests.')%>
-        </p>
-    </div>
+  <div class="undescribed_requests">
+    <p>
+      <%= _('Please <strong>go to the following requests</strong>, and let ' \
+            'us know if there was information in the recent responses to ' \
+            'them.') %>
+    </p>
+
+    <ul>
+      <% for undescribed_request in @undescribed_requests %>
+        <li><%= request_link(undescribed_request) %></li>
+      <% end %>
+    </ul>
+
+    <p>
+      <%= _("Thanks very much - this will help others find useful stuff. " \
+            "We'll also, if you need it, give advice on what to do next " \
+            "about your requests.") %>
+    </p>
+  </div>
 <% end %>
 
 <% if @show_profile %>
-<div id="user_profile_header">
-  <div id="header_right">
-     <% if !@track_thing.nil? %>
-       <h2><%= _('Track this person')%></h2>
-       <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
-       <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'sidebar' } %>
-     <% end %>
-     <% if !@xapian_requests.nil? %>
-       <h2><%= _('On this page')%></h2>
-       <a href="#foi_requests"><%= _('FOI requests')%></a>
-       <br><a href="#annotations"><%= _('Annotations')%></a>
-     <% end %>
-  </div>
+  <div id="user_profile_header">
+    <div id="header_right">
+      <% if !@track_thing.nil? %>
+        <h2><%= _('Track this person') %></h2>
+        <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
+        <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'sidebar' } %>
+      <% end %>
 
-  <div id="header_left">
-    <p id="user_photo_on_profile">
+      <% if !@xapian_requests.nil? %>
+        <h2><%= _('On this page') %></h2>
+        <a href="#foi_requests"><%= _('FOI requests') %></a>
+        <br><a href="#annotations"><%= _('Annotations') %></a>
+      <% end %>
+    </div>
+
+    <div id="header_left">
+      <p id="user_photo_on_profile">
         <% if @display_user.profile_photo %>
-            <% if @is_you %>
+          <% if @is_you %>
             <a href="<%= set_profile_photo_url() %>">
-            <% end %>
-                <img src="<%= get_profile_photo_url(:url_name => @display_user.url_name) %>" alt="">
-            <% if @is_you %>
+          <% end %>
+
+          <img src="<%= get_profile_photo_url(:url_name => @display_user.url_name) %>" alt="">
+
+          <% if @is_you %>
             </a>
-            <% end %>
+          <% end %>
+
         <% else %>
-            <% if @is_you %>
-                <span id="set_photo">
-                    <%= link_to _('Set your profile photo'), set_profile_photo_path %>
-                </span>
-            <% end %>
+          <% if @is_you %>
+            <span id="set_photo">
+              <%= link_to _('Set your profile photo'), set_profile_photo_path %>
+            </span>
+          <% end %>
         <% end %>
-    </p>
+      </p>
 
-    <h1> <%= h(@display_user.name) + (@is_you ? _(" (you)") : "") %></h1>
+      <h1><%= h(@display_user.name) + (@is_you ? _(" (you)") : "") %></h1>
 
-    <p class="subtitle">
-       <%= _('Joined {{site_name}} in', :site_name=>site_name) %> <%= @display_user.created_at.year %>
+      <p class="subtitle">
+        <%= _('Joined {{site_name}} in', :site_name=>site_name) %> <%= @display_user.created_at.year %>
         <% if !@user.nil? && @user.admin_page_links? %>
-        (<%= link_to "admin", admin_user_path(@display_user) %>)
+          (<%= link_to "admin", admin_user_path(@display_user) %>)
         <% end %>
-    </p>
+      </p>
 
-    <p>
+      <p>
         <%= link_to _('Send message to ') + h(@display_user.name), contact_user_path(:id => @display_user.id) %>
         <% if @is_you %>
-            (<%= _('just to see how it works')%>)
+          (<%= _('just to see how it works') %>)
         <% end %>
-    </p>
+      </p>
 
-    <% if @display_user.banned? %>
+      <% if @display_user.banned? %>
         <div id="user_public_banned">
-            <p>
-                <strong>
-                  <%= _('This user has been banned from {{site_name}} ', :site_name=>site_name)%>
-                </strong>
-            </p>
-            <p>
-               <%= _('They have been given the following explanation:')%>
-            </p>
-            <p class="details">
-                <%= @display_user.can_fail_html %>
-            </p>
+          <p>
+            <strong>
+              <%= _('This user has been banned from {{site_name}} ', :site_name=>site_name) %>
+            </strong>
+          </p>
+
+          <p>
+            <%= _('They have been given the following explanation:') %>
+          </p>
+
+          <p class="details">
+            <%= @display_user.can_fail_html %>
+          </p>
         </div>
-    <% end %>
+      <% end %>
 
-    <%= render :partial => 'user/show_user_info' %>
+      <%= render :partial => 'user/show_user_info' %>
 
-    <% if not @is_you %>
+      <% if not @is_you %>
         <p id="user_not_logged_in">
-           <%= _('<a href="{{url}}">Sign in</a> to change password, subscriptions and more ({{user_name}} only)',:user_name=>h(@display_user.name), :url => signin_url(:r => request.fullpath).html_safe) %>
+          <%= _('<a href="{{url}}">Sign in</a> to change password, subscriptions and more ({{user_name}} only)',:user_name => h(@display_user.name), :url => signin_url(:r => request.fullpath).html_safe) %>
         </p>
-    <% end %>
+      <% end %>
+    </div>
   </div>
-</div>
-<div style="clear:both"></div>
+
+  <div style="clear:both"></div>
 <% end %>
 
 <% if @show_batches %>
-
   <% if @is_you && !@display_user.info_request_batches.empty? %>
-      <h2 class="batch_results" id="batch_requests">
-          <%=  n_('Your {{count}} batch requests', 'Your {{count}} batch requests', @display_user.info_request_batches.size, :count => @display_user.info_request_batches.size) %>
-      </h2>
-      <%= render :partial => 'info_request_batch/info_request_batch', :collection => @display_user.info_request_batches %>
-    <% end %>
+    <h2 class="batch_results" id="batch_requests">
+      <%= n_('Your {{count}} batch requests', 'Your {{count}} batch requests', @display_user.info_request_batches.size, :count => @display_user.info_request_batches.size) %>
+    </h2>
 
+    <%= render :partial => 'info_request_batch/info_request_batch', :collection => @display_user.info_request_batches %>
+  <% end %>
 <% end %>
 
 <% if @show_requests %>
-<div id="user_profile_search">
+  <div id="user_profile_search">
     <%= form_tag(show_user_url, :method => "get", :id=>"search_form") do %>
-    <div>
+      <div>
         <%= text_field_tag(:user_query, params[:user_query], {:title => "type your search term here" }) %>
         <%= select_tag :request_latest_status,
-                       options_from_collection_for_select(@request_states, 'value', 'text', params[:request_latest_status]),
-                       :prompt => _('Filter by Request Status (optional)') %>
+          options_from_collection_for_select(@request_states, 'value', 'text', params[:request_latest_status]),
+          :prompt => _('Filter by Request Status (optional)') %>
         <% if @is_you %>
-            <%= submit_tag(_("Search your contributions")) %>
+          <%= submit_tag(_("Search your contributions")) %>
         <% else %>
-            <%= submit_tag(_("Search contributions by this person")) %>
+          <%= submit_tag(_("Search contributions by this person")) %>
         <% end %>
-    </div>
+      </div>
     <% end %>
 
     <% if !@xapian_requests.nil? %>
-        <% if @xapian_requests.results.empty? %>
-            <% if @page == 1 %>
-                <h2 class="foi_results" id="foi_requests"><%= @is_you ? _('Freedom of Information requests made by you') : _('Freedom of Information requests made by this person') %> <%= @match_phrase %>
-</h2>
-                <p><%= @is_you ? _('You have made no Freedom of Information requests using this site.') : _('This person has made no Freedom of Information requests using this site.') %>
-                <%= @page_desc %>
-            <% end %>
-        <% else %>
-            <h2 class="foi_results" id="foi_requests">
-                <%= @is_you ? n_('Your {{count}} Freedom of Information request', 'Your {{count}} Freedom of Information requests', @xapian_requests.matches_estimated, :count => @xapian_requests.matches_estimated) : n_("This person's {{count}} Freedom of Information request", "This person's {{count}} Freedom of Information requests",  @xapian_requests.matches_estimated, :count => @xapian_requests.matches_estimated) %>
-                <!-- matches_estimated <%=@xapian_requests.matches_estimated%> -->
-                <%= @match_phrase %>
-                <%= @page_desc %>
-            </h2>
+      <% if @xapian_requests.results.empty? %>
+        <% if @page == 1 %>
+          <h2 class="foi_results" id="foi_requests">
+            <%= @is_you ? _('Freedom of Information requests made by you') : _('Freedom of Information requests made by this person') %> <%= @match_phrase %>
+          </h2>
 
+          <p><%= @is_you ? _('You have made no Freedom of Information requests using this site.') : _('This person has made no Freedom of Information requests using this site.') %></p>
 
-            <% for result in @xapian_requests.results %>
-                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
-            <% end %>
-
-            <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.info_requests.size) %>
+          <%= @page_desc %>
         <% end %>
+      <% else %>
+        <h2 class="foi_results" id="foi_requests">
+          <%= @is_you ? n_('Your {{count}} Freedom of Information request', 'Your {{count}} Freedom of Information requests', @xapian_requests.matches_estimated, :count => @xapian_requests.matches_estimated) : n_("This person's {{count}} Freedom of Information request", "This person's {{count}} Freedom of Information requests",  @xapian_requests.matches_estimated, :count => @xapian_requests.matches_estimated) %>
+          <!-- matches_estimated <%=@xapian_requests.matches_estimated%> -->
+          <%= @match_phrase %>
+          <%= @page_desc %>
+        </h2>
+
+        <% for result in @xapian_requests.results %>
+          <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
+        <% end %>
+
+        <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.info_requests.size) %>
+      <% end %>
     <% else %>
       <% if @show_requests %>
-        <h2 class="foi_results" id="foi_requests"><%= @is_you ? _('Freedom of Information requests made by you') : _('Freedom of Information requests made by this person') %> </h2>
+        <h2 class="foi_results" id="foi_requests">
+          <%= @is_you ? _('Freedom of Information requests made by you') : _('Freedom of Information requests made by this person') %>
+        </h2>
         <p><%= _('The search index is currently offline, so we can\'t show the Freedom of Information requests this person has made.')%></p>
       <% end %>
     <% end %>
 
     <% if !@xapian_comments.nil? %>
-        <% if @xapian_comments.results.empty? %>
-            <% if @page == 1 %>
-                <h2><%= @is_you ? _('Your annotations') : _('This person\'s annotations') %>
-                    <%= @match_phrase %>
-                </h2>
-                <p><%= _('None made.')%></p>
-            <% end %>
-        <% else %>
-            <h2 id="annotations">
-                <%= @is_you ? n_('Your {{count}} annotation', 'Your {{count}} annotations', @display_user.comments.visible.size, :count => @display_user.comments.visible.size) : n_("This person's {{count}} annotation", "This person's {{count}} annotations", @display_user.comments.visible.size, :count => @display_user.comments.visible.size) %>
-                  <!-- matches_estimated <%=@xapian_comments.matches_estimated%> -->
-                <%= @page_desc %>
-            </h2>
-
-            <% for result in @xapian_comments.results %>
-                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
-            <% end %>
-
-            <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.comments.visible.size) %>
+      <% if @xapian_comments.results.empty? %>
+        <% if @page == 1 %>
+          <h2>
+            <%= @is_you ? _('Your annotations') : _('This person\'s annotations') %>
+            <%= @match_phrase %>
+          </h2>
+          <p><%= _('None made.') %></p>
         <% end %>
-    <% end %>
+      <% else %>
+        <h2 id="annotations">
+          <%= @is_you ? n_('Your {{count}} annotation', 'Your {{count}} annotations', @display_user.comments.visible.size, :count => @display_user.comments.visible.size) : n_("This person's {{count}} annotation", "This person's {{count}} annotations", @display_user.comments.visible.size, :count => @display_user.comments.visible.size) %>
+          <!-- matches_estimated <%=@xapian_comments.matches_estimated%> -->
+          <%= @page_desc %>
+        </h2>
 
-</div>
+        <% for result in @xapian_comments.results %>
+          <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
+        <% end %>
+
+        <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.comments.visible.size) %>
+      <% end %>
+    <% end %>
+  </div>
 <% end %>
-<% if @show_profile && @is_you %>
-    <h2 id="email_subscriptions"> <%= _("Things you're following")%></h2>
-    <%= render :partial => 'change_receive_email' %>
-    <br>
-    <% if @track_things.empty? %>
-        <p><%= _("You're not following anything.")%></p>
-    <% else %>
-        <% if @track_things_grouped.size == 1 %>
-            <%= form_tag({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
-                <h3>
-                    <%=TrackThing.track_type_description(@track_things[0].track_type)%>
-                    <%= hidden_field_tag 'track_type', @track_things[0].track_type %>
-                    <%= hidden_field_tag 'user', @display_user.id %>
-                    <%= hidden_field_tag 'r', request.fullpath %>
-                    <% if @track_things.size > 1 %>
-                        <%= submit_tag _('unsubscribe all') %>
-                    <% end %>
-                </h3>
-            <% end %>
-        <% end %>
-        <% for track_type, track_things in @track_things_grouped %>
-            <% if @track_things_grouped.size > 1 %>
-                <%= form_tag({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
-                    <h3>
-                        <%=TrackThing.track_type_description(track_type)%>
-                        <%= hidden_field_tag 'track_type', track_type %>
-                        <%= hidden_field_tag 'user', @display_user.id %>
-                        <%= hidden_field_tag 'r', request.fullpath %>
-                        <% if track_things.size > 1 %>
-                            <%= submit_tag _('unsubscribe all')%>
-                        <% end %>
-                    </h3>
-                <% end %>
-            <% end %>
 
-            <ul>
-            <% for track_thing in track_things %>
-                <li>
-                    <%= form_tag({:controller => 'track', :action => 'update', :track_id => track_thing.id}, :class => "feed_form") do %>
-                        <div>
-                            <%= track_description(track_thing) %>
-                            <%= hidden_field_tag 'track_medium', "delete", { :id => 'track_medium_' + track_thing.id.to_s } %>
-                            <%= hidden_field_tag 'r', request.fullpath, { :id => 'r_' + track_thing.id.to_s }  %>
-                            <%= submit_tag _('unsubscribe') %>
-                        </div>
-                    <% end %>
-                </li>
-            <% end %>
-            </ul>
-        <% end %>
+<% if @show_profile && @is_you %>
+  <h2 id="email_subscriptions"><%= _("Things you're following") %></h2>
+  <%= render :partial => 'change_receive_email' %>
+  <br>
+
+  <% if @track_things.empty? %>
+    <p><%= _("You're not following anything.") %></p>
+  <% else %>
+    <% if @track_things_grouped.size == 1 %>
+      <%= form_tag({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
+        <h3>
+          <%=TrackThing.track_type_description(@track_things[0].track_type)%>
+          <%= hidden_field_tag 'track_type', @track_things[0].track_type %>
+          <%= hidden_field_tag 'user', @display_user.id %>
+          <%= hidden_field_tag 'r', request.fullpath %>
+          <% if @track_things.size > 1 %>
+            <%= submit_tag _('unsubscribe all') %>
+          <% end %>
+        </h3>
+      <% end %>
     <% end %>
+
+    <% for track_type, track_things in @track_things_grouped %>
+      <% if @track_things_grouped.size > 1 %>
+        <%= form_tag({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
+          <h3>
+            <%=TrackThing.track_type_description(track_type)%>
+            <%= hidden_field_tag 'track_type', track_type %>
+            <%= hidden_field_tag 'user', @display_user.id %>
+            <%= hidden_field_tag 'r', request.fullpath %>
+            <% if track_things.size > 1 %>
+              <%= submit_tag _('unsubscribe all')%>
+            <% end %>
+          </h3>
+        <% end %>
+      <% end %>
+
+      <ul>
+        <% for track_thing in track_things %>
+          <li>
+            <%= form_tag({:controller => 'track', :action => 'update', :track_id => track_thing.id}, :class => "feed_form") do %>
+              <div>
+                <%= track_description(track_thing) %>
+                <%= hidden_field_tag 'track_medium', "delete", { :id => 'track_medium_' + track_thing.id.to_s } %>
+                <%= hidden_field_tag 'r', request.fullpath, { :id => 'r_' + track_thing.id.to_s }  %>
+                <%= submit_tag _('unsubscribe') %>
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
 <% end %>

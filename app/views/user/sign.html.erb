@@ -1,50 +1,50 @@
 <% if !@post_redirect.nil? && @post_redirect.reason_params[:user_name] %>
-    <% @title = _("Sign in") %>
-    <div id="sign_alone">
+  <% @title = _("Sign in") %>
+  <div id="sign_alone">
 
-      <p id="sign_in_reason">
-          <% if @post_redirect.reason_params[:web].empty? %>
-              <%= _('Please sign in as ')%><%= link_to h(@post_redirect.reason_params[:user_name]), @post_redirect.reason_params[:user_url] %>.
-          <% else %>
-              <%= @post_redirect.reason_params[:web] %>,
-              <%= _('please sign in as ')%><%= link_to h(@post_redirect.reason_params[:user_name]), @post_redirect.reason_params[:user_url] %>.
-          <% end %>
-      </p>
-
-      <% if @post_redirect.post_params["controller"] == "admin_general" %>
-          <% unless AlaveteliConfiguration::disable_emergency_user %>
-              <p id="superuser_message"><%= _("Don't have a superuser account yet?") %> <%= link_to _("Sign in as the emergency user"), @post_redirect.uri + "?emergency=1" %></p>
-          <% end %>
+    <p id="sign_in_reason">
+      <% if @post_redirect.reason_params[:web].empty? %>
+        <%= _('Please sign in as ')%><%= link_to h(@post_redirect.reason_params[:user_name]), @post_redirect.reason_params[:user_url] %>.
+      <% else %>
+        <%= @post_redirect.reason_params[:web] %>,
+        <%= _('please sign in as ')%><%= link_to h(@post_redirect.reason_params[:user_name]), @post_redirect.reason_params[:user_url] %>.
       <% end %>
+    </p>
 
-      <%= render :partial => 'signin', :locals => { :sign_in_as_existing_user => true } %>
-    </div>
+    <% if @post_redirect.post_params["controller"] == "admin_general" %>
+      <% unless AlaveteliConfiguration::disable_emergency_user %>
+        <p id="superuser_message"><%= _("Don't have a superuser account yet?") %> <%= link_to _("Sign in as the emergency user"), @post_redirect.uri + "?emergency=1" %></p>
+      <% end %>
+    <% end %>
+
+    <%= render :partial => 'signin', :locals => { :sign_in_as_existing_user => true } %>
+  </div>
 <% else %>
-    <% @title = _('Sign in or make a new account') %>
+  <% @title = _('Sign in or make a new account') %>
 
-    <div id="sign_together">
-        <% if !@post_redirect.nil? %>
-            <h1 id="sign_in_reason">
-                <% if @post_redirect.reason_params[:web].empty? %>
-                    <%= _('Please create an account or sign in') %>
-                <% else %>
-                    <%= _('{{reason}}, create an account or sign in', :reason => @post_redirect.reason_params[:web]) %>
-                <% end %>
-            </h1>
+  <div id="sign_together">
+    <% if !@post_redirect.nil? %>
+      <h1 id="sign_in_reason">
+        <% if @post_redirect.reason_params[:web].empty? %>
+          <%= _('Please create an account or sign in') %>
+        <% else %>
+          <%= _('{{reason}}, create an account or sign in', :reason => @post_redirect.reason_params[:web]) %>
         <% end %>
-        <div id="left_half">
-            <h2><%= _('Create a new account') %></h2>
-            <%= render :partial => 'signup' %>
-        </div>
-
-        <div id="right_half">
-          <div class="sign-in-wrapper">
-            <p class="pretitle"><%= _('Got an account?') %></p>
-            <h2><%= _('Sign in') %></h2>
-            <%= render :partial => 'signin', :locals => { :sign_in_as_existing_user => false } %>
-          </div>
-        </div>
-
-        <div style="clear:both"></div>
+      </h1>
+    <% end %>
+    <div id="left_half">
+      <h2><%= _('Create a new account') %></h2>
+      <%= render :partial => 'signup' %>
     </div>
+
+    <div id="right_half">
+      <div class="sign-in-wrapper">
+        <p class="pretitle"><%= _('Got an account?') %></p>
+        <h2><%= _('Sign in') %></h2>
+        <%= render :partial => 'signin', :locals => { :sign_in_as_existing_user => false } %>
+      </div>
+    </div>
+
+    <div style="clear:both"></div>
+  </div>
 <% end %>
