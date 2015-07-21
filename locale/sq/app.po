@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-21 09:18+0000\n"
+"POT-Creation-Date: 2015-07-21 11:30+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/p/alaveteli/language/sq/)\n"
@@ -28,11 +28,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
-msgstr ""
-"Kjo do të shfaqet në profilin tënd në {{site_name}}, për ta bërë më të\n"
-"lehtë për të tjerët që të involvohen me çfarë jeni duke bërë."
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
 msgstr " (pa politikë <strong>llafazane</strong>, lexo <a href=\"{{url}}\">politikat e moderimit</a>)"
@@ -55,12 +50,6 @@ msgstr ""
 msgid " << "
 msgstr ""
 
-msgid " <strong>Note:</strong>\\n    We will send you an email. Follow the instructions in it to change\\n    your password."
-msgstr ""
-" <strong>Shënim:</strong>\n"
-"    Do të dërgoj një email. Ndiq udhëzimet në te për të ndryshuar \n"
-"    fjalëkalimin tënd."
-
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
 msgstr " <strong>Shënim privatësie:</strong> Adresa e emailit do t'i jepet"
 
@@ -79,12 +68,6 @@ msgstr " Këshillo se si <strong>më së miri të sqarohet</strong> një kërkes
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr " Ide se çfarë <strong>dokumentesh tjera të kërkohen</strong> që mund t'i posedojë institucioni. "
 
-msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
-msgstr ""
-" Përfshij vegzat relevante, si p.sh. te faqja e fushatës, blogu yt apo\n"
-"            llogaria e twitterit. Ato do të bëhen të klikueshme. \n"
-"            p.sh."
-
 msgid " Link to the information requested, if it is <strong>already available</strong> on the Internet. "
 msgstr " Vegza për informatat e kërkuara, në qoftë se ato <strong> tashmë janë</strong> në dispozicion në internet. "
 
@@ -96,9 +79,6 @@ msgstr " Trego se si ke <strong>përdorur informacionin,</strong> me ueb vegza n
 
 msgid " Suggest <strong>where else</strong> the requester might find the information. "
 msgstr " Sugjero <strong>ku tjetër</strong> kërkuesi mund të gjej informacionin. "
-
-msgid " What are you investigating using Freedom of Information? "
-msgstr " Çfarë jeni duke hulumtuar (hetuar) duke përdor kërkesat për çasje në Informata Zyrtare? "
 
 msgid " You are already being emailed updates about the request."
 msgstr " Ti tashmë je duke i pranuar me email aktualizimet në lidhje me këtë kërkesë."
@@ -291,18 +271,24 @@ msgstr "<strong>Asnjë përgjigje</strong> nuk është marrë <small>(ndoshta ke
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr ""
 
-msgid "<strong>Note:</strong> You're sending a message to yourself, presumably\\n            to try out how it works."
-msgstr ""
-"<strong>Vërejtje:</strong> Po ia dërgoni një porosi vetvetes, me gjasë\n"
-"            për të parë se si funksionon."
-
-msgid "<strong>Note:</strong>\\n    We will send an email to your new email address. Follow the\\n    instructions in it to confirm changing your email."
+msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr ""
 "<strong>Shenim:</strong>\n"
 "    Do të dërgojmë email në adresën tënde të re. Përcjelli\n"
 "    udhëzimet për të konfirmuar ndërrimin e emailit."
 
-msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
+msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
+msgstr ""
+" <strong>Shënim:</strong>\n"
+"    Do të dërgoj një email. Ndiq udhëzimet në te për të ndryshuar \n"
+"    fjalëkalimin tënd."
+
+msgid "<strong>Note:</strong> You're sending a message to yourself, presumably to try out how it works."
+msgstr ""
+"<strong>Vërejtje:</strong> Po ia dërgoni një porosi vetvetes, me gjasë\n"
+"            për të parë se si funksionon."
+
+msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, wherever you do something on {{site_name}}."
 msgstr ""
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
@@ -1268,9 +1254,6 @@ msgstr ""
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr ""
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr "Nëse ti përdor \"web-based\" email klient (p.sh. hotmail.com) ose ke \"junk mail\" filtra, kontrollo edhe bulk/spam folderët. Ndonjëherë, mesazhet tona janë të shenjuara në këtë mënyrë."
-
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr ""
 "Nëse do që ne ta heqim këtë leçitje, atëherë të lutem\n"
@@ -1290,6 +1273,12 @@ msgstr "Nëse e ke përdorë {{site_name}} më parë"
 
 msgid "If your browser is set to accept cookies and you are seeing this message,\\nthen there is probably a fault with our server."
 msgstr "Nëse shfletuesi yt është vendosur për të pranuar \"cookies\" dhe ju jeni duke parë këtë mesazh, atëherë me sa duket ka gabim në serverin tonë."
+
+msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
+msgstr ""
+" Përfshij vegzat relevante, si p.sh. te faqja e fushatës, blogu yt apo\n"
+"            llogaria e twitterit. Ato do të bëhen të klikueshme. \n"
+"            p.sh."
 
 msgid "Incoming email address"
 msgstr ""
@@ -1459,7 +1448,7 @@ msgstr "Autoriteti i shikuar së fundi: "
 msgid "Last request viewed: "
 msgstr "Kërkesa e shikuar së fundi: "
 
-msgid "Let us know what you were doing when this message\\nappeared and your browser and operating system type and version."
+msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Na trego se çfarë ke qenë duke bërë kur ky mesazh u shfaq si dhe emrin e shfletuesit (browser-it) dhe versionin e tij. Gjithashtu na trego për emrin e sistemit operativ dhe versionin."
 
 msgid "Link to this"
@@ -1831,7 +1820,7 @@ msgid_plural "Please <strong>answer the question above</strong> so we know wheth
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Please <strong>go to the following requests</strong>, and let us\\n        know if there was information in the recent responses to them."
+msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr ""
 "Të lutem <strong>shko te kërkesa</strong>, dhe na e bëj\n"
 "        me dije nëse ka pasë informatë në përgjigjen e fundit drejtuar atyre."
@@ -1875,7 +1864,7 @@ msgstr ""
 msgid "Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway."
 msgstr "Të lutem përshkruaj në lëndë më gjerësisht se për çfarë është kërkesa. Nuk ka nevojë të shkruhet që bëhet fjalë për kërkesë për qasje në informata, ajo shtohet automatikisht."
 
-msgid "Please don't upload offensive pictures. We will take down images\\n    that we consider inappropriate."
+msgid "Please don't upload offensive pictures. We will take down images that we consider inappropriate."
 msgstr "Të lutem mos ngarko fotografi ofenduese. Ne do t'i largojmë imazhet që ne i konsiderojmë të papërshtatshme."
 
 msgid "Please enable \"cookies\" to carry on"
@@ -2624,7 +2613,7 @@ msgstr ""
 msgid "Thanks for your suggestion to update the email address for {{public_body_name}} to {{public_body_email}}. This has now been done and any new requests will be sent to the new address."
 msgstr ""
 
-msgid "Thanks very much - this will help others find useful stuff. We'll\\n            also, if you need it, give advice on what to do next about your\\n            requests."
+msgid "Thanks very much - this will help others find useful stuff. We'll also, if you need it, give advice on what to do next about your requests."
 msgstr ""
 "Shumë faleminderit - kjo do të ndihmojë të tjerët të gjejnë gjëra të dobishme. \n"
 "Ne gjithashtu mund të ndihmojmë, nëse ke nevojë, me këshilla si të veproni në vijim me kërkesat tuaja."
@@ -2833,7 +2822,7 @@ msgstr "Pastaj shënimi yt për {{info_request_title}} do të postohet."
 msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
 msgstr "Ka {{count}} shënime të reja në kërkesën tënde  {{info_request}}. Ndiqni këtë vegzë për t'i parë ato."
 
-msgid "There is <strong>more than one person</strong> who uses this site and has this name.\\n    One of them is shown below, you may mean a different one:"
+msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -3020,6 +3009,11 @@ msgid "This was not possible because there is already an account using \\nthe em
 msgstr ""
 "Kjo nuk ishte e mundur sepse egziston një llogari duke\n"
 "përdorur këtë adresë të emailit {{email}}."
+
+msgid "This will appear on your {{site_name}} profile, to make it easier for others to get involved with what you're doing."
+msgstr ""
+"Kjo do të shfaqet në profilin tënd në {{site_name}}, për ta bërë më të\n"
+"lehtë për të tjerët që të involvohen me çfarë jeni duke bërë."
 
 msgid "To"
 msgstr ""
@@ -3345,11 +3339,6 @@ msgstr ""
 "        &ndash;\n"
 " nëse ti je {{user_link}}, të lutem <a href=\"{{url}}\">kyçu </a> dhe bëje këtë të ditur për të tjerët."
 
-msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or\\n        the law tell us to</a>. "
-msgstr ""
-"Ne nuk do t'ja zbulojmë adresën e emailit tënd askujt, përveç nëse ti\n"
-"        e lejon këtë. (<a href=\"{{url}}\">detajet</a>). "
-
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr "Ne nuk do ta zbulojmë adresën e emailit tënd askujt, përveç nëse ju e lejoni këtë."
 
@@ -3366,7 +3355,7 @@ msgid_plural "We're waiting for {{user}} to read recent responses and update the
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "We've sent an email to your new email address. You'll need to click the link in\\nit before your email address will be changed."
+msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
 msgstr "Ne të kemi dërguar një email të ri në adresën e emailit tënd. Ti duhet të klikosh në vegzën në te para se adresa e emailit tënd do të ndryshohet."
 
 msgid "We've sent you an email, and you'll need to click the link in it before you can\\ncontinue."
@@ -3377,6 +3366,9 @@ msgstr "Ne të kemi dërguar një email, kliko në vegzën në te që të mund t
 
 msgid "What are you doing?"
 msgstr "Çfarë je duke bërë?"
+
+msgid "What are you investigating using Freedom of Information?"
+msgstr " Çfarë jeni duke hulumtuar (hetuar) duke përdor kërkesat për çasje në Informata Zyrtare? "
 
 msgid "What best describes the status of this request now?"
 msgstr "Çfarë përshkruan më së miri statusin e kësaj kërkese tani?"
@@ -3646,7 +3638,7 @@ msgstr "Nuk po ndiqni ndonjë gjë."
 msgid "You've now cleared your profile photo"
 msgstr "Ke pastruar fotografinë e profilit tënd"
 
-msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines.\\n        <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
+msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr ""
 "<strong>Emri yt do të shfaqet publikisht </strong>\n"
 "        (<a href=\"{{why_url}}\">pse?</a>)\n"
@@ -3713,7 +3705,7 @@ msgstr "Fjalëkalimi yt është ndryshuar."
 msgid "Your password:"
 msgstr "Fjalëkalimi yt:"
 
-msgid "Your photo will be shown in public <strong>on the Internet</strong>,\\n    wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
 msgstr ""
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."

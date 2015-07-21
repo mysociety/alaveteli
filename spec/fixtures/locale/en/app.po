@@ -99,7 +99,7 @@ msgid " Suggest <strong>where else</strong> the requester might find the informa
 msgstr ""
 
 #: app/views/user/set_profile_about_me.rhtml:11
-msgid " What are you investigating using Freedom of Information? "
+msgid "What are you investigating using Freedom of Information?"
 msgstr ""
 
 #: app/controllers/comment_controller.rb:75

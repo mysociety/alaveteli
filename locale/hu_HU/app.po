@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-21 09:18+0000\n"
+"POT-Creation-Date: 2015-07-21 11:30+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/p/alaveteli/language/hu_HU/)\n"
@@ -22,9 +22,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
-msgstr "Ez a bemutatkozás megjelenik az ön {{site_name}} profiljában, így mások is láthatják, hogy ön milyen témakörrel foglalkozik. "
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
 msgstr "(<strong>NE</strong> politizáljon!!! Kérjük olvassa el <a href=\"{{url}}\">moderálási alapelveinket</a>)!"
@@ -47,11 +44,6 @@ msgstr ""
 msgid " << "
 msgstr ""
 
-msgid " <strong>Note:</strong>\\n    We will send you an email. Follow the instructions in it to change\\n    your password."
-msgstr ""
-" <strong>Megjegyzés:</strong>\n"
-" <br/>    Egy e-mailt küldünk önnek. Kérjük, kövesse az abban található utasításokat a jelszó módosításához. "
-
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
 msgstr "  <strong>Adatvédelmi megjegyzés:</strong> Az üzenet az ön email címével továbbítjuk "
 
@@ -70,11 +62,6 @@ msgstr " Adjon tanácsot, hogy hogyan lehet <strong>pontosítani</strong> az ada
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr " Ötletek arra vonatkozóan, hogy milyen <strong>egyéb dokumentumokat lehet igényelni</strong>, amelyekkel az adatgazda rendelkezhet. "
 
-msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
-msgstr ""
-"Helyezzen el blogjára, honlapjára, twitter-, facebook fiókjára mutató hivatkozásokat. A linkeket kattinthatóvá tesszük. \n"
-"<br/>Például: "
-
 msgid " Link to the information requested, if it is <strong>already available</strong> on the Internet. "
 msgstr " Az igényelt információra mutató hivatkozás, ha az <strong>már elérhető</strong> az interneten."
 
@@ -86,9 +73,6 @@ msgstr " Mondja el, hogy hogyan <strong>használta az információt</strong> - l
 
 msgid " Suggest <strong>where else</strong> the requester might find the information. "
 msgstr " Adjon tippet, hogy az igénylő <strong>hol máshol</strong> találhatja meg a kívánt információt. "
-
-msgid " What are you investigating using Freedom of Information? "
-msgstr "Ismertesse, mire keresi a választ az adatigénylésekkel!"
 
 msgid " You are already being emailed updates about the request."
 msgstr " E-mailben már tájékoztattuk az igényléssel kapcsolatos fejleményekről. "
@@ -291,16 +275,21 @@ msgstr ""
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr "<strong>Megjegyzés:</strong> Mivel egyelőre a tesztelést végezzük, az igényléseket az adott adatgazda helyett a(z) {{email}} e-mail címre küldjük."
 
-msgid "<strong>Note:</strong> You're sending a message to yourself, presumably\\n            to try out how it works."
-msgstr "<strong>Megjegyzés:</strong> Ezzel saját magának küldhet próbaüzenetet."
-
-msgid "<strong>Note:</strong>\\n    We will send an email to your new email address. Follow the\\n    instructions in it to confirm changing your email."
+msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr ""
 "<strong>Megjegyzés:</strong>\n"
 "    E-mailt küldünk új e-mail címére. Kövesse az\n"
 "    abban található utasításokat az e-mail cím módosításának megerősítéséhez!"
 
-msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
+msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
+msgstr ""
+" <strong>Megjegyzés:</strong>\n"
+" <br/>    Egy e-mailt küldünk önnek. Kérjük, kövesse az abban található utasításokat a jelszó módosításához. "
+
+msgid "<strong>Note:</strong> You're sending a message to yourself, presumably to try out how it works."
+msgstr "<strong>Megjegyzés:</strong> Ezzel saját magának küldhet próbaüzenetet."
+
+msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, wherever you do something on {{site_name}}."
 msgstr "<strong>Adatvédelmi nyilatkozat:</strong> Profilképe a {{site_name}} weboldalon\\n nyilvánosan megjelenik."
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
@@ -1273,11 +1262,6 @@ msgstr ""
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Ha válaszol erre az üzenetre, válaszát közvetlenül {{user_name}} fogja\\nmegkapni, aki látni fogja az ön e-mail címét. Csak akkor válaszoljon, ha ezzel egyetért."
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr ""
-"Amennyiben webes levelező rendszert használ vagy spamszűrő van beállítva, ellenőrizze a\n"
-"levélszemetet tartalmazó mappákat is! Előfordulhat, hogy üzeneteink ide kerülnek."
-
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr ""
 "Ha szeretné, hogy a korlátozást megszüntessük, udvariasan\n"
@@ -1299,6 +1283,11 @@ msgid "If your browser is set to accept cookies and you are seeing this message,
 msgstr ""
 "Ha böngészőjében engedélyezve van a sütik fogadása, és látja ezt az üzenetet,\n"
 "valószínűleg hiba van a kiszolgálónkkal. "
+
+msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
+msgstr ""
+"Helyezzen el blogjára, honlapjára, twitter-, facebook fiókjára mutató hivatkozásokat. A linkeket kattinthatóvá tesszük. \n"
+"<br/>Például: "
 
 msgid "Incoming email address"
 msgstr ""
@@ -1473,7 +1462,7 @@ msgstr "Legutóbb megtekintett adatgazda: "
 msgid "Last request viewed: "
 msgstr "Legutóbb megtekintett igénylés: "
 
-msgid "Let us know what you were doing when this message\\nappeared and your browser and operating system type and version."
+msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr ""
 "Tájékoztasson bennünket, mit csinált, amikor ez az üzenet\n"
 "megjelent, valamint böngészőjének és operációs rendszerének típusáról és verziójáról. "
@@ -1848,7 +1837,7 @@ msgid_plural "Please <strong>answer the question above</strong> so we know wheth
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Please <strong>go to the following requests</strong>, and let us\\n        know if there was information in the recent responses to them."
+msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr ""
 "Kérjük, <strong>tekintse meg a következő igényléseket>, és tájékoztasson bennünket,\n"
 "        hogy található-e a legutóbbi válaszokban ezekre vonatkozó információ. "
@@ -1894,7 +1883,7 @@ msgstr "Jelentkezzen be vagy hozzon létre új fiókot."
 msgid "Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway."
 msgstr "Írja körül pontosabban a tárgyban, hogy miről szól az igénylés. Nem kell beleírnia, hogy közérdekűadat-igénylésről van szó, mivel ezt a rendszerünk automatikusan hozzáteszi. "
 
-msgid "Please don't upload offensive pictures. We will take down images\\n    that we consider inappropriate."
+msgid "Please don't upload offensive pictures. We will take down images that we consider inappropriate."
 msgstr ""
 "Ne töltsön fel sértő tartalmú vagy szerzői jog által védett képet! Minden olyan képet eltávolítunk,\n"
 "    amelynek tartalmát nem megfelelőnek ítéljük meg."
@@ -2649,7 +2638,7 @@ msgstr ""
 msgid "Thanks for your suggestion to update the email address for {{public_body_name}} to {{public_body_email}}. This has now been done and any new requests will be sent to the new address."
 msgstr ""
 
-msgid "Thanks very much - this will help others find useful stuff. We'll\\n            also, if you need it, give advice on what to do next about your\\n            requests."
+msgid "Thanks very much - this will help others find useful stuff. We'll also, if you need it, give advice on what to do next about your requests."
 msgstr ""
 "Köszönjük. Segítségével mások is hasznos dolgokat találhatnak. Ha\n"
 "            szüksége van rá, tanácsot adhatunk arra vonatkozóan is, hogy mi a következő teendője \n"
@@ -2870,7 +2859,7 @@ msgstr "Ezután megjelenik a(z) {{info_request_title}} igénylésre vonatkozó h
 msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
 msgstr "{{count}} új hozzászólás érkezett a(z) {{info_request}} igényléséhez. A hivatkozásra kattintva elolvashatja ezeket. "
 
-msgid "There is <strong>more than one person</strong> who uses this site and has this name.\\n    One of them is shown below, you may mean a different one:"
+msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr "A weboldal felhasználói között <strong>több</strong> ilyen nevű személy is van.\\n Egyiküket láthatja alább, de előfordulhat, hogy ez nem ön. "
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -3067,6 +3056,9 @@ msgid "This was not possible because there is already an account using \\nthe em
 msgstr ""
 "Ez nem lehetséges, mert \n"
 "ezzel a(z) {{email}} e-mail címmel már létezik fiók. "
+
+msgid "This will appear on your {{site_name}} profile, to make it easier for others to get involved with what you're doing."
+msgstr "Ez a bemutatkozás megjelenik az ön {{site_name}} profiljában, így mások is láthatják, hogy ön milyen témakörrel foglalkozik. "
 
 msgid "To"
 msgstr ""
@@ -3399,11 +3391,6 @@ msgstr ""
 "        &ndash;\n"
 "\tamennyiben ön {{user_link}}, kérjük, <a href=\"{{url}}\">jelentkezzen be</a>, és értékelje a megkapott adatokat."
 
-msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or\\n        the law tell us to</a>. "
-msgstr ""
-"E-mail címét senkinek sem adjuk ki - kivéve, ha azt ön kéri\n"
-"       vagy jogszabály előírja (<a href=\"{{url}}\">részletek</a>). "
-
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr ""
 "E-mail címét senkinek sem adjuk ki - kivéve, ha azt ön kéri\n"
@@ -3424,7 +3411,7 @@ msgid_plural "We're waiting for {{user}} to read recent responses and update the
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "We've sent an email to your new email address. You'll need to click the link in\\nit before your email address will be changed."
+msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
 msgstr ""
 "E-mailt küldtünk új e-mail címére. E-mail címe csak azután módosul, hogy\n"
 "az üzenetben található hivatkozásra kattint. "
@@ -3437,6 +3424,9 @@ msgstr "E-mailt küldtünk önnek. Kattintson az üzenetben található hivatkoz
 
 msgid "What are you doing?"
 msgstr "Mit csinál? "
+
+msgid "What are you investigating using Freedom of Information?"
+msgstr "Ismertesse, mire keresi a választ az adatigénylésekkel!"
 
 msgid "What best describes the status of this request now?"
 msgstr "Mi áll a legközelebb ezen igénylés állapotához? "
@@ -3713,7 +3703,7 @@ msgstr "Ön nem követ semmit."
 msgid "You've now cleared your profile photo"
 msgstr "Eltávolította profilképét "
 
-msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines.\\n        <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
+msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr ""
 "Az ön <strong>neve nyilvánosan megjelenik</strong> ezen a weboldalon és a keresőmotorokban        (<a href=\"{{why_url}}\">miért?</a>)\n"
 " Ha álnevet kíván használni, <a href=\"{{help_url}}\">olvassa el ezt először</a>. "
@@ -3777,7 +3767,7 @@ msgstr "Jelszava módosult. "
 msgid "Your password:"
 msgstr "Az ön jelszava: "
 
-msgid "Your photo will be shown in public <strong>on the Internet</strong>,\\n    wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
 msgstr "Profilképe az <strong>interneten</strong> nyilvánosan megjelenik, ha a {{site_name}} weboldalon valamilyen műveletet hajt végre."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."

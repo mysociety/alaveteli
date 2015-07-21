@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-21 09:18+0000\n"
+"POT-Creation-Date: 2015-07-21 11:30+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/p/alaveteli/language/bg/)\n"
@@ -21,9 +21,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
-msgstr "Това ще се появи в профила Ви в {{site_name}}, за да\\n улесни останалите да се включат в това, което правите."
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
 msgstr " (<strong>не се карайте</strong> на политиците, прочетете нашата <a href=\"{{url}}\">политика за модериране</a>)"
@@ -46,9 +43,6 @@ msgstr " < "
 msgid " << "
 msgstr " << "
 
-msgid " <strong>Note:</strong>\\n    We will send you an email. Follow the instructions in it to change\\n    your password."
-msgstr " <strong>Бележка:</strong>\\n    Ще Ви изпратим имейл. Следвайте инструкциите в него за да смените\\n    Вашата парола."
-
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
 msgstr " <strong>Забележка за лични данни:</strong> Вашият имейл адрес ще бъде даден на"
 
@@ -67,9 +61,6 @@ msgstr " Съветвайте как <strong>най-ясно да се съст�
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr " Идеи за това, какви <strong>други документи да бъдат поискани</strong>, които публичният орган може да притежава. "
 
-msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
-msgstr "Поставете препратки към материали по темата като страници на кампании,\\nВашия блог или twitter акаунт. Върху тях ще може да се цъкне. \\n напр."
-
 msgid " Link to the information requested, if it is <strong>already available</strong> on the Internet. "
 msgstr " Въведете препратка към исканата информация, ако тя <strong>вече е налична</strong> в Интернет. "
 
@@ -81,9 +72,6 @@ msgstr " Посочете как сте <strong>използвали инфор�
 
 msgid " Suggest <strong>where else</strong> the requester might find the information. "
 msgstr " Предложете <strong>къде още</strong> питащият може да намери информацията. "
-
-msgid " What are you investigating using Freedom of Information? "
-msgstr " Какво разследвате, използвайки Достъп до обществена информация? "
 
 msgid " You are already being emailed updates about the request."
 msgstr " Вие вече получавате имейли с новостите относно заявлението."
@@ -255,13 +243,16 @@ msgstr "<strong>Не беше получен</strong> отговор\\n <small>(
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr "<strong>Бележка:</strong> Поради това че тестваме, заявленията се изпращат до {{email}} вместо до действителния орган."
 
-msgid "<strong>Note:</strong> You're sending a message to yourself, presumably\\n            to try out how it works."
-msgstr "<strong>Забележете:</strong> Вие изпращате писмо до себе си, вероятно\\n за да видите как работи."
-
-msgid "<strong>Note:</strong>\\n    We will send an email to your new email address. Follow the\\n    instructions in it to confirm changing your email."
+msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr "<strong>Бележка:</strong>\\n    Ще изпратим имейл на новия Ви адрес. Следвайте\\n    инструкциите в него за да потвърдите смяната на имейл адреса Ви."
 
-msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
+msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
+msgstr " <strong>Бележка:</strong>\\n    Ще Ви изпратим имейл. Следвайте инструкциите в него за да смените\\n    Вашата парола."
+
+msgid "<strong>Note:</strong> You're sending a message to yourself, presumably to try out how it works."
+msgstr "<strong>Забележете:</strong> Вие изпращате писмо до себе си, вероятно\\n за да видите как работи."
+
+msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, wherever you do something on {{site_name}}."
 msgstr "<strong>Важно! :</strong> Вашата снимка ще бъде показвана в Интернет,\\n всеки път, когато направите нещо в {{site_name}}."
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
@@ -1184,9 +1175,6 @@ msgstr " Ако знаете нужния адрес, молим, <a href=\"{{ur
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Ако отговорите на това съобщение, то ще е директно до {{user_name}},\\nкойто ще узнае имейл адреса Ви. Отговорете само ако сте съгласни с това."
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr "Ако използвате уеб-базирана поща или имате \"junk mail\" филтри, погледнете\\nсъщо и в папките за нежелана поща. Понякога нашите писма биват маркирани като нежелани."
-
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr "Ако Вие искате да премахнем това ограничение, то може учтиво\\n<a href=\"/help/contact\">да се свържете с нас</a> и да ни дадете причини да го направим.\\n"
 
@@ -1204,6 +1192,9 @@ msgstr "Ако сте използвали {{site_name}} преди"
 
 msgid "If your browser is set to accept cookies and you are seeing this message,\\nthen there is probably a fault with our server."
 msgstr "Ако Вашият браузър е настроен да работи с бисквитки и виждате това съобщение,\\nто вероятно има проблем с нашия сървър."
+
+msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
+msgstr "Поставете препратки към материали по темата като страници на кампании,\\nВашия блог или twitter акаунт. Върху тях ще може да се цъкне. \\n напр."
 
 msgid "Incoming email address"
 msgstr "Адрес за входяща поща"
@@ -1373,7 +1364,7 @@ msgstr "Последно гледан орган: "
 msgid "Last request viewed: "
 msgstr "Последно гледано заявление: "
 
-msgid "Let us know what you were doing when this message\\nappeared and your browser and operating system type and version."
+msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "Обяснете ни какво правите, когато това съобщение се появява,\\nа така също и какви са и коя версия са браузърът и операционната система."
 
 msgid "Link to this"
@@ -1741,7 +1732,7 @@ msgid_plural "Please <strong>answer the question above</strong> so we know wheth
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Please <strong>go to the following requests</strong>, and let us\\n        know if there was information in the recent responses to them."
+msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr "Моля,<strong>вижте следните заявления</strong>, и ни\\n уведомете ако има информация в скорошните отговори към тях."
 
 msgid "Please <strong>only</strong> write messages directly relating to your request {{request_link}}. If you would like to ask for information that was not in your original request, then <a href=\"{{new_request_link}}\">file a new request</a>."
@@ -1780,7 +1771,7 @@ msgstr "Моля, влезте или създайте нова регистра
 msgid "Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway."
 msgstr "Моля, по-подробно опишете заявлението в темата. Няма нужда да пишете, че е заявление за ДдИ, ние и без това го добавяме."
 
-msgid "Please don't upload offensive pictures. We will take down images\\n    that we consider inappropriate."
+msgid "Please don't upload offensive pictures. We will take down images that we consider inappropriate."
 msgstr "Молим, не качвайте оскърбителни снимки. Ще премахваме снимки,\\n за които преценим, че са неподходящи."
 
 msgid "Please enable \"cookies\" to carry on"
@@ -2520,7 +2511,7 @@ msgstr "Благодарим за предложението Ви да доба�
 msgid "Thanks for your suggestion to update the email address for {{public_body_name}} to {{public_body_email}}. This has now been done and any new requests will be sent to the new address."
 msgstr "Благодарим за предложението Ви да обновим имейл адреса за {{public_body_name}} на {{public_body_email}}. Това беше направено сега и всякакви нови заявления ще бъдат изпращани до новия адрес."
 
-msgid "Thanks very much - this will help others find useful stuff. We'll\\n            also, if you need it, give advice on what to do next about your\\n            requests."
+msgid "Thanks very much - this will help others find useful stuff. We'll also, if you need it, give advice on what to do next about your requests."
 msgstr "Благодарим Ви много - това ще помогне на всички в намирането на\\n полезно съдържание. Също, ако желаете, можем да Ви посъветваме за\\n следващата Ви стъпка с Вашето Заявление."
 
 msgid "Thanks very much for helping keep everything <strong>neat and organised</strong>. We'll also, if you need it, give you advice on what to do next about each of your requests."
@@ -2721,7 +2712,7 @@ msgstr "След това коментарът Ви към {{info_request_title}
 msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
 msgstr "Има {{count}} нови коментари по заявлението Ви {{info_request}}. Последвайте тази връзка за да видите какво са написали."
 
-msgid "There is <strong>more than one person</strong> who uses this site and has this name.\\n    One of them is shown below, you may mean a different one:"
+msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr "Има <strong>повече от един потребител</strong> с това име, ползващ този сайт.\\n    Един от тях е показан по-долу, може би имате предвид друго:"
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -2900,6 +2891,9 @@ msgstr "Този потребител беше блокиран от {{site_name
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "Това не е възможно, понеже вече има регистрация, използваща\\nимейл адрес {{email}}."
+
+msgid "This will appear on your {{site_name}} profile, to make it easier for others to get involved with what you're doing."
+msgstr "Това ще се появи в профила Ви в {{site_name}}, за да\\n улесни останалите да се включат в това, което правите."
 
 msgid "To"
 msgstr ""
@@ -3219,9 +3213,6 @@ msgstr "Не разполагаме с работещ адрес за Заявл
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Ние не знаем дали най-скорошният отговор на това заявление съдържа\\n информация или не\\n  &ndash;\\n\tако Вие сте {{user_link}}, моля, <a href=\"{{url}}\">влезте</a> и проверете, за да може всички да узнаят."
 
-msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or\\n        the law tell us to</a>. "
-msgstr "Ние няма да предоставим имейл адреса Ви на никого, освен ако Вие\\n или закон ни нареди. (<a href=\"{{url}}\">Още за това</a>). "
-
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr "Ние няма да предоставим имейл адреса Ви на никого, освен ако Вие\\nили закон ни нареди това."
 
@@ -3238,7 +3229,7 @@ msgid_plural "We're waiting for {{user}} to read recent responses and update the
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "We've sent an email to your new email address. You'll need to click the link in\\nit before your email address will be changed."
+msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
 msgstr "Изпратихме Ви имейл на новия адрес. Ще трябва да цъкнете върху връзката\\nв него, след което имейл адресът Ви ще бъде сменен."
 
 msgid "We've sent you an email, and you'll need to click the link in it before you can\\ncontinue."
@@ -3249,6 +3240,9 @@ msgstr "Изпратихме Ви имейл. Цъкнете връзката в
 
 msgid "What are you doing?"
 msgstr "Какво правите?"
+
+msgid "What are you investigating using Freedom of Information?"
+msgstr " Какво разследвате, използвайки Достъп до обществена информация? "
 
 msgid "What best describes the status of this request now?"
 msgstr "Кое най-добре описва текущото състоянието на това заявление?"
@@ -3502,7 +3496,7 @@ msgstr "Вие не следите нищо."
 msgid "You've now cleared your profile photo"
 msgstr "Профилната Ви снимка беше премахната"
 
-msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines.\\n        <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
+msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr "Вашето <strong>име ще се показва публично</strong>\\n        (<a href=\"{{why_url}}\">защо?</a>)\\n        на този уеб сайт и в машините за търсене. Ако Вие\\n        възнамерявате да ползвате псевдоним, молим\\n        <a href=\"{{help_url}}\">прочетете първо това</a>."
 
 msgid "Your annotations"
@@ -3562,7 +3556,7 @@ msgstr "Паролата Ви беше сменена."
 msgid "Your password:"
 msgstr "Вашата парола:"
 
-msgid "Your photo will be shown in public <strong>on the Internet</strong>,\\n    wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
 msgstr "Снимката Ви ще бъде показвана публично <strong>в Интернет</strong>,\\n всеки път, когато правите нещо в {{site_name}}."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
