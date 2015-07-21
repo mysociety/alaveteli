@@ -1,14 +1,18 @@
 <% @title = h("Now check your email!") %>
 
-<h1 class="confirmation_heading"> <%= _('Now check your email!')%></h1>
+<h1 class="confirmation_heading">
+  <%= _('Now check your email!') %>
+</h1>
 
 <p class="confirmation_message">
- <%= _('We\'ve sent an email to your new email address. You\'ll need to click the link in
-it before your email address will be changed.')%>
+  <%= _("We've sent an email to your new email address. You'll need to click " \
+        "the link in it before your email address will be changed.") %>
 </p>
 
 <p class="confirmation_message">
-<small> <%= _('If you use web-based email or have "junk mail" filters, also check your
-bulk/spam mail folders. Sometimes, our messages are marked that way.')%></small>
+  <small>
+    <%= _('If you use web-based email or have "junk mail" filters, also ' \
+          'check your bulk/spam mail folders. Sometimes, our messages are ' \
+          'marked that way.') %>
+  </small>
 </p>
-

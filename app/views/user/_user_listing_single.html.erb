@@ -1,24 +1,23 @@
-<% if @highlight_words.nil? 
-      @highlight_words = []
-end %>
+<% if @highlight_words.nil? %>
+  <% @highlight_words = [] %>
+<% end %>
 
 <div class="user_listing">
-    <% if display_user.profile_photo %>
-        <div class="user_photo_on_search">
-            <a href="<%=user_path(display_user)%>">
-            <img src="<%= get_profile_photo_url(:url_name => display_user.url_name) %>" alt="">
-            </a>
-        </div>
-    <% end %>
+  <% if display_user.profile_photo %>
+    <div class="user_photo_on_search">
+      <a href="<%=user_path(display_user)%>">
+        <img src="<%= get_profile_photo_url(:url_name => display_user.url_name) %>" alt="">
+      </a>
+    </div>
+  <% end %>
 
-    <span class="head <% if display_user.profile_photo %>no_icon<% end %>">
-        <%= link_to highlight_words(display_user.name, @highlight_words), user_path(display_user) %>
-    </span>
+  <span class="head <% if display_user.profile_photo %>no_icon<% end %>">
+    <%= link_to highlight_words(display_user.name, @highlight_words), user_path(display_user) %>
+  </span>
 
-    <span class="bottomline">
-        <%= pluralize(display_user.info_requests.size, "request") %> <%= _('made.')%>
-        <%= pluralize(display_user.comments.visible.size, "annotation") %> <%= _('made.')%>
-        <%= _('Joined in')%> <%= display_user.created_at.year %>.
-    </span>
-
+  <span class="bottomline">
+    <%= pluralize(display_user.info_requests.size, "request") %> <%= _('made.')%>
+    <%= pluralize(display_user.comments.visible.size, "annotation") %> <%= _('made.')%>
+    <%= _('Joined in')%> <%= display_user.created_at.year %>.
+  </span>
 </div>
