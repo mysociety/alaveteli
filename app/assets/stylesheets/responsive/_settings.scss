@@ -3,3 +3,9 @@ $row-width: 64em;
 $body-font-family: "Helvetica Neue", Arial, Helvetica, Helmet, Freesans, sans-serif;
 $form-label-font-color: #333333;
 $base-font-size: 16px;
+
+// Specify the filename and dimensions of your logo file here
+$logo-filename: 'logo.png';
+$logo-highdpi-filename: 'logo@2.png'; //Should be at least 2x the size, in the same proportions
+$logo-width: 123px;
+$logo-height: 22px;
