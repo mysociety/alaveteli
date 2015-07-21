@@ -2671,7 +2671,7 @@ msgid "The request was refused by the public authority"
 msgstr ""
 
 #: app/views/request/hidden.rhtml:9
-msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"{{url}}\">contact us</a> if you have any questions."
+msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
 msgstr ""
 
 #: app/views/general/_advanced_search_tips.rhtml:36
