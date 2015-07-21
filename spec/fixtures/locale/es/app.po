@@ -4098,10 +4098,6 @@ msgstr "entre dos fechas"
 msgid "by"
 msgstr "antes de"
 
-#: app/views/request/_followup.rhtml:65
-msgid "by <strong>{{date}}</strong>"
-msgstr "antes de <strong>{{date}}</strong>"
-
 #: app/views/request/_request_listing_via_event.rhtml:26
 msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
 msgstr "por {{public_body_name}} a {{info_request_user}} el {{date}}."
