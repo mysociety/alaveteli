@@ -49,6 +49,38 @@
   &:target{
     // Hide menu button when menu is open
     .rsp_menu_button{
+      position: absolute;
+      top: 0.66em;
+      right: 0.9375rem;
+      a {
+        text-align: right;
+        &.open{
+          display: block;
+        }
+        &.close{
+          display: none;
+        }
+      }
+    }
+  }
+
+  .banner_site-title {
+    @include grid-column(12);
+    padding-top: 1.125em; //18px
+    padding-bottom: 1.125em;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-column(5);
+      padding-top: 1.6875em; //27px
+      padding-bottom: 1.6875em;
+    }
+    h1 {
+      margin: 0;
+    }
+  }
+
+  &:target{
+    // Hide menu button when menu is open
+    .rsp_menu_button{
       .open{
         display:none;
       }
@@ -65,8 +97,6 @@
         clear:both;
       }
     }
-
-
   }
 
   @include respond-min( $main_menu-mobile_menu_cutoff ){
@@ -84,6 +114,20 @@
     }
   }
 
+}
+
+.site-title__logo {
+  @extend .image-replacement;
+  width: 123.5px;
+  height: 22px;
+  background-size: 123.5px 22px;
+  background-image: image-url("logo.png");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  display: block;
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url("logo@2.png");
+  }
 }
 
 
