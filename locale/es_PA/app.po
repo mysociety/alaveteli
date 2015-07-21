@@ -3228,6 +3228,9 @@ msgstr "No tenemos una dirección de correo electrónico de {{law_used_full}}vá
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "No sabemos si la última respuesta a esta solicitud contiene\\n información o no &ndash;\\n⇥si es usted {{user_link}} por favor <a href=\"{{url}}\">inicie sesión </a> y déjele saber a todos."
 
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
+msgstr "No revelaremos su dirección de correo electrónico a nadie salvo que usted nos autorice o la ley nos obligue (<a href=\"{{url}}\">más información</a>). "
+
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr "No revelaremos su dirección de correo electrónico a nadie salvo que usted nos autorice,\\n o la ley nos obligue."
 

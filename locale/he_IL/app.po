@@ -3229,6 +3229,9 @@ msgstr "אין ברשותנו {{law_used_full}} כתובת פעילה ל- {{publ
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "איננו יודעים האם התגובה האחרונה לבקשה זו כוללת\\n    מידע או לא\\n        &ndash;\\n\tאם אתם {{user_link}} אנא <a href=\"{{url}}\">הכנסו למערכת</a> ועדכנו את כולם."
 
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
+msgstr "אנחנו לא נחשוף את כתובת המייל שלכם לאף אחד, אלא אם <a href=\"{{url}}\">אתם או\\n החוק יבקשו זאת </a>. "
+
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr "אנחנו לא נחשוף את כתובת המייל שלכם לאף אחד, אלא אם אתם אוn\\ החוק יבקשו זאת"
 

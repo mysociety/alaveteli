@@ -3339,6 +3339,11 @@ msgstr ""
 "        &ndash;\n"
 " nëse ti je {{user_link}}, të lutem <a href=\"{{url}}\">kyçu </a> dhe bëje këtë të ditur për të tjerët."
 
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
+msgstr ""
+"Ne nuk do t'ja zbulojmë adresën e emailit tënd askujt, përveç nëse ti\n"
+"        e lejon këtë. (<a href=\"{{url}}\">detajet</a>). "
+
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr "Ne nuk do ta zbulojmë adresën e emailit tënd askujt, përveç nëse ju e lejoni këtë."
 

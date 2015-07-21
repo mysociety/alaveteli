@@ -3226,6 +3226,9 @@ msgstr "Nous ne disposons pas d'adresse pour les demandes d'accès aux documents
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Nous ne savons pas si la réponse la plus récente à cette demande contient l'information \\n ou non \\n   &ndash;\\n\tSi vous êtes  {{user_link}}, veuillez <a href=\"{{url}}\">vous connecter</a> et nous le laisser savoir."
 
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
+msgstr "Nous ne communiquerons pas votre adresse courriel sauf si vous nous y autorisez ou si la loi nous y oblige (<a href=\"{{url}}\">détails</a>). "
+
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr "Nous ne communiquerons pas votre adresse courriel sauf si vous nous y autorisez ou si la loi nous y oblige."
 

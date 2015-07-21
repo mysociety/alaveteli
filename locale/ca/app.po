@@ -3390,6 +3390,9 @@ msgstr ""
 "No sabem si l'última resposta a aquesta sol·licitud conté informació o no &ndash;\n"
 "\tsi ets {{user_link}}  sisplau <a href=\"{{url}}\">inicia la sessió</a> i fes-nos-ho saber."
 
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
+msgstr "No compartirem la teva adreça de correu amb ningú, excepte que ens ho diguis\\n o la llei ens hi obligui (<a href=\"{{url}}\">més informació</a>). "
+
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr ""
 "No revelaremos tu dirección de correo a nadie salvo que tú\n"

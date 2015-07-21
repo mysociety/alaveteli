@@ -3320,6 +3320,11 @@ msgstr "У нас нема адреси цього розпорядника ін
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Нам невідомо, чи відповідь на цей запит була інформативною.\\nЯкщо ви {{user_link}}, будь ласка, <a href=\"{{url}}\">авторизуйтесь</a> і вкажіть, наскільки успішним був запит."
 
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
+msgstr ""
+"Ми не передамо вашу адресу нікому, якщо нас до цього не спонукаєте\n"
+"ви або законодавство (<a href=\"{{url}}\">деталі</a>)."
+
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr ""
 "Ми не передамо вашу адресу нікому, якщо нас до цього не спонукаєте\n"

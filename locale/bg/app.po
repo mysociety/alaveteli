@@ -3213,6 +3213,9 @@ msgstr "Не разполагаме с работещ адрес за Заявл
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "Ние не знаем дали най-скорошният отговор на това заявление съдържа\\n информация или не\\n  &ndash;\\n\tако Вие сте {{user_link}}, моля, <a href=\"{{url}}\">влезте</a> и проверете, за да може всички да узнаят."
 
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
+msgstr "Ние няма да предоставим имейл адреса Ви на никого, освен ако Вие\\n или закон ни нареди. (<a href=\"{{url}}\">Още за това</a>). "
+
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr "Ние няма да предоставим имейл адреса Ви на никого, освен ако Вие\\nили закон ни нареди това."
 

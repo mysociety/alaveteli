@@ -3225,6 +3225,9 @@ msgstr ""
 "informasjon/dokumenter eller ikke\\n &ndash;\\n\n"
 "om du er {{user_link}}, vennligst <a href=\"{{url}}\">logg inn</a> og gi alle beskjed."
 
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
+msgstr "Vi vil aldri gi ut e-post adressen din til noen uten at du eller\\n        retten ber oss om det (<a href=\"{{url}}\">detaljer</a>). "
+
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr "Vi gir ikke ut e-postadressen din med, mindre du\\neller rettsvesenet ber om det."
 
