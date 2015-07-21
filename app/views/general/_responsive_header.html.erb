@@ -1,8 +1,8 @@
 <div id="banner">
   <div id="banner_inner">
     <div id="banner_content">
-      <div id="logo_wrapper">
-        <%= link_to image_tag('logo.png'), frontpage_path, :id => 'logo' %>
+      <div class="banner_site-title">
+        <h1><%= link_to site_name, frontpage_path, :id => 'logo', :class => 'site-title__logo' %></h1>
       </div>
 
       <div class="rsp_menu_button">
