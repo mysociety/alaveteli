@@ -118,15 +118,15 @@
 
 .site-title__logo {
   @extend .image-replacement;
-  width: 123.5px;
-  height: 22px;
-  background-size: 123.5px 22px;
-  background-image: image-url("logo.png");
+  width: $logo-width;
+  height: $logo-height;
+  background-size: $logo-width $logo-height;
+  background-image: image-url($logo-filename);
   background-repeat: no-repeat;
   background-position: 0 0;
   display: block;
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-    background-image: image-url("logo@2.png");
+    background-image: image-url($logo-highdpi-filename);
   }
 }
 
