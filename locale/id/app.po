@@ -3407,6 +3407,11 @@ msgstr ""
 "        &ndash;\n"
 "\tjika Anda adalah {{user_link}} silakan <a href=\"{{url}}\">masuk</a> dan jangan biarkan siapapun tahu."
 
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
+msgstr ""
+"Kami tidak akan mengungkapkan alamat email Anda kepada siapapun kecuali Anda atau\n"
+"        undang-undang menyuruh kami untuk melakukannya (<a href=\"{{url}}\">rincian</a>). "
+
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr ""
 "Kami tidak akan mengungkapkan alamat email Anda kepada siapapun kecuali Anda\n"

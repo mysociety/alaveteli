@@ -3395,6 +3395,11 @@ msgstr ""
 "        &ndash;\n"
 "\tsi es {{user_link}} por favor <a href=\"{{url}}\">abra una sesión</a> y háganoslo saber."
 
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
+msgstr ""
+"No revelaremos tu dirección de correo a nadie salvo que tú nos lo digas\n"
+"        o la ley nos obligue (<a href=\"{{url}}\">más información</a>). "
+
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr ""
 "No revelaremos tu dirección de correo a nadie salvo que tú\n"

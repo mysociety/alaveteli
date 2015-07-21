@@ -3288,6 +3288,9 @@ msgstr ""
 "        &ndash;\n"
 "<span class=\"whitespace other\" title=\"Tab\">»</span>falls Sie {{user_link}} sind, bitte <a href=\"{{url}}\">melden Sich an</a> und lassen es uns wissen. "
 
+msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
+msgstr "Ohne Ihre Zustimmung oder gesetzliche Vorschrift werden wir Ihre Email-Adresse zu keinem Zeitpunkt veröffentlichen. (<a href=\"{{url}}\">details</a>) "
+
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr "Wir werden Ihre Emailadresse nicht veröffentlichen, sofern nicht von Ihnen freigegeben oder gesetzlich vorgeschrieben. "
 
