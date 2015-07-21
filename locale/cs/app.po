@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-21 09:18+0000\n"
+"POT-Creation-Date: 2015-07-21 11:30+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/p/alaveteli/language/cs/)\n"
@@ -29,9 +29,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-
-msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
-msgstr "Toto se objeví na vašem profilu na stránkách {{site_name}}, abyste mohli svůj dotaz snadno sdílet s ostaními."
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
 msgstr " (<strong>Tento prostor neslouží politickým debatám,</strong> přečtěte si <a href=\"{{url}}\">Pravidla diskuze</a>.)"
@@ -54,11 +51,6 @@ msgstr "<"
 msgid " << "
 msgstr "<<"
 
-msgid " <strong>Note:</strong>\\n    We will send you an email. Follow the instructions in it to change\\n    your password."
-msgstr ""
-" <strong>Upozornění:</strong>\n"
-"Na tento e-mail zašleme návod, jak změnit heslo."
-
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
 msgstr " <strong>Ochrana soukromí:</strong> Vaše e-mailová adresa bude předána"
 
@@ -77,9 +69,6 @@ msgstr " Poraďte, <strong>jak co nejlépe upřesnit</strong> tento dotaz."
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr "Návrhy <strong>na vyžádání potřebných dokumentů</strong>, které může mít daná instituce k dispozici."
 
-msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
-msgstr "Vložte i konkrétní odkazy vztahující se k dotazu, například k vaší kampani, blogu, nebo k účtu Twitter. Bude na ně možné kliknout, např. "
-
 msgid " Link to the information requested, if it is <strong>already available</strong> on the Internet. "
 msgstr " Odkaz na požadované informace, pokud <strong>jsou k dispozici</strong> na internetu. "
 
@@ -91,9 +80,6 @@ msgstr "Povězte ostatním, <strong>jak jste využili získané informace</stron
 
 msgid " Suggest <strong>where else</strong> the requester might find the information. "
 msgstr " Navrhněte, <strong>kde jinde</strong> může tazatel informace nalézt."
-
-msgid " What are you investigating using Freedom of Information? "
-msgstr " Co se snažíte zjistit pomocí zákona o svobodném přístupu k informacím? "
 
 msgid " You are already being emailed updates about the request."
 msgstr "Aktualizace týkající se tohoto dotazu vám již byly zaslány e-mailem."
@@ -294,16 +280,21 @@ msgstr ""
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr "<strong>Note:</strong> Protože testujeme, dotazy jsou posílány na {{email}} a ne příslušné autoritě."
 
-msgid "<strong>Note:</strong> You're sending a message to yourself, presumably\\n            to try out how it works."
-msgstr "<strong>Upozornění:</strong> Posíláte zprávu sami sobě."
-
-msgid "<strong>Note:</strong>\\n    We will send an email to your new email address. Follow the\\n    instructions in it to confirm changing your email."
+msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr ""
 "<strong>Poznámka:</strong>\n"
 "    Pošleme vám zprávu na vaši e-mailovou adresu. Pro změnu\n"
 "    vaší e-mailové adresy postupujte podle instrukcí."
 
-msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
+msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
+msgstr ""
+" <strong>Upozornění:</strong>\n"
+"Na tento e-mail zašleme návod, jak změnit heslo."
+
+msgid "<strong>Note:</strong> You're sending a message to yourself, presumably to try out how it works."
+msgstr "<strong>Upozornění:</strong> Posíláte zprávu sami sobě."
+
+msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, wherever you do something on {{site_name}}."
 msgstr "<strong>Důležité upozornění:</strong> Vaše fotografie bude zveřejněna na stránkách Informace pro všechny pokaždé, kdy vznesete dotaz nebo přidáte komentář."
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
@@ -1270,9 +1261,6 @@ msgstr ""
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Pokud odpovíte na tuto zprávu, bude odeslána přímo {{user_name}}, který⏎ uvidí vaši e-mailovou adresu. "
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr "Pokud používáte bzplatnou e-mailovou službu nebo máte filtr nevyžádané pošty, zkontrolujte také příslušné složky ve své poště. Někdy jsou zprávy ze stránek Informace pro všechny zařazeny jako spam. "
-
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr "Pokud chcete, abychom tento zákaz zrušili, tak nás prosíme <a href=\"/help/contact\">kontaktujte</a> s vysvětlením.\\n"
 
@@ -1292,6 +1280,9 @@ msgid "If your browser is set to accept cookies and you are seeing this message,
 msgstr ""
 "Pokud váš prohlížeč akceptuje cookies a vy vidíte tuto zprávu,\n"
 "pravděpodobně je nějaký problém s naším serverem."
+
+msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
+msgstr "Vložte i konkrétní odkazy vztahující se k dotazu, například k vaší kampani, blogu, nebo k účtu Twitter. Bude na ně možné kliknout, např. "
 
 msgid "Incoming email address"
 msgstr "Adresa pro příchozí e-maily"
@@ -1464,7 +1455,7 @@ msgstr "Naposled prohlížená instituce: "
 msgid "Last request viewed: "
 msgstr "Naposled prohlížený dotaz: "
 
-msgid "Let us know what you were doing when this message\\nappeared and your browser and operating system type and version."
+msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr ""
 "Řekněte nám, co jste dělali, když se tato zpráva\n"
 "objevila a jaký používáte internetový prohlížeč, jeho typ a verzi."
@@ -1839,7 +1830,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-msgid "Please <strong>go to the following requests</strong>, and let us\\n        know if there was information in the recent responses to them."
+msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr ""
 "Prosíme <strong>jděte na následující dotaz</strong>, a napište nám,\n"
 "        zda nejnovější odpovědi obsahují požadované informace."
@@ -1883,7 +1874,7 @@ msgstr "Prosíme přihlašte se nebo se zaregistrujte."
 msgid "Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway."
 msgstr "Prosíme popište detailněji, o co se ve vašem dotazu jedná. Není třeba vysvětlovat, že se jedná o dotaz podle 106/1999 Sb., systém to za vás vypíše sám. "
 
-msgid "Please don't upload offensive pictures. We will take down images\\n    that we consider inappropriate."
+msgid "Please don't upload offensive pictures. We will take down images that we consider inappropriate."
 msgstr "Nevkládejte urážlivé obrázky. Ty, které budeme považovat za nevhodné, smažeme."
 
 msgid "Please enable \"cookies\" to carry on"
@@ -2636,7 +2627,7 @@ msgstr "Děkujeme za návrh přidání {{public_body_name}}. Najdete jej zde:"
 msgid "Thanks for your suggestion to update the email address for {{public_body_name}} to {{public_body_email}}. This has now been done and any new requests will be sent to the new address."
 msgstr "Děkujeme za návrh změny e-mailové adresy pro {{public_body_name}} na {{public_body_email}}. Změny byly provedeny a další e-maily budou odeslány na tuto novou adresu. "
 
-msgid "Thanks very much - this will help others find useful stuff. We'll\\n            also, if you need it, give advice on what to do next about your\\n            requests."
+msgid "Thanks very much - this will help others find useful stuff. We'll also, if you need it, give advice on what to do next about your requests."
 msgstr ""
 "Moc děkujeme - pomohli jste ostatním najít užitečné informace.\n"
 "    Pokud budete potřebovat, poradíme vám, co dále dělat\n"
@@ -2854,7 +2845,7 @@ msgstr "Vaše anotace pro {{info_request_title}} bude odeslána."
 msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
 msgstr "Jsou tu {{count}} nové anotace, vztahující se ka vašemu dotazu. Pro jejich přečtení použijte tento odkaz."
 
-msgid "There is <strong>more than one person</strong> who uses this site and has this name.\\n    One of them is shown below, you may mean a different one:"
+msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr "Již existuje <strong>více než jedna další osoba</strong> která se zaregistrovala na těchto stránkách pod stejným jménem.⏎ Zvolte tedy prosím jiné uživatelské jméno než je:"
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -3046,6 +3037,9 @@ msgid "This was not possible because there is already an account using \\nthe em
 msgstr ""
 "Nepodařilo se, protože už jeden účet  \n"
 "používá e-mailovou adresu {{email}}."
+
+msgid "This will appear on your {{site_name}} profile, to make it easier for others to get involved with what you're doing."
+msgstr "Toto se objeví na vašem profilu na stránkách {{site_name}}, abyste mohli svůj dotaz snadno sdílet s ostaními."
 
 msgid "To"
 msgstr ""
@@ -3374,11 +3368,6 @@ msgstr ""
 "        &ndash;\n"
 "\tpokud jste {{user_link}} prosíme <a href=\"{{url}}\">přihlašte se</a> a upravte stav dotazu."
 
-msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or\\n        the law tell us to</a>. "
-msgstr ""
-"Vaši e-mailovou adresu nikomu nepředáme, pokud o to nebudeme\n"
-"ze zákonem daných důvodů požádáni. (<a href=\"{{url}}\">podrobnosti</a>). "
-
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr ""
 "Vaši e-mailovou adresu nikomu nepředáme, pokud o to nebudeme\n"
@@ -3401,7 +3390,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-msgid "We've sent an email to your new email address. You'll need to click the link in\\nit before your email address will be changed."
+msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
 msgstr "Poslali jsme e-mail na vaši novou adresu. Je třeba kliknout na zaslaný odkaz, aby vaše nová e-mailová adresa byla správně přiřazena."
 
 msgid "We've sent you an email, and you'll need to click the link in it before you can\\ncontinue."
@@ -3412,6 +3401,9 @@ msgstr "Poslali jsme vám e-mail s instrukcemi, jak změnit heslo."
 
 msgid "What are you doing?"
 msgstr "Co děláte?"
+
+msgid "What are you investigating using Freedom of Information?"
+msgstr " Co se snažíte zjistit pomocí zákona o svobodném přístupu k informacím? "
 
 msgid "What best describes the status of this request now?"
 msgstr "Co nejlépe vystihuje stav tohoto dotazu?"
@@ -3689,7 +3681,7 @@ msgstr "Nesledujete žádný vznesený dotaz."
 msgid "You've now cleared your profile photo"
 msgstr "Vaše profilové foto bylo vymazáno. "
 
-msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines.\\n        <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
+msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr ""
 "Vaše<strong> jméno bude uveřejněno</strong> \n"
 "        (<a href=\"{{why_url}}\">proč?</a>)\n"
@@ -3756,7 +3748,7 @@ msgstr "Vaše heslo bylo změněno."
 msgid "Your password:"
 msgstr "Vaše heslo:"
 
-msgid "Your photo will be shown in public <strong>on the Internet</strong>,\\n    wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
 msgstr "<strong>Důležité upozornění:</strong> Vaše fotografie bude zveřejněna na stránkách Informace pro všechny pokaždé, kdy vznesete dotaz nebo přidáte komentář."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."

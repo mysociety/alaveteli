@@ -116,7 +116,7 @@ msgid ""
 msgstr " Sugiere <strong>en qué otro lugar</strong> el solicitante puede encontrar la información. "
 
 #: app/views/user/set_profile_about_me.rhtml:11
-msgid " What are you investigating using Freedom of Information? "
+msgid "What are you investigating using Freedom of Information?"
 msgstr " ¿Qué estás investigando usando solicitudes de información? "
 
 #: app/controllers/comment_controller.rb:75

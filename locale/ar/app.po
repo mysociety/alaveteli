@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-21 09:18+0000\n"
+"POT-Creation-Date: 2015-07-21 11:30+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/p/alaveteli/language/ar/)\n"
@@ -26,9 +26,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-
-msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
-msgstr "هذا سوف يظهر على حسابك {{site_name}} ، لتمكين الأخرين من المشاركة"
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
 msgstr "(<strong>no ranty</strong>السياسة، وقراءة لدينا<a href={{url}}>الاعتدال سياسة</a>"
@@ -51,9 +48,6 @@ msgstr ""
 msgid " << "
 msgstr ""
 
-msgid " <strong>Note:</strong>\\n    We will send you an email. Follow the instructions in it to change\\n    your password."
-msgstr " <strong>ملاحظة:</strong>\\n    سوف نمدكم برسالة إلكترونية. قوموا باتباع الإرشادات الموجودة لتتمكنوا من تغير\\n    كلمة السر."
-
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
 msgstr " <strong/> ملاحظة حول الخصوصية :<strong> عنوان بريدكم الإلكتروني سيكون ضاهراً ل"
 
@@ -72,9 +66,6 @@ msgstr " Advise on how to <strong>best clarify</strong> the request."
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr " فكرة عن  <strong>وثائق أخرى يمكن طلبها <strong/> و التي قد تحجبها السلطات. "
 
-msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
-msgstr "تضمين روابط ذات صلة مثل صفحة الحملة،المدوّنةأو صفحة  التّويتر. تصبح هذه الروابط متاحة للجميع."
-
 msgid " Link to the information requested, if it is <strong>already available</strong> on the Internet. "
 msgstr "قوموا بالربط إلى المعلومة المطلوبة, إذا كانت<strong>موجودة مسبقاً</strong>على شبكة الأنترنات. "
 
@@ -86,9 +77,6 @@ msgstr " اذكروا كيفية <strong>استخدامكم للمعلومات</
 
 msgid " Suggest <strong>where else</strong> the requester might find the information. "
 msgstr " قوموا باقتراح <strong>مكان اخر</strong>أين يمكن لصاحب الطلب أن يجد المعلومة. "
-
-msgid " What are you investigating using Freedom of Information? "
-msgstr " في ماذا تحقق باستخدام حق الحصول على المعلومة?"
 
 msgid " You are already being emailed updates about the request."
 msgstr " يجري حصولكم على رسالةٍ إلكترونية  تتضمن مستجدات متعلقة بطلبكم."
@@ -264,13 +252,16 @@ msgstr "<strong>لم يقع تلقي اي طلب</strong> \\n                <sm
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr "<strong>ملاحظة:</strong> نظراً لكوننا في مرحلة التجارب، يفضّل إرسال المطالب إلى {{email}}على ارسالها للمؤسسة الحالية."
 
-msgid "<strong>Note:</strong> You're sending a message to yourself, presumably\\n            to try out how it works."
-msgstr "<strong>ملاحظة:</strong>من المفترض انك ترسل  رسالة الى نفسك لتجرب سير العملية \\n           ."
-
-msgid "<strong>Note:</strong>\\n    We will send an email to your new email address. Follow the\\n    instructions in it to confirm changing your email."
+msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
 msgstr "<strong>Note:</strong>\\n    سنرسل بريدا الكترونيا لعنوان بريدك الالكتروني الجديد. اتبع \\n   التعليمات الواردة فيه لتؤكد تغيير بريدك الالكتروني ."
 
-msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
+msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
+msgstr " <strong>ملاحظة:</strong>\\n    سوف نمدكم برسالة إلكترونية. قوموا باتباع الإرشادات الموجودة لتتمكنوا من تغير\\n    كلمة السر."
+
+msgid "<strong>Note:</strong> You're sending a message to yourself, presumably to try out how it works."
+msgstr "<strong>ملاحظة:</strong>من المفترض انك ترسل  رسالة الى نفسك لتجرب سير العملية \\n           ."
+
+msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, wherever you do something on {{site_name}}."
 msgstr "<strong>Privacy note:</strong> صورتك ستظهر للعلن على الانترنات,\\n كلما قمت بشئ على {{site_name}}."
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
@@ -1197,9 +1188,6 @@ msgstr ""
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "اذا تجيب على هذا السؤال سيذهب مباشرة الى {{user_name}}, الذي\\nسيعرف بريدك الالكتروني. اجب فقط اذا كنت موافقا."
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr "ان كنت تستعمل بريدا الكترونيا يستند الى الواب او محدد \"الرسائل الالكترونية غير المرغوب فيها\", تثبت من\\nbulk/هذه الملفات. , رسائلنا قد نصنف  كبريد الكتروني غير مرغوب فيه احيانا."
-
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr "ان أردت رفع هذا الحظر, بامكانك\\n<a href=\"/help/contact\">الاتصال بنا</a>ذاكرا أسبابك. n\\"
 
@@ -1217,6 +1205,9 @@ msgstr "إذا قمتم باستخدام هذا الموقع {{site_name}} من 
 
 msgid "If your browser is set to accept cookies and you are seeing this message,\\nthen there is probably a fault with our server."
 msgstr "ان كان المتصفح الذي تستعمله مبرمجا لقبول ملفات الارتباط ورأيت هذه الرسالة,\\nفهناك على الغالب خطأ بالخادم الخاص بنا"
+
+msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
+msgstr "تضمين روابط ذات صلة مثل صفحة الحملة،المدوّنةأو صفحة  التّويتر. تصبح هذه الروابط متاحة للجميع."
 
 msgid "Incoming email address"
 msgstr ""
@@ -1386,7 +1377,7 @@ msgstr "آخر مؤسسة تمّ الإطلاع عليها : "
 msgid "Last request viewed: "
 msgstr "آخر مطلب وقع الإطلاع عليه: "
 
-msgid "Let us know what you were doing when this message\\nappeared and your browser and operating system type and version."
+msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
 msgstr "اعلمنا  ما كنت تفعل عندما ظهرت\\nهذه الرسالة ومتصفحك و نوع و نسخة نظام التشغيل."
 
 msgid "Link to this"
@@ -1758,7 +1749,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-msgid "Please <strong>go to the following requests</strong>, and let us\\n        know if there was information in the recent responses to them."
+msgid "Please <strong>go to the following requests</strong>, and let us know if there was information in the recent responses to them."
 msgstr "الرجاء <strong>الذهاب الى الطلبات التالية</strong>,و اعلامنا\\n         ان كانت هناك معلومات عنهم في الردود الحديثة."
 
 msgid "Please <strong>only</strong> write messages directly relating to your request {{request_link}}. If you would like to ask for information that was not in your original request, then <a href=\"{{new_request_link}}\">file a new request</a>."
@@ -1797,7 +1788,7 @@ msgstr ""
 msgid "Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway."
 msgstr "الرجاء تدقيق وصف مايدور حوله الطلب في الموضوع. لاداعي للقول بانه طلب عن حرية النفاذ الى المعلومات لأننا نضيف ذلك في كل الحالات."
 
-msgid "Please don't upload offensive pictures. We will take down images\\n    that we consider inappropriate."
+msgid "Please don't upload offensive pictures. We will take down images that we consider inappropriate."
 msgstr "الرجاء عدم تحميل صور مخلة.سنحذف الصور التي\\n    نعتبرها غير ملائمة."
 
 msgid "Please enable \"cookies\" to carry on"
@@ -2541,7 +2532,7 @@ msgstr ""
 msgid "Thanks for your suggestion to update the email address for {{public_body_name}} to {{public_body_email}}. This has now been done and any new requests will be sent to the new address."
 msgstr ""
 
-msgid "Thanks very much - this will help others find useful stuff. We'll\\n            also, if you need it, give advice on what to do next about your\\n            requests."
+msgid "Thanks very much - this will help others find useful stuff. We'll also, if you need it, give advice on what to do next about your requests."
 msgstr "شكرا جزيلا - سيساعدهذا الاخرين في العثور على أشياء مفيدة. سوف\\n            نمدك أيضا ان احتجت بنصائح حول ما يجب أن تفعل لاحقا بخصوص \\n            طلباتك."
 
 msgid "Thanks very much for helping keep everything <strong>neat and organised</strong>. We'll also, if you need it, give you advice on what to do next about each of your requests."
@@ -2745,7 +2736,7 @@ msgstr "ثم سيقع نشر {{info_request_title}}ملاحظتك."
 msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
 msgstr "يوجد {{count}} ملاحظات جديدة {{info_request}} تخص طلبك. اتبع هذا الرابط لرؤية ما كتبوا."
 
-msgid "There is <strong>more than one person</strong> who uses this site and has this name.\\n    One of them is shown below, you may mean a different one:"
+msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
 msgstr "هنالك <strong>اكثر من شخص</strong> يستعمل هذا الموقع و له هذا الاسم.\\n    احدهم يظهر اسفله, ربما تعني اسما اخرا:"
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -2936,6 +2927,9 @@ msgstr "تم منع هذا المستخدم من {{site_name}} "
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
 msgstr "هذا الطلب غير ممكن اذ يوجد حساب اخر يستعمل \\nنفس البريد الالكتروني {{email}}."
+
+msgid "This will appear on your {{site_name}} profile, to make it easier for others to get involved with what you're doing."
+msgstr "هذا سوف يظهر على حسابك {{site_name}} ، لتمكين الأخرين من المشاركة"
 
 msgid "To"
 msgstr ""
@@ -3255,9 +3249,6 @@ msgstr "لا نملك {{law_used_full}} عنوان بريد الكتروني ص�
 msgid "We don't know whether the most recent response to this request contains information or not &ndash; if you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr "لا نعرف ان كان أحدث رد على هذا الطلب يحتوي\\n    على المعلومات أم لا\\n        &ndash;\\n\tان كنت {{user_link}} الرجاء <a href=\"{{url}}\">تسجيل الدخول</a>واعلام الجميع ."
 
-msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or\\n        the law tell us to</a>. "
-msgstr ""
-
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
 msgstr " لن نكشف عنوان بريدك الالكتروني لاحد الا  اذا قررت انت\\nاو القانون عكس ذلك ."
 
@@ -3282,7 +3273,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-msgid "We've sent an email to your new email address. You'll need to click the link in\\nit before your email address will be changed."
+msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
 msgstr "قمنا بارسال رسالة الكتروني على عنوان بريدك الاكتروني الجديد. اضغط على الرابط الموجود\\nبالرسالة قبل ان يتغير عنوان بريدك الالكتروني."
 
 msgid "We've sent you an email, and you'll need to click the link in it before you can\\ncontinue."
@@ -3293,6 +3284,9 @@ msgstr "ارسلنا لك رسالة الكترونية, اضغط على الر�
 
 msgid "What are you doing?"
 msgstr "ما ذا تفعل؟"
+
+msgid "What are you investigating using Freedom of Information?"
+msgstr " في ماذا تحقق باستخدام حق الحصول على المعلومة?"
 
 msgid "What best describes the status of this request now?"
 msgstr "ما هو افضل وصف لحالة الطلب الان؟"
@@ -3546,7 +3540,7 @@ msgstr "لست متابعا لأي شيء"
 msgid "You've now cleared your profile photo"
 msgstr "قمت بحذف صورة حسابك"
 
-msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines.\\n        <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
+msgid "Your <strong>name will appear publicly</strong> (<a href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
 msgstr ""
 
 msgid "Your annotations"
@@ -3606,7 +3600,7 @@ msgstr "تم تغيير كلمة السر"
 msgid "Your password:"
 msgstr "كلمة السر:"
 
-msgid "Your photo will be shown in public <strong>on the Internet</strong>,\\n    wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
 msgstr "ستظهر صورتك للعموم <strong>على الانترنات</strong>,\\n    كلما تفاعلت على {{site_name}}."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
