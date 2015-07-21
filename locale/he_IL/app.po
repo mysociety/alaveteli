@@ -1062,7 +1062,7 @@ msgstr "כאן <strong>מתוארים</strong> אמצעים, כאשר המשתמ
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "הנה ההודעה שכתבתם, במקרה שאתם רוצים להעתיק את הטקסט ולשמור אותו."
 
-msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mindtaking a moment to read it and help us keep the place tidy for everyone? Thanks."
+msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "היי! אנו זקוקים לעזרתך. האדם אשר הגיש את הבקשה הנ\"ל \\n לא אמר לנו האם היא הסתיימה בהצלחה. האם תסכים לקרוא אותה \\n ולעזור לנו לשמור על האתר מסודר עבור כולם? \\n תודה."
 
 msgid "Hide request"
@@ -3577,7 +3577,7 @@ msgstr "הסיסמה שונתה בהצלחה."
 msgid "Your password:"
 msgstr "הסיסמה שלכם:"
 
-msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "התמונה שלכם תוצג באופן פומבי באינטרנט,\\n בכל פעם שתעשו משהו באתר {{site_name}}."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."

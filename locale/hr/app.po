@@ -1081,7 +1081,7 @@ msgstr "Ovdje <strong>opisano</strong> znači da kada korisnik odabere status za
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Ovo je poruka koju ste napisali, ako je želite kopirati i pospremiti."
 
-msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mindtaking a moment to read it and help us keep the place tidy for everyone? Thanks."
+msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Pozdrav, trebamo Vašu pomoć. Osoba koja je podnijela sljedeći zahtjev\\n nije nam rekla je li bio uspješan ili ne. Biste li mogli odvojiti\\n malo vremena da ga pročitate i da nam pomognete da održimo ovo mjesto urednim za sve?\\n Hvala."
 
 msgid "Hide request"
@@ -3682,7 +3682,7 @@ msgstr "Vaša je lozinka promijenjena."
 msgid "Your password:"
 msgstr "Vaša lozinka:"
 
-msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr ""
 "Vaša će slika biti prikazana javno <strong> na internetu</strong>,\n"
 "    svugdje gdje učinite nešto na {{site_name}}."

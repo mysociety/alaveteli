@@ -1060,7 +1060,7 @@ msgstr "Yma mae <strong>wedi ei ddisgrifio</strong> yn golygu pan fydd defnyddiw
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Dyma'r neges ysgrifennoch, rhag ofn yr hoffech gopïo'r testun a'i gadw ar gyfer yn ddiweddarach."
 
-msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mindtaking a moment to read it and help us keep the place tidy for everyone? Thanks."
+msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Hiya! Rydym angen eich help. Dydy'r person a wnaeth y cais canlynol sydd ddim wedi dweud wrthym ai oedd yn llwyddiannus. A fyddech chi'n meddwl cymryd eiliad i'w ddarllen a'n helpu ni i gadw'r lle'n daclus i bawb? Diolch."
 
 msgid "Hide request"
@@ -3587,7 +3587,7 @@ msgstr "Mae eich cyfrinair wedi cael ei newid."
 msgid "Your password:"
 msgstr "Eich cyfrinair:"
 
-msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Bydd eich llun yn cael ei ddangos yn gyhoeddus <strong>ar y Rhyngrwyd</strong>, lle bynnag y byddwch yn gwneud rhywbeth ar {{site_name}}."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."

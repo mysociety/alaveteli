@@ -1061,7 +1061,7 @@ msgstr "Aici <strong>descris</strong> înseamnă când un utilizator selectează
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Aici este mesajul pe care l-aţi scris, pentru cazul în care vreţi să copiaţi textul şi să îl salvaţi pentru mai târziu."
 
-msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mindtaking a moment to read it and help us keep the place tidy for everyone? Thanks."
+msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr ""
 "Salut! Avem nevoie de ajutorul vostru. Persoana care a făcut următoarea solicitare\\n nu ne-a transmis dacă a primit sau nu un răspuns. \n"
 "Aveți\\n un moment să o citiți și să ne ajutați astfel să ținem lucrurile în ordine pentru toată lumea?\\n Mulțumim."
@@ -3583,7 +3583,7 @@ msgstr "Parola ta a fost modificată."
 msgid "Your password:"
 msgstr "Parola ta:"
 
-msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Fotografia ta va fi făcută publică <strong>pe Internet</strong>,\\n oriunde faci ceva pe {{site_name}}."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."

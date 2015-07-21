@@ -1046,7 +1046,7 @@ msgstr ""
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Ето съобщението, което написахте, в случай, че искате да копирате текста и да го запазите за по-късно."
 
-msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mindtaking a moment to read it and help us keep the place tidy for everyone? Thanks."
+msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Здравейте! Имаме нужда от помощта Ви. Потребителят, направил следното Заявление\\n не ни е казал дали то е успешно или не. Бихте ли отделили\\n минута да го прочетете и да ни помогнете да поддържаме нещата подредени?\\n    Благодарим Ви!"
 
 msgid "Hide request"
@@ -3559,7 +3559,7 @@ msgstr "Паролата Ви беше сменена."
 msgid "Your password:"
 msgstr "Вашата парола:"
 
-msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Снимката Ви ще бъде показвана публично <strong>в Интернет</strong>,\\n всеки път, когато правите нещо в {{site_name}}."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."

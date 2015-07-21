@@ -1041,7 +1041,7 @@ msgstr ""
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr ""
 
-msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mindtaking a moment to read it and help us keep the place tidy for everyone? Thanks."
+msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr ""
 
 msgid "Hide request"
@@ -3563,7 +3563,7 @@ msgstr ""
 msgid "Your password:"
 msgstr ""
 
-msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr ""
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."

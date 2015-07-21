@@ -1049,7 +1049,7 @@ msgstr "Tu <strong>opisano</strong> pomeni, da je uporabnik izbral stanje in je 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Tu je prikazano sporočilo, ki ste ga napisali, v kolikor bi si ga želeli shraniti za kasneje."
 
-msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mindtaking a moment to read it and help us keep the place tidy for everyone? Thanks."
+msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Zdravo! Potrebujemo tvojo pomoč. Oseba, ki je naredila sledeči zahtevek\\n nam ni zaupala, če je bilo zahtevku ugodeno ali ne. Bi si vzeli\\n trenutek, da ga preberete in nam pomagate poskrbeti za urejen zahtevek?\\n Hvala."
 
 msgid "Hide request"
@@ -3576,7 +3576,7 @@ msgstr "Vaše geslo je bilo spremenjeno."
 msgid "Your password:"
 msgstr "Vaše geslo:"
 
-msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Vaša slika bo prikazana <strong>javno na internetu</strong>, kjerkoli naredite kaj na {{site_name}}."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."

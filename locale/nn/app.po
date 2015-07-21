@@ -1060,7 +1060,7 @@ msgstr "Her tyder <strong>skildra</strong> når ein brukar klargjer kor i proses
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
 msgstr "Her er meldinga som du skreiv, i tilfelle du ynskjer å kopiera og ta vare på teksta."
 
-msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mindtaking a moment to read it and help us keep the place tidy for everyone? Thanks."
+msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Hei!  Vi treng hjelpa di.  Personen som sende inn følgjande\\n førespurnad har ikkje fortalt oss i kva grad han var vellukka eller ikkje.  Kunne du tenkja deg å bruka ein augneblunk på å lesa henne og hjelpa oss å halda staden ryddig for alle?\\n Tusen takk."
 
 msgid "Hide request"
@@ -3580,7 +3580,7 @@ msgstr "Passordet ditt er bytt"
 msgid "Your password:"
 msgstr "Passordet ditt:"
 
-msgid "Your photo will be shown in public <strong>on the Internet </strong>, wherever you do something on {{site_name}}."
+msgid "Your photo will be shown in public <strong>on the Internet</strong>, wherever you do something on {{site_name}}."
 msgstr "Biletet ditt vil visast offentleg <strong>på Internettet</strong>,\\n    uavhengig om du gjer noko på {{site_name}}."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
