@@ -10,9 +10,22 @@ describe ContactMailer do
                                      "test@example.com",
                                      "test",
                                      "test", nil, nil, nil)['from'].to_s.should == '"A,B,C." <test@example.com>'
+    end
 
+    it 'sets the "Reply-To" header header to the sender' do
+      ContactMailer.to_admin_message("test sender",
+                                     "test@example.com",
+                                     "test",
+                                     "test", nil, nil, nil).header['Reply-To'].to_s.should == 'test sender <test@example.com>'
+    end
 
+    it 'sets the "Return-Path" header to the blackhole address' do
+      ContactMailer.to_admin_message("test sender",
+                                     "test@example.com",
+                                     "test",
+                                     "test", nil, nil, nil).header['Return-Path'].to_s.should == 'do-not-reply-to-this-address@localhost'
     end
 
   end
+
 end
