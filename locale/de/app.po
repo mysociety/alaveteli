@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-21 11:39+0000\n"
+"POT-Creation-Date: 2015-07-22 14:53+0000\n"
 "PO-Revision-Date: 2015-07-01 09:20+0000\n"
 "Last-Translator: arne <arne.semsrott@okfn.de>\n"
 "Language-Team: German (http://www.transifex.com/p/alaveteli/language/de/)\n"
@@ -205,7 +205,7 @@ msgstr "<p>Ihre Anfrage enthält eine <strong>Postleitzahl</strong>. Sollte dies
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>{{site_name}} wird gerade überarbeitet. Sie können ausschließlich existierende Anfragen ansehen. Sie können keine neuen Anfragen stellen, Follow-ups oder Anmerkungen hinzufügen oder andere Änderungen an der Datenbank vornehmen.</p> <p>{{read_only}}</p>"
 
-msgid "<small>If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way.</small>\\n</p>"
+msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Sollten Sie eine webbasierten Emailanbieter oder ´Junk-mail´ Filter nutzen, prüfen Sie Ihren Spamordner. Es kommt vor, dass unsere Nachrichten dort landen. "
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
