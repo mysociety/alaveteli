@@ -13,9 +13,9 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-06-28 00:41+0000\n"
+"PO-Revision-Date: 2015-07-19 13:18+0000\n"
 "Last-Translator: spions kwong\n"
-"Language-Team: Chinese (Hong Kong) (http://www.transifex.com/p/alaveteli/language/zh_HK/)\n"
+"Language-Team: Chinese (Hong Kong) (http://www.transifex.com/projects/p/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
-msgstr ""
+msgstr "(<strong>不要謾罵或作人身攻擊</strong>，請查看我們的 <a href=\"{{url}}\">管理政策</a>)"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
 msgstr "(請<strong>耐心等候</strong>，上載大型檔案可能需要一段時間)"
@@ -35,7 +35,7 @@ msgid " - view and make Freedom of Information requests"
 msgstr "— 檢視及提出索取資料要求"
 
 msgid " - wall"
-msgstr ""
+msgstr " - 版面"
 
 msgid " < "
 msgstr "<"
@@ -56,7 +56,7 @@ msgid " >> "
 msgstr ">>"
 
 msgid " Advise on how to <strong>best clarify</strong> the request."
-msgstr ""
+msgstr "建議我如何<strong>最好地澄清</strong>要求。"
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
 msgstr ""
@@ -240,7 +240,7 @@ msgid "<strong>Note:</strong> Because we're testing, requests are being sent to 
 msgstr ""
 
 msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
-msgstr ""
+msgstr "我們將會向你發出一封電郵，請按照電郵內的指示更改你的密碼。"
 
 msgid "<strong>Note:</strong> We will send you an email. Follow the instructions in it to change your password."
 msgstr "我們將會向你發出一封電郵，請按照電郵內的指示更改你的密碼。"
@@ -252,7 +252,7 @@ msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the 
 msgstr ""
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response to it, will be displayed publicly on this website."
-msgstr ""
+msgstr "<strong>私隱聲明：</strong> 以下人士將得悉你的電郵地址。"
 
 msgid "<strong>Some of the information</strong> has been sent "
 msgstr "已提供<strong>部份資料</strong>"
@@ -282,7 +282,7 @@ msgid "A <strong>summary</strong> of the response if you have received it by pos
 msgstr ""
 
 msgid "A Freedom of Information request"
-msgstr ""
+msgstr "一宗索取資料要求"
 
 msgid "A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}"
 msgstr ""
@@ -291,10 +291,10 @@ msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>
 msgstr ""
 
 msgid "A one line summary of the information you are requesting, \\n\t\t\te.g."
-msgstr ""
+msgstr "以一行概括你所要求的資料\\n\t\t\t例如："
 
 msgid "A public authority"
-msgstr ""
+msgstr "一個政府部門或公營機構"
 
 msgid "A response will be sent <strong>by post</strong>"
 msgstr ""
@@ -994,7 +994,7 @@ msgid "From:"
 msgstr "由："
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
-msgstr ""
+msgstr "請在此詳述你的投訴"
 
 msgid "Got an account?"
 msgstr "是否已持有帳戶？"
@@ -1105,7 +1105,7 @@ msgid "I'm waiting for an <strong>internal review</strong> response"
 msgstr ""
 
 msgid "I've been asked to <strong>clarify</strong> my request"
-msgstr ""
+msgstr "我被要求<strong>澄清</strong>我的要求。"
 
 msgid "I've received <strong>all the information"
 msgstr ""
@@ -1144,7 +1144,7 @@ msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to
 msgstr ""
 
 msgid "If you are {{user_link}}, please"
-msgstr ""
+msgstr "如果你是{{user_link}}，請"
 
 msgid "If you believe this request is not suitable, you can report it for attention by the site administrators"
 msgstr ""
@@ -1309,22 +1309,22 @@ msgid "InfoRequest|Url title"
 msgstr ""
 
 msgid "Information not held."
-msgstr ""
+msgstr "未持有相關資料。"
 
 msgid "Information on emissions and discharges (e.g. noise, energy, radiation, waste materials)"
 msgstr ""
 
 msgid "Internal review"
-msgstr ""
+msgstr "部門覆檢"
 
 msgid "Internal review of {{email_subject}}"
-msgstr ""
+msgstr "就{{email_subject}}的部門覆檢"
 
 msgid "Internal review request"
-msgstr ""
+msgstr "部門覆檢要求"
 
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "{{info_request_user}}已在{{date}}向{{public_body_name}}提出部門覆檢要求。"
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr ""
@@ -1336,13 +1336,13 @@ msgid "Items matching the following conditions are currently displayed on your w
 msgstr ""
 
 msgid "Items sent in last month"
-msgstr ""
+msgstr "上個月發送的項目"
 
 msgid "Joined in"
-msgstr ""
+msgstr "加入於"
 
 msgid "Joined {{site_name}} in"
-msgstr ""
+msgstr "加入{{site_name}}於"
 
 msgid "Just one more thing"
 msgstr ""
@@ -1354,7 +1354,7 @@ msgid "Keep your requests up to date"
 msgstr ""
 
 msgid "Keywords"
-msgstr ""
+msgstr "關鍵字"
 
 msgid "Last authority viewed: "
 msgstr ""
@@ -1366,7 +1366,7 @@ msgid "Let us know what you were doing when this message appeared and your brows
 msgstr ""
 
 msgid "Link to this"
-msgstr ""
+msgstr "連結這個"
 
 msgid "List of all authorities (CSV)"
 msgstr ""
@@ -1396,7 +1396,7 @@ msgid "Long overdue"
 msgstr ""
 
 msgid "Long overdue."
-msgstr ""
+msgstr "嚴重逾時。"
 
 msgid "Made between"
 msgstr ""
@@ -1438,16 +1438,16 @@ msgid "Make a request &raquo;"
 msgstr ""
 
 msgid "Make a request to these authorities"
-msgstr ""
+msgstr "向這些部門或機構提出要求"
 
 msgid "Make a request to this authority"
 msgstr "向此部門或機構提出要求"
 
 msgid "Make an {{law_used_short}} request"
-msgstr ""
+msgstr "提出一個{{law_used_short}}要求"
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
-msgstr ""
+msgstr "向'{{public_body_name}}'提出一個{{law_used_short}}要求"
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr ""
@@ -2108,16 +2108,16 @@ msgid "PurgeRequest|Url"
 msgstr ""
 
 msgid "RSS feed"
-msgstr ""
+msgstr "RSS 更新"
 
 msgid "RSS feed of updates"
-msgstr ""
+msgstr "RSS 更新"
 
 msgid "Re-edit this annotation"
-msgstr ""
+msgstr "編輯這項註解"
 
 msgid "Re-edit this message"
-msgstr ""
+msgstr "編輯這項訊息"
 
 msgid "Read about <a href=\"{{advanced_search_url}}\">advanced search operators</a>, such as proximity and wildcards."
 msgstr ""
@@ -2141,19 +2141,19 @@ msgid "Remember me (keeps you signed in longer; do not use on a public computer)
 msgstr ""
 
 msgid "Report abuse"
-msgstr ""
+msgstr "舉報濫用"
 
 msgid "Report an offensive or unsuitable request"
-msgstr ""
+msgstr "舉報冒犯或不恰當的要求"
 
 msgid "Report request"
 msgstr "報告此要求"
 
 msgid "Report this request"
-msgstr ""
+msgstr "舉報此要求"
 
 msgid "Reported for administrator attention."
-msgstr ""
+msgstr "已向管理員作出舉報"
 
 msgid "Reporting a request notifies the site administrators. They will respond as soon as possible."
 msgstr ""
@@ -2219,28 +2219,28 @@ msgid "Respond using the web"
 msgstr ""
 
 msgid "Response"
-msgstr ""
+msgstr "回應"
 
 msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
 msgstr ""
 
 msgid "Response from a public authority"
-msgstr ""
+msgstr "政府部門或公營機構的回應"
 
 msgid "Response to '{{title}}'"
-msgstr ""
+msgstr "有關「{{title}}」的回應"
 
 msgid "Response to this request is <strong>delayed</strong>."
-msgstr ""
+msgstr "回應此索取資料要求的<strong>期限已過</strong>。"
 
 msgid "Response to this request is <strong>long overdue</strong>."
-msgstr ""
+msgstr "此索取資料要求的回應已經<strong>嚴重逾期</strong>。"
 
 msgid "Response to your request"
-msgstr ""
+msgstr "有關你的要求的回應"
 
 msgid "Response:"
-msgstr ""
+msgstr "回應："
 
 msgid "Restrict to"
 msgstr ""
@@ -2249,10 +2249,10 @@ msgid "Results page {{page_number}}"
 msgstr ""
 
 msgid "Save"
-msgstr ""
+msgstr "儲存"
 
 msgid "Search"
-msgstr ""
+msgstr "搜尋"
 
 msgid "Search Freedom of Information requests, public authorities and users"
 msgstr ""
@@ -2264,52 +2264,52 @@ msgid "Search for the authorities you'd like information from:"
 msgstr ""
 
 msgid "Search in"
-msgstr ""
+msgstr "搜尋於"
 
 msgid "Search in their website for this information &rarr;"
-msgstr ""
+msgstr "在他們的網頁搜尋這項資料 &rarr;"
 
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
 msgstr "搜尋<br/>\\n <strong>{{number_of_requests}} 項要求</strong> <span>及</span><br/>\\n <strong>{{number_of_authorities}} 個部門及機構的</strong>公開資料"
 
 msgid "Search queries"
-msgstr ""
+msgstr "搜尋內容"
 
 msgid "Search results"
-msgstr ""
+msgstr "搜尋結果"
 
 msgid "Search the site to find what you were looking for."
-msgstr ""
+msgstr "搜尋網站，以尋找你想要的資訊"
 
 msgid "Search your contributions"
-msgstr ""
+msgstr "搜尋你的貢獻"
 
 msgid "See bounce message"
-msgstr ""
+msgstr "查看退回訊息"
 
 msgid "Send a followup"
-msgstr ""
+msgstr "傳送一項跟進訊息"
 
 msgid "Send a message to "
-msgstr ""
+msgstr "傳送一項訊息至"
 
 msgid "Send a public follow up message to {{person_or_body}}"
-msgstr ""
+msgstr "傳送一項公開的跟進訊息至{{person_or_body}}"
 
 msgid "Send a public reply to {{person_or_body}}"
-msgstr ""
+msgstr "傳送一項公開的回覆至{{person_or_body}}"
 
 msgid "Send follow up to '{{title}}'"
-msgstr ""
+msgstr "傳送有關「{{title}}」的跟進訊息"
 
 msgid "Send message"
-msgstr ""
+msgstr "傳送訊息"
 
 msgid "Send message to "
-msgstr ""
+msgstr "傳送訊息至"
 
 msgid "Send request"
-msgstr ""
+msgstr "傳送索取資料要求"
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2337,16 +2337,16 @@ msgid "Show most relevant results first"
 msgstr ""
 
 msgid "Show only..."
-msgstr ""
+msgstr "只顯示…"
 
 msgid "Showing"
-msgstr ""
+msgstr "正在顯示"
 
 msgid "Sign in"
 msgstr "登入"
 
 msgid "Sign in as the emergency user"
-msgstr ""
+msgstr "登入為緊急用戶"
 
 msgid "Sign in or make a new account"
 msgstr "登入或註冊"
@@ -2361,13 +2361,13 @@ msgid "Sign up"
 msgstr "註冊"
 
 msgid "Similar requests"
-msgstr ""
+msgstr "類似的索取資料要求"
 
 msgid "Simple search"
-msgstr ""
+msgstr "簡單搜尋"
 
 msgid "Some notes have been added to your FOI request - "
-msgstr ""
+msgstr "你的索取資料要求已加入一些備註"
 
 msgid "Some of the information requested has been received"
 msgstr ""
@@ -2376,10 +2376,10 @@ msgid "Some people who've made requests haven't let us know whether they were su
 msgstr ""
 
 msgid "Somebody added a note to your FOI request - "
-msgstr ""
+msgstr "有人在你的索取資料要求加入備註"
 
 msgid "Someone has updated the status of your request"
-msgstr ""
+msgstr "有人更新了你的索取資料要求的狀態"
 
 msgid "Someone, perhaps you, just tried to change their email address on\\n{{site_name}} from {{old_email}} to {{new_email}}."
 msgstr ""
@@ -2397,55 +2397,55 @@ msgid "Sorry, we couldn't find that page"
 msgstr ""
 
 msgid "Source URL:"
-msgstr ""
+msgstr "來源網址："
 
 msgid "Source:"
 msgstr "來源："
 
 msgid "Spam address"
-msgstr ""
+msgstr "垃圾電郵地址"
 
 msgid "SpamAddress|Email"
-msgstr ""
+msgstr "垃圾電郵地址｜電郵"
 
 msgid "Start your own blog"
 msgstr ""
 
 msgid "Stay up to date"
-msgstr ""
+msgstr "保持更新"
 
 msgid "Still awaiting an <strong>internal review</strong>"
 msgstr ""
 
 msgid "Subject"
-msgstr ""
+msgstr "主題"
 
 msgid "Subject:"
-msgstr ""
+msgstr "主題："
 
 msgid "Submit"
 msgstr "提交"
 
 msgid "Submit Search"
-msgstr ""
+msgstr "提交搜尋"
 
 msgid "Submit request"
-msgstr ""
+msgstr "提交要求"
 
 msgid "Submit status"
-msgstr ""
+msgstr "提交狀態"
 
 msgid "Submit status and send message"
-msgstr ""
+msgstr "提交狀態並發送訊息"
 
 msgid "Subscribe to blog"
-msgstr ""
+msgstr "訂閱網誌"
 
 msgid "Success"
-msgstr ""
+msgstr "成功"
 
 msgid "Successful"
-msgstr ""
+msgstr "成功"
 
 msgid "Successful Freedom of Information requests"
 msgstr "更多成功案例"
@@ -2889,7 +2889,7 @@ msgid "This was not possible because there is already an account using \\nthe em
 msgstr ""
 
 msgid "This will appear on your {{site_name}} profile, to make it easier for others to get involved with what you're doing."
-msgstr ""
+msgstr "這會在你 {{site_name}} 個人簡介中出現，令其他用戶更易參與你的工作。"
 
 msgid "To"
 msgstr ""
@@ -2985,16 +2985,16 @@ msgid "To view the response, click on the link below."
 msgstr ""
 
 msgid "To {{public_body_link_absolute}}"
-msgstr ""
+msgstr "致{{public_body_link_absolute}}"
 
 msgid "To:"
-msgstr ""
+msgstr "致："
 
 msgid "Today"
 msgstr "今天"
 
 msgid "Too many requests"
-msgstr ""
+msgstr "過多要求"
 
 msgid "Track thing"
 msgstr ""
@@ -3057,31 +3057,31 @@ msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\n
 msgstr ""
 
 msgid "Unknown"
-msgstr ""
+msgstr "未知"
 
 msgid "Unsubscribe"
 msgstr "取消訂閱"
 
 msgid "Unusual response"
-msgstr ""
+msgstr "異常回應"
 
 msgid "Unusual response."
-msgstr ""
+msgstr "異常回應。"
 
 msgid "Update email address - {{public_body_name}}"
 msgstr ""
 
 msgid "Update the address:"
-msgstr ""
+msgstr "更新地址："
 
 msgid "Update the status of this request"
-msgstr ""
+msgstr "更新此要求的狀態"
 
 msgid "Update the status of your request to "
-msgstr ""
+msgstr "將你的要求的狀態更新為"
 
 msgid "Upload FOI response"
-msgstr ""
+msgstr "上載索取資料要求的回應"
 
 msgid "Use OR (in capital letters) where you don't mind which word,  e.g. <strong><code>commons OR lords</code></strong>"
 msgstr ""
@@ -3171,7 +3171,7 @@ msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr ""
 
 msgid "View authorities"
-msgstr ""
+msgstr "查看政府部門或公營機構"
 
 msgid "View email"
 msgstr "檢視電郵"
@@ -3189,7 +3189,7 @@ msgid "Waiting for the public authority to complete an internal review of their 
 msgstr ""
 
 msgid "Waiting for the public authority to reply"
-msgstr ""
+msgstr "正等待政府部門或公營機構回應"
 
 msgid "Was the response you got to your FOI request any good?"
 msgstr ""
@@ -3614,13 +3614,13 @@ msgid "Your {{site_name}} email alert"
 msgstr ""
 
 msgid "Yours faithfully,"
-msgstr ""
+msgstr "市民"
 
 msgid "Yours sincerely,"
-msgstr ""
+msgstr "市民"
 
 msgid "Yours,"
-msgstr ""
+msgstr "市民"
 
 msgid "[Authority URL will be inserted here]"
 msgstr "[部門／機構的網址會在這裡加入]"
