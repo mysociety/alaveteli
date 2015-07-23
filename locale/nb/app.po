@@ -20,9 +20,9 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-07-14 17:16+0000\n"
+"PO-Revision-Date: 2015-07-20 21:21+0000\n"
 "Last-Translator: pere <pere-transifex@hungry.com>\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/p/alaveteli/language/nb/)\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/alaveteli/language/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -195,9 +195,6 @@ msgstr "<p>Din henvendelse inneholder et <strong>postnummer</strong>.  Med mindr
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>Det utføres vedlikehold på {{site_name}}. Du kan bare se på eksisterende henvendelser. Du kan ikke opprette nye, legge til oppfølgingshenvendelser, notater eller endre på data.</p> <p>{{read_only}}</p>"
-
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr "Bruker du web-basert e-post eller har \"spam-filter\", sjekk også din\\nsøppel/spam-e-postfolder. Det hender at meldingene våre blir behandlet som spam."
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>commented_by:tony_bowden</code></strong> for å søke etter annoteringer fra Tony Bowden. Navnet skrives slik det kommer frem i URL."
@@ -767,7 +764,7 @@ msgid "Edit"
 msgstr "Rediger"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
-msgstr ""
+msgstr "Rediger og legg til <strong>flere detaljer</strong> i meldingen over,\\n                som forklarer hvorfor du klager."
 
 msgid "Edit text about you"
 msgstr "Rediget teksten om deg"
@@ -1181,6 +1178,9 @@ msgstr "Hvis du vet adressen som kan brukes, vær så snill å <a href=\"{{url}}
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Hvis du svarer på denne e-posten, så vil svaret gå direkte til {{user_name}}, som da vil få vite din riktige e-postadresse. Svar kun om dette er i orden."
+
+msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgstr "Om du bruker web-basert e-post eller har «søppel-e-post»-filtere, sjekk også din\\nsøppel/spam-e-postfolder. Det hender at meldingene våre blir behandlet som spam."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr "Dersom du vil ha utestegningen opphevet kan du, på høflig vis,\\n<a href=\"/help/contact\">kontakte oss</a>.\\n"
@@ -1842,7 +1842,7 @@ msgid "Please keep the summary short, like in the subject of an email. You can u
 msgstr "Vennligst hold oppsummeringen kort, som temafeltet i en e-post. Du kan bruke en noen få ord i stedet for en hel setning."
 
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
-msgstr ""
+msgstr "Vær så snill og kun spør om informasjon som hører under disse kategoriene, <strong>kast ikke\\nbort tiden din</strong> eller tiden til den offentlige myndigheten ved å spørre om urelatert informasjon."
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Vær så snill å send denne videre til personen som vurderer innsynsklager."
@@ -3229,10 +3229,10 @@ msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}
 msgstr "Vi vil aldri gi ut e-post adressen din til noen uten at du eller\\n        retten ber oss om det (<a href=\"{{url}}\">detaljer</a>). "
 
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
-msgstr "Vi gir ikke ut e-postadressen din med, mindre du\\neller rettsvesenet ber om det."
+msgstr "Vi gir ikke ut e-postadressen din med mindre du\\neller rettsvesenet ber om det."
 
 msgid "We will not reveal your email addresses to anybody unless you\\nor the law tell us to."
-msgstr "Vi gir ikke ut e-postadressene dine med, mindre du\\neller rettsvesenet ber om det."
+msgstr "Vi gir ikke ut e-postadressene dine med mindre du\\neller rettsvesenet ber om det."
 
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
