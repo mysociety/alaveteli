@@ -26,7 +26,7 @@ msgstr ""
 "POT-Creation-Date: 2015-07-22 14:53+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
-"Language-Team: French (Canada) (http://www.transifex.com/p/alaveteli/language/fr_CA/)\n"
+"Language-Team: French (Canada) (http://www.transifex.com/projects/p/alaveteli/language/fr_CA/)\n"
 "Language: fr_CA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -199,9 +199,6 @@ msgstr "<p>Votre demande contient un <strong> code postal</strong>. À moins que
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p> {{site_name}} est en maintenance pour le moment. Vous pouvez seulement voir les demandes existantes. Vous ne pouvez en formuler de nouvelles, ajouter un suivi, des commentaires, ou changer de toute autre façon la base de données.</p> <p>{{read_only}}</p>"
-
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr "Si vous utilisez un service de courriel sur le web ou des filtres de \"courrier indésirable\", veuillez aussi vérifier vos dossiers de courrier indésirable. Parfois, nos messages sont marqués de cette façon."
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>commented_by:tony_bowden</code></strong> pour rechercher des annotations rédigées par Tony Bowden, tapez son nom comme si c'était un URL."
@@ -773,7 +770,7 @@ msgid "Edit"
 msgstr "Modifier"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
-msgstr ""
+msgstr "Modifier et ajouter <strong> plus de détails </strong> au message ci-dessus, \\n en expliquant pourquoi vous n'êtes pas satisfait de la réponse."
 
 msgid "Edit text about you"
 msgstr "Modifier votre texte de présentation"
@@ -1187,6 +1184,9 @@ msgstr "Si vous connaissez l'adresse à utiliser, merci de <a href=\"{{url}}\">n
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Si vous répondez à ce message, cela se rendra à {{user_name}}, qui connaîtra alors \\n votre adresse courriel. Ne répondez que si cela vous convient."
+
+msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgstr "Si vous utilisez un service de courriel sur le web ou que vous avez des filtres contre le \"pourriel\", veuillez aussi vérifier vos \\n courriels indésirables. Il arrive que nos messages soient ainsi classés."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr "Si vous souhaitez que nous levions cette interdiction, veuillez poliment <a href=\"/help/contact\">nous contacter </a> en nous expliquant les raisons. \\n"
@@ -1848,7 +1848,7 @@ msgid "Please keep the summary short, like in the subject of an email. You can u
 msgstr "Veuillez garder le résumé bref, comme le titre d'un courriel. Vous pouvez employer une expression plutôt qu'une phrase complète."
 
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
-msgstr ""
+msgstr "Veuillez demander uniquement les informations qui appartiennent à ces catégories <strong> ne perdez pas votre temps </strong> ou celui de l'organisme à demander des informations sans rapport avec ces catégories."
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Merci de transférer ceci à la personne en charge de la révision des demandes d'accès aux documents."
