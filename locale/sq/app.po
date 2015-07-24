@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # arianit <ardob11@gmail.com>, 2012
 # arianit <ardob11@gmail.com>, 2012
 # bresta <bresta@gmail.com>, 2011
@@ -19,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 15:03+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/projects/p/alaveteli/language/sq/)\n"
 "Language: sq\n"
@@ -1253,7 +1254,7 @@ msgstr ""
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr ""
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Nëse ti përdor \"web-based\" email klient (p.sh. hotmail.com) ose ke \"junk mail\" filtra, kontrollo edhe bulk/spam folderët. Ndonjëherë, mesazhet tona janë të shenjuara në këtë mënyrë."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
@@ -2460,6 +2461,9 @@ msgstr "Kyçu ose krijo një llogari të re"
 msgid "Sign in or sign up"
 msgstr "Kyçu ose krijo llogari"
 
+msgid "Sign in to track this request"
+msgstr ""
+
 msgid "Sign out"
 msgstr "Ç'kyçu"
 
@@ -2732,6 +2736,9 @@ msgstr ""
 "Përgjigja në kërkesën tënde është e <strong>vonuar</strong>.  Mund të thuhet që,\n"
 "sipas ligjit, autoriteti ishte dashtë të përgjigjet në \n"
 "<strong>afat</strong> të paraparë dhe "
+
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr ""

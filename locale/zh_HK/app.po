@@ -3,18 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # beckymak <makpowan@gmail.com>, 2015
 # caxekis <caxekis@gmail.com>, 2013
 # caxekis <caxekis@gmail.com>, 2013
 # beckymak <makpowan@gmail.com>, 2015
 # spions kwong, 2015
+# spions kwong, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-07-19 13:18+0000\n"
-"Last-Translator: spions kwong\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 14:59+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/projects/p/alaveteli/language/zh_HK/)\n"
 "Language: zh_HK\n"
 "MIME-Version: 1.0\n"
@@ -2353,6 +2355,9 @@ msgstr "登入或註冊"
 
 msgid "Sign in or sign up"
 msgstr "登入或註冊"
+
+msgid "Sign in to track this request"
+msgstr ""
 
 msgid "Sign out"
 msgstr "登出"

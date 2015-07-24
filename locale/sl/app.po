@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
 # zejn <zejn@kiberpipa.org>, 2013-2014
@@ -11,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 15:03+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/alaveteli/language/sl/)\n"
 "Language: sl\n"
@@ -1175,7 +1176,7 @@ msgstr "Če poznate pravi e-poštni naslov, nam ga prosimo <a href=\"{{url}}\">p
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Če boste odgovorili na to sporočilo, bo sporočilo poslano neposredno\\n uporabniku {{user_name}}, ki bo tako seznanjen z vašim e-poštnim naslovom. To storite le, če vam to ustreza."
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Če uporabljate spletni vmesnik za e-pošto ali če uporabljte filtre za neželena sporočila, preverite tudi mapo z neželenimi sporočili. Včasih naša e-pošta pristane med neželenimi sporočili."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
@@ -2365,6 +2366,9 @@ msgstr "Prijava ali ustvarjanje novega računa"
 msgid "Sign in or sign up"
 msgstr "Prijava ali nov račun"
 
+msgid "Sign in to track this request"
+msgstr ""
+
 msgid "Sign out"
 msgstr "Odjava"
 
@@ -2628,6 +2632,9 @@ msgstr "Prosilec je iz nekega razloga preklical zahtevek"
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "Odgovor na vaš zahtevek je bil <strong>odložen</strong>. Organ bi po zakonu moral odgovoriti <strong>v roku</strong> in"
+
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Rok za odgovor na vaš zahtevek <strong>je potekel</strong>. Po zakonu bi organ, ne glede na vse okoliščine, do zdaj moral odgovoriti"

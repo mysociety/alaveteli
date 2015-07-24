@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Bojan Opacak <bojan@rationalinternational.net>, 2013
 # Marina Ninić <mninic5@gmail.com>, 2015
@@ -19,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-07-22 19:34+0000\n"
-"Last-Translator: Sonja Radočaj <sonjaradocaj@gmail.com>\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 15:02+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/projects/p/alaveteli/language/hr/)\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -1222,7 +1223,7 @@ msgstr ""
 "Ako odgovorite na ovu poruku, otići će izravno {{user_name}} te će tako \n"
 "saznati Vašu adresu e-pošte. Odgovorite samo ako ste s tim suglasni."
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr ""
 "Ako koristite neke od mrežnih servisa e-pošte ili imate filtere za \"junk mail\", provjerite u Vašim\n"
 "\"bulk/spam\" folderima. Ponekad su naše poruke označene tako."
@@ -2431,6 +2432,9 @@ msgstr "Prijavite se ili napravite novi korisnički račun"
 msgid "Sign in or sign up"
 msgstr "Prijavite se ili Registrirajte se"
 
+msgid "Sign in to track this request"
+msgstr ""
+
 msgid "Sign out"
 msgstr "Odjavite se"
 
@@ -2704,6 +2708,9 @@ msgstr "Podnositelj je iz nekog razloga odustao od ovog zahtjeva"
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "Odgovor na Vaš zahtjev <strong>kasni</strong>. Možete reći da je, po zakonu,\\n tijelo javne vlasti trebalo odgovoriti <strong>brzo</strong> i"
+
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Odgovor na Vaš zahtjev <strong>kasni</strong>. Možete reći da po zakonu,\\n u svakom slučaju, tijelo javen vlasti trebalo odgovoriti do sada"

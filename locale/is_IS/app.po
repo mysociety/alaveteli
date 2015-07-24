@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # Finnur Magnusson <gommit@gmail.com>, 2015
 # Páll Hilmarsson <pallih@kaninka.net>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 14:59+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/projects/p/alaveteli/language/is_IS/)\n"
 "Language: is_IS\n"
@@ -2355,6 +2356,9 @@ msgstr "Skráðu þig inn eða búðu til reikning"
 msgid "Sign in or sign up"
 msgstr "Innskrá eða nýskrá"
 
+msgid "Sign in to track this request"
+msgstr ""
+
 msgid "Sign out"
 msgstr "Útskrá"
 
@@ -2618,6 +2622,9 @@ msgstr ""
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "Svarið við beiðninni þinni er  <strong>á eftir áætlun</strong>. Þú getur sagt að,\\n            samkvæmt lögum, eigi stjórnvaldið að hafa svarað\\n            <strong>svo fljótt sem auðið er</strong> og"
+
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Svarið við beiðninni þinn er <strong>langt á eftir áætlun</strong>.   Þú getur sagt að,\\n samkvæmt lögum, eigi stjórnvaldið að hafa svarað\\n "

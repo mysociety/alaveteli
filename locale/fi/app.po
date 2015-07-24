@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # apoikola <antti.poikola@gmail.com>, 2013
 # apoikola <antti.poikola@gmail.com>, 2013
 # Juha-Matti Santala <juhamattisantala@gmail.com>, 2013
@@ -11,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 15:03+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/alaveteli/language/fi/)\n"
 "Language: fi\n"

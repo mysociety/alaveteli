@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # Clarisse Umutesi Mwitegereze <clarisse@mediae.org>, 2014-2015
 # Gareth Rees <gareth@mysociety.org>, 2015
 # mySociety <transifex@mysociety.org>, 2015
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-07-10 06:36+0000\n"
-"Last-Translator: Stephen Abbott Pugh <stephendabbott@gmail.com>\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 15:01+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/projects/p/alaveteli/language/rw/)\n"
 "Language: rw\n"
 "MIME-Version: 1.0\n"
@@ -1171,7 +1172,7 @@ msgstr " Niba uzi aderesi yakoreshwa turagusaba <a href=\"{{url}}\">uyitwoherere
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Ni usubiza ubu butumwa igisubizo kirahita cyohererezwa {{user_name}}, kandi\\nazabona imeli aderesi yawe. Subiza niba nta kibazo biguteye."
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Niba ukoresha imeli wafunguje ku rubuga runaka cyangwa se ufite  \"junk mail\" muyunguruzi, reba n'\\nahajya ubutumwa bwa sipamu. Hari igihe twohereza ubutumwa akaba ariho bujya."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
@@ -2357,6 +2358,9 @@ msgstr "Injira cyangwa ufungure indi konti."
 msgid "Sign in or sign up"
 msgstr "Injira cyangwa ufunguze konti"
 
+msgid "Sign in to track this request"
+msgstr ""
+
 msgid "Sign out"
 msgstr "Sohoka"
 
@@ -2620,6 +2624,9 @@ msgstr "Uwatanze ikibazo yaretse gukomeza kugikurikirana kubera impamvu tutazi"
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "Igisubizo cy'ikibazo cyawe <strong>cyaratinze</strong>.  Ushobora kuvuga ko,\\n            hakurikijwe itegeko, umuyobozi yagombye kuba \\n            <strong>yarahise asubiza</strong> kandi"
+
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Igisubizo cy'ikibazo cyawe <strong>cyarakerewe cyawe</strong>.   Ushobora kuvuga ko hakurikijwe\\n            itegeko, uko byaba bimeze kose, umuyobozi yagombye kuba yaramaze gusubiza\\n            ubu"
