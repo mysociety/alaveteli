@@ -15,7 +15,7 @@ msgstr ""
 "POT-Creation-Date: 2015-07-22 14:53+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
-"Language-Team: Italian (http://www.transifex.com/p/alaveteli/language/it/)\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/alaveteli/language/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -190,9 +190,6 @@ msgstr "<p>La tua richiesta contiene un <strong>CAP</strong>. Sebbene esso sia c
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>{{site_name}} è attualmente in manutenzione. Possono essere viste solo le richieste esistenti ma non possono esserne inserite di nuove, nè aggiunti altri messaggi o annotazioni che vadano a modificare il database.</p> <p>{{read_only}}</p>"
-
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr "Se usi caselle di posta online o hai filtri per la posta, controlla anche la casella \"spam\". A volte i nostri messaggi possono finire lì per errore."
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>commented_by:mario_rossi</code></strong> per cercare le annotazioni fatte da Mario Rossi, digitare il nome come nell'URL."
@@ -764,7 +761,7 @@ msgid "Edit"
 msgstr "Modifica"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
-msgstr ""
+msgstr "Modifica e aggiungi <strong>maggiori dettagli</strong> al messaggio, spiegando perché non sei soddisfatto della loro risposta"
 
 msgid "Edit text about you"
 msgstr "Modifica il testo della tua biografia"
@@ -869,7 +866,7 @@ msgid "First, did your other requests succeed?"
 msgstr "Innanzitutto, le tue altre richieste hanno ricevuto risposta?"
 
 msgid "First, type in the <strong>name of the public authority</strong> you'd like information from."
-msgstr ""
+msgstr "Cerca tra le amministrazioni a cui vorresti richiedere informazioni:"
 
 msgid "Foi attachment"
 msgstr "Allegato"
@@ -1181,6 +1178,9 @@ msgstr "Se sai quale indirizzo usare, per favore <a href=\"{{url}}\">inviacelo</
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Se rispondi a questo messaggio, la tua email andrà direttamente a {{user_name}}, che visualizzerà il tuo indirizzo di posta. Rispondi solo se questo non è un problema per te. "
+
+msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgstr "Se usi una web email o hai impostato dei filtri antispam, guarda anche\\nnella cartella dello spam. A volte i nostri messaggi vengono marcati in questo modo."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr "Se vuoi che revochiamo il ban puoi \\n<a href=\"/help/contact\">scriverci qui</a> e spiegarci il motivo.\\n"
@@ -1842,7 +1842,7 @@ msgid "Please keep the summary short, like in the subject of an email. You can u
 msgstr "Per favore sii sintentico/a, come nell'oggetto di una email. Usa un'espressione breve invece di una frase completa."
 
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
-msgstr ""
+msgstr "Richiedi solo documenti che fanno parte di queste categorie, la ricerca di altri tipi di informazione sarebbe <strong>una perdita di tempo</strong> per te e per l'amministrazione."
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Per favore mostralo alla persona che si occupa della revisione delle richieste di accesso."
