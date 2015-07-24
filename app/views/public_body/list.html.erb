@@ -1,53 +1,59 @@
 <div id="right_column_flip">
-    <h2><%=_('Show only...')%></h2>
+  <h2><%=_('Show only...')%></h2>
 
-    <h3><%=_('Beginning with') %></h3>
-    <ul><li>
-        <%= render :partial => 'alphabet' %>
+  <h3><%=_('Beginning with') %></h3>
+
+  <ul>
+    <li>
+      <%= render :partial => 'alphabet' %>
     </li>
+  </ul>
+
+  <% first_row = true %>
+  <% for row in PublicBodyCategory.get().with_headings() %>
+    <% if row.instance_of?(Array) %>
+      <li>
+        <%= link_to_unless (@tag == row[0]), row[1], list_public_bodies_path(:tag => row[0]) %>
+      </li>
+    <% else %>
+      <% if not first_row %>
+        </ul>
+      <% else %>
+        <% first_row = false %>
+      <% end %>
+      <h3><%=h row%></h3>
+      <ul>
+    <% end %>
+  <% end %>
+
+  <% if not first_row %>
     </ul>
-    <% first_row = true %>
-    <% for row in PublicBodyCategory.get().with_headings() %>
-        <% if row.instance_of?(Array) %>
-            <li>
-            <%= link_to_unless (@tag == row[0]), row[1], list_public_bodies_path(:tag => row[0]) %>
-            </li>
-        <% else %>
-            <% if not first_row %>
-                </ul>
-            <% else %>
-                <% first_row = false %>
-            <% end %>
-            <h3><%=h row%></h3>
-            <ul>
-        <% end %>
-    <% end %>
-    <% if not first_row %>
-      </ul>
-    <% end %>
-    <%= render :partial => "list_sidebar_extra" %>
+  <% end %>
+
+  <%= render :partial => "list_sidebar_extra" %>
 </div>
 
 <% @title = @description.empty? ? _("Public authorities") : _("Public authorities - {{description}}", :description => @description) %>
+
 <div id="left_column_flip">
-<h1><%= _('Public authorities') %></h1>
+  <h1><%= _('Public authorities') %></h1>
 
-<%= form_tag(list_public_bodies_default_url, :method => "get", :id=>"search_form") do %>
- <div>
-  <%= text_field_tag(:public_body_query, params[:public_body_query], { :title => "type your search term here" } ) %>
-  <%= submit_tag(_("Search")) %>
- </div>
-<% end %>
+  <%= form_tag(list_public_bodies_default_url, :method => "get", :id=>"search_form") do %>
+    <div>
+      <%= text_field_tag(:public_body_query, params[:public_body_query], { :title => "type your search term here" } ) %>
+      <%= submit_tag(_("Search")) %>
+    </div>
+  <% end %>
 
-<h2 class="publicbody_results">
-  <%= n_('Found {{count}} public authority {{description}}',
-        'Found {{count}} public authorities {{description}}',
-        @public_bodies.total_entries,
-        :count => @public_bodies.total_entries,
-        :description => @description) %>
-</h2>
-<%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
+  <h2 class="publicbody_results">
+    <%= n_('Found {{count}} public authority {{description}}',
+           'Found {{count}} public authorities {{description}}',
+           @public_bodies.total_entries,
+           :count => @public_bodies.total_entries,
+           :description => @description) %>
+  </h2>
 
+  <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
   <%= will_paginate(@public_bodies) %><br/>
   <%= link_to _("Can't find the one you want?"), help_requesting_path + '#missing_body' %>
 </div>

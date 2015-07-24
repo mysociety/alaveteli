@@ -1,6 +1,4 @@
 #!/bin/sh
-
 cd "`dirname "$0"`"
 
 bundle exec ./runner --daemon TrackMailer.alert_tracks_loop
-

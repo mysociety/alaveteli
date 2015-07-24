@@ -15,7 +15,7 @@
           <thead>
             <tr>
               <td colspan="2">
-                 <%= link_to 'Edit metadata', edit_admin_request_path(@info_request), :class => "btn" %>
+                <%= link_to 'Edit metadata', edit_admin_request_path(@info_request), :class => "btn" %>
               </td>
             </tr>
           </thead>
@@ -46,7 +46,7 @@
                   <% end %>
                 </td>
               </tr>
-        <% end %>
+            <% end %>
             <tr>
               <td>
                 <b>Created by</b>
@@ -100,7 +100,7 @@
           <tfoot>
             <tr>
               <td colspan="2">
-                 <%= link_to 'Edit metadata', edit_admin_request_path(@info_request), :class => "btn" %>
+                <%= link_to 'Edit metadata', edit_admin_request_path(@info_request), :class => "btn" %>
               </td>
             </tr>
           </tfoot>
@@ -176,7 +176,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <span class="item-title">
-        <a href="#event_<%=info_request_event.id%>" data-toggle="collapse" data-parent="#events"><%= chevron_right %></a>
+          <a href="#event_<%=info_request_event.id%>" data-toggle="collapse" data-parent="#events"><%= chevron_right %></a>
           <%= _("Event {{id}}", :id => info_request_event.id) %>:
           <strong>
             <%=h info_request_event.event_type.humanize %><% if !info_request_event.calculated_state.nil? %>; state: <%= info_request_event.calculated_state %><% end %>
@@ -235,10 +235,10 @@
         <a href="#outgoing_<%=outgoing_message.id%>" data-toggle="collapse" data-parent="#outgoing_messages"><%= chevron_right %></a>
         <%= link_to edit_admin_outgoing_message_path(outgoing_message) do %>
           #<%= outgoing_message.id %> -- <%= outgoing_message.status.humanize %> <%= outgoing_message.message_type.humanize %>
-        <% end %>
-        <blockquote>
-          <%= truncate(outgoing_message.body, :length => 400) %>
-        </blockquote>
+      <% end %>
+      <blockquote>
+        <%= truncate(outgoing_message.body, :length => 400) %>
+      </blockquote>
       </div>
       <div id="outgoing_<%=outgoing_message.id%>" class="accordion-body collapse">
         <table class="table table-striped table-condensed">

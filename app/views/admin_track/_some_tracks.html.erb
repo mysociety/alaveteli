@@ -24,7 +24,7 @@
           <% if @admin_user.nil? %>
             <%# Do not show this on the list of tracks on the user page, because it’s rather repetitive there %>
             tracked by <%= user_both_links track_thing.tracking_user %>
-          <% end %>
+        <% end %>
         </div>
         <div id="track_<%=track_thing.id%>" class="accordion-body collapse">
           <table class="table table-striped table-condensed">
@@ -42,21 +42,21 @@
 
               <% end %>
               <% TrackThing.content_columns.each do |column| %>
-              <tr>
-                <td>
-                  <b><%=column.human_name%></b>
-                </td>
-                <td>
-                  <% if column.type.to_s == 'datetime' %>
-                    <%= I18n.l(track_thing.send(column.name), :format => "%e %B %Y %H:%M:%S") %>
-                    (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(track_thing.send(column.name))) %>)
-                  <% elsif column.name == 'track_medium' and track_thing.track_medium == 'feed' %>
-                    <%= link_to track_thing.track_medium, atom_feed_path(:track_id => track_thing.id) %>
-                  <% else %>
-                    <%= h track_thing.send(column.name)%>
-                  <% end %>
-                </td>
-              </tr>
+                <tr>
+                  <td>
+                    <b><%=column.human_name%></b>
+                  </td>
+                  <td>
+                    <% if column.type.to_s == 'datetime' %>
+                      <%= I18n.l(track_thing.send(column.name), :format => "%e %B %Y %H:%M:%S") %>
+                      (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(track_thing.send(column.name))) %>)
+                    <% elsif column.name == 'track_medium' and track_thing.track_medium == 'feed' %>
+                      <%= link_to track_thing.track_medium, atom_feed_path(:track_id => track_thing.id) %>
+                    <% else %>
+                      <%= h track_thing.send(column.name)%>
+                    <% end %>
+                  </td>
+                </tr>
               <% end %>
               <tr>
                 <td><b><%=_("Items sent in last month")%></b></td>

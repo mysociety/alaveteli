@@ -1,4 +1,4 @@
 <div class="feed_link feed_link_<%= location %>">
-    <%= link_to image_tag('feed-16.png', :alt => "RSS icon"), do_track_path(track_thing, 'feed') %>
-    <%= link_to (location == 'sidebar' ? _('RSS feed of updates') : _('RSS feed')), do_track_path(track_thing, 'feed') %>
+  <%= link_to image_tag('feed-16.png', :alt => "RSS icon"), do_track_path(track_thing, 'feed') %>
+  <%= link_to (location == 'sidebar' ? _('RSS feed of updates') : _('RSS feed')), do_track_path(track_thing, 'feed') %>
 </div>

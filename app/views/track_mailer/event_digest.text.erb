@@ -1,63 +1,63 @@
 <%
-    # Construct the main text of the mail
-    main_text = ''
-    for track_thing, alert_results, xapian_object in @email_about_things
-        main_text += track_thing.params[:title_in_email] + "\n"
-        main_text += ("=" * track_thing.params[:title_in_email].size) + "\n\n"
-        @highlight_words = xapian_object.words_to_highlight(:regex => true)
-        for result in alert_results.reverse
-            if result[:model].class.to_s == "InfoRequestEvent"
-                event = result[:model]
+  # Construct the main text of the mail
+  main_text = ''
+  for track_thing, alert_results, xapian_object in @email_about_things
+    main_text += track_thing.params[:title_in_email] + "\n"
+    main_text += ("=" * track_thing.params[:title_in_email].size) + "\n\n"
+    @highlight_words = xapian_object.words_to_highlight(:regex => true)
+    for result in alert_results.reverse
+      if result[:model].class.to_s == "InfoRequestEvent"
+        event = result[:model]
 
-                # Request title - only add title if we're not tracking a request.
-                # e.g. -- Address and opening times of Post Office branches --
-                if track_thing.info_request.nil?
-                    main_text += "-- " + highlight_words(event.info_request.title, @highlight_words, false) + " --\n"
-                end
-
-                # e.g. Julian Burgess sent a request to Royal Mail Group (15 May 2008)
-                if event.event_type == 'response'
-                    url = incoming_message_url(event.incoming_message, :cachebust => true)
-                    main_text += _("{{public_body}} sent a response to {{user_name}}", :public_body => event.info_request.public_body.name, :user_name => event.info_request.user_name)
-                elsif event.event_type == 'followup_sent'
-                    url = outgoing_message_url(event.outgoing_message, :cachebust => true)
-                    main_text += _("{{user_name}} sent a follow up message to {{public_body}}", :user_name => event.info_request.user_name, :public_body => event.info_request.public_body.name)
-                elsif event.event_type == 'sent'
-                    # this is unlikely to happen in real life, but happens in the test code
-                    url = outgoing_message_url(event.outgoing_message, :cachebust => true)
-                    main_text += _("{{user_name}} sent a request to {{public_body}}", :user_name => event.info_request.user_name, :public_body => event.info_request.public_body.name)
-                elsif event.event_type == 'comment'
-                    url = comment_url(event.comment)
-                    main_text += _("{{user_name}} added an annotation", :user_name => event.comment.user.name)
-                else
-                    raise "unknown type in event_digest " + event.event_type
-                end
-                main_text += " (" + simple_date(event.created_at, :format => :text) + ")\n"
-
-                # Main text, wrapped, words highlighted with * and indented.
-                if event.is_outgoing_message?
-                    extract = highlight_and_excerpt(event.outgoing_message.get_text_for_indexing, @highlight_words, 150, false)
-                elsif event.is_incoming_message?
-                    extract = highlight_and_excerpt(event.incoming_message.get_text_for_indexing_clipped, @highlight_words, 150, false)
-                elsif event.is_comment?
-                    extract = highlight_and_excerpt(event.comment.body, @highlight_words, 150, false)
-                else
-                    extract = highlight_and_excerpt(info_request.initial_request_text, @highlight_words, 150, false)
-                end
-                extract = extract.gsub(/\s+/, ' ')
-                main_text += MySociety::Format.wrap_email_body_by_lines('"' + extract + '"').gsub(/\n+$/, "") + "\n"
-
-                # Link to the request/response
-                main_text += url + "\n"
-                main_text += "\n"
-            else
-                raise "need to add other types to TrackMailer.event_digest"
-            end
+        # Request title - only add title if we're not tracking a request.
+        # e.g. -- Address and opening times of Post Office branches --
+        if track_thing.info_request.nil?
+          main_text += "-- " + highlight_words(event.info_request.title, @highlight_words, false) + " --\n"
         end
-        main_text += "\n"
-    end
 
-%><%=raw main_text%><%= _("Alter your subscription")%>
+        # e.g. Julian Burgess sent a request to Royal Mail Group (15 May 2008)
+        if event.event_type == 'response'
+          url = incoming_message_url(event.incoming_message, :cachebust => true)
+          main_text += _("{{public_body}} sent a response to {{user_name}}", :public_body => event.info_request.public_body.name, :user_name => event.info_request.user_name)
+        elsif event.event_type == 'followup_sent'
+          url = outgoing_message_url(event.outgoing_message, :cachebust => true)
+          main_text += _("{{user_name}} sent a follow up message to {{public_body}}", :user_name => event.info_request.user_name, :public_body => event.info_request.public_body.name)
+        elsif event.event_type == 'sent'
+          # this is unlikely to happen in real life, but happens in the test code
+          url = outgoing_message_url(event.outgoing_message, :cachebust => true)
+          main_text += _("{{user_name}} sent a request to {{public_body}}", :user_name => event.info_request.user_name, :public_body => event.info_request.public_body.name)
+        elsif event.event_type == 'comment'
+          url = comment_url(event.comment)
+          main_text += _("{{user_name}} added an annotation", :user_name => event.comment.user.name)
+        else
+          raise "unknown type in event_digest " + event.event_type
+        end
+        main_text += " (" + simple_date(event.created_at, :format => :text) + ")\n"
+
+        # Main text, wrapped, words highlighted with * and indented.
+        if event.is_outgoing_message?
+          extract = highlight_and_excerpt(event.outgoing_message.get_text_for_indexing, @highlight_words, 150, false)
+        elsif event.is_incoming_message?
+          extract = highlight_and_excerpt(event.incoming_message.get_text_for_indexing_clipped, @highlight_words, 150, false)
+        elsif event.is_comment?
+          extract = highlight_and_excerpt(event.comment.body, @highlight_words, 150, false)
+        else
+          extract = highlight_and_excerpt(info_request.initial_request_text, @highlight_words, 150, false)
+        end
+        extract = extract.gsub(/\s+/, ' ')
+        main_text += MySociety::Format.wrap_email_body_by_lines('"' + extract + '"').gsub(/\n+$/, "") + "\n"
+
+        # Link to the request/response
+        main_text += url + "\n"
+        main_text += "\n"
+      else
+        raise "need to add other types to TrackMailer.event_digest"
+      end
+    end
+    main_text += "\n"
+  end
+%>
+<%=raw main_text%><%= _("Alter your subscription")%>
 =======================
 
 <% _("Please click on the link below to cancel or alter these emails.") %>

@@ -1,20 +1,19 @@
-
-    <% if !@display_user.get_about_me_for_html_display.empty? || @is_you %>
-        <div class="user_about_me">
-            <%= image_tag "quote-marks.png", :class => "comment_quote" %>
-            <%= @display_user.get_about_me_for_html_display %>
-            <% if @is_you %>
-                (<%= link_to _("edit text about you"), set_profile_about_me_path %>)
-            <% end %>
-        </div>
-    <% end %>
-
+<% if !@display_user.get_about_me_for_html_display.empty? || @is_you %>
+  <div class="user_about_me">
+    <%= image_tag "quote-marks.png", :class => "comment_quote" %>
+    <%= @display_user.get_about_me_for_html_display %>
     <% if @is_you %>
-        <p id="user_change_password_email">
-            <% if @display_user.profile_photo %>
-                <%= link_to _('Change profile photo'), set_profile_photo_path %> |
-            <% end %>
-            <%= link_to _('Change your password'), signchangepassword_path %> |
-            <%= link_to _('Change your email'), signchangeemail_path %>
-        </p>
+      (<%= link_to _("edit text about you"), set_profile_about_me_path %>)
     <% end %>
+  </div>
+<% end %>
+
+<% if @is_you %>
+  <p id="user_change_password_email">
+    <% if @display_user.profile_photo %>
+      <%= link_to _('Change profile photo'), set_profile_photo_path %> |
+    <% end %>
+    <%= link_to _('Change your password'), signchangepassword_path %> |
+    <%= link_to _('Change your email'), signchangeemail_path %>
+  </p>
+<% end %>

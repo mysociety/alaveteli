@@ -1,32 +1,32 @@
 html {
-    height: 100%;
-    font-size: 1em;
+  height: 100%;
+  font-size: 1em;
 }
 
 body {
-    color: #333;
-    line-height: 1.5em;
-    height: 100%;
-    min-height: 100%;
+  color: #333;
+  line-height: 1.5em;
+  height: 100%;
+  min-height: 100%;
 }
 
 a {
-    color: #2688dc;
-    &:hover,
-    &:active,
-    &:focus {
-        color: #333333;
-    }
-    &:visited {
-      color: darken(#2688dc, 10%);
-    }
+  color: #2688dc;
+  &:hover,
+  &:active,
+  &:focus {
+    color: #333333;
+  }
+  &:visited {
+    color: darken(#2688dc, 10%);
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin-bottom: 18px;
-    margin-bottom: 1rem;
-    line-height: 1.1em;
-    text-rendering: optimizeLegibility;
+  margin-bottom: 18px;
+  margin-bottom: 1rem;
+  line-height: 1.1em;
+  text-rendering: optimizeLegibility;
 }
 
 h1 {
@@ -64,14 +64,14 @@ p.subtitle {
 }
 
 hr {
-    border: none;
-    border-top: 1px solid #e9e9e9;
-    margin: 0;
+  border: none;
+  border-top: 1px solid #e9e9e9;
+  margin: 0;
 }
 
 img {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 dt {
@@ -100,7 +100,7 @@ dt + dd {
 
 #header_right {
   > a {
-     text-decoration:none;
+    text-decoration:none;
   }
   > a:hover{
     text-decoration:underline;

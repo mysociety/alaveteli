@@ -47,7 +47,7 @@
   overflow: hidden;
   font-size: 0.875em;
   h3 {
-   font-size: 1em;
+    font-size: 1em;
   }
 
 }
@@ -59,7 +59,7 @@
     font-size: 1em;
   }
   .advice-panel {
-      margin-top: 1.5em;
+    margin-top: 1.5em;
   }
 }
 
@@ -79,13 +79,13 @@
 }
 
 #request_search_ahead_results {
-   background-color: #f4f4f4;
-   padding: 1.5em;
-   margin-bottom: 1.5em;
-   h2 {
+  background-color: #f4f4f4;
+  padding: 1.5em;
+  margin-bottom: 1.5em;
+  h2 {
     font-size: 1em;
     font-weight: normal;
-   }
+  }
 }
 
 
@@ -93,12 +93,12 @@ input#reedit_button {
   background-color: transparent;
   color: #2688dc;
   text-decoration: underline;
-    &:hover,
-    &:active,
-    &:focus {
-        color: #333333;
-    }
-    border: none;
+  &:hover,
+  &:active,
+  &:focus {
+    color: #333333;
+  }
+  border: none;
 }
 
 

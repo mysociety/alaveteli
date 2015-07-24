@@ -1,8 +1,8 @@
 /* As we're namespacing bootstrap to class admin, which is applied to the body
-   element in the admin interface (no id or class allowed on the HTML element
-   in HTML 4.01) and to the navbar also, so it can be styled with bootstrap
-   when showing for admin users on the front end, re-apply the bootstrap html
-   and body styles here.
+element in the admin interface (no id or class allowed on the HTML element
+in HTML 4.01) and to the navbar also, so it can be styled with bootstrap
+when showing for admin users on the front end, re-apply the bootstrap html
+and body styles here.
 */
 html {
   font-size: 100%;
@@ -49,10 +49,10 @@ body.admin {
   }
 
   .accordion-group {
-   border: none;
-   div {
-       clear: both;
-   }
+    border: none;
+    div {
+      clear: both;
+    }
   }
   .accordion-heading {
     .btn {
@@ -74,10 +74,10 @@ body.admin {
   }
 
   span.label.tag {
-   margin-right: 2px;
-   a {
-    color: white;
-   }
+    margin-right: 2px;
+    a {
+      color: white;
+    }
   }
 
   .fieldWithErrors input{
@@ -85,8 +85,8 @@ body.admin {
   }
 
   body.admin blockquote p {
-   font-size: 13px;
-   display: inline;
+    font-size: 13px;
+    display: inline;
   }
 
   div#user_locale_switcher {
@@ -100,13 +100,13 @@ body.admin {
     width: 440px;
   }
   #request_hidden_user_explanation_field {
-   width: 100%;
-   height: 15em;
+    width: 100%;
+    height: 15em;
   }
   #request_hidden_user_subject,
   #request_hide_button,
   #request_hidden_user_explanation {
-   display: none;
+    display: none;
   }
 
   #outgoing_message_body,

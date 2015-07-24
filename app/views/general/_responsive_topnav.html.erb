@@ -1,37 +1,38 @@
 <div id="topnav">
-    <ul id="navigation">
+  <ul id="navigation">
 
-        <li class="<%= 'selected' if params[:controller] == 'request' and ['new', 'select_authority'].include?(params[:action]) %>">
-          <%= link_to _("Make a request"), select_authority_path, :id => 'make-request-link' %>
-        </li>
+    <li class="<%= 'selected' if params[:controller] == 'request' and ['new', 'select_authority'].include?(params[:action]) %>">
+      <%= link_to _("Make a request"), select_authority_path, :id => 'make-request-link' %>
+    </li>
 
-        <li class="<%= 'selected' if params[:controller] == 'request' and !['new', 'select_authority'].include?(params[:action]) %>">
-          <%= link_to _("Browse requests"), request_list_successful_path %>
-        </li>
+    <li class="<%= 'selected' if params[:controller] == 'request' and !['new', 'select_authority'].include?(params[:action]) %>">
+      <%= link_to _("Browse requests"), request_list_successful_path %>
+    </li>
 
-        <li class="<%= 'selected' if params[:controller] == 'public_body' %>">
-          <%= link_to _("View authorities"), list_public_bodies_default_path %>
-        </li>
+    <li class="<%= 'selected' if params[:controller] == 'public_body' %>">
+      <%= link_to _("View authorities"), list_public_bodies_default_path %>
+    </li>
 
-        <% unless AlaveteliConfiguration::blog_feed.empty? %>
-          <li class="<%= 'selected' if params[:controller] == 'general' and params[:action] == 'blog' %>"><%= link_to _("Read blog"), blog_path %></li>
-        <% end %>
-        <li class="<%= 'selected' if params[:controller] == 'help' %>">
-          <%= link_to _("Help"), help_about_path %>
-        </li>
+    <% unless AlaveteliConfiguration::blog_feed.empty? %>
+      <li class="<%= 'selected' if params[:controller] == 'general' and params[:action] == 'blog' %>"><%= link_to _("Read blog"), blog_path %></li>
+    <% end %>
 
-        <li id="navigation_search">
-          <form id="navigation_search_form" method="get" action="<%= search_redirect_path %>" role="search">
-            <label class="visually-hidden" for="navigation_search_button">
-              <%= _("Search") %>
-            </label>
-              <%= text_field_tag 'query', params[:query], { :id => "navigation_search_button", :type => "search", :placeholder => _("Search"), :title => _("type your search term here") } %>
-              <button type="submit">
-                <span class="visually-hidden">
-                  <%= _("Submit Search") %>
-                </span>
-              </button>
-          </form>
-        </li>
-    </ul>
+    <li class="<%= 'selected' if params[:controller] == 'help' %>">
+      <%= link_to _("Help"), help_about_path %>
+    </li>
+
+    <li id="navigation_search">
+      <form id="navigation_search_form" method="get" action="<%= search_redirect_path %>" role="search">
+        <label class="visually-hidden" for="navigation_search_button">
+          <%= _("Search") %>
+        </label>
+        <%= text_field_tag 'query', params[:query], { :id => "navigation_search_button", :type => "search", :placeholder => _("Search"), :title => _("type your search term here") } %>
+        <button type="submit">
+          <span class="visually-hidden">
+            <%= _("Submit Search") %>
+          </span>
+        </button>
+      </form>
+    </li>
+  </ul>
 </div>

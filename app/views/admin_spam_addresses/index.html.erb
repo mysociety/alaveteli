@@ -3,49 +3,49 @@
 <h1><%= @title %></h1>
 
 <div class="row">
-    <div class="span12">
-        <p>
-            Incoming mail that gets redirected to the holding pen will be
-            rejected if it is sent <code>To:</code> an address on this
-            list.
-        </p>
-    </div>
+  <div class="span12">
+    <p>
+      Incoming mail that gets redirected to the holding pen will be
+      rejected if it is sent <code>To:</code> an address on this
+      list.
+    </p>
+  </div>
 </div>
 
 <hr />
 
 <div class="row">
-    <div class="span12">
-        <%= form_for(@spam_address, :url => admin_spam_addresses_path, :html => { :class => 'form-inline' }) do |f| -%>
-            <%= error_messages_for @spam_address %>
-            <%= f.text_field :email, :class => 'input-xxlarge', :placeholder => 'Enter email' %>
-            <%= f.submit 'Add Spam Address', :class => 'btn btn-warning' %>
-        <% end -%>
-    </div>
+  <div class="span12">
+    <%= form_for(@spam_address, :url => admin_spam_addresses_path, :html => { :class => 'form-inline' }) do |f| -%>
+      <%= error_messages_for @spam_address %>
+      <%= f.text_field :email, :class => 'input-xxlarge', :placeholder => 'Enter email' %>
+      <%= f.submit 'Add Spam Address', :class => 'btn btn-warning' %>
+    <% end -%>
+  </div>
 </div>
 
 <hr />
 
 <% if @spam_addresses.any? %>
-    <div class="row">
-        <table class="table table-hover span12">
-            <thead>
-                <tr>
-                    <th>Email</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @spam_addresses.each do |spam| %>
-                    <tr>
-                        <td><%= spam.email %></td>
-                        <td><%= link_to 'Remove', admin_spam_address_path(spam),
-                                    :method => :delete,
-                                    :confirm => 'This is permanent! Are you sure?',
-                                    :class => 'btn btn-mini btn-danger' %></td>
-                    </tr>
-                <% end %>
-            </tbody>
-        </table>
-    </div>
+  <div class="row">
+    <table class="table table-hover span12">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @spam_addresses.each do |spam| %>
+          <tr>
+            <td><%= spam.email %></td>
+            <td><%= link_to 'Remove', admin_spam_address_path(spam),
+              :method => :delete,
+              :confirm => 'This is permanent! Are you sure?',
+              :class => 'btn btn-mini btn-danger' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% end %>

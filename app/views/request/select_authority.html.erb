@@ -1,13 +1,13 @@
 <script type="text/javascript">
-    $(document).ready(function() {
-        // Avoid triggering too often (on each keystroke) by using the debounce
-        // jQuery plugin:
-        // http://benalman.com/projects/jquery-throttle-debounce-plugin/
-        $("#query").keypress($.debounce( 300, function() {
-            // Do a type ahead search and display results
-            $("#typeahead_response").load("<%= search_ahead_bodies_url %>?query="+encodeURI(this.value));
-        }));
-    });
+$(document).ready(function() {
+  // Avoid triggering too often (on each keystroke) by using the debounce
+  // jQuery plugin:
+  // http://benalman.com/projects/jquery-throttle-debounce-plugin/
+  $("#query").keypress($.debounce( 300, function() {
+    // Do a type ahead search and display results
+    $("#typeahead_response").load("<%= search_ahead_bodies_url %>?query="+encodeURI(this.value));
+  }));
+});
 </script>
 
 <% @title = _("Find an authority")  %>
@@ -18,19 +18,17 @@
   <%= form_tag select_authority_path, { :id => 'search_form', :method => 'get' } do %>
     <div>
       <p>
-        <%= _(%Q(First, type in the <strong>name of the public authority</strong> you'd
-        like information from.)) %>
+        <%= _("First, type in the <strong>name of the public authority" \
+              "</strong> you'd like information from.") %>
         <% if AlaveteliConfiguration.authority_must_respond %>
-            <%= _(%Q(<strong>By law, they have to respond</strong> (<a href="{{url}}">why?</a>).),
-                  :url => (help_about_path(:anchor => 'whybother_them')).html_safe) %>
+          <%= _(%Q(<strong>By law, they have to respond</strong> (<a href="{{url}}">why?</a>).),
+                :url => (help_about_path(:anchor => 'whybother_them')).html_safe) %>
         <% end %>
       </p>
 
-      <%= text_field_tag :query,
-                         params[:query],
-                         { :size => 30,
-                           :title => _('type your search term here'),
-                           :placeholder => _('e.g. Ministry of Defence') } %>
+      <%= text_field_tag :query, params[:query], { :size => 30,
+                                                   :title => _('type your search term here'),
+                                                   :placeholder => _('e.g. Ministry of Defence') } %>
       <%= hidden_field_tag :bodies, 1 %>
       <%= submit_tag _('Search') %>
     </div>
@@ -48,7 +46,6 @@
   <div id="typeahead_response">
     <%= render :partial => 'public_body/search_ahead' %>
   </div>
-
 </div>
 
 <div id="select_authority_help">
@@ -59,5 +56,4 @@
               :add_url => help_requesting_path(:anchor => 'missing_body')
              ).html_safe %>
   </p>
-
 </div>

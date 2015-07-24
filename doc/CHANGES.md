@@ -1,5 +1,21 @@
 # develop
 
+# Version 0.22.1.0
+
+## Highlighted Features
+
+* The source code now uses two-space indentation (Gareth Rees).
+* A `FACEBOOK_USERNAME` configuration option is now available (Gareth Rees).
+* The [`json` API for public bodies](http://alaveteli.org/docs/developers/api/#json-structured-data)
+  now includes statistics on the number of requests, number of visible successful classified requests,
+  and number of successful, overdue, not held requests (Ross Jones).
+
+## Upgrade Notes
+
+* There should be no action necessary.
+* Most templates have changed to two-space indentation. For ease of future
+  upgrades you _should_ update your overrides to match.
+
 # Version 0.22
 
 ## Highlighted Features

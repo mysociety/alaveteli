@@ -70,7 +70,7 @@
     }
   }
 
-   .desc {
+  .desc {
     width:100%;
     @include respond-min( $main_menu-mobile_menu_cutoff ){
       padding:0 0 0 2em;

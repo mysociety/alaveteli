@@ -1,21 +1,21 @@
 <div id="error-page">
- <% if @status == 404 %>
+<% if @status == 404 %>
   <h1><%= _("Sorry, we couldn't find that page") %></h1>
 
   <p><%= _("The page doesn't exist. Things you can try now:")%></p>
 
   <ul>
-  <li><%= _("Check for mistakes if you typed or copied the address.")%></li>
-  <li><%= _("Search the site to find what you were looking for.")%>
-      <%= form_tag({:controller => "general", :action => "search_redirect"}, {:id => "search_form" }) do %>
-             <%= text_field_tag 'query', params[:query], { :size => 30, :title => "type your search term here" } %>
-             <%= submit_tag _("Search") %>
-      <% end %>
-  </li>
+    <li><%= _("Check for mistakes if you typed or copied the address.")%></li>
+    <li><%= _("Search the site to find what you were looking for.")%>
+    <%= form_tag({:controller => "general", :action => "search_redirect"}, {:id => "search_form" }) do %>
+      <%= text_field_tag 'query', params[:query], { :size => 30, :title => "type your search term here" } %>
+      <%= submit_tag _("Search") %>
+    <% end %>
+    </li>
   </ul>
- <% else %>
+<% else %>
   <h1><%= _("Sorry, there was a problem processing this page") %></h1>
   <p><%= _('You have found a bug.  Please <a href="{{contact_url}}">contact us</a> to tell us about the problem', :contact_url => help_contact_path) %></p>
 
- <% end %>
+<% end %>
 </div>

@@ -27,7 +27,7 @@ describe WhatDoTheyKnow::StripEmptySessions do
 
     before do
       @session_data = { 'session_id' => 'my_session_id',
-                       '_csrf_token' => 'hi_there' }
+                        '_csrf_token' => 'hi_there' }
     end
 
     it 'should not strip any other header' do

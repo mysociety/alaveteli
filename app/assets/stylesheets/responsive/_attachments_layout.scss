@@ -2,21 +2,21 @@
 
 /* Generated HTML should be full row width */
 #view-html-content {
-   @include grid-column(12);
-   @include ie8{
-     padding-left: 0.9375em;
-     padding-right: 0.9375em;
-   }
-   table {
-     border-collapse:collapse;
-     margin-bottom:1em;
-   }
+  @include grid-column(12);
+  @include ie8{
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+  }
+  table {
+    border-collapse:collapse;
+    margin-bottom:1em;
+  }
 
-   td {
-     vertical-align:top;
-     max-width:30em;
-     overflow:auto;
-   }
+  td {
+    vertical-align:top;
+    max-width:30em;
+    overflow:auto;
+  }
 
 }
 
@@ -31,33 +31,33 @@
 
   .view_html_logo {
     @include grid-column(12);
-      @include respond-min( $main_menu-mobile_menu_cutoff ){
-          @include grid-column($columns:3);
-          @include ie8{
-            padding-right: 0.9375em;
-          }
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-column($columns:3);
+      @include ie8{
+        padding-right: 0.9375em;
       }
+    }
   }
 
   .view_html_description {
     @include grid-column(12);
-      @include respond-min($main_menu-mobile_menu_cutoff ){
-          @include grid-column($columns:7, $pull: 2);
-          @include ie8{
-            padding-left: 0.9375em;
-            padding-right: 0.9375em;
-          }
+    @include respond-min($main_menu-mobile_menu_cutoff ){
+      @include grid-column($columns:7, $pull: 2);
+      @include ie8{
+        padding-left: 0.9375em;
+        padding-right: 0.9375em;
       }
+    }
   }
 
   .view_html_download_link {
     @include grid-column(12);
-      @include respond-min( $main_menu-mobile_menu_cutoff ){
-          @include grid-column($columns:2, $push: 7);
-          @include ie8{
-            padding-left: 0.9375em;
-          }
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      @include grid-column($columns:2, $push: 7);
+      @include ie8{
+        padding-left: 0.9375em;
       }
+    }
   }
 }
 

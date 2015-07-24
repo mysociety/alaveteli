@@ -10,13 +10,13 @@ $(function() {
 
     // on the first list change, show that there are unsaved changes
     list_element.sortable({
-        update: function (event, ui) {
-          if (save_button.is('.disabled')){
-            save_button.removeClass("disabled");
-            save_notice.html(save_notice.data('unsaved-text'));
-            save_panel.effect('highlight', {}, 2000);
-          }
+      update: function (event, ui) {
+        if (save_button.is('.disabled')){
+          save_button.removeClass("disabled");
+          save_notice.html(save_notice.data('unsaved-text'));
+          save_panel.effect('highlight', {}, 2000);
         }
+      }
     });
     // on save, POST to endpoint
     save_button.click(function(){

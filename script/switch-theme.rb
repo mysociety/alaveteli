@@ -114,15 +114,15 @@ symlink(File.basename(theme_filename),
 public_directory = File.join(alaveteli_directory, 'public')
 
 if requested_theme == $no_theme_name
-    File.unlink File.join(public_directory, 'alavetelitheme')
+  File.unlink File.join(public_directory, 'alavetelitheme')
 else
-    symlink(File.join(full_theme_path, 'public'),
-            public_directory,
-            'alavetelitheme')
+  symlink(File.join(full_theme_path, 'public'),
+          public_directory,
+          'alavetelitheme')
 
-    symlink(full_theme_path,
-            File.join(alaveteli_directory, 'lib', 'themes'),
-            requested_theme)
+  symlink(full_theme_path,
+          File.join(alaveteli_directory, 'lib', 'themes'),
+          requested_theme)
 end
 
 STDERR.puts """Switched to #{requested_theme}!

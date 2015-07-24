@@ -4,30 +4,29 @@
 
     <% if not (controller.action_name == 'signin' or controller.action_name == 'signup') %>
       <div id="logged_in_bar">
-      <% if @user %>
+        <% if @user %>
           <%= _('Hello, {{username}}!', :username => h(@user.name))%>
 
-            <% if @user %>
-                <%=link_to _("My requests"), show_user_requests_path(:url_name => @user.url_name) %>
-                <%=link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name) %>
-                <%=link_to _("My wall"), show_user_wall_path(:url_name => @user.url_name) %>
-            <% end %>
-
+          <% if @user %>
+            <%=link_to _("My requests"), show_user_requests_path(:url_name => @user.url_name) %>
+            <%=link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name) %>
+            <%=link_to _("My wall"), show_user_wall_path(:url_name => @user.url_name) %>
+          <% end %>
 
           <%= link_to _("Sign out"), signout_path(:r => request.fullpath) %>
-      <% else %>
+        <% else %>
           <%= link_to _("Sign in or sign up"), signin_path(:r => request.fullpath) %>
-      <% end %>
+        <% end %>
       </div>
     <% end %>
 
     <div id="navigation_search">
       <form id="navigation_search_form" method="get" action="<%= search_redirect_path %>">
-         <p>
-             <%= text_field_tag 'query', params[:query], { :size => 40, :id => "navigation_search_query", :title => "type your search term here" } %>
-             <input id="navigation_search_button" type="submit" value="search">
-         </p>
-       </form>
+        <p>
+          <%= text_field_tag 'query', params[:query], { :size => 40, :id => "navigation_search_query", :title => "type your search term here" } %>
+          <input id="navigation_search_button" type="submit" value="search">
+        </p>
+      </form>
     </div>
 
     <%= render :partial => 'general/orglink' %>

@@ -8,17 +8,17 @@
       <th>Actions</th>
     </tr>
 
-  <% censor_rules.each do |censor_rule| %>
-    <tr class="<%= cycle('odd', 'even') %>">
-      <td><%=h censor_rule.id %></td>
-      <% CensorRule.content_columns.map { |c| c.name }.each do |column| %>
-        <td><%=h censor_rule.send(column) %></td>
-      <% end %>
-      <td>
-        <%= link_to "Edit", edit_admin_censor_rule_path(censor_rule) %>
-      </td>
-    </tr>
-  <% end %>
+    <% censor_rules.each do |censor_rule| %>
+      <tr class="<%= cycle('odd', 'even') %>">
+        <td><%=h censor_rule.id %></td>
+        <% CensorRule.content_columns.map { |c| c.name }.each do |column| %>
+          <td><%=h censor_rule.send(column) %></td>
+        <% end %>
+        <td>
+          <%= link_to "Edit", edit_admin_censor_rule_path(censor_rule) %>
+        </td>
+      </tr>
+    <% end %>
   </table>
 <% else %>
   <p>None yet.</p>

@@ -7,9 +7,9 @@
 <p><%= _("There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>.", :help_contact_path => help_contact_path) %></p>
 
 <% if @info_request %>
-    <p><%= _("Here is the message you wrote, in case you would like to copy the text and save it for later.") %></p>
-    
-    <div class="correspondence box">
-        <div class="correspondence_text"><%= @info_request.outgoing_messages[0].get_body_for_html_display %></div>
-    </div>
+  <p><%= _("Here is the message you wrote, in case you would like to copy the text and save it for later.") %></p>
+  
+  <div class="correspondence box">
+    <div class="correspondence_text"><%= @info_request.outgoing_messages[0].get_body_for_html_display %></div>
+  </div>
 <% end %>

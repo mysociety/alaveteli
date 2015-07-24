@@ -54,21 +54,21 @@ describe "when doing things with timezones" do
 
   it "should preserve time objects with UTC time conversion to default timezone local
       and return then as UTC times when config.time_zone is UTC" do
-   with_env_tz 'America/New_York' do
-     with_active_record_default_timezone :local do
-       time = Time.utc(2000)
-       mail_server_log_done = MailServerLogDone.create('last_stat' => time, 'filename' => 'dummy')
-       raw_saved_time = MailServerLogDone.find(mail_server_log_done.id).attributes_before_type_cast["last_stat"]
-       saved_time = MailServerLogDone.find(mail_server_log_done.id).last_stat
-       assert_equal time, saved_time
-       # Time is created in UTC by Time.utc method
-       assert_equal [0, 0, 0, 1, 1, 2000, 6, 1, false, "UTC"], time.to_a
-       # Due to :local active_record_default_timezone, saved as EST
-       assert_equal "1999-12-31 19:00:00", raw_saved_time
-       # As config.time_zone is UTC (from config default), times returned in UTC
-       assert_equal [0, 0, 0, 1, 1, 2000, 6, 1, false, "UTC"], saved_time.to_a
-     end
-   end
+    with_env_tz 'America/New_York' do
+      with_active_record_default_timezone :local do
+        time = Time.utc(2000)
+        mail_server_log_done = MailServerLogDone.create('last_stat' => time, 'filename' => 'dummy')
+        raw_saved_time = MailServerLogDone.find(mail_server_log_done.id).attributes_before_type_cast["last_stat"]
+        saved_time = MailServerLogDone.find(mail_server_log_done.id).last_stat
+        assert_equal time, saved_time
+        # Time is created in UTC by Time.utc method
+        assert_equal [0, 0, 0, 1, 1, 2000, 6, 1, false, "UTC"], time.to_a
+        # Due to :local active_record_default_timezone, saved as EST
+        assert_equal "1999-12-31 19:00:00", raw_saved_time
+        # As config.time_zone is UTC (from config default), times returned in UTC
+        assert_equal [0, 0, 0, 1, 1, 2000, 6, 1, false, "UTC"], saved_time.to_a
+      end
+    end
   end
 
   it "should preserve time objects with time with zone conversion to default timezone local
@@ -94,5 +94,3 @@ describe "when doing things with timezones" do
   end
 
 end
-
-

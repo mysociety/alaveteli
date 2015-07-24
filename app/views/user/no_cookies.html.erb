@@ -14,8 +14,9 @@ then there is probably a fault with our server.')%>
 
 <%= _('Please <a href="{{url}}">get in touch</a> with us so we can fix it.', :url => help_contact_path.html_safe) %>
 
- <%= _('Let us know what you were doing when this message
-appeared and your browser and operating system type and version.')%></p>
+<%= _('Let us know what you were doing when this message ' \
+      'appeared and your browser and operating system type and version.') %>
+</p>
 
 <p><%= _('If you are still having trouble, please <a href="{{url}}">contact us</a>.', :url => help_contact_path.html_safe) %>
 </p>

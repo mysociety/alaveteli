@@ -1,11 +1,11 @@
 <div id="signin-successful">
-    <%= _("You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>") %>
+  <%= _("You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>") %>
 </div>
 
 <script type="text/javascript">
-    parent.modal_signin_successful = true;
+  parent.modal_signin_successful = true;
 
-    $("#send-request").click(function() {
-        parent.$.fancybox.close(); return false; 
-    });
+  $("#send-request").click(function() {
+    parent.$.fancybox.close(); return false; 
+  });
 </script>

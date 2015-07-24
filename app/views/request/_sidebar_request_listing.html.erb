@@ -1,16 +1,19 @@
 <% for info_request in info_requests %>
-    <div class="request_listing">
-    	<span class="head">
-	        <%= request_link(info_request) %>
-		</span>
-        <span class="desc">
-        <%=h excerpt(info_request.initial_request_text, "", :radius => 100) %>
-        </span>
-        <span class="bottomline">
-            <strong>
-            <%= info_request.display_status %>
-            </strong><br>
-           <% _('Requested on {{date}}',:date=>simple_date(info_request.created_at)) %>.
-        </span>
-    </div>
+  <div class="request_listing">
+    <span class="head">
+      <%= request_link(info_request) %>
+    </span>
+
+    <span class="desc">
+      <%=h excerpt(info_request.initial_request_text, "", :radius => 100) %>
+    </span>
+
+    <span class="bottomline">
+      <strong>
+        <%= info_request.display_status %>
+      </strong>
+      <br>
+      <% _('Requested on {{date}}',:date=>simple_date(info_request.created_at)) %>.
+    </span>
+  </div>
 <% end %>
