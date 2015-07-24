@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # David Cabo <david.cabo@gmail.com>, 2011-2013,2015
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
@@ -21,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 15:01+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/alaveteli/language/es/)\n"
 "Language: es\n"
@@ -1261,7 +1262,7 @@ msgstr "Si conoce la dirección a utilizar, por favor <a href=\"{{url}}\">enviá
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Si respondes a este mensaje irá directamente a {{user_name}}, que podrá entonces ver tu dirección de correo. Responde sólo si esto te parece aceptable."
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr ""
 "Si usas correo web o tiene filtros \"anti spam\", por favor comprueba\n"
 "tus carpetas de spam. A veces, nuestros mensajes se marcan así por error."
@@ -2478,6 +2479,9 @@ msgstr "Abrir sesión o crear nueva cuenta"
 msgid "Sign in or sign up"
 msgstr "Iniciar sesión o registro"
 
+msgid "Sign in to track this request"
+msgstr ""
+
 msgid "Sign out"
 msgstr "Cerrar sesión"
 
@@ -2766,6 +2770,9 @@ msgstr ""
 "La respuesta a tu solicitud ha sido <strong>retrasada</strong>.\n"
 "            Por ley, el organismo debería normalmente haber respondido\n"
 "            <strong>rápidamente</strong> y"
+
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr ""

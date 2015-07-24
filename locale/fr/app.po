@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # Adrien Chauvet <adr.chauvet@gmail.com>, 2013
 # skenaja <alex@alexskene.com>, 2011
 # andreas.pavlou <andreas@access-info.org>, 2013
@@ -37,9 +38,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-07-07 09:12+0000\n"
-"Last-Translator: mikaclau@gmail.com <mikaclau@gmail.com>\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 15:02+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/alaveteli/language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -1201,7 +1202,7 @@ msgstr ""
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Si vous répondez a ce message ça ira directement à {{user_name}}, qui va \\n connaitre votre adresse mail  Ne répondez que si cela ne vous dérange pas "
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Si vous utilisez gmail , yahoo , live ou vous avez un dossier 'courrier indésirable'  . Parfois nos mails sont marqués comme spam"
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
@@ -2387,6 +2388,9 @@ msgstr "Se connecter ou créer un nouveau  compte"
 msgid "Sign in or sign up"
 msgstr "Se connecter ou s'inscrire"
 
+msgid "Sign in to track this request"
+msgstr ""
+
 msgid "Sign out"
 msgstr "Se déconnecter"
 
@@ -2650,6 +2654,9 @@ msgstr "Le demandeur a renoncé à cette demande pour une raison quelconque"
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "La réponse a votre demande a été <strong> retardée </strong> . Vous pouvez dire que \\n légalement ; l'organisme public aurait dû répondre \\n <strong>rapidement</strong> et "
+
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "La réponse a votre demande est  <strong>très en retard </strong>. Vous pouvez dire que selon la loi , en toutes circonstances, l'autorité aurait dû répondre \\n maintenant "

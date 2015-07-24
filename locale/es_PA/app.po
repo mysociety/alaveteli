@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
 # gaba <gabelula@gmail.com>, 2012,2014
 # louisecrow <louise@mysociety.org>, 2014
@@ -15,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 15:00+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Spanish (Panama) (http://www.transifex.com/projects/p/alaveteli/language/es_PA/)\n"
 "Language: es_PA\n"
@@ -1185,7 +1186,7 @@ msgstr "Si conoce la dirección a utilizar, por favor <a href=\"{{url}}\">enviá
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Si responde a este mensaje irá directamente a {{user_name}}, quien podrá entonces ver su dirección de correo. Responda sólo si esto le parece aceptable."
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Si utiliza un correo basado en web o tiene filtros \"anti spam\", por favor verifique sus\\nbulk/carpetas de correo no deseado. A veces, nuestros mensajes se marcan así por error."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
@@ -2373,6 +2374,9 @@ msgstr "Iniciar sesión o crear nueva cuenta"
 msgid "Sign in or sign up"
 msgstr "Iniciar sesión o registrarse"
 
+msgid "Sign in to track this request"
+msgstr ""
+
 msgid "Sign out"
 msgstr "Cerrar sesión"
 
@@ -2636,6 +2640,9 @@ msgstr "El creador de la solicitud la ha cancelado por algún motivo"
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "La respuesta a su solicitud está <strong>retrasada</strong>. Por ley, la institución debe responder\\n  strong>rápidamente</strong> y"
+
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "La respuesta a su solicitud está <strong>muy retrasada</strong> Por ley, la institución ya debería haber respondido"

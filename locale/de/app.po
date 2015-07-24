@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # arne <arne.semsrott@okfn.de>, 2015
 # David Cabo <david.cabo@gmail.com>, 2012
 # FOI Monkey <>, 2012
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-07-01 09:20+0000\n"
-"Last-Translator: arne <arne.semsrott@okfn.de>\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 15:02+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/alaveteli/language/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -1219,7 +1220,7 @@ msgstr ""
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr ""
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Sollten Sie ein webbasiertes Emailkonto oder Spamfilter benutzen, überrpüfen Sie Ihre Bulk-, Spamordner. Unsere Nachrichten landen teilweise in diese Ordnern. "
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
@@ -2417,6 +2418,9 @@ msgstr "Anmelden oder neues Benutzerkonto erstellen"
 msgid "Sign in or sign up"
 msgstr "Amelden oder registrieren "
 
+msgid "Sign in to track this request"
+msgstr ""
+
 msgid "Sign out"
 msgstr "Ausloggen"
 
@@ -2687,6 +2691,9 @@ msgstr "Der Anfragensteller hat die Anfrage aus unbekannten Gründen zurückgezo
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "Die Beantwortung auf Ihre Anfrage ist verspätet. Nach gesetzlicher Vorschrift sollte die Behörde unverzüglich geantwortet haben und"
+
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Nach gesetzlicher Vorschrift sollte Dieser Behörde Ihnen inzwischen unter allen Umständen geantwortet haben.   "

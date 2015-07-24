@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
 # Nir Hirshman <nirshman99@gmail.com>, 2013-2014
@@ -23,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-07-20 16:02+0000\n"
-"Last-Translator: yehuda <yehudab@gmail.com>\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 15:04+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/alaveteli/language/he_IL/)\n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
@@ -1188,7 +1189,7 @@ msgstr "אם אתם יודעים את הכתובת, נא <a href=\"{{url}}\">ש�
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "תגובה על ההודעה הזו תגיע ישירות אל {{user_name}}, אשר ידע בעקבות זאת את כתובתכם. השיבו רק אם זה בסדר."
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "אם אתם משתמשים באימייל מבוסס רשת, או שיש לכם מסנני ספאם, אנא בדקו את תיקיית הספאם. ההודעות שלנו לפעמים מגיעות לשם."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
@@ -2374,6 +2375,9 @@ msgstr "התחברו או צרו חשבון חדש"
 msgid "Sign in or sign up"
 msgstr "להיכנס או להירשם"
 
+msgid "Sign in to track this request"
+msgstr ""
+
 msgid "Sign out"
 msgstr "התנתק"
 
@@ -2637,6 +2641,9 @@ msgstr "מגיש הבקשה נסוג ממנה מסיבה כלשהי"
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "התגובה לבקשתכם <strong>התעכבה</strong>.  תוכלו לומר, \\n            שעל-פי החלטת הממשלה הרשות היתה צריכה כבר להגיב בדרך כלל\\n            <strong>מייד</strong> ו- "
+
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "התשובה לשאלתך <strong>מתעכבת מאוד</strong>. בהתאם להחלטת הממשלה,\\n הרשות היתה צריכה להגיב זה מכבר."

@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 15:03+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Macedonian (Macedonia) (http://www.transifex.com/projects/p/alaveteli/language/mk_MK/)\n"
 "Language: mk_MK\n"
@@ -1169,7 +1170,7 @@ msgstr "Ако ја знаете адресата која треба да се 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Ако одговорите на оваа порака, одговорот ќе биде пратен директно до {{user_name}}, кој ќе\\nја дознае вашата адреса за е-пошта. Одговорете само во случај тоа да е во ред."
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Ако користите веб-базирана е-пошта или имате  \"junk mail\" филтри, исто така проверете го вашиот\\nbulk/фолдер за спам пораки. Понекогаш, нашите пораки се означени како такви."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
@@ -2355,6 +2356,9 @@ msgstr "Најавете се или креирајте нов профил"
 msgid "Sign in or sign up"
 msgstr "Најавете се или регистрирајте се"
 
+msgid "Sign in to track this request"
+msgstr ""
+
 msgid "Sign out"
 msgstr "Одјавете се"
 
@@ -2618,6 +2622,9 @@ msgstr "Барателот го напушти ова барање од неко
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "Одговорот на вашето барање е <strong>одложен</strong>.  Можете да кажете дека,\\n            според закон, имателот нормално би требало да одговори\\n            <strong>веднаш</strong> и"
+
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Одговорот на вашето барање е со <strong>многу пречекорено рок</strong>.   Може да кажете дека, според\\n            закон, под сите околности, имателот требало да одговори\\n            до сега"

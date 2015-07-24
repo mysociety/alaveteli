@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # Krule <armin@pasalic.com.ba>, 2011
 # BORIS <brkanboris@gmail.com>, 2011
 # BORIS <brkanboris@gmail.com>, 2011
@@ -15,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 14:59+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Bosnian (http://www.transifex.com/projects/p/alaveteli/language/bs/)\n"
 "Language: bs\n"
@@ -1245,7 +1246,7 @@ msgstr ""
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr ""
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr ""
 "Ako koristite neke od web mail servisa ili imate filtere za \"junk mail\", provjerite u Vašim\n"
 "bulk/spam folderima. Ponekad su naše poruke označene tako."
@@ -2464,6 +2465,9 @@ msgstr "Prijavite se ili napravite novi korisnički račun"
 msgid "Sign in or sign up"
 msgstr "Prijavite se ili Registrujte se"
 
+msgid "Sign in to track this request"
+msgstr ""
+
 msgid "Sign out"
 msgstr "Odjavite se"
 
@@ -2749,6 +2753,9 @@ msgstr ""
 "Odgovor na Vaš zahtjev je <strong>odgođen</strong>.  Možete reći da je, \n"
 "            po zakonu, ustanova trebala odgovoriti\n"
 "            <strong>brzo</strong> i"
+
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr ""

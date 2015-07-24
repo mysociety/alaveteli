@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2012-2013
 # Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2012-2013
 # Andrei Cristian Petcu <andreicristianpetcu@gmail.com>, 2012
@@ -25,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 15:01+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/alaveteli/language/ro_RO/)\n"
 "Language: ro_RO\n"
@@ -1189,7 +1190,7 @@ msgstr " Dacă cunoaşteţi adresa ce trebuie utilizată, atunci vă rugăm să 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Răspunsul tău la acest mesaj va fi trimis direct către {{user_name}}, care îți va\\nvedea adresa de email. Trimite răspunsul doar dacă ești de acord cu acest lucru."
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Verifică și folderul de \\nspam/bulk. Se întâmplă uneori ca mesajele noastre să ajungă acolo."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
@@ -2377,6 +2378,9 @@ msgstr "Intrare in cont sau creare un cont nou"
 msgid "Sign in or sign up"
 msgstr "Intrare în cont sau ieșire din cont"
 
+msgid "Sign in to track this request"
+msgstr ""
+
 msgid "Sign out"
 msgstr "Ieşire din cont"
 
@@ -2640,6 +2644,9 @@ msgstr "Solicitantul şi-a abandonat cererea din anumite motive"
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
 msgstr "Răspunsul la solicitarea ta a fost <strong>întârziat</strong>. Poţi spune că, \\n potrivit legii, autoritatea ar fi trebuit să răspundă în mod normal\\n <strong>prompt</strong> şi"
+
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Răspunsul la solicitarea ta este <strong>mult întârziat</strong>. Poţi spune că, potrivit \\n legii, în oricare circumstanţe, autoritatea ar fi trebuit să răspundă \\n până acum"

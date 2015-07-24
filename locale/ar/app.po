@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
@@ -17,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-06-15 16:30+0000\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 15:00+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/alaveteli/language/ar/)\n"
 "Language: ar\n"
@@ -1185,7 +1186,7 @@ msgstr ""
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "اذا تجيب على هذا السؤال سيذهب مباشرة الى {{user_name}}, الذي\\nسيعرف بريدك الالكتروني. اجب فقط اذا كنت موافقا."
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "ان كنت تستعمل بريدا الكترونيا يستند الى الواب او محدد \"الرسائل الالكترونية غير المرغوب فيها\", تثبت من\\nbulk/هذه الملفات. , رسائلنا قد نصنف  كبريد الكتروني غير مرغوب فيه احيانا."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
@@ -2378,6 +2379,9 @@ msgstr "سجل دخولك او افتح حسابا جديدا"
 
 msgid "Sign in or sign up"
 msgstr "اشترك او سجل دخولك"
+
+msgid "Sign in to track this request"
+msgstr ""
 
 msgid "Sign out"
 msgstr "تسجيل الخروج"

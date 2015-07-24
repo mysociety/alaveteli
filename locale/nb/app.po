@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Translators:
 # andreli <andre@lindhjem.net>, 2013
 # atluxity <atluxity@1kb.no>, 2014
 # Carl Petter F. Sky <carl.sky@gmail.com>, 2015
@@ -19,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 14:53+0000\n"
-"PO-Revision-Date: 2015-07-20 21:21+0000\n"
-"Last-Translator: pere <pere-transifex@hungry.com>\n"
+"POT-Creation-Date: 2015-07-24 14:55+0000\n"
+"PO-Revision-Date: 2015-07-24 15:01+0000\n"
+"Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/alaveteli/language/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -1179,7 +1180,7 @@ msgstr "Hvis du vet adressen som kan brukes, vær så snill å <a href=\"{{url}}
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Hvis du svarer på denne e-posten, så vil svaret gå direkte til {{user_name}}, som da vil få vite din riktige e-postadresse. Svar kun om dette er i orden."
 
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgid "If you use web-based email or have \"junk mail\" filters, also check your bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr "Om du bruker web-basert e-post eller har «søppel-e-post»-filtere, sjekk også din\\nsøppel/spam-e-postfolder. Det hender at meldingene våre blir behandlet som spam."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
@@ -2365,6 +2366,9 @@ msgstr "Logg inn eller lag en ny konto"
 msgid "Sign in or sign up"
 msgstr "Logg inn eller lag konto"
 
+msgid "Sign in to track this request"
+msgstr ""
+
 msgid "Sign out"
 msgstr "Logg ut"
 
@@ -2630,6 +2634,9 @@ msgid "The response to your request has been <strong>delayed</strong>. You can s
 msgstr ""
 "Svaret på din henvendelse er <strong>forsinket</strong>.  I følge lovverket\\n kan en si\n"
 "at etaten normal skulle svart <strong>uten opphold</strong> og"
+
+msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and in term time by <strong>{{date}}</strong>"
+msgstr ""
 
 msgid "The response to your request is <strong>long overdue</strong>. You can say that, by law, under all circumstances, the authority should have responded by now"
 msgstr "Svaret på din henvendelse er <strong>svært forsinket</strong>.  I følge loven\\n så burde instansen under enhver omstendighet ha svart på\\n dette tidspunkt"
