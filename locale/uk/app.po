@@ -18,7 +18,7 @@ msgstr ""
 "POT-Creation-Date: 2015-07-22 14:53+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
-"Language-Team: Ukrainian (http://www.transifex.com/p/alaveteli/language/uk/)\n"
+"Language-Team: Ukrainian (http://www.transifex.com/projects/p/alaveteli/language/uk/)\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -210,10 +210,6 @@ msgstr "<p>Ваша адреса містить <strong>поштовий інд�
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>{{site_name}} знаходиться на обслуговуванні. Ви можете переглядати зроблені раніше запити, але не можете робити нові, додавати коментарі чи будь-яким іншим чином змінювати базу даних.</p> <p>{{read_only}}</p>"
-
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr ""
-"Перевірте, чи не потрапило наше повідомлення в спам. Іноді таке трапляється."
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr ""
@@ -807,6 +803,8 @@ msgstr ""
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr ""
+"Відредагуйте та додайте <strong>більше деталей</strong> до повідомлення,\n"
+"пояснивши, чому саме ви незадоволені відповіддю."
 
 msgid "Edit text about you"
 msgstr "Відредагувати інформацію про себе"
@@ -1251,6 +1249,9 @@ msgstr ""
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Попередження: якщо ви відповісте на це повідомлення, воно надійде прямо до користувача {{user_name}},\\n який дізнається вашу електронну адресу."
+
+msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgstr "Перевірте папку \"Спам\", наші повідомлення іноді потрапляють туди."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr ""
@@ -2628,7 +2629,7 @@ msgid "The accounts have been left as they previously were."
 msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr ""
+msgstr "У них немає інформації <small>(але, можливо, підказують, в кого її можна отримати)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr ""
