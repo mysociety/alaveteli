@@ -12,7 +12,7 @@ msgstr ""
 "POT-Creation-Date: 2015-07-22 14:53+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
-"Language-Team: Macedonian (Macedonia) (http://www.transifex.com/p/alaveteli/language/mk_MK/)\n"
+"Language-Team: Macedonian (Macedonia) (http://www.transifex.com/projects/p/alaveteli/language/mk_MK/)\n"
 "Language: mk_MK\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -185,9 +185,6 @@ msgstr "<p>Вашето барање содржи <strong>поштенски б�
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>{{site_name}} во моментов се ажурира. Можете да ги прегледате само постоечките барања. Не може да креирате нови барања, да реплицирате или да додавате белешки или на било кој начин да ја менувате базата на податоци.</p> <p>{{read_only}}</p>"
-
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr "Доколку користите веб-базирана е-пошта или пак имате \"junk mail\" филтри, проверете го и вашето\\nсандаче за спам пораки. Понекогаш, нашите пораки се означени како спам пораки."
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>commented_by:tony_bowden</code></strong> за да пребарате белешки креирани од Tony Bowden, со внесување на името како што е во URL врската."
@@ -757,7 +754,7 @@ msgid "Edit"
 msgstr "Уреди"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
-msgstr ""
+msgstr "Уредете и додајте <strong>повеќе детали</strong> на пораката погоре,\\n                и притоа објаснете зошто не сте задоволен од нивниот одговор."
 
 msgid "Edit text about you"
 msgstr "Уредете го текстот за вас"
@@ -1171,6 +1168,9 @@ msgstr "Ако ја знаете адресата која треба да се 
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Ако одговорите на оваа порака, одговорот ќе биде пратен директно до {{user_name}}, кој ќе\\nја дознае вашата адреса за е-пошта. Одговорете само во случај тоа да е во ред."
+
+msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgstr "Ако користите веб-базирана е-пошта или имате  \"junk mail\" филтри, исто така проверете го вашиот\\nbulk/фолдер за спам пораки. Понекогаш, нашите пораки се означени како такви."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr "Ако сакате да ја тргнеме оваа забрана, тогаш може учтиво да не\\n<a href=\"/help/contact\">контактирате</a> со што ќе ги наведете причините.\\n"
@@ -1832,7 +1832,7 @@ msgid "Please keep the summary short, like in the subject of an email. You can u
 msgstr "Ве молиме за кратко резиме, како наслов на е-пошта. Може да користите фраза, наместо цела реченица."
 
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
-msgstr ""
+msgstr "Ве молиме барајте само информации кои спаѓаат во овие категории, <strong>не го губете вашето\\n            време</strong> или времето на имателот барајќи нерелевантни информации."
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Ве молиме проследете го ова до личноста која управува со барањата за слободен пристап до информации."
