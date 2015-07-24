@@ -25,7 +25,7 @@ msgstr ""
 "POT-Creation-Date: 2015-07-22 14:53+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
-"Language-Team: Welsh (http://www.transifex.com/p/alaveteli/language/cy/)\n"
+"Language-Team: Welsh (http://www.transifex.com/projects/p/alaveteli/language/cy/)\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -200,9 +200,6 @@ msgstr "<p>Mae'ch cais yn cynnwys <strong>cod post</strong>. Oni bai ei fod o'n 
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>Mae {{site_name}} ar hyn o bryd yn cael ei chynnal a chadw. Gweld y ceisiadau presennol yn unig y gallwch. Ni allwch wneud rhai newydd, ychwanegu straenon dilynol neu anodiadau, neu newid y gronfa ddata mewn ffordd arall.</p> <p>{{read_only}}</p>"
-
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr "Os ydych yn defnyddio e-bost ar y we neu hidlwyr \"post sothach\", edrychwch hefyd yn edrych ar eich ffolderi e-post swmp/spam. Weithiau, caiff ein negeseuon eu marcio felly."
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>commented_by:tony_bowden</code></strong> i chwilio anodiadau a wnaed gan Tony Bowden, teipiwch yr enw fel yn yr URL."
@@ -772,7 +769,7 @@ msgid "Edit"
 msgstr "Golygu"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
-msgstr ""
+msgstr "Golygu ac ychwanegu <strong>mwy o fanylion</strong> at y neges uchod, yn esbonio pam eich bod yn anfodlon ar eu hymateb."
 
 msgid "Edit text about you"
 msgstr "Golygu testun amdanoch chi"
@@ -877,7 +874,7 @@ msgid "First, did your other requests succeed?"
 msgstr "Yn gyntaf, a lwyddodd eich ceisiadau eraill?"
 
 msgid "First, type in the <strong>name of the public authority</strong> you'd like information from."
-msgstr ""
+msgstr "Chwiliwch am yr awdurdodau hoffech gael wybodaeth ganddynt:"
 
 msgid "Foi attachment"
 msgstr "Atodiad FoI"
@@ -1188,6 +1185,9 @@ msgstr " Os ydych yn gwybod pa gyfeiriad i'w ddefnyddio, yna os gwelwch yn dda <
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Os byddwch yn ymateb i'r neges hon, bydd yn mynd yn uniongyrchol i {{user_name}}, a fydd yn dysgu eich cyfeiriad e-bost. Dim ond os yw hynny'n iawn y dylech ymateb."
+
+msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgstr "Os ydych yn defnyddio e-bost ar y we neu hidlwyr \"post sothach\", edrychwch hefyd yn edrych ar eich ffolderi e-post swmp/spam. Weithiau, caiff ein negeseuon eu marcio felly."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr "Os hoffech i ni i godi'r gwaharddiad hwn, cewch <a href=\"/help/contact\">ofyn i ni</a> yn gwrtais  ni gan roi rhesymau."
@@ -1851,7 +1851,7 @@ msgid "Please keep the summary short, like in the subject of an email. You can u
 msgstr "Cadwch y crynodeb yn fyr, fel pe bai'n testun e-bost. Gallwch ddefnyddio ymadrodd, yn hytrach na brawddeg lawn."
 
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
-msgstr ""
+msgstr "Dim ond gwybodaeth sy'n dod o dan y categorïau hynny ddylech chi ofyn amdano, <strong>peidiwch â gwastraffu eich amser</strong> nac amser yr awdurdod cyhoeddus drwy ofyn am wybodaeth amherthnasol."
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr "Trosglwyddwch hwn i'r person sy'n cynnal adolygiadau Rhyddid Gwybodaeth os gwelwch yn dda."
