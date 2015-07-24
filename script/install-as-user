@@ -127,12 +127,6 @@ sed -r \
     -e "s,# constraint_disabling: false,  constraint_disabling: false," \
     config/database.yml-example > config/database.yml
 
-# create the template_utf8 template we'll use for our databases
-createdb -T template0 -E UTF-8 template_utf8
-echo "update pg_database set datistemplate=true datallowconn=false where datname='template_utf8';" > /tmp/update-template.sql
-sudo -u postgres psql -f /tmp/update-template.sql
-rm /tmp/update-template.sql
-
 for SUFFIX in production test development
 do
     REAL_DB_NAME="${DB_NAME}_$SUFFIX"
@@ -140,7 +134,7 @@ do
     # Create each database if it doesn't exist:
     if ! psql -l | egrep "^ *$REAL_DB_NAME *\|" > /dev/null
     then
-        createdb -T template_utf8 --owner "$UNIX_USER" "$REAL_DB_NAME"
+        createdb -T template0 --owner "$UNIX_USER" "$REAL_DB_NAME"
     fi
 done
 
