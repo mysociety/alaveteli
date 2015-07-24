@@ -21,7 +21,7 @@ msgstr ""
 "POT-Creation-Date: 2015-07-22 14:53+0000\n"
 "PO-Revision-Date: 2015-06-15 16:30+0000\n"
 "Last-Translator: Gareth Rees <gareth@mysociety.org>\n"
-"Language-Team: Indonesian (http://www.transifex.com/p/alaveteli/language/id/)\n"
+"Language-Team: Indonesian (http://www.transifex.com/projects/p/alaveteli/language/id/)\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -220,11 +220,6 @@ msgstr "<p>Permintaan Anda memuat <strong>kode pos</strong>. Kecuali berhubungan
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>{{site_name}} sedang dalam pemeliharaan. Anda hanya dapat menampilkan permintaan-permintaan yang sudah ada. Anda tidak dapat membuat permintaan baru, menambahkan tindak lanjut atau anotasi, atau mengubah basis data.</p> <p>{{read_only}}</p>"
-
-msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr ""
-"Jika Anda menggunakan email berbasis web atau memiliki filter \"junk mail\", juga periksalah folder surat\n"
-"bulk/spam Anda. Terkadang, pesan-pesan kami ditandai seperti demikian."
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>dikomentari oleh:tony_bowden</code></strong> untuk mencari anotasi yang dibuat oleh Tony Bowden, mengetikkan nama seperti di URL."
@@ -832,6 +827,8 @@ msgstr "Ubah"
 
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr ""
+"Edit dan tambah<strong>lebih banyak rincian</strong> ke pesan di atas,\n"
+"                Menjelaskan mengapa Anda tidak puas dengan respon mereka."
 
 msgid "Edit text about you"
 msgstr "Edit teks tentang Anda"
@@ -1281,6 +1278,11 @@ msgstr ""
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
 msgstr "Jika Anda membalas pesan ini maka akan diteruskan ke {{user_name}}, yang akan melihat alamat email Anda. Hanya balasan jika itu tidak apa-apa."
+
+msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
+msgstr ""
+"Jika Anda menggunakan email berbasis web atau memiliki filter \"junk mail\", juga periksa \n"
+"folder surat bulk/spam Anda. Terkadang, pesan-pesan kami ditandai seperti itu."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
 msgstr ""
@@ -1967,6 +1969,8 @@ msgstr "Harap untuk membuat ringkasan dengan singkat, seperti dalam subyek email
 
 msgid "Please only request information that comes under those categories, <strong>do not waste your time</strong> or the time of the public authority by requesting unrelated information."
 msgstr ""
+"Mohon hanya meminta informasi yang ada di dalam kategori-kategori tersebut, <strong>jangan membuang\n"
+"            waktu Anda</strong> atau waktu otoritas publik dengan meminta informasi yang tidak berkaitan."
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
 msgstr ""
